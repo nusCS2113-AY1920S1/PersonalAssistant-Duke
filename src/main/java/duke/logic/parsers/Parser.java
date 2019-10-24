@@ -1,10 +1,28 @@
 package duke.logic.parsers;
 
-import duke.logic.autocorrect.Autocorrect;
-import duke.logic.commands.*;
 import duke.commons.exceptions.DukeException;
+import duke.logic.autocorrect.Autocorrect;
+import duke.logic.commands.Command;
+import duke.logic.commands.ExitCommand;
+import duke.logic.commands.HistoryCommand;
+import duke.logic.commands.UpdateWeightCommand;
 
-import static duke.commons.definitions.CommandDefinitions.*;
+import static duke.commons.definitions.CommandDefinitions.PARSER_ADD_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_BREAKFAST_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_CLEAR_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_DELETE_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_DINNER_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_DONE_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_EDIT_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_EXIT_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_FIND_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_HELP_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_HISTORY_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_LIST_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_LUNCH_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_SET_GOAL_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_SUGGEST_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_UPDATE_WEIGHT_COMMAND;
 import static duke.commons.exceptions.ExceptionMessages.UNKNOWN_COMMAND;
 
 /**
@@ -52,41 +70,41 @@ public class Parser {
         historyCommand.addCommand(command);
 
         switch (command) {
-            case EXIT_COMMAND:
+            case PARSER_EXIT_COMMAND:
                 return new ExitCommand();
-            case BREAKFAST_COMMAND:
+            case PARSER_BREAKFAST_COMMAND:
                 return new AddBreakfastCommandParser().parse(userInput);
-            case LUNCH_COMMAND:
+            case PARSER_LUNCH_COMMAND:
                 return new AddLunchCommandParser().parse(userInput);
-            case DINNER_COMMAND:
+            case PARSER_DINNER_COMMAND:
                 return new AddDinnerCommandParser().parse(userInput);
-            case ADD_COMMAND:
+            case PARSER_ADD_COMMAND:
                 return new AddItemCommandParser().parse(userInput);
-            case LIST_COMMAND:
+            case PARSER_LIST_COMMAND:
                 return new ListCommandParser().parse(userInput);
-            case DONE_COMMAND:
+            case PARSER_DONE_COMMAND:
                 return new DoneCommandParser().parse(userInput);
-            case FIND_COMMAND:
+            case PARSER_FIND_COMMAND:
                 return new FindCommandParser().parse(userInput);
-            case DELETE_COMMAND:
+            case PARSER_DELETE_COMMAND:
                 return new DeleteCommandParser().parse(userInput);
-            case UPDATE_WEIGHT_COMMAND:
+            case PARSER_UPDATE_WEIGHT_COMMAND:
                 return new UpdateWeightCommand(userInput);
-            case CLEAR_COMMAND:
+            case PARSER_CLEAR_COMMAND:
                 return new ClearCommandParser().parse(userInput);
-            case EDIT_COMMAND:
+            case PARSER_EDIT_COMMAND:
                 return new EditCommandParser().parse(userInput);
-            case SET_GOAL_COMMAND:
+            case PARSER_SET_GOAL_COMMAND:
                 return new SetgoalCommandParser().parse(userInput);
-            case HELP_COMMAND:
+            case PARSER_HELP_COMMAND:
                 return new HelpCommandParser().parse(userInput);
-            case HISTORY_COMMAND:
+            case PARSER_HISTORY_COMMAND:
                 // clear history if requested
                 if (!userInput.isEmpty() && userInput.equals("clear")) {
                     historyCommand.clearHistory();
                 }
                 return historyCommand;
-            case SUGGEST_COMMAND:
+            case PARSER_SUGGEST_COMMAND:
                 return new SuggestCommandParser().parse(userInput);
             default:
                 throw new DukeException(UNKNOWN_COMMAND);

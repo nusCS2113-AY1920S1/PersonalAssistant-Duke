@@ -18,7 +18,7 @@ public class AddCommand extends Command {
     private Meal meal;
 
     /**
-     * This is a constructor for AddCommand which create a new AddCommand object with
+     * Constructor for AddCommand.
      * the meal specified as the instance field meal.
      * @param meal The meal to be added.
      */
@@ -32,6 +32,7 @@ public class AddCommand extends Command {
      * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of meals
      * @param in the scanner object to handle secondary command IO
+     * @throws DukeException if there is a parsing error
      */
     @Override
     public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in) throws DukeException {

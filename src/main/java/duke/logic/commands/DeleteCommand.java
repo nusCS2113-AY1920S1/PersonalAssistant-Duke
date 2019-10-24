@@ -21,7 +21,7 @@ public class DeleteCommand extends Command {
             + "delete <index> to delete for current day.";
 
     /**
-     * This is a constructor DeleteCommand.
+     * Constructor for DeleteCommand.
      * @param indexStr the index of meal on the date to be deleted.
      * @param date Date of meal to be deleted.
      */
@@ -36,6 +36,10 @@ public class DeleteCommand extends Command {
         currentDate = dateFormat.format(parsedDate);
     }
 
+    /**
+     * Constructor for DeleteCommand.
+     * @param indexStr the index of meal to be deleted.
+     */
     public DeleteCommand(String indexStr) throws DukeException {
         try {
             this.index = Integer.parseInt(indexStr.trim());
@@ -45,20 +49,21 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * The object will execute the "delete" command, updating the current tasks, ui, and storage in the process.
-     * @param mealList the MealList object in which the the indexed meal is supposed to be deleted from
-     * @param ui the ui object to display the user interface of a "delete" command
-     * @param storage the storage object that stores the list of meals
-     * @param user the storage object for user info
+     * Executes the DeleteCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param ui the ui object to display the results of the command to the user
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
      * @param in the scanner object to handle secondary command IO
+     * @throws DukeException when the index of the object to be deleted is out of bounds
      */
     @Override
-    public void execute(MealList mealList, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
-        if (index <= 0 || index > mealList.getMealsList(currentDate).size()) {
+    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
+        if (index <= 0 || index > meals.getMealsList(currentDate).size()) {
             throw new DukeException("Index provided out of bounds for list of meals on " + currentDate);
         }
-        Meal currentMeal = mealList.delete(currentDate, index);
-        ui.showDeleted(currentMeal, mealList.getMealsList(currentDate));
-        storage.updateFile(mealList);
+        Meal currentMeal = meals.delete(currentDate, index);
+        ui.showDeleted(currentMeal, meals.getMealsList(currentDate));
+        storage.updateFile(meals);
     }
 }

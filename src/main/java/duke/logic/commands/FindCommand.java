@@ -31,16 +31,17 @@ public class FindCommand extends Command {
     }
 
     /**
-     * This function will execute the "find" command.
-     * @param tasks the MealList object in which the meal is supposed to be found
-     * @param ui the ui object to display the user interface of an "find" command
-     * @param storage the storage object that stores the list of Meals
+     * Executes the FindCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param ui the ui object to display the results of the command to the user
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
      * @param in the scanner object to handle secondary command IO
      */
     @Override
-    public void execute(MealList tasks, Ui ui, Storage storage, User user, Scanner in) {
+    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in) {
         ArrayList<Meal> matchingMeals = new ArrayList<>();
-        ArrayList<Meal> currentMeals = tasks.getMealsList(currentDate);
+        ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
         for (Meal element: currentMeals) {
             String currentTaskString = element.toString();
             if (currentTaskString.contains(description)) {

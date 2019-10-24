@@ -23,7 +23,7 @@ public class MarkDoneCommand extends Command {
             + "done <index> to mark done the indexed meal for current day.";
 
     /**
-     * This is a constructor for MarkDoneCommand with the date specified.
+     * Constructor for MarkDoneCommand.
      * @param indexStr the index of meal on the date to be marked as done.
      * @param date the date which meals are to be marked as done.
      */
@@ -39,7 +39,7 @@ public class MarkDoneCommand extends Command {
     }
 
     /**
-     * This is a constructor for MarkDoneCommand with the date unspecified.
+     * Constructor for MarkDoneCommand.
      * @param indexStr the index of meal on the today to be marked as done.
      * @throws DukeException when parseInt is unable to parse the index.
      */
@@ -52,21 +52,23 @@ public class MarkDoneCommand extends Command {
     }
 
     /**
-     * The object will execute the "mark done" command, updating the current meals, ui, and storage in the process.
-     * @param mealList the MealList object to be marked done
-     * @param ui the ui object to display the user interface of an "mark done" command
-     * @param storage the storage object that stores the list of meals
+     * Executes the MarkDoneCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param ui the ui object to display the results of the command to the user
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
      * @param in the scanner object to handle secondary command IO
+     * @throws DukeException when the index of the meal to be marked done is invalid
      */
     @Override
-    public void execute(MealList mealList, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
-        if (index <= 0 || index > mealList.getMealsList(currentDate).size()) {
+    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
+        if (index <= 0 || index > meals.getMealsList(currentDate).size()) {
             throw new DukeException("Index provided out of bounds for list of meals on " + currentDate);
         }
-        Meal currentMeal = mealList.markDone(currentDate, index);
-        storage.updateFile(mealList);
-        ui.showDone(currentMeal, mealList.getMealsList(currentDate));
-        ArrayList<Meal> currentMeals = mealList.getMealsList(currentDate);
+        Meal currentMeal = meals.markDone(currentDate, index);
+        storage.updateFile(meals);
+        ui.showDone(currentMeal, meals.getMealsList(currentDate));
+        ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
         ui.showCaloriesLeft(currentMeals, user, currentDate);
     }
 }

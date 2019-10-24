@@ -12,13 +12,15 @@ import java.util.Scanner;
 /**
  * AddGoalCommand is a public class that inherits from abstract class Command.
  * An AddGoalCommand object encapsulates the goal object that is to be added.
+ * average kg loss per day should NOT be more than 0.13607787283kg (>0.3 pounds)
+ * average calorie loss per day should NOT exceed 40% base calorie intake,
+ * balanced at around 20% (1kg = 7700cal = 7.7kcal)
  */
 public class AddGoalCommand extends Command {
     private Goal goal;
 
     /**
-     * This is a constructor for AddGoalCommand which create a new AddCommand object with
-     * the goal specified as the instance field goal.
+     * Constructor for AddGoalCommand.
      * @param goal The goal to be added.
      */
     public AddGoalCommand(Goal goal) {
@@ -26,7 +28,7 @@ public class AddGoalCommand extends Command {
     }
 
     /**
-     * The object will execute the "add" command, updating the current tasks, ui, and storage in the process.
+     * Executes AddGoalCommand.
      * @param meals the MealList object in which the meal is supposed to be added
      * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of meals
@@ -34,13 +36,7 @@ public class AddGoalCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
-        //average kg loss per day should NOT be more than 0.13607787283kg (>0.3 pounds)
-        //average calorie loss per day should NOT exceed 40% base calorie intake,
-        // balanced at around 20% (1kg = 7700cal = 7.7kcal)
-        /*
-        1) find number of days in month
-        2) average calories loss per day
-         */
+
         try {
             meals.addGoal(this.goal, false);
             ui.showAddedGoal(goal);

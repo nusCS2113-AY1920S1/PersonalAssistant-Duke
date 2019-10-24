@@ -1,12 +1,12 @@
 package duke.logic.commands;
 
-import java.util.Scanner;
-
 import duke.model.Meal;
 import duke.model.MealList;
-import duke.ui.Ui;
-import duke.storage.Storage;
 import duke.model.user.User;
+import duke.storage.Storage;
+import duke.ui.Ui;
+
+import java.util.Scanner;
 
 /**
  * AddItemCommand is a public class that inherits from abstract class Command.
@@ -16,8 +16,7 @@ public class AddItemCommand extends Command {
     private Meal meal;
 
     /**
-     * This is a constructor for AddCommand which create a new AddCommand object with
-     * the meal specified as the instance field meal.
+     * Constructor for AddItemCommand.
      * @param meal The meal to be added.
      */
     public AddItemCommand(Meal meal) {
@@ -25,7 +24,7 @@ public class AddItemCommand extends Command {
     }
 
     /**
-     * The object will execute the "add" command, updating the default meal data, ui, and storage in the process.
+     * Execute the AddItemCommand.
      * @param meals the MealList object in which the meal is supposed to be added
      * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of meals
