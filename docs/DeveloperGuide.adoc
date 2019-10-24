@@ -15,6 +15,8 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2113T-W13-2/main
 
+By: `Team 13-4`      Since: `Sept 2019`      Licence: `MIT`
+
 == Introduction
 
 === Purpose
@@ -35,6 +37,23 @@ This document specifies architecture and software design decisions for the educa
 Value proposition:
 Managing the learning of Java and managing the learning progress through a desktop app which is CLI-based.
 Developing JavaCake poses a unique software development situation. The developers work closely to ensure both technical and non-technical requirements are met in the 34development process. The design of JavaCake takes into consideration various factors such as user-friendliness and relevance.
+
+=== Key Ideas in the Guide
+
+Additionally, the following annotations will be used throughout this developer guide:
+
+[TIP]
+====
+This symbol denotes a tip which you may find useful when using the application.
+====
+[WARNING]
+====
+This symbol denotes a warning which you will need to be careful of when using the application.
+====
+[NOTE]
+====
+This symbol denotes some information or caveats that you will need to take note of when using the application.
+====
 
 
 == Setting up
@@ -145,8 +164,10 @@ Refer to the guide <<Testing#, here>>.
 
 Refer to the guide <<DevOps#, here>>.
 
+== Appendices
+
 [appendix]
-== Product Scope
+=== Product Scope
 
 *Target user profile*:
 
@@ -159,7 +180,7 @@ Refer to the guide <<DevOps#, here>>.
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
 [appendix]
-== User Stories
+=== User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
@@ -182,12 +203,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 _{More to be added}_
 
 [appendix]
-== Use Cases
+=== Use Cases
 
 (For all use cases below, the *System* is the `Cake` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Find topics
+==== Use case: Find topics
 
 *MSS*
 
@@ -211,7 +232,7 @@ Use case ends.
 Use case resumes at step 5.
 
 [discrete]
-=== Use case: Check progress
+==== Use case: Check progress
 
 *MSS*
 
@@ -228,7 +249,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Do quiz from sub-topic
+==== Use case: Do quiz from sub-topic
 
 *MSS*
 
@@ -258,7 +279,7 @@ Use case resumes at step 2.
 Use case ends
 
 [discrete]
-=== Use case: Set deadline for topics/sub-topics to read
+==== Use case: Set deadline for topics/sub-topics to read
 
 *MSS*
 
@@ -284,7 +305,7 @@ Use case ends.
 _{More to be added}_
 
 [appendix]
-== Non Functional Requirements
+=== Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
@@ -293,7 +314,7 @@ _{More to be added}_
 _{More to be added}_
 
 [appendix]
-== Glossary
+=== Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
@@ -302,7 +323,7 @@ Windows, Linux, Unix, OS-X
 A contact detail that is not meant to be shared with others
 
 [appendix]
-== Product Survey
+=== Product Survey
 
 *Product Name*
 
@@ -319,14 +340,14 @@ Cons:
 * ...
 
 [appendix]
-== Instructions for Manual Testing
+=== Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+==== Launch and Shutdown
 
 . Initial launch
 
@@ -342,7 +363,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+==== Deleting a person
 
 . Deleting a person while all persons are listed
 
@@ -356,7 +377,7 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-=== Saving data
+==== Saving data
 
 . Dealing with missing/corrupted data files
 
