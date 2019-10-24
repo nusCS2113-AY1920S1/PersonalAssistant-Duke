@@ -22,6 +22,7 @@ public enum CommandType {
     TODO(CommandNewTask.class),
     RECUR(CommandNewTask.class),
     FDURATION(CommandNewTask.class),
+    EXPENDED(CommandGetSpendingByMonth.class),
     CONVERT(CommandConvert.class),
     ERROR(CommandError.class);
 

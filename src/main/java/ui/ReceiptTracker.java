@@ -2,6 +2,7 @@ package ui;
 
 import duke.exception.DukeException;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -88,6 +89,22 @@ public class ReceiptTracker extends ArrayList<Receipt> {
             }
         }
         return taggedReceipts;
+    }
+
+    /**
+     * Finds all the receipts that corresponds to that month and year.
+     * @param month is the month given by the user
+     * @param year is the year given by the user
+     * @return ArrayList containing all the receipts which corresponds to year and month
+     */
+    public ReceiptTracker findReceiptByMonthYear(int month, int year) {
+        ReceiptTracker receiptByMonthYear = new ReceiptTracker();
+        for (Receipt receipt : this) {
+            if ((receipt.getDate().getMonthValue() == month) && (receipt.getDate().getYear() == year)) {
+                receiptByMonthYear.addReceipt(receipt);
+            }
+        }
+        return receiptByMonthYear;
     }
 
     // -- Boolean Functions
