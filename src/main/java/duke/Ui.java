@@ -332,4 +332,62 @@ public class Ui {
         System.out.println("Please input new activity,"
             + "finalize the plan or look at current list.");
     }
+
+    /**
+     * Prints message when asking for date for schedule.
+     */
+    public void showSchedulePromptDate() {
+        System.out.println("Please enter the date of the day "
+            + "in this format: dd/MM/yyyy");
+    }
+
+    /**
+     * Prints all possible actions with schedule once entered.
+     * @param scheduleDate The date to see classes of the day
+     */
+    public void showScheduleAllActions(String scheduleDate) {
+        System.out.println(
+            "\nWhat would you like to do on " + scheduleDate + "?\n"
+                + "1. View all classes\n"
+                + "2. Add a class\n"
+                + "3. Delete a class\n"
+                + "4. Clear all classes\n"
+                + "5. Quit classes");
+    }
+
+    /**
+     * Prints message when quitting class.
+     */
+    public void showQuitClass() {
+        System.out.println(
+            "You have quit class.");
+    }
+
+    /**
+     * Prints message when asking for the start time of a class.
+     */
+    public void showPromptStartTime() {
+        System.out.println("Please enter the start time in this format: dd/MM/yyyy HHmm");
+    }
+
+    /**
+     * Prints message when asking for the end time of a class.
+     */
+    public void showPromptEndTime() {
+        System.out.println("Please enter the end time in this format: dd/MM/yyyy HHmm");
+    }
+
+    /**
+     * Prints message when asking for the location of a class.
+     */
+    public void showPromptClassLocation() {
+        System.out.println("Please enter the location the class will be held");
+    }
+
+    /**
+     * Prints message when asking for the name of a class.
+     */
+    public void showPromptClassName() {
+        System.out.println("Please enter the name of the class.");
+    }
 }

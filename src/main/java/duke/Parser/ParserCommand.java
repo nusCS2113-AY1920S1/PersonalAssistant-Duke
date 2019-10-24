@@ -38,7 +38,8 @@ public class ParserCommand implements IParser {
                         sc.nextLine();  // This line you have
                         // to add (It consumes the \n character)
                         if (dailyType == 1) {
-                            //Classes
+                            ParserSchedule parserSchedule = new ParserSchedule();
+                            parserSchedule.runSchedule();
                         } else if (dailyType == 2) {
                             ParserGoal parserGoal = new ParserGoal();
                             parserGoal.runGoal();
