@@ -30,7 +30,7 @@ public class CommandConvert extends Command {
         this.commandType = CommandType.CONVERT;
         this.amount = extractAmount(this.commandType, userInput);
         this.from = getCurrencyCovertFrom(userInput);
-        this.to = getToUserInput(userInput);
+        this.to = getCurrencyConvertTo(userInput);
         this.description = "Command that converts the user input cash amount from"
                 + " one currency to another and print it in the User Interface.";
     }
@@ -62,7 +62,7 @@ public class CommandConvert extends Command {
     }
 
     /**
-     * getFromUserInput parses user input for the flag "from".
+     * getCurrencyConvertFrom parses user input for the flag "from".
      * @param userInput this is the user entered input from CLI
      * @return this function returns the 3 character unique string representing the currency to convert from
      */
@@ -72,29 +72,29 @@ public class CommandConvert extends Command {
     }
 
     /**
-     * getToUserInput parses the user input for the flag "to".
+     * getCurrencyConvertTo parses the user input for the flag "to".
      * @param userInput this is the user entered input from CLI
-     * @return this function return the 3 character unique string
+     * @return this function return the 3 character unique string representing the currency to covert to
      */
-    private String getToUserInput(String userInput) {
+    private String getCurrencyConvertTo(String userInput) {
         String toStr = Parser.parseForFlag("to", userInput);
         return toStr;
     }
 
     /**
-     * getTheJson is a function which gets the JSON object from the api.
-     * @param from this is the country from which we are converting currency
-     * @param to this is the country to which we are converting the currency
+     * consultCurrencyApi is a function which gets the JSON object from the api.
+     * @param from String is the country code from which we are converting currency
+     * @param to String is the country code to which we are converting the currency
      * @return this function returns a string version of the json object or else it will return null
      */
-    private String getTheJson(String from, String to) {
+    private String consultCurrencyApi(String from, String to) {
         try {
             URL url = new URL("https://api.ratesapi.io/api/latest?base=" + from + "&symbols=" + to);
-            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-            String str = "";
+            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+            String line;
             String completeJson = "";
-            while (null != (str = br.readLine())) {
-                completeJson += str;
+            while (null != (line = reader.readLine())) {
+                completeJson += line;
             }
             return completeJson;
         } catch (Exception ex) {
@@ -105,14 +105,14 @@ public class CommandConvert extends Command {
 
     /**
      * convertCurrency is a function used to loop through the string version of the json.
-     * @param from this is the country from which we are converting currency
-     * @param to this is the country to which we are converting the currency
+     * @param from String is the country code from which we are converting currency
+     * @param to String is the country code to which we are converting the currency
      * @param amount this is amount of currency which the user wants to convert
      * @return this function returns the converted amount of the currency or else returns null
      */
     private Double convertCurrency(String from, String to, Double amount) {
         try {
-            String json = getTheJson(from,to);
+            String json = consultCurrencyApi(from,to);
             if (json != null) {
                 JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
                 String rate = jsonObject.getAsJsonObject("rates").get(to).getAsString();
