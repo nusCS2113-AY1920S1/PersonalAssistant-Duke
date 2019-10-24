@@ -1,0 +1,243 @@
+= Email Manager - User Guide
+
+By: F11-3	Since: Oct 2019
+
+. Introduction
+. About User Guide
+. Quick Start
+2.1	Installation +
+2.2	Introducing the interface +
+2.3	Try it out!
+
+. Features
+.. General Commands
+... Viewing help: help
+... Exiting the program: exit
+... Apply colour code: colour
+... View Schedule: schedule
+.. Task Manager
+... List Tasks Commands: list
+... Add Tasks Commands
+.... Adding a todo: todo
+.... Adding an deadline: deadline
+.... Adding an event: event
+... Edit Tasks Commands: edit
+... Delete Tasks Commands: delete
+... Find task(s) with keyword: find
+... Done a task: done
+... Reminder for upcoming task(s): reminder
+... Do after: doafter
+... Snooze a task: snooze
+... Detect Anomalies
+... Tagging Task: tag
+.. Email Manager
+... Listing all emails: email -list
+... Showing an email : email -show
+... Fetching emails from server: email -fetch
+... Filtering Email: email -filter
+... Tagging Email: email -tag
+.. Linking Tasks and Email
+.. Apply priority level
+.. Saving data
+.. Sending Email (coming in v2.0)
+.. Auto delete emails (coming in v2.0)
+
+
+
+. FAQ
+. Command Summary
+
+. Introduction
+
+
+Figure 1. GUI Interface
+
+Email Manager is an email and task manager app, specifically designed for NUS School of Computing students to manage their emails and busy schedules. As a text-based application, it is optimized for those who prefer typing and working with Command Line Interface (CLI). Email Manager also has a developed Graphical User Interface (GUI) that allows users to view email and task details in an appealing, well-organized format. If you can type fast, Email Manager can get your emails and tasks organized quickly and easily.
+
+If you are a busy computing student who is tired of receiving too many emails, you may find this app useful. Jump to [Quick Start] to get started and enjoy!
+
+. About User Guide
+This user guide shows you how to get started with Email Manager. It introduces you to the features of Email Manager and provides you with examples, that you will become an expert user very soon! +
+Throughout this user guide, there will be various icons used, as shown below:
+|===
+|💡|This is a tip. Following these suggestions will make using Email Manager much simpler!
+
+|===
+
+|===
+|ℹ️|This is a note. Read these for additional information.
+
+|===
+
+|===
+|⚠️|This is a warning. Heed the warnings for Email Manager to work smoothly!
+
+|===
+
+. Quick Start
+
+This section serves as a tutorial for a new user to Email Manager. +
+3.1 Installation
+
+. Ensure you have Java version 9 or later installed in your computer.
+. Download the latest email_manager.jar here.
+. Copy the file to the folder you want to use as the home folder for Email Manager.
+. Double-click the file to start the app. The GUI window should appear in a few seconds and will look like this:
+3.2 Introducing the Interface
+
+3.3 Try It Out! +
+Now that you understand the app’s interface, you can now try keying in commands to interact with Email Manager. +
+Type the command in the command box and press Enter to execute it. +
+e.g. typing help and pressing Enter opens the help window. +
+Some example commands you can try in task mode:
+
+* list: lists all tasks
+* deadline submit report -time 12/12/2019 2359: adds a deadline task named submit report to your task list
+* event meeting -time 10/09/2019 1200 -tag work:  adds an event task named meeting to your task list.
+Some example commands you can try in email mode:
+
+* list: lists all the emails
+* show 3: shows the 3rd email shown in the email list
+An example command you can try in both modes:
+
+* bye : exits the app
+Refer to Features for details of each command.
+
+. Features
+
+This section tells you about the features available in Email Manager and how to use them.
+
+Command Format
+
+* The main command is in lowercase.
+* User data is in UPPERCASE, which are parameters to be inputted by the user.
+e.g. if the command states -time TIME, TIME is a parameter which can be used as -time 12/12/2019 1200.
+
+* Items in square brackets are optional.
+e.g. -time TIME [-tag TAG] can be used as -time 12/12/2019 1200 -tag urgent or as -time 12/12/2019 1200.
+
+Note: You are only allowed to enter alphanumeric (a-z, A-Z, 0-9), space and underscore (_) characters. All other symbols will not be accepted by Email Manager.
+
+
+.. General Commands
+|===
+|ℹ️|General commands will work in either mode.
+
+|===
+
+
+... Viewing help: help
+Format: help +
+A pop up window appears and gives information on what commands are available and its respective format.
+
+... Exiting the program: bye
+Format: bye +
+Exits the program and closes the window.
+
+
+|===
+|⚠️|If the program is closed without using the bye command, the program will exit without saving the data.
+
+|===
+
+
+
+... Apply colour code: colour (coming in v2.0)
+			Format: colour ITEM_NUMBER -c COLOUR +
+		The specified item will be shown in the colour from the command.
+
+.. Task Manager (Mode)
+
+... List Tasks Commands: list
+Format: list +
+Gives a complete list of tasks.
+
+... Add Tasks Commands
+.... Adding a todo: todo
+Format: todo TASK_NAME [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]... +
+Adds a task of todo type.
+
+.... Adding an deadline: deadline
+Format: deadline TASK_NAME -time dd/mm/yyyy hhMM [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]... +
+Adds a task that has a deadline. The task name and deadline are required. A doafter task, priority level or any number of tags are all optional. Order of the modifiers does not matter.
+
+.... Adding an event: event
+Format: event TASK_NAME -time dd/mm/yyyy hhMM [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]... +
+Adds a task of event type.
+
+... Update Tasks Commands: update
+
+
+... Delete Tasks Commands: delete
+Format: delete ITEM_NUMBER +
+Deletes the item specified.
+
+... Find task(s) with keyword: find
+Format: find KEYWORD +
+Returns a list of items that contains KEYWORD. This feature will search all the attributes of a task. Example: find cat will return cat, tabby #cat, SoCcat, concatenation.
+
+... Done a task: done
+Format: done ITEM_NUMBER +
+Marks the item specified as done.
+
+... Reminder for upcoming task(s): reminder
+Format: reminder [-time dd/MM/yyyy HHmm] +
+By default, it will show tasks due in the next 3 days. If a time modifier is added, it will show all tasks from current date to date specified. Example: if the current date is 14/03/2020, reminder will show hand in homework by: 15/03/2020 2359, presentation at 17/03/2020 1400. reminder 21/03/2020 will show hand in homework by: 15/03/2020 2359, presentation at: 17/03/2020 1400, exam at: 20/03/2020 0900, and flight at: 21/03/2020 1745.
+
+
+... Do after: doafter
+Format: doafter ITEM_NUMBER  +
+Marks the item specified as done. Only one doafter task can be added. To modify an existing doafter task, see the update command.
+
+... Snooze a task: snooze
+
+... Detect Anomalies
+
+... Tagging a task: tag
+Format: tag ITEM_NUMBER -tag TAG1 [-tag TAG2]... +
+Tags the specified item with the tag(s) minimum number of tags is 1.
+
+.. Email Manager (Mode)
+
+... Listing all emails: list
+Format: list +
+Gives a complete list of emails.
+
+... Showing an email : show
+			Format: show INDEX_NUMBER +
+Show the email at the index number in the email list.
+
+... Fetching emails from server: fetch
+Format: fetch +
+Fetches email from Outlook.com.
+
+... Filtering Email: list
+Format: list [-tag TAG1] [-tag TAG2]... +
+Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum is 2.
+
+... Tagging Email: update
+Format:  update ITEM_NUMBER [-tag TAG1] [-tag TAG2]... +
+Tags the specified item with the tag(s) minimum number of tags is 1.
+
+... Sending Email (coming in v2.0)
+
+... Auto delete emails (coming in v2.0)
+.. Linking Tasks and Email
+
+.. Apply priority level
+
+.. Saving data
+Data is automatically saved after any command modifies the file. +
+(Question: should it be only saved when user exits the program by the “bye” command?)
+
+. FAQ
+Placeholder text for FAQ.
+
+. Command Summary (Quick Guide)
+* List
+* Filter
+* Tags
+* Colour code
+* Delete
+* Exit
+* Help
