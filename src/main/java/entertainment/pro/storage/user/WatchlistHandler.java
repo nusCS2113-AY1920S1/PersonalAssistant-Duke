@@ -4,6 +4,9 @@ import entertainment.pro.model.Deadline;
 import entertainment.pro.model.Tasks;
 import entertainment.pro.model.Period;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 import entertainment.pro.ui.MovieHandler;
 
 public class WatchlistHandler {
@@ -20,6 +23,18 @@ public class WatchlistHandler {
      */
     public static void add(Tasks t) {
         watch.add(t);
+        Collections.sort(watch, (d1, d2) -> {
+            if (d1 instanceof Deadline) {
+                if (((Deadline)(d1)).getDate().getEndDate() == null || ((Deadline)(d2)).getDate().getEndDate() == null)
+                    return 0;
+                return ((Deadline)(d1)).getDate().getEndDate().compareTo(((Deadline)(d2)).getDate().getEndDate());
+            } else if (d1 instanceof Period) {
+                if (((Period)(d1)).getDate().getEndDate() == null || ((Period)(d2)).getDate().getEndDate() == null)
+                    return 0;
+                return ((Period)(d1)).getDate().getEndDate().compareTo(((Period)(d2)).getDate().getEndDate());
+            }
+            return 0;
+        });
     }
 
     /**
