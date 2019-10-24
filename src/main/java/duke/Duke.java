@@ -1,22 +1,23 @@
 package duke;
-
 import duke.command.Command;
 import duke.core.CommandManager;
 import duke.core.DukeException;
-import duke.core.ShortCutter;
 import duke.core.Ui;
 import duke.patient.PatientManager;
 import duke.relation.PatientTaskList;
 import duke.statistic.Counter;
 import duke.storage.StorageManager;
 import duke.task.TaskManager;
-
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 /**
  * Represents Duke, a Personal Assistant to help
  * users tracking their progress.
  */
-public class Duke {
+public class Duke extends Application {
     /**
      * A Storage object that handles reading tasks from a local
      * file and saving them to the same file.
@@ -57,6 +58,15 @@ public class Duke {
             System.out.println(e.getMessage());
             taskManager = new TaskManager();
         }
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 
     /**
