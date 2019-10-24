@@ -14,7 +14,8 @@ public class HomeNewSpec extends ArgSpec {
         initSwitches(
                 new Switch("name", String.class, false, ArgLevel.REQUIRED, "n"),
                 new Switch("bed", String.class, false, ArgLevel.REQUIRED, "b"),
-                new Switch("allergies", String.class, false, ArgLevel.REQUIRED, "a"),
+                new Switch("allergies", String.class, false, ArgLevel.REQUIRED, "a",
+                        "allergy"),
                 new Switch("go", String.class, true, ArgLevel.NONE, "g"),
                 new Switch("height", Integer.class, true, ArgLevel.REQUIRED, "h"),
                 new Switch("weight", Integer.class, true, ArgLevel.REQUIRED, "w"),

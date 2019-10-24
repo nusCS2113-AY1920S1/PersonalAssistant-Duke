@@ -70,7 +70,7 @@ public class CommandHelpers {
      * @param valid The set of valid switches for this command.
      * @return The string that the user has selected.
      */
-    public static String disambiguate(String word, ArrayList<String> suggestions, Set<String> valid) {
+    public static String disambiguateSwitches(String word, ArrayList<String> suggestions, Set<String> valid) {
         StringBuilder builder = new StringBuilder("I didn't understand '").append(word)
                 .append("'. Here are the closest matches:").append(System.lineSeparator());
         for (int i = 1; i <= suggestions.size(); ++i) {
