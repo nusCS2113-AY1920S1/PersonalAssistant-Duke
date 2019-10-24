@@ -51,6 +51,20 @@
       "remarks" : ""
     },
     "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "Fish",
+      "unitPrice" : 0.0,
+      "remarks" : "-"
+    },
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "Dog",
+      "unitPrice" : 0.0,
+      "remarks" : "NIL"
+    },
+    "amount" : 0.0
   } ],
   "sales" : [ ],
   "shortcuts" : [ ]
