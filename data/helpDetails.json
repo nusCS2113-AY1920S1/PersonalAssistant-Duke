@@ -1,0 +1,40 @@
+{
+  "critical": {
+    "command": "critical",
+    "summary": "Display all critical observations and plans of all Patients [v2.0]",
+    "format": "critical"},
+  "discharge": {
+    "command": "discharge",
+    "summary": "Generate a discharge report for the Patient and delete him from the system",
+    "format": "discharge patient_id [-sum[mary] <discharge summary>]"},
+  "archive": {
+    "command": "archive",
+    "summary": "Display discharged Patients [v2.0]",
+    "format": "archive"},
+  "open": {
+    "command": "open",
+    "summary": "Go to a more detailed view of a particular Patient",
+    "format": "open patient_id [-im[pression]]",
+    "switches": "If the -b switch is used, look up the bed number. If the -im switch is used, go to the primary impression for that particular Patient."},
+  "new": {
+    "command": "new",
+    "summary": "Add a new Patient to the system",
+    "format": "new -n[ame] \"<name>\" -b[ed] <bed number> -a[llerg(y|ies)] \"<allergies>\" [<optional switch>]*",
+    "switches": "Optional switches:\n-g[o]\n-h[eight] <height>\n-w[eight] <weight>\n-ag[e] <age>\n-num[ber] <number>\n-ad[dress] \"<address>\"\n-hi[story] \"<history>\"",
+    "info": "The Patient's name, bed number and allergies must be specified. The other fields are assigned to null by default but can be edited later on. The -g[o] switch opens the Patient's context after the Patient is created."},
+  "history": {
+    "command": "history",
+    "summary": "Add miscellaneous notes to a patient's history",
+    "format": "history patient_id -m[essage] \"<additional notes>\" -r[ewrite] \"<y/n>\"",
+    "info": "Quickly append additional notes to a patient's history. Note that this command will only append notes - it's meant for quickly jotting down uncategorised information, not intended for correcting serious mistakes that need the patient's entire history section to be written."},
+  "undo": {
+    "command": "undo",
+    "summary": "Undo the previous command",
+    "format": "undo <number of commands>",
+    "info": "You can undo up to the last 10 commands. Only commands that affect the state of the system count against this limit (e.g. adding new Patients or editing data, not navigating between contexts)."},
+  "redo": {
+    "command": "redo",
+    "summary": "Redo a command that has been undone",
+    "format": "redo <number of commands>",
+    "info": "After undoing some commands, sending any command other than undo or redo will clear the redo stack. The undone commands cannot be redone from that point onwards."}
+}
