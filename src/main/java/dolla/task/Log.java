@@ -1,17 +1,19 @@
 package dolla.task;
 
+import dolla.Tag;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * A class that is inherited from all forms of logging, ie. Entry and Debt,
- * so that we can perform polymorphism.
+ * A class that is inherited from all forms of logging, ie. entry, Limit and debt so that we can perform polymorphism.
  */
 public abstract class Log {
     protected String description;
     protected LocalDate date;
     protected String name;
     protected String userInput;
+    protected Tag tag;
 
     public abstract String getLogText();
 

@@ -14,7 +14,6 @@ public class Entry extends Log {
     protected String saveType;
     protected double amount;
 
-
     /**
      * Creates an instance of Entry.
      * @param type Income or Expense.
