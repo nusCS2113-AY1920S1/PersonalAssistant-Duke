@@ -10,17 +10,17 @@ import duke.components.SongList;
 import java.util.ArrayList;
 
 /**
- * A class representing the command to add a new bar of notes to the current song.
+ * A class representing the command to edit a bar of notes in the current song.
  */
-public class AddBarCommand extends Command<SongList> {
+public class EditCommand extends Command<SongList> {
 
     private int songIndex;
 
     /**
-     * Constructor for the command to add a new bar to the current song.
+     * Constructor for the command to edit a bar in the current song.
      * @param message the input message that resulted in the creation of the duke.Commands.Command
      */
-    public AddBarCommand(String message) {
+    public EditCommand(String message) {
         this.message = message;
         this.songIndex = 0;
     }
@@ -37,11 +37,8 @@ public class AddBarCommand extends Command<SongList> {
      */
     public String execute(SongList songList, Ui ui, Storage storage) throws DukeException {
         int barNo;
-        if (message.length() < 7 || !message.substring(0, 7).equals("addbar ")) { //exception if not fully spelt
-            throw new DukeException(message);
-        }
         try {
-            String[] sections = message.substring(7).split(" ");
+            String[] sections = message.substring(5).split(" ");
             barNo = Integer.parseInt(sections[0].substring(4));
 
             int notesIndex = message.indexOf(sections[1]);
@@ -50,14 +47,15 @@ public class AddBarCommand extends Command<SongList> {
 
             Song song = songList.getSongIndex(songIndex);
 
-            song.addBar(newBar);
+            song.getBars().add(barNo - 1, newBar);
+            Bar oldBar = song.getBars().get(barNo);
+            song.getBars().remove(barNo);
 
             storage.updateFile(songList);
             ArrayList<Song> temp = songList.getSongList();
-            return ui.formatAddBar(temp, newBar, song);
-
+            return ui.formatEdit(oldBar, newBar, song);
         } catch (Exception e) {
-            throw new DukeException(message, "addbar");
+            throw new DukeException(message, "edit");
         }
     }
 
