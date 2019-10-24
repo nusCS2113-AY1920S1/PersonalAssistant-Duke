@@ -80,6 +80,10 @@ public class Instruction {
         return input.startsWith("invoice");
     }
 
+    public boolean isHistory(String input) {
+        return input.startsWith("history");
+    }
+
     public boolean isAddProject(String input) {
         return input.startsWith("add project");
     }

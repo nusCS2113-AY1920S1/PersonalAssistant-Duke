@@ -228,6 +228,25 @@ Use case ends.
 +
 Use case ends.
 
+=== Use case: Delete an existing payee
+
+*MSS*
+
+1.  User opens the JAR file.
+2.  AlphaNUS shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
+3.  User types in the command line the payee's name.
+4.  AlphaNUS deletes the payee.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. User types in a payee that does not exist.
+** 3a1. AlphaNUS shows a non-existing payee error message.
++
+Use case ends.
+
 === Use case: Find a payment form or deadline
 
 *MSS*
