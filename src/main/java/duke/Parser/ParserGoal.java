@@ -12,27 +12,27 @@ public class ParserGoal {
     /**
      * Constants to represent the index 3.
      */
-    private final int INDEX_THREE = 3;
+    private final int indexThree = 3;
     /**
      * Constants to represent the index 4.
      */
-    private final int INDEX_FOUR = 4;
+    private final int indexFour = 4;
     /**
      * Constants to represent the index 5.
      */
-    private final int INDEX_FIVE = 5;
+    private final int indexFive = 5;
     /**
      * Constants to represent the index 6.
      */
-    private final int INDEX_SIX = 6;
+    private final int indexSix = 6;
     /**
      * Constants to represent the index 7.
      */
-    private final int INDEX_SEVEN = 7;
+    private final int indexSeven = 7;
     /**
      * Constants to represent the index 10.
      */
-    private final int INDEX_TEN = 10;
+    private final int indexTen = 10;
     /**
      * Boolean status to check if the class can exit.
      */
@@ -56,8 +56,8 @@ public class ParserGoal {
     /**
      * Constructor for ParserGoal.
      *
-     * @throws FileNotFoundException
-     * @throws ParseException
+     * @throws FileNotFoundException if file does not exist
+     * @throws ParseException if user input is not in the correct format
      */
     public ParserGoal() throws FileNotFoundException, ParseException {
         ui = new Ui();
@@ -67,6 +67,9 @@ public class ParserGoal {
         myGoalScan = new Scanner(System.in);
     }
 
+    /**
+     * Method to run when entering goal of the day.
+     */
     public void runGoal() {
         ui.showGoalPromptDate();
         String goalDate = myGoalScan.next();
@@ -90,7 +93,7 @@ public class ParserGoal {
                             goalDate, myGoal, goalStorage));
                     break;
 
-                case INDEX_THREE:
+                case indexThree:
                     ui.showGoalPromptDeleteGoal(goalDate);
                     String message = myGoalScan.nextLine();
                     System.out.println(
@@ -98,12 +101,12 @@ public class ParserGoal {
                             goalDate, message, goalStorage));
                     break;
 
-                case INDEX_FOUR:
+                case indexFour:
                     System.out.println(goal.removeAllGoal(
                         goalDate, goalStorage));
                     break;
 
-                case INDEX_FIVE:
+                case indexFive:
                     isRunning = false;
                     ui.showQuitGoal();
                 default:
