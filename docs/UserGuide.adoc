@@ -189,10 +189,10 @@ Example: +
 === Grading your modules: `grade`
 
 Allows you to input your letter grade received for the modules you have taken. +
-Format: `grade MODULECODE LETTERGRADE`
+Format: `grade MOD_CODE LETTER_GRADE`
 
 ****
-* Type `grade MODULECODE LETTERGRADE` into the command line, replacing `MODULECODE` with an actual module code, and `LETTERGRADE` with the grade you received for that module.
+* Type `grade MOD_CODE LETTER_GRADE` into the command line, replacing `MODULECODE` with an actual module code, and `LETTER_GRADE` with the grade you received for that module.
 * ModPlan will either update the grade of the module if it is in your list, or add the module with the letter grade included if it is not in your list.
 * ModPlan will also check if the module is S/U-able, and will allow the user to input S and U grades accordingly.
 ** If the module is not S/U-able, ModPlan will inform the user if they try to input a S or U grade.
@@ -230,10 +230,16 @@ Format: `clear modules`
 Clears and empties the list of modules being added. +
 Format: `clear ccas`
 
-=== Adding schedule to a CCA : `scheduleCca`
+=== Rescheduling a CCA : `scheduleCca`
 
-Add additional schedule to a CCA which was added. +
+Reschedule a CCA which is already added. +
 Format: `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK`
+
+****
+* The `BEGIN_TIME` and `END_TIME` must be in the format of HH:mm.
+* The `DAY_OF_WEEK` must be in the format of the day names such as, "Monday", "Tuesday", etc. 
+* Example: `scheduleCca 1 --begin 13:00 --end 15:00 Tuesday`
+****
 
 === Exiting the program : `bye`
 
@@ -330,5 +336,24 @@ e.g. `cap overall` +
 `CG2028 A` +
 `done`
 ** `cap list`
-** `cap module`
+** `cap module`, `MOD_CODE` +
+eg. `cap module` +
+`CS2040C`
+* *Grade* :
+** `grade MOD_CODE LETTER_GRADE` +
+e.g `grade CS101 A-` +
+`grade CS1231 S`
+* *Sort* : 
+** `sort module`
+** `sort cca`
+* *Clear* :
+** `clear modules`
+** `clear ccas`
+* *Schedule CCA* :
+** `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK` +
+e.g `scheduleCca 1 --begin 13:00 --end 15:00 Tuesday`
+* *Exit* :
+** `bye`
+
+
 
