@@ -19,6 +19,9 @@ public abstract class Parser {
     protected String[] inputArray;
     protected String commandToRun;
     protected static final String SPACE = " ";
+    protected static int undoFlag = 0;
+    protected static int redoFlag = 0;
+    protected static int prevPosition;
 
 
     /**
@@ -34,27 +37,22 @@ public abstract class Parser {
     public abstract Command handleInput(String mode, String inputLine);
 
     /**
-     * Returns true if the method runs without running into any error.
-     * <p>
-     *     This method splits and correctly assigns the task description and time from the given input.
-     * </p>
-     * <p>
-     *     If the incorrect format is given in the input, the corresponding alert will be printed, and
-     *     the method will then return false.
-     * </p>
-     * @see AddDeadlineCommand
-     * @see AddEventCommand
+     * Splits the input from the user and assigns the relevant data into description and date variables.
+     * If the incorrect format is given in the input, the corresponding alert will be printed.
      */
-    public void splitDescTime() throws Exception {
-        String[] data = inputLine.split(" /on "); // data[0] os description, data[1] is the time
-        String dateString = (data[1].split("/tag"))[0];
+    public void extractDescTime() throws Exception {
+        // dataArray[0] is command, amount and description, dataArray[1] is time and tag
+        String[] dataArray = inputLine.split(" /on ");
+        String dateString = (dataArray[1].split("/tag"))[0];
+        description = dataArray[0].split(inputArray[2] + " ")[1];
         try {
             date = Time.readDate(dateString);
         } catch (ArrayIndexOutOfBoundsException e) {
+            // TODO: Shouldn't happen anymore, need to test if this will happen still
             Ui.printMsg("Please add '/at <date>' after your task to specify the entry date.");
             throw new Exception("missing date");
         }  catch (DateTimeParseException e) {
-            Ui.printDateTimeFormatError();
+            Ui.printDateFormatError();
             throw new Exception("invalid date");
         }
     }
@@ -81,6 +79,7 @@ public abstract class Parser {
         return newDouble;
     }
 
+    // TODO: Update
     public Command invalidCommand() {
         Ui.printInvalidCommandError();
         return new ErrorCommand();
@@ -110,7 +109,7 @@ public abstract class Parser {
         try {
             verifyAddType(inputArray[1]);
             stringToDouble(inputArray[2]);
-            splitDescTime();
+            extractDescTime();
         } catch (IndexOutOfBoundsException e) {
             Ui.printInvalidEntryFormatError();
             return false;
@@ -133,5 +132,36 @@ public abstract class Parser {
             return false;
         }
         return true;
+    }
+
+    /**
+     * This method will set the prevPosition int in this class.
+     * @param prevPosition the prevPosition of a deleted input.
+     */
+    public static void setPrevPosition(int prevPosition) {
+        Parser.prevPosition = prevPosition;
+        undoFlag = 1;
+    }
+
+    /**
+     * THis method will set prevPosition to -1 and undoFlag to 0.
+     */
+    public static void resetUndoFlag() {
+        Parser.prevPosition = -1;
+        undoFlag = 0;
+    }
+
+    /**
+     * This method will set redoFlag to 1.
+     */
+    public static void setRedoFlag() {
+        redoFlag = 1;
+    }
+
+    /**
+     * This method will set redoFlag to 0.
+     */
+    public static void resetRedoFlag() {
+        redoFlag = 0;
     }
 }

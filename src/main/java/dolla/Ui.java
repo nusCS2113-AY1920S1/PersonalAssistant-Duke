@@ -126,7 +126,7 @@ public abstract class Ui {
      */
     public static void printDateTimeFormatError() {
         System.out.println(line);
-        System.out.println("Please use the format 'DD/MM/YYYY HHmm'!");
+        System.out.println("\tPlease use the format 'DD/MM/YYYY HHmm'!");
         System.out.println(line);
     }
 
@@ -268,7 +268,9 @@ public abstract class Ui {
      * Prints error message when the user did not properly specify the type of entry to add.
      */
     public static void printInvalidEntryType() {
+        System.out.print(line);
         System.out.println("\tPlease specify the type of entry you want to add: income or expense.");
+        System.out.print(line);
     }
 
     /**
@@ -419,6 +421,7 @@ public abstract class Ui {
     }
 
     /**
+     * TODO: Update this
      * Print invalid modify format error.
      */
     public static void printInvalidModifyFormatError() {
@@ -430,6 +433,7 @@ public abstract class Ui {
     }
 
     /**
+     * TODO: Update this
      * Print initial modify msg.
      */
     public static void printInitialModifyMsg() {
