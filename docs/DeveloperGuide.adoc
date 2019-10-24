@@ -54,7 +54,7 @@ This Developer Guide is meant for any software developer who wishes to contribut
 * If you wish to run the .jar file in a mainstream OS, simply double click the .jar file, and a command line interface should run in a few seconds. +
 This is assuming you have a JDK version of `11` and above.
 
-* If you are not using `gradle`, simply locate the `Planner.java` file under `PROJECT_DIRECTORY/src/main/java/planner/Planner.java`, and run it in your IDE.
+* If you are not using `gradle`, simply locate the `Planner.java` file under `PROJECT_DIRECTORY/src/main/java/planner/main/CliLauncher.java`, and run it in your IDE.
 
 * If you are using `gradle`, import the project as a gradle project using the `Import Gradle Project` function in IntelliJ, and run `gradlew run` from the command line.
 
@@ -109,7 +109,7 @@ Commands are the main classes with which we execute our features. All of the spe
 The execute method takes in the detailed map of modules drawn from the NUSMODS API Json file, module task list, cca list, planner UI, storage, and the jsonWrapper parser. Each execute method is overriden in the specific Command classes to do what the feature requires of the class.
 
 The `ModuleCommand` class also receives arguments based on the arguments passed by the `Parser` class, which is our main parser for the program, detailed above in <<Parser>>. 
-+
+
 These arguments change how some of the classes function as well, using a switch case system to sort through the different argument types received. These will changes will be explained further under the Implementation section here <<Implementation>>.
 
 image::Command.png[]
@@ -348,30 +348,45 @@ If the arguement read for `toShow` is "module", an iterator loops through the ar
 
 `JsonWrapper` contains our usage of the `Gson` library for JSON file processing, as well as to call `RequestsData` to obtained the module data consolidated by `NUSMODS API`.
 
-To prevent multiple requests to NUSMODS, our implementation would check if the user has previously downloaded the module data before. If they have only, only then would `JsonWrapper` call `RequestsData` to initialize the module data file.
-
 image::PackageCrawler.png[]
+
+To prevent multiple requests to NUSMODS, our implementation would check if the user has previously downloaded the module data before. If they have not, only then would `JsonWrapper` call `RequestsData` to initialize the module data file.
+
+The sequence diagram of this implementation is shown below:
+
+image::JsonWrapperSequenceDiag.png[]
+
+The above function is done in the `CliLauncher` class, during the setup function call.
 
 Since `Gson` is able to internally read a JSON file and when given the same template within a Java object class, it would be able to map the value fields to each of the same keys in the Java Object.
 
-This allows us to have a direct access to all the modules which are currently offered in NUS, by reading the returned JSON string and parsing it directly into a list of Module information. Since the data had to be modelled, the +
+This allows us to have a direct access to all the modules which are currently offered in NUS, by reading the returned JSON string and parsing it directly into a list of Module information. Since the data had to be modelled, the
 following ModuleInfoDetailed and ModuleInfoSummary was created to capture the data in the JSON file to be used during runtime.
 
 image::PackageModule.png[]
 
-Since certain modules may not contain data for every field, each of the module classes above are required to have default values on startup so as to prevent `NullPointerExceptions` during runtime when such data is accessed.
+Since some modules may not contain data for every field, each of the module classes above are required to have default values on initialisation so as to prevent `NullPointerExceptions` during runtime when such module data is accessed.
+
+
+image::ModuleInfoDetailed.png[]
+
 This also extends to choosing the right data type for modelling our module information, since certain fields maybe malformed and thus our implementation of the fields data type in module information classes would mostly contain `strings`, unless it is certain that
 the data type found in the returned JSON string is strictly `boolean` or `double`.
 
-To allow for quick access to the module information classes, after parsing of the module information into a list of `ModuleInfoDetailed`, it would then be converted into a `HashMap`, where the key-value pair
+To allow for quick access to the module information classes, after parsing module information into a list of `ModuleInfoDetailed`, it would then be converted into a `HashMap`, where the key-value pair
 is the string containing the module code, and the value is the `ModuleInfoDetailed`. This is what is exposed to all the command classes during runtime, and this is done automatically on startup so that the module
-data is accessible directly to the user.
+data is accessible directly to the user. This functionality is handled by
 
 ==== RequestsData
 
 Internally, this class is responsible for requesting data from the `NUSMODS API` and thus uses Java's Native `HTTPRequest` Library.
 
+image::FutureRequests.png[]
+
 The current implementation is fixed to only request data for the current academic year, but this is subject to change in the coming versions to allow for users to choose to update the data once it gets outdated.
+
+For the proposed implementation of updating user data, there are a few alternatives which could be considered:
+
 
 [[Documentation]] 
 == Documentation
