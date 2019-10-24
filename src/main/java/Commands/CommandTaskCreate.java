@@ -4,7 +4,6 @@ import Farmio.Farmio;
 import Farmio.Storage;
 import Farmio.Farmer;
 import Exceptions.FarmioException;
-import FrontEnd.Simulation;
 import FrontEnd.Ui;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
@@ -32,16 +31,16 @@ public class CommandTaskCreate extends Command {
             Task task;
             switch (taskType) {
                 case "do":
-                    task = new DoTask(Condition.toCondition(condition), Action.stringToAction(action));
+                    task = new DoTask(Condition.toCondition(condition), Action.toAction(action));
                     break;
                 case "if":
-                    task = new IfTask(Condition.toCondition(condition), Action.stringToAction(action));
+                    task = new IfTask(Condition.toCondition(condition), Action.toAction(action));
                     break;
                 case "while":
-                    task = new WhileTask(Condition.toCondition(condition), Action.stringToAction(action));
+                    task = new WhileTask(Condition.toCondition(condition), Action.toAction(action));
                     break;
                 case "for":
-                    task = new ForTask(Condition.toCondition(condition), Action.stringToAction(action));
+                    task = new ForTask(Condition.toCondition(condition), Action.toAction(action));
                 default:
                     throw new FarmioException("Error Creating Task!");
             }

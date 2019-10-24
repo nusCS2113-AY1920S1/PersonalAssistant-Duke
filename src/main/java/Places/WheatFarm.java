@@ -1,34 +1,48 @@
 package Places;
 
+import Exceptions.FarmioException;
 import org.json.simple.JSONObject;
 
 public class WheatFarm extends Farm {
+
+    private final String JSON_KEY_SEED = "seed";
+    private final String JSON_KEY_SEEDLING = "seedling";
+    private final String JSON_KEY_WHEAT = "wheat";
+    private final String JSON_KEY_GRAIN = "grain";
+
     private int seeds;
     private int seedlings;
-    private int ripeWheat;
+    private int wheat;
     private int grain;
+
     public boolean hasSeeds() {
         return seeds > 0;
     }
+
     public boolean hasWheat() {
         return grain > 0;
     }
+
     public boolean hasRipened() {
-        return ripeWheat > 0;
+        return wheat > 0;
     }
 
     public WheatFarm() {
         seeds = 0;
         seedlings = 0;
-        ripeWheat = 0;
+        wheat = 0;
         grain = 0;
     }
 
-    public WheatFarm(JSONObject obj){
-        this.seeds = (Integer) obj.get("seeds");
-        this.seedlings = (Integer) obj.get("wheat_green");
-        this.ripeWheat = (Integer) obj.get("wheat_ripe");
-        this.grain = (Integer) obj.get("grain");
+    public WheatFarm(JSONObject obj) throws FarmioException {
+        try {
+            this.seeds = (int) (long) obj.get(JSON_KEY_SEED);
+            this.seedlings = (int) (long) obj.get(JSON_KEY_SEEDLING);
+            this.wheat = (int) (long) obj.get(JSON_KEY_WHEAT);
+            this.grain = (int) (long) obj.get(JSON_KEY_GRAIN);
+        } catch(Exception e){
+            throw new FarmioException("Game save corrupted!");
+        }
     }
 
     public int getSeeds() {
@@ -39,8 +53,8 @@ public class WheatFarm extends Farm {
         return seedlings;
     }
 
-    public int getRipeWheat() {
-        return ripeWheat;
+    public int getWheat() {
+        return wheat;
     }
 
     public int getGrain() {
@@ -57,26 +71,27 @@ public class WheatFarm extends Farm {
     }
 
     public void growSeedlings() {
-        ripeWheat += seedlings;
+        wheat += seedlings;
         seedlings = 0;
     }
     public void harvestWheat() {
-        grain += ripeWheat;
+        grain += wheat;
         seedlings = 0;
     }
     @Override
     public int sell() {
-        int earned = ripeWheat * Market.PRICE_OF_WHEAT;
-        ripeWheat = 0;
+        int earned = wheat * Market.PRICE_OF_WHEAT;
+        wheat = 0;
         return earned;
     }
 
     @Override
     public JSONObject toJSON() {
         JSONObject obj = new JSONObject();
-        obj.put("seeds", seeds);
-        obj.put("wheat_green", seedlings);
-        obj.put("wheat_ripe", ripeWheat);
+        obj.put(JSON_KEY_SEED, seeds);
+        obj.put(JSON_KEY_SEEDLING, seedlings);
+        obj.put(JSON_KEY_WHEAT, wheat);
+        obj.put(JSON_KEY_GRAIN, grain);
         return obj;
     }
 }

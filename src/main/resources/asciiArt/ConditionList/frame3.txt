@@ -1,0 +1,7 @@
+         VALUE                  BOOLEAN
+______________________________________________________
+greaterThanOrEquals | hasSeeds, hasWheat, hasGrain
+greaterThan         | hasEgg, hasChicken, hasChick         
+lessThan            | hasMilk, hasCow,         
+lessThanOrEquals    |
+ 

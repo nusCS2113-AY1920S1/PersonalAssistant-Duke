@@ -1,6 +1,9 @@
 package UserCode.Tasks;
 
+import Exceptions.FarmioException;
+import UserCode.Actions.Action;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
@@ -9,12 +12,11 @@ public class TaskList extends ArrayList<Task>{
     public TaskList() {
     }
 
-    /**
     public TaskList(JSONArray array) throws FarmioException {
-        for (JSONObject jsonObject : (Iterable<JSONObject>) array) {
-            this.add(new Task(jsonObject));
+        for (JSONObject object : (Iterable<JSONObject>) array) {
+            this.add(Task.toTask(object));
         }
-    }**/
+    }
 
 
     public void addTask(Task task) {
@@ -36,8 +38,13 @@ public class TaskList extends ArrayList<Task>{
     public ArrayList<String> toStringArray() {
         ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i < this.size(); i++) {
-            list.add(Integer.toString(i + 1) + ". " + this.get(i).toString());
+            list.add((i + 1) + ". " + this.get(i).toString());
         }
         return list;
+    }
+
+    public String removeTask (int taskID) {
+        Task t = this.remove(taskID - 1);
+        return t.toString();
     }
 }
