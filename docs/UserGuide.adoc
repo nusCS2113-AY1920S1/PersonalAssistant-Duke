@@ -20,7 +20,7 @@ endif::[]
 By: `Team W17-3`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
-*OwlMoney* is an application designed to assist undergraduates and fresh graduates track and manage their finances.
+*OwlMoney* is an application designed to assist undergraduates and fresh graduates to track and manage their finances.
 
 *OwlMoney* is specially tailored for those who prefer using a Command Line Interface (CLI). The commands used to
 interact with
@@ -36,7 +36,7 @@ Jump to, <<Quick Start>> to get started!
 == Understanding This User Guide
 
 === Basic Information
-This user guide provides you with tips for a quick and easy way to setup and install *OwlMoney*.
+This user guide provides you with tips for a quick and easy way to set up and install *OwlMoney*.
 
 You can find all the details of *OwlMoney*’s features, tips, frequently asked questions and a summary of the available
 commands.
@@ -50,7 +50,7 @@ This symbol denotes information that you may want to take note of.
 ====
 [TIP]
 ====
-This symbol denotes a tip which you may find useful when using our application.
+This symbol denotes a tip that you may find useful when using our application.
 ====
 [WARNING]
 ====
@@ -59,7 +59,7 @@ This symbol denotes a warning message which you need to be careful of when using
 
 Additionally, you may also encounter the following text styles:
 ====
-* Commands, parameters and file paths will be in this `format`
+* Commands, parameters, and file paths will be in this `format`
 * Important messages will be *bold*
 ====
 
@@ -82,16 +82,16 @@ The two main sections are explained below.
 |====
 |*Section*| *Name* | *Description*
 | 1 | Command Box | This is where you can enter and run commands.
-| 2 | Result Box | This provides you with the information on whether a command is successful.
+| 2 | Result Box | This provides you with information on whether a command is successful.
 |====
 
 == Quick Start
-. Ensure you have *Java Version 11* installed in your Computer.
+. Ensure you have *Java Version 11* installed on your computer.
 . Download the latest `OwlMoney.jar` link:{repoURL}/releases/latest[here].
 . Copy the `OwlMoney.jar` file to the folder you want to use as the home folder for *OwlMoney*.
 . Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-.Successful start up of *OwlMoney*
+.Successful start-up of *OwlMoney*
 ifdef::env-github[]
 image::Ui.png[width="800"]
 endif::[]
@@ -106,7 +106,7 @@ typing your `USERNAME` *(e.g. John)* when prompted and pressing kbd:[Enter]
 e.g. try typing *`help`* and pressing kbd:[Enter] will list down the commands available.
 . Some example commands you can try:
 * `/add /savings /name JunBank Savings Account /amount 4719.90 /income 2000`
-: adds a new `JunBank Savings Account`, which has an initial amount of $`4719.90` dollars.
+: adds a new `JunBank Savings Account`, which has an initial amount of $`4719.90`.
 * `/delete /savings /name JunBank Savings Account`
 : deletes JunBank Savings Account
 * `/list /savings`
@@ -162,18 +162,18 @@ started!
 
 ==== Exiting OwlMoney : `/exit`
 If you want to exit *OwlMoney*, you can enter `/exit` in the *command box*. +
-Hope you had a wonderful experience using *OwlMoney*. Do come back to manage your finances soon!
+We hope you had a wonderful experience using *OwlMoney*. Do come back to manage your finances soon!
 
 === Detailed Management Commands
 Financial management starts with managing your money!
 
-*OwlMoney* provides various detailed management commands that helps you to do just that!
+*OwlMoney* provides various detailed management commands that help you to do just that!
 
-They include the management of various bank accounts like savings and investment accounts to recording expenditures
-and setting financial goals.
+They include the management of various bank accounts ranging from savings and investment accounts to recording
+expenditures and setting financial goals.
 
 ==== Savings Account Management
-In this section, you'll be introduced to commands and parameters that helps you to manage your savings account and
+In this section, you'll be introduced to commands and parameters that help you to manage your savings account and
 expenditures associated with it in *OwlMoney*.
 
 Below is a list of command parameters that you can expect to use for the commands in this section.
@@ -185,7 +185,7 @@ Below is a list of command parameters that you can expect to use for the command
 
 (e.g. JunBank Savings Account)
 
-| `ACCOUNT_NAME` should contain alphabetic characters, numeric characters and spaces only.
+| `ACCOUNT_NAME` should contain alphabetic characters, numeric characters, and spaces only.
 
 `ACCOUNT_NAME` is case-sensitive.
 
@@ -214,7 +214,7 @@ Take note that there is a maximum of *30* character limit.
 
 | `DESCRIPTION`
 | Indicates the description of the transaction.
-| `DESCRIPTION` should contain alphabetic characters, numeric characters and spaces only.
+| `DESCRIPTION` should contain alphabetic characters, numeric characters, and spaces only.
 
 Take note that there is a maximum of *50* character limit.
 
@@ -286,7 +286,7 @@ Edits `JunBank Savings Account` name to `JulyBank Savings Account` and sets the 
 * `/edit /savings /name JunBank Savings Account /newname JulyBank Savings Account /amount 2000.25 /income 5000`
 
 Edits `JunBank Savings Account` name to `JulyBank Savings Account` and sets the new amount in the account to $`2000.25`
-with new income of $`5000`.
+with a new income of $`5000`.
 
 * `/edit /savings /name JunBank Savings Account /amount 2000.25`.
 
@@ -294,14 +294,14 @@ Edits `JunBank Savings Account` by setting the new amount in the account to $`20
 
 * `/edit /savings /name JunBank Savings Account /amount 2000.25 /income 5000`
 
-Edits `JunBank Savings Account` by setting the new amount in the account to $`2000.25` with income of $`5000`.
+Edits `JunBank Savings Account` by setting the new amount in the account to $`2000.25` with an income of $`5000`.
 
 * `/edit /savings /name JunBank Savings Account /income 5000`
 
 Edits `JunBank Savings Account` by setting the income to $`5000`.
 
 ===== Deleting savings bank account `/delete /savings`
-Closed your savings bank account? You can reflect it on `OwlMoney` as well!
+Closed your savings bank account? You can reflect that on `OwlMoney` as well!
 
 *Command Syntax*
 
@@ -371,7 +371,7 @@ Changes expenditure `4` that was charged to `JunBank Savings Account` to a new c
 
 * `/edit /bankexpenditure /from JunBank Savings Account /transno 5 /amount 3.50`
 
-Changes expenditure `5` that was charged to `JunBank Savings Account` to a amount of $`3.50`.
+Changes expenditure `5` that was charged to `JunBank Savings Account` to an amount of $`3.50`.
 
 ===== Deleting expenditures for savings bank account `/delete /bankexpenditure`
 
@@ -429,7 +429,7 @@ To find which to deposit to edit, use the `/list` or `/find` function to find th
 * `/edit /deposit /from JunBank Savings Account /transno 11 /desc FREELANCE WORK /amount 270 /date 29/11/2019`
 
 Changes the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new description of
-`FREELANCE WORK`, new amount of $`270` and a new date of `29/11/2019`
+`FREELANCE WORK`, setting a new amount of $`270` and a new date of `29/11/2019`
 
 * `/edit /deposit /from JunBank Savings Account /transno 11 /amount 5001`
 
@@ -437,7 +437,7 @@ Changes the `deposit` with transaction number `11` deposited to `JunBank Savings
 
 ===== Deleting deposit for savings bank account `/delete /deposit`
 
-Accidentally added a deposit which you have not done? You can delete it here!
+Accidentally added a deposit that you have not done? You can delete it here!
 
 *Command Syntax*
 
@@ -455,7 +455,7 @@ To find out which recurring expenditure to delete, use the `/list` or `/find` fu
 Deletes a `deposit` with transaction number `11` from `JunBank Savings Account`.
 
 ==== Investment Account Management
-In this section, you'll be introduced to commands and parameters that helps you to manage your investment account
+In this section, you'll be introduced to commands and parameters that help you to manage your investment account
 and bonds that you can track in *OwlMoney*.
 
 Below is a list of command parameters that you can expect to use for the commands in this section.
@@ -467,7 +467,7 @@ Below is a list of command parameters that you can expect to use for the command
 
 (e.g. DBB Vickers Account)
 
-| `ACCOUNT_NAME` should contain alphabetic characters, numeric characters and spaces only.
+| `ACCOUNT_NAME` should contain alphabetic characters, numeric characters, and spaces only.
 
 `ACCOUNT_NAME` is case-sensitive.
 
@@ -485,7 +485,7 @@ Take note that there is a maximum of *30* character limit.
 
 (e.g. June SSB)
 
-| `BOND_NAME` should contain alphabetic characters, numeric characters and spaces only.
+| `BOND_NAME` should contain alphabetic characters, numeric characters, and spaces only.
 
 `BOND_NAME` is case-sensitive.
 
@@ -579,7 +579,7 @@ Deletes an investment account named `DBB Vickers Account`.
 
 ===== Adding investment bonds `/add /bonds`
 Signed up for a bond? Finding it difficult to keep up with the interest?
-No worries! *OwlMoney* allows efficient tracking of your semi annual coupon interest!
+No worries! *OwlMoney* allows efficient tracking of your semi-annual coupon interest!
 
 *Command Syntax*
 `/add /bonds /from ACCOUNT_NAME /name BOND_NAME /amount AMOUNT /rate BOND_RATE /date DATE /year YEARS`
@@ -595,8 +595,8 @@ Bonds can only be added to investment accounts.
 
 * `/add /bonds /from DBB Vickers Account /name June SSB /amount 1000 /rate 1.92 /year 1`
 
-Adds a bond named `June SSB` charged to `DBB Vickers Account` at $`1000` with interest rate of `1.92`% bought on
-`1/1/2019` for a period of `1` year(s).
+Adds a bond named `June SSB` charged to `DBB Vickers Account` at $`1000` with an interest rate of `1.92`% bought on
+`1/1/2019` for `1` year(s).
 
 ===== Editing Bond details `/edit /bonds`
 Change in your investment details? Edit them here!
@@ -636,7 +636,7 @@ Sold your bonds? Delete it from *OwlMoney*!
 Deletes the bond named `June SSB` charged to `DBB Vickers Account`.
 
 ==== Credit Card Management
-In this section, you'll be introduced to commands and parameters that helps you to manage your credit cards and
+In this section, you'll be introduced to commands and parameters that help you to manage your credit cards and
 expenditures associated with it in *OwlMoney*.
 
 Below is a list of command parameters that you can expect to use for the commands in this section.
@@ -648,7 +648,7 @@ Below is a list of command parameters that you can expect to use for the command
 
 (e.g. POBB Everyday Card)
 
-| `CARD_NAME` should contain alphabetic characters, numeric characters and spaces only.
+| `CARD_NAME` should contain alphabetic characters, numeric characters, and spaces only.
 
 `CARD_NAME` is case-sensitive.
 
@@ -662,7 +662,7 @@ Take note that there is a maximum of *30* character limit.
 | `CARD_LIMIT` should contain only digits and up to *2* decimal places and a maximum of *9* digits.
 
 | `CASHBACK_RATE`
-| Indicates the cash back returns rate of the credit card in percentage.
+| Indicates the cashback returns rate of the credit card in percentage.
 
 (e.g. 3.1)
 
@@ -684,7 +684,7 @@ Take note that there is a maximum of *30* character limit.
 
 | `DESCRIPTION`
 | Indicates the description of the transaction.
-| `DESCRIPTION` should contain alphabetic characters, numeric characters and spaces only.
+| `DESCRIPTION` should contain alphabetic characters, numeric characters, and spaces only.
 
 Take note that there is a maximum of *50* character limit.
 
@@ -715,7 +715,7 @@ Here's how you can use the `/add /card` command.
 
 [WARNING]
 ====
-*OwlMoney* only supports card with credit limit in lieu of encouraging you to spend less!
+*OwlMoney* only supports cards with a credit limit to encourage you to spend less!
 ====
 
 *Example*
@@ -773,7 +773,7 @@ Deletes a credit card named `POBB Tomorrow Card`.
 
 ===== Adding expenditures for credit cards `/add /cardexpenditure`
 
-Charged an expenditure to your credit card to earn cash back rebates? You can record them here!
+Charged an expenditure to your credit card to earn cashback rebates? You can record them here!
 
 *Command Syntax*
 
@@ -783,7 +783,7 @@ Charged an expenditure to your credit card to earn cash back rebates? You can re
 
 * `/add /cardexpenditure /amount 1.20 /from MYCARD /date 28/09/2019 /desc bubble tea /category Dining`
 
-Adds an expenditure that charged to `MYCARD` dated on `28/09/2019` that costs `$1.20` with the description of `bubble
+Adds an expenditure that charged to `MYCARD` dated `28/09/2019` that costs `$1.20` with the description of `bubble
 tea` and category of `Dining`.
 
 ===== Editing expenditures for credit cards `/edit /cardexpenditure`
@@ -835,7 +835,7 @@ To find out which expenditure to delete, use the `/list` or `/find` function to 
 Deletes an expenditure from `MYCARD` with transaction number `1`.
 
 ==== Financial Goal Management
-In this section, you'll be introduced to commands and parameters that helps you to create financial goals to
+In this section, you'll be introduced to commands and parameters that help you to create financial goals to
 achieve your short and long term goals in *OwlMoney*.
 
 Below is a list of command parameters that you can expect to use for the commands in this section.
@@ -847,7 +847,7 @@ Below is a list of command parameters that you can expect to use for the command
 
 (e.g. Punggol BTO down payment)
 
-| `GOAL_NAME` should contain alphabetic characters, numeric characters and spaces only.
+| `GOAL_NAME` should contain alphabetic characters, numeric characters, and spaces only.
 
 `GOAL_NAME` is case-sensitive.
 
@@ -861,14 +861,14 @@ Take note that there is a maximum of *30* character limit.
 | `TARGET_AMOUNT` should contain only digits up to *2* decimal places and a maximum of *9* digits.
 
 | `DATE`
-| Indicates the date you wish to achieve your goal by.
+| Indicates the date you wish to achieve your goal.
 
 (e.g. 1/12/2022)
 
 | `DATE` should be in *DD/MM/YYYY* format and *MUST* be a newer date than the current date.
 
 | `DAYS`
-| Indicates the number of days you wish to achieve your goal by.
+| Indicates the number of days you wish to achieve your goal.
 | `DAYS` should contain digits up to *365* only.
 
 |======
@@ -880,7 +880,7 @@ Take note that there is a maximum of *30* character limit.
 ===== Adding financial goals `/add /goals`
 
 Have financial goals that you want to achieve? We can certainly help you with that!
-Regardless of it being short term goals like saving for a holiday or long term goals
+Regardless of it being short-term goals like saving for a holiday or long-term goals
 like saving for your wedding or retirement, we got you covered!
 
 *Command Syntax*
@@ -918,15 +918,15 @@ At least one of `/newname`, `/amount`, `/in` or `/by` must be used.
 
 * `/edit /goals /name BTO at Punggol Downpayment /newname BTO at Tampines Downpayment`
 
-Changes the name of the goals from `BTO at Punggol Downpayment` to `BTO at Tampines Downpayment`.
+Edits the name of the goals from `BTO at Punggol Downpayment` to `BTO at Tampines Downpayment`.
 
 * `/edit /goals /name BTO at Punggol Downpayment /amount 27500`
 
-Changes the goals of `BTO at Punggol Downpayment` amount to $`27500`.
+Edits the goals of `BTO at Punggol Downpayment` amount to $`27500`.
 
 * `/edit /goals /name BTO at Punggol Downpayment /by 11/11/2021`
 
-Changes the goals of `BTO at Punggol Downpayment` to a new date of `11/11/2021`.
+Edits the goals of `BTO at Punggol Downpayment` to a new date of `11/11/2021`.
 
 ===== Deleting financial goals `/delete /goals`
 
@@ -966,7 +966,7 @@ They include capabilities like finding, listing, transferring money and advanced
 
 ==== Finding information stored in OwlMoney `/find`
 
-In this section, you'll be introduced to commands and parameters that helps you to find and sieve information
+In this section, you'll be introduced to commands and parameters that help you to find and sieve information
 that you require quickly out of *OwlMoney*.
 
 Below is a list of command parameters that you can expect to use for the commands in this section.
@@ -978,7 +978,7 @@ Below is a list of command parameters that you can expect to use for the command
 
 (e.g. DBB Vickers Account)
 
-| `ACCOUNT_NAME` should contain alphabetic characters, numeric characters and spaces only.
+| `ACCOUNT_NAME` should contain alphabetic characters, numeric characters, and spaces only.
 
 `ACCOUNT_NAME` is case-sensitive.
 
@@ -989,7 +989,7 @@ Take note that there is a maximum of *30* character limit.
 
 (e.g. POBB Everyday Card)
 
-| `CARD_NAME` should contain alphabetic characters, numeric characters and spaces only.
+| `CARD_NAME` should contain alphabetic characters, numeric characters, and spaces only.
 
 `CARD_NAME` is case-sensitive.
 
@@ -1000,7 +1000,7 @@ Take note that there is a maximum of *30* character limit.
 
 (e.g. June SSB)
 
-| `BOND_NAME` should contain alphabetic characters, numeric characters and spaces only.
+| `BOND_NAME` should contain alphabetic characters, numeric characters, and spaces only.
 
 `BOND_NAME` is case-sensitive.
 
@@ -1008,7 +1008,7 @@ Take note that there is a maximum of *30* character limit.
 
 | `DESCRIPTION`
 | Indicates the description of the transaction.
-| `DESCRIPTION` should contain alphabetic characters, numeric characters and spaces only.
+| `DESCRIPTION` should contain alphabetic characters, numeric characters, and spaces only.
 
 Take note that there is a maximum of *50* character limit.
 
@@ -1028,7 +1028,7 @@ Take note that there is a maximum of *50* character limit.
 ===== Finding savings account details `/find /savings`
 
 Can't remember the name of your savings account? Don't worry *OwlMoney* allows you to find out details of
-your bank account as long as your remember part of your account name.
+your bank account as long as you remember part of your account name.
 
 *Command Syntax*
 
@@ -1043,12 +1043,12 @@ your bank account as long as your remember part of your account name.
 
 * `/find /savings /name Jun`
 
-Finds and lists all savings accounts that has the phrase `Jun` in the account name.
+Finds and lists all savings accounts that have the phrase `Jun` in the account name.
 
 ===== Finding investment account details `/find /investment`
 
 Can't remember the name of your investment account? Don't worry *OwlMoney* allows you to find out details of
-your bank account as long as your remember part of your account name.
+your bank account as long as you remember part of your account name.
 
 *Command Syntax*
 
@@ -1063,7 +1063,7 @@ your bank account as long as your remember part of your account name.
 
 * `/find /investment /name Vickers`
 
-Finds and lists all investment accounts that has the phrase `Vickers` in the account name.
+Finds and lists all investment accounts that have the phrase `Vickers` in the account name.
 
 ===== Finding credit card details `/find /card`
 
@@ -1082,11 +1082,11 @@ Searching for a Credit Card? *OwlMoney* helps you by providing you various ways 
 
 * `/find /card /name POBB`
 
-Finds and lists all card with the name that contains the phrase `POBB`.
+Finds and lists all cards with the name that contains the phrase `POBB`.
 
 ===== Finding bond details `/find /bonds`
 
-Searching for an investment bond within an investment account? *OwlMoney* is able to help you with that by providing
+Searching for an investment bond within an investment account? *OwlMoney* can help you with that by providing
 you various ways to do it!
 
 *Command Syntax*
@@ -1104,7 +1104,7 @@ you various ways to do it!
 
 * `/find /bonds /name SSB /from DBB Vickers Account`
 
-Finds and lists all bonds with bond name that contains the phrase `SSB` from the investment account called `DBB Vickers`
+Finds and lists all bonds that contain the phrase `SSB` in the name from the investment account called `DBB Vickers`
 Account.
 
 ===== Finding bank transaction details `/find /banktransaction`
@@ -1277,11 +1277,11 @@ paying for the coverage.
 
 == FAQ
 *Q*: How do I save my data in the application? +
-*A*: You do not need to save the data manually. Whenever you run any commands that makes changes, *OwlMoney*'s data are
+*A*: You do not need to save the data manually. Whenever you run any commands that make changes, *OwlMoney*'s data are
 saved automatically in the `data` directory.
 
 == Command Summary
-This section provides a quick references for all commands available in *OwlMoney*.
+This section provides a quick reference for all commands available in *OwlMoney*.
 
 === General Commands
 |======
@@ -1413,7 +1413,7 @@ AMOUNT] [/date DATE]`
 | `/add /card /name POBB Tomorrow Card /limit 10000 /rebate 1.5`
 
 | *Editing credit card*
-| Edit the credit card's details based on the new details given.
+| Edit the credit card details based on the new details given.
 | `/edit /card /name CARD_NAME [/newname CARD_NAME] [/amount AMOUNT] [/rebate CASHBACK_RATE]`
 | `/edit /card /name POBB Tomorrow Card /newname JunBank GoodVibes Card`
 
