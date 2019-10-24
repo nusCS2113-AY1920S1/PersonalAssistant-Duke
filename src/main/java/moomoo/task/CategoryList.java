@@ -9,7 +9,6 @@ public class CategoryList {
     public CategoryList() {
         categoryList = new ArrayList<>();
     }
-    
     public CategoryList(ArrayList<Category> categoryList) {
         this.categoryList = categoryList;
     }
@@ -20,6 +19,18 @@ public class CategoryList {
     
     public Category get(int i) {
         return categoryList.get(i);
+    }
+
+    public ArrayList<Category> getCategoryList() {
+        return categoryList;
+    }
+
+    public void add(Category newCategory) {
+        categoryList.add(newCategory);
+    }
+
+    public void delete(int categoryNumber) {
+        categoryList.remove(categoryNumber);
     }
     
     /**
@@ -82,31 +93,6 @@ public class CategoryList {
         }
         
         return longestName;
-    }
-    
-    public ArrayList<Category> getCategoryList() {
-        return categoryList;
-    }
-
-    /**
-     * Calculates the total of all expenditures from all categories for a month.
-     * @param month month to check
-     * @return total expenditure for the month
-     */
-    public double getMonthlyGrandTotal(int month) {
-        double total = 0;
-        for (Category category : categoryList) {
-            total += category.getMonthlyTotal(month);
-        }
-        return total;
-    }
-
-    public void add(Category newCategory) {
-        categoryList.add(newCategory);
-    }
-
-    public void deleteCategory(int categoryNumber) {
-        categoryList.remove(categoryNumber);
     }
     
     /**

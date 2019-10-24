@@ -16,14 +16,14 @@ public class DeleteCategoryCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Category category,
-                        Ui ui, Storage storage)
-            throws MooMooException {
+                        Ui ui, Storage storage) throws MooMooException {
         super.execute(calendar, budget, categoryList, category, ui, storage);
 
         categoryList.list(ui);
         ui.showEnterCategoryMessage();
         int categoryNumber = ui.readNumber() - 1;
         ui.showRemovedCategoryMessage(categoryList.get(categoryNumber));
-        categoryList.deleteCategory(categoryNumber);
+        storage.deleteCategoryFromFile(categoryList.get(categoryNumber).toString());
+        categoryList.delete(categoryNumber);
     }
 }

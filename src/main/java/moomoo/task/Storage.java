@@ -19,15 +19,17 @@ public class Storage {
     private DecimalFormat df;
     private String budgetFilePath;
     private String scheduleFilePath;
+    private String categoryFilePath;
 
     /**
      * Initializes storage and the filepath for each file.
      * @param budgetFilePath File path to store the budget into.
      * @param scheduleFilePath File path to store all categories
      */
-    public Storage(String budgetFilePath, String scheduleFilePath) {
+    public Storage(String budgetFilePath, String scheduleFilePath, String categoryFilePath) {
         this.budgetFilePath = budgetFilePath;
         this.scheduleFilePath = scheduleFilePath;
+        this.categoryFilePath = categoryFilePath;
         df = new DecimalFormat("#.00");
     }
 
@@ -38,8 +40,29 @@ public class Storage {
      */
     public ArrayList<Category> loadCategories() throws MooMooException {
         ArrayList<Category> categoryArrayList = new ArrayList<Category>();
-
-        return categoryArrayList;
+        try {
+            File myNewFile = new File(categoryFilePath);
+            if (myNewFile.createNewFile()) {
+                return new ArrayList<>();
+            } else {
+                List<String> input = Files.readAllLines(Paths.get(this.categoryFilePath));
+                Category newCategory = new Category("Misc");
+                Expenditure newExpenditure;
+                for (String s : input) {
+                    if (s.startsWith("c/")) {
+                        newCategory = new Category(s);
+                        categoryArrayList.add(newCategory);
+                    } else {
+                        double cost = Double.parseDouble(s);
+                        newExpenditure = new Expenditure(cost);
+                        newCategory.add(newExpenditure);
+                    }
+                }
+                return categoryArrayList;
+            }
+        } catch (IOException e) {
+            throw new MooMooException("Unable to read file. Please retry again.");
+        }
     }
 
     /**
@@ -121,13 +144,48 @@ public class Storage {
     private void createFileAndDirectory(String filePath) throws MooMooException {
         try {
             File myNewFile = new File(filePath);
-            Files.createDirectory(Paths.get(myNewFile.getParent()));
-            Files.createFile(Paths.get(filePath));
-        } catch (FileAlreadyExistsException e) {
-            return;
+            myNewFile.createNewFile();
         } catch (IOException e) {
             throw new MooMooException("Unable to create file. Please restart the program");
         }
+    }
+
+    /**
+     * Creates a file if necessary and stores each category and its budget into the file.
+     * @param category Budget object that stores the budget for each category
+     * @throws MooMooException thrown if file cannot be written to.
+     */
+    public void deleteCategoryFromFile(String category) throws MooMooException {
+        try {
+            List<String> data = Files.readAllLines(Paths.get(this.categoryFilePath));
+            for (String iterator : data) {
+                if (iterator.contentEquals("c/" + category)) {
+                    data.remove(iterator);
+                    break;
+                }
+            }
+            Files.write(Paths.get(this.categoryFilePath), data);
+        } catch (IOException e) {
+            throw new MooMooException("Unable to write to file. Please retry again.");
+        }
+
+    }
+
+    /**
+     * Creates a file if necessary and stores each category and its budget into the file.
+     * @param category Budget object that stores the budget for each category
+     * @throws MooMooException thrown if file cannot be written to.
+     */
+    public void saveCategoryToFile(String category) throws MooMooException {
+        createFileAndDirectory(this.categoryFilePath);
+        try {
+            String newCategory = Files.readString(Paths.get(this.categoryFilePath));
+            newCategory += ("c/" + category + "\n");
+            Files.writeString(Paths.get(this.categoryFilePath), newCategory);
+        } catch (IOException e) {
+            throw new MooMooException("Unable to write to file. Please retry again.");
+        }
+
     }
 
     /**

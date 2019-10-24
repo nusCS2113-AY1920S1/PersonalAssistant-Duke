@@ -10,21 +10,21 @@ import moomoo.task.Ui;
 
 public class AddCategoryCommand extends Command {
 
-    public AddCategoryCommand() {
+    private String categoryName;
+
+    public AddCategoryCommand(String categoryName) {
         super(false, "");
+        this.categoryName =categoryName;
     }
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Category category,
-                        Ui ui, Storage storage)
-            throws MooMooException {
+                        Ui ui, Storage storage) throws MooMooException {
         super.execute(calendar, budget, categoryList, category, ui, storage);
 
-        categoryList.list(ui);
-        ui.showAddCategoryMessage();
-        String categoryName = ui.readCommand();
         Category newCategory = new Category(categoryName);
         categoryList.add(newCategory);
+        storage.saveCategoryToFile(categoryName);
         ui.showNewCategoryMessage(categoryName);
     }
 }

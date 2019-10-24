@@ -9,7 +9,6 @@ import moomoo.command.ExitCommand;
 import moomoo.command.GraphCommand;
 import moomoo.command.ListCategoryCommand;
 import moomoo.command.ScheduleCommand;
-import moomoo.command.DeleteCategoryCommand;
 import moomoo.command.TotalCommand;
 
 import java.util.NoSuchElementException;
@@ -45,7 +44,8 @@ public class Parser {
     }
 
     private static Command parseList(Scanner scanner, Ui ui) throws MooMooException {
-        String input = parseInput(scanner, ui, "list");
+        String text = "What do you wish to list?" + "\ncategory" + "\nexpenditure";
+        String input = parseInput(scanner, ui, text);
         switch (input) {
         case ("category"): return new ListCategoryCommand();
         default: throw new MooMooException("Sorry I did not recognize that command.");
@@ -53,6 +53,7 @@ public class Parser {
     }
 
     private static Command parseDelete(Scanner scanner, Ui ui) throws MooMooException {
+        String text = "What do you wish to delete?" + "\ncategory" + "\nexpenditure";
         String input = parseInput(scanner, ui, "delete");
         switch (input) {
         case ("category"): return new DeleteCategoryCommand();
@@ -61,15 +62,20 @@ public class Parser {
     }
 
     private static Command parseAdd(Scanner scanner, Ui ui) throws MooMooException {
-        //String input = parseInput(scanner, ui, "add");
-        //switch (input) {
-        switch (scanner.next()) {
-        case ("category"): return new AddCategoryCommand();
+        String text = "What do you wish to add?" + "\ncategory" + "\nexpenditure";
+        String input = parseInput(scanner, ui, text);
+        switch (input) {
+        case ("category"): return parseAddCategory(scanner, ui);
         case ("expenditure"): return parseAddExpenditure(ui);
         default:
             throw new MooMooException("Sorry I did not recognize that command.");
-
         }
+    }
+
+    private static AddCategoryCommand parseAddCategory(Scanner scanner, Ui ui) {
+        String text = "Please enter a name for your new category.";
+        String input = parseInput(scanner, ui, text);
+        return new AddCategoryCommand(input);
     }
 
     private static Command parseAddExpenditure(Ui ui) {
@@ -87,7 +93,7 @@ public class Parser {
         try {
             input = scanner.next();
         } catch (NoSuchElementException e) {
-            ui.showAddMessage(text);
+            ui.showInputPrompt(text);
             input = ui.readCommand();
         }
         return input;

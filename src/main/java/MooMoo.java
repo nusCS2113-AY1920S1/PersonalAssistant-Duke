@@ -24,8 +24,8 @@ public class MooMoo {
      */
     MooMoo() {
         ui = new Ui();
-        storage = new Storage("data/budget.txt","data/schedule.txt");
-
+        storage = new Storage("data/budget.txt","data/schedule.txt",
+                "data/category.txt");
         try {
             categoryList = new CategoryList(storage.loadCategories());
         } catch (MooMooException e) {
@@ -48,7 +48,6 @@ public class MooMoo {
             ui.printException(e);
             calendar = new ScheduleList();
         }
-
     }
 
     /**
