@@ -86,14 +86,43 @@ All of these commands are stored in a `commandList` stack, where it will be used
 How undo/redo executes:
 
 * Alternative 1 (Current Choice): Commands saves a complete previous state if it modifies the degrees or task list
-** Pros: Easier to identify and undo/redo states once commands are known and saved. Much easier to implement than a partial state save. Common method in the industry to implement undo/redo. Easier to implement when new commands are added.
-** Cons: Memory issues once too many commands are executed.
-* Alternative 2: Saves a list in a history.
-** Pros: Straightforward method to save previous states that can be called using undo/redo. No work needed when new commands are added.
-** Cons: More work needed to support multiple types of lists. Memory issues once too many states are saved.
+** Pros: 
+*** Much easier to implement than a partial state save. 
+*** Easier to implement when new commands are added.
+*** Common method in the industry to implement undo/redo.
+** Cons: 
+*** Memory issues once too many commands are executed.
+* Alternative 2: Saves the degree and task list to a history.
+** Pros: 
+*** Straightforward method to save previous states that can be called using undo/redo. 
+*** No work needed when new commands are added.
+** Cons: 
+*** Does not work when a modification changes multiple lists.
+*** Memory issues once too many states are saved.
 * Alternative 3: Perform the opposite command whenever undo is called. (i.e. undoing add will delete the addition instead of recalling the previous state)
-** Pros: Uses less memory than saving the state every time. Proper implementation of the memento pattern.
-** Cons: A lot of work needed to "unexecute" every command possible. More commands means more "unexecution" is needed, and the workload scales higher than alternative 1.
+** Pros: 
+*** Uses less memory than saving the state every time. 
+*** Proper implementation of the memento pattern.
+** Cons: 
+*** A lot of work needed to "unexecute" every command possible. 
+*** More commands means more "unexecution" is needed, and the workload scales higher than alternative 1.
+
+Data Structure to support undo/redo:
+
+* Alternative 1 (Current Choice): `CommandList` class using a stack and a pointer.
+** Pros:
+*** Much faster pushing and popping the stack than adding into standard `Lists` and `ArrayLists`.
+*** More control than a simple stack, as it can also support redos and new commands added after undos.
+** Cons:
+*** Have to manually the CommandList from scratch instead of using a pre-esxisting data structure or class.
+
+* Alternative 2: `ArrayList` of commands and a pointer.
+** Pros:
+*** Less work needed to write methods as it uses a pre-existing data structure.
+*** Easier for newer developers to understand how the undo/redo function works.
+** Cons:
+*** Have to do all the work of adding, removing and choosing commands within another class, and can result in messy implementations.
+*** Slightly slower than stacks when adding and deleting elements in the `ArrayList`.
 
 == Testing
 
