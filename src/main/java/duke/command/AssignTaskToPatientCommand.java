@@ -72,17 +72,14 @@ public class AssignTaskToPatientCommand implements Command {
                     newPatientTask = new EventPatientTask(tempPid, tempTid, stime, etime,
                             taskAssignmentInfo[0]);
                 }
-            } else {
-                throw new DukeException("Wrong format is detected!");
             }
-
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new DukeException("You are missing some information!");
+            throw new DukeException("You are using the wrong format for the assign command");
         }
 
         if (patientList.isExist(newPatientTask.getPatientId()) && tasksList.doesExist(newPatientTask.getTaskID())) {
-            if (patientTaskList.isIdExist(newPatientTask.getUid()) || patientTaskList.isSameTaskExist(newPatientTask)) {
+            if (patientTaskList.doesUidExist(newPatientTask.getUid())
+                    || patientTaskList.isSameTaskExist(newPatientTask)) {
                 throw new DukeException("Either the unique task id is repeated or the same task exists");
             } else {
                 patientTaskList.addPatientTask(newPatientTask);

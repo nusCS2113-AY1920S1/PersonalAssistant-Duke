@@ -20,6 +20,7 @@ public class ParserTest {
     String deleteTaskInputWithName = "delete task :Take medicine";
     String deleteAssignedTaskInputWithID = "delete assigned task :#2 :#5";
     String deleteAssignedTaskInputWithName = "delete assigned task :patient name :task name";
+    String deleteAssignedTaskInputWithUniqueID = "delete assigned task :%3";
 
     @Test
     public void parseAddPatientTest() throws DukeException {
@@ -98,13 +99,8 @@ public class ParserTest {
     @Test
     public void parseDeleteAssignedTask() throws DukeException {
         Parser testParserID = new Parser(deleteAssignedTaskInputWithID);
-        Parser testParserName = new Parser(deleteAssignedTaskInputWithName);
-
         String[] testOutputID = testParserID.parseDeleteAssignedTask();
-        String[] testOutputName = testParserName.parseDeleteAssignedTask();
-
         String[] desiredOutputID = {"#2", "#5"};
-        String[] desiredOutputName = {"patient name", "task name"};
 
         assertTrue(desiredOutputID.length == testOutputID.length);
         for (int i = 0; i < desiredOutputID.length; i++) {
@@ -112,11 +108,20 @@ public class ParserTest {
                     + desiredOutputID[i] + " but got: " + testOutputID[i]);
         }
 
+        Parser testParserName = new Parser(deleteAssignedTaskInputWithName);
+        String[] testOutputName = testParserName.parseDeleteAssignedTask();
+        String[] desiredOutputName = {"patient name", "task name"};
         assertTrue(desiredOutputName.length == testOutputName.length);
         for (int i = 0; i < desiredOutputName.length; i++) {
             assertTrue(desiredOutputName[i].equals(testOutputName[i]), "Parsing failed. Expected: "
                     + desiredOutputName[i] + " but got: " + testOutputName[i]);
         }
+
+        Parser testParserUniqueID = new Parser(deleteAssignedTaskInputWithUniqueID);
+        String[] testOutputUniqueID = testParserUniqueID.parseDeleteAssignedTask();
+        String[] desiredOutputUniqueID = {"%3"};
+        assertTrue(desiredOutputUniqueID[0].equals(testOutputUniqueID[0]), "Parsing failed. Expected: "
+                + desiredOutputUniqueID[0] + " but got: " + testOutputUniqueID[0]);
 
     }
 

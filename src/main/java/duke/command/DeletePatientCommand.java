@@ -95,13 +95,13 @@ public class DeletePatientCommand implements Command {
         try {
             ArrayList<PatientTask> patientTask = patientTaskList.getPatientTask(patientToBeDeleted.getID());
             ArrayList<Task> tempTask = new ArrayList<>();
-            for (PatientTask temppatientTask : patientTask) {
-                tempTask.add(taskManager.getTask(temppatientTask.getTaskID()));
+            for (PatientTask tempPatientTask : patientTask) {
+                tempTask.add(taskManager.getTask(tempPatientTask.getTaskID()));
             }
             ui.patientTaskFound(patientToBeDeleted, patientTask, tempTask);
             toDelete = ui.confirmPatientToBeDeleted(patientToBeDeleted, true);
             if (toDelete) {
-                patientTaskList.deleteEntirePatientTask(patientToBeDeleted.getID());
+                patientTaskList.deleteAllTasksBelongToThePatient(patientToBeDeleted.getID());
                 storageManager.saveAssignedTasks(patientTaskList.fullPatientTaskList());
             }
         } catch (Exception e) {

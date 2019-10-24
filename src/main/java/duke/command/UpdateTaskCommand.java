@@ -1,3 +1,5 @@
+//@@kkeejjuunn
+
 package duke.command;
 
 import duke.core.DukeException;
@@ -33,15 +35,14 @@ public class UpdateTaskCommand implements Command {
     @Override
     public void execute(PatientTaskList patientTask, TaskManager taskManager, PatientManager patientManager,
                         Ui ui, StorageManager storageManager) throws DukeException {
-        String[] tempCommand = command[0].split(" ", 3); //changed temporarily to allow build success
-        char firstChar = tempCommand[0].charAt(0);
+        char firstChar = command[0].charAt(0);
         if (firstChar == '#') {
             int id;
             try {
-                id = Integer.parseInt(tempCommand[0].substring(1, tempCommand[0].length()));
+                id = Integer.parseInt(command[0].substring(1, command[0].length()));
                 Task taskToBeUpdated = taskManager.getTask(id);
-                if (tempCommand[1].toLowerCase().equals("description")) {
-                    taskToBeUpdated.setDescription(tempCommand[2]);
+                if (command[1].toLowerCase().equals("description")) {
+                    taskToBeUpdated.setDescription(command[2]);
                 } else {
                     throw new DukeException("You can only update 'Description' of the task");
                 }
@@ -51,7 +52,7 @@ public class UpdateTaskCommand implements Command {
                 ui.showTaskInfo(taskToBeUpdated);
             } catch (Exception e) {
                 throw new DukeException(
-                        "Please follow the format 'update task #<id> description <new description>'.");
+                        "Please follow the format 'update task :#<id> :description :<new description>'.");
             }
 
         }

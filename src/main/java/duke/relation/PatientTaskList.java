@@ -74,7 +74,21 @@ public class PatientTaskList {
                 return;
             }
         }
-        throw new DukeException("Such Task does not exist!");
+    }
+
+    /**
+     * .
+     *
+     * @param id .
+     * @throws DukeException .
+     */
+    public void deleteAllPatientTaskByTaskId(int id) throws DukeException {
+        for (PatientTask patientTask : patientTaskIdMap.values()) {
+            if (patientTask.getTaskID() == id) {
+                patientTaskIdMap.remove(patientTask.getPatientId(), patientTask);
+                return;
+            }
+        }
     }
 
 
@@ -83,11 +97,23 @@ public class PatientTaskList {
      *
      * @return .
      */
-    public boolean isIdExist(int id) {
+    public boolean doesUidExist(int id) {
         for (PatientTask patientTask: patientTaskIdMap.values()) {
             if (patientTask.getUid() == id) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    /**
+     * .
+     *
+     * @return .
+     */
+    public boolean doesPatientIdExist(int id) {
+        if (patientTaskIdMap.containsKey(id)) {
+            return true;
         }
         return false;
     }
@@ -112,7 +138,7 @@ public class PatientTaskList {
      * @param pid .
      * @throws DukeException .
      */
-    public void deleteEntirePatientTask(Integer pid) throws DukeException {
+    public void deleteAllTasksBelongToThePatient(Integer pid) throws DukeException {
         if (patientTaskIdMap.containsKey(pid)) {
             patientTaskIdMap.removeAll(pid);
         } else {
