@@ -21,7 +21,7 @@ By: `Team AY1920S1-CS2113T-F10-1`      Since: `Aug 2019`      License: `NUS Scho
 **ModPlan**
 
 Your one stop solution to module planning through out your university tenure! +
-ModPlan is a module planning system that expands on NUSMODS to help NUS Computer Engineering students to plan their modules for all four years of their bachelor's degree.
+ModPlan is a module planning system that expands on NUSMODS to help NUS Computer Engineering students to plan their modules for all four years of their bachelor's degree. ModPlan also helps NUS Computer Engineering students to customise the modules they want to take and keep track of the current and future modules to be taken. As such, NUS Computer Engineering students can graduate in time with the planning provided by the ModPlan!
 
 == Quick Start
 
@@ -256,6 +256,9 @@ This error appears when there is bad internet connection. The information from t
 
 Example of error message: `Error: Bad Status Connection!`
 
+> **_Solving the error:_** +
+> Reconnect to a better wifi connection.
+
 === `ModFailedJsonException`
 This error appears when the file from the nusMods V2 API is not correctly converted for Java usage.
 
@@ -266,10 +269,22 @@ This error appears when the user searches for a module code that is not found in
 
 image::ModNotFoundException.png[width="250"]
 
+> **_Solving the error:_** +
+> ****
+* Input another module code which exists in the nusMod list. +
+* Input the correct module code into the command line.
+****
+
 === `ModCommandException`
 This error appears when the user does not input a valid command name into the command line.
 
 image::ModCommandException.png[width="250"]
+
+> **_Solving the error:_** +
+> ****
+* Input a valid command name into the command line. +
+* If unsure of the available command names, refer to the <<Command Summary>>. 
+****
 
 === `ModCcaScheduleException`
 This error appears when the user inputs a CCA whose time period clashes with another CCA.
