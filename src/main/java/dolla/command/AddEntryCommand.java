@@ -41,12 +41,12 @@ public class AddEntryCommand extends Command {
         String mode = "entry";
         Entry newEntry = new Entry(type, amount, description, date);
 
-        if(prevPosition == -1) {
+        if (prevPosition == -1) {
             dollaData.addToLogList(mode, newEntry);
             index = dollaData.getLogList(mode).size();
             Undo.removeCommand(mode, index);
             Redo.clearRedo(mode);
-        } else if(prevPosition == -2) {
+        } else if (prevPosition == -2) {
             dollaData.addToLogList(mode, newEntry);
             index = dollaData.getLogList(mode).size();
             Undo.removeCommand(mode, index);

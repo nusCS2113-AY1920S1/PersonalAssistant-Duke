@@ -65,11 +65,11 @@ public class DebtsParser extends Parser {
     private Command processAdd(String type, String name, double amount) {
         Command addDebt;
         Repeat.setRepeatInput("debt", inputLine); //setup repeat
-        if(undoFlag == 1) {//undo input
+        if (undoFlag == 1) { //undo input
             addDebt = new AddDebtsCommand(type, name, amount, description, date, prevPosition);
-        } else if(redoFlag == 1) {
+        } else if (redoFlag == 1) {
             addDebt = new AddDebtsCommand(type, name, amount, description, date, -2);
-        } else {//normal input, prePosition is -1
+        } else { //normal input, prePosition is -1
             addDebt = new AddDebtsCommand(type, name, amount, description, date, -1);
         }
         return addDebt;

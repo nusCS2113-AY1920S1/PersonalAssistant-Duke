@@ -139,7 +139,7 @@ public abstract class Parser {
     }
 
     /**
-     * This method will set the prevPosition int in this class
+     * This method will set the prevPosition int in this class.
      * @param prevPosition the prevPosition of a deleted input.
      */
     public static void setPrevPosition(int prevPosition) {

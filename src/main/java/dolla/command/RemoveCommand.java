@@ -44,11 +44,11 @@ public class RemoveCommand extends Command {
             return; // TODO: return error command
         }
 
-        if(logNumStr.contains("/")) { //input from undo
+        if (logNumStr.contains("/")) { //input from undo
             String[] parser = logNumStr.split("/", 2);
             logNumInt = stringToInt(parser[0]) - 1;
             Redo.addCommand(mode, logList.get().get(logNumInt).getUserInput()); //add undo input to redo
-        } else if(logNumStr.contains("|")) { //input form redo
+        } else if (logNumStr.contains("|")) { //input form redo
             String[] parser = logNumStr.split("//|", 2);
             logNumInt = stringToInt(parser[0]) - 1;
             Undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt); //add the user input to undo

@@ -55,12 +55,15 @@ public class EntryParser extends Parser {
     private Command processAdd() {
         Command addEntry;
         Repeat.setRepeatInput("entry", inputLine);
-        if(undoFlag == 1) {//undo input
-            addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, prevPosition);
-        } else if(redoFlag == 1) {
-            addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, -2);
-        } else {//normal input, prePosition is -1
-            addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, -1);
+        if (undoFlag == 1) { //undo input
+            addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
+                    description, date, prevPosition);
+        } else if (redoFlag == 1) {
+            addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
+                    description, date, -2);
+        } else { //normal input, prePosition is -1
+            addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
+                    description, date, -1);
         }
         return addEntry;
     }

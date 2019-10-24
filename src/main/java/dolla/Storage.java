@@ -252,36 +252,12 @@ public class Storage {
             storage.addAll(limits);
             storage.addAll(shortcuts);
 
-            for(Log currSave : storage) {
+            for (Log currSave : storage) {
                 String fileContent = currSave.formatSave();
                 file.write(fileContent);
                 file.write(System.lineSeparator());
             }
             storage.clear();
-
-//            for (Log currEntries : entries) {
-//                String fileContent = currEntries.formatSave();
-//                file.write(fileContent);
-//                file.write(System.lineSeparator());
-//            }
-//
-//            for (Log currLimits : limits) {
-//                String fileContent = currLimits.formatSave();
-//                file.write(fileContent);
-//                file.write(System.lineSeparator());
-//            }
-//
-//            for (Log currDebts : debts) {
-//                String fileContent = currDebts.formatSave();
-//                file.write(fileContent);
-//                file.write(System.lineSeparator());
-//            }
-//
-//            for (Log currShortcuts : shortcuts) {
-//                String fileContent = currShortcuts.formatSave();
-//                file.write(fileContent);
-//                file.write(System.lineSeparator());
-//            }
 
         } catch (IOException e) {
             System.out.println("***Error writing to duke.txt***");

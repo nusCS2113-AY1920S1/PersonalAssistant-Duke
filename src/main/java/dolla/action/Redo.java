@@ -41,9 +41,9 @@ public class Redo {
      * depending on the current mode.
      */
     private static void add() {
-        if(mode.equals("entry")) {
+        if (mode.equals("entry")) {
             redoEntryCommand.push("add " + userInput);
-        } else if(mode.equals("debt")) {
+        } else if (mode.equals("debt")) {
             redoDebtCommand.push(userInput);
         } else {
             redoLimitCommand.push(userInput);
@@ -57,9 +57,9 @@ public class Redo {
      */
     private static void remove() {
         redoInput = "remove " + index + "|redo";
-        if(mode.equals("entry")) {
+        if (mode.equals("entry")) {
             redoEntryCommand.push(redoInput);
-        } else if(mode.equals("debt")) {
+        } else if (mode.equals("debt")) {
             redoDebtCommand.push(redoInput);
         } else {
             redoLimitCommand.push(redoInput);
@@ -72,9 +72,9 @@ public class Redo {
      * @param mode the mode that the user is in.
      */
     public static void redoReady(String mode) {
-        if(mode.equals("entry")) {
+        if (mode.equals("entry")) {
             redoInput = redoEntryCommand.pop();
-        } else if(mode.equals("debt")) {
+        } else if (mode.equals("debt")) {
             redoInput = redoDebtCommand.pop();
         } else {
             redoInput = redoLimitCommand.pop();
@@ -86,7 +86,7 @@ public class Redo {
      * @return redoInput a string that serve as a redo input.
      */
     public static String processRedo() {
-            return redoInput;
+        return redoInput;
     }
 
     /**
@@ -95,9 +95,9 @@ public class Redo {
      * @param mode the mode that the user is in.
      */
     public static void clearRedo(String mode) {
-        if(mode.equals("entry")) {
+        if (mode.equals("entry")) {
             redoEntryCommand.clear();
-        } else if(mode.equals("debt")) {
+        } else if (mode.equals("debt")) {
             redoDebtCommand.clear();
         } else {
             redoLimitCommand.clear();

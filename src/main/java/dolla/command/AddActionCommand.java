@@ -32,7 +32,7 @@ public class AddActionCommand extends Command {
     private void undoCommand() {
         actionInput = Undo.processCommand(mode);
         String[] parser = actionInput.split(" ",2);
-        if(parser[0].equals("remove")) {
+        if (parser[0].equals("remove")) {
             actionInput = parser[0] + " " + parser[1];
         } else {
             prevPosition = Integer.parseInt(parser[0]);
@@ -62,6 +62,8 @@ public class AddActionCommand extends Command {
         case "repeat":
             actionInput = Repeat.getRepeatInput(mode);
             break;
+        default:
+            System.out.println("Invalid input"); //TODO:move to UI
         }
         Command c = MainParser.handleInput(mode, actionInput);
         c.execute(dollaData);

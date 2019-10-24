@@ -43,11 +43,11 @@ public class AddDebtsCommand extends Command {
         Debt newDebt = new Debt(type, name, amount, description, date);
         index = dollaData.getLogList(mode).size();
 
-        if(prevPosition == -1) {
+        if (prevPosition == -1) {
             dollaData.addToLogList(mode, newDebt);
             Undo.removeCommand(mode,index);
             Redo.clearRedo(mode);
-        } else if(prevPosition == -2) {
+        } else if (prevPosition == -2) {
             dollaData.addToLogList(mode, newDebt);
             Undo.removeCommand(mode,index);
             prevPosition = -1;
