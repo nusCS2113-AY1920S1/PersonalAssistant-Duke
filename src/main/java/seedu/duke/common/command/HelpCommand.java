@@ -85,8 +85,10 @@ public class HelpCommand extends Command {
         commandInfoList.add(new CommandInfo("Task", "doafter \'index\'\n"
                 + "\t-msg \'message\'\t\t(Must) The event/time when the task is to be do after", "Mark a "
                 + "task with the given index as to be done after the given description"));
-        commandInfoList.add(new CommandInfo("Task", "snooze \'index\'", "Snooze the task at the given "
-                + "index by 3 days. "));
+        commandInfoList.add(new CommandInfo("Task", "snooze \'index\'\n"
+                + "\t-by \'duration\'\t\t(Optional) The duration to snooze the task by", "Snooze "
+                + "the task at the given index according to the duration. If no duration is keyed, task "
+                + "would be snoozed by 3 days"));
         commandInfoList.add(new CommandInfo("Task", "set \'index\'\n"
                 + "\t-priority \'priority\'\t\t(Must) The priority level of the task in string", "Set a "
                 + "task to the given priority"));
@@ -97,14 +99,16 @@ public class HelpCommand extends Command {
                 + "be done", "Create a todo. "));
         commandInfoList.add(new CommandInfo("Task", "deadline \'name\'\n"
                 + "\t-time \'dd/MM/uuuu HHmm\'\t\t (Must) The time of the deadline\n"
+                + "or\t-time \'day HHmm\'\t\t (Optional) The time of the deadline\n"
                 + "\t[-tag \'tag content\']\t\t(Optional) Add a tag to the task created. Multiple tags "
-                + "can be added to a single todo. "
+                + "can be added to a single deadline. "
                 + "\n\t[-doafter \'message\']\t\t(Optional) Add the event/time after which the task should "
                 + "be done", "Create a deadline."));
         commandInfoList.add(new CommandInfo("Task", "event \'name\'\n"
-                + "\t-time \'dd/MM/uuuu HHmm\'\t\t (Must) The time of the deadline\n"
+                + "\t-time \'dd/MM/uuuu HHmm\'\t\t (Must) The time of the event\n"
+                + "or\t-time \'day HHmm\'\t\t (Optional) The time of the event\n"
                 + "\t[-tag \'tag content\']\t\t(Optional) Add a tag to the task created. Multiple tags "
-                + "can be added to a single todo. "
+                + "can be added to a single event. "
                 + "\n\t[-doafter \'message\']\t\t(Optional) Add the event/time after which the task should "
                 + "be done", "Create a event."));
 

@@ -70,7 +70,7 @@ public class CommandParseHelper {
     /**
      * Flip between Email and Task input type of the command parser.
      */
-    public static void filpInputType() {
+    public static void flipInputType() {
         if (inputType == InputType.TASK) {
             inputType = InputType.EMAIL;
         } else {
