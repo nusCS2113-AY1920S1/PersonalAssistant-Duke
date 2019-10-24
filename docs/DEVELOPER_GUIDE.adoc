@@ -15,7 +15,7 @@ endif::[]
 :repoURL: https://github.com/AY1920S1-CS2113T-F11-1/main
 
 By: `Team F11-1/` +
-Updated As: `17/10/2019`
+Updated As: `24/10/2019`
 
 == Setting Up
 Refer to the guide https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/SETTING_UP.md[here] for setting up.
@@ -24,7 +24,59 @@ Refer to the guide https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/do
 Building in progress... :hammer:
 
 == Implementation
-Building in progress... :hammer:
+This section describes some noteworthy details on how certain features are implemented. +
+
+*A. Exporting data as CSV files*
+
+1. Implementation of Exporting CSV files. (Proposed)
+- We will be planning to use OpenCSV for my primary implementation of exporting CSV files.
+- OpenCSV is an easy-to-use CSV parser library for Java. It was developed because all the CSV parsers at the time didn’t have commercial-friendly licenses.
+- For openCSV, the minimum version of Java supported is Java7.
+- We will be reading in objects from our project, and exporting them as a CSV file.
+- The command for exporting a CSV file will be just exportcsv. It would then read the data stored and export as CSV file, with headers preset.
+- If there is a empty slot in the object field, during the export of the CSV file, it would appear as empty as well. Hence not running error while exporting.
+- If the export command fails its execution, it will not call the program to execute the command. Hence the data will not be exported as a CSV file.
+
+2. Design Considerations
+- Pros and Cons of openCSV
+- Pros: +
+It is quick and easy way to read CSV. +
++
+It is also good to use it from Play framework (trough a scala wrapper) to read bulk user data.
+- Cons: +
+There some issues with quotes, etc. No progress on that since 2012.
+
+3. Configuration
+- Configuration of openCSV depends on the build of the project.
+- Dependency Information for:
+- Gradle/Grails: +
+`compile 'com.opencsv:opencsv:5.0'`
+- Maven Users: +
+`<dependency>
+<groupId>com.opencsv</groupId>
+<artifactId>opencsv</artifactId>
+<version>5.0</version>
+</dependency>`
+- Apache Buildr: +
+`'com.opencsv:opencsv:jar:5.0'`
+- Apache Ivy: +
+`<dependency org="com.opencsv" name="opencsv" rev="5.0">
+<artifact name="opencsv" type="jar" />
+</dependency>`
+- Groovy Grape: +
+`@Grapes(
+@Grab(group='com.opencsv', module='opencsv', version='5.0')
+)`
+- Scala SBT: +
+`libraryDependencies += "com.opencsv" % "opencsv" % "5.0"`
+- Leiningen: +
+`[com.opencsv/opencsv "5.0"]`
+
+4. Alternatives for exporting CSV files
+- Using Java CSV +
+Java CSV is a small fast open source Java library for reading and writing CSV and plain delimited text files. All kinds of CSV files can be handled, text qualified, Excel formatted, etc.
+
+Back to Top
 
 == Documentation
 Building in progress... :hammer:
