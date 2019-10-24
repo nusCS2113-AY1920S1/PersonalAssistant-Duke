@@ -84,7 +84,7 @@ Commands are the main classes with which we execute our features. All of the spe
 
 The execute method takes in the detailed map of modules drawn from the NUSMODS API Json file, module task list, cca list, planner UI, storage, and the jsonWrapper parser. Each execute method is overriden in the specific Command classes to do what the feature requires of the class.
 
-The `ModuleCommand` class also receives arguments based on the arguments passed by the `Argsparse4jWrapper` class, which is our main parser for the program, detailed above in <<Parser>>. 
+The `ModuleCommand` class also receives arguments based on the arguments passed by the `Parser` class, which is our main parser for the program, detailed above in <<Parser>>. 
 +
 These arguments change how some of the classes function as well, using a switch case system to sort through the different argument types received. These will changes will be explained further under the Implementation section here <<Implementation>>.
 
@@ -147,10 +147,10 @@ Parsing errors are handled by a `private` `handleError` method and only the logs
 
 === GradeCommand
 ==== Current Implementation
-The `grade` feature is operated by the `GradeCommand` class, which is called by the `Argsparse4jWrapper` class. Upon user input of `grade MODULECODE LETTERGRADE`, the Parser will return a new `GradeCommand`.
+The `grade` feature is operated by the `GradeCommand` class, which is called by the `Parser` class. Upon user input of `grade MODULECODE LETTERGRADE`, the Parser will return a new `GradeCommand`.
 
 Since `GradeCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `grade` command.
-From the `Argsparse4jWrapper`, `GradeCommand` also receives two additional variable inputs from the user: +
+From the `Parser`, `GradeCommand` also receives two additional variable inputs from the user: +
 
 . The module code of the module to be graded.
 . The letter grade attained for the module that the user specifies above.
@@ -186,7 +186,7 @@ These checks were implemented into the `ModuleInfoDetailed` class itself, which 
 
 === CapCommand
 ==== Current Implementation
-The `cap` feature is operated by the `CapCommand` class, which is called by the `Argsparse4jWrapper` class. Upon user input of `cap TYPE`, the Parser will return a new `CapCommand`. +
+The `cap` feature is operated by the `CapCommand` class, which is called by the `Parser` class. Upon user input of `cap TYPE`, the Parser will return a new `CapCommand`. +
 
 Since `CapCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `cap` command. +
 
@@ -195,7 +195,7 @@ The parameter `TYPE` can take three forms according to the user input. +
 `cap list` Where the user's CAP is calculated from the modules with letter grades in the module task list. +
 `cap module` Where the CAP of a module of the user's choosing can be calculated using the grades of prerequisite modules that the user has completed. +
 
-These `TYPE` parameters will be parsed by the `Argsparse4jWrapper` class and pass the corresponding argument of `toCap` into the `CapCommand` class. A switch case statement will handle the `toCap` argument, and choose to execute from three methods accordingly: +
+These `TYPE` parameters will be parsed by the `Parser` class and pass the corresponding argument of `toCap` into the `CapCommand` class. A switch case statement will handle the `toCap` argument, and choose to execute from three methods accordingly: +
 `calculateOverallCap`,
 `calculateListCap`
 and
