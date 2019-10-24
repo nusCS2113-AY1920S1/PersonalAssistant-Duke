@@ -138,6 +138,28 @@ image::AddProjectSeqDiagram.png[]
 
 The `delete project` command is implemented in the same manner to the `add project` command. Both return the `Project` object that was deleted or added to be passed to `Ui` for printing its details to the user. The `delete project` command only differs from the `add project` command when it deletes the `Project` object from the HashMap of `Project` objects, in contrast to adding a `Project` object to the HashMap.
 
+=== History feature
+
+The `history` feature is implemented to keep track of the input commands entered by the user. It is facilitated by the `Storage` class which is called by the `Process` class in the `command` component.
+
+This feature supports the following commands:
+* `history` - lists all the input commands(with the date and time beside) entered by the user.
+* (proposed) `view history h/DATE to DATE` - lists the input commands entered by the user during a certain time period.
+* (proposed) `delete history h/DATE to DATE` - deletes the input commands entered by the user during a certain time period.
+
+The use case for the command `history` is given below to demonstrate how each component interacts with each other.
+
+1. User executes the command `history` in the CLI. The input is passed from the `Ui` to `Command` where the input will be parsed to determine the command to execute.
+
+2. The `Command` component will process the `history` command and load the text file consisting all the input commands from the `Storage` class into an arraylist.
+
+3. The arraylist is then passed to `Ui` for printing the list of input commands to the user.
+
+==== Design Considerations
+===== Aspect: How `view history h/DATE to DATE` is implemented
+* **Alternative 1(proposed): The application loops through the arraylist of all the input commands loaded from the txt file in storage. This is done to find the index(i1) of the first command entered on the first/earlier `DATE` and the index(i2) of the last command entered on the second/later `DATE`.
+Then commands in the for loop from index i1 to i2 are added to a new arraylist. This arraylist is printed to the user. 
+
 //tag::deadline
 === Add Invoices
 
