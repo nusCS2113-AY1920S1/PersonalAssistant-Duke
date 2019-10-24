@@ -247,6 +247,13 @@ public class PlannerUi {
     }
 
     /**
+     * Message to print out the number of core modules left to take.
+     */
+    public void coreModLeft() {
+        System.out.println("\n" + "Number of core modules required to take for graduation:");
+    }
+
+    /**
      * Message to print out GEModuleReport.
      */
     public void geModReport() {
@@ -254,10 +261,24 @@ public class PlannerUi {
     }
 
     /**
-     * Message to print out GEModuleReport.
+     * Message to print out the number of ge modules left to take.
+     */
+    public void geModLeft() {
+        System.out.println("\n" + "Number of general education modules required to take for graduation:");
+    }
+
+    /**
+     * Message to print out UEModuleReport.
      */
     public void ueModReport() {
         System.out.println("Here is your list of unrestricted elective modules being added:");
+    }
+
+    /**
+     * Message to print out the number of ue modules left to take.
+     */
+    public void ueModLeft() {
+        System.out.println("\n" + "Number of unrestricted elective modules required to take for graduation:");
     }
 
     /**
