@@ -1,6 +1,4 @@
 
-
-
 # User Guide
 By: `AY1920S1-CS2113T-W17-1` Last Updated: `26/09/2019` License: `MIT`
 
@@ -124,6 +122,8 @@ Want to search for the task by it's key word? Enter `find KEY_WORD` in the **com
 #### 4.1.5. Viewing Tasks : `view`
 View the tasks stored in COMPal in a day/week/month view.
 
+
+
 1. View the daily task of a particular day.
 
 	Format: `view day /date DATE`  
@@ -148,9 +148,17 @@ Format: `view month`
 ---------------------|-----------------
 :bulb:| You may omit `DATE` to view the calendar with respect to the current date!  E.g. `view week` will allow you to view the current week and `view day` will allow you to view the current day!  
 
-<img src="images/ViewDate.png" alt="view date command" width="800"/>
+<img src="images/ViewDate.png" alt="view date command" width="650"/>
 
-<img src="images/ViewDate2.png" alt="view date command" width="800"/>
+Figure x. Output of _tasks_ and _deadline_ on `main window` in text format sorted by priority level in chronological timeline .
+
+<img src="images/ViewDateGUI.PNG" alt="view date command" width="650"/>
+
+Figure x. Output of daily _tasks_ and _deadline_ on `view task: <DATE>` in daily calendar format sorted by priority level for each hour.
+
+|| Description
+---------------------|-----------------
+:information_source: |  `DATE` is the date you want to search for and should be **dd/mm/yy** format. E.g. 02/10/2019.
 
 The following are some examples of the `view` command which you can try to run.
 
@@ -213,18 +221,50 @@ For example, if you wish to increase the priority of a task with an id number of
 Bye-Bye! Enter `bye` in the **command box** will quit **COMPal**. Have a nice day! :blush:
 
 ### 4.2. Detailed Task Management Commands
-In this section, you will be taken through the various types of tasks that **COMPal** can track for you. 
+The Merriam-Webster's dictionary defines **Task** as a usually assigned piece of work, often to be finished within a certain time. **COMPal** has a similar definition - if you have something to do, you can track it as a **Task** in **COMPal**.
+
+**COMPal** accepts two main types of **Tasks**:
+ 1. A **Deadline** is a **Task** that has to be done by a **specific time** on a **specific date**.
+ 2. A **Event** is a **Task** that has to be done during a **fixed duration** on a **specific date**. 
+ 
+Furthermore, **COMPal** is able to manage **Tasks** that **recur** i.e. happen at **regular intervals**, such as a weekly project meeting or a weekly Tutorial session. 
+
+Since these two **Tasks** behave very differently, we have developed a system of short and simple **parameter keywords**. These **parameter keywords** will help **COMPal** process your input just the way you like it. They will be referred to frequently during the following section when we explain how to add the two types of **Tasks**.
+
+**Table 1:** **Parameter keywords** and their descriptions. 
+
+|Parameter Keyword| Description |
+| --- | --- | 
+|`/date` | Start date / dates of the **Task**|
+|`/start` | Start time of the **Task**|
+|`/end` | End time of the **Task** |
+| `/final-date` | For recurring **Tasks** - **Tasks** will not recur beyond the final-date entered after this **keyword** |
+| `/priority` | Priority of the task |
+
+| |Description|
+| ---- | ---- |
+| :warning: | Any dates that you enter has to be in the format `DD/MM/YYYY`, or **COMPal** will not understand your dates! | 
+| :warning: | Any time that you enter has to be in the format of `HHmm`, or **COMPal** will be confused! |
+
+The remainder of this section will guide you through the process of adding the two **Tasks**. 
 
 #### 4.2.1. Adding **Deadline**: `deadline`
 Dread them. Run from them. But **deadlines** still arrive.  
 Certain tasks have to be done by a **certain date**. You can use the `deadline` command to get **COMPal** to keep track of such impending **deadlines**. 
 
-**Command Syntax:** `deadline <task description> /end DD-MM-YYYY `
+**Command Syntax:** `deadline <task description> /date HHmm /end <END-TIME> /date <START-DATE> `
 
 **Example:**  
-* `deadline Submit CS2113T User Guide for Review /end 02/10/2019`  
-Adds a task with `Submit CS2113T User Guide for Review` as **description** and `02/10/2019` as the **date of the deadline**.
+* `deadline Submit CS2113T User Guide for Review /date 02/10/2019 /end 2359`  
+Adds a task with `Submit CS2113T User Guide for Review` as **description**, `2359` as the **end-time of the deadline** and `02/10/2019` as the **date of the deadline**.
 
+As students, we know that school gives us heaps of assignments and projects to do on a regular basis. As that mountain of work piles up steadily, we invariably have to pick some to prioritise above others. To handle these two scenarios, **COMPal** offers two optional parameters: `/priority` and `/final-date`. 
+
+`/priority` lets you assign a **Deadline** with a priority rating. The three priority ratings are: `high`, `medium`, and `low`. 
+
+`/final-date` allows you to recur **Deadlines** weekly, until the date specified after `final-date`. 
+
+**Full Command Syntax (with optional parameter keywords):** `deadline <task description> /date HHmm /end <END-TIME> /date <START-DATE> /priority <PRIORITY-RATING> /final-date <FINAL-DATE>`
 #### 4.2.2. Adding **Event**: `event`
 
 Your best friend's birthday party. Your sibling's graduation. Your cousin's wedding. Your favourite band is coming to town. Life is full of cheerful events like these.  
@@ -236,59 +276,13 @@ Events happen on a certain **date** for a fixed **duration of time**. You can us
 * `event Linus Torvald's birthday party /date 28/12/2019 /start 1700 /end 2100`  
 Adds an **Event** with `Linus Torvald's birthday party` as **description**, `28/12/2019` as the **date that event will occur on**, `1700` as the **start time** and `2100` as the **end time**.
 
-#### 4.2.3. Adding **Recurring Task**: `recurtask`
-
-Cracking open a cold one with the boys. Unwind with a girls' night out. Things like this, you just want to do it again. Again. And again.  
-Recurring Tasks are like events - they are held on a certain **date** for a fixed **duration of time**. However, they can recur at **fixed intervals of a few days**. You can use the `recurtask` command to get **COMPal** to keep track of **Recurring Tasks**.
-
-**Command Syntax:** `recurtask <task description> /date <starting date of the first task> /start <the starting time of each task> /end <ending time of each task> /rep <number of repetitions(integer)> /freq <number of days between each iteration of the task>`
-
-**Example:** 
-* `recurtask English Premier League Game /date 10/08/2019 /start 2200 /end 0000 /rep 38 /freq 7`  
-Adds a **Recurring Task** with `English Premier League Game` as **description**, `10/08/2019` as the **start date** of the first **Recurring Task**, `2200` as the **start time** of each **Recurring Task**,`0000` as the **end time** of each **Recurring Task**, `38` as the **total number of times** that the **Recurring Task** will repeat, and `7` as the **number of days** between each **Recurring Task**.
-
-#### 4.2.4. Adding **Lecture Session**: `lect`
-
-**Lectures** are where you can catch your favourite professors deliver their engaging material. They **repeat at regular intervals**, for **fixed periods of time**. You can use the `lect` command to get **COMPal** to keep track of your **lectures**. 
-
-**Command Syntax:** `lect <task description> /date <starting date of the first task> /start <the starting time of each task> /end <ending time of each task> /rep <number of repetitions(integer)> /freq <number of days between each iteration of the task>`
-
-**Example:**
-* `lect CS2113T /date 16/08/2019 /start 1600 /end 1800 /rep 12 /freq 7`  
-Adds a **Lecture** with `CS2113T` as **description**, `16/08/2019` as the **start date** of the first **Lecture**, `1600` as the **start time** of each **Lecture**,`1800` as the **end time** of each **Lecture**, `12` as the **total number of times** that the **Lecture** will repeat, and `7` as the **number of days** between each **Lecture**.
-
-#### 4.2.5. Adding **Tutorial Session**: `tut`
-
-**Tutorials** are amazing venues for you to clarify your doubts on the lesson material. You can use the `tut` command to get **COMPal** to keep track of your **tutorials**.
-
-**Command Syntax:** `tut <task description> /date <starting date of the first task> /start <the starting time of each task> /end <ending time of each task> /rep <number of repetitions(integer)> /freq <number of days between each iteration of the task>`
-
-**Example:**
-* `tut CS2101 /date 12/08/2019 /start 0800 /end 1000 /rep 13 /freq 7`  
-Adds a **Tutorial** with `CS2101` as **description**, `12/08/2019` as the **start date** of the first **Tutorial**, `0800` as the **start time** of each **Tutorial**,`1000` as the **end time** of each **Tutorial**, `13` as the **total number of times** that the **Tutorial** will repeat, and `7` as the **number of days** between each **Tutorial**.
-
-#### 4.2.6. Adding **Sectional Session**: `sect`
-
-You can use the `sect` command to get **COMPal** to keep track of your **Sectionals**.
-
-**Command Syntax:** `sect <task description> /date <starting date of the first task> /start <the starting time of each task> /end <ending time of each task> /rep <number of repetitions(integer)> /freq <number of days between each iteration of the task>`
-
-**Example:**
-* `sect CS1010X /date 06/01/2019 /start 1100 /end 1300 /rep 12 /freq 7`  
-Adds a **Sectional** with `CS1010X` as **description**, `06/01/2019` as the **start date** of the first **Sectional**, `1100` as the **start time** of each **Sectional**,`1300` as the **end time** of each **Sectional**, `12` as the **total number of times** that the **Sectional** will repeat, and `7` as the **number of days** between each **Sectional**.
-
-#### 4.2.7. Adding **Lab Session**: `lab`
-
-**Labs** provide valuable hands-on experience that add to the content taught in the classroom. You can use the `lab` command to get **COMPal** to keep track of your **lab sessions**.
-
-**Command Syntax:** `lab <task description> /date <starting date of the first task> /start <the starting time of each task> /end <ending time of each task> /rep <number of repetitions(integer)> /freq <number of days between each iteration of the task>`
-
-**Example:**
-* `lab CS2106 /date 27/08/2019 /start 1000 /end 1100 /rep 11 /freq 7`  
-Adds a **Lab Session** with `CS2106` as **description**, `27/08/2019` as the **start date** of the first **Lab Session**, `1000` as the **start time** of each **Lab Session**,`1100` as the **end time** of each **Lab Session**, `11` as the **total number of times** that the **Lab Session** will repeat, and `7` as the **number of days** between each **Lab Session**.
-
 ### **5. Future Enhancements**
 
 ### **6. Frequently-Asked Questions**
+
+
+**Q**: How do I transfer my data to another Computer?  
+**A**: Copy the _tasks.txt_ and _serial_ file over from your old computer to your new computer COMPal folder! (Remember to download COMPal on the other computer though!)
+    
 
 ### **7. Command Summary**

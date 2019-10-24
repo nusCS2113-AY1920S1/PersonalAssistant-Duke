@@ -43,9 +43,10 @@ class DailyCalUi {
     private double[][] storedXAxis = new double[25][5];
     private double[][] storedYAxis = new double[25][5];
     private int startTime = 8;
-    private int endTime = 19;
+    private int endTime = 17;
     private ArrayList<Task> tempOriginalList;
     private ArrayList<Task> dailyCalArrayList = new ArrayList<>();
+    private ArrayList<Task> deadlineArrayList = new ArrayList<>();
 
 
     DailyCalUi() {
@@ -81,18 +82,66 @@ class DailyCalUi {
      * Only display non-deadline events.
      */
     private void createDailyArrayList() {
+
         Comparator<Task> compareByStartTime = Comparator.comparing(Task::getPriority);
         for (Task t : tempOriginalList) {
             if (t.getStringDate().equals(dateToDisplay)) {
-                if (t.getSymbol().equals("D")) {
-                    continue;
+                if (t.getSymbol().equals("D") && !t.getisDone()) {
+                    deadlineArrayList.add(t);
+                } else if ((t.getSymbol().equals("E") && !t.getisDone())) {
+                    dailyCalArrayList.add(t);
                 }
-                t.calculateAndSetPriorityScore();
-                dailyCalArrayList.add(t);
             }
         }
         dailyCalArrayList.sort(compareByStartTime);
+        deadlineArrayList.sort((compareByStartTime));
     }
+
+    private void buildDeadline() {
+        colOneYLayout -= 50;
+        int plus = 75;
+        Text header = new Text();
+        header.setText("Due today:");
+        header.setY(colOneYLayout + 50);
+        header.setX(colOneXLayout);
+        groupRoot.getChildren().add(header);
+
+        int counter = 0;
+        for (Task t : deadlineArrayList) {
+            if (counter == 6) {
+                break;
+            }
+            Rectangle rectangle = new Rectangle(100, 50);
+            //rectangle.setY(colOneYLayout-25);
+            //rectangle.setX(colOneXLayout + plus);
+            rectangle.setFill(Color.ROSYBROWN);
+            rectangle.setStroke(Color.BLACK);
+
+            final StackPane stack = new StackPane();
+            final Text text = new Text(t.getDescription() + "\nDue:" + t.getStringEndTime());
+            text.setFont(Font.font("Georgia Italic", 12));
+            text.setTextAlignment(TextAlignment.CENTER);
+            stack.getChildren().addAll(rectangle, text);
+            stack.setLayoutY(colOneYLayout + 25);
+            stack.setLayoutX(colOneXLayout + plus);
+
+
+            groupRoot.getChildren().add(stack);
+            plus += 100;
+            counter += 1;
+        }
+        colOneYLayout += 100;
+
+    }
+
+    /*private void genDateSLot() {
+        Text date = new Text();
+        date.setText(dateToDisplay);
+        date.setY(colOneYLayout);
+        date.setX(colOneXLayout);
+        colOneYLayout += 50;
+        groupRoot.getChildren().add(date);
+    }*/
 
     /**
      * Call the require functions to create final state of timetable.
@@ -102,7 +151,9 @@ class DailyCalUi {
     private ScrollPane buildTimeTable() {
         setTime();
         genDateSLot();
+        buildDeadline();
         genTimeSlot();
+
         for (int i = startTime; i < endTime; i++) {
             drawScheduleSquare(i);
         }
@@ -269,7 +320,7 @@ class DailyCalUi {
                     eventCounter++;
                 }
                 stack.setLayoutX(storedXAxis[currentTime][eventCounter]);
-                stack.setLayoutY(storedYAxis[currentTime][eventCounter]);
+                stack.setLayoutY(50 + storedYAxis[currentTime][eventCounter]);
 
                 groupRoot.getChildren().add(stack);
                 eventCounter++;

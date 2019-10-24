@@ -11,9 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -54,7 +51,7 @@ public class UiManager implements Ui {
             primaryStage.setTitle("ComPAL");
             primaryStage.setOpacity(1);
             primaryStage.setResizable(false);
-            primaryStage.getIcons().add(new Image(new FileInputStream(new File("./icon.png"))));
+            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
 
             Label date = (Label) ap.getChildren().get(4);
 
