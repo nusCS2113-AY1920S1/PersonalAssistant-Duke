@@ -81,11 +81,10 @@ public class SettleLoanCommand extends MoneyCommand {
      * Sets loan to settled if the entire debt is paid.
      * @param loanList ArrayList of loans containing the loan
      * @param serialNo Integer index of the loan
-     * @param amount Float amount of debt to be settled
      * @throws ParseException If invalid date is parsed
      * @throws DukeException When the amount is greater than the outstanding debt
      */
-    private void setLoanToSettled(ArrayList<Loan> loanList, int serialNo, float amount) throws ParseException, DukeException {
+    private void setLoanToSettled(ArrayList<Loan> loanList, int serialNo) throws ParseException, DukeException {
         if (amount > loanList.get(serialNo).getOutstandingLoan()) {
             throw new DukeException("Whoa! The amount entered is more than debt! Type 'all' to settle the entire debt\n");
         }
@@ -148,12 +147,12 @@ public class SettleLoanCommand extends MoneyCommand {
         try {
             if (type == Loan.Type.OUTGOING) {
                 payDirection = " from ";
-                setLoanToSettled(account.getOutgoingLoans(), serialNo, amount);
+                setLoanToSettled(account.getOutgoingLoans(), serialNo);
                 Income i = new Income(amount, "From " + description, Parser.shortcutTime("now"));
                 account.getIncomeListTotal().add(i);
             } else if (type == Loan.Type.INCOMING) {
                 payDirection = " to ";
-                setLoanToSettled(account.getIncomingLoans(), serialNo, amount);
+                setLoanToSettled(account.getIncomingLoans(), serialNo);
                 Expenditure e = new Expenditure(amount, "To " + description, "Loan Repayment",
                         Parser.shortcutTime("now"));
                 account.getExpListTotal().add(e);

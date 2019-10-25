@@ -37,6 +37,7 @@ EXP @ 2.0 @ dl;k  @ l;dsaf  @ 24/10/2019
 EXP @ 200.0 @ To hawt bois @ Loan Repayment @ 24/10/2019
 EXP @ 200.0 @ To hawt bois @ Loan Repayment @ 24/10/2019
 SEX @ 400.0 @ Mala  @ food  @ 24/10/2019 @ nic&1 ! chris&1 ! sean&1
+EXP @ -2.0 @ To rekt @ Loan Repayment @ 25/10/2019
 G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 100000.0 @ buy Boat  @ GS @ 11/12/2050 @ LOW
 G @ 100000.0 @ buy HDB  @ GS @ 15/1/2050 @ HIGH
@@ -45,3 +46,4 @@ G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 10000.0 @ buy expensive watch  @ GS @ 5/10/2029 @ MEDIUM
 G @ 4000.0 @ Macbook Pro 15.6inch  @ GS @ 15/1/2020 @ HIGH
 INS @ 100000.0 @ mortgage  @ instalments @ 9/10/2019 @ 200 @ 0.06
+LOA @ 4000.0 @ rekt @ 25/10/2019 @ INCOMING @ 25/10/2019 @ 1 @ 0.0
