@@ -68,15 +68,15 @@ class MainWindow extends UiElement<Stage> {
 
         // TODO: Add contexts here.
         uiContext.addListener(evt -> {
-            print(evt.getNewValue().toString());
-            print(evt.getOldValue().toString());
             switch ((Context) evt.getNewValue()) {
             case HOME:
                 contextWindowHolder.getSelectionModel().select(homeTab);
                 break;
             case PATIENT:
-                patientWindow.setPatient((Patient) uiContext.getObject());
+                Patient patient = (Patient) uiContext.getObject();
+                patientWindow.setPatient(patient);
                 contextWindowHolder.getSelectionModel().select(patientTab);
+                print("Accessing details of Bed " + patient.getBedNo());
                 break;
             default:
                 break;

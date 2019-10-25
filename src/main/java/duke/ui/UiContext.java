@@ -27,7 +27,7 @@ public class UiContext {
      *
      * @param pcl PropertyChangeListener object.
      */
-    public void addListener(PropertyChangeListener pcl) {
+    void addListener(PropertyChangeListener pcl) {
         pcs.addPropertyChangeListener(pcl);
     }
 
