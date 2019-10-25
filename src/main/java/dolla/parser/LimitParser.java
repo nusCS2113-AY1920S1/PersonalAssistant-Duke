@@ -28,8 +28,7 @@ public class LimitParser extends Parser {
     protected static final String LIMIT_DURATION_M = "monthly";
 
     @Override
-    public Command handleInput() {
-        String mode = "limit";
+    public Command handleInput(String mode) {
         if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_LIST)) { //show limit list todo:resolve bug
             return new ShowListCommand(mode);
         } else if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_SET)) { //add limit

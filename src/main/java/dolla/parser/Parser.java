@@ -34,7 +34,8 @@ public abstract class Parser {
         this.commandToRun = inputArray[0];
     }
 
-    public abstract Command handleInput();
+    public abstract Command handleInput(String mode);
+
 
     /**
      * Splits the input from the user and assigns the relevant data into description and date variables.

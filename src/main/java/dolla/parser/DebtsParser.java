@@ -25,8 +25,7 @@ public class DebtsParser extends Parser {
     }
 
     @Override
-    public Command handleInput() {
-        String mode = "debt";
+    public Command handleInput(String mode) {
         if (commandToRun.equals("debts")) { //show debt list
             return new ShowListCommand(mode);
         } else if (commandToRun.equals("owe") || commandToRun.equals("borrow")) {
