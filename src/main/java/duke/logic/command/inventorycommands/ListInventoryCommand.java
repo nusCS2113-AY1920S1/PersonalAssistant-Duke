@@ -1,9 +1,10 @@
 package duke.logic.command.inventorycommands;
 
-import duke.logic.command.CommandInventory;
+import duke.logic.command.Command;
 import duke.model.list.inventorylist.InventoryList;
-import duke.storage.InventoryStorage;
 import duke.model.task.ingredienttasks.Ingredient;
+import duke.storage.InventoryStorage;
+import duke.ui.Ui;
 
 import java.util.*;
 
@@ -15,7 +16,7 @@ import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
 /**
  * Handles the list command and inherits all the fields and methods of Command parent class.
  */
-public class ListInventoryCommand extends CommandInventory {
+public class ListInventoryCommand extends Command<InventoryList, Ui, InventoryStorage> {
 
     /**
      * Constructor for class ListCommand.
@@ -49,7 +50,7 @@ public class ListInventoryCommand extends CommandInventory {
 */
 
 
-    public ArrayList<String> execute(InventoryList inventoryList, InventoryStorage inventoryStorage) {
+    public ArrayList<String> execute(InventoryList inventoryList, Ui ui, InventoryStorage inventoryStorage) {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_LIST_INVENTORY)) {
             arrayList.add(MESSAGE_HERE_ARE_THE_INGREDIENTS);

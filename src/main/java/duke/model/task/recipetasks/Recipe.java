@@ -2,38 +2,28 @@ package duke.model.task.recipetasks;
 
 public class Recipe {
 
-    String recipeTitle;
+    RecipeTitle recipeTitle;
     Rating rating;
     PrepStep prepStep;
     RequiredIngredients requiredIngredients; // requiredIngredients is a list of recipeIngredient objects.
     Feedback feedback;
 
     public Recipe(String recipeTitle) {
-        this.recipeTitle = recipeTitle;
+        this.recipeTitle = new RecipeTitle(recipeTitle);
         this.rating = Rating.UNRATED;
         this.prepStep = new PrepStep();
         this.requiredIngredients = new RequiredIngredients();
         this.feedback = new Feedback();
     }
 
-    public Recipe(String recipeTitle, RequiredIngredients requiredIngredient) {
-        this.recipeTitle = recipeTitle;
-        this.rating = Rating.UNRATED;
-        this.prepStep = new PrepStep();
-        this.requiredIngredients = requiredIngredient;
-        System.out.println("this is the value for inner required ingredient: " + this.requiredIngredients.toSaveString());
-        this.feedback = new Feedback();
-    }
-
     public Recipe(String recipeTitle, String rating, String prepStep, String requiredIngredients, String feedback) {
-        this.recipeTitle = recipeTitle;
+        this.recipeTitle = new RecipeTitle(recipeTitle);
         this.rating = assignRating(rating);
         this.prepStep = new PrepStep(prepStep);
         this.requiredIngredients = new RequiredIngredients(requiredIngredients);
-        this.feedback = new Feedback();
     }
 
-    public String getRecipeTitle() {
+    public RecipeTitle getRecipeTitle() {
         return this.recipeTitle;
     }
 
@@ -54,7 +44,7 @@ public class Recipe {
     }
 
     public String toSaveString() {
-        return this.recipeTitle + " | "
+        return this.recipeTitle.toSaveString() + " | "
                 + checkRating() + " | "
                 + this.prepStep.toSaveString() + " | "
                 + this.requiredIngredients.toSaveString() + " | "

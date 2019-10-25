@@ -1,8 +1,9 @@
 package duke.logic.command.inventorycommands;
 
-import duke.logic.command.CommandInventory;
+import duke.logic.command.Command;
 import duke.model.list.inventorylist.InventoryList;
 import duke.storage.InventoryStorage;
+import duke.ui.Ui;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -10,14 +11,14 @@ import java.util.ArrayList;
 import static duke.common.InventoryMessages.*;
 import static duke.common.Messages.*;
 
-public class AddToInventoryCommand extends CommandInventory {
+public class AddToInventoryCommand extends Command<InventoryList, Ui, InventoryStorage> {
 
     public AddToInventoryCommand(String userInput) {
         this.userInput = userInput;
     }
 
     @Override
-    public ArrayList<String> execute(InventoryList inventoryList, InventoryStorage inventoryStorage) throws ParseException {
+    public ArrayList<String> execute(InventoryList inventoryList, Ui ui, InventoryStorage inventoryStorage) throws ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_ADD_TO_INVENTORY)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);

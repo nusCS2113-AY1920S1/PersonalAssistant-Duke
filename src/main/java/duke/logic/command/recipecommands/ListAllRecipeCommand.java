@@ -8,6 +8,7 @@ import duke.model.task.recipetasks.Recipe;
 
 import java.util.*;
 
+import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
 import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
 import static duke.common.RecipeMessages.COMMAND_LIST_RECIPES;
 import static duke.common.RecipeMessages.MESSAGE_HERE_ARE_THE_RECIPES;
@@ -31,9 +32,8 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
      * @param recipeStorage deals with loading tasks from the file and saving tasks in the file
      */
 
-    @Override
     public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) {
-        System.out.println("went into execute list all recipes");
+        System.out.println("went into execute");
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_LIST_RECIPES)) {
             arrayList.add(MESSAGE_HERE_ARE_THE_RECIPES);
@@ -50,15 +50,17 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
         return false;
     }
 
-    private ArrayList<String> listOfRecipes(HashMap<Integer, Recipe> map) {
+    private ArrayList<String> listOfRecipes(LinkedHashMap<String, Recipe> map) {
         Set entries = map.entrySet();
         Iterator entryIter = entries.iterator();
         ArrayList<String> arrayList = new ArrayList<>();
+        int i = 0;
         while (entryIter.hasNext()) {
             Map.Entry entry = (Map.Entry) entryIter.next();
             Object key = entry.getKey();  // Get the key from the entry.
             Recipe value = (Recipe) entry.getValue();  // Get the value.
-            arrayList.add("     " + key + " " + value.getRecipeTitle());
+            arrayList.add(Integer.toString(i + DISPLAYED_INDEX_OFFSET) + ". " + value.getRecipeTitle().getTitle());
+            i++;
         }
         return arrayList;
     }
