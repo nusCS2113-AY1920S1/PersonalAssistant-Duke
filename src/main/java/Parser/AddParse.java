@@ -17,7 +17,6 @@ public class AddParse extends Parse {
     private static String[] split;
     private static String fullCommand;
     private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
-    private static DateTimeParser DTP;
 
     public AddParse(String fullCommand) {
         this.fullCommand = fullCommand;
@@ -36,7 +35,7 @@ public class AddParse extends Parse {
                 if (split[0].trim().isEmpty()) {
                     throw new DukeException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
                 }
-                String[] out = DTP.DeadlineParse(split[1]);
+                String[] out = DateTimeParser.DeadlineParse(split[1]);
                 return new AddCommand(new Deadline(split[0].trim(), out[0], out[1]));
             } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                 LOGGER.log(Level.INFO, e.toString(), e);
@@ -51,7 +50,7 @@ public class AddParse extends Parse {
                 if (split[0].trim().isEmpty()) {
                     throw new DukeException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
                 }
-                String[] out = DTP.EventParse(split[1]);
+                String[] out = DateTimeParser.EventParse(split[1]);
                 return new AddCommand(new Event(split[0].trim(),out[0],out[1],out[2]));
             } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                 LOGGER.log(Level.INFO, e.toString(), e);
