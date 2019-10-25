@@ -17,6 +17,7 @@ import duke.command.ListPatientsCommand;
 import duke.command.ListTasksCommand;
 import duke.command.UpdatePatientCommand;
 import duke.command.UpdateTaskCommand;
+import duke.command.UndoCommand;
 
 /**
  * Represents a Parser that parses user input into a specific
@@ -72,8 +73,9 @@ public class CommandManager {
         case "duke":
             return new DukeCommand();
         case "bye":
-            ExitCommand exitCommand = new ExitCommand();
-            return exitCommand;
+            return new ExitCommand();
+        case "undo" :
+            return new UndoCommand();
         default:
             throw new DukeException("Could not understand user input.");
         }

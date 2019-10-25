@@ -441,6 +441,13 @@ public class Ui {
     }
 
     /**
+     * Show message of undo.
+     */
+    public void showUndoSuccess() {
+        System.out.println("Undo command received");
+    }
+
+    /**
      * It shows all info of patientTasks found which are associated with the patient given by user.
      *
      * @param patient     patient given by user

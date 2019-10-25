@@ -1,5 +1,8 @@
 package duke.relation;
 
+import duke.Duke;
+import duke.core.DukeException;
+
 public abstract class PatientTask {
     private Integer patientId;
     private Integer taskID;

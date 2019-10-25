@@ -41,40 +41,44 @@ public class AssignTaskToPatientCommand implements Command {
     public void execute(PatientTaskList patientTaskList, TaskManager tasksList, PatientManager patientList,
                         Ui ui, StorageManager storageManager) throws DukeException {
 
-        char firstChar = taskAssignmentInfo[1].charAt(0);
+        char firstChar = taskAssignmentInfo[0].charAt(0);
 
         try {
-            if (taskAssignmentInfo[0].equals("S")) {
+            if (taskAssignmentInfo.length == 3) {
                 if (firstChar == '#') {
-                    int tempPid = Integer.parseInt(taskAssignmentInfo[1].replace("#","").trim());
-                    int tempTid = Integer.parseInt(taskAssignmentInfo[2]);
-                    String temptime = taskAssignmentInfo[3];
-                    newPatientTask = new StandardPatientTask(tempPid, tempTid, temptime, taskAssignmentInfo[0]);
+                    int pid = Integer.parseInt(taskAssignmentInfo[0].substring(1));
+                    int tid = Integer.parseInt(taskAssignmentInfo[1]);
+                    String time = taskAssignmentInfo[2];
+                    String type = "S";
+                    newPatientTask = new StandardPatientTask(pid, tid, time, type);
                 } else {
-                    int tempPid = patientList.getPatientByName(taskAssignmentInfo[1]).get(0).getID();
-                    int tempTid = tasksList.getTaskByDescription(taskAssignmentInfo[2]).get(0).getID();
-                    String temptime = taskAssignmentInfo[3];
-                    newPatientTask = new StandardPatientTask(tempPid, tempTid, temptime, taskAssignmentInfo[0]);
+                    int pid = patientList.getPatientByName(taskAssignmentInfo[0]).get(0).getID();
+                    int tid = tasksList.getTaskByDescription(taskAssignmentInfo[1]).get(0).getID();
+                    String time = taskAssignmentInfo[2];
+                    String type = "S";
+                    newPatientTask = new StandardPatientTask(pid, tid, time, type);
                 }
-            } else if (taskAssignmentInfo[0].equals("E")) {
+            } else if (taskAssignmentInfo.length == 4) {
                 if (firstChar == '#') {
-                    int tempPid = Integer.parseInt(taskAssignmentInfo[1].replace("#","").trim());
-                    int tempTid = Integer.parseInt(taskAssignmentInfo[2]);
-                    String stime = taskAssignmentInfo[3].split(" to ", 2)[0];
-                    String etime = taskAssignmentInfo[3].split(" to ", 2)[1];
-                    newPatientTask = new EventPatientTask(tempPid, tempTid, stime, etime,
-                            taskAssignmentInfo[0]);
+                    int pid = Integer.parseInt(taskAssignmentInfo[0].substring(1));
+                    int tid = Integer.parseInt(taskAssignmentInfo[1]);
+                    String stime = taskAssignmentInfo[2];
+                    String etime = taskAssignmentInfo[3];
+                    String type = "E";
+                    newPatientTask = new EventPatientTask(pid, tid, stime, etime, type);
                 } else {
-                    int tempPid = patientList.getPatientByName(taskAssignmentInfo[1]).get(0).getID();
-                    int tempTid = tasksList.getTaskByDescription(taskAssignmentInfo[2]).get(0).getID();
-                    String stime = taskAssignmentInfo[3].split(" to ", 2)[0];
-                    String etime = taskAssignmentInfo[3].split(" to ", 2)[1];
-                    newPatientTask = new EventPatientTask(tempPid, tempTid, stime, etime,
-                            taskAssignmentInfo[0]);
+                    int pid = patientList.getPatientByName(taskAssignmentInfo[0]).get(0).getID();
+                    int tid = tasksList.getTaskByDescription(taskAssignmentInfo[1]).get(0).getID();
+                    String stime = taskAssignmentInfo[2];
+                    String etime = taskAssignmentInfo[3];
+                    String type = "E";
+                    newPatientTask = new EventPatientTask(pid, tid, stime, etime, type);
                 }
+            } else {
+                throw new DukeException("You are using the wrong format for the assign command!");
             }
-        } catch (Exception e) {
-            throw new DukeException("You are using the wrong format for the assign command");
+        } catch (DukeException e) {
+            throw new DukeException("You are using the wrong format for the assign command!");
         }
 
         if (patientList.isExist(newPatientTask.getPatientId()) && tasksList.doesExist(newPatientTask.getTaskID())) {
