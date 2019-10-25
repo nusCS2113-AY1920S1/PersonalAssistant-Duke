@@ -4,7 +4,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesDir: images
+:imagesDir: images/DeveloperGuide
 :stylesDir:
 :xrefstyle: full
 ifdef::env-github[]
@@ -16,8 +16,183 @@ endif::[]
 
 By: `Team W12-1`      Since: `Aug 2019`      Licence: `MIT`
 
+== Design
+=== Architecture
+.General Architecture Diagram for RIMS
+[caption="Figure 1.1: "]
+image::ArchitectureDiagram.png[width="500", align="center"]
 
-== Target User Profile
+The architecture diagram above is an abstracted high-level representation of the workings behind the RIMS software.
+There are a total of 5 main components within RIMS, and outside of RIMS, a single *User*, as well as *Text files* for
+data persistence.
+
+The main components are listed below, with  a brief description and overview of their scope:
+
+* <<Model component,Model>>: The structure of RIMS, complete with resource and reservation details.
+* <<Ui component, Ui>>: The main user interface that the user interacts with to enter his/her input and receive updates and messages
+from RIMS itself.
+* <<Logic component,Logic>>: The mechanism which makes sense of the input given by Ui and subsequently
+executes the relevant commands within RIMS.
+* <<Storage component,Storage>>: Reads data from, and writes data to the external *Text files*.
+* <<Exception component,Exceptions>>: Custom RIMS exceptions that may be raised from contextual errors while executing
+commands in RIMS.
+
+Note: In order to declutter the class diagrams shown below, CRUD (Create, Read, Update, Delete) methods for attributes
+in classes are omitted.
+
+=== Model component
+.Class Diagram for Model component
+[caption="Figure 1.2: "]
+image::ModelClassDiagram.png[width="600", align="center"]
+_Classes involved: Resource, Item, Room, ResourceList, ReservationList, Reservation, DateRange_
+
+The Model component forms the backbone of the RIMS software and is the structure to inventorise Resources and manage
+their loans. With reference to Figure 1.2,The RIMS structure comprises a single large ResourceList, which is an ArrayList
+of Resource objects with various custom methods to make changes in accordance to commands.
+
+==== The Resource Class
+
+A resource is represented by the Resource class, with basic attributes such as
+its name and its type (Room or Item represented by an enumeration) are inside. An enumeration ResourceType is used to
+represent types of resources so that more can be accomodated in the future. Classes Room and Item are inherited classes
+from Resource.
+
+==== ReservationList and resource_id
+
+The more important attributes of a Resource object is the resource_id and ReservationList. Firstly, the resource_id
+is an integer to identify a single unique Resource. For example, if RIMS has two pens, which were borrowed for different
+durations by different users, I would need to be able to identify which one is available when a third user wants to
+borrow one again.
+
+This leads to the second important attribute which is the ReservationList, which is an ArrayList of
+Reservation objects. A Reservation object contains details of a loan or reservation, such as the identity of the borrower
+(borrower_id), the unique identifier for that particular loan (reservation_id) to identify multiple unique Resources
+borrowed, and lastly a custom DateRange object to identify the duration for which the Resource is being borrowed.
+
+The DateRange class contains functions to typecast the dates into a specified format of String type for passing to Ui
+as a message to the user.
+
+
+=== UI component
+.Class Diagram for Model component
+[caption="Figure 1.3 "]
+image::UiClassDiagram.png[width="200", align="center"]
+
+_Classes involved: Ui_
+
+The Ui class fulfills two purposes, as shown in Figure 1.3:
+
+1. Taking in input given by the user.
+2. Sending messages to notify the user.
+
+For the first function, the Ui class contains a Scanner object to take in user input, as well as an input of String type to process it via the
+Logic component as a valid command/instruction.
+
+For the second function, the Ui class has functions to print out user messages in a specific format. Examples include
+printHome(), which is the welcome message when launching RIMS, as well as printFarewell(), which is
+the message sent to the user upon termination of RIMS.
+
+=== Logic component
+.Class Diagram for Model component
+[caption="Figure 1.4: "]
+image::LogicClassDiagram.png[width="700", align="center"]
+
+_Classes involved: Parser, Command and its inherited classes_
+
+The logic component is shows how user instructions are managed in RIMS. The Parser class receives input from the Ui,
+then parses it (using parseInput function) to identify the type of Command it is. After identifying the type of Command,
+Parser then evaluates the relevant parameters required and constructs the corresponding Command. Following that, the
+Command's execute method is called to carry out the instructions.
+
+==== The Command class
+
+Referring to Figure 1.4, the Command class is an abstract class with two main parts that are crucial for all inherited
+Command classes.
+
+Firstly, since the main program runs on a loop to evaluate user inputs repeatedly for commands, it needs to know
+when to terminate. The Boolean attribute exitCode helps the main program to check if the Command is a CloseCommand,
+a special Command which instructs RIMS to terminate.
+
+Secondly, the execute method is an abstract method that applies to all Commands in the RIMS system.
+
+1. Using the parameters
+evaluated in Parser, it interacts with the Model component to make the necessary checks/updates to RIMS
+2. A formatted message is to the user about the outcome via Ui
+3. If necessary, data is saved to external files using the Storage component.
+
+=== Storage component
+.Class Diagram for Model component
+[caption="Figure 1.5: "]
+image::StorageClassDiagram.png[width="300", align="center"]
+
+_Classes involved: Storage_
+
+The Storage class ensures data persistence upon termination of RIMS and is the intermediary between the external files and
+the Model component. Before discussing its attributes and methods, refer to Figure 1.5 to see where and how data in RIMS is saved
+and loaded.
+
+==== External files
+Data in RIMS is saved and loaded from two main text (.txt) files.
+
+* resources.txt: Contains the current list of resources that are recorded by RIMS, regardless of their status (excluding the
+details of resources' reservations)
+* reservations.txt: Contains the list of reservations and their details for every resource listed in RIMS.
+
+==== Storage attributes and methods (Loading and Saving)
+
+Loading and saving to/from the above mentioned external files are vital for Storage to function. In order to do both,
+Storage has attributes of File type which records the paths to the local external files. There is also a temporary
+ArrayList of Resources to retrieve and store data from the Model component.
+
+For loading from files, we need to read both external files mentioned above, so dedicated methods for resources.txt and
+reservations.txt are present (as readResourceFile() and readReserveFile()).
+
+As mentioned before in the Model component, Reservations are integrated into each Resource, therefore when saving into
+external files, we only need one method saveToFiles().
+
+=== Exception component
+.Class Diagram for Model component
+[caption="Figure 1.6: "]
+image::ExceptionClassDiagram.png[width="500", align="center"]
+
+_Classes involved: RimsException and all inherited classes_
+
+RimsException is a custom Exception class to catch all errors presented by contextual problems occuring within RIMS
+that basic Exceptions will miss. The overarching idea behind this component is that RIMS should not terminate under any
+other circumstances other than by means of the CloseCommand (as mentioned in the Logic Component).
+
+The basic RimsException class contains a String describing the type of error that has been occurred, and has a method to
+send a formatted output to the user notifying him/her about the error that has occurred.
+
+Current subclasses of RimsException are ParserException and ResourceException, but are not limited to these as there may
+be other aspects which have errors that have not been identified.
+
+==== ParserException
+
+ParserExceptions are called when the Parser receives an invalid input. For instance, when the user is prompted for the type
+of resource specified, and he/she inputs "people", a ParserException should be raised. This is because the type of Resource
+specified does not belong to any that RIMS support, which are "item" and "room".
+
+They are mainly handled by prompting the user to re-input a valid format of the required information.
+
+==== ResourceException
+
+These Exceptions are mainly handled when internal operations within the Model or Logic component have problems. For example,
+user inputs like the duration to borrow a resource is valid, but the resource might still be on loan. As such, a
+ResourceException is called.
+
+They are mainly handled by sending a message to the user to notify them on the problem with the particular Resource.
+
+== Implementation
+
+=== Add/Delete
+
+[appendix]
+== RIMS
+
+=== Product Scope
+
+==== Target User Profile
 
 * needs to manage various facilities, items and resources efficiently
 * needs to track loaning and borrowing of items and facilities
@@ -27,11 +202,8 @@ By: `Team W12-1`      Since: `Aug 2019`      Licence: `MIT`
 * school/tertiary institutions
 * people who manage dorms – Office of Housing Services / hostels’ facilities management
 
-== Value proposition
+==== Value proposition
 Manage facilities more quickly and efficiently by maintaining a digital ledger of his inventory
-
-[appendix]
-== RIMS
 
 === User Stories
 
