@@ -4,7 +4,6 @@ import control.Duke;
 import exception.DukeException;
 import room.RoomList;
 import storage.Storage;
-import task.TaskList;
 import ui.Ui;
 import booking.BookingList;
 import user.User;
@@ -50,17 +49,5 @@ public abstract class Command {
         } catch (ParseException e) {
             return false;
         }
-    }
-
-    protected static boolean isAdd (String dateTime, TaskList tasks) {
-        SimpleDateFormat dateTimeFormat =  new SimpleDateFormat("d/M/yyyy HHmm");
-        boolean found = false;
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).toString().contains(dateTime)) {
-                found = true;
-                break;
-            }
-        }
-        return found;
     }
 }

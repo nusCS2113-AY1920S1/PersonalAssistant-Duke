@@ -13,7 +13,7 @@ public class User {
      * @param password alphanumerical with no special characters
      * @param username preferably name of the user
      */
-    public User(String email, String password, String username){
+    public User(String email, String password, String username) {
         this.email = email;
         this.password = password;
         this.username = username;
@@ -23,7 +23,7 @@ public class User {
 
     }
 
-    public User (String username) {
+    public User(String username) {
 
     }
 

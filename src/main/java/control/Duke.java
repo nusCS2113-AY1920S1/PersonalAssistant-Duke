@@ -2,7 +2,6 @@ package control;
 
 import command.Command;
 import exception.DukeException;
-import room.Room;
 import room.RoomList;
 import storage.BookingConstants;
 import storage.Constants;
@@ -50,31 +49,6 @@ public class Duke {
         }
     }
 
-    /**
-     *  Main control.Duke logic run here
-     */
-    public void run() {
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showUserInput(fullCommand);
-                Command c = Parser.parse(fullCommand, user.getLoginStatus());
-                c.execute(roomList, bookingList, ui, bookingStorage, roomStorage, user);
-                isExit = c.isExit();
-            } catch (DukeException | IOException | ParseException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * Main function of control.Duke
-     * @param args input from command line
-     */
-    public static void main(String[] args) {
-        new Duke(BookingConstants.FILENAME, Constants.ROOMFILENAME).run();
-    }
-
     public String getResponse(String input) {
         try {
             ui.setOutput("");
@@ -86,5 +60,9 @@ public class Duke {
             System.out.println(e.getMessage());
             return e.getMessage();
         }
+    }
+
+    public BookingList getBookingList() {
+        return bookingList;
     }
 }
