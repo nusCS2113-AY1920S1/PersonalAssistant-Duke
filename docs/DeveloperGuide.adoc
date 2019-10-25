@@ -64,7 +64,7 @@ The `UI` component uses the JavaFX UI framework. The layout of these UI elements
 
 The UI component is exposed to external modules/components via the `Ui` interface. The `UiManager` implements this interface and acts as the manager of the UI component. Hence, `UiManager` holds a reference to the `MainWindow` (the primary UI window that houses the other UI elements that the application will use).
 
-As mentioned, the UI is made up of a `MainWindow` that houses various UI elements such as `CommandWindow`, `HomeWindow`, `PatientWindow`, etc. These UI elements, including `MainWindow` extends from the abstract class `UiElement`. This abstract class serves as the parent class for all of the UI elements used in the application, and allows for their easy creation. In addtion, the `MainWindow` holds a reference of the `UiContext` that exposes the current context of the application. This is required as the `Context` of the application determines what UI window is shown, i.e. `HomeWindow` for Home context, `PatientWindow` for Window context.
+As mentioned, the UI is made up of a `MainWindow` that houses various UI elements such as `CommandWindow`, `HomeWindow`, `PatientWindow`, etc. These UI elements, including `MainWindow` extends from the abstract class `UiElement`. This abstract class serves as the parent class for all of the UI elements used in the application, and allows for their easy creation. In addtion, the `MainWindow` holds a reference of the `UiContext` that exposes the current `Context` of the application. This is required as the `Context` of the application determines what UI window is shown, i.e. `HomeWindow` for Home context, `PatientWindow` for Patient context.
 
 [[Design-Logic]]
 === Parser Logic [JOHN CUTHBERT KHOO TENG FONG]
