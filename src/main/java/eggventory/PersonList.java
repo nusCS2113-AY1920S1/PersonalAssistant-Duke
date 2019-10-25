@@ -69,6 +69,9 @@ public class PersonList {
         case NAME:
             personList.get(editPersonIndex).setName(newValue);
             break;
+        default:
+            // No such property exists.
+            break;
         }
 
         return uneditedPerson;
