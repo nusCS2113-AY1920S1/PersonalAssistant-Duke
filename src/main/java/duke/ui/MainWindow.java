@@ -3,6 +3,7 @@ package duke.ui;
 import duke.DukeCore;
 import duke.command.Executor;
 import duke.command.Parser;
+import duke.data.Patient;
 import duke.data.PatientMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
@@ -25,7 +26,7 @@ class MainWindow extends UiElement<Stage> {
     private AnchorPane homeWindowHolder;
 
     private Stage primaryStage;
-    private UiContext context;
+    private UiContext uiContext;
     private PatientMap patientMap;
     private Executor executor;
     private Parser parser;
@@ -42,10 +43,10 @@ class MainWindow extends UiElement<Stage> {
         super(FXML, primaryStage);
 
         this.primaryStage = primaryStage;
-        this.context = core.context;
+        this.uiContext = core.uiContext;
         this.patientMap = core.patientMap;
         this.executor = new Executor(core);
-        this.parser = new Parser(core.context.getContext());
+        this.parser = new Parser(core.uiContext.getContext());
 
         placeChildUiElements();
     }
@@ -61,17 +62,20 @@ class MainWindow extends UiElement<Stage> {
         Tab homeTab = new Tab("Home", homeWindow.getRoot());
         contextWindowHolder.getTabs().add(homeTab);
 
-        PatientWindow patientWindow = new PatientWindow();
+        PatientWindow patientWindow = new PatientWindow(null);
         Tab patientTab = new Tab("Patient", patientWindow.getRoot());
         contextWindowHolder.getTabs().add(patientTab);
 
         // TODO: Add contexts here.
-        context.addListener(evt -> {
+        uiContext.addListener(evt -> {
+            print(evt.getNewValue().toString());
+            print(evt.getOldValue().toString());
             switch ((Context) evt.getNewValue()) {
             case HOME:
                 contextWindowHolder.getSelectionModel().select(homeTab);
                 break;
             case PATIENT:
+                patientWindow.setPatient((Patient) uiContext.getObject());
                 contextWindowHolder.getSelectionModel().select(patientTab);
                 break;
             default:

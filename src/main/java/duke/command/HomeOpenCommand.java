@@ -17,7 +17,6 @@ public class HomeOpenCommand extends ArgCommand {
 
         String bed = getSwitchVal("bed");
         Patient patient = core.patientMap.getPatient(bed);
-
-        core.context.setContext(Context.PATIENT, patient);
+        core.uiContext.setContext(Context.PATIENT, patient);
     }
 }

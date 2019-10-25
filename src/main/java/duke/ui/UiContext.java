@@ -18,6 +18,7 @@ public class UiContext {
      */
     public UiContext() {
         this.context = Context.HOME;
+        this.object = null;
         this.pcs = new PropertyChangeSupport(this);
     }
 
@@ -38,9 +39,10 @@ public class UiContext {
      * @param object     DukeObject associated with the new object.
      */
     public void setContext(Context newContext, DukeObject object) {
-        pcs.firePropertyChange("context", this.context, newContext);
+        Context oldContext = this.context;
         this.context = newContext;
         this.object = object;
+        pcs.firePropertyChange("context", oldContext, this.context);
     }
 
     public Context getContext() {
