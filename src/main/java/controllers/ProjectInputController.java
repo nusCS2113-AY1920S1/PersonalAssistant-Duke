@@ -262,15 +262,10 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public void projectEditTaskRequirements(Project projectToManage, String projectCommand) {
-        String[] updatedTaskRequirements = projectCommand.split(" [ir]m?/");
-        int taskIndexNumber = Integer.parseInt(updatedTaskRequirements[1]);
-        boolean haveRemove = false;
-        if (projectCommand.contains(" rm/")) {
-            haveRemove = true;
-        }
+        int taskIndexNumber = Integer.parseInt(projectCommand.substring(23).split(" ")[0]);
+        String updatedTaskRequirements = projectCommand.substring(projectCommand.indexOf("-"));
         if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
-            consoleView.editTaskRequirements(projectToManage, taskIndexNumber, updatedTaskRequirements,
-                    haveRemove);
+            consoleView.editTaskRequirements(projectToManage, taskIndexNumber, updatedTaskRequirements);
         } else {
             consoleView.consolePrint("The task index entered is invalid.");
         }

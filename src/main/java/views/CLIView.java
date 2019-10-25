@@ -298,11 +298,9 @@ public class CLIView {
      * @param projectToManage The project specified by the user.
      * @param taskIndexNumber The index number of the task to be updated.
      * @param updatedTaskRequirements The updated task requirements.
-     * @param haveRemove Boolean status specifying there is a need to remove certain task requirements.
      */
-    public void editTaskRequirements(IProject projectToManage, int taskIndexNumber, String[] updatedTaskRequirements,
-                                     boolean haveRemove) {
-        projectToManage.editTaskRequirements(taskIndexNumber, updatedTaskRequirements, haveRemove);
+    public void editTaskRequirements(IProject projectToManage, int taskIndexNumber, String updatedTaskRequirements) {
+        projectToManage.editTaskRequirements(taskIndexNumber, updatedTaskRequirements);
         consolePrint("The requirements of your specified task has been updated!");
     }
 
