@@ -62,7 +62,7 @@ public class MoneyStorage {
         account.getExpListTotal().add(spiltExp);
     }
 
-    private void parseGoal(String[] info, Account account) {
+    private void parseGoal(String[] info, Account account) throws DukeException {
         Goal g = new Goal(Float.parseFloat(info[1]), info[2], info[3],
                 LocalDate.parse(info[4], dateTimeFormatter), info[5]);
         account.getShortTermGoals().add(g);

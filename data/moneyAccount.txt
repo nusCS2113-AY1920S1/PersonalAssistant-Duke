@@ -17,25 +17,20 @@ INC @ 200.0 @ From null @ 24/10/2019
 INC @ -2.0 @ From null @ 24/10/2019
 INC @ 1000.0 @ shoe guy  @ 10/12/2040
 INC @ 30.0 @ Initialize account: American express @ 27/7/2017
-EXP @ 10000.0 @ buy Motorbike  @ GS @ 11/10/2019
+INC @ 10000.0 @ TA  @ 10/12/2040
 EXP @ 792.1389 @ mortgage  @ instalments @ 11/10/2019
 EXP @ 99.0 @  water  @ bills @ 1/1/2019 @ 1/2/2019
 EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
 EXP @ 100.0 @ buy watch @ GS @ 16/10/2019
 EXP @ 500.0 @  utility  @ bills @ 10/10/2019 @ 4/11/2019
-EXP @ 2000.0 @ buy GFG  @ GS @ 18/10/2019
 EXP @ 30.0 @ Withdraw from OCBC @ bank @ 19/10/2019
 EXP @ 30.0 @ Withdraw from OCBC @ bank @ 19/10/2019
 EXP @ 30.0 @ Withdraw from OCBC @ bank @ 19/10/2019
 EXP @ 2.0 @ shit  @ food  @ 22/10/2019
-SEX @ 400.0 @ l;dskf  @ food  @ 24/10/2019 @ dood&0 ! dood2and&0
-SEX @ 400.0 @ l;dskf  @ food  @ 24/10/2019 @ dood&0 ! dood2&0
-SEX @ 400.0 @ l;dskf  @ food  @ 24/10/2019 @ &0
 SEX @ 300.0 @ mala  @ food  @ 24/10/2019 @ &0
 SEX @ 300.0 @ mala  @ food  @ 24/10/2019 @ gary&0
 SEX @ 300.0 @ mala  @ food  @ 24/10/2019 @ &0
 SEX @ 300.0 @ mala  @ food  @ 24/10/2019 @ dabboy&0 ! bros&0
-EXP @ 2.0 @ dl;k  @ l;dsaf  @ 24/10/2019
 EXP @ 200.0 @ To hawt bois @ Loan Repayment @ 24/10/2019
 EXP @ 200.0 @ To hawt bois @ Loan Repayment @ 24/10/2019
 EXP @ 500.0 @  water bill @ bills @ 10/10/2019 @ 4/11/2019
