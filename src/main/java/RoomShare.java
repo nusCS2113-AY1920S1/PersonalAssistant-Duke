@@ -198,5 +198,6 @@ public class RoomShare {
      */
     public static void main(String[] args) throws RoomShareException {
         new RoomShare().run();
+        return;
     }
 }
