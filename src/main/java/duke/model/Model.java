@@ -30,7 +30,10 @@ public interface Model {
 
     Predicate<Item<Ingredient>> PREDICATE_SHOW_ALL_INVENTORY = unused -> true;
 
-    Predicate<Item<Ingredient>> PREDICATE_SHOW_ALL_SHOPPING = unused -> true;
+    Predicate<Item<Ingredient>> PREDICATE_SHOW_ALL_SHOPPING = ingredientItem -> true;
+    Predicate<Item<Ingredient>> PREDICATE_SHOW_AVAILABLE_SHOPPING =  ingredientItem -> {
+        return ingredientItem.getQuantity().getNumber() > 0;
+    };
 
     /**
      * Returns true if the model has previous baking home states to restore.
@@ -197,7 +200,7 @@ public interface Model {
      */
     void addSaleFromOrder(Order order);
 
-    void addSaleFromShopping();
+    void addSaleFromShopping(Double totalCost);
 
     //========Ingredient operations======
     /**
@@ -306,4 +309,5 @@ public interface Model {
      * Returns an unmodifiable view of the shortcut list.
      */
     List<Shortcut> getShortcutList();
+
 }

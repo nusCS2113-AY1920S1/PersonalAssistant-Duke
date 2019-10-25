@@ -38,4 +38,5 @@ public interface Logic {
     ObservableList<Item<Ingredient>> getFilteredInventoryList();
 
     ObservableList<Item<Ingredient>> getFilteredShoppingList();
+
 }

@@ -4,8 +4,11 @@ import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableFloatValue;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -14,6 +17,8 @@ import javafx.scene.layout.AnchorPane;
 public class ShoppingPage extends UiPart<AnchorPane> {
     private static final String FXML = "ShoppingPage.fxml";
 
+    @FXML
+    private Label totalCostLabel;
     @FXML
     private TableView shoppingListTable;
 
@@ -28,6 +33,7 @@ public class ShoppingPage extends UiPart<AnchorPane> {
         super(FXML);
         this.shoppingList = shoppingList;
         setupTable();
+        setupTotalCostLabel();
     }
 
     void setupTable() {
@@ -95,6 +101,20 @@ public class ShoppingPage extends UiPart<AnchorPane> {
 
         shoppingListTable.getColumns().addAll(ingredientColumn, quantityColumn, costColumn,
                 totalCostColumn, remarksColumn);
+    }
+
+    Double computeTotalCost(ObservableList<Item<Ingredient>> shoppingList) {
+        Double totalCost = 0.0;
+        for (Item<Ingredient> item : shoppingList) {
+            totalCost += item.getTotalPrice();
+        }
+        return totalCost;
+    }
+
+    void setupTotalCostLabel() {
+        totalCostLabel.setText(String.valueOf(computeTotalCost(shoppingList)));
+        shoppingList.addListener((ListChangeListener<Item<Ingredient>>) c ->
+                totalCostLabel.setText(String.valueOf(computeTotalCost(shoppingList))));
     }
 }
 

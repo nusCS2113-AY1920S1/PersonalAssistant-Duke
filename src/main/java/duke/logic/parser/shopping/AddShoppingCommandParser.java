@@ -17,6 +17,10 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_REMARKS;
 
 public class AddShoppingCommandParser implements Parser<AddShoppingCommand> {
 
+    private static final String DEFAULT_COST = "0.00";
+    private static final String DEFAULT_QUANTITY = "0.0";
+    private static final String EMPTY_STRING = "";
+
     @Override
     public AddShoppingCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
@@ -27,13 +31,13 @@ public class AddShoppingCommandParser implements Parser<AddShoppingCommand> {
         );
 
         Ingredient ingredient = new Ingredient(
-                StringUtils.capitalize(map.getValue(PREFIX_SHOPPING_NAME).orElse("").toLowerCase()),
-                Double.parseDouble(map.getValue(PREFIX_SHOPPING_COST).orElse(String.valueOf(0))),
-                map.getValue(PREFIX_SHOPPING_REMARKS).orElse("")
+                StringUtils.capitalize(map.getValue(PREFIX_SHOPPING_NAME).orElse(EMPTY_STRING).toLowerCase()),
+                Double.parseDouble(map.getValue(PREFIX_SHOPPING_COST).orElse(DEFAULT_COST)),
+                map.getValue(PREFIX_SHOPPING_REMARKS).orElse(EMPTY_STRING)
         );
 
         Quantity quantity = new Quantity(
-                Integer.parseInt(map.getValue(PREFIX_SHOPPING_QUANTITY).orElse(String.valueOf(0)))
+                Double.parseDouble(map.getValue(PREFIX_SHOPPING_QUANTITY).orElse(DEFAULT_QUANTITY))
         );
 
         Item<Ingredient> shoppingItem = new Item<Ingredient>(ingredient, quantity);

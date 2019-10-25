@@ -3,9 +3,12 @@ package duke.model.commons;
 import duke.model.inventory.Ingredient;
 import duke.model.product.Product;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class Item<T> {
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
+
     private final T item;
     private final Quantity quantity;
 
@@ -41,10 +44,12 @@ public class Item<T> {
 
     public Double getTotalPrice() {
         if (item instanceof Product) {
-            return ((Product) item).getRetailPrice() * (quantity.getNumber());
+            Double totalPrice = ((Product) item).getRetailPrice() * (quantity.getNumber());
+            return Double.parseDouble(df2.format(totalPrice));
         }
         if (item instanceof Ingredient) {
-            return ((Ingredient) item).getUnitPrice() * (quantity.getNumber());
+            Double totalPrice = ((Ingredient) item).getUnitPrice() * (quantity.getNumber());
+            return Double.parseDouble(df2.format(totalPrice));
         }
         return 0.0;
     }

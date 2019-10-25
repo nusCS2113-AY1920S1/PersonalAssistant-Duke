@@ -10,10 +10,13 @@ import duke.model.Model;
 public class ShowShoppingCommand extends ShoppingCommand {
     public static final String COMMAND_WORD = "";
 
-    private static final String MESSAGE_LIST_SUCCESS = "Showing Shopping List.";
+    private static final String MESSAGE_LIST_SUCCESS = "Showing the Shopping List";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+
+        model.updateFilteredShoppingList(Model.PREDICATE_SHOW_ALL_SHOPPING);
+
         return new CommandResult(MESSAGE_LIST_SUCCESS, CommandResult.DisplayedPage.SHOPPING);
     }
 }
