@@ -205,7 +205,7 @@ For adding resources, consider the case where the user wants to add a pen to RIM
 5.	Afterwards, the AddCommand is executed with the execute() function, which constructs a new Resource based on the parameters provided in AddCommand, adds this Resource to the existing ResourceList in RIMS (through AddResource()). This step is repeated for the quantity (specified by <QTY>) of that particular Resource that is required to be added, as specified in AddCommand.
 6.	Lastly, the Ui object prints a message to the user to notify him/her of the resources that have been added into RIMS.
 
-For deleting resources, the steps are largely the same, however, there are more errors to identify during execute() (refer to Figure 1.). For instance, should the specified resource to be deleted not exist, Ui will print a message to notify the user. Also, should the specified resource to be deleted be on loan at the moment, UI will also send a message to the user to notify him/her of such.
+For deleting resources, the steps are largely the same, however, there are more errors to identify during execute() (refer to Figure 2.1.1). For instance, should the specified resource to be deleted not exist, Ui will print a message to notify the user. Also, should the specified resource to be deleted be on loan at the moment, UI will also send a message to the user to notify him/her of such.
 
 ==== Design Considerations
 
@@ -245,7 +245,7 @@ Making a reservation utilizes the following classes. The Parser and UI class wil
 For making a reservation, consider the case where a user wants to make reservation of an existing resource.
 When starting up RIMS, a Ui and Parser object is instantiated respectively.
 
-1. Referring to Figure 1, a parseInput() function is called, prompting for input from the user. He/She enters the relevant input which is gathered by getinput() from Ui object.
+1. Referring to Figure 2.2.1, a parseInput() function is called, prompting for input from the user. He/She enters the relevant input which is gathered by getinput() from Ui object.
 2. After selecting a type of Resource, The Ui object will display a list of all Resource belong to that type for the user to choose.
 3. The user can then enter the name of the Resource they wish to make a reservation for.
 4. Then, the user can choose a time period they wish to reserve.
@@ -305,7 +305,7 @@ Returning a resource utilizes the following classes: the Parser and UI class wil
 For making a return, consider the case where a user wants to return a pen and record it in RIMS.
 
 1. When RIMS is launched, a Ui and Parser Object is instantiated.
-2. Referring to Figure , a parseInput() function is called, prompting the user for input. He/She enters the “return” keyword which is gathered by the Ui object.
+2. Referring to Figure 2.3.1, a parseInput() function is called, prompting the user for input. He/She enters the “return” keyword which is gathered by the Ui object.
 3. The user is prompted to enter his/her user ID, and the Ui object will display a list of all Reservations made by the user.
 4. The user then enters a the resources to return and the reservation ID corresponding to one of the reservations given in the list of Reservations displayed to be deleted from.
 5. The Parser object constructs a new ReturnCommand object with the evaluated parameters.
@@ -335,10 +335,10 @@ Listing resources using RIMS is facilitated by the ListCommand, after receiving 
 [caption="Figure 2.4.1: "]
 image::ListAllResourcesSequence.png[width="1000", align="center"]
 
-For listing all resources(as shown in Figure 1), consider the case where the user wants a list of all the resources due in the inventory:
+For listing all resources(as shown in Figure 2.4.1), consider the case where the user wants a list of all the resources due in the inventory:
 
 1.	When starting up RIMS, a Ui and Parser object is instantiated respectively.
-2.	Referring to Figure 1, a parseInput() function is called, prompting for input from the user. He/She types the relevant input to the Ui object (getInput() function).
+2.	Referring to Figure 2.4.1, a parseInput() function is called, prompting for input from the user. He/She types the relevant input to the Ui object (getInput() function).
 3.	This input is received by the Parser object, which contains the relevant parameters.
 4.	Following that, the Parser object constructs a new ListCommand with the evaluated parameters.
 5.	Afterwards, the ListCommand is executed with the execute() function for QTY = resource.size(), which is the number of items in the ResourceList.
@@ -348,10 +348,10 @@ For listing all resources(as shown in Figure 1), consider the case where the use
 [caption="Figure 2.4.2: "]
 image::ListRoomOrItemSequence.png[width="1000", align="center"]
 
-For listing resources by item/room(as shown in Figure 1), consider the case where the user wants a list of all the dates a specific room/item is booked on:
+For listing resources by item/room(as shown in Figure 2.4.2), consider the case where the user wants a list of all the dates a specific room/item is booked on:
 
 1.	When starting up RIMS, a Ui and Parser object is instantiated respectively.
-2.	Referring to Figure 2, a parseInput() function is called, prompting for input from the user. He/She types the relevant input to the Ui object (getInput() function).
+2.	Referring to Figure 2.4.2, a parseInput() function is called, prompting for input from the user. He/She types the relevant input to the Ui object (getInput() function).
 3.	This input is received by the Parser object, which contains the relevant parameters, such as whether the resource the user wants to check is an Item or a Room(the Parser object also prompts for new input from user should the format be incorrect or if the resource does not exist).
 4.	Following that, the Parser object constructs a new ListCommand with the evaluated parameters.
 5.	Afterwards, the ListCommand is executed with the execute() function for QTY times, which is the number of that particular item/room in the ReservationList.
@@ -374,7 +374,7 @@ The user will input the command: cal in the UI. This is then parsed by Parser to
 Given below is an example usage scenario and how CalendarCommand works:
 
 1.	When RIMS launches, a UI and Parser object is instantiated.
-2.	Referring to Figure 1, a parseInput() function is called, prompting the user to input a command. The user enters a desired command, such as cal, into the UI.
+2.	Referring to Figure 2.5, a parseInput() function is called, prompting the user to input a command. The user enters a desired command, such as cal, into the UI.
 3.	This input is received by the Parser and it will call the constructor in CalendarCommand.
 4.	CalendarCommand is executed where getData() and printCal() is called.
 5.	getData() will fetch data from ResourceList using the List() function. It will iterate through all the days of the current month and store it in an array.
