@@ -58,6 +58,9 @@ public class InstalmentTest {
         assertEquals("9/10/2007", instalment.getDateEndDate());
         assertEquals("[INS]" + "$" + instalment.getPrice() + " "
                 + instalment.getDescription() + "(on: " + instalment.getBoughtDate() + ")", instalment.toString());
+
+        MoneyCommand exitCommand =  new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
     }
 
     @Test
@@ -82,7 +85,54 @@ public class InstalmentTest {
                 + " per month\n" + " For " + account.getInstalments().get(last).getNumOfPayments() + " months\n"
                 + " Until " + account.getInstalments().get(last).getDateEndDate() + "\n"
                 + " The total amount you will pay is $" + account.getInstalments().get(last).totalAmount() + "\n"
+                + "Got it, list will be printed in the other pane!\n"
                 , ui.getOutputString());
+
+        MoneyCommand exitCommand =  new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
+    }
+
+    @Test
+    public void testAddInvalidNumbers()throws ParseException, DukeException {
+        String testInvalidAmount = "add instalment mortgage /amt 100gse2 /within 200 months /from 12/12/2010 @6%";
+        String testInvalidNoOfMonths = "add instalment mortgage /amt 100000 /within 2e0 months /from 12/12/2010 @6%";
+        String testInvalidInterestRate = "add instalment mortgage /amt 100000 /within 200 months /from 12/12/2010 @f%";
+        MoneyCommand addInstalmentCommand1 =  new AddInstalmentCommand(testInvalidAmount);
+        MoneyCommand addInstalmentCommand2 =  new AddInstalmentCommand(testInvalidNoOfMonths);
+        MoneyCommand addInstalmentCommand3 =  new AddInstalmentCommand(testInvalidInterestRate);
+        ui.clearOutputString();
+
+        try {
+            addInstalmentCommand1.execute(account, ui, moneyStorage);
+            addInstalmentCommand2.execute(account, ui, moneyStorage);
+            addInstalmentCommand3.execute(account, ui, moneyStorage);
+            fail();
+        } catch (DukeException e) {
+            assertThat(e.getMessage(), is("Please enter in the format: "
+                    + "add instalment <desc> /amt <amount> /within <number of months of payment> months "
+                    + "/from <date> @<annual interest rate>%\n"));
+        }
+
+        account.getInstalments().clear();
+        MoneyCommand exitCommand =  new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
+    }
+
+    @Test
+    public void testInvalidDate()throws ParseException, DukeException {
+        String testInput = "add instalment mortgage /amt 100000 /within 200 months /from 12/12201 @6%\n";
+        MoneyCommand addInstalmentCommand =  new AddInstalmentCommand(testInput);
+        ui.clearOutputString();
+
+        try {
+            addInstalmentCommand.execute(account, ui, moneyStorage);
+            fail();
+        } catch (DukeException e) {
+            assertThat(e.getMessage(), is("Invalid date! Please enter date in the format: d/m/yyyy\n"));
+        }
+        account.getInstalments().clear();
+        MoneyCommand exitCommand =  new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
     }
 
     @Test
@@ -101,6 +151,7 @@ public class InstalmentTest {
         assertEquals(" Noted. I've removed this Instalment:\n"
                 + "  " + instalment1.toString() + "\n"
                 + " Now you have " + (account.getInstalments().size()) + " instalments in the list.\n"
+                + "Got it, list will be printed in the other pane!\n"
                 , ui.getOutputString());
 
         String deleteSecondInput = "delete instalments 1";
@@ -110,7 +161,11 @@ public class InstalmentTest {
         assertEquals(" Noted. I've removed this Instalment:\n"
                         + "  " + instalment.toString() + "\n"
                         + " Now you have " + (account.getInstalments().size()) + " instalments in the list.\n"
+                        + "Got it, list will be printed in the other pane!\n"
                 , ui.getOutputString());
+
+        MoneyCommand exitCommand =  new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
     }
 
     @Test
@@ -141,6 +196,9 @@ public class InstalmentTest {
         } catch (DukeException e) {
             assertThat(e.getMessage(), is("The serial number of the Instalments is Out Of Bounds!"));
         }
+
+        MoneyCommand exitCommand =  new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
     }
 
     @Test
@@ -164,6 +222,9 @@ public class InstalmentTest {
                         + " 2.[" + df.format(instalment1.getPercentage()) + "%] " + instalment1.getDescription() + " ($"
                         + df.format(instalment1.equalMonthlyInstalment()) + " per month until " + instalment1.getDateEndDate() + ")\n",
                 ui.getGraphContainerString());
+
+        MoneyCommand exitCommand =  new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
     }
 
     @Test
@@ -200,5 +261,8 @@ public class InstalmentTest {
         assertEquals(false, instalment.getPayForTheMonth());
         instalment.setFullyPaid();
         assertEquals(true, instalment.getFullyPaid());
+
+        MoneyCommand exitCommand =  new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
     }
 }

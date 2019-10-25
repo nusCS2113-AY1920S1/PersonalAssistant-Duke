@@ -61,7 +61,7 @@ public class AddInstalmentCommand extends MoneyCommand {
             boughtDate = Parser.shortcutTime(inputString.split(" months /from ")[1].split(" @")[0]);
             annualIR = Float.parseFloat(inputString.split(" @")[1].split("%")[0]);
             category = "INS";
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DukeException("Please enter in the format: "
                     + "add instalment <desc> /amt <amount> /within <number of months of payment> months "
                     + "/from <date> @<annual interest rate>%\n");
