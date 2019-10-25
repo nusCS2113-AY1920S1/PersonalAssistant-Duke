@@ -69,8 +69,8 @@ public class ParseFindTransaction extends ParseFind {
             checkDateRange(fromDate, toDate);
         }
         if (findCounter == 0) {
-            throw new ParserException("Finding of transaction should have at least 1 parameter " +
-                    "which is not empty for find.");
+            throw new ParserException("Finding of transaction should have at least 1 parameter "
+                    + "which is not empty for find.");
         }
     }
 
@@ -91,8 +91,8 @@ public class ParseFindTransaction extends ParseFind {
      * @return Returns FindTransactionCommand to be executed.
      */
     public Command getCommand() {
-        FindTransactionCommand newFindTransactionCommand = new FindTransactionCommand
-                (findParameters.get(NAME), findParameters.get(FROM), findParameters.get(TO),
+        FindTransactionCommand newFindTransactionCommand = new FindTransactionCommand(
+        findParameters.get(NAME), findParameters.get(FROM), findParameters.get(TO),
                         findParameters.get(DESCRIPTION),
                         findParameters.get(CATEGORY), this.type);
         return newFindTransactionCommand;

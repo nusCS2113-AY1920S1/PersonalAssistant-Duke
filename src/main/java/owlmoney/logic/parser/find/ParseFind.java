@@ -22,7 +22,7 @@ public abstract class ParseFind {
     private String rawData;
     String type;
     private static final String[] FIND_KEYWORD = new String[] {
-            "/name", "/desc", "/category", "/from", "/to"
+        "/name", "/desc", "/category", "/from", "/to"
     };
     private static final List<String> FIND_KEYWORD_LISTS = Arrays.asList(FIND_KEYWORD);
     static final String NAME = "/name";
@@ -105,8 +105,8 @@ public abstract class ParseFind {
      */
     void checkCategory(String categoryString) throws ParserException {
         if (!RegexUtil.regexCheckCategory(categoryString)) {
-            throw new ParserException
-                    ("/category can only contains letters and at most 15 characters");
+            throw new ParserException(
+            "/category can only contains letters and at most 15 characters");
         }
     }
 

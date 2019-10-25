@@ -25,7 +25,7 @@ public class TransactionList {
     private static final int MAX_LIST_SIZE = 2000;
     private static final int ISZERO = 0;
     private static final String FINDDESCRIPTION = "description";
-    private static final String FINDCATEGORY ="category";
+    private static final String FINDCATEGORY = "category";
     private static final String FINDDATE = "date range";
 
 
@@ -446,6 +446,7 @@ public class TransactionList {
             ui.printDivider();
         }
     }
+    
     /**
      * Finds the transactions that falls within the date range specified by the user.
      *

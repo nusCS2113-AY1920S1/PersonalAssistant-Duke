@@ -759,8 +759,8 @@ public class BankList {
                 return bankLists.get(i);
             }
         }
-        throw new BankException("Investment account with the following name " +
-                "does not exist for search: " + investmentName);
+        throw new BankException("Investment account with the following name "
+                + "does not exist for search: " + investmentName);
     }
 
     /**
@@ -781,11 +781,11 @@ public class BankList {
             }
         }
         if (tempBankList.isEmpty() && SAVING.equals(type)) {
-            throw new BankException
-                    ("Savings account with the following keyword could not be found: " + accName);
+            throw new BankException(
+            "Savings account with the following keyword could not be found: " + accName);
         } else if (tempBankList.isEmpty() && INVESTMENT.equals(type)) {
-            throw new BankException
-                    ("Investment account with the following keyword could not be found: " + accName);
+            throw new BankException(
+            "Investment account with the following keyword could not be found: " + accName);
         }
 
         for (int i = ISZERO; i < tempBankList.size(); i++) {

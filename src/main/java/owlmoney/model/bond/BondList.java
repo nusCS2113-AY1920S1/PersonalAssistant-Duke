@@ -230,7 +230,7 @@ public class BondList {
         }
         ui.printBondHeader();
         for (int i = ISZERO; i < tempBondList.size(); i++) {
-            printOneBond((i+ONE_INDEX), tempBondList.get(i), ISMULTIPLE, ui);
+            printOneBond((i + ONE_INDEX), tempBondList.get(i), ISMULTIPLE, ui);
         }
         ui.printDivider();
     }
