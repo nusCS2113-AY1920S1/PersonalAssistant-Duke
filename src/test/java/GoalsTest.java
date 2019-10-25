@@ -1,4 +1,5 @@
 import controlpanel.MoneyStorage;
+import controlpanel.Parser;
 import money.Expenditure;
 import money.Goal;
 import money.Income;
@@ -13,7 +14,10 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class GoalsTest {
     private Ui ui;
@@ -133,10 +137,10 @@ public class GoalsTest {
         Goal g3 = new Goal(100, "pen", "GS", testDate, "LOW");
         account.getShortTermGoals().add(g3);
         String testInput = "commit goal 1,3";
-        MoneyCommand listGoalCommand =  new CommitGoalCommand(testInput);
+        MoneyCommand commitGoalCommand =  new CommitGoalCommand(testInput);
         ui.clearOutputString();
         ui.clearGraphContainerString();
-        listGoalCommand.execute(account, ui, moneyStorage);
+        commitGoalCommand.execute(account, ui, moneyStorage);
         assertEquals( " 1.[\u2713][GS] watch(target: $1000.0)\n (to achieve by: 9/10/2015) HIGH\n"
                         + " 2.[75%][GS] car(target: $2000.0)\n (to achieve by: 9/10/2015) MEDIUM\n"
                         + " 3.[\u2713][GS] pen(target: $100.0)\n (to achieve by: 9/10/2015) LOW\n"
@@ -175,10 +179,10 @@ public class GoalsTest {
         Goal g4 = new Goal(300, "computer", "GS", testDate2, "LOW");
         account.getShortTermGoals().add(g4);
         String testInput = "commit goal 1,3";
-        MoneyCommand listGoalCommand =  new CommitGoalCommand(testInput);
+        MoneyCommand commitGoalCommand =  new CommitGoalCommand(testInput);
         ui.clearOutputString();
         ui.clearGraphContainerString();
-        listGoalCommand.execute(account, ui, moneyStorage);
+        commitGoalCommand.execute(account, ui, moneyStorage);
         assertEquals( " 1.[\u2713][GS] watch(target: $1000.0)\n (to achieve by: 9/10/2050) HIGH\n"
                         + " 2.[75%][GS] car(target: $2000.0)\n (to achieve by: 9/10/2050) MEDIUM\n"
                         + " 3.[\u2713][GS] pen(target: $100.0)\n (to achieve by: 9/10/2050) LOW\n"
@@ -201,4 +205,124 @@ public class GoalsTest {
         MoneyCommand exitCommand =  new ExitMoneyCommand();
         exitCommand.execute(account, ui, moneyStorage);
     }
+
+    @Test
+    public void testInvalidAmt()throws ParseException, DukeException {
+
+        String testInput = "goal buy Motorbike /amt 1h2h2. /by 15/1/2050 /priority HIGH";
+        MoneyCommand addGoalCommand =  new AddGoalCommand(testInput);
+        ui.clearOutputString();
+
+        try {
+            addGoalCommand.execute(account, ui, moneyStorage);
+            fail();
+        } catch (DukeException e) {
+            assertThat(e.getMessage(), is("Please enter in the format: " +
+                    "goal <desc> /amt <amount> /by <date> /priority <HIGH/MEDIUM/LOW>\n"));
+        }
+        account.getShortTermGoals().clear();
+        MoneyCommand exitCommand =  new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
+    }
+
+    @Test
+    public void testInvalidAddGoalCommand()throws ParseException, DukeException {
+
+        String testInput = "goalbuy a house/amt 100 /by 15/1/2050 /priority HIGH";
+
+        try {
+            MoneyCommand c = Parser.moneyParse(testInput, false);
+            c.execute(account, ui, moneyStorage);
+            fail();
+        } catch (DukeException e) {
+            assertThat(e.getMessage(), is("OOPS!!! I'm sorry, but I don't know what that means"));
+        }
+        account.getShortTermGoals().clear();
+        MoneyCommand exitCommand =  new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
+    }
+
+    @Test
+    public void testInvalidDate()throws ParseException, DukeException {
+
+        String testInput = "goal buy Motorbike /amt 1000 /by 15 Jan 2050 /priority HIGH";
+        MoneyCommand addGoalCommand =  new AddGoalCommand(testInput);
+        ui.clearOutputString();
+
+        try {
+            addGoalCommand.execute(account, ui, moneyStorage);
+            fail();
+        } catch (DukeException e) {
+            assertThat(e.getMessage(), is("Invalid date! Please enter date in the format: d/m/yyyy\n"));
+        }
+        account.getShortTermGoals().clear();
+        MoneyCommand exitCommand =  new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
+    }
+
+    @Test
+    public void testInvalidPriority()throws ParseException, DukeException {
+
+        String testInput = "goal buy Motorbike /amt 1000 /by 15/1/2050 /priority high";
+        MoneyCommand addGoalCommand =  new AddGoalCommand(testInput);
+        ui.clearOutputString();
+
+        try {
+            addGoalCommand.execute(account, ui, moneyStorage);
+            fail();
+        } catch (DukeException e) {
+            assertThat(e.getMessage(), is("Please enter in the format: " +
+                    "goal <desc> /amt <amount> /by <date> /priority <HIGH/MEDIUM/LOW>\n"));
+        }
+        account.getShortTermGoals().clear();
+        MoneyCommand exitCommand =  new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
+    }
+
+    @Test
+    public void testDeleteExceedSerial()throws ParseException, DukeException {
+
+        account.getShortTermGoals().clear();
+        Goal g = new Goal(1000, "watch", "GS", testDate, "HIGH");
+        account.getShortTermGoals().add(g);
+        MoneyCommand deleteGoalCommand =  new DeleteGoalCommand(2);
+        ui.clearOutputString();
+
+        try {
+            deleteGoalCommand.execute(account, ui, moneyStorage);
+            fail();
+        } catch (DukeException e) {
+            assertThat(e.getMessage(), is("The serial number of the task is Out Of Bounds!"));
+        }
+        account.getShortTermGoals().clear();
+        MoneyCommand exitCommand =  new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
+    }
+
+    @Test
+    public void testDoneGoalExceedSavings()throws ParseException, DukeException {
+        account.getShortTermGoals().clear();
+        account.getIncomeListTotal().clear();
+        account.getExpListTotal().clear();
+        Income i = new Income(2000, "TA Pay", testDate);
+        account.getIncomeListTotal().add(i);
+        Goal g = new Goal(3000, "watch", "GS", testDate, "HIGH");
+        account.getShortTermGoals().add(g);
+        String testInput = "done goal 1";
+        MoneyCommand doneGoalCommand =  new DoneGoalCommand(testInput);
+        ui.clearOutputString();
+
+        try {
+            doneGoalCommand.execute(account, ui, moneyStorage);
+            fail();
+        } catch (DukeException e) {
+            assertThat(e.getMessage(), is("Goal Price exceeds Goal Savings"));
+        }
+        account.getShortTermGoals().clear();
+        account.getIncomeListTotal().clear();
+        account.getExpListTotal().clear();
+        MoneyCommand exitCommand =  new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
+    }
+
 }

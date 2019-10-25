@@ -8,11 +8,11 @@ public class startCommand extends MoneyCommand{
     private String message;
 
     //@@author therealnickcheong
-    public startCommand(boolean isNewUser){
+    public startCommand(boolean isNewUser) throws DukeException {
         if(isNewUser){
             message = "You are a new user please type: init [existing savings] [Avg Monthly Expenditure]\n";
         }else{
-            message = "You're ready to use Financial Ghosts\n";
+            throw new DukeException("You're an existing user");
         }
     }
 
