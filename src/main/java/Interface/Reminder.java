@@ -1,4 +1,5 @@
 package Interface;
+import DukeExceptions.DukeException;
 import JavaFx.AlertBox;
 import Tasks.Task;
 import Tasks.TaskList;

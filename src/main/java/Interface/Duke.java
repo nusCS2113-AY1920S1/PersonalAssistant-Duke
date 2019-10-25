@@ -1,4 +1,5 @@
 package Interface;
+import DukeExceptions.DukeException;
 import Tasks.*;
 import Commands.*;
 import javafx.application.Application;
