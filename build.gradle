@@ -16,6 +16,8 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.google.code.gson:gson:2.8.6'
+
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.1'
     testRuntime('org.junit.jupiter:junit-jupiter-engine:5.5.1')
 }
