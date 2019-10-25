@@ -1,6 +1,5 @@
 import java.io.IOException;
 
-import exception.DukeException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

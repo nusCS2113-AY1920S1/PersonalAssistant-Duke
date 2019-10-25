@@ -2,10 +2,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import task.Task;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * An example of a custom control using FXML.

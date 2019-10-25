@@ -135,6 +135,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        userInput.clear();
         try {
             Command command = ParserFactory.parse(input);
             command.execute(tasks, storage);
@@ -151,7 +152,6 @@ public class MainWindow extends AnchorPane {
             toChangeDimension,
             DialogBox.getUserDialog(Ui.userOutputForUI, dukeImage, false)
         );
-        userInput.clear();
     }
 
     /**

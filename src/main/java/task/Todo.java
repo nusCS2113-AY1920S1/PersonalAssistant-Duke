@@ -1,6 +1,5 @@
 package task;
 
-import java.time.LocalDateTime;
 import java.io.Serializable;
 
 /**
@@ -38,7 +37,7 @@ public class Todo extends Task implements Serializable {
     }
 
     @Override
-    boolean checkForClash(Task taskToCheck) {
+    boolean isClash(Task taskToCheck) {
         return false;
     }
 }

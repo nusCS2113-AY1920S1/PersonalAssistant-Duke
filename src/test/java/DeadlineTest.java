@@ -3,10 +3,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import parser.ParserFactory;
 import task.Deadline;
-import task.Task;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class DeadlineTest {
     LocalDateTime fromDate = LocalDateTime.of(2001, 1, 1, 1, 0);

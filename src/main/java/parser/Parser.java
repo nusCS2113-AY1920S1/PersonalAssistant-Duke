@@ -3,6 +3,12 @@ package parser;
 import command.Command;
 import exception.DukeException;
 
+/**
+ * Ensures that all the classes of parser type have implementations of the method parse.
+ *
+ * @author Fauzan
+ * @version v1.0
+ */
 public abstract class Parser {
 
     String userInput;

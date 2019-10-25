@@ -48,7 +48,7 @@ public class Event extends Task implements Serializable, Comparable<Event> {
     }
 
     @Override
-    boolean checkForClash(Task taskToCheck) {
+    boolean isClash(Task taskToCheck) {
         if (taskToCheck.endDate == null) {
             return (this.startDate.isBefore(taskToCheck.startDate) && this.endDate.isAfter(taskToCheck.startDate));
         } else {

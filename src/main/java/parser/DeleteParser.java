@@ -4,6 +4,12 @@ import command.Command;
 import command.DeleteCommand;
 import exception.DukeException;
 
+/**
+ * Extract the components required for the delete command from the user input.
+ *
+ * @author Tan Yi Xiang
+ * @version v1.0
+ */
 public class DeleteParser extends IndexParser {
 
     public DeleteParser(String userInput, String command) {
