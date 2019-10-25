@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HomeHelpCommand extends ArgCommand {
-    private final String filePath = "data" + File.separator + "oldHelpDetails.json";
+    private final String filePath = "data" + File.separator + "helpDetails.json";
 
 
     @Override
@@ -22,7 +22,7 @@ public class HomeHelpCommand extends ArgCommand {
         final String[] infoFields = {"command", "summary", "format", "switches", "info"};
         HashMap<String, HashMap<String,String>> helpDetails;
         helpDetails = core.storage.loadHelpHashMap(filePath);
-        if (getSwitchVals().containsKey("all")) {
+        if (getSwitchVals().isEmpty()) {
             for (Map.Entry<String, HashMap<String, String>> mapElement : helpDetails.entrySet()) {
                 HashMap<String,String> value = mapElement.getValue();
                 String helpInfo = "";

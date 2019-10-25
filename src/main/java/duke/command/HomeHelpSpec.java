@@ -12,7 +12,6 @@ public class HomeHelpSpec extends ArgSpec {
         emptyArgMsg = "You didn't tell me anything about the help function!";
         cmdArgLevel = ArgLevel.NONE;
         initSwitches(
-                new Switch("all", String.class, true, ArgLevel.NONE,"all"),
                 new Switch("critical", String.class, true, ArgLevel.NONE, "c"),
                 new Switch("discharge", String.class, true, ArgLevel.NONE, "d"),
                 new Switch("archive", String.class, true, ArgLevel.NONE, "a"),

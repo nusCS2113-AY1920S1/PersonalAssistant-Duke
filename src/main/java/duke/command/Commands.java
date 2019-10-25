@@ -21,8 +21,6 @@ public class Commands {
         switch (cmdStr) {
         case "bye":
             return new ByeCommand();
-        case "help":
-            return new HomeHelpCommand();
         case "back":
             //return new BackCommand();
         case "up":
@@ -42,6 +40,8 @@ public class Commands {
                 return new ReportCommand();
             case "history":
                 return new HomeHistoryCommand();
+            case "help":
+                return new HomeHelpCommand();
             default:
                 return null;
             }

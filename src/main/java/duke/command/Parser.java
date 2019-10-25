@@ -1,12 +1,7 @@
 package duke.command;
 
 import duke.exception.DukeException;
-import duke.exception.DukeHelpException;
 import duke.ui.Context;
-import duke.ui.UiContext;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static java.lang.Math.min;
 
@@ -20,7 +15,6 @@ public class Parser {
     private final Commands commands;
     private final Context context;
     private final ArgParser argParser;
-    private ArgCommand currCommand;
 
     /**
      * Constructs a new Parser, generating a HashMap from an array of enum values to allow fast lookup of command types.
