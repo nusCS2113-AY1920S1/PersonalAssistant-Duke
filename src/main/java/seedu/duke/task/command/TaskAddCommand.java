@@ -12,8 +12,6 @@ import seedu.duke.task.entity.ToDo;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static seedu.duke.task.entity.Task.TaskType.Event;
-
 /**
  * AddCommand is a specific kind of command used to add task to the task list.
  */

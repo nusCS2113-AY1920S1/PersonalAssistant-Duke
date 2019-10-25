@@ -23,8 +23,8 @@ public class EmailCommandParser {
      *
      * @param rawInput user/file input ready to be parsed.
      * @return an email-relevant Command.
-     * @throws CommandParseHelper.UserInputException an exception when the parsing is failed, probably due to the
-     *                                          wrong format of input
+     * @throws CommandParseHelper.UserInputException an exception when the parsing is failed, probably due to
+     *                                               the wrong format of input
      */
     public static Command parseEmailCommand(String rawInput, ArrayList<Command.Option> optionList)
             throws CommandParseHelper.UserInputException {

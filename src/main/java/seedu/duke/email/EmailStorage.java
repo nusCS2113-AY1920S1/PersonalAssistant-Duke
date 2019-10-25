@@ -188,11 +188,11 @@ public class EmailStorage {
      *
      * @return EmailList created from data/email.txt.
      */
-    public static EmailList readEmailFromFile() {
+    public static EmailList readEmailFromFile(String indexDir) {
         EmailList emailList = new EmailList();
         try {
             prepareFolder();
-            String indexDir = getEmailIndexDir();
+            indexDir = assignIndexDirIfNotExist(indexDir);
             File indexFile = new File(indexDir);
             FileInputStream indexIn = new FileInputStream(indexFile);
             Scanner scanner = new Scanner(indexIn);
@@ -214,13 +214,20 @@ public class EmailStorage {
         return emailList;
     }
 
+    private static String assignIndexDirIfNotExist(String indexDir) {
+        if (indexDir == "") {
+            return getEmailIndexDir();
+        }
+        return indexDir;
+    }
+
     private static void readEmailWithIndexString(EmailList emailList, String input)
             throws EmailFormatParseHelper.EmailParsingException, FileNotFoundException {
         Email indexEmail = EmailFormatParseHelper.parseIndexJson(input);
         String filename = indexEmail.toFilename();
         //try {
-            Email fileEmail = readEmailFromFolder(indexEmail, filename);
-            emailList.add(fileEmail);
+        Email fileEmail = readEmailFromFolder(indexEmail, filename);
+        emailList.add(fileEmail);
         //} catch (FileNotFoundException e) {
         //    Duke.getUI().showError("An email file not found.");
         //}

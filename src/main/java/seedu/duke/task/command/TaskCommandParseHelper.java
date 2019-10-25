@@ -284,8 +284,8 @@ public class TaskCommandParseHelper {
     }
 
     private static void addTagsToUpdateCommand(ArrayList<Command.Option> optionList,
-                                                   ArrayList<TaskUpdateCommand.Attributes> attributes,
-                                                   ArrayList<String> descriptions)
+                                               ArrayList<TaskUpdateCommand.Attributes> attributes,
+                                               ArrayList<String> descriptions)
             throws CommandParseHelper.UserInputException {
         ArrayList<String> tags = extractTags(optionList);
         if (!tags.isEmpty()) {

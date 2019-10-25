@@ -37,14 +37,6 @@ public class Duke {
         return duke;
     }
 
-    /**
-     * Main function of the GUI program.
-     */
-    private void run() {
-        initModel();
-        Http.startAuthProcess();
-    }
-
     public static UI getUI() {
         return ui;
     }
@@ -64,9 +56,17 @@ public class Duke {
         delay.play();
     }
 
+    /**
+     * Main function of the GUI program.
+     */
+    private void run() {
+        initModel();
+        Http.startAuthProcess();
+    }
+
     private void initModel() {
         TaskList taskList = TaskStorage.readTaskFromFile();
-        EmailList emailList = EmailStorage.readEmailFromFile();
+        EmailList emailList = EmailStorage.readEmailFromFile("");
         EmailContentParseHelper.initKeywordList();
 
         model.setTaskList(taskList);

@@ -66,8 +66,8 @@ public class Task {
      *
      * @param dateString an input string to be parsed
      * @return parsed result from the input string
-     * @throws CommandParseHelper.UserInputException an exception when the parsing is failed, most likely due to a
-     *                                          wrong format
+     * @throws CommandParseHelper.UserInputException an exception when the parsing is failed, most likely due
+     *                                               to a wrong format
      */
     public static LocalDateTime parseDate(String dateString) throws CommandParseHelper.UserInputException {
         try {
