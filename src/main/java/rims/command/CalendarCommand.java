@@ -81,8 +81,7 @@ public abstract class CalendarCommand extends Command{
             } else if ((i % cellLength) == 0) {
                 System.out.print(TopCentre);
             } else {
-                //System.out.print(Horz)
-                ;
+                System.out.print(Horz);
             }
         }
         System.out.print("\n");
@@ -102,8 +101,7 @@ public abstract class CalendarCommand extends Command{
                 System.out.print(Centre);
             }
             else {
-                //System.out.print(Horz)
-                ;
+                System.out.print(Horz);
             }
         }
         System.out.print("\n");
@@ -123,8 +121,7 @@ public abstract class CalendarCommand extends Command{
                 System.out.print(Centre);
             }
             else {
-                //System.out.print(Horz)
-                ;
+                System.out.print(Horz);
             }
         }
         System.out.print("\n");
@@ -136,15 +133,13 @@ public abstract class CalendarCommand extends Command{
                 System.out.print(BotLeft);
             }
             else if (i == (cellLength * CalWidth)){
-                //System.out.print(BotRight)
-                ;
+                System.out.print(BotRight);
             }
             else if((i % cellLength) == 0){
                 System.out.print(BotCentre);
             }
             else {
-                //System.out.print(Horz)
-                ;
+                System.out.print(Horz);
             }
         }
         System.out.print("\n");
