@@ -2,12 +2,7 @@ package Parser;
 
 import Commands.Command;
 import Commands.FindFreeTimesCommand;
-import Interface.DukeException;
-import Interface.LookupTable;
-import Interface.Storage;
-import Interface.Ui;
-import Tasks.TaskList;
-import java.text.ParseException;
+import DukeExceptions.DukeException;
 
 public class FindFreeTimesParse extends Parse {
     private String fullCommand;

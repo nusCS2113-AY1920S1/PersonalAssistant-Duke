@@ -2,7 +2,7 @@ package Parser;
 
 import Commands.Command;
 import Commands.RemindCommand;
-import Interface.DukeException;
+import DukeExceptions.DukeException;
 import Tasks.Deadline;
 
 import java.text.ParseException;
