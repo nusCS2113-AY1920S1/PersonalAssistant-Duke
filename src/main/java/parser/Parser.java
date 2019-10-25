@@ -189,7 +189,7 @@ public class Parser {
     }
 
     /**
-     * Parses a history command which requests for the list of words in order of entry.
+     * Parses a history command which requests for the list of words in displayOrder of entry.
      * @param taskInfo String array containing first stage parsed user input
      * @return a HistoryCommand object
      * @throws WrongHistoryFormatException when the format of the history command does not match required format

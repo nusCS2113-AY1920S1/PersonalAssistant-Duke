@@ -74,7 +74,7 @@ public class Ui {
     /**
      * Shows the list of all words in the word bank.
      * @param wordBank to store all words
-     * @param order order to show words (ascending / descending)
+     * @param order displayOrder to show words (ascending / descending)
      * @return a string shown when command is completed
      */
     public String showList(WordBank wordBank, String order) {
@@ -132,16 +132,16 @@ public class Ui {
     }
 
     /**
-     * Shows a list of words ordered by their search count in ascending or descending order as specified by the user.
+     * Shows a list of words ordered by their search count in ascending or descending displayOrder as specified by the user.
      * @param wordCount a main class object containing the word bank content
-     * @param order the order (asc/desc) in which to display the word list
+     * @param order the displayOrder (asc/desc) in which to display the word list
      * @return a string to show list of words and their search count
      */
     public String showSearchFrequency(WordCount wordCount, String order) {
         TreeMap<Integer, TreeMap<String, Word>> wordCountMap = wordCount.getWordCount(); //get map ordered by word count
         String returnedString = "You have searched for these words ";
         if (order.equals(
-                "asc") || order.equals("")) { //list in ascending order
+                "asc") || order.equals("")) { //list in ascending displayOrder
             returnedString += "least:\n";
             for (Map.Entry<Integer, TreeMap<String, Word>> entry : wordCountMap.entrySet()) {
                 returnedString += entry.getKey() + " searches -\n";
@@ -149,7 +149,7 @@ public class Ui {
                     returnedString += word.getKey() + "\n";
                 }
             }
-        } else { //list in descending order
+        } else { //list in descending displayOrder
             returnedString += "most:\n";
             for (Integer searchCount : wordCountMap.descendingKeySet()) {
                 returnedString += searchCount + " searches -\n";

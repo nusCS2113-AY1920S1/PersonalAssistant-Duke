@@ -12,17 +12,14 @@ import ui.Ui;
  */
 public class SearchFrequencyCommand extends Command {
 
-    protected String order;
+    protected String displayOrder;
 
-    public SearchFrequencyCommand(String order) {
-        this.order = order;
+    public SearchFrequencyCommand(String displayOrder) {
+        this.displayOrder = displayOrder;
     }
 
     @Override
     public String execute(Ui ui, WordBank wordBank, Storage storage, WordCount wordCount) {
-        //ask ui to print something
-        //ask tasks to store the thing in arraylist
-        //ask storage to write to file
-        return ui.showSearchFrequency(wordCount,order);
+        return ui.showSearchFrequency(wordCount, displayOrder);
     }
 }

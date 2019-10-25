@@ -66,7 +66,7 @@ public class Storage {
 
 
     /**
-     * Converts all data from the text file in the order it is written in.
+     * Converts all data from the text file in the displayOrder it is written in.
      * Stack structure used because the first words to be extracted are the last ones added to stack.
      * @return a stack containing all input words ordered by SEQUENCE OF ENTRY
      */
