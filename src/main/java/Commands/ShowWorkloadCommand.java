@@ -14,15 +14,7 @@ import java.util.*;
 
 public class ShowWorkloadCommand extends Command {
     private String week;
-    private static LookupTable LT;
 
-    static {
-        try {
-            LT = new LookupTable();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Show recommended weekly workload

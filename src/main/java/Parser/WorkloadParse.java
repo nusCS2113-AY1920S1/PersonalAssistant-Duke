@@ -16,11 +16,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 public class WorkloadParse extends Parse{
-    private static String[] split;
-    private static String[] split1;
-    private static String[] split2;
-    private static String[] split3;
-    private static String[] split4;
+
     private static String fullCommand;
     private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
     private static LookupTable LT;
@@ -36,11 +32,17 @@ public class WorkloadParse extends Parse{
         this.fullCommand = fullCommand;
     }
 
+    private Date getNextWeekDate (Date inDate) {
+        Date nextWeek = new Date(inDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+        return nextWeek;
+    }
+
     @Override
     public Command execute() throws Exception {
         try {
             Date today = Calendar.getInstance().getTime();
-            Date nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+           // Date nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+            Date nextWeek = getNextWeekDate(today);
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             String nextWeekDate = formatter.format(nextWeek);
             return new ShowWorkloadCommand(nextWeekDate);
