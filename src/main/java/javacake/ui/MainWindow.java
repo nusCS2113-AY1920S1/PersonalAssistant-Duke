@@ -89,22 +89,9 @@ public class MainWindow extends AnchorPane {
             showContentContainer();
         }
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), ev -> {
-
-            if (isLightMode && isChanged) { //change to dark mode
-                handleGuiMode();
-                isChanged = false;
-            }
-            if (!isLightMode && isChanged) { //change to light mode
-                handleGuiMode();
-                isChanged = false;
-            }
-        }));
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
+        showRemindersBox();
+        playGuiModeLoop();
     }
-
-
 
     public void setDuke(Duke d) {
         duke = d;
@@ -149,12 +136,9 @@ public class MainWindow extends AnchorPane {
                 }
                 showContentContainer();
             } else {
-                if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
-                    response = duke.getResponse(input);
-                    response = response.replaceAll("✓", "\u2713");
-                    response = response.replaceAll("✗", "\u2717");
-                    showTaskContainer();
-                    System.out.println("deadline setting");
+                if (isDeadlineRelated()) {
+                    //handles "deadline" and "reminder"
+                    Duke.logger.log(Level.INFO, "deadline setting");
                 } else if (!isQuiz || isStarting) {
                     //default start: finding of response
                     isStarting = false;
@@ -172,8 +156,9 @@ public class MainWindow extends AnchorPane {
                     }
                 } else {
                     //Must be quizCommand: checking of answers
-                    handleGuiQuiz();
                     DialogBox.isScrollingText = false;
+                    handleGuiQuiz();
+
                     showContentContainer();
                     System.out.println("quiz answer checking");
                 }
@@ -280,6 +265,7 @@ public class MainWindow extends AnchorPane {
             duke.userProgress = duke.profile.getTotalProgress();
             duke.userName = duke.profile.getUsername();
             duke.isFirstTimeUser = true;
+            showRemindersBox();
             response = "Reset confirmed!\nPlease type in new username:\n";
             TopBar.resetProgress();
             isStarting = true;
@@ -294,10 +280,11 @@ public class MainWindow extends AnchorPane {
 
     private void handleGuiQuiz() throws DukeException {
         quizCommand.checkAnswer(input);
-        if (quizCommand.chosenQuestions.size() > 0) {
+        if (quizCommand.questionCounter >= 0) {
             response = quizCommand.getNextQuestion();
         } else {
             isQuiz = false;
+            DialogBox.isScrollingText = true;
             response = quizCommand.getQuizScore();
             if (quizCommand.scoreGrade == QuizCommand.ScoreGrade.BAD) {
                 AvatarScreen.avatarMode = AvatarScreen.AvatarMode.POUT;
@@ -324,4 +311,57 @@ public class MainWindow extends AnchorPane {
         noteContainer.getChildren().add(
                 DialogBox.getTaskDialog(response));
     }
+
+    private void playGuiModeLoop() {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), ev -> {
+            if (isLightMode && isChanged) { //change to dark mode
+                handleGuiMode();
+                isChanged = false;
+            }
+            if (!isLightMode && isChanged) { //change to light mode
+                handleGuiMode();
+                isChanged = false;
+            }
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
+
+    private boolean isDeadlineRelated() {
+        if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
+            response = duke.getResponse(input);
+            System.out.println(response);
+            if (!response.contains("[!]")) {
+                response = duke.getResponse("reminder");
+                //CHECKSTYLE:OFF
+                response = response.replaceAll("✓", "\u2713");
+                response = response.replaceAll("✗", "\u2717");
+                //CHECKSTYLE:ON
+                showTaskContainer();
+                Duke.logger.log(Level.INFO, "Adding deadlines setting");
+            } else {
+                response += "\nType 'reminder' to view deadlines";
+                showTaskContainer();
+                Duke.logger.log(Level.WARNING, "Deadline is not properly parsed!");
+            }
+            return true;
+        } else if (input.equals("reminder")) {
+            response = "Reminders are shown over there! ================>>>\n";
+            showContentContainer();
+            showRemindersBox();
+            Duke.logger.log(Level.INFO, "Reminder setting");
+            return true;
+        }
+        return false;
+    }
+
+    private void showRemindersBox() {
+        response = Ui.showDeadlineReminder(duke.storage, duke.profile);
+        //CHECKSTYLE:OFF
+        response = response.replaceAll("✓", "\u2713");
+        response = response.replaceAll("✗", "\u2717");
+        //CHECKSTYLE:ON
+        showTaskContainer();
+    }
+
 }

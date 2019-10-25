@@ -56,10 +56,11 @@ public class DialogBox extends HBox {
         }
         this.setPrefWidth(675);
         setStyleLoop();
-        setScrollText();
+
         displayText = text;
         charList = displayText.toCharArray();
         dialog.setText(displayText.substring(0, 1));
+        setScrollText();
         displayPicture.setImage(img);
     }
 
@@ -76,10 +77,13 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.setPrefWidth(282);
+        dialog.setPrefWidth(280);
         setStyleLoop();
-        setScrollText();
-        displayText = deadlineTextBase + text;
+
+        displayText = text;
         charList = displayText.toCharArray();
+        setScrollText();
         dialog.setText(displayText.substring(0, 1));
     }
 

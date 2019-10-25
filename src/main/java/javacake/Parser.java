@@ -12,6 +12,7 @@ import javacake.commands.GoToCommand;
 import javacake.commands.HelpCommand;
 import javacake.commands.ListCommand;
 import javacake.commands.MegaListCommand;
+import javacake.commands.ReminderCommand;
 import javacake.commands.ResetCommand;
 import javacake.commands.ScoreCommand;
 import javacake.exceptions.DukeException;
@@ -69,6 +70,8 @@ public class Parser {
         } else if (input.equals("change")) {
             MainWindow.isChanged = true;
             return new ChangeColorCommand();
+        } else if (input.equals("reminder")) {
+            return new ReminderCommand();
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }

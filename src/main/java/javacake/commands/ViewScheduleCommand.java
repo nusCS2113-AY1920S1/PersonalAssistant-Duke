@@ -62,7 +62,7 @@ public class ViewScheduleCommand extends Command {
         return "";
     }
 
-    static void sortTasksByDate(ArrayList<Task> scheduleList) {
+    private static void sortTasksByDate(ArrayList<Task> scheduleList) {
         scheduleList.sort((o1, o2) -> {
             if (o1.getDateTime() == null) {
                 return 1;

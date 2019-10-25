@@ -3,7 +3,6 @@ package javacake.ui;
 import javacake.Duke;
 import javacake.Main;
 import javacake.commands.QuizCommand;
-import javacake.quiz.QuestionList;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

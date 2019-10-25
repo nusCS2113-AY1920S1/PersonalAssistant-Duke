@@ -15,25 +15,43 @@ public class ReminderCommand extends Command {
 
     @Override
     public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) {
-        ArrayList<Task> deadlineList = new ArrayList<>();
+        ArrayList<Task> deadlineList = storage.getData();
         /*for (Task task : progressStack.getData()) {
             if (task.getTaskType() == Task.TaskType.DEADLINE) {
                 deadlineList.add(task);
             }
         }*/
-        ViewScheduleCommand.sortTasksByDate(deadlineList);
+        StringBuilder stringBuilder = new StringBuilder();
+        sortTasksByDate(deadlineList);
         int idx = 1;
         if (deadlineList.size() > 0) {
-            ui.showMessage("Here are the upcoming Deadlines:");
+            //ui.showMessage("Here are the upcoming Deadlines:");
+            stringBuilder.append("~~Upcoming Deadlines!~~\n");
             for (Task task : deadlineList) {
-                StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append(idx++).append(".");
-                stringBuilder.append(task.getFullString());
-                ui.showMessage(stringBuilder.toString());
+                stringBuilder.append(task.getFullString()).append("\n");
+                //ui.showMessage(stringBuilder.toString());
             }
         } else {
-            ui.showError("Empty List!");
+            //ui.showError("You have no deadlines as of now.");
+            stringBuilder.append("You have no deadlines as of now.\n");
         }
-        return "";
+        return stringBuilder.toString();
+    }
+
+    private static void sortTasksByDate(ArrayList<Task> scheduleList) {
+        scheduleList.sort((o1, o2) -> {
+            if (o1.getDateTime() == null) {
+                return 1;
+            } else if (o2.getDateTime() == null) {
+                return -1;
+            }
+            if (o1.getDateTime().before(o2.getDateTime())) {
+                return -1;
+            } else if (o1.getDateTime().after(o2.getDateTime())) {
+                return 1;
+            }
+            return 0;
+        });
     }
 }

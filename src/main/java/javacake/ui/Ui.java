@@ -1,8 +1,12 @@
 package javacake.ui;
 
+import javacake.ProgressStack;
 import javacake.commands.QuizCommand;
+import javacake.commands.ReminderCommand;
 import javacake.exceptions.DukeException;
 import javacake.quiz.Question;
+import javacake.storage.Profile;
+import javacake.storage.Storage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -56,6 +60,10 @@ public class Ui {
             strA.append(helpMessage());
         }
         return strA.toString();
+    }
+
+    public static String showDeadlineReminder(Storage storage, Profile profile) {
+        return new ReminderCommand().execute(new ProgressStack(), new Ui(), storage, profile);
     }
 
     /**
