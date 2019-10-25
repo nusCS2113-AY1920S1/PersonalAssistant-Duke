@@ -3,6 +3,8 @@ package duke.logic.commands;
 import duke.ModelStub;
 import duke.commons.enumerations.Constraint;
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.InputNotDoubleException;
+import duke.commons.exceptions.UnknownConstraintException;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
 import org.junit.jupiter.api.Test;
@@ -35,12 +37,30 @@ class RouteNodeEditCommandTest {
         routeNodeEditCommand3.execute(model);
         assertEquals(Constraint.valueOf("BUS"), model.getRoutes().get(0).getNode(0).getType());
 
-        RouteNodeEditCommand routeNodeEditCommand4 = new RouteNodeEditCommand(0, 0, "latitude", "2113");
-        routeNodeEditCommand4.execute(model);
+        //negative test for a constraint that does not exist
+        RouteNodeEditCommand routeNodeEditCommand4 = new RouteNodeEditCommand(0, 0, "type", "2113T");;
+        assertThrows(UnknownConstraintException.class, () -> {
+            routeNodeEditCommand4.execute(model);
+        });
+
+        RouteNodeEditCommand routeNodeEditCommand5 = new RouteNodeEditCommand(0, 0, "latitude", "2113");
+        routeNodeEditCommand5.execute(model);
         assertEquals(2113, model.getRoutes().get(0).getNode(0).getLatitude());
 
-        RouteNodeEditCommand routeNodeEditCommand5 = new RouteNodeEditCommand(0, 0, "longitude", "2113");
-        routeNodeEditCommand5.execute(model);
+        //negative test for latitude that cannot be converted to a Double
+        RouteNodeEditCommand routeNodeEditCommand6 = new RouteNodeEditCommand(0, 0, "latitude", "NOT_DOUBLE");;
+        assertThrows(InputNotDoubleException.class, () -> {
+            routeNodeEditCommand6.execute(model);
+        });
+
+        RouteNodeEditCommand routeNodeEditCommand7 = new RouteNodeEditCommand(0, 0, "longitude", "2113");
+        routeNodeEditCommand7.execute(model);
         assertEquals(2113, model.getRoutes().get(0).getNode(0).getLongitude());
+
+        //negative test for longitude that cannot be converted to a Double
+        RouteNodeEditCommand routeNodeEditCommand8 = new RouteNodeEditCommand(0, 0, "longitude", "NOT_DOUBLE");;
+        assertThrows(InputNotDoubleException.class, () -> {
+            routeNodeEditCommand8.execute(model);
+        });
     }
 }

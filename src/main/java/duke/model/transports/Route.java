@@ -1,6 +1,7 @@
 package duke.model.transports;
 
 import duke.commons.exceptions.NullResultException;
+import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.model.locations.BusStop;
 import duke.model.locations.RouteNode;
@@ -119,10 +120,10 @@ public class Route {
      *
      * @param newNode The new node to add.
      * @param index The index of the node to add to.
-     * @exception IndexOutOfBoundsException If the index is out of bounds.
+     * @exception QueryOutOfBoundsException If the index is out of bounds.
      * @exception RouteNodeDuplicateException If the route is a duplicate.
      */
-    public void addNode(RouteNode newNode, int index) throws RouteNodeDuplicateException, IndexOutOfBoundsException {
+    public void addNode(RouteNode newNode, int index) throws RouteNodeDuplicateException, QueryOutOfBoundsException {
         if (index >= 0 && index < nodes.size()) {
             for (RouteNode node : nodes) {
                 if (node instanceof BusStop && newNode instanceof BusStop
@@ -138,7 +139,7 @@ public class Route {
             return;
         }
 
-        throw new IndexOutOfBoundsException();
+        throw new QueryOutOfBoundsException("NODE");
     }
 
     /**

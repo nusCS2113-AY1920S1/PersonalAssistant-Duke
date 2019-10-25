@@ -47,11 +47,11 @@ public class Parser {
         case "todo":
             return new AddCommand(ParserUtil.createTodo(input));
         case "done":
-            return new MarkDoneCommand(ParserUtil.getIndex(input));
+            return new MarkDoneCommand(ParserUtil.getIndex(getWord(input)));
         case "delete":
-            return new DeleteCommand(ParserUtil.getIndex(input));
+            return new DeleteCommand(ParserUtil.getIndex(getWord(input)));
         case "find":
-            return new FindCommand(getWord(input));
+            return new FindCommand(getWord(getWord(input)));
         case "findtime":
             return new FreeTimeCommand(ParserUtil.getIndex(input));
         case "search":
@@ -83,7 +83,7 @@ public class Parser {
                     ParserUtil.getSecondIndex(getWord(input)), ParserUtil.getFieldInList(3, 4, getWord(input)),
                     ParserUtil.getFieldInList(4, 4, getWord(input)));
         case "routeDelete":
-            return new RouteDeleteCommand(ParserUtil.getIndex(input));
+            return new RouteDeleteCommand(ParserUtil.getIndex(getWord(input)));
         case "routeNodeDelete":
             return new RouteNodeDeleteCommand(ParserUtil.getFirstIndex(getWord(input)),
                     ParserUtil.getSecondIndex(getWord(input)));

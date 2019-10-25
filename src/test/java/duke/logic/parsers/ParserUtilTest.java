@@ -16,7 +16,7 @@ class ParserUtilTest {
 
     @Test
     void getIndex() throws Exception {
-        assertEquals(ParserUtil.getIndex("done 1"), 0);
+        assertEquals(ParserUtil.getIndex("done 1".strip().split(" ", 2)[1]), 0);
     }
 
     @Test

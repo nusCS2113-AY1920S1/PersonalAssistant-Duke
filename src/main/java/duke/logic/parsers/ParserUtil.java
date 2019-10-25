@@ -123,7 +123,7 @@ public class ParserUtil {
      */
     public static int getIndex(String userInput) throws DukeException {
         try {
-            int index = Integer.parseInt(userInput.replaceAll("\\D+", ""));
+            int index = Integer.parseInt(userInput.strip());
             return index - 1;
         } catch (NumberFormatException e) {
             throw new DukeUnknownCommandException();

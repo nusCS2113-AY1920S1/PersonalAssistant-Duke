@@ -60,6 +60,7 @@ public class Messages {
     public static final String PROMPT_TOO_MANY_ATTEMPTS = "Sorry, but you have exceeded 5 attempts...";
     public static final String PROMPT_SPACES = "Please do not include spaces in your search!";
     public static final String PROMPT_NOT_INT = "Please use a number!";
+    public static final String PROMPT_NOT_DOUBLE = "Please use a number!";
     public static final String PROMPT_NOT_STRING = "Please use a string!";
     public static final String PROMPT_NOT_DATE = "Please use a proper date!";
 
