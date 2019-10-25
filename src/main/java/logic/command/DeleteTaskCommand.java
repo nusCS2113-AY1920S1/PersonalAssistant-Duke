@@ -1,19 +1,21 @@
 package logic.command;
+
 import model.Model;
 import model.task.Task;
 import utils.DukeException;
 
-public class AddTaskCommand extends Command {
+public class DeleteTaskCommand extends Command {
     public static final String COMMAND_WORD = "task";
     private String taskName;
 
-    public AddTaskCommand(String arguments) {
-        taskName = arguments;
+    public DeleteTaskCommand(String taskName) {
+        this.taskName = taskName;
     }
 
     @Override
     public CommandOutput execute(Model model) throws DukeException {
-        model.addTask(taskName);
-        return new CommandOutput("you have created a new Task: " + taskName);
+        Task temp = model.deleteTask(taskName);
+        return new CommandOutput("you have removed a task: " + temp.getName());
     }
+
 }

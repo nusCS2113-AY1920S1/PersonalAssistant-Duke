@@ -15,6 +15,7 @@ public class NewParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final String ADD_COMMAND_WORD = "add";
     private static final String LIST_COMMAND_WORD = "list";
+    private static final String DELETE_COMMAND_WORD = "delete";
 
     //@@author JustinChia1997
     /**
@@ -38,6 +39,10 @@ public class NewParser {
 
         case LIST_COMMAND_WORD:
             return ListParser.parseListCommand(arguments);
+
+        case DELETE_COMMAND_WORD:
+            return DeleteParser.parseDeleteCommand(arguments);
+
 
         default:
             throw new DukeException("Command word not found");

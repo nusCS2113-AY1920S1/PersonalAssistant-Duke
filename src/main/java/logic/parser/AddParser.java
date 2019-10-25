@@ -23,10 +23,10 @@ public class AddParser {
         final String arguments = matcher.group("arguments");
 
         switch (addType) {
-        case AddTaskCommand.COMMAND_WORD:
-            return new AddTaskCommand(arguments);
-        default:
-            throw new DukeException("Command word not found");
+            case AddTaskCommand.COMMAND_WORD:
+                return new AddTaskCommand(arguments);
+            default:
+                throw new DukeException("Command word not found");
         }
 
     }
