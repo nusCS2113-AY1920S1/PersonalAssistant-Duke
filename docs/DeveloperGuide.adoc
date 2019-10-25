@@ -299,6 +299,34 @@ differences, listed below:
 `ProjectRepository` instead of `addToRepo()`.
 * Deletion of Project works by Project Index instead of Project Name.
 
+*Manage project*
+
+ArchDuke allows users to manage each individual project in the `ProjectRepository`.
+
+image::images/ManageProject_Sequence.png[]
+
+*Task assignments*
+
+ArchDuke allows users to track tasks and their assignments to members in a project.
+Assignments establish a relationship between a task and a member. When a member is assigned a task,
+they are expected to complete it, and will be given the stipulated credit upon completion. The degree
+of each member's contributions are measured by task credit.
+
+Assignments are tracked in the `Project` class using 2 Java HashMaps.
+
+* `taskAndListOfMembersAssigned`
+    ** Key: `Task`
+    ** Value: ArrayList of assigned `Member` objects (List of members assigned to task)
+
+* `memberAndIndividualListOfTasks`
+    ** Key: `Member`
+    ** Value: ArrayList of `Task` objects (List of each member's individual tasks)
+
+Using a HashMap for storage would allow for fast and easy writing and retrieval of data.
+It also prevents cyclic dependencies as `Task` and `Member` objects would not have to be aware of
+each other (such as each class keeping an ArrayList of the assignment) in order to establish the
+assignment.
+
 // ==== Design Considerations
 
 // ===== Aspect: How undo & redo executes
