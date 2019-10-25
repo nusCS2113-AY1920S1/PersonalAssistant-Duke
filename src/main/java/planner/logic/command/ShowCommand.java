@@ -25,29 +25,8 @@ public class ShowCommand extends ModuleCommand {
     }
 
     private Set<String> getCoreModList() {
-        int numOfCoreMods = 22;
-        if (coreModList.size() != numOfCoreMods) {
-            coreModList.add("CG1111");
-            coreModList.add("CG1112");
-            coreModList.add("CS1010");
-            coreModList.add("CS1231");
-            coreModList.add("MA1511");
-            coreModList.add("MA1512");
-            coreModList.add("M1508E");
-            coreModList.add("CG2023");
-            coreModList.add("CG2027");
-            coreModList.add("CG2028");
-            coreModList.add("CG2271");
-            coreModList.add("CS2040C");
-            coreModList.add("CS2101");
-            coreModList.add("EE2026");
-            coreModList.add("EG2401A");
-            coreModList.add("ST2334");
-            coreModList.add("CG3207");
-            coreModList.add("CP3380");
-            coreModList.add("EG3611A");
-            coreModList.add("CG4002");
-            coreModList.add("EE4204");
+        if (coreModList.size() == 0) {
+            setCoreMods(coreModList);
         }
         return coreModList;
     }
@@ -100,7 +79,7 @@ public class ShowCommand extends ModuleCommand {
             case ("core"): {
                 plannerUi.coreModReport();
                 int count = 0;
-                coreModList = getCoreModList();
+                Set<String> coreModList = getCoreModList();
                 for (int i = 0; i < tasks.getTasks().size(); i++) {
                     String moduleCode = tasks.getTasks().get(i).getModuleCode();
                     if (coreModList.contains(moduleCode)) {
@@ -133,7 +112,7 @@ public class ShowCommand extends ModuleCommand {
             case ("ue"): {
                 plannerUi.ueModReport();
                 int count = 0;
-                coreModList = getCoreModList();
+                Set<String> coreModList = getCoreModList();
                 for (int i = 0; i < tasks.getTasks().size(); i++) {
                     String moduleCode = tasks.getTasks().get(i).getModuleInfoDetailed().getModuleCode();
                     if ((!coreModList.contains(moduleCode)) && !moduleCode.startsWith("GE")) {
