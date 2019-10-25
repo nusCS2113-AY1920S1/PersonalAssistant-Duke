@@ -42,7 +42,6 @@ public class Patient extends DukeObject {
         super(name);
         this.bedNo = bedNo;
         this.allergies = allergies;
-        this.priDiagnosis = null;
         this.impressions = new HashMap<String, Impression>();
 
         this.height = height;
@@ -51,6 +50,8 @@ public class Patient extends DukeObject {
         this.number = number;
         this.address = address;
         this.history = history;
+        this.priDiagnosis = new Impression("No Primary Impression", "Add upon admission diagnosis", this);
+
     }
 
     /**
@@ -67,15 +68,14 @@ public class Patient extends DukeObject {
         super(name);
         this.bedNo = bedNo;
         this.allergies = allergies;
-        this.priDiagnosis = null;
         this.impressions = new HashMap<String, Impression>();
-
         this.height = null;
         this.weight = null;
         this.age = null;
         this.number = null;
         this.address = null;
         this.history = null;
+        this.priDiagnosis = null;
     }
 
     /**

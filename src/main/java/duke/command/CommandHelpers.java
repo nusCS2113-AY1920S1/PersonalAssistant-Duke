@@ -22,7 +22,7 @@ public class CommandHelpers {
     public static Integer switchToInt(String switchName, ArgCommand command) throws DukeHelpException {
         String str = command.getSwitchVal(switchName);
         if (str == null) {
-            return null;
+            return 0;
         } else {
             try {
                 return Integer.parseInt(str);
