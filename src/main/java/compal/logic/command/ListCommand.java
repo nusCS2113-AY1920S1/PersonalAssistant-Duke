@@ -22,10 +22,15 @@ public class ListCommand extends Command {
     public static final String LIST_EMPTY = "Looks like your list is empty!\nStart adding in your task "
         + "by looking at the help command!";
     private String type = "";
-    private String LIST_PREFIX2;
+    private String listPrefixTwo;
 
+    /**
+     * Construct the ListCommand class.
+     *
+     * @param type the type to be display if valid.
+     */
     public ListCommand(String type) {
-        LIST_PREFIX2 = "Here are the stored " + type + " in your list:\n\n";
+        listPrefixTwo = "Here are the stored " + type + " in your list:\n\n";
         if ("deadline".equals(type)) {
             this.type = "D";
         } else if ("event".equals(type)) {
@@ -43,7 +48,7 @@ public class ListCommand extends Command {
         if (type.isEmpty()) {
             finalList = LIST_PREFIX;
         } else {
-            finalList = LIST_PREFIX2;
+            finalList = listPrefixTwo;
         }
         int count = 1;
         for (Task t : toList) {
