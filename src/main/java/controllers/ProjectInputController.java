@@ -277,15 +277,23 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public void projectViewTaskRequirements(Project projectToManage, String projectCommand) {
-        int taskIndex = Integer.parseInt(projectCommand.substring(23));
-        if (projectToManage.getNumOfTasks() >= taskIndex && taskIndex > 0) {
-            if (projectToManage.getTask(taskIndex).getNumOfTaskRequirements() == 0) {
-                consoleView.consolePrint("This task has no specific requirements.");
-            } else {
-                consoleView.viewTaskRequirements(projectToManage, taskIndex);
-            }
+        if (projectCommand.length() < 23) {
+            consoleView.consolePrint("Please indicate the index of the task to be viewed.");
         } else {
-            consoleView.consolePrint("The task index entered is invalid.");
+            try {
+                int taskIndex = Integer.parseInt(projectCommand.substring(23));
+                if (projectToManage.getNumOfTasks() >= taskIndex && taskIndex > 0) {
+                    if (projectToManage.getTask(taskIndex).getNumOfTaskRequirements() == 0) {
+                        consoleView.consolePrint("This task has no specific requirements.");
+                    } else {
+                        consoleView.viewTaskRequirements(projectToManage, taskIndex);
+                    }
+                } else {
+                    consoleView.consolePrint("The task index entered is invalid.");
+                }
+            } catch (NumberFormatException e) {
+                consoleView.consolePrint(("Input is not a number! Please input a proper task index!"));
+            }
         }
     }
 
