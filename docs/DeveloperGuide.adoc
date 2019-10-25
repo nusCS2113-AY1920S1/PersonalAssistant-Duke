@@ -327,6 +327,72 @@ It also prevents cyclic dependencies as `Task` and `Member` objects would not ha
 each other (such as each class keeping an ArrayList of the assignment) in order to establish the
 assignment.
 
+=== 3.2. CRUD functionality for Tasks
+==== Implementation
+
+CRUD Task functions are handled by `Task`, `TaskList` and `TaskFactory`,`Project` and `ProjectInputController`.
+It allows ArchDuke to perform simple CRUD function for Task in the Project, these simple functions include Create, Read,
+Update and Delete. `TaskFactory` will create the relevant task with the apporatied input from the user which will then be
+added into the `TaskList` managed by the `Project`. `ProjectInputController` will read the relevant command related to task
+function and call the relevant methods in `TaskFactory` And `ParserHelper`.
+
+It implements the following commands:
+* `add task -t TASK_NAME  -p TASK_PRIORITY-c TASK_CREDIT -d TASK_DUEDATE -s TASK_STATE -r TASK_REQUIREMENT1` -- Creation of a
+new Task with the task name, priority, credit, due date (optional), state(optional) and additional requirements (if any)
+
+* `edit task TASK_INDEX -t TASK_NAME -p TASK_PRIORITY -c TASK_CREDIT -s TASK_STATE` -- Edits existing task with the new input
+values
+
+* `view tasks` -- Viewing of all tasks in current project
+
+* `view task requirements TASK_INDEX` -- Viewing of all additional requirements of a specified task
+
+* `edit task requirements TASK_INDEX rm/TASK_INDEXES r/TASK_REQUIREMENT1 -- Edits task requirements of specified task by
+removing unwanted requirements and adding new ones
+
+* `delete task TASK_INDEX` -- Deletion of task with stated index
+
+The example usage scenario below will explain in detail the data flow and how the program behaves at each step of CRUD
+functions with regards to a Task object.
+
+Step 1) Assuming Project have been created and the user is currently managing a specific project.
+
+Step 2) The user execute the command `add task -t kill thanos! -p 100 -c 100` to create a new task with the task
+name “kill thanos!”, priority value “100” and a credit of “100”. These input will be consumed by `ProjectInputController.manageProject()`
+
+Step 3) The `ProjectInputController.manageProject()` will trigger the `TaskFactory` which will do a  validation to ensure the
+required input are given.
+
+Step 4) ‘TaskFactory` will then call parserHelper.parseTaskDetails() to do a simple parsing which will clean up the
+flags and return ArrayList<String> for `TaskFactory` to create the task.
+
+Step 5) ‘TaskFactory’ will create the task based on the information given by the user. The created task will subsequently
+be added into `taskList` managed by the project and successfully or unsuccessfully a message in String will be returned.
+
+The following sequence diagram show how `create task` operation works.
+
+image::images/CreateTask_Sequence.png[]
+
+=== 3.2. CRUD functionality for Reminder [Plan to do]
+==== Implementation
+
+Implementation
+CRUD Reminder functions are handled by `Reminder`, `ReminderList` and `ReminderFactory`,`Project` and `ProjectInputController`.
+It allows ArchDuke to perform simple CRUD function for Reminder in the Project, these simple functions include Create, Read,
+Update and Delete. `TaskFactory` will create the relevant task with the apporatied input from the user which will then be
+added into the `TaskList` managed by the `Project`. `ProjectInputController` will read the relevant command related to task
+function and call the relevant methods in `TaskFactory` And `ParserHelper`.
+
+Reminder function implements the following commands:
+* `add reminder -n REMINDER_NAME  --d REMINDER_DUEDATE` -Tag REMINDER_TAG -- Creation of a new Reminder with the reminder
+name and due date (optional)
+
+* `edit reminder TASK_INDEX -n REMINDER_NAME -d REMINDER_DUEDATE` -- Edits existing task with the new input values
+
+* `view reminder` -- Viewing of all reminders in current project
+
+image::images/CreateReminder_Sequence.png[]
+
 // ==== Design Considerations
 
 // ===== Aspect: How undo & redo executes
