@@ -1,8 +1,8 @@
 package duke.storage;
 
 import duke.exception.DukeException;
-import duke.list.recipelist.FeedbackList;
-import duke.task.recipetasks.Feedback;
+import duke.model.list.recipelist.FeedbackList;
+import duke.model.task.recipetasks.Feedback;
 import java.io.*;
 import java.util.ArrayList;
 

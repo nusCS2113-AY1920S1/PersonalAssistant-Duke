@@ -1,8 +1,8 @@
 package duke.storage;
 
 import duke.exception.DukeException;
-import duke.list.recipelist.RecipeIngredientList;
-import duke.task.recipetasks.RecipeIngredient;
+import duke.model.list.recipelist.RecipeIngredientList;
+import duke.model.task.recipetasks.RecipeIngredient;
 
 import java.io.FileReader;
 import java.io.BufferedReader;

@@ -1,11 +1,10 @@
 package duke.storage;
 
 import duke.exception.DukeException;
-import duke.list.recipelist.RecipeList;
-import duke.task.recipetasks.Recipe;
+import duke.model.list.recipelist.RecipeList;
+import duke.model.task.recipetasks.Recipe;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.HashMap;
 
 /**

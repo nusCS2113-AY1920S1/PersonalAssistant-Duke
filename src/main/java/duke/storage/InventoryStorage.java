@@ -1,8 +1,8 @@
 package duke.storage;
 
 import duke.exception.DukeException;
-import duke.list.inventorylist.InventoryList;
-import duke.task.ingredienttasks.Ingredient;
+import duke.model.list.inventorylist.InventoryList;
+import duke.model.task.ingredienttasks.Ingredient;
 
 import java.io.*;
 import java.util.HashMap;

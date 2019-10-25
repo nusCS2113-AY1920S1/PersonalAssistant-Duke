@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.TextArea?>
-<AnchorPane id="AnchorPane" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.MainWindow">
+<AnchorPane id="AnchorPane" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.ui.MainWindow">
     <children>
         <VBox prefHeight="177.0" prefWidth="1200.0">
             <MenuBar fx:id="menuBar" prefHeight="25.0" prefWidth="1184.0" VBox.vgrow="NEVER">
