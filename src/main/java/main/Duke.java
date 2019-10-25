@@ -1,16 +1,20 @@
 package main;
 
 import command.Command;
+import command.CommandList;
 import degree.Degree;
 import exception.DukeException;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import list.DegreeListStorage;
 import parser.Parser;
 import storage.Storage;
+import task.DegreeTask;
 import task.TaskList;
 import ui.UI;
 import list.DegreeList;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -39,11 +43,12 @@ public class Duke extends Application {
     private Map<String, List<String>> degrees = new HashMap<>();
     private Map<String, Degree> degreeInfo = new HashMap<>();
     private ArrayList<String> mydegrees = new ArrayList<>();
+    private DegreeTask degreeTask = new DegreeTask();
 
     public ArrayList<String> getTasks() {
         return mydegrees;
     }
-    
+
     /**
      * The constructor that is called when the GUI is starting up.
      * It will initialise all the classes related to the management of user input and save data.
@@ -59,14 +64,17 @@ public class Duke extends Application {
         this.storage = new Storage(filePath);
         try {
             myList = new TaskList(storage.getTaskList());
+            DegreeListStorage degreeListStorage = new DegreeListStorage();
+            degreeListStorage.ReadFile();
         } catch (DukeException e) {
             myList = new TaskList();
+            ui.showLoadingError();
         }
         try{
+            degreeTask.loadDegreeTasks(storage.fetchListOutput("degreeTasks"));
             setDegrees(storage.fetchListOutput("listdegrees"));
             loadDegrees();
         } catch (DukeException e) {
-            ui.showLoadingError();
             degrees.clear();
             degreeInfo.clear();
             System.out.println(e.getLocalizedMessage());
@@ -174,7 +182,7 @@ public class Duke extends Application {
         System.setOut(ps);
         try {
             ui.showLine();
-            Degree temp = new Degree(storage.fetchListOutput("ISEP1"));
+/*            Degree temp = new Degree(storage.fetchListOutput("ISEP1"));
             for(Map.Entry<String, List<String>> pair : degrees.entrySet())
             {
                 String degree = pair.getKey();
@@ -189,10 +197,10 @@ public class Duke extends Application {
                     }
                     System.out.println();
                 }
-            }
+            }*/
             Command c = Parser.parse(line);
             c.execute(this.myList, this.ui, this.storage, this.lists);
-        } catch (DukeException | NullPointerException e) {
+        } catch (DukeException | NullPointerException | IOException e) {
             ui.showError(e.getLocalizedMessage());
         } finally {
             ui.showLine();
@@ -213,7 +221,7 @@ public class Duke extends Application {
                 Command c = Parser.parse(line);
                 isExit = c.isExit();
                 c.execute(this.myList, this.ui, this.storage, this.lists);
-            } catch (DukeException | NullPointerException e) {
+            } catch (DukeException | NullPointerException | IOException e) {
                 ui.showError(e.getLocalizedMessage());
             } finally {
                 ui.showLine();

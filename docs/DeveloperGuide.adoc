@@ -72,6 +72,234 @@ While Duke 2.0 may work using diffferent versions of Java and with other IDEs, t
 
 
 == Implementation
+=== Undo/Redo Feature
+==== Implementation
+
+The undo/redo mechanism is done using a simplified memento pattern, since the command classes have already been implemented. This works as an extension of the command classes and makes use of existing code without any 3rd party libraries or additional dependencies.
+
+Each command that modifies the task or degree lists saves the complete previous state within the command as a `memento` object. Thus, when we "unexecute" the command, we call this object and get the complete state of the task or degree list before it was modified by this `command`. 
+
+All of these commands are stored in a `CommandList`, where it has methods to retrieve the previous `command` whenever undo is input, or to manually retrieve a particular command using `undoRedoPointer` whenever redo is input.
+
+Once a command has been undone and the user makes new changes to the task or degree list, all commands after the `undoRedoPointer` will be removed to make way for new commands.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+*Step 1*: The user launches the application, and duke initializes an empty `CommandList`. The `undoRedoPointer` points to -1 as there are currently no elements in `CommandList`.
+
+image::UndoImage1.png[width="900", align="left"]
+    
+
+*Step 2*: The user inputs "todo Sleep". This adds a todo task to the `TaskList` and constructs an `AddCommand` object to be executed. Once that `AddCommand` is executed, it saves the current `TaskList` into a memento object, and then it adds "todo Sleep" into the `TaskList`.
+
+*Step 3*: After command execution, the `AddCommand` object is added to `CommandList`. The `undoRedoPointer` increments by 1 and now points to the newly added `AddCommand` at index 0.
+
+image::UndoImage2.png[width="900", align="left"]
+
+TIP: `CommandList` supports modifications to both task and degree lists. Undo simply undoes the modification to one of the lists in order of commands.
+
+*Step 4*: The user inputs "list" to double check the addition of the new task. This executes `PrintCommand` to display the contents of `TaskList`, but does not modify it in any way. Thus, it will not be added to `CommandList`.
+
+*Step 5*: The user inputs "done 3" to mark the 3rd task in `TaskList` as done. This constructs a `ModCommand` object to change the contents of an element in `TaskList`. Once `ModCommand` is executed, it saves the current `TaskList` into a memento object, and then marks the 3rd task as done.
+
+*Step 6*: After command execution, the `ModCommand` object is added to `CommandList`. The `undoRedoPointer` increments by 1 and now points to the newly added `ModCommand` at index 1.
+
+image::UndoImage3.png[width="900", align="left"]
+
+
+*Step 7*: The user now inputs "undo" to undo the task marking. This will call the `undo` method of `CommandList`, gets the command that `undoRedoPointer` is pointing to (which is `ModCommand` in this case) and unexecute it. `ModCommand` will call its `memento` object and replace the current `TaskList`. The `undoRedoPointer` decrements by 1, and now points to index 0. Note that `ModCommand` is not removed to facilitate redos.
+
+image::UndoImage4.png[width="900", align="left"]
+
+
+*Step 8*: The user inputs another "undo" to undo the task addition. Similar to step 7, it will call the `undo` method of `CommandList` again and unexecutes the command that `undoRedoPointer` is pointing to. `AddCommand` will call its `memento` object and replace the current `TaskList` with the one that does not have the new task. The `undoRedoPointer` decrements by 1, and now points to index -1.
+
+image::UndoImage5.png[width="900", align="left"]
+
+NOTE: Attempting to undo when there is nothing left to undo will return an error message. Similarly, attempting to redo when there is nothing left to redo will also return an error message.
+
+
+*Step 9*: The user now inputs "redo" to undo the undo. This will call the `redo` method of `CommandList`. It will first increment the `undoRedoPointer` by 1, and it will then execute the command at the pointed element. This will add "todo Sleep" back to the `TaskList`.
+
+image::UndoImage6.png[width="900", align="left"]
+
+
+*Step 10*: The user now inputs "done 1" to mark the 1st task as done. Since its now a different command from "done 3" and not "redo", `CommandList` will check if there are commands past `undoRedoPointer`. Currently, `ModCommand` is the element after the one at `undoRedoPointer`, thus `CommandList` will pop all commands from the back of the Stack until `undoRedoPointer`. 
+
+image::UndoImage7.png[width="900", align="left"]
+
+
+*Step 11*: Once the excess commands are removed, it will proceed back to normal by executing a new `ModCommand` and adding it to `CommandList`, and incrementing `undoRedoPointer` by 1.
+
+image::UndoImage8.png[width="900", align="left"]
+
+
+==== Design Considerations
+How undo/redo executes:
+
+* Alternative 1 (Current Choice): Commands saves a complete previous state if it modifies the degrees or task list
+** Pros: 
+*** Much easier to implement than a partial state save. 
+*** Easier to implement when new commands are added.
+*** Common method in the industry to implement undo/redo.
+** Cons: 
+*** Memory issues once too many commands are executed.
+* Alternative 2: Saves the degree and task list to a history.
+** Pros: 
+*** Straightforward method to save previous states that can be called using undo/redo. 
+*** No work needed when new commands are added.
+** Cons: 
+*** Does not work when a modification changes multiple lists.
+*** Memory issues once too many states are saved.
+* Alternative 3: Perform the opposite command whenever undo is called. (i.e. undoing add will delete the addition instead of recalling the previous state)
+** Pros: 
+*** Uses less memory than saving the state every time. 
+*** Proper implementation of the memento pattern.
+** Cons: 
+*** A lot of work needed to "unexecute" every command possible. 
+*** More commands means more "unexecution" is needed, and the workload scales higher than alternative 1.
+
+Data Structure to support undo/redo:
+
+* Alternative 1 (Current Choice): `CommandList` class using a stack and a pointer.
+** Pros:
+*** Much faster pushing and popping the stack than adding into standard `Lists` and `ArrayLists`.
+*** More control than a simple stack, as it can also support redos and new commands added after undos.
+** Cons:
+*** Have to manually write the CommandList mostly from scratch instead of using a pre-esxisting data structure or class. (Although it uses a stack to store and retrieve the commands)
+
+* Alternative 2: `ArrayList` of commands and a pointer.
+** Pros:
+*** Less work needed to write methods as it uses a pre-existing data structure.
+*** Easier for newer developers to understand how the undo/redo function works.
+** Cons:
+*** Have to do all the work of adding, removing and choosing commands within another class, and can result in messy implementations.
+*** Slightly slower than stacks when adding and deleting elements in the `ArrayList`.
+
+
+=== Degree-Related Tasks
+==== Implementation
+
+The actions involving Degree-Related Tasks are performed mostly using the `DegreeTask` class. It extends the `Task` class, eventhough it does not use many methods from the aforementioned class. 
+
+image::DegreeTaskuml.png[width="900", align="left"]
+
+
+This was done in preparation for some proposed additional changes to this feature that will be discussed later in the document.
+
+
+
+
+Currently, the `DegreeTask` class implements three of the following operations:
+
+* loadDegreeTasks
+
+** This method initializes an Arraylist of TaskLists. When it is called, each of these TaskLists will be populated with the specific tasks that are related to each degree programme. For example, all tasks related to `Computer Engineering` are stored in one of the TaskLists. The other two classes will be able to use this Arraylist to perform operations on the user's TaskList.
+
+* addDegreeTasks
+
+** This method adds all tasks related to a specified degree programme to the user's TaskList.
+
+
+* removeDegreeTasks
+
+** This method removes all tasks related to a specified degree programme to the user's TaskList.
+
+An example usage scenario details how the mechanism behaves at each step:
+
+*Step 1*: The user launches the application, and Duke will initialize an instance of the DegreeTasks command. Duke will call the `loadDegreeTasks` method, and an ArrayList of TaskLists will be instantiated.
+
+*Step 2*: The user inputs the command `add ComE` to add Computer Engineering to his choice of degree programmes
+
+*Step 3*: The degree programme is added to his list of degree programmes by a seperate, unnamed class. Subsequently, `addDegreeTasks` is called to add all Computer Engineering tasks to his TaskList.
+
+
+At this point, the user can choose to remove the degree programme from his list of degree programmes if he chooses. If he does, there will be additional steps to the mechanism:
+
+*Step 4*: The user inputs the command `remove 1` to remove the first-indexed degree programme in his list. In this case, it is `Computer Engineering`
+
+*Step 5*: The tasks related to this degree programme are removed from his TaskList
+
+
+==== [Proposed] Priority for Tasks
+
+In addition to the adding and removing of degree-related tasks, there will be a passive feature of prioritising tasks that have closer dates, or that relate to degree programmes that are higher on the user's degree list.
+
+This mechanism is facilitated by the `TaskRanking` class. It extends `TaskList` and has an internal list of integers that correspond with each task on the user's tasklist. This list is internally stored as `PriorityList`.
+
+The priority will be calculated by giving each task points that correspond with higher priority.
+|===
+| Days Away from Date | Points
+| Less Than or Equal to 3 | 7
+| Less Than or Equal to 5 | 5
+| Less Than or Equal to 7 | 3
+| Greater than 7 | 2
+| No Date | 0
+|===
+
+
+
+Degree-Related Tasks also get a boost in points based on how high up on the degree list they are
+|===
+| Ranking of Degree | Points
+| Rank 1 | 10
+| Rank 2 | 8
+| Rank 3 | 6
+| Rank 4 | 3
+| Rank 5 | 2
+| Rank 6 and Above | 1
+|===
+
+
+
+==== Design Considerations
+Aspect: Implementing the Degree Tasks
+
+* Alternative 1: Implementing Degree Tasks as just Events and Deadlines (current choice):
+
+** Pro: The tasks can be instantiated and treated as Events and Deadlines, and use the methods from those classes
+
+** Con: Extra code needs to be written to parse the description of each task to tell whether it is a degree-related task or not
+
+* Alternative 2: Implementing Degree Tasks as an extension of the Event and Deadline class:
+
+** Pro: The tasks are defined as a new subclass of tasks called "Degree-Tasks". It would be a neat way of storing all Degree-Related Tasks
+
+** Con: The toString() method would produce an extra column in printing, as well as saving, and thus would require changing the Storage class
+
+
+Aspect: Storing the Degree Tasks
+
+* Alternative 1: Storing them in an ArrayList of TaskLists (current choice):
+
+** Pro: Easy to call the index that is needed to take one of the TaskLists for interacting with the user's TaskList
+
+** Con: Involves a slightly more expensive data structure
+
+* Alternative 2: Storing them in a continuous List of Strings
+
+** Pro: Efficient way of storing the Tasks
+
+** Con: Requires continuous parsing at every interaction with the user's tasklist
+
+
+
+Aspect: [Proposed] Priority for Tasks
+
+* Alternative 1: Automated Priority:
+
+** Pro: Easy to associate the value and sort the pairs
+
+** Cons: May not allow the user to view other ways of seeing his list
+
+
+* Alternative 2: Other ways of Sorting:
+
+** Pro: Gives further functionality to the user to see his list
+
+** Con: Requires saving different states of the list, or introducing more sorting commands
+
+
 
 == Testing
 

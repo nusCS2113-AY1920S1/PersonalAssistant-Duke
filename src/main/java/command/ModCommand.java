@@ -2,10 +2,12 @@ package command;
 
 import exception.DukeException;
 import storage.Storage;
+import task.DegreeTask;
 import task.Task;
 import ui.UI;
 import task.TaskList;
 import list.DegreeList;
+import list.DegreeListStorage;
 
 /**
  * ModCommand Class extends the abstract Command class.
@@ -18,6 +20,7 @@ import list.DegreeList;
 public class ModCommand extends Command {
     private String command;
     private String input;
+    private DegreeListStorage dd = new DegreeListStorage();
     private int listType = 0;
 
     public ModCommand(String command, String input) {
@@ -44,8 +47,9 @@ public class ModCommand extends Command {
 
             degreesBuffer = lists.deepClone();
             memento = new Memento(degreesBuffer);
-
-            lists.delete(this.input);
+            DegreeTask degreeTask = new DegreeTask();
+            degreeTask.removeDegreeTasks(this.input, lists, tasks);
+            lists.delete(this.input, this.dd);
             break;
         case "done":
             this.listType = 0;
