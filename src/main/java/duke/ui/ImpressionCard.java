@@ -1,10 +1,15 @@
 package duke.ui;
 
+import duke.DukeCore;
+import duke.data.Impression;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.AnchorPane;
 
-public class ImpressionCard extends UiElement<Region> {
+import java.io.IOException;
+
+public class ImpressionCard extends AnchorPane {
     private static final String FXML = "ImpressionCard.fxml";
 
     @FXML
@@ -16,7 +21,50 @@ public class ImpressionCard extends UiElement<Region> {
     @FXML
     private Label descriptionLabel;
 
-    public ImpressionCard() {
-        super(FXML, null);
+    private Impression impression;
+
+    /**
+     * Constructs an ImpressionCard object with the specified impression's details.
+     *
+     * @param impression Impression object.
+     */
+    ImpressionCard(Impression impression) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(DukeCore.class.getResource("/view/" + FXML));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            throw new AssertionError(e);
+        }
+
+        this.impression = impression;
+
+        nameLabel.setText(impression.getName());
+        criticalLabel.setText(impression.getTreatments().size() + " critical(s)");
+        // TODO: followupLabel
+        followupLabel.setText("0 follow-up(s)");
+        descriptionLabel.setText(impression.getDescription());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof ImpressionCard)) {
+            return false;
+        }
+
+        ImpressionCard card = (ImpressionCard) obj;
+        return impression.equals(card.getImpression());
+    }
+
+    public Impression getImpression() {
+        return impression;
     }
 }

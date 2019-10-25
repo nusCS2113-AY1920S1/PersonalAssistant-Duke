@@ -24,6 +24,10 @@ public class PatientMap {
     public PatientMap(GsonStorage storage) throws DukeResetException, DukeFatalException {
         HashMap<String, Patient> patientHashMap = storage.loadPatientHashMap();
         patientObservableMap = FXCollections.observableMap(patientHashMap);
+
+        for (Map.Entry<String, Patient> pair : patientHashMap.entrySet()) {
+            pair.getValue().initObservableImpressions();
+        }
     }
 
     /**
