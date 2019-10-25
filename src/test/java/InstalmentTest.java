@@ -170,7 +170,6 @@ public class InstalmentTest {
     public void testAutoUpdateInstalment() throws ParseException, DukeException{
         account.getInstalments().clear();
         account.getExpListTotal().clear();
-        account.getExpListCurrMonth().clear();
 
         LocalDate currDate = LocalDate.now();
 
@@ -189,7 +188,6 @@ public class InstalmentTest {
         autoUpdateInstalmentCommand.execute(account, ui, moneyStorage);
         assertEquals("You have paid " + instalment.equalMonthlyInstalment() + " for "
                 + instalment.getDescription() + ". It is currently " + instalment.getPercentage() + "% paid.", ui.getOutputString());
-        assertEquals(1, account.getExpListCurrMonth().size());
         assertEquals(1, account.getExpListTotal().size());
         assertEquals(true, instalment.getPayForTheMonth());
 
