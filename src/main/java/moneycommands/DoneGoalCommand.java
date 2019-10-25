@@ -6,6 +6,7 @@ import controlpanel.Ui;
 import money.Account;
 import money.Expenditure;
 import money.Goal;
+import money.Item;
 
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -43,7 +44,7 @@ public class DoneGoalCommand extends MoneyCommand {
             throw new DukeException("The serial number of the Goal is Out Of Bounds!");
         }
 
-        Goal doneGoal =  account.getShortTermGoals().get(indexNo-1);
+        Goal doneGoal =  account.getShortTermGoals().get(indexNo - 1);
         float price = doneGoal.getPrice();
         String desc = doneGoal.getDescription();
         String category = doneGoal.getCategory();
@@ -55,8 +56,9 @@ public class DoneGoalCommand extends MoneyCommand {
 
         Expenditure e = new Expenditure(price, desc, category, doneDate);
         account.getExpListTotal().add(e);
-        storage.markDeletedEntry("G", indexNo);
-        account.getShortTermGoals().remove(indexNo-1);
+        account.getShortTermGoals().remove(indexNo - 1);
+        storage.addDeletedEntry(doneGoal);
+        storage.writeToFile(account);
 
         ui.appendToOutput(" Nice! This Goal is Completed:\n");
         ui.appendToOutput("  " + doneGoal.toString() + "\n");
@@ -73,10 +75,16 @@ public class DoneGoalCommand extends MoneyCommand {
         account.getExpListTotal().remove(account.getExpListTotal().size() - 1);
         String temp = inputString.replaceAll("[^0-9]", "");
         int indexNo = Integer.parseInt(temp);
-        storage.undoDeletedEntry(account, "G", indexNo);
-        ui.appendToOutput(" Last command undone: \n");
-        ui.appendToOutput(account.getShortTermGoals().get(indexNo - 1).toString() + " added to goals\n");
-        ui.appendToOutput(" Now you have " + account.getShortTermGoals().size() + " goals listed\nand " +
-                account.getExpListTotal().size() + "expenses listed\n");
+
+        Item deletedEntry = storage.getDeletedEntry();
+        if (deletedEntry instanceof  Goal) {
+            account.getShortTermGoals().add(indexNo - 1, (Goal)deletedEntry);
+            ui.appendToOutput(" Last command undone: \n");
+            ui.appendToOutput(account.getShortTermGoals().get(indexNo - 1).toString() + " added to goals\n");
+            ui.appendToOutput(" Now you have " + account.getShortTermGoals().size() + " goals listed\nand " +
+                    account.getExpListTotal().size() + "expenses listed\n");
+        } else {
+            throw new DukeException("Messed up (DoneGoal)");
+        }
     }
 }

@@ -40,15 +40,15 @@ G @ 100.0 @ buy ultraboost  @ GS @ 15/1/2050 @ HIGH
 G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 10000.0 @ buy expensive watch  @ GS @ 5/10/2029 @ MEDIUM
 G @ 4000.0 @ Macbook Pro 15.6inch  @ GS @ 15/1/2020 @ HIGH
-INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2010 @ 200 @ 0.06
-INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2010 @ 200 @ 0.06
-INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2010 @ 200 @ 0.06
-INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2010 @ 200 @ 0.06
-INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2010 @ 200 @ 0.06
-INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2010 @ 200 @ 0.06
-INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2010 @ 200 @ 0.06
-INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2010 @ 200 @ 0.06
 G @ 5000.0 @ buy computer  @ GS @ 15/1/2050 @ HIGH
+INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2010 @ 200 @ 0.06
+INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2010 @ 200 @ 0.06
+INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2010 @ 200 @ 0.06
+INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2010 @ 200 @ 0.06
+INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2010 @ 200 @ 0.06
+INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2010 @ 200 @ 0.06
+INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2010 @ 200 @ 0.06
+INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2010 @ 200 @ 0.06
 INS @ 100000.0 @ mortgage  @ instalments @ 9/10/2019 @ 200 @ 0.06
 INS @ 100000.0 @ harvey norman  @ instalments @ 12/12/2010 @ 200 @ 0.06
 LOA @ 200000.0 @ guy @ 24/10/2019 @ OUTGOING @  @ 1 @ 0.0
