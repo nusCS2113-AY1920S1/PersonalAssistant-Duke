@@ -9,11 +9,16 @@ import duke.logic.conversations.ConversationManager;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
 import duke.model.ModelManager;
+import javafx.scene.input.KeyCode;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The main logic of the application.
  */
 public class LogicManager extends Logic {
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private Model model;
     private ConversationManager conversationManager;
 
@@ -33,15 +38,26 @@ public class LogicManager extends Logic {
      */
     public CommandResult execute(String userInput) throws DukeException {
         Command c;
-        try {
-            c = Parser.parseSingleCommand(userInput);
-            conversationManager.clearContext();
-        } catch (DukeApiException e) {
-            throw new DukeException((e.getMessage()));
-        } catch (DukeUnknownCommandException e) {
-            c = getCommandFromConversationManager(userInput);
+        if (EditorManager.isActive()) {
+            logger.log(Level.INFO, "editing...");
+            c = EditorManager.edit(userInput);
+        } else {
+            try {
+                c = Parser.parseComplexCommand(userInput);
+                conversationManager.clearContext();
+            } catch (DukeApiException e) {
+                throw new DukeException((e.getMessage()));
+            } catch (DukeUnknownCommandException e) {
+                c = getCommandFromConversationManager(userInput);
+            }
         }
         return (CommandResult) c.execute(model);
+    }
+
+    public void execute(KeyCode keyCode) {
+        if (EditorManager.isActive()) {
+            EditorManager.edit(keyCode);
+        }
     }
 
     /**
@@ -49,12 +65,6 @@ public class LogicManager extends Logic {
      */
     private Command getCommandFromConversationManager(String userInput) throws DukeException {
         conversationManager.converse(userInput);
-        String result;
-        if (conversationManager.isFinished()) {
-            result = conversationManager.getResult();
-        } else {
-            result = conversationManager.getPrompt();
-        }
-        return Parser.parseComplexCommand(result);
+        return conversationManager.getCommand();
     }
 }
