@@ -1,5 +1,6 @@
 package duke.logic.parser;
 
+import duke.exception.DukeException;
 import duke.logic.command.Command;
 import duke.logic.command.CommandBooking;
 import duke.logic.command.*;
@@ -35,7 +36,7 @@ public class Parser {
         }
     }
 
-    public static CommandRecipe<RecipeIngredientList, RecipeList, RecipeIngredientStorage, RecipeStorage> parseRecipeIngredient(String input) {
+    public static CommandRecipe<RecipeIngredientList, RecipeList, RecipeIngredientStorage, RecipeStorage> parseAddRecipeIngredient(String input) {
         return new AddRecipeIngredientCommand(input);
     }
 
@@ -52,15 +53,15 @@ public class Parser {
         }
     }
 
-//    public static Command<RecipeList, Ui, RecipeStorage> parseRecipeIngredient(String input) throws DukeException {
-//        if (input.trim().contains(COMMAND_ADD_RECIPE_INGREDIENT)) {
-//            return new AddRecipeIngredientCommand(input);
-//        } else if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT)) {
-//            return new ListRecipeIngredientCommand(input);
-//        } else {
-//            return new DeleteRecipeIngredientCommand(input);
-//        }
-//    }
+    public static Command<RecipeIngredientList, Ui, RecipeIngredientStorage> parseRecipeIngredient(String input) throws DukeException {
+        if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT)) {
+            return new ListRecipeIngredientCommand(input);
+        } else if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT)) {
+            return new ListRecipeIngredientCommand(input);
+        } else {
+            return new DeleteRecipeIngredientCommand(input);
+        }
+    }
 
     public static CommandBooking parseBooking(String userInputCommand) {
         if (userInputCommand.contains(COMMAND_FIND_BOOKING)) {
@@ -71,7 +72,9 @@ public class Parser {
             return new DeleteBookingCommand(userInputCommand);
         } else if (userInputCommand.contains(COMMAND_VIEW_BOOKING_SCHEDULE)) {
             return new ViewBookingScheduleCommand(userInputCommand);
-        } else { //userInputCommand.equals(COMMAND_LIST_BOOKINGS)
+        } else if (userInputCommand.contains(COMMAND_VIEW_ORDERS)) {
+            return new ViewOrdersCommand(userInputCommand);
+        } else {
             return new AllBookingsCommand();
         }
     }

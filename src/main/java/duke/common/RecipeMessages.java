@@ -18,6 +18,7 @@ public class RecipeMessages {
 
     public static final String MESSAGE_DELETE_PREPSTEP = "     Noted. I've removed this step:\n";
     public static final String MESSAGE_DELETE_RECIPE = "Noted. I've removed this ingredient:\n";
+
     public static final String MESSAGE_RECIPE_DELETED = "Noted. I've removed this recipe:\n";
     public static final String MESSAGE_RECIPE_ADDED = "Got it. I've added this recipe:\n";
 

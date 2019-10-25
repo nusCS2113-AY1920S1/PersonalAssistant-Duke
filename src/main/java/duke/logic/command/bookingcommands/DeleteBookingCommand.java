@@ -58,7 +58,6 @@ public class DeleteBookingCommand extends CommandBooking {
         } else if (userInputCommand.trim().charAt(13) == ' ') {
             String input = userInputCommand.split("\\s",2)[1].trim();
             if (isParsable(input)) {
-                //converting string to integer
                 int index = Integer.parseInt(input);
                 if (index > bookingList.getSize() || index <= 0) {
                     if (bookingList.getSize() == 0) {

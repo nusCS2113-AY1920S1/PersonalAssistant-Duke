@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 1 | prata | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
 2 | pizza | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
+=======
+chicken rice | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.
+>>>>>>> upstream/master

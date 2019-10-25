@@ -12,6 +12,7 @@ public class Booking {
     protected Date date;
     protected SimpleDateFormat dateFormatter;
     protected String orderName;
+    protected String tempOrders;
 
     public Booking(String customerName, String customerContact, String numberOfPax, String bookingDate, String orderName) throws ParseException {
         this.customerName = customerName;
@@ -21,19 +22,20 @@ public class Booking {
         date = new SimpleDateFormat("dd/MM/yyyy").parse(bookingDate);
         dateFormatter = new SimpleDateFormat("d MMMM yyyy");
         this.orderName = orderName;
+        tempOrders = orderName.split("orders/", 2)[1].trim();
 
     }
 
 
     public String toSaveString() {
-        return "booking" + " | " + customerName + " | " + customerContact + " | " + numberOfPax + " | " + bookingDate + " | " +  orderName;
+        return "booking" + " | " + customerName + " | " + customerContact + " | " + numberOfPax + " | " + bookingDate + " | " + orderName;
     }
 
 
     public String toString() {
         return "[Customer name: " + customerName + "] " + "[Contact No.: " + customerContact + "] "
-                + "[No. of pax: " + numberOfPax+ "] " + "[Booking on: " + dateFormatter.format(date) + "] "
-                + "[Orders: " + orderName + "]";
+                + "[No. of pax: " + numberOfPax + "] " + "[Booking on: " + dateFormatter.format(date) + "] "
+                + "[Orders: " + tempOrders + "]";
     }
 
 
@@ -44,4 +46,11 @@ public class Booking {
     public String getCustomerName() {
         return customerName;
     }
+
+    public String[] getOrders() {
+        String tempOrders = orderName.split("orders/", 2)[1];
+        String[] orders = tempOrders.split(",");
+        return orders;
+    }
+
 }

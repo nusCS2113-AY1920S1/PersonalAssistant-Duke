@@ -18,6 +18,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import static duke.common.Messages.*;
+import static duke.common.BookingMessages.*;
 import static duke.common.RecipeMessages.COMMAND_LIST_RECIPE_INGREDIENT;
 
 /**
@@ -49,6 +50,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+
         Ui ui = new Ui(this);
         duke = new Duke(ui);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -78,7 +80,7 @@ public class MainWindow extends AnchorPane {
             } else {
                 ArrayList<String> arrayList = new ArrayList<>(duke.runProgram(input));
                 showMessage(arrayList.get(0));
-                if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT)) {
+                if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT) || input.trim().contains(COMMAND_VIEW_ORDERS)) {
                     listViewResult.getItems().clear();
                     for (int i = 1; i < arrayList.size(); i++) {
                         listViewResult.getItems().add(arrayList.get(i));
