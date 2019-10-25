@@ -177,6 +177,8 @@ public class InstalmentTest {
         account.getInstalments().add(instalment);
 
         AutoUpdateInstalmentCommand autoUpdateInstalmentCommand = new AutoUpdateInstalmentCommand();
+        assertEquals(false, autoUpdateInstalmentCommand.isExit());
+        assertEquals(LocalDate.now(), autoUpdateInstalmentCommand.getCurrDate());
         autoUpdateInstalmentCommand.execute(account, ui, moneyStorage);
 
         LocalDate testDate1 = autoUpdateInstalmentCommand.getCurrDate();
