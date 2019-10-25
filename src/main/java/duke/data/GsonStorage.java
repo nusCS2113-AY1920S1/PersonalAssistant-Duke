@@ -1,9 +1,12 @@
 package duke.data;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 import duke.exception.DukeFatalException;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -117,4 +120,32 @@ public class GsonStorage {
         fileWriter.close();
         return new PatientMap();
     }
+
+    /**
+     * Loads all the details in the JSON file to a hash map.
+     * @param helpFile the path of the helpFile
+     * @return the hash map containing the helpfile
+     * @throws DukeFatalException If data file cannot be setup.
+     */
+    public HashMap<String, HashMap<String, String>> loadHelpHashMap(String helpFile) throws DukeFatalException {
+        final File jsonFile = new File(helpFile);
+        if (!jsonFile.exists()) {
+            try {
+                if (!jsonFile.createNewFile()) {
+                    throw new IOException();
+                }
+            } catch (IOException e) {
+                throw new DukeFatalException("Unable to setup data file, try checking your permissions?");
+            }
+        }
+        HashMap<String, HashMap<String, String>> helpMap = new HashMap<String, HashMap<String, String>>();
+        try {
+            JsonReader reader = new JsonReader(new FileReader(helpFile));
+            helpMap = new Gson().fromJson(reader, new TypeToken<HashMap<String, HashMap<String,String>>>(){}.getType());
+        } catch (IOException e) {
+            throw new DukeFatalException("Unable to load data file, try checking your permissions?");
+        }
+        return helpMap;
+    }
+
 }
