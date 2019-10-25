@@ -3,11 +3,10 @@ package duchess.parser.states;
 import duchess.exceptions.DuchessException;
 import duchess.logic.commands.AddDeadlineCommand;
 import duchess.logic.commands.AddGradeCommand;
+import duchess.logic.commands.AddLessonCommand;
 import duchess.logic.commands.AddTodoCommand;
 import duchess.logic.commands.ByeCommand;
 import duchess.logic.commands.Command;
-import duchess.logic.commands.DeleteModuleCommand;
-import duchess.logic.commands.DeleteTaskCommand;
 import duchess.logic.commands.DisplayCalendarCommand;
 import duchess.logic.commands.DisplayCommand;
 import duchess.logic.commands.DoneCommand;
@@ -22,6 +21,7 @@ import duchess.logic.commands.ViewScheduleCommand;
 import duchess.parser.Parser;
 import duchess.parser.Util;
 import duchess.parser.commands.DeleteCommandParser;
+import duchess.parser.commands.LessonCommandParser;
 import duchess.parser.commands.ListCommandParser;
 import duchess.parser.states.add.AddState;
 
@@ -136,6 +136,8 @@ public class DefaultState implements ParserState {
                 throw new DuchessException("Usage: grade <marks> /weightage <weightage> /for <module> <assessment>\n"
                         + "\te.g. grade 15\\30 /weightage 25 /for CS2113 midterm");
             }
+        } else if ("lesson".equals(keyword)) {
+            return LessonCommandParser.parse(parameters);
         } else if ("bye".equals(keyword)) {
             return new ByeCommand();
         } else if ("log".equals(keyword)) {

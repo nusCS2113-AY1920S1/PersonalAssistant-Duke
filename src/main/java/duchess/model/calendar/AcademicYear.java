@@ -33,9 +33,7 @@ public class AcademicYear {
     }
 
     private String getWeek(LocalDate comparison, LocalDate date) {
-        final double week = 7.0;
-        long daysBetween = ChronoUnit.DAYS.between(comparison, date) + 1;
-        int currWeek = (int) Math.ceil(daysBetween / week);
+        int currWeek = getWeekAsInt(comparison, date);
         if (currWeek == 7) {
             return ", Recess Week";
         } else if (currWeek >= 8 && currWeek <= 14) {
@@ -49,9 +47,38 @@ public class AcademicYear {
         }
     }
 
+    /**
+     * Returns true if currWeek falls within semester break
+     * and false if currWeek does not fall within semester break.
+     *
+     * @param currWeek week of interest
+     * @return boolean showing if currWeek falls within semester break
+     */
+    public boolean isSemesterBreak(int currWeek) {
+        if (currWeek == 7 || currWeek >= 15) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns a week as integer value within a school semester.
+     *
+     * @param comparison comparison date
+     * @param date interested date
+     * @return integer value representing week
+     */
+    public int getWeekAsInt(LocalDate comparison, LocalDate date) {
+        final double week = 7.0;
+        long daysBetween = ChronoUnit.DAYS.between(comparison, date) + 1;
+        int currWeek = (int) Math.ceil(daysBetween / week);
+        return currWeek;
+    }
+
     private String processInformation(LocalDate date) {
-        boolean isSemesterOne = date.compareTo(semOneStart) >= 0 && date.compareTo(semOneEnd) <= 0;
-        boolean isSemesterTwo = date.compareTo(semTwoStart) >= 0 && date.compareTo(semTwoEnd) <= 0;
+        boolean isSemesterOne = isFirstSemester(date);
+        boolean isSemesterTwo = isSecondSemester(date);
         boolean isSchoolTerm = isSemesterOne || isSemesterTwo;
         String str = "AY" + semOneStart.getYear() + "/" + semOneStart.plusYears(1).getYear();
         LocalDate comparison = null;
@@ -80,5 +107,37 @@ public class AcademicYear {
 
     public LocalDate getAcademicYearEnd() {
         return ayEnd;
+    }
+
+    /**
+     * Returns boolean showing if date falls within an academic semester.
+     *
+     * @param date interested date
+     * @return boolean showing if date is within an academic semester
+     */
+    public boolean isAcademicSemester(LocalDate date) {
+        boolean isSemesterOne = isFirstSemester(date);
+        boolean isSemesterTwo = isSecondSemester(date);
+        return isSemesterOne || isSemesterTwo;
+    }
+
+    // jk
+    public boolean isFirstSemester(LocalDate date) {
+        return date.compareTo(semOneStart) >= 0 && date.compareTo(semOneEnd) <= 0;
+    }
+
+    // jk
+    public boolean isSecondSemester(LocalDate date) {
+        return date.compareTo(semTwoStart) >= 0 && date.compareTo(semTwoEnd) <= 0;
+    }
+
+    // jk
+    public LocalDate getSemOneStart() {
+        return semOneStart;
+    }
+
+    // jk
+    public LocalDate getSemTwoStart() {
+        return semTwoStart;
     }
 }
