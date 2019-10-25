@@ -73,11 +73,10 @@ public class TaskStorage {
             File file = new File(dir);
             FileInputStream in = new FileInputStream(file);
             Scanner scanner = new Scanner(in);
-            ArrayList<Boolean> doneList = new ArrayList<>();
-            while (scanner.hasNextLine()) {
-                processTaskFileString(scanner, doneList);
-            }
+
             TaskList taskList = Duke.getModel().getTaskList();
+
+            ArrayList<Boolean> doneList = preProcessTaskFile(scanner);
             applyDoneList(doneList, taskList);
             Duke.getModel().updateGuiTaskList();
             Duke.getUI().showMessage("Saved task file successfully loaded... => " + taskList.size());
@@ -95,17 +94,26 @@ public class TaskStorage {
         }
     }
 
+    private static ArrayList<Boolean> preProcessTaskFile(Scanner scanner) throws StorageException, CommandParseHelper.UserInputException {
+        ArrayList<Boolean> doneList = new ArrayList<>();
+        while (scanner.hasNextLine()) {
+            processTaskFileString(scanner, doneList);
+        }
+        return doneList;
+    }
+
     private static void processTaskFileString(Scanner scanner, ArrayList<Boolean> doneList)
             throws StorageException, CommandParseHelper.UserInputException {
         String input = scanner.nextLine();
-        prepareDoneList(doneList, input);
+        preProcessTaskFile(doneList, input);
         input = input.split(" ", 2)[1];
-        Command addCommand = CommandParseHelper.parseCommand("task " + input);
+        Command addCommand = CommandParseHelper.parseCommand("task " + input,
+                CommandParseHelper.InputType.TASK);
         addCommand.setSilent();
         addCommand.execute(Duke.getModel());
     }
 
-    private static void prepareDoneList(ArrayList<Boolean> doneList, String input) throws StorageException {
+    private static void preProcessTaskFile(ArrayList<Boolean> doneList, String input) throws StorageException {
         if (input.startsWith("1")) {
             doneList.add(true);
         } else if (input.startsWith("0")) {
