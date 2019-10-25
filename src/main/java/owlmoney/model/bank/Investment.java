@@ -198,7 +198,7 @@ public class Investment extends Bank {
      * @param endDate    the maturity date of the bond.
      */
     private void removeBondIfMature(Ui ui, Bond targetBond, Date endDate) {
-        if(targetBond.getNextDateToCreditInterest().compareTo(endDate) > 0) {
+        if (targetBond.getNextDateToCreditInterest().compareTo(endDate) > 0) {
             try {
                 ui.printMessage("Bond has reached maturity, removing bond.");
                 investmentDeleteBond(targetBond.getName(), ui);
@@ -215,7 +215,7 @@ public class Investment extends Bank {
      */
     @Override
     public void updateRecurringTransactions(Ui ui) {
-        for(int i = 0; i < bonds.getSize(); i++) {
+        for (int i = 0; i < bonds.getSize(); i++) {
             Bond targetBond = bonds.get(i);
             Date endDate = targetBond.getBondEndDate();
             Calendar calendarCurrentDate = Calendar.getInstance();
