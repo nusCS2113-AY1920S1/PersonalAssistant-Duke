@@ -9,7 +9,7 @@ import duke.relation.PatientTaskList;
 import duke.storage.StorageManager;
 import duke.task.TaskManager;
 
-public class UndoCommand extends Command{
+public class UndoCommand implements Command{
 
     /**
      * .
