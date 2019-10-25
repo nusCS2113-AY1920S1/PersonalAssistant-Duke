@@ -1,11 +1,14 @@
-package entertainment.pro.logic.Contexts;
+package entertainment.pro.logic.contexts;
 
-import javafx.util.Pair;
 import entertainment.pro.model.MovieInfoObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Represents the context for all Root and Subroot commands.
+ * Auto complete makes use of helper functions from this class to perform autocompletion for commands
+ */
 public class SearchResultContext {
 
 
@@ -17,15 +20,17 @@ public class SearchResultContext {
 
     public static void initialiseContext(String[] listOfKeys) {
         for (String a:listOfKeys) {
-
             keywords.add(a);
         }
     }
 
+    /**
+     * Given the a certain Root command, the possible subRoot commands are returned.
+     * @param key: index of the movie to mark as done
+     * @return Arraylist of possible string values
+     */
     public static ArrayList<String> getPossibilities(String key) {
         ArrayList<String> hints = new ArrayList<>();
-        System.out.print("Getting possibilities");
-
 
         for (String a : keywords) {
             if (a.toLowerCase().startsWith(key.toLowerCase())) {
@@ -35,31 +40,20 @@ public class SearchResultContext {
         return hints;
     }
 
-    public static Pair<String, String> getSpellingCheck(String key) {
-        return null;
-    }
-
-    public static void AddKeyWord(String key) {
-        keywords.add(key);
-    }
-
-    public static void clearContext() {
-        keywords.clear();
-    }
-
-    public static void removeKeyWords(String key) {
-        keywords.remove(key);
-
-    }
-
+    /**
+     * Gets the search result at a certain index.
+     * @param i: index of the movie to return
+     * @return  Return MovieInfoObject
+     */
     public static MovieInfoObject getIndex(int i) {
         return mCurrentMovies.get(i - 1);
     }
 
-    public static void clearResults(){
 
-    }
-
+    /**
+     * Add results from the search query into search result context.
+     * @param moviesInfo: Arraylist of Search results
+     */
     public static void addResults(ArrayList<MovieInfoObject> moviesInfo) {
         mCurrentMovies.clear();
         for (MovieInfoObject mi : moviesInfo) {
@@ -72,18 +66,12 @@ public class SearchResultContext {
             }
             return;
         }
-
-
-
-
         HashMap<Long , Integer> movieDup = new HashMap<Long, Integer>();
         for (MovieInfoObject a: mMovies) {
             movieDup.put(a.getID() , new Integer(1));
         }
         for (MovieInfoObject e: moviesInfo) {
-          //  System.out.println(e.getTitle());
             if (movieDup.get(e.getID()) == null) {
-             //   System.out.println(e.getTitle());
                 mMovies.add(e);
                 keywords.add(e.getTitle());
             }
@@ -91,6 +79,11 @@ public class SearchResultContext {
 
     }
 
+    /**
+     * Gets the movies to display from the Search Result Context.
+     *
+     * @return Arraylist of MovieInfoObjects
+     */
     public static ArrayList<MovieInfoObject> getMoviesToDisplay() {
         return mMovies;
     }

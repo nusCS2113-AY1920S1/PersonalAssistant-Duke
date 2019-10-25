@@ -1,15 +1,18 @@
 package entertainment.pro.logic.parsers.commands;
+import entertainment.pro.commons.enums.COMMANDKEYS;
 
-import entertainment.pro.logic.Contexts.SearchResultContext;
+import entertainment.pro.logic.contexts.SearchResultContext;
+import entertainment.pro.logic.parsers.CommandStructure;
+import entertainment.pro.logic.parsers.CommandSuper;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
-import entertainment.pro.commons.enums.COMMANDKEYS;
-import entertainment.pro.logic.parsers.CommandStructure;
-import entertainment.pro.logic.parsers.CommandSuper;
 
 import java.io.IOException;
 
+/**
+ * Blacklist command class to handle blacklist command functions.
+ */
 public class BlacklistCommand extends CommandSuper {
 
     /**
@@ -21,6 +24,11 @@ public class BlacklistCommand extends CommandSuper {
         super(COMMANDKEYS.blacklist, CommandStructure.cmdStructure.get(COMMANDKEYS.blacklist), uicontroller);
     }
 
+
+    /**
+     * Function to execute commands depending on the subroot command.
+     * @throws IOException
+     */
     @Override
     public void executeCommands() throws IOException {
         switch (this.getSubRootCommand()) {
@@ -95,6 +103,9 @@ public class BlacklistCommand extends CommandSuper {
 
     }
 
+    /**
+     * Removes items from the blacklist.
+     */
     private void removeFromBlackList() {
 
         String movie = getPayload();
@@ -103,7 +114,8 @@ public class BlacklistCommand extends CommandSuper {
         if (getFlagMap().get("-k") != null) {
             System.out.print("REmoving ing keyword");
             if (isInteger(movie, 10)) {
-                stat = Blacklist.removeFromBlacklistKeyWord(SearchResultContext.getIndex(Integer.parseInt(movie)).getTitle());
+                stat = Blacklist.removeFromBlacklistKeyWord(SearchResultContext.getIndex(Integer.parseInt(movie))
+                        .getTitle());
             } else {
                 stat = Blacklist.removeFromBlacklistKeyWord(movie);
             }

@@ -17,7 +17,7 @@ public class PlaylistCommand extends CommandSuper {
 
     @Override
     public void executeCommands() throws IOException {
-        switch (this.getSubRootCommand()){
+        switch (this.getSubRootCommand()) {
             case create:
                 executeCreatePlaylist();
                 break;
