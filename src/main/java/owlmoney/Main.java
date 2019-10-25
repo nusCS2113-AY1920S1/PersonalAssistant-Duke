@@ -11,6 +11,7 @@ import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.exception.BondException;
 import owlmoney.model.goals.exception.GoalsException;
 import owlmoney.model.profile.Profile;
+import owlmoney.model.profile.exception.ProfileException;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
@@ -40,9 +41,9 @@ class Main {
     }
 
     /**
-     * Checks if username is empty or contain special characters.
+     * Checks if username meets requirement.
      * @param name Profile user name.
-     * @throws MainException
+     * @throws MainException If name is empty or if name contain special characters
      */
     private void checkUserName(String name) throws MainException {
         if (name.isEmpty() || name.isBlank()) {
@@ -54,7 +55,7 @@ class Main {
     }
 
     /**
-     * Gets username when first run. 
+     * Gets username when first run.
      */
     private void getUserName() {
         boolean check = true;
@@ -90,7 +91,7 @@ class Main {
                     break;
                 }
             } catch (ParserException | BankException | TransactionException | BondException | CardException
-                     | GoalsException exceptionMessage) {
+                    | GoalsException | ProfileException exceptionMessage) {
                 ui.printError(exceptionMessage.toString());
             }
         }

@@ -13,6 +13,7 @@ import owlmoney.model.card.CardList;
 import owlmoney.model.goals.Goals;
 import owlmoney.model.goals.GoalsList;
 import owlmoney.model.goals.exception.GoalsException;
+import owlmoney.model.profile.exception.ProfileException;
 import owlmoney.model.transaction.Deposit;
 import owlmoney.model.transaction.Expenditure;
 import owlmoney.model.transaction.Transaction;
@@ -51,6 +52,36 @@ public class Profile {
      */
     public String profileGetUsername() {
         return this.username;
+    }
+
+    /**
+     * Edits username of user.
+     *
+     * @param name existing name of user.
+     * @param newName new name that user wants to change to.
+     * @param ui required for printing
+     * @throws ProfileException if name don't match or change same name or name contain special character.
+     */
+    public void profileEditUsername(String name, String newName, Ui ui) throws ProfileException {
+        checkProfileName(name, newName);
+        this.username = newName;
+        ui.printMessage("\nProfile name was: " + name);
+        ui.printMessage("Now changed to: " + newName);
+    }
+
+    /**
+     * Checks if profile name exist and not changed to same name.
+     * @param name existing name of user.
+     * @param newName new name that user wants to change to.
+     * @throws ProfileException if name don't match or change same name.
+     */
+    public void checkProfileName(String name, String newName) throws ProfileException {
+        if (!name.equals(this.username)) {
+            throw new ProfileException("No profile name with " + name + "found!\nTry this instead: " + this.username);
+        }
+        if (newName.equals(this.username)) {
+            throw new ProfileException("Profile name is already " + this.username);
+        }
     }
 
     /**

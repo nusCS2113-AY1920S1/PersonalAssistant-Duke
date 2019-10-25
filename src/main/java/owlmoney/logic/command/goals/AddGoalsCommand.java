@@ -21,7 +21,7 @@ public class AddGoalsCommand extends Command {
     private final String savingName;
 
     /**
-     * Creates an instance of AddSavingCommand.
+     * Creates an instance of AddGoalsCommand.
      *
      * @param name   Name of new goal object.
      * @param amount Income of new goal object.

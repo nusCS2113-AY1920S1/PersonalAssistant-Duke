@@ -22,7 +22,7 @@ public class EditGoalsCommand extends Command {
     private Bank savingAccount;
 
     /**
-     * Creates an instance of AddSavingCommand.
+     * Creates an instance of EditGoalsCommand.
      *
      * @param name    Name of goal object.
      * @param amount  Income of new goal object.

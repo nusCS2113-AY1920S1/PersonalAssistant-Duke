@@ -13,7 +13,7 @@ public class DeleteGoalsCommand extends Command {
     private final String name;
 
     /**
-     * Creates an instance of DeleteSavingCommand.
+     * Creates an instance of DeleteGoalsCommand.
      *
      * @param name Name of goal object to delete
      */

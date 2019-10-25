@@ -36,7 +36,7 @@ public abstract class ParseGoals {
     /**
      * Creates an instance of any ParseGoals type object.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input data.
      */
     ParseGoals(String data) {
         this.rawData = data;
