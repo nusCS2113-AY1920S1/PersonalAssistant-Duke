@@ -16,46 +16,57 @@ public class Commands {
      * @return The newly constructed command without any parameters loaded.
      */
     public Command getCommand(String cmdStr, Context context) {
-        // TODO replace with overall switch on context
+        // check context-independent switches first
+        // maybe supply context as argument?
         switch (cmdStr) {
         case "bye":
             return new ByeCommand();
-        case "find":
-            if (context == Context.PATIENT) {
+        case "back":
+            //return new BackCommand();
+        case "up":
+            //return new UpCommand();
+        default:
+            break; //not one of these; continue
+        }
+
+        switch (context) {
+        case HOME:
+            switch (cmdStr) {
+            case "find":
                 return new PatientFindCommand();
-            } else {
-                return null; // TODO: fill in the other contexts
-            }
-        case "help":
-            if (context == Context.HOME) {
-                return new HomeHelpCommand();
-            } else {
-                return null; // TODO: fill in the other contexts
-            }
-        case "new":
-            if (context == Context.HOME) {
+            case "new":
                 return new HomeNewCommand();
-            } else {
-                return null; // TODO: fill in the other contexts
-            }
-        case "open":
-            if (context == Context.HOME) {
+            case "open":
                 return new HomeOpenCommand();
-            } else {
-                return null; // TODO: fill in the other contexts
-            }
-        case "report":
-        case "discharge":
-            return new DischargeOrReportCommand(cmdStr);
-        case "history":
-            if (context == Context.HOME) {
+            case "report": //fallthrough
+            case "discharge":
+                return new DischargeOrReportCommand(cmdStr);
+            case "history":
                 return new HomeHistoryCommand();
-            } else {
-                // todo: fill in patient context
+            case "help":
+                return new HomeHelpCommand();
+            default:
                 return null;
             }
+        case PATIENT:
+            // ...
+        case TREATMENT:
+            if ("status".equals(cmdStr)) {
+                //return new TreatmentStatusCommand();
+                break;
+            }
+            //fallthrough
+        case INVESTIGATION:
+            if ("result".equals(cmdStr)) {
+                //return new InvxResultCommand();
+                break;
+            }
+            //fallthrough
+        case EVIDENCE:
+
         default:
-            return null;
+            break;
         }
+        return null;
     }
 }
