@@ -364,6 +364,18 @@ class BondListTest {
     }
 
     @Test
+    void get_bondPresent_success() throws BondException {
+        BondList bondListTest = new BondList();
+        Ui uiTest = new Ui();
+        assertEquals(0, bondListTest.getSize());
+        Bond testBond = new Bond("TEST BOND 0", 1000, 1.8,
+                new Date("1/3/2019"), 3);
+        bondListTest.addBondToList(testBond,uiTest);
+        Bond actualBond = bondListTest.get(0);
+        assertEquals(actualBond, testBond);
+    }
+
+    @Test
     void editBond_noBondAndBondListEmpty_throwsBondException() {
         BondList bondListTest = new BondList();
         assertEquals(0, bondListTest.getSize());

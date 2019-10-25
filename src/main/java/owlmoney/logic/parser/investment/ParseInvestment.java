@@ -25,7 +25,7 @@ public abstract class ParseInvestment {
     /**
      * Creates an instance of any ParseInvestment type object.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input data.
      */
     ParseInvestment(String data) {
         this.rawData = data;

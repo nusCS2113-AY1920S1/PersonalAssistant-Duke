@@ -19,6 +19,9 @@ import owlmoney.logic.parser.card.ParseAddCard;
 import owlmoney.logic.parser.card.ParseCard;
 import owlmoney.logic.parser.card.ParseDeleteCard;
 import owlmoney.logic.parser.card.ParseEditCard;
+import owlmoney.logic.parser.find.ParseFindBankOrCard;
+import owlmoney.logic.parser.find.ParseFindBond;
+import owlmoney.logic.parser.find.ParseFindTransaction;
 import owlmoney.logic.parser.goals.ParseAddGoals;
 import owlmoney.logic.parser.goals.ParseDeleteGoals;
 import owlmoney.logic.parser.goals.ParseEditGoals;
@@ -60,11 +63,13 @@ class ParseType extends Parser {
      */
     private static final String[] TYPE_KEYWORDS = new String[] {
         "/savings", "/investment", "/cardexpenditure", "/bankexpenditure", "/goals", "/card",
-        "/recurbankexp", "/bonds", "/profile", "/deposit", "/fund"
+        "/recurbankexp", "/bonds", "/profile", "/deposit", "/fund", "/banktransaction", "/cardtransaction"
     };
     private static final List<String> TYPE_KEYWORD_LISTS = Arrays.asList(TYPE_KEYWORDS);
     private static final String BANK = "bank";
     private static final String CARD = "card";
+    private static final String SAVING = "saving";
+    private static final String INVESTMENT = "investment";
     private static final String BOND = "bonds";
     private static final String GOALS = "goals";
 
@@ -143,6 +148,11 @@ class ParseType extends Parser {
                 return parseDeleteSaving.getCommand();
             } else if ("/list".equals(command)) {
                 return new ListSavingsCommand();
+            } else if ("/find".equals(command)) {
+                ParseFindBankOrCard parseFindSaving = new ParseFindBankOrCard(rawData, SAVING);
+                parseFindSaving.fillHashTable();
+                parseFindSaving.checkParameter();
+                return parseFindSaving.getCommand();
             }
             throw new ParserException("You entered an invalid type for savings");
         case "/investment":
@@ -163,6 +173,11 @@ class ParseType extends Parser {
                 return parseDeleteInvestment.getCommand();
             } else if ("/list".equals(command)) {
                 return new ListInvestmentCommand();
+            } else if ("/find".equals(command)) {
+                ParseFindBankOrCard parseFindInvestment = new ParseFindBankOrCard(rawData, INVESTMENT);
+                parseFindInvestment.fillHashTable();
+                parseFindInvestment.checkParameter();
+                return parseFindInvestment.getCommand();
             }
             throw new ParserException("You entered an invalid type for investment");
         case "/bonds":
@@ -186,6 +201,11 @@ class ParseType extends Parser {
                 parseListBond.fillHashTable();
                 parseListBond.checkParameter();
                 return parseListBond.getCommand();
+            } else if ("/find".equals(command)) {
+                ParseFindBond parseFindBond = new ParseFindBond(rawData, BOND);
+                parseFindBond.fillHashTable();
+                parseFindBond.checkParameter();
+                return parseFindBond.getCommand();
             }
             throw new ParserException("You entered an invalid type for bond");
         case "/bankexpenditure":
@@ -275,6 +295,11 @@ class ParseType extends Parser {
                 editCard.fillHashTable();
                 editCard.checkParameter();
                 return editCard.getCommand();
+            } else if ("/find".equals(command)) {
+                ParseFindBankOrCard parseFindCard = new ParseFindBankOrCard(rawData, CARD);
+                parseFindCard.fillHashTable();
+                parseFindCard.checkParameter();
+                return parseFindCard.getCommand();
             }
             throw new ParserException("You entered an invalid type for card");
         case "/goals":
@@ -328,7 +353,23 @@ class ParseType extends Parser {
                 parseTransfer.checkParameter();
                 return parseTransfer.getCommand();
             }
-            throw new ParserException("You entered an invalid type for transfer");
+            throw new ParserException("You entered an invalid type for fund");
+        case "/banktransaction":
+            if ("/find".equals(command)) {
+                ParseFindTransaction parseFindBankTransaction = new ParseFindTransaction(rawData, BANK);
+                parseFindBankTransaction.fillHashTable();
+                parseFindBankTransaction.checkParameter();
+                return parseFindBankTransaction.getCommand();
+            }
+            throw new ParserException("You entered an invalid type for banktransaction");
+        case "/cardtransaction":
+            if ("/find".equals(command)) {
+                ParseFindTransaction parseFindCardTransaction = new ParseFindTransaction(rawData, CARD);
+                parseFindCardTransaction.fillHashTable();
+                parseFindCardTransaction.checkParameter();
+                return parseFindCardTransaction.getCommand();
+            }
+            throw new ParserException("You entered an invalid type for cardtransaction");
         default:
             throw new ParserException("You entered an invalid type");
         }

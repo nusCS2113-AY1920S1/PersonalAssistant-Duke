@@ -7,8 +7,7 @@ import owlmoney.model.bond.exception.BondException;
 import owlmoney.ui.Ui;
 
 /**
- * BondList  provides a layer of abstraction for the ArrayList.
- * The ArrayList will store elements of type Bond.
+ * Provides a layer of abstraction for the ArrayList that stores bond objects.
  */
 public class BondList {
     private ArrayList<Bond> bondLists;
@@ -32,7 +31,7 @@ public class BondList {
      * @throws BondException if there are no bonds.
      */
     public void listBond(int displayNum, Ui ui) throws BondException {
-        if (bondLists.size() <= ISZERO) {
+        if (getSize() <= ISZERO) {
             throw new BondException("There are no bonds");
         } else {
             int counter = displayNum;
@@ -67,7 +66,7 @@ public class BondList {
      *
      * @return the size of the bondList.
      */
-    int getSize() {
+    public int getSize() {
         return bondLists.size();
     }
 
@@ -108,7 +107,7 @@ public class BondList {
     }
 
     /**
-     * Gets the bond object from the bondList.
+     * Gets the bond object from the bondList by specifying the name.
      *
      * @param bondName the name of the bond to retrieve.
      * @return the bond object.
@@ -121,6 +120,15 @@ public class BondList {
             }
         }
         throw new BondException("There are no bonds with the name: " + bondName);
+    }
+
+    /**
+     * Gets the bond object from the bondList by specifying the bond index in the bondList.
+     *
+     * @return the bond object.
+     */
+    public Bond get(int bondIndex) {
+        return bondLists.get(bondIndex);
     }
 
     /**
@@ -207,5 +215,31 @@ public class BondList {
         if (counter == displayNum) {
             ui.printBondHeader();
         }
+    }
+
+    /**
+     * Finds the bonds that matches with the keywords specified by the user.
+     *
+     * @param bondName The bondName keyword to match against.
+     * @param ui      The object required for printing.
+     * @throws BondException If no bonds could be found.
+     */
+    public void findBond(String bondName, Ui ui) throws BondException {
+        ArrayList<Bond> tempBondList = new ArrayList<Bond>();
+        String matchingWord = bondName.toUpperCase();
+
+        for (int i = ISZERO; i < getSize(); i++) {
+            if (bondLists.get(i).getName().toUpperCase().contains(matchingWord)) {
+                tempBondList.add(bondLists.get(i));
+            }
+        }
+        if (tempBondList.isEmpty()) {
+            throw new BondException("Bond with the following keyword could not be found: " + bondName);
+        }
+        ui.printBondHeader();
+        for (int i = ISZERO; i < tempBondList.size(); i++) {
+            printOneBond((i + ONE_INDEX), tempBondList.get(i), ISMULTIPLE, ui);
+        }
+        ui.printDivider();
     }
 }

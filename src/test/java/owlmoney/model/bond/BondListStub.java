@@ -9,8 +9,6 @@ import owlmoney.ui.Ui;
 public class BondListStub extends BondList {
     private ArrayList<Bond> bondLists;
     private static final int ONE_INDEX = 1;
-    private static final boolean ISMULTIPLE = true;
-    private static final boolean ISSINGLE = false;
     private static final int ISZERO = 0;
 
     /**
@@ -54,7 +52,7 @@ public class BondListStub extends BondList {
      *
      * @return the size of the bondList.
      */
-    int getSize() {
+    public int getSize() {
         return bondLists.size();
     }
 
@@ -85,7 +83,6 @@ public class BondListStub extends BondList {
         }
         for (int i = ISZERO; i < getSize(); i++) {
             if (bondName.equals(bondLists.get(i).getName())) {
-                Bond temp = bondLists.get(i);
                 bondLists.remove(i);
                 return;
             }
@@ -155,41 +152,6 @@ public class BondListStub extends BondList {
                 throw new BondException("The year can only be larger than: " + originalYear);
             }
             bondLists.get(i).setYear(Integer.parseInt(year));
-        }
-    }
-
-    /**
-     * Prints bond details.
-     *
-     * @param num                Represents the numbering of the bond.
-     * @param bond               The bond object to be printed.
-     * @param isMultiplePrinting Represents whether the function will be called for printing once or
-     *                           multiple time
-     * @param ui                 The object use for printing.
-     */
-    private void printOneBond(int num, Bond bond, boolean isMultiplePrinting, Ui ui) {
-        if (!isMultiplePrinting) {
-            ui.printBondHeader();
-        }
-        ui.printBond(num, bond.getName(),
-                "$" + new DecimalFormat("0.00").format(bond.getAmount()),
-                new DecimalFormat("0.00").format(bond.getYearlyCouponRate()),
-                bond.getDate(), bond.getYear());
-        if (!isMultiplePrinting) {
-            ui.printDivider();
-        }
-    }
-
-    /**
-     * Prints the bond header details once only when listing of multiple transaction.
-     *
-     * @param counter    Represents the counter of the bond for printing.
-     * @param displayNum Represents number of bond to list.
-     * @param ui         The object use for printing.
-     */
-    private void printOneHeader(int counter, int displayNum, Ui ui) {
-        if (counter == displayNum) {
-            ui.printBondHeader();
         }
     }
 }

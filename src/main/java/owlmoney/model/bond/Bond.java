@@ -3,10 +3,11 @@ package owlmoney.model.bond;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Bond class which represents one bond.
+ * Represents one investment bond.
  */
 public class Bond {
     private String name;
@@ -15,6 +16,7 @@ public class Bond {
     private String category;
     private Date date;
     private int year;
+    private Date nextDateToCreditBondCouponInterest;
 
     /**
      * Creates a Bond with details of name, amount, rate.
@@ -32,6 +34,49 @@ public class Bond {
         this.date = date;
         this.year = year;
         this.category = "bonds";
+        this.nextDateToCreditBondCouponInterest = calculateNextDateToCreditInterest(this.date);
+    }
+
+    /**
+     * Calculates the next date the bond interest will be credited upon bond creation.
+     *
+     * @param boughtDate the date the bond was bought.
+     * @return the next date coupon interest will be credited.
+     */
+    private Date calculateNextDateToCreditInterest(Date boughtDate) {
+        Calendar nextDateToCreditInterest = Calendar.getInstance();
+        nextDateToCreditInterest.clear();
+        nextDateToCreditInterest.setTime(boughtDate);
+        nextDateToCreditInterest.add(Calendar.MONTH, 6);
+        return nextDateToCreditInterest.getTime();
+    }
+
+    /**
+     * Gets the next date to credit interest.
+     *
+     * @return the next date that interest can be credited.
+     */
+    public Date getNextDateToCreditInterest() {
+        return this.nextDateToCreditBondCouponInterest;
+    }
+
+    /**
+     * Sets the next date to credit interest.
+     */
+    public void setNextDateToCreditInterest(Date newDate) {
+        this.nextDateToCreditBondCouponInterest = newDate;
+    }
+
+    /**
+     * Gets the date of expiry of the bond.
+     * @return the date of expiry of the bond.
+     */
+    public Date getBondEndDate() {
+        Calendar nextDateToCreditInterest = Calendar.getInstance();
+        nextDateToCreditInterest.clear();
+        nextDateToCreditInterest.setTime(this.date);
+        nextDateToCreditInterest.add(Calendar.YEAR, this.year);
+        return nextDateToCreditInterest.getTime();
     }
 
     /**
@@ -51,6 +96,15 @@ public class Bond {
     public String getDate() {
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         return temp.format(this.date);
+    }
+
+    /**
+     * Gets the date the bond was purchased.
+     *
+     * @return the date the bond was purchased in Date format.
+     */
+    public Date getDateInDateFormat() {
+        return this.date;
     }
 
     /**
