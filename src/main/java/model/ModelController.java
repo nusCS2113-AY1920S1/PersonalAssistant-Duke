@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 public class ModelController implements Model {
     private TasksManager tasksManager;
-
+    private MemberManager memberManager;
     /**
      * Handles model changes.
      * */
     public ModelController() {
-        //Create new project manager object, TODO change to loading from storage
+        //TODO change to loading from storage
         tasksManager = new TasksManager();
-
+        memberManager = new MemberManager();
     }
 
     //================== Task CRUD operations ==============================

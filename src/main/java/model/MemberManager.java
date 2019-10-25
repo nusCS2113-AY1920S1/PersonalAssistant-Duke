@@ -18,7 +18,6 @@ public class MemberManager {
      * @throws DukeException If duplicated name is found.
      */
     public void addMember(String name) throws DukeException {
-        name = name.trim();
         if (getMemberByName(name) == null) {
             memberList.add(new Member(name));
         } else {
@@ -33,7 +32,7 @@ public class MemberManager {
      */
     public Member getMemberByName(String name) {
         for (int i = 0; i < memberList.size(); i++) {
-            if (memberList.get(i).name.equals(name)) {
+            if (memberList.get(i).getName().equals(name)) {
                 return memberList.get(i);
             }
         }
@@ -83,14 +82,47 @@ public class MemberManager {
 
     /**
      * Remove a member from the member list.
-     * @param toDelete The Member object to be deleted.
+     * @param toRemove The Member object to be removed.
      */
-    public void removeMember(Member toDelete) {
-        memberList.remove(toDelete);
+    public void removeMember(Member toRemove) {
+
+        memberList.remove(toRemove);
     }
 
-    public void addTask(Task toAdd) {
-
+    /**
+     * Remove an array of Member objects from the member list.
+     * @param toRemove The Member objects array to be removed.
+     */
+    public void removeMembers(Member[] toRemove) {
+        for (int i = 0; i < toRemove.length; i++) {
+            memberList.remove(toRemove[i]);
+        }
     }
 
+    /**
+     * Add link(s) from member(s) to task(s). Duplicated link will be cancelled.
+     * @param members Array of Member objects to link.
+     * @param toAdd Array of Task objects to link.
+     */
+    public void addTask(Member[] members, Task[] toAdd) {
+        for (int i = 0; i < members.length; i++) {
+            for (int j = 0; j < toAdd.length; j++) {
+                members[i].addTask(toAdd[j]);
+            }
+        }
+    }
+
+    /**
+     * Remove link(s) from member(s) to task(s). Non-existing link won't be removed.
+     * This is the reverse method of <code>addTask(Member[] members, Task[] toAdd)</code> method.
+     * @param members Array of Member objects to remove link.
+     * @param toRemove Array of Task objects to remove link.
+     */
+    public void removeTask(Member[] members, Task[] toRemove) {
+        for (int i = 0; i < members.length; i++) {
+            for (int j = 0; j < toRemove.length; j++) {
+                members[i].removeTask(toRemove[j]);
+            }
+        }
+    }
 }
