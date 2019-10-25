@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseCommand;
+import owlmoney.logic.regex.RegexUtil;
 import owlmoney.model.card.exception.CardException;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.model.bank.exception.BankException;
@@ -39,15 +40,46 @@ class Main {
     }
 
     /**
+     * Checks if username is empty or contain special characters.
+     * @param name Profile user name.
+     * @throws MainException
+     */
+    private void checkUserName(String name) throws MainException {
+        if (name.isEmpty() || name.isBlank()) {
+            throw new MainException("Name cannot be empty!");
+        }
+        if (!RegexUtil.regexCheckName(name)) {
+            throw new MainException("Name can only contain letters and at most 50 characters");
+        }
+    }
+
+    /**
+     * Gets username when first run. 
+     */
+    private void getUserName() {
+        boolean check = true;
+        while (check) {
+            try {
+                Scanner scanner = new Scanner(System.in);
+                String username = scanner.nextLine();
+                checkUserName(username);
+                profile = new Profile(username);
+                check = false;
+            } catch (MainException e) {
+                ui.printError(e.toString());
+            }
+        }
+    }
+
+    /**
      * Starts up the initialized OwlMoney session.
      */
     private void run() {
         boolean hasExited = false;
+
         //Temporary do this chunk
         ui.firstTimeRun();
-        Scanner scanner = new Scanner(System.in);
-        String username = scanner.nextLine();
-        profile = new Profile(username);
+        getUserName();
         ui.greet(profile.profileGetUsername());
         // until above this line
         while (parser.hasNextLine()) {
