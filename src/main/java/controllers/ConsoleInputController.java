@@ -1,14 +1,9 @@
 package controllers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import repositories.ProjectRepository;
 import util.log.DukeLogger;
 import views.CLIView;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 

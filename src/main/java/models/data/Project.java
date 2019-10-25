@@ -115,6 +115,7 @@ public class Project implements IProject {
     @Override
     public ArrayList<String> getCredits() {
         ArrayList<String> allCredits = new ArrayList<>();
+
         /*
             Empty Method
             bugs need to be fixed for getAllAssignedTasks

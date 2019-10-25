@@ -1,8 +1,11 @@
 package util;
 
+import models.member.Member;
+import models.task.Task;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import models.task.Task;
+import java.util.HashMap;
 
 public class ParserHelper {
     private SortHelper sortHelper;
@@ -105,11 +108,13 @@ public class ParserHelper {
 
     /**
      * Parses the criteria specified by the user to sort the list of tasks.
+     * @param tasksAndAssignedMembers HashMap containing tasks with assigned members.
      * @param taskList A list of all tasks in the project.
      * @param sortCriteria Criteria to sort the list of tasks
      * @return An ArrayList with String descriptions of task details sorted by the criteria specified by the user.
      */
-    public ArrayList<String> parseSortTaskDetails(ArrayList<Task> taskList, String sortCriteria) {
+    public ArrayList<String> parseSortTaskDetails(HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers,
+                                                  ArrayList<Task> taskList, String sortCriteria) {
         ArrayList<String> taskDetails = new ArrayList<>();
         if (sortCriteria.length() >= 4) {
             String[] detailedCriteria = sortCriteria.split("-");
@@ -130,7 +135,7 @@ public class ParserHelper {
                 taskDetails = this.sortHelper.sortTaskCredit(taskList);
                 break;
             case "/WHO":
-                taskDetails = this.sortHelper.sortTaskMember(taskList, detailedCriteria[1]);
+                taskDetails = this.sortHelper.sortTaskMember(tasksAndAssignedMembers, taskList, detailedCriteria[1]);
                 break;
             case "/KANBAN":
                 taskDetails = this.sortHelper.sortTaskState(taskList, detailedCriteria[1]);
