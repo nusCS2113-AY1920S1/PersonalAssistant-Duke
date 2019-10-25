@@ -50,13 +50,13 @@ public class Commands {
         case PATIENT:
             // ...
         case TREATMENT:
-            if (cmdStr.equals("status")) {
+            if ("status".equals(cmdStr)) {
                 //return new TreatmentStatusCommand();
                 break;
             }
             //fallthrough
         case INVESTIGATION:
-            if (cmdStr.equals("result")) {
+            if ("result".equals(cmdStr)) {
                 //return new InvxResultCommand();
                 break;
             }
