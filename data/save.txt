@@ -7,3 +7,8 @@ W | 0 | Sleeping | Jan 15 and 25th
 W | 0 | Malaysia | Week 1 and Week 3
 F | 0 | Reading the sales report | 2 hours
 D | 0 | kick a ball | 13-12-2013 1700
+E | 0 | [COME] Open House for Prospective Students | 11-05-2019 1030
+E | 0 | [COME] NUS-ECE Open House | 18-05-2019 1330
+D | 0 | [COME] CS1010 Placement Examination Application | 26-06-2019 1700
+D | 0 | [COME] Math Refresher Course Application | 30-06-2019 2359
+E | 0 | [COME] CEG Freshmen Welcome Tea | 22-07-2019 0900
