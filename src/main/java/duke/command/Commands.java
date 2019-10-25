@@ -39,8 +39,9 @@ public class Commands {
             case "open":
                 return new HomeOpenCommand();
             case "report": //fallthrough
+                return new HomeReportCommand();
             case "discharge":
-                return new DischargeOrReportCommand(cmdStr);
+                return new HomeDischargeCommand();
             case "history":
                 return new HomeHistoryCommand();
             case "help":

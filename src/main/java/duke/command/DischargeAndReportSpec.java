@@ -1,13 +1,13 @@
 package duke.command;
 
-public class DischargeOrReportSpec extends ArgSpec {
-    private static final DischargeOrReportSpec spec = new DischargeOrReportSpec();
+public class DischargeAndReportSpec extends ArgSpec {
+    private static final DischargeAndReportSpec spec = new DischargeAndReportSpec();
 
-    public static DischargeOrReportSpec getSpec() {
+    public static DischargeAndReportSpec getSpec() {
         return spec;
     }
 
-    private DischargeOrReportSpec() {
+    private DischargeAndReportSpec() {
         emptyArgMsg = "You didn't tell me anything about the patient";
         cmdArgLevel = ArgLevel.REQUIRED;
         initSwitches(new Switch("summary", String.class, true, ArgLevel.OPTIONAL, "sum"));
