@@ -14,11 +14,11 @@ public class SortName extends Sort {
     /**
      * This method will call the nameComparator method, sort the input ArrayList according to name
      * and print out the sorted list.
-     * @param list the ArrayList to be sorted.
+     * @param unsortedList the ArrayList to be sorted.
      */
-    public SortName(ArrayList<Log> list) {
-        super(list);
-        Collections.sort(list,ListComparator.nameComparator());
-        SortUi.printSortedList(list,"name");
+    public SortName(ArrayList<Log> unsortedList) {
+        super(unsortedList);
+        sortedList.sort(ListComparator.nameComparator());
+        SortUi.printSortedList(sortedList,"name");
     }
 }

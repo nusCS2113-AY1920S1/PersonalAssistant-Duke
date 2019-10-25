@@ -6,6 +6,7 @@ import dolla.task.Debt;
 import dolla.task.Entry;
 import dolla.task.Limit;
 import dolla.task.Log;
+import dolla.ui.Ui;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

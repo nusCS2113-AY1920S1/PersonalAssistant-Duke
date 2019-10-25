@@ -1,6 +1,7 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.ui.SortUi;
 import dolla.ui.Ui;
 import dolla.sort.SortAmount;
 import dolla.task.Log;
@@ -40,6 +41,7 @@ public class SortCommand extends Command {
 
         try {
             list = logList.get();
+            list.get(0); //test if list is empty
             switch(mode) {
             case "entry":
                 switch (type) {
@@ -53,7 +55,7 @@ public class SortCommand extends Command {
                     new SortDescription(list);
                     break;
                 default:
-                    Ui.printInvalidCommandError();
+                    SortUi.printInvalidSort(mode);
                     break;
                 }
                 break;
@@ -72,7 +74,7 @@ public class SortCommand extends Command {
                     new SortName(list);
                     break;
                 default:
-                    Ui.printInvalidCommandError();
+                    SortUi.printInvalidSort(mode);
                     break;
                 }
                 break;
@@ -80,7 +82,7 @@ public class SortCommand extends Command {
                 if (type.equals("amount")) {
                     new SortAmount(list);
                 } else {
-                    Ui.printInvalidCommandError();
+                    SortUi.printInvalidSort(mode);
                 }
                 break;
             }
