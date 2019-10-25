@@ -9,6 +9,7 @@ public abstract class CalendarCommand extends Command{
     private static int DaysInMonth = 31;
 
     public CalendarCommand(){
+        getData();
         printCal();
     }
   // @Override
@@ -32,13 +33,35 @@ public abstract class CalendarCommand extends Command{
             {"thur", "k"},
             {"fri", "e", "l"},
             {"sat"},
-            {"sun", "g", "n"}
+            {"sun", "g", "n"},
+            {"hello", "this", "is"},
+            {"", "", ""},
+            {"all", ""},
+            {"fridfhfghtrwst432q53425435", "fasfae", "l"},
+            {"distinct", "afae", "l"},
+            {"frhfdghfdhfdghfdhfghi", "e", "ldfaest3iotu3q8905t"},
+            {},
+            {" "},
+            {""},
+            {" ", "","dasdas", "Dada"},
+            {},
+            {},
+            {"items"},
+            {},
+            {},
+            {},
+            {},
+            {"gfasdfaf","adfasfaefa","fgadfgafaf","fafafafaf","fasfasfas"}
     };
 
 
     // todo: check and align days of the week / offset from first box (mon)
     // todo: add in items and reservation status
     // todo: add "..." for when cell cannot display all rows
+    // todo: highlight box of today's date
+    // todo: make calendar size dynamic - dependant on size of window
+    // todo: make dates overflow from previous months
+    // todo: make headings - month and year as well as days of the week as the axis
 
     public static void printCal() {
         printTopCells();
@@ -152,14 +175,14 @@ public abstract class CalendarCommand extends Command{
                         i += cellLength;
                     }
 
-                    else if ( row-3 > array[(day-1)%7].length-1) {
+                    else if ( (day-1 >= array.length )|| (row-3 > array[day-1].length-1) ) {
                         phraseToPrint = shortenPhrase("");
                         System.out.print(phraseToPrint);
                         System.out.print(Vert);
                         i += cellLength;
                     }
                     else {
-                        String phrase = array[(day-1)%7][row-3];
+                        String phrase = array[day-1][row-3];
                         phraseToPrint = shortenPhrase(phrase);
                         System.out.print(phraseToPrint);
                         System.out.print(Vert);
