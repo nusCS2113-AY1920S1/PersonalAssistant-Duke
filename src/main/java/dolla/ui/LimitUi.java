@@ -1,6 +1,6 @@
 package dolla.ui;
 
-import dolla.Ui;
+import dolla.ui.Ui;
 import dolla.task.Limit;
 
 /**

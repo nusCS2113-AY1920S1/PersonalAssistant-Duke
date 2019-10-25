@@ -1,7 +1,7 @@
 package dolla.parser;
 
 import dolla.Time;
-import dolla.Ui;
+import dolla.ui.Ui;
 import dolla.action.Repeat;
 import dolla.command.Command;
 import dolla.command.AddActionCommand;

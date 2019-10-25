@@ -1,7 +1,7 @@
 package dolla.sort;
 
-import dolla.Ui;
 import dolla.task.Log;
+import dolla.ui.SortUi;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +19,6 @@ public class SortName extends Sort {
     public SortName(ArrayList<Log> list) {
         super(list);
         Collections.sort(list,ListComparator.nameComparator());
-        Ui.printSortedList(list,"name");
+        SortUi.printSortedList(list,"name");
     }
 }

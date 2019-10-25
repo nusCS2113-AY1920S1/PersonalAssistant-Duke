@@ -1,5 +1,6 @@
-package dolla;
+package dolla.ui;
 
+import dolla.Time;
 import dolla.task.Log;
 import dolla.task.Debt;
 import dolla.task.Task;
@@ -394,29 +395,6 @@ public abstract class Ui {
                 listNum += 1;
                 System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
             }
-        }
-    }
-
-
-    /**
-     * Print sorted list.
-     *
-     * @param list the list to be printed
-     * @param type the type of input of the list
-     */
-    public static void printSortedList(ArrayList<Log> list, String type) {
-        System.out.println(line);
-        if (type.equals("date")) {
-            System.out.println("sorting date.........");
-        } else if (type.equals("description")) {
-            System.out.println("sorting description.........");
-        } else if (type.equals("name")) {
-            System.out.println("sorting name.........");
-        }
-
-        for (int i = 0; i < list.size(); i++) {
-            int listNum = i + 1;
-            System.out.println("\t" + listNum + ". " + list.get(i).getLogText());
         }
     }
 

@@ -13,6 +13,7 @@ public abstract class Log {
     protected LocalDate date;
     protected String name;
     protected String userInput;
+    protected double amount;
     protected Tag tag;
 
     public abstract String getLogText();
@@ -33,5 +34,9 @@ public abstract class Log {
 
     public String getUserInput() {
         return userInput;
+    }
+
+    public double getAmount() {
+        return amount;
     }
 }

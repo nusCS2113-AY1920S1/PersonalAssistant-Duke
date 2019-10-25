@@ -1,10 +1,6 @@
 package dolla.parser;
 
-import dolla.command.Command;
-import dolla.command.AddLimitCommand;
-import dolla.command.ShowListCommand;
-import dolla.command.ErrorCommand;
-import dolla.command.RemoveLimitCommand;
+import dolla.command.*;
 import dolla.ui.LimitUi;
 
 /**
@@ -19,6 +15,7 @@ public class LimitParser extends Parser {
     protected static final String LIMIT_COMMAND_LIST = "limits";
     protected static final String LIMIT_COMMAND_SET = "set";
     protected static final String LIMIT_COMMAND_REMOVE = "remove";
+    protected static final String LIMIT_COMMAND_SORT = "sort";
 
     protected static final String LIMIT_TYPE_S = "saving";
     protected static final String LIMIT_TYPE_B = "budget";
@@ -69,6 +66,8 @@ public class LimitParser extends Parser {
                 return new ErrorCommand();
             }
             return new RemoveLimitCommand(limitType, duration);
+        } else if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_SORT)) {
+            return new SortCommand(mode, inputArray[1]);
         }
         return null;
     }

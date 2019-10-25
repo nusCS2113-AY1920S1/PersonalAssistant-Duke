@@ -1,7 +1,7 @@
 package dolla.parser;
 
 import dolla.Time;
-import dolla.Ui;
+import dolla.ui.Ui;
 import dolla.command.AddDebtsCommand;
 import dolla.command.AddEntryCommand;
 import dolla.command.Command;

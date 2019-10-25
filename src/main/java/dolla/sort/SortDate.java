@@ -1,7 +1,7 @@
 package dolla.sort;
 
-import dolla.Ui;
 import dolla.task.Log;
+import dolla.ui.SortUi;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +19,6 @@ public class SortDate extends Sort {
     public SortDate(ArrayList<Log> list) {
         super(list);
         Collections.sort(list, ListComparator.dateComparator());
-        Ui.printSortedList(list,"date");
+        SortUi.printSortedList(list,"date");
     }
 }

@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 public class Debt extends Log {
 
     protected String type;
-    protected double amount;
+//    protected double amount;
     protected String saveType;
-    protected LocalDate date;
+//    protected LocalDate date;
 
     /**
      * Instantiates a new Debt.

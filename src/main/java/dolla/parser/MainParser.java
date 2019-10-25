@@ -1,7 +1,7 @@
 package dolla.parser;
 
 import dolla.Tag;
-import dolla.Ui;
+import dolla.ui.Ui;
 
 import dolla.command.Command;
 import dolla.command.ErrorCommand;

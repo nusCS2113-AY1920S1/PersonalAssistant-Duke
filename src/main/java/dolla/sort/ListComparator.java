@@ -32,4 +32,18 @@ public class ListComparator {
             }
         };
     }
+
+    static Comparator<Log> amountComparator() {
+        return new Comparator<Log>() {
+            @Override
+            public int compare(Log o1, Log o2) {
+                if(o1.getAmount() < o2.getAmount()) {
+                    return -1;
+                } else if(o1.getAmount() > o2.getAmount()) {
+                    return 1;
+                }
+                return 0;
+            }
+        };
+    }
 }

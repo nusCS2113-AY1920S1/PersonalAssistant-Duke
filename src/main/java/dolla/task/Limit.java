@@ -1,6 +1,6 @@
 package dolla.task;
 
-import dolla.Ui;
+import dolla.ui.Ui;
 
 /**
  * Limit is a class that stores all limit related methods (savings and budgets).
@@ -8,11 +8,10 @@ import dolla.Ui;
 public class Limit extends Log {
 
     protected String type;
-    protected double amount;
     protected String duration;
     protected String saveType;
 
-    String[] limitType = {"saving", "budget"};
+    private String[] limitType = {"saving", "budget"};
 
     /**
      * Creates an instance of Limit.
