@@ -52,11 +52,11 @@ public class AddSaleCommand extends SaleCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getId()), CommandResult.DisplayedPage.SALE);
     }
 
-    private Sale createSale(SaleDescriptor saleDescriptor) throws CommandException {
+    private Sale createSale(SaleDescriptor saleDescriptor) {
         String description = saleDescriptor.getDescription().orElse(DEFAULT_DESCRIPTION);
-        double value = saleDescriptor.getValue();
-        Date saleDate = saleDescriptor.getSaleDate().orElse(Calendar.getInstance().getTime());
-        String remarks = saleDescriptor.getRemarks().orElse("N/A");
+        double value = saleDescriptor.getValue().orElse(DEFAULT_VALUE);
+        Date saleDate = saleDescriptor.getSaleDate().orElse(DEFAULT_SALE_DATE);
+        String remarks = saleDescriptor.getRemarks().orElse(DEFAULT_REMARKS);
         return new Sale(description, value, saleDate, remarks);
     }
 }

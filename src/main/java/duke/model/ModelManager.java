@@ -139,13 +139,6 @@ public class ModelManager implements Model {
 
     //================Sale operations=================
 
-
-    @Override
-    public void addSale(Sale sale) {
-        bakingHome.addSale(sale);
-        updateFilteredSaleList(PREDICATE_SHOW_ALL_SALES);
-    }
-
     @Override
     public boolean hasSale(Sale sale) {
         requireNonNull(sale);
@@ -154,7 +147,13 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteSale(Sale target) {
-        bakingHome.getOrderList().remove(target);
+        bakingHome.removeSale(target);
+    }
+
+    @Override
+    public void addSale(Sale sale) {
+        bakingHome.addSale(sale);
+        updateFilteredSaleList(PREDICATE_SHOW_ALL_SALES);
     }
 
     @Override
@@ -197,7 +196,6 @@ public class ModelManager implements Model {
     public void addSaleFromShopping(Double totalCost) {
         updateFilteredSaleList(PREDICATE_SHOW_ALL_SALES);
     }
-
 
     /*
     public void addSaleFromShopping(String purchaseDescription, double purchaseValue, Date purchaseDate, String purchaseRemarks) {
