@@ -31,6 +31,8 @@ public class Parser {
             return new AddRecipeCommand(input);
         } else if (input.trim().contains(COMMAND_DELETE_RECIPE)) {
             return new DeleteRecipeCommand(input);
+        } else if (input.trim().contains(COMMAND_VIEW_RECIPE)) {
+            return new ViewRecipeCommand(input);
         } else {
             System.out.println("went to listallrecipes");
             return new ListAllRecipeCommand(input);

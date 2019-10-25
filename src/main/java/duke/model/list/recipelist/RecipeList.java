@@ -44,6 +44,10 @@ public class RecipeList {
         }
     }
 
+    public String viewRecipe(String recipeTitle) {
+        return recipeLHM.get(recipeTitle).getViewString();
+    }
+
     public ArrayList<String> listRecipeTitle() {
         ArrayList<String> arrList = new ArrayList<>();
         for (int i = 0; i < getSize(); i++) {

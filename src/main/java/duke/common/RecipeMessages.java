@@ -5,6 +5,7 @@ public class RecipeMessages {
     public static final String COMMAND_ADD_RECIPE_INGREDIENT = "addtorecipeingredient";
     public static final String COMMAND_EDIT_RECIPE = "editrecipe";
     public static final String COMMAND_LIST_RECIPES = "listallrecipes";
+    public static final String COMMAND_VIEW_RECIPE = "viewrecipe";
 
     public static final String COMMAND_LIST_RECIPE_INGREDIENT = "listingredient";
     public static final String COMMAND_DELETE_RECIPE = "deleterecipe";
@@ -21,7 +22,7 @@ public class RecipeMessages {
 
     public static final String MESSAGE_RECIPE_DELETED = "Noted. I've removed this recipe:\n";
     public static final String MESSAGE_RECIPE_ADDED = "Got it. I've added this recipe:\n";
-
+    public static final String MESSAGE_RECIPE_TO_BE_VIEWED = "Here are the details for the recipe:";
     public static final String MESSAGE_HERE_ARE_THE_RECIPES = "Here are the recipe(s) currently in the list:\n";
 
     public static final String ERROR_MESSAGE_INVALID_RECIPE_QUANTITY = "Please input a valid value for the quantity";
@@ -31,4 +32,5 @@ public class RecipeMessages {
     public static final String ERROR_MESSAGE_INVALID_RECIPE_FORMAT = "     Please input in this format:\n     Eg: addrecipeingredient garlic 100 grams.";
     public static final String ERROR_MESSAGE_RECIPE_ALREADY_EXISTS = "Sorry, the recipe you wish to add already exists.";
     public static final String ERROR_MESSAGE_RECIPE_LIST_IS_EMPTY = "The recipe list is already empty.";
+    public static final String ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST = "The recipe list does not contain this recipe.";
 }

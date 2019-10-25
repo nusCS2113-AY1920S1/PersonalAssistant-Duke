@@ -1,16 +1,15 @@
 package duke;
 
+import duke.exception.DukeException;
 import duke.logic.command.Command;
 import duke.logic.command.CommandBooking;
-import duke.logic.command.CommandInventory;
-import duke.logic.command.CommandRecipe;
-import duke.exception.DukeException;
+import duke.logic.parser.Parser;
 import duke.model.list.bookinglist.BookingList;
 import duke.model.list.inventorylist.InventoryList;
-import duke.model.list.recipelist.RecipeIngredientList;
 import duke.model.list.recipelist.RecipeList;
-import duke.logic.parser.Parser;
-import duke.storage.*;
+import duke.storage.BookingStorage;
+import duke.storage.InventoryStorage;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 import java.text.ParseException;
@@ -88,6 +87,16 @@ public class Duke {
         } else if (userInput.contains(COMMAND_LIST_RECIPES)) {
             System.out.println("stuck here list all recipes 100");
             if (userInput.trim().substring(0, 14).equals(COMMAND_LIST_RECIPES)) {
+                System.out.println("stuck here list all recipes 101");
+                Command<RecipeList, Ui, RecipeStorage> command = Parser.parse(userInput);
+                return command.execute(recipeList, ui, recipeStorage);
+            } else {
+                System.out.println("stuck here7");
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
+        } else if (userInput.contains(COMMAND_VIEW_RECIPE)) {
+            if (userInput.trim().substring(0, 10).equals(COMMAND_VIEW_RECIPE)) {
                 System.out.println("stuck here list all recipes 101");
                 Command<RecipeList, Ui, RecipeStorage> command = Parser.parse(userInput);
                 return command.execute(recipeList, ui, recipeStorage);

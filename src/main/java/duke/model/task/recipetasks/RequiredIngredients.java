@@ -44,6 +44,21 @@ public class RequiredIngredients {
         }
     }
 
+    public String toViewString() {
+        String joinedString = "";
+        if (requiredIngredientList.isEmpty()) {
+            joinedString = "No required ingredient.";
+        }
+        int i = 0;
+        for (Ingredient Ingredient : requiredIngredientList) {
+            ++i;
+            String.join(i + ". " );
+            String.join(Ingredient.toSaveString(), joinedString);
+            String.join("\n", joinedString);
+        }
+        return joinedString;
+    }
+
     public String toSaveString() {
         String joinedString = "";
         if (requiredIngredientList.isEmpty()) {

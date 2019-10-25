@@ -51,6 +51,14 @@ public class Recipe {
                 + this.feedback.toSaveString();
     }
 
+    public String getViewString() {
+        return this.recipeTitle.toString() + "\n"
+                + checkRating() + "\n"
+                + this.prepStep.toString() + "\n"
+                + this.requiredIngredients.toViewString() + "\n"
+                + this.feedback.toString();
+    }
+
     private Rating assignRating(String rating) { // can try switch statements too.
         if (rating.equals("Average")) {
             return Rating.AVERAGE;
