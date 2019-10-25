@@ -1,18 +1,22 @@
 package duke.storage;
 
 import duke.exception.DukeException;
+import duke.model.Budget;
 import duke.model.ExpenseList;
 
+import java.io.IOException;
 import java.util.Map;
 
 public class StorageManager implements Storage {
 
     private ExpenseListStorage expenseListStorage;
     private PlanAttributesStorage planAttributesStorage;
+    private BudgetStorage budgetStorage;
 
-    public StorageManager(ExpenseListStorage expenseListStorage, PlanAttributesStorage planAttributesStorage) {
+    public StorageManager(ExpenseListStorage expenseListStorage, PlanAttributesStorage planAttributesStorage, BudgetStorage budgetStorage) {
         this.expenseListStorage = expenseListStorage;
         this.planAttributesStorage = planAttributesStorage;
+        this.budgetStorage = budgetStorage;
     }
 
     @Override
@@ -33,6 +37,16 @@ public class StorageManager implements Storage {
     @Override
     public Map<String, String> loadPlanAttributes() {
         return planAttributesStorage.loadAttributes();
+    }
+
+    @Override
+    public Budget loadBudget() throws IOException, DukeException {
+        return budgetStorage.loadBudget();
+    }
+
+    @Override
+    public void saveBudget(Budget budget) throws DukeException {
+        budgetStorage.saveBudget(budget);
     }
 
 
