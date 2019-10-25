@@ -1,6 +1,5 @@
 package Model_Classes;
 
-import Enums.TimeUnit;
 import java.util.Date;
 
 /**
@@ -11,10 +10,6 @@ import java.util.Date;
 public class Leave extends Task {
     private Date from;
     private Date to;
-    private boolean isFixedDuration;
-    private int duration;
-    private TimeUnit timeUnit;
-    private boolean isShort;
     private String user;
 
 
@@ -23,16 +18,6 @@ public class Leave extends Task {
         this.user = user;
         this.from = from;
         this.to = to;
-        this.isShort = false;
-    }
-
-    public Leave(String description, String user, Date from, int duration, TimeUnit unit) {
-        super(description, from);
-        this.user = user;
-        this.from = from;
-        this.duration = duration;
-        this.timeUnit = unit;
-        this.isShort = true;
     }
 
     public Date checkStartDate() {
@@ -43,24 +28,13 @@ public class Leave extends Task {
         return this.to;
     }
 
-    public boolean isShort() {
-        return isShort;
-    }
-
-    public String getDuration() {
-        return Integer.toString(duration);
-    }
-
-    public TimeUnit getTimeUnit() {
-        return timeUnit;
+    @Override
+    public String getUser() {
+        return this.user;
     }
 
     @Override
     public String toString() {
-        if(isShort) {
-            return "[L]" + super.toString() + " " + user + " (from: " + from + " back in( " + duration + " " + timeUnit.toString() + ")";
-        } else {
-            return "[L]" + super.toString() + " " + user + " (from: " + from  + " to: " + to + ")";
-        }
+        return "[L] " + super.getDescription() + " (" + user + ")" + " (From: " + from + " To: " + to + ")";
     }
 }

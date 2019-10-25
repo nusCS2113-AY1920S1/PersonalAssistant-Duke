@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * Parent class for all other types of tasks
  */
-public class Task{
+public abstract class Task{
     private String description;
     private boolean isDone;
     private Priority priority;
@@ -131,7 +131,7 @@ public class Task{
     public Date getDate() { return time; }
 
     /**
-     * Snoozes the Event by set amount of months
+     * Snoozes the task by set amount of months
      * @param amount number of months to snooze
      */
     public void snoozeMonth(int amount) {
@@ -139,7 +139,7 @@ public class Task{
     }
 
     /**
-     * Snoozes the Event by set amount of days
+     * Snoozes the task by set amount of days
      * @param amount number of days to snooze
      */
     public void snoozeDay(int amount) {
@@ -148,7 +148,7 @@ public class Task{
 
 
     /**
-     * Snoozes the Event by set amount of hours
+     * Snoozes the task by set amount of hours
      * @param amount number of hours to snooze
      */
     public void snoozeHour(int amount){
@@ -157,10 +157,12 @@ public class Task{
 
 
     /**
-     * Snoozes the Event by set amount of hours
+     * Snoozes the task by set amount of hours
      * @param amount number of minutes to snooze
      */
     public void snoozeMinute(int amount){
         this.time.setMinutes(this.time.getMinutes() + amount);
     }
+
+
 }
