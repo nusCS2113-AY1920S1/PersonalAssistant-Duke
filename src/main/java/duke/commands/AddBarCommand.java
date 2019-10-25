@@ -7,9 +7,9 @@ import duke.components.Bar;
 import duke.components.Song;
 import duke.components.SongList;
 
-import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 
+//@@author jwyf
 /**
  * A class representing the command to add a new bar of notes to the current song.
  */
@@ -45,7 +45,7 @@ public class AddBarCommand extends Command<SongList> {
             String[] sections = message.substring(7).split(" ");
             barNo = Integer.parseInt(sections[0].substring(4));
 
-            int notesIndex = message.indexOf(sections[1]); // todo
+            int notesIndex = message.indexOf(sections[1]);
 
             Bar newBar = new Bar(barNo, message.substring(notesIndex));
 
@@ -57,14 +57,17 @@ public class AddBarCommand extends Command<SongList> {
             try {
                 ArrayList<Song> temp = songList.getSongList();
                 System.out.println("i have gotten the song list");
-                return ui.formatAddBar(temp, newBar, song);
+                //return ui.formatAddBar(temp, newBar, song);
             } catch (Exception e) {
                 //System.out.println(e.getMessage());
                 return "hello myfddafadf ";
             }
             //
+            storage.updateFile(songList);
+            ArrayList<Song> temp = songList.getSongList();
+            return ui.formatAddBar(temp, newBar, song);
+
         } catch (Exception e) {
-            //System.out.println(e.getMessage());
             throw new DukeException(message, "addbar");
         }
     }

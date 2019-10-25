@@ -3,27 +3,31 @@ package duke.commands;
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
+import duke.components.Bar;
 import duke.components.Song;
 import duke.components.SongList;
-import java.util.Arrays;
+
+import java.util.ArrayList;
 
 //@@author jwyf
 /**
- * A class representing the command to add a new song to the song list.
+ * A class representing the command to edit a bar of notes in the current song.
  */
-public class NewCommand extends Command<SongList> {
+public class EditCommand extends Command<SongList> {
+
+    private int songIndex;
 
     /**
-     * Constructor for the command to add a task to the task list.
-     *
+     * Constructor for the command to edit a bar in the current song.
      * @param message the input message that resulted in the creation of the duke.Commands.Command
      */
-    public NewCommand(String message) {
+    public EditCommand(String message) {
         this.message = message;
+        this.songIndex = 0;
     }
 
     /**
-     * Modifies the song list and returns the messages intended to be displayed.
+     * Modifies the song in the song list and returns the messages intended to be displayed.
      *
      * @param songList the duke.components.SongList object that contains the song list
      * @param ui the Ui object responsible for the reading of user input and the display of
@@ -33,30 +37,26 @@ public class NewCommand extends Command<SongList> {
      * @throws DukeException if an exception occurs in the parsing of the message or in IO
      */
     public String execute(SongList songList, Ui ui, Storage storage) throws DukeException {
-        String songName;
-        String key;
-        String timeSignature;
-        int tempo;
-        if (message.length() < 4 || !message.substring(0, 4).equals("new ")) { //exception if not fully spelt
-            throw new DukeException(message);
-        }
-        Song song;
+        int barNo;
         try {
-            String[] sections = message.substring(4).split(" ");
+            String[] sections = message.substring(5).split(" ");
+            barNo = Integer.parseInt(sections[0].substring(4));
 
-            songName = sections[0];
-            key = sections[1];
-            System.out.println(Arrays.toString(sections));
-            timeSignature = sections[2];
-            tempo = Integer.parseInt(sections[3]);
-            song = new Song(songName, key, tempo);
+            int notesIndex = message.indexOf(sections[1]);
 
-            songList.add(song);
+            Bar newBar = new Bar(barNo, message.substring(notesIndex));
+
+            Song song = songList.getSongIndex(songIndex);
+
+            song.getBars().add(barNo - 1, newBar);
+            Bar oldBar = song.getBars().get(barNo);
+            song.getBars().remove(barNo);
+
             storage.updateFile(songList);
-            System.out.println("after creating song");
-            return ui.formatNewSong(songList.getSongList(), song);
+            ArrayList<Song> temp = songList.getSongList();
+            return ui.formatEdit(oldBar, newBar, song);
         } catch (Exception e) {
-            throw new DukeException(message, "new");
+            throw new DukeException(message, "edit");
         }
     }
 
