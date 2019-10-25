@@ -10,7 +10,7 @@ import static java.util.Objects.requireNonNull;
 public class AddProductCommand extends ProductCommand {
 
     public static final String COMMAND_WORD = "add";
-    public static String MESSAGE_SUCCESS = "New product: %s added" + System.lineSeparator() + "%s";
+    public static String MESSAGE_SUCCESS = "New product: %s added";
     public static final String MESSAGE_DUPLICATE_PRODUCT = "Product with name \"%s\" already exists in the "
             + "product list";
     private final Product toAdd;
@@ -35,10 +35,10 @@ public class AddProductCommand extends ProductCommand {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PRODUCT, toAdd.getProductName()));
         }
 
-        String names = ProductCommandUtil.getNewIngredientsName(model, toAdd);
+        ProductCommandUtil.verifyNewIngredient(model, toAdd);
         model.addProduct(toAdd);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getProductName(), names),
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getProductName()),
                 CommandResult.DisplayedPage.PRODUCT);
     }
 

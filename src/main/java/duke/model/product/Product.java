@@ -7,6 +7,10 @@ import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
 public class Product {
 
+    private final Double DEFAULT_RETAIL_PRICE = 0.0;
+    private final Double DEFAULT_INGREDIENT_COST = 0.0;
+    private final Status DEFAULT_STATUS = Status.ACTIVE;
+
     public enum Status {
         ACTIVE,
         ARCHIVE
@@ -24,16 +28,15 @@ public class Product {
 
 
     public Product() {
+        this.ingredientCost = DEFAULT_INGREDIENT_COST;
+        this.retailPrice = DEFAULT_RETAIL_PRICE;
+        this.status = DEFAULT_STATUS;
     }
 
     /** Constructor for Order parser.util*/
     public Product(String productName) {
         this.productName = productName;
     }
-
-    //public StringProperty productNameProperty() {
-    //    return productName;
-    //}
 
     /**
      * Creates a Product.

@@ -29,21 +29,18 @@ public class ProductCommandUtil {
     }
 
     /**
-     * Verifies whether the Ingredient already exists in the InventoryList. If not, add a new Inventory
-     * containing the ingredient.
-     * @return names of the ingredient added.
+     * Verifies whether the Ingredient already exists in the InventoryList. If not, adds a new Inventory
+     * containing the ingredient to the model.
+     * @return true if new Ingredient is added to the inventory
      */
-    public static String getNewIngredientsName(Model model, Product product) {
-        String nameOfIngredientsAdded = "New ingredients created: ";
+    public static void verifyNewIngredient(Model model, Product product) {
         IngredientItemList ingredients = product.getIngredients();
         for(Item<Ingredient> ingredient : ingredients) {
             if (!model.hasIngredient(ingredient.getItem())) {
                 Item<Ingredient> newIngredient =  new Item<Ingredient>(ingredient.getItem(),
                         Quantity.getDefaultQuantity());
                 model.addInventory(newIngredient);
-                nameOfIngredientsAdded += ingredient.getItem().getName() + " ";
             }
         }
-        return nameOfIngredientsAdded;
     }
 }

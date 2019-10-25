@@ -5,6 +5,7 @@ import duke.model.commons.Item;
 import duke.model.commons.Quantity;
 import duke.model.inventory.Ingredient;
 import duke.model.product.IngredientItemList;
+import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
 
 import java.util.Hashtable;
 import java.util.Map;
@@ -26,7 +27,7 @@ public class IngredientItemListParser {
         this.inputIngredientList = inputIngredientList;
     }
 
-    private static Map<String, String> getIngredientPortion(String input) {
+    private static Map<String, String> getIngredientPortionMap(String input) {
         String replacement = input;
         Matcher matcher = FORMAT_INGREDIENT_INPUT.matcher(input.trim());
 
@@ -43,7 +44,8 @@ public class IngredientItemListParser {
             }
             if (matcher.group("name") != null) {
                 if (matcher.group("quantity") != null) {
-                    params.put(matcher.group("name"), matcher.group("quantity"));
+                    String name = StringUtils.capitalize(matcher.group("name"));
+                    params.put(name, matcher.group("quantity"));
                 } else {
                     params.put(matcher.group("name"), "");
                 }
@@ -71,7 +73,7 @@ public class IngredientItemListParser {
 
     public static IngredientItemList getIngredientsInInput(String input) {
         IngredientItemList ingredientItemList = new IngredientItemList();
-        Map<String, String> ingredientAndPortion = getIngredientPortion(input);
+        Map<String, String> ingredientAndPortion = getIngredientPortionMap(input);
         for (Map.Entry<String, String> entry : ingredientAndPortion.entrySet()) {
             Item<Ingredient> ingredientItem = constructNewIngredientItem(entry);
             ingredientItemList.add(ingredientItem);
