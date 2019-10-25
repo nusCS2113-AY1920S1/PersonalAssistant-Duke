@@ -68,8 +68,16 @@ public class TaskList {
         return list.get(index).toString();
     }
 
-    public int taskListSize(){
-        return list.size();
+    public int taskListSize() {
+
+        int size = 0;
+        for (String modCode : map.keySet()) {
+            for (String date : map.get(modCode).keySet()) {
+                for (Task task : map.get(modCode).get(date))
+                    size++;
+            }
+        }
+        return size;
     }
 
     public void setReminder(Task task, String time, boolean reminder){
@@ -142,26 +150,5 @@ public class TaskList {
         return this.eventArrList;
     }
 
-    /** This method snoozes the task in the ArrayList.
-     * @param index Index in the ArrayList of the Task Object to snooze
-     * @param dateString New date for the Task Object
-     * @return This returns the ArrayList
-     * @throws DukeException On invalid input or when wrong input format is entered
-     */
-    public ArrayList<Task> snoozeTask(ArrayList<Task> list, int index, String dateString, String start, String end) throws DukeException {
-        try {
-            if (end == dateString) {
-                Task temp = list.get(index);
-                list.add(new Deadline(temp.getDescription(), dateString, start));
-                list.remove(index);
-            } else {
-                Task temp = list.get(index);
-                list.add(new Event(temp.getDescription(), dateString, start, end));
-                list.remove(index);
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException(" OOPS!!! Please check that you only snoozed deadlines and events");
-        }
-        return list;
-    }
+
 }

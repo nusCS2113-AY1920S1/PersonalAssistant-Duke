@@ -16,8 +16,9 @@ import java.util.Set;
 public class FilterCommand extends Command{
     private String keyword;
 
-    public FilterCommand(String keyword){
-        this.keyword =keyword;
+    public FilterCommand(String Command)
+    {
+        this.keyword = Command.trim().substring(7);
     }
     /**
      * Execute the displaying of all task the contains a certain keyword
