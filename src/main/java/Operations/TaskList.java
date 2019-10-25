@@ -170,31 +170,38 @@ public class TaskList {
         }
     }
 
+    /**
+     * Changes taskList sort mode
+     * @param sortType new sort mode
+     */
     public static void changeSort(SortType sortType) {
         TaskList.sortType = sortType;
         sortTasks();
     }
 
     /**
-     * Sorts the list based on priority
+     * Sorts the list based on current sort mode
      */
     public static void sortTasks() {
         switch (sortType) {
         case priority:
-            sortPriority();
+            comparePriority();
             break;
         case alphabetical:
-            sortAlphabetical();
+            compareAlphabetical();
             break;
         case deadline:
-            sortDeadline();
+            compareDeadline();
             break;
         default:
             throw new IllegalStateException("Unexpected value: " + sortType);
         }
     }
 
-    public static void sortPriority() {
+    /**
+     * Compare tasks based on priority
+     */
+    public static void comparePriority() {
         Collections.sort(tasks, (task1, task2) -> {
             if( task1.getDone() && !task2.getDone() ) {
                 return -1;
@@ -206,7 +213,10 @@ public class TaskList {
         });
     }
 
-    public static void sortAlphabetical() {
+    /**
+     * Compare tasks based on Alphabetical order
+     */
+    public static void compareAlphabetical() {
         Collections.sort(tasks, (task1, task2) -> {
             if( task1.getDone() && !task2.getDone() ) {
                 return -1;
@@ -220,7 +230,10 @@ public class TaskList {
         });
     }
 
-    public static void sortDeadline() {
+    /**
+     * Compare tasks based on Deadline
+     */
+    public static void compareDeadline() {
         Collections.sort(tasks, (task1, task2) -> {
             if( task1.getDone() && !task2.getDone() ) {
                 return -1;
