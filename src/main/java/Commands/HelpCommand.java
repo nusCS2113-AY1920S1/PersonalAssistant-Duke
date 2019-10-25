@@ -20,6 +20,7 @@ public class HelpCommand extends Command{
     public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
         String help;
         help = "Here is a guide of how to use the different commands";
+
         return ui.showHelp(help);
     }
 }
