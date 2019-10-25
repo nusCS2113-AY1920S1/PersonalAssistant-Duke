@@ -10,7 +10,7 @@ import Model_Classes.Task;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.Date;
 
 /**
  * A class to perform operations on the task list in Duke
@@ -160,7 +160,7 @@ public class TaskList {
      * @param t task in which we are checking the value of
      * @return integer value of the task's priority
      */
-    public int getValue(Task t) {
+    public static int getValue(Task t) {
         if (t.getPriority().equals(Priority.high)) {
             return 0;
         } else if (t.getPriority().equals(Priority.medium)) {
@@ -170,33 +170,68 @@ public class TaskList {
         }
     }
 
+    public static void changeSort(SortType sortType) {
+        TaskList.sortType = sortType;
+        sortTasks();
+    }
+
     /**
      * Sorts the list based on priority
      */
-    public void sortTasks(SortType type) {
-        switch (type) {
+    public static void sortTasks() {
+        switch (sortType) {
         case priority:
-            tasks.sort(Comparator.comparingInt(this::getValue));
+            sortPriority();
             break;
         case alphabetical:
-            Collections.sort(tasks, new Comparator<Task>() {
-                @Override
-                public int compare(Task o1, Task o2) {
-                    if( o1.getDone() && !o2.getDone() ) {
-                        return -1;
-                    } else if( o2.getDone() && !o1.getDone() ) {
-                        return 1;
-                    }
-
-                    return 0;
-                }
-            });
+            sortAlphabetical();
             break;
         case deadline:
+            sortDeadline();
             break;
         default:
-            throw new IllegalStateException("Unexpected value: " + type);
+            throw new IllegalStateException("Unexpected value: " + sortType);
         }
+    }
+
+    public static void sortPriority() {
+        Collections.sort(tasks, (task1, task2) -> {
+            if( task1.getDone() && !task2.getDone() ) {
+                return -1;
+            } else if( task2.getDone() && !task1.getDone() ) {
+                return 1;
+            } else {
+                return  getValue(task2) - getValue(task1);
+            }
+        });
+    }
+
+    public static void sortAlphabetical() {
+        Collections.sort(tasks, (task1, task2) -> {
+            if( task1.getDone() && !task2.getDone() ) {
+                return -1;
+            } else if( task2.getDone() && !task1.getDone() ) {
+                return 1;
+            } else {
+                String name1 = task1.getDescription();
+                String name2 = task2.getDescription();
+                return name1.compareTo(name2);
+            }
+        });
+    }
+
+    public static void sortDeadline() {
+        Collections.sort(tasks, (task1, task2) -> {
+            if( task1.getDone() && !task2.getDone() ) {
+                return -1;
+            } else if( task2.getDone() && !task1.getDone() ) {
+                return 1;
+            } else {
+                Date date1 = task1.getDate();
+                Date date2 = task2.getDate();
+                return (int) (date1.getTime() - date2.getTime());
+            }
+        });
     }
 
     /**
