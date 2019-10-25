@@ -1,9 +1,15 @@
 package duke.ui;
 
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXMasonryPane;
+import duke.data.Impression;
 import duke.data.Patient;
+import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+
+import java.util.Map;
 
 /**
  * UI window for the Patient context.
@@ -27,6 +33,10 @@ class PatientWindow extends UiElement<Region> {
     private Label address;
     @FXML
     private Label history;
+    @FXML
+    private JFXMasonryPane allergiesListPanel;
+    @FXML
+    private JFXListView<ImpressionCard> impressionsListPanel;
 
     /**
      * Constructs the patient UI window.
@@ -50,5 +60,17 @@ class PatientWindow extends UiElement<Region> {
         phone.setText(String.valueOf(patient.getNumber()));
         address.setText(String.valueOf(patient.getAddress()));
         history.setText(String.valueOf(patient.getHistory()));
+
+        for (Map.Entry<String, Impression> pair : patient.getImpressionsObservableMap().entrySet()) {
+            impressionsListPanel.getItems().add(new ImpressionCard(pair.getValue()));
+        }
+
+        patient.getImpressionsObservableMap().addListener((MapChangeListener<String, Impression>) change -> {
+            if (change.wasAdded()) {
+                impressionsListPanel.getItems().add(new ImpressionCard(change.getValueAdded()));
+            } else if (change.wasRemoved()) {
+                impressionsListPanel.getItems().remove(new ImpressionCard(change.getValueRemoved()));
+            }
+        });
     }
 }
