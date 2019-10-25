@@ -2,6 +2,7 @@ package seedu.duke.task.command;
 
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
+import seedu.duke.common.model.Model;
 import seedu.duke.task.TaskList;
 import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
@@ -52,8 +53,8 @@ public class TaskAddCommand extends Command {
      *         recognised.
      */
     @Override
-    public boolean execute() {
-        TaskList taskList = Duke.getModel().getTaskList();
+    public boolean execute(Model model) {
+        TaskList taskList = model.getTaskList();
         Task task = prepareTaskByType();
         if (task == null) {
             return false;

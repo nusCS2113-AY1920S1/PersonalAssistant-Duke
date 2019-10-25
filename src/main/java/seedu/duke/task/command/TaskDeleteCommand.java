@@ -3,6 +3,7 @@ package seedu.duke.task.command;
 import seedu.duke.CommandParseHelper;
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
+import seedu.duke.common.model.Model;
 import seedu.duke.task.TaskList;
 
 /**
@@ -27,9 +28,9 @@ public class TaskDeleteCommand extends Command {
      *         throws an exception.
      */
     @Override
-    public boolean execute() {
+    public boolean execute(Model model) {
         try {
-            TaskList taskList = Duke.getModel().getTaskList();
+            TaskList taskList = model.getTaskList();
             String msg = taskList.delete(index);
             if (!silent) {
                 responseMsg = msg;

@@ -58,7 +58,7 @@ public class UI {
             setInput(input);
             Command command = CommandParseHelper.parseCommand(input);
             setCommand(command.toString());
-            command.execute();
+            command.execute(Duke.getModel());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,7 +67,6 @@ public class UI {
     public void setDebug(boolean flag) {
         debug = flag;
     }
-
     /**
      * Shows a simple message without any format.
      *

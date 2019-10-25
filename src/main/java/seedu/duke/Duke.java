@@ -21,6 +21,10 @@ public class Duke {
     private static Model model = new Model();
     private static Duke duke;
 
+    private Duke() {
+        run();
+    }
+
     /**
      * Gets new instance.
      *
@@ -36,7 +40,7 @@ public class Duke {
     /**
      * Main function of the GUI program.
      */
-    public void run() {
+    private void run() {
         initModel();
         Http.startAuthProcess();
     }
@@ -62,7 +66,7 @@ public class Duke {
 
     private void initModel() {
         TaskList taskList = TaskStorage.readTaskFromFile();
-        EmailList emailList = EmailStorage.readEmailFromFile("");
+        EmailList emailList = EmailStorage.readEmailFromFile();
         EmailContentParseHelper.initKeywordList();
 
         model.setTaskList(taskList);

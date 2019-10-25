@@ -246,7 +246,8 @@ public class Email {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
 
             // Change this to UTF-16 if needed
-            md.update(input.getBytes(StandardCharsets.UTF_8));
+            //md.update(input.getBytes(StandardCharsets.UTF_16));
+            md.update(input.getBytes());
             byte[] digest = md.digest();
 
             String hex = String.format("%064x", new BigInteger(1, digest));

@@ -82,7 +82,7 @@ public class TaskStorage {
             Duke.getModel().updateGuiTaskList();
             Duke.getUI().showMessage("Saved task file successfully loaded... => " + taskList.size());
             in.close();
-            new TaskReminderCommand().execute();
+            new TaskReminderCommand().execute(Duke.getModel());
             return taskList;
         } catch (FileNotFoundException e) {
             return new TaskList(); //it is acceptable if there is no save file
@@ -102,7 +102,7 @@ public class TaskStorage {
         input = input.split(" ", 2)[1];
         Command addCommand = CommandParseHelper.parseCommand("task " + input);
         addCommand.setSilent();
-        addCommand.execute();
+        addCommand.execute(Duke.getModel());
     }
 
     private static void prepareDoneList(ArrayList<Boolean> doneList, String input) throws StorageException {
