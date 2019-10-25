@@ -12,6 +12,7 @@ import gazeeebo.exception.DukeException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SortCommand extends Command {
     @Override
@@ -27,6 +28,9 @@ public class SortCommand extends Command {
                         System.out.println(SortedList.get(i).listFormat());
                     }
                 }else if(ui.fullCommand.split(" ")[1].equals("date")){
+                    System.out.println("Following is the sorted list of deadlines:");
+                    SortedList = SortedList.stream().filter(data->data.toString().split("\\|")[0].equals("D") || data.toString().split("\\|")[0].equals("E"))
+                                                    .collect(Collectors.toCollection(ArrayList<Task>::new));
                     Collections.sort(SortedList,new CustomeDateComparator());
                         for(int i =0;i<SortedList.size();i++){
                             System.out.println(SortedList.get(i).listFormat());

@@ -1,4 +1,4 @@
-package gazeeebo.commands.edit;
+package gazeeebo.commands.Edit;
 
 import gazeeebo.storage.Storage;
 import gazeeebo.TriviaManager.TriviaManager;
@@ -43,7 +43,7 @@ public class EditCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.writeToSaveFile(sb.toString());
     }
 
     /**

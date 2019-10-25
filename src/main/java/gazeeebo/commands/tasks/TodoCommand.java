@@ -34,7 +34,7 @@ public class TodoCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.writeToSaveFile(sb.toString());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
             triviaManager.showPossibleInputs("todo");
@@ -52,7 +52,7 @@ public class TodoCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.writeToSaveFile(sb.toString());
     }
     @Override
     public boolean isExit() {

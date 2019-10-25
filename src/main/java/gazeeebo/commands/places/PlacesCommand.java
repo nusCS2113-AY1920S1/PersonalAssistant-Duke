@@ -23,21 +23,27 @@ public class PlacesCommand extends Command {
                 ui.readCommand();
                 if (ui.fullCommand.equals("add")) {
                     new AddPlacesCommand(ui, storage, places);
+                    System.out.println("What do you want to do next ?");
                 } else if (ui.fullCommand.split("-")[0].equals("find")) {
                     new FindPlacesCommand(ui, places, LINE_BREAK);
+                    System.out.println("What do you want to do next ?");
                 } else if (ui.fullCommand.equals("list")) {
                     new ListPlacesCommand(places, LINE_BREAK);
+                    System.out.println("What do you want to do next ?");
                 } else if (ui.fullCommand.contains("delete")) {
                     new DeletePlacesCommand(ui, storage, places);
+                    System.out.println("What do you want to do next ?");
                 } else if (ui.fullCommand.equals("esc")) {
                     System.out.println("Going back to Main Menu");
                     isExitFromPlaces = true;
                 } else {
                     System.out.println("There is no such command in Places.");
+                    System.out.println("What do you want to do next ?");
                 }
             }
             catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Check input format again");
+                System.out.println("What do you want to do next ?");
             }
         }
     }

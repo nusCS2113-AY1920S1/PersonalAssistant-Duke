@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PlacesCommandTest {
     Ui ui = new Ui();
     Storage storage = new Storage();
-    TriviaManager triviaManager = new TriviaManager();
+    TriviaManager triviaManager = new TriviaManager(storage);
     ArrayList<Task> list = new ArrayList<>();
     Stack<String> commandStack = new Stack<>();
     ArrayList<Task> deletedTask = new ArrayList<>();
@@ -30,6 +30,9 @@ public class PlacesCommandTest {
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
     private PrintStream mine = new PrintStream(output);
     private PrintStream original = System.out;
+
+    public PlacesCommandTest() throws IOException {
+    }
 
     @BeforeEach
     void setupStream() {
@@ -51,7 +54,7 @@ public class PlacesCommandTest {
         System.setIn(in);
         AddPlacesCommand test = new AddPlacesCommand(ui, storage, places);
         assertEquals("Input in this format: Room,Location\r\n"
-                + "Okay we have successfully added the new location :Test,COM3\r\n", output.toString());
+                + "Successfully added :Test,COM3\r\n", output.toString());
     }
 
     @Test
@@ -61,7 +64,7 @@ public class PlacesCommandTest {
         places.put("LT19", "COM5");
         ui.fullCommand = "delete-LT19";
         DeletePlacesCommand test = new DeletePlacesCommand(ui, storage, places);
-        assertEquals("LT19 has been removed.\r\n", output.toString());
+        assertEquals("Successfully deleted: LT19\r\n", output.toString());
     }
 
     @Test
@@ -71,7 +74,7 @@ public class PlacesCommandTest {
         places.put("LT19", "COM5");
         ui.fullCommand = "delete-LT30";
         DeletePlacesCommand test = new DeletePlacesCommand(ui, storage, places);
-        assertEquals("LT30 is not in the list.\r\n", output.toString());
+        assertEquals("LT30 is not found in the list.\r\n", output.toString());
     }
 
     @Test
@@ -81,7 +84,7 @@ public class PlacesCommandTest {
         places.put("LT19", "COM5");
         ui.fullCommand = "delete";
         DeletePlacesCommand test = new DeletePlacesCommand(ui, storage, places);
-        assertEquals("You need to indicate what you want to delete, Format: delete-name\r\n", output.toString());
+        assertEquals("Incorrect format: delete-place\r\n", output.toString());
     }
 
     @Test
