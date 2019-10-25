@@ -155,24 +155,6 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * This method is utilised to refresh the ListViews every time there is a user input and for the
-     * initialisation.
-     */
-    private void refreshAllLists() {
-        prioritizedTodayTasks();
-        populateEveryDay();
-        tasksForTheDay.setItems(holdTodayTasks);
-        priorityTaskLabel.setText("You have " + holdTodayTasks.size() + " High-Medium Priority task(s) today!");
-        mondayTask.setItems(mondayTasks);
-        tuesdayTask.setItems(tuesdayTasks);
-        wednesdayTask.setItems(wednesdayTasks);
-        thursdayTask.setItems(thursdayTasks);
-        fridayTask.setItems(fridayTasks);
-        saturdayTask.setItems(saturdayTasks);
-        sundayTask.setItems(sundayTasks);
-    }
-
-    /**
      * This method populates the ListView with prioritized tasks for the day.
      */
     private void prioritizedTodayTasks() {
@@ -188,42 +170,18 @@ public class MainWindow extends AnchorPane {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
 
-        final DayOfWeek Monday = DayOfWeek.MONDAY;
-        final DayOfWeek Tuesday = DayOfWeek.TUESDAY;
-        final DayOfWeek Wednesday = DayOfWeek.WEDNESDAY;
-        final DayOfWeek Thursday = DayOfWeek.THURSDAY;
-        final DayOfWeek Friday = DayOfWeek.FRIDAY;
-        final DayOfWeek Saturday = DayOfWeek.SATURDAY;
         final DayOfWeek Sunday = DayOfWeek.SUNDAY;
+        LocalDate sundayDate = LocalDate.now().with(TemporalAdjusters.nextOrSame(Sunday));
 
-        String sunday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Sunday)));
-        Integer sundayDate = Integer.parseInt(sunday.split("/", 2)[0].trim());
-
-        String monday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Monday)));
-        if (Integer.parseInt(monday.split("/", 2)[0].trim()) > sundayDate) {
-            monday = dtf.format(LocalDate.now().with(TemporalAdjusters.previousOrSame(Monday)));
-        }
-        String tuesday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Tuesday)));
-        if (Integer.parseInt(tuesday.split("/", 2)[0].trim()) > sundayDate) {
-            tuesday = dtf.format(LocalDate.now().with(TemporalAdjusters.previousOrSame(Tuesday)));
-        }
-        String wednesday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Wednesday)));
-        if (Integer.parseInt(wednesday.split("/", 2)[0].trim()) > sundayDate) {
-            wednesday = dtf.format(LocalDate.now().with(TemporalAdjusters.previousOrSame(Wednesday)));
-        }
-        String thursday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Thursday)));
-        if (Integer.parseInt(thursday.split("/", 2)[0].trim()) > sundayDate) {
-            thursday = dtf.format(LocalDate.now().with(TemporalAdjusters.previousOrSame(Thursday)));
-        }
-        String friday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Friday)));
-        if (Integer.parseInt(friday.split("/", 2)[0].trim()) > sundayDate) {
-            friday = dtf.format(LocalDate.now().with(TemporalAdjusters.previousOrSame(Friday)));
-        }
-        String saturday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Saturday)));
-        if (Integer.parseInt(saturday.split("/", 2)[0].trim()) > sundayDate) {
-            saturday = dtf.format(LocalDate.now().with(TemporalAdjusters.previousOrSame(Saturday)));
-        }
+        String monday = dtf.format(sundayDate.minusDays(6));
+        String tuesday = dtf.format(sundayDate.minusDays(5));
+        String wednesday = dtf.format(sundayDate.minusDays(4));
+        String thursday = dtf.format(sundayDate.minusDays(3));
+        String friday = dtf.format(sundayDate.minusDays(2));
+        String saturday = dtf.format(sundayDate.minusDays(1));
+        String sunday = dtf.format(sundayDate);
         String shiftLocationOfHighlight = dtf.format(now);
+
         if (shiftLocationOfHighlight.equals(monday)) {
             moveXOfDays = mondayX;
         }  else if (shiftLocationOfHighlight.equals(tuesday)) {
@@ -247,6 +205,24 @@ public class MainWindow extends AnchorPane {
         fridayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(friday));
         saturdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(saturday));
         sundayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(sunday));
+    }
+
+    /**
+     * This method is utilised to refresh the ListViews every time there is a user input and for the
+     * initialisation.
+     */
+    private void refreshAllLists() {
+        prioritizedTodayTasks();
+        populateEveryDay();
+        tasksForTheDay.setItems(holdTodayTasks);
+        priorityTaskLabel.setText("You have " + holdTodayTasks.size() + " High-Medium Priority task(s) today!");
+        mondayTask.setItems(mondayTasks);
+        tuesdayTask.setItems(tuesdayTasks);
+        wednesdayTask.setItems(wednesdayTasks);
+        thursdayTask.setItems(thursdayTasks);
+        fridayTask.setItems(fridayTasks);
+        saturdayTask.setItems(saturdayTasks);
+        sundayTask.setItems(sundayTasks);
     }
 
 }
