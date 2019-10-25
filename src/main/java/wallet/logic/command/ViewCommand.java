@@ -30,7 +30,7 @@ public class ViewCommand extends Command {
     @Override
     public boolean execute(Wallet wallet) {
         Ui ui = new Ui();
-        if (type[0].equals("pie")) {
+        if (type[0].equals("stats")) {
             ui.drawPieChart();
             return false;
         } else if (type.length == 2) {

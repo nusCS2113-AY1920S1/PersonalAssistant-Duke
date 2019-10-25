@@ -1,12 +1,12 @@
 package wallet.ui;
 
 import wallet.logic.LogicManager;
+import wallet.model.Wallet;
 import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.thread.ChartThread;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -100,6 +100,7 @@ public class Ui {
         ChartThread chartThread = new ChartThread();
         System.out.println("Please wait while we draw the pie chart...");
     }
+    //@@author
 
     //@@author Xdecosee
     /**
