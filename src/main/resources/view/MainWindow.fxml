@@ -4,16 +4,17 @@
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Scene?>
 <?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
-
 <fx:root type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
         <Scene stylesheets="@../css/duke.css">
@@ -65,30 +66,81 @@
                                                 <Font name="Arial Bold" size="30.0" />
                                             </font>
                                         </Label>
-                                        <JFXButton fx:id="productButton" onAction="#handleShowRecipe" prefHeight="50.0" prefWidth="200.0" text="Products" textFill="WHITE">
+                                        <JFXButton fx:id="productButton" onAction="#handleShowRecipe" prefHeight="50.0"
+                                                   prefWidth="200.0" text=" Products" textFill="WHITE">
                                             <font>
                                                 <Font size="18.0"/>
                                             </font>
+                                            <graphic>
+                                                <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../images/product.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
-                                        <JFXButton fx:id="orderButton" onAction="#handleShowOrder" prefHeight="50.0" prefWidth="200.0" text="Orders" textFill="WHITE">
+                                        <JFXButton fx:id="orderButton" onAction="#handleShowOrder" prefHeight="50.0"
+                                                   prefWidth="200.0" text=" Orders    " textFill="WHITE">
                                             <font>
                                                 <Font name="SF Pro Text Regular" size="18.0"/>
                                             </font>
+                                            <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="22.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../images/order.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
-                                        <JFXButton fx:id="inventoryButton" onAction="#handleShowInventory" prefHeight="50.0" prefWidth="200.0" text="Inventory" textFill="WHITE">
+                                        <JFXButton fx:id="inventoryButton" onAction="#handleShowInventory"
+                                                   prefHeight="50.0" prefWidth="200.0" text=" Inventory "
+                                                   textFill="WHITE">
                                             <font>
                                                 <Font name="Arial" size="18.0" />
                                             </font>
+                                            <graphic>
+                                                <ImageView fitHeight="26.0" fitWidth="25.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../images/inventory.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
-                                        <JFXButton fx:id="shoppingButton" onAction="#handleShowShopping" prefHeight="50.0" prefWidth="200.0" text="Shopping" textFill="WHITE">
+                                        <JFXButton fx:id="shoppingButton" onAction="#handleShowShopping"
+                                                   prefHeight="50.0" prefWidth="200.0" text=" Shopping"
+                                                   textFill="WHITE">
                                             <font>
                                                 <Font name="Arial" size="18.0" />
                                             </font>
+                                            <graphic>
+                                                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../images/shopping-cart.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
-                                        <JFXButton fx:id="saleButton" onAction="#handleShowSale" prefHeight="50.0" prefWidth="200.0" text="Sales" textFill="WHITE">
+                                        <JFXButton fx:id="saleButton" alignment="CENTER" onAction="#handleShowSale"
+                                                   prefHeight="50.0" prefWidth="200.0" text=" Sales     "
+                                                   textFill="WHITE">
                                             <font>
                                                 <Font name="Arial" size="18.0" />
                                             </font>
+                                            <graphic>
+                                                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../images/sale.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                            <opaqueInsets>
+                                                <Insets/>
+                                            </opaqueInsets>
                                         </JFXButton>
                                     </children>
                                 </VBox>
