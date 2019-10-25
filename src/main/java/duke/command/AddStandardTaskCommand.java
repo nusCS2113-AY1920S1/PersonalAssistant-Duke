@@ -8,7 +8,7 @@ import duke.storage.StorageManager;
 import duke.task.Task;
 import duke.task.TaskManager;
 
-public class AddStandardTaskCommand extends Command {
+public class AddStandardTaskCommand implements Command {
     private Task newStandardTask;
 
     /**

@@ -54,7 +54,6 @@ public class ShortCutter {
 
     /**
      * This function is used to allow map to be sorted by its values.
-     *
      * @param map a command frequency table in Map structure with key
      *            as the command type and value as the command frequency.
      * @return a Map structure that is sorted according to param's value
@@ -81,7 +80,6 @@ public class ShortCutter {
     /**
      * This function is used to generate a topUsedCommandTable based on
      * the data provided from sortedCommandTable.
-     *
      * @param sortedCommandTable a sorted command frequency table from high to low in Map structure with key
      *                           as the command type and value as the command frequency.
      * @return a Map structure with key being the index number for user to choose
@@ -183,10 +181,6 @@ public class ShortCutter {
             String patientId = ui.getPatientInfo("id");
             return new FindPatientCommand(patientId);
 
-            //} else if (commandName.equals("FindPatientTaskCommand")) {
-            //String taskId = ui.getTaskInfo("id");
-            //return new FindPatientTaskCommand(taskId);
-
         } else if (commandName.equals("ListPatientsCommand")) {
             return new ListPatientsCommand();
 
@@ -207,6 +201,7 @@ public class ShortCutter {
             return new UpdateTaskCommand(patientInfo);
         } else {
             //Assign patient task will be add...
+            //FindPatientTask will be added....
             throw new DukeException("No matching command!");
         }
     }
@@ -215,7 +210,6 @@ public class ShortCutter {
     /**
      * This function is used to convert the provided command class name
      * into a string that is much user friendly and easy to read by the user.
-     *
      * @param commandClassName the command class name chosen by the user
      * @return a String that is easy to read by the user.
      * @throws DukeException throw a dukeException with error message for debugging.

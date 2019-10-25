@@ -10,7 +10,7 @@ import duke.task.TaskManager;
 
 import java.util.ArrayList;
 
-public class FindPatientCommand extends Command {
+public class FindPatientCommand implements Command {
 
     private String command;
 

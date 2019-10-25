@@ -10,7 +10,7 @@ import duke.task.TaskManager;
 
 import java.util.ArrayList;
 
-public class ListTasksCommand extends Command {
+public class ListTasksCommand implements Command {
 
     /**
      * .

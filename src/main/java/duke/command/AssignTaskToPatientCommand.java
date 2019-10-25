@@ -10,7 +10,7 @@ import duke.relation.StandardPatientTask;
 import duke.storage.StorageManager;
 import duke.task.TaskManager;
 
-public class AssignTaskToPatientCommand extends Command {
+public class AssignTaskToPatientCommand implements Command {
 
     private String command;
     private String[] taskAssignmentInfo;
