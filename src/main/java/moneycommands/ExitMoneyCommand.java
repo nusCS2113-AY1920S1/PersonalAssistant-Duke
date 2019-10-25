@@ -5,7 +5,7 @@ import money.Account;
 
 public class ExitMoneyCommand extends MoneyCommand {
 
-    //@@ cctt1014
+    //@@author cctt1014
     public ExitMoneyCommand(){
     }
 
@@ -16,11 +16,11 @@ public class ExitMoneyCommand extends MoneyCommand {
 
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) {
-        storage.writeToFile(account);
         ui.appendToOutput("     Bye. Hope to see you again soon!\n");
     }
 
     @Override
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         throw new DukeException("Command can't be undone!\n");
     }

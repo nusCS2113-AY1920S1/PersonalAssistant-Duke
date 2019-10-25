@@ -1,22 +1,31 @@
 package controlpanel;
 
+import money.Item;
 import moneycommands.MoneyCommand;
 
-import java.util.ArrayDeque;
+import java.util.Stack;
 
 public class UndoCommandHandler {
-    private static MoneyCommand lastIssuedCommand;
+
+    private static Stack<MoneyCommand> lastIssuedCommands;
+
+    //@@ author Chianhaoplanks
     public UndoCommandHandler() {
-        lastIssuedCommand = null;
+        lastIssuedCommands = new Stack<>();
     }
     public void updateLastIssuedCommands(MoneyCommand c) {
-        lastIssuedCommand = c;
+        lastIssuedCommands.push(c);
+        if (lastIssuedCommands.size() > 5) {
+            lastIssuedCommands.remove(0);
+        }
     }
     public MoneyCommand getLastIssuedCommand() throws DukeException {
-        if (lastIssuedCommand == null) {
+        if (lastIssuedCommands.isEmpty()) {
             throw new DukeException("No commands to undo!");
         } else {
-           return lastIssuedCommand;
+           MoneyCommand c = lastIssuedCommands.lastElement();
+           lastIssuedCommands.pop();
+           return c;
         }
     }
 }

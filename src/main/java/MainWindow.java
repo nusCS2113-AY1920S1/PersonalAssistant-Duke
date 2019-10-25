@@ -1,8 +1,7 @@
 import controlpanel.DukeException;
 import help.AutoComplete;
-import controlpanel.Parser;
 import guicommand.UserIcon;
-import help.MemorisePreviousFunctions;
+import help.History;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,9 +15,9 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
-import java.io.*;
+import java.io.IOException;
 import java.text.ParseException;
-import java.util.*;
+import java.util.TreeSet;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -44,19 +43,16 @@ public class MainWindow extends AnchorPane {
     private static Image userImage;
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    private MemorisePreviousFunctions previousFunctions = new MemorisePreviousFunctions();
+    private History previousFunctions = new History();
 
     /**
      * Initialises scroll bar and outputs Duke Welcome message on startup of GUI.
      */
-    //@@ therealnickcheong
+    //@@author {therealnickcheong}
     @FXML
     public void initialize() throws IOException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane2.vvalueProperty().bind(graphContainer.heightProperty());
-
-        dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("enter start to begin", dukeImage));
 
         userIcon = new UserIcon();
         userImage = userIcon.getIcon();
@@ -71,13 +67,21 @@ public class MainWindow extends AnchorPane {
 
     public void setDuke(Duke d) {
         duke = d;
+        boolean isNewUser = duke.getAccount().isToInitialize();
+        if(isNewUser){
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog("enter start to begin", dukeImage));
+        }else{
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog("Welcome Back To Financial Ghost", dukeImage));
+        }
     }
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to.
      * the dialog container. Clears the user input after processing.
      */
-    //@@ cctt1014
+    //@@author cctt1014
     @FXML
     private void handleUserInput() throws IOException, ParseException, DukeException {
         String input = userInput.getText();
@@ -109,25 +113,24 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
-    //@@ therealnickcheong
+    //@@author therealnickcheong
     @FXML
     private void handleSearchInput() {
         String input = searchBar.getText();
-        if(input.equals("")){
+        if (input.equals("")) {
             graphContainer.getChildren().clear();
-        }else{
+        } else {
             String[] response = duke.getResponse("find " + input);
             graphContainer.getChildren().clear();
-            if(!response[1].equals("")){
+            if (!response[1].equals("")) {
                 graphContainer.getChildren().clear();
                 graphContainer.getChildren().addAll(
                         DialogBox.getDukeDialog(response[1], dukeImage));
             }
         }
-
     }
 
-    //@@ ChenChao19
+    //@@author ChenChao19
     @FXML
     private void autoCompleteFunction() {
         AutoComplete autoComplete = new AutoComplete();
@@ -154,12 +157,12 @@ public class MainWindow extends AnchorPane {
             public void handle(KeyEvent ke) {
                 if (ke.getCode() == KeyCode.UP) {
                     userInput.clear();
-                    if(previousFunctions.getMaxIndex() != 0) {
+                    if (previousFunctions.getMaxIndex() != 0) {
                         previousFunctions.setFlagTrue();
                         userInput.appendText(previousFunctions.getPreviousCommand() + "\n");
                     }
                 } else if (ke.getCode() == KeyCode.DOWN) {
-                    if(previousFunctions.getMaxIndex() != 0) {
+                    if (previousFunctions.getMaxIndex() != 0) {
                         if (previousFunctions.getCurrIndex() == previousFunctions.getMaxIndex() - 1) {
                             userInput.clear();
                             previousFunctions.setFlagForFirstPress();

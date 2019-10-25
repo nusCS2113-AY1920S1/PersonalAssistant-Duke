@@ -18,13 +18,34 @@ public class ListGoalsCommand extends MoneyCommand{
     /**
      * Constructor of the list command
      */
-    //@@ therealnickcheong
+    //@@author therealnickcheong
     public ListGoalsCommand(){
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    public String percentageProgress(float goalSavings, float currGoalPrice){
+        float percentageProgress = (goalSavings/currGoalPrice)*100;
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+        return "[" + df.format(percentageProgress) + "%]";
+    }
+
+    public String dpRounding(float f){
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+        return df.format(f);
+    }
+
+    public float savingsPerGoal(float goalSavings, float currGoalPrice, float monthsBetween){
+        if(monthsBetween <= 0){
+            return currGoalPrice-goalSavings;
+        }else{
+            return (currGoalPrice - goalSavings)/monthsBetween;
+        }
     }
 
     /**
@@ -36,7 +57,6 @@ public class ListGoalsCommand extends MoneyCommand{
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) {
-        //account.sortShortTermGoals(account.getShortTermGoals());
         float savingsReqPerMonth = 0;
         for (int i = 1; i <= account.getShortTermGoals().size();i++) {
             Goal currGoal = account.getShortTermGoals().get(i-1);
@@ -49,23 +69,21 @@ public class ListGoalsCommand extends MoneyCommand{
             if(account.getGoalSavings() >= currGoalPrice){
                 goalProgress = "[\u2713]";
             }else{
-                float percentageProgress = (account.getGoalSavings()/currGoalPrice)*100;
-                DecimalFormat df = new DecimalFormat("#.##");
-                df.setRoundingMode(RoundingMode.CEILING);
-                goalProgress = "[" + df.format(percentageProgress) + "%]";
-                savingsReqPerMonth += (currGoalPrice - account.getGoalSavings())/monthsBetween;
+                goalProgress = percentageProgress(account.getGoalSavings(), currGoalPrice);
+                savingsReqPerMonth += savingsPerGoal(account.getGoalSavings(), currGoalPrice, monthsBetween);
             }
 
             ui.appendToGraphContainer(" " + i + "." + goalProgress + account.getShortTermGoals().get(i-1).toString() + "\n");
         }
-        //System.out.println("current Goal Savings: $" + account.getGoalSavings());
+        String savingsPerMonth = dpRounding(savingsReqPerMonth);
         ui.appendToOutput("current Goal Savings: $" + account.getGoalSavings() + "\n");
-        ui.appendToOutput("Target Savings for the Month: $" + savingsReqPerMonth + "\n");
+        ui.appendToOutput("Target Savings for the Month: $" + savingsPerMonth + "\n");
         ui.appendToOutput("Got it, list will be printed in the other pane!\n");
 
     }
 
     @Override
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         throw new DukeException("Command can't be undone!\n");
     }

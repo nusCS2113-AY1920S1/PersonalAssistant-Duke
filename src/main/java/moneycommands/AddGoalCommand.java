@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 /**
@@ -18,13 +19,19 @@ public class AddGoalCommand extends MoneyCommand {
 
     private String inputString;
     private DateTimeFormatter dateTimeFormatter;
+    String desc;
+    float price;
+    LocalDate byDate;
+    String priorityLevel;
+    String category;
+
 
     /**
      * Constructor of the command which initialises the add short-term goal command.
      * with the goal data within the user input.
      * @param cmd add command inputted from user.
      */
-    //@@ therealnickcheong
+    //@@author therealnickcheong
     public AddGoalCommand(String cmd) {
         inputString = cmd;
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");
@@ -37,7 +44,7 @@ public class AddGoalCommand extends MoneyCommand {
 
     /**
      * This method executes the add goal command. Takes input from user
-     * and adds a short-term goal to the Short-Term Goals List
+     * and adds a  goal to the Goals List
      * @param account Account object containing all financial info of user saved on the programme
      * @param ui Handles interaction with the user
      * @param storage Saves and loads data into/from the local disk
@@ -46,28 +53,33 @@ public class AddGoalCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
+    try{
+        desc = inputString.split("/amt ")[0].replaceFirst("goal ", "");
+        price = Float.parseFloat(inputString.split("/amt ")[1].split("/by ")[0]);
+        byDate = Parser.shortcutTime(inputString.split("/by ")[1].split(" /priority ")[0]);
+        priorityLevel = inputString.split("/priority ")[1];
+        category = "GS";
 
-        String desc = inputString.split("/amt ")[0].replaceFirst("goal ", "");
-        float price = Float.parseFloat(inputString.split("/amt ")[1].split("/by ")[0]);
-        LocalDate byDate = Parser.shortcutTime(inputString.split("/by ")[1].split(" /priority ")[0]);
-        String priorityLevel = inputString.split("/priority ")[1];
-        String category = "GS";
+    }catch(NumberFormatException e){
+        throw new DukeException("Please enter in the format: " +
+                "goal <desc> /amt <amount> /by <date> /priority <HIGH/MEDIUM/LOW>\n");
+    }catch(DateTimeParseException e){
+        throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
+    }
         Goal g = new Goal(price, desc, category, byDate, priorityLevel);
         account.getShortTermGoals().add(g);
-        //account.sortShortTermGoals(account.getShortTermGoals());
         storage.writeToFile(account);
-
         ui.appendToOutput(" Got it. I've added this Goal: \n");
         ui.appendToOutput("     " + account.getShortTermGoals().get(account.getShortTermGoals().size() - 1).toString()
                 + "\n");
         ui.appendToOutput(" Now you have " + account.getShortTermGoals().size() + " Goals in the list.\n");
-        //ui.appendToOutput("Current Goal Savings: $" + account.getGoalSavings() + "\n");
 
         MoneyCommand list = new ListGoalsCommand();
         list.execute(account,ui,storage);
     }
 
     @Override
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
         int lastIndex = account.getShortTermGoals().size() - 1;
         Goal g = account.getShortTermGoals().get(lastIndex);

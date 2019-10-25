@@ -21,7 +21,7 @@ public class InternalTransferCommand extends MoneyCommand {
     private float amt;
     private LocalDate date;
 
-    //@@ cctt1014
+    //@@author cctt1014
     public InternalTransferCommand(String inputString) throws ParseException {
         String status = inputString.split(" ")[0];
         if (status.equals("deposit")) {
@@ -52,17 +52,11 @@ public class InternalTransferCommand extends MoneyCommand {
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         BankTracker bankTracker = account.findTrackerByName(description);
-        Calendar currDate = Calendar.getInstance();
-        int currMonth = currDate.get(Calendar.MONTH) + 1;
-        int currYear = currDate.get(Calendar.YEAR);
         if (add) {
             bankTracker.updateDate(date);
             bankTracker.addAmt(amt);
             Income income = new Income(amt, "Deposit to " + bankTracker.getDescription(), date);
             account.getIncomeListTotal().add(income);
-            if (date.getMonthValue() == currMonth && date.getYear() == currYear) {
-                account.getIncomeListCurrMonth().add(income);
-            }
         } else {
             if (bankTracker.predictAmt(date) < amt) {
                 throw new DukeException("Sorry, FG only allow non-zero balance. Here is the account info: \n"
@@ -73,9 +67,6 @@ public class InternalTransferCommand extends MoneyCommand {
             Expenditure expenditure = new Expenditure(amt, "Withdraw from " +
                     bankTracker.getDescription(), "withdraw from bank", date);
             account.getExpListTotal().add(expenditure);
-            if (date.getMonthValue() == currMonth && date.getYear() == currYear) {
-                account.getExpListCurrMonth().add(expenditure);
-            }
         }
         storage.writeToFile(account);
         ui.appendToOutput("  Got it. Here is the current information about this account:\n    "
@@ -83,6 +74,7 @@ public class InternalTransferCommand extends MoneyCommand {
     }
 
     @Override
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         throw new DukeException("Command can't be undone!\n");
     }

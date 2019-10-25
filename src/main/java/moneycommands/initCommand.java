@@ -7,7 +7,7 @@ public class initCommand extends MoneyCommand{
 
     private String inputString;
 
-    //@@ therealnickcheong
+    //@@author therealnickcheong
     public initCommand(String cmd, boolean isNewUser) throws DukeException {
         inputString = cmd;
         if(!isNewUser){
@@ -32,6 +32,7 @@ public class initCommand extends MoneyCommand{
     }
 
     @Override
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         throw new DukeException("Command can't be undone!\n");
     }

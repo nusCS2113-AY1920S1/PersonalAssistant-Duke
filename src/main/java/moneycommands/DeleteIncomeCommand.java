@@ -5,6 +5,7 @@ import controlpanel.MoneyStorage;
 import controlpanel.Ui;
 import money.Account;
 import money.Income;
+import money.Item;
 import moneycommands.MoneyCommand;
 
 /**
@@ -20,11 +21,15 @@ public class DeleteIncomeCommand extends MoneyCommand {
      * with the index of the item to be deleted within the user input.
      * @param command delete command inputted from user
      */
-    //@@ chengweixuan
-    public DeleteIncomeCommand(String command) {
-        inputString = command;
-        String temp = inputString.replaceAll("[^0-9]", "");
-        serialNo = Integer.parseInt(temp);
+    //@@author chengweixuan
+    public DeleteIncomeCommand(String command) throws DukeException {
+        try {
+            inputString = command;
+            String temp = inputString.replaceAll("[^0-9]", "");
+            serialNo = Integer.parseInt(temp);
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a numerical number as the index of the income source to be deleted\n");
+        }
     }
 
     @Override
@@ -46,22 +51,30 @@ public class DeleteIncomeCommand extends MoneyCommand {
         if (serialNo > account.getIncomeListTotal().size()) {
             throw new DukeException("The serial number of the income is Out Of Bounds!");
         }
-        Income deletedI = account.getIncomeListTotal().get(serialNo - 1);
+        Income deletedEntryInc = account.getIncomeListTotal().get(serialNo - 1);
         ui.appendToOutput(" Noted. I've removed this income source:\n");
-        ui.appendToOutput("  " + deletedI.toString() + "\n");
+        ui.appendToOutput("  " + deletedEntryInc.toString() + "\n");
         ui.appendToOutput(" Now you have " + (account.getIncomeListTotal().size() - 1));
         ui.appendToOutput(" income sources in the list.\n");
 
-        storage.markDeletedEntry("INC", serialNo);
+        //storage.markDeletedEntry("INC", serialNo);
         account.getIncomeListTotal().remove(serialNo - 1);
+        storage.addDeletedEntry(deletedEntryInc);
+        storage.writeToFile(account);
     }
 
     @Override
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
-        storage.undoDeletedEntry(account, "INC", serialNo);
-        storage.writeToFile(account);
-        ui.appendToOutput(" Last command undone: \n");
-        ui.appendToOutput(account.getIncomeListTotal().get(serialNo - 1).toString() + "\n");
-        ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size() + " income sources listed\n");
+        Item deletedEntry = storage.getDeletedEntry();
+        if (deletedEntry instanceof  Income) {
+            account.getIncomeListTotal().add(serialNo - 1, (Income)deletedEntry);
+            storage.writeToFile(account);
+            ui.appendToOutput(" Last command undone: \n");
+            ui.appendToOutput(account.getIncomeListTotal().get(serialNo - 1).toString() + "\n");
+            ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size() + " income sources listed\n");
+        } else {
+            throw new DukeException("Wah u messed up at income\n");
+        }
     }
 }

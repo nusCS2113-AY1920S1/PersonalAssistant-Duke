@@ -9,6 +9,7 @@ import money.Expenditure;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 
 /**
@@ -17,13 +18,17 @@ import java.util.Calendar;
 public class AddExpenditureCommand extends MoneyCommand {
 
     private String inputString;
+    private String description;
+    private float price;
+    private String category;
+    private LocalDate boughtTime;
 
     /**
      * Constructor of the command which initialises the add expenditure command
      * with the expenditure data within the user input.
      * @param command add command inputted from user
      */
-    //@@ chengweixuan
+    //@@author chengweixuan
     public AddExpenditureCommand(String command) {
         inputString = command.replaceFirst("spent ", "");
     }
@@ -44,23 +49,25 @@ public class AddExpenditureCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
-        String[] splitStr = inputString.split("/amt ", 2);
-        String description = splitStr[0];
-        String[] furSplit = splitStr[1].split("/cat ", 2);
-        float price = Float.parseFloat(furSplit[0]);
-        String[] morSplit = furSplit[1].split("/on ", 2);
-        String category = morSplit[0];
-        LocalDate boughtTime = Parser.shortcutTime(morSplit[1]);
+        try {
+            String[] splitStr = inputString.split("/amt ", 2);
+            description = splitStr[0];
+            String[] furSplit = splitStr[1].split("/cat ", 2);
+            price = Float.parseFloat(furSplit[0]);
+            String[] morSplit = furSplit[1].split("/on ", 2);
+            category = morSplit[0];
+            boughtTime = Parser.shortcutTime(morSplit[1]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("Please enter in the format: " +
+                    "spent <description> /amt <amount> /cat <category> /on <date>\n");
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter the amount in numbers!\n");
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
+        }
         Expenditure e = new Expenditure(price, description, category, boughtTime);
         account.getExpListTotal().add(e);
         storage.writeToFile(account);
-
-        Calendar currDate = Calendar.getInstance();
-        int currMonth = currDate.get(Calendar.MONTH) + 1;
-        int currYear = currDate.get(Calendar.YEAR);
-        if (boughtTime.getMonthValue() == currMonth && boughtTime.getYear() == currYear) {
-            account.getExpListCurrMonth().add(e);
-        }
 
         ui.appendToOutput(" Got it. I've added this to your total spending: \n");
         ui.appendToOutput("     ");
@@ -69,6 +76,7 @@ public class AddExpenditureCommand extends MoneyCommand {
     }
 
     @Override
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) {
         int lastIndex = account.getExpListTotal().size() - 1;
         Expenditure exp = account.getExpListTotal().get(lastIndex);

@@ -20,7 +20,7 @@ public class DeleteBankAccountCommand extends MoneyCommand {
 
     private int index;
 
-    //@@ cctt1014
+    //@@author cctt1014
     public DeleteBankAccountCommand(String inputString) {
         inputString = inputString.replaceFirst("delete bank-account ", "");
         index = Integer.parseInt(inputString)-1;
@@ -33,31 +33,25 @@ public class DeleteBankAccountCommand extends MoneyCommand {
 
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
-        BankTracker bankTracker = account.getBankTrackerList().get(index);
-        Expenditure expenditure = new Expenditure(bankTracker.getAmt(), "Withdraw from "
-                + bankTracker.getDescription(), "bank", Parser.shortcutTime("now"));
+        BankTracker deletedBank = account.getBankTrackerList().get(index);
+        Expenditure expenditure = new Expenditure(deletedBank.getAmt(), "Withdraw from "
+                + deletedBank.getDescription(), "bank", Parser.shortcutTime("now"));
         account.getExpListTotal().add(expenditure);
 
-        Calendar currDate = Calendar.getInstance();
-        int currMonth = currDate.get(Calendar.MONTH) + 1;
-        int currYear = currDate.get(Calendar.YEAR);
-        LocalDate date = Parser.shortcutTime("now");
-        if (date.getMonthValue() == currMonth && date.getYear() == currYear) {
-            account.getExpListCurrMonth().add(expenditure);
-        }
         storage.markDeletedEntry("BAN", index + 1);
-        account.getBankTrackerList().remove(index);
+        account.getBankTrackerList().remove(deletedBank);
         ui.appendToOutput("The bank account tracker below has been removed: \n");
-        ui.appendToOutput(bankTracker.getBankAccountInfo() + "\n");
+        ui.appendToOutput(deletedBank.getBankAccountInfo() + "\n");
     }
 
     @Override
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
        storage.undoDeletedEntry(account, "BAN", index + 1);
        Expenditure exp = account.getExpListTotal().get(account.getExpListTotal().size() - 1);
-       if (exp == account.getExpListCurrMonth().get(account.getExpListCurrMonth().size() - 1)) {
-           account.getExpListCurrMonth().remove(exp);
-       }
+//       if (exp == account.getExpListCurrMonth().get(account.getExpListCurrMonth().size() - 1)) {
+//           account.getExpListCurrMonth().remove(exp);
+//       }
        storage.writeToFile(account);
 
         ui.appendToOutput(" Last command undone: \n");
