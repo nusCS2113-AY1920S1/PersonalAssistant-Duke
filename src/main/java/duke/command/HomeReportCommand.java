@@ -13,7 +13,7 @@ public class HomeReportCommand extends ArgCommand {
 
     @Override
     protected ArgSpec getSpec() {
-        return DischargeAndReportSpec.getSpec();
+        return HomeDischargeAndReportSpec.getSpec();
     }
 
     @Override
@@ -24,7 +24,7 @@ public class HomeReportCommand extends ArgCommand {
 
         if (core.patientMap.getPatient(getArg()) != null) {
             createReport(core.patientMap.getPatient(getArg()), header, explanation, getSwitchVal("summary"));
-            core.ui.print("Report created");
+            core.ui.print("Patient report created for " + core.patientMap.getPatient(getArg()).getName());
         }
     }
 

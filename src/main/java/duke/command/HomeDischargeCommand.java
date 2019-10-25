@@ -7,7 +7,7 @@ public class HomeDischargeCommand extends ArgCommand {
 
     @Override
     protected ArgSpec getSpec() {
-        return DischargeAndReportSpec.getSpec();
+        return HomeDischargeAndReportSpec.getSpec();
     }
 
     @Override
@@ -15,7 +15,6 @@ public class HomeDischargeCommand extends ArgCommand {
         String header = "DISCHARGED PATIENT REPORT";
         String explanation = "This report shows all the data that was stored about a patient at the time the report was "
                 + "created.";
-
         if (core.patientMap.getPatient(getArg()) != null) {
             HomeReportCommand.createReport(core.patientMap.getPatient(getArg()), header, explanation, getSwitchVal("summary"));
             core.patientMap.deletePatient(getArg());

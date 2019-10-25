@@ -38,7 +38,7 @@ public class Commands {
                 return new HomeNewCommand();
             case "open":
                 return new HomeOpenCommand();
-            case "report": //fallthrough
+            case "report":
                 return new HomeReportCommand();
             case "discharge":
                 return new HomeDischargeCommand();
@@ -50,7 +50,10 @@ public class Commands {
                 return null;
             }
         case PATIENT:
-            // ...
+            switch(cmdStr){
+                case "report":
+                    return new PatientReportCommand();
+            }
         case TREATMENT:
             if ("status".equals(cmdStr)) {
                 //return new TreatmentStatusCommand();
