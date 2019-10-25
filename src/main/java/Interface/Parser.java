@@ -321,45 +321,6 @@ public class Parser {
                 String keyword = "";
                 keyword = fullCommand.trim().substring(7);
                 return new FilterCommand(keyword);
-            } else if (fullCommand.trim().substring(0,6).equals("snooze")) {
-                try {
-                    String activity = fullCommand.trim().substring(6);
-                    split = activity.split("/to");
-                    split1 = split[0].trim().split(" ");
-                    int index = Integer.parseInt(split1[1]) - 1;
-                    if (split1[1].isEmpty()) {
-                        throw new DukeException("\u2639" + " OOPS!!! The index of a snooze cannot be empty.");
-                    }
-                    if (split1[0].contains("deadline")) {
-                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-                        Date date = formatter.parse(split[1].trim());
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
-                        String dateString = dateFormat.format(date);
-                        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
-                        String timeString = timeFormat.format(date);
-                        return new SnoozeCommand(index, dateString, timeString, dateString);
-                    } else {
-                        split2 = split[1].trim().split("to");
-                        split3 = split2[0].trim().split(" ");
-                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                        Date date = formatter.parse(split3[0].trim());
-                        SimpleDateFormat formatter1 = new SimpleDateFormat("HHmm");
-                        Date startTime = formatter1.parse(split3[1].trim());
-                        Date endTime = formatter1.parse(split2[1].trim());
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
-                        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
-                        String dateString = dateFormat.format(date);
-                        String startTimeString = timeFormat.format(startTime);
-                        String endTimeString = timeFormat.format(endTime);
-                        return new SnoozeCommand(index, dateString, startTimeString, endTimeString);
-                    }
-                } catch (ParseException | ArrayIndexOutOfBoundsException e) {
-                    LOGGER.log(Level.INFO, e.toString(), e);
-                    throw new DukeException(" OOPS!!! Please enter snooze as follows respectively:\n" +
-                            "To snooze deadlines: snooze deadline index /to dd/MM/yyyy HHmm\n" +
-                            "To snooze events: snooze event index /to dd/MM/yyyy HHmm to HHmm\n" +
-                            "For example: snooze event 2 /to 2/12/2019 1800 to 1900");
-                }
             } else if (fullCommand.contains("(from") && fullCommand.contains("to")) {
                 try {
                     boolean isValid = true;
