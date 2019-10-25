@@ -6,7 +6,6 @@ import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.thread.ChartThread;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -99,10 +98,11 @@ public class Ui {
     //@@author
 
     //@@author matthewng1996
-    public void drawPieChart() {
-        ChartThread chartThread = new ChartThread();
+    public void drawPieChart(ArrayList<Expense> expenseList) {
+        ChartThread chartThread = new ChartThread(expenseList);
         System.out.println("Please wait while we draw the pie chart...");
     }
+    //@@author
 
     //@@author Xdecosee
 
