@@ -30,7 +30,7 @@ public class ListCommand extends Command {
      * @param line this is the input of user
      */
 
-    public ListCommand(String line) {
+    public ListCommand(String line) throws DukeException {
         String[] arrOfStr = line.split("\\s+");
         option = arrOfStr[0].trim();
         if (option.equals("tasks") && arrOfStr.length > 1) {
@@ -45,6 +45,9 @@ public class ListCommand extends Command {
             taskIndex = Integer.parseInt(arrOfStr[1].trim());
         } else if (option.equals("member")) {
             memberName = arrOfStr[1].trim();
+        } else {
+            throw new DukeException("basic usage: list tasks\n" +
+                    "for more usage, please refer to the user guide");
         }
     }
 

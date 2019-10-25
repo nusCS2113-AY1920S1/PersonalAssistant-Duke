@@ -64,12 +64,14 @@ public class DukeParser {
             if (temp == null) {
                 throw new DukeException("command not found");
             }
+        } catch (DukeException e) {
+            throw e;
         } catch (NoSuchMethodException e) {
             throw new DukeException("no such method");
         } catch (InvocationTargetException e) {
-            throw new DukeException("invocation target exception");
+            throw (DukeException) e.getTargetException();
         } catch (IllegalAccessException e) {
-            throw new DukeException("illegal acccess Exception");
+            throw new DukeException("illegal access Exception");
         }
         return temp;
     }
