@@ -348,7 +348,7 @@ values
 
 * `view task requirements TASK_INDEX` -- Viewing of all additional requirements of a specified task
 
-* `edit task requirements TASK_INDEX rm/TASK_INDEXES r/TASK_REQUIREMENT1 -- Edits task requirements of specified task by
+* `edit task requirements TASK_INDEX rm/TASK_INDEXES r/TASK_REQUIREMENT1` -- Edits task requirements of specified task by
 removing unwanted requirements and adding new ones
 
 * `delete task TASK_INDEX` -- Deletion of task with stated index
@@ -364,10 +364,10 @@ name “kill thanos!”, priority value “100” and a credit of “100”. The
 Step 3) The `ProjectInputController.manageProject()` will trigger the `TaskFactory` which will do a  validation to ensure the
 required input are given.
 
-Step 4) ‘TaskFactory` will then call parserHelper.parseTaskDetails() to do a simple parsing which will clean up the
-flags and return ArrayList<String> for `TaskFactory` to create the task.
+Step 4) `TaskFactory` will then call parserHelper.parseTaskDetails() to do a simple parsing which will clean up the
+flags and return `ArrayList<String>` for `TaskFactory` to create the task.
 
-Step 5) ‘TaskFactory’ will create the task based on the information given by the user. The created task will subsequently
+Step 5) `TaskFactory` will create the task based on the information given by the user. The created task will subsequently
 be added into `taskList` managed by the project and successfully or unsuccessfully a message in String will be returned.
 
 The following sequence diagram show how `create task` operation works.
@@ -385,6 +385,7 @@ added into the `TaskList` managed by the `Project`. `ProjectInputController` wil
 function and call the relevant methods in `TaskFactory` And `ParserHelper`.
 
 Reminder function implements the following commands:
+
 * `add reminder -n REMINDER_NAME  --d REMINDER_DUEDATE` -Tag REMINDER_TAG -- Creation of a new Reminder with the reminder
 name and due date (optional)
 
