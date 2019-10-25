@@ -9,7 +9,8 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 /**
- * Configures and manages loggers and handlers, including their logging level
+ * Configures and manages loggers and handlers, including their logging level.
+ * Adapted from AddressBook 4.
  * Named {@link Logger}s can be obtained from this class<br>
  * These loggers have been configured to output messages to the console and a {@code .log} file by default,
  * at the {@code INFO} level. A new {@code .log} file with a new numbering will be created after the log

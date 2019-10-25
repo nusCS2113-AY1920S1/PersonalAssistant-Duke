@@ -3,6 +3,7 @@ package duke.logic.parser;
 import duke.logic.command.order.OrderCommand;
 import duke.logic.parser.commons.AutoCompleter;
 import duke.logic.parser.exceptions.ParseException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,12 +12,12 @@ public class AutoCompleterTest {
 
     @Test
     public void addCommand_orderCommand_success() {
-        Assertions.assertAll(() -> completer.addCommand(OrderCommand.class));
+        Assertions.assertAll(() -> completer.addCommandClass(OrderCommand.class));
     }
 
     @Test
     public void isCompletable_unknownInput_false() {
-        addCommand_orderCommand_success();
+        completer.addCommandClass(OrderCommand.class);
         Assertions.assertEquals(
             false,
             completer.isAutoCompletable(new AutoCompleter.UserInputState("hello", 0))
@@ -25,7 +26,7 @@ public class AutoCompleterTest {
 
     @Test
     public void isCompletable_orderCommandWord_true() {
-        addCommand_orderCommand_success();
+        completer.addCommandClass(OrderCommand.class);
         Assertions.assertEquals(
             true,
             completer.isAutoCompletable(new AutoCompleter.UserInputState("or", 0))
@@ -34,8 +35,12 @@ public class AutoCompleterTest {
 
     @Test
     public void complete_orderCommand_success() {
-        addCommand_orderCommand_success();
-        isCompletable_orderCommandWord_true();
+        completer.addCommandClass(OrderCommand.class);
+        Assertions.assertEquals(
+            true,
+            completer.isAutoCompletable(new AutoCompleter.UserInputState("or", 1))
+        );
+
         Assertions.assertEquals(
             OrderCommand.COMMAND_WORD,
             completer.complete().userInputString
@@ -44,7 +49,14 @@ public class AutoCompleterTest {
 
     @Test
     public void complete_notCompletableCommand_failure() {
-        AutoCompleter emptyCompleter = new AutoCompleter();
-        Assertions.assertThrows(ParseException.class, emptyCompleter::complete);
+        Assertions.assertThrows(ParseException.class, completer::complete);
+    }
+
+    /**
+     * Clears the commands added after each run.
+     */
+    @AfterEach
+    public void clean() {
+        completer.clearCommandClasses();
     }
 }

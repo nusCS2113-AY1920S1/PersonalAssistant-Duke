@@ -10,8 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes.
- * TODO: Fill in details.
+ * Contains utility methods used for parsing strings in the various parser classes.
  */
 public class ParserUtil {
 
@@ -48,6 +47,7 @@ public class ParserUtil {
         }
     }
 
+    //@@author liujiajun
     /**
      * Returns a set of unique {@code Index} parsed from user input.
      * The input string can be a) a single index e.g. 1;
@@ -98,4 +98,5 @@ public class ParserUtil {
         }
         return result;
     }
+    //@@author
 }

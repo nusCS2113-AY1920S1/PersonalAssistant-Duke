@@ -4,8 +4,10 @@ import duke.commons.core.LogsCenter;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
@@ -14,7 +16,7 @@ import java.util.logging.Logger;
 
 /**
  * Controller class for order page.
- * An order page contains order cards.
+ * An order page contains order cards and a statistics bar.
  */
 public class OrderPage extends UiPart<AnchorPane> {
     private static final String FXML = "OrderPage.fxml";
@@ -23,6 +25,15 @@ public class OrderPage extends UiPart<AnchorPane> {
     @FXML
     private ListView<Order> orderListView;
 
+    @FXML
+    private Label active;
+
+    @FXML
+    private Label finished;
+
+    @FXML
+    private Label canceled;
+
     /**
      * Creates an order page.
      */
@@ -30,6 +41,12 @@ public class OrderPage extends UiPart<AnchorPane> {
         super(FXML);
         orderListView.setItems(orderList);
         orderListView.setCellFactory(listView -> new OrderListViewCell());
+
+        updateStatistics(orderList);
+        orderList.addListener((ListChangeListener<Order>) change -> {
+            updateStatistics(orderList);
+        });
+
     }
 
     static class OrderListViewCell extends ListCell<Order> {
@@ -46,4 +63,23 @@ public class OrderPage extends UiPart<AnchorPane> {
         }
     }
 
+    private void updateStatistics(ObservableList<Order> orders) {
+        int activeCount = 0;
+        int finishedCount = 0;
+        int canceledCount = 0;
+
+        for (Order order : orders) {
+            if (Order.Status.ACTIVE.equals(order.getStatus())) {
+                activeCount++;
+            } else if (Order.Status.COMPLETED.equals(order.getStatus())) {
+                finishedCount++;
+            } else {
+                canceledCount++;
+            }
+        }
+
+        active.setText(activeCount + " active");
+        finished.setText(finishedCount + " completed");
+        canceled.setText(canceledCount + " canceled");
+    }
 }
