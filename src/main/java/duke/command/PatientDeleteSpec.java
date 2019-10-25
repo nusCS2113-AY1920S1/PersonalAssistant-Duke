@@ -1,11 +1,10 @@
 package duke.command;
 
 public class PatientDeleteSpec extends ArgSpec {
-
     private static final PatientDeleteSpec spec = new PatientDeleteSpec();
 
-    protected ArgSpec getSpec() {
-        return null;
+    public static PatientDeleteSpec getSpec() {
+        return spec;
     }
 
     private PatientDeleteSpec() {
