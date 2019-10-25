@@ -87,14 +87,14 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 *Step 1*: The user launches the application, and duke initializes an empty `CommandList`. The `undoRedoPointer` points to -1 as there are currently no elements in `CommandList`.
 
-image::UndoImage1.png[width="900", align="left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage1.png[width="900", align="left"]
     
 
 *Step 2*: The user inputs "todo Sleep". This adds a todo task to the `TaskList` and constructs an `AddCommand` object to be executed. Once that `AddCommand` is executed, it saves the current `TaskList` into a memento object, and then it adds "todo Sleep" into the `TaskList`.
 
 *Step 3*: After command execution, the `AddCommand` object is added to `CommandList`. The `undoRedoPointer` increments by 1 and now points to the newly added `AddCommand` at index 0.
 
-image::UndoImage2.png[width="900", align="left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage2.png[width="900", align="left"]
 
 TIP: `CommandList` supports modifications to both task and degree lists. Undo simply undoes the modification to one of the lists in order of commands.
 
@@ -104,34 +104,34 @@ TIP: `CommandList` supports modifications to both task and degree lists. Undo si
 
 *Step 6*: After command execution, the `ModCommand` object is added to `CommandList`. The `undoRedoPointer` increments by 1 and now points to the newly added `ModCommand` at index 1.
 
-image::UndoImage3.png[width="900", align="left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage3.png[width="900", align="left"]
 
 
 *Step 7*: The user now inputs "undo" to undo the task marking. This will call the `undo` method of `CommandList`, gets the command that `undoRedoPointer` is pointing to (which is `ModCommand` in this case) and unexecute it. `ModCommand` will call its `memento` object and replace the current `TaskList`. The `undoRedoPointer` decrements by 1, and now points to index 0. Note that `ModCommand` is not removed to facilitate redos.
 
-image::UndoImage4.png[width="900", align="left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage4.png[width="900", align="left"]
 
 
 *Step 8*: The user inputs another "undo" to undo the task addition. Similar to step 7, it will call the `undo` method of `CommandList` again and unexecutes the command that `undoRedoPointer` is pointing to. `AddCommand` will call its `memento` object and replace the current `TaskList` with the one that does not have the new task. The `undoRedoPointer` decrements by 1, and now points to index -1.
 
-image::UndoImage5.png[width="900", align="left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage5.png[width="900", align="left"]
 
 NOTE: Attempting to undo when there is nothing left to undo will return an error message. Similarly, attempting to redo when there is nothing left to redo will also return an error message.
 
 
 *Step 9*: The user now inputs "redo" to undo the undo. This will call the `redo` method of `CommandList`. It will first increment the `undoRedoPointer` by 1, and it will then execute the command at the pointed element. This will add "todo Sleep" back to the `TaskList`.
 
-image::UndoImage6.png[width="900", align="left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage6.png[width="900", align="left"]
 
 
 *Step 10*: The user now inputs "done 1" to mark the 1st task as done. Since its now a different command from "done 3" and not "redo", `CommandList` will check if there are commands past `undoRedoPointer`. Currently, `ModCommand` is the element after the one at `undoRedoPointer`, thus `CommandList` will pop all commands from the back of the Stack until `undoRedoPointer`. 
 
-image::UndoImage7.png[width="900", align="left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage7.png[width="900", align="left"]
 
 
 *Step 11*: Once the excess commands are removed, it will proceed back to normal by executing a new `ModCommand` and adding it to `CommandList`, and incrementing `undoRedoPointer` by 1.
 
-image::UndoImage8.png[width="900", align="left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage8.png[width="900", align="left"]
 
 
 ==== Design Considerations
@@ -182,7 +182,7 @@ Data Structure to support undo/redo:
 
 The actions involving Degree-Related Tasks are performed mostly using the `DegreeTask` class. It extends the `Task` class, eventhough it does not use many methods from the aforementioned class. 
 
-image::DegreeTaskuml.png[width="900", align="left"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/DegreeTaskuml.png[width="900", align="left"]
 
 
 This was done in preparation for some proposed additional changes to this feature that will be discussed later in the document.
