@@ -293,9 +293,9 @@ public class Patient extends DukeObject {
         this.allergies = allergies;
     }
 
-    public Impression getPriDiagnosis() {
-        return priDiagnosis;
-    }
+    public Impression getPriDiagnosis() { return priDiagnosis; }
+
+    public void deletePriDiagnosis(){this.priDiagnosis = null; }
 
     public Integer getHeight() {
         return height;
@@ -344,4 +344,5 @@ public class Patient extends DukeObject {
     public void setHistory(String history) {
         this.history = history;
     }
+
 }
