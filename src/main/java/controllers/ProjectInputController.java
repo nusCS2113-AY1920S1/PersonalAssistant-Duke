@@ -262,12 +262,16 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public void projectEditTaskRequirements(Project projectToManage, String projectCommand) {
-        int taskIndexNumber = Integer.parseInt(projectCommand.substring(23).split(" ")[0]);
-        String updatedTaskRequirements = projectCommand.substring(projectCommand.indexOf("-"));
-        if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
-            consoleView.editTaskRequirements(projectToManage, taskIndexNumber, updatedTaskRequirements);
-        } else {
-            consoleView.consolePrint("The task index entered is invalid.");
+        try {
+            int taskIndexNumber = Integer.parseInt(projectCommand.substring(23).split(" ")[0]);
+            String updatedTaskRequirements = projectCommand.substring(projectCommand.indexOf("-"));
+            if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
+                consoleView.editTaskRequirements(projectToManage, taskIndexNumber, updatedTaskRequirements);
+            } else {
+                consoleView.consolePrint("The task index entered is invalid.");
+            }
+        } catch (NumberFormatException e) {
+            consoleView.consolePrint("Task index is missing! Please input a proper task index!");
         }
     }
 
@@ -292,7 +296,7 @@ public class ProjectInputController implements IController {
                     consoleView.consolePrint("The task index entered is invalid.");
                 }
             } catch (NumberFormatException e) {
-                consoleView.consolePrint(("Input is not a number! Please input a proper task index!"));
+                consoleView.consolePrint("Input is not a number! Please input a proper task index!");
             }
         }
     }
