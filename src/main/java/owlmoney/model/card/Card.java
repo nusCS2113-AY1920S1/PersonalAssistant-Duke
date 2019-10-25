@@ -208,12 +208,14 @@ public class Card {
     }
 
     /**
-     * Edits expenditure in the current bank account.
+     * Finds the transactions from the card object that matches with the keywords specified by the user.
      *
-     * @param category New category.
-     * @param ui       Ui of OwlMoney.
+     * @param fromDate The date to search from.
+     * @param toDate The date to search until.
+     * @param description The description keyword to match against.
+     * @param category The category keyword to match against.
+     * @param ui The object required for printing.
      * @throws TransactionException If incorrect date format.
-     * @throws BankException        If bank amount becomes negative after editing expenditure.
      */
     void findTransaction(String fromDate, String toDate, String description, String category, Ui ui)
             throws TransactionException {

@@ -350,23 +350,27 @@ public abstract class Bank {
     }
 
     /**
-     * Adds a bond to the current bank account.
+     * Finds the bonds that matches with the keywords specified by the user.
      *
-     * @param bondName the bond object.
-     * @param ui      required for printing.
+     * @param bondName The bondName keyword to match against.
+     * @param ui      The object required for printing.
      * @throws BankException If used on savings account.
+     * @throws BondException If no bonds could be found.
      */
     public void findBondInInvestment(String bondName, Ui ui) throws BankException, BondException {
         throw new BankException("This account does not support this feature");
     }
 
     /**
-     * Deletes an expenditure from the current bank account.
+     * Finds the transactions from the bank object that matches with the keywords specified by the user.
      *
-     * @param exNum Transaction number.
-     * @param ui    Ui of OwlMoney.
-     * @throws TransactionException If invalid transaction.
+     * @param fromDate The date to search from.
+     * @param toDate The date to search until.
+     * @param description The description keyword to match against.
+     * @param category The category keyword to match against.
+     * @param ui The object required for printing.
      * @throws BankException        If used on investment account.
+     * @throws TransactionException  If parsing of date fails.
      */
     public void findTransaction(String fromDate, String toDate, String description, String category, Ui ui)
             throws BankException, TransactionException {

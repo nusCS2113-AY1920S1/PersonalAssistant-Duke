@@ -6,16 +6,19 @@ import owlmoney.model.card.exception.CardException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
+/**
+ * Executes FindBankOrCardCommand to find bank or card.
+ */
 public class FindBankOrCardCommand extends Command {
 
     private final String name;
     private final String type;
 
     /**
-     * Constructor to create an instance of AddExpenditureCommand.
+     * Creates an instance of FindBankOrCardCommand.
      *
-     * @param name        Bank account name.
-     * @param type        Represents type of expenditure to be added.
+     * @param name The name of either bank or card.
+     * @param type Represents type of object to find.
      */
     public FindBankOrCardCommand(String name, String type) {
         this.name = name;
@@ -23,12 +26,12 @@ public class FindBankOrCardCommand extends Command {
     }
 
     /**
-     * Executes the function to add a new expenditure to the bank account.
+     * Executes the function to find either bank or card.
      *
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
-     * @throws BankException If bank amount becomes negative after adding expenditure.
+     * @throws BankException If there is no matches for saving or investment object.
      * @throws CardException If the credit card name cannot be found.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, CardException {

@@ -379,11 +379,14 @@ public class TransactionList {
     }
 
     /**
-     * Edits the specific expenditure in the list.
+     * Finds the transactions that matches with the keywords specified by the user.
      *
-     * @param category New category of the expenditure.
-     * @param ui       required for printing.
-     * @throws TransactionException If incorrect date format.
+     * @param fromDate The date to search from.
+     * @param toDate The date to search until.
+     * @param description The description keyword to match against.
+     * @param category The category keyword to match against.
+     * @param ui The object required for printing.
+     * @throws TransactionException If parsing of date fails.
      */
     public void findMatchingTransaction(String fromDate, String toDate,
             String description, String category, Ui ui) throws TransactionException {
@@ -399,9 +402,10 @@ public class TransactionList {
     }
 
     /**
-     * Prints the bank header details once only when listing of multiple bank.
+     * Finds the transactions that matches with the description keyword specified by the user.
      *
-     * @param ui  The object use for printing.
+     * @param keyword The description keyword to match against.
+     * @param ui The object required for printing.
      */
     private void findByDescription(String keyword, Ui ui) {
         String matchingKeyword = keyword.toUpperCase();
@@ -421,9 +425,10 @@ public class TransactionList {
     }
 
     /**
-     * Prints the bank header details once only when listing of multiple bank.
+     * Finds the transactions that matches with the category keyword specified by the user.
      *
-     * @param ui  The object use for printing.
+     * @param keyword The category keyword to match against.
+     * @param ui The object required for printing.
      */
     private void findByCategory(String keyword, Ui ui) {
         String matchingKeyword = keyword.toUpperCase();
@@ -442,9 +447,12 @@ public class TransactionList {
         }
     }
     /**
-     * Prints the bank header details once only when listing of multiple bank.
+     * Finds the transactions that falls within the date range specified by the user.
      *
-     * @param ui  The object use for printing.
+     * @param fromDate The date to search from.
+     * @param toDate The date to search until.
+     * @param ui The object required for printing.
+     * @throws TransactionException If parsing of date fails.
      */
     private void findByDate(String fromDate, String toDate, Ui ui) throws TransactionException {
         int printCounter = 0;
@@ -473,7 +481,7 @@ public class TransactionList {
     }
 
     /**
-     * Prints the transaction header details once only when listing of multiple transaction.
+     * Prints the header to list the found transactions.
      *
      * @param counter    Represents the counter of the transaction for printing.
      * @param ui         The object use for printing.

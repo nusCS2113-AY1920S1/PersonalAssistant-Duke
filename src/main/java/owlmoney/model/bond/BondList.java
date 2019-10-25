@@ -210,10 +210,11 @@ public class BondList {
     }
 
     /**
-     * Add bond to list.
+     * Finds the bonds that matches with the keywords specified by the user.
      *
-     * @param bond bond object.
-     * @param ui   required for printing.
+     * @param bondName The bondName keyword to match against.
+     * @param ui      The object required for printing.
+     * @throws BondException If no bonds could be found.
      */
     public void findBond(String bondName, Ui ui) throws BondException {
         ArrayList<Bond> tempBondList = new ArrayList<Bond>();

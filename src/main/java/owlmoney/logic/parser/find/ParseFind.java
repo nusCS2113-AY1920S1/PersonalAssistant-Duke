@@ -37,7 +37,7 @@ public abstract class ParseFind {
     /**
      * Creates an instance of any ParseFind object.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input data.
      * @param type Represents the type of object to be searched.
      */
     ParseFind(String data, String type) {
@@ -122,7 +122,7 @@ public abstract class ParseFind {
      */
     void checkName(String nameString) throws ParserException {
         if (!RegexUtil.regexCheckName(nameString)) {
-            throw new ParserException("/name can only contain letters and at most 30 characters");
+            throw new ParserException("/name and /from can only contain letters and at most 30 characters");
         }
     }
 
@@ -141,7 +141,7 @@ public abstract class ParseFind {
             try {
                 date = temp.parse(dateString);
                 if (date.compareTo(new Date()) > 0) {
-                    throw new ParserException("/date cannot be after today");
+                    throw new ParserException("/from and /to date cannot be after today");
                 }
                 return date;
             } catch (ParseException e) {

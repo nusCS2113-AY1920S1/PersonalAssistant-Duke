@@ -14,7 +14,7 @@ public class ParseFindBond extends ParseFind {
     /**
      * Creates an instance of ParseFindBond.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input data.
      * @param type Represents the type of object to be searched.
      * @throws ParserException If there are redundant parameters or first parameter is invalid.
      */

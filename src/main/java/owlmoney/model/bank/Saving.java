@@ -339,12 +339,14 @@ public class Saving extends Bank {
     }
 
     /**
-     * Edits expenditure in the current bank account.
+     * Finds the transactions that matches with the different keywords specified by user.
      *
-     * @param category New category.
-     * @param ui       Ui of OwlMoney.
+     * @param fromDate    The date to search from.
+     * @param toDate      The date to search until.
+     * @param description The description keyword to match against.
+     * @param category    The category keyword to match against.
+     * @param ui          The object required for printing.
      * @throws TransactionException If incorrect date format.
-     * @throws BankException        If bank amount becomes negative after editing expenditure.
      */
     @Override
     public void findTransaction(String fromDate, String toDate, String description, String category, Ui ui)

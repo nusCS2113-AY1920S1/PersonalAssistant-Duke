@@ -27,7 +27,6 @@ public class BankList {
     private static final boolean ISSINGLE = false;
     private static final int ISZERO = 0;
 
-
     /**
      * Creates a instance of BankList that contains an arrayList of Banks.
      */
@@ -614,12 +613,13 @@ public class BankList {
         throw new BankException("Cannot find bank with name: " + savingName);
     }
 
-    /** Adds a new recurring expenditure to the specified bank account.
+    /**
+     * Adds a new recurring expenditure to the specified bank account.
      *
-     * @param bankName Name of bank account.
+     * @param bankName                Name of bank account.
      * @param newRecurringExpenditure New recurring expenditure to be added.
-     * @param ui Used for printing.
-     * @throws BankException If bank is not found or is an investment account.
+     * @param ui                      Used for printing.
+     * @throws BankException        If bank is not found or is an investment account.
      * @throws TransactionException If the recurring expenditure list is full.
      */
     public void bankListAddRecurringExpenditure(String bankName, Transaction newRecurringExpenditure, Ui ui)
@@ -637,9 +637,9 @@ public class BankList {
      * Deletes the recurring expenditure of the specified index from the specified bank account.
      *
      * @param bankName Name of bank account.
-     * @param index Index of recurring expenditure.
-     * @param ui Used for printing.
-     * @throws BankException If bank is not found or is an investment account.
+     * @param index    Index of recurring expenditure.
+     * @param ui       Used for printing.
+     * @throws BankException        If bank is not found or is an investment account.
      * @throws TransactionException There are 0 recurring expenditures or index is out of range.
      */
     public void bankListDeleteRecurringExpenditure(String bankName, int index, Ui ui)
@@ -657,11 +657,11 @@ public class BankList {
      * Lists all recurring expenditures from the specified bank account.
      *
      * @param bankName Name of bank account.
-     * @param ui Used for printing.
-     * @throws BankException If bank is not found or is an investment account.
+     * @param ui       Used for printing.
+     * @throws BankException        If bank is not found or is an investment account.
      * @throws TransactionException There are 0 recurring expenditures.
      */
-    public void bankListListRecurringExpenditure(String bankName,  Ui ui)
+    public void bankListListRecurringExpenditure(String bankName, Ui ui)
             throws BankException, TransactionException {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(bankName)) {
@@ -676,9 +676,9 @@ public class BankList {
      * Updates the recurring expenditure of the specified index from the specified bank account.
      *
      * @param bankName Name of bank account.
-     * @param index Index of recurring expenditure.
-     * @param ui Used for printing.
-     * @throws BankException If bank is not found or is an investment account.
+     * @param index    Index of recurring expenditure.
+     * @param ui       Used for printing.
+     * @throws BankException        If bank is not found or is an investment account.
      * @throws TransactionException There are 0 recurring expenditures or index is out of range.
      */
     public void bankListEditRecurringExpenditure(
@@ -704,7 +704,8 @@ public class BankList {
         }
     }
 
-    /** Checks whether the bank object to transfer the fund actually exist in the list.
+    /**
+     * Checks whether the bank object to transfer the fund actually exist in the list.
      *
      * @param accName the bank account name.
      * @param amount  the amount to transfer.
@@ -742,7 +743,7 @@ public class BankList {
      * @param amount the amount to be transferred.
      * @throws BankException If bank does not have sufficient fund.
      */
-    public void bankListIsSufficientForTransfer(Bank bank, double amount) throws BankException {
+    private void bankListIsSufficientForTransfer(Bank bank, double amount) throws BankException {
         if (bank.getCurrentAmount() >= amount) {
             return;
         }
@@ -750,12 +751,13 @@ public class BankList {
     }
 
     /**
-     * Checks whether the bank object to receive the fund actually exist in the list.
+     * Checks investment account specified by the user actually exist.
      *
-     * @param investmentName the bank account name.
-     * @throws BankException If bank does not exist.
+     * @param investmentName The name of the investment account.
+     * @return The investment account object will be return if found.
+     * @throws BankException If investment account does not exist.
      */
-    public Bank bankListIsInvestmentAccountExist(String investmentName) throws BankException {
+    public Bank checkInvestmentAccountExist(String investmentName) throws BankException {
         for (int i = ISZERO; i < getBankListSize(); i++) {
             if (investmentName.equals(bankLists.get(i).getAccountName())
                     && INVESTMENT.equals(bankLists.get(i).getType())) {
@@ -766,10 +768,11 @@ public class BankList {
     }
 
     /**
-     * Checks whether the bank object has sufficient amount to transfer.
+     * Finds either the savings or investment account that matches with the name specified by user.
      *
-     * @param accName   the bank object.
-     * @throws BankException If bank does not have sufficient fund.
+     * @param accName The name to be matched against.
+     * @param type    The type of object to find such as savings or investment object.
+     * @throws BankException If there is no matches for saving or investment object.
      */
     public void findBankAccount(String accName, String type, Ui ui) throws BankException {
         ArrayList<Bank> tempBankList = new ArrayList<Bank>();
@@ -781,22 +784,32 @@ public class BankList {
                 tempBankList.add(bankLists.get(i));
             }
         }
-        if (tempBankList.isEmpty()) {
-            throw new BankException("Savings account with the following keyword could not be found: " + accName);
+        if (tempBankList.isEmpty() && SAVING.equals(type)) {
+            throw new BankException
+                    ("Savings account with the following keyword could not be found: " + accName);
+        } else if (tempBankList.isEmpty() && INVESTMENT.equals(type)) {
+            throw new BankException
+                    ("Investment account with the following keyword could not be found: " + accName);
         }
 
         for (int i = ISZERO; i < tempBankList.size(); i++) {
             printOneHeader(i, ui);
-            printOneBank((i+ONE_INDEX), tempBankList.get(i), ISMULTIPLE, ui);
+            printOneBank((i + ONE_INDEX), tempBankList.get(i), ISMULTIPLE, ui);
         }
         ui.printDivider();
     }
 
     /**
-     * Checks whether the bank object has sufficient amount to transfer.
+     * Finds matching bank transactions from the account specified by the user.
      *
-     * @param accName   the bank object.
-     * @throws BankException If bank does not have sufficient fund.
+     * @param bankName    The name of the bank object to search for matching bank transaction.
+     * @param fromDate    The date to search from.
+     * @param toDate      The date to search until.
+     * @param description The description keyword to match against.
+     * @param category    The category keyword to match against.
+     * @param ui          The object required for printing.
+     * @throws BankException        If bank name specified does not exist or used on investment account.
+     * @throws TransactionException If parsing of date fails.
      */
     public void bankListFindTransaction(String bankName, String fromDate, String toDate,
             String description, String category, Ui ui) throws BankException, TransactionException {

@@ -15,7 +15,7 @@ public class ParseFindTransaction extends ParseFind {
     /**
      * Creates an instance of ParseFindTransaction.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input data.
      * @param type Represents the type of object to be searched.
      * @throws ParserException If there are redundant parameters or first parameter is invalid.
      */
@@ -34,7 +34,7 @@ public class ParseFindTransaction extends ParseFind {
         boolean isFromExist = false;
         boolean isToExist = false;
         int findCounter = 0;
-        Date fromDate = new Date ();
+        Date fromDate = new Date();
         Date toDate = new Date();
         while (findIterator.hasNext()) {
             String key = findIterator.next();
@@ -49,13 +49,11 @@ public class ParseFindTransaction extends ParseFind {
                 isToExist = true;
                 findCounter++;
             }
-            if (DESCRIPTION.equals(key) && !(value.isBlank() || value.isEmpty()))
-            {
+            if (DESCRIPTION.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 checkDescription(value);
                 findCounter++;
             }
-            if (CATEGORY.equals(key) && !(value.isBlank() || value.isEmpty()))
-            {
+            if (CATEGORY.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 checkCategory(value);
                 findCounter++;
             }
@@ -94,7 +92,8 @@ public class ParseFindTransaction extends ParseFind {
      */
     public Command getCommand() {
         FindTransactionCommand newFindTransactionCommand = new FindTransactionCommand
-                (findParameters.get(NAME), findParameters.get(FROM), findParameters.get(TO), findParameters.get(DESCRIPTION),
+                (findParameters.get(NAME), findParameters.get(FROM), findParameters.get(TO),
+                        findParameters.get(DESCRIPTION),
                         findParameters.get(CATEGORY), this.type);
         return newFindTransactionCommand;
 

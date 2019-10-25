@@ -118,7 +118,8 @@ public final class RegexUtil {
     }
 
     /**
-     * Checks whether input entered by user is alphanumeric with a maximum of 15 characters only.
+     * Checks whether input entered by user only contains letter and space
+     * with a maximum of 15 characters only.
      *
      * @param input The user input that is subject to Regex checking.
      * @return the result of the check on whether it fulfills the criteria.

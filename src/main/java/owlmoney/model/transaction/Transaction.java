@@ -80,11 +80,11 @@ public abstract class Transaction {
     }
 
     /**
-     * Gets the date that this expenditure was made in String format.
+     * Gets the date that this expenditure was made in Date format.
      *
-     * @return The date that the expenditure was made in String format.
+     * @return The date that the expenditure was made in Date format.
      */
-    public Date getDateInDateFormat() {
+    Date getDateInDateFormat() {
         return this.date;
     }
 

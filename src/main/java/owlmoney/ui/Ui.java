@@ -34,7 +34,6 @@ public class Ui {
     private static final String GOALBANKNAME = "Saving Account";
     private static final String GOALACHIEVED = "Goal Achieved";
 
-
     /**
      * Prints a message line to the user.
      *
@@ -149,7 +148,7 @@ public class Ui {
      * @param date   Represents the date to accomplish the goal.
      */
     public void printGoal(int num, String name, String amount, String bankName, String progress, String date,
-                          String achieved) {
+            String achieved) {
         System.out.printf("%-10s %-15s %-20s %-20s %-20s %-20s %-20s %n", num, name, amount, bankName, progress,
                 date, achieved);
     }

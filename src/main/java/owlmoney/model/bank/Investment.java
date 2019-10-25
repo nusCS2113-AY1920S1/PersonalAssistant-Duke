@@ -145,10 +145,11 @@ public class Investment extends Bank {
     }
 
     /**
-     * Adds a bond to this investment account.
+     * Finds the bonds that matches with the keywords specified by the user.
      *
-     * @param bond the bond object.
-     * @param ui   required for printing.
+     * @param bondName The bondName keyword to match against.
+     * @param ui      The object required for printing.
+     * @throws BondException If no bonds could be found.
      */
     @Override
     public void findBondInInvestment(String bondName, Ui ui) throws BondException {
