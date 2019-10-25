@@ -3,6 +3,7 @@ package Parser;
 import Commands.Command;
 import Commands.DeleteCommand;
 import DukeExceptions.DukeException;
+import DukeExceptions.DukeInvalidFormatException;
 import Interface.*;
 import Tasks.Deadline;
 import Tasks.Event;
@@ -14,6 +15,7 @@ import java.util.logging.Logger;
  */
 public class DeleteParse extends Parse {
     private static String[] split;
+    private static String[] split1;
     private static String fullCommand;
     private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
 
@@ -31,6 +33,10 @@ public class DeleteParse extends Parse {
             try { //add/e module_code description /at date from time to time
                 String activity = fullCommand.trim().substring(8);
                 split = activity.split("/at"); //split[0] is " module_code description", split[1] is "date from time to time"
+                split1 = split[0].trim().split(" ");
+                if(!super.isModCode(split1[0])){
+                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
+                }
                 if (split[0].trim().isEmpty()) {
                     throw new DukeException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
                 }
@@ -46,6 +52,10 @@ public class DeleteParse extends Parse {
             try {
                 String activity = fullCommand.trim().substring(8);
                 split = activity.split("/by");
+                split1 = split[0].trim().split(" ");
+                if(!super.isModCode(split1[0])){
+                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
+                }
                 if (split[0].trim().isEmpty()) {
                     throw new DukeException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
                 }

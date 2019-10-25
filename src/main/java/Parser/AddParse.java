@@ -3,6 +3,10 @@ package Parser;
 import Commands.AddCommand;
 import Commands.Command;
 import DukeExceptions.DukeException;
+import DukeExceptions.DukeInvalidCommandException;
+
+import DukeExceptions.DukeInvalidDateTimeException;
+import DukeExceptions.DukeInvalidFormatException;
 import Interface.*;
 import Tasks.Deadline;
 import Tasks.Event;
@@ -15,11 +19,13 @@ import java.util.logging.Logger;
  */
 public class AddParse extends Parse {
     private static String[] split;
+    private static String[] split1;
     private static String fullCommand;
     private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
 
-    public AddParse(String fullCommand) {
+    public AddParse(String fullCommand)  {
         this.fullCommand = fullCommand;
+
     }
 
     /**
@@ -32,27 +38,40 @@ public class AddParse extends Parse {
             try {
                 String activity = fullCommand.trim().substring(5);
                 split = activity.split("/by");
+                split1 = split[0].trim().split(" ");
+                if(!super.isModCode(split1[0])){
+                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
+                }
                 if (split[0].trim().isEmpty()) {
-                    throw new DukeException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
+                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
                 }
                 String[] out = DateTimeParser.DeadlineParse(split[1]);
                 return new AddCommand(new Deadline(split[0].trim(), out[0], out[1]));
-            } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+            } catch (ArrayIndexOutOfBoundsException e) {
                 LOGGER.log(Level.INFO, e.toString(), e);
-                throw new DukeException(" OOPS!!! Please enter deadline as follows:\n" +
+                throw new DukeInvalidFormatException(" OOPS!!! Please enter deadline as follows:\n" +
                         "add/d mod_code name_of_event /by dd/MM/yyyy HHmm\n" +
-                        "or add/d mod_code name_of_event /by week x day HHmm\n");
+                        "or add/d mod_code name_of_event /by week x day HHmm\n", e);
+            } catch (ParseException e) {
+                LOGGER.log(Level.INFO, e.toString(), e);
+                throw new DukeInvalidDateTimeException(" OOPS!!! Please enter deadline as follows:\n" +
+                        "add/d mod_code name_of_event /by dd/MM/yyyy HHmm\n" +
+                        "or add/d mod_code name_of_event /by week x day HHmm\n", e);
             }
         } else if (fullCommand.trim().substring(0, 5).equals("add/e")) {
             try { //add/e module_code description /at date from time to time
                 String activity = fullCommand.trim().substring(5);
                 split = activity.split("/at"); //split[0] is " module_code description", split[1] is "date /from time /to time"
+                split1 = split[0].trim().split(" ");
+                if(!super.isModCode(split1[0])){
+                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
+                }
                 if (split[0].trim().isEmpty()) {
-                    throw new DukeException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
+                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
                 }
                 String[] out = DateTimeParser.EventParse(split[1]);
                 return new AddCommand(new Event(split[0].trim(),out[0],out[1],out[2]));
-            } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+            } catch (ParseException | ArrayIndexOutOfBoundsException e ) {
                 LOGGER.log(Level.INFO, e.toString(), e);
                 throw new DukeException("OOPS!!! Please enter event as follows:\n" +
                         "add/e modCode name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +

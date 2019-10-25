@@ -30,7 +30,7 @@ public class FilterCommand extends Command{
      */
 
     @Override
-    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
+    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) {
         ArrayList<String> out = new ArrayList<>();
         HashMap<String, HashMap<String, ArrayList<Task>>> emap = events.getMap();
         Set<String> allMods = emap.keySet();
