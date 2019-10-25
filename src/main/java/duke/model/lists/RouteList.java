@@ -1,7 +1,7 @@
 package duke.model.lists;
 
-import duke.commons.exceptions.DukeDuplicateRouteException;
 import duke.commons.exceptions.DukeRouteNotFoundException;
+import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.model.transports.Route;
 
 import java.util.ArrayList;
@@ -52,12 +52,12 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
      * Adds a unique Route to the list.
      *
      * @param toAdd the Route to add.
-     * @exception DukeDuplicateRouteException If there is a duplicate route.
+     * @exception RouteNodeDuplicateException If there is a duplicate route.
      */
     @Override
-    public void add(Route toAdd) throws DukeDuplicateRouteException {
+    public void add(Route toAdd) throws RouteNodeDuplicateException {
         if (contains(toAdd)) {
-            throw new DukeDuplicateRouteException();
+            throw new RouteNodeDuplicateException();
         }
         list.add(toAdd);
     }
@@ -67,10 +67,10 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
      *
      * @param target The existing route.
      * @param editedRoute The new route.
-     * @exception DukeDuplicateRouteException If there is a duplicate route.
+     * @exception RouteNodeDuplicateException If there is a duplicate route.
      * @exception DukeRouteNotFoundException If the route is not found.
      */
-    public void setRoute(Route target, Route editedRoute) throws DukeDuplicateRouteException,
+    public void setRoute(Route target, Route editedRoute) throws RouteNodeDuplicateException,
             DukeRouteNotFoundException {
         int index = list.indexOf(target);
         if (index == -1) {
@@ -78,7 +78,7 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
         }
 
         if (!target.isSameRoute(editedRoute) && contains(editedRoute)) {
-            throw new DukeDuplicateRouteException();
+            throw new RouteNodeDuplicateException();
         }
 
         list.set(index, editedRoute);
@@ -121,11 +121,11 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
      * Replaces the contents of this list with a list of Routes.
      *
      * @param routes The list of Routes to replace.
-     * @exception DukeDuplicateRouteException If there is a duplicate route.
+     * @exception RouteNodeDuplicateException If there is a duplicate route.
      */
-    public void setRoutes(List<Route> routes) throws DukeDuplicateRouteException {
-        if (!routesAreUnique(routes)) {
-            throw new DukeDuplicateRouteException();
+    public void setRoutes(List<Route> routes) throws RouteNodeDuplicateException {
+        if (!isUniqueRoutes(routes)) {
+            throw new RouteNodeDuplicateException();
         }
 
         list = routes;
@@ -170,7 +170,7 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
      * @param routes The routes to check.
      * @return Whether the routes are unique.
      */
-    private boolean routesAreUnique(List<Route> routes) {
+    private boolean isUniqueRoutes(List<Route> routes) {
         for (int i = 0; i < routes.size() - 1; i++) {
             for (int j = i + 1; j < routes.size(); j++) {
                 if (routes.get(i).isSameRoute(routes.get(j))) {

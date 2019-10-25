@@ -1,7 +1,8 @@
 package duke.logic.commands;
 
-import duke.commons.Messages;
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.CorruptedFileException;
+import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 import duke.model.transports.Route;
@@ -29,9 +30,14 @@ public class RouteNodeDeleteCommand extends Command {
      * Executes this command on the given task list and user interface.
      *
      * @param model The model object containing information about the user.
+     * @return The CommandResultText.
+     * @throws CorruptedFileException If the file is corrupted.
+     * @throws FileNotSavedException If the file is not saved.
+     * @throws QueryOutOfBoundsException If the query is out of bounds.
      */
     @Override
-    public CommandResultText execute(Model model) throws DukeException {
+    public CommandResultText execute(Model model) throws CorruptedFileException, FileNotSavedException,
+            QueryOutOfBoundsException {
         try {
             Route route = model.getRoutes().get(indexRoute);
             String address = route.getNode(indexNode).getAddress();
@@ -39,7 +45,7 @@ public class RouteNodeDeleteCommand extends Command {
             model.save();
             return new CommandResultText(MESSAGE_DELETION + address);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Messages.ERROR_INDEX_OUT_OF_BOUNDS);
+            throw new QueryOutOfBoundsException("ROUTE_NODE");
         }
     }
 }

@@ -1,7 +1,15 @@
 package duke.storage;
 
 import duke.commons.Messages;
+import duke.commons.exceptions.CorruptedFileException;
+import duke.commons.exceptions.DukeDateTimeParseException;
+import duke.commons.exceptions.DukeDuplicateRouteException;
+import duke.commons.exceptions.DukeDuplicateTaskException;
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.FileLoadFailException;
+import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.RouteNodeDuplicateException;
+import duke.commons.exceptions.StorageFileNotFoundException;
 import duke.logic.parsers.ParserStorageUtil;
 import duke.model.lists.RouteList;
 import duke.logic.parsers.ParserTimeUtil;
@@ -49,7 +57,7 @@ public class Storage {
     //private List<Route> userRoutes;
 
     /**
-     * Constructs a Storage object that contains information fro the model.
+     * Constructs a Storage object that contains information from the model.
      */
     public Storage() {
         tasks = new TaskList();
@@ -64,7 +72,8 @@ public class Storage {
     /**
      * Reads all storage file.
      */
-    private void read() throws DukeException {
+    private void read() throws RouteNodeDuplicateException, CorruptedFileException, StorageFileNotFoundException,
+            DukeDuplicateTaskException, DukeDateTimeParseException {
         readBus();
         readTrain();
         readEvent();
@@ -114,8 +123,13 @@ public class Storage {
 
     /**
      * Reads tasks from filepath. Creates empty tasks if file cannot be read.
+     *
+     * @throws DukeDateTimeParseException If the datetime of a task cannot be parsed.
+     * @throws DukeDuplicateTaskException If there is a duplicate task.
+     * @throws StorageFileNotFoundException If the file cannot be read.
      */
-    private void readEvent() throws DukeException {
+    private void readEvent() throws DukeDuplicateTaskException, DukeDateTimeParseException,
+            StorageFileNotFoundException {
         List<Task> newTasks = new ArrayList<>();
         try {
             File f = new File(EVENTS_FILE_PATH);
@@ -125,15 +139,20 @@ public class Storage {
             }
             s.close();
         } catch (FileNotFoundException e) {
-            throw new DukeException(Messages.ERROR_FILE_NOT_FOUND);
+            throw new StorageFileNotFoundException(EVENTS_FILE_PATH);
         }
+
         tasks.setTasks(newTasks);
     }
 
     /**
      * Reads routes from filepath. Creates empty routes if file cannot be read.
+     *
+     * @exception RouteNodeDuplicateException If there is a duplicate route that is read.
+     * @exception CorruptedFileException If the reading has failed.
+     * @exception StorageFileNotFoundException If the storage file cannot be found.
      */
-    private void readRoutes() throws DukeException {
+    private void readRoutes() throws RouteNodeDuplicateException, CorruptedFileException, StorageFileNotFoundException {
         List<Route> newRoutes = new ArrayList<>();
         try {
             File f = new File(ROUTES_FILE_PATH);
@@ -156,7 +175,7 @@ public class Storage {
 
             s.close();
         } catch (FileNotFoundException e) {
-            throw new DukeException(Messages.ERROR_FILE_NOT_FOUND);
+            throw new StorageFileNotFoundException(ROUTES_FILE_PATH);
         }
 
         routes.setRoutes(newRoutes);
@@ -187,13 +206,22 @@ public class Storage {
 
     /**
      * Writes the tasks into a file of the given filepath.
+     *
+     * @throws CorruptedFileException If a file is corrupted.
+     * @throws FileNotSavedException If a file cannot be saved.
      */
-    public void write() throws DukeException {
+    public void write() throws CorruptedFileException, FileNotSavedException {
         writeEvents();
         writeRoutes();
     }
 
-    private void writeEvents() throws DukeException {
+    /**
+     * Writes the events to local storage.
+     *
+     * @throws CorruptedFileException If the file is corrupted.
+     * @throws FileNotSavedException If the file cannot be saved.
+     */
+    private void writeEvents() throws CorruptedFileException, FileNotSavedException {
         try {
             FileWriter writer = new FileWriter(EVENTS_FILE_PATH);
             for (Task task : tasks) {
@@ -201,28 +229,35 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new DukeException(Messages.ERROR_FILE_NOT_SAVED);
+            throw new FileNotSavedException(EVENTS_FILE_PATH);
         }
     }
 
-    private void writeRoutes() throws DukeException {
+    /**
+     * Writes the events to local storage.
+     *
+     * @throws FileNotSavedException If the file cannot be saved.
+     */
+    private void writeRoutes() throws FileNotSavedException {
         try {
             FileWriter writer = new FileWriter(ROUTES_FILE_PATH);
             String routesString = "";
             for (Route route : routes) {
                 routesString += ParserStorageUtil.toRouteStorageString(route);
             }
-            writer.write(routesString); 
+            writer.write(routesString);
             writer.close();
         } catch (IOException e) {
-            throw new DukeException(Messages.ERROR_FILE_NOT_SAVED);
+            throw new FileNotSavedException(ROUTES_FILE_PATH);
         }
     }
-  
+
     /**
      * Writes recommendations to filepath.
+     *
+     * @throws FileNotSavedException If the file cannot be saved.
      */
-    public void writeRecommendations(Itinerary itinerary) throws DukeException {
+    public void writeRecommendations(Itinerary itinerary) throws FileNotSavedException {
         try {
             FileWriter writer = new FileWriter(SAMPLE_RECOMMENDATIONS_FILE_PATH);
             writer.write(itinerary.getStartDate().toString() + "\n" + itinerary.getEndDate().toString() + "\n"
@@ -232,14 +267,17 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new DukeException(Messages.ERROR_FILE_NOT_SAVED);
+            throw new FileNotSavedException(RECOMMENDATIONS_FILE_PATH);
         }
     }
 
     /**
      * Reads recommendations from filepath.
+     *
+     * @throws DukeDateTimeParseException If the datetime cannot be parsed.
+     * @throws FileLoadFailException If the file fails to load.
      */
-    public static Itinerary readRecommendations() throws DukeException {
+    public static Itinerary readRecommendations() throws DukeDateTimeParseException, FileLoadFailException {
         List<Agenda> agendaList = new ArrayList<>();
         Itinerary itinerary;
         try {
@@ -262,7 +300,7 @@ public class Storage {
             s.close();
             itinerary.setTasks(agendaList);
         } catch (FileNotFoundException e) {
-            throw new DukeException(Messages.ERROR_FILE_NOT_FOUND);
+            throw new FileLoadFailException(RECOMMENDATIONS_FILE_PATH);
         }
         return itinerary;
     }

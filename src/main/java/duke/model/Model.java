@@ -1,6 +1,8 @@
 package duke.model;
 
+import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.FileNotSavedException;
 import duke.logic.CreateMap;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
@@ -14,6 +16,9 @@ import duke.model.locations.Venue;
 
 import java.util.List;
 
+/**
+ * Interface for SGTravel's model.
+ */
 public interface Model {
     /**
      * Returns the list of tasks.
@@ -57,9 +62,11 @@ public interface Model {
 
     /**
      * Returns the list of all attractions.
-     * @param numberOfDays number of days
-     * @param itinerary the itinerary to store in persistent storage
-     * @return List of Days
+     *
+     * @param numberOfDays Number of days.
+     * @param itinerary The itinerary to store in persistent storage.
+     * @return List of Days.
+     * @throws DukeException If number of days exceeds 7.
      */
     List<Agenda> getRecommendations(int numberOfDays, Itinerary itinerary) throws DukeException;
 
@@ -70,8 +77,11 @@ public interface Model {
 
     /**
      * Saves the Model data in storage.
+     *
+     * @throws CorruptedFileException If the file is corrupted.
+     * @throws FileNotSavedException If the file cannot be saved.
      */
-    void save() throws DukeException;
+    void save() throws CorruptedFileException, FileNotSavedException;
 
     /**
      * Returns a list of event venues.

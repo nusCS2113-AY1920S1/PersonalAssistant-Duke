@@ -1,6 +1,7 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.DukeDateTimeParseException;
+import duke.commons.exceptions.FileLoadFailException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 import duke.model.planning.Itinerary;
@@ -12,7 +13,13 @@ import duke.storage.Storage;
 public class AddSampleItineraryCommand extends Command {
     private Itinerary itinerary;
 
-    public AddSampleItineraryCommand() throws DukeException {
+    /**
+     * Constructs the command with the given sample itinerary.
+     *
+     * @throws DukeDateTimeParseException If the datetime cannot be parsed.
+     * @throws FileLoadFailException If the file cannot be loaded.
+     */
+    public AddSampleItineraryCommand() throws DukeDateTimeParseException, FileLoadFailException {
         this.itinerary = Storage.readRecommendations();
     }
 
@@ -22,7 +29,7 @@ public class AddSampleItineraryCommand extends Command {
      * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResultText execute(Model model) throws DukeException {
+    public CommandResultText execute(Model model) {
         // Add to the list of Itineraries
         return new CommandResultText("Successfully added this itinerary: " + "\n"
                 + itinerary.printItinerary());

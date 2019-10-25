@@ -17,13 +17,14 @@ public class Messages {
     public static final String ERROR_INPUT_INVALID_FORMAT = "⚡ Invalid format. Refer to help for command formats. :-(";
     public static final String ERROR_INDEX_OUT_OF_BOUNDS = "⚠ Index requested is out of bounds! :-(";
 
-    public static final String ERROR_FILE_NOT_FOUND = "☢ File not found! :-(";
+    public static final String ERROR_DATA_CORRUPTED = "☢ Data cannot be converted! :-( ";
+    public static final String ERROR_FILE_NOT_FOUND = "☢ File not found! ";
     public static final String ERROR_FILE_NOT_SAVED = "✋ File not saved! :-(";
 
     public static final String ERROR_RESOURCE_NOT_FOUND = "☢ Resource not found! :-( Missing: ";
 
-    public static final String ERROR_TASK_DUPLICATED = "✇ Task already exists! :-(";
     public static final String ERROR_TASK_CORRUPTED = "✇ Task cannot be converted to String! :-(";
+    public static final String ERROR_TASK_DUPLICATED = "✇ Task already exists! :-(";
     public static final String ERROR_TASK_NOT_FOUND = "☢ Task not found! :-(";
 
     public static final String ERROR_ROUTE_CORRUPTED = "✇ Route cannot be converted to String! :-(";

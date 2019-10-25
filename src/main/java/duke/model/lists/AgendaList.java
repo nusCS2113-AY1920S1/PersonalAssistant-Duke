@@ -70,7 +70,7 @@ public class AgendaList implements Iterable<Agenda> {
      * Replaces the contents of this list with {@code Days}.
      * {@code Tasks} must not contain duplicate Tasks.
      */
-    public void setTasks(List<Agenda> agenda) throws DukeException {
+    public void setTasks(List<Agenda> agenda) {
         list = agenda;
     }
 

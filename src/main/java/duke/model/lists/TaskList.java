@@ -116,7 +116,7 @@ public class TaskList implements Iterable<Task>, Listable<Task> {
      * Replaces the contents of this list with {@code Tasks}.
      * {@code Tasks} must not contain duplicate Tasks.
      */
-    public void setTasks(List<Task> tasks) throws DukeException {
+    public void setTasks(List<Task> tasks) throws DukeDuplicateTaskException {
         if (!tasksAreUnique(tasks)) {
             throw new DukeDuplicateTaskException();
         }

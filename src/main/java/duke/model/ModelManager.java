@@ -1,6 +1,8 @@
 package duke.model;
 
+import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.FileNotSavedException;
 import duke.logic.CreateMap;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
@@ -16,6 +18,9 @@ import duke.storage.Storage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that represents SGTravel's model.
+ */
 public class ModelManager implements Model {
     private Storage storage;
     private TaskList tasks;
@@ -93,12 +98,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void save() throws DukeException {
-        storage.write();
-    }
-
-    @Override
     public VenueList getEventVenues() {
         return new VenueList(tasks.getEventList());
+    }
+
+    /**
+     * Saves the file to local storage.
+     *
+     * @throws CorruptedFileException If the file is corrupted.
+     * @throws FileNotSavedException If the file cannot be saved.
+     */
+    @Override
+    public void save() throws CorruptedFileException, FileNotSavedException {
+        storage.write();
     }
 }
