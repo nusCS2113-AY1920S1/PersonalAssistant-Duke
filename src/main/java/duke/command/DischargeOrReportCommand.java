@@ -8,11 +8,17 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class ReportCommand extends ArgCommand {
+public class DischargeOrReportCommand extends ArgCommand {
+    private String cmdStr;
+
+    public DischargeOrReportCommand(String typeOfCommand) {
+        super();
+        cmdStr = typeOfCommand;
+    }
 
     @Override
     protected ArgSpec getSpec() {
-        return ReportSpec.getSpec();
+        return DischargeOrReportSpec.getSpec();
     }
 
     @Override
@@ -23,8 +29,13 @@ public class ReportCommand extends ArgCommand {
             try {
                 FileWriter fileWriter = new FileWriter("data/reports" + File.separator + patientsName + "-"
                         + patientsBenNo + ".txt");
-                fileWriter.write("DISCHARGED PATIENT REPORT\n\nThis report shows all the data that was stored about "
-                        + "a patient at the time of discharge.\n\n");
+                if (cmdStr.equals("discharge")) {
+                    fileWriter.write("DISCHARGED PATIENT REPORT\n\nThis report shows all the data that was stored about "
+                            + "a patient at the time of discharge.\n\n");
+                } else if (cmdStr.equals("report")) {
+                    fileWriter.write("PATIENT REPORT\n\nThis report shows all the data that was stored about "
+                            + "a patient at the time the report was created.\n\n");
+                }
                 if (getSwitchVal("summary") != null) {
                     fileWriter.write("Report Summary/Note: "
                             + getSwitchVal("summary") + ".\n\n");
@@ -36,6 +47,11 @@ public class ReportCommand extends ArgCommand {
                 throw new DukeFatalException("Unable to create report! Some data may have been lost,");
             }
         }
-        core.patientMap.deletePatient(getArg());
+        if (cmdStr.equals("discharge")) {
+            core.patientMap.deletePatient(getArg());
+        } else if (cmdStr.equals("report") && (core.patientMap.getPatient(getArg()) != null)) {
+            core.ui.print("Report created");
+        }
     }
 }
+
