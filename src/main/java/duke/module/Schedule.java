@@ -1,7 +1,6 @@
 package duke.module;
 
 import duke.data.Storage;
-import duke.task.TaskList;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -146,18 +145,20 @@ public class Schedule {
      * @param endTime The end time of the class
      * @param location The location where the class is held
      * @param className The name of the class
-     * @param taskList The list of tasks
      * @param scheduleStorage The object responsible for storing the class
+     * @throws ParseException if startTime or endTime is in wrong format
      * @return The outcome of the opeation,whether the class was added or not
      */
     public String addClass(final String startTime,
                            final String endTime,
                            final String location,
                            final String className,
-                           final TaskList taskList,
-                           final Storage scheduleStorage) {
-        Date start = taskList.dateConvert(startTime);
-        Date end = taskList.dateConvert(endTime);
+                           final Storage scheduleStorage)
+        throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+            "dd/MM/yyyy HHmm");
+        Date start = simpleDateFormat.parse(startTime);
+        Date end = simpleDateFormat.parse(endTime);
         boolean hasClash = false;
         for (TimeSlot t : this.list) {
             if (!hasClash) {
