@@ -2,6 +2,9 @@ package duke.logic.commands.results;
 
 import duke.model.lists.EventList;
 
+/**
+ * Defines the command result of any calender command.
+ */
 public class CommandResultCalender extends CommandResult implements Calenderable {
     private String message;
     private EventList events;

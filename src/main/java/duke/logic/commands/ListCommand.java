@@ -5,7 +5,7 @@ import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 
 /**
- * Class representing a command to list items in a task list.
+ * Lists items in a task list.
  */
 public class ListCommand extends Command {
     /**

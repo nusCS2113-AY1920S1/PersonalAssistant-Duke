@@ -6,6 +6,9 @@ import duke.model.locations.Venue;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Represents an Itinerary and its contained information.
+ */
 public class Itinerary extends AgendaList {
 
     private LocalDateTime startDate;

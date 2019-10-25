@@ -1,13 +1,16 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.CorruptedFileException;
+import duke.commons.exceptions.DukeDuplicateRouteException;
+import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 import duke.model.lists.RouteList;
 import duke.model.transports.Route;
 
 /**
- * Class representing a command to add a Route to RouteList.
+ * Adds a Route to RouteList.
  */
 public class RouteAddCommand extends Command {
     private String name;
@@ -26,9 +29,13 @@ public class RouteAddCommand extends Command {
      * Executes this command on the given Route List and user interface.
      *
      * @param model The model object containing information about the user.
+     * @return The CommandResultText.
+     * @throws DukeDuplicateRouteException If there is a duplicate route.
+     * @throws RouteNodeDuplicateException If there is a duplicate route node.
      */
     @Override
-    public CommandResultText execute(Model model) throws DukeException {
+    public CommandResultText execute(Model model) throws DukeDuplicateRouteException, RouteNodeDuplicateException,
+            FileNotSavedException, CorruptedFileException {
         RouteList routes = model.getRoutes();
         routes.add(new Route(name, ""));
         model.save();

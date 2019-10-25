@@ -1,7 +1,7 @@
 package duke.model;
 
 /**
- * A generic task, which can be marked as done.
+ * Represents a generic task, which can be marked as done.
  */
 public class Task {
     private String description;

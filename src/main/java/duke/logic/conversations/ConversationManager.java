@@ -7,7 +7,7 @@ import duke.logic.parsers.Parser;
 import duke.logic.parsers.PromptParser;
 
 /**
- * Conversation manager for Duke to handle two-way communications.
+ * Manages two-way communications between SGTravel and the user.
  */
 public class ConversationManager {
     private boolean isFinished;

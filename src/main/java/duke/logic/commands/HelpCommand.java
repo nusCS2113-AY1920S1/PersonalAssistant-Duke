@@ -4,7 +4,7 @@ import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 
 /**
- * Class representing a command to show the help message.
+ * Shows the help message.
  */
 public class HelpCommand extends Command {
     private static final String MESSAGE_HELP = "Here is the list of commands:\n"

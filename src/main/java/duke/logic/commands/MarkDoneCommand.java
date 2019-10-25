@@ -7,7 +7,7 @@ import duke.model.Model;
 import duke.model.Task;
 
 /**
- * Class representing a command to mark a task as done.
+ * Marks a task as done.
  */
 public class MarkDoneCommand extends Command {
     private int index;
@@ -35,7 +35,7 @@ public class MarkDoneCommand extends Command {
             model.save();
             return new CommandResultText(MESSAGE_MARK_DONE + task);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Messages.OUT_OF_BOUNDS);
+            throw new DukeException(Messages.ERROR_INDEX_OUT_OF_BOUNDS);
         }
     }
 }

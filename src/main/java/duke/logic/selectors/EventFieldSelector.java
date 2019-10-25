@@ -1,7 +1,6 @@
 package duke.logic.selectors;
 
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 public class EventFieldSelector implements Selector {
     private static final int FIELD_SIZE = 3;

@@ -3,7 +3,7 @@ package duke.logic.api.requests;
 import duke.commons.exceptions.DukeApiException;
 
 /**
- * Abstract class representing individual HTTP requests.
+ * Abstract class handling individual HTTP requests.
  */
 public abstract class HttpRequest<T> {
     protected String reqType;

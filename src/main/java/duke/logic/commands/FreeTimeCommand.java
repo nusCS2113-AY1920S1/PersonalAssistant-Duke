@@ -5,6 +5,9 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
 import duke.model.Model;
 
+/**
+ * Retrieves the number of free hours.
+ */
 public class FreeTimeCommand extends Command {
     private int duration;
 
@@ -25,6 +28,6 @@ public class FreeTimeCommand extends Command {
     @Override
     public CommandResultText execute(Model model) throws DukeException {
 
-        throw new DukeException(Messages.FILE_NOT_FOUND + "Write the code!");
+        throw new DukeException(Messages.ERROR_FILE_NOT_FOUND + "Write the code!");
     }
 }

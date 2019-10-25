@@ -4,6 +4,6 @@ import duke.commons.Messages;
 
 public class EmptyVenueException extends DukeException {
     public EmptyVenueException() {
-        super(Messages.EMPTY_VENUE);
+        super(Messages.ERROR_VENUE_EMPTY);
     }
 }

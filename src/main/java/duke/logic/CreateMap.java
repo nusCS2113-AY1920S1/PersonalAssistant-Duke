@@ -9,6 +9,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents the transportation map of the Singapore transport network.
+ */
 public class CreateMap {
     private HashMap<String, BusService> busMap;
     private HashMap<String, BusStop> busStopMap;
@@ -55,7 +58,7 @@ public class CreateMap {
 
         for (Map.Entry mapElement : this.trainMap.entrySet()) {
             TrainStation trainStation = (TrainStation)mapElement.getValue();
-            for (String trainCode : trainStation.getTrainCode()) {
+            for (String trainCode : trainStation.getTrainCodes()) {
                 if (trainCode.contains("NE")) {
                     northEastLine.add(trainStation);
                 }
@@ -138,7 +141,7 @@ public class CreateMap {
         }
 
         private int getTrainCodeNumber(TrainStation o1, String trainLine) {
-            for (String trainCode : o1.getTrainCode()) {
+            for (String trainCode : o1.getTrainCodes()) {
                 if (trainCode.contains(trainLine)) {
                     return Integer.parseInt(trainCode.substring(2));
                 }

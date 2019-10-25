@@ -1,12 +1,11 @@
 package duke.logic.commands;
 
-import duke.commons.Messages;
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 
 /**
- * Class representing a command to list a given RouteNode in RouteList.
+ * Lists a given RouteNode in RouteList.
  */
 public class RouteNodeListCommand extends Command {
     private int indexRoute;
@@ -27,13 +26,15 @@ public class RouteNodeListCommand extends Command {
      * Executes this command on the given Route and user interface.
      *
      * @param model The model object containing information about the user.
+     * @return The CommandResultText.
+     * @throws QueryOutOfBoundsException If the query is out of bounds.
      */
     @Override
-    public CommandResultText execute(Model model) throws DukeException {
+    public CommandResultText execute(Model model) throws QueryOutOfBoundsException {
         try {
             return new CommandResultText(model.getRoutes().get(indexRoute).getNode(indexNode));
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Messages.OUT_OF_BOUNDS);
+            throw new QueryOutOfBoundsException("ROUTE_NODE");
         }
     }
 }

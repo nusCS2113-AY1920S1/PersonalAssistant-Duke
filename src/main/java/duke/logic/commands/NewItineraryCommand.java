@@ -5,7 +5,7 @@ import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 
 /**
- * Class representing a command to list items in a task list.
+ * Creates a new custom itinerary.
  */
 public class NewItineraryCommand extends Command {
 

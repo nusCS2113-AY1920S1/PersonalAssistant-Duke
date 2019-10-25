@@ -1,7 +1,7 @@
 package duke.logic.parsers;
 
 import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.parser.EventSelectionOutOfBoundsException;
+import duke.commons.exceptions.EventSelectionOutOfBoundsException;
 import duke.logic.EditorManager;
 import duke.logic.api.ApiParser;
 import duke.model.Event;

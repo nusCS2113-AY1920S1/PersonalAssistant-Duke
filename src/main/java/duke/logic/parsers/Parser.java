@@ -1,6 +1,6 @@
 package duke.logic.parsers;
 
-import duke.commons.MessagesPrompt;
+import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.logic.commands.AddCommand;
@@ -31,10 +31,10 @@ import duke.logic.commands.StaticMapCommand;
 import duke.logic.commands.ViewScheduleCommand;
 
 /**
- * Parser for commands entered by the user. It reads from standard input and
- * returns Command objects.
+ * Parser for commands entered by the user. It reads from standard input and returns Command objects.
  */
 public class Parser {
+
     /**
      * Parses the userInput and return a Command object.
      *
@@ -58,11 +58,11 @@ public class Parser {
         case "todo":
             return new AddCommand(ParserUtil.createTodo(input));
         case "done":
-            return new MarkDoneCommand(ParserUtil.getIndex(input));
+            return new MarkDoneCommand(ParserUtil.getIndex(getWord(input)));
         case "delete":
-            return new DeleteCommand(ParserUtil.getIndex(input));
+            return new DeleteCommand(ParserUtil.getIndex(getWord(input)));
         case "find":
-            return new FindCommand(getWord(input));
+            return new FindCommand(getWord(getWord(input)));
         case "findtime":
             return new FreeTimeCommand(ParserUtil.getIndex(input));
         case "search":
@@ -79,7 +79,7 @@ public class Parser {
         case "recommend":
             return new RecommendationsCommand(ParserUtil.createRecommendation(input));
         case "cancel":
-            return new PromptCommand(MessagesPrompt.CANCEL_PROMPT);
+            return new PromptCommand(Messages.PROMPT_CANCEL);
         case "map":
             return new StaticMapCommand(getWord(input));
         case "routeAdd":
@@ -94,7 +94,7 @@ public class Parser {
                     ParserUtil.getSecondIndex(getWord(input)), ParserUtil.getFieldInList(3, 4, getWord(input)),
                     ParserUtil.getFieldInList(4, 4, getWord(input)));
         case "routeDelete":
-            return new RouteDeleteCommand(ParserUtil.getIndex(input));
+            return new RouteDeleteCommand(ParserUtil.getIndex(getWord(input)));
         case "routeNodeDelete":
             return new RouteNodeDeleteCommand(ParserUtil.getFirstIndex(getWord(input)),
                     ParserUtil.getSecondIndex(getWord(input)));
@@ -134,6 +134,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Gets the field at a given index in a String, delimited by whitespace.
+     *
+     * @param index The index of the field.
+     * @param userInput The userInput read by the user interface.
+     * @return The field.
+     */
     private static String getEventIndexInList(int index, String userInput) {
         if (index == 1) {
             return userInput.strip().split(" ", 4)[2];

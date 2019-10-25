@@ -4,7 +4,6 @@ import duke.commons.exceptions.EmptyVenueException;
 import duke.model.lists.VenueList;
 import duke.model.locations.Venue;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 /**
  * Iterates through locations using proximity of Venue via arrow keys.

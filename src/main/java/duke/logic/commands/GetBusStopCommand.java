@@ -8,6 +8,9 @@ import duke.model.locations.BusStop;
 
 import java.util.HashMap;
 
+/**
+ * Retrieves all the bus stops.
+ */
 public class GetBusStopCommand extends Command {
     private String buscode;
 
@@ -24,7 +27,7 @@ public class GetBusStopCommand extends Command {
                     + allBus.get(this.buscode).getLatitude() + "\n"
                     + allBus.get(this.buscode).getLongitude());
         }
-        throw new DukeException(Messages.DATA_NOT_FOUND);
+        throw new DukeException(Messages.ERROR_API_REQUEST_FAILED);
     }
 
 }

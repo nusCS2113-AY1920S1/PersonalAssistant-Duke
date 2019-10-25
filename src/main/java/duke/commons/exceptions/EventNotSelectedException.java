@@ -4,6 +4,6 @@ import duke.commons.Messages;
 
 public class EventNotSelectedException extends DukeException {
     public EventNotSelectedException() {
-        super(Messages.EVENT_NOT_SELECTED);
+        super(Messages.ERROR_EVENT_NOT_SELECTED);
     }
 }

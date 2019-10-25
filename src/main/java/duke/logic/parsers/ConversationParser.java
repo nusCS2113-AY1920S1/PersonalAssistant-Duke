@@ -1,7 +1,6 @@
 package duke.logic.parsers;
 
-import duke.commons.Messages;
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.logic.conversations.Conversation;
 import duke.logic.conversations.DeleteConversation;
 import duke.logic.conversations.FindConversation;
@@ -20,9 +19,9 @@ public class ConversationParser {
      * Parses the input and returns a Conversation object.
      * @param input The user input from Ui.
      * @return A conversation object.
-     * @throws DukeException If input is undefined.
+     * @throws DukeUnknownCommandException If input is undefined.
      */
-    public static Conversation parse(String input) throws DukeException {
+    public static Conversation parse(String input) throws DukeUnknownCommandException {
         switch (input) {
         case "done":
             return new MarkDoneConversation();
@@ -41,7 +40,7 @@ public class ConversationParser {
         case "search":
             return new SearchConversation();
         default:
-            throw new DukeException(Messages.UNKNOWN_COMMAND);
+            throw new DukeUnknownCommandException();
         }
     }
 }

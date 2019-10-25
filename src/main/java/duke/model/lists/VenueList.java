@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Represents a list of Venues (Locations).
+ */
 public class VenueList implements Iterable<Venue>, Listable<Venue> {
     private List<Venue> list;
 

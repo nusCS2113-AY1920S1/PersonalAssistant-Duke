@@ -13,6 +13,9 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+/**
+ * Represents a generic Map Window in the UI.
+ */
 public class MapWindow extends UiPart<Stage> {
     @FXML
     private AnchorPane map;

@@ -6,7 +6,7 @@ import duke.model.Model;
 import duke.model.Task;
 
 /**
- * Class representing a command to add a new task.
+ * Adds a new task to users todo's.
  */
 public class AddCommand extends Command {
     private final Task task;

@@ -9,6 +9,9 @@ import javafx.scene.layout.StackPane;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Represents a location card in the UI.
+ */
 public class LocationCard extends UiPart<StackPane> {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private static final String FXML = "LocationCard.fxml";

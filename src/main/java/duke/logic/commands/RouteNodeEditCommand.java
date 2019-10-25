@@ -1,15 +1,18 @@
 package duke.logic.commands;
 
-import duke.commons.Messages;
-import duke.commons.MessagesPrompt;
 import duke.commons.enumerations.Constraint;
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.CorruptedFileException;
+import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.InputNotDoubleException;
+import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.UnknownConstraintException;
+import duke.commons.exceptions.UnknownFieldException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 import duke.model.locations.RouteNode;
 
 /**
- * Class representing a command to edit a RouteNode in RouteList.
+ * Edits a RouteNode in RouteList.
  */
 public class RouteNodeEditCommand extends Command {
     private int indexRoute;
@@ -37,9 +40,17 @@ public class RouteNodeEditCommand extends Command {
      * Executes this command on the given task list and user interface.
      *
      * @param model The model object containing information about the user.
+     * @return The CommandResultText.
+     * @throws CorruptedFileException If the file is corrupted.
+     * @throws FileNotSavedException If the file is not saved.
+     * @throws InputNotDoubleException If the input is not an integer.
+     * @throws QueryOutOfBoundsException If the query is out of bounds.
+     * @throws UnknownFieldException If the field is unknown.
+     * @throws UnknownConstraintException If the constraint is unknown.
      */
     @Override
-    public CommandResultText execute(Model model) throws DukeException {
+    public CommandResultText execute(Model model) throws CorruptedFileException, FileNotSavedException,
+            InputNotDoubleException, QueryOutOfBoundsException, UnknownFieldException, UnknownConstraintException {
         try {
             RouteNode node = model.getRoutes().get(indexRoute).getNode(indexNode);
             switch (var.toLowerCase()) {
@@ -59,16 +70,16 @@ public class RouteNodeEditCommand extends Command {
                 node.setLongitude(Integer.parseInt(val));
                 break;
             default:
-                throw new DukeException(Messages.UNKNOWN_VAR);
+                throw new UnknownFieldException();
             }
             model.save();
             return new CommandResultText(MESSAGE_SUCCESS);
         } catch (NumberFormatException e) {
-            throw new DukeException(MessagesPrompt.PROMPT_NOT_INT);
+            throw new InputNotDoubleException();
         } catch (IllegalArgumentException e) {
-            throw new DukeException(Messages.UNKNOWN_CONSTRAINT);
+            throw new UnknownConstraintException();
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Messages.OUT_OF_BOUNDS);
+            throw new QueryOutOfBoundsException("ROUTE_NODE");
         }
     }
 }

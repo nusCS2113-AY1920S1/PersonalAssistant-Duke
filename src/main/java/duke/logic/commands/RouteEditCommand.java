@@ -1,13 +1,15 @@
 package duke.logic.commands;
 
-import duke.commons.Messages;
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.CorruptedFileException;
+import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.UnknownFieldException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 import duke.model.transports.Route;
 
 /**
- * Class representing a command to edit a Route in RouteList.
+ * Edits a Route in RouteList.
  */
 public class RouteEditCommand extends Command {
     private int index;
@@ -32,9 +34,15 @@ public class RouteEditCommand extends Command {
      * Executes this command on the given Route.
      *
      * @param model The model object containing information about the user.
+     * @return The CommandResultText.
+     * @throws CorruptedFileException If the file is corrupted.
+     * @throws FileNotSavedException If the file is not saved.
+     * @throws UnknownFieldException If the queried field is not valid.
+     * @throws QueryOutOfBoundsException If the query is out of bounds.
      */
     @Override
-    public CommandResultText execute(Model model) throws DukeException {
+    public CommandResultText execute(Model model) throws CorruptedFileException, FileNotSavedException,
+            UnknownFieldException, QueryOutOfBoundsException {
         try {
             Route route = model.getRoutes().get(index);
             switch (field.toLowerCase()) {
@@ -45,13 +53,13 @@ public class RouteEditCommand extends Command {
                 route.setDescription(newValue);
                 break;
             default:
-                throw new DukeException(Messages.UNKNOWN_VAR);
+                throw new UnknownFieldException();
             }
 
             model.save();
             return new CommandResultText(MESSAGE_SUCCESS);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Messages.OUT_OF_BOUNDS);
+            throw new QueryOutOfBoundsException("ROUTE");
         }
     }
 }

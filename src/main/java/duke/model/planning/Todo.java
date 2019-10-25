@@ -3,7 +3,7 @@ package duke.model.planning;
 import duke.model.Task;
 
 /**
- * Class representing a to-do.
+ * Represents a to-do.
  */
 public class Todo extends Task {
     /**

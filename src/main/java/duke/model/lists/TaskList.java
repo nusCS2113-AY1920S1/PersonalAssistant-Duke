@@ -15,6 +15,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a list of Tasks and contains its related accessor methods.
+ */
 public class TaskList implements Iterable<Task>, Listable<Task> {
     private List<Task> list;
 
@@ -116,7 +119,7 @@ public class TaskList implements Iterable<Task>, Listable<Task> {
      * Replaces the contents of this list with {@code Tasks}.
      * {@code Tasks} must not contain duplicate Tasks.
      */
-    public void setTasks(List<Task> tasks) throws DukeException {
+    public void setTasks(List<Task> tasks) throws DukeDuplicateTaskException {
         if (!tasksAreUnique(tasks)) {
             throw new DukeDuplicateTaskException();
         }

@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Represents a list of Agendas (Things to do in a day) and contains its related accessor methods.
+ */
 public class AgendaList implements Iterable<Agenda> {
 
     private List<Agenda> list;
@@ -70,7 +73,7 @@ public class AgendaList implements Iterable<Agenda> {
      * Replaces the contents of this list with {@code Days}.
      * {@code Tasks} must not contain duplicate Tasks.
      */
-    public void setTasks(List<Agenda> agenda) throws DukeException {
+    public void setTasks(List<Agenda> agenda) {
         list = agenda;
     }
 
