@@ -26,6 +26,6 @@ public class Assignment extends Deadline {
 
     @Override
     public String toString() {
-        return "[A]" + getStatusIcon() + " " + moduleCode + " " + super.getDescription() + " (by: " + by + ")";
+        return "[A][" + getStatusIcon() + "] " + moduleCode + " " + super.getDescription() + " (by: " + by + ")";
     }
 }

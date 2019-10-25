@@ -93,7 +93,7 @@ public abstract class Task {
      * @return Status icon of the Task.
      */
     public String getStatusIcon() {
-        return (status ? "[Y]" : "[N]"); //return tick or X symbols
+        return (status ? "Y" : "N"); //return tick or X symbols
     }
 
     /**
@@ -103,6 +103,6 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return getStatusIcon() + " " + description;
+        return "[" + getStatusIcon() + "] " + description;
     }
 }

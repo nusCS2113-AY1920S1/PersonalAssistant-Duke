@@ -22,13 +22,20 @@ import java.util.ArrayList;
 public class Storage {
 
     private ArrayList<Task> arr = new ArrayList<>();
-    private static final String PATH_MANUAL = "src/main/manual.txt";
-    private static final String PATH_THRESHOLD = "oof.config";
-    private static final int INDEX_LABEL_END = 7;
-    private static final int INDEX_DESCRIPTION = 0;
-    private static final int INDEX_DATE = 1;
-    private static final int INDEX_START = 0;
-    private static final int INDEX_END = 1;
+    private static final String DELIMITER = "||";
+    private static final String DELIMITER_ESCAPED = "\\|\\|";
+    private static final String SPACE = " ";
+    private static final String PATH_OUTPUT = "./output.txt";
+    private static final String PATH_MANUAL = "./manual.txt";
+    private static final String PATH_THRESHOLD = "./oof.config";
+    private static final int DATE = 0;
+    private static final int TIME = 1;
+    private static final int INDEX_STATUS = 1;
+    private static final int INDEX_DESCRIPTION = 2;
+    private static final int INDEX_DATE_START = 3;
+    private static final int INDEX_DATE_END = 5;
+    private static final int INDEX_TIME_START = 4;
+    private static final int INDEX_TIME_END = 6;
     private static final int DEFAULT_THRESHOLD = 24;
 
     /**
@@ -96,10 +103,16 @@ public class Storage {
     public void writeTaskList(TaskList taskList) {
         try {
             ArrayList<Task> arr = taskList.getTasks();
-            String filename = "output.txt";
+            String filename = PATH_OUTPUT;
             BufferedWriter out = new BufferedWriter(new FileWriter(filename));
             for (Task task : arr) {
-                out.write(task + "\n");
+                if (task instanceof Todo) {
+                    out.write(todoToString((Todo) task) + "\n");
+                } else if (task instanceof Deadline) {
+                    out.write(deadlineToString((Deadline) task) + "\n");
+                } else if (task instanceof Event) {
+                    out.write(eventToString((Event) task) + "\n");
+                }
             }
             out.close();
         } catch (IOException e) {
@@ -114,44 +127,18 @@ public class Storage {
      * @throws IOException if file does not exist.
      */
     public ArrayList<Task> readTaskList() throws IOException {
-        String filename = "output.txt";
-        BufferedReader reader = new BufferedReader(new FileReader(filename));
+        BufferedReader reader = new BufferedReader(new FileReader(PATH_OUTPUT));
         String line;
         int counter = 0;
         while ((line = reader.readLine()) != null) {
             counter += 1;
+            String[] lineSplit = line.split(DELIMITER_ESCAPED);
             if (isTodo(line)) {
-                String details = line.substring(INDEX_LABEL_END).trim();
-                String[] lineSplit = details.split("\\(on: ");
-                String description = lineSplit[INDEX_DESCRIPTION].trim();
-                String on = lineSplit[INDEX_DATE].trim().substring(0, lineSplit[INDEX_DATE].length() - 1);
-                Todo todo = new Todo(description, on);
-                arr.add(todo);
-                if (checkDone(line)) {
-                    arr.get(counter - 1).setStatus();
-                }
+                addToDo(lineSplit, counter);
             } else if (isDeadline(line)) {
-                String details = line.substring(INDEX_LABEL_END).trim();
-                String[] lineSplit = details.split("\\(by: ");
-                String description = lineSplit[INDEX_DESCRIPTION].trim();
-                String date = lineSplit[INDEX_DATE].trim().substring(0, lineSplit[INDEX_DATE].length() - 1);
-                Deadline deadline = new Deadline(description, date);
-                arr.add(deadline);
-                if (checkDone(line)) {
-                    arr.get(counter - 1).setStatus();
-                }
+                addDeadline(lineSplit, counter);
             } else if (isEvent(line)) {
-                String details = line.substring(INDEX_LABEL_END).trim();
-                String[] lineSplit = details.split(" \\(from: ");
-                String description = lineSplit[INDEX_DESCRIPTION].trim();
-                String[] dateSplit = lineSplit[INDEX_DATE].split("to: ");
-                String startDate = dateSplit[INDEX_START].trim().substring(0, dateSplit[INDEX_START].length() - 1);
-                String endDate = dateSplit[INDEX_END].trim().substring(0, dateSplit[INDEX_END].length() - 1);
-                Event event = new Event(description, startDate, endDate);
-                arr.add(event);
-                if (checkDone(line)) {
-                    arr.get(counter - 1).setStatus();
-                }
+                addEvent(lineSplit, counter);
             }
         }
         reader.close();
@@ -169,7 +156,7 @@ public class Storage {
      * @return true if entry starts with [E].
      */
     private boolean isEvent(String line) {
-        return line.startsWith("[E]");
+        return line.startsWith("E");
     }
 
     /**
@@ -179,7 +166,7 @@ public class Storage {
      * @return true if entry starts with [D].
      */
     private boolean isDeadline(String line) {
-        return line.startsWith("[D]");
+        return line.startsWith("D");
     }
 
     /**
@@ -189,7 +176,7 @@ public class Storage {
      * @return true if entry starts with [T].
      */
     private boolean isTodo(String line) {
-        return line.startsWith("[T]");
+        return line.startsWith("T");
     }
 
     /**
@@ -199,7 +186,94 @@ public class Storage {
      * @return true if the Task object has already been marked as done, false otherwise.
      */
     public boolean checkDone(String line) {
-        return line.charAt(4) == 'Y';
+        return line == "Y";
     }
 
+    /**
+     * Adds todo task from persistent storage to taskList.
+     * @param lineSplit Task object split in string array format.
+     * @param counter Current task number in 1 based indexing.
+     */
+    private void addToDo(String[] lineSplit, int counter) {
+        String description = lineSplit[INDEX_DESCRIPTION].trim();
+        String date = lineSplit[INDEX_DATE_START].trim();
+        Todo todo = new Todo(description, date);
+        arr.add(todo);
+        if (checkDone(lineSplit[INDEX_STATUS])) {
+            arr.get(counter - 1).setStatus();
+        }
+    }
+
+    /**
+     * Adds deadline task from persistent storage to taskList.
+     * @param lineSplit Task object split in string array format.
+     * @param counter Current task number in 1 based indexing.
+     */
+    private void addDeadline(String[] lineSplit, int counter) {
+        String description = lineSplit[INDEX_DESCRIPTION].trim();
+        String date = lineSplit[INDEX_DATE_START].trim() + SPACE + lineSplit[INDEX_TIME_START].trim();
+        Deadline deadline = new Deadline(description, date);
+        arr.add(deadline);
+        if (checkDone(lineSplit[INDEX_STATUS])) {
+            arr.get(counter - 1).setStatus();
+        }
+    }
+
+    /**
+     * Adds event task from persistent storage to taskList.
+     * @param lineSplit Task object split in string array format.
+     * @param counter Current task number in 1 based indexing.
+     */
+    private void addEvent(String[] lineSplit, int counter) {
+        String description = lineSplit[INDEX_DESCRIPTION].trim();
+        String startDate = lineSplit[INDEX_DATE_START].trim() + SPACE + lineSplit[INDEX_TIME_START];
+        String endDate = lineSplit[INDEX_DATE_END].trim() + SPACE + lineSplit[INDEX_TIME_END];
+        Event event = new Event(description, startDate, endDate);
+        arr.add(event);
+        if (checkDone(lineSplit[INDEX_STATUS])) {
+            arr.get(counter - 1).setStatus();
+        }
+    }
+
+    /**
+     * Returns a string from Todo task object.
+     *
+     * @param task Todo task object.
+     * @return String obtained from Todo task object.
+     */
+    private String todoToString(Todo task) {
+        return "T" + DELIMITER + task.getStatusIcon() + DELIMITER + task.getDescription() + DELIMITER + task.getOn()
+                + DELIMITER + DELIMITER + DELIMITER;
+    }
+
+    /**
+     * Returns a string from Deadline task object.
+     *
+     * @param task Deadline task object.
+     * @return String obtained from Deadline task object.
+     */
+    private String deadlineToString(Deadline task) {
+        String dateTime = task.getBy();
+        String date = dateTime.split(" ")[DATE];
+        String time = dateTime.split(" ")[TIME];
+        return "D" + DELIMITER + task.getStatusIcon() + DELIMITER + task.getDescription() + DELIMITER + date
+                + DELIMITER + time + DELIMITER + DELIMITER;
+    }
+
+    /**
+     * Returns a string from Event task object.
+     *
+     * @param task Event task object.
+     * @return String obtained from Event task object.
+     */
+    private String eventToString(Event task) {
+        String startDateTime = task.getStartTime();
+        String endDateTime = task.getEndTime();
+        String startDate = startDateTime.split(" ")[DATE];
+        String startTime = startDateTime.split(" ")[TIME];
+        String endDate = endDateTime.split(" ")[DATE];
+        String endTime = endDateTime.split(" ")[TIME];
+        return "E" + DELIMITER + task.getStatusIcon() + DELIMITER + task.getDescription() + DELIMITER + startDate
+                + DELIMITER + startTime + DELIMITER + endDate + DELIMITER + endTime;
+    }
 }

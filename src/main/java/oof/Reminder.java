@@ -4,7 +4,6 @@ import oof.model.task.TaskList;
 import oof.model.task.Deadline;
 import oof.model.task.Task;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
@@ -15,7 +14,6 @@ import java.util.Date;
  */
 public class Reminder {
 
-    private static final int INDEX_DATE = 1;
     private static final long MILLISECOND_TO_HOUR = 60 * 60 * 1000;
 
     /**
@@ -30,22 +28,8 @@ public class Reminder {
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
             if (task instanceof Deadline) {
-                String[] lineSplit = task.toString().split("by: ");
-                String result = lineSplit[INDEX_DATE].substring(0, lineSplit[INDEX_DATE].length() - 1);
-                result = result.trim();
-                try {
-                    Date dueDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(result);
-                    Date now = new Date();
-                    if (isUpcoming(dueDate, now, upcomingThreshold)) {
-                        if (isFirstReminder(count)) {
-                            ui.printReminder();
-                        }
-                        ui.printUpcomingDeadline(count, taskList.getTask(i));
-                        count++;
-                    }
-                } catch (ParseException | DateTimeException e) {
-                    System.out.println("Timestamp given is invalid! Please try again.");
-                }
+                Date dueDate = parseDateTime(((Deadline) task));
+                count = displayReminders(taskList, ui, dueDate, upcomingThreshold, count, i);
             }
             if (isNoDeadlineReminded(i, taskList, count)) {
                 ui.printNoDeadlines();
@@ -76,6 +60,48 @@ public class Reminder {
      */
     private boolean isNoDeadlineReminded(int index, TaskList taskList, int count) {
         return (index == taskList.getSize() - 1 && count == 1);
+    }
+
+    /**
+     * Parses the timestamp for the deadlines.
+     * @param task Deadline task object.
+     * @return Returns the parsed date if the date format is parsable.
+     */
+    private Date parseDateTime(Deadline task) {
+        String defaultDateTime = "00-00-0000 00:00";
+        Date dueDate = new Date();
+        try {
+            String dateTime = task.getBy();
+            dueDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(defaultDateTime);
+            dueDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(dateTime);
+            return dueDate;
+        } catch (ParseException | DateTimeException e) {
+            System.out.println("Something went wrong in reminders!");
+            return dueDate;
+        }
+    }
+
+    /**
+     * Displays the reminders and returns the number of reminders displayed.
+     * @param taskList Instance of TaskList that stores Task objects.
+     * @param ui Ui that is responsible for visual feedback.
+     * @param dueDate Due date of current deadline.
+     * @param upcomingThreshold DateTime threshold for OOF to display the reminders.
+     * @param count Number of reminders displayed thus far.
+     * @param index Index in the taskList.
+     * @return Returns the updated number of reminders displayed.
+     */
+    private int displayReminders(TaskList taskList, Ui ui, Date dueDate, int upcomingThreshold, int count,
+                                 int index) {
+        Date now = new Date();
+        if (isUpcoming(dueDate, now, upcomingThreshold)) {
+            if (isFirstReminder(count)) {
+                ui.printReminder();
+            }
+            ui.printUpcomingDeadline(count, taskList.getTask(index));
+            count++;
+        }
+        return count;
     }
 
     /**
