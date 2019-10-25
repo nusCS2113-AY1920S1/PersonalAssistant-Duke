@@ -1,5 +1,9 @@
 package entertainment.pro.model;
 
+
+/**
+ * Movie Model wrapper.
+ */
 public class MovieModel {
 
     private long id;

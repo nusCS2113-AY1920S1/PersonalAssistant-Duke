@@ -1,15 +1,26 @@
 package entertainment.pro.logic.parsers;
 
-import java.util.HashSet;
-import java.util.Set;
-import entertainment.pro.ui.Controller;
+
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.model.CommandPair;
+import entertainment.pro.ui.Controller;
+import java.util.HashSet;
+import java.util.Set;
 
+/**
+ * CommandDebugger class to do spellchecking by checking for similarity with words.
+ * JccardSimilarity algorithm used to quantify similarity
+ */
 public class CommandDebugger {
 
-    //TODO MOVE THIS SOMEWHERE ELSE
 
+    /**
+     * Spellchcker function to determine closest possible words.
+     * @param undefinedCommandArr the user input split into array form
+     * @param root Root command
+     * @param controller UI controller
+     * @return
+     */
     public static CommandPair commandSpellChecker(String[] undefinedCommandArr, COMMANDKEYS root, Controller controller) {
 
         System.out.println("Cant find anything");
@@ -50,25 +61,31 @@ public class CommandDebugger {
 
     }
 
-
-    public static Double calculateJaccardSimilarity(CharSequence left, CharSequence right) {
+    /**
+     * Compute string similarity based on  Jaccard Similarity algorithm.
+     *
+     * @param word1
+     * @param word2
+     * @return the similarity score based on the algorithm
+     */
+    public static Double calculateJaccardSimilarity(CharSequence word1, CharSequence word2) {
         Set<String> iset = new HashSet<String>();
         Set<String> unionSet = new HashSet<String>();
         boolean isfilled = false;
-        int leftLength = left.length();
-        int rightLength = right.length();
+        int leftLength = word1.length();
+        int rightLength = word2.length();
         if (leftLength == 0 || rightLength == 0) {
             return 0d;
         }
 
         for (int lefti = 0; lefti < leftLength; lefti++) {
-            unionSet.add(String.valueOf(left.charAt(lefti)));
+            unionSet.add(String.valueOf(word1.charAt(lefti)));
             for (int righti = 0; righti < rightLength; righti++) {
                 if (!isfilled) {
-                    unionSet.add(String.valueOf(right.charAt(righti)));
+                    unionSet.add(String.valueOf(word2.charAt(righti)));
                 }
-                if (left.charAt(lefti) == right.charAt(righti)) {
-                    iset.add(String.valueOf(left.charAt(lefti)));
+                if (word1.charAt(lefti) == word2.charAt(righti)) {
+                    iset.add(String.valueOf(word1.charAt(lefti)));
                 }
             }
             isfilled = true;
