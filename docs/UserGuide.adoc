@@ -351,8 +351,7 @@ Example: `pause CS2113T Activity Diagram`
 image::demo_images/Demo_PauseTracker.png[]
 
 ==== Stop task tracker: `stop`
-Complete with your Task? Congratulations!
-Stop task tracking at current time.
+Complete with your Task? Stop task tracking at current time with `stop`.
 
 [NOTE]
 
@@ -363,6 +362,28 @@ Format: `stop DESCRIPTION`
 Example: `stop CS2113T Activity Diagram`
 
 image::demo_images/Demo_StopTracker.png[]
+
+==== View task tracker: `viewTracker`
+Want to view a visual display featuring the amount of time you spend on each of your `Module` over time?
+
+Format: `viewTracker TIME_PERIOD`
+
+*Options for TIME_PERIOD* +
+[horizontal]
+DAY:: filter time spent on each `Module` today
+WEEK:: filter time spent on each `Module` over the course of the last 7 days
+
+Example: `viewTracker`
+
+image::demo_images/Demo_ViewTracker.png[]
+
+Example: `viewTracker DAY`
+
+image::demo_images/Demo_ViewTracker.png[]
+
+Example: `viewTracker WEEK`
+
+image::demo_images/Demo_ViewTracker.png[]
 
 === Exiting the program: `bye`
 Exits the program.

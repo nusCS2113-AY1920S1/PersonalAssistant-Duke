@@ -151,6 +151,7 @@ The `HelpCommand` class extends `Command` class by providing functions to displa
 The list of `Command` and their instructions are stored externally in persistent storage in `manual.txt`.
 
 In addition, it contains the following feature:
+
 * User may request for `Help` with a specific command.
 
 All `Help` features are implemented in the `parse` method of `CommandParser` class that parses user input.
@@ -405,6 +406,45 @@ This would give users a clean and easy view of the free time slots for that spec
 ** Alternatives considered: +
 Show free time slots in user-specified time blocks. This alternative can be an extension of the current implementation
 of the `FreeCommand` class.
+
+=== Time Tracker feature
+==== Implementation
+The `ViewTrackerCommand` class extends `Command` class by providing functions to display a bar graph visualising the amount of time spent on each `Module` filtered by `Day`, `Week` and `All`.
+
+In addition, it contains the following feature:
+
+* User may `ViewTracker` by `Day` with a specific command.
+* User may `ViewTracker` by `Week` with a specific command.
+
+Provided below is an example scenario of use and how `ViewTrackerCommand` class behaves and interact with other relevant classes.
+
+*Step 1:* +
+The user enters `start CS2113T Activity Diagram`. The `parse` method in `CommandParser` class is called to parse the user input to obtain the String `CS2113T Activity Diagram` as the `Task` that the user wants to start the Time Tracker timer for.
+
+[WARNING]
+`OofException` will be thrown is the user enters an invalid command.
+
+*Step 2:* +
+The `execute` method of `ViewTrackerCommand` class will...
+
+The following activity diagram summarises what will happen when a user executes a `ViewTracker` command:
+
+image::ViewTrackerCommandActivityDiagram.png[]
+
+==== Design Considerations
+* what is done
+** Rationale: +
+why it is done
+
+** Alternatives Considered: +
+other possible implementations that is less good
+
+* what is done
+** Rationale: +
+why it is done
+
+** Alternatives Considered: +
+other possible implementations that is less good
 
 === Logging
 

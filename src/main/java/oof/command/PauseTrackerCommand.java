@@ -56,16 +56,6 @@ public class PauseTrackerCommand extends Command {
         }
     }
 
-    /**
-     * Invokes other Command subclasses based on the input given by the user.
-     *
-     * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param tasks        Instance of TaskList that stores Task objects.
-     * @param ui           Instance of Ui that is responsible for visual feedback.
-     * @param storage      Instance of Storage that enables the reading and writing of Task
-     *                     objects to hard disk.
-     * @throws OofException Catches invalid commands given by user.
-     */
     @Override
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
         if (description.isEmpty()) {
@@ -87,11 +77,6 @@ public class PauseTrackerCommand extends Command {
         }
     }
 
-    /**
-     * Checks if ExitCommand is called for Oof to terminate.
-     *
-     * @return true if ExitCommand is called, false otherwise.
-     */
     @Override
     public boolean isExit() {
         return false;
