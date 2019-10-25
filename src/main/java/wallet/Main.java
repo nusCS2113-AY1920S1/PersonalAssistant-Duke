@@ -34,9 +34,9 @@ public class Main {
         LogicManager.getReminder().autoRemindStart();
         while (!isExit) {
             String fullCommand = ui.readLine();
-            ui.printLine();
+            //ui.printLine();
             isExit = logicManager.execute(fullCommand);
-            ui.printLine();
+            //ui.printLine();
         }
         ui.byeMsg();
         LogicManager.getReminder().autoRemindStop();

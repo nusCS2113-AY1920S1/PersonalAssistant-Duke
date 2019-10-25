@@ -9,6 +9,9 @@ import java.util.ArrayList;
 
 public class ContactStorage extends Storage<Contact> {
     public static final String DEFAULT_STORAGE_FILEPATH_CONTACT = "./data/contact.txt";
+    public static final String MESSAGE_ERROR_MISSING_FILE = "No saved contacts found.";
+    public static final String MESSAGE_ERROR_FILE_EOF = "End of file.";
+    public static final String MESSAGE_ERROR_WRITE_FILE = "IOException: ";
 
     /**
      * Loads the contacts from contact.txt into a temporary ArrayList of Contact objects.
@@ -46,9 +49,9 @@ public class ContactStorage extends Storage<Contact> {
             }
             raf.close();
         } catch (FileNotFoundException e) {
-            System.out.println("No saved contacts found.");
+            System.out.println(MESSAGE_ERROR_MISSING_FILE);
         } catch (IOException e) {
-            System.out.println("End of file.");
+            System.out.println(MESSAGE_ERROR_FILE_EOF);
         }
         return contactList;
     }
@@ -72,7 +75,7 @@ public class ContactStorage extends Storage<Contact> {
             }
             raf.close();
         } catch (IOException e) {
-            System.out.println("IOException: " + e.getMessage());
+            System.out.println(MESSAGE_ERROR_WRITE_FILE + e.getMessage());
         }
     }
 }

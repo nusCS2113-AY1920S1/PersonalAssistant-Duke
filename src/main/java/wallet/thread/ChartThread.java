@@ -2,49 +2,111 @@
 
 package wallet.thread;
 
+import wallet.model.record.Category;
+import wallet.model.record.Expense;
+
+import java.util.ArrayList;
+
 public class ChartThread implements Runnable {
     private Thread thread;
+    private ArrayList<Expense> expenseList;
+
+    /**
+     * Custom thread.
+     */
+    public ChartThread(ArrayList<Expense> expenseArrayList) {
+        thread = new Thread(this);
+        thread.start();
+        expenseList = expenseArrayList;
+    }
 
     /**
      * Runs the threat and stops when pie chart is completed.
      */
     @Override
     public void run() {
-        printPieChart();
+        printPieChart(expenseList);
         stop();
     }
 
     /**
      * Prints the pie chart given specified stats.
      */
-    public static void printPieChart() {
-        char[] fill = new char[4];
-        float[] percentage = new float[4];
+    public static void printPieChart(ArrayList<Expense> expenseList) {
+
+        char[] fill = new char[5];
+        float[] percentage = new float[5];
         float radius = 8;
 
         fill[0] = '%';
         fill[1] = '-';
         fill[2] = '@';
         fill[3] = '*';
+        fill[4] = '.';
 
-        percentage[0] = 0.3f;
-        percentage[1] = 0.3f;
-        percentage[2] = 0.3f;
-        percentage[3] = 0.1f;
+        percentage[0] = 0f;
+        percentage[1] = 0f;
+        percentage[2] = 0f;
+        percentage[3] = 0f;
+        percentage[4] = 0f;
 
-        for (float y = -radius; y < radius; y++) {
-            char character = '-';
-            for (float x = -radius; x < radius; x++) {
-                if (x * x + y * y < radius * radius) {
-                    double angle = Math.atan2(y, x) / Math.PI / 2 + .5f;
-                    character = set(fill, percentage, angle);
-                    System.out.print(character); //Prints circle content
-                } else {
-                    character = ' ';
-                    System.out.print(character); //Prints spaces
-                }
+        float totalExpensesAmount = 0;
+        double[] categoryAmount = new double[5];
+
+        for (Expense e : expenseList) {
+            totalExpensesAmount += e.getAmount();
+        }
+
+        for (Expense e : expenseList) {
+            Category category = e.getCategory();
+            switch (category) {
+            case FOOD:
+                percentage[0] += e.getAmount() / totalExpensesAmount;
+                categoryAmount[0] += e.getAmount();
+                break;
+
+            case BILLS:
+                percentage[1] += e.getAmount() / totalExpensesAmount;
+                categoryAmount[1] += e.getAmount();
+                break;
+
+            case SHOPPING:
+                percentage[2] += e.getAmount() / totalExpensesAmount;
+                categoryAmount[2] += e.getAmount();
+                break;
+
+            case TRANSPORT:
+                percentage[3] += e.getAmount() / totalExpensesAmount;
+                categoryAmount[3] += e.getAmount();
+                break;
+
+            case OTHERS:
+                percentage[4] += e.getAmount() / totalExpensesAmount;
+                categoryAmount[4] += e.getAmount();
+                break;
+
+            default:
             }
-            System.out.println(character); //Form new line
+        }
+        if (!hasEmptyExpense(percentage)) {
+            drawTable(categoryAmount, percentage);
+
+            for (float y = -radius; y < radius; y++) {
+                char character = '-';
+                for (float x = -radius; x < radius; x++) {
+                    if (x * x + y * y < radius * radius) {
+                        double angle = Math.atan2(y, x) / Math.PI / 2 + .5f;
+                        character = set(fill, percentage, angle);
+                        System.out.print(character); //Prints circle content
+                    } else {
+                        character = ' ';
+                        System.out.print(character); //Prints spaces
+                    }
+                }
+                System.out.println(character); //Form new line
+            }
+        } else {
+            System.out.println("No expenses, no pie chart!");
         }
     }
 
@@ -77,11 +139,31 @@ public class ChartThread implements Runnable {
     }
 
     /**
-     * Custom thread.
+     * This method draws the table as a summary for the pie chart before drawing the pie chart.
+     * @param categoryAmount amount of expenses in each category.
+     * @param percentage Percentage of total expenses in each category
      */
-    public ChartThread() {
-        thread = new Thread(this);
-        thread.start();
+    public static void drawTable(double[] categoryAmount, float[] percentage) {
+        String[] category = new String[5];
+        category[0] = "FOOD";
+        category[1] = "BILLS";
+        category[2] = "SHOPPING";
+        category[3] = "TRANSPORT";
+        category[4] = "OTHERS";
+
+        int index = 0;
+        System.out.println("------------------------------------------------------"
+                + "------\n"
+                + "|  #  |   Category     |   Expense Amount     |     %     |\n"
+                + "|----------------------------------------------------------");
+        for (int i = 0; i < percentage.length; i++) {
+            if (percentage[i] != 0) {
+                System.out.printf("| %-4d | %-13s | %-20s |  %-8.2f |\n",
+                        ++index, category[i], categoryAmount[i], percentage[i] * 100);
+            }
+        }
+        System.out.println("------------------------------------------------------"
+                + "------\n");
     }
 
     /**
@@ -89,5 +171,19 @@ public class ChartThread implements Runnable {
      */
     public void stop() {
         thread.interrupt();
+    }
+
+    /**
+     * This method checks if expenses is empty before it decides to draw the pie chart.
+     * @param percentage Percentage of total expenses
+     * @return true if empty, false if an existing expense is found
+     */
+    public static boolean hasEmptyExpense(float[] percentage) {
+        for (float f : percentage) {
+            if (f > 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }
