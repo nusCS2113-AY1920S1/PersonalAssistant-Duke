@@ -13,23 +13,23 @@ import static java.lang.Math.min;
 public class Parser {
 
     private final Commands commands;
-    private final UiContext uicontext;
+    private final UiContext uiContext;
     private final ArgParser argParser;
 
     /**
      * Constructs a new Parser, generating a HashMap from an array of enum values to allow fast lookup of command types.
      */
-    public Parser(UiContext uicontext, Commands commands) {
+    public Parser(UiContext uiContext, Commands commands) {
         this.commands = commands;
-        this.uicontext = uicontext;
+        this.uiContext = uiContext;
         this.argParser = new ArgParser();
     }
 
     /**
      * Constructs a new Parser, using the Cmd enum to supply the command names.
      */
-    public Parser(UiContext context) {
-        this(context, new Commands());
+    public Parser(UiContext uiContext) {
+        this(uiContext, new Commands());
     }
 
     /**
@@ -54,7 +54,7 @@ public class Parser {
                 cmdStr = inputStr.substring(0, min(sepIdx, spaceIdx));
             }
         }
-        Command command = commands.getCommand(cmdStr, uicontext.getContext());
+        Command command = commands.getCommand(cmdStr, uiContext.getContext());
         if (command == null) {
             throw new DukeException("I'm sorry, but I don't recognise this command: " + cmdStr);
         }
