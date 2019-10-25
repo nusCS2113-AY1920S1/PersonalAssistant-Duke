@@ -13,6 +13,7 @@ import net.sourceforge.argparse4j.inf.Subparsers;
 import planner.logic.command.GradeCommand;
 import planner.logic.command.AddCcaScheduleCommand;
 import planner.logic.command.Arguments;
+import planner.logic.command.CapCommand;
 import planner.logic.command.ClearCommand;
 import planner.logic.command.EndCommand;
 import planner.logic.command.ModuleCommand;
@@ -20,7 +21,6 @@ import planner.logic.command.RemoveCommand;
 import planner.logic.command.SearchThenAddCommand;
 import planner.logic.command.ShowCommand;
 import planner.logic.command.SortCommand;
-import planner.logic.command.CapCommand;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.parser.action.Join;
 
@@ -64,7 +64,7 @@ public class Parser {
      * Add arguments for respective sub-parsers.
      */
     // Add arguments for parsers here
-    private void mapBuiltinParserArguments() {
+    public void mapBuiltinParserArguments() {
         Subparser addParser = getSubParser("add")
                 .help("Add a module or cca");
         Subparsers addParsers = addParser.addSubparsers()
@@ -139,27 +139,18 @@ public class Parser {
                 .choices("modules", "ccas", "data")
                 .help("What to clear");
 
-        Subparser sortParser = getSubParser("sort")
-                .help("Sort your modules or ccas");
-        Subparsers sortParsers = sortParser.addSubparsers()
-                .dest("toSort")
+        getSubParser("sort")
+                .help("Sort your modules in alphabet order")
+                .addArgument("toSort")
+                .choices("modules", "ccas")
                 .help("What to sort");
-        sortParsers.addParser("ccas")
-                .help("Sort ccas in alphabet order");
-        sortParsers.addParser("modules")
-                .help("Sort modules")
-                .addArgument("type")
-                .choices("code", "level", "mc")
-                .help("What criteria to use for modules sorting");
 
-        getSubParser("cap")
-                .help("Calculate your CAP")
-                .addArgument("toCap")
-                .choices("overall", "list", "module")
-                .help("What type of CAP to calculate");
+        Subparser capParser = getSubParser("cap");
+        capParser.addArgument("toCap")
+            .choices("overall", "list", "module")
+            .help("What type of CAP to calculate");
 
-        Subparser gradeParser = getSubParser("grade")
-                .help("Set grade for your module");
+        Subparser gradeParser = getSubParser("grade");
         gradeParser.addArgument("moduleCode")
             .required(true)
             .help("Codename of module to grade");
