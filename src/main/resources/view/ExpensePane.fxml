@@ -5,12 +5,17 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox>
          <TableView fx:id="expenseTableView" prefWidth="600" prefHeight="600" />
          <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
-         <Pane fx:id="paneView"  />
+         <VBox>
+            <ListView fx:id="budgetListView" prefHeight="200"></ListView>
+            <Pane fx:id="paneView"  prefHeight="200"/>
+         </VBox>
       </HBox>
    </children>
 </AnchorPane>

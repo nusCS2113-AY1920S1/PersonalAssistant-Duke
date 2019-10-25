@@ -37,7 +37,6 @@ public class LogicManager implements Logic {
         return model.getExpenseExternalList();
     }
 
-
     @Override
     public ObservableList<PlanBot.PlanDialog> getDialogObservableList() {
         return model.getDialogObservableList();
@@ -45,6 +44,11 @@ public class LogicManager implements Logic {
     @Override
     public BigDecimal getTagAmount(String tag) {
         return model.getExpenseList().getTagAmount(tag);
+    }
+
+    @Override
+    public ObservableList<String> getBudgetObservableList() {
+        return model.getBudgetObservableList();
     }
 
 }
