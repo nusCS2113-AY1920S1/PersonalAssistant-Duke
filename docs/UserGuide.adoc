@@ -326,8 +326,13 @@ Opens menu to view, add, edit and remove Semester and Module data.
 Format: `semester`
 
 === Task Tracker Commands
+A successful you begins with self-awareness!
+
+OOF, your Outstanding Organisation Friend, provides you with a simple and efficient way to keep track of the amount of time you spend on each module!
+
 ==== Start task tracker: `start`
-Starts task tracking from current time and displays total time spent on Task.
+Begin your journey to optimum productivity by starting your task timer!
+Start your task tracking from current time.
 
 Format: `start DESCRIPTION`
 
@@ -336,7 +341,8 @@ Example: `start CS2113T Activity Diagram`
 image::demo_images/Demo_StartTracker.png[]
 
 ==== Pause task tracker: `pause`
-Pauses task tracking at current time and displays total time spent on Task thus far.
+Not completed with your Task but want to take a break or get started with another task?
+Pause your task tracking at current time.
 
 Format: `pause DESCRIPTION`
 
@@ -345,7 +351,13 @@ Example: `pause CS2113T Activity Diagram`
 image::demo_images/Demo_PauseTracker.png[]
 
 ==== Stop task tracker: `stop`
-Stops task tracking at current time, marking Task as complete and displays total time spent on Task thus far.
+Complete with your Task? Congratulations!
+Stop task tracking at current time.
+
+[NOTE]
+
+Your Task automatically will be marked `Done`.
+====
 
 Format: `stop DESCRIPTION`
 
