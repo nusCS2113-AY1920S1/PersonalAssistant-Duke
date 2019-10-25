@@ -118,7 +118,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
             String description = l.getDescription();
             String amount = Double.toString(l.getAmount());
             String createdDate = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(l.getDate());
-            String isLend = (l.getIsLend()) ? "lend" : "borrowed";
+            String isLend = (l.getIsLend()) ? "lend" : "borrow";
             String isSettled = (l.getIsSettled()) ? "yes" : "no";
             String personName = l.getPerson().getName();
             String personPhone = l.getPerson().getPhoneNum();

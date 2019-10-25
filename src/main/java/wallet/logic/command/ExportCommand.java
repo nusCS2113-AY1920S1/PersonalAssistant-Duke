@@ -26,11 +26,12 @@ public class ExportCommand extends Command {
 
     @Override
     public boolean execute(Wallet wallet) {
-        File csv = null;
-        FileWriter output;
+
         try {
             File current = new File(ExportCommand.class.getProtectionDomain().getCodeSource().getLocation()
                     .toURI().getPath());
+            File csv = null;
+            FileWriter output;
             if ("expenses".equals(type)) {
                 csv = new File(current.getParentFile().getPath(), "exportedExpenses.csv");
             } else if ("loans".equals(type)) {
@@ -42,13 +43,14 @@ public class ExportCommand extends Command {
                 CSVWriter writer = new CSVWriter(output);
                 writer.writeAll(data);
                 writer.close();
+                output.close();
                 System.out.println(MESSAGE_SUCCESS_WRITING_CSV + csv);
             } else {
                 System.out.println(MESSAGE_ERROR_WRITING_CSV);
             }
 
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            System.out.println(MESSAGE_ERROR_WRITING_CSV);
         } catch (IOException e) {
             System.out.println(MESSAGE_ERROR_WRITING_CSV);
         }
