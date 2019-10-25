@@ -300,9 +300,7 @@ Aspect: [Proposed] Priority for Tasks
 ** Con: Requires saving different states of the list, or introducing more sorting commands
 
 === Degreelist Feature
-==== Implementation
-
-3.1.1 Implementation (Subjected to change later) 
+==== Implementation (Subjected to change later) 
 
 (Diagrams to be added in later)
 
