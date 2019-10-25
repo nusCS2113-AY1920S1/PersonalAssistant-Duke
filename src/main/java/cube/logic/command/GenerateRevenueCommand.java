@@ -8,6 +8,8 @@ package cube.logic.command;
 // need to add support for adding revenue at the start and update revenue later (cmd)
 // need to change the name to revenue for user friendliness
 // updated by LL-Pengfei
+// need to store revenue in persistent storage
+// need to make the revenue (individual rev) updated when selling specific food
 
 import cube.logic.command.exception.CommandErrorMessage;
 import cube.logic.command.exception.CommandException;
