@@ -132,15 +132,6 @@ public class ListCommand extends Command {
                         }
                     }
                 }
-
-                if (expensesList.size() != 0) {
-                    Ui.printExpenseTable(expensesList);
-                } else {
-                    System.out.println(MESSAGE_LIST_NO_EXPENSES
-                            + date.getDayOfMonth() + " "
-                            + new DateFormatSymbols().getMonths()[date.getMonthValue() - 1]
-                            + " " + date.getYear());
-                }
                 break;
                 //@@author
             } else {

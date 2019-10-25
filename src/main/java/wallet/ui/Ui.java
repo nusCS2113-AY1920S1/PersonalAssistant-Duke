@@ -1,7 +1,6 @@
 package wallet.ui;
 
 import wallet.logic.LogicManager;
-import wallet.model.Wallet;
 import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
@@ -99,8 +98,8 @@ public class Ui {
     //@@author
 
     //@@author matthewng1996
-    public void drawPieChart() {
-        ChartThread chartThread = new ChartThread();
+    public void drawPieChart(ArrayList<Expense> expenseList) {
+        ChartThread chartThread = new ChartThread(expenseList);
         System.out.println("Please wait while we draw the pie chart...");
     }
     //@@author
