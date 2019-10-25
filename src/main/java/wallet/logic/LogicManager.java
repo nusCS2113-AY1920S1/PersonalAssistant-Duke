@@ -55,6 +55,7 @@ public class LogicManager {
      * @return A boolean isExit.
      */
     public boolean execute(String fullCommand) {
+        //@@author A0171206R
         boolean isExit = false;
         StorageManager newStorageManager = new StorageManager();
 
@@ -97,16 +98,7 @@ public class LogicManager {
             System.out.println(MESSAGE_ERROR_COMMAND);
         }
         return isExit;
-    }
-
-    public void printWalletList(ArrayList<Wallet> walletList) {
-        System.out.println("/**************************Wallet History**************************/");
-        for(Wallet wallet: walletList) {
-            System.out.println("wallet object: " + wallet);
-            Ui.printLoanTable(wallet.getLoanList().getLoanList());
-            Ui.printContactTable(wallet.getContactList().getContactList());
-            Ui.printExpenseTable(wallet.getExpenseList().getExpenseList());
-        }
+        //@@author
     }
 
     /**
@@ -115,6 +107,7 @@ public class LogicManager {
      * @param walletList The WalletList object.
      */
     public void removeUnusedNodes(WalletList walletList) {
+        //@@author A0171206R
         System.out.println("Removing unwanted wallet nodes");
         int maxState = walletList.getWalletList().size()-1;
         int currentState = walletList.getState();
@@ -125,7 +118,7 @@ public class LogicManager {
             loops--;
         }
         walletList.setState(walletList.getWalletList().size()-1);
-        System.out.println("removeUnusedNodes... wallet state = " + walletList.getState());
+        //@@author
     }
 
     /**

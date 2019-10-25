@@ -78,14 +78,13 @@ public class EditCommandParser implements Parser<EditCommand> {
 
     }
 
-    //@@author A0171206R
     /**
      * Parses the parameters of contact to be edited.
      *
      * @param input User input arguments
      */
     private Loan parseLoan(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
-
+        //@@author A0171206R
         Loan loan = new Loan();
 
         String[] arguments = input.split(" ", 2);
@@ -151,8 +150,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             loan.setDescription(description);
         }
         return loan;
+        //@@author
     }
-    //@@author
 
     /**
      * Parses the parameters of expense to be edited.

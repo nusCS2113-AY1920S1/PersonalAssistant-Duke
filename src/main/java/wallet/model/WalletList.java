@@ -1,6 +1,5 @@
+//@@author A0171206R
 package wallet.model;
-
-import wallet.logic.LogicManager;
 
 import java.util.ArrayList;
 

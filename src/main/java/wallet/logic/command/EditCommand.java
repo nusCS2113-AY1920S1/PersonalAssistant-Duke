@@ -123,9 +123,8 @@ public class EditCommand extends Command {
                 System.out.println(MESSAGE_ERROR_COMMAND);
             }
             //@@author
-            //@@author A0171206R
         } else if (loan != null) {
-
+            //@@author A0171206R
             Loan updatedLoan = new Loan();
             updatedLoan.setId(loan.getId());
             updatedLoan.setDescription(loan.getDescription());
@@ -148,7 +147,7 @@ public class EditCommand extends Command {
                 System.out.println(MESSAGE_ERROR_COMMAND);
             }
         }
+        //@@author
         return false;
     }
-    //@@author
 }

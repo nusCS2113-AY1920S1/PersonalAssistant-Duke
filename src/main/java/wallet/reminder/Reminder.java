@@ -1,5 +1,4 @@
 //@@author A0171206R
-
 package wallet.reminder;
 
 import wallet.logic.LogicManager;

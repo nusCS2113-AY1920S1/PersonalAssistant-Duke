@@ -27,19 +27,15 @@ public class RedoCommand extends Command{
             System.out.println(MESSAGE_ALREADY_LATEST_STATE);
             return false;
         }
-        //System.out.println("In redo command");
-        //System.out.println("Current state loan list:  " + walletList.getState());
-        //Ui.printLoanTable(walletList.getWalletList().get(walletList.getState()).getLoanList().getLoanList());
         newState = walletList.getState() + 1;
         walletList.setState(newState);
-        //System.out.println("new state loan list:  " + walletList.getState());
-        //Ui.printLoanTable(walletList.getWalletList().get(walletList.getState()).getLoanList().getLoanList());
 
         LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getLoanList().setModified(true);
         LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getContactList().setModified(true);
         LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getBudgetList().setModified((true));
         LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getExpenseList().setModified(true);
 
+        System.out.println(MESSAGE_SUCCESS);
         return false;
     }
 }

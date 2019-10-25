@@ -138,18 +138,21 @@ public class Ui {
      * Displays the loan list in table format.
      */
     public static void printLoanTable(ArrayList<Loan> loanList) {
+        //@@author A0171206R
         System.out.println(ListCommand.MESSAGE_LIST_LOANS);
         printLoanTableHeaders();
         for (Loan loan : loanList) {
             printLoanRow(loan);
         }
         printLoanTableClose();
+        //@@author
     }
 
     /**
      * Default headers for Loan table.
      */
     public static void printLoanTableHeaders() {
+        //@@author A0171206R
         System.out.println("--------------------------------------------------------"
                 + "-------------------------------------------------------"
                 + "-------------------------------------\n"
@@ -158,6 +161,7 @@ public class Ui {
                 + "|-----------------------------------------------------"
                 + "---------------------------------------------------------"
                 + "------------------------------------|");
+        //@@author
     }
 
     /**
@@ -166,6 +170,7 @@ public class Ui {
      * @param loan The Loan object.
      */
     public static void printLoanRow(Loan loan) {
+        //@@author A0171206R
         if (!loan.getIsLend() && !loan.getIsSettled()) {
             System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
                     loan.getId(), "No", loan.getDescription(), loan.getAmount(), loan.getDate(), "Borrow from",
@@ -183,14 +188,17 @@ public class Ui {
                     loan.getId(), "Yes", loan.getDescription(), loan.getAmount(), loan.getDate(), "Lend to",
                     loan.getPerson().getName(), loan.getPerson().getPhoneNum());
         }
+        //@@author
     }
 
     /**
      * Prints line to close of the Loans table.
      */
     public static void printLoanTableClose() {
+        //@@author A0171206R
         System.out.println("----------------------------------------"
                 + "---------------------------------------------------"
                 + "--------------------------------------------------------");
+        //@@author
     }
 }

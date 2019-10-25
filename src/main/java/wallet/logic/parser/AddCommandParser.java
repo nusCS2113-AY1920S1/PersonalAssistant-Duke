@@ -114,10 +114,9 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException                 ParseException.
      */
     private Loan parseLoan(String input) throws ArrayIndexOutOfBoundsException, ParseException {
+        //@@author A0171206R
         Loan loan = null;
         Boolean isLend = false;
-
-        //add loan test $10 10/10/2019 /l /c 1
 
         String[] info = input.split("\\$", 2);
         String description = info[0].trim();
@@ -140,6 +139,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Contact person = new ContactList(contactList).getContact(index);
         loan = new Loan(description, createdDate, amount, isLend, false, person);
         return loan;
+        //@@author
     }
 
     /**

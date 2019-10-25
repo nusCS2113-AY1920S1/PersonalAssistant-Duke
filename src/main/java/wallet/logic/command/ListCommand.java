@@ -1,6 +1,5 @@
 package wallet.logic.command;
 
-import wallet.logic.LogicManager;
 import wallet.model.Wallet;
 import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
@@ -74,12 +73,13 @@ public class ListCommand extends Command {
             //fallthrough
 
         case "loan":
+            //@@author A0171206R
             ArrayList<Loan> loanList = wallet.getLoanList().getLoanList();
-            System.out.println("Arraylist wallet: " + wallet);
             Ui.printLoanTable(loanList);
             if (!isListAll) {
                 break;
             }
+            //@@author
             //fallthrough
 
         case "expense":
