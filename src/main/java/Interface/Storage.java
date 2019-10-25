@@ -116,7 +116,6 @@ public class Storage {
                 }
             }
         }
-        assert outputStream != null;
         outputStream.close();
     }
 
