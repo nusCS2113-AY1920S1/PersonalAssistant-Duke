@@ -90,7 +90,7 @@ class PatientWindow extends UiElement<Region> {
         patient.addListener(evt -> {
             String property = evt.getPropertyName();
 
-            if (property.equals("Primary Diagnosis")) {
+            if ("Primary Diagnosis".equals(property)) {
                 if (evt.getOldValue() != null) {
                     impressionsListPanel.getItems().remove(new ImpressionCard((Impression) evt.getOldValue(), false));
                     impressionsListPanel.getItems().add(0, new ImpressionCard((Impression) evt.getOldValue(), false));
@@ -98,7 +98,7 @@ class PatientWindow extends UiElement<Region> {
 
                 impressionsListPanel.getItems().remove(new ImpressionCard((Impression) evt.getNewValue(), true));
                 impressionsListPanel.getItems().add(0, new ImpressionCard((Impression) evt.getNewValue(), true));
-            } else if (property.equals("History")) {
+            } else if ("History".equals(property)) {
                 history.setText((String) evt.getNewValue());
             }
         });
