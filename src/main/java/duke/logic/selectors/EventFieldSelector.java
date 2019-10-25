@@ -13,9 +13,9 @@ public class EventFieldSelector implements Selector {
 
     @Override
     public void feedKeyCode(KeyCode keyCode) {
-        if (keyCode.equals(KeyCode.UP)) {
+        if (keyCode.equals(KeyCode.DOWN)) {
             index++;
-        } else if (keyCode.equals(KeyCode.DOWN)) {
+        } else if (keyCode.equals(KeyCode.UP)) {
             index--;
             index += FIELD_SIZE;
         }
