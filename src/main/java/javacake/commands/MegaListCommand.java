@@ -69,6 +69,7 @@ public class MegaListCommand extends Command {
                     }
                 }
                 isJarMode = false;
+                Collections.sort(collectionOfNames);
                 List<String> result = processFileNames(collectionOfNames);
                 sb.append(String.join("\n", result)).append("\n");
                 sb.append("Type 'goto' to access the topics you are interested in!").append("\n");

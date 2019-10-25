@@ -4,7 +4,7 @@ import javacake.quiz.Question;
 import javacake.quiz.QuestionList;
 import org.junit.jupiter.api.Test;
 
-import static javacake.quiz.QuestionList.MAX_QUESTIONS;
+import static javacake.commands.QuizCommand.MAX_QUESTIONS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
