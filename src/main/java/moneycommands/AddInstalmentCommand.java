@@ -83,6 +83,9 @@ public class AddInstalmentCommand extends MoneyCommand {
         ui.appendToOutput(" For " + ins.getNumOfPayments() + " months\n");
         ui.appendToOutput(" Until " + ins.getDateEndDate() + "\n");
         ui.appendToOutput(" The total amount you will pay is $" + ins.totalAmount() + "\n");
+
+        MoneyCommand list = new ListInstalmentCommand();
+        list.execute(account,ui,storage);
     }
 
     @Override
