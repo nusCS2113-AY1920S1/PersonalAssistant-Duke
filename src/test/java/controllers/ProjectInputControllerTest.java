@@ -254,7 +254,7 @@ class ProjectInputControllerTest {
                     + "-r do something -r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
-            simulatedUserInput = "edit task requirements i/1 r/do nothing";
+            simulatedUserInput = "edit task requirements 1 -r do nothing";
             projectInputController.projectEditTaskRequirements(project, simulatedUserInput);
             actualOutput = "";
             for (String message : project.getTask(1).getTaskRequirements().toArray(new String[0])) {
@@ -266,7 +266,7 @@ class ProjectInputControllerTest {
                     + "1. do something2. do another thing3. do nothing";
             assertEquals(expectedOutput, actualOutput);
 
-            simulatedUserInput = "edit task requirements i/1 rm/1 2 r/do everything";
+            simulatedUserInput = "edit task requirements 1 -rm 1 2 -r do everything";
             projectInputController.projectEditTaskRequirements(project, simulatedUserInput);
             actualOutput = "";
             for (String message : project.getTask(1).getTaskRequirements().toArray(new String[0])) {

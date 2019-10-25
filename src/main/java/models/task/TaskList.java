@@ -129,7 +129,8 @@ public class TaskList {
         Arrays.sort(indexesToBeRemoved);
         for (int i = indexesToBeRemoved.length - 1; i >= 0; i--) {
             int indexToBeRemoved = Integer.parseInt(indexesToBeRemoved[i]);
-            if (indexToBeRemoved > 0 && indexToBeRemoved <= this.taskList.size()) {
+            if (indexToBeRemoved > 0
+                    && indexToBeRemoved <= this.taskList.get(taskIndexNumber - 1).getNumOfTaskRequirements()) {
                 this.taskList.get(taskIndexNumber - 1).removeTaskRequirement(indexToBeRemoved);
             }
         }
