@@ -170,6 +170,22 @@ public class Patient extends DukeObject {
     }
 
     /**
+     * This function appends an addition to the history of a Patient.
+     * @param addition the string to be added
+     * @return the new history
+     */
+    public String appendHistory(String addition) {
+        String newHistory;
+        if (this.history != null && !this.history.equals("")) {
+            newHistory = this.history + "\t" + addition;
+        } else {
+            newHistory = addition;
+        }
+        this.history = newHistory; // setHistory(newHistory);
+        return newHistory;
+    }
+
+    /**
      * This function find returns if a patient is allergic to an allergy.
      *
      * @param allergy String the possible allergy striped of spaces

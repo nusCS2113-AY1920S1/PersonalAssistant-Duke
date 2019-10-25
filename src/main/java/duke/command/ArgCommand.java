@@ -3,6 +3,7 @@ package duke.command;
 import duke.DukeCore;
 import duke.exception.DukeException;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,10 +21,7 @@ public abstract class ArgCommand extends Command {
 
     @Override
     public void execute(DukeCore core) throws DukeException {
-        // input string should not have been empty, so at least one of these should have been set
-        if (arg == null && switchVals.isEmpty()) {
-            throw new DukeException("Command needs to parse argument first!");
-        }
+        // ..
     }
 
     protected void setSwitchValsMap(HashMap<String, String> switchVals) {
@@ -64,6 +62,10 @@ public abstract class ArgCommand extends Command {
 
     public Map<String, String> getSwitchAliases() {
         return getSpec().getSwitchAliases();
+    }
+
+    public Map<String, String> getSwitchVals() {
+        return Collections.unmodifiableMap(switchVals);
     }
 
     ;

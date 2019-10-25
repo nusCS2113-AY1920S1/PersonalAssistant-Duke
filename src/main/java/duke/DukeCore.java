@@ -6,7 +6,7 @@ import duke.data.TaskList;
 import duke.exception.DukeFatalException;
 import duke.exception.DukeResetException;
 import duke.ui.Ui;
-import duke.ui.UiContext; 
+import duke.ui.UiContext;
 import duke.ui.UiManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -22,7 +22,7 @@ public class DukeCore extends Application {
     private static final String FILE_PATH = "data" + File.separator + "patients.json";
 
     public Ui ui;
-    public UiContext context;
+    public UiContext uiContext;
     public GsonStorage storage;
     public PatientMap patientMap;
 
@@ -33,7 +33,7 @@ public class DukeCore extends Application {
      */
     public DukeCore() {
         ui = new UiManager(this);
-        context = new UiContext();
+        uiContext = new UiContext();
 
         try {
             try {

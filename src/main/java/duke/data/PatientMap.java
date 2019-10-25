@@ -125,9 +125,9 @@ public class PatientMap {
     }
 
     /**
-     * Reports the number of tasks currently in the list.
+     * Reports the number of patients currently in the list.
      *
-     * @return A String reporting the current number of tasks.
+     * @return A String reporting the current number of patients.
      */
     public String getPatientCountStr() {
         int patientCount = patientObservableMap.size();
