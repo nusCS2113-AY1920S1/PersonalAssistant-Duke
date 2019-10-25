@@ -13,6 +13,8 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_INDEX;
 
 public class DeleteShoppingCommandParser implements Parser<DeleteShoppingCommand> {
 
+    private static final String EMPTY_STRING = "";
+
     @Override
     public DeleteShoppingCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args, PREFIX_SHOPPING_INDEX);
@@ -20,7 +22,7 @@ public class DeleteShoppingCommandParser implements Parser<DeleteShoppingCommand
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(map.getValue(PREFIX_SHOPPING_INDEX).orElse(""));
+            index = ParserUtil.parseIndex(map.getValue(PREFIX_SHOPPING_INDEX).orElse(EMPTY_STRING));
         } catch (ParseException e) {
             throw new ParseException(Message.MESSAGE_INVALID_COMMAND_FORMAT);
         }

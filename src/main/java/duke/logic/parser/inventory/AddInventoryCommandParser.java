@@ -16,6 +16,9 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_REMARKS;
 
 public class AddInventoryCommandParser implements Parser<AddInventoryCommand> {
 
+    private static final String DEFAULT_QUANTITY = "0.0";
+    private static final String EMPTY_STRING = "";
+
     @Override
     public AddInventoryCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
@@ -25,12 +28,12 @@ public class AddInventoryCommandParser implements Parser<AddInventoryCommand> {
         );
 
         Ingredient ingredient = new Ingredient(
-                StringUtils.capitalize(map.getValue(PREFIX_INVENTORY_NAME).orElse("").toLowerCase()),
-                map.getValue(PREFIX_INVENTORY_REMARKS).orElse("")
+                StringUtils.capitalize(map.getValue(PREFIX_INVENTORY_NAME).orElse(EMPTY_STRING).toLowerCase()),
+                map.getValue(PREFIX_INVENTORY_REMARKS).orElse(EMPTY_STRING)
         );
 
         Quantity quantity = new Quantity(
-                Integer.parseInt(map.getValue(PREFIX_INVENTORY_QUANTITY).orElse(String.valueOf(0)))
+                Double.parseDouble(map.getValue(PREFIX_INVENTORY_QUANTITY).orElse(DEFAULT_QUANTITY))
         );
 
         Item<Ingredient> inventory = new Item<Ingredient>(ingredient, quantity);

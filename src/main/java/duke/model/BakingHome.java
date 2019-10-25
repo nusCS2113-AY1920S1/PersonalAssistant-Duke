@@ -61,11 +61,6 @@ public class BakingHome implements ReadOnlyBakingHome {
         setOrders(newData.getOrderList());
     }
 
-    public void setProducts(List<Product> products) {
-        this.products.setAll(products);
-    }
-
-
     //================Order operations================
 
     /**
@@ -191,6 +186,10 @@ public class BakingHome implements ReadOnlyBakingHome {
         requireNonNull(editedProduct);
 
         products.set(originalProduct, editedProduct);
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products.setAll(products);
     }
 
     @Override

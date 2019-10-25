@@ -13,6 +13,8 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_INDEX;
 
 public class DeleteInventoryCommandParser implements Parser<DeleteInventoryCommand> {
 
+    private static final String EMPTY_STRING = "";
+
     @Override
     public DeleteInventoryCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args, PREFIX_INVENTORY_INDEX);
@@ -20,7 +22,7 @@ public class DeleteInventoryCommandParser implements Parser<DeleteInventoryComma
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(map.getValue(PREFIX_INVENTORY_INDEX).orElse(""));
+            index = ParserUtil.parseIndex(map.getValue(PREFIX_INVENTORY_INDEX).orElse(EMPTY_STRING));
         } catch (ParseException e) {
             throw new ParseException(Message.MESSAGE_INVALID_COMMAND_FORMAT);
         }
