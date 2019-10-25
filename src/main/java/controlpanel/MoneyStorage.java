@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 import money.*;
 import javafx.util.Pair;
@@ -18,10 +19,12 @@ public class MoneyStorage {
 
     private String fileName;
     private DateTimeFormatter dateTimeFormatter;
+    private static Stack<Item> deletedEntries;
 
     public MoneyStorage(String filePath) {
         fileName = filePath;
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");
+        deletedEntries = new Stack<>();
     }
     //@@author chengweixuan
     private void parseIncome(String[] info, Account account) {
@@ -343,5 +346,18 @@ public class MoneyStorage {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void addDeletedEntry(Item item) {
+        deletedEntries.push(item);
+        if (deletedEntries.size() > 5) {
+            deletedEntries.removeElementAt(0);
+        }
+    }
+
+    public Item getDeletedEntry() {
+        Item item = deletedEntries.lastElement();
+        deletedEntries.pop();
+        return item;
     }
 }
