@@ -55,21 +55,7 @@ public class Ui {
                 + listSize  + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
 
-    /**
-     * Displays the find message when a user wants to find tasks with a specific keyword.
-     */
-    public String showFind(TaskList list){
-        if(list.taskListSize() == 0) {
 
-            return "There are no matching tasks in your list.\n";
-        } else {
-            String findMessage = "Here are the matching tasks in your list:\n";
-            for (int i = 1; i <= list.taskListSize(); i++) {
-                findMessage = findMessage + i + "." + list.taskToString(i - 1) + "\n";
-            }
-            return findMessage;
-        }
-    }
 
     /**
      * Displays the free time found with the template to be shown.
@@ -123,13 +109,7 @@ public class Ui {
                 finalSchedule;
     }
 
-    /**
-     * Displays the snooze message when a user wants to snooze a task.
-     */
-    public String showSnooze(int index, int listSize, ArrayList<Task> list) {
-        return "Noted. I've snoozed task number " + (index+1) + " to: " + "\n" + list.get(listSize-1) + "\n" +
-                "Now you have " + listSize + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
-    }
+
 
 
     /**
