@@ -71,6 +71,7 @@ public interface CommandParser {
      * GETTERS FOR TOKENS BELOW
      */
 
+    //@@author SholihinK
     /**
      * Returns the type of task.
      *
@@ -107,6 +108,7 @@ public interface CommandParser {
         }
     }
 
+    //@@author
     /**
      * Returns the reminder status in the String input.
      *
@@ -387,6 +389,7 @@ public interface CommandParser {
      * MISCELLANEOUS METHODS BELOW
      */
 
+    //@@author SholihinK
     /**
      * Checks if input date and time is after current date time.
      *
@@ -410,6 +413,7 @@ public interface CommandParser {
         return inputDateAndTime.after(currDateAndTime);
     }
 
+    //@@author SholihinK
     /**
      * Check if the date input is of valid format.
      *

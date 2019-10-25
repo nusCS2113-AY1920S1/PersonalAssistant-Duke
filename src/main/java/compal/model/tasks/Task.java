@@ -140,11 +140,6 @@ public abstract class Task implements Serializable {
      * @return Date of task.
      */
     public Date getDate() {
-        /*Calendar calendar = Calendar.getInstance();
-        calendar.setTime(this.date);
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 59);
-        this.date = calendar.getTime();*/
         return this.date;
     }
 
@@ -271,6 +266,14 @@ public abstract class Task implements Serializable {
     public void markAsDone() {
         isDone = true;
     }
+
+    /**
+     * Sets isDone as false.
+     */
+    public void markAsNotDone() {
+        isDone = false;
+    }
+
 
     /**
      * Sets HasReminder.

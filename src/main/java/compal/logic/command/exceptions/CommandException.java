@@ -2,12 +2,13 @@ package compal.logic.command.exceptions;
 
 import compal.ui.UiUtil;
 
+
+//@@author SholihinK
 /**
  * This static inner class is the custom exception class extending Exception
  * that overwrites toString() for returning custom exception messages.
  * It is thrown when command is unknown or when there are invalid arguments.
  */
-
 public class CommandException extends Exception {
 
     private String description;

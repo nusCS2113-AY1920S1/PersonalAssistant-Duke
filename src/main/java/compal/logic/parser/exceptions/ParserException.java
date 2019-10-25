@@ -2,12 +2,13 @@ package compal.logic.parser.exceptions;
 
 import compal.ui.UiUtil;
 
+
 /**
  * This static inner class is the custom exception class extending Exception
  * that overwrites toString() for returning custom exception messages.
  * It is thrown when command is unknown or when there are invalid arguments.
  */
-
+//@@author SholihinK
 public class ParserException extends Exception {
 
     private String description;
@@ -21,6 +22,7 @@ public class ParserException extends Exception {
     @Override
     public String toString() {
         uiUtil.printg(description);
+        compal.ui.UiUtil.tabWindow.getSelectionModel().select(0);
         return description;
     }
 

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-
+//@@author SholihinK
 /**
  * View the task in day,week or month format.
  */
@@ -241,6 +241,18 @@ public class ViewCommand extends Command {
             .append("[Priority:").append(priority).append("]\n");
 
         String taskSymbol = t.getSymbol();
+        if (t.getDescription().matches("(?i:.*lec.*)")) {
+            taskSymbol = "Lect";
+        } else if (t.getDescription().matches("(?i:.*tut.*)")) {
+            taskSymbol = "Tut";
+        } else if (t.getDescription().matches("(?i:.*sect.*)")) {
+            taskSymbol = "Sect";
+        } else if (t.getDescription().matches("(?i:.*lab.*)")) {
+            taskSymbol = "Lab";
+        } else if (t.getDescription().matches("(?i:.*rt.*)")) {
+            taskSymbol = "RT";
+        }
+
         String taskDescription = t.getDescription();
         taskDetails.append("  [").append(taskSymbol).append("] ")
             .append("[").append(status).append("] ")
