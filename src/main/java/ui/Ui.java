@@ -76,15 +76,15 @@ public class Ui {
      * @param order order to show words (ascending / descending)
      * @return a string shown when command is completed
      */
-    public String showList(WordBank wordBank, String order) {
+    public String showList(TreeMap<String, Word> wordBank, String order) {
         String returnedString = "Here are your words:\n";
         if (order.equals("asc") || order.equals("")) {
-            for (Map.Entry<String, Word> entry : wordBank.getWordBank().entrySet()) {
+            for (Map.Entry<String, Word> entry : wordBank.entrySet()) {
                 returnedString += entry.getValue() + "\n";
             }
         } else {
-            for (String description : wordBank.getWordBank().descendingKeySet()) {
-                returnedString += wordBank.getWordBank().get(description) + "\n";
+            for (String description : wordBank.descendingKeySet()) {
+                returnedString += wordBank.get(description) + "\n";
             }
         }
         return returnedString;
@@ -127,7 +127,7 @@ public class Ui {
     }
 
     public String showSearch(String description, String meaning) {
-        return ("Here is the meaning of " + description + ": " + meaning);
+        return ("Here is the meaning of " + description + ": " + meaning + "\n");
     }
 
     /**
@@ -190,7 +190,7 @@ public class Ui {
     public String showHelp(String instruction) {
         if (instruction.equals("add")) {
             return "Add a word to wordbank.\n"
-                    + "Format: add w/WORD w/MEANING [t/TAG]";
+                    + "Format: add w/WORD m/MEANING [t/TAG]";
         } else if (instruction.equals("delete")) {
             return "Delete a word or tag from wordbank.\n"
                     + "Format: delete w/WORD_TO_BE_DELETED [t/TAG]";
@@ -257,6 +257,22 @@ public class Ui {
         } else {
             return ("Sorry, The answer is \"" + answer + "\".");
         }
+    }
+
+    /**
+     * Shows to user all words that have a specific beginning.
+     * @param begin begin substring to be searched
+     * @param wordWithBegins list of all words that have that begin substring
+     * @return a string shown to user when the command is completed
+     */
+    public String showSearchBegin(String begin, ArrayList<String> wordWithBegins) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append((wordWithBegins.size() == 1) ? "This is a word that has " : "These are words that have");
+        stringBuilder.append("the same meaning as " + begin + "\n");
+        for (String s : wordWithBegins) {
+            stringBuilder.append(s + "\n");
+        }
+        return stringBuilder.toString();
     }
 }
 

@@ -2,9 +2,11 @@ package dictionary;
 
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.SortedMap;
 
 import exception.NoWordFoundException;
 import command.OxfordCall;
+import exception.WordAlreadyExistException;
 import storage.Storage;
 
 import java.util.HashSet;
@@ -30,6 +32,10 @@ public class WordBank {
 
     public TreeMap<String, Word> getWordBank() {
         return wordBank;
+    }
+
+    public boolean isEmpty() {
+        return wordBank.isEmpty();
     }
 
     public TreeMap<Integer, TreeMap<String, Word>> getWordCount() {
@@ -79,7 +85,15 @@ public class WordBank {
         }
     }
 
-    public void addWord(Word word) {
+    /**
+     * Adds a word to the WordBank.
+     * @param word Word object represents the word to be added
+     * @throws WordAlreadyExistException if the word has already exists in the WordBank
+     */
+    public void addWord(Word word) throws WordAlreadyExistException {
+        if (wordBank.containsKey(word.getWord())) {
+            throw new WordAlreadyExistException(word.getWord());
+        }
         this.wordBank.put(word.getWord(), word);
     }
 
@@ -89,7 +103,7 @@ public class WordBank {
      * @return a string represents meaning of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank nor Oxford dictionary
      */
-    public String searchForMeaning(String word)throws NoWordFoundException {
+    public String searchForMeaning(String word) throws NoWordFoundException {
         word = word.toLowerCase();
         String s = "";
         if (!(wordBank.containsKey(word))) {
@@ -99,6 +113,30 @@ public class WordBank {
             wordBank.put(word, temp);
         }
         return s + wordBank.get(word).getMeaning();
+    }
+
+    /**
+     * Searches for all words with a few beginning characters.
+     * @param word a string represents the beginning substring
+     * @return list of words that have that beginning substring
+     * @throws NoWordFoundException if no words in the WordBank have that beginning substring
+     */
+    public ArrayList<String> searchWordWithBegin(String word) throws NoWordFoundException {
+        word = word.toLowerCase();
+        ArrayList<String> arrayList = new ArrayList<>();
+        String upperBoundWord = wordBank.ceilingKey(word);
+        if (!upperBoundWord.startsWith(word)) {
+            throw new NoWordFoundException(word);
+        }
+        SortedMap<String, Word> subMap = wordBank.subMap(upperBoundWord, wordBank.lastKey());
+        for (String s : subMap.keySet()) {
+            if (s.startsWith(word)) {
+                arrayList.add(s);
+            } else {
+                break;
+            }
+        }
+        return arrayList;
     }
 
     /**
@@ -165,5 +203,20 @@ public class WordBank {
                 nonExistTags.add(tag);
             }
         }
+    }
+
+    /**
+     * Checks spelling when user input a non-existing word.
+     * @param word word to be searched
+     * @return list of words that is considered to be close from the word user is looking for
+     */
+    public ArrayList<String> getClosedWords(String word) {
+        ArrayList<String> closedWords = new ArrayList<>();
+        for (Word w : wordBank.values()) {
+            if (w.isClosed(word)) {
+                closedWords.add(w.getWord());
+            }
+        }
+        return closedWords;
     }
 }

@@ -1,6 +1,6 @@
 package scene;
 
-import dictionary.WordBank;
+import dictionary.Bank;
 import command.Command;
 import command.QuizCommand;
 import exception.ChangeSceneException;
@@ -12,8 +12,8 @@ import storage.Storage;
 import ui.Ui;
 
 public class MainScene extends NewScene {
-    public MainScene(Ui ui, WordBank wordBank, Storage storage, Stage window) {
-        super(ui, wordBank, storage, ui.greet(), window);
+    public MainScene(Ui ui, Bank bank, Storage storage, Stage window) {
+        super(ui, bank, storage, ui.greet(), window);
         setupHandleInput();
     }
 
@@ -24,7 +24,7 @@ public class MainScene extends NewScene {
 
     @Override
     public void resolveException(WordUpException e) {
-        window.setScene(new QuizScene(ui, wordBank, storage, window).getScene());
+        window.setScene(new QuizScene(ui, bank, storage, window).getScene());
     }
 
     @Override
@@ -33,6 +33,6 @@ public class MainScene extends NewScene {
         if (c instanceof QuizCommand) {
             throw new ChangeSceneException();
         }
-        return c.execute(ui, wordBank, storage);
+        return c.execute(ui, bank, storage);
     }
 }
