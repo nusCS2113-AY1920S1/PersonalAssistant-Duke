@@ -17,7 +17,7 @@ shadowJar {
     archiveAppendix = null
 }
 
-group 'seedu.duke'
+group 'entertainment.pro'
 version '0.1.0'
 
 dependencies {
@@ -48,7 +48,7 @@ javafx {
 
 application {
     // Change this to your main class.
-    mainClassName = "Launcher"
+    mainClassName = "entertainment.pro.Launcher"
 }
 
 run {
