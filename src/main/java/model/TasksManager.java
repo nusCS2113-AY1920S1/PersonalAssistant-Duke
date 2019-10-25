@@ -21,7 +21,7 @@ public class TasksManager implements Serializable {
      * individual data model, however this is the prototype model
      */
     public void addTask(String name) throws DukeException {
-        if(getTaskByName(name) == null) {
+        if(!hasTask(name)) {
             taskList.add(new Task(name));
         } else {
             throw new DukeException("Duplicated task");
@@ -59,7 +59,7 @@ public class TasksManager implements Serializable {
     public Task getTaskByName(String name){
         Task temp = null;
         for(int i=0; i < taskList.size(); i+=1) {
-            if(taskList.get(i).getName() == name ) {
+            if(taskList.get(i).getName().equals(name) ) {
                 temp = taskList.get(i);
             }
         }
@@ -72,13 +72,21 @@ public class TasksManager implements Serializable {
      * */
     public int getTaskIndex(String name){
         for(int i=0; i < taskList.size(); i+=1) {
-            System.out.println(taskList.get(i).getName());
-            if (taskList.get(i).getName() == name) {
-
+            if (taskList.get(i).getName().equals(name)) {
                 return i;
             }
         }
         return -1;
     }
 
+    //@@author JustinChia1997
+    private boolean hasTask(String name){
+        for(int i=0; i< taskList.size(); i+=1){
+            if (taskList.get(i).getName().equals(name.trim())) {
+                return true;
+            }
+        }
+        return false;
+
+    }
 }
