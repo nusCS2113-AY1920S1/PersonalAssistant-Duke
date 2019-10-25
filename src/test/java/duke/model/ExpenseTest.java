@@ -35,7 +35,7 @@ public class ExpenseTest {
             + "test description "
             + "18:00 01/01/2000 "
             + "(tentative) "
-            + "Tags: tag1 tag2 tag3";
+            + "tag1 tag2 tag3";
     private static final String ACTUAL_TO_STORAGE_STRING = "tags:tag1 tag2 tag3\n"
             + "amount:1.23\n"
             + "description:test description\n"

@@ -127,14 +127,11 @@ public class PlanBot {
                 logger.info("\n\n\nQueue size: " + questionQueue.size());
                 dialogObservableList.add(new PlanDialog(reply.getText(), Agent.BOT));
                 planAttributes = reply.getAttributes();
-                currentQuestion = null;
                 if (!questionQueue.isEmpty()) {
                     currentQuestion = questionQueue.peek();
-                    questionQueue.remove();
-                }
-                if (currentQuestion != null) {
                     dialogObservableList.add(new PlanDialog(currentQuestion.getQuestion(), Agent.BOT));
-                } else {
+                    questionQueue.remove();
+                }else {
                     dialogObservableList.add(new PlanDialog(makeRecommendation(), Agent.BOT));
                 }
             } catch (DukeException e) {

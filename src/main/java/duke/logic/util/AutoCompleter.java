@@ -1,10 +1,23 @@
 package duke.logic.util;
 
 import duke.commons.LogsCenter;
-import duke.logic.command.*;
+import duke.logic.command.AddExpenseCommand;
+import duke.logic.command.Command;
+import duke.logic.command.ConfirmTentativeCommand;
+import duke.logic.command.DeleteExpenseCommand;
+import duke.logic.command.ExitCommand;
+import duke.logic.command.FilterExpenseCommand;
+import duke.logic.command.GoToCommand;
+import duke.logic.command.PlanBotCommand;
+import duke.logic.command.SortExpenseCommand;
+import duke.logic.command.ViewExpenseCommand;
 import duke.ui.MainWindow;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -94,7 +107,7 @@ public class AutoCompleter {
 
     private String getLastToken() {
         int index = fromInput.length() - 1;
-        while(index >= 0 && SPACE.charAt(0) != fromInput.charAt(index)) {
+        while (index >= 0 && SPACE.charAt(0) != fromInput.charAt(index)) {
             index -= 1;
         }
         startIndexOfLastToken = index + 1;
@@ -109,7 +122,7 @@ public class AutoCompleter {
         } else if (isSameAsLastComplement()) {
             purpose = Purpose.ITERATE;
         } else if (!hasValidCommandName()) {
-            if(numberOfTokens > 1 || endsWithSpace()) {
+            if (numberOfTokens > 1 || endsWithSpace()) {
                 purpose = Purpose.NOT_DOABLE;
             } else {
                 purpose = Purpose.COMPLETE_COMMAND_NAME;
@@ -118,7 +131,7 @@ public class AutoCompleter {
             purpose = Purpose.PRODUCE_PARAMETER;
         } else if (inUncompletedParameter()) {
             purpose = Purpose.COMPLETE_PARAMETER;
-        } else if (numberOfTokens == 1){
+        } else if (numberOfTokens == 1) {
             purpose = Purpose.COMPLETE_COMMAND_NAME;
         } else {
             purpose = Purpose.NOT_DOABLE;
@@ -155,31 +168,31 @@ public class AutoCompleter {
 
     private String getComplement() {
         switch (purpose) {
-            case COMPLETE_COMMAND_NAME:
-                completeCommandNameComplements();
-                iteratingIndex = 0;
-                break;
+        case COMPLETE_COMMAND_NAME:
+            completeCommandNameComplements();
+            iteratingIndex = 0;
+            break;
 
-            case PRODUCE_PARAMETER:
-                produceParameterComplements();
-                iteratingIndex = 0;
-                break;
+        case PRODUCE_PARAMETER:
+            produceParameterComplements();
+            iteratingIndex = 0;
+            break;
 
-            case COMPLETE_PARAMETER:
-                completeParameterComplements();
-                iteratingIndex = 0;
-                break;
+        case COMPLETE_PARAMETER:
+            completeParameterComplements();
+            iteratingIndex = 0;
+            break;
 
-            case ITERATE:
-                iterateIndex();
-                break;
+        case ITERATE:
+            iterateIndex();
+            break;
 
-            case NOT_DOABLE:
-                complementList.clear();
-                break;
+        case NOT_DOABLE:
+            complementList.clear();
+            break;
         }
 
-        if(complementList.isEmpty()) {
+        if (complementList.isEmpty()) {
             return getLastToken();
         } else {
             return complementList.get(iteratingIndex);
@@ -188,7 +201,7 @@ public class AutoCompleter {
 
     private void iterateIndex() {
         iteratingIndex += 1;
-        if(iteratingIndex >= complementList.size()) {
+        if (iteratingIndex >= complementList.size()) {
             iteratingIndex = 0;
         }
     }

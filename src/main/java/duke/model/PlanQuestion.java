@@ -45,7 +45,6 @@ public class PlanQuestion {
         this.neighbouringQuestions = new HashMap<>();
     }
 
-
     public String getQuestion() {
         return question;
     }
