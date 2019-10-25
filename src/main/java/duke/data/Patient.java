@@ -169,21 +169,14 @@ public class Patient extends DukeObject {
      * @param searchTerm String to be used to filter the DukeObj
      * @return the hashMap of DukeObjs
      */
-    public HashMap<String, DukeObject> find(String searchTerm) throws DukeException {
-        int i = 1;
-        HashMap<String, DukeObject> searchResult = new HashMap<String, DukeObject>();
-        for (Map.Entry mapElement : this.impressions.entrySet()) {
-            Impression value = (Impression) mapElement.getValue();
-            if (value.toString().contains(searchTerm)) {
-                searchResult.put(value.getName(), value);
-                ++i;
-            }
+    public ArrayList<DukeObject> find(String searchTerm) throws DukeException {
+        ArrayList<Impression> filteredList = findImpression(searchTerm);
+        ArrayList<DukeObject> searchResult = new ArrayList<DukeObject>();
+        for (Impression imp : filteredList) {
+            searchResult.add(imp);
+            searchResult.addAll(imp.find(searchTerm));
         }
-        if (i == 1) {
-            throw new DukeException("Can't find any matching tasks!");
-        } else {
-            return searchResult;
-        }
+        return searchResult;
     }
 
     /**
