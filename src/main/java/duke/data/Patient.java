@@ -2,6 +2,7 @@ package duke.data;
 
 import duke.exception.DukeException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -143,6 +144,22 @@ public class Patient extends DukeObject {
         } else {
             throw new DukeException("I don't have that entry in the list!");
         }
+    }
+
+    /**
+     * This function finds relavent Impressions to the searchTerm.
+     * @param searchTerm the serach term
+     * @return the list of impressions
+     */
+    public ArrayList<Impression> findImpression(String searchTerm) {
+        ArrayList<Impression> searchResult = new ArrayList<Impression>();
+        for (Map.Entry<String, Impression> mapElement : this.impressions.entrySet()) {
+            Impression value = mapElement.getValue();
+            if (value.toString().contains(searchTerm)) {
+                searchResult.add(value);
+            }
+        }
+        return searchResult;
     }
 
     /**
