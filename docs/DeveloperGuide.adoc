@@ -20,7 +20,7 @@ By: `Team F10-2`      Since: `August 2019`      Licence: `MIT`
 == Introduction
 === Purpose
 
-This document illustrates on the architecture designs and the software decisions implemented for the desktop application D2. Duke 2.0 (D2), or Duke Jr.? is a desktop application which enables the prospective applicants of NUS Faculty of Engineering to better plan out their university life. It is an extended task manager, which not only allows for prospective applicants to manage their deadlines and events pertaining to the freshman orientations and document submission, but also provides a coherent and concise platform to compare two engineering degrees of their choice and explore many other details related to the degree. Students can also create lists of engineering degrees of their choice and update it as per their choice. The developer guide will provide you with information such as an overall view of the system hierarchy, logical view of the system’s components, and a process view of the system’s communications that will enable you to help contribute to it too. 
+This document illustrates on the architecture designs and the software decisions implemented for the desktop application D2. Duke 2.0 (D2) is a desktop application which enables the prospective applicants of NUS Faculty of Engineering to better plan out their university life. It is an extended task manager, which not only allows for prospective applicants to manage their deadlines and events pertaining to the freshman orientations and document submission, but also provides a coherent and concise platform to compare two engineering degrees of their choice and explore many other details related to the degree. Students can also create lists of engineering degrees of their choice and update it as per their choice. The developer guide will provide you with information such as an overall view of the system hierarchy, logical view of the system’s components, and a process view of the system’s communications that will enable you to help contribute to it too. 
 
 === Scope
 
@@ -427,7 +427,7 @@ Data Structure to support undo/redo:
 |As a user who prefers side by side comparisons, I would want to be able to compare between any two majors simultaneously, without the need to switch tabs so as to not get confused. 
 |High
 
-|As a novice user, I can type a “help” command and receive all the possible commands that DukeJr provides so that I can use the software to its fullest potential 
+|As a novice user, I can type a “help” command and receive all the possible commands that Duke 2.0 provides so that I can use the software to its fullest potential 
 |Medium
 
 |As a student applying to NUS and having specific interests, I want to see if the core modules have any overlap with my interests so that I am better able to decide which engineering disciplines suits me the most
@@ -442,7 +442,7 @@ Data Structure to support undo/redo:
 |As a student, I would want to be able to view the complexity of each module in the major and an overall calculation for the complexity of the entire degree so as to see other students’ perceptions regarding the major
 |Medium
 
-|As a careless typer, I can type mistakes into the command without DukeJr. crashing so that I do not have to re-run the program at every mistake.
+|As a careless typer, I can type mistakes into the command without Duke 2.0 crashing so that I do not have to re-run the program at every mistake.
 |Medium
 
 |As a user, I can save my personal module selection list onto the hard drive so that I can go back to it when I turn on the program the next time.
