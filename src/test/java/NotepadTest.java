@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Test;
 import spinbox.containers.ModuleContainer;
-import spinbox.entities.Notepad;
+import spinbox.containers.Notepad;
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;

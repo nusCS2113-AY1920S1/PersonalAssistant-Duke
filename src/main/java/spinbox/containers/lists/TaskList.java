@@ -1,7 +1,7 @@
 package spinbox.containers.lists;
 
 import spinbox.DateTime;
-import spinbox.Storage;
+import spinbox.storage.Storage;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
 import spinbox.entities.items.tasks.Deadline;
@@ -15,7 +15,6 @@ import spinbox.entities.items.tasks.Todo;
 import spinbox.entities.items.tasks.Tutorial;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 

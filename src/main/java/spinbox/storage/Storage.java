@@ -1,4 +1,4 @@
-package spinbox;
+package spinbox.storage;
 
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;

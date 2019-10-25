@@ -2,7 +2,7 @@ package spinbox.commands;
 
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
-import spinbox.Storage;
+import spinbox.storage.Storage;
 import spinbox.containers.lists.TaskList;
 import spinbox.Ui;
 

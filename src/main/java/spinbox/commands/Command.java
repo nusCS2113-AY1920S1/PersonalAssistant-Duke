@@ -3,7 +3,7 @@ package spinbox.commands;
 import spinbox.containers.ModuleContainer;
 import spinbox.exceptions.InputException;
 import spinbox.exceptions.SpinBoxException;
-import spinbox.Storage;
+import spinbox.storage.Storage;
 import spinbox.Ui;
 import spinbox.containers.lists.TaskList;
 

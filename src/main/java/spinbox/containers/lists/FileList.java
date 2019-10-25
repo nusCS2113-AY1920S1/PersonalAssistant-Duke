@@ -1,13 +1,12 @@
 package spinbox.containers.lists;
 
-import spinbox.Storage;
+import spinbox.storage.Storage;
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.FileCreationException;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.entities.items.File;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 

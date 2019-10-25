@@ -1,10 +1,9 @@
 package spinbox.commands;
 
-import javafx.geometry.HorizontalDirection;
 import spinbox.containers.ModuleContainer;
 import spinbox.containers.lists.FileList;
 import spinbox.containers.lists.TaskList;
-import spinbox.entities.Notepad;
+import spinbox.containers.Notepad;
 import spinbox.entities.items.File;
 import spinbox.entities.Module;
 import spinbox.entities.items.tasks.Task;

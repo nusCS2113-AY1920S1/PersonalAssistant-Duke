@@ -1,5 +1,5 @@
 import org.junit.jupiter.api.Test;
-import spinbox.Storage;
+import spinbox.storage.Storage;
 import spinbox.exceptions.StorageException;
 
 import java.io.File;

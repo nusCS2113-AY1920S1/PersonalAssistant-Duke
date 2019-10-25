@@ -1,7 +1,7 @@
 package spinbox.commands;
 
 import spinbox.DateTime;
-import spinbox.Storage;
+import spinbox.storage.Storage;
 import spinbox.containers.lists.TaskList;
 import spinbox.Ui;
 import spinbox.exceptions.SpinBoxException;

@@ -1,6 +1,6 @@
 package spinbox.commands;
 
-import spinbox.Storage;
+import spinbox.storage.Storage;
 import spinbox.containers.lists.TaskList;
 import spinbox.entities.items.tasks.Task;
 import spinbox.Ui;

@@ -1,16 +1,16 @@
 package spinbox.containers.lists;
 
-import spinbox.SpinBox;
-import spinbox.Storage;
+import spinbox.storage.Storage;
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.InvalidIndexException;
 import spinbox.entities.items.Item;
+import spinbox.storage.StorageContainer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class SpinBoxList<T extends Item> {
+public abstract class SpinBoxList<T extends Item> implements StorageContainer {
     static final String DIRECTORY_NAME = "SpinBoxData/";
     protected List<T> list;
     private String parentCode;
@@ -145,11 +145,13 @@ public abstract class SpinBoxList<T extends Item> {
     /**
      * To populate data into this list from the list's localStorage.
      */
+    @Override
     public abstract void loadData() throws DataReadWriteException, CorruptedDataException;
 
     /**
      * To save current list data into the list's localStorage.
      */
+    @Override
     public abstract void saveData() throws DataReadWriteException;
 
     /**

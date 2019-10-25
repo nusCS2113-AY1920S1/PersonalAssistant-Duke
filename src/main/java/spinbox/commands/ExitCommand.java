@@ -1,7 +1,7 @@
 package spinbox.commands;
 
 import spinbox.containers.ModuleContainer;
-import spinbox.Storage;
+import spinbox.storage.Storage;
 import spinbox.containers.lists.TaskList;
 import spinbox.Ui;
 

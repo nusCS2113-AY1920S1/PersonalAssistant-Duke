@@ -3,7 +3,7 @@ package spinbox.commands;
 import spinbox.DateTime;
 import spinbox.containers.ModuleContainer;
 import spinbox.containers.lists.FileList;
-import spinbox.entities.Notepad;
+import spinbox.containers.Notepad;
 import spinbox.entities.items.File;
 import spinbox.entities.Module;
 import spinbox.exceptions.SpinBoxException;

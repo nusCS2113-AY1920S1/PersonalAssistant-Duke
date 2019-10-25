@@ -4,7 +4,7 @@ import spinbox.containers.ModuleContainer;
 import spinbox.containers.lists.FileList;
 import spinbox.entities.Module;
 import spinbox.exceptions.InputException;
-import spinbox.Storage;
+import spinbox.storage.Storage;
 import spinbox.containers.lists.TaskList;
 import spinbox.entities.items.tasks.Task;
 import spinbox.Ui;
