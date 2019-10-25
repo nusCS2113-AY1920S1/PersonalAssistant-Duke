@@ -3,6 +3,7 @@ package Parser;
 import Commands.Command;
 import Commands.RemindCommand;
 import DukeExceptions.DukeException;
+import DukeExceptions.DukeInvalidFormatException;
 import Tasks.Deadline;
 
 import java.text.ParseException;
@@ -12,6 +13,7 @@ import java.util.logging.Logger;
 
 public class RemindParse extends Parse {
     private static final String NO_FIELD = "void";
+    private String[] modDescriptionsplit;
     private String fullCommand;
     private String[] dateDescriptionSplit;
     private static final Logger LOGGER = Logger.getLogger(RemindCommand.class.getName());
@@ -28,6 +30,10 @@ public class RemindParse extends Parse {
             String description = NO_FIELD;
             String activity = fullCommand.trim().substring(6);
             dateDescriptionSplit = activity.trim().split("/by");
+            modDescriptionsplit = dateDescriptionSplit[0].trim().split(" ");
+            if(!super.isModCode(modDescriptionsplit[0])){
+                throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
+            }
             if(dateDescriptionSplit[0].contains("/set")){
                 description = dateDescriptionSplit[0].substring(4).trim();
                 if (description.isEmpty()) {

@@ -59,6 +59,20 @@ public class TaskList {
             }
         }
     }
+
+    public void updateTask(Task task) {
+        for(Task taskInList : this.map.get(task.getModCode()).get(task.getDate())) {
+            if(taskInList.getDescription().equals(task.getDescription())) {
+                Integer index = this.map.get(task.getModCode()).get(task.getDate()).indexOf(taskInList);
+                Task temp = this.map.get(task.getModCode()).get(task.getDate()).get(index);
+                temp.setDone(true);
+                this.map.get(task.getModCode()).get(task.getDate()).remove(taskInList);
+                this.map.get(task.getModCode()).get(task.getDate()).add(temp);
+                break;
+            }
+        }
+    }
+
     //Do not use this: User will input the task in the CLI
     public Task getTask(int index){
         return this.list.get(index);
