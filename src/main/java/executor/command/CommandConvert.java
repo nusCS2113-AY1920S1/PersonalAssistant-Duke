@@ -88,8 +88,9 @@ public class CommandConvert extends Command {
      * @return this function returns a string version of the json object or else it will return null
      */
     private String consultCurrencyApi(String from, String to) {
+        String Link = generateApiURL(from,to);
         try {
-            URL url = new URL("https://api.ratesapi.io/api/latest?base=" + from + "&symbols=" + to);
+            URL url = new URL(Link);
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
             String line;
             String completeJson = "";
@@ -103,6 +104,41 @@ public class CommandConvert extends Command {
         }
     }
 
+    private Double deriveExchangeRateFromJson(String json, String countryCode){
+        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+        String rate = jsonObject.getAsJsonObject("rates").get(countryCode).getAsString();
+        BigDecimal exchangeRate = new BigDecimal(rate);
+        double exRate = exchangeRate.doubleValue();
+        return exRate;
+    }
+
+    private Double amountOfEUR(Double rate, Double amount){
+        return rate * amount;
+    }
+
+    private boolean isConvertFromOrToEUR (String from, String to){
+        if( from == "EUR" || to == "EUR"){
+            return true;
+        }
+        return false;
+    }
+
+    private String generateApiURL (String from , String to){
+        boolean isEUR = isConvertFromOrToEUR(from,to);
+        String URL;
+        if(isEUR){
+            if(this.from == "EUR"){
+                URL = "https://api.exchangeratesapi.io/latest?symbols=" + this.to;
+            } else {
+                URL = "https://api.exchangeratesapi.io/latest?symbols=" + this.from;
+            }
+        } else {
+            URL = "https://api.exchangeratesapi.io/latest?symbols=" + this.from +"," + this.to;
+        }
+        return URL;
+    }
+
+
     /**
      * convertCurrency is a function used to loop through the string version of the json.
      * @param from String is the country code from which we are converting currency
@@ -114,10 +150,9 @@ public class CommandConvert extends Command {
         try {
             String json = consultCurrencyApi(from,to);
             if (json != null) {
-                JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
-                String rate = jsonObject.getAsJsonObject("rates").get(to).getAsString();
-                BigDecimal exchangeRate = new BigDecimal(rate);
-                double exRate = exchangeRate.doubleValue();
+
+
+
                 setExchangeRate(exRate);
                 double convertedAmount = exRate * amount;
                 return convertedAmount;
