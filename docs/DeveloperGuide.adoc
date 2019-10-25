@@ -56,7 +56,7 @@ The *_Architecture Diagram_* shown above explains the high-level design of *Dr. 
 
 [[Design-UI]]
 === UI [PANG JIA JUN VERNON]
-image::plantuml/ui.svg[]
+image::plantuml/ui.png[]
 
 This class diagram aptly describes the relationships between the various core classes in the UI component.
 
@@ -312,7 +312,7 @@ image::SearchActivityDiagram.png[]
 ** Pros: Java String have a character limit of 2147483647. By chain searching we avoid the problem of overflow
 ** Cons: More complex to implement. Unlikely for any impression to exceed this limit.
 
-=== Discharge patients and create discharge reports [Jacob Toresson]
+=== Discharge patients and create discharge reports [JACOB TORESSON]
  
 ==== Rationale
  
