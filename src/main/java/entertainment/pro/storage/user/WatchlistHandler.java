@@ -106,7 +106,7 @@ public class WatchlistHandler {
      * removes a particular duke.task from the watchlist by its name
      * @param movie: name of the movie to be removed
      * @param handle: moviehandler class to print out the completed duke.task on the users view
-     * @return
+     * @return boolean: returns whether the movie was present in the watchlist or not
      */
     public static boolean removeFromWatchlist(String movie, MovieHandler handle) {
         movie = movie.toLowerCase();
@@ -122,5 +122,18 @@ public class WatchlistHandler {
             return true;
         }
         return false;
+    }
+
+    /**
+     * return a list of possible movie titles to remove from the watchlist
+     * @return ArrayList<String>: list of movie titles currently in the watchlist
+     *
+     */
+    public static ArrayList<String> getTitles() {
+        ArrayList<String> names = new ArrayList<>();
+        for (Tasks i : watch) {
+            names.add(i.getDescription());
+        }
+        return names;
     }
 }

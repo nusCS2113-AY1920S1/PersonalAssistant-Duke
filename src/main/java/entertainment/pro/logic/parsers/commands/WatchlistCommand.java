@@ -36,7 +36,7 @@ public class WatchlistCommand  extends CommandSuper {
      * Add items to the watchlist.
      *
      */
-    public void addToWatchList() {
+    private void addToWatchList() {
         try{
             String movie = ((MovieHandler)this.getUIController()).getAPIRequester().beginAddRequest(getPayload());
             movie = movie.toLowerCase();
