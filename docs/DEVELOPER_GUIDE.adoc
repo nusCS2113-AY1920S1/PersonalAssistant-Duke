@@ -102,7 +102,7 @@ Use of Data Structures:
 
 *B. Find Feature*
 
-1. Implementation of Find Feature.
+1. Implementation
 
 The find mechanism is facilitated by the FindCommand. It extends upon Command.
 Use cases for the find feature:
@@ -110,8 +110,7 @@ Use cases for the find feature:
 - Find the locker details based on name.
 - Find the locker details based on other tags like availability.
 
-2.
-Design Considerations
+2. Design Considerations
 
 How the find feature executes:
 
@@ -125,7 +124,7 @@ How the find feature executes:
 
 *C. Sort Feature*
 
-1. Implementation of Sort Feature.
+1. Implementation
 
 The sort mechanism is facilitated by the SortCommand. It extends upon Command.
 Use cases for the sort feature:
@@ -149,7 +148,7 @@ How the sort feature executes:
 
 Back to Top
 
-*B. Undo and Redo Feature*
+*D. Undo and Redo Feature*
 
 1. Implementation (Proposed)
 SpongeBob has _Undo and Redo Feature_ that allows its users to perform changes to the history of commands as follows:
@@ -217,7 +216,7 @@ Priorities:
 |:star::star::star: |locker manager for the SoC club|edit the various fields associated with a locker like serial number, usage and area|I can ensure that the information in SpongeBob meets accurately with real-world status of the lockers
 |:star::star::star: |locker manager for the SoC club|edit the information of a particular student who has been assigned to a locker|I can make sure that the students particulars are correct
 |:star::star::star: |locker manager for the SoC club|edit the various fields associated with a locker like serial number, usage and area|I can ensure that the information in SpongeBob meets accurately with real world status of the lockers
-|:star::star::star: |a SoC  club member|check the number of unused lockers|I know how many lockers are available for rental at any given time
+|:star::star::star: |SoC  club member|check the number of unused lockers|I know how many lockers are available for rental at any given time
 |:star::star::star: |locker manager for the SoC club|tag labels on the lockers as available|I can assign those lockers to the student who applies for it
 |:star::star::star: |locker manager for the SoC club|tag labels on the lockers as in-use|I can make sure those lockers are not assigned to others again
 |:star::star::star: |locker manager for the SoC club|tag labels on the lockers as broken|I can call the respective authorities to repair the locker
@@ -228,7 +227,7 @@ Priorities:
 |:star::star::star: |locker manager for the SoC club|view the details of a student who is assigned a locker|I can contact him as when needed
 |:star::star::star: |locker manager for the SoC club|view the status and serial number of lockers in an area|I can keep track of the number of lockers and their status in an area
 |:star::star::star: |locker manager|export the data in SpongeBob into human-editable CSV files|I can easily edit or store the data in any other software
-|:star::star::star: |user|access to the user manual |I can check all the commands that I can use
+|:star::star::star: |user|access to the user manual|I can check all the commands that I can use
 |:star::star: |productive user who wants to keep track of my commands|view the history of commands|I can view the changes I made
 |:star::star: |locker manager of SoC club|be reminded when lockers in an area are all rented out|I can update the application page on the website accordingly to avoid students from selecting that area as a preference
 |:star::star: |locker manager of SoC club|have an “auto reallocate” feature|I can easily reallocate the locker to the student in case his current locker is broken
@@ -278,12 +277,12 @@ Use case ends.
 
 *MSS*
 
-1. User enters command to undo the previous command. +
-2. SpongeBob undos the previous command entered by the user. +
+1. User enters command to undo/redo the previous command. +
+2. SpongeBob undos/redos the previous command entered by the user. +
 
 *Extensions*
 
-* 2a. If there are no undoable commands then SpongeBob, displays the message “no undo commands”. +
+* 2a. If there are no un-doable/re-doable commands then SpongeBob, displays the message “no undo/redo commands”. +
 Use Case ends.
 
 [none]
@@ -351,7 +350,7 @@ Use Case ends.
 
 *Technical Requirements:*
 
-* The programs must run on common OS like Windows, Ubuntu and MacOS provided they have Java 11 or later versions installed.
+* The programs must run on common OS like Windows, Ubuntu and Mac OS provided they have Java 11 or later versions installed.
 * The software should be able to store at least 200 entries.
 * Performance Requirements:
 * The application must respond to the user within two seconds of the user input valid, or otherwise.

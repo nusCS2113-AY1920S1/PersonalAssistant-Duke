@@ -1,14 +1,15 @@
-= SpongeBob - SOC Club Manager
+= SpongeBob - SoC Club Locker Manager
 
 //* Add the GUI picture over here.
 image::https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/images/Ui.png[width="700"]
-* SpongeBob is a command lined based desktop application aimed at helping the NUS SOC Club with managing +
-manpower, logistics, finance, events and lockers. It is a Java application written in OOP fashion.
-* It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* SpongeBob is a command lined based desktop application aimed at helping the NUS SoC Club with managing +
+its lockers. It is a Java application written in Object-oriented Programming (OOP) fashion.
+* It has a GUI but most of the user interactions happen using a Command Line Interface (CLI).
 * What makes SpongeBob special:
-- Integrates management, operations and logistics to one place
-- Allows members to add various tags for club events,members and lockers
-- Reminders that are auto-updated so that the members can keep track of all the club meetings
+- Auto allocation of lockers to applicants
+- Able to store the information of student who rent a locker
+- Allows locker manager to add various tags for lockers to display their status
+- Reminders that are auto-updated so that the locker manager can keep track and be reminded of all deadline of locker rental
 - Undo/Redo commands to enhance user-experience
 - Auto-saving the SpongeBob data as easily-editable CSV files
 
