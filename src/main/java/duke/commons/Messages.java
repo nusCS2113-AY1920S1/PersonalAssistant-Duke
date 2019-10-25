@@ -76,7 +76,7 @@ public class Messages {
 
     public static final String PROMPT_EVENT_STARTER = "What event would you like to add?";
     public static final String PROMPT_EVENT_DATE = "When is the event?";
-    public static final String EVENT_PROMPT_SUCCESS = "Event added!";
+    public static final String PROMPT_EVENT_SUCCESS = "Event added!";
 
     public static final String PROMPT_FIND_STARTER = "What task would you like to find?";
     public static final String PROMPT_FIND_SUCCESS = "Here are the tasks:";
@@ -104,10 +104,10 @@ public class Messages {
     public static final String PROMPT_REPEAT_SUCCESS = "Repeating task added!";
 
     public static final String PROMPT_DELETE_STARTER = "What would you like to delete?";
-    public static final String PROMPT_DELETESUCCESS = "Trying to delete task...";
+    public static final String PROMPT_DELETE_SUCCESS = "Trying to delete task...";
 
-    public static final String FINDPATH_PROMPT_STARTER = "Where do you want to go?";
-    public static final String FINDPATH_PROMPT_SUCCESS = "Here is the path:";
+    public static final String PROMPT_FINDPATH_STARER = "Where do you want to go?";
+    public static final String PROMPT_FINDPATH_SUCCESS = "Here is the path:";
 
     public static final String PROMPT_FREETIME_STARTER = "How long of free time are you looking for?";
     public static final String PROMPT_FREETIME_SUCCESS = "Here are the results:";

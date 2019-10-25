@@ -32,28 +32,7 @@ public class ApiParser {
      */
     public static Venue getLocationSearch(String param) throws ApiNullRequestException, ApiTimeoutException {
         LocationSearchUrlRequest req = new LocationSearchUrlRequest(param);
-        JsonObject jsonRes = req.execute();
-        JsonArray arr = jsonRes.getAsJsonArray("results");
-
-        if (isValidLocationSearch(jsonRes) && arr.size() != 0) {
-            return new Venue(arr.get(0).getAsJsonObject().get("ADDRESS").getAsString(),
-                    arr.get(0).getAsJsonObject().get("LATITUDE").getAsDouble(),
-                    arr.get(0).getAsJsonObject().get("LONGITUDE").getAsDouble(),
-                    arr.get(0).getAsJsonObject().get("X").getAsDouble(),
-                    arr.get(0).getAsJsonObject().get("Y").getAsDouble());
-        }
-
-        throw new ApiNullRequestException();
-    }
-
-    /**
-     * Checks whether a LocationSearchUrlRequest returns a valid result.
-     *
-     * @param jsonRes The request result.
-     * @return Whether the request returned a valid result.
-     */
-    private static boolean isValidLocationSearch(JsonObject jsonRes) {
-        return Integer.parseInt(String.valueOf(jsonRes.getAsJsonPrimitive("found"))) > 0;
+        return req.execute();
     }
 
     /**

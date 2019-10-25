@@ -13,7 +13,7 @@ public class FindPathConversation extends Conversation {
 
     public FindPathConversation() {
         super();
-        prompt = Messages.FINDPATH_PROMPT_STARTER;
+        prompt = Messages.PROMPT_FIND_STARTER;
     }
 
     @Override

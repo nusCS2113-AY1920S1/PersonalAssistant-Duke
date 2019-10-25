@@ -1,5 +1,6 @@
 package duke.logic.api.requests;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import duke.commons.exceptions.ApiNullRequestException;
 import duke.commons.exceptions.ApiTimeoutException;
@@ -12,6 +13,7 @@ import java.net.URLConnection;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import duke.model.locations.Venue;
 
 /**
  * Handles URL requests to OneMap API to get coordinates of location.
@@ -38,7 +40,7 @@ public class LocationSearchUrlRequest extends UrlRequest {
      * @throws ApiTimeoutException If the request times out.
      */
     @Override
-    public JsonObject execute() throws ApiNullRequestException, ApiTimeoutException  {
+    public Venue execute() throws ApiNullRequestException, ApiTimeoutException  {
         String response;
         try {
             URL url = new URL(API_LINK + PARAM_TYPE + "=" + param + OPTIONAL_VARIABLES);
@@ -53,12 +55,19 @@ public class LocationSearchUrlRequest extends UrlRequest {
             throw new ApiTimeoutException();
         }
 
-        JsonObject result;
         if (response != null) {
             JsonParser jp = new JsonParser();
             JsonElement root = jp.parse(response);
-            result = root.getAsJsonObject();
-            return result;
+            JsonObject result = root.getAsJsonObject();
+            JsonArray arr = result.getAsJsonArray("results");
+
+            if (Integer.parseInt(String.valueOf(result.getAsJsonPrimitive("found"))) > 0) {
+                return new Venue(arr.get(0).getAsJsonObject().get("ADDRESS").getAsString(),
+                        arr.get(0).getAsJsonObject().get("LATITUDE").getAsDouble(),
+                        arr.get(0).getAsJsonObject().get("LONGITUDE").getAsDouble(),
+                        arr.get(0).getAsJsonObject().get("X").getAsDouble(),
+                        arr.get(0).getAsJsonObject().get("Y").getAsDouble());
+            }
         }
 
         throw new ApiNullRequestException();
