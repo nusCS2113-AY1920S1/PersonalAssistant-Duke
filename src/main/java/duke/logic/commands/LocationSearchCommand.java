@@ -3,7 +3,6 @@ package duke.logic.commands;
 import duke.commons.exceptions.ApiNullRequestException;
 import duke.commons.exceptions.ApiTimeoutException;
 import duke.logic.commands.results.CommandResultText;
-import duke.commons.exceptions.DukeException;
 import duke.logic.api.ApiParser;
 import duke.model.Model;
 import duke.model.locations.Venue;

@@ -53,6 +53,7 @@ public class ModelStub implements Model {
 
     @Override
     public void save() throws CorruptedFileException, FileNotSavedException {
+        System.out.println("");
     }
 
     @Override
