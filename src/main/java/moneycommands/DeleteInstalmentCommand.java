@@ -4,6 +4,8 @@ import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Ui;
 import money.Account;
+import money.Instalment;
+import money.Item;
 
 import java.text.ParseException;
 
@@ -28,22 +30,28 @@ public class DeleteInstalmentCommand extends MoneyCommand {
         if (serialNo > account.getInstalments().size()) {
             throw new DukeException("The serial number of the Instalments is Out Of Bounds!");
         }
+        Instalment deletedEntryINS = account.getInstalments().get(serialNo - 1);
         ui.appendToOutput(" Noted. I've removed this Instalment:\n");
-        ui.appendToOutput("  " + account.getInstalments().get(serialNo - 1).toString() + "\n");
+        ui.appendToOutput("  " + deletedEntryINS.toString() + "\n");
         ui.appendToOutput(" Now you have " + (account.getInstalments().size() - 1) + " instalments in the list.\n");
 
-        storage.markDeletedEntry("INS", serialNo);
         account.getInstalments().remove(serialNo - 1);
+        storage.addDeletedEntry(deletedEntryINS);
+        storage.writeToFile(account);
     }
 
     @Override
     //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
-        storage.undoDeletedEntry(account, "INS", serialNo);
-        storage.writeToFile(account);
-
-        ui.appendToOutput(" Last command undone: \n");
-        ui.appendToOutput(account.getInstalments().get(serialNo - 1).toString() + "\n");
-        ui.appendToOutput(" Now you have " + account.getInstalments().size() + " instalments listed\n");
+        Item deletedEntry = storage.getDeletedEntry();
+        if (deletedEntry instanceof Instalment) {
+            account.getInstalments().add(serialNo - 1, (Instalment)deletedEntry);
+            storage.writeToFile(account);
+            ui.appendToOutput(" Last command undone: \n");
+            ui.appendToOutput(account.getInstalments().get(serialNo - 1).toString() + "\n");
+            ui.appendToOutput(" Now you have " + account.getInstalments().size() + " instalments listed\n");
+        } else {
+            throw new DukeException("u messed up (INS)");
+        }
     }
 }

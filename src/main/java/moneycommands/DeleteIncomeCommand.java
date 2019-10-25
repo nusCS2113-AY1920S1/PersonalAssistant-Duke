@@ -58,7 +58,7 @@ public class DeleteIncomeCommand extends MoneyCommand {
         ui.appendToOutput(" income sources in the list.\n");
 
         //storage.markDeletedEntry("INC", serialNo);
-        account.getIncomeListTotal().remove(deletedEntryInc);
+        account.getIncomeListTotal().remove(serialNo - 1);
         storage.addDeletedEntry(deletedEntryInc);
         storage.writeToFile(account);
     }

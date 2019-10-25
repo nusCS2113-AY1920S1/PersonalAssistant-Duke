@@ -310,7 +310,7 @@ public class MoneyStorage {
 
     public void addDeletedEntry(Item item) {
         deletedEntries.push(item);
-        if (deletedEntries.size() > 3) {
+        if (deletedEntries.size() > 5) {
             deletedEntries.removeElementAt(0);
         }
     }

@@ -15,7 +15,7 @@ public class UndoCommandHandler {
     }
     public void updateLastIssuedCommands(MoneyCommand c) {
         lastIssuedCommands.push(c);
-        if (lastIssuedCommands.size() > 3) {
+        if (lastIssuedCommands.size() > 5) {
             lastIssuedCommands.remove(0);
         }
     }

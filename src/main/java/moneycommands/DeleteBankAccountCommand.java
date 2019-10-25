@@ -33,15 +33,15 @@ public class DeleteBankAccountCommand extends MoneyCommand {
 
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
-        BankTracker bankTracker = account.getBankTrackerList().get(index);
-        Expenditure expenditure = new Expenditure(bankTracker.getAmt(), "Withdraw from "
-                + bankTracker.getDescription(), "bank", Parser.shortcutTime("now"));
+        BankTracker deletedBank = account.getBankTrackerList().get(index);
+        Expenditure expenditure = new Expenditure(deletedBank.getAmt(), "Withdraw from "
+                + deletedBank.getDescription(), "bank", Parser.shortcutTime("now"));
         account.getExpListTotal().add(expenditure);
 
         storage.markDeletedEntry("BAN", index + 1);
-        account.getBankTrackerList().remove(index);
+        account.getBankTrackerList().remove(deletedBank);
         ui.appendToOutput("The bank account tracker below has been removed: \n");
-        ui.appendToOutput(bankTracker.getBankAccountInfo() + "\n");
+        ui.appendToOutput(deletedBank.getBankAccountInfo() + "\n");
     }
 
     @Override
