@@ -12,6 +12,7 @@ import money.Split;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * This command settles a debt within a split expenditure in the Total Expenditure List.
@@ -19,6 +20,8 @@ import java.time.LocalDate;
 public class SettleSplitCommand extends MoneyCommand {
 
     private String inputString;
+    private int serialNo;
+    private Split sToSettle;
 
     /**
      * Constructor of the command which initialises the settle split expenditure command
@@ -36,6 +39,30 @@ public class SettleSplitCommand extends MoneyCommand {
         return false;
     }
 
+    private int getSettleNo(String person, ArrayList<Pair<String, Boolean>> parties, String description) throws DukeException {
+
+        if (Parser.isNumeric(person)) {
+            int personIndex = Integer.parseInt(person) - 1;
+            if (!parties.get(personIndex).getValue()) {
+                return Integer.parseInt(person) - 1;
+            }
+        } else {
+            Pair<String, Boolean> toSearch = new Pair<>(person, false);
+            if (parties.contains(toSearch)) {
+                return parties.indexOf(toSearch);
+            }
+        }
+        throw new DukeException(person + " does not owe you for " + description + "\n");
+    }
+
+    private Split getSplitToSettle(ArrayList<Expenditure> expList) throws DukeException {
+        Expenditure s = expList.get(serialNo);
+        if (!(s instanceof Split)) {
+            throw new DukeException("Oops! Index given is not a Split Expenditure!");
+        }
+        return (Split)s;
+    }
+
     /**
      * This method executes the settle split expenditure command. Takes the input from the user
      * and checks the Total Expenditure List for the split expenditure entry.
@@ -51,50 +78,39 @@ public class SettleSplitCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
-        String[] splitStr = inputString.split(" ");
-        int serialNo = Integer.parseInt(splitStr[0]);
         int settleNo;
-        if (serialNo > account.getExpListTotal().size()) {
+        try {
+            String[] splitStr = inputString.split(" ", 2);
+            serialNo = Integer.parseInt(splitStr[0]) - 1;
+            sToSettle = getSplitToSettle(account.getExpListTotal());
+            settleNo = getSettleNo(splitStr[1], sToSettle.getParties(), sToSettle.getDescription());
+        } catch (IndexOutOfBoundsException e) {
             throw new DukeException("The serial number of the expenditure is Out Of Bounds!");
         }
-        Expenditure s = account.getExpListTotal().get(serialNo - 1);
-        if (!(s instanceof Split)) {
-            throw new DukeException("Oops! Index given is not a Split Expenditure!");
+
+        try {
+            sToSettle.hasSettledSplit(settleNo);
+            account.getExpListTotal().set(serialNo, sToSettle);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("The serial number of the party specified is Out of Bounds!\n");
         }
 
-        if (Parser.isNumeric(splitStr[1])) {
-            settleNo = Integer.parseInt(splitStr[1]) - 1;
-        } else {
-            Pair<String, Boolean> toSearch = new Pair<>(splitStr[1], false);
-            if (((Split) s).getParties().contains(toSearch)) {
-                settleNo = ((Split) s).getParties().indexOf(toSearch);
-            } else {
-                throw new DukeException(splitStr[1] + " does not owe you for " + s.getDescription());
-            }
-        }
-
-        ((Split) s).hasSettledSplit(settleNo);
-        account.getExpListTotal().set(serialNo - 1, s); // need to see if this works
-
-        float price = ((Split) s).getEachOwe();
-        String description = "Repayment for " + s.getDescription();
+        float price = sToSettle.getEachOwe();
+        String description = "Repayment for " + sToSettle.getDescription();
         LocalDate payday = Parser.shortcutTime("now");
         Income i = new Income(price, description, payday);
         account.getIncomeListTotal().add(i);
         storage.writeToFile(account);
 
-        String statusStr;
-        if (((Split) s).getOutstandingAmount().equals("")) {
-            statusStr = "The split debt has been settled";
-        } else {
-            statusStr = "The split debt is still outstanding. Outstanding amount: $" +
-                    ((Split) s).getOutstandingAmount();
-        }
-
-        String personName = ((Split) s).getNameOfPerson(settleNo);
+        String personName = sToSettle.getNameOfPerson(settleNo);
         ui.appendToOutput(" Got it. " + personName + " has settled his debt on the split expenditure: \n");
-        ui.appendToOutput("     " + account.getExpListTotal().get(serialNo - 1).toString() + "\n");
-        ui.appendToOutput(statusStr + "\n");
+        ui.appendToOutput("     " + account.getExpListTotal().get(serialNo).toString() + "\n");
+        if (sToSettle.getStatus()) {
+            ui.appendToOutput("The split debt has been settled\n");
+        } else {
+            ui.appendToOutput("The split debt is still outstanding. Outstanding amount: $" +
+                    sToSettle.getOutstandingAmount() + "\n");
+        }
     }
 
 

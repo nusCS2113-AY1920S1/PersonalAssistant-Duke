@@ -54,6 +54,10 @@ public class Split extends Expenditure {
         }
     }
 
+    public boolean getStatus() {
+        return isSettled;
+    }
+
     public ArrayList<Pair<String, Boolean>> getParties() {
         return this.parties;
     }
@@ -74,10 +78,6 @@ public class Split extends Expenditure {
 
     public String getNameOfPerson(int settleNo) {
         return parties.get(settleNo).getKey();
-    }
-
-    public boolean getStatusOfPerson(int settleNo) {
-        return parties.get(settleNo).getValue();
     }
 
     public float getEachOwe() {
