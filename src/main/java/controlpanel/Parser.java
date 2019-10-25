@@ -58,7 +58,7 @@ public class Parser {
             moneyCommand = new CheckFutureBalanceCommand(cmd);
         } else if (cmd.startsWith("withdraw ") || cmd.startsWith("deposit")) {
             moneyCommand = new InternalTransferCommand(cmd);
-        } else if (cmd.startsWith("goal")) {
+        } else if (cmd.startsWith("goal ")) {
             moneyCommand = new AddGoalCommand(cmd);
         } else if (cmd.equals("list goals")) {
             moneyCommand = new ListGoalsCommand();

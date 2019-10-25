@@ -54,9 +54,6 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane2.vvalueProperty().bind(graphContainer.heightProperty());
 
-        dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("enter start to begin", dukeImage));
-
         userIcon = new UserIcon();
         userImage = userIcon.getIcon();
 
@@ -70,6 +67,14 @@ public class MainWindow extends AnchorPane {
 
     public void setDuke(Duke d) {
         duke = d;
+        boolean isNewUser = duke.getAccount().isToInitialize();
+        if(isNewUser){
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog("enter start to begin", dukeImage));
+        }else{
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog("Welcome Back To Financial Ghost", dukeImage));
+        }
     }
 
     /**
