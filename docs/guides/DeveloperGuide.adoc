@@ -10,7 +10,7 @@
 :repoURL: https://github.com/AY1920S1-CS2113T-F11-3/main/tree/doc
 
 By: `Team AY1920S1-CS2113T-F11-3`      Since: `Sept 2019`
-//Licence: `MIT`
+Licence: `MIT`
 
 == Introduction
 
@@ -372,10 +372,8 @@ Email Manager meets the following non-functional requirements:
 * macOS
 * Linux
 
-[appendix]
-== Product Survey
-
-[appendix]
-== Instructions for Manual Testing
-
-
+//[appendix]
+//== Product Survey
+//
+//[appendix]
+//== Instructions for Manual Testing
