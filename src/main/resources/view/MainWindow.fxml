@@ -15,10 +15,8 @@
             <children>
                <StackPane fx:id="paneStack" prefHeight="640.0" prefWidth="1000.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="640.0">
-                  <children>
                      <Label fx:id="console" prefHeight="20.0" prefWidth="1000.0" text="Welcome to Duke++" />
                      <TextField fx:id="userInput" onAction="#handleUserInput" onKeyPressed="#handleKeyPressed" prefHeight="40.0" prefWidth="1000.0" promptText="/Enter your command here..." />
-                  </children>
                </VBox>
             </children></AnchorPane>
         </Scene>

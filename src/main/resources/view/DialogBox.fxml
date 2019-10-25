@@ -9,5 +9,5 @@
 <VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             >
-            <Label fx:id="text" prefWidth="775.0"/>
+            <Label fx:id="text" prefWidth="975.0"/>
 </VBox>

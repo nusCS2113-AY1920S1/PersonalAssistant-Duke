@@ -11,10 +11,9 @@
             maxHeight="-Infinity"
             maxWidth="-Infinity"
             minHeight="-Infinity"
-            minWidth="-Infinity"
-            prefHeight="600.0" prefWidth="800.0">
+            minWidth="-Infinity" >
             <center>
-                    <ListView prefWidth="800" prefHeight="600" fx:id="dialogListView" />
+                    <ListView prefWidth="1000" prefHeight="600" fx:id="dialogListView" />
             </center>
 </BorderPane>
 
