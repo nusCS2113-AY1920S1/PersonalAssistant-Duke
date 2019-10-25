@@ -8,6 +8,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Creates a Date time
+ **/
 
 public class DateTimeParser {
     private static String[] dateTimeStringSplit;
@@ -30,7 +33,9 @@ public class DateTimeParser {
         }
     }
 
-    public String eventParse(String input) throws ParseException {
+
+    public String[] EventParse(String input) throws ParseException {
+
         // date from time /to time
         dateTimeStringSplit = input.split("/from");
         //dateTimeStringSplit[0] is "date" or "week X day", dateTimeStringSplit[1] is "time /to time"
@@ -50,11 +55,13 @@ public class DateTimeParser {
         String dateString = dateOutputFormat.format(date);
         String startTimeString = timeOutputFormat.format(startTime);
         String endTimeString = timeOutputFormat.format(endTime);
-        return ;
-        //return new AddCommand(new Event(split[0].trim(), dateString, startTimeString, endTimeString));
+        String[] out = {dateString,startTimeString,endTimeString};
+
+        return  out;
     }
 
-    public String deadlineParse(String input) throws ParseException {
+
+    public String[] DeadlineParse(String input) throws ParseException {
         // date time
         dateTimeStringSplit = input.split(" ");
         String weekDate = "";
@@ -71,12 +78,13 @@ public class DateTimeParser {
         Date date = deadlineInputFormat.parse(weekDate);
         String dateString = dateOutputFormat.format(date);
         String timeString = timeOutputFormat.format(date);
-        return ;
-        //return new AddCommand(new Deadline(split[0].trim(), dateString, timeString));
+        String[] out = {dateString,timeString};
+        return out;
 
     }
 
-    public String recurParse(String input) throws ParseException {
+
+    public static String[] recurringEventParse(String input) throws ParseException {
         //1/10/2019 /to 15/11/2019 /from 1500 /to 1700"
         dateTimeStringSplit = input.split("/from"); //dateTimeStringSplit[0] = startDate to endDate
         dateStringSplit = dateTimeStringSplit[0].split("/to"); //dateStringSplit[0] = startDate (2/2/2019 or week X day)
@@ -96,17 +104,22 @@ public class DateTimeParser {
         } else {
             endWeekDate = dateStringSplit[1].trim();
         }
+
         Date startDate = eventDateInputFormat.parse(startWeekDate);
         Date endDate = eventDateInputFormat.parse(endWeekDate);
+        String startDateString = dateOutputFormat.format(startDate);
+        String endDateString = dateOutputFormat.format(endDate);
 
         timeStringSplit = dateTimeStringSplit[1].split("/to"); //timeStringSplit[0] = startTime
         Date startTime = eventTimeInputFormat.parse(timeStringSplit[0].trim());
         Date endTime = eventTimeInputFormat.parse(timeStringSplit[1].trim());
         String startTimeString = timeOutputFormat.format(startTime);
         String endTimeString = timeOutputFormat.format(endTime);
-        return ;
-        //return new RecurringCommand(split[0].trim(),startDate, endDate, startTimeString, endTimeString);
+
+        String[] out = {startDateString, endDateString, startTimeString, endTimeString};
+        return out;
     }
+
     public static String[] remindDateParse(String input) throws ParseException {
         // week 9 fri 1500 /to week 9 thu 1500"
         dateTimeStringSplit = input.split("/to"); //dateTimeStringSplit[0] = week 9 fri 1500

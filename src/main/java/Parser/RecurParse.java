@@ -5,6 +5,7 @@ import Commands.Command;
 import Commands.RecurringCommand;
 import DukeExceptions.DukeException;
 import Interface.*;
+
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.TaskList;
@@ -16,11 +17,11 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 public class RecurParse extends Parse {
-    private static String[] split;
+    /*private static String[] split;
     private static String[] split1;
     private static String[] split2;
     private static String[] split3;
-    private static String[] split4;
+    private static String[] split4;*/
     private static String fullCommand;
     private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
     private static LookupTable LT;
@@ -39,14 +40,25 @@ public class RecurParse extends Parse {
     @Override
     public Command execute() throws Exception {
         try {
+            // recur/e (CS1231 project meeting) /start (1/10/2019 to 15/11/2019 /from 1500 /to 1700)
             String activity = fullCommand.trim().substring(7);
-            String startWeekDate;
-            String endWeekDate;
-            split = activity.split("/start"); //split[0] is " module_code description", split[1] is "date to date from time to time"
-            if (split[0].trim().isEmpty()) {
+            String[] fullCommandSplit = activity.split("/start");
+            String modCodeAndDescription = fullCommandSplit[0].trim();
+            String dateAndTime = fullCommandSplit[1].trim();
+
+            if (modCodeAndDescription.isEmpty()) {
                 throw new DukeException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
             }
-            split1 = split[1].split("/from"); //split1[0] is "date to date" or "week X mon to week X mon", split1[1] is "time to time"
+            String[] in = DateTimeParser.recurringEventParse(dateAndTime);
+            String startDateString = in[0];
+            String endDateString = in[1];
+            String startTimeString = in[2];
+            String endTimeString = in[3];
+            return new RecurringCommand(modCodeAndDescription, startDateString, endDateString, startTimeString, endTimeString);
+
+            //String startWeekDate;
+            //String endWeekDate;
+            /*split1 = split[1].split("/from"); //split1[0] is "date to date" or "week X mon to week X mon", split1[1] is "time to time"
             split3 = split1[0].split("/to"); //split3[0] is (start) "date", split3[1] is (end) "date"
             split4 = split3[0].trim().split(" "); //split the start date
             //recess week mon / week 3 mon / exam week mon / reading week tue
@@ -74,8 +86,7 @@ public class RecurParse extends Parse {
             Date endTime = formatter1.parse(split2[1].trim());
             SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
             String startTimeString = timeFormat.format(startTime);
-            String endTimeString = timeFormat.format(endTime);
-            return new RecurringCommand(split[0].trim(),startDate, endDate, startTimeString, endTimeString);
+            String endTimeString = timeFormat.format(endTime); */
         } catch (ParseException | ArrayIndexOutOfBoundsException e) {
             LOGGER.log(Level.INFO, e.toString(), e);
             throw new DukeException("OOPS!!! Please enter recurring event as follows:\n" +

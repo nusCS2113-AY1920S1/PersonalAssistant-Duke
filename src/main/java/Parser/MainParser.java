@@ -28,7 +28,7 @@ public class MainParser {
                 return new WorkloadParse(fullCommand).execute();
                 break;
             case "filter":
-                return new FilterCommand(fullCommand.trim().substring(7));
+                return new FilterCommand(fullCommand);
                 break;
             case "help":
                 return new HelpCommand();
