@@ -16,6 +16,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class EditCommandParser implements Parser<EditCommand> {
 
+    public static final String MESSAGE_ERROR_EDIT_CONTACT = "Error in input format when editing contact.";
+
     @Override
     public EditCommand parse(String input) {
         String[] arguments = input.split(" ", 2);
@@ -65,13 +67,19 @@ public class EditCommandParser implements Parser<EditCommand> {
                 int id = Integer.parseInt(arguments[0].trim());
                 ContactParserHelper contactHelper = new ContactParserHelper();
                 Contact contact = contactHelper.updateInput(parameters);
+                if (contact == null) {
+                    System.out.println(MESSAGE_ERROR_EDIT_CONTACT);
+                    return null;
+                }
                 contact.setId(id);
                 return contact;
             } catch (NumberFormatException e) {
+                System.out.println(MESSAGE_ERROR_EDIT_CONTACT);
                 return null;
             }
 
         }
+        System.out.println(MESSAGE_ERROR_EDIT_CONTACT);
         return null;
         //@@author
 
