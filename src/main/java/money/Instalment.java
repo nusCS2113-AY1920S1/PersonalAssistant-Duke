@@ -15,6 +15,7 @@ public class Instalment extends Expenditure {
     private int  paymentsMade;
     private float percentage;
     private boolean payForTheMonth;
+    private boolean fullyPaid;
 
     //@@author ChenChao19
     public Instalment(float price, String description, String category,
@@ -28,6 +29,7 @@ public class Instalment extends Expenditure {
         this.endDate = setEndTime();
         dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         this.payForTheMonth = false;
+        this.fullyPaid = false;
     }
 
     public void isPayTheMonth() {
@@ -47,8 +49,16 @@ public class Instalment extends Expenditure {
                 / (Math.pow(1 + monthlyInterestRate, numOfPaymentsReq) - 1));
     }
 
+    public int getPaymentsMade() {
+        return paymentsMade;
+    }
+
     public void percentPay(int payments) {
         this.paymentsMade = payments;
+        if(paymentsMade == numOfPaymentsReq) {
+            this.percentage = 100;
+            return;
+        }
         this.percentage = (float) paymentsMade / numOfPaymentsReq * 100;
     }
 
@@ -91,5 +101,13 @@ public class Instalment extends Expenditure {
 
     public float getAnnualInterestRate() {
         return annualInterestRate;
+    }
+
+    public void setFullyPaid() {
+        fullyPaid = true;
+    }
+
+    public boolean getFullyPaid() {
+        return fullyPaid;
     }
 }
