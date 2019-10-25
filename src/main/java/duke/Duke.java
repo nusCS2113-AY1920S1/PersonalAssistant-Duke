@@ -13,12 +13,12 @@ import duke.statistic.Counter;
 import duke.storage.StorageManager;
 import duke.task.TaskManager;
 
-
 /**
  * Represents Duke, a Personal Assistant to help
  * users tracking their progress.
  */
 public class Duke {
+
     /**
      * A Storage object that handles reading tasks from a local
      * file and saving them to the same file.
@@ -34,17 +34,17 @@ public class Duke {
     private PatientManager patientManager;
     private Counter counter;
 
+
     /**
      * A Ui object that deals with interactions with the user.
      */
     private MementoManager mementoManager;
     private MementoParser mementoParser;
-  
+
     /**
      * A Ui object that deals with interactions with the user.
      */
-    private Ui ui = Ui.getUi();
-
+    private static final Ui ui = Ui.getUi();
 
     /**
      * Constructs a Duke object with a relative file path.
@@ -133,4 +133,5 @@ public class Duke {
     public static void main(String[] args) {
         new Duke("./data").run();
     }
+
 }
