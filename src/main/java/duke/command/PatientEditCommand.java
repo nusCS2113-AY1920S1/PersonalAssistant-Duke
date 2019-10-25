@@ -14,7 +14,7 @@ public class PatientEditCommand extends ArgCommand {
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
 
-        Patient patient = (Patient) core.uiContext.getObject();
+        //Patient patient = (Patient) core.uiContext.getObject();
 
         // TODO: edit patient
     }
