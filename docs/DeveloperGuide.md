@@ -165,7 +165,7 @@ API: `DukeException.java`
 
 The Recipebook contains 2 classes, Dishes Class and DishList Class
 
-<img src="C:\Users\s1014\Google Drive\semester 3\dishes.PNG" style="zoom:50%;" />
+![dishes](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/dishes.PNG)
 
 **<u>Dishes Class</u>**
 
@@ -248,7 +248,7 @@ this component allows the chef to add dishes to the current menu, remove it and 
 
 - **<u>ListDishCommand</u>**
 
-<img src="C:\Users\s1014\Google Drive\semester 3\package dishes.PNG" style="zoom:80%;" />
+![dishesCommand](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/dishesCommand.PNG)
 
 **<u>future additions</u>**
 
