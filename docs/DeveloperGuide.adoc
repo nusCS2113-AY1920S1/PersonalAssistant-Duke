@@ -299,6 +299,20 @@ Aspect: [Proposed] Priority for Tasks
 
 ** Con: Requires saving different states of the list, or introducing more sorting commands
 
+=== Degreelist Feature
+==== Implementation
+
+3.1.1 Implementation (Subjected to change later) 
+
+(Diagrams to be added in later)
+
+The degree list is a customizable list for the users to maintain a list to keep track of the degrees they are interested in and they can rank them in order of their preference as well. The degree list functionalities are facilitated by the class `DegreeList`. It makes use of a private static ArrayList of Strings to keep track of all the degrees entered. It implements the following methods that are needed for the user to add, remove or re-arrange degrees: 
+
+`DegreeList#add_custom(String input)`: This function takes in the parameter which is the degree inputted by the user and adds the degree to the ArrayList, following which it is written to the text file to keep a record. It is written to the text file using `BufferedWriter`. 
+
+`DegreeList#delete(String input, DegreeListStorage dd)`: This function takes in two parameters, the first being a string which contains index of the degree the user wishes to remove from the degree list and the second being the class DegreeListStorage (to be changed and linked to main Storage). This function not only deletes the degree the user wishes to remove from the ArrayList, but the function AddRemoved also updates the text file and adds the word ‘REMOVED’ next to the degree removed and is not considered in further analysis. 
+
+`DegreeList#swap(String input, DegreeListStorage dd)`: This function takes in an input string, which is then split using the support of the `Parser Class` and the indices of the degrees to be swapped are obtains and are then swapped using the Collections.swap() function. A method from the DegreeListStorage is then called in order to update the text file with the current index of the degree after the swap. 
 
 
 == Testing
