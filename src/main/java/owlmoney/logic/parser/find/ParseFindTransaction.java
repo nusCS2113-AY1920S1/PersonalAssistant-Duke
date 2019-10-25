@@ -92,9 +92,9 @@ public class ParseFindTransaction extends ParseFind {
      */
     public Command getCommand() {
         FindTransactionCommand newFindTransactionCommand = new FindTransactionCommand(
-        findParameters.get(NAME), findParameters.get(FROM), findParameters.get(TO),
-        findParameters.get(DESCRIPTION),
-        findParameters.get(CATEGORY), this.type);
+            findParameters.get(NAME), findParameters.get(FROM), findParameters.get(TO),
+            findParameters.get(DESCRIPTION),
+            findParameters.get(CATEGORY), this.type);
         return newFindTransactionCommand;
 
     }
