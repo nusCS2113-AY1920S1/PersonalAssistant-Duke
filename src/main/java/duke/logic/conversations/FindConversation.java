@@ -1,6 +1,6 @@
 package duke.logic.conversations;
 
-import duke.commons.MessagesPrompt;
+import duke.commons.Messages;
 
 /**
  * Handles the conversation occurring when a find command is entered.
@@ -11,7 +11,7 @@ public class FindConversation extends Conversation {
 
     public FindConversation() {
         super();
-        prompt = MessagesPrompt.FIND_PROMPT_STARTER;
+        prompt = Messages.PROMPT_FIND_STARTER;
     }
 
     @Override

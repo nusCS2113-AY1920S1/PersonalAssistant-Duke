@@ -16,6 +16,7 @@ public class Main extends Application {
 
     /**
      * Starts SGTravel GUI.
+     *
      * @param stage the stage for GUI.
      */
     @Override
@@ -32,6 +33,7 @@ public class Main extends Application {
 
     /**
      * Stops the GUI.
+     *
      * @throws Exception The exception thrown.
      */
     @Override

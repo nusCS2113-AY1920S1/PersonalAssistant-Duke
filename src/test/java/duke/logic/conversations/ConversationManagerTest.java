@@ -1,6 +1,6 @@
 package duke.logic.conversations;
 
-import duke.commons.MessagesPrompt;
+import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import org.junit.jupiter.api.Test;
 
@@ -34,9 +34,9 @@ class ConversationManagerTest {
     void getPrompt() throws DukeException {
         ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("delete");
-        assertEquals(conversationManager.getPrompt(), MessagesPrompt.DELETE_PROMPT_STARTER);
+        assertEquals(conversationManager.getPrompt(), Messages.PROMPT_DELETE_STARTER);
         conversationManager.converse("ooh aah ooh aah");
-        assertEquals(conversationManager.getPrompt(), MessagesPrompt.PROMPT_NOT_INT);
+        assertEquals(conversationManager.getPrompt(), Messages.PROMPT_NOT_INT);
     }
 
     @Test

@@ -54,7 +54,7 @@ public class FindPathCommand extends Command {
         if (t1 instanceof Event) {
             return (Event) t1;
         }
-        throw new DukeException(Messages.TASK_NOT_HOLIDAY);
+        throw new DukeException(Messages.ERROR_TASK_NOT_HOLIDAY);
     }
 
     /**

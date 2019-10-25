@@ -1,6 +1,6 @@
 package duke.logic.conversations;
 
-import duke.commons.MessagesPrompt;
+import duke.commons.Messages;
 
 /**
  * Handles the conversation occurring when a busStop command is entered.
@@ -11,7 +11,7 @@ public class GetBusStopConversation extends Conversation {
 
     public GetBusStopConversation() {
         super();
-        prompt = MessagesPrompt.GETBUSROUTE_PROMPT_STARTER;
+        prompt = Messages.PROMPT_GETBUSROUTE_STARTER;
     }
 
     @Override

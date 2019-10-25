@@ -1,6 +1,6 @@
 package duke.logic.conversations;
 
-import duke.commons.MessagesPrompt;
+import duke.commons.Messages;
 
 /**
  * Handles the conversation occurring when a todo command is entered.
@@ -11,7 +11,7 @@ public class ToDoConversation extends Conversation {
 
     public ToDoConversation() {
         super();
-        prompt = MessagesPrompt.TODO_PROMPT_STARTER;
+        prompt = Messages.PROMPT_TODO_STARTER;
     }
 
     @Override

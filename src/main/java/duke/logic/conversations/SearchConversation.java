@@ -1,6 +1,6 @@
 package duke.logic.conversations;
 
-import duke.commons.MessagesPrompt;
+import duke.commons.Messages;
 
 /**
  * Handles the conversation occurring when a search command is entered.
@@ -11,12 +11,12 @@ public class SearchConversation extends Conversation {
 
     public SearchConversation() {
         super();
-        prompt = MessagesPrompt.SEARCH_PROMPT_STARTER;
+        prompt = Messages.PROMPT_SEARCH_STARTER;
     }
 
     @Override
     public void execute(String input) {
-        prompt = MessagesPrompt.SEARCH_PROMPT_SUCCESS;
+        prompt = Messages.PROMPT_SEARCH_SUCCESS;
         location = input.replace(" ", "+");
         buildResult();
         setFinished(true);

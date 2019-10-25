@@ -1,6 +1,8 @@
 package duke;
 
+import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.FileNotSavedException;
 import duke.logic.CreateMap;
 import duke.model.Model;
 import duke.model.lists.EventList;
@@ -50,6 +52,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void save() throws CorruptedFileException, FileNotSavedException {
+        System.out.println("");
+    }
+
+    @Override
     public List<Task> getFilteredList() {
         return tasks.getFilteredList();
     }
@@ -87,10 +94,6 @@ public class ModelStub implements Model {
     @Override
     public List<Agenda> getRecommendations(int numberOfDays, Itinerary itinerary) throws DukeException {
         return storage.readVenues(numberOfDays);
-    }
-
-    @Override
-    public void save() throws DukeException {
     }
 
     @Override

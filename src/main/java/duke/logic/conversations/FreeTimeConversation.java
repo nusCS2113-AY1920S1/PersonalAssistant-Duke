@@ -1,6 +1,6 @@
 package duke.logic.conversations;
 
-import duke.commons.MessagesPrompt;
+import duke.commons.Messages;
 
 /**
  * Handles the conversation occurring when a findTime command is entered.
@@ -11,7 +11,7 @@ public class FreeTimeConversation extends Conversation {
 
     public FreeTimeConversation() {
         super();
-        prompt = MessagesPrompt.FREETIME_PROMPT_STARTER;
+        prompt = Messages.PROMPT_FREETIME_STARTER;
     }
 
     @Override

@@ -1,8 +1,7 @@
 package duke.logic.parsers;
 
+import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeDateTimeParseException;
-import duke.commons.exceptions.DukeException;
-import duke.commons.Messages;
 import duke.model.Event;
 import duke.model.Task;
 import duke.model.planning.Todo;
@@ -63,14 +62,14 @@ public class ParserStorageUtil {
      * @param task The task.
      * @return The corresponding String format of the task object.
      */
-    public static String toStorageString(Task task) throws DukeException {
+    public static String toStorageString(Task task) throws CorruptedFileException {
         if (task instanceof Todo) {
             return "T | " + task.isDone() + " | " + task.getDescription();
         } else if (task instanceof Event) {
             return "E | " + task.isDone() + " | " + task.getDescription() + " | " + ((Event) task).getStartDate()
                     + " | " + ((Event) task).getEndDate() + " | " + ((Event) task).getLocation();
         }
-        throw new DukeException(Messages.CORRUPTED_TASK);
+        throw new CorruptedFileException("TASK");
     }
 
     /**
@@ -87,7 +86,7 @@ public class ParserStorageUtil {
                 routeString += "node | BUS | " + ((BusStop) node).getBusCode() + " | " + node.getAddress() + " | "
                         + node.getDescription() + " | " + node.getLatitude() + " | " + node.getLongitude() + "\n";
             } else if (node instanceof TrainStation) {
-                routeString += "node | MRT | " + ((TrainStation) node).getTrainCode() + " | " + node.getAddress()
+                routeString += "node | MRT | " + ((TrainStation) node).getTrainCodes() + " | " + node.getAddress()
                         + " | " + node.getDescription() + " | " + node.getLatitude() + " | " + node.getLongitude()
                         + "\n";
             }
@@ -188,7 +187,7 @@ public class ParserStorageUtil {
      * @param line The String description of a route node.
      * @return The corresponding RouteNode object.
      */
-    public static RouteNode createNodeFromStorage(String line) throws DukeException {
+    public static RouteNode createNodeFromStorage(String line) throws CorruptedFileException {
         String[] details = line.split("\\|", 7);
         switch (details[1].strip()) {
         case "BUS":
@@ -198,7 +197,7 @@ public class ParserStorageUtil {
             return new TrainStation(new ArrayList<String>(), details[3].strip(), details[4].strip(),
                     Double.parseDouble(details[5].strip()),  Double.parseDouble(details[6].strip()));
         default:
-            throw new DukeException(Messages.CORRUPTED_ROUTE_NODE);
+            throw new CorruptedFileException("ROUTE.TXT");
         }
     }
 

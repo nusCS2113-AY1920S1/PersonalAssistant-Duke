@@ -1,7 +1,9 @@
 package duke.logic.api.requests;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import duke.commons.exceptions.DukeApiException;
+import duke.commons.exceptions.ApiNullRequestException;
+import duke.commons.exceptions.ApiTimeoutException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,20 +13,20 @@ import java.net.URLConnection;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import duke.commons.Messages;
+import duke.model.locations.Venue;
 
 /**
  * Handles URL requests to OneMap API to get coordinates of location.
  */
 public class LocationSearchUrlRequest extends UrlRequest {
-    private static final String paramType = "searchVal";
-    private static final String optionalVariables = "&returnGeom=Y&getAddrDetails=Y&pageNum=1";
-    private static final String URL = "https://developers.onemap.sg/commonapi/search?";
+    private static final String PARAM_TYPE = "searchVal";
+    private static final String OPTIONAL_VARIABLES = "&returnGeom=Y&getAddrDetails=Y&pageNum=1";
+    private static final String API_LINK = "https://developers.onemap.sg/commonapi/search?";
 
     /**
-     * Construct the URL Request.
+     * Constructs the URL Request.
      *
-     * @param param The query
+     * @param param The query.
      */
     public LocationSearchUrlRequest(String param) {
         super(param.replace(" ", "+"));
@@ -33,13 +35,15 @@ public class LocationSearchUrlRequest extends UrlRequest {
     /**
      * Executes the URL request to OneMap API.
      *
-     * @return JSONObject The response from request
+     * @return JSONObject The response from OneMap API.
+     * @throws ApiNullRequestException If the request gives no valid result.
+     * @throws ApiTimeoutException If the request times out.
      */
     @Override
-    public JsonObject execute() throws DukeApiException {
+    public Venue execute() throws ApiNullRequestException, ApiTimeoutException  {
         String response;
         try {
-            URL url = new URL(URL + paramType + "=" + param + optionalVariables);
+            URL url = new URL(API_LINK + PARAM_TYPE + "=" + param + OPTIONAL_VARIABLES);
             URLConnection connection = url.openConnection();
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(5000);
@@ -48,19 +52,24 @@ public class LocationSearchUrlRequest extends UrlRequest {
             response = in.readLine();
             in.close();
         } catch (IOException e) {
-            throw new DukeApiException(Messages.DATA_NOT_FOUND);
+            throw new ApiTimeoutException();
         }
 
-        JsonObject result;
-        try {
-            assert (response != null);
+        if (response != null) {
             JsonParser jp = new JsonParser();
             JsonElement root = jp.parse(response);
-            result = root.getAsJsonObject();
-        } catch (Throwable e) {
-            throw new DukeApiException(Messages.DATA_NULL);
+            JsonObject result = root.getAsJsonObject();
+            JsonArray arr = result.getAsJsonArray("results");
+
+            if (Integer.parseInt(String.valueOf(result.getAsJsonPrimitive("found"))) > 0) {
+                return new Venue(arr.get(0).getAsJsonObject().get("ADDRESS").getAsString(),
+                        arr.get(0).getAsJsonObject().get("LATITUDE").getAsDouble(),
+                        arr.get(0).getAsJsonObject().get("LONGITUDE").getAsDouble(),
+                        arr.get(0).getAsJsonObject().get("X").getAsDouble(),
+                        arr.get(0).getAsJsonObject().get("Y").getAsDouble());
+            }
         }
 
-        return result;
+        throw new ApiNullRequestException();
     }
 }

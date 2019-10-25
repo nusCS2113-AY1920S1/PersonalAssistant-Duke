@@ -1,6 +1,6 @@
 package duke.logic.conversations;
 
-import duke.commons.MessagesPrompt;
+import duke.commons.Messages;
 
 /**
  * Handles the conversation occurring when a delete command is entered.
@@ -11,7 +11,7 @@ public class DeleteConversation extends Conversation {
 
     public DeleteConversation() {
         super();
-        prompt = MessagesPrompt.DELETE_PROMPT_STARTER;
+        prompt = Messages.PROMPT_DELETE_STARTER;
     }
 
     @Override
