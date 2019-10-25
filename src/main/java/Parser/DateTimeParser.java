@@ -5,6 +5,7 @@ import Interface.LookupTable;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -14,11 +15,11 @@ public class DateTimeParser {
     private static String[] timeStringSplit;
     private static LookupTable LT;
 
-    private SimpleDateFormat eventDateInputFormat = new SimpleDateFormat("dd/MM/yyyy"); //format date for event
-    private SimpleDateFormat eventTimeInputFormat = new SimpleDateFormat("HHmm"); //format time for event
-    private SimpleDateFormat dateOutputFormat = new SimpleDateFormat("E dd/MM/yyyy");
-    private SimpleDateFormat timeOutputFormat = new SimpleDateFormat("hh:mm a");
-    private SimpleDateFormat deadlineInputFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    private static SimpleDateFormat eventDateInputFormat = new SimpleDateFormat("dd/MM/yyyy"); //format date for event
+    private static SimpleDateFormat eventTimeInputFormat = new SimpleDateFormat("HHmm"); //format time for event
+    private static SimpleDateFormat dateOutputFormat = new SimpleDateFormat("E dd/MM/yyyy");
+    private static SimpleDateFormat timeOutputFormat = new SimpleDateFormat("hh:mm a");
+    private static SimpleDateFormat deadlineInputFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
 
 
     static {
@@ -29,7 +30,7 @@ public class DateTimeParser {
         }
     }
 
-    public String EventParse(String input) throws ParseException {
+    public String eventParse(String input) throws ParseException {
         // date from time /to time
         dateTimeStringSplit = input.split("/from");
         //dateTimeStringSplit[0] is "date" or "week X day", dateTimeStringSplit[1] is "time /to time"
@@ -53,7 +54,7 @@ public class DateTimeParser {
         //return new AddCommand(new Event(split[0].trim(), dateString, startTimeString, endTimeString));
     }
 
-    public String DeadlineParse(String input) throws ParseException {
+    public String deadlineParse(String input) throws ParseException {
         // date time
         dateTimeStringSplit = input.split(" ");
         String weekDate = "";
@@ -75,7 +76,7 @@ public class DateTimeParser {
 
     }
 
-    public String RecurParse(String input) throws ParseException {
+    public String recurParse(String input) throws ParseException {
         //1/10/2019 /to 15/11/2019 /from 1500 /to 1700"
         dateTimeStringSplit = input.split("/from"); //dateTimeStringSplit[0] = startDate to endDate
         dateStringSplit = dateTimeStringSplit[0].split("/to"); //dateStringSplit[0] = startDate (2/2/2019 or week X day)
@@ -106,7 +107,7 @@ public class DateTimeParser {
         return ;
         //return new RecurringCommand(split[0].trim(),startDate, endDate, startTimeString, endTimeString);
     }
-    public String RemindParse(String input) throws ParseException {
+    public static String[] remindDateParse(String input) throws ParseException {
         // week 9 fri 1500 /to week 9 thu 1500"
         dateTimeStringSplit = input.split("/to"); //dateTimeStringSplit[0] = week 9 fri 1500
         String[] taskDateTimeStringSplit = dateTimeStringSplit[0].trim().split(" ");
@@ -130,13 +131,14 @@ public class DateTimeParser {
         } else {
             reminderDate = dateTimeStringSplit[1];
         }
-
         Date dateOfTask = deadlineInputFormat.parse(weekDate);
-        Date dateOfReminder = deadlineInputFormat.parse(reminderDate);
         String dateString = dateOutputFormat.format(dateOfTask);
         String timeString = timeOutputFormat.format(dateOfTask);
-        return ;
-        //return new RemindCommand(new Deadline(description, dateString, timeString), dateOfReminder, set);
+        String[] dateTime = {dateString, timeString, reminderDate};
+        return dateTime;
+    }
+    public static Date deadlineStringToDate(String date) throws ParseException {
+        return deadlineInputFormat.parse(date);
     }
 
 }

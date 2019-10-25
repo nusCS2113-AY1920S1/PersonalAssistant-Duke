@@ -1,5 +1,6 @@
 package Commands;
 
+import DukeExceptions.DukeException;
 import Interface.*;
 import Tasks.Task;
 import Tasks.TaskList;
