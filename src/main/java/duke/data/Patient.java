@@ -1,6 +1,9 @@
 package duke.data;
 
 import duke.exception.DukeException;
+import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,8 +14,8 @@ public class Patient extends DukeObject {
     private String bedNo;
     private String allergies;
     private Impression priDiagnosis;
-    private HashMap<String, Impression> impressions;
-
+    //private transient ObservableMap<String, Impression> impressions;
+    private HashMap<String, Impression> impressions;//HashMap;
     private Integer height;
     private Integer weight;
     private Integer age;
@@ -43,7 +46,8 @@ public class Patient extends DukeObject {
         super(name);
         this.bedNo = bedNo;
         this.allergies = allergies;
-        this.impressions = new HashMap<String, Impression>();
+        //Map<String,Impression> map = new HashMap<>();
+        this.impressions = new HashMap<String, Impression>();//FXCollections.observableMap(map);
 
         this.height = height;
         this.weight = weight;
@@ -69,7 +73,8 @@ public class Patient extends DukeObject {
         super(name);
         this.bedNo = bedNo;
         this.allergies = allergies;
-        this.impressions = new HashMap<String, Impression>();
+        //Map<String,Impression> map = new HashMap<String,Impression>();
+        this.impressions = new HashMap<String, Impression>();//FXCollections.observableMap(map);
         this.height = null;
         this.weight = null;
         this.age = null;
@@ -78,6 +83,19 @@ public class Patient extends DukeObject {
         this.history = null;
         this.priDiagnosis = null;
     }
+
+    /*Todo
+     * Attaches a listener to the impressions map.
+     * This listener updates the {@code impressionHashMap} whenever the patient map is updated.
+    private void attachImpressionsListener() {
+        impressions.addListener((MapChangeListener<String, Impression>) change -> {
+            if (change.wasAdded()) {
+                impressionHashMap.put(change.getKey(), change.getValueAdded());
+            } else if (change.wasRemoved()) {
+                impressionHashMap.remove(change.getValueRemoved());
+            }
+        });
+    }*/
 
     /**
      * This discharge function runs the procedure to discharges a patient from the hospital.
@@ -95,6 +113,7 @@ public class Patient extends DukeObject {
      */
 
     public Impression addNewImpression(Impression newImpression) {
+        //System.out.println(Boolean.toString(impressions != null));
         this.impressions.put(newImpression.getName(), newImpression);
         return newImpression;
     }
@@ -281,8 +300,12 @@ public class Patient extends DukeObject {
         return bedNo;
     }
 
-    public HashMap<String, Impression> getImpressions() {
+    /*public ObservableMap<String, Impression> getImpressionsObservableMap() {
         return impressions;
+    }*/
+
+    public HashMap<String, Impression> getImpressions() {
+        return impressions;//new HashMap<String, Impression>(impressions);
     }
 
     public String getAllergies() {
