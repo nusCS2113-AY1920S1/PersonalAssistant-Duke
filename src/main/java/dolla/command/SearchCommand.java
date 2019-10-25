@@ -2,7 +2,7 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.Ui;
-import dolla.task.LogList;
+import dolla.task.RecordList;
 
 import java.util.ArrayList;
 
@@ -34,46 +34,46 @@ public class SearchCommand extends Command {
      */
     @Override
     public void execute(DollaData dollaData) throws Exception {
-        LogList logList = new LogList(new ArrayList<>());
+        RecordList recordList = new RecordList(new ArrayList<>());
 
         switch (mode) {
         case "entry":
-            logList = dollaData.getLogList(mode);
+            recordList = dollaData.getLogList(mode);
             break;
         case "debt":
-            logList = dollaData.getLogList(mode);
+            recordList = dollaData.getLogList(mode);
             break;
         case "limit":
-            logList = dollaData.getLogList(mode);
+            recordList = dollaData.getLogList(mode);
             break;
         default:
             break;
         }
 
-        boolean listIsEmpty = (logList.size() == 0);
+        boolean listIsEmpty = (recordList.size() == 0);
 
         if (listIsEmpty) {
             Ui.printEmptyListError(mode);
             return;
         } else if (mode.equals("entry")) {
             if (component.equals("description")) {
-                Ui.printSearchDesc(mode, logList, searchContent);
+                Ui.printSearchDesc(mode, recordList, searchContent);
             } else if (component.equals("date")) {
-                Ui.printSearchDate(mode, logList, searchContent);
+                Ui.printSearchDate(mode, recordList, searchContent);
             }
         } else if (mode.equals("debt")) {
             if (component.equals("description")) {
-                Ui.printSearchDesc(mode, logList, searchContent);
+                Ui.printSearchDesc(mode, recordList, searchContent);
             } else if (component.equals("name")) {
-                Ui.printSearchName(mode, logList, searchContent);
+                Ui.printSearchName(mode, recordList, searchContent);
             } else if (component.equals("date")) {
-                Ui.printSearchDate(mode, logList, searchContent);
+                Ui.printSearchDate(mode, recordList, searchContent);
             }
         } else if (mode.equals("limit")) {
             if (component.equals("description")) {
-                Ui.printSearchDesc(mode, logList, searchContent);
+                Ui.printSearchDesc(mode, recordList, searchContent);
             } else if (component.equals("date")) {
-                Ui.printSearchDate(mode, logList, searchContent);
+                Ui.printSearchDate(mode, recordList, searchContent);
             }
         }
     }

@@ -6,9 +6,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * A class that is inherited from all forms of logging, ie. entry, Limit and debt so that we can perform polymorphism.
+ * A class that is inherited from all forms of recording, ie. entry, Limit and debt so that we can perform polymorphism.
  */
-public abstract class Log {
+public abstract class Record {
     protected String description;
     protected LocalDate date;
     protected String name;

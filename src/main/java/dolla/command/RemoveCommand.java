@@ -4,7 +4,7 @@ import dolla.DollaData;
 import dolla.Ui;
 import dolla.action.Redo;
 import dolla.action.Undo;
-import dolla.task.LogList;
+import dolla.task.RecordList;
 
 /**
  * RemoveCommand is a Command used to remove a Task from the TaskList.
@@ -37,8 +37,8 @@ public class RemoveCommand extends Command {
     //@Override
     public void execute(DollaData dollaData) {
         int logNumInt;
-        LogList logList = dollaData.getLogList(mode);
-        boolean isListEmpty = (logList.size() == 0);
+        RecordList recordList = dollaData.getLogList(mode);
+        boolean isListEmpty = (recordList.size() == 0);
 
         if (isListEmpty) {
             return; // TODO: return error command
@@ -47,18 +47,18 @@ public class RemoveCommand extends Command {
         if (logNumStr.contains("/")) { //input from undo
             String[] parser = logNumStr.split("/", 2);
             logNumInt = stringToInt(parser[0]) - 1;
-            Redo.addCommand(mode, logList.get().get(logNumInt).getUserInput()); //add undo input to redo
+            Redo.addCommand(mode, recordList.get().get(logNumInt).getUserInput()); //add undo input to redo
         } else if (logNumStr.contains("|")) { //input form redo
             String[] parser = logNumStr.split("//|", 2);
             logNumInt = stringToInt(parser[0]) - 1;
-            Undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt); //add the user input to undo
+            Undo.addCommand(mode, recordList.get().get(logNumInt).getUserInput(), logNumInt); //add the user input to undo
         } else { //normal user input
             logNumInt  = stringToInt(logNumStr) - 1;
-            Undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt);
+            Undo.addCommand(mode, recordList.get().get(logNumInt).getUserInput(), logNumInt);
             Redo.clearRedo(mode);
         }
 
-        Ui.echoRemove(logList.get().get(logNumInt).getLogText());
+        Ui.echoRemove(recordList.get().get(logNumInt).getLogText());
         dollaData.removeFromLogList(mode,logNumInt);
     }
 }

@@ -2,7 +2,7 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.Ui;
-import dolla.task.LogList;
+import dolla.task.RecordList;
 
 public class InitialModifyCommand extends Command {
 
@@ -25,8 +25,8 @@ public class InitialModifyCommand extends Command {
         }
     }
 
-    private boolean isIndexInList(LogList logList) {
-        if (index >= logList.size()) {
+    private boolean isIndexInList(RecordList recordList) {
+        if (index >= recordList.size()) {
             return false;
         } else {
             return true;

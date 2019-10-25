@@ -1,7 +1,6 @@
 import dolla.task.Entry;
 import dolla.task.EntryList;
-import dolla.task.Log;
-import dolla.task.LogList;
+import dolla.task.Record;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -26,10 +25,10 @@ public class EntryListTest {
     }
 
     private EntryList createNewEntryList() {
-        ArrayList<Log> newLogList = new ArrayList<Log>();
-        newLogList.add(createNewEntry1());
-        newLogList.add(createNewEntry2());
-        return new EntryList(newLogList);
+        ArrayList<Record> newRecordList = new ArrayList<Record>();
+        newRecordList.add(createNewEntry1());
+        newRecordList.add(createNewEntry2());
+        return new EntryList(newRecordList);
     }
 
     @Test

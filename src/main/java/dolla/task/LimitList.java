@@ -1,16 +1,15 @@
 package dolla.task;
 
 import dolla.Storage;
-import dolla.task.Log;
 
 import java.util.ArrayList;
 
 /**
  * A class that contains methods regarding the Limit List.
  */
-public class LimitList extends LogList {
+public class LimitList extends RecordList {
 
-    public LimitList(ArrayList<Log> importLimitList) {
+    public LimitList(ArrayList<Record> importLimitList) {
         super(importLimitList);
     }
 
@@ -33,8 +32,8 @@ public class LimitList extends LogList {
     }
 
     @Override
-    public void add(Log newLog) {
-        super.add(newLog);
+    public void add(Record newRecord) {
+        super.add(newRecord);
         Storage.setLimits(get()); //save
     }
 

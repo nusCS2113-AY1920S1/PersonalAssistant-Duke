@@ -5,7 +5,7 @@ import dolla.Ui;
 /**
  * Limit is a class that stores all limit related methods (savings and budgets).
  */
-public class Limit extends Log {
+public class Limit extends Record {
 
     protected String type;
     protected double amount;

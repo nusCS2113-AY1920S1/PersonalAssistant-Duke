@@ -2,7 +2,7 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.Ui;
-import dolla.task.LogList;
+import dolla.task.RecordList;
 import dolla.sort.SortDate;
 import dolla.sort.SortDescription;
 import dolla.sort.SortName;
@@ -20,19 +20,19 @@ public class SortCommand extends Command {
 
     @Override
     public void execute(DollaData dollaData) throws Exception {
-        LogList logList = new LogList(new ArrayList<>());
+        RecordList recordList = new RecordList(new ArrayList<>());
         switch (mode) {
         case "entry":
-            logList = dollaData.getLogList(mode);
+            recordList = dollaData.getLogList(mode);
             break;
         case "debt":
-            logList = dollaData.getLogList(mode);
+            recordList = dollaData.getLogList(mode);
             break;
         default:
             break; // TODO: What to do here?
         }
 
-        boolean isListEmpty = (logList.size() == 0);
+        boolean isListEmpty = (recordList.size() == 0);
 
         if (isListEmpty) { // TODO: Place this in proper place
             Ui.printEmptyListError(mode);
@@ -40,18 +40,18 @@ public class SortCommand extends Command {
         } else {
             if (mode.equals("entry")) {
                 if (type.equals("date")) {
-                    new SortDate(logList.get());
+                    new SortDate(recordList.get());
                 } else if (type.equals("description")) {
-                    new SortDescription(logList.get());
+                    new SortDescription(recordList.get());
                 } else {
                     Ui.printInvalidCommandError();
                 }
                 return;
             } else if (mode.equals("debt")) {
                 if (type.equals("description")) {
-                    new SortDescription(logList.get());
+                    new SortDescription(recordList.get());
                 } else if (type.equals("name")) {
-                    new SortName(logList.get());
+                    new SortName(recordList.get());
                 } else {
                     Ui.printInvalidCommandError();
                 }

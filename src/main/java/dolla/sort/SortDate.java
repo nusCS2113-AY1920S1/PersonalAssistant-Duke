@@ -1,7 +1,7 @@
 package dolla.sort;
 
 import dolla.Ui;
-import dolla.task.Log;
+import dolla.task.Record;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +16,7 @@ public class SortDate extends Sort {
      * and print out the sorted list.
      * @param list the ArrayList to be sorted.
      */
-    public SortDate(ArrayList<Log> list) {
+    public SortDate(ArrayList<Record> list) {
         super(list);
         Collections.sort(list, ListComparator.dateComparator());
         Ui.printSortedList(list,"date");

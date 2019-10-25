@@ -1,15 +1,10 @@
 package dolla;
 
-import dolla.task.Log;
-import dolla.task.Debt;
-import dolla.task.Task;
-import dolla.task.Entry;
-import dolla.task.LogList;
+import dolla.task.*;
+import dolla.task.Record;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * duke.Ui is a class that handles all interactions to the user.
@@ -225,7 +220,7 @@ public abstract class Ui {
     /**
      * Prints error message when LogNum is not associated to a task.
      *
-     * @param index The Log number that does not exist in the specific list.
+     * @param index The Record number that does not exist in the specific list.
      * @param mode  The mode where the list is to be accessed.
      */
     public static void printNoLogAssocError(int index, String mode) {
@@ -316,21 +311,21 @@ public abstract class Ui {
         System.out.println(line);
     }
 
-    //public static void printList(String mode, LogList entryList) {
+    //public static void printList(String mode, RecordList entryList) {
 
     /**
      * Prints out a list depending on the mode where 'list' is called.
      *
      * @param mode    The mode that is used when 'list' is input.
-     * @param logList The LogList containing the data of the list to be printed.
+     * @param recordList The RecordList containing the data of the list to be printed.
      */
-    public static void printList(String mode, LogList logList) {
+    public static void printList(String mode, RecordList recordList) {
 
         System.out.println(line);
         System.out.println("\tHere are the " + mode + " that you have added:");
-        for (int i = 0; i < logList.size(); i++) {
+        for (int i = 0; i < recordList.size(); i++) {
             int listNum = i + 1;
-            System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
+            System.out.println("\t" + listNum + ". " + recordList.get().get(i).getLogText());
         }
         System.out.println(line);
     }
@@ -339,19 +334,19 @@ public abstract class Ui {
      * Print search desc.
      *
      * @param mode          the mode
-     * @param logList       the log list
+     * @param recordList       the log list
      * @param searchContent the search content
      */
-    public static void printSearchDesc(String mode, LogList logList, String searchContent) {
+    public static void printSearchDesc(String mode, RecordList recordList, String searchContent) {
 
         System.out.println(line);
         System.out.println("\tHere are the matching results found in " + mode);
         int listNum = 0;
-        for (int i = 0; i < logList.size(); i++) {
-            String temp = logList.get().get(i).getDescription();
+        for (int i = 0; i < recordList.size(); i++) {
+            String temp = recordList.get().get(i).getDescription();
             if (temp.contains(searchContent)) {
                 listNum += 1;
-                System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
+                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getLogText());
             }
         }
     }
@@ -360,19 +355,19 @@ public abstract class Ui {
      * Print search name.
      *
      * @param mode          the mode
-     * @param logList       the log list
+     * @param recordList       the log list
      * @param searchContent the search content
      */
-    public static void printSearchName(String mode, LogList logList, String searchContent) {
+    public static void printSearchName(String mode, RecordList recordList, String searchContent) {
 
         System.out.println(line);
         System.out.println("\tHere are the matching results found in " + mode);
         int listNum = 0;
-        for (int i = 0; i < logList.size(); i++) {
-            String tempt = logList.get().get(i).getName();
+        for (int i = 0; i < recordList.size(); i++) {
+            String tempt = recordList.get().get(i).getName();
             if (tempt.contains(searchContent)) {
                 listNum += 1;
-                System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
+                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getLogText());
             }
         }
     }
@@ -381,18 +376,18 @@ public abstract class Ui {
      * Print search date.
      *
      * @param mode          the mode
-     * @param logList       the log list
+     * @param recordList       the log list
      * @param searchContent the search content
      */
-    public static void printSearchDate(String mode, LogList logList, String searchContent) {
+    public static void printSearchDate(String mode, RecordList recordList, String searchContent) {
         System.out.println(line);
         System.out.println("\tHere are the matching results found in " + mode);
         int listNum = 0;
-        for (int i = 0; i < logList.size(); i++) {
-            String temp = Time.dateToString(logList.get().get(i).getDate());
+        for (int i = 0; i < recordList.size(); i++) {
+            String temp = Time.dateToString(recordList.get().get(i).getDate());
             if (temp.contains(searchContent)) {
                 listNum += 1;
-                System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
+                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getLogText());
             }
         }
     }
@@ -404,7 +399,7 @@ public abstract class Ui {
      * @param list the list to be printed
      * @param type the type of input of the list
      */
-    public static void printSortedList(ArrayList<Log> list, String type) {
+    public static void printSortedList(ArrayList<Record> list, String type) {
         System.out.println(line);
         if (type.equals("date")) {
             System.out.println("sorting date.........");
