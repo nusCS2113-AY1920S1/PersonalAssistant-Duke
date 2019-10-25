@@ -61,6 +61,8 @@ public class Commands {
                 return new PatientPrimaryCommand();
             case "edit":
                 return new PatientEditCommand();
+            case "history":
+                return new PatientHistoryCommand();
             default:
                 return null;
             }
