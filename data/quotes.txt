@@ -1,7 +1,3 @@
-“Don’t wait. The time will never be just right.”
-“The best way to get something done is to begin.”
-"Success is not final; failure is not fatal: It is the courage to continue that counts."
-“Success isn’t always about greatness. It’s about consistency.”
 “A little more persistence, a little more effort, and what seemed hopeless failure may turn into glorious success.”
 “When you have to make a choice and don't make it, that in itself is a choice.”
 “Take time to deliberate; but when the time for action arrives, stop thinking and go in.”
@@ -65,3 +61,7 @@ Don't procrastinate. Life is way too short.”
 “Begin doing what you want to do now. We are not living in eternity. We have only this moment.”
 “The really happy people are those who have broken the chains of procrastination, those who find satisfaction in doing the job at hand. You can be, too.”
 “Success is not obtained overnight. It comes in instalments; you get a little bit today, a little bit tomorrow until the whole package is given out. The day you procrastinate, you lose that day’s success.”
+“Don’t wait. The time will never be just right.”
+“The best way to get something done is to begin.”
+"Success is not final; failure is not fatal: It is the courage to continue that counts."
+“Success isn’t always about greatness. It’s about consistency.”
