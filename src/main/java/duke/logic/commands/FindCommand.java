@@ -1,8 +1,9 @@
 package duke.logic.commands;
 
-import duke.model.Meal;
-import duke.model.MealList;
-import duke.model.TransactionList;
+import duke.model.meal.Meal;
+import duke.model.meal.MealList;
+import duke.model.wallet.TransactionList;
+import duke.model.wallet.Wallet;
 import duke.ui.Ui;
 import duke.storage.Storage;
 
@@ -34,13 +35,12 @@ public class FindCommand extends Command {
     /**
      * Executes the FindCommand.
      * @param meals the MealList object in which the meals are supposed to be added
-     * @param ui the ui object to display the results of the command to the user
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
-     * @param in the scanner object to handle secondary command IO
      */
+
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in, TransactionList transactions) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ArrayList<Meal> matchingMeals = new ArrayList<>();
         ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
         for (Meal element: currentMeals) {
@@ -50,5 +50,8 @@ public class FindCommand extends Command {
             }
         }
         ui.showList(matchingMeals);
+    }
+
+    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
     }
 }

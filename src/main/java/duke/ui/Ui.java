@@ -1,8 +1,8 @@
 package duke.ui;
 
 import duke.model.Goal;
-import duke.model.Meal;
-import duke.model.Transaction;
+import duke.model.meal.Meal;
+import duke.model.wallet.Transaction;
 import duke.model.user.User;
 
 import java.math.BigDecimal;

@@ -2,10 +2,11 @@ package duke.storage;
 
 import duke.logic.autocorrect.Autocorrect;
 import duke.commons.exceptions.DukeException;
-import duke.model.Meal;
-import duke.model.MealList;
-import duke.model.TransactionList;
+import duke.model.meal.Meal;
+import duke.model.meal.MealList;
+import duke.model.wallet.TransactionList;
 import duke.model.user.User;
+import duke.model.wallet.Wallet;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class Load {
         }
     }
 
-    public void loadTransactions(TransactionList transactions, User user) throws DukeException {
+    public void loadTransactions(TransactionList transactions, Wallet wallet) throws DukeException {
         try {
             bufferedReader = new BufferedReader(new FileReader(TRANSACTION_FILE));
         } catch (FileNotFoundException e) {
@@ -61,8 +62,10 @@ public class Load {
             }
         }
         try {
+            line = bufferedReader.readLine();
+            wallet.setAccountBalance(Integer.parseInt(line));
             while ((line = bufferedReader.readLine()) != null) {
-                LoadLineParser.parseTransactions(transactions, line, user);
+                LoadLineParser.parseTransactions(transactions, line, wallet);
             }
             bufferedReader.close();
         } catch (IOException e) {

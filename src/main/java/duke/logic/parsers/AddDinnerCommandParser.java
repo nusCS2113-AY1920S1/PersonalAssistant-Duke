@@ -2,7 +2,7 @@ package duke.logic.parsers;
 
 import duke.logic.commands.AddCommand;
 import duke.commons.exceptions.DukeException;
-import duke.model.Dinner;
+import duke.model.meal.Dinner;
 
 public class AddDinnerCommandParser implements ParserInterface<AddCommand> {
 

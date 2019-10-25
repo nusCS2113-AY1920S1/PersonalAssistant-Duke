@@ -1,4 +1,4 @@
-package duke.model;
+package duke.model.meal;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

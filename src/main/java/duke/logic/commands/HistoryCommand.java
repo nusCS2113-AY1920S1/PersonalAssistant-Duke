@@ -1,8 +1,9 @@
 package duke.logic.commands;
 
-import duke.model.TransactionList;
+import duke.model.wallet.TransactionList;
+import duke.model.wallet.Wallet;
 import duke.storage.Storage;
-import duke.model.MealList;
+import duke.model.meal.MealList;
 import duke.ui.Ui;
 import duke.model.user.User;
 
@@ -49,7 +50,10 @@ public class HistoryCommand extends Command {
      * @param in the scanner object to handle secondary command IO
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in, TransactionList transactions) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showHistory(historyCommandsList);
+    }
+
+    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
     }
 }

@@ -1,6 +1,8 @@
-package duke.model;
+package duke.model.meal;
 
 import duke.commons.exceptions.DukeException;
+import duke.model.Goal;
+import duke.model.meal.Meal;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -213,13 +215,17 @@ public class MealList {
         storedItems.remove(keyword);
     }
 
-    public void addGoal(Goal goal, boolean override) throws DukeException {
-        if (this.goal != null && override == false) {
+    public void addGoal(Goal goal) throws DukeException {
+        if (this.goal != null) {
             throw new DukeException("You currently have a previously set goal active\n"
                     + "     Would you like to override the existing goal? (Y/N)");
         } else {
             this.goal = goal;
         }
+    }
+
+    public void addGoal(Goal goal, boolean override) {
+        this.goal = goal;
     }
 
     /**

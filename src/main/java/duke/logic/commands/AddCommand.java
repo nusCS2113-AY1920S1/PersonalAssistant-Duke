@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.Meal;
-import duke.model.MealList;
-import duke.model.TransactionList;
+import duke.model.meal.Meal;
+import duke.model.meal.MealList;
+import duke.model.wallet.TransactionList;
+import duke.model.wallet.Wallet;
 import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.model.user.User;
@@ -36,11 +37,17 @@ public class AddCommand extends Command {
      * @throws DukeException if there is a parsing error
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user,
-                        Scanner in, TransactionList transactions) throws DukeException {
-        meals.addMeals(this.meal);
-        ArrayList<Meal> mealData = meals.getMealTracker().get(this.meal.getDate());
-        ui.showAdded(this.meal, mealData, user, this.meal.getDate());
-        storage.updateFile(meals);
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        try {
+            meals.addMeals(this.meal);
+            ArrayList<Meal> mealData = meals.getMealTracker().get(this.meal.getDate());
+            ui.showAdded(this.meal, mealData, user, this.meal.getDate());
+            storage.updateFile(meals);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
+    }
+
+    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
     }
 }

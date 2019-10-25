@@ -2,7 +2,7 @@ package duke.logic.parsers;
 
 import duke.logic.commands.EditCommand;
 import duke.commons.exceptions.DukeException;
-import duke.model.Meal;
+import duke.model.meal.Meal;
 
 public class EditCommandParser implements ParserInterface<EditCommand> {
 

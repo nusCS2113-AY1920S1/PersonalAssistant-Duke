@@ -2,7 +2,7 @@ package duke.logic.parsers;
 
 import duke.commons.exceptions.DukeException;
 import duke.logic.commands.AddTransactionCommand;
-import duke.model.Deposit;
+import duke.model.wallet.Deposit;
 
 import java.math.BigDecimal;
 import java.text.ParseException;

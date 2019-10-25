@@ -1,6 +1,4 @@
-package duke.model;
-
-import duke.model.user.User;
+package duke.model.wallet;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

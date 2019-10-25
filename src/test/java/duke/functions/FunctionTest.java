@@ -6,9 +6,9 @@ import duke.commons.exceptions.DukeException;
 import duke.logic.parsers.Parser;
 import duke.storage.Storage;
 import duke.model.user.User;
-import duke.model.MealList;
+import duke.model.meal.MealList;
 import duke.ui.Ui;
-import duke.model.TransactionList;
+import duke.model.wallet.TransactionList;
 
 import org.junit.jupiter.api.Test;
 

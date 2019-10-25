@@ -1,4 +1,4 @@
-package duke.model;
+package duke.model.meal;
 
 /**
  * dinner is a public class that inherits from abstract class meal.

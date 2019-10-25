@@ -1,14 +1,14 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.MealList;
-import duke.model.Transaction;
-import duke.model.TransactionList;
+import duke.model.meal.MealList;
+import duke.model.wallet.Transaction;
+import duke.model.wallet.TransactionList;
 import duke.model.user.User;
+import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AddTransactionCommand extends Command {
@@ -19,12 +19,11 @@ public class AddTransactionCommand extends Command {
     }
 
     @Override
-    public void execute(MealList tasks, Ui ui, Storage storage, User user,
-                        Scanner in, TransactionList transactions) throws DukeException {
-        transactions.addTransaction(this.transaction);
-        user.updateAccountBalance(transaction);
-        storage.updateTransaction(transactions);
-        storage.saveUser(user);
-        ui.showTransactionAdded(this.transaction, user.getAccountBalance());
+    public void execute(MealList tasks, Storage storage, User user, Wallet wallet) {
+        wallet.getTransactions().addTransaction(this.transaction);
+        ui.showTransactionAdded(this.transaction, wallet.getAccountBalance());
+    }
+
+    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
     }
 }
