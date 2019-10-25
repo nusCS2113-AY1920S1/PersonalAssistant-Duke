@@ -14,7 +14,6 @@ public class Entry extends Log {
     protected String saveType;
     protected double amount;
 
-
     /**
      * Creates an instance of Entry.
      * @param type Income or Expense.
@@ -65,6 +64,11 @@ public class Entry extends Log {
     @Override
     public String getDescription() {
         return description;
+    }
+
+    @Override
+    public LocalDate getDate() {
+        return date;
     }
 
     @Override

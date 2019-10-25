@@ -145,5 +145,4 @@ public class DollaData {
     public void removeLimit(String type, String duration) {
         //remove limit from list
     }
-
 }

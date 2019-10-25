@@ -2,6 +2,7 @@ package dolla.parser;
 
 import dolla.Time;
 import dolla.Ui;
+import dolla.action.Repeat;
 import dolla.command.Command;
 import dolla.command.AddActionCommand;
 import dolla.command.ShowListCommand;
@@ -13,9 +14,11 @@ import dolla.command.RemoveCommand;
 
 import java.time.LocalDate;
 
+/**
+ * DebtsParser is a class that handles the input command and
+ * execute the command according to the command under the debt mode.
+ */
 public class DebtsParser extends Parser {
-    private static int prevPosition;
-    private static int undoFlag = 0;
 
     public DebtsParser(String inputLine) {
         super(inputLine);
@@ -27,9 +30,8 @@ public class DebtsParser extends Parser {
             return new ShowListCommand(mode);
         } else if (commandToRun.equals("owe") || commandToRun.equals("borrow")) {
             String type = commandToRun;
-            String name = null;
-            double amount = 0.0;
-            LocalDate date = null;
+            String name;
+            double amount;
             try {
                 name = inputArray[1];
                 amount = stringToDouble(inputArray[2]);
@@ -43,12 +45,7 @@ public class DebtsParser extends Parser {
             } catch (Exception e) {
                 return new ErrorCommand();
             }
-            if (undoFlag == 1) { //Undo input
-                undoFlag = 0;
-                return new AddDebtsCommand(type, name, amount, description, date, prevPosition);
-            } else { //normal input, prePosition is -1
-                return new AddDebtsCommand(type, name, amount, description, date, -1);
-            }
+            return processAdd(type, name, amount);
         } else if (commandToRun.equals("search")) {
             String component = inputArray[1];
             String content = inputArray[2];
@@ -64,8 +61,23 @@ public class DebtsParser extends Parser {
         }
     }
 
-    public static void setPrePosition(int prePosition) {
-        DebtsParser.prevPosition = prePosition;
-        undoFlag = 1;
+    /**
+     * This method will process and return a "add" command for debt.
+     * @param type the type of input. i.e. owe or borrow.
+     * @param name the name of the borrower/lender
+     * @param amount the amount borrowed/lent
+     * @return an AddDebtsCommand with respect to the nature of the input.
+     */
+    private Command processAdd(String type, String name, double amount) {
+        Command addDebt;
+        Repeat.setRepeatInput("debt", inputLine); //setup repeat
+        if (undoFlag == 1) { //undo input
+            addDebt = new AddDebtsCommand(type, name, amount, description, date, prevPosition);
+        } else if (redoFlag == 1) {
+            addDebt = new AddDebtsCommand(type, name, amount, description, date, -2);
+        } else { //normal input, prePosition is -1
+            addDebt = new AddDebtsCommand(type, name, amount, description, date, -1);
+        }
+        return addDebt;
     }
 }

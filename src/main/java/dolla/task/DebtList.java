@@ -5,6 +5,9 @@ import dolla.task.Log;
 
 import java.util.ArrayList;
 
+/**
+ * Holds all the debts that have been added to Dolla.
+ */
 public class DebtList extends LogList {
 
     public DebtList(ArrayList<Log> importDebtList) {
@@ -20,6 +23,7 @@ public class DebtList extends LogList {
     @Override
     public void insertPrevPosition(int prevPosition, Log newLog) {
         super.insertPrevPosition(prevPosition, newLog);
+        Storage.setDebts(get()); //save
     }
 
     @Override

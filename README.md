@@ -1,5 +1,7 @@
 ﻿# Dolla
 [![Build Status](https://travis-ci.org/AY1920S1-CS2113T-F11-2/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113T-F11-2/main)
+[![Coverage Status](https://coveralls.io/repos/github/AY1920S1-CS2113T-F11-2/main/badge.svg?branch=master)](https://coveralls.io/github/AY1920S1-CS2113T-F11-2/main?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ca20434c13bc4f81994db1e1dbcb9aa3)](https://www.codacy.com/manual/Weng-Kexin/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S1-CS2113T-F11-2/main&amp;utm_campaign=Badge_Grade)
 
 Dolla is a command line based expense tracker targeted at NUS students staying on campus.
 

@@ -12,9 +12,9 @@ import java.util.Collections;
 public class SortDate extends Sort {
 
     /**
-     * Instantiates a new Sort date.
-     *
-     * @param list the list
+     * This method will call the dateComparator method, sort the input ArrayList according to date
+     * and print out the sorted list.
+     * @param list the ArrayList to be sorted.
      */
     public SortDate(ArrayList<Log> list) {
         super(list);

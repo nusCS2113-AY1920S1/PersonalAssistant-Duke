@@ -12,9 +12,9 @@ import java.util.Collections;
 public class SortDescription extends Sort {
 
     /**
-     * Instantiates a new Sort description.
-     *
-     * @param list the list
+     * This method will call the descComparator method, sort the input ArrayList according to description
+     * and print out the sorted list.
+     * @param list the ArrayList to be sorted.
      */
     public SortDescription(ArrayList<Log> list) {
         super(list);
