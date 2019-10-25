@@ -10,7 +10,10 @@ import duke.relation.PatientTaskList;
 import duke.statistic.Counter;
 import duke.storage.StorageManager;
 import duke.task.TaskManager;
-
+import duke.core.CommandManager;
+import duke.core.DukeException;
+import duke.core.ShortCutter;
+import duke.core.Ui;
 
 /**
  * Represents Duke, a Personal Assistant to help
