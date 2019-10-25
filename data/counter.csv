@@ -1,5 +1,8 @@
 Command Name,Frequency
 DeletePatientCommand,1
 ListTasksCommand,1
-AddStandardTaskCommand,6
+AssignTaskToPatientCommand,1
+UpdateTaskCommand,1
+AddStandardTaskCommand,8
 AddPatientCommand,3
+UndoCommand,3

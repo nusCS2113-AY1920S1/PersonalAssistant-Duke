@@ -200,7 +200,7 @@ public class Parser {
      */
     public String[] parseUpdateTask() throws DukeException {
         try {
-            String[] formattedInput = new String[2];
+            String[] formattedInput = new String[3];
             for (int i = 1; i <= formattedInput.length; i++) {
                 formattedInput[i - 1] = parsedInput[i].trim();
             }
