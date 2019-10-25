@@ -36,17 +36,17 @@ public class LocationSelector implements Selector {
     /**
      * Feeds key event to location selector to determine the next location selected.
      *
-     * @param keyEvent KeyEvent from the Ui.
+     * @param keyCode The keyCode of the key pressed.
      */
     @Override
-    public void feedKeyEvent(KeyEvent keyEvent) {
+    public void feedKeyCode(KeyCode keyCode) {
         if (isLock) {
             return;
         }
-        if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+        if (keyCode.equals(KeyCode.ENTER)) {
             lock();
-        } else if (keyEvent.getCode().isArrowKey()) {
-            index = find(keyEvent.getCode());
+        } else if (keyCode.isArrowKey()) {
+            index = find(keyCode);
         }
     }
 

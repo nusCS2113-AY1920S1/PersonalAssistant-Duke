@@ -1,6 +1,6 @@
 package duke.logic.selectors;
 
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
 
 /**
  * The API of selectors.
@@ -8,5 +8,5 @@ import javafx.scene.input.KeyEvent;
 public interface Selector {
     int getIndex();
 
-    void feedKeyEvent(KeyEvent keyEvent);
+    void feedKeyCode(KeyCode keyCode);
 }
