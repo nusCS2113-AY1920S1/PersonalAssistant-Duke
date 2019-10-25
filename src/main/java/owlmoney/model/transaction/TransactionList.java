@@ -446,7 +446,7 @@ public class TransactionList {
             ui.printDivider();
         }
     }
-    
+
     /**
      * Finds the transactions that falls within the date range specified by the user.
      *
