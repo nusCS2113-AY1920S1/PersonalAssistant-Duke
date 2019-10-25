@@ -32,7 +32,7 @@ public class Ui {
      * @throws IOException if tDate doesn't get updated.
      */
     public String showWelcome() throws IOException {
-        System.out.println("Input password to enter Gazeeebo:");
+        //System.out.println("Input password to enter Gazeeebo:");
         String logo = " ___   ___  ___  ___  ___  ___  ___   ___ \n"
                 + "|     |   |   / |    |    |    |   \\ |   |\n"
                 + "|  __ |__ |  /  |___ |___ |___ |___| |   |\n"
@@ -43,18 +43,24 @@ public class Ui {
                 + "\n__________________________________________\n";
 
         while (true) {
+            /*
             readCommand();
             ArrayList<StringBuilder> password_list;
             Storage store = new Storage();
             password_list = store.Password();
             if (fullCommand.equals(password_list.get(0).toString())) {
+
+             */
                 System.out.println(welcomemessage);
                 LocalDate a = LocalDate.now();
                 System.out.println("Today is " + a.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
                 break;
+                /*
             } else {
                 System.out.println("Incorrect password, please try again:");
             }
+
+                 */
         }
         return welcomemessage;
     }
