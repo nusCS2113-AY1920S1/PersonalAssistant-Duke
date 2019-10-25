@@ -9,10 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-//import javafx.collections.FXCollections;
-//import javafx.collections.MapChangeListener;
-//import javafx.collections.ObservableMap;
-
 public class Patient extends DukeObject {
 
     private String bedNo;
@@ -59,8 +55,7 @@ public class Patient extends DukeObject {
         this.priDiagnosis = new Impression("No Primary Impression", "Add upon admission diagnosis", this);
 
         this.impressions = new HashMap<>();
-        this.observableImpressions = FXCollections.observableMap(impressions);
-        attachImpressionsListener();
+        initObservableImpressions();
     }
 
     /**
@@ -86,8 +81,7 @@ public class Patient extends DukeObject {
         this.priDiagnosis = null;
 
         this.impressions = new HashMap<>();
-        this.observableImpressions = FXCollections.observableMap(impressions);
-        attachImpressionsListener();
+        initObservableImpressions();
     }
 
     /**
