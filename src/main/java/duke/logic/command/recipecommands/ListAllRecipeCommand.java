@@ -50,15 +50,17 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
         return false;
     }
 
-    private ArrayList<String> listOfRecipes(HashMap<Integer, Recipe> map) {
+    private ArrayList<String> listOfRecipes(HashMap<String, Recipe> map) {
         Set entries = map.entrySet();
         Iterator entryIter = entries.iterator();
         ArrayList<String> arrayList = new ArrayList<>();
+        int i = 1;
         while (entryIter.hasNext()) {
             Map.Entry entry = (Map.Entry) entryIter.next();
             Object key = entry.getKey();  // Get the key from the entry.
             Recipe value = (Recipe) entry.getValue();  // Get the value.
-            arrayList.add("     " + key + " " + value.getRecipeTitle());
+            arrayList.add("     " + i + " " + value.getRecipeTitle());
+            i++;
         }
         return arrayList;
     }

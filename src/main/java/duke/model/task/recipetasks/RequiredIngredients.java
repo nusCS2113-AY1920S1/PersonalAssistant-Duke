@@ -35,8 +35,8 @@ public class RequiredIngredients {
 //        System.out.println("this is the value before adding of tempList: " + tempList.toString());
 //        this.requiredIngredientList.addAll(tempList);
 //        System.out.println("this is the value after adding of new tempList: " + this.requiredIngredientList.toString());
-        System.out.println(tempName + "...." + tempQuan + "...." + tempUnit + "...." + tempInfo);
-        this.requiredIngredientList.add(new Ingredient(tempName, tempQuan, tempUnit, tempInfo));
+//        System.out.println(tempName + "...." + tempQuan + "...." + tempUnit + "...." + tempInfo);
+//        this.requiredIngredientList.add(new Ingredient(tempName, tempQuan, tempUnit, tempInfo));
         this.requiredIngredientList.add(new Ingredient(recipeIngredientName, quantity, unit, additionalInfo));
         System.out.println("this is the value after adding of new ingredient: " + this.requiredIngredientList.toString());
     }

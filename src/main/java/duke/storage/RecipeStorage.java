@@ -12,7 +12,7 @@ import java.util.HashMap;
  */
 public class RecipeStorage {
 
-    private final HashMap<Integer, Recipe> LHMRecipeList = new HashMap<>();
+    private final HashMap<String, Recipe> LHMRecipeList = new HashMap<>();
     private final String filePathRecipes;
 
     /**
@@ -33,10 +33,10 @@ public class RecipeStorage {
         try {
             FileWriter fileWriter = new FileWriter(filePathRecipes);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            recipeList.getRecipeList().forEach((Integer, Recipe) ->
+            recipeList.getRecipeList().forEach((String, Recipe) ->
             {
                 try {
-                    bufferedWriter.write(Integer.toString() + " | " + Recipe.toSaveString() + "\n");
+                    bufferedWriter.write(Recipe.toSaveString() + "\n");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -53,48 +53,43 @@ public class RecipeStorage {
      * @return the list of tasks in taskList
      * @throws DukeException if Duke is not able to load the tasks from the file or unable to open the file
      */
-    public HashMap<Integer, Recipe> load() throws DukeException {
+    public HashMap<String, Recipe> load() throws DukeException {
         try {
             FileReader fileReader = new FileReader(filePathRecipes);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String content = "";
             while ((content = bufferedReader.readLine()) != null) {
                 // can use a splitMethod() here for tidyness?
-                String recipeIndex, recipeTitle, rating, prepStep, requiredIngredients, feedback, remaining, remaining1, remaining2, remaining3;
+                String recipeTitle, rating, prepStep, requiredIngredients, feedback, remaining, remaining1, remaining2, remaining3;
                 String[] split = content.split("\\|", 2);
                 if (split.length == 2) {
-                    recipeIndex = content.split("\\|", 2)[0].trim();
-                    remaining = content.split("\\|", 2)[1].trim();
-                    String[] split1 = remaining.split("\\|", 2);
-                    if (split1.length == 2) {
-                        recipeTitle = remaining.split("\\|", 2)[0].trim();
-                        remaining1 = remaining.split("\\|", 2)[1].trim();
-                        String[] split2 = remaining1.split("\\|", 2);
-                        if (split2.length == 2) {
-                            rating = remaining1.split("\\|", 2)[0].trim();
-                            remaining2 = remaining1.split("\\|", 2)[1].trim();
-                            String[] split3 = remaining2.split("\\|", 2);
-                            if (split3.length == 2) {
-                                prepStep = remaining2.split("\\|", 2)[0].trim();
-                                remaining3 = remaining2.split("\\|", 2)[1].trim();
-                                if (remaining3.contains("> \\|")) {
-                                    String[] split4 = remaining3.split("> \\|", 2);
-                                    if (split4.length == 2) {
-                                        requiredIngredients = remaining3.split("> \\|", 2)[0].trim();
-                                        feedback = remaining3.split("\\|", 2)[1].trim();
-                                        Recipe recipe = new Recipe(recipeTitle, rating, prepStep, requiredIngredients, feedback);
-                                        System.out.println("this is the value for required ingredient from the recipe storage: " + requiredIngredients);
-                                        LHMRecipeList.put(Integer.parseInt(recipeIndex), recipe);
-                                    }
-                                } else {
-                                    String[] split4 = remaining3.split("\\|", 2);
-                                    if (split4.length == 2) {
-                                        requiredIngredients = remaining3.split("\\|", 2)[0].trim();
-                                        feedback = remaining3.split("\\|", 2)[1].trim();
-                                        Recipe recipe = new Recipe(recipeTitle, rating, prepStep, requiredIngredients, feedback);
-                                        System.out.println("this is the value for required ingredient from the recipe storage: " + requiredIngredients);
-                                        LHMRecipeList.put(Integer.parseInt(recipeIndex), recipe);
-                                    }
+                    recipeTitle = split[0].trim();
+                    remaining = split[1];
+                    String[] split2 = remaining.split("\\|", 2);
+                    if (split2.length == 2) {
+                        rating = split2[0].trim();
+                        remaining2 = remaining.split("\\|", 2)[1].trim();
+                        String[] split3 = remaining2.split("\\|", 2);
+                        if (split3.length == 2) {
+                            prepStep = remaining2.split("\\|", 2)[0].trim();
+                            remaining3 = remaining2.split("\\|", 2)[1].trim();
+                            if (remaining3.contains("> \\|")) {
+                                String[] split4 = remaining3.split("> \\|", 2);
+                                if (split4.length == 2) {
+                                    requiredIngredients = remaining3.split("> \\|", 2)[0].trim();
+                                    feedback = remaining3.split("\\|", 2)[1].trim();
+                                    Recipe recipe = new Recipe(recipeTitle, rating, prepStep, requiredIngredients, feedback);
+                                    System.out.println("this is the value for required ingredient from the recipe storage: " + requiredIngredients);
+                                    LHMRecipeList.put(recipeTitle, recipe);
+                                }
+                            } else {
+                                String[] split4 = remaining3.split("\\|", 2);
+                                if (split4.length == 2) {
+                                    requiredIngredients = remaining3.split("\\|", 2)[0].trim();
+                                    feedback = remaining3.split("\\|", 2)[1].trim();
+                                    Recipe recipe = new Recipe(recipeTitle, rating, prepStep, requiredIngredients, feedback);
+                                    System.out.println("this is the value for required ingredient from the recipe storage: " + requiredIngredients);
+                                    LHMRecipeList.put(recipeTitle, recipe);
                                 }
                             }
                         }

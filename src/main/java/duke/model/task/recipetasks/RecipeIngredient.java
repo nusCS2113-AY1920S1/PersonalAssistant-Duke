@@ -4,7 +4,7 @@ import duke.model.task.ingredienttasks.UnitOfMeasurement;
 
 public class RecipeIngredient {
 
-    private int recipeIndex;
+    private String recipeTitle;
     private String recipeIngredientName;
     private double recipeIngredientQuantity;
     private UnitOfMeasurement unit;
@@ -17,8 +17,8 @@ public class RecipeIngredient {
         this.unit = assignUnit(unit);
     }
 
-    public RecipeIngredient(String recipeIndex, String recipeIngredientName, String recipeIngredientQuantity, String unit, String additionalInfo) {
-        this.recipeIndex = Integer.parseInt(recipeIndex);
+    public RecipeIngredient(String recipeTitle, String recipeIngredientName, String recipeIngredientQuantity, String unit, String additionalInfo) {
+        this.recipeTitle = recipeTitle;
         this.recipeIngredientName = recipeIngredientName;
         this.recipeIngredientQuantity = Double.parseDouble(recipeIngredientQuantity);
         this.unit = assignUnit(unit);
@@ -37,15 +37,15 @@ public class RecipeIngredient {
         }
     }
 
-    public int getRecipeIngredientIndex() {
-        return recipeIndex;
+    public String getRecipeIngredientIndex() {
+        return recipeTitle;
     }
 
     public double getRecipeIngredientQuantity() {
         return recipeIngredientQuantity;
     }
 
-    public String getRecipeIngredientName() {
+    public String getRecipeTitle() {
         return recipeIngredientName;
     }
 
@@ -58,7 +58,7 @@ public class RecipeIngredient {
     }
 
     public String toSaveString() {
-        return recipeIndex + " | " + recipeIngredientName + " | " + recipeIngredientQuantity + " | " + unit + " | " + additionalInfo;
+        return recipeTitle + " | " + recipeIngredientName + " | " + recipeIngredientQuantity + " | " + unit + " | " + additionalInfo;
     }
 
     public String toString() {

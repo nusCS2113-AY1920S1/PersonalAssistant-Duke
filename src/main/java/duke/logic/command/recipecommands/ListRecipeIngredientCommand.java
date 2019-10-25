@@ -31,16 +31,12 @@ public class ListRecipeIngredientCommand extends Command<RecipeIngredientList, U
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
             System.out.println("stuck here1");
         } else if (userInput.trim().charAt(14) == ' ') {
-            String index = userInput.split("\\s", 2)[1];
-            if (isParsableInt(index)) {
-                arrayList.add(MESSAGE_TASKED);
-                for (RecipeIngredient recipeIngredient : recipeIngredientList.getRecipeIngredientList()) {
-                    if (recipeIngredient.getRecipeIngredientIndex() == Integer.parseInt(index)) {
-                        arrayList.add(recipeIngredient.toString());
-                    }
+            String title = userInput.split("\\s", 2)[1];
+            arrayList.add(MESSAGE_TASKED);
+            for (RecipeIngredient recipeIngredient : recipeIngredientList.getRecipeIngredientList()) {
+                if (recipeIngredient.getRecipeTitle().equals(title)) {
+                    arrayList.add(recipeIngredient.toString());
                 }
-            } else {
-                arrayList.add(ERROR_MESSAGE_INVALID_RECIPE_INDEX);
             }
         } else {
             arrayList.add(ERROR_MESSAGE_RANDOM);
