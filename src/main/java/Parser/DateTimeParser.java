@@ -5,7 +5,6 @@ import Interface.LookupTable;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -37,7 +36,7 @@ public class DateTimeParser {
     public static String[] EventParse(String input) throws ParseException {
 
         // date from time /to time
-        dateTimeStringSplit = input.split("/from");
+        dateTimeStringSplit = input.trim().split("/from");
         //dateTimeStringSplit[0] is "date" or "week X day", dateTimeStringSplit[1] is "time /to time"
         String weekDate = "";
         dateStringSplit = dateTimeStringSplit[0].trim().split(" "); //dateStringSplit[0] can be week
@@ -87,7 +86,7 @@ public class DateTimeParser {
 
     public static String[] recurringEventParse(String input) throws ParseException {
         //1/10/2019 /to 15/11/2019 /from 1500 /to 1700"
-        dateTimeStringSplit = input.split("/from"); //dateTimeStringSplit[0] = startDate to endDate
+        dateTimeStringSplit = input.trim().split("/from"); //dateTimeStringSplit[0] = startDate to endDate
         dateStringSplit = dateTimeStringSplit[0].split("/to"); //dateStringSplit[0] = startDate (2/2/2019 or week X day)
         String[] startDateStringSplit = dateStringSplit[0].trim().split(" "); //startDateStringSplit[0] = week
         String startWeekDate = startDateStringSplit[0].trim();
@@ -123,7 +122,7 @@ public class DateTimeParser {
 
     public static String[] remindDateParse(String input) throws ParseException {
         // week 9 fri 1500 /to week 9 thu 1500"
-        dateTimeStringSplit = input.split("/to"); //dateTimeStringSplit[0] = week 9 fri 1500
+        dateTimeStringSplit = input.trim().split("/to"); //dateTimeStringSplit[0] = week 9 fri 1500
         String[] taskDateTimeStringSplit = dateTimeStringSplit[0].trim().split(" ");
         String weekDate = taskDateTimeStringSplit[0].trim();
         if (weekDate.equalsIgnoreCase("reading") || weekDate.equalsIgnoreCase("exam")

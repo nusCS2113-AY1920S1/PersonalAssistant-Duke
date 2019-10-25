@@ -6,7 +6,6 @@ import Interface.Ui;
 import Tasks.Event;
 import Tasks.TaskList;
 
-import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -41,10 +40,9 @@ public class RecurringCommand extends Command {
 
     @Override
     public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws ParseException {
-        SimpleDateFormat stringToDate = new SimpleDateFormat("E dd/MM/yyyy");
-        SimpleDateFormat dateToString = new SimpleDateFormat("E dd/MM/yyyy");
-        Date startDate = stringToDate.parse(startDateString);
-        Date endDate = stringToDate.parse(endDateString);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
+        Date startDate = dateFormat.parse(startDateString);
+        Date endDate = dateFormat.parse(endDateString);
         String oldStartDateString = startDateString;
         Date startOfFollowingWeek;
 
@@ -52,7 +50,7 @@ public class RecurringCommand extends Command {
             events.addTask(new Event(description, startDateString, startTimeString, endTimeString));
             storage.updateEventList(events);
             startOfFollowingWeek = getNextWeekDate(startDate);
-            startDateString = dateToString.format(startOfFollowingWeek);
+            startDateString = dateFormat.format(startOfFollowingWeek);
             startDate = startOfFollowingWeek;
         }
         while (startOfFollowingWeek.before(endDate) || startOfFollowingWeek.equals(endDate));
