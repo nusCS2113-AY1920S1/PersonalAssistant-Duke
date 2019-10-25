@@ -119,7 +119,7 @@ public abstract class ParseFind {
      */
     void checkName(String nameString) throws ParserException {
         if (!RegexUtil.regexCheckName(nameString)) {
-            throw new ParserException("/name and /from can only contain letters and at most 30 characters");
+            throw new ParserException("/name and /from can only be alphanumeric and at most 30 characters");
         }
     }
 

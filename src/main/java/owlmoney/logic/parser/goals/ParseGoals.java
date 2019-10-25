@@ -36,7 +36,7 @@ public abstract class ParseGoals {
     /**
      * Creates an instance of any ParseGoals type object.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input data.
      */
     ParseGoals(String data) {
         this.rawData = data;
@@ -109,7 +109,7 @@ public abstract class ParseGoals {
      */
     void checkName(String key, String name) throws ParserException {
         if (!RegexUtil.regexCheckName(name)) {
-            throw new ParserException(key + " can only contain letters and at most 50 characters");
+            throw new ParserException(key + " can only be alphanumeric and at most 30 characters");
         }
     }
 

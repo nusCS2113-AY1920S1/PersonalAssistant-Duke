@@ -30,6 +30,7 @@ import owlmoney.logic.parser.investment.ParseAddInvestment;
 import owlmoney.logic.parser.investment.ParseDeleteInvestment;
 import owlmoney.logic.parser.investment.ParseEditInvestment;
 import owlmoney.logic.parser.investment.ParseInvestment;
+import owlmoney.logic.parser.profile.ParseEditProfile;
 import owlmoney.logic.parser.saving.ParseAddSaving;
 import owlmoney.logic.parser.saving.ParseDeleteSaving;
 import owlmoney.logic.parser.saving.ParseEditSaving;
@@ -120,8 +121,15 @@ class ParseType extends Parser {
     private Command parseTypeMenu(String command, String type, String rawData) throws ParserException {
         switch (type) {
         case "/profile":
-            isDeleteProfile(command);
-            return new PlaceHolderEmptyCommand();
+            if ("/edit".equals(command)) {
+                ParseEditProfile parseEditProfile = new ParseEditProfile(rawData);
+                parseEditProfile.fillHashTable();
+                parseEditProfile.checkParameter();
+                return parseEditProfile.getCommand();
+            } else if ("/delete".equals(command)) {
+                isDeleteProfile(command);
+            }
+            throw new ParserException("You entered an invalid type for profile");
         case "/savings":
             if ("/add".equals(command)) {
                 ParseSaving parseAddSaving = new ParseAddSaving(rawData);

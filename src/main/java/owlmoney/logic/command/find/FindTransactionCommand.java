@@ -44,7 +44,7 @@ public class FindTransactionCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
-     * @throws BankException        If bank name specified does not exist or used on investment account.
+     * @throws BankException        If bank name specified does not exist.
      * @throws TransactionException If parsing of date fails.
      * @throws CardException        If card with the name does not exist.
      */

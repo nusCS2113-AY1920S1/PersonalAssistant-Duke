@@ -369,11 +369,10 @@ public abstract class Bank {
      * @param description The description keyword to match against.
      * @param category The category keyword to match against.
      * @param ui The object required for printing.
-     * @throws BankException        If used on investment account.
      * @throws TransactionException  If parsing of date fails.
      */
-    public void findTransaction(String fromDate, String toDate, String description, String category, Ui ui)
-            throws BankException, TransactionException {
-        throw new BankException("This account does not support this feature");
+    void findTransaction(String fromDate, String toDate, String description, String category, Ui ui)
+            throws TransactionException {
+        transactions.findMatchingTransaction(fromDate, toDate, description, category, ui);
     }
 }
