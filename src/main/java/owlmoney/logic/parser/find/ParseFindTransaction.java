@@ -61,7 +61,6 @@ public class ParseFindTransaction extends ParseFind {
                 throw new ParserException(key + " cannot be empty when finding transaction");
             } else if (NAME.equals(key)) {
                 checkName(value);
-                findCounter++;
             }
         }
         if ((isFromExist && !isToExist) || (isToExist && !isFromExist)) {
