@@ -53,7 +53,7 @@ public class Parser {
             BigDecimal amount = BigDecimal.valueOf(amountDouble);
             BigDecimal scaledAmount = amount.setScale(2, RoundingMode.HALF_EVEN);
             return scaledAmount;
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | NullPointerException e) {
             throw new DukeException(String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, string));
         }
 

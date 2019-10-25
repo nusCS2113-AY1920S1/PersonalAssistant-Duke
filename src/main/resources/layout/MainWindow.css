@@ -3,6 +3,7 @@ BorderPane {
 
 Textfield {
     -fx-alignment: bottom;
+    -fx-padding: 20px;
 }
 
 #expenseTableView, #budgetListView{
