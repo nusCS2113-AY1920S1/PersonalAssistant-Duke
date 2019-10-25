@@ -155,13 +155,6 @@ public class ChartThread implements Runnable {
     }
 
     /**
-     * TODO: MAKE SURE THE FIRST INDEX OF PERCENTAGE CANNOT BE THE SMALLEST.
-     */
-    public static void rearrangePercentageTable() {
-
-    }
-
-    /**
      * Stops the threat from running.
      */
     public void stop() {
