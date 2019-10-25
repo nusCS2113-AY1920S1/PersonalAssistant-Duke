@@ -646,7 +646,7 @@ public class Profile {
      * @param description The description keyword to match against.
      * @param category    The category keyword to match against.
      * @param ui          The object required for printing.
-     * @throws BankException        If bank name specified does not exist or used on investment account.
+     * @throws BankException        If bank name specified does not exist.
      * @throws TransactionException If parsing of date fails.
      * @throws CardException        If card with the name does not exist.
      */
