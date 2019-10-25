@@ -337,6 +337,7 @@ added into the `TaskList` managed by the `Project`. `ProjectInputController` wil
 function and call the relevant methods in `TaskFactory` And `ParserHelper`.
 
 It implements the following commands:
+
 * `add task -t TASK_NAME  -p TASK_PRIORITY-c TASK_CREDIT -d TASK_DUEDATE -s TASK_STATE -r TASK_REQUIREMENT1` -- Creation of a
 new Task with the task name, priority, credit, due date (optional), state(optional) and additional requirements (if any)
 
