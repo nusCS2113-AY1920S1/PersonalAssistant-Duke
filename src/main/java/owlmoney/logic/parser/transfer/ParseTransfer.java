@@ -132,6 +132,9 @@ public class ParseTransfer {
         while (transferIterator.hasNext()) {
             String key = transferIterator.next();
             String value = transferParameters.get(key);
+            if ((value.isBlank() || value.isEmpty())) {
+                throw new ParserException(key + " cannot be empty when transferring fund.");
+            }
             if (FROM.equals(key)) {
                 checkName(FROM, value);
             }

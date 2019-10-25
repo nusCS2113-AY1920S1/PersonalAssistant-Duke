@@ -10,6 +10,7 @@ import owlmoney.logic.parser.exception.ParserException;
  * Represents the parsing of inputs for finding of bank or card.
  */
 public class ParseFindBankOrCard extends ParseFind {
+    static final String FINDBANKORCARD = "/find /savings or /find /investment or /find /card";
 
     /**
      * Creates an instance of ParseFindBankOrCard.
@@ -20,10 +21,10 @@ public class ParseFindBankOrCard extends ParseFind {
      */
     public ParseFindBankOrCard(String data, String type) throws ParserException {
         super(data, type);
-        checkRedundantParameter(DESCRIPTION, ISFIND);
-        checkRedundantParameter(CATEGORY, ISFIND);
-        checkRedundantParameter(FROM, ISFIND);
-        checkRedundantParameter(TO, ISFIND);
+        checkRedundantParameter(DESCRIPTION, FINDBANKORCARD);
+        checkRedundantParameter(CATEGORY, FINDBANKORCARD);
+        checkRedundantParameter(FROM, FINDBANKORCARD);
+        checkRedundantParameter(TO, FINDBANKORCARD);
         checkFirstParameter();
     }
 

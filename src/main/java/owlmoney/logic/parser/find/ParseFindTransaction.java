@@ -69,7 +69,8 @@ public class ParseFindTransaction extends ParseFind {
             checkDateRange(fromDate, toDate);
         }
         if (findCounter == 0) {
-            throw new ParserException("Finding of transaction should have at least 1 parameter to find.");
+            throw new ParserException("Finding of transaction should have at least 1 parameter " +
+                    "which is not empty for find.");
         }
     }
 
@@ -80,7 +81,7 @@ public class ParseFindTransaction extends ParseFind {
      */
     private void checkDateRange(Date fromDate, Date toDate) throws ParserException {
         if (toDate.before(fromDate)) {
-            throw new ParserException("/to date should cannot be before /from date.");
+            throw new ParserException("/to date cannot be before /from date.");
         }
     }
 

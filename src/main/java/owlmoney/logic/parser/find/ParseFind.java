@@ -27,7 +27,6 @@ public abstract class ParseFind {
             "/name", "/desc", "/category", "/from", "/to"
     };
     private static final List<String> FIND_KEYWORD_LISTS = Arrays.asList(FIND_KEYWORD);
-    static final String ISFIND = "/find";
     static final String NAME = "/name";
     static final String DESCRIPTION = "/desc";
     static final String CATEGORY = "/category";

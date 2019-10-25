@@ -764,7 +764,8 @@ public class BankList {
                 return bankLists.get(i);
             }
         }
-        throw new BankException("Investment account does not exist for search: " + investmentName);
+        throw new BankException("Investment account with the following name " +
+                "does not exist for search: " + investmentName);
     }
 
     /**

@@ -10,6 +10,7 @@ import owlmoney.logic.parser.exception.ParserException;
  * Represents the parsing of inputs for finding of bonds.
  */
 public class ParseFindBond extends ParseFind {
+    static final String FINDBOND = "/find /bonds";
 
     /**
      * Creates an instance of ParseFindBond.
@@ -20,9 +21,9 @@ public class ParseFindBond extends ParseFind {
      */
     public ParseFindBond(String data, String type) throws ParserException {
         super(data, type);
-        checkRedundantParameter(DESCRIPTION, ISFIND);
-        checkRedundantParameter(CATEGORY, ISFIND);
-        checkRedundantParameter(TO, ISFIND);
+        checkRedundantParameter(DESCRIPTION, FINDBOND);
+        checkRedundantParameter(CATEGORY, FINDBOND);
+        checkRedundantParameter(TO, FINDBOND);
         checkFirstParameter();
     }
 
