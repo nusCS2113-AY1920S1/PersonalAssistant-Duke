@@ -54,6 +54,18 @@ public class FindFreeTimesCommand extends Command {
     }
 
     /**
+     * This method updates the dateTime to same date with time 2359.
+     * @param inDate The date given
+     * @return The updated date
+     */
+    private Date increaseZeroSevenZeroZero(Date inDate){
+        Calendar c = Calendar.getInstance();
+        c.setTime(inDate);
+        c.add(Calendar.HOUR, 7);
+        return c.getTime();
+    }
+
+    /**
      * This function rounds ups the time to the nearest half hour or hour mark.
      * @param date The date given to round up
      * @return The round up date
@@ -115,6 +127,7 @@ public class FindFreeTimesCommand extends Command {
      */
     public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
         mapDataMap(events);
+        checkDataMap();
         findFindTime();
         setOutput();
         System.out.println(message);
@@ -186,15 +199,15 @@ public class FindFreeTimesCommand extends Command {
                 }
                 else if(i == (startAndEndTimes.size() - 1)){
                     Date dateBoundary = dateTimeFormat.parse(date + " 12:00 AM");
-                    dateBoundary = increaseToTwoThreeFiveNine(dateBoundary);
+                    Date dateUpperBoundary = increaseToTwoThreeFiveNine(dateBoundary);
+                    Date dateLowerBoundary = increaseZeroSevenZeroZero(dateBoundary);
 
                     String dateTime = date + " " + startAndEndTimes.get(i).getValue();
                     Date dateTimeStart = dateTimeFormat.parse(dateTime);
                     dateTimeStart = roundByHalfHourMark(dateTimeStart);
 
                     Date dateTimeEnd = increaseDateTime(dateTimeStart, duration);
-
-                    if(dateTimeEnd.before(dateBoundary)) {
+                    if(dateTimeStart.after(dateLowerBoundary) && dateTimeEnd.before(dateUpperBoundary)) {
                         freeTimeData.add(new Pair<>(dateTimeStart, dateTimeEnd));
                         return;
                     } else {
@@ -206,6 +219,15 @@ public class FindFreeTimesCommand extends Command {
                             Date nextDayEndTime = increaseDateTime(nextDayStartTime, duration);
                             freeTimeData.add(new Pair<>(nextDayStartTime, nextDayEndTime));
                             return;
+                        } else {
+                            ArrayList<Pair<String, String >> nextDayStartAndEndTimes = dataMap.get(nextKey);
+                            String nextDateTime = nextKey + " " + nextDayStartAndEndTimes.get(0).getKey(); //Just need to check first item of next day start time
+                            Date nextDateTimeStart = dateTimeFormat.parse(nextDateTime);
+                            Date dateLowerBoundaryPlusDuration = increaseDateTime(dateLowerBoundary, duration);
+                            if(dateLowerBoundary.before(nextDateTimeStart) && dateLowerBoundaryPlusDuration.before(nextDateTimeStart)) {
+                                freeTimeData.add(new Pair<>(dateLowerBoundary, dateLowerBoundaryPlusDuration));
+                                return;
+                            }
                         }
                     }
                 }
@@ -234,5 +256,14 @@ public class FindFreeTimesCommand extends Command {
         boolean isSameDate = checkIfSameDate(freeTimeData.get(0).getKey(), freeTimeData.get(0).getValue());
         if (isSameDate) message = dateTimeFormat.format(freeTimeData.get(0).getKey()) + " until " + timeFormat.format(freeTimeData.get(0).getValue());
         else message = dateTimeFormat.format(freeTimeData.get(0).getKey()) + " until " + dateTimeFormat.format(freeTimeData.get(0).getValue());
+    }
+
+    private void checkDataMap() {
+        for(Map.Entry<String, ArrayList<Pair<String, String>>> a: dataMap.entrySet()){
+            System.out.println("a: " + a.getKey());
+            for(Pair<String, String> b : a.getValue()){
+                System.out.println("b: " + b.getKey() + "|" + b.getValue());
+            }
+        }
     }
 }
