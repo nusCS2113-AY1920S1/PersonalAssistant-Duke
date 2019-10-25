@@ -21,6 +21,7 @@ import static compal.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static compal.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author SholihinK
 class ViewCommandParserTest {
     private ViewCommandParser parser = new ViewCommandParser();
     private TaskList taskList = new TaskList();

@@ -8,7 +8,7 @@ import compal.logic.parser.exceptions.ParserException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-
+//@@author SholihinK
 /**
  * Parses input arguments and creates a new ViewCommand object.
  */
