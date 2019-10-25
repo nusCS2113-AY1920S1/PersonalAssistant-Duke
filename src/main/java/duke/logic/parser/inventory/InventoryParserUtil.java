@@ -26,6 +26,7 @@ public class InventoryParserUtil {
         if (map.getValue(PREFIX_INVENTORY_REMARKS).isPresent()) {
             inventoryDescriptor.setRemarks(map.getValue(PREFIX_INVENTORY_REMARKS).get());
         }
+
         return inventoryDescriptor;
     }
 }

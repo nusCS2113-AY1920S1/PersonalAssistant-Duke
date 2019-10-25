@@ -15,6 +15,8 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_INDEX;
 
 public class BuyShoppingCommandParser implements Parser<BuyShoppingCommand> {
 
+    private static final String EMPTY_STRING = "";
+
     @Override
     public BuyShoppingCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args, PREFIX_SHOPPING_INDEX);
@@ -22,7 +24,7 @@ public class BuyShoppingCommandParser implements Parser<BuyShoppingCommand> {
         Set<Index> indices;
 
         try {
-            indices = ParserUtil.getIndices(map.getValue(PREFIX_SHOPPING_INDEX).orElse(""));
+            indices = ParserUtil.getIndices(map.getValue(PREFIX_SHOPPING_INDEX).orElse(EMPTY_STRING));
         } catch (ParseException e) {
             throw new ParseException(Message.MESSAGE_INVALID_COMMAND_FORMAT);
         }
