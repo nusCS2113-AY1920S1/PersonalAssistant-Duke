@@ -20,27 +20,20 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
 
     private ArgumentMultimap map;
 
-    /**
-     * Parses {@code userInput} into a command and returns it.
-     *
-     * @param args
-     * @throws ParseException if {@code userInput} does not conform the expected format
-     */
     @Override
     public AddProductCommand parse(String args) throws ParseException {
-         map = ArgumentTokenizer.tokenize(args,
-            PREFIX_PRODUCT_NAME,
-            PREFIX_PRODUCT_INGREDIENT,
-            PREFIX_PRODUCT_INGREDIENT_COST,
-            PREFIX_PRODUCT_RETAIL_PRICE
-        );
-
-        if (map.getValue(PREFIX_PRODUCT_NAME).isEmpty() || map.getValue(PREFIX_PRODUCT_NAME) == null) {
-            throw new ParseException("Please enter the name of the product");
-        }
-
+        getMap(args);
         Product product = getProductFromMap();
         return new AddProductCommand(product);
+    }
+
+    private void getMap(String args) {
+        map = ArgumentTokenizer.tokenize(args,
+                PREFIX_PRODUCT_NAME,
+                PREFIX_PRODUCT_INGREDIENT,
+                PREFIX_PRODUCT_INGREDIENT_COST,
+                PREFIX_PRODUCT_RETAIL_PRICE
+        );
     }
 
     /** Gets data from user input */

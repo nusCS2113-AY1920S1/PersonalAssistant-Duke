@@ -2,6 +2,8 @@ package duke.logic.command.product;
 
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.parser.commons.CliSyntax;
+import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
 import duke.model.product.Product;
 
@@ -14,6 +16,14 @@ public class AddProductCommand extends ProductCommand {
     public static final String MESSAGE_DUPLICATE_PRODUCT = "Product with name \"%s\" already exists in the "
             + "product list";
     private final Product toAdd;
+
+    public static final String AUTO_COMPLETE_INDICATOR = ProductCommand.COMMAND_WORD + " " + COMMAND_WORD;
+    public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
+            CliSyntax.PREFIX_PRODUCT_NAME,
+            CliSyntax.PREFIX_PRODUCT_INGREDIENT,
+            CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST,
+            CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE,
+    };
 
     public AddProductCommand(Product toAdd) {
         requireNonNull(toAdd);
