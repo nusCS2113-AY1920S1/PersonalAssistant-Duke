@@ -5,6 +5,7 @@ import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
 //@@author SholihinK
+
 /**
  * Mark a task as done or undone.
  */
@@ -23,9 +24,6 @@ public class DoneCommand extends Command {
 
     public static final String COMMAND_PREFIX = "Noted. I have mark the below task as done: \n";
     public static final String COMMAND_PREFIX2 = "Noted. I have mark the below task as not done: \n";
-    public static final String COMMAND_ALR_DONE = "Task to be mark done is already marked as done! \n";
-    public static final String COMMAND_ALR_UNDONE = "Task to be mark not done is "
-        + "already marked as not done! \n";
     private int taskID;
     private String status;
 
@@ -44,32 +42,14 @@ public class DoneCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_ID);
         }
 
-        Boolean isDone = task.getisDone();
-
-        boolean state;
         if (status.equalsIgnoreCase("y")) {
-            state = true;
+            task.markAsDone();
+            return new CommandResult(COMMAND_PREFIX.concat(task.toString()), true);
         } else if (status.equalsIgnoreCase("n")) {
-            state = false;
+            task.markAsNotDone();
+            return new CommandResult(COMMAND_PREFIX2.concat(task.toString()), true);
         } else {
             throw new CommandException(MESSAGE_INVALID_INPUT);
-        }
-
-        if (!isDone) {
-            if (!state) {
-                return new CommandResult(COMMAND_ALR_UNDONE.concat(task.toString()), false);
-            } else {
-                task.markAsDone();
-                return new CommandResult(COMMAND_PREFIX.concat(task.toString()), true);
-            }
-        } else {
-            if (state) {
-                return new CommandResult(COMMAND_ALR_DONE.concat(task.toString()), false);
-            } else {
-                task.markAsNotDone();
-                return new CommandResult(COMMAND_PREFIX2.concat(task.toString()), false);
-            }
-
         }
 
     }

@@ -10,13 +10,13 @@ import java.text.ParseException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@@author SholihinK
-class CommandParserTestUtil {
+public class CommandParserTestUtil {
 
     /**
      * Asserts that the parsing of user input by  parserManager is successful and the command created
      * equals to expectedCommand .
      */
-    static void assertParseSuccess(CommandParser commandParser, String userInput,
+    public static void assertParseSuccess(CommandParser commandParser, String userInput,
                                    CommandResult expectedCommand, TaskList taskList) {
         try {
             CommandResult command = commandParser.parseCommand(userInput).commandExecute(taskList);
@@ -30,7 +30,7 @@ class CommandParserTestUtil {
      * Asserts that the parsing of user input by parser is unsuccessful and the error message
      * equals to the errorMessage.
      */
-    static void assertParseFailure(CommandParser parserManager, String userInput, String expectedMessage) {
+    public static void assertParseFailure(CommandParser parserManager, String userInput, String expectedMessage) {
         try {
             parserManager.parseCommand(userInput);
             throw new AssertionError("The expected ParseException was not thrown.");

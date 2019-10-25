@@ -1,8 +1,7 @@
-package compal.logic.parser;
+package compal.logic.command;
 
-
-import compal.logic.command.DoneCommand;
 import compal.logic.command.exceptions.CommandException;
+import compal.logic.parser.ListCommandParser;
 import compal.model.tasks.Deadline;
 import compal.model.tasks.Event;
 import compal.model.tasks.Task;
@@ -10,23 +9,17 @@ import compal.model.tasks.TaskList;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-
-import static compal.logic.parser.CommandParser.MESSAGE_MISSING_TOKEN;
-
-import static compal.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static compal.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static compal.model.tasks.Task.Priority.medium;
-
 
 //@@author SholihinK
-class DoneParserTest {
-    private DoneParser parser = new DoneParser();
-
+class ListCommandTest {
     private ArrayList<Task> taskArrListMain = new ArrayList<>();
     private ArrayList<Task> taskArrListDup = new ArrayList<>();
+    private ArrayList<Task> taskArrListEmpty = new ArrayList<>();
 
     private TaskList taskListMain = new TaskList();
     private TaskList taskListDup = new TaskList();
+    private TaskList taskListEmpty = new TaskList();
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
@@ -45,30 +38,34 @@ class DoneParserTest {
 
         this.taskListMain.setArrList(taskArrListMain);
         this.taskListDup.setArrList(taskArrListDup);
+        this.taskListEmpty.setArrList(taskArrListEmpty);
     }
 
     @Test
-    void parse_invalidToken_failure() {
-        assertParseFailure(parser, "-1", MESSAGE_MISSING_TOKEN);
+    void execute_list_withoutType_successs() {
+        ListCommandParser parser = new ListCommandParser();
+        assertParseSuccess(parser, "",
+            new ListCommand("").commandExecute(taskListDup), taskListMain);
     }
 
     @Test
-    void parse_validToken_EmptyStatus_failure() {
-        assertParseFailure(parser, "/id 1", MESSAGE_MISSING_TOKEN);
+    void execute_listDeadline_success() {
+        ListCommandParser parser = new ListCommandParser();
+        assertParseSuccess(parser, "/type deadline",
+            new ListCommand("deadline").commandExecute(taskListDup), taskListMain);
     }
 
     @Test
-    void parse_validTokenAndID_done_success() throws CommandException {
-        int id = taskListMain.getArrList().get(0).getId();
-        assertParseSuccess(parser, "/id " + id + " /status y",
-            new DoneCommand(0, "y").commandExecute(taskListDup), taskListMain);
+    void execute_listEvent_success() {
+        ListCommandParser parser = new ListCommandParser();
+        assertParseSuccess(parser, "/type event",
+            new ListCommand("event").commandExecute(taskListDup), taskListMain);
     }
 
     @Test
-    void parse_validTokenAndID_undone_success() throws CommandException {
-        int id = taskListMain.getArrList().get(0).getId();
-        assertParseSuccess(parser, "/id " + id + " /status n",
-            new DoneCommand(0, "n").commandExecute(taskListDup), taskListMain);
+    void execute_emptyList_success() {
+        ListCommandParser parser = new ListCommandParser();
+        assertParseSuccess(parser, "/type event",
+            new ListCommand("event").commandExecute(taskListEmpty), taskListEmpty);
     }
-
 }
