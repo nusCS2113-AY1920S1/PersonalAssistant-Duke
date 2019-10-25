@@ -1,8 +1,8 @@
 package duke;
 
-import duke.MementoPattern.Memento;
-import duke.MementoPattern.MementoManager;
-import duke.MementoPattern.MementoParser;
+import duke.mementopattern.Memento;
+import duke.mementopattern.MementoManager;
+import duke.mementopattern.MementoParser;
 import duke.command.Command;
 import duke.core.CommandManager;
 import duke.core.DukeException;
@@ -44,6 +44,7 @@ public class Duke {
      */
     private Ui ui = Ui.getUi();
 
+
     /**
      * Constructs a Duke object with a relative file path.
      * Initialize the user interface and reads tasks from the specific text file.
@@ -69,8 +70,8 @@ public class Duke {
 
     /**
      * .
-     *
-     * @return .
+     * .
+     * @param memento .
      */
     public void getDukeStateFromMemento(Memento memento) {
         taskManager = memento.getTaskState();
@@ -84,9 +85,9 @@ public class Duke {
      * @return .
      */
     public Memento saveDukeStateToMemento() {
-        return new Memento(new TaskManager(taskManager.getTaskList())
-                , new PatientTaskList(patientTaskList.fullPatientTaskList())
-                , new PatientManager(patientManager.getPatientList()));
+        return new Memento(new TaskManager(taskManager.getTaskList()),
+                new PatientTaskList(patientTaskList.fullPatientTaskList()),
+                new PatientManager(patientManager.getPatientList()));
     }
 
     /**

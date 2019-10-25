@@ -12,7 +12,7 @@ import duke.task.TaskManager;
 
 import java.util.ArrayList;
 
-public class FindPatientTaskCommand extends Command {
+public class FindPatientTaskCommand implements Command {
 
     private String command;
 

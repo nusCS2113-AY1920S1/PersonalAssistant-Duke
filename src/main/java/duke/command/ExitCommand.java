@@ -12,7 +12,7 @@ import duke.task.TaskManager;
  * extends from the Command class for the user to quit the
  * program
  */
-public class ExitCommand extends Command {
+public class ExitCommand implements Command {
 
     /**
      * Constructs a ExitCommand object.

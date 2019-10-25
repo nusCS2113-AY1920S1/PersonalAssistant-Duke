@@ -1,7 +1,5 @@
 package duke.command;
 
-import duke.MementoPattern.Memento;
-import duke.MementoPattern.MementoManager;
 import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.PatientManager;
@@ -9,7 +7,7 @@ import duke.relation.PatientTaskList;
 import duke.storage.StorageManager;
 import duke.task.TaskManager;
 
-public class UndoCommand extends Command{
+public class UndoCommand implements Command {
 
     /**
      * .

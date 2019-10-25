@@ -11,7 +11,7 @@ import duke.task.TaskManager;
 
 import java.util.ArrayList;
 
-public class DeletePatientTaskCommand extends Command {
+public class DeletePatientTaskCommand implements Command {
     private int patientId;
     private int taskId;
     private String deletedPatientInfo;

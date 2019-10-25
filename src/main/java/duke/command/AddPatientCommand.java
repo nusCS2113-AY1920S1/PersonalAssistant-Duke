@@ -8,7 +8,7 @@ import duke.relation.PatientTaskList;
 import duke.storage.StorageManager;
 import duke.task.TaskManager;
 
-public class AddPatientCommand extends Command {
+public class AddPatientCommand implements Command {
 
     private Patient newPatient;
 
