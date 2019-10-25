@@ -1,8 +1,6 @@
 package duke.command;
 
 import duke.exception.DukeException;
-import duke.ui.Context;
-import duke.ui.Ui;
 import duke.ui.UiContext;
 
 import static java.lang.Math.min;
