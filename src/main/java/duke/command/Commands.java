@@ -50,10 +50,13 @@ public class Commands {
                 return null;
             }
         case PATIENT:
-            switch(cmdStr){
-                case "report":
-                    return new PatientReportCommand();
+            switch (cmdStr) {
+            case "report":
+                return new PatientReportCommand();
+            default:
+                return null;
             }
+
         case TREATMENT:
             if ("status".equals(cmdStr)) {
                 //return new TreatmentStatusCommand();

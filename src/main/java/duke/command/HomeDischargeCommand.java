@@ -13,10 +13,11 @@ public class HomeDischargeCommand extends ArgCommand {
     @Override
     public void execute(DukeCore core) throws DukeException {
         String header = "DISCHARGED PATIENT REPORT";
-        String explanation = "This report shows all the data that was stored about a patient at the time the report was "
-                + "created.";
+        String explanation = "This report shows all the data that was stored about a patient at the time the report was"
+                + " created.";
         if (core.patientMap.getPatient(getArg()) != null) {
-            HomeReportCommand.createReport(core.patientMap.getPatient(getArg()), header, explanation, getSwitchVal("summary"));
+            HomeReportCommand.createReport(core.patientMap.getPatient(getArg()), header,
+                    explanation, getSwitchVal("summary"));
             core.patientMap.deletePatient(getArg());
         }
     }
