@@ -3,10 +3,12 @@ package views;
 import controllers.ConsoleInputController;
 import models.data.IProject;
 import models.data.Project;
+import models.member.Member;
 import models.task.Task;
 import util.log.DukeLogger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class CLIView {
@@ -245,7 +247,8 @@ public class CLIView {
      * @param projectToManage The project specified by the user.
      */
     public void viewAllTasks(IProject projectToManage) {
-        ArrayList<String> allTaskDetails = projectToManage.getTasks().getAllTaskDetails();
+        HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
+        ArrayList<String> allTaskDetails = projectToManage.getTasks().getAllTaskDetails(tasksAndAssignedMembers);
         DukeLogger.logDebug(CLIView.class, allTaskDetails.toString());
         consolePrint(allTaskDetails.toArray(new String[0]));
     }
@@ -256,7 +259,10 @@ public class CLIView {
      * @param sortCriteria Criteria to sort chosen by user.
      */
     public void viewSortedTasks(IProject projectToManage, String sortCriteria) {
-        ArrayList<String> allTaskDetails = projectToManage.getTasks().getAllSortedTaskDetails(sortCriteria);
+        HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
+        ArrayList<String> allTaskDetails =
+                projectToManage.getTasks().getAllSortedTaskDetails(tasksAndAssignedMembers,sortCriteria);
+
         DukeLogger.logDebug(CLIView.class, allTaskDetails.toString());
         consolePrint(allTaskDetails.toArray(new String[0]));
     }
