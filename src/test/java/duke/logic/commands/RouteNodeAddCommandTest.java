@@ -2,15 +2,15 @@ package duke.logic.commands;
 
 import duke.ModelStub;
 import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
-import duke.commons.exceptions.UnknownConstraintException;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
 import duke.model.locations.BusStop;
 import duke.model.transports.Route;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RouteNodeAddCommandTest {
 

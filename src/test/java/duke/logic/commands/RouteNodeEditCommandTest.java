@@ -38,7 +38,7 @@ class RouteNodeEditCommandTest {
         assertEquals(Constraint.valueOf("BUS"), model.getRoutes().get(0).getNode(0).getType());
 
         //negative test for a constraint that does not exist
-        RouteNodeEditCommand routeNodeEditCommand4 = new RouteNodeEditCommand(0, 0, "type", "2113T");;
+        RouteNodeEditCommand routeNodeEditCommand4 = new RouteNodeEditCommand(0, 0, "type", "2113T");
         assertThrows(UnknownConstraintException.class, () -> {
             routeNodeEditCommand4.execute(model);
         });
@@ -48,7 +48,7 @@ class RouteNodeEditCommandTest {
         assertEquals(2113, model.getRoutes().get(0).getNode(0).getLatitude());
 
         //negative test for latitude that cannot be converted to a Double
-        RouteNodeEditCommand routeNodeEditCommand6 = new RouteNodeEditCommand(0, 0, "latitude", "NOT_DOUBLE");;
+        RouteNodeEditCommand routeNodeEditCommand6 = new RouteNodeEditCommand(0, 0, "latitude", "NOT_DOUBLE");
         assertThrows(InputNotDoubleException.class, () -> {
             routeNodeEditCommand6.execute(model);
         });
@@ -58,7 +58,7 @@ class RouteNodeEditCommandTest {
         assertEquals(2113, model.getRoutes().get(0).getNode(0).getLongitude());
 
         //negative test for longitude that cannot be converted to a Double
-        RouteNodeEditCommand routeNodeEditCommand8 = new RouteNodeEditCommand(0, 0, "longitude", "NOT_DOUBLE");;
+        RouteNodeEditCommand routeNodeEditCommand8 = new RouteNodeEditCommand(0, 0, "longitude", "NOT_DOUBLE");
         assertThrows(InputNotDoubleException.class, () -> {
             routeNodeEditCommand8.execute(model);
         });
