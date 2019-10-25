@@ -116,6 +116,10 @@ public class Patient extends DukeObject {
         }
     }
 
+    public void deleteImpression2(String keyIdentifier) {
+        this.impressions.remove(keyIdentifier);
+    }
+
     /**
      * This getImpression function returns the impression from the impressions list at the specified index.
      *
@@ -345,4 +349,10 @@ public class Patient extends DukeObject {
         this.history = history;
     }
 
+    public boolean containsPriDiagnosis(String name) throws NullPointerException{
+        return name.equals(getPriDiagnosis().getName());
+    }
+    public boolean containsImpressionName(String key) throws NullPointerException{
+        return this.impressions.containsValue(key);
+    }
 }

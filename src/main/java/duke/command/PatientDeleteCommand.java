@@ -6,6 +6,7 @@ import duke.data.Patient;
 import duke.exception.DukeException;
 
 public class PatientDeleteCommand extends ArgCommand {
+    private DukeObject patient;
 
     @Override
     protected ArgSpec getSpec() {
@@ -14,30 +15,43 @@ public class PatientDeleteCommand extends ArgCommand {
 
     @Override
     public void execute(DukeCore core) throws DukeException {
+        patient = core.uiContext.getObject();
         boolean deleted = false;
-        DukeObject patient = core.uiContext.getObject();
         String searchCritical = getSwitchVal("critical");
         String searchInvestigation = getSwitchVal("investigation");
         String searchImpression = getSwitchVal("impression");
-
-        if (searchCritical != null && searchCritical.equals(((Patient) patient).getPriDiagnosis().getName())) {
-            ((Patient) patient).deletePriDiagnosis();
+        if (searchCritical != null) {
+            comparePriDiagnosisName(core, searchCritical);
             deleted = true;
-            System.out.println("Critical SEARCH");
-            core.ui.print("Successfully deleted " + searchCritical);
         }
         if (searchInvestigation != null) {
+            compareInvestigationName(core, searchInvestigation);
             deleted = true;
-            core.ui.print("Successfully deleted " + searchInvestigation);
         }
-        if (searchImpression != null && ((Patient) patient).getImpressions().containsKey(searchImpression)) {
-            ((Patient) patient).getImpressions().remove(searchImpression);
+        if (searchImpression != null) {
+            compareImpressionName(core, searchImpression);
             deleted = true;
-            core.ui.print("Successfully deleted " + searchImpression);
         }
         if (!deleted) {
-            throw new DukeException("Unsuccessful delete, could not find a match.");
+            throw new DukeException("Unsuccessful delete, could not find any matches");
+        }
+    }
+
+    public void comparePriDiagnosisName(DukeCore core, String name) {
+        if (((Patient) patient).containsPriDiagnosis(name)) {
+            ((Patient) patient).deletePriDiagnosis();
+            core.ui.print("Successfully deleted " + name);
+        }
+    }
+
+    public void compareInvestigationName(DukeCore core, String name) {
+        core.ui.print("Successfully deleted " + name);
+    }
+
+    public void compareImpressionName(DukeCore core, String name) throws DukeException {
+        if (((Patient) patient).containsImpressionName(name)) {
+            ((Patient) patient).deleteImpression2(name);
+            core.ui.print("Successfully deleted " + name);
         }
     }
 }
-
