@@ -44,7 +44,8 @@ public class UiManager implements Ui {
      */
     @Override
     public void print(String message) {
-        mainWindow.print(message);
+        String displayMessage = message.replace("\t", "\n");
+        mainWindow.print(displayMessage);
     }
 
     /**

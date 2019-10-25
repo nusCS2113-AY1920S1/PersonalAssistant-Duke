@@ -56,7 +56,7 @@ The *_Architecture Diagram_* shown above explains the high-level design of *Dr. 
 
 [[Design-UI]]
 === UI [PANG JIA JUN VERNON]
-image::plantuml/ui.svg[]
+image::plantuml/ui.png[]
 
 This class diagram aptly describes the relationships between the various core classes in the UI component.
 
@@ -64,7 +64,7 @@ The `UI` component uses the JavaFX UI framework. The layout of these UI elements
 
 The UI component is exposed to external modules/components via the `Ui` interface. The `UiManager` implements this interface and acts as the manager of the UI component. Hence, `UiManager` holds a reference to the `MainWindow` (the primary UI window that houses the other UI elements that the application will use).
 
-As mentioned, the UI is made up of a `MainWindow` that houses various UI elements such as `CommandWindow`, `HomeWindow`, `PatientWindow`, etc. These UI elements, including `MainWindow` extends from the abstract class `UiElement`. This abstract class serves as the base class for ALL UI elements used in the application, and allows for their easy creation.
+As mentioned, the UI is made up of a `MainWindow` that houses various UI elements such as `CommandWindow`, `HomeWindow`, `PatientWindow`, etc. These UI elements, including `MainWindow` extends from the abstract class `UiElement`. This abstract class serves as the parent class for all of the UI elements used in the application, and allows for their easy creation. In addtion, the `MainWindow` holds a reference of the `UiContext` that exposes the current `Context` of the application. This is required as the `Context` of the application determines what UI window is shown, i.e. `HomeWindow` for Home context, `PatientWindow` for Patient context.
 
 [[Design-Logic]]
 === Parser Logic [JOHN CUTHBERT KHOO TENG FONG]
@@ -316,6 +316,27 @@ image::SearchActivityDiagram.png[]
 ** Pros: Java String have a character limit of 2147483647. By chain searching we avoid the problem of overflow
 ** Cons: More complex to implement. Unlikely for any impression to exceed this limit.
 
+=== Discharge patients and create discharge reports [JACOB TORESSON]
+ 
+==== Rationale
+ 
+The discharge feature deletes a patient from `Dr.Duke` and creates a `.txt` report file where all data about the patient at the point of discharge is stored. These report files can be used to manually recreate a patient if a doctor wants to add a discharged patient back to `Dr.Duke`. This feature also prevents `Dr.Duke` from getting full as new patients come and go from the hospital using the same bed numbers. To be able to discharge a patient that is no longer at the hospital also enables quicker lookup of the patients that are at the hospital. 
+ 
+==== Implementation
+ 
+The discharge mechanism is facilitated by the `ReportCommand` and `ReportSpec` classes. `ReportCommand` extends the `Command` class and `ReportSpec` extends the `ArgSpec` class. Like every command, `ReportCommand` has an `execute` method. The `execute` method is called upon when the user enters a “discharge” command followed by a valid bed number. The “discharge” command has the optional switch `-sum` that enables the user to input a short discharge summary, for example, the reason why the patient is discharged and the date and time of the discharge. As the reports are stored in a text format the user can also add additional text to the report after the report has been created by simply writing new text to the report file with a text editor. The syntax of the “discharge” command is implemented in `ReportSpec` using the `Switch` class.  
+ 
+Given below is an example of what a discharge command with a discharge summary that follows the syntax could look like
+
+* `discharge A12 -sum Patient left the hospital, 2019-03-03 08:00`
+ 
+The `execute` method in `ReportCommand` creates one report file for each discharged patient and places it in the “report” folder within the “data” folder. Every discharged patient file is named with the patient's name and bed number separated by a `-`. For example, if a patient named “Alexander Smith” with the bed number "A300" was discharged the file name would be `AlexanderSmith-A300`. 
+ 
+The `execute` method uses the `FileWriter` class to write the report to the report file utilizing `toReportString` which is a method that every `DukeObject` implements. The `toReportString` returns a string representation of every attribute that is not a null value and some other strings that make the report more reader-friendly. 
+ 
+==== Alternatives considerations 
+ 
+A future consideration is to store the reports in PDF files instead of text files. This would be beneficial as it would decrease the risk of the user to accidentally change the reports while reading it. Using PDFs could also make the reports more reader-friendly for the user. A drawback of using PDFs is that it makes it harder for the user to add text to the reports after they have been created. Another future consideration is to automatically include the date and time of when each discharge in the reports. 
 
 [appendix]
 == Product Scope

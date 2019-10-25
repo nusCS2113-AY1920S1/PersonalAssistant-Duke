@@ -26,14 +26,33 @@ public class Commands {
             } else {
                 return null; // TODO: fill in the other contexts
             }
+        case "help":
+            if (context == Context.HOME) {
+                return new HomeHelpCommand();
+            } else {
+                return null; // TODO: fill in the other contexts
+            }
         case "new":
             if (context == Context.HOME) {
                 return new HomeNewCommand();
             } else {
                 return null; // TODO: fill in the other contexts
             }
+        case "open":
+            if (context == Context.HOME) {
+                return new HomeOpenCommand();
+            } else {
+                return null; // TODO: fill in the other contexts
+            }
         case "discharge":
             return new ReportCommand();
+        case "history":
+            if (context == Context.HOME) {
+                return new HomeHistoryCommand();
+            } else {
+                // todo: fill in patient context
+                return null;
+            }
         default:
             return null;
         }
