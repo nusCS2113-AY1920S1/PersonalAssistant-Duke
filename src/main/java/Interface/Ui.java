@@ -51,7 +51,7 @@ public class Ui {
      * Displays the delete task message when user wants to delete a task.
      */
     public String showDelete(Task task, int listSize){
-        listSize -= 1;
+        //listSize -= 1;
         return "Noted. I've removed this task:\n" + task.toString() + "\n" + "Now you have "
                 + listSize  + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
