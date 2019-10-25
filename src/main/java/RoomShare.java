@@ -143,7 +143,7 @@ public class RoomShare {
                     ui.priorityInstruction();
                 } finally {
                     if (success) {
-                        taskList.sortPriority();
+                        TaskList.sortTasks();
                         ui.prioritySet();
                     }
                 }
@@ -225,6 +225,10 @@ public class RoomShare {
                     ui.showError(e);
                 }
                 break;
+
+            case sort:
+                SortType sortType = parser.getSort();
+                TaskList.changeSort(sortType);
 
             default:
                 ui.showCommandError();

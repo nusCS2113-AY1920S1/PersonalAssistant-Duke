@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 import Enums.ExceptionType;
+import Enums.SortType;
 import Enums.TimeUnit;
 
 /**
@@ -242,6 +243,17 @@ public class Parser {
      */
     public String[] getPriority() {
         return scanner.nextLine().trim().split(" ", 2);
+    }
+
+    public SortType getSort() throws RoomShareException {
+        try {
+            String sortName = scanner.nextLine().trim();
+            SortType sortType = SortType.valueOf(sortName);
+            return sortType;
+        } catch (IllegalArgumentException e) {
+            throw new RoomShareException(ExceptionType.wrongSortFormat);
+        }
+
     }
 
     public void close() {
