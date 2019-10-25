@@ -305,28 +305,6 @@ ArchDuke allows users to manage each individual project in the `ProjectRepositor
 
 image::images/ManageProject_Sequence.png[]
 
-*Task assignments*
-
-ArchDuke allows users to track tasks and their assignments to members in a project.
-Assignments establish a relationship between a task and a member. When a member is assigned a task,
-they are expected to complete it, and will be given the stipulated credit upon completion. The degree
-of each member's contributions are measured by task credit.
-
-Assignments are tracked in the `Project` class using 2 Java HashMaps.
-
-* `taskAndListOfMembersAssigned`
-    ** Key: `Task`
-    ** Value: ArrayList of assigned `Member` objects (List of members assigned to task)
-
-* `memberAndIndividualListOfTasks`
-    ** Key: `Member`
-    ** Value: ArrayList of `Task` objects (List of each member's individual tasks)
-
-Using a HashMap for storage would allow for fast and easy writing and retrieval of data.
-It also prevents cyclic dependencies as `Task` and `Member` objects would not have to be aware of
-each other (such as each class keeping an ArrayList of the assignment) in order to establish the
-assignment.
-
 === 3.2. CRUD functionality for Tasks
 ==== Implementation
 
@@ -394,6 +372,62 @@ name and due date (optional)
 * `view reminder` -- Viewing of all reminders in current project
 
 image::images/CreateReminder_Sequence.png[]
+
+=== 3.3. CRUD functionality for Task Assignments
+
+==== Implementation
+
+CRUD Assignment functions are handled by `ProjectInputController`, `ParserHelper`, `AssignmentController`
+and `Project`.
+
+ArchDuke allows users to track tasks and their assignments to members in a project.
+Assignments establish a relationship between a task and a member. When a member is assigned a task,
+they are expected to complete it, and will be given the stipulated credit upon completion. The degree
+of each member's contributions are measured by task credit.
+
+Assignments are tracked in the `Project` class using 2 Java HashMaps.
+
+* `taskAndListOfMembersAssigned`
+** Key: `Task`
+** Value: ArrayList of assigned `Member` objects (List of members assigned to task)
+
+* `memberAndIndividualListOfTasks`
+** Key: `Member`
+** Value: ArrayList of `Task` objects (List of each member's individual tasks)
+
+Using a HashMap for storage allows for fast and easy writing and retrieval of data.
+It also prevents cyclic dependencies as `Task` and `Member` objects would not have to be aware of
+each other (such as each class keeping an ArrayList of the assignment) in order to establish the
+assignment.
+
+The following steps show how task assignments are made in ArchDuke.
+
+Step 1) Assume Project has been created and the user is currently managing a specific project.
+
+Step 2) User enters the command `assign task -i 1 2 -to 1 2 3 -rm 4`. This indicates the user would  like to assign tasks with index
+number 1 and 2 to members 1, 2 and 3, and also unassign/remove the task from member 4.
+
+Step 3) The `ProjectInputController.manageProject()` will call `AssignmentController.assignAndUnassign` to manage the assignment.
+
+Step 4) Within the method call in `AssignmentController`, the command by the user will be parsed by the `ParserHelper` to split
+the input into 3 parts: the task index numbers, the assignee index numbers, and the unassignees index numbers. The index numbers
+will be checked to ensure that they are valid (non-negative integers, and exist within the project) with the help
+of `ParserHelper.parseMembersIndexes()` and `ParserHelper.parseTasksIndexes()` [yet to refactor and implement].
+
+`AssignmentController.checkForSameMemberIndexes()` checks if the list of assignees and unassignees contain any identical
+index numbers, and remove them to avoid redundant work.
+
+Step 5) All valid index numbers are stored in AssignmentController. Using these index numbers `AssignmentController.assignAndUnassign`
+manages the assigning of tasks, followed by the unassigning of tasks. A for loop is used to iterate through the tasks, and 2 separate
+nested for loops iterate through the assignees and unassignees.
+
+Step 6) In each loop, `Project.containsAssignment()` is used to check if an assignment between a task and member already exists to
+avoid any errors (for example, duplicating assignments or trying to remove an assignment which does not exist). The errors are noted
+down by adding error messages to the ArrayList `errorMessages` which will be displayed to the user later.
+
+Step 7) If the input is valid, the assignment is created by calling `Project.createAssignment()` or removed by calling
+`Project.removeAssignment()`. The HashMaps are manipulated accordingly to note down the assignment between the specified task
+and member. Success messages are stored in `successMessages` and are also displayed to the user later.
 
 // ==== Design Considerations
 
