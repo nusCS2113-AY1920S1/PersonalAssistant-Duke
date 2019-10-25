@@ -1,5 +1,6 @@
 package Interface;
 import DukeExceptions.DukeException;
+import Parser.MainParser;
 import Tasks.*;
 import Commands.*;
 import javafx.application.Application;
@@ -65,7 +66,7 @@ public class Duke extends Application {
      */
     private String run(String input) {
         try {
-            Command c = Parser.parse(input);
+            Command c = MainParser.parse(input);
             return c.execute(LT,events, deadlines, ui, storage);
         } catch (DukeException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
