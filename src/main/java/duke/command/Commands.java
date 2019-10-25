@@ -53,6 +53,8 @@ public class Commands {
             switch (cmdStr) {
             case "report":
                 return new PatientReportCommand();
+            case "discharge":
+                return new PatientDischargeCommand();
             default:
                 return null;
             }
