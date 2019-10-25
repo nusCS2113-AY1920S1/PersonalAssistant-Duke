@@ -1,5 +1,2 @@
 INIT @ true
 BS @ 0.0
-INC @ 300.0 @ From my friends @ 24/10/2019
-INC @ -2.0 @ From my friends @ 24/10/2019
-LOA @ 500.0 @ my friends @ 9/10/1997 @ OUTGOING @ 24/10/2019 @ 1 @ 0.0

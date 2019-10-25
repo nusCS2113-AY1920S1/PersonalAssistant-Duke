@@ -14,7 +14,7 @@ public class DeleteGoalCommand extends MoneyCommand {
     private int serialNo;
 
     /**
-     * Constructor of the command which initialises the delete short-term goal command
+     * Constructor of the command which initialises the delete goal command
      * with the index of the item to be deleted within the user input
      * @param index delete command inputted from user
      */
@@ -29,8 +29,8 @@ public class DeleteGoalCommand extends MoneyCommand {
     }
 
     /**
-     * This method executes the delete short-term goal command. Takes the index of the item
-     * to be deleted from the Short-Term Goals List and checks for the item
+     * This method executes the delete goal command. Takes the index of the item
+     * to be deleted from the Goals List and checks for the item
      * Deletes the item from the list if the item is found
      * @param account Account object containing all financial info of user saved on the programme
      * @param ui Handles interaction with the user
@@ -49,7 +49,6 @@ public class DeleteGoalCommand extends MoneyCommand {
 
         storage.markDeletedEntry("G", serialNo);
         account.getShortTermGoals().remove(serialNo - 1);
-        //account.sortShortTermGoals(account.getShortTermGoals());
 
         MoneyCommand list = new ListGoalsCommand();
         list.execute(account,ui,storage);
