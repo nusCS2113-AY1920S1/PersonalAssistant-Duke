@@ -2,6 +2,9 @@ package duke.logic.conversations;
 
 import duke.commons.Messages;
 
+/**
+ * Handles the conversation occurring when a find command is entered.
+ */
 public class FindConversation extends Conversation {
     private static final String command = "find";
     private String keyword;

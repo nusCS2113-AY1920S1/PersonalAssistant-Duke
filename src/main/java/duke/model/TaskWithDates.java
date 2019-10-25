@@ -3,7 +3,7 @@ package duke.model;
 import java.time.LocalDateTime;
 
 /**
- * Class for Tasks with a date field.
+ * Represents Tasks with a date field.
  */
 public class TaskWithDates extends Task {
     private LocalDateTime startDate;

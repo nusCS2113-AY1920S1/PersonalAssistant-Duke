@@ -4,7 +4,7 @@ import duke.logic.commands.results.CommandResultExit;
 import duke.model.Model;
 
 /**
- * Class representing a command to exit duke.Duke.
+ * Exits SGTravel.
  */
 public class ExitCommand extends Command {
     private static final String MESSAGE_BYE = "Bye. Hope to see you again soon!\n";

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class that represents SGTravel's model.
+ * Implements the methods defined in the Model Interface.
  */
 public class ModelManager implements Model {
     private Storage storage;

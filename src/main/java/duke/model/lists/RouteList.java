@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Class to manage and handle Route manipulation.
+ * Manages and handles Route manipulation.
  */
 public class RouteList implements Iterable<Route>, Listable<Route> {
     private List<Route> list;

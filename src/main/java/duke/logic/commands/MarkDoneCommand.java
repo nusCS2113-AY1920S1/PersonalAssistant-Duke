@@ -7,7 +7,7 @@ import duke.model.Model;
 import duke.model.Task;
 
 /**
- * Class representing a command to mark a task as done.
+ * Marks a task as done.
  */
 public class MarkDoneCommand extends Command {
     private int index;

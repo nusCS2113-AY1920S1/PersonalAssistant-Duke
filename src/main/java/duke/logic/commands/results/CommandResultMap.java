@@ -4,6 +4,9 @@ import duke.model.locations.Venue;
 
 import java.util.ArrayList;
 
+/**
+ * Defines the command result of a command needing a map.
+ */
 public class CommandResultMap extends CommandResult implements Routeable {
     private ArrayList<Venue> route;
 

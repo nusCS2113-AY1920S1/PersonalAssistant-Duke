@@ -14,7 +14,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 /**
- * URL request to OneMap API to get coordinates of location.
+ * Handles URL requests to OneMap API to get coordinates of location.
  */
 public class LocationSearchUrlRequest extends UrlRequest {
     private static final String PARAM_TYPE = "searchVal";

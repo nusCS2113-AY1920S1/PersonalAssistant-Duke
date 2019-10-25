@@ -7,6 +7,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Represents a static map window in the UI.
+ */
 public class StaticMapWindow extends UiPart<Stage> {
     @FXML
     private AnchorPane map;

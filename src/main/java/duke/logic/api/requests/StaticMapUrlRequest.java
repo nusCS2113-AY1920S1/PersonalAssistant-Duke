@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * URL request to OneMap StaticMap API to get image of location.
+ * Handles static, map URL requests to OneMap StaticMap API.
  */
 public class StaticMapUrlRequest extends UrlRequest {
     private static final String API_LINK = "https://developers.onemap.sg/commonapi/staticmap/getStaticImage?";
