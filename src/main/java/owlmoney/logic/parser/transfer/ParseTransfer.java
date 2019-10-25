@@ -20,14 +20,14 @@ import owlmoney.logic.regex.RegexUtil;
  */
 public class ParseTransfer {
 
-    HashMap<String, String> transferParameters = new HashMap<String, String>();
+    private HashMap<String, String> transferParameters = new HashMap<String, String>();
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
     private static final String[] TRANSFER_KEYWORD = new String[] {"/amount", "/from", "/to", "/date"};
-    static final String AMOUNT = "/amount";
-    static final String FROM = "/from";
-    static final String TO = "/to";
-    static final String DATE = "/date";
+    private static final String AMOUNT = "/amount";
+    private static final String FROM = "/from";
+    private static final String TO = "/to";
+    private static final String DATE = "/date";
     private static final List<String> TRANSFER_KEYWORD_LISTS = Arrays.asList(TRANSFER_KEYWORD);
 
     private Date date;
@@ -42,13 +42,12 @@ public class ParseTransfer {
         checkFirstParameter();
     }
 
-
     /**
      * Checks if the first parameter is a valid parameter.
      *
      * @throws ParserException If the first parameter is invalid.
      */
-    void checkFirstParameter() throws ParserException {
+    private void checkFirstParameter() throws ParserException {
         String[] rawDateSplit = rawData.split(" ", 2);
         if (!TRANSFER_KEYWORD_LISTS.contains(rawDateSplit[0])) {
             throw new ParserException("Incorrect parameter " + rawDateSplit[0]);
@@ -77,7 +76,7 @@ public class ParseTransfer {
      * @param valueString String to be converted to double as the user's amount.
      * @throws ParserException If the string is not a double value.
      */
-    void checkAmount(String valueString) throws ParserException {
+    private void checkAmount(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckBankAmount(valueString)) {
             throw new ParserException("/amount can only be numbers with at most 9 digits, 2 decimal places"
                     + " and a value of at least 0");
@@ -91,7 +90,7 @@ public class ParseTransfer {
      * @param nameString Name of bank
      * @throws ParserException If the name is too long or contain special characters.
      */
-    void checkName(String key, String nameString) throws ParserException {
+    private void checkName(String key, String nameString) throws ParserException {
         if (!RegexUtil.regexCheckName(nameString)) {
             throw new ParserException(key + " can only contain letters and at most 30 characters");
         }
@@ -104,7 +103,7 @@ public class ParseTransfer {
      * @return Date if checks pass.
      * @throws ParserException If date format is invalid.
      */
-    Date checkDate(String dateString) throws ParserException {
+    private Date checkDate(String dateString) throws ParserException {
         if (RegexUtil.regexCheckDateFormat(dateString)) {
             DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
             temp.setLenient(false);
@@ -133,6 +132,9 @@ public class ParseTransfer {
         while (transferIterator.hasNext()) {
             String key = transferIterator.next();
             String value = transferParameters.get(key);
+            if ((value.isBlank() || value.isEmpty())) {
+                throw new ParserException(key + " cannot be empty when transferring fund.");
+            }
             if (FROM.equals(key)) {
                 checkName(FROM, value);
             }

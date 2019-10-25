@@ -80,6 +80,15 @@ public abstract class Transaction {
     }
 
     /**
+     * Gets the date that this expenditure was made in Date format.
+     *
+     * @return The date that the expenditure was made in Date format.
+     */
+    Date getDateInDateFormat() {
+        return this.date;
+    }
+
+    /**
      * Gets the date that this expenditure was made in LocalDate format.
      *
      * @return The date that the expenditure was made in LocalDate format.

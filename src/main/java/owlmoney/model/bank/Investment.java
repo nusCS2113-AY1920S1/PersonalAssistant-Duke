@@ -253,4 +253,16 @@ public class Investment extends Bank {
     void listAllExpenditure(Ui ui, int displayNum) throws TransactionException {
         transactions.listExpenditure(ui, displayNum);
     }
+
+    /**
+     * Finds the bonds that matches with the keywords specified by the user.
+     *
+     * @param bondName The bondName keyword to match against.
+     * @param ui      The object required for printing.
+     * @throws BondException If no bonds could be found.
+     */
+    @Override
+    public void findBondInInvestment(String bondName, Ui ui) throws BondException {
+        bonds.findBond(bondName, ui);
+    }
 }

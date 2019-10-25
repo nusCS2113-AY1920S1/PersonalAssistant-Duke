@@ -348,4 +348,32 @@ public abstract class Bank {
     void savingListRecurringExpenditure(Ui ui) throws BankException, TransactionException {
         throw new BankException("This account does not support this feature");
     }
+
+    /**
+     * Finds the bonds that matches with the keywords specified by the user.
+     *
+     * @param bondName The bondName keyword to match against.
+     * @param ui      The object required for printing.
+     * @throws BankException If used on savings account.
+     * @throws BondException If no bonds could be found.
+     */
+    public void findBondInInvestment(String bondName, Ui ui) throws BankException, BondException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Finds the transactions from the bank object that matches with the keywords specified by the user.
+     *
+     * @param fromDate The date to search from.
+     * @param toDate The date to search until.
+     * @param description The description keyword to match against.
+     * @param category The category keyword to match against.
+     * @param ui The object required for printing.
+     * @throws BankException        If used on investment account.
+     * @throws TransactionException  If parsing of date fails.
+     */
+    public void findTransaction(String fromDate, String toDate, String description, String category, Ui ui)
+            throws BankException, TransactionException {
+        throw new BankException("This account does not support this feature");
+    }
 }

@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
@@ -23,6 +24,12 @@ public class TransactionList {
     private static final boolean ISSINGLE = false;
     private static final int MAX_LIST_SIZE = 2000;
     private static final int ISZERO = 0;
+    private static final String FINDDESCRIPTION = "description";
+    private static final String FINDCATEGORY = "category";
+    private static final String FINDDATE = "date range";
+
+
+
 
     /**
      * Creates an instance of Transaction list that contains an ArrayList of expenditures and deposits.
@@ -369,5 +376,122 @@ public class TransactionList {
      */
     public boolean expListIsEmpty() {
         return transactionLists.isEmpty();
+    }
+
+    /**
+     * Finds the transactions that matches with the keywords specified by the user.
+     *
+     * @param fromDate The date to search from.
+     * @param toDate The date to search until.
+     * @param description The description keyword to match against.
+     * @param category The category keyword to match against.
+     * @param ui The object required for printing.
+     * @throws TransactionException If parsing of date fails.
+     */
+    public void findMatchingTransaction(String fromDate, String toDate,
+            String description, String category, Ui ui) throws TransactionException {
+        if (!(description.isBlank() || description.isEmpty())) {
+            findByDescription(description, ui);
+        }
+        if (!(category.isBlank() || category.isEmpty())) {
+            findByCategory(category, ui);
+        }
+        if (!(fromDate.isBlank() || fromDate.isEmpty())) {
+            findByDate(fromDate, toDate, ui);
+        }
+    }
+
+    /**
+     * Finds the transactions that matches with the description keyword specified by the user.
+     *
+     * @param keyword The description keyword to match against.
+     * @param ui The object required for printing.
+     */
+    private void findByDescription(String keyword, Ui ui) {
+        String matchingKeyword = keyword.toUpperCase();
+        int printCounter = 0;
+        for (int i = ISZERO; i < transactionLists.size(); i++) {
+            if (transactionLists.get(i).getDescription().toUpperCase().contains(matchingKeyword)) {
+                printOneHeaderForFind(printCounter, FINDDESCRIPTION, ui);
+                printOneTransaction((i + ONE_INDEX), transactionLists.get(i), ISMULTIPLE, ui);
+                printCounter++;
+            }
+        }
+        if (printCounter == 0) {
+            ui.printMessage("No matches for the description keyword: " + keyword);
+        } else {
+            ui.printDivider();
+        }
+    }
+
+    /**
+     * Finds the transactions that matches with the category keyword specified by the user.
+     *
+     * @param keyword The category keyword to match against.
+     * @param ui The object required for printing.
+     */
+    private void findByCategory(String keyword, Ui ui) {
+        String matchingKeyword = keyword.toUpperCase();
+        int printCounter = 0;
+        for (int i = ISZERO; i < transactionLists.size(); i++) {
+            if (transactionLists.get(i).getCategory().toUpperCase().contains(matchingKeyword)) {
+                printOneHeaderForFind(printCounter, FINDCATEGORY, ui);
+                printOneTransaction((i + ONE_INDEX), transactionLists.get(i), ISMULTIPLE, ui);
+                printCounter++;
+            }
+        }
+        if (printCounter == 0) {
+            ui.printMessage("No matches for the category keyword: " + keyword);
+        } else {
+            ui.printDivider();
+        }
+    }
+
+    /**
+     * Finds the transactions that falls within the date range specified by the user.
+     *
+     * @param fromDate The date to search from.
+     * @param toDate The date to search until.
+     * @param ui The object required for printing.
+     * @throws TransactionException If parsing of date fails.
+     */
+    private void findByDate(String fromDate, String toDate, Ui ui) throws TransactionException {
+        int printCounter = 0;
+        Date from;
+        Date to;
+        DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            from = temp.parse(fromDate);
+            to = temp.parse(toDate);
+        } catch (ParseException error) {
+            throw new TransactionException(error.toString());
+        }
+        for (int i = ISZERO; i < transactionLists.size(); i++) {
+            boolean isBeforeFromDate = transactionLists.get(i).getDateInDateFormat().before(from);
+            boolean isAfterToDate = transactionLists.get(i).getDateInDateFormat().after(to);
+            if (!isBeforeFromDate && !isAfterToDate) {
+                printOneHeaderForFind(printCounter, FINDDATE, ui);
+                printOneTransaction((i + ONE_INDEX), transactionLists.get(i), ISMULTIPLE, ui);
+                printCounter++;
+            }
+        }
+        if (printCounter == 0) {
+            ui.printMessage("No matches for the date range specified: " + fromDate + " to " + toDate);
+        } else {
+            ui.printDivider();
+        }
+    }
+
+    /**
+     * Prints the header to list the found transactions.
+     *
+     * @param counter    Represents the counter of the transaction for printing.
+     * @param ui         The object use for printing.
+     */
+    private void printOneHeaderForFind(int counter, String findType, Ui ui) {
+        if (counter == 0) {
+            ui.printMessage("Find by: " + findType);
+            ui.printTransactionHeader(TRANSTYPE);
+        }
     }
 }

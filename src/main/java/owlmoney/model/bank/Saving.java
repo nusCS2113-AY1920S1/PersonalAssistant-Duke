@@ -339,4 +339,20 @@ public class Saving extends Bank {
     void savingListRecurringExpenditure(Ui ui) throws TransactionException {
         recurringExpenditures.listRecurringExpenditure(ui);
     }
+
+    /**
+     * Finds the transactions that matches with the different keywords specified by user.
+     *
+     * @param fromDate    The date to search from.
+     * @param toDate      The date to search until.
+     * @param description The description keyword to match against.
+     * @param category    The category keyword to match against.
+     * @param ui          The object required for printing.
+     * @throws TransactionException If incorrect date format.
+     */
+    @Override
+    public void findTransaction(String fromDate, String toDate, String description, String category, Ui ui)
+            throws TransactionException {
+        transactions.findMatchingTransaction(fromDate, toDate, description, category, ui);
+    }
 }
