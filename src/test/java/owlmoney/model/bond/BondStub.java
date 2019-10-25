@@ -1,18 +1,12 @@
 package owlmoney.model.bond;
 
-import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class BondStub extends Bond {
 
-    private String name;
-    private double amount;
     private double rate;
-    private String category;
-    private Date date;
     private int year;
 
     BondStub() throws ParseException {

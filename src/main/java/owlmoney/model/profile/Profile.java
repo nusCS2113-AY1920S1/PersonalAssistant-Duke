@@ -20,7 +20,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * The profile class that stores details of the user which includes bank accounts, cards, names.
+ * Stores details of the user which includes bank accounts, cards, names.
  */
 public class Profile {
     private String username;

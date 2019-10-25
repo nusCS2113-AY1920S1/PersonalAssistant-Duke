@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
@@ -258,9 +259,47 @@ class InvestmentTest {
         testInvestment.addBondToInvestmentAccount(testBond,uiTest);
         BondException thrown = assertThrows(BondException.class, () ->
                         testInvestment.investmentEditBond("TEST BOND 0","2","2.0",uiTest),
-                "Expected investmentGetBond to throw, but it didn't");
+                "Expected investmentEditBond to throw, but it didn't");
         String actualMessage = thrown.getMessage();
         String expectedMessage = "The year can only be larger than: 3";
         assertEquals(expectedMessage,actualMessage);
+    }
+
+    @Test
+    void updateRecurringTransaction_bondExistNoMature_successMoneyCredited() throws BankException {
+        Ui uiTest = new Ui();
+        Calendar calendarTestDate = Calendar.getInstance();
+        calendarTestDate.add(Calendar.YEAR,-1);
+        Date testDate = calendarTestDate.getTime();
+        Bank testInvestment = new Investment("DBB VICKERS", 10000);
+        Bond testBond = new Bond("TEST BOND 0", 1000, 1.0,
+                testDate, 3);
+        testInvestment.addBondToInvestmentAccount(testBond,uiTest);
+        testInvestment.updateRecurringTransactions(uiTest);
+        double actualAmount = testInvestment.getCurrentAmount();
+        double expectedAmount = 10010;
+        assertEquals(actualAmount,expectedAmount);
+    }
+
+    @Test
+    void updateRecurringTransaction_bondExistMature_throwsBondException() throws BankException {
+        Ui uiTest = new Ui();
+        Calendar calendarTestDate = Calendar.getInstance();
+        calendarTestDate.add(Calendar.YEAR,-3);
+        Date testDate = calendarTestDate.getTime();
+        Bank testInvestment = new Investment("DBB VICKERS", 10000);
+        Bond testBond = new Bond("TEST BOND 0", 1000, 1.0,
+                testDate, 3);
+        testInvestment.addBondToInvestmentAccount(testBond,uiTest);
+        testInvestment.updateRecurringTransactions(uiTest);
+        double actualAmount = testInvestment.getCurrentAmount();
+        double expectedAmount = 11030;
+        assertEquals(actualAmount,expectedAmount);
+        BondException thrown = assertThrows(BondException.class, () ->
+                        testInvestment.investmentGetBond("TEST BOND 0"),
+                "Expected investmentGetBond to throw after bond matures and deleted, but it didn't");
+        String actualMessage = thrown.getMessage();
+        String expectedMessage = "There are no bonds with the name: TEST BOND 0";
+        assertEquals(actualMessage,expectedMessage);
     }
 }

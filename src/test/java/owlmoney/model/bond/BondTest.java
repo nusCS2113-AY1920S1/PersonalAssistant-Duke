@@ -3,6 +3,7 @@ package owlmoney.model.bond;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
@@ -121,5 +122,50 @@ class BondTest {
         int actualNewYear = testBond.getYear();
         int expectedNewYear = 8;
         assertEquals(expectedNewYear, actualNewYear);
+    }
+
+    @Test
+    void getNextDateToCreditInterest_oldDate_success() {
+        Calendar calendarTestDate = Calendar.getInstance();
+        calendarTestDate.add(Calendar.MONTH,-6);
+        Date testDate = calendarTestDate.getTime();
+        Bond testBond = new Bond("TEST BOND",1000,1.8,testDate,3);
+        Date actualDate = testBond.getNextDateToCreditInterest();
+        Calendar calendarExpectedDate = Calendar.getInstance();
+        Date expectedDate = calendarExpectedDate.getTime();
+        assertEquals(expectedDate.toString(), actualDate.toString());
+    }
+
+    @Test
+    void setNextDateToCreditInterest_oldDateToNewDate_success() {
+        Calendar calendarTestDate = Calendar.getInstance();
+        calendarTestDate.add(Calendar.MONTH,-6);
+        Date testDate = calendarTestDate.getTime();
+        Bond testBond = new Bond("TEST BOND",1000,1.8,testDate,3);
+        Calendar calendarExpectedDate = Calendar.getInstance();
+        Date expectedDate = calendarExpectedDate.getTime();
+        testBond.setNextDateToCreditInterest(expectedDate);
+        assertEquals(expectedDate.toString(), testBond.getNextDateToCreditInterest().toString());
+    }
+
+    @Test
+    void getBondEndDate_oldDateToEndDate_success() {
+        Calendar calendarTestDate = Calendar.getInstance();
+        calendarTestDate.add(Calendar.YEAR,-3);
+        Date testDate = calendarTestDate.getTime();
+        Bond testBond = new Bond("TEST BOND",1000,1.8,testDate,3);
+        Calendar calendarExpectedDate = Calendar.getInstance();
+        Date expectedDate = calendarExpectedDate.getTime();
+        testBond.setNextDateToCreditInterest(expectedDate);
+        assertEquals(expectedDate.toString(), testBond.getBondEndDate().toString());
+    }
+
+    @Test
+    void getDateInDateFormat_oldDateToEndDate_success() {
+        Calendar calendarTestDate = Calendar.getInstance();
+        calendarTestDate.add(Calendar.YEAR,-3);
+        Date testDate = calendarTestDate.getTime();
+        Bond testBond = new Bond("TEST BOND",1000,1.8,testDate,3);
+        assertEquals(testDate.toString(), testBond.getDateInDateFormat().toString());
     }
 }
