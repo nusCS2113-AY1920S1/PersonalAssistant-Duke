@@ -2,6 +2,10 @@ package duke.logic.conversations;
 
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
+import duke.logic.commands.Command;
+import duke.logic.parsers.ConversationParser;
+import duke.logic.parsers.Parser;
+import duke.logic.parsers.PromptParser;
 
 /**
  * Conversation manager for Duke to handle two-way communications.
@@ -58,34 +62,14 @@ public class ConversationManager {
      * @param input The words from user input.
      */
     private void startConversation(String input) throws DukeException {
-        switch (input) {
-        case "done":
-            conversation = new MarkDoneConversation();
-            break;
-        case "delete":
-            conversation = new DeleteConversation();
-            break;
-        case "findtime":
-            conversation = new FreeTimeConversation();
-            break;
-        case "busStop":
-            conversation = new GetBusStopConversation();
-            break;
-        case "findPath":
-            conversation = new FindPathConversation();
-            break;
-        case "todo":
-            conversation = new ToDoConversation();
-            break;
-        case "find":
-            conversation = new FindConversation();
-            break;
-        case "search":
-            conversation = new SearchConversation();
-            break;
-        default:
-            throw new DukeException(Messages.UNKNOWN_COMMAND);
+        conversation = ConversationParser.parse(input);
+    }
+
+    public Command getCommand() throws DukeException {
+        if (isFinished) {
+            return Parser.parseComplexCommand(getResult());
         }
+        return PromptParser.parseCommand(getPrompt());
     }
 
     /**
@@ -93,7 +77,7 @@ public class ConversationManager {
      *
      * @return result The String result made from Conversation.
      */
-    public String getResult() {
+    private String getResult() {
         String result = conversation.getResult();
         clearContext();
         return result;
@@ -104,7 +88,7 @@ public class ConversationManager {
      *
      * @return The prompt.
      */
-    public String getPrompt() {
+    private String getPrompt() {
         assert (conversation != null) : "Conversation should not be null";
         return conversation.getPrompt();
     }
@@ -115,9 +99,5 @@ public class ConversationManager {
     public void clearContext() {
         isFinished = true;
         conversation = null;
-    }
-
-    public boolean isFinished() {
-        return isFinished;
     }
 }
