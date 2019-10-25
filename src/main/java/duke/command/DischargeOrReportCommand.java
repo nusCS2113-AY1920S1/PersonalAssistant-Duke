@@ -47,9 +47,9 @@ public class DischargeOrReportCommand extends ArgCommand {
                 throw new DukeFatalException("Unable to create report! Some data may have been lost,");
             }
         }
-        if (cmdStr.equals("discharge")) {
+        if ("discharge".equals(cmdStr)) {
             core.patientMap.deletePatient(getArg());
-        } else if (cmdStr.equals("report") && (core.patientMap.getPatient(getArg()) != null)) {
+        } else if ("report".equals(cmdStr) && (core.patientMap.getPatient(getArg()) != null)) {
             core.ui.print("Report created");
         }
     }
