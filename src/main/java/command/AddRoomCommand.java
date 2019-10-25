@@ -3,11 +3,11 @@ package command;
 import booking.BookingList;
 import exception.DukeException;
 import storage.Storage;
-import room.AddRoom;
+import room.Room;
 import room.RoomList;
 import ui.Ui;
 import user.User;
-import java.io.FileReader;
+
 import java.io.IOException;
 
 public class AddRoomCommand extends Command {
@@ -61,7 +61,7 @@ public class AddRoomCommand extends Command {
     @Override
     public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingstorage,
                         Storage roomstorage, User user) throws IOException {
-        AddRoom addroom = new AddRoom(roomcode, date, timeslot);
+        Room addroom = new Room(roomcode, date, timeslot);
         roomList.add(addroom);
         roomstorage.saveToFile(roomList);
         ui.addToOutput("Got it, I've added this room.\n"

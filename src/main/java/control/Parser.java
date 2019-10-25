@@ -2,7 +2,6 @@ package control;
 
 import command.*;
 import exception.DukeException;
-import room.AddRoom;
 
 import java.io.IOException;
 

@@ -1,24 +1,87 @@
 package ui;
 
+import booking.Booking;
+import booking.BookingList;
+import command.Command;
+import command.ListCommand;
+import control.Duke;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import java.util.Scanner;
-
 /**
- * To deal with user interactions.
+ * Controller for ui.MainWindow. Provides the layout for the other controls.
  */
-public class Ui {
-    private Scanner scanner;
+public class Ui extends AnchorPane {
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private ScrollPane scrollPane2;
     @FXML
     private VBox dialogContainer;
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-    private String output;
+    @FXML
+    private VBox listContainer;
+    @FXML
+    private TextField userInput;
+    @FXML
+    private Button sendButton;
+    @FXML
+    private AnchorPane flexiblePane;
 
-    public Ui() {
-        scanner = new Scanner(System.in);
+    private String output;
+    private Duke duke;
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DukeCat.png"));
+
+    /**
+     * Do on application start. Prints a welcome message.
+     */
+    @FXML
+    public void initialize() {
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane2.vvalueProperty().bind(listContainer.heightProperty());
+
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(showWelcome(), dukeImage)
+        );
+    }
+
+    public void setDuke(Duke d) {
+        duke = d;
+    }
+
+    /**
+     * Creates two dialog boxes, one echoing user input and the other containing control.Duke's reply and then
+     * appends them to the dialog container. Clears the user input after processing.
+     */
+    @FXML
+    private void handleUserInput() {
+        String input = userInput.getText();
+        String response = duke.getResponse(input);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDukeDialog(response, dukeImage)
+        );
+        userInput.clear();
+        if (input.equals("list")) {
+            BookingList bookingList = duke.getBookingList();
+            showList(bookingList);
+        }
+    }
+
+    private void showList(BookingList bookingList) {
+        for (Booking i : bookingList) {
+            addToList(new ListBox(i.getName(), i.getVenue(), i.getDateTimeStart().toString(),
+                    i.getDateTimeEnd().toString(), i.getStatus()));
+        }
+    }
+
+    private void addToList(ListBox listBox) {
+        listContainer.getChildren().addAll(listBox);
     }
 
     public void showLoadingError() {
@@ -29,14 +92,14 @@ public class Ui {
         System.out.println(error);
     }
 
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
     public void addToOutput(String string) {
         output += string + "\n";
     }
 
+    /**
+     * Prints user input to GUI.
+     * @param string string to display
+     */
     public void showUserInput(String string) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(string, userImage)

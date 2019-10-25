@@ -1,10 +1,7 @@
 package storage;
 
-import room.AddRoom;
-import room.RoomList;
 import room.Room;
-import task.Task;
-import task.TaskList;
+import room.RoomList;
 import booking.Booking;
 import booking.BookingList;
 
@@ -44,23 +41,6 @@ public class Storage {
         return textLoaded;
     }
 
-
-
-    /**
-     * Save task list to text file.
-     * @param tasks task list
-     * @throws IOException for IO exception
-     */
-    public void saveToFile(TaskList tasks) throws IOException {
-        FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);
-        String toWrite = "";
-        for (Task i : tasks) {
-            toWrite += i.toWriteFile();
-        }
-        fileOutputStream.write(toWrite.getBytes());
-        fileOutputStream.close();
-    }
-
     public void saveToFile(BookingList bookingList) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);
         String toWrite = "";
@@ -74,7 +54,7 @@ public class Storage {
     public void saveToFile(RoomList roomList) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);
         String toWrite = "";
-        for (AddRoom i : roomList) {
+        for (Room i : roomList) {
             toWrite += i.toWriteFile();
         }
         fileOutputStream.write(toWrite.getBytes());
