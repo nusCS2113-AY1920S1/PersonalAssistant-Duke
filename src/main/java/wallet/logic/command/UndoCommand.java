@@ -22,7 +22,7 @@ public class UndoCommand extends Command {
     @Override
     public boolean execute(Wallet wallet) {
 
-        if(walletList.getState() == 0) {
+        if (walletList.getState() == 0) {
             System.out.println(MESSAGE_ALREADY_INITIAL_STATE);
             return false;
         }
@@ -30,10 +30,18 @@ public class UndoCommand extends Command {
         newState = walletList.getState() - 1;
         walletList.setState(newState);
 
-        LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getLoanList().setModified(true);
-        LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getContactList().setModified(true);
-        LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getBudgetList().setModified((true));
-        LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getExpenseList().setModified(true);
+        LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState())
+                .getLoanList().setModified(true);
+
+        LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState())
+                .getContactList().setModified(true);
+
+        LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState())
+                .getBudgetList().setModified((true));
+
+        LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState())
+                .getExpenseList().setModified(true);
+
         System.out.println(MESSAGE_SUCCESS);
         return false;
     }

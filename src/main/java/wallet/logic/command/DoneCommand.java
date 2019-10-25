@@ -1,4 +1,5 @@
 //@@author A0171206R
+
 package wallet.logic.command;
 
 import wallet.logic.LogicManager;
@@ -54,7 +55,8 @@ public class DoneCommand extends Command {
             Ui.printLoanTableHeaders();
             Ui.printLoanRow(loan);
             Ui.printLoanTableClose();
-            if (!LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getLoanList().checkUnsettledLoan()) {
+            if (!LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState())
+                    .getLoanList().checkUnsettledLoan()) {
                 LogicManager.getReminder().autoRemindStop();
                 System.out.println("Great! All loans have been settled!");
             }

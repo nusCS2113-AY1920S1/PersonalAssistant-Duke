@@ -113,7 +113,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ArrayIndexOutOfBoundsException Out of index.
      * @throws ParseException                 ParseException.
      */
-    private Loan parseLoan(String input) throws ArrayIndexOutOfBoundsException, ParseException {
+    Loan parseLoan(String input) throws ArrayIndexOutOfBoundsException, ParseException {
         //@@author A0171206R
         Loan loan = null;
         Boolean isLend = false;
@@ -134,8 +134,10 @@ public class AddCommandParser implements Parser<AddCommand> {
             isLend = false;
         }
 
-        ArrayList<Contact> contactList = LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getContactList().getContactList();
-        int index = LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getContactList().findIndexWithId(contactId);
+        ArrayList<Contact> contactList = LogicManager.getWalletList().getWalletList()
+                .get(LogicManager.getWalletList().getState()).getContactList().getContactList();
+        int index = LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState())
+                .getContactList().findIndexWithId(contactId);
         Contact person = new ContactList(contactList).getContact(index);
         loan = new Loan(description, createdDate, amount, isLend, false, person);
         return loan;

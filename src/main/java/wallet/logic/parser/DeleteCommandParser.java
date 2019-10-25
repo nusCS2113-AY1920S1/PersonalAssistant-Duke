@@ -44,7 +44,8 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
     //@@author Xdecosee
     private Boolean parseContact(int id) {
 
-        ArrayList<Loan> loanList = LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getLoanList().getLoanList();
+        ArrayList<Loan> loanList = LogicManager.getWalletList().getWalletList()
+                .get(LogicManager.getWalletList().getState()).getLoanList().getLoanList();
         for (Loan l : loanList) {
             if (l.getPerson().getId() == id) {
                 System.out.println(MESSAGE_ERROR_DELETE_CONTACT);

@@ -1,4 +1,5 @@
 //@@author A0171206R
+
 package wallet.model;
 
 import java.util.ArrayList;

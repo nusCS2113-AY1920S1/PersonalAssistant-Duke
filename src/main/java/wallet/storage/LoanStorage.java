@@ -1,4 +1,5 @@
 //@@author A0171206R
+
 package wallet.storage;
 
 import wallet.model.contact.Contact;

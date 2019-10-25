@@ -1,4 +1,5 @@
 //@@author A0171206R
+
 package wallet.reminder;
 
 import wallet.logic.LogicManager;
@@ -17,7 +18,8 @@ public class Reminder {
      * The constructor for the Reminder object.
      */
     public Reminder() {
-        this.loanList = LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getLoanList();
+        this.loanList = LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList()
+                .getState()).getLoanList();
         autoRemind = true;
         timeInSeconds = 1800; //set default time interval of auto remind to be 30 minutes
     }

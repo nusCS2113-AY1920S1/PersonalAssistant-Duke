@@ -12,7 +12,6 @@ import wallet.model.record.LoanList;
 import wallet.model.record.RecordList;
 import wallet.reminder.Reminder;
 import wallet.storage.StorageManager;
-import wallet.ui.Ui;
 
 import java.util.ArrayList;
 
@@ -66,13 +65,13 @@ public class LogicManager {
         try {
             Command command = parserManager.parseCommand(fullCommand);
             if (command != null) {
-                if(!fullCommand.contains("undo")
+                if (!fullCommand.contains("undo")
                         && !fullCommand.contains("list")
                         && !fullCommand.contains("help")
                         && !fullCommand.contains("history")
                         && !fullCommand.contains("redo")
                         && !fullCommand.contains("view")) {
-                    if(walletList.getState() == walletList.getWalletList().size()-1) {
+                    if (walletList.getState() == walletList.getWalletList().size() - 1) {
                         walletList.getWalletList().add(newWallet);
                         state++;
                         walletList.setState(state);
@@ -81,7 +80,7 @@ public class LogicManager {
                         // will be part of a different 'branch'
                         removeUnusedNodes(walletList);
                         walletList.getWalletList().add(newWallet);
-                        state = walletList.getState()+1;
+                        state = walletList.getState() + 1;
                         walletList.setState(state);
                     }
                 }
@@ -109,7 +108,7 @@ public class LogicManager {
     public void removeUnusedNodes(WalletList walletList) {
         //@@author A0171206R
         System.out.println("Removing unwanted wallet nodes");
-        int maxState = walletList.getWalletList().size()-1;
+        int maxState = walletList.getWalletList().size() - 1;
         int currentState = walletList.getState();
         int loops = maxState - currentState;
         while (loops > 0) {
@@ -117,7 +116,7 @@ public class LogicManager {
             maxState--;
             loops--;
         }
-        walletList.setState(walletList.getWalletList().size()-1);
+        walletList.setState(walletList.getWalletList().size() - 1);
         //@@author
     }
 
@@ -156,7 +155,14 @@ public class LogicManager {
         return walletList;
     }
 
+    public static void setWalletList(WalletList walletList1) {
+        walletList = walletList1;
+    }
+
     public static StorageManager getStorageManager() {
         return storageManager;
     }
+
+
+
 }

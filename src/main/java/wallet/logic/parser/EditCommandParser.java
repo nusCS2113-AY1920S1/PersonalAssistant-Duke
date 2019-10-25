@@ -83,7 +83,7 @@ public class EditCommandParser implements Parser<EditCommand> {
      *
      * @param input User input arguments
      */
-    private Loan parseLoan(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
+    Loan parseLoan(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
         //@@author A0171206R
         Loan loan = new Loan();
 
@@ -95,7 +95,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         Wallet wallet = LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState());
 
         int index = wallet.getLoanList().findIndexWithId(loanId);
-        Loan currentLoan = LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getLoanList().getLoan(index);
+        Loan currentLoan = LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList()
+                .getState()).getLoanList().getLoan(index);
         loan.setId(currentLoan.getId());
         loan.setDescription(currentLoan.getDescription());
         loan.setIsSettled(currentLoan.getIsSettled());
@@ -107,7 +108,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (parameters.contains("/c")) {
             String[] getContact = parameters.split("/c");
             int contactId = Integer.parseInt(getContact[1].trim());
-            for (Contact contact : LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getContactList().getContactList()) {
+            for (Contact contact : LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList()
+                    .getState()).getContactList().getContactList()) {
                 if (contact.getId() == contactId) {
                     System.out.println("Edit: Contact found! " + contact.toString());
                     loan.setPerson(contact);
