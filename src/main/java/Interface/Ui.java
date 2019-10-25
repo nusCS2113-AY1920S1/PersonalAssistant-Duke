@@ -51,7 +51,7 @@ public class Ui {
      * Displays the delete task message when user wants to delete a task.
      */
     public String showDelete(Task task, int listSize){
-        //listSize -= 1;
+        listSize -= 1;
         return "Noted. I've removed this task:\n" + task.toString() + "\n" + "Now you have "
                 + listSize  + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
@@ -151,15 +151,15 @@ public class Ui {
     public String showFilter(ArrayList<String> list,String keyword){
 
         if(list.size() == 0) {
-                return "There are no task(s) matching your keyword.\n";
-            } else {
-                String message = "Here are the following events/deadline with the keyword " + keyword + "\n";
-                for (int i = 1; i <= list.size(); i++) {
-                    message = message + i + "." + list.get(i - 1) + "\n";
-                }
-                return message;
+            return "There are no task(s) matching your keyword.\n";
+        } else {
+            String message = "Here are the following events/deadline with the keyword " + keyword + "\n";
+            for (int i = 1; i <= list.size(); i++) {
+                message = message + i + "." + list.get(i - 1) + "\n";
             }
+            return message;
         }
+    }
 
     /**
      *Display a guide to commands
@@ -192,5 +192,14 @@ public class Ui {
             }
         }
         return workloadSchedule;
+    }
+
+    public String showPrevious(ArrayList<String> outputList) {
+        int size = outputList.size();
+        String output = "";
+        for (int i = 0; i < size; i ++) {
+            output = outputList.get(i) + " \n";
+        }
+        return output;
     }
 }
