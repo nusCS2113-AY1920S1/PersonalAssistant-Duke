@@ -9,6 +9,7 @@ import javax.swing.JComponent;
 
 public class PieChart extends JComponent {
     private float percentage = 0f;
+    private float targetPercentage = 0f;
 
     /**
      * Creates a new PieChart with provided completed percentage
@@ -16,7 +17,9 @@ public class PieChart extends JComponent {
      * @param percentage percentage of tasks completed
      */
     PieChart(float percentage) {
-        this.percentage = percentage;
+        this.targetPercentage = percentage;
+        Thread thread = new Thread(new PieAnimator(this));
+        thread.start();
     }
 
     /**
@@ -35,6 +38,9 @@ public class PieChart extends JComponent {
      * @param area Bounds of the space to draw
      */
     void drawPie(Graphics2D g, Rectangle area) {
+        if (g == null) {
+            return;
+        }
         g.rotate(Math.toRadians(270));
         g.translate(-getBounds().width, 0);
 
@@ -53,7 +59,38 @@ public class PieChart extends JComponent {
      * @param percentage of tasks completed
      */
     public void setPercentage(float percentage) {
-        this.percentage = percentage;
-        this.paint(getGraphics());
+        this.targetPercentage = percentage;
+    }
+
+    class PieAnimator implements Runnable {
+        PieChart pc;
+
+        public PieAnimator(PieChart pc) {
+            this.pc = pc;
+        }
+
+        @Override
+        public void run() {
+            while (true) {
+                if (pc.targetPercentage == pc.percentage) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                } else if (pc.targetPercentage - pc.percentage > 1 || pc.targetPercentage - pc.percentage < -1) {
+                    pc.percentage += ((pc.targetPercentage - pc.percentage) / 5f);
+                    pc.paint(pc.getGraphics());
+                } else {
+                    pc.percentage = pc.targetPercentage;
+                    pc.paint(pc.getGraphics());
+                }
+                try {
+                    Thread.sleep(40);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
