@@ -18,8 +18,7 @@ public class ListDishCommand extends Cmd<Dish> {
         } else {
             System.out.println("\t Here are the dishes in your list:");
             for (int i = 1; i <= dish1.size(); i++) { // looping to print all the saved tasks
-                ui.showDishes("\t " + i + "." + dish1.getEntry(i - 1).getDishname()
-                        , dish1.getEntry(i - 1).getTotalNumberOfOrders());
+                ui.showDishes("\t " + i + "." + dish1.getEntry(i - 1).getDishname(), dish1.getEntry(i - 1).getTotalNumberOfOrders());
             }
         }
     }

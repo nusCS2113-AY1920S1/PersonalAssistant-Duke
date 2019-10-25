@@ -11,6 +11,8 @@ import java.util.List;
 public class Fridge {
 
     private List<Ingredient> currentIngredients;
+
+
     private List<Ingredient> expiredIngredients;
 
     public Fridge(List<Ingredient> list) {

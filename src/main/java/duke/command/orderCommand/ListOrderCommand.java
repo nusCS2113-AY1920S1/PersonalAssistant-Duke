@@ -56,19 +56,13 @@ public class ListOrderCommand extends ListCommand<Order> {
         } else if (listType.startsWith("dishes")) {
             String dishName = listType.split(" ",2)[1];
 
-            //to do
-            //should use a function to find <Dish> dishes by the string dishName
+            //TODO: should use a function to find <Dish> dishes by the string dishName
 
             Dish dishes = null;
             tmp = orderList.findOrderByDishes(dishes);
         } else {
             tmp = orderList.getAllEntries();
         }
-
-
         return tmp;
     }
-
-
-
 }
