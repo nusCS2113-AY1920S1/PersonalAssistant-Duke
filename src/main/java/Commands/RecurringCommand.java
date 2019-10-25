@@ -41,7 +41,7 @@ public class RecurringCommand extends Command {
 
     @Override
     public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws ParseException {
-        SimpleDateFormat stringToDate = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat stringToDate = new SimpleDateFormat("E dd/MM/yyyy");
         SimpleDateFormat dateToString = new SimpleDateFormat("E dd/MM/yyyy");
         Date startDate = stringToDate.parse(startDateString);
         Date endDate = stringToDate.parse(endDateString);

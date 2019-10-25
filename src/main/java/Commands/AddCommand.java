@@ -43,7 +43,7 @@ public class AddCommand extends Command {
 
         if (task.getType().equals("[E]")) {
             HashMap<String, HashMap<String, ArrayList<Task>>> eventsMap = events.getMap();
-            if(eventsMap.get(task.getModCode()).containsKey(task.getDate())) {
+            if(eventsMap.containsKey(task.getModCode()) && eventsMap.get(task.getModCode()).containsKey(task.getDate())) {
                 ArrayList<Task> temp = eventsMap.get(task.getModCode()).get(task.getDate());
                 for (Task task : temp) {
                     {

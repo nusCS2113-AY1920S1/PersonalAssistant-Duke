@@ -109,7 +109,7 @@ public class MainWindow extends BorderPane implements Initializable {
             deadlines = new ArrayList<>();
            // setClock();
             setWeek(true, NO_FIELD);
-            displayQuoteOfTheDay();
+            //displayQuoteOfTheDay();
 
             retrieveList();
             openReminderBox();

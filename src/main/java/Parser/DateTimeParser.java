@@ -70,10 +70,11 @@ public class DateTimeParser {
         if (weekDate.equalsIgnoreCase("reading") || weekDate.equalsIgnoreCase("exam")
                 || weekDate.equalsIgnoreCase("week") || weekDate.equalsIgnoreCase("recess")){
             weekDate = input.substring(0,input.length()- 4); // week x day y
-            String time = input.substring(input.length()- 4); // time E.g 0300
+            String time = input.substring(input.length()- 4).trim(); // time E.g 0300
             weekDate = LT.getValue(weekDate) + " " + time;
         } else {
-            weekDate = dateTimeStringSplit[0];
+            String time = input.substring(input.length()- 4).trim();
+            weekDate = dateTimeStringSplit[0] + " " + time;
         }
         Date date = deadlineInputFormat.parse(weekDate);
         String dateString = dateOutputFormat.format(date);
