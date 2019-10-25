@@ -26,7 +26,7 @@ public class Impression extends DukeObject {
      * @param description the description of the impression
      */
     public Impression(String name, String description, Patient patient) {
-        super(patient.getBedNo() + "\t" + name);
+        super(patient.getBedNo() + "-" + name);
         this.description = description;
         this.patientbedNo = patient.getBedNo();
         this.evidences = new HashMap<String, Evidence>();
