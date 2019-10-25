@@ -1,9 +1,9 @@
 package duke.data;
 
 import duke.exception.DukeException;
-//import javafx.collections.FXCollections;
-//import javafx.collections.MapChangeListener;
-//import javafx.collections.ObservableMap;
+import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,8 +14,8 @@ public class Patient extends DukeObject {
     private String bedNo;
     private String allergies;
     private Impression priDiagnosis;
-    //private transient ObservableMap<String, Impression> impressions;
-    private HashMap<String, Impression> impressions;//HashMap;
+    private transient ObservableMap<String, Impression> observableImpressions;
+    private HashMap<String, Impression> impressions;
     private Integer height;
     private Integer weight;
     private Integer age;
@@ -46,9 +46,6 @@ public class Patient extends DukeObject {
         super(name);
         this.bedNo = bedNo;
         this.allergies = allergies;
-        //Map<String,Impression> map = new HashMap<>();
-        this.impressions = new HashMap<String, Impression>();//FXCollections.observableMap(map);
-
         this.height = height;
         this.weight = weight;
         this.age = age;
@@ -57,6 +54,8 @@ public class Patient extends DukeObject {
         this.history = history;
         this.priDiagnosis = new Impression("No Primary Impression", "Add upon admission diagnosis", this);
 
+        this.impressions = new HashMap<>();
+        initObservableImpressions();
     }
 
     /**
@@ -73,8 +72,6 @@ public class Patient extends DukeObject {
         super(name);
         this.bedNo = bedNo;
         this.allergies = allergies;
-        //Map<String,Impression> map = new HashMap<String,Impression>();
-        this.impressions = new HashMap<String, Impression>();//FXCollections.observableMap(map);
         this.height = null;
         this.weight = null;
         this.age = null;
@@ -82,20 +79,24 @@ public class Patient extends DukeObject {
         this.address = null;
         this.history = null;
         this.priDiagnosis = null;
+
+        this.impressions = new HashMap<>();
+        initObservableImpressions();
     }
 
-    /*Todo
+    /**
      * Attaches a listener to the impressions map.
      * This listener updates the {@code impressionHashMap} whenever the patient map is updated.
+     */
     private void attachImpressionsListener() {
-        impressions.addListener((MapChangeListener<String, Impression>) change -> {
+        observableImpressions.addListener((MapChangeListener<String, Impression>) change -> {
             if (change.wasAdded()) {
-                impressionHashMap.put(change.getKey(), change.getValueAdded());
+                impressions.put(change.getKey(), change.getValueAdded());
             } else if (change.wasRemoved()) {
-                impressionHashMap.remove(change.getValueRemoved());
+                impressions.remove(change.getKey(), change.getValueRemoved());
             }
         });
-    }*/
+    }
 
     /**
      * This discharge function runs the procedure to discharges a patient from the hospital.
@@ -113,8 +114,7 @@ public class Patient extends DukeObject {
      */
 
     public Impression addNewImpression(Impression newImpression) {
-        //System.out.println(Boolean.toString(impressions != null));
-        this.impressions.put(newImpression.getName(), newImpression);
+        this.observableImpressions.put(newImpression.getName(), newImpression);
         return newImpression;
     }
 
@@ -126,9 +126,9 @@ public class Patient extends DukeObject {
      * @return the Impression of the deleted Impression
      */
     public Impression deleteImpression(String keyIdentifier) throws DukeException {
-        if (this.impressions.containsKey(keyIdentifier)) {
-            Impression imp = this.impressions.get(keyIdentifier);
-            this.impressions.remove(keyIdentifier);
+        if (this.observableImpressions.containsKey(keyIdentifier)) {
+            Impression imp = this.observableImpressions.get(keyIdentifier);
+            this.observableImpressions.remove(keyIdentifier);
             return imp;
         } else {
             throw new DukeException("I don't have that entry in the list!");
@@ -142,9 +142,8 @@ public class Patient extends DukeObject {
      * @return Impression the impression specified by the index
      */
     public Impression getImpression(String keyIdentifier) throws DukeException {
-        if (this.impressions.containsKey(keyIdentifier)) {
-            Impression imp = this.impressions.get(keyIdentifier);
-            return imp;
+        if (this.observableImpressions.containsKey(keyIdentifier)) {
+            return this.observableImpressions.get(keyIdentifier);
         } else {
             throw new DukeException("I don't have that entry in the list!");
         }
@@ -156,8 +155,8 @@ public class Patient extends DukeObject {
      * @param keyIdentifier index of the impression
      */
     public void setPriDiagnosis(String keyIdentifier) throws DukeException {
-        if (this.impressions.containsKey(keyIdentifier)) {
-            Impression imp = this.impressions.get(keyIdentifier);
+        if (this.observableImpressions.containsKey(keyIdentifier)) {
+            Impression imp = this.observableImpressions.get(keyIdentifier);
             this.priDiagnosis = imp;
             return;
         } else {
@@ -172,7 +171,7 @@ public class Patient extends DukeObject {
      */
     public ArrayList<Impression> findImpression(String searchTerm) {
         ArrayList<Impression> searchResult = new ArrayList<Impression>();
-        for (Map.Entry<String, Impression> mapElement : this.impressions.entrySet()) {
+        for (Map.Entry<String, Impression> mapElement : this.observableImpressions.entrySet()) {
             Impression value = mapElement.getValue();
             if (value.toString().contains(searchTerm)) {
                 searchResult.add(value);
@@ -300,12 +299,13 @@ public class Patient extends DukeObject {
         return bedNo;
     }
 
-    /*public ObservableMap<String, Impression> getImpressionsObservableMap() {
-        return impressions;
-    }*/
+    public ObservableMap<String, Impression> getImpressionsObservableMap() {
+        return observableImpressions;
+    }
 
-    public HashMap<String, Impression> getImpressions() {
-        return impressions;//new HashMap<String, Impression>(impressions);
+    public void initObservableImpressions() {
+        this.observableImpressions = FXCollections.observableMap(impressions);
+        attachImpressionsListener();
     }
 
     public String getAllergies() {
