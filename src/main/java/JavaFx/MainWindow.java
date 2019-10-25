@@ -1,4 +1,5 @@
 package JavaFx;
+import Commands.ShowPreviousCommand;
 import Commands.UpdateProgressIndicatorCommand;
 import Interface.*;
 import Tasks.Task;
@@ -87,6 +88,7 @@ public class MainWindow extends BorderPane implements Initializable {
     private TaskList eventsList;
     private TaskList deadlinesList;
     private static LookupTable LT;
+    public static ArrayList<String> outputList = new ArrayList<>();
     private static final Logger LOGGER = Logger.getLogger(MainWindow.class.getName());
     static {
         try {
@@ -96,7 +98,9 @@ public class MainWindow extends BorderPane implements Initializable {
         }
     }
 
-    protected int number_of_modules;
+    //public ArrayList<String> getUserInputs(){
+      //  return userInputs;
+    //}
 
     /**
      * This method initializes the display in the window of the GUI.
@@ -199,6 +203,8 @@ public class MainWindow extends BorderPane implements Initializable {
 //        clock.play();
     }
 
+    static ArrayList<String> filteredInput = new ArrayList<>();
+
     /**
      * Pulls the list from storage data and stores here.
      * @throws IOException On input error reading lines in the file
@@ -289,33 +295,51 @@ public class MainWindow extends BorderPane implements Initializable {
         }
     }
 
+    private void showPreviousCommand(String input) {
+        ShowPreviousCommand showPrevious = new ShowPreviousCommand(input);
+
+    }
+
     @FXML
     private void handleUserInput() throws IOException{
         String input = userInput.getText();
         String response = duke.getResponse(input);
+
+        outputList = ShowPreviousCommand.getOutputList();
+//        int i = 1;
+//        for (String output : outputList) {
+//            System.out.println(i);
+//            AlertBox.display("", "", output, Alert.AlertType.INFORMATION);  //TODO, show in the chatbox section
+////            for(String s: filteredInput) sall += s;
+////        AlertBox.display("", "", sall, Alert.AlertType.INFORMATION);
+//        }
+
         retrieveList();
+        setListView();
+        deadlineTable.setItems(setDeadlineTable());
+        setProgressContainer();
         if (input.startsWith("Week")) {
             setWeek(false, input);
             setListView();
         } else if (input.startsWith("add")) {
-            //if(response.startsWith("true|")) {
-            //refresh(input);
-            //setWeek(false, input);
-            setListView();
-            deadlineTable.setItems(setDeadlineTable());
-            setProgressContainer();
-            //}
-        } else if (input.startsWith("delete/e" ) || input.startsWith("done/e")) {
-            String[] split = input.split("/at");
-            String[] dateAndTime = split[1].split("from");
-            String date = dateAndTime[0].trim();
-            if (date.startsWith("Week")) {
-                String[] dateSplit = date.split(" ");
-                date = dateSplit[0] + " " + dateSplit[1];
-            } else {
-                date = LT.getValue(date);
-            }
-            if (date.equals(week)) setWeek(false, week);
+//            //if(response.startsWith("true|")) {
+//            //refresh(input);
+//            //setWeek(false, input);
+//            setListView();
+//            deadlineTable.setItems(setDeadlineTable());
+//            setProgressContainer();
+//            //}
+//        } else if (input.startsWith("delete/e" ) || input.startsWith("done/e")) {
+//            String[] split = input.split("/at");
+//            String[] dateAndTime = split[1].split("from");
+//            String date = dateAndTime[0].trim();
+//            if (date.startsWith("Week")) {
+//                String[] dateSplit = date.split(" ");
+//                date = dateSplit[0] + " " + dateSplit[1];
+//            } else {
+//                date = LT.getValue(date);
+//            }
+//            if (date.equals(week)) setWeek(false, week);
 
         }else if (userInput.getText().equals("bye")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(1));

@@ -1,47 +1,51 @@
-//package Parser;
-//import Commands.*;
-//
-//public class MainParser {
-//    public static Command parse(String fullCommand) throws Exception {
-//        String [] stringSplit = fullCommand.split(" ");
-//        String command = stringSplit[0];
-//        switch (command) {
-//            case "add/e":
-//            case "add/d":
-//                return new AddParse(fullCommand).execute();
-//                break;
-//            case "delete/e":
-//            case "delete/d":
-//                return new DeleteParse(fullCommand).execute();
-//                break;
-//            case "recur/e":
-//                return new RecurParse(fullCommand).execute();
-//                break;
-//            case "remind/set":
-//                break;
-//            case "remind/rm":
-//                break;
-//            case "/show":
-//                return new WorkloadParse(fullCommand).execute();
-//                break;
-//            case "filter":
-//                return new FilterCommand(fullCommand.trim().substring(7));
-//                break;
-//            case "help":
-//                return new HelpCommand();
-//                break;
-//            case "list":
-//                break;
-//            case "done/e":
-//            case "done/d":
-//                return new DoneParse(fullCommand).execute();
-//                break;
-//            case "Find":
-//                return new FindFreeTimesParse(fullCommand).execute();
-//                break;
-//            case "bye":
-//                return new ByeCommand();
-//                break;
-//        }
-//    }
-//}
+package Parser;
+import Commands.*;
+import DukeExceptions.DukeException;
+
+public class MainParser {
+    public static Command parse(String fullCommand) throws Exception {
+        String [] stringSplit = fullCommand.split(" ");
+        String command = stringSplit[0];
+        switch (command) {
+            case "add/e":
+            case "add/d":
+                return new AddParse(fullCommand).execute();
+
+            case "delete/e":
+            case "delete/d":
+                return new DeleteParse(fullCommand).execute();
+
+            case "recur/e":
+                return new RecurParse(fullCommand).execute();
+
+            case "remind/set":
+            case "remind/rm":
+                return new RemindParse(fullCommand).execute();
+
+            case "/show":
+                return new WorkloadParse(fullCommand).execute();
+
+            case "filter":
+                return new FilterCommand(fullCommand);
+
+            case "help":
+                return new HelpCommand();
+
+            case "list":
+            case "done":
+                return  null;
+
+            case "Find":
+                return new FindFreeTimesParse(fullCommand).execute();
+
+            case "show previous":
+                return new ShowPreviousCommand(fullCommand);
+
+            case "bye":
+                return new ByeCommand();
+
+            default:
+                throw new DukeException("Invalid input");
+        }
+    }
+}

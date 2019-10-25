@@ -1,6 +1,5 @@
 package Interface;
 import DukeExceptions.DukeException;
-//import Parser.MainParser;
 import Tasks.*;
 import Commands.*;
 import javafx.application.Application;
@@ -8,6 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,6 +25,9 @@ public class Duke extends Application {
     private final Reminder reminder;
     private static final Logger LOGGER = Logger.getLogger(Duke.class.getName());
     private static LookupTable LT;
+    public static ArrayList<String> userInputs = new ArrayList<>();
+    public static ArrayList<String> tempList;
+
     static {
         try {
             LT = new LookupTable();
@@ -78,7 +81,11 @@ public class Duke extends Application {
     }
 
     public String getResponse(String input) {
+        userInputs.add(input);
         return run(input);
     }
 
+    public static ArrayList<String> getUserInputs() {
+        return userInputs;
+    }
 }

@@ -47,6 +47,8 @@ public class Parser {
                 return new ByeCommand();
             }else if(fullCommand.trim().equalsIgnoreCase("help")){
                 return new HelpCommand();
+            } else if (fullCommand.trim().contains("show previous")) {
+                return new ShowPreviousCommand(fullCommand);
             } else if (fullCommand.trim().substring(0, 4).equals("list")) {
                 try {
                     String list = fullCommand.trim().substring(5);
