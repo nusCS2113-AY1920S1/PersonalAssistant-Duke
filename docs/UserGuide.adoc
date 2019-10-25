@@ -178,10 +178,10 @@ Examples:
 * `add CEG`
 * `add BME [t/tentative]`
 
-=== Listing all degrees in your degree list : `degreelist`
+=== Listing all degrees in your degree list : `choices`
 
 Shows a list of all degrees in the list currently. +
-Format: `degreelist`
+Format: `choices`
 
 === Swapping degree in your degree list: `swap`
 
@@ -279,7 +279,7 @@ e.g. `detail ME`
 e.g. `compare ME CEG`
 * *Add* : `add DEGREE` +
 e.g. `add MSE`
-* *Degree List* : `degreelist`
+* *Degree List* : `choices`
 * *Swap* : `swap INDEX INDEX` +
 e.g. `swap 5 CEG`
 * *Delete* : `delete INDEX` +
