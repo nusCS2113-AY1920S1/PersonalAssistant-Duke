@@ -1,7 +1,7 @@
 package logic.command;
 
 import model.Model;
-import model.task.Task;
+import model.Task;
 import utils.DukeException;
 
 public class DeleteTaskCommand extends Command {

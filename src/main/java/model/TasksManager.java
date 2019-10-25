@@ -1,14 +1,12 @@
 package model;
 
-import model.task.Task;
-import model.task.TaskList;
 import utils.DukeException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class TasksManager implements Serializable {
-    //TODO ensure tasks are unique, condition is that no two task can have same name. Link storage
+    public static final String MESSAGE_DUPLICATED_TASK_NAME = "Duplicated task name.";
     private ArrayList<Task> taskList;
 
     public TasksManager() {
@@ -17,67 +15,74 @@ public class TasksManager implements Serializable {
 
     //@@author JustinChia1997
     /**
-     * Basic adding function of task, this can be extended very widely such as including input checks in the
-     * individual data model, however this is the prototype model
+     * Add a new task with name.
+     * @param name The name of the new task, case sensitive.
+     * @throws DukeException If duplicated task name if found.
      */
     public void addTask(String name) throws DukeException {
+        name = name.trim();
         if(!hasTask(name)) {
             taskList.add(new Task(name));
         } else {
-            throw new DukeException("Duplicated task");
+            throw new DukeException(MESSAGE_DUPLICATED_TASK_NAME);
         }
     }
 
     /**
-     * Deletes the task from model
-     * */
-    public Task deleteTask(String name) throws DukeException {
-        name = name.trim();
-        int index = getTaskIndex(name);
-        if(index >= 0){
-            Task temp = taskList.get(index);
-            taskList.remove(index);
-            return temp;
-        } else {
-            throw new DukeException("Task does not exist");
+     * Get the Task object by its id.
+     * @param id The id, or the index of the Task ArrayList, which is non-persistent.
+     *           An id starts with 0.
+     * @return Return the Task object if found, return null if index is wrong.
+     */
+    public Task getTaskById(int id) {
+        if (id >= 0 && id < taskList.size()) {
+            return taskList.get(id);
         }
-
+        return null;
     }
 
+    /**
+     * Delete a task from the task list.
+     * @param toDelete The Task object to be deleted.
+     */
+    public void deleteTask(Task toDelete) {
+        if (taskList.contains(toDelete)) {
+            taskList.remove(toDelete);
+        }
+    }
+
+    /**
+     * Add link(s) from task(s) to member(s). Duplicated link will be cancelled.
+     * @param tasks Array of Member objects to link.
+     * @param toAdd Array of Member object to link.
+     */
+    public void addMember(Task[] tasks, Member[] toAdd) {
+        for (int i = 0; i < tasks.length; i++) {
+            for (int j = 0; j < toAdd.length; j++) {
+                tasks[i].addMember(toAdd[j]);
+            }
+        }
+    }
+
+    /**
+     * Delete link(s) from task(s) to member(s). Non-existing link won't be deleted.
+     * This is the reverse method of <code>addMember(Task[] tasks, Member[] toAdd)</code> method.
+     * @param tasks
+     * @param toDelete
+     */
+    public void deleteMember(Task[] tasks, Member[] toDelete) {
+        for (int i = 0; i < tasks.length; i++) {
+            for (int j = 0; j < toDelete.length; j++) {
+                tasks[i].deleteMember(toDelete[j]);
+            }
+        }
+    }
 
     //@@author JustinChia1997
-    /**
-     * Returns arraylist of tasks. However we can consider building a model for task list itself
-     */
     public ArrayList<Task> getTaskList() {
         return taskList;
     }
 
-    /**
-     * Get task by name
-     * */
-    public Task getTaskByName(String name){
-        Task temp = null;
-        for(int i=0; i < taskList.size(); i+=1) {
-            if(taskList.get(i).getName().equals(name) ) {
-                temp = taskList.get(i);
-            }
-        }
-        return temp;
-    }
-
-    //author JustinChia1997
-    /**
-     * returns the index of the task
-     * */
-    public int getTaskIndex(String name){
-        for(int i=0; i < taskList.size(); i+=1) {
-            if (taskList.get(i).getName().equals(name)) {
-                return i;
-            }
-        }
-        return -1;
-    }
 
     //@@author JustinChia1997
     private boolean hasTask(String name){
@@ -87,6 +92,5 @@ public class TasksManager implements Serializable {
             }
         }
         return false;
-
     }
 }

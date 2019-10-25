@@ -1,11 +1,11 @@
 package model;
 
-import model.task.Task;
 import utils.DukeException;
-
 import java.util.ArrayList;
 
+//@@author chenyuheng
 public class MemberManager {
+    public static final String MESSAGE_DUPLICATED_MEMBER_NAME = "Duplicated member name.";
     ArrayList<Member>  memberList;
 
     public MemberManager() {
@@ -15,13 +15,14 @@ public class MemberManager {
     /**
      * Add a new member with a name.
      * @param name The name of the new member, case sensitive.
-     * @throws DukeException If duplicated name is found.
+     * @throws DukeException If duplicated member name is found.
      */
     public void addMember(String name) throws DukeException {
+        name = name.trim();
         if (getMemberByName(name) == null) {
             memberList.add(new Member(name));
         } else {
-            throw new DukeException("duplicated name");
+            throw new DukeException(MESSAGE_DUPLICATED_MEMBER_NAME);
         }
     }
 
@@ -53,39 +54,10 @@ public class MemberManager {
     }
 
     /**
-     * Get an array of Member objects by their names.
-     * @param names The array of names of these members.
-     * @return An array of Member objects, the elements in the array could be null if not found.
-     */
-    public Member[] getMembersByNames(String[] names) {
-        Member[] members = new Member[names.length];
-        for (int i = 0; i < names.length; i++) {
-            members[i] = getMemberByName(names[i]);
-        }
-        return members;
-    }
-
-    /**
-     * Get an array of Member objects by their ids.
-     * @param ids The array of ids, the ids are the indexes of the Member ArrayList,
-     *            which are non-persistent.
-     *            An id starts with 0.
-     * @return An array of Member objects, the elements in the array could be null if the indexes are in wrong range.
-     */
-    public Member[] getMembersByIds(int[] ids) {
-        Member[] members = new Member[ids.length];
-        for (int i = 0; i < ids.length; i++) {
-            members[i] = getMemberById(ids[i]);
-        }
-        return members;
-    }
-
-    /**
      * Delete a member from the member list.
      * @param toDelete The Member object to be deleted.
      */
     public void deleteMember(Member toDelete) {
-
         memberList.remove(toDelete);
     }
 
@@ -124,5 +96,9 @@ public class MemberManager {
                 members[i].deleteTask(toDelete[j]);
             }
         }
+    }
+
+    public ArrayList<Member> getMemberList() {
+        return memberList;
     }
 }

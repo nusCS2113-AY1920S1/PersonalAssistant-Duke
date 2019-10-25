@@ -1,7 +1,7 @@
 package logic.command;
 
 import model.Model;
-import model.task.Task;
+import model.Task;
 
 import java.util.ArrayList;
 

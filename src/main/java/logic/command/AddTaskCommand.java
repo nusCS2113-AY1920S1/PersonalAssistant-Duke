@@ -1,6 +1,5 @@
 package logic.command;
 import model.Model;
-import model.task.Task;
 import utils.DukeException;
 
 public class AddTaskCommand extends Command {

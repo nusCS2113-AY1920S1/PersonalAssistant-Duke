@@ -1,19 +1,19 @@
 package model;
 
-import model.task.Task;
 import utils.DukeException;
 
 import java.util.ArrayList;
 
+//@@author chenyuheng
 public class Member {
     public static final String EMAIL_VALIDATION_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
     public static final String MESSAGE_WRONG_EMAIL_FORMAT = "Wromg email format.";
 
-    String name;
-    ArrayList<Task> taskList;
-    String biography;
-    String email;
-    String phone;
+    private String name;
+    private ArrayList<Task> taskList;
+    private String biography;
+    private String email;
+    private String phone;
 
     public Member(String name) {
         setName(name);
@@ -30,6 +30,10 @@ public class Member {
         if (taskList.contains(toDelete)) {
             taskList.remove(toDelete);
         }
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return taskList;
     }
 
     public String getName() {
@@ -68,7 +72,5 @@ public class Member {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-
 
 }

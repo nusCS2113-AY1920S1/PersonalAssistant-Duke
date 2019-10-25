@@ -1,6 +1,5 @@
 package model;
 
-import model.task.Task;
 import utils.DukeException;
 
 import java.util.ArrayList;
@@ -34,37 +33,58 @@ public class ModelController implements Model {
 
     @Override
     public void addTask(String name) throws DukeException {
-
+        tasksManager.addTask(name);
     }
 
     @Override
     public Task deleteTask(int index) throws DukeException {
-        Task toDelete = tasksManager.getTaskIndex(index);
+        Task toDelete = tasksManager.getTaskById(index);
+        ArrayList<Member> memberList = toDelete.getMemberList();
+        for (int i = 0; i < memberList.size(); i++) {
+            unlink(toDelete, memberList.get(i));
+        }
         tasksManager.deleteTask(toDelete);
+        return toDelete;
     }
 
     @Override
     public ArrayList<Member> getMemberList() {
-        return null;
+        return memberManager.getMemberList();
     }
 
     @Override
     public void addMember(String name) throws DukeException {
-
+        memberManager.addMember(name);
     }
 
     @Override
-    public Task deleteMember(String name) throws DukeException {
-        return null;
+    public Member deleteMember(String name) throws DukeException {
+        Member toDelete = memberManager.getMemberByName(name);
+        ArrayList<Task> taskArrayList = toDelete.getTaskList();
+        for (int i = 0; i < taskArrayList.size(); i++) {
+            unlink(taskArrayList.get(i), toDelete);
+        }
+        memberManager.deleteMember(toDelete);
+        return toDelete;
     }
 
     @Override
-    public void link(int[] tasksIndexes, String[] memberNames) {
-
+    public void link(int tasksIndexes, String memberNames) {
+        Task task = tasksManager.getTaskById(tasksIndexes);
+        Member member = memberManager.getMemberByName(memberNames);
+        task.addMember(member);
+        member.addTask(task);
     }
 
     @Override
-    public void unlink(int[] tasksIndexes, String[] memberNames) {
+    public void unlink(int tasksIndexes, String memberNames) {
+        Task task = tasksManager.getTaskById(tasksIndexes);
+        Member member = memberManager.getMemberByName(memberNames);
+        unlink(task, member);
+    }
 
+    private void unlink(Task task, Member member) {
+        task.deleteMember(member);
+        member.deleteTask(task);
     }
 }

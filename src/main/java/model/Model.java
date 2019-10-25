@@ -1,6 +1,5 @@
 package model;
 
-import model.task.Task;
 import utils.DukeException;
 
 import java.util.ArrayList;
@@ -18,9 +17,9 @@ public interface Model {
     //==================Member Interface======================
     ArrayList<Member> getMemberList();
     void addMember(String name) throws DukeException;
-    Task deleteMember(String name) throws DukeException;
+    Member deleteMember(String name) throws DukeException;
 
     //==================Task and Member Interface======================
-    void link(int[] tasksIndexes, String[] memberNames);
-    void unlink(int[] tasksIndexes, String[] memberNames);
+    void link(int tasksIndexes, String memberNames);
+    void unlink(int tasksIndexes, String memberNames);
 }
