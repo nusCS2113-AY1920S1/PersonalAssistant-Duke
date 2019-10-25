@@ -90,7 +90,6 @@ class PatientWindow extends UiElement<Region> {
         patient.addListener(evt -> {
             if (evt.getPropertyName().equals("Primary Diagnosis")) {
                 if (evt.getOldValue() != null) {
-                    int index = impressionsListPanel.getItems().indexOf(new ImpressionCard((Impression) evt.getOldValue(), false));
                     impressionsListPanel.getItems().remove(new ImpressionCard((Impression) evt.getOldValue(), false));
                     impressionsListPanel.getItems().add(0, new ImpressionCard((Impression) evt.getOldValue(), false));
                 }
