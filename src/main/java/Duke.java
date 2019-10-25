@@ -61,6 +61,7 @@ public class Duke{
                 c = undoCommandHandler.getLastIssuedCommand();
                 c.undo(account, ui, moneyStorage);
             }
+
         } catch (ParseException | DukeException e) {
             ui.clearOutputString();
             ui.appendToOutput(ui.showError(e.getMessage()));

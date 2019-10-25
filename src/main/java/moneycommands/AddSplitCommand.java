@@ -8,14 +8,11 @@ import javafx.util.Pair;
 import money.Account;
 import money.Expenditure;
 import money.Split;
-import moneycommands.MoneyCommand;
-
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
+
 
 /**
  * This command adds a split expenditure to the Total Expenditure List.
@@ -23,6 +20,11 @@ import java.util.Calendar;
 public class AddSplitCommand extends MoneyCommand {
 
     private String inputString;
+    private float price;
+    private String description;
+    private String category;
+    private LocalDate boughtTime;
+    private ArrayList<Pair<String, Boolean>> parties;
 
     /**
      * Constructor of the command which initialises the add split expenditure command
@@ -50,26 +52,38 @@ public class AddSplitCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
-        String[] splitStr = inputString.split("/amt ", 2);
-        String description = splitStr[0];
-        String[] furSplit = splitStr[1].split("/cat ", 2);
-        float price = Float.parseFloat(furSplit[0]);
-        String[] morSplit = furSplit[1].split("/on ", 2);
-        String category = morSplit[0];
-        String[] evenMorSplit = morSplit[1].split("/with ", 2);
-        LocalDate boughtTime = Parser.shortcutTime(evenMorSplit[0]);
-        String[] people = evenMorSplit[1].split("and ");
-        ArrayList<Pair<String, Boolean>> parties = new ArrayList<>();
-        for (String person : people) {
-            person = person.replaceAll(" ", "");
-            Pair<String, Boolean> temp = new Pair<>(person, false);
-            parties.add(temp);
+        try {
+            String[] splitStr = inputString.split("/amt ", 2);
+            description = splitStr[0];
+            String[] furSplit = splitStr[1].split("/cat ", 2);
+            price = Float.parseFloat(furSplit[0]);
+            String[] morSplit = furSplit[1].split("/on ", 2);
+            category = morSplit[0];
+            String[] evenMorSplit = morSplit[1].split("/with ", 2);
+            boughtTime = Parser.shortcutTime(evenMorSplit[0]);
+            String[] people = evenMorSplit[1].split("and ");
+            parties = new ArrayList<>();
+            for (String person : people) {
+                person = person.replaceAll(" ", "");
+                if (!person.equals("")) {
+                    Pair<String, Boolean> temp = new Pair<>(person, false);
+                    parties.add(temp);
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("Please input in the format: " +
+                    "split <expenditure> /amt <amount> /cat <category> /on <date> /with <person> and <person> ...\n");
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter the amount in numbers!\n");
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
+        }
+        if (parties.isEmpty()) {
+            throw new DukeException("Please enter the party/parties the split expenditure is shared with\n");
         }
         Split s = new Split(price, description, category, boughtTime, parties);
         account.getExpListTotal().add(s);
         storage.writeToFile(account); // need to link this to storage later
-
-        account.populateCurrentMonthLists();
 
         ui.appendToOutput(" Got it. I've added this split expenditure to your total spending: \n");
         ui.appendToOutput("     ");

@@ -72,13 +72,6 @@ public class CreateBankAccountCommand extends MoneyCommand {
         Income newIncome = new Income(newTracker.getAmt(), "Initialize account: " + newTracker.getDescription(), newTracker.getLatestDate());
         account.getIncomeListTotal().add(newIncome);
 
-        Calendar currDate = Calendar.getInstance();
-        int currMonth = currDate.get(Calendar.MONTH) + 1;
-        int currYear = currDate.get(Calendar.YEAR);
-        LocalDate date = newTracker.getLatestDate();
-        if (date.getMonthValue() == currMonth && date.getYear() == currYear) {
-            account.getIncomeListCurrMonth().add(newIncome);
-        }
         storage.writeToFile(account);
         ui.appendToOutput("New bank account tracker has been added to the list: \n");
         ui.appendToOutput(newTracker.getBankAccountInfo() + "\n");

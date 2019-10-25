@@ -39,13 +39,6 @@ public class AddBillCommand extends MoneyCommand {
         account.getExpListTotal().add(bill);
         storage.writeToFile(account);
 
-        Calendar currDate = Calendar.getInstance();
-        int currMonth = currDate.get(Calendar.MONTH) + 1;
-        int currYear = currDate.get(Calendar.YEAR);
-        if (boughtDate.getMonthValue() == currMonth && boughtDate.getYear() == currYear) {
-            account.getExpListCurrMonth().add(bill);
-        }
-
         ui.appendToOutput(" Got it. I've added this bill to your total spending: \n");
         ui.appendToOutput("     ");
         ui.appendToOutput(account.getExpListTotal().get(account.getExpListTotal().size() - 1).toString() + "\n");

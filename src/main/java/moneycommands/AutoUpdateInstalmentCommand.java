@@ -38,7 +38,6 @@ public class AutoUpdateInstalmentCommand extends MoneyCommand {
             if (diff.getDays() == 0 && !ins.getPayForTheMonth()) {
                 Expenditure e = new Expenditure(ins.equalMonthlyInstalment(), ins.getDescription(),
                         ins.getCategory(), currDate);
-                account.getExpListCurrMonth().add(e);
                 account.getExpListTotal().add(e);
                 ins.isPayTheMonth();
                 paymentsMade += 1;

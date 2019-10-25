@@ -36,21 +36,48 @@ public class CommitGoalCommand extends MoneyCommand {
         return false;
     }
 
+    public String percentageProgress(float goalSavings, float currGoalPrice){
+        float percentageProgress = (goalSavings/currGoalPrice)*100;
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+        return "[" + df.format(percentageProgress) + "%]";
+    }
+
+    public String dpRounding(float f){
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+        return df.format(f);
+    }
+
+    public float savingsPerGoal(float goalSavings, float currGoalPrice, float monthsBetween){
+        if(monthsBetween <= 0){
+            return currGoalPrice-goalSavings;
+        }else{
+            return (currGoalPrice - goalSavings)/monthsBetween;
+        }
+    }
+
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
         String[] args = inputString.split("commit goal ");
         if(args.length == 1){
-            throw new DukeException("The Description of the command cannot be empty");
+            throw new DukeException("Please enter in the format: " +
+                    "commit goal <index 1, index 2,...>");
         }else{
             String combinedArgs = args[1];
             String[] indivArgs = combinedArgs.split(",");
             goalsAfterCommit =  new ArrayList<>(account.getShortTermGoals());
             goalSavingsAfterCommit = account.getGoalSavings();
             ArrayList<Integer> indexOfCommittedGoals = new ArrayList<>();
-            for(String i: indivArgs){
-                int index = Integer.parseInt(i.replaceAll("[^0-9]+", ""));
-                indexOfCommittedGoals.add(index);
+            try{
+                for(String i: indivArgs){
+                    int index = Integer.parseInt(i.replaceAll("[^0-9]+", ""));
+                    indexOfCommittedGoals.add(index);
+                }
+            }catch(NumberFormatException e){
+                throw new DukeException("The indexes must be a number");
             }
+
 
             Collections.sort(indexOfCommittedGoals, Collections.reverseOrder());
 
@@ -68,7 +95,6 @@ public class CommitGoalCommand extends MoneyCommand {
                 }
             }
 
-            //account.sortShortTermGoals(goalsAfterCommit);
             float savingsReqPerMonth = 0;
             for (int i = 1; i <= goalsAfterCommit.size();i++) {
                 Goal currGoal = goalsAfterCommit.get(i-1);
@@ -81,17 +107,15 @@ public class CommitGoalCommand extends MoneyCommand {
                 if(goalSavingsAfterCommit >= currGoalPrice){
                     goalProgress = "[\u2713]";
                 }else{
-                    float percentageProgress = (goalSavingsAfterCommit/currGoalPrice)*100;
-                    DecimalFormat df = new DecimalFormat("#.##");
-                    df.setRoundingMode(RoundingMode.CEILING);
-                    goalProgress = "[" + df.format(percentageProgress) + "%]";
-                    savingsReqPerMonth += (currGoalPrice - goalSavingsAfterCommit)/monthsBetween;
+                    goalProgress = percentageProgress(goalSavingsAfterCommit, currGoalPrice);
+                    savingsReqPerMonth += savingsPerGoal(goalSavingsAfterCommit, currGoalPrice, monthsBetween);
                 }
 
                 ui.appendToOutput(" " + i + "." + goalProgress + goalsAfterCommit.get(i-1).toString() + "\n");
             }
+            String savingsPerMonth = dpRounding(savingsReqPerMonth);
             ui.appendToOutput("Goal Savings after commit: $" + goalSavingsAfterCommit + "\n");
-            ui.appendToOutput("Target Savings for the Month: $" + savingsReqPerMonth + "\n");
+            ui.appendToOutput("Target Savings for the Month after commit: $" + savingsPerMonth + "\n");
 
             MoneyCommand list = new ListGoalsCommand();
             list.execute(account,ui,storage);
