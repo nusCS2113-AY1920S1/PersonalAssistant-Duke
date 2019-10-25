@@ -51,6 +51,8 @@ public class Commands {
             }
         case PATIENT:
             switch (cmdStr) {
+            case "new":
+                return new PatientNewCommand();
             case "report":
                 return new PatientReportCommand();
             case "discharge":
