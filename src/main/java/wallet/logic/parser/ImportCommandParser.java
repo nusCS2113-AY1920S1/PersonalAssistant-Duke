@@ -51,7 +51,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             }
         }
 
-
+        System.out.println(MESSAGE_ERROR_WRONG_FORMAT);
         return null;
     }
 
@@ -100,6 +100,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                 } else {
                     name = s[5].trim();
                 }
+
                 if (s.length == 7) {
                     if (s[6].trim().isEmpty()) {
                         details = null;
@@ -107,6 +108,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                         details = s[6].trim();
                     }
                 }
+
                 if (s.length == 8) {
                     if (s[7].trim().isEmpty()) {
                         phoneNum = null;
@@ -160,51 +162,36 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             List<String[]> fileContent = csvReader.readAll();
             for (String[] s : fileContent) {
                 //@@author Xdecosee-reused
-                boolean isRecurring;
                 String desc = s[0].trim();
-                Double amount = Double.parseDouble(s[2].trim());
-                Category cat;
-                LocalDate date = LocalDate.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                String freq = null;
+                LocalDate date = LocalDate.parse(s[1].trim(), formatter);
 
-                if (s[4].trim().equalsIgnoreCase("yes")) {
-                    isRecurring = true;
-                } else {
-                    isRecurring = false;
+                Double amount = Double.parseDouble(s[2].trim());
+                Category cat = Category.getCategory(s[3]);
+
+                if (cat == null) {
+                    System.out.println(1);
+                    System.out.println(MESSAGE_ERROR_CSV_FORMAT);
+                    return null;
                 }
-
-                if (!s[1].trim().isEmpty()) {
-                    cat = Category.getCategory(s[3]);
-                    if (cat == null) {
-                        System.out.println(MESSAGE_ERROR_CSV_FORMAT);
-                        return null;
-                    }
+                boolean isRecurring = false;
+                String freq = null;
+                if (s.length == 6) {
                     if (s[4].trim().equalsIgnoreCase("yes")) {
+                        isRecurring = true;
                         date = LocalDate.parse(s[1].trim(), formatter);
                         freq = s[5].trim().toUpperCase();
                         if (!freq.equals("DAILY") && !freq.equals("WEEKLY") && !freq.equals("MONTHLY")) {
+                            System.out.println(freq);
+                            System.out.println(2);
                             System.out.println(MESSAGE_ERROR_CSV_FORMAT);
                             return null;
                         }
-                    } else if (s[4].trim().equalsIgnoreCase("no")) {
-                        date = LocalDate.parse(s[1].trim(), formatter);
-                    } else {
-                        System.out.println(MESSAGE_ERROR_CSV_FORMAT);
-                        return null;
-                    }
-                } else {
-                    cat = Category.getCategory(s[3].trim());
-                    if (cat == null) {
-                        System.out.println(MESSAGE_ERROR_CSV_FORMAT);
-                        return null;
                     }
                 }
-
                 Expense expense = new Expense(desc, date, amount, cat, isRecurring, freq);
                 data.add(expense);
             }
-
             csvReader.close();
             filereader.close();
 
@@ -221,12 +208,15 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             System.out.println(MESSAGE_ERROR_READING_CSV);
             return null;
         } catch (NumberFormatException e) {
+            System.out.println(3);
             System.out.println(MESSAGE_ERROR_CSV_FORMAT);
             return null;
         } catch (DateTimeParseException e) {
+            System.out.println(4);
             System.out.println(MESSAGE_ERROR_CSV_FORMAT);
             return null;
         } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(5);
             System.out.println(MESSAGE_ERROR_CSV_FORMAT);
             return null;
         }

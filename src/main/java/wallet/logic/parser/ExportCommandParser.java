@@ -45,6 +45,8 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                 return null;
             }
         }
+
+        System.out.println(MESSAGE_ERROR_WRONG_FORMAT);
         return null;
     }
 
