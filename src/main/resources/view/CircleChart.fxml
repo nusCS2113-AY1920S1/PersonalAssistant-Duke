@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.layout.HBox?>
+
+
+<fx:root prefHeight="261.0" prefWidth="331.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <PieChart fx:id="chart" layoutX="-4.0" prefHeight="337.0" prefWidth="409.0" titleSide="BOTTOM" />
+   </children>
+</fx:root>
