@@ -2,6 +2,7 @@
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
+:toclevels: 2
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -12,31 +13,510 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2113T-W13-2/main
+
+By: `Team 13-4`      Since: `Sept 2019`      Licence: `MIT`
+
+== Introduction
+
+=== Purpose
+
+This document specifies architecture and software design decisions for the educational app, JavaCake. The intended audience of this document is the developers, designers, and software testers of JavaCake. 
+
+=== Design Goals
+
+*Target user profile*:
+
+* Has a need to gain a basic grasp of Java
+* Prefers desktop apps over mobile
+* Can type quickly
+* Prefers typing over mouse input
+* Is reasonably comfortable using Command Line Interface (CLI) apps
+* Is goal-driven (likes setting goals for themselves)
+
+Value proposition:
+Managing the learning of Java and managing the learning progress through a desktop app which is CLI-based.
+Developing JavaCake poses a unique software development situation. The developers work closely to ensure both technical and non-technical requirements are met in the 34development process. The design of JavaCake takes into consideration various factors such as user-friendliness and relevance.
+
+=== Key Ideas in the Guide
+
+Additionally, the following annotations will be used throughout this developer guide:
+
+[TIP]
+====
+This symbol denotes a tip which you may find useful when using the application.
+====
+[WARNING]
+====
+This symbol denotes a warning which you will need to be careful of when using the application.
+====
+[NOTE]
+====
+This symbol denotes some information or caveats that you will need to take note of when using the application.
+====
+
 
 == Setting up
 
-Refer to the guide <<UserGuide#, here>>.
+=== Prerequisites
+
+1. *JDK `11`* or above
++
+[WARNING]
+Even if using newer versions of *Java*, the *JAR* file may not launch if it's not *JDK `11`*
+
+2. *IntelliJ* Integrated Development Interface(IDE)
++
+[NOTE]
+IntelliJ by default has Gradle and JavaFx plugins installed. +
+Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+
+=== Project set-up
+
+. Install JDK 11, if not yet installed.
+. Fork this GitHub repository to your GitHub account: 
++
+https://github.com/AY1920S1-CS2113T-W13-2/main.
+. Clone your fork to your local computer.
+. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
+. Set up the correct JDK version for Gradle
+.. Click `Configure` > `Project Defaults` > `Project Structure`
+.. Click `New...` and find the directory of the JDK
+. Click `Import Project`
+. Locate the `build.gradle` file and select it. Click `OK`
+. Click `Open as Project`
+. Click `OK` to accept the default settings
+. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
+This will generate all resources required by the application and tests.
 
 == Design
 
+=== Architecture
+
+The Architecture diagram given below (Figure 1) explains the high-level design of the app. Below it is a quick overview of each component.
+
+.Architecture Diagram
+image::dg_figure1.png[width="500"]
+
+The figure above showcases the high-level view of how *JavaCake* is run. The program can be abstracted into these five modules which are explained below.
+
+[none]
+* `UI`: Handles user interaction and user interface.
+* `Main`: Acts as the bridge for transferring inputs and outputs from the `UI` to `Logic` and vice versa.
+* `Logic`: Executes the respective commands after user input is parsed.
+* `Model`: Holds the current content and quiz questions in memory during the operation of the program.
+* `Storage`: Reads data from and writes data to hard disk when required.
+
+The sections below provide more information on each module.
+
+=== Logic
+
+Within the `Logic` module, the major classes include `ProgressStack`, `ListCommand`, `GotoCommand` and `BackCommand`.
+
+.Structure of the Logic Component
+image::dg_figure2.png[width="500"]
+
+=== Model
+
+The `Model` stores a `QuestionList` object which itself consists of one or more `Question` objects. `Model` can then use this `QuestionList` object to set up a `QuizSession` or `ReviewSession` object which interfaces with `UI` to execute a quiz.
+
+`Model` also references `Storage` in order to load and generate the `QuestionList` object from `Storage` when a `QuestionList` object is created.
+
+.Structure of the Model Component
+image::dg_figure3.png[width="600"]
+
+=== Storage
+
+The `Storage` module handles fetching data from and writing data to the hard disk. This module consists of the following classes: `Profile`, `TaskStorage`, `TaskList` and `StorageManager`. 
+
+There are also enumeration classes used to keep track of the different types of tasks(`TaskType`) and different state of the task(`TaskState`).
+
+.Structure of the Storage Component
+image::dg_figure4.png[width="600"]
+
+The `Storage` component,
+
+[none]
+* can save `Profile` objects in `.txt` format and read it back.
+* can save the `TaskStorage` data in `.txt` format and read it back.
+
+=== UI
+
+The `UI` module handles the user interface and user interaction with the program. It consists of a `MainWindow`, which is made up of the following parts: `DialogBox`, `TopBar` and `AvatarScreen`. The API of the `UI` module is implemented by `MainWindow.java` in GUI mode. The module also contains a `Ui` class which defines the implementation of the API in CLI mode.
+
+.Structure of the UI Component
+image::dg_figure5.png[width="600"]
+
+The UI component,
+
+[none]
+* [CLI Mode] executes user commands through the `Main` component which executes the respective commands in `Logic`.
+* [GUI Mode] executes user commands through the `Main` component which executes the respective commands in `Logic`. The output is then shown in the `DialogBox` class.
+* listens for changes to `Main` data so that the `UI` can be updated with the modified data.
+* implements `Model` for displaying output from `QuizSession` class.
 
 == Implementation
 
+This section describes some noteworthy details on how certain features are implemented.
+
+*Technologies Used*:
+
+* Our source code is written in Java. However, we also leverage on JavaFX, fxml and Cascading Style Sheets (CSS) to design our Graphical User Interface (GUI). The program also uses external libraries Natty Date Parser and Apache Commons IO.
+
+* The Natty Date Parser library is used to parse relative dates and times in the Deadline feature (see part 4.X for details on its implementation), while the Apache Commons IO library is used to handle file cleanup in the Storage module.
+
+=== Content Browsing feature
+
+==== Proposed Implementation
+
+The browsing of content feature is facilitated by `ProgressStack`, which allows users to dynamically navigate through the content in the content directory without the need to hardcode any of the content in our codebase. 
+
+.Activity Diagram for Content Browsing in JavaCake
+image::dg_figure6.png[width="600"]
+
+
+Figure 6 shows the overall activity diagram for content browsing. Two variables of _defaultFilePath_ and _currentFilePath_ are used, in which _defaultFilePath_ stores the file path towards the start of our content directory and _currentFilePath_ is used to store the updated file path towards the content requested by the user. 
+
+When a command such as `list`, `back` and `goto` that requires the program to traverse through the content directory is called, _currentFilePath_ is being updated by concatenating the name of the file to the _currentFilePath_. 
+
+The files contained in _currentFilePath_ can be either a text file or directories. If the file in _currentFilePath_ is a text file, the _currentFilePath_ will be updated once more to enter the file in order to read the content stored in the file. The content will then be displayed to the user. If the files contained in _currentFilePath_ are directories, the name of the directories will be displayed to the user. 
+
+The name of the file(s) found in the current directory will be stored in _listOfFiles_, which is a list container for strings.
+
+==== Design Considerations
+
+*Aspect 1: How reading of content works*
+
+* *Alternative 1* (current choice): Dynamically reads the name of content.
++
+*Pros*: Very scalable, no hard-coding required.
++
+*Cons*: Slightly harder implementation of reading content.
+
+* *Alternative 2*: Creating individual classes for each subtopic.
++
+*Pros*: Easier to code since it only requires hard-coding.
++
+*Cons*: Not scalable, expanding content files require redoing of codebase.
+
+* *Alternative 3*: Hardcoding location of every file and directory.
++
+*Pros*: Very easy brute force way to implement.
++
+*Cons*: Tedious and not scalable when content increases.
+
+*Aspect 2: Data structure to keep track of current location in program*
+
+* *Alternative 1* (current choice): Storing current file path in a string variable.
++
+*Pros*: Very scalable, concatenate string variable with new file path.
++
+*Cons*: Slightly harder implementation since the file locations are harder to find and keep track in Java ARchive (JAR) files.
+
+* *Alternative 2*:  Using a stack data structure to store current progress in program.
++
+*Pros*: Easy to implement.
++
+*Cons*: Not scalable especially when content files are expanded since every new path location has to be properly indexed.
+
+=== ListCommand feature
+
+==== Proposed Implementation
+
+When the command entered by the user is `list`, _currentFilePath_ will be reset to _defaultFilePath_ in which the names of the directories stored within the start of our content file will be displayed. To make it more scalable, we conveniently renamed our directories to have proper indexing.
+
+.Sequence diagram for ListCommand
+image::dg_figure7.png[width="600"]
+
+*ListCommand implements the following methods in `ProgressStack` as shown in Figure 2*:
+
+* `progressStack#setDefaultFilePath()` — Resetting the file path back to default.
+
+* `progressStack#processQueries()` — Storing all possible file paths from current directory.
+
+=== GoToCommand feature
+
+==== Proposed Implementation
+
+When the command entered by the user is `goto [index]`, _currentFilePath_ will be updated by concatenating the file or directory name found in the index at that particular directory. If the name refers to a new directory, a list of the items in the directory will be shown. Else, content, which may include the quiz, is shown.  If the user knows the location of the file/directory and wishes to view it directly instead of going through the directories one by one, the user just needs to concatenating the index of the content or directory with a ‘.’. The index of files goto command is expected to go through is stored in a queue. The function _execute()_ is recursively called until all the index in the queue is popped as shown in Figure 3 below. 
+
+.Activity diagram for Goto Command
+image::dg_figure8.png[width="600"]
+
+*This feature implements the following methods in ProgressStack*:
+
+* `progressStack#gotoFilePath()` —  Depending on the index, a particular file path will be selected from the collection of file paths generated from previous command. 
+
+* `progressStack#updateFilePath()` —  Updates _currentFilePath_.
+
+* `progressStack#insertQueries()` —  Insert all possible file paths based on current directory.
+
+* `progressStack#displayDirectories()` —  Prints out all files that are directories.
+
+* `progressStack#readQuery()` —  Reads the content in a text file.
+
+=== BackCommand feature
+
+==== Proposed Implementation
+
+When the command entered by the user is `back`, _currentFilePath_ will be updated depending if the current file is a directory or a text file. If the current file is a directory, the last partition of the _currentFilePath_ will be removed. If the current file is a text file, the last 2 partitions of the _currentFilePath_ will be removed. After which, the appropriate content will be displayed to the user.
+
+*This feature implements the following methods in `ProgressStack`*:
+
+* `progressStack#insertQueries()` —  Insert all possible file paths based on current directory.
+
+* `progressStack#displayDirectories()` —  Prints out all files that are directories.
+
+* `progressStack#readQuery()` —  Reads the content in a text file.
+
+* `progressStack#backToPreviousPath()` — Checks if current file is a directory or file. If it is a directory, removes last partition of _currentFilePath_, else removes last 2 partitions of _currentFilePath_.
+
+
+=== Profile feature
+
+==== Proposed Implementation
+
+When the user first launches the program, the user will be prompted to fill out his username. The `Profile` keeps a reference of the default file path and creates the respective directories and files if they do not exist.
+
+Three variables of _filepath_ and _username_ are used. The _filepath_ stores the default file path of where the save file should be stored, along with its respective file name. The _username_ is used to store the current user’s username which can be accessed either internally within Profile or externally via external function calls.
+
+*This feature implements the following methods in `Profile`*:
+
+* `profile#getUsername()` —  Gets the _username_ of the user.
+
+* `profile#resetProfile()` —  Resets the current user’s profile, along with their respective data after calling the reset command.
+
+* `profile#overwriteName()` —  Overwrites the default _username_ of the user, when either first launching the program or when `reset` is called.
+
+* `profile#setMarks()` — Sets the marks of the user for a particular quiz (specified in the function parameters).
+
+* `profile#getContentMarks()` — Gets the marks of the user for a particular quiz (specified in the function parameters).
+
+* `profile#getTotalProgress()` — Gets the overall marks of the user for all the quizzes.
+
+=== QuizCommand feature
+
+==== Proposed Implementation
+
+When `goto [index]` leads to the location of the quiz content, the `QuizCommand` is called to set up a quiz session. A list of `Question` objects, containing fields question and the question’s correct _answer_, is first initialized by reading from the `Quiz` text file in its current location. Depending on the value of _MAX_QUESTIONS_, that number of questions is then randomly selected from the initialized list into a smaller list called _chosenQuestions_. The _chosenQuestions_ variable is the list of questions for the user to attempt during the quiz session.
+
+The quiz session starts with a _currScore_ of 0, and displays a question from _chosenQuestions_. For every question, the question text will be displayed and the program awaits user input. Once user input is received, _checkAnswer()_ will compare the user input to the correct answer of that question and add 1 to _currScore_ if they match. The next question is then displayed to await user input. This continues until all questions in the session are attempted.
+
+If the program is in GUI mode, quiz command will be handled directly by MainWindow.java. `MainWindow.java` will instantiate a new `QuizCommand` depending on the topic, and interact with the class in the sequence explained above. If the program is in CLI mode, the `QuizCommand.java` will directly interact with the user by calling `Ui.java`.
+
+When the quiz session is complete, a results screen will be shown to the user, displaying the final _currscore_ out of _MAX_QUESTIONS_. Custom messages will be displayed as well, determined by a _scoreGrade_ of _BAD_, _OKAY_ or _GOOD_, which in turn is determined by the calculated percentage score in the quiz session. If the program is in GUI mode, the avatar’s expression on the screen will depend on the _scoreGrade_. 
+
+*This feature implements the following methods*:
+
+* `QuestionList#PickQuestions()` — chooses random questions from the question bank.
+
+* `QuestionList#getQuestions()` — loads all the questions in text files and stores them. in an array list.
+
+* `QuizCommand#checkAnswer()` — checks the answer given by user and updates user’s score.
+
+* `QuizCommand#getQuizScore()` — gets the score of the attempted quiz.
+
+* `QuizCommand#overwriteOldScore()` — updates the score in profile to the new score from the quiz session if the new score is higher than the score in profile.
+
+==== Design Considerations
+
+*Aspect 1: How quiz content is stored and read*
+
+[none]
+* *Alternative 1*: (Current choice) Quiz questions are stored with their answers in the text files. The getQuestions() method will iterate through all the files and store them into the quiz array. 
++
+*Pros*: Very scalable as additional questions and answers can be easily added without having to manually change the code. 
++
+*Cons*: Each text file that contains the quiz must follow a certain naming format. 
+
+* *Alternative 2*: A QuestionList class that contains the hardcoded location of all the quizzes and the number of quizzes that each topic contains.  
++
+*Pros*: Easy to implement and test as it is not susceptible to IO or File exceptions that may arise from reading from an external file.
++
+*Cons*: As all questions and answers have to be hard coded within the class, it is not scalable as number of quiz questions increases.
+
+=== MegaListCommand feature
+
+==== Proposed Implementation
+
+When the command entered by the user is `overview`, _currentFilePath_ will be reset to _defaultFilePath_. By iterating through the files and comparing with _defaultFilePath_, we store and format the name of the files depending on the number of parent directories it contains.
+
+*This feature implements the following methods in `ProgressStack`*:
+
+* `progressStack#setDefaultFilePath()` — Resetting the file path back to default.
+
+* `progressStack#insertQueries()` — Insert all possible file paths based on current directory.
+
+
 == Documentation
 
-Refer to the guide <<Documentation#, here>>.
+=== Introduction
+
+We use asciidoc for writing documentation.
+
+[NOTE]
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+
+=== Editing Documentation
+
+See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
+Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
+
+=== Publishing Documentation
+
+See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
+
+=== Converting Documentation to PDF format
+
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+
+Here are the steps to convert the project documentation files to PDF format.
+
+.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
+.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
+.  Within Chrome, click on the `Print` option in Chrome's menu.
+.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
+
+.Saving documentation as PDF files in Chrome
+image::chrome_save_as_pdf.png[width="300"]
+
+[[Docs-SiteWideDocSettings]]
+=== Site-wide Documentation Settings
+
+The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+
+[TIP]
+Attributes left unset in the `build.gradle` file will use their *default value*, if any.
+
+[cols="1,2a,1", options="header"]
+.List of site-wide attributes
+|===
+|Attribute name |Description |Default value
+
+|`site-name`
+|The name of the website.
+If set, the name will be displayed near the top of the page.
+|_not set_
+
+|`site-githuburl`
+|URL to the site's repository on https://github.com[GitHub].
+Setting this will add a "View on GitHub" link in the navigation bar.
+|_not set_
+
+|`site-seedu`
+|Define this attribute if the project is an official SE-EDU project.
+This will render the SE-EDU navigation bar at the top of the page, and add some SE-EDU-specific navigation items.
+|_not set_
+
+|===
+
+[[Docs-PerFileDocSettings]]
+=== Per-file Documentation Settings
+
+Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+
+Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
+
+[TIP]
+Attributes left unset in `.adoc` files will use their *default value*, if any.
+
+[cols="1,2a,1", options="header"]
+.List of per-file attributes, excluding Asciidoctor's built-in attributes
+|===
+|Attribute name |Description |Default value
+|`site-section`
+|Site section that the document belongs to.
+This will cause the associated item in the navigation bar to be highlighted.
+One of: `UserGuide`, `DeveloperGuide`, `AboutUs`, `ContactUs`
+|_not set_
+|`no-site-header`
+|Set this attribute to remove the site navigation bar.
+|_not set_
+
+|===
+
 
 == Testing
 
-Refer to the guide <<Testing#, here>>.
+=== Running Tests
+
+There are three ways to run tests.
+
+[TIP]
+The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+
+*Method 1: Using IntelliJ JUnit test runner*
+
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+
+[NOTE]
+See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
+
+*Method 3: Using Gradle (headless)*
+
+Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
+
+To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
+
+=== Types of tests
+
+We have two types of tests:
+
+.  *GUI Tests* - These are tests involving the GUI. They include,
+.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.  *Non-GUI Tests* - These are tests not involving the GUI. They include,
+..  _Unit tests_ targeting the lowest level methods/classes. +
+e.g. `seedu.address.commons.StringUtilTest`
+..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
+e.g. `seedu.address.storage.StorageManagerTest`
+..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+e.g. `seedu.address.logic.LogicManagerTest`
 
 == Dev Ops
 
-Refer to the guide <<DevOps#, here>>.
+=== Build Automation
+
+See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+
+=== Continuous Integration
+
+We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+
+=== Coverage Reporting
+
+We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
+
+=== Documentation Previews
+
+When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+
+=== Making a Release
+
+Here are the steps to create a new release.
+
+.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number. e.g. `v0.1`
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+
+=== Managing Dependencies
+
+A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+
+[loweralpha]
+. Include those libraries in the repo (this bloats the repo size)
+. Require developers to download those libraries manually (this creates extra work for developers)
+
+== Appendices
 
 [appendix]
-== Product Scope
+=== Product Scope
 
 *Target user profile*:
 
@@ -49,7 +529,7 @@ Refer to the guide <<DevOps#, here>>.
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
 [appendix]
-== User Stories
+=== User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
@@ -58,28 +538,47 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |User and newbie to programming |see table-of-content |view the different topics required to gain a basic understanding of Java
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |Goal-oriented user |add a new deadline |pace myself when learning Java
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |delete a deadline |remove entries that I no longer need
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |mark a deadline as done |keep track of topics I have completed 
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |check reminders for topics to read |be reminded of what topics to read before a previously set deadline
+
+|`* * *` |user |do a quiz at the end of a topic |reinforce my learning
+
+|`* * *` |user |hard reset my profile |start my progress over from scratch
+
+|`* *` |user |find a topic by name |locate details of topics without having to go through the entire list
+
+|`* *` |user who cannot absorb the content fast |do quizzes of varying difficulties |challenge myself more when I’m confident of the content
+
+|`* *` |user |Have stars/visual aids to represent my progression |Have an easier time to track my progress
+
+|`* *` |user |ability to know the progress of individual subtopics |I can choose to focus on the topics that require more attention.
+
+|`* *` |user |dynamic audio content |feel more engaged with the app
+
+|`*` |user with many deadlines in the reminders |sort deadlines by date |locate a deadline easily
+
+|`*` |user with uptight preferences |Choose between light and dark mode for the GUI |have more flexibility in viewing the content
+
+|`*` |User that may find the content too boring |have motivational quotes or jokes |make the learning process more interesting
+
+|`*` |User |know when my last login is |keep track of my progression in completing Java Cake  
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
-== Use Cases
+=== Use Cases
 
 (For all use cases below, the *System* is the `Cake` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Find topics
-
-*MSS*
+==== *Use case: Go to topics*
 
 1. User requests to list topics
 2. Cake shows topics (in format 1. X\n 2. Y\n...)
@@ -88,168 +587,116 @@ _{More to be added}_
 5. User types the sub-topic number e.g. `1`
 6. Cake shows the content in the sub-topic
 +
-Use case ends.
+_*Use case ends.*_
 
 *Extensions*
 
 [none]
-* 3a. If user types in `1.1`, user can immediately jump to sub-topic content
-+
+* 3.a. If user types in `1.1`, user can immediately jump to sub-topic content
+
 [none]
-** 3a1. If no sub-topic present, Cake shows error message
+* 3.a. If no sub-topic present, Cake shows error message
 +
-Use case resumes at step 5.
+-*Use case resumes at step 5.*_
 
 [discrete]
-=== Use case: Check progress
+==== Use case: Check progress
 
-*MSS*
-
-1. _User finishes topic/quiz_
+1. User finishes quiz
 2. Cake shows progress bar ( [# # # # _ _ _ _] )
 +
-Use case ends.
+_*Use case ends.*_
 
 *Extensions*
 
 [none]
-* 2a. User types in command to check progress again
+* 2.a. User types in command to check progress again
 +
-Use case ends.
+_*Use case ends.*_
 
 [discrete]
-=== Use case: Do quiz from sub-topic
+==== Use case: Do quiz from sub-topic
 
-*MSS*
-
-1. _User requests for sub-topic list_
-2. User selects quiz by typing `quiz` or types in the index of the quiz in the list e.g. `7`
+1. User requests for sub-topic list
+2. User selects quiz by typing `goto [index]` of the quiz in the list e.g. `goto 4`
 3. Cake launches quiz
 4. User answers the questions
 +
-Use case ends.
+_*Use case ends.*_
 
 *Extensions*
 
 [none]
-* 4a. User types invalid input
+* 4.a. User types invalid input
 +
 [none]
-** 4a1. Cake shows error message
+** 4.a.1. Cake shows error message
 +
-Use case resumes at step 2.
+_*Use case resumes at step 2.*_
 
 [none]
-* 4b. User types wrong answer
+* 4.b. User types wrong answer
 +
 [none]
-** 4b1. Cake shows "Wrong Answer" and proceeds to next question.
+** 4.b.1. Cake shows "Wrong Answer" and proceeds to next question.
 +
-Use case ends
+_*Use case ends.*_
 
 [discrete]
-=== Use case: Set deadline for topics/sub-topics to read
-
-*MSS*
+==== Use case: Set deadline for topics/sub-topics to read
 
 1. User requests to list topics
 2. Cake shows topics
-3. User sets deadline for a topic `deadline 1 /by <DATE/>`
-4. Cake shows confirmation message (adds to appended topic header list)
+3. User sets deadline for a topic e.g. `deadline finish OOP /by 2pm 23 August`
+4. Cake shows confirmation message (appends to a topic header list)
 +
-Use case ends.
+_*Use case ends.*_
 
 *Extensions*
 
 [none]
-* 4a. If user decides to list topics again, deadline is appended to topic header
+* 4.a. If user decides to list topics again, deadline is appended to topic header
+
+* 4.b. If user launches program again, the deadlines for each topic are shown in most recent deadline order.
+
+* 4.c. If user finishes the quiz for that topic, the deadline will be removed from Cake
 +
-Use case ends.
-* 4b. If user launches program again, the deadlines for each topic are shown in most recent deadline order.
-+
-** 4b1. If user finishes the quiz for that topic, the deadline will be removed from Cake
-+
+_*Use case ends.*_
+
+[discrete]
+==== Use case: View reminders of deadlines for topics to read
+
+1. User requests to view reminders
+2. Cake shows a list of topic with deadlines in most recent deadline order
+_*Use case ends.*_
+
+*Extensions*
+
+[none]
+* 2.a. If there are no deadlines, Cake will inform user that there is nothing to show.
 Use case ends.
 
-_{More to be added}_
+[discrete]
+==== Use case: Finding a specific content
+
+1. User requests to view a specific content piece `view Print`
+2. Cake shows list of subtopics, if applicable, to user.
+_*Use case ends.*_
+
 
 [appendix]
-== Non Functional Requirements
+=== Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be quick in outputting content for the user to read and quizzes for user to play through.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. Storage size requirement for program to run, since there is a need to store textfiles.
 
 _{More to be added}_
 
 [appendix]
-== Glossary
+=== Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
-== Instructions for Manual Testing
-
-Given below are instructions to test the app manually.
-
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
-
-=== Launch and Shutdown
-
-. Initial launch
-
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

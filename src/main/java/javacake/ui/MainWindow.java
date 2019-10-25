@@ -6,7 +6,11 @@ import javacake.exceptions.DukeException;
 import javacake.commands.QuizCommand;
 import javacake.quiz.Question;
 import javacake.storage.Profile;
+import javacake.storage.Storage;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -17,7 +21,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.apache.commons.lang.WordUtils;
 
 import java.util.logging.Level;
 
@@ -49,6 +52,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button themeModeButton;
     public static boolean isLightMode = true;
+    public static boolean isChanged = false;
 
     private Duke duke;
     private Stage primaryStage;
@@ -84,6 +88,20 @@ public class MainWindow extends AnchorPane {
                     + Ui.showWelcomeMsgPhaseB(duke.isFirstTimeUser, duke.userName, duke.userProgress);
             showContentContainer();
         }
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), ev -> {
+
+            if (isLightMode && isChanged) { //change to dark mode
+                handleGuiMode();
+                isChanged = false;
+            }
+            if (!isLightMode && isChanged) { //change to light mode
+                handleGuiMode();
+                isChanged = false;
+            }
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 
 
@@ -109,6 +127,7 @@ public class MainWindow extends AnchorPane {
             // get input first, don't get response first...
             userInput.clear();
             Duke.logger.log(Level.INFO, input);
+            DialogBox.isScrollingText = true;
             AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
             if (input.contains("exit")) {
                 // find out if exit condition
@@ -121,6 +140,7 @@ public class MainWindow extends AnchorPane {
                 handleResetConfirmation();
                 System.out.println("resetting time");
             } else if (isWritingNote) {
+                DialogBox.isScrollingText = false;
                 if (input.equals("/save")) {
                     isWritingNote = false;
                     response = EditNoteCommand.successSaveMessage();
@@ -143,6 +163,7 @@ public class MainWindow extends AnchorPane {
                         Duke.logger.log(Level.INFO, "Response: " + response);
                         isWritingNote = true;
                         response = EditNoteCommand.getHeadingMessage();
+                        DialogBox.isScrollingText = false;
                         showContentContainer();
                         EditNoteCommand.clearTextFileContent();
                     } else {
@@ -152,6 +173,7 @@ public class MainWindow extends AnchorPane {
                 } else {
                     //Must be quizCommand: checking of answers
                     handleGuiQuiz();
+                    DialogBox.isScrollingText = false;
                     showContentContainer();
                     System.out.println("quiz answer checking");
                 }
@@ -161,6 +183,7 @@ public class MainWindow extends AnchorPane {
                     isQuiz = true;
                     Duke.logger.log(Level.INFO, "Response: " + response);
                     response = getFirstQn(response);
+                    DialogBox.isScrollingText = false;
                     showContentContainer();
                     System.out.println("quiz first time");
                 }
@@ -251,7 +274,8 @@ public class MainWindow extends AnchorPane {
     private void handleResetConfirmation() throws DukeException {
         if (input.equals("yes")) {
             //resets
-            Profile.resetProfile();
+            duke.profile.resetProfile();
+            duke.storage.resetStorage();
             duke.profile = new Profile();
             duke.userProgress = duke.profile.getTotalProgress();
             duke.userName = duke.profile.getUsername();

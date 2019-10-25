@@ -8,6 +8,8 @@ import javacake.storage.TaskList;
 import javacake.ui.Ui;
 import javacake.storage.Storage;
 
+import java.io.File;
+
 public class AddCommand extends Command {
     /**
      * Constructor for Adding of commands.
@@ -34,6 +36,7 @@ public class AddCommand extends Command {
     @Override
     public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
         String output = TaskList.runDeadline(storage.tasks.getData(), input, TaskList.TaskState.NOT_DONE);
+        Storage.generateFolder(new File("data/tasks/"));
         storage.write(storage.tasks.getData());
         return output;
 

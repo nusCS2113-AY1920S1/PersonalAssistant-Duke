@@ -5,6 +5,7 @@ import javacake.ProgressStack;
 import javacake.exceptions.DukeException;
 import javacake.storage.Profile;
 import javacake.storage.Storage;
+import javacake.ui.DialogBox;
 import javacake.ui.Ui;
 
 import java.io.BufferedReader;
@@ -90,6 +91,7 @@ public class EditNoteCommand extends Command {
      */
     private String displayContentInFile() throws DukeException {
         try {
+
             File file = new File(currentFilePath);
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
