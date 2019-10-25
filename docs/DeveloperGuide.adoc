@@ -187,6 +187,175 @@ They are mainly handled by sending a message to the user to notify them on the p
 
 === Add/Delete
 
+==== Implementation
+.Sequence Diagram for Add
+[caption="Figure 2.1.1: "]
+image::AddSequence.png[width="1000", align="center"]
+
+Adding and deleting resources from RIMS are facilitated by the AddCommand and DeleteCommand classes respectively, after receiving input from the user in the Ui and being passed through Parser.
+For adding resources, consider the case where the user wants to add a pen to RIMS.
+
+1.	When starting up RIMS, a Ui and Parser object is instantiated respectively.
+2.	Referring to Figure 1, a parseInput() function is called, prompting for input from the user. He/She types the relevant input, such as that the pen is of Item type, to the Ui object (getInput() function).
+3.	This input is received by the Parser object, which contains the relevant parameters (the Parser object also prompts for new input from user should the format be incorrect).
+4.	Following that, the Parser object identifies (through ReadAddCommand()) and constructs a new AddCommand with the evaluated parameters.
+5.	Afterwards, the AddCommand is executed with the execute() function, which constructs a new Resource based on the parameters provided in AddCommand, adds this Resource to the existing ResourceList in RIMS (through AddResource()). This step is repeated for the quantity (specified by <QTY>) of that particular Resource that is required to be added, as specified in AddCommand.
+6.	Lastly, the Ui object prints a message to the user to notify him/her of the resources that have been added into RIMS.
+
+For deleting resources, the steps are largely the same, however, there are more errors to identify during execute() (refer to Figure 1.). For instance, should the specified resource to be deleted not exist, Ui will print a message to notify the user. Also, should the specified resource to be deleted be on loan at the moment, UI will also send a message to the user to notify him/her of such.
+
+==== Design Considerations
+
+_Aspect 1: How Resource objects are added_
+
+* *Alternative 1 (current choice)*: ResourceList adds a single Resource object created in AddCommand into list
+** Advantages: Follows contextual situation (recording object by object on an inventory book using paper and pen)
+** Disadvantages: Requires multiple calls to add multiple objects
+* *Alternative 2*: ResourceList creates a single Resource object to add, given its details, and adds it into list
+** Advantages: Do not have to create Resource object in AddCommand
+** Disadvantages: ResourceList must create a new Resource to add to list
+* *Alternative 3*: ResourceList has function to add/delete all Resources with a user specified quantity
+** Advantages: Only requires one function call in AddCommand.
+** Disadvantages: Since all resources are added in ResourceList, limited information about each unique resource added can be extracted for sending the message to the user
+
+_Aspect 2: How Resource objects are deleted_
+
+* *Alternative 1 (current choice)*: ResourceList deletes a single Resource object from the list using its resource ID
+** Pros: Identifies unique Resource to be deleted using its resource ID
+** Cons:  May have unnecessary iteration by checking resource IDs of other Resources that are not of the same type
+* *Alternative 2*: ResourceList deletes a single Resource object, given its name from the list
+** Pros: Delete any Resource that corresponds to the given name
+** Cons: Cannot pinpoint a unique Resource object to delete
+
+=== Reserve/Loan
+
+==== Implementation
+.Sequence Diagram for Reserve
+[caption="Figure 2.2.1: "]
+image::ReserveSequence.png[width="1000", align="center"]
+
+Making a reservation utilizes the following classes. The Parser and UI class will gather inputs from users. Then, these inputs will be used to create new reservation under the ReserveCommand class. New reservations are added to the ReservationList class under each Resource object.
+
+For making a reservation, consider the case where a user wants to make reservation of an existing resource.
+When starting up RIMS, a Ui and Parser object is instantiated respectively.
+
+1. Referring to Figure 1, a parseInput() function is called, prompting for input from the user. He/She enters the relevant input which is gathered by getinput() from Ui object.
+2. After selecting a type of Resource, The Ui object will display a list of all Resource belong to that type for the user to choose.
+3. The user can then enter the name of the Resource they wish to make a reservation for.
+4. Then, the user can choose a time period they wish to reserve.
+5. Following that, the Parser object constructs a new ReserveCommand object with the evaluated parameters.
+6. Afterwards, the ReserveCommand is executed with the execute() function, which constructs a new Reservation based on the parameters provided in ReserveCommand.
+7. The execute() function checks if an object is available for loan. If no Resource object is available, then an exception is thrown.
+8. If any Resource is available for loan, then a new reservation object will be instantiated and added to the ReservationList object belonging to this Resource.
+9. Lastly, the Ui object prints a message to the user to notify him/her of the resources that have been added into RIMS.
+
+==== Design Considerations
+
+_Aspect 1: Selection of resource and quantity_
+
+* *Alternative 1 (Current choice)*:
+User select in terms of the following sequence - resource type, resource name, resource quantity.
+When each input is gathered, the ui class will feedback relevant information to help the user make decisions. In case of invalid input (such as invalid name), the parser will throw an exception and display an error message. Using this approach, users can only make one reservation for multiple resources of the same name at a time.
+** Advantages: More user friendly as user only requires one single command to make reservations for multiple resources of the same name.
+** Disadvantages: More difficult to catch exceptions. User also cannot select the exact resource they wish to borrow since resources are selected by a non-unique attribute.
+
+* *Alternative 2 (Previous version)*:
+User select in terms of the following sequence - resource type, resource id.
+When parser starts gathering input, it will display a full list of all resources. User then select the resource to make a reservation for by entering a resource id. Using this approach, users can only make one reservation for one resource at a time.
+** Advantages: Easy to handle command and catch exceptions.
+** Disadvantages:
+Less user friendly in handling bulk reservation as user has to repeatedly enter the same command multiple times.
+Less user friendly when the resource list becomes long. Users then have to manually find a resource ID
+
+_Aspect 2: Selection of reservation dates_
+
+* *Alternative 1 (Current choice)*:
+User enters a single pair of start date followed by an end date. These pair of dates will be checked in the ReserveCommand class.
+
+** Advantages:
+-
+
+** Disadvantages:
+Users may need to key in repeated commands if they wish to make different reservations for a resource.
+
+* *Alternative 2*:
+Users are able to enter a list of pairs of start date followed by an end date. These pair of dates will be checked in the ReserveCommand class
+
+** Advantages:
+More user friendly if users wish to make different reservations for a resource.
+
+** Disadvantages:
+-
+
+=== Return
+
+==== Implementation
+
+==== Design Considerations
+
+=== List
+
+Listing resources using RIMS is facilitated by the ListCommand, after receiving input from the user in the Ui and being passed through Parser. There are three different ways resources can be listed: all items listed, by room, or by item.
+
+.Sequence Diagram for Listing all Resources
+[caption="Figure 2.4.1: "]
+image::ListAllResourcesSequence.png[width="1000", align="center"]
+
+For listing all resources(as shown in Figure 1), consider the case where the user wants a list of all the resources due in the inventory:
+
+1.	When starting up RIMS, a Ui and Parser object is instantiated respectively.
+2.	Referring to Figure 1, a parseInput() function is called, prompting for input from the user. He/She types the relevant input to the Ui object (getInput() function).
+3.	This input is received by the Parser object, which contains the relevant parameters.
+4.	Following that, the Parser object constructs a new ListCommand with the evaluated parameters.
+5.	Afterwards, the ListCommand is executed with the execute() function for QTY = resource.size(), which is the number of items in the ResourceList.
+6.	Lastly, the Ui object prints a list of all the resources in the ResourceList line by line within the loop.
+
+.Sequence Diagram for Listing one type of Resource
+[caption="Figure 2.4.2: "]
+image::ListRoomOrItemSequence.png[width="1000", align="center"]
+
+For listing resources by item/room(as shown in Figure 1), consider the case where the user wants a list of all the dates a specific room/item is booked on:
+
+1.	When starting up RIMS, a Ui and Parser object is instantiated respectively.
+2.	Referring to Figure 2, a parseInput() function is called, prompting for input from the user. He/She types the relevant input to the Ui object (getInput() function).
+3.	This input is received by the Parser object, which contains the relevant parameters, such as whether the resource the user wants to check is an Item or a Room(the Parser object also prompts for new input from user should the format be incorrect or if the resource does not exist).
+4.	Following that, the Parser object constructs a new ListCommand with the evaluated parameters.
+5.	Afterwards, the ListCommand is executed with the execute() function for QTY times, which is the number of that particular item/room in the ReservationList.
+6.	Lastly, the Ui object prints a list of all the dates that resource is booked on in the ReservationList line by line within the loop.
+
+=== Calendar
+==== Implementation
+.Sequence Diagram for Calendar
+[caption="Figure 2.5: "]
+image::CalendarSequence.png[width="1000", align="center"]
+
+Viewing the resources on loan in a particular month, in the form of a calendar visualisation, is achieved using CalendarCommand. It extends Command and stores the necessary attributes and methods necessary to print to screen, a visualisation of the data.
+
+The user will input the command: cal in the UI. This is then parsed by Parser to invoke the constructor of CalendarCommand.
+
+Given below is an example usage scenario and how CalendarCommand works:
+
+1.	When RIMS launches, a UI and Parser object is instantiated.
+2.	Referring to Figure 1, a parseInput() function is called, prompting the user to input a command. The user enters a desired command, such as cal, into the UI.
+3.	This input is received by the Parser and it will call the constructor in CalendarCommand.
+4.	CalendarCommand is executed where getData() and printCal() is called.
+5.	getData() will fetch data from ResourceList using the List() function. It will iterate through all the days of the current month and store it in an array.
+6.	printCal() will draw the grid with dates and entries using the data obtained from getData().
+
+==== Design Considerations
+
+_Aspect: How entries is obtained_
+
+* *Alternative 1 (current choice)*: A 2-dimensional array is created to store all entries of the month to be called later.
+** Advantages: Performance is optimised as memoization will allow faster access of entries when the calendar is printed line by line in future
+** Disadvantages: Requires more space to store entries
+* *Alternative 2*: The function list() is called every time an entry is printed
+** Advantages: Does not require as much space at the first alternative as the data is discarded after every row of a cell is printed
+** Disadvantages: Will result in taking more time to print out the whole calendar if the data is big. This is because list() has to be called for every line on every cell(day) of the calendar as opposed to calling list() once for every cell(day).
+
+
+
+
 [appendix]
 == RIMS
 
