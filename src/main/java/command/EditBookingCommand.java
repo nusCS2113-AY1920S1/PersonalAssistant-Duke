@@ -39,17 +39,17 @@ public class EditBookingCommand extends Command {
         splitC = input.split(" ", 6);
         name = splitC[1];
         roomcode = splitC[2];
-        if (!RoomList.checkRoom(roomcode,"data\\roomlist.txt")) {
-            throw new DukeException(Constants.UNHAPPY + "OOPS!!! This room doesn't exist!");
-        }
-        datetimeStartString = splitC[3] + " " + splitC[4];
-        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        this.dateTimeStart = LocalDateTime.parse(datetimeStartString, formatterStart);
     }
 
     @Override
     public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingstorage,
                         Storage roomstorage, User user) throws DukeException, IOException, ParseException {
+        if (!roomList.checkRoom(roomcode)) {
+            throw new DukeException(Constants.UNHAPPY + "OOPS!!! This room doesn't exist!");
+        }
+        datetimeStartString = splitC[3] + " " + splitC[4];
+        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        this.dateTimeStart = LocalDateTime.parse(datetimeStartString, formatterStart);
         for (Booking i: bookingList) {
             if ((i.getVenue() == roomcode) && (i.getDateTimeStart() == dateTimeStart) && (i.getName() == name)) {
                 i.setDescription(splitC[4]);
