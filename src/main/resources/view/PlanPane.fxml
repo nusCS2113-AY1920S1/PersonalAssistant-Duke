@@ -6,6 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import java.net.URL?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             maxHeight="-Infinity"
@@ -15,6 +16,9 @@
             <center>
                     <ListView prefWidth="1000" prefHeight="600" fx:id="dialogListView" />
             </center>
+    <stylesheets>
+        <URL value="@/layout/PlanPane.css" />
+    </stylesheets>
 </BorderPane>
 
 

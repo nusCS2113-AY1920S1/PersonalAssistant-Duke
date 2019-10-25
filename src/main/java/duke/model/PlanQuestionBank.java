@@ -81,9 +81,6 @@ public class PlanQuestionBank {
                 new String[]{"DOUBLE"},
                 new String[]{"DOUBLE"},
                 "AVERAGE_MEAL_COST"));
-
-
-
     }
 
     /**
