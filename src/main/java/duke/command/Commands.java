@@ -25,6 +25,8 @@ public class Commands {
             //return new BackCommand();
         case "up":
             //return new UpCommand();
+        default:
+            break; //not one of these; continue
         }
 
         switch (context) {
@@ -61,6 +63,8 @@ public class Commands {
             //fallthrough
         case EVIDENCE:
 
+        default:
+            break;
         }
         return null;
     }
