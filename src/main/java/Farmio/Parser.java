@@ -7,7 +7,6 @@ import UserCode.Conditions.Condition;
 
 class Parser {
     static Command parse(String userInput, Farmio.Stage stage) throws FarmioException {
-        System.out.println(stage.name());
         userInput = userInput.toLowerCase().trim();
         if (userInput.equals("quit game")) {
             return new CommandGameQuit();

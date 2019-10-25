@@ -5,11 +5,11 @@
     "Using the knowledge you have learnt so far, help farmer John get rich!",
     ":Earn 100 gold within the next month.~"
   ],
-  "gold": 100,
+  "gold": 20,
   "seeds": 0,
   "seedlings": 0,
   "wheat": 0,
   "grain": 0,
-  "deadline" : 5,
+  "deadline" : 10,
   "file_path": "Level1.6"
 }

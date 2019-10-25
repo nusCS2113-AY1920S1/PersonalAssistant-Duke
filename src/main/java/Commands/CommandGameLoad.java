@@ -28,5 +28,6 @@ public class CommandGameLoad extends Command {
             ui.showWarning("No game save detected!");
             ui.showInfo("Starting a new game.");
         }
+        farmio.setStage(Farmio.Stage.LEVEL_START);
     }
 }

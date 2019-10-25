@@ -86,8 +86,8 @@ public class WheatFarm extends Farm {
     }
     @Override
     public int sell() {
-        int earned = wheat * Market.PRICE_OF_WHEAT;
-        wheat = 0;
+        int earned = grain * Market.PRICE_OF_WHEAT;
+        grain = 0;
         return earned;
     }
 
