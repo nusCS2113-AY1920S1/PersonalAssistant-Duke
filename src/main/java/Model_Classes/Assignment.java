@@ -7,13 +7,13 @@ import java.util.Date;
 
 
 /**
- * An object class representing types of tasks with deadlines.
+ * An object class representing types of tasks: assignment.
  * Stores the description and when the task should be done by.
  */
 public class Assignment extends Task {
     private ArrayList<String> subTasks;
     /**
-     * Constructor for the Deadline object.
+     * Constructor for the Assignment object.
      * Takes in inputs for description and date/time the tasks should be done by.
      * @param description Description of the task
      * @param by The time the tasks should be done by.
@@ -37,7 +37,7 @@ public class Assignment extends Task {
     public ArrayList<String> getSubTasks() { return subTasks; }
 
     /**
-     * Returns the full description including the deadline of the task.
+     * Returns the full description including of the assignment.
      * @return A string indicating the task type, description, and when it should be done by.
      */
     @Override

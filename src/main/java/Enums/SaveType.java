@@ -1,5 +1,5 @@
 package Enums;
 
 public enum SaveType {
-    A, M, empty
+    A, L, empty
 }

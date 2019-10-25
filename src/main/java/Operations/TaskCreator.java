@@ -5,10 +5,8 @@ import Enums.ExceptionType;
 import Enums.Priority;
 import Enums.RecurrenceScheduleType;
 import Enums.TimeUnit;
-import Model_Classes.Assignment;
-import Model_Classes.Leave;
-import Model_Classes.Meeting;
-import Model_Classes.Task;
+import Model_Classes.*;
+
 import java.util.Timer;
 
 import java.util.Date;
@@ -51,25 +49,43 @@ public class TaskCreator {
         if (descriptionArray.length != 1) {
             String[] descriptionArray2 = descriptionArray[1].trim().split("\\)");
             description = descriptionArray2[0].trim();
-        }
-        else
+        } else
             throw new RoomShareException(ExceptionType.emptyDescription);
 
         // extract date
-        String dateArray[] = input.split("&");
-        Date date;
+        String[] dateArray = input.split("&");
+        Date date = new Date();
+        Date from = new Date();
+        Date to = new Date();
         if (dateArray.length != 1) {
-            String dateInput = dateArray[1].trim();
-            try {
-                if (parser.formatDateCustom_1(dateInput) != null)
-                    date = parser.formatDateCustom_1(dateInput);
-                else if (parser.formatDateCustom_2(dateInput) != null)
-                    date = parser.formatDateCustom_2(dateInput);
-                else
-                    date = parser.formatDate(dateInput);
-            } catch (RoomShareException e) {
-                System.out.println("Wrong date format, date is set default to current date");
-                date = new Date();
+            if (dateArray.length <= 3) {
+                String dateInput = dateArray[1].trim();
+                try {
+                    if (parser.formatDateCustom_1(dateInput) != null)
+                        date = parser.formatDateCustom_1(dateInput);
+                    else if (parser.formatDateCustom_2(dateInput) != null)
+                        date = parser.formatDateCustom_2(dateInput);
+                    else
+                        date = parser.formatDate(dateInput);
+                } catch (RoomShareException e) {
+                    System.out.println("Wrong date format, date is set default to current date");
+                    date = new Date();
+                }
+            } else {
+                String fromInput = dateArray[1].trim();
+                String toInput = dateArray[2].trim();
+                try {
+                    from = new Parser().formatDate(fromInput);
+                } catch (RoomShareException e) {
+                    System.out.println("Wrong date format, date is set default to current date");
+                    from = new Date();
+                }
+                try {
+                    to = new Parser().formatDate(toInput);
+                } catch (RoomShareException e) {
+                    System.out.println("Wrong date format, date is set default to current date");
+                    to = new Date();
+                }
             }
         } else
             throw new RoomShareException(ExceptionType.emptyDate);
@@ -112,40 +128,79 @@ public class TaskCreator {
                 duration = 0;
                 unit = TimeUnit.unDefined;
             }
-        }
-        else {
+        } else {
             duration = 0;
             unit = TimeUnit.unDefined;
         }
 
+        //extract reminder
+        String[] reminderArray = input.split("!");
+        boolean remind;
+        if (reminderArray.length != 1) {
+            if(reminderArray[1].contains("R")) {
+                remind =true;
+            } else  {
+                remind = false;
+            }
+        } else {
+            remind = false;
+        }
+
         if (type.contains("assignment")) {
-            Assignment assignment = new Assignment(description,date);
+            Assignment assignment = new Assignment(description, date);
             assignment.setPriority(priority);
             assignment.setAssignee(assignee);
             assignment.setRecurrenceSchedule(recurrence);
             return assignment;
-        } else if (type.contains("meeting")) {
-            if (unit.equals(TimeUnit.unDefined)) {
-                // duration was not specified or not correctly input
-                Meeting meeting = new Meeting(description,date);
-                meeting.setPriority(priority);
-                meeting.setAssignee(assignee);
-                meeting.setRecurrenceSchedule(recurrence);
-                return meeting;
-            }
-            else {
-                Meeting meeting = new Meeting(description, date, duration, unit);
-                meeting.setPriority(priority);
-                meeting.setAssignee(assignee);
-                meeting.setRecurrenceSchedule(recurrence);
-                return meeting;
-            }
         } else if (type.contains("leave")) {
-            //short leave
-            Leave leave = new Leave(description, assignee, date, duration, unit);
+            String user;
+            String[] leaveUserArray = input.split("@");
+            if (leaveUserArray.length != 1) {
+                user = leaveUserArray[1].trim();
+            } else
+                throw new RoomShareException(ExceptionType.emptyUser);
+            Leave leave = new Leave(description, user, from, to);
             leave.setPriority(priority);
             leave.setRecurrenceSchedule(recurrence);
             return leave;
-        } else throw new RoomShareException(ExceptionType.wrongTaskType);
+        } else if (type.contains("meeting")) {
+            if (remind) {
+                if (unit.equals(TimeUnit.unDefined)) {
+                    // duration was not specified or not correctly input
+                    Meeting meeting = new Meeting(description, date);
+                    meeting.setPriority(priority);
+                    meeting.setAssignee(assignee);
+                    meeting.setRecurrenceSchedule(recurrence);
+                    TaskReminder taskReminder = new TaskReminder(description, duration);
+                    taskReminder.start();
+                    return meeting;
+                } else {
+                    Meeting meeting = new Meeting(description, date, duration, unit);
+                    meeting.setPriority(priority);
+                    meeting.setAssignee(assignee);
+                    meeting.setRecurrenceSchedule(recurrence);
+                    TaskReminder taskReminder = new TaskReminder(description, duration);
+                    taskReminder.start();
+                    return meeting;
+                }
+            } else {
+                if (unit.equals(TimeUnit.unDefined)) {
+                    // duration was not specified or not correctly input
+                    Meeting meeting = new Meeting(description, date);
+                    meeting.setPriority(priority);
+                    meeting.setAssignee(assignee);
+                    meeting.setRecurrenceSchedule(recurrence);
+                    return meeting;
+                } else {
+                    Meeting meeting = new Meeting(description, date, duration, unit);
+                    meeting.setPriority(priority);
+                    meeting.setAssignee(assignee);
+                    meeting.setRecurrenceSchedule(recurrence);
+                    return meeting;
+                }
+            }
+        } else {
+            throw new RoomShareException(ExceptionType.wrongTaskType);
+        }
     }
 }

@@ -44,7 +44,7 @@ public class Storage {
             for (String list : tempList) {
                 String[] temp = list.split("#", 0);
 
-                // Identify type of tassk
+                // Identify type of task
                 String scanType = temp[0].trim();
                 SaveType type;
                 try {
@@ -67,12 +67,30 @@ public class Storage {
                 String scanDescription = temp[3].trim();
                 String description = scanDescription;
 
-                String scanDate = temp[4].trim();
+                Date from = new Date();
+                Date to = new Date();
                 Date date = new Date();
-                try {
-                    date = parser.formatDate(scanDate);
-                } catch (RoomShareException e) {
-                    System.out.println("error in loading file: date format error");
+                if (temp[4].contains("-")) {
+                    String[] dateArray = temp[4].trim().split("-");
+                    String scanFromDate = dateArray[0].trim();
+                    try {
+                        from = parser.formatDate(scanFromDate);
+                    } catch (RoomShareException e) {
+                        System.out.println("error in loading file: date format error");
+                    }
+                    String scanToDate = dateArray[1].trim();
+                    try {
+                        to = parser.formatDate(scanToDate);
+                    } catch (RoomShareException e) {
+                        System.out.println("error in loading file: date format error");
+                    }
+                } else {
+                    String scanDate = temp[4].trim();
+                    try {
+                        date = parser.formatDate(scanDate);
+                    } catch (RoomShareException e) {
+                        System.out.println("error in loading file: date format error");
+                    }
                 }
 
                 String scanRecurrence = temp[5].trim();
@@ -103,6 +121,13 @@ public class Storage {
                     assignment.setDone(done);
                     if (!scanSubTask.equals("")) assignment.setSubTasks(scanSubTask);
                     taskArrayList.add(assignment);
+                } else if (type.equals(SaveType.L)) {
+                    //Leave type
+                    Leave leave = new Leave(description, user, from, to);
+                    leave.setPriority(priority);
+                    leave.setRecurrenceSchedule(recurrence);
+                    leave.setDone(done);
+                    taskArrayList.add(leave);
                 } else {
                     //Meeting type
                     if (isFixedDuration) {
@@ -151,41 +176,54 @@ public class Storage {
                 String recurrence = s.getRecurrenceSchedule().toString();
                 String user = s.getUser();
                 if (s instanceof Assignment) {
-                        out =   type + "#" +
+                    out = type + "#" +
+                            isDone + "#" +
+                            priority + "#" +
+                            description + "#" +
+                            date + "#" +
+                            recurrence + "#" +
+                            user + "#" +
+                            "N" + "#" +
+                            "0" + "#" +
+                            "unDefined" + "#";
+                    // Saves sub-tasks
+                    if (!(((Assignment) s).getSubTasks() == null)) {
+                        ArrayList<String> subTasks = ((Assignment) s).getSubTasks();
+                        for (String subTask : subTasks) {
+                            out += subTask + ",";
+                        }
+                    }
+                    out += "#";
+                } else if (s instanceof Leave) {
+                    String leaveDate = convertForStorageLeave(s);
+                    out = type + "#" +
+                            isDone + "#" +
+                            priority + "#" +
+                            description + "#" +
+                            leaveDate + "#" +
+                            recurrence + "#" +
+                            user + "#" +
+                            "N" + "#" +
+                            "0" + "#" +
+                            "unDefined" + "#"
+                            + "#";
+                } else if (s instanceof Meeting) {
+                    if (((Meeting) s).isFixedDuration()) {
+                        String duration = ((Meeting) s).getDuration();
+                        String unit = ((Meeting) s).getTimeUnit().toString();
+                        out = type + "#" +
                                 isDone + "#" +
                                 priority + "#" +
                                 description + "#" +
                                 date + "#" +
                                 recurrence + "#" +
                                 user + "#" +
-                                "N" + "#" +
-                                "0" + "#" +
-                                "unDefined" + "#";
-                        // Saves sub-tasks
-                        if( !(((Assignment) s).getSubTasks() == null ) ) {
-                            ArrayList<String> subTasks =  ((Assignment) s).getSubTasks();
-                            for( String subTask : subTasks ) {
-                                out += subTask + ",";
-                            }
-                        }
-                        out += "#";
-                } else if (s instanceof Meeting){
-                    if (((Meeting) s).isFixedDuration()) {
-                        String duration = ((Meeting) s).getDuration();
-                        String unit = ((Meeting) s).getTimeUnit().toString();
-                        out =   type + "#" +
-                                isDone + "#" +
-                                priority + "#" +
-                                description + "#" +
-                                date + "#" +
-                                recurrence + "#" +
-                                user+ "#" +
                                 "F" + "#" +
                                 duration + "#" +
                                 unit + "#"
                                 + "#";
                     } else {
-                        out =   type + "#" +
+                        out = type + "#" +
                                 isDone + "#" +
                                 priority + "#" +
                                 description + "#" +
@@ -198,7 +236,7 @@ public class Storage {
                                 + "#";
                     }
                 }
-                writer.write(out );
+                writer.write(out);
                 writer.newLine();
             }
             writer.close();
@@ -209,9 +247,10 @@ public class Storage {
 
     /**
      * Extracts and converts all the information in the task object for storage
-     * will format the time information for deadline and event tasks
+     * will format the time information for meeting and assignment tasks
      * Additional formatting will be done for recurring tasks to include recurrence schedule
      * returns a string with all the relevant information.
+     *
      * @param task task object to be converted
      * @return time A String containing all the relevant information
      * @throws RoomShareException If there is any error in parsing the Date information.
@@ -234,4 +273,40 @@ public class Storage {
         }
     }
 
+    private String convertForStorageLeave(Task task) throws RoomShareException {
+        try {
+            String time = "";
+            String[] prelimSplit = task.toString().split("\\(");
+            String[] tempString = prelimSplit[2].split("\\s+");
+            //from year
+            String fromYear = tempString[6].trim();
+            //to year
+            String toYear = tempString[13].trim().substring(0, tempString[13].length() -1);
+            //from month
+            Date fromMonth = new SimpleDateFormat("MMM").parse(tempString[2]);
+            DateFormat dateFormatFromMonth = new SimpleDateFormat("MM");
+            String fromMth = dateFormatFromMonth.format(fromMonth);
+            //to month
+            Date toMonth = new SimpleDateFormat("MMM").parse(tempString[9]);
+            DateFormat dateFormatToMonth = new SimpleDateFormat("MM");
+            String toMth = dateFormatToMonth.format(fromMonth);
+            //from time
+            String[] fromTimeArray = tempString[4].split(":", 3);
+            //to time
+            String[] toTimeArray = tempString[11].split(":", 3);
+            //from day
+            String fromDay = tempString[3];
+            //to day
+            String toDay = tempString[10];
+
+            time = fromDay + "/" + fromMth + "/" + fromYear + " " + fromTimeArray[0] + ":" + fromTimeArray[1] + "-" +
+                    toDay + "/" + toMth + "/" + toYear + " " + toTimeArray[0] + ":" + toTimeArray[1];
+            return time;
+        } catch (ParseException e) {
+            throw new RoomShareException(ExceptionType.wrongFormat);
+        }
+    }
+
 }
+
+

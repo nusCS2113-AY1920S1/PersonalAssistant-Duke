@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * This class checks if there are clashes in timings for events
+ * This class checks if there are clashes in timings for meetings
  */
 public class CheckAnomaly {
     /**

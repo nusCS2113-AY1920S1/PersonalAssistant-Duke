@@ -1,7 +1,7 @@
 package Model_Classes;
 
 public class ProgressBar {
-    private String[] bar = new String[20];
+    private String[] bar = new String[50];
     private float total;
     private float done;
 
@@ -19,18 +19,18 @@ public class ProgressBar {
      * Displays the progress bar
      */
     public void showBar() {
-        for (int i=0; i<20; i++) {
+        for (int i=0; i<50; i++) {
             bar[i] = " ";
         }
         float percentage =0;
         if(total >= 1) {
             percentage = done / total;
-            for (int i = 0; i < (int)(percentage*20); i++) {
+            for (int i = 0; i < (int)(percentage*50); i++) {
                 bar[i] = "=";
             }
         }
         System.out.print("[");
-        for(int i=0; i<20; i++) {
+        for(int i=0; i<50; i++) {
             System.out.print(bar[i]);
         }
         System.out.print("]");
