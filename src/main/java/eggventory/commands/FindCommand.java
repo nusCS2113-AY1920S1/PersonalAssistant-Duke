@@ -32,7 +32,6 @@ public class FindCommand extends Command {
             /*
             if (list.getStock(i).getDescription().contains(search)) { //Only search the description.
                 // Adding task to print with associated index to final string
-                // TODO: Change to stringbuilder - Raghav
                 listString += (i + 1 + ". " + list.toString() + "\n");
                 found = true;
             }

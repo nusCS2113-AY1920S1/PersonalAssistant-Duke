@@ -4,6 +4,7 @@ import eggventory.commands.Command;
 import eggventory.commands.FindCommand;
 import eggventory.commands.help.HelpCommand;
 import eggventory.commands.ListCommand;
+import eggventory.commands.ByeCommand;
 import eggventory.enums.CommandType;
 import eggventory.exceptions.BadInputException;
 import eggventory.exceptions.InsufficientInfoException;
@@ -58,7 +59,7 @@ public class Parser {
             }
             break;
         case "bye":
-            command = new Command(CommandType.BYE);
+            command = new ByeCommand(CommandType.BYE);
             break;
 
         case "delete":
@@ -85,7 +86,6 @@ public class Parser {
             if (!description.isBlank()) {
                 command = new FindCommand(CommandType.FIND, description);
             } else {
-                command = new Command();
                 throw new BadInputException("Please enter the search description.");
             }
             break;
@@ -109,7 +109,6 @@ public class Parser {
             break;
         }
         default:
-            command = new Command(); //Bad Command
             throw new BadInputException("Sorry, I don't recognise that input keyword!");
         }
         return command;
@@ -124,7 +123,6 @@ public class Parser {
     public Command parse(String userInput) throws Exception {
         Command userCommand;
 
-        //TODO: Make this a do-while that waits for a good input?
         try {
             userCommand = handleListInput(userInput);
         } catch (NumberFormatException e) {

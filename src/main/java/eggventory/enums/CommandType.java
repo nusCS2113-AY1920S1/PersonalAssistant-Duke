@@ -1,5 +1,5 @@
 package eggventory.enums;
 
 public enum CommandType {
-    ADD, BYE, LIST, DONE, DELETE, FIND, EDIT, BAD, HELP
+    ADD, BYE, LIST, DELETE, FIND, EDIT, HELP
 }

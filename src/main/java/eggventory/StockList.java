@@ -1,6 +1,6 @@
 package eggventory;
 
-import eggventory.enums.Property;
+import eggventory.enums.StockProperty;
 import eggventory.items.Stock;
 import eggventory.items.StockType;
 
@@ -128,7 +128,7 @@ public class StockList {
      * @param newValue  The new value of the property we want to edit.
      * @return the stock before edits, for printing purposes.
      */
-    public Stock setStock(String stockCode, Property property, String newValue) {
+    public Stock setStock(String stockCode, StockProperty property, String newValue) {
         Stock beforeEdits;
         for (StockType stockType : stockList) {
             beforeEdits = stockType.setStock(stockCode, property, newValue);
