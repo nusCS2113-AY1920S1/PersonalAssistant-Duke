@@ -39,9 +39,10 @@ public class ReminderThread implements Runnable {
      * Prints the lists of unsettled loans.
      */
     public void run() {
-        while (LogicManager.getWallet().getLoanList().checkUnsettledLoan() && autoRemind) {
+        while (LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getLoanList().checkUnsettledLoan()
+                && autoRemind) {
             try {
-                ArrayList<Loan> loanList = LogicManager.getWallet().getLoanList().getLoanList();
+                ArrayList<Loan> loanList = LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getLoanList().getLoanList();
                 System.out.println("Reminder to settle your loans soon!");
                 Ui.printLoanTableHeaders();
                 for (Loan l : loanList) {
@@ -63,7 +64,7 @@ public class ReminderThread implements Runnable {
                 ui.printLine();
             }
         }
-        if (!LogicManager.getWallet().getLoanList().checkUnsettledLoan()) {
+        if (!LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getLoanList().checkUnsettledLoan()) {
             thread.interrupt();
             LogicManager.getReminder().setAutoRemind(false);
             autoRemind = false;

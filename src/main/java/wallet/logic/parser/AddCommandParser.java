@@ -135,8 +135,8 @@ public class AddCommandParser implements Parser<AddCommand> {
             isLend = false;
         }
 
-        ArrayList<Contact> contactList = LogicManager.getWallet().getContactList().getContactList();
-        int index = LogicManager.getWallet().getContactList().findIndexWithId(contactId);
+        ArrayList<Contact> contactList = LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getContactList().getContactList();
+        int index = LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getContactList().findIndexWithId(contactId);
         Contact person = new ContactList(contactList).getContact(index);
         loan = new Loan(description, createdDate, amount, isLend, false, person);
         return loan;

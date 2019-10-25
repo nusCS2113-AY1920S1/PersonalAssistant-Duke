@@ -1,17 +1,17 @@
 package wallet.logic;
 
 import wallet.logic.command.Command;
+import wallet.logic.parser.ExpenseParser;
 import wallet.logic.parser.ParserManager;
 import wallet.model.Wallet;
 import wallet.model.WalletList;
 import wallet.model.contact.ContactList;
-import wallet.logic.parser.ExpenseParser;
 import wallet.model.record.BudgetList;
 import wallet.model.record.ExpenseList;
 import wallet.model.record.LoanList;
 import wallet.model.record.RecordList;
-import wallet.storage.StorageManager;
 import wallet.reminder.Reminder;
+import wallet.storage.StorageManager;
 import wallet.ui.Ui;
 
 import java.util.ArrayList;
@@ -42,10 +42,10 @@ public class LogicManager {
                 new ContactList(storageManager.loadContact()),
                 new LoanList(storageManager.loadLoan()));
         this.parserManager = new ParserManager();
-        this.reminder = new Reminder();
         this.commandHistory = new ArrayList<>();
         this.walletList = new WalletList();
         walletList.getWalletList().add(wallet);
+        this.reminder = new Reminder();
     }
 
     /**
@@ -58,28 +58,27 @@ public class LogicManager {
         boolean isExit = false;
         StorageManager newStorageManager = new StorageManager();
 
-        Wallet newWallet = newWallet = new Wallet(new BudgetList(newStorageManager.loadBudget()), new RecordList(),
+        Wallet newWallet = new Wallet(new BudgetList(newStorageManager.loadBudget()), new RecordList(),
                 new ExpenseList(newStorageManager.loadExpense()),
                 new ContactList(newStorageManager.loadContact()),
                 new LoanList(newStorageManager.loadLoan()));
         try {
             Command command = parserManager.parseCommand(fullCommand);
             if (command != null) {
-                if(!fullCommand.equals("undo")
-                        && !fullCommand.equals("list loan")
-                        && !fullCommand.equals("list contact")
-                        && !fullCommand.equals("list expense")) {
-                    //only valid if my current state is the same size as the walletlist
+                if(!fullCommand.contains("undo")
+                        && !fullCommand.contains("list")
+                        && !fullCommand.contains("help")
+                        && !fullCommand.contains("history")
+                        && !fullCommand.contains("redo")
+                        && !fullCommand.contains("view")) {
                     if(walletList.getState() == walletList.getWalletList().size()-1) {
                         walletList.getWalletList().add(newWallet);
                         state++;
                         walletList.setState(state);
                     } else {
-                        System.out.println("Removing the unused branch");
+                        //Remove the unused wallet states as newly added wallet
+                        // will be part of a different 'branch'
                         removeUnusedNodes(walletList);
-                        System.out.println("After removing unused branch, wallet looks like: ");
-                        printWalletList(walletList.getWalletList());
-                        System.out.println("**************************");
                         walletList.getWalletList().add(newWallet);
                         state = walletList.getState()+1;
                         walletList.setState(state);
@@ -95,23 +94,26 @@ public class LogicManager {
                 System.out.println(MESSAGE_ERROR_COMMAND);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            //System.out.println(MESSAGE_ERROR_COMMAND);
+            System.out.println(MESSAGE_ERROR_COMMAND);
         }
-        printWalletList(walletList.getWalletList());
         return isExit;
     }
 
     public void printWalletList(ArrayList<Wallet> walletList) {
-        System.out.println("/**************************Wallet History********************************/");
+        System.out.println("/**************************Wallet History**************************/");
         for(Wallet wallet: walletList) {
             System.out.println("wallet object: " + wallet);
             Ui.printLoanTable(wallet.getLoanList().getLoanList());
-            //Ui.printContactTable(wallet.getContactList().getContactList());
-            //Ui.printExpenseTable(wallet.getExpenseList().getExpenseList());
+            Ui.printContactTable(wallet.getContactList().getContactList());
+            Ui.printExpenseTable(wallet.getExpenseList().getExpenseList());
         }
     }
 
+    /**
+     * Remove unused wallet objects.
+     *
+     * @param walletList The WalletList object.
+     */
     public void removeUnusedNodes(WalletList walletList) {
         System.out.println("Removing unwanted wallet nodes");
         int maxState = walletList.getWalletList().size()-1;

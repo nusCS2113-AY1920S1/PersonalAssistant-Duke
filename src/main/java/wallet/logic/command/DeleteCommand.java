@@ -63,7 +63,7 @@ public class DeleteCommand extends Command {
                 Ui.printLoanTableHeaders();
                 Ui.printLoanRow(loan);
                 Ui.printLoanTableClose();
-                if (!LogicManager.getWallet().getLoanList().checkUnsettledLoan()) {
+                if (!LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState()).getLoanList().checkUnsettledLoan()) {
                     LogicManager.getReminder().autoRemindStop();
                     System.out.println("Turning off auto reminders because all loans have been settled!");
                 }

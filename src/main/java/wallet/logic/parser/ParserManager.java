@@ -61,6 +61,9 @@ public class ParserManager {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+
         default:
             return null;
         }

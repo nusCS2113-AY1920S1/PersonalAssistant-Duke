@@ -123,16 +123,26 @@ public class EditCommand extends Command {
                 System.out.println(MESSAGE_ERROR_COMMAND);
             }
             //@@author
+            //@@author A0171206R
         } else if (loan != null) {
 
-            int index = wallet.getLoanList().findIndexWithId(loan.getId());
+            Loan updatedLoan = new Loan();
+            updatedLoan.setId(loan.getId());
+            updatedLoan.setDescription(loan.getDescription());
+            updatedLoan.setIsSettled(loan.getIsSettled());
+            updatedLoan.setAmount(loan.getAmount());
+            updatedLoan.setPerson(loan.getPerson());
+            updatedLoan.setIsLend(loan.getIsLend());
+            updatedLoan.setDate(loan.getDate());
+
+            int index = wallet.getLoanList().findIndexWithId(updatedLoan.getId());
 
             if (index != -1) {
-                wallet.getLoanList().editLoan(index, loan);
+                wallet.getLoanList().editLoan(index, updatedLoan);
                 wallet.getLoanList().setModified(true);
                 System.out.println(MESSAGE_SUCCESS_EDIT_LOAN);
                 Ui.printLoanTableHeaders();
-                Ui.printLoanRow(loan);
+                Ui.printLoanRow(updatedLoan);
                 Ui.printLoanTableClose();
             } else {
                 System.out.println(MESSAGE_ERROR_COMMAND);
@@ -140,4 +150,5 @@ public class EditCommand extends Command {
         }
         return false;
     }
+    //@@author
 }
