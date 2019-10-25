@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Goals class for initialisation of Goals Object.
+ * Contains the details for each goal.
  */
 public class Goals {
     private String name;

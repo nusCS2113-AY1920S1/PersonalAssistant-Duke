@@ -114,14 +114,14 @@ public abstract class ParseCard {
     }
 
     /**
-     * Abstract method where each card parser performs different checks on the user entered parameters.
+     * Checks the parameters entered by the user.
      *
      * @throws ParserException If any parameters fail the check.
      */
     public abstract void checkParameter() throws ParserException;
 
     /**
-     * Abstract method where each card parser creates different commands.
+     * Gets the relevant command to be executed.
      *
      * @return Command to be executed.
      */

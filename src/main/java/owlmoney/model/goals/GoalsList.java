@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * The GoalsList class that provides a layer of abstraction for the ArrayList that stores goals.
+ * Contains the list of goals in the profile.
  */
 public class GoalsList {
     private ArrayList<Goals> goalList;

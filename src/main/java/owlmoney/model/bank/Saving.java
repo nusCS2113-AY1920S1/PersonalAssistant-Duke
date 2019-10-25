@@ -53,8 +53,10 @@ public class Saving extends Bank {
      * @return If there is an update to the income.
      */
     private boolean earnedIncome() {
-        if (income > 0 && new Date().compareTo(nextIncomeDate) >= 0) {
-            addToAmount(income);
+        if (new Date().compareTo(nextIncomeDate) >= 0) {
+            if (income > 0) {
+                addToAmount(income);
+            }
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(nextIncomeDate);
             calendar.add(Calendar.MONTH, 1);
