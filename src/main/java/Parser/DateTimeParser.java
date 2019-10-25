@@ -8,6 +8,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Creates a Date time
+ **/
 
 public class DateTimeParser {
     private static String[] dateTimeStringSplit;
@@ -30,7 +33,9 @@ public class DateTimeParser {
         }
     }
 
-    public String eventParse(String input) throws ParseException {
+
+    public String[] EventParse(String input) throws ParseException {
+
         // date from time /to time
         dateTimeStringSplit = input.split("/from");
         //dateTimeStringSplit[0] is "date" or "week X day", dateTimeStringSplit[1] is "time /to time"
@@ -50,11 +55,13 @@ public class DateTimeParser {
         String dateString = dateOutputFormat.format(date);
         String startTimeString = timeOutputFormat.format(startTime);
         String endTimeString = timeOutputFormat.format(endTime);
-        return ;
-        //return new AddCommand(new Event(split[0].trim(), dateString, startTimeString, endTimeString));
+        String[] out = {dateString,startTimeString,endTimeString};
+
+        return  out;
     }
 
-    public String deadlineParse(String input) throws ParseException {
+
+    public String[] DeadlineParse(String input) throws ParseException {
         // date time
         dateTimeStringSplit = input.split(" ");
         String weekDate = "";
@@ -71,8 +78,8 @@ public class DateTimeParser {
         Date date = deadlineInputFormat.parse(weekDate);
         String dateString = dateOutputFormat.format(date);
         String timeString = timeOutputFormat.format(date);
-        return ;
-        //return new AddCommand(new Deadline(split[0].trim(), dateString, timeString));
+        String[] out = {dateString,timeString};
+        return out;
 
     }
 
