@@ -36,7 +36,11 @@ public class AutoCompleterTest {
     @Test
     public void complete_orderCommand_success() {
         completer.addCommandClass(OrderCommand.class);
-        isCompletable_orderCommandWord_true();
+        Assertions.assertEquals(
+            true,
+            completer.isAutoCompletable(new AutoCompleter.UserInputState("or", 1))
+        );
+
         Assertions.assertEquals(
             OrderCommand.COMMAND_WORD,
             completer.complete().userInputString
