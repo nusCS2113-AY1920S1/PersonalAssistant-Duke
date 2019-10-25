@@ -95,7 +95,8 @@ public class Parser {
     private void parseArgument(String inputStr) throws DukeException {
         assert (!inputStr.contains("\r"));
         if (inputStr.length() == 0) {
-            throw new DukeException(currCommand.getEmptyArgMsg());
+            checkEmptyString();
+
         }
 
         state = ParseState.EMPTY;
@@ -299,6 +300,23 @@ public class Parser {
                 throw new DukeHelpException("You need to give me this switch: "
                         + switchEntry.getKey(), currCommand);
             }
+        }
+    }
+
+    private void checkEmptyString() throws DukeException {
+        boolean canBeEmpty = true;
+        if (currCommand.getCmdArgLevel() == ArgLevel.REQUIRED) {
+            canBeEmpty = false;
+        } else {
+            for (Switch switchData : currCommand.getSwitchMap().values()) {
+                if (!switchData.isOptional) {
+                    canBeEmpty = false;
+                    break;
+                }
+            }
+        }
+        if (!canBeEmpty) {
+            throw new DukeException(currCommand.getEmptyArgMsg());
         }
     }
 }
