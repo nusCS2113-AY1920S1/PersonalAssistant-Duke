@@ -345,7 +345,6 @@ If the arguement read for `toShow` is "ue", an iterator loops through the array 
 
 * Case 5: `show module` +
 If the arguement read for `toShow` is "module", an iterator loops through the array list of `ModuleTask`. It then prints out the entire list of modules being added.
-****
 
 Below is a Sequence Diagram showing how `ShowCommand` works.
 
