@@ -97,18 +97,22 @@ public class CommandHelpers {
         if (corrStr != null) {
             return corrStr;
         }
+        int wordLen = word.length();
 
         HashMap<String, String> suggestions = new HashMap<String, String>();
         int minDist = 0;
         for (Map.Entry<String, String> entry : command.getSwitchAliases().entrySet()) {
-            int dist = stringDistance(entry.getKey(), word, minDist);
-            if (dist < minDist) {
-                suggestions.clear();
-                suggestions.put(entry.getValue(), entry.getKey());
-                minDist = dist;
-            } else if (dist == minDist) {
-                suggestions.put(entry.getValue(), entry.getKey());
-            } //ignore if dist > minDist
+            String alias = entry.getKey();
+            if (Math.abs(alias.length() - wordLen) > MAX_LEN_DIFF) {
+                int dist = stringDistance(alias, word, minDist);
+                if (dist < minDist) {
+                    suggestions.clear();
+                    suggestions.put(entry.getValue(), entry.getKey());
+                    minDist = dist;
+                } else if (dist == minDist) {
+                    suggestions.put(entry.getValue(), entry.getKey());
+                } //ignore if dist > minDist
+            }
         }
 
         return disambiguateSwitches(word, suggestions, command.getSwitchMap().keySet());
@@ -160,6 +164,7 @@ public class CommandHelpers {
      * @return The hybrid Damerau-Levenshtein distance between str1 and str2.
      */
     private static int stringDistance(String str1, String str2, int minDist) {
+        // TODO: use logging library, collected data can help optimise distance weights
         //setup values
         int len1 = str1.length();
         int len2 = str2.length();
@@ -182,7 +187,7 @@ public class CommandHelpers {
             int d2 = 2;
             char c1 = str1.charAt(i - 2);
             for (int j = 2; j <= len2 + 1; ++j) {
-                int k = d1[str2.charAt(j - 2)]; // TODO: translate letters of alphabet (keyboardMap) into integers
+                int k = d1[charMap.get(str2.charAt(j - 2))]; // TODO: translate letters of alphabet (keyboardMap) into integers
                 int l = d2;
                 int subCostInc;
                 char c2 = str2.charAt(j - 2);
@@ -210,7 +215,7 @@ public class CommandHelpers {
                     d[i - 1][j - 1] = min;
                 }
             }
-            d1[str1.charAt(i - 2)] = i;
+            d1[charMap.get(str1.charAt(i - 2))] = i;
         }
         return d[len1 + 1][len2 + 1];
     }
