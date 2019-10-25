@@ -56,20 +56,14 @@ public class BlacklistStorage {
             ArrayList<MovieModel> movieList = gson.fromJson(jsonObject.get(BlacklistKeys.ID.toString()).toString()
                     , type2);
 
-
             ArrayList<String> movieTitleList = gson.fromJson(jsonObject.get(BlacklistKeys.MOVIES.toString()).toString()
                     , type);
 
-
-
             Blacklist.initialiseAll(keyList , movieTitleList , movieList);
-
-
 
         } catch (Exception e) {
             //TODO add exception handling
         }
-
     }
 
     /**
@@ -97,8 +91,5 @@ public class BlacklistStorage {
         newFile.renameTo(new File(file.getAbsolutePath()));
 
         System.out.println("Successfully DONE SAVING!");
-
-
     }
-
 }

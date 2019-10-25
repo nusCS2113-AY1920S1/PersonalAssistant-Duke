@@ -32,6 +32,4 @@ public class EditSortProfileJson {
     public SortProfile load() throws IOException {
         return mapper.readValue(inputStream, typeReference);
     }
-
-
 }
