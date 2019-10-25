@@ -30,6 +30,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private ExpensePane expensePane;
     private TrendingPane trendingPane;
+    private BudgetPane budgetPane;
 
     // todo: create controller for trendingPage;
 
@@ -88,15 +89,19 @@ public class MainWindow extends UiPart<Stage> {
         logger.info("trendingPane is constructed.");
         planPane = new PlanPane(logic.getDialogObservableList());
         logger.info("planPane is constructed." + logic.getDialogObservableList().size());
+        budgetPane = new BudgetPane(logic.getExternalIncomeList());
+        logger.info("Budget plane is constructed.");
 
         expensePane.getRoot().setVisible(false);
         planPane.getRoot().setVisible(false);
         trendingPane.getRoot().setVisible(false);
+        budgetPane.getRoot().setVisible(false);
 
         paneStack.getChildren().clear();
         paneStack.getChildren().add(expensePane.getRoot());
         paneStack.getChildren().add(planPane.getRoot());
         paneStack.getChildren().add(trendingPane.getRoot());
+        paneStack.getChildren().add(budgetPane.getRoot());
 
         // this part should be unnecessary
         switch (displayedPane) {
@@ -110,6 +115,10 @@ public class MainWindow extends UiPart<Stage> {
 
             case PLAN:
                 planPane.getRoot().setVisible(true);
+                break;
+
+            case BUDGET:
+                budgetPane.getRoot().setVisible(true);
                 break;
         }
 
@@ -177,6 +186,10 @@ public class MainWindow extends UiPart<Stage> {
             showPlanPane();
             break;
 
+        case BUDGET:
+            showBudgetPane();
+            break;
+
         default:
             break;
         }
@@ -186,12 +199,14 @@ public class MainWindow extends UiPart<Stage> {
         expensePane.getRoot().setVisible(true);
         planPane.getRoot().setVisible(false);
         trendingPane.getRoot().setVisible(false);
+        budgetPane.getRoot().setVisible(false);
     }
 
     private void showTrendingPane() {
         expensePane.getRoot().setVisible(false);
         planPane.getRoot().setVisible(false);
         trendingPane.getRoot().setVisible(true);
+        budgetPane.getRoot().setVisible(false);
     }
 
 
@@ -199,6 +214,14 @@ public class MainWindow extends UiPart<Stage> {
         expensePane.getRoot().setVisible(false);
         planPane.getRoot().setVisible(true);
         trendingPane.getRoot().setVisible(false);
+        budgetPane.getRoot().setVisible(false);
+    }
+
+    private void showBudgetPane() {
+        expensePane.getRoot().setVisible(false);
+        planPane.getRoot().setVisible(false);
+        trendingPane.getRoot().setVisible(false);
+        budgetPane.getRoot().setVisible(true);
     }
 
 }

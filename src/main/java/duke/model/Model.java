@@ -39,4 +39,21 @@ public interface Model {
     public Map<String, String> getKnownPlanAttributes();
 
 
+    //******************************** IncomeList operations
+
+    public void addIncome(Income income);
+
+    public void deleteIncome(int index) throws DukeException;
+
+    public void clearIncome();
+
+    public void filterIncome(String filterCriteria) throws DukeException;
+
+    public void sortIncome(String sortCriteria) throws DukeException;
+
+    public void viewIncome(String viewScope, int previous) throws DukeException;
+
+    public ObservableList<Income> getIncomeExternalList();
+
+    public IncomeList getIncomeList();
 }

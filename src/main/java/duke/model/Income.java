@@ -19,7 +19,7 @@ public class Income extends DukeItem {
      */
     private final String description;
     /**
-     * The time of the income.
+     * The time of the expense.
      */
     private final LocalDateTime time;
 
@@ -182,7 +182,7 @@ public class Income extends DukeItem {
     }
 
     /**
-     * Returns the date of the income.
+     * Returns the date of the expense.
      *
      * @return {@link #time}.
      */
@@ -198,6 +198,7 @@ public class Income extends DukeItem {
     public String getTimeString() {
         return Parser.formatTime(time);
     }
+
 
     /**
      * Converts the income into a string.
@@ -226,6 +227,7 @@ public class Income extends DukeItem {
         stringJoiner.add("amount" + STORAGE_NAME_SEPARATOR + amount);
         stringJoiner.add("description" + STORAGE_NAME_SEPARATOR + description);
         stringJoiner.add("time" + STORAGE_NAME_SEPARATOR + Parser.formatTime(time));
+
 
         return stringJoiner.toString();
     }

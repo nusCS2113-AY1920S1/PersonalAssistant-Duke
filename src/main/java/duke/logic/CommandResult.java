@@ -10,6 +10,7 @@ public class CommandResult {
         EXPENSE,
         TRENDING,
         CURRENT,
+        BUDGET,
         PLAN;
         // todo: add more custom pages.
     }
