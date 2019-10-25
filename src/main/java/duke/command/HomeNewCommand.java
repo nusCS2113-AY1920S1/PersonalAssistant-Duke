@@ -20,6 +20,8 @@ public class HomeNewCommand extends ArgCommand {
         Integer age = CommandHelpers.switchToInt("age", this);
         Integer number = CommandHelpers.switchToInt("number", this);
         String bed = getSwitchVal("bed");
+        String address = getSwitchVal("address") != null ? getSwitchVal("address") : "-";
+        String history = getSwitchVal("history") != null ? getSwitchVal("history") : "-";
         // TODO: format checks for bed number?
         for (String existingBed : core.patientMap.getPatientObservableMap().keySet()) {
             if (existingBed.equals(bed)) {
@@ -28,7 +30,7 @@ public class HomeNewCommand extends ArgCommand {
         }
         core.patientMap.addPatient(new Patient(getSwitchVal("name"), bed,
                 getSwitchVal("allergies"), height, weight, age, number,
-                getSwitchVal("address"), getSwitchVal("history")));
+                address, history));
         core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
     }
 }

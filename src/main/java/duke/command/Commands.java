@@ -33,7 +33,7 @@ public class Commands {
         case HOME:
             switch (cmdStr) {
             case "find":
-                return new PatientFindCommand();
+                return null;//new HomeFindCommand();
             case "new":
                 return new HomeNewCommand();
             case "open":
@@ -51,6 +51,10 @@ public class Commands {
             }
         case PATIENT:
             switch (cmdStr) {
+            case "new":
+                return new PatientNewCommand();
+            case "find":
+                return new PatientFindCommand();
             case "report":
                 return new PatientReportCommand();
             case "discharge":
