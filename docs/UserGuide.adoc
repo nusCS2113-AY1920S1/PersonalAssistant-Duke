@@ -357,7 +357,6 @@ Stop task tracking at current time.
 [NOTE]
 
 Your Task automatically will be marked `Done`.
-====
 
 Format: `stop DESCRIPTION`
 
