@@ -134,7 +134,7 @@ public abstract class ParseDeposit {
      */
     void checkName(String nameString, String variable) throws ParserException {
         if (!RegexUtil.regexCheckName(nameString)) {
-            throw new ParserException(variable + " can only contain letters and at most 30 characters");
+            throw new ParserException(variable + " can only be alphanumeric and at most 30 characters");
         }
     }
 

@@ -109,7 +109,7 @@ public abstract class ParseGoals {
      */
     void checkName(String key, String name) throws ParserException {
         if (!RegexUtil.regexCheckName(name)) {
-            throw new ParserException(key + " can only contain letters and at most 50 characters");
+            throw new ParserException(key + " can only be alphanumeric and at most 30 characters");
         }
     }
 

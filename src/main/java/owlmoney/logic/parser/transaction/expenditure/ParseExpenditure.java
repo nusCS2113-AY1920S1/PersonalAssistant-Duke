@@ -136,7 +136,7 @@ public abstract class ParseExpenditure {
      */
     void checkName(String nameString) throws ParserException {
         if (!RegexUtil.regexCheckName(nameString)) {
-            throw new ParserException("/from can only contain letters and at most 30 characters");
+            throw new ParserException("/from can only be alphanumeric and at most 30 characters");
         }
     }
 

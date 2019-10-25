@@ -108,7 +108,7 @@ public abstract class ParseSaving {
      */
     void checkName(String key, String nameString) throws ParserException {
         if (!RegexUtil.regexCheckName(nameString)) {
-            throw new ParserException(key + " can only contain letters and at most 30 characters");
+            throw new ParserException(key + " can only be alphanumeric and at most 30 characters");
         }
     }
 

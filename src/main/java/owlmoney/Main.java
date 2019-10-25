@@ -51,7 +51,7 @@ class Main {
             throw new MainException("Name cannot be empty!");
         }
         if (!RegexUtil.regexCheckName(name)) {
-            throw new MainException("Name can only contain letters and at most 50 characters");
+            throw new MainException("Name can only be alphanumeric and at most 30 characters");
         }
     }
 

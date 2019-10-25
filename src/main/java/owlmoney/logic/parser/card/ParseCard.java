@@ -96,7 +96,7 @@ public abstract class ParseCard {
      */
     void checkName(String nameString) throws ParserException {
         if (!RegexUtil.regexCheckName(nameString)) {
-            throw new ParserException("Card name can only contain letters and at most 30 characters");
+            throw new ParserException("Card name can only be alphanumeric and at most 30 characters");
         }
     }
 
