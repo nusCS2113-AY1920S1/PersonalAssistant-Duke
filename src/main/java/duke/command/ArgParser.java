@@ -87,7 +87,7 @@ public class ArgParser {
     private void handleEmpty(char curr) throws DukeHelpException {
         switch (curr) {
         case '-':
-            //TODO: check if switch is allowed rather than letting addSwitch handle it
+            checkSwitchAllowed();
             state = ParseState.SWITCH;
             break;
         case '"':
@@ -188,12 +188,6 @@ public class ArgParser {
     private void addSwitch() throws DukeHelpException {
         String newSwitchName = elementBuilder.toString().toLowerCase();
 
-        // switch being processed was not given an argument
-        if (currSwitchName != null) {
-            if (switchMap.get(currSwitchName).argLevel == ArgLevel.REQUIRED) {
-                throw new DukeHelpException("I need an argument for this switch: " + currSwitchName, currCommand);
-            }
-        }
 
         // use autocorrect to find a match for the switch
         if (!switchMap.containsKey(newSwitchName)) {
@@ -213,6 +207,17 @@ public class ArgParser {
                 switchVals.put(newSwitchName, null);
             }
             elementBuilder.setLength(0); //clear elementBuilder
+        }
+    }
+
+    private void checkSwitchAllowed() throws DukeHelpException {
+        if (currSwitchName != null) {
+            ArgLevel argLevel = switchMap.get(currSwitchName).argLevel;
+            if (argLevel == ArgLevel.REQUIRED) {
+                throw new DukeHelpException("I need an argument for this switch: " + currSwitchName, currCommand);
+            } else if (argLevel == ArgLevel.OPTIONAL) {
+                switchVals.put(currSwitchName, null);
+            }
         }
     }
 

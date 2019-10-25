@@ -69,7 +69,7 @@ The following italicised words refer to specific repeated patterns:
 * _patient_id_ -> `(<patient index>|"<part of name>"|-b <bed number>)`
 * _string_or_idx_ -> `(<index>|"<search string>")`
 ** `<index>` refers to the index assigned to the object in the display. `<search string>` will be searched for in the names of all relevant objects.
-* _type_ -> (`-m[edicine]`|`-i[nv(x|estigation)]`|`-p[lan]`|`-o[bservation]`|`-r[esult]`)
+* _type_ -> `(-m[edicine]`|`-i[nv(x|estigation)]`|`-p[lan]`|`-o[bservation]`|`-r[esult])`
 
 Parsing rules:
 
