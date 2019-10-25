@@ -55,7 +55,7 @@ Now that you've installed Java `11` on your computer, you can go ahead with gett
 As D2 launches, you should see the following GUI:
 
 
-image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UI.png[width="350"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/Ui.png[width="350"]
 
 
 To test that D2 is running as it should:
