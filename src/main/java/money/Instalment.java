@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import java.lang.Math;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This class is created for the Instalments of the user.
+ */
 public class Instalment extends Expenditure {
     private LocalDate endDate;
     private int numOfPaymentsReq;
@@ -17,6 +20,15 @@ public class Instalment extends Expenditure {
     private boolean payForTheMonth;
     private boolean fullyPaid;
 
+    /**
+     * Constructor of the Instalment Object to record the instalments.
+     * @param price Total cost of the item that the user bought
+     * @param description The item that the Instalment is paying for
+     * @param category The type of money object that the user is recording
+     * @param boughtDate The date when the user buy the item
+     * @param numOfPaymentsReq The total number of months of payment required for the user to pay his Instalment
+     * @param annualIR The Annual Interest Rate that the user is paying
+     */
     //@@author ChenChao19
     public Instalment(float price, String description, String category,
                       LocalDate boughtDate, int numOfPaymentsReq, float annualIR) {
@@ -44,6 +56,12 @@ public class Instalment extends Expenditure {
         return payForTheMonth;
     }
 
+    /**
+     * This method is the internal algorithm used to calculate the monthly payment
+     * which is called the equal monthly instalment paying method.
+     * @return the monthly payment required by the user for the particular item that
+     *         the user bought
+     */
     public float equalMonthlyInstalment() {
         return (float) ((getPrice() * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numOfPaymentsReq))
                 / (Math.pow(1 + monthlyInterestRate, numOfPaymentsReq) - 1));
@@ -53,9 +71,13 @@ public class Instalment extends Expenditure {
         return paymentsMade;
     }
 
+    /**
+     * This method sets the percentage that the user has paid for the Instalment.
+     * @param payments The number of payments made by the user in total
+     */
     public void percentPay(int payments) {
         this.paymentsMade = payments;
-        if(paymentsMade == numOfPaymentsReq) {
+        if (paymentsMade == numOfPaymentsReq) {
             this.percentage = 100;
             return;
         }
@@ -103,6 +125,9 @@ public class Instalment extends Expenditure {
         return annualInterestRate;
     }
 
+    /**
+     * This method is called when the Instalment is fully paid for.
+     */
     public void setFullyPaid() {
         fullyPaid = true;
     }

@@ -11,9 +11,15 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.Period;
 
+/**
+ * This command automatically updates the payment make by the user monthly.
+ */
 public class AutoUpdateInstalmentCommand extends MoneyCommand {
     private LocalDate currDate = LocalDate.now();
 
+    /**
+     * Default Constructor for AutoUpdateInstalmentCommand
+     */
     //@@author ChenChao19
     public AutoUpdateInstalmentCommand() {
     }
@@ -23,6 +29,15 @@ public class AutoUpdateInstalmentCommand extends MoneyCommand {
         return false;
     }
 
+    /**
+     * This method executes the AutoUpdateInstalmentCommand. Automatically updates the user
+     * when he needs to pay for and instalment and automatically add it into his expenditure list.
+     * @param account Account object containing all financial info of user saved on the programme
+     * @param ui Handles interaction with the user
+     * @param storage Saves and loads data into/from the local disk
+     * @throws ParseException If invalid date is parsed
+     * @throws DukeException When the command is invalid
+     */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
         for (Instalment ins : account.getInstalments()) {
