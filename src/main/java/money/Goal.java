@@ -1,5 +1,7 @@
 package money;
 
+import controlpanel.DukeException;
+
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -14,7 +16,7 @@ public class Goal extends Expenditure {
     private Priority priority;
 
     //@@author therealnickcheong
-    public Goal(float price, String description, String category, LocalDate goalBy, String priorityLevel) {
+    public Goal(float price, String description, String category, LocalDate goalBy, String priorityLevel) throws DukeException {
         super(price, description, category, goalBy);
         switch (priorityLevel) {
         case "LOW" : {
@@ -30,7 +32,8 @@ public class Goal extends Expenditure {
             break;
         }
         default: {
-            break;
+            throw new DukeException("Please enter in the format: " +
+                    "goal <desc> /amt <amount> /by <date> /priority <HIGH/MEDIUM/LOW>\n");
         }
         }
     }
