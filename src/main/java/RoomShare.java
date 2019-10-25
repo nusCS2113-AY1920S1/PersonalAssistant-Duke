@@ -130,7 +130,7 @@ public class RoomShare {
                     ui.priorityInstruction();
                 } finally {
                     if (success) {
-                        taskList.sortPriority();
+                        taskList.sortTasks();
                         ui.prioritySet();
                     }
                 }

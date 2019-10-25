@@ -3,9 +3,9 @@ package Operations;
 import CustomExceptions.RoomShareException;
 import Enums.ExceptionType;
 import Enums.Priority;
+import Enums.SortType;
 import Enums.TimeUnit;
 import Model_Classes.Assignment;
-import Model_Classes.Meeting;
 import Model_Classes.Task;
 
 import java.util.ArrayList;
@@ -17,6 +17,7 @@ import java.util.Comparator;
  */
 public class TaskList {
     private static ArrayList<Task> tasks;
+    private static SortType sortType = SortType.priority;
 
     /**
      * Constructor for the TaskList class.
@@ -33,7 +34,7 @@ public class TaskList {
      */
     public void add(Task newTask) {
         tasks.add(newTask);
-        sortPriority();
+        sortTasks();
     }
 
     /**
@@ -65,7 +66,7 @@ public class TaskList {
      * Lists out all tasks in the current list in the order they were added into the list.
      */
     public void list() throws RoomShareException {
-        sortPriority();
+        sortTasks();
         if( tasks.size() != 0 ){
             int listCount = 1;
             for (Task output : tasks) {
@@ -172,8 +173,30 @@ public class TaskList {
     /**
      * Sorts the list based on priority
      */
-    public void sortPriority() {
-        tasks.sort(Comparator.comparingInt(this::getValue));
+    public void sortTasks(SortType type) {
+        switch (type) {
+        case priority:
+            tasks.sort(Comparator.comparingInt(this::getValue));
+            break;
+        case alphabetical:
+            Collections.sort(tasks, new Comparator<Task>() {
+                @Override
+                public int compare(Task o1, Task o2) {
+                    if( o1.getDone() && !o2.getDone() ) {
+                        return -1;
+                    } else if( o2.getDone() && !o1.getDone() ) {
+                        return 1;
+                    }
+
+                    return 0;
+                }
+            });
+            break;
+        case deadline:
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + type);
+        }
     }
 
     /**
@@ -194,18 +217,18 @@ public class TaskList {
     public void snooze (int index, int amount, TimeUnit timeUnit) throws RoomShareException {
         try {
             switch (timeUnit) {
-                case month:
-                    tasks.get(index).snoozeMonth(amount);
-                    break;
-                case day:
-                    tasks.get(index).snoozeDay(amount);
-                    break;
-                case hours:
-                    tasks.get(index).snoozeHour(amount);
-                    break;
-                case minutes:
-                    tasks.get(index).snoozeMinute(amount);
-                    break;
+            case month:
+                tasks.get(index).snoozeMonth(amount);
+                break;
+            case day:
+                tasks.get(index).snoozeDay(amount);
+                break;
+            case hours:
+                tasks.get(index).snoozeHour(amount);
+                break;
+            case minutes:
+                tasks.get(index).snoozeMinute(amount);
+                break;
             }
         }
         catch (IndexOutOfBoundsException e) {

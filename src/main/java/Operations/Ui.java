@@ -2,8 +2,6 @@ package Operations;
 
 import Enums.TimeUnit;
 
-import java.io.IOException;
-
 /**
  * class to tell user about errors and completion of operations
  */
