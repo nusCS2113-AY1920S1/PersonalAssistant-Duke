@@ -5,6 +5,7 @@ import Commands.RecurringCommand;
 import DukeExceptions.DukeException;
 import DukeExceptions.DukeInvalidCommandException;
 import DukeExceptions.DukeInvalidDateTimeException;
+import DukeExceptions.DukeInvalidFormatException;
 import Interface.*;
 import java.io.IOException;
 import java.text.ParseException;
@@ -14,6 +15,7 @@ import java.util.logging.Logger;
 public class RecurParse extends Parse {
 
     private static String fullCommand;
+    private static String[] split1;
     private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
     private static LookupTable LT;
 
@@ -35,6 +37,10 @@ public class RecurParse extends Parse {
             String activity = fullCommand.trim().substring(7);
             String[] fullCommandSplit = activity.split("/start");
             String modCodeAndDescription = fullCommandSplit[0].trim();
+            split1 = modCodeAndDescription.trim().split(" ");
+            if(!super.isModCode(split1[0])){
+                throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
+            }
             String dateAndTime = fullCommandSplit[1].trim();
 
             if (modCodeAndDescription.isEmpty()) {
