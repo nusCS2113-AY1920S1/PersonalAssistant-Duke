@@ -5,6 +5,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +16,6 @@ public class Patient extends DukeObject {
     private String bedNo;
     private String allergies;
     private Impression priDiagnosis;
-    private transient ObservableMap<String, Impression> observableImpressions;
     private HashMap<String, Impression> impressions;
     private Integer height;
     private Integer weight;
@@ -22,6 +23,9 @@ public class Patient extends DukeObject {
     private Integer number;
     private String address;
     private String history;
+
+    private transient ObservableMap<String, Impression> observableImpressions;
+    private transient PropertyChangeSupport pcs;
 
     /**
      * Represents the patient.
@@ -46,16 +50,17 @@ public class Patient extends DukeObject {
         super(name);
         this.bedNo = bedNo;
         this.allergies = allergies;
+        this.impressions = new HashMap<>();
         this.height = height;
         this.weight = weight;
         this.age = age;
         this.number = number;
         this.address = address;
         this.history = history;
-        this.priDiagnosis = new Impression("No Primary Impression", "Add upon admission diagnosis", this);
+        this.priDiagnosis = null;
 
-        this.impressions = new HashMap<>();
         initObservableImpressions();
+        this.pcs = new PropertyChangeSupport(this);
     }
 
     /**
@@ -72,6 +77,7 @@ public class Patient extends DukeObject {
         super(name);
         this.bedNo = bedNo;
         this.allergies = allergies;
+        this.impressions = new HashMap<>();
         this.height = null;
         this.weight = null;
         this.age = null;
@@ -80,8 +86,8 @@ public class Patient extends DukeObject {
         this.history = null;
         this.priDiagnosis = null;
 
-        this.impressions = new HashMap<>();
         initObservableImpressions();
+        this.pcs = new PropertyChangeSupport(this);
     }
 
     /**
@@ -156,9 +162,9 @@ public class Patient extends DukeObject {
      */
     public void setPriDiagnosis(String keyIdentifier) throws DukeException {
         if (this.observableImpressions.containsKey(keyIdentifier)) {
-            Impression imp = this.observableImpressions.get(keyIdentifier);
-            this.priDiagnosis = imp;
-            return;
+            Impression oldPriDiagnosis = priDiagnosis;
+            priDiagnosis = this.observableImpressions.get(keyIdentifier);
+            pcs.firePropertyChange("Primary Diagnosis", oldPriDiagnosis, priDiagnosis);
         } else {
             throw new DukeException("I don't have that entry in the list!");
         }
@@ -211,6 +217,15 @@ public class Patient extends DukeObject {
         }
         this.history = newHistory; // setHistory(newHistory);
         return newHistory;
+    }
+
+    /**
+     * Adds a listener to listen for changes in {@code priDiagnosis}.
+     *
+     * @param pcl PropertyChangeListener object.
+     */
+    public void addListener(PropertyChangeListener pcl) {
+        pcs.addPropertyChangeListener(pcl);
     }
 
     /**
@@ -303,7 +318,12 @@ public class Patient extends DukeObject {
         return observableImpressions;
     }
 
-    public void initObservableImpressions() {
+    public void initObservables() {
+        initObservableImpressions();
+        this.pcs = new PropertyChangeSupport(this);
+    }
+
+    private void initObservableImpressions() {
         this.observableImpressions = FXCollections.observableMap(impressions);
         attachImpressionsListener();
     }

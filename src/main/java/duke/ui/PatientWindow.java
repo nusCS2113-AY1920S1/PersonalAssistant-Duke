@@ -62,14 +62,41 @@ class PatientWindow extends UiElement<Region> {
         history.setText(String.valueOf(patient.getHistory()));
 
         for (Map.Entry<String, Impression> pair : patient.getImpressionsObservableMap().entrySet()) {
-            impressionsListPanel.getItems().add(new ImpressionCard(pair.getValue()));
+            Impression primaryImpression = null;
+
+            if (pair.getValue().equals(patient.getPriDiagnosis())) {
+                primaryImpression = pair.getValue();
+            } else {
+                impressionsListPanel.getItems().add(new ImpressionCard(pair.getValue(), false));
+            }
+
+            if (primaryImpression != null) {
+                impressionsListPanel.getItems().add(0, new ImpressionCard(primaryImpression, true));
+            }
         }
 
         patient.getImpressionsObservableMap().addListener((MapChangeListener<String, Impression>) change -> {
             if (change.wasAdded()) {
-                impressionsListPanel.getItems().add(new ImpressionCard(change.getValueAdded()));
+                if (change.getValueAdded().equals(patient.getPriDiagnosis())) {
+                    impressionsListPanel.getItems().add(0, new ImpressionCard(change.getValueAdded(), true));
+                } else {
+                    impressionsListPanel.getItems().add(new ImpressionCard(change.getValueAdded(), false));
+                }
             } else if (change.wasRemoved()) {
-                impressionsListPanel.getItems().remove(new ImpressionCard(change.getValueRemoved()));
+                impressionsListPanel.getItems().remove(new ImpressionCard(change.getValueRemoved(), false));
+            }
+        });
+
+        patient.addListener(evt -> {
+            if (evt.getPropertyName().equals("Primary Diagnosis")) {
+                if (evt.getOldValue() != null) {
+                    int index = impressionsListPanel.getItems().indexOf(new ImpressionCard((Impression) evt.getOldValue(), false));
+                    impressionsListPanel.getItems().remove(new ImpressionCard((Impression) evt.getOldValue(), false));
+                    impressionsListPanel.getItems().add(0, new ImpressionCard((Impression) evt.getOldValue(), false));
+                }
+
+                impressionsListPanel.getItems().remove(new ImpressionCard((Impression) evt.getNewValue(), true));
+                impressionsListPanel.getItems().add(0, new ImpressionCard((Impression) evt.getNewValue(), true));
             }
         });
     }
