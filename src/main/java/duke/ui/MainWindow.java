@@ -46,7 +46,7 @@ class MainWindow extends UiElement<Stage> {
         this.uiContext = core.uiContext;
         this.patientMap = core.patientMap;
         this.executor = new Executor(core);
-        this.parser = new Parser(core.uiContext.getContext());
+        this.parser = new Parser(core.uiContext);
 
         placeChildUiElements();
     }
