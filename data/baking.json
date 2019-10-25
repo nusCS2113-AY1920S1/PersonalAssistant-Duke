@@ -21,9 +21,53 @@
       "status": "ACTIVE",
       "total": 0.0,
       "items": []
+    },
+    {
+      "id": 1571996639843,
+      "creationDate": "2019-10-25T09:43:59.843+0000",
+      "name": "-contact",
+      "contact": "N/A",
+      "remarks": "N/A",
+      "deliveryDate": "2019-10-25T09:43:53.250+0000",
+      "status": "ACTIVE",
+      "total": 0.0,
+      "items": []
     }
   ],
-  "products" : [ ],
+  "products": [
+    {
+      "productName": "1",
+      "ingredientItems": [
+        {
+          "ingredient": {
+            "name": "ho",
+            "unitPrice": 0.0,
+            "remarks": "-"
+          },
+          "amount": 1.1
+        }
+      ],
+      "ingredientCost": 0.0,
+      "retailPrice": 0.0,
+      "status": "ACTIVE"
+    },
+    {
+      "productName": "2",
+      "ingredientItems": [
+        {
+          "ingredient": {
+            "name": "ho",
+            "unitPrice": 0.0,
+            "remarks": "-"
+          },
+          "amount": 1.1
+        }
+      ],
+      "ingredientCost": 0.0,
+      "retailPrice": 0.0,
+      "status": "ACTIVE"
+    }
+  ],
   "inventory" : [ {
     "ingredient" : {
       "name" : "Coca cola",
@@ -60,6 +104,22 @@
         "remarks": ""
       },
       "amount": 100000.0
+    },
+    {
+      "ingredient": {
+        "name": "ho",
+        "unitPrice": 0.0,
+        "remarks": "-"
+      },
+      "amount": 0.0
+    },
+    {
+      "ingredient": {
+        "name": "-qty",
+        "unitPrice": 0.0,
+        "remarks": ""
+      },
+      "amount": 0.0
   } ],
   "shoppingList" : [ {
     "ingredient" : {

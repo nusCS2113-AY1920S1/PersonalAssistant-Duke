@@ -29,7 +29,7 @@ public class TimeParser {
     /**
      * Converts a Date object to a string representing the date.
      *
-     * @param date Date object
+     * @param date Date object to convert
      * @return a string representing the date
      */
     public static String convertDateToString(Date date) {
