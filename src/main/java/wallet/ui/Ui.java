@@ -24,6 +24,7 @@ public class Ui {
     }
 
     //@@author matthewng1996
+
     /**
      * Prints the welcome message of the program.
      */
@@ -42,6 +43,7 @@ public class Ui {
     }
 
     //@@author
+
     /**
      * Prints the goodbye message when the user exits the program.
      */
@@ -66,6 +68,7 @@ public class Ui {
     }
 
     //@@author kyang96
+
     /**
      * Displays the expense list in table format.
      */
@@ -102,14 +105,15 @@ public class Ui {
     }
 
     //@@author Xdecosee
+
     /**
      * Displays the contact list in table format.
      */
     public static void printContactTable() {
         ArrayList<Contact> contactListCopy = LogicManager.getWallet().getContactList().getContactList();
         String dash = "-";
-        String lineBreak = dash.repeat(100);
-        String headerBreak = dash.repeat(98);
+        String lineBreak = new String(new char[100]).replace("\0", dash);
+        String headerBreak = new String(new char[98]).replace("\0", dash);
         System.out.println(lineBreak);
         System.out.printf("| %-4s | %-20s | %-20s | %-43s |\n", "ID", "Name", "Phone", "Detail");
         System.out.println("|" + headerBreak + "|");
