@@ -1,11 +1,7 @@
 package owlmoney.model.bank;
 
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.Bond;
@@ -21,7 +17,6 @@ public class BankList {
     private ArrayList<Bank> bankLists;
     private static final String SAVING = "saving";
     private static final String INVESTMENT = "investment";
-    private static final String CARD = "card";
     private static final int ONE_INDEX = 1;
     private static final boolean ISMULTIPLE = true;
     private static final boolean ISSINGLE = false;

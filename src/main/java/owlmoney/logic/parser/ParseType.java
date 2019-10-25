@@ -19,7 +19,6 @@ import owlmoney.logic.parser.card.ParseAddCard;
 import owlmoney.logic.parser.card.ParseCard;
 import owlmoney.logic.parser.card.ParseDeleteCard;
 import owlmoney.logic.parser.card.ParseEditCard;
-import owlmoney.logic.parser.find.ParseFind;
 import owlmoney.logic.parser.find.ParseFindBankOrCard;
 import owlmoney.logic.parser.find.ParseFindBond;
 import owlmoney.logic.parser.find.ParseFindTransaction;
@@ -245,8 +244,6 @@ class ParseType extends Parser {
                 editExp.fillHashTable();
                 editExp.checkParameter();
                 return editExp.getCommand();
-            } else if ("/find".equals(command)) {
-
             }
             throw new ParserException("You entered an invalid type for card expenditure");
         case "/deposit":

@@ -456,7 +456,8 @@ public class TransactionList {
      */
     private void findByDate(String fromDate, String toDate, Ui ui) throws TransactionException {
         int printCounter = 0;
-        Date from, to;
+        Date from;
+        Date to;
         DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
         try {
             from = temp.parse(fromDate);
