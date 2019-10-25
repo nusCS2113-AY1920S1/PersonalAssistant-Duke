@@ -76,6 +76,7 @@ public class Profile {
 
     /**
      * Checks if profile name exist and not changed to same name.
+     *
      * @param name existing name of user.
      * @param newName new name that user wants to change to.
      * @throws ProfileException if name don't match or change same name.

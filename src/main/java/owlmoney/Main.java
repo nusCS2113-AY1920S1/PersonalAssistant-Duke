@@ -42,6 +42,7 @@ class Main {
 
     /**
      * Checks if username meets requirement.
+     *
      * @param name Profile user name.
      * @throws MainException If name is empty or if name contain special characters
      */
