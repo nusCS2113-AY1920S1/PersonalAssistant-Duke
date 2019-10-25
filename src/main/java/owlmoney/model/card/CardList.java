@@ -72,7 +72,7 @@ public class CardList {
      *
      * @throws CardException If CardList is empty.
      */
-    public void cardListCheckListEmpty() throws CardException {
+    private void cardListCheckListEmpty() throws CardException {
         if (cardLists.size() <= ISZERO) {
             throw new CardException("There are 0 cards in your profile");
         }
@@ -120,7 +120,7 @@ public class CardList {
     /**
      * Checks if all credit card expenditures have been paid else cannot edit card limit.
      *
-     * @param card     The card object.
+     * @param card The card object.
      * @throws CardException If credit card contains unpaid expenditures.
      */
     private void checkUnpaidCannotEditLimit(Card card) throws CardException {
@@ -219,7 +219,7 @@ public class CardList {
     }
 
     /**
-     * Deletes an expenditure from the transactionList in the bank account.
+     * Deletes an expenditure from the transactionList in the card object.
      *
      * @param expNum                The transaction number.
      * @param deleteFromAccountCard The name of the card.
@@ -239,7 +239,7 @@ public class CardList {
     }
 
     /**
-     * Edits an expenditure from the transactionList in the bank account.
+     * Edits an expenditure from the transactionList in the card object.
      *
      * @param expNum       The transaction number.
      * @param editFromCard The name of the card.
@@ -282,5 +282,67 @@ public class CardList {
         if (!isMultiplePrinting) {
             ui.printDivider();
         }
+    }
+
+    /**
+     * Prints the card header details once only when listing of multiple card.
+     *
+     * @param num Represents the current number of card being listed.
+     * @param ui  The object use for printing.
+     */
+    private void printOneCardHeader(int num, Ui ui) {
+        if (num == ISZERO) {
+            ui.printBankHeader();
+        }
+    }
+
+    /**
+     * Finds card that matches the name provided by user.
+     *
+     * @param cardName The name of the card to match against.
+     * @param ui       The object required for printing.
+     * @throws CardException If there is no matches for card object.
+     */
+    public void findCard(String cardName, Ui ui) throws CardException {
+        ArrayList<Card> tempCardList = new ArrayList<Card>();
+        String matchingWord = cardName.toUpperCase();
+
+        for (int i = ISZERO; i < getCardListSize(); i++) {
+            if (cardLists.get(i).getName().toUpperCase().contains(matchingWord)) {
+                tempCardList.add(cardLists.get(i));
+            }
+        }
+        if (tempCardList.isEmpty()) {
+            throw new CardException("Card with the following keyword could not be found: " + cardName);
+        }
+
+        for (int i = ISZERO; i < tempCardList.size(); i++) {
+            printOneCardHeader(i, ui);
+            printOneCard((i + ONE_INDEX), tempCardList.get(i), ISMULTIPLE, ui);
+        }
+        ui.printDivider();
+    }
+
+    /**
+     * Finds matching card transactions from the card specified by the user.
+     *
+     * @param cardName    The name of the card object to be searched for matching transaction.
+     * @param fromDate    The date to search from.
+     * @param toDate      The date to search until.
+     * @param description The description keyword to match against.
+     * @param category    The category keyword to match against.
+     * @param ui          The object required for printing.
+     * @throws CardException        If card with the name does not exist.
+     * @throws TransactionException If parsing of date fails.
+     */
+    public void cardListFindTransaction(String cardName, String fromDate, String toDate,
+            String description, String category, Ui ui) throws CardException, TransactionException {
+        for (int i = ISZERO; i < getCardListSize(); i++) {
+            if (cardLists.get(i).getName().equals(cardName)) {
+                cardLists.get(i).findTransaction(fromDate, toDate, description, category, ui);
+                return;
+            }
+        }
+        throw new CardException("Card with the following name does not exist: " + cardName);
     }
 }

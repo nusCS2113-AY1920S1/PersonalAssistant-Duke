@@ -208,4 +208,30 @@ public class BondList {
             ui.printBondHeader();
         }
     }
+
+    /**
+     * Finds the bonds that matches with the keywords specified by the user.
+     *
+     * @param bondName The bondName keyword to match against.
+     * @param ui      The object required for printing.
+     * @throws BondException If no bonds could be found.
+     */
+    public void findBond(String bondName, Ui ui) throws BondException {
+        ArrayList<Bond> tempBondList = new ArrayList<Bond>();
+        String matchingWord = bondName.toUpperCase();
+
+        for (int i = ISZERO; i < getSize(); i++) {
+            if (bondLists.get(i).getName().toUpperCase().contains(matchingWord)) {
+                tempBondList.add(bondLists.get(i));
+            }
+        }
+        if (tempBondList.isEmpty()) {
+            throw new BondException("Bond with the following keyword could not be found: " + bondName);
+        }
+        ui.printBondHeader();
+        for (int i = ISZERO; i < tempBondList.size(); i++) {
+            printOneBond((i + ONE_INDEX), tempBondList.get(i), ISMULTIPLE, ui);
+        }
+        ui.printDivider();
+    }
 }

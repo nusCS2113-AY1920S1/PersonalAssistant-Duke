@@ -143,4 +143,16 @@ public class Investment extends Bank {
     public void updateRecurringTransactions(Ui ui) {
         //add your code here
     }
+
+    /**
+     * Finds the bonds that matches with the keywords specified by the user.
+     *
+     * @param bondName The bondName keyword to match against.
+     * @param ui      The object required for printing.
+     * @throws BondException If no bonds could be found.
+     */
+    @Override
+    public void findBondInInvestment(String bondName, Ui ui) throws BondException {
+        bonds.findBond(bondName, ui);
+    }
 }
