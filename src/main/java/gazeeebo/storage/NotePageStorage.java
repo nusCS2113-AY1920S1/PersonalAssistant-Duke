@@ -7,30 +7,26 @@ import gazeeebo.notes.Module;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Scanner;
 
 public class NotePageStorage {
     public static void writeToGoalFile() throws IOException {
-        FileWriter file = new FileWriter("data/note/note-page/goal.txt");
+        FileWriter file = new FileWriter("/goal.txt");
         file.write(GeneralNotePage.goal);
         file.close();
     }
 
-    public static void readFromGoalFile() throws IOException {
-        File data = new File("data/note/note-page/goal.txt");
-        if (data.createNewFile()) {
-            System.out.println("Existing goal.txt file does not exist.");
-            System.out.println("I have created a new text file for you.");
-        }
-        assert !data.createNewFile() : "There is no goal.txt file to read from (NotePageStorage)";
-        Scanner txtFile = new Scanner(data);
+    public static void readFromGoalFile() {
+        InputStream inputStream = NoteStorage.class.getResourceAsStream("/goal.txt");
+        Scanner txtFile = new Scanner(inputStream);
         if (txtFile.hasNextLine()) {
             GeneralNotePage.goal = txtFile.nextLine();
         }
     }
 
     public static void writeToModulesFile() throws IOException {
-        FileWriter file = new FileWriter("data/note/note-page/modules.txt");
+        FileWriter file = new FileWriter("/modules.txt");
         for (Module m : GeneralNotePage.modules) {
             file.write(m.name + "\n");
             file.write(m.assessments.size() + "\n");
@@ -46,14 +42,9 @@ public class NotePageStorage {
         file.close();
     }
 
-    public static void readFromModulesFile() throws IOException {
-        File data = new File("data/note/note-page/modules.txt");
-        if (data.createNewFile()) {
-            System.out.println("Existing modules.txt file does not exist.");
-            System.out.println("I have created a new text file for you.");
-        }
-        assert !data.createNewFile() : "There is no modules.txt file to read from (NotePageStorage)";
-        Scanner txtFile = new Scanner(data);
+    public static void readFromModulesFile() {
+        InputStream inputStream = NoteStorage.class.getResourceAsStream("/modules.txt");
+        Scanner txtFile = new Scanner(inputStream);
         while (txtFile.hasNextLine()) {
             Module m = new Module(txtFile.nextLine()); //read in module name
             int numOfAssmt = Integer.parseInt(txtFile.nextLine());
