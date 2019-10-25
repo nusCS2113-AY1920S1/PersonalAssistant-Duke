@@ -23,6 +23,5 @@ public abstract class Command {
     public void setExitCode() {
         exitCode = true;
     }
-
     abstract public void execute(Ui ui, Storage storage, ResourceList resources) throws Exception;
 }

@@ -10,14 +10,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import rims.resource.Item;
-import rims.resource.Room;
 import rims.resource.Reservation;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
 
 /**
+ * Current format of data storage: -
+ * <p>
  * Resource.txt [ resource id ] [ type ] [ name ]
- * Reserve.txt [ reservation id ] [ resource id ] [ user id ] [ date from ] [ date until ]
+ * <p>
+ * Reserve.txt [ reservation id ] [ resource id ] [ user id ] [ date from ] [
+ * date until ]
+ * <p>
+ * 
  */
 public class Storage {
     protected ArrayList<Resource> resources = new ArrayList<Resource>();
@@ -52,17 +57,13 @@ public class Storage {
         Scanner fileScanner = new Scanner(resourceFile);
         while (fileScanner.hasNextLine()) {
             String[] input = fileScanner.nextLine().split(",");
-            ReservationList reservations = readReserveFile(input[0]);
-            if (input[1].equals("I")) {
-                Item newItem = new Item(Integer.parseInt(input[0]), input[2], reservations);
-                resources.add(newItem);
-            }
-            else if (input[1].equals("R")) {
-                Room newRoom = new Room(Integer.parseInt(input[0]), input[2], reservations);
-                resources.add(newRoom);
-            }
+            String resourceId = input[0];
+            ReservationList reservations = readReserveFile(resourceId);
+            Resource newResource = new Item(input[0], input[1], input[2], reservations);
+            this.resources.add(newResource);
         }
     }
+    // reservationId, resourceId, userId, fromDate, tillDate
 
     /**
      * Obtains the contents of a ResourceList line by line from a text file in a
@@ -79,10 +80,8 @@ public class Storage {
         while (fileScanner.hasNextLine()) {
             String[] line = fileScanner.nextLine().split(",");
             if (line[1].equals(resourceId)) {
-                Reservation newReservation = new Reservation(Integer.parseInt(line[0]), Integer.parseInt(line[1]), Integer.parseInt(line[2]), line[3], line[4]);
-                if (newReservation.isStillValid()) {
-                    resourceReservations.add(newReservation);
-                }
+                Reservation newReservation = new Reservation(line[0], line[1], line[2], line[3], line[4]);
+                resourceReservations.addNewReservation(newReservation);
             }
         }
         return resourceReservations;
@@ -96,21 +95,22 @@ public class Storage {
      *                     cannot be created.
      */
     public void saveToFile(ArrayList<Resource> resources) throws IOException {
+        ReservationList totalReservations = new ReservationList();
         BufferedWriter resourceFileWriter = new BufferedWriter(new FileWriter(resourceFile, false));
         BufferedWriter reservationFileWriter = new BufferedWriter(new FileWriter(reservationFile, false));
         String resourceLine;
         String reservationLine;
         for (int i = 0; i < resources.size(); i++) {
             Resource thisResource = resources.get(i);
-            resourceFileWriter.write(thisResource.toDataFormat());
-            resourceFileWriter.newLine();
-
             ReservationList thisReservationList = thisResource.getReservations();
+            resourceLine = thisResource.toDataString();
+            resourceFileWriter.write(resourceLine);
+            resourceFileWriter.newLine();
             for (int j = 0; j < thisReservationList.size(); j++) {
-                reservationLine = thisReservationList.getReservationByIndex(j).toDataFormat();
+                reservationLine = thisReservationList.getReservationByIndex(j).toDataString();
                 reservationFileWriter.write(reservationLine);
                 reservationFileWriter.newLine();
-                // can this be simplified / moved elsewhere?
+                // hmm
             }
         }
         resourceFileWriter.close();

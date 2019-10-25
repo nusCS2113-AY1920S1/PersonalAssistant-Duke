@@ -3,50 +3,34 @@ package rims.command;
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
+import rims.exception.RimException;
 import rims.resource.Item;
-import rims.resource.Room;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
 
 public class AddCommand extends Command {
     protected String resourceName;
-    protected String resourceType;
-    protected int qty;
+    protected String type;
 
-    public AddCommand(String roomName) {
-        this.resourceName = roomName;
-        this.resourceType = "room";
-    }
-
-    public AddCommand(String itemName, int qty) {
+    public AddCommand(String itemName, String type) {
         this.resourceName = itemName;
-        this.resourceType = "item";
-        this.qty = qty;
+        if (type.equals("room")) {
+            this.type = "R";
+        }
+        else if (type.equals("item")) {
+            this.type = "I";
+        }
     }
 
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources) {
-        if (resourceType.equals("room")) {
-            int resourceId = resources.generateResourceId();
-            Room newRoom = new Room(resourceId, resourceName);
-            resources.add(newRoom);
-            ui.printLine();
-            ui.print("The following room has been successfully added:");
-            ui.print(newRoom.toString());
-            ui.printLine();
-        }
-        else if (resourceType.equals("item")) {
-            for (int i = 0; i < qty; i++) {
-                int resourceId = resources.generateResourceId();
-                Item newItem = new Item(resourceId, resourceName);
-                resources.add(newItem);
-                if (i == qty - 1) {
-                    ui.printLine();
-                    ui.print("The following item(s) have been successfully added:");
-                    ui.print(newItem.toString() + " (qty: " + qty + ")");
-                    ui.printLine();
-                }
-            }
-        }
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimException {
+        int resource_id = resources.generateResourceId();
+        ReservationList list = new ReservationList();
+        Resource newResource = new Item(resource_id, type, resourceName, list);
+        resources.addResource(newResource);   
+        ui.printLine();
+        ui.print("The following resource(s) have been successfully added:");
+        ui.print(newResource.toString());
+        ui.printLine();
     }
 }

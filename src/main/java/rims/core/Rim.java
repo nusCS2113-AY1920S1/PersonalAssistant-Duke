@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.text.ParseException;
 
 import rims.command.Command;
-import rims.exception.RimsException;
 
 public class Rim {
     private Storage storage;
@@ -13,24 +12,20 @@ public class Rim {
     private Ui ui;
     private Parser parser;
 
-    public Rim(String resourceFilePath, String reserveFilePath) throws FileNotFoundException, ParseException {
+    public Rim(String filePath, String rfilepath) throws FileNotFoundException, ParseException {
         ui = new Ui();
-        storage = new Storage(resourceFilePath, reserveFilePath);
-        resources = new ResourceList(storage.getResources());
-        parser = new Parser(ui, resources);
+        storage = new Storage(filePath, rfilepath);
+        resources = new ResourceList(storage.getResources(), ui);
+        
+        parser = new Parser(resources, ui);
     }
 
     public void run() throws Exception, IOException {
         Boolean toExit = false;
         while (!toExit) {
-            try {
-                Command c = parser.parseInput(ui.getInput());
-                c.execute(ui, storage, resources);
-                toExit = c.getExitCode();
-            }
-            catch (RimsException e) {
-                e.displayError();
-            }
+            Command c = parser.parseInput(ui.getInput());
+            c.execute(ui, storage, this.resources);
+            toExit = c.getExitCode();
         }
     }
 

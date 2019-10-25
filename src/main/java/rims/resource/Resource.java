@@ -1,72 +1,147 @@
 package rims.resource;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-import java.util.Date;
+import rims.core.Ui;
 
 public abstract class Resource {
+    // resource specific attributes
     protected String name;
-    protected int resourceId;
+    protected int resource_id;
     protected String type;
     protected ReservationList reservations;
+    // utility classes
+    protected Ui ui;
 
-    // for newly created Resource with no Reservations yet
-    public Resource(int resourceId, String name) {
-        this.name = name;
-        this.resourceId = resourceId;
-        this.reservations = new ReservationList();
+    public Resource() {
+        ;
     }
 
-    // for creating existing Resource from data file
-    public Resource(int resourceId, String name, ReservationList reservations) {
+    /**
+     * Takes in id, type and name to create new resource. No reservation is created
+     * for a newly added resource
+     * 
+     * @param id   integer
+     * @param type string
+     * @param name string
+     * 
+     */
+    public Resource(int resource_id, String type, String name) {
+        this.resource_id = resource_id;
+        this.type = type;
         this.name = name;
-        this.resourceId = resourceId;
+    }
+
+    /**
+     * Takes in id, type and resource name as string tokens from the text file, and
+     * its reservation (if any) into the resourceList. The resource_id is casted to
+     * integer in this constructor
+     * 
+     * @param resource_id  string
+     * @param type         string
+     * @param name         string
+     * @param reservations string
+     */
+    public Resource(String resource_id, String type, String name, ReservationList reservations) {
+        this.resource_id = Integer.parseInt(resource_id);
+        this.type = type;
+        this.name = name;
         this.reservations = reservations;
     }
 
-    @Override
+    /**
+     * Takes in id, type and resource name as string tokens from the text file, and
+     * its reservation (if any) into the resourceList.
+     * 
+     * @param resource_id  integer
+     * @param type         string
+     * @param name         string
+     * @param reservations string
+     */
+    public Resource(int resource_id, String type, String name, ReservationList reservations) {
+        this.resource_id = resource_id;
+        this.type = type;
+        this.name = name;
+        this.reservations = reservations;
+    }
+
+    /**
+     * This method formats the resource information into a easy-to-read string
+     * 
+     * @return string
+     */
     public String toString() {
-        return "[" + getType() + "] " + getName();
+        String s;
+        s = "ID: " + resource_id + " [" + type + "]" + name;
+        return s;
     }
 
-    public String toDataFormat() {
-        return resourceId + "," + type + "," + name;
+    /**
+     * This method formats the resource information into a string suitable to store
+     * in text file Different attributes are separated by ',' The attributes being
+     * stored are: id, type, name
+     * 
+     * @return string
+     */
+    public String toDataString() {
+        String s;
+        s = resource_id + "," + type + "," + name;
+        return s;
     }
 
-    public String getName() {
-        return name;
-    }
-
+    /**
+     * Get method
+     * 
+     * @return resource_id
+     */
     public int getResourceId() {
-        return resourceId;
+        return this.resource_id;
     }
 
+    /**
+     * Get method
+     * 
+     * @return resource name
+     */
+    public String getResourceName() {
+        return this.name;
+    }
+
+    /**
+     * Get method
+     * 
+     * @return type name
+     */
     public String getType() {
-        if (getClass().getSimpleName().equals("Item")) {
-            return "I";
-        }
-        return "R";
+        return this.type;
     }
 
+    /**
+     * Get method
+     * 
+     * @return Reservationlist that belongs the this object
+     */
     public ReservationList getReservations() {
-        return reservations;
+        return this.reservations;
     }
 
-    public boolean isCurrentlyAvailable() {
-        return reservations.isCurrentlyAvailable();
-    }
+    /**
+     * Remove the single reservation by a reservation id. The exception catching is
+     * not yet done.
+     * 
+     * @exception invalidReservationId A reservation cannot be found under using
+     *                                 this reservation id
+     * @param reservation_id
+     */
+    public void removeReservationByReservationId(int reservation_id) {
+        int index_to_remove = -1;
+        for (int i = 0; i < this.reservations.size(); i++) {
+            Reservation thisReservation = reservations.getReservationByIndex(i);
+            if (thisReservation.getReservationId() == reservation_id) {
+                index_to_remove = i;
+            }
+        }
 
-    public boolean isAvailableFrom(Date dateFrom, Date dateTill) {
-        return reservations.isAvailableFrom(dateFrom, dateTill);
-    }
-
-    public void book(int reservationId, int userId, Date startDate, Date endDate) throws ParseException {
-        reservations.createReservation(reservationId, resourceId, userId, startDate, endDate);
-    }
-
-    public ReservationList getUserReservations(int userId) {
-        return reservations.getUserReservations(userId);
+        if (index_to_remove != -1) {
+            reservations.deleteReservationByReservationID(index_to_remove);
+        }
     }
 }

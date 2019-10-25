@@ -2,210 +2,167 @@ package rims.core;
 
 import java.util.ArrayList;
 
-import rims.command.Command;
-import rims.command.CloseCommand;
-import rims.command.ListCommand;
 import rims.command.AddCommand;
+import rims.command.CloseCommand;
+import rims.command.Command;
 import rims.command.DeleteCommand;
+import rims.command.HomeCommand;
+import rims.command.ListCommand;
 import rims.command.ReserveCommand;
 import rims.command.ReturnCommand;
-import rims.exception.RimsException;
-import rims.core.Ui;
-import rims.core.ResourceList;
-import rims.resource.Resource;
-import rims.resource.Reservation;
+import rims.command.UnknownCommand;
 import rims.resource.ReservationList;
 
 public class Parser {
     Ui ui;
     ResourceList resources;
 
-    public Parser(Ui ui, ResourceList resources) {
-        this.ui = ui;
+    public Parser(ResourceList resources, Ui ui) {
         this.resources = resources;
+        this.ui = ui;
     }
 
-    public Command parseInput(String input) throws RimsException {
-        Command c;
+    public Command parseInput(String input) {
+        Command c = new HomeCommand(); // temporary default until exception handling finished
         String[] words = input.split(" ");
 
         if (input.equals("bye") && words.length == 1) {
             c = new CloseCommand();
-        }
-        else if (input.equals("list") && words.length == 1) {
+        } else if (input.equals("list") && words.length == 1) {
             c = new ListCommand();
+        } else if (words[0].equals("reserve") && words.length == 1) {
+            c = ReadReserveCommand();
+        } else if ((words[0].equals("cancel") || words[0].equals("return")) && words.length == 1) {
+            c = ReadReturnCommandByUserId();
+        } else if (words[0].equals("add")) {
+            c = ReadAddCommand();
+        } else if (words[0].equals("delete")) {
+            c = ReadDeleteResourceCommand();
+        } else {
+            c = new UnknownCommand(input);
         }
-        else if (words[0].equals("list") && words.length > 1) {
-            String paramType = words[1].substring(1);
-            if (paramType.equals("date") || paramType.equals("room") || paramType.equals("item")) {
-                String param = ui.getInput("Enter the name of the resource you'd like to view a detailed list of:");
-                c = new ListCommand(paramType, param);
-            }
-            else {
-                throw new RimsException("Invalid list parameter!");
-            }
+        return c;
+    }
+
+    // This section contains the extensive reading/interacting methods
+    /**
+     * This method prompts for multiple user inputs to initalize a new reservation
+     * for a specific resource.
+     * 
+     * First it takes in a single user id as integer. Then it takes a string to
+     * determine the type of resource and shows the list of all resources of this
+     * type. Lastly, it asks for resource ID and DatePair.
+     * 
+     * @return ReserveCommand()
+     */
+    private Command ReadReserveCommand() {
+        Command c = new HomeCommand();
+        // asks for user id
+        int user_id = ui.getIntegerFromString("Hi! Welcome to RIMS! Enter your user ID to make a reservation");
+
+        // asks user for resource type
+        String choice = ui.getInput("Enter 'room' or 'item' to reserve a room or an item.");
+
+        if (choice.equals("room")) {
+            // show all the rooms
+            ui.printRooms(this.resources.getResourceList());
+
+            // show all the resoervations belong to this resource
+            int resource_id = ui.getIntegerFromString("Enter the resource ID of the resource you wish to borrow");
+            ui.printReservations(resource_id, resources);
+
+            // asks for a pair of dates, read as string first, PairOfDate.get(0) is the
+            // start date
+            ArrayList<String> PairOfDates = ui.getPairOfDates();
+            // catch invalid date here
+
+            // instantiate new reserve command object and return it
+            c = new ReserveCommand(resource_id, user_id, PairOfDates.get(0), PairOfDates.get(1));
+        } else if (choice.equals("item")) {
+            // show all the items
+            ui.printRooms(this.resources.getResourceList());
+
+            // show all the resoervations belong to this resource
+            int resource_id = ui.getIntegerFromString("Enter the resource ID of the resource you wish to borrow");
+            ui.printReservations(resource_id, resources);
+
+            // asks for a pair of dates, read as string first, PairOfDate.get(0) is the
+            // start date
+            ArrayList<String> PairOfDates = ui.getPairOfDates();
+            // catch invalid date here
+
+            // instantiate new reserve command object and return it
+            c = new ReserveCommand(resource_id, user_id, PairOfDates.get(0), PairOfDates.get(1));
+        } else {// error
+            c = new HomeCommand();
         }
-        else if (words[0].equals("add")) {
-            String roomOrItem = ui.getInput("Would you like to add an item or a room to the inventory?");
-            if (roomOrItem.equals("room")) {
-                String roomName = ui.getInput("Enter the name of the room you wish to add:");
-                c = new AddCommand(roomName);
-            }
-            else if (roomOrItem.equals("item")) {
-                String itemName = ui.getInput("Enter the name of the item you wish to add:");
-                int qty = Integer.parseInt(ui.getInput("How many of this item do you wish to add?"));
-                c = new AddCommand(itemName, qty);
-            }
-            else {
-                throw new RimsException("Please choose a room or item to add to your inventory.");
-            }
+        return c;
+    }
+
+    /**
+     * This method asks for user id, resource id and reservation id to remove one
+     * single reservation.
+     * 
+     * @return ReturnCommand
+     */
+    public Command ReadReturnCommandByUserId() {
+        Command c = new HomeCommand();
+
+        // asks for user id
+        int user_id = ui.getIntegerFromString("Enter your User ID to see all your reservations.");
+
+        // shows the user all the reservations under him or her
+        ReservationList ReservationsByThisUser = resources.getReservationsByUserId(user_id);
+        ui.printReservationArrayReturn(ReservationsByThisUser);
+
+        // asks for a resource ID to uniquely identify the resource to return
+        int resource_id = ui.getIntegerFromString("Enter the resource ID of the resource you wish to return");
+
+        ui.print("These are your reservations for the selected item");
+        ui.printReservations(resource_id, resources);
+
+        // asks for the specific reservation ID
+        int reservation_id = ui
+                .getIntegerFromString("Select the reservation to cancel/return by entering the reservation ID");
+
+        c = new ReturnCommand(resource_id, reservation_id);
+        return c;
+    }
+
+    /**
+     * This method asks for the few key attributes and instantiate a resource object
+     * 
+     * @return
+     */
+    private Command ReadAddCommand() {
+        String choice = ui.getInput("Would you like to add an item or a room to the inventory?");
+        Command c = null;
+        if (choice.equals("room")) {
+            String resourceName = ui.getInput("Enter the name of the room");
+            c = new AddCommand(resourceName, "room");
+        } else if (choice.equals("item")) {
+            String resourceName = ui.getInput("Enter the name of the item");
+            c = new AddCommand(resourceName, "item");
+        } else {
+            c = new HomeCommand();
         }
-        else if (words[0].equals("delete")) {
-            String roomOrItem = ui.getInput("Would you like to delete an item or room from the inventory?");
-            if (roomOrItem.equals("room")) {
-                String roomName = ui.getInput("Enter the name of the room you wish to delete:");
-                c = new DeleteCommand(roomName, "room");
-            }
-            else if (roomOrItem.equals("item")) {
-                String itemName = ui.getInput("Enter the name of the item you wish to delete:");
-                c = new DeleteCommand(itemName, "item");
-            }
-            else {
-                throw new RimsException("Please choose a room or item to delete from your inventory.");
-            }
-        }
-        else if (words[0].equals("loan")) {
-            String roomOrItem = ui.getInput("Would you like to loan an item or room from the inventory?");
-            ui.printLine();
-            if (roomOrItem.equals("room")) {
-                String roomName = ui.getInput("Enter the name of the room you wish to loan:");
-                // printing out existing room bookings
-                if (!resources.isRoom(roomName)) {
-                    throw new RimsException("There is no such room!");
-                }
-                Resource thisResource = resources.getResourceByName(roomName);
-                ReservationList thisResourceReservations = thisResource.getReservations();
-                ui.print(thisResource.toString() + " (ID: " + thisResource.getResourceId() + ")");
-                if (!thisResourceReservations.isEmpty()) {
-                    for (int j = 0; j < thisResourceReservations.size(); j++) {
-                        ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
-                    }
-                }
-                else {
-                    ui.print("No bookings for this resource yet!");
-                }
-                ui.printLine();
-                String dateTill = ui.getInput("Enter the date you wish to return this room:");
-                int userId = Integer.parseInt(ui.getInput("Enter your user ID:"));
-                c = new ReserveCommand(roomName, dateTill, userId);
-            }
-            else if (roomOrItem.equals("item")) {
-                String itemName = ui.getInput("Enter the name of the item you wish to loan:");
-                ui.printLine();
-                if (!resources.isItem(itemName)) {
-                    throw new RimsException("There is no such item!");
-                }
-                ArrayList<Resource> allOfItem = resources.getAllOfResource(itemName);
-                for (int i = 0; i < allOfItem.size(); i++) {
-                    Resource thisResource = allOfItem.get(i);
-                    ReservationList thisResourceReservations = thisResource.getReservations();
-                    ui.printDash();
-                    ui.print(thisResource.toString() + " (ID: " + thisResource.getResourceId() + ")");
-                    if (!thisResourceReservations.isEmpty()) {
-                        for (int j = 0; j < thisResourceReservations.size(); j++) {
-                            ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
-                        }
-                    }
-                    else {
-                        ui.print("No bookings for this resource yet!");
-                    }
-                }
-                ui.printDash();
-                ui.printLine();
-                int qty = Integer.parseInt(ui.getInput("Enter how many of this item you wish to borrow:"));
-                String dateTill = ui.getInput("Enter the date you wish to return this item:");
-                int userId = Integer.parseInt(ui.getInput("Enter your user ID:"));
-                c = new ReserveCommand(itemName, qty, dateTill, userId);
-            }
-            else {
-                throw new RimsException("Please choose a room or item to loan from your inventory.");
-            }
-        }
-        else if (words[0].equals("reserve")) {
-            String roomOrItem = ui.getInput("Would you like to reserve an item or room from the inventory?");
-            ui.printLine();
-            if (roomOrItem.equals("room")) {
-                String roomName = ui.getInput("Enter the name of the room you wish to reserve:");
-                // printing out existing room bookings
-                if (!resources.isRoom(roomName)) {
-                    throw new RimsException("There is no such room!");
-                }
-                Resource thisResource = resources.getResourceByName(roomName);
-                ReservationList thisResourceReservations = thisResource.getReservations();
-                ui.print(thisResource.toString() + " (ID: " + thisResource.getResourceId() + ")");
-                if (!thisResourceReservations.isEmpty()) {
-                    for (int j = 0; j < thisResourceReservations.size(); j++) {
-                        ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
-                    }
-                }
-                else {
-                    ui.print("No bookings for this resource yet!");
-                }
-                ui.printLine();
-                String dateFrom = ui.getInput("Enter the date from which you wish to reserve this room:");
-                String dateTill = ui.getInput("Enter the date you wish to return this room:");
-                int userId = Integer.parseInt(ui.getInput("Enter your user ID:"));
-                c = new ReserveCommand(roomName, dateFrom, dateTill, userId);
-            }
-            else if (roomOrItem.equals("item")) {
-                String itemName = ui.getInput("Enter the name of the item you wish to reserve:");
-                ui.printLine();
-                if (!resources.isItem(itemName)) {
-                    throw new RimsException("There is no such item!");
-                }
-                ArrayList<Resource> allOfItem = resources.getAllOfResource(itemName);
-                for (int i = 0; i < allOfItem.size(); i++) {
-                    Resource thisResource = allOfItem.get(i);
-                    ReservationList thisResourceReservations = thisResource.getReservations();
-                    ui.printDash();
-                    ui.print(thisResource.toString() + " (ID: " + thisResource.getResourceId() + ")");
-                    if (!thisResourceReservations.isEmpty()) {
-                        for (int j = 0; j < thisResourceReservations.size(); j++) {
-                            ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
-                        }
-                    }
-                    else {
-                        ui.print("No bookings for this resource yet!");
-                    }
-                }
-                ui.printDash();
-                ui.printLine();
-                int qty = Integer.parseInt(ui.getInput("Enter how many of this item you wish to reserve:"));
-                String dateFrom = ui.getInput("Enter the date from which you wish to reserve this room:");
-                String dateTill = ui.getInput("Enter the date you wish to return this item:");
-                int userId = Integer.parseInt(ui.getInput("Enter your user ID:"));
-                c = new ReserveCommand(itemName, qty, dateFrom, dateTill, userId);
-            }
-            else {
-                throw new RimsException("Please choose a room or item to loan from your inventory.");
-            }
-        }
-        else if (words[0].equals("return")) {
-            int userId = Integer.parseInt(ui.getInput("Enter your user ID:"));
-            ReservationList userReservations = resources.getUserBookings(userId);
-            ui.printLine();
-            for (int i = 0; i < userReservations.size(); i++) {
-                Reservation thisReservation = userReservations.getReservationByIndex(i);
-                Resource borrowedResource = resources.getResourceById(thisReservation.getResourceId());
-                ui.print(borrowedResource.toString());
-                ui.print("\t" + userReservations.getReservationByIndex(i).toString());
-            }
-            int reservationId = Integer.parseInt(ui.getInput("Enter the ID of the reservation you wish to return:"));
-            c = new ReturnCommand(userId, userReservations.getReservationById(reservationId).getResourceId(), reservationId);
-        }
-        else {
-            throw new RimsException("Please enter a recognizable command!");
-        }
+        return c;
+    }
+
+    /**
+     * Prompts for a single resource ID and delete it from the resource list
+     * permenantly (along with all the reservations)
+     */
+    private Command ReadDeleteResourceCommand() {
+        Command c = new DeleteCommand();
+        ui.printLine();
+        ui.print("Here is a list of all resources in your inventory");
+        ui.printResourceArray(resources);
+        ui.printLine();
+
+        int resource_id = ui.getIntegerFromString("Choose a resource id to remove the specific resource");
+
+        c = new DeleteCommand(resource_id);
         return c;
     }
 }
