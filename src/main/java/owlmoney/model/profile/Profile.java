@@ -19,10 +19,8 @@ import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
-import java.util.Date;
-
 /**
- * The profile class that stores details of the user which includes bank accounts, cards, names.
+ * Stores details of the user which includes bank accounts, cards, names.
  */
 public class Profile {
     private String username;

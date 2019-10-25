@@ -54,7 +54,7 @@ public class BondListStub extends BondList {
      *
      * @return the size of the bondList.
      */
-    int getSize() {
+    public int getSize() {
         return bondLists.size();
     }
 

@@ -1,15 +1,20 @@
 package owlmoney.model.bank;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.Bond;
 import owlmoney.model.bond.BondList;
 import owlmoney.model.bond.exception.BondException;
+import owlmoney.model.transaction.Deposit;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.TransactionList;
+import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * Investment account class that extends a normal bank account.
+ * Extends a normal bank account and produce characteristics specific for investment accounts.
  */
 public class Investment extends Bank {
 
@@ -53,18 +58,18 @@ public class Investment extends Bank {
     /**
      * Adds a new deposit to the current bank account.
      *
-     * @param dep      Deposit to add.
+     * @param deposit  Deposit to add.
      * @param ui       Ui of OwlMoney.
      * @param bankType Type of bank to add deposit into.
      * @throws BankException If user manually adds deposit into investment account
      */
     @Override
-    public void addDepositTransaction(Transaction dep, Ui ui, String bankType) throws BankException {
+    public void addDepositTransaction(Transaction deposit, Ui ui, String bankType) throws BankException {
         if (!"bonds".equals(bankType) && !"investment transfer".equals(bankType)) {
             throw new BankException("This account does not support this feature");
         }
-        transactions.addDepositToList(dep, ui, bankType);
-        addToAmount(dep.getAmount());
+        transactions.addDepositToList(deposit, ui, bankType);
+        addToAmount(deposit.getAmount());
     }
 
     /**
@@ -98,6 +103,11 @@ public class Investment extends Bank {
      */
     @Override
     void investmentDeleteBond(String bondName, Ui ui) throws BondException {
+        Bond targetBond = bonds.getBond(bondName);
+        Calendar calendar = Calendar.getInstance();
+        Transaction newDeposit = createNewDeposit(bondName,targetBond.getAmount(),calendar.getTime());
+        transactions.addDepositToList(newDeposit, ui, "bonds");
+        addToAmount(targetBond.getAmount());
         bonds.removeBondFromList(bondName, ui);
     }
 
@@ -139,8 +149,108 @@ public class Investment extends Bank {
         bonds.listBond(displayNum, ui);
     }
 
+    /**
+     * Creates a new deposit object.
+     *
+     * @param bondName        the name of the bond that generated this deposit from interest.
+     * @param amountToDeposit the deposit amount, generated from interest.
+     * @param depositDate     the date of deposit.
+     * @return the deposit object.
+     */
+    private Transaction createNewDeposit(String bondName, double amountToDeposit, Date depositDate) {
+        Transaction newDeposit = new Deposit(bondName, amountToDeposit,
+                depositDate, "bonds");
+        return newDeposit;
+    }
+
+    /**
+     * Updates the bank amount with the interest generated from the bond and the corresponding deposit
+     * record in the transaction list.
+     *
+     * @param bond the bond that generated the interest.
+     * @param ui   required for printing.
+     */
+    private void addBondInterestDeposit(Bond bond, Ui ui) {
+        double interestAmount = bond.getAmount() * bond.getHalfYearlyCouponRate() / 100;
+        Transaction newDeposit = createNewDeposit(bond.getName(), interestAmount, bond.getNextDateToCreditInterest());
+        transactions.addDepositToList(newDeposit, ui, "bonds");
+        addToAmount(interestAmount);
+    }
+
+    /**
+     * Calculates the next interest rate date.
+     *
+     * @param currentInterestDate the current interest rate to calculate from.
+     * @return the next interest rate crediting date.
+     */
+    private Date calculateNextInterestDate(Date currentInterestDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentInterestDate);
+        calendar.add(Calendar.MONTH, 6);
+        return calendar.getTime();
+    }
+
+    /**
+     * Removes the bond if the bond has reached its maturity date.
+     *
+     * @param ui         required for printing.
+     * @param targetBond the target bond to delete.
+     * @param endDate    the maturity date of the bond.
+     */
+    private void removeBondIfMature(Ui ui, Bond targetBond, Date endDate) {
+        if(targetBond.getNextDateToCreditInterest().compareTo(endDate) > 0) {
+            try {
+                ui.printMessage("Bond has reached maturity, removing bond.");
+                investmentDeleteBond(targetBond.getName(), ui);
+            } catch (BondException e) {
+                ui.printError("Unable to delete bond after crediting interest.");
+            }
+        }
+    }
+
+    /**
+     * Checks the investment account for bonds interest crediting and updates the bonds to the next deposit date.
+     *
+     * @param ui Used for printing.
+     */
     @Override
     public void updateRecurringTransactions(Ui ui) {
-        //add your code here
+        for(int i = 0; i < bonds.getSize(); i++) {
+            Bond targetBond = bonds.get(i);
+            Date endDate = targetBond.getBondEndDate();
+            Calendar calendarCurrentDate = Calendar.getInstance();
+            Date currentDate = calendarCurrentDate.getTime();
+            Date nextDateToCreditInterest = targetBond.getNextDateToCreditInterest();
+            while (currentDate.compareTo(nextDateToCreditInterest) >= 0) {
+                addBondInterestDeposit(targetBond,ui);
+                nextDateToCreditInterest = calculateNextInterestDate(nextDateToCreditInterest);
+                targetBond.setNextDateToCreditInterest(nextDateToCreditInterest);
+                removeBondIfMature(ui, targetBond, endDate);
+            }
+        }
+    }
+
+    /**
+     * Lists the deposits in the current bank account.
+     *
+     * @param ui         Ui of OwlMoney.
+     * @param displayNum Number of deposits to list.
+     * @throws TransactionException If no deposit is found.
+     */
+    @Override
+    void listAllDeposit(Ui ui, int displayNum) throws TransactionException {
+        transactions.listDeposit(ui, displayNum);
+    }
+
+    /**
+     * Lists the expenditures in the current bank account.
+     *
+     * @param ui         Ui of OwlMoney.
+     * @param displayNum Number of expenditure to list.
+     * @throws TransactionException If no expenditure is found.
+     */
+    @Override
+    void listAllExpenditure(Ui ui, int displayNum) throws TransactionException {
+        transactions.listExpenditure(ui, displayNum);
     }
 }
