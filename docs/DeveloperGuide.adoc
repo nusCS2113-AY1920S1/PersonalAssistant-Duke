@@ -404,9 +404,8 @@ The following steps show how task assignments are made in ArchDuke.
 
 Step 1) Assume Project has been created and the user is currently managing a specific project.
 
-Step 2) User enters the command `assign task -i 1 2 -to 1 2 3 -rm 4`. This indicates the user would
-like to assign tasks with index number 1 and 2 to members 1, 2 and 3, and also unassign/remove the task
-from member 4.
+Step 2) User enters the command `assign task -i 1 2 -to 1 2 3 -rm 4`. This indicates the user would  like to assign tasks with index
+number 1 and 2 to members 1, 2 and 3, and also unassign/remove the task from member 4.
 
 Step 3) The `ProjectInputController.manageProject()` will call `AssignmentController.assignAndUnassign` to manage the assignment.
 
