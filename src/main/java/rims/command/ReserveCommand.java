@@ -1,53 +1,90 @@
 package rims.command;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.ArrayList;
+
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
 import rims.resource.Reservation;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
+import rims.exception.RimsException;
 
 public class ReserveCommand extends Command {
-    protected int reservation_id;
     protected String resourceName;
     protected int qty;
-    protected int user_id;
-    protected String startDate;
-    protected String endDate;
-    protected int resource_id;
+    protected Date dateFrom;
+    protected Date dateTill;
+    protected String stringDateFrom = null;
+    protected String stringDateTill;
+    protected int userId;
 
-    public ReserveCommand(){
-        ;
+    public ReserveCommand(String roomName, String stringDateTill, int userId) {
+        resourceName = roomName;
+        this.qty = 1;
+        this.dateFrom = new Date(System.currentTimeMillis());
+        this.stringDateTill = stringDateTill;
+        this.userId = userId;
     }
 
-    /**
-     * This command supports the reservation for a single resource.
-     * @param resource_id
-     * @param user_id
-     * @param startDate
-     * @param endDate
-     */
-    public ReserveCommand(int resource_id, int user_id, String startDate, String endDate) {
-        this.resource_id = resource_id;
-        this.user_id = user_id;
-        this.startDate = startDate;
-        this.endDate = endDate;
+    public ReserveCommand(String itemName, int qty, String stringDateTill, int userId) {
+        resourceName = itemName;
+        this.qty = qty;
+        this.dateFrom = new Date(System.currentTimeMillis());
+        this.stringDateTill = stringDateTill;
+        this.userId = userId;
     }
 
-    /**
-     * A reserve command requires id, type, name and quantity
-     * 
-     * @exception IDexists
-     * @exception quantityvalid
-     */
+    public ReserveCommand(String roomName, String stringDateFrom, String stringDateTill, int userId) {
+        resourceName = roomName;
+        this.qty = 1;
+        this.stringDateFrom = stringDateFrom;
+        this.stringDateTill = stringDateTill;
+        this.userId = userId;
+    }
+
+    public ReserveCommand(String itemName, int qty, String stringDateFrom, String stringDateTill, int userId) {
+        resourceName = itemName;
+        this.qty = qty;
+        this.stringDateFrom = stringDateFrom;
+        this.stringDateTill = stringDateTill;
+        this.userId = userId;
+    }
+
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources) throws Exception {
-        Resource thisResource = resources.getResourceByResourceId(resource_id);
-        ReservationList currentReservations = thisResource.getReservations();
-        reservation_id = currentReservations.generateReservationId();
-        
-        Reservation newReservation = new Reservation(reservation_id, resource_id, user_id, startDate, endDate);
-        ui.printSuccessReservation(newReservation);
-        currentReservations.addNewReservation(newReservation);
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException, ParseException {
+        if (!(stringDateFrom == null)) {
+            dateFrom = resources.stringToDate(stringDateFrom);
+        }
+        dateTill = resources.stringToDate(stringDateTill);
+        ArrayList<Resource> allOfResource = resources.getAllOfResource(resourceName);
+        ArrayList<Resource> bookedResources = new ArrayList<Resource>();
+        int qtyBooked = 0;
+        for (int j = 0; j < allOfResource.size(); j++) {
+            Resource thisResource = allOfResource.get(j);
+            if (thisResource.isAvailableFrom(dateFrom, dateTill)) {
+                thisResource.book(resources.generateReservationId(), userId, dateFrom, dateTill);
+                bookedResources.add(thisResource);
+                qtyBooked++;
+            }
+            if (qtyBooked == qty) {
+                break;
+            }
+        }
+        if (qtyBooked != 0) {
+            ui.printLine();
+            ui.print("Done! I've marked these resources as loaned:");
+            for (int i = 0; i < bookedResources.size(); i++) {
+                ui.print(bookedResources.get(i).toString() + " (ID: " + bookedResources.get(i).getResourceId() + ")");
+            }
+            ui.printLine();
+        }
+        else {
+            throw new RimsException("This item is not available between the dates you've selected!");
+        }
     }
 }
