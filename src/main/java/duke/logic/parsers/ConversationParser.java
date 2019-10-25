@@ -12,7 +12,16 @@ import duke.logic.conversations.MarkDoneConversation;
 import duke.logic.conversations.SearchConversation;
 import duke.logic.conversations.ToDoConversation;
 
+/**
+ * Parser for conversations. Selects conversation based on user input.
+ */
 public class ConversationParser {
+    /**
+     * Parses the input and returns a Conversation object.
+     * @param input The user input from Ui.
+     * @return A conversation object.
+     * @throws DukeException If input is undefined.
+     */
     public static Conversation parse(String input) throws DukeException {
         switch (input) {
         case "done":

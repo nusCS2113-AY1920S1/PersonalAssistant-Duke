@@ -1,6 +1,5 @@
 package duke.logic.conversations;
 
-import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.logic.commands.Command;
 import duke.logic.parsers.ConversationParser;
@@ -65,6 +64,11 @@ public class ConversationManager {
         conversation = ConversationParser.parse(input);
     }
 
+    /**
+     * Gets a command from the ConversationManager.
+     * @return Command for logic to execute.
+     * @throws DukeException If the result could not be parse by parser.
+     */
     public Command getCommand() throws DukeException {
         if (isFinished) {
             return Parser.parseComplexCommand(getResult());

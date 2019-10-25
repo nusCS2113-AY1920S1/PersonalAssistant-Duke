@@ -18,6 +18,9 @@ import javafx.scene.input.KeyCode;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Manages editing operations of the EventList.
+ */
 public class EditorManager {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private static LocationSelector eventSelector;
@@ -28,7 +31,11 @@ public class EditorManager {
     private static int eventField;
     private static boolean isActive = false;
 
+    /**
+     * Activates the EditorManager.
+     */
     public static void activate(EventList events, VenueList venues) throws EmptyVenueException {
+        logger.log(Level.INFO, "Activating editor...");
         EditorManager.events = events;
         eventSelector = new LocationSelector(venues);
         fieldSelector = new EventFieldSelector();
@@ -45,6 +52,11 @@ public class EditorManager {
         return isActive;
     }
 
+    /**
+     * Edits the EventList.
+     * @param userInput The input string from user.
+     * @return Command object for logic to execute.
+     */
     public static Command edit(String userInput) throws DukeException {
         if (!isEventLock) {
             throw new EventNotSelectedException();
@@ -57,6 +69,9 @@ public class EditorManager {
         return new EditCommand(events);
     }
 
+    /**
+     * Edits the EventList.
+     */
     public static void edit(KeyCode keyCode) {
         if (isEventLock) {
             fieldSelector.feedKeyCode(keyCode);

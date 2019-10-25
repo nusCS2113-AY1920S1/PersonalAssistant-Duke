@@ -54,6 +54,9 @@ public class LogicManager extends Logic {
         return (CommandResult) c.execute(model);
     }
 
+    /**
+     * Gets response from LogicManager.
+     */
     public void execute(KeyCode keyCode) {
         if (EditorManager.isActive()) {
             EditorManager.edit(keyCode);

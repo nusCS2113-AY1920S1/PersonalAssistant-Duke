@@ -7,6 +7,7 @@ import duke.model.Model;
 
 public class EditorCommand extends Command {
     private static final String MESSAGE_EDITOR = "Editor mode is turned on.";
+
     /**
      * Executes this command on the given task list and user interface.
      *
