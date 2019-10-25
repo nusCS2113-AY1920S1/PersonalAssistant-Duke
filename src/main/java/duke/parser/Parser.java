@@ -103,7 +103,7 @@ public class Parser {
             case "dishdelete" :
                 orderNb = Integer.parseInt(splitted[1]);
                 return new DeleteDishCommand(orderNb);
-            case "addingredient" :
+            case "dishingr" :
                 String[] getIng = splitAndCheck(splitted[1], " /add ");
                 int listNum = Integer.parseInt(getIng[1]);
                 return new AddIngredient(new Ingredient(getIng[0], listNum, new Date()) , listNum);

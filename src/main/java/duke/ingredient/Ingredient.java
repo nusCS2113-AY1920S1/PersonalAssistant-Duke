@@ -61,4 +61,8 @@ public class Ingredient implements Printable {
     public String printInFile() {
         return this.getName()+"|"+this.getAmount()+"|"+ dateAsString;
     }
+
+    public String toString() {
+        return getName();
+    }
 }

@@ -163,16 +163,18 @@ API: `DukeException.java`
 
 #### 2.8 Dishes Component
 
-The Recipebook contains 2 classes, Dishes Class and DishList Class. The Dishes Class 
+The Recipebook contains 2 classes, Dishes Class and DishList Class
 
-![Dishes]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/dishes diagram.png)
+<img src="C:\Users\s1014\Google Drive\semester 3\dishes.PNG" style="zoom:50%;" />
 
 **<u>Dishes Class</u>**
+
+This class holds the name of the dish as well the ingredients that are associated to that specific dish. 
 
 | Attributes                       | Description                                     |
 | -------------------------------- | ----------------------------------------------- |
 | dishName: String                 | name of the dish                                |
-| total: int                       | the total number of orders for that dish        |
+| numberOfOrders: int              | the total number of orders for that dish        |
 | rating: float                    | the overall rating for that dish                |
 | ingredientList: `IngredientList` | a list of ingredients associated with that dish |
 
@@ -197,31 +199,58 @@ The Recipebook contains 2 classes, Dishes Class and DishList Class. The Dishes C
 
 **<u>DishList Class</u>**
 
-this class inherits the GenericList class  which takes in a List of Dish.
+this class inherits the GenericList class  which takes in a List of Dish. this class holds all the dishes that is stored in the csv file thus this acts as a menu for the chef
 
-| Constructor          | Description |
-| -------------------- | ----------- |
-| DishList(List<Dish>) |             |
-| DishList()           |             |
-
-//Todo: give elaboration for the use of this class 
+| Constructor          | Description                                |
+| -------------------- | ------------------------------------------ |
+| DishList(List<Dish>) | assigns a list of dishes to dishList       |
+| DishList()           | assigns an empty ArrayList<>() to dishList |
 
 
 
 #### 2.9 dishesCommand Component
 
-The dishesCommand class is used as an abstract class for other classes, its method `execute` is also declared as an abstract method that is used by the following classes
+The dishesCommand component  enables the chef to modify the dishList which acts as a menu or recipebook. this component inherits from other classes. 
 
-- AddDishCommand
-  - //Todo: put in a code snippet and explain how it works and why it is done this way. same goes for the other classes
-- AddIngredient
-- DeleteDishCommand
-- InitCommand
-- ListDishCommand
+- addDishCommand and addIngredient inherits from AddCommand class which inherits from the Cmd class
+- deleteDishCommand inherits from the DeleteCommand which inherits from the Cmd class
+- ListDishCommand and InitCommand inherits from the Cmd class
 
-![DishesCommand](https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/dishesCommand diagram.png)
+this component allows the chef to add dishes to the current menu, remove it and also to see the menu in the form of a list. this component also allows the chef to initialize his menu which deletes all entries in the dishList. the chef is also able to add ingredients to a specific dish in the dishList. 
 
-//Todo: add uml diagram from intelliJ. elaborate on current classes. future plans for this component
+- **<u>AddDishCommand</u>**
+  
+  user enters the command `addish chicken rice /num 2` which denotes adding the dish called chicken rice into the dishList. the program will enter the AddDishCommand class and executes the method below.
+  
+  ```java
+              if(dishList.size() == 0) {
+                  dishList.addEntry(dish);
+                  dishList.getEntry(0).setNumberOfOrders(amount);
+                  ui.showAddedDishes(dish.getDishname(), amount);
+              }
+  ```
+  
+  
+  
+  If the dishList is empty(size of dishList is 0), immediately add the dish into the dishList. however, if the dishList is not empty, the program will need to go through the entire dishList to check if the dish has already been added. this is done so that there are no duplicate dishes.
+  
+  
+  
+  once the dish is added to the dishList, the method will use the Ui class with method call ui.showAddedDishes() as a reply to the user that the dish has been successfully added into the list.
+  
+  
+  
+- **<u>AddIngredient</u>**
+
+- **<u>DeleteDishCommand</u>**
+
+- **<u>InitCommand</u>**
+
+- **<u>ListDishCommand</u>**
+
+<img src="C:\Users\s1014\Google Drive\semester 3\package dishes.PNG" style="zoom:80%;" />
+
+**<u>future additions</u>**
 
 #### 2.10 Order Component
 API: `Order.java`, `OrderList.java`
@@ -562,7 +591,6 @@ Target user profile: Restaurant Chef
 3. should be reliable in displaying accurate and correct data 
 4. should be easy to use for users with basic knowledge of command line interface
 5. should be able to handle large amounts of data without displaying any slowdown in application performance 
-6. 
 
 
 
