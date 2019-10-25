@@ -22,8 +22,7 @@ public class Reservation {
      * @param until
      * @throws ParseException
      */
-    public Reservation(int reservation_id, int resource_id, int user_id, String from, String until)
-            throws ParseException {
+    public Reservation(int reservation_id, int resource_id, int user_id, String from, String until) throws ParseException {
         this.reservation_id = reservation_id;
         this.resource_id = resource_id;
         this.user_id = user_id;
@@ -43,10 +42,6 @@ public class Reservation {
         this.user_id = Integer.parseInt(user_id);
         this.date_from = stringToDate(from);
         this.date_until = stringToDate(until);
-    }
-
-    public Reservation() {
-        ;
     }
 
     /**

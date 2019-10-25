@@ -7,12 +7,11 @@ import rims.util.DateRange;
 
 public class ReservationList {
     protected ArrayList<Reservation> reservations;
-    private Ui ui;
 
     /**
      * Empty constructor, where an empty ArrayList<Reservation> is constructed. This
      * is to prevent null pointer exceptions but use with care.
-     * 
+     *
      */
     public ReservationList() {
         this.reservations = new ArrayList<Reservation>();
@@ -20,13 +19,12 @@ public class ReservationList {
 
     /**
      * This constructor builds a reservation list for a given resource
-     * 
+     *
      * @param reservations populated list of reservations
      * @param ui           UI
      */
-    public ReservationList(ArrayList<Reservation> reservations, Ui ui) {
+    public ReservationList(ArrayList<Reservation> reservations) {
         this.reservations = reservations;
-        this.ui = ui;
     }
 
     /**
@@ -106,10 +104,12 @@ public class ReservationList {
         int index_to_remove = -1;
         for (int i = 0; i < reservations.size(); i++) {
             if (reservations.get(i).getReservationId() == reservationid) {
+                /*
                 ui.print("The following reservation is removed: ");
                 ui.printDashLine();
                 ui.print(reservations.get(i).toString());
                 ui.printDashLine();
+                */
                 index_to_remove = i;
                 break;
             }
