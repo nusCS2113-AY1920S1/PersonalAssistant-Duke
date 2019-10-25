@@ -58,7 +58,7 @@ public class StartTrackerCommand extends Command {
             }
         }
         if (task == null) {
-            throw new OofException("Invalid Task Description!");
+            throw new OofException("Invalid Task!");
         }
         return task;
     }

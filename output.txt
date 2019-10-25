@@ -28,3 +28,5 @@
 [D][N] homework (by: 20-10-2019 23:59)
 [T][N] borrow another book (on: 14-10-2019)
 [E][N] lecture (from: 08-11-2019 10:00 to: 08-11-2019 12:00)
+[T][N] CS2113T Activity Diagram (on: 26-10-2019)
+[D][N] chocolate report (by: 26-10-2019 23:59)

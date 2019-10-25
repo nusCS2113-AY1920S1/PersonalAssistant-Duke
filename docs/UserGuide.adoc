@@ -69,6 +69,8 @@ Example:
 * `help` +
 Provides a list of commands available to the user.
 
+image::demo_images/Demo_Help.png[]
+
 === Viewing individual command help : `help`
 Shows instructions for an individual command that can be used.
 
@@ -80,6 +82,8 @@ Example:
 
 * `help Deadline` +
 Provides the instruction to add a task with a deadline.
+
+image::demo_images/Demo_IndividualHelp.png[]
 
 === Adding a task: `deadline`
 Adds a task with a deadline to be completed by. +
@@ -268,6 +272,8 @@ Example:
 * `summary` +
 Provides a summary of a list of todo, deadlines and events that will occur tomorrow.
 
+image::demo_images/Demo_Summary.png[]
+
 === Sorting deadlines in chronological order: `sort`
 Sorts and displays all current deadlines recorded by chronological order.
 
@@ -318,6 +324,34 @@ Format: `reminder`
 Opens menu to view, add, edit and remove Semester and Module data.
 
 Format: `semester`
+
+=== Task Tracker Commands
+==== Start task tracker: `start`
+Starts task tracking from current time and displays total time spent on Task.
+
+Format: `start DESCRIPTION`
+
+Example: `start CS2113T Activity Diagram`
+
+image::demo_images/Demo_StartTracker.png[]
+
+==== Pause task tracker: `pause`
+Pauses task tracking at current time and displays total time spent on Task thus far.
+
+Format: `pause DESCRIPTION`
+
+Example: `pause CS2113T Activity Diagram`
+
+image::demo_images/Demo_PauseTracker.png[]
+
+==== Stop task tracker: `stop`
+Stops task tracking at current time, marking Task as complete and displays total time spent on Task thus far.
+
+Format: `stop DESCRIPTION`
+
+Example: `stop CS2113T Activity Diagram`
+
+image::demo_images/Demo_StopTracker.png[]
 
 === Exiting the program: `bye`
 Exits the program.
@@ -430,7 +464,16 @@ e.g. `free 10-10-2019`
 * *Calendar*: `calendar MONTH YEAR` +
 e.g. `calendar 10 2019`
 
-* *Reminder*: `reminder` 
+* *Reminder*: `reminder`
+
+* *Start Task Tracker*: `start DESCRIPTION`
+e.g. `start CS2113T Activity Diagram`
+
+* *Pause Task Tracker*: `pause DESCRIPTION`
+e.g. `pause CS2113T Activity Diagram`
+
+* *Stop Task Tracker*: `stop DESCRIPTION`
+e.g. `stop CS2113T Activity Diagram`
 
 * *Bye*: `bye` 
 
