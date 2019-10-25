@@ -29,10 +29,10 @@ public class DischargeOrReportCommand extends ArgCommand {
             try {
                 FileWriter fileWriter = new FileWriter("data/reports" + File.separator + patientsName + "-"
                         + patientsBenNo + ".txt");
-                if (cmdStr.equals("discharge")) {
+                if ("discharge".equals(cmdStr)) {
                     fileWriter.write("DISCHARGED PATIENT REPORT\n\nThis report shows all the data that "
                             + "was stored about a patient at the time of discharge.\n\n");
-                } else if (cmdStr.equals("report")) {
+                } else if ("report".equals(cmdStr)) {
                     fileWriter.write("PATIENT REPORT\n\nThis report shows all the data that was stored about "
                             + "a patient at the time the report was created.\n\n");
                 }
