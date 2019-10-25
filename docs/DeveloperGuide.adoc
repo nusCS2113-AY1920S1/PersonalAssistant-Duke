@@ -221,7 +221,7 @@ At this point, the user can choose to remove the degree programme from his list 
 *Step 5*: The tasks related to this degree programme are removed from his TaskList
 
 
-==== [Proposed] Priority for Degree Tasks
+==== [Proposed] Priority for Tasks
 
 In addition to the adding and removing of degree-related tasks, there will be a passive feature of prioritising tasks that have closer dates, or that relate to degree programmes that are higher on the user's degree list.
 
@@ -257,7 +257,47 @@ Aspect: Implementing the Degree Tasks
 
 * Alternative 1: Implementing Degree Tasks as just Events and Deadlines (current choice):
 
+** Pro: The tasks can be instantiated and treated as Events and Deadlines, and use the methods from those classes
+
+** Con: Extra code needs to be written to parse the description of each task to tell whether it is a degree-related task or not
+
 * Alternative 2: Implementing Degree Tasks as an extension of the Event and Deadline class:
+
+** Pro: The tasks are defined as a new subclass of tasks called "Degree-Tasks". It would be a neat way of storing all Degree-Related Tasks
+
+** Con: The toString() method would produce an extra column in printing, as well as saving, and thus would require changing the Storage class
+
+
+Aspect: Storing the Degree Tasks
+
+* Alternative 1: Storing them in an ArrayList of TaskLists (current choice):
+
+** Pro: Easy to call the index that is needed to take one of the TaskLists for interacting with the user's TaskList
+
+** Con: Involves a slightly more expensive data structure
+
+* Alternative 2: Storing them in a continuous List of Strings
+
+** Pro: Efficient way of storing the Tasks
+
+** Con: Requires continuous parsing at every interaction with the user's tasklist
+
+
+
+Aspect: [Proposed] Priority for Tasks
+
+* Alternative 1: Automated Priority:
+
+** Pro: Easy to associate the value and sort the pairs
+
+** Cons: May not allow the user to view other ways of seeing his list
+
+
+* Alternative 2: Other ways of Sorting:
+
+** Pro: Gives further functionality to the user to see his list
+
+** Con: Requires saving different states of the list, or introducing more sorting commands
 
 
 
