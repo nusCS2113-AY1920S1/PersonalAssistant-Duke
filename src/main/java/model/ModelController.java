@@ -17,23 +17,54 @@ public class ModelController implements Model {
         memberManager = new MemberManager();
     }
 
-    //================== Task CRUD operations ==============================
     @Override
-    public void addTask(String name) throws DukeException {
-        tasksManager.addTask(name);
+    public void load() {
+        //TODO
     }
 
-    /**
-     * Currently exposes the tasklist as an ArrayList
-     * */
     @Override
-    public ArrayList<Task> getTaskList() { return tasksManager.getTaskList(); }
+    public void save() {
+        //TODO
+    }
 
-    /**
-     * Delete a task
-     * */
     @Override
-    public Task deleteTask(String nameOfTask) throws DukeException  {
-        return tasksManager.deleteTask(nameOfTask);
+    public ArrayList<Task> getTaskList() {
+        return tasksManager.getTaskList();
+    }
+
+    @Override
+    public void addTask(String name) throws DukeException {
+
+    }
+
+    @Override
+    public Task deleteTask(int index) throws DukeException {
+        Task toDelete = tasksManager.getTaskIndex(index);
+        tasksManager.deleteTask(toDelete);
+    }
+
+    @Override
+    public ArrayList<Member> getMemberList() {
+        return null;
+    }
+
+    @Override
+    public void addMember(String name) throws DukeException {
+
+    }
+
+    @Override
+    public Task deleteMember(String name) throws DukeException {
+        return null;
+    }
+
+    @Override
+    public void link(int[] tasksIndexes, String[] memberNames) {
+
+    }
+
+    @Override
+    public void unlink(int[] tasksIndexes, String[] memberNames) {
+
     }
 }

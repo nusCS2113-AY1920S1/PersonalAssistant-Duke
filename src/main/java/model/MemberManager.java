@@ -81,21 +81,21 @@ public class MemberManager {
     }
 
     /**
-     * Remove a member from the member list.
-     * @param toRemove The Member object to be removed.
+     * Delete a member from the member list.
+     * @param toDelete The Member object to be deleted.
      */
-    public void removeMember(Member toRemove) {
+    public void deleteMember(Member toDelete) {
 
-        memberList.remove(toRemove);
+        memberList.remove(toDelete);
     }
 
     /**
-     * Remove an array of Member objects from the member list.
-     * @param toRemove The Member objects array to be removed.
+     * Delete an array of Member objects from the member list.
+     * @param toDelete The Member objects array to be deleted.
      */
-    public void removeMembers(Member[] toRemove) {
-        for (int i = 0; i < toRemove.length; i++) {
-            memberList.remove(toRemove[i]);
+    public void deleteMembers(Member[] toDelete) {
+        for (int i = 0; i < toDelete.length; i++) {
+            memberList.remove(toDelete[i]);
         }
     }
 
@@ -113,15 +113,15 @@ public class MemberManager {
     }
 
     /**
-     * Remove link(s) from member(s) to task(s). Non-existing link won't be removed.
+     * Delete link(s) from member(s) to task(s). Non-existing link won't be deleted.
      * This is the reverse method of <code>addTask(Member[] members, Task[] toAdd)</code> method.
-     * @param members Array of Member objects to remove link.
-     * @param toRemove Array of Task objects to remove link.
+     * @param members Array of Member objects to delete link.
+     * @param toDelete Array of Task objects to delete link.
      */
-    public void removeTask(Member[] members, Task[] toRemove) {
+    public void deleteTask(Member[] members, Task[] toDelete) {
         for (int i = 0; i < members.length; i++) {
-            for (int j = 0; j < toRemove.length; j++) {
-                members[i].removeTask(toRemove[j]);
+            for (int j = 0; j < toDelete.length; j++) {
+                members[i].deleteTask(toDelete[j]);
             }
         }
     }

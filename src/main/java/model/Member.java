@@ -26,9 +26,9 @@ public class Member {
         }
     }
 
-    public void removeTask(Task toRemove) {
-        if (taskList.contains(toRemove)) {
-            taskList.remove(toRemove);
+    public void deleteTask(Task toDelete) {
+        if (taskList.contains(toDelete)) {
+            taskList.remove(toDelete);
         }
     }
 

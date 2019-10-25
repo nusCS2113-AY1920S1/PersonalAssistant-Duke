@@ -6,15 +6,21 @@ import utils.DukeException;
 import java.util.ArrayList;
 
 public interface Model {
-    /**
-     * Methods listed here detail CRUD create read update delete functions for the model. The following is an example
-     * of a create function
-     * */
-    //==================CRUD for Task======================
+    //==================Storage Interface======================
+    void load();
+    void save();
 
-    void addTask(String name) throws DukeException;
-
+    //==================Task Interface======================
     ArrayList<Task> getTaskList();
+    void addTask(String name) throws DukeException;
+    Task deleteTask(int index) throws DukeException;
 
-    Task deleteTask(String nameOfTask) throws DukeException;
+    //==================Member Interface======================
+    ArrayList<Member> getMemberList();
+    void addMember(String name) throws DukeException;
+    Task deleteMember(String name) throws DukeException;
+
+    //==================Task and Member Interface======================
+    void link(int[] tasksIndexes, String[] memberNames);
+    void unlink(int[] tasksIndexes, String[] memberNames);
 }
