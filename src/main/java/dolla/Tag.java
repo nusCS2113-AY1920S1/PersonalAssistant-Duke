@@ -1,7 +1,7 @@
 package dolla;
 
 /**
- * This class handles tag related inputs.
+ * This class handles tag related methods.
  */
 public class Tag {
 
@@ -49,10 +49,7 @@ public class Tag {
         tagName = inputArray[tagIndex];
     }
 
-    /**
-     * Parse tag.
-     */
-    public void parseTag() {
+    public void parseTag() { //todo: change to be inside parser folder
         if (hasTag()) {
             findTag();
             //todo: store tag properly instead of printing it out.
@@ -60,11 +57,6 @@ public class Tag {
         }
     }
 
-    /**
-     * Gets tag name.
-     *
-     * @return the tag name
-     */
     public String getTagName() {
         return tagName;
     }
