@@ -312,6 +312,77 @@ The degree list is a customizable list for the users to maintain a list to keep 
 
 `DegreeList#swap(String input, DegreeListStorage dd)`: This function takes in an input string, which is then split using the support of the `Parser Class` and the indices of the degrees to be swapped are obtains and are then swapped using the Collections.swap() function. A method from the DegreeListStorage is then called in order to update the text file with the current index of the degree after the swap. 
 
+=== Degree Feature
+==== Implementation (Subjected to change later) 
+
+Degree are a class which contains ModuleList class and other auxiliary information related to the degree. When being constructed, it accepts a list of Strings and validates that it is a .csv file type with the correct number of columns. Additionally it implements the following operations:
+
+`DegreeList#addAlias(String input)`: This function takes in the parameter which is the alias the degree should be referred to, this input is stored into a List of Strings within Degree.
+
+`DegreeList#addToList(Integer list, String module, String mcs)`: This function takes in three parameters, the first being an Integer which indicates which Module List the Module should be added to. The second and third parameters are Strings which are expected to contain the Module and th Module Credits respectively. This function is called when a new Degree is created with the csv file being input into it as a List of Strings. This function calls createNewModule and adds the (valid) Module result into the appropiate List suggested by the Integer parameter list.
+
+`DegreeList#createNewModule(String in, String mcs)`: This function takes in the string in and the string mcs. The String mcs is validated by validInt to ensure it is a validInt, following which the in string is checked for a " OR ". If an " OR " is found, it indicates the module is a conjunctive module and each module string is then checked for validity by this method. If all the strings checked are valid, a conjunctive module is returned. Otherwise, having validated that the String is a proper module, a default module is returned. Otherwise, a NonDescriptive Module is returned.
+
+`DegreeList#validateModule(String[] input)`: This function takes in the list of strings input. Each String in the list is checked by the validateModule(String input) function to ensure that it is of the proper format. If any String did not pass this check, an exception is thrown.
+
+`DegreeList#validateModule(String input)`: This function takes in the string input. It then splits the Strings into 2 portions, the first String up to the first white space, will be considered as the Module's code. The remainder of the String is the module's name. The Module Code will be checked against the Regular Expression in the Parser class to ensure that it is of the correct format. The name is checked to ensure it is not empty. If both of these conditions are passed it returns a true result. Otherwise an exception will be thrown.
+
+`DegreeList#setUem(String in)`: This function takes in the string input. If the string is blank, it assumes that no UEM value is to be set. If the uem value in Degree has already been set, it will throw an exception as there should not be multiple UEM values. It will otherwise ensure that the String is a valid Integer, then set the value resulting from validInt.
+
+`DegreeList#validInt(String in)`: This function takes in the string input. If the string is is parsed successfully as an Integer, it checks to ensure that it is non negative. If integer is not parsed sucessfully or it is negative, exceptions are thrown. It then returns the valid result.
+
+`DegreeList#validList(List<String> input)`: This function takes in a list of strings. First, the input is checked to make sure it is not null or empty, or only consists of one string. Then each string is then checked for the following criteria. Then the second string is checked to make sure it has 12 comma separated values.
+
+`DegreeList#print(void)`: This function prints the degree list. It first prints out the hardcoded information, then it prints out the list headers by printListHeader, then the related list with printList.
+
+`DegreeList#printListHeader(String front, Integer sum)`: This function prints out the List header and the sum associated with it.
+
+`DegreeList#printList(ModuleList modList)`: This prints out the List of Modules in lexicographical order.
+
+Given below is an example usage scenario and how the degree mechanism behaves at each step.
+
+*Step 1*: The user launches the application, and Duke will initialize an instance of Set of Strings of degrees and a Map of Strings to Degrees. Duke will call the `setDegrees` method, and it will fetch the data of list of degrees from listdegrees.csv in the data folder.
+
+*Step 2*: Duke will continue refer to this list of Degrees in order to determine where to get the degree information from. The csv file is expected to match the strings in the set.
+
+*Step 3*: The degrees are created using the data from the csv files. It will then be linked via its key (the name of the Degree) to the Degree.
+
+*Step 4*: If no errors occured, the map of degrees will be initialized, if not the maps and sets will be cleared and there will be a request to contact the System Adminstrator for assistance.
+
+==== Design Considerations
+
+How Degree executes:
+
+* Alternative 1 (Current Choice): Degrees checks its own inputs and determines if they are valid.
+** Pros: 
+*** No dependency on other classes for validation. 
+*** Easier to implement when new commands are added.
+*** Common method for complex classes which utilize other classes.
+** Cons: 
+*** Extension of the class is necessary if the degree format changes or there are multiple formats.
+* Alternative 2: Let the Parser class handle all validation and return the sanitized input if available.
+** Pros: 
+*** Maintenance and edits only need to be done in the Parser class. 
+*** No work needed when new commands are added.
+** Cons: 
+*** Bloats the Parser class further.
+*** Parser class is not directly related to the Degree class yet it determines the validity of Degree.
+
+Data Structure to support undo/redo:
+
+* Alternative 1 (Current Choice): `ModuleList` class which maintains lists of Modules for Degree. And other auxiliary primitive data types
+** Pros:
+*** Abstracts away the need to maintain the Lists of Modules and the information associated with it within the Degree class.
+*** More control than primitive data types, supports differential operations.
+** Cons:
+*** Have to create and maintain a new class.
+
+* Alternative 2: Primitive data containers used to contain modules, in addition to other auxiliary primitive data types.
+** Pros:
+*** Less work needed to write methods as it uses a pre-existing data structure.
+*** Easier for newer developers to understand how the undo/redo function works.
+** Cons:
+*** Have to do all the work of adding, removing and choosing commands within another class, and can result in messy implementations.
 
 == Testing
 
