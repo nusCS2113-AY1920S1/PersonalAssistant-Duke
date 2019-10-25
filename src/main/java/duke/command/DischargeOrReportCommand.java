@@ -54,4 +54,3 @@ public class DischargeOrReportCommand extends ArgCommand {
         }
     }
 }
-
