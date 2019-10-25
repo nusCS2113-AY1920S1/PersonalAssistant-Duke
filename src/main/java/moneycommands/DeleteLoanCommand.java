@@ -4,6 +4,8 @@ import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Ui;
 import money.Account;
+import money.Item;
+import money.Loan;
 import moneycommands.MoneyCommand;
 
 /**
@@ -51,23 +53,29 @@ public class DeleteLoanCommand extends MoneyCommand {
         if (serialNo > account.getLoans().size()) {
             throw new DukeException("The serial number of the loan is Out Of Bounds!");
         }
-
-        String typeStr = account.getLoans().get(serialNo - 1).getType().toString().toLowerCase();
+        Loan deletedEntryLOA = account.getLoans().get(serialNo - 1);
+        String typeStr = deletedEntryLOA.getType().toString().toLowerCase();
         ui.appendToOutput(" Noted. I've removed this " + typeStr + " loan:\n");
         ui.appendToOutput("  " + account.getLoans().get(serialNo - 1).toString() + "\n");
         ui.appendToOutput(" Now you have " + (account.getLoans().size() - 1) + " total loans.\n");
 
-        storage.markDeletedEntry("LOA", serialNo);
         account.getLoans().remove(serialNo - 1);
+        storage.addDeletedEntry(deletedEntryLOA);
+        storage.writeToFile(account);
     }
 
     @Override
     //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
-        storage.undoDeletedEntry(account, "EXP", serialNo);
-        storage.writeToFile(account);
-        ui.appendToOutput(" Last command undone: \n");
-        ui.appendToOutput(account.getExpListTotal().get(serialNo - 1).toString() + "\n");
-        ui.appendToOutput(" Now you have " + account.getExpListTotal().size() + " expenses listed\n");
+        Item deletedEntry = storage.getDeletedEntry();
+        if (deletedEntry instanceof Loan){
+            account.getLoans().add(serialNo - 1, (Loan)deletedEntry);
+            storage.writeToFile(account);
+            ui.appendToOutput(" Last command undone: \n");
+            ui.appendToOutput(account.getLoans().get(serialNo - 1).toString() + "\n");
+            ui.appendToOutput(" Now you have " + account.getLoans().size() + " loans listed\n");
+        } else {
+            throw new DukeException("u messed up (LOA)");
+        }
     }
 }

@@ -3,10 +3,7 @@ import controlpanel.MoneyStorage;
 import controlpanel.Ui;
 import money.Account;
 import money.Instalment;
-import moneycommands.AddInstalmentCommand;
-import moneycommands.DeleteInstalmentCommand;
-import moneycommands.ListInstalmentCommand;
-import moneycommands.MoneyCommand;
+import moneycommands.*;
 import org.junit.jupiter.api.Test;
 
 import java.math.RoundingMode;
@@ -17,7 +14,10 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class InstalmentTest {
     private Ui ui;
@@ -61,9 +61,12 @@ public class InstalmentTest {
     }
 
     @Test
-    public void testAddInstalment() throws ParseException, DukeException {
+    public void testAddInstalmentCommand() throws ParseException, DukeException {
         String testInput = "add instalment mortgage /amt 100000 /within 200 months /from 12/12/2010 @6%";
         MoneyCommand addInstalmentCommand =  new AddInstalmentCommand(testInput);
+
+        assertEquals(false, addInstalmentCommand.isExit());
+
         ui.clearOutputString();
         addInstalmentCommand.execute(account, ui, moneyStorage);
 
@@ -83,7 +86,7 @@ public class InstalmentTest {
     }
 
     @Test
-    public void testDeleteInstalmentException() throws ParseException, DukeException {
+    public void testDeleteInstalment() throws ParseException, DukeException {
         account.getInstalments().clear();
         Instalment instalment = new Instalment(5000, "car", "instalments", dateTestDate, 120, 3);
         Instalment instalment1 = new Instalment(100000, "mortgage", "instalments", dateTestDate, 180, 4);
@@ -92,6 +95,7 @@ public class InstalmentTest {
 
         String deleteFirstInput = "delete instalments 2";
         MoneyCommand deleteInstalmentCommand = new DeleteInstalmentCommand(deleteFirstInput);
+        assertEquals(false, deleteInstalmentCommand.isExit());
         ui.clearOutputString();
         deleteInstalmentCommand.execute(account, ui, moneyStorage);
         assertEquals(" Noted. I've removed this Instalment:\n"
@@ -110,6 +114,36 @@ public class InstalmentTest {
     }
 
     @Test
+    public void testDeleteInstalmentException() throws ParseException, DukeException {
+        account.getInstalments().clear();
+
+        String deleteEmptyInstalmentList = "delete instalments 1";
+        MoneyCommand deleteInstalmentCommand = new DeleteInstalmentCommand(deleteEmptyInstalmentList);
+        ui.clearOutputString();
+        try {
+            deleteInstalmentCommand.execute(account, ui, moneyStorage);
+            fail();
+        } catch (DukeException e) {
+            assertThat(e.getMessage(), is("The serial number of the Instalments is Out Of Bounds!"));
+        }
+
+        Instalment instalment = new Instalment(5000, "car", "instalments", dateTestDate, 120, 3);
+        Instalment instalment1 = new Instalment(100000, "mortgage", "instalments", dateTestDate, 180, 4);
+        account.getInstalments().add(instalment);
+        account.getInstalments().add(instalment1);
+
+        String deleteFirstInput = "delete instalments 3";
+        MoneyCommand deleteInstalmentCommand1 = new DeleteInstalmentCommand(deleteFirstInput);
+        ui.clearOutputString();
+        try {
+            deleteInstalmentCommand1.execute(account, ui, moneyStorage);
+            fail();
+        } catch (DukeException e) {
+            assertThat(e.getMessage(), is("The serial number of the Instalments is Out Of Bounds!"));
+        }
+    }
+
+    @Test
     public void testListInstalments() throws ParseException, DukeException {
         account.getInstalments().clear();
         Instalment instalment = new Instalment(5000, "car", "instalments", dateTestDate, 120, 3);
@@ -121,6 +155,7 @@ public class InstalmentTest {
         df.setRoundingMode(RoundingMode.CEILING);
 
         MoneyCommand listInstalmentCommand = new ListInstalmentCommand();
+        assertEquals(false, listInstalmentCommand.isExit());
         ui.clearOutputString();
         listInstalmentCommand.execute(account, ui, moneyStorage);
         assertEquals("Got it, list will be printed in the other pane!\n", ui.getOutputString());
@@ -129,5 +164,37 @@ public class InstalmentTest {
                         + " 2.[" + df.format(instalment1.getPercentage()) + "%] " + instalment1.getDescription() + " ($"
                         + df.format(instalment1.equalMonthlyInstalment()) + " per month until " + instalment1.getDateEndDate() + ")\n",
                 ui.getGraphContainerString());
+    }
+
+    @Test
+    public void testAutoUpdateInstalment() throws ParseException, DukeException{
+        account.getInstalments().clear();
+        account.getExpListTotal().clear();
+
+        LocalDate currDate = LocalDate.now();
+
+        Instalment instalment = new Instalment(50000, "car", "instalments", currDate, 100, 3);
+        account.getInstalments().add(instalment);
+
+        AutoUpdateInstalmentCommand autoUpdateInstalmentCommand = new AutoUpdateInstalmentCommand();
+        autoUpdateInstalmentCommand.execute(account, ui, moneyStorage);
+
+        LocalDate testDate1 = autoUpdateInstalmentCommand.getCurrDate();
+        assertEquals(testDate1, currDate);
+        LocalDate testDate2 = testDate1.plusMonths(1);
+        assertEquals(testDate2, currDate.plusMonths(1));
+
+        autoUpdateInstalmentCommand.setCurrDate(testDate2);
+        autoUpdateInstalmentCommand.execute(account, ui, moneyStorage);
+        assertEquals("You have paid " + instalment.equalMonthlyInstalment() + " for "
+                + instalment.getDescription() + ". It is currently " + instalment.getPercentage() + "% paid.", ui.getOutputString());
+        assertEquals(1, account.getExpListTotal().size());
+        assertEquals(true, instalment.getPayForTheMonth());
+
+        ui.clearOutputString();
+        testDate2 = testDate2.plusDays(2);
+        autoUpdateInstalmentCommand.setCurrDate(testDate2);
+        autoUpdateInstalmentCommand.execute(account, ui, moneyStorage);
+        assertEquals(false, instalment.getPayForTheMonth());
     }
 }

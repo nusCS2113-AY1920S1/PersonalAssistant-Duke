@@ -199,7 +199,7 @@ class LoansTest {
             exceedSettleCommand.execute(account, ui, storage);
             fail();
         } catch (DukeException e) {
-            assertThat(e.getMessage(), is("Whoa! The amount entered is more than debt! Type 'all' to settle the entire debt"));
+            assertThat(e.getMessage(), is("Whoa! The amount entered is more than debt! Type 'all' to settle the entire debt\n"));
         }
 
     }
@@ -218,7 +218,7 @@ class LoansTest {
             exceedOutgoingCommand.execute(account, ui, storage);
             fail();
         } catch (DukeException e) {
-            assertThat(e.getMessage(), is("The serial number of the loan is Out Of Bounds!"));
+            assertThat(e.getMessage(), is("The serial number of the loan is Out Of Bounds!\n"));
         }
         String settleIncomingLoanInput = "paid 2 /to 100";
         MoneyCommand exceedIncomingCommand = new SettleLoanCommand(settleIncomingLoanInput);
@@ -227,7 +227,7 @@ class LoansTest {
             exceedIncomingCommand.execute(account, ui, storage);
             fail();
         } catch (DukeException e) {
-            assertThat(e.getMessage(), is("The serial number of the loan is Out Of Bounds!"));
+            assertThat(e.getMessage(), is("The serial number of the loan is Out Of Bounds!\n"));
         }
     }
 

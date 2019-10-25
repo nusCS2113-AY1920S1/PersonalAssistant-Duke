@@ -26,8 +26,11 @@ public class AutoUpdateInstalmentCommand extends MoneyCommand {
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
         for (Instalment ins : account.getInstalments()) {
+            if (ins.getFullyPaid()) {
+                continue;
+            }
             Period diff = Period.between(ins.getDateBoughtDate(), currDate);
-            int paymentsMade = diff.getMonths() + diff.getYears() * 12 + 1;
+            int paymentsMade = diff.getMonths() + diff.getYears() * 12;
             ins.percentPay(paymentsMade);
             if (diff.getDays() != 0) {
                 ins.isNotPayTheMonth();
@@ -37,10 +40,24 @@ public class AutoUpdateInstalmentCommand extends MoneyCommand {
                         ins.getCategory(), currDate);
                 account.getExpListTotal().add(e);
                 ins.isPayTheMonth();
+                paymentsMade += 1;
+                ins.percentPay(paymentsMade);
                 ui.appendToOutput("You have paid " + ins.equalMonthlyInstalment() + " for "
-                        + ins.getDescription() + ". It is currently " + ins.getPercentage() + "% paid.");
+                        + ins.getDescription() + ". It is currently "
+                        + (ins.getFullyPaid() ? "fully paid." : ins.getPercentage() + "% paid."));
+            }
+            if (ins.getNumOfPayments() == ins.getPaymentsMade()) {
+                ins.setFullyPaid();
             }
         }
+    }
+
+    public void setCurrDate(LocalDate date) {
+        currDate = date;
+    }
+
+    public LocalDate getCurrDate() {
+        return currDate;
     }
 
     @Override
