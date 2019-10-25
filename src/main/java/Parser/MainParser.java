@@ -3,6 +3,7 @@ import Commands.ByeCommand;
 import Commands.Command;
 import Commands.FilterCommand;
 import Commands.HelpCommand;
+import DukeExceptions.DukeException;
 
 public class MainParser {
     public static Command parse(String fullCommand) throws Exception {
@@ -12,36 +13,39 @@ public class MainParser {
             case "add/e":
             case "add/d":
                 return new AddParse(fullCommand).execute();
-                break;
+
             case "delete/e":
             case "delete/d":
                 return new DeleteParse(fullCommand).execute();
-                break;
+
             case "recur/e":
                 return new RecurParse(fullCommand).execute();
-                break;
+
             case "remind/set":
-                break;
             case "remind/rm":
-                break;
+                return new RemindParse(fullCommand).execute();
+
             case "/show":
                 return new WorkloadParse(fullCommand).execute();
-                break;
+
             case "filter":
-                return new FilterCommand(fullCommand.trim().substring(7));
-                break;
+                return new FilterCommand(fullCommand);
+
             case "help":
                 return new HelpCommand();
-                break;
+
             case "list":
-                break;
             case "done":
-                break;
-            case "Available":
-                break;
+                return  null;
+
+            case "Find":
+                return new FindFreeTimesParse(fullCommand).execute();
+
             case "bye":
                 return new ByeCommand();
-                break;
+
+            default:
+                throw new DukeException("Invalid input");
         }
     }
 }
