@@ -1,143 +1,207 @@
 package rims.core;
 
 import java.util.ArrayList;
-
-import javax.naming.spi.ResolveResult;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import rims.resource.Reservation;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
+import rims.resource.Item;
+import rims.resource.Room;
+import rims.exception.RimsException;
 
 public class ResourceList {
     protected ArrayList<Resource> resources;
-    private Ui ui;
 
-    public ResourceList(ArrayList<Resource> resources, Ui ui) {
+    public ResourceList(ArrayList<Resource> resources) {
         this.resources = resources;
-        this.ui = ui;
     }
 
-    // Create
-    public void addResource(Resource resource) {
-        resources.add(resource);
+    public void add(Resource thisResource) {
+        resources.add(thisResource);
     }
 
-    public int generateResourceId(){
-        int resource_id=0;
-        if(resources.size()>0){
-            resource_id=( resources.get( resources.size()-1 ).getResourceId() ) + 1 ;
+    public void deleteResourceByName(String resourceName) throws RimsException {
+        boolean deleted = false;
+        for (int i = 0; i < size(); i++) {
+            Resource thisResource = getResourceByIndex(i);
+            if (thisResource.getName().equals(resourceName)) {
+                resources.remove(i);
+                deleted = true;
+                break;
+            }
         }
-        return resource_id;
+        if (!deleted) {
+            throw new RimsException("No such resource found!");
+        }
     }
 
-    // Read
-    public ArrayList<Resource> getResourceList() {
+    public void deleteResourceById(int resourceId) throws RimsException {
+        boolean deleted = false;
+        for (int i = 0; i < size(); i++) {
+            Resource thisResource = getResourceByIndex(i);
+            if (thisResource.getResourceId() == resourceId) {
+                resources.remove(i);
+                deleted = true;
+                break;
+            }
+        }
+        if (!deleted) {
+            throw new RimsException("No such resource ID found!");
+        }
+    }
+
+    public ArrayList<Resource> getResources() {
         return resources;
     }
-    
-    /**
-     * 
-     * @return
-     */
-    public ArrayList<String> getResourceArrayWithReservations() {
-        ArrayList<String> list = new ArrayList<String>();
-        return list;
-    }
-    
+
     public int size() {
         return resources.size();
     }
 
-    /**
-     * This method returns all reservations under a specified user id 
-     * (Some work needs to be done to tidy up temp variables and constructors)
-     * @param user_id
-     * @return List of reservation under the given user id (as reservationList)
-     */
-    public ReservationList getReservationsByUserId (int user_id ){
-        ReservationList list = new ReservationList();
-        for(int i=0; i < resources.size(); i++ ){
+    public int generateResourceId() {
+        for (int i = 0; i < size(); i++) {
+            try {
+                Resource thisResource = getResourceById(i);
+            }
+            catch (RimsException e) {
+                return i;
+            }
+        }
+        return size();
+    }
+
+    public Resource getResourceByIndex(int indexNo) {
+        return resources.get(indexNo);
+    }
+
+    public Resource getResourceByName(String resourceName) throws RimsException {
+        for (int i = 0; i < size(); i++) {
+            Resource thisResource = getResourceByIndex(i);
+            if (thisResource.getName().equals(resourceName)) {
+                return thisResource;
+            }
+        }
+        throw new RimsException("No such resource!");
+    }
+
+    public Resource getResourceById(int resourceId) throws RimsException {
+        for (int i = 0; i < size(); i++) {
+            Resource thisResource = getResourceByIndex(i);
+            if (thisResource.getResourceId() == resourceId) {
+                return thisResource;
+            }
+        }
+        throw new RimsException("No such resource ID!");
+    }
+
+    public boolean isItem(String resourceName) throws RimsException {
+        Resource thisResource = getResourceByName(resourceName);
+        return (thisResource instanceof Item);
+    }
+
+    public boolean isRoom(String resourceName) throws RimsException {
+        Resource thisResource = getResourceByName(resourceName);
+        return (thisResource instanceof Room);
+    }
+
+    public ArrayList<Resource> getAllOfResource(String resourceName) {
+        ArrayList<Resource> allOfResource = new ArrayList<Resource>();
+        for (int i = 0; i < size(); i++) {
+            Resource thisResource = getResourceByIndex(i);
+            if (thisResource.getName().equals(resourceName)) {
+                allOfResource.add(thisResource);
+            }
+        }
+        return allOfResource;
+    }
+
+    public int getNumberOfResource(String resourceName) {
+        int number = 0;
+        for (int i = 0; i < size(); i++) {
+            Resource thisResource = getResourceByIndex(i);
+            if (thisResource.getName().equals(resourceName)) {
+                number++;
+            }
+        }
+        return number;
+    }
+
+    public int getAvailableNumberOfResource(String resourceName) {
+        ArrayList<Resource> allOfResource = getAllOfResource(resourceName);
+        int number = 0;
+        for (int i = 0; i < allOfResource.size(); i++) {
+            if (allOfResource.get(i).isCurrentlyAvailable()) {
+                number++;
+            }
+        }
+        return number;
+    }
+
+    // overloaded
+    public int getAvailableNumberOfResource(String resourceName, Date dateFrom, Date dateTill) {
+        ArrayList<Resource> allOfResource = getAllOfResource(resourceName);
+        int number = 0;
+        for (int i = 0; i < allOfResource.size(); i++) {
+            if (allOfResource.get(i).isCurrentlyAvailable()) {
+                number++;
+            }
+        }
+        return number;
+    }
+
+    public int getBookedNumberOfResource(String resourceName) {
+        ArrayList<Resource> allOfResource = getAllOfResource(resourceName);
+        int number = 0;
+        for (int i = 0; i < allOfResource.size(); i++) {
+            if (!allOfResource.get(i).isCurrentlyAvailable()) {
+                number++;
+            }
+        }
+        return number;
+    }
+
+    public ReservationList getUserBookings(int userId) {
+        ReservationList userBookings = new ReservationList();
+        for (int i = 0; i < size(); i++) {
+            ReservationList thisResourceUserReservations = getResourceByIndex(i).getUserReservations(userId);
+            for (int j = 0; j < thisResourceUserReservations.size(); j++) {
+                userBookings.add(thisResourceUserReservations.getReservationByIndex(j));
+            }
+        }
+        return userBookings;
+    }
+
+    public int generateReservationId() {
+        int reservationId = 0;
+        for (int i = 0; i < size(); i++) {
             Resource thisResource = resources.get(i);
-            ReservationList thisList = thisResource.getReservations();
-            for(int j=0; j < thisList.size(); j ++){
-                Reservation thisReservation = thisList.getReservationByIndex(j);
-                if (thisReservation.getUid()==user_id){
-                    list.addNewReservation(thisReservation);
-                }
-            }
+            reservationId += thisResource.getReservations().size();
         }
-        return list;
+        return reservationId;
     }
 
-    public Resource getResourceByIndex(int id) {
-        Resource resource = null;
-        for (int i = 0; i < resources.size(); i++) {
-            if (resources.get(i).getResourceId() == id) {
-                resource = resources.get(i);
-                break;
-            }
-        }
-        return resource;
+    public Date stringToDate(String stringDate) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        Date dateValue = formatter.parse(stringDate);
+        return dateValue;
     }
 
-    public Resource getResourceByName(String resourceName) {
-        Resource resource = null;
-        for (int i = 0; i < resources.size(); i++) {
-            if (resources.get(i).getResourceName().equals(resourceName)) {
-                resource = resources.get(i);
-                break;
-            }
-        }
-        return resource;
+    public String dateToString(Date thisDate) {
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        String stringDate = format.format(thisDate);
+        return stringDate;
     }
 
-    /**
-     * This method return a resource that matches the given resource Id
-     */
-    public Resource getResourceByResourceId(int resource_id) {
-        Resource resource = new Resource(){};
-
-        for (int i = 0; i < resources.size(); i++) {
-            if (resources.get(i).getResourceId() == resource_id) {
-                resource = resources.get(i);
-                break;
-            }
-        }
-        return resource;
+    public String getDateToPrint(Date date) {
+        DateFormat dayFormat = new SimpleDateFormat("d");
+        int day = Integer.parseInt(dayFormat.format(date)) % 10;
+        String suffix = day == 1 ? "st" : (day == 2 ? "nd" : (day == 3 ? "rd" : "th"));
+        String stringDate = (new SimpleDateFormat("EEEEE, ")).format(date) + (dayFormat.format(date)) + suffix + " of " + (new SimpleDateFormat("MMMMM yyyy, hh:mm aaa")).format(date);
+        return stringDate;
     }
 
-    // update
-    /**
-     * Find a resource using the resource id, then remove it from the resources array.
-     * @exception invalidResourceId 
-     * 
-     * Then, it will use built-in remove method to take out this resource and update 
-     * 
-     */
-    public void deleteResourceByResourceId(int resource_id) {
-        int index_to_remove = -1;
-
-        for (int i = 0; i < resources.size(); i++) {
-            if (resources.get(i).getResourceId() == resource_id) {
-                index_to_remove = i;
-                break;
-            }
-        }
-
-        if (index_to_remove != -1) {
-            ui.formattedPrint("The following resource and its reservations are removed:\n" + "\t"+ resources.get(index_to_remove).toString());
-            resources.remove(index_to_remove);
-        }
-    }
-
-    /**
-     * Delete a single reservation, a single reservation can only be uniquely identified through a pair of resource id and reservation id
-     * First query for the resource, then remove the reservation via id
-     * @param resource_id
-     * @param reservation_id
-     */
-    public void deleteSingleReservation(int resource_id, int reservation_id){
-        Resource thisResource = getResourceByResourceId(resource_id);
-        thisResource.removeReservationByReservationId(reservation_id);
-    }
 }
