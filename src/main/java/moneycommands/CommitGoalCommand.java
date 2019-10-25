@@ -43,8 +43,18 @@ public class CommitGoalCommand extends MoneyCommand {
         return "[" + df.format(percentageProgress) + "%]";
     }
 
+    public String dpRounding(float f){
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+        return df.format(f);
+    }
+
     public float savingsPerGoal(float goalSavings, float currGoalPrice, float monthsBetween){
-        return (currGoalPrice - goalSavings)/monthsBetween;
+        if(monthsBetween <= 0){
+            return currGoalPrice-goalSavings;
+        }else{
+            return (currGoalPrice - goalSavings)/monthsBetween;
+        }
     }
 
     @Override
@@ -103,8 +113,9 @@ public class CommitGoalCommand extends MoneyCommand {
 
                 ui.appendToOutput(" " + i + "." + goalProgress + goalsAfterCommit.get(i-1).toString() + "\n");
             }
+            String savingsPerMonth = dpRounding(savingsReqPerMonth);
             ui.appendToOutput("Goal Savings after commit: $" + goalSavingsAfterCommit + "\n");
-            ui.appendToOutput("Target Savings for the Month after commit: $" + savingsReqPerMonth + "\n");
+            ui.appendToOutput("Target Savings for the Month after commit: $" + savingsPerMonth + "\n");
 
             MoneyCommand list = new ListGoalsCommand();
             list.execute(account,ui,storage);

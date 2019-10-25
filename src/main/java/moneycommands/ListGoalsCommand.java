@@ -34,8 +34,18 @@ public class ListGoalsCommand extends MoneyCommand{
         return "[" + df.format(percentageProgress) + "%]";
     }
 
+    public String dpRounding(float f){
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+        return df.format(f);
+    }
+
     public float savingsPerGoal(float goalSavings, float currGoalPrice, float monthsBetween){
-        return (currGoalPrice - goalSavings)/monthsBetween;
+        if(monthsBetween <= 0){
+            return currGoalPrice-goalSavings;
+        }else{
+            return (currGoalPrice - goalSavings)/monthsBetween;
+        }
     }
 
     /**
@@ -65,8 +75,9 @@ public class ListGoalsCommand extends MoneyCommand{
 
             ui.appendToGraphContainer(" " + i + "." + goalProgress + account.getShortTermGoals().get(i-1).toString() + "\n");
         }
+        String savingsPerMonth = dpRounding(savingsReqPerMonth);
         ui.appendToOutput("current Goal Savings: $" + account.getGoalSavings() + "\n");
-        ui.appendToOutput("Target Savings for the Month: $" + savingsReqPerMonth + "\n");
+        ui.appendToOutput("Target Savings for the Month: $" + savingsPerMonth + "\n");
         ui.appendToOutput("Got it, list will be printed in the other pane!\n");
 
     }
