@@ -20,7 +20,7 @@ By: `Team W12-1`      Since: `Aug 2019`      Licence: `MIT`
 === Architecture
 .General Architecture Diagram for RIMS
 [caption="Figure 1.1: "]
-image::ArchitectureDiagram.png[width="500", align="center"]
+image::ArchitectureDiagram.png[width="800", align="center"]
 
 The architecture diagram above is an abstracted high-level representation of the workings behind the RIMS software.
 There are a total of 5 main components within RIMS, and outside of RIMS, a single *User*, as well as *Text files* for
@@ -43,7 +43,7 @@ in classes are omitted.
 === Model component
 .Class Diagram for Model component
 [caption="Figure 1.2: "]
-image::ModelClassDiagram.png[width="600", align="center"]
+image::ModelClassDiagram.png[width="1000", align="center"]
 _Classes involved: Resource, Item, Room, ResourceList, ReservationList, Reservation, DateRange_
 
 The Model component forms the backbone of the RIMS software and is the structure to inventorise Resources and manage
@@ -95,7 +95,7 @@ the message sent to the user upon termination of RIMS.
 === Logic component
 .Class Diagram for Model component
 [caption="Figure 1.4: "]
-image::LogicClassDiagram.png[width="700", align="center"]
+image::LogicClassDiagram.png[width="1000", align="center"]
 
 _Classes involved: Parser, Command and its inherited classes_
 
@@ -187,6 +187,9 @@ They are mainly handled by sending a message to the user to notify them on the p
 
 === Add/Delete
 
+Implemented by: Sean +
+Written by: Sean
+
 ==== Implementation
 .Sequence Diagram for Add
 [caption="Figure 2.1.1: "]
@@ -228,6 +231,9 @@ _Aspect 2: How Resource objects are deleted_
 ** Cons: Cannot pinpoint a unique Resource object to delete
 
 === Reserve/Loan
+
+Implemented by: Bobby/Abhijit +
+Written by: Bobby/Sean
 
 ==== Implementation
 .Sequence Diagram for Reserve
@@ -289,11 +295,39 @@ More user friendly if users wish to make different reservations for a resource.
 
 === Return
 
+Implemented by: Bobby/Abhijit +
+Written by: Bobby/Sean
+
 ==== Implementation
+
+Returning a resource utilizes the following classes: the Parser and UI class will gather inputs from users. Then, these inputs will be used to retrieve and delete the relevant reservation for the resource the user is returning.
+
+For making a return, consider the case where a user wants to return a pen and record it in RIMS.
+
+1. When RIMS is launched, a Ui and Parser Object is instantiated.
+2. Referring to Figure , a parseInput() function is called, prompting the user for input. He/She enters the “return” keyword which is gathered by the Ui object.
+3. The user is prompted to enter his/her user ID, and the Ui object will display a list of all Reservations made by the user.
+4. The user then enters a the resources to return and the reservation ID corresponding to one of the reservations given in the list of Reservations displayed to be deleted from.
+5. The Parser object constructs a new ReturnCommand object with the evaluated parameters.
+6. The ReturnCommand is executed, which searches for the resources in the Reservation to be deleted.  An exception is thrown if the Resources specified are not present in the Reservation, the reservation ID provided by the user is not valid, or the Resources are only reserved and not loaned out yet.
+7. After the relevant Resources have been deleted from the Reservation, the Ui object sends a message to the user notifying him/her about the success return of the Resources.
 
 ==== Design Considerations
 
+_Aspect: How return is executed_
+
+* *Alternative 1 (Current choice)*: Choosing which Resource to return based on Reservation and User ID
+** Advantages: For multiple resources of the same instance borrowed, the user gets to decide which resource to return first (return a pen borrowed earlier, so as to return another pen due later).
+** Disadvantages: The user has to choose a Reservation rather than just specifying the Resources to return.
+
+* *Alternative 2*: Choosing which Resource to return based on User ID only
+** Advantages: Less user input is required to return Resources.
+** Disadvantages: Returning Resources will take a longer period to search all Reservations, and the user has less flexibility in returning Resources.
+
 === List
+
+Implemented by: Aarushi +
+Written by: Aarushi
 
 Listing resources using RIMS is facilitated by the ListCommand, after receiving input from the user in the Ui and being passed through Parser. There are three different ways resources can be listed: all items listed, by room, or by item.
 
@@ -324,6 +358,10 @@ For listing resources by item/room(as shown in Figure 1), consider the case wher
 6.	Lastly, the Ui object prints a list of all the dates that resource is booked on in the ReservationList line by line within the loop.
 
 === Calendar
+
+Implemented by: Daniel +
+Written by: Daniel
+
 ==== Implementation
 .Sequence Diagram for Calendar
 [caption="Figure 2.5: "]
