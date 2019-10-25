@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * A note page that can record a goal and module information.
  */
 public class GeneralNotePage {
-    public static String goal = "";
+    private static String goal = "";
     public static ArrayList<Module> modules = new ArrayList<>();
 
     /**

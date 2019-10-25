@@ -7,9 +7,9 @@ public class Assessment {
     public String name;
 
     /** Must be a positive number*/
-    public int weightage; //as a percentage
+    protected int weightage; //as a percentage
 
-    public Assessment(String name, int percentage) {
+    protected Assessment(String name, int percentage) {
         this.name = name;
         this.weightage = percentage;
     }

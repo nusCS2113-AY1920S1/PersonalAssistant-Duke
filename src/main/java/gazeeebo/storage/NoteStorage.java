@@ -4,6 +4,7 @@ import gazeeebo.notes.Note;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,7 +21,7 @@ public class NoteStorage {
      * @throws IOException if the file specified cannot be written to or is not a file
      */
     public static void writeToFile(String fileName, ArrayList<Note>listToWrite) throws IOException {
-        FileWriter file = new FileWriter("data/note/" + fileName);
+        FileWriter file = new FileWriter("/" + fileName);
         for (Note n : listToWrite) {
             file.write(Note.noteFormatter.format(n.noteDate) + "\n"); //date
             file.write(n.notes.size() + "\n"); //size of individual note list
@@ -38,14 +39,9 @@ public class NoteStorage {
      * @param listToReadTo the ArrayList<>Notes</> that the data is to be stored in
      * @throws IOException if the file specified cannot be created or is not a file
      */
-    public static void readFromFile(String fileName, ArrayList<Note> listToReadTo) throws IOException {
-        File data = new File("data/note/" + fileName);
-        if (data.createNewFile()) {
-            System.out.println("Existing " + fileName + " file does not exist.");
-            System.out.println("I have created a new text file for you.");
-        }
-        assert !data.createNewFile() : "There is no " + fileName + " file to read from (NoteStorage)";
-        Scanner txtFile = new Scanner(data);
+    public static void readFromFile(String fileName, ArrayList<Note> listToReadTo) {
+        InputStream inputStream = NoteStorage.class.getResourceAsStream("/" + fileName);
+        Scanner txtFile = new Scanner(inputStream);
         while (txtFile.hasNextLine()) {
             String date = txtFile.nextLine();
             int sizeOfNotes = Integer.parseInt(txtFile.nextLine());
