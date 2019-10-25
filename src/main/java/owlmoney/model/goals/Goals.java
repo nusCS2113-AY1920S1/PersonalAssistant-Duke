@@ -83,7 +83,7 @@ public class Goals {
      */
     public String getSavingAcc() {
         if (savingAcc == null) {
-            return "";
+            return "NOT TIED";
         } else {
             return savingAcc.getAccountName();
         }
@@ -96,7 +96,7 @@ public class Goals {
      */
     public String getRemainingAmount() {
         if (savingAcc == null) {
-            return "";
+            return new DecimalFormat("0.00").format(getGoalsAmount());
         } else {
             double remainingAmount = getGoalsAmount() - savingAcc.getCurrentAmount();
             if (remainingAmount <= 0) {

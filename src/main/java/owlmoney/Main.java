@@ -4,12 +4,14 @@ import java.util.Scanner;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseCommand;
+import owlmoney.logic.regex.RegexUtil;
 import owlmoney.model.card.exception.CardException;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.exception.BondException;
 import owlmoney.model.goals.exception.GoalsException;
 import owlmoney.model.profile.Profile;
+import owlmoney.model.profile.exception.ProfileException;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
@@ -39,15 +41,47 @@ class Main {
     }
 
     /**
+     * Checks if username meets requirement.
+     *
+     * @param name Profile user name.
+     * @throws MainException If name is empty or if name contain special characters
+     */
+    private void checkUserName(String name) throws MainException {
+        if (name.isEmpty() || name.isBlank()) {
+            throw new MainException("Name cannot be empty!");
+        }
+        if (!RegexUtil.regexCheckName(name)) {
+            throw new MainException("Name can only be alphanumeric and at most 30 characters");
+        }
+    }
+
+    /**
+     * Gets username when first run.
+     */
+    private void getUserName() {
+        boolean check = true;
+        while (check) {
+            try {
+                Scanner scanner = new Scanner(System.in);
+                String username = scanner.nextLine();
+                checkUserName(username);
+                profile = new Profile(username);
+                check = false;
+            } catch (MainException e) {
+                ui.printError(e.toString());
+            }
+        }
+    }
+
+    /**
      * Starts up the initialized OwlMoney session.
      */
     private void run() {
         boolean hasExited = false;
+
         //Temporary do this chunk
         ui.firstTimeRun();
-        Scanner scanner = new Scanner(System.in);
-        String username = scanner.nextLine();
-        profile = new Profile(username);
+        getUserName();
         ui.greet(profile.profileGetUsername());
         // until above this line
         while (parser.hasNextLine()) {
@@ -58,7 +92,7 @@ class Main {
                     break;
                 }
             } catch (ParserException | BankException | TransactionException | BondException | CardException
-                     | GoalsException exceptionMessage) {
+                    | GoalsException | ProfileException exceptionMessage) {
                 ui.printError(exceptionMessage.toString());
             }
         }
