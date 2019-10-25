@@ -198,5 +198,7 @@ public class InstalmentTest {
         autoUpdateInstalmentCommand.setCurrDate(testDate2);
         autoUpdateInstalmentCommand.execute(account, ui, moneyStorage);
         assertEquals(false, instalment.getPayForTheMonth());
+        instalment.setFullyPaid();
+        assertEquals(true, instalment.getFullyPaid());
     }
 }
