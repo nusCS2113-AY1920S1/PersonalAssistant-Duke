@@ -90,7 +90,7 @@ public class ProjectInputController implements IController {
                 projectViewTasks(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view assignments.*")) {
                 projectViewAssignments(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("view task requirements i/.*")) { // need to refactor this
+            } else if (projectFullCommand.matches("view task requirements.*")) { // need to refactor this
                 projectViewTaskRequirements(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("edit task requirements.*")) {
                 projectEditTaskRequirements(projectToManage, projectFullCommand);
@@ -282,7 +282,7 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public void projectViewTaskRequirements(Project projectToManage, String projectCommand) {
-        int taskIndex = Integer.parseInt(projectCommand.substring(25));
+        int taskIndex = Integer.parseInt(projectCommand.substring(23));
         if (projectToManage.getNumOfTasks() >= taskIndex && taskIndex > 0) {
             if (projectToManage.getTask(taskIndex).getNumOfTaskRequirements() == 0) {
                 consoleView.consolePrint("This task has no specific requirements.");
