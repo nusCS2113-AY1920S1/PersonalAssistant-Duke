@@ -10,17 +10,17 @@ import java.util.Date;
  */
 public class Task {
     //Basic description fields
-    private Name name;
-    private Description description;
+    private String name;
+    private String description;
 
-    public Task(Name name){
-        this.name = name;
+    public Task(String name){
+        this.name = name.trim();
     }
 
-    public Name getName(){
+    public String getName(){
         return name;
     }
 
-    public Description getDescription() { return description; }
+    public String getDescription() { return description; }
 
 }
