@@ -211,6 +211,8 @@ public class MovieHandler extends Controller implements RequestListener {
         BlacklistStorage bp = new BlacklistStorage();
         bp.load();
 
+
+
         HelpStorage.initialiseAllHelp();
 
         mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -220,14 +222,17 @@ public class MovieHandler extends Controller implements RequestListener {
 
                 setAutoCompleteText(ContextHelper.getAllHints(mSearchTextField.getText(), this));
                 event.consume();
+
             } else if (event.getCode().equals(KeyCode.ALT_GRAPH) || event.getCode().equals(KeyCode.ALT)) {
                 System.out.println("I pressed bit");
                 mSearchTextField.clear();
                 String cmd = CommandStack.nextCommand();
                 if (cmd == null) {
-                    setAutoCompleteText("You dont have any entertainment.pro.logic.parsers.commands in history!");
+                    setAutoCompleteText("You dont have any commands in history!");
                 } else {
+                    mSearchTextField.clear();
                     mSearchTextField.setText(cmd);
+
                 }
 
                 mSearchTextField.positionCaret(mSearchTextField.getText().length());

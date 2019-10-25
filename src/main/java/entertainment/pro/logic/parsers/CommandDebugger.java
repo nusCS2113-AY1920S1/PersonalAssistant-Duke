@@ -52,28 +52,28 @@ public class CommandDebugger {
 
 
     public static Double calculateJaccardSimilarity(CharSequence left, CharSequence right) {
-        Set<String> intersectionSet = new HashSet<String>();
+        Set<String> iset = new HashSet<String>();
         Set<String> unionSet = new HashSet<String>();
-        boolean unionFilled = false;
+        boolean isfilled = false;
         int leftLength = left.length();
         int rightLength = right.length();
         if (leftLength == 0 || rightLength == 0) {
             return 0d;
         }
 
-        for (int leftIndex = 0; leftIndex < leftLength; leftIndex++) {
-            unionSet.add(String.valueOf(left.charAt(leftIndex)));
-            for (int rightIndex = 0; rightIndex < rightLength; rightIndex++) {
-                if (!unionFilled) {
-                    unionSet.add(String.valueOf(right.charAt(rightIndex)));
+        for (int lefti = 0; lefti < leftLength; lefti++) {
+            unionSet.add(String.valueOf(left.charAt(lefti)));
+            for (int righti = 0; righti < rightLength; righti++) {
+                if (!isfilled) {
+                    unionSet.add(String.valueOf(right.charAt(righti)));
                 }
-                if (left.charAt(leftIndex) == right.charAt(rightIndex)) {
-                    intersectionSet.add(String.valueOf(left.charAt(leftIndex)));
+                if (left.charAt(lefti) == right.charAt(righti)) {
+                    iset.add(String.valueOf(left.charAt(lefti)));
                 }
             }
-            unionFilled = true;
+            isfilled = true;
         }
-        return Double.valueOf(intersectionSet.size()) / Double.valueOf(unionSet.size());
+        return Double.valueOf(iset.size()) / Double.valueOf(unionSet.size());
     }
 
 }

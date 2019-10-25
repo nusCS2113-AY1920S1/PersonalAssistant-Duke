@@ -1,0 +1,12 @@
+Playlist functionality:
+    #create      :Create new playlist
+    #delete      :Deletes entire playlist
+    #add         :Add movies to playlist
+    #remove      :Removes items from playlist
+    #set         :Set name and description of the playlist
+
+    usage: playlist create
+           playlist delete
+           playlist add
+           playlist remove
+           playlist set

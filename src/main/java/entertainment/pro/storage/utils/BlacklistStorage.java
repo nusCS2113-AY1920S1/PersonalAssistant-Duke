@@ -31,8 +31,8 @@ public class BlacklistStorage {
 
 
     public BlacklistStorage() throws FileNotFoundException {
-        file = new File("EPdata/BlacklistStorage.json");
-        this.inputStream = new FileInputStream(file);
+//        file = new File("EPdata/BlacklistStorage.json");
+//        this.inputStream = new FileInputStream(file);
     }
 
     /**

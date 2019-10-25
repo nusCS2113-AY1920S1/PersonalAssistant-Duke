@@ -62,6 +62,5 @@ public class CommandStack {
             cmd.executeCommands();
             cmd.setExecute(true);
         }
-        //TODO Execute Last Command
     }
 }
