@@ -7,6 +7,7 @@ import duke.logic.commands.AddCommand;
 import duke.logic.commands.AddSampleItineraryCommand;
 import duke.logic.commands.Command;
 import duke.logic.commands.DeleteCommand;
+import duke.logic.commands.EditorCommand;
 import duke.logic.commands.ExitCommand;
 import duke.logic.commands.FindCommand;
 import duke.logic.commands.FindPathCommand;
@@ -44,6 +45,16 @@ public class Parser {
     public static Command parseComplexCommand(String input) throws DukeException {
         String commandWord = getCommandWord(input);
         switch (commandWord) {
+        case "bye":
+            return new ExitCommand();
+        case "list":
+            return new ListCommand();
+        case "help":
+            return new HelpCommand();
+        case "fetch":
+            return new ViewScheduleCommand();
+        case "edit":
+            return new EditorCommand();
         case "todo":
             return new AddCommand(ParserUtil.createTodo(input));
         case "done":
@@ -97,32 +108,6 @@ public class Parser {
         default:
             throw new DukeUnknownCommandException();
         }
-    }
-
-    /**
-     * Parses the userInput and return a Command object.
-     *
-     * @param userInput Input created by the ConversationManager object or user input.
-     * @return The corresponding Command object.
-     * @throws DukeException If userInput is undefined.
-     */
-    public static Command parseSingleCommand(String userInput) throws DukeException {
-        switch (userInput) {
-        case "bye":
-            return new ExitCommand();
-        case "list":
-            return new ListCommand();
-        case "help":
-            return new HelpCommand();
-        case "fetch":
-            return new ViewScheduleCommand();
-        default:
-            return parseComplexCommand(userInput);
-        }
-    }
-
-    public static Command parsePromptCommand(String prompt) {
-        return new PromptCommand(prompt);
     }
 
     /**
