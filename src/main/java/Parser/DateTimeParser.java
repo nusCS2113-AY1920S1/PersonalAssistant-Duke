@@ -34,7 +34,7 @@ public class DateTimeParser {
     }
 
 
-    public String[] EventParse(String input) throws ParseException {
+    public static String[] EventParse(String input) throws ParseException {
 
         // date from time /to time
         dateTimeStringSplit = input.split("/from");
@@ -61,9 +61,9 @@ public class DateTimeParser {
     }
 
 
-    public String[] DeadlineParse(String input) throws ParseException {
+    public static String[] DeadlineParse(String input) throws ParseException {
         // date time
-        dateTimeStringSplit = input.split(" ");
+        dateTimeStringSplit = input.trim().split(" ");
         String weekDate = "";
         dateStringSplit = dateTimeStringSplit[0].trim().split(" ");
         weekDate = dateStringSplit[0];

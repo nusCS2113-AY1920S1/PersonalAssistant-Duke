@@ -1,5 +1,6 @@
 package Interface;
 import Commands.*;
+import DukeExceptions.DukeException;
 import JavaFx.AlertBox;
 import Tasks.*;
 import javafx.scene.control.Alert;
@@ -17,6 +18,7 @@ import java.util.logging.Logger;
  * user's input with fixed commands.
  */
 public class Parser {
+
     private static String[] split;
     private static String[] split1;
     private static String[] split2;
@@ -148,7 +150,8 @@ public class Parser {
                     SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
                     String startTimeString = timeFormat.format(startTime);
                     String endTimeString = timeFormat.format(endTime);
-                    return new RecurringCommand(split[0].trim(),startDate, endDate, startTimeString, endTimeString);
+                    return new HelpCommand();
+                    // return new RecurringCommand(split[0].trim(),startDate, endDate, startTimeString, endTimeString);
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                     LOGGER.log(Level.INFO, e.toString(), e);
                     throw new DukeException("OOPS!!! Please enter recurring event as follows:\n" +
