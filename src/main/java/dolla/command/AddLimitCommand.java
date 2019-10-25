@@ -12,7 +12,6 @@ public class AddLimitCommand extends Command {
     private String type;
     private double amount;
     private String duration;
-    private Limit limit;
 
     /**
      * Instantiates a new AddLimitCommand.
