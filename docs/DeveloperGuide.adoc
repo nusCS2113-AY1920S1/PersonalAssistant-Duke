@@ -110,6 +110,7 @@ If this is an `ArgCommand`, in addition to doing the above for a subclass of `Ar
 . Create a private constructor for the subclass
 .. Define `cmdArgLevel` and `emptyArgMsg`
 .. Construct the switches for the `ArgCommand` and supply them as arguments to `switchInit()`
+... If there are no switches, call `switchInit()` with no arguments
 
 Switch values are accessed from the `ArgCommand` with the `getSwitchVal()` method, which takes the name of a switch, as a String, as an argument, and returns the String representing the argument supplied for the switch. 
 

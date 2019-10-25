@@ -6,6 +6,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Abstract class for the argument specification for a particular class. Although Java does not provide a
+ * mechanism to enforce or document this contract, any subclass of ArgSpec must have a private constructor which sets
+ * {@code cmdArgLevel} and {@code emptyArgMsg}, and which calls {@code switchInit()}.
+ */
 public abstract class ArgSpec {
     protected String emptyArgMsg;
     protected ArgLevel cmdArgLevel;

@@ -32,12 +32,8 @@ public class Commands {
         switch (context) {
         case HOME:
             switch (cmdStr) {
-            case "bye":
-                return new ByeCommand();
             case "find":
                 return new PatientFindCommand();
-            case "help":
-                return new HomeHelpCommand();
             case "new":
                 return new HomeNewCommand();
             case "open":
@@ -49,7 +45,6 @@ public class Commands {
             default:
                 return null;
             }
-            break;
         case PATIENT:
             // ...
         case TREATMENT:
