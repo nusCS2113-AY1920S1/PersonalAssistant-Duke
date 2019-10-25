@@ -1,4 +1,4 @@
-package gazeeebo.commands.Contact;
+package gazeeebo.commands.contact;
 
 import gazeeebo.UI.Ui;
 
@@ -7,16 +7,17 @@ import java.util.Map;
 public class FindContactCommand {
 
     /**
-     * This method finds the contact number with the contact name.
+     * Finds the contact number with the contact name.
      *
-     * @param ui         the object that deals with printing things to the user.
-     * @param contact    the object that map each name to its own phone number
+     * @param ui        deals with printing things to the user.
+     * @param contactList   map each name to its own phone number
      * @param lineBreak String separator
      */
-    public FindContactCommand(final Ui ui, final Map<String, String> contact, final String lineBreak) {
+    public FindContactCommand(Ui ui, Map<String, String> contactList, String lineBreak) {
         int a = ui.fullCommand.split(" ")[1].toCharArray()[0];
-        String command = ui.fullCommand.split(" ")[0];
         String nameToFind = "";
+        String toPrint = "";
+        boolean isExist = false;
         for (int i = 1; i < ui.fullCommand.split(" ").length; i++) {
             if (i != ui.fullCommand.split(" ").length - 1) {
                 nameToFind = nameToFind.concat(ui.fullCommand.split(" ")[i] + " ");
@@ -24,21 +25,21 @@ public class FindContactCommand {
                 nameToFind = nameToFind.concat(ui.fullCommand.split(" ")[i]);
             }
         }
-        if (a <= 9) {
-            System.out.println(nameToFind + " is not found in the list.");
-        } else {
-            System.out.print("Name:                         | Number:\n" + lineBreak);
-            for (String keys : contact.keySet()) {
-                if (keys.contains(nameToFind)) {
-                    System.out.print(keys);
-                    int l = 30 - keys.length();
-                    for (int i = 0; i < l; i++) {
-                        System.out.print(" ");
-                    }
-                    System.out.print("| ");
-                    System.out.print(contact.get(keys) + "\n" + lineBreak);
+        for (String keys : contactList.keySet()) {
+            if (keys.contains(nameToFind)) {
+                isExist = true;
+                toPrint += keys;
+                int l = 30 - keys.length();
+                for (int i = 0; i < l; i++) {
+                    toPrint += " ";
                 }
+                toPrint += "| " + contactList.get(keys) + "\n" + lineBreak;
             }
+        }
+        if(!isExist) {
+            System.out.print(nameToFind + " is not found in the list.");
+        } else {
+            System.out.print("Name:                         | Number:\n" + lineBreak + toPrint);
         }
     }
 }
