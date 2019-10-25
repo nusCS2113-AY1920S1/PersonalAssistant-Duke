@@ -26,6 +26,12 @@ public class ImportCommandParser implements Parser<ImportCommand> {
     public static final String MESSAGE_ERROR_READING_CSV = "Error in reading csv!";
     public static final String MESSAGE_ERROR_CSV_FORMAT = "CSV is formatted wrongly";
 
+    /**
+     * Returns a ImportCommand object.
+     *
+     * @param input User input of command.
+     * @return ImportCommand Object.
+     */
     @Override
     public ImportCommand parse(String input) {
         String[] arguments = input.split(" ", 2);
@@ -55,6 +61,12 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         return null;
     }
 
+    /**
+     * Read and format loan entries from csv files.
+     *
+     * @param fileName File Name.
+     * @return list of formatted data.
+     */
     private ArrayList<Loan> parseLoans(String fileName) {
         ArrayList<Loan> data = new ArrayList<>();
         try {
@@ -151,6 +163,12 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         return data;
     }
 
+    /**
+     * Read and format expense entries from csv files.
+     *
+     * @param fileName File Name.
+     * @return list of formatted data.
+     */
     private ArrayList<Expense> parseExpenses(String fileName) {
         ArrayList<Expense> data = new ArrayList<>();
         try {

@@ -19,11 +19,23 @@ public class ExportCommand extends Command {
     private List<String[]> data;
     private String type;
 
+    /**
+     * Constructs the EditCommand object with data and type.
+     *
+     * @param data Processed Data from memory store.
+     * @param type type of data.
+     */
     public ExportCommand(List<String[]> data, String type) {
         this.data = data;
         this.type = type;
     }
 
+    /**
+     * Exports data into home folder.
+     *
+     * @param wallet The Wallet Object.
+     * @return false.
+     */
     @Override
     public boolean execute(Wallet wallet) {
 

@@ -24,11 +24,24 @@ public class ImportCommand extends Command {
     private ImportList importList;
     private String type;
 
+
+    /**
+     * Constructs the ImportCommand object with ImportList object and type.
+     *
+     * @param importList Processed Data from csv file.
+     * @param type type of data.
+     */
     public ImportCommand(ImportList importList, String type) {
         this.type = type;
         this.importList = importList;
     }
 
+    /**
+     * Imports data into wallet.
+     *
+     * @param wallet The Wallet Object.
+     * @return false.
+     */
     @Override
     public boolean execute(Wallet wallet) {
 
