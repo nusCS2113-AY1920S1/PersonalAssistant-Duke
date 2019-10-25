@@ -18,20 +18,13 @@ public class Ui {
      * Shows the startup logo for RoomShare
      */
     public void startUp() {
-        String logo = " __________         _\n"
-                + "|          \\       / \\\n"
-                + "|    ___    \\     /   \\\n"
-                + "|   |___|    |   |  |  | \n"
-                + "|          _/    |  |  | \n"
-                + "|    ___    \\    \\  \\  /\n"
-                + "|   |   \\    \\    \\  \\/\n"
-                + "|   |    \\    \\   /\\  \\\n"
-                + "|___|     \\____\\ /  \\  \\\n"
-                + "                 |  |  |\n"
-                + "                 |  |  |\n"
-                + "                 \\     /\n"
-                + "                  \\   /\n"
-                + "                   \\_/";
+        String logo = "******   ******\n"
+                    + "**  **   **\n"
+                    + "**  **   **\n"
+                    + "******   ******\n"
+                    + "******       **\n"
+                    + "**   **      **\n"
+                    + "**    ** ******";
         System.out.println("Hello from RoomShare!\n" + logo);
         System.out.println("How may I serve you?");
         System.out.println("Enter 'help' if you require assistance");
@@ -127,7 +120,7 @@ public class Ui {
      */
     public void showCommandError() {
         System.out.println("Sorry, I don't understand this command...");
-        System.out.println("Try typing todo, deadline or event followed by the task description to add tasks to your todo list");
+        System.out.println("Try type \"help add\" for instructions on how to add new task");
         System.out.println("    Type list, find, done, delete to perform operations on your todo list");
     }
 
