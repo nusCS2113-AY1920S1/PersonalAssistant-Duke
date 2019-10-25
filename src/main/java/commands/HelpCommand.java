@@ -29,16 +29,15 @@ public class HelpCommand extends Command {
                 + "4. delete\n"
                 + "5. snooze\n"
                 + "6. recurring\n"
-
                 + "7. remove\n"
-                + "8. member\n"
-                + "9. link\n"
-                + "10. unlink\n"
-
-                + "11. list\n"
-                + "12. schedule\n"
-                + "13. check\n"
-                + "14. bye\n");
+                + "8. reminder\n"
+                + "9. member\n"
+                + "10. link\n"
+                + "11. unlink\n"
+                + "12. list\n"
+                + "13. schedule\n"
+                + "14. check\n"
+                + "15. bye\n");
     }
 
     @Override
