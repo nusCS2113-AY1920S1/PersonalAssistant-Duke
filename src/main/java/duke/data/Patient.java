@@ -2,6 +2,7 @@ package duke.data;
 
 import duke.exception.DukeException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -146,27 +147,36 @@ public class Patient extends DukeObject {
     }
 
     /**
+     * This function finds relavent Impressions to the searchTerm.
+     * @param searchTerm the serach term
+     * @return the list of impressions
+     */
+    public ArrayList<Impression> findImpression(String searchTerm) {
+        ArrayList<Impression> searchResult = new ArrayList<Impression>();
+        for (Map.Entry<String, Impression> mapElement : this.impressions.entrySet()) {
+            Impression value = mapElement.getValue();
+            if (value.toString().contains(searchTerm)) {
+                searchResult.add(value);
+            }
+        }
+        return searchResult;
+    }
+
+    /**
      * This function find returns a list of all DukeObjs
      * with names related to the patient containing the search term.
      *
      * @param searchTerm String to be used to filter the DukeObj
      * @return the hashMap of DukeObjs
      */
-    public HashMap<String, DukeObject> find(String searchTerm) throws DukeException {
-        int i = 1;
-        HashMap<String, DukeObject> searchResult = new HashMap<String, DukeObject>();
-        for (Map.Entry mapElement : this.impressions.entrySet()) {
-            Impression value = (Impression) mapElement.getValue();
-            if (value.toString().contains(searchTerm)) {
-                searchResult.put(value.getName(), value);
-                ++i;
-            }
+    public ArrayList<DukeObject> find(String searchTerm) throws DukeException {
+        ArrayList<Impression> filteredList = findImpression(searchTerm);
+        ArrayList<DukeObject> searchResult = new ArrayList<DukeObject>();
+        for (Impression imp : filteredList) {
+            searchResult.add(imp);
+            searchResult.addAll(imp.find(searchTerm));
         }
-        if (i == 1) {
-            throw new DukeException("Can't find any matching tasks!");
-        } else {
-            return searchResult;
-        }
+        return searchResult;
     }
 
     /**
