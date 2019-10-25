@@ -65,7 +65,7 @@ public class MoneyStorage {
         account.getExpListTotal().add(spiltExp);
     }
 
-    private void parseGoal(String[] info, Account account) {
+    private void parseGoal(String[] info, Account account) throws DukeException {
         Goal g = new Goal(Float.parseFloat(info[1]), info[2], info[3],
                 LocalDate.parse(info[4], dateTimeFormatter), info[5]);
         account.getShortTermGoals().add(g);
@@ -142,55 +142,95 @@ public class MoneyStorage {
     }
 
     //@@author therealnickcheong
+
+    public void writeIncome(Income i , BufferedWriter bufferedWriter) throws IOException {
+        bufferedWriter.write("INC @ " + i.getPrice() + " @ " + i.getDescription() +
+                " @ " + i.getPaidTime() + "\n");
+    }
+
+    public void writeSplit(Split exp, BufferedWriter bufferedWriter) throws IOException {
+        bufferedWriter.write("SEX @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
+                exp.getCategory() + " @ " + exp.getBoughtDate() + " @ " +
+                ((Split) exp).getNamesOfPeople() + "\n");
+    }
+
+    public void writeBill(Bill exp, BufferedWriter bufferedWriter) throws IOException {
+        bufferedWriter.write("EXP @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
+                exp.getCategory() + " @ " + exp.getBoughtDate() + " @ " +
+                ((Bill) exp).getNextPayDay() + "\n");
+    }
+
+    public void writeExp(Expenditure exp, BufferedWriter bufferedWriter) throws IOException {
+        bufferedWriter.write("EXP @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
+                exp.getCategory() + " @ " + exp.getBoughtDate() + "\n");
+    }
+
+    public void writeGoal(Goal g, BufferedWriter bufferedWriter) throws IOException {
+        bufferedWriter.write("G @ " + g.getPrice() + " @ " + g.getDescription() + " @ " +
+                g.getCategory() + " @ " + g.getGoalBy() + " @ " + g.getPriority() + "\n");
+    }
+
+    public void writeInstalment(Instalment ins, BufferedWriter bufferedWriter) throws IOException {
+        bufferedWriter.write("INS @ " + ins.getPrice() + " @ " + ins.getDescription() + " @ " +
+                ins.getCategory() + " @ " + ins.getBoughtDate() + " @ " + ins.getNumOfPayments() + " @ " +
+                ins.getAnnualInterestRate() + "\n");
+    }
+
+    public void writeLoan(Loan l, BufferedWriter bufferedWriter) throws IOException {
+        bufferedWriter.write("LOA @ " + l.getPrice() + " @ " + l.getDescription() +
+                " @ " + l.getStartDate() + " @ " + l.getType().toString() + " @ " +
+                l.getEndDate() + " @ " + l.getStatusInt() + " @ " + l.getOutstandingLoan() + "\n");
+    }
+
+    public void writeBank(BankTracker b, BufferedWriter bufferedWriter) throws IOException {
+        bufferedWriter.write("BAN @ " + b.getAmt() + " @ " + b.getDescription() +
+                " @ " + b.getLatestDate().toString() + " @ " + b.getRate() + "\n");
+    }
+
+    public void writeInit(Account account, BufferedWriter bufferedWriter) throws IOException {
+        bufferedWriter.write("INIT @ " + account.isToInitialize() + "\n");
+    }
+
+    public void writeBaseSavings(Account account, BufferedWriter bufferedWriter) throws IOException {
+        bufferedWriter.write("BS @ " + account.getBaseSavings() + "\n");
+    }
+
     public void writeToFile(Account account) {
         try{
             FileWriter fileWriter = new FileWriter(fileName);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write("");
-
-            bufferedWriter.write("INIT @ " + account.isToInitialize() + "\n");
-            bufferedWriter.write("BS @ " + account.getBaseSavings() + "\n");
+            writeInit(account, bufferedWriter);
+            writeBaseSavings(account,bufferedWriter);
 
             for (Income i : account.getIncomeListTotal()) {
-                bufferedWriter.write("INC @ " + i.getPrice() + " @ " + i.getDescription() +
-                        " @ " + i.getPaidTime() + "\n");
+                writeIncome(i, bufferedWriter);
             }
 
             for (Expenditure exp : account.getExpListTotal()) {
                 if (exp instanceof Split) {
-                    bufferedWriter.write("SEX @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
-                            exp.getCategory() + " @ " + exp.getBoughtDate() + " @ " +
-                            ((Split) exp).getNamesOfPeople() + "\n");
+                    writeSplit((Split) exp, bufferedWriter);
                 } else if (exp instanceof Bill) {
-                    bufferedWriter.write("EXP @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
-                            exp.getCategory() + " @ " + exp.getBoughtDate() + " @ " +
-                            ((Bill) exp).getNextPayDay() + "\n");
+                    writeBill((Bill) exp, bufferedWriter);
                 } else {
-                    bufferedWriter.write("EXP @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
-                            exp.getCategory() + " @ " + exp.getBoughtDate() + "\n");
+                    writeExp(exp, bufferedWriter);
                 }
             }
 
             for (Goal g : account.getShortTermGoals()) {
-                bufferedWriter.write("G @ " + g.getPrice() + " @ " + g.getDescription() + " @ " +
-                        g.getCategory() + " @ " + g.getGoalBy() + " @ " + g.getPriority() + "\n");
+                writeGoal(g, bufferedWriter);
             }
 
             for (Instalment ins : account.getInstalments()) {
-                bufferedWriter.write("INS @ " + ins.getPrice() + " @ " + ins.getDescription() + " @ " +
-                        ins.getCategory() + " @ " + ins.getBoughtDate() + " @ " + ins.getNumOfPayments() + " @ " +
-                        ins.getAnnualInterestRate() + "\n");
+                writeInstalment(ins, bufferedWriter);
             }
 
             for (Loan l : account.getLoans()) {
-                bufferedWriter.write("LOA @ " + l.getPrice() + " @ " + l.getDescription() +
-                        " @ " + l.getStartDate() + " @ " + l.getType().toString() + " @ " +
-                        l.getEndDate() + " @ " + l.getStatusInt() + " @ " + l.getOutstandingLoan() + "\n");
+                writeLoan(l,bufferedWriter);
             }
 
             for (BankTracker b : account.getBankTrackerList()) {
-                bufferedWriter.write("BAN @ " + b.getAmt() + " @ " + b.getDescription() +
-                        " @ " + b.getLatestDate().toString() + " @ " + b.getRate() + "\n");
+                writeBank(b,bufferedWriter);
             }
 
             bufferedWriter.close();
