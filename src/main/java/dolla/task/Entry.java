@@ -68,6 +68,11 @@ public class Entry extends Log {
     }
 
     @Override
+    public LocalDate getDate() {
+        return date;
+    }
+
+    @Override
     public String getUserInput() {
         return userInput;
     }

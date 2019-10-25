@@ -5,6 +5,9 @@ import dolla.task.Log;
 
 import java.util.ArrayList;
 
+/**
+ * Holds all the debts that have been added to Dolla.
+ */
 public class DebtList extends LogList {
 
     public DebtList(ArrayList<Log> importDebtList) {

@@ -18,6 +18,7 @@ public class Dolla {
 
     //private TaskList tasks = new TaskList(new ArrayList<Task>());
     private DollaData dollaData = new DollaData();
+
     //Storage storage = new Storage();
 
     /**
