@@ -5,6 +5,7 @@ import Interface.LookupTable;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -29,7 +30,7 @@ public class DateTimeParser {
         }
     }
 
-    public String EventParse(String input) throws ParseException {
+    public String eventParse(String input) throws ParseException {
         // date from time /to time
         dateTimeStringSplit = input.split("/from");
         //dateTimeStringSplit[0] is "date" or "week X day", dateTimeStringSplit[1] is "time /to time"
@@ -53,7 +54,7 @@ public class DateTimeParser {
         //return new AddCommand(new Event(split[0].trim(), dateString, startTimeString, endTimeString));
     }
 
-    public String DeadlineParse(String input) throws ParseException {
+    public String deadlineParse(String input) throws ParseException {
         // date time
         dateTimeStringSplit = input.split(" ");
         String weekDate = "";
@@ -74,6 +75,7 @@ public class DateTimeParser {
         //return new AddCommand(new Deadline(split[0].trim(), dateString, timeString));
 
     }
+
 
     public static String[] recurringEventParse(String input) throws ParseException {
         //1/10/2019 /to 15/11/2019 /from 1500 /to 1700"
@@ -111,7 +113,7 @@ public class DateTimeParser {
         return out;
     }
 
-    public String RemindParse(String input) throws ParseException {
+    public static String[] remindDateParse(String input) throws ParseException {
         // week 9 fri 1500 /to week 9 thu 1500"
         dateTimeStringSplit = input.split("/to"); //dateTimeStringSplit[0] = week 9 fri 1500
         String[] taskDateTimeStringSplit = dateTimeStringSplit[0].trim().split(" ");
@@ -135,13 +137,14 @@ public class DateTimeParser {
         } else {
             reminderDate = dateTimeStringSplit[1];
         }
-
         Date dateOfTask = deadlineInputFormat.parse(weekDate);
-        Date dateOfReminder = deadlineInputFormat.parse(reminderDate);
         String dateString = dateOutputFormat.format(dateOfTask);
         String timeString = timeOutputFormat.format(dateOfTask);
-        return ;
-        //return new RemindCommand(new Deadline(description, dateString, timeString), dateOfReminder, set);
+        String[] dateTime = {dateString, timeString, reminderDate};
+        return dateTime;
+    }
+    public static Date deadlineStringToDate(String date) throws ParseException {
+        return deadlineInputFormat.parse(date);
     }
 
 }

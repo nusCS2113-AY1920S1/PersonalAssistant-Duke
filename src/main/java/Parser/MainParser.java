@@ -21,8 +21,8 @@ public class MainParser {
                 return new RecurParse(fullCommand).execute();
                 break;
             case "remind/set":
-                break;
             case "remind/rm":
+                return new RemindParse(fullCommand).execute();
                 break;
             case "/show":
                 return new WorkloadParse(fullCommand).execute();

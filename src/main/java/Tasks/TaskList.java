@@ -1,10 +1,5 @@
 package Tasks;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import Interface.DukeException;
-import javafx.util.Pair;
 
 /**
  * To keep track of the list of task input by user.
