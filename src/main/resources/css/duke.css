@@ -1,6 +1,7 @@
 .root {
     -fx-background-color: WHITE;
-    -fx-font-size: 10pt;
+    -fx-font-size: 12pt;
+    -fx-font-family: "SF Pro Text";
 }
 
 .scroll-pane {
