@@ -182,7 +182,7 @@ public class PlannerUi {
      */
     public void capMsg(double averageCap) {
         showLine();
-        System.out.println("Here is your current cumulative/predicted CAP!");
+        System.out.println("Here is your current cumulative/predicted CAP");
         System.out.printf("%.2f\n", averageCap);
     }
 

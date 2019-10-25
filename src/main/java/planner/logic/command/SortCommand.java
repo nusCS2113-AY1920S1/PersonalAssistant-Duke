@@ -2,18 +2,18 @@
 
 package planner.logic.command;
 
-import planner.logic.modules.cca.Cca;
-import planner.logic.modules.module.ModuleInfoDetailed;
-import planner.logic.modules.module.ModuleTask;
-import planner.logic.modules.cca.CcaList;
-import planner.util.crawler.JsonWrapper;
-import planner.ui.cli.PlannerUi;
-import planner.util.storage.Storage;
-import planner.logic.modules.module.ModuleTasksList;
-
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+
+import planner.logic.modules.cca.Cca;
+import planner.logic.modules.cca.CcaList;
+import planner.logic.modules.module.ModuleInfoDetailed;
+import planner.logic.modules.module.ModuleTask;
+import planner.logic.modules.module.ModuleTasksList;
+import planner.ui.cli.PlannerUi;
+import planner.util.crawler.JsonWrapper;
+import planner.util.storage.Storage;
 
 public class SortCommand extends ModuleCommand {
 
