@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import planner.logic.modules.module.ModuleTask;
 
 public class ModuleTasksList {
 
