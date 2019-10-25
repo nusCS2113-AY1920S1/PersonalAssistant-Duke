@@ -1,7 +1,11 @@
 package duke.model.locations;
 
 /**
+<<<<<<< HEAD
  * Class representing a venue.
+=======
+ * Represents a location of an attraction.
+>>>>>>> 20921c7839efb1481af98f3b5c7e0465ff5bb57e
  */
 public class Venue {
     private String address;

@@ -3,7 +3,7 @@ package duke.commons.exceptions;
 import duke.commons.Messages;
 
 /**
- * Exception thrown when an unknown command is given.
+ * Displays an error when an unknown command is entered.
  */
 public class DukeUnknownCommandException extends DukeException {
 

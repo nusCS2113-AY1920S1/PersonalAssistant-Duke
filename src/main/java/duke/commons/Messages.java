@@ -1,7 +1,7 @@
 package duke.commons;
 
 /**
- * Messages used by duke.Duke.
+ * Defines messages used by SGTravel.
  */
 public class Messages {
 

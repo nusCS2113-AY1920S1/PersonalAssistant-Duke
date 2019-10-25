@@ -4,7 +4,11 @@ import duke.commons.enumerations.Constraint;
 import java.util.ArrayList;
 
 /**
+<<<<<<< HEAD
  * Class representing a Train Station.
+=======
+ * Represents a train station.
+>>>>>>> 20921c7839efb1481af98f3b5c7e0465ff5bb57e
  */
 public class TrainStation extends RouteNode {
     private ArrayList<String> trainCodes;

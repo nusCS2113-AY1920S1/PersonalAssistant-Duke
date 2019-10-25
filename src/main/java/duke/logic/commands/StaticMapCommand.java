@@ -10,7 +10,7 @@ import duke.model.locations.Venue;
 import javafx.scene.image.Image;
 
 /**
- * Class representing a command to fetch the image of a queried location.
+ * Shows a map of location from StaticMap API.
  */
 public class StaticMapCommand extends Command {
     private static final String DIMENSIONS = "512";

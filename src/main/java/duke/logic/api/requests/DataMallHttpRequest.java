@@ -12,6 +12,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Handles Data Mall URL request.
+ */
 public class DataMallHttpRequest extends HttpRequest {
     private static final String URL = "http://datamall2.mytransport.sg/ltaodataservice/";
 

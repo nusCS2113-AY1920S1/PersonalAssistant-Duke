@@ -11,7 +11,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
 
-
+/**
+ * Defines an algorithm to find a path between 2 Venues.
+ */
 public class PathFinder {
     private CreateMap map;
     private HashSet<BusStop> visited;

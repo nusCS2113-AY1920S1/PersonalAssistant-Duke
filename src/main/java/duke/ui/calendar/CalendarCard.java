@@ -8,6 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
 
+/**
+ * Represents a calender card as a part of the UI.
+ */
 public class CalendarCard extends UiPart<StackPane> {
     @FXML
     private Label day;

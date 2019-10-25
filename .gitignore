@@ -16,5 +16,6 @@ bin/
 # CS2113 stuff
 tasks.txt
 tasks1.txt
+/events.txt
 /data/events.txt
 events.txt

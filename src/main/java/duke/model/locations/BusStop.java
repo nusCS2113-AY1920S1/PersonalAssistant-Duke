@@ -7,7 +7,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+<<<<<<< HEAD
  * Class representing a Bus Stop.
+=======
+ * Represents a bus stop.
+>>>>>>> 20921c7839efb1481af98f3b5c7e0465ff5bb57e
  */
 public class BusStop extends RouteNode {
     private String busCode;

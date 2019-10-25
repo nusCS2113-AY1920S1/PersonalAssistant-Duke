@@ -9,7 +9,7 @@ import duke.model.locations.RouteNode;
 import duke.model.Task;
 
 /**
- * Class representing a text-based CommandResult.
+ * Defines the result of various commands as a string.
  */
 public class CommandResultText extends CommandResult {
     /**

@@ -2,6 +2,9 @@ package duke.logic.conversations;
 
 import duke.commons.Messages;
 
+/**
+ * Handles the conversation occurring when a mark done command is entered.
+ */
 public class MarkDoneConversation extends Conversation {
     private static final String command = "done";
     private String index;

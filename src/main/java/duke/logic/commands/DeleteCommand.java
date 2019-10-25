@@ -7,7 +7,7 @@ import duke.model.Model;
 import duke.model.Task;
 
 /**
- * Class representing a command to delete a task.
+ * Deletes a task.
  */
 public class DeleteCommand extends Command {
     private int index;
