@@ -54,7 +54,7 @@ public abstract class Task {
         String[] split = description.split(" ");
         String taskDescription = "";
         for (int i = 0; i < split.length; i++) {
-            if (!split[i].equals(getModCode())) {
+            if (!split[i].toUpperCase().equals(getModCode())) {
                 taskDescription += split[i] + " ";
             }
         }
