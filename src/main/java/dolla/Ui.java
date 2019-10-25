@@ -1,7 +1,10 @@
 package dolla;
 
-import dolla.task.*;
+import dolla.task.Debt;
+import dolla.task.Task;
+import dolla.task.Entry;
 import dolla.task.Record;
+import dolla.task.RecordList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,10 +20,7 @@ public abstract class Ui {
         + "| | | | | | | || |/ /\\ \\  \n"
         + "| |_| | |_| | || |  __  | \n"
         + "|____/ \\ _ /|_||_|_|  |_|       \n";
-
-    /**
-     * The constant line.
-     */
+    
     protected static String line = "\t____________________________________________________________";
 
     /**

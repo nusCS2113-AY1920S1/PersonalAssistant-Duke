@@ -51,7 +51,7 @@ public class RemoveCommand extends Command {
         } else if (logNumStr.contains("|")) { //input form redo
             String[] parser = logNumStr.split("//|", 2);
             logNumInt = stringToInt(parser[0]) - 1;
-            Undo.addCommand(mode, recordList.get().get(logNumInt).getUserInput(), logNumInt); //add the user input to undo
+            Undo.addCommand(mode, recordList.get().get(logNumInt).getUserInput(), logNumInt); //add user input to undo
         } else { //normal user input
             logNumInt  = stringToInt(logNumStr) - 1;
             Undo.addCommand(mode, recordList.get().get(logNumInt).getUserInput(), logNumInt);

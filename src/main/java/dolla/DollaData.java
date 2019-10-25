@@ -1,7 +1,10 @@
 package dolla;
 
-import dolla.task.*;
+import dolla.task.DebtList;
+import dolla.task.EntryList;
+import dolla.task.LimitList;
 import dolla.task.Record;
+import dolla.task.RecordList;
 
 import static dolla.Storage.getDebtsFromSave;
 import static dolla.Storage.getEntriesFromSave;
