@@ -46,6 +46,13 @@ public class Commands {
             }
         case "discharge":
             return new ReportCommand();
+        case "history":
+            if (context == Context.HOME) {
+                return new HomeHistoryCommand();
+            } else {
+                // todo: fill in patient context
+                return null;
+            }
         default:
             return null;
         }
