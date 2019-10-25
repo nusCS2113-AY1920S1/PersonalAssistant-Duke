@@ -55,7 +55,7 @@ public class RemoveCommand extends Command {
         } else { //normal user input
             logNumInt  = stringToInt(logNumStr) - 1;
             Undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt);
-            Redo.clearRedo(mode);
+            Redo.clearRedo(mode);//////////////////////////////////////TODO:check useage
         }
 
         Ui.echoRemove(logList.get().get(logNumInt).getLogText());

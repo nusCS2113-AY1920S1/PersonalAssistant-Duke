@@ -10,13 +10,14 @@ import dolla.command.ErrorCommand;
 import java.time.LocalDate;
 
 public class DollaParser extends Parser {
+//    private final String mode = "dolla";
 
     public DollaParser(String inputLine) {
         super(inputLine);
     }
 
     @Override
-    public Command handleInput(String mode, String inputLine) {
+    public Command handleInput() {
 
         if (commandToRun.equals("add")) {
             if (verifyAddCommand() == true) {
