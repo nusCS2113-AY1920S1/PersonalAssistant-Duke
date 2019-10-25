@@ -13,6 +13,7 @@ public class CircleChart extends HBox {
     @FXML
     private PieChart chart = new PieChart();
 
+    //@@author cctt1014
     private CircleChart(String title) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/CircleChart.fxml"));
         fxmlLoader.setController(this);
