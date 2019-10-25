@@ -48,7 +48,6 @@ public class ExitCommand extends Command {
     public CommandResult execute(CommandParams commandParams, Model model, Storage storage) {
         // duke.ui.println("Bye. Hope to see you again soon!");
         // Platform.exit();
-
-        return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.CURRENT, true);
+        return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.EXPENSE, true);
     }
 }

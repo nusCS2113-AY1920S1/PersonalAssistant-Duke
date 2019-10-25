@@ -36,6 +36,6 @@ public class PlanBotCommand extends Command {
     public CommandResult execute(CommandParams commandParams, Model model, Storage storage) throws DukeException {
         model.processPlanInput(commandParams.getMainParam());
         storage.savePlanAttributes(model.getKnownPlanAttributes());
-        return new CommandResult("PlanBot replied!");
+        return new CommandResult("PlanBot replied!", CommandResult.DisplayedPane.PLAN);
     }
 }
