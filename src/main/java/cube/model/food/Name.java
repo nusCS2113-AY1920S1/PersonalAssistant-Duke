@@ -1,4 +1,4 @@
-package cube.model;
+package cube.model.food;
 
 /**
  * Represents a food's name in the food list.

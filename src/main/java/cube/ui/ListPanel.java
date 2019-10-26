@@ -1,6 +1,6 @@
 package cube.ui;
 
-import cube.model.FoodList;
+import cube.model.food.FoodList;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.StackPane;
 import javafx.fxml.FXML;

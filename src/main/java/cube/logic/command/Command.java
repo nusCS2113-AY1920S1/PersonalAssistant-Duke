@@ -5,7 +5,8 @@
  */
 package cube.logic.command;
 
-import cube.model.FoodList;
+import cube.model.food.FoodList;
+import cube.model.ModelManager;
 import cube.storage.StorageManager;
 import cube.logic.command.exception.CommandException;
 import cube.logic.command.util.CommandResult;
@@ -20,5 +21,5 @@ public abstract class Command {
 		return false;
 	}
 
-	public abstract CommandResult execute(FoodList list, StorageManager storage) throws CommandException;
+	public abstract CommandResult execute(ModelManager model, StorageManager storage) throws CommandException;
 }

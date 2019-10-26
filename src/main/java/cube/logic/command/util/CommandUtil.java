@@ -5,8 +5,8 @@
  */
 package cube.logic.command.util;
 
-import cube.model.Food;
-import cube.model.FoodList;
+import cube.model.food.Food;
+import cube.model.food.FoodList;
 import cube.logic.command.exception.CommandException;
 import cube.logic.command.exception.CommandErrorMessage;
 

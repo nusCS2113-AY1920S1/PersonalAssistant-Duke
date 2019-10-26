@@ -1,4 +1,4 @@
-package cube.model;
+package cube.model.food;
 
 import java.util.ArrayList;
 import java.util.Collections;

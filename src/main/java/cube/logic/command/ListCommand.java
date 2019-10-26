@@ -5,9 +5,10 @@
  */
 package cube.logic.command;
 
-import cube.model.FoodList;
-import cube.model.FoodList.SortType;
-import cube.model.Food;
+import cube.model.food.FoodList;
+import cube.model.food.Food;
+import cube.model.food.FoodList.SortType;
+import cube.model.ModelManager;
 import cube.storage.StorageManager;
 import cube.logic.command.util.CommandResult;
 
@@ -40,7 +41,8 @@ public class ListCommand extends Command{
 	 * @return The message feedback to user before Programme Exit.
 	 */
 	@Override
-	public CommandResult execute(FoodList list, StorageManager storage) {
+	public CommandResult execute(ModelManager model, StorageManager storage) {
+		FoodList list = model.getFoodList();
 		if (sortType != null) {
 			list.sort(sortType);
 		}

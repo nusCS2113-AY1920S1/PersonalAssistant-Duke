@@ -1,12 +1,9 @@
-/**
- * This is the main entrance of Duke programme.
- *
- * @author tygq13
- */
 package cube;
 
-import cube.model.Food;
-import cube.model.FoodList;
+import cube.model.food.Food;
+import cube.model.food.FoodList;
+import cube.model.sale.SalesHistory;
+import cube.model.ModelManager;
 import cube.ui.Ui;
 import cube.logic.parser.Parser;
 import cube.logic.command.Command;
@@ -15,14 +12,14 @@ import cube.util.FileUtilJson;
 import cube.storage.*;
 import cube.exception.CubeException;
 
-/**
- * the main class of Duke Programme
- */
+
 public class Cube {
 
     private StorageManager storageManager;
+    private ModelManager modelManager;
     private FileUtilJson storage;
     private FoodList foodList;
+    private SalesHistory salesHistory;
     private Ui ui;
 
     /**
@@ -37,11 +34,13 @@ public class Cube {
         try {
             storageManager = storage.load();
             foodList = storageManager.getFoodList();
+            modelManager = new ModelManager(foodList, new SalesHistory());
             Food.updateRevenue(storageManager.getRevenue());
         } catch (CubeException e) {
             ui.showLoadingError(filePath);
-            foodList = new FoodList();
             storageManager = new StorageManager();
+            foodList = new FoodList();
+            modelManager = new ModelManager();
         }
     }
 
@@ -57,7 +56,7 @@ public class Cube {
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 isExit = c.isExit();
-                CommandResult result = c.execute(foodList, storageManager);
+                CommandResult result = c.execute(modelManager, storageManager);
                 ui.showCommandResult(result);
                 storage.save(storageManager);
             } catch (CubeException e) {

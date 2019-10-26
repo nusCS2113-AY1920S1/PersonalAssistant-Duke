@@ -1,6 +1,7 @@
 package cube.logic.command;
 
-import cube.model.FoodList;
+import cube.model.food.FoodList;
+import cube.model.ModelManager;
 import cube.storage.StorageManager;
 import cube.logic.command.util.CommandResult;
 
@@ -28,7 +29,7 @@ public class HelpCommand extends Command{
 	 */
 
 	@Override
-	public CommandResult execute(FoodList list, StorageManager storage) {
+	public CommandResult execute(ModelManager model, StorageManager storage) {
 		return new CommandResult(MESSAGE_SUCCESS, true, false);
 	}
 }
