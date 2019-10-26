@@ -24,16 +24,12 @@ import java.util.logging.Logger;
  * Launcher class for the app.
  */
 public class Launcher extends Application {
-    public static void main(String[] args) {
-        launch(Launcher.class, args);
-    }
-
-    private static final Logger logger = LogsCenter.getLogger(Launcher.class);
-
     protected Ui ui;
     protected Logic logic;
     protected BakingHomeStorage storage = new JsonBakingHomeStorage(Config.BAKING_HOME_DATA_PATH);
     protected Model model;
+
+    private static final Logger logger = LogsCenter.getLogger(Launcher.class);
 
     @Override
     public void init() throws Exception {
@@ -73,4 +69,7 @@ public class Launcher extends Application {
         ui.start(primaryStage);
     }
 
+    public static void main(String[] args) {
+        launch(Launcher.class, args);
+    }
 }

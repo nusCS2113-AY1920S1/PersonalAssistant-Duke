@@ -1,5 +1,6 @@
 package duke.logic.parser.commons;
 
+import duke.commons.core.LogsCenter;
 import duke.logic.command.Command;
 import duke.logic.parser.exceptions.ParseException;
 
@@ -8,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
@@ -28,10 +30,13 @@ public class AutoCompleter {
      */
     private int suggestionPointer;
 
+    private static final Logger logger = LogsCenter.getLogger(AutoCompleter.class);
+
     /**
      * Creates an {@code AutoCompleter}.
      */
     public AutoCompleter() {
+        logger.info("Initializing AutoCompleter...");
         commandClasses = new ArrayList<>();
 
         suggestions = new ArrayList<>();
@@ -91,8 +96,13 @@ public class AutoCompleter {
      */
     public UserInputState complete() throws ParseException {
         if (suggestions.isEmpty()) {
+            logger.warning("No suggestions are available for user input.");
             throw new ParseException();
         }
+
+        logger.info(String.format("New suggestion [%s] found for user input.",
+            suggestions.get(suggestionPointer).userInputString
+        ));
 
         suggestionPointer = (suggestionPointer + 1) % suggestions.size();
         return suggestions.get(suggestionPointer);
@@ -133,10 +143,12 @@ public class AutoCompleter {
      */
     public void addCommandClass(Class<? extends Command> commandClass) throws ParseException {
         if (commandClasses.contains(commandClass)) {
+            logger.warning(String.format("Could not add duplicate %s to AutoCompleter", commandClass.toString()));
             throw new ParseException();
         }
 
         this.commandClasses.add(commandClass);
+
     }
 
     /**
@@ -234,6 +246,9 @@ public class AutoCompleter {
         try {
             return (String) commandClass.getField("AUTO_COMPLETE_INDICATOR").get(null);
         } catch (NoSuchFieldException | IllegalAccessException e) {
+            logger.warning(String.format("Field AUTO_COMPLETE_INDICATOR is not declared in %s",
+                commandClass.toString()));
+
             return "";
         }
     }
@@ -242,6 +257,9 @@ public class AutoCompleter {
         try {
             return Optional.of((String) commandClass.getField("COMMAND_WORD").get(null));
         } catch (NoSuchFieldException | IllegalAccessException e) {
+            logger.warning(String.format("Field COMMAND_WORD is not declared in %s",
+                commandClass.toString()));
+
             return Optional.empty();
         }
     }
@@ -252,6 +270,9 @@ public class AutoCompleter {
                     .getField("AUTO_COMPLETE_PARAMETERS")
                     .get(null));
         } catch (NoSuchFieldException | IllegalAccessException e) {
+            logger.warning(String.format("Field AUTO_COMPLETE_PARAMETERS is not declared in %s",
+                commandClass.toString()));
+
             return Optional.empty();
         }
     }

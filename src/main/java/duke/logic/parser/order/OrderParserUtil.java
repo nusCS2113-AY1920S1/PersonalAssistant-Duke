@@ -21,20 +21,26 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_REMARKS;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_STATUS;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_TOTAL;
 
+/**
+ * A utility class for order parser.
+ */
 class OrderParserUtil {
     private static final double MAX_NUMBER = 5000.0;
     private static final int MAX_NAME_LENGTH = 20;
     private static final int MAX_CONTACT_LENGTH = 20;
     private static final int MAX_REMARKS_LENGTH = 50;
     private static final String MESSAGE_NUMBER_EXCEED_LIMIT = "Numbers should be a positive double no more than "
-                                                                + MAX_NUMBER;
+        + MAX_NUMBER;
     private static final String MESSAGE_NAME_EXCEED_LIMIT = "Name should be less than "
-                                                            + MAX_NAME_LENGTH + " characters.";
+        + MAX_NAME_LENGTH + " characters.";
     private static final String MESSAGE_CONTACT_EXCEED_LIMIT = "Contact should be less than "
-                                                                + MAX_CONTACT_LENGTH + " characters.";
+        + MAX_CONTACT_LENGTH + " characters.";
     private static final String MESSAGE_REMARKS_EXCEED_LIMIT = "Remarks should be less than "
-                                                                + MAX_REMARKS_LENGTH + " characters.";
+        + MAX_REMARKS_LENGTH + " characters.";
 
+    /**
+     * Returns an {@code OrderDescriptor} from the given {@code ArgumentMultimap}.
+     */
     static OrderDescriptor createDescriptor(ArgumentMultimap map) {
         OrderDescriptor descriptor = new OrderDescriptor();
 
@@ -50,7 +56,7 @@ class OrderParserUtil {
         }
         if (map.getValue(PREFIX_ORDER_DEADLINE).isPresent()) {
             descriptor.setDeliveryDate(TimeParser.convertStringToDate(
-                    map.getValue(PREFIX_ORDER_DEADLINE).get()));
+                map.getValue(PREFIX_ORDER_DEADLINE).get()));
         }
         if (map.getValue(PREFIX_ORDER_REMARKS).isPresent()) {
             String value = map.getValue(PREFIX_ORDER_REMARKS).get();
@@ -85,7 +91,7 @@ class OrderParserUtil {
                 checkNumber(amount);
 
                 Item<String> item = new Item<>(itemAndQty[0].strip(),
-                        new Quantity(amount));
+                    new Quantity(amount));
                 items.add(item);
             } catch (NumberFormatException e) {
                 throw new ParseException(Message.MESSAGE_INVALID_NUMBER_FORMAT);
