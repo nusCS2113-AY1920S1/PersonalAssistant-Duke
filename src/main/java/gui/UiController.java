@@ -30,8 +30,8 @@ public class UiController {
      * */
     public void start(){
         //TODO remove temp tasks list
-        tasks = storage.loadTaskList();
-        TasksCounter tc = new TasksCounter(tasks);
+//        tasks = storage.loadTaskList();
+        TasksCounter tc = new TasksCounter(new ArrayList<Task>());
         new Window(tc, logicController);
     }
 

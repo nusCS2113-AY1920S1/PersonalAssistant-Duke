@@ -4,23 +4,39 @@ import utils.DukeException;
 
 import java.util.ArrayList;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 public class ModelController implements Model {
     private TasksManager tasksManager;
     private MemberManager memberManager;
+    private Gson gson;
+    private Storage storage;
     /**
      * Handles model changes.
      * */
     public ModelController() {
         //TODO change to loading from storage
-        tasksManager = new TasksManager();
+        storage = new Storage();
+        tasksManager = new TasksManager(storage.loadTasks());
         memberManager = new MemberManager();
+//        GsonBuilder builder = new GsonBuilder();
+//        builder.setPrettyPrinting();
+//        gson = builder.create();
     }
 
+    //@@author JustinChia1997
+    /**
+     * Loads the data from storage into memory
+     * */
     @Override
     public void load() {
         //TODO
     }
 
+    /**
+     * Saves the data into a persistent json object
+     * */
     @Override
     public void save() {
         //TODO
@@ -34,11 +50,16 @@ public class ModelController implements Model {
     @Override
     public void addTask(String name) throws DukeException {
         tasksManager.addTask(name);
+        storage.saveTasks(tasksManager.getTaskList());
+        storage.loadTasks();
+//        String json = gson.toJson(tasksManager.getTaskList());
+//        System.out.println("CHECK FOR THE STUFF");
+//        System.out.println(json);
     }
 
     @Override
-    public Task deleteTask(int index) throws DukeException {
-        Task toDelete = tasksManager.getTaskById(index);
+    public Task deleteTask(String name) throws DukeException {
+        Task toDelete = tasksManager.getTaskByName(name);
         ArrayList<Member> memberList = toDelete.getMemberList();
         for (int i = 0; i < memberList.size(); i++) {
             unlink(toDelete, memberList.get(i));
