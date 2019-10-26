@@ -2,7 +2,6 @@ package compal.storage;
 
 import compal.model.tasks.Deadline;
 import compal.model.tasks.Event;
-import compal.model.tasks.RecurringTask;
 import compal.model.tasks.Task;
 
 //@@author jaedonkey
@@ -22,8 +21,6 @@ public class TaskStorageParser implements StorageParser<Task> {
         switch (parts[1]) {
         case SYMBOL_DEADLINE:
             return new Deadline(parts[2], stringToPriority(parts[4]), parts[5], parts[7]);
-        case SYMBOL_RECUR:
-            return new RecurringTask(parts[2], stringToPriority(parts[4]), parts[5], parts[6], parts[7]);
         case SYMBOL_EVENT:
             return new Event(parts[2], stringToPriority(parts[4]), parts[5], parts[6], parts[7], parts[8]);
         default:
