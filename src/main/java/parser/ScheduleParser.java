@@ -33,7 +33,7 @@ public class ScheduleParser extends IndexParser {
         try {
             convertedIndex = Integer.parseInt(extractedIndex) - 1;
         } catch (NumberFormatException e) {
-            writeLog(e.toString(), this.getClass().getName(), userInput);
+            logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new DukeException(DukeException.unknownUserCommand());
         }
 

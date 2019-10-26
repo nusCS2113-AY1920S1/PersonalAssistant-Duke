@@ -32,7 +32,7 @@ public class RemindParser extends IndexParser {
         try {
             days = Integer.parseInt(daysString);
         } catch (NumberFormatException e) {
-            writeLog(e.toString(), this.getClass().getName(), userInput);
+            logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new DukeException(DukeException.unknownUserCommand());
         }
 

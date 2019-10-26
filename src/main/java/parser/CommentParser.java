@@ -30,7 +30,7 @@ public class CommentParser extends IndexParser {
             String[] commentCommandParts = taskFeatures.split("\\s+", 2);
             comment = commentCommandParts[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
-            writeLog(e.toString(), this.getClass().getName(), userInput);
+            logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new DukeException(DukeException.emptyComment());
         }
         return comment;
