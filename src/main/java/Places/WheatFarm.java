@@ -73,7 +73,9 @@ public class WheatFarm extends Farm {
     }
 
     public void growSeedlings() {
-        dayToGrow ++;
+        if (seedlings > 0) {
+            dayToGrow++;
+        }
         if (dayToGrow >= 1) {
             wheat += seedlings;
             seedlings = 0;

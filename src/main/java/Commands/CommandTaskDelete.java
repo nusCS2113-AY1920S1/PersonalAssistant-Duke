@@ -17,7 +17,7 @@ public class CommandTaskDelete extends Command {
         if (taskID < 1 || taskID > farmio.getFarmer().getTasks().size()) {
             throw new FarmioException("Invalid TaskID!");
         }
-        farmio.getUi().showInfo("You have deleted task: " + farmio.getFarmer().getTasks().removeTask(taskID));
         farmio.getSimulation().animate(farmio.getLevel().getPath(), farmio.getLevel().getNarratives().size());
+        farmio.getUi().showInfo("You have deleted task: " + farmio.getFarmer().getTasks().removeTask(taskID));
     }
 }

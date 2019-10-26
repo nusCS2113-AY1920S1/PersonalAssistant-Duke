@@ -1,7 +1,6 @@
 package Farmio;
 
-import Commands.Command;
-import Commands.CommandWelcome;
+import Commands.*;
 import Exceptions.FarmioException;
 import Exceptions.FarmioFatalException;
 import FrontEnd.Simulation;
@@ -36,9 +35,11 @@ public class Farmio {
             }
             while (!isExit) {
                 try {
-                    command = Parser.parse(ui.getInput(), stage);
+                    command = checkStage(stage) == null ? Parser.parse(ui.getInput(), stage) : checkStage(stage);
+//                    command = Parser.parse(ui.getInput(), stage); //TODO jx help me review if there is better way
                     command.execute(this);
                 } catch (FarmioException e) {
+                    simulation.animate();
                     ui.showWarning(e.getMessage());
                 }
             }
@@ -104,5 +105,26 @@ public class Farmio {
 
     public void setExit() {
         this.isExit = true;
+    }
+
+    private static Command checkStage(Farmio.Stage stage) {
+        switch (stage) {
+            case WELCOME:
+                return new CommandMenuStart();
+            case LEVEL_START:
+                return new CommandLevelStart();
+            case RUNNING_DAY:
+                return new CommandTasksRun();
+            case CHECK_OBJECTIVES:
+                return new CommandCheckObjectives();
+            case DAY_START:
+                return new CommandDayStart();
+            case LEVEL_END:
+                return new CommandLevelEnd();
+            case LEVEL_FAILED:
+                return new CommandLevelReset();
+            default:
+                return null;
+        }
     }
 }

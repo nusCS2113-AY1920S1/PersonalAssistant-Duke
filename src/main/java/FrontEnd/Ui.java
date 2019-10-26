@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -32,7 +33,7 @@ public class Ui {
     }
 
     public void showWarning(String message) {
-        show("Warning: " + message);
+        show(AsciiColours.RED + "Warning: " + message + AsciiColours.SANE);
     }
 
     public void clearScreen() {
@@ -40,52 +41,51 @@ public class Ui {
     }
 
     public void showInfo(String message) {
-        show("Info: " + message);
+        show(AsciiColours.CYAN + "Info: " + AsciiColours.SANE + message );
     }
 
     public String getInput() {
         show("\nInput: ");
-        return scanner.nextLine();
+        return scanner.nextLine().replace("[","").replace("]","");
     }
-
-    public void typeWriter(String text) { //ill clean this shit up soon.
-        final char OBJECTIVE_PLACEHOLDER = ':';
-        final char LEVEL_BEGIN_PLACEHOLDER = '~';
-        final char EARLY_ESCAPE_PLACEHOLDER = '/';
-        int i;
-        int lineLength = 0;
-        System.out.print(">>> ");
+    public void sleep(int delay) {
         try{
-            Thread.sleep(150);//0.5s pause between characters
+            Thread.sleep(delay);
         }catch(InterruptedException ex){
             Thread.currentThread().interrupt();
+            clearScreen();
+            showWarning("Simulator refersh interrupted! Interface may not display correctly.");
         }
-        for(i = 0; i < text.length(); i++) {
+    }
+    public void typeWriter(String text) { //ill clean this shit up soon.
+        final char LEVEL_BEGIN_PLACEHOLDER = '~';
+        final char EARLY_ESCAPE_PLACEHOLDER = '/';
+        boolean isNewline = false;
+        int lineLength = 0;
+        System.out.print(">>> ");
+        sleep(150);
+        for(int i = 0; i < text.length(); i++) {
             lineLength ++;
-            if (lineLength > 95 && text.charAt(i) == ' ') {
-                System.out.println();
-                System.out.print("   ");
+            if (lineLength > GameConsole.FULL_CONSOLE_WIDTH - 10 && text.charAt(i) == ' ') {
+                System.out.print("\n   ");
                 lineLength = 0;
             } else if (text.charAt(i) == '\n') {
-                System.out.print("   ");
-                lineLength = 0;
-            } else if (text.charAt(i) == OBJECTIVE_PLACEHOLDER) {
-                show(AsciiColours.RED + AsciiColours.UNDERLINE + "[Objective]" + AsciiColours.SANE);
-                System.out.print("   ");
+                isNewline = true;
                 lineLength = 0;
             } else if (text.charAt(i) == LEVEL_BEGIN_PLACEHOLDER) {
-                System.out.println("\n\n"+ " ".repeat(44) + AsciiColours.GREEN + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE+ "\n");
+                System.out.println("\n"+ " ".repeat(44) + AsciiColours.GREEN + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE+ "\n");
                 return;
             } else if (text.charAt(i) == EARLY_ESCAPE_PLACEHOLDER) {
+                System.out.println();
                 return;
             }
             System.out.printf("%c", text.charAt(i));
-            try{
-                Thread.sleep(40);//0.5s pause between characters
-            }catch(InterruptedException ex){
-                Thread.currentThread().interrupt();
+            if (isNewline) {
+                System.out.print("    ");
+                isNewline = false;
             }
+            sleep(10);
         }
-        show("\n\n" + " ".repeat(77) + "Press ENTER to continue..");
+        show("\n\n" + " ".repeat(74) + "Press [ENTER] to continue..");
     }
 }
