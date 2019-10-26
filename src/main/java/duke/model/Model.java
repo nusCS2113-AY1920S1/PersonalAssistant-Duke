@@ -158,6 +158,18 @@ public interface Model {
     void updateFilteredProductList(Predicate<Product> predicate);
 
     //========Sale operations=========
+
+    /**
+     * Returns true if an sale with the same id as {@code sale} exists in sale list.
+     */
+    boolean hasSale(Sale sale);
+
+    /**
+     * Deletes the given sale.
+     * The sale must exist in sale list.
+     */
+    void deleteSale(Sale target);
+
     /**
      * Adds the given sale.
      * The sale must not exist in sale list
@@ -165,26 +177,15 @@ public interface Model {
     void addSale(Sale sale);
 
     /**
-     * Deletes the given sale.
-     * The sale must exist in order list.
-     */
-    void deleteSale(Sale target);
-
-    /**
-     * Returns true if an sale with the same id as {@code order} exists in sale list.
-     */
-    boolean hasSale(Sale sale);
-
-    /**
      * Replaces the given sale {@code target} in the list with {@code editedSale}.
-     * {@code target} must exist in order list
+     * {@code target} must exist in sale list
      */
     void setSale(Sale target, Sale editedSale);
 
     /**
      * Replaces the sale at {@code Index} in the list with {@code editedSale}.
      * {@code Index} must be a valid index
-     * {@code target} must exist in order list
+     * {@code target} must exist in sale list
      */
     void setSale(Index index, Sale sale);
 
@@ -193,6 +194,11 @@ public interface Model {
      */
     ObservableList<Sale> getFilteredSaleList();
 
+    /**
+     * Updates the filter of the filtered sale list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
     void updateFilteredSaleList(Predicate<Sale> predicate);
 
     /**

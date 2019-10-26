@@ -9,7 +9,7 @@ import java.util.Optional;
  */
 public class SaleDescriptor {
     private String description;
-    private double value;
+    private Double value;
     private Date saleDate;
     private String remarks;
 
@@ -36,11 +36,11 @@ public class SaleDescriptor {
         this.description = description;
     }
 
-    public double getValue() {
-        return value;
+    Optional<Double> getValue() {
+        return Optional.ofNullable(value);
     }
 
-    public void setValue(double value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 

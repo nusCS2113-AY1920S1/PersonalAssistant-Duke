@@ -3,20 +3,33 @@
   "products" : [ ],
   "inventory" : [ {
     "ingredient" : {
-      "name" : "Cabbage",
-      "unitPrice" : 5.59,
+      "name" : "Butter",
+      "unitPrice" : 5.0,
       "remarks" : ""
     },
-    "amount" : 5.0
+    "amount" : 11.0
   } ],
   "shoppingList" : [ {
     "ingredient" : {
-      "name" : "Cabbage",
-      "unitPrice" : 5.59,
+      "name" : "Flour",
+      "unitPrice" : 5.0,
+      "remarks" : ""
+    },
+    "amount" : 5.0
+  }, {
+    "ingredient" : {
+      "name" : "Butter",
+      "unitPrice" : 5.0,
       "remarks" : ""
     },
     "amount" : 0.0
   } ],
-  "sales" : [ ],
+  "sales" : [ {
+    "id" : 1572062704791,
+    "description" : "Ingredients purchased.",
+    "saleDate" : "2019-10-26T04:05:04.787+0000",
+    "value" : 5.0,
+    "remarks" : "Ingredients are: -Butter "
+  } ],
   "shortcuts" : [ ]
 }
