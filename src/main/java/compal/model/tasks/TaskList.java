@@ -110,8 +110,8 @@ public class TaskList {
         while (!sorted) {
             sorted = true;
             for (int i = 0; i < arraySize - 1; i++) {
-                Date task1Date = arrlist.get(i).getDate();
-                Date task2Date = arrlist.get(i + 1).getDate();
+                Date task1Date = arrlist.get(i).getMainDate();
+                Date task2Date = arrlist.get(i + 1).getMainDate();
                 Task.Priority priority1 = arrlist.get(i).getPriority();
                 Task.Priority priority2 = arrlist.get(i + 1).getPriority();
 

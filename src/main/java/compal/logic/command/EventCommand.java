@@ -102,19 +102,15 @@ public class EventCommand extends Command {
     public String createAndAddEvent(boolean isInOneDay, TaskList taskList, String description, Date startDate,
                                     Task.Priority priority, String startTime, String endTime) {
         String startDateString = CompalUtils.dateToString(startDate);
+        String trailingDateString;
         if (isInOneDay) {
-            Event indivEvent = new Event(description, priority, startDateString, startTime, endTime);
-            taskList.addTask(indivEvent);
-            return indivEvent.toString();
+            trailingDateString = startDateString;
         } else {
-            Event firstEventPart = new Event(description, priority, startDateString, startTime, DAY_END);
-            taskList.addTask(firstEventPart);
-            Date nextDate = incrementDateByDays(startDate, DEFAULT_DAY_INTERVAL);
-            String nextDateString = CompalUtils.dateToString(nextDate);
-            Event secondEventPart = new Event(description, priority, nextDateString, DAY_START, endTime);
-            taskList.addTask(secondEventPart);
-            String wholeEventString = firstEventPart.toString() + secondEventPart.toString();
-            return wholeEventString;
+            Date trailingDate = incrementDateByDays(startDate, DEFAULT_DAY_INTERVAL);
+            trailingDateString = CompalUtils.dateToString(trailingDate);
         }
+        Event indivEvent = new Event(description, priority, startDateString, trailingDateString, startTime, endTime);
+        taskList.addTask(indivEvent);
+        return indivEvent.toString();
     }
 }

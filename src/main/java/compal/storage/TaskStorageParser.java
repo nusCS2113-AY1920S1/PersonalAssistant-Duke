@@ -25,7 +25,7 @@ public class TaskStorageParser implements StorageParser<Task> {
         case SYMBOL_RECUR:
             return new RecurringTask(parts[2], stringToPriority(parts[4]), parts[5], parts[6], parts[7]);
         case SYMBOL_EVENT:
-            return new Event(parts[2], stringToPriority(parts[4]), parts[5], parts[6], parts[7]);
+            return new Event(parts[2], stringToPriority(parts[4]), parts[5], parts[6], parts[7], parts[8]);
         default:
             System.out.println("Storage:LOG: Could not parse text. Returning what we managed to parse.");
             return null;

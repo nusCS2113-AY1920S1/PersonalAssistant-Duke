@@ -9,16 +9,19 @@ public class Event extends Task {
      * Constructs Event object.
      *
      * @param description Description of event.
-     * @param date        Starting date of event.
+     * @param mainDate        Starting date of event.
      * @param startTime   Starting time of event.
-     * @param priority    priority level of task type
-     * @param endTime     End time of deadline
+     * @param priority    priority level of task type.
+     * @param endTime     End time of event.
+     * @param trailingDate End date of event.
      */
-    public Event(String description, Priority priority, String date, String startTime, String endTime) {
+    public Event(String description, Priority priority, String mainDate, String trailingDate, String startTime,
+                 String endTime) {
         super(description, priority);
         super.symbol = "E";
-        super.setDate(date);
+        super.setMainDate(mainDate);
         super.setStartTime(startTime);
         super.setEndTime(endTime);
+        super.setTrailingDate(trailingDate);
     }
 }

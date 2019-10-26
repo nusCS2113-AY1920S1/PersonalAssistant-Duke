@@ -18,7 +18,7 @@ public class RecurringTask extends Task {
     public RecurringTask(String description, Priority priority, String date,
                          String startTime, String endTime) {
         super(description, priority);
-        super.setDate(date);
+        super.setMainDate(date);
         super.setStartTime(startTime);
         super.setEndTime(endTime);
         super.setSymbol(SYMBOL_RECURTASK);

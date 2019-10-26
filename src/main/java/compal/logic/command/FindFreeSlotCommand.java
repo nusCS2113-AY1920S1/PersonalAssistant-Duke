@@ -55,7 +55,7 @@ public class FindFreeSlotCommand extends Command {
         Date currentDateAndTime = calendar.getTime();
 
         for (Task task : taskList.getArrList()) {
-            if (task.getDate().equals(date) && !task.getStringEndTime().equals("-")
+            if (task.getMainDate().equals(date) && !task.getStringEndTime().equals("-")
                     && !task.getStringStartTime().equals("-") && task.getEndTime().after(currentDateAndTime)) {
                 arrayList.add(task);
             }
