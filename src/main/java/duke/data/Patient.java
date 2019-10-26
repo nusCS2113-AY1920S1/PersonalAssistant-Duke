@@ -5,8 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +12,7 @@ import java.util.Map;
 public class Patient extends DukeObject {
     private String bedNo;
     private String allergies;
-    private Impression priDiagnosis;
+    private Impression primaryDiagnosis;
     private HashMap<String, Impression> impressions;
     private Integer height;
     private Integer weight;
@@ -24,7 +22,7 @@ public class Patient extends DukeObject {
     private String history;
 
     private transient ObservableMap<String, Impression> observableImpressions;
-    private transient PropertyChangeSupport pcs;
+    private transient ObservableMap<String, Object> attributes;
 
     /**
      * Represents the patient.
@@ -56,10 +54,9 @@ public class Patient extends DukeObject {
         this.number = number;
         this.address = address;
         this.history = history;
-        this.priDiagnosis = null;
+        this.primaryDiagnosis = null;
 
-        initObservableImpressions();
-        this.pcs = new PropertyChangeSupport(this);
+        initObservables();
     }
 
     /**
@@ -83,15 +80,14 @@ public class Patient extends DukeObject {
         this.number = null;
         this.address = null;
         this.history = null;
-        this.priDiagnosis = null;
+        this.primaryDiagnosis = null;
 
-        initObservableImpressions();
-        this.pcs = new PropertyChangeSupport(this);
+        initObservables();
     }
 
     /**
      * Attaches a listener to the impressions map.
-     * This listener updates the {@code impressionHashMap} whenever the patient map is updated.
+     * This listener updates the {@code impressions} whenever the patient map is updated.
      */
     private void attachImpressionsListener() {
         observableImpressions.addListener((MapChangeListener<String, Impression>) change -> {
@@ -207,15 +203,6 @@ public class Patient extends DukeObject {
     }
 
     /**
-     * Adds a listener to listen for changes in {@code Patient} attributes.
-     *
-     * @param pcl PropertyChangeListener object.
-     */
-    public void addListener(PropertyChangeListener pcl) {
-        pcs.addPropertyChangeListener(pcl);
-    }
-
-    /**
      * This function find returns if a patient is allergic to an allergy.
      *
      * @param allergy String the possible allergy striped of spaces
@@ -227,7 +214,7 @@ public class Patient extends DukeObject {
 
     /**
      * Returns a string representation of a patient displaying all the values of the patient's attributes
-     * in a reader-friendly format.      *
+     * in a reader-friendly format.
      *
      * @return string representation of patient
      */
@@ -243,8 +230,8 @@ public class Patient extends DukeObject {
         informationString.append("Registration details\n");
         informationString.append("Bed Number: ").append(this.bedNo).append("\n");
         informationString.append("Allergies: ").append(this.allergies).append("\n");
-        informationString.append((priDiagnosis != null) ? "Primary Diagnosis: "
-                + this.priDiagnosis.toString() + "\n" : "");
+        informationString.append((primaryDiagnosis != null) ? "Primary Diagnosis: "
+                + this.primaryDiagnosis.toString() + "\n" : "");
         for (Map.Entry mapElement : this.impressions.entrySet()) {
             Impression imp = (Impression) mapElement.getValue();
             informationString.append(imp.toString());
@@ -284,10 +271,11 @@ public class Patient extends DukeObject {
         if (this.history != null) {
             informationString.append("\tHistory: ").append(this.history).append("\n");
         }
-        if (this.priDiagnosis != null) {
+        if (this.primaryDiagnosis != null) {
             informationString.append("\tRegistration details:\n");
             informationString.append("\tAllergies: ").append(this.allergies).append("\n");
-            informationString.append("\tPrimary Diagnosis: ").append(this.priDiagnosis.getDescription()).append("\n");
+            informationString.append("\tPrimary Diagnosis: ").append(this.primaryDiagnosis.getDescription())
+                    .append("\n");
             informationString.append("\nData about doctors impression of the patient and associated"
                     + " treatments and evidences;");
             for (Map.Entry mapElement : this.impressions.entrySet()) {
@@ -307,8 +295,27 @@ public class Patient extends DukeObject {
     }
 
     public void initObservables() {
+        initObservableAttributes();
         initObservableImpressions();
-        this.pcs = new PropertyChangeSupport(this);
+    }
+
+    private void initObservableAttributes() {
+        attributes = FXCollections.observableMap(new HashMap<>());
+        updateAttributes();
+    }
+
+    private void updateObservableAttributes() {
+        attributes.put("name", getName());
+        attributes.put("bedNo", getBedNo());
+        attributes.put("age", getAge());
+        attributes.put("height", getHeight());
+        attributes.put("weight", getWeight());
+        attributes.put("number", getNumber());
+        attributes.put("address", getAddress());
+        attributes.put("history", getHistory());
+        attributes.put("allergies", getAllergies());
+        attributes.put("diagnosis", getPrimaryDiagnosis());
+        attributes.put("impressions", impressions);
     }
 
     private void initObservableImpressions() {
@@ -320,19 +327,12 @@ public class Patient extends DukeObject {
         return allergies;
     }
 
-    /**
-     * Set allergies of {@code Patient}.
-     *
-     * @param allergies New allergies.
-     */
     public void setAllergies(String allergies) {
-        String oldAllergies = this.allergies;
         this.allergies = allergies;
-        pcs.firePropertyChange("Allergies", oldAllergies, allergies);
     }
 
-    public Impression getPriDiagnosis() {
-        return priDiagnosis;
+    public Impression getPrimaryDiagnosis() {
+        return primaryDiagnosis;
     }
 
     /**
@@ -340,13 +340,11 @@ public class Patient extends DukeObject {
      *
      * @param keyIdentifier index of the impression
      */
-    public void setPriDiagnosis(String keyIdentifier) throws DukeException {
+    public void setPrimaryDiagnosis(String keyIdentifier) throws DukeException {
         if (this.observableImpressions.containsKey(keyIdentifier)) {
-            Impression oldPriDiagnosis = priDiagnosis;
-            priDiagnosis = this.observableImpressions.get(keyIdentifier);
-            pcs.firePropertyChange("Primary Diagnosis", oldPriDiagnosis, priDiagnosis);
+            primaryDiagnosis = this.observableImpressions.get(keyIdentifier);
         } else {
-            throw new DukeException("I don't have that entry in the impressions list!");
+            throw new DukeException("I don't have that entry in the list!");
         }
     }
 
@@ -394,14 +392,15 @@ public class Patient extends DukeObject {
         return history;
     }
 
-    /**
-     * Set medical history of {@code Patient}.
-     *
-     * @param history New medical history.
-     */
     public void setHistory(String history) {
-        String oldHistory = this.history;
         this.history = history;
-        pcs.firePropertyChange("History", oldHistory, history);
+    }
+
+    public ObservableMap<String, Object> getAttributes() {
+        return attributes;
+    }
+
+    public void updateAttributes() {
+        updateObservableAttributes();
     }
 }
