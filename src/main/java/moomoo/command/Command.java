@@ -6,15 +6,12 @@ import moomoo.task.MooMooException;
 import moomoo.task.CategoryList;
 import moomoo.task.Ui;
 import moomoo.task.Storage;
-import moomoo.task.MooMooException;
 import moomoo.task.Category;
-
-
 
 /**
  * Represents the various commands to be executed.
  */
-public class Command {
+public abstract class Command {
     public boolean isExit;
     protected String input;
 
@@ -38,9 +35,7 @@ public class Command {
      * @param storage Storage object for interaction with filesystem.
      * @throws MooMooException Thrown when error such as invalid input occurs
      */
-    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
+    public abstract void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
                         Ui ui, Storage storage)
-            throws MooMooException {
-
-    }
+            throws MooMooException;
 }
