@@ -5,41 +5,35 @@
  */
 package cube.storage;
 
+import cube.storage.config.ReminderConfig;
+import cube.storage.config.UiConfig;
+
 public class ConfigStorage {
-    private double windowHeight;
-    private double windowWidth;
+    private UiConfig uiConfig;
+    private ReminderConfig reminderConfig;
 
     /**
      * Default constructor.
      * Creates a new instance of ConfigStorage class with default settings.
      */
     public ConfigStorage() {
-        this.windowHeight = 600;
-        this.windowWidth = 450;
+        this.uiConfig = new UiConfig();
+        this.reminderConfig = new ReminderConfig();
     }
 
-    /**
-     * Constructor that takes in 2 arguments.
-     * Creates a new instance of ConfigStorage class with supplied settings.
-     */
-    public ConfigStorage(int windowHeight, int windowWidth) {
-        this.windowHeight = windowHeight;
-        this.windowWidth = windowWidth;
+    public UiConfig getUiConfig() {
+        return uiConfig;
     }
 
-    /**
-     * Retrieves the user configured window height for JavaFX window.
-     * @return Window Height.
-     */
-    public double getWindowHeight() {
-        return windowHeight;
+    public void setUiConfig(UiConfig uiConfig) {
+        this.uiConfig = uiConfig;
     }
 
-    /**
-     * Retrieves the user configured window width for JavaFX window.
-     * @return Window Width.
-     */
-    public double getWindowWidth() {
-        return windowWidth;
+    public ReminderConfig getReminderConfig() {
+        return reminderConfig;
+    }
+
+    public void setReminderConfig(ReminderConfig reminderConfig) {
+        this.reminderConfig = reminderConfig;
     }
 }
