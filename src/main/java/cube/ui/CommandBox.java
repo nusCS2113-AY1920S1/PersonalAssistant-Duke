@@ -2,9 +2,9 @@ package cube.ui;
 
 import cube.exception.CubeException;
 import cube.logic.command.Command;
-import cube.logic.command.CommandResult;
+import cube.logic.command.util.CommandResult;
 import cube.logic.parser.Parser;
-import cube.model.FoodList;
+import cube.model.food.FoodList;
 import cube.storage.StorageManager;
 import cube.util.FileUtilJson;
 import javafx.scene.control.TextField;

@@ -3,7 +3,7 @@ package cube.logic.parser;
 import cube.logic.command.AddCommand;
 import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
-import cube.model.Food;
+import cube.model.food.Food;
 
 /**
  * Parse add food command.

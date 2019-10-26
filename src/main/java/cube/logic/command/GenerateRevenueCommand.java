@@ -8,12 +8,16 @@ package cube.logic.command;
 // need to add support for adding revenue at the start and update revenue later (cmd)
 // need to change the name to revenue for user friendliness
 // updated by LL-Pengfei
+// need to store revenue in persistent storage
+// need to make the revenue (individual rev) updated when selling specific food
 
-import cube.logic.command.exception.CommandErrorMessage;
 import cube.logic.command.exception.CommandException;
-import cube.model.Food;
-import cube.model.FoodList;
+import cube.model.food.FoodList;
+import cube.model.food.Food;
+import cube.model.ModelManager;
 import cube.storage.StorageManager;
+import cube.logic.command.util.CommandResult;
+import cube.logic.command.util.CommandUtil;
 
 /**
  * This class supports commands related to generating revenue.
@@ -78,40 +82,6 @@ public class GenerateRevenueCommand extends Command {
         this.param = GenerateRevenueCommand.GenerateRevenueBy.valueOf(param);
     }
 
-    /**
-     * The class checks whether a given index is valid or not.
-     *
-     * @param list The food list.
-     * @throws CommandException If the given index is invalid.
-     */
-    private void checkValidIndex(FoodList list) throws CommandException {
-        if (generateRevenueIndex < 0 || generateRevenueIndex >= list.size()) {
-            throw new CommandException(CommandErrorMessage.FOOD_NOT_EXISTS);
-        }
-    }
-
-    /**
-     * The class checks whether a given food name is in the food list or not.
-     *
-     * @param list The food list.
-     * @throws CommandException If the given food name is not inside the food list.
-     */
-    private void checkValidName(FoodList list) throws CommandException {
-        if (!list.existsName(generateRevenueDescription)) {
-            throw new CommandException(CommandErrorMessage.FOOD_NOT_EXISTS);
-        }
-    }
-
-    /**
-     * The class checks whether a given food type is in the food list or not.
-     * @param list The food list.
-     * @throws CommandException If the given food type is not inside the food list.
-     */
-    private void checkValidType(FoodList list) throws CommandException {
-        if (!list.existsType(generateRevenueDescription)) {
-            throw new CommandException(CommandErrorMessage.FOOD_NOT_EXISTS);
-        }
-    }
 
     /**
      * The class generates the revenue for food whose revenue the user wishes to generate.
@@ -122,21 +92,22 @@ public class GenerateRevenueCommand extends Command {
      * @throws CommandException If Generating Revenue is unsuccessful.
      */
     @Override
-    public CommandResult execute(FoodList list, StorageManager storage) throws CommandException {
+    public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
+        FoodList list = model.getFoodList();
         Food toGenerateRevenue;
         switch (param) {
             case ALL:
                 return new CommandResult(String.format(MESSAGE_SUCCESS_ALL, Food.getRevenue(), list.size()));
             case INDEX:
-                checkValidIndex(list);
+                CommandUtil.requireValidIndex(list, generateRevenueIndex);
                 toGenerateRevenue = list.get(generateRevenueIndex);
                 return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateRevenue.getFoodRevenue(), list.size()));
             case NAME:
-                checkValidName(list);
+                CommandUtil.requireValidName(list, generateRevenueDescription);
                 toGenerateRevenue = list.get(generateRevenueDescription);
                 return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateRevenue.getFoodRevenue(), list.size()));
             case TYPE:
-                checkValidType(list);
+                CommandUtil.requireValidType(list, generateRevenueDescription);
                 double totalRevenue = 0;
                 int count = 0, listSize = list.size(); //listSize stored in a variable to speed up the loop below (one time access)
                 for (int i = 0; i < listSize; ++i) {

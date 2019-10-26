@@ -1,19 +1,17 @@
-package cube.logic.command;
+/**
+ * The class represents the result of a command execution, it is used to show execution feedback for ui and gui.
+ *
+ * @author tygq13
+ */
+package cube.logic.command.util;
 
 import static java.util.Objects.requireNonNull;
-import java.util.Objects;
 
-/**
- * Represents the result of a command execution.
- */
+
 public class CommandResult {
 
     private final String feedbackToUser;
-
-    /** Help information should be shown to the user. */
     private final boolean showHelp;
-
-    /** The application should exit. */
     private final boolean exit;
 
     /**
@@ -44,25 +42,5 @@ public class CommandResult {
     public boolean isExit() {
         return exit;
     }
-
-    // not sure if we need this
-    /*
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof CommandResult)) {
-            return false;
-        }
-
-        CommandResult otherCommandResult = (CommandResult) other;
-        return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
-    }
-    */
 
 }

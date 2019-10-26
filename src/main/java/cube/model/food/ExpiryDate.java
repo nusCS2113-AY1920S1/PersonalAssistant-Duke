@@ -1,4 +1,4 @@
-package cube.model;
+package cube.model.food;
 
 public class ExpiryDate {
 }

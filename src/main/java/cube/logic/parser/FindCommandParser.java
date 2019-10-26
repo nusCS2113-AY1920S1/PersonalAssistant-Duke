@@ -3,9 +3,7 @@ package cube.logic.parser;
 import cube.logic.command.FindCommand;
 import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
-import cube.model.FoodList;
-
-import java.util.Arrays;
+import cube.model.food.FoodList;
 
 public class FindCommandParser implements ParserPrototype<FindCommand> {
 

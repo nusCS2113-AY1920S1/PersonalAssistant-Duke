@@ -1,4 +1,4 @@
-package cube.model;
+package cube.model.food;
 
 import java.util.Date;
 
@@ -8,6 +8,7 @@ public class Food {
 	protected String name;
 	protected String type;
 	protected double price;
+	protected double cost;
 	protected int stock;
 	protected Date expiryDate;
 	protected double foodRevenue;
@@ -31,8 +32,6 @@ public class Food {
 
 	public Food(String name) {
 		this.name = name;
-		this.revenue = 0;
-		this.stock = 0;
 		this.foodRevenue = 350; //ad hoc
 	}
 
@@ -149,6 +148,14 @@ public class Food {
 
 	public int getStock() {
 		return stock;
+	}
+
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+
+	public double getCost() {
+		return cost;
 	}
 
 	/**

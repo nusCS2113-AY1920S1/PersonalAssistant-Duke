@@ -7,8 +7,8 @@ package cube.storage;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import cube.model.Food;
-import cube.model.FoodList;
+import cube.model.food.Food;
+import cube.model.food.FoodList;
 
 public class StorageManager {
 	@JsonProperty
