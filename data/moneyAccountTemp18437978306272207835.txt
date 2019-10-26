@@ -77,4 +77,4 @@ EXP @ 1000.0 @ watch @ GS @ 26/10/2019
 EXP @ 200.0 @ Withdraw from OCBC @ withdraw from bank @ 3/3/2019
 EXP @ 30.0 @ Withdraw from OCBC @ bank @ 26/10/2019
 INS @ 100000.0 @ mortgage @ INS @ 12/12/2010 @ 200 @ 0.06
-BAN @ 30.0 @ OCBC @ 2017-07-27 @ 0.005
+BAN # 30.0 # OCBC # 2017-07-27 # 0.005

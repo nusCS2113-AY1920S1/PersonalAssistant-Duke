@@ -34,7 +34,7 @@ public class BankTracker {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
         String balance = decimalFormat.format(amt);
-        return "  Name: " + description + "\n  Balance: " + balance + "\n  Initial Date: "
+        return "  Name: " + description + "\n  Balance: " + balance + "\n  Latest Update Date: "
                 + dateTimeFormatter.format(latestDate) + "\n  Interest Rate: " + rate;
     }
 
