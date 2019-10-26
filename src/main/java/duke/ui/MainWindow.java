@@ -177,6 +177,7 @@ public class MainWindow extends UiPart<Stage> {
         historyIndex++;
         loadText();
     }
+
     private void loadText() {
         String history = inputHistory.get(historyIndex);
         userInput.setText(history);

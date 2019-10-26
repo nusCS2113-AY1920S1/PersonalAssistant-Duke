@@ -1,8 +1,8 @@
 package duke.logic.command.product;
 
-import duke.logic.message.ProductMessageUtils;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.message.ProductMessageUtils;
 import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.commons.Prefix;
 import duke.logic.parser.exceptions.ParseException;
@@ -18,13 +18,15 @@ public class AddProductCommand extends ProductCommand {
 
     public static final String AUTO_COMPLETE_INDICATOR = ProductCommand.COMMAND_WORD + " " + COMMAND_WORD;
     public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
-            CliSyntax.PREFIX_PRODUCT_NAME,
-            CliSyntax.PREFIX_PRODUCT_INGREDIENT,
-            CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST,
-            CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE
+        CliSyntax.PREFIX_PRODUCT_NAME,
+        CliSyntax.PREFIX_PRODUCT_INGREDIENT,
+        CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST,
+        CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE
     };
 
-    /** Constructs a AddProductCommand with the given ProductDescriptor */
+    /**
+     * Constructs a AddProductCommand with the given ProductDescriptor
+     */
     public AddProductCommand(ProductDescriptor descriptor) throws ParseException {
         requireNonNull(descriptor);
         this.toAdd = ProductCommandUtil.getProductFromDescriptor(descriptor);
@@ -44,7 +46,7 @@ public class AddProductCommand extends ProductCommand {
 
         if (model.hasProduct(toAdd)) {
             throw new CommandException(String.format(ProductMessageUtils.MESSAGE_DUPLICATE_PRODUCT,
-                    toAdd.getProductName()));
+                toAdd.getProductName()));
         }
 
         ProductCommandUtil.verifyNewIngredients(model, toAdd);

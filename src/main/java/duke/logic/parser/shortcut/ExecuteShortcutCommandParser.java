@@ -4,6 +4,9 @@ import duke.logic.command.shortcut.ExecuteShortcutCommand;
 import duke.logic.parser.commons.SubCommandParser;
 import duke.logic.parser.exceptions.ParseException;
 
+/**
+ * A parser that parses {@code ExecuteShortcutCommand}.
+ */
 public class ExecuteShortcutCommandParser implements SubCommandParser<ExecuteShortcutCommand> {
     private static final String MESSAGE_NAME_NOT_FOUND = "Please specify the shortcut name";
 

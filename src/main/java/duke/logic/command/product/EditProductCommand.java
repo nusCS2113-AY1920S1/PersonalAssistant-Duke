@@ -2,9 +2,9 @@ package duke.logic.command.product;
 
 import duke.commons.core.Message;
 import duke.commons.core.index.Index;
-import duke.logic.message.ProductMessageUtils;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.message.ProductMessageUtils;
 import duke.model.Model;
 import duke.model.exceptions.DuplicateEntityException;
 import duke.model.product.Product;
@@ -55,8 +55,8 @@ public class EditProductCommand extends ProductCommand {
         try {
             model.setProduct(toEdit, editedProduct);
         } catch (DuplicateEntityException e) {
-                throw new CommandException(String.format(ProductMessageUtils.MESSAGE_DUPLICATE_PRODUCT,
-                        editedProduct.getProductName()));
+            throw new CommandException(String.format(ProductMessageUtils.MESSAGE_DUPLICATE_PRODUCT,
+                editedProduct.getProductName()));
         }
         model.updateFilteredProductList(Model.PREDICATE_SHOW_ACTIVE_PRODUCTS);
         return new CommandResult(String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct.getProductName()),

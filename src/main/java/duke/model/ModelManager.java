@@ -7,7 +7,6 @@ import duke.model.order.Order;
 import duke.model.product.Product;
 import duke.model.sale.Sale;
 import duke.model.shortcut.Shortcut;
-import javafx.beans.value.ObservableFloatValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 

@@ -17,7 +17,9 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_REMARKS;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_TOTAL;
 import static duke.logic.parser.order.OrderParserUtil.createDescriptor;
 
-
+/**
+ * A parser that parses {@code EditOrderCommand}.
+ */
 public class EditOrderCommandParser implements Parser<EditOrderCommand> {
     @Override
     public EditOrderCommand parse(String args) throws ParseException {

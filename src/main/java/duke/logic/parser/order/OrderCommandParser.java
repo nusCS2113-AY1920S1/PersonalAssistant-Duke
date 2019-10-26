@@ -10,6 +10,9 @@ import duke.logic.command.order.ShowOrderCommand;
 import duke.logic.parser.commons.SubCommandParser;
 import duke.logic.parser.exceptions.ParseException;
 
+/**
+ * A parser that parses {@code OrderCommand}.
+ */
 public class OrderCommandParser implements SubCommandParser<OrderCommand> {
 
     @Override

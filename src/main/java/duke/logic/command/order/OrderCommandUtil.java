@@ -89,9 +89,8 @@ class OrderCommandUtil {
         for (Item<Product> productItem : order.getItems()) {
             for (Item<Ingredient> ingredientItem : productItem.getItem().getIngredients()) {
                 if (model.hasIngredient(ingredientItem.getItem())) {
-                    if (model.deductIngredient(ingredientItem.getItem(),
-                        productItem.getQuantity().getNumber() * ingredientItem.getQuantity().getNumber()
-                    )) {
+                    double amount = productItem.getQuantity().getNumber() * ingredientItem.getQuantity().getNumber();
+                    if (model.deductIngredient(ingredientItem.getItem(), amount)) {
                         isInventoryEnough = false;
                     }
                 }

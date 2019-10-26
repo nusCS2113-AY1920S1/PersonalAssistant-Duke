@@ -24,10 +24,10 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
 
     private void getMap(String args) {
         map = ArgumentTokenizer.tokenize(args,
-                PREFIX_PRODUCT_NAME,
-                PREFIX_PRODUCT_INGREDIENT,
-                PREFIX_PRODUCT_INGREDIENT_COST,
-                PREFIX_PRODUCT_RETAIL_PRICE
+            PREFIX_PRODUCT_NAME,
+            PREFIX_PRODUCT_INGREDIENT,
+            PREFIX_PRODUCT_INGREDIENT_COST,
+            PREFIX_PRODUCT_RETAIL_PRICE
         );
     }
 }

@@ -1,5 +1,6 @@
 package duke.logic.command.order;
 
+import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
@@ -12,15 +13,15 @@ import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 
+//@@author liujiajun
 /**
  * A command to delete orders from Order List.
  */
 public class DeleteOrderCommand extends OrderCommand {
     public static final String COMMAND_WORD = "remove";
 
-    public static final String MESSAGE_COMMIT = "Delete order";
+    private static final String MESSAGE_COMMIT = "Delete order";
     private static final String MESSAGE_DELETE_SUCCESS = "%s order(s) removed.";
-    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] is out of bound.";
     private final Set<Index> indices;
 
     /**
@@ -39,7 +40,7 @@ public class DeleteOrderCommand extends OrderCommand {
         List<Order> toDelete = new ArrayList<>();
         for (Index index : indices) {
             if (index.getZeroBased() >= model.getFilteredOrderList().size()) {
-                throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_BOUND, index.getOneBased()));
+                throw new CommandException(Message.MESSAGE_INDEX_OUT_OF_BOUND);
             }
             toDelete.add(model.getFilteredOrderList().get(index.getZeroBased()));
         }
