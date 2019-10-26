@@ -26,8 +26,8 @@ public class PriorityCommand extends Command {
     }
 
     /**
-     * Updates the priority level of a task that is not ignorable and saves the updated TaskList
-     * to persistent storage.
+     * Updates the priority level of a task that is not ignorable and saves the
+     * updated TaskList to persistent storage.
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
@@ -44,9 +44,9 @@ public class PriorityCommand extends Command {
         }
 
         Task task = tasks.getTasks().get(indexOfTask);
-        
-            task.setPriority(newPriority);
-            storage.saveFile(tasks.getTasks());
-            Ui.printOutput("Got it! " + task.getDescription() + " priority level is now " + priorityString);
+
+        task.setPriority(newPriority);
+        storage.saveFile(tasks.getTasks());
+        Ui.printOutput("Got it! " + task.getDescription() + " priority level is now " + priorityString);
     }
 }

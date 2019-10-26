@@ -145,8 +145,9 @@ public class TaskList {
      * This function allows the user to add a location to tasks.
      *
      * @param taskWithLocation is of String type which contains the desired date of
-     *                  schedule.
-     * @return sortDateList the sorted schedule of all the tasks on a particular date.
+     *                         schedule.
+     * @return sortDateList the sorted schedule of all the tasks on a particular
+     *         date.
      */
     public Task addLocation(Integer indexOfTask, String taskWithLocation) {
         Task taskHasLocation = listOfTasks.get(indexOfTask);
@@ -159,7 +160,8 @@ public class TaskList {
      *
      * @param dayToFind is of String type which contains the desired date of
      *                  schedule.
-     * @return sortDateList the sorted schedule of all the tasks on a particular date.
+     * @return sortDateList the sorted schedule of all the tasks on a particular
+     *         date.
      */
     public ArrayList<Task> schedule(String dayToFind) {
         ArrayList<Task> sortedDateList = new ArrayList<Task>();
@@ -173,7 +175,8 @@ public class TaskList {
     }
 
     /**
-     * This function allows the user to obtain the tasks on a particular date sorted by priority.
+     * This function allows the user to obtain the tasks on a particular date sorted
+     * by priority.
      *
      * @param dayToFind is of String type which contains the desired date of
      *                  schedule.
@@ -182,7 +185,8 @@ public class TaskList {
     public ArrayList<Task> obtainPriorityList(String dayToFind) {
         ArrayList<Task> priorityList = new ArrayList<Task>();
         for (int i = 0; i < listOfTasks.size(); i++) {
-            if (listOfTasks.get(i).toString().contains(dayToFind) && !listOfTasks.get(i).priority.equals(Priority.LOW)) {
+            if (listOfTasks.get(i).toString().contains(dayToFind)
+                    && !listOfTasks.get(i).priority.equals(Priority.LOW)) {
                 priorityList.add(listOfTasks.get(i));
             }
         }
@@ -191,7 +195,8 @@ public class TaskList {
     }
 
     /**
-     * This function allows the user to obtain the tasks on a particular date, but only with description.
+     * This function allows the user to obtain the tasks on a particular date, but
+     * only with description.
      *
      * @param dayToFind is of String type which contains the desired date of
      *                  schedule.
@@ -202,7 +207,7 @@ public class TaskList {
         ArrayList<String> scheduleDescriptionOnly = new ArrayList<>();
         for (int i = 0; i < obtainDescriptions.size(); i++) {
             if (obtainDescriptions.get(i).toString().contains(dayToFind)) {
-                scheduleDescriptionOnly.add(obtainDescriptions.get(i).description.split("\\d+",2)[0].trim());
+                scheduleDescriptionOnly.add(obtainDescriptions.get(i).description.split("\\d+", 2)[0].trim());
             }
         }
         return scheduleDescriptionOnly;

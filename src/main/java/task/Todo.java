@@ -51,13 +51,13 @@ public class Todo extends Task implements Serializable {
         if (this.duration == 0 && this.startDate == null) {
             message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
         } else if (this.duration == 0) {
-            message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description +
-            " (from: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: "
-                    + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
-            
-        } else {
             message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description
-                    + " " + "(for " + duration + " hours)";
+                    + " (from: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: "
+                    + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+
+        } else {
+            message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " "
+                    + "(for " + duration + " hours)";
         }
         if (!comment.isBlank()) {
             message = message + "  Note to self: " + comment;
