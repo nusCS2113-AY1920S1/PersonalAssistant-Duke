@@ -90,7 +90,7 @@ class MainWindow extends UiElement<Stage> {
                 contextWindowHolder.getTabs().remove(impressionTab);
                 Impression impression = (Impression) uiContext.getObject();
                 impressionTab = new Tab("Impression", new ImpressionWindow(impression,
-                                        impression.getPatient()).getRoot());
+                        (Patient)impression.getParent()).getRoot());
                 contextWindowHolder.getTabs().add(2, impressionTab);
                 contextWindowHolder.getSelectionModel().select(impressionTab);
                 break;

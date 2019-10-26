@@ -57,10 +57,13 @@ public class UiContext {
     public void moveUpOneContext() throws DukeException {
         if (context == Context.HOME) {
             throw new DukeException("You are already in the Home context.");
+        } else if (context == Context.PATIENT) {
+            setContext(Context.HOME, null);
+        } else if (context == Context.IMPRESSION) {
+            setContext(Context.PATIENT, object.getParent());
+        } else {
+            setContext(Context.IMPRESSION, object.getParent());
         }
-
-        // TODO: find what the next context up is
-
     }
 
     /**
