@@ -32,7 +32,7 @@ class RouteNodeAddCommandTest {
 
         assertEquals(busStop.getBusCode(), newBusStop.getBusCode());
 
-        //negative test for adding to non-existant route
+        //negative test for adding to non-existent route
         RouteNodeAddCommand routeNodeAddCommand2 =
                 (RouteNodeAddCommand) Parser.parseComplexCommand("routeNodeAdd 2 at 2113T by bus");
         assertThrows(IndexOutOfBoundsException.class, () -> {
