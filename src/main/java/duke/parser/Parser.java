@@ -1,5 +1,8 @@
 package duke.parser;
 
+import duke.command.AddNotesCommand;
+import duke.command.DeleteNotesCommand;
+import duke.command.ShowNotesCommand;
 import duke.command.Command;
 import duke.command.FindCommand;
 import duke.command.FilterCommand;
@@ -37,6 +40,7 @@ import duke.task.Contacts;
 import duke.task.BudgetList;
 import duke.task.ContactList;
 
+
 import java.util.ArrayList;
 
 
@@ -58,6 +62,7 @@ public class Parser {
      * @param sentence User input.
      * @param items The task list that contains a list of tasks.
      * @param budgetList The list that contains a list of budget.
+     * @param contactList The list of Contacts.
      * @return Command to be executed afterwards.
      * @throws Exception  If there is an error interpreting the user input.
      */
@@ -115,6 +120,57 @@ public class Parser {
                     throw new DukeException("     (>_<) OOPS!!! The task's type cannot be empty.");
                 } else {
                     return new FilterCommand(arr[ONE]);
+                }
+            }
+        } else if (arr.length > ZERO && arr[ZERO].equals("notes")) {
+            if (arr.length == ONE) {
+                throw new DukeException("     (>_<) OOPS!!! The task number cannot be empty.");
+            } else {
+                int tasknum = Integer.parseInt(arr[ONE]) - ONE;
+                if (tasknum < ZERO || tasknum >= items.size()) {
+                    throw new DukeException("     (>_<) OOPS!!! Invalid task number.");
+                } else if (arr.length < THREE) {
+                    throw new DukeException("     (>_<) OOPS!!! Insufficient parameters. "
+                            + "Format: notes <tasknum> <type> <notes description>");
+                } else {
+                    int typeOfNotes = MINUS_ONE;
+                    String notesDesc = "";
+                    for (int i = TWO; i < arr.length; i++) {
+                        if (i == TWO) {
+                            if (arr[i].trim().isEmpty()
+                                    || (!arr[i].equals("/add") && !arr[i].equals("/delete")
+                                    && !arr[i].equals("/show"))) {
+                                throw new DukeException("     (>_<) OOPS!!! Unable to find either "
+                                        + "/add, /delete, or /show.");
+                            } else {
+                                if (arr[i].equals("/add")) {
+                                    typeOfNotes = ONE;
+                                } else if (arr[i].equals("/delete")) {
+                                    typeOfNotes = TWO;
+                                    break;
+                                } else {
+                                    typeOfNotes = THREE;
+                                    break;
+                                }
+                            }
+                        } else {
+                            notesDesc += arr[i] + " ";
+                        }
+                    }
+                    notesDesc = notesDesc.trim();
+                    if (typeOfNotes == THREE) {
+                        return new ShowNotesCommand(tasknum);
+                    } else if (typeOfNotes == TWO) {
+                        return new DeleteNotesCommand(tasknum);
+                    } else if (typeOfNotes == ONE && notesDesc.isEmpty()) {
+                        throw new DukeException("     (>_<) OOPS!!! The notes description of a "
+                                + arr[ZERO] + " cannot be empty.");
+                    } else if (typeOfNotes != MINUS_ONE) {
+                        return new AddNotesCommand(notesDesc,tasknum);
+                    } else {
+                        throw new DukeException("     (>_<) OOPS!!! There is something wrong "
+                                + " when trying to add notes");
+                    }
                 }
             }   //@@author
         } else if (arr.length > ZERO && arr[ZERO].equals("todo")) {
@@ -433,8 +489,11 @@ public class Parser {
                     } else if (typeOfUpdate == THREE && typeDesc.isEmpty()) {
                         throw new DukeException("     (>_<) OOPS!!! The description of type for "
                                 + arr[ZERO] + " cannot be empty.");
-                    } else {
+                    } else if (typeOfUpdate != MINUS_ONE) {
                         return new UpdateCommand(taskDesc, dateDesc, typeDesc, typeOfUpdate, tasknum);
+                    } else {
+                        throw new DukeException("     (>_<) OOPS!!! There is something wrong "
+                                + " when trying to update");
                     }
                 }
             }   //@@author e0318465

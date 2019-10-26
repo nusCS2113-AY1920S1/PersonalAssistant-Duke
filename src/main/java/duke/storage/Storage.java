@@ -32,6 +32,7 @@ public class Storage {
     private static final int ONE = 1;
     private static final int TWO = 2;
     private static final int THREE = 3;
+    private static final int FOUR = 4;
 
     /**
      * Creates a storage with a specified filePath.
@@ -75,6 +76,7 @@ public class Storage {
         String dateDesc;
         String afterDesc;
         String durDesc;
+        String notesDesc;
         while ((st = br.readLine()) != null) {
             String[] commandList = st.split("\\|");
             try {
@@ -82,10 +84,13 @@ public class Storage {
                 dateDesc = "";
                 afterDesc = "";
                 durDesc = "";
+                notesDesc = "";
                 for (int i = ZERO; i < commandList.length; i++) {
                     if (i == TWO) {
                         taskDesc = commandList[i];
                     } else if (i == THREE) {
+                        notesDesc = commandList[i];
+                    } else if (i == FOUR) {
                         if (commandList[ZERO].equals("A")) {
                             afterDesc = commandList[i];
                         } else if (commandList[ZERO].equals("F")) {
@@ -109,6 +114,7 @@ public class Storage {
                     } else {
                         t = new Todo(taskDesc);
                         t.setStatusIcon(checked);
+                        t.setNotes(notesDesc);
                         items.add(t);
                     }
                 } else if (commandList[ZERO].equals("D")) {
@@ -117,6 +123,7 @@ public class Storage {
                     } else {
                         t = new Deadline(taskDesc, dateDesc);
                         t.setStatusIcon(checked);
+                        t.setNotes(notesDesc);
                         items.add(t);
                     }
                 } else if (commandList[ZERO].equals("E")) {
@@ -125,6 +132,7 @@ public class Storage {
                     } else {
                         t = new Event(taskDesc, dateDesc);
                         t.setStatusIcon(checked);
+                        t.setNotes(notesDesc);
                         items.add(t);
                     }
                 } else if (commandList[ZERO].equals("R")) {
@@ -133,6 +141,7 @@ public class Storage {
                     } else {
                         t = new Repeat(taskDesc, dateDesc);
                         t.setStatusIcon(checked);
+                        t.setNotes(notesDesc);
                         items.add(t);
                     }
                 } else if (commandList[ZERO].equals("A")) {
@@ -142,6 +151,7 @@ public class Storage {
                     } else {
                         t = new DoAfter(taskDesc, afterDesc);
                         t.setStatusIcon(checked);
+                        t.setNotes(notesDesc);
                         items.add(t);
                     }
                 } else if (commandList[ZERO].equals("F")) {
@@ -152,6 +162,7 @@ public class Storage {
                         int duration = Integer.parseInt(durDesc.split(" ")[ZERO]);
                         t = new FixedDuration(taskDesc, duration, durDesc.split(" ")[ONE]);
                         t.setStatusIcon(checked);
+                        t.setNotes(notesDesc);
                         items.add(t);
                     }
                 } else if (!commandList[ZERO].isEmpty()) {
