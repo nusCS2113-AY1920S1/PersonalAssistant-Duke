@@ -20,7 +20,7 @@ abstract class InputHistoryWindow extends UiElement<Region> {
     // TODO: A separate (inner) class for input history
     private List<String> inputHistory;
     private int historyPointer;
-    private String currentInput;
+    private String currentInput = "";
     private File historyFile;
 
     /**
@@ -29,7 +29,6 @@ abstract class InputHistoryWindow extends UiElement<Region> {
     InputHistoryWindow(String fxmlFileName, Region root) {
         super(fxmlFileName, root);
 
-        historyPointer = 0;
 
         // listen for updates to text field, and save partial input to currentInput if not viewing history
         inputTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -45,8 +44,10 @@ abstract class InputHistoryWindow extends UiElement<Region> {
             while (commandScanner.hasNextLine()) {
                 inputHistory.add(commandScanner.nextLine());
             }
+            historyPointer = inputHistory.size();
         } catch (FileNotFoundException excp) {
             inputHistory = new ArrayList<>();
+            historyPointer = 0;
         }
     }
 

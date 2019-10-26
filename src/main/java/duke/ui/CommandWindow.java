@@ -59,6 +59,11 @@ class CommandWindow extends InputHistoryWindow {
         if (!input.isEmpty()) {
 
             storeInput(input);
+            try {
+                writeHistory();
+            } catch (DukeException excp) {
+                printError(excp);
+            }
             messageContainer.getChildren().add(MessageBox.getUserMessage(input).getRoot());
 
             try {
