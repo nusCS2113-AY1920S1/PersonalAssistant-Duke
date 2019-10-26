@@ -110,7 +110,7 @@ public class Duke {
      * @throws Exception  If there is an error reading the command.
      */
     public Command getCommand(String sentence) throws Exception {
-        Command cmd = Parser.parse(sentence, items, budgetList);
+        Command cmd = Parser.parse(sentence, items, budgetList, contactList);
         return cmd;
     }
 
@@ -185,7 +185,7 @@ public class Duke {
             sentence = ui.readCommand();
             ui.showLine(); //Please do not remove!
             try {
-                Command cmd = Parser.parse(sentence, items, budgetList);
+                Command cmd = Parser.parse(sentence, items, budgetList, contactList);
                 if (cmd instanceof ExitCommand) {
                     priorityStorage.write(priorityList);
                     budgetStorage.write(budgetList);

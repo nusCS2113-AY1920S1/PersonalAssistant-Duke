@@ -1,14 +1,17 @@
 package duke.command;
 
 import duke.storage.Storage;
+import duke.task.BudgetList;
 import duke.task.TaskList;
 import duke.ui.Ui;
-import duke.task.BudgetList;
 
-import duke.dukeexception.DukeException;
 import java.io.IOException;
 
 //@@author maxxyx96
+
+/**
+ * Represents a command to show the budget.
+ */
 public class ViewBudgetCommand extends Command {
 
     protected Ui ui = new Ui();

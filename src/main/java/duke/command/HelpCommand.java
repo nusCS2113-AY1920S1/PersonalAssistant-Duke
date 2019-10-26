@@ -8,7 +8,7 @@ import java.io.IOException;
 
 //@@author gervaiseang
 /**
- * Displaying full help instructions that list down all functions and commands available.
+ * Displays full help instructions that list down all functions and commands available.
  */
 public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";

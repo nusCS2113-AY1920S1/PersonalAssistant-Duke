@@ -8,14 +8,14 @@ import duke.ui.Ui;
 
 //@@author Dou-Maokang
 /**
- * Representing a command to set priorities for every task.
+ * Represents a command to set priorities for every task.
  */
 public class SetPriorityCommand extends Command {
     protected int taskNum;
     protected int priority;
 
     /**
-     * Representing a command that set priority for each task.
+     * Represents a command that set priority for each task.
      *
      * @param taskNum The number of the task in the task list.
      * @param priority The priority level we want to set.

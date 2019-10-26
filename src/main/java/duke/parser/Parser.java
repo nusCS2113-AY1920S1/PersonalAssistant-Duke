@@ -22,6 +22,7 @@ import duke.command.ListContactsCommand;
 import duke.command.AddContactsCommand;
 import duke.command.ResetBudgetCommand;
 import duke.command.ViewBudgetCommand;
+import duke.command.FindContactCommand;
 import duke.dukeexception.DukeException;
 import duke.task.TaskList;
 import duke.task.Todo;
@@ -34,6 +35,7 @@ import duke.task.FixedDuration;
 import duke.task.DetectDuplicate;
 import duke.task.Contacts;
 import duke.task.BudgetList;
+import duke.task.ContactList;
 
 import java.util.ArrayList;
 
@@ -59,7 +61,8 @@ public class Parser {
      * @return Command to be executed afterwards.
      * @throws Exception  If there is an error interpreting the user input.
      */
-    public static Command parse(String sentence, TaskList items, BudgetList budgetList) throws Exception {
+    public static Command parse(String sentence, TaskList items, BudgetList budgetList,
+                                ContactList contactList) throws Exception {
         String[] arr = sentence.split(" ");
         String taskDesc = "";
         String dateDesc = "";
@@ -452,7 +455,15 @@ public class Parser {
                 throw new DukeException("     (>_<) OOPS!!! The contact index cannot be empty.");
             } else {
                 return new DeleteContactCommand(Integer.parseInt(arr[ONE]) - ONE);
-            }  //@@author
+            }
+        } else if (arr.length > ZERO && arr[ZERO].equals("findcontact") || arr[ZERO].equalsIgnoreCase("fc")) {
+            String[] keyword = sentence.split(" ", TWO);
+            if (arr.length == ONE || keyword[ONE].trim().isEmpty() || keyword[ONE].trim().equals(",")) {
+                throw new DukeException("     (>_<) OOPS!!! The keyword cannot be empty.");
+            } else {
+                return new FindContactCommand(keyword[ONE].toLowerCase(), contactList);
+            }
+            //@@author
         } else if (arr.length > ZERO && arr[ZERO].equals("budget")) {
             try {
                 String budgetCommandString = sentence.split(" ", TWO)[ONE];

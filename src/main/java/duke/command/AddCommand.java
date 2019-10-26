@@ -7,7 +7,7 @@ import duke.ui.Ui;
 
 //@@author talesrune
 /**
- * Representing a command that adds a new task.
+ * Represents a command that adds a new task.
  */
 public class AddCommand extends Command {
     protected Task task;
