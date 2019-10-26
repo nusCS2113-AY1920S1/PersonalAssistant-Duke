@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
@@ -194,14 +195,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-<<<<<<< HEAD
-    public void addSaleFromShopping(Double totalCost) {
+    public void addSaleFromShopping(Double totalCost, ArrayList<Item<Ingredient>> toBuyList) {
         String description = "Ingredients purchased.";
         double value = totalCost;
-        String remarks = "";
-=======
-    public void addSaleFromShopping(Double totalCost, ArrayList<Item<Ingredient>> toBuyList) {
->>>>>>> 3cbe5714bb54d1633999fd2a9b17ede35ae42ff6
+        Date buyDate = Calendar.getInstance().getTime();
+        String remarks = "Ingredients are: ";
+        for (Item<Ingredient> i : toBuyList) {
+            remarks = remarks + "-" + i.getItem().getName() + " ";
+        }
+        bakingHome.addSale(new Sale(description, value, buyDate, remarks));
         updateFilteredSaleList(PREDICATE_SHOW_ALL_SALES);
     }
 
