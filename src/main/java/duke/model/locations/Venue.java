@@ -49,7 +49,7 @@ public class Venue {
     }
 
     /**
-     * Calculates flat earth distance between 2 points based on latitude & longitude.
+     * Calculates flat earth distance (in metres) between 2 points based on latitude & longitude.
      *
      * @param otherVenue The other venue.
      * @return The absolute flat earth distance between the 2 venues.
