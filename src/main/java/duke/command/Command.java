@@ -15,5 +15,7 @@ import java.text.ParseException;
  */
 public abstract class Command {
 	public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, ParseException, DukeException;
-	public abstract boolean isExit();
+	public boolean isExit() {
+		return false;
+	}
 }

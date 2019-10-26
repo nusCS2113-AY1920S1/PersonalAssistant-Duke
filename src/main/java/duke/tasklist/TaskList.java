@@ -1,5 +1,6 @@
 package duke.tasklist;
 
+import duke.exception.DukeException;
 import duke.task.Task;
 import duke.ui.Ui;
 
@@ -45,11 +46,6 @@ public class TaskList {
         }
     }
 
-    /**
-     * returns the ArrayList of Tasks which duke.tasklist.TaskList maintains
-     *
-     * @return ArrayList the ArrayList of Tasks maintained by the duke.tasklist.TaskList class
-     */
     public ArrayList<Task> getList() {
         return taskList;
     }
@@ -63,14 +59,26 @@ public class TaskList {
         return taskList.size();
     }
 
-    /**
-     * returns the duke.task.Task at index i
-     *
-     * @param i the index of the duke.task.Task
-     * @return duke.task.Task the duke.task.Task object at index i
-     */
-    public Task get(int i) {
-        return taskList.get(i);
+    public Task get(int index) {
+        return taskList.get(index);
+    }
+
+    public Task get(Optional<String> filter, int index) throws DukeException {
+        int counter = -1;
+        if (filter.isPresent()) {
+            for (int i = 0; i < taskList.size(); i++) {
+                Task t = taskList.get(i);
+                if (t.getFilter().equals(filter)) {
+                    counter++;
+                }
+                if (counter == index - 1) {
+                    return t;
+                }
+            }
+        } else {
+            return taskList.get(index - 1);
+        }
+        throw new DukeException("Index not found");
     }
 
     /**
@@ -136,6 +144,26 @@ public class TaskList {
         taskList.remove(i);
     }
 
+    public void remove(Optional<String> filter, int index) throws DukeException {
+        int counter = -1;
+        if (filter.isPresent()) {
+            for (int i = 0; i < taskList.size(); i++) {
+                Task t = taskList.get(i);
+                if (t.getFilter().equals(filter)) {
+                    counter++;
+                }
+                if (counter == index - 1) {
+                    taskList.remove(i);
+                    return;
+                }
+            }
+        } else {
+            taskList.remove(index - 1);
+            return;
+        }
+        throw new DukeException("Index not found");
+    }
+
     public TaskList priorityView() {
         ArrayList<Task> temp = new ArrayList<>();
         for (Task t : taskList) {
@@ -166,7 +194,7 @@ public class TaskList {
             if (t.hasDateTime()) {
                 LocalDateTime taskDate = t.getDateTime();
                 if (ChronoUnit.DAYS.between(currDate, taskDate) < 7 &&
-                    ChronoUnit.DAYS.between(currDate, taskDate) > -1) {
+                        ChronoUnit.DAYS.between(currDate, taskDate) > -1) {
                     temp.add(t);
                 }
             }

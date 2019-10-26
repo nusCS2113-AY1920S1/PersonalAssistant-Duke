@@ -1,12 +1,12 @@
-import duke.parser.Parser;
+import duke.parser.DuqueParser;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Class for JUnit testing for Parser class
  */
-public class ParserTest {
-	private final Parser parser = new Parser();
+public class DuqueParserTest {
+	private final DuqueParser duqueParser = new DuqueParser();
 
 	@Test
 	public void magicTest() {
