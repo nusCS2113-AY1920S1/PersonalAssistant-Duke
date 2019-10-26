@@ -12,8 +12,8 @@ public class AddActionCommand extends Command {
     private String command;
     private String actionInput;
     private int prevPosition;
-    private final String EMPTY_STACK_MESSAGE = "empty stack";
-    private final String NULL_MESSAGE = "null";
+    private static final String EMPTY_STACK_MESSAGE = "empty stack";
+    private static final String NULL_MESSAGE = "null";
 
     /**
      * create an instance of AddActionCommand.
@@ -31,7 +31,7 @@ public class AddActionCommand extends Command {
      */
     private void undoCommand() {
         actionInput = Undo.processCommand(mode);
-        if(!actionInput.equals(EMPTY_STACK_MESSAGE)) {
+        if (!actionInput.equals(EMPTY_STACK_MESSAGE)) {
             String[] parser = actionInput.split(" ", 2);
             if (parser[0].equals("remove")) {
                 actionInput = parser[0] + " " + parser[1];
@@ -54,33 +54,33 @@ public class AddActionCommand extends Command {
      */
     private void processActionInput() {
         switch (command) {
-            case "undo":
-                undoCommand();
-                break;
-            case "redo":
-                redoCommand();
-                break;
-            case "repeat":
-                actionInput = Repeat.getRepeatInput(mode);
-                break;
-            default:
-                break;
+        case "undo":
+            undoCommand();
+            break;
+        case "redo":
+            redoCommand();
+            break;
+        case "repeat":
+            actionInput = Repeat.getRepeatInput(mode);
+            break;
+        default:
+            break;
         }
     }
 
     @Override
     public void execute(DollaData dollaData) throws Exception {
         processActionInput();
-        if(!actionInput.equals(EMPTY_STACK_MESSAGE) && !actionInput.equals(NULL_MESSAGE)) {
+        if (!actionInput.equals(EMPTY_STACK_MESSAGE) && !actionInput.equals(NULL_MESSAGE)) {
             switch (command) {
-                case "undo":
-                    setPrevPosition();
-                    break;
-                case "redo":
-                    setRedoFlag();
-                    break;
-                default:
-                    break;
+            case "undo":
+                setPrevPosition();
+                break;
+            case "redo":
+                setRedoFlag();
+                break;
+            default:
+                break;
             }
 
             Command c = MainParser.handleInput(mode, actionInput);

@@ -53,7 +53,7 @@ public class RemoveCommand extends Command {
                 resetRedoFlag();
                 String[] parser = logNumStr.split("//|", 2);
                 logNumInt = stringToInt(parser[0]) - 1;
-                Undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt); //add the user input to undo
+                Undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt); //add input to undo
             } else { //normal user input
                 logNumInt = stringToInt(logNumStr) - 1;
                 Undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt);

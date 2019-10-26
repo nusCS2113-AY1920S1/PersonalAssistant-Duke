@@ -81,7 +81,7 @@ public class Redo {
             } else {
                 redoInput = redoLimitCommand.pop();
             }
-        } catch(EmptyStackException e) {
+        } catch (EmptyStackException e) {
             ActionUi.printEmptyStackError("redo");
             redoInput = "empty stack";
         }

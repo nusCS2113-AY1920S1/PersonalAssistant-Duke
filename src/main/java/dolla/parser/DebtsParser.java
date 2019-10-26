@@ -79,7 +79,7 @@ public class DebtsParser extends Parser {
             resetRedoFlag();
         } else { //normal input, prePosition is -1
             addDebt = new AddDebtsCommand(type, name, amount, description, date, -1);
-    }
+        }
         return addDebt;
     }
 }

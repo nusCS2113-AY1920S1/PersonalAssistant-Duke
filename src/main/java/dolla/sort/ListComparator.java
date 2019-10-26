@@ -37,9 +37,9 @@ public class ListComparator {
         return new Comparator<Log>() {
             @Override
             public int compare(Log o1, Log o2) {
-                if(o1.getAmount() < o2.getAmount()) {
+                if (o1.getAmount() < o2.getAmount()) {
                     return -1;
-                } else if(o1.getAmount() > o2.getAmount()) {
+                } else if (o1.getAmount() > o2.getAmount()) {
                     return 1;
                 }
                 return 0;

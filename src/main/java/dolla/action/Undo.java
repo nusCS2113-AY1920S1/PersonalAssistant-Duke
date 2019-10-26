@@ -89,9 +89,9 @@ public class Undo {
             } else {
                 undoInput = undoDebtCommand.pop();
             }
-        } catch(EmptyStackException e) {
+        } catch (EmptyStackException e) {
             ActionUi.printEmptyStackError("undo");
-            return ActionUi.emptyMessage();
+            return "empty stack";
         }
         return undoInput;
     }

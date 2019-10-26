@@ -10,7 +10,6 @@ import dolla.command.ErrorCommand;
 import java.time.LocalDate;
 
 public class DollaParser extends Parser {
-//    private final String mode = "dolla";
 
     public DollaParser(String inputLine) {
         super(inputLine);

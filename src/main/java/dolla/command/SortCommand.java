@@ -34,6 +34,7 @@ public class SortCommand extends Command {
             break;
         case "limit":
             logList = dollaData.getLogList(mode);
+            break;
         default:
             Ui.printInvalidCommandError();
             break;
@@ -42,7 +43,7 @@ public class SortCommand extends Command {
         try {
             list = logList.getCloneList();
             list.get(0); //test if list is empty
-            switch(mode) {
+            switch (mode) {
             case "entry":
                 switch (type) {
                 case "amount":
@@ -59,7 +60,7 @@ public class SortCommand extends Command {
                     break;
                 }
                 break;
-                case "debt":
+            case "debt":
                 switch (type) {
                 case "amount":
                     new SortAmount(list);
@@ -85,8 +86,10 @@ public class SortCommand extends Command {
                     SortUi.printInvalidSort(mode);
                 }
                 break;
+            default:
+                break;
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             Ui.printEmptyListError(mode);
         }
     }

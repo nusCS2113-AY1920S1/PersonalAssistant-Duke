@@ -4,9 +4,9 @@ import dolla.task.Log;
 
 import java.util.ArrayList;
 
-public class SortUi extends Ui{
+public class SortUi extends Ui {
     /**
-     * Print sorted list.
+     * This method will print sorted list according to the type to be sorted.
      *
      * @param list the list to be printed
      * @param type the type of input of the list
@@ -37,21 +37,25 @@ public class SortUi extends Ui{
         System.out.println(line);
     }
 
+    /**
+     * This method will print the invalid message for invalid sort type.
+     * @param mode the mode that the user is in.
+     */
     public static void printInvalidSort(String mode) {
         System.out.println(line);
         System.out.println("You have enter a invalid sort command!");
-        switch(mode) {
-            case "entry":
-                System.out.println("You can try [sort amount/date/description]");
-                break;
-            case "debt":
-                System.out.println("You can try [sort amount/date/description/name]");
-                break;
-            case "limit":
-                System.out.println("You can try [sort amount]");
-                break;
-            default:
-                break;
+        switch (mode) {
+        case "entry":
+            System.out.println("You can try [sort amount/date/description]");
+            break;
+        case "debt":
+            System.out.println("You can try [sort amount/date/description/name]");
+            break;
+        case "limit":
+            System.out.println("You can try [sort amount]");
+            break;
+        default:
+            break;
         }
         System.out.println(line);
     }
