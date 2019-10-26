@@ -1,5 +1,6 @@
 package oof;
 
+import oof.exception.OofException;
 import oof.model.task.TaskList;
 import oof.model.task.Deadline;
 import oof.model.task.Task;
@@ -21,8 +22,9 @@ public class Reminder {
      *
      * @param taskList TaskList that contains Task objects.
      * @param ui       Ui that is responsible for visual feedback.
+     * @throws OofException Throws exception if datetime is invalid.
      */
-    public void checkDeadline(TaskList taskList, Ui ui, Storage storage) {
+    public void checkDeadline(TaskList taskList, Ui ui, Storage storage) throws OofException {
         int count = 1;
         int upcomingThreshold = storage.readThreshold();
         for (int i = 0; i < taskList.getSize(); i++) {
@@ -66,18 +68,15 @@ public class Reminder {
      * Parses the timestamp for the deadlines.
      * @param task Deadline task object.
      * @return Returns the parsed date if the date format is parsable.
+     * @throws OofException Throws exception if the datetime is invalid.
      */
-    private Date parseDateTime(Deadline task) {
-        String defaultDateTime = "00-00-0000 00:00";
-        Date dueDate = new Date();
+    private Date parseDateTime(Deadline task) throws OofException {
         try {
             String dateTime = task.getBy();
-            dueDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(defaultDateTime);
-            dueDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(dateTime);
+            Date dueDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(dateTime);
             return dueDate;
         } catch (ParseException | DateTimeException e) {
-            System.out.println("Something went wrong in reminders!");
-            return dueDate;
+            throw new OofException("Something went wrong in reminder");
         }
     }
 
