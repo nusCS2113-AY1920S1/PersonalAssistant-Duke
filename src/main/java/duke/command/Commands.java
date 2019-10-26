@@ -21,7 +21,7 @@ public class Commands {
         case "bye":
             return new ByeCommand();
         case "back":
-            //return new BackCommand();
+            return new BackCommand();
         case "up":
             return new UpCommand();
         default:

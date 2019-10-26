@@ -36,6 +36,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
                     getSwitchVal("dose"), getSwitchVal("date"), getSwitchVal("duration"));
             impression.addNewTreatment(medicine);
             newData = medicine;
+            core.ui.print("New medicine course added:\n" + medicine.toString());
             break;
 
         case "plan":
@@ -43,6 +44,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
             Plan plan = new Plan(getSwitchVal("name"), impression, priority, status,
                     getSwitchVal("summary"));
             impression.addNewTreatment(plan);
+            core.ui.print("New treatment plan item added:\n" + plan.toString());
             newData = plan;
             break;
 
@@ -51,6 +53,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
             Investigation invx = new Investigation(getSwitchVal("name"), impression, priority, status,
                     getSwitchVal("summary"));
             impression.addNewTreatment(invx);
+            core.ui.print("New investigation being tracked:\n" + invx.toString());
             newData = invx;
             break;
 
@@ -58,6 +61,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
             Result result = new Result(getSwitchVal("name"), impression, priority,
                     getSwitchVal("summary"));
             impression.addNewEvidence(result);
+            core.ui.print("New result entered:\n" + result.toString());
             newData = result;
             break;
 
@@ -67,6 +71,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
                     getSwitchVal("summary"), isObjective);
             impression.addNewEvidence(obsv);
             newData = obsv;
+            core.ui.print("New observation logged:\n" + obsv.toString());
             break;
 
         default:
@@ -90,5 +95,8 @@ public class ImpressionNewCommand extends DukeDataCommand {
                 throw new DukeException("Invalid data type!");
             }
         }
+        core.writeJsonFile();
     }
+
+
 }

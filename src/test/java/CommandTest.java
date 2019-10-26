@@ -31,7 +31,7 @@ public abstract class CommandTest {
             core = new DukeCore();
             core.patientMap = new PatientMap();
             core.storage = new GsonStorage(testFilePath);
-            core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
+            core.writeJsonFile();
         } catch (DukeFatalException excp) {
             fail("Could not setup storage for testing!");
         }
