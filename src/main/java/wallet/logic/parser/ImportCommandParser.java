@@ -193,6 +193,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                 }
                 boolean isRecurring = false;
                 String freq = null;
+<<<<<<< HEAD
                 if (s.length == 6 && s[4].trim().equalsIgnoreCase("yes")) {
                     isRecurring = true;
                     date = LocalDate.parse(s[1].trim(), formatter);
@@ -201,6 +202,18 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                         System.out.println(freq);
                         System.out.println(MESSAGE_ERROR_CSV_FORMAT);
                         return null;
+=======
+                if (s.length == 6) {
+                    if (s[4].trim().equalsIgnoreCase("yes")) {
+                        isRecurring = true;
+                        date = LocalDate.parse(s[1].trim(), formatter);
+                        freq = s[5].trim().toUpperCase();
+                        if (!freq.equals("DAILY") && !freq.equals("WEEKLY") && !freq.equals("MONTHLY")) {
+                            System.out.println(freq);
+                            System.out.println(MESSAGE_ERROR_CSV_FORMAT);
+                            return null;
+                        }
+>>>>>>> junit tests
                     }
                 }
                 Expense expense = new Expense(desc, date, amount, cat, isRecurring, freq);
