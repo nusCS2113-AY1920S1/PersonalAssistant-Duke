@@ -1,7 +1,6 @@
 package cube.storage;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import cube.model.food.Food;
 import cube.model.food.FoodList;
 
 public class FoodStorage {
@@ -18,11 +17,6 @@ public class FoodStorage {
 
 	public FoodList getFoodList() {
 		return foodList;
-	}
-
-	//TODO: this method is deprecated.
-	public void appendFood(Food food) {
-		foodList.add(food);
 	}
 
 	public void storeFoodList(FoodList foodlist) {

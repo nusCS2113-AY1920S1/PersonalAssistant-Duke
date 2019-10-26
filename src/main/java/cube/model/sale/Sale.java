@@ -44,5 +44,4 @@ public class Sale {
 	public Date getDate() {
 		return soldDate;
 	}
-
 }

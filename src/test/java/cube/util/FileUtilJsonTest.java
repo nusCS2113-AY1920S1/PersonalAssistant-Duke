@@ -60,7 +60,7 @@ public class FileUtilJsonTest {
         init("data","cube.json");
         createTestFile(50);
     }
-    
+
     public void testFileUtilPerformance() throws CubeException {
         for (int i = 5; i <= 50000; i *= 10) {
             init("test",i + ".json");

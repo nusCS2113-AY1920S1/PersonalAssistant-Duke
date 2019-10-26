@@ -16,7 +16,7 @@ import cube.storage.StorageManager;
 public class FileUtilJson {
     private String filePath;
     private String fileFullPath;
-    private static final String fileName = "cube.json";
+    private static String fileName = "cube.json";
 
     /**
      * Constructor with one argument.
