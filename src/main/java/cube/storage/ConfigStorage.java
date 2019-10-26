@@ -21,18 +21,34 @@ public class ConfigStorage {
         this.reminderConfig = new ReminderConfig();
     }
 
+    /**
+     * Getter for UiConfig.
+     * @return UiConfig object containing UI specific configurations.
+     */
     public UiConfig getUiConfig() {
         return uiConfig;
     }
 
+    /**
+     * Setter for UiConfig.
+     * @param uiConfig The UiConfig object that contains UI specific configurations.
+     */
     public void setUiConfig(UiConfig uiConfig) {
         this.uiConfig = uiConfig;
     }
 
+    /**
+     * Getter for ReminderConfig.
+     * @return ReminderConfig object containing Reminder Command specific configurations.
+     */
     public ReminderConfig getReminderConfig() {
         return reminderConfig;
     }
 
+    /**
+     * Setter for ReminderConfig.
+     * @param reminderConfig The ReminderConfig object that contains Reminder Command specific configurations.
+     */
     public void setReminderConfig(ReminderConfig reminderConfig) {
         this.reminderConfig = reminderConfig;
     }
