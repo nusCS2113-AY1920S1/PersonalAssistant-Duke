@@ -55,9 +55,9 @@ class PatientCard extends AnchorPane {
         bedLabel.setText("Bed " + patient.getBedNo());
 
         if (patient.getPriDiagnosis() != null) {
-            diagnosisLabel.setText(patient.getPriDiagnosis().getDescription());
+            diagnosisLabel.setText(patient.getPriDiagnosis().getName());
         } else {
-            diagnosisLabel.setText("N.A.");
+            diagnosisLabel.setText("No primary diagnosis");
         }
 
         // TODO: Fetch patient's issues

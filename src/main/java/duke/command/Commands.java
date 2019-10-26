@@ -61,6 +61,10 @@ public class Commands {
                 return new PatientDischargeCommand();
             case "delete":
                 return new PatientDeleteCommand();
+            case "primary":
+                return new PatientPrimaryCommand();
+            case "edit":
+                return new PatientEditCommand();
             default:
                 return null;
             }
