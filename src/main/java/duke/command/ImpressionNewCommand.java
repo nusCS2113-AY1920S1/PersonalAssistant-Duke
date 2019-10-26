@@ -7,10 +7,6 @@ import duke.ui.Context;
 
 public class ImpressionNewCommand extends DukeDataCommand {
 
-    private static final String[] medicineStatusArr = {"Not ordered", "In progress", "Completed"};
-    private static final String[] invxStatusArr = {"Not ordered", "In progress"};
-    private static final String[] planStatusArr = {"Not ordered", "In progress", "Reported"};
-
     @Override
     protected ArgSpec getSpec() {
         return ImpressionNewSpec.getSpec();
@@ -26,7 +22,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
         //extract data and add type
         switch(addType) {
         case "medicine":
-            
+
             break;
         case "plan": //fallthrough
         case "investigation":
