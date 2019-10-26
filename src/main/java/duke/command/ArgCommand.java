@@ -36,6 +36,11 @@ public abstract class ArgCommand extends Command {
         return switchVals.get(switchName);
     }
 
+    protected boolean isSwitchSet(String switchName) {
+        return switchVals.containsKey(switchName);
+    }
+
+
     protected void setArg(String arg) {
         this.arg = arg;
     }
