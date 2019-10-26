@@ -1,7 +1,6 @@
 package duke.data;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import duke.exception.DukeFatalException;
@@ -33,7 +32,7 @@ public class GsonStorage {
     private final String filePath;
 
     private Gson gson;
-    private RuntimeTypeAdapterFactory<DukeObject> typeAdapterFactory;
+    //private RuntimeTypeAdapterFactory<DukeObject> typeAdapterFactory;
 
     /**
      * Constructor for GsonStorage.
@@ -42,21 +41,21 @@ public class GsonStorage {
      * @throws DukeFatalException If data file cannot be setup.
      */
     public GsonStorage(String path) throws DukeFatalException {
-        typeAdapterFactory = RuntimeTypeAdapterFactory
-                .of(DukeObject.class, "type")
-                .registerSubtype(Patient.class, "type1")
-                .registerSubtype(Impression.class, "type2")
-                .registerSubtype(DukeData.class, "type3")
-                .registerSubtype(Evidence.class, "type4")
-                .registerSubtype(Treatment.class, "type5")
-                .registerSubtype(Investigation.class, "type6")
-                .registerSubtype(Plan.class, "type7")
-                .registerSubtype(Medicine.class, "type8")
-                .registerSubtype(Observation.class, "type9")
-                .registerSubtype(Result.class, "type10");
+        // typeAdapterFactory = RuntimeTypeAdapterFactory
+        //                .of(DukeObject.class, "type")
+        //                .registerSubtype(Patient.class, "type1")
+        //                .registerSubtype(Impression.class, "type2")
+        //                .registerSubtype(DukeData.class, "type3")
+        //                .registerSubtype(Evidence.class, "type4")
+        //                .registerSubtype(Treatment.class, "type5")
+        //                .registerSubtype(Investigation.class, "type6")
+        //                .registerSubtype(Plan.class, "type7")
+        //                .registerSubtype(Medicine.class, "type8")
+        //                .registerSubtype(Observation.class, "type9")
+        //                .registerSubtype(Result.class, "type10");
 
-        gson = new GsonBuilder().registerTypeAdapterFactory(typeAdapterFactory)
-                .create();
+        // gson = new GsonBuilder().registerTypeAdapterFactory(typeAdapterFactory)
+        //.create();
 
         File dataDir = new File("data");
         File reportDir = new File("data/reports");

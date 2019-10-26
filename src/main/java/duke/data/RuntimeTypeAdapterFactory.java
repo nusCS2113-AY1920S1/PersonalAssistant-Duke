@@ -4,96 +4,106 @@
  * refer to the second answer at https://stackoverflow.com/questions/21767485/gson-deserialization-to-specific-object-type-based-on-field-value
  * https://www.novatec-gmbh.de/en/blog/gson-object-hierarchies/
  * */
-
-package duke.data;
-
-/**
- * Adapts values whose runtime type may differ from their declaration type. This
- * is necessary when a field's type is not the same type that GSON should create
- * when deserializing that field. For example, consider these types:
- * <pre>   {@code
- *   abstract class Shape {
- *     int x;
- *     int y;
- *   }
- *   class Circle extends Shape {
- *     int radius;
- *   }
- *   class Rectangle extends Shape {
- *     int width;
- *     int height;
- *   }
- *   class Diamond extends Shape {
- *     int width;
- *     int height;
- *   }
- *   class Drawing {
- *     Shape bottomShape;
- *     Shape topShape;
- *   }
- * the bottom shape in this drawing a rectangle or a diamond? <pre>   {@code
- *   {
- *     "bottomShape": {
- *       "width": 10,
- *       "height": 5,
- *       "x": 0,
- *       "y": 0
- *     },
- *     "topShape": {
- *       "radius": 2,
- *       "x": 4,
- *       "y": 1
- *     }
- *   }}</pre>
- * This class addresses this problem by adding type information to the
- * serialized JSON and honoring that type information when the JSON is
- * deserialized: <pre>   {@code
- *   {
- *     "bottomShape": {
- *       "type": "Diamond",
- *       "width": 10,
- *       "height": 5,
- *       "x": 0,
- *       "y": 0
- *     },
- *     "topShape": {
- *       "type": "Circle",
- *       "radius": 2,
- *       "x": 4,
- *       "y": 1
- *     }
- *   }}</pre>
- * Both the type field name ({@code "type"}) and the type labels ({@code
- * "Rectangle"}) are configurable.
- *
- * <h3>Registering Types</h3>
- * Create a {@code RuntimeTypeAdapterFactory} by passing the base type and type field
- * name to the {@link #of} factory method. If you don't supply an explicit type
- * field name, {@code "type"} will be used. <pre>   {@code
- *   RuntimeTypeAdapterFactory<Shape> shapeAdapterFactory
- *       = RuntimeTypeAdapterFactory.of(Shape.class, "type");
- * }</pre>
- * Next register all of your subtypes. Every subtype must be explicitly
- * registered. This protects your application from injection attacks. If you
- * don't supply an explicit type label, the type's simple name will be used.
- * <pre>   {@code
- *   shapeAdapterFactory.registerSubtype(Rectangle.class, "Rectangle");
- *   shapeAdapterFactory.registerSubtype(Circle.class, "Circle");
- *   shapeAdapterFactory.registerSubtype(Diamond.class, "Diamond");
- * }</pre>
- * Finally, register the type adapter factory in your application's GSON builder:
- * <pre>   {@code
- *   Gson gson = new GsonBuilder()
- *       .registerTypeAdapterFactory(shapeAdapterFactory)
- *       .create();
- * }</pre>
- * Like {@code GsonBuilder}, this API supports chaining: <pre>   {@code
- *   RuntimeTypeAdapterFactory<Shape> shapeAdapterFactory = RuntimeTypeAdapterFactory.of(Shape.class)
- *       .registerSubtype(Rectangle.class)
- *       .registerSubtype(Circle.class)
- *       .registerSubtype(Diamond.class);
- * }</pre>
- */
+//
+//package duke.data;
+//
+//import com.google.gson.*;
+//import com.google.gson.internal.Streams;
+//import com.google.gson.reflect.TypeToken;
+//import com.google.gson.stream.JsonReader;
+//import com.google.gson.stream.JsonWriter;
+//
+//import java.io.IOException;
+//import java.util.LinkedHashMap;
+//import java.util.Map;
+//
+///**
+// * Adapts values whose runtime type may differ from their declaration type. This
+// * is necessary when a field's type is not the same type that GSON should create
+// * when deserializing that field. For example, consider these types:
+// * <pre>   {@code
+// *   abstract class Shape {
+// *     int x;
+// *     int y;
+// *   }
+// *   class Circle extends Shape {
+// *     int radius;
+// *   }
+// *   class Rectangle extends Shape {
+// *     int width;
+// *     int height;
+// *   }
+// *   class Diamond extends Shape {
+// *     int width;
+// *     int height;
+// *   }
+// *   class Drawing {
+// *     Shape bottomShape;
+// *     Shape topShape;
+// *   }
+// * the bottom shape in this drawing a rectangle or a diamond? <pre>   {@code
+// *   {
+// *     "bottomShape": {
+// *       "width": 10,
+// *       "height": 5,
+// *       "x": 0,
+// *       "y": 0
+// *     },
+// *     "topShape": {
+// *       "radius": 2,
+// *       "x": 4,
+// *       "y": 1
+// *     }
+// *   }}</pre>
+// * This class addresses this problem by adding type information to the
+// * serialized JSON and honoring that type information when the JSON is
+// * deserialized: <pre>   {@code
+// *   {
+// *     "bottomShape": {
+// *       "type": "Diamond",
+// *       "width": 10,
+// *       "height": 5,
+// *       "x": 0,
+// *       "y": 0
+// *     },
+// *     "topShape": {
+// *       "type": "Circle",
+// *       "radius": 2,
+// *       "x": 4,
+// *       "y": 1
+// *     }
+// *   }}</pre>
+// * Both the type field name ({@code "type"}) and the type labels ({@code
+// * "Rectangle"}) are configurable.
+// *
+// * <h3>Registering Types</h3>
+// * Create a {@code RuntimeTypeAdapterFactory} by passing the base type and type field
+// * name to the {@link #of} factory method. If you don't supply an explicit type
+// * field name, {@code "type"} will be used. <pre>   {@code
+// *   RuntimeTypeAdapterFactory<Shape> shapeAdapterFactory
+// *       = RuntimeTypeAdapterFactory.of(Shape.class, "type");
+// * }</pre>
+// * Next register all of your subtypes. Every subtype must be explicitly
+// * registered. This protects your application from injection attacks. If you
+// * don't supply an explicit type label, the type's simple name will be used.
+// * <pre>   {@code
+// *   shapeAdapterFactory.registerSubtype(Rectangle.class, "Rectangle");
+// *   shapeAdapterFactory.registerSubtype(Circle.class, "Circle");
+// *   shapeAdapterFactory.registerSubtype(Diamond.class, "Diamond");
+// * }</pre>
+// * Finally, register the type adapter factory in your application's GSON builder:
+// * <pre>   {@code
+// *   Gson gson = new GsonBuilder()
+// *       .registerTypeAdapterFactory(shapeAdapterFactory)
+// *       .create();
+// * }</pre>
+// * Like {@code GsonBuilder}, this API supports chaining: <pre>   {@code
+// *   RuntimeTypeAdapterFactory<Shape> shapeAdapterFactory = RuntimeTypeAdapterFactory.of(Shape.class)
+// *       .registerSubtype(Rectangle.class)
+// *       .registerSubtype(Circle.class)
+// *       .registerSubtype(Diamond.class);
+// * }</pre>
+// */
 //public class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
 //    private final Class<?> baseType;
 //    private final String typeFieldName;
@@ -178,9 +188,9 @@ package duke.data;
 //        final Map<Class<?>, TypeAdapter<?>> subtypeToDelegate
 //                = new LinkedHashMap<Class<?>, TypeAdapter<?>>();
 //        for (Map.Entry<String, Class<?>> entry : labelToSubtype.entrySet()) {
-//            TypeAdapter<?> delegate = gson.getDelegateAdapter(this, TypeToken.get(entry.getValue()));
-//            labelToDelegate.put(entry.getKey(), delegate);
-//            subtypeToDelegate.put(entry.getValue(), delegate);
+//            //TypeAdapter<?> delegate = gson.getDelegateAdapter(this, TypeToken.get(entry.getValue()));
+//            //labelToDelegate.put(entry.getKey(), delegate);
+//            //subtypeToDelegate.put(entry.getValue(), delegate);
 //        }
 //
 //        return new TypeAdapter<R>() {
