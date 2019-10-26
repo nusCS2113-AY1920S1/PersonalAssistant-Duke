@@ -111,7 +111,7 @@ public class MainWindow extends BorderPane implements Initializable {
             todos = new ArrayList<>();
             deadlines = new ArrayList<>();
             setWeek(true, NO_FIELD);
-            //displayQuoteOfTheDay();
+            displayQuoteOfTheDay();
 
             retrieveList();
             openReminderBox();
@@ -277,11 +277,6 @@ public class MainWindow extends BorderPane implements Initializable {
                 }
             }
         }
-    }
-
-    private void showPreviousCommand(String input) {
-        ShowPreviousCommand showPrevious = new ShowPreviousCommand(input);
-
     }
 
     @FXML
