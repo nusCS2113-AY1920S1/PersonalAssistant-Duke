@@ -1,6 +1,23 @@
 package duke;
 
-import duke.commands.*;
+
+import duke.commands.AddBarCommand;
+import duke.commands.AddCommand;
+import duke.commands.AddOverlayCommand;
+import duke.commands.ByeCommand;
+import duke.commands.Command;
+import duke.commands.CopyCommand;
+import duke.commands.DeleteBarCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.DoneCommand;
+import duke.commands.EditCommand;
+import duke.commands.FindCommand;
+import duke.commands.GroupCommand;
+import duke.commands.HelpCommand;
+import duke.commands.ListCommand;
+import duke.commands.NewCommand;
+import duke.commands.ViewCommand;
+import duke.commands.AsciiCommand;
 
 
 /**
@@ -88,8 +105,8 @@ class Parser {
             }
             break;
         case "ascii":
-            if(message.length() >= 7){
-               return new AsciiCommand(message);
+            if (message.length() >= 7) {
+                return new AsciiCommand(message);
             }
             break;
         default:
