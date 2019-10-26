@@ -77,11 +77,11 @@ public class GsonStorageTest {
     private Patient createComplexPatient() throws DukeException {
         Patient complexPatient = new Patient("Patient", "C1", "Cats, dogs and peanuts");
         Impression impression1 = new Impression("testIMP1", "This impression contains "
-                + "possible evidences and treatments about the patient allergies.", complexPatient.getBedNo());
+                + "possible evidences and treatments about the patient allergies.", complexPatient);
         Impression impression2 = new Impression("testIMP2", "Contains impression about peanut allgie",
-                complexPatient.getBedNo());
+                complexPatient);
         Impression impression3 = new Impression("testPrimaryImp", "Describes the patient health",
-                complexPatient.getBedNo());
+                complexPatient);
         //Observation observation1 = new Observation("Trouble sleeping", impression3.getName(), 2,
         // "Patient have not been able to sleep at all for the last week.", false);
         //Observation observation2 = new Observation("Trouble eating", impression3.getName(), 3,

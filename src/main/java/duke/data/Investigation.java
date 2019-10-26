@@ -22,7 +22,7 @@ public class Investigation extends Treatment {
      * @param status the current status of the investigation
      * @param summary description of the investigation
      */
-    public Investigation(String name, String impression, int priority,
+    public Investigation(String name, Impression impression, int priority,
                          int status, String summary) {
         super(name, impression, priority, status);
         this.summary = summary;
