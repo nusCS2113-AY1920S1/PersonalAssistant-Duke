@@ -5,8 +5,6 @@ import duke.data.DukeData;
 import duke.exception.DukeException;
 import duke.ui.Context;
 
-import java.util.Arrays;
-
 public class ImpressionNewCommand extends DukeDataCommand {
 
     private static final String[] medicineStatusArr = {"Not ordered", "In progress", "Completed"};
@@ -28,7 +26,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
         //extract data and add type
         switch(addType) {
         case "medicine":
-
+            
             break;
         case "plan": //fallthrough
         case "investigation":
@@ -54,7 +52,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
             case "observation":
                 core.uiContext.setContext(Context.EVIDENCE, newData);
             default:
-                throw new DukeException("Invalid data type!");   case:
+                throw new DukeException("Invalid data type!");
             }
         }
     }
