@@ -20,7 +20,7 @@ public class PatientNewCommand extends ArgCommand {
         Impression imp = new Impression(getSwitchVal("name"), getSwitchVal("description"), patient.getBedNo());
         patient.addNewImpression(imp);
         core.ui.print("Impression added:\n" + patient.getImpression(imp.getName()).toString());
-        core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
+        core.writeJsonFile();
 
         if (isSwitchSet("go")) {
             core.uiContext.setContext(Context.IMPRESSION, imp);

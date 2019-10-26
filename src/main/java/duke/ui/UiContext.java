@@ -70,8 +70,8 @@ public class UiContext {
      * Moves up one context.
      */
     public void moveBackOneContext() throws DukeException {
-        if (context == Context.HOME) {
-            throw new DukeException("You are already in the Home context.");
+        if (contexts.empty()) {
+            throw new DukeException("No previous contexts before this!");
         }
 
         Pair<Context, DukeObject> pair = contexts.pop();

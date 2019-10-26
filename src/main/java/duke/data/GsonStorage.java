@@ -101,6 +101,7 @@ public class GsonStorage {
         }
     }
 
+
     /**
      * Returns the filepath to the json file containing the Json representation of all the patients.
      *

@@ -35,7 +35,7 @@ public class HomeNewCommand extends ArgCommand {
                 getSwitchVal("allergies"), height, weight, age, number,
                 address, history);
         core.patientMap.addPatient(patient);
-        core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
+        core.writeJsonFile();
 
         if (isSwitchSet("go")) {
             core.uiContext.setContext(Context.PATIENT, patient);
