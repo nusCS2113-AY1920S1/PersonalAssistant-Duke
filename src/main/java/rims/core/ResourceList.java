@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import rims.core.Ui;
 import rims.resource.Reservation;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
@@ -18,6 +19,7 @@ import rims.exception.RimsException;
  * search, find for, create and delete Resources.
  */
 public class ResourceList {
+    protected Ui ui;
     protected ArrayList<Resource> resources;
 
     /**
@@ -25,8 +27,29 @@ public class ResourceList {
      * and saves it.
      * @param resources the array of Resources, as converted from text in the save-file by the Storage instance
      */
-    public ResourceList(ArrayList<Resource> resources) {
+    public ResourceList(Ui ui, ArrayList<Resource> resources) throws RimsException {
+        this.ui = ui;
         this.resources = resources;
+        int daysDue = 3;
+        ui.printLine();
+        ui.print("REMINDER - The following loans are due soon (within " + daysDue + " days, or overdue):");
+        ui.printEmptyLine();
+        boolean dueSoon = false;
+        for (int i = 0; i < size(); i++) {
+            Resource thisResource = getResourceByIndex(i);
+            ReservationList thisResourceDueReservations = thisResource.getDueReservations(daysDue);
+            if (!thisResourceDueReservations.isEmpty()) {
+                dueSoon = true;
+                ui.print(thisResource.toString());
+                for (int j = 0; j < thisResourceDueReservations.size(); j++) {
+                    ui.print("\t" + thisResourceDueReservations.getReservationByIndex(j));
+                }
+            }
+        }
+        if (!dueSoon) {
+            ui.print("No resources due soon!");
+        }
+        ui.printLine();
     }
 
     /**

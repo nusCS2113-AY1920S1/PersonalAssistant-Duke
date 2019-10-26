@@ -1,9 +1,14 @@
 package rims.resource;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Collections;
+import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This class represents an instance of a Reservation. Contains the reservation ID, the resource ID of the Resource
@@ -107,7 +112,11 @@ public class Reservation {
      * @return a String version of the attributes of the Reservation.
      */
     public String toString() {
-        return "[" + reservationId + "]" + " borrowed by user: " + userId + " from " + getDateToPrint(dateFrom) + " till " + getDateToPrint(dateTill);
+        String output = "[" + reservationId + "]" + " borrowed by user: " + userId + " from " + getDateToPrint(dateFrom) + " till " + getDateToPrint(dateTill);
+        if (isOverdue()) {
+            return output + " [OVERDUE]";
+        }
+        return output;
     }
 
     /**
@@ -149,7 +158,40 @@ public class Reservation {
         DateFormat dayFormat = new SimpleDateFormat("d");
         int day = Integer.parseInt(dayFormat.format(date)) % 10;
         String suffix = day == 1 ? "st" : (day == 2 ? "nd" : (day == 3 ? "rd" : "th"));
-        String stringDate = (new SimpleDateFormat("EEEEE, ")).format(date) + (dayFormat.format(date)) + suffix + " of " + (new SimpleDateFormat("MMMMM yyyy, hh:mm aaa")).format(date);
+        String stringDate = (new SimpleDateFormat("EEEEE, ")).format(date) + (dayFormat.format(date)) + suffix + " " + (new SimpleDateFormat("MMMMM yyyy, hh:mm aaa")).format(date);
         return stringDate;
     }
+
+    /**
+     * Returns the number of days within which this Reservation expires.
+     * @return the number of days within which this Reservation expires.
+     */
+    public int getDaysDueIn() {
+        Date currentDate = new Date(System.currentTimeMillis());
+        int daysLeftToDue = (int) (TimeUnit.DAYS.convert((getEndDate().getTime() - currentDate.getTime()), TimeUnit.MILLISECONDS));
+        return daysLeftToDue;
+    }
+
+    /**
+     * Checks if this Reservation is expiring within a given number of days
+     * @param daysDue the number of days within which this Reservation is checked for expiry
+     * @return a boolean: true if it is expiring within the given number of days, false otherwise
+     */
+    public boolean isDueInDays(int daysDue) {
+        return getDaysDueIn() <= daysDue;
+    }
+
+    /**
+     * Checks if this Reservation has already expired.
+     * @return a boolean: true if it has already expired, false otherwise.
+     */
+    public boolean isOverdue() {
+        Date currentDate = new Date(System.currentTimeMillis());
+        int daysLeftToDue = (int) (TimeUnit.DAYS.convert((getEndDate().getTime() - currentDate.getTime()), TimeUnit.MILLISECONDS));
+        if ((daysLeftToDue < 0) || (daysLeftToDue == 0 && (getEndDate().getTime() - currentDate.getTime() < 0))) {
+            return true;
+        }
+        return false;
+    }
+
 }

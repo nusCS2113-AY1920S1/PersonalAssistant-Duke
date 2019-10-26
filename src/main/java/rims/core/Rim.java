@@ -25,10 +25,10 @@ public class Rim {
      * @throws FileNotFoundException if any file path is invalid
      * @throws ParseException if data is stored in an invalid format and is thus unable to be parsed
      */
-    public Rim(String resourceFilePath, String reserveFilePath) throws FileNotFoundException, ParseException {
+    public Rim(String resourceFilePath, String reserveFilePath) throws FileNotFoundException, ParseException, RimsException {
         ui = new Ui();
         storage = new Storage(resourceFilePath, reserveFilePath);
-        resources = new ResourceList(storage.getResources());
+        resources = new ResourceList(ui, storage.getResources());
         parser = new Parser(ui, resources);
     }
 

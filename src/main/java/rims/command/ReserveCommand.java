@@ -108,6 +108,9 @@ public class ReserveCommand extends Command {
             dateFrom = resources.stringToDate(stringDateFrom);
         }
         dateTill = resources.stringToDate(stringDateTill);
+        if (resources.getAvailableNumberOfResource(resourceName) < qty) {
+            throw new RimsException("We don't have that many of this resource currently available!");
+        }
         ArrayList<Resource> allOfResource = resources.getAllOfResource(resourceName);
         ArrayList<Resource> bookedResources = new ArrayList<Resource>();
         int qtyBooked = 0;

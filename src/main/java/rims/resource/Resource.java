@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import rims.exception.RimsException;
 
@@ -56,7 +58,7 @@ public abstract class Resource {
      * @return a compact String version of the attributes of the Resource.
      */
     public String toDataFormat() {
-        return resourceId + "," + type + "," + name;
+        return resourceId + "," + getType() + "," + name;
     }
 
     /**
@@ -133,5 +135,15 @@ public abstract class Resource {
      */
     public ReservationList getUserReservations(int userId) {
         return reservations.getUserReservations(userId);
+    }
+
+    /**
+     * Returns the list of currently active Reservations, including overdue Reservations, which are expiring
+     * in a given number of days.
+     * @param daysDue the number of days within which Reservations which are expiring should be returned.
+     * @return a list of all Reservations that have expired, or are expiring within the given number of days.
+     */
+    public ReservationList getDueReservations(int daysDue) {
+        return reservations.getDueReservations(daysDue);
     }
 }
