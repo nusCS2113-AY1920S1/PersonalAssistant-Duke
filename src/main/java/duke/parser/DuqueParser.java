@@ -29,6 +29,7 @@ public class DuqueParser {
             fullCommand = fullCommand.substring(fullCommand.indexOf(' ') + 1);
         }
         String[] fcArray = fullCommand.split(" ", 2);
+        keyword = StartsWithChecker.checkStartsWithAnyCommand(keyword);
         String keyword = OffByOneChecker.offByOne(fcArray[0]);
 
         switch (keyword) {
