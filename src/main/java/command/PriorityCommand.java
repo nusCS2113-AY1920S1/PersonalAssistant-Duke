@@ -15,8 +15,6 @@ import ui.Ui;
  */
 public class PriorityCommand extends Command {
 
-    private static final String NO_PRIORITY = "Ignorable tasks do not have a priority level";
-
     private int indexOfTask;
     private String priorityString;
 
