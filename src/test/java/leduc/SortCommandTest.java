@@ -54,7 +54,7 @@ public class SortCommandTest {
             }
         }
         date1 = new Date(d1);
-        tasks.add(new DeadlinesTask("d1",date1,1));
+        tasks.add(new HomeworkTask("d1",date1,1));
 
         try{
             d1 = LocalDateTime.parse("15/09/2019 22:23".trim(), formatter);
@@ -66,7 +66,7 @@ public class SortCommandTest {
             }
         }
         date1 = new Date(d1);
-        tasks.add(new DeadlinesTask("deadline",date1,1));
+        tasks.add(new HomeworkTask("deadline",date1,1));
 
         try{
             d1 = LocalDateTime.parse("21/09/2019 00:00".trim(), formatter);
@@ -92,7 +92,7 @@ public class SortCommandTest {
             }
         }
         date1 = new Date(d1);
-        tasks.add(new DeadlinesTask("deadlineOther",date1,2));
+        tasks.add(new HomeworkTask("deadlineOther",date1,2));
 
         tasks.add(new TodoTask("&",3));
 

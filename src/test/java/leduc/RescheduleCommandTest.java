@@ -54,7 +54,7 @@ public class RescheduleCommandTest {
             }
         }
         date1 = new Date(d1);
-        tasks.add(new DeadlinesTask("d1",date1));
+        tasks.add(new HomeworkTask("d1",date1));
 
         try{
             d1 = LocalDateTime.parse("12/12/2019 22:22".trim(), formatter);
@@ -84,7 +84,7 @@ public class RescheduleCommandTest {
             }
         }
         date1 = new Date(d1);
-        tasks.add(new DeadlinesTask("d1",date1));
+        tasks.add(new HomeworkTask("d1",date1));
 
         assertTrue(tasks.size()==6);
 

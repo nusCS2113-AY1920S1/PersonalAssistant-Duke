@@ -1,6 +1,6 @@
 package leduc;
 
-import leduc.command.DeadlineCommand;
+import leduc.command.HomeworkCommand;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
@@ -35,29 +35,29 @@ public class DeadlineCommandTest {
 
 
 
-        DeadlineCommand deadlineCommand1 = new DeadlineCommand("deadline ok");
+        HomeworkCommand deadlineCommand1 = new HomeworkCommand("deadline ok");
         try{
             deadlineCommand1.execute(tasks,ui,storage);
         }
         catch( DukeException e ){
-            assertTrue(e instanceof EmptyDeadlineDateException);
+            assertTrue(e instanceof EmptyHomeworkDateException);
         }
         assertTrue(tasks.size()==0);
 
 
 
-        DeadlineCommand deadlineCommand2 = new DeadlineCommand("deadline /by 12/12/2000 22:22");
+        HomeworkCommand deadlineCommand2 = new HomeworkCommand("deadline /by 12/12/2000 22:22");
         try{
             deadlineCommand2.execute(tasks,ui,storage);
         }
         catch(DukeException e ){
-            assertTrue(e instanceof EmptyDeadlineException);
+            assertTrue(e instanceof EmptyHomeworkException);
         }
         assertTrue(tasks.size()==0);
 
 
 
-        DeadlineCommand deadlineCommand3 = new DeadlineCommand("deadline d1 /by 12-12-2000 22:22");
+        HomeworkCommand deadlineCommand3 = new HomeworkCommand("deadline d1 /by 12-12-2000 22:22");
         try{
             deadlineCommand3.execute(tasks,ui,storage);
         }
@@ -66,7 +66,7 @@ public class DeadlineCommandTest {
         }
         assertTrue(tasks.size()==0);
 
-        DeadlineCommand deadlineCommand4 = new DeadlineCommand("deadline d1 /by 12/12/2000 22:22");
+        HomeworkCommand deadlineCommand4 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22");
         try{
             deadlineCommand4.execute(tasks,ui,storage);
         }
@@ -75,7 +75,7 @@ public class DeadlineCommandTest {
         }
         assertTrue(tasks.size()==1);
 
-        DeadlineCommand deadlineCommand5 = new DeadlineCommand("deadline d1 /by 12/12/2000 22:22 prio 6");
+        HomeworkCommand deadlineCommand5 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6");
         try{
             deadlineCommand5.execute(tasks,ui,storage);
         }
@@ -87,7 +87,7 @@ public class DeadlineCommandTest {
         assertTrue(tasks.get(0).getPriority() == 5);
 
 
-        DeadlineCommand deadlineCommand6 = new DeadlineCommand("deadline d1 /by 12/12/2000 22:22 prio 12");
+        HomeworkCommand deadlineCommand6 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 12");
         try{
             deadlineCommand6.execute(tasks,ui,storage);
         }
@@ -96,7 +96,7 @@ public class DeadlineCommandTest {
         }
         assertTrue(tasks.size()==2);
 
-        DeadlineCommand deadlineCommand7 = new DeadlineCommand("deadline d1 /by 12/12/2000 22:22 prio Qzeaze");
+        HomeworkCommand deadlineCommand7 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio Qzeaze");
         try{
             deadlineCommand7.execute(tasks,ui,storage);
         }

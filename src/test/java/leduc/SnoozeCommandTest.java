@@ -53,7 +53,7 @@ public class SnoozeCommandTest {
             }
         }
         date1 = new Date(d1);
-        tasks.add(new DeadlinesTask("d1",date1));
+        tasks.add(new HomeworkTask("d1",date1));
 
         try{
             d1 = LocalDateTime.parse("21/09/2019 22:22".trim(), formatter);
@@ -80,7 +80,7 @@ public class SnoozeCommandTest {
             snoozeCommand1.execute(tasks,ui,storage);
         }
         catch( DukeException e ){
-            assertTrue(e instanceof DeadlineTypeException);
+            assertTrue(e instanceof HomeworkTypeException);
         }
 
         SnoozeCommand snoozeCommand2 = new SnoozeCommand("snooze 15");

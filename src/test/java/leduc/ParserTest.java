@@ -26,7 +26,7 @@ public class ParserTest {
         assertTrue(parser.parse("delete 12") instanceof DeleteCommand);
         assertFalse(parser.parse("delete e") instanceof DeleteCommand);
         assertTrue(parser.parse("todo ekzoa") instanceof TodoCommand);
-        assertTrue(parser.parse("deadline d1")instanceof DeadlineCommand);
+        assertTrue(parser.parse("homework d1")instanceof HomeworkCommand);
         assertTrue(parser.parse("event e") instanceof EventCommand);
         assertTrue(parser.parse("bye")instanceof ByeCommand);
         assertTrue(parser.parse("edit")instanceof EditCommand);
