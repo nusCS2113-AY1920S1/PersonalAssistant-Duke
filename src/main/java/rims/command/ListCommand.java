@@ -60,7 +60,7 @@ public class ListCommand extends Command {
                     ui.print(thisResource.toString() + " (qty: " + availableNumberOfResource + ")");
                 }
             }
-            ui.printEmptyLine();
+            ui.printDash();
             ui.print("CURRENTLY BOOKED:");
             ui.printEmptyLine();
             coveredResources = new ArrayList<String>();
