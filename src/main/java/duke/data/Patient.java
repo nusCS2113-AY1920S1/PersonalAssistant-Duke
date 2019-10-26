@@ -243,7 +243,8 @@ public class Patient extends DukeObject {
         informationString.append("Registration details\n");
         informationString.append("Bed Number: ").append(this.bedNo).append("\n");
         informationString.append("Allergies: ").append(this.allergies).append("\n");
-        informationString.append((priDiagnosis != null) ? "Primary Diagnosis: " + this.priDiagnosis.toString() + "\n" : "");
+        informationString.append((priDiagnosis != null) ? "Primary Diagnosis: "
+                + this.priDiagnosis.toString() + "\n" : "");
         for (Map.Entry mapElement : this.impressions.entrySet()) {
             Impression imp = (Impression) mapElement.getValue();
             informationString.append(imp.toString());
@@ -287,7 +288,8 @@ public class Patient extends DukeObject {
             informationString.append("\tRegistration details:\n");
             informationString.append("\tAllergies: ").append(this.allergies).append("\n");
             informationString.append("\tPrimary Diagnosis: ").append(this.priDiagnosis.getDescription()).append("\n");
-            informationString.append("\nData about doctors impression of the patient and associated" + " treatments and evidences;");
+            informationString.append("\nData about doctors impression of the patient and associated"
+                    + " treatments and evidences;");
             for (Map.Entry mapElement : this.impressions.entrySet()) {
                 Impression imp = (Impression) mapElement.getValue();
                 informationString.append(imp.toReportString());
@@ -318,8 +320,15 @@ public class Patient extends DukeObject {
         return allergies;
     }
 
+    /**
+     * Set allergies of {@code Patient}.
+     *
+     * @param allergies New allergies.
+     */
     public void setAllergies(String allergies) {
+        String oldAllergies = this.allergies;
         this.allergies = allergies;
+        pcs.firePropertyChange("Allergies", oldAllergies, allergies);
     }
 
     public Impression getPriDiagnosis() {

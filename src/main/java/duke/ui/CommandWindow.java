@@ -54,10 +54,8 @@ class CommandWindow extends InputHistoryWindow {
     @FXML
     private void handleAction() {
         String input = inputTextField.getText().trim();
-        input = input.replaceAll("\t", "    ");
 
         if (!input.isEmpty()) {
-
             storeInput(input);
             try {
                 writeHistory();
