@@ -2,6 +2,7 @@ package duke;
 
 import duke.command.Command;
 import duke.command.ExitCommand;
+import duke.command.BackupCommand;
 import duke.command.FilterCommand;
 import duke.dukeexception.DukeException;
 import duke.task.FilterList;
