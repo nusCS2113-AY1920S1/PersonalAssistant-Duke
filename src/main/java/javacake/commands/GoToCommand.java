@@ -14,7 +14,7 @@ import java.util.Queue;
 
 public class GoToCommand extends Command {
 
-    private Queue<String> index = new LinkedList<>();
+    private Queue<String> indexQueue = new LinkedList<>();
 
     /**
      * constructor for goto command. Contains a queue of index in which user wants to navigate into.
@@ -22,11 +22,11 @@ public class GoToCommand extends Command {
      */
     public GoToCommand(String inputCommand) {
         if (inputCommand.matches("\\d+")) { //check if input is numeric
-            index.add(inputCommand);
+            indexQueue.add(inputCommand);
         } else {
             String[] buffer = inputCommand.split("\\.");
             for (int i = 0; i < buffer.length; i++) {
-                index.add(buffer[i]);
+                indexQueue.add(buffer[i]);
             }
         }
     }
@@ -41,10 +41,15 @@ public class GoToCommand extends Command {
      */
     public String execute(Logic logic, Ui ui, Storage storage, Profile profile)
             throws DukeException, IOException {
-        int intIndex = Integer.parseInt(index.poll()) - 1;
+        int intIndex = Integer.parseInt(indexQueue.poll()) - 1;
         logic.updateFilePath(logic.gotoFilePath(intIndex));
         String filePath = logic.getFullFilePath();
         if (filePath.contains("Quiz")) {
+
+            if (!filePath.substring(filePath.length() - 4).equals("Quiz")) {
+                throw new DukeException("Sorry, please type 'back' or 'list' instead.");
+            }
+
             if (filePath.contains("1. Java Basics")) {
                 if (Duke.isCliMode()) {
                     return new QuizCommand(Question.QuestionType.BASIC, Duke.isCliMode())
@@ -89,13 +94,13 @@ public class GoToCommand extends Command {
         }
         logic.insertQueries();
         if (logic.containsDirectory()) {
-            if (index.size() != 0) {
+            if (indexQueue.size() != 0) {
                 return execute(logic, ui, storage, profile);
             }
             return (logic.displayDirectories());
         } else {
             logic.updateFilePath(logic.gotoFilePath(0));
-            if (index.size() != 0) {
+            if (indexQueue.size() != 0) {
                 return execute(logic, ui, storage, profile);
             }
             return (logic.readQuery());

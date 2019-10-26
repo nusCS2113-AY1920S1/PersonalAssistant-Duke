@@ -19,18 +19,19 @@ import java.util.Random;
 import java.util.logging.Level;
 
 public class QuizCommand extends Command {
+    public static final int MAX_QUESTIONS = 5;
     //private QuestionList questionList;
     public ArrayList<Question> chosenQuestions;
     public ArrayList<Question> questionList = new ArrayList<>();
     public String filePath;
     private Question.QuestionType qnType;
     private Question prevQuestion;
+    public int questionCounter = MAX_QUESTIONS - 1;
     private int currScore = 0;
     private static Profile profile;
     public ScoreGrade scoreGrade;
-    public static final int MAX_QUESTIONS = 5;
     int totalNumOfQns = 0;
-    public static Logic logic;
+    public static Logic logic = Logic.getInstance();
 
     public enum ScoreGrade {
         BAD, OKAY, GOOD
@@ -47,6 +48,7 @@ public class QuizCommand extends Command {
         qnType = questionType;
         if (!isCli) {
             this.filePath = logic.getFullFilePath();
+            System.out.println(this.filePath);
             runGui();
         }
     }
@@ -112,7 +114,6 @@ public class QuizCommand extends Command {
      * @param storage Storage to write updated data.
      * @param profile Profile of the user.
      * @throws DukeException Error thrown when there is a problem with score calculation.
-     * @return
      */
     @Override
     public String execute(Logic logic, Ui ui, Storage storage, Profile profile)
@@ -215,8 +216,8 @@ public class QuizCommand extends Command {
      * @return the string containing the next question
      */
     public String getNextQuestion() {
-        prevQuestion = chosenQuestions.get(chosenQuestions.size() - 1);
-        chosenQuestions.remove(chosenQuestions.size() - 1);
+        prevQuestion = chosenQuestions.get(questionCounter);
+        questionCounter--;
         return prevQuestion.getQuestion();
     }
 

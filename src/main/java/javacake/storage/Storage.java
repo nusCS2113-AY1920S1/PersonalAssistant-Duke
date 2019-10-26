@@ -4,7 +4,6 @@ import javacake.Duke;
 import javacake.exceptions.DukeException;
 import javacake.tasks.Task;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.reflect.FieldUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,12 +17,13 @@ import java.util.logging.Level;
 
 public class Storage {
     private int stringBuffer = 7;
-    private static ArrayList<Task> internalTaskData = new ArrayList<>();
+    private static ArrayList<Task> tempTaskData = new ArrayList<>();
+    public static TaskList currentTaskData;
 
     private static String defaultFilePath = "data/";
     private String filepath;
     private TaskType dataType;
-    public TaskList tasks;
+
 
     public enum TaskType {
         TODO, DEADLINE, TODO_DAILY, TODO_WEEKLY, TODO_MONTHLY
@@ -33,7 +33,7 @@ public class Storage {
      * Constructor for storage.
      */
     public Storage() throws DukeException {
-        this.tasks = new TaskList();
+        this.currentTaskData = new TaskList();
         //Initialise new deadline file
         try {
             File tasksFile = new File("data/tasks/deadline.txt");
@@ -91,9 +91,13 @@ public class Storage {
                     count++;
                 }
                 if (!isChecked) {
-                    TaskList.runDeadline(internalTaskData, finalOutput.toString(), TaskList.TaskState.NOT_DONE);
+                    TaskList.runDeadline(tempTaskData, finalOutput.toString(), TaskList.TaskState.NOT_DONE);
+                    this.currentTaskData.add(tempTaskData.get(0));
+                    tempTaskData.clear();
                 } else {
-                    TaskList.runDeadline(internalTaskData, finalOutput.toString(), TaskList.TaskState.DONE);
+                    TaskList.runDeadline(tempTaskData, finalOutput.toString(), TaskList.TaskState.DONE);
+                    this.currentTaskData.add(tempTaskData.get(0));
+                    tempTaskData.clear();
                 }
             }
             reader.close();
@@ -112,6 +116,8 @@ public class Storage {
     public static void resetStorage() throws DukeException {
         try {
             FileUtils.deleteDirectory(new File(defaultFilePath));
+            tempTaskData.clear();
+            currentTaskData.getData().clear();
         } catch (IOException e) {
             throw new DukeException("Unable to reset Storage");
         }
@@ -146,7 +152,7 @@ public class Storage {
      * @return ArrayList of Tasks that has been initialised
      */
     public ArrayList<Task> load() {
-        return internalTaskData;
+        return tempTaskData;
     }
 
     /**
@@ -158,7 +164,7 @@ public class Storage {
     public void write(ArrayList<Task> tasks) throws DukeException {
         try {
             PrintWriter out = new PrintWriter(filepath);
-            for (Task task : internalTaskData) {
+            for (Task task : tempTaskData) {
                 out.println(doInternalWrite(task));
             }
             for (Task task : tasks) {
@@ -206,6 +212,10 @@ public class Storage {
      * @return size of internal data
      */
     public static int getInternalDataSize() {
-        return internalTaskData.size();
+        return tempTaskData.size();
+    }
+
+    public ArrayList<Task> getData() {
+        return this.currentTaskData.getData();
     }
 }

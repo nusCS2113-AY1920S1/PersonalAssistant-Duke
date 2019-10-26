@@ -26,7 +26,7 @@ public class Deadline extends Task {
             List<DateGroup> groups = parser.parse(by);
             dateNow = groups.get(0).getDates().get(0);
         } catch (Exception e) {
-            throw new DukeException("   Date cannot be parsed: " + by);
+            throw new DukeException("[!] Date cannot be parsed: " + by);
         }
     }
 

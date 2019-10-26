@@ -75,6 +75,10 @@ public class TaskList {
         return data;
     }
 
+    public void add(Task task) {
+        this.data.add(task);
+    }
+
     /**
      * Creates a new 'toBeDone' task, before adding it to current list,
      * then returning the output by Duke.
@@ -106,17 +110,20 @@ public class TaskList {
 
 
     public static String runDeadline(ArrayList<Task> data, String input, TaskState state) throws DukeException {
+        if (input.length() == 8) {
+            throw new DukeException("[!] No task description\nPlease input:\n'deadline TASK /by TASK_DATE'");
+        }
         input = input.substring(9);
         int startOfBy = input.indexOf("/");
         if (startOfBy <= 0) {
-            throw new DukeException("No task description\nPlease input 'deadline TASK /by TASK_DATE'");
+            throw new DukeException("[!] No task description\nPlease input:\n'deadline TASK /by TASK_DATE'");
         }
         if (input.charAt(startOfBy - 1) != ' ') {
-            throw new DukeException("Please leave space!\nPlease input 'deadline TASK /by TASK_DATE'");
+            throw new DukeException("[!] Please leave space!\nPlease input:\n'deadline TASK /by TASK_DATE'");
         }
         String tt1 = input.substring(0, startOfBy - 1);
         if (startOfBy + 4 >= input.length()) {
-            throw new DukeException("No date parameter!\nPlease input 'deadline TASK /by TASK_DATE'");
+            throw new DukeException("[!] No date parameter!\nPlease input:\n'deadline TASK /by TASK_DATE'");
         }
         String tt2 = input.substring(startOfBy + 4);
         Task tempTask = new Deadline(tt1, tt2);
@@ -169,7 +176,7 @@ public class TaskList {
             List<DateGroup> groups = parser.parse(tt2);
             return groups.get(0).getDates().get(0);
         } catch (Exception e) {
-            throw new DukeException("   Date cannot be parsed: " + tt2);
+            throw new DukeException("[!] Date cannot be parsed: " + tt2);
         }
     }
 

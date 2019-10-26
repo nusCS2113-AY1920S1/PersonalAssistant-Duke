@@ -12,9 +12,7 @@ public class MyFirstJavaProgram {
    }
 }
 
-
-Note: To compile the program, use the following syntax:
-      javac MyFirstJavaProgram.java
-
-      To run the program, simply enter:
-      java MyFirstJavaProgram
+To compile the program :
+1) navigate to the directory of the java file in the terminal
+2) compile the program by typing : javac MyFirstJavaProgram.java
+3)To run the program, simply enter: java MyFirstJavaProgram
