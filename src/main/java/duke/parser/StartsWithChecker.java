@@ -4,25 +4,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class OffByOneChecker {
-    public static String offByOne(String keyword) {
+public class StartsWithChecker {
+    public static String checkStartsWithAnyCommand(String keyword) {
         ArrayList<String> commandList = new ArrayList<>(Arrays.asList("bye", "help", "list", "delete", "find",
                                                                       "done", "edit", "task"));
         Scanner scanner = new Scanner(System. in);
         for (String command : commandList) {
-            if (keyword.length() != command.length()) {
-                continue;
-            }
-            int commonCharCount = 0;
-            for (int i=0; i<keyword.length(); i++) {
-                if (command.charAt(i) == keyword.charAt(i)) {
-                    commonCharCount += 1;
+            if (command.startsWith(keyword)) {
+                if (command.equals(keyword)) {
+                    return command;
                 }
-            }
-            if (commonCharCount == command.length()) {
-                return command;
-            }
-            else if (commonCharCount == command.length()-1) {
                 System.out.println(String.format("Did you mean %s? (Y/N)", command));
                 String input = scanner.nextLine().toUpperCase();
                 while (!input.equals("Y") && !input.equals("N")) {
