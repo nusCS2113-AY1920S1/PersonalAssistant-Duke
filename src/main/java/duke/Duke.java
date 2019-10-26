@@ -94,16 +94,6 @@ public class Duke  {
             Command c = Parser.parse(fullCommand);
             c.execute(tasks, ui, storage, schedule, students, plan);
             isExit = c.isExit();
-
-            if (command.equals("bye")) {
-                ui.goodbye();
-                System.exit(0);
-            } else if (command.equals("home")) {
-                ui.mainMenu();
-            } else {
-                parser.parseCommand(command);
-            }
-
         }
     }
 */

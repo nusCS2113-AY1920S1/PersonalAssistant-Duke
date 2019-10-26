@@ -21,16 +21,15 @@ public class Ui {
      * A method to run the program.
      */
     public void execute() {
-        Scanner sc = new Scanner(System.in);
         showWelcome();
         while (true) {
-            if (sc.hasNextLine()) {
-                String command = sc.nextLine();
+            if (scan.hasNextLine()) {
+                String command = scan.nextLine();
                 if (command.equals("bye")) {
                     showGoodBye();
                     System.exit(0);
                 } else if (command.equals("home")) {
-                    mainMenu();
+                    showMainMenu();
                 } else {
                     parser.parseCommand(command);
                 }
@@ -57,7 +56,7 @@ public class Ui {
     /**
      * Displays main menu on command line.
      */
-    public void mainMenu() {
+    public void showMainMenu() {
         System.out.println("SPORTS MANAGER\n"
             + "1. View Training Schedule\n"
             + "2. Manage Students\n"

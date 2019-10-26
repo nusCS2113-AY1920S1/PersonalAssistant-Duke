@@ -31,7 +31,13 @@ public class Parser {
         Command c;
         if (fullCommand.equals("bye")) {
             c = new ExitCommand();
-        } else {
+        } else if (fullCommand.startsWith("add")) {
+            c = new AddCommand();
+        } else if (fullCommand.startsWith("delete")) {
+            c = new DeleteCommand();
+         } else if (fullCommand.startsWith("view")) {
+            c = new ViewCommand();
+         } else {
             c = new InvalidCommand();
         }
         return c;
