@@ -19,6 +19,7 @@ public class CommandConvert extends Command {
     private String from;
     private String to;
     private Double amount;
+    private String use;
     private Double exchangeRate = 0.00;
 
     /**
@@ -30,9 +31,10 @@ public class CommandConvert extends Command {
         this.commandType = CommandType.CONVERT;
         this.amount = extractAmount(this.commandType, userInput);
         this.from = getCurrencyCovertFrom(userInput);
+        this.use = "";
         this.to = getCurrencyConvertTo(userInput);
         this.description = "Command that converts the user input cash amount from"
-                + " one currency to another and print it in the User Interface.";
+                + " one currency to another and prints it on the User Interface.";
     }
 
 
@@ -112,7 +114,7 @@ public class CommandConvert extends Command {
         return exRate;
     }
 
-    private Double amountOfEUR(Double rate, Double amount){
+    private Double amountAfterConversion(Double rate, Double amount){
         return rate * amount;
     }
 
@@ -129,8 +131,10 @@ public class CommandConvert extends Command {
         if(isEUR){
             if(this.from == "EUR"){
                 URL = "https://api.exchangeratesapi.io/latest?symbols=" + this.to;
+                setUse(this.to);
             } else {
                 URL = "https://api.exchangeratesapi.io/latest?symbols=" + this.from;
+                setUse(this.from);
             }
         } else {
             URL = "https://api.exchangeratesapi.io/latest?symbols=" + this.from +"," + this.to;
@@ -150,12 +154,22 @@ public class CommandConvert extends Command {
         try {
             String json = consultCurrencyApi(from,to);
             if (json != null) {
+                if(this.use.equals("")){
+                    Double fromRate = deriveExchangeRateFromJson(json,from);
+                    Double toRate = deriveExchangeRateFromJson(json,to);
+                    Double amountInEUR = amountAfterConversion(fromRate, amount);
+                    Double convertedAmount = amountAfterConversion(toRate, amountInEUR);
+                    Double originalToOutputRate = convertedAmount/amount;
+                    setExchangeRate(originalToOutputRate);
+                    return convertedAmount;
 
-
-
-                setExchangeRate(exRate);
-                double convertedAmount = exRate * amount;
-                return convertedAmount;
+                } else {
+                    Double Rate = deriveExchangeRateFromJson(json,this.use);
+                    Double convertedAmount = amountAfterConversion(Rate, amount);
+                    Double originalToOutputRate = convertedAmount/amount;
+                    setExchangeRate(originalToOutputRate);
+                    return convertedAmount;
+                }
             }
         } catch (Exception e) {
             Ui.dukeSays(e.getMessage());
@@ -223,5 +237,9 @@ public class CommandConvert extends Command {
     private void setExchangeRate(Double exchangeRate) {
         exchangeRate = roundByDecimalPlace(exchangeRate, 3);
         this.exchangeRate = exchangeRate;
+    }
+
+    private void setUse(String use) {
+        this.use = use;
     }
 }
