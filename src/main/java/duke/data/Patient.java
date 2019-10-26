@@ -52,7 +52,7 @@ public class Patient extends DukeObject {
         this.number = number;
         this.address = address;
         this.history = history;
-        this.priDiagnosis = new Impression("No Primary Impression", "Add upon admission diagnosis", this);
+        this.priDiagnosis = new Impression("No Primary Impression", "Add upon admission diagnosis", this.bedNo);
 
         this.impressions = new HashMap<>();
         initObservableImpressions();
@@ -322,7 +322,10 @@ public class Patient extends DukeObject {
 
     public Impression getPriDiagnosis() { return priDiagnosis; }
 
-    public void deletePriDiagnosis(){this.priDiagnosis = null; }
+    public void deletePriDiagnosis(){
+        this.impressions.remove(this.priDiagnosis.getName());
+        this.priDiagnosis = null;
+    }
 
     public Integer getHeight() {
         return height;

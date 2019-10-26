@@ -18,7 +18,7 @@ public class Investigation extends Treatment {
      * @param statusArr description of the status tagged to this investigation
      * @param summary description of the investigation
      */
-    public Investigation(String name, Impression impression, int priority,
+    public Investigation(String name, String impression, int priority,
                          int status, String[] statusArr, String summary) {
         super(name, impression, priority, status, statusArr);
         this.summary = summary;

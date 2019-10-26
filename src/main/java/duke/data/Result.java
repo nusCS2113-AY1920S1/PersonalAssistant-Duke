@@ -13,7 +13,7 @@ public class Result extends Evidence {
      * @param summary a summary of the result
      * @param priority the priority level of the evidence
     */
-    public Result(String name, Impression impression, int priority, String summary) {
+    public Result(String name, String impression, int priority, String summary) {
         super(name, impression, priority, summary);
     }
 
@@ -28,9 +28,9 @@ public class Result extends Evidence {
      * @param summary a summary of the result
      * @param priority the priority level of the evidence
      */
-    protected Result(String name, String impression, int priority, String summary) {
-        super(name, impression, priority, summary);
-    }
+//    protected Result(String name, String impression, int priority, String summary) {
+//        super(name, impression, priority, summary);
+//    }
 
     @Override
     public String toString() {

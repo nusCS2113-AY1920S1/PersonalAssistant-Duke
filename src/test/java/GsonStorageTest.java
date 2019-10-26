@@ -1,7 +1,4 @@
-import duke.data.GsonStorage;
-import duke.data.Impression;
-import duke.data.Patient;
-import duke.data.PatientMap;
+import duke.data.*;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import org.junit.jupiter.api.Test;
@@ -75,16 +72,29 @@ public class GsonStorageTest {
      * @return the created patient object.
      */
     private Patient createComplexPatient() throws DukeException {
-        Patient complexPatient = new Patient("Complexia", "C100", "cookies");
-        Impression imp = complexPatient.addNewImpression(new Impression("Afraid", "bit me", complexPatient));
-        complexPatient.setPriDiagnosis(imp.getName());
-        complexPatient.setAllergies("dogs");
+        Patient complexPatient = new Patient("Patient", "C1", "Cats, dogs and peanuts");
+        Impression impression1 = new Impression("why allergies", "This impression contains "
+                + "possible evidenves and treatments about the patient allergies.", complexPatient.getBedNo() );
+        Impression impression2 = new Impression("Peanuts allergy", "Contains impression about peanut allgies", complexPatient.getBedNo());
+        Impression impression3 = new Impression("Overall health of patient", "Describes the patient health", complexPatient.getBedNo() );
+        Observation observation1 = new Observation("Trouble sleeping", impression3.getName(), 2, "Patient have not been able to sleep at all for the last week.", false );
+        Observation observation2 = new Observation("Trouble eating", impression3.getName(), 3, "Patient have not been eating for 3 days.", true );
+        Result result1 = new Result("Effect from the new medicine", impression3.getName(), 2, "After giving the patient some medicine he has started eating more" );
+        Result result2 = new Result("Effect from patient eating more", impression3.getName(), 0, "The patients now eats more that have resultet in a better overall health");
+        impression1.addNewEvidence(observation1);
+        impression1.addNewEvidence(observation2);
+        impression1.addNewEvidence(result1);
+        impression1.addNewEvidence(result2);
+        complexPatient.addNewImpression(impression1);
+        complexPatient.addNewImpression(impression2);
+        complexPatient.addNewImpression(impression3);
+        complexPatient.setPriDiagnosis(impression3.getName());
         complexPatient.setHeight(124);
         complexPatient.setWeight(250);
         complexPatient.setAge(84);
         complexPatient.setNumber(6582447);
         complexPatient.setAddress("Broadway 12a");
-        complexPatient.setHistory("Operated the left arm in 2014 and have been feeling weak ever since");
+        complexPatient.setHistory("No critical conditions prior to this");
         return complexPatient;
     }
 
@@ -157,7 +167,7 @@ public class GsonStorageTest {
         patientMap.addPatient(complexPatient);
         storage.writeJsonFile(patientMap.getPatientHashMap());
         storage.loadPatientHashMap();
-        Patient complexPatientRecreated = patientMap.getPatient("C100");
+        Patient complexPatientRecreated = patientMap.getPatient(complexPatient.getBedNo());
         boolean equals = identical(complexPatient, complexPatientRecreated);
         assertTrue(equals);
     }
