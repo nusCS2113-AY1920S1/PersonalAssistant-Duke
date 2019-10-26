@@ -20,6 +20,7 @@ public class UserSetup {
         if (user.getIsSetup()){
             ui.showWelcomeBack(user);
             ui.showWelcome();
+            this.isDone = true;
         }
         else {
             ui.showWelcomeNew();

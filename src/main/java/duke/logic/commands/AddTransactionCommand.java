@@ -20,8 +20,10 @@ public class AddTransactionCommand extends Command {
 
     @Override
     public void execute(MealList tasks, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         wallet.getTransactions().addTransaction(this.transaction);
         ui.showTransactionAdded(this.transaction, wallet.getAccountBalance());
+        ui.showLine();
     }
 
     public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {

@@ -31,13 +31,12 @@ public class AddCommand extends Command {
     /**
      * Executes add command.
      * @param meals the MealList object in which the meal is supposed to be added
-     * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of meals
-     * @param in the scanner object to handle secondary command IO
      * @throws DukeException if there is a parsing error
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         try {
             meals.addMeals(this.meal);
             ArrayList<Meal> mealData = meals.getMealTracker().get(this.meal.getDate());
@@ -46,6 +45,7 @@ public class AddCommand extends Command {
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
         }
+        ui.showLine();
     }
 
     public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {

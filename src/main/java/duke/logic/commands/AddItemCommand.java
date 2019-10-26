@@ -32,9 +32,11 @@ public class AddItemCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         meals.addStoredItem(this.meal);
         ui.showAddedItem(this.meal);
         storage.updateDefaults(meals);
+        ui.showLine();
     }
 
     public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {

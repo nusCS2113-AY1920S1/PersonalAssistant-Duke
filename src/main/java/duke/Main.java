@@ -80,15 +80,12 @@ public class Main {
         Parser userParser = new Parser(autocorrect);
         while (!isExit) {
             try {
-                String fullCommand = ui.readCommand(in);
-                ui.showLine();
+                String fullCommand = in.nextLine();
                 Command c = userParser.parse(fullCommand);
                 c.execute(tasks, storage, user, wallet);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showMessage(e.getMessage());
-            } finally {
-                ui.showLine();
             }
         }
     }

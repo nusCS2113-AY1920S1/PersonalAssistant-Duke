@@ -41,6 +41,7 @@ public class FindCommand extends Command {
 
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         ArrayList<Meal> matchingMeals = new ArrayList<>();
         ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
         for (Meal element: currentMeals) {
@@ -50,6 +51,7 @@ public class FindCommand extends Command {
             }
         }
         ui.showList(matchingMeals);
+        ui.showLine();
     }
 
     public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {

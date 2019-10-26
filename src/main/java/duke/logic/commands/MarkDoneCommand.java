@@ -61,6 +61,7 @@ public class MarkDoneCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         if (index <= 0 || index > meals.getMealsList(currentDate).size()) {
             ui.showMessage("Index provided out of bounds for list of meals on " + currentDate);
         }
@@ -69,6 +70,7 @@ public class MarkDoneCommand extends Command {
         ui.showDone(currentMeal, meals.getMealsList(currentDate));
         ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
         ui.showCaloriesLeft(currentMeals, user, currentDate);
+        ui.showLine();
     }
 
     public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {

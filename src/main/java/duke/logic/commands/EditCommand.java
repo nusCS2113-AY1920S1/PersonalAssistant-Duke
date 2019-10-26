@@ -31,6 +31,7 @@ public class EditCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         try {
             updatedMeal = meals.updateMeal(updatedMeal);
             String dateStr = updatedMeal.getDate();
@@ -39,6 +40,7 @@ public class EditCommand extends Command {
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
         }
+        ui.showLine();
     }
 
     public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {

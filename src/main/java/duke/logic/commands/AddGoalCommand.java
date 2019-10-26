@@ -38,6 +38,7 @@ public class AddGoalCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         try {
             meals.addGoal(this.goal);
             ui.showAddedGoal(goal);
@@ -47,9 +48,11 @@ public class AddGoalCommand extends Command {
             ui.showLine();
             isDone = false;
         }
+        ui.showLine();
     }
 
     public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         if (response.trim().equals("y")  || response.trim().equals("Y")) {
             meals.addGoal(this.goal, true);
             ui.showLine();
@@ -63,5 +66,6 @@ public class AddGoalCommand extends Command {
             ui.showMessage("An unknown response has been recorded \n"
                     + "     The set goal command has been canceled");
         }
+        ui.showLine();
     }
 }

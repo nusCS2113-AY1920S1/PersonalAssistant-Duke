@@ -41,6 +41,7 @@ public class HelpCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         ArrayList<String> helpLines = new ArrayList<>();
         try {
             storage.loadHelp(helpLines, specifiedHelp);
@@ -48,6 +49,7 @@ public class HelpCommand extends Command {
             ui.showMessage(e.getMessage());
         }
         ui.showHelp(helpLines);
+        ui.showLine();
     }
 
     public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {

@@ -8,6 +8,9 @@ import duke.model.meal.MealList;
 import duke.ui.Ui;
 import duke.model.user.User;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Scanner;
 
 public class UpdateWeightCommand extends Command {
@@ -28,12 +31,16 @@ public class UpdateWeightCommand extends Command {
      * @param user the object that handles all user data
      */
     @Override
-    public void execute(MealList meals, Storage storage, User user,
-                        Wallet wallet) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         String[] temp = description.split("/date");
+        Calendar calendarDate = Calendar.getInstance();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String date = dateFormat.format(calendarDate.getTime());
         if (temp.length > 1) {
             try {
                 user.setWeight(Integer.parseInt(temp[0].trim()), temp[1]);
+                date = temp[1];
             } catch (DukeException e) {
                 ui.showMessage(e.getMessage());
             }
@@ -45,6 +52,8 @@ public class UpdateWeightCommand extends Command {
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
         }
+        ui.showWeightUpdate(user, Integer.parseInt(temp[0].trim()), date);
+        ui.showLine();
     }
 
     public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {

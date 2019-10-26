@@ -43,8 +43,8 @@ public class ClearCommand extends Command {
      * @param user the object that handles all user data
      */
     @Override
-    public void execute(MealList meals, Storage storage, User user,
-                        Wallet wallet) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         Calendar cal = Calendar.getInstance();
         cal.setTime(startDate);
         for (cal.setTime(startDate); !cal.getTime().after(endDate); cal.add(Calendar.DATE, 1)) {
@@ -52,6 +52,7 @@ public class ClearCommand extends Command {
         }
         ui.showCleared(dateFormat.format(startDate), dateFormat.format(endDate));
         storage.updateFile(meals);
+        ui.showLine();
     }
 
     public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
