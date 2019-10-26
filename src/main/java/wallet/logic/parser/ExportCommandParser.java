@@ -18,7 +18,6 @@ import java.util.List;
 public class ExportCommandParser implements Parser<ExportCommand> {
 
     public static final String MESSAGE_ERROR_WRONG_FORMAT = "Wrong Format input for export!";
-    public static final String MESSAGE_ERROR_NO_BUDGET = "No Budget found for input month!";
     private double budgetLeft;
 
     /**
@@ -45,9 +44,17 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                 return null;
             }
         }
+
+        System.out.println(MESSAGE_ERROR_WRONG_FORMAT);
         return null;
     }
 
+    /**
+     * Formats expense storage data into list.
+     *
+     * @param argument month and year to export
+     * @return list of formatted data.
+     */
     private List<String[]> parseExpense(String argument) {
 
 
@@ -57,31 +64,30 @@ public class ExportCommandParser implements Parser<ExportCommand> {
             if (monthYear.length == 2) {
                 int month = Integer.parseInt(monthYear[0].trim());
                 int year = Integer.parseInt(monthYear[1].trim());
+
+                ExpenseList expenseList = LogicManager.getWallet().getExpenseList();
+                double totalSpent = expenseList.getMonthExpenses(month, year);
+                String monthFormatted = DateTimeFormatter.ofPattern("MM/yyyy").format(YearMonth.of(year, month));
+                int index = 1;
+                data.add(new String[]{"Month", monthFormatted});
                 if (findBudget(month, year)) {
-                    ExpenseList expenseList = LogicManager.getWallet().getExpenseList();
-                    double totalSpent = expenseList.getMonthExpenses(month, year);
-                    String monthFormatted = DateTimeFormatter.ofPattern("MM/yyyy").format(YearMonth.of(year, month));
-                    int index = 1;
-                    data.add(new String[]{"Month", monthFormatted});
                     data.add(new String[]{"Budget Left", "$" + budgetLeft});
-                    data.add(new String[]{"Total Spent", "$" + totalSpent});
-                    data.add(new String[]{"S/N", "Description", "Amount($)", "Date", "Category", "Recur", "Frequency"});
-                    for (Expense e : expenseList.getExpenseList()) {
-                        String indexOutput = Integer.toString(index);
-                        String description = e.getDescription();
-                        String date = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(e.getDate());
-                        String amount = Double.toString(e.getAmount());
-                        Category category = e.getCategory();
-                        String isRecur = (e.isRecurring()) ? "yes" : "no";
-                        String frequency = (e.isRecurring()) ? e.getRecFrequency() : "";
-                        data.add(new String[]{indexOutput, description, amount, date, String.valueOf(category),
-                            isRecur, frequency});
-                        index++;
-                    }
-                } else {
-                    System.out.println(MESSAGE_ERROR_NO_BUDGET);
-                    return null;
                 }
+                data.add(new String[]{"Total Spent", "$" + totalSpent});
+                data.add(new String[]{"S/N", "Description", "Amount($)", "Date", "Category", "Recur", "Frequency"});
+                for (Expense e : expenseList.getExpenseList()) {
+                    String indexOutput = Integer.toString(index);
+                    String description = e.getDescription();
+                    String date = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(e.getDate());
+                    String amount = Double.toString(e.getAmount());
+                    Category category = e.getCategory();
+                    String isRecur = (e.isRecurring()) ? "yes" : "no";
+                    String frequency = (e.isRecurring()) ? e.getRecFrequency() : "";
+                    data.add(new String[]{indexOutput, description, amount, date, String.valueOf(category),
+                        isRecur, frequency});
+                    index++;
+                }
+
             } else {
                 System.out.println(MESSAGE_ERROR_WRONG_FORMAT);
                 return null;
@@ -95,6 +101,13 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         return data;
     }
 
+    /**
+     * Find remaining budget of month.
+     *
+     * @param month month to find budget
+     * @param year  month to find budget
+     * @return boolean of found or not.
+     */
     private boolean findBudget(int month, int year) {
         ArrayList<Budget> budgetList = LogicManager.getWallet().getBudgetList().getBudgetList();
         for (Budget b : budgetList) {
@@ -106,6 +119,11 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         return false;
     }
 
+    /**
+     * Formats loans storage data into list.
+     *
+     * @return list of formatted data.
+     */
     private List<String[]> parseLoan() {
 
         ArrayList<Loan> loanList = LogicManager.getWalletList().getWalletList()
@@ -119,7 +137,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
             String description = l.getDescription();
             String amount = Double.toString(l.getAmount());
             String createdDate = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(l.getDate());
-            String isLend = (l.getIsLend()) ? "lend" : "borrowed";
+            String isLend = (l.getIsLend()) ? "lend" : "borrow";
             String isSettled = (l.getIsSettled()) ? "yes" : "no";
             String personName = l.getPerson().getName();
             String personPhone = l.getPerson().getPhoneNum();

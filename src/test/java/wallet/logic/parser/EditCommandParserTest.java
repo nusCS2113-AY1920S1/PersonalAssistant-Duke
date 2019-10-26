@@ -1,6 +1,10 @@
 package wallet.logic.parser;
 
 import org.junit.jupiter.api.Test;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
 import wallet.logic.LogicManager;
 import wallet.model.Wallet;
 import wallet.model.WalletList;
@@ -18,13 +22,14 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class EditCommandParserTest {
     //@@author kyang96
     @Test
-    public void parseExpense_validInput_success() {
+    public void parseExpenseValidInputSuccess() {
         EditCommandParser parser = new EditCommandParser();
         String input = "2 /d Supper /a 10 /c Others";
         Expense expense = parser.parseExpense(input);
@@ -40,7 +45,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parseExpense_validRecurringInput_success() {
+    public void parseExpenseValidRecurringInputSuccess() {
         EditCommandParser parser = new EditCommandParser();
         String input = "2 /d Supper /a 10 /c Others /r Daily";
         Expense expense = parser.parseExpense(input);
@@ -54,6 +59,52 @@ public class EditCommandParserTest {
             () -> assertEquals("DAILY", expense.getRecFrequency())
         );
     }
+    //@@author
+
+    //@@author Xdecosee
+    /**
+     * This method test a series of wrong contact command inputs.
+     */
+    @ParameterizedTest
+    @ValueSource(strings = {"", "  ", "1", "garbage"})
+    public void parseContactInvalidInputTrue(String input) {
+        EditCommandParser parser = new EditCommandParser();
+        Contact contact = parser.parseContact(input);
+        assertNull(contact, "Return Contact should be null:");
+    }
+
+    /**
+     * This method test a series of correct contact command inputs.
+     */
+    @ParameterizedTest
+    @ValueSource(strings = {"6 /n /d /p", "6 /n   /d   /p  ",
+        "6 /n John /p 7183 /d brother 123@abc.com", "8 /n Test /d /d /doctor"})
+    public void parseContactValidInputSuccess(String input) {
+        EditCommandParser parser = new EditCommandParser();
+        Contact contact = parser.parseContact(input);
+        Contact match = null;
+        if ("6 /n /d /p".equals(input)) {
+            match = new Contact(null, "", "");
+            match.setId(6);
+        } else if ("6 /n   /d   /p  ".equals(input)) {
+            match = new Contact(null, "", "");
+            match.setId(6);
+        } else if ("6 /n John /p 7183 /d brother 123@abc.com".equals(input)) {
+            match = new Contact("John", "brother 123@abc.com", "7183");
+            match.setId(6);
+        } else if ("8 /n Test /d /d /doctor".equals(input)) {
+            match = new Contact("Test", "/d /doctor", null);
+            match.setId(8);
+        }
+        Contact finalMatch = match;
+        assertAll("Returned Contact should contain correct input values",
+            () -> assertEquals(finalMatch.getId(), contact.getId()),
+            () -> assertEquals(finalMatch.getName(), contact.getName()),
+            () -> assertEquals(finalMatch.getDetail(), contact.getDetail()),
+            () -> assertEquals(finalMatch.getPhoneNum(), contact.getPhoneNum())
+        );
+    }
+    //@@author
 
     //@@author A0171206R
     @Test
