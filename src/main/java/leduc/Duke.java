@@ -26,18 +26,22 @@ public class Duke {
         this.ui = new Ui();
         this.parser = new Parser();
         ShortcutCommand.initializedSetShortcut();
-        String file; // file name
-        if (filePath.length != 0 ){ // test file in case of test
+        String file;
+        String configFile;
+        String welcomeFile;// file name
+        if (filePath.length != 0 ){ // text-ui-test : test file in case of test
             file = filePath[0];
+            configFile= filePath[1];
+            welcomeFile = filePath[2];
         }
         else{ // no test file
-            file = System.getProperty("user.dir")+ "/data/duke.txt";
+            file = System.getProperty("user.dir")+ "/src/main/java/data/duke.txt";
+            configFile= System.getProperty("user.dir")+ "/src/main/java/data/config.txt";
+            welcomeFile = System.getProperty("user.dir")+ "/src/main/java/data/welcome.txt";
         }
-        String configFile = System.getProperty("user.dir")+ "/data/config.txt";
-
 
         try{
-            this.storage = new Storage(file, configFile);
+            this.storage = new Storage(file, configFile,welcomeFile);
             this.tasks = new TaskList(storage.load()); // Use of ArrayList (A-Collections) to store tasks
         }
         catch (DukeException e){
@@ -50,7 +54,7 @@ public class Duke {
      */
     public void run() {
         try {
-            this.ui.showWelcome();
+            this.ui.showWelcome(storage);
         }
         catch (DukeException e){
             ui.showError(e);

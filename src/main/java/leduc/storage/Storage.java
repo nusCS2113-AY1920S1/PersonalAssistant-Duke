@@ -20,13 +20,14 @@ import java.util.Scanner;
 public class Storage {
     private File file;
     private File configFile;
+    private File welcomeFile;
 
     /**
      * Constructor of leduc.storage.Storage
      * @param file String representing the path of the file
      * @param configFile String representing the path of the file storing the shortcut
      */
-    public Storage(String file, String configFile) throws FileException, MeaninglessException {
+    public Storage(String file, String configFile, String welcomeFile) throws FileException, MeaninglessException {
         this.file = new File(file);
         try {
             this.file.createNewFile();
@@ -44,6 +45,20 @@ public class Storage {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.welcomeFile = new File(welcomeFile);
+        try {
+            this.welcomeFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Getter of welcome File
+     * @return the welcome File
+     */
+    public File getWelcomeFile(){
+        return this.welcomeFile;
     }
 
     /**
