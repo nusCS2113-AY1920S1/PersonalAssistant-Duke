@@ -21,7 +21,7 @@ public class ShowPreviousCommand extends Command{
         String userInput;
         for (int j = 0; j < size; j ++) {
             userInput = userInputList.get(j);
-             if (userInput.contains(s)) {
+            if (userInput.contains(s)) {
                 outputList.add(userInput + " \n");
             }
         }
@@ -30,11 +30,12 @@ public class ShowPreviousCommand extends Command{
 
     public static ArrayList<String> result = new ArrayList<>();
     public ArrayList<String> userInputsList = new ArrayList<>();
+    public ArrayList<String> updatedUserInputList = new ArrayList<>();
     @Override
     public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
         fullCommand = fullCommand.replace("show previous", "");
         fullCommand = fullCommand.trim();
-        System.out.println("full command: " + fullCommand);
+        //System.out.println("full command: " + fullCommand);
 
         boolean isNumber = true;
         int number = 0;
@@ -47,7 +48,24 @@ public class ShowPreviousCommand extends Command{
         ArrayList<String> outputList = new ArrayList<>();
         userInputsList = Duke.getUserInputs();
         int size = userInputsList.size();
-        int sizeOfPreviousList = size - 1;
+
+        for (int i = 0; i < size; i ++) {
+            if (i % 2 == 0) {
+                String userInput = userInputsList.get(i);
+                updatedUserInputList.add(userInput);
+            }
+        }
+
+//        for (String userInput : updatedUserInputList) {
+//            System.out.println("Updated user input is " + userInput);
+//        }
+
+        int sizeOfUpdatedList = updatedUserInputList.size();
+        int sizeOfPreviousList = sizeOfUpdatedList - 1;
+
+//        System.out.println("Size of userInputList: " + size);
+//        System.out.println("Size of updated List: " + sizeOfUpdatedList);
+
 
         /* PRINTING FOR CHECKING:
          * for (String userInput : userInputsList) {
@@ -62,11 +80,11 @@ public class ShowPreviousCommand extends Command{
         }
 
         if (isNumber) {
-            size = size -2;
+            int startIndex = sizeOfPreviousList - 1;
             for (int i = 0; i < number; i ++) {
                 //size -= 1;
-                outputList.add(userInputsList.get(size) + " \n");
-                size -= 1;
+                outputList.add(updatedUserInputList.get(startIndex) + " \n");
+                startIndex -= 1;
             }
             result = outputList;
 
@@ -75,36 +93,35 @@ public class ShowPreviousCommand extends Command{
 //            }
 
         } else if (fullCommand.equals("add/d")) {
-
-            //System.out.println("the command is add/d");
-
-            result = previousCommandsHandler(userInputsList, outputList,"add/d");
+            result = previousCommandsHandler(updatedUserInputList, outputList,"add/d");
         } else if (fullCommand.equals("add/e")) {
-            result = previousCommandsHandler(userInputsList, outputList,"add/e");
+            result = previousCommandsHandler(updatedUserInputList, outputList,"add/e");
         } else if (fullCommand.equals("delete/d")) {
-            result = previousCommandsHandler(userInputsList, outputList,"delete/d");
+            result = previousCommandsHandler(updatedUserInputList, outputList,"delete/d");
         } else if (fullCommand.equals("delete/e")) {
-            result = previousCommandsHandler(userInputsList, outputList, "delete/e");
+            result = previousCommandsHandler(updatedUserInputList, outputList, "delete/e");
         } else if (fullCommand.equals("recur/e")) {
-            result = previousCommandsHandler(userInputsList, outputList, "recur/e");
+            result = previousCommandsHandler(updatedUserInputList, outputList, "recur/e");
         } else if (fullCommand.equals("remind/set")) {
-            result = previousCommandsHandler(userInputsList, outputList, "remind/set");
+            result = previousCommandsHandler(updatedUserInputList, outputList, "remind/set");
         } else if (fullCommand.equals("remind/rm")) {
-            result = previousCommandsHandler(userInputsList, outputList, "remind/rm");
+            result = previousCommandsHandler(updatedUserInputList, outputList, "remind/rm");
         } else if (fullCommand.equals("/show")) {
-            result = previousCommandsHandler(userInputsList, outputList, "/show");
+            result = previousCommandsHandler(updatedUserInputList, outputList, "/show");
         } else if (fullCommand.equals("filter")) {
-            result = previousCommandsHandler(userInputsList, outputList, "filter");
+            result = previousCommandsHandler(updatedUserInputList, outputList, "filter");
         } else if (fullCommand.equals("help")) {
-            result = previousCommandsHandler(userInputsList, outputList, "help");
+            result = previousCommandsHandler(updatedUserInputList, outputList, "help");
         } else if (fullCommand.equals("list")) {
-            result = previousCommandsHandler(userInputsList, outputList, "list");
+            result = previousCommandsHandler(updatedUserInputList, outputList, "list");
         } else if (fullCommand.equals("done")) {
-            result = previousCommandsHandler(userInputsList, outputList, "done");
+            result = previousCommandsHandler(updatedUserInputList, outputList, "done");
         } else if (fullCommand.equals("Available")) {
-            result = previousCommandsHandler(userInputsList, outputList, "Available");
+            result = previousCommandsHandler(updatedUserInputList, outputList, "Available");
         } else if (fullCommand.equals("show previous")) {
-            result = previousCommandsHandler(userInputsList, outputList, "show previous");
+            result = previousCommandsHandler(updatedUserInputList, outputList, "show previous");
+        } else if (fullCommand.equals("Week")) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, "Week");
         }
 
 //        for (String output : result) {
