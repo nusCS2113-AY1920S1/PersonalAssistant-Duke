@@ -40,7 +40,7 @@ public class CommandConvert extends Command {
     @Override
     public void execute(Wallet wallet) {
         Double convertedAmount = this.convertCurrency(this.getFrom(), this.getTo(), this.getAmount());
-        Ui.dukeSays(this.result(convertedAmount) + rateUsed());
+        Ui.dukeSays(this.result(convertedAmount));
         Ui.printSeparator();
     }
 
@@ -87,10 +87,9 @@ public class CommandConvert extends Command {
      * @return this function returns a string version of the json object or else it will return null
      */
     private String consultCurrencyApi(String from, String to) {
-        String Link = generateApiURL(from,to);
-        System.out.println(Link);
+        String link = generateApiUrl(from,to);
         try {
-            URL url = new URL(Link);
+            URL url = new URL(link);
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
             String line;
             String completeJson = "";
@@ -99,7 +98,7 @@ public class CommandConvert extends Command {
             }
             return completeJson;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            Ui.dukeSays("Please enter a valid country code \n");
             return null;
         }
     }
@@ -110,14 +109,14 @@ public class CommandConvert extends Command {
      * @param countryCode String the 3 character unique string
      * @return the exchange rate in Double, is obtained from the string json and returned
      */
-    private Double deriveExchangeRateFromJson(String json, String countryCode){
+    private Double deriveExchangeRateFromJson(String json, String countryCode) {
         try {
             JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
             String rate = jsonObject.getAsJsonObject("rates").get(countryCode).getAsString();
             BigDecimal exchangeRate = new BigDecimal(rate);
             double exRate = exchangeRate.doubleValue();
             return exRate;
-        } catch (Exception e){
+        } catch (Exception e) {
             Ui.dukeSays("Please enter a valid country code \n");
             return null;
         }
@@ -129,7 +128,7 @@ public class CommandConvert extends Command {
      * @param to String is the country code to which we are converting the currency
      * @return function returns true if either of to or from is EUR
      */
-    private boolean isConvertFromOrToEUR (String from, String to){
+    private boolean isConvertFromOrToEur(String from, String to) {
         return from.equals("EUR") || to.equals("EUR");
     }
 
@@ -139,24 +138,24 @@ public class CommandConvert extends Command {
      * @param to String is the country code to which we are converting the currency
      * @return function returns the correct URL link string based on from and to strings
      */
-    private String generateApiURL (String from , String to){
-        boolean isEUR = isConvertFromOrToEUR(from,to);
-        String URL;
+    private String generateApiUrl(String from, String to) {
+        boolean isEur = isConvertFromOrToEur(from,to);
+        String url;
 
         try {
-            if (isEUR) {
+            if (isEur) {
                 if (this.from.equals("EUR")) {
-                    URL = "https://api.exchangeratesapi.io/latest?symbols=" + this.to;
+                    url = "https://api.exchangeratesapi.io/latest?symbols=" + this.to;
                     setUse(this.to);
                 } else {
-                    URL = "https://api.exchangeratesapi.io/latest?symbols=" + this.from;
+                    url = "https://api.exchangeratesapi.io/latest?symbols=" + this.from;
                     setUse(this.from);
                 }
             } else {
-                URL = "https://api.exchangeratesapi.io/latest?symbols=" + this.from + "," + this.to;
+                url = "https://api.exchangeratesapi.io/latest?symbols=" + this.from + "," + this.to;
             }
-            return URL;
-        } catch (Exception E){
+            return url;
+        } catch (Exception e) {
             Ui.dukeSays("Please enter a valid country code \n");
             return null;
         }
@@ -164,26 +163,26 @@ public class CommandConvert extends Command {
 
     /**
      *  convertCurrencyToOrFromEUR helps to convert currencies from base to EUR or vice versa.
-     * @param Rate Double is the exchange rate derived from json
+     * @param rate Double is the exchange rate derived from json
      * @param from String is the country code from which we are converting currency
      * @param amount Double is the amount of money user wishes to convert
      * @return function returns the converted currency in double
      */
-    private Double convertCurrencyToOrFromEUR(Double Rate, String from , Double amount){
+    private Double convertCurrencyToOrFromEur(Double rate, String from, Double amount) {
         try {
             if (from.equals("EUR")) {
-                Double convertedAmount = amount * Rate;
+                Double convertedAmount = amount * rate;
                 Double originalToOutputRate = convertedAmount / amount;
                 setExchangeRate(originalToOutputRate);
                 return convertedAmount;
 
             } else {
-                Double convertedAmount = amount / Rate;
+                Double convertedAmount = amount / rate;
                 Double originalToOutputRate = convertedAmount / amount;
                 setExchangeRate(originalToOutputRate);
                 return convertedAmount;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             Ui.dukeSays("Please enter a valid country code \n");
             return null;
         }
@@ -197,16 +196,17 @@ public class CommandConvert extends Command {
      * @param amount Double is the amount of money user wishes to convert
      * @return function returns the converted currency for non EUR conversions in Double
      */
-    private Double convertNonEURCurrencies (String json , String from, String to, Double amount) {
+    private Double convertNonEurCurrencies(String json, String from, String to, Double amount) {
         try {
             Double fromRate = deriveExchangeRateFromJson(json, from); // exRate for country to convert from
             Double toRate = deriveExchangeRateFromJson(json, to); // exRate for country to convert to
-            Double amountInEUR = amount / fromRate; // changes the given amount in base currency to EUR
-            Double convertedAmount = amountInEUR * toRate; // changes from EUR to required currency
-            Double originalToOutputExRate = convertedAmount / amount; // exchange rate for the conversion from base to required currency
+            Double amountInEur = amount / fromRate; // changes the given amount in base currency to EUR
+            Double convertedAmount = amountInEur * toRate; // changes from EUR to required currency
+            Double originalToOutputExRate = convertedAmount / amount;
+            // exchange rate for the conversion from base to required currency
             setExchangeRate(originalToOutputExRate);
             return convertedAmount;
-        } catch (Exception e){
+        } catch (Exception e) {
             Ui.dukeSays("Please enter a valid country code \n");
             return null;
         }
@@ -224,11 +224,11 @@ public class CommandConvert extends Command {
         try {
             String json = consultCurrencyApi(from,to);
             if (json != null) {
-                if(this.use.equals("")){
-                   return convertNonEURCurrencies(json,from,to,amount);
+                if (this.use.equals("")) {
+                    return convertNonEurCurrencies(json,from,to,amount);
                 } else {
-                    Double Rate = deriveExchangeRateFromJson(json,this.use);
-                    return convertCurrencyToOrFromEUR(Rate, from , amount);
+                    Double rate = deriveExchangeRateFromJson(json,this.use);
+                    return convertCurrencyToOrFromEur(rate, from, amount);
                 }
             }
         } catch (Exception e) {
@@ -241,7 +241,7 @@ public class CommandConvert extends Command {
     }
 
     /**
-     * result basically returns the to.string() version of the output that the user will be shown
+     * result basically returns the to.string() version of the output that the user will be shown.
      * @param convertedAmount this is amount which was converted into
      * @return string of output is returned
      */
@@ -250,7 +250,8 @@ public class CommandConvert extends Command {
         return "DUKE$$$ has converted " + this.from
                 + " " + roundByDecimalPlace(this.amount, 2) + " "
                 + "to" + " "
-                + this.to + " " + convertedAmount + "\n";
+                + this.to + " " + convertedAmount + "\n"
+                + rateUsed();
     }
 
     /**
