@@ -194,19 +194,11 @@ public class ModelManager implements Model {
 
     @Override
     public void addSaleFromShopping(Double totalCost) {
+        String description = "Ingredients purchased.";
+        double value = totalCost;
+        String remarks = "";
         updateFilteredSaleList(PREDICATE_SHOW_ALL_SALES);
     }
-
-    /*
-    public void addSaleFromShopping(String purchaseDescription, double purchaseValue, Date purchaseDate, String purchaseRemarks) {
-        String description = "Purchased ingredients!" + purchaseDescription;
-        double value = purchaseValue;
-        Date date = purchaseDate;
-        String remarks = purchaseRemarks;
-        bakingHome.addSale(new Sale(description, value, date, remarks));
-        updateFilteredSaleList(PREDICATE_SHOW_ALL_SALES);
-    }
-    */
 
     //========Product operations==========
     @Override
