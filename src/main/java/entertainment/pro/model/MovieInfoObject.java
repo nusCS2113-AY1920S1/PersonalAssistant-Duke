@@ -133,4 +133,92 @@ public class MovieInfoObject {
     public boolean isAdult() {
         return adult;
     }
+
+    public void setMovieType(int movieType) {
+        this.movieType = movieType;
+    }
+
+    public long getMovieID() {
+        return movieID;
+    }
+
+    public void setMovieID(long movieID) {
+        this.movieID = movieID;
+    }
+
+    public String getMovieTitle() {
+        return movieTitle;
+    }
+
+    public void setMovieTitle(String movieTitle) {
+        this.movieTitle = movieTitle;
+    }
+
+    public Date getMovieReleaseDate() {
+        return movieReleaseDate;
+    }
+
+    public void setMovieReleaseDate(Date movieReleaseDate) {
+        this.movieReleaseDate = movieReleaseDate;
+    }
+
+    public String getMovieSummary() {
+        return movieSummary;
+    }
+
+    public void setMovieSummary(String movieSummary) {
+        this.movieSummary = movieSummary;
+    }
+
+    public String getMoviePosterPath() {
+        return moviePosterPath;
+    }
+
+    public void setMoviePosterPath(String moviePosterPath) {
+        this.moviePosterPath = moviePosterPath;
+    }
+
+    public String getMovieFullPosterPath() {
+        return movieFullPosterPath;
+    }
+
+    public void setMovieFullPosterPath(String movieFullPosterPath) {
+        this.movieFullPosterPath = movieFullPosterPath;
+    }
+
+    public String getMovieBackdropPath() {
+        return movieBackdropPath;
+    }
+
+    public void setMovieBackdropPath(String movieBackdropPath) {
+        this.movieBackdropPath = movieBackdropPath;
+    }
+
+    public String getMovieFullBackdropPath() {
+        return movieFullBackdropPath;
+    }
+
+    public void setMovieFullBackdropPath(String movieFullBackdropPath) {
+        this.movieFullBackdropPath = movieFullBackdropPath;
+    }
+
+    public double getMovieRating() {
+        return movieRating;
+    }
+
+    public void setMovieRating(double movieRating) {
+        this.movieRating = movieRating;
+    }
+
+    public long[] getMovieGenreIDs() {
+        return movieGenreIDs;
+    }
+
+    public void setMovieGenreIDs(long[] movieGenreIDs) {
+        this.movieGenreIDs = movieGenreIDs;
+    }
+
+    public void setAdult(boolean adult) {
+        this.adult = adult;
+    }
 }
