@@ -7,6 +7,10 @@ import java.util.Arrays;
 
 public class ImpressionNewCommand extends DukeDataCommand {
 
+    private static final String[] medicineStatusArr = {"Not ordered", "In progress", "Completed"};
+    private static final String[] invxStatusArr = {"Not ordered", "In progress"};
+    private static final String[] planStatusArr = {"Not ordered", "In progress", "Reported"};
+
     @Override
     protected ArgSpec getSpec() {
         return ImpressionNewSpec.getSpec();
