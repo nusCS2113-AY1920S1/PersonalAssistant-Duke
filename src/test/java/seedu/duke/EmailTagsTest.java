@@ -14,12 +14,13 @@ public class EmailTagsTest {
 
     @Test
     public void updateEmailTagListTest() {
-        String dir = EmailStorage.getDataDir() + "emailTagTestFile.txt";
+        String dir = EmailStorage.getDataDir() + "emailTagsTestFile.txt";
         EmailList emailList = EmailStorage.readEmailFromFile(dir);
         System.out.println(emailList.toString());
 
         HashMap<String, EmailTags.SubTagMap> tagMap = EmailTags.updateEmailTagList(emailList);
         System.out.println(tagMap);
+
 
         //assertTrue(tagMap.containsKey("SEP"));
         //assertTrue(tagMap.containsKey("Spam"));
@@ -46,6 +47,7 @@ public class EmailTagsTest {
         //assertTrue(tagMap.get("Tutorial").containsKey("CS2113T"));
         //assertTrue(tagMap.get("Tutorial").containsKey("CG2271"));
         //assertFalse(tagMap.get("Tutorial").containsKey("SEP"));
+
     }
 
 }
