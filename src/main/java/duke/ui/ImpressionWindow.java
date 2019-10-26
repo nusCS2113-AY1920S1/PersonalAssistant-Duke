@@ -86,13 +86,13 @@ class ImpressionWindow extends UiElement<Region> {
             if (change.wasAdded() && newTreatmentCard(change.getValueAdded()) != null) {
                 treatmentListPanel.getItems().add(newTreatmentCard(change.getValueAdded()));
                 criticalCount += (change.getValueAdded().getPriority() == 1) ? 1 : 0;
-                followUpCount += (change.getValueAdded().getStatus() < 5
-                        && change.getValueAdded().getStatus() >= 0) ? 1 : 0;
+                followUpCount += (change.getValueAdded().getStatusIdx() < 5
+                        && change.getValueAdded().getStatusIdx() >= 0) ? 1 : 0;
             } else if (change.wasRemoved() && newTreatmentCard(change.getValueAdded()) != null) {
                 treatmentListPanel.getItems().remove(newTreatmentCard(change.getValueRemoved()));
                 criticalCount -= (change.getValueRemoved().getPriority() == 1) ? 1 : 0;
-                followUpCount -= (change.getValueRemoved().getStatus() < 5
-                        && change.getValueRemoved().getStatus() >= 0) ? 1 : 0;
+                followUpCount -= (change.getValueRemoved().getStatusIdx() < 5
+                        && change.getValueRemoved().getStatusIdx() >= 0) ? 1 : 0;
             }
             criticalLabel.setText(criticalCount + " critical(s)");
             followUpLabel.setText(followUpCount + " follow up(s)");
@@ -165,7 +165,7 @@ class ImpressionWindow extends UiElement<Region> {
         for (Map.Entry<String, Treatment> pair : impression.getObservableTreaments().entrySet()) {
             treatmentListPanel.getItems().add(newTreatmentCard(pair.getValue()));
             criticalCount += (pair.getValue().getPriority() == 1) ? 1 : 0;
-            followUpCount += (pair.getValue().getStatus() < 5 && pair.getValue().getStatus() >= 0) ? 1 : 0;
+            followUpCount += (pair.getValue().getStatusIdx() < 5 && pair.getValue().getStatusIdx() >= 0) ? 1 : 0;
         }
 
         criticalLabel.setText(criticalCount + " critical(s)");

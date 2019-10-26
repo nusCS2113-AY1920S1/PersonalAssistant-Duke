@@ -15,10 +15,10 @@ public class HomeNewCommand extends ArgCommand {
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
         //ideally, we would pass an array of objects
-        Integer height = CommandHelpers.switchToInt("height", this);
-        Integer weight = CommandHelpers.switchToInt("weight", this);
-        Integer age = CommandHelpers.switchToInt("age", this);
-        Integer number = CommandHelpers.switchToInt("number", this);
+        Integer height = switchToInt("height");
+        Integer weight = switchToInt("weight");
+        Integer age = switchToInt("age");
+        Integer number = switchToInt("number");
         String bed = getSwitchVal("bed");
         String address = getSwitchVal("address");
         String history = getSwitchVal("history");

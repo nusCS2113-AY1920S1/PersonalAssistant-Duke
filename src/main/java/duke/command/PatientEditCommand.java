@@ -19,22 +19,22 @@ public class PatientEditCommand extends ArgCommand {
         // TODO: refactor
         // TODO: Ability to change bed number and name
         // TODO: append
-        int height = CommandHelpers.switchToInt("height", this);
+        int height = switchToInt("height");
         if (height != 0) {
             patient.setHeight(height);
         }
 
-        int weight = CommandHelpers.switchToInt("weight", this);
+        int weight = switchToInt("weight");
         if (weight != 0) {
             patient.setWeight(weight);
         }
 
-        int age = CommandHelpers.switchToInt("age", this);
+        int age = switchToInt("age");
         if (age != 0) {
             patient.setAge(age);
         }
 
-        int number = CommandHelpers.switchToInt("number", this);
+        int number = switchToInt("number");
         if (number != 0) {
             patient.setNumber(number);
         }
