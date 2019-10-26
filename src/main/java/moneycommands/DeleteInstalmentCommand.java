@@ -9,15 +9,22 @@ import money.Item;
 
 import java.text.ParseException;
 
+/**
+ * This command deletes an Instalment from the Instalment List according to index extracted from the user input.
+ */
 public class DeleteInstalmentCommand extends MoneyCommand {
     private String inputString;
     private int serialNo;
 
+    /**
+     * Constructor of the command which initialises the delete instalment command.
+     * with the index of the item to be deleted within the user input
+     * @param command delete command inputted from user
+     */
     //@@author ChenChao19
     public DeleteInstalmentCommand(String command) {
         inputString = command;
-        String temp = inputString.replaceAll("[^0-9]", "");
-        serialNo = Integer.parseInt(temp);
+        serialNo = Integer.parseInt(inputString.replaceAll("[^0-9]", ""));
     }
 
     @Override
@@ -25,6 +32,15 @@ public class DeleteInstalmentCommand extends MoneyCommand {
         return false;
     }
 
+    /**
+     * This method executes the delete instalment command. Takes the index of the item
+     * to be deleted from the Instalment List and checks for the item
+     * Deletes the item from the list if the item is found
+     * @param account Account object containing all financial info of user saved on the programme
+     * @param ui Handles interaction with the user
+     * @param storage Saves and loads data into/from the local disk
+     * @throws DukeException When the index given is out of bounds of the list
+     */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
         if (serialNo > account.getInstalments().size()) {
@@ -38,6 +54,9 @@ public class DeleteInstalmentCommand extends MoneyCommand {
         account.getInstalments().remove(serialNo - 1);
         storage.addDeletedEntry(deletedEntryIns);
         storage.writeToFile(account);
+
+        MoneyCommand list = new ListInstalmentCommand();
+        list.execute(account,ui,storage);
     }
 
     @Override

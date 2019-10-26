@@ -1,11 +1,9 @@
 package money;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 /**
  * This class represents a bank account tracker which can be used to
@@ -81,6 +79,11 @@ public class BankTracker {
         amt += value;
     }
 
+    /**
+     * This method updates the balance based on the given date and
+     * changes the latest date to the given date.
+     * @param date The latest update date
+     */
     public void updateDate(LocalDate date) {
         Period period = Period.between(latestDate, date);
         int length = period.getMonths() + period.getYears()*12;
@@ -88,6 +91,12 @@ public class BankTracker {
         latestDate = date;
     }
 
+    /**
+     * This methods just predicts the future balance on the given date
+     * without changing the balance and the latest update date.
+     * @param date the given date
+     * @return the future balanced based on the given date
+     */
     public float predictAmt(LocalDate date) {
         Period period = Period.between(latestDate, date);
         int length = period.getMonths() + period.getYears()*12;

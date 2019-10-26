@@ -11,7 +11,7 @@ public interface DataTransfer {
 
     int NUMBER_OF_MONTHS = 3;
 
-    public enum Type {
+    enum Type {
         HISTOGRAM, LINE_GRAPH, PIE_CHART
     }
 
@@ -31,11 +31,11 @@ public interface DataTransfer {
         yData.add(account.getTotalExp());
 
         if (type.equals(Type.PIE_CHART)) {
-            return null;
+            return CircleChart.getCircleChart("Monthly Data", xData, yData);
         } else if (type.equals(Type.LINE_GRAPH)) {
-            return LineGraph.getLineGraph("Overall Income Trend", xData, yData);
+            return LineGraph.getLineGraph("Monthly Data", xData, yData);
         } else {
-            return Histogram.getHistogram("Overall Income Trend", xData, yData);
+            return Histogram.getHistogram("Monthly Data", xData, yData);
         }
     }
 
@@ -54,11 +54,11 @@ public interface DataTransfer {
         }
 
         if (type.equals(Type.PIE_CHART)) {
-            return null;
+            return CircleChart.getCircleChart("Overall Expenditure Trend", xData, yData);
         } else if (type.equals(Type.HISTOGRAM)) {
-            return Histogram.getHistogram("Overall Income Trend", xData, yData);
+            return Histogram.getHistogram("Overall Expenditure Trend", xData, yData);
         } else {
-            return LineGraph.getLineGraph("Overall Income Trend", xData, yData);
+            return LineGraph.getLineGraph("Overall Expenditure Trend", xData, yData);
         }
     }
 
@@ -76,7 +76,7 @@ public interface DataTransfer {
             }
         }
         if (type.equals(Type.PIE_CHART)) {
-            return null;
+            return CircleChart.getCircleChart("Overall Income Trend", xData, yData);
         } else if (type.equals(Type.HISTOGRAM)) {
             return Histogram.getHistogram("Overall Income Trend", xData, yData);
         } else {
