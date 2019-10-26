@@ -42,18 +42,24 @@ public class Ui {
                 + "\n__________________________________________\n";
 
         while (true) {
+
             readCommand();
             ArrayList<StringBuilder> password_list;
             Storage store = new Storage();
             password_list = store.readFromPasswordFile();
             if (fullCommand.equals(password_list.get(0).toString())) {
+
+
                 System.out.println(welcomemessage);
                 LocalDate a = LocalDate.now();
                 System.out.println("Today is " + a.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
                 break;
+
             } else {
                 System.out.println("Incorrect password, please try again:");
             }
+
+
         }
         return welcomemessage;
     }
