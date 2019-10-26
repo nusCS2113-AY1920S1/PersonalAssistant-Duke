@@ -14,7 +14,7 @@ public class HelpCommand extends Command {
             + "help /command deadline\n\t\t"
             + "show how to use deadline command";
     public static final String CMD_EXIT = "bye";
-    public static final String CMD_CLEAR = "clear";
+    public static final String CMD_LIST = "list";
     public static final String CMD_DONE = "done";
     public static final String CMD_DELETE = "delete";
     public static final String CMD_EVENT = "event";
@@ -41,6 +41,7 @@ public class HelpCommand extends Command {
             + "view: get the daily/weekly/monthly view of timetable\n\t"
             + "view-reminder: get all tasks with reminder\n\t"
             + "deadline: add deadline type tasks\n\t"
+            + "list: list all the task stored in COMPal\n\t"
             + "event: add event type tasks\n\n"
             + "if you want to know how to use any of them\n"
             + "you can type \"help /command <name of command>\"  for further information!\n"
@@ -84,6 +85,8 @@ public class HelpCommand extends Command {
                 return new CommandResult(EventCommand.MESSAGE_USAGE, false);
             case CMD_EDIT:
                 return new CommandResult(EditCommand.MESSAGE_USAGE, false);
+            case CMD_LIST:
+                return new CommandResult(ListCommand.MESSAGE_USAGE, false);
             default:
                 return new CommandResult(WRONG_COMMAND + HELP_STRING, false);
             }

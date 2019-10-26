@@ -1,12 +1,7 @@
 package compal.model.tasks;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
 import java.util.ArrayList;
-import java.util.BitSet;
 import java.util.Date;
 
 
@@ -36,13 +31,6 @@ public class TaskList {
         //make sure any user edits are brought over to the binary file as well
         taskIdManager.synchronizeTaskIds(this);
     }
-
-
-    //----------------------->
-
-    //***FUNCTIONS FOR ADDING TASKS***----------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------->
 
     //@@author jaedonkey
     /**
@@ -110,7 +98,7 @@ public class TaskList {
         return this.arrlist;
     }
 
-    //@@author Sholihin
+    //@@author SholihinK
     /**
      * Sorts all the tasks in arrlist by date.
      *

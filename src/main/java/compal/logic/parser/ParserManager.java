@@ -3,6 +3,7 @@ package compal.logic.parser;
 import compal.logic.command.ByeCommand;
 import compal.logic.command.Command;
 
+import compal.logic.command.ListCommand;
 import compal.logic.parser.exceptions.ParserException;
 
 import java.text.ParseException;
@@ -30,6 +31,7 @@ public class ParserManager {
     public static final String CMD_HELP = "help";
     public static final String CMD_FIND_FREE_SLOT = "findfreeslot";
     public static final String CMD_EDIT = "edit";
+    public static final String CMD_LIST = "list";
 
     public static final String MESSAGE_INVALID_COMMAND = "Error: Unknown command input detected!";
 
@@ -54,11 +56,11 @@ public class ParserManager {
         case CMD_VIEW:
             return new ViewCommandParser().parseCommand(restOfInput);
         case CMD_SET_REMINDER:
-            return new SetReminderParser().parseCommand(restOfInput);
+            return new SetReminderCommandParser().parseCommand(restOfInput);
         case CMD_VIEW_REMINDER:
-            return new ViewReminderParser().parseCommand(restOfInput);
+            return new ViewReminderCommandParser().parseCommand(restOfInput);
         case CMD_FIND_FREE_SLOT:
-            return new FindFreeSlotParser().parseCommand(restOfInput);
+            return new FindFreeSlotCommandParser().parseCommand(restOfInput);
         case CMD_DEADLINE:
             return new DeadlineCommandParser().parseCommand(restOfInput);
         case CMD_DONE:
@@ -69,10 +71,12 @@ public class ParserManager {
             return new EventCommandParser().parseCommand(restOfInput);
         case CMD_EDIT:
             return new EditCommandParser().parseCommand(restOfInput);
+        case CMD_LIST:
+            return new ListCommandParser().parseCommand(restOfInput);
         default:
             return new HelpCommandParser().parseCommand(restOfInput);
-            //suppose to return helpCommand();
-            //throw new ParserException(MESSAGE_INVALID_COMMAND);
+        //suppose to return helpCommand();
+        //throw new ParserException(MESSAGE_INVALID_COMMAND);
         }
 
     }
