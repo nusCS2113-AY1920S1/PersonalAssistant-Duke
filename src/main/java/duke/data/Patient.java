@@ -256,7 +256,7 @@ public class Patient extends DukeObject {
         informationString += "Registration details\n";
         informationString += "Bed Number: " + this.bedNo + "\n";
         informationString += "Allergies: " + this.allergies + "\n";
-        informationString += "Primary Diagnosis: " + this.priDiagnosis.toString() + "\n";
+        informationString += (priDiagnosis != null) ? "Primary Diagnosis: " + this.priDiagnosis.toString() + "\n" : "";
         for (Map.Entry mapElement : this.impressions.entrySet()) {
             Impression imp = (Impression) mapElement.getValue();
             informationString += imp.toString();
