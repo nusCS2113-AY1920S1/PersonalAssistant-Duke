@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.DukeCore;
 import duke.exception.DukeException;
+import duke.exception.DukeHelpException;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -21,7 +22,7 @@ public abstract class ArgCommand extends Command {
 
     @Override
     public void execute(DukeCore core) throws DukeException {
-        // ..
+        // do any necessary pre-processing
     }
 
     protected void setSwitchValsMap(HashMap<String, String> switchVals) {
@@ -39,7 +40,6 @@ public abstract class ArgCommand extends Command {
     protected boolean isSwitchSet(String switchName) {
         return switchVals.containsKey(switchName);
     }
-
 
     protected void setArg(String arg) {
         this.arg = arg;
@@ -73,5 +73,22 @@ public abstract class ArgCommand extends Command {
         return Collections.unmodifiableMap(switchVals);
     }
 
-    ;
+    /**
+     * Checks if a particular switch, and if not, attempts to parse it as an Integer.
+     * @param switchName The name of the switch being extracted.
+     * @return The Integer that the string represents, or 0 if it is null.
+     * @throws NumberFormatException If the string is not a valid representation of an integer.
+     */
+    protected Integer switchToInt(String switchName) throws DukeHelpException {
+        String str = this.getSwitchVal(switchName);
+        if (str == null) {
+            return 0;
+        } else {
+            try {
+                return Integer.parseInt(str);
+            } catch (NumberFormatException excp) {
+                throw new DukeHelpException("The switch '" + switchName + "' must be an integer!", this);
+            }
+        }
+    }
 }

@@ -13,55 +13,6 @@ import java.util.Set;
 public class CommandHelpers {
 
     /**
-     * Checks if a particular switch in an ArgCommand is null, and if not, attempts to parse it as an Integer.
-     * @param command The ArgCommand whose switch is being extracted.
-     * @param switchName The name of the switch being extracted.
-     * @return The Integer that the string represents, or 0 if it is null.
-     * @throws NumberFormatException If the string is not a valid representation of an integer.
-     */
-    public static Integer switchToInt(String switchName, ArgCommand command) throws DukeHelpException {
-        String str = command.getSwitchVal(switchName);
-        if (str == null) {
-            return 0;
-        } else {
-            try {
-                return Integer.parseInt(str);
-            } catch (NumberFormatException excp) {
-                throw new DukeHelpException("The switch '" + switchName + "' must be an integer!", command);
-            }
-        }
-    }
-
-    /**
-     * Checks if a status is a string or an integer, and returns the appropriate integer if it is a string.
-     * @param status The String supplied as an argument to the status switch.
-     * @param statusArr The status descriptions that the numeric value of the status represent. The numeric value of
-     *                  the status is the index of the corresponding description in the array.
-     * @return The Integer that the string represents, or 0 if it is null.
-     * @throws NumberFormatException If the string is not a valid representation of an integer.
-     */
-    public static Integer processStatus(String status, String[] statusArr) throws DukeHelpException {
-        if (status == null) {
-            return 0;
-        } else {
-            try {
-                int convertedStatus = Integer.parseInt(status);
-                if (convertedStatus < 0 || convertedStatus > statusArr.length) {
-                    throw new DukeHelpException(status + "is not a valid numeric value for the status!", command);
-                }
-                return convertedStatus;
-            } catch (NumberFormatException excp) { // not numeric
-                for (int i = 0; i < statusArr.length; ++i) {
-                    if (statusArr[i].equalsIgnoreCase(status)) {
-                        return i;
-                    }
-                }
-                throw new DukeHelpException("'" + status + "' is not a valid status name!", command);
-            }
-        }
-    }
-
-    /**
      * Given a switch name provided by the user, finds the switch it is referring to, or the closest match,
      * allowing the user to disambiguate.
      * @param word The name provided by the user, which may not match any switch.
