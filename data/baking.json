@@ -120,7 +120,7 @@
         "remarks": ""
       },
       "amount": 0.0
-  } ],
+    } ],
   "shoppingList" : [ {
     "ingredient" : {
       "name" : "Fish",

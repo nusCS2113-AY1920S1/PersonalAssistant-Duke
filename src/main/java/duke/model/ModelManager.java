@@ -189,7 +189,7 @@ public class ModelManager implements Model {
         double value = order.getTotal();
         Date deliveryDate = order.getDeliveryDate();
         String remarks = order.getRemarks();
-        bakingHome.addSale(new Sale(description, value, deliveryDate, remarks));
+        bakingHome.addSale(new Sale(description, value, false, deliveryDate, remarks));
         updateFilteredSaleList(PREDICATE_SHOW_ALL_SALES);
     }
 
@@ -202,7 +202,7 @@ public class ModelManager implements Model {
         for (Item<Ingredient> i : toBuyList) {
             remarks = remarks + "-" + i.getItem().getName() + " ";
         }
-        bakingHome.addSale(new Sale(description, value, buyDate, remarks));
+        bakingHome.addSale(new Sale(description, value, true, buyDate, remarks));
         updateFilteredSaleList(PREDICATE_SHOW_ALL_SALES);
     }
 

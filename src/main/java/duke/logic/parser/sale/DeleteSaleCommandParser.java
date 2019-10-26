@@ -18,7 +18,6 @@ public class DeleteSaleCommandParser implements Parser<DeleteSaleCommand> {
             throw new ParseException(MESSAGE_EMPTY_INDICES);
         }
 
-
         return new DeleteSaleCommand(ParserUtil.getIndices(map.getPreamble()));
     }
 

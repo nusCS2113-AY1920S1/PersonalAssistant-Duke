@@ -20,7 +20,7 @@ public class DeleteSaleCommand extends SaleCommand {
 
     public static final String MESSAGE_COMMIT = "Delete sale";
     private static final String MESSAGE_DELETE_SUCCESS = "%s sale(s) removed.";
-    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index is out of bound.";
+    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] is out of bound.";
     private final Set<Index> indices;
 
     /**
@@ -39,7 +39,7 @@ public class DeleteSaleCommand extends SaleCommand {
         List<Sale> toDelete = new ArrayList<>();
         for (Index index : indices) {
             if (index.getZeroBased() >= model.getFilteredSaleList().size()) {
-                throw new CommandException(MESSAGE_INDEX_OUT_OF_BOUND);
+                throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_BOUND, index.getOneBased()));
             }
             toDelete.add(model.getFilteredSaleList().get(index.getZeroBased()));
         }
@@ -50,7 +50,7 @@ public class DeleteSaleCommand extends SaleCommand {
         model.commit(MESSAGE_COMMIT);
 
         return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS, indices.size()),
-            CommandResult.DisplayedPage.SALE);
+                CommandResult.DisplayedPage.SALE);
 
     }
 

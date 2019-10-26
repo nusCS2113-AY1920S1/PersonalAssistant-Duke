@@ -14,9 +14,7 @@
 <?import javafx.scene.text.Font?>
 <AnchorPane fx:id="SalePage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0"
-                   style="-fx-border-color: white; -fx-border-insets: 0;" AnchorPane.bottomAnchor="0.0"
-                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" style="-fx-border-color: white; -fx-border-insets: 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
                 <StackPane maxHeight="70.0" style="-fx-background-color: white;">
                <children>
@@ -44,7 +42,7 @@
                                     </StackPane>
                                     <StackPane>
                                        <children>
-                                           <Label fx:id="revenue" text="Revenue: $">
+                                                <Label fx:id="revenue" text="Revenue: $">
                                                     <font>
                                                         <Font name="Consolas" size="14.0" />
                                                     </font>
@@ -70,7 +68,7 @@
                                     </StackPane>
                                     <StackPane>
                                        <children>
-                                           <Label fx:id="cost" text="Cost: $">
+                                                <Label fx:id="cost" text="Cost: $">
                                                     <font>
                                                         <Font name="Consolas" size="14.0" />
                                                     </font>
@@ -93,7 +91,7 @@
                                     </StackPane>
                                     <StackPane>
                                        <children>
-                                           <Label fx:id="profit" text="Profit: $">
+                                                <Label fx:id="profit" text="Profit: $">
                                                     <font>
                                                         <Font name="Consolas" size="14.0" />
                                                     </font>
