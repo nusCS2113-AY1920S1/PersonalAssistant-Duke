@@ -1,5 +1,6 @@
 package Interface;
 import DukeExceptions.DukeException;
+import DukeExceptions.DukeInvalidCommandException;
 import Tasks.*;
 
 import java.text.ParseException;
@@ -196,10 +197,25 @@ public class Ui {
 
     public String showPrevious(ArrayList<String> outputList) {
         int size = outputList.size();
-        String output = "";
-        for (int i = 0; i < size; i ++) {
-            output = outputList.get(i) + " \n";
+        System.out.println(size);
+        if (size == 0) {
+            String message = "There are no such input type in previous command";
+            return message;
+        } else {
+            String output = "";
+            for (int i = 0; i < size; i++) {
+                output += (i + 1) + ". " + outputList.get(i);
+            }
+
+            //System.out.println(output);
+
+            return output;
         }
-        return output;
+    }
+
+    public String showInvalidNumberErrorMessage(int validNumber) {
+        String message = "There are only " + validNumber + " of previous commands." +
+                "Please enter a valid number less than or equal to " + validNumber + " .";
+        return message;
     }
 }

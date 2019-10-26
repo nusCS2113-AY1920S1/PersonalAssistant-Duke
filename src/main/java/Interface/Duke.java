@@ -88,4 +88,9 @@ public class Duke extends Application {
     public static ArrayList<String> getUserInputs() {
         return userInputs;
     }
+
+    public static String getPreviousInput() {
+        String previousInput = RetrievePreviousCommand.getChosenOutput();
+        return previousInput;
+    }
 }
