@@ -1,4 +1,4 @@
-package duke.core;
+package duke.util;
 
 public class CounterTest {
     

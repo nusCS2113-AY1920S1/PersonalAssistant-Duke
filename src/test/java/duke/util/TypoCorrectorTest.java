@@ -1,4 +1,4 @@
-package duke.core;
+package duke.util;
 
 import duke.util.TypoCorrector;
 import static org.junit.jupiter.api.Assertions.assertEquals;

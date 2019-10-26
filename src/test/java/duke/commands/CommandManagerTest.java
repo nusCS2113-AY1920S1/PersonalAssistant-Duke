@@ -1,4 +1,4 @@
-package duke.core;
+package duke.commands;
 
 import duke.commands.Command;
 import duke.commands.CommandManager;
