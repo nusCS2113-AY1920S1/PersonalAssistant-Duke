@@ -73,10 +73,10 @@ public class GsonStorageTest {
      */
     private Patient createComplexPatient() throws DukeException {
         Patient complexPatient = new Patient("Patient", "C1", "Cats, dogs and peanuts");
-        Impression impression1 = new Impression("why allergies", "This impression contains "
+        Impression impression1 = new Impression("testIMP1", "This impression contains "
                 + "possible evidenves and treatments about the patient allergies.", complexPatient.getBedNo() );
-        Impression impression2 = new Impression("Peanuts allergy", "Contains impression about peanut allgies", complexPatient.getBedNo());
-        Impression impression3 = new Impression("Overall health", "Describes the patient health", complexPatient.getBedNo() );
+        Impression impression2 = new Impression("testIMP2", "Contains impression about peanut allgies", complexPatient.getBedNo());
+        Impression impression3 = new Impression("testPrimaryImp", "Describes the patient health", complexPatient.getBedNo() );
         Observation observation1 = new Observation("Trouble sleeping", impression3.getName(), 2, "Patient have not been able to sleep at all for the last week.", false );
         Observation observation2 = new Observation("Trouble eating", impression3.getName(), 3, "Patient have not been eating for 3 days.", true );
         Result result1 = new Result("Effect from the new medicine", impression3.getName(), 2, "After giving the patient some medicine he has started eating more" );
@@ -85,6 +85,16 @@ public class GsonStorageTest {
 //        impression1.addNewEvidence(observation2); // get error when trying to add evidence
 //        impression1.addNewEvidence(result1);
 //        impression1.addNewEvidence(result2);
+        String[] statusArray1 = {"test1", "test2", "test3"};
+        String[] statusArray2 = {"test4"};
+        String[] statusArray3 = {"test5", "test7"};
+
+        Investigation investigation1 = new Investigation("Investigation1", impression1.getName(), 1, 1, statusArray1, "Summary of investigation 1");
+        Investigation investigation2 = new Investigation("Investigation3",impression1.getName(), 0, 1,   statusArray2, "Summary of investigation 2");
+        Investigation investigation3 = new Investigation("Investigation4",impression2.getName( ), 4, 0,  statusArray3, "Summary of investigation 3");
+//        impression1.addNewTreatment(investigation1); // get error when trying to add treatment
+//        impression1.addNewTreatment(investigation2);
+//        impression2.addNewTreatment(investigation3);
         complexPatient.addNewImpression(impression1);
         complexPatient.addNewImpression(impression2);
         complexPatient.addNewImpression(impression3);
