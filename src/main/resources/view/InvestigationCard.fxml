@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<fx:root fx:id="cardView" maxWidth="-Infinity" prefWidth="168.0" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="statusLabel" layoutX="53.0" layoutY="91.0" prefHeight="20.0" prefWidth="94.0" text="Status">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/investigation.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/impression_critical.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="9.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/status.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="criticalLabel" layoutX="53.0" layoutY="52.0" prefHeight="20.0" prefWidth="94.0" text="Critical">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label fx:id="nameLabel" layoutX="52.0" layoutY="16.0" prefHeight="20.0" prefWidth="94.0" text="Name">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+    </children>
+    <padding>
+        <Insets bottom="5.0" top="5.0" />
+    </padding>
+</fx:root>
