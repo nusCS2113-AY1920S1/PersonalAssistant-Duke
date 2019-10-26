@@ -13,6 +13,7 @@ import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -184,7 +185,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void addSaleFromShopping(Double totalCost) {
+    public void addSaleFromShopping(Double totalCost, ArrayList<Item<Ingredient>> toBuyList) {
 
     }
 
@@ -297,4 +298,5 @@ public class ModelStub implements Model {
     public List<Shortcut> getShortcutList() {
         return null;
     }
+
 }
