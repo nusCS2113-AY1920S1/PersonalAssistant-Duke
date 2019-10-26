@@ -76,6 +76,7 @@ public class ModelController implements Model {
     @Override
     public void addMember(String name) throws DukeException {
         memberManager.addMember(name);
+        storage.saveMembers(memberManager.getMemberList());
     }
 
     @Override
