@@ -4,13 +4,24 @@ package wallet.storage;
 
 import wallet.model.currency.Currency;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+/**
+ * This class deals with loading of Currency from currency.txt
+ */
 public class CurrencyStorage {
 
     public static final String DEFAULT_STORAGE_FILEPATH_CURRENCY = "/currency.txt";
 
+    /**
+     * This method loads the currency.txt list into currentList for use in currency conversion.
+     * @return returns a list of currencies
+     */
     public ArrayList<Currency> loadFile() {
         ArrayList<Currency> currencyList = new ArrayList<>();
         try {
