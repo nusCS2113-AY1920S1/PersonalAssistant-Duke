@@ -86,9 +86,7 @@ public class Storage {
             String[] line = fileScanner.nextLine().split(",");
             if (line[1].equals(resourceId)) {
                 Reservation newReservation = new Reservation(Integer.parseInt(line[0]), Integer.parseInt(line[1]), Integer.parseInt(line[2]), line[3], line[4]);
-                if (newReservation.isStillValid()) {
-                    resourceReservations.add(newReservation);
-                }
+                resourceReservations.add(newReservation);
             }
         }
         return resourceReservations;
@@ -116,7 +114,6 @@ public class Storage {
                 reservationLine = thisReservationList.getReservationByIndex(j).toDataFormat();
                 reservationFileWriter.write(reservationLine);
                 reservationFileWriter.newLine();
-                // can this be simplified / moved elsewhere?
             }
         }
         resourceFileWriter.close();
