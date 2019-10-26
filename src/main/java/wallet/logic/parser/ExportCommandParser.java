@@ -84,7 +84,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                     String isRecur = (e.isRecurring()) ? "yes" : "no";
                     String frequency = (e.isRecurring()) ? e.getRecFrequency() : "";
                     data.add(new String[]{indexOutput, description, amount, date, String.valueOf(category),
-                            isRecur, frequency});
+                        isRecur, frequency});
                     index++;
                 }
 
@@ -129,7 +129,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         ArrayList<Loan> loanList = LogicManager.getWallet().getLoanList().getLoanList();
         List<String[]> data = new ArrayList<>();
         data.add(new String[]{"S/N", "Description", "Amount($)", "Created Date", "Name", "Phone",
-                "Other Details", "Lend/Borrow", "Settled"});
+            "Other Details", "Lend/Borrow", "Settled"});
         int index = 1;
         for (Loan l : loanList) {
             String indexOutput = Integer.toString(index);
@@ -148,7 +148,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                 personDetail = "";
             }
             data.add(new String[]{indexOutput, description, amount, createdDate, personName, personPhone,
-                    personDetail, isLend, isSettled});
+                personDetail, isLend, isSettled});
             index++;
         }
         return data;
