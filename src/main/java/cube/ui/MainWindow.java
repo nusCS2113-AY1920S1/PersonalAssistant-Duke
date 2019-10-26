@@ -59,8 +59,8 @@ public class MainWindow extends UiManager<Stage> {
     }
 
     public void initComponents() {
-        primaryStage.setHeight(configStorage.getWindowHeight());
-        primaryStage.setWidth(configStorage.getWindowWidth());
+        primaryStage.setHeight(configStorage.getUiConfig().getWindowHeight());
+        primaryStage.setWidth(configStorage.getUiConfig().getWindowWidth());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());

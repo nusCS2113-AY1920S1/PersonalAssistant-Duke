@@ -35,11 +35,11 @@ public class StorageManager {
 	 * Constructor with 2 arguments.
 	 * Creates a new instance of Food & Revenue Storage Classes.
 	 */
-	public StorageManager(FoodStorage foodStorage, RevenueStorage revenueStorage, ConfigStorage configStorage, SaleStorage saleStorage) {
+	public StorageManager(FoodStorage foodStorage, RevenueStorage revenueStorage, SaleStorage saleStorage, ConfigStorage configStorage) {
 		this.foodStorage = foodStorage;
 		this.revenueStorage = revenueStorage;
-		this.configStorage = configStorage;
 		this.saleStorage = saleStorage;
+		this.configStorage = configStorage;
 	}
 
 	/**
@@ -77,22 +77,29 @@ public class StorageManager {
 	}
 
 	/**
+	 * Retrieves the past sales histories stored in SaleStorage.
+	 * @return SalesHistory object containing past sale histories stored in SaleStroage.
+	 */
+	@JsonIgnore
+	public SalesHistory getSalesHistory() {
+		return saleStorage.getSalesHistory();
+	}
+
+	/**
+	 * Stores the SalesHistory object into SaleStorage.
+	 * @param salesHistory SalesHistory object to be stored in the SaleStorage.
+	 */
+	public void storeSalesHistory(SalesHistory salesHistory) {
+		saleStorage.storeSalesHistory(salesHistory);
+	}
+
+	/**
 	 * Retrieves the configuration storage containing user-defined configurations.
 	 * @return ConfigStorage object containing the user-defined configurations.
 	 */
 	@JsonIgnore
 	public ConfigStorage getConfig() {
 		return configStorage;
-	}
-
-
-	@JsonIgnore
-	public SalesHistory getSalesHistory() {
-		return saleStorage.getSalesHistory();
-	}
-
-	public void storeSalesHistory(SalesHistory salesHistory) {
-		saleStorage.storeSalesHistory(salesHistory);
 	}
 
 }
