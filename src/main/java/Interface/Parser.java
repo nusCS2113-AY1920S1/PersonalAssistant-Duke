@@ -71,6 +71,11 @@ public class Parser {
                             "list name_of_list_to_view\n" +
                             "For example: list todo");
                 }
+            } else if(fullCommand.startsWith("Week")) {
+                fullCommand = fullCommand.replaceFirst("Week", "");
+                fullCommand = fullCommand.trim();
+                Integer week = Integer.parseInt(fullCommand);
+                return new WeekCommand(week);
             } else if(fullCommand.trim().startsWith("done/e")){
                 try { //add/e module_code description /at date from time to time
                     String activity = fullCommand.replaceFirst("done/e", "");
@@ -414,8 +419,8 @@ public class Parser {
                     throw new DukeException(" OOPS!!! Please enter Do Within Period Task as follows:\n" +
                             " 'Task Description' '(from DD/MM/yyyy to DD/MM/yyyy)'");
                 }
-            } else if(fullCommand.startsWith("Find")){
-                fullCommand = fullCommand.replaceFirst("Find", "");
+            } else if(fullCommand.startsWith("find")) {
+                fullCommand = fullCommand.replaceFirst("find", "");
                 fullCommand = fullCommand.trim();
                 fullCommand = fullCommand.replaceFirst("hours", "");
                 fullCommand = fullCommand.trim();

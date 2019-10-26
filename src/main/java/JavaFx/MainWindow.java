@@ -1,5 +1,6 @@
 package JavaFx;
 import Commands.ShowPreviousCommand;
+import Commands.WeekCommand;
 import Commands.UpdateProgressIndicatorCommand;
 import Interface.*;
 import Tasks.Task;
@@ -89,6 +90,7 @@ public class MainWindow extends BorderPane implements Initializable {
     private TaskList deadlinesList;
     private static LookupTable LT;
     public static ArrayList<String> outputList = new ArrayList<>();
+    public static Week outputWeekList = new Week();
     private static final Logger LOGGER = Logger.getLogger(MainWindow.class.getName());
     static {
         try {
@@ -313,13 +315,16 @@ public class MainWindow extends BorderPane implements Initializable {
 ////            for(String s: filteredInput) sall += s;
 ////        AlertBox.display("", "", sall, Alert.AlertType.INFORMATION);
 //        }
+        outputWeekList = WeekCommand.getWeekList();
+
+
         retrieveList();
         setListView();
         deadlineTable.setItems(setDeadlineTable());
         setProgressContainer();
         if (input.startsWith("Week")) {
             setWeek(false, input);
-            setListView();
+            updateListView(input);
         } else if (input.startsWith("add")) {
 //            //if(response.startsWith("true|")) {
 //            //refresh(input);
@@ -592,6 +597,18 @@ public class MainWindow extends BorderPane implements Initializable {
             }
         } else if (input.startsWith("add/d")) {
             deadlineTable.setItems(setDeadlineTable());
+        }
+    }
+
+    private void updateListView(String input){
+        if(input.startsWith("Week")) {
+            monEventView.setItems(outputWeekList.getMonList());
+            tueEventView.setItems(outputWeekList.getTueList());
+            wedEventView.setItems(outputWeekList.getWedList());
+            thuEventView.setItems(outputWeekList.getThuList());
+            friEventView.setItems(outputWeekList.getFriList());
+            satEventView.setItems(outputWeekList.getSatList());
+            sunEventView.setItems(outputWeekList.getSunList());
         }
     }
 }
