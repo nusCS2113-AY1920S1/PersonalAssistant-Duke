@@ -53,77 +53,32 @@ public class CommandParser {
         case "list":
             return new ListCommand();
         case "help":
-            if (line.equals("help")) {
-                line = line.replaceFirst("help", "");
-            } else {
-                line = line.replaceFirst("help ", "");
-            }
+            line = line.replaceFirst("help", "").trim();
             return new HelpCommand(line);
         case "done":
-            if (argumentArray.length == LENGTH_COMMAND_ONLY) {
-                throw new OofException("OOPS!!! Please enter a number!");
-            }
-            try {
-                int completeIndex = Integer.parseInt(argumentArray[INDEX_ARGUMENT_TASK_NUMBER]) - 1;
-                return new CompleteCommand(completeIndex);
-            } catch (NumberFormatException e) {
-                throw new OofException("OOPS!!! Please enter a valid number!");
-            }
+            return parseDone(argumentArray, line);
         case "todo":
             line = line.replaceFirst("todo", "").trim();
             return new AddToDoCommand(line);
         case "deadline":
             line = line.replaceFirst("deadline", "").trim();
-            System.out.println(line);
             return new AddDeadlineCommand(line);
         case "event":
             line = line.replaceFirst("event", "").trim();
             return new AddEventCommand(line);
         case "delete":
-            if (argumentArray.length == LENGTH_COMMAND_ONLY) {
-                throw new OofException("OOPS!!! Please enter a number!");
-            }
-            try {
-                int deleteIndex = Integer.parseInt(argumentArray[INDEX_ARGUMENT_TASK_NUMBER]) - 1;
-                return new DeleteCommand(deleteIndex);
-            } catch (NumberFormatException e) {
-                throw new OofException("OOPS!!! Please enter a valid number!");
-            }
+            return parseDelete(argumentArray, line);
         case "find":
             return new FindCommand(line);
         case "snooze":
-            if (argumentArray.length == LENGTH_COMMAND_ONLY) {
-                throw new OofException("OOPS!!! Please enter a number!");
-            }
-            try {
-                int snoozeIndex = Integer.parseInt(argumentArray[INDEX_ARGUMENT_TASK_NUMBER]) - 1;
-                return new SnoozeCommand(snoozeIndex);
-            } catch (NumberFormatException e) {
-                throw new OofException("OOPS!!! Please enter a valid number!");
-            }
+            return parseSnooze(argumentArray, line);
         case "schedule":
             line = line.replaceFirst("schedule", "").trim();
             return new ScheduleCommand(line);
         case "summary":
             return new SummaryCommand();
         case "recurring":
-            if (argumentArray.length == LENGTH_COMMAND_ONLY) {
-                throw new OofException("OOPS!!! Please enter the task number and number of recurrences!");
-            } else if (argumentArray.length == LENGTH_COMMAND_AND_TASK) {
-                throw new OofException("OOPS!!! Please enter the number of recurrences!");
-            }
-            try {
-                int recurringIndex = Integer.parseInt(argumentArray[INDEX_ARGUMENT_TASK_NUMBER]) - 1;
-                int recurringCount = Integer.parseInt(argumentArray[INDEX_ARGUMENT_COUNT]);
-                ui = new Ui();
-                ui.printRecurringOptions();
-                int recurringFrequency = ui.scanInt();
-                return new RecurringCommand(recurringIndex, recurringCount, recurringFrequency);
-            } catch (NumberFormatException e) {
-                throw new OofException("OOPS!!! Please enter valid numbers!");
-            } catch (InputMismatchException e) {
-                throw new OofException("OOPS!!! Please enter a valid number!");
-            }
+            return parseRecurring(argumentArray);
         case "calendar":
             return new CalendarCommand(argumentArray);
         case "viewweek":
@@ -144,6 +99,89 @@ public class CommandParser {
             return new SemesterCommand();
         default:
             throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+    }
+
+    /**
+     * Parses input if the user input starts with done.
+     * @param argumentArray Command inputted by user in string array format.
+     * @param line Command inputted by user in string format.
+     * @return Returns an instance of CompleteCommand if the parameters are valid.
+     * @throws OofException Throws exception if the parameters are invalid.
+     */
+    private static Command parseDone(String[] argumentArray, String line) throws OofException {
+        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
+            throw new OofException("OOPS!!! Please enter a number!");
+        }
+        try {
+            int completeIndex = Integer.parseInt(line.replaceFirst("done", "").trim()) - 1;
+            return new CompleteCommand(completeIndex);
+        } catch (NumberFormatException e) {
+            throw new OofException("OOPS!!! Please enter a valid number!");
+        }
+    }
+
+    /**
+     * Parses input if the user input starts with delete.
+     * @param argumentArray Command inputted by user in string array format.
+     * @param line Command inputted by user in string format.
+     * @return Returns an instance of DeleteCommand if the parameters are valid.
+     * @throws OofException Throws exception if the parameters are invalid.
+     */
+    private static Command parseDelete(String[] argumentArray, String line) throws OofException {
+        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
+            throw new OofException("OOPS!!! Please enter a number!");
+        }
+        try {
+            int deleteIndex = Integer.parseInt(line.replaceFirst("delete", "").trim()) - 1;
+            return new DeleteCommand(deleteIndex);
+        } catch (NumberFormatException e) {
+            throw new OofException("OOPS!!! Please enter a valid number!");
+        }
+    }
+
+    /**
+     * Parses input if the user input starts with snooze.
+     * @param argumentArray Command inputted by user in string array format.
+     * @param line Command inputted by user in string format.
+     * @return Returns an instance of SnoozeCommand if the parameters are valid.
+     * @throws OofException Throws exception if the parameters are invalid.
+     */
+    private static Command parseSnooze(String[] argumentArray, String line) throws OofException {
+        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
+            throw new OofException("OOPS!!! Please enter a number!");
+        }
+        try {
+            int snoozeIndex = Integer.parseInt(line.replaceFirst("snooze", "").trim()) - 1;
+            return new SnoozeCommand(snoozeIndex);
+        } catch (NumberFormatException e) {
+            throw new OofException("OOPS!!! Please enter a valid number!");
+        }
+    }
+
+    /**
+     * Parses input if the user input starts with recurring.
+     * @param argumentArray Command inputted by user in string array format.
+     * @return Returns an instance of RecurringCommand if the parameters are valid.
+     * @throws OofException Throws exception if the parameters are invalid.
+     */
+    private static Command parseRecurring(String[] argumentArray) throws OofException {
+        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
+            throw new OofException("OOPS!!! Please enter the task number and number of recurrences!");
+        } else if (argumentArray.length == LENGTH_COMMAND_AND_TASK) {
+            throw new OofException("OOPS!!! Please enter the number of recurrences!");
+        }
+        try {
+            int recurringIndex = Integer.parseInt(argumentArray[INDEX_ARGUMENT_TASK_NUMBER].trim()) - 1;
+            int recurringCount = Integer.parseInt(argumentArray[INDEX_ARGUMENT_COUNT].trim());
+            ui = new Ui();
+            ui.printRecurringOptions();
+            int recurringFrequency = ui.scanInt();
+            return new RecurringCommand(recurringIndex, recurringCount, recurringFrequency);
+        } catch (NumberFormatException e) {
+            throw new OofException("OOPS!!! Please enter valid numbers!");
+        } catch (InputMismatchException e) {
+            throw new OofException("OOPS!!! Please enter a valid number!");
         }
     }
 }

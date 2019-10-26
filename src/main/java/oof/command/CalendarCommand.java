@@ -69,7 +69,7 @@ public class CalendarCommand extends Command {
         for (Task task : tasks.getTasks()) {
             if (task instanceof Todo) {
                 Todo todo = (Todo) task;
-                String[] dateSplit = todo.getOn().split("-");
+                String[] dateSplit = todo.getTodoDate().split("-");
                 if (verifyTask(dateSplit)) {
                     String description = todo.getDescription();
                     String time = "";
@@ -78,7 +78,7 @@ public class CalendarCommand extends Command {
                 }
             } else if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
-                String[] dateTimeSplit = deadline.getBy().split(" ");
+                String[] dateTimeSplit = deadline.getDeadlineDateTime().split(" ");
                 String[] dateSplit = dateTimeSplit[INDEX_DATE].split("-");
                 if (verifyTask(dateSplit)) {
                     String description = deadline.getDescription();
@@ -88,7 +88,7 @@ public class CalendarCommand extends Command {
                 }
             } else if (task instanceof Event) {
                 Event event = (Event) task;
-                String[] dateTimeSplit = event.getStartTime().split(" ");
+                String[] dateTimeSplit = event.getStartDateTime().split(" ");
                 String[] dateSplit = dateTimeSplit[INDEX_DATE].split("-");
                 if (verifyTask(dateSplit)) {
                     String description = event.getDescription();

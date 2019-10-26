@@ -13,8 +13,11 @@ public abstract class Task {
         YEARLY
     }
 
-    private String description;
-    private boolean status;
+    static final String DELIMITER = "||";
+    static final int DATE = 0;
+    static final int TIME = 1;
+    String description;
+    boolean status;
     private Frequency frequency;
     private static final int DAILY = 1;
     private static final int WEEKLY = 2;
@@ -93,8 +96,14 @@ public abstract class Task {
      * @return Status icon of the Task.
      */
     public String getStatusIcon() {
-        return (status ? "[Y]" : "[N]"); //return tick or X symbols
+        return (status ? "Y" : "N"); //return tick or X symbols
     }
+
+    /**
+     * Converts a task object to string format for storage.
+     * @return Task object in string format for storage.
+     */
+    public abstract String toStorageString();
 
     /**
      * Customises the toString() method to print the Task object.
@@ -103,6 +112,6 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return getStatusIcon() + " " + description;
+        return "[" + getStatusIcon() + "] " + description;
     }
 }
