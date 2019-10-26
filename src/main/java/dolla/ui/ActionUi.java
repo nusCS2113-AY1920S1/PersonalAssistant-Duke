@@ -8,9 +8,9 @@ public class ActionUi extends Ui {
      */
     public static void printEmptyStackError(String type) {
         System.out.println(line);
-        if (type.equals("undo")) {
+        if (type != null && type.equals("undo")) {
             System.out.println("\tSorry, you do not have any command to undo.");
-        } else if (type.equals("redo")) {
+        } else if (type != null && type.equals("redo")) {
             System.out.println("\tSorry, you do not have any command to redo.");
         }
         System.out.println(line);

@@ -13,10 +13,6 @@ import dolla.ui.LimitUi;
  */
 public class LimitParser extends Parser {
 
-    public LimitParser(String inputLine) {
-        super(inputLine);
-    }
-
     protected static final String LIMIT_COMMAND_LIST = "limits";
     protected static final String LIMIT_COMMAND_SET = "set";
     protected static final String LIMIT_COMMAND_REMOVE = "remove";
@@ -28,6 +24,10 @@ public class LimitParser extends Parser {
     protected static final String LIMIT_DURATION_D = "daily";
     protected static final String LIMIT_DURATION_W = "weekly";
     protected static final String LIMIT_DURATION_M = "monthly";
+
+    public LimitParser(String inputLine) {
+        super(inputLine);
+    }
 
     @Override
     public Command handleInput(String mode) {

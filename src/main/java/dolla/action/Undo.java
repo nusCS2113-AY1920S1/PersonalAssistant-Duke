@@ -1,6 +1,5 @@
 package dolla.action;
 
-import dolla.command.ErrorCommand;
 import dolla.ui.ActionUi;
 
 import java.util.EmptyStackException;

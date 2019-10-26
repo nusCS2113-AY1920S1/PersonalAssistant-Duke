@@ -1,10 +1,6 @@
 package dolla.task;
 
-import dolla.task.Log;
-import dolla.Storage;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class LogList {
     protected ArrayList<Log> list;
