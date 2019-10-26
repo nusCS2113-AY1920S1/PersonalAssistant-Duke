@@ -29,10 +29,6 @@ public class CommandStructure {
                 COMMANDKEYS.add, COMMANDKEYS.remove
         });
 
-        put(COMMANDKEYS.watchlist , new COMMANDKEYS[]{
-                COMMANDKEYS.add, COMMANDKEYS.remove , COMMANDKEYS.done
-        });
-
         put(COMMANDKEYS.help , new COMMANDKEYS[]{
                 COMMANDKEYS.search , COMMANDKEYS.view , COMMANDKEYS.add , COMMANDKEYS.help , COMMANDKEYS.more ,
                 COMMANDKEYS.yes , COMMANDKEYS.set ,  COMMANDKEYS.playlist , COMMANDKEYS.yes
@@ -72,15 +68,14 @@ public class CommandStructure {
 
     public static COMMANDKEYS[] AllRoots = new COMMANDKEYS[]{
               COMMANDKEYS.search
-            , COMMANDKEYS.remove
             , COMMANDKEYS.view
-            , COMMANDKEYS.add
             , COMMANDKEYS.help
-            , COMMANDKEYS.more
             , COMMANDKEYS.yes
             , COMMANDKEYS.set
             , COMMANDKEYS.playlist
             , COMMANDKEYS.blacklist
             , COMMANDKEYS.watchlist
-            , COMMANDKEYS.preference};
+            , COMMANDKEYS.get
+            , COMMANDKEYS.preference
+            , COMMANDKEYS.restriction};
 }
