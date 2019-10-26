@@ -58,7 +58,10 @@ public class ConsoleInputController implements IController {
         }
     }
 
-    // Creation of a new project with a given name and a number of numbers
+    /**
+     * Creates a new project with a given name and a number of numbers.
+     * @param input To read the input from the user.
+     */
     private void commandCreate(String input) {
         boolean isProjectCreated = projectRepository.addToRepo(input);
         if (!isProjectCreated) {
@@ -68,11 +71,18 @@ public class ConsoleInputController implements IController {
         }
     }
 
+    /**
+     * Lists all the projects.
+     */
     private void commandList() {
         ArrayList<ArrayList<String>> allProjectsDetails = projectRepository.getAllProjectsDetailsForTable();
         consoleView.viewAllProjects(allProjectsDetails);
     }
 
+    /**
+     * Manage the project.
+     * @param inputReader To read the input from the user.
+     */
     private void commandManage(Scanner inputReader) {
         if (inputReader.hasNext()) {
             this.projectInputController.onCommandReceived(inputReader.next());
@@ -81,7 +91,10 @@ public class ConsoleInputController implements IController {
         }
     }
 
-
+    /**
+     * Deletes a project.
+     * @param inputReader To read the input from the user.
+     */
     private void commandDelete(Scanner inputReader) {
         if (inputReader.hasNext()) {
             int projectIndex = Integer.parseInt(inputReader.next());
@@ -96,6 +109,9 @@ public class ConsoleInputController implements IController {
         }
     }
 
+    /**
+     * Displays the set of the commands which can be used.
+     */
     private void commandHelp() {
         // TODO help page displaying all commands available
         // Not implemented

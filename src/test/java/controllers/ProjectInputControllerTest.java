@@ -110,7 +110,41 @@ class ProjectInputControllerTest {
 
     @Test
     void testProjectViewCredits() {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserInput = "add member -n Dillen -i 9999 -e dillen@gmail.com";
+        projectInputController.projectAddMember(project, simulatedUserInput);
 
+        simulatedUserInput = "add member -n Jerry - i 9999 -e jerryn@gmail.com";
+        projectInputController.projectAddMember(project, simulatedUserInput);
+
+        simulatedUserInput = "add member -n Sean";
+        projectInputController.projectAddMember(project, simulatedUserInput);
+
+        simulatedUserInput = "add task -t task1 -p 10 -c 10 -s todo";
+        projectInputController.projectAddTask(project, simulatedUserInput);
+
+        simulatedUserInput = "add task -t task2 -p 5 -c 10 -s doing";
+        projectInputController.projectAddTask(project, simulatedUserInput);
+
+        actualOutput = "";
+        for (String message : project.getCredits().toArray(new String[0])) {
+            actualOutput += message;
+        }
+        expectedOutput = "1. Dillen | Credits: 02. Jerry | Credits: 03. Sean | Credits: 0";
+        assertEquals(expectedOutput, actualOutput);
+
+        simulatedUserInput = "assign task -i 1 -to 1 2";
+        projectInputController.projectAssignTask(project, simulatedUserInput);
+
+        simulatedUserInput = "assign task -i 2 -to 1";
+        projectInputController.projectAssignTask(project, simulatedUserInput);
+
+        actualOutput = "";
+        for (String message : project.getCredits().toArray(new String[0])) {
+            actualOutput += message;
+        }
+        expectedOutput = "1. Dillen | Credits: 202. Jerry | Credits: 103. Sean | Credits: 0";
+        assertEquals(expectedOutput, actualOutput);
     }
 
     @Test

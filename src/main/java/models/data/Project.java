@@ -112,16 +112,25 @@ public class Project implements IProject {
         return assignedTaskListString;
     }
 
+    /**
+     * Returns the member names with the credits of their assigned tasks.
+     * @return The member names with the credits of their assigned tasks.
+     */
     @Override
     public ArrayList<String> getCredits() {
-        ArrayList<String> allCredits = new ArrayList<>();
-
-        /*
-            Empty Method
-            bugs need to be fixed for getAllAssignedTasks
-            for (Member currentMember : memberList.getMemberList())
-        */
-        return allCredits;
+        ArrayList<String> allMemberCredits = new ArrayList<>();
+        ArrayList<Member> allMembers = this.getMembers().getMemberList();
+        HashMap<Member, ArrayList<Task>> assignedMembers = this.getMembersIndividualTaskList();
+        int count = 1;
+        for (Member member : allMembers) {
+            int credits = 0;
+            for (Task assignedTask : assignedMembers.get(member)) {
+                credits += assignedTask.getTaskCredit();
+            }
+            allMemberCredits.add(count + ". " + member.getName() + " | Credits: " + credits);
+            count++;
+        }
+        return allMemberCredits;
     }
 
     /**

@@ -82,7 +82,6 @@ class TaskListTest {
         TaskList taskList = new TaskList();
         ArrayList<String> taskRequirements = new ArrayList<>();
         try {
-            DateTimeHelper dateTimeHelper = new DateTimeHelper();
             Date dueDate1 = dateTimeHelper.formatDate("31/10/2019");
             Date dueDate2 = dateTimeHelper.formatDate("21/09/2019");
             Date dueDate3 = dateTimeHelper.formatDate("21/01/2020");
