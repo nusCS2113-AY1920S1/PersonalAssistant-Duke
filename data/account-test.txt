@@ -1,2 +1,3 @@
 INIT @ true
 BS @ 0.0
+INS @ 100000.0 @ mortgage @ INS @ 12/12/2010 @ 200 @ 0.06
