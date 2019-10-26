@@ -118,19 +118,19 @@ public class Project implements IProject {
      */
     @Override
     public ArrayList<String> getCredits() {
-        ArrayList<String> allCredits = new ArrayList<>();
-        ArrayList<Member> allMembers = getMembers().getMemberList();
-        HashMap<Member, ArrayList<Task>> assignedMembers = getMembersIndividualTaskList();
+        ArrayList<String> allMemberCredits = new ArrayList<>();
+        ArrayList<Member> allMembers = this.getMembers().getMemberList();
+        HashMap<Member, ArrayList<Task>> assignedMembers = this.getMembersIndividualTaskList();
         int count = 1;
         for (Member member : allMembers) {
             int credits = 0;
             for (Task assignedTask : assignedMembers.get(member)) {
                 credits += assignedTask.getTaskCredit();
             }
-            allCredits.add(count + ". " + member.getName() + " | Credits: " + credits);
+            allMemberCredits.add(count + ". " + member.getName() + " | Credits: " + credits);
             count++;
         }
-        return allCredits;
+        return allMemberCredits;
     }
 
     /**
