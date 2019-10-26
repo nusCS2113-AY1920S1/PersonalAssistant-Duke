@@ -5,8 +5,18 @@ import duke.exception.DukeHelpException;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public abstract class DukeDataCommand extends ImpressionCommand {
+
+    //private static final Map<String, List<String>> forbiddenSwitchesMap = Map.ofEntries()
+    private static final List<String> forbiddenMedSwitches = Arrays.asList("summary", "subjective", "objective");
+    private static final List<String> forbiddenPlanSwitches =
+            Arrays.asList("dose", "duration", "date", "subjective", "objective");
+    private static final List<String> forbiddenResSwitches =
+            Arrays.asList("dose", "duration", "date", "status", "subjective", "objective");
+    private static final List<String> forbiddenObsvSwitches =
+            Arrays.asList("dose", "duration", "date", "status");
 
     /**
      * Check if the type of data to add was uniquely specified
@@ -41,7 +51,7 @@ public abstract class DukeDataCommand extends ImpressionCommand {
             if (getSwitchVal("duration") == null) {
                 throw new DukeException("I need to know how long this medicine will be given for!");
             }
-            forbiddenSwitches = Arrays.asList("summary", "subjective", "objective");
+            forbiddenSwitches = ;
             break;
         case "plan": //fallthrough
         case "investigation":

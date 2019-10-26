@@ -14,10 +14,19 @@ public class ImpressionEditCommand extends DukeDataCommand {
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
         String addType = uniqueDataType();
-        if (addType == null) { // edit patients
-            
+        boolean isAppending = false;
+        if (isSwitchSet("append")) {
+            isAppending = true;
         }
-        checkTypeSwitches(addType);
+        if (addType == null) { // edit patients
+            if (isAppending) {
+
+            } else {
+
+            }
+        }
+
+        // find DukeData
     }
 
 }
