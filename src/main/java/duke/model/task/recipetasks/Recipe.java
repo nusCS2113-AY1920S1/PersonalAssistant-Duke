@@ -1,39 +1,32 @@
 package duke.model.task.recipetasks;
 
+import static duke.common.RecipeMessages.*;
+
 public class Recipe {
 
-    String recipeTitle;
+    RecipeTitle recipeTitle;
     Rating rating;
-    PrepStep prepStep;
+    PrepSteps prepSteps;
     RequiredIngredients requiredIngredients; // requiredIngredients is a list of recipeIngredient objects.
     Feedback feedback;
 
     public Recipe(String recipeTitle) {
-        this.recipeTitle = recipeTitle;
+        this.recipeTitle = new RecipeTitle(recipeTitle);
         this.rating = Rating.UNRATED;
-        this.prepStep = new PrepStep();
+        this.prepSteps = new PrepSteps();
         this.requiredIngredients = new RequiredIngredients();
         this.feedback = new Feedback();
     }
 
-    public Recipe(String recipeTitle, RequiredIngredients requiredIngredient) {
-        this.recipeTitle = recipeTitle;
-        this.rating = Rating.UNRATED;
-        this.prepStep = new PrepStep();
-        this.requiredIngredients = requiredIngredient;
-        System.out.println("this is the value for inner required ingredient: " + this.requiredIngredients.toSaveString());
-        this.feedback = new Feedback();
-    }
-
-    public Recipe(String recipeTitle, String rating, String prepStep, String requiredIngredients, String feedback) {
-        this.recipeTitle = recipeTitle;
+    public Recipe(String recipeTitle, String rating, String prepSteps, String requiredIngredients, String feedback) {
+        this.recipeTitle = new RecipeTitle(recipeTitle);
         this.rating = assignRating(rating);
-        this.prepStep = new PrepStep(prepStep);
+        this.prepSteps = new PrepSteps(prepSteps);
         this.requiredIngredients = new RequiredIngredients(requiredIngredients);
-        this.feedback = new Feedback();
+        this.feedback = new Feedback(feedback);
     }
 
-    public String getRecipeTitle() {
+    public RecipeTitle getRecipeTitle() {
         return this.recipeTitle;
     }
 
@@ -41,12 +34,29 @@ public class Recipe {
         return this.rating;
     }
 
-    public PrepStep getPrepStep() {
-        return this.prepStep;
+    public PrepSteps getPrepSteps() {
+        return this.prepSteps;
     }
 
     public RequiredIngredients getRequiredIngredients() {
         return this.requiredIngredients;
+    }
+
+    public void editRating(String rating) {
+        if (rating.equals("average")) {
+            this.rating = Rating.AVERAGE;
+        } else if (rating.equals("good")) {
+            this.rating = Rating.GOOD;
+        } else if (rating.equals("delicious")) {
+            this.rating = Rating.DELICIOUS;
+        } else {
+            this.rating = Rating.UNRATED;
+            System.out.println("entered unrated");
+        }
+    }
+
+    public void editFeedback(String feedback) {
+        this.feedback.edit(feedback);
     }
 
     public Feedback getFeedback() {
@@ -54,11 +64,23 @@ public class Recipe {
     }
 
     public String toSaveString() {
-        return this.recipeTitle + " | "
-                + checkRating() + " | "
-                + this.prepStep.toSaveString() + " | "
-                + this.requiredIngredients.toSaveString() + " | "
-                + this.feedback.toSaveString();
+        return this.recipeTitle.toSaveString().trim() + " | "
+                + this.checkRating().trim() + " | "
+                + this.prepSteps.toSaveString().trim() + " | "
+                + this.requiredIngredients.toSaveString().trim() + " | "
+                + this.feedback.toSaveString().trim();
+    }
+
+    public String getViewString() {
+        return LABEL_TITLE + this.recipeTitle.toString() + "\n"
+                + "\n"
+                + LABEL_RATING + this.checkRating() + "\n"
+                + "\n"
+                + LABEL_PREPSTEPS + this.prepSteps.toViewString()
+                + "\n"
+                + LABEL_REQ_INGREDIENTS + this.requiredIngredients.toViewString()
+                + "\n"
+                + LABEL_FEEDBACK + this.feedback.toString();
     }
 
     private Rating assignRating(String rating) { // can try switch statements too.
@@ -72,20 +94,6 @@ public class Recipe {
             return Rating.UNRATED;
         }
     }
-
-    /*
-    private String checkRating() {
-        if (this.rating == Rating.AVERAGE) {
-            return "Average";
-        } else if (this.rating == Rating.GOOD) {
-            return "Good";
-        } else if (this.rating == Rating.DELICIOUS) {
-            return "Delicious";
-        } else {
-            return "Unrated";
-        }
-    }
-     */
 
     private String checkRating() {
         switch (this.rating) {

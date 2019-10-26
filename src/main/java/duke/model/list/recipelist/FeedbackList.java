@@ -2,7 +2,6 @@ package duke.model.list.recipelist;
 
 import duke.model.task.recipetasks.Feedback;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import static duke.common.Messages.*;
@@ -27,7 +26,7 @@ public class FeedbackList {
         }
         return arrList;
     }
-
+/*
     public void addFeedback(String feedback) throws ParseException {
         feedbackList.add(new Feedback(getSize() + 1, feedback));
         int index = feedbackList.size();
@@ -38,6 +37,8 @@ public class FeedbackList {
         }
         System.out.println(MESSAGE_ADDED + "       " + feedbackList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
     }
+
+ */
 
     // delete ingredient by index on list
     public void deleteFeedback(int i) {

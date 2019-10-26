@@ -11,26 +11,23 @@ import java.util.ArrayList;
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.*;
 
-public class AddRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> { // need to settle the problem of duplicate recipes.
+public class ViewRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> {
 
-    public AddRecipeCommand(String userInput) {
+    public ViewRecipeCommand(String userInput) {
         this.userInput = userInput;
     }
 
     @Override
     public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) throws ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
-        if (userInput.trim().equals(COMMAND_ADD_RECIPE)) {
+        if (userInput.trim().equals(COMMAND_VIEW_RECIPE)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
-            System.out.println("stuck here 7");
-        } else if (userInput.trim().charAt(9) == ' ') {
+        } else if (userInput.trim().charAt(10) == ' ') {
             String description = userInput.split("\\s", 2)[1].trim();
-            if (recipeList.containsRecipe(description)) {
-                arrayList.add(ERROR_MESSAGE_RECIPE_ALREADY_EXISTS);
+            if (!recipeList.containsRecipe(description)) {
+                arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
             } else {
-                recipeList.addRecipe(description);
-                recipeStorage.saveFile(recipeList);
-                arrayList.add(MESSAGE_RECIPE_ADDED + "       " + description + "\n" + "Now you have " + recipeList.getSize() + " recipe(s) in the list.");
+                arrayList.add(MESSAGE_RECIPE_TO_BE_VIEWED + "\n" + recipeList.viewRecipe(description));
             }
         } else {
             arrayList.add(ERROR_MESSAGE_RANDOM);

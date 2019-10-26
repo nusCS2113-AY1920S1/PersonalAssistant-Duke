@@ -12,7 +12,6 @@ public class PrepStep {
     }
 
     public PrepStep(int index, String steps) {
-        this.index = index;
         this.steps = steps;
     }
 
@@ -29,7 +28,7 @@ public class PrepStep {
     }
 
     public String toString() {
-        return "[" + index + "]" + steps;
+        return steps;
     }
 
 }

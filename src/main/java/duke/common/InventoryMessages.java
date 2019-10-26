@@ -12,7 +12,7 @@ public class InventoryMessages {
     public static final String MESSAGE_HERE_ARE_THE_INGREDIENTS = "Here are the ingredients currently in the inventory:\n";
 
     public static final String ERROR_MESSAGE_DELETING_FROM_EMPTY_LIST = "OOPS!!! The inventory list is empty. There is no ingredient to be deleted.";
-    public static final String ERROR_MESSAGE_INCOMPLETE = "Please provide the ingredient name, quantity, unit and additional information if any.";
+    public static final String ERROR_MESSAGE_INGREDIENT_INCOMPLETE = "Please provide the ingredient name, quantity, unit and additional information if any.";
     public static final String ERROR_MESSAGE_ADD_INCORRECT_FORMAT = "Please input the command in the following format:\n"
             + "addtoinventory [ingredient name] q/ [quantity] u/ [unit] a/ [additional information]";
     public static final String ERROR_MESSAGE_INVALID_QUANTITY = "Quantity of ingredient should be a number. Please input the command again.";

@@ -6,7 +6,11 @@ public class Feedback {
 
     public Feedback() {};
 
-    public Feedback(int i, String feedback) {
+    public Feedback(String feedback) {
+        this.feedback = feedback;
+    }
+
+    public void edit(String feedback) {
         this.feedback = feedback;
     }
 

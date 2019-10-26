@@ -1,10 +1,9 @@
 package duke.logic.command.recipecommands;
 
 import duke.logic.command.Command;
-import duke.exception.DukeException;
 import duke.model.list.recipelist.RecipeList;
-import duke.storage.RecipeStorage;
 import duke.model.task.recipetasks.Recipe;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 import java.text.ParseException;
@@ -20,7 +19,7 @@ public class DeleteRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> 
     }
 
     @Override
-    public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) throws DukeException, ParseException {
+    public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) throws ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_DELETE_RECIPE)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);

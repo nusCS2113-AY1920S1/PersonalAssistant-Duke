@@ -1,10 +1,11 @@
 package duke.logic.command.inventorycommands;
 
-import duke.logic.command.CommandInventory;
 import duke.exception.DukeException;
+import duke.logic.command.Command;
 import duke.model.list.inventorylist.InventoryList;
-import duke.storage.InventoryStorage;
 import duke.model.task.ingredienttasks.Ingredient;
+import duke.storage.InventoryStorage;
+import duke.ui.Ui;
 
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ import static duke.common.Messages.*;
 /**
  * Handles the delete command and inherits all the fields and methods of Command parent class.
  */
-public class DeleteFromInventoryCommand extends CommandInventory {
+public class DeleteFromInventoryCommand extends Command<InventoryList, Ui, InventoryStorage> {
 
     /**
      * Constructor for class DeleteCommand.
@@ -32,7 +33,7 @@ public class DeleteFromInventoryCommand extends CommandInventory {
      *                      or user inputs an invalid index or the list of tasks is empty
      */
     @Override
-    public ArrayList<String> execute(InventoryList inventoryList, InventoryStorage inventoryStorage) throws DukeException {
+    public ArrayList<String> execute(InventoryList inventoryList, Ui ui, InventoryStorage inventoryStorage) throws DukeException {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_DELETE_FROM_INVENTORY)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);

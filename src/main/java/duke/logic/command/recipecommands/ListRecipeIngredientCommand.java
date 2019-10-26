@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.COMMAND_LIST_RECIPE_INGREDIENT;
-import static duke.common.RecipeMessages.ERROR_MESSAGE_INVALID_RECIPE_INDEX;
 
 /**
  * Handles the list command and inherits all the fields and methods of Command parent class.

@@ -1,7 +1,5 @@
 package duke.logic.parser;
 
-import duke.exception.DukeException;
-import duke.logic.command.Command;
 import duke.logic.command.CommandBooking;
 import duke.logic.command.*;
 import duke.logic.command.bookingcommands.*;
@@ -9,16 +7,12 @@ import duke.logic.command.inventorycommands.AddToInventoryCommand;
 import duke.logic.command.inventorycommands.DeleteFromInventoryCommand;
 import duke.logic.command.inventorycommands.ListInventoryCommand;
 import duke.logic.command.recipecommands.*;
-import duke.model.list.recipelist.RecipeIngredientList;
-import duke.model.list.recipelist.RecipeList;
-import duke.storage.RecipeIngredientStorage;
-import duke.storage.RecipeStorage;
-import duke.ui.Ui;
+
 
 import static duke.common.BookingMessages.*;
-import static duke.common.InventoryMessages.COMMAND_ADD_TO_INVENTORY;
-import static duke.common.InventoryMessages.COMMAND_DELETE_FROM_INVENTORY;
+import static duke.common.InventoryMessages.*;
 import static duke.common.RecipeMessages.*;
+
 
 
 /**
@@ -26,40 +20,30 @@ import static duke.common.RecipeMessages.*;
  */
 public class Parser {
 
-    public static CommandInventory parseIngredient(String input) {
+    public static Command parse(String input) {
         if (input.trim().contains(COMMAND_ADD_TO_INVENTORY)) {
             return new AddToInventoryCommand(input);
         } else if (input.trim().contains(COMMAND_DELETE_FROM_INVENTORY)) {
             return new DeleteFromInventoryCommand(input);
-        } else {
+        } else if (input.trim().contains(COMMAND_LIST_INVENTORY)) {
             return new ListInventoryCommand(input);
-        }
-    }
-
-    public static CommandRecipe<RecipeIngredientList, RecipeList, RecipeIngredientStorage, RecipeStorage> parseAddRecipeIngredient(String input) {
-        return new AddRecipeIngredientCommand(input);
-    }
-
-    public static Command<RecipeList, Ui, RecipeStorage> parseRecipe(String input) {
-        if (input.trim().contains(COMMAND_ADD_RECIPE)) {
+        } else if (input.trim().contains(COMMAND_ADD_RECIPE)) {
             return new AddRecipeCommand(input);
-//        } else if (input.trim().contains(COMMAND_ADD_RECIPE_INGREDIENT)) {
-//            return new AddRecipeIngredientCommand(input);
         } else if (input.trim().contains(COMMAND_DELETE_RECIPE)) {
             return new DeleteRecipeCommand(input);
+        } else if (input.trim().contains(COMMAND_VIEW_RECIPE)) {
+            return new ViewRecipeCommand(input);
+        } else if (input.trim().contains(COMMAND_EDIT_REQ_INGREDIENT)) {
+            return new EditRequiredIngredientCommand(input);
+        } else if (input.trim().contains(COMMAND_EDIT_RATING)) {
+            return new EditRatingCommand(input);
+        } else if (input.trim().contains(COMMAND_EDIT_FEEDBACK)) {
+            return new EditFeedbackCommand(input);
+        } else if (input.trim().contains(COMMAND_EDIT_PREPSTEP)) {
+            return new EditPrepStepCommand(input);
         } else {
             System.out.println("went to listallrecipes");
             return new ListAllRecipeCommand(input);
-        }
-    }
-
-    public static Command<RecipeIngredientList, Ui, RecipeIngredientStorage> parseRecipeIngredient(String input) throws DukeException {
-        if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT)) {
-            return new ListRecipeIngredientCommand(input);
-        } else if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT)) {
-            return new ListRecipeIngredientCommand(input);
-        } else {
-            return new DeleteRecipeIngredientCommand(input);
         }
     }
 
