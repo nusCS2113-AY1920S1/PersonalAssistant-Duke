@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.ui.Ui;
-
 import java.util.ArrayList;
 
 /**
@@ -10,7 +8,6 @@ import java.util.ArrayList;
 //@@author e0318465
 public class ContactList {
     protected ArrayList<Contacts> contactList;
-    Ui ui = new Ui();
     private static final int ZERO = 0;
     private static final int ONE = 1;
 
@@ -31,7 +28,7 @@ public class ContactList {
     }
 
     /**
-     * To add a contact into the contact list.
+     * Adds a contact into the contact list.
      *
      * @param contactObj A contact to be added.
      */
@@ -50,6 +47,16 @@ public class ContactList {
     }
 
     /**
+     * Displays the selected contact detail.
+     * @param index The index of contact.
+     * @return Contact details in String format.
+     */
+    public String getAndDisplay(int index) {
+        Contacts contacts = contactList.get(index);
+        return contacts.toString();
+    }
+
+    /**
      * Retrieves all contacts from the contact list.
      *
      * @return String that contains the whole list of contacts.
@@ -63,7 +70,27 @@ public class ContactList {
     }
 
     /**
-     * The size of the contact list.
+     * Extracts only the details so that only relevant details are being searched.
+     *
+     * @param index The index of contact.
+     * @return Contact which is retrieved from contact list.
+     */
+    public String getOnlyDetails(int index) {
+        Contacts details = contactList.get(index);
+        return details.toFile();
+    }
+
+    /**
+     * Retrieves all contacts from the contact list.
+     *
+     * @return String that contains the whole list of contacts.
+     */
+    public String getSpecificContactList(int index) {
+        return contactList.get(index).toStringGui();
+    }
+
+    /**
+     * Retrieves size of the contact list.
      *
      * @return int that represents the contact list size.
      */
@@ -72,7 +99,7 @@ public class ContactList {
     }
 
     /**
-     * To remove a contact from the contact list.
+     * Removes a contact from the contact list.
      *
      * @param indexOfContact The index of contact to be removed.
      */

@@ -466,15 +466,6 @@ public class Ui {
         return message + "\n";
     }
 
-    /**
-     * Outputs an alert when a duplicated inout is detected.
-     */
-    //@@author e0318465
-    public void showDuplicateMsg() {
-        out.println("     The same task is already in the list!");
-    }
-
-
     //@@author maxxyx96
     /**
      * Outputs a message to the user to let it know that it is updating.
@@ -507,6 +498,13 @@ public class Ui {
     }
 
     //@@author e0318465
+    /**
+     * Outputs an alert when a duplicated inout is detected.
+     */
+    public void showDuplicateMsg() {
+        out.println("     The same task is already in the list!");
+    }
+
     /**
      * Outputs the contact details that are most recently added.
      *
@@ -560,6 +558,55 @@ public class Ui {
         String str = "";
         str += "Now you have " + contactList.size() + " contact(s). I've removed this contact:\n";
         str += deletedContact;
+        return str;
+    }
+
+    /**
+     * Outputs the contacts that are matched from the keyword.
+     *
+     * @param contactList The contact list that contains a list of contacts.
+     * @param keyword The keyword to match the contacts.
+     */
+    public void showFoundContacts(ContactList contactList, String keyword) {
+        out.println("     Here are the matching contacts in your list:");
+        int numFound = ZERO;
+        for (int i = ZERO; i < contactList.size(); i++) {
+            String details = contactList.getOnlyDetails(i);
+            details.replaceAll(",", " ");
+            details.toLowerCase();
+            if (details.contains(keyword)) {
+                out.println("     " + contactList.getSpecificContactList(i));
+                numFound++;
+            }
+        }
+        if (numFound == ZERO) {
+            out.println("     No matching tasks found.");
+        }
+    }
+
+    /**
+     * Outputs the tasks that are matched from the keyword to the user in GUI.
+     *
+     * @param contactList The contact list that contains a list of contacts.
+     * @param keyword The keyword to match the contacts.
+     * @return All contacts that matches with keyword.
+     */
+    public static String showFoundContactsGui(ContactList contactList, String keyword) {
+        String str = "";
+        str += "     Here are the matching contacts in your list:\n";
+        int numFound = ZERO;
+        for (int i = ZERO; i < contactList.size(); i++) {
+            String details = contactList.getOnlyDetails(i);
+            String replacedComma = details.replaceAll(",", " ");
+            String stringToFind = replacedComma.toLowerCase();
+            if (stringToFind.contains(keyword)) {
+                str += "     " + contactList.getSpecificContactList(i) + "\n";
+                numFound++;
+            }
+        }
+        if (numFound == ZERO) {
+            str += "     No matching tasks found.";
+        }
         return str;
     }
 
