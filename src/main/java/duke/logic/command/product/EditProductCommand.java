@@ -2,9 +2,11 @@ package duke.logic.command.product;
 
 import duke.commons.core.Message;
 import duke.commons.core.index.Index;
+import duke.logic.message.ProductMessageUtils;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
+import duke.model.exceptions.DuplicateEntityException;
 import duke.model.product.Product;
 
 import java.util.List;
@@ -44,18 +46,19 @@ public class EditProductCommand extends ProductCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireAllNonNull(model);
         List<Product> lastShownList = model.getFilteredProductList();
-
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Message.MESSAGE_INVALID_INDEX);
         }
-
         Product toEdit = lastShownList.get(index.getZeroBased());
-
-        Product editedProduct = ProductCommandUtil.createNewProduct(toEdit, productDescriptor);
-
-        model.setProduct(toEdit, editedProduct);
+        Product editedProduct = ProductCommandUtil.getUpdatedProduct(toEdit, productDescriptor);
+        ProductCommandUtil.verifyNewIngredients(model, editedProduct);
+        try {
+            model.setProduct(toEdit, editedProduct);
+        } catch (DuplicateEntityException e) {
+                throw new CommandException(String.format(ProductMessageUtils.MESSAGE_DUPLICATE_PRODUCT,
+                        editedProduct.getProductName()));
+        }
         model.updateFilteredProductList(Model.PREDICATE_SHOW_ACTIVE_PRODUCTS);
-
         return new CommandResult(String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct.getProductName()),
                 CommandResult.DisplayedPage.PRODUCT);
     }

@@ -1,6 +1,4 @@
 package duke.logic.parser.product;
-
-import duke.commons.core.LogsCenter;
 import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.product.EditProductCommand;
@@ -9,9 +7,6 @@ import duke.logic.parser.commons.ArgumentTokenizer;
 import duke.logic.parser.commons.Parser;
 import duke.logic.parser.commons.ParserUtil;
 import duke.logic.parser.exceptions.ParseException;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INDEX;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT;
@@ -23,9 +18,6 @@ import static duke.logic.parser.product.ProductParserUtil.createProductDescripto
 
 
 public class EditProductCommandParser implements Parser<EditProductCommand> {
-
-    private static final Logger logger = LogsCenter.getLogger(EditProductCommandParser.class);
-
     @Override
     public EditProductCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
@@ -42,8 +34,7 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
         try {
             index = ParserUtil.parseIndex(map.getValue(PREFIX_PRODUCT_INDEX).orElse(""));
         } catch (ParseException pe) {
-            logger.log(Level.WARNING, "Parse Index error");
-            throw new ParseException(Message.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(Message.MESSAGE_INVALID_INDEX);
         }
 
         return new EditProductCommand(index, createProductDescriptor(map));

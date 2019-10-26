@@ -1,5 +1,15 @@
 {
-  "orders" : [ ],
+  "orders" : [ {
+    "id" : 1572074827973,
+    "creationDate" : "2019-10-26T07:27:07.973+0000",
+    "name" : "customer",
+    "contact" : "N/A",
+    "remarks" : "N/A",
+    "deliveryDate" : "2019-10-26T07:27:07.970+0000",
+    "status" : "ACTIVE",
+    "total" : 0.0,
+    "items" : [ ]
+  } ],
   "products" : [ ],
   "inventory" : [ {
     "ingredient" : {
