@@ -28,6 +28,8 @@ public class HomeNewCommand extends ArgCommand {
                 throw new DukeException("There is already a patient at that bed!");
             }
         }
+
+        core.ui.print("Patient added.");
         core.patientMap.addPatient(new Patient(getSwitchVal("name"), bed,
                 getSwitchVal("allergies"), height, weight, age, number,
                 address, history));
