@@ -76,7 +76,7 @@ public class UI {
         try {
             setInput(input);
             Command command = CommandParseHelper.parseCommand(input);
-            setCommand(command.toString());
+            //setCommand(command.toString());
             command.execute(Model.getInstance());
         } catch (Exception e) {
             e.printStackTrace();
