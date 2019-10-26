@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public class EditCommandParser implements Parser<EditCommand> {
 
-    private ArrayList<KeywordAndEdit> getKeywordAndEdits(String rawParameters) throws DukeException {
+    private ArrayList<KeywordAndField> getKeywordAndFields(String rawParameters) throws DukeException {
         String[] splitParameters = rawParameters.split(" -");
-        ArrayList<KeywordAndEdit> keywordAndEdits = new ArrayList<KeywordAndEdit>();
+        ArrayList<KeywordAndField> keywordAndEdits = new ArrayList<KeywordAndField>();
         if (splitParameters.length == 1) {
             throw new DukeException("Please enter something for me to edit!");
         }
@@ -20,7 +20,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             if (s.length == 1) {
                 throw new DukeException("Please enter something for me to edit!");
             } else {
-               keywordAndEdits.add(new KeywordAndEdit(s[0], s[1]));
+               keywordAndEdits.add(new KeywordAndField(s[0], s[1]));
             }
         }
         return keywordAndEdits;
@@ -37,8 +37,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     }
 
     public EditCommand parse(Optional<String> filter, String args) throws DukeException {
-        ArrayList<KeywordAndEdit> keywordAndEdits = getKeywordAndEdits(args);
+        ArrayList<KeywordAndField> keywordAndFields = getKeywordAndFields(args);
         int index = getIndexFromCommand(args);
-        return new EditCommand(filter, index, keywordAndEdits);
+        return new EditCommand(filter, index, keywordAndFields);
     }
 }

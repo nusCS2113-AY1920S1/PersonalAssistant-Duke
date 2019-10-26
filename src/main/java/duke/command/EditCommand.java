@@ -1,8 +1,8 @@
 package duke.command;
 
 import duke.exception.DukeException;
-import duke.parser.KeywordAndEdit;
 import duke.parser.DateTimeParser;
+import duke.parser.KeywordAndField;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.tasklist.TaskList;
@@ -16,20 +16,20 @@ import java.util.Optional;
 public class EditCommand extends Command {
     Optional<String> filter;
     int taskListIndex;
-    ArrayList<KeywordAndEdit> keywordAndEdits;
+    ArrayList<KeywordAndField> keywordAndFields;
 
-    public EditCommand(Optional<String> filter, int taskListIndex, ArrayList<KeywordAndEdit> keywordAndEdits) {
+    public EditCommand(Optional<String> filter, int taskListIndex, ArrayList<KeywordAndField> keywordAndFields) {
         this.filter = filter;
         this.taskListIndex = taskListIndex;
-        this.keywordAndEdits = keywordAndEdits;
+        this.keywordAndFields = keywordAndFields;
     }
 
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, DukeException {
-        for (int i = 0; i < keywordAndEdits.size(); i++) {
-            String keyword = keywordAndEdits.get(i).getKeyword();
-            String edit = keywordAndEdits.get(i).getEdit();
+        for (int i = 0; i < keywordAndFields.size(); i++) {
+            String keyword = keywordAndFields.get(i).getKeyword();
+            String edit = keywordAndFields.get(i).getField();
             Task t = tasks.get(filter, taskListIndex);
             switch (keyword) {
                 case "description":
