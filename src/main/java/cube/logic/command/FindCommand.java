@@ -1,6 +1,5 @@
 package cube.logic.command;
 
-import cube.logic.command.exception.CommandErrorMessage;
 import cube.logic.command.exception.CommandException;
 import cube.model.FoodList.SortType;
 import cube.model.FoodList;

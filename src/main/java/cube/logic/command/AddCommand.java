@@ -9,7 +9,6 @@ import cube.model.FoodList;
 import cube.model.Food;
 import cube.storage.StorageManager;
 import cube.logic.command.exception.CommandException;
-import cube.logic.command.exception.CommandErrorMessage;
 import cube.logic.command.util.CommandResult;
 import cube.logic.command.util.CommandUtil;
 

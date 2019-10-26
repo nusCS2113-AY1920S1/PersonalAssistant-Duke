@@ -11,7 +11,6 @@ package cube.logic.command;
 // need to store revenue in persistent storage
 // need to make the revenue (individual rev) updated when selling specific food
 
-import cube.logic.command.exception.CommandErrorMessage;
 import cube.logic.command.exception.CommandException;
 import cube.model.Food;
 import cube.model.FoodList;
