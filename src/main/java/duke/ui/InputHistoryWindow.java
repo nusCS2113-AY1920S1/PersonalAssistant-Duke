@@ -1,4 +1,5 @@
 package duke.ui;
+
 import duke.exception.DukeException;
 import javafx.fxml.FXML;
 import javafx.scene.input.KeyEvent;
