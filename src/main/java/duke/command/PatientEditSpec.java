@@ -11,17 +11,17 @@ public class PatientEditSpec extends ArgSpec {
         emptyArgMsg = "You didn't tell me what to edit!";
         cmdArgLevel = ArgLevel.NONE;
         initSwitches(
-                new Switch("name", String.class, true, ArgLevel.OPTIONAL, "n"),
+                // new Switch("name", String.class, true, ArgLevel.REQUIRED, "n"),
                 // new Switch("bed", String.class, true, ArgLevel.OPTIONAL, "b"),
-                new Switch("allergies", String.class, true, ArgLevel.OPTIONAL, "a",
+                // new Switch("append", String.class, true, ArgLevel.NONE, "app"),
+                new Switch("allergies", String.class, true, ArgLevel.REQUIRED, "a",
                         "allergy"),
-                new Switch("height", Integer.class, true, ArgLevel.OPTIONAL, "h"),
-                new Switch("weight", Integer.class, true, ArgLevel.OPTIONAL, "w"),
-                new Switch("age", Integer.class, true, ArgLevel.OPTIONAL, "ag"),
-                new Switch("number", Integer.class, true, ArgLevel.OPTIONAL, "num"),
-                new Switch("address", String.class, true, ArgLevel.OPTIONAL, "ad"),
-                new Switch("history", String.class, true, ArgLevel.OPTIONAL, "hi"),
-                new Switch("append", String.class, true, ArgLevel.OPTIONAL, "app")
+                new Switch("height", Integer.class, true, ArgLevel.REQUIRED, "h"),
+                new Switch("weight", Integer.class, true, ArgLevel.REQUIRED, "w"),
+                new Switch("age", Integer.class, true, ArgLevel.REQUIRED, "ag"),
+                new Switch("number", Integer.class, true, ArgLevel.REQUIRED, "num"),
+                new Switch("address", String.class, true, ArgLevel.REQUIRED, "ad"),
+                new Switch("history", String.class, true, ArgLevel.REQUIRED, "hi")
         );
     }
 }
