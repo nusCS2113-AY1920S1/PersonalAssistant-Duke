@@ -19,6 +19,7 @@ public class EventCommandParser implements CommandParser {
         String startTime = getTokenStartTime(restOfInput);
         String endTime = getTokenEndTime(restOfInput);
         String description = getTokenDescription(restOfInput);
+        int interval = getTokenInterval(restOfInput);
         String finalDate;
         if (hasToken(restOfInput, TOKEN_FINAL_DATE)) {
             finalDate = getTokenFinalDate(restOfInput);
@@ -26,6 +27,6 @@ public class EventCommandParser implements CommandParser {
             int lastStartDateIndex = startDateList.size() - 1;
             finalDate = startDateList.get(lastStartDateIndex);
         }
-        return new EventCommand(description, startDateList, priority, startTime, endTime, finalDate);
+        return new EventCommand(description, startDateList, priority, startTime, endTime, finalDate, interval);
     }
 }

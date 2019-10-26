@@ -5,6 +5,7 @@ import compal.logic.command.Command;
 import compal.model.tasks.Task;
 import compal.logic.parser.exceptions.ParserException;
 
+import javax.swing.text.html.parser.Parser;
 import java.text.DateFormat;
 import java.text.ParseException;
 
@@ -40,6 +41,7 @@ public interface CommandParser {
     String TOKEN_TYPE = "/type";
     String TOKEN_HOUR = "/hour";
     String TOKEN_MIN = "/min";
+    String TOKEN_INTERVAL = "/interval";
 
 
     String EMPTY_INPUT_STRING = "";
@@ -55,7 +57,6 @@ public interface CommandParser {
     String MESSAGE_EXCESSIVE_DATES = "Too many dates! Please limit to less than 7.";
     String MESSAGE_MISSING_START_TIME_ARG = "ArgumentError: Missing /start";
     String MESSAGE_MISSING_END_TIME_ARG = "ArgumentError: Missing /end";
-    String MESSAGE_MISSING_FINAL_DATE_ARG = "ArgumentError: Missing /final-date";
     String MESSAGE_MISSING_STATUS_ARG = "ArgumentError: Missing /status";
     String MESSAGE_MISSING_ID_ARG = "ArgumentError: Missing /id";
     String MESSAGE_MISSING_TYPE_ARG = "ArgumentError: Missing /type";
@@ -246,6 +247,30 @@ public interface CommandParser {
             throw new ParserException(MESSAGE_MISSING_INPUT);
         }
         return desc;
+    }
+
+    //@@author yueyeah
+    /**
+     * Parses user input for optional interval token, and returns the interval specified.
+     *
+     * @param restOfInput String input of user after command word.
+     * @return Interval between each recurring Task if specified, 0 if not specified.
+     * @throws ParserException if the token is present but interval is not specified.
+     */
+    default int getTokenInterval(String restOfInput) throws ParserException {
+        int interval = DEFAULT_WEEK_NUMBER_OF_DAYS;
+        if (restOfInput.contains(TOKEN_INTERVAL)) {
+            int splitPoint = restOfInput.indexOf(TOKEN_INTERVAL);
+            String intervalStartInput = restOfInput.substring(splitPoint);
+            Scanner scanner = new Scanner(intervalStartInput);
+            scanner.next();
+            if (!scanner.hasNext()) {
+                throw new ParserException(MESSAGE_MISSING_INPUT);
+            } else {
+                interval = scanner.nextInt();
+            }
+        }
+        return interval;
     }
 
     //@@author yueyeah
