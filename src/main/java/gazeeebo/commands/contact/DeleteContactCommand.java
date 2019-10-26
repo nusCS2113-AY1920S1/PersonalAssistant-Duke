@@ -5,6 +5,9 @@ import gazeeebo.UI.Ui;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * Deletes a contact from the contact list.
+ */
 public class DeleteContactCommand {
 
     /**

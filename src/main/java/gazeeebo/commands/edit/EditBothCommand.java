@@ -1,4 +1,4 @@
-package gazeeebo.commands.Edit;
+package gazeeebo.commands.edit;
 
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;

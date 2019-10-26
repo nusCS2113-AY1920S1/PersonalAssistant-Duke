@@ -50,10 +50,11 @@ public class ContactsCommandTest {
         assertEquals("Welcome to your contacts page! What would you like to do?\n\n"
                         + "__________________________________________________________\n"
                         + "1. Add contacts: add\n"
-                        + "2. Find contacts: find name\n"
+                        + "2. Find contacts base on name: find name\n"
                         + "3. Delete a contact: delete name\n"
                         + "4. See your contacts list: list\n"
-                        + "5. Exit contact page: esc\n"
+                        + "5. Help Command: help\n"
+                        + "6. Exit contact page: esc\n"
                         + "__________________________________________________________\n\n"
                 + "Going back to Main Menu\n"
                 , output.toString()

@@ -17,11 +17,11 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CAPCalculatorTest {
+public class CAPCalculatorTest  {
     private static final String LINEBREAK = "------------------------------\n";
     Ui ui = new Ui();
     Storage storage = new Storage();
-    TriviaManager triviaManager = new TriviaManager();
+    TriviaManager triviaManager = new TriviaManager(storage);
     ArrayList<Task> list = new ArrayList<>();
     Stack<String> commandStack = new Stack<>();
     ArrayList<Task> deletedTask = new ArrayList<>();
@@ -31,6 +31,9 @@ public class CAPCalculatorTest {
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
     private PrintStream mine = new PrintStream(output);
     private PrintStream original = System.out;
+
+    public CAPCalculatorTest() throws IOException {
+    }
 
     @BeforeEach
     void setupStream() {
@@ -57,7 +60,8 @@ public class CAPCalculatorTest {
                         + "2. Find module: find moduleCode/semNumber\n"
                         + "3. Delete a module: delete module\n"
                         + "4. See your CAP list: list\n"
-                        + "5. Exit CAP page: esc\n"
+                        + "5. Help Command: help\n"
+                        + "6. Exit CAP page: esc\n"
                         + "__________________________________________________________\n"
                         + "\nGoing back to Main Menu\n"
                 , output.toString()

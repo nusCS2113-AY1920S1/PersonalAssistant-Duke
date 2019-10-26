@@ -171,7 +171,6 @@ public class Storage {
                 for (int i = decodedPassword.length() - 1; i >= 0; i--) {
                     realPassword.append(decryption[i]);
                 }
-                System.out.println(realPassword);
                 passwordList.add(realPassword);
             }
         }
