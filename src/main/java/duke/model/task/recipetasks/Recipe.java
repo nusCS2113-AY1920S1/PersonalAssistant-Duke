@@ -40,13 +40,26 @@ public class Recipe {
         return this.requiredIngredients;
     }
 
+    public void editRating(String rating) {
+        if (rating.equals("average")) {
+            this.rating = Rating.AVERAGE;
+        } else if (rating.equals("good")) {
+            this.rating = Rating.GOOD;
+        } else if (rating.equals("delicious")) {
+            this.rating = Rating.DELICIOUS;
+        } else {
+            this.rating = Rating.UNRATED;
+            System.out.println("entered unrated");
+        }
+    }
+
     public Feedback getFeedback() {
         return this.feedback;
     }
 
     public String toSaveString() {
         return this.recipeTitle.toSaveString().trim() + " | "
-                + checkRating().trim() + " | "
+                + this.checkRating().trim() + " | "
                 + this.prepStep.toSaveString().trim() + " | "
                 + this.requiredIngredients.toSaveString().trim() + " | "
                 + this.feedback.toSaveString().trim();
@@ -54,7 +67,7 @@ public class Recipe {
 
     public String getViewString() {
         return this.recipeTitle.toString() + "\n"
-                + checkRating() + "\n"
+                + this.checkRating() + "\n"
                 + this.prepStep.toString() + "\n"
                 + this.requiredIngredients.toViewString()
                 + this.feedback.toString();
@@ -71,20 +84,6 @@ public class Recipe {
             return Rating.UNRATED;
         }
     }
-
-    /*
-    private String checkRating() {
-        if (this.rating == Rating.AVERAGE) {
-            return "Average";
-        } else if (this.rating == Rating.GOOD) {
-            return "Good";
-        } else if (this.rating == Rating.DELICIOUS) {
-            return "Delicious";
-        } else {
-            return "Unrated";
-        }
-    }
-     */
 
     private String checkRating() {
         switch (this.rating) {
