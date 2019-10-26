@@ -75,10 +75,10 @@ public class ShortcutCommand extends Command {
 
 
             do{
-                ui.display("The precedent shortcut for deadline is " + DeadlineCommand.getDeadlineShortcut() +" please enter new shortcut");
+                ui.display("The precedent shortcut for homework is " + HomeworkCommand.getHomeworkShortcut() +" please enter new shortcut");
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
-            setOneShortcut("deadline", newShortcut);
+            setOneShortcut("homework", newShortcut);
 
             do{
                 ui.display("The precedent shortcut for event is " + EventCommand.getEventShortcut() +" please enter new shortcut");
@@ -134,7 +134,7 @@ public class ShortcutCommand extends Command {
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("setwelcome", newShortcut);
             do{
-                ui.display("The precedent shortcut for setWelcome is " + ShowCommand.getShowShortcut() +" please enter new shortcut");
+                ui.display("The precedent shortcut for show is " + ShowCommand.getShowShortcut() +" please enter new shortcut");
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("show", newShortcut);
@@ -188,9 +188,9 @@ public class ShortcutCommand extends Command {
                 DeleteCommand.setDeleteShortcut(shortcutName);
                 setShortcut.add(shortcutName);
                 break;
-            case "deadline" :
-                setShortcut.remove(DeadlineCommand.getDeadlineShortcut());
-                DeadlineCommand.setDeadlineShortcut(shortcutName);
+            case "homework" :
+                setShortcut.remove(HomeworkCommand.getHomeworkShortcut());
+                HomeworkCommand.setHomeworkShortcut(shortcutName);
                 setShortcut.add(shortcutName);
                 break;
             case "event" :
@@ -266,7 +266,7 @@ public class ShortcutCommand extends Command {
         setDefaultShortcut.add("list");
         setDefaultShortcut.add("done");
         setDefaultShortcut.add("edit");
-        setDefaultShortcut.add("deadline");
+        setDefaultShortcut.add("homework");
         setDefaultShortcut.add("event");
         setDefaultShortcut.add("find");
         setDefaultShortcut.add("help");

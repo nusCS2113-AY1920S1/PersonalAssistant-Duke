@@ -4,8 +4,8 @@ import leduc.Date;
 import leduc.Ui;
 import leduc.exception.*;
 import leduc.storage.Storage;
-import leduc.task.DeadlinesTask;
 import leduc.task.EventsTask;
+import leduc.task.HomeworkTask;
 import leduc.task.Task;
 import leduc.task.TaskList;
 
@@ -71,12 +71,12 @@ public class EditCommand extends Command {
                             ui.display("\t Please enter the new description of the task");
                             t.setTask(ui.readCommand());
                         } else if (choice == 2) {
-                            if (t.isDeadline()) {
+                            if (t.isHomework()) {
                                 ui.display("\t Please enter the new deadline of the task");
                                 String deadlineString = ui.readCommand();
                                 Date d = new Date(deadlineString);
-                                DeadlinesTask deadlinesTask = (DeadlinesTask) t;
-                                deadlinesTask.setDeadlines(d);
+                                HomeworkTask homeworkTask = (HomeworkTask) t;
+                                homeworkTask.setDeadlines(d);
                             } else { //event task
                                 ui.display("\t Please enter the new period of the task");
                                 String periodString = ui.readCommand();

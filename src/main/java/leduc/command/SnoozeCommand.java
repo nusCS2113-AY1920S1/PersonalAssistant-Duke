@@ -3,7 +3,7 @@ package leduc.command;
 import leduc.Ui;
 import leduc.exception.*;
 import leduc.storage.Storage;
-import leduc.task.DeadlinesTask;
+import leduc.task.HomeworkTask;
 import leduc.task.Task;
 import leduc.task.TaskList;
 
@@ -25,15 +25,15 @@ public class SnoozeCommand extends Command{
     }
 
     /**
-     * Allows to snooze the deadline of a deadline task.
+     * Allows to snooze the deadline of a homework task.
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws NonExistentTaskException Exception caught when the task does not exist.
-     * @throws DeadlineTypeException Exception caught when the task is not a deadline task.
+     * @throws HomeworkTypeException Exception caught when the task is not a homework task.
      * @throws FileException Exception caught when the file doesn't exist or cannot be created or cannot be opened.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NonExistentTaskException, DeadlineTypeException, FileException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws NonExistentTaskException, HomeworkTypeException, FileException {
         String userSubstring;
         if(callByShortcut){
             userSubstring = user.substring(SnoozeCommand.snoozeShortcut.length() + 1);
@@ -47,10 +47,10 @@ public class SnoozeCommand extends Command{
         }
         else { // the tasks exist
             Task snoozeTask = tasks.get(index);
-            if (!snoozeTask.isDeadline()){
-                throw new DeadlineTypeException();
+            if (!snoozeTask.isHomework()){
+                throw new HomeworkTypeException();
             }
-            DeadlinesTask snoozeDeadlineTask = (DeadlinesTask) snoozeTask;
+            HomeworkTask snoozeDeadlineTask = (HomeworkTask) snoozeTask;
             snoozeDeadlineTask.snoozeDeadline();
             storage.save(tasks.getList());
             ui.display("\t Noted. I've snoozed this task: \n" +

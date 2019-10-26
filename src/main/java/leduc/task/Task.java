@@ -115,10 +115,10 @@ public abstract class Task {
         return false;
     }
     /**
-     * to know if whether is a deadline task of not
+     * to know if whether is a homework task of not
      * @return false
      */
-    public boolean isDeadline(){
+    public boolean isHomework(){
         return false;
     }
     /**
@@ -141,9 +141,9 @@ public abstract class Task {
      * Help method which returns the date from any task Object.
      */
     public LocalDateTime getDate(){
-        if (this.isDeadline()) {
-            DeadlinesTask deadline = (DeadlinesTask)this;
-            return (deadline.getDeadlines()).getD();
+        if (this.isHomework()) {
+            HomeworkTask homework = (HomeworkTask) this;
+            return (homework.getDeadlines()).getD();
         }
         else if (this.isEvent()){
             EventsTask event = (EventsTask)this;

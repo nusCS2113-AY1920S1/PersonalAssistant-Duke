@@ -81,17 +81,17 @@ public class Storage {
                         }
                     }
                     break;
-                case "D" :
+                case "H" :
                     if (tokens.length ==4 ){ // priority not specified
-                        tasks.add(new DeadlinesTask(tokens[2],tokens[1].trim(), new Date(LocalDateTime.parse(tokens[3], formatter))));
+                        tasks.add(new HomeworkTask(tokens[2],tokens[1].trim(), new Date(LocalDateTime.parse(tokens[3], formatter))));
                     }
                     else {
                         priority =  Integer.parseInt(tokens[4].trim());
                         if (priority < 0 || priority > 9) { // the priority is set by default to 5
-                            tasks.add(new DeadlinesTask(tokens[2],tokens[1].trim(), new Date(LocalDateTime.parse(tokens[3], formatter))));
+                            tasks.add(new HomeworkTask(tokens[2],tokens[1].trim(), new Date(LocalDateTime.parse(tokens[3], formatter))));
                         }
                         else {
-                            tasks.add(new DeadlinesTask(tokens[2],tokens[1].trim(), new Date(LocalDateTime.parse(tokens[3], formatter)),priority));
+                            tasks.add(new HomeworkTask(tokens[2],tokens[1].trim(), new Date(LocalDateTime.parse(tokens[3], formatter)),priority));
                         }
                     }
                     break;
@@ -128,8 +128,8 @@ public class Storage {
                 for (Task task : tasks){
                     if (task.isTodo()) {
                         fileWriter.write("T//"+ task.getMark() +"//" + task.getTask() + "//" + task.getPriority() + "\n");
-                    } else if (task.isDeadline()) {
-                        fileWriter.write("D//"+ task.getMark() +"//" + task.getTask() + "//" + ((DeadlinesTask) task).getDeadlines().toString()+ "//" + task.getPriority() +"\n");
+                    } else if (task.isHomework()) {
+                        fileWriter.write("H//"+ task.getMark() +"//" + task.getTask() + "//" + ((HomeworkTask) task).getDeadlines().toString()+ "//" + task.getPriority() +"\n");
                     } else if (task.isEvent()) {
                         fileWriter.write("E//"+ task.getMark() +"//" + task.getTask() + "//" + ((EventsTask) task).getDateFirst().toString() + "//" + ((EventsTask) task).getDateSecond().toString() + "//" + task.getPriority() + "\n");
                     }
@@ -161,8 +161,8 @@ public class Storage {
                 ShortcutCommand.getSetShortcut().add(FindCommand.getFindShortcut());
                 fileWriter.write("delete:" + DeleteCommand.getDeleteShortcut() + "\n");
                 ShortcutCommand.getSetShortcut().add(DeleteCommand.getDeleteShortcut());
-                fileWriter.write("deadline:" + DeadlineCommand.getDeadlineShortcut() + "\n");
-                ShortcutCommand.getSetShortcut().add(DeadlineCommand.getDeadlineShortcut());
+                fileWriter.write("homework:" + HomeworkCommand.getHomeworkShortcut() + "\n");
+                ShortcutCommand.getSetShortcut().add(HomeworkCommand.getHomeworkShortcut());
                 fileWriter.write("event:" + EventCommand.getEventShortcut() + "\n");
                 ShortcutCommand.getSetShortcut().add(EventCommand.getEventShortcut());
                 fileWriter.write("todo:" + TodoCommand.getTodoShortcut() + "\n");

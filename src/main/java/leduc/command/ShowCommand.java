@@ -6,8 +6,8 @@ import leduc.exception.MeaninglessException;
 import leduc.exception.NonExistentDateException;
 import leduc.exception.WrongParameterException;
 import leduc.storage.Storage;
-import leduc.task.DeadlinesTask;
 import leduc.task.EventsTask;
+import leduc.task.HomeworkTask;
 import leduc.task.Task;
 import leduc.task.TaskList;
 
@@ -61,8 +61,8 @@ public class ShowCommand extends Command {
 
     public void getListTaskExactDay(LocalDate date, ArrayList<Task> allTaskHavingDate, ArrayList<Task> showTaskList){
         for(Task t : allTaskHavingDate){
-            if(t.isDeadline()){
-                if(((DeadlinesTask)t).getDeadlines().getD().toLocalDate().isEqual(date)){
+            if(t.isHomework()){
+                if(((HomeworkTask)t).getDeadlines().getD().toLocalDate().isEqual(date)){
                     showTaskList.add(t);
                 }
             }
@@ -76,8 +76,8 @@ public class ShowCommand extends Command {
 
     public void getListTaskMonth(int dateMonth, int dateYear, ArrayList<Task> allTaskHavingDate, ArrayList<Task> showTaskList){
         for(Task t : allTaskHavingDate){
-            if(t.isDeadline()){
-                if(((DeadlinesTask)t).getDeadlines().getD().getMonthValue() == dateMonth && ((DeadlinesTask)t).getDeadlines().getD().getYear() == dateYear){
+            if(t.isHomework()){
+                if(((HomeworkTask)t).getDeadlines().getD().getMonthValue() == dateMonth && ((HomeworkTask)t).getDeadlines().getD().getYear() == dateYear){
                     showTaskList.add(t);
                 }
             }
@@ -91,8 +91,8 @@ public class ShowCommand extends Command {
 
     public void getListTaskYear(int dateYear, ArrayList<Task> allTaskHavingDate, ArrayList<Task> showTaskList){
         for(Task t : allTaskHavingDate){
-            if(t.isDeadline()){
-                if(((DeadlinesTask)t).getDeadlines().getD().getYear() == dateYear){
+            if(t.isHomework()){
+                if(((HomeworkTask)t).getDeadlines().getD().getYear() == dateYear){
                     showTaskList.add(t);
                 }
             }
