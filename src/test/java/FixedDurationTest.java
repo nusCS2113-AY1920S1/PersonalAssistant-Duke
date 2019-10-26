@@ -15,7 +15,7 @@ public class FixedDurationTest {
 
     static {
         try {
-            at = parser.formatDate("22/12/2019 18:00");
+            at = parser.formatDateCustom_1("22/12/2019 18:00");
         } catch (RoomShareException e) {
             e.printStackTrace();
         }
