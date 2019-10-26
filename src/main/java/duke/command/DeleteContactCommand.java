@@ -9,7 +9,7 @@ import duke.ui.Ui;
 import java.io.IOException;
 
 /**
- * Representing a command that deletes a contact.
+ * Represents a command that deletes a contact.
  */
 public class DeleteContactCommand extends Command {
     protected int indexOfContactToDelete;
@@ -46,7 +46,7 @@ public class DeleteContactCommand extends Command {
     @Override
     public void execute(TaskList items, ContactList contactList, Ui ui) {
         if (indexOfContactToDelete >= ZERO && indexOfContactToDelete + ONE <= contactList.size()) {
-            String deletedContact = contactList.get(indexOfContactToDelete).toString();
+            String deletedContact = contactList.getAndDisplay(indexOfContactToDelete);
             contactList.remove(indexOfContactToDelete);
             ui.showContactDeleted(contactList, deletedContact);
         } else if (contactList.size() == ZERO) {
@@ -80,7 +80,7 @@ public class DeleteContactCommand extends Command {
     public String executeGui(TaskList items, ContactList contactList, Ui ui) {
         String str;
         if (indexOfContactToDelete >= ZERO && indexOfContactToDelete + ONE <= contactList.size()) {
-            String deletedContact = contactList.get(indexOfContactToDelete).toString();
+            String deletedContact = contactList.getAndDisplay(indexOfContactToDelete);
             contactList.remove(indexOfContactToDelete);
             str = ui.showContactDeletedGui(contactList, deletedContact);
         } else if (contactList.size() == ZERO) {

@@ -6,7 +6,7 @@ import duke.ui.Ui;
 
 //@@author talesrune
 /**
- * Representing a command that lists all tasks stored in task list.
+ * Represents a command that lists all tasks stored in task list.
  */
 public class ListCommand extends Command {
 

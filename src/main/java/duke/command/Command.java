@@ -16,7 +16,7 @@ import java.io.IOException;
 
 //@@author talesrune
 /**
- * An abstract class that represents various kinds of commands.
+ * Represents various kinds of commands using an abstract class.
  */
 public abstract class Command {
     /**

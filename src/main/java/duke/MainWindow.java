@@ -8,9 +8,9 @@ import duke.dukeexception.DukeException;
 import duke.task.FilterList;
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.ui.Ui;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -24,7 +24,6 @@ import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import duke.ui.Ui;
 import javafx.stage.Stage;
 
 import java.io.IOException;

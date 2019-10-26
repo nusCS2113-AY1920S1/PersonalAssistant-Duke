@@ -13,7 +13,7 @@ import duke.task.Event;
 
 //@@author talesrune
 /**
- * Representing a command that filters certain tasks in task list from the type of task.
+ * Represents a command that filters certain tasks in task list from the type of task.
  */
 public class FilterCommand extends Command {
     protected String taskType;

@@ -13,7 +13,7 @@ import duke.ui.Ui;
 import java.io.IOException;
 
 /**
- * Representing a command that overwrites the storage with the updated task list before program exits.
+ * Represents a command that overwrites the storage with the updated task list before program exits.
  */
 public class ExitCommand extends Command {
 
