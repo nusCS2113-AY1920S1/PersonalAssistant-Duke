@@ -1,6 +1,5 @@
-package duke.logic;
+package duke.logic.selectors;
 
-import duke.logic.selectors.LocationHelper;
 import duke.model.locations.Venue;
 import javafx.scene.input.KeyCode;
 import org.junit.jupiter.api.Test;
