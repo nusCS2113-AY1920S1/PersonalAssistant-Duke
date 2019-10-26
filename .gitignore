@@ -16,6 +16,7 @@ bin/
 *.txt
 *.file
 ArrayList
+*.log
 
 #Vscode specific
 .project
