@@ -1,8 +1,6 @@
 package FrontEnd;
 
 import Farmio.Farmer;
-import javafx.util.Pair;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -107,7 +105,7 @@ public class GameConsole {
         if (location.equals("Market")) {
             goals.add(AsciiColours.DONE + "Location:Market" + AsciiColours.SANE);
         } else {
-            goals.add(AsciiColours.HIGH_INTENSITY + "Location:Market" + AsciiColours.SANE);
+            goals.add(AsciiColours.NOT_DONE + "Location:Market" + AsciiColours.SANE);
         }
         while(goals.size() < ASSET_SECTION_Y_POSITION_WRT_FRAME) {
             goals.add(" ".repeat(LEFT_COLUMN_SECTION_WIDTH));
@@ -115,24 +113,18 @@ public class GameConsole {
         return goals;
     }
     private static ArrayList<String> formatGoals(Map<String, Integer> goals, Map<String, Integer> assets) {
-        final String MARKED_GOAL_SYMBOL = "[X]";
-        final String UNMARKED_GOAL_SYMBOL = "[ ]";
+        final String MARKED_GOAL_SYMBOL = "";
+        final String UNMARKED_GOAL_SYMBOL = "";
         ArrayList<String> formattedGoals = new ArrayList<>();
         Set< Map.Entry< String,Integer> > goalSet = goals.entrySet();
         for (Map.Entry< String,Integer> goal:goalSet) {
             String s = goal.getKey() + ": " +  goal.getValue();
-            if (goal.getKey().equals("Location") && goal.getValue().equals(assets.get(goal.getKey()))) {
-                s = AsciiColours.HIGH_INTENSITY + "Location:Market" + AsciiColours.SANE;
-                formattedGoals.add(s);
-            } else if(goal.getKey().equals("Location")) {
-                s = AsciiColours.DONE + "Location:Market" + AsciiColours.SANE;
-                formattedGoals.add(s);
-            } else if (assets.containsKey(goal.getKey()) && goal.getValue() <= assets.get(goal.getKey())
+            if (assets.containsKey(goal.getKey()) && goal.getValue() <= assets.get(goal.getKey())
                     && goal.getValue() > 0) {
                 formattedGoals.add(0, AsciiColours.DONE + s
                         + " ".repeat(LEFT_COLUMN_SECTION_WIDTH - s.length() - MARKED_GOAL_SYMBOL.length()) + MARKED_GOAL_SYMBOL + AsciiColours.SANE);
             } else if ((assets.containsKey(goal.getKey())&& goal.getValue() > 0)){
-                formattedGoals.add(AsciiColours.HIGH_INTENSITY + s
+                formattedGoals.add(AsciiColours.NOT_DONE + s
                         + " ".repeat(LEFT_COLUMN_SECTION_WIDTH - s.length() - UNMARKED_GOAL_SYMBOL.length()) + UNMARKED_GOAL_SYMBOL + AsciiColours.SANE);
             }
         }

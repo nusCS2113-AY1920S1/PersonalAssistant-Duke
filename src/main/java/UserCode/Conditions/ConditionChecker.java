@@ -29,7 +29,7 @@ public class ConditionChecker {
         int assetValue = 0;
         switch (valueConditionType) {
             case money:
-                assetValue = farmio.getFarmer().getMoney();
+                assetValue = farmio.getFarmer().getGold();
                 break;
         }
         switch (comparator) {

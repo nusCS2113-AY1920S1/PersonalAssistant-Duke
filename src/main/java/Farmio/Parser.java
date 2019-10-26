@@ -17,27 +17,27 @@ class Parser {
         if (userInput.matches("^load game$")) {
             return new CommandGameLoad();
         }
-        switch (stage) {
-            case WELCOME:
-                return new CommandMenuStart();
+        switch (stage) { //TODO jx help me review if there is better way
+//            case WELCOME:
+//                return new CommandMenuStart();
+//            case LEVEL_START:
+//                return new CommandLevelStart();
+//            case RUNNING_DAY:
+//                return new CommandTasksRun();
+//            case CHECK_OBJECTIVES:
+//                return new CommandCheckObjectives();
+//            case DAY_START:
+//                return new CommandDayStart();
+//            case LEVEL_END:
+//                return new CommandLevelEnd();
+//            case LEVEL_FAILED:
+//                return new CommandLevelReset();
+            case DAY_END:
+                return new CommandDayEnd(); //TODO check if reset for dayend
             case MENU_START:
                 return parseMenuStart(userInput);
-            case LEVEL_START:
-                return new CommandLevelStart();
             case TASK_ADD:
                 return parseTaskAdd(userInput);
-            case RUNNING_DAY:
-                return new CommandTasksRun();
-            case CHECK_OBJECTIVES:
-                return new CommandCheckObjectives();
-            case DAY_END:
-                return new CommandDayEnd();
-            case DAY_START:
-                return new CommandDayStart();
-            case LEVEL_END:
-                return new CommandLevelEnd();
-            case LEVEL_FAILED:
-                return new CommandLevelReset();
             default:
                 //Game should not reach this stage.
                 stage = Farmio.Stage.WELCOME;
@@ -87,6 +87,9 @@ class Parser {
         if (userInput.equals("actions") || userInput.equals("action")) {
             return new CommandActionShow();
         }
+        if (userInput.equals("market")) {
+            return new CommandMarketShow();
+        }
         if (userInput.startsWith("do")) {
             return parseDoTask(userInput);
         } else if (userInput.startsWith("if") || userInput.startsWith("for") || userInput.startsWith("while")) {
@@ -133,5 +136,4 @@ class Parser {
         }
         return new CommandTaskCreate(taskType, condition, action);
     }
-
 }

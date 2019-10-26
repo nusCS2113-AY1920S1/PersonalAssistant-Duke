@@ -9,18 +9,27 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class Simulation {
-    private static final int SLEEP_TIME = 400;
+    private static final int SLEEP_TIME = 300;
     private Farmio farmio;
     private Storage storage;
     private Ui ui;
     private Farmer farmer;
+    private static String lastPath;
+    private static int lastFrameId;
+    private static boolean hadFullscreen;
     public Simulation(Farmio farmio) {
         this.farmio = farmio;
         storage = farmio.getStorage();
         ui = farmio.getUi();
         farmer = farmio.getFarmer();
+        lastPath = "Welcome";
+        lastFrameId = 1;
+        hadFullscreen = true;
     }
     public void animate(String framePath, int frameId, boolean isFullscreen) throws FarmioFatalException {
+        lastPath = framePath;
+        lastFrameId = frameId;
+        hadFullscreen = isFullscreen;
         refresh();
         if (isFullscreen) {
             ui.show(GameConsole.blankConsole(storage.loadFrame(framePath, frameId, GameConsole.FULL_CONSOLE_WIDTH,
@@ -39,9 +48,11 @@ public class Simulation {
     }
 
     public void animate(String framePath, int frameId) throws FarmioFatalException {
-        refresh();
-        ui.show(GameConsole.content(storage.loadFrame(framePath, frameId, GameConsole.FRAME_SECTION_WIDTH,
-                GameConsole.FRAME_SECTION_HEIGHT), farmer, farmio.getLevel().getGoals()));
+        animate(framePath, frameId, false);
+    }
+
+    public void animate() throws FarmioFatalException {
+        animate(lastPath, lastFrameId, hadFullscreen);
     }
 
     public void animate(String framePath, int startFrame, int endFrame) throws FarmioFatalException {
@@ -49,7 +60,6 @@ public class Simulation {
             animate(framePath, i);
         }
     }
-
     public void animate(int delay, String framePath, int frameId) throws FarmioFatalException {
         animate(framePath, frameId);
         try {

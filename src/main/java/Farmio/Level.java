@@ -59,7 +59,7 @@ public class Level {
         int seedlings = farmer.wheatFarm.getSeedlings();
         int wheat = farmer.wheatFarm.getWheat();
         int grain = farmer.wheatFarm.getGrain();
-        int gold = farmer.getMoney();
+        int gold = farmer.getGold();
         return (seeds >= endSeeds) && (wheat >= endWheat) && (grain >= endGrain) && (seedlings >= endSeedlings)
                 && (gold >= endGold);
     }

@@ -32,7 +32,7 @@ public class Ui {
     }
 
     public void showWarning(String message) {
-        show("Warning: " + message);
+        show(AsciiColours.RED + "Warning: " + message + AsciiColours.SANE);
     }
 
     public void clearScreen() {
@@ -47,7 +47,13 @@ public class Ui {
         show("\nInput: ");
         return scanner.nextLine();
     }
-
+    public void sleep(int delay) {
+        try{
+            Thread.sleep(delay);
+        }catch(InterruptedException ex){
+            Thread.currentThread().interrupt();
+        }
+    }
     public void typeWriter(String text) { //ill clean this shit up soon.
         final char OBJECTIVE_PLACEHOLDER = ':';
         final char LEVEL_BEGIN_PLACEHOLDER = '~';
@@ -67,7 +73,6 @@ public class Ui {
                 System.out.print("   ");
                 lineLength = 0;
             } else if (text.charAt(i) == '\n') {
-                System.out.print("   ");
                 lineLength = 0;
             } else if (text.charAt(i) == OBJECTIVE_PLACEHOLDER) {
                 show(AsciiColours.RED + AsciiColours.UNDERLINE + "[Objective]" + AsciiColours.SANE);
@@ -77,11 +82,12 @@ public class Ui {
                 System.out.println("\n\n"+ " ".repeat(44) + AsciiColours.GREEN + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE+ "\n");
                 return;
             } else if (text.charAt(i) == EARLY_ESCAPE_PLACEHOLDER) {
+                System.out.println();
                 return;
             }
             System.out.printf("%c", text.charAt(i));
             try{
-                Thread.sleep(40);//0.5s pause between characters
+                Thread.sleep(10);//0.5s pause between characters
             }catch(InterruptedException ex){
                 Thread.currentThread().interrupt();
             }

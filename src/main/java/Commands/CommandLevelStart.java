@@ -18,12 +18,13 @@ public class CommandLevelStart extends Command {
         farmio.setLevel(level);
         int frameId = 0;
         for(String narrative: level.getNarratives()){
-            farmio.getSimulation().animate(level.getPath(), frameId++);
-            ui.typeWriter(narrative);
             String userInput = ui.getInput();
-            if (userInput.equals("skip")) {
+            if (!userInput.equals("")) {
+                farmio.getSimulation().animate(level.getPath(), level.getNarratives().size() - 1);
                 break;
             }
+            farmio.getSimulation().animate(level.getPath(), frameId++);
+            ui.typeWriter(narrative);
         }
         farmio.setStage(Farmio.Stage.TASK_ADD);
     }
