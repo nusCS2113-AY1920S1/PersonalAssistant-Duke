@@ -3,26 +3,32 @@ package duke.storage;
 import java.util.ArrayList;
 
 import duke.commons.exceptions.DukeException;
+import duke.commons.fileIO.FilePaths;
 import duke.model.*;
 import duke.model.user.User;
 import duke.logic.autocorrect.Autocorrect;
-
-import static duke.commons.FilePaths.*;
 
 /**
  * Storage is a public class, a storage class encapsulates the filePath to read from disk and write to disk.
  */
 public class Storage {
-    private Load loader = new Load();
-    private Write writer = new Write();
+    private Load loader;
+    private Write writer;
+    private FilePaths filePaths;
+
+    public Storage() {
+        loader = new Load();
+        writer = new Write();
+        filePaths = new FilePaths();
+    }
 
     /**
      * This is a function that will load all info required to initialize a MealList object.
      */
     public void load(MealList meals) throws DukeException {
-        loader.loadFile(meals, DATA_FILE);
-        loader.loadFile(meals, DEFAULTS_FILE);
-        loader.loadFile(meals, GOAL_FILE);
+        loader.loadFile(meals, filePaths.getFilePathStr(FilePaths.FILE_PATH_NAMES.FILE_PATH_USER_MEALS_FILE));
+        loader.loadFile(meals, filePaths.getFilePathStr(FilePaths.FILE_PATH_NAMES.FILE_PATH_DEFAULT_MEAL_FILE));
+        loader.loadFile(meals, filePaths.getFilePathStr(FilePaths.FILE_PATH_NAMES.FILE_PATH_GOAL_FILE));
     }
 
     /**
@@ -48,21 +54,21 @@ public class Storage {
      * @param mealData the structure that will store the tasks from the input file
      */
     //TODO: maybe we can put the errors in the ui file
-    public void updateFile(MealList mealData) {
+    public void updateFile(MealList mealData) throws DukeException {
         writer.writeFile(mealData);
     }
 
     /**
      * This is a function that will write data from a MealList object to the defaultitems save file.
      */
-    public void updateDefaults(MealList mealData) {
+    public void updateDefaults(MealList mealData) throws DukeException {
         writer.writeDefaults(mealData);
     }
 
     /**
      * This is a function that will write data from a MealList object to the goals save file.
      */
-    public void updateGoal(MealList mealData) {
+    public void updateGoal(MealList mealData) throws DukeException {
         writer.writeGoal(mealData);
     }
 

@@ -2,6 +2,7 @@ package duke.logic.commands;
 
 import java.util.Scanner;
 
+import duke.commons.exceptions.DukeException;
 import duke.model.Meal;
 import duke.model.MealList;
 import duke.ui.Ui;
@@ -32,7 +33,7 @@ public class AddItemCommand extends Command {
      * @param in the scanner object to handle secondary command IO
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in) {
+    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
         meals.addStoredItem(this.meal);
         ui.showAddedItem(this.meal);
         storage.updateDefaults(meals);
