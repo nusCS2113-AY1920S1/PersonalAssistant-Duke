@@ -9,8 +9,16 @@ import java.util.logging.SimpleFormatter;
 public class MyLogger {
     Logger logger;
     FileHandler fh;
-    
-    public MyLogger(String name) {
+    String fileName;
+
+    /**
+     * initializes a new logger.
+     * 
+     * @param name name of new logger
+     * @param fileName name of generated log file (without extention)
+     */
+    public MyLogger(String name, String fileName) {
+        this.fileName = fileName;
         LogManager logManager = LogManager.getLogManager();
         logger = Logger.getLogger(name);
         logger.setUseParentHandlers(false);
@@ -21,13 +29,14 @@ public class MyLogger {
     /**
      * writes to error log file.
      * 
-     * @param msg error exceptions message to be logged
+     * @param msg      error exceptions message to be logged
      * @param location class where error has occured
-     * @param input the full user input
+     * @param input    the full user input
      */
     public void writeLog(String msg, String location, String input) {
         try {
-            FileHandler fh = new FileHandler(System.getProperty("user.dir") + "/src/DukeDatabase/errors.log",true);
+            FileHandler fh = new FileHandler(System.getProperty("user.dir") + "/src/DukeDatabase/" + fileName + ".log",
+                    true);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
             logger.addHandler(fh);

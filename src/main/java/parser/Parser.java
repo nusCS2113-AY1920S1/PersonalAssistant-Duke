@@ -17,12 +17,13 @@ public abstract class Parser {
     String command;
     String taskFeatures;
     String checkType;
-    MyLogger logger = new MyLogger(this.getClass().getName());
+    MyLogger logger = new MyLogger(this.getClass().getName(), "errors");
+
     /**
      * contructs a parser object and initializes a logger.
      * 
      * @param userInput input from user
-     * @param command input command type
+     * @param command   input command type
      */
     public Parser(String userInput, String command) {
         this.userInput = userInput;
@@ -42,5 +43,4 @@ public abstract class Parser {
         return taskFeatures;
     }
 
-    
 }
