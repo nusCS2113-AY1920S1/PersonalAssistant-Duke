@@ -29,12 +29,12 @@ public class ListCommandTest {
         String expectedOutput = sb.toString();
 
         try {
-            Logic ps = new Logic();
+            Logic logic = Logic.getInstance();
             Ui ui = new Ui();
             Profile p = new Profile();
             Storage s = new Storage();
             ListCommand lc = new ListCommand();
-            String actualOutput = lc.execute(ps, ui, s, p);
+            String actualOutput = lc.execute(logic, ui, s, p);
             assertEquals(expectedOutput.trim(), actualOutput.trim());
         } catch (DukeException e) {
             e.printStackTrace();
