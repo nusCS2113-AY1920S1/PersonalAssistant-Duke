@@ -13,6 +13,7 @@ import task.Task;
 import task.WithinPeriodTask;
 import ui.Ui;
 
+import java.lang.management.ManagementFactory;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -390,22 +391,26 @@ public class Process {
                     + "Format:'postpone <index> <the new scheduled time in dd/mm/yyyy HHmm>");
         }
     }
-
-    public void edit(String input, TaskList tasklist, Ui ui) {
+*/
+    /**
+     * Processes the edit command, amends the data of a payee or payment already exisiting in the records.
+     * INPUT FORMAT: edit p/PAYEE v/INVOICE f/FIELD r/REPLACEMENT
+     * @param input Input from the user.
+     * @param managermap HashMap containing all Payees and their Payments.
+     * @param ui Ui that interacts with the user.
+     */
+    public void edit(String input, HashMap<String, Payee> managermap, Ui ui) {
         try {
-            String[] splitspace = input.split(" ", 2);
-            String[] splitedit = splitspace[1].split(" d/", 2);
-            int nedit = Integer.parseInt(splitedit[0]) - 1;
-            String description = splitedit[1];
-            tasklist.get(nedit).setDescription(description);
-            ui.printEditMessage(tasklist.get(nedit));
-        } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
-        } catch (NumberFormatException e) {
+            String[] splitspace = input.split("edit ", 2);
+            String[] splitpayments = splitspace[1].split("p/|v/|f/|r/");
+            splitpayments = cleanStrStr(splitpayments);
+            PaymentManager.editPayee(splitpayments[1], splitpayments[2], splitpayments[3], splitpayments[4], managermap);
+        }
+        catch (IllegalArgumentException e){
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         }
     }
-*/
+
 
     /**
      * Processes the add payment command, saves a new payment under a specified payee.
