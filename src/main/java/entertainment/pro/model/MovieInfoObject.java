@@ -22,9 +22,9 @@ public class MovieInfoObject {
 
 
     /**
-     * Construct info about a movie/tv show
+     * Construct info about a movie/tv show.
      * @param type type of the object whether is it a movie or a tv show.
-     * @param ID ID stored in the api.
+     * @param id ID stored in the api.
      * @param title Title of the movie/tv show.
      * @param date Release date of the movie/tv show.
      * @param summary Plot summary of the movie/tv show.
@@ -33,9 +33,9 @@ public class MovieInfoObject {
      * @param posterPath Filepath of the movie/tv show poster.
      * @param backdropPath Filepath of the movie/tv show backdrop poster.
      */
-    public MovieInfoObject(int type, long ID, String title, Date date, String summary, double rating, long[] genreIDs, String posterPath, String backdropPath) {
+    public MovieInfoObject(int type, long id, String title, Date date, String summary, double rating, long[] genreIDs, String posterPath, String backdropPath) {
         movieType = type;
-        movieID = ID;
+        movieID = id;
         movieTitle = title;
         movieReleaseDate = date;
         movieSummary = summary;
@@ -44,6 +44,19 @@ public class MovieInfoObject {
         movieBackdropPath = backdropPath;
         movieGenreIDs = genreIDs;
         this.adult = adult;
+    }
+
+    /**
+     * Construct info about a movie/tv show.
+     * @param type type of the object whether is it a movie or a tv show.
+     * @param id ID stored in the api.
+     * @param title Title of the movie/tv show.
+     */
+    public MovieInfoObject(int type, long id, String title) {
+        movieType = type;
+        movieID = id;
+        movieTitle = title;
+        this.adult = true;
     }
 
     /**

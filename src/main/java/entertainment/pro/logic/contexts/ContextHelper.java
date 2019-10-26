@@ -23,7 +23,7 @@ public class ContextHelper {
      * @param testRoot testcase for root
      * @return true if the testRoot command is completed
      */
-    public boolean testisRootCommandComplete(String testRoot) {
+    public static boolean testisRootCommandComplete(String testRoot) {
         return isRootCommandComplete(testRoot);
     }
 
@@ -51,8 +51,8 @@ public class ContextHelper {
      * @param testSubRoot testcase for subroot
      * @return true if the testSubRoot command is completed
      */
-    public boolean testisSubRootCommandComplete(String testSubRoot) {
-        return isRootCommandComplete(testSubRoot);
+    public static boolean testisSubRootCommandComplete(String testSubRoot) {
+        return isSubRootCommandComplete(testSubRoot);
     }
 
     /**
