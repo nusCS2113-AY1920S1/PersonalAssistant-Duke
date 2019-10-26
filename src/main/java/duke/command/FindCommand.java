@@ -42,9 +42,4 @@ public class FindCommand extends Command {
 			listCommand.execute(foundTasks, ui, storage);
 		}
 	}
-
-	@Override
-	public boolean isExit() {
-		return false;
-	}
 }

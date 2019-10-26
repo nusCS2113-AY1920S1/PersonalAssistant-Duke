@@ -1,6 +1,6 @@
 import duke.command.Command;
 import duke.exception.DukeException;
-import duke.parser.Parser;
+import duke.parser.DuqueParser;
 import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
@@ -39,7 +39,7 @@ public class Duke {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
+                Command c = DuqueParser.parseCommand(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (ParseException e) {

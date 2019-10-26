@@ -28,8 +28,4 @@ public class HelpCommand extends Command{
         System.out.println("CLearing all entries: clear");
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }
