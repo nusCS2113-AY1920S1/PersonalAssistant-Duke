@@ -2,6 +2,7 @@ package duke.data;
 
 public class Plan extends Treatment {
 
+    private static final String[] statusArr = {"Not ordered", "In progress", "Completed"};
     private String summary;
 
     /**
@@ -15,11 +16,10 @@ public class Plan extends Treatment {
      * @param impression the impression object the plan is tagged to
      * @param priority the priority level of the plan
      * @param status the current status of the plan
-     * @param statusArr description of the status tagged to this plan
      * @param summary the summary of what the plan entails
      */
-    public Plan(String name, String impression, int priority, int status, String[] statusArr, String summary) {
-        super(name, impression, priority, status, statusArr);
+    public Plan(String name, String impression, int priority, int status, String summary) {
+        super(name, impression, priority, status);
         this.summary = summary;
     }
 
@@ -46,5 +46,9 @@ public class Plan extends Treatment {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public String getStatusStr() {
+        return statusArr[getStatusIdx()];
     }
 }

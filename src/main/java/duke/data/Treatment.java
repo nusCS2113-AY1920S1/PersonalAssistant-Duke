@@ -4,8 +4,7 @@ import duke.exception.DukeException;
 
 public abstract class Treatment extends DukeData {
 
-    private Integer status;
-    private String[] statusArr;
+    private Integer statusIdx;
 
     /**
      * Abstraction of the actions taken to treat an impression the Doctor has about a patient.
@@ -16,13 +15,11 @@ public abstract class Treatment extends DukeData {
      * - name: the treatment given
      * - impression: the impression object the treatment is tagged to
      * - status: the current status of the treatment
-     * - statusArr: description of the status tagged to this treatment
      * - priority: the priority level of the treatment
      */
-    public Treatment(String name, String impression, int priority, int status, String[] statusArr) {
+    public Treatment(String name, String impression, int priority, int statusIdx) {
         super(name, impression, priority);
-        this.status = status;
-        this.statusArr = statusArr;
+        this.statusIdx = statusIdx;
     }
 
     @Override
@@ -35,47 +32,38 @@ public abstract class Treatment extends DukeData {
         }
     }
 
-    /*
+    /**
      * Updates status of the observation, i.e. the stage of completion
-     * @param int the integer value of the status
+     * @param statusIdx the integer value of the status
      */
-    public void updateStatus(int statusIdx, String[] statusArr) {
-        setStatus(statusIdx);
-        setStatusArr(statusArr);
+    public void updateStatus(int statusIdx) {
+        setStatusIdx(statusIdx);
     }
 
     @Override
     public String toString() {
         String informationString;
-        informationString = "Status: " + Integer.toString(this.status) + "\n";
-        String joinedStatus = String.join(" ", this.statusArr);
-        informationString += "Status Description: " + joinedStatus + "\n";
+        informationString = "Status: " + Integer.toString(this.statusIdx) + "\n";
+        informationString += "Status Description: " + getStatusStr() + "\n";
         return super.toString() + informationString;
     }
 
     @Override
     public String toReportString() {
         String informationString;
-        informationString = "Status of treatment: " + Integer.toString(this.status) + "\n";
-        String joinedStatus = String.join(" ", this.statusArr);
-        informationString += "Status Description: " + joinedStatus + "\n";
+        informationString = "Status of treatment: " + Integer.toString(this.statusIdx) + "\n";
+        informationString += "Status Description: " + getStatusStr() + "\n";
         return informationString;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setStatusIdx(Integer statusIdx) {
+        this.statusIdx = statusIdx;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getStatusIdx() {
+        return statusIdx;
     }
 
-    public String[] getStatusArr() {
-        return statusArr;
-    }
-
-    public void setStatusArr(String[] statusArr) {
-        this.statusArr = statusArr;
-    }
+    public abstract String getStatusStr();
 
 }

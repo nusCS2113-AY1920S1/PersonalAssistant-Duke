@@ -48,12 +48,12 @@ public class MedicineCard extends TreatmentCard {
 
         final String[] statuses = {"No Status set", "Request not submitted", "Submitted request",
                                    "Pending", "Ongoing", "Completed"};
-        String statusText = String.valueOf(medicine.getStatus());
-        if (medicine.getStatusArr() != null && medicine.getStatus() >= 0
-            && medicine.getStatus() < medicine.getStatusArr().length) {
-            statusText += " - " + medicine.getStatusArr()[medicine.getStatus()];
-        } else if (medicine.getStatus() >= 0 && medicine.getStatus() < statuses.length) {
-            statusText += " - Default " + statuses[medicine.getStatus()];
+        String statusText = String.valueOf(medicine.getStatusIdx());
+        if (medicine.getStatusArr() != null && medicine.getStatusIdx() >= 0
+            && medicine.getStatusIdx() < medicine.getStatusArr().length) {
+            statusText += " - " + medicine.getStatusArr()[medicine.getStatusIdx()];
+        } else if (medicine.getStatusIdx() >= 0 && medicine.getStatusIdx() < statuses.length) {
+            statusText += " - Default " + statuses[medicine.getStatusIdx()];
         }
         statusLabel.setText(statusText);
     }
