@@ -211,16 +211,17 @@ public class Patient extends DukeObject {
     public String appendHistory(String addition) {
         String newHistory;
         if (this.history != null && !this.history.equals("")) {
-            newHistory = this.history + "\t" + addition;
+            newHistory = this.history + System.lineSeparator() + addition;
         } else {
             newHistory = addition;
         }
-        this.history = newHistory; // setHistory(newHistory);
+
+        setHistory(newHistory);
         return newHistory;
     }
 
     /**
-     * Adds a listener to listen for changes in {@code priDiagnosis}.
+     * Adds a listener to listen for changes in {@code Patient} attributes.
      *
      * @param pcl PropertyChangeListener object.
      */
@@ -384,7 +385,14 @@ public class Patient extends DukeObject {
         return history;
     }
 
+    /**
+     * Set medical history of {@code Patient}.
+     *
+     * @param history New medical history.
+     */
     public void setHistory(String history) {
+        String oldHistory = this.history;
         this.history = history;
+        pcs.firePropertyChange("History", oldHistory, history);
     }
 }
