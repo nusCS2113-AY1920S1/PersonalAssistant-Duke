@@ -11,8 +11,8 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "rim"
-    archiveVersion = "1.1"
+    archiveBaseName = "rims"
+    archiveVersion = "v1.2"
     archiveClassifier = null
     archiveAppendix = null
 }
@@ -35,7 +35,7 @@ javafx {
 
 application {
     // Change this to your main class.
-    mainClassName = "rims/core/Rim"
+    mainClassName = "rims/core/Rims"
 }
 
 test {

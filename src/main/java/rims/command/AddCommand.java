@@ -8,22 +8,41 @@ import rims.resource.Room;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
 
+/**
+ * Implements the addition of a new Resource to the ResourceList.
+ */
 public class AddCommand extends Command {
     protected String resourceName;
     protected String resourceType;
     protected int qty;
 
+    /**
+     * Constructor of a new AddCommand for a new Room.
+     * @param roomName the name of the new Room to be added to the ResourceList.
+     */
     public AddCommand(String roomName) {
         this.resourceName = roomName;
         this.resourceType = "room";
     }
 
+    /**
+     * Constructor of a new AddCommand for a new Item.
+     * @param roomName the name of the new Item to be added to the ResourceList.
+     * @param qty the quantity of the new Item to be added.
+     */
     public AddCommand(String itemName, int qty) {
         this.resourceName = itemName;
         this.resourceType = "item";
         this.qty = qty;
     }
 
+    /**
+     * Creates the new Resource, adds it to the ResourceList, and prints a message to the CLI
+     * that the Resource has been successfully added.
+     * @param ui An instance of the user interface.
+     * @param storage An instance of the Storage class.
+     * @param resources The ResourceList, containing all the created Resources thus far.
+     */
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources) {
         if (resourceType.equals("room")) {
