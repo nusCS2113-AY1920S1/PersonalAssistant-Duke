@@ -14,6 +14,8 @@ import duke.model.planning.Itinerary;
 import duke.model.planning.Todo;
 
 import java.time.LocalDateTime;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Defines parsing methods for utility functions.
@@ -155,13 +157,11 @@ public class ParserUtil {
      */
     public static int getFirstIndex(String userInput) throws DukeException {
         try {
-            String[] indexStrings = userInput.split(" ", 2);
-            if (indexStrings[0].strip().matches("-?(0|[1-9]\\d*)")) {
-                int index = Integer.parseInt(indexStrings[0].strip());
-                return index - 1;
-            } else {
-                throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
+            Matcher matcher = Pattern.compile("\\d+").matcher(userInput);
+            if (matcher.find()) {
+                return Integer.parseInt(matcher.group()) - 1;
             }
+            throw new DukeEmptyFieldException(Messages.ERROR_INPUT_INVALID_FORMAT);
         } catch (NumberFormatException e) {
             throw new DukeUnknownCommandException();
         }
@@ -175,15 +175,14 @@ public class ParserUtil {
      */
     public static int getSecondIndex(String userInput) throws DukeException {
         try {
-            String[] indexStrings = userInput.split(" ", 3);
-            if (indexStrings[1].strip().matches("-?(0|[1-9]\\d*)")) {
-                int index = Integer.parseInt(indexStrings[1].strip());
-                return index - 1;
-            } else if (indexStrings[1].strip().equals("at")) {
-                throw new DukeEmptyFieldException("SECOND_INPUT");
-            } else {
-                throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
+            Matcher matcher = Pattern.compile("\\d+").matcher(userInput);
+            if (!matcher.find()) {
+                throw new DukeEmptyFieldException(Messages.ERROR_INPUT_INVALID_FORMAT);
             }
+            if (matcher.find()) {
+                return Integer.parseInt(matcher.group()) - 1;
+            }
+            throw new DukeEmptyFieldException(Messages.ERROR_INPUT_INVALID_FORMAT);
         } catch (NumberFormatException e) {
             throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }

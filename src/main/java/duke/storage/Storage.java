@@ -9,10 +9,10 @@ import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.commons.exceptions.StorageFileNotFoundException;
 import duke.logic.parsers.ParserStorageUtil;
+import duke.model.Event;
+import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.logic.parsers.ParserTimeUtil;
-import duke.model.lists.TaskList;
-import duke.model.Task;
 import duke.logic.CreateMap;
 import duke.model.locations.BusStop;
 import duke.model.transports.Route;
@@ -40,7 +40,7 @@ import java.util.logging.Logger;
  */
 public class Storage {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    private TaskList tasks;
+    private EventList events;
     private RouteList routes;
     private CreateMap map;
     private static final String BUS_FILE_PATH = "/data/bus.txt";
@@ -50,15 +50,11 @@ public class Storage {
     private static final String EVENTS_FILE_PATH = "events.txt";
     private static final String ROUTES_FILE_PATH = "routes.txt";
 
-    //private List<BusStop> allBusStops;
-    //private List<TrainStation> allTrainStations;
-    //private List<Route> userRoutes;
-
     /**
      * Constructs a Storage object that contains information from the model.
      */
     public Storage() {
-        tasks = new TaskList();
+        events = new EventList();
         routes = new RouteList();
         try {
             read();
@@ -81,7 +77,7 @@ public class Storage {
     /**
      * Reads train from filepath.
      */
-    protected void readTrain() {
+    private void readTrain() {
         assert this.map != null : "Map must be created first";
         HashMap<String, TrainStation> trainMap = new HashMap<>();
         Scanner s = new Scanner(getClass().getResourceAsStream(TRAIN_FILE_PATH));
@@ -120,27 +116,26 @@ public class Storage {
     }
 
     /**
-     * Reads tasks from filepath. Creates empty tasks if file cannot be read.
+     * Reads events from filepath. Creates empty events if file cannot be read.
      *
-     * @throws DukeDateTimeParseException If the datetime of a task cannot be parsed.
-     * @throws DukeDuplicateTaskException If there is a duplicate task.
+     * @throws DukeDateTimeParseException If the datetime of an event cannot be parsed.
+     * @throws DukeDuplicateTaskException If there is a duplicate event.
      * @throws StorageFileNotFoundException If the file cannot be read.
      */
     private void readEvent() throws DukeDuplicateTaskException, DukeDateTimeParseException,
             StorageFileNotFoundException {
-        List<Task> newTasks = new ArrayList<>();
+        List<Event> events = new ArrayList<>();
         try {
             File f = new File(EVENTS_FILE_PATH);
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
-                newTasks.add(ParserStorageUtil.createTaskFromStorage(s.nextLine()));
+                events.add(ParserStorageUtil.createTaskFromStorage(s.nextLine()));
             }
             s.close();
         } catch (FileNotFoundException e) {
             throw new StorageFileNotFoundException(EVENTS_FILE_PATH);
         }
-
-        tasks.setTasks(newTasks);
+        this.events.setEvents(events);
     }
 
     /**
@@ -205,10 +200,9 @@ public class Storage {
     /**
      * Writes the tasks into a file of the given filepath.
      *
-     * @throws CorruptedFileException If a file is corrupted.
      * @throws FileNotSavedException If a file cannot be saved.
      */
-    public void write() throws CorruptedFileException, FileNotSavedException {
+    public void write() throws FileNotSavedException {
         writeEvents();
         writeRoutes();
     }
@@ -216,14 +210,13 @@ public class Storage {
     /**
      * Writes the events to local storage.
      *
-     * @throws CorruptedFileException If the file is corrupted.
      * @throws FileNotSavedException If the file cannot be saved.
      */
-    private void writeEvents() throws CorruptedFileException, FileNotSavedException {
+    private void writeEvents() throws FileNotSavedException {
         try {
             FileWriter writer = new FileWriter(EVENTS_FILE_PATH);
-            for (Task task : tasks) {
-                writer.write(ParserStorageUtil.toStorageString(task) + "\n");
+            for (Event event : events) {
+                writer.write(ParserStorageUtil.toStorageString(event) + "\n");
             }
             writer.close();
         } catch (IOException e) {
@@ -303,8 +296,8 @@ public class Storage {
         return itinerary;
     }
 
-    public TaskList getTasks() {
-        return tasks;
+    public EventList getEvents() {
+        return events;
     }
 
     public CreateMap getMap() {

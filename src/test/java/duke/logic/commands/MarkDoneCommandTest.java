@@ -18,7 +18,7 @@ class MarkDoneCommandTest {
         addCommand.execute(model);
         MarkDoneCommand markDoneCommand = new MarkDoneCommand(0);
         markDoneCommand.execute(model);
-        assertTrue(model.getTasks().get(0).isDone());
+        assertTrue(model.getEvents().get(0).isDone());
         DeleteCommand deleteCommand = new DeleteCommand(0);
         deleteCommand.execute(model);
     }

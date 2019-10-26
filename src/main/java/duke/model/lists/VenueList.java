@@ -21,12 +21,10 @@ public class VenueList implements Iterable<Venue>, Listable<Venue> {
     /**
      * Alternative constructor given a list of tasks.
      */
-    public VenueList(List<Task> tasks) {
+    public VenueList(EventList events) {
         this();
-        for (Task t : tasks) {
-            if (t instanceof Event) {
-                list.add(((Event) t).getLocation());
-            }
+        for (Event e : events) {
+            list.add(e.getLocation());
         }
     }
 

@@ -9,7 +9,6 @@ import duke.logic.conversations.FreeTimeConversation;
 import duke.logic.conversations.GetBusStopConversation;
 import duke.logic.conversations.MarkDoneConversation;
 import duke.logic.conversations.SearchConversation;
-import duke.logic.conversations.ToDoConversation;
 
 /**
  * Parser for conversations. Selects conversation based on user input.
@@ -33,8 +32,6 @@ public class ConversationParser {
             return new GetBusStopConversation();
         case "findPath":
             return new FindPathConversation();
-        case "todo":
-            return new ToDoConversation();
         case "find":
             return new FindConversation();
         case "search":

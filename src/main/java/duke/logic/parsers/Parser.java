@@ -55,14 +55,12 @@ public class Parser {
             return new ViewScheduleCommand();
         case "edit":
             return new EditorCommand();
-        case "todo":
-            return new AddCommand(ParserUtil.createTodo(input));
         case "done":
             return new MarkDoneCommand(ParserUtil.getIndex(getWord(input)));
         case "delete":
             return new DeleteCommand(ParserUtil.getIndex(getWord(input)));
         case "find":
-            return new FindCommand(getWord(getWord(input)));
+            return new FindCommand(getWord(input));
         case "findtime":
             return new FreeTimeCommand(ParserUtil.getIndex(input));
         case "search":
@@ -74,8 +72,8 @@ public class Parser {
         case "event":
             return new AddCommand(ParserUtil.createEvent(input));
         case "findPath":
-            return new FindPathCommand(input.strip().split(" ")[1], getEventIndexInList(1, input),
-                    getEventIndexInList(2, input));
+            return new FindPathCommand(input.strip().split(" ")[1], ParserUtil.getFirstIndex(input),
+                    ParserUtil.getSecondIndex(input));
         case "recommend":
             return new RecommendationsCommand(ParserUtil.createRecommendation(input));
         case "cancel":
@@ -87,17 +85,17 @@ public class Parser {
         case "routeNodeAdd":
             return ParserUtil.createRouteNodeAddCommand(getWord(input));
         case "routeEdit":
-            return new RouteEditCommand(ParserUtil.getFirstIndex(getWord(input)), getEventIndexInList(1, input),
+            return new RouteEditCommand(ParserUtil.getFirstIndex(input), getEventIndexInList(1, input),
                     getEventIndexInList(0, input));
         case "routeNodeEdit":
-            return new RouteNodeEditCommand(ParserUtil.getFirstIndex(getWord(input)),
-                    ParserUtil.getSecondIndex(getWord(input)), ParserUtil.getFieldInList(3, 4, getWord(input)),
+            return new RouteNodeEditCommand(ParserUtil.getFirstIndex(input),
+                    ParserUtil.getSecondIndex(input), ParserUtil.getFieldInList(3, 4, getWord(input)),
                     ParserUtil.getFieldInList(4, 4, getWord(input)));
         case "routeDelete":
             return new RouteDeleteCommand(ParserUtil.getIndex(getWord(input)));
         case "routeNodeDelete":
-            return new RouteNodeDeleteCommand(ParserUtil.getFirstIndex(getWord(input)),
-                    ParserUtil.getSecondIndex(getWord(input)));
+            return new RouteNodeDeleteCommand(ParserUtil.getFirstIndex(input),
+                    ParserUtil.getSecondIndex(input));
         case "routeShow":
             return new RouteListCommand(ParserUtil.getIndex(getWord(input)));
         case "routeNodeShow":

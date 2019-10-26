@@ -1,5 +1,6 @@
 package duke.model.lists;
 
+import duke.commons.exceptions.DukeDuplicateTaskException;
 import duke.model.Event;
 import duke.model.Task;
 import duke.model.TaskWithDates;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of Events and contains its related accessor methods.
@@ -32,8 +34,15 @@ public class EventList implements Iterable<Event>, Listable<Event> {
         }
     }
 
+    private EventList(List<Event> events) {
+        this.events = events;
+    }
+
     @Override
-    public void add(Event e) {
+    public void add(Event e) throws DukeDuplicateTaskException {
+        if (contains(e)) {
+            throw new DukeDuplicateTaskException();
+        }
         events.add(e);
     }
 
@@ -61,8 +70,42 @@ public class EventList implements Iterable<Event>, Listable<Event> {
         events.sort(Comparator.comparing(TaskWithDates::getStartDate));
     }
 
+    public EventList getSortedList() {
+        return new EventList(events.stream().sorted(
+                Comparator.comparing(TaskWithDates::getStartDate)).collect(Collectors.toList()));
+    }
+
     @Override
     public Iterator<Event> iterator() {
         return events.iterator();
+    }
+
+    /**
+     * Replaces the contents of this list with {@code Events}.
+     * {@code Events} must not contain duplicate Events.
+     */
+    public void setEvents(List<Event> events) throws DukeDuplicateTaskException {
+        if (!eventsAreUnique(events)) {
+            throw new DukeDuplicateTaskException();
+        }
+        this.events = events;
+    }
+
+    /**
+     * Returns true if {@code Events} contains only unique Events.
+     */
+    private boolean eventsAreUnique(List<Event> events) {
+        for (int i = 0; i < events.size() - 1; i++) {
+            for (int j = i + 1; j < events.size(); j++) {
+                if (events.get(i).isSameTask(events.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public Event remove(int index) {
+        return events.remove(index);
     }
 }

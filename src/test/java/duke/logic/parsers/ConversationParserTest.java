@@ -8,7 +8,6 @@ import duke.logic.conversations.FreeTimeConversation;
 import duke.logic.conversations.GetBusStopConversation;
 import duke.logic.conversations.MarkDoneConversation;
 import duke.logic.conversations.SearchConversation;
-import duke.logic.conversations.ToDoConversation;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -18,7 +17,6 @@ class ConversationParserTest {
 
     @Test
     void parse() throws DukeUnknownCommandException {
-        assertTrue(ConversationParser.parse("todo") instanceof ToDoConversation);
         assertTrue(ConversationParser.parse("done") instanceof MarkDoneConversation);
         assertTrue(ConversationParser.parse("delete") instanceof DeleteConversation);
         assertTrue(ConversationParser.parse("find") instanceof FindConversation);

@@ -17,6 +17,6 @@ class AddCommandTest {
         Task task = new Todo("homework");
         AddCommand addCommand = new AddCommand(task);
         addCommand.execute(model);
-        assertTrue(model.getTasks().contains(task));
+        assertTrue(model.getEvents().contains(task));
     }
 }

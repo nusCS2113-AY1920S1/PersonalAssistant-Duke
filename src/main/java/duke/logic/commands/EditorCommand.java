@@ -15,7 +15,7 @@ public class EditorCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws EmptyVenueException {
-        EditorManager.activate(model.getEventList(), model.getEventVenues());
+        EditorManager.activate(model.getEvents(), model.getEventVenues());
         return new CommandResultText(MESSAGE_EDITOR);
     }
 }

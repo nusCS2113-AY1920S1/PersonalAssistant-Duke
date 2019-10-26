@@ -26,6 +26,6 @@ public class EditCommand extends Command {
         for (Event e : events) {
             logger.log(Level.INFO, e.toString());
         }
-        return new CommandResultText(model.getTasks());
+        return new CommandResultText(model.getEvents());
     }
 }

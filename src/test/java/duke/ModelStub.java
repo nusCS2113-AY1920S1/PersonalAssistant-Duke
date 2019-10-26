@@ -37,7 +37,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public TaskList getTasks() {
+    public TaskList getEvents() {
         return tasks;
     }
 
@@ -62,7 +62,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public List<Task> getChronoSortedList() {
+    public List<Task> getSortedList() {
         return tasks.getChronoList();
     }
 

@@ -18,7 +18,7 @@ public class ViewScheduleCommand extends Command {
     @Override
     public CommandResultCalender execute(Model model) throws DukeException {
         CommandResultCalender commandResult = new CommandResultCalender(MESSAGE_SHOW_CALENDAR);
-        commandResult.setEvents(model.getEventList());
+        commandResult.setEvents(model.getEvents());
         return commandResult;
     }
 }

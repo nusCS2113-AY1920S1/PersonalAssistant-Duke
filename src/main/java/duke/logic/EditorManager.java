@@ -6,7 +6,6 @@ import duke.commons.exceptions.EventNotSelectedException;
 import duke.logic.commands.Command;
 import duke.logic.commands.EditCommand;
 import duke.logic.parsers.EditorParser;
-import duke.logic.parsers.Parser;
 import duke.logic.parsers.PromptParser;
 import duke.logic.selectors.EventFieldSelector;
 import duke.logic.selectors.LocationSelector;

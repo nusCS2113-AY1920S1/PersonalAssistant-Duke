@@ -1,7 +1,7 @@
 package duke.logic.conversations;
 
 import duke.commons.exceptions.DukeException;
-import duke.logic.commands.AddCommand;
+import duke.logic.commands.DeleteCommand;
 import duke.logic.commands.PromptCommand;
 import org.junit.jupiter.api.Test;
 
@@ -13,10 +13,12 @@ class ConversationManagerTest {
     @Test
     void converse() throws DukeException {
         ConversationManager conversationManager = new ConversationManager();
-        conversationManager.converse("todo");
+        conversationManager.converse("delete");
         assertTrue(conversationManager.getCommand() instanceof PromptCommand);
         conversationManager.converse("Travel the Seven seas");
-        assertTrue(conversationManager.getCommand() instanceof AddCommand);
+        assertTrue(conversationManager.getCommand() instanceof PromptCommand);
+        conversationManager.converse("1");
+        assertTrue(conversationManager.getCommand() instanceof DeleteCommand);
     }
 
     @Test

@@ -1,6 +1,5 @@
 package duke.logic.parsers;
 
-import duke.logic.commands.AddCommand;
 import duke.logic.commands.ExitCommand;
 import duke.logic.commands.ListCommand;
 import duke.logic.commands.MarkDoneCommand;
@@ -13,7 +12,6 @@ class ParserTest {
     @Test
     void parse() throws Exception {
         assertTrue(Parser.parseComplexCommand("bye") instanceof ExitCommand);
-        assertTrue(Parser.parseComplexCommand("todo homework") instanceof AddCommand);
         assertTrue(Parser.parseComplexCommand("list") instanceof ListCommand);
         assertTrue(Parser.parseComplexCommand("done 1") instanceof MarkDoneCommand);
     }

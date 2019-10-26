@@ -14,9 +14,9 @@ class DeleteCommandTest {
     void execute() throws DukeException {
         ModelStub model = new ModelStub();
         Task task = new Todo("homework");
-        model.getTasks().add(task);
+        model.getEvents().add(task);
         DeleteCommand deleteCommand = new DeleteCommand(0);
         deleteCommand.execute(model);
-        assertFalse(model.getTasks().contains(task));
+        assertFalse(model.getEvents().contains(task));
     }
 }

@@ -6,7 +6,6 @@ import duke.commons.exceptions.FileNotSavedException;
 import duke.logic.CreateMap;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
-import duke.model.lists.TaskList;
 import duke.model.lists.VenueList;
 import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
@@ -21,9 +20,9 @@ import java.util.List;
  */
 public interface Model {
     /**
-     * Returns the list of tasks.
+     * Returns the list of events.
      */
-    TaskList getTasks();
+    EventList getEvents();
 
     /**
      * Return map object.
@@ -31,24 +30,9 @@ public interface Model {
     CreateMap getMap();
 
     /**
-     * Returns the list of tasks that contains a date.
+     * Returns the list of events that is sorted chronologically.
      */
-    List<Task> getFilteredList();
-
-    /**
-     * Returns the list of tasks that is sorted chronologically.
-     */
-    List<Task> getChronoSortedList();
-
-    /**
-     * Returns all the list of locations.
-     */
-    List<Venue> getLocationList();
-
-    /**
-     * Returns the list of tasks that is an Event.
-     */
-    EventList getEventList();
+    EventList getSortedList();
 
     /**
      * Returns the list of all bus stops.
