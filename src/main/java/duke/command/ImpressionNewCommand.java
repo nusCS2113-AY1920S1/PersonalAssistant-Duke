@@ -29,7 +29,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
         //extract parameters and data type
         Integer priority = switchToInt(getSwitchVal("priority"));
         Integer status;
-        switch(addType) { //isn't polymorphism fun?
+        switch (addType) { //isn't polymorphism fun?
         case "medicine":
             status = processStatus(getSwitchVal("status"), Medicine.getStatusArr());
             Medicine medicine = new Medicine(getSwitchVal("name"), impression.getName(), priority, status,
@@ -74,7 +74,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
         }
 
         if (isSwitchSet("go")) {
-            switch(addType) {
+            switch (addType) {
             case "plan": //fallthrough
             case "medicine":
                 core.uiContext.setContext(Context.TREATMENT, newData);
@@ -85,6 +85,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
             case "result": //fallthrough
             case "observation":
                 core.uiContext.setContext(Context.EVIDENCE, newData);
+                break;
             default:
                 throw new DukeException("Invalid data type!");
             }

@@ -47,9 +47,8 @@ public class InvestigationCard extends TreatmentCard {
         criticalLabel.setText(priorityText);
 
         String statusText = String.valueOf(investigation.getStatusIdx());
-        if (investigation.getStatusArr() != null && investigation.getStatusIdx() >= 0
-            && investigation.getStatusIdx() < investigation.getStatusArr().length) {
-            statusText += " - " + investigation.getStatusArr()[investigation.getStatusIdx()];
+        if (investigation.getStatusIdx() >= 0 && investigation.getStatusIdx() < Investigation.getStatusArr().size()) {
+            statusText += " - " + investigation.getStatusStr();
         }
         statusLabel.setText(statusText);
     }

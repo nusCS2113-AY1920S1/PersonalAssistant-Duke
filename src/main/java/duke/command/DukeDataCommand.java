@@ -28,7 +28,7 @@ public abstract class DukeDataCommand extends ImpressionCommand {
         List<String> forbiddenSwitches;
 
         // TODO: make static
-        switch(addType) {
+        switch (addType) {
         case "medicine":
             if (getSwitchVal("dose") == null) {
                 throw new DukeException("I need to know the dose of this course of medicine!");

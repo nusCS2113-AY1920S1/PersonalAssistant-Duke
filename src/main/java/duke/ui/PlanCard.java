@@ -47,9 +47,8 @@ public class PlanCard extends TreatmentCard {
         criticalLabel.setText(priorityText);
 
         String statusText = String.valueOf(plan.getStatusIdx());
-        if (plan.getStatusArr() != null && plan.getStatusIdx() >= 0
-            && plan.getStatusIdx() < plan.getStatusArr().length) {
-            statusText += " - " + plan.getStatusArr()[plan.getStatusIdx()];
+        if (plan.getStatusIdx() >= 0 && plan.getStatusIdx() < Plan.getStatusArr().size()) {
+            statusText += " - " + plan.getStatusStr();
         }
         statusLabel.setText(statusText);
     }

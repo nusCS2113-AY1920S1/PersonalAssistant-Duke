@@ -46,12 +46,13 @@ public class MedicineCard extends TreatmentCard {
 
         criticalLabel.setText(priorityText);
 
+        // TODO: holdover from when we intended to implement custom status arrays
         final String[] statuses = {"No Status set", "Request not submitted", "Submitted request",
                                    "Pending", "Ongoing", "Completed"};
         String statusText = String.valueOf(medicine.getStatusIdx());
-        if (medicine.getStatusArr() != null && medicine.getStatusIdx() >= 0
-            && medicine.getStatusIdx() < medicine.getStatusArr().length) {
-            statusText += " - " + medicine.getStatusArr()[medicine.getStatusIdx()];
+        if (medicine.getStatusIdx() >= 0
+            && medicine.getStatusIdx() < Medicine.getStatusArr().size()) {
+            statusText += " - " + medicine.getStatusStr();
         } else if (medicine.getStatusIdx() >= 0 && medicine.getStatusIdx() < statuses.length) {
             statusText += " - Default " + statuses[medicine.getStatusIdx()];
         }

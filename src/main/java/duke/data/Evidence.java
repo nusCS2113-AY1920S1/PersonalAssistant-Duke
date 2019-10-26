@@ -7,11 +7,12 @@ import duke.exception.DukeException;
  * An Evidence object corresponds to the notes of the doctor
  * on a piece of medical evidence as well as
  * an integer between 1-4 representing the priority or significance of the evidence.
- *
+ * <p>
  * Attributes:
  * - name: information on the evidence
  * - impression: the impression object the evidence is tagged to
  * - priority: the priority level of the evidence
+ * </p>
  */
 public abstract class Evidence extends DukeData {
 
