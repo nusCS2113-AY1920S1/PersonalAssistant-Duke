@@ -33,7 +33,7 @@ class PatientWindow extends UiElement<Region> {
     @FXML
     private Label history;
     @FXML
-    private JFXListView<Label> allergiesListView;
+    private Label allergiesLabel;
     @FXML
     private JFXListView<ImpressionCard> impressionsListPanel;
 
@@ -84,15 +84,14 @@ class PatientWindow extends UiElement<Region> {
         address.setText(String.valueOf(patient.getAddress()));
         history.setText(String.valueOf(patient.getHistory()));
 
-        allergiesListView.getItems().clear();
+        StringBuilder allergies = new StringBuilder();
         if (patient.getAllergies() != null) {
             for (String allergy : patient.getAllergies().split(",")) {
-                Label label = new Label(allergy.trim());
-                allergiesListView.getItems().add(label);
+                allergies.append(allergy.trim()).append(System.lineSeparator());
             }
+            allergiesLabel.setText(allergies.toString());
         } else {
-            Label label = new Label("NIL");
-            allergiesListView.getItems().add(label);
+            allergiesLabel.setText("NIL");
         }
 
         impressionsListPanel.getItems().clear();
