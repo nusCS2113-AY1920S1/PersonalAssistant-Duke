@@ -1,7 +1,7 @@
 package seedu.duke.common.command;
 
-import seedu.duke.Duke;
 import seedu.duke.common.model.Model;
+import seedu.duke.ui.UI;
 
 /**
  * InvalidCommand is a specific kind of command indicating the input is not recognised as any known command.
@@ -16,7 +16,7 @@ public class InvalidCommand extends Command {
     @Override
     public boolean execute(Model model) {
         responseMsg = "This is an invalid command. Enter \'help\' for more information.";
-        Duke.getUI().showResponse(responseMsg);
+        UI.getInstance().showResponse(responseMsg);
         return false;
     }
 }

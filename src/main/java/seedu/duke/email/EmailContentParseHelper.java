@@ -1,7 +1,7 @@
 package seedu.duke.email;
 
-import seedu.duke.Duke;
 import seedu.duke.email.entity.Email;
+import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +29,7 @@ public class EmailContentParseHelper {
         for (KeywordPair keywordPair : keywordList) {
             int relevance = keywordInEmail(email, keywordPair);
             if (relevance > 0) {
-                Duke.getUI().showDebug(keywordPair.getKeyword() + ": " + keywordInEmail(email, keywordPair)
+                UI.getInstance().showDebug(keywordPair.getKeyword() + ": " + keywordInEmail(email, keywordPair)
                         + " => " + email.getSubject());
                 email.addTag(keywordPair, relevance);
             }
@@ -175,7 +175,7 @@ public class EmailContentParseHelper {
                 }
             }
         }
-        Duke.getUI().showError(score + " : " + input + " <> " + target);
+        UI.getInstance().showError(score + " : " + input + " <> " + target);
         return score;
     }
 

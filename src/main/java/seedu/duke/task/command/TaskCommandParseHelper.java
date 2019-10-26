@@ -1,12 +1,12 @@
 package seedu.duke.task.command;
 
 import seedu.duke.CommandParseHelper;
-import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.ExitCommand;
 import seedu.duke.common.command.FlipCommand;
 import seedu.duke.common.command.HelpCommand;
 import seedu.duke.common.command.InvalidCommand;
+import seedu.duke.common.model.Model;
 import seedu.duke.task.entity.Task;
 import seedu.duke.ui.UI;
 
@@ -19,7 +19,7 @@ import static seedu.duke.CommandParseHelper.extractTags;
 import static seedu.duke.CommandParseHelper.extractTime;
 
 public class TaskCommandParseHelper {
-    private static UI ui = Duke.getUI();
+    private static UI ui = UI.getInstance();
 
     /**
      * Parses a task command based on user input.
@@ -78,9 +78,8 @@ public class TaskCommandParseHelper {
         try {
             int index = parseTaskIndex(doneCommandMatcher.group("index"));
             return new TaskDoneCommand(index);
-        } catch (NumberFormatException e) {
-            showError("Please enter correct task index: " + doneCommandMatcher.group(
-                    "index"));
+        } catch (TaskParseException e) {
+            showError(e.getMessage());
         }
         return new InvalidCommand();
     }
@@ -94,21 +93,20 @@ public class TaskCommandParseHelper {
             try {
                 int index = parseTaskIndex(deleteCommandMatcher.group("index"));
                 return new TaskDeleteCommand(index);
-            } catch (NumberFormatException e) {
-                showError("Invalid index.\nIndex of range 1 ~ 99999 is "
-                        + "accepted.");
+            } catch (TaskParseException e) {
+                showError(e.getMessage());
             }
         }
         return new InvalidCommand();
     }
 
-    private static int parseTaskIndex(String input) throws NumberFormatException {
+    private static int parseTaskIndex(String input) throws TaskParseException {
         if (input.length() >= 6) {
-            throw new NumberFormatException();
+            throw new TaskParseException("Invalid index. Index should be of range 1 ~ 99999.");
         }
         int index = Integer.parseInt(input) - 1;
-        if (index < 0) {
-            throw new NumberFormatException();
+        if (index < 0 || index >= Model.getInstance().getTaskListLength()) {
+            throw new TaskParseException("Index out of bounds. ");
         }
         return index;
     }
@@ -171,8 +169,8 @@ public class TaskCommandParseHelper {
         try {
             int index = parseTaskIndex(doAfterCommandMatcher.group("index"));
             return new TaskDoAfterCommand(index, description);
-        } catch (NumberFormatException e) {
-            showError("Please enter a valid task index after \'doAfter\'");
+        } catch (TaskParseException e) {
+            showError(e.getMessage());
             return new InvalidCommand();
         }
     }
@@ -203,7 +201,7 @@ public class TaskCommandParseHelper {
             }
             int index = parseTaskIndex(priorityCommandMatcher.group("index"));
             return new TaskSetPriorityCommand(index, priority);
-        } catch (CommandParseHelper.UserInputException e) {
+        } catch (TaskParseException e) {
             showError(e.getMessage());
             return new InvalidCommand();
         } catch (NumberFormatException e) {
@@ -226,8 +224,8 @@ public class TaskCommandParseHelper {
             int index = parseTaskIndex(snoozeCommandMatcher.group("index"));
             int duration = Integer.parseInt(snooze);
             return new TaskSnoozeCommand(index, duration);
-        } catch (NumberFormatException e) {
-            showError("Please enter a valid task index after \'snooze\'");
+        } catch (TaskParseException e) {
+            showError(e.getMessage());
             return new InvalidCommand();
         }
     }
@@ -251,7 +249,7 @@ public class TaskCommandParseHelper {
             showError("Please enter correct task index: " + editMatcher.group(
                     "index"));
             return new InvalidCommand();
-        } catch (CommandParseHelper.UserInputException e) {
+        } catch (CommandParseHelper.CommandParseException e) {
             return new InvalidCommand();
         }
     }
@@ -259,8 +257,8 @@ public class TaskCommandParseHelper {
     private static void addTimeToUpdateCommand(ArrayList<Command.Option> optionList,
                                                ArrayList<TaskUpdateCommand.Attributes> attributes,
                                                ArrayList<String> descriptions)
-            throws CommandParseHelper.UserInputException {
-        if (!CommandParseHelper.extractTime(optionList).equals("")) {
+            throws CommandParseHelper.CommandParseException {
+        if (!"".equals(CommandParseHelper.extractTime(optionList))) {
             descriptions.add(CommandParseHelper.extractTime(optionList));
             attributes.add(TaskUpdateCommand.Attributes.TIME);
         }
@@ -269,7 +267,7 @@ public class TaskCommandParseHelper {
     private static void addDoAfterToUpdateCommand(ArrayList<Command.Option> optionList,
                                                   ArrayList<TaskUpdateCommand.Attributes> attributes,
                                                   ArrayList<String> descriptions)
-            throws CommandParseHelper.UserInputException {
+            throws TaskParseException {
         if (!extractDoAfter(optionList).equals("")) {
             descriptions.add(extractDoAfter(optionList));
             attributes.add(TaskUpdateCommand.Attributes.DO_AFTER);
@@ -279,7 +277,7 @@ public class TaskCommandParseHelper {
     private static void addPriorityToUpdateCommand(ArrayList<Command.Option> optionList,
                                                    ArrayList<TaskUpdateCommand.Attributes> attributes,
                                                    ArrayList<String> descriptions)
-            throws CommandParseHelper.UserInputException {
+            throws TaskParseException {
         if (!extractPriority(optionList).equals("")) {
             descriptions.add(extractPriority(optionList));
             attributes.add(TaskUpdateCommand.Attributes.PRIORITY);
@@ -289,7 +287,7 @@ public class TaskCommandParseHelper {
     private static void addTagsToUpdateCommand(ArrayList<Command.Option> optionList,
                                                ArrayList<TaskUpdateCommand.Attributes> attributes,
                                                ArrayList<String> descriptions)
-            throws CommandParseHelper.UserInputException {
+            throws TaskParseException {
         ArrayList<String> tags = extractTags(optionList);
         if (!tags.isEmpty()) {
             for (String tag : tags) {
@@ -301,14 +299,14 @@ public class TaskCommandParseHelper {
     }
 
     private static String extractDoAfter(ArrayList<Command.Option> optionList)
-            throws CommandParseHelper.UserInputException {
+            throws TaskParseException {
         String doafter = "";
         for (Command.Option option : optionList) {
             if (option.getKey().equals("doafter")) {
                 if (doafter.equals("")) {
                     doafter = option.getValue();
                 } else {
-                    throw new CommandParseHelper.UserInputException("Each task can have only one doafter option");
+                    throw new TaskParseException("Each task can have only one doafter option");
                 }
             }
         }
@@ -316,14 +314,14 @@ public class TaskCommandParseHelper {
     }
 
     private static String extractPriority(ArrayList<Command.Option> optionList)
-            throws CommandParseHelper.UserInputException {
+            throws TaskParseException {
         String priority = "";
         for (Command.Option option : optionList) {
             if (option.getKey().equals("priority")) {
                 if (priority.equals("")) {
                     priority = option.getValue();
                 } else {
-                    throw new CommandParseHelper.UserInputException("Each task can have only one priority");
+                    throw new TaskParseException("Each task can have only one priority");
                 }
             }
         }
@@ -356,7 +354,7 @@ public class TaskCommandParseHelper {
             ArrayList<String> tags = extractTags(optionList);
             String priority = extractPriority(optionList);
             return constructAddCommandByType(input, doAfter, time, tags, priority);
-        } catch (CommandParseHelper.UserInputException e) {
+        } catch (TaskParseException e) {
             showError(e.getMessage());
             return new InvalidCommand();
         }
@@ -372,7 +370,7 @@ public class TaskCommandParseHelper {
         try {
             String timeString = extractTime(optionList);
             return TaskParseNaturalDateHelper.getDate(timeString);
-        } catch (CommandParseHelper.UserInputException e) {
+        } catch (CommandParseHelper.CommandParseException e) {
             return null;
         }
     }
@@ -444,6 +442,18 @@ public class TaskCommandParseHelper {
     private static void showError(String errorMessage) {
         if (ui != null) {
             ui.showError(errorMessage);
+        }
+    }
+
+    private static class TaskParseException extends CommandParseHelper.CommandParseException {
+
+        /**
+         * Instantiates the exception with a message, which is ready to be displayed by the UI.
+         *
+         * @param msg the message that is ready to be displayed by UI.
+         */
+        public TaskParseException(String msg) {
+            super(msg);
         }
     }
 }

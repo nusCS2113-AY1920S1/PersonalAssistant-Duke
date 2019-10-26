@@ -1,9 +1,10 @@
 package seedu.duke.email;
 
 import org.json.JSONException;
-import seedu.duke.Duke;
+import seedu.duke.common.model.Model;
 import seedu.duke.common.network.Http;
 import seedu.duke.email.entity.Email;
+import seedu.duke.ui.UI;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -92,24 +93,26 @@ public class EmailStorage {
      */
     public static void syncWithServer() {
         EmailList serverEmailList = Http.fetchEmail(60);
-        combineServerAndLocalEmailList(serverEmailList);
-        Duke.getModel().updateGuiEmailList();
-        Duke.getModel().updateEmailTagList();
-        saveEmails(Duke.getModel().getEmailList());
+        EmailList updatedEmailList = combineServerAndLocalEmailList(serverEmailList);
+        Model.getInstance().setEmailList(updatedEmailList);
+        saveEmails(updatedEmailList);
     }
 
-    private static void combineServerAndLocalEmailList(EmailList serverEmailList) {
+    private static EmailList combineServerAndLocalEmailList(EmailList serverEmailList) {
+        EmailList modelEmailList = Model.getInstance().getEmailList();
         for (Email serverEmail : serverEmailList) {
             if (!emailRepeated(serverEmail)) {
                 allKeywordInEmail(serverEmail);
-                Duke.getModel().getEmailList().add(serverEmail);
+                modelEmailList.add(serverEmail);
             }
         }
+        return modelEmailList;
     }
 
     private static boolean emailRepeated(Email serverEmail) {
         boolean exist = false;
-        for (Email localEmail : Duke.getModel().getEmailList()) {
+        EmailList modelEmailList = Model.getInstance().getEmailList();
+        for (Email localEmail : modelEmailList) {
             if (localEmail.getSubject().equals(serverEmail.getSubject())
                     && serverEmail.getReceivedDateTime().equals(localEmail.getReceivedDateTime())) {
                 exist = true;
@@ -132,9 +135,9 @@ public class EmailStorage {
             saveEmailListToFolder(emailList);
         } catch (IOException e) {
             e.printStackTrace();
-            Duke.getUI().showError("Write to output file IO exception!");
+            UI.getInstance().showError("Write to output file IO exception!");
         } catch (JSONException e) {
-            Duke.getUI().showError("Email index formatting exception!");
+            UI.getInstance().showError("Email index formatting exception!");
         }
     }
 
@@ -200,16 +203,16 @@ public class EmailStorage {
                 String input = scanner.nextLine();
                 readEmailWithIndexString(emailList, input);
             }
-            Duke.getUI().showMessage("Saved email file successfully loaded...");
+            UI.getInstance().showMessage("Saved email file successfully loaded...");
             indexIn.close();
         } catch (FileNotFoundException e) {
             // It is acceptable if there is no save file. Empty list returned
-            Duke.getUI().showMessage("Email file not found. Empty email list is used.");
+            UI.getInstance().showMessage("Email file not found. Empty email list is used.");
             return new EmailList();
         } catch (IOException e) {
-            Duke.getUI().showError("Read save file IO exception");
+            UI.getInstance().showError("Read save file IO exception");
         } catch (EmailFormatParseHelper.EmailParsingException e) {
-            Duke.getUI().showError("Email save file is in wrong format");
+            UI.getInstance().showError("Email save file is in wrong format");
         }
         return emailList;
     }
@@ -229,7 +232,7 @@ public class EmailStorage {
         Email fileEmail = readEmailFromFolder(indexEmail, filename);
         emailList.add(fileEmail);
         //} catch (FileNotFoundException e) {
-        //    Duke.getUI().showError("An email file not found.");
+        //    UI.getInstance().showError("An email file not found.");
         //}
     }
 
@@ -275,7 +278,7 @@ public class EmailStorage {
             out.write(token.getBytes());
             out.close();
         } catch (IOException e) {
-            Duke.getUI().showError("Save refresh token failed");
+            UI.getInstance().showError("Save refresh token failed");
         }
     }
 
@@ -289,10 +292,10 @@ public class EmailStorage {
             prepareFolder();
             return readRefreshTokenContent();
         } catch (FileNotFoundException e) {
-            Duke.getUI().showError("User info file not found");
+            UI.getInstance().showError("User info file not found");
             return "";
         } catch (IOException e) {
-            Duke.getUI().showError("Read user info file IO Exception");
+            UI.getInstance().showError("Read user info file IO Exception");
             return "";
         }
     }

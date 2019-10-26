@@ -39,8 +39,8 @@ public class EmailList extends ArrayList<Email> {
      *
      * @param index of the email to be shown in the email list.
      * @return a string to inform the user that the particular email is being shown in browser.
-     * @throws CommandParseHelper.UserInputException thrown when index parsing failed or out of range
-     * @throws IOException                           if fails to load the filepath or open the browser.
+     * @throws CommandParseHelper.CommandParseException thrown when index parsing failed or out of range
+     * @throws IOException                              if fails to load the filepath or open the browser.
      */
     public String[] show(int index) {
         Email email = this.get(index);

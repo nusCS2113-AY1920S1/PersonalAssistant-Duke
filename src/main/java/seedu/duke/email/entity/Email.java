@@ -3,10 +3,10 @@ package seedu.duke.email.entity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import seedu.duke.Duke;
 import seedu.duke.email.EmailContentParseHelper;
 import seedu.duke.email.EmailFormatParseHelper;
 import seedu.duke.email.EmailStorage;
+import seedu.duke.ui.UI;
 
 import java.io.File;
 import java.math.BigInteger;
@@ -162,7 +162,7 @@ public class Email {
     private String addHighlightToExpressions(String emailContent, ArrayList<String> expressions) {
         String content = emailContent;
         for (String expression : expressions) {
-            //Duke.getUI().showDebug(expression);
+            //UI.getInstance().showDebug(expression);
             Pattern colorPattern = Pattern.compile("(" + expression + ")", Pattern.CASE_INSENSITIVE);
             Matcher colorMatcher = colorPattern.matcher(content);
             content = colorMatcher.replaceAll("<mark style=\"color:black;background-color:yellow\">"
@@ -252,7 +252,7 @@ public class Email {
             String hex = String.format("%064x", new BigInteger(1, digest));
             return hex;
         } catch (NoSuchAlgorithmException e) {
-            Duke.getUI().showError("Hashing email name error");
+            UI.getInstance().showError("Hashing email name error");
         }
         return input;
     }

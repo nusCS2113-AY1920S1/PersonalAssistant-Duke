@@ -274,7 +274,7 @@ public class TaskCommandParseHelperTest {
             fail(e.getMessage());
         } catch (IllegalAccessException e) {
             fail("No Access");
-        } catch (CommandParseHelper.UserInputException e) {
+        } catch (CommandParseHelper.CommandParseException e) {
             e.printStackTrace();
         }
     }
@@ -304,7 +304,7 @@ public class TaskCommandParseHelperTest {
             fail("No such class");
         } catch (NoSuchMethodException e) {
             fail("No such method");
-        } catch (InvocationTargetException | CommandParseHelper.UserInputException e) {
+        } catch (InvocationTargetException | CommandParseHelper.CommandParseException e) {
             fail(e.getMessage());
         } catch (IllegalAccessException e) {
             fail("No Access");

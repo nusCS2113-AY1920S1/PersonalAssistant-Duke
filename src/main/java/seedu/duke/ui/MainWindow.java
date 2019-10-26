@@ -25,7 +25,6 @@ import javafx.stage.Popup;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.duke.CommandParseHelper;
-import seedu.duke.Duke;
 
 import java.util.ArrayList;
 
@@ -86,7 +85,7 @@ public class MainWindow extends AnchorPane {
         //updateEmailsList();
 
         userInputHandler = new UserInputHandler(userInput, sendButton);
-        setInputPrefix();
+        //setInputPrefix();
 
         // disable webView so that userInput can get focus
         webView.setDisable(true);
@@ -180,8 +179,8 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         webView.setDisable(false);
         String input = userInput.getText();
-        Duke.getUI().respond(input);
-        Duke.getUI().syncWithModel();
+        UI.getInstance().respond(input);
+        UI.getInstance().syncWithModel();
         //updateTasksList();
         //updateEmailsList();
         setInputPrefix();
@@ -198,12 +197,12 @@ public class MainWindow extends AnchorPane {
     }
 
     private void updateHtml() {
-        webEngine.loadContent(Duke.getUI().getEmailContent());
+        webEngine.loadContent(UI.getInstance().getEmailContent());
         showHtml();
     }
 
     private void exit() {
-        Duke.getUI().exit();
+        UI.getInstance().exit();
     }
 
     /**
@@ -276,8 +275,8 @@ public class MainWindow extends AnchorPane {
      * To begin the userInput textfield with a prefix either as "task" or "email". The prefix is
      * non-deletable, enter "flip" to toggle between them.
      */
-    private void setInputPrefix() {
-        String prefix = Duke.getUI().getPrefix();
+    public void setInputPrefix() {
+        String prefix = UI.getInstance().getPrefix();
         userInputHandler.setUserInputText(prefix);
     }
 

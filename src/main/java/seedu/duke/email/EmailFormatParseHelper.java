@@ -28,7 +28,7 @@ public class EmailFormatParseHelper {
      * @throws EmailParsingException the exception of the failure of the response parsing
      */
     public static EmailList parseFetchResponse(String response) throws EmailParsingException {
-        //Duke.getUI().showDebug(response);
+        //UI.getInstance().showDebug(response);
         EmailList emailList = new EmailList();
         try {
             JSONObject responseJson = new JSONObject(response);

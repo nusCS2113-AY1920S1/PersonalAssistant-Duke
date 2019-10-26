@@ -1,6 +1,5 @@
 package seedu.duke.task.command;
 
-import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
 import seedu.duke.task.TaskList;
@@ -8,6 +7,7 @@ import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
 import seedu.duke.task.entity.ToDo;
+import seedu.duke.ui.UI;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -100,6 +100,6 @@ public class TaskAddCommand extends Command {
         msg += "Now you have " + taskList.size() + " task(s) in the list. ";
         msg += clashMsg;
         responseMsg = msg;
-        Duke.getUI().showResponse(msg);
+        UI.getInstance().showResponse(msg);
     }
 }

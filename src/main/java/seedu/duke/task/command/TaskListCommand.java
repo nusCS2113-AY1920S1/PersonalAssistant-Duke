@@ -1,9 +1,9 @@
 package seedu.duke.task.command;
 
-import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
 import seedu.duke.task.TaskList;
+import seedu.duke.ui.UI;
 
 /**
  * ListCommand is a specific kind of command used to display all task in a task list.
@@ -27,7 +27,7 @@ public class TaskListCommand extends Command {
         TaskList taskList = model.getTaskList();
         if (!silent) {
             responseMsg = taskList.toString();
-            Duke.getUI().showResponse(responseMsg);
+            UI.getInstance().showResponse(responseMsg);
         }
         return true;
     }

@@ -1,6 +1,6 @@
 package seedu.duke.task.entity;
 
-import seedu.duke.Duke;
+import seedu.duke.ui.UI;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -148,7 +148,7 @@ public class Deadline extends Task {
                 }
             }
         } catch (Exception e) {
-            Duke.getUI().showError("Error when finding clashes of tasks.");
+            UI.getInstance().showError("Error when finding clashes of tasks.");
         }
         return false;
     }

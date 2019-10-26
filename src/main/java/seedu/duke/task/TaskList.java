@@ -1,11 +1,11 @@
 package seedu.duke.task;
 
 import seedu.duke.CommandParseHelper;
-import seedu.duke.Duke;
 import seedu.duke.task.command.TaskParseNaturalDateHelper;
 import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
+import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
 
@@ -74,12 +74,12 @@ public class TaskList extends ArrayList<Task> {
      *
      * @param index the target index of which the task is to be marked as done
      * @return a message that is ready to be displayed by UI
-     * @throws CommandParseHelper.UserInputException an exception thrown when index parsing failed or out of
-     *                                               range
+     * @throws CommandParseHelper.CommandParseException an exception thrown when index parsing failed or out
+     *                                                  of range
      */
-    public String markDone(int index) throws CommandParseHelper.UserInputException {
+    public String markDone(int index) throws CommandParseHelper.CommandParseException {
         if (index < 0 || index >= this.size()) {
-            throw new CommandParseHelper.UserInputException("Invalid Index");
+            throw new CommandParseHelper.CommandParseException("Invalid Index");
         }
         this.get(index).markDone();
         return constructDoneMessage(index);
@@ -98,10 +98,10 @@ public class TaskList extends ArrayList<Task> {
      *
      * @param index the target index of which the task is to be deleted
      * @return a message that is ready to be displayed by UI
-     * @throws CommandParseHelper.UserInputException an exception thrown when index parsing failed or out of
-     *                                               range
+     * @throws CommandParseHelper.CommandParseException an exception thrown when index parsing failed or out
+     *                                                  of range
      */
-    public String delete(int index) throws CommandParseHelper.UserInputException {
+    public String delete(int index) throws CommandParseHelper.CommandParseException {
         validateIndex(index);
         Task deleted = this.remove(index);
         return constructDeleteMessage(deleted);
@@ -136,7 +136,7 @@ public class TaskList extends ArrayList<Task> {
      * @param index of the task in taskList.
      * @return string msg.
      */
-    public String snoozed(int index, int duration) throws CommandParseHelper.UserInputException {
+    public String snoozed(int index, int duration) throws CommandParseHelper.CommandParseException {
         validateIndex(index);
         Task task = this.get(index);
         return constructSnoozeMessage(task, duration, index);
@@ -147,7 +147,7 @@ public class TaskList extends ArrayList<Task> {
             task.snooze(duration);
             return "Noted. I've snoozed task " + (index + 1) + " by " + duration + " days";
         } else {
-            Duke.getUI().showError("This task cannot be snoozed");
+            UI.getInstance().showError("This task cannot be snoozed");
             return "This task cannot be snoozed";
         }
     }
@@ -158,9 +158,9 @@ public class TaskList extends ArrayList<Task> {
      * @param index       Position of task in list
      * @param description Name of task
      * @return confirmation message that do after task has been added
-     * @throws CommandParseHelper.UserInputException when input is in wrong format
+     * @throws CommandParseHelper.CommandParseException when input is in wrong format
      */
-    public String setDoAfter(int index, String description) throws CommandParseHelper.UserInputException {
+    public String setDoAfter(int index, String description) throws CommandParseHelper.CommandParseException {
         validateIndex(index);
         Task task = this.get(index);
         task.setDoAfterDescription(description);
@@ -177,15 +177,15 @@ public class TaskList extends ArrayList<Task> {
      * @param index       Position of task in list
      * @param description Name of task
      * @return confirmation message that do after task has been added
-     * @throws CommandParseHelper.UserInputException when input is in wrong format
+     * @throws CommandParseHelper.CommandParseException when input is in wrong format
      */
-    public String setTime(int index, String description) throws CommandParseHelper.UserInputException {
+    public String setTime(int index, String description) throws CommandParseHelper.CommandParseException {
         validateIndex(index);
         setTimeByType(description, this.get(index));
         return constructSetTimeMessage(index, description);
     }
 
-    private void setTimeByType(String description, Task task) throws CommandParseHelper.UserInputException {
+    private void setTimeByType(String description, Task task) throws CommandParseHelper.CommandParseException {
         if (task.getTaskType() == Task.TaskType.Deadline) {
             ((Deadline) task).setTime(TaskParseNaturalDateHelper.getDate(description));
         } else if (task.getTaskType() == Task.TaskType.Event) {
@@ -216,18 +216,18 @@ public class TaskList extends ArrayList<Task> {
      * @param index    Position of task in list
      * @param priority Priority level of task
      * @return Confirmation message that priority level has been added
-     * @throws CommandParseHelper.UserInputException when input is in wrong format
+     * @throws CommandParseHelper.CommandParseException when input is in wrong format
      */
-    public String setPriority(int index, String priority) throws CommandParseHelper.UserInputException {
+    public String setPriority(int index, String priority) throws CommandParseHelper.CommandParseException {
         validateIndex(index);
         Task task = this.get(index);
         task.setPriorityTo(priority);
         return constructSetPriorityMessage(priority, index + 1);
     }
 
-    private void validateIndex(int index) throws CommandParseHelper.UserInputException {
+    private void validateIndex(int index) throws CommandParseHelper.CommandParseException {
         if (index < 0 || index >= this.size()) {
-            throw new CommandParseHelper.UserInputException("Invalid index");
+            throw new CommandParseHelper.CommandParseException("Invalid index");
         }
     }
 
@@ -241,9 +241,9 @@ public class TaskList extends ArrayList<Task> {
      * @param index Position of task in list
      * @param tags  Priority level of task
      * @return Confirmation message that tags have been added
-     * @throws CommandParseHelper.UserInputException when input is in wrong format
+     * @throws CommandParseHelper.CommandParseException when input is in wrong format
      */
-    public String setTags(int index, ArrayList<String> tags) throws CommandParseHelper.UserInputException {
+    public String setTags(int index, ArrayList<String> tags) throws CommandParseHelper.CommandParseException {
         validateIndex(index);
         Task task = this.get(index);
         task.setTags(tags);

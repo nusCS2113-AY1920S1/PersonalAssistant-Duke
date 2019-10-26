@@ -1,9 +1,9 @@
 package seedu.duke.task.command;
 
-import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
 import seedu.duke.task.TaskList;
+import seedu.duke.ui.UI;
 
 public class TaskReminderCommand extends Command {
     private int dayLimit = 3; //default limit is 3 days
@@ -36,7 +36,7 @@ public class TaskReminderCommand extends Command {
         TaskList nearTasks = taskList.findNear(dayLimit);
         responseMsg = constructReminderMessage(nearTasks);
         if (!silent) {
-            Duke.getUI().showResponse(responseMsg);
+            UI.getInstance().showResponse(responseMsg);
         }
         return true;
     }
