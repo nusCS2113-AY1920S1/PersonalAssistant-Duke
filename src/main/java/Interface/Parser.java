@@ -72,10 +72,15 @@ public class Parser {
                             "For example: list todo");
                 }
             } else if(fullCommand.startsWith("Week")) {
-                fullCommand = fullCommand.replaceFirst("Week", "");
-                fullCommand = fullCommand.trim();
-                Integer week = Integer.parseInt(fullCommand);
-                return new WeekCommand(week);
+                String week = fullCommand.replaceFirst("Week", "");
+                week.trim();
+//                try{
+//                    Integer digit = Integer.parseInt(week);
+//                    if(digit < 1 || digit > 13 ) throw new DukeException("Invalid week command\n" + "Format: Week 'x', where 'x' is a digit." );
+//                } catch (NumberFormatException e) {
+//                    throw new DukeException("Invalid week command\n" + "Format: Week 'x', where 'x' is a digit." );
+//                }
+                return new WeekCommand(fullCommand.trim());
             } else if(fullCommand.trim().startsWith("done/e")){
                 try { //add/e module_code description /at date from time to time
                     String activity = fullCommand.replaceFirst("done/e", "");

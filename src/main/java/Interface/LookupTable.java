@@ -20,7 +20,7 @@ public class LookupTable {
         // InputStream is = getClass().getResourceAsStream("Lookup.txt");
          //InputStreamReader isr = new InputStreamReader(is);
          //BufferedReader reader = new BufferedReader(isr);
-         BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\data\\Lookup.txt"));
+         BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") + File.separator+"data" + File.separator+ "Lookup.txt"));
 
         while ((line = reader.readLine()) != null)
         {
