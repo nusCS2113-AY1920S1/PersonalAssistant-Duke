@@ -176,12 +176,22 @@ public class ResourceList {
     }
 
     public int generateReservationId() {
-        int reservationId = 0;
+        ArrayList<Integer> coveredIds = new ArrayList<Integer>();
         for (int i = 0; i < size(); i++) {
             Resource thisResource = resources.get(i);
-            reservationId += thisResource.getReservations().size();
+            ReservationList thisResourceReservations = thisResource.getReservations();
+            for (int j = 0; j < thisResourceReservations.size(); j++) {
+                if (!coveredIds.contains(thisResourceReservations.getReservationByIndex(j).getReservationId())) {
+                    coveredIds.add(thisResourceReservations.getReservationByIndex(j).getReservationId());
+                }
+            }
         }
-        return reservationId;
+        for (int k = 0; k < coveredIds.size(); k++) {
+            if (!coveredIds.contains(k)) {
+                return k;
+            }
+        }
+        return coveredIds.size();
     }
 
     public Date stringToDate(String stringDate) throws ParseException {
