@@ -3,6 +3,7 @@ package seedu.duke.task.command;
 import seedu.duke.CommandParseHelper;
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
+import seedu.duke.common.model.Model;
 import seedu.duke.task.TaskList;
 
 /**
@@ -30,9 +31,9 @@ public class TaskSetPriorityCommand extends Command {
      * @return true
      */
     @Override
-    public boolean execute() {
+    public boolean execute(Model model) {
         try {
-            TaskList taskList = Duke.getModel().getTaskList();
+            TaskList taskList = model.getTaskList();
             String msg = taskList.setPriority(index, priorityLevel);
             if (!silent) {
                 Duke.getUI().showResponse(msg);

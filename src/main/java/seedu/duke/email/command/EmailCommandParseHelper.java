@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class EmailCommandParser {
+public class EmailCommandParseHelper {
     private static UI ui = Duke.getUI();
 
     /**
@@ -23,8 +23,8 @@ public class EmailCommandParser {
      *
      * @param rawInput user/file input ready to be parsed.
      * @return an email-relevant Command.
-     * @throws CommandParseHelper.UserInputException an exception when the parsing is failed, probably due to the
-     *                                          wrong format of input
+     * @throws CommandParseHelper.UserInputException an exception when the parsing is failed, probably due to
+     *                                               the wrong format of input
      */
     public static Command parseEmailCommand(String rawInput, ArrayList<Command.Option> optionList)
             throws CommandParseHelper.UserInputException {
@@ -85,9 +85,7 @@ public class EmailCommandParser {
         Pattern showCommandPattern = Pattern.compile("^show\\s+(?<index>\\d+)\\s*$");
         Matcher showCommandMatcher = showCommandPattern.matcher(input);
         if (!showCommandMatcher.matches()) {
-            if (ui != null) {
-                ui.showError("Please enter a valid index of task after \'show\'");
-            }
+            showError("Please enter a valid index of task after \'show\'");
             return new InvalidCommand();
         }
         try {
@@ -103,9 +101,7 @@ public class EmailCommandParser {
         Pattern emailTagCommandPattern = Pattern.compile("^update\\s+(?<index>\\d+)\\s*$");
         Matcher emailTagCommandMatcher = emailTagCommandPattern.matcher(input);
         if (!emailTagCommandMatcher.matches()) {
-            if (ui != null) {
-                ui.showError("Please enter a valid email index after \'update\'");
-            }
+            showError("Please enter a valid email index after \'update\'");
             return new InvalidCommand();
         }
         ArrayList<String> tags = CommandParseHelper.extractTags(optionList);
@@ -122,9 +118,7 @@ public class EmailCommandParser {
 
     private static boolean tagsNotEmpty(ArrayList<String> tags) {
         if (tags.size() == 0) {
-            if (ui != null) {
-                ui.showError("Please enter a tag name after \'-tag\' option");
-            }
+            showError("Please enter a tag name after \'-tag\' option");
             return false;
         }
         return true;
@@ -132,10 +126,20 @@ public class EmailCommandParser {
 
     private static int parseEmailIndex(String input) throws CommandParseHelper.UserInputException {
         EmailList emailList = Duke.getModel().getEmailList();
+        if (input.length() >= 6) {
+            throw new CommandParseHelper.UserInputException("Invalid index.\nIndex of range 1 ~ 99999 is "
+                    + "accepted.");
+        }
         int index = Integer.parseInt(input) - 1;
         if (index < 0 || index >= emailList.size()) {
             throw new CommandParseHelper.UserInputException("Invalid index");
         }
         return index;
+    }
+
+    private static void showError(String msg) {
+        if (ui != null) {
+            ui.showError(msg);
+        }
     }
 }

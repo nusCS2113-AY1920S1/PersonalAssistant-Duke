@@ -74,7 +74,8 @@ public class TaskList extends ArrayList<Task> {
      *
      * @param index the target index of which the task is to be marked as done
      * @return a message that is ready to be displayed by UI
-     * @throws CommandParseHelper.UserInputException an exception thrown when index parsing failed or out of range
+     * @throws CommandParseHelper.UserInputException an exception thrown when index parsing failed or out of
+     *                                               range
      */
     public String markDone(int index) throws CommandParseHelper.UserInputException {
         if (index < 0 || index >= this.size()) {
@@ -97,7 +98,8 @@ public class TaskList extends ArrayList<Task> {
      *
      * @param index the target index of which the task is to be deleted
      * @return a message that is ready to be displayed by UI
-     * @throws CommandParseHelper.UserInputException an exception thrown when index parsing failed or out of range
+     * @throws CommandParseHelper.UserInputException an exception thrown when index parsing failed or out of
+     *                                               range
      */
     public String delete(int index) throws CommandParseHelper.UserInputException {
         validateIndex(index);

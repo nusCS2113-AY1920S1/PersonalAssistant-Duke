@@ -10,7 +10,6 @@ import seedu.duke.email.EmailStorage;
 
 import java.io.File;
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
@@ -246,7 +245,8 @@ public class Email {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
 
             // Change this to UTF-16 if needed
-            md.update(input.getBytes(StandardCharsets.UTF_8));
+            //md.update(input.getBytes(StandardCharsets.UTF_16));
+            md.update(input.getBytes());
             byte[] digest = md.digest();
 
             String hex = String.format("%064x", new BigInteger(1, digest));

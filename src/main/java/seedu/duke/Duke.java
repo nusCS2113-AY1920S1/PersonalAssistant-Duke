@@ -21,6 +21,10 @@ public class Duke {
     private static Model model = new Model();
     private static Duke duke;
 
+    private Duke() {
+        run();
+    }
+
     /**
      * Gets new instance.
      *
@@ -31,14 +35,6 @@ public class Duke {
             duke = new Duke();
         }
         return duke;
-    }
-
-    /**
-     * Main function of the GUI program.
-     */
-    public void run() {
-        initModel();
-        Http.startAuthProcess();
     }
 
     public static UI getUI() {
@@ -58,6 +54,14 @@ public class Duke {
         PauseTransition delay = new PauseTransition(Duration.seconds(1));
         delay.setOnFinished(event -> Platform.exit());
         delay.play();
+    }
+
+    /**
+     * Main function of the GUI program.
+     */
+    private void run() {
+        initModel();
+        Http.startAuthProcess();
     }
 
     private void initModel() {

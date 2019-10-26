@@ -192,9 +192,7 @@ public class EmailStorage {
         EmailList emailList = new EmailList();
         try {
             prepareFolder();
-            if (indexDir.equals("")) {
-                indexDir = getEmailIndexDir();
-            }
+            indexDir = assignIndexDirIfNotExist(indexDir);
             File indexFile = new File(indexDir);
             FileInputStream indexIn = new FileInputStream(indexFile);
             Scanner scanner = new Scanner(indexIn);
@@ -206,7 +204,8 @@ public class EmailStorage {
             indexIn.close();
         } catch (FileNotFoundException e) {
             // It is acceptable if there is no save file. Empty list returned
-            return emailList;
+            Duke.getUI().showMessage("Email file not found. Empty email list is used.");
+            return new EmailList();
         } catch (IOException e) {
             Duke.getUI().showError("Read save file IO exception");
         } catch (EmailFormatParseHelper.EmailParsingException e) {
@@ -215,12 +214,23 @@ public class EmailStorage {
         return emailList;
     }
 
+    private static String assignIndexDirIfNotExist(String indexDir) {
+        if ("".equals(indexDir)) {
+            return getEmailIndexDir();
+        }
+        return indexDir;
+    }
+
     private static void readEmailWithIndexString(EmailList emailList, String input)
             throws EmailFormatParseHelper.EmailParsingException, FileNotFoundException {
         Email indexEmail = EmailFormatParseHelper.parseIndexJson(input);
         String filename = indexEmail.toFilename();
+        //try {
         Email fileEmail = readEmailFromFolder(indexEmail, filename);
         emailList.add(fileEmail);
+        //} catch (FileNotFoundException e) {
+        //    Duke.getUI().showError("An email file not found.");
+        //}
     }
 
     private static Email readEmailFromFolder(Email indexEmail, String filename)
@@ -241,6 +251,7 @@ public class EmailStorage {
 
     private static String readEmailContentFromFolder(String filename) throws FileNotFoundException {
         String fileDir = getFolderDir() + filename;
+        System.out.println(fileDir);
         File emailFile = new File(fileDir);
         FileInputStream emailIn = new FileInputStream(emailFile);
         Scanner emailScanner = new Scanner(emailIn);
