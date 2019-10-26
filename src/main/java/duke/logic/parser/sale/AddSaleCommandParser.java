@@ -4,9 +4,7 @@ import duke.logic.command.sale.AddSaleCommand;
 import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.commons.ArgumentTokenizer;
 import duke.logic.parser.commons.Parser;
-import duke.logic.parser.commons.TimeParser;
 import duke.logic.parser.exceptions.ParseException;
-import duke.model.sale.Sale;
 
 import static duke.logic.parser.commons.CliSyntax.*;
 import static duke.logic.parser.sale.SaleParserUtil.createDescriptor;

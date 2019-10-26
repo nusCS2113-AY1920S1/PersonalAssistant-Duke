@@ -24,10 +24,11 @@ public class Sale {
         requireAllNonNull(description, saleDate, value, remarks);
         this.id = System.currentTimeMillis();
         this.description = description;
-        this.value = value;
         this.isSpend = isSpend;
         if (isSpend && value > 0.0) {
-            value = -value;
+            this.value = -value;
+        } else {
+            this.value = value;
         }
         this.saleDate = saleDate;
         this.remarks = remarks;
@@ -45,7 +46,9 @@ public class Sale {
         this.value = value;
         this.isSpend = isSpend;
         if (isSpend && value > 0.0) {
-            value = -value;
+            this.value = -value;
+        } else {
+            this.value = value;
         }
         this.saleDate = saleDate;
         this.remarks = remarks;
