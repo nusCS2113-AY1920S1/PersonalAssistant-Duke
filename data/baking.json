@@ -1,6 +1,67 @@
 {
-  "orders" : [ ],
-  "products" : [ ],
+  "orders" : [ {
+    "id" : 1572010615413,
+    "creationDate" : "2019-10-25T13:36:55.414+0000",
+    "name" : "customer",
+    "contact" : "N/A",
+    "remarks" : "N/A",
+    "deliveryDate" : "2019-10-25T13:15:16.096+0000",
+    "status" : "ACTIVE",
+    "total" : 0.0,
+    "items" : [ ]
+  } ],
+  "products" : [ {
+    "productName" : "-ingt",
+    "ingredientItems" : [ ],
+    "ingredientCost" : 0.0,
+    "retailPrice" : 0.0,
+    "status" : "ACTIVE"
+  }, {
+    "productName" : "ingredient",
+    "ingredientItems" : [ ],
+    "ingredientCost" : 4.0,
+    "retailPrice" : 5.0,
+    "status" : "ARCHIVE"
+  }, {
+    "productName" : "liu",
+    "ingredientItems" : [ {
+      "ingredient" : {
+        "name" : "Name",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
+      "amount" : 0.0
+    } ],
+    "ingredientCost" : 0.0,
+    "retailPrice" : 0.0,
+    "status" : "ACTIVE"
+  }, {
+    "productName" : "Shiru",
+    "ingredientItems" : [ {
+      "ingredient" : {
+        "name" : "Name",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
+      "amount" : 1.0
+    } ],
+    "ingredientCost" : 0.0,
+    "retailPrice" : 0.0,
+    "status" : "ACTIVE"
+  }, {
+    "productName" : "Shiruru",
+    "ingredientItems" : [ {
+      "ingredient" : {
+        "name" : "1",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
+      "amount" : 0.0
+    } ],
+    "ingredientCost" : 0.0,
+    "retailPrice" : 0.0,
+    "status" : "ACTIVE"
+  } ],
   "inventory" : [ {
     "ingredient" : {
       "name" : "Coca cola",
@@ -29,6 +90,41 @@
       "remarks" : ""
     },
     "amount" : 10.0
+  }, {
+    "ingredient" : {
+      "name" : "Cheese",
+      "unitPrice" : 0.0,
+      "remarks" : "-"
+    },
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "Chicken",
+      "unitPrice" : 0.0,
+      "remarks" : "-"
+    },
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "Hello",
+      "unitPrice" : 0.0,
+      "remarks" : "-"
+    },
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "Name",
+      "unitPrice" : 0.0,
+      "remarks" : "-"
+    },
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "1",
+      "unitPrice" : 0.0,
+      "remarks" : "-"
+    },
+    "amount" : 0.0
   } ],
   "shoppingList" : [ {
     "ingredient" : {

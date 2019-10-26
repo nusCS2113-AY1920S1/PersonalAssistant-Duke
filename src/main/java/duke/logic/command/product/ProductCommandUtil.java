@@ -33,7 +33,7 @@ public class ProductCommandUtil {
      * containing the ingredient to the model.
      * @return true if new Ingredient is added to the inventory
      */
-    public static void verifyNewIngredient(Model model, Product product) {
+    public static void verifyNewIngredients(Model model, Product product) {
         IngredientItemList ingredients = product.getIngredients();
         for(Item<Ingredient> ingredient : ingredients) {
             if (!model.hasIngredient(ingredient.getItem())) {

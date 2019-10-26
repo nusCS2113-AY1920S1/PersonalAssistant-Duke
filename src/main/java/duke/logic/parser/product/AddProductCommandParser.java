@@ -8,6 +8,8 @@ import duke.logic.parser.exceptions.ParseException;
 import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
 
+import java.util.Optional;
+
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_NAME;
@@ -16,7 +18,7 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_STATUS;
 
 public class AddProductCommandParser implements Parser<AddProductCommand> {
 
-    public static final String MESSAGE_MISSING_PRODUCT_NAME = "Product Name must be present";
+    public static final String MESSAGE_MISSING_PRODUCT_NAME = "Product name must be present";
 
     private ArgumentMultimap map;
 
@@ -39,11 +41,17 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
     /** Gets data from user input */
     private Product getProductFromMap() {
         Product product = new Product();
+
         if (map.getValue(PREFIX_PRODUCT_NAME).isPresent()) {
+            String name = map.getValue(PREFIX_PRODUCT_NAME).get();
+            if (name.isEmpty() || name.isBlank()) {
+                throw new ParseException(MESSAGE_MISSING_PRODUCT_NAME);
+            }
             product.setProductName(map.getValue(PREFIX_PRODUCT_NAME).get());
         } else {
             throw new ParseException(MESSAGE_MISSING_PRODUCT_NAME);
         }
+
         if (map.getValue(PREFIX_PRODUCT_RETAIL_PRICE).isPresent()) {
             product.setRetailPrice(Double.parseDouble(map.getValue(PREFIX_PRODUCT_RETAIL_PRICE).get()));
         }

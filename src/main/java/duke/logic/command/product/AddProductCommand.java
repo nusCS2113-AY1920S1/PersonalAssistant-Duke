@@ -45,7 +45,7 @@ public class AddProductCommand extends ProductCommand {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PRODUCT, toAdd.getProductName()));
         }
 
-        ProductCommandUtil.verifyNewIngredient(model, toAdd);
+        ProductCommandUtil.verifyNewIngredients(model, toAdd);
         model.addProduct(toAdd);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getProductName()),

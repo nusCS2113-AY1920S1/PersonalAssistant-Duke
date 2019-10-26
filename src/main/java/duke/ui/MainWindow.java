@@ -146,16 +146,14 @@ public class MainWindow extends UiPart<Stage> {
             keyEvent.consume();
             if (historyIndex > 0) {
                 historyIndex--;
-                userInput.setText(inputHistory.get(historyIndex));
-                userInput.setFocusTraversable(false);
+                loadText(historyIndex);
             }
             break;
         case DOWN:
             keyEvent.consume();
             if (historyIndex < (inputHistory.size() - 1)) {
                 historyIndex++;
-                userInput.setText(inputHistory.get(historyIndex));
-                userInput.setFocusTraversable(false);
+                loadText(historyIndex);
             }
             break;
         case TAB:
@@ -164,11 +162,19 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case ESCAPE:
             keyEvent.consume();
+            popUp.setVisible(false);
             break;
         default:
             // let JavaFx handle the keypress
             break;
         }
+    }
+
+    private void loadText(int index) {
+        String history = inputHistory.get(historyIndex);
+        userInput.setText(history);
+        userInput.setFocusTraversable(false);
+        userInput.positionCaret(history.length());
     }
 
     //@@author liujiajun
@@ -253,9 +259,9 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case PRODUCT:
             if (commandResult instanceof ShowProductCommandResult) {
-                showProductPage(((ShowProductCommandResult) commandResult).getIndex());
+                showProductDetail(((ShowProductCommandResult) commandResult).getIndex());
             } else {
-                showProductPage();
+                showProductList();
             }
             break;
         case INVENTORY:
@@ -296,7 +302,12 @@ public class MainWindow extends UiPart<Stage> {
         currentPage.setText("Products");
     }
 
-    private void showProductPage(Index productIndex) {
+    private void showProductList() {
+        showProductPage();
+        productPage.showProductList();
+    }
+
+    private void showProductDetail(Index productIndex) {
         showProductPage();
         productPage.showProductDetail(productIndex);
     }

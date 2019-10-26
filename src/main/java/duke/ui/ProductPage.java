@@ -25,8 +25,6 @@ public class ProductPage extends UiPart<AnchorPane> {
     private final Logger logger = LogsCenter.getLogger(ProductPage.class);
 
     @FXML
-    private Label tableTitle;
-    @FXML
     private SplitPane splitPane;
     @FXML
     private AnchorPane listPane;
@@ -43,7 +41,7 @@ public class ProductPage extends UiPart<AnchorPane> {
     }
 
 
-    private void showProductList() {
+    public void showProductList() {
         listPane.getChildren().add(setUpListTable());
         splitPane.setDividerPositions(FULL_PAGE);
     }
