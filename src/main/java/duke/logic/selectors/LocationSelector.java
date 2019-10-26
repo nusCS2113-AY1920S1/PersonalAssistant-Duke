@@ -3,6 +3,7 @@ package duke.logic.selectors;
 import duke.commons.exceptions.EmptyVenueException;
 import duke.model.lists.VenueList;
 import duke.model.locations.Venue;
+
 import javafx.scene.input.KeyCode;
 
 /**

@@ -8,6 +8,9 @@
 
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.Insets?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
          title="SGTravel" minWidth="400" minHeight="600">
    <scene>
@@ -23,11 +26,7 @@
                         prefWidth="400.0" vvalue="1.0">
                <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0"/>
             </ScrollPane>
-            <AnchorPane fx:id="miniMap" styleClass="sidePane" layoutX="400.0" layoutY="0.0" prefHeight="300.0" prefWidth="400.0"/>
-            <ScrollPane fx:id="taskPane" hbarPolicy="NEVER" vbarPolicy="ALWAYS" hvalue="1.0" prefHeight="300.0"
-                        prefWidth="400.0" vvalue="1.0" layoutY="300.0" layoutX="400.0">
-                    <VBox fx:id="taskContainer" prefHeight="300.0" prefWidth="400.0"/>
-            </ScrollPane>
+            <AnchorPane fx:id="sidePanel" layoutX="400.0" layoutY="0.0" prefHeight="600.0" prefWidth="400.0"/>
          </AnchorPane>
       </Scene>
    </scene>

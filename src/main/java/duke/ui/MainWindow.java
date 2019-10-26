@@ -8,11 +8,12 @@ import duke.logic.commands.results.CommandResultImage;
 import duke.logic.commands.results.CommandResultMap;
 import duke.commons.exceptions.DukeException;
 import duke.logic.LogicManager;
-
+import duke.logic.commands.results.PanelResult;
 import duke.ui.calendar.CalendarWindow;
 import duke.ui.dialogbox.DialogBox;
 import duke.ui.dialogbox.DialogBoxImage;
 import duke.ui.map.MapWindow;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -41,9 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private Button sendButton;
     @FXML
-    private VBox taskContainer;
-    @FXML
-    private AnchorPane miniMap;
+    private AnchorPane sidePanel;
 
     private LogicManager logic;
     private static final String FXML = "MainWindow.fxml";
@@ -96,7 +95,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
-        logic.execute(keyEvent.getCode());
+        panelResponse(keyEvent);
+    }
+
+    private void panelResponse(KeyEvent keyEvent) {
+        PanelResult result = logic.execute(keyEvent.getCode());
+        panelShow(result);
     }
 
     private void dukeResponse(String input) {
@@ -121,39 +125,22 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
-    private void echoUserInput(String input) {
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage)
-        );
-    }
-
-    private boolean isEmpty(String input) {
-        return "".equals(input);
-    }
-
-    private String getUserInput() {
-        String input = userInput.getText().strip();
-        userInput.clear();
-        return input;
-    }
-
-    /** Shows message(s) to the user.
+    /**
+     * Shows message(s) to the user.
      */
+    private void dukeShow(CommandResult commandResult) {
+        if (commandResult instanceof CommandResultImage) {
+            dukeShow(commandResult.getMessage(), ((CommandResultImage) commandResult).getImage());
+            return;
+        }
+        assert (commandResult != null);
+        dukeShow(commandResult.getMessage());
+    }
+
     private void dukeShow(String msg) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(msg, dukeImage)
         );
-    }
-
-    private void dukeShow(CommandResult commandResult) {
-        if (commandResult instanceof CommandResultImage) {
-            dukeShowImage(commandResult.getMessage(), ((CommandResultImage) commandResult).getImage());
-            return;
-        }
-
-        if (commandResult != null) {
-            dukeShow(commandResult.getMessage());
-        }
     }
 
     /**
@@ -161,10 +148,15 @@ public class MainWindow extends UiPart<Stage> {
      * @param message The message to show.
      * @param image The image to show.
      */
-    private void dukeShowImage(String message, Image image) {
+    private void dukeShow(String message, Image image) {
         dialogContainer.getChildren().addAll(
                 DialogBoxImage.getDukeDialog(message, dukeImage, image)
         );
+    }
+
+    private void panelShow(PanelResult result) {
+        sidePanel.getChildren().clear();
+        sidePanel.getChildren().add(SidePanel.getPanel(result));
     }
 
     private void tryExitApp() {
@@ -173,5 +165,21 @@ public class MainWindow extends UiPart<Stage> {
         } catch (Exception e) {
             dukeShow("Exit app failed" + e.getMessage());
         }
+    }
+
+    private void echoUserInput(String input) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage)
+        );
+    }
+
+    private String getUserInput() {
+        String input = userInput.getText().strip();
+        userInput.clear();
+        return input;
+    }
+
+    private boolean isEmpty(String input) {
+        return "".equals(input);
     }
 }

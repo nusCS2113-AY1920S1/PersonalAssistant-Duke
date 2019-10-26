@@ -2,7 +2,6 @@ package duke.model.lists;
 
 import duke.commons.exceptions.DukeDuplicateTaskException;
 import duke.model.Event;
-import duke.model.Task;
 import duke.model.TaskWithDates;
 
 import java.util.ArrayList;
@@ -19,19 +18,6 @@ public class EventList implements Iterable<Event>, Listable<Event> {
 
     public EventList() {
         events = new ArrayList<>();
-    }
-
-    /**
-     * Constructs an EventList.
-     * Creates a copy of the events in tasks.
-     * @param tasks The tasks to extract events from.
-     */
-    public EventList(TaskList tasks) {
-        this();
-        for (Task t : tasks.getEventList()) {
-            assert (t instanceof Event) : "getEventList should filter out only Events";
-            events.add((Event) t);
-        }
     }
 
     private EventList(List<Event> events) {

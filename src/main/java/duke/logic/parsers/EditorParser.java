@@ -36,6 +36,7 @@ public class EditorParser {
         switch (eventField) {
         case DESCRIPTION:
             event.setLocation(ApiParser.getLocationSearch(userInput));
+            event.setDescription(userInput);
             break;
         case START_DATE:
             event.setStartDate(ParserTimeUtil.parseStringToDate(userInput));

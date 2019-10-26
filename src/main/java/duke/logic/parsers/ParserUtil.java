@@ -24,6 +24,7 @@ import java.util.regex.Pattern;
  */
 public class ParserUtil {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
     /**
      * Parses the userInput and return a new to-do constructed from it.
      *

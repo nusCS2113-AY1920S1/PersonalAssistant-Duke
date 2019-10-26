@@ -5,10 +5,12 @@ import duke.logic.commands.results.CommandResult;
 import duke.commons.exceptions.DukeApiException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.DukeUnknownCommandException;
+import duke.logic.commands.results.PanelResult;
 import duke.logic.conversations.ConversationManager;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
 import duke.model.ModelManager;
+
 import javafx.scene.input.KeyCode;
 
 import java.util.logging.Level;
@@ -57,10 +59,11 @@ public class LogicManager extends Logic {
     /**
      * Gets response from LogicManager.
      */
-    public void execute(KeyCode keyCode) {
+    public PanelResult execute(KeyCode keyCode) {
         if (EditorManager.isActive()) {
-            EditorManager.edit(keyCode);
+            return EditorManager.edit(keyCode);
         }
+        return new PanelResult();
     }
 
     /**
