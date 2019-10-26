@@ -9,9 +9,7 @@ public class PatientPrimarySpec extends ArgSpec {
 
     private PatientPrimarySpec() {
         emptyArgMsg = "You didn't tell me which impression to set!";
-        cmdArgLevel = ArgLevel.NONE;
-        initSwitches(
-                new Switch("name", String.class, false, ArgLevel.REQUIRED, "n")
-        );
+        cmdArgLevel = ArgLevel.REQUIRED;
+        initSwitches();
     }
 }
