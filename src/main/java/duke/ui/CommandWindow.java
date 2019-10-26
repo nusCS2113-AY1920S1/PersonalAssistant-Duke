@@ -7,13 +7,8 @@ import duke.exception.DukeException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * UI element designed for the user to interact with the application.
@@ -22,7 +17,7 @@ import java.util.List;
  * 2. Parses VALID user's input into a defined command and displays the corresponding result.
  * 3. Displays the appropriate error message for INVALID user's input.
  */
-class CommandWindow extends UiElement<Region> {
+class CommandWindow extends InputHistoryWindow {
     private static final String FXML = "CommandWindow.fxml";
     private static final String MESSAGE_WELCOME_GREET = "Hello! I'm Dr. Duke.";
     private static final String MESSAGE_WELCOME_QUESTION = "What can I do for you today?";
@@ -32,17 +27,10 @@ class CommandWindow extends UiElement<Region> {
     @FXML
     private VBox messageContainer;
     @FXML
-    private AutoCompleteTextField inputTextField;
-    @FXML
     private Button sendButton;
 
     private Parser parser;
     private Executor executor;
-
-    // TODO: A separate (inner) class for input history
-    private List<String> inputHistory;
-    private int historyPointer;
-    private String currentInput;
 
     /**
      * Constructs the command window of the application.
@@ -55,36 +43,8 @@ class CommandWindow extends UiElement<Region> {
         this.parser = parser;
         this.executor = executor;
 
-        inputHistory = new ArrayList<>();
-        historyPointer = 0;
-
         scrollPane.vvalueProperty().bind(messageContainer.heightProperty());
-        inputTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (historyPointer == inputHistory.size()) {
-                currentInput = newValue;
-            }
-        });
-
         printWelcome();
-    }
-
-    /**
-     * Handles key press event, {@code keyEvent}.
-     */
-    @FXML
-    private void handleKeyPress(KeyEvent keyEvent) {
-        switch (keyEvent.getCode()) {
-        case PAGE_UP:
-            keyEvent.consume();
-            navigateToPreviousInput();
-            break;
-        case PAGE_DOWN:
-            keyEvent.consume();
-            navigateToNextInput();
-            break;
-        default:
-            break;
-        }
     }
 
     /**
@@ -97,14 +57,13 @@ class CommandWindow extends UiElement<Region> {
         input = input.replaceAll("\t", "    ");
 
         if (!input.isEmpty()) {
-            if (historyPointer != inputHistory.size() - 1 || (historyPointer == inputHistory.size() - 1
-                    && !input.equals(inputHistory.get(historyPointer)))) {
-                inputHistory.add(input);
+
+            storeInput(input);
+            try {
+                writeHistory();
+            } catch (DukeException excp) {
+                printError(excp);
             }
-
-            historyPointer = inputHistory.size();
-            currentInput = "";
-
             messageContainer.getChildren().add(MessageBox.getUserMessage(input).getRoot());
 
             try {
@@ -115,42 +74,6 @@ class CommandWindow extends UiElement<Region> {
 
             inputTextField.clear();
         }
-    }
-
-    /**
-     * Updates the text field with the previous input in {@code inputHistory},
-     * if there exists a previous input in {@code inputHistory}.
-     */
-    private void navigateToPreviousInput() {
-        if (historyPointer > 0) {
-            historyPointer = historyPointer - 1;
-            setText(inputHistory.get(historyPointer));
-        }
-    }
-
-    /**
-     * Updates the text field with the next input in {@code inputHistory},
-     * if there exists a next input in {@code inputHistory}.
-     */
-    private void navigateToNextInput() {
-        if (historyPointer < inputHistory.size() - 1) {
-            historyPointer = historyPointer + 1;
-            setText(inputHistory.get(historyPointer));
-        } else if (historyPointer == inputHistory.size() - 1) {
-            historyPointer = historyPointer + 1;
-            setText(currentInput);
-        }
-    }
-
-    /**
-     * Sets {@code inputTextField} with {@code text} and
-     * positions the caret to the end of the {@code text}.
-     *
-     * @param text Text to be set in the input text field of the command window.
-     */
-    private void setText(String text) {
-        inputTextField.setText(text);
-        inputTextField.positionCaret(inputTextField.getText().length());
     }
 
     /**

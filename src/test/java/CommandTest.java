@@ -1,7 +1,7 @@
 import duke.DukeCore;
+import duke.data.GsonStorage;
 import duke.exception.DukeFatalException;
 import duke.data.PatientMap;
-import duke.data.TaskList;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,6 +19,7 @@ public abstract class CommandTest {
     protected static DukeCore core;
     protected static ByteArrayOutputStream testOut = new ByteArrayOutputStream(); //stores printed output
     protected static PrintStream testPrint = new PrintStream(testOut); //System.out replacement, prints to testOut
+    protected static final String testFilePath = "data" + File.separator + "test.json";
 
     /**
      * Create data directory if necessary and use a test task file to create test DukeCore, with output directed to
@@ -26,14 +27,10 @@ public abstract class CommandTest {
      */
     @BeforeAll
     public static void setupCore() {
-        File dataDir = new File("data");
-        if (!dataDir.exists() && !dataDir.mkdir()) {
-            fail("Could not create data directory!");
-        }
-
         try {
             core = new DukeCore();
             core.patientMap = new PatientMap();
+            core.storage = new GsonStorage(testFilePath);
             core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
         } catch (DukeFatalException excp) {
             fail("Could not setup storage for testing!");
@@ -44,8 +41,8 @@ public abstract class CommandTest {
      * Reset taskList and testOut, and flush the testPrint stream after each test is done with them.
      */
     @AfterEach
-    public void clearTaskList() {
-        core.taskList = new TaskList();
+    public void clearPatientMap() {
+        core.patientMap = new PatientMap();
         testPrint.flush();
         testOut.reset();
     }
@@ -55,7 +52,7 @@ public abstract class CommandTest {
      */
     @AfterAll
     public static void clearTestData() {
-        File testData = new File("data" + File.separator + "test.tsv");
+        File testData = new File(testFilePath);
         if (!testData.delete()) {
             fail("Unable to delete test data file!");
         }

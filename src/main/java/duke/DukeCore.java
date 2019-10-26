@@ -2,7 +2,6 @@ package duke;
 
 import duke.data.GsonStorage;
 import duke.data.PatientMap;
-import duke.data.TaskList;
 import duke.exception.DukeFatalException;
 import duke.exception.DukeResetException;
 import duke.ui.Ui;
@@ -19,14 +18,12 @@ import java.io.IOException;
  * The core of Dr. Duke, which holds the UI and storage components.
  */
 public class DukeCore extends Application {
-    private static final String FILE_PATH = "data" + File.separator + "patients.json";
+    private static final String storagePath = "data" + File.separator + "patients.json";
 
     public Ui ui;
     public UiContext uiContext;
     public GsonStorage storage;
     public PatientMap patientMap;
-
-    public TaskList taskList = null; //deprecated
 
     /**
      * Constructs a DukeCore object.
@@ -37,7 +34,7 @@ public class DukeCore extends Application {
 
         try {
             try {
-                storage = new GsonStorage(FILE_PATH);
+                storage = new GsonStorage(storagePath);
                 patientMap = new PatientMap(storage);
             } catch (DukeResetException e) {
                 // Reset data file
