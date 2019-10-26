@@ -6,7 +6,6 @@ import duke.data.Patient;
 import duke.exception.DukeException;
 
 public class PatientDeleteCommand extends ArgCommand {
-    private DukeObject patient;
 
     @Override
     protected ArgSpec getSpec() {
@@ -15,7 +14,7 @@ public class PatientDeleteCommand extends ArgCommand {
 
     @Override
     public void execute(DukeCore core) throws DukeException {
-        patient = core.uiContext.getObject();
+        DukeObject patient = core.uiContext.getObject();
         String searchCritical = getSwitchVal("critical");
         String searchInvestigation = getSwitchVal("investigation");
         String searchImpression = getSwitchVal("impression");
