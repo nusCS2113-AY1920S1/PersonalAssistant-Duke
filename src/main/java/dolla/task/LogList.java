@@ -4,6 +4,7 @@ import dolla.task.Log;
 import dolla.Storage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LogList {
     protected ArrayList<Log> list;
@@ -15,6 +16,10 @@ public class LogList {
 
     public ArrayList<Log> get() {
         return list;
+    }
+
+    public ArrayList<Log> getCloneList() {
+        return (ArrayList<Log>) list.clone();
     }
 
     public void add(Log newLog) {

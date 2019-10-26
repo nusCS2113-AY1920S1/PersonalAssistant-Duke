@@ -45,17 +45,19 @@ public class RemoveCommand extends Command {
         }
 
         if (logNumStr.contains("/")) { //input from undo
+            resetUndoFlag();
             String[] parser = logNumStr.split("/", 2);
             logNumInt = stringToInt(parser[0]) - 1;
             Redo.addCommand(mode, logList.get().get(logNumInt).getUserInput()); //add undo input to redo
         } else if (logNumStr.contains("|")) { //input form redo
+            resetRedoFlag();
             String[] parser = logNumStr.split("//|", 2);
             logNumInt = stringToInt(parser[0]) - 1;
             Undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt); //add the user input to undo
         } else { //normal user input
             logNumInt  = stringToInt(logNumStr) - 1;
             Undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt);
-            Redo.clearRedo(mode);//////////////////////////////////////TODO:check useage
+            Redo.clearRedo(mode);
         }
 
         Ui.echoRemove(logList.get().get(logNumInt).getLogText());

@@ -65,8 +65,6 @@ public class AddActionCommand extends Command {
         }
         Command c = MainParser.handleInput(mode, actionInput);
         c.execute(dollaData);
-        resetUndoFlag();
-        resetRedoFlag();
     }
 
     /**
@@ -76,12 +74,12 @@ public class AddActionCommand extends Command {
         Parser.setPrevPosition(prevPosition);
     }
 
-    /**
-     * This method will call the resetUndoFlag method in the respective mode.
-     */
-    private void resetUndoFlag() {
-        Parser.resetUndoFlag();
-    }
+//    /**
+//     * This method will call the resetUndoFlag method in the respective mode.
+//     */
+//    private void resetUndoFlag() {
+//        Parser.resetUndoFlag();
+//    }
 
     /**
      * This method will call the setRedoFlag method in the respective mode.
@@ -90,10 +88,10 @@ public class AddActionCommand extends Command {
         Parser.setRedoFlag();
     }
 
-    /**
-     * This method will call the resetRedoFlag method in the respective mode.
-     */
-    private void resetRedoFlag() {
-        Parser.resetUndoFlag();
-    }
+//    /**
+//     * This method will call the resetRedoFlag method in the respective mode.
+//     */
+//    private void resetRedoFlag() {
+//        Parser.resetUndoFlag();
+//    }
 }

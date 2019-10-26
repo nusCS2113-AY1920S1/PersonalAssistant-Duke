@@ -54,12 +54,14 @@ public class EntryParser extends Parser {
         if (undoFlag == 1) { //undo input
             addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
                     description, date, prevPosition);
+            resetUndoFlag();
         } else if (redoFlag == 1) {
             addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
                     description, date, -2);
         } else { //normal input, prePosition is -1
             addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
                     description, date, -1);
+            resetRedoFlag();
         }
         return addEntry;
     }

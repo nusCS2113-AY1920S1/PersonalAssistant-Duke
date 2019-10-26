@@ -40,7 +40,7 @@ public class SortCommand extends Command {
         }
 
         try {
-            list = logList.get();
+            list = logList.getCloneList();
             list.get(0); //test if list is empty
             switch(mode) {
             case "entry":

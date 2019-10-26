@@ -41,9 +41,9 @@ public class AddDebtsCommand extends Command {
     public void execute(DollaData dollaData) {
         String mode = "debt";
         Debt newDebt = new Debt(type, name, amount, description, date);
-        index = dollaData.getLogList(mode).size();
+        index = dollaData.getLogList(mode).size() + 1;
 
-        if (prevPosition == -1) { //from undo
+        if (prevPosition == -1) { //normal input
             dollaData.addToLogList(mode, newDebt);
             Undo.removeCommand(mode,index);
             Redo.clearRedo(mode);
@@ -51,7 +51,7 @@ public class AddDebtsCommand extends Command {
             dollaData.addToLogList(mode, newDebt);
             Undo.removeCommand(mode,index);
             prevPosition = -1;
-        } else { //normal input
+        } else { //from undo
             dollaData.addToPrevPosition(mode, newDebt, prevPosition);
             Redo.removeCommand(mode, prevPosition);
             prevPosition = -1;
