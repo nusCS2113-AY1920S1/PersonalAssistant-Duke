@@ -7,4 +7,6 @@ public class ProductMessage {
     public static final String MESSAGE_INVALID_STATUS_VALUE = "Invalid status";
     public static final String MESSAGE_INVALID_NUMBER_FORMAT = "Invalid number format";
     public static final String MESSAGE_MISSING_PRODUCT_NAME = "Product name must be present";
+    public static final String MESSAGE_LIST_SCOPE = "%s products shown";
+    public static final String MESSAGE_INVALID_SCOPE_VALUE = "-scope can only take active/archive/all";
 }

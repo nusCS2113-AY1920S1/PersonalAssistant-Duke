@@ -21,7 +21,7 @@ public class AddProductCommand extends ProductCommand {
             CliSyntax.PREFIX_PRODUCT_NAME,
             CliSyntax.PREFIX_PRODUCT_INGREDIENT,
             CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST,
-            CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE,
+            CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE
     };
 
     /** Constructs a AddProductCommand with the given ProductDescriptor */
