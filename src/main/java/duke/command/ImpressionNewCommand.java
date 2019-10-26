@@ -3,7 +3,11 @@ package duke.command;
 import duke.DukeCore;
 import duke.data.DukeData;
 import duke.data.Impression;
+import duke.data.Investigation;
 import duke.data.Medicine;
+import duke.data.Observation;
+import duke.data.Plan;
+import duke.data.Result;
 import duke.exception.DukeException;
 import duke.ui.Context;
 
@@ -24,20 +28,47 @@ public class ImpressionNewCommand extends DukeDataCommand {
 
         //extract parameters and data type
         Integer priority = switchToInt(getSwitchVal("priority"));
-        switch(addType) {
+        Integer status;
+        switch(addType) { //isn't polymorphism fun?
         case "medicine":
-            Integer status = processStatus(getSwitchVal("status"), Medicine.getStatusArr());
+            status = processStatus(getSwitchVal("status"), Medicine.getStatusArr());
             Medicine medicine = new Medicine(getSwitchVal("name"), impression.getName(), priority, status,
-                    )
-            impression.addNewTreatment()
+                    getSwitchVal("dose"), getSwitchVal("date"), getSwitchVal("duration"));
+            impression.addNewTreatment(medicine);
+            newData = medicine;
             break;
-        case "plan": //fallthrough
+
+        case "plan":
+            status = processStatus(getSwitchVal("status"), Plan.getStatusArr());
+            Plan plan = new Plan(getSwitchVal("name"), impression.getName(), priority, status,
+                    getSwitchVal("summary"));
+            impression.addNewTreatment(plan);
+            newData = plan;
+            break;
+
         case "investigation":
+            status = processStatus(getSwitchVal("status"), Investigation.getStatusArr());
+            Investigation invx = new Investigation(getSwitchVal("name"), impression.getName(), priority, status,
+                    getSwitchVal("summary"));
+            impression.addNewTreatment(invx);
+            newData = invx;
             break;
+
         case "result":
+            Result result = new Result(getSwitchVal("name"), impression.getName(), priority,
+                    getSwitchVal("summary"));
+            impression.addNewEvidence(result);
+            newData = result;
             break;
+
         case "observation":
+            boolean isObjective = !isSwitchSet("subjective"); //default to objective
+            Observation obsv = new Observation(getSwitchVal("name"), impression.getName(), priority,
+                    getSwitchVal("summary"), isObjective);
+            impression.addNewEvidence(obsv);
+            newData = obsv;
             break;
+
         default:
             throw new DukeException("Invalid data type!");
         }
