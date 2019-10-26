@@ -2,9 +2,16 @@ package duke;
 
 import duke.Parser.ParserCommand;
 import duke.sports.MyTraining;
+
 import java.util.Scanner;
 
 public class Ui {
+
+    /**
+     * Scanner object to read user input.
+     */
+    Scanner scan = new Scanner(System.in);
+
     /**
      * Declaring new Parser type.
      */
@@ -15,12 +22,12 @@ public class Ui {
      */
     public void execute() {
         Scanner sc = new Scanner(System.in);
-        welcome();
+        showWelcome();
         while (true) {
             if (sc.hasNextLine()) {
                 String command = sc.nextLine();
                 if (command.equals("bye")) {
-                    goodbye();
+                    showGoodBye();
                     System.exit(0);
                 } else if (command.equals("home")) {
                     mainMenu();
@@ -34,9 +41,17 @@ public class Ui {
     /**
      * This function prints out the welcome message of Duke.
      */
-    public void welcome() {
+    public void showWelcome() {
         System.out.println("Hello! I'm Duke, your personal coach manager!\n"
             + "What can I do for you?");
+    }
+
+    /**
+     * Reads in an entire line of user input.
+     * @return The entire line of user input.
+     */
+    public String readCommand() {
+        return scan.nextLine();
     }
 
     /**
@@ -52,7 +67,7 @@ public class Ui {
     /**
      * This function prints out the goodbye message of Duke.
      */
-    public void goodbye() {
+    public void showGoodBye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 

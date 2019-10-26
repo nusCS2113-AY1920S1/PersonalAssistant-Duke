@@ -1,5 +1,8 @@
 package duke;
 
+import duke.Command.Command;
+import duke.Parser.Parser;
+import duke.Parser.ParserCommand;
 import duke.data.Storage;
 import duke.module.Schedule;
 import duke.sports.ManageStudents;
@@ -18,7 +21,10 @@ import java.text.ParseException;
 import java.util.Scanner;
 
 public class Duke  {
-
+    /**
+     * Declaring new Parser type.
+     */
+    private ParserCommand parser = new ParserCommand();
     /**
      * ui is the command line user interface object.
      */
@@ -55,7 +61,7 @@ public class Duke  {
      * Constructor method.
      *
      * @throws FileNotFoundException if storage or schedule files are not found
-     * @throws ParseException        if unable to load schedule
+     * @throws ParseException if unable to load schedule
      */
     public Duke() throws FileNotFoundException, ParseException {
         ui = new Ui();
@@ -70,14 +76,37 @@ public class Duke  {
 
     /**
      * This program runs the main duke program.
-     *
      * @param args expects array of string objects
      */
     public static void main(final String[] args) {
         Ui ui = new Ui();
         ui.execute();
-//        new Duke().run();
     }
+/**
+    public static void main(final String[] args) throws FileNotFoundException, ParseException {
+        new Duke().run();
+    }
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            String fullCommand = ui.readCommand();
+            Command c = Parser.parse(fullCommand);
+            c.execute(tasks, ui, storage, schedule, students, plan);
+            isExit = c.isExit();
+
+            if (command.equals("bye")) {
+                ui.goodbye();
+                System.exit(0);
+            } else if (command.equals("home")) {
+                ui.mainMenu();
+            } else {
+                parser.parseCommand(command);
+            }
+
+        }
+    }
+*/
 
     /**
      * Upon running launcher main, start() will run.
