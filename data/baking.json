@@ -120,7 +120,7 @@
         "remarks": ""
       },
       "amount": 0.0
-  } ],
+    } ],
   "shoppingList" : [ {
     "ingredient" : {
       "name" : "Fish",
@@ -131,6 +131,28 @@
   }, {
     "ingredient" : {
       "name" : "Chicken",
+      "unitPrice" : 5.0,
+      "remarks" : ""
+    },
+    "amount" : 5.0
+  }, {
+    "ingredient" : {
+      "name" : "Pork",
+      "unitPrice" : 4.58,
+      "remarks" : ""
+    },
+    "amount" : 6.0
+  }, {
+    "ingredient" : {
+      "name" : "Sotong",
+      "unitPrice" : 1.25,
+      "remarks" : ""
+    },
+    "amount" : 5.0
+  }, {
+    "ingredient" : {
+      "name" : "Bread",
+      "unitPrice" : 0.0,
       "remarks" : ""
     },
     "amount" : 0.0
@@ -142,12 +164,6 @@
     },
     "amount" : 5.0
   } ],
-  "sales" : [ {
-    "id" : 1572062704791,
-    "description" : "Ingredients purchased.",
-    "saleDate" : "2019-10-26T04:05:04.787+0000",
-    "value" : 5.0,
-    "remarks" : "Ingredients are: -Butter "
-  } ],
+  "sales" : [ ],
   "shortcuts" : [ ]
 }
