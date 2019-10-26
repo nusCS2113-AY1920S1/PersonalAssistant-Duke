@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXListView?>
-<?import com.jfoenix.controls.JFXMasonryPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
@@ -13,7 +12,7 @@
             xmlns="http://javafx.com/javafx/11.0.1">
     <children>
         <JFXListView fx:id="impressionsListPanel" layoutX="10.0" layoutY="297.0" prefHeight="260.0" prefWidth="210.0"
-                     style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;"/>
+                     style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" />
         <AnchorPane layoutX="10.0" layoutY="261.0" prefHeight="30.0" prefWidth="210.0">
             <children>
                 <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="1.0" pickOnBounds="true"
@@ -200,12 +199,6 @@
                 </Label>
             </children>
         </AnchorPane>
-        <ScrollPane layoutX="252.0" layoutY="36.0" prefHeight="218.0" prefWidth="200.0"
-                    style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
-            <content>
-                <JFXMasonryPane fx:id="allergiesListPanel" prefWidth="195.0"/>
-            </content>
-        </ScrollPane>
         <ScrollPane layoutX="461.0" layoutY="36.0" prefHeight="218.0" prefWidth="200.0"
                     style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
             <content>
@@ -218,5 +211,7 @@
                 </AnchorPane>
             </content>
         </ScrollPane>
+        <JFXListView fx:id="allergiesListView" layoutX="253.0" layoutY="36.0" prefHeight="218.0" prefWidth="200.0"
+                     style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;"/>
     </children>
 </AnchorPane>
