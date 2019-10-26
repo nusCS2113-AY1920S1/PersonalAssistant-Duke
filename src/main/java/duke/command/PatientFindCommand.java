@@ -14,8 +14,7 @@ public class PatientFindCommand extends ArgCommand {
     public void execute(DukeCore core) throws DukeException {
         // TODO: change code to find DukeObjects
         String findStr = "Here are the tasks that contain '" + getArg() + "':";
-        findStr = findStr + core.taskList.find(getArg()).replace(System.lineSeparator(),
-                System.lineSeparator() + "  ");
+        findStr = findStr + core.patientMap.find(getArg()).toString();
         core.ui.print(findStr);
     }
 }
