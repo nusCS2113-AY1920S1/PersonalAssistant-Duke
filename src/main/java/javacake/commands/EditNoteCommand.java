@@ -138,6 +138,7 @@ public class EditNoteCommand extends Command {
      * @return endingMessage if CLI is used, else return !@#_EDIT_NOTE to request MainWindow class to handle.
      * @throws DukeException File does not exist.
      */
+    @Override
     public String execute(Logic logic, Ui ui, Storage storage, Profile profile) throws DukeException {
 
         if (Duke.isCliMode()) {
