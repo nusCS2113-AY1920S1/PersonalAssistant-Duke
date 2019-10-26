@@ -53,6 +53,10 @@ public class Recipe {
         }
     }
 
+    public void editFeedback(String feedback) {
+        this.feedback.edit(feedback);
+    }
+
     public Feedback getFeedback() {
         return this.feedback;
     }

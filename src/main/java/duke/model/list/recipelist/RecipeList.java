@@ -48,6 +48,9 @@ public class RecipeList {
         recipeLHM.get(recipeTitle).editRating(rating);
     }
 
+    public void editFeedback(String recipeTitle, String feedback) {
+        recipeLHM.get(recipeTitle).editFeedback(feedback);
+    }
     public String viewRecipe(String recipeTitle) {
         return recipeLHM.get(recipeTitle).getViewString();
     }

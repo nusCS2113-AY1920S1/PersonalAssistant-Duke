@@ -10,6 +10,10 @@ public class Feedback {
         this.feedback = feedback;
     }
 
+    public void edit(String feedback) {
+        this.feedback = feedback;
+    }
+
     public String getFeedback() {
         return this.feedback;
     }

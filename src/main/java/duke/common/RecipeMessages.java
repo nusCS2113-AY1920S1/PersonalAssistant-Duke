@@ -8,6 +8,7 @@ public class RecipeMessages {
     public static final String COMMAND_VIEW_RECIPE = "viewrecipe";
     public static final String COMMAND_EDIT_REQ_INGREDIENT = "editreqingredient";
     public static final String COMMAND_EDIT_RATING = "editrating";
+    public static final String COMMAND_EDIT_FEEDBACK = "editfeedback";
 
     public static final String COMMAND_LIST_RECIPE_INGREDIENT = "listingredient";
     public static final String COMMAND_DELETE_RECIPE = "deleterecipe";
@@ -50,8 +51,12 @@ public class RecipeMessages {
             + "editreqingredient [recipe name] clr/";
     public static final String ERROR_MESSAGE_EDIT_INGREDIENT_CLEAR_INCOMPLETE = "Please provide the name of the recipe which you wish to clear the required ingredient list.";
     public static final String ERROR_MESSAGE_EDIT_RATING_INCOMPLETE = "Please provide the title of the recipe which you wish to edit the rating.";
+    public static final String ERROR_MESSAGE_EDIT_FEEDBACK_INCOMPLETE = "Please provide the title of the recipe which you wish to edit the feedback.";
     public static final String ERROR_MESSAGE_INVALID_RATING = "Only unrated, average, good and delicious ratings are supported.";
     public static final String ERROR_MESSAGE_RATING_INCORRECT_FORMAT = "Please input the command in the following format:\n"
             + "editrating [recipe name] r/ [rating]\n"
             + "If no [rating] is input, the rating will be set to unrated.";
+    public static final String ERROR_MESSAGE_FEEDBACK_INCORRECT_FORMAT = "Please input the command in the following format:\n"
+            + "editfeedback [recipe name] f/ [feedback]\n"
+            + "If no [feedback] is input, the feedback will be set to 'No feedback yet.'.";
 }
