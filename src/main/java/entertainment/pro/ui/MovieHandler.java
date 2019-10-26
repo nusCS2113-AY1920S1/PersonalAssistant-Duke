@@ -780,7 +780,7 @@ public class MovieHandler extends Controller implements RequestListener {
     }
 
 
-    public static void showSearch(String pay, ArrayList<Long>genres) {
+    public static void showSearch(String pay, ArrayList<Long> genres) {
         //mMovieRequest.beginMovieSearchRequest(payload, userProfile.isAdult());
         String payload = "";
         ArrayList<Long> trial = new ArrayList<>();

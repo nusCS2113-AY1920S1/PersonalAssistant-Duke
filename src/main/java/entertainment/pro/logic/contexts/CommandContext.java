@@ -57,7 +57,7 @@ public class CommandContext {
                 hints.add(a);
             }
         }
-        return hints;
+        return (ArrayList<String>) hints.clone();
     }
 
 
