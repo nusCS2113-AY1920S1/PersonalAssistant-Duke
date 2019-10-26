@@ -1,14 +1,25 @@
 package rims.exception;
 
+/**
+ * A custom exception for RIMS, when inputs don't fit the desired format or
+ * have no meaning.
+ */
 public class RimsException extends Exception {
     protected String tab = "\t";
     protected String hash = "********************************************************************************************************************************************";
     protected String error;
 
+    /**
+     * Constructor for a RimsException. Every RimsException contains an error message.
+     * @param errorMsg the error message of this RimsException.
+     */
     public RimsException(String error) {
         this.error = error;
     }
 
+    /**
+     * Prints the error message in the standard RIMS format.
+     */
     public void displayError() {
         System.out.println(tab + hash);
         System.out.println(tab + "ERROR: " + error);
