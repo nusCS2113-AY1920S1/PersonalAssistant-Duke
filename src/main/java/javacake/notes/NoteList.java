@@ -16,6 +16,12 @@ public class NoteList {
 
     public ArrayList<Note> al = new ArrayList<>();
 
+    /**
+     * Using Depth-First-Search to find all text files.
+     * In current directory, the text files are notes.
+     * @return ArrayList storing all the notes.
+     * @throws DukeException If text file does not exist.
+     */
     public ArrayList<Note> compileNotes() throws DukeException {
         try {
             Stream<Path> walk = Files.walk(Paths.get("data/notes/"));
@@ -32,6 +38,12 @@ public class NoteList {
         return al;
     }
 
+    /**
+     * Format the names to only display the last partition of file path.
+     * @param resultName File paths that are not processed.
+     * @return String containing the last partition of file path.
+     * @throws DukeException If index of array does not exist.
+     */
     private String processFileNames(String resultName) throws DukeException {
         try {
             String[] partitionsInFilePath = resultName.split("\\\\");

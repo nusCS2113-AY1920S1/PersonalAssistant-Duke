@@ -14,6 +14,16 @@ public class ListNoteCommand extends Command {
 
     public ArrayList<Note> notesArchive;
 
+    /**
+     * Prints out the names of all the notes.
+     * Notes can be stored beforehand or created when program is running using CreateNoteCommand.
+     * @param logic tracks current location in program.
+     * @param ui the Ui responsible for outputting messages.
+     * @param storage Storage needed to write the updated data.
+     * @param profile Profile of the user.
+     * @return String of the file names of the notes.
+     * @throws DukeException If file does not exist.
+     */
     public String execute(Logic logic, Ui ui, Storage storage, Profile profile) throws DukeException {
         StringBuilder sb = new StringBuilder();
         notesArchive = new NoteList().compileNotes();

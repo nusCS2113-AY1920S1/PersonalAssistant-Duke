@@ -139,10 +139,6 @@ public class Storage {
         }
     }
 
-    public static void loadAllNotes() {
-
-    }
-
     /**
      * Initialises the 'data' based on previous data
      * from filepath.
