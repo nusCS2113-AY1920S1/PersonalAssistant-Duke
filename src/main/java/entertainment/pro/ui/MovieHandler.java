@@ -209,6 +209,7 @@ public class MovieHandler extends Controller implements RequestListener {
         CommandContext.initialiseContext();
 
         BlacklistStorage bp = new BlacklistStorage();
+        System.out.println("Tgt we are winners");
         bp.load();
 
 
