@@ -197,14 +197,15 @@ public class TaskCommandParseHelperTest {
     public void parseSnoozeCommandTest() {
         try {
             Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
-            Method method = parser.getDeclaredMethod("parseSnoozeCommand", String.class);
+            Method method = parser.getDeclaredMethod("parseSnoozeCommand", String.class, ArrayList.class);
             method.setAccessible(true);
-            assertTrue(method.invoke(null, "snooze 1") instanceof TaskSnoozeCommand);
-            assertTrue(method.invoke(null, "snooze 1") instanceof TaskSnoozeCommand);
-            assertTrue(method.invoke(null, "snooze 1  ") instanceof TaskSnoozeCommand);
-            assertTrue(method.invoke(null, "snooze ") instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "snooze 1  a") instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "snooze 1a") instanceof InvalidCommand);
+            ArrayList<Command.Option> optionList = new ArrayList<Command.Option>();
+            assertTrue(method.invoke(null, "snooze 1", optionList) instanceof TaskSnoozeCommand);
+            assertTrue(method.invoke(null, "snooze 1", optionList) instanceof TaskSnoozeCommand);
+            assertTrue(method.invoke(null, "snooze 1  ", optionList) instanceof TaskSnoozeCommand);
+            assertTrue(method.invoke(null, "snooze ", optionList) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "snooze 1  a", optionList) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "snooze 1a", optionList) instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {

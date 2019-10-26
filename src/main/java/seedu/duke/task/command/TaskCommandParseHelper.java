@@ -95,14 +95,17 @@ public class TaskCommandParseHelper {
                 int index = parseTaskIndex(deleteCommandMatcher.group("index"));
                 return new TaskDeleteCommand(index);
             } catch (NumberFormatException e) {
-                showError("Please enter correct task index: " + deleteCommandMatcher.group(
-                        "index"));
+                showError("Invalid index.\nIndex of range 1 ~ 99999 is "
+                        + "accepted.");
             }
         }
         return new InvalidCommand();
     }
 
     private static int parseTaskIndex(String input) throws NumberFormatException {
+        if (input.length() >= 6) {
+            throw new NumberFormatException();
+        }
         int index = Integer.parseInt(input) - 1;
         if (index < 0) {
             throw new NumberFormatException();

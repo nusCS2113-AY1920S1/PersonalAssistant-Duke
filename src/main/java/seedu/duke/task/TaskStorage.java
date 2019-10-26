@@ -94,7 +94,8 @@ public class TaskStorage {
         }
     }
 
-    private static ArrayList<Boolean> preProcessTaskFile(Scanner scanner) throws StorageException, CommandParseHelper.UserInputException {
+    private static ArrayList<Boolean> preProcessTaskFile(Scanner scanner) throws StorageException,
+            CommandParseHelper.UserInputException {
         ArrayList<Boolean> doneList = new ArrayList<>();
         while (scanner.hasNextLine()) {
             processTaskFileString(scanner, doneList);
@@ -105,7 +106,7 @@ public class TaskStorage {
     private static void processTaskFileString(Scanner scanner, ArrayList<Boolean> doneList)
             throws StorageException, CommandParseHelper.UserInputException {
         String input = scanner.nextLine();
-        preProcessTaskFile(doneList, input);
+        prepareDoneList(doneList, input);
         input = input.split(" ", 2)[1];
         Command addCommand = CommandParseHelper.parseCommand("task " + input,
                 CommandParseHelper.InputType.TASK);
@@ -113,7 +114,7 @@ public class TaskStorage {
         addCommand.execute(Duke.getModel());
     }
 
-    private static void preProcessTaskFile(ArrayList<Boolean> doneList, String input) throws StorageException {
+    private static void prepareDoneList(ArrayList<Boolean> doneList, String input) throws StorageException {
         if (input.startsWith("1")) {
             doneList.add(true);
         } else if (input.startsWith("0")) {
