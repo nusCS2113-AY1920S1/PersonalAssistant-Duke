@@ -22,7 +22,7 @@ public class EditPlaylistJson {
     private JSONParser parser = new JSONParser();
 
     public EditPlaylistJson(String playlistName) {
-        String fileName = "EPdata/playlists/" + playlistName + ".json";
+        String fileName = "../../../../EPdata/playlists/" + playlistName + ".json";
         file = new File(fileName);
     }
 
