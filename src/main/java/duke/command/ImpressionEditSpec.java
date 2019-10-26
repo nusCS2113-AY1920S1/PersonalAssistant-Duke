@@ -13,10 +13,10 @@ public class ImpressionEditSpec extends ArgSpec {
         cmdArgLevel = ArgLevel.NONE;
         initSwitches(
                 new Switch("append", null, true, ArgLevel.NONE, "a"),
-                new Switch("medicine", null, true, ArgLevel.NONE, "m"),
-                new Switch("investigation", null, true, ArgLevel.NONE, "i", "invx"),
-                new Switch("plan", null, true, ArgLevel.NONE, "p"),
-                new Switch("observation", null, true, ArgLevel.NONE, "o"),
+                new Switch("medicine", null, true, ArgLevel.REQUIRED, "m"),
+                new Switch("investigation", null, true, ArgLevel.REQUIRED, "i", "invx"),
+                new Switch("plan", null, true, ArgLevel.REQUIRED, "p"),
+                new Switch("observation", null, true, ArgLevel.REQUIRED, "o"),
                 new Switch("result", null, true, ArgLevel.NONE, "r"),
                 new Switch("name", String.class, false, ArgLevel.REQUIRED, "n"),
                 new Switch("status", String.class, true, ArgLevel.REQUIRED, "sta"),
@@ -26,7 +26,8 @@ public class ImpressionEditSpec extends ArgSpec {
                 new Switch("date", String.class, true, ArgLevel.REQUIRED, "da"),
                 new Switch("duration", String.class, true, ArgLevel.REQUIRED, "du"),
                 new Switch("subjective", null, true, ArgLevel.NONE, "sub"),
-                new Switch("objective", null, true, ArgLevel.NONE, "obj")
+                new Switch("objective", null, true, ArgLevel.NONE, "obj"),
+                new Switch("description", String.class, true, ArgLevel.REQUIRED, "desc")
         );
     }
 }

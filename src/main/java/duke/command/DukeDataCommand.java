@@ -8,8 +8,12 @@ import java.util.List;
 
 public abstract class DukeDataCommand extends ImpressionCommand {
 
+    /**
+     * Check if the type of data to add was uniquely specified
+     * @return The type of data specified amongst the switches for this Command, or null if none of them were given.
+     * @throws DukeException If multiple data type switches were specified.
+     */
     protected String uniqueDataType() throws DukeException {
-        //check if the type of data to add was uniquely specified
         String addType = null;
         String[] typeArr = {"medicine", "investigation", "result", "observation", "plan"};
         for (String type : typeArr) {
