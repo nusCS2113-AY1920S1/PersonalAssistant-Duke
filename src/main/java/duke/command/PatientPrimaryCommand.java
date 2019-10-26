@@ -15,6 +15,7 @@ public class PatientPrimaryCommand extends ArgCommand {
         super.execute(core);
 
         Patient patient = (Patient) core.uiContext.getObject();
-        patient.setPriDiagnosis(getSwitchVal("name"));
+        patient.setPriDiagnosis(getArg());
+        core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
     }
 }
