@@ -9,14 +9,12 @@ import java.util.Map;
 
 public abstract class DukeDataCommand extends ImpressionCommand {
 
-    //private static final Map<String, List<String>> forbiddenSwitchesMap = Map.ofEntries()
-    private static final List<String> forbiddenMedSwitches = Arrays.asList("summary", "subjective", "objective");
-    private static final List<String> forbiddenPlanSwitches =
-            Arrays.asList("dose", "duration", "date", "subjective", "objective");
-    private static final List<String> forbiddenResSwitches =
-            Arrays.asList("dose", "duration", "date", "status", "subjective", "objective");
-    private static final List<String> forbiddenObsvSwitches =
-            Arrays.asList("dose", "duration", "date", "status");
+    private static final Map<String, List<String>> forbiddenSwitchesMap = Map.ofEntries(
+            Map.entry("medicine", Arrays.asList("summary", "subjective", "objective")),
+            Map.entry("plan", Arrays.asList("dose", "duration", "date", "subjective", "objective")),
+            Map.entry("investigation", Arrays.asList("dose", "duration", "date", "subjective", "objective")),
+            Map.entry("result", Arrays.asList("dose", "duration", "date", "status", "subjective", "objective")),
+            Map.entry("observation", Arrays.asList("dose", "duration", "date", "status")));
 
     /**
      * Check if the type of data to add was uniquely specified
@@ -39,11 +37,8 @@ public abstract class DukeDataCommand extends ImpressionCommand {
     }
 
     protected void checkTypeSwitches(String addType) throws DukeException {
-        List<String> forbiddenSwitches;
-
-        // TODO: make static
-        switch (addType) {
-        case "medicine":
+        // check if required switches are in place
+        if (addType.equals("medicine")) {
             if (getSwitchVal("dose") == null) {
                 throw new DukeException("I need to know the dose of this course of medicine!");
             }
@@ -51,22 +46,9 @@ public abstract class DukeDataCommand extends ImpressionCommand {
             if (getSwitchVal("duration") == null) {
                 throw new DukeException("I need to know how long this medicine will be given for!");
             }
-            forbiddenSwitches = ;
-            break;
-        case "plan": //fallthrough
-        case "investigation":
-            forbiddenSwitches = Arrays.asList("dose", "duration", "date", "subjective", "objective");
-            break;
-        case "result":
-            forbiddenSwitches = Arrays.asList("dose", "duration", "date", "status", "subjective", "objective");
-            break;
-        case "observation":
-            forbiddenSwitches = Arrays.asList("dose", "duration", "date", "status");
-            break;
-        default:
-            throw new DukeException("Invalid data type!");
         }
 
+        List<String> forbiddenSwitches = forbiddenSwitchesMap.get(addType);
         for (String switchName : forbiddenSwitches) {
             if (isSwitchSet(switchName)) {
                 throw new DukeException("Illegal switch '" + switchName + "' for data type '" + addType + "'!");
