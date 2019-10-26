@@ -105,24 +105,24 @@ public class LogicManager implements Logic {
     }
 
     private void addFieldsToAutoComplete() {
-        autoCompleter.addCommand(OrderCommand.class);
-        autoCompleter.addCommand(AddOrderCommand.class);
-        autoCompleter.addCommand(DeleteOrderCommand.class);
-        autoCompleter.addCommand(EditOrderCommand.class);
-        autoCompleter.addCommand(CompleteOrderCommand.class);
-        autoCompleter.addCommand(ProductCommand.class);
-        autoCompleter.addCommand(AddProductCommand.class);
-        autoCompleter.addCommand(EditProductCommand.class);
-        autoCompleter.addCommand(InventoryCommand.class);
-        autoCompleter.addCommand(AddInventoryCommand.class);
-        autoCompleter.addCommand(EditInventoryCommand.class);
-        autoCompleter.addCommand(DeleteInventoryCommand.class);
-        autoCompleter.addCommand(ClearInventoryCommand.class);
-        autoCompleter.addCommand(ShoppingCommand.class);
-        autoCompleter.addCommand(AddShoppingCommand.class);
-        autoCompleter.addCommand(EditShoppingCommand.class);
-        autoCompleter.addCommand(DeleteShoppingCommand.class);
-        autoCompleter.addCommand(ClearShoppingCommand.class);
-        autoCompleter.addCommand(BuyShoppingCommand.class);
+        autoCompleter.addCommandClass(OrderCommand.class);
+        autoCompleter.addCommandClass(AddOrderCommand.class);
+        autoCompleter.addCommandClass(DeleteOrderCommand.class);
+        autoCompleter.addCommandClass(EditOrderCommand.class);
+        autoCompleter.addCommandClass(CompleteOrderCommand.class);
+        autoCompleter.addCommandClass(ProductCommand.class);
+        autoCompleter.addCommandClass(AddProductCommand.class);
+        autoCompleter.addCommandClass(EditProductCommand.class);
+        autoCompleter.addCommandClass(InventoryCommand.class);
+        autoCompleter.addCommandClass(AddInventoryCommand.class);
+        autoCompleter.addCommandClass(EditInventoryCommand.class);
+        autoCompleter.addCommandClass(DeleteInventoryCommand.class);
+        autoCompleter.addCommandClass(ClearInventoryCommand.class);
+        autoCompleter.addCommandClass(ShoppingCommand.class);
+        autoCompleter.addCommandClass(AddShoppingCommand.class);
+        autoCompleter.addCommandClass(EditShoppingCommand.class);
+        autoCompleter.addCommandClass(DeleteShoppingCommand.class);
+        autoCompleter.addCommandClass(ClearShoppingCommand.class);
+        autoCompleter.addCommandClass(BuyShoppingCommand.class);
     }
 }

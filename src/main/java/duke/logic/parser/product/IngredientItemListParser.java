@@ -14,8 +14,11 @@ import java.util.regex.Pattern;
 
 public class IngredientItemListParser {
     private String inputIngredientList;
+    private String format = "(\\s*\\[\\s*)(?<name>[\\w ]+)([,]?)(?<quantity>[0-9. ]*)(?:\\]\\s*)";
 
-    private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("((\\s*\\[)(?<name>[\\w ]+)([,]?)"
+    private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("((\\s*\\[\\s*)(?<name>[\\w ]+)"
+            + "([,"
+            + "]?)"
             + "(?<quantity>[0-9. ]*)(?:\\]\\s*))+");
     private static final String MESSAGE_PORTION_NOT_NUMBER = "Ingredient portion must be a number";
     private static final Double DEFAULT_PORTION = 0.0;
@@ -42,13 +45,13 @@ public class IngredientItemListParser {
             }
             if (matcher.group("name") != null) {
                 if (matcher.group("quantity") != null) {
-                    String name = StringUtils.capitalize(matcher.group("name"));
+                    String name = StringUtils.capitalize(matcher.group("name").strip());
                     params.put(name, matcher.group("quantity"));
                 } else {
                     params.put(matcher.group("name"), "");
                 }
             }
-            replacement = replacement.replaceAll("(\\s*\\[)(?<name>[\\w ]+)([,]?)"
+            replacement = replacement.replaceAll("(\\s*\\[\\s*)(?<name>[\\w ]+)([,]?)"
                     + "(?<quantity>[0-9. ]*)(?:\\]\\s*)$", "");
             matcher = FORMAT_INGREDIENT_INPUT.matcher(replacement);
         }

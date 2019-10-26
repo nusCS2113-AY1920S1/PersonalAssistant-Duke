@@ -114,23 +114,36 @@ public class AutoCompleter {
     }
 
     /**
-     * Adds a command class for auto-completion of command word and arguments.
+     * Adds a command class to auto-complete its command word and arguments.
+     * Duplicate command classes are not allowed.
      * <p>
-     * To auto-complete arguments, the command should have fields {@code AUTO_COMPLETION_INDICATOR} and
-     * {@code AUTO_COMPLETION_ARGUMENTS}. The naming and type should be precise for auto-completer to
+     * To auto-complete arguments, the command should have fields {@code String AUTO_COMPLETION_INDICATOR} and
+     * {@code Prefix[] AUTO_COMPLETION_ARGUMENTS}. The namings and types should be precise for auto-completer to
      * function properly.
      * </p>
      * <p>
-     * {@code AUTO_COMPLETION_INDICATOR} is a string specifying when auto-completer should complete the arguments.
-     * Auto-completer only completes the arguments when this field is present in the beginning of user input.
-     * {@code AUTO_COMPLETION_ARGUMENTS} is an array of {@code Prefix} that is used by the command that
-     * can be auto-completed.
+     * {@code String AUTO_COMPLETION_INDICATOR} specifies when auto-completer should complete the arguments.
+     *                                          For example, "order add", "order remove".
+     *                                          Auto-completer only completes the arguments when this field is present
+     *                                          in the beginning of user input.
+     * {@code Prefix[] AUTO_COMPLETION_ARGUMENTS} are prefixes used by the command that you wish to auto-complete.
      * </p>
+     *
+     * @throws ParseException if duplicate classes are added.
      */
-    public void addCommand(Class<? extends Command> commandClass) {
-        if (!commandClasses.contains(commandClass)) {
-            this.commandClasses.add(commandClass);
+    public void addCommandClass(Class<? extends Command> commandClass) throws ParseException {
+        if (commandClasses.contains(commandClass)) {
+            throw new ParseException();
         }
+
+        this.commandClasses.add(commandClass);
+    }
+
+    /**
+     * Remove all command classes.
+     */
+    public void clearCommandClasses() {
+        this.commandClasses.clear();
     }
 
     /**

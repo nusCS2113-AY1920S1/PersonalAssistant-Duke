@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+//@@author liujiajun
 /**
  * Parser to parse time.
  */
@@ -28,7 +29,7 @@ public class TimeParser {
     /**
      * Converts a Date object to a string representing the date.
      *
-     * @param date Date object
+     * @param date Date object to convert
      * @return a string representing the date
      */
     public static String convertDateToString(Date date) {
@@ -43,9 +44,12 @@ public class TimeParser {
     /**
      * Converts a string representing the date to a Date object.
      *
-     * @param str a string representing the date.
+     * @param str a string representing the date. Can be either in the format {@code MM/DD/yyyy HH:mm},
+     *            or in natural language.
+     *            for example, "10/30/1999 18:00" (in specified format),
+     *            "tomorrow" (in natural language)
      * @return the date based on the string.
-     * @throws ParseException if cannot parse the string into a date.
+     * @throws ParseException if the string cannot be parsed into a date.
      */
     public static Date convertStringToDate(String str) throws ParseException {
         List<Date> dates = prettyTimeParser.parse(str);

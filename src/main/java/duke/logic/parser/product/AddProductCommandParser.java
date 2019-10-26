@@ -8,6 +8,7 @@ import duke.logic.parser.commons.Parser;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
+import org.ocpsoft.prettytime.shade.net.fortuna.ical4j.data.ParserException;
 import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
 
 import java.util.Optional;
@@ -54,12 +55,23 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
             throw new ParseException(MESSAGE_MISSING_PRODUCT_NAME);
         }
 
-        if (map.getValue(PREFIX_PRODUCT_RETAIL_PRICE).isPresent()) {
-            product.setRetailPrice(Double.parseDouble(map.getValue(PREFIX_PRODUCT_RETAIL_PRICE).get()));
+        try {
+            if (map.getValue(PREFIX_PRODUCT_RETAIL_PRICE).isPresent()) {
+                product.setRetailPrice(Double.parseDouble(map.getValue(PREFIX_PRODUCT_RETAIL_PRICE).get()));
+            }
+        } catch (ParseException e) {
+            throw new ParseException("Price must be a number");
         }
-        if (map.getValue(PREFIX_PRODUCT_INGREDIENT_COST).isPresent()) {
-            product.setIngredientCost(Double.parseDouble(map.getValue(PREFIX_PRODUCT_INGREDIENT_COST).get()));
+
+        try {
+            if (map.getValue(PREFIX_PRODUCT_INGREDIENT_COST).isPresent()) {
+                String test = map.getValue(PREFIX_PRODUCT_INGREDIENT_COST).get();
+                product.setIngredientCost(Double.parseDouble(map.getValue(PREFIX_PRODUCT_INGREDIENT_COST).get()));
+            }
+        } catch (ParseException e) {
+            throw new ParseException("Cost must be a number");
         }
+
         if (map.getValue(PREFIX_PRODUCT_STATUS).isPresent()) {
             product.setStatus(Product.Status.valueOf(
                     map.getValue(PREFIX_PRODUCT_STATUS).get().toUpperCase())

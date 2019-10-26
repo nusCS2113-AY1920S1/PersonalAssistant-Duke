@@ -1,76 +1,74 @@
 {
-  "orders" : [ {
-    "id" : 1572058251313,
-    "creationDate" : "2019-10-26T02:50:51.313+0000",
-    "name" : "customer",
-    "contact" : "N/A",
-    "remarks" : "N/A",
-    "deliveryDate" : "2019-10-26T02:48:23.512+0000",
-    "status" : "ACTIVE",
-    "total" : 0.0,
-    "items" : [ ]
-  }, {
-    "id" : 1572058253554,
-    "creationDate" : "2019-10-26T02:50:53.554+0000",
-    "name" : "customer",
-    "contact" : "N/A",
-    "remarks" : "N/A",
-    "deliveryDate" : "2019-10-26T02:48:23.512+0000",
-    "status" : "ACTIVE",
-    "total" : 0.0,
-    "items" : [ ]
-  }, {
-    "id" : 1572058254247,
-    "creationDate" : "2019-10-26T02:50:54.256+0000",
-    "name" : "customer",
-    "contact" : "N/A",
-    "remarks" : "N/A",
-    "deliveryDate" : "2019-10-26T02:48:23.512+0000",
-    "status" : "ACTIVE",
-    "total" : 0.0,
-    "items" : [ ]
-  } ],
+  "orders" : [ ],
   "products" : [ {
-    "productName" : "ingredient",
-    "ingredientItems" : [ ],
-    "ingredientCost" : 4.0,
-    "retailPrice" : 5.0,
-    "status" : "ARCHIVE"
-  }, {
-    "productName" : "product name",
+    "productName" : "liu",
     "ingredientItems" : [ ],
     "ingredientCost" : 0.0,
-    "retailPrice" : 0.0,
+    "retailPrice" : 200.0,
+    "status" : "ARCHIVE"
+  }, {
+    "productName" : "l",
+    "ingredientItems" : [ {
+      "ingredient" : {
+        "name" : "Cheese",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
+      "amount" : 1.1
+    }, {
+      "ingredient" : {
+        "name" : "Chicken",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
+      "amount" : 1.0
+    }, {
+      "ingredient" : {
+        "name" : "Hello",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
+      "amount" : 2.0
+    } ],
+    "ingredientCost" : 0.0,
+    "retailPrice" : 5.5,
     "status" : "ACTIVE"
   } ],
   "inventory" : [ {
     "ingredient" : {
-      "name" : "Coca cola",
+      "name" : "Cheese cake              ",
       "unitPrice" : 0.0,
-      "remarks" : "in cartons"
+      "remarks" : "-"
     },
-    "amount" : 10.0
+    "amount" : 0.0
   }, {
     "ingredient" : {
-      "name" : "Milk",
-      "unitPrice" : 10.0,
-      "remarks" : ""
+      "name" : "Cheese cake                                   ",
+      "unitPrice" : 0.0,
+      "remarks" : "-"
     },
-    "amount" : 20.0
+    "amount" : 0.0
   }, {
     "ingredient" : {
       "name" : "Cake",
-      "unitPrice" : 5.56,
-      "remarks" : ""
+      "unitPrice" : 0.0,
+      "remarks" : "-"
     },
-    "amount" : 17.5
+    "amount" : 0.0
   }, {
     "ingredient" : {
-      "name" : "Fish",
-      "unitPrice" : 9.95,
-      "remarks" : ""
+      "name" : "Name",
+      "unitPrice" : 0.0,
+      "remarks" : "-"
     },
-    "amount" : 10.0
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "Name     ",
+      "unitPrice" : 0.0,
+      "remarks" : "-"
+    },
+    "amount" : 0.0
   }, {
     "ingredient" : {
       "name" : "Cheese",
@@ -92,64 +90,8 @@
       "remarks" : "-"
     },
     "amount" : 0.0
-  }, {
-    "ingredient" : {
-      "name" : "Name",
-      "unitPrice" : 0.0,
-      "remarks" : "-"
-    },
-    "amount" : 0.0
-  }, {
-    "ingredient" : {
-      "name" : "1",
-      "unitPrice" : 0.0,
-      "remarks" : "-"
-    },
-    "amount" : 0.0
   } ],
-  "shoppingList" : [ {
-    "ingredient" : {
-      "name" : "Fish",
-      "unitPrice" : 9.95,
-      "remarks" : ""
-    },
-    "amount" : 9.0
-  }, {
-    "ingredient" : {
-      "name" : "Chicken",
-      "unitPrice" : 5.0,
-      "remarks" : ""
-    },
-    "amount" : 5.0
-  }, {
-    "ingredient" : {
-      "name" : "Pork",
-      "unitPrice" : 4.58,
-      "remarks" : ""
-    },
-    "amount" : 6.0
-  }, {
-    "ingredient" : {
-      "name" : "Sotong",
-      "unitPrice" : 1.25,
-      "remarks" : ""
-    },
-    "amount" : 5.0
-  }, {
-    "ingredient" : {
-      "name" : "Bread",
-      "unitPrice" : 0.0,
-      "remarks" : ""
-    },
-    "amount" : 0.0
-  }, {
-    "ingredient" : {
-      "name" : "Mushroom",
-      "unitPrice" : 0.0,
-      "remarks" : ""
-    },
-    "amount" : 5.0
-  } ],
+  "shoppingList" : [ ],
   "sales" : [ ],
   "shortcuts" : [ ]
 }
