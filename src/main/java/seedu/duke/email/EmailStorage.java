@@ -215,7 +215,7 @@ public class EmailStorage {
     }
 
     private static String assignIndexDirIfNotExist(String indexDir) {
-        if (indexDir == "") {
+        if ("".equals(indexDir)) {
             return getEmailIndexDir();
         }
         return indexDir;
