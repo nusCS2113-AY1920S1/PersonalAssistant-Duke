@@ -14,7 +14,7 @@ public class EmailTagsTest {
 
     @Test
     public void updateEmailTagListTest() {
-        String dir = EmailStorage.getDataDir() + "emailTagsTestFile.txt";
+        String dir = EmailStorage.getDataDir() + "emailTagTestFile.txt";
         EmailList emailList = EmailStorage.readEmailFromFile(dir);
         System.out.println(emailList.toString());
 
@@ -30,7 +30,7 @@ public class EmailTagsTest {
         assertTrue(tagMap.get("CS2113T").containsKey("CS2113T"));
         assertTrue(tagMap.get("CS2113T").containsKey("Spam"));
         assertTrue(tagMap.get("CS2113T").containsKey("Tutorial"));
-        //assertFalse(tagMap.get("CS2113T").containsKey("SEP"));
+        assertFalse(tagMap.get("CS2113T").containsKey("SEP"));
 
         assertTrue(tagMap.get("CG2271").containsKey("Spam"));
         assertTrue(tagMap.get("CG2271").containsKey("Tutorial"));
@@ -39,7 +39,7 @@ public class EmailTagsTest {
         assertTrue(tagMap.get("Spam").containsKey("Spam"));
         assertTrue(tagMap.get("Spam").containsKey("Tutorial"));
         assertTrue(tagMap.get("Spam").containsKey("CG2271"));
-        assertTrue(tagMap.get("Spam").containsKey("SEP"));
+        assertFalse(tagMap.get("Spam").containsKey("SEP"));
 
         assertTrue(tagMap.get("Tutorial").containsKey("Tutorial"));
         assertTrue(tagMap.get("Tutorial").containsKey("Spam"));
