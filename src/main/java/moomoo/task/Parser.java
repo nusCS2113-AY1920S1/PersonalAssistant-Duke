@@ -43,12 +43,20 @@ public class Parser {
         default: throw new MooMooException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
-
+    
+    private static Command parseGraph(Scanner scanner, Ui ui) throws MooMooException {
+        String input = parseInput(scanner, ui, "total");
+        switch (input) {
+            case ("total"): return new GraphCommand(input);
+            default: throw new MooMooException("Sorry, I did not recognize that command.");
+        }
+    }
+    
     private static Command parseList(Scanner scanner, Ui ui) throws MooMooException {
         String input = parseInput(scanner, ui, "list");
         switch (input) {
         case ("category"): return new ListCategoryCommand();
-        default: throw new MooMooException("Sorry I did not recognize that command.");
+        default: throw new MooMooException("Sorry, I did not recognize that command.");
         }
     }
 
@@ -56,7 +64,7 @@ public class Parser {
         String input = parseInput(scanner, ui, "delete");
         switch (input) {
         case ("category"): return new DeleteCategoryCommand();
-        default: throw new MooMooException("Sorry I did not recognize that command.");
+        default: throw new MooMooException("Sorry! I did not recognize that command.");
         }
     }
 
@@ -67,7 +75,7 @@ public class Parser {
         case ("category"): return new AddCategoryCommand();
         case ("expenditure"): return parseAddExpenditure(ui);
         default:
-            throw new MooMooException("Sorry I did not recognize that command.");
+            throw new MooMooException("Sorry! I did not recognize that command.");
 
         }
     }
