@@ -53,14 +53,14 @@ public class DeleteLoanCommand extends MoneyCommand {
         if (serialNo > account.getLoans().size()) {
             throw new DukeException("The serial number of the loan is Out Of Bounds!");
         }
-        Loan deletedEntryLOA = account.getLoans().get(serialNo - 1);
-        String typeStr = deletedEntryLOA.getType().toString().toLowerCase();
+        Loan deletedEntryLoan = account.getLoans().get(serialNo - 1);
+        String typeStr = deletedEntryLoan.getType().toString().toLowerCase();
         ui.appendToOutput(" Noted. I've removed this " + typeStr + " loan:\n");
         ui.appendToOutput("  " + account.getLoans().get(serialNo - 1).toString() + "\n");
         ui.appendToOutput(" Now you have " + (account.getLoans().size() - 1) + " total loans.\n");
 
         account.getLoans().remove(serialNo - 1);
-        storage.addDeletedEntry(deletedEntryLOA);
+        storage.addDeletedEntry(deletedEntryLoan);
         storage.writeToFile(account);
     }
 

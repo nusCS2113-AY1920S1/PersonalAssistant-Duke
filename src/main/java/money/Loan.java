@@ -15,7 +15,7 @@ public class Loan extends Item {
     }
 
     private LocalDate startDate;
-    private LocalDate endDate;
+    protected LocalDate endDate;
     private boolean isSettled;
     private float outstandingLoan;
     Type type;
@@ -97,6 +97,9 @@ public class Loan extends Item {
         if (outstandingLoan == 0) {
             isSettled = true;
             endDate = Parser.shortcutTime("now");
+        } else {
+            isSettled = false;
+            endDate = null;
         }
     }
 
@@ -153,5 +156,4 @@ public class Loan extends Item {
     public Type getType() {
         return type;
     }
-
 }
