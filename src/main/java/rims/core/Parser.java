@@ -58,7 +58,7 @@ public class Parser {
                 c = new ListCommand(paramType, param);
             }
             else {
-                throw new RimsException("Invalid list parameter!");
+                throw new RimsException("Invalid list parameter! Please specify '/list' or '/item' to view a detailed list of a resource.");
             }
         }
         else if (words[0].equals("add")) {
@@ -216,8 +216,17 @@ public class Parser {
                 ui.print(borrowedResource.toString());
                 ui.print("\t" + userReservations.getReservationByIndex(i).toString());
             }
-            int reservationId = Integer.parseInt(ui.getInput("Enter the ID of the reservation (the number in square brackets []) that you wish to return:"));
-            c = new ReturnCommand(userId, userReservations.getReservationById(reservationId).getResourceId(), reservationId);
+            ArrayList<Integer> resourcesToReturn = new ArrayList<Integer>();
+            ArrayList<Integer> reservationsToCancel = new ArrayList<Integer>();
+            String stringReservations = ui.getInput("Enter the reservation ID(s) (separated by a space for multiple IDs) that you wish to return:");
+            String[] splitStringReservations = stringReservations.split(" ");
+            for (int j = 0; j < splitStringReservations.length; j++) {
+                int thisReservationId = Integer.parseInt(splitStringReservations[j]);
+                resourcesToReturn.add(userReservations.getReservationById(thisReservationId).getResourceId());
+                reservationsToCancel.add(thisReservationId);
+            }
+            //int reservationId = Integer.parseInt(ui.getInput("Enter the ID of the reservation (the number in square brackets []) that you wish to return:"));
+            c = new ReturnCommand(userId, resourcesToReturn, reservationsToCancel);
         }
         else {
             throw new RimsException("Please enter a recognizable command!");

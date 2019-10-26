@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Date;
 
+import rims.exception.RimsException;
+
 /**
  * This class represents an instance of a Resource. Contains the name of the Resource, its resource ID, type,
  * and a list of Reservation objects representing the reservations made for the Resource.
@@ -118,8 +120,9 @@ public abstract class Resource {
      * @param startDate the date from which this Resource has been booked.
      * @param endDate the date till which this Resource has been booked.
      * @throws ParseException if the dates are in an invalid format.
+     * @throws RimsException if the date of return is before the date of borrowing.
      */
-    public void book(int reservationId, int userId, Date startDate, Date endDate) throws ParseException {
+    public void book(int reservationId, int userId, Date startDate, Date endDate) throws ParseException, RimsException {
         reservations.createReservation(reservationId, resourceId, userId, startDate, endDate);
     }
 
