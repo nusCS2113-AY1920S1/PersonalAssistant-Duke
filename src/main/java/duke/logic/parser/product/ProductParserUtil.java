@@ -34,7 +34,7 @@ public class ProductParserUtil {
         if (map.getValue(PREFIX_PRODUCT_STATUS).isPresent()) {
             try {
                 productDescriptor.setStatus(Product.Status.valueOf(
-                        map.getValue(PREFIX_PRODUCT_STATUS).get().toUpperCase()));
+                    map.getValue(PREFIX_PRODUCT_STATUS).get().toUpperCase()));
             } catch (IllegalArgumentException e) {
                 throw new ParseException(ProductMessageUtils.MESSAGE_INVALID_STATUS_VALUE);
             }

@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
+/**
+ * A parser that parses {@code SetShortcutCommand}.
+ */
 public class SetShortcutCommandParser implements SubCommandParser<SetShortcutCommand> {
     private static String MESSAGE_EMPTY_NAME = "Shortcut name cannot be empty.";
     private static String COMMAND_SPLITTER = ";";

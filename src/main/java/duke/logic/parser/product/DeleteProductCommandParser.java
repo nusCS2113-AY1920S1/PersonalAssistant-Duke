@@ -26,7 +26,7 @@ public class DeleteProductCommandParser implements Parser<DeleteProductCommand> 
         } catch (IndexOutOfBoundsException e) {
             throw new ParseException(MESSAGE_INDEX_OUT_OF_BOUND);
         }
-       // return new DeleteProductCommand(ParserUtil.getIndices(map.getPreamble()));
+        // return new DeleteProductCommand(ParserUtil.getIndices(map.getPreamble()));
         return new DeleteProductCommand(indices);
     }
 }

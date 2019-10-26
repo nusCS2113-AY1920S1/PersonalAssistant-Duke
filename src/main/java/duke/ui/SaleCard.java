@@ -34,7 +34,11 @@ public class SaleCard extends UiPart<AnchorPane> {
     public SaleCard(Sale sale, int displayedIndex) {
         super(FXML);
         id.setText(Long.toString(sale.getId()));
-        value.setText(Double.toString(sale.getValue()));
+        double tempValue = sale.getValue();
+        if (sale.isSpend() && tempValue > 0.0) {
+            tempValue = -tempValue;
+        }
+        value.setText(Double.toString(tempValue));
         saleDate.setText(TimeParser.convertDateToString(sale.getSaleDate()));
         description.setText(sale.getDescription());
         remarks.setText(sale.getRemarks());

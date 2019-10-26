@@ -10,6 +10,7 @@ import java.util.Optional;
 public class SaleDescriptor {
     private String description;
     private Double value;
+    private boolean isSpend;
     private Date saleDate;
     private String remarks;
 
@@ -24,6 +25,7 @@ public class SaleDescriptor {
     public SaleDescriptor(SaleDescriptor toCopy) {
         setDescription(toCopy.description);
         setValue(toCopy.value);
+        setSpend(toCopy.isSpend);
         setSaleDate(toCopy.saleDate);
         setRemarks(toCopy.remarks);
     }
@@ -36,12 +38,20 @@ public class SaleDescriptor {
         this.description = description;
     }
 
-    Optional<Double> getValue() {
+    public Optional<Double> getValue() {
         return Optional.ofNullable(value);
     }
 
     public void setValue(Double value) {
         this.value = value;
+    }
+
+    public Optional<Boolean> isSpend() {
+        return Optional.ofNullable(isSpend);
+    }
+
+    public void setSpend(boolean isSpend) {
+        this.isSpend = isSpend;
     }
 
     public Optional<Date> getSaleDate() {

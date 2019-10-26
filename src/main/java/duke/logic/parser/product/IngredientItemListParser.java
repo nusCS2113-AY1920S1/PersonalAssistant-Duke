@@ -16,8 +16,8 @@ public class IngredientItemListParser {
     private String inputIngredientList;
 
     private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("((\\s*\\[\\s*)(?<name>[\\w ]+)"
-            + "([,"
-            + "]?)"
+        + "([,"
+        + "]?)"
             + "(?<quantity>[0-9. ]*)(?:\\]\\s*))+");
     private static final String MESSAGE_PORTION_NOT_NUMBER = "Ingredient portion must be a number";
     private static final Double DEFAULT_PORTION = 0.0;

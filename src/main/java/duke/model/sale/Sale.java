@@ -16,21 +16,42 @@ public class Sale {
     //Data fields
     private String description;
     private double value;
+    private boolean isSpend;
     private Date saleDate;
     private String remarks;
 
-    public Sale(String description, double value, Date saleDate, String remarks) {
+    public Sale(String description, double value, boolean isSpend, Date saleDate, String remarks) {
         requireAllNonNull(description, saleDate, value, remarks);
         this.id = System.currentTimeMillis();
         this.description = description;
-        this.value = value;
+        this.isSpend = isSpend;
+        if (isSpend && value > 0.0) {
+            this.value = -value;
+        } else {
+            this.value = value;
+        }
         this.saleDate = saleDate;
         this.remarks = remarks;
     }
 
-    public Sale(long id, String description, double value, Date saleDate, String remarks) {
-        this(description, value, saleDate, remarks);
+    /**
+     * Creates a sale.
+     * Every field must be present and not null.
+     */
+    public Sale(long id, String description, double value, boolean isSpend, Date saleDate, String remarks) {
+        requireAllNonNull(id, description, value, isSpend, saleDate, remarks);
+
         this.id = id;
+        this.description = description;
+        this.value = value;
+        this.isSpend = isSpend;
+        if (isSpend && value > 0.0) {
+            this.value = -value;
+        } else {
+            this.value = value;
+        }
+        this.saleDate = saleDate;
+        this.remarks = remarks;
     }
 
     public long getId() {
@@ -63,6 +84,14 @@ public class Sale {
 
     public void setValue(double value) {
         this.value = value;
+    }
+
+    public boolean isSpend() {
+        return isSpend;
+    }
+
+    public void setSpend(boolean isSpend) {
+        this.isSpend = isSpend;
     }
 
     public String getRemarks() {

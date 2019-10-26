@@ -20,7 +20,7 @@ public class ListProductCommand extends ProductCommand {
     private Scope scope;
     public static final String AUTO_COMPLETE_INDICATOR = ProductCommand.COMMAND_WORD + " " + COMMAND_WORD;
     public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
-            CliSyntax.PREFIX_PRODUCT_SCOPE
+        CliSyntax.PREFIX_PRODUCT_SCOPE
     };
 
     public ListProductCommand(Scope scope) {
@@ -51,6 +51,6 @@ public class ListProductCommand extends ProductCommand {
         }
         model.getFilteredProductList();
         return new CommandResult(String.format(ProductMessageUtils.MESSAGE_LIST_SCOPE, scope),
-                CommandResult.DisplayedPage.PRODUCT);
+            CommandResult.DisplayedPage.PRODUCT);
     }
 }
