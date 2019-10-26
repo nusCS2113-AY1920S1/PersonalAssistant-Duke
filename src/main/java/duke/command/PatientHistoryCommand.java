@@ -15,7 +15,7 @@ public class PatientHistoryCommand extends ArgCommand {
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
         Patient patient = (Patient) core.uiContext.getObject();
-        patient.appendHistory(getSwitchVal("note"));
+        patient.appendHistory(getArg());
         core.ui.print("Note appended!");
         core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
     }

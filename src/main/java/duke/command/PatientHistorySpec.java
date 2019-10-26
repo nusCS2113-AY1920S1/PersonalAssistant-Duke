@@ -10,9 +10,7 @@ public class PatientHistorySpec extends ArgSpec {
 
     private PatientHistorySpec() {
         emptyArgMsg = "You didn't tell me anything on what to add!";
-        cmdArgLevel = ArgLevel.NONE;
-        initSwitches(
-                new Switch("note", String.class, false, ArgLevel.REQUIRED, "n")
-        );
+        cmdArgLevel = ArgLevel.REQUIRED;
+        initSwitches();
     }
 }
