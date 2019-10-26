@@ -3,9 +3,9 @@ package duke.commands;
 import duke.exceptions.DukeException;
 import duke.util.Ui;
 import duke.models.patients.PatientManager;
-import duke.models.assignedPatientTasks.AssignedTaskManager;
+import duke.models.assignedtasks.AssignedTaskManager;
 import duke.storages.StorageManager;
-import duke.models.patientTasks.TaskManager;
+import duke.models.tasks.TaskManager;
 
 /**
  * Represents a command class received from user. It is an abstract

@@ -1,8 +1,8 @@
 package duke.models.counter;
 
 import duke.commands.Command;
-import duke.commands.DukeCommand;
-import duke.commands.ExitCommand;
+import duke.commands.functional.DukeCommand;
+import duke.commands.functional.ExitCommand;
 import duke.exceptions.DukeException;
 import duke.storages.StorageManager;
 

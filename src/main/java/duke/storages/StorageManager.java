@@ -2,10 +2,10 @@ package duke.storages;
 
 import duke.exceptions.DukeException;
 import duke.models.patients.Patient;
-import duke.models.assignedPatientTasks.AssignedTaskWithPeriod;
-import duke.models.assignedPatientTasks.AssignedTask;
-import duke.models.assignedPatientTasks.AssignedTaskWithDate;
-import duke.models.patientTasks.Task;
+import duke.models.assignedtasks.AssignedTaskWithPeriod;
+import duke.models.assignedtasks.AssignedTask;
+import duke.models.assignedtasks.AssignedTaskWithDate;
+import duke.models.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.Arrays;

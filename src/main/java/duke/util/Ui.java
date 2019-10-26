@@ -2,8 +2,8 @@ package duke.util;
 
 import duke.exceptions.DukeException;
 import duke.models.patients.Patient;
-import duke.models.assignedPatientTasks.AssignedTask;
-import duke.models.patientTasks.Task;
+import duke.models.assignedtasks.AssignedTask;
+import duke.models.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.Scanner;

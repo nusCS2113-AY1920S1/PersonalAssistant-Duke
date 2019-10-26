@@ -1,14 +1,15 @@
 //@@kkeejjuunn
 
-package duke.commands;
+package duke.commands.patient;
 
+import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.util.Ui;
 import duke.models.patients.Patient;
 import duke.models.patients.PatientManager;
-import duke.models.assignedPatientTasks.AssignedTaskManager;
+import duke.models.assignedtasks.AssignedTaskManager;
 import duke.storages.StorageManager;
-import duke.models.patientTasks.TaskManager;
+import duke.models.tasks.TaskManager;
 
 public class UpdatePatientCommand implements Command {
 

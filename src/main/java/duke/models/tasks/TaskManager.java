@@ -1,4 +1,4 @@
-package duke.models.patientTasks;
+package duke.models.tasks;
 
 import duke.exceptions.DukeException;
 

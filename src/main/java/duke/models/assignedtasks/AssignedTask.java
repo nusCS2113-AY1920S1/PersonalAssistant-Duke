@@ -1,4 +1,4 @@
-package duke.models.assignedPatientTasks;
+package duke.models.assignedtasks;
 
 public abstract class AssignedTask {
     private Integer patientId;

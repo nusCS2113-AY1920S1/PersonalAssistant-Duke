@@ -1,4 +1,4 @@
-package duke.models.assignedPatientTasks;
+package duke.models.assignedtasks;
 
 import duke.util.DateTimeParser;
 import duke.exceptions.DukeException;

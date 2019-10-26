@@ -1,13 +1,14 @@
-package duke.commands;
+package duke.commands.patient;
 
+import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.util.Ui;
 import duke.models.patients.Patient;
 import duke.models.patients.PatientManager;
-import duke.models.assignedPatientTasks.AssignedTask;
-import duke.models.assignedPatientTasks.AssignedTaskManager;
-import duke.models.patientTasks.Task;
-import duke.models.patientTasks.TaskManager;
+import duke.models.assignedtasks.AssignedTask;
+import duke.models.assignedtasks.AssignedTaskManager;
+import duke.models.tasks.Task;
+import duke.models.tasks.TaskManager;
 import duke.storages.StorageManager;
 
 import java.util.ArrayList;

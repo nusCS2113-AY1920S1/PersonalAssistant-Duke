@@ -1,16 +1,17 @@
-package duke.commands;
+package duke.commands.assignedtask;
 
+import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.util.Ui;
 import duke.models.patients.Patient;
 import duke.models.patients.PatientManager;
-import duke.models.assignedPatientTasks.AssignedTaskManager;
+import duke.models.assignedtasks.AssignedTaskManager;
 import duke.storages.StorageManager;
-import duke.models.patientTasks.TaskManager;
+import duke.models.tasks.TaskManager;
 
 import java.util.ArrayList;
 
-public class DeletePatientTaskCommand implements Command {
+public class DeleteAssignedTaskCommand implements Command {
     private int patientId;
     private int taskId;
     private String deletedPatientInfo;
@@ -22,7 +23,7 @@ public class DeletePatientTaskCommand implements Command {
      * @param deleteInfo .
      * @throws DukeException .
      */
-    public DeletePatientTaskCommand(String[] deleteInfo) throws DukeException {
+    public DeleteAssignedTaskCommand(String[] deleteInfo) throws DukeException {
 
         char firstChar = deleteInfo[0].charAt(0);
         try {

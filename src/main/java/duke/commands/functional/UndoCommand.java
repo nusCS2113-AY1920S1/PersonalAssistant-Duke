@@ -1,16 +1,14 @@
-package duke.commands;
+package duke.commands.functional;
 
+import duke.commands.Command;
 import duke.exceptions.DukeException;
-import duke.util.ShortCutter;
 import duke.util.Ui;
 import duke.models.patients.PatientManager;
-import duke.models.assignedPatientTasks.AssignedTaskManager;
-import duke.models.counter.Counter;
+import duke.models.assignedtasks.AssignedTaskManager;
 import duke.storages.StorageManager;
-import duke.models.patientTasks.TaskManager;
+import duke.models.tasks.TaskManager;
 
-
-public class DukeCommand implements Command {
+public class UndoCommand implements Command {
 
     /**
      * .
@@ -25,11 +23,10 @@ public class DukeCommand implements Command {
     @Override
     public void execute(AssignedTaskManager patientTask, TaskManager tasks, PatientManager patientManager,
                         Ui ui, StorageManager storageManager) throws DukeException {
-
-        Counter counter = new Counter(storageManager.loadCommandFrequency());
-        ShortCutter shortCutter = new ShortCutter(counter, ui);
-        shortCutter.runShortCut().execute(patientTask, tasks, patientManager, ui, storageManager);
-
+        storageManager.savePatients(patientManager.getPatientList());
+        storageManager.saveTasks(tasks.getTaskList());
+        storageManager.saveAssignedTasks(patientTask.fullPatientTaskList());
+        ui.showUndoSuccess();
     }
 
     /**

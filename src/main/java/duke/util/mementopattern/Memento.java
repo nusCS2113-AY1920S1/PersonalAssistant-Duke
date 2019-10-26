@@ -1,8 +1,8 @@
 package duke.util.mementopattern;
 
 import duke.models.patients.PatientManager;
-import duke.models.assignedPatientTasks.AssignedTaskManager;
-import duke.models.patientTasks.TaskManager;
+import duke.models.assignedtasks.AssignedTaskManager;
+import duke.models.tasks.TaskManager;
 
 public class Memento {
     /**

@@ -1,14 +1,15 @@
-package duke.commands;
+package duke.commands.assignedtask;
 
+import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.util.Ui;
 import duke.models.patients.PatientManager;
-import duke.models.assignedPatientTasks.AssignedTaskWithPeriod;
-import duke.models.assignedPatientTasks.AssignedTask;
-import duke.models.assignedPatientTasks.AssignedTaskManager;
-import duke.models.assignedPatientTasks.AssignedTaskWithDate;
+import duke.models.assignedtasks.AssignedTaskWithPeriod;
+import duke.models.assignedtasks.AssignedTask;
+import duke.models.assignedtasks.AssignedTaskManager;
+import duke.models.assignedtasks.AssignedTaskWithDate;
 import duke.storages.StorageManager;
-import duke.models.patientTasks.TaskManager;
+import duke.models.tasks.TaskManager;
 
 public class AssignTaskToPatientCommand implements Command {
 

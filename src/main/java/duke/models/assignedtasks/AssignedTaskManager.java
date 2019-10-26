@@ -1,4 +1,4 @@
-package duke.models.assignedPatientTasks;
+package duke.models.assignedtasks;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;

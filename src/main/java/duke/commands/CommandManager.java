@@ -2,6 +2,21 @@
 
 package duke.commands;
 
+import duke.commands.assignedtask.AssignTaskToPatientCommand;
+import duke.commands.assignedtask.DeleteAssignedTaskCommand;
+import duke.commands.assignedtask.FindAssignedTaskCommand;
+import duke.commands.functional.DukeCommand;
+import duke.commands.functional.ExitCommand;
+import duke.commands.functional.UndoCommand;
+import duke.commands.patient.AddPatientCommand;
+import duke.commands.patient.DeletePatientCommand;
+import duke.commands.patient.FindPatientCommand;
+import duke.commands.patient.ListPatientsCommand;
+import duke.commands.patient.UpdatePatientCommand;
+import duke.commands.task.AddTaskCommand;
+import duke.commands.task.DeleteTaskCommand;
+import duke.commands.task.ListTasksCommand;
+import duke.commands.task.UpdateTaskCommand;
 import duke.exceptions.DukeException;
 import duke.util.Parser;
 import duke.util.TypoCorrector;
@@ -34,7 +49,7 @@ public class CommandManager {
         case "add patient":
             return new AddPatientCommand(parser.parseAddPatient());
         case "add task":
-            return new AddStandardTaskCommand(parser.parseAddTask());
+            return new AddTaskCommand(parser.parseAddTask());
         case "assign deadline task":
             return new AssignTaskToPatientCommand(parser.parseAssignDeadlineTask());
         case "assign event task":
@@ -44,7 +59,7 @@ public class CommandManager {
         case "list tasks":
             return new ListTasksCommand();
         case "delete assigned task":
-            return new DeletePatientTaskCommand(parser.parseDeleteAssignedTask());
+            return new DeleteAssignedTaskCommand(parser.parseDeleteAssignedTask());
         case "delete patient":
             return new DeletePatientCommand(parser.parseDeletePatient());
         case "delete task":
@@ -52,7 +67,7 @@ public class CommandManager {
         case "find patient":
             return new FindPatientCommand((parser.parseFindPatient()));
         case "find assigned tasks":
-            return new FindPatientTaskCommand((parser.parseFindAssignedTasks()));
+            return new FindAssignedTaskCommand((parser.parseFindAssignedTasks()));
         case "update patient":
             return new UpdatePatientCommand(parser.parseUpdatePatient());
         case "update task":

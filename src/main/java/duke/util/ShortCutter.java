@@ -1,15 +1,15 @@
 package duke.util;
 
-import duke.commands.AddPatientCommand;
-import duke.commands.AddStandardTaskCommand;
+import duke.commands.patient.AddPatientCommand;
+import duke.commands.task.AddTaskCommand;
 import duke.commands.Command;
-import duke.commands.DeletePatientCommand;
-import duke.commands.DeleteTaskCommand;
-import duke.commands.FindPatientCommand;
-import duke.commands.ListPatientsCommand;
-import duke.commands.ListTasksCommand;
-import duke.commands.UpdatePatientCommand;
-import duke.commands.UpdateTaskCommand;
+import duke.commands.patient.DeletePatientCommand;
+import duke.commands.task.DeleteTaskCommand;
+import duke.commands.patient.FindPatientCommand;
+import duke.commands.patient.ListPatientsCommand;
+import duke.commands.task.ListTasksCommand;
+import duke.commands.patient.UpdatePatientCommand;
+import duke.commands.task.UpdateTaskCommand;
 import duke.exceptions.DukeException;
 import duke.models.counter.Counter;
 
@@ -169,7 +169,7 @@ public class ShortCutter {
             return new AddPatientCommand(patientInfo);
         } else if (commandName.equals("AddStandardTaskCommand")) {
             String taskName = ui.getTaskInfo("name");
-            return new AddStandardTaskCommand(taskName);
+            return new AddTaskCommand(taskName);
         } else if (commandName.equals("DeletePatientCommand")) {
             String patientId = ui.getPatientInfo("id");
             return new DeletePatientCommand(patientId);

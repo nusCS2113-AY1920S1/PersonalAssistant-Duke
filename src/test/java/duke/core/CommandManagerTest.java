@@ -2,7 +2,7 @@ package duke.core;
 
 import duke.commands.Command;
 import duke.commands.CommandManager;
-import duke.commands.ExitCommand;
+import duke.commands.functional.ExitCommand;
 import duke.exceptions.DukeException;
 import org.junit.jupiter.api.Test;
 
