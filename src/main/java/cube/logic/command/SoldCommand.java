@@ -2,22 +2,31 @@ package cube.logic.command;
 
 import cube.model.FoodList;
 import cube.model.Food;
+import cube.model.sale.Sale;
+import cube.model.sale.SalesHistory;
 import cube.storage.StorageManager;
 import cube.logic.command.exception.CommandException;
 import cube.logic.command.util.CommandResult;
 import cube.logic.command.util.CommandUtil;
+import java.util.Date;
 
 public class SoldCommand extends Command{
 	String foodName;
 	int quantity;
+	Date soldDate;
 	Food toSold;
 
 	private final String MESSAGE_SUCCESS = "%1$d of %2$s have been sold\n"
 		+ "you have earn $%3$f, the total revenue is $%4$f";	
 
-	public SoldCommand (String foodName, int quantity) {
+	public SoldCommand(String foodName, int quantity) {
+		this(foodName, quantity, new Date());
+	}
+
+	public SoldCommand(String foodName, int quantity, Date soldDate) {
 		this.foodName = foodName;
 		this.quantity = quantity;
+		this.soldDate = soldDate;
 	}
 
 	/**
@@ -45,10 +54,14 @@ public class SoldCommand extends Command{
 		CommandUtil.requireValidQuantity(toSold, quantity);
 		
 		int originalQty = toSold.getStock();
+		double revenue = quantity * toSold.getPrice();
 		toSold.setStock(originalQty - quantity);
-		double profit = quantity * toSold.getPrice();
-		Food.updateRevenue(Food.getRevenue() + profit);
+		// old function
+		Food.updateRevenue(Food.getRevenue() + revenue);
+		// new function
+		double profit = revenue - quantity * toSold.getCost();
+		new Sale(quantity, revenue, profit, soldDate);
 		storage.storeRevenue(Food.getRevenue());
-		return new CommandResult(String.format(MESSAGE_SUCCESS, quantity, foodName, profit, Food.getRevenue()));
+		return new CommandResult(String.format(MESSAGE_SUCCESS, quantity, foodName, revenue, Food.getRevenue()));
 	}
 }
