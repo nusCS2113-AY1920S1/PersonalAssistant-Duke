@@ -1,6 +1,6 @@
 package duke.logic.command.product;
 
-import duke.logic.message.ProductMessage;
+import duke.logic.message.ProductMessageUtils;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.logic.parser.commons.CliSyntax;
@@ -43,14 +43,14 @@ public class AddProductCommand extends ProductCommand {
         requireNonNull(model);
 
         if (model.hasProduct(toAdd)) {
-            throw new CommandException(String.format(ProductMessage.MESSAGE_DUPLICATE_PRODUCT,
+            throw new CommandException(String.format(ProductMessageUtils.MESSAGE_DUPLICATE_PRODUCT,
                     toAdd.getProductName()));
         }
 
         ProductCommandUtil.verifyNewIngredients(model, toAdd);
         model.addProduct(toAdd);
 
-        return new CommandResult(String.format(ProductMessage.MESSAGE_ADD_PRODUCT_SUCCESS, toAdd.getProductName()),
+        return new CommandResult(String.format(ProductMessageUtils.MESSAGE_ADD_PRODUCT_SUCCESS, toAdd.getProductName()),
                 CommandResult.DisplayedPage.PRODUCT);
     }
 

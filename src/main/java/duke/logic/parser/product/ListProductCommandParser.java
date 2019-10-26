@@ -1,7 +1,7 @@
 package duke.logic.parser.product;
 
 import duke.logic.command.product.ListProductCommand;
-import duke.logic.message.ProductMessage;
+import duke.logic.message.ProductMessageUtils;
 import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.commons.ArgumentTokenizer;
 import duke.logic.parser.commons.Parser;
@@ -23,7 +23,7 @@ public class ListProductCommandParser implements Parser<ListProductCommand> {
         try {
             scope = ListProductCommand.Scope.valueOf(status.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new ParseException(ProductMessage.MESSAGE_INVALID_SCOPE_VALUE);
+            throw new ParseException(ProductMessageUtils.MESSAGE_INVALID_SCOPE_VALUE);
         }
         return new ListProductCommand(scope);
     }

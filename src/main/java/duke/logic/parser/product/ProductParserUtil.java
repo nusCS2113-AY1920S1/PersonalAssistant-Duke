@@ -1,7 +1,7 @@
 package duke.logic.parser.product;
 
 import duke.logic.command.product.ProductDescriptor;
-import duke.logic.message.ProductMessage;
+import duke.logic.message.ProductMessageUtils;
 import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.product.Product;
@@ -28,7 +28,7 @@ public class ProductParserUtil {
                 productDescriptor.setIngredientCost(Double.parseDouble(map.getValue(PREFIX_PRODUCT_INGREDIENT_COST).get()));
             }
         } catch (NumberFormatException e) {
-            throw new ParseException(ProductMessage.MESSAGE_INVALID_NUMBER_FORMAT);
+            throw new ParseException(ProductMessageUtils.MESSAGE_INVALID_NUMBER_FORMAT);
         }
 
         if (map.getValue(PREFIX_PRODUCT_STATUS).isPresent()) {
@@ -36,7 +36,7 @@ public class ProductParserUtil {
                 productDescriptor.setStatus(Product.Status.valueOf(
                         map.getValue(PREFIX_PRODUCT_STATUS).get().toUpperCase()));
             } catch (IllegalArgumentException e) {
-                throw new ParseException(ProductMessage.MESSAGE_INVALID_STATUS_VALUE);
+                throw new ParseException(ProductMessageUtils.MESSAGE_INVALID_STATUS_VALUE);
             }
         }
         if (map.getValue(PREFIX_PRODUCT_INGREDIENT).isPresent()) {

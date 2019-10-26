@@ -1,7 +1,6 @@
 package duke.logic.parser.product;
 
 import duke.commons.core.index.Index;
-import duke.logic.command.exceptions.CommandException;
 import duke.logic.command.product.DeleteProductCommand;
 import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.commons.ArgumentTokenizer;

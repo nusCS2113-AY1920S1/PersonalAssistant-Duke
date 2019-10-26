@@ -1,6 +1,6 @@
 package duke.logic.command.product;
 
-import duke.logic.message.ProductMessage;
+import duke.logic.message.ProductMessageUtils;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.Model;
 import duke.model.commons.Item;
@@ -38,7 +38,7 @@ public class ProductCommandUtil {
     public static Product getProductFromDescriptor(ProductDescriptor productDescriptor) throws ParseException {
         Product product = new Product();
         if (!productDescriptor.getProductName().isPresent()) {
-            throw new ParseException(ProductMessage.MESSAGE_MISSING_PRODUCT_NAME);
+            throw new ParseException(ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
         }
         product.setProductName(productDescriptor.getProductName().get());
         product.setIngredientCost(productDescriptor.getIngredientCost().orElse(Product.DEFAULT_INGREDIENT_COST));

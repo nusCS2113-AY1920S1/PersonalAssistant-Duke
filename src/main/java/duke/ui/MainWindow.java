@@ -145,15 +145,13 @@ public class MainWindow extends UiPart<Stage> {
         case UP:
             keyEvent.consume();
             if (historyIndex > 0) {
-                historyIndex--;
-                loadText(historyIndex);
+                loadPreviousText();
             }
             break;
         case DOWN:
             keyEvent.consume();
             if (historyIndex < (inputHistory.size() - 1)) {
-                historyIndex++;
-                loadText(historyIndex);
+                loadNextText();
             }
             break;
         case TAB:
@@ -170,7 +168,16 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private void loadText(int index) {
+    private void loadPreviousText() {
+        historyIndex--;
+        loadText();
+    }
+
+    private void loadNextText() {
+        historyIndex++;
+        loadText();
+    }
+    private void loadText() {
         String history = inputHistory.get(historyIndex);
         userInput.setText(history);
         userInput.setFocusTraversable(false);

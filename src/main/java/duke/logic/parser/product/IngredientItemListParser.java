@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 
 public class IngredientItemListParser {
     private String inputIngredientList;
-    private String format = "(\\s*\\[\\s*)(?<name>[\\w ]+)([,]?)(?<quantity>[0-9. ]*)(?:\\]\\s*)";
 
     private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("((\\s*\\[\\s*)(?<name>[\\w ]+)"
             + "([,"

@@ -2,7 +2,7 @@ package duke.logic.command.product;
 
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
-import duke.logic.message.ProductMessage;
+import duke.logic.message.ProductMessageUtils;
 import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
@@ -50,7 +50,7 @@ public class ListProductCommand extends ProductCommand {
             break;
         }
         model.getFilteredProductList();
-        return new CommandResult(String.format(ProductMessage.MESSAGE_LIST_SCOPE, scope),
+        return new CommandResult(String.format(ProductMessageUtils.MESSAGE_LIST_SCOPE, scope),
                 CommandResult.DisplayedPage.PRODUCT);
     }
 }
