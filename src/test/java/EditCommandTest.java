@@ -19,6 +19,6 @@ public class EditCommandTest {
         testList.editTaskDescription(0, "Roblox");
 
         test = testList.getTasks();
-        Assertions.assertEquals(test.get(0).description, "Roblox");
+        Assertions.assertEquals(test.get(0).getDescription(), "Roblox");
     }
 }

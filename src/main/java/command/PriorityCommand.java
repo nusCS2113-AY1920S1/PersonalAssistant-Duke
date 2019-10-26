@@ -15,8 +15,6 @@ import ui.Ui;
  */
 public class PriorityCommand extends Command {
 
-    private static final String NO_PRIORITY = "Ignorable tasks do not have a priority level";
-
     private int indexOfTask;
     private String priorityString;
 
@@ -26,8 +24,8 @@ public class PriorityCommand extends Command {
     }
 
     /**
-     * Updates the priority level of a task that is not ignorable and saves the updated TaskList
-     * to persistent storage.
+     * Updates the priority level of a task that is not ignorable and saves the
+     * updated TaskList to persistent storage.
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
@@ -44,12 +42,9 @@ public class PriorityCommand extends Command {
         }
 
         Task task = tasks.getTasks().get(indexOfTask);
-        if (!task.isPrioritizable) {
-            Ui.printOutput(NO_PRIORITY);
-        } else {
-            task.setPriority(newPriority);
-            storage.saveFile(tasks.getTasks());
-            Ui.printOutput("Got it! " + task.description + " priority level is now " + priorityString);
-        }
+
+        task.setPriority(newPriority);
+        storage.saveFile(tasks.getTasks());
+        Ui.printOutput("Got it! " + task.getDescription() + " priority level is now " + priorityString);
     }
 }

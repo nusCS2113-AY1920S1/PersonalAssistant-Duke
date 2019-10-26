@@ -1,5 +1,9 @@
 package task;
 
+import java.time.LocalDateTime;
+
+import parser.DateTimeExtractor;
+
 import java.io.Serializable;
 
 /**
@@ -10,9 +14,28 @@ import java.io.Serializable;
  * @version v2.0
  */
 public class Todo extends Task implements Serializable {
+    public int duration = 0;
 
     public Todo(String description) {
         super(description);
+    }
+
+    public Todo(String description, int duration) {
+        super(description);
+        this.duration = duration;
+    }
+
+    /**
+     * Creates a ToDo task with a specific duration and timing.
+     *
+     * @param description description of task
+     * @param startDate   start time of the task
+     * @param endDate     end time of the task
+     */
+    public Todo(String description, LocalDateTime startDate, LocalDateTime endDate) {
+        super(description);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     /**
@@ -24,7 +47,18 @@ public class Todo extends Task implements Serializable {
      */
     @Override
     public String toString() {
-        String message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
+        String message = "";
+        if (this.duration == 0 && this.startDate == null) {
+            message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
+        } else if (this.duration == 0) {
+            message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description
+                    + " (from: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: "
+                    + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+
+        } else {
+            message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " "
+                    + "(for " + duration + " hours)";
+        }
         if (!comment.isBlank()) {
             message = message + "  Note to self: " + comment;
         }
