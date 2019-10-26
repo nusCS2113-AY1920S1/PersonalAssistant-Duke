@@ -11,6 +11,7 @@ import wallet.model.Wallet;
 import wallet.model.WalletList;
 import wallet.model.contact.Contact;
 import wallet.model.contact.ContactList;
+import wallet.model.currency.CurrencyList;
 import wallet.model.record.BudgetList;
 import wallet.model.record.Category;
 import wallet.model.record.Expense;
@@ -59,7 +60,8 @@ public class AddCommandParserTest {
     public void parseLoan_validInput_success() throws ParseException {
         AddCommandParser parser = new AddCommandParser();
         WalletList dummyWalletList = new WalletList();
-        Wallet dummyWallet = new Wallet(new BudgetList(),
+        Wallet dummyWallet = new Wallet(new CurrencyList(),
+                new BudgetList(),
                 new RecordList(),
                 new ExpenseList(),
                 new ContactList(),

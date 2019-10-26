@@ -2,6 +2,7 @@ package wallet.storage;
 
 import wallet.model.Wallet;
 import wallet.model.contact.Contact;
+import wallet.model.currency.Currency;
 import wallet.model.record.Budget;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
