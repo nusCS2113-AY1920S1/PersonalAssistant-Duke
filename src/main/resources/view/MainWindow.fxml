@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -9,88 +11,174 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.gui.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0"
+            prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="duke.gui.MainWindow">
     <children>
-        <TextField fx:id="userInput" layoutX="400.0" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="187.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="63.0" />
-        <Button fx:id="sendButton" layoutX="747.0" layoutY="649.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="63.0" text="Send" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0" />
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="580.0" layoutY="42.0" prefHeight="700.0" prefWidth="250.0" vvalue="1.0" AnchorPane.bottomAnchor="42.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+        <TextField fx:id="userInput" layoutX="400.0" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0"
+                   prefWidth="187.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="63.0"/>
+        <Button fx:id="sendButton" layoutX="747.0" layoutY="649.0" mnemonicParsing="false" onAction="#handleUserInput"
+                prefHeight="41.0" prefWidth="63.0" text="Send" AnchorPane.bottomAnchor="1.0"
+                AnchorPane.rightAnchor="0.0"/>
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="749.0" prefHeight="700.0"
+                    prefWidth="250.0" vvalue="1.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="749.0"
+                    AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
             <content>
-                <VBox fx:id="dialogContainer" alignment="TOP_RIGHT" prefHeight="0.0" prefWidth="0.0" />
+                <VBox fx:id="dialogContainer" alignment="TOP_RIGHT" prefHeight="0.0" prefWidth="0.0"/>
             </content>
         </ScrollPane>
-      <TabPane layoutX="-232.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="734.0" prefWidth="749.0" side="LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <tabs>
-            <Tab text="Tables">
-              <content>
-                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="734.0" prefWidth="720.0">
-                     <children>
-                        <TabPane prefHeight="734.0" prefWidth="723.0" tabClosingPolicy="UNAVAILABLE">
-                          <tabs>
-                            <Tab text="Patients">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0">
-                                       <children>
-                                          <TableView fx:id="patientTable" layoutX="-2.0" layoutY="-3.0" prefHeight="709.0" prefWidth="721.0">
-                                            <columns>
-                                              <TableColumn fx:id="patientIdCol" prefWidth="51.0" text="ID" />
-                                              <TableColumn fx:id="patientNameCol" minWidth="0.0" prefWidth="123.0" text="NAME" />
-                                                <TableColumn fx:id="patientNricCol" minWidth="0.0" prefWidth="118.0" text="NRIC" />
-                                                <TableColumn fx:id="patientRoomCol" minWidth="0.0" prefWidth="63.0" text="ROOM" />
-                                                <TableColumn fx:id="patientRemarkCol" prefWidth="190.0" text="REMARK" />
-                                            </columns>
-                                          </TableView>
-                                       </children>
-                                    </AnchorPane>
-                              </content>
-                            </Tab>
-                            <Tab text="Tasks">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="695.0" prefWidth="700.0">
-                                       <children>
-                                          <TableView fx:id="taskTable" prefHeight="706.0" prefWidth="720.0">
-                                            <columns>
-                                              <TableColumn fx:id="taskIdCol" prefWidth="71.0" text="ID" />
-                                              <TableColumn fx:id="taskDescriptionCol" prefWidth="473.0" text="DESCRIPTION" />
-                                            </columns>
-                                          </TableView>
-                                       </children>
-                                    </AnchorPane>
-                              </content>
-                            </Tab>
-                              <Tab text="Assigned Tasks">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <TableView fx:id="assignedTaskTable" prefHeight="707.0" prefWidth="721.0">
-                                             <columns>
-                                                <TableColumn fx:id="assignedUuidCol" prefWidth="51.0" text="UUID" />
-                                                <TableColumn fx:id="assignedTypeCol" prefWidth="49.0" text="TYPE" />
-                                                <TableColumn fx:id="assignedTidCol" minWidth="0.0" prefWidth="62.0" text="TID" />
-                                                <TableColumn fx:id="assignedDescriptionCol" minWidth="0.0" prefWidth="121.0" text="DESCRIPTION" />
-                                                <TableColumn fx:id="assignedPidCol" minWidth="0.0" prefWidth="42.0" text="PID" />
-                                                <TableColumn fx:id="assignedPnameCol" prefWidth="79.0" text="PNAME" />
-                                                <TableColumn fx:id="assignedIsDoneCol" prefWidth="79.0" text="IS DONE" />
-                                                <TableColumn fx:id="assignedTodoDateCol" prefWidth="72.0" text="TODO_D" />
-                                                <TableColumn fx:id="assignedStartDateCol" prefWidth="83.0" text="START_D" />
-                                                <TableColumn fx:id="assignedEndDateCol" minWidth="9.0" prefWidth="79.0" text="END_D" />
-                                             </columns>
-                                          </TableView>
-                                       </children></AnchorPane>
-                                 </content>
-                              </Tab>
-                          </tabs>
-                        </TabPane>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-            <Tab text="Others">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="677.0" prefWidth="531.0" />
-              </content>
-            </Tab>
-         </tabs>
-      </TabPane>
+        <TabPane layoutX="-232.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="734.0" prefWidth="749.0" side="LEFT"
+                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <tabs>
+                <Tab text="Tables">
+                    <content>
+                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0"
+                                    prefHeight="734.0" prefWidth="720.0">
+                            <children>
+                                <TabPane prefHeight="734.0" prefWidth="723.0" tabClosingPolicy="UNAVAILABLE">
+                                    <tabs>
+                                        <Tab text="Patients">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0">
+                                                    <children>
+                                                        <TableView fx:id="patientTable" layoutX="3.0" layoutY="42.0"
+                                                                   prefHeight="660.0" prefWidth="700.0"
+                                                                   AnchorPane.bottomAnchor="10.0"
+                                                                   AnchorPane.leftAnchor="10.0"
+                                                                   AnchorPane.rightAnchor="10.0"
+                                                                   AnchorPane.topAnchor="50.0">
+                                                            <columns>
+                                                                <TableColumn fx:id="patientIdCol" prefWidth="51.0"
+                                                                             text="ID"/>
+                                                                <TableColumn fx:id="patientNameCol" minWidth="0.0"
+                                                                             prefWidth="123.0" text="NAME"/>
+                                                                <TableColumn fx:id="patientNricCol" minWidth="0.0"
+                                                                             prefWidth="118.0" text="NRIC"/>
+                                                                <TableColumn fx:id="patientRoomCol" minWidth="0.0"
+                                                                             prefWidth="63.0" text="ROOM"/>
+                                                                <TableColumn fx:id="patientRemarkCol" prefWidth="190.0"
+                                                                             text="REMARK"/>
+                                                            </columns>
+                                                        </TableView>
+                                                        <TextField fx:id="patientSearchTextField" layoutX="97.0"
+                                                                   layoutY="14.0" prefHeight="25.0" prefWidth="600.0"
+                                                                   AnchorPane.leftAnchor="100.0"
+                                                                   AnchorPane.topAnchor="10.0"/>
+                                                        <Label layoutX="14.0" layoutY="14.0" prefHeight="25.0"
+                                                               prefWidth="100.0" text="Search Bar" textAlignment="RIGHT"
+                                                               AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                                            <font>
+                                                                <Font name="System Bold" size="16.0"/>
+                                                            </font>
+                                                            <padding>
+                                                                <Insets left="2.0" top="2.0"/>
+                                                            </padding>
+                                                        </Label>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab text="Tasks">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="591.0"
+                                                            prefWidth="702.0">
+                                                    <children>
+                                                        <TableView fx:id="taskTable" layoutX="-1.0" layoutY="37.0"
+                                                                   prefHeight="660.0" prefWidth="700.0"
+                                                                   AnchorPane.bottomAnchor="10.0"
+                                                                   AnchorPane.leftAnchor="10.0"
+                                                                   AnchorPane.rightAnchor="10.0"
+                                                                   AnchorPane.topAnchor="50.0">
+                                                            <columns>
+                                                                <TableColumn fx:id="taskIdCol" prefWidth="71.0"
+                                                                             text="ID"/>
+                                                                <TableColumn fx:id="taskDescriptionCol"
+                                                                             prefWidth="473.0" text="DESCRIPTION"/>
+                                                            </columns>
+                                                        </TableView>
+                                                        <TextField fx:id="taskSearchTextField" layoutX="91.0"
+                                                                   layoutY="14.0" prefHeight="25.0" prefWidth="600.0"
+                                                                   AnchorPane.leftAnchor="100.0"
+                                                                   AnchorPane.topAnchor="10.0"/>
+                                                        <Label layoutX="11.0" layoutY="14.0" prefHeight="25.0"
+                                                               prefWidth="100.0" text="Search Bar" textAlignment="RIGHT"
+                                                               AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                                            <font>
+                                                                <Font name="System Bold" size="16.0"/>
+                                                            </font>
+                                                            <padding>
+                                                                <Insets left="2.0" top="2.0"/>
+                                                            </padding>
+                                                        </Label>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab text="Assigned Tasks">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                            prefWidth="200.0">
+                                                    <children>
+                                                        <TableView fx:id="assignedTaskTable" prefHeight="660.0"
+                                                                   prefWidth="700.0" AnchorPane.bottomAnchor="10.0"
+                                                                   AnchorPane.leftAnchor="10.0"
+                                                                   AnchorPane.rightAnchor="10.0"
+                                                                   AnchorPane.topAnchor="50.0">
+                                                            <columns>
+                                                                <TableColumn fx:id="assignedUuidCol" prefWidth="51.0"
+                                                                             text="UUID"/>
+                                                                <TableColumn fx:id="assignedTypeCol" prefWidth="49.0"
+                                                                             text="TYPE"/>
+                                                                <TableColumn fx:id="assignedTidCol" minWidth="0.0"
+                                                                             prefWidth="62.0" text="TID"/>
+                                                                <TableColumn fx:id="assignedDescriptionCol"
+                                                                             minWidth="0.0" prefWidth="121.0"
+                                                                             text="DESCRIPTION"/>
+                                                                <TableColumn fx:id="assignedPidCol" minWidth="0.0"
+                                                                             prefWidth="42.0" text="PID"/>
+                                                                <TableColumn fx:id="assignedPnameCol" prefWidth="79.0"
+                                                                             text="PNAME"/>
+                                                                <TableColumn fx:id="assignedIsDoneCol" prefWidth="79.0"
+                                                                             text="IS DONE"/>
+                                                                <TableColumn fx:id="assignedTodoDateCol"
+                                                                             prefWidth="72.0" text="TODO_D"/>
+                                                                <TableColumn fx:id="assignedStartDateCol"
+                                                                             prefWidth="83.0" text="START_D"/>
+                                                                <TableColumn fx:id="assignedEndDateCol" minWidth="9.0"
+                                                                             prefWidth="79.0" text="END_D"/>
+                                                            </columns>
+                                                        </TableView>
+                                                        <Label prefHeight="25.0" prefWidth="100.0" text="Search Bar"
+                                                               textAlignment="RIGHT" AnchorPane.leftAnchor="5.0"
+                                                               AnchorPane.topAnchor="5.0">
+                                                            <font>
+                                                                <Font name="System Bold" size="16.0"/>
+                                                            </font>
+                                                            <padding>
+                                                                <Insets left="2.0" top="2.0"/>
+                                                            </padding>
+                                                        </Label>
+                                                        <TextField fx:id= "assignedTaskSearchTextField" prefHeight="25.0"
+                                                        prefWidth="600.0" AnchorPane.leftAnchor="100.0"
+                                                        AnchorPane.topAnchor="10.0" />
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                    </tabs>
+                                </TabPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Others">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="677.0" prefWidth="531.0"/>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
     </children>
 </AnchorPane>

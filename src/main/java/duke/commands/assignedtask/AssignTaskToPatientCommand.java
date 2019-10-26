@@ -51,7 +51,7 @@ public class AssignTaskToPatientCommand implements Command {
                     int pid = Integer.parseInt(taskAssignmentInfo[0].substring(1));
                     int tid = Integer.parseInt(taskAssignmentInfo[1].substring(1));
                     String time = taskAssignmentInfo[2];
-                    String type = "S";
+                    String type = "date";
                     newAssignedTask = new AssignedTaskWithDate(pid, tid, time, type);
                 } else {
                     throw new DukeException("You are using the wrong format for the assign command!");
@@ -62,7 +62,7 @@ public class AssignTaskToPatientCommand implements Command {
                     int tid = Integer.parseInt(taskAssignmentInfo[1].substring(1));
                     String stime = taskAssignmentInfo[2];
                     String etime = taskAssignmentInfo[3];
-                    String type = "E";
+                    String type = "period";
                     newAssignedTask = new AssignedTaskWithPeriod(pid, tid, stime, etime, type);
                 } else {
                     throw new DukeException("You are using the wrong format for the assign command!");

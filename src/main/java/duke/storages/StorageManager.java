@@ -217,9 +217,9 @@ public class StorageManager {
                 String endTime = assignedTaskInfo.get(ASSIGNED_TASK_HEADERS[6]);
                 String taskType = assignedTaskInfo.get(ASSIGNED_TASK_HEADERS[7]);
                 int uniqueId = Integer.parseInt(assignedTaskInfo.get(ASSIGNED_TASK_HEADERS[8]));
-                if (taskType.equals("S")) {
+                if (taskType.equals("date")) {
                     assignedTaskList.add(new AssignedTaskWithDate(pid, tid, isDone, isRecursive, deadline, taskType));
-                } else if (taskType.equals("E")) {
+                } else if (taskType.equals("period")) {
                     assignedTaskList.add(new AssignedTaskWithPeriod(pid, tid, isDone, isRecursive,
                         startTime, endTime, taskType));
                 }

@@ -1,12 +1,15 @@
 package duke.gui;
 
 import duke.Duke;
+import duke.exceptions.DukeException;
 import duke.models.assignedtasks.AssignedTask;
 import duke.models.patients.Patient;
 import duke.models.tasks.Task;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -43,14 +46,12 @@ public class MainWindow extends AnchorPane {
     private TableColumn<Patient, String> patientRemarkCol;
     @FXML
     private TableColumn<Patient, String> patientNricCol;
-
     @FXML
     private TableView<Task> taskTable;
     @FXML
     private TableColumn<Task, Integer> taskIdCol;
     @FXML
     private TableColumn<Task, String> taskDescriptionCol;
-
     @FXML
     private TableView<AssignedTask> assignedTaskTable;
     @FXML
@@ -73,16 +74,26 @@ public class MainWindow extends AnchorPane {
     private TableColumn<AssignedTask, String> assignedStartDateCol;
     @FXML
     private TableColumn<AssignedTask, String> assignedEndDateCol;
+    @FXML
+    private TextField patientSearchTextField;
+    @FXML
+    private TextField taskSearchTextField;
+    @FXML
+    private TextField assignedTaskSearchTextField;
 
 
-    private Duke duke = new Duke("./data");
+    private final Duke duke = new Duke("./data");
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
 
-    private ObservableList<Patient> patientData;
-    private ObservableList<Task> taskData;
-    private ObservableList<AssignedTask> assignTaskData;
+//    private ObservableList<Patient> patientData;
+//    private ObservableList<Task> taskData;
+//    private ObservableList<AssignedTask> assignTaskData;
+
+    private ObservableList<AssignedTask> assignedTaskData = FXCollections.observableArrayList(duke.getAssignedTaskManager().getAssignTasks());
+    private ObservableList<Task> taskData = FXCollections.observableArrayList(duke.getTaskManager().getTaskList());
+    private ObservableList<Patient> patientData = FXCollections.observableArrayList(duke.getPatientManager().getPatientList());
 
     /**
      * .
@@ -97,9 +108,9 @@ public class MainWindow extends AnchorPane {
      * .
      */
     public void initializeTableViews() {
-        assignTaskData = FXCollections.observableArrayList(duke.getAssignedTaskManager().getAssignTasks());
-        taskData = FXCollections.observableArrayList(duke.getTaskManager().getTaskList());
-        patientData = FXCollections.observableArrayList(duke.getPatientManager().getPatientList());
+//        assignTaskData = FXCollections.observableArrayList(duke.getAssignedTaskManager().getAssignTasks());
+//        taskData = FXCollections.observableArrayList(duke.getTaskManager().getTaskList());
+//        patientData = FXCollections.observableArrayList(duke.getPatientManager().getPatientList());
 
         patientIdCol.setCellValueFactory(new PropertyValueFactory<Patient, Integer>("id"));
         patientNameCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("name"));
@@ -137,34 +148,149 @@ public class MainWindow extends AnchorPane {
                 }
             );
         });
-        assignedTaskTable.setItems(assignTaskData);
+
+        assignedTaskTable.setItems(assignedTaskData);
         taskTable.setItems(taskData);
         patientTable.setItems(patientData);
+        patientSearchBarListener();
+        assignedTaskSearchBarListener();
+        taskSearchBarListener();
     }
 
     /**
      * .
      */
     public void updateTableViews() {
-        assignTaskData.clear();
+        assignedTaskData.clear();
         taskData.clear();
         patientData.clear();
-        assignTaskData = FXCollections.observableArrayList(duke.getAssignedTaskManager().getAssignTasks());
+        assignedTaskData = FXCollections.observableArrayList(duke.getAssignedTaskManager().getAssignTasks());
         taskData = FXCollections.observableArrayList(duke.getTaskManager().getTaskList());
         patientData = FXCollections.observableArrayList(duke.getPatientManager().getPatientList());
-        assignedTaskTable.setItems(assignTaskData);
+        assignedTaskTable.setItems(assignedTaskData);
         taskTable.setItems(taskData);
         patientTable.setItems(patientData);
+        patientSearchBarListener();
+        assignedTaskSearchBarListener();
+        taskSearchBarListener();
+    }
+
+    private void patientSearchBarListener() {
+        // Wrap the ObservableList in a FilteredList (initially display all data).
+        FilteredList<Patient> filteredPatients = new FilteredList<>(patientData, b -> true);
+
+        // Capture Patient's search bar text field
+        patientSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredPatients.setPredicate(patient -> {
+                // If filter text is empty, display all patients
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (patient.getName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (String.valueOf(patient.getId()).contains(lowerCaseFilter)) {
+                    return true;
+                } else if (patient.getRoom().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (patient.getNric().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (patient.getRemark().toLowerCase().contains(lowerCaseFilter))
+                    return true;
+                else
+                    return false; // No match
+            });
+        });
+        // 3. Wrap the FilteredList in a SortedList.
+        SortedList<Patient> sortedPatientData = new SortedList<>(filteredPatients);
+        // 4. Bind the SortedList comparator to the TableView comparator.
+        sortedPatientData.comparatorProperty().bind(patientTable.comparatorProperty());
+        // 5. Add sorted (and filtered) data to the table.
+        patientTable.setItems(sortedPatientData);
     }
 
     /**
      * .
-     *
-     * @param duke .
      */
-    public void setDuke(Duke duke) {
-        this.duke = duke;
+    private void taskSearchBarListener() {
+        // Wrap the ObservableList in a FilteredList (initially display all data).
+        FilteredList<Task> filteredPatients = new FilteredList<>(taskData, b -> true);
+
+        // Capture Patient's search bar text field
+        taskSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredPatients.setPredicate(task -> {
+                // If filter text is empty, display all patients
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (task.getDescription().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (String.valueOf(task.getId()).contains(lowerCaseFilter)) {
+                    return true;
+                } else {
+                    return false; // No match
+                }
+            });
+        });
+        SortedList<Task> sortedTaskData = new SortedList<>(filteredPatients);
+        sortedTaskData.comparatorProperty().bind(taskTable.comparatorProperty());
+        taskTable.setItems(sortedTaskData);
     }
+
+    private void assignedTaskSearchBarListener() {
+        // Wrap the ObservableList in a FilteredList (initially display all data).
+        FilteredList<AssignedTask> filteredAssignedTasks = new FilteredList<>(assignedTaskData, b -> true);
+        assignedTaskSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredAssignedTasks.setPredicate(assignedTask -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+
+                    try {
+                        if (assignedTask.getType().toLowerCase().contains(lowerCaseFilter)) {
+                            return true;
+                        } else if (duke.getTaskManager().getTask((assignedTask.getTid()))
+                            .getDescription().toLowerCase().contains(lowerCaseFilter)) {
+                            return true;
+                        } else if (duke.getPatientManager().getPatient((assignedTask.getPid()))
+                            .getName().toLowerCase().contains(lowerCaseFilter)) {
+                            return true;
+                        } else if (String.valueOf(assignedTask.getUuid()).contains(lowerCaseFilter)) {
+                            return true;
+                        } else if (String.valueOf(assignedTask.getTid()).contains(lowerCaseFilter)) {
+                            return true;
+                        } else if (String.valueOf(assignedTask.getPid()).contains(lowerCaseFilter)) {
+                            return true;
+                        } else if (String.valueOf(assignedTask.getIsDone()).contains(lowerCaseFilter)) {
+                            return true;
+                        } else if (assignedTask.getStartDateRaw().toLowerCase().contains(lowerCaseFilter)) {
+                            return true;
+                        } else if (assignedTask.getEndDateRaw().toLowerCase().contains(lowerCaseFilter)) {
+                            return true;
+                        } else if (assignedTask.getTodoDateRaw().toLowerCase().contains(lowerCaseFilter)) {
+                            return true;
+                        } else {
+                            return false; // Does not match.
+                        }
+                    } catch (DukeException e) {
+                        return false;
+                    }
+        });
+    });
+    // 3. Wrap the FilteredList in a SortedList.
+    SortedList<AssignedTask> sortedAssignedTaskData = new SortedList<>(filteredAssignedTasks);
+    // 4. Bind the SortedList comparator to the TableView comparator.
+        sortedAssignedTaskData.comparatorProperty().
+
+    bind(assignedTaskTable.comparatorProperty());
+    // 5. Add sorted (and filtered) data to the table.
+        assignedTaskTable.setItems(sortedAssignedTaskData);
+}
+
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
