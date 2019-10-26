@@ -60,8 +60,13 @@ class PatientWindow extends UiElement<Region> {
         address.setText(String.valueOf(patient.getAddress()));
         history.setText(String.valueOf(patient.getHistory()));
 
-        for (String allergy : patient.getAllergies().split(",")) {
-            Label label = new Label(allergy);
+        if (patient.getAllergies() != null) {
+            for (String allergy : patient.getAllergies().split(",")) {
+                Label label = new Label(allergy);
+                allergiesListView.getItems().add(label);
+            }
+        } else {
+            Label label = new Label("No allergies");
             allergiesListView.getItems().add(label);
         }
 
