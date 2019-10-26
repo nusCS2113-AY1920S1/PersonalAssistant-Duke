@@ -31,6 +31,9 @@ public class ExpensePane extends UiPart<AnchorPane>  {
     @FXML
     TableView expenseTableView;
 
+    @FXML
+    ListView<String> budgetListView;
+
     public Logic logic;
     public Set<String> tags;
 
@@ -104,6 +107,8 @@ public class ExpensePane extends UiPart<AnchorPane>  {
         pieChartSample.setTitle("Expenditure");
         paneView.getChildren().add(pieChartSample);
         logger.info("Pie chart is set.");
+
+        budgetListView.setItems(logic.getBudgetObservableList());
     }
 
     /**
@@ -138,4 +143,8 @@ public class ExpensePane extends UiPart<AnchorPane>  {
             }
         }
     }
+
+
+
+
 }

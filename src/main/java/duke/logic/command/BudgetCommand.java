@@ -1,9 +1,10 @@
 package duke.logic.command;
-/*
-import duke.Duke;
+
 import duke.exception.DukeException;
 import duke.logic.CommandParams;
 import duke.logic.CommandResult;
+import duke.model.Model;
+import duke.storage.Storage;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -14,6 +15,9 @@ public class BudgetCommand extends Command {
     private static final String name = "budget";
     private static final String description = "sets a budget";
     private static final String usage = "budget $amount";
+
+    private static final String COMPLETE_MESSAGE = "Set the budget!";
+
 
     private enum SecondaryParam {
         TAG("tag", "tags that we want a budget to be associated with");
@@ -32,9 +36,8 @@ public class BudgetCommand extends Command {
             .collect(Collectors.toMap(s -> s.name, s -> s.description)));
     }
 
-
     @Override
-    public CommandResult execute(CommandParams commandParams, Duke duke) throws DukeException {
+    public CommandResult execute(CommandParams commandParams, Model model, Storage storage) throws DukeException {
         if (!commandParams.containsMainParam()) {
             throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING, "amount"));
         }
@@ -43,16 +46,17 @@ public class BudgetCommand extends Command {
             BigDecimal scaledAmount = amount.setScale(2, RoundingMode.HALF_UP);
             if (commandParams.containsParams(SecondaryParam.TAG.name)) {
                 String category = commandParams.getParam(SecondaryParam.TAG.name);
-                duke.budget.setCategoryBudget(category, amount);
+                model.setCategoryBudget(category, amount);
+            }else{
+                model.setMonthlyBudget(scaledAmount);
             }
-            duke.budget.setMonthlyBudget(scaledAmount);
-            duke.budget.save();
+            storage.saveBudget(model.getBudget());
+
         } catch (NumberFormatException e) {
             throw new DukeException(String.format(DukeException.MESSAGE_BUDGET_AMOUNT_INVALID,
-                commandParams.getMainParam()));
+                    commandParams.getMainParam()));
         }
-
+        return new  CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.EXPENSE );
     }
 
 }
-*/

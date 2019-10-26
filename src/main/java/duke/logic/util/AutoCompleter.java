@@ -1,11 +1,19 @@
 package duke.logic.util;
 
 import duke.commons.LogsCenter;
-import duke.logic.command.*; // all commands are used to get their info.
-import duke.ui.MainWindow;
+import duke.logic.command.AddExpenseCommand;
+import duke.logic.command.Command;
+import duke.logic.command.ConfirmTentativeCommand;
+import duke.logic.command.DeleteExpenseCommand;
+import duke.logic.command.ExitCommand;
+import duke.logic.command.FilterExpenseCommand;
+import duke.logic.command.GoToCommand;
+import duke.logic.command.PlanBotCommand;
+import duke.logic.command.SortExpenseCommand;
+import duke.logic.command.ViewExpenseCommand;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -32,7 +40,7 @@ import java.util.stream.Stream;
  */
 public class AutoCompleter {
 
-    private static final Logger logger = LogsCenter.getLogger(MainWindow.class);
+    private static final Logger logger = LogsCenter.getLogger(AutoCompleter.class);
 
     /** Three keywords used to decide the purpose of complement **/
     private static final String EMPTY_STRING = "";
@@ -211,7 +219,7 @@ public class AutoCompleter {
      */
     private String getLastToken() {
         int index = fromInput.length() - 1;
-        while(index >= 0 && SPACE.charAt(0) != fromInput.charAt(index)) {
+        while (index >= 0 && SPACE.charAt(0) != fromInput.charAt(index)) {
             index -= 1;
         }
         startIndexOfLastToken = index + 1;
@@ -229,7 +237,7 @@ public class AutoCompleter {
             purpose = Purpose.ITERATE;
 
         } else if (!hasValidCommandName()) {
-            if(numberOfTokens > 1 || endsWithSpace()) {
+            if (numberOfTokens > 1 || endsWithSpace()) {
                 purpose = Purpose.NOT_DOABLE;
 
             } else {
@@ -243,7 +251,7 @@ public class AutoCompleter {
         } else if (inUncompletedParameter()) {
             purpose = Purpose.COMPLETE_PARAMETER;
 
-        } else if (numberOfTokens == 1){
+        } else if (numberOfTokens == 1) {
             purpose = Purpose.COMPLETE_COMMAND_NAME;
 
         } else {
@@ -310,31 +318,31 @@ public class AutoCompleter {
      */
     private String getComplement() {
         switch (purpose) {
-            case COMPLETE_COMMAND_NAME:
-                completeCommandNameComplements();
-                iteratingIndex = 0;
-                break;
+        case COMPLETE_COMMAND_NAME:
+            completeCommandNameComplements();
+            iteratingIndex = 0;
+            break;
 
-            case PRODUCE_PARAMETER:
-                produceParameterComplements();
-                iteratingIndex = 0;
-                break;
+        case PRODUCE_PARAMETER:
+            produceParameterComplements();
+            iteratingIndex = 0;
+            break;
 
-            case COMPLETE_PARAMETER:
-                completeParameterComplements();
-                iteratingIndex = 0;
-                break;
+        case COMPLETE_PARAMETER:
+            completeParameterComplements();
+            iteratingIndex = 0;
+            break;
 
-            case ITERATE:
-                iterateIndex();
-                break;
+        case ITERATE:
+            iterateIndex();
+            break;
 
-            case NOT_DOABLE:
-                complementList.clear();
-                break;
+        case NOT_DOABLE:
+            complementList.clear();
+            break;
         }
 
-        if(complementList.isEmpty()) {
+        if (complementList.isEmpty()) {
             return getLastToken();
         } else {
             return complementList.get(iteratingIndex);

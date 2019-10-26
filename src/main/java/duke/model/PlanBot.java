@@ -64,7 +64,7 @@ public class PlanBot {
      * @param planAttributes the loaded attributes from Storage
      * @throws DukeException when there is an error loading questions based on the loaded planAttributes
      */
-    public PlanBot(Map<String, String> planAttributes) throws DukeException {
+    public PlanBot(Map<String, String> planAttributes) {
         this.dialogList = new ArrayList<>();
         dialogObservableList = FXCollections.observableList(dialogList);
         this.planAttributes = planAttributes;
@@ -77,12 +77,23 @@ public class PlanBot {
             PlanDialog knownDialog = new PlanDialog(knownAttributes.toString(), Agent.BOT);
             dialogObservableList.add(knownDialog);
         }
-        planQuestionBank = new PlanQuestionBank();
-        questionQueue.addAll(planQuestionBank.getQuestions(planAttributes));
+        try {
+            planQuestionBank = new PlanQuestionBank();
+        } catch (DukeException e) {
+            dialogObservableList.add(new PlanDialog(e.getMessage(), Agent.BOT));
+        }
+        try {
+            questionQueue.addAll(planQuestionBank.getQuestions(planAttributes));
+        } catch (DukeException e) {
+            dialogObservableList.add(new PlanDialog(e.getMessage(), Agent.BOT));
+        }
         if (questionQueue.isEmpty()) {
             currentQuestion = null;
-            dialogList.add(new PlanDialog(makeRecommendation(), Agent.BOT));
-
+            try {
+                dialogList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes), Agent.BOT));
+            } catch (DukeException e) {
+                dialogList.add(new PlanDialog(e.getMessage(), Agent.BOT));
+            }
         } else {
             PlanQuestion firstQuestion = questionQueue.peek();
             currentQuestion = firstQuestion;
@@ -90,7 +101,6 @@ public class PlanBot {
             PlanDialog initial = new PlanDialog(firstQuestion.getQuestion(), Agent.BOT);
             dialogObservableList.add(initial);
         }
-
     }
 
     public ObservableList<PlanDialog> getDialogObservableList() {
@@ -106,33 +116,37 @@ public class PlanBot {
     public void processInput(String input) throws DukeException {
         dialogObservableList.add(new PlanDialog(input, Agent.USER));
         if (currentQuestion == null) {
-            PlanDialog emptyQueueDialog = new PlanDialog("I know everything about you already!", Agent.BOT);
+            PlanDialog emptyQueueDialog = new PlanDialog("Based on what you've told me, here's a recommended budget plan!", Agent.BOT);
             dialogObservableList.add(emptyQueueDialog);
-            dialogObservableList.add(new PlanDialog(makeRecommendation(), Agent.BOT));
+            dialogObservableList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes), Agent.BOT));
         } else {
             try {
                 PlanQuestion.Reply reply = currentQuestion.getReply(input, planAttributes);
-                questionQueue = planQuestionBank.getQuestions(planAttributes);
+                questionQueue.clear();
+                questionQueue.addAll(planQuestionBank.getQuestions(planAttributes));
                 logger.info("\n\n\nQueue size: " + questionQueue.size());
                 dialogObservableList.add(new PlanDialog(reply.getText(), Agent.BOT));
                 planAttributes = reply.getAttributes();
-                currentQuestion = null;
                 if (!questionQueue.isEmpty()) {
                     currentQuestion = questionQueue.peek();
-                    questionQueue.remove();
-                }
-                if (currentQuestion != null) {
                     dialogObservableList.add(new PlanDialog(currentQuestion.getQuestion(), Agent.BOT));
-                } else {
-                    dialogObservableList.add(new PlanDialog(makeRecommendation(), Agent.BOT));
+                    questionQueue.remove();
+                }else {
+                    dialogObservableList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes), Agent.BOT));
                 }
             } catch (DukeException e) {
                 dialogObservableList.add(new PlanDialog(e.getMessage(), Agent.BOT));
             }
         }
-
-
     }
+
+
+
+
+    public Map<String, String> getPlanAttributes() {
+        return planAttributes;
+    }
+
 
 
     /**
@@ -146,66 +160,6 @@ public class PlanBot {
             this.agent = agent;
             this.text = text;
         }
-    }
-
-    public Map<String, String> getPlanAttributes() {
-        return planAttributes;
-    }
-
-    /**
-     * Makes recommendations for the user. This should only be called when we know every attribute of the user.
-     *
-     * @return String budget recommendations.
-     * @throws DukeException when there is an error in constructing the recommendation based on the knownAttributes
-     */
-    private String makeRecommendation() throws DukeException {
-        StringBuilder recommendation = new StringBuilder();
-        if (planAttributes.get("NUS_STUDENT").equals("FALSE")) {
-            return "Since you're not a NUS student, I can't make any recommendations for you :(";
-        }
-
-        if (planAttributes.get("CAMPUS_LIFE").equals("FALSE")) {
-            String tripCostString = planAttributes.get("TRIP_COST");
-            String tripsPerWeekString = planAttributes.get("TRAVEL_DAYS");
-            int tripsPerWeek = Integer.parseInt(tripsPerWeekString);
-            BigDecimal tripsPerWeekBD = BigDecimal.valueOf(tripsPerWeek);
-            BigDecimal tripCost = Parser.parseMoney(tripCostString);
-            BigDecimal monthlyCost = tripCost.multiply(tripsPerWeekBD).multiply(BigDecimal.valueOf(4));
-            switch (planAttributes.get("TRANSPORT_METHOD")) {
-            case "MRT":
-                if (monthlyCost.compareTo(BigDecimal.valueOf(48)) > 0) {
-                    recommendation.append("Based on your travelling habits, it is cheaper to buy concession!\n");
-                    recommendation.append("MRT concession costs: $48.00 monthly.\n");
-                } else {
-                    recommendation.append("Your transport costs $" + monthlyCost + " monthly. \n");
-                }
-                break;
-
-            case "BUS":
-                if (monthlyCost.compareTo(BigDecimal.valueOf(52)) > 0) {
-                    recommendation.append("Based on your travelling habits, it is cheaper to buy concession!\n");
-                    recommendation.append("MRT concession costs: $52.00 monthly.\n");
-                } else {
-                    recommendation.append("Your transport costs $" + monthlyCost + " monthly. \n");
-                }
-                break;
-
-
-            default:
-                if (monthlyCost.compareTo(BigDecimal.valueOf(85)) > 0) {
-                    recommendation.append("Based on your travelling habits, it is cheaper to buy concession!\n");
-                    recommendation.append("Both Bus and MRT concession cost: $85.00 monthly.\n");
-                } else {
-                    recommendation.append("Your transport costs $" + monthlyCost + " monthly. \n");
-                }
-                break;
-
-            }
-        }
-
-        return recommendation.toString();
-
-
     }
 
 

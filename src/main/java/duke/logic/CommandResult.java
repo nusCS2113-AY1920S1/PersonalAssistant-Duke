@@ -9,7 +9,6 @@ public class CommandResult {
     public enum DisplayedPane {
         EXPENSE,
         TRENDING,
-        CURRENT,
         PLAN;
         // todo: add more custom pages.
     }
@@ -30,9 +29,6 @@ public class CommandResult {
         this(consoleInfo, displayedPane, false);
     }
 
-    public CommandResult(String consoleInfo) {
-        this(consoleInfo, DisplayedPane.CURRENT);
-    }
 
     public String getConsoleInfo() {
         return consoleInfo;
