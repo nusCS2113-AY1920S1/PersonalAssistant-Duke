@@ -48,10 +48,7 @@ public class UiContext {
             contexts.push(new Pair<>(this.context, this.object));
         }
 
-        Context oldContext = this.context;
-        this.context = newContext;
-        this.object = object;
-        pcs.firePropertyChange("context", oldContext, this.context);
+        updateContext(newContext, object);
     }
 
     /**
@@ -63,7 +60,14 @@ public class UiContext {
         }
 
         Pair<Context, DukeObject> pair = contexts.pop();
-        setContext(pair.getKey(), pair.getValue());
+        updateContext(pair.getKey(), pair.getValue());
+    }
+
+    private void updateContext(Context newContext, DukeObject object) {
+        Context oldContext = this.context;
+        this.context = newContext;
+        this.object = object;
+        pcs.firePropertyChange("context", oldContext, this.context);
     }
 
     public Context getContext() {
