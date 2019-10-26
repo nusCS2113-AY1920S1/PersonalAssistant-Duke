@@ -1,8 +1,5 @@
 package Parser;
-import Commands.ByeCommand;
-import Commands.Command;
-import Commands.FilterCommand;
-import Commands.HelpCommand;
+import Commands.*;
 import DukeExceptions.DukeException;
 
 public class MainParser {
@@ -40,6 +37,12 @@ public class MainParser {
 
             case "Find":
                 return new FindFreeTimesParse(fullCommand).execute();
+
+            case "show previous":
+                return new ShowPreviousCommand(fullCommand);
+
+            case "retrieve previous":
+                return new RetrievePreviousCommand(fullCommand);
 
             case "bye":
                 return new ByeCommand();
