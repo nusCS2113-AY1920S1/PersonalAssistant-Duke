@@ -14,18 +14,18 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 public class EditCommandParserTest {
     //@@author kyang96
     @Test
-    public void parseExpense_validInput_success() {
+    public void parseExpenseValidInputSuccess() {
         EditCommandParser parser = new EditCommandParser();
         String input = "2 /d Supper /a 10 /c Others";
         Expense expense = parser.parseExpense(input);
         assertAll("Expense should contain edited values",
-                () -> assertEquals(2, expense.getId()),
-                () -> assertEquals("Supper", expense.getDescription()),
-                () -> assertEquals(null, expense.getDate()),
-                () -> assertEquals(10.0, expense.getAmount()),
-                () -> assertEquals(Category.OTHERS, expense.getCategory()),
-                () -> assertEquals(false, expense.isRecurring()),
-                () -> assertEquals("", expense.getRecFrequency())
+            () -> assertEquals(2, expense.getId()),
+            () -> assertEquals("Supper", expense.getDescription()),
+            () -> assertEquals(null, expense.getDate()),
+            () -> assertEquals(10.0, expense.getAmount()),
+            () -> assertEquals(Category.OTHERS, expense.getCategory()),
+            () -> assertEquals(false, expense.isRecurring()),
+            () -> assertEquals("", expense.getRecFrequency())
         );
     }
 
@@ -35,20 +35,20 @@ public class EditCommandParserTest {
         String input = "2 /d Supper /a 10 /c Others /r Daily";
         Expense expense = parser.parseExpense(input);
         assertAll("Expense should contain edited values",
-                () -> assertEquals(2, expense.getId()),
-                () -> assertEquals("Supper", expense.getDescription()),
-                () -> assertEquals(null, expense.getDate()),
-                () -> assertEquals(10.0, expense.getAmount()),
-                () -> assertEquals(Category.OTHERS, expense.getCategory()),
-                () -> assertEquals(true, expense.isRecurring()),
-                () -> assertEquals("DAILY", expense.getRecFrequency())
+            () -> assertEquals(2, expense.getId()),
+            () -> assertEquals("Supper", expense.getDescription()),
+            () -> assertEquals(null, expense.getDate()),
+            () -> assertEquals(10.0, expense.getAmount()),
+            () -> assertEquals(Category.OTHERS, expense.getCategory()),
+            () -> assertEquals(true, expense.isRecurring()),
+            () -> assertEquals("DAILY", expense.getRecFrequency())
         );
     }
 
     //@@author Xdecosee
     @ParameterizedTest
     @ValueSource(strings = {"", "  ", "1", "garbage"})
-    public void parseContact_InvalidInput_True(String input) {
+    public void parseContactInvalidInputTrue(String input) {
         EditCommandParser parser = new EditCommandParser();
         Contact contact = parser.parseContact(input);
         assertNull(contact, "Return Contact should be null:");
@@ -76,10 +76,10 @@ public class EditCommandParserTest {
         }
         Contact finalMatch = match;
         assertAll("Returned Contact should contain correct input values",
-                () -> assertEquals(finalMatch.getId(), contact.getId()),
-                () -> assertEquals(finalMatch.getName(), contact.getName()),
-                () -> assertEquals(finalMatch.getDetail(), contact.getDetail()),
-                () -> assertEquals(finalMatch.getPhoneNum(), contact.getPhoneNum())
+            () -> assertEquals(finalMatch.getId(), contact.getId()),
+            () -> assertEquals(finalMatch.getName(), contact.getName()),
+            () -> assertEquals(finalMatch.getDetail(), contact.getDetail()),
+            () -> assertEquals(finalMatch.getPhoneNum(), contact.getPhoneNum())
         );
     }
 }
