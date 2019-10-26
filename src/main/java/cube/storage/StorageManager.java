@@ -7,8 +7,8 @@ package cube.storage;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import cube.model.food.Food;
 import cube.model.food.FoodList;
+import cube.model.sale.SalesHistory;
 
 public class StorageManager {
 	@JsonProperty
@@ -17,6 +17,8 @@ public class StorageManager {
 	private RevenueStorage revenueStorage;
 	@JsonProperty
 	private ConfigStorage configStorage;
+	@JsonProperty
+	private SaleStorage saleStorage;
 
 	/**
 	 * Default constructor.
@@ -26,16 +28,18 @@ public class StorageManager {
 		this.foodStorage = new FoodStorage();
 		this.revenueStorage = new RevenueStorage();
 		this.configStorage = new ConfigStorage();
+		this.saleStorage = new SaleStorage();
 	}
 
 	/**
 	 * Constructor with 2 arguments.
 	 * Creates a new instance of Food & Revenue Storage Classes.
 	 */
-	public StorageManager(FoodStorage foodStorage, RevenueStorage revenueStorage, ConfigStorage configStorage) {
+	public StorageManager(FoodStorage foodStorage, RevenueStorage revenueStorage, ConfigStorage configStorage, SaleStorage saleStorage) {
 		this.foodStorage = foodStorage;
 		this.revenueStorage = revenueStorage;
 		this.configStorage = configStorage;
+		this.saleStorage = saleStorage;
 	}
 
 	/**
@@ -45,13 +49,6 @@ public class StorageManager {
 	@JsonIgnore
 	public FoodList getFoodList() {
 		return foodStorage.getFoodList();
-	}
-
-	/**
-	 * Appends a Food Item Object into the FoodStorage.
-	 */
-	public void appendFood(Food food) {
-		foodStorage.appendFood(food);
 	}
 
 	/**
@@ -86,6 +83,16 @@ public class StorageManager {
 	@JsonIgnore
 	public ConfigStorage getConfig() {
 		return configStorage;
+	}
+
+
+	@JsonIgnore
+	public SalesHistory getSalesHistory() {
+		return saleStorage.getSalesHistory();
+	}
+
+	public void storeSalesHistory(SalesHistory salesHistory) {
+		saleStorage.storeSalesHistory(salesHistory);
 	}
 
 }

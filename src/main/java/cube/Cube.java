@@ -34,12 +34,14 @@ public class Cube {
         try {
             storageManager = storage.load();
             foodList = storageManager.getFoodList();
+            salesHistory = storageManager.getSalesHistory();
             modelManager = new ModelManager(foodList, new SalesHistory());
             Food.updateRevenue(storageManager.getRevenue());
         } catch (CubeException e) {
             ui.showLoadingError(filePath);
             storageManager = new StorageManager();
             foodList = new FoodList();
+            salesHistory = new SalesHistory();
             modelManager = new ModelManager();
         }
     }

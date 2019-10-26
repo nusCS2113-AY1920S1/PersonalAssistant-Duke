@@ -16,7 +16,7 @@ import cube.storage.StorageManager;
 public class FileUtilJson {
     private String filePath;
     private String fileFullPath;
-    private static final String fileName = "cube.json";
+    private static String fileName = "cube.json";
 
     /**
      * Constructor with one argument.
@@ -24,6 +24,16 @@ public class FileUtilJson {
      * @param filePath the directory path where data will be stored.
      */
     public FileUtilJson(String filePath) {
+        this.filePath = filePath;
+        this.fileFullPath = filePath + File.separator + fileName;
+    }
+
+    /**
+     * Constructor with two argument.
+     *
+     * @param filePath the directory path where data will be stored.
+     */
+    public FileUtilJson(String filePath, String fileName) {
         this.filePath = filePath;
         this.fileFullPath = filePath + File.separator + fileName;
     }
