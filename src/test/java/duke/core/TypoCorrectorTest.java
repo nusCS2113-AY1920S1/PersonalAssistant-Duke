@@ -1,5 +1,6 @@
 package duke.core;
 
+import duke.util.TypoCorrector;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 

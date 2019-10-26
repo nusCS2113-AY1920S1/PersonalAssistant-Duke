@@ -1,17 +1,17 @@
 package duke;
 
-import duke.mementopattern.Memento;
-import duke.mementopattern.MementoManager;
-import duke.mementopattern.MementoParser;
-import duke.command.Command;
-import duke.core.CommandManager;
-import duke.core.DukeException;
-import duke.core.Ui;
-import duke.patient.PatientManager;
-import duke.relation.PatientTaskList;
-import duke.statistic.Counter;
-import duke.storage.StorageManager;
-import duke.task.TaskManager;
+import duke.util.mementopattern.Memento;
+import duke.util.mementopattern.MementoManager;
+import duke.util.mementopattern.MementoParser;
+import duke.commands.Command;
+import duke.commands.CommandManager;
+import duke.exceptions.DukeException;
+import duke.util.Ui;
+import duke.models.patients.PatientManager;
+import duke.models.assignedPatientTasks.AssignedTaskManager;
+import duke.models.counter.Counter;
+import duke.storages.StorageManager;
+import duke.models.patientTasks.TaskManager;
 
 /**
  * Represents Duke, a Personal Assistant to help
@@ -29,7 +29,7 @@ public class Duke {
      * A TaskList object that deals with add, delete, mark as done,
      * find functions of a list of tasks.
      */
-    private PatientTaskList patientTaskList;
+    private AssignedTaskManager assignedTaskManager;
     private TaskManager taskManager;
     private PatientManager patientManager;
     private Counter counter;
@@ -68,7 +68,7 @@ public class Duke {
         mementoManager = new MementoManager();
         ui = new Ui();
         try {
-            patientTaskList = new PatientTaskList(storageManager.loadAssignedTasks());
+            assignedTaskManager = new AssignedTaskManager(storageManager.loadAssignedTasks());
             taskManager = new TaskManager(storageManager.loadTasks());
             patientManager = new PatientManager(storageManager.loadPatients());
             counter = new Counter(storageManager.loadCommandFrequency());
@@ -88,7 +88,7 @@ public class Duke {
      */
     public void getDukeStateFromMemento(Memento memento) {
         taskManager = memento.getTaskState();
-        patientTaskList = memento.getPatientTaskState();
+        assignedTaskManager = memento.getPatientTaskState();
         patientManager = memento.getPatientState();
     }
 
@@ -100,7 +100,7 @@ public class Duke {
      */
     public Memento saveDukeStateToMemento() {
         return new Memento(new TaskManager(taskManager.getTaskList()),
-            new PatientTaskList(patientTaskList.fullPatientTaskList()),
+            new AssignedTaskManager(assignedTaskManager.fullPatientTaskList()),
             new PatientManager(patientManager.getPatientList()));
     }
 
@@ -119,7 +119,7 @@ public class Duke {
             } else if (MementoParser.getSaveFlag(c).equals("pop")) {
                 getDukeStateFromMemento(mementoManager.pop());
             }
-            c.execute(patientTaskList, taskManager, patientManager,
+            c.execute(assignedTaskManager, taskManager, patientManager,
                 ui, storageManager);
             counter.runCommandCounter(c, storageManager, counter);
         } catch (DukeException e) {
