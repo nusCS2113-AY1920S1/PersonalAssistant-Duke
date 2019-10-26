@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 public class ContextCommandsTest {
 
-    private static UiContext testUiContext;
+    private static UiContext testUiContext = new UiContext();
 
     @Test
     public void parseCommands_validHomeCommands_correctCommandsReturned() {

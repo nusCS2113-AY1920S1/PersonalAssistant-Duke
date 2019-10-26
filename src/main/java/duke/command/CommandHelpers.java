@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.exception.DukeHelpException;
-import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,19 +15,20 @@ import java.util.Set;
 public class CommandHelpers {
 
     static class Coord {
-        int x, y;
+        int xcoord;
+        int ycoord;
 
         Coord(int x, int y) {
-            this.x = x;
-            this.y = y;
+            this.xcoord = x;
+            this.ycoord = y;
         }
     }
 
     /**
      * For autocorrect, do not consider strings whose lengths differ from the input by more than this value.
      */
-    private final static int MAX_LEN_DIFF = 2;
-    private final static Map<Character, Coord> keyboardMap =
+    private static final int MAX_LEN_DIFF = 2;
+    private static final Map<Character, Coord> keyboardMap =
             Map.ofEntries(Map.entry('q', new Coord(0, 1)), Map.entry('w', new Coord(1, 1)),
             Map.entry('e', new Coord(2, 1)), Map.entry('r', new Coord(3, 1)),
             Map.entry('t', new Coord(4, 1)), Map.entry('y', new Coord(5, 1)),
@@ -51,7 +52,7 @@ public class CommandHelpers {
             Map.entry(',', new Coord(8, 3)), Map.entry('.', new Coord(9, 3)),
             Map.entry('/', new Coord(10, 3)), Map.entry('-', new Coord(10, 0)),
             Map.entry('+', new Coord(11, 0)));
-    private final static Map<Character, Integer> charMap;
+    private static final Map<Character, Integer> charMap;
 
     static {
         HashMap<Character, Integer> tempMap = new HashMap<Character, Integer>();
@@ -187,7 +188,7 @@ public class CommandHelpers {
             int d2 = 2;
             char c1 = str1.charAt(i - 2);
             for (int j = 2; j <= len2 + 1; ++j) {
-                int k = d1[charMap.get(str2.charAt(j - 2))]; // TODO: translate letters of alphabet (keyboardMap) into integers
+                int k = d1[charMap.get(str2.charAt(j - 2))];
                 int l = d2;
                 int subCostInc;
                 char c2 = str2.charAt(j - 2);
@@ -196,8 +197,8 @@ public class CommandHelpers {
                     d2 = j;
                 } else {
                     // TODO: implement scaling factor?
-                    subCostInc = Math.abs(keyboardMap.get(c1).x - keyboardMap.get(c2).x)
-                            + Math.abs(keyboardMap.get(c1).y - keyboardMap.get(c2).y);
+                    subCostInc = Math.abs(keyboardMap.get(c1).xcoord - keyboardMap.get(c2).xcoord)
+                            + Math.abs(keyboardMap.get(c1).ycoord - keyboardMap.get(c2).ycoord);
                 }
 
                 //calculate cost of each edit and find minimum
@@ -208,7 +209,7 @@ public class CommandHelpers {
                 List<Integer> costs = Arrays.asList(subCost, insCost, delCost, transCost);
                 // TODO: verify that this pruning works; won't work if the distance decreases as it converges
                 int min = Collections.min(costs);
-                assert(min != 0);
+                assert (min != 0);
                 if (min > minDist && minDist != 0) {
                     return min;
                 } else {
