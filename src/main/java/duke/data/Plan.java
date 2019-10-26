@@ -18,7 +18,7 @@ public class Plan extends Treatment {
      * @param statusArr description of the status tagged to this plan
      * @param summary the summary of what the plan entails
      */
-    public Plan(String name, Impression impression, int priority, int status, String[] statusArr, String summary) {
+    public Plan(String name, String impression, int priority, int status, String[] statusArr, String summary) {
         super(name, impression, priority, status, statusArr);
         this.summary = summary;
     }

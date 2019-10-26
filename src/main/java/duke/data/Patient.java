@@ -29,7 +29,7 @@ public class Patient extends DukeObject {
      * A Patient object corresponds to the biometric information of a patient,
      * patient details, medical history, the impressions the doctor has about a patient.
      * Attributes:
-     * - priDiagnosis the chief complaint or most serious impression of a patient
+     * - primaryDiagnosis the chief complaint or most serious impression of a patient
      * - impression the list of all impressions of a patient
      *
      * @param name      the name of the patient
@@ -129,6 +129,9 @@ public class Patient extends DukeObject {
     public Impression deleteImpression(String keyIdentifier) throws DukeException {
         if (this.observableImpressions.containsKey(keyIdentifier)) {
             Impression imp = this.observableImpressions.get(keyIdentifier);
+            if (this.primaryDiagnosis.getName().equals(keyIdentifier)) {
+                this.primaryDiagnosis = null;
+            }
             this.observableImpressions.remove(keyIdentifier);
             return imp;
         } else {
@@ -403,4 +406,10 @@ public class Patient extends DukeObject {
     public void updateAttributes() {
         updateObservableAttributes();
     }
+
+    public void deletePriDiagnose() throws DukeException {
+        this.impressions.remove(primaryDiagnosis.getName());
+        this.primaryDiagnosis = null;
+    }
+
 }
