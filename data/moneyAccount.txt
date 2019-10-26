@@ -15,6 +15,7 @@ INC @ -2.0 @ From null @ 24/10/2019
 INC @ 1000.0 @ shoe guy  @ 10/12/2040
 INC @ 30.0 @ Initialize account: American express @ 27/7/2017
 INC @ 10000.0 @ TA  @ 10/12/2040
+INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
 EXP @ 792.1389 @ mortgage  @ instalments @ 11/10/2019
 EXP @ 10000.0 @ buy Motorbike  @ GS @ 11/10/2019
 EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
@@ -36,4 +37,5 @@ G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 10000.0 @ buy expensive watch  @ GS @ 5/10/2029 @ MEDIUM
 G @ 4000.0 @ Macbook Pro 15.6inch  @ GS @ 15/1/2020 @ HIGH
 G @ 5000.0 @ buy computer  @ GS @ 15/1/2050 @ HIGH
-LOA @ 4000.0 @ rekt @ 20/10/2019 @ INCOMING @  @ 0 @ 100.0
+LOA @ 4000.0 @ rekt @ 25/10/2019 @ INCOMING @  @ 1 @ 0.0
+BAN @ 30.0 @ OCBC @ 2017-07-27 @ 0.005
