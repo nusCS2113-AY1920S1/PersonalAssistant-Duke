@@ -22,6 +22,20 @@ public class Deadline extends Task {
         return by;
     }
 
+    /**
+     * Returns a string from Deadline task object.
+     *
+     * @param task Deadline task object.
+     * @return String obtained from Deadline task object.
+     */
+    public String deadlineToStorageString(Deadline task) {
+        String dateTime = task.getBy();
+        String date = dateTime.split(" ")[DATE];
+        String time = dateTime.split(" ")[TIME];
+        return "D" + DELIMITER + task.getStatusIcon() + DELIMITER + task.getDescription() + DELIMITER + date
+                + DELIMITER + time + DELIMITER + DELIMITER;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";

@@ -56,9 +56,8 @@ public class Oof {
 
     /**
      * Runs the Personal Assistant.
-     * @throws OofException checkDeadline method throws OofException.
      */
-    private void run() throws OofException {
+    private void run() {
         ui.hello();
         reminder.checkDeadline(tasks, ui, storage);
         boolean isExit = false;
@@ -77,9 +76,8 @@ public class Oof {
      * This is the main method which makes use of run method.
      *
      * @param args Unused.
-     * @throws OofException Run method throws OofException.
      */
-    public static void main(String[] args) throws OofException {
+    public static void main(String[] args) {
         new Oof().run();
     }
 }

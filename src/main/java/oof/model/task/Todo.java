@@ -21,6 +21,17 @@ public class Todo extends Task {
         return on;
     }
 
+    /**
+     * Returns a string from Todo task object.
+     *
+     * @param task Todo task object.
+     * @return String obtained from Todo task object.
+     */
+    public String todoToStorageString(Todo task) {
+        return "T" + DELIMITER + task.getStatusIcon() + DELIMITER + task.getDescription() + DELIMITER + task.getOn()
+                + DELIMITER + DELIMITER + DELIMITER;
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString() + " (on: " + on + ")";

@@ -24,6 +24,21 @@ public class Assignment extends Deadline {
         this.moduleCode = moduleCode;
     }
 
+    /**
+     * Returns a string from Assignment task object.
+     *
+     * @param task Assignment task object.
+     * @return String obtained from Assignment task object.
+     */
+    public String assignmentToStorageString(Assignment task) {
+        String moduleCode = getModuleCode();
+        String dateTime = task.getBy();
+        String date = dateTime.split(" ")[DATE];
+        String time = dateTime.split(" ")[TIME];
+        return "A" + DELIMITER + task.getStatusIcon() + DELIMITER + moduleCode + DELIMITER + task.getDescription()
+                + DELIMITER + date + DELIMITER + time + DELIMITER;
+    }
+
     @Override
     public String toString() {
         return "[A][" + getStatusIcon() + "] " + moduleCode + " " + super.getDescription() + " (by: " + by + ")";

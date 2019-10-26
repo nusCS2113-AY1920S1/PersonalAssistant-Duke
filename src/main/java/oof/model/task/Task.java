@@ -13,6 +13,9 @@ public abstract class Task {
         YEARLY
     }
 
+    static final String DELIMITER = "||";
+    static final int DATE = 0;
+    static final int TIME = 1;
     private String description;
     private boolean status;
     private Frequency frequency;

@@ -16,21 +16,21 @@ import java.util.Date;
 public class Reminder {
 
     private static final long MILLISECOND_TO_HOUR = 60 * 60 * 1000;
+    private static final String DEFAULT_DATETIME = "00-00-0000 00:00";
 
     /**
      * Checks Task objects dates to determine if it is due soon.
      *
      * @param taskList TaskList that contains Task objects.
      * @param ui       Ui that is responsible for visual feedback.
-     * @throws OofException Throws exception if datetime is invalid.
      */
-    public void checkDeadline(TaskList taskList, Ui ui, Storage storage) throws OofException {
+    public void checkDeadline(TaskList taskList, Ui ui, Storage storage) {
         int count = 1;
         int upcomingThreshold = storage.readThreshold();
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
             if (task instanceof Deadline) {
-                Date dueDate = parseDateTime(((Deadline) task));
+                Date dueDate = parseDateTime(ui, ((Deadline) task));
                 count = displayReminders(taskList, ui, dueDate, upcomingThreshold, count, i);
             }
             if (isNoDeadlineReminded(i, taskList, count)) {
@@ -68,15 +68,18 @@ public class Reminder {
      * Parses the timestamp for the deadlines.
      * @param task Deadline task object.
      * @return Returns the parsed date if the date format is parsable.
-     * @throws OofException Throws exception if the datetime is invalid.
      */
-    private Date parseDateTime(Deadline task) throws OofException {
+    private Date parseDateTime(Ui ui, Deadline task) {
+        String defaultDateTime = DEFAULT_DATETIME;
+        Date defaultDate = new Date();
         try {
             String dateTime = task.getBy();
+            defaultDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(defaultDateTime);
             Date dueDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(dateTime);
             return dueDate;
         } catch (ParseException | DateTimeException e) {
-            throw new OofException("Something went wrong in reminder");
+            ui.printOofException((OofException) e);
+            return defaultDate;
         }
     }
 

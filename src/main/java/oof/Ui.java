@@ -52,7 +52,7 @@ public class Ui {
     private static final String ANSI_BRIGHT_CYAN = "\u001B[96m";
     private static final String ANSI_BRIGHT_WHITE = "\u001B[97m";
     private static final String ANSI_BG_BLUE = "\u001B[44m";
-    private static final String ANSI_BG_BLACK  = "\u001B[40m";
+    private static final String ANSI_BG_BLACK = "\u001B[40m";
     private static final String[] colouredText = {ANSI_BRIGHT_RED, ANSI_BRIGHT_GREEN, ANSI_BRIGHT_YELLOW,
             ANSI_BRIGHT_BLUE, ANSI_BRIGHT_PURPLE, ANSI_BRIGHT_CYAN, ANSI_BRIGHT_WHITE};
     private Storage storage = new Storage();
@@ -253,6 +253,7 @@ public class Ui {
     public void printUpcomingDeadline(int count, Task task) {
         System.out.println(" \t" + count + "." + task);
     }
+
 
     /**
      * Prints all tasks scheduled on the provided date.
@@ -762,8 +763,8 @@ public class Ui {
     /**
      * Prints the free time slots in that day.
      *
-     * @param timeSlotStart  The start time of the time slot.
-     * @param timeSlotEnd    The end time of the time slot.
+     * @param timeSlotStart The start time of the time slot.
+     * @param timeSlotEnd   The end time of the time slot.
      */
     public void printFreeSlots(String timeSlotStart, String timeSlotEnd) {
         System.out.println("| " + timeSlotStart + " - " + timeSlotEnd + " |               free                |");

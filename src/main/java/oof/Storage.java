@@ -1,11 +1,12 @@
 package oof;
 
 import oof.model.module.Semester;
-import oof.model.task.TaskList;
 import oof.exception.OofException;
+import oof.model.task.Assignment;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
 import oof.model.task.Task;
+import oof.model.task.TaskList;
 import oof.model.task.Todo;
 
 import java.io.BufferedReader;
@@ -22,19 +23,21 @@ import java.util.ArrayList;
 public class Storage {
 
     private ArrayList<Task> arr = new ArrayList<>();
-    private static final String DELIMITER = "||";
     private static final String DELIMITER_ESCAPED = "\\|\\|";
+    private static final String DONE = "Y";
     private static final String SPACE = " ";
     private static final String PATH_OUTPUT = "./output.txt";
     private static final String PATH_MANUAL = "./manual.txt";
     private static final String PATH_THRESHOLD = "./oof.config";
-    private static final int DATE = 0;
-    private static final int TIME = 1;
+    private static final int INDEX_MODULE_CODE = 2;
     private static final int INDEX_STATUS = 1;
     private static final int INDEX_DESCRIPTION = 2;
+    private static final int INDEX_DESCRIPTION_ASSIGNMENT = 3;
     private static final int INDEX_DATE_START = 3;
+    private static final int INDEX_DATE_START_ASSIGNMENT = 4;
     private static final int INDEX_DATE_END = 5;
     private static final int INDEX_TIME_START = 4;
+    private static final int INDEX_TIME_START_ASSIGNMENT = 5;
     private static final int INDEX_TIME_END = 6;
     private static final int DEFAULT_THRESHOLD = 24;
 
@@ -107,11 +110,13 @@ public class Storage {
             BufferedWriter out = new BufferedWriter(new FileWriter(filename));
             for (Task task : arr) {
                 if (task instanceof Todo) {
-                    out.write(todoToString((Todo) task) + "\n");
+                    out.write(((Todo) task).todoToStorageString((Todo) task) + "\n");
+                } else if (task instanceof Assignment) {
+                    out.write(((Assignment) task).assignmentToStorageString((Assignment) task) + "\n");
                 } else if (task instanceof Deadline) {
-                    out.write(deadlineToString((Deadline) task) + "\n");
+                    out.write(((Deadline) task).deadlineToStorageString((Deadline) task) + "\n");
                 } else if (task instanceof Event) {
-                    out.write(eventToString((Event) task) + "\n");
+                    out.write(((Event) task).eventToStorageString((Event) task) + "\n");
                 }
             }
             out.close();
@@ -139,6 +144,8 @@ public class Storage {
                 addDeadline(lineSplit, counter);
             } else if (isEvent(line)) {
                 addEvent(lineSplit, counter);
+            } else if (isAssignment(line)) {
+                addAssignment(lineSplit, counter);
             }
         }
         reader.close();
@@ -150,10 +157,20 @@ public class Storage {
     }
 
     /**
+     * Checks if entry in save file is an Assignment.
+     *
+     * @param line Entry in save file.
+     * @return true if entry starts with A.
+     */
+    private boolean isAssignment(String line) {
+        return line.startsWith("A");
+    }
+
+    /**
      * Checks if entry in save file is an Event.
      *
      * @param line Entry in save file.
-     * @return true if entry starts with [E].
+     * @return true if entry starts with E.
      */
     private boolean isEvent(String line) {
         return line.startsWith("E");
@@ -163,7 +180,7 @@ public class Storage {
      * Checks if entry in save file is a Deadline.
      *
      * @param line Entry in save file.
-     * @return true if entry starts with [D].
+     * @return true if entry starts with D.
      */
     private boolean isDeadline(String line) {
         return line.startsWith("D");
@@ -173,7 +190,7 @@ public class Storage {
      * Checks if entry in save file is a Todo.
      *
      * @param line Entry in save file.
-     * @return true if entry starts with [T].
+     * @return true if entry starts with T.
      */
     private boolean isTodo(String line) {
         return line.startsWith("T");
@@ -186,7 +203,7 @@ public class Storage {
      * @return true if the Task object has already been marked as done, false otherwise.
      */
     public boolean checkDone(String line) {
-        return line == "Y";
+        return line.equals(DONE);
     }
 
     /**
@@ -236,44 +253,20 @@ public class Storage {
     }
 
     /**
-     * Returns a string from Todo task object.
-     *
-     * @param task Todo task object.
-     * @return String obtained from Todo task object.
+     * Adds Assignment task from persistent storage to taskList.
+     * @param lineSplit Task object split in string array format.
+     * @param counter Current task number in 1 based indexing.
      */
-    private String todoToString(Todo task) {
-        return "T" + DELIMITER + task.getStatusIcon() + DELIMITER + task.getDescription() + DELIMITER + task.getOn()
-                + DELIMITER + DELIMITER + DELIMITER;
-    }
-
-    /**
-     * Returns a string from Deadline task object.
-     *
-     * @param task Deadline task object.
-     * @return String obtained from Deadline task object.
-     */
-    private String deadlineToString(Deadline task) {
-        String dateTime = task.getBy();
-        String date = dateTime.split(" ")[DATE];
-        String time = dateTime.split(" ")[TIME];
-        return "D" + DELIMITER + task.getStatusIcon() + DELIMITER + task.getDescription() + DELIMITER + date
-                + DELIMITER + time + DELIMITER + DELIMITER;
-    }
-
-    /**
-     * Returns a string from Event task object.
-     *
-     * @param task Event task object.
-     * @return String obtained from Event task object.
-     */
-    private String eventToString(Event task) {
-        String startDateTime = task.getStartTime();
-        String endDateTime = task.getEndTime();
-        String startDate = startDateTime.split(" ")[DATE];
-        String startTime = startDateTime.split(" ")[TIME];
-        String endDate = endDateTime.split(" ")[DATE];
-        String endTime = endDateTime.split(" ")[TIME];
-        return "E" + DELIMITER + task.getStatusIcon() + DELIMITER + task.getDescription() + DELIMITER + startDate
-                + DELIMITER + startTime + DELIMITER + endDate + DELIMITER + endTime;
+    private void addAssignment(String[] lineSplit, int counter) {
+        String moduleCode = lineSplit[INDEX_MODULE_CODE];
+        String description = lineSplit[INDEX_DESCRIPTION_ASSIGNMENT];
+        String startDate = lineSplit[INDEX_DATE_START_ASSIGNMENT];
+        String startTime = lineSplit[INDEX_TIME_START_ASSIGNMENT];
+        String startDateTime = startDate + " " + startTime;
+        Assignment assignment = new Assignment(moduleCode, description, startDateTime);
+        arr.add(assignment);
+        if (checkDone(lineSplit[INDEX_STATUS])) {
+            arr.get(counter - 1).setStatus();
+        }
     }
 }
