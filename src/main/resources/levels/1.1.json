@@ -6,7 +6,6 @@
     "On the top left corner you can see your current level which is 1.1. This tutorial ends at level 1.4",
     "This is followed by the level goals. For this level the goal will be changing your location to the Market",
     "Let's get started!",
-    ":Travel to the market!",
     "The first command you will be using is a 'Do' command.\nThe 'Do' command instructs farmer John to carry out an action.",
     "From the example above, 'Do' is the type of task given and 'gotoMarket' is the action to be carried out by the farmer.",
     "The type of tasks available and the action to be executed can be seen in the middle of the screen.",
@@ -18,5 +17,7 @@
   "wheat": 0,
   "grain": 0,
   "file_path": "Level1.1",
-  "deadline" : 1
+  "deadline" : 1,
+  "objective": "Travel to the Market",
+  "hint": "Enter [do gotomarket] to create a task that tells Farmer John to drive to the market."
 }

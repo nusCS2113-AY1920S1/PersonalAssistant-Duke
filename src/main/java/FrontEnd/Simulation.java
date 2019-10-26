@@ -36,7 +36,7 @@ public class Simulation {
                     GameConsole.FULL_CONSOLE_HEIGHT)));
         } else {
             ui.show(GameConsole.content(storage.loadFrame(framePath, frameId, GameConsole.FRAME_SECTION_WIDTH,
-                    GameConsole.FRAME_SECTION_HEIGHT), farmer, farmio.getLevel().getGoals()));
+                    GameConsole.FRAME_SECTION_HEIGHT), farmer, farmio.getLevel().getGoals(), farmio.getLevel().getObjective()));
         }
     }
 

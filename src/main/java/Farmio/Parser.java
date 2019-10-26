@@ -8,7 +8,7 @@ import UserCode.Conditions.Condition;
 class Parser {
     static Command parse(String userInput, Farmio.Stage stage) throws FarmioException {
         userInput = userInput.toLowerCase().trim();
-        if (userInput.equals("quit game")) {
+        if (userInput.equals("quit game") || userInput.equals("exit")) {
             return new CommandGameQuit();
         }
         if (stage != Farmio.Stage.WELCOME && stage != Farmio.Stage.MENU_START && userInput.matches("^save game$")) {
@@ -94,9 +94,9 @@ class Parser {
             return parseDoTask(userInput);
         } else if (userInput.startsWith("if") || userInput.startsWith("for") || userInput.startsWith("while")) {
             return parseConditionalTask(userInput);
-        } else if (userInput.equals(""))
-            return new CommandTasksNull();
-        return new CommandTasksNull("Invalid command!");
+        } else if (userInput.equals("hint") || userInput.equals(""))
+            return new CommandTasksHint();
+        throw new FarmioException("Invalid command!");
     }
 
     private static Command parseTaskDelete(String userInput) throws FarmioException {
