@@ -23,19 +23,16 @@ class HomeWindow extends UiElement<Region> {
     private ScrollPane scrollPane;
 
     private PatientMap patientMap;
-    private CommandWindow commandWindow;
 
     /**
      * Constructs the Home UI window.
      *
-     * @param patientMap    PatientMap object.
-     * @param commandWindow CommandWindow object.
+     * @param patientMap PatientMap object.
      */
-    HomeWindow(PatientMap patientMap, CommandWindow commandWindow) {
+    HomeWindow(PatientMap patientMap) {
         super(FXML, null);
 
         this.patientMap = patientMap;
-        this.commandWindow = commandWindow;
 
         initialisePatientList();
         attachPatientListListener();
@@ -59,10 +56,8 @@ class HomeWindow extends UiElement<Region> {
     private void attachPatientListListener() {
         patientMap.getPatientObservableMap().addListener((MapChangeListener<String, Patient>) change -> {
             if (change.wasAdded()) {
-                commandWindow.print("Patient added.");
                 patientListPanel.getChildren().add(new PatientCard(change.getValueAdded()));
             } else if (change.wasRemoved()) {
-                commandWindow.print("Patient discharged. A discharge report have been created.");
                 patientListPanel.getChildren().remove(new PatientCard(change.getValueRemoved()));
             }
         });

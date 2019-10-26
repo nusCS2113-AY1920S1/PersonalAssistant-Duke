@@ -19,14 +19,14 @@ public class PatientDeleteCommand extends ArgCommand {
         String searchInvestigation = getSwitchVal("investigation");
         String searchImpression = getSwitchVal("impression");
 
-        if (searchCritical != null && (((Patient) patient).getPriDiagnosis()) != null) {
-            if (((Patient) patient).getPriDiagnosis().getName().equals((searchCritical))) {
+        if (searchCritical != null && (((Patient) patient).getPrimaryDiagnosis()) != null) {
+            if (((Patient) patient).getPrimaryDiagnosis().getName().equals((searchCritical))) {
                 ((Patient) patient).deletePriDiagnose();
                 core.ui.print("Successfully deleted " + searchCritical);
             } else {
                 core.ui.print("Unsuccessfully deleted patient's primary diagnosis does not match " + searchCritical);
             }
-        } else if (searchCritical != null && (((Patient) patient).getPriDiagnosis()) == null) {
+        } else if (searchCritical != null && (((Patient) patient).getPrimaryDiagnosis()) == null) {
             core.ui.print("Patient does not have a primary diagnosis.");
         }
 

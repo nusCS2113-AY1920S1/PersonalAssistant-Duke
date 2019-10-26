@@ -33,23 +33,47 @@ class PatientWindow extends UiElement<Region> {
     @FXML
     private Label history;
     @FXML
-    private JFXListView<Label> allergiesListView;
+    private Label allergiesLabel;
     @FXML
     private JFXListView<ImpressionCard> impressionsListPanel;
+
+    private Patient patient;
 
     /**
      * Constructs the patient UI window.
      */
     PatientWindow(Patient patient) {
         super(FXML, null);
-        setPatient(patient);
+
+        this.patient = patient;
+        setPatient();
     }
 
-    public void setPatient(Patient patient) {
+    private void setPatient() {
         if (patient == null) {
             return;
         }
 
+        updateUi();
+
+        patient.getAttributes().addListener((MapChangeListener<String, Object>) change -> {
+            updateUi();
+        });
+
+        patient.getImpressionsObservableMap().addListener((MapChangeListener<String, Impression>) change -> {
+            if (change.wasAdded()) {
+                if (change.getValueAdded().equals(patient.getPrimaryDiagnosis())) {
+                    impressionsListPanel.getItems().add(0, new ImpressionCard(change.getValueAdded(), true));
+                } else {
+                    impressionsListPanel.getItems().add(new ImpressionCard(change.getValueAdded(), false));
+                }
+            } else if (change.wasRemoved()) {
+                impressionsListPanel.getItems().remove(new ImpressionCard(change.getValueRemoved(), false));
+            }
+        });
+    }
+
+    private void updateUi() {
         // TODO: Set default values if NULL.
         name.setText(String.valueOf(patient.getName()));
         bed.setText(String.valueOf(patient.getBedNo()));
@@ -60,20 +84,21 @@ class PatientWindow extends UiElement<Region> {
         address.setText(String.valueOf(patient.getAddress()));
         history.setText(String.valueOf(patient.getHistory()));
 
+        StringBuilder allergies = new StringBuilder();
         if (patient.getAllergies() != null) {
             for (String allergy : patient.getAllergies().split(",")) {
-                Label label = new Label(allergy);
-                allergiesListView.getItems().add(label);
+                allergies.append(allergy.trim()).append(System.lineSeparator());
             }
+            allergiesLabel.setText(allergies.toString());
         } else {
-            Label label = new Label("No allergies");
-            allergiesListView.getItems().add(label);
+            allergiesLabel.setText("NIL");
         }
 
+        impressionsListPanel.getItems().clear();
         for (Map.Entry<String, Impression> pair : patient.getImpressionsObservableMap().entrySet()) {
             Impression primaryImpression = null;
 
-            if (pair.getValue().equals(patient.getPriDiagnosis())) {
+            if (pair.getValue().equals(patient.getPrimaryDiagnosis())) {
                 primaryImpression = pair.getValue();
             } else {
                 impressionsListPanel.getItems().add(new ImpressionCard(pair.getValue(), false));
@@ -83,40 +108,5 @@ class PatientWindow extends UiElement<Region> {
                 impressionsListPanel.getItems().add(0, new ImpressionCard(primaryImpression, true));
             }
         }
-
-        patient.getImpressionsObservableMap().addListener((MapChangeListener<String, Impression>) change -> {
-            if (change.wasAdded()) {
-                if (change.getValueAdded().equals(patient.getPriDiagnosis())) {
-                    impressionsListPanel.getItems().add(0, new ImpressionCard(change.getValueAdded(), true));
-                } else {
-                    impressionsListPanel.getItems().add(new ImpressionCard(change.getValueAdded(), false));
-                }
-            } else if (change.wasRemoved()) {
-                impressionsListPanel.getItems().remove(new ImpressionCard(change.getValueRemoved(), false));
-            }
-        });
-
-        patient.addListener(evt -> {
-            String property = evt.getPropertyName();
-
-            if ("Primary Diagnosis".equals(property)) {
-                if (evt.getOldValue() != null) {
-                    impressionsListPanel.getItems().remove(new ImpressionCard((Impression) evt.getOldValue(), false));
-                    impressionsListPanel.getItems().add(0, new ImpressionCard((Impression) evt.getOldValue(), false));
-                }
-
-                impressionsListPanel.getItems().remove(new ImpressionCard((Impression) evt.getNewValue(), true));
-                impressionsListPanel.getItems().add(0, new ImpressionCard((Impression) evt.getNewValue(), true));
-            } else if ("History".equals(property)) {
-                history.setText((String) evt.getNewValue());
-            } else if ("Allergies".equals(property)) {
-                allergiesListView.getItems().clear();
-
-                for (String allergy : patient.getAllergies().split(",")) {
-                    Label label = new Label(allergy);
-                    allergiesListView.getItems().add(label);
-                }
-            }
-        });
     }
 }
