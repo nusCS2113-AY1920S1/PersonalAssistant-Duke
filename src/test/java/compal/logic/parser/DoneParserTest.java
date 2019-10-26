@@ -11,11 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static compal.logic.parser.CommandParser.MESSAGE_MISSING_TOKEN;
-
 import static compal.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static compal.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static compal.model.tasks.Task.Priority.medium;
 
 
 //@@author SholihinK
@@ -48,13 +45,13 @@ class DoneParserTest {
     }
 
     @Test
-    void parse_invalidToken_failure() {
-        assertParseFailure(parser, "-1", MESSAGE_MISSING_TOKEN);
+    void parse_missingIdToken_failure() {
+        assertParseFailure(parser, "-1", CommandParser.MESSAGE_MISSING_ID_ARG);
     }
 
     @Test
-    void parse_validToken_EmptyStatus_failure() {
-        assertParseFailure(parser, "/id 1", MESSAGE_MISSING_TOKEN);
+    void parse_missingStatus_failure() {
+        assertParseFailure(parser, "/id 1", CommandParser.MESSAGE_MISSING_STATUS_ARG);
     }
 
     @Test

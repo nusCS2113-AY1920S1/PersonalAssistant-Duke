@@ -1,7 +1,6 @@
 package compal.logic.command;
 
 import compal.logic.command.exceptions.CommandException;
-import compal.logic.parser.DoneParser;
 import compal.model.tasks.Deadline;
 import compal.model.tasks.Event;
 import compal.model.tasks.Task;
@@ -13,10 +12,11 @@ import java.util.ArrayList;
 import static compal.logic.command.CommandTestUtil.assertCommandFailure;
 import static compal.logic.command.DoneCommand.MESSAGE_INVALID_ID;
 import static compal.logic.command.DoneCommand.MESSAGE_INVALID_INPUT;
-import static compal.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static compal.model.tasks.Task.Priority.high;
-import static compal.model.tasks.Task.Priority.low;
 import static compal.model.tasks.Task.Priority.medium;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 //@@author SholihinK
 class DoneCommandTest {
@@ -30,16 +30,12 @@ class DoneCommandTest {
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
         Event event1 = new Event("Event 1", medium, "01/10/2019", "1400", "1500");
-        Event event2 = new Event("Event 2", low, "01/10/2019", "1400", "1500");
-
         Deadline deadline1 = new Deadline("Deadline 1", high, "01/10/2019", "1500");
 
         taskArrListMain.add(event1);
-        taskArrListMain.add(event2);
         taskArrListMain.add(deadline1);
 
         taskArrListDup.add(event1);
-        taskArrListDup.add(event2);
         taskArrListDup.add(deadline1);
 
         this.taskListMain.setArrList(taskArrListMain);
@@ -47,30 +43,45 @@ class DoneCommandTest {
     }
 
     @Test
-    void execute_invalidTaskID_validStatus_fail() {
+    void execute_invalidTaskID_fail() {
         DoneCommand doneCommand = new DoneCommand(1243134214, "y");
         assertCommandFailure(doneCommand, taskListMain, MESSAGE_INVALID_ID);
     }
 
     @Test
-    void execute_validTaskID_invalidStatus_fail() {
+    void execute_invalidStatus_fail() {
         DoneCommand doneCommand = new DoneCommand(0, "wrong status here");
         assertCommandFailure(doneCommand, taskListMain, MESSAGE_INVALID_INPUT);
     }
 
     @Test
-    void execute_validIdAndStatus_undone_success() throws CommandException {
-        DoneParser parser = new DoneParser();
-        int id = taskListMain.getArrList().get(0).getId();
-        assertParseSuccess(parser, "/id " + id + " /status n",
-            new DoneCommand(0, "n").commandExecute(taskListDup), taskListMain);
+    void execute_done_success() throws CommandException {
+        String expected = new DoneCommand(0, "y").commandExecute(taskListDup).feedbackToUser;
+        String tested = done(taskListMain,0,"y");
+        Assertions.assertEquals(expected, tested);
     }
 
     @Test
-    void execute_validIdAndStatus_done_success() throws CommandException {
-        DoneParser parser = new DoneParser();
-        int id = taskListMain.getArrList().get(0).getId();
-        assertParseSuccess(parser, "/id " + id + " /status y",
-            new DoneCommand(0, "y").commandExecute(taskListDup), taskListMain);
+    void execute_undone_success() throws CommandException {
+        String expected = new DoneCommand(0, "n").commandExecute(taskListDup).feedbackToUser;
+        String tested = done(taskListMain,0,"n");
+        Assertions.assertEquals(expected, tested);
+    }
+
+    private String done(TaskList taskList, int taskID, String status) {
+        Task task = taskList.getTaskById(taskID);
+        String finalString = "";
+
+        final String COMMAND_PREFIX = "Noted. I have mark the below task as done: \n";
+        final String COMMAND_PREFIX2 = "Noted. I have mark the below task as not done: \n";
+        if (status.equalsIgnoreCase("y")) {
+            task.markAsDone();
+            finalString += COMMAND_PREFIX.concat(task.toString());
+        } else if (status.equalsIgnoreCase("n")) {
+            task.markAsNotDone();
+            finalString += COMMAND_PREFIX2.concat(task.toString());
+        }
+        return finalString;
+
     }
 }

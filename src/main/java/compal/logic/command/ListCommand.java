@@ -41,9 +41,7 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult commandExecute(TaskList taskList) {
-        Comparator<Task> compareByDateTime = Comparator.comparing(Task::getDate);
         ArrayList<Task> toList = taskList.getArrList();
-        Collections.sort(toList, compareByDateTime);
         String finalList;
         if (type.isEmpty()) {
             finalList = LIST_PREFIX;

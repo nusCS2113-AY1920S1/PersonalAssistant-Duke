@@ -14,7 +14,7 @@ public class CommandParserTestUtil {
 
     /**
      * Asserts that the parsing of user input by  parserManager is successful and the command created
-     * equals to expectedCommand .
+     * equals to expectedCommand.
      */
     public static void assertParseSuccess(CommandParser commandParser, String userInput,
                                    CommandResult expectedCommand, TaskList taskList) {
@@ -33,7 +33,7 @@ public class CommandParserTestUtil {
     public static void assertParseFailure(CommandParser parserManager, String userInput, String expectedMessage) {
         try {
             parserManager.parseCommand(userInput);
-            throw new AssertionError("The expected ParseException was not thrown.");
+            throw new AssertionError("ParseException was not thrown.");
         } catch (ParserException | ParseException e) {
             assertEquals(expectedMessage, e.getMessage());
         }

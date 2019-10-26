@@ -81,14 +81,14 @@ class ViewCommandParserTest {
     }
 
     @Test
-    void parse_executeView_success() throws CommandException {
+    void parse_view_success() throws CommandException {
         String cmdParam = "week /date 23/10/2019";
         assertParseSuccess(parser, cmdParam,
             new ViewCommand("week", "23/10/2019").commandExecute(taskListMain), taskListMain);
     }
 
     @Test
-    void parse_executeView_withoutDate_success() throws CommandException {
+    void parse_withoutDate_success() throws CommandException {
         String cmdParam = "week";
         Calendar currentDay = Calendar.getInstance();
         String finalDate = CompalUtils.dateToString(currentDay.getTime());
@@ -97,7 +97,7 @@ class ViewCommandParserTest {
     }
 
     @Test
-    void parse_executeView_withType_success() throws CommandException {
+    void parse_withType_success() throws CommandException {
         String cmdParam = "week /type deadline";
         Calendar currentDay = Calendar.getInstance();
         String finalDate = CompalUtils.dateToString(currentDay.getTime());
@@ -107,12 +107,21 @@ class ViewCommandParserTest {
     }
 
     @Test
-    void parse_full_success() throws CommandException {
+    void parse_fullDeadline_success() throws CommandException {
         String cmdParam = "week /date 01/10/2019 /type deadline";
         assertParseSuccess(parser, cmdParam,
             new ViewCommand("week", "01/10/2019", "deadline")
                 .commandExecute(taskListMain), taskListMain);
     }
+
+    @Test
+    void parse_fullEvent_success() throws CommandException {
+        String cmdParam = "week /date 01/10/2019 /type event";
+        assertParseSuccess(parser, cmdParam,
+            new ViewCommand("week", "01/10/2019", "event")
+                .commandExecute(taskListMain), taskListMain);
+    }
+
 
 
 }
