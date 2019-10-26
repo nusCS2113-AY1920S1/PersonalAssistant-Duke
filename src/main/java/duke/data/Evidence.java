@@ -18,7 +18,7 @@ public abstract class Evidence extends DukeData {
 
     private String summary;
 
-    public Evidence(String name, String impression, Integer priority, String summary) {
+    public Evidence(String name, Impression impression, Integer priority, String summary) {
         super(name, impression, priority);
         this.summary = summary;
     }

@@ -17,7 +17,7 @@ public abstract class Treatment extends DukeData {
      * - status: the current status of the treatment
      * - priority: the priority level of the treatment
      */
-    public Treatment(String name, String impression, int priority, int statusIdx) {
+    public Treatment(String name, Impression impression, int priority, int statusIdx) {
         super(name, impression, priority);
         this.statusIdx = statusIdx;
     }

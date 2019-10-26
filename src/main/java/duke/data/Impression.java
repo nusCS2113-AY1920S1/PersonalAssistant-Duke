@@ -14,7 +14,7 @@ public class Impression extends DukeObject {
     private String description;
     private HashMap<String, Evidence> evidences;
     private HashMap<String, Treatment> treatments;
-    private String patientBedNo;
+    private transient Patient patient;
 
     private transient ObservableMap<String, Evidence> observableEvidences;
     private transient ObservableMap<String, Treatment> observableTreaments;
@@ -33,10 +33,10 @@ public class Impression extends DukeObject {
      *
      * @param description the description of the impression
      */
-    public Impression(String name, String description, String patientBedNo) {
+    public Impression(String name, String description, Patient patient) {
         super(name);
         this.description = description;
-        this.patientBedNo = patientBedNo;
+        this.patient = patient;
         this.evidences = new HashMap<>();
         this.treatments = new HashMap<>();
 
@@ -196,7 +196,7 @@ public class Impression extends DukeObject {
         StringBuilder informationString;
         informationString = new StringBuilder("Impression details\n");
         informationString.append("Description: ").append(this.description).append("\n");
-        informationString.append("Patient Bed: ").append(this.patientBedNo).append("\n");
+        informationString.append("Patient Bed: ").append(this.patient.getBedNo()).append("\n");
         for (Map.Entry mapElement : this.evidences.entrySet()) {
             Evidence valueE = (Evidence) mapElement.getValue();
             informationString.append(valueE.toString());
@@ -238,8 +238,8 @@ public class Impression extends DukeObject {
         this.description = description;
     }
 
-    public String getPatient() {
-        return patientBedNo;
+    public Patient getPatient() {
+        return patient;
     }
 
     public HashMap<String, Evidence> getEvidences() {
@@ -288,5 +288,22 @@ public class Impression extends DukeObject {
 
     public void updateAttributes() {
         updateObservableAttributes();
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    /**
+     * This function initialises the parent object of each evidence and treatment.
+     */
+    public void initChild() {
+        for (Map.Entry<String, Evidence> mapElement : this.observableEvidences.entrySet()) {
+            mapElement.getValue().setImpression(this);
+        }
+
+        for (Map.Entry<String, Treatment> mapElement : this.observableTreaments.entrySet()) {
+            mapElement.getValue().setImpression(this);
+        }
     }
 }

@@ -22,7 +22,7 @@ public class PatientFindCommand extends ArgCommand {
         String findStr = "Here are the objects that contain '" + getArg() + "':\n";
         Patient patient = (Patient) core.uiContext.getObject();
         ArrayList<DukeObject> searchResult = new ArrayList<>();
-        ArrayList<Impression> impressionResult = new ArrayList<>();
+        ArrayList<Impression> impressionResult;
         if (getSwitchVals().isEmpty()) {
             searchResult = patient.find(searchTerm);
         } else {
