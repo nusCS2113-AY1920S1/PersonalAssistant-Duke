@@ -4,13 +4,13 @@ package duke.commands.task;
 
 import duke.commands.Command;
 import duke.exceptions.DukeException;
+import duke.models.tasks.Task;
 import duke.util.Ui;
 import duke.models.patients.Patient;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTask;
 import duke.models.assignedtasks.AssignedTaskManager;
 import duke.storages.StorageManager;
-import duke.models.tasks.Task;
 import duke.models.tasks.TaskManager;
 
 import java.util.ArrayList;
@@ -36,8 +36,8 @@ public class DeleteTaskCommand implements Command {
      * It retrieves task based on the id extracted.
      *
      * @param deletedTaskInfo contains the delete command received from parser class which is a string.
-     * @param ui allow user choose the correct task to be deleted.
-     * @param taskManager retrieves the task to be deleted.
+     * @param ui              allow user choose the correct task to be deleted.
+     * @param taskManager     retrieves the task to be deleted.
      * @return the task to be deleted.
      * @throws DukeException if no match task found.
      */
@@ -77,10 +77,10 @@ public class DeleteTaskCommand implements Command {
      * It deletes the relation between this task and any patients
      *
      * @param assignedTaskManager contains the information between all the tasks and patients.
-     * @param taskManager contains information of all tasks.
-     * @param patientManager contains information of all patients.
-     * @param ui interacts with user.
-     * @param storageManager save the changes in csv file.
+     * @param taskManager         contains information of all tasks.
+     * @param patientManager      contains information of all patients.
+     * @param ui                  interacts with user.
+     * @param storageManager      save the changes in csv file.
      * @throws DukeException if there is error deleting the task.
      */
     @Override
@@ -92,27 +92,53 @@ public class DeleteTaskCommand implements Command {
             throw e;
         }
         ui.showTaskInfo(taskToBeDeleted);
-        boolean toDelete;
         try {
-            ArrayList<AssignedTask> patientTasks = assignedTaskManager.getTaskPatient(taskToBeDeleted.getID());
+            ArrayList<AssignedTask> patientTasks = assignedTaskManager.getTaskPatient(taskToBeDeleted.getId());
             ArrayList<Patient> relatedPatients = new ArrayList<>();
             for (AssignedTask patientTask : patientTasks) {
-                relatedPatients.add(patientManager.getPatient(patientTask.getPatientId()));
+                relatedPatients.add(patientManager.getPatient(patientTask.getPid()));
+            }
+            ui.taskPatientFound(taskToBeDeleted, patientTasks, relatedPatients);
+            assignedTaskManager.deleteAllPatientTaskByTaskId(taskToBeDeleted.getId());
+            storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
+            taskManager.deleteTask(taskToBeDeleted.getId());
+            storageManager.saveTasks(taskManager.getTaskList());
+            ui.taskDeleted();
+        } catch (Exception e) {
+            taskManager.deleteTask(taskToBeDeleted.getId());
+            storageManager.saveTasks(taskManager.getTaskList());
+            ui.taskDeleted();
+        }
+        /*
+        try {
+            taskToBeDeleted = getTaskByDeleteTaskCommand(deletedTaskInfo, ui, taskManager);
+        } catch (Exception e) {
+            throw e;
+        }
+        ui.showTaskInfo(taskToBeDeleted);
+        boolean toDelete;
+        try {
+            ArrayList<AssignedTask> patientTasks = assignedTaskManager.getTaskPatient(taskToBeDeleted.getId());
+            ArrayList<Patient> relatedPatients = new ArrayList<>();
+            for (AssignedTask patientTask : patientTasks) {
+                relatedPatients.add(patientManager.getPatient(patientTask.getPid()));
             }
             ui.taskPatientFound(taskToBeDeleted, patientTasks, relatedPatients);
             toDelete = ui.confirmTaskToBeDeleted(taskToBeDeleted, true);
             if (toDelete) {
-                assignedTaskManager.deleteAllPatientTaskByTaskId(taskToBeDeleted.getID());
-                storageManager.saveAssignedTasks(assignedTaskManager.fullPatientTaskList());
+                assignedTaskManager.deleteAllPatientTaskByTaskId(taskToBeDeleted.getId());
+                storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
             }
         } catch (Exception e) {
             toDelete = ui.confirmTaskToBeDeleted(taskToBeDeleted,false);
         }
         if (toDelete) {
-            taskManager.deleteTask(taskToBeDeleted.getID());
+            taskManager.deleteTask(taskToBeDeleted.getId());
             storageManager.saveTasks(taskManager.getTaskList());
             ui.taskDeleted();
         }
+
+         */
     }
 
     /**

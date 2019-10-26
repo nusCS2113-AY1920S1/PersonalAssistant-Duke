@@ -2,12 +2,12 @@ package duke.commands.assignedtask;
 
 import duke.commands.Command;
 import duke.exceptions.DukeException;
+import duke.models.tasks.TaskManager;
 import duke.util.Ui;
 import duke.models.patients.Patient;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTaskManager;
 import duke.storages.StorageManager;
-import duke.models.tasks.TaskManager;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,8 @@ public class DeleteAssignedTaskCommand implements Command {
 
 
     /**
-     *  .
+     * .
+     *
      * @param deleteInfo .
      * @throws DukeException .
      */
@@ -36,30 +37,32 @@ public class DeleteAssignedTaskCommand implements Command {
             }
         } catch (Exception e) {
             throw new DukeException("Try to follow the format: delete patienttask %<taskUniqueID>/#<patientID>/"
-                    + "<patientName>");
+                + "<patientName>");
         }
 
     }
 
     /**
-     *  .
+     * .
+     *
      * @param assignedTaskManager .
-     * @param tasks .
-     * @param patientManager .
-     * @param ui .
-     * @param storageManager .
+     * @param tasks               .
+     * @param patientManager      .
+     * @param ui                  .
+     * @param storageManager      .
      * @throws DukeException .
      */
     @Override
-    public void execute(AssignedTaskManager assignedTaskManager, TaskManager tasks, PatientManager patientManager, Ui ui,
+    public void execute(AssignedTaskManager assignedTaskManager, TaskManager tasks,
+                        PatientManager patientManager, Ui ui,
                         StorageManager storageManager)
-            throws DukeException {
+        throws DukeException {
         if (patientId != 0) {
             try {
                 Patient toBeDeletedPatient = patientManager.getPatient(patientId);
                 if (assignedTaskManager.doesPatientIdExist(patientId)) {
                     assignedTaskManager.deleteAllTasksBelongToThePatient(patientId);
-                    storageManager.saveAssignedTasks(assignedTaskManager.fullPatientTaskList());
+                    storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
                     ui.patientTaskAllDeleted(patientManager.getPatient(patientId));
                 } else {
                     throw new DukeException("This Patient does not have any tasks.");
@@ -70,7 +73,7 @@ public class DeleteAssignedTaskCommand implements Command {
         } else if (taskId != 0) {
             try {
                 assignedTaskManager.deletePatientTaskByUniqueId(taskId);
-                storageManager.saveAssignedTasks(assignedTaskManager.fullPatientTaskList());
+                storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
                 ui.patientTaskDeleted(taskId);
             } catch (DukeException e) {
                 throw new DukeException("Task is not found!");
@@ -82,7 +85,7 @@ public class DeleteAssignedTaskCommand implements Command {
                 int tempPatientId = patientsWithSameName.get(0).getId();
                 if (assignedTaskManager.doesPatientIdExist(tempPatientId)) {
                     assignedTaskManager.deleteAllTasksBelongToThePatient(tempPatientId);
-                    storageManager.saveAssignedTasks(assignedTaskManager.fullPatientTaskList());
+                    storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
                     ui.patientTaskAllDeleted(patientManager.getPatient(tempPatientId));
                 } else {
                     throw new DukeException("This Patient does not have any tasks.");
@@ -95,6 +98,7 @@ public class DeleteAssignedTaskCommand implements Command {
 
     /**
      * .
+     *
      * @return .
      */
     @Override

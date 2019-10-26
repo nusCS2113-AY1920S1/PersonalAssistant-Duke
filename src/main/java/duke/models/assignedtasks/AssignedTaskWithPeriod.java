@@ -8,10 +8,6 @@ import java.time.LocalDateTime;
 
 public class AssignedTaskWithPeriod extends AssignedTask {
 
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private String startTimeRaw;
-    private String endTimeRaw;
     private long duration;
 
     /**
@@ -25,16 +21,16 @@ public class AssignedTaskWithPeriod extends AssignedTask {
      */
     public AssignedTaskWithPeriod(int pid, int tid, String stime, String etime, String type) throws DukeException {
         super(pid, tid, type);
-        this.startTimeRaw = stime;
-        this.endTimeRaw = etime;
+        setStartDateRaw(stime);
+        setEndDateRaw(etime);
         try {
-            this.startTime = DateTimeParser.convertToLocalDateTime(stime);
-            this.endTime = DateTimeParser.convertToLocalDateTime(etime);
+            setStartDate(DateTimeParser.convertToLocalDateTime(stime));
+            setEndDate(DateTimeParser.convertToLocalDateTime(etime));
         } catch (DukeException e) {
             throw new DukeException("The date time format is wrong!");
         }
 
-        duration = Duration.between(startTime, endTime).toMillis();
+        duration = Duration.between(getStartDate(), getEndDate()).toMillis();
     }
 
     /**
@@ -51,87 +47,16 @@ public class AssignedTaskWithPeriod extends AssignedTask {
     public AssignedTaskWithPeriod(int pid, int tid, boolean isDone,
                                   boolean isRecurrsive, String stime, String etime, String type) throws DukeException {
         super(pid, tid, isDone, isRecurrsive, type);
-        this.startTimeRaw = stime;
-        this.endTimeRaw = etime;
+        setStartDateRaw(stime);
+        setEndDateRaw(etime);
         try {
-            this.startTime = DateTimeParser.convertToLocalDateTime(stime);
-            this.endTime = DateTimeParser.convertToLocalDateTime(etime);
+            setStartDate(DateTimeParser.convertToLocalDateTime(stime));
+            setEndDate(DateTimeParser.convertToLocalDateTime(etime));
         } catch (DukeException e) {
             throw new DukeException("The date time format is wrong!");
         }
 
-        duration = Duration.between(startTime, endTime).toMillis();
-    }
-
-    /**
-     * .
-     *
-     * @return .
-     */
-    public String getStartTimeRaw() {
-        return startTimeRaw;
-    }
-
-    /**
-     * .
-     *
-     * @return .
-     */
-    public String getEndTimeRaw() {
-        return endTimeRaw;
-    }
-
-    /**
-     * .
-     *
-     * @return .
-     */
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-
-    /**
-     * .
-     *
-     * @return .
-     */
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
-
-    /**
-     * .
-     *
-     * @param time .
-     */
-    public void updateStartTime(String time) {
-        try {
-            this.startTime = DateTimeParser.convertToLocalDateTime(time);
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /**
-     * .
-     *
-     * @param time .
-     */
-    public void updateEndTime(String time) {
-        try {
-            this.endTime = DateTimeParser.convertToLocalDateTime(time);
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /**
-     * .
-     *
-     * @return .
-     */
-    public long retrieveDuration() {
-        return this.duration;
+        duration = Duration.between(getStartDate(), getEndDate()).toMillis();
     }
 
     /**
@@ -141,9 +66,9 @@ public class AssignedTaskWithPeriod extends AssignedTask {
      */
     public String toString() {
         return super.printStatus() + " From " + DateTimeParser
-                .convertToEnglishDateTimeBeforeParse(startTime)
+                .convertToEnglishDateTimeBeforeParse(getStartDate())
                 + " To "
-                + DateTimeParser.convertToEnglishDateTimeBeforeParse(endTime);
+                + DateTimeParser.convertToEnglishDateTimeBeforeParse(getEndDate());
     }
 
 }

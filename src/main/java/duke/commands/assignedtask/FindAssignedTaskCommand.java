@@ -2,6 +2,7 @@ package duke.commands.assignedtask;
 
 import duke.commands.Command;
 import duke.exceptions.DukeException;
+import duke.models.tasks.TaskManager;
 import duke.util.Ui;
 import duke.models.patients.Patient;
 import duke.models.patients.PatientManager;
@@ -9,7 +10,6 @@ import duke.models.assignedtasks.AssignedTask;
 import duke.models.assignedtasks.AssignedTaskManager;
 import duke.storages.StorageManager;
 import duke.models.tasks.Task;
-import duke.models.tasks.TaskManager;
 
 import java.util.ArrayList;
 
@@ -38,7 +38,8 @@ public class FindAssignedTaskCommand implements Command {
      * @throws DukeException .
      */
     @Override
-    public void execute(AssignedTaskManager assignedTaskManager, TaskManager tasksManager, PatientManager patientManager,
+    public void execute(AssignedTaskManager assignedTaskManager, TaskManager tasksManager,
+                        PatientManager patientManager,
                         Ui ui, StorageManager storageManager) throws DukeException {
         char firstChar = command.charAt(0);
         if (firstChar == '#') {
@@ -49,7 +50,7 @@ public class FindAssignedTaskCommand implements Command {
                 ArrayList<AssignedTask> patientTask = assignedTaskManager.getPatientTask(id);
                 ArrayList<Task> tempTask = new ArrayList<>();
                 for (AssignedTask tempPatientTask : patientTask) {
-                    tempTask.add(tasksManager.getTask(tempPatientTask.getTaskID()));
+                    tempTask.add(tasksManager.getTask(tempPatientTask.getPid()));
                 }
                 ui.patientTaskFound(patient, patientTask, tempTask);
             } else {
@@ -68,7 +69,7 @@ public class FindAssignedTaskCommand implements Command {
                     }
                 }
                 for (AssignedTask tempPatientTask : patientWithTask) {
-                    tempTask.add(tasksManager.getTask(tempPatientTask.getTaskID()));
+                    tempTask.add(tasksManager.getTask(tempPatientTask.getTid()));
                 }
                 ui.patientTaskFound(patientsWithSameName.get(0), patientWithTask, tempTask);
 

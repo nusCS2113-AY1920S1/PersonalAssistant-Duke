@@ -26,10 +26,10 @@ public class TaskManager {
      */
     public TaskManager(ArrayList<Task> taskList) {
         for (Task task : taskList) {
-            taskIdMap.put(task.getID(), task);
+            taskIdMap.put(task.getId(), task);
         }
         if (!taskList.isEmpty()) {
-            this.maxId = taskList.get(taskList.size() - 1).getID();
+            this.maxId = taskList.get(taskList.size() - 1).getId();
         }
     }
 
@@ -64,11 +64,11 @@ public class TaskManager {
      * @param task The Task to be added to the list.
      */
     public void addTask(Task task) {
-        if (task.getID() == 0) {
+        if (task.getId() == 0) {
             maxId += 1;
             task.setId(maxId);
         }
-        taskIdMap.put(task.getID(), task);
+        taskIdMap.put(task.getId(), task);
     }
 
     /**

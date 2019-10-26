@@ -20,7 +20,6 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
-//            fxmlLoader.<MainWindow>getController().setDuke(duke);
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.show();

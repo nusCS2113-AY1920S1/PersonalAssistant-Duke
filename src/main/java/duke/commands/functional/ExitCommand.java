@@ -2,11 +2,11 @@ package duke.commands.functional;
 
 import duke.commands.Command;
 import duke.exceptions.DukeException;
+import duke.models.tasks.TaskManager;
 import duke.util.Ui;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTaskManager;
 import duke.storages.StorageManager;
-import duke.models.tasks.TaskManager;
 
 /**
  * Represents a command to exit Duke. The command.ExitCommand class

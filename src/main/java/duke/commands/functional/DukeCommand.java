@@ -2,13 +2,13 @@ package duke.commands.functional;
 
 import duke.commands.Command;
 import duke.exceptions.DukeException;
+import duke.models.tasks.TaskManager;
 import duke.util.ShortCutter;
 import duke.util.Ui;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTaskManager;
 import duke.models.counter.Counter;
 import duke.storages.StorageManager;
-import duke.models.tasks.TaskManager;
 
 
 public class DukeCommand implements Command {

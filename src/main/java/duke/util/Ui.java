@@ -16,13 +16,6 @@ public class Ui {
     private static Ui ui;
     private String dukeResponses = "";
     private String userInput;
-    /**
-     * Constructs a singleton Ui design pattern by using lazy initialization.
-     */
-
-    public Ui() {
-//        scanner = new Scanner(System.in);
-    }
 
     /**
      * static method to create instance of Singleton class.
@@ -42,8 +35,8 @@ public class Ui {
      *
      * @param dukeResponse duke's response for user
      */
-    public void printDukeResponse(String dukeResponse){
-        this.dukeResponses = dukeResponses + dukeResponse +"\n";
+    public void printDukeResponse(String dukeResponse) {
+        this.dukeResponses = dukeResponses + dukeResponse + "\n";
         System.out.println(dukeResponse);
     }
 
@@ -52,18 +45,18 @@ public class Ui {
      *
      * @return the collections of all responses for user input
      */
-    public String getDukeResponses(){
+    public String getDukeResponses() {
         return this.dukeResponses;
     }
 
     /**
      * Clear Duke's responses for previous user input.
      */
-    public void clearResponses(){
+    public void clearResponses() {
         this.dukeResponses = "";
     }
 
-    public void readUserInputFromGui(String userInput){
+    public void readUserInputFromGui(String userInput) {
         this.userInput = userInput;
     }
 
@@ -73,7 +66,6 @@ public class Ui {
      * @return A string that represents the user instruction.
      */
     public String readUserInput() {
-//        return scanner.nextLine();
         return this.userInput;
     }
 
@@ -93,7 +85,7 @@ public class Ui {
      */
     public void taskAdded(Task standardTask) {
         printDukeResponse("Got it. I've added this task: \n"
-                + standardTask.getDescription());
+            + standardTask.getDescription());
     }
 
     /**
@@ -103,15 +95,15 @@ public class Ui {
      */
     public void showPatientInfo(Patient patient) {
         printDukeResponse("Name: "
-                + patient.getName()
-                + "  Id: "
-                + patient.getId()
-                + "\nNRIC: "
-                + patient.getNric()
-                + "  Room: "
-                + patient.getRoom()
-                + "\nRemark: "
-                + patient.getRemark());
+            + patient.getName()
+            + "  Id: "
+            + patient.getId()
+            + "\nNRIC: "
+            + patient.getNric()
+            + "  Room: "
+            + patient.getRoom()
+            + "\nRemark: "
+            + patient.getRemark());
     }
 
     /**
@@ -189,19 +181,19 @@ public class Ui {
     /**
      * Print message of a patient is being assigned to task.
      *
-     * @param patientTask it contains the patient task relation and its info
-     * @param patientName the name of patient being assigned
-     * @param taskName    the name of task which is associated with the patient
+     * @param assignedTask it contains the patient task relation and its info
+     * @param patientName  the name of patient being assigned
+     * @param taskName     the name of task which is associated with the patient
      */
-    public void patientTaskAssigned(AssignedTask patientTask, String patientName, String taskName) {
+    public void patientTaskAssigned(AssignedTask assignedTask, String patientName, String taskName) {
         printDukeResponse("Got it. The following Patient ID: "
-                + patientTask.getPatientId()
-                + " "
-                + patientName
-                + " has been assigned the Task ID: "
-                + patientTask.getTaskID()
-                + " "
-                + taskName);
+            + assignedTask.getPid()
+            + " "
+            + patientName
+            + " has been assigned the Task ID: "
+            + assignedTask.getTid()
+            + " "
+            + taskName);
     }
 
     /**
@@ -228,13 +220,14 @@ public class Ui {
                 return chosenNumber;
             } else {
                 printDukeResponse("The patient #"
-                        + chosenNumber
-                        + " does not exist. Please enter a valid index number!");
+                    + chosenNumber
+                    + " does not exist. Please enter a valid index number!");
             }
         }
     }
 
     //@@author kkeejjuunn
+
     /**
      * It asks user to choose a task to be deleted from a list of tasks.
      *
@@ -269,7 +262,7 @@ public class Ui {
      * It reminds user that the tasks assigned to this user will be delete
      * If user confirms, key in 'Y'. Otherwise key in 'N'.
      *
-     * @param patient it contains patient's info
+     * @param patient           it contains patient's info
      * @param withTasksAssigned it indicates whether the patient is assigned to any tasks
      * @return true if user confirmed the deletion. False otherwise.
      */
@@ -300,6 +293,7 @@ public class Ui {
     }
 
     //@@author kkeejjuunn
+
     /**
      * It shows message of a task being deleted successfully.
      */
@@ -350,24 +344,25 @@ public class Ui {
         printDukeResponse("Here's a list of your tasks: \n");
         for (Task task : taskList) {
             printDukeResponse(index
-                    + ". "
-                    + task.getDescription()
-                    + " (ID: "
-                    + task.getID()
-                    + ")"
-                    + "\n");
+                + ". "
+                + task.getDescription()
+                + " (ID: "
+                + task.getId()
+                + ")"
+                + "\n");
             index++;
         }
     }
 
     //@@author kkeejjuunn
+
     /**
      * It confirms with user on the deletion of a task.
      * It alerts user that the deletion will cause the current patient who assigned
      * to this task will no longer assigned to this task.
      * If user confirms, key in 'Y'. Otherwise key in 'N'.
      *
-     * @param task contains task's info
+     * @param task                 contains task's info
      * @param assignedToAnyPatient indicates whether the task is assigned to any patient
      * @return true if user confirmed the deletion. False otherwise.
      */
@@ -375,7 +370,7 @@ public class Ui {
         while (true) {
             if (assignedToAnyPatient) {
                 printDukeResponse("The task is to be deleted. These patients will no "
-                        + "longer assigned to this task. Are you sure (Y/N)?");
+                    + "longer assigned to this task. Are you sure (Y/N)?");
             } else {
                 printDukeResponse("The task is to be deleted. Are you sure (Y/N)? ");
             }
@@ -413,6 +408,7 @@ public class Ui {
             }
         }
     }
+
     /**
      * .
      *
@@ -443,20 +439,20 @@ public class Ui {
      */
     public void showWelcome() {
         String logo = " _____        _              _ _        _ \n"
-                +
-                "|  __ \\      | |            (_) |      | |\n"
-                +
-                "| |  | |_   _| | _____ _ __  _| |_ __ _| |\n"
-                +
-                "| |  | | | | | |/ / _ \\ '_ \\| | __/ _` | |\n"
-                +
-                "| |__| | |_| |   <  __/ |_) | | || (_| | |\n"
-                +
-                "|_____/ \\__,_|_|\\_\\___| .__/|_|\\__\\__,_|_|\n"
-                +
-                "                      | |                 \n"
-                +
-                "                      |_|                 \n";
+            +
+            "|  __ \\      | |            (_) |      | |\n"
+            +
+            "| |  | |_   _| | _____ _ __  _| |_ __ _| |\n"
+            +
+            "| |  | | | | | |/ / _ \\ '_ \\| | __/ _` | |\n"
+            +
+            "| |__| | |_| |   <  __/ |_) | | || (_| | |\n"
+            +
+            "|_____/ \\__,_|_|\\_\\___| .__/|_|\\__\\__,_|_|\n"
+            +
+            "                      | |                 \n"
+            +
+            "                      |_|                 \n";
 
         printDukeResponse(logo);
         printDukeResponse("Hello! I'm Duke\nWhat can I do for you?\n\n");
@@ -485,7 +481,7 @@ public class Ui {
     }
 
     /**
-     * It shows all info of patientTasks found which are associated with the patient given by user.
+     * It shows all info of tasks found which are associated with the patient given by user.
      *
      * @param patient     patient given by user
      * @param patientTask list of patienttasks being found associated with the patient
@@ -494,22 +490,23 @@ public class Ui {
     public void patientTaskFound(Patient patient, ArrayList<AssignedTask> patientTask, ArrayList<Task> tasks) {
         printDukeResponse("The tasks of patient " + patient.getId() + " " + patient.getName() + " is found : \n");
         for (int i = 0; i < patientTask.size(); i++) {
-            printDukeResponse(tasks.get(i).getID() + ". " + tasks.get(i).getDescription() + "\n");
+            printDukeResponse(tasks.get(i).getId() + ". " + tasks.get(i).getDescription() + "\n");
             printDukeResponse(patientTask.get(i).toString());
         }
     }
 
     //@@author kkeejjuunn
+
     /**
      * It shows all info of patientTasks found which are associated with the task given by user.
      *
-     * @param task     task given by user
+     * @param task        task given by user
      * @param patientTask list of patienttasks being found associated with the task
-     * @param patients       list of patients relate to task
+     * @param patients    list of patients relate to task
      */
     public void taskPatientFound(Task task, ArrayList<AssignedTask> patientTask, ArrayList<Patient> patients) {
-        printDukeResponse("The task " + task.getID() + " " + task.getDescription()
-                + " assigned to following patient(s) is/are found : \n");
+        printDukeResponse("The task " + task.getId() + " " + task.getDescription()
+            + " assigned to following patient(s) is/are found : \n");
         for (int i = 0; i < patientTask.size(); i++) {
             showLine();
             printDukeResponse(patients.get(i).getId() + ". " + patients.get(i).getName() + "\n");
@@ -519,6 +516,7 @@ public class Ui {
     }
 
     //@@author qjie7
+
     /**
      * Provide the necessary task details from the user for short cut feature.
      *

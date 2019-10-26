@@ -4,12 +4,12 @@ package duke.commands.patient;
 
 import duke.commands.Command;
 import duke.exceptions.DukeException;
+import duke.models.tasks.TaskManager;
 import duke.util.Ui;
 import duke.models.patients.Patient;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTaskManager;
 import duke.storages.StorageManager;
-import duke.models.tasks.TaskManager;
 
 public class UpdatePatientCommand implements Command {
 

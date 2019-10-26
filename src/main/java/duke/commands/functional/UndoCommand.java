@@ -2,11 +2,11 @@ package duke.commands.functional;
 
 import duke.commands.Command;
 import duke.exceptions.DukeException;
+import duke.models.tasks.TaskManager;
 import duke.util.Ui;
 import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTaskManager;
 import duke.storages.StorageManager;
-import duke.models.tasks.TaskManager;
 
 public class UndoCommand implements Command {
 
@@ -25,7 +25,7 @@ public class UndoCommand implements Command {
                         Ui ui, StorageManager storageManager) throws DukeException {
         storageManager.savePatients(patientManager.getPatientList());
         storageManager.saveTasks(tasks.getTaskList());
-        storageManager.saveAssignedTasks(patientTask.fullPatientTaskList());
+        storageManager.saveAssignedTasks(patientTask.getAssignTasks());
         ui.showUndoSuccess();
     }
 

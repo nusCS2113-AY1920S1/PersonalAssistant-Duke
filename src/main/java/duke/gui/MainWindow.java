@@ -1,7 +1,10 @@
 package duke.gui;
 
 import duke.Duke;
+import duke.models.assignedtasks.AssignedTask;
 import duke.models.patients.Patient;
+import duke.models.tasks.Task;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -41,34 +44,124 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TableColumn<Patient, String> patientNricCol;
 
-    private Duke duke = new Duke("./data");;
+    @FXML
+    private TableView<Task> taskTable;
+    @FXML
+    private TableColumn<Task, Integer> taskIdCol;
+    @FXML
+    private TableColumn<Task, String> taskDescriptionCol;
+
+    @FXML
+    private TableView<AssignedTask> assignedTaskTable;
+    @FXML
+    private TableColumn<AssignedTask, Integer> assignedUuidCol;
+    @FXML
+    private TableColumn<AssignedTask, String> assignedTypeCol;
+    @FXML
+    private TableColumn<AssignedTask, Integer> assignedTidCol;
+    @FXML
+    private TableColumn<AssignedTask, String> assignedDescriptionCol;
+    @FXML
+    private TableColumn<AssignedTask, Integer> assignedPidCol;
+    @FXML
+    private TableColumn<AssignedTask, String> assignedPnameCol;
+    @FXML
+    private TableColumn<AssignedTask, Boolean> assignedIsDoneCol;
+    @FXML
+    private TableColumn<AssignedTask, String> assignedTodoDateCol;
+    @FXML
+    private TableColumn<AssignedTask, String> assignedStartDateCol;
+    @FXML
+    private TableColumn<AssignedTask, String> assignedEndDateCol;
+
+
+    private Duke duke = new Duke("./data");
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
 
     private ObservableList<Patient> patientData;
+    private ObservableList<Task> taskData;
+    private ObservableList<AssignedTask> assignTaskData;
 
+    /**
+     * .
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         initializeTableViews();
     }
 
-    public void initializeTableViews(){
-        patientData= FXCollections.observableArrayList(duke.getPatientManager().getPatientList());
-        patientTable.setItems(patientData);
+    /**
+     * .
+     */
+    public void initializeTableViews() {
+        assignTaskData = FXCollections.observableArrayList(duke.getAssignedTaskManager().getAssignTasks());
+        taskData = FXCollections.observableArrayList(duke.getTaskManager().getTaskList());
+        patientData = FXCollections.observableArrayList(duke.getPatientManager().getPatientList());
+
         patientIdCol.setCellValueFactory(new PropertyValueFactory<Patient, Integer>("id"));
         patientNameCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("name"));
         patientNricCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("nric"));
         patientRoomCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("room"));
         patientRemarkCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("remark"));
+
+        taskIdCol.setCellValueFactory(new PropertyValueFactory<Task, Integer>("id"));
+        taskDescriptionCol.setCellValueFactory(new PropertyValueFactory<Task, String>("description"));
+
+
+        assignedUuidCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, Integer>("uuid"));
+        assignedTypeCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, String>("type"));
+        assignedTidCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, Integer>("tid"));
+        assignedPidCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, Integer>("pid"));
+        assignedIsDoneCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, Boolean>("IsDone"));
+        assignedTodoDateCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, String>("todoDateRaw"));
+        assignedStartDateCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, String>("startDateRaw"));
+        assignedEndDateCol.setCellValueFactory(new PropertyValueFactory<AssignedTask, String>("endDateRaw"));
+        assignedDescriptionCol.setCellValueFactory(cellData -> {
+            AssignedTask currentAssignedTask = cellData.getValue();
+            return Bindings.createStringBinding(
+                () -> {
+                    int tid = currentAssignedTask.getTid();
+                    return duke.getTaskManager().getTask(tid).getDescription();
+                }
+            );
+        });
+        assignedPnameCol.setCellValueFactory(cellData -> {
+            AssignedTask currentAssignedTask = cellData.getValue();
+            return Bindings.createStringBinding(
+                () -> {
+                    int pid = currentAssignedTask.getPid();
+                    return duke.getPatientManager().getPatient(pid).getName();
+                }
+            );
+        });
+        assignedTaskTable.setItems(assignTaskData);
+        taskTable.setItems(taskData);
+        patientTable.setItems(patientData);
     }
 
-    public void updateTableViews(){
-
+    /**
+     * .
+     */
+    public void updateTableViews() {
+        assignTaskData.clear();
+        taskData.clear();
+        patientData.clear();
+        assignTaskData = FXCollections.observableArrayList(duke.getAssignedTaskManager().getAssignTasks());
+        taskData = FXCollections.observableArrayList(duke.getTaskManager().getTaskList());
+        patientData = FXCollections.observableArrayList(duke.getPatientManager().getPatientList());
+        assignedTaskTable.setItems(assignTaskData);
+        taskTable.setItems(taskData);
+        patientTable.setItems(patientData);
     }
 
-
+    /**
+     * .
+     *
+     * @param duke .
+     */
     public void setDuke(Duke duke) {
         this.duke = duke;
     }
@@ -80,10 +173,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        duke.readUserInputFromGUI(input);
+        duke.readUserInputFromGui(input);
         duke.run();
         String responses = duke.getDukeResponses();
         System.out.println(responses);
+        updateTableViews();
         dialogContainer.getChildren().addAll(
             DialogBox.getUserDialog(input, userImage),
             DialogBox.getDukeDialog(responses, dukeImage)

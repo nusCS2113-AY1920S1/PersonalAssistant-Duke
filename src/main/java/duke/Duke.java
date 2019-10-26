@@ -1,5 +1,6 @@
 package duke;
 
+import duke.models.tasks.TaskManager;
 import duke.util.mementopattern.Memento;
 import duke.util.mementopattern.MementoManager;
 import duke.util.mementopattern.MementoParser;
@@ -11,7 +12,6 @@ import duke.models.patients.PatientManager;
 import duke.models.assignedtasks.AssignedTaskManager;
 import duke.models.counter.Counter;
 import duke.storages.StorageManager;
-import duke.models.tasks.TaskManager;
 
 /**
  * Represents Duke, a Personal Assistant to help
@@ -41,21 +41,55 @@ public class Duke {
     private MementoManager mementoManager;
     private MementoParser mementoParser;
 
+    /**
+     * .
+     * @return .
+     */
     public String getDukeResponses() {
         return ui.getDukeResponses();
     }
 
+    /**
+     * .
+     */
     public void clearDukeResponses() {
         ui.clearResponses();
     }
 
-    public void readUserInputFromGUI(String userInput) {
+    /**
+     * .
+     *
+     * @param userInput .
+     */
+    public void readUserInputFromGui(String userInput) {
         ui.readUserInputFromGui(userInput);
     }
 
-    public PatientManager getPatientManager(){
+    /**
+     * .
+     * @return .
+     */
+    public PatientManager getPatientManager() {
         return patientManager;
     }
+
+    /**
+     * .
+     * @return .
+     */
+    public TaskManager getTaskManager() {
+        return taskManager;
+    }
+
+    /**
+     * .
+     * @return .
+     */
+    public AssignedTaskManager getAssignedTaskManager() {
+        return assignedTaskManager;
+    }
+
+
     /**
      * Constructs a Duke object with a relative file path.
      * Initialize the user interface and reads tasks from the specific text file.
@@ -82,7 +116,6 @@ public class Duke {
 
     /**
      * .
-     * .
      *
      * @param memento .
      */
@@ -100,7 +133,7 @@ public class Duke {
      */
     public Memento saveDukeStateToMemento() {
         return new Memento(new TaskManager(taskManager.getTaskList()),
-            new AssignedTaskManager(assignedTaskManager.fullPatientTaskList()),
+            new AssignedTaskManager(assignedTaskManager.getAssignTasks()),
             new PatientManager(patientManager.getPatientList()));
     }
 

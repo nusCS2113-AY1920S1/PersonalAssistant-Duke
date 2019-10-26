@@ -81,7 +81,7 @@ public class StorageManager {
         try {
             for (Task task : tasks) {
                 ArrayList<String> row = new ArrayList<String>();
-                row.add(String.valueOf(task.getID())); // Append value of column ID in a row
+                row.add(String.valueOf(task.getId())); // Append value of column ID in a row
                 row.add(task.getDescription()); // Append value of column description in a row
                 infoList.add(row);
             }
@@ -102,23 +102,23 @@ public class StorageManager {
         ArrayList<ArrayList<String>> infoList = new ArrayList<>(200);
         try {
             for (AssignedTask assignedTask : assignedTasks) {
-                String pid = String.valueOf(assignedTask.getPatientId());
-                String tid = String.valueOf(assignedTask.getTaskID());
-                String uniqueId = String.valueOf(assignedTask.getUid());
-                String isDone = String.valueOf(assignedTask.isDone());
-                String isRecurr = String.valueOf(assignedTask.isRecurrsive());
+                String pid = String.valueOf(assignedTask.getPid());
+                String tid = String.valueOf(assignedTask.getPid());
+                String uniqueId = String.valueOf(assignedTask.getUuid());
+                String isDone = String.valueOf(assignedTask.getIsDone());
+                String isRecur = String.valueOf(assignedTask.getIsRecursive());
                 String deadline = null;
                 String startTime = null;
                 String endTime = null;
-                String type = assignedTask.getTaskType();
+                String type = assignedTask.getType();
 
                 if (assignedTask instanceof AssignedTaskWithDate) {
-                    deadline = ((AssignedTaskWithDate) assignedTask).getDeadlineRaw();
+                    deadline = ((AssignedTaskWithDate) assignedTask).getTodoDateRaw();
                 } else if (assignedTask instanceof AssignedTaskWithPeriod) {
-                    startTime = ((AssignedTaskWithPeriod) assignedTask).getStartTimeRaw();
-                    endTime = ((AssignedTaskWithPeriod) assignedTask).getEndTimeRaw();
+                    startTime = ((AssignedTaskWithPeriod) assignedTask).getStartDateRaw();
+                    endTime = ((AssignedTaskWithPeriod) assignedTask).getEndDateRaw();
                 }
-                ArrayList<String> row = new ArrayList<String>(Arrays.asList(pid, tid, isDone, isRecurr,
+                ArrayList<String> row = new ArrayList<String>(Arrays.asList(pid, tid, isDone, isRecur,
                     deadline, startTime, endTime, type, uniqueId));
                 infoList.add(row);
             }

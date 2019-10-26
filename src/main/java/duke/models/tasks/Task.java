@@ -10,6 +10,7 @@ import javafx.beans.property.SimpleStringProperty;
 public class Task {
     private SimpleIntegerProperty id = new SimpleIntegerProperty(0);
     private SimpleStringProperty description;
+
     /**
      * .
      *
@@ -44,8 +45,8 @@ public class Task {
      *
      * @return A string that represents the specific activity associated with the task.
      */
-    public int getID() {
-        return id.get();
+    public int getId() {
+        return this.id.get();
     }
 
     /**
@@ -54,7 +55,7 @@ public class Task {
      * @return .
      */
     public String getDescription() {
-        return description.get();
+        return this.description.get();
     }
 
     /**
@@ -63,7 +64,7 @@ public class Task {
      * @param id .
      */
     public void setId(int id) {
-        this.id.get();
+        this.id.set(id);
     }
 
     /**
@@ -72,6 +73,6 @@ public class Task {
      * @param description .
      */
     public void setDescription(String description) {
-        this.description.get();
+        this.description.set(description);
     }
 }
