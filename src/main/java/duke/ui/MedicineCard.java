@@ -5,11 +5,10 @@ import duke.data.Medicine;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class MedicineCard extends AnchorPane {
+public class MedicineCard extends TreatmentCard {
     private static final String FXML = "MedicineCard.fxml";
 
     @FXML
