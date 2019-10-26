@@ -27,7 +27,6 @@ public class AddRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> { /
             String description = userInput.split("\\s", 2)[1].trim();
             if (recipeList.containsRecipe(description)) {
                 arrayList.add(ERROR_MESSAGE_RECIPE_ALREADY_EXISTS);
-                recipeStorage.saveFile(recipeList);
             } else {
                 recipeList.addRecipe(description);
                 recipeStorage.saveFile(recipeList);

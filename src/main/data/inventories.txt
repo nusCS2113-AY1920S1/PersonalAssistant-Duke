@@ -1,2 +1,1 @@
 apple , 5.0 , G , No additional information.
-sugar , 5.0 , G ,    mixed
