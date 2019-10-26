@@ -19,10 +19,10 @@ public class ImpressionNewCommand extends DukeDataCommand {
         checkTypeSwitches(addType);
         DukeData newData;
 
+        Integer priority = switchToInt(getSwitchVal("priority"));
         //extract data and add type
         switch(addType) {
         case "medicine":
-
             break;
         case "plan": //fallthrough
         case "investigation":

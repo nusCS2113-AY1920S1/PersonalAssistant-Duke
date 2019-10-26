@@ -6,7 +6,7 @@ import duke.exception.DukeHelpException;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class DukeDataCommand extends ArgCommand {
+public abstract class DukeDataCommand extends ImpressionCommand {
 
     protected String uniqueDataType() throws DukeException {
         //check if the type of data to add was uniquely specified
