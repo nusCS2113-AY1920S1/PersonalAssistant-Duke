@@ -20,7 +20,7 @@ By: `Team F10-2`      Since: `August 2019`      Licence: `MIT`
 == Introduction
 === Purpose
 
-This document illustrates on the architecture designs and the software decisions implemented for the desktop application D2. Duke 2.0 (D2), or Duke Jr.? is a desktop application which enables the prospective applicants of NUS Faculty of Engineering to better plan out their university life. It is an extended task manager, which not only allows for prospective applicants to manage their deadlines and events pertaining to the freshman orientations and document submission, but also provides a coherent and concise platform to compare two engineering degrees of their choice and explore many other details related to the degree. Students can also create lists of engineering degrees of their choice and update it as per their choice. The developer guide will provide you with information such as an overall view of the system hierarchy, logical view of the system’s components, and a process view of the system’s communications that will enable you to help contribute to it too. 
+This document illustrates on the architecture designs and the software decisions implemented for the desktop application D2. Duke 2.0 (D2) is a desktop application which enables the prospective applicants of NUS Faculty of Engineering to better plan out their university life. It is an extended task manager, which not only allows for prospective applicants to manage their deadlines and events pertaining to the freshman orientations and document submission, but also provides a coherent and concise platform to compare two engineering degrees of their choice and explore many other details related to the degree. Students can also create lists of engineering degrees of their choice and update it as per their choice. The developer guide will provide you with information such as an overall view of the system hierarchy, logical view of the system’s components, and a process view of the system’s communications that will enable you to help contribute to it too. 
 
 === Scope
 
@@ -74,26 +74,315 @@ While Duke 2.0 may work using diffferent versions of Java and with other IDEs, t
 == Implementation
 === Undo/Redo Feature
 ==== Implementation
-(Images to be added later)
 
 The undo/redo mechanism is done using a simplified memento pattern, since the command classes have already been implemented. This works as an extension of the command classes and makes use of existing code without any 3rd party libraries or additional dependencies.
 
-Each command that modifies the task or degree lists saves the complete previous state within itself as a `memento` class. Thus, when we call this command's `memento`, we can "unexecute" the command and get the complete state of the task or degree list before it was modified by the `command`. 
+Each command that modifies the task or degree lists saves the complete previous state within the command as a `memento` object. Thus, when we "unexecute" the command, we call this object and get the complete state of the task or degree list before it was modified by this `command`. 
 
-All of these commands are stored in a `commandList` stack, where it will be used to retrieve the latest `command` whenever undo is input, or to be manually retrieve a particular command using `undoRedoPointer` whenever redo is input.
+All of these commands are stored in a `CommandList`, where it has methods to retrieve the previous `command` whenever undo is input, or to manually retrieve a particular command using `undoRedoPointer` whenever redo is input.
+
+Once a command has been undone and the user makes new changes to the task or degree list, all commands after the `undoRedoPointer` will be removed to make way for new commands.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+*Step 1*: The user launches the application, and duke initializes an empty `CommandList`. The `undoRedoPointer` points to -1 as there are currently no elements in `CommandList`.
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage1.png[width="900", align="left"]
+    
+
+*Step 2*: The user inputs "todo Sleep". This adds a todo task to the `TaskList` and constructs an `AddCommand` object to be executed. Once that `AddCommand` is executed, it saves the current `TaskList` into a memento object, and then it adds "todo Sleep" into the `TaskList`.
+
+*Step 3*: After command execution, the `AddCommand` object is added to `CommandList`. The `undoRedoPointer` increments by 1 and now points to the newly added `AddCommand` at index 0.
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage2.png[width="900", align="left"]
+
+TIP: `CommandList` supports modifications to both task and degree lists. Undo simply undoes the modification to one of the lists in order of commands.
+
+*Step 4*: The user inputs "list" to double check the addition of the new task. This executes `PrintCommand` to display the contents of `TaskList`, but does not modify it in any way. Thus, it will not be added to `CommandList`.
+
+*Step 5*: The user inputs "done 3" to mark the 3rd task in `TaskList` as done. This constructs a `ModCommand` object to change the contents of an element in `TaskList`. Once `ModCommand` is executed, it saves the current `TaskList` into a memento object, and then marks the 3rd task as done.
+
+*Step 6*: After command execution, the `ModCommand` object is added to `CommandList`. The `undoRedoPointer` increments by 1 and now points to the newly added `ModCommand` at index 1.
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage3.png[width="900", align="left"]
+
+
+*Step 7*: The user now inputs "undo" to undo the task marking. This will call the `undo` method of `CommandList`, gets the command that `undoRedoPointer` is pointing to (which is `ModCommand` in this case) and unexecute it. `ModCommand` will call its `memento` object and replace the current `TaskList`. The `undoRedoPointer` decrements by 1, and now points to index 0. Note that `ModCommand` is not removed to facilitate redos.
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage4.png[width="900", align="left"]
+
+
+*Step 8*: The user inputs another "undo" to undo the task addition. Similar to step 7, it will call the `undo` method of `CommandList` again and unexecutes the command that `undoRedoPointer` is pointing to. `AddCommand` will call its `memento` object and replace the current `TaskList` with the one that does not have the new task. The `undoRedoPointer` decrements by 1, and now points to index -1.
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage5.png[width="900", align="left"]
+
+NOTE: Attempting to undo when there is nothing left to undo will return an error message. Similarly, attempting to redo when there is nothing left to redo will also return an error message.
+
+
+*Step 9*: The user now inputs "redo" to undo the undo. This will call the `redo` method of `CommandList`. It will first increment the `undoRedoPointer` by 1, and it will then execute the command at the pointed element. This will add "todo Sleep" back to the `TaskList`.
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage6.png[width="900", align="left"]
+
+
+*Step 10*: The user now inputs "done 1" to mark the 1st task as done. Since its now a different command from "done 3" and not "redo", `CommandList` will check if there are commands past `undoRedoPointer`. Currently, `ModCommand` is the element after the one at `undoRedoPointer`, thus `CommandList` will pop all commands from the back of the Stack until `undoRedoPointer`. 
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage7.png[width="900", align="left"]
+
+
+*Step 11*: Once the excess commands are removed, it will proceed back to normal by executing a new `ModCommand` and adding it to `CommandList`, and incrementing `undoRedoPointer` by 1.
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UndoImage8.png[width="900", align="left"]
+
 
 ==== Design Considerations
 How undo/redo executes:
 
 * Alternative 1 (Current Choice): Commands saves a complete previous state if it modifies the degrees or task list
-** Pros: Easier to identify and undo/redo states once commands are known and saved. Much easier to implement than a partial state save. Common method in the industry to implement undo/redo. Easier to implement when new commands are added.
-** Cons: Memory issues once too many commands are executed.
-* Alternative 2: Saves a list in a history.
-** Pros: Straightforward method to save previous states that can be called using undo/redo. No work needed when new commands are added.
-** Cons: More work needed to support multiple types of lists. Memory issues once too many states are saved.
+** Pros: 
+*** Much easier to implement than a partial state save. 
+*** Easier to implement when new commands are added.
+*** Common method in the industry to implement undo/redo.
+** Cons: 
+*** Memory issues once too many commands are executed.
+* Alternative 2: Saves the degree and task list to a history.
+** Pros: 
+*** Straightforward method to save previous states that can be called using undo/redo. 
+*** No work needed when new commands are added.
+** Cons: 
+*** Does not work when a modification changes multiple lists.
+*** Memory issues once too many states are saved.
 * Alternative 3: Perform the opposite command whenever undo is called. (i.e. undoing add will delete the addition instead of recalling the previous state)
-** Pros: Uses less memory than saving the state every time. Proper implementation of the memento pattern.
-** Cons: A lot of work needed to "unexecute" every command possible. More commands means more "unexecution" is needed, and the workload scales higher than alternative 1.
+** Pros: 
+*** Uses less memory than saving the state every time. 
+*** Proper implementation of the memento pattern.
+** Cons: 
+*** A lot of work needed to "unexecute" every command possible. 
+*** More commands means more "unexecution" is needed, and the workload scales higher than alternative 1.
+
+Data Structure to support undo/redo:
+
+* Alternative 1 (Current Choice): `CommandList` class using a stack and a pointer.
+** Pros:
+*** Much faster pushing and popping the stack than adding into standard `Lists` and `ArrayLists`.
+*** More control than a simple stack, as it can also support redos and new commands added after undos.
+** Cons:
+*** Have to manually write the CommandList mostly from scratch instead of using a pre-esxisting data structure or class. (Although it uses a stack to store and retrieve the commands)
+
+* Alternative 2: `ArrayList` of commands and a pointer.
+** Pros:
+*** Less work needed to write methods as it uses a pre-existing data structure.
+*** Easier for newer developers to understand how the undo/redo function works.
+** Cons:
+*** Have to do all the work of adding, removing and choosing commands within another class, and can result in messy implementations.
+*** Slightly slower than stacks when adding and deleting elements in the `ArrayList`.
+
+
+=== Degree-Related Tasks
+==== Implementation
+
+The actions involving Degree-Related Tasks are performed mostly using the `DegreeTask` class. It extends the `Task` class, eventhough it does not use many methods from the aforementioned class. 
+
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/DegreeTaskuml.png[width="900", align="left"]
+
+
+This was done in preparation for some proposed additional changes to this feature that will be discussed later in the document.
+
+
+
+
+Currently, the `DegreeTask` class implements three of the following operations:
+
+* loadDegreeTasks
+
+** This method initializes an Arraylist of TaskLists. When it is called, each of these TaskLists will be populated with the specific tasks that are related to each degree programme. For example, all tasks related to `Computer Engineering` are stored in one of the TaskLists. The other two classes will be able to use this Arraylist to perform operations on the user's TaskList.
+
+* addDegreeTasks
+
+** This method adds all tasks related to a specified degree programme to the user's TaskList.
+
+
+* removeDegreeTasks
+
+** This method removes all tasks related to a specified degree programme to the user's TaskList.
+
+An example usage scenario details how the mechanism behaves at each step:
+
+*Step 1*: The user launches the application, and Duke will initialize an instance of the DegreeTasks command. Duke will call the `loadDegreeTasks` method, and an ArrayList of TaskLists will be instantiated.
+
+*Step 2*: The user inputs the command `add ComE` to add Computer Engineering to his choice of degree programmes
+
+*Step 3*: The degree programme is added to his list of degree programmes by a seperate, unnamed class. Subsequently, `addDegreeTasks` is called to add all Computer Engineering tasks to his TaskList.
+
+
+At this point, the user can choose to remove the degree programme from his list of degree programmes if he chooses. If he does, there will be additional steps to the mechanism:
+
+*Step 4*: The user inputs the command `remove 1` to remove the first-indexed degree programme in his list. In this case, it is `Computer Engineering`
+
+*Step 5*: The tasks related to this degree programme are removed from his TaskList
+
+
+==== [Proposed] Priority for Tasks
+
+In addition to the adding and removing of degree-related tasks, there will be a passive feature of prioritising tasks that have closer dates, or that relate to degree programmes that are higher on the user's degree list.
+
+This mechanism is facilitated by the `TaskRanking` class. It extends `TaskList` and has an internal list of integers that correspond with each task on the user's tasklist. This list is internally stored as `PriorityList`.
+
+The priority will be calculated by giving each task points that correspond with higher priority.
+|===
+| Days Away from Date | Points
+| Less Than or Equal to 3 | 7
+| Less Than or Equal to 5 | 5
+| Less Than or Equal to 7 | 3
+| Greater than 7 | 2
+| No Date | 0
+|===
+
+
+
+Degree-Related Tasks also get a boost in points based on how high up on the degree list they are
+|===
+| Ranking of Degree | Points
+| Rank 1 | 10
+| Rank 2 | 8
+| Rank 3 | 6
+| Rank 4 | 3
+| Rank 5 | 2
+| Rank 6 and Above | 1
+|===
+
+
+
+==== Design Considerations
+Aspect: Implementing the Degree Tasks
+
+* Alternative 1: Implementing Degree Tasks as just Events and Deadlines (current choice):
+
+** Pro: The tasks can be instantiated and treated as Events and Deadlines, and use the methods from those classes
+
+** Con: Extra code needs to be written to parse the description of each task to tell whether it is a degree-related task or not
+
+* Alternative 2: Implementing Degree Tasks as an extension of the Event and Deadline class:
+
+** Pro: The tasks are defined as a new subclass of tasks called "Degree-Tasks". It would be a neat way of storing all Degree-Related Tasks
+
+** Con: The toString() method would produce an extra column in printing, as well as saving, and thus would require changing the Storage class
+
+
+Aspect: Storing the Degree Tasks
+
+* Alternative 1: Storing them in an ArrayList of TaskLists (current choice):
+
+** Pro: Easy to call the index that is needed to take one of the TaskLists for interacting with the user's TaskList
+
+** Con: Involves a slightly more expensive data structure
+
+* Alternative 2: Storing them in a continuous List of Strings
+
+** Pro: Efficient way of storing the Tasks
+
+** Con: Requires continuous parsing at every interaction with the user's tasklist
+
+
+
+Aspect: [Proposed] Priority for Tasks
+
+* Alternative 1: Automated Priority:
+
+** Pro: Easy to associate the value and sort the pairs
+
+** Cons: May not allow the user to view other ways of seeing his list
+
+
+* Alternative 2: Other ways of Sorting:
+
+** Pro: Gives further functionality to the user to see his list
+
+** Con: Requires saving different states of the list, or introducing more sorting commands
+
+=== Degreelist Feature
+==== Implementation (Subjected to change later) 
+
+(Diagrams to be added in later)
+
+The degree list is a customizable list for the users to maintain a list to keep track of the degrees they are interested in and they can rank them in order of their preference as well. The degree list functionalities are facilitated by the class `DegreeList`. It makes use of a private static ArrayList of Strings to keep track of all the degrees entered. It implements the following methods that are needed for the user to add, remove or re-arrange degrees: 
+
+`DegreeList#add_custom(String input)`: This function takes in the parameter which is the degree inputted by the user and adds the degree to the ArrayList, following which it is written to the text file to keep a record. It is written to the text file using `BufferedWriter`. 
+
+`DegreeList#delete(String input, DegreeListStorage dd)`: This function takes in two parameters, the first being a string which contains index of the degree the user wishes to remove from the degree list and the second being the class DegreeListStorage (to be changed and linked to main Storage). This function not only deletes the degree the user wishes to remove from the ArrayList, but the function AddRemoved also updates the text file and adds the word ‘REMOVED’ next to the degree removed and is not considered in further analysis. 
+
+`DegreeList#swap(String input, DegreeListStorage dd)`: This function takes in an input string, which is then split using the support of the `Parser Class` and the indices of the degrees to be swapped are obtains and are then swapped using the Collections.swap() function. A method from the DegreeListStorage is then called in order to update the text file with the current index of the degree after the swap. 
+
+=== Degree Feature
+==== Implementation (Subjected to change later) 
+
+Degree are a class which contains ModuleList class and other auxiliary information related to the degree. When being constructed, it accepts a list of Strings and validates that it is a .csv file type with the correct number of columns. Additionally it implements the following operations:
+
+`DegreeList#addAlias(String input)`: This function takes in the parameter which is the alias the degree should be referred to, this input is stored into a List of Strings within Degree.
+
+`DegreeList#addToList(Integer list, String module, String mcs)`: This function takes in three parameters, the first being an Integer which indicates which Module List the Module should be added to. The second and third parameters are Strings which are expected to contain the Module and th Module Credits respectively. This function is called when a new Degree is created with the csv file being input into it as a List of Strings. This function calls createNewModule and adds the (valid) Module result into the appropiate List suggested by the Integer parameter list.
+
+`DegreeList#createNewModule(String in, String mcs)`: This function takes in the string in and the string mcs. The String mcs is validated by validInt to ensure it is a validInt, following which the in string is checked for a " OR ". If an " OR " is found, it indicates the module is a conjunctive module and each module string is then checked for validity by this method. If all the strings checked are valid, a conjunctive module is returned. Otherwise, having validated that the String is a proper module, a default module is returned. Otherwise, a NonDescriptive Module is returned.
+
+`DegreeList#validateModule(String[] input)`: This function takes in the list of strings input. Each String in the list is checked by the validateModule(String input) function to ensure that it is of the proper format. If any String did not pass this check, an exception is thrown.
+
+`DegreeList#validateModule(String input)`: This function takes in the string input. It then splits the Strings into 2 portions, the first String up to the first white space, will be considered as the Module's code. The remainder of the String is the module's name. The Module Code will be checked against the Regular Expression in the Parser class to ensure that it is of the correct format. The name is checked to ensure it is not empty. If both of these conditions are passed it returns a true result. Otherwise an exception will be thrown.
+
+`DegreeList#setUem(String in)`: This function takes in the string input. If the string is blank, it assumes that no UEM value is to be set. If the uem value in Degree has already been set, it will throw an exception as there should not be multiple UEM values. It will otherwise ensure that the String is a valid Integer, then set the value resulting from validInt.
+
+`DegreeList#validInt(String in)`: This function takes in the string input. If the string is is parsed successfully as an Integer, it checks to ensure that it is non negative. If integer is not parsed sucessfully or it is negative, exceptions are thrown. It then returns the valid result.
+
+`DegreeList#validList(List<String> input)`: This function takes in a list of strings. First, the input is checked to make sure it is not null or empty, or only consists of one string. Then each string is then checked for the following criteria. Then the second string is checked to make sure it has 12 comma separated values.
+
+`DegreeList#print(void)`: This function prints the degree list. It first prints out the hardcoded information, then it prints out the list headers by printListHeader, then the related list with printList.
+
+`DegreeList#printListHeader(String front, Integer sum)`: This function prints out the List header and the sum associated with it.
+
+`DegreeList#printList(ModuleList modList)`: This prints out the List of Modules in lexicographical order.
+
+Given below is an example usage scenario and how the degree mechanism behaves at each step.
+
+*Step 1*: The user launches the application, and Duke will initialize an instance of Set of Strings of degrees and a Map of Strings to Degrees. Duke will call the `setDegrees` method, and it will fetch the data of list of degrees from listdegrees.csv in the data folder.
+
+*Step 2*: Duke will continue refer to this list of Degrees in order to determine where to get the degree information from. The csv file is expected to match the strings in the set.
+
+*Step 3*: The degrees are created using the data from the csv files. It will then be linked via its key (the name of the Degree) to the Degree.
+
+*Step 4*: If no errors occured, the map of degrees will be initialized, if not the maps and sets will be cleared and there will be a request to contact the System Adminstrator for assistance.
+
+==== Design Considerations
+
+How Degree executes:
+
+* Alternative 1 (Current Choice): Degrees checks its own inputs and determines if they are valid.
+** Pros: 
+*** No dependency on other classes for validation. 
+*** Easier to implement when new commands are added.
+*** Common method for complex classes which utilize other classes.
+** Cons: 
+*** Extension of the class is necessary if the degree format changes or there are multiple formats.
+* Alternative 2: Let the Parser class handle all validation and return the sanitized input if available.
+** Pros: 
+*** Maintenance and edits only need to be done in the Parser class. 
+*** No work needed when new commands are added.
+** Cons: 
+*** Bloats the Parser class further.
+*** Parser class is not directly related to the Degree class yet it determines the validity of Degree.
+
+Data Structure to support undo/redo:
+
+* Alternative 1 (Current Choice): `ModuleList` class which maintains lists of Modules for Degree. And other auxiliary primitive data types
+** Pros:
+*** Abstracts away the need to maintain the Lists of Modules and the information associated with it within the Degree class.
+*** More control than primitive data types, supports differential operations.
+** Cons:
+*** Have to create and maintain a new class.
+
+* Alternative 2: Primitive data containers used to contain modules, in addition to other auxiliary primitive data types.
+** Pros:
+*** Less work needed to write methods as it uses a pre-existing data structure.
+*** Easier for newer developers to understand how the undo/redo function works.
+** Cons:
+*** Have to do all the work of adding, removing and choosing commands within another class, and can result in messy implementations.
 
 == Testing
 
@@ -138,7 +427,7 @@ How undo/redo executes:
 |As a user who prefers side by side comparisons, I would want to be able to compare between any two majors simultaneously, without the need to switch tabs so as to not get confused. 
 |High
 
-|As a novice user, I can type a “help” command and receive all the possible commands that DukeJr provides so that I can use the software to its fullest potential 
+|As a novice user, I can type a “help” command and receive all the possible commands that Duke 2.0 provides so that I can use the software to its fullest potential 
 |Medium
 
 |As a student applying to NUS and having specific interests, I want to see if the core modules have any overlap with my interests so that I am better able to decide which engineering disciplines suits me the most
@@ -153,7 +442,7 @@ How undo/redo executes:
 |As a student, I would want to be able to view the complexity of each module in the major and an overall calculation for the complexity of the entire degree so as to see other students’ perceptions regarding the major
 |Medium
 
-|As a careless typer, I can type mistakes into the command without DukeJr. crashing so that I do not have to re-run the program at every mistake.
+|As a careless typer, I can type mistakes into the command without Duke 2.0 crashing so that I do not have to re-run the program at every mistake.
 |Medium
 
 |As a user, I can save my personal module selection list onto the hard drive so that I can go back to it when I turn on the program the next time.

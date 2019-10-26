@@ -55,7 +55,7 @@ Now that you've installed Java `11` on your computer, you can go ahead with gett
 As D2 launches, you should see the following GUI:
 
 
-image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/UI.png[width="350"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2113T-F10-2/main/master/docs/images/Ui.png[width="350"]
 
 
 To test that D2 is running as it should:
@@ -178,10 +178,10 @@ Examples:
 * `add CEG`
 * `add BME [t/tentative]`
 
-=== Listing all degrees in your degree list : `degreelist`
+=== Listing all degrees in your degree list : `choices`
 
 Shows a list of all degrees in the list currently. +
-Format: `degreelist`
+Format: `choices`
 
 === Swapping degree in your degree list: `swap`
 
@@ -279,7 +279,7 @@ e.g. `detail ME`
 e.g. `compare ME CEG`
 * *Add* : `add DEGREE` +
 e.g. `add MSE`
-* *Degree List* : `degreelist`
+* *Degree List* : `choices`
 * *Swap* : `swap INDEX INDEX` +
 e.g. `swap 5 CEG`
 * *Delete* : `delete INDEX` +
