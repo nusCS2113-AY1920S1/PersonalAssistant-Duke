@@ -124,53 +124,6 @@ public class Parser {
                         + "class XXX /every YYY");
             }
             break;
-
-        case "schedule":
-            Storage scheduleStorage = new Storage(
-                ".\\src\\main\\java\\duke\\data\\timeslots.txt");
-
-            try {
-                if (word[1].equals("view-week")) {
-                    System.out.println(schedule.getWeek());
-                } else if (word[1].equals("view-month")) {
-                    System.out.println(schedule.getMonth());
-                } else if (word[1].equals("view-day")) {
-                    try {
-                        System.out.println(schedule.getDay(word[2]));
-                    } catch (ArrayIndexOutOfBoundsException
-                        | ParseException e) {
-                        System.err.println("Enter a date please.");
-                    }
-                } else if (word[1].equals("add")) {
-                    String startTime = word[2] + " " + word[INDEX_THREE];
-                    String endTime = word[INDEX_FOUR] + " " + word[INDEX_FIVE];
-                    String location = word[INDEX_SIX];
-                    String className = word[INDEX_SEVEN];
-                    System.out.println(schedule.addClass(
-                        startTime,
-                        endTime,
-                        location,
-                        className,
-                        tasks,
-                        scheduleStorage));
-                } else if (word[1].equals("delete")) {
-                    String startTime = word[2] + " " + word[INDEX_THREE];
-                    String className = word[INDEX_FOUR];
-                    System.out.println(
-                        schedule.delClass(
-                            startTime, className, scheduleStorage));
-                } else if (word[1].equals("delete-all")) {
-                    String date = word[2];
-                    System.out.println(
-                        schedule.delAllClass(date, scheduleStorage));
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                ui.showFullCommand();
-            }
-            break;
-        default:
-            ui.showDontKnow();
-            break;
         }
     }
 }

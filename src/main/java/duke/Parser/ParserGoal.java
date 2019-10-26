@@ -110,6 +110,7 @@ public class ParserGoal {
                     isRunning = false;
                     ui.showQuitGoal();
                 default:
+                    ui.showDontKnow();
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.showFullCommand();
