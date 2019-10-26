@@ -81,6 +81,9 @@ class MainWindow extends UiElement<Stage> {
                 contextWindowHolder.getTabs().add(1, patientTab);
                 contextWindowHolder.getSelectionModel().select(patientTab);
                 break;
+            case IMPRESSION:
+                // TODO: impression window
+                print("IMPRESSION TODO");
             default:
                 break;
             }

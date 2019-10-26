@@ -18,6 +18,7 @@ public class PatientEditCommand extends ArgCommand {
 
         // TODO: refactor
         // TODO: Ability to change bed number and name
+        // TODO: append
         int height = CommandHelpers.switchToInt("height", this);
         if (height != 0) {
             patient.setHeight(height);

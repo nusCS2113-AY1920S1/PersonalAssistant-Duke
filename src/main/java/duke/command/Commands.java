@@ -67,10 +67,11 @@ public class Commands {
                 return new PatientEditCommand();
             case "history":
                 return new PatientHistoryCommand();
+            case "open":
+                return new PatientOpenCommand();
             default:
                 return null;
             }
-
         case TREATMENT:
             if ("status".equals(cmdStr)) {
                 //return new TreatmentStatusCommand();

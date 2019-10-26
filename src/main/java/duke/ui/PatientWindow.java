@@ -77,9 +77,9 @@ class PatientWindow extends UiElement<Region> {
         // TODO: Set default values if NULL.
         name.setText(String.valueOf(patient.getName()));
         bed.setText(String.valueOf(patient.getBedNo()));
-        age.setText(String.valueOf(patient.getAge()));
-        height.setText(String.valueOf(patient.getHeight()));
-        weight.setText(String.valueOf(patient.getWeight()));
+        age.setText(String.valueOf(patient.getAge()) + " years old");
+        height.setText(String.valueOf(patient.getHeight()) + " cm");
+        weight.setText(String.valueOf(patient.getWeight())  + " kg");
         phone.setText(String.valueOf(patient.getNumber()));
         address.setText(String.valueOf(patient.getAddress()));
         history.setText(String.valueOf(patient.getHistory()));
