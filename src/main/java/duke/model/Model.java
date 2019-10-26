@@ -9,6 +9,7 @@ import duke.model.sale.Sale;
 import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -206,7 +207,7 @@ public interface Model {
      */
     void addSaleFromOrder(Order order);
 
-    void addSaleFromShopping(Double totalCost);
+    void addSaleFromShopping(Double totalCost, ArrayList<Item<Ingredient>> toBuyList);
 
     //========Ingredient operations======
     /**
