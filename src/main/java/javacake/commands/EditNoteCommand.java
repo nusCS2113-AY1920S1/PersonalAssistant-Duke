@@ -15,6 +15,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 
 public class EditNoteCommand extends Command {
 
@@ -38,6 +39,7 @@ public class EditNoteCommand extends Command {
      * @throws DukeException if invalid command or invalid file name.
      */
     public EditNoteCommand(String inputCommand) throws DukeException {
+        Duke.logger.log(Level.INFO, "Processing EditNoteCommand: " + inputCommand);
         type = CmdType.EDITNOTE;
         String[] wordsInInputCommand = inputCommand.split("\\s+");
         if (wordsInInputCommand.length == 2) {
@@ -45,9 +47,11 @@ public class EditNoteCommand extends Command {
                 nameOfEditFile = wordsInInputCommand[1];
                 createCurrentFilePath();
             } else {
+                Duke.logger.log(Level.INFO, wordsInInputCommand[1] + " contains illegal file name.");
                 throw new DukeException("Pls enter a valid file name! Type 'listnote' to view available notes!");
             }
         } else {
+            Duke.logger.log(Level.INFO, inputCommand + " invalid EditNoteCommand.");
             throw new DukeException("Pls enter a valid editnote command:"
                     + " 'editnote - [name of the file you wish you edit]'");
         }
@@ -60,9 +64,12 @@ public class EditNoteCommand extends Command {
      */
     private boolean fileExist(String fileName) {
         File file = new File(defaultDirectoryPath + fileName + ".txt");
+        Duke.logger.log(Level.INFO, "Checking if file: " + fileName + " exist.");
         if (file.exists()) {
+            Duke.logger.log(Level.INFO, fileName + " exist.");
             return true;
         }
+        Duke.logger.log(Level.INFO, fileName + " does not exist.");
         return false;
     }
 
