@@ -20,6 +20,7 @@ public abstract class CommandTest {
     protected static ByteArrayOutputStream testOut = new ByteArrayOutputStream(); //stores printed output
     protected static PrintStream testPrint = new PrintStream(testOut); //System.out replacement, prints to testOut
     protected static final String testFilePath = "data" + File.separator + "test.json";
+
     /**
      * Create data directory if necessary and use a test task file to create test DukeCore, with output directed to
      * testOut.
