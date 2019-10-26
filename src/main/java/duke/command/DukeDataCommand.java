@@ -42,7 +42,6 @@ public abstract class DukeDataCommand extends ImpressionCommand {
             if (getSwitchVal("dose") == null) {
                 throw new DukeException("I need to know the dose of this course of medicine!");
             }
-
             if (getSwitchVal("duration") == null) {
                 throw new DukeException("I need to know how long this medicine will be given for!");
             }
@@ -84,5 +83,9 @@ public abstract class DukeDataCommand extends ImpressionCommand {
                 throw new DukeHelpException("'" + status + "' is not a valid status name!", this);
             }
         }
+    }
+
+    protected List<String> getForbiddenSwitches(String dataType) {
+        return forbiddenSwitchesMap.get(dataType);
     }
 }
