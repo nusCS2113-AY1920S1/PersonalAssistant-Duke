@@ -32,6 +32,7 @@ class MainWindow extends UiElement<Stage> {
     private Parser parser;
 
     private CommandWindow commandWindow;
+    private Tab homeTab;
     private Tab patientTab;
 
     /**
@@ -59,8 +60,7 @@ class MainWindow extends UiElement<Stage> {
         commandWindow = new CommandWindow(executor, parser);
         commandWindowHolder.getChildren().add(commandWindow.getRoot());
 
-        HomeWindow homeWindow = new HomeWindow(patientMap, commandWindow);
-        Tab homeTab = new Tab("Home", homeWindow.getRoot());
+        homeTab = new Tab("Home", new HomeWindow(patientMap).getRoot());
         contextWindowHolder.getTabs().add(homeTab);
 
         patientTab = new Tab("Patient", new PatientWindow(null).getRoot());
@@ -70,15 +70,16 @@ class MainWindow extends UiElement<Stage> {
         uiContext.addListener(evt -> {
             switch ((Context) evt.getNewValue()) {
             case HOME:
+                contextWindowHolder.getTabs().remove(homeTab);
+                homeTab = new Tab("Home", new HomeWindow(patientMap).getRoot());
+                contextWindowHolder.getTabs().add(0, homeTab);
                 contextWindowHolder.getSelectionModel().select(homeTab);
                 break;
             case PATIENT:
                 contextWindowHolder.getTabs().remove(patientTab);
-                Patient patient = (Patient) uiContext.getObject();
-                patientTab = new Tab("Patient", new PatientWindow(patient).getRoot());
+                patientTab = new Tab("Patient", new PatientWindow((Patient) uiContext.getObject()).getRoot());
                 contextWindowHolder.getTabs().add(1, patientTab);
                 contextWindowHolder.getSelectionModel().select(patientTab);
-                print("Accessing details of Bed " + patient.getBedNo());
                 break;
             default:
                 break;

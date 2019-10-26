@@ -16,6 +16,7 @@ public class PatientHistoryCommand extends ArgCommand {
         super.execute(core);
         Patient patient = (Patient) core.uiContext.getObject();
         patient.appendHistory(getArg());
+        patient.updateAttributes();
         core.ui.print("Note appended!");
         core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
     }
