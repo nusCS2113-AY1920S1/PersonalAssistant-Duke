@@ -35,8 +35,6 @@ public class InternalTransferCommand extends MoneyCommand {
         date = Parser.shortcutTime(inputString.split(" /at ")[1]);
         String temp = inputString.split(" /at ")[0];
         description = temp.split(" ", 2)[1];
-
-
     }
 
     /**
@@ -68,7 +66,7 @@ public class InternalTransferCommand extends MoneyCommand {
             account.getExpListTotal().add(expenditure);
         }
         storage.writeToFile(account);
-        ui.appendToOutput("  Got it. Here is the current information about this account:\n    "
+        ui.appendToOutput("  Got it. Here is the current information about this account:\n"
                 + bankTracker.getBankAccountInfo() + "\n");
     }
 
