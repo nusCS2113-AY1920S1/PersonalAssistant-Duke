@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.DukeCore;
-import duke.data.Patient;
+//import duke.data.Patient;
 import duke.exception.DukeException;
 
 public class PatientEditCommand extends ArgCommand {
