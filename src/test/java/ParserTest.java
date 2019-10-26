@@ -1,7 +1,7 @@
 import duke.command.Command;
 import duke.command.Parser;
 import duke.exception.DukeException;
-import duke.ui.Context;
+import duke.ui.UiContext;
 import mocks.DoctorCommand;
 import mocks.TestCommands;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ public class ParserTest {
 
     // TODO check if exceptions are thrown for incorrect input formats
 
-    private Parser uut = new Parser(Context.HOME, new TestCommands());
+    private Parser uut = new Parser(new UiContext(), new TestCommands());
 
     @Test
     public void parseCommands_fullSwitchNames_argumentsExtracted() {

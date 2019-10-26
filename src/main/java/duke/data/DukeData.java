@@ -18,7 +18,7 @@ public abstract class DukeData extends DukeObject {
      * @param priority the priority level of the investigation
      */
     public DukeData(String name, Impression impression, Integer priority) {
-        super(impression.getName() + "\t" + name);
+        super(impression.getName() + "-" + name);
         this.impression = impression.getName();
         this.priority = priority;
     }

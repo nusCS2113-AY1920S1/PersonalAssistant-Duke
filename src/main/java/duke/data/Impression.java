@@ -2,6 +2,7 @@ package duke.data;
 
 import duke.exception.DukeException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class Impression extends DukeObject {
      * @param description the description of the impression
      */
     public Impression(String name, String description, Patient patient) {
-        super(patient.getBedNo() + "\t" + name);
+        super(patient.getBedNo() + "-" + name);
         this.description = description;
         this.patientbedNo = patient.getBedNo();
         this.evidences = new HashMap<String, Evidence>();
@@ -34,35 +35,48 @@ public class Impression extends DukeObject {
     }
 
     /**
-     * This find function returns a list of all DukeObjs related to the impression containing the search term.
-     *
-     * @param searchTerm String to be used to filter the DukeObj
-     * @return the list of DukeObjs
+     * This functions search for treatment relevant to the searchTerm.
+     * @param searchTerm the term to be searched for
+     * @return ArrayList of the Treatments
      */
-    public HashMap<String, DukeData> find(String searchTerm) throws DukeException {
-        int i = 1;
-        HashMap<String, DukeData> searchResult = new HashMap<String, DukeData>();
-        for (Map.Entry mapElement : this.evidences.entrySet()) {
-            Evidence valueE = (Evidence) mapElement.getValue();
-            if (valueE.toString().contains(searchTerm)) {
-                searchResult.put(valueE.getName(), valueE);
-                ++i;
-            }
-        }
-
-        for (Map.Entry mapElement : this.treatments.entrySet()) {
-            Treatment valueT = (Treatment) mapElement.getValue();
+    public ArrayList<Treatment> findTreatment(String searchTerm) {
+        ArrayList<Treatment> searchResult = new ArrayList<Treatment>();
+        for (Map.Entry<String, Treatment> mapElement : this.treatments.entrySet()) {
+            Treatment valueT = mapElement.getValue();
             if (valueT.toString().contains(searchTerm)) {
-                searchResult.put(valueT.getName(), valueT);
-                ++i;
+                searchResult.add(valueT);
             }
         }
+        return searchResult;
+    }
 
-        if (i == 1) {
-            return null;
-        } else {
-            return searchResult;
+    /**
+     * This functions search for Evidence relevant to the searchTerm.
+     * @param searchTerm the term to be searched for
+     * @return ArrayList of the Evidence
+     */
+    public ArrayList<Evidence> findEvidence(String searchTerm) {
+        ArrayList<Evidence> searchResult = new ArrayList<Evidence>();
+        for (Map.Entry<String, Evidence> mapElement : this.evidences.entrySet()) {
+            Evidence valueE = mapElement.getValue();
+            if (valueE.toString().contains(searchTerm)) {
+                searchResult.add(valueE);
+            }
         }
+        return searchResult;
+    }
+
+    /**
+     * This find function returns a list of all DukeData related to the impression containing the search term.
+     *
+     * @param searchTerm String to be used to filter the DukeData
+     * @return the list of DukeData
+     */
+    public ArrayList<DukeData> find(String searchTerm) throws DukeException {
+        ArrayList<DukeData> searchResult = new ArrayList<DukeData>();
+        searchResult.addAll(findEvidence(searchTerm));
+        searchResult.addAll(findTreatment(searchTerm));
+        return searchResult;
     }
 
     /**

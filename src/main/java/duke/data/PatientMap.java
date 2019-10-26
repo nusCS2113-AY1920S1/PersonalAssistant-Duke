@@ -6,6 +6,7 @@ import duke.exception.DukeResetException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +24,10 @@ public class PatientMap {
     public PatientMap(GsonStorage storage) throws DukeResetException, DukeFatalException {
         HashMap<String, Patient> patientHashMap = storage.loadPatientHashMap();
         patientObservableMap = FXCollections.observableMap(patientHashMap);
+
+        for (Map.Entry<String, Patient> pair : patientHashMap.entrySet()) {
+            pair.getValue().initObservableImpressions();
+        }
     }
 
     /**
@@ -82,22 +87,18 @@ public class PatientMap {
      * @param searchTerm String to search through the patients for.
      * @return PatientList of matching patients.
      */
-    public PatientMap find(String searchTerm) throws DukeException {
-        int i = 1;
-        PatientMap filteredList = new PatientMap();
-        for (Map.Entry mapElement : patientObservableMap.entrySet()) {
-            Patient value = (Patient) mapElement.getValue();
+    public ArrayList<Patient> findPatient(String searchTerm) throws DukeException {
+        ArrayList<Patient> filteredList = new ArrayList<Patient>();
+        for (Map.Entry<String, Patient> mapElement : patientObservableMap.entrySet()) {
+            Patient value = mapElement.getValue();
             if (value.toString().contains(searchTerm)) {
-                filteredList.addPatient(value);
-                ++i;
+                filteredList.add(value);
             }
         }
-
-        if (i == 1) {
-            throw new DukeException("Can't find any matching Patients!");
-        } else {
-            return filteredList;
+        if (filteredList.isEmpty()) {
+            throw new DukeException("No relevant Patients");
         }
+        return filteredList;
     }
 
     /**
@@ -122,6 +123,25 @@ public class PatientMap {
         } else {
             return filteredList;
         }
+    }
+
+    /**
+     * Search entire database for search term.
+     * @param searchTerm the term used for search
+     * @return array list of objects relevant to the search
+     * @throws DukeException if the database does not contain the information
+     */
+    public ArrayList<DukeObject> find(String searchTerm) throws DukeException {
+        ArrayList<DukeObject> searchResult = new ArrayList<DukeObject>();
+        ArrayList<Patient> filteredList = findPatient(searchTerm);
+        for (Patient patient : filteredList) {
+            searchResult.add(patient);
+            searchResult.addAll(patient.find(searchTerm));
+        }
+        if (searchResult.isEmpty()) {
+            throw new DukeException("No relevant search terms.");
+        }
+        return searchResult;
     }
 
     /**

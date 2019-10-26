@@ -1,7 +1,11 @@
 package duke.data;
 
 import duke.exception.DukeException;
+import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableMap;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,8 +14,8 @@ public class Patient extends DukeObject {
     private String bedNo;
     private String allergies;
     private Impression priDiagnosis;
+    private transient ObservableMap<String, Impression> observableImpressions;
     private HashMap<String, Impression> impressions;
-
     private Integer height;
     private Integer weight;
     private Integer age;
@@ -42,15 +46,16 @@ public class Patient extends DukeObject {
         super(name);
         this.bedNo = bedNo;
         this.allergies = allergies;
-        this.priDiagnosis = null;
-        this.impressions = new HashMap<String, Impression>();
-
         this.height = height;
         this.weight = weight;
         this.age = age;
         this.number = number;
         this.address = address;
         this.history = history;
+        this.priDiagnosis = new Impression("No Primary Impression", "Add upon admission diagnosis", this);
+
+        this.impressions = new HashMap<>();
+        initObservableImpressions();
     }
 
     /**
@@ -67,15 +72,30 @@ public class Patient extends DukeObject {
         super(name);
         this.bedNo = bedNo;
         this.allergies = allergies;
-        this.priDiagnosis = null;
-        this.impressions = new HashMap<String, Impression>();
-
         this.height = null;
         this.weight = null;
         this.age = null;
         this.number = null;
         this.address = null;
         this.history = null;
+        this.priDiagnosis = null;
+
+        this.impressions = new HashMap<>();
+        initObservableImpressions();
+    }
+
+    /**
+     * Attaches a listener to the impressions map.
+     * This listener updates the {@code impressionHashMap} whenever the patient map is updated.
+     */
+    private void attachImpressionsListener() {
+        observableImpressions.addListener((MapChangeListener<String, Impression>) change -> {
+            if (change.wasAdded()) {
+                impressions.put(change.getKey(), change.getValueAdded());
+            } else if (change.wasRemoved()) {
+                impressions.remove(change.getKey(), change.getValueRemoved());
+            }
+        });
     }
 
     /**
@@ -94,7 +114,7 @@ public class Patient extends DukeObject {
      */
 
     public Impression addNewImpression(Impression newImpression) {
-        this.impressions.put(newImpression.getName(), newImpression);
+        this.observableImpressions.put(newImpression.getName(), newImpression);
         return newImpression;
     }
 
@@ -106,9 +126,9 @@ public class Patient extends DukeObject {
      * @return the Impression of the deleted Impression
      */
     public Impression deleteImpression(String keyIdentifier) throws DukeException {
-        if (this.impressions.containsKey(keyIdentifier)) {
-            Impression imp = this.impressions.get(keyIdentifier);
-            this.impressions.remove(keyIdentifier);
+        if (this.observableImpressions.containsKey(keyIdentifier)) {
+            Impression imp = this.observableImpressions.get(keyIdentifier);
+            this.observableImpressions.remove(keyIdentifier);
             return imp;
         } else {
             throw new DukeException("I don't have that entry in the list!");
@@ -122,9 +142,8 @@ public class Patient extends DukeObject {
      * @return Impression the impression specified by the index
      */
     public Impression getImpression(String keyIdentifier) throws DukeException {
-        if (this.impressions.containsKey(keyIdentifier)) {
-            Impression imp = this.impressions.get(keyIdentifier);
-            return imp;
+        if (this.observableImpressions.containsKey(keyIdentifier)) {
+            return this.observableImpressions.get(keyIdentifier);
         } else {
             throw new DukeException("I don't have that entry in the list!");
         }
@@ -136,13 +155,29 @@ public class Patient extends DukeObject {
      * @param keyIdentifier index of the impression
      */
     public void setPriDiagnosis(String keyIdentifier) throws DukeException {
-        if (this.impressions.containsKey(keyIdentifier)) {
-            Impression imp = this.impressions.get(keyIdentifier);
+        if (this.observableImpressions.containsKey(keyIdentifier)) {
+            Impression imp = this.observableImpressions.get(keyIdentifier);
             this.priDiagnosis = imp;
             return;
         } else {
             throw new DukeException("I don't have that entry in the list!");
         }
+    }
+
+    /**
+     * This function finds relavent Impressions to the searchTerm.
+     * @param searchTerm the serach term
+     * @return the list of impressions
+     */
+    public ArrayList<Impression> findImpression(String searchTerm) {
+        ArrayList<Impression> searchResult = new ArrayList<Impression>();
+        for (Map.Entry<String, Impression> mapElement : this.observableImpressions.entrySet()) {
+            Impression value = mapElement.getValue();
+            if (value.toString().contains(searchTerm)) {
+                searchResult.add(value);
+            }
+        }
+        return searchResult;
     }
 
     /**
@@ -152,21 +187,14 @@ public class Patient extends DukeObject {
      * @param searchTerm String to be used to filter the DukeObj
      * @return the hashMap of DukeObjs
      */
-    public HashMap<String, DukeObject> find(String searchTerm) throws DukeException {
-        int i = 1;
-        HashMap<String, DukeObject> searchResult = new HashMap<String, DukeObject>();
-        for (Map.Entry mapElement : this.impressions.entrySet()) {
-            Impression value = (Impression) mapElement.getValue();
-            if (value.toString().contains(searchTerm)) {
-                searchResult.put(value.getName(), value);
-                ++i;
-            }
+    public ArrayList<DukeObject> find(String searchTerm) throws DukeException {
+        ArrayList<Impression> filteredList = findImpression(searchTerm);
+        ArrayList<DukeObject> searchResult = new ArrayList<DukeObject>();
+        for (Impression imp : filteredList) {
+            searchResult.add(imp);
+            searchResult.addAll(imp.find(searchTerm));
         }
-        if (i == 1) {
-            throw new DukeException("Can't find any matching tasks!");
-        } else {
-            return searchResult;
-        }
+        return searchResult;
     }
 
     /**
@@ -271,8 +299,13 @@ public class Patient extends DukeObject {
         return bedNo;
     }
 
-    public HashMap<String, Impression> getImpressions() {
-        return impressions;
+    public ObservableMap<String, Impression> getImpressionsObservableMap() {
+        return observableImpressions;
+    }
+
+    public void initObservableImpressions() {
+        this.observableImpressions = FXCollections.observableMap(impressions);
+        attachImpressionsListener();
     }
 
     public String getAllergies() {
