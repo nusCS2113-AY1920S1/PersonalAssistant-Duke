@@ -6,6 +6,8 @@ import leduc.exception.DukeException;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
 
+//import java.net.URL;
+
 /**
  * Represents the main program leduc.Duke.
  * Run the project from here.
@@ -38,6 +40,12 @@ public class Duke {
             file = System.getProperty("user.dir")+ "/src/main/java/data/duke.txt";
             configFile= System.getProperty("user.dir")+ "/src/main/java/data/config.txt";
             welcomeFile = System.getProperty("user.dir")+ "/src/main/java/data/welcome.txt";
+
+            // try to use txt file inside the jar file
+            //URL file = getClass().getClassLoader().getResource("duke.txt");
+            //URL configFile = getClass().getClassLoader().getResource("config.txt");
+            //URL welcomeFile = getClass().getClassLoader().getResource("welcome.txt");
+
         }
 
         try{
