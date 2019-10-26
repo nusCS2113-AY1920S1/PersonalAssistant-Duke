@@ -1,19 +1,25 @@
 package model;
 
 import utils.DukeException;
+
 import java.util.ArrayList;
 
 //@@author chenyuheng
 public class MemberManager {
     public static final String MESSAGE_DUPLICATED_MEMBER_NAME = "Duplicated member name.";
-    ArrayList<Member>  memberList;
+    ArrayList<Member> memberList;
 
-    public MemberManager() {
-        memberList = new ArrayList<>();
+    public MemberManager(ArrayList<Member> memberList) {
+        if (memberList != null) {
+            this.memberList = memberList;
+        } else {
+            this.memberList = new ArrayList<Member>();
+        }
     }
 
     /**
      * Add a new member with a name.
+     *
      * @param name The name of the new member, case sensitive.
      * @throws DukeException If duplicated member name is found.
      */
@@ -28,6 +34,7 @@ public class MemberManager {
 
     /**
      * Get the Member object by its name.
+     *
      * @param name The name
      * @return Return the Member object if found, return null if not found.
      */
@@ -42,6 +49,7 @@ public class MemberManager {
 
     /**
      * Get the Member object by its id.
+     *
      * @param id The id, or the index of the Member ArrayList, which is non-persistent.
      *           An id starts with 0.
      * @return Return the Member object if found, return null if index is wrong.
@@ -55,6 +63,7 @@ public class MemberManager {
 
     /**
      * Delete a member from the member list.
+     *
      * @param toDelete The Member object to be deleted.
      */
     public void deleteMember(Member toDelete) {
@@ -63,6 +72,7 @@ public class MemberManager {
 
     /**
      * Delete an array of Member objects from the member list.
+     *
      * @param toDelete The Member objects array to be deleted.
      */
     public void deleteMembers(Member[] toDelete) {
@@ -73,8 +83,9 @@ public class MemberManager {
 
     /**
      * Add link(s) from member(s) to task(s). Duplicated link will be cancelled.
+     *
      * @param members Array of Member objects to link.
-     * @param toAdd Array of Task objects to link.
+     * @param toAdd   Array of Task objects to link.
      */
     public void addTask(Member[] members, Task[] toAdd) {
         for (int i = 0; i < members.length; i++) {
@@ -87,7 +98,8 @@ public class MemberManager {
     /**
      * Delete link(s) from member(s) to task(s). Non-existing link won't be deleted.
      * This is the reverse method of <code>addTask(Member[] members, Task[] toAdd)</code> method.
-     * @param members Array of Member objects to delete link.
+     *
+     * @param members  Array of Member objects to delete link.
      * @param toDelete Array of Task objects to delete link.
      */
     public void deleteTask(Member[] members, Task[] toDelete) {

@@ -1,6 +1,22 @@
-T | 0 | e | 0
-T | 0 | d | 0
-T | 0 | a | 0
-T | 0 | b | 0
-T | 0 | c | 0
-T | 0 | man | 0
+[
+  {
+    "name": "hi",
+    "isDone": false,
+    "memberList": []
+  },
+  {
+    "name": "yo",
+    "isDone": false,
+    "memberList": []
+  },
+  {
+    "name": "ban",
+    "isDone": false,
+    "memberList": []
+  },
+  {
+    "name": "lak;sdjfkl;ads",
+    "isDone": false,
+    "memberList": []
+  }
+]

@@ -53,9 +53,9 @@ public class Duke {
      * @param memberFilePath the file path of member list
      */
     public Duke(String taskFilePath, String memberFilePath) {
-        storage = new Storage(taskFilePath, memberFilePath);
-        tasks = storage.loadTaskList();
-        members = storage.loadMemberList(tasks);
+ //       storage = new Storage(taskFilePath, memberFilePath);
+
+//        members = storage.loadMemberList(new ArrayList<Task>());
         //========= instantiation for controllers ==============
         modelController = new ModelController();
         logicController = new LogicController(modelController);

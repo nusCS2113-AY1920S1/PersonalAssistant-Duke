@@ -4,23 +4,39 @@ import utils.DukeException;
 
 import java.util.ArrayList;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 public class ModelController implements Model {
     private TasksManager tasksManager;
     private MemberManager memberManager;
+    private Gson gson;
+    private Storage storage;
     /**
      * Handles model changes.
      * */
     public ModelController() {
         //TODO change to loading from storage
-        tasksManager = new TasksManager();
-        memberManager = new MemberManager();
+        storage = new Storage();
+        tasksManager = new TasksManager(storage.loadTasks());
+        memberManager = new MemberManager(storage.loadMembers());
+//        GsonBuilder builder = new GsonBuilder();
+//        builder.setPrettyPrinting();
+//        gson = builder.create();
     }
 
+    //@@author JustinChia1997
+    /**
+     * Loads the data from storage into memory
+     * */
     @Override
     public void load() {
         //TODO
     }
 
+    /**
+     * Saves the data into a persistent json object
+     * */
     @Override
     public void save() {
         //TODO
@@ -34,18 +50,21 @@ public class ModelController implements Model {
     @Override
     public void addTask(String name) throws DukeException {
         tasksManager.addTask(name);
-        save();
+        storage.saveTasks(tasksManager.getTaskList());
+        storage.loadTasks();
+//        String json = gson.toJson(tasksManager.getTaskList());
+//        System.out.println("CHECK FOR THE STUFF");
+//        System.out.println(json);
     }
 
     @Override
-    public Task deleteTask(int index) throws DukeException {
-        Task toDelete = tasksManager.getTaskById(index);
+    public Task deleteTask(String name) throws DukeException {
+        Task toDelete = tasksManager.getTaskByName(name);
         ArrayList<Member> memberList = toDelete.getMemberList();
         for (int i = 0; i < memberList.size(); i++) {
             unlink(toDelete, memberList.get(i));
         }
         tasksManager.deleteTask(toDelete);
-        save();
         return toDelete;
     }
 
@@ -57,7 +76,7 @@ public class ModelController implements Model {
     @Override
     public void addMember(String name) throws DukeException {
         memberManager.addMember(name);
-        save();
+        storage.saveMembers(memberManager.getMemberList());
     }
 
     @Override
@@ -68,7 +87,6 @@ public class ModelController implements Model {
             unlink(taskArrayList.get(i), toDelete);
         }
         memberManager.deleteMember(toDelete);
-        save();
         return toDelete;
     }
 
@@ -78,7 +96,6 @@ public class ModelController implements Model {
         Member member = memberManager.getMemberByName(memberNames);
         task.addMember(member);
         member.addTask(task);
-        save();
     }
 
     @Override
@@ -86,7 +103,6 @@ public class ModelController implements Model {
         Task task = tasksManager.getTaskById(tasksIndexes);
         Member member = memberManager.getMemberByName(memberNames);
         unlink(task, member);
-        save();
     }
 
     private void unlink(Task task, Member member) {

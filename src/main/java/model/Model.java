@@ -12,7 +12,7 @@ public interface Model {
     //==================Task Interface======================
     ArrayList<Task> getTaskList();
     void addTask(String name) throws DukeException;
-    Task deleteTask(int index) throws DukeException;
+    Task deleteTask(String name) throws DukeException;
 
     //==================Member Interface======================
     ArrayList<Member> getMemberList();
