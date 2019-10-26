@@ -1,3 +1,5 @@
+package money;
+
 import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Ui;
