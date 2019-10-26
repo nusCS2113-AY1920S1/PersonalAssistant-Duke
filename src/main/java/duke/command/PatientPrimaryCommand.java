@@ -16,5 +16,6 @@ public class PatientPrimaryCommand extends ArgCommand {
 
         Patient patient = (Patient) core.uiContext.getObject();
         patient.setPriDiagnosis(getArg());
+        core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
     }
 }
