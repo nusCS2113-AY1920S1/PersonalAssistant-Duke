@@ -3,10 +3,9 @@ package duke.command;
 import duke.DukeCore;
 import duke.exception.DukeException;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.Arrays;
 
-public class ImpressionNewCommand extends ArgCommand {
+public class ImpressionNewCommand extends DukeDataCommand {
 
     @Override
     protected ArgSpec getSpec() {
@@ -16,12 +15,21 @@ public class ImpressionNewCommand extends ArgCommand {
     @Override
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
+        String addType = uniqueDataType();
+        checkTypeSwitches(addType);
+        switch(addType) {
+        case "medicine":
 
-        //check if the type of data to add was uniquely specified
-        boolean addTypeFound = false;
-        String[] typeArr = {"medicine", "investigation", "result", "observation", "plan"};
-        for (String type : typeArr) {
-            if ()
+            break;
+        case "plan": //fallthrough
+        case "investigation":
+            break;
+        case "result":
+            break;
+        case "observation":
+            break;
+        default:
+            throw new DukeException("Invalid data type!");
         }
     }
 }

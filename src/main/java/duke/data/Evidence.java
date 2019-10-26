@@ -54,7 +54,6 @@ public abstract class Evidence extends DukeData {
 
     @Override
     public String toReportString() {
-
         String informationString;
         informationString = "Summary: " + this.summary + "\n";
         return informationString;
