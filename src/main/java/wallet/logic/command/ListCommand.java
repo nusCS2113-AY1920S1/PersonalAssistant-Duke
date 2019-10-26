@@ -1,7 +1,7 @@
 package wallet.logic.command;
 
-import wallet.logic.LogicManager;
 import wallet.model.Wallet;
+import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.ui.Ui;
@@ -53,7 +53,7 @@ public class ListCommand extends Command {
 
         switch (record) {
         case "recurring":
-            ArrayList<Expense> recList = LogicManager.getWallet().getExpenseList().getRecurringExpense();
+            ArrayList<Expense> recList = wallet.getExpenseList().getRecurringExpense();
             Ui.printExpenseTable(recList);
             break;
 
@@ -64,7 +64,8 @@ public class ListCommand extends Command {
         case "contact":
             //@@author Xdecosee
             System.out.println(MESSAGE_LIST_CONTACTS);
-            Ui.printContactTable();
+            ArrayList<Contact> contactList = wallet.getContactList().getContactList();
+            Ui.printContactTable(contactList);
             if (!isListAll) {
                 break;
             }
@@ -72,11 +73,13 @@ public class ListCommand extends Command {
             //fallthrough
 
         case "loan":
-            ArrayList<Loan> loanList = LogicManager.getWallet().getLoanList().getLoanList();
+            //@@author A0171206R
+            ArrayList<Loan> loanList = wallet.getLoanList().getLoanList();
             Ui.printLoanTable(loanList);
             if (!isListAll) {
                 break;
             }
+            //@@author
             //fallthrough
 
         case "expense":
@@ -114,7 +117,7 @@ public class ListCommand extends Command {
                                     + " " + date.getYear());
                         }
                     }
-
+                    //@@author A0171206R
                     if (wallet.getLoanList().getLoanList().size() != 0) {
                         for (Loan l : wallet.getLoanList().getLoanList()) {
                             if (l.getDate().equals(date)) {
@@ -131,6 +134,7 @@ public class ListCommand extends Command {
                                     + " " + date.getYear());
                         }
                     }
+                    //@@author
                 }
                 break;
                 //@@author

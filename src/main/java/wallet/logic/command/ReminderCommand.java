@@ -1,3 +1,5 @@
+//@@author A0171206R
+
 package wallet.logic.command;
 
 import wallet.logic.LogicManager;

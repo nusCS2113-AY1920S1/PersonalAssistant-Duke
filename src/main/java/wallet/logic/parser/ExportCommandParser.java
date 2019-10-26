@@ -126,7 +126,8 @@ public class ExportCommandParser implements Parser<ExportCommand> {
      */
     private List<String[]> parseLoan() {
 
-        ArrayList<Loan> loanList = LogicManager.getWallet().getLoanList().getLoanList();
+        ArrayList<Loan> loanList = LogicManager.getWalletList().getWalletList()
+                .get(LogicManager.getWalletList().getState()).getLoanList().getLoanList();
         List<String[]> data = new ArrayList<>();
         data.add(new String[]{"S/N", "Description", "Amount($)", "Created Date", "Name", "Phone",
             "Other Details", "Lend/Borrow", "Settled"});

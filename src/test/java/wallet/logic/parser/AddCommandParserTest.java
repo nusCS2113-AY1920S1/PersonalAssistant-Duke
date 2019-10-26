@@ -1,12 +1,24 @@
 package wallet.logic.parser;
 
 import org.junit.jupiter.api.Test;
+
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import wallet.logic.LogicManager;
+import wallet.model.Wallet;
+import wallet.model.WalletList;
 import wallet.model.contact.Contact;
+import wallet.model.contact.ContactList;
+import wallet.model.record.BudgetList;
 import wallet.model.record.Category;
 import wallet.model.record.Expense;
+import wallet.model.record.ExpenseList;
+import wallet.model.record.Loan;
+import wallet.model.record.LoanList;
+import wallet.model.record.RecordList;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,6 +56,8 @@ public class AddCommandParserTest {
             () -> assertEquals("MONTHLY", expense.getRecFrequency())
         );
     }
+    //@@author
+
 
     //@@author Xdecosee
     /**
@@ -82,5 +96,39 @@ public class AddCommandParserTest {
             () -> assertEquals(finalMatch.getPhoneNum(), contact.getPhoneNum())
         );
     }
+    //@@author
 
+    //@@author A0171206R
+    @Test
+    public void parseLoan_validInput_success() throws ParseException {
+        AddCommandParser parser = new AddCommandParser();
+        WalletList dummyWalletList = new WalletList();
+        Wallet dummyWallet = new Wallet(new BudgetList(),
+                new RecordList(),
+                new ExpenseList(),
+                new ContactList(),
+                new LoanList());
+
+        //dummy Contact object
+        Contact person = new Contact("Mary", "Friend", "1234 5678");
+        person.setId(1);
+
+        ContactList contactList = dummyWallet.getContactList();
+        contactList.addContact(person);
+
+        dummyWalletList.getWalletList().add(dummyWallet);
+        LogicManager.setWalletList(dummyWalletList);
+
+        String input = "lunch $10 21/09/2019 /b /c 1";
+        Loan loan = parser.parseLoan(input);
+        assertAll("Loan should contain correct input values",
+            () -> assertEquals("lunch", loan.getDescription()),
+            () -> assertEquals(10.0, loan.getAmount()),
+            () -> assertEquals(LocalDate.parse("2019-09-21"), loan.getDate()),
+            () -> assertEquals(false, loan.getIsLend()),
+            () -> assertEquals(false, loan.getIsSettled()),
+            () -> assertEquals(contactList.getContactList().get(contactList.findIndexWithId(1)), loan.getPerson())
+        );
+    }
+    //@@author
 }

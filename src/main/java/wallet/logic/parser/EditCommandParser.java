@@ -2,6 +2,7 @@ package wallet.logic.parser;
 
 import wallet.logic.LogicManager;
 import wallet.logic.command.EditCommand;
+import wallet.model.Wallet;
 import wallet.model.contact.Contact;
 import wallet.model.record.Category;
 import wallet.model.record.Expense;
@@ -90,8 +91,8 @@ public class EditCommandParser implements Parser<EditCommand> {
      *
      * @param input User input arguments
      */
-    private Loan parseLoan(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
-
+    Loan parseLoan(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
+        //@@author A0171206R
         Loan loan = new Loan();
 
         String[] arguments = input.split(" ", 2);
@@ -99,14 +100,24 @@ public class EditCommandParser implements Parser<EditCommand> {
         loan.setId(loanId);
         String parameters = arguments[1].trim();
 
-        int index = LogicManager.getWallet().getLoanList().findIndexWithId(loanId);
-        Loan currentLoan = LogicManager.getWallet().getLoanList().getLoan(index);
-        loan = currentLoan;
+        Wallet wallet = LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState());
+
+        int index = wallet.getLoanList().findIndexWithId(loanId);
+        Loan currentLoan = LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList()
+                .getState()).getLoanList().getLoan(index);
+        loan.setId(currentLoan.getId());
+        loan.setDescription(currentLoan.getDescription());
+        loan.setIsSettled(currentLoan.getIsSettled());
+        loan.setAmount(currentLoan.getAmount());
+        loan.setPerson(currentLoan.getPerson());
+        loan.setIsLend(currentLoan.getIsLend());
+        loan.setDate(currentLoan.getDate());
 
         if (parameters.contains("/c")) {
             String[] getContact = parameters.split("/c");
             int contactId = Integer.parseInt(getContact[1].trim());
-            for (Contact contact : LogicManager.getWallet().getContactList().getContactList()) {
+            for (Contact contact : LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList()
+                    .getState()).getContactList().getContactList()) {
                 if (contact.getId() == contactId) {
                     System.out.println("Edit: Contact found! " + contact.toString());
                     loan.setPerson(contact);
@@ -149,6 +160,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             loan.setDescription(description);
         }
         return loan;
+        //@@author
     }
 
     /**
