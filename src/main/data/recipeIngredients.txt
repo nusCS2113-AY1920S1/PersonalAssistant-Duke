@@ -1,1 +1,2 @@
 rice | potato | 1.0 | G | mashed
+rice | milk | 100.0 | G | carton
