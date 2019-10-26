@@ -6,6 +6,7 @@
 package cube.ui;
 
 import cube.logic.command.util.CommandResult;
+import cube.exception.ErrorMessage;
 import java.util.Scanner;
 
 /**
@@ -57,7 +58,7 @@ public class Ui {
 	 */
 	public void showLoadingError(String path) {
 		showLine();
-		System.out.println(Message.IO_ERROR + path);
+		System.out.println(ErrorMessage.IO_ERROR + path);
 	}
 
 	// temporary use before GUI finish
