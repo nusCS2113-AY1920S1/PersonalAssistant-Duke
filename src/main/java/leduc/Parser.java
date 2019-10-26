@@ -74,11 +74,11 @@ public class Parser {
             c = new TodoCommand(user);
             c.calledByShortcut();
         }
-        else if (user.matches(" deadline (.*)") | user.matches(" deadline")) {
-            c = new DeadlineCommand(user);
+        else if (user.matches(" homework (.*)") | user.matches(" homework")) {
+            c = new HomeworkCommand(user);
         }
-        else if (user.matches(DeadlineCommand.getDeadlineShortcut() + "(.*)") | user.matches(DeadlineCommand.getDeadlineShortcut())) {
-            c = new DeadlineCommand(user);
+        else if (user.matches(HomeworkCommand.getHomeworkShortcut() + "(.*)") | user.matches(HomeworkCommand.getHomeworkShortcut())) {
+            c = new HomeworkCommand(user);
             c.calledByShortcut();
         }
         else if (user.matches("event (.*)") | user.matches("event")) {

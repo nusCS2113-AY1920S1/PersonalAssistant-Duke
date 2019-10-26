@@ -4,13 +4,13 @@ import leduc.Date;
 import leduc.Ui;
 import leduc.exception.*;
 import leduc.storage.Storage;
-import leduc.task.DeadlinesTask;
+import leduc.task.HomeworkTask;
 import leduc.task.Task;
 import leduc.task.TaskList;
 
 
 /**
- * Represents Postpone command which postpone the deadline of a deadline task.
+ * Represents Postpone command which postpone the deadline of a homework task.
  */
 public class PostponeCommand extends Command {
 
@@ -33,15 +33,15 @@ public class PostponeCommand extends Command {
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws NonExistentTaskException Exception caught when the task does not exist.
-     * @throws DeadlineTypeException Exception caught when the task is not a deadline task.
+     * @throws HomeworkTypeException Exception caught when the task is not a deadline task.
      * @throws FileException Exception caught when the file doesn't exist or cannot be created or cannot be opened.
-     * @throws EmptyDeadlineDateException Exception caught when the date of the deadline task is not given.
+     * @throws EmptyHomeworkDateException Exception caught when the date of the homework task is not given.
      * @throws NonExistentDateException Exception caught when the date given does not exist.
-     * @throws PostponeDeadlineException Exception caught when the new deadline is before the old deadline.
+     * @throws PostponeHomeworkException Exception caught when the new homework is before the old deadline.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NonExistentTaskException,
-            DeadlineTypeException, FileException, EmptyDeadlineDateException, NonExistentDateException,
-            PostponeDeadlineException {
+            HomeworkTypeException, FileException, EmptyHomeworkDateException, NonExistentDateException,
+            PostponeHomeworkException {
         String userSubstring;
         if(callByShortcut){
             userSubstring = user.substring(PostponeCommand.postponeShortcut.length() + 1);
@@ -51,7 +51,7 @@ public class PostponeCommand extends Command {
         }
         String[] postponeString = userSubstring.split("/by");
         if (postponeString.length == 1) { // no /by in input
-            throw new EmptyDeadlineDateException();
+            throw new EmptyHomeworkDateException();
         }
         int index = -1;
         try {
@@ -65,16 +65,16 @@ public class PostponeCommand extends Command {
         }
         else { // the tasks exist
             Task postponeTask = tasks.get(index);
-            if (!postponeTask.isDeadline()){
-                throw new DeadlineTypeException();
+            if (!postponeTask.isHomework()){
+                throw new HomeworkTypeException();
             }
-            DeadlinesTask postponeDeadlineTask = (DeadlinesTask) postponeTask;
+            HomeworkTask postponeHomeworkTask = (HomeworkTask) postponeTask;
             Date d = new Date(postponeString[1]);
-            postponeDeadlineTask.postponeDeadline(d);
+            postponeHomeworkTask.postponeHomework(d);
             storage.save(tasks.getList());
             ui.display("\t Noted. I've postponed this task: \n" +
-                    "\t\t "+postponeDeadlineTask.getTag() + postponeDeadlineTask.getMark() + " " + postponeDeadlineTask.getTask()+
-                    " by:" + postponeDeadlineTask.getDeadlines() + "\n");
+                    "\t\t "+postponeHomeworkTask.getTag() + postponeHomeworkTask.getMark() + " " + postponeHomeworkTask.getTask()+
+                    " by:" + postponeHomeworkTask.getDeadlines() + "\n");
         }
     }
 

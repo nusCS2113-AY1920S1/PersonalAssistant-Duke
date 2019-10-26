@@ -74,10 +74,10 @@ Examples:
 * `todo buy book`
 * `todo sell book prio 3`
 
-=== Adding a deadline task: `deadline`
+=== Adding a homework task: `homework`
 
-To add a deadline task : `deadline DESCRIPTION /by DATE`
-An option could be added to give a priority to the task : `deadline DESCRIPTION /by DATE prio INDEX`
+To add a homework task : `homework DESCRIPTION /by DATE`
+An option could be added to give a priority to the task : `homework DESCRIPTION /by DATE prio INDEX`
 
 Be careful:
 
@@ -86,8 +86,8 @@ Be careful:
 
 Example:
 
-* `deadline CS4239: lab3 /by 21/09/2019 23:59`
-* `deadline CS4239: lab4 /by 25/09/2019 23:59 prio 7`
+* `homework CS4239: lab3 /by 21/09/2019 23:59`
+* `homework CS4239: lab4 /by 25/09/2019 23:59 prio 7`
 
 === Adding a event task: `event`
 
@@ -146,9 +146,9 @@ Example:
 
 * `done 2`
 
-=== Snooze a deadline task : `snooze`
+=== Snooze a homework task : `snooze`
 
-To snooze a deadline task: `snooze INDEX`
+To snooze a homework task: `snooze INDEX`
 The snooze time is fixed at 30 minutes.
 
 
@@ -156,11 +156,11 @@ Example:
 
 * `snooze 2`
 
-=== Postpone a deadline task : `postpone`
+=== Postpone a homework task : `postpone`
 
-To postpone a deadline task: `postpone INDEX /by DATE`.
+To postpone a homework task: `postpone INDEX /by DATE`.
 
-DATE is the new date of the deadline task. The new date should be after the old one.
+DATE is the new date of the homework task. The new date should be after the old one.
 
 Example:
 
@@ -203,7 +203,7 @@ Examples:
 - `2`
 - `DESCRIPTION`
 
-* The task 2 is a deadline task:
+* The task 2 is a homework task:
 - `edit`
 - `2`
 - `2`
@@ -247,7 +247,7 @@ Number of Todo's : 6.0
 
 Number of Events: 2.0
 
-Number of Deadlines: 5.0
+Number of homeworks: 5.0
 
 Number of Uncompleted Tasks: 13.0
 
@@ -331,7 +331,7 @@ Example:
 
  Here are the unfinished tasks in your list:
          1. [T][✗] td1 [Priority: 5]
-         2. [D][✗] d1 by: 14/09/2019 22:33 [Priority: 5]
+         2. [H][✗] h1 by: 14/09/2019 22:33 [Priority: 5]
          3. [E][✗] e1 at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
          4. [T][✗] td4 [Priority: 5]
          5. [T][✗] td5 [Priority: 5]
@@ -388,7 +388,7 @@ A) Yes, if we have enough imagination and time and energy.
 
 * *help* `help`
 * *todo* : `todo DESCRIPTION`
-* *deadline* : `deadline DESCRIPTION /by DATE`
+* *homework* : `homework DESCRIPTION /by DATE`
 * *event* : `event DESCRIPTION /at DATE - DATE`
 * *find* : `find KEYWORD`
 * *delete* : `delete INDEX`

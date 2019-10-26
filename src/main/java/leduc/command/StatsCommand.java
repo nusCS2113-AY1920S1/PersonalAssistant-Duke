@@ -25,7 +25,7 @@ public class StatsCommand extends Command{
         double numTasks = taskList.size();
         float percentComplete;
         double numTodos = 0.0;
-        double numDeadlines = 0.0;
+        double numHomework = 0.0;
         double numEvents = 0.0;
         double numIncomplete = 0.0;
         for (int i = 0 ;i< taskList.size() ; i++ ){
@@ -36,8 +36,8 @@ public class StatsCommand extends Command{
             else{
                 numIncomplete++;
             }
-            if(task.isDeadline()){
-                numDeadlines++;
+            if(task.isHomework()){
+                numHomework++;
             }
             else if(task.isEvent()){
                 numEvents++;
@@ -52,7 +52,7 @@ public class StatsCommand extends Command{
                 "Number of tasks: " + numTasks + "\n" +
                 "Number of Todo's : " + numTodos + "\n" +
                 "Number of Events: " + numEvents + "\n" +
-                "Number of Deadlines: " + numDeadlines + "\n" +
+                "Number of Homeworks: " + numHomework + "\n" +
                 "Number of Uncompleted Tasks: " + numIncomplete + "\n" +
                 "Number of Completed Tasks: " + numComplete + "\n" +
                 "Percent Complete: " + percentComplete + "%";

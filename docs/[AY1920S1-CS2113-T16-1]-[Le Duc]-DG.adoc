@@ -228,15 +228,15 @@ in the TaskList class. Indeed, all task dates are needed to verify if there is a
 
 image::SequenceDiagramReschedule.png[width="1000", align="left"]
 
-* *Snooze an deadline task*
+* *Snooze an homework task*
 
-Snooze is applicable to a deadline task. The snooze time is fixed at 30 minutes( it could be easily changed in the snoozeLocalDateTime() method of Date.
+Snooze is applicable to a homework task. The snooze time is fixed at 30 minutes( it could be easily changed in the snoozeLocalDateTime() method of Date.
 
 image::SequenceDiagramSnooze.png[width="1000", align="left"]
 
-* *Postpone an deadline task*
+* *Postpone an homework task*
 
-Postpone is also only applicable to a deadline task. The new date should be after the old one.
+Postpone is also only applicable to a homework task. The new date should be after the old one.
 This is verified inside the execution of the postponeCommand.
 
 image::SequenceDiagramPostpone.png[width="1000", align="left"]
@@ -249,7 +249,7 @@ image::SequenceDiagramPostpone.png[width="1000", align="left"]
 
 The Remind feature is done by the RemindCommand. Along with all of the other implemented commands, it extends Command. The feature will process each tasks date/timestamps to order them, and then remind the user of the top 3 upcoming tasks. The following methods were implemented in this feature:
 
-* `filterTasks` - Extracts the Deadline and Event tasks into a seperate ArrayList
+* `filterTasks` - Extracts the Homework and Event tasks into a seperate ArrayList
 * `sort` - Orders the filtered TaskList in chronological order.
 
 * *Sequence Diagram of the Remind Feature:*
@@ -263,7 +263,7 @@ There are 2 cases:
 
 Both cases are handled separately, as they must be ordered differently.
 
-==== TaskList contains only Deadline/Event objects
+==== TaskList contains only homework/Event objects
 
 * The original TaskList is passed through a filter.
 * The filtered TaskList is equal to the original TaskList, as there are no Todo objects to filter out. The filtered TaskList will then be sorted by TakList.sort(). The method will call each tasks .getDate() and build a sorted ArrayList. All Todo's will be appended to the end of the sortedlist

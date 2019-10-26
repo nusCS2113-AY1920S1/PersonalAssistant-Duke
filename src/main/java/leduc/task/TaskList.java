@@ -119,7 +119,7 @@ public class TaskList {
         return extractedTodos;
     }
     /**
-     * Extracts all EventsTask/DeadlinesTask into a seperate arraylist. Tasks with/without dates must be seperated prior to sorting
+     * Extracts all EventsTask/HomeworkTasks into a seperate arraylist. Tasks with/without dates must be seperated prior to sorting
      *@param tasks tasks is the list of tasks
      */
     public  ArrayList<Task> filterTasks(TaskList tasks){

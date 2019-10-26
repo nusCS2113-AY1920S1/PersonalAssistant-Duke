@@ -182,7 +182,7 @@ public class Ui {
         System.out.println("\t All blank space should be respected");
         System.out.println("\t Here are the list of all command:");
         System.out.println("\t todo DESCRIPTION prio INDEX: create a todo task ( prio index is optional) with priority index");
-        System.out.println("\t deadline DESCRIPTION /by DATE prio INDEX: create a deadline task ( prio index is optional) with priority index");
+        System.out.println("\t homework DESCRIPTION /by DATE prio INDEX: create a homework task ( prio index is optional) with priority index");
         System.out.println("\t event DESCRIPTION /at DATE - DATE prio INDEX: create an event task ( prio index is optional) with priority index");
         System.out.println("\t list : show all the tasks");
         System.out.println("\t bye : exit the application");

@@ -28,6 +28,7 @@ public class ListCommand extends Command {
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage){
+
         if (tasks.size() != 0) {
             ui.showList(tasks);
         }

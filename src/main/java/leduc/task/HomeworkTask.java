@@ -1,80 +1,78 @@
 package leduc.task;
-
 import leduc.Date;
-import leduc.exception.PostponeDeadlineException;
-
+import leduc.exception.PostponeHomeworkException;
 
 /**
- * Represents a deadline Task.
+ * Represents a homework Task.
  */
-public class DeadlinesTask extends Task {
-    private String tag; // [D]
+public class HomeworkTask extends Task {
+    private String tag; // [H]
     private Date deadlines;
 
     /**
-     * Constructor of leduc.task.DeadlinesTask. The task is not done by default.
+     * Constructor of leduc.task.Homework. The task is not done by default.
      * And the priority is 5 by default.
      * @param task String representing the description of the Task.
      * @param deadlines the deadline of the task.
      */
-    public DeadlinesTask(String task, Date deadlines){
+    public HomeworkTask(String task, Date deadlines){
         super(task);
-        this.tag ="[D]";
+        this.tag ="[H]";
         this.deadlines = deadlines;
     }
 
     /**
-     * Constructor of leduc.task.DeadlinesTask. The task is not done by default.
+     * Constructor of leduc.task.HomeworkTask. The task is not done by default.
      * @param task  String representing the description of the Task.
      * @param deadlines the deadline of the task.
-     * @param priority the priority of the deadline task.
+     * @param priority the priority of the Homework task.
      */
-    public DeadlinesTask(String task, Date deadlines, int priority){
+    public HomeworkTask(String task, Date deadlines, int priority){
         super(task,priority);
         this.deadlines = deadlines;
     }
 
     /**
-     * Constructor of leduc.task.DeadlinesTask. The task could be done or not depending on the parameter given.
+     * Constructor of leduc.task.HomeworkTask. The task could be done or not depending on the parameter given.
      * And the priority is 5 by default.
      * @param task  String representing the description of the Task.
      * @param mark represent if the task is done or not.
      * @param deadlines the deadline of the task.
      */
-    public DeadlinesTask(String task, String mark, Date deadlines){
+    public HomeworkTask(String task, String mark, Date deadlines){
         super(task,mark);
-        this.tag ="[D]";
+        this.tag ="[H]";
         this.deadlines = deadlines;
     }
 
 
     /**
-     * Constructor of leduc.task.DeadlinesTask. The task could be done or not depending on the parameter given.
+     * Constructor of leduc.task.HomeworkTask. The task could be done or not depending on the parameter given.
      * @param task  String representing the description of the Task.
      * @param mark represent if the task is done or not.
      * @param deadlines the deadline of the task.
      * @param priority the priority of the deadline task.
      */
-    public DeadlinesTask(String task, String mark, Date deadlines, int priority){
+    public HomeworkTask(String task, String mark, Date deadlines, int priority){
         super(task,mark,priority);
-        this.tag ="[D]";
+        this.tag ="[H]";
         this.deadlines = deadlines;
     }
 
     /**
-     * Getter of Tag ( [D] ).
-     * @return String : [D]
+     * Getter of Tag ( [H] ).
+     * @return String : [H]
      */
     public String getTag(){ return this.tag;}
 
     /**
-     * Getter of deadline.
+     * Getter of homework.
      * @return the deadline date of the task.
      */
     public Date getDeadlines(){ return this.deadlines;}
 
     /**
-     * Setter of deadlines.
+     * Setter of homework.
      * @param deadlines the new deadline date of the task.
      */
     public void setDeadlines(Date deadlines){
@@ -82,18 +80,18 @@ public class DeadlinesTask extends Task {
     }
 
     /**
-     * Allows to snooze the deadline date
+     * Allows to snooze the homework deadline date
      */
     public void snoozeDeadline() {
         this.deadlines.snoozeLocalDateTime();
     }
 
      /**
-     * to know if whether is a deadline task of not
+     * to know if whether is a homework task of not
      * @return true
      */
     @Override
-    public boolean isDeadline(){
+    public boolean isHomework(){
         return true;
     }
 
@@ -106,14 +104,14 @@ public class DeadlinesTask extends Task {
     }
 
     /**
-     * Allow postpone the deadline of the deadline task.
+     * Allow postpone the deadline of the homework task.
      * With verification that the new deadline should be after the old one.
      * @param d Date d : the new deadline
-     * @throws PostponeDeadlineException Exception caught when the new deadline is before the old one.
+     * @throws PostponeHomeworkException Exception caught when the new deadline is before the old one.
      */
-    public void postponeDeadline(Date d) throws PostponeDeadlineException {
+    public void postponeHomework(Date d) throws PostponeHomeworkException {
         if (d.getD().isBefore(this.deadlines.getD())){
-            throw new PostponeDeadlineException();
+            throw new PostponeHomeworkException();
         }
         else{
             this.deadlines = d;

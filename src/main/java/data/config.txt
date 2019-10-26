@@ -4,7 +4,7 @@ help:help
 done:done
 find:find
 delete:delete
-deadline:deadline
+homework:homework
 event:event
 todo:todo
 edit:edit

@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 
+
 public class SetWelcomeCommand extends Command{
 
     public SetWelcomeCommand(String user){

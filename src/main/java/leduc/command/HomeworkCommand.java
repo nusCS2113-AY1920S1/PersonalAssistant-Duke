@@ -4,70 +4,70 @@ import leduc.Date;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.Ui;
-import leduc.task.DeadlinesTask;
+import leduc.task.HomeworkTask;
 import leduc.task.TaskList;
 
 
 /**
- * Represents a deadline task Command.
- * Allow to add a deadline task to the task list and to the data file.
+ * Represents a homework task Command.
+ * Allow to add a homework task to the task list and to the data file.
  */
-public class DeadlineCommand extends Command {
+public class HomeworkCommand extends Command {
 
     /**
      * static variable used for shortcut
      */
-    private static String deadlineShortcut = "deadline";
+    private static String homeworkShortcut = "homework";
     /**
-     * Constructor of DeadlineCommand.
+     * Constructor of HomeworkCommand.
      * @param user String which represent the input string of the user.
      */
-    public DeadlineCommand(String user){
+    public HomeworkCommand(String user){
         super(user);
     }
 
     /**
-     * Allow to add a deadline task to the task list and to the data file.
+     * Allow to add a homework task to the task list and to the data file.
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
-     * @throws EmptyDeadlineDateException Exception caught when the date of the deadline task is not given.
-     * @throws EmptyDeadlineException Exception caught when the description of the deadline task is not given.
+     * @throws EmptyHomeworkDateException Exception caught when the date of the homework task is not given.
+     * @throws EmptyHomeworkException Exception caught when the description of the homework task is not given.
      * @throws NonExistentDateException Exception caught when the date given does not exist.
      * @throws FileException Exception caught when the file can't be open or read or modify.
      * @throws PrioritizeLimitException Exception caught when the new priority is greater than 9 or less than 0.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage)
-            throws EmptyDeadlineDateException, EmptyDeadlineException, NonExistentDateException,
+            throws EmptyHomeworkDateException, EmptyHomeworkException, NonExistentDateException,
             FileException, PrioritizeLimitException {
         String userSubstring;
         if(callByShortcut){
-            userSubstring = user.substring(DeadlineCommand.deadlineShortcut.length());
+            userSubstring = user.substring(HomeworkCommand.homeworkShortcut.length());
         }
         else {
             userSubstring = user.substring(8);
         }
         if(userSubstring.isBlank()){
-            throw new EmptyDeadlineException();
+            throw new EmptyHomeworkException();
         }
         String[] taskDescription = userSubstring.split("/by");
         if (taskDescription[0].isBlank()) {
-            throw new EmptyDeadlineException();
+            throw new EmptyHomeworkException();
         } else if (taskDescription.length == 1) { // no /by in input
-            throw new EmptyDeadlineDateException();
+            throw new EmptyHomeworkDateException();
         } else {
             String description = taskDescription[0].trim();
             String[] prioritySplit = taskDescription[1].trim().split("prio");
-            String deadlineString = prioritySplit[0].trim();
+            String homeworkString = prioritySplit[0].trim();
             //date format used: dd/MM/yyyy HH:mm
-            if (deadlineString.isBlank()) {
-                throw new EmptyDeadlineDateException();
+            if (homeworkString.isBlank()) {
+                throw new EmptyHomeworkDateException();
             }
             else {
-                Date d = new Date(deadlineString);
-                DeadlinesTask newTask = null;
+                Date d = new Date(homeworkString);
+                HomeworkTask newTask = null;
                 if (prioritySplit.length == 1){
-                    newTask = new DeadlinesTask(description, d);
+                    newTask = new HomeworkTask(description, d);
                 }
                 else {
                     int priority = -1 ;
@@ -80,7 +80,7 @@ public class DeadlineCommand extends Command {
                     if (priority < 0 || priority > 9) {
                         throw new PrioritizeLimitException();
                     }
-                    newTask = new DeadlinesTask(description,d,priority);
+                    newTask = new HomeworkTask(description,d,priority);
                 }
                 tasks.add(newTask);
                 storage.save(tasks.getList());
@@ -95,15 +95,15 @@ public class DeadlineCommand extends Command {
      * getter because the shortcut is private
      * @return the shortcut name
      */
-    public static String getDeadlineShortcut() {
-        return deadlineShortcut;
+    public static String getHomeworkShortcut() {
+        return homeworkShortcut;
     }
 
     /**
      * used when the user want to change the shortcut
-     * @param deadlineShortcut the new shortcut
+     * @param homeworkShortcut the new shortcut
      */
-    public static void setDeadlineShortcut(String deadlineShortcut) {
-        DeadlineCommand.deadlineShortcut = deadlineShortcut;
+    public static void setHomeworkShortcut(String homeworkShortcut) {
+        HomeworkCommand.homeworkShortcut = homeworkShortcut;
     }
 }
