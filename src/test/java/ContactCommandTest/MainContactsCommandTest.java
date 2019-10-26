@@ -16,12 +16,12 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ContactsCommandTest {
-    Ui ui = new Ui();
-    Storage storage = new Storage();
-    TriviaManager triviaManager = new TriviaManager(storage);
-    ArrayList<Task> list = new ArrayList<>();
-    Stack<String> commandStack = new Stack<>();
-    ArrayList<Task> deletedTask = new ArrayList<>();
+    private Ui ui = new Ui();
+    private Storage storage = new Storage();
+    private TriviaManager triviaManager = new TriviaManager(storage);
+    private ArrayList<Task> list = new ArrayList<>();
+    private Stack<String> commandStack = new Stack<>();
+    private ArrayList<Task> deletedTask = new ArrayList<>();
 
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
     private PrintStream mine = new PrintStream(output);
@@ -59,17 +59,6 @@ public class ContactsCommandTest {
                 + "Going back to Main Menu\n"
                 , output.toString()
         );
-    }
-
-    @Test
-    void testAddContactsCommand() throws IOException {
-        HashMap<String, String> map = new HashMap<>();
-        Map<String, String> contact = new TreeMap<String, String>(map);
-        ByteArrayInputStream in = new ByteArrayInputStream("Test,9625 1822".getBytes());
-        System.setIn(in);
-        AddContactCommand test = new AddContactCommand(ui, contact);
-        assertEquals("Input in this format: Name,Number\n"
-                + "Successfully added: Test,9625 1822\n", output.toString());
     }
 
     @Test
