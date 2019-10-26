@@ -24,7 +24,7 @@ public class HomeHistoryCommand extends ArgCommand {
             } else {
                 newHistory = core.patientMap.getPatient(getArg()).appendHistory(message);
             }
-            core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
+            core.writeJsonFile();
             core.ui.print("History of " + patientDetails + " updated with:\n" + newHistory + "\n");
         } else {
             throw new DukeException("No such Patient!");

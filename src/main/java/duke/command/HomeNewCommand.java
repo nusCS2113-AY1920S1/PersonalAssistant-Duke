@@ -3,6 +3,7 @@ package duke.command;
 import duke.DukeCore;
 import duke.data.Patient;
 import duke.exception.DukeException;
+import duke.ui.Context;
 
 public class HomeNewCommand extends ArgCommand {
 
@@ -30,9 +31,14 @@ public class HomeNewCommand extends ArgCommand {
         }
 
         core.ui.print("Patient added.");
-        core.patientMap.addPatient(new Patient(getSwitchVal("name"), bed,
+        Patient patient = new Patient(getSwitchVal("name"), bed,
                 getSwitchVal("allergies"), height, weight, age, number,
-                address, history));
-        core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
+                address, history);
+        core.patientMap.addPatient(patient);
+        core.writeJsonFile();
+
+        if (isSwitchSet("go")) {
+            core.uiContext.setContext(Context.PATIENT, patient);
+        }
     }
 }

@@ -18,7 +18,6 @@ public class ImpressionEditSpec extends ArgSpec {
                 new Switch("plan", null, true, ArgLevel.NONE, "p"),
                 new Switch("observation", null, true, ArgLevel.NONE, "o"),
                 new Switch("result", null, true, ArgLevel.NONE, "r"),
-                new Switch("go", null, true, ArgLevel.NONE, "g"),
                 new Switch("name", String.class, false, ArgLevel.REQUIRED, "n"),
                 new Switch("status", String.class, true, ArgLevel.REQUIRED, "sta"),
                 new Switch("priority", Integer.class, true, ArgLevel.REQUIRED, "pri"),

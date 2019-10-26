@@ -1,5 +1,8 @@
 package duke.command;
 
+import duke.DukeCore;
+import duke.exception.DukeException;
+
 public class ImpressionEditCommand extends DukeDataCommand {
 
     @Override
@@ -7,5 +10,9 @@ public class ImpressionEditCommand extends DukeDataCommand {
         return ImpressionEditSpec.getSpec();
     }
 
+    @Override
+    public void execute(DukeCore core) throws DukeException {
+        //todo
+    }
 
 }
