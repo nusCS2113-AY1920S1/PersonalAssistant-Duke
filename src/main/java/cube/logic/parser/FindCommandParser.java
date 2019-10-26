@@ -5,8 +5,6 @@ import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
 import cube.model.FoodList;
 
-import java.util.Arrays;
-
 public class FindCommandParser implements ParserPrototype<FindCommand> {
 
     public FindCommand parse(String[] args) throws ParserException {

@@ -1,10 +1,16 @@
+/**
+ * The command add a food to food list and storage
+ *
+ * @author tygq13
+ */
 package cube.logic.command;
 
 import cube.model.FoodList;
 import cube.model.Food;
 import cube.storage.StorageManager;
 import cube.logic.command.exception.CommandException;
-import cube.logic.command.exception.CommandErrorMessage;
+import cube.logic.command.util.CommandResult;
+import cube.logic.command.util.CommandUtil;
 
 public class AddCommand extends Command{
 	private final Food toAdd;
@@ -22,19 +28,16 @@ public class AddCommand extends Command{
 	}
 
 	/**
-	 * Check whether the food to be added is already in the list.
-	 * @param list the food list to be checked through.
-	 * @throws CommandException
+	 * Adds food to foodList and store it if the food does not already exists, otherwise throws
+	 * Command exception.
+	 *
+	 * @param list The food list.
+	 * @param storage The current Storage.
+	 * @return The message feedback to user before Programme Exit.
 	 */
-	private void checkValid(FoodList list) throws CommandException {
-		if (list.existsName(toAdd.getName())) {
-			throw new CommandException(CommandErrorMessage.FOOD_ALREADY_EXISTS);
-		}
-	}
-
 	@Override
 	public CommandResult execute(FoodList list, StorageManager storage) throws CommandException {
-		checkValid(list);
+		CommandUtil.requireNameNotExists(list, toAdd.getName());
 		list.add(toAdd);
 		Food.updateRevenue(Food.getRevenue() + toAdd.getFoodRevenue());
 		storage.storeFoodList(list);
