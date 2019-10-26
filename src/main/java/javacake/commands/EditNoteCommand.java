@@ -1,11 +1,10 @@
 package javacake.commands;
 
 import javacake.Duke;
-import javacake.ProgressStack;
+import javacake.Logic;
 import javacake.exceptions.DukeException;
 import javacake.storage.Profile;
 import javacake.storage.Storage;
-import javacake.ui.DialogBox;
 import javacake.ui.Ui;
 
 import java.io.BufferedReader;
@@ -132,14 +131,14 @@ public class EditNoteCommand extends Command {
      * Executes the EditNoteCommand accordingly depends on CLI or GUI.
      * If CLI, use ui and readAndSaveNewContent method to generate message for user.
      * If GUI, return !@#_EDIT_NOTE to notify MainWindow class to call GUI methods.
-     * @param progressStack tracks current location in program
+     * @param logic tracks current location in program
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data
      * @param profile Profile of the user
      * @return endingMessage if CLI is used, else return !@#_EDIT_NOTE to request MainWindow class to handle.
      * @throws DukeException File does not exist.
      */
-    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(Logic logic, Ui ui, Storage storage, Profile profile) throws DukeException {
 
         if (Duke.isCliMode()) {
             if (checkFileIsEmpty(currentFilePath)) {

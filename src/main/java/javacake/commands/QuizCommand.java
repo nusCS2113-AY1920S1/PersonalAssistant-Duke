@@ -1,10 +1,10 @@
 package javacake.commands;
 
 import javacake.Duke;
+import javacake.Logic;
 import javacake.Parser;
 import javacake.exceptions.DukeException;
 import javacake.storage.Profile;
-import javacake.ProgressStack;
 import javacake.storage.Storage;
 import javacake.ui.TopBar;
 import javacake.ui.Ui;
@@ -30,7 +30,7 @@ public class QuizCommand extends Command {
     public ScoreGrade scoreGrade;
     public static final int MAX_QUESTIONS = 5;
     int totalNumOfQns = 0;
-    public static ProgressStack progressStack;
+    public static Logic logic;
 
     public enum ScoreGrade {
         BAD, OKAY, GOOD
@@ -46,7 +46,7 @@ public class QuizCommand extends Command {
         chosenQuestions = new ArrayList<>();
         qnType = questionType;
         if (!isCli) {
-            this.filePath = progressStack.getFullFilePath();
+            this.filePath = logic.getFullFilePath();
             runGui();
         }
     }
@@ -107,7 +107,7 @@ public class QuizCommand extends Command {
 
     /**
      * Executes the quiz.
-     * @param progressStack how far the program is currently in in the table of contents.
+     * @param logic how far the program is currently in in the table of contents.
      * @param ui the UI responsible for inputs and outputs of the program.
      * @param storage Storage to write updated data.
      * @param profile Profile of the user.
@@ -115,12 +115,12 @@ public class QuizCommand extends Command {
      * @return
      */
     @Override
-    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile)
+    public String execute(Logic logic, Ui ui, Storage storage, Profile profile)
             throws DukeException, IOException {
-        progressStack.insertQueries();
-        assert !progressStack.containsDirectory();
-        this.filePath = progressStack.getFullFilePath();
-        totalNumOfQns = progressStack.getNumOfFiles();
+        logic.insertQueries();
+        assert !logic.containsDirectory();
+        this.filePath = logic.getFullFilePath();
+        totalNumOfQns = logic.getNumOfFiles();
         getQuestions();
         pickQuestions();
         for (int i = 0; i < MAX_QUESTIONS; i++) {
@@ -143,10 +143,10 @@ public class QuizCommand extends Command {
         ui.displayResults(currScore, MAX_QUESTIONS);
         String nextCommand = ui.readCommand();
         if (nextCommand.equals("review")) {
-            return new ReviewCommand(chosenQuestions).execute(progressStack, ui, storage, profile);
+            return new ReviewCommand(chosenQuestions).execute(logic, ui, storage, profile);
         } else {
             Command newCommand = Parser.parse(nextCommand);
-            return newCommand.execute(progressStack, ui, storage, profile);
+            return newCommand.execute(logic, ui, storage, profile);
         }
     }
 
@@ -155,7 +155,7 @@ public class QuizCommand extends Command {
      */
 
     public void runGui() throws DukeException {
-        totalNumOfQns = progressStack.getNumOfFiles();
+        totalNumOfQns = logic.getNumOfFiles();
         getQuestions();
         pickQuestions();
     }

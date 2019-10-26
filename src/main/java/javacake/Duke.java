@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 public class Duke  {
     private static Ui ui;
-    private static ProgressStack progressStack;
+    private static Logic logic;
     private static boolean isCliMode = true;
 
     public static Storage storage;
@@ -33,7 +33,7 @@ public class Duke  {
         logger.log(Level.INFO, "Starting Duke Constructor!");
         ui = new Ui();
         try {
-            progressStack = new ProgressStack();
+            logic = new Logic();
             storage = new Storage();
             //tasks = new TaskList(storage.load());
             profile = new Profile();
@@ -104,7 +104,7 @@ public class Duke  {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
-                ui.showMessage(c.execute(progressStack, ui, storage, profile));
+                ui.showMessage(c.execute(logic, ui, storage, profile));
                 isExit = c.isExit();
             } catch (DukeException | IOException e) {
                 ui.showError(e.getMessage());
@@ -124,7 +124,7 @@ public class Duke  {
         }
         try {
             Command c = Parser.parse(input);
-            return c.execute(progressStack, ui, storage, profile);
+            return c.execute(logic, ui, storage, profile);
         } catch (DukeException | IOException e) {
             return e.getMessage();
         }

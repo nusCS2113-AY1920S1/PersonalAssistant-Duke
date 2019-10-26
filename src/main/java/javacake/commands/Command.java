@@ -1,7 +1,7 @@
 package javacake.commands;
 
+import javacake.Logic;
 import javacake.exceptions.DukeException;
-import javacake.ProgressStack;
 import javacake.storage.Profile;
 import javacake.ui.Ui;
 import javacake.storage.Storage;
@@ -20,7 +20,7 @@ public abstract class Command {
         EDIT, BACK, GOTO, QUIZ, HELP, TREE, CREATENOTE, EDITNOTE
     }
 
-    public abstract String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile)
+    public abstract String execute(Logic logic, Ui ui, Storage storage, Profile profile)
             throws DukeException, IOException;
 
     /**

@@ -230,9 +230,9 @@ image::dg_figure7.png[width="600"]
 
 *ListCommand implements the following methods in `ProgressStack` as shown in Figure 2*:
 
-* `progressStack#setDefaultFilePath()` — Resetting the file path back to default.
+* `logic#setDefaultFilePath()` — Resetting the file path back to default.
 
-* `progressStack#processQueries()` — Storing all possible file paths from current directory.
+* `logic#processQueries()` — Storing all possible file paths from current directory.
 
 === GoToCommand feature
 
@@ -245,15 +245,15 @@ image::dg_figure8.png[width="600"]
 
 *This feature implements the following methods in ProgressStack*:
 
-* `progressStack#gotoFilePath()` —  Depending on the index, a particular file path will be selected from the collection of file paths generated from previous command. 
+* `logic#gotoFilePath()` —  Depending on the index, a particular file path will be selected from the collection of file paths generated from previous command.
 
-* `progressStack#updateFilePath()` —  Updates _currentFilePath_.
+* `logic#updateFilePath()` —  Updates _currentFilePath_.
 
-* `progressStack#insertQueries()` —  Insert all possible file paths based on current directory.
+* `logic#insertQueries()` —  Insert all possible file paths based on current directory.
 
-* `progressStack#displayDirectories()` —  Prints out all files that are directories.
+* `logic#displayDirectories()` —  Prints out all files that are directories.
 
-* `progressStack#readQuery()` —  Reads the content in a text file.
+* `logic#readQuery()` —  Reads the content in a text file.
 
 === BackCommand feature
 
@@ -263,13 +263,13 @@ When the command entered by the user is `back`, _currentFilePath_ will be update
 
 *This feature implements the following methods in `ProgressStack`*:
 
-* `progressStack#insertQueries()` —  Insert all possible file paths based on current directory.
+* `logic#insertQueries()` —  Insert all possible file paths based on current directory.
 
-* `progressStack#displayDirectories()` —  Prints out all files that are directories.
+* `logic#displayDirectories()` —  Prints out all files that are directories.
 
-* `progressStack#readQuery()` —  Reads the content in a text file.
+* `logic#readQuery()` —  Reads the content in a text file.
 
-* `progressStack#backToPreviousPath()` — Checks if current file is a directory or file. If it is a directory, removes last partition of _currentFilePath_, else removes last 2 partitions of _currentFilePath_.
+* `logic#backToPreviousPath()` — Checks if current file is a directory or file. If it is a directory, removes last partition of _currentFilePath_, else removes last 2 partitions of _currentFilePath_.
 
 
 === Profile feature
@@ -343,9 +343,9 @@ When the command entered by the user is `overview`, _currentFilePath_ will be re
 
 *This feature implements the following methods in `ProgressStack`*:
 
-* `progressStack#setDefaultFilePath()` — Resetting the file path back to default.
+* `logic#setDefaultFilePath()` — Resetting the file path back to default.
 
-* `progressStack#insertQueries()` — Insert all possible file paths based on current directory.
+* `logic#insertQueries()` — Insert all possible file paths based on current directory.
 
 
 == Documentation

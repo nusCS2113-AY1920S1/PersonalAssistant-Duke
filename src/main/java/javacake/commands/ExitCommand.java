@@ -1,6 +1,6 @@
 package javacake.commands;
 
-import javacake.ProgressStack;
+import javacake.Logic;
 import javacake.storage.Profile;
 import javacake.ui.Ui;
 import javacake.storage.Storage;
@@ -12,14 +12,14 @@ public class ExitCommand extends Command {
 
     /**
      * Executes exiting the program.
-     * @param progressStack TaskList containing current tasks
+     * @param logic TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data
      * @param profile Profile of the user
      * @return
      */
     @Override
-    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) {
+    public String execute(Logic logic, Ui ui, Storage storage, Profile profile) {
         return "Bye. Hope to see you again soon!\n";
     }
 }

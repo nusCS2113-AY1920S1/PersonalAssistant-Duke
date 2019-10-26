@@ -1,7 +1,7 @@
 package javacake.commands;
 
+import javacake.Logic;
 import javacake.exceptions.DukeException;
-import javacake.ProgressStack;
 import javacake.storage.Profile;
 import javacake.ui.Ui;
 import javacake.storage.Storage;
@@ -14,14 +14,14 @@ public class DeleteCommand extends Command {
 
     /**
      * Execute deletion of task in tasks.
-     * @param progressStack TaskList containing current tasks
+     * @param logic TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data
      * @throws DukeException Shows error when deletion is not possible
      * @return
      */
     @Override
-    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(Logic logic, Ui ui, Storage storage, Profile profile) throws DukeException {
         input = input.substring(7);
         /*try {
             int num = Integer.parseInt(input);

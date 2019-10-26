@@ -1,8 +1,8 @@
 
 package javacake.commands;
 
+import javacake.Logic;
 import javacake.exceptions.DukeException;
-import javacake.ProgressStack;
 import javacake.storage.Profile;
 import javacake.ui.Ui;
 import javacake.storage.Storage;
@@ -20,7 +20,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(Logic logic, Ui ui, Storage storage, Profile profile) throws DukeException {
         input = input.substring(5);
         try {
             int num = Integer.parseInt(input.substring(0,1));

@@ -3,7 +3,7 @@ package javacake.commands;
 import javacake.Duke;
 import javacake.exceptions.DukeException;
 import javacake.storage.Profile;
-import javacake.ProgressStack;
+import javacake.Logic;
 import javacake.storage.Storage;
 import javacake.ui.Ui;
 import javacake.quiz.Question;
@@ -33,72 +33,72 @@ public class GoToCommand extends Command {
 
     /**
      * Execute jumping to given index.
-     * @param progressStack tracks current location in program
+     * @param logic tracks current location in program
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data
      * @param profile Profile of the user
      * @throws DukeException Error thrown when unable to close reader
      */
-    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile)
+    public String execute(Logic logic, Ui ui, Storage storage, Profile profile)
             throws DukeException, IOException {
         int intIndex = Integer.parseInt(index.poll()) - 1;
-        progressStack.updateFilePath(progressStack.gotoFilePath(intIndex));
-        String filePath = progressStack.getFullFilePath();
+        logic.updateFilePath(logic.gotoFilePath(intIndex));
+        String filePath = logic.getFullFilePath();
         if (filePath.contains("Quiz")) {
             if (filePath.contains("1. Java Basics")) {
                 if (Duke.isCliMode()) {
                     return new QuizCommand(Question.QuestionType.BASIC, Duke.isCliMode())
-                            .execute(progressStack, ui, storage, profile);
+                            .execute(logic, ui, storage, profile);
                 } else {
                     QuizCommand.setProfile(profile);
-                    progressStack.insertQueries();
-                    QuizCommand.progressStack = progressStack;
+                    logic.insertQueries();
+                    QuizCommand.logic = logic;
                     return "!@#_QUIZ_1";
                 }
             } else if (filePath.contains("2. Object-Oriented Programming")) {
                 if (Duke.isCliMode()) {
                     return new QuizCommand(Question.QuestionType.OOP, Duke.isCliMode())
-                            .execute(progressStack, ui, storage, profile);
+                            .execute(logic, ui, storage, profile);
                 } else {
                     QuizCommand.setProfile(profile);
-                    progressStack.insertQueries();
-                    QuizCommand.progressStack = progressStack;
+                    logic.insertQueries();
+                    QuizCommand.logic = logic;
                     return "!@#_QUIZ_2";
                 }
             } else if (filePath.contains("3. Extensions")) {
                 if (Duke.isCliMode()) {
                     return new QuizCommand(Question.QuestionType.EXTENSIONS, Duke.isCliMode())
-                            .execute(progressStack, ui, storage, profile);
+                            .execute(logic, ui, storage, profile);
                 } else {
                     QuizCommand.setProfile(profile);
-                    progressStack.insertQueries();
-                    QuizCommand.progressStack = progressStack;
+                    logic.insertQueries();
+                    QuizCommand.logic = logic;
                     return "!@#_QUIZ_3";
                 }
             } else {
                 if (Duke.isCliMode()) {
                     return new QuizCommand(Question.QuestionType.ALL, Duke.isCliMode())
-                            .execute(progressStack, ui, storage, profile);
+                            .execute(logic, ui, storage, profile);
                 } else {
                     QuizCommand.setProfile(profile);
-                    progressStack.insertQueries();
-                    QuizCommand.progressStack = progressStack;
+                    logic.insertQueries();
+                    QuizCommand.logic = logic;
                     return "!@#_QUIZ_4";
                 }
             }
         }
-        progressStack.insertQueries();
-        if (progressStack.containsDirectory()) {
+        logic.insertQueries();
+        if (logic.containsDirectory()) {
             if (index.size() != 0) {
-                return execute(progressStack, ui, storage, profile);
+                return execute(logic, ui, storage, profile);
             }
-            return (progressStack.displayDirectories());
+            return (logic.displayDirectories());
         } else {
-            progressStack.updateFilePath(progressStack.gotoFilePath(0));
+            logic.updateFilePath(logic.gotoFilePath(0));
             if (index.size() != 0) {
-                return execute(progressStack, ui, storage, profile);
+                return execute(logic, ui, storage, profile);
             }
-            return (progressStack.readQuery());
+            return (logic.readQuery());
         }
     }
 }
