@@ -1,0 +1,42 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Logic {
+
+package Parser {
+Class "{abstract}\nParser" as Parser
+Class MainParser
+Class XYZParser
+}
+
+package Command {
+Class XYZCommand
+Class "{abstract}\nCommand" as Command
+}
+
+Interface Logic <<Interface>>
+Class LogicManager
+}
+
+package Model{
+Class HiddenModel #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> MainParser
+
+LogicManager .up.|> Logic
+
+note right of XYZParser: XYZCommand = EntryParser, \nLimitParser, etc
+
+XYZCommand -up-|> Command
+LogicManager .left.> Command : executes >
+
+LogicManager --> Model
+Command .right.> Model
+note right of XYZCommand: XYZCommand = AddEntryCommand, \nModifyCommand, etc
+
+@enduml
