@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 public class Duke  {
     private static Ui ui;
-    private static Logic logic = Logic.getInstance();
+    private static Logic logic;
     private static boolean isCliMode = true;
 
     public static Storage storage;
@@ -33,6 +33,7 @@ public class Duke  {
         logger.log(Level.INFO, "Starting Duke Constructor!");
         ui = new Ui();
         try {
+            logic = Logic.getInstance();
             storage = new Storage();
             //tasks = new TaskList(storage.load());
             profile = new Profile();

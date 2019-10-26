@@ -59,7 +59,7 @@ public class OverviewCommand extends Command {
 
         try {
             CodeSource src = Logic.class.getProtectionDomain().getCodeSource();
-            if (runningFromJAR()) { //jar
+            if (runningFromJar()) { //jar
                 URL jar = src.getLocation();
                 ZipInputStream zip = new ZipInputStream(jar.openStream());
                 while (true) {
@@ -141,7 +141,7 @@ public class OverviewCommand extends Command {
      * Checks if the program is running in a JAR file.
      * @return True if the program is running in a JAR file.
      */
-    public static boolean runningFromJAR() {
+    public static boolean runningFromJar() {
         try {
             String jarFilePath = new File(OverviewCommand.class
                     .getProtectionDomain()

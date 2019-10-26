@@ -16,8 +16,8 @@ public class CreateNoteCommand extends Command {
     private static int defaultFileNameCounter = 1;
     private String defaultDirectoryPath = "data/notes/";
 
-    private static final char[] ILLEGAL_CHARACTERS = { '/', '\n', '\r', '\t', '\0', '\f', '`',
-            '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
+    private static final char[] ILLEGAL_CHARACTERS = { '/', '\n', '\r', '\t',
+        '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
 
     /**
      * Constructor for CreateNoteCommand.
