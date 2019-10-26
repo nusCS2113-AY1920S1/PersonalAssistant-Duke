@@ -43,6 +43,7 @@ public class ListCommand extends Command {
             }
             ui.printEmptyLine();
             ui.print("CURRENTLY BOOKED:");
+            ui.printEmptyLine();
             coveredResources = new ArrayList<String>();
             for (int i = 0; i < resources.size(); i++) {
                 Resource thisResource = resources.getResourceByIndex(i);
