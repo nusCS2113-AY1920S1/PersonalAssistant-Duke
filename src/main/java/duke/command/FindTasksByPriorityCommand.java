@@ -8,7 +8,7 @@ import duke.ui.Ui;
 
 //@@author Dou-Maokang
 /**
- * A class representing a command to find tasks with a target priority.
+ * Represents a command to find tasks with a target priority.
  */
 public class FindTasksByPriorityCommand extends Command {
     protected int targetPriority;

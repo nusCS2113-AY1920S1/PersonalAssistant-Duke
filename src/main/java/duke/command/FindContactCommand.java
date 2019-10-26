@@ -24,7 +24,6 @@ public class FindContactCommand extends Command {
         this.contactList = contactList;
     }
 
-
     /**
      * Executes a command that locates matching contacts in contact list and outputs the result.
      *

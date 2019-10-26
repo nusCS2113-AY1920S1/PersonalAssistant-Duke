@@ -8,6 +8,10 @@ import duke.task.BudgetList;
 import java.io.IOException;
 
 //@@author maxxyx96
+
+/**
+ * Represents a command to reset the budget amount.
+ */
 public class ResetBudgetCommand extends Command {
     protected BudgetList budgetList;
     protected Ui ui = new Ui();

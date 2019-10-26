@@ -6,7 +6,7 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * Representing a command that lists all contacts stored.
+ * Represents a command that lists all contacts stored.
  */
 //@@author e0318465
 public class ListContactsCommand extends Command {

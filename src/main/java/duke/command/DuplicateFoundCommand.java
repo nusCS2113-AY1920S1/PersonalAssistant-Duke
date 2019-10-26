@@ -7,7 +7,7 @@ import duke.ui.Ui;
 import java.io.IOException;
 
 /**
- * Representing a command that states a task is duplicated.
+ * Represents a command that states a task is duplicated.
  */
 public class DuplicateFoundCommand extends Command {
     /**

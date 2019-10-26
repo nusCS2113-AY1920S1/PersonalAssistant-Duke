@@ -9,7 +9,7 @@ import duke.ui.Ui;
 import java.io.IOException;
 
 /**
- * Representing a command that deletes a contact.
+ * Represents a command that deletes a contact.
  */
 public class DeleteContactCommand extends Command {
     protected int indexOfContactToDelete;

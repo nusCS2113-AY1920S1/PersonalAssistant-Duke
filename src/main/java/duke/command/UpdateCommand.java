@@ -16,7 +16,7 @@ import java.text.ParseException;
 
 //@@author talesrune
 /**
- * Representing a command that updates an existing task.
+ * Represents a command that updates an existing task.
  */
 public class UpdateCommand extends Command {
     protected String taskDesc;
