@@ -11,6 +11,7 @@ import javafx.beans.value.ObservableFloatValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
@@ -194,7 +195,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addSaleFromShopping(Double totalCost) {
+    public void addSaleFromShopping(Double totalCost, ArrayList<Item<Ingredient>> toBuyList) {
         updateFilteredSaleList(PREDICATE_SHOW_ALL_SALES);
     }
 

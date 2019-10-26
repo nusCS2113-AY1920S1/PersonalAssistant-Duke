@@ -1,0 +1,22 @@
+{
+  "orders" : [ ],
+  "products" : [ ],
+  "inventory" : [ {
+    "ingredient" : {
+      "name" : "Cabbage",
+      "unitPrice" : 5.59,
+      "remarks" : ""
+    },
+    "amount" : 5.0
+  } ],
+  "shoppingList" : [ {
+    "ingredient" : {
+      "name" : "Cabbage",
+      "unitPrice" : 5.59,
+      "remarks" : ""
+    },
+    "amount" : 0.0
+  } ],
+  "sales" : [ ],
+  "shortcuts" : [ ]
+}
