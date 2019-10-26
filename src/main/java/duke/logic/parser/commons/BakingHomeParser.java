@@ -34,6 +34,9 @@ public class BakingHomeParser {
      * Used to get primary command word.
      * Capture group 1: primary command word.
      * Capture group 2: (optional) sub-command word and args.
+     * for example, in "order add -item bread, 1",
+     * capture group 1 is "order",
+     * capture group 2 is "add -item bread, 1",
      */
     private static final Pattern PRIMARY_COMMAND_FORMAT = Pattern.compile("^(\\w+)\\s*(.+)?");
 
