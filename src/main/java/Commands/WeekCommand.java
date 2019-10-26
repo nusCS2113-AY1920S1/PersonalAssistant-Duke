@@ -14,7 +14,6 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,7 +27,7 @@ public class WeekCommand extends Command {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
-    private Integer week;
+    private String week;
     private final ObservableList<Text> monList = FXCollections.observableArrayList();
     private final ObservableList<Text> tueList = FXCollections.observableArrayList();
     private final ObservableList<Text> wedList = FXCollections.observableArrayList();
@@ -38,65 +37,55 @@ public class WeekCommand extends Command {
     private final ObservableList<Text> sunList = FXCollections.observableArrayList();
     public static Week weekList = new Week();
 
-    public WeekCommand(Integer week) {
+    public WeekCommand(String week) {
         this.week = week;
     }
 
-    /**
-     * This method generates data in day GridPane ListViews based on the week selected
-     */
-    public void setListView(LookupTable LT, TaskList eventsList) {
-        for(Map.Entry<String, HashMap<String, ArrayList<Task>>> module: eventsList.getMap().entrySet()) {
-            HashMap<String, ArrayList<Task>> moduleValue = module.getValue();
-            for(Map.Entry<String, ArrayList<Task>> item: moduleValue.entrySet()) {
-                String strDate = item.getKey();
-                String[] spilt = strDate.split(" ", 2);
-                String selectedWeek = LT.getValue(spilt[1]);
-
-//                String[] spiltSelectedWeek = selectedWeek.split(" ");
-//                Integer intSelectedWeek = Integer.parseInt(spiltSelectedWeek[1]);
-//                if(intSelectedWeek == week) {
-                if((selectedWeek).equals("Week " + week.toString())) {
-                    ArrayList<Task> data = item.getValue(); // each item in data has the contents
-                    for(Task task: data){
-                        Text toShow = new Text(task.toShow() + task.getModCode() + "\n" + task.getDescription());
-                        toShow.setFont(Font.font(10));
-                        if (task.getStatus()){
-                            toShow.setFill(Color.GAINSBORO);
-                            toShow.setStrikethrough(true);
-                        }
-                        //toShow.wrappingWidthProperty().bind(monEventView.widthProperty().subtract(20));
-                        String day = spilt[0];
-                        switch (day){
-                            case "Mon":
-                                monList.add(toShow);
-                                break;
-                            case  "Tue":
-                                tueList.add(toShow);
-                                break;
-                            case "Wed":
-                                wedList.add(toShow);
-                                break;
-                            case "Thu":
-                                thuList.add(toShow);
-                                break;
-                            case "Fri":
-                                friList.add(toShow);
-                                break;
-                            case "Sat":
-                                satList.add(toShow);
-                                break;
-                            case "Sun":
-                                sunList.add(toShow);
-                                break;
-                        }
-                    }
-                }
-//                else if(intSelectedWeek> week) {
-//                    break;
-//                }
-            }
+    private ArrayList<String> generateDateDay(String date){
+        String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+        ArrayList<String> temp = new ArrayList<>();
+        for (String day : days) {
+            String dateOut = day + " " + LT.getValue(date + " " + day);
+            temp.add(dateOut);
         }
+        return temp;
+    }
+
+    private ArrayList<String> checkIfExist(HashMap<String, ArrayList<Task>> map, ArrayList<String> dates) {
+        ArrayList<String> newDates = new ArrayList<>();
+        for(String s: dates){
+            if(map.containsKey(s) == true) newDates.add(s);
+        }
+        return newDates;
+    }
+
+    private void updateList(String day, Text toShow){
+        switch (day){
+            case "Mon":
+                monList.add(toShow);
+                break;
+            case  "Tue":
+                tueList.add(toShow);
+                break;
+            case "Wed":
+                wedList.add(toShow);
+                break;
+            case "Thu":
+                thuList.add(toShow);
+                break;
+            case "Fri":
+                friList.add(toShow);
+                break;
+            case "Sat":
+                satList.add(toShow);
+                break;
+            case "Sun":
+                sunList.add(toShow);
+                break;
+        }
+    }
+
+    private void sortList() {
         if(monList.size() != 0 ) monList.sort(WeekCommand::compareByTime);
         if(tueList.size() != 0 ) tueList.sort(WeekCommand::compareByTime);
         if(wedList.size() != 0 ) wedList.sort(WeekCommand::compareByTime);
@@ -104,6 +93,38 @@ public class WeekCommand extends Command {
         if(friList.size() != 0 ) friList.sort(WeekCommand::compareByTime);
         if(satList.size() != 0 ) satList.sort(WeekCommand::compareByTime);
         if(sunList.size() != 0 ) sunList.sort(WeekCommand::compareByTime);
+    }
+
+    private Text generateToShow(Task task) {
+        Text toShow = new Text(task.toShow() + task.getModCode() + "\n" + task.getDescription());
+        toShow.setFont(Font.font(10));
+        if (task.getStatus()){
+            toShow.setFill(Color.GAINSBORO);
+            toShow.setStrikethrough(true);
+        }
+        return toShow;
+    }
+
+
+    /**
+     * This method generates data in day GridPane ListViews based on the week selected
+     */
+    public void setListView(LookupTable LT, TaskList eventsList) {
+        ArrayList<String> weekDates = generateDateDay(week);
+        for(String module: eventsList.getMap().keySet()) {
+            HashMap<String, ArrayList<Task>> moduleValue = eventsList.getMap().get(module);
+            ArrayList<String> dates = checkIfExist(moduleValue, weekDates);
+            for(String strDate : dates) {
+                String[] spilt = strDate.split(" ", 2);
+                ArrayList<Task> data = moduleValue.get(strDate);
+                for(Task task: data){
+                    Text toShow = generateToShow(task);
+                    String day = spilt[0];
+                    updateList(day, toShow);
+                }
+            }
+        }
+        sortList();
         weekList = new Week(monList, tueList, wedList, thuList, friList, satList, sunList);
     }
 
