@@ -20,11 +20,13 @@ public class MoneyStorage {
     private String fileName;
     private DateTimeFormatter dateTimeFormatter;
     private static Stack<Item> deletedEntries;
+    private static Stack<BankTracker> deletedBanks;
 
     public MoneyStorage(String filePath) {
         fileName = filePath;
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");
         deletedEntries = new Stack<>();
+        deletedBanks = new Stack<>();
     }
     //@@author chengweixuan
     private void parseIncome(String[] info, Account account) {
@@ -359,5 +361,18 @@ public class MoneyStorage {
         Item item = deletedEntries.lastElement();
         deletedEntries.pop();
         return item;
+    }
+
+    public void addDeletedBank (BankTracker bankTracker) {
+        deletedBanks.push(bankTracker);
+        if (deletedBanks.size() > 5) {
+            deletedBanks.removeElementAt(0);
+        }
+    }
+
+    public BankTracker getDeletedBankTracker() {
+        BankTracker bt = deletedBanks.lastElement();
+        deletedBanks.pop();
+        return bt;
     }
 }
