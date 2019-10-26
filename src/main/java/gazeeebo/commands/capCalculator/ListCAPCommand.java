@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * List out the modules in the semester or list out all modules and the CAP score will be shown.
+ */
 public class ListCAPCommand {
     private static final int BLANK_SPACING = 12;
 
