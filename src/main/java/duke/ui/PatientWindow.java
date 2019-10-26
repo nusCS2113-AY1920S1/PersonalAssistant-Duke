@@ -1,7 +1,6 @@
 package duke.ui;
 
 import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXMasonryPane;
 import duke.data.Impression;
 import duke.data.Patient;
 import javafx.collections.MapChangeListener;
@@ -34,7 +33,7 @@ class PatientWindow extends UiElement<Region> {
     @FXML
     private Label history;
     @FXML
-    private JFXMasonryPane allergiesListPanel;
+    private JFXListView<Label> allergiesListView;
     @FXML
     private JFXListView<ImpressionCard> impressionsListPanel;
 
@@ -61,15 +60,50 @@ class PatientWindow extends UiElement<Region> {
         address.setText(String.valueOf(patient.getAddress()));
         history.setText(String.valueOf(patient.getHistory()));
 
+        for (String allergy : patient.getAllergies().split(",")) {
+            Label label = new Label(allergy);
+            allergiesListView.getItems().add(label);
+        }
+
         for (Map.Entry<String, Impression> pair : patient.getImpressionsObservableMap().entrySet()) {
-            impressionsListPanel.getItems().add(new ImpressionCard(pair.getValue()));
+            Impression primaryImpression = null;
+
+            if (pair.getValue().equals(patient.getPriDiagnosis())) {
+                primaryImpression = pair.getValue();
+            } else {
+                impressionsListPanel.getItems().add(new ImpressionCard(pair.getValue(), false));
+            }
+
+            if (primaryImpression != null) {
+                impressionsListPanel.getItems().add(0, new ImpressionCard(primaryImpression, true));
+            }
         }
 
         patient.getImpressionsObservableMap().addListener((MapChangeListener<String, Impression>) change -> {
             if (change.wasAdded()) {
-                impressionsListPanel.getItems().add(new ImpressionCard(change.getValueAdded()));
+                if (change.getValueAdded().equals(patient.getPriDiagnosis())) {
+                    impressionsListPanel.getItems().add(0, new ImpressionCard(change.getValueAdded(), true));
+                } else {
+                    impressionsListPanel.getItems().add(new ImpressionCard(change.getValueAdded(), false));
+                }
             } else if (change.wasRemoved()) {
-                impressionsListPanel.getItems().remove(new ImpressionCard(change.getValueRemoved()));
+                impressionsListPanel.getItems().remove(new ImpressionCard(change.getValueRemoved(), false));
+            }
+        });
+
+        patient.addListener(evt -> {
+            String property = evt.getPropertyName();
+
+            if ("Primary Diagnosis".equals(property)) {
+                if (evt.getOldValue() != null) {
+                    impressionsListPanel.getItems().remove(new ImpressionCard((Impression) evt.getOldValue(), false));
+                    impressionsListPanel.getItems().add(0, new ImpressionCard((Impression) evt.getOldValue(), false));
+                }
+
+                impressionsListPanel.getItems().remove(new ImpressionCard((Impression) evt.getNewValue(), true));
+                impressionsListPanel.getItems().add(0, new ImpressionCard((Impression) evt.getNewValue(), true));
+            } else if ("History".equals(property)) {
+                history.setText((String) evt.getNewValue());
             }
         });
     }

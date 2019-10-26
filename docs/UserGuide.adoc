@@ -190,7 +190,7 @@ Format: `open ("<search string>"|-c[ritical] _string_or_idx_|-i[nv(x|estigation)
 
 ==== `edit` - Edit one of the details of the Patient [[patient-edit]]
 
-Format: `edit [-a[ppend]] <switch> [<new value>] [<switch> [<new value>]]*`
+Format: `edit [-a[end]] <switch> [<new value>] [<switch> [<new value>]]*`
 
 If `<new value>` is not supplied, open a text box with the current value loaded inside, for the user to edit. `-a` will append `<new value>` to the current value for string-valued fields. 
 
