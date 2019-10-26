@@ -218,4 +218,15 @@ public class Ui {
                 "Please enter a valid number less than or equal to " + validNumber + " .";
         return message;
     }
+
+    public String showChosenPreviousChoice(String chosenInput) {
+        String message = "Your chosen previous input is \n" + chosenInput + " .";
+        return message;
+    }
+
+    public String showEmptyListMessage() {
+        String message = "You did not enter Show Previous Command yet. \n" +
+                "Format: show previous <num> or show previous <type> <num>";
+        return message;
+    }
 }
