@@ -134,7 +134,7 @@ public class Patient extends DukeObject {
     public Impression deleteImpression(String keyIdentifier) throws DukeException {
         if (this.observableImpressions.containsKey(keyIdentifier)) {
             Impression imp = this.observableImpressions.get(keyIdentifier);
-            if (this.priDiagnosis.getName().equals(keyIdentifier)){
+            if (this.priDiagnosis.getName().equals(keyIdentifier)) {
                 this.priDiagnosis = null;
             }
             this.observableImpressions.remove(keyIdentifier);

@@ -33,7 +33,7 @@ public class PatientDeleteCommand extends ArgCommand {
 
         if (searchInvestigation != null) {
             // TODO
-            core.ui.print("Not implemented yet, bug when adding investigations");
+            core.ui.print("Not implemented yet, bug when adding treatments needs to be solved first");
             //core.ui.print("Successfully deleted " + searchInvestigation);
         }
         if (searchImpression != null) {

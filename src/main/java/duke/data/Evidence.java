@@ -21,11 +21,11 @@ public abstract class Evidence extends DukeData {
         super(name, impression, priority);
         this.summary = summary;
     }
-//
-//    protected Evidence(String name, String impression, Integer priority, String summary) {
-//        super(name, impression, priority);
-//        this.summary = summary;
-//    }
+    //
+    //    protected Evidence(String name, String impression, Integer priority, String summary) {
+    //        super(name, impression, priority);
+    //        this.summary = summary;
+    //    }
 
     @Override
     public Integer updatePriority(Integer priorityVal) throws DukeException {
