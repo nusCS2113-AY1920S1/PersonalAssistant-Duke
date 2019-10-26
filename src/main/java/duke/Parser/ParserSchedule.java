@@ -116,6 +116,7 @@ public class ParserSchedule {
                 case indexFive:
                     isRunning = false;
                     ui.showQuitClass();
+                    break;
                 default:
                     ui.showDontKnow();
                 }
