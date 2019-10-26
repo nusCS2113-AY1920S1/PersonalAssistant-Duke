@@ -22,10 +22,17 @@ import java.util.Date;
 public class FreeCommand extends Command {
 
     private String dateWanted;
+    private ArrayList<String> eventsOnSameDay = new ArrayList<>();
+    private ArrayList<Date> eventStartTimes = new ArrayList<>();
+    private ArrayList<Date> eventEndTimes = new ArrayList<>();
+    private ArrayList<String> eventNamesSorted = new ArrayList<>();
     private static final int EMPTY = 0;
+    private static final int INDEX_DATE = 0;
     private static final int INDEX_TIME = 0;
     private static final int INDEX_NAME = 0;
-    private static final int INDEX_START_TIME = 1;
+    private static final int INDEX_TIME_START = 1;
+    private static final int INDEX_TIME_END = 1;
+    private static final int TOTAL_TIME_SLOTS = 17;
     private String[] startingTimeSlots = {"07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00",
             "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
     private String[] endingTimeSlots = {"08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00",
@@ -71,34 +78,23 @@ public class FreeCommand extends Command {
      * @param ui            Instance of Ui that is responsible for visual feedback.
      * @param tasks         Instance of TaskList that stores Task Objects.
      * @param freeSlotsDate The user specified date.
+     * @throws ParseException Exception may be thrown when parsing datetime.
+     * @throws OofException Print customised error message.
      */
-    private void findFreeTime(Ui ui, TaskList tasks, String freeSlotsDate) throws ParseException {
-        ArrayList<String> eventsOnSameDay = new ArrayList<>();
-        ArrayList<Date> eventStartTimes = new ArrayList<>();
-        ArrayList<Date> eventEndTimes = new ArrayList<>();
-        ArrayList<String> eventNamesSorted = new ArrayList<>();
+    private void findFreeTime(Ui ui, TaskList tasks, String freeSlotsDate) throws ParseException, OofException {
         for (int i = 0; i < tasks.getSize(); i++) {
             Task task = tasks.getTask(i);
             if (task instanceof Event) {
                 Event event = (Event) tasks.getTask(i);
-                String date = event.getStartDateTime().substring(0, 10).trim();
-                String startTime = event.getStartDateTime().substring(11, 16).trim();
-                String endTime = event.getEndDateTime().substring(11, 16).trim();
-                try {
-                    if (isSameDate(date, freeSlotsDate)) {
-                        String eventNameAndStartTime = event.getDescription() + "-" + startTime;
-                        eventsOnSameDay.add(eventNameAndStartTime);
-                        eventStartTimes.add(convertStringToDate(startTime));
-                        eventEndTimes.add(convertStringToDate(endTime));
-                    }
-                } catch (DateTimeException | ParseException e) {
-                    System.out.println("Timestamp given is invalid! Please try again.");
-                }
+                String date = event.getStartDateTime().split(" ")[INDEX_DATE];
+                String startTime = event.getStartDateTime().split(" ")[INDEX_TIME_START];
+                String endTime = event.getEndDateTime().split(" ")[INDEX_TIME_END];
+                populateList(date, freeSlotsDate, startTime, endTime, event);
             }
         }
         if (eventStartTimes.size() == EMPTY) {
             ui.printFreeTimeHeader(freeSlotsDate, getDayOfTheWeek(freeSlotsDate));
-            for (int i = 0; i < 17; i++) {
+            for (int i = 0; i < TOTAL_TIME_SLOTS; i++) {
                 ui.printFreeSlots(startingTimeSlots[i], endingTimeSlots[i]);
             }
         } else {
@@ -106,7 +102,18 @@ public class FreeCommand extends Command {
             eventEndTimes.sort(new SortByTime());
             sortEventNames(eventsOnSameDay, eventStartTimes, eventNamesSorted);
             ui.printFreeTimeHeader(freeSlotsDate, getDayOfTheWeek(freeSlotsDate));
-            for (int i = 0; i < 17; i++) {
+            parseOutput(ui);
+        }
+    }
+
+    /**
+     * Parses the output for finding free time slots if there are occupied slots.
+     * @param ui Prints relevant output.
+     * @throws OofException Prints customised error message.
+     */
+    private void parseOutput(Ui ui) throws OofException {
+        try {
+            for (int i = 0; i < TOTAL_TIME_SLOTS; i++) {
                 Date startTimeSlot = convertStringToDate(startingTimeSlots[i]);
                 Date endTimeSlot = convertStringToDate(endingTimeSlots[i]);
                 if (eventStartTimes.size() == EMPTY) {
@@ -123,6 +130,32 @@ public class FreeCommand extends Command {
                     ui.printFreeSlots(startingTimeSlots[i], endingTimeSlots[i]);
                 }
             }
+        } catch (DateTimeException | ParseException e) {
+            throw new OofException("Timestamp given is invalid! Please try again.");
+        }
+    }
+
+    /**
+     * Populates the lists for tracking time and events.
+     * @param date Date of task.
+     * @param freeSlotsDate Date inputted by user.
+     * @param startTime Starting time of task.
+     * @param endTime Ending time of task.
+     * @param event Event task object.
+     * @throws ParseException Exception may be thrown when parsing datetime.
+     * @throws OofException Prints customised exception message.
+     */
+    private void populateList(String date, String freeSlotsDate, String startTime, String endTime, Event event)
+            throws OofException {
+        try {
+            if (isSameDate(date, freeSlotsDate)) {
+                String eventNameAndStartTime = event.getDescription() + "-" + startTime;
+                eventsOnSameDay.add(eventNameAndStartTime);
+                eventStartTimes.add(convertStringToDate(startTime));
+                eventEndTimes.add(convertStringToDate(endTime));
+            }
+        } catch (DateTimeException | ParseException e) {
+            throw new OofException("Timestamp given is invalid! Please try again.");
         }
     }
 
@@ -136,8 +169,8 @@ public class FreeCommand extends Command {
      * @return true if there is an overlap of event timing.
      */
     private boolean isClash(Date slotStartTime, Date slotEndTime, Date eventStart, Date eventEnd) {
-        return (slotStartTime.compareTo(eventStart) <= 0 && slotEndTime.compareTo(eventStart) > 0)
-                || (slotStartTime.compareTo(eventStart) >= 0 && eventEnd.compareTo(slotEndTime) <= 0);
+        return (slotStartTime.compareTo(eventStart) <= EMPTY && slotEndTime.compareTo(eventStart) > EMPTY)
+                || (slotStartTime.compareTo(eventStart) >= EMPTY && eventEnd.compareTo(slotEndTime) <= EMPTY);
     }
 
     /**
@@ -212,7 +245,7 @@ public class FreeCommand extends Command {
         eventNamesSorted.addAll(eventsOnSameDay);
         for (int i = 0; i < eventsOnSameDay.size(); i++) {
             String[] lineSplit = eventsOnSameDay.get(i).split("-");
-            String time = lineSplit[INDEX_START_TIME];
+            String time = lineSplit[INDEX_TIME_START];
             String eventName = lineSplit[INDEX_NAME];
             for (int j = 0; j < eventsOnSameDay.size(); j++) {
                 if (time.equals(convertDateToString(eventStartTimes.get(j)))) {
