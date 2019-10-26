@@ -44,12 +44,9 @@ public class PriorityCommand extends Command {
         }
 
         Task task = tasks.getTasks().get(indexOfTask);
-        if (!task.isPrioritizable) {
-            Ui.printOutput(NO_PRIORITY);
-        } else {
+        
             task.setPriority(newPriority);
             storage.saveFile(tasks.getTasks());
-            Ui.printOutput("Got it! " + task.description + " priority level is now " + priorityString);
-        }
+            Ui.printOutput("Got it! " + task.getDescription() + " priority level is now " + priorityString);
     }
 }

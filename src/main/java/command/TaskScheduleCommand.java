@@ -20,14 +20,14 @@ public class TaskScheduleCommand extends Command {
         this.indexOfTask = indexOfTask;
         this.indexOfDeadline = indexDeadline;
     }
-    
+
     @Override
     public void execute(TaskList tasks, Storage storage) throws DukeException {
         ArrayList<Task> list = tasks.getTasks();
-        TodoWithDuration t;
+        Todo t;
         Deadline d;
         try {
-            t = (TodoWithDuration) list.get(indexOfTask);
+            t = (Todo) list.get(indexOfTask);
         } catch (ClassCastException e) {
             throw new DukeException("Task selected is not a Todo with a duration");
         }
@@ -37,7 +37,7 @@ public class TaskScheduleCommand extends Command {
             throw new DukeException("Task selected is not a Deadline");
         }
         durationToSchedule = (long) t.duration;
-        LocalDateTime deadlineDate = d.startDate;
+        LocalDateTime deadlineDate = d.getStartDate();
 
         ArrayList<Event> dateList = createDateList(list, deadlineDate);
         if (dateList.size() == 0) {
@@ -46,33 +46,30 @@ public class TaskScheduleCommand extends Command {
             return;
         }
 
-
         Long duration;
-        LocalDateTime nextStartDate = dateList.get(0).startDate;
+        LocalDateTime nextStartDate = dateList.get(0).getStartDate();
         duration = ChronoUnit.HOURS.between(LocalDateTime.now(), nextStartDate);
         if (durationToSchedule <= duration) {
             Ui.printOutput("You can schedule this task from now till " + nextStartDate);
             return;
         }
 
-
         boolean isFreeBetweenEvents = false;
         for (int i = 0; i < dateList.size(); i++) {
-            LocalDateTime currentEndDate = dateList.get(i).endDate;
+            LocalDateTime currentEndDate = dateList.get(i).getEndDate();
             if (i == dateList.size() - 1) {
                 nextStartDate = deadlineDate;
                 if (currentEndDate.isAfter(deadlineDate)) {
                     currentEndDate = deadlineDate;
                 }
             } else {
-                nextStartDate = dateList.get(i + 1).startDate;
+                nextStartDate = dateList.get(i + 1).getStartDate();
             }
 
             duration = ChronoUnit.HOURS.between(currentEndDate, nextStartDate);
             if (durationToSchedule <= duration) {
                 isFreeBetweenEvents = true;
-                Ui.printOutput("You can schedule this task from " + currentEndDate
-                        + " till " + nextStartDate);
+                Ui.printOutput("You can schedule this task from " + currentEndDate + " till " + nextStartDate);
                 break;
             }
         }
@@ -86,7 +83,7 @@ public class TaskScheduleCommand extends Command {
         ArrayList<Event> dateList = new ArrayList<>();
         for (Task item : tasks) {
             if (item.getClass() == task.Event.class) {
-                if (item.startDate.isBefore(deadlineDate)) {
+                if (item.getStartDate().isBefore(deadlineDate)) {
                     dateList.add((Event) item);
                 }
             }
@@ -96,13 +93,13 @@ public class TaskScheduleCommand extends Command {
         return dateList;
     }
 
-    //TODO: Figure a way for GUI to accept subsequent inputs
+    // TODO: Figure a way for GUI to accept subsequent inputs
     private boolean confirmSchedule(Task t, LocalDateTime start, long duration, TaskList tasks, Storage storage)
             throws DukeException {
         while (true) {
             String answer = Ui.readInput().toLowerCase();
             if (answer.equals("y")) {
-                String description = t.description + "(Recommended period)";
+                String description = t.getDescription() + "(Recommended period)";
                 LocalDateTime end = start.plusHours(duration);
                 Command command = new AddCommand("todo", description, start, end);
                 command.execute(tasks, storage);

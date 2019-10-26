@@ -12,8 +12,8 @@ public class DeadlineTest {
 
     @Test
     public void testDeadlineCreation() {
-        String title = deadline.description;
-        LocalDateTime date = deadline.startDate;
+        String title = deadline.getDescription();
+        LocalDateTime date = deadline.getStartDate();
         Assertions.assertEquals(title, "test");
         Assertions.assertEquals(date, fromDate);
         Assertions.assertEquals(deadline.toString(), "[\u2605\u2605][D][\u2718] test(by: 01/01/2001 0100)");//Test
@@ -30,7 +30,7 @@ public class DeadlineTest {
     public void testDeadlinePostponement() {
         LocalDateTime newFromDate = LocalDateTime.of(2003, 1, 1, 1, 0);
         deadline.setStartDate(newFromDate);
-        Assertions.assertEquals(deadline.startDate, newFromDate);
+        Assertions.assertEquals(deadline.getStartDate(), newFromDate);
     }
 
 }

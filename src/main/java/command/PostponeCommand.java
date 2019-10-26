@@ -63,7 +63,7 @@ public class PostponeCommand extends Command {
         }
 
         Task taskToBePostponed = tasks.getTasks().get(indexOfTask);
-        String description = taskToBePostponed.description;
+        String description = taskToBePostponed.getDescription();
         if (isDeadline(taskToBePostponed)) {
             if (isDeadlineClash(description, startDate, tasks)) {
                 throw new DukeException(DukeException.taskClash());
@@ -88,11 +88,11 @@ public class PostponeCommand extends Command {
 
 
     private boolean isDeadline(Task task) {
-        return task.endDate == null;
+        return task.getEndDate() == null;
     }
 
     private boolean isEvent(Task task) {
-        return task.endDate != null && task.startDate != null;
+        return task.getEndDate() != null && task.getStartDate() != null;
     }
 
     private boolean isDeadlineClash(String description, LocalDateTime startDate, TaskList tasks) {
