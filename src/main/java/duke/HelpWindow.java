@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
+//@@author gervaiseang
 /**
  * Controller for a help page.
  */
@@ -65,10 +66,12 @@ public class HelpWindow extends AnchorPane {
                     getDescription.setText(cbCommands.getValue() + " <task description> /for <duration> <unit>");
                     getDescription.getScene().getWindow();
                 } else if (cbCommands.getSelectionModel().getSelectedItem().equals("repeat")) {
-                    getDescription.setText(cbCommands.getValue());
+                    getDescription.setText(cbCommands.getValue()
+                            + " <task> /from <date and time> /for <duration> <day/week/month>");
                     getDescription.getScene().getWindow();
                 } else if (cbCommands.getSelectionModel().getSelectedItem().equals("doafter")) {
-                    getDescription.setText(cbCommands.getValue());
+                    getDescription.setText(cbCommands.getValue()
+                            + " <task description> /after <existing task description>");
                     getDescription.getScene().getWindow();
                 }
             }

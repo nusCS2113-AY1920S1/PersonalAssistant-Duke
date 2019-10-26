@@ -18,7 +18,7 @@ public class DetectDuplicate {
     }
 
     /**
-     * Checks for duplicated contents in the list.
+     * Checks if the input is already in the list.
      *
      * @param command Type of task keyed in.
      * @param description The input keyed in by the user.

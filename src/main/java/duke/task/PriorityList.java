@@ -1,10 +1,12 @@
 package duke.task;
 
 import duke.command.AddCommand;
+import duke.task.TaskList;
+import java.util.ArrayList;
+import java.util.Scanner;
 import javafx.util.Pair;
 
-import java.util.ArrayList;
-
+//@@author Dou-Maokang
 /**
  * Represents a priority list that stores a list of priorities associated with each task.
  */
@@ -34,7 +36,7 @@ public class PriorityList {
 
 
     /**
-     * Adds a priority associated with a task into the list.
+     * Add a priority associated with a task into the list.
      *
      * @param taskNum The number of the task in the task list.
      * @param priority The priority we want to set.
@@ -48,7 +50,7 @@ public class PriorityList {
     }
 
     /**
-     * Adds a default priority associated with a task into the list when the task is generated.
+     * Add a default priority associated with a task into the list when the task is generated.
      *
      * @param cmd The command used to generate a new task;
      * @return The updated Priority List.
@@ -61,7 +63,7 @@ public class PriorityList {
     }
 
     /**
-     * Adds multiple default priority associated with a task into the list when these tasks are generated.
+     * Add multiple default priority associated with a task into the list when these tasks are generated.
      *
      * @param numOfTimes The number of times that one task is repeated.
      * @return The updated Priority List.
@@ -76,7 +78,7 @@ public class PriorityList {
     }
 
     /**
-     * Removes a priority when the associated task is removed.
+     * Remove a priority when the associated task is removed.
      *
      * @param index The index of the priority to be removed.
      */
@@ -86,19 +88,19 @@ public class PriorityList {
 
 
     /**
-     * Gets user input for the priority of a task.
+     * Get user input for the priority of a task.
      *
      * @param num The index number of the target priority.
      * @return The priority for a task.
      */
     public int getPriority(int num) {
-        int priority = priorityList.get(num);
+        int priority = priorityList.get(num - 1);
         return priority;
     }
 
 
     /**
-     * Gets the length/size of the priority list.
+     * Get the length/size of the priority list.
      *
      * @return The size of the priority list.
      */
@@ -107,7 +109,7 @@ public class PriorityList {
     }
 
     /**
-     * Gets the list of priorities.
+     * Get the list of priorities.
      *
      * @return The list of priorities.
      */
@@ -116,7 +118,7 @@ public class PriorityList {
     }
 
     /**
-     * Makes the priority list empty.
+     * Make the priority list empty.
      *
      * @return The empty priority list.
      */
@@ -126,39 +128,32 @@ public class PriorityList {
 
 
     /**
-     * Sorts tasks based on their priority.
-     *
+     * Sort tasks based on their priority.
      * @param taskList The list of tasks.
      * @param priorities The list of priorities.
      * @return The sorted list.
      */
     public static ArrayList<Pair> sortPriority(TaskList taskList, PriorityList priorities) {
         ArrayList<Pair> pairList = new ArrayList<>();
-        for (int i = ZERO; i < taskList.size(); i++) {
-            Pair<Integer, Task> pair = new Pair<>(priorities.getPriority(i), taskList.get(i));
+        for (int i = ONE; i <= taskList.size(); i++) {
+            Pair<Integer, Task> pair = new Pair<>(priorities.getPriority(i), taskList.get(i - 1));
             pairList.add(pair);
         }
 
         for (int i = ONE; i < taskList.size(); i++) {
             for (int j = i; j > ZERO; j--) {
-                if (((int) pairList.get(j).getKey()) < (int) pairList.get(j - ONE).getKey()) {
+                if (((int) pairList.get(j).getKey()) < (int) pairList.get(j).getKey()) {
                     Pair<Integer, String> temp = pairList.get(j);
-                    pairList.set(j, pairList.get(j - ONE));
-                    pairList.set(j - ONE, temp);
+                    pairList.set(j, pairList.get(j));
+                    pairList.set(j, temp);
                 } else {
                     break;
                 }
             }
         }
         return pairList;
-
     }
 
-    /**
-     * Extracts a priority list into readable string.
-     *
-     * @return String to be displayed.
-     */
     @Override
     public String toString() {
         String output = "";
@@ -170,3 +165,4 @@ public class PriorityList {
     }
 
 }
+//@@author

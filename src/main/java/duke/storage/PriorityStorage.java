@@ -10,10 +10,14 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+//@@author Dou-Maokang
+/**
+ * Representing a class to store the list of priorities.
+ */
 public class PriorityStorage {
     //protected String filePath = "./";
     protected String filePath = "";
-    String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+    String storageClassPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
     private static final int ZERO = 0;
 
     /**
@@ -22,13 +26,19 @@ public class PriorityStorage {
      * @param filePath The location of the text file.
      */
     public PriorityStorage(String filePath) {
+        int numberofSlash;
+        storageClassPath = storageClassPath.replaceAll("%20", " ");
         String[] pathSplitter = storageClassPath.split("/");
+        numberofSlash = pathSplitter.length - 1;
         for (String directory: pathSplitter) {
-            if (!directory.isEmpty() && !directory.equals("build")) {
+            if (numberofSlash == ZERO) {
+                break;
+            } else if (!directory.isEmpty() && !directory.equals("build") && !directory.equals("out")) {
                 this.filePath += directory + "/";
-            } else if (directory.equals("build")) {
+            } else if (directory.equals("build") || directory.equals("out")) {
                 break;
             }
+            numberofSlash--;
         }
         this.filePath += filePath;
     }
@@ -71,3 +81,4 @@ public class PriorityStorage {
     }
 
 }
+//@@author

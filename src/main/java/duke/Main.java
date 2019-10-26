@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
+//@@author talesrune-reused
 /**
  * A GUI for Duke using FXML.
  */

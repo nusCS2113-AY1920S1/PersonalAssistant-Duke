@@ -1,4 +1,4 @@
-T|0|read a book
+T|1|read a book
 D|0|submit homework|01/10/2019 2359
 F|0|take computing class|2 hours
 R|0|workout|10/10/2019 1000

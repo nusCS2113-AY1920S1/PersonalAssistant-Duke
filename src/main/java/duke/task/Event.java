@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.ParseException;
 
+//@@author talesrune
 /**
  * Represents an event that stores description and date/time.
  */
@@ -43,7 +44,7 @@ public class Event extends Task {
     }
 
     /**
-     * Extracts a task content into readable string.
+     * Extracting a task content into readable string.
      *
      * @return String to be displayed.
      */
@@ -77,7 +78,7 @@ public class Event extends Task {
     }
 
     /**
-     * Extracts a task content into readable string (GUI).
+     * Extracting a task content into readable string (GUI).
      *
      * @return String to be displayed.
      */
@@ -111,7 +112,7 @@ public class Event extends Task {
     }
 
     /**
-     * Extracts a task content into string that is suitable for text file.
+     * Extracting a task content into string that is suitable for text file.
      *
      * @return String to be written into text file.
      */

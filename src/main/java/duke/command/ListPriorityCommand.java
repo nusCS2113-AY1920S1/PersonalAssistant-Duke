@@ -5,6 +5,7 @@ import duke.task.PriorityList;
 import duke.ui.Ui;
 import duke.task.TaskList;
 
+//@@author Dou-Maokang
 /**
  * Representing a command that lists all tasks stored in task list.
  */
@@ -27,7 +28,6 @@ public class ListPriorityCommand extends Command {
      * @param priorities The list of priorities.
      * @param ui To tell the user the list of tasks stored in task list.
      */
-
     public void execute(TaskList items, PriorityList priorities, Ui ui) {
         ui.showTaskListWithPriority(items, priorities);
     }
@@ -39,7 +39,6 @@ public class ListPriorityCommand extends Command {
      * @param ui To tell the user the list of tasks stored in task list.
      * @return String to be outputted to the user.
      */
-
     public String executeGui(TaskList items, Ui ui) {
         String str = Ui.showTaskListGui(items);
         return str;
@@ -57,3 +56,4 @@ public class ListPriorityCommand extends Command {
     public void executeStorage(TaskList items, Ui ui, Storage storage) {
     }
 }
+//@@author

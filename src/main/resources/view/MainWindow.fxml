@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
+<!-- @@author talesrune -->
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.MainWindow">
    <children>
       <MenuBar layoutX="7.0" layoutY="2.0" prefHeight="25.0" prefWidth="364.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="516.0" AnchorPane.topAnchor="0.0">
@@ -39,7 +39,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem fx:id="help" mnemonicParsing="false" onAction="#createHelpWindow" text="View Commands"/>
+              <MenuItem fx:id="help" mnemonicParsing="false" onAction="#createHelpWindow" text="View Commands" />
             </items>
           </Menu>
         </menus>
@@ -61,7 +61,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TabPane prefHeight="260.0" prefWidth="438.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TabPane fx:id="tpTabs" onMouseClicked="#onMouseClickTabs" prefHeight="260.0" prefWidth="438.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
                         <Tab text="All" />
                       <Tab text="Todo" />
@@ -69,7 +69,7 @@
                         <Tab text="Event" />
                         <Tab text="Repeat" />
                         <Tab text="DoAfter" />
-                        <Tab text="Etc." />
+                        <Tab text="FixedDuration" />
                     </tabs>
                      <opaqueInsets>
                         <Insets />

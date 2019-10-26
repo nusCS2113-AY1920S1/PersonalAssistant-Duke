@@ -4,6 +4,7 @@ import duke.dukeexception.DukeException;
 
 import java.time.LocalDateTime;
 
+//@@author talesrune
 /**
  * Represents a task that stores description and boolean that indicates the task as completed.
  */
@@ -91,17 +92,29 @@ public class Task {
         return (isDone ? "[\u2713]" : "[\u2718]"); //return [✓]" : "[✗] symbols
     }
 
+    //@@author
     /**
-     * Sets the remaining days of reminder.
+     * Returns the remaining days of reminder.
+     *
+     * @return integer of the number of days left of the reminded task.
+     */
+    public int getReminder() {
+        return numberOfDays;
+    }
+
+
+    /**
+     * Set the remaining days of reminder.
      *
      * @param remainingDays The number of days left of the reminded task.
      */
+
     public void setReminder(int remainingDays) {
         this.numberOfDays = remainingDays;
     }
 
     /**
-     * Sets the remaining days of reminder.
+     * Set the remaining days of reminder.
      *
      * @return boolean that triggers the reminder.
      */
@@ -121,7 +134,7 @@ public class Task {
     }
 
     /**
-     * Sets the priority of one task.
+     * Set the priority of one task.
      *
      * @param  priorityLevel The priority level of the task, 1 to 5, high to low.
      */
@@ -130,7 +143,7 @@ public class Task {
     }
 
     /**
-     * Sets the priority of one task.
+     * Set the priority of one task.
      *
      * @return the priority of the task.
      */
@@ -138,9 +151,9 @@ public class Task {
         return this.priority;
     }
 
-
+    //@@author talesrune
     /**
-     * Extracts a task content into readable string.
+     * Extracting a task content into readable string.
      *
      * @return String that contains the status and the description of the task.
      */
@@ -150,7 +163,7 @@ public class Task {
     }
 
     /**
-     * Extracts a task content into readable string (GUI).
+     * Extracting a task content into readable string (GUI).
      *
      * @return String that contains the status and the description of the task.
      */
@@ -159,7 +172,7 @@ public class Task {
     }
 
     /**
-     * Extracts a task content into string that is suitable for text file.
+     * Extracting a task content into string that is suitable for text file.
      *
      * @return String that contains the status and the description of the task.
      */
@@ -183,7 +196,7 @@ public class Task {
     }
 
     /**
-     * Sets the date of the task.
+     * Set the date of the task.
      *
      * @param dateTime String of the date/time.
      * @throws Exception  If there is an error interpreting the user input
@@ -192,6 +205,7 @@ public class Task {
         throw new DukeException("     Error! This task does not have date/time.");
     }
 
+    //@@author
     /**
      * Checks if the input and description matches.
      *

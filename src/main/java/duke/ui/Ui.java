@@ -1,9 +1,16 @@
 package duke.ui;
 
+import duke.task.Todo;
+import duke.task.Deadline;
 import duke.task.ContactList;
-import duke.task.PriorityList;
+import duke.task.FixedDuration;
+import duke.task.DoAfter;
+import duke.task.Repeat;
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.task.PriorityList;
+import duke.task.Event;
+
 import javafx.util.Pair;
 
 import java.io.InputStream;
@@ -86,16 +93,20 @@ public class Ui {
     }
 
     /**
-     * Outputs all the tasks of the task list to the user.
+     * Outputs task that is successfully sets a reminder to the user (GUI).
      *
+     * @param num indicated number of days to set the reminder
      * @param items The task list that contains a list of tasks.
+     * @return String of the task that is completed.
      */
-    public void showTaskList(TaskList items) {
-        out.println("     Here are the tasks in your list:");
-        out.print(items.getList());
+    public static String showReminderGui(Task num, TaskList items) {
+        String str = ("     You will get a reminder for this task in "
+                + num.getReminder()
+                + " days\n" + items.toString());
+        return str;
     }
 
-
+    //@@author Dou-Maokang
     /**
      * Outputs all the tasks of the task list to the user.
      *
@@ -106,10 +117,12 @@ public class Ui {
         ArrayList<Pair> pair = PriorityList.sortPriority(items, priorities);
         out.println("     Here are the tasks in your list with priority shown:\n");
         out.printf("     Priority |\tTask\n");
-        for (int i = ZERO; i < items.size() && i < priorities.getSize(); i++) {
+        for (int i = ZERO; i < items.size() || i < priorities.getSize(); i++) {
             out.printf("        [%d]\t  |\t%s\n", pair.get(i).getKey(), pair.get(i).getValue());
         }
     }
+    //@@author
+
 
     /**
      * Outputs all the contacts of the contact list to user through CLI.
@@ -125,12 +138,24 @@ public class Ui {
      * Outputs all the contacts of the contact list to user through GUI.
      *
      * @param contactList The list of contacts.
+     * @return String of all contacts from contact list.
      */
     public static String showContactListGui(ContactList contactList) {
         String str = "";
         str += "Here are all your contacts:\n";
         str += contactList.getContactList();
         return str;
+    }
+
+    //@@author talesrune
+    /**
+     * Outputs all the tasks of the task list to the user.
+     *
+     * @param items The task list that contains a list of tasks.
+     */
+    public void showTaskList(TaskList items) {
+        out.println("     Here are the tasks in your list:");
+        out.print(items.getList());
     }
 
     /**
@@ -164,7 +189,7 @@ public class Ui {
      */
     public static String showUpdateGui(TaskList items, int index) {
         String str = "     Nice! I've updated this task ^^:\n"
-                + "       " + (index + ONE) + "." + items.get(index).toString();
+                + "       " + (index + ONE) + "." + items.get(index).toStringGui();
         return str;
     }
 
@@ -281,7 +306,7 @@ public class Ui {
      * Outputs the tasks that are matched from the keyword to the user.
      *
      * @param items The task list that contains a list of tasks.
-     * @param keyword The task that is deleted.
+     * @param keyword The keyword to match the tasks.
      */
     public void showFind(TaskList items, String keyword) {
         out.println("     Here are the matching tasks in your list:");
@@ -297,11 +322,35 @@ public class Ui {
         }
     }
 
+
+    //@@author Dou-Maokang
+    /**
+     * Outputs the tasks with the target priority.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param priorities The list of priorities associated with the task list.
+     * @param targetPriority The target priority to search.
+     */
+    public void showFindTasksByPriority(TaskList items, PriorityList priorities, int targetPriority) {
+        out.println("     Here are the matching tasks in your list:");
+        int numFound = ZERO;
+        for (int i = ZERO; i < items.size(); i++) {
+            if (priorities.getPriority(i + 1) == targetPriority) {
+                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                numFound++;
+            }
+        }
+        if (numFound == ZERO) {
+            out.println("     No matching tasks found.");
+        }
+    }
+
+    //@@author talesrune
     /**
      * Outputs the tasks that are matched from the keyword to the user (GUI).
      *
      * @param items The task list that contains a list of tasks.
-     * @param keyword The task that is deleted.
+     * @param keyword The keyword to match the tasks.
      * @return String of the matching tasks of the task list.
      */
     public static String showFindGui(TaskList items, String keyword) {
@@ -315,6 +364,78 @@ public class Ui {
         }
         if (numFound == ZERO) {
             str += "     No matching tasks found.\n";
+        }
+        return str;
+    }
+
+    /**
+     * Outputs the tasks that are filtered to the user.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param taskType The type of task.
+     */
+    public void showFilter(TaskList items, String taskType) {
+        out.println("     Here are the filtered tasks in your list:");
+        int numFound = ZERO;
+        for (int i = ZERO; i < items.size(); i++) {
+            if (taskType.equals("todo") && items.get(i) instanceof Todo) {
+                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                numFound++;
+            } else if (taskType.equals("deadline") && items.get(i) instanceof Deadline) {
+                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                numFound++;
+            } else if (taskType.equals("event") && items.get(i) instanceof Event) {
+                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                numFound++;
+            } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
+                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                numFound++;
+            } else if (taskType.equals("doafter") && items.get(i) instanceof DoAfter) {
+                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                numFound++;
+            } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
+                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                numFound++;
+            }
+        }
+        if (numFound == ZERO) {
+            out.println("     No matching tasks found.");
+        }
+    }
+
+    /**
+     * Outputs the tasks that are filtered to the user. (GUI)
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param taskType The type of task.
+     * @return String of the matching tasks of the task list.
+     */
+    public static String showFilterGui(TaskList items, String taskType) {
+        String str = "     Here are the filtered tasks in your list:\n";
+        int numFound = ZERO;
+        for (int i = ZERO; i < items.size(); i++) {
+            if (taskType.equals("todo") && items.get(i) instanceof Todo) {
+                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
+                numFound++;
+            } else if (taskType.equals("deadline") && items.get(i) instanceof Deadline) {
+                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
+                numFound++;
+            } else if (taskType.equals("event") && items.get(i) instanceof Event) {
+                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
+                numFound++;
+            } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
+                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
+                numFound++;
+            } else if (taskType.equals("doafter") && items.get(i) instanceof DoAfter) {
+                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
+                numFound++;
+            } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
+                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
+                numFound++;
+            }
+        }
+        if (numFound == ZERO) {
+            str += "     No matching tasks found." + "\n";
         }
         return str;
     }
@@ -352,23 +473,27 @@ public class Ui {
     public void showDuplicateMsg() {
         out.println("     The same task is already in the list!");
     }
-    //@@author
+
 
     //@@author maxxyx96
     /**
      * Outputs a message to the user to let it know that it is updating.
      */
     public void showBackupMessage() {
-        out.println("     Duke Manager has been backed up!\n"
-                    + "     Duke has opened the backup file location in file explorer!");
+        out.println("     Duke Manager has been backed up!");
     }
 
-    public static String showBackupMessageGui() {
-        return "     Duke Manager has been backed up! \n"
-                + "     Duke has opened the backup file location in file explorer!";
+    public void showBackupFolderMessage() {
+        out.println("     Duke has opened the backup file location in file explorer!");
     }
-    //@@author
 
+    public String showBackupMessageGui() {
+        return "     Duke Manager has been backed up!";
+    }
+
+
+
+    //@@author Dou-Maokang
     /**
      * Outputs a message to the user to let it know that it has changed the priority of a task.
      *
@@ -381,19 +506,18 @@ public class Ui {
         out.println("     Current priority: " + priority);
     }
 
+    //@@author e0318465
     /**
      * Outputs the contact details that are most recently added.
      *
      * @param contactList The list of contacts.
      */
-    //@@author e0318465
     public void showAddedContact(ContactList contactList) {
-        out.println("     Got it. Contact added:");
         if (contactList.size() == ZERO) {
             out.println("     You have no contacts!");
         } else {
+            out.println("Got it, now you have " + contactList.size() + " contacts. Contact added.");
             out.println(contactList.get(contactList.size() - ONE));
-            out.println("     Now you have " + contactList.size() + " contacts.");
         }
     }
 
@@ -404,12 +528,12 @@ public class Ui {
     * @return String to output list of contacts to GUI.
      */
     public static String showAddedContactGui(ContactList contactList) {
-        String str = "Got it. Contact added:\n";
+        String str = "";
         if (contactList.size() == ZERO) {
-            str += "You have no contacts!";
+            str += "     You have no contacts!";
         } else {
+            str += "\n     Got it, now you have " + contactList.size() + " contacts. Contact added:\n";
             str += contactList.get(contactList.size() - ONE);
-            str += "\nNow you have " + contactList.size() + " contacts.";
         }
         return str;
     }
@@ -421,9 +545,8 @@ public class Ui {
      * @param deletedContact The contact that is deleted.
      */
     public void showContactDeleted(ContactList contactList, String deletedContact) {
-        out.println("Noted. I've removed this contact:");
+        out.println("Now you have " + contactList.size() + " contact(s). I've removed this contact:");
         out.println(deletedContact);
-        out.println("Now you have " + contactList.size() + " contact(s) in the list.");
     }
 
     /**
@@ -431,14 +554,14 @@ public class Ui {
      *
      * @param contactList The contact list that contains a list of contacts.
      * @param deletedContact The contact that is deleted.
+     * @return String of deleted contact to user.
      */
     public static String showContactDeletedGui(ContactList contactList, String deletedContact) {
-        String str = "     Noted. I've removed this contact:\n";
+        String str = "";
+        str += "Now you have " + contactList.size() + " contact(s). I've removed this contact:\n";
         str += deletedContact;
-        str += "\n     Now you have " + contactList.size() + " contact(s) in the list.";
         return str;
     }
-    //@@author
 
     //@@author maxxyx96
     /**
@@ -507,5 +630,4 @@ public class Ui {
     public String showResetBudgetGui(float budget) {
         return "     Your previous budget of " + budget + " has been reset.";
     }
-    //@@author
 }

@@ -2,26 +2,27 @@ package duke.parser;
 
 import duke.command.Command;
 import duke.command.FindCommand;
+import duke.command.FilterCommand;
 import duke.command.ListCommand;
-import duke.command.ListPriorityCommand;
-import duke.command.DoneCommand;
-import duke.command.DeleteCommand;
-import duke.command.DeleteContactCommand;
-import duke.command.AddCommand;
+import duke.command.FindTasksByPriorityCommand;
 import duke.command.DuplicateFoundCommand;
+import duke.command.UpdateCommand;
+import duke.command.DoneCommand;
 import duke.command.RemindCommand;
+import duke.command.AddCommand;
+import duke.command.BackupCommand;
+import duke.command.ExitCommand;
+import duke.command.ListPriorityCommand;
 import duke.command.AddMultipleCommand;
 import duke.command.SetPriorityCommand;
-import duke.command.AddContactsCommand;
-import duke.command.ListContactsCommand;
-import duke.command.ViewBudgetCommand;
-import duke.command.ResetBudgetCommand;
+import duke.command.DeleteCommand;
 import duke.command.AddBudgetCommand;
-import duke.command.BackupCommand;
-import duke.command.UpdateCommand;
-import duke.command.ExitCommand;
+import duke.command.DeleteContactCommand;
+import duke.command.ListContactsCommand;
+import duke.command.AddContactsCommand;
+import duke.command.ResetBudgetCommand;
+import duke.command.ViewBudgetCommand;
 import duke.dukeexception.DukeException;
-
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.task.Deadline;
@@ -36,6 +37,7 @@ import duke.task.BudgetList;
 
 import java.util.ArrayList;
 
+
 /**
  * Represents a parser that breaks down user input into commands.
  */
@@ -46,6 +48,7 @@ public class Parser {
     private static final int TWO = 2;
     private static final int THREE = 3;
     private static final int FOUR = 4;
+    private static final int SIX = 6;
 
     /**
      * Generates a command based on the user input.
@@ -90,7 +93,7 @@ public class Parser {
                         return new DeleteCommand(tasknum);
                     }
                 }
-            }
+            } //@@author talesrune
         } else if (arr.length > ZERO && arr[ZERO].equals("find")) {
             if (arr.length == ONE) {
                 throw new DukeException("     (>_<) OOPS!!! The keyword cannot be empty.");
@@ -101,6 +104,16 @@ public class Parser {
                     return new FindCommand(arr[ONE]);
                 }
             }
+        } else if (arr.length > ZERO && arr[ZERO].equals("filter")) {
+            if (arr.length == ONE) {
+                throw new DukeException("     (>_<) OOPS!!! The task's type cannot be empty.");
+            } else {
+                if (arr[ONE].trim().isEmpty()) {
+                    throw new DukeException("     (>_<) OOPS!!! The task's type cannot be empty.");
+                } else {
+                    return new FilterCommand(arr[ONE]);
+                }
+            }   //@@author
         } else if (arr.length > ZERO && arr[ZERO].equals("todo")) {
             String[] getDescription = sentence.split(" ", TWO);
             DetectDuplicate detectDuplicate = new DetectDuplicate(items);
@@ -268,9 +281,14 @@ public class Parser {
                     throw new DukeException("Format is in: fixedduration <task> /for <duration> <unit>");
                 }
                 unit = durDesc.split(" ")[ONE].trim();
-                if (unit.isEmpty() || (!unit.toLowerCase().contains("min") && ! unit.toLowerCase().contains("hour"))) {
+                if (unit.isEmpty() || (!unit.toLowerCase().contains("min") && ! unit.toLowerCase().contains("h"))) {
                     throw new DukeException("Format is in: fixedduration <task> /for <duration> <unit>");
                 } else {
+                    if (unit.contains("min")) {
+                        unit = (duration > ONE) ? "minutes" : "minute";
+                    } else if (unit.contains("h")) {
+                        unit = (duration > ONE) ? "hours" : "hour";
+                    }
                     FixedDuration fixedDuration = new FixedDuration(taskDesc, duration, unit);
                     return new AddCommand(fixedDuration);
                 }
@@ -305,30 +323,61 @@ public class Parser {
                     throw new DukeException("The priority must be an integer");
                 }
 
-                if (!((priority > ZERO) && (priority < 6))) {
+                if (!((priority > ZERO) && (priority < SIX))) {
                     throw new DukeException("     (>_<) OOPS!!! Invalid priority! (1 - High ~ 5 - Low).");
                 }
 
                 return new SetPriorityCommand(taskNum, priority);
             }
 
+        } else if (arr.length > ZERO && arr[ZERO].equals("findpriority")) {
+            if (arr.length == ONE) {
+                throw new DukeException("     (>_<) OOPS!!! The target priority cannot be empty.");
+            } else {
+                int target;
+                if (arr[ONE].trim().isEmpty()) {
+                    throw new DukeException("     (>_<) OOPS!!! The target priority cannot be empty.");
+                } else {
+                    try {
+                        target = Integer.parseInt(arr[ONE]);
+                    } catch (Exception e) {
+                        throw new DukeException("The target priority must be an integer");
+                    }
+
+                    if (!((target > ZERO) && (target < SIX))) {
+                        throw new DukeException("     (>_<) OOPS!!! Invalid target priority! (1 ~ 5).");
+                    }
+                    return new FindTasksByPriorityCommand(target);
+                }
+            }
         } else if (arr.length > ZERO && arr[ZERO].equals("remind")) {
             //remind <taskNumber> /in <howManyDays>
-            String description = "";
-            String durDesc;
+            String afterTaskDesc = "";
+            boolean detectBackSlash = false;
             int duration;
-            String unit;
             for (int i = ONE; i < arr.length; i++) {
-                description += arr[i] + " ";
+                if ((arr[i].trim().isEmpty() || !arr[i].substring(ZERO, ONE).equals("/")) && !detectBackSlash) {
+                    taskDesc += arr[i] + " ";
+                } else {
+                    if (!detectBackSlash) {
+                        detectBackSlash = true;
+                    } else {
+                        afterTaskDesc += arr[i] + " ";
+                    }
+                }
             }
-            if (description.isEmpty()) {
+            taskDesc = taskDesc.trim();
+            afterTaskDesc = afterTaskDesc.trim();
+            if (taskDesc.isEmpty()) {
                 throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[ZERO] + " cannot be empty.");
-            }
-
-            duration = Integer.parseInt(description.split("/in", TWO)[ZERO].trim()) - ONE;
-            String in = description.split(" /in ", TWO)[ONE].trim();
-            int howManyDays = Integer.parseInt(in.split(" ", TWO)[ZERO].trim());
-            return new RemindCommand(duration, howManyDays);
+            } else if (afterTaskDesc.isEmpty()) {
+                throw new DukeException("     (>_<) OOPS!!! The description for "
+                        + arr[ZERO] + " cannot be empty.");
+            } else {
+                duration = Integer.parseInt(taskDesc.split("/in", TWO)[ZERO].trim()) - ONE;
+                int howManyDays = Integer.parseInt(afterTaskDesc);
+                return new RemindCommand(duration, howManyDays);
+            }  //@@author talesrune
         } else if (arr.length > ZERO && (arr[ZERO].equals("update"))) {
             if (arr.length == ONE) {
                 throw new DukeException("     (>_<) OOPS!!! The task number cannot be empty.");

@@ -1,34 +1,47 @@
 package duke.command;
 
 import duke.storage.Storage;
+import duke.task.PriorityList;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-//@@author talesrune
+
+//@@author Dou-Maokang
 /**
- * Representing a command that locates certain tasks in task list using keyword.
+ * A class representing a command to find tasks with a target priority.
  */
-public class FindCommand extends Command {
-    protected String keyword;
+public class FindTasksByPriorityCommand extends Command {
+    protected int targetPriority;
 
     /**
-     * Creates a command with the specified keyword.
+     * Creates a command with the target priority.
      *
-     * @param keyword The task to be added.
+     * @param targetPriority The target priority to be searched.
      */
-    public FindCommand(String keyword) {
-        this.keyword = keyword;
+    public FindTasksByPriorityCommand(int targetPriority) {
+        this.targetPriority = targetPriority;
     }
+
+    /**
+     * Executes a command with task list and ui.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param ui To tell the user that it is executed successfully.
+     */
+    public void execute(TaskList items, Ui ui) {
+    }
+
 
     /**
      * Executes a command that locates matching tasks in task list and outputs the result.
      *
      * @param items The task list that contains a list of tasks.
+     * @param priorityList The list of priorities associated with the task list.
      * @param ui To tell the user the matching tasks based on the keyword.
      */
     @Override
-    public void execute(TaskList items, Ui ui) {
-        ui.showFind(items, keyword);
+    public void execute(TaskList items, PriorityList priorityList, Ui ui) {
+        ui.showFindTasksByPriority(items, priorityList, targetPriority);
     }
 
     /**
@@ -39,9 +52,11 @@ public class FindCommand extends Command {
      * @return List of tasks.
      */
     @Override
+    // this method needs to be rewritten
     public String executeGui(TaskList items, Ui ui) {
-        String str = Ui.showFindGui(items, keyword);
-        return str;
+        // String str = Ui.showFindGui(items, targetPriority);
+        // return str;
+        return "";
     }
 
     /**
@@ -57,3 +72,4 @@ public class FindCommand extends Command {
 
     }
 }
+//@@author

@@ -1,15 +1,17 @@
 package duke;
 
-import duke.command.SetPriorityCommand;
+import duke.command.FindTasksByPriorityCommand;
+import duke.command.BackupCommand;
+import duke.command.ExitCommand;
+import duke.command.ListPriorityCommand;
+import duke.command.Command;
 import duke.command.AddMultipleCommand;
+import duke.command.SetPriorityCommand;
 import duke.command.DeleteCommand;
 import duke.command.DeleteContactCommand;
-import duke.command.AddContactsCommand;
-import duke.command.Command;
 import duke.command.ListContactsCommand;
-import duke.command.ListPriorityCommand;
-import duke.command.ExitCommand;
-import duke.command.BackupCommand;
+import duke.command.AddContactsCommand;
+import duke.command.FilterCommand;
 
 import duke.dukeexception.DukeException;
 import duke.parser.Parser;
@@ -19,11 +21,10 @@ import duke.storage.ContactStorage;
 import duke.storage.BudgetStorage;
 import duke.task.BudgetList;
 import duke.task.PriorityList;
+import duke.task.FilterList;
 import duke.task.ContactList;
-
 import duke.task.TaskList;
 import duke.ui.Ui;
-
 import java.io.IOException;
 
 /**
@@ -32,6 +33,7 @@ import java.io.IOException;
 public class Duke {
     private Storage storage;
     private TaskList items;
+    private FilterList filterList;
     private Ui ui;
     private ContactStorage contactStorage;
     private ContactList contactList;
@@ -41,12 +43,7 @@ public class Duke {
 
     private BudgetStorage budgetStorage;
     private BudgetList budgetList;
-
     private static final int ZERO = 0;
-    //private static final String FILEPATH_TASKLIST;
-    //private static final String FILEPATH_BUDGETLIST;
-    //private static final String FILEPATH_PRIORITYLIST;
-    //private static final String FILEPATH_CONTACTLIST;
 
     /**
      * Creates a duke to initialize storage, task list, and ui.
@@ -58,6 +55,7 @@ public class Duke {
      */
     public Duke(String filePath1, String filePath2, String filePathForBudget, String filePathForContacts) {
         ui = new Ui();
+        filterList = new FilterList();
         storage = new Storage(filePath1);
         priorityStorage = new PriorityStorage(filePath2);
         contactStorage = new ContactStorage(filePathForContacts);
@@ -117,14 +115,13 @@ public class Duke {
     }
 
     /**
-     * Executes a command to overwrite exiting storage with the current updated lists(GUI).
+     * Executes a command to overwrite exiting storage with an updated task list (GUI).
      *
      * @param cmd Command to be executed.
      * @throws IOException  If there is an error writing the text file.
      */
     public void saveState(Command cmd) throws IOException {
-        cmd.executeStorage(items, ui, storage, budgetStorage, budgetList,
-                contactStorage, contactList, priorityStorage, priorityList);
+        cmd.executeStorage(items,ui,storage);
     }
 
     /**
@@ -132,6 +129,7 @@ public class Duke {
      *
      * @param cmd Command to be executed.
      * @return String to be outputted.
+     * @throws IOException  If there is an error writing the text file
      */
     public String executeCommand(Command cmd) throws IOException {
         if (cmd instanceof AddContactsCommand) {
@@ -147,20 +145,33 @@ public class Duke {
             return str;
         } else {
             String str = cmd.executeGui(items, ui);
+            if (cmd instanceof FilterCommand) {
+                cmd.execute(items,filterList);
+            }
             return str;
         }
     }
 
+    //@@author talesrune
     /**
-     * Executes a command and outputs the result to the user (GUI).
+     * Retrieves the current task list (GUI).
      *
-     * @return String to be outputted.
+     * @return A list of tasks.
      */
     public TaskList getTaskList() {
-        //String str = cmd.executeGui(items, ui);
         return items;
     }
 
+    /**
+     * Retrieves the current task list (GUI).
+     *
+     * @return A list of tasks.
+     */
+    public FilterList getFilterList() {
+        return filterList;
+    }
+
+    //@@author
     /**
      * Runs the duke program until exit command is executed.
      */
@@ -175,17 +186,23 @@ public class Duke {
             try {
                 Command cmd = Parser.parse(sentence, items, budgetList);
                 if (cmd instanceof ExitCommand) {
-                    saveState(cmd);
+                    priorityStorage.write(priorityList);
+                    budgetStorage.write(budgetList);
                     cmd.executeStorage(items, ui, storage);
                     break;
                 } else if (cmd instanceof ListPriorityCommand
                         || cmd instanceof AddMultipleCommand
                         || cmd instanceof DeleteCommand
-                        || cmd instanceof SetPriorityCommand) {
+                        || cmd instanceof SetPriorityCommand
+                        || cmd instanceof FindTasksByPriorityCommand) {
                     cmd.execute(items, priorityList, ui);
                 } else if (cmd instanceof BackupCommand) {
-                    saveState(cmd);
+                    priorityStorage.write(priorityList);
+                    budgetStorage.write(budgetList);
+                    contactStorage.write(contactList);
+                    storage.write(items);
                     cmd.execute(items, ui);
+                    cmd.executeStorage(items, ui, storage);
                 } else if (cmd instanceof AddContactsCommand) {
                     cmd.execute(items, contactList, ui);
                     cmd.executeStorage(items, ui, contactStorage,contactList);

@@ -5,6 +5,11 @@ import duke.task.PriorityList;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+
+//@@author Dou-Maokang
+/**
+ * Representing a command to set priorities for every task.
+ */
 public class SetPriorityCommand extends Command {
     protected int taskNum;
     protected int priority;
@@ -63,3 +68,4 @@ public class SetPriorityCommand extends Command {
     public void executeStorage(TaskList items, Ui ui, Storage storage) {
     }
 }
+//@@author
