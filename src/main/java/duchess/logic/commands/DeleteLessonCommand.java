@@ -39,7 +39,6 @@ public class DeleteLessonCommand extends Command {
             if (task.getDescription().equalsIgnoreCase(this.lessonDelete)) {
                 store.getTaskList().remove(i);
                 toDelete.add(i);
-                System.out.println(i);
                 isDeleted = true;
 
                 store.setDuchessCalendar(CalendarManager.deleteEntry(store.getDuchessCalendar(), task));

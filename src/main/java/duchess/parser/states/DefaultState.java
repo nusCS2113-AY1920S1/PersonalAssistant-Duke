@@ -11,7 +11,7 @@ import duchess.logic.commands.DisplayCommand;
 import duchess.logic.commands.DoneCommand;
 import duchess.logic.commands.ExportCommand;
 import duchess.logic.commands.FindCommand;
-import duchess.logic.commands.LogCommand;
+import duchess.logic.commands.HistoryCommand;
 import duchess.logic.commands.RedoCommand;
 import duchess.logic.commands.ReminderCommand;
 import duchess.logic.commands.SnoozeCommand;
@@ -142,8 +142,8 @@ public class DefaultState implements ParserState {
             return LessonCommandParser.parse(parameters);
         } else if ("bye".equals(keyword)) {
             return new ByeCommand();
-        } else if ("log".equals(keyword)) {
-            return new LogCommand();
+        } else if ("history".equals(keyword)) {
+            return new HistoryCommand();
         } else if ("undo".equals(keyword)) {
             return new UndoCommand(arguments);
         } else if ("redo".equals(keyword)) {

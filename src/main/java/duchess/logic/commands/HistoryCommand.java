@@ -9,7 +9,7 @@ import duchess.ui.Ui;
 /**
  * Command to display input history.
  */
-public class LogCommand extends Command {
+public class HistoryCommand extends Command {
 
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
