@@ -5,9 +5,9 @@
  */
 package cube.logic.command;
 
-import cube.model.FoodList;
-import cube.model.FoodList.SortType;
-import cube.model.Food;
+import cube.model.food.FoodList;
+import cube.model.food.Food;
+import cube.model.food.FoodList.SortType;
 import cube.storage.StorageManager;
 import cube.logic.command.util.CommandResult;
 

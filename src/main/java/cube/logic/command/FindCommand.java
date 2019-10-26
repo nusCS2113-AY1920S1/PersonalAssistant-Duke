@@ -1,8 +1,8 @@
 package cube.logic.command;
 
 import cube.logic.command.exception.CommandException;
-import cube.model.FoodList.SortType;
-import cube.model.FoodList;
+import cube.model.food.FoodList.SortType;
+import cube.model.food.FoodList;
 import cube.storage.StorageManager;
 import cube.logic.command.util.CommandResult;
 import cube.logic.command.util.CommandUtil;

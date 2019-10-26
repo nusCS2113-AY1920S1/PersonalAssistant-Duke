@@ -12,8 +12,8 @@ package cube.logic.command;
 // need to make the revenue (individual rev) updated when selling specific food
 
 import cube.logic.command.exception.CommandException;
-import cube.model.Food;
-import cube.model.FoodList;
+import cube.model.food.FoodList;
+import cube.model.food.Food;
 import cube.storage.StorageManager;
 import cube.logic.command.util.CommandResult;
 import cube.logic.command.util.CommandUtil;

@@ -1,7 +1,7 @@
 package cube.logic.command;
 
-import cube.model.FoodList;
-import cube.model.Food;
+import cube.model.food.FoodList;
+import cube.model.food.Food;
 import cube.model.sale.Sale;
 import cube.model.sale.SalesHistory;
 import cube.storage.StorageManager;
