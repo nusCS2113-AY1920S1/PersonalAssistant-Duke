@@ -4,7 +4,6 @@ import Interface.LookupTable;
 import Interface.Storage;
 import Interface.Ui;
 import Interface.Week;
-import JavaFx.MainWindow;
 import Tasks.Task;
 import Tasks.TaskList;
 import javafx.collections.FXCollections;
@@ -12,12 +11,23 @@ import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class WeekCommand extends Command {
+    private static LookupTable LT;
+    private static final Logger LOGGER = Logger.getLogger(WeekCommand.class.getName());
+    static {
+        try {
+            LT = new LookupTable();
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+    }
     private Integer week;
     private final ObservableList<Text> monList = FXCollections.observableArrayList();
     private final ObservableList<Text> tueList = FXCollections.observableArrayList();
@@ -87,13 +97,13 @@ public class WeekCommand extends Command {
 //                }
             }
         }
-        if(monList.size() != 0 ) monList.sorted(WeekCommand::compareByTime);
-        if(tueList.size() != 0 ) tueList.sorted(WeekCommand::compareByTime);
-        if(wedList.size() != 0 ) wedList.sorted(WeekCommand::compareByTime);
-        if(thuList.size() != 0 ) thuList.sorted(WeekCommand::compareByTime);
-        if(friList.size() != 0 ) friList.sorted(WeekCommand::compareByTime);
-        if(satList.size() != 0 ) satList.sorted(WeekCommand::compareByTime);
-        if(sunList.size() != 0 ) sunList.sorted(WeekCommand::compareByTime);
+        if(monList.size() != 0 ) monList.sort(WeekCommand::compareByTime);
+        if(tueList.size() != 0 ) tueList.sort(WeekCommand::compareByTime);
+        if(wedList.size() != 0 ) wedList.sort(WeekCommand::compareByTime);
+        if(thuList.size() != 0 ) thuList.sort(WeekCommand::compareByTime);
+        if(friList.size() != 0 ) friList.sort(WeekCommand::compareByTime);
+        if(satList.size() != 0 ) satList.sort(WeekCommand::compareByTime);
+        if(sunList.size() != 0 ) sunList.sort(WeekCommand::compareByTime);
         weekList = new Week(monList, tueList, wedList, thuList, friList, satList, sunList);
     }
 
