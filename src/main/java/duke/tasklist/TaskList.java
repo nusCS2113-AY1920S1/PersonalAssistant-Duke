@@ -1,5 +1,6 @@
 package duke.tasklist;
 
+import duke.exception.DukeException;
 import duke.task.Task;
 import duke.ui.Ui;
 
@@ -45,13 +46,27 @@ public class TaskList {
         }
     }
 
+    public ArrayList<Task> getList() {
+        return taskList;
+    }
     /**
      * returns the ArrayList of Tasks which duke.tasklist.TaskList maintains
      *
      * @return ArrayList the ArrayList of Tasks maintained by the duke.tasklist.TaskList class
      */
-    public ArrayList<Task> getList() {
-        return taskList;
+    public ArrayList<Task> getList(Optional<String> filter) {
+        ArrayList<Task> tl = new ArrayList<>();
+        if (filter.isPresent()) {
+            for (int i = 0; i < taskList.size(); i++) {
+                Task t = taskList.get(i);
+                if (t.getFilter() == filter) {
+                    tl.add(t);
+                }
+            }
+        } else {
+            tl = taskList;
+        }
+        return tl;
     }
 
     /**
@@ -63,14 +78,21 @@ public class TaskList {
         return taskList.size();
     }
 
-    /**
-     * returns the duke.task.Task at index i
-     *
-     * @param i the index of the duke.task.Task
-     * @return duke.task.Task the duke.task.Task object at index i
-     */
-    public Task get(int i) {
-        return taskList.get(i);
+    public Task get(int index) {
+        return taskList.get(index);
+    }
+    public Task get(Optional<String> filter, int filteredListIndex) throws DukeException {
+        int counter = 0;
+        for (int i = 0; i < taskList.size(); i++) {
+            Task t = taskList.get(i);
+            if (t.getFilter().equals(filter)) {
+                counter++;
+            }
+            if (counter == filteredListIndex) {
+                return t;
+            }
+        }
+        throw new DukeException("Index not found");
     }
 
     /**
@@ -166,7 +188,7 @@ public class TaskList {
             if (t.hasDateTime()) {
                 LocalDateTime taskDate = t.getDateTime();
                 if (ChronoUnit.DAYS.between(currDate, taskDate) < 7 &&
-                    ChronoUnit.DAYS.between(currDate, taskDate) > -1) {
+                        ChronoUnit.DAYS.between(currDate, taskDate) > -1) {
                     temp.add(t);
                 }
             }

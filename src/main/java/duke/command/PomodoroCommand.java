@@ -20,17 +20,23 @@ public class PomodoroCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, ParseException, DukeException {
         Pomodoro pomodoro = new Pomodoro();
         switch (command) {
-            case "work":
-                pomodoro.workTimer(ui);
+            case "start":
+                pomodoro.startTimer(ui);
                 break;
-            case "break":
-                pomodoro.shortBreakTimer(ui);
+            case "pause":
+                pomodoro.pauseTimer(ui);
                 break;
-            case "long break":
-                pomodoro.longBreakTimer(ui);
+            case "status":
+                pomodoro.getStatus();
+                break;
+            case "reset":
+                pomodoro.resetState();
+                break;
+            case "finish":
+                pomodoro.finishTimer(ui);
                 break;
             default:
-                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what field you are trying to edit!");
+                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what you are referring to");
         }
     }
 
