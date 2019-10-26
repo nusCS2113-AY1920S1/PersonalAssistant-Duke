@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public class ParserUtil {
 
-    private static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    private static final String MESSAGE_INVALID_INDEX = "Index is should be a non-zero unsigned integer.";
     private static final String SEPARATOR_INDEX_INTERVAL = "~";
     private static final String SEPARATOR_INDEX_MULTIPLE = ",";
 
@@ -81,6 +81,9 @@ public class ParserUtil {
         }
         Set<Index> result = new HashSet<>();
         for (int i = start; i <= end; i++) {
+            if (i <= 0) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
+            }
             result.add(Index.fromOneBased(i));
         }
         return result;
@@ -94,6 +97,8 @@ public class ParserUtil {
                 result.add(Index.fromOneBased(Integer.parseInt(indexString.strip())));
             } catch (NumberFormatException e) {
                 throw new ParseException(Message.MESSAGE_INVALID_NUMBER_FORMAT);
+            } catch (IndexOutOfBoundsException i) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
             }
         }
         return result;

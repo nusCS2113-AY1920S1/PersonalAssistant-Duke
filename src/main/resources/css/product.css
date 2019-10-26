@@ -176,3 +176,12 @@ https://github.com/TurekBot/JFXTableView_CSS/blob/master/src/main/resources/tech
 .table-view .menu-item .label {
     -fx-padding: 5 0 5 0;
 }
+
+.split-pane {
+    -fx-box-border: transparent;
+}
+
+.table-view .split-pane:horizontal > .split-pane-divider {
+    -fx-background-color: transparent;
+}
+

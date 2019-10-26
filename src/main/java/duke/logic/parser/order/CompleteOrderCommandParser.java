@@ -7,7 +7,9 @@ import duke.logic.parser.commons.Parser;
 import duke.logic.parser.commons.ParserUtil;
 import duke.logic.parser.exceptions.ParseException;
 
-
+/**
+ * A parser that parses {@code CompleteOrderCommand}.
+ */
 public class CompleteOrderCommandParser implements Parser<CompleteOrderCommand> {
     private static final String MESSAGE_EMPTY_INDICES = "Indices cannot be empty.";
 
