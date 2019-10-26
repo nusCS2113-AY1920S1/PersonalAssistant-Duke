@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -32,7 +31,7 @@ public class ImpressionCard extends AnchorPane {
      * Constructs an ImpressionCard object with the specified impression's details.
      *
      * @param impression Impression object.
-     * @param isPrimary If the Impression object is a primary diagnosis.
+     * @param isPrimary  If the Impression object is a primary diagnosis.
      */
     ImpressionCard(Impression impression, boolean isPrimary) {
         try {
