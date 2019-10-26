@@ -308,48 +308,4 @@ public class EditCommandParserTest {
     }
     //@@author
 
-    //@@author Xdecosee
-    /**
-     * This method test a series of wrong contact command inputs.
-     */
-    @ParameterizedTest
-    @ValueSource(strings = {"", "  ", "1", "garbage"})
-    public void parseContactInvalidInputTrue(String input) {
-        EditCommandParser parser = new EditCommandParser();
-        Contact contact = parser.parseContact(input);
-        assertNull(contact, "Return Contact should be null:");
-    }
-
-    /**
-     * This method test a series of correct contact command inputs.
-     */
-    @ParameterizedTest
-    @ValueSource(strings = {"6 /n /d /p", "6 /n   /d   /p  ",
-        "6 /n John /p 7183 /d brother 123@abc.com", "8 /n Test /d /d /doctor"})
-    public void parseContactValidInputSuccess(String input) {
-        EditCommandParser parser = new EditCommandParser();
-        Contact contact = parser.parseContact(input);
-        Contact match = null;
-        if ("6 /n /d /p".equals(input)) {
-            match = new Contact(null, "", "");
-            match.setId(6);
-        } else if ("6 /n   /d   /p  ".equals(input)) {
-            match = new Contact(null, "", "");
-            match.setId(6);
-        } else if ("6 /n John /p 7183 /d brother 123@abc.com".equals(input)) {
-            match = new Contact("John", "brother 123@abc.com", "7183");
-            match.setId(6);
-        } else if ("8 /n Test /d /d /doctor".equals(input)) {
-            match = new Contact("Test", "/d /doctor", null);
-            match.setId(8);
-        }
-        Contact finalMatch = match;
-        assertAll("Returned Contact should contain correct input values",
-            () -> assertEquals(finalMatch.getId(), contact.getId()),
-            () -> assertEquals(finalMatch.getName(), contact.getName()),
-            () -> assertEquals(finalMatch.getDetail(), contact.getDetail()),
-            () -> assertEquals(finalMatch.getPhoneNum(), contact.getPhoneNum())
-        );
-    }
-
 }

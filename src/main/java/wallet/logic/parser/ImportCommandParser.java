@@ -198,7 +198,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                         isRecurring = true;
                         date = LocalDate.parse(s[1].trim(), formatter);
                         freq = s[5].trim().toUpperCase();
-                        if (!freq.equals("DAILY") && !freq.equals("WEEKLY") && !freq.equals("MONTHLY")) {
+                        if (!"DAILY".equals(freq) && !"WEEKLY".equals(freq) && !"MONTHLY".equals(freq)) {
                             System.out.println(freq);
                             System.out.println(MESSAGE_ERROR_CSV_FORMAT);
                             return null;
