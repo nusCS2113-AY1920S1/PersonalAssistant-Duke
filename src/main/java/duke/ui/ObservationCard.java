@@ -5,11 +5,10 @@ import duke.data.Observation;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class ObservationCard extends AnchorPane {
+public class ObservationCard extends EvidenceCard {
     private static final String FXML = "ObservationCard.fxml";
 
     @FXML

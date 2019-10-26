@@ -5,11 +5,10 @@ import duke.data.Result;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class ResultCard extends AnchorPane {
+public class ResultCard extends EvidenceCard {
     private static final String FXML = "ResultCard.fxml";
 
     @FXML
