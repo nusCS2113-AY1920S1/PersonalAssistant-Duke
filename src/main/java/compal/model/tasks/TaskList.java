@@ -66,14 +66,14 @@ public class TaskList {
     /**
      * Removes a task that has an id value of id.
      */
-    public Task removeTaskById(int id) {
+    public void removeTaskById(int id) {
         //search for task with id of id
         for (Task t : arrlist) {
             if (t.getId() == id) {
                 arrlist.remove(t);
+                break;
             }
         }
-        throw null;
     }
 
     /**
