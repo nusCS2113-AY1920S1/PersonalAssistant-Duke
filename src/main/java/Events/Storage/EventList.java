@@ -9,6 +9,7 @@ import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.EventDate;
 import Events.Formatting.Predicate;
+import UserElements.ConcertBudgeting.Budgeting;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,7 +21,6 @@ import java.util.Date;
  * Does NOT contain any methods for reading/writing to savefile.
  */
 public class EventList {
-
     /**
      * list of Model_Class.Event objects currently stored.
      */
@@ -36,6 +36,11 @@ public class EventList {
      */
     private static final int DATE = 0;
     private static final int TYPE = 1;
+
+    /**
+     * Class that handles all budgeting for concerts.
+     */
+    private Budgeting budgeting;
 
     /**
      * Creates new Model_Class.EventList object.
@@ -91,6 +96,8 @@ public class EventList {
                 }
             }
         }
+
+        budgeting = new Budgeting(eventArrayList, 5);
     }
 
     /**
