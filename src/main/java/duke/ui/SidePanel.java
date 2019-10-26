@@ -8,6 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
+/**
+ * Represents the side panel of the main window.
+ */
 public class SidePanel extends UiPart<AnchorPane> {
     @FXML
     private StackPane taskContainer;

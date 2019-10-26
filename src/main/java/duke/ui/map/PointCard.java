@@ -10,6 +10,9 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.fxml.FXML;
 
+/**
+ * Represents a point on the map.
+ */
 public class PointCard extends UiPart<StackPane> {
     @FXML
     private Circle circle;
