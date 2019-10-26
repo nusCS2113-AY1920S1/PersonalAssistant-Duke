@@ -56,7 +56,7 @@ public class Cube {
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 isExit = c.isExit();
-                CommandResult result = c.execute(foodList, storageManager);
+                CommandResult result = c.execute(modelManager, storageManager);
                 ui.showCommandResult(result);
                 storage.save(storageManager);
             } catch (CubeException e) {

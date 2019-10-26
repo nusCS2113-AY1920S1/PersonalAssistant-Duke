@@ -7,6 +7,7 @@ package cube.logic.command;
 
 import cube.model.food.FoodList;
 import cube.model.food.Food;
+import cube.model.ModelManager;
 import cube.storage.StorageManager;
 import cube.logic.command.exception.CommandException;
 import cube.logic.command.util.CommandResult;
@@ -72,7 +73,8 @@ public class DeleteCommand extends Command {
 	 * @throws CommandException If deletion is unsuccessful.
 	 */
 	@Override
-	public CommandResult execute(FoodList list, StorageManager storage) throws CommandException {
+	public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
+		FoodList list = model.getFoodList();
 		Food toDelete;
 		switch (param) {
 			case INDEX:

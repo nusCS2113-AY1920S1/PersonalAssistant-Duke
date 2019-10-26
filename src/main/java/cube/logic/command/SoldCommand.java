@@ -4,6 +4,7 @@ import cube.model.food.FoodList;
 import cube.model.food.Food;
 import cube.model.sale.Sale;
 import cube.model.sale.SalesHistory;
+import cube.model.ModelManager;
 import cube.storage.StorageManager;
 import cube.logic.command.exception.CommandException;
 import cube.logic.command.util.CommandResult;
@@ -49,7 +50,8 @@ public class SoldCommand extends Command{
 	 * @throws CommandException If deletion is unsuccessful.
 	 */
 	@Override
-	public CommandResult execute(FoodList list, StorageManager storage) throws CommandException {
+	public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
+		FoodList list = model.getFoodList();
 		obtainFoodSold(list);
 		CommandUtil.requireValidQuantity(toSold, quantity);
 		

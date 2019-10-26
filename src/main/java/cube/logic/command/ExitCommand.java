@@ -6,6 +6,7 @@
 package cube.logic.command;
 
 import cube.model.food.FoodList;
+import cube.model.ModelManager;
 import cube.storage.StorageManager;
 import cube.logic.command.util.CommandResult;
 
@@ -31,7 +32,7 @@ public class ExitCommand extends Command{
 	 * @return The message feedback to user before Programme Exit.
 	 */
 	@Override
-	public CommandResult execute(FoodList list, StorageManager storage) {
+	public CommandResult execute(ModelManager model, StorageManager storage) {
 		return new CommandResult(MESSAGE_SUCCESS, false, true);
 	}
 }

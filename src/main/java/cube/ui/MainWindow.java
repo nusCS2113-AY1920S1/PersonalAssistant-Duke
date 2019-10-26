@@ -5,6 +5,8 @@ import cube.logic.command.Command;
 import cube.logic.command.util.CommandResult;
 import cube.logic.parser.Parser;
 import cube.model.food.FoodList;
+import cube.model.sale.SalesHistory;
+import cube.model.ModelManager;
 import cube.storage.StorageManager;
 import cube.storage.ConfigStorage;
 import cube.util.FileUtilJson;
@@ -32,6 +34,8 @@ public class MainWindow extends UiManager<Stage> {
     private ConfigStorage configStorage;
     private FileUtilJson storage;
     private FoodList foodList;
+    private SalesHistory salesHistory;
+    private ModelManager modelManager;
 
     public MainWindow (Stage primaryStage) {
         super(FXML, primaryStage);
@@ -47,6 +51,7 @@ public class MainWindow extends UiManager<Stage> {
         this.storage = storage;
         this.configStorage = storageManager.getConfig();
         this.foodList = storageManager.getFoodList();
+        this.modelManager = new ModelManager(foodList, new SalesHistory());
     }
 
     public void show() {
@@ -70,7 +75,7 @@ public class MainWindow extends UiManager<Stage> {
     private CommandResult executeCommand(String command) throws CubeException {
         try {
             Command c = Parser.parse(command);
-            CommandResult result = c.execute(foodList, storageManager);
+            CommandResult result = c.execute(modelManager, storageManager);
             resultDisplay.setResultText(result.getFeedbackToUser());
 
             if (result.isShowHelp()) {

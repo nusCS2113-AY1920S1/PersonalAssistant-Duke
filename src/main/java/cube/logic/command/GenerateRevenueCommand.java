@@ -14,6 +14,7 @@ package cube.logic.command;
 import cube.logic.command.exception.CommandException;
 import cube.model.food.FoodList;
 import cube.model.food.Food;
+import cube.model.ModelManager;
 import cube.storage.StorageManager;
 import cube.logic.command.util.CommandResult;
 import cube.logic.command.util.CommandUtil;
@@ -91,7 +92,8 @@ public class GenerateRevenueCommand extends Command {
      * @throws CommandException If Generating Revenue is unsuccessful.
      */
     @Override
-    public CommandResult execute(FoodList list, StorageManager storage) throws CommandException {
+    public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
+        FoodList list = model.getFoodList();
         Food toGenerateRevenue;
         switch (param) {
             case ALL:

@@ -7,6 +7,7 @@ package cube.logic.command;
 
 import cube.model.food.FoodList;
 import cube.model.food.Food;
+import cube.model.ModelManager;
 import cube.storage.StorageManager;
 import cube.logic.command.exception.CommandException;
 import cube.logic.command.util.CommandResult;
@@ -36,7 +37,8 @@ public class AddCommand extends Command{
 	 * @return The message feedback to user before Programme Exit.
 	 */
 	@Override
-	public CommandResult execute(FoodList list, StorageManager storage) throws CommandException {
+	public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
+		FoodList list = model.getFoodList();
 		CommandUtil.requireNameNotExists(list, toAdd.getName());
 		list.add(toAdd);
 		Food.updateRevenue(Food.getRevenue() + toAdd.getFoodRevenue());
