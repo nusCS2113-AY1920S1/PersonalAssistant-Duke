@@ -13,6 +13,13 @@ import java.util.Timer;
 import java.util.Date;
 
 public class TaskCreator {
+    public static final String UPDATED_DESCRIPTION_ERROR = "There is a formatting error in your updated description";
+    public static final String DURATION_FORMAT_ERROR = "There's a problem with the duration you've specified, default to no duration";
+    public static final String RECURRENCE_FORMAT_ERROR = "There seems to some mistake in your recurrence entry, will be setting recurrence as none";
+    public static final String DATE_FORMAT_ERROR = "Wrong date format, date is set default to current date";
+    public static final String STARTING_DATE_FORMAT_ERROR = "Wrong date format, starting date is set default to current date";
+    public static final String ENDING_DATE_FORMAT_ERROR = "Wrong date format, ending date is set default to current date";
+    public static final String UPDATED_DATE_ERROR = "Please check the updated date of your task";
     private Parser parser;
     Timer timer;
 
@@ -89,15 +96,24 @@ public class TaskCreator {
      * @throws RoomShareException when there is no date and time detected or the format of date and time is invalid
      */
     public ArrayList<Date> extractDate(String input) throws RoomShareException {
+        // counts the number of '&' tags to determine if the user input a single date or double dates
+        int count = 0;
+        char[] inputAsChar = input.toCharArray();
+        for (char c: inputAsChar) {
+            if (c == '&') {
+                count++;
+            }
+        }
+
         String[] dateArray = input.split("&");
         ArrayList<Date> dates = new ArrayList<>();
-        if (dateArray.length != 1) {
-            if (dateArray.length <= 3) {
+        if (count > 0) {
+            if (count == 2) {
                 String dateInput = dateArray[1].trim();
                 try {
                     dates.add(parser.formatDate(dateInput));
                 } catch (RoomShareException e) {
-                    System.out.println("Wrong date format, date is set default to current date");
+                    System.out.println(DATE_FORMAT_ERROR);
                     dates.add(new Date());
                 }
             } else {
@@ -106,13 +122,13 @@ public class TaskCreator {
                 try {
                     dates.add(parser.formatDate(fromInput));
                 } catch (RoomShareException e) {
-                    System.out.println("Wrong date format, starting date is set default to current date");
+                    System.out.println(STARTING_DATE_FORMAT_ERROR);
                     dates.add(new Date());
                 }
                 try {
                     dates.add(parser.formatDate(toInput));
                 } catch (RoomShareException e) {
-                    System.out.println("Wrong date format, ending date is set default to current date");
+                    System.out.println(ENDING_DATE_FORMAT_ERROR);
                     dates.add(new Date());
                 }
             }
@@ -147,11 +163,11 @@ public class TaskCreator {
         String[] recurrenceArray = input.split("%");
         RecurrenceScheduleType recurrence;
         if (recurrenceArray.length != 1) {
-            String inputRecurrence = recurrenceArray[1].trim();
             try {
+                String inputRecurrence = recurrenceArray[1].trim();
                 recurrence = RecurrenceScheduleType.valueOf(inputRecurrence);
-            } catch (IllegalArgumentException e) {
-                System.out.println("There seems to some mistake in your recurrence entry, will be setting recurrence as none");
+            } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+                System.out.println(RECURRENCE_FORMAT_ERROR);
                 recurrence = RecurrenceScheduleType.none;
             }
         } else {
@@ -176,7 +192,7 @@ public class TaskCreator {
                 duration = Integer.parseInt(inputDuration[0].trim());
                 unit = TimeUnit.valueOf(inputDuration[1].trim());
             } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
-                System.out.println("There's a problem with the duration you've specified, default to no duration");
+                System.out.println(DURATION_FORMAT_ERROR);
                 duration = 0;
                 unit = TimeUnit.unDefined;
             }
@@ -305,7 +321,61 @@ public class TaskCreator {
         }
     }
 
+    /**
+     * Update a task from the task list according to the user's input
+     * @param input user's input
+     * @param oldTask the task to be updated
+     */
     public void updateTask(String input, Task oldTask) {
+        try {
+            if (input.contains("(") && input.contains(")")) {
+                String description = this.extractDescription(input);
+                oldTask.setDescription(description);
+            }
+        } catch (RoomShareException e) {
+            System.out.println(UPDATED_DESCRIPTION_ERROR);
+        }
 
+        try {
+            if (input.contains("&")) {
+                ArrayList<Date> dates = this.extractDate(input);
+                if (oldTask instanceof Leave && dates.size() == 2) {
+                    Leave oldLeave = (Leave) oldTask;
+                    Date start = dates.get(0);
+                    Date end = dates.get(1);
+                    oldLeave.setDate(start);
+                    oldLeave.setStartDate(start);
+                    oldLeave.setEndDate(end);
+                } else {
+                    Date date = dates.get(0);
+                    oldTask.setDate(date);
+                }
+            }
+        } catch (RoomShareException e) {
+            System.out.println(UPDATED_DATE_ERROR);
+        }
+
+        if (input.contains("*")) {
+            Priority priority = this.extractPriority(input);
+            oldTask.setPriority(priority);
+        }
+
+        if (input.contains("@")) {
+            String assignee = this.extractAssignee(input);
+            oldTask.setAssignee(assignee);
+        }
+
+        if (input.contains("^") && oldTask instanceof Meeting) {
+            Pair<Integer, TimeUnit> durationAndUnit = this.extractDuration(input);
+            int duration = durationAndUnit.getKey();
+            TimeUnit unit = durationAndUnit.getValue();
+            Meeting oldMeeting = (Meeting) oldTask;
+            oldMeeting.setDuration(duration,unit);
+        }
+
+        if (input.contains("%")) {
+            RecurrenceScheduleType recurrence = this.extractRecurrence(input);
+            oldTask.setRecurrenceSchedule(recurrence);
+        }
     }
 }

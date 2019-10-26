@@ -179,6 +179,9 @@ public abstract class Task{
      * @return
      */
     public String toString() {
+        if (hasRecurring)
+            return getStatusIcon() + getDescription() + " " + "(" + getAssignee() + ") (every "
+                    + getRecurrenceSchedule().toString() + ")";
         return getStatusIcon() + getDescription() + " " + "(" + getAssignee() + ")";
     }
 }
