@@ -44,9 +44,9 @@ public class EntryParser extends Parser {
             return new SearchCommand(mode, component, content);
         } else if (commandToRun.equals("remove")) { //TODO: indexoutofbound exception
             return new RemoveCommand(mode, inputArray[1]);
-        } else if (commandToRun.equals(ENTRY_COMMAND_REDO) ||
-                    commandToRun.equals(ENTRY_COMMAND_UNDO) ||
-                    commandToRun.equals(ENTRY_COMMAND_REPEAT)) {
+        } else if (commandToRun.equals(ENTRY_COMMAND_REDO)
+                || commandToRun.equals(ENTRY_COMMAND_UNDO)
+                || commandToRun.equals(ENTRY_COMMAND_REPEAT)) {
             return new AddActionCommand(mode, commandToRun);
         } else {
             return invalidCommand();
