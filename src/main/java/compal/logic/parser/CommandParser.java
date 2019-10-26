@@ -56,7 +56,11 @@ public interface CommandParser {
     String MESSAGE_MISSING_START_TIME_ARG = "ArgumentError: Missing /start";
     String MESSAGE_MISSING_END_TIME_ARG = "ArgumentError: Missing /end";
     String MESSAGE_MISSING_FINAL_DATE_ARG = "ArgumentError: Missing /final-date";
+    String MESSAGE_MISSING_STATUS_ARG = "ArgumentError: Missing /status";
+    String MESSAGE_MISSING_ID_ARG = "ArgumentError: Missing /id";
+    String MESSAGE_MISSING_TYPE_ARG = "ArgumentError: Missing /type";
     String MESSAGE_INVALID_TYPE = "Error: The type does not exist!";
+
 
     /**
      * Method specification for different command parsers to parse user input.
@@ -104,7 +108,7 @@ public interface CommandParser {
             throw new ParserException(MESSAGE_INVALID_TYPE);
 
         } else {
-            throw new ParserException(MESSAGE_MISSING_TOKEN);
+            throw new ParserException(MESSAGE_MISSING_TYPE_ARG);
         }
     }
 
@@ -129,7 +133,7 @@ public interface CommandParser {
             String statusField = scanner.next();
             return statusField;
         } else {
-            throw new ParserException(MESSAGE_MISSING_TOKEN);
+            throw new ParserException(MESSAGE_MISSING_STATUS_ARG);
         }
     }
 
@@ -190,7 +194,7 @@ public interface CommandParser {
             int intInput = Integer.parseInt(input);
             return intInput;
         } else {
-            throw new ParserException(MESSAGE_MISSING_TOKEN);
+            throw new ParserException(MESSAGE_MISSING_ID_ARG);
         }
     }
 

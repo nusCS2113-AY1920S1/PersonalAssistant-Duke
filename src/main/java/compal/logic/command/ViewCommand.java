@@ -1,7 +1,6 @@
 package compal.logic.command;
 
 import compal.commons.CompalUtils;
-import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 import compal.ui.CalenderUtil;
@@ -13,28 +12,28 @@ import java.util.Calendar;
 import java.util.Date;
 
 //@@author SholihinK
+
 /**
  * View the task in day,week or month format.
  */
 public class ViewCommand extends Command {
 
     public static final String MESSAGE_USAGE = "view\n\t"
-            + "Format: view {day [/date dd/mm/yyyy]}|{week [dd/mm/yyyy]}|{month [dd/mm/yyyy]}"
-            + "[/type deadline|event]\n\n\t"
-            + "Note: content in \"{} \": must be entered together\n\t"
-            + "content in \"[]\": optional\n\t"
-            + "content separated by \"|\": must choose exactly one from them\n\t"
-            + "dd/mm/yyyy is the date format. e.g. 01/01/2000\n\n"
-            + "This command will view the timetable in a daily/weekly/monthly view\n"
-            + "Examples:\n\t"
-            + "view day|week|month\n\t\t"
-            + "show the timetable of today and the list containing all tasks today|this week|this month\n\t"
-            + "view week 01/01/2019\n\t\t"
-            + "show the list containing all tasks on the week of 01/01/2019\n\t"
-            + "view day /date 01/01/2019 /type deadline:\n\t\t"
-            + "show the list containing all deadline type tasks on 01/01/2019";
+        + "Format: view {day [/date dd/mm/yyyy]}|{week [dd/mm/yyyy]}|{month [dd/mm/yyyy]}"
+        + "[/type deadline|event]\n\n\t"
+        + "Note: content in \"{} \": must be entered together\n\t"
+        + "content in \"[]\": optional\n\t"
+        + "content separated by \"|\": must choose exactly one from them\n\t"
+        + "dd/mm/yyyy is the date format. e.g. 01/01/2000\n\n"
+        + "This command will view the timetable in a daily/weekly/monthly view\n"
+        + "Examples:\n\t"
+        + "view day|week|month\n\t\t"
+        + "show the timetable of today and the list containing all tasks today|this week|this month\n\t"
+        + "view week 01/01/2019\n\t\t"
+        + "show the list containing all tasks on the week of 01/01/2019\n\t"
+        + "view day /date 01/01/2019 /type deadline:\n\t\t"
+        + "show the list containing all deadline type tasks on 01/01/2019";
 
-    private static final String MESSAGE_UNABLE_TO_EXECUTE = "Unable to execute command!";
     private CalenderUtil calenderUtil;
     private String viewType;
     private String dateInput;
@@ -74,7 +73,7 @@ public class ViewCommand extends Command {
     }
 
     @Override
-    public CommandResult commandExecute(TaskList taskList) throws CommandException {
+    public CommandResult commandExecute(TaskList taskList) {
         ArrayList<Task> currList = taskList.getArrList();
 
 
@@ -140,7 +139,7 @@ public class ViewCommand extends Command {
      * @param currList  the curr taskList of task.
      * @return string output
      */
-    private String displayWeekView(String dateInput, ArrayList<Task> currList) throws CommandException {
+    private String displayWeekView(String dateInput, ArrayList<Task> currList) {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
