@@ -32,6 +32,8 @@ public class EditFeedbackCommand extends Command<RecipeList, Ui, RecipeStorage> 
                 feedback = split[1].trim();
                 if (recipeTitle.isEmpty()) {
                     arrayList.add(ERROR_MESSAGE_EDIT_FEEDBACK_INCOMPLETE);
+                } else if (!recipeList.containsRecipe(recipeTitle)) {
+                    arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
                 } else {
                     if (feedback.equals("")) {
                         feedback = "No feedback yet.";

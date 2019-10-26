@@ -1,2 +1,2 @@
-apple / 5.0 / G /   cold
-sugar / 5.0 / G /   mixed
+apple , 5.0 , G , No additional information.
+sugar , 5.0 , G ,    mixed

@@ -1,25 +1,27 @@
 package duke.model.task.recipetasks;
 
+import static duke.common.RecipeMessages.*;
+
 public class Recipe {
 
     RecipeTitle recipeTitle;
     Rating rating;
-    PrepStep prepStep;
+    PrepSteps prepSteps;
     RequiredIngredients requiredIngredients; // requiredIngredients is a list of recipeIngredient objects.
     Feedback feedback;
 
     public Recipe(String recipeTitle) {
         this.recipeTitle = new RecipeTitle(recipeTitle);
         this.rating = Rating.UNRATED;
-        this.prepStep = new PrepStep();
+        this.prepSteps = new PrepSteps();
         this.requiredIngredients = new RequiredIngredients();
         this.feedback = new Feedback();
     }
 
-    public Recipe(String recipeTitle, String rating, String prepStep, String requiredIngredients, String feedback) {
+    public Recipe(String recipeTitle, String rating, String prepSteps, String requiredIngredients, String feedback) {
         this.recipeTitle = new RecipeTitle(recipeTitle);
         this.rating = assignRating(rating);
-        this.prepStep = new PrepStep(prepStep);
+        this.prepSteps = new PrepSteps(prepSteps);
         this.requiredIngredients = new RequiredIngredients(requiredIngredients);
         this.feedback = new Feedback(feedback);
     }
@@ -32,8 +34,8 @@ public class Recipe {
         return this.rating;
     }
 
-    public PrepStep getPrepStep() {
-        return this.prepStep;
+    public PrepSteps getPrepSteps() {
+        return this.prepSteps;
     }
 
     public RequiredIngredients getRequiredIngredients() {
@@ -64,17 +66,21 @@ public class Recipe {
     public String toSaveString() {
         return this.recipeTitle.toSaveString().trim() + " | "
                 + this.checkRating().trim() + " | "
-                + this.prepStep.toSaveString().trim() + " | "
+                + this.prepSteps.toSaveString().trim() + " | "
                 + this.requiredIngredients.toSaveString().trim() + " | "
                 + this.feedback.toSaveString().trim();
     }
 
     public String getViewString() {
-        return this.recipeTitle.toString() + "\n"
-                + this.checkRating() + "\n"
-                + this.prepStep.toString() + "\n"
-                + this.requiredIngredients.toViewString()
-                + this.feedback.toString();
+        return LABEL_TITLE + this.recipeTitle.toString() + "\n"
+                + "\n"
+                + LABEL_RATING + this.checkRating() + "\n"
+                + "\n"
+                + LABEL_PREPSTEPS + this.prepSteps.toViewString()
+                + "\n"
+                + LABEL_REQ_INGREDIENTS + this.requiredIngredients.toViewString()
+                + "\n"
+                + LABEL_FEEDBACK + this.feedback.toString();
     }
 
     private Rating assignRating(String rating) { // can try switch statements too.

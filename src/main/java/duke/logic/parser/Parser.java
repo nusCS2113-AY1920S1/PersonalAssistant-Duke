@@ -39,6 +39,8 @@ public class Parser {
             return new EditRatingCommand(input);
         } else if (input.trim().contains(COMMAND_EDIT_FEEDBACK)) {
             return new EditFeedbackCommand(input);
+        } else if (input.trim().contains(COMMAND_EDIT_PREPSTEP)) {
+            return new EditPrepStepCommand(input);
         } else {
             System.out.println("went to listallrecipes");
             return new ListAllRecipeCommand(input);

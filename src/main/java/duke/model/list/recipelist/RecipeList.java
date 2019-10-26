@@ -71,6 +71,28 @@ public class RecipeList {
         recipeLHM.get(recipeTitle).getRequiredIngredients().clearIngredients();
     }
 
+
+
+
+
+    public void insertPrepStep(String recipeTitle, String position, String prepStep) {
+        recipeLHM.get(recipeTitle).getPrepSteps().insertStep(position, prepStep);
+    }
+
+    public String deletePrepStep(String recipeTitle, String position) {
+        return recipeLHM.get(recipeTitle).getPrepSteps().deleteStep(position);
+    }
+
+    public void appendPrepStep(String recipeTitle, String prepStep) {
+        recipeLHM.get(recipeTitle).getPrepSteps().appendStep(prepStep);
+    }
+
+    public void clearPrepStep(String recipeTitle) {
+        recipeLHM.get(recipeTitle).getPrepSteps().clearSteps();
+    }
+
+
+
     public ArrayList<String> listRecipeTitle() {
         ArrayList<String> arrList = new ArrayList<>();
         for (int i = 0; i < getSize(); i++) {

@@ -31,6 +31,8 @@ public class EditRatingCommand extends Command<RecipeList, Ui, RecipeStorage> {
                 rating = split[1].trim();
                 if (recipeTitle.isEmpty()) {
                     arrayList.add(ERROR_MESSAGE_EDIT_RATING_INCOMPLETE);
+                } else if (!recipeList.containsRecipe(recipeTitle)) {
+                    arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
                 } else {
                     if (isValidRating(rating)) {
                         if (rating.equals("")) {

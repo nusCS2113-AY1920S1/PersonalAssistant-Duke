@@ -60,7 +60,7 @@ public class RecipeStorage {
             String content = "";
             while ((content = bufferedReader.readLine()) != null) {
                 // can use a splitMethod() here for tidyness?
-                String recipeTitle, rating, prepStep, requiredIngredients, feedback, remaining, remaining2, remaining3;
+                String recipeTitle, rating, prepSteps, requiredIngredients, feedback, remaining, remaining2, remaining3;
                 String[] split = content.split("\\|", 2);
                 if (split.length == 2) {
                     recipeTitle = split[0];
@@ -71,14 +71,15 @@ public class RecipeStorage {
                         remaining2 = split2[1];
                         String[] split3 = remaining2.split("\\|", 2);
                         if (split3.length == 2) {
-                            prepStep = split3[0];
+                            prepSteps = split3[0];
                             remaining3 = split3[1];
                             String[] split4 = remaining3.split("\\|", 2);
                             if (split4.length == 2) {
                                 requiredIngredients = split4[0];
                                 feedback = split4[1];
-                                Recipe recipe = new Recipe(recipeTitle, rating, prepStep, requiredIngredients, feedback);
+                                Recipe recipe = new Recipe(recipeTitle, rating, prepSteps, requiredIngredients, feedback);
                                 LHMRecipeList.put(recipeTitle, recipe);
+                                System.out.println("successful load");
                             }
                         }
                     }

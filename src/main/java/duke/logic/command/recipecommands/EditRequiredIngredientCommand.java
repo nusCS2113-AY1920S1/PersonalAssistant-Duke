@@ -51,8 +51,10 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                          additionalInfo = NO_ADDITIONAL_INFO;
                      }
 
-                     if (position.isEmpty() || ingredientName.isEmpty() || quantity.isEmpty() || unit.isEmpty()) {
+                     if (recipeTitle.isEmpty() || position.isEmpty() || ingredientName.isEmpty() || quantity.isEmpty() || unit.isEmpty()) {
                          arrayList.add(ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCOMPLETE);
+                     } else if (!recipeList.containsRecipe(recipeTitle)) {
+                         arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
                      } else {
                          if (isParsable(quantity) && isKnownUnit(unit) && isParsable(position) && isValidPosition(recipeTitle, position, recipeList)) {
                              // what if they anyhow input position?
@@ -70,7 +72,7 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                                  arrayList.add(ERROR_MESSAGE_INVALID_INDEX + "\n");
                              }
                              if (!isValidPosition(recipeTitle, position, recipeList)) {
-                                 arrayList.add(ERROR_MESSAGE_INVALID_POSITION);
+                                 arrayList.add(ERROR_MESSAGE_REQ_INGREDIENT_INVALID_POSITION);
                              }
                              else {
                                  arrayList.add(ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT + "\n");
@@ -84,12 +86,18 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                      String[] split = description.split(command, 2);
                      recipeTitle = split[0].trim();
                      position = split[1].trim();
-                     if (isParsable(position)) {
-                         String deletedIngredientName = recipeList.deleteReqIngredient(recipeTitle, position);
-                         recipeStorage.saveFile(recipeList);
-                         arrayList.add(MESSAGE_DELETED_FROM_REQ_INGREDIENTS + "\n" + "       " + deletedIngredientName);
+                     if (recipeTitle.isEmpty() || position.isEmpty()) {
+                         arrayList.add(ERROR_MESSAGE_EDIT_INGREDIENT_DEL_INCOMPLETE);
+                     } else if (!recipeList.containsRecipe(recipeTitle)) {
+                         arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
                      } else {
-                         arrayList.add(ERROR_MESSAGE_INVALID_INDEX);
+                         if (isParsable(position)) {
+                             String deletedIngredientName = recipeList.deleteReqIngredient(recipeTitle, position);
+                             recipeStorage.saveFile(recipeList);
+                             arrayList.add(MESSAGE_DELETED_FROM_REQ_INGREDIENTS + "\n" + "       " + deletedIngredientName);
+                         } else {
+                             arrayList.add(ERROR_MESSAGE_INVALID_INDEX);
+                         }
                      }
                  }
 
@@ -116,8 +124,10 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                          additionalInfo = NO_ADDITIONAL_INFO;
                      }
 
-                     if (ingredientName.isEmpty() || quantity.isEmpty() || unit.isEmpty()) {
-                         arrayList.add(ERROR_MESSAGE_INGREDIENT_INCOMPLETE);
+                     if (recipeTitle.isEmpty() || ingredientName.isEmpty() || quantity.isEmpty() || unit.isEmpty()) {
+                         arrayList.add(ERROR_MESSAGE_EDIT_INGREDIENT_APP_INCOMPLETE);
+                     } else if (!recipeList.containsRecipe(recipeTitle)) {
+                         arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
                      } else {
                          if (isParsable(quantity) && isKnownUnit(unit)) {
                              recipeList.appendReqIngredient(recipeTitle, ingredientName, quantity, unit, additionalInfo);
@@ -137,17 +147,17 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                      String[] split = description.split(command, 2);
                      recipeTitle = split[0].trim();
                      if (recipeTitle.isEmpty()) {
-                         arrayList.add(ERROR_MESSAGE_EDIT_INGREDIENT_CLEAR_INCOMPLETE);
+                         arrayList.add(ERROR_MESSAGE_EDIT_INGREDIENT_CLR_INCOMPLETE);
+                     } else if (!recipeList.containsRecipe(recipeTitle)) {
+                         arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
                      } else {
                          recipeList.clearReqIngredient(recipeTitle);
                          recipeStorage.saveFile(recipeList);
                          arrayList.add(MESSAGE_CLEARED_REQ_INGREDIENTS);
                      }
                  }
-
-
                  else {
-                     arrayList.add(ERROR_MESSAGE_EDIT_RECIPE_INCORRECT_FORMAT);
+                     arrayList.add(ERROR_MESSAGE_EDIT_REQ_INGREDIENT_INCORRECT_FORMAT);
                  }
              } else {
                  arrayList.add(ERROR_MESSAGE_REQ_INGREDIENT_NO_EDIT_COMMAND);
@@ -157,6 +167,7 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
         }
         return arrayList;
     }
+
 
     private boolean hasAllIngredientFields(String description) {
         if (description.contains("n/") && description.contains("q/") && description.contains("u/")) {
