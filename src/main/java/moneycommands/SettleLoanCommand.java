@@ -10,6 +10,7 @@ import money.Income;
 import money.Loan;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 public class SettleLoanCommand extends MoneyCommand {
 
     private String inputString;
-    private float amount;
+    private static float amount;
     private static int serialNo;
     private static Loan.Type type;
     private static final int SETTLE_ALL_FLAG = -2;
@@ -172,25 +173,28 @@ public class SettleLoanCommand extends MoneyCommand {
 
     @Override
     //@@author Chianhaoplanks
-    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
-        /*
-        String[] splitStr = inputString.split(" /to ", 2);
-        //undo the expenditure income from total and current, flip settled to unsettled(def)
-        Expenditure exp = account.getExpListTotal().get(account.getExpListTotal().size() - 1);
-        float amount = -exp.getPrice();
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException{
+        //find the type, the amount and the serial number
         Loan l;
         switch (type) {
-            case INCOMING:
-                l = account.getIncomingLoans().get(serialNo);
-                l.settleLoanDebt(amount);
-                account.getIncomingLoans().set(serialNo, l);
-                break;
             case OUTGOING:
+                account.getIncomeListTotal().remove(account.getIncomeListTotal().size() - 1);
+                l = account.getOutgoingLoans().get(serialNo);
+                l.settleLoanDebt(-amount);
+                account.getOutgoingLoans().set(serialNo, l);
+                break;
+            case INCOMING:
+                account.getExpListTotal().remove(account.getExpListTotal().size() - 1);
+                l = account.getIncomingLoans().get(serialNo);
+                l.settleLoanDebt(-amount);
+                account.getIncomingLoans().set(serialNo, l);
                 break;
             default:
                 break;
         }
-         */
-        return;
+        storage.writeToFile(account);
+
+        ui.appendToOutput(" Last command undone: \n");
+        ui.appendToOutput(loanToString + " reverted back to previous state.\n");
     }
 }
