@@ -46,6 +46,9 @@ public class EditCommandParserTest {
     }
 
     //@@author Xdecosee
+    /**
+     * This method test a series of wrong contact command inputs.
+     */
     @ParameterizedTest
     @ValueSource(strings = {"", "  ", "1", "garbage"})
     public void parseContactInvalidInputTrue(String input) {
@@ -54,6 +57,9 @@ public class EditCommandParserTest {
         assertNull(contact, "Return Contact should be null:");
     }
 
+    /**
+     * This method test a series of correct contact command inputs.
+     */
     @ParameterizedTest
     @ValueSource(strings = {"6 /n /d /p", "6 /n   /d   /p  ",
         "6 /n John /p 7183 /d brother 123@abc.com", "8 /n Test /d /d /doctor"})
