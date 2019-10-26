@@ -12,7 +12,6 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 /**
  * This class create a bank account tracker for the user to track their
@@ -54,7 +53,9 @@ public class CreateBankAccountCommand extends MoneyCommand {
     /**
      * Since the new bank account tracker has been packed in the constructor,
      * in this method, Financial Ghost will append the information of the new
-     * tracker to the list in the Account class and print a confirm message.
+     * tracker to the list in the Account class and write the new information
+     * into the local file for storage purpose. Finally, it will append a confirm
+     * message to the output string.
      * @param account The class record all the financial information of the user
      * @param ui The user interface
      * @param storage The class used to store the information to the local disk
