@@ -428,6 +428,14 @@ public class Ui {
         printIndented("You've deleted " + module + ".");
     }
 
+    public void showDeletedLesson(String moduleCode) {
+        printIndented("You have deleted lessons for " + moduleCode + ".");
+    }
+
+    public void showNoDeletedLesson(String moduleCode) {
+        printIndented("There are no lessons to be deleted for " + moduleCode + ".");
+    }
+
     /**
      * Displays a given message.
      *

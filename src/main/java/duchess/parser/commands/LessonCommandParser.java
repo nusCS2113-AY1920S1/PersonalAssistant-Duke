@@ -3,9 +3,6 @@ package duchess.parser.commands;
 import duchess.exceptions.DuchessException;
 import duchess.logic.commands.AddLessonCommand;
 import duchess.logic.commands.Command;
-import duchess.logic.commands.DeleteModuleCommand;
-import duchess.logic.commands.DeleteTaskCommand;
-import duchess.parser.Parser;
 import duchess.parser.Util;
 
 import java.time.LocalDateTime;
