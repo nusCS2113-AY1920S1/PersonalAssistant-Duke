@@ -9,6 +9,11 @@ import java.util.List;
 
 public class UndoCommand extends Command {
     private int undoCounter;
+    private static final String UNDO_USAGE_ERROR_MESSAGE = "Usage: undo [number]";
+    private static final String NEGATIVE_NUMBER_ERROR_MESSAGE
+            = "[number] must be a positive integer, i.e. 1, 2, 3, ...";
+    private static final String INVALID_NUMBER_ERROR_MESSAGE
+            = "You have entered an invalid value.";
 
     /**
      * Checks if undo command contains additional parameters.
@@ -18,9 +23,20 @@ public class UndoCommand extends Command {
      */
     public UndoCommand(List<String> words) throws DuchessException {
         if (words.size() != 1 && words.size() != 0) {
-            throw new DuchessException("Usage: undo [number]");
+            throw new DuchessException(UNDO_USAGE_ERROR_MESSAGE);
         } else if (words.size() == 1) {
-            undoCounter = Integer.parseInt(words.get(0));
+            try {
+                undoCounter = Integer.parseInt(words.get(0));
+
+                if (undoCounter <= 0) {
+                    throw new IllegalArgumentException();
+                }
+            } catch (NumberFormatException e) {
+                throw new DuchessException(INVALID_NUMBER_ERROR_MESSAGE);
+            } catch (IllegalArgumentException e) {
+                throw new DuchessException(NEGATIVE_NUMBER_ERROR_MESSAGE);
+            }
+
         } else if (words.size() == 0) {
             undoCounter = 1;
         }

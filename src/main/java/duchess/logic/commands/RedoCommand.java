@@ -9,6 +9,11 @@ import java.util.List;
 
 public class RedoCommand extends Command {
     private int redoCounter;
+    private static final String REDO_USAGE_ERROR_MESSAGE = "Usage: redo [number]";
+    private static final String NEGATIVE_NUMBER_ERROR_MESSAGE
+            = "[number] must be a positive integer, i.e. 1, 2, 3, ...";
+    private static final String INVALID_NUMBER_ERROR_MESSAGE
+            = "You have entered an invalid value.";
 
     /**
      * Checks if undo command contains additional parameters.
@@ -18,9 +23,19 @@ public class RedoCommand extends Command {
      */
     public RedoCommand(List<String> words) throws DuchessException {
         if (words.size() != 1 && words.size() != 0) {
-            throw new DuchessException("Usage: redo [number]");
+            throw new DuchessException(REDO_USAGE_ERROR_MESSAGE);
         } else if (words.size() == 1) {
-            redoCounter = Integer.parseInt(words.get(0));
+            try {
+                redoCounter = Integer.parseInt(words.get(0));
+
+                if (redoCounter <= 0) {
+                    throw new IllegalArgumentException();
+                }
+            } catch (NumberFormatException e) {
+                throw new DuchessException(INVALID_NUMBER_ERROR_MESSAGE);
+            } catch (IllegalArgumentException e) {
+                throw new DuchessException(NEGATIVE_NUMBER_ERROR_MESSAGE);
+            }
         } else if (words.size() == 0) {
             redoCounter = 1;
         }
