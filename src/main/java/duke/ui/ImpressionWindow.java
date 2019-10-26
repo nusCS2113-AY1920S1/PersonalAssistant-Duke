@@ -133,6 +133,7 @@ class ImpressionWindow extends UiElement<Region> {
 
     /**
      * This function update all labels in the Impression Window when called.
+     * Todo May be replaced by listeners.
      */
     private void updateUi() {
         nameLabel.setText(String.valueOf(impression.getName()));
