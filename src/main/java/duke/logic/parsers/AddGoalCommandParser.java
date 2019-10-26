@@ -7,7 +7,7 @@ import duke.model.Goal;
 /**
  * Parser class to handle setting of goals.
  */
-public class SetgoalCommandParser implements ParserInterface<AddGoalCommand> {
+public class AddGoalCommandParser implements ParserInterface<AddGoalCommand> {
 
     /**
      * Parse user input and return AddGoalCommand.

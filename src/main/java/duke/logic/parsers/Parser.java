@@ -31,7 +31,7 @@ import static duke.commons.exceptions.ExceptionMessages.UNKNOWN_COMMAND;
  * And generate the appropriate command with their appropriate arguments
  */
 public class Parser {
-    private static ParserUtil parserUtil;
+    private ParserUtil parserUtil;
 
     public Parser(Autocorrect autocorrect) {
         this.parserUtil = new ParserUtil(autocorrect);
@@ -89,7 +89,7 @@ public class Parser {
             case PARSER_EDIT_COMMAND:
                 return new EditCommandParser().parse(userInput);
             case PARSER_SET_GOAL_COMMAND:
-                return new SetgoalCommandParser().parse(userInput);
+                return new AddGoalCommandParser().parse(userInput);
             case PARSER_HELP_COMMAND:
                 return new HelpCommandParser().parse(userInput);
             case PARSER_DEPOSIT_COMMAND:
