@@ -131,6 +131,9 @@ class ImpressionWindow extends UiElement<Region> {
         }
     }
 
+    /**
+     * This function update all labels in the Impression Window when called.
+     */
     private void updateUi() {
         nameLabel.setText(String.valueOf(impression.getName()));
         patientNameLabel.setText(String.valueOf(patient.getName()));
