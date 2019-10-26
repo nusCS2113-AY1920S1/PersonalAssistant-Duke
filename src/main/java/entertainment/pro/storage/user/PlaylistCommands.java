@@ -50,16 +50,16 @@ public class PlaylistCommands {
     }
 
     public void remove(TreeMap<String, ArrayList<String>> flagMap, ArrayList<MovieInfoObject> mMovies) throws IOException {
-        ArrayList<Long> userMovies = new ArrayList<>(20);
-        ArrayList<MovieInfoObject> playlistMovies = new ArrayList<>(20);
+//        ArrayList<Long> userMovies = new ArrayList<>(20);
+        ArrayList<MovieInfoObject> toDelete = new ArrayList<>(20);
         for (String log : flagMap.get("-m")) {
             int index = Integer.parseInt(log.trim());
             System.out.println(index);
-            userMovies.add((mMovies.get(--index)).getID());
-            playlistMovies.add(mMovies.get(index));
+//            userMovies.add((mMovies.get(--index)).getID());
+            toDelete.add(mMovies.get(index));
         }
         Playlist playlist = editPlaylistJson.load();
-        ArrayList<PlaylistMovieInfoObject> newPlaylistMovies = convert(playlistMovies);
+        ArrayList<PlaylistMovieInfoObject> newPlaylistMovies = convert(toDelete);
 //        if (playlist.getMovies().get(1).equals(newPlaylistMovies.get(0))) {
 //            System.out.println("yes");
 //        } else {

@@ -72,14 +72,13 @@ public class PlaylistCommand extends CommandSuper {
      * flag: none
      */
     private void executeDeletePlaylist() throws IOException {
-//        PlaylistInfoController movieHandler = ((PlaylistInfoController) this.getUIController());
-//        ProfileCommands profileCommands = new ProfileCommands(new EditProfileJson().load());
-//        profileCommands.deletePlaylist(this.getPayload());
-//        PlaylistCommands testCommand = new PlaylistCommands(this.getPayload());
-//        testCommand.delete();
-//        movieHandler.clearSearchTextField();
-//        movieHandler.setLabels();
-//        movieHandler.backToPlaylistButtonClick();
+        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
+        ProfileCommands profileCommands = new ProfileCommands(new EditProfileJson().load());
+        profileCommands.deletePlaylist(this.getPayload());
+        PlaylistCommands testCommand = new PlaylistCommands(this.getPayload());
+        testCommand.delete();
+        movieHandler.clearSearchTextField();
+        movieHandler.setLabels();
     }
 
     /**
@@ -104,12 +103,12 @@ public class PlaylistCommand extends CommandSuper {
      * flag: -m (movie number -- not movie ID)
      */
     private void executeRemoveFromPlaylist() throws IOException {
-//        PlaylistInfoController movieHandler = ((PlaylistInfoController) this.getUIController());
-//        movieHandler.setPlaylistName(this.getPayload());
-//        PlaylistCommands testCommand = new PlaylistCommands(this.getPayload());
-//        testCommand.remove(this.getFlagMap(), movieHandler.getmMovies());
-//        movieHandler.clearSearchTextField();
-//        movieHandler.refreshPlaylist();
+        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
+        movieHandler.setPlaylistName(this.getPayload());
+        PlaylistCommands testCommand = new PlaylistCommands(this.getPayload());
+        testCommand.remove(this.getFlagMap(), movieHandler.getmMovies());
+        movieHandler.clearSearchTextField();
+        movieHandler.refreshPlaylist();
     }
 
     /**
@@ -121,17 +120,17 @@ public class PlaylistCommand extends CommandSuper {
      * so far can only take one worded description :/:/:/:/ D:
      */
     private void executeSetToPlaylist() throws IOException {
-//        PlaylistInfoController movieHandler = ((PlaylistInfoController) this.getUIController());
-//        PlaylistCommands testCommand = new PlaylistCommands(this.getPayload());
-//        testCommand.setToPlaylist(this.getFlagMap());
-//        String appendName = appendFlagMap(this.getFlagMap().get("-n"));
-//        if (this.getFlagMap().containsKey("-n")) {
-//            ProfileCommands profileCommands = new ProfileCommands(new EditProfileJson().load());
-//            profileCommands.renamePlaylist(this.getPayload(), appendName);
-//            movieHandler.setPlaylistName(appendName);
-//        }
-//        movieHandler.clearSearchTextField();
-//        movieHandler.refreshPlaylist();
+        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
+        PlaylistCommands testCommand = new PlaylistCommands(this.getPayload());
+        testCommand.setToPlaylist(this.getFlagMap());
+        String appendName = appendFlagMap(this.getFlagMap().get("-n"));
+        if (this.getFlagMap().containsKey("-n")) {
+            ProfileCommands profileCommands = new ProfileCommands(new EditProfileJson().load());
+            profileCommands.renamePlaylist(this.getPayload(), appendName);
+            movieHandler.setPlaylistName(appendName);
+        }
+        movieHandler.clearSearchTextField();
+        movieHandler.refreshPlaylist();
     }
 
     /**
@@ -142,11 +141,11 @@ public class PlaylistCommand extends CommandSuper {
      * flag: none
      */
     private void executeClearPlaylist() throws IOException {
-//        PlaylistInfoController movieHandler = ((PlaylistInfoController)this.getUIController());
-//        PlaylistCommands testCommand = new PlaylistCommands(this.getPayload());
-//        testCommand.clear();
-//        movieHandler.clearSearchTextField();
-//        movieHandler.initialize();
+        MovieHandler movieHandler = ((MovieHandler)this.getUIController());
+        PlaylistCommands testCommand = new PlaylistCommands(this.getPayload());
+        testCommand.clear();
+        movieHandler.clearSearchTextField();
+        movieHandler.initialize();
     }
 
     private void executePlaylistListing() throws IOException {

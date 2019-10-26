@@ -27,6 +27,9 @@ public class PlaylistMovieInfoObject extends MovieInfoObject {
         if (super.getReleaseDate() == null) {
             convertStringToDate();
         }
+        if (stringDate == null) {
+            convertDateToString();
+        }
     }
 
     public String getStringDate() {

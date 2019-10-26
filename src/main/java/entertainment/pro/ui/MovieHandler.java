@@ -101,6 +101,8 @@ public class MovieHandler extends Controller implements RequestListener {
     private AnchorPane anchorPane;
     private static UserProfile userProfile;
     private ArrayList<String> playlists;
+    private String playlistName = "";
+    private ArrayList<MovieInfoObject> playlistMovies = new ArrayList<>();
 //    private ArrayList<Playlist> playlists;
     private FlowPane mMoviesFlowPane;
     private VBox playlistVBox = new VBox();
@@ -590,6 +592,7 @@ public class MovieHandler extends Controller implements RequestListener {
 
     private void playlistPaneClicked(Playlist playlist) {
         buildPlaylistInfo(playlist);
+        playlistName = playlist.getPlaylistName();
     }
 
     private void buildPlaylistInfo(Playlist playlist) {
@@ -612,6 +615,7 @@ public class MovieHandler extends Controller implements RequestListener {
         mProgressBar.setProgress(0.0);
         mProgressBar.setVisible(true);
         mStatusLabel.setText("Loading..");
+        mMovies = convert(movies);
 
         mMoviesFlowPane = new FlowPane(Orientation.HORIZONTAL);
         mMoviesFlowPane.setHgap(4);
@@ -662,6 +666,15 @@ public class MovieHandler extends Controller implements RequestListener {
 
     public void showPlaylistList() throws IOException {
         buildPlaylistVBox(playlists);
+    }
+
+    private ArrayList<MovieInfoObject> convert(ArrayList<PlaylistMovieInfoObject> toConvert) {
+        ArrayList<MovieInfoObject> converted = new ArrayList<>();
+        int fakeType = 12345;
+        for (PlaylistMovieInfoObject log : toConvert) {
+            converted.add(new MovieInfoObject(fakeType, log.getID(), log.getTitle(), log.getReleaseDate(), log.getSummary(), log.getRating(), log.getGenreIDs(), log.getFullPosterPath(), log.getFullBackdropPath()));
+        }
+        return converted;
     }
 
 
@@ -1003,6 +1016,13 @@ public class MovieHandler extends Controller implements RequestListener {
         mMovieRequest.create();
     }
 
+    public void setPlaylistName(String name) {
+        playlistName = name;
+    }
 
+    public void refreshPlaylist() throws IOException {
+        EditPlaylistJson editPlaylistJson = new EditPlaylistJson(playlistName);
+        buildPlaylistInfo(editPlaylistJson.load());
+    }
 
 }
