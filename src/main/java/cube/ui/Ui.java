@@ -5,7 +5,7 @@
  */
 package cube.ui;
 
-import cube.logic.command.CommandResult;
+import cube.logic.command.util.CommandResult;
 import java.util.Scanner;
 
 /**

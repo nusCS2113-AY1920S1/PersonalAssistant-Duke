@@ -10,7 +10,7 @@ import cube.model.FoodList;
 import cube.ui.Ui;
 import cube.logic.parser.Parser;
 import cube.logic.command.Command;
-import cube.logic.command.CommandResult;
+import cube.logic.command.util.CommandResult;
 import cube.util.FileUtilJson;
 import cube.storage.*;
 import cube.exception.CubeException;

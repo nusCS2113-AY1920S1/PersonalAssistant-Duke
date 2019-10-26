@@ -5,6 +5,8 @@ import cube.logic.command.exception.CommandException;
 import cube.model.FoodList.SortType;
 import cube.model.FoodList;
 import cube.storage.StorageManager;
+import cube.logic.command.util.CommandResult;
+import cube.logic.command.util.CommandUtil;
 
 public class FindCommand extends Command{
 
@@ -61,50 +63,17 @@ public class FindCommand extends Command{
         this.sortType = sortType;
     }
 
-    /**
-     * Check whether a given index is a valid index or not.
-     * @param list the food list.
-     * @throws CommandException
-     */
-    private void checkValidIndex(FoodList list) throws CommandException {
-        if (findIndex < 0 || findIndex >= list.size()) {
-            throw new CommandException(CommandErrorMessage.FOOD_NOT_EXISTS);
-        }
-    }
-
-    /**
-     * Check whether a given food name is inside the food list or not.
-     * @param list the food list.
-     * @throws CommandException
-     */
-    private void checkValidName(FoodList list) throws CommandException {
-        if (!list.existsName(findDescription)) {
-            throw new CommandException(CommandErrorMessage.FOOD_NOT_EXISTS);
-        }
-    }
-
-    /**
-     * Check whether a given food type is inside the food list or not.
-     * @param list the food list.
-     * @throws CommandException
-     */
-    private void checkValidType(FoodList list) throws CommandException {
-        if (!list.existsType(findDescription)) {
-            throw new CommandException(CommandErrorMessage.FOOD_NOT_EXISTS);
-        }
-    }
-
     @Override
     public CommandResult execute(FoodList list, StorageManager storage) throws CommandException {
         switch (param) {
             case INDEX:
-                checkValidIndex(list);
+                CommandUtil.requireValidIndex(list, findIndex);
                 return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, list.get(findIndex), list.size()));
             case NAME:
-                checkValidName(list);
+                CommandUtil.requireValidName(list, findDescription);
                 return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, list.get(findDescription), list.size()));
             case TYPE:
-                checkValidType(list);
+                CommandUtil.requireValidType(list, findDescription);
                 FoodList result = new FoodList();
                 int count = 0;
                 for (int i = 0; i < list.size(); i ++) {

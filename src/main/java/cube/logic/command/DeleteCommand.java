@@ -10,6 +10,8 @@ import cube.model.Food;
 import cube.storage.StorageManager;
 import cube.logic.command.exception.CommandException;
 import cube.logic.command.exception.CommandErrorMessage;
+import cube.logic.command.util.CommandResult;
+import cube.logic.command.util.CommandUtil;
 
 /**
  * This class supports commands related to delete.
@@ -63,41 +65,6 @@ public class DeleteCommand extends Command {
 	}
 
 	/**
-	 * The class checks whether a given index is valid or not.
-	 *
-	 * @param list The food list.
-	 * @throws CommandException If the given index is invalid.
-	 */
-	private void checkValidIndex(FoodList list) throws CommandException {
-		if (deleteIndex < 0 || deleteIndex >= list.size()) {
-			throw new CommandException(CommandErrorMessage.FOOD_NOT_EXISTS);
-		}
-	}
-
-	/**
-	 * The class checks whether a given food name is in the food list or not.
-	 *
-	 * @param list The food list.
-	 * @throws CommandException If the given food name is not inside the food list.
-	 */
-	private void checkValidName(FoodList list) throws CommandException {
-		if (!list.existsName(deleteDescription)) {
-			throw new CommandException(CommandErrorMessage.FOOD_NOT_EXISTS);
-		}
-	}
-
-	/**
-	 * The class checks whether a given food type is in the food list or not.
-	 * @param list The food list.
-	 * @throws CommandException If the given food type is not inside the food list.
-	 */
-	private void checkValidType(FoodList list) throws CommandException {
-		if (!list.existsType(deleteDescription)) {
-			throw new CommandException(CommandErrorMessage.FOOD_NOT_EXISTS);
-		}
-	}
-
-	/**
 	 * The class removes the food the user wishes to remove.
 	 *
 	 * @param list The food list.
@@ -110,19 +77,19 @@ public class DeleteCommand extends Command {
 		Food toDelete;
 		switch (param) {
 			case INDEX:
-				checkValidIndex(list);
+				CommandUtil.requireValidIndex(list, deleteIndex);
 				toDelete = list.get(deleteIndex);
 				list.removeIndex(deleteIndex);
 				storage.storeFoodList(list);
 				return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toDelete, list.size()));
 			case NAME:
-				checkValidName(list);
+				CommandUtil.requireValidName(list, deleteDescription);
 				toDelete = list.get(deleteDescription);
 				list.removeName(deleteDescription);
 				storage.storeFoodList(list);
 				return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toDelete, list.size()));
 			case TYPE:
-				checkValidType(list);
+				CommandUtil.requireValidType(list, deleteDescription);
 				int count = list.removeType(deleteDescription);
 				storage.storeFoodList(list);
 				return new CommandResult(String.format(MESSAGE_SUCCESS_MULTIPLE, deleteDescription, count, list.size()));
