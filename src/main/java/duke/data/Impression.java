@@ -14,7 +14,6 @@ public class Impression extends DukeObject {
     private String description;
     private HashMap<String, Evidence> evidences;
     private HashMap<String, Treatment> treatments;
-    private transient Patient patient;
 
     private transient ObservableMap<String, Evidence> observableEvidences;
     private transient ObservableMap<String, Treatment> observableTreaments;
@@ -34,9 +33,8 @@ public class Impression extends DukeObject {
      * @param description the description of the impression
      */
     public Impression(String name, String description, Patient patient) {
-        super(name);
+        super(name, patient);
         this.description = description;
-        this.patient = patient;
         this.evidences = new HashMap<>();
         this.treatments = new HashMap<>();
 
@@ -196,7 +194,6 @@ public class Impression extends DukeObject {
         StringBuilder informationString;
         informationString = new StringBuilder("Impression details\n");
         informationString.append("Description: ").append(this.description).append("\n");
-        informationString.append("Patient Bed: ").append(this.patient.getBedNo()).append("\n");
         for (Map.Entry mapElement : this.evidences.entrySet()) {
             Evidence valueE = (Evidence) mapElement.getValue();
             informationString.append(valueE.toString());
@@ -238,10 +235,6 @@ public class Impression extends DukeObject {
         this.description = description;
     }
 
-    public Patient getPatient() {
-        return patient;
-    }
-
     public HashMap<String, Evidence> getEvidences() {
         return evidences;
     }
@@ -272,7 +265,7 @@ public class Impression extends DukeObject {
         attributes.put("description", getDescription());
         attributes.put("evidences", getEvidences());
         attributes.put("treatments", getTreatments());
-        attributes.put("patientBedNo", getPatient());
+        attributes.put("parent", getParent());
         attributes.put("name", getName());
     }
 
@@ -290,20 +283,16 @@ public class Impression extends DukeObject {
         updateObservableAttributes();
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
     /**
      * This function initialises the parent object of each evidence and treatment.
      */
     public void initChild() {
         for (Map.Entry<String, Evidence> mapElement : this.observableEvidences.entrySet()) {
-            mapElement.getValue().setImpression(this);
+            mapElement.getValue().setParent(this);
         }
 
         for (Map.Entry<String, Treatment> mapElement : this.observableTreaments.entrySet()) {
-            mapElement.getValue().setImpression(this);
+            mapElement.getValue().setParent(this);
         }
     }
 }

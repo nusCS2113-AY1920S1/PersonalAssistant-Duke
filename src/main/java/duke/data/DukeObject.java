@@ -10,9 +10,11 @@ package duke.data;
 public abstract class DukeObject {
 
     private String name;
+    private transient DukeObject parent;
 
-    public DukeObject(String name) {
+    public DukeObject(String name, DukeObject parent) {
         this.name = name;
+        this.parent = parent;
     }
 
     /*
@@ -48,5 +50,13 @@ public abstract class DukeObject {
 
     protected void setName(String name) {
         this.name = name;
+    }
+
+    public void setParent(DukeObject parent) {
+        this.parent = parent;
+    }
+
+    public DukeObject getParent() {
+        return parent;
     }
 }

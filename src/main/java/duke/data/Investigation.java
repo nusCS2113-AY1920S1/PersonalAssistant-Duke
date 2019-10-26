@@ -36,7 +36,7 @@ public class Investigation extends Treatment {
      * @return the result object
      */
     public Result toResult(String resultName, int resultPriority, String resultSummary) {
-        return new Result(resultName, this.getImpression(), resultPriority, resultSummary);
+        return new Result(resultName, (Impression) getParent(), resultPriority, resultSummary);
     }
 
     @Override
