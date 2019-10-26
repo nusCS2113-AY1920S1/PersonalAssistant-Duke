@@ -3,6 +3,8 @@ package seedu.duke;
 import org.junit.jupiter.api.Test;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.InvalidCommand;
+import seedu.duke.common.model.Model;
+import seedu.duke.task.TaskList;
 import seedu.duke.task.command.TaskDeleteCommand;
 import seedu.duke.task.command.TaskDoAfterCommand;
 import seedu.duke.task.command.TaskDoneCommand;
@@ -12,11 +14,14 @@ import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.task.command.TaskFindCommand;
 import seedu.duke.task.entity.Task;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -24,22 +29,48 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskCommandParseHelperTest {
+    private void fakeModel() {
+        try {
+            Method add = List.class.getDeclaredMethod("add", Object.class);
+            TaskList newTaskList = new TaskList();
+            add.invoke(newTaskList, new Task(""));
+            add.invoke(newTaskList, new Task(""));
+            add.invoke(newTaskList, new Task(""));
+            add.invoke(newTaskList, new Task(""));
+            add.invoke(newTaskList, new Task(""));
+
+            Class<?> Model = Class.forName("seedu.duke.common.model.Model");
+            Object model = Model.getMethod("getInstance").invoke(null);
+            Field taskList = Model.getDeclaredField("taskList");
+            taskList.setAccessible(true);
+            taskList.set(model, newTaskList);
+        } catch (ClassNotFoundException | NoSuchFieldException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Test
     public void isCommandFormatTest() {
+        //positive cases
         assertTrue(CommandParseHelper.isCommandFormat("task deadline 123abc -by asdas"));
-        assertFalse(CommandParseHelper.isCommandFormat("deadline 123abc -by asdas"));
         assertTrue(CommandParseHelper.isCommandFormat("task deadline 123abc -by asdas -asd nisnds"));
         assertTrue(CommandParseHelper.isCommandFormat("task deadline 123abc 123abc -by asdas -asd nisnds"));
         assertTrue(CommandParseHelper.isCommandFormat("task deadline -by asdas -asd nisnds"));
         assertTrue(CommandParseHelper.isCommandFormat("task deadline 123abc -by asdas -asd nis nds"));
         assertTrue(CommandParseHelper.isCommandFormat("email 123abc -by asdas"));
-        assertFalse(CommandParseHelper.isCommandFormat("task deadline 123abc -by "));
         assertTrue(CommandParseHelper.isCommandFormat("task deadline 123abc"));
         assertTrue(CommandParseHelper.isCommandFormat("task deadline 123abc -by asdas"));
         assertTrue(CommandParseHelper.isCommandFormat("task ads deadline 123abc -by asdas"));
         assertTrue(CommandParseHelper.isCommandFormat("task done 1"));
         assertTrue(CommandParseHelper.isCommandFormat("task deadline 123 -time 11/11/1111 1111"));
         assertTrue(CommandParseHelper.isCommandFormat("task bye"));
+
+        //negative cases
+        //not starting with email/task
+        assertFalse(CommandParseHelper.isCommandFormat("deadline 123abc -by asdas"));
+        //empty option
+        assertFalse(CommandParseHelper.isCommandFormat("task deadline 123abc -by "));
+        assertFalse(CommandParseHelper.isCommandFormat("task deadline 123abc -by 123 -time"));
     }
 
     @Test
@@ -95,6 +126,7 @@ public class TaskCommandParseHelperTest {
     @Test
     public void parseDeleteCommandTest() {
         try {
+            fakeModel();
             Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
             Method method = parser.getDeclaredMethod("parseDeleteCommand", String.class);
             method.setAccessible(true);
