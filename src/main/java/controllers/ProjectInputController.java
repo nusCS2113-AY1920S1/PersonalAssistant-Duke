@@ -197,9 +197,7 @@ public class ProjectInputController implements IController {
      * @param projectToManage The project specified by the user.
      */
     public void projectViewCredits(IProject projectToManage) {
-        // TODO view all credits.
         consoleView.viewCredits(projectToManage);
-        consoleView.consolePrint("Not implemented yet");
     }
 
     /**

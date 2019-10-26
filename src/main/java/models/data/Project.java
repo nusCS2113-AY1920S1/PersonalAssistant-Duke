@@ -112,6 +112,10 @@ public class Project implements IProject {
         return assignedTaskListString;
     }
 
+    /**
+     * Returns the member names with the credits of their assigned tasks.
+     * @return The member names with the credits of their assigned tasks.
+     */
     @Override
     public ArrayList<String> getCredits() {
         ArrayList<String> allCredits = new ArrayList<>();
@@ -126,11 +130,6 @@ public class Project implements IProject {
             allCredits.add(count + ". " + member.getName() + " | Credits: " + credits);
             count++;
         }
-        /*
-            Empty Method
-            bugs need to be fixed for getAllAssignedTasks
-            for (Member currentMember : memberList.getMemberList())
-        */
         return allCredits;
     }
 

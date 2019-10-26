@@ -285,6 +285,11 @@ public class CLIView {
     public void viewCredits(IProject projectToManage) {
         ArrayList<String> allCredits = projectToManage.getCredits();
         DukeLogger.logDebug(CLIView.class, allCredits.toString());
+        if (allCredits.isEmpty()) {
+            allCredits.add(0, "There are no members in this project.");
+        } else {
+            allCredits.add(0, "Here are all the member credits: ");
+        }
         consolePrint(allCredits.toArray(new String[0]));
     }
 
