@@ -1,5 +1,7 @@
 package duke.storage;
 
+import duke.Duke;
+import duke.dukeexception.DukeException;
 import duke.task.BudgetList;
 
 import java.io.BufferedReader;
@@ -40,6 +42,31 @@ public class BudgetStorage {
     }
 
     /**
+     * Checks if a variable is convertable to a float value.
+     *
+     * @param amount the string to be converted to a float value.
+     * @return returns true if it can be converted to a float value, false otherwise.
+     */
+    public boolean isFloat(String amount) {
+        try {
+            Float.parseFloat(amount.trim());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Converts a string value to a float value.
+     *
+     * @param amount the string to be converted into a float value.
+     * @return the float equivalence of the string.
+     */
+    public float convertToFloat(String amount) {
+        return Float.parseFloat(amount.trim());
+    }
+
+    /**
      * Updates the task list from reading the contents of the text file.
      *
      * @return ArrayList to update the Expenses.
@@ -50,9 +77,12 @@ public class BudgetStorage {
         File file = new File(filePath);
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         String budget;
+        float amount;
 
         while ((budget = bufferedReader.readLine()) != null) {
-            items.add(Float.parseFloat(budget.trim()));
+            if (isFloat(budget)) {
+                items.add(convertToFloat(budget));
+            }
         }
         bufferedReader.close();
         return items;
