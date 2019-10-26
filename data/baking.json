@@ -9,31 +9,42 @@
     "status" : "ACTIVE",
     "total" : 0.0,
     "items" : [ ]
+  }, {
+    "id" : 1572056763621,
+    "creationDate" : "2019-10-26T02:26:03.621+0000",
+    "name" : "customer",
+    "contact" : "N/A",
+    "remarks" : "N/A",
+    "deliveryDate" : "2019-10-26T02:23:37.889+0000",
+    "status" : "ACTIVE",
+    "total" : 0.0,
+    "items" : [ ]
   } ],
   "products" : [ {
-    "productName" : "-ingt",
-    "ingredientItems" : [ ],
-    "ingredientCost" : 0.0,
-    "retailPrice" : 0.0,
-    "status" : "ACTIVE"
-  }, {
     "productName" : "ingredient",
     "ingredientItems" : [ ],
     "ingredientCost" : 4.0,
     "retailPrice" : 5.0,
     "status" : "ARCHIVE"
   }, {
-    "productName" : "liu",
+    "productName" : "liushiru",
     "ingredientItems" : [ {
       "ingredient" : {
         "name" : "Name",
         "unitPrice" : 0.0,
         "remarks" : "-"
       },
+      "amount" : 2.0
+    }, {
+      "ingredient" : {
+        "name" : "Name 2",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
       "amount" : 0.0
     } ],
-    "ingredientCost" : 0.0,
-    "retailPrice" : 0.0,
+    "ingredientCost" : 3.0,
+    "retailPrice" : 5.0,
     "status" : "ACTIVE"
   }, {
     "productName" : "Shiru",
@@ -49,14 +60,14 @@
     "retailPrice" : 0.0,
     "status" : "ACTIVE"
   }, {
-    "productName" : "Shiruru",
+    "productName" : "shiru",
     "ingredientItems" : [ {
       "ingredient" : {
         "name" : "1",
         "unitPrice" : 0.0,
         "remarks" : "-"
       },
-      "amount" : 0.0
+      "amount" : 3.0
     } ],
     "ingredientCost" : 0.0,
     "retailPrice" : 0.0,

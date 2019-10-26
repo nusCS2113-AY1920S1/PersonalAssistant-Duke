@@ -44,18 +44,14 @@ public class EditProductCommand extends ProductCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireAllNonNull(model);
         List<Product> lastShownList = model.getFilteredProductList();
-
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Message.MESSAGE_INVALID_INDEX);
         }
-
         Product toEdit = lastShownList.get(index.getZeroBased());
-
         Product editedProduct = ProductCommandUtil.createNewProduct(toEdit, productDescriptor);
-
+        ProductCommandUtil.verifyNewIngredients(model, editedProduct);
         model.setProduct(toEdit, editedProduct);
         model.updateFilteredProductList(Model.PREDICATE_SHOW_ACTIVE_PRODUCTS);
-
         return new CommandResult(String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct.getProductName()),
                 CommandResult.DisplayedPage.PRODUCT);
     }

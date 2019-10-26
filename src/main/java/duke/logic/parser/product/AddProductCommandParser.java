@@ -1,5 +1,6 @@
 package duke.logic.parser.product;
 
+import duke.commons.util.StringUtil;
 import duke.logic.command.product.AddProductCommand;
 import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.commons.ArgumentTokenizer;
@@ -7,6 +8,7 @@ import duke.logic.parser.commons.Parser;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
+import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
 
 import java.util.Optional;
 
@@ -43,7 +45,7 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
         Product product = new Product();
 
         if (map.getValue(PREFIX_PRODUCT_NAME).isPresent()) {
-            String name = map.getValue(PREFIX_PRODUCT_NAME).get();
+            String name = StringUtils.capitalize(map.getValue(PREFIX_PRODUCT_NAME).get());
             if (name.isEmpty() || name.isBlank()) {
                 throw new ParseException(MESSAGE_MISSING_PRODUCT_NAME);
             }
