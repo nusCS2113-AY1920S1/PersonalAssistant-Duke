@@ -6,6 +6,7 @@ import duke.Ui;
 import duke.components.Bar;
 import duke.components.Song;
 import duke.components.SongList;
+import duke.components.UndoRedoStack;
 
 import java.util.ArrayList;
 

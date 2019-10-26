@@ -2,18 +2,17 @@ package duke.commands;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
 import duke.components.Bar;
+import duke.components.Chord;
 import duke.components.Note;
 import duke.components.Song;
-import duke.components.Chord;
 import duke.components.SongList;
+
 import java.util.Iterator;
-import java.util.concurrent.ExecutionException;
 
 /**
  * A class representing the command to add a new bar of notes to the current song.

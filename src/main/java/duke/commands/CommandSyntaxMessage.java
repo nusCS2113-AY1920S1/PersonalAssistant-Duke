@@ -5,7 +5,7 @@ import duke.DukeException;
 import java.util.HashMap;
 import java.util.Map;
 
-//@@ Sha Long
+//@@author SalonetheGreat
 
 /**
  * CommandSyntaxMessage is a class that cannot be instantiated.
@@ -36,7 +36,6 @@ public abstract class CommandSyntaxMessage {
     private static String endInstructionMessage =
             "Alternatively, you can use help [command] to see format for specific command.\n";
 
-    //@@ Sha Long
     private static Map<String, String> nameToSyntax = new HashMap<String, String>() {
         {
             put("list", listSyntax);
@@ -58,7 +57,6 @@ public abstract class CommandSyntaxMessage {
         }
     };
 
-    //@@ Sha Long
     /**
      * The function is to get ALL the commands including their name and format in a single String.
      * @return a string with all the formats
@@ -74,7 +72,6 @@ public abstract class CommandSyntaxMessage {
         return output.toString();
     }
 
-    //@@ Sha Long
     /**
      * The getMessage is to get the command and format of a specific command.
      * @param helpMessage the command to show
