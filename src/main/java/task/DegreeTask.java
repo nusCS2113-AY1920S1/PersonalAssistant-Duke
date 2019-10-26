@@ -69,9 +69,12 @@ public class DegreeTask extends Task {
         }
         for (int i = 0; i < n; i++) {
             Task toAppend = fullDegreeTasklist.get(degreeMap.get(degreeName)).get(i);
-            userTasklist.add(toAppend);
+            if (!isDuplicate(toAppend, userTasklist)){
+                userTasklist.add(toAppend);
+            }
+
         }
-        checkDuplicates(degreeName, userTasklist);
+
     }
 
     /**
@@ -94,7 +97,22 @@ public class DegreeTask extends Task {
 
     }
 
-
-    public void checkDuplicates (String degreeName, TaskList userTasklist){
+    /**
+     * returns true if the task that you are trying to add to the user's tasklist is a duplicate
+     * @param task
+     * @param userTasklist
+     * @return
+     * @throws DukeException
+     */
+    public boolean isDuplicate (Task task, TaskList userTasklist) throws DukeException {
+        if (userTasklist.size() == 0){
+            return false;
+        }
+        for (int i = 0; i < userTasklist.size(); i++){
+            if (task.toList().equals(userTasklist.get(i).toList())){
+                return true;
+            }
+        }
+        return false;
     }
 }
