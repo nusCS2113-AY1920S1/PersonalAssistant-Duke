@@ -115,13 +115,14 @@ public class Duke {
     }
 
     /**
-     * Executes a command to overwrite exiting storage with an updated task list (GUI).
+     * Executes a command to overwrite exiting storage with the current updated lists(GUI).
      *
      * @param cmd Command to be executed.
      * @throws IOException  If there is an error writing the text file.
      */
     public void saveState(Command cmd) throws IOException {
-        cmd.executeStorage(items,ui,storage);
+        cmd.executeStorage(items, ui, storage, budgetStorage, budgetList,
+                contactStorage, contactList, priorityStorage, priorityList);
     }
 
     /**
