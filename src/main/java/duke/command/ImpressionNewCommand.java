@@ -2,6 +2,8 @@ package duke.command;
 
 import duke.DukeCore;
 import duke.data.DukeData;
+import duke.data.Impression;
+import duke.data.Medicine;
 import duke.exception.DukeException;
 import duke.ui.Context;
 
@@ -17,12 +19,17 @@ public class ImpressionNewCommand extends DukeDataCommand {
         super.execute(core);
         String addType = uniqueDataType();
         checkTypeSwitches(addType);
+        Impression impression = getImpression(core);
         DukeData newData;
 
+        //extract parameters and data type
         Integer priority = switchToInt(getSwitchVal("priority"));
-        //extract data and add type
         switch(addType) {
         case "medicine":
+            Integer status = processStatus(getSwitchVal("status"), Medicine.getStatusArr());
+            Medicine medicine = new Medicine(getSwitchVal("name"), impression.getName(), priority, status,
+                    )
+            impression.addNewTreatment()
             break;
         case "plan": //fallthrough
         case "investigation":

@@ -1,8 +1,12 @@
 package duke.data;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class Investigation extends Treatment {
 
-    private static final String[] statusArr = {"Not ordered", "In progress"};
+    private static final List<String> statusArr = Arrays.asList("Not ordered", "In progress");
     private String summary;
 
     /**
@@ -61,6 +65,10 @@ public class Investigation extends Treatment {
     }
 
     public String getStatusStr() {
-        return statusArr[getStatusIdx()];
+        return statusArr.get(getStatusIdx());
+    }
+
+    public static List<String> getStatusArr() {
+        return Collections.unmodifiableList(statusArr);
     }
 }
