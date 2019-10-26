@@ -13,13 +13,14 @@ import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 
+//@@author liujiajun
 /**
  * A command to delete orders from Order List.
  */
 public class DeleteOrderCommand extends OrderCommand {
     public static final String COMMAND_WORD = "remove";
 
-    public static final String MESSAGE_COMMIT = "Delete order";
+    private static final String MESSAGE_COMMIT = "Delete order";
     private static final String MESSAGE_DELETE_SUCCESS = "%s order(s) removed.";
     private final Set<Index> indices;
 

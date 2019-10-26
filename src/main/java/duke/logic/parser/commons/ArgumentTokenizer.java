@@ -72,7 +72,7 @@ public class ArgumentTokenizer {
             if (prefixList.contains(prefix)) {
                 map.put(prefix, value);
             } else {
-                throw new ParseException(Message.MESSAGE_INVALID_PREFIX);
+                throw new ParseException(String.format(Message.MESSAGE_INVALID_PREFIX, prefixString));
             }
         }
         return map;

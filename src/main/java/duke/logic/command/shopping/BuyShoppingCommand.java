@@ -8,6 +8,7 @@ import duke.model.Model;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -22,10 +23,12 @@ public class BuyShoppingCommand extends ShoppingCommand {
 
     private final Set<Index> indices;
     private Double totalCost = 0.00;
+    private ArrayList<Item<Ingredient>> toBuyList;
 
     public BuyShoppingCommand(Set<Index> indices) {
         requireNonNull(indices);
         this.indices = indices;
+        toBuyList = new ArrayList<>();
     }
 
     @Override
@@ -43,6 +46,7 @@ public class BuyShoppingCommand extends ShoppingCommand {
 
         for (Index index : indices) {
             Item<Ingredient> toBuy = shoppingList.get(index.getZeroBased());
+            toBuyList.add(toBuy);
 
             if (inventoryList.contains(toBuy)) {
                 Double addedQuantity = toBuy.getQuantity().getNumber();
@@ -61,7 +65,7 @@ public class BuyShoppingCommand extends ShoppingCommand {
             model.setShoppingList(toBuy, ShoppingCommandUtil.createNewIngredient(toBuy, ZERO_QUANTITY));
         }
 
-        model.addSaleFromShopping(totalCost);
+        model.addSaleFromShopping(totalCost, toBuyList);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, totalCost, CommandResult.DisplayedPage.SHOPPING));
     }

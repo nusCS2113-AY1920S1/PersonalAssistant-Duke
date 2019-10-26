@@ -7,7 +7,6 @@ import duke.ui.commons.TableUtil;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -25,8 +24,6 @@ public class ProductPage extends UiPart<AnchorPane> {
     private final Logger logger = LogsCenter.getLogger(ProductPage.class);
 
     @FXML
-    private Label tableTitle;
-    @FXML
     private SplitPane splitPane;
     @FXML
     private AnchorPane listPane;
@@ -43,7 +40,7 @@ public class ProductPage extends UiPart<AnchorPane> {
     }
 
 
-    private void showProductList() {
+    public void showProductList() {
         listPane.getChildren().add(setUpListTable());
         splitPane.setDividerPositions(FULL_PAGE);
     }
