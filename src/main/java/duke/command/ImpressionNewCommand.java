@@ -32,7 +32,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
         switch (addType) { //isn't polymorphism fun?
         case "medicine":
             status = processStatus(getSwitchVal("status"), Medicine.getStatusArr());
-            Medicine medicine = new Medicine(getSwitchVal("name"), impression.getName(), priority, status,
+            Medicine medicine = new Medicine(getSwitchVal("name"), impression, priority, status,
                     getSwitchVal("dose"), getSwitchVal("date"), getSwitchVal("duration"));
             impression.addNewTreatment(medicine);
             newData = medicine;
@@ -40,7 +40,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
 
         case "plan":
             status = processStatus(getSwitchVal("status"), Plan.getStatusArr());
-            Plan plan = new Plan(getSwitchVal("name"), impression.getName(), priority, status,
+            Plan plan = new Plan(getSwitchVal("name"), impression, priority, status,
                     getSwitchVal("summary"));
             impression.addNewTreatment(plan);
             newData = plan;
@@ -48,14 +48,14 @@ public class ImpressionNewCommand extends DukeDataCommand {
 
         case "investigation":
             status = processStatus(getSwitchVal("status"), Investigation.getStatusArr());
-            Investigation invx = new Investigation(getSwitchVal("name"), impression.getName(), priority, status,
+            Investigation invx = new Investigation(getSwitchVal("name"), impression, priority, status,
                     getSwitchVal("summary"));
             impression.addNewTreatment(invx);
             newData = invx;
             break;
 
         case "result":
-            Result result = new Result(getSwitchVal("name"), impression.getName(), priority,
+            Result result = new Result(getSwitchVal("name"), impression, priority,
                     getSwitchVal("summary"));
             impression.addNewEvidence(result);
             newData = result;
@@ -63,7 +63,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
 
         case "observation":
             boolean isObjective = !isSwitchSet("subjective"); //default to objective
-            Observation obsv = new Observation(getSwitchVal("name"), impression.getName(), priority,
+            Observation obsv = new Observation(getSwitchVal("name"), impression, priority,
                     getSwitchVal("summary"), isObjective);
             impression.addNewEvidence(obsv);
             newData = obsv;

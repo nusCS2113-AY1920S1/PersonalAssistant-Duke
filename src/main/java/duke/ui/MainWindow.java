@@ -6,7 +6,6 @@ import duke.command.Parser;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.PatientMap;
-import duke.exception.DukeException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -90,12 +89,8 @@ class MainWindow extends UiElement<Stage> {
             case IMPRESSION:
                 contextWindowHolder.getTabs().remove(impressionTab);
                 Impression impression = (Impression) uiContext.getObject();
-                try {
-                    impressionTab = new Tab("Impression", new ImpressionWindow(impression,
-                            patientMap.getPatient(impression.getPatient())).getRoot());
-                } catch (DukeException e) {
-                    e.printStackTrace();
-                }
+                impressionTab = new Tab("Impression", new ImpressionWindow(impression,
+                                        impression.getPatient()).getRoot());
                 contextWindowHolder.getTabs().add(2, impressionTab);
                 contextWindowHolder.getSelectionModel().select(impressionTab);
                 break;
