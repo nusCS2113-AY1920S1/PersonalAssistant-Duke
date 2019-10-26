@@ -5,14 +5,12 @@
  */
 package cube.exception;
 
-import cube.ui.Message;
-
 public class CubeLoadingException extends CubeException
 {
     /**
      * Default Constructor.
      */
     public CubeLoadingException(String filePath) {
-        super(Message.IO_ERROR + filePath);
+        super(ErrorMessage.IO_ERROR + filePath);
     }
 }
