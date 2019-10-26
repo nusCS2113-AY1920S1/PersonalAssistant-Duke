@@ -12,6 +12,7 @@ public class Task {
     private static final int ZERO = 0;
 
     protected String description;
+    protected String notesDesc = "empty";
     protected boolean isDone;
     public int numberOfDays = ZERO;
     public LocalDateTime currentDate;
@@ -45,6 +46,32 @@ public class Task {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Sets the notes description of a task.
+     *
+     * @param notesDesc String of the description.
+     */
+    public void setNotes(String notesDesc) {
+        this.notesDesc = notesDesc;
+    }
+
+    /**
+     * Deletes the notes description of a task.
+     *
+     */
+    public void deleteNotes() {
+        this.notesDesc = "empty";
+    }
+
+    /**
+     * Sets the notes description of a task.
+     *
+     * @return String of the notes description.
+     */
+    public String getNotes() {
+        return notesDesc;
     }
 
     /**
@@ -183,7 +210,7 @@ public class Task {
         } else {
             numStr = "0|";
         }
-        return  numStr + description;
+        return  numStr + description + "|" + notesDesc;
     }
 
     /**

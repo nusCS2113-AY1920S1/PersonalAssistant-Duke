@@ -181,6 +181,86 @@ public class Ui {
     }
 
     /**
+     * Outputs notes of the task that is added or updated to the user.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     */
+    public void showAddNotes(TaskList items, int index) {
+        out.println("     Nice! Added/Updated notes of this task ^^:");
+        out.println("       " + (index + ONE) + "." + items.get(index).toString()
+                + " | Added Notes: " + items.get(index).getNotes());
+    }
+
+    /**
+     * Outputs notes of the task that is added or updated to the user (GUI).
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     * @return String of the added notes.
+     */
+    public String showAddNotesGui(TaskList items, int index) {
+        String str = "     Nice! Added/Updated notes of this task ^^:\n"
+                + "       " + (index + ONE) + "." + items.get(index).toString()
+                + "\n      | Added Notes: " + items.get(index).getNotes();
+        return str;
+    }
+
+    /**
+     * Outputs notes of the task that is added or updated to the user.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     * @param deletedNotes The deleted notes of the task.
+     */
+    public void showDeleteNotes(TaskList items, int index, String deletedNotes) {
+        out.println("     Deleted notes of this task ^^:");
+        out.println("       " + (index + ONE) + "." + items.get(index).toString()
+                + " | Deleted notes: " + deletedNotes);
+    }
+
+    /**
+     * Outputs notes of the task that is added or updated to the user (GUI).
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     * @param deletedNotes The deleted notes of the task.
+     * @return String of the deleted notes.
+     */
+    public String showDeleteNotesGui(TaskList items, int index, String deletedNotes) {
+        String str = "     Deleted notes of this task ^^:\n"
+                + "       " + (index + ONE) + "." + items.get(index).toString()
+                + "\n      | Deleted notes: " + deletedNotes;
+        return str;
+    }
+
+    /**
+     * Outputs notes of the task to the user.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     */
+    public void showNotes(TaskList items, int index) {
+        out.println("     Here is the task and its notes:");
+        out.println("       " + (index + ONE) + "." + items.get(index).toString()
+                + " | Notes: " + items.get(index).getNotes());
+    }
+
+    /**
+     * Outputs notes of the task to the user (GUI).
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     * @return String of showing notes to the user.
+     */
+    public String showNotesGui(TaskList items, int index) {
+        String str = "     Here is the task and its notes:\n"
+                + "       " + (index + ONE) + "." + items.get(index).toString()
+                + "\n      | Notes: " + items.get(index).getNotes();
+        return str;
+    }
+
+    /**
      * Outputs task that is updated to the user (GUI).
      *
      * @param items The task list that contains a list of tasks.
