@@ -9,8 +9,6 @@ import money.BankTracker;
 import money.Expenditure;
 
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.util.Calendar;
 
 /**
  * This class is used to delete the bank tracker from the list
@@ -33,6 +31,9 @@ public class DeleteBankAccountCommand extends MoneyCommand {
 
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
+        if (index < 0 || index >= account.getBankTrackerList().size()) {
+            throw new DukeException("The index number is out of bound!");
+        }
         BankTracker deletedBank = account.getBankTrackerList().get(index);
         Expenditure expenditure = new Expenditure(deletedBank.getAmt(), "Withdraw from "
                 + deletedBank.getDescription(), "bank", Parser.shortcutTime("now"));

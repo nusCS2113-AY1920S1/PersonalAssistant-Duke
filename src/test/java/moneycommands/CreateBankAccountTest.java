@@ -55,6 +55,6 @@ public class CreateBankAccountTest {
         ui.clearOutputString();
         cmd1.undo(account, ui, moneyStorage);
         Assertions.assertEquals(" Last command undone: \n" + b.toString() + "\n" + " Now you have "
-                + account.getBankTrackerList().size() + " bank " + "accounts listed\n", ui.getOutputString());
+                + account.getBankTrackerList().size() + " bank accounts listed\n", ui.getOutputString());
     }
 }
