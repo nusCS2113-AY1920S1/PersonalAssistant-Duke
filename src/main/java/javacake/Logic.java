@@ -3,7 +3,6 @@ package javacake;
 import edu.emory.mathcs.backport.java.util.Collections;
 import javacake.exceptions.DukeException;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.BufferedReader;
@@ -11,13 +10,13 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.security.CodeSource;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 
-public class ProgressStack {
+public class Logic {
+
     private String defaultFilePath = "content/MainList";
     private static String currentFilePath = "content/MainList";
 
@@ -25,8 +24,21 @@ public class ProgressStack {
     private static boolean isDirectory = true;
     private int numOfFiles = 0;
 
-    public ProgressStack() {
+    /**
+     * Private constructor to ensure exactly one logic object.
+     */
+    private Logic() {
 
+    }
+
+    private static final Logic INSTANCE = new Logic();
+
+    /**
+     * Using Singleton pattern to ensure exactly one logic object.
+     * @return The only instance of logic object.
+     */
+    public static Logic getInstance() {
+        return INSTANCE;
     }
 
     /**
@@ -45,7 +57,7 @@ public class ProgressStack {
         int currFileSlashCounter = tempListFiles.length;
         listOfFiles.clear();
         try {
-            CodeSource src = ProgressStack.class.getProtectionDomain().getCodeSource();
+            CodeSource src = Logic.class.getProtectionDomain().getCodeSource();
             boolean isJarMode = true;
             if (src != null) { //jar
                 URL jar = src.getLocation();
@@ -245,6 +257,9 @@ public class ProgressStack {
 
     }
 
+    /**
+     * Clears all entries in listOfFiles.
+     */
     public void clearQueries() {
         listOfFiles.clear();
     }

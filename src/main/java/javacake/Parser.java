@@ -11,22 +11,13 @@ import javacake.commands.ExitCommand;
 import javacake.commands.GoToCommand;
 import javacake.commands.HelpCommand;
 import javacake.commands.ListCommand;
-import javacake.commands.MegaListCommand;
-import javacake.commands.ReminderCommand;
+import javacake.commands.ListNoteCommand;
+import javacake.commands.OverviewCommand;
 import javacake.commands.ResetCommand;
 import javacake.commands.ScoreCommand;
 import javacake.exceptions.DukeException;
-import javacake.tasks.Task;
-import javacake.tasks.ToDo;
-import javacake.tasks.Deadline;
-import javacake.tasks.RecurringTask;
-import com.joestelmach.natty.DateGroup;
+import javacake.notes.NoteList;
 import javacake.ui.MainWindow;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 
 public class Parser {
 
@@ -60,18 +51,18 @@ public class Parser {
             }
             return new GoToCommand(inputCommand.substring(5));
         } else if (input.equals("overview")) {
-            return new MegaListCommand();
+            return new OverviewCommand();
         } else if (input.equals("createnote")) {
             return new CreateNoteCommand(inputCommand);
         } else if (input.equals("editnote")) {
             return new EditNoteCommand(inputCommand);
+        } else if (input.equals("listnote")) {
+            return new ListNoteCommand();
         } else if (input.equals("deadline")) {
             return new AddCommand(inputCommand);
         } else if (input.equals("change")) {
             MainWindow.isChanged = true;
             return new ChangeColorCommand();
-        } else if (input.equals("reminder")) {
-            return new ReminderCommand();
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }

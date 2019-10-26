@@ -1,10 +1,10 @@
 package javacake.commands;
 
 import javacake.Duke;
+import javacake.Logic;
 import javacake.Parser;
 import javacake.exceptions.DukeException;
 import javacake.storage.Profile;
-import javacake.ProgressStack;
 import javacake.storage.Storage;
 import javacake.ui.TopBar;
 import javacake.ui.Ui;
@@ -31,7 +31,7 @@ public class QuizCommand extends Command {
     private static Profile profile;
     public ScoreGrade scoreGrade;
     int totalNumOfQns = 0;
-    public static ProgressStack progressStack;
+    public static Logic logic = Logic.getInstance();
 
     public enum ScoreGrade {
         BAD, OKAY, GOOD
@@ -47,7 +47,7 @@ public class QuizCommand extends Command {
         chosenQuestions = new ArrayList<>();
         qnType = questionType;
         if (!isCli) {
-            this.filePath = progressStack.getFullFilePath();
+            this.filePath = logic.getFullFilePath();
             System.out.println(this.filePath);
             runGui();
         }
@@ -109,19 +109,19 @@ public class QuizCommand extends Command {
 
     /**
      * Executes the quiz.
-     * @param progressStack how far the program is currently in in the table of contents.
+     * @param logic how far the program is currently in in the table of contents.
      * @param ui the UI responsible for inputs and outputs of the program.
      * @param storage Storage to write updated data.
      * @param profile Profile of the user.
      * @throws DukeException Error thrown when there is a problem with score calculation.
      */
     @Override
-    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile)
-            throws DukeException, IOException {
-        progressStack.insertQueries();
-        assert !progressStack.containsDirectory();
-        this.filePath = progressStack.getFullFilePath();
-        totalNumOfQns = progressStack.getNumOfFiles();
+    public String execute(Logic logic, Ui ui, Storage storage, Profile profile)
+            throws DukeException {
+        logic.insertQueries();
+        assert !logic.containsDirectory();
+        this.filePath = logic.getFullFilePath();
+        totalNumOfQns = logic.getNumOfFiles();
         getQuestions();
         pickQuestions();
         for (int i = 0; i < MAX_QUESTIONS; i++) {
@@ -144,10 +144,10 @@ public class QuizCommand extends Command {
         ui.displayResults(currScore, MAX_QUESTIONS);
         String nextCommand = ui.readCommand();
         if (nextCommand.equals("review")) {
-            return new ReviewCommand(chosenQuestions).execute(progressStack, ui, storage, profile);
+            return new ReviewCommand(chosenQuestions).execute(logic, ui, storage, profile);
         } else {
             Command newCommand = Parser.parse(nextCommand);
-            return newCommand.execute(progressStack, ui, storage, profile);
+            return newCommand.execute(logic, ui, storage, profile);
         }
     }
 
@@ -156,7 +156,7 @@ public class QuizCommand extends Command {
      */
 
     public void runGui() throws DukeException {
-        totalNumOfQns = progressStack.getNumOfFiles();
+        totalNumOfQns = logic.getNumOfFiles();
         getQuestions();
         pickQuestions();
     }

@@ -1,8 +1,8 @@
 package javacake.commands;
 
+import javacake.Logic;
 import javacake.exceptions.DukeException;
 import javacake.storage.Profile;
-import javacake.ProgressStack;
 import javacake.storage.Storage;
 import javacake.ui.Ui;
 
@@ -14,7 +14,7 @@ public class HelpCommand extends Command {
 
     /**
      * Execute S.O.S.
-     * @param progressStack TaskList containing current tasks
+     * @param logic TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data
      * @param profile Profile of the user
@@ -22,7 +22,7 @@ public class HelpCommand extends Command {
      * @return
      */
     @Override
-    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(Logic logic, Ui ui, Storage storage, Profile profile) throws DukeException {
         if (input.length() == 4) {
             return mainHelp();
         } else if (input.equals("help back")) {

@@ -1,6 +1,7 @@
 package javacake.ui;
 
-import javacake.ProgressStack;
+import javacake.Logic;
+import javacake.commands.ListNoteCommand;
 import javacake.commands.QuizCommand;
 import javacake.commands.ReminderCommand;
 import javacake.exceptions.DukeException;
@@ -63,7 +64,11 @@ public class Ui {
     }
 
     public static String showDeadlineReminder(Storage storage, Profile profile) {
-        return new ReminderCommand().execute(new ProgressStack(), new Ui(), storage, profile);
+        return new ReminderCommand().execute(Logic.getInstance(), new Ui(), storage, profile);
+    }
+
+    public static String showNoteList(Storage storage, Profile profile) throws DukeException {
+        return new ListNoteCommand().execute(Logic.getInstance(), new Ui(), storage, profile);
     }
 
     /**
@@ -77,7 +82,10 @@ public class Ui {
      * Prints help message to assist user.
      */
     public static String helpMessage() {
-        return "\nType 'list' to view main topics\n" + "Type 'exit' to rage quit\n";
+        return "\nType 'list' to view main topics\n"
+                + "Type 'overview' to view all content\n"
+                + "Type 'help' to view all commands available\n"
+                + "Type 'exit' to rage quit\n";
     }
 
     /**

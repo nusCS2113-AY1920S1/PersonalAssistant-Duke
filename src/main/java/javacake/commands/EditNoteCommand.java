@@ -1,11 +1,10 @@
 package javacake.commands;
 
 import javacake.Duke;
-import javacake.ProgressStack;
+import javacake.Logic;
 import javacake.exceptions.DukeException;
 import javacake.storage.Profile;
 import javacake.storage.Storage;
-import javacake.ui.DialogBox;
 import javacake.ui.Ui;
 
 import java.io.BufferedReader;
@@ -16,6 +15,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 
 public class EditNoteCommand extends Command {
 
@@ -39,6 +39,7 @@ public class EditNoteCommand extends Command {
      * @throws DukeException if invalid command or invalid file name.
      */
     public EditNoteCommand(String inputCommand) throws DukeException {
+        Duke.logger.log(Level.INFO, "Processing EditNoteCommand: " + inputCommand);
         type = CmdType.EDITNOTE;
         String[] wordsInInputCommand = inputCommand.split("\\s+");
         if (wordsInInputCommand.length == 2) {
@@ -46,9 +47,11 @@ public class EditNoteCommand extends Command {
                 nameOfEditFile = wordsInInputCommand[1];
                 createCurrentFilePath();
             } else {
+                Duke.logger.log(Level.INFO, wordsInInputCommand[1] + " contains illegal file name.");
                 throw new DukeException("Pls enter a valid file name! Type 'listnote' to view available notes!");
             }
         } else {
+            Duke.logger.log(Level.INFO, inputCommand + " invalid EditNoteCommand.");
             throw new DukeException("Pls enter a valid editnote command:"
                     + " 'editnote - [name of the file you wish you edit]'");
         }
@@ -61,9 +64,12 @@ public class EditNoteCommand extends Command {
      */
     private boolean fileExist(String fileName) {
         File file = new File(defaultDirectoryPath + fileName + ".txt");
+        Duke.logger.log(Level.INFO, "Checking if file: " + fileName + " exist.");
         if (file.exists()) {
+            Duke.logger.log(Level.INFO, fileName + " exist.");
             return true;
         }
+        Duke.logger.log(Level.INFO, fileName + " does not exist.");
         return false;
     }
 
@@ -91,7 +97,6 @@ public class EditNoteCommand extends Command {
      */
     private String displayContentInFile() throws DukeException {
         try {
-
             File file = new File(currentFilePath);
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
@@ -132,14 +137,15 @@ public class EditNoteCommand extends Command {
      * Executes the EditNoteCommand accordingly depends on CLI or GUI.
      * If CLI, use ui and readAndSaveNewContent method to generate message for user.
      * If GUI, return !@#_EDIT_NOTE to notify MainWindow class to call GUI methods.
-     * @param progressStack tracks current location in program
+     * @param logic tracks current location in program
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data
      * @param profile Profile of the user
      * @return endingMessage if CLI is used, else return !@#_EDIT_NOTE to request MainWindow class to handle.
      * @throws DukeException File does not exist.
      */
-    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
+    @Override
+    public String execute(Logic logic, Ui ui, Storage storage, Profile profile) throws DukeException {
 
         if (Duke.isCliMode()) {
             if (checkFileIsEmpty(currentFilePath)) {
@@ -161,7 +167,7 @@ public class EditNoteCommand extends Command {
     }
 
     /**
-     * Inform user if the file to be edited is empty.
+     * Informs user if the file to be edited is empty.
      * If file is empty, print headingMessage.
      * Else, print secondHeadingMessage and the content of the edit file.
      * @return String containing heading message and content if available.

@@ -2,6 +2,7 @@ package javacake.storage;
 
 import javacake.Duke;
 import javacake.exceptions.DukeException;
+import javacake.notes.Note;
 import javacake.tasks.Task;
 import org.apache.commons.io.FileUtils;
 
@@ -18,6 +19,7 @@ import java.util.logging.Level;
 public class Storage {
     private int stringBuffer = 7;
     private static ArrayList<Task> tempTaskData = new ArrayList<>();
+    private static ArrayList<Note> noteCollection = new ArrayList<>();
     public static TaskList currentTaskData;
 
     private static String defaultFilePath = "data/";

@@ -3,7 +3,7 @@ package javacake.commands;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 import javacake.exceptions.DukeException;
-import javacake.ProgressStack;
+import javacake.Logic;
 import javacake.storage.Profile;
 import javacake.ui.Ui;
 import javacake.storage.Storage;
@@ -23,7 +23,7 @@ public class ViewScheduleCommand extends Command {
     }
 
     @Override
-    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(Logic logic, Ui ui, Storage storage, Profile profile) throws DukeException {
         if (input.length() == 12) {
             throw new DukeException("     ☹ OOPS!!! The description of a viewschedule cannot be empty.");
         }

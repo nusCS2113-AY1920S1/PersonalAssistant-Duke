@@ -1,7 +1,7 @@
 package javacake.commands;
 
 import javacake.exceptions.DukeException;
-import javacake.ProgressStack;
+import javacake.Logic;
 import javacake.storage.Profile;
 import javacake.ui.Ui;
 import javacake.storage.Storage;
@@ -14,14 +14,14 @@ public class FindCommand extends Command {
 
     /**
      * Executes finding tasks corresponding to the keyword in 'input'.
-     * @param progressStack TaskList containing current tasks
+     * @param logic TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data
      * @throws DukeException Shows error when unable to access list
      * @return
      */
     @Override
-    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(Logic logic, Ui ui, Storage storage, Profile profile) throws DukeException {
         input = input.substring(5);
         /*if (progressStack.size() > 0) {
             boolean isInside = false;
