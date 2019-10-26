@@ -14,6 +14,10 @@ import rims.resource.ReservationList;
 import rims.resource.Resource;
 import rims.exception.RimsException;
 
+/**
+ * Creates a Reservation for a Resource in the ResourceList, given the ID of the user,
+ * the name of the Resource and the dates between which the Reservation is valid.
+ */
 public class ReserveCommand extends Command {
     protected String resourceName;
     protected int qty;
@@ -23,6 +27,13 @@ public class ReserveCommand extends Command {
     protected String stringDateTill;
     protected int userId;
 
+    /**
+     * Constructor for a ReserveCommand, for a Room which is to be loaned from effective immediately
+     * till a certain future date.
+     * @param roomName the name of the Room to be loaned out.
+     * @param stringDateTill the date by which the Room must be returned, in String format.
+     * @param userId the ID of the user making the loan.
+     */
     public ReserveCommand(String roomName, String stringDateTill, int userId) {
         resourceName = roomName;
         this.qty = 1;
@@ -31,6 +42,14 @@ public class ReserveCommand extends Command {
         this.userId = userId;
     }
 
+    /**
+     * Constructor for a ReserveCommand, for an Item which is to be loaned from effective immediately
+     * till a certain future date.
+     * @param itemName the name of the Item to be loaned out.
+     * @param qty the quantity of the Item to be loaned out.
+     * @param stringDateTill the date by which the Item(s) must be returned, in String format.
+     * @param userId the ID of the user making the loan.
+     */
     public ReserveCommand(String itemName, int qty, String stringDateTill, int userId) {
         resourceName = itemName;
         this.qty = qty;
@@ -39,6 +58,14 @@ public class ReserveCommand extends Command {
         this.userId = userId;
     }
 
+    /**
+     * Constructor for a ReserveCommand, for a Room which is to be reserved from a given date in the future
+     * till a further future date.
+     * @param roomName the name of the Room to be reserved.
+     * @param stringDateFrom the date from which the Room is to be loaned out, in String format.
+     * @param stringDateTill the date by which the Room must be returned, in String format.
+     * @param userId the ID of the user making the reservation.
+     */
     public ReserveCommand(String roomName, String stringDateFrom, String stringDateTill, int userId) {
         resourceName = roomName;
         this.qty = 1;
@@ -47,6 +74,15 @@ public class ReserveCommand extends Command {
         this.userId = userId;
     }
 
+    /**
+     * Constructor for a ReserveCommand, for an Item which is to be reserved from a given date in the future
+     * till a further future date.
+     * @param roomName the name of the Item to be reserved.
+     * @param qty the quantity of the Item to be reserved.
+     * @param stringDateFrom the date from which the Item is to be loaned out, in String format.
+     * @param stringDateTill the date by which the Item must be returned, in String format.
+     * @param userId the ID of the user making the reservation.
+     */
     public ReserveCommand(String itemName, int qty, String stringDateFrom, String stringDateTill, int userId) {
         resourceName = itemName;
         this.qty = qty;
@@ -55,6 +91,17 @@ public class ReserveCommand extends Command {
         this.userId = userId;
     }
 
+    /**
+     * Checks if the reservation is possible given the number of available Resources and Reservations
+     * that are already in place, and if it is possible, creates a Reservation for the desired number of 
+     * Resources between the given dates.
+     * @param ui An instance of the user interface.
+     * @param storage An instance of the Storage class.
+     * @param resources The ResourceList, containing all the created Resources thus far.
+     * @throws RimsException if there are not enough Resources available between the desired dates
+     *                       to make the Reservation possible
+     * @throws ParseException if the dates specified are invalid.
+     */
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources) throws RimsException, ParseException {
         if (!(stringDateFrom == null)) {

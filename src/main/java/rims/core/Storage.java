@@ -16,14 +16,24 @@ import rims.resource.ReservationList;
 import rims.resource.Resource;
 
 /**
- * Resource.txt [ resource id ] [ type ] [ name ]
- * Reserve.txt [ reservation id ] [ resource id ] [ user id ] [ date from ] [ date until ]
+ * Converts data files containing a text version of the stored resources and reservations into an
+ * array of Resource instances, containing their respective Reservations.
+ *
+ * Format of data files:
+ * Resource.txt: [ resource id ] [ type ] [ name ]
+ * Reserve.txt: [ reservation id ] [ resource id ] [ user id ] [ date from ] [ date until ]
  */
 public class Storage {
     protected ArrayList<Resource> resources = new ArrayList<Resource>();
     protected File resourceFile;
     protected File reservationFile;
 
+    /**
+     * Constructor for the Storage class. Accesses the resource file path and reserve file path and runs the method
+     * readResourceFile() to convert the text representation of Resources and Reservations into an actual array of Resources.
+     * @param resourceFile the file path where the text version of Resources are stored.
+     * @param reserveFile the file path where the text version of Reservations are stored.
+     */
     public Storage(String resourceFile, String reserveFile) throws FileNotFoundException, ParseException {
         this.resourceFile = new File(resourceFile);
         this.reservationFile = new File(reserveFile);
@@ -33,20 +43,18 @@ public class Storage {
     /**
      * Obtains the contents of a ResourceList line by line from a text file in a
      * specified file path.
-     * 
-     * Data retrieval:<br>
-     * 1. Open the resource file<br>
+     *
+     * Data retrieval:
+     * 1. Open the resource file
      * 2. Loop through each single entry to fetch [ resource id ] [ type ] [ name
-     * ]<br>
-     * 3. For each entry, open reservsation file and fetch any reservations under
-     * this resource_id <br>
-     * 4. Create a new resource object using the above data <br>
+     * ]
+     * 3. For each entry, open reservation file and fetch any reservations under
+     * this resource_id
+     * 4. Create a new resource object using the above data
      * 5. Add this object to ResourceList object
      *
-     * @throws FileNotFoundException when specified file path does not lead to a
-     *                               valid file type.
-     * @throws ParseException        when unable to parse an integer for ID or
-     *                               checking if a resource is booked.
+     * @throws FileNotFoundException when specified file path does not lead to a valid file type.
+     * @throws ParseException        when unable to parse an integer for ID or checking if a resource is booked.
      */
     public void readResourceFile() throws FileNotFoundException, ParseException {
         Scanner fileScanner = new Scanner(resourceFile);
@@ -68,10 +76,8 @@ public class Storage {
      * Obtains the contents of a ResourceList line by line from a text file in a
      * specified file path.
      *
-     * @throws FileNotFoundException when specified file path does not lead to a
-     *                               valid file type.
-     * @throws ParseException        when unable to parse an integer for ID or
-     *                               checking if a resource is booked.
+     * @throws FileNotFoundException when specified file path does not lead to a valid file type.
+     * @throws ParseException        when unable to parse an integer for ID or checking if a resource is booked.
      */
     public ReservationList readReserveFile(String resourceId) throws FileNotFoundException, ParseException {
         Scanner fileScanner = new Scanner(reservationFile);
@@ -117,6 +123,10 @@ public class Storage {
         reservationFileWriter.close();
     }
 
+    /**
+     * Returns array of Resources that was created from text format.
+     * @return the aforementioned array.
+     */
     public ArrayList<Resource> getResources() {
         return resources;
     }

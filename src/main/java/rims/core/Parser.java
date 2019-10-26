@@ -17,6 +17,11 @@ import rims.resource.Resource;
 import rims.resource.Reservation;
 import rims.resource.ReservationList;
 
+/**
+ * This class takes in a String of input from the Ui, and depending on the content of
+ * the input, parses it into a unique executable command that will carry out the tasks
+ * required for that input.
+ */
 public class Parser {
     Ui ui;
     ResourceList resources;
@@ -26,6 +31,12 @@ public class Parser {
         this.resources = resources;
     }
 
+    /**
+     * Parses the input obtained by the Ui from the user into an executable command.
+     * @param input the input obtained from the user by the Ui.
+     * @return a Command that can be executed to carry out the necessary tasks
+     * @throws RimsException if the input is in a wrong format or does not make sense.
+     */
     public Command parseInput(String input) throws RimsException {
         Command c;
         String[] words = input.split(" ");
@@ -100,7 +111,7 @@ public class Parser {
                     ui.print("No bookings for this resource yet!");
                 }
                 ui.printLine();
-                String dateTill = ui.getInput("Enter the date you wish to return this room:");
+                String dateTill = ui.getInput("Enter the date you wish to return this room, in the format: DD/MM/YYYY HHmm");
                 int userId = Integer.parseInt(ui.getInput("Enter your user ID:"));
                 c = new ReserveCommand(roomName, dateTill, userId);
             }
@@ -127,8 +138,8 @@ public class Parser {
                 }
                 ui.printDash();
                 ui.printLine();
-                int qty = Integer.parseInt(ui.getInput("Enter how many of this item you wish to borrow:"));
-                String dateTill = ui.getInput("Enter the date you wish to return this item:");
+                int qty = Integer.parseInt(ui.getInput("Enter the quantity of this item that you wish to borrow:"));
+                String dateTill = ui.getInput("Enter the date you wish to return this item, in the format: DD/MM/YYYY HHmm");
                 int userId = Integer.parseInt(ui.getInput("Enter your user ID:"));
                 c = new ReserveCommand(itemName, qty, dateTill, userId);
             }
@@ -157,8 +168,8 @@ public class Parser {
                     ui.print("No bookings for this resource yet!");
                 }
                 ui.printLine();
-                String dateFrom = ui.getInput("Enter the date from which you wish to reserve this room:");
-                String dateTill = ui.getInput("Enter the date you wish to return this room:");
+                String dateFrom = ui.getInput("Enter the date from which you wish to reserve this room, in the format: DD/MM/YYYY HHmm");
+                String dateTill = ui.getInput("Enter the date you wish to return this room, in the format: DD/MM/YYYY HHmm");
                 int userId = Integer.parseInt(ui.getInput("Enter your user ID:"));
                 c = new ReserveCommand(roomName, dateFrom, dateTill, userId);
             }
@@ -185,9 +196,9 @@ public class Parser {
                 }
                 ui.printDash();
                 ui.printLine();
-                int qty = Integer.parseInt(ui.getInput("Enter how many of this item you wish to reserve:"));
-                String dateFrom = ui.getInput("Enter the date from which you wish to reserve this room:");
-                String dateTill = ui.getInput("Enter the date you wish to return this item:");
+                int qty = Integer.parseInt(ui.getInput("Enter the quantity of this item that you wish to reserve:"));
+                String dateFrom = ui.getInput("Enter the date from which you wish to reserve this room, in the format: DD/MM/YYYY HHmm");
+                String dateTill = ui.getInput("Enter the date you wish to return this item, in the format: DD/MM/YYYY HHmm");
                 int userId = Integer.parseInt(ui.getInput("Enter your user ID:"));
                 c = new ReserveCommand(itemName, qty, dateFrom, dateTill, userId);
             }
@@ -205,7 +216,7 @@ public class Parser {
                 ui.print(borrowedResource.toString());
                 ui.print("\t" + userReservations.getReservationByIndex(i).toString());
             }
-            int reservationId = Integer.parseInt(ui.getInput("Enter the ID of the reservation you wish to return:"));
+            int reservationId = Integer.parseInt(ui.getInput("Enter the ID of the reservation (the number in square brackets []) that you wish to return:"));
             c = new ReturnCommand(userId, userReservations.getReservationById(reservationId).getResourceId(), reservationId);
         }
         else {
