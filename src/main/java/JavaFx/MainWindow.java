@@ -313,7 +313,6 @@ public class MainWindow extends BorderPane implements Initializable {
 ////            for(String s: filteredInput) sall += s;
 ////        AlertBox.display("", "", sall, Alert.AlertType.INFORMATION);
 //        }
-
         retrieveList();
         setListView();
         deadlineTable.setItems(setDeadlineTable());
@@ -351,6 +350,11 @@ public class MainWindow extends BorderPane implements Initializable {
                     response, Alert.AlertType.INFORMATION);
         }
         userInput.clear();
+
+        if (input.contains("retrieve previous")) {
+            String previousInput = Duke.getPreviousInput();
+            userInput.setText(previousInput);
+        }
     }
 
 

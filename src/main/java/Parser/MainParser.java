@@ -41,6 +41,9 @@ public class MainParser {
             case "show previous":
                 return new ShowPreviousCommand(fullCommand);
 
+            case "retrieve previous":
+                return new RetrievePreviousCommand(fullCommand);
+
             case "bye":
                 return new ByeCommand();
 
