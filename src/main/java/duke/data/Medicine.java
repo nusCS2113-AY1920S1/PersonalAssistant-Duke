@@ -22,7 +22,7 @@ public class Medicine extends Treatment {
      * @param startDate the starting date when the patient should be on the medicine
      * @param duration the duration the patient needs to take the medicine
      */
-    public Medicine(String name, Impression impression, int priority, int status, String[] statusArr,
+    public Medicine(String name, String impression, int priority, int status, String[] statusArr,
                     String dose, String startDate, String duration) {
         super(name, impression, priority, status, statusArr);
         this.dose = dose;
