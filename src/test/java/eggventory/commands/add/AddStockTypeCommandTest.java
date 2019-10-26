@@ -35,4 +35,5 @@ class AddStockTypeCommandTest {
 
         assertEquals(String.format("Sorry, \"testStockType\" is already an existing stock type."), output);
     }
+
 }
