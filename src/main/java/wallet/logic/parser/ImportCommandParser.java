@@ -188,7 +188,6 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                 Category cat = Category.getCategory(s[3]);
 
                 if (cat == null) {
-                    System.out.println(1);
                     System.out.println(MESSAGE_ERROR_CSV_FORMAT);
                     return null;
                 }
@@ -201,7 +200,6 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                         freq = s[5].trim().toUpperCase();
                         if (!freq.equals("DAILY") && !freq.equals("WEEKLY") && !freq.equals("MONTHLY")) {
                             System.out.println(freq);
-                            System.out.println(2);
                             System.out.println(MESSAGE_ERROR_CSV_FORMAT);
                             return null;
                         }
@@ -226,15 +224,12 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             System.out.println(MESSAGE_ERROR_READING_CSV);
             return null;
         } catch (NumberFormatException e) {
-            System.out.println(3);
             System.out.println(MESSAGE_ERROR_CSV_FORMAT);
             return null;
         } catch (DateTimeParseException e) {
-            System.out.println(4);
             System.out.println(MESSAGE_ERROR_CSV_FORMAT);
             return null;
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(5);
             System.out.println(MESSAGE_ERROR_CSV_FORMAT);
             return null;
         }
