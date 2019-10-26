@@ -6,7 +6,7 @@ import duke.commons.exceptions.DukeException;
 public class DeleteCommandParser implements ParserInterface<DeleteCommand> {
 
     @Override
-    public DeleteCommand parse(String userInput) throws DukeException {
+    public DeleteCommand parse(String userInput) {
         if (userInput.trim().length() != 0) {
             // user specifies date and index.
             if (userInput.split("/date").length >= 2) {
@@ -17,7 +17,7 @@ public class DeleteCommandParser implements ParserInterface<DeleteCommand> {
                 return new DeleteCommand(userInput);
             }
         } else {
-            throw new DukeException("Please enter index of meal to delete on today's list or "
+            return new DeleteCommand(false,"Please enter index of meal to delete on today's list or "
                     + "date and index of meal to delete");
         }
     }

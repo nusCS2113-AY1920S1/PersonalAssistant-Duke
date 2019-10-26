@@ -27,29 +27,33 @@ public class DeleteCommand extends Command {
      * @param indexStr the index of meal on the date to be deleted.
      * @param date Date of meal to be deleted.
      */
-    public DeleteCommand(String indexStr, String date) throws DukeException {
+    public DeleteCommand(String indexStr, String date) {
         this(indexStr);
         Date parsedDate;
         try {
             parsedDate = dateFormat.parse(date);
+            currentDate = dateFormat.format(parsedDate);
         } catch (ParseException e) {
-            throw new DukeException("Unable to parse input " + date + " as a date. " + helpText);
+            ui.showMessage("Unable to parse input " + date + " as a date. " + helpText);
         }
-        currentDate = dateFormat.format(parsedDate);
     }
 
     /**
      * Constructor for DeleteCommand.
      * @param indexStr the index of meal to be deleted.
      */
-    public DeleteCommand(String indexStr) throws DukeException {
+    public DeleteCommand(String indexStr) {
         try {
             this.index = Integer.parseInt(indexStr.trim());
         } catch (NumberFormatException nfe) {
-            throw new DukeException("Unable to parse input " + indexStr + " as integer index. " + helpText);
+            ui.showMessage("Unable to parse input " + indexStr + " as integer index. " + helpText);
         }
     }
 
+    public DeleteCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
+    }
     /**
      * Executes the DeleteCommand.
      * @param meals the MealList object in which the meals are supposed to be added

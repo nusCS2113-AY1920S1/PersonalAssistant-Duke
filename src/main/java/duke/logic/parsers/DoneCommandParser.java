@@ -6,7 +6,7 @@ import duke.commons.exceptions.DukeException;
 public class DoneCommandParser implements ParserInterface<MarkDoneCommand> {
 
     @Override
-    public MarkDoneCommand parse(String userInput) throws DukeException {
+    public MarkDoneCommand parse(String userInput) {
         if (userInput.trim().length() != 0) {
             if (userInput.split("/date").length >= 2) {
                 String[] splitArgs = userInput.split("/date", 2);
@@ -15,7 +15,7 @@ public class DoneCommandParser implements ParserInterface<MarkDoneCommand> {
                 return new MarkDoneCommand(userInput);
             }
         } else {
-            throw new DukeException("Please enter index of meal to be marked done on today's list or "
+            return new MarkDoneCommand(false,"Please enter index of meal to be marked done on today's list or "
                     + "date and index of meal to be marked done");
         }
     }

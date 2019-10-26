@@ -29,7 +29,7 @@ public class MarkDoneCommand extends Command {
      * @param indexStr the index of meal on the date to be marked as done.
      * @param date the date which meals are to be marked as done.
      */
-    public MarkDoneCommand(String indexStr, String date) throws DukeException {
+    public MarkDoneCommand(String indexStr, String date) {
         this(indexStr);
         Date parsedDate;
         try {
@@ -45,14 +45,18 @@ public class MarkDoneCommand extends Command {
      * @param indexStr the index of meal on the today to be marked as done.
      * @throws DukeException when parseInt is unable to parse the index.
      */
-    public MarkDoneCommand(String indexStr) throws DukeException {
+    public MarkDoneCommand(String indexStr) {
         try {
             this.index = Integer.parseInt(indexStr.trim());
         } catch (NumberFormatException e) {
-            throw new DukeException("Unable to parse input " + indexStr + " as integer index. " + helpText);
+            ui.showMessage("Unable to parse input " + indexStr + " as integer index. " + helpText);
         }
     }
 
+    public MarkDoneCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
+    }
     /**
      * Executes the MarkDoneCommand.
      * @param meals the MealList object in which the meals are supposed to be added

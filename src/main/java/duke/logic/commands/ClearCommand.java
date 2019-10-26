@@ -27,13 +27,18 @@ public class ClearCommand extends Command {
      * @param endDateStr the end of the time period to be cleared, inclusive
      * @throws DukeException if the inputs cannot be parsed
      */
-    public ClearCommand(String startDateStr, String endDateStr) throws DukeException {
+    public ClearCommand(String startDateStr, String endDateStr) {
         try {
             startDate = dateFormat.parse(startDateStr);
             endDate = dateFormat.parse(endDateStr);
         } catch (ParseException e) {
-            throw new DukeException("Unable to parse input " + startDateStr + " and " + endDateStr + " as dates.");
+            ui.showMessage("Unable to parse input " + startDateStr + " and " + endDateStr + " as dates.");
         }
+    }
+
+    public ClearCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
     }
 
     /**

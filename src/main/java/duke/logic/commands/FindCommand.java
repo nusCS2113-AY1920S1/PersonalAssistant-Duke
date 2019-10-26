@@ -32,6 +32,11 @@ public class FindCommand extends Command {
         this.currentDate = date;
     }
 
+    public FindCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
+    }
+
     /**
      * Executes the FindCommand.
      * @param meals the MealList object in which the meals are supposed to be added

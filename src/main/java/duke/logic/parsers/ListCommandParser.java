@@ -6,7 +6,7 @@ import duke.commons.exceptions.DukeException;
 public class ListCommandParser implements ParserInterface<ListCommand> {
 
     @Override
-    public ListCommand parse(String userInput) throws DukeException {
+    public ListCommand parse(String userInput) {
         if (userInput.trim().length() != 0) {
             return new ListCommand(userInput);
         } else {

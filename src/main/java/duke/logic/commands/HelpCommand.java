@@ -32,6 +32,10 @@ public class HelpCommand extends Command {
         this.specifiedHelp = specifiedHelp;
     }
 
+    public HelpCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
+    }
     /**
      * Executes the HelpCommand.
      * @param meals the MealList object in which the meals are supposed to be added

@@ -18,6 +18,10 @@ public class AddTransactionCommand extends Command {
         this.transaction = transaction;
     }
 
+    public AddTransactionCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
+    }
     @Override
     public void execute(MealList tasks, Storage storage, User user, Wallet wallet) {
         ui.showLine();

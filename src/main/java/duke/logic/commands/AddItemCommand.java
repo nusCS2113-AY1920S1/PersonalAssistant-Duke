@@ -25,6 +25,10 @@ public class AddItemCommand extends Command {
         this.meal = meal;
     }
 
+    public AddItemCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
+    }
     /**
      * Execute the AddItemCommand.
      * @param meals the MealList object in which the meal is supposed to be added

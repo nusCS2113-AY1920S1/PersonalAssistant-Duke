@@ -11,9 +11,9 @@ import java.util.Date;
 public class DepositCommandParser implements ParserInterface<AddTransactionCommand> {
 
     @Override
-    public AddTransactionCommand parse(String userInput) throws DukeException {
+    public AddTransactionCommand parse(String userInput) {
         if (userInput.trim().length() == 0) {
-            throw new DukeException("Please enter the amount to deposit for today's date or date"
+            return new AddTransactionCommand(false,"Please enter the amount to deposit for today's date or date"
                     + " and amount to be deposited");
         }
         if (userInput.contains("/date")) {
@@ -24,7 +24,7 @@ public class DepositCommandParser implements ParserInterface<AddTransactionComma
             try {
                 parsedDate = dateFormat.parse(dateString);
             } catch (ParseException e) {
-                throw new DukeException("Unable to parse input" + dateString + "as a date.");
+                return new AddTransactionCommand(false,"Unable to parse input" + dateString + "as a date.");
             }
             dateString = dateFormat.format(parsedDate);
             return new AddTransactionCommand(new Deposit(depositAmount, dateString));

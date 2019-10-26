@@ -24,6 +24,10 @@ public class HistoryCommand extends Command {
         historyCommandsList = new ArrayList<String>();
     }
 
+    public HistoryCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
+    }
     /**
      * Add command to history of commands.
      * @param commandStr the command to be added to the list of executed commands thus far
@@ -40,6 +44,7 @@ public class HistoryCommand extends Command {
     public void clearHistory() {
         historyCommandsList.clear();
     }
+
 
     /**
      * Executes the HistoryCommand.

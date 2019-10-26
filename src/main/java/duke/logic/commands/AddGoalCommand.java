@@ -29,6 +29,11 @@ public class AddGoalCommand extends Command {
         this.goal = goal;
     }
 
+    public AddGoalCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
+    }
+
     /**
      * Executes AddGoalCommand.
      * @param meals the MealList object in which the meal is supposed to be added

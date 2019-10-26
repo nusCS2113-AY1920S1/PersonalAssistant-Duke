@@ -18,14 +18,20 @@ import duke.model.user.User;
  */
 public class AddCommand extends Command {
     private Meal meal;
-
+    private int cost;
     /**
      * Constructor for AddCommand.
      * the meal specified as the instance field meal.
      * @param meal The meal to be added.
      */
-    public AddCommand(Meal meal) {
+    public AddCommand(Meal meal, int cost) {
         this.meal = meal;
+        this.cost = cost;
+    }
+
+    public AddCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
     }
 
     /**
@@ -39,6 +45,7 @@ public class AddCommand extends Command {
         ui.showLine();
         try {
             meals.addMeals(this.meal);
+            wallet.addTransactions(cost,this.meal.getDate());
             ArrayList<Meal> mealData = meals.getMealTracker().get(this.meal.getDate());
             ui.showAdded(this.meal, mealData, user, this.meal.getDate());
             storage.updateFile(meals);

@@ -24,6 +24,11 @@ public class UpdateWeightCommand extends Command {
         this.description = description;
     }
 
+    public UpdateWeightCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
+    }
+
     /**
      * Executes the UpdateWeightCommand.
      * @param meals the MealList object in which the meals are supposed to be added

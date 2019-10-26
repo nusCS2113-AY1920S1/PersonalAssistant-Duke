@@ -7,7 +7,7 @@ import duke.model.meal.Meal;
 public class EditCommandParser implements ParserInterface<EditCommand> {
 
     @Override
-    public EditCommand parse(String userInput) throws DukeException {
+    public EditCommand parse(String userInput) {
         String name = userInput.split("/", 2)[0];
         String info = "/" + userInput.split("/", 2)[1];
         return new EditCommand(new Meal(name, info));

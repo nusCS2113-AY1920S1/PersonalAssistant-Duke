@@ -24,6 +24,8 @@ public abstract class Command {
     protected Ui ui = new Ui();
     protected String response;
     protected boolean isDone = true;
+    protected boolean isFail = false;
+    protected String error;
     /**
      * This class is an abstract class that will change according to the inheritor.
      * @param meals the MealList object in which the meals are supposed to be added
@@ -42,5 +44,13 @@ public abstract class Command {
 
     public boolean isExit() {
         return false;
+    }
+
+    public void failure() {
+        ui.showMessage(this.error);
+    }
+
+    public boolean isFail() {
+        return this.isFail;
     }
 }

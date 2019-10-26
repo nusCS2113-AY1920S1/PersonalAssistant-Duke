@@ -83,6 +83,14 @@ public class Main {
                 String fullCommand = in.nextLine();
                 Command c = userParser.parse(fullCommand);
                 c.execute(tasks, storage, user, wallet);
+                while (!c.isDone() && !c.isFail()) {
+                    String word = in.nextLine();
+                    c.setResponse(word);
+                    c.execute2(tasks, storage, user, wallet);
+                }
+                if (c.isFail()) {
+                    c.failure();
+                }
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showMessage(e.getMessage());
