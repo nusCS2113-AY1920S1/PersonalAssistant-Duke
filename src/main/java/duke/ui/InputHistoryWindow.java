@@ -1,25 +1,27 @@
 package duke.ui;
-import duke.command.Executor;
-import duke.command.Parser;
+import duke.exception.DukeException;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 abstract class InputHistoryWindow extends UiElement<Region> {
 
     @FXML
-    private AutoCompleteTextField inputTextField;
-    @FXML
-    private Button sendButton;
+    protected AutoCompleteTextField inputTextField;
 
     // TODO: A separate (inner) class for input history
     private List<String> inputHistory;
     private int historyPointer;
     private String currentInput;
+    private File historyFile;
 
     /**
      * Constructs the command window of the application.
@@ -27,14 +29,25 @@ abstract class InputHistoryWindow extends UiElement<Region> {
     InputHistoryWindow(String fxmlFileName, Region root) {
         super(fxmlFileName, root);
 
-        inputHistory = new ArrayList<>();
         historyPointer = 0;
 
+        // listen for updates to text field, and save partial input to currentInput if not viewing history
         inputTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (historyPointer == inputHistory.size()) {
                 currentInput = newValue;
             }
         });
+
+        historyFile = new File("data/history.txt");
+        try {
+            Scanner commandScanner = new Scanner(historyFile);
+            inputHistory = new ArrayList<>();
+            while (commandScanner.hasNextLine()) {
+                inputHistory.add(commandScanner.nextLine());
+            }
+        } catch (FileNotFoundException excp) {
+            inputHistory = new ArrayList<>();
+        }
     }
 
     /**
@@ -43,7 +56,7 @@ abstract class InputHistoryWindow extends UiElement<Region> {
      */
     private void navigateToPreviousInput() {
         if (historyPointer > 0) {
-            historyPointer = historyPointer - 1;
+            --historyPointer;
             setText(inputHistory.get(historyPointer));
         }
     }
@@ -54,12 +67,12 @@ abstract class InputHistoryWindow extends UiElement<Region> {
      */
     private void navigateToNextInput() {
         if (historyPointer < inputHistory.size() - 1) {
-            historyPointer = historyPointer + 1;
+            ++historyPointer;
             setText(inputHistory.get(historyPointer));
         } else if (historyPointer == inputHistory.size() - 1) {
-            historyPointer = historyPointer + 1;
+            ++historyPointer;
             setText(currentInput);
-        }
+        } //ignore if already viewing current input
     }
 
     /**
@@ -100,5 +113,19 @@ abstract class InputHistoryWindow extends UiElement<Region> {
 
         historyPointer = inputHistory.size();
         currentInput = "";
+    }
+
+    protected void writeHistory() throws DukeException {
+        try {
+            FileWriter cmdFileWr = new FileWriter(historyFile);
+            StringBuilder cmdStrBuilder = new StringBuilder();
+            for (String input : inputHistory) {
+                cmdStrBuilder.append(input).append(System.lineSeparator());
+            }
+            cmdFileWr.write(cmdStrBuilder.toString());
+            cmdFileWr.close();
+        } catch (IOException excp) {
+            throw new DukeException("Unable to write command history! Some data may have been lost,");
+        }
     }
 }

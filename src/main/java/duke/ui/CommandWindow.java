@@ -7,13 +7,8 @@ import duke.exception.DukeException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * UI element designed for the user to interact with the application.
@@ -31,8 +26,6 @@ class CommandWindow extends InputHistoryWindow {
     private ScrollPane scrollPane;
     @FXML
     private VBox messageContainer;
-    @FXML
-    private AutoCompleteTextField inputTextField;
     @FXML
     private Button sendButton;
 
