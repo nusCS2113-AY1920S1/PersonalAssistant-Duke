@@ -31,12 +31,11 @@ public class CommandConvert extends Command {
         this.commandType = CommandType.CONVERT;
         this.amount = extractAmount(this.commandType, userInput);
         this.from = getCurrencyCovertFrom(userInput);
-        this.use = "";
+        this.use = ""; // whether to use "from code" or "to code" for fetching exchange rate from json
         this.to = getCurrencyConvertTo(userInput);
         this.description = "Command that converts the user input cash amount from"
                 + " one currency to another and prints it on the User Interface.";
     }
-
 
     @Override
     public void execute(Wallet wallet) {
@@ -45,12 +44,10 @@ public class CommandConvert extends Command {
         Ui.printSeparator();
     }
 
-
     @Override
     public void execute(TaskList taskList) {
 
     }
-
 
     /**
      * extractAmount parses the user input from CLI to get the amount which the user wishes to convert.
@@ -107,37 +104,112 @@ public class CommandConvert extends Command {
         }
     }
 
+    /**
+     * deriveExchangeRateFromJson helps to get the required exchange rate based on country code from json.
+     * @param json String
+     * @param countryCode String the 3 character unique string
+     * @return the exchange rate in Double, is obtained from the string json and returned
+     */
     private Double deriveExchangeRateFromJson(String json, String countryCode){
-        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
-        String rate = jsonObject.getAsJsonObject("rates").get(countryCode).getAsString();
-        BigDecimal exchangeRate = new BigDecimal(rate);
-        double exRate = exchangeRate.doubleValue();
-        return exRate;
+        try {
+            JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+            String rate = jsonObject.getAsJsonObject("rates").get(countryCode).getAsString();
+            BigDecimal exchangeRate = new BigDecimal(rate);
+            double exRate = exchangeRate.doubleValue();
+            return exRate;
+        } catch (Exception e){
+            Ui.dukeSays("Please enter a valid country code \n");
+            return null;
+        }
     }
 
-    private Double amountAfterConversion(Double rate, Double amount){
-        return rate * amount;
-    }
-
+    /**
+     * isConvertFromOrToEur helps to check if either of the from or to is EUR.
+     * @param from String is the country code from which we are converting currency
+     * @param to String is the country code to which we are converting the currency
+     * @return function returns true if either of to or from is EUR
+     */
     private boolean isConvertFromOrToEUR (String from, String to){
         return from.equals("EUR") || to.equals("EUR");
     }
 
+    /**
+     * generateApiURL helps to create the correct url link for json fetch.
+     * @param from String is the country code from which we are converting currency
+     * @param to String is the country code to which we are converting the currency
+     * @return function returns the correct URL link string based on from and to strings
+     */
     private String generateApiURL (String from , String to){
         boolean isEUR = isConvertFromOrToEUR(from,to);
         String URL;
-        if(isEUR){
-            if(this.from.equals("EUR")){
-                URL = "https://api.exchangeratesapi.io/latest?symbols=" + this.to;
-                setUse(this.to);
+
+        try {
+            if (isEUR) {
+                if (this.from.equals("EUR")) {
+                    URL = "https://api.exchangeratesapi.io/latest?symbols=" + this.to;
+                    setUse(this.to);
+                } else {
+                    URL = "https://api.exchangeratesapi.io/latest?symbols=" + this.from;
+                    setUse(this.from);
+                }
             } else {
-                URL = "https://api.exchangeratesapi.io/latest?symbols=" + this.from;
-                setUse(this.from);
+                URL = "https://api.exchangeratesapi.io/latest?symbols=" + this.from + "," + this.to;
             }
-        } else {
-            URL = "https://api.exchangeratesapi.io/latest?symbols=" + this.from +"," + this.to;
+            return URL;
+        } catch (Exception E){
+            Ui.dukeSays("Please enter a valid country code \n");
+            return null;
         }
-        return URL;
+    }
+
+    /**
+     *  convertCurrencyToOrFromEUR helps to convert currencies from base to EUR or vice versa.
+     * @param Rate Double is the exchange rate derived from json
+     * @param from String is the country code from which we are converting currency
+     * @param amount Double is the amount of money user wishes to convert
+     * @return function returns the converted currency in double
+     */
+    private Double convertCurrencyToOrFromEUR(Double Rate, String from , Double amount){
+        try {
+            if (from.equals("EUR")) {
+                Double convertedAmount = amount * Rate;
+                Double originalToOutputRate = convertedAmount / amount;
+                setExchangeRate(originalToOutputRate);
+                return convertedAmount;
+
+            } else {
+                Double convertedAmount = amount / Rate;
+                Double originalToOutputRate = convertedAmount / amount;
+                setExchangeRate(originalToOutputRate);
+                return convertedAmount;
+            }
+        } catch (Exception e){
+            Ui.dukeSays("Please enter a valid country code \n");
+            return null;
+        }
+    }
+
+    /**
+     * convertNonEURCurrencies helps to convert non EUR currencies where from and to are not EUR.
+     * @param json String is the derived from the api
+     * @param from String is the country code from which we are converting currency
+     * @param to String is the country code to which we are converting the currency
+     * @param amount Double is the amount of money user wishes to convert
+     * @return function returns the converted currency for non EUR conversions in Double
+     */
+    private Double convertNonEURCurrencies (String json , String from, String to, Double amount) {
+        try {
+            Double fromRate = deriveExchangeRateFromJson(json, from); // exRate for country to convert from
+            Double toRate = deriveExchangeRateFromJson(json, to); // exRate for country to convert to
+            Double amountInEUR = amount / fromRate; // changes the given amount in base currency to EUR
+            Double convertedAmount = amountInEUR * toRate; // changes from EUR to required currency
+            Double originalToOutputExRate = convertedAmount / amount; // exchange rate for the conversion from base to required currency
+            setExchangeRate(originalToOutputExRate);
+            return convertedAmount;
+        } catch (Exception e){
+            Ui.dukeSays("Please enter a valid country code \n");
+            return null;
+        }
     }
 
 
@@ -153,20 +225,10 @@ public class CommandConvert extends Command {
             String json = consultCurrencyApi(from,to);
             if (json != null) {
                 if(this.use.equals("")){
-                    Double fromRate = deriveExchangeRateFromJson(json,from);
-                    Double toRate = deriveExchangeRateFromJson(json,to);
-                    Double amountInEUR = amount / fromRate;
-                    Double convertedAmount = amountAfterConversion(toRate, amountInEUR);
-                    Double originalToOutputRate = convertedAmount/amount;
-                    setExchangeRate(originalToOutputRate);
-                    return convertedAmount;
-
+                   return convertNonEURCurrencies(json,from,to,amount);
                 } else {
                     Double Rate = deriveExchangeRateFromJson(json,this.use);
-                    Double convertedAmount = amount / Rate;
-                    Double originalToOutputRate = convertedAmount/amount;
-                    setExchangeRate(originalToOutputRate);
-                    return convertedAmount;
+                    return convertCurrencyToOrFromEUR(Rate, from , amount);
                 }
             }
         } catch (Exception e) {
