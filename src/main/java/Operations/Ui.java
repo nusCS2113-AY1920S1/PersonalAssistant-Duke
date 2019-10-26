@@ -2,8 +2,6 @@ package Operations;
 
 import Enums.TimeUnit;
 
-import java.io.IOException;
-
 /**
  * class to tell user about errors and completion of operations
  */
@@ -168,5 +166,9 @@ public class Ui {
 
     public void showError(Exception e){
         System.out.println(e);
+    }
+
+    public static void clearScreen() throws IOException, InterruptedException {
+        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
     }
 }

@@ -3,20 +3,21 @@ package Operations;
 import CustomExceptions.RoomShareException;
 import Enums.ExceptionType;
 import Enums.Priority;
+import Enums.SortType;
 import Enums.TimeUnit;
 import Model_Classes.Assignment;
-import Model_Classes.Meeting;
 import Model_Classes.Task;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.Date;
 
 /**
  * A class to perform operations on the task list in Duke
  */
 public class TaskList {
     private static ArrayList<Task> tasks;
+    private static SortType sortType = SortType.priority;
 
     /**
      * Constructor for the TaskList class.
@@ -33,7 +34,7 @@ public class TaskList {
      */
     public void add(Task newTask) {
         tasks.add(newTask);
-        sortPriority();
+        sortTasks();
     }
 
     /**
@@ -65,7 +66,7 @@ public class TaskList {
      * Lists out all tasks in the current list in the order they were added into the list.
      */
     public void list() throws RoomShareException {
-        sortPriority();
+        sortTasks();
         if( tasks.size() != 0 ){
             int listCount = 1;
             for (Task output : tasks) {
@@ -159,7 +160,7 @@ public class TaskList {
      * @param t task in which we are checking the value of
      * @return integer value of the task's priority
      */
-    public int getValue(Task t) {
+    public static int getValue(Task t) {
         if (t.getPriority().equals(Priority.high)) {
             return 0;
         } else if (t.getPriority().equals(Priority.medium)) {
@@ -170,10 +171,80 @@ public class TaskList {
     }
 
     /**
-     * Sorts the list based on priority
+     * Changes taskList sort mode
+     * @param sortType new sort mode
      */
-    public void sortPriority() {
-        tasks.sort(Comparator.comparingInt(this::getValue));
+    public static void changeSort(SortType sortType) {
+        TaskList.sortType = sortType;
+        sortTasks();
+    }
+
+    /**
+     * Sorts the list based on current sort mode
+     */
+    public static void sortTasks() {
+        switch (sortType) {
+        case priority:
+            comparePriority();
+            break;
+        case alphabetical:
+            compareAlphabetical();
+            break;
+        case deadline:
+            compareDeadline();
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + sortType);
+        }
+    }
+
+    /**
+     * Compare tasks based on priority
+     */
+    public static void comparePriority() {
+        Collections.sort(tasks, (task1, task2) -> {
+            if( task1.getDone() && !task2.getDone() ) {
+                return -1;
+            } else if( task2.getDone() && !task1.getDone() ) {
+                return 1;
+            } else {
+                return  getValue(task2) - getValue(task1);
+            }
+        });
+    }
+
+    /**
+     * Compare tasks based on Alphabetical order
+     */
+    public static void compareAlphabetical() {
+        Collections.sort(tasks, (task1, task2) -> {
+            if( task1.getDone() && !task2.getDone() ) {
+                return -1;
+            } else if( task2.getDone() && !task1.getDone() ) {
+                return 1;
+            } else {
+                String name1 = task1.getDescription();
+                String name2 = task2.getDescription();
+                return name1.compareTo(name2);
+            }
+        });
+    }
+
+    /**
+     * Compare tasks based on Deadline
+     */
+    public static void compareDeadline() {
+        Collections.sort(tasks, (task1, task2) -> {
+            if( task1.getDone() && !task2.getDone() ) {
+                return -1;
+            } else if( task2.getDone() && !task1.getDone() ) {
+                return 1;
+            } else {
+                Date date1 = task1.getDate();
+                Date date2 = task2.getDate();
+                return (int) (date1.getTime() - date2.getTime());
+            }
+        });
     }
 
     /**
@@ -194,18 +265,18 @@ public class TaskList {
     public void snooze (int index, int amount, TimeUnit timeUnit) throws RoomShareException {
         try {
             switch (timeUnit) {
-                case month:
-                    tasks.get(index).snoozeMonth(amount);
-                    break;
-                case day:
-                    tasks.get(index).snoozeDay(amount);
-                    break;
-                case hours:
-                    tasks.get(index).snoozeHour(amount);
-                    break;
-                case minutes:
-                    tasks.get(index).snoozeMinute(amount);
-                    break;
+            case month:
+                tasks.get(index).snoozeMonth(amount);
+                break;
+            case day:
+                tasks.get(index).snoozeDay(amount);
+                break;
+            case hours:
+                tasks.get(index).snoozeHour(amount);
+                break;
+            case minutes:
+                tasks.get(index).snoozeMinute(amount);
+                break;
             }
         }
         catch (IndexOutOfBoundsException e) {
