@@ -47,7 +47,7 @@ public class FindPathCommand extends Command {
         }
         this.endPointIndex = endPointIndex;
         this.startPointIndex = startPointIndex;
-        logger.log(Level.INFO, constraint + startPointIndex + " " + endPointIndex);
+        logger.log(Level.FINE, constraint + startPointIndex + " " + endPointIndex);
     }
 
     /**
