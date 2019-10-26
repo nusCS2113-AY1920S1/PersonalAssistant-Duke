@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class DeleteProductCommandParser implements Parser<DeleteProductCommand> {
     private static final String MESSAGE_EMPTY_INDICES = "Indices cannot be empty.";
-    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Indices cannot take these value";
+    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index 0 is out of bound";
 
     @Override
     public DeleteProductCommand parse(String args) throws ParseException {
