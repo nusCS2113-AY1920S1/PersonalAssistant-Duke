@@ -4,7 +4,6 @@ import duke.commons.exceptions.DukeException;
 import duke.logic.autocorrect.Autocorrect;
 import duke.logic.commands.Command;
 import duke.logic.commands.ExitCommand;
-import duke.logic.commands.HistoryCommand;
 import duke.logic.commands.UpdateWeightCommand;
 
 import static duke.commons.definitions.CommandDefinitions.PARSER_ADD_COMMAND;
@@ -32,11 +31,10 @@ import static duke.commons.exceptions.ExceptionMessages.UNKNOWN_COMMAND;
  * And generate the appropriate command with their appropriate arguments
  */
 public class Parser {
-    private static HistoryCommand historyCommand = new HistoryCommand();
-    private static Autocorrect autocorrect;
+    private static ParserUtil parserUtil;
 
     public Parser(Autocorrect autocorrect) {
-        this.autocorrect = autocorrect;
+        this.parserUtil = new ParserUtil(autocorrect);
     }
 
     /**
@@ -61,15 +59,9 @@ public class Parser {
      * @throws DukeException when the command is not recognized or command syntax is invalid
      */
     public Command parse(String fullCommand) throws DukeException {
-        String userInput = "";
-        String[] splitCommand = fullCommand.split(" ", 2);
-        if (splitCommand.length != 2) {
-            splitCommand = new String[] {splitCommand[0], ""};
-        }
-        String command = splitCommand[0];
-        command = autocorrect.runOnCommand(command);
-        userInput = autocorrect.runOnArgument(splitCommand[1]);
-        historyCommand.addCommand(command);
+        this.parserUtil.parse(fullCommand);
+        String command = this.parserUtil.getCommand();
+        String userInput = this.parserUtil.getArgument();
 
         switch (command) {
             case PARSER_EXIT_COMMAND:
@@ -105,11 +97,7 @@ public class Parser {
             case PARSER_PAYMENT_COMMAND:
                 return new PaymentCommandParser().parse(userInput);
             case PARSER_HISTORY_COMMAND:
-                // clear history if requested
-                if (!userInput.isEmpty() && userInput.equals("clear")) {
-                    historyCommand.clearHistory();
-                }
-                return historyCommand;
+                return parserUtil.getHistory(userInput);
             case PARSER_SUGGEST_COMMAND:
                 return new SuggestCommandParser().parse(userInput);
             default:

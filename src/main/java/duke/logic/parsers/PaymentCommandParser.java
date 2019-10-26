@@ -8,8 +8,17 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
 
+/**
+ * Parser class to handle addition of a payment transaction to the wallet.
+ */
 public class PaymentCommandParser implements ParserInterface<AddTransactionCommand> {
 
+    /**
+     * Parse user input and return PaymentCommandParser.
+     * @param userInput String input by user
+     * @return <code>AddTransactionCommand</code> Command object encapsulating the details of the transaction
+     * @throws DukeException If the userInput cannot be parsed
+     */
     @Override
     public AddTransactionCommand parse(String userInput) throws DukeException {
         if (userInput.trim().length() == 0) {

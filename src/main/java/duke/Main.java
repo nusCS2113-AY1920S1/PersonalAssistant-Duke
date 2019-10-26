@@ -1,5 +1,6 @@
 package duke;
 
+import duke.logic.autocorrect.Autocorrect;
 import duke.logic.commands.Command;
 import duke.commons.exceptions.DukeException;
 import duke.model.TransactionList;
@@ -8,7 +9,6 @@ import duke.model.MealList;
 import duke.ui.Ui;
 import duke.logic.parsers.Parser;
 import duke.model.user.User;
-import duke.logic.autocorrect.Autocorrect;
 
 import java.util.Scanner;
 
@@ -17,13 +17,12 @@ import java.util.Scanner;
  * It encapsulates a Storage object, a MealList object, and an Ui object.
  */
 public class Main {
-
     private Storage storage;
     private MealList tasks = new MealList();
     private Ui ui;
     private Scanner in = new Scanner(System.in);
     private User user;
-    private Autocorrect autocorrect;
+    private Autocorrect autocorrect = new Autocorrect();
     private TransactionList transactions = new TransactionList();
 
     /**
@@ -33,7 +32,6 @@ public class Main {
         ui = new Ui();
         storage = new Storage();
         user = new User();
-        autocorrect = new Autocorrect();
         try {
             storage.load(tasks);
         } catch (DukeException e) {
