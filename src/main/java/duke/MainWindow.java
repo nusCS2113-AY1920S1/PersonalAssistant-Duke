@@ -21,11 +21,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.Tooltip;
+
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+import javafx.util.Duration;
+import javafx.scene.Node;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Timer;
@@ -71,7 +75,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     SingleSelectionModel<Tab> selectedTab;
 
+
     private Duke duke;
+    private Tooltip toolTip;
 
     private int refreshType = 0;
     private static final int ZERO = 0;
@@ -98,6 +104,11 @@ public class MainWindow extends AnchorPane {
         setVboxWidth(false);
         setButtonsVisibility(true);
         selectedTab =  tpTabs.getSelectionModel();
+        toolTip = new Tooltip();
+        toolTip.setText("");
+        listT.setTooltip(toolTip);
+        toolTip.setShowDelay(Duration.millis(75.0));
+        toolTip.setShowDuration(Duration.millis(0.0));
 
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(Ui.showWelcomeGui(), dukeImage)
@@ -194,9 +205,14 @@ public class MainWindow extends AnchorPane {
     }
 
     @FXML
-    private void onMouseClick_ListView() {
+    private void onMouseClick_ListView(MouseEvent mouseEvent) {
         labelSelectedTask.setText("Selected Task: " + listT.getSelectionModel().getSelectedItem());
         Task taskObj = listT.getSelectionModel().getSelectedItem();
+        toolTip.setText("Notes: " + taskObj.getNotes());
+        Node node = (Node) mouseEvent.getSource();
+        toolTip.show(node, mouseEvent.getScreenX() + 120, mouseEvent.getScreenY());
+
+
         if (taskObj.isDone()) {
             btnDone.setDisable(true);
         } else {
@@ -234,6 +250,15 @@ public class MainWindow extends AnchorPane {
         TaskList items = duke.getTaskList();
         int itemNumber = items.getIndex(taskObj) + ONE;
         handleUserEvent("delete " + itemNumber);
+        updateGui();
+    }
+
+    @FXML
+    private void onMouseClick_DeleteNotes() {
+        Task taskObj = listT.getSelectionModel().getSelectedItem();
+        TaskList items = duke.getTaskList();
+        int itemNumber = items.getIndex(taskObj) + ONE;
+        handleUserEvent("notes " + itemNumber + " /delete");
         updateGui();
     }
 
@@ -357,6 +382,7 @@ public class MainWindow extends AnchorPane {
             selectedTab.select(filterList.getFilterIndex());
         }
         refreshType = 0;
+
     }
 
     @FXML
@@ -416,6 +442,28 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
+     * Creates a new window to allow the user to add or update notes of existing task via user friendly interface.
+     */
+    @FXML
+    public void createAddNotesWindow() {
+        Task taskObj = listT.getSelectionModel().getSelectedItem();
+        TaskList items = duke.getTaskList();
+        int itemNumber = items.getIndex(taskObj) + ONE;
+        String notesDesc = items.get(itemNumber - ONE).getNotes();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/AddNotesWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            fxmlLoader.<AddNotesWindow>getController().setAddNotesWindow(this, itemNumber, notesDesc);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Creates a new window to allow the user to view commands under help via user friendly interface.
      */
     @FXML
@@ -432,4 +480,5 @@ public class MainWindow extends AnchorPane {
             e.printStackTrace();
         }
     }
+
 }

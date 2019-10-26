@@ -18,6 +18,7 @@ public class FindContactCommand extends Command {
      * Creates a command with the specified keyword.
      *
      * @param keyword The word to be searched in the list of contacts.
+     * @param contactList A list of Contacts.
      */
     public FindContactCommand(String keyword, ContactList contactList) {
         this.keyword = keyword;

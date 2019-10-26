@@ -83,6 +83,7 @@ public class ContactList {
     /**
      * Retrieves all contacts from the contact list.
      *
+     * @param index The index of the task.
      * @return String that contains the whole list of contacts.
      */
     public String getSpecificContactList(int index) {
