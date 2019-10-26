@@ -311,7 +311,7 @@ public class EditCommandParserTest {
     //@@author Xdecosee
     @ParameterizedTest
     @ValueSource(strings = {"", "  ", "1", "garbage"})
-    public void parseContact_invalidInput_true(String input) {
+    public void parseContact_InvalidInput_True(String input) {
         EditCommandParser parser = new EditCommandParser();
         Contact contact = parser.parseContact(input);
         assertNull(contact, "Return Contact should be null:");
@@ -320,20 +320,20 @@ public class EditCommandParserTest {
     @ParameterizedTest
     @ValueSource(strings = { "6 /n /d /p", "6 /n   /d   /p  ",
         "6 /n John /p 7183 /d brother 123@abc.com", "8 /n Test /d /d /doctor"})
-    public void parseContact_validInput_success(String input) {
+    public void parseContact_ValidInput_Success(String input) {
         EditCommandParser parser = new EditCommandParser();
         Contact contact = parser.parseContact(input);
         Contact match = null;
-        if(input.equals("6 /n /d /p")){
+        if("6 /n /d /p".equals(input)){
             match = new Contact(null, "", "");
             match.setId(6);
-        } else if (input.equals("6 /n   /d   /p  ")){
+        } else if ("6 /n   /d   /p  ".equals(input)){
             match = new Contact(null, "", "");
             match.setId(6);
-        } else if (input.equals( "6 /n John /p 7183 /d brother 123@abc.com")){
+        } else if ("6 /n John /p 7183 /d brother 123@abc.com".equals(input)){
             match = new Contact("John", "brother 123@abc.com", "7183");
             match.setId(6);
-        } else if (input.equals("8 /n Test /d /d /doctor")){
+        } else if ("8 /n Test /d /d /doctor".equals(input)){
             match = new Contact("Test", "/d /doctor", null);
             match.setId(8);
         }

@@ -1,15 +1,11 @@
 package wallet.logic.parser;
 
 import org.junit.jupiter.api.Test;
-<<<<<<< HEAD
-
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
-=======
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
->>>>>>> junit tests
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import wallet.logic.LogicManager;
 import wallet.model.Wallet;
 import wallet.model.WalletList;
@@ -24,14 +20,6 @@ import wallet.model.record.LoanList;
 import wallet.model.record.RecordList;
 import java.text.ParseException;
 import java.time.LocalDate;
-
-<<<<<<< HEAD
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertNull;
-=======
-import static org.junit.jupiter.api.Assertions.*;
->>>>>>> junit tests
 
 public class AddCommandParserTest {
     //@@author kyang96
@@ -143,7 +131,7 @@ public class AddCommandParserTest {
     //@@author Xdecosee
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "/d /p"})
-    public void parseContact_invalidInput_true(String input) {
+    public void parseContact_InvalidInput_True(String input) {
         AddCommandParser parser = new AddCommandParser();
         Contact contact = parser.parseContact(input);
         assertNull(contact, "Return Contact should be null:");
@@ -151,17 +139,17 @@ public class AddCommandParserTest {
 
     @ParameterizedTest
     @ValueSource(strings = { "Mary /d /p  ", "Mary Tan", "Mary /p 9728 1831 /d sister", "Test /p /p"})
-    public void parseContact_validInput_success(String input) {
+    public void parseContact_ValidInput_Success(String input) {
         AddCommandParser parser = new AddCommandParser();
         Contact contact = parser.parseContact(input);
         Contact match = null;
-        if(input.equals("Mary /d /p  ")){
+        if("Mary /d /p  ".equals(input)){
             match = new Contact("Mary", null, null);
-        } else if (input.equals("Mary Tan")){
+        } else if ("Mary Tan".equals(input)){
             match = new Contact("Mary Tan", null, null);
-        } else if (input.equals( "Mary /p 9728 1831 /d sister")){
+        } else if ("Mary /p 9728 1831 /d sister".equals(input)){
             match = new Contact("Mary", "sister", "9728 1831");
-        } else if (input.equals("Test /p /p")){
+        } else if ("Test /p /p".equals(input)){
             match = new Contact("Test", null, "/p");
         }
         Contact finalMatch = match;

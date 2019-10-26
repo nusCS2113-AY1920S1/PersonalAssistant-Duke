@@ -194,6 +194,9 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                 boolean isRecurring = false;
                 String freq = null;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fix checkstyle
                 if (s.length == 6 && s[4].trim().equalsIgnoreCase("yes")) {
                     isRecurring = true;
                     date = LocalDate.parse(s[1].trim(), formatter);
@@ -202,6 +205,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                         System.out.println(freq);
                         System.out.println(MESSAGE_ERROR_CSV_FORMAT);
                         return null;
+<<<<<<< HEAD
 =======
                 if (s.length == 6) {
                     if (s[4].trim().equalsIgnoreCase("yes")) {
@@ -214,6 +218,8 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                             return null;
                         }
 >>>>>>> junit tests
+=======
+>>>>>>> fix checkstyle
                     }
                 }
                 Expense expense = new Expense(desc, date, amount, cat, isRecurring, freq);
