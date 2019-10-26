@@ -16,6 +16,7 @@ public class HomeDischargeCommand extends ArgCommand {
         String explanation = "This report shows all the data that was stored about a patient at the time the report was"
                 + " created.";
         if (core.patientMap.getPatient(getArg()) != null) {
+            core.ui.print("Patient discharged. A discharge report have been created.");
             HomeReportCommand.createReport(core.patientMap.getPatient(getArg()), header,
                     explanation, getSwitchVal("summary"));
             core.patientMap.deletePatient(getArg());

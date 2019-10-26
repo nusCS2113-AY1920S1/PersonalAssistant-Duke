@@ -10,12 +10,12 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
 /**
- * An UI element that displays certain information of a {@code Patient}.
+ * An UI element that displays basic information of a {@code Patient}.
  * TODO: Extend from UiElement.
  */
 class PatientCard extends AnchorPane {
     private static final String FXML = "PatientCard.fxml";
-
+    private final Patient patient;
     @FXML
     private Label nameLabel;
     @FXML
@@ -24,8 +24,6 @@ class PatientCard extends AnchorPane {
     private Label diagnosisLabel;
     @FXML
     private Label issueLabel;
-
-    private final Patient patient;
 
     /**
      * Constructs a PatientCard object with the specified patient's details.
@@ -54,10 +52,10 @@ class PatientCard extends AnchorPane {
         nameLabel.setText(patient.getName());
         bedLabel.setText("Bed " + patient.getBedNo());
 
-        if (patient.getPriDiagnosis() != null) {
-            diagnosisLabel.setText(patient.getPriDiagnosis().getDescription());
+        if (patient.getPrimaryDiagnosis() != null) {
+            diagnosisLabel.setText(patient.getPrimaryDiagnosis().getName());
         } else {
-            diagnosisLabel.setText("N.A.");
+            diagnosisLabel.setText("No primary diagnosis");
         }
 
         // TODO: Fetch patient's issues

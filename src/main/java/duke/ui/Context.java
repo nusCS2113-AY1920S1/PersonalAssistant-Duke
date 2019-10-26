@@ -6,6 +6,7 @@ package duke.ui;
 public enum Context {
     HOME,
     PATIENT,
+    IMPRESSION,
     TREATMENT,
     EVIDENCE,
     INVESTIGATION

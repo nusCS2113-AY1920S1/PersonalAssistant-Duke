@@ -1,7 +1,12 @@
 package duke.data;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class Medicine extends Treatment {
 
+    private static final List<String> statusArr = Arrays.asList("Not ordered", "In progress", "Completed");
     private String dose;
     private String startDate;
     private String duration;
@@ -17,14 +22,13 @@ public class Medicine extends Treatment {
      * @param impression the impression object the medicine is tagged to
      * @param priority the priority level of the medicine
      * @param status the current status of the medicine
-     * @param statusArr description of the status tagged to this medicine
      * @param dose the dosage of the medicine needed
      * @param startDate the starting date when the patient should be on the medicine
      * @param duration the duration the patient needs to take the medicine
      */
-    public Medicine(String name, Impression impression, int priority, int status, String[] statusArr,
+    public Medicine(String name, String impression, int priority, int status,
                     String dose, String startDate, String duration) {
-        super(name, impression, priority, status, statusArr);
+        super(name, impression, priority, status);
         this.dose = dose;
         this.startDate = startDate;
         this.duration = duration;
@@ -69,5 +73,13 @@ public class Medicine extends Treatment {
 
     public String getStartDate() {
         return startDate;
+    }
+
+    public String getStatusStr() {
+        return statusArr.get(getStatusIdx());
+    }
+
+    public static List<String> getStatusArr() {
+        return Collections.unmodifiableList(statusArr);
     }
 }

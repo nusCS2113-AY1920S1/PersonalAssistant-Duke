@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
  * UI element designed for the user to interact with the application.
  * It has 3 main tasks.
  * 1. Displays and reads user's input.
- * 2. Parses VALID user's input into a defined command and displays the corresponding result.
+ * 2. Use the Parser to parse VALID user's input into a defined command and displays the corresponding result.
  * 3. Displays the appropriate error message for INVALID user's input.
  */
 class CommandWindow extends InputHistoryWindow {
@@ -54,10 +54,8 @@ class CommandWindow extends InputHistoryWindow {
     @FXML
     private void handleAction() {
         String input = inputTextField.getText().trim();
-        input = input.replaceAll("\t", "    ");
 
         if (!input.isEmpty()) {
-
             storeInput(input);
             try {
                 writeHistory();

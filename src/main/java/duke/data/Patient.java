@@ -10,11 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Patient extends DukeObject {
-
     private String bedNo;
     private String allergies;
-    private Impression priDiagnosis;
-    private transient ObservableMap<String, Impression> observableImpressions;
+    private Impression primaryDiagnosis;
     private HashMap<String, Impression> impressions;
     private Integer height;
     private Integer weight;
@@ -23,12 +21,15 @@ public class Patient extends DukeObject {
     private String address;
     private String history;
 
+    private transient ObservableMap<String, Impression> observableImpressions;
+    private transient ObservableMap<String, Object> attributes;
+
     /**
      * Represents the patient.
      * A Patient object corresponds to the biometric information of a patient,
      * patient details, medical history, the impressions the doctor has about a patient.
      * Attributes:
-     * - priDiagnosis the chief complaint or most serious impression of a patient
+     * - primaryDiagnosis the chief complaint or most serious impression of a patient
      * - impression the list of all impressions of a patient
      *
      * @param name      the name of the patient
@@ -46,16 +47,16 @@ public class Patient extends DukeObject {
         super(name);
         this.bedNo = bedNo;
         this.allergies = allergies;
+        this.impressions = new HashMap<>();
         this.height = height;
         this.weight = weight;
         this.age = age;
         this.number = number;
         this.address = address;
         this.history = history;
-        this.priDiagnosis = new Impression("No Primary Impression", "Add upon admission diagnosis", this);
+        this.primaryDiagnosis = null;
 
-        this.impressions = new HashMap<>();
-        initObservableImpressions();
+        initObservables();
     }
 
     /**
@@ -72,21 +73,21 @@ public class Patient extends DukeObject {
         super(name);
         this.bedNo = bedNo;
         this.allergies = allergies;
+        this.impressions = new HashMap<>();
         this.height = null;
         this.weight = null;
         this.age = null;
         this.number = null;
         this.address = null;
         this.history = null;
-        this.priDiagnosis = null;
+        this.primaryDiagnosis = null;
 
-        this.impressions = new HashMap<>();
-        initObservableImpressions();
+        initObservables();
     }
 
     /**
      * Attaches a listener to the impressions map.
-     * This listener updates the {@code impressionHashMap} whenever the patient map is updated.
+     * This listener updates the {@code impressions} whenever the patient map is updated.
      */
     private void attachImpressionsListener() {
         observableImpressions.addListener((MapChangeListener<String, Impression>) change -> {
@@ -128,6 +129,9 @@ public class Patient extends DukeObject {
     public Impression deleteImpression(String keyIdentifier) throws DukeException {
         if (this.observableImpressions.containsKey(keyIdentifier)) {
             Impression imp = this.observableImpressions.get(keyIdentifier);
+            if (this.primaryDiagnosis.getName().equals(keyIdentifier)) {
+                this.primaryDiagnosis = null;
+            }
             this.observableImpressions.remove(keyIdentifier);
             return imp;
         } else {
@@ -150,27 +154,13 @@ public class Patient extends DukeObject {
     }
 
     /**
-     * Sets the Primary Diagnosis of the patient specified by the index chosen.
-     *
-     * @param keyIdentifier index of the impression
-     */
-    public void setPriDiagnosis(String keyIdentifier) throws DukeException {
-        if (this.observableImpressions.containsKey(keyIdentifier)) {
-            Impression imp = this.observableImpressions.get(keyIdentifier);
-            this.priDiagnosis = imp;
-            return;
-        } else {
-            throw new DukeException("I don't have that entry in the list!");
-        }
-    }
-
-    /**
      * This function finds relavent Impressions to the searchTerm.
+     *
      * @param searchTerm the serach term
      * @return the list of impressions
      */
     public ArrayList<Impression> findImpression(String searchTerm) {
-        ArrayList<Impression> searchResult = new ArrayList<Impression>();
+        ArrayList<Impression> searchResult = new ArrayList<>();
         for (Map.Entry<String, Impression> mapElement : this.observableImpressions.entrySet()) {
             Impression value = mapElement.getValue();
             if (value.toString().contains(searchTerm)) {
@@ -189,7 +179,7 @@ public class Patient extends DukeObject {
      */
     public ArrayList<DukeObject> find(String searchTerm) throws DukeException {
         ArrayList<Impression> filteredList = findImpression(searchTerm);
-        ArrayList<DukeObject> searchResult = new ArrayList<DukeObject>();
+        ArrayList<DukeObject> searchResult = new ArrayList<>();
         for (Impression imp : filteredList) {
             searchResult.add(imp);
             searchResult.addAll(imp.find(searchTerm));
@@ -199,17 +189,19 @@ public class Patient extends DukeObject {
 
     /**
      * This function appends an addition to the history of a Patient.
+     *
      * @param addition the string to be added
      * @return the new history
      */
     public String appendHistory(String addition) {
         String newHistory;
         if (this.history != null && !this.history.equals("")) {
-            newHistory = this.history + "\t" + addition;
+            newHistory = this.history + System.lineSeparator() + addition;
         } else {
             newHistory = addition;
         }
-        this.history = newHistory; // setHistory(newHistory);
+
+        setHistory(newHistory);
         return newHistory;
     }
 
@@ -225,26 +217,27 @@ public class Patient extends DukeObject {
 
     /**
      * Returns a string representation of a patient displaying all the values of the patient's attributes
-     * in a reader-friendly format.      *
+     * in a reader-friendly format.
      *
      * @return string representation of patient
      */
     public String toString() {
-        String informationString;
-        informationString = "Personal details\n";
-        informationString += "Height: " + Integer.toString(this.height) + "\n";
-        informationString += "Weight: " + Integer.toString(this.weight) + "\n";
-        informationString += "Age: " + Integer.toString(this.age) + "\n";
-        informationString += "Number: " + Integer.toString(this.number) + "\n";
-        informationString += "Address: " + this.address + "\n";
-        informationString += "History: " + this.history + "\n";
-        informationString += "Registration details\n";
-        informationString += "Bed Number: " + this.bedNo + "\n";
-        informationString += "Allergies: " + this.allergies + "\n";
-        informationString += "Primary Diagnosis: " + this.priDiagnosis.toString() + "\n";
+        StringBuilder informationString;
+        informationString = new StringBuilder("Personal details\n");
+        informationString.append("Height: ").append(this.height).append("\n");
+        informationString.append("Weight: ").append(this.weight).append("\n");
+        informationString.append("Age: ").append(this.age).append("\n");
+        informationString.append("Number: ").append(this.number).append("\n");
+        informationString.append("Address: ").append(this.address).append("\n");
+        informationString.append("History: ").append(this.history).append("\n");
+        informationString.append("Registration details\n");
+        informationString.append("Bed Number: ").append(this.bedNo).append("\n");
+        informationString.append("Allergies: ").append(this.allergies).append("\n");
+        informationString.append((primaryDiagnosis != null) ? "Primary Diagnosis: "
+                + this.primaryDiagnosis.toString() + "\n" : "");
         for (Map.Entry mapElement : this.impressions.entrySet()) {
             Impression imp = (Impression) mapElement.getValue();
-            informationString += imp.toString();
+            informationString.append(imp.toString());
         }
         return super.toString() + informationString + "\n";
     }
@@ -257,39 +250,40 @@ public class Patient extends DukeObject {
 
     @Override
     public String toReportString() {
-        String informationString;
-        informationString = "\tName of patient: " + getName() + "\n";
-        informationString += "\tBed Number: " + this.bedNo + "\n";
+        StringBuilder informationString;
+        informationString = new StringBuilder("\tName of patient: " + getName() + "\n");
+        informationString.append("\tBed Number: ").append(this.bedNo).append("\n");
         if (this.height != null) {
-            informationString += "\tHeight: " + Integer.toString(this.height) + "\n";
+            informationString.append("\tHeight: ").append(this.height).append("\n");
         }
         if (this.weight != null) {
-            informationString += "\tWeight: " + Integer.toString(this.weight) + "\n";
+            informationString.append("\tWeight: ").append(this.weight).append("\n");
         }
         if (this.allergies != null) {
-            informationString += "\tAllergies: " + this.allergies + "\n";
+            informationString.append("\tAllergies: ").append(this.allergies).append("\n");
         }
         if (this.age != null) {
-            informationString += "\tAge: " + Integer.toString(this.age) + "\n";
+            informationString.append("\tAge: ").append(this.age).append("\n");
         }
         if (this.number != null) {
-            informationString += "\tNumber: " + Integer.toString(this.number) + "\n";
+            informationString.append("\tNumber: ").append(this.number).append("\n");
         }
         if (this.address != null) {
-            informationString += "\tAddress: " + this.address + "\n";
+            informationString.append("\tAddress: ").append(this.address).append("\n");
         }
         if (this.history != null) {
-            informationString += "\tHistory: " + this.history + "\n";
+            informationString.append("\tHistory: ").append(this.history).append("\n");
         }
-        if (this.priDiagnosis != null) {
-            informationString += "\tRegistration details:\n";
-            informationString += "\tAllergies: " + this.allergies + "\n";
-            informationString += "\tPrimary Diagnosis: " + this.priDiagnosis.getDescription() + "\n";
-            informationString += "\nData about doctors impression of the patient and associated"
-                    + " treatments and evidences;";
+        if (this.primaryDiagnosis != null) {
+            informationString.append("\tRegistration details:\n");
+            informationString.append("\tAllergies: ").append(this.allergies).append("\n");
+            informationString.append("\tPrimary Diagnosis: ").append(this.primaryDiagnosis.getDescription())
+                    .append("\n");
+            informationString.append("\nData about doctors impression of the patient and associated"
+                    + " treatments and evidences;");
             for (Map.Entry mapElement : this.impressions.entrySet()) {
                 Impression imp = (Impression) mapElement.getValue();
-                informationString += imp.toReportString();
+                informationString.append(imp.toReportString());
             }
         }
         return informationString + "\n\n";
@@ -303,7 +297,31 @@ public class Patient extends DukeObject {
         return observableImpressions;
     }
 
-    public void initObservableImpressions() {
+    public void initObservables() {
+        initObservableAttributes();
+        initObservableImpressions();
+    }
+
+    private void initObservableAttributes() {
+        attributes = FXCollections.observableMap(new HashMap<>());
+        updateAttributes();
+    }
+
+    private void updateObservableAttributes() {
+        attributes.put("name", getName());
+        attributes.put("bedNo", getBedNo());
+        attributes.put("age", getAge());
+        attributes.put("height", getHeight());
+        attributes.put("weight", getWeight());
+        attributes.put("number", getNumber());
+        attributes.put("address", getAddress());
+        attributes.put("history", getHistory());
+        attributes.put("allergies", getAllergies());
+        attributes.put("diagnosis", getPrimaryDiagnosis());
+        attributes.put("impressions", impressions);
+    }
+
+    private void initObservableImpressions() {
         this.observableImpressions = FXCollections.observableMap(impressions);
         attachImpressionsListener();
     }
@@ -316,8 +334,21 @@ public class Patient extends DukeObject {
         this.allergies = allergies;
     }
 
-    public Impression getPriDiagnosis() {
-        return priDiagnosis;
+    public Impression getPrimaryDiagnosis() {
+        return primaryDiagnosis;
+    }
+
+    /**
+     * Sets the Primary Diagnosis of the patient specified by the index chosen.
+     *
+     * @param keyIdentifier index of the impression
+     */
+    public void setPrimaryDiagnosis(String keyIdentifier) throws DukeException {
+        if (this.observableImpressions.containsKey(keyIdentifier)) {
+            primaryDiagnosis = this.observableImpressions.get(keyIdentifier);
+        } else {
+            throw new DukeException("I don't have that entry in the list!");
+        }
     }
 
     public Integer getHeight() {
@@ -367,4 +398,18 @@ public class Patient extends DukeObject {
     public void setHistory(String history) {
         this.history = history;
     }
+
+    public ObservableMap<String, Object> getAttributes() {
+        return attributes;
+    }
+
+    public void updateAttributes() {
+        updateObservableAttributes();
+    }
+
+    public void deletePriDiagnose() throws DukeException {
+        this.impressions.remove(primaryDiagnosis.getName());
+        this.primaryDiagnosis = null;
+    }
+
 }

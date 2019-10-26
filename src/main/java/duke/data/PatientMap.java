@@ -26,7 +26,11 @@ public class PatientMap {
         patientObservableMap = FXCollections.observableMap(patientHashMap);
 
         for (Map.Entry<String, Patient> pair : patientHashMap.entrySet()) {
-            pair.getValue().initObservableImpressions();
+            Patient patient = pair.getValue();
+            patient.initObservables();
+            for (Map.Entry<String, Impression> mapElement : patient.getImpressionsObservableMap().entrySet()) {
+                mapElement.getValue().initObservables();
+            }
         }
     }
 

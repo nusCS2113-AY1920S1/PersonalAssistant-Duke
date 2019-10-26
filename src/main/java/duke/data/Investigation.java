@@ -1,7 +1,12 @@
 package duke.data;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class Investigation extends Treatment {
 
+    private static final List<String> statusArr = Arrays.asList("Not ordered", "In progress");
     private String summary;
 
     /**
@@ -15,12 +20,11 @@ public class Investigation extends Treatment {
      * @param impression the impression object the investigation is tagged to
      * @param priority the priority level of the investigation
      * @param status the current status of the investigation
-     * @param statusArr description of the status tagged to this investigation
      * @param summary description of the investigation
      */
-    public Investigation(String name, Impression impression, int priority,
-                         int status, String[] statusArr, String summary) {
-        super(name, impression, priority, status, statusArr);
+    public Investigation(String name, String impression, int priority,
+                         int status, String summary) {
+        super(name, impression, priority, status);
         this.summary = summary;
     }
 
@@ -32,11 +36,7 @@ public class Investigation extends Treatment {
      * @return the result object
      */
     public Result toResult(String resultName, int resultPriority, String resultSummary) {
-        //String resultName = "Result of " + this.getName();
-        //String resultSummary = this.summary;
-        //int resultPriority = this.getPriority
-        Result newResult = new Result(resultName, this.getImpression(), resultPriority, resultSummary);
-        return newResult;
+        return new Result(resultName, this.getImpression(), resultPriority, resultSummary);
     }
 
     @Override
@@ -62,5 +62,13 @@ public class Investigation extends Treatment {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public String getStatusStr() {
+        return statusArr.get(getStatusIdx());
+    }
+
+    public static List<String> getStatusArr() {
+        return Collections.unmodifiableList(statusArr);
     }
 }

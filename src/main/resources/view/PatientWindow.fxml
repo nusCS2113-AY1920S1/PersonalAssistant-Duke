@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXListView?>
-<?import com.jfoenix.controls.JFXMasonryPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
@@ -95,7 +94,7 @@
         <ScrollPane layoutX="9.0" layoutY="36.0" prefHeight="218.0" prefWidth="235.0"
                     style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="291.0" prefWidth="217.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="217.0">
                     <children>
 
                         <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="7.0" layoutY="4.0" pickOnBounds="true"
@@ -200,12 +199,6 @@
                 </Label>
             </children>
         </AnchorPane>
-        <ScrollPane layoutX="252.0" layoutY="36.0" prefHeight="218.0" prefWidth="200.0"
-                    style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
-            <content>
-                <JFXMasonryPane fx:id="allergiesListPanel" prefWidth="195.0"/>
-            </content>
-        </ScrollPane>
         <ScrollPane layoutX="461.0" layoutY="36.0" prefHeight="218.0" prefWidth="200.0"
                     style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
             <content>
@@ -213,7 +206,27 @@
                     <children>
                         <Label fx:id="history" layoutX="6.0" layoutY="5.0" maxWidth="170.0" prefWidth="170.0"
                                text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut turpis sit amet justo dapibus blandit vel a augue. Suspendisse placerat dapibus porta. Donec finibus augue euismod vestibulum iaculis. Maecenas vitae suscipit nisi. Fusce quis ante quis leo pellentesque mattis at id ante. Ut aliquam, sem ac aliquam pharetra, mi leo eleifend magna, nec gravida nunc magna quis urna. Nunc vel massa porta, consequat mauris ac, lacinia mauris. Nulla eget laoreet erat, in pellentesque lectus. Nunc purus magna, bibendum ut semper in, sollicitudin ut lectus. Ut sed est sem. Nullam dictum sagittis varius. Vivamus sed justo vitae lectus finibus ultrices vitae id erat. Nunc ornare faucibus leo, rhoncus viverra nisl malesuada a. Nunc vitae nisl quam."
-                               wrapText="true"/>
+                               wrapText="true">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+        <ScrollPane layoutX="253.0" layoutY="36.0" prefHeight="218.0" prefWidth="200.0"
+                    style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
+            <content>
+                <AnchorPane maxWidth="170.0" minHeight="0.0" minWidth="0.0" prefWidth="170.0">
+                    <children>
+                        <Label fx:id="allergiesLabel" layoutX="6.0" layoutY="5.0" maxWidth="170.0" prefWidth="170.0"
+                               text="Ut pellentesque, urna nec dictum ullamcorper, dolor nisl convallis elit, ac iaculis tellus sem id felis. Fusce consectetur ex sit amet ligula bibendum maximus. Fusce tristique dolor vel pharetra ultrices. Mauris et neque imperdiet, cursus eros eu, vestibulum purus. Mauris suscipit, dolor sit amet scelerisque sagittis, augue neque pulvinar diam, sit amet efficitur dolor risus et justo. Maecenas accumsan a augue non semper. Nullam viverra consequat ipsum. Suspendisse auctor turpis nibh, eu hendrerit dui vehicula in. Suspendisse feugiat fringilla diam, quis suscipit massa mollis sed. Nam tempus tincidunt est, ac ultrices dui pharetra id."
+                               wrapText="true">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                        </Label>
                     </children>
                 </AnchorPane>
             </content>

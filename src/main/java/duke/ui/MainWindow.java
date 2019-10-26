@@ -3,8 +3,10 @@ package duke.ui;
 import duke.DukeCore;
 import duke.command.Executor;
 import duke.command.Parser;
+import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.PatientMap;
+import duke.exception.DukeException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -32,7 +34,9 @@ class MainWindow extends UiElement<Stage> {
     private Parser parser;
 
     private CommandWindow commandWindow;
+    private Tab homeTab;
     private Tab patientTab;
+    private Tab impressionTab;
 
     /**
      * Constructs the main UI window to house child UI elements.
@@ -59,26 +63,41 @@ class MainWindow extends UiElement<Stage> {
         commandWindow = new CommandWindow(executor, parser);
         commandWindowHolder.getChildren().add(commandWindow.getRoot());
 
-        HomeWindow homeWindow = new HomeWindow(patientMap, commandWindow);
-        Tab homeTab = new Tab("Home", homeWindow.getRoot());
+        homeTab = new Tab("Home", new HomeWindow(patientMap).getRoot());
         contextWindowHolder.getTabs().add(homeTab);
 
         patientTab = new Tab("Patient", new PatientWindow(null).getRoot());
         contextWindowHolder.getTabs().add(patientTab);
 
+        impressionTab = new Tab("Impression", new ImpressionWindow(null, null).getRoot());
+        contextWindowHolder.getTabs().add(impressionTab);
+
         // TODO: Add contexts here.
         uiContext.addListener(evt -> {
             switch ((Context) evt.getNewValue()) {
             case HOME:
+                contextWindowHolder.getTabs().remove(homeTab);
+                homeTab = new Tab("Home", new HomeWindow(patientMap).getRoot());
+                contextWindowHolder.getTabs().add(0, homeTab);
                 contextWindowHolder.getSelectionModel().select(homeTab);
                 break;
             case PATIENT:
                 contextWindowHolder.getTabs().remove(patientTab);
-                Patient patient = (Patient) uiContext.getObject();
-                patientTab = new Tab("Patient", new PatientWindow(patient).getRoot());
+                patientTab = new Tab("Patient", new PatientWindow((Patient) uiContext.getObject()).getRoot());
                 contextWindowHolder.getTabs().add(1, patientTab);
                 contextWindowHolder.getSelectionModel().select(patientTab);
-                print("Accessing details of Bed " + patient.getBedNo());
+                break;
+            case IMPRESSION:
+                contextWindowHolder.getTabs().remove(impressionTab);
+                Impression impression = (Impression) uiContext.getObject();
+                try {
+                    impressionTab = new Tab("Impression", new ImpressionWindow(impression,
+                            patientMap.getPatient(impression.getPatient())).getRoot());
+                } catch (DukeException e) {
+                    e.printStackTrace();
+                }
+                contextWindowHolder.getTabs().add(2, impressionTab);
+                contextWindowHolder.getSelectionModel().select(impressionTab);
                 break;
             default:
                 break;

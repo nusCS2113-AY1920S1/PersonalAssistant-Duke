@@ -6,6 +6,7 @@
 :sectnums:
 :imagesDir: images
 :xrefstyle: full
+:doctype: book
 :repoURL: https://github.com/AY1920S1-CS2113-T14-1/main/tree/master
 
 By: `CS2113-T14-1`      Since: `Sept 2019`      Licence: `MIT`
@@ -192,7 +193,7 @@ Format: `open ("<search string>"|-c[ritical] _string_or_idx_|-i[nv(x|estigation)
 
 Format: `edit [-app[end]] <switch> [<new value>] [<switch> [<new value>]]*`
 
-If `<new value>` is not supplied, open a text box with the current value loaded inside, for the user to edit. `-a` will append `<new value>` to the current value for string-valued fields. 
+If `<new value>` is not supplied, open a text box with the current value loaded inside, for the user to edit. `-app` will append `<new value>` to the current value for string-valued fields.
 
 Switches and corresponding new value format:
 
@@ -319,7 +320,7 @@ This will open a new context for the specific Treatment or Evidence identified.
 
 ==== `edit` - Edit one of the details of the Impression
 
-Format: `edit [-a[ppend]] [_type_ _string_or_idx_] <switch> [<new value>] [<switch> [<new value>]]`
+Format: `edit [-app[end]] [_type_ _string_or_idx_] <switch> [<new value>] [<switch> [<new value>]]`
 
 If input without `_type_ _string_or_idx_`, it is functionally the same as <<patient-edit,`edit` for Patients>>, but with different possible switches.
 
@@ -376,7 +377,7 @@ Inherits: <<home-help,`help`>>, <<patient-back,`back`>>, <<patient-up,`up`>>, <<
 
 ==== `edit` - Edit one of the details of the Treatment or Evidence
 
-Format: `edit [-a[ppend]] <switch> [<new value>] [<switch> [<new value>]]`
+Format: `edit [-app[end]] <switch> [<new value>] [<switch> [<new value>]]`
 
 The possible values for `<switch>` and `<new value>` can now be found in the <<type-table,table>> for `new` in the Impression context.
 
