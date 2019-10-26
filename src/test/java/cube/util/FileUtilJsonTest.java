@@ -1,8 +1,6 @@
 package cube.util;
 
 import cube.exception.CubeException;
-import cube.logic.command.Command;
-import cube.logic.parser.Parser;
 import cube.logic.parser.ParserUtil;
 import cube.model.food.Food;
 import cube.storage.StorageManager;
@@ -59,11 +57,10 @@ public class FileUtilJsonTest {
 
     @Test
     public void generateSampleTestFile() throws CubeException {
-        init("data","cube");
+        init("data","cube.json");
         createTestFile(50);
     }
-
-    @Test
+    
     public void testFileUtilPerformance() throws CubeException {
         for (int i = 5; i <= 50000; i *= 10) {
             init("test",i + ".json");
