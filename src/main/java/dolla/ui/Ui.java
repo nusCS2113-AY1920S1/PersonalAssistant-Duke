@@ -428,4 +428,10 @@ public abstract class Ui {
         System.out.println("\tThere are no reminders :)");
         System.out.println(line);
     }
+
+    public static void printRemoveError(int number) {
+        System.out.println(line);
+        System.out.println("\tSorry, you only have " + number + " record(s).");
+        System.out.println(line);
+    }
 }
