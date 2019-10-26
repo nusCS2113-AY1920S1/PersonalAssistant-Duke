@@ -34,6 +34,7 @@ public class ModelController implements Model {
     @Override
     public void addTask(String name) throws DukeException {
         tasksManager.addTask(name);
+        save();
     }
 
     @Override
@@ -44,6 +45,7 @@ public class ModelController implements Model {
             unlink(toDelete, memberList.get(i));
         }
         tasksManager.deleteTask(toDelete);
+        save();
         return toDelete;
     }
 
@@ -55,6 +57,7 @@ public class ModelController implements Model {
     @Override
     public void addMember(String name) throws DukeException {
         memberManager.addMember(name);
+        save();
     }
 
     @Override
@@ -65,6 +68,7 @@ public class ModelController implements Model {
             unlink(taskArrayList.get(i), toDelete);
         }
         memberManager.deleteMember(toDelete);
+        save();
         return toDelete;
     }
 
@@ -74,6 +78,7 @@ public class ModelController implements Model {
         Member member = memberManager.getMemberByName(memberNames);
         task.addMember(member);
         member.addTask(task);
+        save();
     }
 
     @Override
@@ -81,6 +86,7 @@ public class ModelController implements Model {
         Task task = tasksManager.getTaskById(tasksIndexes);
         Member member = memberManager.getMemberByName(memberNames);
         unlink(task, member);
+        save();
     }
 
     private void unlink(Task task, Member member) {
