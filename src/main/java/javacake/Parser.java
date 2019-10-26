@@ -11,21 +11,11 @@ import javacake.commands.ExitCommand;
 import javacake.commands.GoToCommand;
 import javacake.commands.HelpCommand;
 import javacake.commands.ListCommand;
-import javacake.commands.MegaListCommand;
+import javacake.commands.OverviewCommand;
 import javacake.commands.ResetCommand;
 import javacake.commands.ScoreCommand;
 import javacake.exceptions.DukeException;
-import javacake.tasks.Task;
-import javacake.tasks.ToDo;
-import javacake.tasks.Deadline;
-import javacake.tasks.RecurringTask;
-import com.joestelmach.natty.DateGroup;
 import javacake.ui.MainWindow;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 
 public class Parser {
 
@@ -59,7 +49,7 @@ public class Parser {
             }
             return new GoToCommand(inputCommand.substring(5));
         } else if (input.equals("overview")) {
-            return new MegaListCommand();
+            return new OverviewCommand();
         } else if (input.equals("createnote")) {
             return new CreateNoteCommand(inputCommand);
         } else if (input.equals("editnote")) {

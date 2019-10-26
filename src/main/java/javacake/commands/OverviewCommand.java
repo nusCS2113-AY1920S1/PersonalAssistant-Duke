@@ -8,7 +8,6 @@ import javacake.ui.Ui;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -24,7 +23,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
-public class MegaListCommand extends Command {
+public class OverviewCommand extends Command {
 
     private static String currentFilePath = "content/MainList";
     private static int expectedForwardSlash = 3;
@@ -33,7 +32,7 @@ public class MegaListCommand extends Command {
     /**
      * Constructor for MegaListCommand.
      */
-    public MegaListCommand() {
+    public OverviewCommand() {
         type = CmdType.TREE;
     }
 
@@ -60,7 +59,6 @@ public class MegaListCommand extends Command {
 
         try {
             CodeSource src = ProgressStack.class.getProtectionDomain().getCodeSource();
-
             if (runningFromJAR()) { //jar
                 URL jar = src.getLocation();
                 ZipInputStream zip = new ZipInputStream(jar.openStream());
@@ -69,17 +67,14 @@ public class MegaListCommand extends Command {
                     if (e == null) {
                         break;
                     }
-
                     String name = e.getName();
-                    //sb.append(name).append("\n");
                     if (name.startsWith(currentFilePath)) {
                         collectionOfNames.add(name);
                     }
                 }
                 List<String> result = processFileNames(collectionOfNames);
                 sb.append(String.join("\n", result)).append("\n");
-                sb.append("Type 'goto [index]' to access the topics you are interested in!").append("\n");
-                sb.append("E.g. 'goto 1.2' will bring you to 1. Java Basics -> 2. Read").append("\n");
+                sb.append(getEndingMessage());
             } else {
                 try {
                     Stream<Path> walk = Files.walk(Paths.get("src/main/resources/content/MainList"));
@@ -87,8 +82,7 @@ public class MegaListCommand extends Command {
                             .map(x -> x.toString()).collect(Collectors.toList());
                     result = processFileNamesIfNotJar(result);
                     sb.append(String.join("\n", result)).append("\n");
-                    sb.append("Type 'goto [index]' to access the topics you are interested in!").append("\n");
-                    sb.append("E.g. 'goto 1.2' will bring you to 1. Java Basics -> 2. Read").append("\n");
+                    sb.append(getEndingMessage());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -143,9 +137,13 @@ public class MegaListCommand extends Command {
         return processedList;
     }
 
+    /**
+     * Checks if the program is running in a JAR file.
+     * @return True if the program is running in a JAR file.
+     */
     public static boolean runningFromJAR() {
         try {
-            String jarFilePath = new File(MegaListCommand.class
+            String jarFilePath = new File(OverviewCommand.class
                     .getProtectionDomain()
                     .getCodeSource()
                     .getLocation()
@@ -154,13 +152,24 @@ public class MegaListCommand extends Command {
 
             jarFilePath = URLDecoder.decode(jarFilePath, StandardCharsets.UTF_8);
 
-            try (ZipFile zipFile = new ZipFile(jarFilePath)){
+            try (ZipFile zipFile = new ZipFile(jarFilePath)) {
                 ZipEntry zipEntry = zipFile.getEntry("META-INF/MANIFEST.MF");
                 return zipEntry != null;
             }
         } catch (IOException e) {
             return false;
         }
+    }
+
+    /**
+     * Displays ending message to improve user interface.
+     * @return String of ending message.
+     */
+    private String getEndingMessage() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Type 'goto [index]' to access the topics you are interested in!").append("\n");
+        sb.append("E.g. 'goto 1.2' will bring you to 1. Java Basics -> 2. Read").append("\n");
+        return sb.toString();
     }
     
 }
