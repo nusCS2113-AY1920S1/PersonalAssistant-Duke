@@ -1,5 +1,6 @@
 package duke;
 
+
 import duke.commands.AddBarCommand;
 import duke.commands.AddCommand;
 import duke.commands.AddOverlayCommand;
@@ -18,6 +19,7 @@ import duke.commands.NewCommand;
 import duke.commands.RedoCommand;
 import duke.commands.UndoCommand;
 import duke.commands.ViewCommand;
+import duke.commands.AsciiCommand;
 
 
 /**
@@ -102,6 +104,11 @@ public class Parser {
         case "copy":
             if (message.length() >= 6) {
                 return new CopyCommand(message);
+            }
+            break;
+        case "ascii":
+            if (message.length() >= 7) {
+                return new AsciiCommand(message);
             }
             break;
         case "redo":

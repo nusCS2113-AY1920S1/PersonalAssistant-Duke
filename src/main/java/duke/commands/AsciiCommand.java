@@ -90,7 +90,7 @@ public class AsciiCommand extends Command<SongList> {
             throw new DukeException(message, "AsciiCommand");
         }
         return result;
-        
+
     }
 
     /**
@@ -151,17 +151,17 @@ public class AsciiCommand extends Command<SongList> {
             for (int j = 0; j < songAscii.get(i).size(); j++) {
                 if (j > 8 && (j - 1) % 8 == 0) {
                     if ((i > 2 && i < 12)) {
-                        System.out.print("|");
+                        //System.out.print("|");
                         stringResult.append("|");
                     } else {
-                        System.out.print(" ");
+                        //System.out.print(" ");
                         stringResult.append(" ");
                     }
                 }
-                System.out.print(songAscii.get(i).get(j));
+                //System.out.print(songAscii.get(i).get(j));
                 stringResult.append(songAscii.get(i).get(j));
             }
-            System.out.println();
+            //System.out.println();
             stringResult.append("\n");
         }
         return stringResult.toString();
@@ -200,13 +200,11 @@ public class AsciiCommand extends Command<SongList> {
         return songAscii;
     }
 
-
     private static ArrayList<ArrayList<String>> parseSongAscii(ArrayList<ArrayList<String>> rawSongAscii) {
         ArrayList<ArrayList<String>> resultAscii = new ArrayList<>();
         for (ArrayList<String> arr: rawSongAscii) {
             resultAscii.add(new ArrayList<>(arr));
         }
-
         for (int i = 0; i < 15; i++) {
             int length = rawSongAscii.get(i).size();
             if (i == 0 || i == 12) {
