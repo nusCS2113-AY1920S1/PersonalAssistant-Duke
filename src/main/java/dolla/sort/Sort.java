@@ -4,7 +4,7 @@ import dolla.task.Log;
 
 import java.util.ArrayList;
 
-public class Sort {
+class Sort {
     ArrayList<Log> sortedList;
 
     /**
@@ -12,7 +12,7 @@ public class Sort {
      * being passed in.
      * @param unsortedList the ArrayList to be set to.
      */
-    public Sort(ArrayList<Log> unsortedList) {
+    Sort(ArrayList<Log> unsortedList) {
         this.sortedList = unsortedList;
     }
 }

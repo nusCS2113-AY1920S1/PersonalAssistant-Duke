@@ -4,7 +4,6 @@ import dolla.task.Log;
 import dolla.ui.SortUi;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * The type Sort date.
@@ -18,7 +17,7 @@ public class SortDate extends Sort {
      */
     public SortDate(ArrayList<Log> unsortedList) {
         super(unsortedList);
-        sortedList.sort(ListComparator.dateComparator());
+        sortedList.sort(InputComparator.dateComparator());
         SortUi.printSortedList(sortedList,"date");
     }
 }

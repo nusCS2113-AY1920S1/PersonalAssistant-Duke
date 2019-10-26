@@ -13,17 +13,17 @@ import dolla.ui.LimitUi;
  */
 public class LimitParser extends Parser {
 
-    protected static final String LIMIT_COMMAND_LIST = "limits";
-    protected static final String LIMIT_COMMAND_SET = "set";
-    protected static final String LIMIT_COMMAND_REMOVE = "remove";
-    protected static final String LIMIT_COMMAND_SORT = "sort";
+    private static final String LIMIT_COMMAND_LIST = "limits";
+    private static final String LIMIT_COMMAND_SET = "set";
+    private static final String LIMIT_COMMAND_REMOVE = "remove";
+    private static final String LIMIT_COMMAND_SORT = "sort";
 
-    protected static final String LIMIT_TYPE_S = "saving";
-    protected static final String LIMIT_TYPE_B = "budget";
+    private static final String LIMIT_TYPE_S = "saving";
+    private static final String LIMIT_TYPE_B = "budget";
 
-    protected static final String LIMIT_DURATION_D = "daily";
-    protected static final String LIMIT_DURATION_W = "weekly";
-    protected static final String LIMIT_DURATION_M = "monthly";
+    private static final String LIMIT_DURATION_D = "daily";
+    private static final String LIMIT_DURATION_W = "weekly";
+    private static final String LIMIT_DURATION_M = "monthly";
 
     public LimitParser(String inputLine) {
         super(inputLine);

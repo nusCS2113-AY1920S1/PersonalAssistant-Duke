@@ -4,7 +4,6 @@ import dolla.task.Log;
 import dolla.ui.SortUi;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * The type Sort description.
@@ -18,7 +17,7 @@ public class SortDescription extends Sort {
      */
     public SortDescription(ArrayList<Log> unsortedList) {
         super(unsortedList);
-        sortedList.sort(ListComparator.descComparator());
+        sortedList.sort(InputComparator.descComparator());
         SortUi.printSortedList(sortedList,"description");
     }
 }

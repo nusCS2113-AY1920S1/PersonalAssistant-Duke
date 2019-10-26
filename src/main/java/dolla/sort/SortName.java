@@ -4,7 +4,6 @@ import dolla.task.Log;
 import dolla.ui.SortUi;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * The type Sort name.
@@ -18,7 +17,7 @@ public class SortName extends Sort {
      */
     public SortName(ArrayList<Log> unsortedList) {
         super(unsortedList);
-        sortedList.sort(ListComparator.nameComparator());
+        sortedList.sort(InputComparator.nameComparator());
         SortUi.printSortedList(sortedList,"name");
     }
 }

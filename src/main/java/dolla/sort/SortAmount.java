@@ -14,7 +14,7 @@ public class SortAmount extends Sort {
      */
     public SortAmount(ArrayList<Log> unsortedList) {
         super(unsortedList);
-        sortedList.sort(ListComparator.amountComparator());
+        sortedList.sort(InputComparator.amountComparator());
         SortUi.printSortedList(sortedList,"amount");
     }
 }

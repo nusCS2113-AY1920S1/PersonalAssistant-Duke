@@ -12,6 +12,9 @@ import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
 
 public class EntryParser extends Parser {
+    private static final String ENTRY_COMMAND_REDO = "redo";
+    private static final String ENTRY_COMMAND_UNDO = "undo";
+    private static final String ENTRY_COMMAND_REPEAT = "repeat";
 
     public EntryParser(String inputLine) {
         super(inputLine);
@@ -41,7 +44,9 @@ public class EntryParser extends Parser {
             return new SearchCommand(mode, component, content);
         } else if (commandToRun.equals("remove")) { //TODO: indexoutofbound exception
             return new RemoveCommand(mode, inputArray[1]);
-        } else if (commandToRun.equals("redo") || commandToRun.equals("undo") || commandToRun.equals("repeat")) {
+        } else if (commandToRun.equals(ENTRY_COMMAND_REDO) ||
+                    commandToRun.equals(ENTRY_COMMAND_UNDO) ||
+                    commandToRun.equals(ENTRY_COMMAND_REPEAT)) {
             return new AddActionCommand(mode, commandToRun);
         } else {
             return invalidCommand();

@@ -4,7 +4,11 @@ import dolla.task.Log;
 
 import java.util.Comparator;
 
-class ListComparator {
+class InputComparator {
+    private static final int POSITIVE = 1;
+    private static final int NEGATIVE = -1;
+    private static final int ZERO = 0;
+
 
     static Comparator<Log> dateComparator() {
         return new Comparator<Log>() {
@@ -38,11 +42,11 @@ class ListComparator {
             @Override
             public int compare(Log o1, Log o2) {
                 if (o1.getAmount() < o2.getAmount()) {
-                    return -1;
+                    return NEGATIVE;
                 } else if (o1.getAmount() > o2.getAmount()) {
-                    return 1;
+                    return POSITIVE;
                 }
-                return 0;
+                return ZERO;
             }
         };
     }

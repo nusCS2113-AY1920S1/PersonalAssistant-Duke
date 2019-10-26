@@ -1,16 +1,13 @@
 package dolla.ui;
 
 import dolla.Time;
-import dolla.task.Log;
 import dolla.task.Debt;
 import dolla.task.Task;
 import dolla.task.Entry;
 import dolla.task.LogList;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * duke.Ui is a class that handles all interactions to the user.

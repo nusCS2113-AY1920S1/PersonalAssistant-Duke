@@ -80,7 +80,7 @@ public class SortCommand extends Command {
                 }
                 break;
             case "limit":
-                if (type.equals("amount")) {
+                if (type != null && type.equals("amount")) {
                     new SortAmount(list);
                 } else {
                     SortUi.printInvalidSort(mode);
