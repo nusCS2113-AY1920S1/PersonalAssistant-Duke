@@ -29,6 +29,11 @@ public class Storage {
     private static final String PATH_OUTPUT = "./output.txt";
     private static final String PATH_MANUAL = "./manual.txt";
     private static final String PATH_THRESHOLD = "./oof.config";
+    private static final String TODO = "T";
+    private static final String DEADLINE = "D";
+    private static final String EVENT = "E";
+    private static final String ASSIGNMENT = "A";
+    private static final int INDEX_TYPE = 0;
     private static final int INDEX_MODULE_CODE = 2;
     private static final int INDEX_STATUS = 1;
     private static final int INDEX_DESCRIPTION = 2;
@@ -110,13 +115,13 @@ public class Storage {
             BufferedWriter out = new BufferedWriter(new FileWriter(filename));
             for (Task task : arr) {
                 if (task instanceof Todo) {
-                    out.write(((Todo) task).todoToStorageString((Todo) task) + "\n");
+                    out.write(task.toStorageString() + "\n");
                 } else if (task instanceof Assignment) {
-                    out.write(((Assignment) task).assignmentToStorageString((Assignment) task) + "\n");
+                    out.write(task.toStorageString() + "\n");
                 } else if (task instanceof Deadline) {
-                    out.write(((Deadline) task).deadlineToStorageString((Deadline) task) + "\n");
+                    out.write(task.toStorageString() + "\n");
                 } else if (task instanceof Event) {
-                    out.write(((Event) task).eventToStorageString((Event) task) + "\n");
+                    out.write(task.toStorageString() + "\n");
                 }
             }
             out.close();
@@ -130,22 +135,30 @@ public class Storage {
      *
      * @return TaskList containing Task objects.
      * @throws IOException if file does not exist.
+     * @throws OofException if file is corrupted.
      */
-    public ArrayList<Task> readTaskList() throws IOException {
+    public ArrayList<Task> readTaskList() throws IOException, OofException {
         BufferedReader reader = new BufferedReader(new FileReader(PATH_OUTPUT));
         String line;
         int counter = 0;
         while ((line = reader.readLine()) != null) {
             counter += 1;
             String[] lineSplit = line.split(DELIMITER_ESCAPED);
-            if (isTodo(line)) {
+            switch (lineSplit[INDEX_TYPE]) {
+            case TODO:
                 addToDo(lineSplit, counter);
-            } else if (isDeadline(line)) {
+                continue;
+            case DEADLINE:
                 addDeadline(lineSplit, counter);
-            } else if (isEvent(line)) {
+                continue;
+            case EVENT:
                 addEvent(lineSplit, counter);
-            } else if (isAssignment(line)) {
+                continue;
+            case ASSIGNMENT:
                 addAssignment(lineSplit, counter);
+                continue;
+            default:
+                throw new OofException("Output.txt is corrupted!");
             }
         }
         reader.close();
@@ -154,46 +167,6 @@ public class Storage {
 
     public ArrayList<Semester> readSemesterList() throws IOException {
         throw new IOException();
-    }
-
-    /**
-     * Checks if entry in save file is an Assignment.
-     *
-     * @param line Entry in save file.
-     * @return true if entry starts with A.
-     */
-    private boolean isAssignment(String line) {
-        return line.startsWith("A");
-    }
-
-    /**
-     * Checks if entry in save file is an Event.
-     *
-     * @param line Entry in save file.
-     * @return true if entry starts with E.
-     */
-    private boolean isEvent(String line) {
-        return line.startsWith("E");
-    }
-
-    /**
-     * Checks if entry in save file is a Deadline.
-     *
-     * @param line Entry in save file.
-     * @return true if entry starts with D.
-     */
-    private boolean isDeadline(String line) {
-        return line.startsWith("D");
-    }
-
-    /**
-     * Checks if entry in save file is a Todo.
-     *
-     * @param line Entry in save file.
-     * @return true if entry starts with T.
-     */
-    private boolean isTodo(String line) {
-        return line.startsWith("T");
     }
 
     /**

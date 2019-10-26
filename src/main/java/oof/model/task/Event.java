@@ -30,19 +30,18 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string from Event task object.
-     *
-     * @param task Event task object.
-     * @return String obtained from Event task object.
+     * Converts a task object to string format for storage.
+     * @return Task object in string format for storage.
      */
-    public String eventToStorageString(Event task) {
-        String startDateTime = task.getStartTime();
-        String endDateTime = task.getEndTime();
+    @Override
+    public String toStorageString() {
+        String startDateTime = startTime;
+        String endDateTime = endTime;
         String startDate = startDateTime.split(" ")[DATE];
         String startTime = startDateTime.split(" ")[TIME];
         String endDate = endDateTime.split(" ")[DATE];
         String endTime = endDateTime.split(" ")[TIME];
-        return "E" + DELIMITER + task.getStatusIcon() + DELIMITER + task.getDescription() + DELIMITER + startDate
+        return "E" + DELIMITER + getStatusIcon() + DELIMITER + description + DELIMITER + startDate
                 + DELIMITER + startTime + DELIMITER + endDate + DELIMITER + endTime;
     }
 

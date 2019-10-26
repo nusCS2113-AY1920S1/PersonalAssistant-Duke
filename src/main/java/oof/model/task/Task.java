@@ -16,8 +16,8 @@ public abstract class Task {
     static final String DELIMITER = "||";
     static final int DATE = 0;
     static final int TIME = 1;
-    private String description;
-    private boolean status;
+    String description;
+    boolean status;
     private Frequency frequency;
     private static final int DAILY = 1;
     private static final int WEEKLY = 2;
@@ -98,6 +98,12 @@ public abstract class Task {
     public String getStatusIcon() {
         return (status ? "Y" : "N"); //return tick or X symbols
     }
+
+    /**
+     * Converts a task object to string format for storage.
+     * @return Task object in string format for storage.
+     */
+    public abstract String toStorageString();
 
     /**
      * Customises the toString() method to print the Task object.

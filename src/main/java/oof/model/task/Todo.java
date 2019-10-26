@@ -22,13 +22,12 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns a string from Todo task object.
-     *
-     * @param task Todo task object.
-     * @return String obtained from Todo task object.
+     * Converts a task object to string format for storage.
+     * @return Task object in string format for storage.
      */
-    public String todoToStorageString(Todo task) {
-        return "T" + DELIMITER + task.getStatusIcon() + DELIMITER + task.getDescription() + DELIMITER + task.getOn()
+    @Override
+    public String toStorageString() {
+        return "T" + DELIMITER + getStatusIcon() + DELIMITER + description + DELIMITER + on
                 + DELIMITER + DELIMITER + DELIMITER;
     }
 
