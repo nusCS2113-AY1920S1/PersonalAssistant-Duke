@@ -19,7 +19,7 @@ public class ModelController implements Model {
         //TODO change to loading from storage
         storage = new Storage();
         tasksManager = new TasksManager(storage.loadTasks());
-        memberManager = new MemberManager();
+        memberManager = new MemberManager(storage.loadMembers());
 //        GsonBuilder builder = new GsonBuilder();
 //        builder.setPrettyPrinting();
 //        gson = builder.create();
