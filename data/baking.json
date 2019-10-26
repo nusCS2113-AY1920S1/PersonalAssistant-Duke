@@ -1,151 +1,45 @@
 {
-  "orders" : [ ],
-  "products" : [ {
-    "productName" : "liu",
-    "ingredientItems" : [ ],
-    "ingredientCost" : 0.0,
-    "retailPrice" : 200.0,
-    "status" : "ARCHIVE"
-  }, {
-    "productName" : "l",
-    "ingredientItems" : [ {
-      "ingredient" : {
-        "name" : "Cheese",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 1.1
-    }, {
-      "ingredient" : {
-        "name" : "Chicken",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 1.0
-    }, {
-      "ingredient" : {
-        "name" : "Hello",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 2.0
-    } ],
-    "ingredientCost" : 0.0,
-    "retailPrice" : 5.5,
-    "status" : "ACTIVE"
-  }, {
-    "productName" : "lsr",
-    "ingredientItems" : [ {
-      "ingredient" : {
-        "name" : "Cheese",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 1.1
-    }, {
-      "ingredient" : {
-        "name" : "Chicken",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 1.0
-    }, {
-      "ingredient" : {
-        "name" : "Hello",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 2.0
-    } ],
-    "ingredientCost" : 0.0,
-    "retailPrice" : 5.5,
-    "status" : "ACTIVE"
-  }, {
-    "productName" : "l2",
-    "ingredientItems" : [ {
-      "ingredient" : {
-        "name" : "Cheese",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 1.1
-    }, {
-      "ingredient" : {
-        "name" : "Chicken",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 1.0
-    }, {
-      "ingredient" : {
-        "name" : "Hello",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 2.0
-    } ],
-    "ingredientCost" : 0.0,
-    "retailPrice" : 5.5,
-    "status" : "ACTIVE"
+  "orders" : [ {
+    "id" : 1572074827973,
+    "creationDate" : "2019-10-26T07:27:07.973+0000",
+    "name" : "customer",
+    "contact" : "N/A",
+    "remarks" : "N/A",
+    "deliveryDate" : "2019-10-26T07:27:07.970+0000",
+    "status" : "ACTIVE",
+    "total" : 0.0,
+    "items" : [ ]
   } ],
+  "products" : [ ],
   "inventory" : [ {
     "ingredient" : {
-      "name" : "Cheese cake              ",
-      "unitPrice" : 0.0,
-      "remarks" : "-"
+      "name" : "Butter",
+      "unitPrice" : 5.0,
+      "remarks" : ""
     },
-    "amount" : 0.0
+    "amount" : 11.0
+  } ],
+  "shoppingList" : [ {
+    "ingredient" : {
+      "name" : "Flour",
+      "unitPrice" : 5.0,
+      "remarks" : ""
+    },
+    "amount" : 5.0
   }, {
     "ingredient" : {
-      "name" : "Cheese cake                                   ",
-      "unitPrice" : 0.0,
-      "remarks" : "-"
-    },
-    "amount" : 0.0
-  }, {
-    "ingredient" : {
-      "name" : "Cake",
-      "unitPrice" : 0.0,
-      "remarks" : "-"
-    },
-    "amount" : 0.0
-  }, {
-    "ingredient" : {
-      "name" : "Name",
-      "unitPrice" : 0.0,
-      "remarks" : "-"
-    },
-    "amount" : 0.0
-  }, {
-    "ingredient" : {
-      "name" : "Name     ",
-      "unitPrice" : 0.0,
-      "remarks" : "-"
-    },
-    "amount" : 0.0
-  }, {
-    "ingredient" : {
-      "name" : "Cheese",
-      "unitPrice" : 0.0,
-      "remarks" : "-"
-    },
-    "amount" : 0.0
-  }, {
-    "ingredient" : {
-      "name" : "Chicken",
-      "unitPrice" : 0.0,
-      "remarks" : "-"
-    },
-    "amount" : 0.0
-  }, {
-    "ingredient" : {
-      "name" : "Hello",
-      "unitPrice" : 0.0,
-      "remarks" : "-"
+      "name" : "Butter",
+      "unitPrice" : 5.0,
+      "remarks" : ""
     },
     "amount" : 0.0
   } ],
-  "shoppingList" : [ ],
-  "sales" : [ ],
+  "sales" : [ {
+    "id" : 1572062704791,
+    "description" : "Ingredients purchased.",
+    "saleDate" : "2019-10-26T04:05:04.787+0000",
+    "value" : 5.0,
+    "remarks" : "Ingredients are: -Butter "
+  } ],
   "shortcuts" : [ ]
 }

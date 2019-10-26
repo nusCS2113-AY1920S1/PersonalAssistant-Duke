@@ -2,6 +2,7 @@ package duke.logic.parser.sale;
 
 import duke.commons.core.Message;
 import duke.logic.command.sale.AddSaleCommand;
+import duke.logic.command.sale.DeleteSaleCommand;
 import duke.logic.command.sale.SaleCommand;
 import duke.logic.parser.commons.SubCommandParser;
 import duke.logic.parser.exceptions.ParseException;
@@ -16,6 +17,8 @@ public class SaleCommandParser implements SubCommandParser<SaleCommand> {
         switch (subCommand) {
         case AddSaleCommand.COMMAND_WORD:
             return new AddSaleCommandParser().parse(args);
+        case DeleteSaleCommand.COMMAND_WORD:
+            return new DeleteSaleCommandParser().parse(args);
         default:
             throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
         }

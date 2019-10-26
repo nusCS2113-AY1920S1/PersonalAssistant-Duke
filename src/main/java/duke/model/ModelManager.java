@@ -11,6 +11,8 @@ import javafx.beans.value.ObservableFloatValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
@@ -139,13 +141,6 @@ public class ModelManager implements Model {
 
     //================Sale operations=================
 
-
-    @Override
-    public void addSale(Sale sale) {
-        bakingHome.addSale(sale);
-        updateFilteredSaleList(PREDICATE_SHOW_ALL_SALES);
-    }
-
     @Override
     public boolean hasSale(Sale sale) {
         requireNonNull(sale);
@@ -154,7 +149,13 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteSale(Sale target) {
-        bakingHome.getOrderList().remove(target);
+        bakingHome.removeSale(target);
+    }
+
+    @Override
+    public void addSale(Sale sale) {
+        bakingHome.addSale(sale);
+        updateFilteredSaleList(PREDICATE_SHOW_ALL_SALES);
     }
 
     @Override
@@ -194,21 +195,17 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addSaleFromShopping(Double totalCost) {
+    public void addSaleFromShopping(Double totalCost, ArrayList<Item<Ingredient>> toBuyList) {
+        String description = "Ingredients purchased.";
+        double value = totalCost;
+        Date buyDate = Calendar.getInstance().getTime();
+        String remarks = "Ingredients are: ";
+        for (Item<Ingredient> i : toBuyList) {
+            remarks = remarks + "-" + i.getItem().getName() + " ";
+        }
+        bakingHome.addSale(new Sale(description, value, buyDate, remarks));
         updateFilteredSaleList(PREDICATE_SHOW_ALL_SALES);
     }
-
-
-    /*
-    public void addSaleFromShopping(String purchaseDescription, double purchaseValue, Date purchaseDate, String purchaseRemarks) {
-        String description = "Purchased ingredients!" + purchaseDescription;
-        double value = purchaseValue;
-        Date date = purchaseDate;
-        String remarks = purchaseRemarks;
-        bakingHome.addSale(new Sale(description, value, date, remarks));
-        updateFilteredSaleList(PREDICATE_SHOW_ALL_SALES);
-    }
-    */
 
     //========Product operations==========
     @Override
