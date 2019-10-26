@@ -106,7 +106,7 @@ public class GsonStorageTest {
         complexPatient.addNewImpression(impression1);
         complexPatient.addNewImpression(impression2);
         complexPatient.addNewImpression(impression3);
-        complexPatient.setPriDiagnosis(impression3.getName());
+        complexPatient.setPrimaryDiagnosis(impression3.getName());
         complexPatient.setHeight(124);
         complexPatient.setWeight(250);
         complexPatient.setAge(84);
