@@ -1,5 +1,9 @@
 package dolla.action;
 
+import dolla.command.ErrorCommand;
+import dolla.ui.ActionUi;
+
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 public class Undo {
@@ -77,12 +81,17 @@ public class Undo {
      * @return undoInput is the String that serve as an undo input.
      */
     public static String processCommand(String mode) {
-        if (mode.equals("entry")) {
-            undoInput = undoEntryCommand.pop();
-        } else if (mode.equals("debt")) {
-            undoInput = undoDebtCommand.pop();
-        } else {
-            undoInput = undoDebtCommand.pop();
+        try {
+            if (mode.equals("entry")) {
+                undoInput = undoEntryCommand.pop();
+            } else if (mode.equals("debt")) {
+                undoInput = undoDebtCommand.pop();
+            } else {
+                undoInput = undoDebtCommand.pop();
+            }
+        } catch(EmptyStackException e) {
+            ActionUi.printEmptyStackError("undo");
+            return ActionUi.emptyMessage();
         }
         return undoInput;
     }

@@ -54,7 +54,7 @@ public class DebtsParser extends Parser {
             return new SortCommand(mode, inputArray[1]);
         } else if (commandToRun.equals("remove")) {
             return new RemoveCommand(mode, inputArray[1]);
-        } else if (commandToRun.equals("redo") || commandToRun.equals("undo") || commandToRun.equals("Repeat")) {
+        } else if (commandToRun.equals("redo") || commandToRun.equals("undo") || commandToRun.equals("repeat")) {
             return new AddActionCommand(mode, commandToRun);
         } else {
             return invalidCommand();

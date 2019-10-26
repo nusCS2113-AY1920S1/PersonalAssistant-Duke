@@ -117,8 +117,8 @@ public abstract class Ui {
      */
     public static void echoRemove(String log) {
         System.out.println(line);
-        System.out.println("Noted. I've removed this log: ");
-        System.out.println(log);
+        System.out.println("\tNoted. I've removed this log: ");
+        System.out.println("\t" + log);
         System.out.println(line);
     }
 

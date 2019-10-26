@@ -1,5 +1,8 @@
 package dolla.action;
 
+import dolla.ui.ActionUi;
+
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 public class Redo {
@@ -66,25 +69,22 @@ public class Redo {
     }
 
     /**
-     * This method will set the redoInput to the latest redoXcommand
-     * with respect to the mode that the user is in.
-     * @param mode the mode that the user is in.
-     */
-    public static void redoReady(String mode) {
-        if (mode.equals("entry")) {
-            redoInput = redoEntryCommand.pop();
-        } else if (mode.equals("debt")) {
-            redoInput = redoDebtCommand.pop();
-        } else {
-            redoInput = redoLimitCommand.pop();
-        }
-    }
-
-    /**
      * This method will return the redoInput.
      * @return redoInput a string that serve as a redo input.
      */
-    public static String processRedo() {
+    public static String processRedo(String mode) {
+        try {
+            if (mode.equals("entry")) {
+                redoInput = redoEntryCommand.pop();
+            } else if (mode.equals("debt")) {
+                redoInput = redoDebtCommand.pop();
+            } else {
+                redoInput = redoLimitCommand.pop();
+            }
+        } catch(EmptyStackException e) {
+            ActionUi.printEmptyStackError("redo");
+            redoInput = "empty stack";
+        }
         return redoInput;
     }
 
