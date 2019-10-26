@@ -37,9 +37,9 @@ public class Duke {
             welcomeFile = filePath[2];
         }
         else{ // no test file
-            file = System.getProperty("user.dir")+ "/src/main/java/data/duke.txt";
-            configFile= System.getProperty("user.dir")+ "/src/main/java/data/config.txt";
-            welcomeFile = System.getProperty("user.dir")+ "/src/main/java/data/welcome.txt";
+            file = System.getProperty("user.dir")+ "/data/duke.txt";
+            configFile= System.getProperty("user.dir")+ "/data/config.txt";
+            welcomeFile = System.getProperty("user.dir")+ "/data/welcome.txt";
 
             // try to use txt file inside the jar file
             //URL file = getClass().getClassLoader().getResource("duke.txt");

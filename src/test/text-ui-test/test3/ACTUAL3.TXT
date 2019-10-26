@@ -14,8 +14,8 @@
 		 OOPS!!! I'm sorry, but I don't know what that means :-("
 	 MeaninglessException:
 		 OOPS!!! I'm sorry, but I don't know what that means :-("
-	 emptyDeadlineException:
-		 ☹ OOPS!!! The description of a deadline task cannot be empty
+	 emptyHomeworkException:
+		 ☹ OOPS!!! The description of a homework task cannot be empty
 	 MeaninglessException:
 		 OOPS!!! I'm sorry, but I don't know what that means :-("
 	 NonExistentDateException:
@@ -23,9 +23,9 @@
 			 The date doesn't exist
 	 emptyEventDateException:
 		 ☹ OOPS!!! Please enter a period for the event task
-	 emptyDeadlineException:
-		 ☹ OOPS!!! The description of a deadline task cannot be empty
-	 emptyDeadlineDateException:
+	 emptyHomeworkException:
+		 ☹ OOPS!!! The description of a homework task cannot be empty
+	 emptyHomeworkDateException:
 		 ☹ OOPS!!! Please enter a deadline for the task
 	 emptyEventDateException:
 		 ☹ OOPS!!! Please enter a period for the event task
