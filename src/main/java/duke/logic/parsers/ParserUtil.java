@@ -14,6 +14,8 @@ import duke.model.planning.Itinerary;
 import duke.model.planning.Todo;
 
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,6 +23,7 @@ import java.util.regex.Pattern;
  * Defines parsing methods for utility functions.
  */
 public class ParserUtil {
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     /**
      * Parses the userInput and return a new to-do constructed from it.
      *
@@ -62,7 +65,6 @@ public class ParserUtil {
         if (withinDetails.length != 2) {
             throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }
-
         String[] indexes = withinDetails[0].split(" ");
 
         String type = userInput.substring(withinDetails[0].length()).strip().substring(0, 4);
@@ -90,7 +92,6 @@ public class ParserUtil {
                 coordinates[i] = Double.parseDouble(coordinateStrings[i].strip());
             }
         }
-
         return null;
     }
 
@@ -114,6 +115,7 @@ public class ParserUtil {
         LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[2].strip());
         Venue hotelLocation = ApiParser.getLocationSearch(itineraryDetails[0].strip());
+        logger.log(Level.FINE, hotelLocation.getAddress());
         return new Itinerary(start, end, hotelLocation);
     }
 
