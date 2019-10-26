@@ -42,7 +42,7 @@ import java.util.Map;
  *     Shape topShape;
  *   }
  * }</pre>
- * <p>Without additional type information, the serialized JSON is ambiguous. Is
+ * <p> Without additional type information, the serialized JSON is ambiguous. Is
  * the bottom shape in this drawing a rectangle or a diamond? <pre>   {@code
  *   {
  *     "bottomShape": {
@@ -177,6 +177,9 @@ public class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
         return registerSubtype(type, type.getSimpleName());
     }
 
+    /**
+     * checkstyle fix
+     */
     public <R> TypeAdapter<R> create(Gson gson, TypeToken<R> type) {
         if (type.getRawType() != baseType) {
             return null;
@@ -218,9 +221,9 @@ public class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
 
             @Override public void write(JsonWriter out, R value) throws IOException {
                 Class<?> srcType = value.getClass();
-                String label = subtypeToLabel.get(srcType);
                 @SuppressWarnings("unchecked") // registration requires that subtype extends T
                         TypeAdapter<R> delegate = (TypeAdapter<R>) subtypeToDelegate.get(srcType);
+                String label = subtypeToLabel.get(srcType);
                 if (delegate == null) {
                     throw new JsonParseException("cannot serialize " + srcType.getName()
                             + "; did you forget to register a subtype?");
