@@ -16,6 +16,8 @@ import duke.commands.GroupCommand;
 import duke.commands.HelpCommand;
 import duke.commands.ListCommand;
 import duke.commands.NewCommand;
+import duke.commands.RedoCommand;
+import duke.commands.UndoCommand;
 import duke.commands.ViewCommand;
 import duke.commands.AsciiCommand;
 
@@ -24,7 +26,7 @@ import duke.commands.AsciiCommand;
  * A class used to interpret the incoming messages and translate them into the appropriate duke.Commands.
  */
 
-class Parser {
+public class Parser {
 
     /**
      * Returns the duke.Commands.duke.Commands.Command object interpreted from the input message,
@@ -34,7 +36,7 @@ class Parser {
      * @return the duke.Commands.duke.Commands.Command object interpreted from the input message
      * @throws DukeException in the case of parsing errors
      */
-    static Command parse(String message) throws DukeException {
+    public static Command parse(String message) throws DukeException {
         switch (message.split(" ")[0]) {
         case "bye":
             if (message.length() == 3) {
@@ -107,6 +109,16 @@ class Parser {
         case "ascii":
             if (message.length() >= 7) {
                 return new AsciiCommand(message);
+            }
+            break;
+        case "redo":
+            if (message.length() == 4) {
+                return new RedoCommand();
+            }
+            break;
+        case "undo":
+            if (message.length() == 4) {
+                return new UndoCommand();
             }
             break;
         default:

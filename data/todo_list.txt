@@ -1,2 +1,2 @@
-twinkle aminor 123 [[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]] [[UCs],[UC],[UC],[UC],[RTs],[RT],[RT],[RT]] 
+twinkle aminor 123 [[UAs],[UA],[UAs],[UA],[UAs],[UA],[UAs],[UA]] [[UCs],[UC],[UC],[UC],[RTs],[RT],[RT],[RT]]
 jingle aminor 123 
