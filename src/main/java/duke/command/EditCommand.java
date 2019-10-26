@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.exception.DukeException;
-import duke.extensions.KeywordAndEdit;
+import duke.parser.KeywordAndEdit;
 import duke.parser.DateTimeParser;
 import duke.storage.Storage;
 import duke.task.Task;

@@ -2,7 +2,6 @@ package duke.parser;
 
 import duke.command.EditCommand;
 import duke.exception.DukeException;
-import duke.extensions.KeywordAndEdit;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -30,7 +29,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     private int getIndexFromCommand(String fullEditArg) throws DukeException {
         String[] temp = fullEditArg.split(" ", 2);
         try {
-            int indexNo = Integer.parseInt(temp[0]) - 1;
+            int indexNo = Integer.parseInt(temp[0]);
             return indexNo;
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a valid index");

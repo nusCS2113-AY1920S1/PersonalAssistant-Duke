@@ -45,7 +45,7 @@ public class DuqueParser {
                 if (fcArray.length == 1) {
                     throw new DukeException("☹ OOPS!!! The description of delete cannot be empty.");
                 }
-                return new DeleteCommand(fcArray[1]);
+                return new DeleteCommand(filter, fcArray[1]);
             case "find":
                 if (fcArray.length == 1) {
                     throw new DukeException("☹ OOPS!!! The description of find cannot be empty.");
@@ -60,7 +60,7 @@ public class DuqueParser {
                 if (fcArray.length == 1) {
                     throw new DukeException("☹ OOPS!!! The description of done cannot be empty.");
                 }
-                return new DoneCommand(fcArray[1]);
+                return new DoneCommand(filter, fcArray[1]);
             case "edit":
                 if (fcArray.length == 1) {
                     throw new DukeException("☹ OOPS!!! The description of edit cannot be empty.");

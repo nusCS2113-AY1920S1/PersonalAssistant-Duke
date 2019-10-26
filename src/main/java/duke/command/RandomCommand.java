@@ -33,8 +33,4 @@ public class RandomCommand extends ListCommand {
         TaskListPrinter.print(ui, randomTask);
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

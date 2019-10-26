@@ -49,25 +49,6 @@ public class TaskList {
     public ArrayList<Task> getList() {
         return taskList;
     }
-    /**
-     * returns the ArrayList of Tasks which duke.tasklist.TaskList maintains
-     *
-     * @return ArrayList the ArrayList of Tasks maintained by the duke.tasklist.TaskList class
-     */
-    public ArrayList<Task> getList(Optional<String> filter) {
-        ArrayList<Task> tl = new ArrayList<>();
-        if (filter.isPresent()) {
-            for (int i = 0; i < taskList.size(); i++) {
-                Task t = taskList.get(i);
-                if (t.getFilter() == filter) {
-                    tl.add(t);
-                }
-            }
-        } else {
-            tl = taskList;
-        }
-        return tl;
-    }
 
     /**
      * returns the number of tasks
@@ -81,16 +62,21 @@ public class TaskList {
     public Task get(int index) {
         return taskList.get(index);
     }
-    public Task get(Optional<String> filter, int filteredListIndex) throws DukeException {
-        int counter = 0;
-        for (int i = 0; i < taskList.size(); i++) {
-            Task t = taskList.get(i);
-            if (t.getFilter().equals(filter)) {
-                counter++;
+
+    public Task get(Optional<String> filter, int index) throws DukeException {
+        int counter = -1;
+        if (filter.isPresent()) {
+            for (int i = 0; i < taskList.size(); i++) {
+                Task t = taskList.get(i);
+                if (t.getFilter().equals(filter)) {
+                    counter++;
+                }
+                if (counter == index - 1) {
+                    return t;
+                }
             }
-            if (counter == filteredListIndex) {
-                return t;
-            }
+        } else {
+            return taskList.get(index - 1);
         }
         throw new DukeException("Index not found");
     }
@@ -156,6 +142,26 @@ public class TaskList {
      */
     public void remove(int i) {
         taskList.remove(i);
+    }
+
+    public void remove(Optional<String> filter, int index) throws DukeException {
+        int counter = -1;
+        if (filter.isPresent()) {
+            for (int i = 0; i < taskList.size(); i++) {
+                Task t = taskList.get(i);
+                if (t.getFilter().equals(filter)) {
+                    counter++;
+                }
+                if (counter == index - 1) {
+                    taskList.remove(i);
+                    return;
+                }
+            }
+        } else {
+            taskList.remove(index - 1);
+            return;
+        }
+        throw new DukeException("Index not found");
     }
 
     public TaskList priorityView() {

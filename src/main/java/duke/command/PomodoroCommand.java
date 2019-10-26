@@ -39,9 +39,4 @@ public class PomodoroCommand extends Command {
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what you are referring to");
         }
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

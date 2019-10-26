@@ -1,4 +1,4 @@
-package duke.extensions;
+package duke.parser;
 
 public class KeywordAndEdit {
 
