@@ -19,6 +19,8 @@ import static seedu.duke.email.EmailContentParseHelper.allKeywordInEmail;
  */
 public class EmailStorage {
 
+    private static boolean isTesting = false;
+
     /**
      * Get the pathname of the data/email.txt.
      *
@@ -27,6 +29,7 @@ public class EmailStorage {
     public static String getDataDir() {
         String dir = "";
         String workingDir = System.getProperty("user.dir");
+        System.out.println(workingDir);
         if (workingDir.endsWith(File.separator + "text-ui-test")) {
             dir = ".." + File.separator + "data";
         } else if (workingDir.endsWith(File.separator + "main")) {
@@ -61,14 +64,18 @@ public class EmailStorage {
      * @return pathname of the data/emails/ folder.
      */
     public static String getFolderDir() {
+        String folderName = "emails";
+        if (isTesting) {
+            folderName = "testEmails";
+        }
         String dir = "";
         String workingDir = System.getProperty("user.dir");
         if (workingDir.endsWith(File.separator + "text-ui-test")) {
-            dir = ".." + File.separator + "data" + File.separator + "emails" + File.separator;
+            dir = ".." + File.separator + "data" + File.separator + folderName + File.separator;
         } else if (workingDir.endsWith(File.separator + "main")) {
-            dir = "." + File.separator + "data" + File.separator + "emails" + File.separator;
+            dir = "." + File.separator + "data" + File.separator + folderName + File.separator;
         } else {
-            dir = "." + File.separator + "data" + File.separator + "emails" + File.separator;
+            dir = "." + File.separator + "data" + File.separator + folderName + File.separator;
         }
         return dir;
     }
@@ -190,6 +197,10 @@ public class EmailStorage {
      */
     public static EmailList readEmailFromFile(String indexDir) {
         EmailList emailList = new EmailList();
+        System.out.println(indexDir);
+        if (indexDir.endsWith("emailTagTestFile.txt")) {
+            isTesting = true;
+        }
         try {
             prepareFolder();
             indexDir = assignIndexDirIfNotExist(indexDir);
@@ -251,7 +262,7 @@ public class EmailStorage {
 
     private static String readEmailContentFromFolder(String filename) throws FileNotFoundException {
         String fileDir = getFolderDir() + filename;
-        System.out.println(fileDir);
+        //System.out.println(fileDir);
         File emailFile = new File(fileDir);
         FileInputStream emailIn = new FileInputStream(emailFile);
         Scanner emailScanner = new Scanner(emailIn);
