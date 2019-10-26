@@ -87,7 +87,7 @@ public class NullProject implements IProject {
     }
 
     @Override
-    public void editTaskRequirements(int taskIndexNumber, String[] updatedTaskRequirements, boolean haveRemove) {
+    public void editTaskRequirements(int taskIndexNumber, String updatedTaskRequirements) {
         /*
         Empty method
          */

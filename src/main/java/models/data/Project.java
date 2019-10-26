@@ -96,8 +96,8 @@ public class Project implements IProject {
     }
 
     @Override
-    public void editTaskRequirements(int taskIndexNumber, String[] updatedTaskRequirements, boolean haveRemove) {
-        this.taskList.editTaskRequirements(taskIndexNumber, updatedTaskRequirements, haveRemove);
+    public void editTaskRequirements(int taskIndexNumber, String updatedTaskRequirements) {
+        this.taskList.editTaskRequirements(taskIndexNumber, updatedTaskRequirements);
     }
 
     @Override

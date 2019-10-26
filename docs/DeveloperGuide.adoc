@@ -299,6 +299,136 @@ differences, listed below:
 `ProjectRepository` instead of `addToRepo()`.
 * Deletion of Project works by Project Index instead of Project Name.
 
+*Manage project*
+
+ArchDuke allows users to manage each individual project in the `ProjectRepository`.
+
+image::images/ManageProject_Sequence.png[]
+
+=== 3.2. CRUD functionality for Tasks
+==== Implementation
+
+CRUD Task functions are handled by `Task`, `TaskList` and `TaskFactory`,`Project` and `ProjectInputController`.
+It allows ArchDuke to perform simple CRUD function for Task in the Project, these simple functions include Create, Read,
+Update and Delete. `TaskFactory` will create the relevant task with the apporatied input from the user which will then be
+added into the `TaskList` managed by the `Project`. `ProjectInputController` will read the relevant command related to task
+function and call the relevant methods in `TaskFactory` And `ParserHelper`.
+
+It implements the following commands:
+
+* `add task -t TASK_NAME  -p TASK_PRIORITY-c TASK_CREDIT -d TASK_DUEDATE -s TASK_STATE -r TASK_REQUIREMENT1` -- Creation of a
+new Task with the task name, priority, credit, due date (optional), state(optional) and additional requirements (if any)
+
+* `edit task TASK_INDEX -t TASK_NAME -p TASK_PRIORITY -c TASK_CREDIT -s TASK_STATE` -- Edits existing task with the new input
+values
+
+* `view tasks` -- Viewing of all tasks in current project
+
+* `view task requirements TASK_INDEX` -- Viewing of all additional requirements of a specified task
+
+* `edit task requirements TASK_INDEX rm/TASK_INDEXES r/TASK_REQUIREMENT1` -- Edits task requirements of specified task by
+removing unwanted requirements and adding new ones
+
+* `delete task TASK_INDEX` -- Deletion of task with stated index
+
+The example usage scenario below will explain in detail the data flow and how the program behaves at each step of CRUD
+functions with regards to a Task object.
+
+Step 1) Assuming Project have been created and the user is currently managing a specific project.
+
+Step 2) The user execute the command `add task -t kill thanos! -p 100 -c 100` to create a new task with the task
+name “kill thanos!”, priority value “100” and a credit of “100”. These input will be consumed by `ProjectInputController.manageProject()`
+
+Step 3) The `ProjectInputController.manageProject()` will trigger the `TaskFactory` which will do a  validation to ensure the
+required input are given.
+
+Step 4) `TaskFactory` will then call parserHelper.parseTaskDetails() to do a simple parsing which will clean up the
+flags and return `ArrayList<String>` for `TaskFactory` to create the task.
+
+Step 5) `TaskFactory` will create the task based on the information given by the user. The created task will subsequently
+be added into `taskList` managed by the project and successfully or unsuccessfully a message in String will be returned.
+
+The following sequence diagram show how `create task` operation works.
+
+image::images/CreateTask_Sequence.png[]
+
+=== 3.2. CRUD functionality for Reminder [Plan to do]
+==== Implementation
+
+Implementation
+CRUD Reminder functions are handled by `Reminder`, `ReminderList` and `ReminderFactory`,`Project` and `ProjectInputController`.
+It allows ArchDuke to perform simple CRUD function for Reminder in the Project, these simple functions include Create, Read,
+Update and Delete. `TaskFactory` will create the relevant task with the apporatied input from the user which will then be
+added into the `TaskList` managed by the `Project`. `ProjectInputController` will read the relevant command related to task
+function and call the relevant methods in `TaskFactory` And `ParserHelper`.
+
+Reminder function implements the following commands:
+
+* `add reminder -n REMINDER_NAME  --d REMINDER_DUEDATE` -Tag REMINDER_TAG -- Creation of a new Reminder with the reminder
+name and due date (optional)
+
+* `edit reminder TASK_INDEX -n REMINDER_NAME -d REMINDER_DUEDATE` -- Edits existing task with the new input values
+
+* `view reminder` -- Viewing of all reminders in current project
+
+image::images/CreateReminder_Sequence.png[]
+
+=== 3.3. CRUD functionality for Task Assignments
+
+==== Implementation
+
+CRUD Assignment functions are handled by `ProjectInputController`, `ParserHelper`, `AssignmentController`
+and `Project`.
+
+ArchDuke allows users to track tasks and their assignments to members in a project.
+Assignments establish a relationship between a task and a member. When a member is assigned a task,
+they are expected to complete it, and will be given the stipulated credit upon completion. The degree
+of each member's contributions are measured by task credit.
+
+Assignments are tracked in the `Project` class using 2 Java HashMaps.
+
+* `taskAndListOfMembersAssigned`
+** Key: `Task`
+** Value: ArrayList of assigned `Member` objects (List of members assigned to task)
+
+* `memberAndIndividualListOfTasks`
+** Key: `Member`
+** Value: ArrayList of `Task` objects (List of each member's individual tasks)
+
+Using a HashMap for storage allows for fast and easy writing and retrieval of data.
+It also prevents cyclic dependencies as `Task` and `Member` objects would not have to be aware of
+each other (such as each class keeping an ArrayList of the assignment) in order to establish the
+assignment.
+
+The following steps show how task assignments are made in ArchDuke.
+
+Step 1) Assume Project has been created and the user is currently managing a specific project.
+
+Step 2) User enters the command `assign task -i 1 2 -to 1 2 3 -rm 4`. This indicates the user would  like to assign tasks with index
+number 1 and 2 to members 1, 2 and 3, and also unassign/remove the task from member 4.
+
+Step 3) The `ProjectInputController.manageProject()` will call `AssignmentController.assignAndUnassign` to manage the assignment.
+
+Step 4) Within the method call in `AssignmentController`, the command by the user will be parsed by the `ParserHelper` to split
+the input into 3 parts: the task index numbers, the assignee index numbers, and the unassignees index numbers. The index numbers
+will be checked to ensure that they are valid (non-negative integers, and exist within the project) with the help
+of `ParserHelper.parseMembersIndexes()` and `ParserHelper.parseTasksIndexes()` [yet to refactor and implement].
+
+`AssignmentController.checkForSameMemberIndexes()` checks if the list of assignees and unassignees contain any identical
+index numbers, and remove them to avoid redundant work.
+
+Step 5) All valid index numbers are stored in AssignmentController. Using these index numbers `AssignmentController.assignAndUnassign`
+manages the assigning of tasks, followed by the unassigning of tasks. A for loop is used to iterate through the tasks, and 2 separate
+nested for loops iterate through the assignees and unassignees.
+
+Step 6) In each loop, `Project.containsAssignment()` is used to check if an assignment between a task and member already exists to
+avoid any errors (for example, duplicating assignments or trying to remove an assignment which does not exist). The errors are noted
+down by adding error messages to the ArrayList `errorMessages` which will be displayed to the user later.
+
+Step 7) If the input is valid, the assignment is created by calling `Project.createAssignment()` or removed by calling
+`Project.removeAssignment()`. The HashMaps are manipulated accordingly to note down the assignment between the specified task
+and member. Success messages are stored in `successMessages` and are also displayed to the user later.
+
 // ==== Design Considerations
 
 // ===== Aspect: How undo & redo executes
