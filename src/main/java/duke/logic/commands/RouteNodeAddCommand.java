@@ -6,13 +6,18 @@ import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
+import duke.model.locations.BusStop;
 import duke.model.transports.Route;
 import duke.model.locations.RouteNode;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Adds a RouteNode to RouteList.
  */
 public class RouteNodeAddCommand extends Command {
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private RouteNode node;
     private int indexRoute;
     private int indexNode;
@@ -29,6 +34,7 @@ public class RouteNodeAddCommand extends Command {
         this.indexRoute = indexRoute;
         this.indexNode = indexNode;
         this.isEmptyIndexNode = isEmptyIndexNode;
+        logger.log(Level.FINE, ((BusStop) node).getBusCode() + " " + indexRoute + " " + indexNode);
     }
 
     /**
@@ -49,7 +55,11 @@ public class RouteNodeAddCommand extends Command {
         if (isEmptyIndexNode) {
             route.addNode(node);
         } else if (indexNode >= 0) {
-            route.addNode(node, indexNode);
+            try {
+                route.addNode(node, indexNode);
+            } catch (QueryOutOfBoundsException e) {
+                route.addNode(node);
+            }
         } else {
             throw new QueryOutOfBoundsException("ROUTE_NODE");
         }
