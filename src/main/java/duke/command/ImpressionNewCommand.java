@@ -1,7 +1,9 @@
 package duke.command;
 
 import duke.DukeCore;
+import duke.data.DukeData;
 import duke.exception.DukeException;
+import duke.ui.Context;
 
 import java.util.Arrays;
 
@@ -21,6 +23,9 @@ public class ImpressionNewCommand extends DukeDataCommand {
         super.execute(core);
         String addType = uniqueDataType();
         checkTypeSwitches(addType);
+        DukeData newData;
+
+        //extract data and add type
         switch(addType) {
         case "medicine":
 
@@ -34,6 +39,23 @@ public class ImpressionNewCommand extends DukeDataCommand {
             break;
         default:
             throw new DukeException("Invalid data type!");
+        }
+
+        if (isSwitchSet("go")) {
+            switch(addType) {
+            case "plan": //fallthrough
+            case "medicine":
+                core.uiContext.setContext(Context.TREATMENT, newData);
+                break;
+            case "investigation":
+                core.uiContext.setContext(Context.INVESTIGATION, newData);
+                break;
+            case "result": //fallthrough
+            case "observation":
+                core.uiContext.setContext(Context.EVIDENCE, newData);
+            default:
+                throw new DukeException("Invalid data type!");   case:
+            }
         }
     }
 }
