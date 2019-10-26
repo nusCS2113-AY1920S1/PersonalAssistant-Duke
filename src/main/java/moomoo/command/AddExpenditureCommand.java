@@ -6,8 +6,9 @@ import moomoo.task.CategoryList;
 import moomoo.task.Category;
 import moomoo.task.Ui;
 import moomoo.task.Storage;
-import moomoo.task.MooMooException;
 import moomoo.task.Expenditure;
+
+import java.time.LocalDateTime;
 
 public class AddExpenditureCommand extends Command {
 
@@ -29,13 +30,10 @@ public class AddExpenditureCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Category category,
-                        Ui ui, Storage storage)
-            throws MooMooException {
-        super.execute(calendar, budget, categoryList, category, ui, storage);
-
+                        Ui ui, Storage storage) {
         for (int i = 0; i < categoryList.size(); i++) {
             if (categoryList.get(i).toString().equals(expenditureName)) {
-                Expenditure newExpenditure = new Expenditure(amount);
+                Expenditure newExpenditure = new Expenditure(amount, LocalDateTime.now());
                 categoryList.get(i).add(newExpenditure);
                 ui.showNewExpenditureMessage(expenditureName);
             } else {
