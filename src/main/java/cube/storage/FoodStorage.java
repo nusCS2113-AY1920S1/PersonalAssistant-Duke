@@ -20,6 +20,7 @@ public class FoodStorage {
 		return foodList;
 	}
 
+	//TODO: this method is deprecated.
 	public void appendFood(Food food) {
 		foodList.add(food);
 	}
