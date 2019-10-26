@@ -2,6 +2,7 @@ package duke.logic.command.product;
 
 import duke.commons.core.Message;
 import duke.commons.core.index.Index;
+import duke.logic.message.ProductMessage;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
@@ -49,7 +50,7 @@ public class EditProductCommand extends ProductCommand {
             throw new CommandException(Message.MESSAGE_INVALID_INDEX);
         }
         Product toEdit = lastShownList.get(index.getZeroBased());
-        Product editedProduct = ProductCommandUtil.createNewProduct(toEdit, productDescriptor);
+        Product editedProduct = ProductCommandUtil.getUpdatedProduct(toEdit, productDescriptor);
         ProductCommandUtil.verifyNewIngredients(model, editedProduct);
         try {
             model.setProduct(toEdit, editedProduct);

@@ -60,6 +60,33 @@
     "ingredientCost" : 0.0,
     "retailPrice" : 5.5,
     "status" : "ACTIVE"
+  }, {
+    "productName" : "l2",
+    "ingredientItems" : [ {
+      "ingredient" : {
+        "name" : "Cheese",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
+      "amount" : 1.1
+    }, {
+      "ingredient" : {
+        "name" : "Chicken",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
+      "amount" : 1.0
+    }, {
+      "ingredient" : {
+        "name" : "Hello",
+        "unitPrice" : 0.0,
+        "remarks" : "-"
+      },
+      "amount" : 2.0
+    } ],
+    "ingredientCost" : 0.0,
+    "retailPrice" : 5.5,
+    "status" : "ACTIVE"
   } ],
   "inventory" : [ {
     "ingredient" : {

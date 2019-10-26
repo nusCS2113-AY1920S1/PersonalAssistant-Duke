@@ -1,5 +1,7 @@
 package duke.logic.command.product;
 
+import duke.logic.message.ProductMessage;
+import duke.logic.parser.exceptions.ParseException;
 import duke.model.Model;
 import duke.model.commons.Item;
 import duke.model.commons.Quantity;
@@ -10,12 +12,12 @@ import duke.model.product.Product;
 public class ProductCommandUtil {
 
     /**
-     * Creates a new Product from a productDescriptor.
+     * Creates a new Product using information from a productDescriptor and previous product.
      * @param toEdit the product to be edited.
      * @param productDescriptor contains the information to edit with.
      * @return edited product.
      */
-    public static Product createNewProduct(Product toEdit, ProductDescriptor productDescriptor) {
+    public static Product getUpdatedProduct(Product toEdit, ProductDescriptor productDescriptor) {
         assert toEdit != null;
 
         String newProductName = productDescriptor.getProductName().orElse(toEdit.getProductName());
@@ -26,6 +28,23 @@ public class ProductCommandUtil {
                 productDescriptor.getIngredientItemList().orElse(toEdit.getIngredients());
         Product.Status newStatus = productDescriptor.getStatus().orElse(toEdit.getStatus());
         return new Product(newProductName, newRetailPrice, newIngredientCost, ingredientItemList, newStatus);
+    }
+
+    /**
+     * Creates a new Product using information from a productDescriptor.
+     * @param productDescriptor contains the information to edit with
+     * @return edited product
+     */
+    public static Product getProductFromDescriptor(ProductDescriptor productDescriptor) throws ParseException {
+        Product product = new Product();
+        if (!productDescriptor.getProductName().isPresent()) {
+            throw new ParseException(ProductMessage.MESSAGE_MISSING_PRODUCT_NAME);
+        }
+        product.setProductName(productDescriptor.getProductName().get());
+        product.setIngredientCost(productDescriptor.getIngredientCost().orElse(Product.DEFAULT_INGREDIENT_COST));
+        product.setRetailPrice(productDescriptor.getRetailPrice().orElse(Product.DEFAULT_RETAIL_PRICE));
+        product.setIngredients(productDescriptor.getIngredientItemList().orElse(new IngredientItemList()));
+        return product;
     }
 
     /**

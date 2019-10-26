@@ -1,32 +1,25 @@
 package duke.logic.parser.product;
 
-import duke.commons.util.StringUtil;
 import duke.logic.command.product.AddProductCommand;
 import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.commons.ArgumentTokenizer;
 import duke.logic.parser.commons.Parser;
 import duke.logic.parser.exceptions.ParseException;
-import duke.model.product.IngredientItemList;
-import duke.model.product.Product;
-import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
 
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_STATUS;
+import static duke.logic.parser.product.ProductParserUtil.createProductDescriptor;
 
 public class AddProductCommandParser implements Parser<AddProductCommand> {
-
-    public static final String MESSAGE_MISSING_PRODUCT_NAME = "Product name must be present";
 
     private ArgumentMultimap map;
 
     @Override
     public AddProductCommand parse(String args) throws ParseException {
         getMap(args);
-        Product product = getProductFromMap();
-        return new AddProductCommand(product);
+        return new AddProductCommand(createProductDescriptor(map));
     }
 
     private void getMap(String args) {
@@ -36,51 +29,5 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
                 PREFIX_PRODUCT_INGREDIENT_COST,
                 PREFIX_PRODUCT_RETAIL_PRICE
         );
-    }
-
-    /** Gets data from user input */
-    private Product getProductFromMap() {
-        Product product = new Product();
-
-        if (map.getValue(PREFIX_PRODUCT_NAME).isPresent()) {
-            String name = StringUtils.capitalize(map.getValue(PREFIX_PRODUCT_NAME).get());
-            if (name.isEmpty() || name.isBlank()) {
-                throw new ParseException(MESSAGE_MISSING_PRODUCT_NAME);
-            }
-            product.setProductName(map.getValue(PREFIX_PRODUCT_NAME).get());
-        } else {
-            throw new ParseException(MESSAGE_MISSING_PRODUCT_NAME);
-        }
-
-        try {
-            if (map.getValue(PREFIX_PRODUCT_RETAIL_PRICE).isPresent()) {
-                product.setRetailPrice(Double.parseDouble(map.getValue(PREFIX_PRODUCT_RETAIL_PRICE).get()));
-            }
-        } catch (ParseException e) {
-            throw new ParseException("Price must be a number");
-        }
-
-        try {
-            if (map.getValue(PREFIX_PRODUCT_INGREDIENT_COST).isPresent()) {
-                String test = map.getValue(PREFIX_PRODUCT_INGREDIENT_COST).get();
-                product.setIngredientCost(Double.parseDouble(map.getValue(PREFIX_PRODUCT_INGREDIENT_COST).get()));
-            }
-        } catch (ParseException e) {
-            throw new ParseException("Cost must be a number");
-        }
-
-        if (map.getValue(PREFIX_PRODUCT_STATUS).isPresent()) {
-            product.setStatus(Product.Status.valueOf(
-                    map.getValue(PREFIX_PRODUCT_STATUS).get().toUpperCase())
-            );
-        }
-        if (map.getValue(PREFIX_PRODUCT_INGREDIENT).isPresent()) {
-            IngredientItemList ingredientItemList =
-                    IngredientItemListParser.getIngredientsInInput(
-                            map.getValue(PREFIX_PRODUCT_INGREDIENT).orElse("")
-                    );
-            product.setIngredients(ingredientItemList);
-        }
-        return product;
     }
 }

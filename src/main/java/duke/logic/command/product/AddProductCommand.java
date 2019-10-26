@@ -1,9 +1,11 @@
 package duke.logic.command.product;
 
+import duke.logic.message.ProductMessage;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.commons.Prefix;
+import duke.logic.parser.exceptions.ParseException;
 import duke.model.Model;
 import duke.model.product.Product;
 
@@ -22,10 +24,12 @@ public class AddProductCommand extends ProductCommand {
             CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE,
     };
 
-    public AddProductCommand(Product toAdd) {
-        requireNonNull(toAdd);
-        this.toAdd = toAdd;
+    /** Constructs a AddProductCommand with the given ProductDescriptor */
+    public AddProductCommand(ProductDescriptor descriptor) throws ParseException {
+        requireNonNull(descriptor);
+        this.toAdd = ProductCommandUtil.getProductFromDescriptor(descriptor);
     }
+
 
     /**
      * Executes the command and returns the result message.

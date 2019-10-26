@@ -7,9 +7,9 @@ import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
 public class Product {
 
-    private final Double DEFAULT_RETAIL_PRICE = 0.0;
-    private final Double DEFAULT_INGREDIENT_COST = 0.0;
-    private final Status DEFAULT_STATUS = Status.ACTIVE;
+    public static final Double DEFAULT_RETAIL_PRICE = 0.0;
+    public static final Double DEFAULT_INGREDIENT_COST = 0.0;
+    public static final Status DEFAULT_STATUS = Status.ACTIVE;
 
     public enum Status {
         ACTIVE,
