@@ -62,7 +62,7 @@ class HomeWindow extends UiElement<Region> {
                 commandWindow.print("Patient added.");
                 patientListPanel.getChildren().add(new PatientCard(change.getValueAdded()));
             } else if (change.wasRemoved()) {
-                commandWindow.print("Patient discharged. A Discharged report have been created.");
+                commandWindow.print("Patient discharged. A discharge report have been created.");
                 patientListPanel.getChildren().remove(new PatientCard(change.getValueRemoved()));
             }
         });

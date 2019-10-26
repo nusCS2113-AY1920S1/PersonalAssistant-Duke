@@ -32,6 +32,7 @@ class MainWindow extends UiElement<Stage> {
     private Parser parser;
 
     private CommandWindow commandWindow;
+    private Tab patientTab;
 
     /**
      * Constructs the main UI window to house child UI elements.
@@ -62,8 +63,7 @@ class MainWindow extends UiElement<Stage> {
         Tab homeTab = new Tab("Home", homeWindow.getRoot());
         contextWindowHolder.getTabs().add(homeTab);
 
-        PatientWindow patientWindow = new PatientWindow(null);
-        Tab patientTab = new Tab("Patient", patientWindow.getRoot());
+        patientTab = new Tab("Patient", new PatientWindow(null).getRoot());
         contextWindowHolder.getTabs().add(patientTab);
 
         // TODO: Add contexts here.
@@ -73,8 +73,10 @@ class MainWindow extends UiElement<Stage> {
                 contextWindowHolder.getSelectionModel().select(homeTab);
                 break;
             case PATIENT:
+                contextWindowHolder.getTabs().remove(patientTab);
                 Patient patient = (Patient) uiContext.getObject();
-                patientWindow.setPatient(patient);
+                patientTab = new Tab("Patient", new PatientWindow(patient).getRoot());
+                contextWindowHolder.getTabs().add(1, patientTab);
                 contextWindowHolder.getSelectionModel().select(patientTab);
                 print("Accessing details of Bed " + patient.getBedNo());
                 break;
