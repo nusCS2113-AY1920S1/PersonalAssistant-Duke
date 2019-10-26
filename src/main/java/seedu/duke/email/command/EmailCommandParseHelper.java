@@ -29,7 +29,7 @@ public class EmailCommandParseHelper {
             throws EmailParseException {
         String input = stripPrefix(rawInput);
         if (input == null) {
-            return new InvalidCommand();
+            return new InvalidCommand("Command must not be empty. ");
         }
         String emailCommand = extractCommandWord(input);
         return parseByCommandType(optionList, input, emailCommand);
@@ -75,7 +75,7 @@ public class EmailCommandParseHelper {
         }
         ArrayList<String> tags = CommandParseHelper.extractTags(optionList);
         if (!tagsNotEmpty(tags)) {
-            return new InvalidCommand();
+            return new InvalidCommand("Please enter a tag name after \'-tag\' option");
         }
         return new EmailListTagCommand(tags);
     }
@@ -84,8 +84,7 @@ public class EmailCommandParseHelper {
         Pattern showCommandPattern = Pattern.compile("^show\\s+(?<index>\\d+)\\s*$");
         Matcher showCommandMatcher = showCommandPattern.matcher(input);
         if (!showCommandMatcher.matches()) {
-            showError("Please enter a valid index of task after \'show\'");
-            return new InvalidCommand();
+            return new InvalidCommand("Please enter a valid index of task after \'show\'");
         }
         try {
             int index = parseEmailIndex(showCommandMatcher.group("index"));
@@ -100,12 +99,11 @@ public class EmailCommandParseHelper {
         Pattern emailTagCommandPattern = Pattern.compile("^update\\s+(?<index>\\d+)\\s*$");
         Matcher emailTagCommandMatcher = emailTagCommandPattern.matcher(input);
         if (!emailTagCommandMatcher.matches()) {
-            showError("Please enter a valid email index after \'update\'");
-            return new InvalidCommand();
+            return new InvalidCommand("Please enter a valid email index after \'update\'");
         }
         ArrayList<String> tags = CommandParseHelper.extractTags(optionList);
         if (!tagsNotEmpty(tags)) {
-            return new InvalidCommand();
+            return new InvalidCommand("Please enter a tag name after \'-tag\' option");
         }
         try {
             int index = parseEmailIndex(emailTagCommandMatcher.group("index"));
@@ -117,17 +115,17 @@ public class EmailCommandParseHelper {
 
     private static boolean tagsNotEmpty(ArrayList<String> tags) {
         if (tags.size() == 0) {
-            showError("Please enter a tag name after \'-tag\' option");
             return false;
         }
         return true;
     }
 
     private static int parseEmailIndex(String input) throws EmailParseException {
-        if (input.length() >= 6) {
+        String strippedInput = input.replaceAll("^0+", "");
+        if (strippedInput.length() >= 6) {
             throw new EmailParseException("Invalid index. Index of range 1 ~ 99999 is accepted.");
         }
-        int index = Integer.parseInt(input) - 1;
+        int index = Integer.parseInt(strippedInput) - 1;
         if (index < 0 || index >= Model.getInstance().getEmailListLength()) {
             throw new EmailParseException("Index out of bounds.");
         }
