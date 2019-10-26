@@ -12,9 +12,6 @@ import static java.util.Objects.requireNonNull;
 public class AddProductCommand extends ProductCommand {
 
     public static final String COMMAND_WORD = "add";
-    public static String MESSAGE_SUCCESS = "New product: %s added";
-    public static final String MESSAGE_DUPLICATE_PRODUCT = "Product with name \"%s\" already exists in the "
-            + "product list";
     private final Product toAdd;
 
     public static final String AUTO_COMPLETE_INDICATOR = ProductCommand.COMMAND_WORD + " " + COMMAND_WORD;
@@ -42,13 +39,14 @@ public class AddProductCommand extends ProductCommand {
         requireNonNull(model);
 
         if (model.hasProduct(toAdd)) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_PRODUCT, toAdd.getProductName()));
+            throw new CommandException(String.format(ProductMessage.MESSAGE_DUPLICATE_PRODUCT,
+                    toAdd.getProductName()));
         }
 
         ProductCommandUtil.verifyNewIngredients(model, toAdd);
         model.addProduct(toAdd);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getProductName()),
+        return new CommandResult(String.format(ProductMessage.MESSAGE_ADD_PRODUCT_SUCCESS, toAdd.getProductName()),
                 CommandResult.DisplayedPage.PRODUCT);
     }
 

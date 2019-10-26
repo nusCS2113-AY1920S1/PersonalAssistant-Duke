@@ -8,10 +8,7 @@ import duke.logic.parser.commons.Parser;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
-import org.ocpsoft.prettytime.shade.net.fortuna.ical4j.data.ParserException;
 import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
-
-import java.util.Optional;
 
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST;

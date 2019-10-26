@@ -49,6 +49,10 @@ public class EditProductCommand extends ProductCommand {
         }
         Product toEdit = lastShownList.get(index.getZeroBased());
         Product editedProduct = ProductCommandUtil.createNewProduct(toEdit, productDescriptor);
+        if (model.hasProduct(editedProduct)) {
+            throw new CommandException(String.format(ProductMessage.MESSAGE_DUPLICATE_PRODUCT,
+                    editedProduct.getProductName()));
+        }
         ProductCommandUtil.verifyNewIngredients(model, editedProduct);
         model.setProduct(toEdit, editedProduct);
         model.updateFilteredProductList(Model.PREDICATE_SHOW_ACTIVE_PRODUCTS);
