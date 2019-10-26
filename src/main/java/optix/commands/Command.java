@@ -18,6 +18,14 @@ public abstract class Command {
      */
     public abstract String execute(Model model, Ui ui, Storage storage);
 
+    /**
+     * Parses user input into its respective parameters.
+     *
+     * @param details User input command.
+     * @return Array of string with respective parameters
+     * @throws OptixInvalidCommandException The size of String array is not equals to expected
+     *                                      number of parameters for the Command.
+     */
     public abstract String[] parseDetails(String details) throws OptixInvalidCommandException;
 
     public boolean isExit() {

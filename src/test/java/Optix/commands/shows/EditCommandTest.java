@@ -1,46 +1,50 @@
-package optix.commands;
+package optix.commands.shows;
 
 import optix.commands.shows.AddCommand;
-import optix.commands.shows.PostponeCommand;
+import optix.commands.shows.EditCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
-import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class PostponeCommandTest {
-
+class EditCommandTest {
     private Ui ui = new Ui();
-    private File currentDir = new File(System.getProperty("user.dir"));
-    private File filePath = new File(currentDir.toString() + "\\src\\test\\data\\testOptix.txt");
+    private static File currentDir = new File(System.getProperty("user.dir"));
+    private static File filePath = new File(currentDir.toString() + "\\src\\test\\data\\testOptix");
     private Storage storage = new Storage(filePath);
     private Model model = new Model(storage);
 
     @Test
-    void execute() throws OptixInvalidCommandException {
+    void execute() {
         // add test shows
         AddCommand addTestShow1 = new AddCommand("Test Show 1|20|5/5/2020");
         addTestShow1.execute(model, ui, storage);
         AddCommand addTestShow2 = new AddCommand("Test Show 2|20|7/5/2020");
         addTestShow2.execute(model, ui, storage);
-        // postpone show 1 to a valid date (there is no show on desired date.)
-        PostponeCommand testCommand = new PostponeCommand("Test Show 1|5/5/2020|6/5/2020");
+        EditCommand testCommand = new EditCommand("Test Show 1|5/5/2020|Test Show 3");
         testCommand.execute(model, ui, storage);
         String expected1 = "__________________________________________________________________________________\n"
-                + "Test Show 1 has been postponed from 5/5/2020 to 6/5/2020.\n"
+                + "Show has been successfully updated to Test Show 3.\n"
                 + "__________________________________________________________________________________\n";
         assertEquals(expected1, ui.showCommandLine());
         // postpone show 1 to an invalid date (there is a show on the desired date.)
-        PostponeCommand testCommand2 = new PostponeCommand("Test Show 1|6/5/2020|7/5/2020");
+        EditCommand testCommand2 = new EditCommand("Test Show 1|5/5/2020|Test Show 3");
         testCommand2.execute(model, ui, storage);
         String expected2 = "__________________________________________________________________________________\n"
-                + "☹ OOPS!!! There already exists a show for 7/5/2020.\n"
+                + "☹ OOPS!!! The show you are finding does not exist!\n"
                 + "__________________________________________________________________________________\n";
         assertEquals(expected2, ui.showCommandLine());
         filePath.deleteOnExit();
+    }
+
+    @AfterAll
+    static void cleanUp() {
+        File deletedFile = new File(filePath, "optix.txt");
+        deletedFile.delete();
     }
 }

@@ -3,15 +3,15 @@ package optix.commands.shows;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
-
+import optix.exceptions.OptixException;
 import optix.exceptions.OptixInvalidCommandException;
-
 import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
 
 import java.time.LocalDate;
 
+//@@author CheeSengg
 public class PostponeCommand extends Command {
     private String details;
 
@@ -30,31 +30,22 @@ public class PostponeCommand extends Command {
 
     /**
      * Command to postpone show.
-     *
      * @param splitStr String containing "SHOW_NAME|OLD_DATE|NEW_DATE"
      */
-
     public PostponeCommand(String splitStr) {
         this.details = splitStr;
     }
 
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
-        String showName, oldDate, newDate;
-        try {
-            String[] details = parseDetails(this.details);
-            showName = details[0].trim();
-            oldDate = details[1].trim();
-            newDate = details[2].trim();
-        } catch (OptixInvalidCommandException e) {
-            ui.setMessage(e.getMessage());
-            return "show";
-        }
-
         String message = "";
         LocalDate today = storage.getToday();
-
         try {
+            String[] details = parseDetails(this.details);
+            String showName = details[0].trim();
+            String oldDate = details[1].trim();
+            String newDate = details[2].trim();
+
             if (!formatter.isValidDate(oldDate) || !formatter.isValidDate(newDate)) {
                 throw new OptixInvalidDateException();
             }
@@ -73,10 +64,11 @@ public class PostponeCommand extends Command {
                     message = MESSAGE_DOES_NOT_MATCH;
                 } else {
                     model.postponeShow(localOldDate, localNewDate);
+                    storage.write(model.getShows());
                     message = String.format(MESSAGE_SUCCESSFUL, showName, oldDate, newDate);
                 }
             }
-        } catch (OptixInvalidDateException e) {
+        } catch (OptixException e) {
             message = e.getMessage();
         } finally {
             ui.setMessage(message);
@@ -92,5 +84,4 @@ public class PostponeCommand extends Command {
         }
         return detailsArray;
     }
-
 }

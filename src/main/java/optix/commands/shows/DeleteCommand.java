@@ -9,6 +9,7 @@ import optix.util.OptixDateFormatter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+//@@author OungKennedy
 public class DeleteCommand extends Command {
     private String details;
 
@@ -20,7 +21,6 @@ public class DeleteCommand extends Command {
 
     private static final String MESSAGE_SHOW_NOT_FOUND = "☹ OOPS!!! Unable to find the following shows:\n";
 
-
     /**
      * Instantiate vars.
      * @param splitStr String of format "SHOW_NAME|DATE_1|DATE_2|etc."
@@ -31,12 +31,12 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
-        String[] detailsArray = parseDetails(this.details);
+        String[] detailsArray = parseDetails(details);
         String[] showDates = detailsArray[1].split("\\|");
         String showName = detailsArray[0];
+
         StringBuilder message = new StringBuilder(MESSAGE_SUCCESSFUL);
         ArrayList<String> missingShows = new ArrayList<>();
-
         int counter = 1;
 
         for (String showDate : showDates) {
@@ -57,18 +57,16 @@ public class DeleteCommand extends Command {
                 missingShows.add(date);
             }
         }
-
         if (missingShows.size() == showDates.length) {
             message = new StringBuilder(MESSAGE_SHOW_NOT_FOUND);
         } else if (missingShows.size() != 0) {
             message.append("\n" + MESSAGE_SHOW_NOT_FOUND);
         }
-
         for (int i = 0; i < missingShows.size(); i++) {
             message.append(String.format(MESSAGE_ENTRY, i + 1, showName, missingShows.get(i)));
         }
-
         ui.setMessage(message.toString());
+        storage.write(model.getShows());
         return "show";
     }
 
@@ -76,7 +74,6 @@ public class DeleteCommand extends Command {
     public String[] parseDetails(String details) {
         return details.split("\\|",2);
     }
-
 
     private boolean hasValidDate(String date) {
         return formatter.isValidDate(date);

@@ -3,7 +3,6 @@ package optix.commands.shows;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
-
 import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
@@ -11,6 +10,7 @@ import optix.util.OptixDateFormatter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+//@@author CheeSengg
 public class AddCommand extends Command {
     private String details;
 
@@ -28,7 +28,7 @@ public class AddCommand extends Command {
      * @param splitStr String of format "SHOW_NAME|SEAT_BASE_PRICE|DATE_1|DATE_2|etc"
      */
     public AddCommand(String splitStr) {
-        String details = splitStr;
+        this.details = splitStr;
     }
 
     @Override
@@ -37,10 +37,11 @@ public class AddCommand extends Command {
         String[] showDates;
         double seatBasePrice;
         try {
-            String[] detailsArray = parseDetails(this.details);
+            String[] detailsArray = parseDetails(details);
             showName = detailsArray[0].trim();
-            showDates = detailsArray[2].trim().split("\\|"); // do we need exception handling for this line?
-            seatBasePrice = Double.parseDouble(detailsArray[1]); // we should also do exception handling for this number
+            showDates = detailsArray[2].trim().split("\\|");
+            seatBasePrice = Double.parseDouble(detailsArray[1]);
+            assert seatBasePrice >= 0 : "Seat Base Price cannot be less than 0";
         } catch (OptixInvalidCommandException e) {
             ui.setMessage(e.getMessage());
             return "show";
@@ -48,16 +49,11 @@ public class AddCommand extends Command {
 
         LocalDate today = storage.getToday();
         ArrayList<String> errorShows = new ArrayList<>();
-
-
         StringBuilder message = new StringBuilder(MESSAGE_SUCCESSFUL);
-
         int counter = 1;
 
         for (String showDate : showDates) {
             String date = showDate.trim();
-
-
             if (!hasValidDate(date)) {
                 errorShows.add(date);
                 continue;
@@ -73,18 +69,16 @@ public class AddCommand extends Command {
                 counter++;
             }
         }
-
         if (errorShows.size() == showDates.length) {
             message = new StringBuilder(MESSAGE_UNSUCCESSFUL);
         } else if (errorShows.size() != 0) {
             message.append("\n" + MESSAGE_UNSUCCESSFUL);
         }
-
         for (int i = 0; i < errorShows.size(); i++) {
             message.append(String.format(MESSAGE_ENTRY, i + 1, showName, errorShows.get(i)));
         }
-
         ui.setMessage(message.toString());
+        storage.write(model.getShows());
         return "show";
     }
 

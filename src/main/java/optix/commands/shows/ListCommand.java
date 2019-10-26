@@ -6,8 +6,8 @@ import optix.commons.Storage;
 import optix.commons.model.ShowMap;
 import optix.ui.Ui;
 
+//@@author CheeSengg
 public class ListCommand extends Command {
-
     private static final String MESSAGE_LIST_FOUND = "Here are the list of shows:\n";
 
     private static final String MESSAGE_LIST_NOT_FOUND = "☹ OOPS!!! There are no shows in the near future.\n";
@@ -23,7 +23,6 @@ public class ListCommand extends Command {
         } else {
             message = new StringBuilder(MESSAGE_LIST_NOT_FOUND);
         }
-
         ui.setMessage(message.toString());
         return "show";
     }
@@ -32,6 +31,4 @@ public class ListCommand extends Command {
     public String[] parseDetails(String details) {
         return new String[0];
     }
-
-
 }

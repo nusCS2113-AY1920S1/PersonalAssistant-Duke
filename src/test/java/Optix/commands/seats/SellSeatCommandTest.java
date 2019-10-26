@@ -1,11 +1,11 @@
-package optix.commands;
+package optix.commands.seats;
 
 import optix.commands.seats.SellSeatCommand;
 import optix.commands.shows.AddCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
-import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -15,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class SellSeatCommandTest {
 
     private Ui ui = new Ui();
-    private File currentDir = new File(System.getProperty("user.dir"));
-    private File filePath = new File(currentDir.toString() + "\\src\\test\\data\\testOptix.txt");
+    private static File currentDir = new File(System.getProperty("user.dir"));
+    private static File filePath = new File(currentDir.toString() + "\\src\\test\\data\\testOptix");
     private Storage storage = new Storage(filePath);
     private Model model = new Model(storage);
 
     @Test
-    void execute() throws OptixInvalidCommandException {
+    void execute() {
         filePath.deleteOnExit();
         AddCommand addTestShow1 = new AddCommand("Test Show 1|20|5/5/2020");
         addTestShow1.execute(model, ui, storage);
@@ -49,5 +49,11 @@ class SellSeatCommandTest {
                 + "☹ OOPS!!! All of the seats [%1] are unavailable\n"
                 + "__________________________________________________________________________________\n";
         assertEquals(expected3, ui.showCommandLine());
+    }
+
+    @AfterAll
+    static void cleanUp() {
+        File deletedFile = new File(filePath, "optix.txt");
+        deletedFile.delete();
     }
 }

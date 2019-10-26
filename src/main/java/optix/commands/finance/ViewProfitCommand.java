@@ -1,10 +1,9 @@
-package optix.commands.shows;
+package optix.commands.finance;
 
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
 import optix.commons.model.ShowMap;
-
 import optix.exceptions.OptixInvalidCommandException;
 import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
@@ -12,6 +11,7 @@ import optix.util.OptixDateFormatter;
 
 import java.time.LocalDate;
 
+//@@author NicholasLiu97
 public class ViewProfitCommand extends Command {
     private String details;
 
@@ -34,7 +34,8 @@ public class ViewProfitCommand extends Command {
 
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
-        String showName, showDate;
+        String showName;
+        String showDate;
         try {
             String[] detailsArray = parseDetails(this.details);
             showName = detailsArray[0].trim();

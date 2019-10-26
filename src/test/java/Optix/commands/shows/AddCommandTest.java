@@ -1,10 +1,10 @@
-package optix.commands;
+package optix.commands.shows;
 
 import optix.commands.shows.AddCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
-import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -12,15 +12,13 @@ import java.io.File;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AddCommandTest {
-
     private Ui ui = new Ui();
-    private File currentDir = new File(System.getProperty("user.dir"));
-    private File filePath = new File(currentDir.toString() + "\\src\\test\\data\\testOptix.txt");
+    private static File currentDir = new File(System.getProperty("user.dir"));
+    private static File filePath = new File(currentDir.toString() + "\\src\\test\\data\\testOptix");
     private Storage storage = new Storage(filePath);
     private Model model = new Model(storage);
 
     @Test
-
     void execute() {
         AddCommand testCommand = new AddCommand("dummy show name|20|5/5/2020 | 6/10/2020");
 
@@ -57,5 +55,11 @@ class AddCommandTest {
         assertEquals(expected3, ui.showCommandLine());
 
         filePath.deleteOnExit();
+    }
+
+    @AfterAll
+    static void cleanUp() {
+        File deletedFile = new File(filePath, "optix.txt");
+        deletedFile.delete();
     }
 }

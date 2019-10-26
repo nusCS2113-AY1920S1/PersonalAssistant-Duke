@@ -7,13 +7,12 @@ import optix.ui.Ui;
 import optix.util.Parser;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
+//@@author OungKennedy
 public class ResetAliasCommand extends Command {
     private File preferenceFilePath;
 
-    //@@author OungKennedy
     public ResetAliasCommand(File filePath) {
         this.preferenceFilePath = filePath;
     }

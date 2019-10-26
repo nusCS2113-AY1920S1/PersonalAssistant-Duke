@@ -1,11 +1,10 @@
-package optix.commands;
+package optix.commands.seats;
 
-import optix.commands.seats.ViewSeatsCommand;
 import optix.commands.shows.AddCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
-import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -13,15 +12,14 @@ import java.io.File;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ViewSeatsCommandTest {
-
     private Ui ui = new Ui();
-    private File currentDir = new File(System.getProperty("user.dir"));
-    private File filePath = new File(currentDir.toString() + "\\src\\test\\data\\testOptix.txt");
+    private static File currentDir = new File(System.getProperty("user.dir"));
+    private static File filePath = new File(currentDir.toString() + "\\src\\test\\data\\testOptix");
     private Storage storage = new Storage(filePath);
     private Model model = new Model(storage);
 
     @Test
-    void execute() throws OptixInvalidCommandException {
+    void execute() {
         // add a dummy show
         AddCommand addDummyShow = new AddCommand("Dummy Show|20|5/5/2020");
         addDummyShow.execute(model, ui, storage);
@@ -52,5 +50,11 @@ class ViewSeatsCommandTest {
                         + "☹ OOPS!!! Sorry the show non existent show cannot be found.\n"
                         + "__________________________________________________________________________________\n";
         assertEquals(expected2, ui.showCommandLine());
+    }
+
+    @AfterAll
+    static void cleanUp() {
+        File deletedFile = new File(filePath, "optix.txt");
+        deletedFile.delete();
     }
 }

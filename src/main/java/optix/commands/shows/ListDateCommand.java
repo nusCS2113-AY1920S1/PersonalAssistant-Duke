@@ -9,6 +9,7 @@ import optix.util.OptixDateFormatter;
 
 import java.time.LocalDate;
 
+//@@author CheeSengg
 public class ListDateCommand extends Command {
     private final String monthOfYear;
 
@@ -25,9 +26,8 @@ public class ListDateCommand extends Command {
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
         String[] splitStr = monthOfYear.split(" ");
-
-        int year = getYear(splitStr[1]);
-        int month = getMonth(splitStr[0].toLowerCase());
+        int year = formatter.getYear(splitStr[1]);
+        int month = formatter.getMonth(splitStr[0].toLowerCase());
 
         StringBuilder message = new StringBuilder(String.format(MESSAGE_FOUND_SHOW, monthOfYear));
 
@@ -40,17 +40,14 @@ public class ListDateCommand extends Command {
             LocalDate endOfMonth = formatter.getEndOfMonth(year, month);
 
             message.append(model.listShow(startOfMonth, endOfMonth));
-
             if (!hasShow(message.toString())) {
                 message = new StringBuilder(String.format(MESSAGE_NO_SHOWS_FOUND, monthOfYear));
             }
-
         } catch (OptixInvalidDateException e) {
             message.append(e.getMessage());
         } finally {
             ui.setMessage(message.toString());
         }
-
         return "show";
     }
 
@@ -69,42 +66,5 @@ public class ListDateCommand extends Command {
         return !message.equals(String.format(MESSAGE_FOUND_SHOW, monthOfYear));
     }
 
-    private int getYear(String year) {
-        try {
-            return Integer.parseInt(year);
-        } catch (NumberFormatException e) {
-            return 0;
-        }
-    }
 
-    private int getMonth(String month) {
-        switch (month) {
-        case "january":
-            return 1;
-        case "february":
-            return 2;
-        case "march":
-            return 3;
-        case "april":
-            return 4;
-        case "may":
-            return 5;
-        case "june":
-            return 6;
-        case "july":
-            return 7;
-        case "august":
-            return 8;
-        case "september":
-            return 9;
-        case "october":
-            return 10;
-        case "november":
-            return 11;
-        case "december":
-            return 12;
-        default:
-            return 0;
-        }
-    }
 }

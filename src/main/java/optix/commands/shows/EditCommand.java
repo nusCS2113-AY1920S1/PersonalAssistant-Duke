@@ -3,7 +3,7 @@ package optix.commands.shows;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
-
+import optix.exceptions.OptixException;
 import optix.exceptions.OptixInvalidCommandException;
 import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
@@ -11,18 +11,18 @@ import optix.util.OptixDateFormatter;
 
 import java.time.LocalDate;
 
+//@@author CheeSengg
 public class EditCommand extends Command {
+    private String details;
 
-    private static final String MESSAGE_UPDATE_SUCCESSFUL = "Show has been successfully updated to ";
+    private static final String MESSAGE_UPDATE_SUCCESSFUL = "Show has been successfully updated to %1$s.\n";
 
     private static final String MESSAGE_UPDATE_UNSUCCESSFUL = "☹ OOPS!!! The show you are finding does not exist!\n";
-    private String details;
 
     private OptixDateFormatter formatter = new OptixDateFormatter();
 
     /**
      * Edit the name of an existing show.
-     *
      * @param splitStr String of format "OLD_SHOW_NAME|SHOW_DATE|NEW_SHOW_NAME"
      */
     public EditCommand(String splitStr) {
@@ -31,36 +31,28 @@ public class EditCommand extends Command {
 
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
-        String oldShowName, showDate, newShowName;
         try {
             String[] details = parseDetails(this.details);
-            oldShowName = details[0].trim();
-            showDate = details[1].trim();
-            newShowName = details[2].trim();
-        } catch (OptixInvalidCommandException e){
-            ui.setMessage(e.getMessage());
-            return "show";
-        }
+            String oldShowName = details[0].trim();
+            String showDate = details[1].trim();
+            String newShowName = details[2].trim();
 
-        String message;
-
-        try {
             if (!formatter.isValidDate(showDate)) {
                 throw new OptixInvalidDateException();
             }
 
             LocalDate localShowDate = formatter.toLocalDate(showDate);
+            StringBuilder message = new StringBuilder();
 
             if (model.containsKey(localShowDate) && model.hasSameName(localShowDate, oldShowName)) {
-
                 model.editShowName(localShowDate, newShowName);
-
-                message = MESSAGE_UPDATE_SUCCESSFUL + newShowName + ".\n";
+                storage.write(model.getShows());
+                message.append(String.format(MESSAGE_UPDATE_SUCCESSFUL, newShowName));
             } else {
-                message = MESSAGE_UPDATE_UNSUCCESSFUL;
+                message.append(MESSAGE_UPDATE_UNSUCCESSFUL);
             }
-            ui.setMessage(message);
-        } catch (OptixInvalidDateException e) {
+            ui.setMessage(message.toString());
+        } catch (OptixException e) {
             ui.setMessage(e.getMessage());
         }
         return "show";
@@ -74,5 +66,4 @@ public class EditCommand extends Command {
         }
         return detailsArray;
     }
-
 }

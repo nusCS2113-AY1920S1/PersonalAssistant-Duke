@@ -18,8 +18,8 @@ import optix.commands.shows.ListCommand;
 import optix.commands.shows.ListDateCommand;
 import optix.commands.shows.ListShowCommand;
 import optix.commands.shows.PostponeCommand;
-import optix.commands.shows.ViewMonthlyCommand;
-import optix.commands.shows.ViewProfitCommand;
+import optix.commands.finance.ViewMonthlyCommand;
+import optix.commands.finance.ViewProfitCommand;
 import optix.exceptions.OptixException;
 import optix.exceptions.OptixInvalidCommandException;
 
@@ -72,7 +72,6 @@ public class Parser {
      * @return Command Object based on the first input word.
      * @throws OptixException if the Command word is not recognised by Optix.
      */
-
     public Command parse(String fullCommand) throws OptixException {
         // add exception for null pointer exception. e.g. postpone
         String[] splitStr = fullCommand.trim().split(" ", 2);
@@ -99,7 +98,6 @@ public class Parser {
 
             // There will definitely be exceptions thrown here. Need to stress test and then categorise
             switch (commandName) {
-
             case "edit":
                 return new EditCommand(splitStr[1]);
             case "sell":
@@ -112,7 +110,6 @@ public class Parser {
                 return parseList(splitStr[1]);
             case "bye":
                 return new ByeCommand();
-
             case "add": // add poto|5/10/2020|20
                 return new AddCommand(splitStr[1]);
             case "delete": // e.g. delete SHOW_NAME DATE_1|DATE_2|etc
@@ -193,7 +190,6 @@ public class Parser {
     }
 
     //@@ OungKennedy
-
     /**
      * Writes the contents of commandAliasMap to the file in preferenceFilePath.
      */
@@ -208,7 +204,6 @@ public class Parser {
     }
 
     //@@ OungKennedy
-
     /**
      * Method to reset preferences to default values.op
      */

@@ -73,7 +73,6 @@ public class HelpCommand extends Command {
             ui.setMessage(e.getMessage());
         }
         return "";
-
     }
 
     /**
@@ -95,7 +94,6 @@ public class HelpCommand extends Command {
      */
     private String getSpecificCommand(String command) throws OptixInvalidCommandException {
         StringBuilder message = new StringBuilder("Valid " + command + " command:\n");
-
         switch (command.toLowerCase()) {
         case "add":
             message.append(ADD_MENU);

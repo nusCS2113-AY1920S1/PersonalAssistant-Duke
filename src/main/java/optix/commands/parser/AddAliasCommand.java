@@ -8,19 +8,16 @@ import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
 import optix.util.Parser;
 
-
 import java.io.File;
 import java.io.IOException;
 
-
+//@@author OungKennedy
 public class AddAliasCommand extends Command {
     private String details;
     private File preferenceFilePath;
 
-    //@@ OungKennedy
     /**
      * Command to add a new alias to the command alias map.
-     *
      * @param details String containing "NEW_ALIAS|COMMAND"
      */
     public AddAliasCommand(String details, File filePath) {
@@ -51,8 +48,7 @@ public class AddAliasCommand extends Command {
         }
 
         String message;
-        // create parser object
-        Parser dummyParser = new Parser(preferenceFilePath);
+        Parser dummyParser = new Parser(preferenceFilePath);         // create parser object
         try {
             // adds the alias-command pair to commandAliasMap, and saves it to file
             dummyParser.addAlias(newAlias, command);

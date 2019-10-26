@@ -3,6 +3,7 @@ package optix.commands.seats;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
+import optix.exceptions.OptixException;
 import optix.exceptions.OptixInvalidCommandException;
 import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
@@ -10,6 +11,7 @@ import optix.util.OptixDateFormatter;
 
 import java.time.LocalDate;
 
+//@@author NicholasLiu97
 public class ReassignSeatCommand extends Command {
     private String details;
 
@@ -31,21 +33,14 @@ public class ReassignSeatCommand extends Command {
 
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
-        // get details
-        String showName, showDate, oldSeat, newSeat;
-        try {
-            String[] detailsArray = parseDetails(this.details);
-            showName = detailsArray[0];
-            showDate = detailsArray[1];
-            oldSeat = detailsArray[2];
-            newSeat = detailsArray[3];
-        } catch (OptixInvalidCommandException e) {
-            ui.setMessage(e.getMessage());
-            return "seat";
-        }
-
         StringBuilder message = new StringBuilder();
         try {
+            String[] detailsArray = parseDetails(this.details);
+            String showName = detailsArray[0];
+            String showDate = detailsArray[1];
+            String oldSeat = detailsArray[2];
+            String newSeat = detailsArray[3];
+
             if (!formatter.isValidDate(showDate)) {
                 throw new OptixInvalidDateException();
             }
@@ -54,12 +49,13 @@ public class ReassignSeatCommand extends Command {
 
             if (model.containsKey(showLocalDate) && model.hasSameName(showLocalDate, showName)) { //found the show
                 message.append(model.reassignSeat(showLocalDate, oldSeat, newSeat));
+                storage.write(model.getShows());
             } else if (model.containsKey(showLocalDate)) { //no show on the showDate
                 message.append(String.format(MESSAGE_SHOW_NOT_FOUND, showName, showDate));
             } else { //date does not exist in Optix
                 message.append(MESSAGE_DOES_NOT_MATCH);
             }
-        } catch (OptixInvalidDateException e) {
+        } catch (OptixException e) {
             message.append(e.getMessage());
         } finally {
             ui.setMessage(message.toString());

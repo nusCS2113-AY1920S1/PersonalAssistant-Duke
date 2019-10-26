@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+//@@author OungKennedy
 public class RemoveAliasCommand extends Command {
     private String details;
     private HashMap<String, String> commandAliasMap;
@@ -27,14 +28,6 @@ public class RemoveAliasCommand extends Command {
         this.commandAliasMap = commandAliasMap;
     }
 
-    public String[] parseDetails(String details) throws OptixInvalidCommandException {
-        String[] detailsArray = details.split("\\|",2);
-        if (detailsArray.length != 2) {
-            throw new OptixInvalidCommandException();
-        }
-        return detailsArray;
-    }
-
     /**
      * Processes user input to be stored, queried, modified in ShowMap,
      * to show response by program in ui and store existing data in Storage.
@@ -46,7 +39,8 @@ public class RemoveAliasCommand extends Command {
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
         // parse the string to assign the details and command strings to local variables
-        String alias, command;
+        String alias;
+        String command;
         try {
             String[] detailsArray = parseDetails(this.details);
             alias = detailsArray[0];
@@ -57,7 +51,7 @@ public class RemoveAliasCommand extends Command {
         }
 
         try {
-        // check if the alias exists
+            // check if the alias exists
             if (!commandAliasMap.containsValue(command) || !commandAliasMap.containsKey(alias)) {
                 throw new OptixException("Error removing alias.\n");
             }
@@ -78,5 +72,14 @@ public class RemoveAliasCommand extends Command {
             ui.setMessage(e.getMessage());
         }
         return "";
+    }
+
+    @Override
+    public String[] parseDetails(String details) throws OptixInvalidCommandException {
+        String[] detailsArray = details.split("\\|",2);
+        if (detailsArray.length != 2) {
+            throw new OptixInvalidCommandException();
+        }
+        return detailsArray;
     }
 }

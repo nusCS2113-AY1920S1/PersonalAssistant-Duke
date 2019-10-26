@@ -3,15 +3,15 @@ package optix.commands.seats;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
-
+import optix.exceptions.OptixException;
 import optix.exceptions.OptixInvalidCommandException;
-
 import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
 
 import java.time.LocalDate;
 
+//@@author CheeSengg
 public class SellSeatCommand extends Command {
     private String details;
 
@@ -30,23 +30,16 @@ public class SellSeatCommand extends Command {
         this.details = splitStr;
     }
 
-    //need to refactor
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
-        // get details
-        String showName, showDate;
-        String[] seats;
+        StringBuilder message = new StringBuilder();
+
         try {
             String[] detailsArray = parseDetails(this.details);
-            showName = detailsArray[0];
-            showDate = detailsArray[1];
-            seats = detailsArray[2].split(" ");
-        } catch (OptixInvalidCommandException e) {
-            ui.setMessage(e.getMessage());
-            return "seat";
-        }
-        StringBuilder message = new StringBuilder();
-        try {
+            String showName = detailsArray[0];
+            String showDate = detailsArray[1];
+            String[] seats = detailsArray[2].split(" ");
+
             if (!formatter.isValidDate(showDate)) {
                 throw new OptixInvalidDateException();
             }
@@ -55,11 +48,11 @@ public class SellSeatCommand extends Command {
 
             if (model.containsKey(showLocalDate) && model.hasSameName(showLocalDate, showName)) {
                 message.append(model.sellSeats(showLocalDate, seats));
+                storage.write(model.getShows());
             } else {
                 message = new StringBuilder(MESSAGE_SHOW_NOT_FOUND);
             }
-
-        } catch (OptixInvalidDateException e) {
+        } catch (OptixException e) {
             message.append(e.getMessage());
         } finally {
             ui.setMessage(message.toString());
@@ -70,7 +63,7 @@ public class SellSeatCommand extends Command {
     @Override
     public String[] parseDetails(String details) throws OptixInvalidCommandException {
         String[] detailsArray = details.trim().split("\\|");
-        if (details.length() != 3) {
+        if (detailsArray.length != 3) {
             throw new OptixInvalidCommandException();
         }
         return detailsArray;

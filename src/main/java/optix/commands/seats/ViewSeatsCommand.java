@@ -3,7 +3,7 @@ package optix.commands.seats;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
-
+import optix.exceptions.OptixException;
 import optix.exceptions.OptixInvalidCommandException;
 import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
@@ -11,6 +11,7 @@ import optix.util.OptixDateFormatter;
 
 import java.time.LocalDate;
 
+//@@author CheeSengg
 public class ViewSeatsCommand extends Command {
     private String details;
 
@@ -30,17 +31,12 @@ public class ViewSeatsCommand extends Command {
 
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
-        String showName, showDate;
+        StringBuilder message = new StringBuilder();
         try {
             String[] arrayDetails = parseDetails(this.details);
-            showName = arrayDetails[0];
-            showDate = arrayDetails[1];
-        } catch (OptixInvalidCommandException e) {
-            ui.setMessage(e.getMessage());
-            return "seat";
-        }
-        StringBuilder message = new StringBuilder(String.format(MESSAGE_SHOW_FOUND, showName, showDate));
-        try {
+            String showName = arrayDetails[0];
+            String showDate = arrayDetails[1];
+
             if (!formatter.isValidDate(showDate)) {
                 throw new OptixInvalidDateException();
             }
@@ -48,12 +44,12 @@ public class ViewSeatsCommand extends Command {
             LocalDate showLocalDate = formatter.toLocalDate(showDate);
 
             if (model.containsKey(showLocalDate) && model.hasSameName(showLocalDate, showName)) {
+                message = new StringBuilder(String.format(MESSAGE_SHOW_FOUND, showName, showDate));
                 message.append(model.viewSeats(showLocalDate));
             } else {
                 message = new StringBuilder(String.format(MESSAGE_SHOW_NOT_FOUND, showName));
             }
-
-        } catch (OptixInvalidDateException e) {
+        } catch (OptixException e) {
             message.append(e.getMessage());
         } finally {
             ui.setMessage(message.toString());

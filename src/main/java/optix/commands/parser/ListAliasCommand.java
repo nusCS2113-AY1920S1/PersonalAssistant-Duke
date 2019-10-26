@@ -8,6 +8,7 @@ import optix.util.Parser;
 
 import java.util.Map;
 
+//@@author OungKennedy
 public class ListAliasCommand extends Command {
 
     /**
@@ -25,17 +26,10 @@ public class ListAliasCommand extends Command {
         for (Map.Entry<String, String> entry : Parser.commandAliasMap.entrySet()) {
             systemMessage.append(entry.getKey()).append(" : ").append(entry.getValue()).append('\n');
         }
-
         ui.setMessage(systemMessage.toString());
         return "seat";
     }
 
-    /**
-     * Dummy command.
-     *
-     * @param details n.a.
-     * @return n.a.
-     */
     @Override
     public String[] parseDetails(String details) {
         return new String[0];

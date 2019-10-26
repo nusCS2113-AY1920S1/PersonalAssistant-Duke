@@ -5,6 +5,7 @@ import optix.commons.Model;
 import optix.commons.Storage;
 import optix.ui.Ui;
 
+//@@author CheeSengg
 public class ListShowCommand extends Command {
     private String showName;
 
@@ -16,17 +17,14 @@ public class ListShowCommand extends Command {
         this.showName = showName;
     }
 
-
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
         StringBuilder message = new StringBuilder(String.format(MESSAGE_FOUND_SHOW, showName));
 
         message.append(model.listShow(showName));
-
         if (!hasShow(message.toString())) {
             message = new StringBuilder(MESSAGE_SHOW_NOT_FOUND);
         }
-
         ui.setMessage(message.toString());
         return "show";
     }
@@ -35,8 +33,6 @@ public class ListShowCommand extends Command {
     public String[] parseDetails(String details) {
         return details.split(" ");
     }
-
-
 
     private boolean hasShow(String message) {
         return !message.equals(String.format(MESSAGE_FOUND_SHOW, showName));

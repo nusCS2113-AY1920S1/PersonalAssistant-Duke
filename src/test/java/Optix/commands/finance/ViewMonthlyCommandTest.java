@@ -1,11 +1,11 @@
-package optix.commands;
+package optix.commands.finance;
 
 import optix.commands.seats.SellSeatCommand;
 import optix.commands.shows.AddCommand;
-import optix.commands.shows.ViewMonthlyCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
 import optix.ui.Ui;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -13,10 +13,9 @@ import java.io.File;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ViewMonthlyCommandTest {
-
     private Ui ui = new Ui();
-    private File currentDir = new File(System.getProperty("user.dir"));
-    private File filePath = new File(currentDir.toString() + "\\src\\test\\data\\testOptix.txt");
+    private static File currentDir = new File(System.getProperty("user.dir"));
+    private static File filePath = new File(currentDir.toString() + "\\src\\test\\data\\testOptix");
     private Storage storage = new Storage(filePath);
     private Model model = new Model(storage);
 
@@ -44,7 +43,7 @@ class ViewMonthlyCommandTest {
         testCommand.execute(model, ui, storage);
 
         String expected = "__________________________________________________________________________________\n"
-                + "The projected earnings for May 2020 is 240.00.\n"
+                + "The earnings for May 2020 is 240.00.\n"
                 + "__________________________________________________________________________________\n";
 
         assertEquals(expected, ui.showCommandLine());
@@ -59,5 +58,11 @@ class ViewMonthlyCommandTest {
         assertEquals(expected2, ui.showCommandLine());
 
         filePath.deleteOnExit();
+    }
+
+    @AfterAll
+    static void cleanUp() {
+        File deletedFile = new File(filePath, "optix.txt");
+        deletedFile.delete();
     }
 }
