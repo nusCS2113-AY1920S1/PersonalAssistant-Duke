@@ -26,7 +26,6 @@ public class PatientDeleteCommand extends ArgCommand {
         if (searchCritical != null && (((Patient) patient).getPriDiagnosis()) != null ){
             if (((Patient) patient).containsPriDiagnosis(searchCritical)) {
                 ((Patient) patient).deletePriDiagnosis();
-                //core.uiContext.setContext(Context.PATIENT, patient);
                 core.ui.print("Successfully deleted " + searchCritical);
                 deleted = true;
             }
