@@ -7,8 +7,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.File;
 import java.io.IOException;
 
+/**
+ * An UI element that displays basic information of a {@code Impression}.
+ * TODO: Extend from UiElement.
+ */
 public class ImpressionCard extends AnchorPane {
     private static final String FXML = "ImpressionCard.fxml";
 

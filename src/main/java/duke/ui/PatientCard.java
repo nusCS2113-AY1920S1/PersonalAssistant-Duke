@@ -7,10 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
- * An UI element that displays certain information of a {@code Patient}.
+ * An UI element that displays basic information of a {@code Patient}.
  * TODO: Extend from UiElement.
  */
 class PatientCard extends AnchorPane {

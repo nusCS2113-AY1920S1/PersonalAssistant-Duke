@@ -14,11 +14,9 @@ import java.util.List;
 import java.util.Scanner;
 
 abstract class InputHistoryWindow extends UiElement<Region> {
-
     @FXML
     protected AutoCompleteTextField inputTextField;
 
-    // TODO: A separate (inner) class for input history
     private List<String> inputHistory;
     private int historyPointer;
     private String currentInput = "";

@@ -24,7 +24,7 @@ public class Commands {
         case "back":
             //return new BackCommand();
         case "up":
-            //return new UpCommand();
+            return new UpCommand();
         default:
             break; //not one of these; continue
         }
