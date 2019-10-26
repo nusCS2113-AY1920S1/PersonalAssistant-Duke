@@ -91,6 +91,7 @@ public class CommandConvert extends Command {
      */
     private String consultCurrencyApi(String from, String to) {
         String Link = generateApiURL(from,to);
+        System.out.println(Link);
         try {
             URL url = new URL(Link);
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -119,17 +120,14 @@ public class CommandConvert extends Command {
     }
 
     private boolean isConvertFromOrToEUR (String from, String to){
-        if( from == "EUR" || to == "EUR"){
-            return true;
-        }
-        return false;
+        return from.equals("EUR") || to.equals("EUR");
     }
 
     private String generateApiURL (String from , String to){
         boolean isEUR = isConvertFromOrToEUR(from,to);
         String URL;
         if(isEUR){
-            if(this.from == "EUR"){
+            if(this.from.equals("EUR")){
                 URL = "https://api.exchangeratesapi.io/latest?symbols=" + this.to;
                 setUse(this.to);
             } else {
@@ -157,7 +155,7 @@ public class CommandConvert extends Command {
                 if(this.use.equals("")){
                     Double fromRate = deriveExchangeRateFromJson(json,from);
                     Double toRate = deriveExchangeRateFromJson(json,to);
-                    Double amountInEUR = amountAfterConversion(fromRate, amount);
+                    Double amountInEUR = amount / fromRate;
                     Double convertedAmount = amountAfterConversion(toRate, amountInEUR);
                     Double originalToOutputRate = convertedAmount/amount;
                     setExchangeRate(originalToOutputRate);
@@ -165,7 +163,7 @@ public class CommandConvert extends Command {
 
                 } else {
                     Double Rate = deriveExchangeRateFromJson(json,this.use);
-                    Double convertedAmount = amountAfterConversion(Rate, amount);
+                    Double convertedAmount = amount / Rate;
                     Double originalToOutputRate = convertedAmount/amount;
                     setExchangeRate(originalToOutputRate);
                     return convertedAmount;
