@@ -114,15 +114,7 @@ public class Storage {
             String filename = PATH_OUTPUT;
             BufferedWriter out = new BufferedWriter(new FileWriter(filename));
             for (Task task : arr) {
-                if (task instanceof Todo) {
-                    out.write(task.toStorageString() + "\n");
-                } else if (task instanceof Assignment) {
-                    out.write(task.toStorageString() + "\n");
-                } else if (task instanceof Deadline) {
-                    out.write(task.toStorageString() + "\n");
-                } else if (task instanceof Event) {
-                    out.write(task.toStorageString() + "\n");
-                }
+                out.write(task.toStorageString() + "\n");
             }
             out.close();
         } catch (IOException e) {
