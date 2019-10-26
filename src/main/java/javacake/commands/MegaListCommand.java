@@ -6,8 +6,12 @@ import javacake.ProgressStack;
 import javacake.storage.Storage;
 import javacake.ui.Ui;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
 public class MegaListCommand extends Command {
@@ -55,15 +60,13 @@ public class MegaListCommand extends Command {
 
         try {
             CodeSource src = ProgressStack.class.getProtectionDomain().getCodeSource();
-            boolean isJarMode = true;
-            if (src != null) { //jar
 
+            if (runningFromJAR()) { //jar
                 URL jar = src.getLocation();
                 ZipInputStream zip = new ZipInputStream(jar.openStream());
                 while (true) {
                     ZipEntry e = zip.getNextEntry();
                     if (e == null) {
-                        assert e != null;
                         break;
                     }
 
@@ -73,22 +76,22 @@ public class MegaListCommand extends Command {
                         collectionOfNames.add(name);
                     }
                 }
-                if (isJarMode) {
-                    List<String> result = processFileNames(collectionOfNames);
+                List<String> result = processFileNames(collectionOfNames);
+                sb.append(String.join("\n", result)).append("\n");
+                sb.append("Type 'goto [index]' to access the topics you are interested in!").append("\n");
+                sb.append("E.g. 'goto 1.2' will bring you to 1. Java Basics -> 2. Read").append("\n");
+            } else {
+                try {
+                    Stream<Path> walk = Files.walk(Paths.get("src/main/resources/content/MainList"));
+                    List<String> result = walk.filter(Files::isDirectory)
+                            .map(x -> x.toString()).collect(Collectors.toList());
+                    result = processFileNamesIfNotJar(result);
                     sb.append(String.join("\n", result)).append("\n");
-                    sb.append("Type 'goto index' to access the topics you are interested in!").append("\n");
-                } /*else {
-                    try {
-                        Stream<Path> walk = Files.walk(Paths.get("src/main/resources/content/MainList"));
-                        List<String> result = walk.filter(Files::isDirectory)
-                                .map(x -> x.toString()).collect(Collectors.toList());
-                        result = processFileNamesIfNotJar(collectionOfNames);
-                        sb.append(String.join("\n", result)).append("\n");
-                        sb.append("Type 'goto' to access the topics you are interested in!").append("\n");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }*/
+                    sb.append("Type 'goto [index]' to access the topics you are interested in!").append("\n");
+                    sb.append("E.g. 'goto 1.2' will bring you to 1. Java Basics -> 2. Read").append("\n");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             return sb.toString();
         } catch (IOException e) {
@@ -138,6 +141,26 @@ public class MegaListCommand extends Command {
         }
         processedList.remove(0);
         return processedList;
+    }
+
+    public static boolean runningFromJAR() {
+        try {
+            String jarFilePath = new File(MegaListCommand.class
+                    .getProtectionDomain()
+                    .getCodeSource()
+                    .getLocation()
+                    .getPath())
+                    .toString();
+
+            jarFilePath = URLDecoder.decode(jarFilePath, StandardCharsets.UTF_8);
+
+            try (ZipFile zipFile = new ZipFile(jarFilePath)){
+                ZipEntry zipEntry = zipFile.getEntry("META-INF/MANIFEST.MF");
+                return zipEntry != null;
+            }
+        } catch (IOException e) {
+            return false;
+        }
     }
     
 }
