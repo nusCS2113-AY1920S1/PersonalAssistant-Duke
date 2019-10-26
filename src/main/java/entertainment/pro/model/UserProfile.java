@@ -10,7 +10,8 @@ public class UserProfile {
     private int userAge;
     private ArrayList<Integer> genreIdPreference = new ArrayList<>();
     private ArrayList<Integer> genreIdRestriction = new ArrayList<>();
-    private boolean adult = false;
+    private boolean adult = true;
+    private ArrayList<String> playlistNames = new ArrayList<>();
     private boolean sortByAlphabetical = false;
     private boolean sortByLatestRelease = false;
 
@@ -96,5 +97,21 @@ public class UserProfile {
 
     public void removeGenreIdRestriction(ArrayList<Integer> inputGenre) {
         genreIdRestriction.removeAll(inputGenre);
+    }
+
+    public ArrayList<String> getPlaylistNames() {
+        return playlistNames;
+    }
+
+    public void setPlaylistNames(ArrayList<String> playlistNames) {
+        this.playlistNames = playlistNames;
+    }
+
+    public void addPlaylist(String listName) {
+        playlistNames.add(listName);
+    }
+
+    public void deletePlaylist(String listName) {
+        playlistNames.remove(listName);
     }
 }

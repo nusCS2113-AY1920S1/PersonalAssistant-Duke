@@ -17,9 +17,16 @@ public class EditProfileJson {
     };
 
 
-    public EditProfileJson() throws FileNotFoundException {
+    public EditProfileJson() throws IOException {
         file = new File("EPdata/userProfile.json");
-        this.inputStream = new FileInputStream(file);
+        if (file.exists()) {
+            this.inputStream = new FileInputStream(file);
+        } else {
+            file.createNewFile();
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write("{\"userName\":\"*undefined*\",\"userAge\":0,\"genreIdPreference\":[],\"genreIdRestriction\":[],\"adult\":true,\"playlistNames\":[],\"sortByAlphabetical\":false,\"sortByLatestRelease\":false,\"sortByHighestRAting\":false}");
+            this.inputStream = new FileInputStream(file);
+        }
     }
 
     public UserProfile load() throws IOException {
@@ -30,11 +37,6 @@ public class EditProfileJson {
      * update json file with any changes made to user profile
      */
     public void updateProfile(UserProfile userProfile) throws IOException {
-        File oldFile = file;
-        File newFile = new File("EPdata/tempUserProfile.json");
-        mapper.writeValue(newFile, userProfile);
-        inputStream.close();
-        oldFile.delete();
-        newFile.renameTo(new File(file.getAbsolutePath()));
+        mapper.writeValue(file, userProfile);
     }
 }
