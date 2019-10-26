@@ -109,6 +109,13 @@ class PatientWindow extends UiElement<Region> {
                 impressionsListPanel.getItems().add(0, new ImpressionCard((Impression) evt.getNewValue(), true));
             } else if ("History".equals(property)) {
                 history.setText((String) evt.getNewValue());
+            } else if ("Allergies".equals(property)) {
+                allergiesListView.getItems().clear();
+
+                for (String allergy : patient.getAllergies().split(",")) {
+                    Label label = new Label(allergy);
+                    allergiesListView.getItems().add(label);
+                }
             }
         });
     }

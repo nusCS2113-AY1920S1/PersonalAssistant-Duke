@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Patient extends DukeObject {
-
     private String bedNo;
     private String allergies;
     private Impression priDiagnosis;
@@ -159,27 +158,13 @@ public class Patient extends DukeObject {
     }
 
     /**
-     * Sets the Primary Diagnosis of the patient specified by the index chosen.
-     *
-     * @param keyIdentifier index of the impression
-     */
-    public void setPriDiagnosis(String keyIdentifier) throws DukeException {
-        if (this.observableImpressions.containsKey(keyIdentifier)) {
-            Impression oldPriDiagnosis = priDiagnosis;
-            priDiagnosis = this.observableImpressions.get(keyIdentifier);
-            pcs.firePropertyChange("Primary Diagnosis", oldPriDiagnosis, priDiagnosis);
-        } else {
-            throw new DukeException("I don't have that entry in the list!");
-        }
-    }
-
-    /**
      * This function finds relavent Impressions to the searchTerm.
+     *
      * @param searchTerm the serach term
      * @return the list of impressions
      */
     public ArrayList<Impression> findImpression(String searchTerm) {
-        ArrayList<Impression> searchResult = new ArrayList<Impression>();
+        ArrayList<Impression> searchResult = new ArrayList<>();
         for (Map.Entry<String, Impression> mapElement : this.observableImpressions.entrySet()) {
             Impression value = mapElement.getValue();
             if (value.toString().contains(searchTerm)) {
@@ -198,7 +183,7 @@ public class Patient extends DukeObject {
      */
     public ArrayList<DukeObject> find(String searchTerm) throws DukeException {
         ArrayList<Impression> filteredList = findImpression(searchTerm);
-        ArrayList<DukeObject> searchResult = new ArrayList<DukeObject>();
+        ArrayList<DukeObject> searchResult = new ArrayList<>();
         for (Impression imp : filteredList) {
             searchResult.add(imp);
             searchResult.addAll(imp.find(searchTerm));
@@ -208,6 +193,7 @@ public class Patient extends DukeObject {
 
     /**
      * This function appends an addition to the history of a Patient.
+     *
      * @param addition the string to be added
      * @return the new history
      */
@@ -249,21 +235,22 @@ public class Patient extends DukeObject {
      * @return string representation of patient
      */
     public String toString() {
-        String informationString;
-        informationString = "Personal details\n";
-        informationString += "Height: " + Integer.toString(this.height) + "\n";
-        informationString += "Weight: " + Integer.toString(this.weight) + "\n";
-        informationString += "Age: " + Integer.toString(this.age) + "\n";
-        informationString += "Number: " + Integer.toString(this.number) + "\n";
-        informationString += "Address: " + this.address + "\n";
-        informationString += "History: " + this.history + "\n";
-        informationString += "Registration details\n";
-        informationString += "Bed Number: " + this.bedNo + "\n";
-        informationString += "Allergies: " + this.allergies + "\n";
-        informationString += (priDiagnosis != null) ? "Primary Diagnosis: " + this.priDiagnosis.toString() + "\n" : "";
+        StringBuilder informationString;
+        informationString = new StringBuilder("Personal details\n");
+        informationString.append("Height: ").append(this.height).append("\n");
+        informationString.append("Weight: ").append(this.weight).append("\n");
+        informationString.append("Age: ").append(this.age).append("\n");
+        informationString.append("Number: ").append(this.number).append("\n");
+        informationString.append("Address: ").append(this.address).append("\n");
+        informationString.append("History: ").append(this.history).append("\n");
+        informationString.append("Registration details\n");
+        informationString.append("Bed Number: ").append(this.bedNo).append("\n");
+        informationString.append("Allergies: ").append(this.allergies).append("\n");
+        informationString.append((priDiagnosis != null) ? "Primary Diagnosis: "
+                + this.priDiagnosis.toString() + "\n" : "");
         for (Map.Entry mapElement : this.impressions.entrySet()) {
             Impression imp = (Impression) mapElement.getValue();
-            informationString += imp.toString();
+            informationString.append(imp.toString());
         }
         return super.toString() + informationString + "\n";
     }
@@ -276,39 +263,39 @@ public class Patient extends DukeObject {
 
     @Override
     public String toReportString() {
-        String informationString;
-        informationString = "\tName of patient: " + getName() + "\n";
-        informationString += "\tBed Number: " + this.bedNo + "\n";
+        StringBuilder informationString;
+        informationString = new StringBuilder("\tName of patient: " + getName() + "\n");
+        informationString.append("\tBed Number: ").append(this.bedNo).append("\n");
         if (this.height != null) {
-            informationString += "\tHeight: " + Integer.toString(this.height) + "\n";
+            informationString.append("\tHeight: ").append(this.height).append("\n");
         }
         if (this.weight != null) {
-            informationString += "\tWeight: " + Integer.toString(this.weight) + "\n";
+            informationString.append("\tWeight: ").append(this.weight).append("\n");
         }
         if (this.allergies != null) {
-            informationString += "\tAllergies: " + this.allergies + "\n";
+            informationString.append("\tAllergies: ").append(this.allergies).append("\n");
         }
         if (this.age != null) {
-            informationString += "\tAge: " + Integer.toString(this.age) + "\n";
+            informationString.append("\tAge: ").append(this.age).append("\n");
         }
         if (this.number != null) {
-            informationString += "\tNumber: " + Integer.toString(this.number) + "\n";
+            informationString.append("\tNumber: ").append(this.number).append("\n");
         }
         if (this.address != null) {
-            informationString += "\tAddress: " + this.address + "\n";
+            informationString.append("\tAddress: ").append(this.address).append("\n");
         }
         if (this.history != null) {
-            informationString += "\tHistory: " + this.history + "\n";
+            informationString.append("\tHistory: ").append(this.history).append("\n");
         }
         if (this.priDiagnosis != null) {
-            informationString += "\tRegistration details:\n";
-            informationString += "\tAllergies: " + this.allergies + "\n";
-            informationString += "\tPrimary Diagnosis: " + this.priDiagnosis.getDescription() + "\n";
-            informationString += "\nData about doctors impression of the patient and associated"
-                    + " treatments and evidences;";
+            informationString.append("\tRegistration details:\n");
+            informationString.append("\tAllergies: ").append(this.allergies).append("\n");
+            informationString.append("\tPrimary Diagnosis: ").append(this.priDiagnosis.getDescription()).append("\n");
+            informationString.append("\nData about doctors impression of the patient and associated"
+                    + " treatments and evidences;");
             for (Map.Entry mapElement : this.impressions.entrySet()) {
                 Impression imp = (Impression) mapElement.getValue();
-                informationString += imp.toReportString();
+                informationString.append(imp.toReportString());
             }
         }
         return informationString + "\n\n";
@@ -336,12 +323,34 @@ public class Patient extends DukeObject {
         return allergies;
     }
 
+    /**
+     * Set allergies of {@code Patient}.
+     *
+     * @param allergies New allergies.
+     */
     public void setAllergies(String allergies) {
+        String oldAllergies = this.allergies;
         this.allergies = allergies;
+        pcs.firePropertyChange("Allergies", oldAllergies, allergies);
     }
 
     public Impression getPriDiagnosis() {
         return priDiagnosis;
+    }
+
+    /**
+     * Sets the Primary Diagnosis of the patient specified by the index chosen.
+     *
+     * @param keyIdentifier index of the impression
+     */
+    public void setPriDiagnosis(String keyIdentifier) throws DukeException {
+        if (this.observableImpressions.containsKey(keyIdentifier)) {
+            Impression oldPriDiagnosis = priDiagnosis;
+            priDiagnosis = this.observableImpressions.get(keyIdentifier);
+            pcs.firePropertyChange("Primary Diagnosis", oldPriDiagnosis, priDiagnosis);
+        } else {
+            throw new DukeException("I don't have that entry in the impressions list!");
+        }
     }
 
     public Integer getHeight() {
