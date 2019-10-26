@@ -33,14 +33,14 @@ public class PostponeCommand extends Command {
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws NonExistentTaskException Exception caught when the task does not exist.
-     * @throws DeadlineTypeException Exception caught when the task is not a deadline task.
+     * @throws HomeworkTypeException Exception caught when the task is not a deadline task.
      * @throws FileException Exception caught when the file doesn't exist or cannot be created or cannot be opened.
      * @throws EmptyHomeworkDateException Exception caught when the date of the homework task is not given.
      * @throws NonExistentDateException Exception caught when the date given does not exist.
      * @throws PostponeHomeworkException Exception caught when the new homework is before the old deadline.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NonExistentTaskException,
-            DeadlineTypeException, FileException, EmptyHomeworkDateException, NonExistentDateException,
+            HomeworkTypeException, FileException, EmptyHomeworkDateException, NonExistentDateException,
             PostponeHomeworkException {
         String userSubstring;
         if(callByShortcut){
@@ -66,7 +66,7 @@ public class PostponeCommand extends Command {
         else { // the tasks exist
             Task postponeTask = tasks.get(index);
             if (!postponeTask.isHomework()){
-                throw new DeadlineTypeException();
+                throw new HomeworkTypeException();
             }
             HomeworkTask postponeHomeworkTask = (HomeworkTask) postponeTask;
             Date d = new Date(postponeString[1]);
