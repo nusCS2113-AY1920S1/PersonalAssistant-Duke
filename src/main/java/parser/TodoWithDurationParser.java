@@ -33,6 +33,7 @@ public class TodoWithDurationParser extends TodoParser {
         try {
             duration = Integer.parseInt(substring.split("\\s+", 2)[0].trim());
         } catch (NumberFormatException e) {
+            writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new DukeException(INVALID_DURATION);
         }
         return duration;

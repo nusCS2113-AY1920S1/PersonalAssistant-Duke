@@ -29,6 +29,7 @@ public class LocationParser extends IndexParser {
             String[] locationCommandParts = taskFeatures.split("\\s+", 2);
             locationString = locationCommandParts[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
+            writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new DukeException(DukeException.invalidLocation());
         }
         return locationString;
