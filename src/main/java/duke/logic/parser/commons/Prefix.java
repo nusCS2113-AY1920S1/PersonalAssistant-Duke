@@ -2,6 +2,7 @@ package duke.logic.parser.commons;
 
 /**
  * A prefix that marks the beginning of an argument in an arguments string.
+ * Adapted from AddressBook 4.
  * E.g. '-item' in 'order add -item bread, 2'.
  */
 public class Prefix {

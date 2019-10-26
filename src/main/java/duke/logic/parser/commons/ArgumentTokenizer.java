@@ -10,8 +10,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Tokenizes arguments string of the form: {@code preamble <prefix>value <prefix>value ...}<br>
- * e.g. {@code some preamble text -name jiajun -contact 12345678 -i}  where prefixes are {@code -name -contact -i}.<br>
+ * Tokenizes arguments string of the form: {@code preamble <prefix> value <prefix> value ...}<br>
+ * e.g. {@code some preamble text -name jiajun -contact 12345678 -i} where prefixes are {@code -name -contact -i}.<br>
  * 1. An argument's value can be an empty string e.g. the value of {@code -i} in the above example.<br>
  * 2. Leading and trailing whitespaces of an argument value will be discarded.<br>
  * 3. An argument may be repeated and all its values will be accumulated.
@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 public class ArgumentTokenizer {
 
     private static final Pattern PREAMBLE_ARGS_FORMAT = Pattern.compile("^([^-]+)?\\s*(.*)");
-    private static final Pattern PREFIX_VALUE_FORMAT = Pattern.compile("(-\\w+)\\s*([^-]+|-\\w+)?");
+    private static final Pattern PREFIX_VALUE_FORMAT = Pattern.compile("(-\\w+)\\s*([^-]+)?");
 
     /**
      * Tokenizes an arguments string and returns an {@code ArgumentMultimap} object that maps prefixes to their
