@@ -41,7 +41,7 @@ public class AddToInventoryCommand extends Command<InventoryList, Ui, InventoryS
                     additionalInfo = NO_ADDITIONAL_INFO;
                 }
                 if (ingredientName.isEmpty() || quantity.isEmpty() || unit.isEmpty()) {
-                    arrayList.add(ERROR_MESSAGE_INCOMPLETE);
+                    arrayList.add(ERROR_MESSAGE_INGREDIENT_INCOMPLETE);
                 } else {
                     if (isParsable(quantity) && isKnownUnit(unit)) {
                         inventoryList.addIngredient(ingredientName, quantity, unit, additionalInfo);

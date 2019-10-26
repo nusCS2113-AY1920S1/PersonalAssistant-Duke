@@ -21,6 +21,7 @@ public class Recipe {
         this.rating = assignRating(rating);
         this.prepStep = new PrepStep(prepStep);
         this.requiredIngredients = new RequiredIngredients(requiredIngredients);
+        this.feedback = new Feedback(feedback);
     }
 
     public RecipeTitle getRecipeTitle() {
@@ -44,18 +45,18 @@ public class Recipe {
     }
 
     public String toSaveString() {
-        return this.recipeTitle.toSaveString() + " | "
-                + checkRating() + " | "
-                + this.prepStep.toSaveString() + " | "
-                + this.requiredIngredients.toSaveString() + " | "
-                + this.feedback.toSaveString();
+        return this.recipeTitle.toSaveString().trim() + " | "
+                + checkRating().trim() + " | "
+                + this.prepStep.toSaveString().trim() + " | "
+                + this.requiredIngredients.toSaveString().trim() + " | "
+                + this.feedback.toSaveString().trim();
     }
 
     public String getViewString() {
         return this.recipeTitle.toString() + "\n"
                 + checkRating() + "\n"
                 + this.prepStep.toString() + "\n"
-                + this.requiredIngredients.toViewString() + "\n"
+                + this.requiredIngredients.toViewString()
                 + this.feedback.toString();
     }
 

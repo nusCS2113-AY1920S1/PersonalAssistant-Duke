@@ -27,7 +27,6 @@ public class ViewRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> {
             if (!recipeList.containsRecipe(description)) {
                 arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
             } else {
-                recipeStorage.saveFile(recipeList);
                 arrayList.add(MESSAGE_RECIPE_TO_BE_VIEWED + "\n" + recipeList.viewRecipe(description));
             }
         } else {

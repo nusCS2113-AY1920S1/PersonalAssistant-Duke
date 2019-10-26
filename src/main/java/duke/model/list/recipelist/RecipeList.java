@@ -48,6 +48,22 @@ public class RecipeList {
         return recipeLHM.get(recipeTitle).getViewString();
     }
 
+    public void insertReqIngredient(String recipeTitle, String position, String ingredientName, String quantity, String unit, String additionalInfo) {
+        recipeLHM.get(recipeTitle).getRequiredIngredients().insertIngredient(position, ingredientName, quantity, unit, additionalInfo);
+    }
+
+    public String deleteReqIngredient(String recipeTitle, String position) {
+        return recipeLHM.get(recipeTitle).getRequiredIngredients().deleteIngredient(position);
+    }
+
+    public void appendReqIngredient(String recipeTitle, String ingredientName, String quantity, String unit, String additionalInfo) {
+        recipeLHM.get(recipeTitle).getRequiredIngredients().appendIngredient(ingredientName, quantity, unit, additionalInfo);
+    }
+
+    public void clearReqIngredient(String recipeTitle) {
+        recipeLHM.get(recipeTitle).getRequiredIngredients().clearIngredients();
+    }
+
     public ArrayList<String> listRecipeTitle() {
         ArrayList<String> arrList = new ArrayList<>();
         for (int i = 0; i < getSize(); i++) {

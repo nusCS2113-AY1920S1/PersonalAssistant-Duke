@@ -25,7 +25,6 @@ public class RecipeStorage {
     }
 
     /**
-
      * Writing to file to save the task to file.
      *
      * @param recipeList contains the task list
@@ -34,7 +33,7 @@ public class RecipeStorage {
         try {
             FileWriter fileWriter = new FileWriter(filePathRecipes);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            recipeList.getRecipeList().forEach((RecipeTitle, Recipe) ->
+            recipeList.getRecipeList().forEach((String, Recipe) ->
             {
                 try {
                     bufferedWriter.write(Recipe.toSaveString() + "\n");

@@ -4,6 +4,8 @@ import duke.model.task.ingredienttasks.Ingredient;
 
 import java.util.ArrayList;
 
+import static duke.common.Messages.*;
+
 public class RequiredIngredients {
 
     ArrayList<Ingredient> requiredIngredientList;
@@ -23,38 +25,58 @@ public class RequiredIngredients {
         if (split.length == 2) {
             ingredientName = split[0];
             remaining = split[1];
-            String[] split2 = remaining.split("\\|", 2);
+            String[] split2 = remaining.split("/", 2);
             if (split2.length == 2) {
                 quantity = split2[0];
                 remaining2 = split2[1];
-                String[] split3 = remaining2.split("\\|", 2);
+                String[] split3 = remaining2.split("/", 2);
                 if (split3.length == 2) {
                     unit = split3[0];
                     additionalInfo = split3[1];
                     this.requiredIngredientList.add(new Ingredient(ingredientName, quantity, unit, additionalInfo));
                 }
-                /*
                 else if (split3.length == 1) {
                     unit = split3[0];
                     additionalInfo = "No additional information.";
                     this.requiredIngredientList.add(new Ingredient(ingredientName, quantity, unit, additionalInfo));
                 }
-                 */
             }
         }
+    }
+
+    public void insertIngredient(String position, String ingredientName, String quantity, String unit, String additionalInfo) {
+        requiredIngredientList.add(Integer.parseInt(position) - DISPLAYED_INDEX_OFFSET, new Ingredient(ingredientName, quantity, unit, additionalInfo));
+    }
+
+    public void appendIngredient(String ingredientName, String quantity, String unit, String additionalInfo) {
+        requiredIngredientList.add(new Ingredient(ingredientName, quantity, unit, additionalInfo));
+    }
+
+    public String deleteIngredient(String position) {
+        String deletedIngredientName = requiredIngredientList.get(Integer.parseInt(position) - DISPLAYED_INDEX_OFFSET).getIngredientName();
+        requiredIngredientList.remove(Integer.parseInt(position) - DISPLAYED_INDEX_OFFSET);
+        return deletedIngredientName;
+    }
+
+    public void clearIngredients() {
+        requiredIngredientList.clear();
+    }
+
+    public int getSize() {
+        return requiredIngredientList.size();
     }
 
     public String toViewString() {
         String joinedString = "";
         if (requiredIngredientList.isEmpty()) {
-            joinedString = "No required ingredient.";
-        }
-        int i = 0;
-        for (Ingredient Ingredient : requiredIngredientList) {
-            ++i;
-            String.join(i + ". " );
-            String.join(Ingredient.toSaveString(), joinedString);
-            String.join("\n", joinedString);
+            joinedString = "No required ingredient.\n";
+        } else {
+            int i = 0;
+            for (Ingredient ingredient : requiredIngredientList) {
+                ++i;
+                joinedString = joinedString.concat(Integer.toString(i) + ". " + ingredient.toString() + "\n");
+                // joinedString = joinedString.concat(String.join("\n", Integer.toString(i) + ". " + ingredient.toString()));
+            }
         }
         return joinedString;
     }
@@ -65,8 +87,7 @@ public class RequiredIngredients {
             joinedString = "No required ingredient.";
         }
         for (Ingredient Ingredient : requiredIngredientList) {
-            String.join(Ingredient.toSaveString(), joinedString);
-            String.join(" | ", joinedString);
+            joinedString = String.join(" | ", Ingredient.toSaveString());
         }
         return joinedString;
     }
