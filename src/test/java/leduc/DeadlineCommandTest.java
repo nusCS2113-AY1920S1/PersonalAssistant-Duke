@@ -24,7 +24,7 @@ public class DeadlineCommandTest {
         Ui ui = new Ui();
         Storage storage = null;
         try {
-            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
+            storage = new Storage(System.getProperty("user.dir")+ "/src/test/java/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/java/testFile/configTest.txt",System.getProperty("user.dir")+ "/src/test/java/testFile/welcome.txt");
         } catch (FileException e) {
             e.printStackTrace();
         } catch (MeaninglessException e) {

@@ -2,6 +2,7 @@ package leduc;
 
 import leduc.exception.DukeException;
 import leduc.exception.FileException;
+import leduc.storage.Storage;
 import leduc.task.Task;
 import leduc.task.TaskList;
 
@@ -63,11 +64,10 @@ public class Ui {
     /**
      * Show welcome to the user.
      */
-    public void showWelcome() throws FileException {
+    public void showWelcome(Storage storage) throws FileException {
 
         //open the file
-        String filepath = System.getProperty("user.dir")+ "/data/welcome.txt";
-        File file = openFile(filepath);
+        File file = storage.getWelcomeFile();
 
         //create Scanner object to read file
         Scanner sc2 = null;
