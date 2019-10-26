@@ -1,9 +1,11 @@
 package javacake.ui;
 
 import javacake.Duke;
+import javacake.commands.CreateNoteCommand;
 import javacake.commands.EditNoteCommand;
 import javacake.exceptions.DukeException;
 import javacake.commands.QuizCommand;
+import javacake.notes.NoteList;
 import javacake.quiz.Question;
 import javacake.storage.Profile;
 import javacake.storage.Storage;
@@ -72,7 +74,7 @@ public class MainWindow extends AnchorPane {
      * Initialise the Main Window launched.
      */
     @FXML
-    public void initialize() {
+    public void initialize()  throws DukeException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         taskScreen.vvalueProperty().bind(taskContainer.heightProperty());
         noteScreen.vvalueProperty().bind(noteContainer.heightProperty());
@@ -89,6 +91,7 @@ public class MainWindow extends AnchorPane {
             showContentContainer();
         }
 
+        showListNotesBox();
         showRemindersBox();
         playGuiModeLoop();
     }
@@ -120,6 +123,12 @@ public class MainWindow extends AnchorPane {
                 // find out if exit condition
                 handleExit();
                 System.out.println("EXIT");
+            } else if (input.contains("listnote")) {
+                showListNotesBox();
+            } else if (input.contains("createnote")) {
+                response = duke.getResponse(input);
+                showContentContainer();
+                showListNotesBox();
             } else if (isStarting && duke.isFirstTimeUser) { //set up new username
                 handleStartAndFirstTime();
                 System.out.println("start and first");
@@ -355,6 +364,10 @@ public class MainWindow extends AnchorPane {
         return false;
     }
 
+    private void showListNotesBox() throws DukeException {
+        response = Ui.showNoteList(duke.storage, duke.profile);
+        showNoteContainer();
+    }
     private void showRemindersBox() {
         response = Ui.showDeadlineReminder(duke.storage, duke.profile);
         //CHECKSTYLE:OFF

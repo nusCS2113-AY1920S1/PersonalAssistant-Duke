@@ -117,7 +117,7 @@ public class QuizCommand extends Command {
      */
     @Override
     public String execute(Logic logic, Ui ui, Storage storage, Profile profile)
-            throws DukeException, IOException {
+            throws DukeException {
         logic.insertQueries();
         assert !logic.containsDirectory();
         this.filePath = logic.getFullFilePath();

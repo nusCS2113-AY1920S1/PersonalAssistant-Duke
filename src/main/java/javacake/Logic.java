@@ -257,6 +257,9 @@ public class Logic {
 
     }
 
+    /**
+     * Clears all entries in listOfFiles.
+     */
     public void clearQueries() {
         listOfFiles.clear();
     }

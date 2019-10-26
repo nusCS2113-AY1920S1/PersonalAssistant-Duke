@@ -40,7 +40,7 @@ public class GoToCommand extends Command {
      * @throws DukeException Error thrown when unable to close reader
      */
     public String execute(Logic logic, Ui ui, Storage storage, Profile profile)
-            throws DukeException, IOException {
+            throws DukeException {
         int intIndex = Integer.parseInt(indexQueue.poll()) - 1;
         logic.updateFilePath(logic.gotoFilePath(intIndex));
         String filePath = logic.getFullFilePath();

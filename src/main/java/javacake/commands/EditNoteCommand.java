@@ -97,7 +97,6 @@ public class EditNoteCommand extends Command {
      */
     private String displayContentInFile() throws DukeException {
         try {
-
             File file = new File(currentFilePath);
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
@@ -168,7 +167,7 @@ public class EditNoteCommand extends Command {
     }
 
     /**
-     * Inform user if the file to be edited is empty.
+     * Informs user if the file to be edited is empty.
      * If file is empty, print headingMessage.
      * Else, print secondHeadingMessage and the content of the edit file.
      * @return String containing heading message and content if available.

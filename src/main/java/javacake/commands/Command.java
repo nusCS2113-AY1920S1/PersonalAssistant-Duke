@@ -21,7 +21,7 @@ public abstract class Command {
     }
 
     public abstract String execute(Logic logic, Ui ui, Storage storage, Profile profile)
-            throws DukeException, IOException;
+            throws DukeException;
 
     /**
      * Method to get the type of command.

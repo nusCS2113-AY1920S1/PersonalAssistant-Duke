@@ -1,6 +1,7 @@
 package javacake.ui;
 
 import javacake.Logic;
+import javacake.commands.ListNoteCommand;
 import javacake.commands.QuizCommand;
 import javacake.commands.ReminderCommand;
 import javacake.exceptions.DukeException;
@@ -64,6 +65,10 @@ public class Ui {
 
     public static String showDeadlineReminder(Storage storage, Profile profile) {
         return new ReminderCommand().execute(Logic.getInstance(), new Ui(), storage, profile);
+    }
+
+    public static String showNoteList(Storage storage, Profile profile) throws DukeException {
+        return new ListNoteCommand().execute(Logic.getInstance(), new Ui(), storage, profile);
     }
 
     /**
