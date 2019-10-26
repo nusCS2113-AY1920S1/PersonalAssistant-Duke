@@ -107,6 +107,39 @@ public class ParserHelper {
     }
 
     /**
+     * Parses string input to extract task requirements to be added and indexes of task requirements to be removed.
+     * @param input Contains the new task requirements and indexes of task requirements to be removed.
+     * @return An ArrayList consisting of indexes to be removed in index 0, and subsequent elements containing
+     *         new task requirements
+     */
+    public ArrayList<String> parseTaskRequirementDetails(String input) {
+        ArrayList<String> taskRequirementDetails = new ArrayList<>();
+
+        String taskReqIndexesToBeRemoved = "--";
+        ArrayList<String> taskRequirementsToBeAdded = new ArrayList<>();
+
+        String[] newTaskRequirementsArray = input.split("-");
+        ArrayList<String> newTaskRequirementsArrayList = new ArrayList<>(Arrays.asList(newTaskRequirementsArray));
+        newTaskRequirementsArrayList.remove(0);
+        for (String s : newTaskRequirementsArrayList) {
+            switch (s.substring(0, 2)) {
+            case "rm":
+                taskReqIndexesToBeRemoved = s.substring(3);
+                break;
+            case "r ":
+                taskRequirementsToBeAdded.add(s.substring(2));
+                break;
+            default:
+                break;
+            }
+        }
+
+        taskRequirementDetails.add(taskReqIndexesToBeRemoved);
+        taskRequirementDetails.addAll(taskRequirementsToBeAdded);
+        return taskRequirementDetails;
+    }
+
+    /**
      * Parses the criteria specified by the user to sort the list of tasks.
      * @param tasksAndAssignedMembers HashMap containing tasks with assigned members.
      * @param taskList A list of all tasks in the project.
