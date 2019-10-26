@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -16,7 +15,7 @@ import java.io.IOException;
  */
 class PatientCard extends AnchorPane {
     private static final String FXML = "PatientCard.fxml";
-
+    private final Patient patient;
     @FXML
     private Label nameLabel;
     @FXML
@@ -25,8 +24,6 @@ class PatientCard extends AnchorPane {
     private Label diagnosisLabel;
     @FXML
     private Label issueLabel;
-
-    private final Patient patient;
 
     /**
      * Constructs a PatientCard object with the specified patient's details.
