@@ -51,15 +51,27 @@ public class BudgetPane extends UiPart<AnchorPane>  {
             return cell;
         });
         indexColumn.setSortable(false);
-        TableColumn<String, Income> timeColumn = new TableColumn<>("Time");
-        timeColumn.setCellValueFactory(new PropertyValueFactory<>("timeString"));
-        timeColumn.setSortable(false);
+        indexColumn.setResizable(false);
+        indexColumn.setReorderable(false);
+        indexColumn.prefWidthProperty().bind(incomeTableView.widthProperty().multiply(0.15));
+
+        //TableColumn<String, Income> timeColumn = new TableColumn<>("Time");
+        //timeColumn.setCellValueFactory(new PropertyValueFactory<>("timeString"));
+        //timeColumn.setSortable(false);
         TableColumn<String, Income> amountColumn = new TableColumn<>("Amount");
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         amountColumn.setSortable(false);
+        amountColumn.setResizable(false);
+        amountColumn.setReorderable(false);
+        amountColumn.prefWidthProperty().bind(incomeTableView.widthProperty().multiply(0.25));
+
         TableColumn<Income, String> descriptionColumn = new TableColumn<>("Description");
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         descriptionColumn.setSortable(false);
+        descriptionColumn.setResizable(false);
+        descriptionColumn.setReorderable(false);
+        descriptionColumn.prefWidthProperty().bind(incomeTableView.widthProperty().multiply(0.6));
+
         incomeTableView.setRowFactory(new Callback<TableView<Income>, TableRow<Income>>() {
             @Override
             public TableRow<Income> call(TableView<Income> tableView) {
@@ -67,7 +79,12 @@ public class BudgetPane extends UiPart<AnchorPane>  {
                     @Override
                     protected void updateItem(Income income, boolean empty) {
                         super.updateItem(income, empty);
-                        setStyle("-fx-text-background-color: black;");
+                        if(empty) {
+                            setGraphic(null);
+                            setStyle("-fx-background-color: white");
+                        } else {
+                            setStyle("-fx-text-background-color: black;");
+                        }
                     }
                 };
                 return row;
@@ -75,9 +92,9 @@ public class BudgetPane extends UiPart<AnchorPane>  {
         });
         incomeTableView.getColumns().setAll(
                 indexColumn,
-                timeColumn,
-                amountColumn,
-                descriptionColumn
+                descriptionColumn,
+                //timeColumn,
+                amountColumn
         );
         logger.info("Items are set.");
         for (Income income : incomeList) {
