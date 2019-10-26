@@ -5,28 +5,28 @@ package oof.model.task;
  */
 public class Event extends Task {
 
-    protected String startTime;
-    protected String endTime;
+    protected String startDateTime;
+    protected String endDateTime;
 
     /**
      * Constructor for Event.
      *
      * @param description Details of the Task.
-     * @param startTime Starting date and time of the Event.
-     * @param endTime   Ending date and time of the Event.
+     * @param startDateTime Starting date and time of the Event.
+     * @param endDateTime   Ending date and time of the Event.
      */
-    public Event(String description, String startTime, String endTime) {
+    public Event(String description, String startDateTime, String endDateTime) {
         super(description);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
     }
 
-    public String getStartTime() {
-        return startTime;
+    public String getStartDateTime() {
+        return startDateTime;
     }
 
-    public String getEndTime() {
-        return endTime;
+    public String getEndDateTime() {
+        return endDateTime;
     }
 
     /**
@@ -35,8 +35,6 @@ public class Event extends Task {
      */
     @Override
     public String toStorageString() {
-        String startDateTime = startTime;
-        String endDateTime = endTime;
         String startDate = startDateTime.split(" ")[DATE];
         String startTime = startDateTime.split(" ")[TIME];
         String endDate = endDateTime.split(" ")[DATE];
@@ -47,6 +45,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+        return "[E]" + super.toString() + " (from: " + startDateTime + " to: " + endDateTime + ")";
     }
 }

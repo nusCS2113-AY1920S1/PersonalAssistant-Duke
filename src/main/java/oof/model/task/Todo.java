@@ -5,20 +5,20 @@ package oof.model.task;
  */
 public class Todo extends Task {
 
-    private String on;
+    private String todoDate;
 
     /**
      * Constructor for Todo.
      *
      * @param description Description of the Todo object.
      */
-    public Todo(String description, String on) {
+    public Todo(String description, String todoDate) {
         super(description);
-        this.on = on;
+        this.todoDate = todoDate;
     }
 
-    public String getOn() {
-        return on;
+    public String getTodoDate() {
+        return todoDate;
     }
 
     /**
@@ -27,12 +27,12 @@ public class Todo extends Task {
      */
     @Override
     public String toStorageString() {
-        return "T" + DELIMITER + getStatusIcon() + DELIMITER + description + DELIMITER + on
+        return "T" + DELIMITER + getStatusIcon() + DELIMITER + description + DELIMITER + todoDate
                 + DELIMITER + DELIMITER + DELIMITER;
     }
 
     @Override
     public String toString() {
-        return "[T]" + super.toString() + " (on: " + on + ")";
+        return "[T]" + super.toString() + " (on: " + todoDate + ")";
     }
 }

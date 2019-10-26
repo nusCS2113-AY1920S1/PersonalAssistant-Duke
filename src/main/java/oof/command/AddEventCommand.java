@@ -105,8 +105,8 @@ public class AddEventCommand extends Command {
         for (Task t : arr.getTasks()) {
             if (t instanceof Event) {
                 Event event = (Event) t;
-                Date currStartTime = format.parse(event.getStartTime());
-                Date currEndTime = format.parse(event.getEndTime());
+                Date currStartTime = format.parse(event.getStartDateTime());
+                Date currEndTime = format.parse(event.getEndDateTime());
                 if (isClash(newStartTime, newEndTime, currStartTime, currEndTime)) {
                     clashes.add(event);
                 }

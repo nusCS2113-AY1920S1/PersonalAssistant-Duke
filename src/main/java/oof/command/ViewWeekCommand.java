@@ -107,7 +107,7 @@ public class ViewWeekCommand extends Command {
      */
     private void addToDoTask(Task task, Calendar calendar) {
         Todo todo = (Todo) task;
-        String[] dateSplit = todo.getOn().split("-");
+        String[] dateSplit = todo.getTodoDate().split("-");
         if (dateMatches(dateSplit)) {
             String description = todo.getDescription();
             String time = "";
@@ -124,7 +124,7 @@ public class ViewWeekCommand extends Command {
      */
     private void addDeadlineTask(Task task, Calendar calendar) {
         Deadline deadline = (Deadline) task;
-        String[] dateTimeSplit = deadline.getBy().split(" ");
+        String[] dateTimeSplit = deadline.getDeadlineDateTime().split(" ");
         String[] dateSplit = dateTimeSplit[INDEX_DATE].split("-");
         if (dateMatches(dateSplit)) {
             String description = deadline.getDescription();
@@ -142,7 +142,7 @@ public class ViewWeekCommand extends Command {
      */
     private void addEventTask(Task task, Calendar calendar) {
         Event event = (Event) task;
-        String[] dateTimeSplit = event.getStartTime().split(" ");
+        String[] dateTimeSplit = event.getStartDateTime().split(" ");
         String[] dateSplit = dateTimeSplit[INDEX_DATE].split("-");
         if (dateMatches(dateSplit)) {
             String description = event.getDescription();

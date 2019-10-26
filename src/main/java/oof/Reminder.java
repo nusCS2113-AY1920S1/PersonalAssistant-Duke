@@ -73,7 +73,7 @@ public class Reminder {
         String defaultDateTime = DEFAULT_DATETIME;
         Date defaultDate = new Date();
         try {
-            String dateTime = task.getBy();
+            String dateTime = task.getDeadlineDateTime();
             defaultDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(defaultDateTime);
             Date dueDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(dateTime);
             return dueDate;

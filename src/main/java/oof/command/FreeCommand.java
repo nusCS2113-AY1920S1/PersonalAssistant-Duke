@@ -81,9 +81,9 @@ public class FreeCommand extends Command {
             Task task = tasks.getTask(i);
             if (task instanceof Event) {
                 Event event = (Event) tasks.getTask(i);
-                String date = event.getStartTime().substring(0, 10).trim();
-                String startTime = event.getStartTime().substring(11, 16).trim();
-                String endTime = event.getEndTime().substring(11, 16).trim();
+                String date = event.getStartDateTime().substring(0, 10).trim();
+                String startTime = event.getStartDateTime().substring(11, 16).trim();
+                String endTime = event.getEndDateTime().substring(11, 16).trim();
                 try {
                     if (isSameDate(date, freeSlotsDate)) {
                         String eventNameAndStartTime = event.getDescription() + "-" + startTime;
