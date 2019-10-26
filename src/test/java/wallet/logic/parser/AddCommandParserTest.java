@@ -54,46 +54,6 @@ public class AddCommandParserTest {
     }
     //@@author
 
-
-    //@@author Xdecosee
-    /**
-     * This method test a series of wrong contact command inputs.
-     */
-    @ParameterizedTest
-    @ValueSource(strings = {"", " ", "/d /p"})
-    public void parseContactInvalidInputTrue(String input) {
-        AddCommandParser parser = new AddCommandParser();
-        Contact contact = parser.parseContact(input);
-        assertNull(contact, "Return Contact should be null:");
-    }
-
-    /**
-     * This method test a series of correct contact command inputs.
-     */
-    @ParameterizedTest
-    @ValueSource(strings = {"Mary /d /p  ", "Mary Tan", "Mary /p 9728 1831 /d sister", "Test /p /p"})
-    public void parseContactValidInputSuccess(String input) {
-        AddCommandParser parser = new AddCommandParser();
-        Contact contact = parser.parseContact(input);
-        Contact match = null;
-        if ("Mary /d /p  ".equals(input)) {
-            match = new Contact("Mary", null, null);
-        } else if ("Mary Tan".equals(input)) {
-            match = new Contact("Mary Tan", null, null);
-        } else if ("Mary /p 9728 1831 /d sister".equals(input)) {
-            match = new Contact("Mary", "sister", "9728 1831");
-        } else if ("Test /p /p".equals(input)) {
-            match = new Contact("Test", null, "/p");
-        }
-        Contact finalMatch = match;
-        assertAll("Returned Contact should contain correct input values",
-            () -> assertEquals(finalMatch.getName(), contact.getName()),
-            () -> assertEquals(finalMatch.getDetail(), contact.getDetail()),
-            () -> assertEquals(finalMatch.getPhoneNum(), contact.getPhoneNum())
-        );
-    }
-    //@@author
-
     //@@author A0171206R
     @Test
     public void parseLoan_validInput_success() throws ParseException {
