@@ -23,18 +23,18 @@ class RouteNodeAddCommandTest {
         model.getRoutes().add(route);
 
         RouteNodeAddCommand routeNodeAddCommand1 =
-                (RouteNodeAddCommand) Parser.parseComplexCommand("routeNodeAdd 1 at 2113T by bus");
+                (RouteNodeAddCommand) Parser.parseComplexCommand("routeNodeAdd 1 at 66211 by bus");
         routeNodeAddCommand1.execute(model);
         assertTrue(model.getRoutes().get(0).getNode(0) instanceof BusStop);
 
-        BusStop busStop = new BusStop("2113T", null, null, 0.0, 0.0);
+        BusStop busStop = new BusStop("66211", null, null, 0.0, 0.0);
         BusStop newBusStop = (BusStop) model.getRoutes().get(0).getNode(0);
 
         assertEquals(busStop.getBusCode(), newBusStop.getBusCode());
 
         //negative test for adding to non-existant route
         RouteNodeAddCommand routeNodeAddCommand2 =
-                (RouteNodeAddCommand) Parser.parseComplexCommand("routeNodeAdd 2 at 2113T by bus");
+                (RouteNodeAddCommand) Parser.parseComplexCommand("routeNodeAdd 2 at 66211 by bus");
         assertThrows(IndexOutOfBoundsException.class, () -> {
             routeNodeAddCommand2.execute(model);
         });

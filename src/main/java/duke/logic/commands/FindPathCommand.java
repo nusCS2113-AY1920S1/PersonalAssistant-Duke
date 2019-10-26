@@ -9,6 +9,7 @@ import duke.model.Model;
 import duke.model.lists.TaskList;
 import duke.model.Event;
 import duke.model.Task;
+import duke.model.locations.RouteNode;
 import duke.model.locations.Venue;
 
 import java.util.ArrayList;

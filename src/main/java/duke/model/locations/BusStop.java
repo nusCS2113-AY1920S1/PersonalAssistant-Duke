@@ -1,17 +1,14 @@
 package duke.model.locations;
 
 import duke.commons.enumerations.Constraint;
+import duke.commons.exceptions.QueryFailedException;
 import duke.model.Model;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
-<<<<<<< HEAD
  * Class representing a Bus Stop.
-=======
- * Represents a bus stop.
->>>>>>> 20921c7839efb1481af98f3b5c7e0465ff5bb57e
  */
 public class BusStop extends RouteNode {
     private String busCode;
@@ -53,14 +50,18 @@ public class BusStop extends RouteNode {
      * Fetches data from model and updates the bus stop.
      *
      * @param model The model.
+     * @throws QueryFailedException If the bus stop is not found.
      */
-    public void fetchData(Model model) {
+    public void fetchData(Model model) throws QueryFailedException {
         HashMap<String, BusStop> allBus = model.getMap().getBusStopMap();
         if (allBus.containsKey(this.busCode)) {
             this.setAddress(allBus.get(this.busCode).getAddress());
             this.setLatitude(allBus.get(this.busCode).getLatitude());
             this.setLongitude(allBus.get(this.busCode).getLongitude());
+            return;
         }
+
+        throw new QueryFailedException("BUS_STOP");
     }
 }
 

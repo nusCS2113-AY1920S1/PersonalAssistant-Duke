@@ -3,6 +3,8 @@ package duke.model;
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.QueryFailedException;
+import duke.commons.exceptions.RouteDuplicateException;
 import duke.logic.CreateMap;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
@@ -13,9 +15,11 @@ import duke.model.locations.Venue;
 import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
 import duke.model.transports.BusService;
+import duke.model.transports.Route;
 import duke.storage.Storage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -80,8 +84,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<BusStop> getBusStops() {
+    public List<BusStop> getAllBusStops() {
         return null;
+    }
+
+    @Override
+    public BusStop getBusStop(String query) throws QueryFailedException {
+        HashMap<String, BusStop> allBus = getMap().getBusStopMap();
+        if (allBus.containsKey(query)) {
+            return allBus.get(query);
+        }
+
+        throw new QueryFailedException("BUS_STOP");
     }
 
     @Override
@@ -100,6 +114,16 @@ public class ModelManager implements Model {
     @Override
     public VenueList getEventVenues() {
         return new VenueList(tasks.getEventList());
+    }
+
+    /**
+     * Adds a route to the list of routes.
+     *
+     * @param route The route to add.
+     */
+    @Override
+    public void addRoute(Route route) throws RouteDuplicateException {
+        routes.add(route);
     }
 
     /**

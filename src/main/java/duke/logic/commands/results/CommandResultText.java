@@ -48,13 +48,16 @@ public class CommandResultText extends CommandResult {
      */
     public CommandResultText(Route route) {
         message = "Here is the information of the Route:\n" + route.getName() + "\n";
+        int index = 1;
         for (RouteNode node: route.getNodes()) {
+            message += "(" + index + ") ";
             if (node instanceof BusStop) {
                 message += ((BusStop) node).getBusCode() + " ";
             } else if (node instanceof TrainStation) {
                 message += ((TrainStation) node).getTrainCodes() + " ";
             }
             message += node.getAddress() + "\n";
+            index++;
         }
     }
 

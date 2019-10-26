@@ -1,5 +1,6 @@
 package duke.logic;
 
+import duke.commons.exceptions.QueryFailedException;
 import duke.model.locations.BusStop;
 import duke.model.locations.TrainStation;
 import duke.model.transports.BusService;
@@ -26,6 +27,7 @@ public class CreateMap {
 
     /**
      * Initialise createMap object with both busStopMap and busMap.
+     *
      * @param busStopMap Map of busStop object
      * @param busMap Map of BusService object
      */
@@ -99,7 +101,8 @@ public class CreateMap {
     }
 
     /**
-     * Return mrt line of corresponding code.
+     * Returns mrt line of corresponding code.
+     *
      * @param lineCode Code of mrt line
      * @return mrt line
      */
@@ -153,5 +156,15 @@ public class CreateMap {
 
     public HashMap<String, TrainStation> getTrainMap() {
         return trainMap;
+    }
+
+    public TrainStation getTrainStation(String query) throws QueryFailedException {
+
+        HashMap<String, TrainStation> allTrainStations = trainMap;
+        if (trainMap.containsKey(query)) {
+            return trainMap.get(query);
+        }
+
+        throw new QueryFailedException("TRAIN_STATION");
     }
 }

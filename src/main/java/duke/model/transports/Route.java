@@ -10,11 +10,7 @@ import duke.model.locations.TrainStation;
 import java.util.ArrayList;
 
 /**
-<<<<<<< HEAD
- * Class representing a route.
-=======
  * Represents a route between 2 locations as a list of route nodes.
->>>>>>> 20921c7839efb1481af98f3b5c7e0465ff5bb57e
  */
 public class Route {
     private ArrayList<RouteNode> nodes;
@@ -128,7 +124,7 @@ public class Route {
      * @exception RouteNodeDuplicateException If the route is a duplicate.
      */
     public void addNode(RouteNode newNode, int index) throws RouteNodeDuplicateException, QueryOutOfBoundsException {
-        if (index >= 0 && index < nodes.size()) {
+        if (index >= 0 && index <= nodes.size()) {
             for (RouteNode node : nodes) {
                 if (node instanceof BusStop && newNode instanceof BusStop
                         && ((BusStop) node).getBusCode().equals(((BusStop) newNode).getBusCode())) {

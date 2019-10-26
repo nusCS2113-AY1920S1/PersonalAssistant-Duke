@@ -2,10 +2,13 @@ package duke.logic.commands;
 
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.QueryFailedException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
+import duke.model.locations.BusStop;
+import duke.model.locations.TrainStation;
 import duke.model.transports.Route;
 import duke.model.locations.RouteNode;
 
@@ -43,7 +46,13 @@ public class RouteNodeAddCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws CorruptedFileException, FileNotSavedException,
-            RouteNodeDuplicateException, QueryOutOfBoundsException {
+            RouteNodeDuplicateException, QueryOutOfBoundsException, QueryFailedException {
+        if (node instanceof BusStop) {
+            ((BusStop) node).fetchData(model);
+        } else if (node instanceof TrainStation) {
+            ((TrainStation) node).fetchData(model);
+        }
+
         Route route = model.getRoutes().get(indexRoute);
 
         if (isEmptyIndexNode) {

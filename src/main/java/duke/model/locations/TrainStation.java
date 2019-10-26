@@ -1,14 +1,13 @@
 package duke.model.locations;
 
 import duke.commons.enumerations.Constraint;
+import duke.model.Model;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
-<<<<<<< HEAD
  * Class representing a Train Station.
-=======
- * Represents a train station.
->>>>>>> 20921c7839efb1481af98f3b5c7e0465ff5bb57e
  */
 public class TrainStation extends RouteNode {
     private ArrayList<String> trainCodes;
@@ -22,7 +21,7 @@ public class TrainStation extends RouteNode {
      * @param latitude The latitude of train station.
      * @param longitude The longitude of train station.
      */
-    public TrainStation(ArrayList<String> trainCode, String description, String address,
+    public TrainStation(ArrayList<String> trainCode, String address, String description,
                 double latitude, double longitude) {
         super(Constraint.valueOf("MRT"), address, description, latitude, longitude);
         this.trainCodes = trainCode;
@@ -30,5 +29,19 @@ public class TrainStation extends RouteNode {
 
     public ArrayList<String> getTrainCodes() {
         return trainCodes;
+    }
+
+    /**
+     * Fetches data from model and updates the Train Station.
+     *
+     * @param model The model.
+     */
+    public void fetchData(Model model) {
+        HashMap<String, TrainStation> allTrainStations = model.getMap().getTrainMap();
+        if (allTrainStations.containsKey(this.getAddress())) {
+            this.setAddress(allTrainStations.get(this.getAddress()).getAddress());
+            this.setLatitude(allTrainStations.get(this.getAddress()).getLatitude());
+            this.setLongitude(allTrainStations.get(this.getAddress()).getLongitude());
+        }
     }
 }

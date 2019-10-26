@@ -4,7 +4,6 @@ package duke.commons;
  * Defines messages used by SGTravel.
  */
 public class Messages {
-
     /**
      * Error messages.
      * Format is ERROR_TYPE_DESCRIPTION
@@ -13,6 +12,7 @@ public class Messages {
     public static final String ERROR_CONSTRAINT_UNKNOWN = "☹ I'm sorry, but I don't know what constraint this is :-(";
     public static final String ERROR_DESCRIPTION_EMPTY = "⛔ The description cannot be empty. :-(";
     public static final String ERROR_FIELD_UNKNOWN = "☹ I'm sorry, but I don't know what you want to edit :-(";
+    public static final String ERROR_FIELDS_EMPTY = "☹ I'm sorry, but one of the fields for this command is empty :-(";
 
     public static final String ERROR_INPUT_INVALID_FORMAT = "⚡ Invalid format. Refer to help for command formats. :-(";
     public static final String ERROR_INDEX_OUT_OF_BOUNDS = "⚠ Index requested is out of bounds! :-(";
@@ -130,8 +130,10 @@ public class Messages {
     public static final String PROMPT_RECOMMEND_STARTER = "How many days will you be visiting SG?";
     public static final String PROMPT_RECOMMEND_SUCCESS = "Recommended Attractions:";
 
-    public static final String PROMPT_CANCEL = "Current conversation has ended.";
     public static final String PROMPT_ROUTE_STARTING_POINT = "Choose your starting point.";
     public static final String PROMPT_ROUTE_ENDING_POINT = "Choose your end point.";
+    public static final String PROMPT_ROUTE_GENERATE_SUCCESS = "Route generated successfully: ";
 
+
+    public static final String PROMPT_CANCEL = "Current conversation has ended.";
 }

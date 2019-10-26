@@ -22,6 +22,7 @@ import duke.logic.commands.RecommendationsCommand;
 import duke.logic.commands.RouteAddCommand;
 import duke.logic.commands.RouteDeleteCommand;
 import duke.logic.commands.RouteEditCommand;
+import duke.logic.commands.RouteGenerateCommand;
 import duke.logic.commands.RouteListCommand;
 import duke.logic.commands.RouteNodeDeleteCommand;
 import duke.logic.commands.RouteNodeEditCommand;
@@ -92,6 +93,8 @@ public class Parser {
         case "routeNodeShow":
             return new RouteNodeListCommand(ParserUtil.getFirstIndex(getWord(input)),
                     ParserUtil.getSecondIndex(getWord(input)));
+        case "routeGenerate":
+            return ParserUtil.createRouteGenerateCommand(getWord(input));
         case "addThisList":
             return new AddSampleItineraryCommand();
         default:

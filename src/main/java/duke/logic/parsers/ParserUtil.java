@@ -1,19 +1,24 @@
 package duke.logic.parsers;
 
+import duke.commons.enumerations.Constraint;
 import duke.commons.exceptions.DukeEmptyFieldException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeUnknownCommandException;
+import duke.commons.exceptions.UnknownConstraintException;
+import duke.logic.commands.RouteGenerateCommand;
 import duke.logic.commands.RouteNodeAddCommand;
 import duke.model.locations.BusStop;
 import duke.model.locations.RouteNode;
 import duke.logic.api.ApiParser;
 import duke.model.Event;
+import duke.model.locations.TrainStation;
 import duke.model.locations.Venue;
 import duke.model.planning.Itinerary;
 import duke.model.planning.Todo;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 /**
  * Defines parsing methods for utility functions.
@@ -73,8 +78,9 @@ public class ParserUtil {
             details = withinDetails[1].strip().split("by ");
             switch (details[1].toUpperCase()) {
             case "BUS":
-                BusStop result = new BusStop(details[0].strip(), null, null, 0, 0);
-                return result;
+                return new BusStop(details[0].strip(), null, null, 0, 0);
+            case "MRT":
+                return new TrainStation(new ArrayList<>(), details[0].strip(), null, 0, 0);
             default:
                 throw new DukeException(Messages.ERROR_COMMAND_UNKNOWN);
             }
@@ -103,12 +109,15 @@ public class ParserUtil {
         if (itineraryDetails.length == 1) {
             throw new DukeUnknownCommandException();
         }
+
         if (itineraryDetails.length != 3 || itineraryDetails[1] == null || itineraryDetails[2] == null) {
             throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }
+
         if (itineraryDetails[0].strip().isEmpty()) {
             throw new DukeException(Messages.ERROR_DESCRIPTION_EMPTY);
         }
+
         LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[2].strip());
         Venue hotelLocation = ApiParser.getLocationSearch(itineraryDetails[0].strip());
@@ -191,7 +200,8 @@ public class ParserUtil {
 
     /**
      * Creates a new RouteNodeAddCommand from input, factoring for empty indexNode field.
-     * @param input Input created by the ConversationManager object or user input.
+     *
+     * @param input The userInput read by the user interface.
      * @return RouteNodeAddCommand The command.
      */
     public static RouteNodeAddCommand createRouteNodeAddCommand(String input) throws DukeException {
@@ -200,8 +210,31 @@ public class ParserUtil {
                     ParserUtil.getFirstIndex(input), ParserUtil.getSecondIndex(input), false);
         } catch (DukeEmptyFieldException e) {
             return new RouteNodeAddCommand(ParserUtil.createRouteNode(input),
-                    ParserUtil.getFirstIndex(input), 0, true);
+                    ParserUtil.getFirstIndex(input),
+                    0, true);
         }
+    }
+
+    /**
+     * Creates a new RouteGenerateCommand from input, factoring for invalid or empty fields.
+     *
+     * @param input The userInput read by the user interface.
+     * @return The RouteGenerateCommand.
+     * @throws DukeEmptyFieldException If there is an empty field.
+     * @throws UnknownConstraintException If the constraint is unknown.
+     */
+    public static RouteGenerateCommand createRouteGenerateCommand(String input) throws DukeEmptyFieldException,
+            UnknownConstraintException {
+        String[] details = input.split(" to | by ", 3);
+        if (details.length == 3) {
+            try {
+                return new RouteGenerateCommand(details[0], details[1], Constraint.valueOf(details[2].toUpperCase()));
+            } catch (IllegalArgumentException e) {
+                throw new UnknownConstraintException();
+            }
+        }
+
+        throw new DukeEmptyFieldException(Messages.ERROR_FIELDS_EMPTY);
     }
 
     /**

@@ -3,6 +3,7 @@ package duke.logic.commands;
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeDuplicateRouteException;
 import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.RouteDuplicateException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
@@ -34,8 +35,8 @@ public class RouteAddCommand extends Command {
      * @throws RouteNodeDuplicateException If there is a duplicate route node.
      */
     @Override
-    public CommandResultText execute(Model model) throws DukeDuplicateRouteException, RouteNodeDuplicateException,
-            FileNotSavedException, CorruptedFileException {
+    public CommandResultText execute(Model model) throws DukeDuplicateRouteException, RouteDuplicateException,
+            RouteNodeDuplicateException, FileNotSavedException, CorruptedFileException {
         RouteList routes = model.getRoutes();
         routes.add(new Route(name, ""));
         model.save();

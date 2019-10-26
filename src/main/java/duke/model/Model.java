@@ -3,6 +3,8 @@ package duke.model;
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.QueryFailedException;
+import duke.commons.exceptions.RouteDuplicateException;
 import duke.logic.CreateMap;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
@@ -13,6 +15,7 @@ import duke.model.planning.Itinerary;
 import duke.model.transports.BusService;
 import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
+import duke.model.transports.Route;
 
 import java.util.List;
 
@@ -53,7 +56,12 @@ public interface Model {
     /**
      * Returns the list of all bus stops.
      */
-    List<BusStop> getBusStops();
+    List<BusStop> getAllBusStops();
+
+    /**
+     * Queries and returns a bus stop.
+     */
+    BusStop getBusStop(String query) throws QueryFailedException;
 
     /**
      * Returns the list of all bus routes.
@@ -74,6 +82,13 @@ public interface Model {
      * Returns the list of Routes.
      */
     RouteList getRoutes();
+
+    /**
+     * Adds a route to the list of routes.
+     *
+     * @param route The route to add.
+     */
+    void addRoute(Route route) throws RouteDuplicateException;
 
     /**
      * Saves the Model data in storage.
