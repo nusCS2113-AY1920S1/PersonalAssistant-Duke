@@ -51,14 +51,14 @@ public class RecurHandler {
                         Assignment recurringAssignment= new Assignment(description, getNewDate(check));
                         recurringAssignment.setRecurrenceSchedule(type);
                         recurringAssignment.setPriority(check.getPriority());
-                        recurringAssignment.setAssignee(check.getUser());
+                        recurringAssignment.setAssignee(check.getAssignee());
                         taskList.replace(index, recurringAssignment);
                         isEdited = true;
                     } else {
                         Meeting recurringMeeting= new Meeting(description, getNewDate(check));
                         recurringMeeting.setRecurrenceSchedule(type);
                         recurringMeeting.setPriority(check.getPriority());
-                        recurringMeeting.setAssignee(check.getUser());
+                        recurringMeeting.setAssignee(check.getAssignee());
                         taskList.replace(index, recurringMeeting);
                         isEdited = true;
                     }
@@ -82,7 +82,7 @@ public class RecurHandler {
             Calendar calendar = Calendar.getInstance();
             String date = new Storage().convertForStorage(check);
             date = date.substring(0, 15);
-            Date storedDate = parser.formatDate(date);
+            Date storedDate = parser.formatDateCustom_1(date);
             calendar.setTime(storedDate);
             if (check.getRecurrenceSchedule().equals(RecurrenceScheduleType.day)) {
                 calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -110,7 +110,7 @@ public class RecurHandler {
     private boolean dateHasPassedOthers(String currentTime, Task check, boolean isEdited) {
         boolean isPassed = false;
         try {
-            Date current = parser.formatDate(currentTime);
+            Date current = parser.formatDateCustom_1(currentTime);
             Date newDate = getNewDate(check);
             if (newDate.compareTo(current) < 0) {
                 // date has passed

@@ -213,15 +213,45 @@ public class TaskList {
         }
     }
 
+    /**
+     * Get the number of tasks inside the task list
+     * @return the number of tasks inside the task list
+     */
     public int getSize() {
         return tasks.size();
     }
 
+    /**
+     * Get the number of completed tasks inside the task list
+     * @return the number of completed tasks inside the task list
+     */
     public int getDoneSize(){
         int count = 0;
         for (Task t: tasks){
             if (t.getDone()) count++;
         }
         return count;
+    }
+
+    /**
+     * Retrieve a task from the list
+     * @param index the index of the task
+     * @return
+     */
+    public Task get(int index) throws RoomShareException{
+        try {
+            return tasks.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new RoomShareException(ExceptionType.outOfBounds);
+        }
+    }
+
+    /**
+     * Update a task inside the task list
+     * @param index index of the task to be updated
+     * @param newTask the new task
+     */
+    public void update(int index, Task newTask) {
+        tasks.set(index, newTask);
     }
 }

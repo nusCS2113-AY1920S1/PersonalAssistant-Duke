@@ -46,6 +46,11 @@ public class Meeting extends Task {
         return isFixedDuration;
     }
 
+    public void setDuration(int duration, TimeUnit timeUnit) {
+        this.duration = duration;
+        this.timeUnit = timeUnit;
+    }
+
     public String getDuration() {
         return Integer.toString(duration);
     }

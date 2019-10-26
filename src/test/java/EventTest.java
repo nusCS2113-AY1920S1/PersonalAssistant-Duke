@@ -11,7 +11,7 @@ public class EventTest {
 
     static {
         try {
-            by = parser.formatDate("22/12/2019 18:00");
+            by = parser.formatDateCustom_1("22/12/2019 18:00");
         } catch (RoomShareException e) {
             e.printStackTrace();
         }

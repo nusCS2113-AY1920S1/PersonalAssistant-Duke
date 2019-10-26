@@ -30,6 +30,7 @@ public class RoomShare {
         ui.startUp();
         storage = new Storage();
         parser = new Parser();
+        taskCreator = new TaskCreator();
         ArrayList<Task> tempStorage = new ArrayList<>();
         tempDeleteList = new TempDeleteList(tempStorage);
         try {
@@ -142,7 +143,6 @@ public class RoomShare {
             case add:
                 try {
                     String input = parser.getCommandLine();
-                    taskCreator = new TaskCreator();
                     if(!(CheckAnomaly.checkTask((taskCreator.create(input))))) {
                         taskList.add(taskCreator.create(input));
                         ui.showAdd();
@@ -183,6 +183,18 @@ public class RoomShare {
                     } else {
                         throw new RoomShareException(ExceptionType.subTask);
                     }
+                } catch (RoomShareException e) {
+                    ui.showError(e);
+                }
+                break;
+
+            case update:
+                try {
+                    int index = parser.getIndex();
+                    String input = parser.getCommandLine().trim();
+                    System.out.println(input);
+                    Task oldTask = taskList.get(index);
+                    taskCreator.updateTask(input,oldTask);
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
