@@ -65,7 +65,8 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                 int month = Integer.parseInt(monthYear[0].trim());
                 int year = Integer.parseInt(monthYear[1].trim());
 
-                ExpenseList expenseList = LogicManager.getWallet().getExpenseList();
+                ExpenseList expenseList = LogicManager.getWalletList().getWalletList().get(
+                    LogicManager.getWalletList().getState()).getExpenseList();
                 double totalSpent = expenseList.getMonthExpenses(month, year);
                 String monthFormatted = DateTimeFormatter.ofPattern("MM/yyyy").format(YearMonth.of(year, month));
                 int index = 1;
@@ -109,7 +110,8 @@ public class ExportCommandParser implements Parser<ExportCommand> {
      * @return boolean of found or not.
      */
     private boolean findBudget(int month, int year) {
-        ArrayList<Budget> budgetList = LogicManager.getWallet().getBudgetList().getBudgetList();
+        ArrayList<Budget> budgetList = LogicManager.getWalletList().getWalletList().get(
+            LogicManager.getWalletList().getState()).getBudgetList().getBudgetList();
         for (Budget b : budgetList) {
             if (b.getMonth() == month && b.getYear() == year) {
                 this.budgetLeft = b.getAmount();
