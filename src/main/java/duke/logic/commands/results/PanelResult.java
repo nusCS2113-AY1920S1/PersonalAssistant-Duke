@@ -20,6 +20,14 @@ public class PanelResult {
         isReady = false;
     }
 
+    /**
+     * Constructs a PanelResult object.
+     * @param event The event to be displayed.
+     * @param venues The venues to be displayed.
+     * @param isLock Whether an event is locked on.
+     * @param index The index of the event.
+     * @param field The index of the field that is selected.
+     */
     public PanelResult(Event event, VenueList venues, boolean isLock, int index, int field) {
         this.event = event;
         this.venues = venues;
@@ -29,10 +37,16 @@ public class PanelResult {
         isReady = true;
     }
 
+    /**
+     * Checks if the result is ready.
+     */
     public boolean isReady() {
         return isReady;
     }
 
+    /**
+     * Tries to get the description of the event.
+     */
     public String getDescription() {
         if (event == null) {
             return null;
@@ -40,14 +54,23 @@ public class PanelResult {
         return event.getLocation().getAddress();
     }
 
+    /**
+     * Returns the start date of the Event.
+     */
     public String getStartDate() {
         return event.getStartDate().toString();
     }
 
+    /**
+     * Returns the end date of the Event.
+     */
     public String getEndDate() {
         return event.getEndDate().toString();
     }
 
+    /**
+     * Gets the color of the venues.
+     */
     public Paint getVenueColor(int index) {
         if (this.index == index) {
             if (isLock) {
@@ -66,6 +89,9 @@ public class PanelResult {
         return venues.size();
     }
 
+    /**
+     * Gets the index of the field that is currently selected.
+     */
     public int getField() {
         if (!isLock) {
             return -1;

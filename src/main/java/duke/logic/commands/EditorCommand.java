@@ -6,8 +6,8 @@ import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 
 public class EditorCommand extends Command {
-    private static final String MESSAGE_EDITOR = "Editor mode is turned on. Please press any key to begin. " +
-            "Enter new information to edit. Enter x to save changes and exit Editor mode.";
+    private static final String MESSAGE_EDITOR = "Editor mode is turned on. Please press any key to begin. "
+            + "Enter new information to edit. Enter x to save changes and exit Editor mode.";
 
     /**
      * Executes this command on the given task list and user interface.
