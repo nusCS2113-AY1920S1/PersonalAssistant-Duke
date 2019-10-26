@@ -46,13 +46,15 @@ public class Ui {
 
     public String getInput() {
         show("\nInput: ");
-        return scanner.nextLine();
+        return scanner.nextLine().replace("[","").replace("]","");
     }
     public void sleep(int delay) {
         try{
             Thread.sleep(delay);
         }catch(InterruptedException ex){
             Thread.currentThread().interrupt();
+            clearScreen();
+            showWarning("Simulator refersh interrupted! Interface may not display correctly.");
         }
     }
     public void typeWriter(String text) { //ill clean this shit up soon.

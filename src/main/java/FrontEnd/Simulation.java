@@ -62,23 +62,13 @@ public class Simulation {
     }
     public void animate(int delay, String framePath, int frameId) throws FarmioFatalException {
         animate(framePath, frameId);
-        try {
-            TimeUnit.MILLISECONDS.sleep(delay);
-        } catch (InterruptedException e) {
-            ui.clearScreen();
-            ui.showWarning("Simulator delay interrupted! Interface may not display correctly.");
-        };
+        ui.sleep(delay);
     }
     private void refresh() {
         storage = farmio.getStorage();
         ui = farmio.getUi();
         farmer = farmio.getFarmer();
-        try {
-            TimeUnit.MILLISECONDS.sleep(SLEEP_TIME);
-            ui.clearScreen();
-        } catch (InterruptedException e) {
-            ui.clearScreen();
-            ui.showWarning("Simulator refersh interrupted! Interface may not display correctly.");
-        }
+        ui.sleep(SLEEP_TIME);
+        ui.clearScreen();
     }
 }
