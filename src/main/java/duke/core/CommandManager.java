@@ -35,9 +35,8 @@ public class CommandManager {
         userInput = userInput.trim();
         String possibleCommand = TypoCorrector.commandCorrection(userInput);
         if (!possibleCommand.equals(userInput)) {
-            if (Ui.getUi().confirmTypoCorrection(possibleCommand, userInput)) {
-                userInput = possibleCommand;
-            }
+            Ui.getUi().typoCorrection(possibleCommand);
+            userInput = possibleCommand;
         }
         String[] command = userInput.toLowerCase().split(":");
         String keyWord = command[0].trim();

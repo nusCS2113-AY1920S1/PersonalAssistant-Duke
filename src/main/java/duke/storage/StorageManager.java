@@ -57,7 +57,7 @@ public class StorageManager {
         try {
             for (Patient patient : patients) {
                 ArrayList<String> row = new ArrayList<String>();
-                row.add(String.valueOf(patient.getID())); // Append value of column ID in a row
+                row.add(String.valueOf(patient.getId())); // Append value of column ID in a row
                 row.add(patient.getName()); // Append value of column Name in a row
                 row.add(patient.getNric()); // Append value of column Nric in a row
                 row.add(patient.getRoom()); // Append value of column Room in a row

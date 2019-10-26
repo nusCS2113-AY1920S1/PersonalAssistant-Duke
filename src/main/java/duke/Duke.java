@@ -33,7 +33,7 @@ public class Duke {
     private TaskManager taskManager;
     private PatientManager patientManager;
     private Counter counter;
-
+    private Ui ui;
 
     /**
      * A Ui object that deals with interactions with the user.
@@ -41,11 +41,21 @@ public class Duke {
     private MementoManager mementoManager;
     private MementoParser mementoParser;
 
-    /**
-     * A Ui object that deals with interactions with the user.
-     */
-    private static final Ui ui = Ui.getUi();
+    public String getDukeResponses() {
+        return ui.getDukeResponses();
+    }
 
+    public void clearDukeResponses() {
+        ui.clearResponses();
+    }
+
+    public void readUserInputFromGUI(String userInput) {
+        ui.readUserInputFromGui(userInput);
+    }
+
+    public PatientManager getPatientManager(){
+        return patientManager;
+    }
     /**
      * Constructs a Duke object with a relative file path.
      * Initialize the user interface and reads tasks from the specific text file.
@@ -56,6 +66,7 @@ public class Duke {
     public Duke(String filePath) {
         storageManager = new StorageManager(filePath);
         mementoManager = new MementoManager();
+        ui = new Ui();
         try {
             patientTaskList = new PatientTaskList(storageManager.loadAssignedTasks());
             taskManager = new TaskManager(storageManager.loadTasks());
@@ -72,6 +83,7 @@ public class Duke {
     /**
      * .
      * .
+     *
      * @param memento .
      */
     public void getDukeStateFromMemento(Memento memento) {
@@ -83,12 +95,13 @@ public class Duke {
     /**
      * .
      * .
+     *
      * @return .
      */
     public Memento saveDukeStateToMemento() {
         return new Memento(new TaskManager(taskManager.getTaskList()),
-                new PatientTaskList(patientTaskList.fullPatientTaskList()),
-                new PatientManager(patientManager.getPatientList()));
+            new PatientTaskList(patientTaskList.fullPatientTaskList()),
+            new PatientManager(patientManager.getPatientList()));
     }
 
     /**
@@ -96,31 +109,23 @@ public class Duke {
      * Reads user input until a "bye" message is received.
      */
     public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = CommandManager.manageCommand(fullCommand);
-                if (mementoParser.getSaveFlag(c).equals("save")) {
-                    Memento newMem = saveDukeStateToMemento();
-                    mementoManager.add(newMem);
-                } else if (mementoParser.getSaveFlag(c).equals("pop")) {
-                    getDukeStateFromMemento(mementoManager.pop());
-                }
-                c.execute(patientTaskList, taskManager, patientManager,
-                    ui, storageManager);
-                counter.runCommandCounter(c, storageManager, counter);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
+        try {
+            String fullCommand = ui.readUserInput();
+            ui.showLine();
+            Command c = CommandManager.manageCommand(fullCommand);
+            if (MementoParser.getSaveFlag(c).equals("save")) {
+                Memento newMem = saveDukeStateToMemento();
+                mementoManager.add(newMem);
+            } else if (MementoParser.getSaveFlag(c).equals("pop")) {
+                getDukeStateFromMemento(mementoManager.pop());
             }
+            c.execute(patientTaskList, taskManager, patientManager,
+                ui, storageManager);
+            counter.runCommandCounter(c, storageManager, counter);
+        } catch (DukeException e) {
+            ui.clearResponses();
+            ui.showError(e.getMessage());
         }
-        System.exit(0);
     }
 
     /**

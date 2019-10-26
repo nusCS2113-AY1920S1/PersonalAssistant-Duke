@@ -121,7 +121,7 @@ public class ShortCutter {
         topUsedCommandTable = mapSorter(sortedCommandTable);
         String commandName;
         Command command;
-        String choiceIndex = ui.readCommand();
+        String choiceIndex = ui.readUserInput();
         switch (choiceIndex) {
         case "1":
             commandName = topUsedCommandTable.get(1);

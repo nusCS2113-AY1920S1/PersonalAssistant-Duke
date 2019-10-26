@@ -4,7 +4,6 @@ import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.Patient;
 import duke.patient.PatientManager;
-import duke.relation.PatientTask;
 import duke.relation.PatientTaskList;
 import duke.storage.StorageManager;
 import duke.task.TaskManager;
@@ -79,7 +78,7 @@ public class DeletePatientTaskCommand implements Command {
             try {
                 String deletePatientName = this.deletedPatientInfo;
                 ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(deletePatientName);
-                int tempPatientId = patientsWithSameName.get(0).getID();
+                int tempPatientId = patientsWithSameName.get(0).getId();
                 if (patientTaskList.doesPatientIdExist(tempPatientId)) {
                     patientTaskList.deleteAllTasksBelongToThePatient(tempPatientId);
                     storageManager.saveAssignedTasks(patientTaskList.fullPatientTaskList());

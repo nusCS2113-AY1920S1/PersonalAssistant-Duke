@@ -52,7 +52,7 @@ public class AssignTaskToPatientCommand implements Command {
                     String type = "S";
                     newPatientTask = new StandardPatientTask(pid, tid, time, type);
                 } else {
-                    int pid = patientList.getPatientByName(taskAssignmentInfo[0]).get(0).getID();
+                    int pid = patientList.getPatientByName(taskAssignmentInfo[0]).get(0).getId();
                     int tid = tasksList.getTaskByDescription(taskAssignmentInfo[1]).get(0).getID();
                     String time = taskAssignmentInfo[2];
                     String type = "S";
@@ -67,7 +67,7 @@ public class AssignTaskToPatientCommand implements Command {
                     String type = "E";
                     newPatientTask = new EventPatientTask(pid, tid, stime, etime, type);
                 } else {
-                    int pid = patientList.getPatientByName(taskAssignmentInfo[0]).get(0).getID();
+                    int pid = patientList.getPatientByName(taskAssignmentInfo[0]).get(0).getId();
                     int tid = tasksList.getTaskByDescription(taskAssignmentInfo[1]).get(0).getID();
                     String stime = taskAssignmentInfo[2];
                     String etime = taskAssignmentInfo[3];

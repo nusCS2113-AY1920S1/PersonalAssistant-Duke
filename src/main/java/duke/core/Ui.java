@@ -5,28 +5,23 @@ import duke.relation.PatientTask;
 import duke.task.Task;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 /**
  * Represents the necessary ui elements for user interaction.
  */
 public class Ui {
-    /**
-     * A Scanner to read user input.
-     */
     private Scanner scanner;
-
+    private static Ui ui;
+    private String dukeResponses = "";
+    private String userInput;
     /**
      * Constructs a singleton Ui design pattern by using lazy initialization.
      */
 
-    private Ui() {
-        scanner = new Scanner(System.in);
+    public Ui() {
+//        scanner = new Scanner(System.in);
     }
-
-    private static Ui ui;
 
     /**
      * static method to create instance of Singleton class.
@@ -41,12 +36,44 @@ public class Ui {
     }
 
     /**
+     * Increment the response to duke response collections for print out in GUI.
+     * Perform system.out.println for debugging in terminal.
+     *
+     * @param dukeResponse duke's response for user
+     */
+    public void printDukeResponse(String dukeResponse){
+        this.dukeResponses = dukeResponses + dukeResponse +"\n";
+        System.out.println(dukeResponse);
+    }
+
+    /**
+     * return all the responses for current user input.
+     *
+     * @return the collections of all responses for user input
+     */
+    public String getDukeResponses(){
+        return this.dukeResponses;
+    }
+
+    /**
+     * Clear Duke's responses for previous user input.
+     */
+    public void clearResponses(){
+        this.dukeResponses = "";
+    }
+
+    public void readUserInputFromGui(String userInput){
+        this.userInput = userInput;
+    }
+
+    /**
      * Reads user instruction.
      *
      * @return A string that represents the user instruction.
      */
-    public String readCommand() {
-        return scanner.nextLine();
+    public String readUserInput() {
+//        return scanner.nextLine();
+        return this.userInput;
     }
 
     /**
@@ -55,7 +82,7 @@ public class Ui {
      * @param errorMessage the message of error/exception
      */
     public void showError(String errorMessage) {
-        System.out.println("\u2639" + errorMessage); // Emoji of sad face
+        printDukeResponse("\u2639" + errorMessage); // Emoji of sad face
     }
 
     /**
@@ -64,7 +91,7 @@ public class Ui {
      * @param standardTask the standard task contains its description
      */
     public void taskAdded(Task standardTask) {
-        System.out.println("Got it. I've added this task: \n"
+        printDukeResponse("Got it. I've added this task: \n"
                 + standardTask.getDescription());
     }
 
@@ -74,10 +101,10 @@ public class Ui {
      * @param patient it contains patient's information
      */
     public void showPatientInfo(Patient patient) {
-        System.out.println("Name: "
+        printDukeResponse("Name: "
                 + patient.getName()
                 + "  Id: "
-                + patient.getID()
+                + patient.getId()
                 + "\nNRIC: "
                 + patient.getNric()
                 + "  Room: "
@@ -92,7 +119,7 @@ public class Ui {
      * @param task any task which contains description
      */
     public void showTaskInfo(Task task) {
-        System.out.println("Task: " + task.getDescription());
+        printDukeResponse("Task: " + task.getDescription());
     }
 
     /**
@@ -103,16 +130,16 @@ public class Ui {
      */
     public void patientsFoundByName(ArrayList<Patient> patients, String name) {
         if (patients.size() > 0) {
-            System.out.println("Got it. " + patients.size() + " patients is/are found with name: " + name);
+            printDukeResponse("Got it. " + patients.size() + " patients is/are found with name: " + name);
             int i = 1;
             for (Patient patient : patients) {
-                System.out.println("Patient #" + i);
+                printDukeResponse("Patient #" + i);
                 showPatientInfo(patient);
                 showLine();
                 i++;
             }
         } else {
-            System.out.println("No patient was found with name: " + name);
+            printDukeResponse("No patient was found with name: " + name);
         }
     }
 
@@ -124,16 +151,16 @@ public class Ui {
      */
     public void tasksFoundByDescription(ArrayList<Task> tasks, String description) {
         if (tasks.size() > 0) {
-            System.out.println("Got it. " + tasks.size() + " tasks is/are found with description: " + description);
+            printDukeResponse("Got it. " + tasks.size() + " tasks is/are found with description: " + description);
             int i = 1;
             for (Task task : tasks) {
-                System.out.println("Task #" + i);
+                printDukeResponse("Task #" + i);
                 showTaskInfo(task);
                 showLine();
                 i++;
             }
         } else {
-            System.out.println("No task was found with description: " + description);
+            printDukeResponse("No task was found with description: " + description);
         }
     }
 
@@ -143,7 +170,7 @@ public class Ui {
      * @param patient patient being found
      */
     public void patientsFoundById(Patient patient) {
-        System.out.println("Got it. The patient is found.");
+        printDukeResponse("Got it. The patient is found.");
         showPatientInfo(patient);
     }
 
@@ -153,7 +180,7 @@ public class Ui {
      * @param patient it contains info of the patient being added
      */
     public void patientAdded(Patient patient) {
-        System.out.println("Got it. The following patient has been added:  ");
+        printDukeResponse("Got it. The following patient has been added:  ");
         showPatientInfo(patient);
     }
 
@@ -166,7 +193,7 @@ public class Ui {
      * @param taskName    the name of task which is associated with the patient
      */
     public void patientTaskAssigned(PatientTask patientTask, String patientName, String taskName) {
-        System.out.println("Got it. The following Patient ID: "
+        printDukeResponse("Got it. The following Patient ID: "
                 + patientTask.getPatientId()
                 + " "
                 + patientName
@@ -185,21 +212,21 @@ public class Ui {
     public int choosePatientToDelete(int numberOfPatients) {
         int chosenNumber = -1;
         while (true) {
-            System.out.println("Enter the index number of the patient to delete, or enter number 0 to cancel: ");
-            String command = readCommand();
+            printDukeResponse("Enter the index number of the patient to delete, or enter number 0 to cancel: ");
+            String command = readUserInput();
             try {
                 chosenNumber = Integer.parseInt(command);
             } catch (Exception e) {
-                System.out.println("Please enter a valid number!");
+                printDukeResponse("Please enter a valid number!");
                 continue;
             }
             if (chosenNumber >= 0 && chosenNumber <= numberOfPatients) {
                 if (chosenNumber == 0) {
-                    System.out.println("Delete command is canceled.");
+                    printDukeResponse("Delete command is canceled.");
                 }
                 return chosenNumber;
             } else {
-                System.out.println("The patient #"
+                printDukeResponse("The patient #"
                         + chosenNumber
                         + " does not exist. Please enter a valid index number!");
             }
@@ -216,21 +243,21 @@ public class Ui {
     public int chooseTaskToDelete(int numberOfTasks) {
         int chosenNumber = -1;
         while (true) {
-            System.out.println("Enter the index of task to delete, or enter number 0 to cancel: ");
-            String command = readCommand();
+            printDukeResponse("Enter the index of task to delete, or enter number 0 to cancel: ");
+            String command = readUserInput();
             try {
                 chosenNumber = Integer.parseInt(command);
             } catch (Exception e) {
-                System.out.println("Please enter a valid number!");
+                printDukeResponse("Please enter a valid number!");
                 continue;
             }
             if (chosenNumber >= 0 && chosenNumber <= numberOfTasks) {
                 if (chosenNumber == 0) {
-                    System.out.println("Delete command is canceled");
+                    printDukeResponse("Delete command is canceled");
                 }
                 return chosenNumber;
             } else {
-                System.out.println("The task #" + chosenNumber + " does not exist. Please enter a valid number!");
+                printDukeResponse("The task #" + chosenNumber + " does not exist. Please enter a valid number!");
             }
         }
     }
@@ -248,18 +275,18 @@ public class Ui {
     public boolean confirmPatientToBeDeleted(Patient patient, boolean withTasksAssigned) {
         while (true) {
             if (withTasksAssigned) {
-                System.out.println("The patient with above tasks assigned is to be deleted. Are you sure (Y/N)?");
+                printDukeResponse("The patient with above tasks assigned is to be deleted. Are you sure (Y/N)?");
             } else {
-                System.out.println("The patient is to be deleted. Are you sure (Y/N)? ");
+                printDukeResponse("The patient is to be deleted. Are you sure (Y/N)? ");
             }
-            String command = readCommand();
+            String command = readUserInput();
             if (command.toLowerCase().equals("y")) {
                 return true;
             } else if (command.toLowerCase().equals("n")) {
-                System.out.println("Delete command is canceled");
+                printDukeResponse("Delete command is canceled");
                 return false;
             } else {
-                System.out.println("Please enter only Y/N to confirm/cancel deletion!");
+                printDukeResponse("Please enter only Y/N to confirm/cancel deletion!");
             }
         }
     }
@@ -268,7 +295,7 @@ public class Ui {
      * It shows message of a patient being deleted.
      */
     public void patientDeleted() {
-        System.out.println("Got it. The patient is deleted.");
+        printDukeResponse("Got it. The patient is deleted.");
     }
 
     //@@author kkeejjuunn
@@ -276,7 +303,7 @@ public class Ui {
      * It shows message of a task being deleted successfully.
      */
     public void taskDeleted() {
-        System.out.println("Got it. The task is deleted.");
+        printDukeResponse("Got it. The task is deleted.");
     }
 
 
@@ -286,7 +313,7 @@ public class Ui {
      * @param id the patients to be listed out
      */
     public void patientTaskDeleted(int id) {
-        System.out.println("Got it. The task with unique ID: " + id + " has been deleted");
+        printDukeResponse("Got it. The task with unique ID: " + id + " has been deleted");
     }
 
     /**
@@ -295,9 +322,9 @@ public class Ui {
      * @param patient the patients to be listed out
      */
     public void patientTaskAllDeleted(Patient patient) {
-        System.out.println("Got it. The tasks belong to: ");
-        System.out.println(patient.getName());
-        System.out.println("has been deleted");
+        printDukeResponse("Got it. The tasks belong to: ");
+        printDukeResponse(patient.getName());
+        printDukeResponse("has been deleted");
     }
 
     /**
@@ -319,9 +346,9 @@ public class Ui {
      */
     public void listAllTasks(ArrayList<Task> taskList) {
         int index = 1;
-        System.out.println("Here's a list of your tasks: \n");
+        printDukeResponse("Here's a list of your tasks: \n");
         for (Task task : taskList) {
-            System.out.println(index
+            printDukeResponse(index
                     + ". "
                     + task.getDescription()
                     + " (ID: "
@@ -346,19 +373,19 @@ public class Ui {
     public boolean confirmTaskToBeDeleted(Task task, boolean assignedToAnyPatient) {
         while (true) {
             if (assignedToAnyPatient) {
-                System.out.println("The task is to be deleted. These patients will no "
+                printDukeResponse("The task is to be deleted. These patients will no "
                         + "longer assigned to this task. Are you sure (Y/N)?");
             } else {
-                System.out.println("The task is to be deleted. Are you sure (Y/N)? ");
+                printDukeResponse("The task is to be deleted. Are you sure (Y/N)? ");
             }
-            String command = readCommand();
+            String command = readUserInput();
             if (command.toLowerCase().equals("y")) {
                 return true;
             } else if (command.toLowerCase().equals("n")) {
-                System.out.println("Delete command is canceled");
+                printDukeResponse("Delete command is canceled");
                 return false;
             } else {
-                System.out.println("Please enter only Y/N to confirm/cancel deletion!");
+                printDukeResponse("Please enter only Y/N to confirm/cancel deletion!");
             }
         }
     }
@@ -372,25 +399,34 @@ public class Ui {
      * @return true if user confirmed the deletion. False otherwise.
      */
     public boolean confirmTypoCorrection(String correctedCommand, String userInput) {
-        System.out.println("Ambiguous format! Did you mean(Y/N): \n" + correctedCommand);
+        printDukeResponse("Ambiguous format! Did you mean(Y/N): \n" + correctedCommand);
         while (true) {
-            String command = readCommand();
+            String command = readUserInput();
             if (command.toLowerCase().equals("y")) {
                 return true;
             } else if (command.toLowerCase().equals("n")) {
-                System.out.println("Proceed with original command: " + userInput);
+                printDukeResponse("Proceed with original command: " + userInput);
                 return false;
             } else {
-                System.out.println("Please enter only Y/N to proceed with recommended command: " + correctedCommand);
+                printDukeResponse("Please enter only Y/N to proceed with recommended command: " + correctedCommand);
             }
         }
+    }
+    /**
+     * .
+     *
+     * @param correctedCommand the correctedCommand
+     * @return
+     */
+    public void typoCorrection(String correctedCommand) {
+        printDukeResponse("Ambiguous command keywords!\nProceed with command: " + correctedCommand);
     }
 
     /**
      * Shows a divider line.
      */
     public void showLine() {
-        System.out.println("____________________________________________________________");
+        printDukeResponse("______________________");
     }
 
 
@@ -398,7 +434,7 @@ public class Ui {
      * Shows bye message to user.
      */
     public void exitInformation() {
-        System.out.println("Bye. Hope to see you again soon!");
+        printDukeResponse("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -421,30 +457,30 @@ public class Ui {
                 +
                 "                      |_|                 \n";
 
-        System.out.println(logo);
-        System.out.println("Hello! I'm Duke\nWhat can I do for you?\n\n");
-        System.out.println("Enter 'help' to show a list of commands ");
+        printDukeResponse(logo);
+        printDukeResponse("Hello! I'm Duke\nWhat can I do for you?\n\n");
+        printDukeResponse("Enter 'help' to show a list of commands ");
     }
 
     /**
      * Show information is being updated successfully.
      */
     public void showUpdatedSuccessfully() {
-        System.out.println("I have successfully updated the following information: \n");
+        printDukeResponse("I have successfully updated the following information: \n");
     }
 
     /**
      * Show message of loading failure.
      */
     public void showLoadingError() {
-        System.out.println("Failed to load from local data file!");
+        printDukeResponse("Failed to load from local data file!");
     }
 
     /**
      * Show message of undo.
      */
     public void showUndoSuccess() {
-        System.out.println("Undo command received");
+        printDukeResponse("Undo command received");
     }
 
     /**
@@ -455,12 +491,10 @@ public class Ui {
      * @param tasks       list of tasks relate to patienttasks found
      */
     public void patientTaskFound(Patient patient, ArrayList<PatientTask> patientTask, ArrayList<Task> tasks) {
-        System.out.println("The tasks of patient " + patient.getID() + " " + patient.getName() + " is found : \n");
+        printDukeResponse("The tasks of patient " + patient.getId() + " " + patient.getName() + " is found : \n");
         for (int i = 0; i < patientTask.size(); i++) {
-            showLine();
-            System.out.println(tasks.get(i).getID() + ". " + tasks.get(i).getDescription() + "\n");
-            System.out.println(patientTask.get(i).toString());
-            showLine();
+            printDukeResponse(tasks.get(i).getID() + ". " + tasks.get(i).getDescription() + "\n");
+            printDukeResponse(patientTask.get(i).toString());
         }
     }
 
@@ -473,12 +507,12 @@ public class Ui {
      * @param patients       list of patients relate to task
      */
     public void taskPatientFound(Task task, ArrayList<PatientTask> patientTask, ArrayList<Patient> patients) {
-        System.out.println("The task " + task.getID() + " " + task.getDescription()
+        printDukeResponse("The task " + task.getID() + " " + task.getDescription()
                 + " assigned to following patient(s) is/are found : \n");
         for (int i = 0; i < patientTask.size(); i++) {
             showLine();
-            System.out.println(patients.get(i).getID() + ". " + patients.get(i).getName() + "\n");
-            System.out.println(patientTask.get(i).toString());
+            printDukeResponse(patients.get(i).getId() + ". " + patients.get(i).getName() + "\n");
+            printDukeResponse(patientTask.get(i).toString());
             showLine();
         }
     }
@@ -497,20 +531,20 @@ public class Ui {
     public String getTaskInfo(String info) throws DukeException {
 
         if (info.equals("name")) {
-            System.out.println("Task Name ?");
-            String taskName = ui.readCommand();
+            printDukeResponse("Task Name ?");
+            String taskName = ui.readUserInput();
             return taskName;
         } else if (info.equals("id")) {
-            System.out.println("Task ID?");
-            String taskId = "#" + ui.readCommand();
+            printDukeResponse("Task ID?");
+            String taskId = "#" + ui.readUserInput();
             return taskId;
         } else if (info.equals("change")) {
-            System.out.println("What would you like to change??");
-            String change = ui.readCommand();
+            printDukeResponse("What would you like to change??");
+            String change = ui.readUserInput();
             return change;
         } else if (info.equals("changeValue")) {
-            System.out.println("Change to ?");
-            String changeValue = ui.readCommand();
+            printDukeResponse("Change to ?");
+            String changeValue = ui.readUserInput();
             return changeValue;
         } else {
             throw new DukeException("Please provide a proper parameter into getPatient function!");
@@ -529,32 +563,32 @@ public class Ui {
 
     public String getPatientInfo(String info) throws DukeException {
         if (info.equals("name")) {
-            System.out.println("Patient Name ?");
-            String patientName = ui.readCommand();
+            printDukeResponse("Patient Name ?");
+            String patientName = ui.readUserInput();
             return patientName;
         } else if (info.equals("id")) {
-            System.out.println("Patient ID Number ?");
-            String patientId = "#" + ui.readCommand();
+            printDukeResponse("Patient ID Number ?");
+            String patientId = "#" + ui.readUserInput();
             return patientId;
         } else if (info.equals("nric")) {
-            System.out.println("NRIC?");
-            String nric = ui.readCommand();
+            printDukeResponse("NRIC?");
+            String nric = ui.readUserInput();
             return nric;
         } else if (info.equals("room")) {
-            System.out.println("Room??");
-            String room = ui.readCommand();
+            printDukeResponse("Room??");
+            String room = ui.readUserInput();
             return room;
         } else if (info.equals("remark")) {
-            System.out.println("Remarks?");
-            String remark = ui.readCommand();
+            printDukeResponse("Remarks?");
+            String remark = ui.readUserInput();
             return remark;
         } else if (info.equals("change")) {
-            System.out.println("what would you like to change?");
-            String change = ui.readCommand();
+            printDukeResponse("what would you like to change?");
+            String change = ui.readUserInput();
             return change;
         } else if (info.equals("changeValue")) {
-            System.out.println("Change to ?");
-            String changeValue = ui.readCommand();
+            printDukeResponse("Change to ?");
+            String changeValue = ui.readUserInput();
             return changeValue;
         } else {
             throw new DukeException("Please provide a proper parameter into getPatient function!");

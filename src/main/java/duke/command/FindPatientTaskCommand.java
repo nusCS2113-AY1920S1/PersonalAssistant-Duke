@@ -63,7 +63,7 @@ public class FindPatientTaskCommand implements Command {
             try {
                 for (Patient patient : patientsWithSameName) {
                     if (patient.getName().toLowerCase().equals(name)) {
-                        patientWithTask = patientTaskList.getPatientTask(patient.getID());
+                        patientWithTask = patientTaskList.getPatientTask(patient.getId());
                     }
                 }
                 for (PatientTask tempPatientTask : patientWithTask) {

@@ -42,7 +42,7 @@ public class DeletePatientCommand implements Command {
                                                     PatientManager patientManager) throws DukeException {
         char firstChar = deletedPatientInfo.charAt(0);
         Patient patient = null;
-        if (firstChar == '#') {
+//        if (firstChar == '#') {
             int id;
             try {
                 id = Integer.parseInt(deletedPatientInfo.substring(1));
@@ -54,18 +54,18 @@ public class DeletePatientCommand implements Command {
             } catch (Exception e) {
                 throw new DukeException("The patient id does not exist. ");
             }
-        } else {
-            ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(deletedPatientInfo);
-            if (patientsWithSameName.size() >= 1) {
-                ui.patientsFoundByName(patientsWithSameName, deletedPatientInfo);
-                int numberChosen = ui.choosePatientToDelete(patientsWithSameName.size());
-                if (numberChosen >= 1) {
-                    patient = patientsWithSameName.get(numberChosen - 1);
-                }
-            } else {
-                throw new DukeException("There is no patients matched this name.");
-            }
-        }
+//        } else {
+//            ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(deletedPatientInfo);
+//            if (patientsWithSameName.size() >= 1) {
+//                ui.patientsFoundByName(patientsWithSameName, deletedPatientInfo);
+//                int numberChosen = ui.choosePatientToDelete(patientsWithSameName.size());
+//                if (numberChosen >= 1) {
+//                    patient = patientsWithSameName.get(numberChosen - 1);
+//                }
+//            } else {
+//                throw new DukeException("There is no patients matched this name.");
+//            }
+//        }
         return patient;
     }
 
@@ -93,7 +93,7 @@ public class DeletePatientCommand implements Command {
         boolean toDelete;
         ui.showPatientInfo(patientToBeDeleted);
         try {
-            ArrayList<PatientTask> patientTask = patientTaskList.getPatientTask(patientToBeDeleted.getID());
+            ArrayList<PatientTask> patientTask = patientTaskList.getPatientTask(patientToBeDeleted.getId());
             ArrayList<Task> tempTask = new ArrayList<>();
             for (PatientTask tempPatientTask : patientTask) {
                 tempTask.add(taskManager.getTask(tempPatientTask.getTaskID()));
@@ -101,14 +101,14 @@ public class DeletePatientCommand implements Command {
             ui.patientTaskFound(patientToBeDeleted, patientTask, tempTask);
             toDelete = ui.confirmPatientToBeDeleted(patientToBeDeleted, true);
             if (toDelete) {
-                patientTaskList.deleteAllTasksBelongToThePatient(patientToBeDeleted.getID());
+                patientTaskList.deleteAllTasksBelongToThePatient(patientToBeDeleted.getId());
                 storageManager.saveAssignedTasks(patientTaskList.fullPatientTaskList());
             }
         } catch (Exception e) {
             toDelete = ui.confirmPatientToBeDeleted(patientToBeDeleted,false);
         }
         if (toDelete) {
-            patientManager.deletePatient(patientToBeDeleted.getID());
+            patientManager.deletePatient(patientToBeDeleted.getId());
             storageManager.savePatients(patientManager.getPatientList());
             ui.patientDeleted();
 

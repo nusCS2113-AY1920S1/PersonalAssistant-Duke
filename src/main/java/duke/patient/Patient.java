@@ -1,14 +1,17 @@
 package duke.patient;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  * Represents a Patient.
  */
 public class Patient {
-    private int id = 0;
-    private String nric;
-    private String name;
-    private String remark;
-    private String room;
+    private SimpleIntegerProperty id = new SimpleIntegerProperty(0);
+    private SimpleStringProperty name;
+    private SimpleStringProperty nric;
+    private SimpleStringProperty room;
+    private SimpleStringProperty remark;
 
     /**
      * .
@@ -20,11 +23,11 @@ public class Patient {
      * @param remark .
      */
     public Patient(int id, String name, String nric, String room, String remark) {
-        this.id = id;
-        this.name = name;
-        this.nric = nric;
-        this.remark = remark;
-        this.room = room;
+        this.id = new SimpleIntegerProperty(id);
+        this.name = new SimpleStringProperty(name);
+        this.nric = new SimpleStringProperty(nric);
+        this.room = new SimpleStringProperty(room);
+        this.remark = new SimpleStringProperty(remark);
     }
 
     /**
@@ -34,10 +37,10 @@ public class Patient {
      * @param remark Remark leaves by nurses.
      */
     public Patient(String name, String nric, String room, String remark) {
-        this.name = name;
-        this.nric = nric;
-        this.remark = remark;
-        this.room = room;
+        this.name = new SimpleStringProperty(name);
+        this.nric = new SimpleStringProperty(nric);
+        this.room = new SimpleStringProperty(room);
+        this.remark = new SimpleStringProperty(remark);
     }
 
     /**
@@ -46,7 +49,7 @@ public class Patient {
      * @return .
      */
     public String getName() {
-        return name; //return tick or X symbols
+        return name.get(); //return tick or X symbols
     }
 
     /**
@@ -54,8 +57,8 @@ public class Patient {
      *
      * @return .
      */
-    public int getID() {
-        return id;
+    public int getId() {
+        return id.get();
     }
 
     /**
@@ -64,7 +67,7 @@ public class Patient {
      * @return .
      */
     public String getRemark() {
-        return remark;
+        return remark.get();
     }
 
     /**
@@ -73,7 +76,7 @@ public class Patient {
      * @return .
      */
     public String getRoom() {
-        return room;
+        return room.get();
     }
 
     /**
@@ -82,7 +85,7 @@ public class Patient {
      * @return .
      */
     public String getNric() {
-        return nric;
+        return nric.get();
     }
 
     /**
@@ -90,8 +93,8 @@ public class Patient {
      *
      * @param id .
      */
-    public void setID(int id) {
-        this.id = id;
+    public void setId(int id) {
+        this.id.set(id);
     }
 
     /**
@@ -100,7 +103,7 @@ public class Patient {
      * @param name .
      */
     public void setName(String name) {
-        this.name = name;
+        this.name.set(name);
     }
 
     /**
@@ -109,7 +112,7 @@ public class Patient {
      * @param nric .
      */
     public void setNric(String nric) {
-        this.nric = nric;
+        this.nric.set(nric);
     }
 
     /**
@@ -118,6 +121,6 @@ public class Patient {
      * @param room .
      */
     public void setRoom(String room) {
-        this.room = room;
+        this.room.set(room);
     }
 }

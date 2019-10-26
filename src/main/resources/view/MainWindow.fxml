@@ -2,18 +2,79 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="826.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.MainWindow">
     <children>
-        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" style="-fx-background-color: blue;" AnchorPane.bottomAnchor="1.0" />
-        <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0">
+        <TextField fx:id="userInput" layoutX="400.0" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="187.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="63.0" />
+        <Button fx:id="sendButton" layoutX="747.0" layoutY="649.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="63.0" text="Send" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0" />
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="580.0" layoutY="42.0" prefHeight="700.0" prefWidth="250.0" vvalue="1.0" AnchorPane.bottomAnchor="42.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
             <content>
-                <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" />
+                <VBox fx:id="dialogContainer" alignment="TOP_RIGHT" prefHeight="0.0" prefWidth="0.0" />
             </content>
         </ScrollPane>
+      <TabPane layoutX="-232.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="691.0" prefWidth="577.0" side="LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <tabs>
+            <Tab text="Tables">
+              <content>
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <TabPane prefHeight="691.0" prefWidth="550.0" tabClosingPolicy="UNAVAILABLE">
+                          <tabs>
+                            <Tab text="Patients">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0">
+                                       <children>
+                                          <TableView fx:id="patientTable" prefHeight="663.0" prefWidth="546.0">
+                                            <columns>
+                                              <TableColumn fx:id="patientIdCol" prefWidth="51.0" text="c1" />
+                                              <TableColumn fx:id="patientNameCol" minWidth="0.0" prefWidth="123.0" text="c2" />
+                                                <TableColumn fx:id="patientNricCol" minWidth="0.0" prefWidth="118.0" text="c3" />
+                                                <TableColumn fx:id="patientRoomCol" minWidth="0.0" prefWidth="63.0" text="c4" />
+                                                <TableColumn fx:id="patientRemarkCol" prefWidth="190.0" text="c5" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab text="Special Tasks">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TableView fx:id="speicalTaskTable" prefHeight="663.0" prefWidth="547.0">
+                                            <columns>
+                                              <TableColumn prefWidth="71.0" text="c1" />
+                                              <TableColumn prefWidth="473.0" text="c2" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                              <Tab text="Assigned Tasks">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                 </content>
+                              </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Others">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="677.0" prefWidth="531.0" />
+              </content>
+            </Tab>
+         </tabs>
+      </TabPane>
     </children>
 </AnchorPane>

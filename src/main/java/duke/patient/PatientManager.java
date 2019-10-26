@@ -15,10 +15,10 @@ public class PatientManager {
      */
     public PatientManager(ArrayList<Patient> patientList) {
         for (Patient patient : patientList) {
-            patientIdMap.put(patient.getID(), patient);
+            patientIdMap.put(patient.getId(), patient);
         }
         if (!patientList.isEmpty()) {
-            this.maxId = patientList.get(patientList.size() - 1).getID();
+            this.maxId = patientList.get(patientList.size() - 1).getId();
         }
     }
 
@@ -74,11 +74,11 @@ public class PatientManager {
      * @param patient .
      */
     public void addPatient(Patient patient) {
-        if (patient.getID() == 0) {
+        if (patient.getId() == 0) {
             maxId += 1; //Increment maxId by 1 for the new coming patient
-            patient.setID(maxId); //Set the unique id to patient
+            patient.setId(maxId); //Set the unique id to patient
         }
-        patientIdMap.put(patient.getID(), patient);
+        patientIdMap.put(patient.getId(), patient);
     }
 
     /**
