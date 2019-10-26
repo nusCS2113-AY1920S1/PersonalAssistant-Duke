@@ -16,7 +16,7 @@ import java.util.zip.ZipInputStream;
 
 
 public class Logic {
-    
+
     private String defaultFilePath = "content/MainList";
     private static String currentFilePath = "content/MainList";
 
@@ -24,8 +24,21 @@ public class Logic {
     private static boolean isDirectory = true;
     private int numOfFiles = 0;
 
-    public Logic() {
+    /**
+     * Private constructor to ensure exactly one logic object.
+     */
+    private Logic() {
 
+    }
+
+    private static final Logic INSTANCE = new Logic();
+
+    /**
+     * Using Singleton pattern to ensure exactly one logic object.
+     * @return The only instance of logic object.
+     */
+    public static Logic getInstance() {
+        return INSTANCE;
     }
 
     /**
