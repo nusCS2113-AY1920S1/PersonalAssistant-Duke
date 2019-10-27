@@ -1,24 +1,19 @@
 package seedu.hustler.task;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
-import seedu.hustler.data.CommandLog;
 import seedu.hustler.Hustler;
-import seedu.hustler.data.AvatarStorage;
+import seedu.hustler.data.CommandLog;
 import seedu.hustler.data.Schedule;
 import seedu.hustler.game.achievement.AchievementList;
 import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.DoneTask;
-import seedu.hustler.ui.Ui;
 import seedu.hustler.schedule.Scheduler;
+import seedu.hustler.ui.Ui;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.util.*;
+
 import static seedu.hustler.game.achievement.AddTask.addAchievementLevel;
 import static seedu.hustler.game.achievement.DoneTask.doneAchievementLevel;
 import static seedu.hustler.parser.DateTimeParser.getDateTime;
@@ -89,8 +84,6 @@ public class TaskList {
     }
 
     /**
-=======
->>>>>>> 2feeec7ec17483f4577ed826f26dcf09a6b142eb
      * Adds a new Task to the task list.
      *
      * @param task new Task to be added.
@@ -102,7 +95,10 @@ public class TaskList {
             AddTask.increment();
             AddTask.updateAchievementLevel();
             AddTask.updatePoints();
-            AchievementList.updateAddTask(addAchievementLevel);
+            Hustler.listAchievements.updateBusyBee();
+            System.out.println(addAchievementLevel);
+            //AchievementList.updateAddTask(addAchievementLevel);
+
             if (!CommandLog.isRestoring()) {
                 ui.show_task_added(list);
             }
@@ -217,7 +213,9 @@ public class TaskList {
             AddTask.increment();
             AddTask.updateAchievementLevel();
             AddTask.updatePoints();
-            AchievementList.updateAddTask(addAchievementLevel);
+            Hustler.listAchievements.updateBusyBee();
+            System.out.println(addAchievementLevel);
+            //AchievementList.updateAddTask(addAchievementLevel);
             if (!CommandLog.isRestoring()) {
                 ui.show_task_added(list);
             }

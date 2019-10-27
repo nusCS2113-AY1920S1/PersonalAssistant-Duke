@@ -34,7 +34,7 @@ public class AddTask extends Achievements {
     /**
      * Achievement level - Bronze, Silver, Gold.
      */
-    public static String achievementLevel;
+    private String achievementLevel;
 
     /**
      * Points earned.

@@ -20,7 +20,12 @@ public class AchievementList {
     public static ArrayList<Achievements> achievementList = new ArrayList<>();
 
 
-    private ArrayList<Achievements> listAchievement = new ArrayList<>();
+    private ArrayList<Achievements> listAchievement;
+
+    public AchievementList() {
+        listAchievement = new ArrayList<>();
+        populate();
+    }
 
     /**
      * When user first starts Hustler, Hustler will create a list of locked achievements.
@@ -49,22 +54,70 @@ public class AchievementList {
 
     private ArrayList<Achievements> populate() {
 
-        achievementList.add(new DoneTask("Bronze"));
-        achievementList.add(new DoneTask("Silver"));
-        achievementList.add(new DoneTask("Gold"));
-        achievementList.add(new AddTask("Bronze"));
-        achievementList.add(new AddTask("Silver"));
-        achievementList.add(new AddTask("Gold"));
-        achievementList.add(new ConsecutiveLogin("Bronze"));
-        achievementList.add(new ConsecutiveLogin("Silver"));
-        achievementList.add(new ConsecutiveLogin("Gold"));
-        achievementList.add(new FirstLogin());
+        listAchievement.add(new DoneTask("Bronze"));
+        listAchievement.add(new DoneTask("Silver"));
+        listAchievement.add(new DoneTask("Gold"));
+        listAchievement.add(new AddTask("Bronze"));
+        listAchievement.add(new AddTask("Silver"));
+        listAchievement.add(new AddTask("Gold"));
+        listAchievement.add(new ConsecutiveLogin("Bronze"));
+        listAchievement.add(new ConsecutiveLogin("Silver"));
+        listAchievement.add(new ConsecutiveLogin("Gold"));
+        listAchievement.add(new FirstLogin());
 
         return listAchievement;
     }
 
-    public ArrayList<Achievements> update() {
+    public ArrayList<Achievements> updateBusyBee() {
+        for(int i = 0; i < listAchievement.size(); i += 1) {
+            if (listAchievement.get(i).getDescription().equals("Busybee") && listAchievement.get(i).getAchievementLevel().equals(addAchievementLevel) && listAchievement.get(i).checkLock()) {
+                listAchievement.get(i).setLock(false);
+                listAchievement.get(i).setPoints(addPoints);
+                System.out.println("You have unlocked this achievement!\n" + listAchievement.get(i));
+            }
+        }
+        return listAchievement;
+    }
 
+    public void add(Achievements achievements) {
+        listAchievement.add(achievements);
+    }
+
+    public Achievements get(int i) {
+        return listAchievement.get(i);
+    }
+
+    public int size() {
+        return listAchievement.size();
+    }
+
+    public void list() {
+        System.out.println("\uD83D\uDD13 ACHIEVEMENTS UNLOCKED \uD83D\uDD13");
+        if(!listAchievement.isEmpty()) {
+            int l = 0;
+            for(int i = 0; i < listAchievement.size(); i ++) {
+                if(!listAchievement.get(i).checkLock()) {
+                    l ++;
+                    System.out.print(l + ". ");
+                    System.out.println(listAchievement.get(i));
+                }
+            }
+            System.out.println("\uD83D\uDD12 LOCKED ACHIEVEMENTS \uD83D\uDD12");
+            int j = 0;
+            for(int i = 0; i < listAchievement.size(); i ++) {
+                if(listAchievement.get(i).checkLock()) {
+                    j ++;
+                    System.out.print(j + ". ");
+                    System.out.println(listAchievement.get(i));
+                }
+            }
+            System.out.println("Total Points = " + totalPoints + " \uD83D\uDCB0");
+        }
+
+    }
+
+    public ArrayList<Achievements> repopulate(Achievements achievements) {
+        listAchievement.add(achievements);
         return listAchievement;
     }
 

@@ -1,30 +1,25 @@
 package seedu.hustler;
 
-import java.io.IOException;
-
+import javafx.application.Application;
+import javafx.stage.Stage;
+import seedu.hustler.command.Command;
 import seedu.hustler.data.*;
-import seedu.hustler.data.TaskStorage;
 import seedu.hustler.game.achievement.AchievementList;
 import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.ConsecutiveLogin;
 import seedu.hustler.game.avatar.Avatar;
-import seedu.hustler.command.Command;
-import seedu.hustler.data.AvatarStorage;
-import seedu.hustler.data.CommandLog;
-import seedu.hustler.data.MemoryManager;
 import seedu.hustler.game.avatar.Inventory;
 import seedu.hustler.game.shop.ShopList;
 import seedu.hustler.logic.CommandLineException;
-import seedu.hustler.task.Reminders;
-import seedu.hustler.ui.Ui;
-import seedu.hustler.task.TaskList;
 import seedu.hustler.parser.CommandParser;
+import seedu.hustler.task.Reminders;
+import seedu.hustler.task.TaskList;
+import seedu.hustler.ui.Ui;
 import seedu.hustler.ui.timer.TimerManager;
-import static seedu.hustler.game.achievement.AchievementList.achievementList;
-import static seedu.hustler.game.achievement.ConsecutiveLogin.updateAchievementLevel;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
+import java.io.IOException;
+
+import static seedu.hustler.game.achievement.ConsecutiveLogin.updateAchievementLevel;
 
 /**
  * A personal assistant that takes in user input and gives and performs
@@ -44,6 +39,9 @@ public class Hustler extends Application {
      * in the future.
      */
     public static ShopList shopList = new ShopList();
+
+
+    public static AchievementList listAchievements = new AchievementList();
 
     /**
      * Storage instance that stores and loads tasks to and from
@@ -106,6 +104,8 @@ public class Hustler extends Application {
         AvatarStorage.save(avatar);
         shopList = ShopStorage.load();
         inventory = inventory.updateInventory();
+
+
     }
 
     /**
@@ -137,7 +137,7 @@ public class Hustler extends Application {
     public static void loadStorage() throws IOException {
         list = new TaskList(taskStorage.load());
         avatar = AvatarStorage.load();
-
+        listAchievements = AchievementStorage.loadAchievementsss();
         //Check if it's the first time the user logs in.
         AchievementList.firstStart(AchievementStorage.logon());
 
@@ -145,20 +145,20 @@ public class Hustler extends Application {
         AchievementStorage.loadStatus();
 
         //Loads achievements into achievement list.
-        AchievementStorage.loadAchievements();
+        //AchievementStorage.loadAchievements();
 
         //Counts number of consecutive login and updates accordingly.
         ConsecutiveLogin.updateCount();
         ConsecutiveLogin.updatePoints();
         AchievementList.updateConsecutiveLogin(updateAchievementLevel());
-        AchievementStorage.createBackup(achievementList);
+        //AchievementStorage.createBackup(achievementList);
     }
 
     public static void reloadBackup() throws IOException {
         list = new TaskList(taskStorage.reloadBackup());
         avatar = AvatarStorage.reloadBackup();
         AchievementStorage.reloadStatus();
-        AchievementStorage.reloadAchievements();
+        //AchievementStorage.reloadAchievements();
         AddTask.updateAchievementLevel();
     }
 
@@ -169,7 +169,9 @@ public class Hustler extends Application {
         try {
             taskStorage.save(list.return_list());
             AvatarStorage.save(avatar);
-            AchievementStorage.saveAchievements(achievementList);
+
+            //AchievementStorage.saveAchievements();
+            AchievementStorage.save();
             AchievementStorage.saveStatus();
         } catch (IOException e) {
             ui.show_save_error();
