@@ -30,7 +30,6 @@ public class CurrencyCommandTest {
             new ExpenseList(),
             new ContactList(),
             new LoanList());
-    private static DecimalFormat df2 = new DecimalFormat("#.##");
 
     /**
      * Sets up the data by adding existing expenses.
@@ -56,7 +55,7 @@ public class CurrencyCommandTest {
         CurrencyCommand currencyCommand = new CurrencyCommand(currency.getCountry().toLowerCase());
         currencyCommand.execute(testWallet);
 
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 1000000; i++) {
             //Do a slight delay for all expenses to update first...
         }
 
