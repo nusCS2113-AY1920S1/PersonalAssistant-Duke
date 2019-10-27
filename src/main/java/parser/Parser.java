@@ -13,7 +13,6 @@ import command.SearchCommand;
 import command.RecentlyAddedCommand;
 import command.SearchFrequencyCommand;
 import command.EditCommand;
-import command.AddSynonymCommand;
 import command.SearchBeginCommand;
 import command.HelpCommand;
 
@@ -30,7 +29,6 @@ import exception.WrongSearchFrequencyFormatException;
 import exception.WrongEditFormatException;
 import exception.WrongAddTagFormatException;
 import exception.WrongQuizFormatException;
-import exception.WrongAddSynonymException;
 import exception.WrongSearchBeginFormatException;
 
 import java.util.ArrayList;
@@ -76,10 +74,7 @@ public class Parser {
                 command = parseTag(taskInfo);
             } else if (userCommand.equals("quiz")) {
                 command = parseQuiz(taskInfo);
-            }
-            else if (userCommand.equals("addsyn")) {
-                command = parseAddSyn(taskInfo);
-            }else {
+            } else {
                 try {
                     throw new CommandInvalidException(input);
                 } catch (CommandInvalidException e) {
@@ -292,35 +287,7 @@ public class Parser {
         }
         return new AddTagCommand(wordDescription, tags);
     }
-    /**
-     * Parses an add Synonym command.
-     * @param taskInfo String array containing first stage parsed user input
-     * @return a AddSynonymCommand object
-     * @throws WrongAddSynonymException when the format of the add tag command does not match required format
-     */
-    protected static Command parseAddSyn(String[] taskInfo) throws WrongAddSynonymException{
-            if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) { //format  w/beverage s/drink alcohol
-                throw new WrongAddSynonymException();
-            }
-            String[] wordDetail = taskInfo[1].split(" ",2);// should get w/beverage and s/drink
-            if (wordDetail.length != 2) {
-                throw new WrongAddSynonymException();
-            }
-            String mainWord = wordDetail[0].substring(2).trim(); //beverage
-            if (mainWord.length() == 0) {
-                throw new WrongAddSynonymException();
-            }
-            String synonymWords = wordDetail[1].substring(2).trim(); // drink alcohol spirits
-            if(synonymWords.length()==0){
-                throw new WrongAddSynonymException();
-            }
-            String [] synonyms1 = synonymWords.split(" "); //drink alcohol spirits
-            ArrayList<String> synonyms = new ArrayList<>();
-            for (String temp : synonyms1) {
-                synonyms.add(temp);
-            }
-            return new AddSynonymCommand(mainWord,synonyms);
-        }
+
     /**
      * Parses a quiz command.
      * @param taskInfo String array containing first stage parsed user input

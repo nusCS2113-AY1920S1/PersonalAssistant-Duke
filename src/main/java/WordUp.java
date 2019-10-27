@@ -5,8 +5,6 @@ import ui.Ui;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 
 public class WordUp extends Application {
 
@@ -22,10 +20,9 @@ public class WordUp extends Application {
     /**
      * Constructor of the word up containing UI, storage, and word bank.
      */
-    public WordUp() throws IOException {
+    public WordUp() {
         ui = new Ui();
         storage = new Storage("data/wordup.txt");
-        //bank = new Bank(storage);//testing excel
         bank = storage.loadExcelFile();
     }
 
@@ -43,4 +40,3 @@ public class WordUp extends Application {
         window.setMinWidth(400.0);
     }
 }
-

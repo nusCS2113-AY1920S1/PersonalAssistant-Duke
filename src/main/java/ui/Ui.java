@@ -23,7 +23,7 @@ public class Ui {
                 + "                      |/\\|(_)| (_|  \\__/|_) \n"
                 + "                                            |   \n\n"
                 + "Welcome, what would you like to do today?"
-            );
+        );
     }
 
     /**
@@ -32,11 +32,11 @@ public class Ui {
      */
     public String quizGreet() {
         return ("\n                      |   | _ _ _|   /  \\ _  \n"
-                    + "                      |/\\|(_)| (_|  \\__/|_) \n"
+                + "                      |/\\|(_)| (_|  \\__/|_) \n"
                 + "                                            |   \n"
                 + "Let's do some quiz to enhance your word knowledge \n"
                 + "Type \"start\" to begin quiz or \"exit_quiz\" to go back"
-            );
+        );
     }
 
     public String showDeleted(Word w) {
@@ -66,18 +66,6 @@ public class Ui {
         StringBuilder stringBuilder = new StringBuilder();
         for (String tag : tagList) {
             stringBuilder.append(tag + "\n");
-        }
-        return returnedString + stringBuilder.toString();
-    }
-
-    public String showAddSyn(String word, ArrayList<String> synonyms, HashSet<String> synonymList) {
-        String returnedString = "I have added " + (synonyms.size() == 1 ? "this synonym \"" + synonyms.get(0) + "\"" : "these synonyms")
-                + " to word \"" + word + "\"" + "\n";
-        returnedString += "Here " + (synonymList.size() == 1 ? "is the synonym " : "are the synonyms ")
-                + "of word \"" + word + "\"" + "\n";
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String syn : synonymList) {
-            stringBuilder.append(syn + "\n");
         }
         return returnedString + stringBuilder.toString();
     }
@@ -287,4 +275,3 @@ public class Ui {
         return stringBuilder.toString();
     }
 }
-

@@ -1,12 +1,11 @@
 package dictionary;
+
 import command.OxfordCall;
 import exception.NoWordFoundException;
 import exception.WordAlreadyExistException;
 import storage.Storage;
 
 import java.util.*;
-
-
 
 
 public class WordBank {
@@ -18,8 +17,8 @@ public class WordBank {
     private TreeMap<Integer, TreeMap<String, Word>> wordCount = new TreeMap<>();
 
     public WordBank(Storage storage) {
-            wordBank = storage.loadFile();
-            makeWordCount();
+        wordBank = storage.loadFile();
+        makeWordCount();
     }
 
     public WordBank() {
@@ -102,11 +101,10 @@ public class WordBank {
     public String searchForMeaning(String word) throws NoWordFoundException {
         word = word.toLowerCase();
         String s = "";
-        String meaning = "";
         if (!(wordBank.containsKey(word))) {
             s = "Unable to locate \"" + word + "\" in local dictionary. Looking up Oxford dictionary\n";
-            meaning = OxfordCall.onlineSearch(word);
-            Word temp = new Word(word, meaning);
+            String result = OxfordCall.onlineSearch(word);
+            Word temp = new Word(word, result);
             wordBank.put(word, temp);
         }
         return s + wordBank.get(word).getMeaning();
@@ -181,6 +179,7 @@ public class WordBank {
         }
         return word.getTags();
     }
+
     /**
      * Adds synonyms to a specific word in word bank
      * synonymsWords will be added to the wordKey(MAIN WORD)

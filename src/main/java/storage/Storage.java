@@ -32,7 +32,6 @@ import java.util.Iterator;
 import java.util.Stack;
 import java.util.TreeMap;
 
-
 /**
  * Represents the object that reads and writes to the text files where data is stored.
  */
@@ -52,11 +51,10 @@ public class Storage {
      * Converts all data from text file in storage to list of words.
      * @return an arraylist containing all words in dictionary ordered by ALPHABET
      */
-    public TreeMap<String, Word> loadFile(){
+    public TreeMap<String, Word> loadFile() {
         File file = new File(FILE_PATH);
         FileReader fr = null;
         BufferedReader br = null;
-        //int hasSynonym=0;
         try {
             fr = new FileReader(file);
             br = new BufferedReader(fr);
@@ -69,7 +67,7 @@ public class Storage {
                     line = br.readLine();
                     continue;
                 }
-                String[] parsedWordAndMeaning = line.split(":"); //papaya \\ this is a fruit <s> s1 s2 <s>
+                String[] parsedWordAndMeaning = line.split(":");
                 Word word = new Word(parsedWordAndMeaning[0].trim(), parsedWordAndMeaning[1].trim());
                 wordBank.put(word.getWord(), word);
                 line = br.readLine();

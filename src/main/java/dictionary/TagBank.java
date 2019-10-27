@@ -61,6 +61,7 @@ public class TagBank {
             }
         }
     }
+
     public String[] getAllTagsAsList() {
         return tagBank.keySet().toArray(new String[tagBank.size()]);
     }

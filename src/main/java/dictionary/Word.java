@@ -1,5 +1,6 @@
 package dictionary;
 
+
 import java.util.HashSet;
 
 /**
@@ -46,11 +47,11 @@ public class Word {
      * @param meaning meaning of the word
      * @param tags hash set containing tags that are added to word
      */
-
     public Word(String word, String meaning, HashSet<String> tags) {
         this.word = word;
         this.meaning = meaning;
         this.tags = tags;
+        this.synonyms = new HashSet<>();
         this.numberOfSearches = 0;
     }
 
@@ -86,13 +87,17 @@ public class Word {
         this.tags.add(tag);
     }
 
+    public HashSet<String> getSynonyms() {
+        return synonyms;
+    }
+
+    public void addSynonym(String synonym){
+        this.synonyms.add(synonym);
+    }
+
     public void editMeaning(String newMeaning) {
         this.meaning = newMeaning;
     }
-
-    public HashSet<String> getSynonyms() { return synonyms;}
-
-    public void addSynonym(String synonym){ this.synonyms.add(synonym); }
 
     /**
      * Counts the number of different characters with another word.
