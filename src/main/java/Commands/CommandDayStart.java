@@ -14,7 +14,7 @@ public class CommandDayStart extends Command {
         Storage storage = farmio.getStorage();
         farmio.getSimulation().simulate("DayStart", 1, 5);
         ui.show(AsciiColours.MAGENTA + AsciiColours.UNDERLINE + "Day Started!" + AsciiColours.SANE);
-        ui.sleep(700);
+        ui.sleep(400);
         farmio.setStage(Farmio.Stage.RUNNING_DAY);
     }
 }
