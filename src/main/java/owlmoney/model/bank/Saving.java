@@ -381,7 +381,7 @@ public class Saving extends Bank {
         SimpleDateFormat exportDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         exportArrayList.add(new String[]{"description","amount","date","category","spent"});
 
-        for(int i = 0; i < recurringExpenditures.getSize(); i++) {
+        for (int i = 0; i < recurringExpenditures.getSize(); i++) {
             String description = recurringExpenditures.get(i).getDescription();
             double amount = recurringExpenditures.get(i).getAmount();
             String date = exportDateFormat.format(recurringExpenditures.get(i).getDateInDateFormat());

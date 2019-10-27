@@ -403,7 +403,7 @@ public abstract class Bank {
         SimpleDateFormat exportDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         exportArrayList.add(new String[]{"description","amount","date","category","spent"});
 
-        for(int i = 0; i < transactions.getSize(); i++) {
+        for (int i = 0; i < transactions.getSize(); i++) {
             String description = transactions.get(i).getDescription();
             double amount = transactions.get(i).getAmount();
             String date = exportDateFormat.format(transactions.get(i).getDateInDateFormat());

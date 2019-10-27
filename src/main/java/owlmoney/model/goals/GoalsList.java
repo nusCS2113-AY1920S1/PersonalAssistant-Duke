@@ -22,7 +22,7 @@ public class GoalsList {
 
     /**
      * Creates a instance of GoalsList that contains an arrayList of Goals.
-     * @param storage
+     * @param storage for importing and exporting purposes.
      */
     public GoalsList(Storage storage) {
         goalList = new ArrayList<Goals>();

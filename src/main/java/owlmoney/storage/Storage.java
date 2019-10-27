@@ -38,7 +38,7 @@ public class Storage {
                         CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                         CSVWriter.DEFAULT_LINE_END);
         ) {
-            for(String[] line : inputData) {
+            for (String[] line : inputData) {
                 csvWriter.writeNext(line);
             }
         } catch (IOException e) {

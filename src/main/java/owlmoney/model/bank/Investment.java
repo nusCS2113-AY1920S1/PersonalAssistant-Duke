@@ -290,8 +290,8 @@ public class Investment extends Bank {
         decimalFormat.setRoundingMode(RoundingMode.DOWN);
         SimpleDateFormat exportDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         exportArrayList.add(new String[]{"bondName","amount","rate","boughtDate","year",
-                "nextDateToCreditInterest"});
-        for(int i = 0; i < bonds.getSize(); i++) {
+            "nextDateToCreditInterest"});
+        for (int i = 0; i < bonds.getSize(); i++) {
             String bondName = bonds.get(i).getName();
             double amount = bonds.get(i).getAmount();
             double rate = bonds.get(i).getYearlyCouponRate();
@@ -303,8 +303,7 @@ public class Investment extends Bank {
             String stringYear = Integer.toString(year);
 
             exportArrayList.add(new String[]
-                    {bondName,stringAmount,stringRate,boughtDate,stringYear,
-                            nextDateToCreditInterest});
+                {bondName,stringAmount,stringRate,boughtDate,stringYear, nextDateToCreditInterest});
         }
         return exportArrayList;
     }

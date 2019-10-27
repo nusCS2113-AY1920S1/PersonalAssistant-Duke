@@ -37,7 +37,7 @@ public class BankList {
 
     /**
      * Creates a instance of BankList that contains an arrayList of Banks.
-     * @param storage for exporting purposes.
+     * @param storage for importing and exporting purposes.
      */
     public BankList(Storage storage) {
         bankLists = new ArrayList<Bank>();
@@ -77,8 +77,8 @@ public class BankList {
         try {
             exportBankList();
         } catch (IOException e) {
-            ui.printError("Error trying to save your additions to disk. Your data is" +
-                    "at risk, but we will try again, feel free to continue using the program.");
+            ui.printError("Error trying to save your additions to disk. Your data is"
+                    + " at risk, but we will try again, feel free to continue using the program.");
         }
     }
 
@@ -191,14 +191,18 @@ public class BankList {
                     printOneBank(ONE_INDEX, temp, ISSINGLE, ui);
                     try {
                         exportBankList();
-                        // REMEMBER DELETE TRANSACTION AND RECURRING TRANSACTION FILES FOR SAVINGS OR GOALS OR CARD STUFF
-                        Files.deleteIfExists(Paths.get(FILE_PATH + Integer.toString(i) + INVESTMENT_BOND_LIST_FILE_NAME));
-                        Files.deleteIfExists(Paths.get(FILE_PATH + Integer.toString(i) + INVESTMENT_TRANSACTION_LIST_FILE_NAME));
-                        Files.deleteIfExists(Paths.get(FILE_PATH + Integer.toString(i) + SAVING_TRANSACTION_LIST_FILE_NAME));
-                        Files.deleteIfExists(Paths.get(FILE_PATH + Integer.toString(i) + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME));
+                        Files.deleteIfExists(Paths.get(FILE_PATH + Integer.toString(i)
+                                + INVESTMENT_BOND_LIST_FILE_NAME));
+                        Files.deleteIfExists(Paths.get(FILE_PATH + Integer.toString(i)
+                                + INVESTMENT_TRANSACTION_LIST_FILE_NAME));
+                        Files.deleteIfExists(Paths.get(FILE_PATH + Integer.toString(i)
+                                + SAVING_TRANSACTION_LIST_FILE_NAME));
+                        Files.deleteIfExists(Paths.get(FILE_PATH + Integer.toString(i)
+                                + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME));
                     } catch (IOException e) {
-                        ui.printError("Error trying to save your deletions to disk. Your data is" +
-                                "at risk, but we will try again, feel free to continue using the program.");
+                        ui.printError("Error trying to save your deletions to disk."
+                                + " Your data is at risk, but we will try again,"
+                                + " feel free to continue using the program.");
                     }
                     break;
                 }
@@ -236,8 +240,8 @@ public class BankList {
                 try {
                     exportBankList();
                 } catch (IOException e) {
-                    ui.printError("Error trying to save your edits to disk. Your data is" +
-                            "at risk, but we will try again, feel free to continue using the program.");
+                    ui.printError("Error trying to save your edits to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
@@ -286,8 +290,8 @@ public class BankList {
                 try {
                     exportBankList();
                 } catch (IOException e) {
-                    ui.printError("Error trying to save your edits to disk. Your data is" +
-                            "at risk, but we will try again, feel free to continue using the program.");
+                    ui.printError("Error trying to save your edits to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 break;
             }
@@ -378,8 +382,8 @@ public class BankList {
                     exportBankList();
                     bankLists.get(i).exportBankTransactionList(Integer.toString(i));
                 } catch (IOException e) {
-                    ui.printError("Error trying to save your additions to disk. Your data is" +
-                            " at risk, but we will try again, feel free to continue using the program.");
+                    ui.printError("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
@@ -409,8 +413,8 @@ public class BankList {
                     exportBankList();
                     bankLists.get(i).exportBankTransactionList(Integer.toString(i));
                 } catch (IOException e) {
-                    ui.printError("Error trying to save your edits to disk. Your data is" +
-                            "at risk, but we will try again, feel free to continue using the program.");
+                    ui.printError("Error trying to save your edits to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
@@ -436,8 +440,8 @@ public class BankList {
                     exportBankList();
                     bankLists.get(i).exportBankTransactionList(Integer.toString(i));
                 } catch (IOException e) {
-                    ui.printError("Error trying to save your deletes to disk. Your data is" +
-                            "at risk, but we will try again, feel free to continue using the program.");
+                    ui.printError("Error trying to save your deletes to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
@@ -463,8 +467,8 @@ public class BankList {
                     exportBankList();
                     bankLists.get(i).exportBankTransactionList(Integer.toString(i));
                 } catch (IOException e) {
-                    ui.printError("Error trying to save your additions to disk. Your data is" +
-                            " at risk, but we will try again, feel free to continue using the program.");
+                    ui.printError("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
@@ -494,8 +498,8 @@ public class BankList {
                     exportBankList();
                     bankLists.get(i).exportBankTransactionList(Integer.toString(i));
                 } catch (IOException e) {
-                    ui.printError("Error trying to save your edits to disk. Your data is" +
-                            "at risk, but we will try again, feel free to continue using the program.");
+                    ui.printError("Error trying to save your edits to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
@@ -520,8 +524,8 @@ public class BankList {
                     exportBankList();
                     bankLists.get(i).exportBankTransactionList(Integer.toString(i));
                 } catch (IOException e) {
-                    ui.printError("Error trying to save your deletions to disk. Your data is" +
-                            "at risk, but we will try again, feel free to continue using the program.");
+                    ui.printError("Error trying to save your deletions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
@@ -564,8 +568,8 @@ public class BankList {
                     bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
                     bankLists.get(i).exportBankTransactionList(Integer.toString(i));
                 } catch (IOException e) {
-                    ui.printError("Error trying to save your additions to disk. Your data is" +
-                            "at risk, but we will try again, feel free to continue using the program.");
+                    ui.printError("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
@@ -593,8 +597,8 @@ public class BankList {
                     bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
                     bankLists.get(i).exportBankTransactionList(Integer.toString(i));
                 } catch (IOException e) {
-                    ui.printError("Error trying to save your edits to disk. Your data is" +
-                            "at risk, but we will try again, feel free to continue using the program.");
+                    ui.printError("Error trying to save your edits to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
@@ -619,8 +623,8 @@ public class BankList {
                     bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
                     bankLists.get(i).exportBankTransactionList(Integer.toString(i));
                 } catch (IOException e) {
-                    ui.printError("Error trying to save your deletions to disk. Your data is" +
-                            "at risk, but we will try again, feel free to continue using the program.");
+                    ui.printError("Error trying to save your deletions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
@@ -735,14 +739,14 @@ public class BankList {
                 bankLists.get(i).savingAddRecurringExpenditure(newRecurringExpenditure, ui);
                 try {
                     exportBankList();
-                    if(bankLists.get(i).getType().equals(INVESTMENT)) {
+                    if (bankLists.get(i).getType().equals(INVESTMENT)) {
                         bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
                     }
                     bankLists.get(i).exportBankTransactionList(Integer.toString(i));
                     bankLists.get(i).exportBankRecurringTransactionList(Integer.toString(i));
                 } catch (IOException e) {
-                    ui.printError("Error trying to save your additions to disk. Your data is" +
-                            "at risk, but we will try again, feel free to continue using the program.");
+                    ui.printError("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
@@ -766,14 +770,14 @@ public class BankList {
                 bankLists.get(i).savingDeleteRecurringExpenditure(index, ui);
                 try {
                     exportBankList();
-                    if(bankLists.get(i).getType().equals(INVESTMENT)) {
+                    if (bankLists.get(i).getType().equals(INVESTMENT)) {
                         bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
                     }
                     bankLists.get(i).exportBankTransactionList(Integer.toString(i));
                     bankLists.get(i).exportBankRecurringTransactionList(Integer.toString(i));
                 } catch (IOException e) {
-                    ui.printError("Error trying to save your deletions to disk. Your data is" +
-                            "at risk, but we will try again, feel free to continue using the program.");
+                    ui.printError("Error trying to save your deletions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
@@ -817,14 +821,14 @@ public class BankList {
                 bankLists.get(i).savingEditRecurringExpenditure(index, description, amount, category, ui);
                 try {
                     exportBankList();
-                    if(bankLists.get(i).getType().equals(INVESTMENT)) {
+                    if (bankLists.get(i).getType().equals(INVESTMENT)) {
                         bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
                     }
                     bankLists.get(i).exportBankTransactionList(Integer.toString(i));
                     bankLists.get(i).exportBankRecurringTransactionList(Integer.toString(i));
                 } catch (IOException e) {
-                    ui.printError("Error trying to save your edits to disk. Your data is" +
-                            "at risk, but we will try again, feel free to continue using the program.");
+                    ui.printError("Error trying to save your edits to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 return;
             }
@@ -842,16 +846,16 @@ public class BankList {
             bankLists.get(i).updateRecurringTransactions(ui);
             try {
                 exportBankList();
-                if(bankLists.get(i).getType().equals(INVESTMENT)) {
+                if (bankLists.get(i).getType().equals(INVESTMENT)) {
                     bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
                 }
-                if(bankLists.get(i).getType().equals(SAVING)) {
+                if (bankLists.get(i).getType().equals(SAVING)) {
                     bankLists.get(i).exportBankRecurringTransactionList(Integer.toString(i));
                 }
                 bankLists.get(i).exportBankTransactionList(Integer.toString(i));
             } catch (IOException | BankException e) {
-                ui.printError("Error trying to save your updates to disk. Your data is" +
-                        " at risk, but we will try again, feel free to continue using the program.");
+                ui.printError("Error trying to save your updates to disk. Your data is"
+                        + " at risk, but we will try again, feel free to continue using the program.");
             }
         }
     }
@@ -985,7 +989,7 @@ public class BankList {
         DecimalFormat decimalFormat = new DecimalFormat(".00");
         decimalFormat.setRoundingMode(RoundingMode.DOWN);
         exportArrayList.add(new String[]{"accountName","type","amount","income"});
-        for(int i = 0; i < getBankListSize(); i++) {
+        for (int i = 0; i < getBankListSize(); i++) {
             String accountName = bankLists.get(i).getAccountName();
             String accountType = bankLists.get(i).getType();
             double amount = bankLists.get(i).getCurrentAmount();

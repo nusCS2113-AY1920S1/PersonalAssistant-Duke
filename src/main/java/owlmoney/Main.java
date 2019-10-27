@@ -90,8 +90,8 @@ class Main {
             try {
                 storage.writeProfileFile(new String[]{profile.profileGetUsername()},PROFILE_FILE_NAME);
             } catch (IOException ex) {
-                ui.printError("Unable to save profile now, your data is at risk, but we will" +
-                        "try saving again, feel free to continue using the program.");
+                ui.printError("Unable to save profile now, your data is at risk, but we will"
+                        + " try saving again, feel free to continue using the program.");
             }
         }
         while (parser.hasNextLine()) {

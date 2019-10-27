@@ -21,7 +21,7 @@ public class CardList {
 
     /**
      * Creates an arrayList of Cards.
-     * @param storage
+     * @param storage for importing and exporting purposes.
      */
     public CardList(Storage storage) {
         cardLists = new ArrayList<Card>();

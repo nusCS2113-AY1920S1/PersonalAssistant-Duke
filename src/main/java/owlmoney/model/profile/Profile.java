@@ -103,8 +103,8 @@ public class Profile {
         try {
             storage.writeProfileFile(new String[]{profileGetUsername()},PROFILE_FILE_NAME);
         } catch (IOException ex) {
-            ui.printError("Unable to save profile now, your data is at risk, but we will" +
-                    "try saving again, feel free to continue using the program.");
+            ui.printError("Unable to save profile now, your data is at risk, but we will"
+                    + " try saving again, feel free to continue using the program.");
         }
     }
 
@@ -726,10 +726,10 @@ public class Profile {
             double doubleAmount = Double.parseDouble(amount);
             String income = importDataRow[3];
             double doubleIncome = Double.parseDouble(income);
-            if(bankType.equals(INVESTMENT)) {
+            if (bankType.equals(INVESTMENT)) {
                 Bank newInvestment = new Investment(bankName, doubleAmount);
                 profileImportNewBank(newInvestment);
-            } else if(bankType.equals(SAVING)) {
+            } else if (bankType.equals(SAVING)) {
                 Bank newSaving = new Saving(bankName, doubleAmount, doubleIncome);
                 profileImportNewBank(newSaving);
             } else {
@@ -782,8 +782,8 @@ public class Profile {
             Date dateInFormat = dateFormat.parse(date);
             String category = importDataRow[3];
             String hasSpent = importDataRow[4];
-            if(bankType.equals(INVESTMENT)) {
-                if(hasSpent.equals(HAS_SPENT)) {
+            if (bankType.equals(INVESTMENT)) {
+                if (hasSpent.equals(HAS_SPENT)) {
                     Transaction newExpenditure = new Expenditure(description, doubleAmount, dateInFormat, category);
                     profileImportNewExpenditure(bankName, newExpenditure, BONDS);
                 } else if (hasSpent.equals(NOT_SPENT)) {
@@ -791,7 +791,7 @@ public class Profile {
                     profileImportNewDeposit(bankName, newDeposit, BONDS);
                 }
             } else if (bankType.equals(SAVING)) {
-                if(hasSpent.equals(HAS_SPENT)) {
+                if (hasSpent.equals(HAS_SPENT)) {
                     Transaction newExpenditure = new Expenditure(description, doubleAmount, dateInFormat, category);
                     profileImportNewExpenditure(bankName, newExpenditure, BANK);
                 } else if (hasSpent.equals(NOT_SPENT)) {
@@ -823,7 +823,7 @@ public class Profile {
             String category = importDataRow[3];
             String hasSpent = importDataRow[4];
             if (bankType.equals(SAVING)) {
-                if(hasSpent.equals(HAS_SPENT)) {
+                if (hasSpent.equals(HAS_SPENT)) {
                     Transaction newExpenditure = new Expenditure(description, doubleAmount, dateInFormat, category);
                     profileImportNewRecurringExpenditure(bankName, newExpenditure);
                 } else if (hasSpent.equals(NOT_SPENT)) {
