@@ -18,6 +18,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
 
 //@@author SholihinK
+
 /**
  * Create a timetable drawing onto DailyView scroll-pane within tab-pane.
  */
@@ -89,12 +90,20 @@ class DailyCalUi {
                 if (t.getSymbol().equals("D") && !t.getisDone()) {
                     deadlineArrayList.add(t);
                 } else if ((t.getSymbol().equals("E") && !t.getisDone())) {
+                    if (!t.getStringMainDate().equals(t.getStringTrailingDate())) {
+                        t.setEndTime("2359");
+                    }
+                    dailyCalArrayList.add(t);
+                }
+            } else if (t.getStringTrailingDate().equals(dateToDisplay)) {
+                if ((t.getSymbol().equals("E") && !t.getisDone())) {
+                    t.setStartTime("0000");
                     dailyCalArrayList.add(t);
                 }
             }
         }
         dailyCalArrayList.sort(compareByStartTime);
-        deadlineArrayList.sort((compareByStartTime));
+        deadlineArrayList.sort(compareByStartTime);
     }
 
     private void buildDeadline() {
