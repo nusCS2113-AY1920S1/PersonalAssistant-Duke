@@ -73,7 +73,7 @@ public class TaskStorageManager implements Storage<ArrayList<Task>> {
                 if (parts[3].equals("true")) {
                     t.markAsDone();
                 }
-                if (parts[8].equals("true")) {
+                if (parts[9].equals("true")) {
                     t.setHasReminder(true);
                 }
 
