@@ -1,6 +1,7 @@
 package UserElements.ConcertBudgeting;
 
 import Events.EventTypes.Event;
+import Events.EventTypes.EventSubclasses.Concert;
 import Events.Formatting.EventDate;
 import java.util.*;
 
@@ -12,7 +13,7 @@ public class Budgeting {
      * MonthlyBudget is the class corresponding to the month being analyzed, stores all details
      * for budget analysis including the corresponding Concert objects.
      */
-    private Map<String, MonthlyBudget> monthlyCosts;
+    private HashMap<String, MonthlyBudget> monthlyCosts;
 
     int budget; //current user defined budget
 
@@ -25,6 +26,17 @@ public class Budgeting {
     public Budgeting(ArrayList<Event> eventList, int budget) {
         this.budget = budget;
         createMap(eventList);
+
+//        Iterator monthlyCostIterator = monthlyCosts.entrySet().iterator();
+//
+//        while (monthlyCostIterator.hasNext()) {
+//            Map.Entry mapElement = (Map.Entry)monthlyCostIterator.next();
+//            MonthlyBudget testMonthlyBudget = (MonthlyBudget) mapElement.getValue();
+//            for (Concert testConcert : testMonthlyBudget.getListOfConcerts()){
+//                System.out.print(testConcert.toString() + " ");
+//                System.out.println(testConcert.getCost());
+//            }
+//        }
     }
 
     public void setBudget(int budget) {
@@ -38,7 +50,7 @@ public class Budgeting {
      * @return created map.
      */
     private void createMap(ArrayList<Event> eventList) {
-        monthlyCosts = new HashMap<String, MonthlyBudget>();
+        monthlyCosts = new HashMap<>();
         EventDate monthlyDate = null; //stores a date of a day in the month we are currently checking for
         ArrayList<Event> listOfConcerts = new ArrayList<Event>(); //to store the concerts in a given month
         String monthAndYear = "";
