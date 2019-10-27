@@ -311,10 +311,16 @@ public class AutoCompleter {
         /**
          * Creates a {@code UserInputState}.
          *
-         * @param userInputString The text input from user
+         * @param userInputString The text input from user. Empty input is acceptable.
          * @param caretPosition An integer between 0 and the length of {@code userInputString}
+         * @throws ParseException if caret position is invalid
          */
-        public UserInputState(String userInputString, int caretPosition) {
+        public UserInputState(String userInputString, int caretPosition) throws ParseException {
+            requireNonNull(userInputString);
+            if (caretPosition < 0 || caretPosition > userInputString.length()) {
+                throw new ParseException();
+            }
+
             this.userInputString = userInputString;
             this.caretPosition = caretPosition;
         }
