@@ -309,7 +309,7 @@ public class PlanQuestionBank {
             }
 
         } catch (NullPointerException | NumberFormatException e) {
-            throw new DukeException("Missing attributes to make recommendation!");
+            throw new DukeException("Missing attributes to make recommendation!" + e.getMessage());
         }
 
         if (recommendation.toString().isEmpty()) {

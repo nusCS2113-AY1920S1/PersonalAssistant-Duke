@@ -81,6 +81,8 @@ public class Expense extends DukeItem {
             }
             if (mappedStorageString.containsKey("time")) {
                 setTime(Parser.parseTime(mappedStorageString.get("time")));
+            }if (mappedStorageString.containsKey("isRecurring")) {
+                setRecurring(Boolean.parseBoolean(mappedStorageString.get("isRecurring")));
             }
         }
 
@@ -262,26 +264,6 @@ public class Expense extends DukeItem {
         return Parser.formatTime(time);
     }
 
-    /**
-     * Converts the expense into a string.
-     *
-     * @return the expense as a string.
-     */
-    @Override
-    public String toString() {
-        StringJoiner stringJoiner = new StringJoiner(" ");
-        stringJoiner.add((amount.compareTo(BigDecimal.valueOf(0)) < 0 ? "-$" + amount.abs() : "$" + amount));
-        stringJoiner.add(description);
-        stringJoiner.add(Parser.formatTime(time));
-        if (isTentative) {
-            stringJoiner.add("(tentative)");
-        }
-        if (!tags.isEmpty()) {
-            stringJoiner.add(String.join(" ", tags));
-        }
-
-        return stringJoiner.toString();
-    }
 
     /**
      * Converts the expense into a storage string.
@@ -296,6 +278,7 @@ public class Expense extends DukeItem {
         stringJoiner.add("description" + STORAGE_NAME_SEPARATOR + description);
         stringJoiner.add("time" + STORAGE_NAME_SEPARATOR + Parser.formatTime(time));
         stringJoiner.add("isTentative" + STORAGE_NAME_SEPARATOR + isTentative);
+        stringJoiner.add("isRecurring" + STORAGE_NAME_SEPARATOR + isRecurring);
         return stringJoiner.toString();
     }
 }
