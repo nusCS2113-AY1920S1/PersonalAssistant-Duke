@@ -6,8 +6,8 @@ import java.util.ArrayList;
  * structure for UserProfile object
  */
 public class UserProfile {
-    private String userName;
-    private int userAge;
+    private String userName = "";
+    private int userAge = -1;
     private ArrayList<Integer> genreIdPreference = new ArrayList<>();
     private ArrayList<Integer> genreIdRestriction = new ArrayList<>();
     private boolean adult = true;

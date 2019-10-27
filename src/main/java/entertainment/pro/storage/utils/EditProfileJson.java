@@ -18,13 +18,18 @@ public class EditProfileJson {
 
 
     public EditProfileJson() throws IOException {
-        file = new File("EPdata/userProfile.json");
+        file = new File("./userProfile.json");
         if (file.exists()) {
             this.inputStream = new FileInputStream(file);
         } else {
+//            if (!file.getParentFile().exists()) {
+//                file.getParentFile().mkdirs();
+//            }
             file.createNewFile();
-            FileWriter fileWriter = new FileWriter(file);
-            fileWriter.write("{\"userName\":\"*undefined*\",\"userAge\":0,\"genreIdPreference\":[],\"genreIdRestriction\":[],\"adult\":true,\"playlistNames\":[],\"sortByAlphabetical\":false,\"sortByLatestRelease\":false,\"sortByHighestRAting\":false}");
+            UserProfile userProfile = new UserProfile();
+            mapper.writeValue(file, userProfile);
+//            FileWriter fileWriter = new FileWriter(file);
+//            fileWriter.write("{\"userName\":\"*undefined*\",\"userAge\":0,\"genreIdPreference\":[],\"genreIdRestriction\":[],\"adult\":true,\"playlistNames\":[],\"sortByAlphabetical\":false,\"sortByLatestRelease\":false,\"sortByHighestRAting\":false}");
             this.inputStream = new FileInputStream(file);
         }
     }
