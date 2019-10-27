@@ -42,9 +42,6 @@ public class MainParser {
         } else if (isSwitchMode) {
             return new SwitchModeCommand(command); // TODO
         }
-//        else {
-//            Ui.printErrorMsg(); //todo
-//        }
 
         Tag tag = new Tag(inputLine);
         tag.parseTag();
