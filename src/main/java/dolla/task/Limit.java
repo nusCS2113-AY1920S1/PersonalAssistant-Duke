@@ -5,7 +5,7 @@ import dolla.ui.Ui;
 /**
  * Limit is a class that stores all limit related methods (savings and budgets).
  */
-public class Limit extends Log {
+public class Limit extends Record {
 
     protected String type;
     protected String duration;
@@ -23,6 +23,7 @@ public class Limit extends Log {
         this.type = type;
         this.amount = amount;
         this.duration = duration;
+        this.recordType = "limit";
     }
 
     /**
@@ -30,7 +31,7 @@ public class Limit extends Log {
      * to the user.
      * @return String with information of limit.
      */
-    public String getLogText() {
+    public String getRecordDetail() {
         return "[" + type + "] "
                 + "[" + amountToMoney() + "] "
                 + "[" + duration + "]";

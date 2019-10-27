@@ -6,9 +6,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- * duke.Time is a class that handles all time related methods.
- */
 public class Time {
 
     /**

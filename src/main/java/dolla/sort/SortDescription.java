@@ -1,7 +1,9 @@
 package dolla.sort;
 
-import dolla.task.Log;
+
 import dolla.ui.SortUi;
+import dolla.ui.Ui;
+import dolla.task.Record;
 
 import java.util.ArrayList;
 
@@ -15,7 +17,7 @@ public class SortDescription extends Sort {
      * and print out the sorted list.
      * @param unsortedList the ArrayList to be sorted.
      */
-    public SortDescription(ArrayList<Log> unsortedList) {
+    public SortDescription(ArrayList<Record> unsortedList) {
         super(unsortedList);
         sortedList.sort(ListComparatorUtil.descComparator());
         SortUi.printSortedList(sortedList,"description");

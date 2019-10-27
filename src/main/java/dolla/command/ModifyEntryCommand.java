@@ -5,7 +5,6 @@ import dolla.ui.Ui;
 import dolla.task.Entry;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class ModifyEntryCommand extends Command {
 
@@ -31,8 +30,8 @@ public class ModifyEntryCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
         Entry newEntry = new Entry(type, amount, description, date);
-        dollaData.modifyLogList(newEntry);
-        Ui.echoAddEntry(newEntry);
+        dollaData.modifyRecordList(newEntry);
+        Ui.echoAddRecord(newEntry);
         dollaData.updateMode("entry");
     }
 }

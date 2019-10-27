@@ -1,6 +1,6 @@
 package dolla.ui;
 
-import dolla.task.Log;
+import dolla.task.Record;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ public class SortUi extends Ui {
      * @param list the list to be printed
      * @param type the type of input of the list
      */
-    public static void printSortedList(ArrayList<Log> list, String type) {
+    public static void printSortedList(ArrayList<Record> list, String type) {
         System.out.println(line);
         switch (type) {
         case "date":
@@ -32,7 +32,7 @@ public class SortUi extends Ui {
 
         for (int i = 0; i < list.size(); i++) {
             int listNum = i + 1;
-            System.out.println("\t" + listNum + ". " + list.get(i).getLogText());
+            System.out.println("\t" + listNum + ". " + list.get(i).getRecordDetail());
         }
         System.out.println(line);
     }

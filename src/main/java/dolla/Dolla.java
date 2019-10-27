@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 /**
  * <h1>duke.Dolla</h1>
- * duke.Dolla is a chat-bot styled todo_list manager.
+ * duke.Dolla is a chat-bot styled expense manager.
  *
  * @author  Aik Peng
  * @version 1.0
@@ -16,12 +16,17 @@ import java.util.Scanner;
  */
 public class Dolla {
 
+    private static final String COMMAND_BYE = "bye";
     private DollaData dollaData = new DollaData();
+
+    //private TaskList tasks = new TaskList(new ArrayList<Task>());
+    //Storage storage = new Storage();
 
     /**
      * Creates an instance of Dolla using a data loaded from /data/dolla.txt
      */
-    public Dolla() {
+    private Dolla() {
+        //tasks = new TaskList(Storage.load());
         load(); //load from save
     }
 
@@ -34,10 +39,10 @@ public class Dolla {
         Reminder reminder = new Reminder("debt");
         reminder.showReminder(dollaData);
         Scanner input = new Scanner(System.in); // TODO: Add to Ui or MainParser instead?
-        while (isExit == false) {
+        while (!isExit) {
             if (input.hasNextLine()) {
                 String inputLine = input.nextLine();
-                if (inputLine.equals("bye")) {
+                if (inputLine.equalsIgnoreCase(COMMAND_BYE)) {
                     isExit = true;
                     MainParser.exit();
                 } else {

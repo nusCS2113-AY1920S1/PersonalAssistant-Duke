@@ -1,0 +1,45 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+Class HiddenOutside #FFFFFF
+
+package Model {
+Class HiddenModel #FFFFFF
+}
+
+package Ui {
+Class HiddenUi #FFFFFF
+}
+
+package Logic {
+
+package Command {
+Class XYZCommand
+Class "{abstract}\nCommand" as Command
+}
+
+package Parser {
+Class "{abstract}\nParser" as Parser
+Class MainParser
+Class XYZParser
+}
+
+}
+
+HiddenOutside ..> MainParser
+
+XYZParser -down-|> Parser
+MainParser .down.> XYZParser : creates >
+note left of XYZParser: XYZCommand = EntryParser, \nLimitParser, etc
+
+XYZParser .right.> XYZCommand : creates >
+XYZCommand -up-|> Command
+note right of XYZCommand: XYZCommand = AddEntryCommand, \nModifyCommand, etc
+
+XYZCommand ..> Model : updates >
+XYZCommand ..> Ui : calls >
+
+@enduml

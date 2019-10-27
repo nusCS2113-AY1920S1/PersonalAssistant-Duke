@@ -12,8 +12,6 @@ import dolla.command.SortCommand;
 import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
 
-import java.time.LocalDate;
-
 /**
  * DebtsParser is a class that handles the input command and
  * execute the command according to the command under the debt mode.

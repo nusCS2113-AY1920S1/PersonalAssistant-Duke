@@ -1,18 +1,18 @@
 package dolla.sort;
 
-import dolla.task.Log;
+import dolla.task.Record;
 
 import java.util.ArrayList;
 
 class Sort {
-    ArrayList<Log> sortedList;
+    ArrayList<Record> sortedList;
 
     /**
      * This method will set the ArrayList in this class to the ArrayList
      * being passed in.
      * @param unsortedList the ArrayList to be set to.
      */
-    Sort(ArrayList<Log> unsortedList) {
+    Sort(ArrayList<Record> unsortedList) {
         this.sortedList = unsortedList;
     }
 }

@@ -1,6 +1,6 @@
 package dolla;
 
-import dolla.task.LogList;
+import dolla.task.RecordList;
 import dolla.ui.Ui;
 
 import java.time.LocalDate;
@@ -27,26 +27,26 @@ public class Reminder {
      * @param dollaData the dolla data
      */
     public void showReminder(DollaData dollaData) {
-        LogList logList = new LogList(new ArrayList<>());
-        logList = dollaData.getLogList(mode);
+        RecordList recordList = new RecordList(new ArrayList<>());
+        recordList = dollaData.getRecordList(mode);
         today = LocalDate.now();
-        printReminder(today, logList);
+        printReminder(today, recordList);
     }
 
     /**
      * Print reminder.
      * @param today   Today's date.
-     * @param logList The list of logs of debt.
+     * @param recordList The list of logs of debt.
      */
-    public void printReminder(LocalDate today, LogList logList) {
+    public void printReminder(LocalDate today, RecordList recordList) {
         System.out.println("\tREMINDER!!!");
         int listNum = 0;
-        for (int i = 0; i < logList.size(); i++) {
-            LocalDate temp = logList.get().get(i).getDate(); //get the time for that log
+        for (int i = 0; i < recordList.size(); i++) {
+            LocalDate temp = recordList.get().get(i).getDate(); //get the time for that log
             LocalDate check = today.plusDays(2); //remind the user 2 days before
             if (check.compareTo(temp) >= 0) {
                 listNum += 1;
-                System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
+                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
             }
         }
         if (listNum == 0) {

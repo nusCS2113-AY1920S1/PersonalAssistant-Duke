@@ -3,13 +3,13 @@ package dolla.command;
 import dolla.DollaData;
 import dolla.ui.Ui;
 
-import dolla.task.LogList;
+import dolla.task.RecordList;
 
 
 import java.util.ArrayList;
 
 /**
- * Display all the tasks stored in the relevant LogList depending on mode.
+ * Display all the tasks stored in the relevant RecordList depending on mode.
  */
 public class ShowListCommand extends Command {
 
@@ -20,40 +20,40 @@ public class ShowListCommand extends Command {
     }
 
     /**
-     * Prints out the logs from the specified LogList in dollaData.
+     * Prints out the logs from the specified RecordList in dollaData.
      * @param dollaData Data to be manipulated.
      */
     @Override
     public void execute(DollaData dollaData) {
 
         /*
-        LogList logList = new LogList(new ArrayList<Log>());
-        LogList entryList = new EntryList(new ArrayList<Entry>());
+        RecordList recordList = new RecordList(new ArrayList<Record>());
+        RecordList entryList = new EntryList(new ArrayList<Entry>());
 
         switch (mode) {
         case "entries":
-            logList = dollaData.entryList;
+            recordList = dollaData.entryList;
             entryList = dollaData.entryList;
             entryList = dollaData.getLogList(mode);
          */
 
-        LogList logList = new LogList(new ArrayList<>());
+        RecordList recordList = new RecordList(new ArrayList<>());
 
         switch (mode) { //TODO: is this needed?
         case "entry":
-            logList = dollaData.getLogList(mode);
+            recordList = dollaData.getRecordList(mode);
             break;
         case "debt":
-            logList = dollaData.getLogList(mode);
+            recordList = dollaData.getRecordList(mode);
             break;
         case "limit":
-            logList = dollaData.getLogList(mode);
+            recordList = dollaData.getRecordList(mode);
             break;
         default:
             break; // TODO: What to do here?
         }
 
-        boolean listIsEmpty = (logList.size() == 0);
+        boolean listIsEmpty = (recordList.size() == 0);
 
         if (listIsEmpty) { // TODO: Place this in proper place
             Ui.printEmptyListError(mode);
@@ -61,14 +61,14 @@ public class ShowListCommand extends Command {
         //} else if (mode.equals("entries")) {
             //Ui.printList(mode, entryList);
         } else if (mode.equals("entry")) {
-            Ui.printList(mode, logList);
+            Ui.printList(mode, recordList);
             return;
         } else if (mode.equals("debt")) {
-            Ui.printList(mode, logList);
-            //System.out.println(logList.get().size());//test
+            Ui.printList(mode, recordList);
+            //System.out.println(recordList.get().size());//test
             return;
         } else if (mode.equals("limit")) {
-            Ui.printList(mode,logList);
+            Ui.printList(mode, recordList);
         }
     }
 }

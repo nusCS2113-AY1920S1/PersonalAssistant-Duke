@@ -1,11 +1,11 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.task.Record;
 import dolla.ui.SortUi;
 import dolla.ui.Ui;
 import dolla.sort.SortAmount;
-import dolla.task.Log;
-import dolla.task.LogList;
+import dolla.task.RecordList;
 import dolla.sort.SortDate;
 import dolla.sort.SortDescription;
 import dolla.sort.SortName;
@@ -23,17 +23,17 @@ public class SortCommand extends Command {
 
     @Override
     public void execute(DollaData dollaData) throws Exception {
-        LogList logList = new LogList(new ArrayList<>());
-        ArrayList<Log> list;
+        RecordList recordList = new RecordList(new ArrayList<>());
+        ArrayList<Record> list;
         switch (mode) {
         case "entry":
-            logList = dollaData.getLogList(mode);
+            recordList = dollaData.getRecordList(mode);
             break;
         case "debt":
-            logList = dollaData.getLogList(mode);
+            recordList = dollaData.getRecordList(mode);
             break;
         case "limit":
-            logList = dollaData.getLogList(mode);
+            recordList = dollaData.getRecordList(mode);
             break;
         default:
             Ui.printInvalidCommandError();
@@ -41,7 +41,7 @@ public class SortCommand extends Command {
         }
 
         try {
-            list = logList.getCloneList();
+            list = recordList.getCloneList();
             list.get(0); //test if list is empty
             switch (mode) {
             case "entry":

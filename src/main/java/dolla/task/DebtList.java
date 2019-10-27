@@ -1,28 +1,27 @@
 package dolla.task;
 
 import dolla.Storage;
-import dolla.task.Log;
 
 import java.util.ArrayList;
 
 /**
  * Holds all the debts that have been added to Dolla.
  */
-public class DebtList extends LogList {
+public class DebtList extends RecordList {
 
-    public DebtList(ArrayList<Log> importDebtList) {
+    public DebtList(ArrayList<Record> importDebtList) {
         super(importDebtList);
     }
 
     @Override
-    public void add(Log newLog) {
-        super.add(newLog);
+    public void add(Record newRecord) {
+        super.add(newRecord);
         Storage.setDebts(get()); //save
     }
 
     @Override
-    public void insertPrevPosition(int prevPosition, Log newLog) {
-        super.insertPrevPosition(prevPosition, newLog);
+    public void insertPrevPosition(int prevPosition, Record newRecord) {
+        super.insertPrevPosition(prevPosition, newRecord);
         Storage.setDebts(get()); //save
     }
 

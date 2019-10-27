@@ -1,0 +1,85 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+box Logic LOGIC_COLOR_T1
+participant ":Dolla" as Dolla LOGIC_COLOR
+participant ":MainParser" as MainParser LOGIC_COLOR
+participant ":EntryParser" as EntryParser LOGIC_COLOR
+participant ":AddEntryCommand" as AddEntryCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":DollaData" as DollaData MODEL_COLOR
+end box
+
+box Ui UI_COLOR_T1
+participant ":Ui" as Ui UI_COLOR
+end box
+
+user -> Dolla : "add expense 5 burger /on 20/10/2019"
+activate Dolla
+
+Dolla -> MainParser : handleInput("entry", inputLine)
+activate MainParser
+
+MainParser -> EntryParser : handleInput(inputLine)
+activate EntryParser
+
+EntryParser -> EntryParser : verifyAddCommand()
+activate EntryParser
+
+EntryParser -> EntryParser : verifyAddType("expense")
+activate EntryParser
+
+EntryParser --> EntryParser : "expense"
+deactivate EntryParser
+
+EntryParser -> EntryParser : stringToDouble("5")
+activate EntryParser
+
+EntryParser --> EntryParser : 5
+deactivate EntryParser
+
+EntryParser -> EntryParser : extractDescTime()
+activate EntryParser
+deactivate EntryParser
+
+EntryParser --> EntryParser : true
+deactivate EntryParser
+
+EntryParser -> EntryParser : processAdd()
+activate EntryParser
+
+EntryParser --> EntryParser : c
+deactivate EntryParser
+
+EntryParser --> MainParser : c
+deactivate EntryParser
+
+MainParser --> Dolla : c
+deactivate MainParser
+
+create AddEntryCommand
+Dolla -> AddEntryCommand : execute(dollaData)
+activate AddEntryCommand
+
+AddEntryCommand -> DollaData : addToRecordList("entry", newEntry)
+activate DollaData
+
+DollaData --> AddEntryCommand
+deactivate DollaData
+
+AddEntryCommand -> Ui : echoAddEntry(newEntry)
+activate Ui
+
+Ui --> AddEntryCommand
+deactivate Ui
+
+AddEntryCommand --> Dolla
+deactivate AddEntryCommand
+
+Dolla --> user
+deactivate Dolla
+
+@enduml
