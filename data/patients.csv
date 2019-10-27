@@ -1,4 +1,6 @@
 Id,Name,NRIC,Room,Remark
-1,xk,G00012345,38A,no
-2,weifeng,G789456,8B,no
-3,Qianjie,G123456,2c,noQ
+1,xk,G00012345,3A-1,quiet
+2,weifeng,G789456,8B,tall
+3,Qianjie,G123456,2c,a very very very long remark
+4,Lauren,S123456,3b-2,nothing
+5,Kejun,X789123P,9A-2,nude

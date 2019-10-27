@@ -1,50 +1,30 @@
 package duke;
 
-import duke.mementopattern.Memento;
-import duke.mementopattern.MementoManager;
-import duke.mementopattern.MementoParser;
-import duke.command.Command;
-import duke.core.CommandManager;
-import duke.core.DukeException;
-import duke.core.Ui;
-import duke.patient.PatientManager;
-import duke.relation.PatientTaskList;
-import duke.statistic.Counter;
-import duke.storage.StorageManager;
-import duke.task.TaskManager;
-
+import duke.models.tasks.TaskManager;
+import duke.util.mementopattern.Memento;
+import duke.util.mementopattern.MementoManager;
+import duke.util.mementopattern.MementoParser;
+import duke.commands.Command;
+import duke.commands.CommandManager;
+import duke.exceptions.DukeException;
+import duke.util.Ui;
+import duke.models.patients.PatientManager;
+import duke.models.assignedtasks.AssignedTaskManager;
+import duke.models.counter.Counter;
+import duke.storages.StorageManager;
 
 /**
  * Represents Duke, a Personal Assistant to help
  * users tracking their progress.
  */
 public class Duke {
-    /**
-     * A Storage object that handles reading tasks from a local
-     * file and saving them to the same file.
-     */
     private StorageManager storageManager;
-
-    /**
-     * A TaskList object that deals with add, delete, mark as done,
-     * find functions of a list of tasks.
-     */
-    private PatientTaskList patientTaskList;
+    private AssignedTaskManager assignedTaskManager;
     private TaskManager taskManager;
     private PatientManager patientManager;
     private Counter counter;
-
-    /**
-     * A Ui object that deals with interactions with the user.
-     */
+    private Ui ui;
     private MementoManager mementoManager;
-    private MementoParser mementoParser;
-  
-    /**
-     * A Ui object that deals with interactions with the user.
-     */
-    private Ui ui = Ui.getUi();
-
 
     /**
      * Constructs a Duke object with a relative file path.
@@ -56,8 +36,9 @@ public class Duke {
     public Duke(String filePath) {
         storageManager = new StorageManager(filePath);
         mementoManager = new MementoManager();
+        ui = new Ui();
         try {
-            patientTaskList = new PatientTaskList(storageManager.loadAssignedTasks());
+            assignedTaskManager = new AssignedTaskManager(storageManager.loadAssignedTasks());
             taskManager = new TaskManager(storageManager.loadTasks());
             patientManager = new PatientManager(storageManager.loadPatients());
             counter = new Counter(storageManager.loadCommandFrequency());
@@ -70,67 +51,85 @@ public class Duke {
     }
 
     /**
+     * Runs the Duke program.
+     * Reads user input until a "bye" message is received.
+     */
+    public String run(String userInput) throws DukeException {
+        try {
+            ui.readUserInputFromGui(userInput);
+            ui.showLine();
+            Command c = CommandManager.manageCommand(userInput);
+            if (MementoParser.getSaveFlag(c).equals("save")) {
+                Memento newMem = saveDukeStateToMemento();
+                mementoManager.add(newMem);
+            } else if (MementoParser.getSaveFlag(c).equals("pop")) {
+                getDukeStateFromMemento(mementoManager.pop());
+            }
+            c.execute(assignedTaskManager, taskManager, patientManager,
+                ui, storageManager);
+            counter.runCommandCounter(c, storageManager, counter);
+            return ui.getDukeResponses();
+        } catch (DukeException e) {
+            ui.clearResponses();
+            throw e;
+        }
+    }
+
+
+    /**
      * .
+     */
+    public void clearDukeResponses() {
+        ui.clearResponses();
+    }
+
+    /**
      * .
+     *
+     * @return .
+     */
+    public PatientManager getPatientManager() {
+        return patientManager;
+    }
+
+    /**
+     * .
+     *
+     * @return .
+     */
+    public TaskManager getTaskManager() {
+        return taskManager;
+    }
+
+    /**
+     * .
+     *
+     * @return .
+     */
+    public AssignedTaskManager getAssignedTaskManager() {
+        return assignedTaskManager;
+    }
+
+
+    /**
+     * .
+     *
      * @param memento .
      */
     public void getDukeStateFromMemento(Memento memento) {
         taskManager = memento.getTaskState();
-        patientTaskList = memento.getPatientTaskState();
+        assignedTaskManager = memento.getPatientTaskState();
         patientManager = memento.getPatientState();
     }
 
     /**
      * .
-     * .
+     *
      * @return .
      */
     public Memento saveDukeStateToMemento() {
         return new Memento(new TaskManager(taskManager.getTaskList()),
-                new PatientTaskList(patientTaskList.fullPatientTaskList()),
-                new PatientManager(patientManager.getPatientList()));
-    }
-
-    /**
-     * Runs the Duke program.
-     * Reads user input until a "bye" message is received.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = CommandManager.manageCommand(fullCommand);
-                if (mementoParser.getSaveFlag(c).equals("save")) {
-                    Memento newMem = saveDukeStateToMemento();
-                    mementoManager.add(newMem);
-                } else if (mementoParser.getSaveFlag(c).equals("pop")) {
-                    getDukeStateFromMemento(mementoManager.pop());
-                }
-                c.execute(patientTaskList, taskManager, patientManager,
-                    ui, storageManager);
-                counter.runCommandCounter(c, storageManager, counter);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
-        }
-        System.exit(0);
-    }
-
-    /**
-     * Starts the Duke thread and Reminder thread concurrently
-     * by passing a filepath to duke and a global ui object&
-     * task list to Reminder.
-     *
-     * @param args The command line arguments.
-     */
-    public static void main(String[] args) {
-        new Duke("./data").run();
+            new AssignedTaskManager(assignedTaskManager.getAssignTasks()),
+            new PatientManager(patientManager.getPatientList()));
     }
 }
