@@ -214,6 +214,7 @@ public abstract class Task implements Serializable {
         return hasReminder;
     }
 
+    //@@author Catherinetan99
     /**
      * Gets start time of task in date format.
      *
@@ -404,6 +405,7 @@ public abstract class Task implements Serializable {
         this.priorityScore = score;
     }
 
+    //@@author Catherinetan99
     /**
      * Gets the end time for the task.
      *

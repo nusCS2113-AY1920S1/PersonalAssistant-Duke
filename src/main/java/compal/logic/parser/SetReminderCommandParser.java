@@ -4,6 +4,7 @@ import compal.logic.command.Command;
 import compal.logic.command.SetReminderCommand;
 import compal.logic.parser.exceptions.ParserException;
 
+//@@author Catherinetan99
 public class SetReminderCommandParser implements CommandParser {
 
     @Override

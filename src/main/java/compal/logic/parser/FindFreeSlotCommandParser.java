@@ -7,6 +7,7 @@ import compal.logic.parser.exceptions.ParserException;
 import java.text.ParseException;
 import java.util.Date;
 
+//@@author Catherinetan99
 public class FindFreeSlotCommandParser implements CommandParser {
 
     @Override
