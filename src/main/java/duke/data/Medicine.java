@@ -1,5 +1,7 @@
 package duke.data;
 
+import duke.exception.DukeException;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -81,5 +83,14 @@ public class Medicine extends Treatment {
 
     public static List<String> getStatusArr() {
         return Collections.unmodifiableList(statusArr);
+    }
+
+    @Override
+    public String getSummary() {
+        return null;
+    }
+
+    @Override
+    public void setSummary(String summary) {
     }
 }

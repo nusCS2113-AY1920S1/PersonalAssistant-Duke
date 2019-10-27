@@ -100,20 +100,41 @@ public class ImpressionEditCommand extends DukeDataCommand {
                     continue;
                 }
 
+                // TODO: create missing methods in model
+                if (switchName.equals("name")) {
+                    //editData.setName((isAppending) ? editData.getName() + entryStr : entryStr);
+                } else {
+                    switch (editType) {
+                    case "plan":
+                        Plan plan = (Plan) editData;
+                        if (switchName.equals("summary")) {
+                            plan.setSummary((isAppending) ? plan.getSummary() + entryStr : entryStr);
+                        }
+                        break;
+                    case "medicine":
+                        Medicine med = (Medicine) editData;
+                        if (switchName.equals("dose")) {
+                            med.setDose((isAppending) ? med.getDose() + entryStr : entryStr);
+                        } else if (switchName.equals("date")) {
+                            //med.setStartDate((isAppending) ? med.getStartDate() + entryStr : entryStr);
+                        } else if (switchName.equals("duration")) {
+                            med.setDuration((isAppending) ? med.getDuration() + entryStr : entryStr);
+                        }
+                        break;
+                    case "investigation":
+                        Investigation invx = (Investigation) editData;
+                        if (switchName.equals("summary")) {
+                            invx.setSummary((isAppending) ? invx.getSummary() + entryStr : entryStr);
+                        }
+                        break;
+                    case "result":
+                        break;
+                    case "observation":
 
-                // TODO
-                switch (editType) {
-                case "plan":
-                    Plan plan = (Plan) editData;
-                    if (switchName.equals("summary")) {
-                        plan.setSummary((isAppending) ? plan.getSummary() + entryStr : entryStr);
+                        break;
+                    default:
+                        throw new DukeException("Invalid data type!");
                     }
-                case "medicine":
-                case "investigation":
-                case "result":
-                case "observation":
-                default:
-                    throw new DukeException("Invalid data type!");
                 }
 
             }
@@ -138,7 +159,6 @@ public class ImpressionEditCommand extends DukeDataCommand {
             impression.setDescription((isAppending) ? impression.getDescription() + newDesc : newDesc);
         }
     }
-
 
     // this is a terrible method, kill it and replace it with proper disambiguation as soon as possible
     private DukeData findDataOfClass(List<DukeData> searchResults, Class dataClass) {

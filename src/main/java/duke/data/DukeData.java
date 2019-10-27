@@ -5,6 +5,7 @@ import duke.exception.DukeException;
 public abstract class DukeData extends DukeObject {
 
     private Integer priority;
+    private String summary;
 
     /**
      * Abstraction of the evidence or treatment data of a patient.
@@ -46,5 +47,13 @@ public abstract class DukeData extends DukeObject {
         informationString = "Impression: " + getParent().toString() + "\n";
         informationString += "Priority: " + Integer.toString(this.priority) + "\n";
         return super.toString() + informationString;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }
