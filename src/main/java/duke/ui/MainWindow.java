@@ -6,6 +6,7 @@ import duke.command.Parser;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.PatientMap;
+import duke.ui.window.HomeWindow;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
