@@ -20,10 +20,10 @@ public class ListCommand extends Command {
     @Override
     public String execute(Ui ui, Bank bank, Storage storage) {
         try {
-            if (bank.getWordBank().isEmpty()) {
+            if (bank.wordBankIsEmpty()) {
                 throw new WordBankEmptyException();
             }
-            return ui.showList(bank.getWordBank().getWordBank(), this.order);
+            return ui.showList(bank.getWordBankData(), this.order);
         } catch (WordBankEmptyException e) {
             return e.showError();
         }

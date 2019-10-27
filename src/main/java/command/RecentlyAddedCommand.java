@@ -23,6 +23,6 @@ public class RecentlyAddedCommand extends Command {
     @Override
     public String execute(Ui ui, Bank bank, Storage storage) {
         wordHistory = storage.loadHistoryFromFile();
-        return ui.showHistory(wordHistory, numberOfWordsToDisplay);
+        return ui.showRecentlyAdded(wordHistory, numberOfWordsToDisplay);
     }
 }

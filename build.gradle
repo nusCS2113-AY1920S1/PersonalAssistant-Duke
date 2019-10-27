@@ -12,15 +12,25 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "wordup"
-    archiveVersion = "v1.2"
+    archiveVersion = "v1.2.1"
     archiveClassifier = null
     archiveAppendix = null
 }
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+<<<<<<< HEAD
     compile 'org.apache.poi:poi:3.17'
     compile 'org.apache.poi:poi-ooxml:3.17'
+=======
+    shadow 'junit:junit:3.8.2'
+}
+
+jar {
+    manifest {
+        attributes 'Class-Path': '/libs/a.jar'
+    }
+>>>>>>> c0b1a2b871b63cfc7f11f6fed101026f705ce24b
 }
 
 test {
@@ -38,7 +48,6 @@ application {
     // Change this to your main class.
     mainClassName = "WordUp"
 }
-
 
 javafx {
     version = "11.0.2"

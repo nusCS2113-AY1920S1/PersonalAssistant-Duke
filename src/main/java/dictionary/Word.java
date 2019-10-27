@@ -24,11 +24,6 @@ public class Word {
     private int numberOfSearches;
 
     /**
-     * String represents the closest time that user search for a specific word.
-     */
-    private String closetSearch;
-
-    /**
      * Initializes a word without tags.
      * @param word description of the word
      * @param meaning meaning of the word
@@ -55,24 +50,12 @@ public class Word {
         this.numberOfSearches = 0;
     }
 
-    public void setClosetSearch(String closetSearch) {
-        this.closetSearch = closetSearch;
-    }
-
-    public String getWord() {
+    public String getWordString() {
         return word;
     }
 
     public int getNumberOfSearches() {
         return numberOfSearches;
-    }
-
-    public void incrementNumberOfSearches() {
-        this.numberOfSearches += 1;
-    }
-
-    public String getClosetSearch() {
-        return closetSearch;
     }
 
     public String getMeaning() {
@@ -91,9 +74,9 @@ public class Word {
         return synonyms;
     }
 
-    public void addSynonym(String synonym){
-        this.synonyms.add(synonym);
-    }
+    public void addSynonym(String synonym){ this.synonyms.add(synonym);}
+
+    public void incrementNumberOfSearches() { this.numberOfSearches += 1; }
 
     public void editMeaning(String newMeaning) {
         this.meaning = newMeaning;

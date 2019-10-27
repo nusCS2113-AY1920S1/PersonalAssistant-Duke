@@ -29,7 +29,6 @@ public class WordUp extends Application {
     @Override
     public void start(Stage stage) {
         window = stage;
-
         window.setScene(new MainScene(ui, bank, storage, window).getScene());
         window.show();
 

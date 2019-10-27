@@ -29,11 +29,13 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(Ui ui, Bank bank, Storage storage) {
         try {
+            word = bank.getWordFromWordBank(this.deletedWord);
             if (tags.size() == 0) {                     //delete word
-                word = bank.getAndDelete(this.deletedWord);
-                storage.editFromFile(word.toString() + "\r","");
+                bank.deleteWordFromBank(word);
+                storage.updateFile(word.toString() + "\r","");
                 return ui.showDeleted(word);
             } else {                                    //delete tags
+                bank.deleteWordFromBank(word);
                 ArrayList<String> nullTags = new ArrayList<>();
                 ArrayList<String> deletedTags = new ArrayList<>();
                 bank.deleteTags(deletedWord, tags, deletedTags, nullTags);

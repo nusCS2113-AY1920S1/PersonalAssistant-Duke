@@ -1,7 +1,7 @@
 package scene;
 
-import dictionary.Bank;
 import command.QuizCommand;
+import dictionary.Bank;
 import exception.ChangeSceneException;
 import exception.InvalidAnswerException;
 import exception.WordBankNotEnoughForQuizException;
@@ -65,7 +65,7 @@ public class QuizScene extends NewScene {
 
     private void generateQuiz() throws WordBankNotEnoughForQuizException {
         quizCommand = new QuizCommand();
-        quizCommand.generateQuiz(bank.getWordBank());
+        quizCommand.generateQuiz(bank.getWordBankObject());
     }
 
     @Override
