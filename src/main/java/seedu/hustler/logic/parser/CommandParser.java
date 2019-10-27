@@ -67,7 +67,7 @@ public class CommandParser extends Parser {
             return new ScheduleCommand(userInput);
         } else if (userInput[0].equals("/snooze")) {
             CommandLog.recordCommand(rawInput);
-            return new SnoozeCommand(rawInput);
+            return new SnoozeCommand(userInput);
         } else if (userInput[0].equals("/avatar") && userInput[1].equals("stats")) {
             return new CheckAvatarCommand();
         } else if (userInput[0].equals("/setname")) {
@@ -111,7 +111,7 @@ public class CommandParser extends Parser {
         } else if (userInput[0].equals("/addFromList")) {
             return new AddEntry(userInput);
         } else if (userInput[0].equals("/sort")) {
-            return new SortCommand(userInput[1]);
+            return new SortCommand(userInput);
         } else if (userInput[0].equals("/bye")) {
             return new ByeCommand();
         } else {

@@ -3,6 +3,8 @@ package seedu.hustler.logic.command.task;
 import seedu.hustler.Hustler;
 import seedu.hustler.command.Command;
 import seedu.hustler.data.CommandLog;
+import seedu.hustler.logic.CommandLineException;
+import seedu.hustler.logic.parser.anomaly.SnoozeAnomaly;
 import seedu.hustler.ui.Ui;
 import seedu.hustler.parser.ParserForCommand;
 
@@ -11,31 +13,35 @@ import seedu.hustler.parser.ParserForCommand;
  */
 public class SnoozeCommand extends Command {
     /**
-     * User input that contains index of task to snooze.
+     * User input to parse.
      */
     private String[] userInput;
-   
+
     /**
-    * Initializes userInput.
-    *
-    * @param rawInput array that contains task id to delete.
-    */
-    public SnoozeCommand(String rawInput) {
-        this.userInput = rawInput.split(" ");
+     * Detect anomalies for input.
+     */
+    private SnoozeAnomaly anomaly = new SnoozeAnomaly();
+
+    /**
+     * Initializes user input.
+     *
+     * @param userInput user input
+     */
+    public SnoozeCommand(String[] userInput) {
+        this.userInput = userInput;
     }
 
     /**
      * Deletes task at index inside userInput.
      */
     public void execute() {
-        if (this.userInput.length == 1) {
-            Ui ui = new Ui();
-            ui.empty_description_error();
-            CommandLog.deleteLatestLoggedCommand();
-            return;
+        Ui ui = new Ui();
+        try {
+            anomaly.detect(userInput);
+            int taskIndex = Integer.parseInt(userInput[0]);
+            Hustler.list.snoozeTask(taskIndex, userInput);
+        } catch (CommandLineException e) {
+            ui.show_message(e.getMessage());
         }
-        ParserForCommand doneParser = new ParserForCommand("snooze");
-        int taskIndex = doneParser.parseIndex(this.userInput[1]).intValue();
-        Hustler.list.snoozeTask(taskIndex, userInput);
     }
 }

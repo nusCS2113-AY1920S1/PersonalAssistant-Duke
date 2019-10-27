@@ -71,26 +71,6 @@ public class TaskList {
     }
 
     /**
-<<<<<<< HEAD
-     * Checks whether list is empty or not.
-     *
-     * @return true or false to whether the internal ArrayList is empty or not.
-     */
-    public boolean isEmpty() {
-        return list.isEmpty();
-    }
-
-    public TaskList createCopy() {
-        ArrayList<Task> AL = new ArrayList<Task>();
-	    for (int i = 0; i < this.list.size(); i += 1) {
-            AL.add(this.list.get(i));
-        }
-        return new TaskList(AL);
-    }
-
-    /**
-=======
->>>>>>> 2feeec7ec17483f4577ed826f26dcf09a6b142eb
      * Adds a new Task to the task list.
      *
      * @param task new Task to be added.

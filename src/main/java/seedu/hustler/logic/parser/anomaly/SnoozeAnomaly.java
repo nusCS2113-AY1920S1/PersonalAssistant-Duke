@@ -1,48 +1,56 @@
 package seedu.hustler.logic.parser.anomaly;
 
 import seedu.hustler.Hustler;
-
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
+import seedu.hustler.logic.CommandLineException;
 
 import static seedu.hustler.parser.DateTimeParser.getDateTime;
 
 /**
- * Detect anomalies in snooze command input.
+ * Detects snooze anomalies in user input.
  */
 public class SnoozeAnomaly extends DetectAnomaly {
 
+    /**
+     * Detects anomalies for input.
+     *
+     * @param userInput input for which anomaly is detected
+     */
     @Override
-    public boolean detect(String[] userInput) {
-        if (userInput.length != 4) {
-            System.out.println("Incorrect format for snooze command.");
-            return true;
+    public void detect(String[] userInput) throws CommandLineException {
+        String[] splitInput = userInput[1].split(" ");
+
+        if (splitInput.length != 3) {
+            throw new CommandLineException("Incorrect format for snooze command.");
         }
 
-        int index = Integer.parseInt(userInput[1]);
+        int index;
+        try {
+            index = Integer.parseInt(splitInput[0]);
+        } catch (NumberFormatException e) {
+            throw new CommandLineException("Please enter a number after the command.");
+        }
+
         if (index >= Hustler.list.size()) {
-            System.out.println("The task index provided is invalid");
-            return true;
+            throw new CommandLineException("The task index provided is invalid.");
         }
 
         // 1st method to snooze
-        if (userInput[2].contains("/")) {
-            String dateTimeString = userInput[2] + " " + userInput[3];
-            if(getDateTime(dateTimeString) == null) {
-                return true;
+        if (splitInput[1].contains("/")) {
+            String dateTimeString = splitInput[1] + " " + splitInput[2];
+            if (getDateTime(dateTimeString) == null) {
+                throw new CommandLineException("Invalid date and time format.");
             }
-            return false;
         } else {
             // 2nd method to snooze
-            String period = userInput[3];
+            String period = splitInput[3];
             period.toLowerCase();
             String[] validPeriods = {"minutes", "hours", "days", "weeks", "months"};
             for (String validPeriod : validPeriods) {
                 if (period.equals(validPeriod)) {
-                    return true;
+                    return;
                 }
             }
-            return false;
+            throw new CommandLineException("Invalid input period.");
         }
     }
 }
