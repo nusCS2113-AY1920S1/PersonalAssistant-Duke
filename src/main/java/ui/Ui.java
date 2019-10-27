@@ -131,7 +131,7 @@ public class Ui {
     }
 
     /**
-     * Shows a list of words ordered by their search count in ascending or descending displayOrder as specified by the user.
+     * Shows a list of words ordered by their search count in ascending or descending displayOrder as specified.
      * @param wordCount a main class object containing the word bank content
      * @param order the displayOrder (asc/desc) in which to display the word list
      * @return a string to show list of words and their search count
