@@ -30,7 +30,7 @@ public class RemindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
-        if (isIndexValid(indexOfTask,tasks.getSize())) {
+        if (!isIndexValid(indexOfTask,tasks.getSize())) {
             throw new ChronologerException(ChronologerException.taskDoesNotExist());
         }
 
