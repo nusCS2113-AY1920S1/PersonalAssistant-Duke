@@ -30,6 +30,7 @@ public class PostponeParser extends IndexParser {
         try {
             dateString = postponeCommandParts[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
+            logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         }
         if (dateString.contains("-")) {
@@ -49,6 +50,7 @@ public class PostponeParser extends IndexParser {
             newFromDate = DateTimeExtractor.extractDateTime(obtainStartDate, command);
             newToDate = DateTimeExtractor.extractDateTime(obtainEndDate, command);
         } catch (ParseException e) {
+            logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
     }
@@ -57,6 +59,7 @@ public class PostponeParser extends IndexParser {
         try {
             newFromDate = DateTimeExtractor.extractDateTime(dateString, command);
         } catch (ParseException e) {
+            logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
     }

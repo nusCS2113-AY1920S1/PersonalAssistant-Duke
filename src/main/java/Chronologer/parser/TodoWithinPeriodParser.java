@@ -35,12 +35,14 @@ public class TodoWithinPeriodParser extends TodoParser {
         try {
             from = dateTimeFromUser.split("-", 2)[0].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
+            logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         }
         LocalDateTime startDate;
         try {
             startDate = DateTimeExtractor.extractDateTime(from, command);
         } catch (ParseException e) {
+            logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
         return startDate;
@@ -52,12 +54,14 @@ public class TodoWithinPeriodParser extends TodoParser {
         try {
             to = dateTimeFromUser.split("-", 2)[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
+            logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         }
         LocalDateTime endDate;
         try {
             endDate = DateTimeExtractor.extractDateTime(to, command);
         } catch (ParseException e) {
+            logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
         return endDate;

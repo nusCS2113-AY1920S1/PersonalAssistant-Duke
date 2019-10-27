@@ -34,7 +34,7 @@ public class EditCommand extends Command {
         if ((isIndexValid(indexOfTask, tasks.getSize()))) {
             Task taskToEdit = tasks.editTaskDescription(indexOfTask, newDescription);
             storage.saveFile(tasks.getTasks());
-            UiTemporary.printOutput("Noted. Your new task description is:" + "\n " + taskToEdit.description);
+            UiTemporary.printOutput("Noted. Your new task description is:" + "\n " + taskToEdit.getDescription());
         }
     }
 }

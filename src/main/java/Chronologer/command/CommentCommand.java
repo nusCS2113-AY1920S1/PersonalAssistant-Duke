@@ -39,7 +39,7 @@ public class CommentCommand extends Command {
         if (isIndexValid(indexOfTask, tasks.getSize())) {
             Task taskToEdit = tasks.editTaskComment(indexOfTask, comment);
             storage.saveFile(tasks.getTasks());
-            UiTemporary.printOutput("Noted. Your new task comment is:" + "\n " + taskToEdit.comment);
+            UiTemporary.printOutput("Noted. Your new task comment is:" + "\n " + taskToEdit.getComment());
         }
     }
 

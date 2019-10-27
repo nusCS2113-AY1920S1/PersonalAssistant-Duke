@@ -1,6 +1,5 @@
 package chronologer.exception;
 
-import chronologer.ui.Ui;
 import chronologer.ui.UiTemporary;
 
 /**
@@ -13,29 +12,29 @@ import chronologer.ui.UiTemporary;
  */
 public class ChronologerException extends Exception {
     private static final String WRONG_FORMAT_MSG = "OOPS!!! The date or time of this add type command is not of the "
-                                                    + "correct format. See the manual above!";
+            + "correct format. See the manual above!";
     private static final String TASK_CLASH_MSG = "OOPS!!! There is already a task scheduled at the same time, use view "
-                                                    + "command to check your schedule for the day";
+            + "command to check your schedule for the day";
     private static final String MISSING_DESCRIPTION_MSG = "OOPS!!! The description of the command is missing. See "
-                                                    + "the manual above!";
-    private static final String UNKNOWN_COMMAND_MSG = "OOPS!!! The command you have entered is not of a valid type. " 
-                                                    + "See the manual above!";
+            + "the manual above!";
+    private static final String UNKNOWN_COMMAND_MSG = "OOPS!!! The command you have entered is not of a valid type. "
+            + "See the manual above!";
     private static final String MISSING_DATETIME_MSG = "OOPS!!! The date or time of this add type command is missing. "
-                                                    + "See the manual above!";
-    private static final String NONEXISTING_TASK_MSG = "OOPS!!! The task you searched for does not exist. " 
-                                                    + "See the manual above!";
+            + "See the manual above!";
+    private static final String NONEXISTING_TASK_MSG = "OOPS!!! The task you searched for does not exist. "
+            + "See the manual above!";
     private static final String WRITE_ERROR_MSG = "OOPS!!! Unable to write file. The program will be terminated.";
     private static final String READ_ERROR_MSG = "OOPS!!! Unable to read from file. The program will be terminated.";
     private static final String NONEXISTING_CLASS_MSG = "OOPS!!! Unable to extract certain features of the Duke Project"
-                                                    + " Please ensure the project was imported properly";
+            + " Please ensure the project was imported properly";
     private static final String MISSING_FILE_MSG = "OOPS!!! Unable to read from previous task list. "
-                                                    + "A new file has been created for you";
+            + "A new file has been created for you";
     private static final String MISSING_PRIORITY_MSG = "OOPS!!! The new priority level is missing. "
-                                                    + "Please try typing the command again.";
+            + "Please try typing the command again.";
     private static final String INAVLID_PRIORITY_MSG = "OOPS!!! The new priority level is invalid. "
-                                                    + "It must be either high,medium or low.Please try again";
+            + "It must be either high,medium or low.Please try again";
     private static final String INVALID_INDEX_MSG = "OOPS!!! The index given is invalid. "
-                                                    + "It must be a existing index in the list. Please try again";
+            + "It must be a existing index in the list. Please try again";
     private static final String INVALID_LOCATION_MSG = "OOPS!!! The location portion is not provided. Please try again";
     private static final String MISSING_COMMENT_MSG = "OOPS!!! The comment section is empty. Please try again";
 

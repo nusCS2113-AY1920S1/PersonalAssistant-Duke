@@ -64,9 +64,9 @@ public class AddCommand extends Command {
         switch (command) {
         case "todo":
             if (formattedStartDate != null) {
-                task = new TodoWithinPeriod(taskFeatures, formattedStartDate, formattedEndDate);
+                task = new Todo(taskFeatures, formattedStartDate, formattedEndDate);
             } else if (duration != 0) {
-                task = new TodoWithDuration(taskFeatures, duration);
+                task = new Todo(taskFeatures, duration);
             } else {
                 task = new Todo(taskFeatures);
             }

@@ -58,15 +58,16 @@ public class SearchCommand extends Command {
         } else {
             for (int i = 0; i < dateList.size(); i++) {
                 if (i != 0) {
-                    duration = ChronoUnit.HOURS.between(dateList.get(i - 1).endDate, dateList.get(i).startDate);
+                    duration = ChronoUnit.HOURS.between(dateList.get(i - 1).getEndDate(),
+                            dateList.get(i).getStartDate());
                 } else {
-                    duration = ChronoUnit.HOURS.between(LocalDateTime.now(), dateList.get(i).startDate);
+                    duration = ChronoUnit.HOURS.between(LocalDateTime.now(), dateList.get(i).getStartDate());
                 }
                 if (durationToFind <= duration) {
                     if (i != 0) {
                         UiTemporary.printOutput(
-                            "Next free time slot of duration " + Long.toString(durationToFind) + "hrs is between \n"
-                                + dateList.get(i - 1).toString() + " and " + dateList.get(i).toString());
+                                "Next free time slot of duration " + Long.toString(durationToFind) + "hrs is between \n"
+                                        + dateList.get(i - 1).toString() + " and " + dateList.get(i).toString());
                     } else {
                         UiTemporary.printOutput("You can schedule something from now till " + dateList.get(i).toString());
                     }

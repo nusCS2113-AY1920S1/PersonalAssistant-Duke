@@ -33,6 +33,7 @@ public class ScheduleParser extends IndexParser {
         try {
             convertedIndex = Integer.parseInt(extractedIndex) - 1;
         } catch (NumberFormatException e) {
+            logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.unknownUserCommand());
         }
 
