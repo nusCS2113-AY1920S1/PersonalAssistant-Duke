@@ -1,6 +1,5 @@
 package javacake.commands;
 
-import javacake.Duke;
 import javacake.Logic;
 import javacake.exceptions.DukeException;
 import javacake.storage.Profile;
@@ -91,8 +90,13 @@ public class HelpCommand extends Command {
      * @return String of instructions to guide user on goto command.
      */
     private String gotoHelp() {
-        stringBuilder.append("- ").append("goto 'X' [X = {1,2,..}]").append("\n");
-        stringBuilder.append("Command to jump to next index of contents displayed after calling 'list'").append("\n");
+        stringBuilder.append("Command to jump to next index of content!").append("\n");
+        stringBuilder.append("- ").append("Simply type 'goto [index]' where [index] is the index you wish to view.");
+        stringBuilder.append("\n");
+        stringBuilder.append("- ").append("E.g. goto '1' will bring you to the content in index 1.").append("\n");
+        stringBuilder.append("- ").append("E.g. goto '1.2' will bring you to ");
+        stringBuilder.append("- ").append("index 1 followed by 2!").append("\n");
+        stringBuilder.append("- ").append("You get the point!").append("\n");
         return stringBuilder.toString();
     }
 
@@ -154,7 +158,7 @@ public class HelpCommand extends Command {
      * @return String of instructions to guide user on editnote command.
      */
     private String editNoteHelp() {
-        stringBuilder.append("- ").append("overview").append("\n");
+        stringBuilder.append("- ").append("editnote").append("\n");
         stringBuilder.append("Command to edit the pre-existing note created by you!").append("\n");
         stringBuilder.append("View the notes available on the right window!").append("\n");
         stringBuilder.append("Simply type in 'editnote [name of note]' to edit!").append("\n");
@@ -167,7 +171,7 @@ public class HelpCommand extends Command {
      * @return String of instructions to guide user on listnote command.
      */
     private String listNoteHelp() {
-        stringBuilder.append("- ").append("overview").append("\n");
+        stringBuilder.append("- ").append("listnote").append("\n");
         stringBuilder.append("Command to list all the pre-existing note created by you!").append("\n");
         stringBuilder.append("Simply type in 'listnote' to refresh the list of notes!").append("\n");
         return stringBuilder.toString();

@@ -123,7 +123,7 @@ public class MainWindow extends AnchorPane {
                 // find out if exit condition
                 handleExit();
                 System.out.println("EXIT");
-            } else if (input.contains("listnote")) {
+            } else if (input.equals("listnote")) {
                 showListNotesBox();
             } else if (input.contains("createnote")) {
                 response = duke.getResponse(input);
