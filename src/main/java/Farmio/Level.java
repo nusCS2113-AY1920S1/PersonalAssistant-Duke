@@ -36,12 +36,26 @@ public class Level {
         hint = (String) object.get("hint");
     }
 
+    /**
+     * Get the narrative of the level
+     * @return the list of narrative
+     */
     public ArrayList<String> getNarratives(){
         return narratives;
     }
+
+    /**
+     * Get hint for completing the level
+     * @return the hint
+     */
     public String getHint() {
         return hint;
     }
+
+    /**
+     * Get path for simulation of the level's narrative
+     * @return the file path
+     */
     public String getPath(){
         return filePath;
     }
@@ -148,6 +162,10 @@ public class Level {
         return "";
     }
 
+    /**
+     * Get the list of goals to be completed
+     * @return the list of goals
+     */
     public Map<String, Integer> getGoals() {
         Map<String, Integer> goals = new HashMap< String,Integer>();
         goals.put("Gold", endGold);
@@ -158,6 +176,10 @@ public class Level {
         return goals;
     }
 
+    /**
+     * Get the main objective of the level
+     * @return the objective of the level
+     */
     public String getObjective() {
         return objective;
     }

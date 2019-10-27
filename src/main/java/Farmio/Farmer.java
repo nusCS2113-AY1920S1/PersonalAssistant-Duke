@@ -39,7 +39,7 @@ public class Farmer {
     private ArrayList<Double> levelList = new ArrayList<Double>(Arrays.asList(1.1,1.2,1.3,1.4,1.5,1.6,2.1,2.2));
 
     public Farmer() {
-        this.gold = 20;
+        this.gold = 10;
         this.level = 1.1;
         this.day = 1;
         this.location = "WheatFarm";
@@ -130,6 +130,10 @@ public class Farmer {
         return tasks;
     }
 
+    /**
+     * Checks if curent task has failed and resets current task
+     * @return true if current task has failed and false otherwise
+     */
     public boolean isHasfailedCurrentTask() {
         if (hasfailedCurrentTask) {
             currentTask = -1;
@@ -137,8 +141,15 @@ public class Farmer {
         }
         return false;
     }
+
+    /**
+     * Reverts task list execution failure
+     */
     public void resetTaskFailed() {hasfailedCurrentTask = false;}
 
+    /**
+     * Sets task list execution as failed
+     */
     public void setTaskFailed() {
         hasfailedCurrentTask = true;
     }
@@ -155,10 +166,18 @@ public class Farmer {
         gold += profit;
     }
 
+    /**
+     * Gets the index of the current task in execution
+     * @return the index of the current task
+     */
     public int getCurrentTask() {
         return this.currentTask;
     }
 
+    /**
+     * Increases the level
+     * @return the next level number. 0 if current level is not registered or game has ended
+     */
     public double nextLevel(){
         if (level < levelList.get(levelList.size() - 1)) {
             level = levelList.get(levelList.indexOf(level) + 1);
@@ -167,7 +186,12 @@ public class Farmer {
         return 0;
     }
 
-    public void startDay(Farmio farmio) throws FarmioException, FarmioFatalException {
+    /**
+     * Takes care of TaskList execution and handles task failure
+     * @param farmio The game where the day should be started
+     * @throws FarmioFatalException if file from action's simulation cannot be found
+     */
+    public void startDay(Farmio farmio) throws FarmioFatalException {
         try {
             for (int i = 0; i < tasks.size(); i++) {
                 this.currentTask = i;
@@ -180,11 +204,10 @@ public class Farmer {
         }
     }
 
-    public void nextDay() throws FarmioException, FarmioFatalException {
+    public void nextDay() {
         wheatFarm.growSeedlings();
         day += 1;
     }
-
 
     public JSONObject toJSON(){
         JSONObject obj = new JSONObject();

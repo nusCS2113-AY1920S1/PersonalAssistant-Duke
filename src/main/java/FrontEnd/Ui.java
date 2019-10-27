@@ -6,38 +6,72 @@ public class Ui {
     private Scanner scanner;
     private final String CLEAR_SCREEN = "\033c" + "\033[2J";
 
+    /**
+     * Creates a user interface object
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Prints the message in the terminal
+     * @param message to be printed
+     */
     public void show(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Prints the exit message
+     */
     public void showExit(){
         typeWriter("Bye-Bye", false);
     }
 
+    /**
+     * Prints an error in the terminal
+     * @param message to be printed as an error
+     */
     public void showError(String message) {
         show("Error: " + message);
     }
 
+    /**
+     * Prints a warning in the terminal
+     * @param message as the warning message
+     */
     public void showWarning(String message) {
         show(AsciiColours.RED + "Warning: " + message + AsciiColours.SANE);
     }
 
-    public void clearScreen() {
+    /**
+     * Clears the screen
+     */
+    void clearScreen() {
         System.out.println(CLEAR_SCREEN);
     }
 
+    /**
+     * Prints a message as an info
+     * @param message as the info message
+     */
     public void showInfo(String message) {
         show(AsciiColours.CYAN + "Info: " + AsciiColours.SANE + message );
     }
 
+    /**
+     * Gets user input
+     * @return the user input
+     */
     public String getInput() {
         show("\nInput: ");
         return scanner.nextLine().replace("[","").replace("]","");
     }
+
+    /**
+     * Delays the program
+     * @param delay time in milliseconds
+     */
     public void sleep(int delay) {
         try{
             Thread.sleep(delay);
@@ -47,6 +81,12 @@ public class Ui {
             showWarning("Simulator refersh interrupted! Interface may not display correctly.");
         }
     }
+
+    /**
+     * Prints text to the terminal type writer style
+     * @param text to be printed
+     * @param hasPressEnter if 'Press ENTER' should be added to the print
+     */
     public void typeWriter(String text, boolean hasPressEnter) {
         final char LEVEL_BEGIN_PLACEHOLDER = '~';
         boolean isNewline = false;
@@ -62,7 +102,7 @@ public class Ui {
                 isNewline = true;
                 lineLength = 0;
             } else if (text.charAt(i) == LEVEL_BEGIN_PLACEHOLDER) {
-                System.out.println("\n" + " ".repeat(44) + AsciiColours.GREEN + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE + "\n");
+                System.out.println("\n" + " ".repeat(GameConsole.FULL_CONSOLE_WIDTH / 2 - 8) + AsciiColours.GREEN + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE + "\n");
                 return;
             }
             System.out.printf("%c", text.charAt(i));
@@ -73,7 +113,7 @@ public class Ui {
             sleep(10);
         }
         if (hasPressEnter) {
-            show("\n\n" + " ".repeat(74) + "Press [ENTER] to continue..");
+            show("\n\n" + " ".repeat(GameConsole.FULL_CONSOLE_WIDTH - GameConsole.USER_CODE_SECTION_WIDTH) + "Press [ENTER] to continue..");
         }
         show("");
     }
