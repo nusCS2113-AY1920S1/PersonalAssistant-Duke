@@ -113,9 +113,11 @@ class ImpressionWindow extends UiElement<Region> {
      */
     private EvidenceCard newEvidenceCard(Evidence evidence) {
         if (evidence instanceof Observation) {
-            return new ObservationCard((Observation) evidence);
+            // TODO: index
+            return new ObservationCard((Observation) evidence, 0);
         } else if (evidence instanceof Result) {
-            return new ResultCard((Result) evidence);
+            // TODO: index
+            return new ResultCard((Result) evidence, 0);
         } else {
             return null;
         }
@@ -128,11 +130,14 @@ class ImpressionWindow extends UiElement<Region> {
      */
     private TreatmentCard newTreatmentCard(Treatment treatment) {
         if (treatment instanceof Investigation) {
-            return new InvestigationCard((Investigation) treatment);
+            // TODO: index
+            return new InvestigationCard((Investigation) treatment, 0);
         } else if (treatment instanceof Medicine) {
-            return new MedicineCard((Medicine) treatment);
+            // TODO: index
+            return new MedicineCard((Medicine) treatment, 0);
         } else if (treatment instanceof Plan) {
-            return new PlanCard((Plan) treatment);
+            // TODO: index
+            return new PlanCard((Plan) treatment, 0);
         } else {
             return null;
         }

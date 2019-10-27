@@ -46,7 +46,8 @@ class HomeWindow extends UiElement<Region> {
      */
     private void initialisePatientList() {
         for (Map.Entry<String, Patient> pair : patientMap.getPatientObservableMap().entrySet()) {
-            patientListPanel.getChildren().add(new PatientCard(pair.getValue()));
+            // TODO: index
+            patientListPanel.getChildren().add(new PatientCard(pair.getValue(),0));
         }
     }
 
@@ -57,9 +58,11 @@ class HomeWindow extends UiElement<Region> {
     private void attachPatientListListener() {
         patientMap.getPatientObservableMap().addListener((MapChangeListener<String, Patient>) change -> {
             if (change.wasAdded()) {
-                patientListPanel.getChildren().add(new PatientCard(change.getValueAdded()));
+                // TODO: index
+                patientListPanel.getChildren().add(new PatientCard(change.getValueAdded(), 0));
             } else if (change.wasRemoved()) {
-                patientListPanel.getChildren().remove(new PatientCard(change.getValueRemoved()));
+                // TODO: index
+                patientListPanel.getChildren().remove(new PatientCard(change.getValueRemoved(), 0));
             }
         });
     }

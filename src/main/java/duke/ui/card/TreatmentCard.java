@@ -24,9 +24,10 @@ public abstract class TreatmentCard extends UiCard {
      *
      * @param fxmlFileName Name of FXML file.
      * @param treatment    Treatment object.
+     * @param index        Displayed index.
      */
-    public TreatmentCard(String fxmlFileName, Treatment treatment) {
-        super(fxmlFileName);
+    public TreatmentCard(String fxmlFileName, Treatment treatment, int index) {
+        super(fxmlFileName, index);
 
         this.treatment = treatment;
         fillTreatmentCard();

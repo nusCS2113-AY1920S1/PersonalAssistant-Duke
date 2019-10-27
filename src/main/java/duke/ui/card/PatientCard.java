@@ -25,9 +25,10 @@ public class PatientCard extends UiCard {
      * Constructs a PatientCard object with the specified {@code Patient}'s details.
      *
      * @param patient Patient object.
+     * @param index   Displayed index.
      */
-    public PatientCard(Patient patient) {
-        super(FXML);
+    public PatientCard(Patient patient, int index) {
+        super(FXML, index);
 
         this.patient = patient;
         fillPatientCard();

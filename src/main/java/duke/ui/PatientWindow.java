@@ -64,12 +64,16 @@ class PatientWindow extends UiElement<Region> {
         patient.getImpressionsObservableMap().addListener((MapChangeListener<String, Impression>) change -> {
             if (change.wasAdded()) {
                 if (change.getValueAdded().equals(patient.getPrimaryDiagnosis())) {
-                    impressionsListPanel.getItems().add(0, new ImpressionCard(change.getValueAdded(), true));
+                    // TODO: index
+                    impressionsListPanel.getItems().add(0,
+                            new ImpressionCard(change.getValueAdded(), true, 0));
                 } else {
-                    impressionsListPanel.getItems().add(new ImpressionCard(change.getValueAdded(), false));
+                    // TODO: index
+                    impressionsListPanel.getItems().add(new ImpressionCard(change.getValueAdded(), false, 0));
                 }
             } else if (change.wasRemoved()) {
-                impressionsListPanel.getItems().remove(new ImpressionCard(change.getValueRemoved(), false));
+                // TODO: index
+                impressionsListPanel.getItems().remove(new ImpressionCard(change.getValueRemoved(), false, 0));
             }
         });
     }
@@ -102,11 +106,13 @@ class PatientWindow extends UiElement<Region> {
             if (pair.getValue().equals(patient.getPrimaryDiagnosis())) {
                 primaryImpression = pair.getValue();
             } else {
-                impressionsListPanel.getItems().add(new ImpressionCard(pair.getValue(), false));
+                // TODO: index
+                impressionsListPanel.getItems().add(new ImpressionCard(pair.getValue(), false, 0));
             }
 
             if (primaryImpression != null) {
-                impressionsListPanel.getItems().add(0, new ImpressionCard(primaryImpression, true));
+                // TODO: index
+                impressionsListPanel.getItems().add(0, new ImpressionCard(primaryImpression, true, 0));
             }
         }
     }
