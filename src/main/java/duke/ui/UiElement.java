@@ -14,7 +14,7 @@ import static java.util.Objects.requireNonNull;
  *
  * @param <T> Root node's type.
  */
-abstract class UiElement<T> {
+public abstract class UiElement<T> {
     private static final String FXML_FILE_FOLDER = "/view/";
 
     private final FXMLLoader fxmlLoader = new FXMLLoader();
@@ -26,7 +26,7 @@ abstract class UiElement<T> {
      *
      * @param fxmlFileName Name of FXML file.
      */
-    UiElement(String fxmlFileName, T root) {
+    public UiElement(String fxmlFileName, T root) {
         loadFxmlFile(getFxmlFileUrl(fxmlFileName), root);
     }
 
@@ -63,7 +63,7 @@ abstract class UiElement<T> {
     /**
      * Returns the root element of this UiElement.
      */
-    T getRoot() {
+    public T getRoot() {
         return fxmlLoader.getRoot();
     }
 }
