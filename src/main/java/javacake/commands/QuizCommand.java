@@ -6,6 +6,7 @@ import javacake.Parser;
 import javacake.exceptions.DukeException;
 import javacake.storage.Profile;
 import javacake.storage.Storage;
+import javacake.storage.StorageManager;
 import javacake.ui.TopBar;
 import javacake.ui.Ui;
 import javacake.quiz.Question;
@@ -109,15 +110,13 @@ public class QuizCommand extends Command {
 
     /**
      * Executes the quiz.
-     * @param logic how far the program is currently in in the table of contents.
-     * @param ui the UI responsible for inputs and outputs of the program.
-     * @param storage Storage to write updated data.
-     * @param profile Profile of the user.
+     * @param logic TaskList containing current tasks
+     * @param ui the Ui responsible for outputting messages
+     * @param storageManager storage container
      * @throws DukeException Error thrown when there is a problem with score calculation.
      */
     @Override
-    public String execute(Logic logic, Ui ui, Storage storage, Profile profile)
-            throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
         logic.insertQueries();
         assert !logic.containsDirectory();
         this.filePath = logic.getFullFilePath();
@@ -144,10 +143,10 @@ public class QuizCommand extends Command {
         ui.displayResults(currScore, MAX_QUESTIONS);
         String nextCommand = ui.readCommand();
         if (nextCommand.equals("review")) {
-            return new ReviewCommand(chosenQuestions).execute(logic, ui, storage, profile);
+            return new ReviewCommand(chosenQuestions).execute(logic, ui, storageManager);
         } else {
             Command newCommand = Parser.parse(nextCommand);
-            return newCommand.execute(logic, ui, storage, profile);
+            return newCommand.execute(logic, ui, storageManager);
         }
     }
 

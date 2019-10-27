@@ -154,11 +154,16 @@ public class TopBar extends HBox {
      * Method to set up progressBars.
      */
     public static void setUpProgressBars() {
-        TopBar.progValueA = (double) Duke.profile.getContentMarks(0) / QuizCommand.MAX_QUESTIONS;
-        TopBar.progValueB = (double) Duke.profile.getContentMarks(1) / QuizCommand.MAX_QUESTIONS;
-        TopBar.progValueC = (double) Duke.profile.getContentMarks(2) / QuizCommand.MAX_QUESTIONS;
-        TopBar.progValueD = (double) Duke.profile.getContentMarks(3) / QuizCommand.MAX_QUESTIONS;
-        TopBar.progValueT = (double) Duke.profile.getTotalProgress() / (QuizCommand.MAX_QUESTIONS * 4);
+        TopBar.progValueA = (double) Duke.storageManager.profile.getContentMarks(0)
+                / QuizCommand.MAX_QUESTIONS;
+        TopBar.progValueB = (double) Duke.storageManager.profile.getContentMarks(1)
+                / QuizCommand.MAX_QUESTIONS;
+        TopBar.progValueC = (double) Duke.storageManager.profile.getContentMarks(2)
+                / QuizCommand.MAX_QUESTIONS;
+        TopBar.progValueD = (double) Duke.storageManager.profile.getContentMarks(3)
+                / QuizCommand.MAX_QUESTIONS;
+        TopBar.progValueT = (double) Duke.storageManager.profile.getTotalProgress()
+                / (QuizCommand.MAX_QUESTIONS * 4);
     }
 
 }

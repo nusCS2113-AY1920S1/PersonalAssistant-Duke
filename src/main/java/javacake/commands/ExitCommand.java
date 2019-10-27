@@ -2,6 +2,7 @@ package javacake.commands;
 
 import javacake.Logic;
 import javacake.storage.Profile;
+import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 import javacake.storage.Storage;
 
@@ -14,12 +15,11 @@ public class ExitCommand extends Command {
      * Executes exiting the program.
      * @param logic TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
-     * @param storage Storage needed to write the updated data
-     * @param profile Profile of the user
+     * @param storageManager storage container
      * @return
      */
     @Override
-    public String execute(Logic logic, Ui ui, Storage storage, Profile profile) {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) {
         return "Bye. Hope to see you again soon!\n";
     }
 }

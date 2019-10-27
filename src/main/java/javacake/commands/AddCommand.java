@@ -3,6 +3,7 @@ package javacake.commands;
 import javacake.exceptions.DukeException;
 import javacake.Logic;
 import javacake.storage.Profile;
+import javacake.storage.StorageManager;
 import javacake.storage.TaskList;
 import javacake.ui.Ui;
 import javacake.storage.Storage;
@@ -23,16 +24,16 @@ public class AddCommand extends Command {
      * Execute addition of tasks.
      * @param logic TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
-     * @param storage Storage needed to write the updated data
-     * @param profile Profile of the user
+     * @param storageManager storage container
      * @throws DukeException Shows error when deletion is not possible
      * @return
      */
     @Override
-    public String execute(Logic logic, Ui ui, Storage storage, Profile profile) throws DukeException {
-        String output = TaskList.runDeadline(storage.currentTaskData.getData(), input, TaskList.TaskState.NOT_DONE);
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+        String output = TaskList.runDeadline(storageManager.storage.currentTaskData.getData(),
+                input, TaskList.TaskState.NOT_DONE);
         Storage.generateFolder(new File("data/tasks/"));
-        storage.write(storage.currentTaskData.getData());
+        storageManager.storage.write(storageManager.storage.currentTaskData.getData());
         return output;
 
 

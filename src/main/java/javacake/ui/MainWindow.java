@@ -254,7 +254,7 @@ public class MainWindow extends AnchorPane {
 
     private void handleStartAndFirstTime() throws DukeException {
         duke.userName = input;
-        duke.profile.overwriteName(duke.userName);
+        duke.storageManager.profile.overwriteName(duke.userName);
         response = Ui.showWelcomeMsgPhaseB(duke.isFirstTimeUser, duke.userName, duke.userProgress);
         showContentContainer();
         isStarting = false;
@@ -263,11 +263,12 @@ public class MainWindow extends AnchorPane {
     private void handleResetConfirmation() throws DukeException {
         if (input.equals("yes")) {
             //resets
-            duke.profile.resetProfile();
-            duke.storage.resetStorage();
-            duke.profile = new Profile();
-            duke.userProgress = duke.profile.getTotalProgress();
-            duke.userName = duke.profile.getUsername();
+            duke.storageManager.profile.resetProfile();
+            duke.storageManager.storage.resetStorage();
+            duke = new Duke();
+            //            duke.profile = new Profile();
+            duke.userProgress = duke.storageManager.profile.getTotalProgress();
+            duke.userName = duke.storageManager.profile.getUsername();
             duke.isFirstTimeUser = true;
             showRemindersBox();
             response = "Reset confirmed!\nPlease type in new username:\n";
@@ -387,12 +388,12 @@ public class MainWindow extends AnchorPane {
     }
 
     private void showListNotesBox() throws DukeException {
-        response = Ui.showNoteList(duke.storage, duke.profile);
+        response = Ui.showNoteList(duke.storageManager);
         showNoteContainer();
     }
 
     private void showRemindersBox() {
-        response = Ui.showDeadlineReminder(duke.storage, duke.profile);
+        response = Ui.showDeadlineReminder(duke.storageManager);
         //CHECKSTYLE:OFF
         response = response.replaceAll("✓", "\u2713");
         response = response.replaceAll("✗", "\u2717");
