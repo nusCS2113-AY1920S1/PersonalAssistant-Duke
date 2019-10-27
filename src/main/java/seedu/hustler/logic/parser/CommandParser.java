@@ -54,7 +54,7 @@ public class CommandParser extends Parser {
         } else if (userInput[0].equals("/delete")) {
             CommandLog.recordCommand(rawInput);
             return new DeleteCommand(userInput);
-        } else if (userInput[0].equals("redo")) {
+        } else if (userInput[0].equals("/redo")) {
             return new RedoCommand(userInput);
         } else if (userInput[0].equals("/list")) {
             return new ListCommand(userInput);
