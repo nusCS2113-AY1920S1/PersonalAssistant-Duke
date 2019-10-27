@@ -12,10 +12,11 @@ import cube.ui.MainWindow;
 public class MainApp extends Application {
 
     private StorageManager storageManager;
-    private FileUtilJson storage;
+    private FileUtilJson<StorageManager> storage;
 
     public void init(String filePath) {
-        storage = new FileUtilJson(filePath);
+        storageManager = new StorageManager();
+        storage = new FileUtilJson<>(filePath, "cube.json", storageManager);
 
         try {
             storageManager = storage.load();

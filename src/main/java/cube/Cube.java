@@ -12,12 +12,14 @@ import cube.util.FileUtilJson;
 import cube.storage.*;
 import cube.exception.CubeException;
 
+import java.util.ArrayList;
+
 
 public class Cube {
 
     private StorageManager storageManager;
     private ModelManager modelManager;
-    private FileUtilJson storage;
+    private FileUtilJson<StorageManager> storage;
     private FoodList foodList;
     private SalesHistory salesHistory;
     private Ui ui;
@@ -29,19 +31,17 @@ public class Cube {
      */
     public Cube(String filePath) {
         ui = new Ui();
-        storage = new FileUtilJson(filePath);
+        storageManager = new StorageManager();
+        storage = new FileUtilJson<>(filePath, "cube.json", storageManager);
 
         try {
             storageManager = storage.load();
             foodList = storageManager.getFoodList();
             salesHistory = storageManager.getSalesHistory();
-            modelManager = new ModelManager(foodList, new SalesHistory());
+            modelManager = new ModelManager(foodList, salesHistory);
             Food.updateRevenue(storageManager.getRevenue());
         } catch (CubeException e) {
             ui.showLoadingError(filePath);
-            storageManager = new StorageManager();
-            foodList = new FoodList();
-            salesHistory = new SalesHistory();
             modelManager = new ModelManager();
         }
     }

@@ -5,11 +5,9 @@
  */
 package cube.storage;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import cube.model.food.FoodList;
 
 public class FoodStorage {
-	@JsonProperty
 	private FoodList foodList;
 
 	/**
