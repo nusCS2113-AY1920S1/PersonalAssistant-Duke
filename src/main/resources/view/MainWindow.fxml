@@ -37,7 +37,8 @@
           </Menu>
           <Menu mnemonicParsing="false" text="View">
             <items>
-              <MenuItem mnemonicParsing="false" text="Blank" />
+              <MenuItem id="budgetMenu" mnemonicParsing="false" text="Budget" />
+                  <MenuItem mnemonicParsing="false" text="Blank" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -71,7 +72,6 @@
                       <Tab text="Deadline" />
                         <Tab text="Event" />
                         <Tab text="Repeat" />
-                        <Tab text="DoAfter" />
                         <Tab text="FixedDuration" />
                     </tabs>
                      <opaqueInsets>

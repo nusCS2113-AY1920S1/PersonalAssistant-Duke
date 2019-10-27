@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.task.Deadline;
-import duke.task.DoAfter;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -78,8 +77,6 @@ class UpdateCommTest {
         items.add(task);
         task = new Deadline("homework", "07/07/2017 1707");
         items.add(task);
-        task = new DoAfter("movie", "walk");
-        items.add(task);
 
         try {
             items.get(0).setDateTime("07/07/2017 1707");
@@ -92,12 +89,6 @@ class UpdateCommTest {
             fail(); // the test should not reach this line
         } catch (Exception e) {
             assertEquals("Unparseable date: \"08/08/2018\"", e.getMessage());
-        }
-        try {
-            items.get(2).setDateTime("09/09/2019");
-            fail(); // the test should not reach this line
-        } catch (Exception e) {
-            assertEquals("     Error! This task does not have date/time.", e.getMessage());
         }
     }
 }

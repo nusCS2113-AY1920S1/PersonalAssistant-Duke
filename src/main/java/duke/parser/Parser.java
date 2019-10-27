@@ -33,7 +33,6 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Repeat;
-import duke.task.DoAfter;
 import duke.task.FixedDuration;
 import duke.task.DetectDuplicate;
 import duke.task.Contacts;
@@ -226,39 +225,6 @@ public class Parser {
                     }
                 }
                 return new AddCommand(taskObj);
-            }
-        } else if (arr.length > ZERO && (arr[ZERO].equals("doafter") || arr[ZERO].equals("da"))) {
-            //doafter <task> /after <pre-requisite task>
-            String afterTaskDesc = "";
-            boolean detectBackSlash = false;
-            for (int i = ONE; i < arr.length; i++) {
-                if ((arr[i].trim().isEmpty() || !arr[i].substring(ZERO, ONE).equals("/")) && !detectBackSlash) {
-                    taskDesc += arr[i] + " ";
-                } else {
-                    if (!detectBackSlash) {
-                        detectBackSlash = true;
-                    } else {
-                        afterTaskDesc += arr[i] + " ";
-                    }
-                }
-            }
-            taskDesc = taskDesc.trim();
-            afterTaskDesc = afterTaskDesc.trim();
-            if (taskDesc.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[ZERO] + " cannot be empty.");
-            } else if (afterTaskDesc.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! The description of Task for "
-                        + arr[ZERO] + " cannot be empty.");
-            } else {
-                String currentTasks = items.getList();
-                if (currentTasks.contains(afterTaskDesc)) {
-                    Task taskObj;
-                    taskObj = new DoAfter(taskDesc, afterTaskDesc);
-                    return new AddCommand(taskObj);
-                } else {
-                    throw new DukeException("(>_<) OOPS!!! You cant set a "
-                            + arr[ZERO] + " task for a task that is not in the list!");
-                }
             }
         } else if (arr.length > ZERO && (arr[ZERO].equals("repeat") || arr[ZERO].equals("rep"))) {
             //repeat <task> /from <date time> /for 3 <day/week/month>

@@ -93,7 +93,6 @@ public class Duke {
         }
         try {
             budgetList = new BudgetList(budgetStorage.read());
-            System.out.println(budgetList);
         } catch (IOException e) {
             ui.showLoadingError();
             budgetList = new BudgetList();

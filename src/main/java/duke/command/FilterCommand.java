@@ -7,7 +7,6 @@ import duke.ui.Ui;
 import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.FixedDuration;
-import duke.task.DoAfter;
 import duke.task.Repeat;
 import duke.task.Event;
 
@@ -70,9 +69,6 @@ public class FilterCommand extends Command {
             } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
                 filterList.add(items.get(i));
                 filterList.setFilterIndex(FOUR);
-            } else if (taskType.equals("doafter") && items.get(i) instanceof DoAfter) {
-                filterList.add(items.get(i));
-                filterList.setFilterIndex(FIVE);
             } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
                 filterList.add(items.get(i));
                 filterList.setFilterIndex(SIX);

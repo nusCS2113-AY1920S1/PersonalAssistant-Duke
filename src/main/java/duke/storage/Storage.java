@@ -7,7 +7,6 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Repeat;
-import duke.task.DoAfter;
 import duke.task.FixedDuration;
 import duke.ui.Ui;
 
@@ -140,16 +139,6 @@ public class Storage {
                         throw new DukeException("Error reading description or date/time, skipping to next line");
                     } else {
                         t = new Repeat(taskDesc, dateDesc);
-                        t.setStatusIcon(checked);
-                        t.setNotes(notesDesc);
-                        items.add(t);
-                    }
-                } else if (commandList[ZERO].equals("A")) {
-                    if (taskDesc.isEmpty() || afterDesc.isEmpty()) {
-                        throw new DukeException("Error reading description or do after description,"
-                                + " skipping to next line");
-                    } else {
-                        t = new DoAfter(taskDesc, afterDesc);
                         t.setStatusIcon(checked);
                         t.setNotes(notesDesc);
                         items.add(t);
