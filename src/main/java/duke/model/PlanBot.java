@@ -76,6 +76,11 @@ public class PlanBot {
             }
             PlanDialog knownDialog = new PlanDialog(knownAttributes.toString(), Agent.BOT);
             dialogObservableList.add(knownDialog);
+        }else {
+            dialogObservableList.add(new PlanDialog("Hi, seems like this is the first time using Duke++. "
+                    + "Let me plan your budget for you!"
+                    + " Alternatively, type \"goto expense\" to start using Duke++!"
+                    ,Agent.BOT));
         }
         try {
             planQuestionBank = new PlanQuestionBank();

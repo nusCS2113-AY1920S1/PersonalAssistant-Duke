@@ -64,7 +64,12 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
 
         displayedPane = CommandResult.DisplayedPane.EXPENSE;
+        if(logic.getExternalExpenseList().isEmpty()){
+            //initial boot
+            displayedPane = CommandResult.DisplayedPane.PLAN;
+        }
         fillInnerPart();
+
 
         inputHistory = new InputHistory();
         autoCompleter = new AutoCompleter();

@@ -86,7 +86,8 @@ public class PlanQuestionBank {
         question7.addNeighbouring("2", 8);
         questionList.put(7, question7);
 
-        PlanQuestion question8 = new PlanQuestion("How much does is each meal that you pay for cost? <money amount>",
+        PlanQuestion question8 = new PlanQuestion("How much does each meal that you pay for "
+                + "cost on average? <money amount>",
                 DOUBLE,
                 DOUBLE,
                 "AVERAGE_MEAL_COST");
