@@ -1,5 +1,6 @@
 package duke.logic.command.order;
 
+import duke.commons.core.LogsCenter;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.logic.parser.commons.CliSyntax;
@@ -17,6 +18,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import static java.util.Objects.requireNonNull;
 
@@ -49,6 +51,8 @@ public class AddOrderCommand extends OrderCommand {
 
     private final OrderDescriptor addOrderDescriptor;
 
+    private static final Logger logger = LogsCenter.getLogger(AddOrderCommand.class);
+
     /**
      * Creates an AddOrderCommand to add the specified {@code Order}.
      *
@@ -76,6 +80,7 @@ public class AddOrderCommand extends OrderCommand {
 
         model.commit(MESSAGE_COMMIT);
 
+        logger.info(String.format("Added new order [%s]", toAdd.getId()));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getId()), CommandResult.DisplayedPage.ORDER);
     }
 
