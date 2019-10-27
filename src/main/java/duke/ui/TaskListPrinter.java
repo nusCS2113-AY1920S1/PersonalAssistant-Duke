@@ -16,7 +16,7 @@ public class TaskListPrinter {
 			}
 			Task t = list.get(i);
 			curr += " | " + t.getPriority();
-			curr += " | " + t.getRecurring();
+			curr += " | " + t.getRecurrenceCode();
 			curr += " | " + t.getDuration();
 			curr += " |   " + t.getStatusIcon();
 			curr += "   | " + t.getDescription();

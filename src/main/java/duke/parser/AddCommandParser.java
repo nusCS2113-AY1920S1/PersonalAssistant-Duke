@@ -2,9 +2,9 @@ package duke.parser;
 
 import duke.command.AddCommand;
 import duke.exception.DukeException;
+import duke.extensions.Recurrence;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Optional;
 
 public class AddCommandParser implements Parser<AddCommand> {
@@ -12,9 +12,8 @@ public class AddCommandParser implements Parser<AddCommand> {
     String taskType;
 
     int duration = 0;
-    Optional<String> filter ;
-    Optional<LocalDateTime> dateTime = Optional.empty();;
-    Optional<String> recurrencePeriod = Optional.empty();;
+    Optional<LocalDateTime> dateTime = Optional.empty();
+    Optional<String> recurrence = Optional.empty();
 
     private void getKeywordAndFields(String rawParameters) throws DukeException {
         String[] splitParameters = rawParameters.split(" -");
@@ -28,11 +27,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             String field = s[1];
             switch (keyword) {
                 case "r":
-                    if (field.equals("daily") || field.equals("weekly")) {
-                        recurrencePeriod = Optional.of(field);
-                    } else {
-                        throw new DukeException("Please enter an acceptable recurrence period.");
-                    }
+                    recurrence = Optional.of(field);
                     break;
                 case "d":
                     try {
@@ -58,6 +53,6 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(Optional<String> filter, String args) throws DukeException {
         getTypeAndDescription(args);
         getKeywordAndFields(args);
-        return new AddCommand(filter, dateTime, recurrencePeriod, description, taskType, duration);
+        return new AddCommand(filter, dateTime, recurrence, description, taskType, duration);
     }
 }

@@ -2,6 +2,8 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.extensions.AbnormalityChecker;
+import duke.extensions.Recurrence;
+import duke.extensions.RecurrencePeriod;
 import duke.storage.Storage;
 import duke.task.*;
 import duke.tasklist.TaskList;
@@ -23,13 +25,13 @@ public class AddCommand extends Command {
     int duration;
     Optional<String> filter;
     Optional<LocalDateTime> dateTime;
-    Optional<String> recurrencePeriod;
+    Recurrence recurrence;
 
 
-    public AddCommand(Optional<String> filter, Optional<LocalDateTime> dateTime, Optional<String> recurrencePeriod, String description, String taskType, int duration) throws DukeException {
+    public AddCommand(Optional<String> filter, Optional<LocalDateTime> dateTime, Optional<String> recurrence, String description, String taskType, int duration) throws DukeException {
         this.filter = filter;
         this.dateTime = dateTime;
-        this.recurrencePeriod = recurrencePeriod;
+        this.recurrence = new Recurrence(recurrence);
         this.description = description;
         this.taskType = taskType;
         this.duration = duration;
@@ -39,14 +41,14 @@ public class AddCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, DukeException {
         switch (taskType) {
             case "task":
-                Task newTask = new Task(filter, dateTime, recurrencePeriod, description, duration);
+                Task newTask = new Task(filter, dateTime, recurrence, description, duration);
                 tasks.add(newTask);
                 break;
             case "event":
                 if (dateTime.isEmpty()) {
                     throw new DukeException("Your event needs to have a starting time.");
                 }
-                Event newEvent = new Event(filter, dateTime, recurrencePeriod, description, duration);
+                Event newEvent = new Event(filter, dateTime, recurrence, description, duration);
                 AbnormalityChecker abnormalityChecker = new AbnormalityChecker(tasks);
                 if (abnormalityChecker.checkEventClash(newEvent)) {
                     System.out.println("There is a clash with another event at the same time");

@@ -1,5 +1,6 @@
 package duke.command;
 
+import com.sun.source.tree.UsesTree;
 import duke.exception.DukeException;
 import duke.parser.DateTimeParser;
 import duke.parser.KeywordAndField;
@@ -54,6 +55,9 @@ public class EditCommand extends Command {
                     } catch (NumberFormatException e) {
                         throw new DukeException("Please enter a numerical field for the duration!");
                     }
+                    break;
+                case "r":
+                    t.setRecurrence(edit);
                     break;
                 default:
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what field you are trying to edit!");
