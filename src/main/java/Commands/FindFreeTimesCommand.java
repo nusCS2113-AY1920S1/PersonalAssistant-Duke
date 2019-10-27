@@ -129,6 +129,8 @@ public class FindFreeTimesCommand extends Command {
      * @throws Exception On date parsing error
      */
     public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
+        if(duration < 1 || duration > 16) return "Invalid duration\n" + "Please enter the command in the format:\n" +
+                "find 'x' hours, where 'x' is between 1 - 16";
         mapDataMap(events);
         checkDataMap(); //TODO: remove
         findFindTime();
@@ -197,7 +199,7 @@ public class FindFreeTimesCommand extends Command {
         else return false;
     }
 
-    private void generateFindTime() throws ParseException {
+    private void generateFreeTime() throws ParseException {
         if (checkFreeTimeOptions() == false) {
             Integer size = freeTimeData.size();
             Pair<Date, Date> last;
@@ -206,29 +208,44 @@ public class FindFreeTimesCommand extends Command {
                 String strCurrDateDay = dateDayFormat.format(currDate) + " 12:00 AM";
                 currDate = dateTimeFormat12.parse(strCurrDateDay);
                 currDate = increaseZeroSevenZeroZero(currDate);
-                //currDate = roundByHalfHourMark(currDate);
                 currDate = increaseDateTime(currDate, 24);
                 last = new Pair<>(currDate, increaseDateTime(currDate, duration));
+                freeTimeData.add(last);
+                size = 1;
             }
             else {
                 last = freeTimeData.get(size-1);
             }
-            for(int i = 1; i <= (options-size); i++){
+
+
+            for(int i = size; i < options; i++){
                 Date tempStart = last.getKey();
                 Date tempEnd = last.getValue();
                 String currDate = dateDayFormat.format(tempStart) + " 12:00 AM";
                 Date dateBoundary = dateTimeFormat12.parse(currDate);
                 Date dateUpperBoundary = increaseToTwoThreeFiveNine(dateBoundary);
                 Date dateLowerBoundary = increaseZeroSevenZeroZero(dateBoundary);
-                Pair<Date, Date> newFreeTime;
-                if(increaseDateTime(tempStart,i).after(dateLowerBoundary) && increaseDateTime(tempEnd, i).before(dateUpperBoundary)) {
-                    newFreeTime = new Pair<>(increaseDateTime(tempStart,i), increaseDateTime(tempEnd, i));
-                } else {
-                    tempStart = increaseDateTime(dateLowerBoundary, 24);
-                    tempEnd = increaseDateTime(tempStart, duration);
-                    newFreeTime = new Pair<>(increaseDateTime(tempStart,i), increaseDateTime(tempEnd, i));
+
+                Pair<Date, Date> newFreeTime = null;
+                Date dateTimeStart = increaseDateTime(tempStart, 1);
+                Date dateTimeEnd = increaseDateTime(tempEnd, 1);
+
+                if(dateTimeStart.after(dateLowerBoundary) && dateTimeEnd.before(dateUpperBoundary)) {
+                    newFreeTime = new Pair<>(dateTimeStart, dateTimeEnd);
+                } else if(dateTimeStart.before(dateLowerBoundary) && dateTimeEnd.before(dateUpperBoundary)) {
+                    dateTimeStart = dateLowerBoundary;
+                    dateTimeEnd = increaseDateTime(dateTimeStart, duration);
+                    if(dateTimeEnd.before(dateUpperBoundary)) newFreeTime = new Pair<>(dateTimeStart, dateTimeEnd);
                 }
-                freeTimeData.add(newFreeTime);
+                else if (dateTimeEnd.after(dateUpperBoundary)){
+                    dateTimeStart = increaseDateTime(dateLowerBoundary, 24);
+                    dateTimeEnd = increaseDateTime(dateTimeStart, duration);
+                    newFreeTime = new Pair<>(dateTimeStart, dateTimeEnd);
+                }
+//                if(newFreeTime != null) {
+                    last = newFreeTime;
+                    freeTimeData.add(last);
+//                }
             }
         }
     }
@@ -300,7 +317,7 @@ public class FindFreeTimesCommand extends Command {
                 }
             }
         }
-        generateFindTime();
+        generateFreeTime();
     }
 
     /**
@@ -323,6 +340,7 @@ public class FindFreeTimesCommand extends Command {
      * This method generates the output to be shown
      */
     private void setOutput(){
+        compiledFreeTimes.clear();
         for (int i = 0; i < freeTimeData.size(); i++) {
             String compiledFreeTimeToShow;
             String compiledFreeTime;
