@@ -2,11 +2,9 @@ package duke.model;
 
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
-import duke.logic.Parser.Parser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -58,6 +56,8 @@ public class PlanBot {
      */
     private PlanQuestion currentQuestion;
 
+    private PlanQuestionBank.PlanRecommendation planBudgetRecommendation;
+
     /**
      * Constructor for PlanBot.
      *
@@ -90,7 +90,14 @@ public class PlanBot {
         if (questionQueue.isEmpty()) {
             currentQuestion = null;
             try {
-                dialogList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes), Agent.BOT));
+                dialogList.add(new PlanDialog(planQuestionBank
+                        .makeRecommendation(planAttributes)
+                        .getRecommendation(), Agent.BOT));
+                planBudgetRecommendation = planQuestionBank
+                        .makeRecommendation(planAttributes);
+                dialogList.add(new PlanDialog("Here's a recommended budget for you, "
+                        + "type \"export\" to export the budget",
+                        Agent.BOT));
             } catch (DukeException e) {
                 dialogList.add(new PlanDialog(e.getMessage(), Agent.BOT));
             }
@@ -116,23 +123,35 @@ public class PlanBot {
     public void processInput(String input) throws DukeException {
         dialogObservableList.add(new PlanDialog(input, Agent.USER));
         if (currentQuestion == null) {
-            PlanDialog emptyQueueDialog = new PlanDialog("Based on what you've told me, here's a recommended budget plan!", Agent.BOT);
+            PlanDialog emptyQueueDialog = new PlanDialog("Based on what you've told me, "
+                    + "here's a recommended budget plan!", Agent.BOT);
             dialogObservableList.add(emptyQueueDialog);
-            dialogObservableList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes), Agent.BOT));
+            dialogObservableList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes)
+                    .getRecommendation(),
+                    Agent.BOT));
+            planBudgetRecommendation = planQuestionBank.makeRecommendation(planAttributes);
+            dialogList.add(new PlanDialog("Here's a recommended budget for you, "
+                    + "type \"export\" to export the budget", Agent.BOT));
         } else {
             try {
                 PlanQuestion.Reply reply = currentQuestion.getReply(input, planAttributes);
                 questionQueue.clear();
                 questionQueue.addAll(planQuestionBank.getQuestions(planAttributes));
                 logger.info("\n\n\nQueue size: " + questionQueue.size());
+
                 dialogObservableList.add(new PlanDialog(reply.getText(), Agent.BOT));
                 planAttributes = reply.getAttributes();
                 if (!questionQueue.isEmpty()) {
                     currentQuestion = questionQueue.peek();
                     dialogObservableList.add(new PlanDialog(currentQuestion.getQuestion(), Agent.BOT));
                     questionQueue.remove();
-                }else {
-                    dialogObservableList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes), Agent.BOT));
+                } else {
+                    dialogObservableList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes)
+                            .getRecommendation(),
+                            Agent.BOT));
+                    planBudgetRecommendation = planQuestionBank.makeRecommendation(planAttributes);
+                    dialogList.add(new PlanDialog("Here's a recommended budget for you, "
+                            + "type \"export\" to export the budget", Agent.BOT));
                 }
             } catch (DukeException e) {
                 dialogObservableList.add(new PlanDialog(e.getMessage(), Agent.BOT));
@@ -140,13 +159,13 @@ public class PlanBot {
         }
     }
 
-
-
+    public PlanQuestionBank.PlanRecommendation getPlanBudgetRecommendation() {
+        return planBudgetRecommendation;
+    }
 
     public Map<String, String> getPlanAttributes() {
         return planAttributes;
     }
-
 
 
     /**

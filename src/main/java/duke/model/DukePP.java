@@ -129,6 +129,11 @@ public class DukePP implements Model {
         return planBot.getPlanAttributes();
     }
 
+    @Override
+    public PlanQuestionBank.PlanRecommendation getRecommendedBudgetPlan() {
+        return planBot.getPlanBudgetRecommendation();
+    }
+
     //******************************** Operations for other data....
     //******************************** For example, operations of monthly income list.
     //    todo: add other data operations

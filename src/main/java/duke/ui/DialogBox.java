@@ -7,7 +7,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -18,24 +17,27 @@ public class DialogBox extends UiPart<Region> {
     public final PlanBot.PlanDialog dialog;
 
 
-
     @FXML
     private Label text;
     @FXML
     VBox textContainer;
 
+    /**
+     * Controller for dialog box in PlanPane.
+     * @param dialog the dialog object given by PlanBot
+     */
     public DialogBox(PlanBot.PlanDialog dialog) {
         super(FXML_FILE_NAME, null);
         this.dialog = dialog;
         text.setText(dialog.text);
         text.setBackground(new Background(new BackgroundFill(Color.LAVENDER, new CornerRadii(5), Insets.EMPTY)));
-        if(dialog.agent == PlanBot.Agent.USER) {
+        if (dialog.agent == PlanBot.Agent.USER) {
             textContainer.setAlignment(Pos.BOTTOM_RIGHT);
-        }else {
+        } else {
             text.setAlignment(Pos.BOTTOM_LEFT);
+            text.setBackground(new Background(new BackgroundFill(Color.SANDYBROWN, new CornerRadii(5), Insets.EMPTY)));
         }
     }
-
 
 
 }

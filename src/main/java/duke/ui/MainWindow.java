@@ -82,7 +82,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void fillInnerPart() {
-        expensePane = new ExpensePane(logic.getExternalExpenseList(),logic);
+        expensePane = new ExpensePane(logic.getExternalExpenseList(), logic);
         logger.info("The filled externalList length " + logic.getExternalExpenseList().size());
         trendingPane = new TrendingPane();
         logger.info("trendingPane is constructed.");
@@ -100,17 +100,15 @@ public class MainWindow extends UiPart<Stage> {
 
         // this part should be unnecessary
         switch (displayedPane) {
-            case EXPENSE:
-                expensePane.getRoot().setVisible(true);
-                break;
+        case TRENDING:
+            trendingPane.getRoot().setVisible(true);
+            break;
 
-            case TRENDING:
-                trendingPane.getRoot().setVisible(true);
-                break;
-
-            case PLAN:
-                planPane.getRoot().setVisible(true);
-                break;
+        case PLAN:
+            planPane.getRoot().setVisible(true);
+            break;
+        default: //Expense pane
+            expensePane.getRoot().setVisible(true);
         }
 
         // todo: add more data parts to be added.
@@ -132,7 +130,9 @@ public class MainWindow extends UiPart<Stage> {
             fillInnerPart();
             showPane(commandResult);
 
-            if (commandResult.isExit()) Platform.exit();
+            if (commandResult.isExit()) {
+                Platform.exit();
+            }
 
         } catch (DukeException e) {
             console.setText(e.getMessage());
@@ -146,17 +146,17 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
-            case UP:
-                if(inputHistory.isAbleToLast()) {
-                    userInput.setText(inputHistory.getLastInput());
-                }
-                break;
+        case UP:
+            if (inputHistory.isAbleToLast()) {
+                userInput.setText(inputHistory.getLastInput());
+            }
+            break;
 
-            case DOWN:
-                if(inputHistory.isAbleToNext()) {
-                    userInput.setText(inputHistory.getNextInput());
-                }
-                break;
+        case DOWN:
+            if (inputHistory.isAbleToNext()) {
+                userInput.setText(inputHistory.getNextInput());
+            }
+            break;
         }
     }
 
