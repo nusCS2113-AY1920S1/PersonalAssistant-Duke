@@ -35,7 +35,7 @@ public class PlanBotCommand extends Command {
 
     @Override
     public CommandResult execute(CommandParams commandParams, Model model, Storage storage) throws DukeException {
-        if (commandParams.getMainParam().contains("export")) {
+        if (commandParams.getMainParam() != null && commandParams.getMainParam().contains("export")) {
             try {
                 for (String category : model.getRecommendedBudgetPlan().getPlanBudget().keySet()) {
                     model.setCategoryBudget(category, model.getRecommendedBudgetPlan().getPlanBudget().get(category));

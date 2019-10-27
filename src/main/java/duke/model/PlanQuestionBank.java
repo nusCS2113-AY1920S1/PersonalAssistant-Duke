@@ -272,9 +272,8 @@ public class PlanQuestionBank {
                     phoneBillExpenseBuilder.setAmount(phoneBill);
                     phoneBillExpenseBuilder.setDescription("Phone bill");
                     phoneBillExpenseBuilder.setRecurring(true);
-                    Expense phoneBillExpense = phoneBillExpenseBuilder.build();
-                    phoneBillExpense.tags.add("phone bill");
-                    recommendationExpenseList.add(phoneBillExpense);
+                    phoneBillExpenseBuilder.invertTags("phone bill");
+                    recommendationExpenseList.add(phoneBillExpenseBuilder.build());
                 }
 
                 if (planAttributes.get("NETFLIX").equals("TRUE")) {
@@ -287,9 +286,8 @@ public class PlanQuestionBank {
                     netflixExpenseBuilder.setAmount("4.25");
                     netflixExpenseBuilder.setDescription("Netflix");
                     netflixExpenseBuilder.setRecurring(true);
-                    Expense netflixExpense = netflixExpenseBuilder.build();
-                    netflixExpense.tags.add("phone bill");
-                    recommendationExpenseList.add(netflixExpense);
+                    netflixExpenseBuilder.invertTags("netflix");
+                    recommendationExpenseList.add(netflixExpenseBuilder.build());
                 }
                 if (planAttributes.get("MUSIC_SUBSCRIPTION").equals("TRUE")) {
                     recommendation.append("Spotify has a student plan that is only $5 a month! \n"
@@ -299,9 +297,8 @@ public class PlanQuestionBank {
                     spotifyExpenseBuilder.setAmount("5.00");
                     spotifyExpenseBuilder.setDescription("Spotify");
                     spotifyExpenseBuilder.setRecurring(true);
-                    Expense spotifyExpense = spotifyExpenseBuilder.build();
-                    spotifyExpense.tags.add("phone bill");
-                    recommendationExpenseList.add(spotifyExpense);
+                    spotifyExpenseBuilder.invertTags("spotify");
+                    recommendationExpenseList.add(spotifyExpenseBuilder.build());
                 }
             }
 
