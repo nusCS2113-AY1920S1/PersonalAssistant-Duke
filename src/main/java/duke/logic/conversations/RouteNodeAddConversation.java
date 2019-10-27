@@ -70,7 +70,7 @@ public class RouteNodeAddConversation extends Conversation {
      */
     @Override
     protected void buildResult() {
-        if (!nodeIndex.equals("0")) {
+        if (!"0".equals(nodeIndex)) {
             result = command + " " + routeIndex + " " + nodeIndex + " at " + name + " by " + constraint;
         } else {
             result = command + " " + routeIndex + " at " + name + " by " + constraint;

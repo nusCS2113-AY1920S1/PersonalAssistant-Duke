@@ -4,6 +4,7 @@ import duke.model.Event;
 import duke.model.lists.RouteList;
 import duke.model.lists.EventList;
 import duke.model.locations.BusStop;
+import duke.model.locations.CustomNode;
 import duke.model.locations.TrainStation;
 import duke.model.transports.Route;
 import duke.model.locations.RouteNode;
@@ -54,11 +55,12 @@ public class CommandResultText extends CommandResult {
         for (RouteNode node: route.getNodes()) {
             message += "(" + index + ") ";
             if (node instanceof BusStop) {
-                message += ((BusStop) node).getBusCode() + " ";
+                message += ((BusStop) node).getBusCode() + " " + node.getAddress() + "\n";
             } else if (node instanceof TrainStation) {
-                message += ((TrainStation) node).getTrainCodes() + " ";
+                message += ((TrainStation) node).getTrainCodes() + " " + node.getDescription() + "\n";
+            } else if (node instanceof CustomNode)  {
+                message += node.getAddress() + "\n";
             }
-            message += node.getAddress() + "\n";
             index++;
         }
     }

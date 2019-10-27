@@ -2,7 +2,6 @@ package duke.model;
 
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.QueryFailedException;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.logic.CreateMap;
 import duke.model.lists.EventList;

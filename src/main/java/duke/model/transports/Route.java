@@ -1,7 +1,6 @@
 package duke.model.transports;
 
 import duke.commons.exceptions.NullResultException;
-import duke.commons.exceptions.QueryFailedException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.model.locations.BusStop;

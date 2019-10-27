@@ -31,38 +31,38 @@ public class ConversationParser {
      */
     public static Conversation parse(String input) throws DukeUnknownCommandException {
         switch (input) {
-            case "done":
-                return new MarkDoneConversation();
-            case "delete":
-                return new DeleteConversation();
-            case "findtime":
-                return new FreeTimeConversation();
-            case "busStop":
-                return new GetBusStopConversation();
-            case "findPath":
-                return new FindPathConversation();
-            case "find":
-                return new FindConversation();
-            case "search":
-                return new SearchConversation();
-            case "routeAdd":
-                return new RouteAddConversation();
-            case "routeDelete":
-                return new RouteDeleteConversation();
-            case "routeEdit":
-                return new RouteEditConversation();
-            case "routeGenerate":
-                return new RouteGenerateConversation();
-            case "routeShow":
-                return new RouteListConversation();
-            case "routeNodeAdd":
-                return new RouteNodeAddConversation();
-            case "routeNodeDelete":
-                return new RouteNodeDeleteConversation();
-            case "routeNodeEdit":
-                return new RouteNodeEditConversation();
-            case "routeNodeShow":
-                return new RouteNodeListConversation();
+        case "done":
+            return new MarkDoneConversation();
+        case "delete":
+            return new DeleteConversation();
+        case "findtime":
+            return new FreeTimeConversation();
+        case "busStop":
+            return new GetBusStopConversation();
+        case "findPath":
+            return new FindPathConversation();
+        case "find":
+            return new FindConversation();
+        case "search":
+            return new SearchConversation();
+        case "routeAdd":
+            return new RouteAddConversation();
+        case "routeDelete":
+            return new RouteDeleteConversation();
+        case "routeEdit":
+            return new RouteEditConversation();
+        case "routeGenerate":
+            return new RouteGenerateConversation();
+        case "routeShow":
+            return new RouteListConversation();
+        case "routeNodeAdd":
+            return new RouteNodeAddConversation();
+        case "routeNodeDelete":
+            return new RouteNodeDeleteConversation();
+        case "routeNodeEdit":
+            return new RouteNodeEditConversation();
+        case "routeNodeShow":
+            return new RouteNodeListConversation();
         default:
             throw new DukeUnknownCommandException();
         }

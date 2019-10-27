@@ -10,7 +10,6 @@ import duke.commons.exceptions.DukeException;
 import duke.logic.api.requests.DataMallHttpRequest;
 import duke.logic.api.requests.StaticMapUrlRequest;
 import duke.model.locations.BusStop;
-import duke.model.locations.RouteNode;
 import duke.model.locations.Venue;
 import duke.model.transports.BusService;
 import javafx.scene.image.Image;

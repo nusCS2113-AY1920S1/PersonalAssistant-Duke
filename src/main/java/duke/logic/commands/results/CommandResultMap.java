@@ -1,6 +1,5 @@
 package duke.logic.commands.results;
 
-import duke.model.locations.RouteNode;
 import duke.model.locations.Venue;
 
 import java.util.ArrayList;

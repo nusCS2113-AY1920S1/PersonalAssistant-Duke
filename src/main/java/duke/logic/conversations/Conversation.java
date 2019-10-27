@@ -77,7 +77,7 @@ public abstract class Conversation {
      * @return If the input is a field of a Route.
      */
     protected boolean isRouteField(String input) {
-        if (input.equals("name") || input.equals("description")) {
+        if ("name".equals(input) || "description".equals(input)) {
             return true;
         } else {
             attempts++;
@@ -93,8 +93,8 @@ public abstract class Conversation {
      * @return If the input is a field of a RouteNode.
      */
     protected boolean isRouteNodeField(String input) {
-        if (input.equals("address") || input.equals("description") || input.equals("type") || input.equals("latitude")
-                || input.equals("longitude")) {
+        if ("address".equals(input) || "description".equals(input) || "type".equals(input) || "latitude".equals(input)
+                || "longitude".equals(input)) {
             return true;
         } else {
             attempts++;

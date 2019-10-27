@@ -165,8 +165,6 @@ public class CreateMap {
      * @throws QueryFailedException If the TrainStation cannot be found.
      */
     public TrainStation getTrainStation(String query) throws QueryFailedException {
-
-        HashMap<String, TrainStation> allTrainStations = trainMap;
         if (trainMap.containsKey(query)) {
             return trainMap.get(query);
         }

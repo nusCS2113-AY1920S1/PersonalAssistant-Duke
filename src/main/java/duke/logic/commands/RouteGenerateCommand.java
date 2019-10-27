@@ -24,8 +24,6 @@ import duke.model.transports.Route;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static duke.logic.PathFinder.generateInbetweenNodes;
-
 /**
  * Generates a route based on 2 locations.
  */
