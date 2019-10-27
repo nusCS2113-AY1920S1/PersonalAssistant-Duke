@@ -1,4 +1,4 @@
-package seedu.hustler.command;
+package seedu.hustler.logic.command;
 
 import java.io.IOException;
 
