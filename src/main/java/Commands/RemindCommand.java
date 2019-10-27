@@ -1,6 +1,8 @@
 package Commands;
 
 import DukeExceptions.DukeException;
+import DukeExceptions.DukeInvalidDateTimeException;
+import DukeExceptions.DukeInvalidFormatException;
 import Interface.*;
 import Tasks.Task;
 import Tasks.TaskList;
@@ -41,7 +43,7 @@ public class RemindCommand extends Command {
      * @throws DukeException On invalid task and time input
      */
     @Override
-    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException {
+    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, DukeInvalidDateTimeException {
         reminder = storage.getReminderObject();
         reminder.setDeadlines(deadlines);
         HashMap<String, HashMap<String, ArrayList<Task>>> deadlineMap = deadlines.getMap();
@@ -51,19 +53,19 @@ public class RemindCommand extends Command {
         String reminderTime = dateFormat.format(time);
         if (!remind) {
             if (!remindMap.containsKey(time)) {
-                throw new DukeException("Sorry, you have no such reminder at that inputted time.");
+                throw new DukeInvalidDateTimeException("Sorry, you have no such reminder at that inputted time.");
             } else if (!remindMap.get(time).getDescription().equals(task.getDescription())) {
-                throw new DukeException("Sorry, you have no such reminder with inputted description at that time");
+                throw new DukeInvalidDateTimeException("Sorry, you have no such reminder with inputted description at that time");
             }
             reminder.removeTimerTask(task, time, reminderTime);
             return ui.showCancelReminder(task, reminderTime);
         }
         if (this.time.before(currentDate)) {
-            throw new DukeException("Sorry, you cannot set a time that has already passed!");
+            throw new DukeInvalidDateTimeException("Sorry, you cannot set a time that has already passed!");
         } else if (this.time.after(currentDate)) {
             if (timerHashMap.containsKey(time)) {
                 Task remindedTask = remindMap.get(time);
-                throw new DukeException("Sorry, you have a reminder set for " + remindedTask.getDescription() + " at: " + task.getDateTime());
+                throw new DukeInvalidDateTimeException("Sorry, you have a reminder set for " + remindedTask.getDescription() + " at: " + task.getDateTime());
             } else if (!deadlineMap.containsKey(task.getModCode())) {
                 throw new DukeException("Sorry, you have no such mod entered in your deadline table!");
             } else if (!deadlineMap.get(task.getModCode()).containsKey(task.getDate())) {

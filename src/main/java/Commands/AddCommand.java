@@ -1,5 +1,4 @@
 package Commands;
-import DukeExceptions.DukeException;
 import JavaFx.AlertBox;
 import Tasks.*;
 import Interface.*;
@@ -34,10 +33,8 @@ public class AddCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display add task message
      */
     @Override
-    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException {
+    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
         String out = "";
-        int con = 0;
-        boolean isOK = true;
         AlertBox AB = new AlertBox();
         ArrayList<String> conflict = new ArrayList<>();
 
@@ -68,10 +65,9 @@ public class AddCommand extends Command {
                 AB.display("Warning", out, show, Alert.AlertType.WARNING);
             }
         } else if (task.getType().equals("[D]")) {
-            int size = deadlines.taskListSize();
-                deadlines.addTask(this.task);
-                out = ui.showAdd(this.task, deadlines.taskListSize());
-                storage.updateDeadlineList(deadlines);
+            deadlines.addTask(this.task);
+            out = ui.showAdd(this.task, deadlines.taskListSize());
+            storage.updateDeadlineList(deadlines);
 
         }
         return out;

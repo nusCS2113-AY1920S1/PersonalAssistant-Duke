@@ -1,7 +1,7 @@
 package Parser;
 
 import Interface.LookupTable;
-
+import Interface.Duke;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,22 +15,13 @@ public class DateTimeParser {
     private static String[] dateTimeStringSplit;
     private static String[] dateStringSplit;
     private static String[] timeStringSplit;
-    private static LookupTable LT;
+    private static LookupTable LT = new LookupTable();
 
     private static SimpleDateFormat eventDateInputFormat = new SimpleDateFormat("dd/MM/yyyy"); //format date for event
     private static SimpleDateFormat eventTimeInputFormat = new SimpleDateFormat("HHmm"); //format time for event
     private static SimpleDateFormat dateOutputFormat = new SimpleDateFormat("E dd/MM/yyyy");
     private static SimpleDateFormat timeOutputFormat = new SimpleDateFormat("hh:mm a");
     private static SimpleDateFormat deadlineInputFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
-
-
-    static {
-        try {
-            LT = new LookupTable();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
     public static String[] EventParse(String input) throws ParseException {
@@ -150,8 +141,8 @@ public class DateTimeParser {
         String[] dateTime = {dateString, timeString, reminderDate};
         return dateTime;
     }
+
     public static Date deadlineStringToDate(String date) throws ParseException {
         return deadlineInputFormat.parse(date);
     }
-
 }

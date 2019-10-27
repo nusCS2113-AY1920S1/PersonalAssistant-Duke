@@ -3,6 +3,7 @@ package Parser;
 import Commands.Command;
 import Commands.ShowWorkloadCommand;
 import DukeExceptions.DukeInvalidCommandException;
+import DukeExceptions.DukeInvalidFormatException;
 import Interface.*;
 
 import java.io.IOException;
@@ -15,15 +16,8 @@ public class WorkloadParse extends Parse{
 
     private static String fullCommand;
     private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
-    private static LookupTable LT;
+    private static LookupTable LT = new LookupTable();
 
-    static {
-        try {
-            LT = new LookupTable();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     public WorkloadParse(String fullCommand) {
         this.fullCommand = fullCommand;
     }
@@ -34,7 +28,7 @@ public class WorkloadParse extends Parse{
     }
 
     @Override
-    public Command execute() throws Exception {
+    public Command execute() throws DukeInvalidFormatException {
         try {
             Date today = Calendar.getInstance().getTime();
             Date nextWeek = getNextWeekDate(today);
@@ -42,7 +36,7 @@ public class WorkloadParse extends Parse{
             String nextWeekDate = formatter.format(nextWeek);
             return new ShowWorkloadCommand(nextWeekDate);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeInvalidCommandException("OOPS!!! Please enter show workload as follows:\n" +
+            throw new DukeInvalidFormatException("OOPS!!! Please enter show workload as follows:\n" +
                     "/show workload");
         }
     }

@@ -1,5 +1,6 @@
 package Interface;
 import DukeExceptions.DukeException;
+import DukeExceptions.DukeInvalidDateTimeException;
 import JavaFx.AlertBox;
 import Tasks.Task;
 import Tasks.TaskList;
@@ -67,9 +68,9 @@ public class Reminder {
      * @param task The task where the reminder would be set
      * @throws DukeException On invalid date parameter
      */
-    public void setReminderThread(Date date, Task task) throws DukeException {
+    public void setReminderThread(Date date, Task task) throws DukeInvalidDateTimeException {
         if (timerMap.containsKey(date)) {
-            throw new DukeException("You already have a reminder set at that time. Please remove reminder and set again");
+            throw new DukeInvalidDateTimeException("You already have a reminder set at that time. Please remove reminder and set again");
         }
         Date currentDate = new Date();
         DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
@@ -106,7 +107,6 @@ public class Reminder {
                             });
                     notificationBuilder.show();
                     timer.cancel();
-//                    owner.close();
                     deadlines.setReminder(task , reminderTime, false);
                     remindMap.remove(date);
                     storage.updateDeadlineList(deadlines);

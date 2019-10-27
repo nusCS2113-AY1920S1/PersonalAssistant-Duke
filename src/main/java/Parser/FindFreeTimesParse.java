@@ -3,6 +3,7 @@ package Parser;
 import Commands.Command;
 import Commands.FindFreeTimesCommand;
 import DukeExceptions.DukeException;
+import DukeExceptions.DukeInvalidFormatException;
 
 public class FindFreeTimesParse extends Parse {
     private String fullCommand;
@@ -13,13 +14,13 @@ public class FindFreeTimesParse extends Parse {
     }
 
     @Override
-    public Command execute() throws DukeException {
+    public Command execute() throws DukeInvalidFormatException {
         fullCommand = fullCommand.replaceFirst("Find", "");
         fullCommand = fullCommand.trim();
         fullCommand = fullCommand.replaceFirst("hours", "");
         fullCommand = fullCommand.trim();
         if(fullCommand.isEmpty()){
-            throw new DukeException("Invalid input. Please enter the command as follows. \n" +
+            throw new DukeInvalidFormatException("Invalid input. Please enter the command as follows. \n" +
                     "Find 'x' hours , where 'x' is a digit");
         } else {
             duration = Integer.parseInt(fullCommand);

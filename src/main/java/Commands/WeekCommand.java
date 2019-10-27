@@ -18,15 +18,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class WeekCommand extends Command {
-    private static LookupTable LT;
+    private static LookupTable LT = new LookupTable();
     private static final Logger LOGGER = Logger.getLogger(WeekCommand.class.getName());
-    static {
-        try {
-            LT = new LookupTable();
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
-    }
     private String week;
     private final ObservableList<Text> monList = FXCollections.observableArrayList();
     private final ObservableList<Text> tueList = FXCollections.observableArrayList();

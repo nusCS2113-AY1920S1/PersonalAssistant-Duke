@@ -1,11 +1,10 @@
 package DukeExceptions;
 
-public class DukeIOException extends DukeException {
+import java.io.IOException;
+
+public class DukeIOException extends IOException {
     public DukeIOException(String message) {
         super(message);
     }
 
-    public DukeIOException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }

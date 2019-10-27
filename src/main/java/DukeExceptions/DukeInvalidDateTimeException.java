@@ -1,11 +1,9 @@
 package DukeExceptions;
 
-public class DukeInvalidDateTimeException extends DukeException {
+import java.text.ParseException;
+
+public class DukeInvalidDateTimeException extends Exception {
     public DukeInvalidDateTimeException(String message) {
         super(message);
-    }
-
-    public DukeInvalidDateTimeException(String message, Throwable cause) {
-        super(message, cause);
     }
 }

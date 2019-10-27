@@ -17,15 +17,8 @@ public class RecurParse extends Parse {
     private static String fullCommand;
     private static String[] split1;
     private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
-    private static LookupTable LT;
+    private static LookupTable LT = new LookupTable();
 
-    static {
-        try {
-            LT = new LookupTable();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     public RecurParse(String fullCommand) {
         this.fullCommand = fullCommand;
     }
@@ -52,11 +45,9 @@ public class RecurParse extends Parse {
             String startTimeString = in[2];
             String endTimeString = in[3];
             return new RecurringCommand(modCodeAndDescription, startDateString, endDateString, startTimeString, endTimeString);
-
-
         } catch (ParseException | ArrayIndexOutOfBoundsException e) {
             LOGGER.log(Level.INFO, e.toString(), e);
-            throw new DukeInvalidDateTimeException("OOPS!!! Please enter recurring event as follows:\n" +
+            throw new DukeInvalidFormatException("OOPS!!! Please enter recurring event as follows:\n" +
                     "recur/e modCode name_of_event /start dd/MM/yyyy to dd/MM/yyyy /from HHmm /to HHmm\n" +
                     "For example: recur/e CS1231 project meeting /start 1/10/2019 to 15/11/2019 /from 1500 /to 1700");
         }

@@ -1,11 +1,8 @@
 package DukeExceptions;
 
-public class DukeInvalidFormatException extends DukeException {
+public class DukeInvalidFormatException extends Exception {
     public DukeInvalidFormatException(String message) {
         super(message);
     }
 
-    public DukeInvalidFormatException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }

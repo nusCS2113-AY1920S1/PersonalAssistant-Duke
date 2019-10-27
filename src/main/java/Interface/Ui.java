@@ -57,8 +57,6 @@ public class Ui {
                 + listSize  + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
 
-
-
     /**
      * Displays the free time found with the template to be shown.
      * @param message The free times found
@@ -66,15 +64,6 @@ public class Ui {
      */
     public String showFreeTimes(String message){
         return ("You are available at: \n" + message);
-    }
-
-    /**
-     * Displays the chosen free time after the user select the best free time slot available.
-     * @param message The chosen free time
-     * @return The chosen free time. Otherwise, operation cancelled.
-     */
-    public String showFixedDurationTask(String message){
-        return message.equals(NO_FIELD) ? "Operation cancelled!\nPlease enter another command.": "Your selected task is been added.\n" + message;
     }
 
     /**
@@ -101,18 +90,14 @@ public class Ui {
     /**
      * Displays any of the DukeException error message caught throughout the program.
      */
-    public String showError(DukeException e){
+    public String showError(Exception e){
         return e.getMessage() + "\n";
     }
-
 
     public String showUserSchedule(String finalSchedule) {
         return "Here is your schedule which have been categorised into TODO, DEADLINE and EVENTS\n" +
                 finalSchedule;
     }
-
-
-
 
     /**
      * Displays the show reminder message when user enter a task with a period to do within
@@ -206,9 +191,6 @@ public class Ui {
             for (int i = 0; i < size; i++) {
                 output += (i + 1) + ". " + outputList.get(i);
             }
-
-            //System.out.println(output);
-
             return output;
         }
     }

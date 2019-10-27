@@ -6,7 +6,4 @@ public class DukeInvalidCommandException extends DukeException{
         super(message);
     }
 
-    public DukeInvalidCommandException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }

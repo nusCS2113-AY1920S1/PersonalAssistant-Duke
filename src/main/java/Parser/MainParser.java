@@ -1,6 +1,7 @@
 package Parser;
 import Commands.*;
 import DukeExceptions.DukeException;
+import DukeExceptions.DukeInvalidCommandException;
 
 public class MainParser {
     public static Command parse(String fullCommand) throws Exception {
@@ -48,7 +49,7 @@ public class MainParser {
                 return new ByeCommand();
 
             default:
-                throw new DukeException("Invalid input");
+                throw new DukeInvalidCommandException("Invalid input. Please type help to see all commands");
         }
     }
 }

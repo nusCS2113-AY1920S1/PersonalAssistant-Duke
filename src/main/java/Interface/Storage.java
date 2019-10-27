@@ -1,6 +1,7 @@
 package Interface;
+import DukeExceptions.DukeIOException;
+import DukeExceptions.DukeInvalidDateTimeException;
 import Tasks.*;
-import DukeExceptions.DukeException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -71,12 +72,10 @@ public class Storage {
             for (String date : allDates) {
                 ArrayList<Task> temp = map.get(mod).get(date);
                 for(Task task : temp) {
-                    assert outputStream != null;
                     outputStream.println(task.toString());
                 }
             }
         }
-        assert outputStream != null;
         outputStream.close();
     }
 
@@ -112,7 +111,6 @@ public class Storage {
             for (String date : allDates) {
                 ArrayList<Task> temp = map.get(mod).get(date);
                 for(Task task : temp) {
-                    assert outputStream != null;
                     outputStream.println(task.toString());
                 }
             }
@@ -120,16 +118,16 @@ public class Storage {
         outputStream.close();
     }
 
-    public void readDeadlineList(TaskList list) {
-        ArrayList<String> temp = null;
+    public void readDeadlineList(TaskList list) throws DukeIOException {
+        ArrayList<String> temp;
         try {
             File deadlineFile = new File(filePathDeadline);
             deadlineFile.createNewFile();
             temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathDeadline)));
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
+            throw new DukeIOException("There is no deadline.txt file to read from. Please create one.");
         }
-        assert temp != null;
         for (String string : temp) {
             DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             Task task = stringToTask(string);
@@ -188,9 +186,9 @@ public class Storage {
 
     /**
      * Starts the thread on existing reminders set from deadline.txt
-     * @throws DukeException On setReminderThread invalid date parameter
+     * @throws DukeInvalidDateTimeException On setReminderThread invalid date parameter
      */
-    public void setReminderOnStart() throws DukeException {
+    public void setReminderOnStart() throws Exception {
         Set<Date> dateKey = reminderMap.keySet();
         for(Date date : dateKey) {
             Date remindDate = new Date();

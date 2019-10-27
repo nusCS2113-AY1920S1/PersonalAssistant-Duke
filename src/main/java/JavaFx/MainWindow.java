@@ -2,6 +2,7 @@ package JavaFx;
 import Commands.ShowPreviousCommand;
 import Commands.WeekCommand;
 import Commands.UpdateProgressIndicatorCommand;
+import DukeExceptions.DukeIOException;
 import Interface.*;
 import Tasks.Task;
 import Tasks.TaskList;
@@ -88,17 +89,10 @@ public class MainWindow extends BorderPane implements Initializable {
     private ArrayList<Task> overdue;
     private TaskList eventsList;
     private TaskList deadlinesList;
-    private static LookupTable LT;
+    private static LookupTable LT = new LookupTable();
     public static ArrayList<String> outputList = new ArrayList<>();
     public static Week outputWeekList = new Week();
     private static final Logger LOGGER = Logger.getLogger(MainWindow.class.getName());
-    static {
-        try {
-            LT = new LookupTable();
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
-    }
 
 
     /**
@@ -195,14 +189,18 @@ public class MainWindow extends BorderPane implements Initializable {
      * @throws ParseException On conversion error from string to Task object
      */
     private void retrieveList() {
-        storage = new Storage();
-        eventsList = new TaskList();
-        deadlinesList = new TaskList();
-        overdue = new ArrayList<>();
-        storage.readEventList(eventsList);
-        storage.readDeadlineList(deadlinesList);
-        events = eventsList.getList();
-        deadlines = deadlinesList.getList();
+        try {
+            storage = new Storage();
+            eventsList = new TaskList();
+            deadlinesList = new TaskList();
+            overdue = new ArrayList<>();
+            storage.readEventList(eventsList);
+            storage.readDeadlineList(deadlinesList);
+            events = eventsList.getList();
+            deadlines = deadlinesList.getList();
+        } catch (DukeIOException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
     }
 
     private ObservableList<DeadlineView> setDeadlineTable()  {

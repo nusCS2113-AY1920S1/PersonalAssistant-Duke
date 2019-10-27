@@ -77,6 +77,7 @@ public class TaskList {
     public Task getTask(int index){
         return this.list.get(index);
     }
+
     //Do not use this: Use toString method in Task
     public String taskToString(int index){
         return list.get(index).toString();
