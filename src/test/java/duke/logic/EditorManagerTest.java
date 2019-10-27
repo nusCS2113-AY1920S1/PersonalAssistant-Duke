@@ -9,7 +9,9 @@ import duke.logic.commands.results.PanelResult;
 import duke.model.Event;
 import duke.model.lists.EventList;
 import duke.model.lists.VenueList;
+
 import javafx.scene.input.KeyCode;
+
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

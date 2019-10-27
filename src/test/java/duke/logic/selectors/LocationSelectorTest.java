@@ -3,7 +3,9 @@ package duke.logic.selectors;
 import duke.commons.exceptions.EmptyVenueException;
 import duke.model.lists.VenueList;
 import duke.model.locations.Venue;
+
 import javafx.scene.input.KeyCode;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

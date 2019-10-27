@@ -5,6 +5,7 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
