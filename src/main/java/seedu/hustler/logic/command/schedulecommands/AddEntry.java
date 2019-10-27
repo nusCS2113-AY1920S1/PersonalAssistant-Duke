@@ -39,6 +39,7 @@ public class AddEntry extends Command {
            anomaly.detect(userInput); 
         } catch(CommandLineException e) {
             ui.show_message(e.getMessage());
+            return;
         }
         int index = Integer.parseInt(this.userInput[1]);
         index--;

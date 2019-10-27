@@ -1,5 +1,6 @@
 package seedu.hustler.logic.command.schedulecommands;
 
+import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.parser.anomaly.UpdateEntryAnomaly;
 import seedu.hustler.ui.Ui;
@@ -34,7 +35,11 @@ public class UpdateEntry extends Command {
      * schedule.
      */
     public void execute() {
-        if (anomaly.detect(this.userInput)) {
+        Ui ui = new Ui();
+        try {
+            anomaly.detect(this.userInput);
+        } catch(CommandLineException e){
+            ui.show_message(e.getMessage());
             return;
         }
         String[] numbers = userInput[1].split(" ");
