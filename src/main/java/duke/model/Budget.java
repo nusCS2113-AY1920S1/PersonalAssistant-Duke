@@ -91,7 +91,7 @@ public class Budget {
         budgetObservableList.clear();
         budgetObservableList.add("Overall monthly budget: $" + monthlyBudget.toString());
         for(String category : budgetCategory.keySet()){
-            budgetObservableList.add(category + ": " + budgetCategory.get(category));
+            budgetObservableList.add(category + ": $" + budgetCategory.get(category));
         }
         logger.info("Size of budgetObserverList: $" + budgetObservableList.size() );
     }

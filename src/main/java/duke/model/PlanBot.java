@@ -58,6 +58,7 @@ public class PlanBot {
      */
     private PlanQuestion currentQuestion;
 
+    private Map<String, BigDecimal> planBudgetRecommendation;
     /**
      * Constructor for PlanBot.
      *
@@ -90,7 +91,9 @@ public class PlanBot {
         if (questionQueue.isEmpty()) {
             currentQuestion = null;
             try {
-                dialogList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes), Agent.BOT));
+                dialogList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes).getRecommendation(), Agent.BOT));
+                planBudgetRecommendation = planQuestionBank.makeRecommendation(planAttributes).getPlanBudget();
+                dialogList.add(new PlanDialog("Here's a recommended budget for you, type \"export\" to export the budget", Agent.BOT));
             } catch (DukeException e) {
                 dialogList.add(new PlanDialog(e.getMessage(), Agent.BOT));
             }
@@ -118,7 +121,9 @@ public class PlanBot {
         if (currentQuestion == null) {
             PlanDialog emptyQueueDialog = new PlanDialog("Based on what you've told me, here's a recommended budget plan!", Agent.BOT);
             dialogObservableList.add(emptyQueueDialog);
-            dialogObservableList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes), Agent.BOT));
+            dialogObservableList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes).getRecommendation(), Agent.BOT));
+            planBudgetRecommendation = planQuestionBank.makeRecommendation(planAttributes).getPlanBudget();
+            dialogList.add(new PlanDialog("Here's a recommended budget for you, type \"export\" to export the budget", Agent.BOT));
         } else {
             try {
                 PlanQuestion.Reply reply = currentQuestion.getReply(input, planAttributes);
@@ -132,7 +137,9 @@ public class PlanBot {
                     dialogObservableList.add(new PlanDialog(currentQuestion.getQuestion(), Agent.BOT));
                     questionQueue.remove();
                 }else {
-                    dialogObservableList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes), Agent.BOT));
+                    dialogObservableList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes).getRecommendation(), Agent.BOT));
+                    planBudgetRecommendation = planQuestionBank.makeRecommendation(planAttributes).getPlanBudget();
+                    dialogList.add(new PlanDialog("Here's a recommended budget for you, type \"export\" to export the budget", Agent.BOT));
                 }
             } catch (DukeException e) {
                 dialogObservableList.add(new PlanDialog(e.getMessage(), Agent.BOT));
@@ -140,8 +147,9 @@ public class PlanBot {
         }
     }
 
-
-
+    public Map<String, BigDecimal> getPlanBudgetRecommendation() {
+        return planBudgetRecommendation;
+    }
 
     public Map<String, String> getPlanAttributes() {
         return planAttributes;

@@ -72,11 +72,16 @@ public class BudgetStorage {
             while (fileReader.hasNext()) {
                 String line = fileReader.next();
                 String[] separatedLine = line.split(" ");
-                String category = separatedLine[0];
-                String budgetString = separatedLine[1];
+                int lineLength = separatedLine.length;
+                StringBuilder categoryBuilder = new StringBuilder();
+                for (int i = 0; i < lineLength - 3; ++i){
+                    categoryBuilder.append(separatedLine[i]).append(" ");
+                }
+                categoryBuilder.append(separatedLine[lineLength - 2]);
+                String budgetString = separatedLine[lineLength - 1];
                 BigDecimal budget = new BigDecimal(budgetString);
                 budget.setScale(2, RoundingMode.HALF_UP);
-                budgetCategory.put(category, budget);
+                budgetCategory.put(categoryBuilder.toString(), budget);
             }
         } catch (IOException e) {
             throw new DukeException(String.format(DukeException.MESSAGE_LOAD_FILE_FAILED, BUDGET_FILE.getPath()));
