@@ -54,6 +54,34 @@ public class Parser {
     private static final int THREE = 3;
     private static final int FOUR = 4;
     private static final int SIX = 6;
+    private static final String EMPTY_STRING = "";
+
+    //@@author maxxyx96
+    /**
+     * Trims the whitespaces of an input.
+     *
+     * @param input input to be trimmed.
+     * @return Returns the trimmed input.
+     */
+    private static String trim(String input) {
+        return input.trim();
+    }
+
+    /**
+     * Checks whether the string input can be split by a set string.
+     * @param input the input to test if it is splittable.
+     * @param splitWith the characters to detect splitting.
+     * @return returns true if it can be split, false otherwise.
+     */
+    private static boolean isSplittable(String input, String splitWith) {
+        try {
+            input = input.split(splitWith, 2)[1];
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    //@@author
 
     /**
      * Generates a command based on the user input.
@@ -489,37 +517,46 @@ public class Parser {
                 return new FindContactCommand(keyword[ONE].toLowerCase(), contactList);
             }
             //@@author
-        } else if (arr.length > ZERO && arr[ZERO].equals("budget")) {
+        } else if (arr.length > ZERO && arr[ZERO].equals("budget")) { //@@author maxxyx96
             try {
                 String budgetCommandString = sentence.split(" ", TWO)[ONE];
             } catch (Exception e) {
                 throw new DukeException("     (>_<) OoPS!!! Invalid Budget Command. "
-                                        + "It should be: budget <new/add/minus/reset/view> <amount> ");
+                                        + "\nIt should be: budget <new/add/minus/reset/view> <amount> ");
             }
             String budgetCommandString = sentence.split(" ", TWO)[ONE];
+            budgetCommandString = trim(budgetCommandString);
             String budgetCommand = budgetCommandString.split(" ", TWO)[ZERO];
-            if (budgetCommand.trim().equals("view")) {
+            budgetCommand = trim(budgetCommand);
+            if (budgetCommand.equals("view")) {
                 return new ViewBudgetCommand(budgetList);
             } else {
                 try {
+                    String budgetRemark = EMPTY_STRING;
                     String budgetAmount = budgetCommandString.split(" ", TWO)[ONE];
-                    if (budgetCommand.trim().equals("new") || budgetCommand.trim().equals("reset")) {
+                    if (isSplittable(budgetAmount, " ")) {
+                        budgetRemark = budgetAmount.split(" ", TWO)[ONE];
+                        budgetAmount = budgetAmount.split(" ")[ZERO];
+                    }
+                    if (budgetCommand.equals("new") || budgetCommand.equals("reset")) {
                         return new ResetBudgetCommand(budgetList, Float.parseFloat(budgetAmount));
-                    } else if (budgetCommand.trim().equals("add") || budgetCommand.trim().equals("+")) {
-                        return new AddBudgetCommand(budgetList, Float.parseFloat(budgetAmount));
-                    } else if (budgetCommand.trim().equals("minus") || budgetCommand.trim().equals("-")) {
-                        return new AddBudgetCommand(budgetList, -Float.parseFloat(budgetAmount));
+                    } else if (budgetCommand.equals("add") || budgetCommand.equals("+")) {
+                        return new AddBudgetCommand(budgetList, Float.parseFloat(budgetAmount), budgetRemark);
+                    } else if (budgetCommand.equals("minus") || budgetCommand.equals("-")) {
+                        return new AddBudgetCommand(budgetList, -Float.parseFloat(budgetAmount), budgetRemark);
                     } else {
                         throw new DukeException("     (>_<) OoPS!!! Invalid Budget Command. "
-                                                + "It should be: budget <new/add/minus/reset/view> <amount> ");
+                                                + "\n     It should be more like: "
+                                                + "\n     budget <+/-/reset/view> <amount> <desc(Optional)>");
                     }
                 } catch (Exception p) {
-                    throw new DukeException("     (>_<) OoPS!!! Invalid amount! "
-                                            + "Please enter a numerical/decimal after command!");
+                    throw new DukeException("     (>_<) OoPS!!! Invalid Budget Command. "
+                            + "\n     It should be more like: "
+                            + "\n     budget <+/-/reset/view> <amount> <desc(Optional)>");
                 }
             }
         } else if (sentence.equals("backup")) {
-            return new BackupCommand();
+            return new BackupCommand(); //@@author
         } else if (sentence.equals("bye") || sentence.equals("exit")) {
             return new ExitCommand();
         } else {
