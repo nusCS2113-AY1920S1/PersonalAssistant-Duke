@@ -44,7 +44,7 @@ public abstract class DukeData extends DukeObject {
     @Override
     public String toString() {
         String informationString;
-        informationString = "Impression: " + getParent().toString() + "\n";
+        informationString = "Impression: " + getParent().getName() + "\n";
         informationString += "Priority: " + this.priority + "\n";
         return super.toString() + informationString;
     }
