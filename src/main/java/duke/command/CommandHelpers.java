@@ -13,26 +13,6 @@ import java.util.Set;
 public class CommandHelpers {
 
     /**
-     * Checks if a particular switch in an ArgCommand is null, and if not, attempts to parse it as an Integer.
-     * @param command The ArgCommand whose switch is being extracted.
-     * @param switchName The name of the switch being extracted.
-     * @return The Integer that the string represents, or null if it is null.
-     * @throws NumberFormatException If the string is not a valid representation of an integer.
-     */
-    public static Integer switchToInt(String switchName, ArgCommand command) throws DukeHelpException {
-        String str = command.getSwitchVal(switchName);
-        if (str == null) {
-            return 0;
-        } else {
-            try {
-                return Integer.parseInt(str);
-            } catch (NumberFormatException excp) {
-                throw new DukeHelpException("The switch '" + switchName + "' must be an integer!", command);
-            }
-        }
-    }
-
-    /**
      * Given a switch name provided by the user, finds the switch it is referring to, or the closest match,
      * allowing the user to disambiguate.
      * @param word The name provided by the user, which may not match any switch.

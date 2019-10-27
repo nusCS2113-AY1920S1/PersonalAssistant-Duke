@@ -2,30 +2,26 @@ package duke.data;
 
 import duke.exception.DukeException;
 
-/*
- * Abstraction of evidence constituting a medical diagnosis.
+/**
+ * Abstraction of evidence supporting a medical diagnosis.
  * An Evidence object corresponds to the notes of the doctor
  * on a piece of medical evidence as well as
  * an integer between 1-4 representing the priority or significance of the evidence.
- *
+ * <p>
  * Attributes:
  * - name: information on the evidence
  * - impression: the impression object the evidence is tagged to
  * - priority: the priority level of the evidence
+ * </p>
  */
 public abstract class Evidence extends DukeData {
 
     private String summary;
 
-    public Evidence(String name, String impression, Integer priority, String summary) {
+    public Evidence(String name, Impression impression, Integer priority, String summary) {
         super(name, impression, priority);
         this.summary = summary;
     }
-    //
-    //    protected Evidence(String name, String impression, Integer priority, String summary) {
-    //        super(name, impression, priority);
-    //        this.summary = summary;
-    //    }
 
     @Override
     public Integer updatePriority(Integer priorityVal) throws DukeException {
@@ -59,7 +55,6 @@ public abstract class Evidence extends DukeData {
 
     @Override
     public String toReportString() {
-
         String informationString;
         informationString = "Summary: " + this.summary + "\n";
         return informationString;

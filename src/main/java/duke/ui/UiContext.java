@@ -48,22 +48,41 @@ public class UiContext {
             contexts.push(new Pair<>(this.context, this.object));
         }
 
-        Context oldContext = this.context;
-        this.context = newContext;
-        this.object = object;
-        pcs.firePropertyChange("context", oldContext, this.context);
+        updateContext(newContext, object);
+    }
+
+    /**
+     * Moves up one in the hierarchy of contexts.
+     */
+    public void moveUpOneContext() throws DukeException {
+        if (context == Context.HOME) {
+            throw new DukeException("You are already in the Home context.");
+        } else if (context == Context.PATIENT) {
+            setContext(Context.HOME, null);
+        } else if (context == Context.IMPRESSION) {
+            setContext(Context.PATIENT, object.getParent());
+        } else {
+            setContext(Context.IMPRESSION, object.getParent());
+        }
     }
 
     /**
      * Moves up one context.
      */
-    public void moveUpOneContext() throws DukeException {
-        if (context == Context.HOME) {
-            throw new DukeException("You are already in the Home context.");
+    public void moveBackOneContext() throws DukeException {
+        if (contexts.empty()) {
+            throw new DukeException("No previous contexts before this!");
         }
 
         Pair<Context, DukeObject> pair = contexts.pop();
-        setContext(pair.getKey(), pair.getValue());
+        updateContext(pair.getKey(), pair.getValue());
+    }
+
+    private void updateContext(Context newContext, DukeObject object) {
+        Context oldContext = this.context;
+        this.context = newContext;
+        this.object = object;
+        pcs.firePropertyChange("context", oldContext, this.context);
     }
 
     public Context getContext() {

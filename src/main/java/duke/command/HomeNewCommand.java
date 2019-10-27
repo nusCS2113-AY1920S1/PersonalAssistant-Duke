@@ -3,6 +3,7 @@ package duke.command;
 import duke.DukeCore;
 import duke.data.Patient;
 import duke.exception.DukeException;
+import duke.ui.Context;
 
 public class HomeNewCommand extends ArgCommand {
 
@@ -15,10 +16,10 @@ public class HomeNewCommand extends ArgCommand {
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
         //ideally, we would pass an array of objects
-        Integer height = CommandHelpers.switchToInt("height", this);
-        Integer weight = CommandHelpers.switchToInt("weight", this);
-        Integer age = CommandHelpers.switchToInt("age", this);
-        Integer number = CommandHelpers.switchToInt("number", this);
+        Integer height = switchToInt("height");
+        Integer weight = switchToInt("weight");
+        Integer age = switchToInt("age");
+        Integer number = switchToInt("number");
         String bed = getSwitchVal("bed");
         String address = getSwitchVal("address");
         String history = getSwitchVal("history");
@@ -30,9 +31,14 @@ public class HomeNewCommand extends ArgCommand {
         }
 
         core.ui.print("Patient added.");
-        core.patientMap.addPatient(new Patient(getSwitchVal("name"), bed,
+        Patient patient = new Patient(getSwitchVal("name"), bed,
                 getSwitchVal("allergies"), height, weight, age, number,
-                address, history));
-        core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
+                address, history);
+        core.patientMap.addPatient(patient);
+        core.writeJsonFile();
+
+        if (isSwitchSet("go")) {
+            core.uiContext.setContext(Context.PATIENT, patient);
+        }
     }
 }

@@ -46,6 +46,15 @@ public class DukeCore extends Application {
     }
 
     /**
+     * Writes JSON file using patientMap HashMap.
+     *
+     * @throws DukeFatalException If the file writer cannot be setup.
+     */
+    public void writeJsonFile() throws DukeFatalException {
+        storage.writeJsonFile(patientMap.getPatientHashMap());
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

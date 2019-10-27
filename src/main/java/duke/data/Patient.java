@@ -44,7 +44,7 @@ public class Patient extends DukeObject {
      */
     public Patient(String name, String bedNo, String allergies, Integer height, Integer weight,
                    Integer age, Integer number, String address, String history) {
-        super(name);
+        super(name, null);
         this.bedNo = bedNo;
         this.allergies = allergies;
         this.impressions = new HashMap<>();
@@ -70,7 +70,7 @@ public class Patient extends DukeObject {
      * @param allergies the Food and Drug allergies a patient has
      */
     public Patient(String name, String bedNo, String allergies) {
-        super(name);
+        super(name, null);
         this.bedNo = bedNo;
         this.allergies = allergies;
         this.impressions = new HashMap<>();

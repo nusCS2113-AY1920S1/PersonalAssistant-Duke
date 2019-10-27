@@ -17,12 +17,11 @@ public class Commands {
      */
     public Command getCommand(String cmdStr, Context context) {
         // check context-independent switches first
-        // maybe supply context as argument?
         switch (cmdStr) {
         case "bye":
             return new ByeCommand();
         case "back":
-            //return new BackCommand();
+            return new BackCommand();
         case "up":
             return new UpCommand();
         default:
@@ -67,22 +66,34 @@ public class Commands {
                 return new PatientEditCommand();
             case "history":
                 return new PatientHistoryCommand();
+            case "open":
+                return new PatientOpenCommand();
             default:
                 return null;
             }
-
+        case IMPRESSION:
+            switch (cmdStr) {
+            case "new":
+                return new ImpressionNewCommand();
+            case "edit":
+                return new ImpressionEditCommand();
+            default:
+                return null;
+            }
         case TREATMENT:
             if ("status".equals(cmdStr)) {
                 //return new TreatmentStatusCommand();
                 break;
             }
             //fallthrough
+
         case INVESTIGATION:
             if ("result".equals(cmdStr)) {
                 //return new InvxResultCommand();
                 break;
             }
             //fallthrough
+
         case EVIDENCE:
 
         default:

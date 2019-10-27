@@ -3,21 +3,21 @@ package duke.command;
 import duke.DukeCore;
 import duke.data.Patient;
 import duke.exception.DukeException;
+import duke.ui.Context;
 
-public class PatientHistoryCommand extends ArgCommand {
-
+public class PatientOpenCommand extends ArgCommand {
     @Override
     protected ArgSpec getSpec() {
-        return PatientHistorySpec.getSpec();
+        return PatientOpenSpec.getSpec();
     }
 
     @Override
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
+
+        String impressionId = getSwitchVal("impression");
         Patient patient = (Patient) core.uiContext.getObject();
-        patient.appendHistory(getArg());
-        patient.updateAttributes();
-        core.ui.print("Note appended!");
-        core.writeJsonFile();
+        core.uiContext.setContext(Context.IMPRESSION, patient.getImpression(impressionId));
+        core.ui.print("Opening impression");
     }
 }
