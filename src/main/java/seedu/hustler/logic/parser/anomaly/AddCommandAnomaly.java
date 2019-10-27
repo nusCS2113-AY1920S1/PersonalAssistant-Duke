@@ -27,12 +27,14 @@ public class AddCommandAnomaly extends DetectAnomaly {
                 int tagIndex = splitInput.indexOf("/d") + 1;
                 splitInput.get(tagIndex);
             }
-            String timeStr = TaskList.getTime(splitInput);
-            getDateTime(timeStr);
-            if (splitInput.contains("/every")) {
-                int everyIndex = splitInput.indexOf("/every");
-                String frequency = splitInput.get(everyIndex + 1) + " " + splitInput.get(everyIndex + 2);
-                TaskList.convertToMinute(frequency);
+            if (splitInput.contains("/by") || splitInput.contains("/at")) {
+                String timeStr = TaskList.getTime(splitInput);
+                getDateTime(timeStr);
+                if (splitInput.contains("/every")) {
+                    int everyIndex = splitInput.indexOf("/every");
+                    String frequency = splitInput.get(everyIndex + 1) + " " + splitInput.get(everyIndex + 2);
+                    TaskList.convertToMinute(frequency);
+                }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new CommandLineException("The description of the command does not follow the right"
