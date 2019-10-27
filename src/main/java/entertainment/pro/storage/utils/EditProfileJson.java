@@ -18,7 +18,7 @@ public class EditProfileJson {
 
 
     public EditProfileJson() throws IOException {
-        file = new File("EPdata/userProfile.json");
+        file = new File("./userProfile.json");
         if (file.exists()) {
             this.inputStream = new FileInputStream(file);
         } else {

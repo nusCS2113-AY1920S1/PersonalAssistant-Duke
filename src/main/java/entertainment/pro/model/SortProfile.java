@@ -1,9 +1,9 @@
 package entertainment.pro.model;
 
 public class SortProfile {
-    private String alphaOrder;
-    private String latestDatesOrder;
-    private String highestRatingOrder;
+    private String alphaOrder = "";
+    private String latestDatesOrder = "";
+    private String highestRatingOrder = "";
 
     public String getAlphaOrder() {
         return alphaOrder;
