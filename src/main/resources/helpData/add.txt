@@ -1,0 +1,6 @@
+Add functionality:
+    #blacklist      :Add items to blacklist
+    #watchlist      :Add items to watchlist
+
+    usage: add blacklist BLACKLISTED_ITEM [-keyword]
+           add watchlist FAVOURITE_ITEM [-Deadline] [-Event] [-start <Date1>] [-end <Date2>]

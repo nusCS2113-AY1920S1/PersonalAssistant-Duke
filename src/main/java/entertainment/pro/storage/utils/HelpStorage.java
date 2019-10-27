@@ -2,10 +2,9 @@ package entertainment.pro.storage.utils;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandStructure;
+import javafx.fxml.LoadException;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.TreeMap;
 
 public class HelpStorage {
@@ -30,7 +29,11 @@ public class HelpStorage {
     }
 
     private static String getHelpInstructions(String root) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("helpData/" + root.toLowerCase().trim() + ".txt"));
+        InputStream configStream = HelpStorage.class.getResourceAsStream(String.format("/helpData/%s.txt", root.toLowerCase()));
+        if (configStream == null) {
+            return "No help data found";
+        }
+        BufferedReader br = new BufferedReader(new InputStreamReader(configStream, "UTF-8"));
         try {
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
@@ -40,6 +43,7 @@ public class HelpStorage {
                 sb.append("\n");
                 line = br.readLine();
             }
+
             return sb.toString();
         } finally {
             br.close();
