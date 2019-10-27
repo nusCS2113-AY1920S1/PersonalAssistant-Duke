@@ -1,7 +1,5 @@
 package optix.commons.model;
 
-import optix.exceptions.OptixException;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -201,9 +199,7 @@ public class Theatre {
             seats[row][col] = soldSeat;
 
         }
-
         show.setProfit(revenue);
-
         return costOfSeat;
     }
 
@@ -242,7 +238,6 @@ public class Theatre {
                     + "The following seats are unavailable: \n"
                     + seatsNotSold + "\n";
         }
-
         return message;
     }
 
@@ -283,12 +278,8 @@ public class Theatre {
             return message.toString();
         }
 
-        double currRevenue = show.getProfit();
         double costOfNewSeat = sellSeats(newSeat);
         double costOfOldSeat = removeSeat(oldSeat);
-        currRevenue -= costOfOldSeat;
-        currRevenue += costOfNewSeat;
-        show.setProfit(currRevenue);
 
         message.append(String.format("Your seat has been successfully changed from %1$s to %2$s.\n", oldSeat,
                 newSeat));
@@ -322,7 +313,7 @@ public class Theatre {
         double currRevenue = show.getProfit();
         seatPrice = seats[row][col].getSeatPrice(seatBasePrice);
         seats[row][col].setBooked(false);
-        show.setProfit(currRevenue);
+        show.setProfit(currRevenue - seatPrice);
 
         switch (seats[row][col].getSeatTier()) {
         case "1":
