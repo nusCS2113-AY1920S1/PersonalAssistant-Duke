@@ -1,7 +1,7 @@
 == Optix User Guide
 
 By Team AY1920S1-CS2113T-T12-1 +
-Since: Sept 2019
+Since: Oct 2019
 
 === 1. Introduction
 
@@ -13,9 +13,12 @@ Optix is a desktop application made for users who want to manage the seating of 
 . Download the latest optix.jar here.
 . Copy the file to the folder you want to use as the home folder for your theatre bookings.
 . Double-click the file to start the application. The GUI should appear in a few seconds.
+
+image::images/ui.png[width ="600", align="center"]
+
+[start=5]
 . Type the command in the command box and press Enter to execute it
 (e.g. type help and press Enter to open the help window.)
-
 . Some example commands you can try:
 ** add Phantom of the Opera|20|5/5/2020 : adds a show called “Phantom of the Opera” to be scheduled on the 5/5/2020 and the base price of $20 per seat to Optix.
 ** list: list all shows currently added to Optix.
