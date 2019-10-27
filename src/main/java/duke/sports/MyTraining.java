@@ -106,4 +106,8 @@ public class MyTraining {
         return getName() + ", sets of " + getSets() + " with "
                 + getReps() + " reps each";
     }
+
+    public String toFile() {
+        return getName() + " | " + getSets() + " | " + getReps();
+    }
 }

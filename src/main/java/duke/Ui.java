@@ -295,7 +295,7 @@ public class Ui {
      * Prints message when saving plan to map.
      */
     public void showSavePlanToMap() {
-        System.out.println("Saving to map.");
+        System.out.println("Saved to map.");
     }
 
     /**
