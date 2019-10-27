@@ -1,6 +1,5 @@
 package seedu.hustler.game.avatar;
 
-import seedu.hustler.Hustler;
 import seedu.hustler.data.AvatarStorage;
 import seedu.hustler.game.shop.items.ShopItem;
 import seedu.hustler.game.shop.items.armors.Armor;
