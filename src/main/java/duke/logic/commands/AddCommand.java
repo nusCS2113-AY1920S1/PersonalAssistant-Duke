@@ -24,6 +24,7 @@ public class AddCommand extends Command {
      * the meal specified as the instance field meal.
      * @param meal The meal to be added.
      */
+
     public AddCommand(Meal meal, int cost) {
         this.meal = meal;
         this.cost = cost;

@@ -26,21 +26,25 @@ public abstract class Command {
     protected boolean isDone = true;
     protected boolean isFail = false;
     protected String error;
+
     /**
      * This class is an abstract class that will change according to the inheritor.
      * @param meals the MealList object in which the meals are supposed to be added
      * @param user the object that handles all user data
      * @throws DukeException when there is an error
      */
+
     public abstract void execute(MealList meals, Storage storage, User user, Wallet wallet);
 
     public abstract void execute2(MealList meals, Storage storage, User user, Wallet wallet);
 
     public void setResponse(String response) {
         this.response = response;
-    };
+    }
 
-    public boolean isDone() { return this.isDone; }
+    public boolean isDone() {
+        return this.isDone;
+    }
 
     public boolean isExit() {
         return false;

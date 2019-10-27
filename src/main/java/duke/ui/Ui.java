@@ -159,7 +159,8 @@ public class Ui {
     }
 
     public void showWeightUpdate(User user, int weight, String date) {
-        System.out.println(padding + user.getName() + ", your weight has been updated on" + date + " to " + weight + "kg.");
+        System.out.println(padding + user.getName() + ", your weight has been updated on"
+                + date + " to " + weight + "kg.");
     }
 
     public void showTransactionAdded(Transaction transaction, BigDecimal accountBalance) {

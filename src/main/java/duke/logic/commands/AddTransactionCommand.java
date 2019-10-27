@@ -22,6 +22,7 @@ public class AddTransactionCommand extends Command {
         this.isFail = true;
         this.error = message;
     }
+
     @Override
     public void execute(MealList tasks, Storage storage, User user, Wallet wallet) {
         ui.showLine();

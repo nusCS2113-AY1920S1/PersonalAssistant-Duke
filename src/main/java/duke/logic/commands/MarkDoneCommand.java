@@ -29,6 +29,7 @@ public class MarkDoneCommand extends Command {
      * @param indexStr the index of meal on the date to be marked as done.
      * @param date the date which meals are to be marked as done.
      */
+
     public MarkDoneCommand(String indexStr, String date) {
         this(indexStr);
         Date parsedDate;
@@ -57,12 +58,14 @@ public class MarkDoneCommand extends Command {
         this.isFail = true;
         this.error = message;
     }
+
     /**
      * Executes the MarkDoneCommand.
      * @param meals the MealList object in which the meals are supposed to be added
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
      */
+
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();

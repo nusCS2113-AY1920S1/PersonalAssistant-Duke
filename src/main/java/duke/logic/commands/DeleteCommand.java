@@ -27,6 +27,7 @@ public class DeleteCommand extends Command {
      * @param indexStr the index of meal on the date to be deleted.
      * @param date Date of meal to be deleted.
      */
+
     public DeleteCommand(String indexStr, String date) {
         this(indexStr);
         Date parsedDate;
@@ -61,6 +62,7 @@ public class DeleteCommand extends Command {
      * @param user the object that handles all user data
      * @throws DukeException when the index of the object to be deleted is out of bounds
      */
+
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();

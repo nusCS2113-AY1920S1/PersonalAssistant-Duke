@@ -21,6 +21,7 @@ public class HelpCommand extends Command {
     /**
      * Constructor for HelpCommand.
      */
+
     public HelpCommand() {
     }
 
@@ -28,6 +29,7 @@ public class HelpCommand extends Command {
      * Constructor for HelpCommand.
      * @param specifiedHelp The type of help specified by the user
      */
+
     public HelpCommand(String specifiedHelp) {
         this.specifiedHelp = specifiedHelp;
     }
@@ -36,6 +38,7 @@ public class HelpCommand extends Command {
         this.isFail = true;
         this.error = message;
     }
+
     /**
      * Executes the HelpCommand.
      * @param meals the MealList object in which the meals are supposed to be added
@@ -43,6 +46,7 @@ public class HelpCommand extends Command {
      * @param user the object that handles all user data
      * @throws DukeException when there is an error loading the help file
      */
+
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();

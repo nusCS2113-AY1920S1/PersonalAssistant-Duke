@@ -94,7 +94,9 @@ public class User {
         return account.getCurrency();
     }
 
-    public void setName(String name) { this.name = name;}
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public void setHeight(int height) {
         this.height = height;
@@ -169,6 +171,7 @@ public class User {
     public boolean getHasSetMaintain() {
         return this.hasSetMaintain;
     }
+
     public Gender getSex() {
         return this.sex;
     }

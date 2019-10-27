@@ -1,15 +1,12 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.DukeException;
 import duke.model.user.Gender;
 import duke.model.user.User;
-import duke.ui.userUi;
-
-import java.math.BigDecimal;
+import duke.ui.UserUi;
 
 public class UserSetup {
     private User user;
-    private userUi ui = new userUi();
+    private UserUi ui = new UserUi();
     private boolean isDone = false;
 
     public UserSetup(User user) {
@@ -17,12 +14,11 @@ public class UserSetup {
     }
 
     public void start() {
-        if (user.getIsSetup()){
+        if (user.getIsSetup()) {
             ui.showWelcomeBack(user);
             ui.showWelcome();
             this.isDone = true;
-        }
-        else {
+        } else {
             ui.showWelcomeNew();
             ui.showName();
         }

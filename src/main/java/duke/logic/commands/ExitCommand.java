@@ -24,15 +24,15 @@ public class ExitCommand extends Command {
     /**
      * Executes the exit command.
      * @param meals the MealList object in which the meals are supposed to be added
-     * @param ui the ui object to display the results of the command to the user
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
-     * @param in the scanner object to handle secondary command IO
      */
+
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showBye();
     }
+
     public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
     }
 }

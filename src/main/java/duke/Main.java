@@ -60,7 +60,7 @@ public class Main {
         }
         try {
             //TODO: Implement in different function
-        storage.loadTransactions(transactions, wallet);
+            storage.loadTransactions(transactions, wallet);
         } catch (DukeException e) {
             ui.showLoadinngTransactionError();
         }

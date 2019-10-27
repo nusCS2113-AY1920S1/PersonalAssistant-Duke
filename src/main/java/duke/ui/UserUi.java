@@ -2,7 +2,7 @@ package duke.ui;
 
 import duke.model.user.User;
 
-public class userUi {
+public class UserUi {
     private static final String padding = "     ";
     private static final String boundary = "    ____________________________________________________________";
 
@@ -17,6 +17,7 @@ public class userUi {
         System.out.println(padding + "Input age");
         System.out.println(boundary);
     }
+
     public void showWeight() {
         System.out.println(boundary);
         System.out.println(padding + "Input weight");

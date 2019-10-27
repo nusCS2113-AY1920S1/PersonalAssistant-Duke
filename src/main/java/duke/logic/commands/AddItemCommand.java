@@ -29,11 +29,13 @@ public class AddItemCommand extends Command {
         this.isFail = true;
         this.error = message;
     }
+
     /**
      * Execute the AddItemCommand.
      * @param meals the MealList object in which the meal is supposed to be added
      * @param storage the storage object that stores the list of meals
      */
+
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
