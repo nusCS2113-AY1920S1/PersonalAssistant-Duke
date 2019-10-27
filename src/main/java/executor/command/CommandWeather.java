@@ -5,11 +5,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import executor.task.TaskList;
 import interpreter.Parser;
+import ui.Ui;
 import ui.Wallet;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class CommandWeather extends Command {
     private HashMap<String, HashMap<String, String>> fullWeatherData;
@@ -29,7 +32,8 @@ public class CommandWeather extends Command {
 
     @Override
     public void execute(Wallet wallet) {
-
+        String status = getWhichWeatherDataUserWants(this.userInput);
+        printWeatherDataOutput(getLengthOfArrayToPrint(status));
     }
 
     private String getWhichWeatherDataUserWants(String userInput){
@@ -54,7 +58,16 @@ public class CommandWeather extends Command {
         return 1;
     }
 
-
+    private void printWeatherDataOutput(int size){
+        for (int i = 0; i < size; i++){
+            Iterator it = this.fullWeatherData.get(i).entrySet().iterator();
+            Ui.dukeSays("Duke$$$ has found the following weather details as per your request : \n");
+            while (it.hasNext()){
+                Map.Entry mapElement = (Map.Entry)it.next();
+                System.out.println(mapElement.getKey() + " : " + mapElement.getValue() + "\n");
+            }
+        }
+    }
 
     private String consultWeatherApi() {
         try {
