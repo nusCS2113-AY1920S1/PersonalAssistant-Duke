@@ -18,8 +18,8 @@ class Parser {
             return new CommandGameLoad();
         }
         switch (stage) { //TODO jx help me review if there is better way
-//            case WELCOME:
-//                return new CommandMenuStart();
+            case WELCOME:
+                return new CommandMenuStart();
 //            case LEVEL_START:
 //                return new CommandLevelStart();
 //            case RUNNING_DAY:

@@ -45,7 +45,7 @@ public class CommandTaskCreate extends Command {
                     throw new FarmioException("Error Creating Task!");
             }
             farmer.getTasks().addTask(task);
-            farmio.getSimulation().animate(farmio.getLevel().getPath(), farmio.getLevel().getNarratives().size() - 1);
+            farmio.getSimulation().simulate(farmio.getLevel().getPath(), farmio.getLevel().getNarratives().size() - 1);
             ui.showInfo("Task [" + task.toString() + "] added! \nYou now have " + farmer.getTasks().size() + " tasks!");
         }catch (Exception e) {
             System.out.println(e.getMessage());

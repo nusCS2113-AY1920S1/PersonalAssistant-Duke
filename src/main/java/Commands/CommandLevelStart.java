@@ -20,11 +20,11 @@ public class CommandLevelStart extends Command {
         for(String narrative: level.getNarratives()){
             String userInput = ui.getInput();
             if (!userInput.equals("")) {
-                farmio.getSimulation().animate(level.getPath(), level.getNarratives().size() - 1);
+                farmio.getSimulation().simulate(level.getPath(), level.getNarratives().size() - 1);
                 break;
             }
-            farmio.getSimulation().animate(level.getPath(), frameId++);
-            ui.typeWriter(narrative);
+            farmio.getSimulation().simulate(level.getPath(), frameId++);
+            ui.typeWriter(narrative, true);
         }
         farmio.setStage(Farmio.Stage.TASK_ADD);
     }

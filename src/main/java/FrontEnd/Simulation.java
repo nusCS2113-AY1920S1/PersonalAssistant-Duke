@@ -5,9 +5,6 @@ import Farmio.Farmio;
 import Farmio.Farmer;
 import Farmio.Storage;
 
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-
 public class Simulation {
     private static final int SLEEP_TIME = 300;
     private Farmio farmio;
@@ -26,7 +23,7 @@ public class Simulation {
         lastFrameId = 1;
         hadFullscreen = true;
     }
-    public void animate(String framePath, int frameId, boolean isFullscreen) throws FarmioFatalException {
+    public void simulate(String framePath, int frameId, boolean isFullscreen) throws FarmioFatalException {
         lastPath = framePath;
         lastFrameId = frameId;
         hadFullscreen = isFullscreen;
@@ -40,28 +37,28 @@ public class Simulation {
         }
     }
 
-    public void animate(String framePath, int startFrame, int endFrame, boolean isFullscreen)
+    public void simulate(String framePath, int startFrame, int endFrame, boolean isFullscreen)
             throws FarmioFatalException {
         for(int i =  startFrame; i <= endFrame; i ++) {
-            animate(framePath, i, isFullscreen);
+            simulate(framePath, i, isFullscreen);
         }
     }
 
-    public void animate(String framePath, int frameId) throws FarmioFatalException {
-        animate(framePath, frameId, false);
+    public void simulate(String framePath, int frameId) throws FarmioFatalException {
+        simulate(framePath, frameId, false);
     }
 
-    public void animate() throws FarmioFatalException {
-        animate(lastPath, lastFrameId, hadFullscreen);
+    public void simulate() throws FarmioFatalException {
+        simulate(lastPath, lastFrameId, hadFullscreen);
     }
 
-    public void animate(String framePath, int startFrame, int endFrame) throws FarmioFatalException {
+    public void simulate(String framePath, int startFrame, int endFrame) throws FarmioFatalException {
         for(int i =  startFrame; i <= endFrame; i ++) {
-            animate(framePath, i);
+            simulate(framePath, i);
         }
     }
-    public void animate(int delay, String framePath, int frameId) throws FarmioFatalException {
-        animate(framePath, frameId);
+    public void simulate(int delay, String framePath, int frameId) throws FarmioFatalException {
+        simulate(framePath, frameId);
         ui.sleep(delay);
     }
     private void refresh() {

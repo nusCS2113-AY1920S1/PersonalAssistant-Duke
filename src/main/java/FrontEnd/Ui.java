@@ -1,15 +1,5 @@
 package FrontEnd;
 
-import Exceptions.FarmioFatalException;
-import Farmio.Farmio;
-import Farmio.Storage;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.sql.SQLOutput;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -25,7 +15,7 @@ public class Ui {
     }
 
     public void showExit(){
-        typeWriter("Bye-Bye");
+        typeWriter("Bye-Bye", false);
     }
 
     public void showError(String message) {
@@ -57,9 +47,8 @@ public class Ui {
             showWarning("Simulator refersh interrupted! Interface may not display correctly.");
         }
     }
-    public void typeWriter(String text) { //ill clean this shit up soon.
+    public void typeWriter(String text, boolean hasPressEnter) {
         final char LEVEL_BEGIN_PLACEHOLDER = '~';
-        final char EARLY_ESCAPE_PLACEHOLDER = '/';
         boolean isNewline = false;
         int lineLength = 0;
         System.out.print(">>> ");
@@ -73,10 +62,7 @@ public class Ui {
                 isNewline = true;
                 lineLength = 0;
             } else if (text.charAt(i) == LEVEL_BEGIN_PLACEHOLDER) {
-                System.out.println("\n"+ " ".repeat(44) + AsciiColours.GREEN + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE+ "\n");
-                return;
-            } else if (text.charAt(i) == EARLY_ESCAPE_PLACEHOLDER) {
-                System.out.println();
+                System.out.println("\n" + " ".repeat(44) + AsciiColours.GREEN + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE + "\n");
                 return;
             }
             System.out.printf("%c", text.charAt(i));
@@ -86,6 +72,9 @@ public class Ui {
             }
             sleep(10);
         }
-        show("\n\n" + " ".repeat(74) + "Press [ENTER] to continue..");
+        if (hasPressEnter) {
+            show("\n\n" + " ".repeat(74) + "Press [ENTER] to continue..");
+        }
+        show("");
     }
 }

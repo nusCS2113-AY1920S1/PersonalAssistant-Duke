@@ -10,11 +10,11 @@ public class CommandMarketShow extends Command {
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
         Ui ui = farmio.getUi();
         if ((int)farmio.getFarmer().getLevel() == 1) {
-            farmio.getSimulation().animate("MarketList", 1);
+            farmio.getSimulation().simulate("MarketList", 1);
         } else if ((int)farmio.getFarmer().getLevel() == 2) {
-            farmio.getSimulation().animate("MarketList", 2);
+            farmio.getSimulation().simulate("MarketList", 2);
         } else if ((int)farmio.getFarmer().getLevel() == 3) {
-            farmio.getSimulation().animate("MarketList", 3);
+            farmio.getSimulation().simulate("MarketList", 3);
         }
         ui.show("Press [Enter] to go back");
     }
