@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest {
-    private User user = new User("Foo Chi Hen", 22, 100, Gender.MALE, 0, true, new BigDecimal("3000"));
+    private User user = new User("Foo Chi Hen", 22, 100, Gender.MALE, 0, true);
 
     @Test
     void user() {

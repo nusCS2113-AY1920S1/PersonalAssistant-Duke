@@ -1,9 +1,10 @@
-package duke.functions;
+/**package duke.functions;
 
 import duke.logic.autocorrect.Autocorrect;
 import duke.logic.commands.*;
 import duke.commons.exceptions.DukeException;
 import duke.logic.parsers.Parser;
+import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 import duke.model.user.User;
 import duke.model.meal.MealList;
@@ -24,6 +25,7 @@ public class FunctionTest {
     private Scanner in = new Scanner(System.in);
     private User user;
     private Autocorrect autocorrect = new Autocorrect();
+    private Wallet wallet;
 
     void setup() {
         ui = new Ui();
@@ -58,22 +60,22 @@ public class FunctionTest {
         TransactionList transactionList = new TransactionList();
         try {
             c = parser.parse("add burger /calorie 100 /sodium 100 /fats 100");
-            c.execute(tasks, ui, storage, user, in, transactionList);
+            c.execute(tasks, storage, user, wallet);
             c = parser.parse("breakfast burger");
-            c.execute(tasks, ui, storage, user, in, transactionList);
+            c.execute(tasks, storage, user, wallet);
             c = parser.parse("breakfast burger /calorie 100");
-            c.execute(tasks, ui, storage, user, in, transactionList);
+            c.execute(tasks, storage, user, wallet);
         } catch (DukeException e) {
             exceptionThrown1 = true;
         }
         try {
             c = parser.parse("breakfast taco");
-            c.execute(tasks, ui, storage, user, in, transactionList);
+            c.execute(tasks, storage, user, wallet);
         } catch (DukeException e) {
             exceptionThrown2 = true;
         }
         assertFalse(exceptionThrown1);
         assertTrue(exceptionThrown2);
     }
-}
+}**/
 

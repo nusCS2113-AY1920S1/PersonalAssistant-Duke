@@ -39,7 +39,7 @@ public class Wallet {
     }
 
     public void addTransactions(int cost, String date) {
-        this.transactions.addTransaction(new Transaction(new BigDecimal(cost),date));
+        this.transactions.addTransaction(new Transaction(Integer.toString(cost),date));
         this.account.withdraw(new BigDecimal(cost));
     }
 }
