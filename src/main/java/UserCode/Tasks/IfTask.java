@@ -9,6 +9,11 @@ import org.json.simple.JSONObject;
 
 public class IfTask extends Task {
 
+    /**
+     * Creates a task of type if
+     * @param condition The condition to be considered
+     * @param action The action to be executed if the condition is true
+     */
     public IfTask(Condition condition, Action action) {
         super(Type.IF, condition, action);
     }

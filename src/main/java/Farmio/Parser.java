@@ -5,8 +5,8 @@ import Exceptions.FarmioException;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
 
-class Parser {
-    static Command parse(String userInput, Farmio.Stage stage) throws FarmioException {
+public class Parser {
+    public static Command parse(String userInput, Farmio.Stage stage) throws FarmioException {
         userInput = userInput.toLowerCase().trim();
         if (userInput.equals("quit game") || userInput.equals("exit")) {
             return new CommandGameQuit();

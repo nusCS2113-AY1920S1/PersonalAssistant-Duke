@@ -15,7 +15,7 @@ public class Farmio {
     private boolean isExit;
     private Stage stage;
 
-    private Farmio() {
+    public Farmio() {
         storage = new Storage();
         farmer = new Farmer();
         ui = new Ui();
