@@ -35,8 +35,8 @@ public class MyLogger {
      */
     public void writeLog(String msg, String location, String input) {
         try {
-            FileHandler fh = new FileHandler(System.getProperty("user.dir") + "/src/ChronologerDatabase/" + fileName + ".log",
-                    true);
+            FileHandler fh = new FileHandler(System.getProperty("user.dir") + "/src/ChronologerDatabase/"
+                + fileName + ".log", true);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
             logger.addHandler(fh);

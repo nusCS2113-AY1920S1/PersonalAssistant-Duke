@@ -68,12 +68,14 @@ class TimelineWindow extends UiComponent<Region> {
     private Parser parser;
     private Command command;
     private TaskList tasks;
+
     /**
      * Constructs a UiComponent with the corresponding FXML file name and root object.
      * The FXML file written should not have a controller attribute as this is handled by the loadFXMLFile.
      *
-     * @param command Holds the name of the corresponding FXML file.
-     * @param parser
+     * @param command Holds the command object of MainWindow.
+     * @param parser Holds the parser object of MainWindow.
+     * @param tasks Holds the tasks object of MainWindow.
      */
     TimelineWindow(Command command, Parser parser, TaskList tasks) {
         super(FXML, null);
@@ -114,22 +116,20 @@ class TimelineWindow extends UiComponent<Region> {
     }
 
     /**
-     *
+     * This method attaches the listener.
      */
     private void attachTasksListener() {
         tasks.getObservableListOfTasks().addListener((ListChangeListener<Task>) change -> {
-            while(change.next()) {
+            while (change.next()) {
                 if (change.wasAdded()) {
                     populateEveryDay();
                     prioritizedTodayTasks();
                     tasksWithoutDates();
-                }
-                else if (change.wasRemoved()) {
+                } else if (change.wasRemoved()) {
                     populateEveryDay();
                     prioritizedTodayTasks();
                     tasksWithoutDates();
-                }
-                else if (change.wasReplaced()) {
+                } else if (change.wasReplaced()) {
                     populateEveryDay();
                     prioritizedTodayTasks();
                     tasksWithoutDates();
@@ -140,10 +140,10 @@ class TimelineWindow extends UiComponent<Region> {
 
     private void attachListenerForObjects() {
         tasks.getObservableListOfTasks().addListener((InvalidationListener) data -> {
-              System.out.println("HERE");
-              populateEveryDay();
-              prioritizedTodayTasks();
-              tasksWithoutDates();
+                System.out.println("HERE");
+                populateEveryDay();
+                prioritizedTodayTasks();
+                tasksWithoutDates();
             }
         );
     }
@@ -155,14 +155,6 @@ class TimelineWindow extends UiComponent<Region> {
     private void populateEveryDay() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
-
-        ObservableList<String> mondayTasks;
-        ObservableList<String> tuesdayTasks;
-        ObservableList<String> wednesdayTasks;
-        ObservableList<String> thursdayTasks;
-        ObservableList<String> fridayTasks;
-        ObservableList<String> saturdayTasks;
-        ObservableList<String> sundayTasks;
 
         final DayOfWeek Sunday = DayOfWeek.SUNDAY;
         LocalDate sundayDate = LocalDate.now().with(TemporalAdjusters.nextOrSame(Sunday));
@@ -192,20 +184,20 @@ class TimelineWindow extends UiComponent<Region> {
             moveXOfDays = sundayX;
         }
 
-        mondayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(monday));
-        tuesdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(tuesday));
-        wednesdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(wednesday));
-        thursdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(thursday));
-        fridayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(friday));
-        saturdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(saturday));
-        sundayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(sunday));
-
+        ObservableList<String> mondayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(monday));
         mondayTask.setItems(mondayTasks);
+        ObservableList<String> tuesdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(tuesday));
         tuesdayTask.setItems(tuesdayTasks);
+        ObservableList<String> wednesdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(wednesday));
         wednesdayTask.setItems(wednesdayTasks);
+        ObservableList<String> thursdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(thursday));
         thursdayTask.setItems(thursdayTasks);
+        ObservableList<String> fridayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(friday));
         fridayTask.setItems(fridayTasks);
+        ObservableList<String> saturdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(saturday));
         saturdayTask.setItems(saturdayTasks);
+        ObservableList<String> sundayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(sunday));
         sundayTask.setItems(sundayTasks);
+
     }
 }

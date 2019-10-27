@@ -40,8 +40,7 @@ public class TaskList {
             return -1;
         } else if (firstDate.startDate.isEqual(secondDate.startDate)) {
             return 0;
-        }
-        else {
+        } else {
             return 1;
         }
     };
@@ -210,7 +209,6 @@ public class TaskList {
     }
 
     /**
-<<<<<<< HEAD:src/main/java/Chronologer/task/TaskList.java
      * Fetches all tasks without dates.
      *
      * @return tasksWithoutDates tasks with no time constraint.
@@ -226,11 +224,8 @@ public class TaskList {
     }
 
     /**
-     * This function allows the user to obtain the tasks on a particular date, but only with description.
-=======
      * This function allows the user to obtain the tasks on a particular date, but
      * only with description.
->>>>>>> master:src/main/java/task/TaskList.java
      *
      * @param dayToFind is of String type which contains the desired date of
      *                  schedule.

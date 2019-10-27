@@ -29,7 +29,7 @@ public class RemindCommand extends Command {
      * @param storage Allows the saving of the file to persistent storage.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) throws ChronologerException { ;
+    public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         if (isIndexValid(indexOfTask,tasks.getSize())) {
             throw new ChronologerException(ChronologerException.taskDoesNotExist());
         }

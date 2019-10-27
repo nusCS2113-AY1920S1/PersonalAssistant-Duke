@@ -25,7 +25,7 @@ public class UiManager implements Ui {
     }
 
     /**
-     * 
+     * Launches the primary stage of the application.
      */
     @Override
     public void start(Stage primaryStage) {
@@ -50,7 +50,7 @@ public class UiManager implements Ui {
 
 
     /**
-     *
+     * Prints a message.
      */
     @Override
     public void print(String message) {

@@ -37,6 +37,7 @@ class ChatbotWindow extends UiComponent<Region> {
     private Command command;
     private TaskList tasks;
     private Storage storage;
+
     /**
      * Constructs the chatbot window of the application.
      *
@@ -50,7 +51,6 @@ class ChatbotWindow extends UiComponent<Region> {
         this.tasks = tasks;
         this.storage = storage;
         scrollPane.vvalueProperty().bind(dialogBoxContainer.heightProperty());
-
         printWelcome();
     }
 
@@ -65,7 +65,8 @@ class ChatbotWindow extends UiComponent<Region> {
             System.out.println(e.getMessage());
         }
         DialogBox toChangeDimension = DialogBox.getUserDialog(" " + input);
-        dialogBoxContainer.getChildren().addAll(toChangeDimension.getRoot(), DialogBox.getChronologerDialog(UiTemporary.userOutputForUI).getRoot());
+        dialogBoxContainer.getChildren().addAll(toChangeDimension.getRoot(),
+            DialogBox.getChronologerDialog(UiTemporary.userOutputForUI).getRoot());
     }
 
     private void setText(String text) {

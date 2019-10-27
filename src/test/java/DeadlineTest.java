@@ -1,8 +1,8 @@
-import exception.DukeException;
+import chronologer.exception.ChronologerException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import parser.ParserFactory;
-import task.Deadline;
+import chronologer.parser.ParserFactory;
+import chronologer.task.Deadline;
 
 import java.time.LocalDateTime;
 
@@ -21,7 +21,7 @@ public class DeadlineTest {
 
     @Test
     public void whenExceptionThrown() {
-        Assertions.assertThrows(DukeException.class, () -> {
+        Assertions.assertThrows(ChronologerException.class, () -> {
             ParserFactory.parse("deadline");
         });
     }

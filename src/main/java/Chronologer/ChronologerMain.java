@@ -24,6 +24,7 @@ public class ChronologerMain extends Application {
     public TaskList tasks;
     public Parser parser;
     public File file = new File(filePath);
+
     /**
      * Constructs the ChronologerMain object.
      */

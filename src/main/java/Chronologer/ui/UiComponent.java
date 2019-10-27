@@ -48,8 +48,8 @@ abstract class UiComponent<T> {
      * @param fxmlFileName Holds the name of the FXML file.
      * @return FXML file''s location for its corresponding FXML file.
      */
-    private static URL getFxmlFileUrl(String fxmlFileName){
-        if(fxmlFileName.isEmpty()) {
+    private static URL getFxmlFileUrl(String fxmlFileName) {
+        if (fxmlFileName.isEmpty()) {
             System.out.println("fxmlFileName is empty");
         }
         URL fxmlFileUrl = ChronologerMain.class.getResource(FXML_FILE_FOLDER + fxmlFileName);

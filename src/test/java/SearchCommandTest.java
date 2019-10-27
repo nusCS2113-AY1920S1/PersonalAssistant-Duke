@@ -3,9 +3,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import command.SearchCommand;
-import exception.DukeException;
-import parser.ParserFactory;
+import chronologer.command.SearchCommand;
+import chronologer.exception.ChronologerException;
+import chronologer.parser.ParserFactory;
 
 /**
  * unit test for search command feature.
@@ -35,7 +35,7 @@ public class SearchCommandTest {
     @Test
     @DisplayName("Test Parser with invalid search input")
     void testParserInvalidLong() {
-        Assertions.assertThrows(DukeException.class, () -> {
+        Assertions.assertThrows(ChronologerException.class, () -> {
             ParserFactory.parse("search h");
         });
     }

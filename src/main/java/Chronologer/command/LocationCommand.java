@@ -40,8 +40,8 @@ public class LocationCommand extends Command {
         if (isIndexValid(indexOfTask, tasks.getSize())) {
             Task taskWithLocation = tasks.addLocation(indexOfTask, locationOfTask);
             storage.saveFile(tasks.getTasks());
-            UiTemporary.printOutput("Noted. Your task location has been added:" + "\n " + taskWithLocation.toString() + " "
-                + taskWithLocation.getLocation());
+            UiTemporary.printOutput("Noted. Your task location has been added:" + "\n "
+                + taskWithLocation.toString() + " " + taskWithLocation.getLocation());
         }
     }
 }

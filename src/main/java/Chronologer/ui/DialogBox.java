@@ -31,13 +31,13 @@ public class DialogBox extends UiComponent<Region> {
         dialog.setText(text);
         if (isDuke) {
             displayPicture.setImage(chronologerImage);
-        }
-        else {
+        } else {
             displayPicture.setImage(userImage);
         }
     }
 
     /**
+     * Renders the appropriate type of dialog box with the correct image.
      *
      * @param text the text portion of the label designated for the user is passed in through this parameter.
      *

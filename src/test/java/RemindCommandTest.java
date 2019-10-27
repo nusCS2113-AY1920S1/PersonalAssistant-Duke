@@ -1,13 +1,17 @@
-import command.Command;
-import command.RemindCommand;
-import exception.DukeException;
+import chronologer.command.Command;
+import chronologer.command.RemindCommand;
+import chronologer.exception.ChronologerException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import parser.ParserFactory;
-import storage.Storage;
-import task.*;
+import chronologer.parser.ParserFactory;
+import chronologer.storage.Storage;
+import chronologer.task.Task;
+import chronologer.task.TaskList;
+import chronologer.task.Todo;
+import chronologer.task.Event;
+import chronologer.task.Deadline;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -37,7 +41,7 @@ public class RemindCommandTest {
     }
 
     @Test
-    public void testReminder() throws DukeException {
+    public void testReminder() throws ChronologerException {
         Task testTask = new Deadline("test", LocalDateTime.of(2019, 8, 1, 12, 0));
         tasks.add(testTask);
         reminder.execute(tasks, storage);
@@ -46,7 +50,7 @@ public class RemindCommandTest {
     }
 
     @Test
-    public void testReminderNotTriggered() throws DukeException {
+    public void testReminderNotTriggered() throws ChronologerException {
         Task testTask = new Event("test",
                 LocalDateTime.of(3019, 8, 1, 12, 0),
                 LocalDateTime.of(3019, 8, 2, 12, 0));
@@ -59,13 +63,13 @@ public class RemindCommandTest {
 
     @Test
     public void whenExceptionThrown() {
-        Assertions.assertThrows(DukeException.class, () -> {
+        Assertions.assertThrows(ChronologerException.class, () -> {
             ParserFactory.parse("remind");
         });
-        Assertions.assertThrows(DukeException.class, () -> {
+        Assertions.assertThrows(ChronologerException.class, () -> {
             ParserFactory.parse(("remind 0 in 3 days"));
         });
-        Assertions.assertThrows(DukeException.class, () -> {
+        Assertions.assertThrows(ChronologerException.class, () -> {
             Command test = new RemindCommand(100, 3);
             test.execute(tasks, storage);
         });
