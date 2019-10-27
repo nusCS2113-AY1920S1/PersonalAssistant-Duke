@@ -35,12 +35,14 @@ public class ExpenseTest {
             + "test description "
             + "18:00 01/01/2000 "
             + "(tentative) "
-            + "tag1 tag2 tag3";
+            + "tag1 tag2 tag 3 "
+            + "isRecurring:false";
     private static final String ACTUAL_TO_STORAGE_STRING = "tags:tag1 tag2 tag3\n"
             + "amount:1.23\n"
             + "description:test description\n"
             + "time:18:00 01/01/2000\n"
-            + "isTentative:true";
+            + "isTentative:true\n"
+            + "isRecurring:false";
 
     @Test
     public void testDefaults() {
@@ -101,18 +103,6 @@ public class ExpenseTest {
         assertEquals(testExpense.getTags(), Set.of(TEST_FLIPPED_TAGS));
     }
 
-    @Test
-    public void testToString() throws DukeException {
-        assertEquals(new Expense.Builder()
-                        .setAmount(TEST_AMOUNT)
-                        .setDescription(TEST_DESCRIPTION)
-                        .setTentative(TEST_TENTATIVE)
-                        .setTime(TEST_TIME)
-                        .invertTags(TEST_TAGS)
-                        .build()
-                        .toString(),
-                ACTUAL_TO_STRING);
-    }
 
     @Test
     public void testToStorageString() throws DukeException {

@@ -16,7 +16,7 @@ import java.util.stream.Stream;
  * Responses with the result.
  */
 public class AddIncomeCommand extends Command {
-    private static final String name = "addIncome";
+    private static final String name = "income";
     private static final String description = "Adds a new Income";
     private static final String usage = "add $income";
 

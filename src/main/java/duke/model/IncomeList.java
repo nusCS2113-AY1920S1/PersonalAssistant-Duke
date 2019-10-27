@@ -318,7 +318,7 @@ public class IncomeList extends DukeList<Income> {
      */
     public BigDecimal getTagAmount(String tag) {
         return internalList.stream()
-                .filter(income -> income.getTags().contains(tag))
+                .filter(income -> income.getTag().contains(tag))
                 .map(Income::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }

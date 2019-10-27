@@ -72,7 +72,7 @@ public class ExpensePane extends UiPart<AnchorPane> {
         descriptionColumn.setSortable(false);
         TableColumn<Expense, String> tagColumn = new TableColumn<>("Tags");
         tagColumn.setSortable(false);
-        tagColumn.setCellValueFactory(new PropertyValueFactory<>("tagsString"));
+        tagColumn.setCellValueFactory(new PropertyValueFactory<>("tagString"));
         tagColumn.setSortable(false);
         expenseTableView.setRowFactory(new Callback<TableView<Expense>, TableRow<Expense>>() {
             @Override
@@ -140,14 +140,7 @@ public class ExpensePane extends UiPart<AnchorPane> {
     private void getTags() {
         tags = new HashSet<>();
         for (Expense expense : logic.getExternalExpenseList()) {
-            String[] tagsString = expense.getTagsString().split(" ");
-            if (tagsString.length > 0) {
-                for (String tag : tagsString) {
-                    if (!tag.equals("")) {
-                        tags.add(tag);
-                    }
-                }
-            }
+            tags.add(expense.getTag());
         }
     }
 

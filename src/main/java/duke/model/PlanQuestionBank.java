@@ -269,7 +269,7 @@ public class PlanQuestionBank {
                     }
                 }
                 BigDecimal phoneBill = Parser.parseMoney(planAttributes.get("PHONE_BILL"));
-                if (!phoneBill.equals(BigDecimal.ZERO)) {
+                if (!phoneBill.equals(Parser.parseMoney("0"))) {
                     recommendation.append("You set set a budget of $")
                             .append(phoneBill)
                             .append(" for your phone bill.\n\n");
@@ -278,7 +278,7 @@ public class PlanQuestionBank {
                     phoneBillExpenseBuilder.setAmount(phoneBill);
                     phoneBillExpenseBuilder.setDescription("Phone bill");
                     phoneBillExpenseBuilder.setRecurring(true);
-                    phoneBillExpenseBuilder.invertTags("phone bill");
+                    phoneBillExpenseBuilder.setTag("phone bill");
                     recommendationExpenseList.add(phoneBillExpenseBuilder.build());
                 }
 
@@ -292,7 +292,7 @@ public class PlanQuestionBank {
                     netflixExpenseBuilder.setAmount("4.25");
                     netflixExpenseBuilder.setDescription("Netflix");
                     netflixExpenseBuilder.setRecurring(true);
-                    netflixExpenseBuilder.invertTags("netflix");
+                    netflixExpenseBuilder.setTag("netflix");
                     recommendationExpenseList.add(netflixExpenseBuilder.build());
                 }
                 if (planAttributes.get("MUSIC_SUBSCRIPTION").equals("TRUE")) {
@@ -303,7 +303,7 @@ public class PlanQuestionBank {
                     spotifyExpenseBuilder.setAmount("5.00");
                     spotifyExpenseBuilder.setDescription("Spotify");
                     spotifyExpenseBuilder.setRecurring(true);
-                    spotifyExpenseBuilder.invertTags("spotify");
+                    spotifyExpenseBuilder.setTag("spotify");
                     recommendationExpenseList.add(spotifyExpenseBuilder.build());
                 }
             }

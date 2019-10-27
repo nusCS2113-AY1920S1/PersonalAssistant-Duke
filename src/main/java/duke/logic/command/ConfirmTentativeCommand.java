@@ -55,7 +55,7 @@ public class ConfirmTentativeCommand extends Command {
                 throw new DukeException(index + " is not a tentative task!");
             }
         } catch (NumberFormatException e) {
-            throw new DukeException("The index you've entered is not a valid number!");
+            throw new DukeException("Please enter a number!");
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("The index you've entered is out of range!");
         }

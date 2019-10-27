@@ -148,7 +148,6 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 Platform.exit();
             }
-
         } catch (DukeException e) {
             console.setText(e.getMessage());
         }
