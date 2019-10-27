@@ -1,8 +1,12 @@
 package seedu.hustler.logic.command.task;
 
-import seedu.hustler.command.Command;
+import seedu.hustler.logic.CommandLineException;
+import seedu.hustler.logic.command.Command;
+import seedu.hustler.logic.parser.anomaly.UndoAnomaly;
 import seedu.hustler.data.MemoryManager;
 import java.io.IOException;
+import seedu.hustler.ui.Ui;
+
 
 /**
  * Command that undoes the previous command.
@@ -12,6 +16,11 @@ public class UndoCommand extends Command {
      * Contains task type and description.
      */
     private String[] taskInfo;
+
+    /**
+     * Detects anomalies for input.
+     **/
+    private UndoAnomaly anomaly = new UndoAnomaly();
 
     /**
      * Contains the number of commands to undo..
@@ -31,13 +40,22 @@ public class UndoCommand extends Command {
      * Undoes a set number of user commands..
      */
     public void execute() throws IOException {
+
+        Ui ui = new Ui();
         MemoryManager memorymanager = new MemoryManager();
 
         if (this.taskInfo.length == 1) {
             this.numberOfCommandsToUndo = 1;
             memorymanager.reloadBackup(numberOfCommandsToUndo);
         } else {
-            this.numberOfCommandsToUndo = Integer.parseInt(taskInfo[1]);
+            try {
+                anomaly.detect(taskInfo);
+                this.numberOfCommandsToUndo = Integer.parseInt(taskInfo[1]);
+            } catch(CommandLineException e) {
+                ui.show_message(e.getMessage());
+                return;
+            }
+
             memorymanager.reloadBackup(numberOfCommandsToUndo);
         }
     }

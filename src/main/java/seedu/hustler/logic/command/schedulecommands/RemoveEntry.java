@@ -1,8 +1,13 @@
 package seedu.hustler.logic.command.schedulecommands;
 
+<<<<<<< HEAD
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.parser.anomaly.RemoveEntryAnomaly;
+=======
+import seedu.hustler.logic.command.Command;
+import seedu.hustler.ui.Ui;
+>>>>>>> a60048b1b1ec66262f6aa3c083842ec294f525d5
 import seedu.hustler.schedule.RecommendedSchedule;
 import seedu.hustler.ui.Ui;
 
