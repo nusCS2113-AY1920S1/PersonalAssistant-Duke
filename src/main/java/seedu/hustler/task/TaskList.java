@@ -223,8 +223,6 @@ public class TaskList {
                 }
                 Hustler.avatar.gainXp();
             }
-        } catch (IndexOutOfBoundsException e) {
-            ui.task_doesnt_exist_error();
         } catch (IOException ignore) {
             return;
         }
@@ -237,14 +235,10 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if an out of bounds index is requested.
      */
     public void removeTask(int i) {
-        try {
-            String taskDescription = list.get(i).toString();
-            list.remove(i);
-            if (!CommandLog.isRestoring()) {
-                ui.show_task_removed(list, taskDescription);
-            }
-        } catch (IndexOutOfBoundsException e) {
-            ui.task_doesnt_exist_error();
+        String taskDescription = list.get(i).toString();
+        list.remove(i);
+        if (!CommandLog.isRestoring()) {
+            ui.show_task_removed(list, taskDescription);
         }
     }
 
@@ -272,41 +266,37 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if an out of bounds index is requested.
      */
     public void snoozeTask(int i, String[] userInput) {
-        try {
-            if (userInput[1].contains("/")) {
-                LocalDateTime localDateTime = getDateTime(userInput[1] + " " + userInput[2]);
-                list.get(i).setDateTime(localDateTime);
-            } else {
-                int num = Integer.parseInt(userInput[1]);
-                LocalDateTime ldt = list.get(i).getDateTime();
+        if (userInput[1].contains("/")) {
+            LocalDateTime localDateTime = getDateTime(userInput[1] + " " + userInput[2]);
+            list.get(i).setDateTime(localDateTime);
+        } else {
+            int num = Integer.parseInt(userInput[1]);
+            LocalDateTime ldt = list.get(i).getDateTime();
 
-                switch (userInput[2]) {
-                case "minutes":
-                    list.get(i).setDateTime(ldt.plusMinutes(num));
-                    break;
-                case "hours":
-                    list.get(i).setDateTime(ldt.plusHours(num));
-                    break;
-                case "days":
-                    list.get(i).setDateTime(ldt.plusDays(num));
-                    break;
-                case "weeks":
-                    list.get(i).setDateTime(ldt.plusWeeks(num));
-                    break;
-                case "months":
-                    list.get(i).setDateTime(ldt.plusMonths(num));
-                    break;
-                default:
-                    ui.show_message("You have typed in the wrong format. Please re-enter the snooze command.");
-                    return;
-                }
+            switch (userInput[2]) {
+            case "minutes":
+                list.get(i).setDateTime(ldt.plusMinutes(num));
+                break;
+            case "hours":
+                list.get(i).setDateTime(ldt.plusHours(num));
+                break;
+            case "days":
+                list.get(i).setDateTime(ldt.plusDays(num));
+                break;
+            case "weeks":
+                list.get(i).setDateTime(ldt.plusWeeks(num));
+                break;
+            case "months":
+                list.get(i).setDateTime(ldt.plusMonths(num));
+                break;
+            default:
+                ui.show_message("You have typed in the wrong format. Please re-enter the snooze command.");
+                return;
             }
+        }
 
-            if (!CommandLog.isRestoring()) {
-                ui.show_task_snoozed(list.get(i).toString());
-            }
-        } catch (IndexOutOfBoundsException e) {
-            ui.task_doesnt_exist_error();
+        if (!CommandLog.isRestoring()) {
+            ui.show_task_snoozed(list.get(i).toString());
         }
     }
 
@@ -326,6 +316,7 @@ public class TaskList {
             for (Task task : list) {
                 normalList.put(task.getInputDateTime(),task);
             }
+
             list.clear();
             for (Map.Entry<LocalDateTime,Task> entry : normalList.entrySet()) {
                 list.add(entry.getValue());
