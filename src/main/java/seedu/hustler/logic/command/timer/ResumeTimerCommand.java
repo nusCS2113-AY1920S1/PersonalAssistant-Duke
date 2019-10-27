@@ -1,4 +1,4 @@
-package seedu.hustler.command.timer;
+package seedu.hustler.logic.command.timer;
 
 import seedu.hustler.command.Command;
 import seedu.hustler.ui.timer.TimerManager;
