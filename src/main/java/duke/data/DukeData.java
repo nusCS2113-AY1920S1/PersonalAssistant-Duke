@@ -22,12 +22,6 @@ public abstract class DukeData extends DukeObject {
         this.priority = priority;
     }
 
-    /*
-     * This updatePriority function updates priority of treatment
-     * @param int the integer value of the priority between 1 to 4
-     * @return the integer of the updated priority
-     */
-    public abstract Integer updatePriority(Integer priorityVal) throws DukeException;
 
     public void setName(String name) {
         super.setName(getParent().toString() + "\t" + name);
@@ -37,8 +31,14 @@ public abstract class DukeData extends DukeObject {
         return priority;
     }
 
-    public void setPriority(Integer priority) {
+    /**
+     * Updates priority of treatment.
+     * @param priority The integer value of the priority between 1 to 4
+     * @return the integer of the updated priority
+     */
+    public Integer setPriority(Integer priority) throws DukeException {
         this.priority = priority;
+        return getPriority();
     }
 
     @Override

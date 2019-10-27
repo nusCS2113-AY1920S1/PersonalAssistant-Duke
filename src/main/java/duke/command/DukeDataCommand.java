@@ -17,7 +17,7 @@ public abstract class DukeDataCommand extends ImpressionCommand {
             Map.entry("observation", Arrays.asList("dose", "duration", "date", "status")));
 
     /**
-     * Check if the type of data to add was uniquely specified
+     * Checks if the type of data to add was uniquely specified.
      * @return The type of data specified amongst the switches for this Command, or null if none of them were given.
      * @throws DukeException If multiple data type switches were specified.
      */

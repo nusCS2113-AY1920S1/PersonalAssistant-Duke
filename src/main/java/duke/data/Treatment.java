@@ -23,7 +23,7 @@ public abstract class Treatment extends DukeData {
     }
 
     @Override
-    public Integer updatePriority(Integer priorityVal) throws DukeException {
+    public Integer setPriority(Integer priorityVal) throws DukeException {
         if (priorityVal >= 0 && priorityVal < 5) {
             super.setPriority(priorityVal);
             return super.getPriority();

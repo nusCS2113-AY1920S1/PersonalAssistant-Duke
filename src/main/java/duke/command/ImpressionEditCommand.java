@@ -86,7 +86,19 @@ public class ImpressionEditCommand extends DukeDataCommand {
                 break;
             }
 
-            // process each switch entered
+            // process priority
+            String priorityStr = getSwitchVal("priority");
+            if (priorityStr != null) {
+                editData.setPriority(switchToInt("priority"));
+            }
+
+            // process summary
+            String summaryStr = getSwitchVal("summary");
+            if (summaryStr != null) {
+                editData.setSummary((isAppending) ? editData.getSummary() + summaryStr : summaryStr);
+            }
+
+            // process remaining switches entered
             for (Map.Entry<String, String> entry : getSwitchVals().entrySet()) {
                 String switchName = entry.getKey();
                 String entryStr = entry.getValue();
@@ -96,49 +108,56 @@ public class ImpressionEditCommand extends DukeDataCommand {
                 }
 
                 // ignore switches that are already processed/don't need processing
-                if (switchName.equals(editType) || switchName.equals("status")) {
+                if (switchName.equals(editType) || switchName.equals("status") || switchName.equals("summary")) {
                     continue;
                 }
 
                 // TODO: create missing methods in model
+                // TODO: deal with null
                 if (switchName.equals("name")) {
                     //editData.setName((isAppending) ? editData.getName() + entryStr : entryStr);
                 } else {
                     switch (editType) {
-                    case "plan":
-                        Plan plan = (Plan) editData;
-                        if (switchName.equals("summary")) {
-                            plan.setSummary((isAppending) ? plan.getSummary() + entryStr : entryStr);
-                        }
-                        break;
                     case "medicine":
                         Medicine med = (Medicine) editData;
-                        if (switchName.equals("dose")) {
+                        switch (switchName) {
+                        case "dose":
                             med.setDose((isAppending) ? med.getDose() + entryStr : entryStr);
-                        } else if (switchName.equals("date")) {
+                            break;
+                        case "date":
                             //med.setStartDate((isAppending) ? med.getStartDate() + entryStr : entryStr);
-                        } else if (switchName.equals("duration")) {
+                            break;
+                        case "duration":
                             med.setDuration((isAppending) ? med.getDuration() + entryStr : entryStr);
+                            break;
+                        default:
+                            throw new DukeHelpException("Medicine plans do not have this property: '"
+                            + entryStr + "'", this);
                         }
-                        break;
-                    case "investigation":
-                        Investigation invx = (Investigation) editData;
-                        if (switchName.equals("summary")) {
-                            invx.setSummary((isAppending) ? invx.getSummary() + entryStr : entryStr);
-                        }
-                        break;
-                    case "result":
                         break;
                     case "observation":
-
+                        Observation obsv = (Observation) editData;
+                        if (isSwitchSet("objective") && isSwitchSet("subjective")) {
+                            throw new DukeHelpException("I don't know if you want this observation to be objective"
+                            + "or subjective!", this);
+                        } else if (isSwitchSet("objective")) {
+                            obsv.setObjective(true);
+                        } else if (isSwitchSet("subjective")) {
+                            obsv.setObjective(false);
+                        }
+                        break;
+                    case "plan": //fallthrough
+                    case "result": //fallthrough
+                    case "investigation": //all switches should already be handled
                         break;
                     default:
-                        throw new DukeException("Invalid data type!");
+                        throw new DukeException("Invalid data type found when making edits!");
                     }
                 }
 
             }
         }
+        core.writeJsonFile();
     }
 
     private void editStatus(DukeData editData, List<String> statusList) throws DukeHelpException {
