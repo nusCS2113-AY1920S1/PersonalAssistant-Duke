@@ -12,7 +12,7 @@ public class Inventory {
     private ArrayList<ShopItem> items;
 
     public Inventory() {
-        ShopList shop = new ShopList();
+        items = new ArrayList<>();
     }
 
     public Inventory updateInventory() {
@@ -20,8 +20,13 @@ public class Inventory {
         return this;
     }
 
+    public int getSize() { return items.size(); }
+
+    public ShopItem get(int i) { return items.get(i); }
+
     public void getToEquip(int index) throws IOException {
         Hustler.avatar.equip(items.get(index));
+        System.out.println("You are equipped with " + items.get(index));
     }
 
     public void list() {

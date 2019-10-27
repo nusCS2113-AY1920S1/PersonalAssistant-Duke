@@ -3,8 +3,8 @@ package seedu.hustler.task;
 import java.time.LocalDateTime;
 import seedu.hustler.task.variables.Difficulty;
 import seedu.hustler.task.variables.Tag;
-import static seedu.hustler.parser.DateTimeParser.convertDateTime;
-import static seedu.hustler.parser.DateTimeParser.toDateTimeString;
+import static seedu.hustler.logic.parser.DateTimeParser.convertDateTime;
+import static seedu.hustler.logic.parser.DateTimeParser.toDateTimeString;
 
 /**
  * A class that inherits from the abstract class Task. This task type

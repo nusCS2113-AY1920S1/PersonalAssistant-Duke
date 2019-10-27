@@ -48,7 +48,14 @@ public class UndoCommand extends Command {
             this.numberOfCommandsToUndo = 1;
             memorymanager.reloadBackup(numberOfCommandsToUndo);
         } else {
-            this.numberOfCommandsToUndo = Integer.parseInt(taskInfo[1]);
+            try {
+                anomaly.detect(taskInfo);
+                this.numberOfCommandsToUndo = Integer.parseInt(taskInfo[1]);
+            } catch(CommandLineException e) {
+                ui.show_message(e.getMessage());
+                return;
+            }
+
             memorymanager.reloadBackup(numberOfCommandsToUndo);
         }
     }

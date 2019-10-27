@@ -1,30 +1,26 @@
 package seedu.hustler;
 
-import java.io.IOException;
-
+import javafx.application.Application;
+import javafx.stage.Stage;
 import seedu.hustler.data.*;
-import seedu.hustler.data.TaskStorage;
 import seedu.hustler.game.achievement.AchievementList;
 import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.ConsecutiveLogin;
 import seedu.hustler.game.avatar.Avatar;
-import seedu.hustler.logic.command.Command;
-import seedu.hustler.data.AvatarStorage;
-import seedu.hustler.data.CommandLog;
-import seedu.hustler.data.MemoryManager;
 import seedu.hustler.game.avatar.Inventory;
 import seedu.hustler.game.shop.ShopList;
 import seedu.hustler.logic.CommandLineException;
-import seedu.hustler.task.Reminders;
-import seedu.hustler.ui.Ui;
-import seedu.hustler.task.TaskList;
+import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.parser.CommandParser;
+import seedu.hustler.task.Reminders;
+import seedu.hustler.task.TaskList;
+import seedu.hustler.ui.Ui;
 import seedu.hustler.ui.timer.TimerManager;
+
+import java.io.IOException;
+
 import static seedu.hustler.game.achievement.AchievementList.achievementList;
 import static seedu.hustler.game.achievement.ConsecutiveLogin.updateAchievementLevel;
-
-import javafx.application.Application;
-import javafx.stage.Stage;
 
 /**
  * A personal assistant that takes in user input and gives and performs
@@ -49,6 +45,10 @@ public class Hustler extends Application {
      * Storage instance that stores and loads tasks to and from
      * disk.
      */
+
+    public static AchievementList listAchievements = new AchievementList();
+
+
     private static TaskStorage taskStorage = new TaskStorage("data/hustler.txt");
 
     /**
@@ -145,7 +145,8 @@ public class Hustler extends Application {
         AchievementStorage.loadStatus();
 
         //Loads achievements into achievement list.
-        AchievementStorage.loadAchievements();
+        //AchievementStorage.loadAchievements();
+        AchievementStorage.loadAchievementsss();
 
         //Counts number of consecutive login and updates accordingly.
         ConsecutiveLogin.updateCount();
@@ -169,7 +170,7 @@ public class Hustler extends Application {
         try {
             taskStorage.save(list.return_list());
             AvatarStorage.save(avatar);
-            AchievementStorage.saveAchievements(achievementList);
+            AchievementStorage.save();
             AchievementStorage.saveStatus();
         } catch (IOException e) {
             ui.show_save_error();
