@@ -31,8 +31,18 @@ public class FilePaths {
         setFilePathsConfigMap(FileUtil.readResourceFile(filePathsMasterConfigStr));
     }
 
+    /**
+     * Reads the master file config and loads the location of all other config files into hashmap.
+     * Also ensures all path names are stored in cross-system compatible file directories.
+     * @param bufferedReader Reader instance of master file config.
+     */
     public static void setFilePathsConfigMap(BufferedReader bufferedReader) {
         filePathsConfigMap = gson.fromJson(bufferedReader, type);
+        for (FILE_PATH_NAMES path_name : filePathsConfigMap.keySet()) {
+            String defaultPathStr = filePathsConfigMap.get(path_name);
+            String crossCompatiblePathStr = FileUtil.getSystemFilePathStr(defaultPathStr);
+            filePathsConfigMap.replace(path_name, crossCompatiblePathStr);
+        }
     }
 
     public String getFilePathStr(FILE_PATH_NAMES filePathName) {
