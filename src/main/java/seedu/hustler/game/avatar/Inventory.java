@@ -20,6 +20,10 @@ public class Inventory {
         return this;
     }
 
+    public int getSize() { return items.size(); }
+
+    public ArrayList<ShopItem> getList() { return items;}
+
     public void getToEquip(int index) throws IOException {
         Hustler.avatar.equip(items.get(index));
     }
