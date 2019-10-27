@@ -67,9 +67,11 @@ public class Parser {
             } else if (instr.isGoToProject(input)) {
                 if (currentProject == null) {
                     process.noProject(ui);
+                    process.commandHistory(input, ui, storage);
+                } else {
+                    currentProject = process.goToProject(input, ui, projectmap);
+                    process.commandHistory(input, ui, storage);
                 }
-                currentProject = process.goToProject(input, ui, projectmap);
-                process.commandHistory(input, ui, storage);
             } else if (instr.isList(input)) {
                 ui.printList(tasklist, "list");
                 process.commandHistory(input, ui, storage);
@@ -140,7 +142,7 @@ public class Parser {
             } else if (instr.isAddFund(input)) {
                 process.addFund(input, ui, fund);
             } else {
-                throw new AlphaNUSException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new AlphaNUSException("\t" + "OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (AlphaNUSException e) {
             ui.exceptionMessage(e.getMessage());

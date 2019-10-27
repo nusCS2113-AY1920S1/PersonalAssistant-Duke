@@ -13,3 +13,31 @@ add project flag  | 27-10-2019 21:57:14
 add project pr/rag  | 27-10-2019 21:57:35
 add project pr/flag  | 27-10-2019 21:57:39
 delete project pr/rag  | 27-10-2019 21:58:01
+add project pr/  | 28-10-2019 00:28:47
+add project   | 28-10-2019 00:41:24
+add project pr/  | 28-10-2019 00:41:43
+delete project  | 28-10-2019 00:44:48
+add project pr/   | 28-10-2019 00:48:01
+add project pr/   | 28-10-2019 00:49:33
+add project pr/ rqew   | 28-10-2019 00:49:43
+add project pr/rag  | 28-10-2019 00:57:56
+add project pr/rag  | 28-10-2019 00:58:01
+add project pr/rag  | 28-10-2019 01:13:17
+add project pr/rag  | 28-10-2019 01:13:21
+add project pr/RAG  | 28-10-2019 01:13:29
+add project pr/   | 28-10-2019 01:13:43
+add project pr/asd   | 28-10-2019 01:13:53
+delete project pr/   | 28-10-2019 01:14:04
+delete project pr/ flag  | 28-10-2019 01:14:18
+delete project pr/ rag  | 28-10-2019 01:14:28
+goto project pr/rag  | 28-10-2019 01:18:50
+add project pr/rag  | 28-10-2019 01:23:04
+add project pr/flag  | 28-10-2019 01:23:11
+goto project pr/rag  | 28-10-2019 01:23:19
+goto project pr/flag  | 28-10-2019 01:27:26
+goto project pr/   | 28-10-2019 01:27:51
+goto project pr/ flag  | 28-10-2019 01:27:59
+goto project pr/ flag  | 28-10-2019 01:30:07
+add project pr/ rag  | 28-10-2019 01:31:43
+goto project pr/   | 28-10-2019 01:31:48
+goto project pr/ rg  | 28-10-2019 01:31:58

@@ -61,6 +61,10 @@ public class Process {
 
     public void listProjects(Ui ui, LinkedHashMap<String, Project> projectmap) {
         ArrayList<Project> projectslist = ProjectManager.listProjects(projectmap);
+        if (projectslist.isEmpty()) {
+            ui.printNoProjectMessage();
+            return;
+        }
         ui.printProjectsList(projectslist);
     }
 
@@ -72,8 +76,23 @@ public class Process {
      * @return
      */
     public Project addProject(String input, Ui ui, LinkedHashMap<String, Project> projectmap) {
-        String[] split = input.split("pr/", 2); //TODO check for valid input
+        String[] split = input.split("pr/", 2);
+        split = cleanStrStr(split);
+        if(split.length != 2) {
+            System.out.println("\t" + "Incorrect input");
+            System.out.println("\t" + "Correct Format: add project pr/PROJECT_NAME");
+            return null;
+        }//TODO refactor
         String projectname = split[1];
+        if (projectname.isEmpty()) {
+            System.out.println("\t" + "Project name cannot be empty!");
+            System.out.println("\t" + "Correct Format: add project pr/PROJECT_NAME");
+            return null;
+        }//TODO refactor
+        if (projectmap.containsKey(projectname)) {
+            System.out.println("\t" + "Project already exists!");
+            return null;
+        } //TODO refactor
         Project newProject = ProjectManager.addProject(projectname, projectmap);
         int projectsize = projectmap.size();
         ui.printAddProject(newProject, projectsize);
@@ -88,8 +107,23 @@ public class Process {
      * @return Returns the Project object of the deleted project.
      */
     public Project deleteProject(String input, Ui ui, LinkedHashMap<String, Project> projectmap) {
-        String[] split = input.split("pr/", 2); //TODO check for valid input
+        String[] split = input.split("pr/", 2);
+        split = cleanStrStr(split);
+        if(split.length != 2) {
+            System.out.println("\t" + "Incorrect input");
+            System.out.println("\t" + "Correct Format: delete project pr/PROJECT_NAME");
+            return null;
+        } //TODO refactor
         String projectname = split[1];
+        if (projectname.isEmpty()) {
+            System.out.println("\t" + "Project name cannot be empty!");
+            System.out.println("\t" + "Correct Format: delete project pr/PROJECT_NAME");
+            return null;
+        } //TODO refactor
+        if (!projectmap.containsKey(projectname)) {
+            System.out.println("\t" + "Project does not exist!");
+            return null;
+        } //TODO refactor
         Project deletedProject = ProjectManager.deleteProject(projectname, projectmap);
         int projectsize = projectmap.size();
         ui.printDeleteProject(deletedProject, projectsize);
@@ -105,8 +139,27 @@ public class Process {
      * @return Returns the Project object of the project that was gone to.
      */
     public Project goToProject(String input, Ui ui, LinkedHashMap<String, Project> projectmap) {
-        String[] split = input.split("pr/", 2); //TODO check for valid input
+        String[] split = input.split("pr/", 2);
+        split = cleanStrStr(split);
+        if(split.length != 2) {
+            System.out.println("\t" + "Incorrect input");
+            System.out.println("\t" + "Correct Format: goto project pr/PROJECT_NAME");
+            return null;
+        } //TODO refactor
         String projectname = split[1];
+        if (projectname.isEmpty()) {
+            System.out.println("\t" + "Project name cannot be empty!");
+            System.out.println("\t" + "Correct Format: goto project pr/PROJECT_NAME");
+            return null;
+        } //TODO refactor
+        else if (projectmap.isEmpty()) {
+            ui.printNoProjectMessage();
+            return null;
+        } //TODO refactor
+        else if (!projectmap.containsKey(projectname)) {
+            System.out.println("\t" + "Project does not exist!");
+            return null;
+        } //TODO refactor
         ui.printGoToProject(projectname);
         return projectmap.get(projectname);
     }

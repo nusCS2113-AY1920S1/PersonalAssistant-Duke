@@ -15,7 +15,7 @@ public abstract class ProjectManager {
     public static Project addProject(String projectname, LinkedHashMap<String, Project> projectmap) {
         Project newProject = new Project(projectname);
         projectmap.put(projectname, newProject);
-        return newProject; //TODO --> handle exceptions when the same projectname is added.
+        return newProject;
     }
 
     /**
