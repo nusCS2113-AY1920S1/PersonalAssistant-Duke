@@ -1,8 +1,6 @@
-package entertainment.pro.logic.Contexts;
+package entertainment.pro.logic.contexts;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
-import entertainment.pro.logic.Contexts.CommandContext;
-import entertainment.pro.logic.Contexts.SearchResultContext;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.ui.Controller;

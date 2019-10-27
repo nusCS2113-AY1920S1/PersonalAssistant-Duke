@@ -34,9 +34,6 @@ public class ContextHelperTest {
 
     @Test
     public void testisSubRootCommandComplete() {
-//        Method method = ContextHelper.class.getDeclaredMethod("isRootCommandComplete", String.class);
-//        method.setAccessible(true);
-//        method.invoke(ContextHelper. , "")
         assertEquals(true , ContextHelper.testisSubRootCommandComplete("movies"));
         assertEquals(true , ContextHelper.testisSubRootCommandComplete("tvshows"));
         assertEquals(true , ContextHelper.testisSubRootCommandComplete("blacklist"));
@@ -97,62 +94,4 @@ public class ContextHelperTest {
 
 
 }
-
-
-//
-//    /**
-//     * Gets all hints pertaining to the current user input.
-//     * @param command the current user input
-//     * @param controller for the UI.
-//     * @returns all possible strings
-//     */
-//    public static ArrayList<String> getAllHints(String command , Controller controller) {
-//        String [] splitCommand = command.toLowerCase().split(" ");
-//        String incompleteCommand = getLastIncompleteWords(command.toLowerCase() , controller);
-//
-//        if (splitCommand.length == 0) {
-//            return CommandContext.getRoot();
-//        } else if (splitCommand.length == 1 && isRootCommandComplete(splitCommand[0])) {
-//            ArrayList<String> allPossibilities =  CommandContext.getPossibilitiesSubRootForRoot(splitCommand[0]);
-//            String update = completeCommand(allPossibilities , "");
-//            ((MovieHandler) controller).updateTextField(update);
-//            return allPossibilities;
-//        } else if (splitCommand.length == 1) {
-//            ArrayList<String> allPossibilities =  CommandContext.getPossibilitiesForRoot(incompleteCommand);
-//            String update = completeCommand(allPossibilities , incompleteCommand);
-//            ((MovieHandler) controller).updateTextField(update);
-//            return allPossibilities;
-//        } else if (splitCommand.length == 2 && isSubRootCommandComplete(splitCommand[1])) {
-//            ArrayList<String> allPossibilities  = commandSpecificHints(
-//                    splitCommand[0]
-//                    , splitCommand[1]
-//                    , "");
-//            return allPossibilities;
-//        } else if (splitCommand.length == 2) {
-//            ArrayList<String> allPossibilities = CommandContext
-//                    .getPossibilitiesSubRoot(splitCommand[0] , incompleteCommand);
-//            String update = completeCommand(allPossibilities , incompleteCommand);
-//            ((MovieHandler) controller).updateTextField(update);
-//            return allPossibilities;
-//        } else {
-//            ArrayList<String> allPossibilities  = commandSpecificHints(
-//                    splitCommand[0]
-//                    , splitCommand[1]
-//                    , incompleteCommand);
-//
-//            String update = completeCommand(allPossibilities , incompleteCommand);
-//            ((MovieHandler) controller).updateTextField(update);
-//            return allPossibilities;
-//        }
-//
-//    }
-//
-//
-//
-//
-//
-//
-//
-//
-//}
 

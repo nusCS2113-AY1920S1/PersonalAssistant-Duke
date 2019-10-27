@@ -1,4 +1,4 @@
-package entertainment.pro.logic.Contexts;
+package entertainment.pro.logic.contexts;
 
 import entertainment.pro.model.MovieInfoObject;
 

@@ -1,10 +1,10 @@
 package entertainment.pro.ui;
 
 import entertainment.pro.logic.cinemaRequesterAPI.CinemaRetrieveRequest;
-import entertainment.pro.logic.Contexts.CommandContext;
-import entertainment.pro.logic.Contexts.ContextHelper;
-import entertainment.pro.logic.Contexts.SearchResultContext;
-import entertainment.pro.logic.Execution.CommandStack;
+import entertainment.pro.logic.contexts.CommandContext;
+import entertainment.pro.logic.contexts.ContextHelper;
+import entertainment.pro.logic.contexts.SearchResultContext;
+import entertainment.pro.logic.execution.CommandStack;
 import entertainment.pro.logic.movieRequesterAPI.MovieResultFilter;
 import entertainment.pro.model.*;
 import entertainment.pro.storage.user.Blacklist;

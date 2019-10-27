@@ -1,4 +1,4 @@
-package entertainment.pro.logic.Execution;
+package entertainment.pro.logic.execution;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandSuper;
@@ -61,6 +61,9 @@ public class CommandStack {
      * @return returns the latest commmand
      */
     public static CommandSuper popCmd() {
+        if (myStack.size() < 1) {
+            return null;
+        }
         CommandSuper topCmd = myStack.get(myStack.size() - 1);
         myStack.remove(myStack.size() - 1);
         return topCmd;
@@ -71,7 +74,8 @@ public class CommandStack {
      * @return returns the latest commmand
      */
     public static CommandSuper topCmd() {
-        return myStack.get(myStack.size() - 1);
+
+        return myStack.size() < 1 ? null : myStack.get(myStack.size() - 1);
     }
 
     /**
@@ -90,10 +94,21 @@ public class CommandStack {
      */
     public static void executeLastCommand() throws IOException {
         System.out.println("Execute Last Command");
+        if (myStack.size() < 1) {
+            return;
+        }
         CommandSuper cmd = myStack.get(myStack.size() - 1);
         if (!cmd.isExecute()) {
             cmd.executeCommands();
             cmd.setExecute(true);
         }
+    }
+
+    /**
+     * Returns the size of the command stack.
+     * @return MyStack Size
+     */
+    public static int getSize() {
+        return myStack.size();
     }
 }

@@ -115,7 +115,9 @@ public abstract class CommandSuper {
             if (CommandStructure.cmdStructure.get(root).length > 0) {
                 //Supposed to have Sub root but doesnt
                 setExecute(false);
-                ((MovieHandler) uicontroller).setAutoCompleteText("You are missing a few Arguments!!");
+                if (uicontroller != null) {
+                    ((MovieHandler) uicontroller).setAutoCompleteText("You are missing a few Arguments!!");
+                }
                 return false;
             } else {
                 setExecute(true);
@@ -140,13 +142,17 @@ public abstract class CommandSuper {
             CommandPair cmds = CommandDebugger.commandSpellChecker(commandArr, root, this.uicontroller);
             subRootCommand = cmds.getSubRootCommand();
             setExecute(false);
-            ((MovieHandler) uicontroller).setAutoCompleteText(getDidYouMeanText(commandArr));
+            if (uicontroller != null) {
+                ((MovieHandler) uicontroller).setAutoCompleteText(getDidYouMeanText(commandArr));
+            }
+
             return true;
 
         }
 
 
     }
+
 
     /**
      * Get Feedback String.
@@ -182,6 +188,10 @@ public abstract class CommandSuper {
         }
 
         boolean first = true;
+
+        if (flagOrder.size() == 0) {
+            return;
+        }
 
         int counter = 0;
 
@@ -243,7 +253,7 @@ public abstract class CommandSuper {
      */
     public static String getThePayload(int start, String[] commandArr) {
         int i = 0;
-        while (i < commandArr.length && !commandArr[i].matches("-[a-z]")) {
+        while (i < commandArr.length && !commandArr[i].matches("-[a-z,A-Z]")) {
             System.out.println(i + "." + commandArr[i]);
             i++;
         }

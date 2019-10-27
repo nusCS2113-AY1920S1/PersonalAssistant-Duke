@@ -80,5 +80,6 @@ public class CommandStructure {
             , COMMANDKEYS.watchlist
             , COMMANDKEYS.get
             , COMMANDKEYS.preference
-            , COMMANDKEYS.restriction};
+            , COMMANDKEYS.restriction
+            , COMMANDKEYS.find};
 }
