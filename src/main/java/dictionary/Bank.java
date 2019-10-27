@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Bank {
-    WordBank wordBank;
-    TagBank tagBank;
+    private WordBank wordBank;
+    private TagBank tagBank;
 
     public Bank() {
         wordBank = new WordBank();
@@ -23,16 +23,12 @@ public class Bank {
         return tagBank;
     }
 
-    public Word[] getAllWords() {
-        return wordBank.getAllWords();
+    public int getWordBankSize() {
+        return wordBank.getSize();
     }
 
-    public String[] getAllTags() {
-        return tagBank.getAllTagsAsList();
-    }
-
-    public String[] getAllWordsOfTag(String tag) {
-        return tagBank.getAllWordsOfTag(tag);
+    public int getTagBankSize() {
+        return tagBank.getSize();
     }
 
     public void addWord(Word word) throws WordAlreadyExistException {

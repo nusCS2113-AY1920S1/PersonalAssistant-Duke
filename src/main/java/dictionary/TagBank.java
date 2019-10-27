@@ -12,6 +12,10 @@ public class TagBank {
         tagBank = new TreeMap<>();
     }
 
+    public int getSize() {
+        return tagBank.size();
+    }
+
     /**
      * Adds a word to some tags.
      * @param wordDescription word that need to be added
@@ -34,6 +38,9 @@ public class TagBank {
     public void deleteWordAllTags(Word word) {
         for (String tag : word.getTags()) {
             tagBank.get(tag).remove(word.getWord());
+            if (tagBank.get(tag).size() == 0) {
+                tagBank.remove(tag);
+            }
         }
     }
 
@@ -45,6 +52,9 @@ public class TagBank {
     public void deleteWordSomeTags(ArrayList<String> deletedTags, String deletedWord) {
         for (String tag : deletedTags) {
             tagBank.get(tag).remove(deletedWord);
+            if (tagBank.get(tag).size() == 0) {
+                tagBank.remove(tag);
+            }
         }
     }
 

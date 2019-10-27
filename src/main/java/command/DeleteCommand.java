@@ -30,13 +30,20 @@ public class DeleteCommand extends Command {
     public String execute(Ui ui, Bank bank, Storage storage) {
         try {
             if (tags.size() == 0) {                     //delete word
+                int initWordBankSize = bank.getWordBankSize();
+                int initTagBankSize = bank.getTagBankSize();
                 word = bank.getAndDelete(this.deletedWord);
-                storage.editFromFile(word.toString() + "\r","");
+                storage.writeExcelFile(bank);
+                storage.deleteRowsWordBankSheet(bank.getWordBankSize(), initWordBankSize);
+                storage.deleteRowsTagBankSheet(bank.getTagBankSize(), initTagBankSize);
                 return ui.showDeleted(word);
             } else {                                    //delete tags
                 ArrayList<String> nullTags = new ArrayList<>();
                 ArrayList<String> deletedTags = new ArrayList<>();
+                int initTagBankSize = bank.getTagBankSize();
                 bank.deleteTags(deletedWord, tags, deletedTags, nullTags);
+                storage.writeTagBankExcelFile(bank.getTagBank());
+                storage.deleteRowsTagBankSheet(bank.getTagBankSize(), initTagBankSize);
                 String returned = ui.showDeletedTags(deletedWord, deletedTags);
                 returned += ui.showNullTags(deletedWord, nullTags);
                 return returned;

@@ -1,8 +1,10 @@
 package storage;
 
+import dictionary.TagBank;
 import dictionary.Word;
 import dictionary.Bank;
 
+import dictionary.WordBank;
 import exception.WordAlreadyExistException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -39,12 +41,15 @@ public class Storage {
 
     private static String FILE_PATH;
     private static final String EXCEL_PATH = "data/wordup.xlsx";
+    private File excelFile;
 
     public Storage() {
+        excelFile = new File(EXCEL_PATH);
     }
 
     public Storage(String filePath) {
         FILE_PATH = filePath;
+        excelFile = new File(EXCEL_PATH);
     }
 
     /**
@@ -229,93 +234,14 @@ public class Storage {
      * @param bank represents the data bank
      */
     public void writeExcelFile(Bank bank) {
-        FileInputStream fileInputStream;
-        FileOutputStream fileOut;
-        try {
-            fileInputStream = new FileInputStream(new File(EXCEL_PATH));
-            Workbook workbook = WorkbookFactory.create(fileInputStream);
-
-            Sheet sheet;
-            Row row;
-            Cell cell;
-            String word, tag;
-
-            sheet = workbook.getSheetAt(0);
-            Word[] allWords = bank.getAllWords();
-
-            for (int i = 1; i <= allWords.length; i++) {
-                row = sheet.getRow(i);
-                if (row == null) {
-                    row = sheet.createRow(i);
-                }
-
-                cell = row.getCell(0);
-                if (cell == null) {
-                    cell = row.createCell(0);
-                }
-
-                cell.setCellType(CellType.STRING);
-                word = allWords[i - 1].getWord();
-
-                cell.setCellValue(word);
-
-                cell = row.getCell(1);
-                if (cell == null) {
-                    cell = row.createCell(1);
-                }
-
-                cell.setCellValue(allWords[i - 1].getMeaning());
-            }
-
-            sheet.autoSizeColumn(0);
-            sheet.autoSizeColumn(1);
-
-            sheet = workbook.getSheetAt(1);
-            String[] allTags = bank.getAllTags();
-            String[] allWordsOfTag;
-            for (int i = 1; i <= allTags.length; i++) {
-                row = sheet.getRow(i);
-                if (row == null) {
-                    row = sheet.createRow(i);
-                }
-
-                cell = row.getCell(0);
-                if (cell == null) {
-                    cell = row.createCell(0);
-                }
-
-                cell.setCellType(CellType.STRING);
-                tag = allTags[i - 1];
-                cell.setCellValue(tag);
-
-                allWordsOfTag = bank.getAllWordsOfTag(tag);
-
-                cell = row.getCell(1);
-                if (cell == null) {
-                    cell = row.createCell(1);
-                }
-                cell.setCellValue(String.join(", ", allWordsOfTag));
-            }
-
-            sheet.autoSizeColumn(0);
-            sheet.autoSizeColumn(1);
-
-            fileOut = new FileOutputStream("data/wordup.xlsx");
-            workbook.write(fileOut);
-            fileInputStream.close();
-            fileOut.close();
-            workbook.close();
-        } catch (FileNotFoundException e) {
-            createExcelFile();
-        } catch (IOException | InvalidFormatException e) {
-            e.printStackTrace();
-        }
+        writeWordBankExcelFile(bank.getWordBank());
+        writeTagBankExcelFile(bank.getTagBank());
     }
 
     public Bank loadExcelFile() {
         Bank bank = new Bank();
         try {
-            FileInputStream fileInputStream = new FileInputStream(new File(EXCEL_PATH));
+            FileInputStream fileInputStream = new FileInputStream(excelFile);
 
             Workbook workbook = new XSSFWorkbook(fileInputStream);
             Sheet sheet;
@@ -412,6 +338,146 @@ public class Storage {
             fileOut.close();
             workbook.close();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteRowsWordBankSheet(int lastRow, int lastRedundantRow) {
+        try {
+            FileInputStream fileInputStream = new FileInputStream(excelFile);
+            Workbook workbook = new XSSFWorkbook(fileInputStream);
+
+            Sheet wordBankSheet = workbook.getSheetAt(0);
+
+            for (int row = lastRow + 1; row <= lastRedundantRow; row++) {
+                wordBankSheet.removeRow(wordBankSheet.getRow(row));
+            }
+
+            FileOutputStream fileOutputStream = new FileOutputStream(EXCEL_PATH);
+            workbook.write(fileOutputStream);
+            fileInputStream.close();
+            fileOutputStream.close();
+            workbook.close();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteRowsTagBankSheet(int lastRow, int lastRedundantRow) {
+        try {
+            FileInputStream fileInputStream = new FileInputStream(excelFile);
+            Workbook workbook = new XSSFWorkbook(fileInputStream);
+
+            Sheet tagBankSheet = workbook.getSheetAt(1);
+
+            for (int row = lastRow + 1; row <= lastRedundantRow; row++) {
+                tagBankSheet.removeRow(tagBankSheet.getRow(row));
+            }
+
+            FileOutputStream fileOutputStream = new FileOutputStream(EXCEL_PATH);
+            workbook.write(fileOutputStream);
+            fileInputStream.close();
+            fileOutputStream.close();
+            workbook.close();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeTagBankExcelFile(TagBank tagBank) {
+        FileInputStream fileInputStream;
+        FileOutputStream fileOut;
+        try {
+            fileInputStream = new FileInputStream(excelFile);
+            Workbook workbook = WorkbookFactory.create(fileInputStream);
+
+            Sheet sheet = workbook.getSheetAt(1);
+            String[] allTags = tagBank.getAllTagsAsList();
+            String[] allWordsOfTag;
+            for (int i = 1; i <= allTags.length; i++) {
+                Row row = sheet.getRow(i);
+                if (row == null) {
+                    row = sheet.createRow(i);
+                }
+
+                Cell cell = row.getCell(0);
+                if (cell == null) {
+                    cell = row.createCell(0);
+                }
+
+                cell.setCellType(CellType.STRING);
+                String tag = allTags[i - 1];
+                cell.setCellValue(tag);
+
+                allWordsOfTag = tagBank.getAllWordsOfTag(tag);
+
+                cell = row.getCell(1);
+                if (cell == null) {
+                    cell = row.createCell(1);
+                }
+                cell.setCellValue(String.join(", ", allWordsOfTag));
+            }
+
+            sheet.autoSizeColumn(0);
+            sheet.autoSizeColumn(1);
+
+            fileOut = new FileOutputStream(EXCEL_PATH);
+            workbook.write(fileOut);
+            fileInputStream.close();
+            fileOut.close();
+            workbook.close();
+        } catch (FileNotFoundException e) {
+            createExcelFile();
+        } catch (IOException | InvalidFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeWordBankExcelFile(WordBank wordBank) {
+        FileInputStream fileInputStream;
+        FileOutputStream fileOut;
+        try {
+            fileInputStream = new FileInputStream(excelFile);
+            Workbook workbook = WorkbookFactory.create(fileInputStream);
+
+            Sheet sheet = workbook.getSheetAt(0);
+            Word[] allWords = wordBank.getAllWordsAsList();
+
+            for (int i = 1; i <= allWords.length; i++) {
+                Row row = sheet.getRow(i);
+                if (row == null) {
+                    row = sheet.createRow(i);
+                }
+
+                Cell cell = row.getCell(0);
+                if (cell == null) {
+                    cell = row.createCell(0);
+                }
+
+                cell.setCellType(CellType.STRING);
+                String word = allWords[i - 1].getWord();
+
+                cell.setCellValue(word);
+
+                cell = row.getCell(1);
+                if (cell == null) {
+                    cell = row.createCell(1);
+                }
+
+                cell.setCellValue(allWords[i - 1].getMeaning());
+            }
+
+            sheet.autoSizeColumn(0);
+            sheet.autoSizeColumn(1);
+
+            fileOut = new FileOutputStream(EXCEL_PATH);
+            workbook.write(fileOut);
+            fileInputStream.close();
+            fileOut.close();
+            workbook.close();
+        } catch (FileNotFoundException e) {
+            createExcelFile();
+        } catch (IOException | InvalidFormatException e) {
             e.printStackTrace();
         }
     }

@@ -21,6 +21,7 @@ public class AddTagCommand extends Command {
     public String execute(Ui ui, Bank bank, Storage storage) {
         try {
             HashSet<String> tagList = bank.addWordToSomeTags(wordDescription, tags);
+            storage.writeTagBankExcelFile(bank.getTagBank());
             return ui.showAddTag(wordDescription, tags, tagList);
         } catch (NoWordFoundException e) {
             return e.showError();

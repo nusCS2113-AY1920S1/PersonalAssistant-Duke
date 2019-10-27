@@ -1,7 +1,6 @@
 package dictionary;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.SortedMap;
@@ -40,6 +39,10 @@ public class WordBank {
 
     public TreeMap<Integer, TreeMap<String, Word>> getWordCount() {
         return wordCount;
+    }
+
+    public int getSize() {
+        return wordBank.size();
     }
 
     protected void makeWordCount() {
@@ -224,7 +227,7 @@ public class WordBank {
         wordBank.get(word).addTag(tag);
     }
 
-    public Word[] getAllWords() {
+    public Word[] getAllWordsAsList() {
         return wordBank.values().toArray(new Word[wordBank.size()]);
     }
 }
