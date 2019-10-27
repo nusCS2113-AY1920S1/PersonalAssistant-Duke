@@ -6,8 +6,13 @@ import Exceptions.FarmioException;
 import Farmio.Level;
 
 public class CommandCheckObjectives extends Command {
+    /**
+     * Checks if objectives are met and sets the corresponding stage according to the results
+     * @param farmio the game where the stage is set based on the results
+     * @throws FarmioFatalException if simulaton file cannot be found
+     */
     @Override
-    public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
+    public void execute(Farmio farmio) throws FarmioFatalException {
         Level.objectiveResult answer = farmio.getLevel().checkAnswer(farmio);
         farmio.getSimulation().simulate();
         if (answer == Level.objectiveResult.NOT_DONE) {
