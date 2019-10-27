@@ -14,6 +14,17 @@ By: `Team AY1920S1-CS2113-T13-4`      Since: `Aug 2019`      Licence: `MIT`
 
 DUKE Manager is for those who prefers an electronic handbook as compared to a hard copy one. It is also optimised for those who prefer to input notes as a text messenger style, or something similar to a coding format. Just type in some command, and the description, and DUKE Manager will sort it out for you neatly.
 
+== Quick Start
+
+.  Ensure you have Java 11 or above installed in your Computer.
+.  Clone the Github to your computer and launch the GUI stored in main/src/main/java/duke/Launcher.java
+.  Type a command in the text box and press “Enter” to execute it.
+.  Some example commands you can try:
+* list : lists all tasks
+* todo housework : adds “housework” into list of todo tasks
+* delete 1 : deletes the first task stored in the list of tasks
+* bye : exits the app
+
 [[Features]]
 == Features
 DUKE Manager will be able to 
@@ -61,10 +72,15 @@ Format: `fixedduration <task description> /for <duration> <unit>`
 
 ==== Creating a new "Repeat" task : `repeat`
 
-Creates a new task called "Repeat" in Duke Manager. +
+This command creates a new task called “Repeat” and is stored inside DUKE Manager.
+
+Example:
+
+Let’s say you have to attend the same event for a few weeks. It will be a hassle to enter the same event 3 times with each of them having a different date. Thus, using this command, you only need to enter the event once, the starting date and time, and set how frequent the event is.
+
 Format: `repeat <task> /from <date and time> /for <duration> <day/week/month>`
 
-* Date and time have to be inputted in this format `<d/MM/yyyy HHmm>`.
+* Date and time must be input in this format <d/MM/yyyy HHmm>.
 * The duration refers to the length of time.
 
 ==== Creating a new "Reminder" task : `reminder`
@@ -77,7 +93,7 @@ Format: `remind <task number> /in <duration in days>`
 * The index *must be in between 1 and the size of tasklist*. e.g. For a tasklist that contains 4 tasks, only numbers 1 to 4 are allowed.
 * The duration in days refers to the length of time in days.
 
-=== Non Priority-Related Task Inputs
+=== Non-Priority-Related Task Inputs
 
 ==== Creating a new "To-Do" task : `todo`
 
@@ -119,36 +135,70 @@ Resets the budget available to the amount that it was initially created
 Format: `budget reset`
 
 ==== Delete budget : `delete`
-Delets the budget that is currently stored
+Deletes the budget that is currently stored
 Format: `budget delete`
 
-=== On-App Guide *(Coming in v2.0)*
+=== Contacts
 
-==== Opens the interface guide : `help`
-Shows a tutorial for DUKE Manager
-Format : `help`
+==== Adding a contact : `addcontact`
+This command allows the user to add a new contact that stores name, number, email and office.
 
-==== Opens the command overview : `help --c`
-Shows the command overview of the various capabilities of DUKE Manager
-Format: `help --c`
+Example:
 
-=== Module Structure *(Coming in v2.0)*
+Let’s say you have a professor’s contact to add but you are afraid that you may accidentally press the call button should you store it in your phone. Thus, you store his contact details in DUKE Manager instead. 
 
-==== Storing of modules `storemods` 
-- Stores the module into DUKE Manager 
+Format: `addcontact <name>, <number>, <email>, <office>`
 
-==== Shows modules `viewmods`
-Views the module that are stored in DUKE Manager
+* The name refers to the name of the contact to be added.
+* The number, email and office of the contact is to be input in this format.
+* For details that are not known, simply omit it.
 
-=== Contacts *(Coming in v2.0)*
+==== Listing all contacts : `listcontact`
+This command shows the user all the contacts that have been saved.
 
-==== Stores contacts `storecontact`
-Stores the contacts inside DUKE Manager
-Format: `storecontact <name> / <contact> / <Details>
+Example:
 
-==== View contacts `viewcontact`
-Views the contacts inside DUKE Manager
-Format: `viewcontact`
+Let’s say you want to see all the contacts saved thus far.
+
+Format: `listcontact`
+
+==== Delete specific contacts : `deletecontact`
+This command allows the user to delete a specific contact inside DUKE Manager.
+
+Example:
+
+Let’s say the contact details are outdated and you would like to remove it totally from the system since you do not have that person’s new contact details.
+
+Format: deletecontact `<index>`
+
+* Deletes the contact at the specified `<index>`.
+* The index refers to the index number shown in the displayed list contact.
+* The index must be between 1 and the total number of contacts in the contact list.
+
+==== Find contacts : `findcontact`
+This command finds and displays relevant contacts stored inside DUKE Manager.
+
+Example:
+
+Let’s say you have stored a lot of contact and would like to quickly find a specific person’s details, but you only remembered part of the person’s name. Thus, you find by inputting that detail and DUKE Manager will find it for you. This also works for numbers, emails and office location.
+
+Format: findcontact `<keyword>`
+
+* The search is not case sensitive.
+* Can search for name, number, email or office.
+* Partial words will be matched. Eg. Tan will match Prof Tan.
+* Only contacts will be searched.
+
+==== Sorting of contacts : sortcontact [coming in v2.0]
+This command will allow users to sort contacts in either alphabetical or most recent order.
+
+Example:
+
+Let’s say you entered the command listcontacts, but you find it difficult to find the details as you may have forgotten which contact was added first or most recently. Thus, sorting will make it a lot easier to users to find the contact without using findcontact.
+
+Format: sortcontacts `<alpha/recent>`
+
+* Alpha will sort in alphabetical order and recent sort in terms of latest addition.
 
 === Generic Task Management
 
@@ -215,12 +265,15 @@ Updates the 1st task description in the tasklist.
 * `update 5 /date 17/09/2019 1222` +
 Updates date and time of the 5th task in the tasklist.
 
-==== Detecting duplicates in task list
+==== Detect duplicates in task list
 
-Detects tasks that are duplicated in Duke Manager. 
+This feature finds and alerts the user of duplicated tasks which may be re-entered.
 
-* Alerts user that a task has already been added.
-* If task is duplicated, the program returns `The same task is already in the list!` and prevents an additional task added to the tasklist.
+Example:
+
+Let’s say you have entered a task to do homework but after keying in other tasks, you have forgotten that homework was already entered and thus, you enter the same task again. Without this feature, when you mark the first homework task as done, you may get confused as to why it still appears in the list of undone tasks. Thus, detect duplicates prevents that from occurring.
+
+There is no format and does not require any form of input to be executed. This feature will automatically be implemented when a task is entered.
 
 ==== Detecting anomalies in task list
 
@@ -244,7 +297,7 @@ Change the default priority of a task to a user-set priority.
 Format: `setpriority <task number> <priority>`
 
 * Set the priority of the task at the specified `<task number>`.
-* The <task number> refers to the index number shown in the displayed task list.
+* The `<task number>` refers to the index number shown in the displayed task list.
 * The index *must be in between 1 and the size of tasklist*. e.g. For a tasklist that contains 4 tasks, only numbers 1 to 4 are allowed.
 * The <priority> refers to the priority of the task: 1-HighPriority ~ 5-LowPriority.
 * The priority *must be between 1 and 5 both inclusive*. 
@@ -265,6 +318,25 @@ Format: `exit`
 
 Duke Manager data is saved in the hard disk automatically upon exiting. +
 There is no need to save manually. *However, if the program is exited by any other means and not through the `exit` command, any unsaved progress will be lost*.
+
+
+=== On-App Guide *(Coming in v2.0)*
+
+==== Opens the interface guide : `help`
+Shows a tutorial for DUKE Manager
+Format : `help`
+
+==== Opens the command overview : `help --c`
+Shows the command overview of the various capabilities of DUKE Manager
+Format: `help --c`
+
+=== Module Structure *(Coming in v2.0)*
+
+==== Storing of modules `storemods` 
+- Stores the module into DUKE Manager 
+
+==== Shows modules `viewmods`
+Views the module that are stored in DUKE Manager
 
 == Additional Features (v2.0) 
 
@@ -303,5 +375,12 @@ e.g. `fixedduration build a robot /for 3hrs`
 e.g. `repeat meeting /from 01/04/2019 1100 /for 2 day`
 * *Remind* : `remind [INDEX] /in [DAYSTOREMINDER]`
 e.g. `remind 1 /in 3`
+* *AddContact* : `addcontact [NAME], [NUMBER], [EMAIL], [OFFICE]`
+eg. `addcontact Prof Tan, 91234567, tancc@nus.edu.sg, E1-08-11`
+* *ListContact* : `listcontact`
+* *DeleteContact* : deletecontact [INDEX]
+eg. `deletecontact 1`
+* *FindContact* : `findcontact [KEYWORD]`
+eg. `findcontact Prof Tan`
 * *Set Priority* : `setpriority [TASK_NUMBER] [PRIORITY]` +
 e.g. `setpriority 1 5`
