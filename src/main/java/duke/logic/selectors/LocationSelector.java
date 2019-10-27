@@ -1,13 +1,15 @@
-package duke.logic;
+package duke.logic.selectors;
 
-import duke.commons.Messages;
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.EmptyVenueException;
 import duke.model.lists.VenueList;
 import duke.model.locations.Venue;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
-public class LocationSelector {
+import javafx.scene.input.KeyCode;
+
+/**
+ * Iterates through locations using proximity of Venue via arrow keys.
+ */
+public class LocationSelector implements Selector {
     private VenueList venues;
     private int index;
     private boolean isLock;
@@ -15,17 +17,18 @@ public class LocationSelector {
     /**
      * Constructs a new Location Selector object.
      * @param venues The venues to be iterated through.
-     * @throws DukeException If there is no venues in the list.
+     * @throws EmptyVenueException If there is no venues in the list.
      */
-    public LocationSelector(VenueList venues) throws DukeException {
+    public LocationSelector(VenueList venues) throws EmptyVenueException {
         if (venues.isEmpty()) {
-            throw new DukeException(Messages.ERROR_LOCATION_SELECTOR_NULL);
+            throw new EmptyVenueException();
         }
         this.venues = venues;
         index = 0;
         isLock = false;
     }
 
+    @Override
     public int getIndex() {
         return index;
     }
@@ -33,19 +36,26 @@ public class LocationSelector {
     /**
      * Feeds key event to location selector to determine the next location selected.
      *
-     * @param keyEvent KeyEvent from the Ui.
+     * @param keyCode The keyCode of the key pressed.
      */
-    public void feedKeyEvent(KeyEvent keyEvent) {
+    @Override
+    public void feedKeyCode(KeyCode keyCode) {
         if (isLock) {
             return;
         }
-        if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+        if (keyCode.equals(KeyCode.ENTER)) {
             lock();
-        } else if (keyEvent.getCode().isArrowKey()) {
-            index = find(keyEvent.getCode());
+        } else if (keyCode.isArrowKey()) {
+            index = find(keyCode);
         }
     }
 
+    /**
+     * Finds the next nearest Venue given the KeyCode.
+     *
+     * @param keyCode KeyCode indicating up/down/left/right.
+     * @return The index of the nearest Venue in the given keycode direction.
+     */
     private int find(KeyCode keyCode) {
         Venue currentVenue = venues.get(index);
         double min = Double.POSITIVE_INFINITY;
@@ -76,5 +86,9 @@ public class LocationSelector {
      */
     public void unlock() {
         isLock = false;
+    }
+
+    public boolean isLock() {
+        return isLock;
     }
 }

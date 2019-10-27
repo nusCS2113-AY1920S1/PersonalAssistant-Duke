@@ -1,7 +1,7 @@
 package duke.logic.parsers;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.planning.Todo;
+import duke.model.Event;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -13,10 +13,9 @@ class ParserStorageUtilTest {
 
     @Test
     void createTaskFromDate() throws DukeException {
-        LocalDateTime startDate = LocalDateTime.of(2018, 8, 8, 8, 8);
-        Todo d = new Todo("Visit Rome");
-        Todo t = (Todo) ParserStorageUtil.createTaskFromStorage(ParserStorageUtil.toStorageString(d));
-        assertFalse(t.isDone());
-        assertEquals(t.getDescription(), "Visit Rome");
+        Event event = new Event("NTU", LocalDateTime.now(), LocalDateTime.now());
+        Event check = ParserStorageUtil.createTaskFromStorage(ParserStorageUtil.toStorageString(event));
+        assertFalse(check.isDone());
+        assertEquals(check.getDescription(), "NTU");
     }
 }

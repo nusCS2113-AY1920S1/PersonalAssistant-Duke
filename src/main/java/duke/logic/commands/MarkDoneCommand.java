@@ -30,7 +30,7 @@ public class MarkDoneCommand extends Command {
     @Override
     public CommandResultText execute(Model model) throws DukeException {
         try {
-            Task task = model.getTasks().get(index);
+            Task task = model.getEvents().get(index);
             task.setDone(true);
             model.save();
             return new CommandResultText(MESSAGE_MARK_DONE + task);

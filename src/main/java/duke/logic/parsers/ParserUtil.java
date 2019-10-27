@@ -23,11 +23,15 @@ import duke.model.planning.Todo;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Defines parsing methods for utility functions.
  */
 public class ParserUtil {
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
     /**
      * Parses the userInput and return a new to-do constructed from it.
      *
@@ -129,6 +133,7 @@ public class ParserUtil {
         LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[2].strip());
         Venue hotelLocation = ApiParser.getLocationSearch(itineraryDetails[0].strip());
+        logger.log(Level.FINE, hotelLocation.getAddress());
         return new Itinerary(start, end, hotelLocation);
     }
 

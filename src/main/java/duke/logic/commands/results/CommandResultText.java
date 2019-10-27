@@ -1,12 +1,12 @@
 package duke.logic.commands.results;
 
+import duke.model.Event;
 import duke.model.lists.RouteList;
-import duke.model.lists.TaskList;
+import duke.model.lists.EventList;
 import duke.model.locations.BusStop;
 import duke.model.locations.TrainStation;
 import duke.model.transports.Route;
 import duke.model.locations.RouteNode;
-import duke.model.Task;
 
 /**
  * Defines the result of various commands as a string.
@@ -22,12 +22,12 @@ public class CommandResultText extends CommandResult {
     }
 
     /**
-     * Alternative constructor that helps to create text for a list of tasks.
+     * Alternative constructor that helps to create text for a list of events.
      */
-    public CommandResultText(TaskList tasks) {
-        message = "Here are the list of tasks:\n";
+    public CommandResultText(EventList events) {
+        message = "Here are the list of events:\n";
         int i = 1;
-        for (Task t : tasks) {
+        for (Event t : events) {
             message += (i + ". " + t + "\n");
             i += 1;
         }

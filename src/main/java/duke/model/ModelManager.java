@@ -1,6 +1,5 @@
 package duke.model;
 
-import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.QueryFailedException;
@@ -8,7 +7,6 @@ import duke.commons.exceptions.RouteDuplicateException;
 import duke.logic.CreateMap;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
-import duke.model.lists.TaskList;
 import duke.model.lists.VenueList;
 import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
@@ -27,20 +25,18 @@ import java.util.List;
  */
 public class ModelManager implements Model {
     private Storage storage;
-    private TaskList tasks;
+    private EventList events;
     private RouteList routes;
     private CreateMap map;
-    //private List<Route> userRoutes;
 
     /**
      * Constructs a new ModelManager object.
      */
     public ModelManager() {
         storage = new Storage();
-        tasks = storage.getTasks();
+        events = storage.getEvents();
         map = storage.getMap();
         routes = storage.getRoutes();
-        //userRoutes = storage.getRoutes();
     }
 
     @Override
@@ -49,8 +45,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public TaskList getTasks() {
-        return tasks;
+    public EventList getEvents() {
+        return events;
     }
 
     @Override
@@ -59,28 +55,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Task> getFilteredList() {
-        return tasks.getFilteredList();
-    }
-
-    @Override
-    public List<Task> getChronoSortedList() {
-        return tasks.getChronoList();
-    }
-
-    @Override
-    public List<Venue> getLocationList() {
-        //move this to UniqueTaskList
-        List<Venue> locations = new ArrayList<>();
-        for (Task t : tasks.getEventList()) {
-            locations.add(((Event) t).getLocation());
-        }
-        return locations;
-    }
-
-    @Override
-    public EventList getEventList() {
-        return new EventList(tasks);
+    public EventList getSortedList() {
+        return events.getSortedList();
     }
 
     @Override
@@ -113,7 +89,7 @@ public class ModelManager implements Model {
 
     @Override
     public VenueList getEventVenues() {
-        return new VenueList(tasks.getEventList());
+        return new VenueList(events);
     }
 
     /**
@@ -129,11 +105,10 @@ public class ModelManager implements Model {
     /**
      * Saves the file to local storage.
      *
-     * @throws CorruptedFileException If the file is corrupted.
      * @throws FileNotSavedException If the file cannot be saved.
      */
     @Override
-    public void save() throws CorruptedFileException, FileNotSavedException {
+    public void save() throws FileNotSavedException {
         storage.write();
     }
 }
