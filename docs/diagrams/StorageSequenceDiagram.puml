@@ -19,7 +19,7 @@ create DollaData
 Dolla -> DollaData : new DollaData()
 activate DollaData
 DollaData -> Storage : getDebtsFromSave()
-Storage -> DollaData
+Storage --> DollaData
 
 Dolla -> DollaData : execute()
 DollaData -> DollaData : addToRecordList()
