@@ -1,6 +1,6 @@
 package seedu.hustler.logic.parser;
 
-import seedu.hustler.command.Command;
+import seedu.hustler.logic.command.Command;
 import seedu.hustler.command.achievementCommand.AchievementCommand;
 import seedu.hustler.command.avatar.CheckAvatarCommand;
 import seedu.hustler.command.avatar.EquipCommand;
