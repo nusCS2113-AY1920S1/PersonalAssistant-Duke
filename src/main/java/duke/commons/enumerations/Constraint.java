@@ -6,6 +6,7 @@ package duke.commons.enumerations;
 public enum Constraint {
     MRT,
     BUS,
-    MIXED
+    MIXED,
+    CAR,
     CUSTOM
 }

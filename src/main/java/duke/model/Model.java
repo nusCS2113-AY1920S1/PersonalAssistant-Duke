@@ -38,9 +38,9 @@ public interface Model {
     EventList getSortedList();
 
     /**
-     * Returns the list of all bus stops.
+     * Returns the map of all bus stops.
      */
-    List<BusStop> getAllBusStops();
+    HashMap<String, BusStop> getBusStops();
 
     /**
      * Returns the list of all bus routes.

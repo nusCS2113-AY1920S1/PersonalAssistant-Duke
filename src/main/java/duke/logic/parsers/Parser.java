@@ -132,7 +132,7 @@ public class Parser {
         try {
             return userInput.strip().split(" ", 2)[1];
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeUnknownCommandException();
+            return userInput;
         }
     }
 

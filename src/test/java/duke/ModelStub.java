@@ -67,11 +67,10 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public List<BusStop> getAllBusStops() {
-        return null;
+    public HashMap<String, BusStop> getBusStops() {
+        return map.getBusStopMap();
     }
 
-    @Override
     public BusStop getBusStop(String query) throws QueryFailedException {
         HashMap<String, BusStop> allBus = getMap().getBusStopMap();
         if (allBus.containsKey(query)) {
