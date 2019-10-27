@@ -260,7 +260,7 @@ public class ShortCutter {
         } else if (commandClassName.equals("UpdateTaskCommand")) {
             convertedName = "Update Task information";
             return convertedName;
-        } else if (commandClassName.equals("AssignTaskToPatientCommand")) {
+        } else if (commandClassName.equals("AssignPeriodTaskCommand")) {
             convertedName = "Assign a task to a patient";
             return convertedName;
         } else {

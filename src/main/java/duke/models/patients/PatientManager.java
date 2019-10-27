@@ -28,7 +28,7 @@ public class PatientManager {
      * @param id .
      * @return .
      */
-    public boolean isExist(int id) {
+    public boolean doesExist(int id) {
         if (patientIdMap.containsKey(id)) {
             return true;
         } else {

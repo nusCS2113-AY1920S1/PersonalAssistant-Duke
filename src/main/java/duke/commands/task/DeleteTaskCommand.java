@@ -109,36 +109,6 @@ public class DeleteTaskCommand implements Command {
             storageManager.saveTasks(taskManager.getTaskList());
             ui.taskDeleted();
         }
-        /*
-        try {
-            taskToBeDeleted = getTaskByDeleteTaskCommand(deletedTaskInfo, ui, taskManager);
-        } catch (Exception e) {
-            throw e;
-        }
-        ui.showTaskInfo(taskToBeDeleted);
-        boolean toDelete;
-        try {
-            ArrayList<AssignedTask> patientTasks = assignedTaskManager.getTaskPatient(taskToBeDeleted.getId());
-            ArrayList<Patient> relatedPatients = new ArrayList<>();
-            for (AssignedTask patientTask : patientTasks) {
-                relatedPatients.add(patientManager.getPatient(patientTask.getPid()));
-            }
-            ui.taskPatientFound(taskToBeDeleted, patientTasks, relatedPatients);
-            toDelete = ui.confirmTaskToBeDeleted(taskToBeDeleted, true);
-            if (toDelete) {
-                assignedTaskManager.deleteAllPatientTaskByTaskId(taskToBeDeleted.getId());
-                storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
-            }
-        } catch (Exception e) {
-            toDelete = ui.confirmTaskToBeDeleted(taskToBeDeleted,false);
-        }
-        if (toDelete) {
-            taskManager.deleteTask(taskToBeDeleted.getId());
-            storageManager.saveTasks(taskManager.getTaskList());
-            ui.taskDeleted();
-        }
-
-         */
     }
 
     /**

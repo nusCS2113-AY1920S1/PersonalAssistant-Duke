@@ -7,9 +7,6 @@ import java.time.LocalDateTime;
 
 public class AssignedTaskWithDate extends AssignedTask {
 
-    private LocalDateTime deadline;
-    private String deadlineRaw;
-
     /**
      * .
      *
@@ -53,7 +50,7 @@ public class AssignedTaskWithDate extends AssignedTask {
      * @return .
      */
     public String toString() {
-        return super.printStatus() + " " + DateTimeParser.convertToEnglishDateTimeBeforeParse(deadline);
+        return super.printStatus() + " " + DateTimeParser.convertToEnglishDateTimeBeforeParse(getTodoDate());
     }
 
 }

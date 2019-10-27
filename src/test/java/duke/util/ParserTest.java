@@ -3,7 +3,6 @@
 package duke.util;
 
 import duke.exceptions.DukeException;
-import duke.util.Parser;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -59,7 +58,7 @@ public class ParserTest {
         Parser testParserEvent = new Parser(assignPatientToEventTask);
 
         final String[] testDeadlineOutput = testParserDeadline.parseAssignDeadlineTask();
-        final String[] testEventOutput = testParserEvent.parseAssignEventTask();
+        final String[] testEventOutput = testParserEvent.parseAssignPeriodTask();
 
         String[] desiredDeadlineOutput = {"patient name", "#2", "02/02/2002 2222"};
         String[] desiredEventOutput = {"#2", "#1", "01/02/2003 1234", "06/05/2004 2312"};

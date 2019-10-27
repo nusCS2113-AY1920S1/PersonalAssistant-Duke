@@ -13,13 +13,13 @@ import org.apache.commons.text.similarity.LevenshteinDistance;
 public class TypoCorrector {
 
     //The maximum ratio changes of a text in % that is acceptable
-    private static final double MAX_DISTANCE_DIFF_RATIO = 0.5;
+    private static final double MAX_DISTANCE_DIFF_RATIO = 0.7;
 
     //Sets of "Dictionaries" for the command keyword, categorised by number of keywords contain in a supported commands.
     private static final String[] simpleCommands = {"bye", "duke", "help", "list patients", "list tasks"};
     private static final String[] otherCommands = {"update patient", "update task", "delete patient",
         "delete task", "delete assigned task", "add task", "add patient", "find patient", "find task",
-        "find assigned task", "assign deadline task", "assign event task"};
+        "find assigned tasks", "assign deadline task", "assign period task"};
 
     /**
      * This method take in an user input command with typo and return a possible matches
@@ -45,7 +45,7 @@ public class TypoCorrector {
             closestMatch = matchStringFromDict(keyword, otherCommands); //get closest match
             if (isSimilar(keyword, closestMatch)) {
                 splitCommand[0] = "";
-                return closestMatch + " " + String.join(":", splitCommand).trim();
+                return closestMatch + String.join(":", splitCommand).trim();
             }
         }
         return command; // The input command will be return if there is no matched found

@@ -1,8 +1,8 @@
 package duke.util.mementopattern;
 
+import duke.commands.assignedtask.AssignPeriodTaskCommand;
 import duke.commands.patient.AddPatientCommand;
 import duke.commands.task.AddTaskCommand;
-import duke.commands.assignedtask.AssignTaskToPatientCommand;
 import duke.commands.Command;
 import duke.commands.patient.DeletePatientCommand;
 import duke.commands.assignedtask.DeleteAssignedTaskCommand;
@@ -19,7 +19,7 @@ public class MementoParser {
      */
     public static String getSaveFlag(Command command) {
         if ((command instanceof AddPatientCommand) || (command instanceof AddTaskCommand)
-                || (command instanceof AssignTaskToPatientCommand) || (command instanceof DeletePatientCommand)
+                || (command instanceof AssignPeriodTaskCommand) || (command instanceof DeletePatientCommand)
                 || (command instanceof DeleteAssignedTaskCommand) || (command instanceof DeleteTaskCommand)
                 || (command instanceof UpdatePatientCommand) || (command instanceof UpdateTaskCommand)) {
             return "save";

@@ -36,10 +36,9 @@ public class DeleteAssignedTaskCommand implements Command {
                 this.deletedPatientInfo = deleteInfo[0];
             }
         } catch (Exception e) {
-            throw new DukeException("Try to follow the format: delete patienttask %<taskUniqueID>/#<patientID>/"
+            throw new DukeException("Try to follow the format: delete assigned task %<taskUniqueID>/#<patientID>/"
                 + "<patientName>");
         }
-
     }
 
     /**
@@ -53,10 +52,11 @@ public class DeleteAssignedTaskCommand implements Command {
      * @throws DukeException .
      */
     @Override
-    public void execute(AssignedTaskManager assignedTaskManager, TaskManager tasks,
+    public void execute(AssignedTaskManager assignedTaskManager, TaskManager taskManager,
                         PatientManager patientManager, Ui ui,
                         StorageManager storageManager)
         throws DukeException {
+
         if (patientId != 0) {
             try {
                 Patient toBeDeletedPatient = patientManager.getPatient(patientId);

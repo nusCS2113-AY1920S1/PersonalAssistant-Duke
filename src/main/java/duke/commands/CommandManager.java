@@ -2,7 +2,8 @@
 
 package duke.commands;
 
-import duke.commands.assignedtask.AssignTaskToPatientCommand;
+import duke.commands.assignedtask.AssignDeadlineTaskCommand;
+import duke.commands.assignedtask.AssignPeriodTaskCommand;
 import duke.commands.assignedtask.DeleteAssignedTaskCommand;
 import duke.commands.assignedtask.FindAssignedTaskCommand;
 import duke.commands.functional.DukeCommand;
@@ -51,9 +52,9 @@ public class CommandManager {
         case "add task":
             return new AddTaskCommand(parser.parseAddTask());
         case "assign deadline task":
-            return new AssignTaskToPatientCommand(parser.parseAssignDeadlineTask());
-        case "assign event task":
-            return new AssignTaskToPatientCommand(parser.parseAssignEventTask());
+            return new AssignDeadlineTaskCommand(parser.parseAssignDeadlineTask());
+        case "assign period task":
+            return new AssignPeriodTaskCommand(parser.parseAssignPeriodTask());
         case "list patients":
             return new ListPatientsCommand();
         case "list tasks":

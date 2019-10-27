@@ -41,8 +41,8 @@ public class Parser {
             return formattedOutput;
         } catch (Exception e) {
             throw new DukeException("Please follow the  "
-                    + "`add patient :<patient name> :<NRIC> :<patient room> :<patient_remark>` "
-                    + "format.");
+                + "`add patient :<patient name> :<NRIC> :<patient room> :<patient_remark>` "
+                + "format.");
         }
     }
 
@@ -80,8 +80,8 @@ public class Parser {
             return formattedInput;
         } catch (Exception e) {
             throw new DukeException("Please follow the "
-                    + "`assign deadline task :<patient name> or #<patient id> :#<task id> or <task name> "
-                    + ":<dd/MM/YYYY HHmm>` format.");
+                + "`assign deadline task :#<patient id> : #<task id>"
+                + ":<dd/MM/YYYY HHmm>` format.");
         }
     }
 
@@ -92,21 +92,17 @@ public class Parser {
      * @return A string of formatted output to be used by `assign event task` command.
      * @throws DukeException Thrown when the user input cannot be parsed in the desired manner.
      */
-    public String[] parseAssignEventTask() throws DukeException {
+    public String[] parseAssignPeriodTask() throws DukeException {
         String[] formattedInput = new String[4];
         try {
-            String[] parsedTimes = parsedInput[3].split(" to ");
-            for (int i = 1; i < (formattedInput.length - 1); i++) {
+            for (int i = 1; i <= (formattedInput.length); i++) {
                 formattedInput[i - 1] = parsedInput[i].trim();
             }
-
-            formattedInput[2] = parsedTimes[0];
-            formattedInput[3] = parsedTimes[1];
             return formattedInput;
         } catch (Exception e) {
             throw new DukeException("Please follow the "
-                    + "`assign event task :<patient name> or #<patient id> :#<task ID> or <task name> "
-                    + ":<dd/MM/YYYY HHmm> to <dd/MM/YYYY HHmm>` format.");
+                + "`assign period task :#<patient id> : #<task ID> "
+                + ": <dd/MM/YYYY HHmm> : <dd/MM/YYYY HHmm>` format.");
         }
     }
 
@@ -155,7 +151,6 @@ public class Parser {
     public String[] parseDeleteAssignedTask() throws DukeException {
         try {
             String[] formattedInput = new String[2];
-
             if (parsedInput.length <= 2) {
                 formattedInput[0] = parsedInput[1];
                 return formattedInput;
@@ -167,8 +162,8 @@ public class Parser {
             }
         } catch (Exception e) {
             throw new DukeException("Please follow the `delete assigned task :<patient name> or #<patient id>"
-                    + " :<task name> or #<task id>` or "
-                    + " `delete patient task :%<unique assigned task id>` format.");
+                + " :<task name> or #<task id>` or "
+                + " `delete patient task :%<unique assigned task id>` format.");
         }
     }
 
@@ -189,7 +184,7 @@ public class Parser {
             return formattedInput;
         } catch (Exception e) {
             throw new DukeException("Please use the `update patient :<patient name> or #<patient id>"
-                    + ":<edited info type> :<updated info>` format.");
+                + ":<edited info type> :<updated info>` format.");
         }
     }
 
@@ -209,7 +204,7 @@ public class Parser {
             return formattedInput;
         } catch (Exception e) {
             throw new DukeException("Please use the `update task :<task name> or #<task id>"
-                    + " :<updated description>` format.");
+                + " :<updated description>` format.");
         }
     }
 

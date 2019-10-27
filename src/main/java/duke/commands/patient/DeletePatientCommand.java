@@ -111,37 +111,6 @@ public class DeletePatientCommand implements Command {
         } catch (Exception e) {
             throw new DukeException(e.getMessage());
         }
-        /*
-        try {
-            patientToBeDeleted = getPatientByDeletePatientCommand(deletedPatientInfo, ui, patientManager);
-        } catch (Exception e) {
-            ui.showError(e.getMessage());
-        }
-
-        boolean toDelete;
-        ui.showPatientInfo(patientToBeDeleted);
-        try {
-            ArrayList<AssignedTask> patientTask = assignedTaskManager.getPatientTask(patientToBeDeleted.getId());
-            ArrayList<Task> tempTask = new ArrayList<>();
-            for (AssignedTask tempPatientTask : patientTask) {
-                tempTask.add(taskManager.getTask(tempPatientTask.getTid()));
-            }
-            ui.patientTaskFound(patientToBeDeleted, patientTask, tempTask);
-            toDelete = ui.confirmPatientToBeDeleted(patientToBeDeleted, true);
-            if (toDelete) {
-                assignedTaskManager.deleteAllTasksBelongToThePatient(patientToBeDeleted.getId());
-                storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
-            }
-        } catch (Exception e) {
-            toDelete = ui.confirmPatientToBeDeleted(patientToBeDeleted,false);
-        }
-        if (toDelete) {
-            patientManager.deletePatient(patientToBeDeleted.getId());
-            storageManager.savePatients(patientManager.getPatientList());
-            ui.patientDeleted();
-
-        }
-         */
     }
 
     /**
