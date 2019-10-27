@@ -7,7 +7,6 @@ import java.util.List;
 public class Investigation extends Treatment {
 
     private static final List<String> statusArr = Arrays.asList("Not ordered", "In progress");
-    private String summary;
 
     /**
      * Represents the investigation needed to investigate an impression the Doctor has about a patient.
@@ -54,14 +53,6 @@ public class Investigation extends Treatment {
     @Override
     public String toReportString() {
         return null;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
     }
 
     public String getStatusStr() {
