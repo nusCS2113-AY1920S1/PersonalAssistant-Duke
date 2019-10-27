@@ -2,13 +2,19 @@ package entertainment.pro.storage.utils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import entertainment.pro.model.MovieModel;
 import entertainment.pro.model.UserProfile;
+import entertainment.pro.storage.user.Blacklist;
+import entertainment.pro.ui.MovieHandler;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -41,9 +47,6 @@ public class EditProfileJson {
     }
 
     public UserProfile load() throws IOException {
-       // Scanner scanner = new Scanner( new File(fileName) );
-        //String jsonString = scanner.useDelimiter("\\A").next();
-        //scanner.close();
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = new JSONObject();
         try {
@@ -70,8 +73,12 @@ public class EditProfileJson {
         //ArrayList<Integer> arrayList = (ArrayList<Integer>) jsonObject.get("genreIdPreference");
         boolean isRating = (boolean) jsonObject.get("sortByHighestRating");
         //boolean isDates = (boolean) jsonObject.get("sortByLatestDates");
-        return new UserProfile(genrePreference, genreRestriction,
-                (boolean) jsonObject.get("adult"), (boolean)jsonObject.get("sortByAlphabetical"),
+        ArrayList<String> emptyPlaylist = new ArrayList<>();
+        long age = (long) jsonObject.get("age");
+        int ageToInt = Math.toIntExact(age);
+        return new UserProfile((String)jsonObject.get("name"),
+                ageToInt, genrePreference, genreRestriction,
+                (boolean) jsonObject.get("adult"), emptyPlaylist , (boolean)jsonObject.get("sortByAlphabetical"),
                 (boolean) jsonObject.get("sortByHighestRating"), (boolean)jsonObject.get("sortByLatestRelease"));
 
     }
@@ -80,6 +87,7 @@ public class EditProfileJson {
      * update json file with any changes made to user profile
      */
     public void updateProfile(UserProfile userProfile) throws IOException {
+        System.out.println("this is");
         mapper.writeValue(file, userProfile);
     }
 }

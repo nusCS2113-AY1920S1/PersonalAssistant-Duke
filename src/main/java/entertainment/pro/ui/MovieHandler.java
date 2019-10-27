@@ -8,6 +8,7 @@ import entertainment.pro.logic.Contexts.SearchResultContext;
 import entertainment.pro.logic.Execution.CommandStack;
 import entertainment.pro.logic.movieRequesterAPI.RequestListener;
 import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
+import entertainment.pro.logic.movieRequesterAPI.MovieResultFilter;
 import entertainment.pro.model.*;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.storage.utils.*;
@@ -53,11 +54,11 @@ public class MovieHandler extends Controller implements RequestListener {
     @FXML
     private Label userPreferenceLabel, userAdultLabel1, userAdultLabel2,
             userGenreLabel, sortAlphaOrderLabel, sortLatestDateLabel, sortHighestRatingLabel,
-            sortHighestRatingText, autoCompleteLabel, generalFeedbackLabel, autoCompleteText, generalFeedbackText;
+            sortHighestRatingText, autoCompleteLabel, generalFeedbackLabel, userNameLabel, userAgeLabel;
 
     @FXML
     private Text userPreferenceText, userNameText, userAgeText,
-            sortAlphaOrderText, sortLatestDateText;
+            sortAlphaOrderText, sortLatestDateText,  autoCompleteText, generalFeedbackText;
 
     @FXML
     private TextFlow genreListText;
@@ -104,6 +105,7 @@ public class MovieHandler extends Controller implements RequestListener {
     private static UserProfile userProfile;
     private ArrayList<String> playlists;
     private String playlistName = "";
+    private MovieResultFilter filter = new MovieResultFilter(new ArrayList<>(), new ArrayList<>());
 //    private ArrayList<MovieInfoObject> playlistMovies = new ArrayList<>();
 //    private ArrayList<Playlist> playlists;
     private FlowPane mMoviesFlowPane;
@@ -117,16 +119,19 @@ public class MovieHandler extends Controller implements RequestListener {
     static String command = "";
     ArrayList<Integer> genrePreference = new ArrayList<>();
     ArrayList<Integer> genreRestriction = new ArrayList<>();
+    ArrayList<String> playlist = new ArrayList<>();
     boolean isAdultEnabled = false;
     boolean sortByAlphaOrder = false;
     boolean sortByRating = false;
     boolean sortByReleaseDate = false;
     boolean isMovie = true;
     String searchEntryName = "";
+    String name = "";
+    int age = 0;
 
 
-    SearchProfile searchProfile = new SearchProfile(genrePreference, genreRestriction, isAdultEnabled,
-            sortByAlphaOrder, sortByRating, sortByReleaseDate, searchEntryName, isMovie);
+    SearchProfile searchProfile = new SearchProfile(name, age, genrePreference, genreRestriction, isAdultEnabled,
+            playlist, sortByAlphaOrder, sortByRating, sortByReleaseDate, searchEntryName, isMovie);
 
 
     public SearchProfile getSearchProfile() {
@@ -198,6 +203,8 @@ public class MovieHandler extends Controller implements RequestListener {
         }
 //        EditPlaylistJson editPlaylistJson = new EditPlaylistJson();
 //        playlists = editPlaylistJson.load();
+        userNameLabel.setText(userProfile.getUserName());
+        userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
         playlists = userProfile.getPlaylistNames();
         ProfileCommands command = new ProfileCommands(userProfile);
 
@@ -344,7 +351,9 @@ public class MovieHandler extends Controller implements RequestListener {
     public void requestCompleted(ArrayList<MovieInfoObject> moviesInfo) {
         // Build the Movie poster views and add to the flow pane on the main thread
         //System.out.print("Request received");
-        final ArrayList<MovieInfoObject> MoviesFinal = Blacklist.filter(moviesInfo);
+        ArrayList<MovieInfoObject> filteredMovies = Blacklist.filter(moviesInfo);
+        filteredMovies = filter.filter(filteredMovies);
+        final ArrayList<MovieInfoObject> MoviesFinal = filteredMovies;
         mMovies.clear();
         System.out.println("cleared");
         for (MovieInfoObject mf : MoviesFinal) {
@@ -1082,4 +1091,11 @@ public class MovieHandler extends Controller implements RequestListener {
         buildPlaylistInfo(editPlaylistJson.load());
     }
 
+    public MovieResultFilter getFilter() {
+        return filter;
+    }
+
+    public void setFilter(MovieResultFilter filter) {
+        this.filter = filter;
+    }
 }

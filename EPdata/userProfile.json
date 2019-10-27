@@ -1,12 +1,13 @@
 {
-  "genreIdPreference": [
-    28
-  ],
+  "name": "me",
+  "age": 18,
+  "genreIdPreference": [],
   "genreIdRestriction": [
     16
   ],
-  "adult": true,
-  "sortByAlphabetical": true,
+  "adult": false,
+  "playlistNames": [],
+  "sortByAlphabetical": false,
   "sortByHighestRating": false,
-  "sortByLatestRelease": false
+  "sortByLatestRelease": true
 }

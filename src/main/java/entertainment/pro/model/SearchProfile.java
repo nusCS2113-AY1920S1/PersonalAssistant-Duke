@@ -7,11 +7,8 @@ public class SearchProfile extends UserProfile {
     private String name;
     private boolean isMovie;
 
-    public SearchProfile(ArrayList<Integer> genreIdPreference, ArrayList<Integer> genreIdRestriction,
-                         boolean adult, boolean sortByAlphabetical, boolean sortByHighestRating,
-                         boolean sortByLatestRelease, String name, boolean isMovie) {
-        super(genreIdPreference, genreIdRestriction, adult, sortByAlphabetical, sortByHighestRating,
-                sortByLatestRelease);
+    public SearchProfile(String userName, int userAge, ArrayList<Integer> genreIdPreference, ArrayList<Integer> genreIdRestriction, boolean adult, ArrayList<String> playlistNames, boolean sortByAlphabetical, boolean sortByHighestRating, boolean sortByLatestRelease, String name, boolean isMovie) {
+        super(userName, userAge, genreIdPreference, genreIdRestriction, adult, playlistNames, sortByAlphabetical, sortByHighestRating, sortByLatestRelease);
         this.name = name;
         this.isMovie = isMovie;
     }

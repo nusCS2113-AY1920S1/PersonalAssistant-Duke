@@ -270,7 +270,6 @@ public class RetrieveRequest implements InfoFetcher {
         return "";
     }
 
-
     public ArrayList<MovieInfoObject> beginSearchGenre (String genre, boolean adult) throws Exceptions {
         try {
             String url = MAIN_URL + "discover/movie?with_genres=" + URLEncoder.encode(genre, "UTF-8") + "&api_key="
@@ -321,11 +320,15 @@ public class RetrieveRequest implements InfoFetcher {
                 }
             }
             if (searchProfile.isSortByAlphabetical()) {
-                System.out.println("nooo");
-                sortByAlphaOrder(parsedMovies);
-
+                //System.out.println("nooo");
+                //sortByAlphaOrder(parsedMovies);
+                Collections.sort(parsedMovies, new Comparator<MovieInfoObject>() {
+                    public int compare(MovieInfoObject v1, MovieInfoObject v2) {
+                        return v2.getReleaseDate().compareTo(v1.getReleaseDate());
+                    }
+                });
             } else if (searchProfile.isSortByLatestRelease()) {
-                System.out.println("boooo");
+                //System.out.println("boooo");
                 Collections.sort(parsedMovies, new Comparator<MovieInfoObject>() {
                     public int compare(MovieInfoObject v1, MovieInfoObject v2) {
                         return v2.getReleaseDate().compareTo(v1.getReleaseDate());
@@ -351,15 +354,6 @@ public class RetrieveRequest implements InfoFetcher {
         }
     }
 
-    private ArrayList<MovieInfoObject> sortByAlphaOrder(ArrayList<MovieInfoObject> parsedMovies) {
-        Collections.sort(parsedMovies, new Comparator<MovieInfoObject>() {
-            public int compare(MovieInfoObject v1, MovieInfoObject v2) {
-                return v1.getTitle().compareTo(v2.getTitle());
-            }
-        });
-        return parsedMovies;
-    }
-
 
     // The fetcher reported a connection time out. Notify the request listener.
     /**
@@ -383,8 +377,6 @@ public class RetrieveRequest implements InfoFetcher {
     }
 
 
-
-    // Parses the given JSON string for a movie into a MovieInfo object
     /**
      * Parses the given JSON string for a movie into a MovieInfo object.
      */

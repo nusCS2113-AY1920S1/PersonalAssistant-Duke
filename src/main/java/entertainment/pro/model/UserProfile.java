@@ -4,6 +4,8 @@ import javax.print.DocFlavor;
 import java.util.ArrayList;
 
 public class UserProfile {
+    private String userName = "";
+    private int userAge = -1;
     private ArrayList<Integer> genreIdPreference = new ArrayList<>();
     private ArrayList<Integer> genreIdRestriction = new ArrayList<>();
     private boolean adult = true;
@@ -12,12 +14,13 @@ public class UserProfile {
     private boolean sortByHighestRating = false;
     private boolean sortByLatestRelease = false;
 
-    public UserProfile(ArrayList<Integer> genreIdPreference, ArrayList<Integer> genreIdRestriction,
-                       boolean adult, boolean sortByAlphabetical, boolean sortByHighestRating,
-                       boolean sortByLatestRelease) {
+    public UserProfile(String userName, int userAge, ArrayList<Integer> genreIdPreference, ArrayList<Integer> genreIdRestriction, boolean adult, ArrayList<String> playlistNames, boolean sortByAlphabetical, boolean sortByHighestRating, boolean sortByLatestRelease) {
+        this.userName = userName;
+        this.userAge = userAge;
         this.genreIdPreference = genreIdPreference;
         this.genreIdRestriction = genreIdRestriction;
         this.adult = adult;
+        this.playlistNames = playlistNames;
         this.sortByAlphabetical = sortByAlphabetical;
         this.sortByHighestRating = sortByHighestRating;
         this.sortByLatestRelease = sortByLatestRelease;
@@ -103,5 +106,20 @@ public class UserProfile {
         playlistNames.remove(listName);
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public int getUserAge() {
+        return userAge;
+    }
+
+    public void setUserAge(int userAge) {
+        this.userAge = userAge;
+    }
 }
 
