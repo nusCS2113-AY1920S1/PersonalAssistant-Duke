@@ -46,7 +46,7 @@ public class WordBank extends Bank {
         return null;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return wordBank.isEmpty();
     }
 

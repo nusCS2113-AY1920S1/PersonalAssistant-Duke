@@ -17,6 +17,10 @@ public class Bank {
 
     }
 
+    /**
+     * Instantiates a wordBank, tagBank and wordCount object.
+     * @param storage object required to create instantiate a wordBank
+     */
     public Bank(Storage storage) {
         wordBank = new WordBank(storage);
         tagBank = new TagBank();
@@ -43,16 +47,30 @@ public class Bank {
         return tagBank;
     }
 
+    /**
+     * Returns true if wordBank is empty.
+     * @return boolean value indicating if wordBank is empty
+     */
     public boolean wordBankIsEmpty() {
         return wordBank.isEmpty();
     }
 
+    /**
+     * Adds word to the wordBank, tagBank and wordCount.
+     * @param word word object to be added
+     * @throws WordAlreadyExistsException if the word already exists in the bank
+     */
     public void addWordToBank(Word word) throws WordAlreadyExistsException {
         wordBank.addWord(word);
         tagBank.addWordAllTags(word);
         wordCount.addWord(word);
     }
 
+    /**
+     * Deletes word from the wordBank, tagBank and wordCount.
+     * @param word word object to be deleted
+     * @throws NoWordFoundException if the word cannot be found in the bank
+     */
     public void deleteWordFromBank(Word word) throws NoWordFoundException {
         wordBank.deleteWord(word);
         tagBank.deleteWordAllTags(word);

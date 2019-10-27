@@ -2,8 +2,11 @@ package scene;
 
 import command.QuizCommand;
 import dictionary.Bank;
-import dictionary.WordCount;
-import exception.*;
+import exception.ChangeSceneException;
+import exception.InvalidAnswerException;
+import exception.WordBankNotEnoughForQuizException;
+import exception.CommandInvalidException;
+import exception.WordUpException;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
