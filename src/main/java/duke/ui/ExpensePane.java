@@ -8,7 +8,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -18,7 +23,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
-public class ExpensePane extends UiPart<AnchorPane>  {
+public class ExpensePane extends UiPart<AnchorPane> {
 
     private static final Logger logger = LogsCenter.getLogger(ExpensePane.class);
 
@@ -79,7 +84,7 @@ public class ExpensePane extends UiPart<AnchorPane>  {
                         if (expense != null && expense.isTentative()) {
                             setStyle("-fx-text-background-color: grey;");
 
-                        }else if(expense != null && expense.isRecurring()) {
+                        } else if (expense != null && expense.isRecurring()) {
                             setStyle("-fx-text-background-color: green;");
                         } else {
                             setStyle("-fx-text-background-color: black;");
@@ -137,16 +142,14 @@ public class ExpensePane extends UiPart<AnchorPane>  {
         for (Expense expense : logic.getExternalExpenseList()) {
             String[] tagsString = expense.getTagsString().split(" ");
             if (tagsString.length > 0) {
-                for(String tag: tagsString) {
-                    if(!tag.equals("")) {
+                for (String tag : tagsString) {
+                    if (!tag.equals("")) {
                         tags.add(tag);
                     }
                 }
             }
         }
     }
-
-
 
 
 }

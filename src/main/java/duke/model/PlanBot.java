@@ -2,11 +2,9 @@ package duke.model;
 
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
-import duke.logic.Parser.Parser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -59,6 +57,7 @@ public class PlanBot {
     private PlanQuestion currentQuestion;
 
     private PlanQuestionBank.PlanRecommendation planBudgetRecommendation;
+
     /**
      * Constructor for PlanBot.
      *
@@ -136,7 +135,7 @@ public class PlanBot {
                     currentQuestion = questionQueue.peek();
                     dialogObservableList.add(new PlanDialog(currentQuestion.getQuestion(), Agent.BOT));
                     questionQueue.remove();
-                }else {
+                } else {
                     dialogObservableList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes).getRecommendation(), Agent.BOT));
                     planBudgetRecommendation = planQuestionBank.makeRecommendation(planAttributes);
                     dialogList.add(new PlanDialog("Here's a recommended budget for you, type \"export\" to export the budget", Agent.BOT));
@@ -154,7 +153,6 @@ public class PlanBot {
     public Map<String, String> getPlanAttributes() {
         return planAttributes;
     }
-
 
 
     /**

@@ -3,10 +3,8 @@ package duke.model;
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -45,7 +43,7 @@ public class ExpenseList extends DukeList<Expense> {
                 this.viewScopeName = ViewScopeName.valueOf(viewScopeName.toUpperCase());
             } catch (IllegalArgumentException e) {
                 throw new DukeException(String.format(
-                    DukeException.MESSAGE_EXPENSE_VIEW_SCOPE_NAME_INVALID, viewScopeName));
+                        DukeException.MESSAGE_EXPENSE_VIEW_SCOPE_NAME_INVALID, viewScopeName));
             }
         }
 
@@ -57,52 +55,53 @@ public class ExpenseList extends DukeList<Expense> {
 
         private List<Expense> dayView(List<Expense> currentList) {
             return currentList.stream()
-                .filter(e -> {
-                    LocalDate dateOfExpense = e.getTime().toLocalDate();
-                    LocalDate current = LocalDate.now().minusDays(viewScopeNumber);
-                    return dateOfExpense.equals(current);
-                })
-                .collect(Collectors.toList());
+                    .filter(e -> {
+                        LocalDate dateOfExpense = e.getTime().toLocalDate();
+                        LocalDate current = LocalDate.now().minusDays(viewScopeNumber);
+                        return dateOfExpense.equals(current);
+                    })
+                    .collect(Collectors.toList());
         }
 
         private List<Expense> weekView(List<Expense> currentList) {
             return currentList.stream()
-                .filter(e -> {
-                    int dayOfWeek = e.getTime().getDayOfWeek().getValue();
-                    LocalDate start = e.getTime().minusDays(dayOfWeek - 1).toLocalDate(); // Sunday of week of expense.
-                    LocalDate end = e.getTime().plusDays(7 - dayOfWeek).toLocalDate(); // Monday of week of expense.
-                    LocalDate current = LocalDate.now().minusWeeks(viewScopeNumber);
+                    .filter(e -> {
+                        int dayOfWeek = e.getTime().getDayOfWeek().getValue();
+                        LocalDate start = e.getTime().minusDays(dayOfWeek - 1).toLocalDate(); // Sunday of week of expense.
+                        LocalDate end = e.getTime().plusDays(7 - dayOfWeek).toLocalDate(); // Monday of week of expense.
+                        LocalDate current = LocalDate.now().minusWeeks(viewScopeNumber);
 
-                    return (current.equals(end) || current.equals(start)
-                        || (current.isAfter(start) && current.isBefore(end)));
-                })
-                .collect(Collectors.toList());
+                        return (current.equals(end) || current.equals(start)
+                                || (current.isAfter(start) && current.isBefore(end)));
+                    })
+                    .collect(Collectors.toList());
         }
 
         private List<Expense> monthView(List<Expense> currentList) {
             return currentList.stream()
-                .filter(e -> {
-                    LocalDate dateOfExpense = e.getTime().toLocalDate();
-                    LocalDate current = LocalDate.now().minusMonths(viewScopeNumber);
-                    boolean isSameYear = dateOfExpense.getYear() == current.getYear();
-                    boolean isSameMonth = dateOfExpense.getMonth().equals(current.getMonth());
-                    return (isSameYear && isSameMonth);
-                })
-                .collect(Collectors.toList());
+                    .filter(e -> {
+                        LocalDate dateOfExpense = e.getTime().toLocalDate();
+                        LocalDate current = LocalDate.now().minusMonths(viewScopeNumber);
+                        boolean isSameYear = dateOfExpense.getYear() == current.getYear();
+                        boolean isSameMonth = dateOfExpense.getMonth().equals(current.getMonth());
+                        return (isSameYear && isSameMonth);
+                    })
+                    .collect(Collectors.toList());
         }
 
         private List<Expense> yearView(List<Expense> currentList) {
             return currentList.stream()
-                .filter(e -> {
-                    LocalDate dateOfExpense = e.getTime().toLocalDate();
-                    LocalDate current = LocalDate.now().minusYears(viewScopeNumber);
-                    return dateOfExpense.getYear() == current.getYear();
-                })
-                .collect(Collectors.toList());
+                    .filter(e -> {
+                        LocalDate dateOfExpense = e.getTime().toLocalDate();
+                        LocalDate current = LocalDate.now().minusYears(viewScopeNumber);
+                        return dateOfExpense.getYear() == current.getYear();
+                    })
+                    .collect(Collectors.toList());
         }
 
         /**
          * Returns a filtered list based on the view scope.
+         *
          * @param currentList List of Expenses we want to filter down
          * @return the filtered List of Expense
          */
@@ -152,7 +151,6 @@ public class ExpenseList extends DukeList<Expense> {
     }
 
      */
-
     public ExpenseList(List<Expense> internalList) {
         super(internalList, "expense");
         viewScope = new ViewScope(ViewScopeName.ALL);
@@ -306,8 +304,8 @@ public class ExpenseList extends DukeList<Expense> {
     public BigDecimal getTotalAmount() {
         return internalList.stream()
                 .filter(expense -> !expense.isTentative())
-            .map(Expense::getAmount)
-            .reduce(BigDecimal.ZERO, BigDecimal::add);
+                .map(Expense::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     /**
@@ -331,8 +329,8 @@ public class ExpenseList extends DukeList<Expense> {
      */
     public BigDecimal getTotalExternalAmount() {
         return externalList.stream()
-            .filter(expense -> !expense.isTentative())
-            .map(Expense::getAmount)
-            .reduce(BigDecimal.ZERO, BigDecimal::add);
+                .filter(expense -> !expense.isTentative())
+                .map(Expense::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

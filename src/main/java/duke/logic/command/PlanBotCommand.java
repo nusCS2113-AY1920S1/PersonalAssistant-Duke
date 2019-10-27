@@ -35,9 +35,9 @@ public class PlanBotCommand extends Command {
 
     @Override
     public CommandResult execute(CommandParams commandParams, Model model, Storage storage) throws DukeException {
-        if(commandParams.getMainParam().contains("export")){
+        if (commandParams.getMainParam().contains("export")) {
             try {
-                for (String category : model.getRecommendedBudgetPlan().getPlanBudget().keySet()){
+                for (String category : model.getRecommendedBudgetPlan().getPlanBudget().keySet()) {
                     model.setCategoryBudget(category, model.getRecommendedBudgetPlan().getPlanBudget().get(category));
                 }
                 for (Expense recommendedExpense : model.getRecommendedBudgetPlan().getRecommendationExpenseList()) {
@@ -45,12 +45,12 @@ public class PlanBotCommand extends Command {
                 }
                 storage.saveExpenseList(model.getExpenseList());
                 storage.saveBudget(model.getBudget());
-                    return new CommandResult("Exported successfully!", CommandResult.DisplayedPane.EXPENSE);
+                return new CommandResult("Exported successfully!", CommandResult.DisplayedPane.EXPENSE);
             } catch (NullPointerException e) {
                 return new CommandResult("Nothing to export!", CommandResult.DisplayedPane.PLAN);
             }
 
-        }else{
+        } else {
             model.processPlanInput(commandParams.getMainParam());
             storage.savePlanAttributes(model.getKnownPlanAttributes());
             return new CommandResult("PlanBot replied!", CommandResult.DisplayedPane.PLAN);

@@ -112,7 +112,7 @@ public class Expense extends DukeItem {
         public Builder setAmount(BigDecimal amount) throws DukeException {
             if (amount.scale() > 2) {
                 throw new DukeException(
-                    String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, amount.toPlainString()));
+                        String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, amount.toPlainString()));
             }
             this.amount = amount.setScale(2, RoundingMode.UNNECESSARY);
             return this;
@@ -141,7 +141,6 @@ public class Expense extends DukeItem {
         }
 
         /**
-         *
          * @param recurring whether the expense is tentative.
          * @return this builder.
          * @throws DukeException
@@ -166,7 +165,6 @@ public class Expense extends DukeItem {
                 throw new DukeException(String.format(DukeException.MESSAGE_EXPENSE_TIME_INVALID, time));
             }
         }
-
 
 
         /**
@@ -260,7 +258,7 @@ public class Expense extends DukeItem {
      * @return String of time that is formatted
      */
     public String getTimeString() {
-        if(isRecurring){
+        if (isRecurring) {
             return "recurring";
         }
         return Parser.formatTime(time);
