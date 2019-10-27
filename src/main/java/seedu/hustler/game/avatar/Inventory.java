@@ -22,7 +22,7 @@ public class Inventory {
 
     public int getSize() { return items.size(); }
 
-    public ArrayList<ShopItem> getList() { return items;}
+    public ShopItem get(int i) { return items.get(i); }
 
     public void getToEquip(int index) throws IOException {
         Hustler.avatar.equip(items.get(index));
