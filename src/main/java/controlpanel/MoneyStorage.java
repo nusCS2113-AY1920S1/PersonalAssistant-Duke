@@ -20,11 +20,13 @@ public class MoneyStorage {
     private String fileName;
     private DateTimeFormatter dateTimeFormatter;
     private static Stack<Item> deletedEntries;
+    private static Stack<BankTracker> deletedBanks;
 
     public MoneyStorage(String filePath) {
         fileName = filePath;
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");
         deletedEntries = new Stack<>();
+        deletedBanks = new Stack<>();
     }
     //@@author chengweixuan
     private void parseIncome(String[] info, Account account) {
@@ -240,114 +242,6 @@ public class MoneyStorage {
     }
 
     //@@author Chianhaoplanks
-    public void markDeletedEntry(String type, int index) throws DukeException {
-        try {
-            File tempFile = File.createTempFile("moneyAccountTemp", ".txt",
-                    new File("data/"));
-            File file = new File(fileName);
-            String fileNameTemp = tempFile.getAbsolutePath();
-            FileReader fileReader = new FileReader(fileName);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            FileWriter fileWriter = new FileWriter(fileNameTemp);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            String line;
-            int i = index;
-            while ((line = bufferedReader.readLine()) != null) {
-                if (line.startsWith(type) && !line.contains("#")) {
-                    i--;
-                }
-                if (line.startsWith(type) && i == 0) {
-                    line = line.replaceAll("@", "#");
-                }
-                bufferedWriter.write(line + '\n');
-            }
-            bufferedReader.close();
-            bufferedWriter.close();
-            if (!file.delete()) {
-                throw new DukeException(" OOPS! File cannot be deleted!");
-            } else if (!tempFile.renameTo(file)) {
-                throw new DukeException(" OOPS! File cannot be updated!");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void undoDeletedEntry(Account account, String dataType, int index) throws DukeException {
-        try {
-            FileReader fileReader = new FileReader(fileName);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line;
-            boolean isLineRead = false;
-            while (!isLineRead && (line = bufferedReader.readLine()) != null) {
-                if (line.startsWith(dataType) && line.contains("#")) {
-                    String[] info = line.split(" # ");
-                    switch(dataType) {
-                        case "EXP":
-                            if (info.length > 5) {
-                                Bill bill = new Bill(Float.parseFloat(info[1]), info[2], info[3],
-                                        LocalDate.parse(info[4], dateTimeFormatter),
-                                        LocalDate.parse(info[5], dateTimeFormatter));
-                                if (index > account.getExpListTotal().size()) {
-                                    account.getExpListTotal().add(bill);
-                                } else {
-                                    account.getExpListTotal().add(index - 1, bill);
-                                }
-                            } else {
-                                Expenditure exp = new Expenditure(Float.parseFloat(info[1]), info[2], info[3],
-                                        LocalDate.parse(info[4], dateTimeFormatter));
-                                if (index > account.getExpListTotal().size()) {
-                                    account.getExpListTotal().add(exp);
-                                } else {
-                                    account.getExpListTotal().add(index - 1, exp);
-                                }
-                            }
-                            break;
-                        case "INC":
-                            Income i = new Income(Float.parseFloat(info[1]), info[2],
-                                    LocalDate.parse(info[3], dateTimeFormatter));
-                            if (index > account.getIncomeListTotal().size()) {
-                                account.getIncomeListTotal().add(i);
-                            } else {
-                                account.getIncomeListTotal().add(index - 1, i);
-                            }
-                            break;
-                        case "G":
-                            Goal g = new Goal(Float.parseFloat(info[1]), info[2], info[3],
-                                    LocalDate.parse(info[4], dateTimeFormatter), info[5]);
-                            if (index > account.getShortTermGoals().size()) {
-                                account.getShortTermGoals().add(g);
-                            } else {
-                                account.getShortTermGoals().add(index - 1, g);
-                            }
-                            break;
-                        case "INS":
-                            Instalment ins = new Instalment(Float.parseFloat(info[1]), info[2], info[3],
-                                    LocalDate.parse(info[4], dateTimeFormatter), Integer.parseInt(info[5]),
-                                    Float.parseFloat(info[6]) * 100);
-                            if (index > account.getInstalments().size()) {
-                                account.getInstalments().add(ins);
-                            } else {
-                                account.getInstalments().add(index - 1, ins);
-                            }
-                            break;
-                        case "BAN":
-                            BankTracker b = new BankTracker(info[2], Float.parseFloat(info[1]),
-                                    LocalDate.parse(info[3]), Double.parseDouble(info[4]));
-                            account.getBankTrackerList().add(index - 1, b);
-                            break;
-                        default:
-                            break;
-                    }
-                    isLineRead = true;
-                }
-            }
-            bufferedReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void addDeletedEntry(Item item) {
         deletedEntries.push(item);
         if (deletedEntries.size() > 5) {
@@ -359,5 +253,18 @@ public class MoneyStorage {
         Item item = deletedEntries.lastElement();
         deletedEntries.pop();
         return item;
+    }
+
+    public void addDeletedBank (BankTracker bankTracker) {
+        deletedBanks.push(bankTracker);
+        if (deletedBanks.size() > 5) {
+            deletedBanks.removeElementAt(0);
+        }
+    }
+
+    public BankTracker getDeletedBankTracker() {
+        BankTracker bt = deletedBanks.lastElement();
+        deletedBanks.pop();
+        return bt;
     }
 }
