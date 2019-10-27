@@ -55,8 +55,10 @@ public class GsonStorage {
                 .registerSubtype(Observation.class, "type9")
                 .registerSubtype(Result.class, "type10");
 
-        gson = new GsonBuilder().registerTypeAdapterFactory(typeAdapterFactory)
-                .create();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Treatment.class, new TreatmentAdaptor())
+                    .registerTypeAdapter(Evidence.class, new EvidenceAdaptor());
+        gson = gsonBuilder.create();//new GsonBuilder().registerTypeAdapterFactory(typeAdapterFactory).create();
 
         File dataDir = new File("data");
         File reportDir = new File("data/reports");
