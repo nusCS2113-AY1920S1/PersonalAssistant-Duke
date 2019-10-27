@@ -22,13 +22,13 @@ class ViewCommandTest {
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
-        Event event1 = new Event("CS2105 Lecture", Task.Priority.medium, "01/10/2019", "1400", "1500");
+        Event event1 = new Event("CS2105 Lecture", Task.Priority.medium, "01/10/2019", "01/10/2019", "1400", "1500");
         event1.markAsDone();
-        Event event2 = new Event("CS2106 Tut", Task.Priority.low, "02/10/2019", "1400", "1500");
-        Event event3 = new Event("CS2113T Lab", Task.Priority.low, "03/10/2019", "1400", "1500");
-        Event event4 = new Event("CS2101 Sect", Task.Priority.low, "03/10/2019", "1400", "1500");
-        Event event5 = new Event("CS2101 Sect", Task.Priority.low, "05/10/2019", "1400", "1500");
-        Event event6 = new Event("CS2101 rt", Task.Priority.low, "06/10/2019", "1400", "1500");
+        Event event2 = new Event("CS2106 Tut", Task.Priority.low, "02/10/2019", "02/10/2019", "1400", "1500");
+        Event event3 = new Event("CS2113T Lab", Task.Priority.low, "03/10/2019", "03/10/2019", "1400", "1500");
+        Event event4 = new Event("CS2101 Sect", Task.Priority.low, "03/10/2019", "03/10/2019", "1400", "1500");
+        Event event5 = new Event("CS2101 Sect", Task.Priority.low, "05/10/2019", "05/10/2019", "1400", "1500");
+        Event event6 = new Event("CS2101 rt", Task.Priority.low, "06/10/2019", "06/10/2019", "1400", "1500");
 
         taskArrListMain.add(event1);
         taskArrListMain.add(event2);
@@ -161,7 +161,7 @@ class ViewCommandTest {
                 continue;
             }
 
-            if (t.getStringDate().equals(dateInput)) {
+            if (t.getStringMainDate().equals(dateInput)) {
                 allTask.append(getAsStringView(t));
             }
         }
