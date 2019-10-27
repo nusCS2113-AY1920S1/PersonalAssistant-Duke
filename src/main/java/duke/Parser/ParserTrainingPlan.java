@@ -12,7 +12,7 @@ public class ParserTrainingPlan implements IParser {
     /**
      * Ui class.
      */
-    private Ui ui;
+    private Ui ui = new Ui();
     /**
      * To parse training plan command.
      * @param input command.

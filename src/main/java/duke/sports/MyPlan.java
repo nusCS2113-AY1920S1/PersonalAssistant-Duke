@@ -24,7 +24,7 @@ public class MyPlan {
      /**
       * The ui object responsible for showing things to the user.
       */
-    private Ui ui;
+    private Ui ui = new Ui();
 
      /**
       * Represents the file path for the plans.
@@ -388,7 +388,7 @@ public class MyPlan {
       * @return a string to inform user of result
       * @throws IOException IO
       */
-    public String deletePlan(final String intensity,
+    public void deletePlan(final String intensity,
                              final int planNum) throws IOException {
         String key = createKey(intensity, planNum);
         if (!getMap().containsKey(key)) {
@@ -397,7 +397,6 @@ public class MyPlan {
             getMap().remove(key);
             ui.showPlanRemoved();
         }
-        new Storage(getFilePath()).savePlans(getMap());
-        return "0";
+        //new Storage(getFilePath()).savePlans(getMap());
     }
 }
