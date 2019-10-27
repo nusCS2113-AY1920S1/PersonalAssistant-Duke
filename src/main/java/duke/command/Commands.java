@@ -32,7 +32,7 @@ public class Commands {
         case HOME:
             switch (cmdStr) {
             case "find":
-                return null;//new HomeFindCommand();
+                return new HomeFindCommand();
             case "new":
                 return new HomeNewCommand();
             case "open":
