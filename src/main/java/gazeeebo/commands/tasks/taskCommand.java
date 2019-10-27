@@ -15,7 +15,6 @@ import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;

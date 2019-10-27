@@ -6,10 +6,10 @@ public class ListPlacesCommand {
     /**
      * This method list out all the phone numbers.
      * @param places Map each name to its phone number
-     * @param LINE_BREAK String separator
+     * @param lineBreak String separator
      */
-    public ListPlacesCommand(Map<String,String> places, String LINE_BREAK) {
-        System.out.print("Room:                                             | Location:\n" + LINE_BREAK);
+    public ListPlacesCommand(Map<String,String> places, String lineBreak) {
+        System.out.print("Room:                                             | Location:\n" + lineBreak);
         for (String key : places.keySet()) {
             System.out.print(key);
             int whiteSpaces = 50 - key.length();
@@ -17,7 +17,7 @@ public class ListPlacesCommand {
                 System.out.print(" ");
             }
             System.out.print("| ");
-            System.out.print(places.get(key)+ "\n" + LINE_BREAK);
+            System.out.print(places.get(key)+ "\n" + lineBreak);
         }
     }
 }

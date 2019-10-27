@@ -210,7 +210,7 @@ public class Storage {
 
     }
 
-    public void Storages_Places(String fileContent) throws IOException {
+    public void storagesPlaces(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath_Places);
         fileWriter.write(fileContent);
         fileWriter.flush();
@@ -244,7 +244,7 @@ public class Storage {
         return expenses;
     }
 
-    public HashMap<String, String> Read_Places() throws IOException {
+    public HashMap<String, String> readPlaces() throws IOException {
         HashMap<String, String> placesList = new HashMap<String, String>();
         if (new File(absolutePath_Places).exists()) {
             File file = new File(absolutePath_Places);

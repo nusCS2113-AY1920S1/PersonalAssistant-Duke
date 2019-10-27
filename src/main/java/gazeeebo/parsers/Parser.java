@@ -21,7 +21,7 @@ import gazeeebo.commands.note.GeneralNoteCommand;
 import gazeeebo.commands.tasks.taskCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.commands.*;
-import gazeeebo.commands.Contact.ContactsCommand;
+import gazeeebo.commands.contact.ContactsCommand;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.commands.places.PlacesCommand;
 

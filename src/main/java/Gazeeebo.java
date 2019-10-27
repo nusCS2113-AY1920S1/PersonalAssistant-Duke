@@ -17,7 +17,6 @@ public class Gazeeebo {
      * Returns main function for duke.
      *
      * @param args a String array that takes in input from the command line
-     * @throws DukeException | ParseException | IOException | NullPointerException
      */
     public static void main(String[] args) {
         ArrayList<Task> list;
@@ -48,7 +47,7 @@ public class Gazeeebo {
                     isExit = c.isExit();
                 }
             }
-        } catch (DukeException | ParseException | IOException | NullPointerException e) {
+        } catch (DukeException | ParseException | IOException e) {
             if (e instanceof ParseException) {
                 ui.showDateFormatError();
             } else if (e instanceof IOException) {
