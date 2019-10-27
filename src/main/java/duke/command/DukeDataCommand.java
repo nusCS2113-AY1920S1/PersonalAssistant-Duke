@@ -64,12 +64,12 @@ public abstract class DukeDataCommand extends ImpressionCommand {
      * @throws NumberFormatException If the string is not a valid representation of an integer.
      */
     protected Integer processStatus(String status, List<String> statusList) throws DukeHelpException {
-        if (status == null) {
+        if (status.equals("")) {
             return 0;
         } else {
             try {
                 int convertedStatus = Integer.parseInt(status);
-                if (convertedStatus < 0 || convertedStatus > statusList.size()) {
+                if (convertedStatus < 0 || convertedStatus >= statusList.size()) {
                     throw new DukeHelpException(status + "is not a valid numeric value for the status!", this);
                 }
                 return convertedStatus;

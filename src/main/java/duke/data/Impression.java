@@ -193,18 +193,17 @@ public class Impression extends DukeObject {
 
     @Override
     public String toString() {
-        StringBuilder informationString;
-        informationString = new StringBuilder("Impression details\n");
-        informationString.append("Description: ").append(this.description).append("\n");
+        StringBuilder infoStrBuilder = new StringBuilder("Impression details\n");
+        infoStrBuilder.append("Description: ").append(this.description).append("\n");
         for (Map.Entry mapElement : this.evidences.entrySet()) {
             Evidence valueE = (Evidence) mapElement.getValue();
-            informationString.append(valueE.toString());
+            infoStrBuilder.append(valueE.toString());
         }
         for (Map.Entry mapElement : this.treatments.entrySet()) {
             Treatment valueT = (Treatment) mapElement.getValue();
-            informationString.append(valueT.toString());
+            infoStrBuilder.append(valueT.toString());
         }
-        return super.toString() + informationString + "\n";
+        return super.toString() + infoStrBuilder.toString() + "\n";
     }
 
     @Override

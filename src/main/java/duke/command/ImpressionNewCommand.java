@@ -32,6 +32,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
         Integer status;
         switch (addType) { //isn't polymorphism fun?
         case "medicine":
+            //TODO check for allergies
             status = processStatus(getSwitchVal("status"), Medicine.getStatusArr());
             Medicine medicine = new Medicine(getSwitchVal("name"), impression, priority, status,
                     getSwitchVal("dose"), getSwitchVal("date"), getSwitchVal("duration"));

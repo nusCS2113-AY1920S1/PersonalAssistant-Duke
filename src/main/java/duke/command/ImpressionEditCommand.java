@@ -103,6 +103,7 @@ public class ImpressionEditCommand extends DukeDataCommand {
                 // TODO: deal with null
                 switch (switchName) {
                 case "name":
+                    //TODO check for allergies for medicine
                     editData.setName((isAppending) ? editData.getName() + entryStr : entryStr);
                     break;
                 case "priority":
