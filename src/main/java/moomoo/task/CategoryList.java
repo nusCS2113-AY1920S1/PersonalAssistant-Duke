@@ -122,13 +122,14 @@ public class CategoryList {
         }
         return null;
     }
+    
 
     /**
-     * Populate the categoryList array with dummy variables. FOT TESTING PURPOSES
+     * Populate the categoryList array with dummy variables. FOR TESTING PURPOSES.
      */
     public void testPopulate() {
         ArrayList<String> population = new ArrayList<String>();
-        population.add("Games");
+        population.add("Drugs");
         population.add("Food");
         population.add("Transportation");
         population.add("Individualistically");
@@ -138,5 +139,10 @@ public class CategoryList {
             newCategory.setMonthTotal(i * 100 / (i + 3));
             categoryList.add(newCategory);
         }
+        Category gameCategory = new Category("Games");
+        gameCategory.testPopulate();
+        gameCategory.setCategoryMonthTotal();
+        categoryList.add(gameCategory);
+        
     }
 }
