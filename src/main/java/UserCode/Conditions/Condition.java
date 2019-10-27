@@ -61,7 +61,7 @@ public abstract class Condition {
     }
 
     public static ValueCondition toValueCondition (String userInput) {
-        ValueConditionType valueConditionType = ValueConditionType.money;
+        ValueConditionType valueConditionType = ValueConditionType.gold;
         Comparator comparator = Comparator.lessThan;
         int value = 0;
         String conditionType = userInput.substring(0, userInput.indexOf(" "));
