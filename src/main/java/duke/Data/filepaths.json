@@ -1,7 +1,0 @@
-{
-    FILE_PATH_USER_MEALS_FILE: "duke/Data/duke.txt",
-    FILE_PATH_DEFAULT_MEAL_FILE: "duke/Data/defaultItems.txt",
-    FILE_PATH_GOAL_FILE: "duke/Data/goal.txt",
-    FILE_PATH_USER_FILE: "duke/Data/user.txt",
-    FILE_PATH_AUTOCORRECT_FILE: "duke/Data/word.txt"
-}
