@@ -24,27 +24,26 @@ public class RouteNodeDeleteConversation extends Conversation {
     @Override
     public void execute(String input) {
         switch (state) {
-            case 1:
-                if (isIntInput(input)) {
-                    routeIndex = input;
-                    prompt = Messages.PROMPT_ROUTENODE_DELETE_NODEINDEX;
-                    state++;
-                }
+        case 1:
+            if (isIntInput(input)) {
+                routeIndex = input;
+                prompt = Messages.PROMPT_ROUTENODE_DELETE_NODEINDEX;
+                state++;
+            }
 
-                break;
-            case 2:
-                if (isIntInput(input)) {
-                    nodeIndex = input;
-                    prompt = Messages.PROMPT_ROUTENODE_DELETE_SUCCESS;
-                    state++;
-                }
-
+            break;
+        case 2:
+            if (isIntInput(input)) {
+                nodeIndex = input;
+                prompt = Messages.PROMPT_ROUTENODE_DELETE_SUCCESS;
                 buildResult();
                 setFinished(true);
-                break;
-            default:
-                prompt = Messages.PROMPT_ERROR;
-                break;
+            }
+
+            break;
+        default:
+            prompt = Messages.PROMPT_ERROR;
+            break;
         }
         tryCancelConversation(input);
     }

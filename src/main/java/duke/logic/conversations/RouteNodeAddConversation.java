@@ -26,39 +26,39 @@ public class RouteNodeAddConversation extends Conversation {
     @Override
     public void execute(String input) {
         switch (state) {
-            case 1:
-                if (isIntInput(input)) {
-                    routeIndex = input;
-                    prompt = Messages.PROMPT_ROUTENODE_ADD_NODEINDEX;
-                    state++;
-                }
+        case 1:
+            if (isIntInput(input)) {
+                routeIndex = input;
+                prompt = Messages.PROMPT_ROUTENODE_ADD_NODEINDEX;
+                state++;
+            }
 
-                break;
-            case 2:
-                if (isIntInput(input)) {
-                    nodeIndex = input;
-                    prompt = Messages.PROMPT_ROUTENODE_ADD_TYPE;
-                    state++;
-                }
+            break;
+        case 2:
+            if (isIntInput(input)) {
+                nodeIndex = input;
+                prompt = Messages.PROMPT_ROUTENODE_ADD_TYPE;
+                state++;
+            }
 
-                break;
-            case 3:
-                if (isConstraint(input)) {
-                    constraint = input;
-                    prompt = Messages.PROMPT_ROUTENODE_ADD_INPUT;
-                    state++;
-                }
-                break;
-            case 4:
-                name = input;
-                prompt = Messages.PROMPT_ROUTENODE_ADD_SUCCESS;
+            break;
+        case 3:
+            if (isConstraint(input)) {
+                constraint = input;
+                prompt = Messages.PROMPT_ROUTENODE_ADD_INPUT;
+                state++;
+            }
+            break;
+        case 4:
+            name = input;
+            prompt = Messages.PROMPT_ROUTENODE_ADD_SUCCESS;
 
-                buildResult();
-                setFinished(true);
-                break;
-            default:
-                prompt = Messages.PROMPT_ERROR;
-                break;
+            buildResult();
+            setFinished(true);
+            break;
+        default:
+            prompt = Messages.PROMPT_ERROR;
+            break;
         }
         tryCancelConversation(input);
     }

@@ -273,7 +273,7 @@ public class PathFinder {
 
         if (startVenue instanceof BusStop && endVenue instanceof BusStop) {
             result = generateInbetweenBusRoutes(startVenue, endVenue, model);
-        } else if (startVenue instanceof TrainStation && endVenue instanceof TrainStation){
+        } else if (startVenue instanceof TrainStation && endVenue instanceof TrainStation) {
             result = generateInbetweenTrainRoutes((TrainStation) startVenue, (TrainStation) endVenue, model);
         }
 

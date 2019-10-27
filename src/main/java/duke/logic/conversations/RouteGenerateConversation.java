@@ -26,30 +26,30 @@ public class RouteGenerateConversation extends Conversation {
     @Override
     public void execute(String input) {
         switch (state) {
-            case 1:
-                startLocation = input;
-                prompt = Messages.PROMPT_ROUTE_GENERATE_ENDLOCATION;
+        case 1:
+            startLocation = input;
+            prompt = Messages.PROMPT_ROUTE_GENERATE_ENDLOCATION;
 
-                state++;
-                break;
-            case 2:
-                endLocation = input;
-                prompt = Messages.PROMPT_ROUTE_GENERATE_CONSTRAINT;
+            state++;
+            break;
+        case 2:
+            endLocation = input;
+            prompt = Messages.PROMPT_ROUTE_GENERATE_CONSTRAINT;
 
-                state++;
-                break;
-            case 3:
-                if (isConstraint(input)) {
-                    constraint = input;
-                    prompt = Messages.PROMPT_ROUTE_GENERATE_SUCCESS;
-                    buildResult();
-                    setFinished(true);
-                }
+            state++;
+            break;
+        case 3:
+            if (isConstraint(input)) {
+                constraint = input;
+                prompt = Messages.PROMPT_ROUTE_GENERATE_SUCCESS;
+                buildResult();
+                setFinished(true);
+            }
 
-                break;
-            default:
-                prompt = Messages.PROMPT_ERROR;
-                break;
+            break;
+        default:
+            prompt = Messages.PROMPT_ERROR;
+            break;
         }
         tryCancelConversation(input);
     }

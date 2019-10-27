@@ -45,60 +45,61 @@ public class Parser {
         String inputBody = getWord(input);
 
         switch (commandWord) {
-            case "todo":
-                return new AddCommand(ParserUtil.createTodo(input));
-            case "done":
-                return new MarkDoneCommand(ParserUtil.getIntegerIndexInList(0, 1, inputBody));
-            case "delete":
-                return new DeleteCommand(ParserUtil.getIntegerIndexInList(0, 1, inputBody));
-            case "find":
-                return new FindCommand(getWord(inputBody));
-            case "findtime":
-                return new FreeTimeCommand(ParserUtil.getIntegerIndexInList(0, 1, inputBody));
-            case "search":
-                return new LocationSearchCommand(inputBody);
-            case "busStop":
-                return new GetBusStopCommand(inputBody);
-            case "busRoute":
-                return new GetBusRouteCommand(inputBody);
-            case "event":
-                return new AddCommand(ParserUtil.createEvent(input));
-            case "findPath":
-                return new FindPathCommand(input.strip().split(" ")[1], ParserUtil.getFieldInList(0, 2, inputBody),
-                        ParserUtil.getFieldInList(1, 2, inputBody));
-            case "recommend":
-                return new RecommendationsCommand(ParserUtil.createRecommendation(input));
-            case "cancel":
-                return new PromptCommand(Messages.PROMPT_CANCEL);
-            case "map":
-                return new StaticMapCommand(inputBody);
-            case "routeAdd":
-                return ParserUtil.createRouteAddCommand(inputBody);
-            case "routeNodeAdd":
-                return ParserUtil.createRouteNodeAddCommand(inputBody);
-            case "routeEdit":
-                return new RouteEditCommand(ParserUtil.getIntegerIndexInList(0, 3, inputBody), ParserUtil.getFieldInList(1, 3, inputBody),
-                        ParserUtil.getFieldInList(2, 3, inputBody));
-            case "routeNodeEdit":
-                return new RouteNodeEditCommand(ParserUtil.getIntegerIndexInList(0, 3, inputBody),
-                        ParserUtil.getIntegerIndexInList(1, 3, inputBody), ParserUtil.getFieldInList(3, 4, inputBody),
-                        ParserUtil.getFieldInList(4, 4, inputBody));
-            case "routeDelete":
-                return new RouteDeleteCommand(ParserUtil.getIntegerIndexInList(0, 1, inputBody));
-            case "routeNodeDelete":
-                return new RouteNodeDeleteCommand(ParserUtil.getIntegerIndexInList(0, 2, inputBody),
-                        ParserUtil.getIntegerIndexInList(1, 2, inputBody));
-            case "routeShow":
-                return new RouteListCommand(ParserUtil.getIntegerIndexInList(0, 1, inputBody));
-            case "routeNodeShow":
-                return new RouteNodeListCommand(ParserUtil.getIntegerIndexInList(0, 2, inputBody),
-                        ParserUtil.getIntegerIndexInList(1, 2, inputBody));
-            case "routeGenerate":
-                return ParserUtil.createRouteGenerateCommand(inputBody);
-            case "addThisList":
-                return new AddSampleItineraryCommand();
-            default:
-                throw new DukeUnknownCommandException();
+        case "todo":
+            return new AddCommand(ParserUtil.createTodo(input));
+        case "done":
+            return new MarkDoneCommand(ParserUtil.getIntegerIndexInList(0, 1, inputBody));
+        case "delete":
+            return new DeleteCommand(ParserUtil.getIntegerIndexInList(0, 1, inputBody));
+        case "find":
+            return new FindCommand(getWord(inputBody));
+        case "findtime":
+            return new FreeTimeCommand(ParserUtil.getIntegerIndexInList(0, 1, inputBody));
+        case "search":
+            return new LocationSearchCommand(inputBody);
+        case "busStop":
+            return new GetBusStopCommand(inputBody);
+        case "busRoute":
+            return new GetBusRouteCommand(inputBody);
+        case "event":
+            return new AddCommand(ParserUtil.createEvent(input));
+        case "findPath":
+            return new FindPathCommand(input.strip().split(" ")[1], ParserUtil.getFieldInList(0, 2, inputBody),
+                    ParserUtil.getFieldInList(1, 2, inputBody));
+        case "recommend":
+            return new RecommendationsCommand(ParserUtil.createRecommendation(input));
+        case "cancel":
+            return new PromptCommand(Messages.PROMPT_CANCEL);
+        case "map":
+            return new StaticMapCommand(inputBody);
+        case "routeAdd":
+            return ParserUtil.createRouteAddCommand(inputBody);
+        case "routeNodeAdd":
+            return ParserUtil.createRouteNodeAddCommand(inputBody);
+        case "routeEdit":
+            return new RouteEditCommand(ParserUtil.getIntegerIndexInList(0, 3, inputBody),
+                    ParserUtil.getFieldInList(1, 3, inputBody),
+                    ParserUtil.getFieldInList(2, 3, inputBody));
+        case "routeNodeEdit":
+            return new RouteNodeEditCommand(ParserUtil.getIntegerIndexInList(0, 3, inputBody),
+                    ParserUtil.getIntegerIndexInList(1, 3, inputBody), ParserUtil.getFieldInList(2, 4, inputBody),
+                    ParserUtil.getFieldInList(3, 4, inputBody));
+        case "routeDelete":
+            return new RouteDeleteCommand(ParserUtil.getIntegerIndexInList(0, 1, inputBody));
+        case "routeNodeDelete":
+            return new RouteNodeDeleteCommand(ParserUtil.getIntegerIndexInList(0, 2, inputBody),
+                    ParserUtil.getIntegerIndexInList(1, 2, inputBody));
+        case "routeShow":
+            return new RouteListCommand(ParserUtil.getIntegerIndexInList(0, 1, inputBody));
+        case "routeNodeShow":
+            return new RouteNodeListCommand(ParserUtil.getIntegerIndexInList(0, 2, inputBody),
+                    ParserUtil.getIntegerIndexInList(1, 2, inputBody));
+        case "routeGenerate":
+            return ParserUtil.createRouteGenerateCommand(inputBody);
+        case "addThisList":
+            return new AddSampleItineraryCommand();
+        default:
+            throw new DukeUnknownCommandException();
         }
     }
 

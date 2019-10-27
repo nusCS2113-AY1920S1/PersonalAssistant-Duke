@@ -82,12 +82,12 @@ public class ParserUtil {
             if (type.substring(0, 2).equals("at")) {
                 details = withinDetails[1].strip().split("by ");
                 switch (details[1].toUpperCase()) {
-                    case "BUS":
-                        return new BusStop(details[0].strip(), null, null, 0, 0);
-                    case "MRT":
-                        return new TrainStation(new ArrayList<>(), details[0].strip(), null, 0, 0);
-                    default:
-                        throw new DukeException(Messages.ERROR_COMMAND_UNKNOWN);
+                case "BUS":
+                    return new BusStop(details[0].strip(), null, null, 0, 0);
+                case "MRT":
+                    return new TrainStation(new ArrayList<>(), details[0].strip(), null, 0, 0);
+                default:
+                    throw new DukeException(Messages.ERROR_COMMAND_UNKNOWN);
                 }
             } else {
                 details = withinDetails[1].split("by ");
@@ -197,10 +197,15 @@ public class ParserUtil {
      * @return The field.
      */
     public static String getFieldInList(int index, int listSize, String userInput) throws DukeException {
-        String[] fields = userInput.split(" ", listSize);
-        if (index >= 0 && index < listSize) {
-            return fields[index].strip();
+        try {
+            String[] fields = userInput.split(" ", listSize);
+            if (index >= 0 && index < listSize) {
+                return fields[index].strip();
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new QueryOutOfBoundsException(String.valueOf(index));
         }
+
         throw new DukeException(Messages.ERROR_INDEX_OUT_OF_BOUNDS);
     }
 
@@ -212,12 +217,20 @@ public class ParserUtil {
      * @param userInput The userInput read by the user interface.
      * @return The integer.
      */
-    public static int getIntegerInList(int index, int listSize, String userInput) throws DukeException {
-        String[] fields = userInput.split(" ", listSize);
-        if (index >= 0 && index < listSize) {
-            return Integer.parseInt(fields[index].strip());
+    public static int getIntegerInList(int index, int listSize, String userInput) throws InputNotIntException,
+            QueryOutOfBoundsException {
+        try {
+            String[] fields = userInput.split(" ", listSize);
+            if (index >= 0 && index < listSize) {
+                return Integer.parseInt(fields[index].strip());
+            }
+        } catch (NumberFormatException e) {
+            throw new InputNotIntException();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new QueryOutOfBoundsException(String.valueOf(index));
         }
-        throw new DukeException(Messages.ERROR_INDEX_OUT_OF_BOUNDS);
+
+        throw new QueryOutOfBoundsException("INTEGER");
     }
 
     /**
@@ -237,7 +250,10 @@ public class ParserUtil {
             }
         } catch (NumberFormatException e) {
             throw new InputNotIntException();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new QueryOutOfBoundsException(String.valueOf(index));
         }
+
         throw new QueryOutOfBoundsException("INTEGER");
     }
 }

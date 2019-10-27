@@ -25,21 +25,21 @@ public class RouteAddConversation extends Conversation {
     @Override
     public void execute(String input) {
         switch (state) {
-            case 1:
-                prompt = Messages.PROMPT_ROUTE_ADD_DESCRIPTION;
-                name = input;
-                state++;
-                break;
-            case 2:
-                prompt = Messages.PROMPT_ROUTE_ADD_SUCCESS;
-                description = input;
+        case 1:
+            prompt = Messages.PROMPT_ROUTE_ADD_DESCRIPTION;
+            name = input;
+            state++;
+            break;
+        case 2:
+            prompt = Messages.PROMPT_ROUTE_ADD_SUCCESS;
+            description = input;
 
-                buildResult();
-                setFinished(true);
-                break;
-            default:
-                prompt = Messages.PROMPT_ERROR;
-                break;
+            buildResult();
+            setFinished(true);
+            break;
+        default:
+            prompt = Messages.PROMPT_ERROR;
+            break;
         }
         tryCancelConversation(input);
     }

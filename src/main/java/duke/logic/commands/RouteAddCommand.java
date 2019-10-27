@@ -14,7 +14,7 @@ import duke.model.transports.Route;
  * Adds a Route to RouteList.
  */
 public class RouteAddCommand extends Command {
-    private static final String MESSAGE_ADDITION = "Got it. I've added this route:\n  ";
+    private static final String MESSAGE_ADDITION = "Got it. I've added this route:\n";
     private String name;
     private String description;
 

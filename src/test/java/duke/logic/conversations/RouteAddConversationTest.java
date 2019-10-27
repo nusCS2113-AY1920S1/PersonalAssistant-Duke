@@ -1,0 +1,25 @@
+package duke.logic.conversations;
+
+import duke.commons.exceptions.DukeException;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class RouteAddConversationTest {
+
+    @Test
+    void converse() throws DukeException {
+        String expected = "routeAdd test_route desc test_description";
+
+        ConversationManager conversationManager = new ConversationManager();
+        conversationManager.converse("routeAdd");
+        assertFalse(conversationManager.isFinished());
+
+        conversationManager.converse("test_route");
+        assertFalse(conversationManager.isFinished());
+
+        conversationManager.converse("test_description");
+        assertTrue(conversationManager.isFinished());
+        assertEquals(expected, conversationManager.getResult());
+    }
+}

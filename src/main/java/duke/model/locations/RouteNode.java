@@ -34,7 +34,7 @@ public abstract class RouteNode extends Venue {
     }
 
     /**
-     * Gets the type of Constraint (bus / train / custom)
+     * Gets the type of Constraint (bus / train / custom).
      *
      * @return type The type of the RouteNode.
      */

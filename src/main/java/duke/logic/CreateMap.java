@@ -153,11 +153,17 @@ public class CreateMap {
         }
     }
 
-
     public HashMap<String, TrainStation> getTrainMap() {
         return trainMap;
     }
 
+    /**
+     * Gets a TrainStation from the map.
+     *
+     * @param query The TrainStation name.
+     * @return The TrainStation.
+     * @throws QueryFailedException If the TrainStation cannot be found.
+     */
     public TrainStation getTrainStation(String query) throws QueryFailedException {
 
         HashMap<String, TrainStation> allTrainStations = trainMap;

@@ -24,26 +24,26 @@ public class RouteNodeListConversation extends Conversation {
     @Override
     public void execute(String input) {
         switch (state) {
-            case 1:
-                if (isIntInput(input)) {
-                    routeIndex = input;
-                    prompt = Messages.PROMPT_ROUTENODE_SHOW_NODEINDEX;
-                    state++;
-                }
+        case 1:
+            if (isIntInput(input)) {
+                routeIndex = input;
+                prompt = Messages.PROMPT_ROUTENODE_SHOW_NODEINDEX;
+                state++;
+            }
 
-                break;
-            case 2:
-                if (isIntInput(input)) {
-                    nodeIndex = input;
-                    prompt = Messages.PROMPT_ROUTENODE_SHOW_SUCCESS;
-                    buildResult();
-                    setFinished(true);
-                }
+            break;
+        case 2:
+            if (isIntInput(input)) {
+                nodeIndex = input;
+                prompt = Messages.PROMPT_ROUTENODE_SHOW_SUCCESS;
+                buildResult();
+                setFinished(true);
+            }
 
-                break;
-            default:
-                prompt = Messages.PROMPT_ERROR;
-                break;
+            break;
+        default:
+            prompt = Messages.PROMPT_ERROR;
+            break;
         }
         tryCancelConversation(input);
     }
