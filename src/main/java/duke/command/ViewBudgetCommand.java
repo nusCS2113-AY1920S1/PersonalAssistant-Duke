@@ -48,7 +48,7 @@ public class ViewBudgetCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        return ui.showBudgetGui(budgetList.getBudget());
+        return ui.showBudgetGui(budgetList.getBudget()) + "\n" + ui.showBudgetListGui(budgetList.getStringList());
     }
 
     /**

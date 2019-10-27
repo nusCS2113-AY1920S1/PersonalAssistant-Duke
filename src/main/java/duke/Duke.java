@@ -96,7 +96,6 @@ public class Duke {
         } catch (IOException e) {
             ui.showLoadingError();
             budgetList = new BudgetList();
-            budgetList.addToBudget(ZERO);
         }
     }
 
@@ -111,6 +110,7 @@ public class Duke {
         return "Duke heard: " + input;
     }
 
+    //@@author maxxyx96
     /**
      * Creates a directory for data storage if there is none created yet.
      *
@@ -121,6 +121,16 @@ public class Duke {
             storageFileDirectory.mkdirs();
         }
     }
+
+    /**
+     * Gets the budget list from Duke.
+     *
+     * @return the budget List.
+     */
+    public BudgetList getBudgetList() {
+        return budgetList;
+    }
+    //@@author
 
     /**
      * Retrieves a command from interpreting the user input (GUI).

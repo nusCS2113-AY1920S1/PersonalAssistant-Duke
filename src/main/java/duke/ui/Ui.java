@@ -749,5 +749,35 @@ public class Ui {
     public String showResetBudgetGui(float budget) {
         return "     Your previous budget of " + budget + " has been reset.";
     }
+
+    /**
+     * Shows the remarks user input when adding the budget.
+     *
+     * @param remark the remarks user inputted while adding/subtracting budget.
+     * @return String of the remark message.
+     */
+    public String showRemarkGui(String remark) {
+        return "     Remarks entered: " + remark;
+    }
+
+    /**
+     * Shows the list of budget currently in Duke Manager.
+     * @param list List of the budget stored.
+     *
+     * @return the list of the budget.
+     */
+    public String showBudgetListGui(String list) {
+        return list;
+    }
+
+    /**
+     * Shows the user that the input limit has been exceeded.
+     *
+     * @return String of the message to be shown.
+     */
+    public String showBudgetExceededLimitMessageGui() {
+        return "     The limits of budget has been exceeded (> 999,999 or < -999,999),"
+                + "\n     No action has been done. ";
+    }
     //@@author
 }

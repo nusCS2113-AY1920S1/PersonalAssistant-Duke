@@ -57,7 +57,23 @@ public class BudgetStorage {
     }
 
     /**
-     * Converts a string value to a float value.
+     * Checks if a variable is convertable to what we are reading in.
+     *
+     * @param line the string to be checked
+     * @return returns true if it is convertable, false otherwise.
+     */
+    public boolean isFormatCorrect(String line) {
+        try {
+            String[] lineSplit = line.split(":");
+            Float.parseFloat(lineSplit[0].trim());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Converts a string value to a float value.(unused)
      *
      * @param amount the string to be converted into a float value.
      * @return the float equivalence of the string.
@@ -72,16 +88,21 @@ public class BudgetStorage {
      * @return ArrayList to update the Expenses.
      * @throws IOException  If there is an error reading the text file.
      */
-    public ArrayList<Float> read() throws IOException {
-        ArrayList<Float> items = new ArrayList<>();
+    public ArrayList<String> read() throws IOException {
+        ArrayList<String> items = new ArrayList<>();
         File file = new File(filePath);
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-        String budget;
-        float amount;
-
-        while ((budget = bufferedReader.readLine()) != null) {
+        String budget = bufferedReader.readLine();
+        try {
             if (isFloat(budget)) {
-                items.add(convertToFloat(budget));
+                items.add(budget);
+            }
+        } catch (Exception e) {
+            items.add("0");
+        }
+        while ((budget = bufferedReader.readLine()) != null) {
+            if (isFormatCorrect(budget)) {
+                items.add(budget);
             }
         }
         bufferedReader.close();
