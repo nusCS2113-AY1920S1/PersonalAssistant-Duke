@@ -16,7 +16,7 @@ import java.util.*;
 
 import static seedu.hustler.game.achievement.AddTask.addAchievementLevel;
 import static seedu.hustler.game.achievement.DoneTask.doneAchievementLevel;
-import static seedu.hustler.parser.DateTimeParser.getDateTime;
+import static seedu.hustler.logic.parser.DateTimeParser.getDateTime;
 
 /**
  * A list of tasks that has a java ArrayList at its core. Contains methods

@@ -12,7 +12,7 @@ public class Inventory {
     private ArrayList<ShopItem> items;
 
     public Inventory() {
-        ShopList shop = new ShopList();
+        items = new ArrayList<>();
     }
 
     public Inventory updateInventory() {

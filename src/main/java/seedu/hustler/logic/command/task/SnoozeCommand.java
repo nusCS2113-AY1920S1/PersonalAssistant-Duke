@@ -4,7 +4,7 @@ import seedu.hustler.Hustler;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.data.CommandLog;
 import seedu.hustler.ui.Ui;
-import seedu.hustler.parser.ParserForCommand;
+import seedu.hustler.logic.parser.ParserForCommand;
 
 /**
  * Command that snoozes tasks.

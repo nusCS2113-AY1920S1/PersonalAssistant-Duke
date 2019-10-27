@@ -1,4 +1,4 @@
-package seedu.hustler.command.shop;
+package seedu.hustler.logic.command.shop;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.logic.CommandLineException;

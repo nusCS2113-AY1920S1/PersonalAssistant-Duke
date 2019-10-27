@@ -21,7 +21,7 @@ import seedu.hustler.task.Task;
 
 import seedu.hustler.schedule.Scheduler;
 import seedu.hustler.schedule.ScheduleEntry;
-import static seedu.hustler.parser.DateTimeParser.getDateTime;
+import static seedu.hustler.logic.parser.DateTimeParser.getDateTime;
 
 /**
  * A class that stores current task list and loads it on request from disc.

@@ -2,7 +2,7 @@ package seedu.hustler.data;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.game.achievement.*;
-import seedu.hustler.parser.DateTimeParser;
+import seedu.hustler.logic.parser.DateTimeParser;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -368,3 +368,4 @@ public class AchievementStorage {
     }
 
 }
+

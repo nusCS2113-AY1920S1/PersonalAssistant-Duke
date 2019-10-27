@@ -1,16 +1,16 @@
 package seedu.hustler.logic.parser;
 
 import seedu.hustler.logic.command.Command;
-import seedu.hustler.command.achievementCommand.AchievementCommand;
+import seedu.hustler.logic.command.achievementCommand.AchievementCommand;
+import seedu.hustler.logic.command.shop.BuyCommand;
 import seedu.hustler.logic.command.avatar.CheckAvatarCommand;
 import seedu.hustler.logic.command.avatar.EquipCommand;
 import seedu.hustler.logic.command.avatar.SetNameCommand;
 import seedu.hustler.logic.command.schedulecommands.AddEntry;
-import seedu.hustler.command.schedulecommands.RemoveEntry;
-import seedu.hustler.command.schedulecommands.UpdateEntry;
-import seedu.hustler.command.shop.BuyCommand;
-import seedu.hustler.command.shop.InventoryCommand;
-import seedu.hustler.command.shop.ShopListCommand;
+import seedu.hustler.logic.command.schedulecommands.RemoveEntry;
+import seedu.hustler.logic.command.schedulecommands.UpdateEntry;
+import seedu.hustler.logic.command.shop.InventoryCommand;
+import seedu.hustler.logic.command.shop.ShopListCommand;
 import seedu.hustler.logic.command.task.*;
 import seedu.hustler.logic.command.timer.*;
 import seedu.hustler.data.CommandLog;
@@ -55,11 +55,11 @@ public class CommandParser extends Parser {
             CommandLog.recordCommand(rawInput);
             return new DeleteCommand(userInput);
         } else if (userInput[0].equals("redo")) {
-            return new RedoCommand();
+            return new RedoCommand(userInput);
         } else if (userInput[0].equals("/list")) {
-            return new ListCommand();
+            return new ListCommand(userInput);
         } else if (userInput[0].equals("/remind")) {
-            return new RemindCommand();
+            return new RemindCommand(userInput);
         } else if (userInput[0].equals("/done")) {
             CommandLog.recordCommand(rawInput);
             return new DoneCommand(userInput);
@@ -68,8 +68,8 @@ public class CommandParser extends Parser {
         } else if (userInput[0].equals("/snooze")) {
             CommandLog.recordCommand(rawInput);
             return new SnoozeCommand(rawInput);
-        } else if (userInput[0].equals("/avatar") && userInput[1].equals("stats")) {
-            return new CheckAvatarCommand();
+        } else if (userInput[0].equals("/avatar")) {
+            return new CheckAvatarCommand(userInput);
         } else if (userInput[0].equals("/setname")) {
             CommandLog.recordCommand(rawInput);
             return new SetNameCommand(userInput);
@@ -97,13 +97,7 @@ public class CommandParser extends Parser {
         } else if (userInput[0].equals("/equip")) {
             return new EquipCommand(userInput);
         } else if (userInput[0].equals("/buy")) {
-            try {
-                int index = Integer.parseInt(userInput[1]);
-                return new BuyCommand(index);
-            } catch (NumberFormatException e) {
-                System.out.println("\tPlease input buy <index>!");
-                return new InvalidCommand();
-            }
+            return new BuyCommand(userInput);
         } else if (userInput[0].equals("/remove"))  {
             return new RemoveEntry(userInput);
         } else if (userInput[0].equals("/update")) {
@@ -113,7 +107,7 @@ public class CommandParser extends Parser {
         } else if (userInput[0].equals("/sort")) {
             return new SortCommand(userInput[1]);
         } else if (userInput[0].equals("/bye")) {
-            return new ByeCommand();
+            return new ByeCommand(userInput);
         } else {
             return new InvalidCommand();
         }
