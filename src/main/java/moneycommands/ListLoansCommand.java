@@ -24,7 +24,7 @@ public class ListLoansCommand extends MoneyCommand {
     //@@author chengweixuan
     public ListLoansCommand(String command) {
         command = command.replaceFirst("list ", "");
-        command = command.replace( "loans", "");
+        command = command.replace("loans", "");
         inputString = command.replaceAll(" ", "");
     }
 

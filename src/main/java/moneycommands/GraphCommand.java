@@ -7,7 +7,7 @@ import money.Account;
 
 import java.text.ParseException;
 
-public class GraphCommand extends MoneyCommand{
+public class GraphCommand extends MoneyCommand {
 
     private String cmd;
 

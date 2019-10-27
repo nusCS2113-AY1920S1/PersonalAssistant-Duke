@@ -60,9 +60,9 @@ public class InternalTransferCommand extends MoneyCommand {
                         + bankTracker.getBankAccountInfo());
             }
             bankTracker.updateDate(date);
-            bankTracker.addAmt(0-amt);
-            Expenditure expenditure = new Expenditure(amt, "Withdraw from " +
-                    bankTracker.getDescription(), "withdraw from bank", date);
+            bankTracker.addAmt(0 - amt);
+            Expenditure expenditure = new Expenditure(amt, "Withdraw from "
+                    + bankTracker.getDescription(), "withdraw from bank", date);
             account.getExpListTotal().add(expenditure);
         }
         storage.writeToFile(account);

@@ -36,16 +36,9 @@ public class MoneyStorage {
     }
 
     private void parseExpenditure(String[] info, Account account) {
-        if (info.length > 5) {
-            Bill bill = new Bill(Float.parseFloat(info[1]), info[2], info[3],
-                    LocalDate.parse(info[4], dateTimeFormatter),
-                    LocalDate.parse(info[5], dateTimeFormatter));
-            account.getExpListTotal().add(bill);
-        } else {
-            Expenditure exp = new Expenditure(Float.parseFloat(info[1]), info[2], info[3],
-                    LocalDate.parse(info[4], dateTimeFormatter));
-            account.getExpListTotal().add(exp);
-        }
+        Expenditure exp = new Expenditure(Float.parseFloat(info[1]), info[2], info[3],
+                LocalDate.parse(info[4], dateTimeFormatter));
+        account.getExpListTotal().add(exp);
     }
 
     private void parseSplitExpenditure(String[] info, Account account) {
@@ -156,12 +149,6 @@ public class MoneyStorage {
                 ((Split) exp).getNamesOfPeople() + "\n");
     }
 
-    public void writeBill(Bill exp, BufferedWriter bufferedWriter) throws IOException {
-        bufferedWriter.write("EXP @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
-                exp.getCategory() + " @ " + exp.getBoughtDate() + " @ " +
-                ((Bill) exp).getNextPayDay() + "\n");
-    }
-
     public void writeExp(Expenditure exp, BufferedWriter bufferedWriter) throws IOException {
         bufferedWriter.write("EXP @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
                 exp.getCategory() + " @ " + exp.getBoughtDate() + "\n");
@@ -212,8 +199,6 @@ public class MoneyStorage {
             for (Expenditure exp : account.getExpListTotal()) {
                 if (exp instanceof Split) {
                     writeSplit((Split) exp, bufferedWriter);
-                } else if (exp instanceof Bill) {
-                    writeBill((Bill) exp, bufferedWriter);
                 } else {
                     writeExp(exp, bufferedWriter);
                 }
