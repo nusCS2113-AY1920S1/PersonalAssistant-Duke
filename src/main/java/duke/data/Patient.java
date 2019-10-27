@@ -423,17 +423,4 @@ public class Patient extends DukeObject {
         }
         return count;
     }
-
-    /**
-     * Computes the number of follow up items across all impressions for this patient: the number of Investigations not
-     * yet ordered, or whose results have not been reviewed, and the number of plan items that have not been started on.
-     * @return The number of follow-up items for this patient.
-     */
-    public int getFollowUpCount() {
-        int count = 0;
-        for (Impression imp : impressions.values()) {
-            count += imp.getFollowUpCount();
-        }
-        return count;
-    }
 }
