@@ -25,7 +25,7 @@ import java.util.ArrayList;
  */
 public class LogicManager {
     public static final String MESSAGE_ERROR_COMMAND = "An error encountered while executing command.";
-    private static CurrencyStorage currencyStorage;
+    private CurrencyStorage currencyStorage;
     private static StorageManager storageManager;
     private ParserManager parserManager;
     private static Wallet wallet;

@@ -1,7 +1,6 @@
 package wallet.model;
 
 import wallet.model.contact.ContactList;
-import wallet.model.currency.Currency;
 import wallet.model.currency.CurrencyList;
 import wallet.model.record.BudgetList;
 import wallet.model.record.ExpenseList;

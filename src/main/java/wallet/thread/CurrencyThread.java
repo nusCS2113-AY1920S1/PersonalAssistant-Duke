@@ -5,12 +5,8 @@ package wallet.thread;
 import wallet.logic.command.CurrencyCommand;
 import wallet.model.Wallet;
 import wallet.model.currency.Currency;
-import wallet.model.currency.CurrencyList;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
-import wallet.storage.CurrencyStorage;
-
-import java.util.ArrayList;
 
 public class CurrencyThread implements Runnable {
     private Wallet wallet;
