@@ -1,13 +1,13 @@
-== Optix User Guide
+= Optix User Guide
 
 By Team AY1920S1-CS2113T-T12-1 +
 Since: Oct 2019
 
-=== 1. Introduction
+== 1. Introduction
 
 Optix is a desktop application made for users who want to manage the seating of a theatre or other venues while keeping track of the finances earned. Optix is optimised for users who can type fast and prefers using a Command Line Interface (CLI) to other methods. A Graphical User Interface (GUI) is also developed for additional user interaction. Want to skip the process of going through multiple steps to manage bookings and viewing your profits? If you can type fast and want to avoid this hassle, Optix is the perfect application for you! Jump to Section 2, “Quick Start” to get started.
 
-=== 2. Quick Start
+== 2. Quick Start
 
 . Ensure that Java 11 or above is installed on your computer.
 . Download the latest optix.jar here.
@@ -26,9 +26,9 @@ image::images/ui.png[width ="600", align="center"]
 ** help: displays the list of commands available.
 ** bye: exits the application.
 
-=== 3. Features
+== 3. Features
 
-==== Command Format
+=== Command Format
 
 * Words in UPPER_CASE are the parameters to be supplied by the user.
 e.g. in add SHOW_NAME|SCHEDULED_DATE|PRICE the SHOW_NAME, SCHEDULED_DATE, and PRICE are parameters that can be used as add Phantom of the Opera|5/5/2020|20.
@@ -42,21 +42,21 @@ e.g. if the command specifies SHOW_NAME|SHOW_DATE, SHOW_DATE|SHOW_NAME is invali
 * All SHOW_DATE entered must be in the format dd/mm/yyyy
 * All COMMAND and SHOW_NAME are case insensitive.
 
-==== 3.1 Generic Commands
+=== 3.1 Generic Commands
 
-===== 3.1.1 Viewing Help: help
+==== 3.1.1 Viewing Help: help
 
 Display a description of all the available commands. +
 Format: help
 
-===== 3.1.2 Exiting the program: bye
+==== 3.1.2 Exiting the program: bye
 
 Saves all the shows and status of the seats within the showlist, then exits the program.  +
 Format: bye
 
-==== 3.2 Show Commands
+=== 3.2 Show Commands
 
-===== 3.2.1 Adding shows: add
+==== 3.2.1 Adding shows: add
 
 Adds shows to the current show list. +
 Format: add SHOW_NAME|SEATS_BASE_PRICE|DATE1|DATE2|...
@@ -72,7 +72,7 @@ Format: add SHOW_NAME|SEATS_BASE_PRICE|DATE1|DATE2|...
 add Phantom of the Opera|20|5/5/2020
 add Lion King|30|6/5/2020|7/5/2020|8/5/2020
 ----
-===== 3.2.2 Deleting shows: delete
+==== 3.2.2 Deleting shows: delete
 
 Deletes shows for specific dates. +
 Format: delete SHOW_NAME|DATE1|DATE2|...
@@ -85,12 +85,12 @@ Format: delete SHOW_NAME|DATE1|DATE2|...
 Delete Lion King|10/10/2020
 delete Phantom of the Opera|5/5/2020|6/5/2020
 ----
-===== 3.2.3 Listing shows: list
+==== 3.2.3 Listing shows: list
 
 Lists all current shows in the show list. +
 Format: list
 
-===== 3.2.4 Listing dates for specific show: list
+==== 3.2.4 Listing dates for specific show: list
 
 Lists show with specific name. +
 Format: list SHOW_NAME
@@ -101,7 +101,7 @@ Format: list SHOW_NAME
 list Phantom of the Opera
 list Lion King
 ----
-===== 3.2.5 Listing shows for a specific month: list
+==== 3.2.5 Listing shows for a specific month: list
 
 Lists all the shows for a specific month. +
 Format: list MONTH YEAR +
@@ -112,7 +112,7 @@ Format: list MONTH YEAR +
 list August 2019
 list December 2020
 ----
-===== 3.2.6 Postponing show to a later date: postpone
+==== 3.2.6 Postponing show to a later date: postpone
 
 Postpone the date of a current show in the showlist to a specified date.  +
 Format: postpone SHOW_NAME|OLD_DATE|NEW_DATE
@@ -125,7 +125,7 @@ Format: postpone SHOW_NAME|OLD_DATE|NEW_DATE
 ----
 postpone Phantom of the Opera|5/5/2020|10/5/2020
 ----
-===== 3.2.7 Editing a show’s name: edit
+==== 3.2.7 Editing a show’s name: edit
 
 Edits an existing show’s name.  +
 Format: edit OLD_SHOW_NAME|SHOW_DATE|NEW_SHOW_NAME
@@ -137,9 +137,9 @@ Format: edit OLD_SHOW_NAME|SHOW_DATE|NEW_SHOW_NAME
 ----
 edit Phanom of the Opera|5/5/2020|Phantom of the Opera
 ----
-==== 3.3 Seats Commands
+=== 3.3 Seats Commands
 
-===== 3.3.1 Sell seats: sell
+==== 3.3.1 Sell seats: sell
 
 Sells seats to customers. +
 Format: sell SHOW_NAME|SHOW_DATE|SEAT …
@@ -155,7 +155,7 @@ Format: sell SHOW_NAME|SHOW_DATE|SEAT …
 sell Phantom of the Opera|5/5/2020| C1 D6 E10
 sell Lion King|6/5/2020| A1 A2 A3 A4
 ----
-===== 3.3.2 View the seats for a show: view
+==== 3.3.2 View the seats for a show: view
 
 Displays the layout of the seats within the theatre for an existing show. +
 Format: view SHOW_NAME|SHOW_DATE
@@ -168,7 +168,7 @@ Format: view SHOW_NAME|SHOW_DATE
 ----
 view Phantom of the Opera | 5/5/2020
 ----
-===== 3.3.3 Reassign seat for a show: reassign-seat
+==== 3.3.3 Reassign seat for a show: reassign-seat
 
 Reassign customer to another seat. +
 Format: reassign-seat SHOW_NAME|SHOW_DATE|OLD_SEAT|NEW_SEAT
@@ -184,9 +184,9 @@ Format: reassign-seat SHOW_NAME|SHOW_DATE|OLD_SEAT|NEW_SEAT
 ----
 reassign-seat Phantom of the Opera|5/5/2020|A1|A2
 ----
-==== 3.4 Finance Commands
+=== 3.4 Finance Commands
 
-===== 3.4.1 View the profit of a show: view-profit
+==== 3.4.1 View the profit of a show: view-profit
 
 Displays the profit earned from that particular show. +
 Format: view-profit SHOW_NAME|SHOW_DATE
@@ -198,7 +198,7 @@ Format: view-profit SHOW_NAME|SHOW_DATE
 ----
 view-profit Lion King|5/5/2020
 ----
-===== 3.4.2 View the amount earned for a particular month: view-monthly
+==== 3.4.2 View the amount earned for a particular month: view-monthly
 
 Displays the profit earned for that particular month. +
 Format: view-monthly MONTH YEAR
@@ -211,9 +211,9 @@ Format: view-monthly MONTH YEAR
 view-monthly May 2020
 view-monthly January 2018
 ----
-==== 3.5 Alias Commands
+=== 3.5 Alias Commands
 
-===== 3.5.1 Add new alias: add-alias
+==== 3.5.1 Add new alias: add-alias
 
 Adds a new alias to an existing command.  +
 Format: add-alias ALIAS|COMMAND
@@ -225,7 +225,7 @@ Format: add-alias ALIAS|COMMAND
 ----
 add-alias t|add
 ----
-===== 3.5.2 Remove alias: remove-alias
+==== 3.5.2 Remove alias: remove-alias
 
 Removes an existing alias. +
 Format: remove-alias ALIAS|COMMAND
@@ -236,22 +236,22 @@ Format: remove-alias ALIAS|COMMAND
 ----
 remove-alias t|add
 ----
-===== 3.5.3 List alias: list-alias
+==== 3.5.3 List alias: list-alias
 
 Lists all current aliases. +
 Format: list-alias
 
-===== 3.5.4 Reset alias: reset-alias
+==== 3.5.4 Reset alias: reset-alias
 
 Resets aliases to default settings. +
 Format: reset-alias
 
-==== 4. FAQ
+== 4. FAQ
 
 *Q: *How do I transfer my data to another computer? +
 *A: *Install the app in the other computer and replace the empty data file created with the file that contains the data of your previous Optix folder.
 
-=== 5. Command summary
+== 5. Command summary
 
 * *Add*: add SHOW_NAME|SEATS_BASE_PRICE|DATE1|DATE2|...
 Eg. add Phantom of the Opera|20|5/5/2020|6/5/2020
