@@ -49,6 +49,9 @@ public class Tag {
         tagName = inputArray[tagIndex];
     }
 
+    /**
+     * Parses tag.
+     */
     public void parseTag() { //todo: change to be inside parser folder
         if (hasTag()) {
             findTag();
