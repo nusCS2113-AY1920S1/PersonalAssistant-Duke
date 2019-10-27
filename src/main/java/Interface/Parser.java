@@ -430,6 +430,10 @@ public class Parser {
                 fullCommand = fullCommand.replaceFirst("hours", "");
                 fullCommand = fullCommand.trim();
                 return new FindFreeTimesCommand(Integer.parseInt(fullCommand));
+            } else if (fullCommand.trim().startsWith("retrieve free time ")) {
+                fullCommand = fullCommand.replaceFirst("retrieve free time ", "");
+                fullCommand = fullCommand.trim();
+                return new RetrieveFreeTimesCommand(fullCommand);
             } else {
                 throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
