@@ -86,18 +86,6 @@ public class ImpressionEditCommand extends DukeDataCommand {
                 break;
             }
 
-            // process priority
-            String priorityStr = getSwitchVal("priority");
-            if (priorityStr != null) {
-                editData.setPriority(switchToInt("priority"));
-            }
-
-            // process summary
-            String summaryStr = getSwitchVal("summary");
-            if (summaryStr != null) {
-                editData.setSummary((isAppending) ? editData.getSummary() + summaryStr : summaryStr);
-            }
-
             // process remaining switches entered
             for (Map.Entry<String, String> entry : getSwitchVals().entrySet()) {
                 String switchName = entry.getKey();
@@ -107,16 +95,23 @@ public class ImpressionEditCommand extends DukeDataCommand {
                     entryInt = switchToInt(switchName);
                 }
 
-                // ignore switches that are already processed/don't need processing
-                if (switchName.equals(editType) || switchName.equals("status") || switchName.equals("summary")) {
+                // ignore switches that don't need processing
+                if (switchName.equals(editType)) {
                     continue;
                 }
 
-                // TODO: create missing methods in model
                 // TODO: deal with null
-                if (switchName.equals("name")) {
-                    //editData.setName((isAppending) ? editData.getName() + entryStr : entryStr);
-                } else {
+                switch (switchName) {
+                case "name":
+                    editData.setName((isAppending) ? editData.getName() + entryStr : entryStr);
+                    break;
+                case "priority":
+                    editData.setPriority(entryInt);
+                    break;
+                case "summary":
+                    editData.setSummary((isAppending) ? editData.getSummary() + entryStr : entryStr);
+                    break;
+                default:
                     switch (editType) {
                     case "medicine":
                         Medicine med = (Medicine) editData;
@@ -125,21 +120,21 @@ public class ImpressionEditCommand extends DukeDataCommand {
                             med.setDose((isAppending) ? med.getDose() + entryStr : entryStr);
                             break;
                         case "date":
-                            //med.setStartDate((isAppending) ? med.getStartDate() + entryStr : entryStr);
+                            med.setStartDate((isAppending) ? med.getStartDate() + entryStr : entryStr);
                             break;
                         case "duration":
                             med.setDuration((isAppending) ? med.getDuration() + entryStr : entryStr);
                             break;
                         default:
                             throw new DukeHelpException("Medicine plans do not have this property: '"
-                            + entryStr + "'", this);
+                                    + entryStr + "'", this);
                         }
                         break;
                     case "observation":
                         Observation obsv = (Observation) editData;
                         if (isSwitchSet("objective") && isSwitchSet("subjective")) {
                             throw new DukeHelpException("I don't know if you want this observation to be objective"
-                            + "or subjective!", this);
+                                    + "or subjective!", this);
                         } else if (isSwitchSet("objective")) {
                             obsv.setObjective(true);
                         } else if (isSwitchSet("subjective")) {
@@ -153,6 +148,7 @@ public class ImpressionEditCommand extends DukeDataCommand {
                     default:
                         throw new DukeException("Invalid data type found when making edits!");
                     }
+                    break;
                 }
 
             }
@@ -170,15 +166,18 @@ public class ImpressionEditCommand extends DukeDataCommand {
     }
 
     private void editImpression(Impression impression, boolean isAppending) {
-        /*if (getSwitchVal("name") != null) {
-
-        }*/
+        String newName = getSwitchVal("name");
+        if (newName != null) {
+            impression.setName((isAppending) ? impression.getName() + newName : newName);
+        }
         String newDesc = getSwitchVal("description");
         if (newDesc != null) {
             impression.setDescription((isAppending) ? impression.getDescription() + newDesc : newDesc);
         }
     }
 
+    // TODO proper searching
+    // simply gets the first search result with a matching class
     // this is a terrible method, kill it and replace it with proper disambiguation as soon as possible
     private DukeData findDataOfClass(List<DukeData> searchResults, Class dataClass) {
         for (DukeData result : searchResults) {

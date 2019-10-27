@@ -32,14 +32,6 @@ public abstract class Treatment extends DukeData {
         }
     }
 
-    /**
-     * Updates status of the observation, i.e. the stage of completion
-     * @param statusIdx the integer value of the status
-     */
-    public void updateStatus(int statusIdx) {
-        setStatusIdx(statusIdx);
-    }
-
     @Override
     public String toString() {
         String informationString;

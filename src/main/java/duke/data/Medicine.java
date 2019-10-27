@@ -77,6 +77,10 @@ public class Medicine extends Treatment {
         return startDate;
     }
 
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
     public String getStatusStr() {
         return statusArr.get(getStatusIdx());
     }

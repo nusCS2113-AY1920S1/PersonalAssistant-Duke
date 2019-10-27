@@ -24,7 +24,7 @@ public class Observation extends Evidence {
     @Override
     public String toString() {
         String informationString;
-        informationString = "Objective: " + Boolean.toString(this.isObjective) + "\n";
+        informationString = "Objective: " + this.isObjective + "\n";
         return super.toString() + informationString;
     }
 
