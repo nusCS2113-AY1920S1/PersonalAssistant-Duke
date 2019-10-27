@@ -73,7 +73,7 @@ public class DuqueParser {
                     throw new DukeException("☹ OOPS!!! The description of " + keyword + " cannot be empty.");
                 }
                 return new AddCommandParser().parse(filter, fullCommand);
-            case "pomodoro":
+            case "pomo":
                 if (fcArray.length == 1) {
                     throw new DukeException("☹ OOPS!!! Please specify which pomodoro timer you would like to start!");
                 }

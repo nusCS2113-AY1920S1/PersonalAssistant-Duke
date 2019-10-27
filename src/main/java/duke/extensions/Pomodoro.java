@@ -14,7 +14,7 @@ public class Pomodoro {
         WORK
     }
 
-    private int ONE_MINUTE = 1000 * 5;
+    private int ONE_MINUTE = 1000; // multiply by 60
     private int START_LONGBREAK_MINUTES = 15;
     private int START_SHORTBREAK_MINUTES = 5;
     private int START_WORK_MINUTES = 25;
@@ -22,38 +22,27 @@ public class Pomodoro {
     State currState;
     int currCycle;
     Task pomodoroTask;
-    Timer timer = new Timer();
+    PomodoroTimerTask pomodoroTimerTask;
+    Timer timer;
 
-    public Pomodoro() {
+    private static final Pomodoro instance = new Pomodoro();
+
+    private Pomodoro() {
         currCycle = 0;
         currState = State.WORK;
     }
 
-    private class pomodoroTimerTask extends TimerTask {
-        Timer t;
-        int minutesRemaining;
-
-        pomodoroTimerTask(Timer t, int minutesRemaining) {
-            this.minutesRemaining = minutesRemaining;
-            this.t = t;
-        }
-
-        public void run() {
-            minutesRemaining -= 1;
-            System.out.println(minutesRemaining + " minutes left");
-
-            if (minutesRemaining == 0) {
-                System.out.println("Pomodoro completed");
-                t.cancel();
-            }
-        }
+    public static Pomodoro getInstance() {
+        return instance;
     }
 
-    public void startTimer(Ui ui) {
+    public void startTimer() {
+        timer = new Timer();
         switch (currState) {
             case WORK:
                 System.out.println("Work Started");
-          //      timer.schedule(new pomodoroTimerTask(timer, START_WORK_MINUTES), ONE_MINUTE, ONE_MINUTE);
+                pomodoroTimerTask = new PomodoroTimerTask(timer, START_WORK_MINUTES);
+                timer.schedule(pomodoroTimerTask, ONE_MINUTE, ONE_MINUTE);
                 currCycle++;
                 if (currCycle == 4) {
                     currState = State.LONG_BREAK;
@@ -64,12 +53,14 @@ public class Pomodoro {
                 break;
             case SHORT_BREAK:
                 System.out.println("Short break started");
-             //   timer.schedule(new pomodoroTimerTask(timer, START_SHORTBREAK_MINUTES), ONE_MINUTE, ONE_MINUTE);
+                pomodoroTimerTask = new PomodoroTimerTask(timer, START_SHORTBREAK_MINUTES);
+                timer.schedule(pomodoroTimerTask, ONE_MINUTE, ONE_MINUTE);
                 currState = State.WORK;
                 break;
             case LONG_BREAK:
                 System.out.println("Long break started");
-           //     timer.schedule(new pomodoroTimerTask(timer, START_LONGBREAK_MINUTES), ONE_MINUTE, ONE_MINUTE);
+                pomodoroTimerTask = new PomodoroTimerTask(timer, START_LONGBREAK_MINUTES);
+                timer.schedule(pomodoroTimerTask, ONE_MINUTE, ONE_MINUTE);
                 currState = State.WORK;
                 break;
         }
@@ -93,13 +84,28 @@ public class Pomodoro {
         }
     }
 
-    //TODO pause features
-    public void pauseTimer(Ui ui) {
+    public void stopTimer() {
+        String cState;
+        switch (currState) {
+            case LONG_BREAK:
+            case SHORT_BREAK:
+                cState = "Work";
+                break;
+            case WORK:
+                cState = "Break";
+                break;
+            default:
+                cState = "pomodorodododod";
+        }
+
+        System.out.println(cState + " has finished!");
         timer.cancel();
     }
 
-    public void finishTimer(Ui ui) {
-        timer.cancel();
+    public void restartPomodoro() {
+        System.out.println("Pomodoro restarted!");
+        currCycle = 0;
+        currState = State.WORK;
     }
 
     public void setPomodoroTask(Task t) {
@@ -111,6 +117,22 @@ public class Pomodoro {
     }
 
     public void getStatus() {
+        int minutesRemaining = pomodoroTimerTask.getMinutesRemaining();
+        String cState;
+        switch (currState) {
+            case LONG_BREAK:
+            case SHORT_BREAK:
+                cState = "Work";
+                break;
+            case WORK:
+                cState = "Break";
+                break;
+            default:
+                cState = "pomodorodododod";
+        }
 
+        System.out.println("Current state: " + cState);
+        System.out.println("Number of Pomodoro cycles: " + currCycle);
+        System.out.println(minutesRemaining + " minutes left for your current pomodoro");
     }
 }
