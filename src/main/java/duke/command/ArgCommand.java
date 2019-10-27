@@ -85,7 +85,11 @@ public abstract class ArgCommand extends Command {
             return -1;
         } else {
             try {
-                return Integer.parseInt(str);
+                Integer parseInt = Integer.parseInt(str);
+                if (parseInt < 0) {
+                    throw new DukeHelpException("The value of '" + switchName + "' cannot be negative!", this);
+                }
+                return parseInt;
             } catch (NumberFormatException excp) {
                 throw new DukeHelpException("The switch '" + switchName + "' must be an integer!", this);
             }

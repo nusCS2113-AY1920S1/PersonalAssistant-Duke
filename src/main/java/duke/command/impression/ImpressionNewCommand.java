@@ -33,7 +33,11 @@ public class ImpressionNewCommand extends DukeDataCommand {
 
         //extract parameters and data type
         Integer priority = switchToInt(getSwitchVal("priority"));
-        if (priority > 4 || priority < 0) {
+        if (priority == -1) {
+            priority = 0;
+        }
+        assert (priority >= 0);
+        if (priority > 4) {
             throw new DukeHelpException("Priority must be between 0 and 4!", this);
         }
         nullToEmptyString(); //set optional string parameters to ""
