@@ -16,7 +16,8 @@ class RouteNodeShowCommandTest {
 
     @Test
     void execute() throws DukeException {
-        String expected = "Here is the information of the Bus Stop:\n2113T\nnull\nnull\n(BUS, 0.0, 0.0)";
+        String expected = "Here is the information of the Bus Stop:\n66211\nBerwick Dr\nnull\n"
+                + "(BUS, 1.36412138937997, 103.86103467229529)";
         Model model = new ModelStub();
 
         RouteAddCommand routeAddCommand =
@@ -24,7 +25,7 @@ class RouteNodeShowCommandTest {
         routeAddCommand.execute(model);
 
         RouteNodeAddCommand routeNodeAddCommand =
-                (RouteNodeAddCommand) Parser.parseComplexCommand("routeNodeAdd 1 at 2113T by bus");
+                (RouteNodeAddCommand) Parser.parseComplexCommand("routeNodeAdd 1 at 66211 by bus");
         routeNodeAddCommand.execute(model);
 
         RouteNodeListCommand routeNodeListCommand =

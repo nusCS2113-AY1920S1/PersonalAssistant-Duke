@@ -22,7 +22,7 @@ class RouteNodeDeleteCommandTest {
         routeAddCommand.execute(model);
 
         RouteNodeAddCommand routeNodeAddCommand =
-                (RouteNodeAddCommand) Parser.parseComplexCommand("routeNodeAdd 1 at 2113T by bus");
+                (RouteNodeAddCommand) Parser.parseComplexCommand("routeNodeAdd 1 at 66211 by bus");
         routeNodeAddCommand.execute(model);
 
         RouteNodeDeleteCommand routeNodeDeleteCommand =

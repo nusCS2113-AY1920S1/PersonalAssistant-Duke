@@ -67,6 +67,15 @@ public class Venue {
     }
 
     /**
+     * Sets the address of the Venue.
+     *
+     * @param address The address value to set.
+     */
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    /**
      * Sets the latitude of the venue.
      *
      * @param latitude The latitude value to set.

@@ -3,6 +3,8 @@ package duke;
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.QueryFailedException;
+import duke.commons.exceptions.RouteDuplicateException;
 import duke.logic.CreateMap;
 import duke.model.Model;
 import duke.model.lists.EventList;
@@ -12,6 +14,7 @@ import duke.model.locations.BusStop;
 import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
 import duke.model.transports.BusService;
+import duke.model.transports.Route;
 import duke.storage.Storage;
 
 import java.util.HashMap;
@@ -49,6 +52,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void addRoute(Route route) throws RouteDuplicateException {
+        routes.add(route);
+    }
+
+    @Override
     public void save() throws CorruptedFileException, FileNotSavedException {
         System.out.println("");
     }
@@ -60,7 +68,23 @@ public class ModelStub implements Model {
 
     @Override
     public HashMap<String, BusStop> getBusStops() {
-        return null;
+        return map.getBusStopMap();
+    }
+
+    /**
+     * Gets the bust stop from the map.
+     *
+     * @param query The bus stop to query.
+     * @return The BusStop object.
+     * @throws QueryFailedException If the bus stop cannot be found.
+     */
+    public BusStop getBusStop(String query) throws QueryFailedException {
+        HashMap<String, BusStop> allBus = getMap().getBusStopMap();
+        if (allBus.containsKey(query)) {
+            return allBus.get(query);
+        }
+
+        throw new QueryFailedException("BUS_STOP");
     }
 
     @Override

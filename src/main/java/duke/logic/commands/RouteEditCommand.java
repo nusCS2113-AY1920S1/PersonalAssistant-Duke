@@ -12,10 +12,10 @@ import duke.model.transports.Route;
  * Edits a Route in RouteList.
  */
 public class RouteEditCommand extends Command {
+    private static final String MESSAGE_SUCCESS = "Edited the Route!\n";
     private int index;
     private String field;
     private String newValue;
-    private static final String MESSAGE_SUCCESS = "Edited the Route!\n";
 
     /**
      * Creates a new RouteEditCommand with the given parameters.

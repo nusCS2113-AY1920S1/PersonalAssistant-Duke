@@ -83,7 +83,7 @@ public class Storage {
         Scanner s = new Scanner(getClass().getResourceAsStream(TRAIN_FILE_PATH));
         while (s.hasNext()) {
             TrainStation newTrain = ParserStorageUtil.createTrainFromStorage(s.nextLine());
-            trainMap.put(newTrain.getAddress(), newTrain);
+            trainMap.put(newTrain.getDescription(), newTrain);
         }
         s.close();
         this.map.setTrainMap(trainMap);
@@ -112,7 +112,6 @@ public class Storage {
         }
         s.close();
         this.map = new CreateMap(busStopData, busData);
-
     }
 
     /**

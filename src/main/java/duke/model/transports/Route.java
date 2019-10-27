@@ -124,7 +124,7 @@ public class Route {
      * @exception RouteNodeDuplicateException If the route is a duplicate.
      */
     public void addNode(RouteNode newNode, int index) throws RouteNodeDuplicateException, QueryOutOfBoundsException {
-        if (index >= 0 && index < nodes.size()) {
+        if (index >= 0 && index <= nodes.size()) {
             for (RouteNode node : nodes) {
                 if (node instanceof BusStop && newNode instanceof BusStop
                         && ((BusStop) node).getBusCode().equals(((BusStop) newNode).getBusCode())) {
@@ -178,6 +178,20 @@ public class Route {
         }
 
         throw new NullResultException();
+    }
+
+    /**
+     * Deletes a node at the given index.
+     *
+     * @param index The index to delete
+     * @throws QueryOutOfBoundsException If the query is out of bounds.
+     */
+    public void deleteNode(int index) throws QueryOutOfBoundsException {
+        try {
+            nodes.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new QueryOutOfBoundsException(String.valueOf(index));
+        }
     }
 
     /**

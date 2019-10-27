@@ -1,6 +1,7 @@
 package duke.model.lists;
 
 import duke.commons.exceptions.DukeRouteNotFoundException;
+import duke.commons.exceptions.RouteDuplicateException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.model.transports.Route;
 
@@ -55,9 +56,9 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
      * @exception RouteNodeDuplicateException If there is a duplicate route.
      */
     @Override
-    public void add(Route toAdd) throws RouteNodeDuplicateException {
+    public void add(Route toAdd) throws RouteDuplicateException {
         if (contains(toAdd)) {
-            throw new RouteNodeDuplicateException();
+            throw new RouteDuplicateException();
         }
         list.add(toAdd);
     }

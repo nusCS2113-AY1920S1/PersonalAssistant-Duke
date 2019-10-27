@@ -9,11 +9,17 @@ public class SearchConversation extends Conversation {
     private static final String command = "search";
     private String location;
 
+    /**
+     * Initialises the Conversation object.
+     */
     public SearchConversation() {
         super();
         prompt = Messages.PROMPT_SEARCH_STARTER;
     }
 
+    /**
+     * Executes Prompt and returns a String reply.
+     */
     @Override
     public void execute(String input) {
         prompt = Messages.PROMPT_SEARCH_SUCCESS;
@@ -22,6 +28,11 @@ public class SearchConversation extends Conversation {
         setFinished(true);
     }
 
+    /**
+     * Gets result of prompt.
+     *
+     * @return result The result.
+     */
     @Override
     protected void buildResult() {
         if (location != null) {

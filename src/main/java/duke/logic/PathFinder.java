@@ -1,12 +1,18 @@
 package duke.logic;
 
 import duke.commons.enumerations.Constraint;
+import duke.commons.exceptions.QueryFailedException;
 import duke.logic.api.ApiConstraintParser;
+import duke.model.Model;
 import duke.model.locations.BusStop;
+import duke.model.locations.CustomNode;
+import duke.model.locations.RouteNode;
 import duke.model.locations.TrainStation;
 import duke.model.locations.Venue;
+import duke.model.transports.BusService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
@@ -54,10 +60,11 @@ public class PathFinder {
         Venue startTransport = ApiConstraintParser.getNearestTransport(start, this.map);
         Venue endTransport = ApiConstraintParser.getNearestTransport(end, this.map);
         ArrayList<Venue> ans = new ArrayList<>();
+
         if (startTransport instanceof TrainStation && endTransport instanceof TrainStation) {
-            System.out.println("onlyMrt");
             return findTrainRoute(start, end);
         }
+
         if (startTransport instanceof BusStop && endTransport instanceof TrainStation) {
             TrainStation middleTrain = ApiConstraintParser.getNearestTrainStation(start, this.map.getTrainMap());
             BusStop middleBus = ApiConstraintParser.getNearestBusStop(middleTrain, this.map.getBusStopMap());
@@ -65,6 +72,7 @@ public class PathFinder {
             ans = findBusRoute(start, middleBus);
             ans.addAll(Objects.requireNonNull(findTrainRoute(middleTrain, end)));
         }
+
         if (startTransport instanceof TrainStation && endTransport instanceof BusStop) {
             TrainStation middleTrain = ApiConstraintParser.getNearestTrainStation(end, this.map.getTrainMap());
             BusStop middleBus = ApiConstraintParser.getNearestBusStop(middleTrain, this.map.getBusStopMap());
@@ -72,6 +80,7 @@ public class PathFinder {
             ans = findTrainRoute(start, middleTrain);
             ans.addAll(Objects.requireNonNull(findBusRoute(middleBus, end)));
         }
+
         if (startTransport instanceof BusStop && endTransport instanceof BusStop) {
             TrainStation startTrain = ApiConstraintParser.getNearestTrainStation(start, this.map.getTrainMap());
             TrainStation endTrain = ApiConstraintParser.getNearestTrainStation(end, this.map.getTrainMap());
@@ -118,12 +127,17 @@ public class PathFinder {
                     break;
                 }
             }
+        } else {
+            found = true;
         }
+
+
         path.add(endTrainStation);
 
         if (!isSameLocation(end, endTrainStation)) {
             path.add(end);
         }
+
         if (found) {
             return path;
         } else {
@@ -168,6 +182,7 @@ public class PathFinder {
             depthFirstSearch(cur, endBusStop, depthLimit);
             depthLimit += 1;
         }
+
         if (!this.found) {
             return null;
         } else {
@@ -188,7 +203,6 @@ public class PathFinder {
     }
 
     private void depthFirstSearch(BusStop cur, BusStop endBusStop, int depthLimit) {
-
         if (depthLimit == 0 || this.visited.contains(cur)) {
             return;
         }
@@ -232,5 +246,290 @@ public class PathFinder {
             }
         }
         return false;
+    }
+
+    /**
+     * Generates a custom RouteNode from a venue.
+     *
+     * @param venue The venue.
+     * @return The custom RouteNode created.
+     */
+    public static RouteNode generateCustomRouteNode(Venue venue) {
+        return new CustomNode(venue.getAddress(), "", venue.getLatitude(), venue.getLongitude());
+    }
+
+    /**
+     * Generates an ArrayList of Venues between 2 Venues.
+     *
+     * @param startVenue The starting Venue.
+     * @param endVenue The ending Venue.
+     * @param model The model object containing information about the user.
+     * @return result The ArrayList of Venues.
+     * @throws QueryFailedException If a TrainStation cannot be queried.
+     */
+    public static ArrayList<Venue> generateInbetweenNodes(Venue startVenue, Venue endVenue, Model model)
+            throws QueryFailedException {
+        ArrayList<Venue> result = new ArrayList<>();
+
+        if (startVenue instanceof BusStop && endVenue instanceof BusStop) {
+            result = generateInbetweenBusRoutes(startVenue, endVenue, model);
+        } else if (startVenue instanceof TrainStation && endVenue instanceof TrainStation) {
+            result = generateInbetweenTrainRoutes((TrainStation) startVenue, (TrainStation) endVenue, model);
+        }
+
+        return result;
+    }
+
+    /**
+     * Generates an ArrayList of BusStops between 2 Bus Stops.
+     *
+     * @param startVenue The starting Venue.
+     * @param endVenue The ending Venue.
+     * @param model The model object containing information about the user.
+     * @return result The ArrayList of BusStops.
+     */
+    public static ArrayList<Venue> generateInbetweenBusRoutes(Venue startVenue, Venue endVenue, Model model)
+            throws QueryFailedException {
+        ArrayList<Venue> result = new ArrayList<>();
+        HashMap<String, BusService> busMap = model.getMap().getBusMap();
+        boolean isGenerated = false;
+
+        for (String busNumber: ((BusStop) startVenue).getBuses()) {
+            if (!isGenerated) {
+                BusService bus = busMap.get(busNumber);
+                ArrayList<String> busCodes = bus.getDirection(1);
+
+                result =
+                        searchForwardDirectionBus((BusStop) startVenue, (BusStop) endVenue, busNumber, busCodes, model);
+                if (result == null) {
+                    //search backward direction
+                    Collections.reverse(busCodes);
+                    result =
+                    searchReverseDirectionBus((BusStop) startVenue, (BusStop) endVenue, busNumber, busCodes, model);
+                    if (result != null) {
+                        isGenerated = true;
+                    }
+                } else {
+                    isGenerated = true;
+                }
+
+            } else {
+                break;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Searches the forward direction of a given BusCode ArrayList to find the start and end venue.
+     *
+     * @param startVenue The start Venue.
+     * @param endVenue The end Venue.
+     * @param busNumber The bus service number.
+     * @param busCodes The ArrayList of bus stop codes.
+     * @param model The model object containing information about the user.
+     * @return result The ArrayList of BusStops.
+     * @throws QueryFailedException If the bus stop cannot be found.
+     */
+    private static ArrayList<Venue> searchForwardDirectionBus(BusStop startVenue, BusStop endVenue,
+                              String busNumber, ArrayList<String> busCodes, Model model) throws QueryFailedException {
+        ArrayList<Venue> result = new ArrayList<>();
+        boolean isStartNodeFound = false;
+        boolean isGenerated = false;
+
+        for (String busCode : busCodes) {
+            if (endVenue.getBusCode().equals(busCode) && !isStartNodeFound) {
+                break;
+            }
+
+            if (endVenue.getBusCode().equals(busCode) && isStartNodeFound) {
+                isGenerated = true;
+                break;
+            }
+
+            if (isStartNodeFound) {
+                BusStop node = new BusStop(busCode, "", "", 0, 0);
+                result.add(node);
+            }
+
+            if (startVenue.getBusCode().equals(busCode)) {
+                BusStop node = new BusStop(busCode, "", "", 0, 0);
+                node.fetchData(model);
+                result.add(new CustomNode("Bus Service " + busNumber, "", node.getLatitude(),
+                        node.getLongitude()));
+                isStartNodeFound = true;
+            }
+        }
+
+        if (isGenerated) {
+            return result;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Searches the reverse direction of a given BusCode ArrayList to find the start and end venue.
+     *
+     * @param startVenue The start Venue.
+     * @param endVenue The end Venue.
+     * @param busNumber The bus service number.
+     * @param busCodes The ArrayList of bus stop codes.
+     * @param model The model object containing information about the user.
+     * @return result The ArrayList of BusStops.
+     * @throws QueryFailedException If the bus stop cannot be found.
+     */
+    private static ArrayList<Venue> searchReverseDirectionBus(BusStop startVenue, BusStop endVenue,
+                              String busNumber, ArrayList<String> busCodes, Model model) throws QueryFailedException {
+        ArrayList<Venue> result = new ArrayList<>();
+        boolean isStartNodeFound = false;
+        boolean isGenerated = false;
+
+        for (String busCode : busCodes) {
+            if (endVenue.getBusCode().equals(busCode) && isStartNodeFound) {
+                isGenerated = true;
+                break;
+            }
+
+            if (isStartNodeFound) {
+                BusStop node = new BusStop(busCode, "", "", 0, 0);
+                result.add(node);
+            }
+
+            if (startVenue.getBusCode().equals(busCode)) {
+                BusStop node = new BusStop(busCode, "", "", 0, 0);
+                node.fetchData(model);
+                result.add(new CustomNode("Bus Service " + busNumber, "", node.getLatitude(),
+                        node.getLongitude()));
+                isStartNodeFound = true;
+            }
+        }
+
+        if (isGenerated) {
+            return result;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Generates an ArrayList of TrainStations between 2 Bus Stops.
+     *
+     * @param startVenue The starting Venue.
+     * @param endVenue The ending Venue.
+     * @param model The model object containing information about the user.
+     * @return result The ArrayList of TrainStations.
+     */
+    public static ArrayList<Venue> generateInbetweenTrainRoutes(TrainStation startVenue, TrainStation endVenue,
+                                                                Model model) throws QueryFailedException {
+        ArrayList<Venue> result = new ArrayList<>();
+        TrainStation start = model.getMap().getTrainStation(startVenue.getDescription());
+        ArrayList<String> trainCodes = start.getTrainCodes();
+        boolean isGenerated = false;
+
+        for (String trainCode: trainCodes) {
+
+            if (!isGenerated) {
+                ArrayList<TrainStation> trainLine = model.getMap().getTrainLine(trainCode.substring(0, 2));
+                //search forward direction
+                result = searchForwardDirectionTrain(startVenue, endVenue, trainCode, trainLine);
+                if (result == null) {
+                    //search backward direction
+                    Collections.reverse(trainLine);
+                    result = searchReverseDirectionTrain(startVenue, endVenue, trainCode, trainLine);
+                    if (result != null) {
+                        isGenerated = true;
+                    }
+                } else {
+                    isGenerated = true;
+                }
+
+            } else {
+                break;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Searches the forward direction of a train line to find the start and end venue.
+     *
+     * @param startVenue The start venue.
+     * @param endVenue The end venue.
+     * @param trainCode The train code.
+     * @param trainLine The train line
+     * @return result The ArrayList of train stations.
+     */
+    private static ArrayList<Venue> searchForwardDirectionTrain(TrainStation startVenue, TrainStation endVenue,
+                               String trainCode, ArrayList<TrainStation> trainLine) {
+        ArrayList<Venue> result = new ArrayList<>();
+        boolean isStartNodeFound = false;
+        boolean isGenerated = false;
+
+        for (TrainStation trainStation : trainLine) {
+            if (endVenue.getDescription().equals(trainStation.getDescription()) && !isStartNodeFound) {
+                break;
+            }
+
+            if (endVenue.getDescription().equals(trainStation.getDescription()) && isStartNodeFound) {
+                isGenerated = true;
+                break;
+            }
+
+            if (isStartNodeFound) {
+                result.add(trainStation);
+            }
+
+            if (startVenue.getDescription().equals(trainStation.getDescription())) {
+                result.add(new CustomNode(trainCode + " Line", "", trainStation.getLatitude(),
+                        trainStation.getLongitude()));
+                isStartNodeFound = true;
+            }
+        }
+
+        if (isGenerated) {
+            return result;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Searches the reverse direction of a train line to find the start and end venue.
+     *
+     * @param startVenue The start venue.
+     * @param endVenue The end venue.
+     * @param trainCode The train code.
+     * @param trainLine The train line
+     * @return result The ArrayList of train stations.
+     */
+    private static ArrayList<Venue> searchReverseDirectionTrain(TrainStation startVenue, TrainStation endVenue,
+                                                                String trainCode, ArrayList<TrainStation> trainLine) {
+        ArrayList<Venue> result = new ArrayList<>();
+        boolean isStartNodeFound = false;
+        boolean isGenerated = false;
+
+        for (TrainStation trainStation : trainLine) {
+            if (endVenue.getDescription().equals(trainStation.getDescription()) && isStartNodeFound) {
+                isGenerated = true;
+                break;
+            }
+
+            if (isStartNodeFound) {
+                result.add(trainStation);
+            }
+
+            if (startVenue.getDescription().equals(trainStation.getDescription())) {
+                result.add(new CustomNode(trainCode + " Line", "", trainStation.getLatitude(),
+                        trainStation.getLongitude()));
+                isStartNodeFound = true;
+            }
+        }
+
+        if (isGenerated) {
+            return result;
+        } else {
+            return null;
+        }
     }
 }

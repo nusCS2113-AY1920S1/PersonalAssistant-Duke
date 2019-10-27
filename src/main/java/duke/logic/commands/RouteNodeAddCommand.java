@@ -2,22 +2,20 @@ package duke.logic.commands;
 
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.QueryFailedException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 import duke.model.locations.BusStop;
+import duke.model.locations.TrainStation;
 import duke.model.transports.Route;
 import duke.model.locations.RouteNode;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Adds a RouteNode to RouteList.
  */
 public class RouteNodeAddCommand extends Command {
-    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private RouteNode node;
     private int indexRoute;
     private int indexNode;
@@ -34,7 +32,6 @@ public class RouteNodeAddCommand extends Command {
         this.indexRoute = indexRoute;
         this.indexNode = indexNode;
         this.isEmptyIndexNode = isEmptyIndexNode;
-        logger.log(Level.FINE, ((BusStop) node).getBusCode() + " " + indexRoute + " " + indexNode);
     }
 
     /**
@@ -49,19 +46,25 @@ public class RouteNodeAddCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws CorruptedFileException, FileNotSavedException,
-            RouteNodeDuplicateException, QueryOutOfBoundsException {
-        Route route = model.getRoutes().get(indexRoute);
+            RouteNodeDuplicateException, QueryOutOfBoundsException, QueryFailedException {
+        if (node instanceof BusStop) {
+            ((BusStop) node).fetchData(model);
+        } else if (node instanceof TrainStation) {
+            ((TrainStation) node).fetchData(model);
+        }
 
-        if (isEmptyIndexNode) {
-            route.addNode(node);
-        } else if (indexNode >= 0) {
-            try {
-                route.addNode(node, indexNode);
-            } catch (QueryOutOfBoundsException e) {
+        try {
+            Route route = model.getRoutes().get(indexRoute);
+            if (isEmptyIndexNode) {
                 route.addNode(node);
+            } else if (indexNode >= 0) {
+                route.addNode(node, indexNode);
+            } else {
+                throw new QueryOutOfBoundsException("ROUTE_NODE");
             }
-        } else {
-            throw new QueryOutOfBoundsException("ROUTE_NODE");
+
+        } catch (IndexOutOfBoundsException e) {
+            throw new QueryOutOfBoundsException("ROUTE");
         }
 
         model.save();
