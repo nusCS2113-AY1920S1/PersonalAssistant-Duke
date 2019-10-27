@@ -1,16 +1,16 @@
 package dictionary;
 
-import java.util.Map;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.SortedMap;
+import java.util.TreeMap;
 
 import exception.NoWordFoundException;
 import command.OxfordCall;
 import exception.WordAlreadyExistException;
 import storage.Storage;
-
-import java.util.HashSet;
-import java.util.TreeMap;
 
 
 public class WordBank {
@@ -26,8 +26,8 @@ public class WordBank {
         makeWordCount();
     }
 
-    public WordBank(TreeMap<String, Word> wordBank) {
-        this.wordBank = wordBank;
+    public WordBank() {
+        this.wordBank = new TreeMap<>();
     }
 
     public TreeMap<String, Word> getWordBank() {
@@ -174,7 +174,7 @@ public class WordBank {
      * @return tags lists of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank
      */
-    public HashSet<String> addTag(String wordToBeAddedTag, ArrayList<String> tags) throws NoWordFoundException {
+    public HashSet<String> addWordToSomeTags(String wordToBeAddedTag, ArrayList<String> tags) throws NoWordFoundException {
         if (!wordBank.containsKey(wordToBeAddedTag)) {
             throw new NoWordFoundException(wordToBeAddedTag);
         }
@@ -218,5 +218,13 @@ public class WordBank {
             }
         }
         return closedWords;
+    }
+
+    public void addTagToWord(String word, String tag) {
+        wordBank.get(word).addTag(tag);
+    }
+
+    public Word[] getAllWords() {
+        return wordBank.values().toArray(new Word[wordBank.size()]);
     }
 }

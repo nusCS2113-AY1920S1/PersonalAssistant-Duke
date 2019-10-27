@@ -2,7 +2,6 @@ package dictionary;
 
 import exception.NoWordFoundException;
 import exception.WordAlreadyExistException;
-import storage.Storage;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,8 +10,8 @@ public class Bank {
     WordBank wordBank;
     TagBank tagBank;
 
-    public Bank(Storage storage) {
-        wordBank = new WordBank(storage);
+    public Bank() {
+        wordBank = new WordBank();
         tagBank = new TagBank();
     }
 
@@ -24,9 +23,21 @@ public class Bank {
         return tagBank;
     }
 
+    public Word[] getAllWords() {
+        return wordBank.getAllWords();
+    }
+
+    public String[] getAllTags() {
+        return tagBank.getAllTagsAsList();
+    }
+
+    public String[] getAllWordsOfTag(String tag) {
+        return tagBank.getAllWordsOfTag(tag);
+    }
+
     public void addWord(Word word) throws WordAlreadyExistException {
         wordBank.addWord(word);
-        tagBank.addWordAllTags(word);
+        tagBank.addWordToAllTags(word);
     }
 
     /**
@@ -36,9 +47,9 @@ public class Bank {
      * @return all tags of the word after adding to show to user
      * @throws NoWordFoundException if the word doesn't exist in the WordBank
      */
-    public HashSet<String> addTag(String wordDescription, ArrayList<String> tags) throws NoWordFoundException {
-        HashSet<String> tagsOfWord = wordBank.addTag(wordDescription, tags);
-        tagBank.addTag(wordDescription, tags);
+    public HashSet<String> addWordToSomeTags(String wordDescription, ArrayList<String> tags) throws NoWordFoundException {
+        HashSet<String> tagsOfWord = wordBank.addWordToSomeTags(wordDescription, tags);
+        tagBank.addWordToSomeTags(wordDescription, tags);
         return tagsOfWord;
     }
 
@@ -79,5 +90,10 @@ public class Bank {
 
     public ArrayList<String> getClosedWords(String searchTerm) {
         return wordBank.getClosedWords(searchTerm);
+    }
+
+    public void addTagToWord(String word, String tag) {
+        wordBank.addTagToWord(word, tag);
+        tagBank.addWordToOneTag(word, tag);
     }
 }
