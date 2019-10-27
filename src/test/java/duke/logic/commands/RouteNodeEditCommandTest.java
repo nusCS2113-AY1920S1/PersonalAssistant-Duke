@@ -18,7 +18,7 @@ class RouteNodeEditCommandTest {
     void execute() throws DukeException {
         Model model = new ModelStub();
 
-        RouteAddCommand routeAddCommand = new RouteAddCommand("2113");
+        RouteAddCommand routeAddCommand = new RouteAddCommand("2113", "");
         routeAddCommand.execute(model);
 
         RouteNodeAddCommand routeNodeAddCommand1 =

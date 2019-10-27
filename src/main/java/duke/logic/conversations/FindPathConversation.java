@@ -11,11 +11,18 @@ public class FindPathConversation extends Conversation {
     private String startPointIndex;
     private String endPointIndex;
 
+    /**
+     * Initialises the Conversation object.
+     */
+
     public FindPathConversation() {
         super();
         prompt = Messages.PROMPT_FIND_STARTER;
     }
 
+    /**
+     * Executes Prompt and returns a String reply.
+     */
     @Override
     public void execute(String input) {
         switch (state) {
@@ -46,6 +53,11 @@ public class FindPathConversation extends Conversation {
         tryCancelConversation(input);
     }
 
+    /**
+     * Gets result of prompt.
+     *
+     * @return result The result.
+     */
     @Override
     protected void buildResult() {
         if (constraint != null && startPointIndex != null && endPointIndex != null) {

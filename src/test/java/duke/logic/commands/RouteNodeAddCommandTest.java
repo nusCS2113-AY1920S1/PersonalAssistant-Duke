@@ -2,6 +2,7 @@ package duke.logic.commands;
 
 import duke.ModelStub;
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
 import duke.model.locations.BusStop;
@@ -35,7 +36,7 @@ class RouteNodeAddCommandTest {
         //negative test for adding to non-existant route
         RouteNodeAddCommand routeNodeAddCommand2 =
                 (RouteNodeAddCommand) Parser.parseComplexCommand("routeNodeAdd 2 at 66211 by bus");
-        assertThrows(IndexOutOfBoundsException.class, () -> {
+        assertThrows(QueryOutOfBoundsException.class, () -> {
             routeNodeAddCommand2.execute(model);
         });
     }

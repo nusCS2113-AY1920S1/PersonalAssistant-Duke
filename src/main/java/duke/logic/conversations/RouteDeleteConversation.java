@@ -3,19 +3,18 @@ package duke.logic.conversations;
 import duke.commons.Messages;
 
 /**
- * Handles the conversation occurring when a findTime command is entered.
+ * Handles the conversation occurring when a RouteDelete command is entered.
  */
-public class FreeTimeConversation extends Conversation {
-    private static final String command = "findtime";
-    private String duration;
+public class RouteDeleteConversation extends Conversation {
+    private static final String command = "routeDelete";
+    private String index;
 
     /**
      * Initialises the Conversation object.
      */
-
-    public FreeTimeConversation() {
+    public RouteDeleteConversation() {
         super();
-        prompt = Messages.PROMPT_FREETIME_STARTER;
+        prompt = Messages.PROMPT_ROUTE_DELETE_STARTER;
     }
 
     /**
@@ -24,7 +23,8 @@ public class FreeTimeConversation extends Conversation {
     @Override
     public void execute(String input) {
         if (isIntInput(input)) {
-            duration = input;
+            index = input;
+            prompt = Messages.PROMPT_ROUTE_DELETE_SUCCESS;
             buildResult();
         }
 
@@ -38,8 +38,9 @@ public class FreeTimeConversation extends Conversation {
      */
     @Override
     protected void buildResult() {
-        if (duration != null) {
-            result = command + " " + duration;
+        if (index != null) {
+            result = command + " " + index;
+            setFinished(true);
         } else {
             attempts++;
         }

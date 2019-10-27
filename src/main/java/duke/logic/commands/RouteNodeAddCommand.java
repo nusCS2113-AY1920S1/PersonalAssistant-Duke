@@ -53,14 +53,18 @@ public class RouteNodeAddCommand extends Command {
             ((TrainStation) node).fetchData(model);
         }
 
-        Route route = model.getRoutes().get(indexRoute);
+        try {
+            Route route = model.getRoutes().get(indexRoute);
+            if (isEmptyIndexNode) {
+                route.addNode(node);
+            } else if (indexNode >= 0) {
+                route.addNode(node, indexNode);
+            } else {
+                throw new QueryOutOfBoundsException("ROUTE_NODE");
+            }
 
-        if (isEmptyIndexNode) {
-            route.addNode(node);
-        } else if (indexNode >= 0) {
-            route.addNode(node, indexNode);
-        } else {
-            throw new QueryOutOfBoundsException("ROUTE_NODE");
+        } catch (IndexOutOfBoundsException e) {
+            throw new QueryOutOfBoundsException("ROUTE");
         }
 
         model.save();

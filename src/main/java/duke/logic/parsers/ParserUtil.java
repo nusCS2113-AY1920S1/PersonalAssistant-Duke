@@ -5,7 +5,11 @@ import duke.commons.exceptions.DukeEmptyFieldException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeUnknownCommandException;
+import duke.commons.exceptions.InputNotIntException;
+import duke.commons.exceptions.ObjectCreationFailedException;
+import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.commons.exceptions.UnknownConstraintException;
+import duke.logic.commands.RouteAddCommand;
 import duke.logic.commands.RouteGenerateCommand;
 import duke.logic.commands.RouteNodeAddCommand;
 import duke.model.locations.BusStop;
@@ -61,41 +65,45 @@ public class ParserUtil {
     }
 
     protected static RouteNode createRouteNode(String userInput) throws DukeException {
-        String[] withinDetails = userInput.strip().split("at |with ", 2);
-        if (withinDetails.length != 2) {
-            throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
-        }
-
-        String[] indexes = withinDetails[0].split(" ");
-
-        String type = userInput.substring(withinDetails[0].length()).strip().substring(0, 4);
-        if (!("with".equals(type) || "at".equals(type.substring(0, 2)))) {
-            throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
-        }
-
-        String[] details;
-        if (type.substring(0, 2).equals("at")) {
-            details = withinDetails[1].strip().split("by ");
-            switch (details[1].toUpperCase()) {
-            case "BUS":
-                return new BusStop(details[0].strip(), null, null, 0, 0);
-            case "MRT":
-                return new TrainStation(new ArrayList<>(), details[0].strip(), null, 0, 0);
-            default:
-                throw new DukeException(Messages.ERROR_COMMAND_UNKNOWN);
+        try {
+            String[] withinDetails = userInput.strip().split("at | with ", 2);
+            if (withinDetails.length != 2) {
+                throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
             }
-        } else {
-            details = withinDetails[1].split("by ");
-            String[] coordinateStrings = details[0].strip().split(" ");
-            assert (coordinateStrings.length == 2);
 
-            double[] coordinates = new double[2];
-            for (int i = 0; i < coordinates.length; i++) {
-                coordinates[i] = Double.parseDouble(coordinateStrings[i].strip());
+            String[] indexes = withinDetails[0].split(" ");
+
+            String type = userInput.substring(withinDetails[0].length()).strip().substring(0, 4);
+            if (!("with".equals(type) || "at".equals(type.substring(0, 2)))) {
+                throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
             }
+
+            String[] details;
+            if (type.substring(0, 2).equals("at")) {
+                details = withinDetails[1].strip().split("by ");
+                switch (details[1].toUpperCase()) {
+                    case "BUS":
+                        return new BusStop(details[0].strip(), null, null, 0, 0);
+                    case "MRT":
+                        return new TrainStation(new ArrayList<>(), details[0].strip(), null, 0, 0);
+                    default:
+                        throw new DukeException(Messages.ERROR_COMMAND_UNKNOWN);
+                }
+            } else {
+                details = withinDetails[1].split("by ");
+                String[] coordinateStrings = details[0].strip().split(" ");
+                assert (coordinateStrings.length == 2);
+
+                double[] coordinates = new double[2];
+                for (int i = 0; i < coordinates.length; i++) {
+                    coordinates[i] = Double.parseDouble(coordinateStrings[i].strip());
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new ObjectCreationFailedException("ROUTE_NODE");
         }
 
-        return null;
+        throw new ObjectCreationFailedException("ROUTE_NODE");
     }
 
     /**
@@ -124,77 +132,19 @@ public class ParserUtil {
         return new Itinerary(start, end, hotelLocation);
     }
 
-    /**
-     * Parses the userInput and return an index extracted from it.
-     *
-     * @param userInput The userInput read by the user interface.
-     * @return The index.
-     */
-    public static int getIndex(String userInput) throws DukeException {
-        try {
-            int index = Integer.parseInt(userInput.strip());
-            return index - 1;
-        } catch (NumberFormatException e) {
-            throw new DukeUnknownCommandException();
-        }
-    }
 
     /**
-     * Parses the userInput and return an index extracted from it safely.
+     * Creates a new RouteAddCommand from input.
      *
-     * @param userInput The userInput read by the user interface.
-     * @return The index.
+     * @param input The userInput read by the user interface.
+     * @return RouteAddCommand The RouteAddCommand.
      */
-    protected static int getSafeIndex(String userInput) throws DukeException {
-        try {
-            String index = userInput.split(" ")[1].strip();
-            return Integer.parseInt(index) - 1;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException(Messages.ERROR_INDEX_OUT_OF_BOUNDS);
-        } catch (NumberFormatException e) {
-            throw new DukeUnknownCommandException();
-        }
-    }
-
-    /**
-     * Parses the userInput with 2 indexes and return the first index extracted from it.
-     *
-     * @param userInput The userInput read by the user interface.
-     * @return The index.
-     */
-    public static int getFirstIndex(String userInput) throws DukeException {
-        try {
-            String[] indexStrings = userInput.split(" ", 2);
-            if (indexStrings[0].strip().matches("-?(0|[1-9]\\d*)")) {
-                int index = Integer.parseInt(indexStrings[0].strip());
-                return index - 1;
-            } else {
-                throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
-            }
-        } catch (NumberFormatException e) {
-            throw new DukeUnknownCommandException();
-        }
-    }
-
-    /**
-     * Parses the userInput with 2 indexes and return the second index extracted from it.
-     *
-     * @param userInput The userInput read by the user interface.
-     * @return The index.
-     */
-    public static int getSecondIndex(String userInput) throws DukeException {
-        try {
-            String[] indexStrings = userInput.split(" ", 3);
-            if (indexStrings[1].strip().matches("-?(0|[1-9]\\d*)")) {
-                int index = Integer.parseInt(indexStrings[1].strip());
-                return index - 1;
-            } else if (indexStrings[1].strip().equals("at")) {
-                throw new DukeEmptyFieldException("SECOND_INPUT");
-            } else {
-                throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
-            }
-        } catch (NumberFormatException e) {
-            throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
+    public static RouteAddCommand createRouteAddCommand(String input) {
+        String[] details = input.split("desc", 2);
+        if (details.length == 2) {
+            return new RouteAddCommand(details[0], details[1]);
+        } else {
+            return new RouteAddCommand(details[0], "");
         }
     }
 
@@ -207,10 +157,11 @@ public class ParserUtil {
     public static RouteNodeAddCommand createRouteNodeAddCommand(String input) throws DukeException {
         try {
             return new RouteNodeAddCommand(ParserUtil.createRouteNode(input),
-                    ParserUtil.getFirstIndex(input), ParserUtil.getSecondIndex(input), false);
-        } catch (DukeEmptyFieldException e) {
+                    ParserUtil.getIntegerIndexInList(0, 4, input), ParserUtil.getIntegerIndexInList(1, 4, input),
+                    false);
+        } catch (InputNotIntException e) {
             return new RouteNodeAddCommand(ParserUtil.createRouteNode(input),
-                    ParserUtil.getFirstIndex(input),
+                    ParserUtil.getIntegerIndexInList(0, 4, input),
                     0, true);
         }
     }
@@ -239,6 +190,7 @@ public class ParserUtil {
 
     /**
      * Gets the field at index in a String list delimited by whitespace.
+     *
      * @param index The index of field.
      * @param listSize The total size of String list.
      * @param userInput The userInput read by the user interface.
@@ -246,9 +198,46 @@ public class ParserUtil {
      */
     public static String getFieldInList(int index, int listSize, String userInput) throws DukeException {
         String[] fields = userInput.split(" ", listSize);
-        if (index >= 0 && index <= listSize) {
-            return fields[index - 1].strip();
+        if (index >= 0 && index < listSize) {
+            return fields[index].strip();
         }
         throw new DukeException(Messages.ERROR_INDEX_OUT_OF_BOUNDS);
+    }
+
+    /**
+     * Gets the integer at index in a String list delimited by whitespace.
+     *
+     * @param index The index of field.
+     * @param listSize The total size of String list.
+     * @param userInput The userInput read by the user interface.
+     * @return The integer.
+     */
+    public static int getIntegerInList(int index, int listSize, String userInput) throws DukeException {
+        String[] fields = userInput.split(" ", listSize);
+        if (index >= 0 && index < listSize) {
+            return Integer.parseInt(fields[index].strip());
+        }
+        throw new DukeException(Messages.ERROR_INDEX_OUT_OF_BOUNDS);
+    }
+
+    /**
+     * Gets the integer index at index in a String list delimited by whitespace.
+     *
+     * @param index The index of field.
+     * @param listSize The total size of String list.
+     * @param userInput The userInput read by the user interface.
+     * @return The integer.
+     */
+    public static int getIntegerIndexInList(int index, int listSize, String userInput) throws InputNotIntException,
+            QueryOutOfBoundsException {
+        try {
+            String[] fields = userInput.split(" ", listSize);
+            if (index >= 0 && index < listSize) {
+                return Integer.parseInt(fields[index].strip()) - 1;
+            }
+        } catch (NumberFormatException e) {
+            throw new InputNotIntException();
+        }
+        throw new QueryOutOfBoundsException("INTEGER");
     }
 }

@@ -15,7 +15,7 @@ class RouteShowCommandTest {
 
     @Test
     void execute() throws DukeException {
-        String expected = "Here is the information of the Route:\n2113\n";
+        String expected = "Here is the information of the Route:\n2113\n\n";
 
         Model model = new ModelStub();
 

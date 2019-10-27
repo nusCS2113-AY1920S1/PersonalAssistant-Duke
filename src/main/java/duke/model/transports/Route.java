@@ -1,6 +1,7 @@
 package duke.model.transports;
 
 import duke.commons.exceptions.NullResultException;
+import duke.commons.exceptions.QueryFailedException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.model.locations.BusStop;
@@ -178,6 +179,20 @@ public class Route {
         }
 
         throw new NullResultException();
+    }
+
+    /**
+     * Deletes a node at the given index.
+     *
+     * @param index The index to delete
+     * @throws QueryOutOfBoundsException If the query is out of bounds.
+     */
+    public void deleteNode(int index) throws QueryOutOfBoundsException {
+        try {
+            nodes.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new QueryOutOfBoundsException(String.valueOf(index));
+        }
     }
 
     /**

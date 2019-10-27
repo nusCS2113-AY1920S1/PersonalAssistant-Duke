@@ -2,8 +2,6 @@ package duke.model.locations;
 
 import duke.commons.enumerations.Constraint;
 
-import java.util.HashSet;
-
 public class CustomNode extends RouteNode {
 
     /**
@@ -17,5 +15,4 @@ public class CustomNode extends RouteNode {
     public CustomNode(String address, String description, double latitude, double longitude) {
         super(Constraint.valueOf("CUSTOM"), address, description, latitude, longitude);
     }
-
 }

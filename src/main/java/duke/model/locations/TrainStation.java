@@ -27,6 +27,11 @@ public class TrainStation extends RouteNode {
         this.trainCodes = trainCode;
     }
 
+    /**
+     * Gets the ArrayList of train code of the train station in String.
+     *
+     * @return trainCodes The ArrayList of train code of the train station in String.
+     */
     public ArrayList<String> getTrainCodes() {
         return trainCodes;
     }

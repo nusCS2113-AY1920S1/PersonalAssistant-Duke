@@ -22,6 +22,7 @@ public class Messages {
     public static final String ERROR_FILE_NOT_SAVED = "✋ File not saved! :-(";
 
     public static final String ERROR_RESOURCE_NOT_FOUND = "☢ Resource not found! :-( Missing: ";
+    public static final String ERROR_OBJECT_NOT_CREATED = "✇ Item could not be created! :-(";
 
     public static final String ERROR_TASK_CORRUPTED = "✇ Task cannot be converted to String! :-(";
     public static final String ERROR_TASK_DUPLICATED = "✇ Task already exists! :-(";
@@ -63,6 +64,9 @@ public class Messages {
     public static final String PROMPT_NOT_DOUBLE = "Please use a number!";
     public static final String PROMPT_NOT_STRING = "Please use a string!";
     public static final String PROMPT_NOT_DATE = "Please use a proper date!";
+    public static final String PROMPT_NOT_ROUTE_FIELD = "Please choose either name or description!";
+    public static final String PROMPT_NOT_ROUTENODE_FIELD = "Please use a proper field!";
+
 
     public static final String PROMPT_SEARCH_STARTER = "Where would you like to find?";
     public static final String PROMPT_SEARCH_SUCCESS = "These are the coordinates of your search:";
@@ -130,9 +134,48 @@ public class Messages {
     public static final String PROMPT_RECOMMEND_STARTER = "How many days will you be visiting SG?";
     public static final String PROMPT_RECOMMEND_SUCCESS = "Recommended Attractions:";
 
+    public static final String PROMPT_ROUTE_ADD_STARTER = "Please enter the name of the route!";
+    public static final String PROMPT_ROUTE_ADD_DESCRIPTION = "Please enter the description of the route!";
+    public static final String PROMPT_ROUTE_ADD_SUCCESS = "Route generated successfully: ";
+
+    public static final String PROMPT_ROUTE_DELETE_STARTER = "Which route will you like to delete?";
+    public static final String PROMPT_ROUTE_DELETE_SUCCESS = "Route deleted successfully!";
+
+    public static final String PROMPT_ROUTE_EDIT_STARTER = "Which route will you like to edit?";
+    public static final String PROMPT_ROUTE_EDIT_FIELD = "What is the field that you want to edit?";
+    public static final String PROMPT_ROUTE_EDIT_SUCCESS = "Route edited successfully!";
+
+    public static final String PROMPT_ROUTE_GENERATE_STARTER = "Where do you want to start from?";
+    public static final String PROMPT_ROUTE_GENERATE_ENDLOCATION = "Where is your destination?";
+    public static final String PROMPT_ROUTE_GENERATE_CONSTRAINT = "How do you want to travel by?";
+    public static final String PROMPT_ROUTE_GENERATE_SUCCESS = "Route generated successfully!";
+
+    public static final String PROMPT_ROUTENODE_ADD_STARTER = "Which route do you want to add the node to?";
+    public static final String PROMPT_ROUTENODE_ADD_NODEINDEX =
+            "What is the index of the node? (Enter 0 to add to the end of the route)";
+    public static final String PROMPT_ROUTENODE_ADD_TYPE = "Is it a bus stop or a train station?";
+    public static final String PROMPT_ROUTENODE_ADD_INPUT = "What is the bus stop number or train station name?";
+    public static final String PROMPT_ROUTENODE_ADD_SUCCESS = "Route node added successfully!";
+
+    public static final String PROMPT_ROUTENODE_DELETE_STARTER = "Which route does the node belong to?";
+    public static final String PROMPT_ROUTENODE_DELETE_NODEINDEX = "What is the index of the node?";
+    public static final String PROMPT_ROUTENODE_DELETE_SUCCESS = "Route node deleted successfully!";
+
+    public static final String PROMPT_ROUTENODE_EDIT_STARTER = "Which route does the edited node belong to?";
+    public static final String PROMPT_ROUTENODE_EDIT_NODEINDEX = "What is the index of the node?";
+    public static final String PROMPT_ROUTENODE_EDIT_FIELD = "What is the field that you want to edit?";
+    public static final String PROMPT_ROUTENODE_EDIT_VALUE = "What would you want to change it to?";
+    public static final String PROMPT_ROUTENODE_EDIT_SUCCESS = "Route node edited successfully!";
+
+    public static final String PROMPT_ROUTENODE_SHOW_STARTER = "Which route does the node belong to?";
+    public static final String PROMPT_ROUTENODE_SHOW_NODEINDEX = "What is the index of the node?";
+    public static final String PROMPT_ROUTENODE_SHOW_SUCCESS = "Here is the route node";
+
+    public static final String PROMPT_ROUTE_LIST_STARTER = "Which route would you like to see?";
+    public static final String PROMPT_ROUTE_LIST_SUCCESS = "Here is the route:";
+
     public static final String PROMPT_ROUTE_STARTING_POINT = "Choose your starting point.";
     public static final String PROMPT_ROUTE_ENDING_POINT = "Choose your end point.";
-    public static final String PROMPT_ROUTE_GENERATE_SUCCESS = "Route generated successfully: ";
 
 
     public static final String PROMPT_CANCEL = "Current conversation has ended.";

@@ -29,16 +29,26 @@ public class BusStop extends RouteNode {
         this.buses = new HashSet<>();
     }
 
+    /**
+     * Gets the Set of bus services of the bus stop in String.
+     *
+     * @return buses The Set of bus services in String.
+     */
     public Set<String> getBuses() {
         return buses;
     }
 
+    /**
+     * Gets the bus code of the Bus Stop in String.
+     *
+     * @return busCode The bus code of the bus stop in String.
+     */
     public String getBusCode() {
         return busCode;
     }
 
     /**
-     * Adds a bus in the form of a String to buses.
+     * Adds a bus service in the form of a String to buses.
      *
      * @param bus The bus to add.
      */

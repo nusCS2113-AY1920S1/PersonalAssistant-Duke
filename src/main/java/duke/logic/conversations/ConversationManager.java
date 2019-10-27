@@ -83,6 +83,33 @@ public class ConversationManager {
         case "search":
             conversation = new SearchConversation();
             break;
+        case "routeAdd":
+            conversation = new RouteAddConversation();
+            break;
+        case "routeDelete":
+            conversation = new RouteDeleteConversation();
+            break;
+        case "routeEdit":
+            conversation = new RouteEditConversation();
+            break;
+        case "routeGenerate":
+            conversation = new RouteGenerateConversation();
+            break;
+        case "routeShow":
+            conversation = new RouteListConversation();
+            break;
+        case "routeNodeAdd":
+            conversation = new RouteNodeAddConversation();
+            break;
+        case "routeNodeDelete":
+            conversation = new RouteNodeDeleteConversation();
+            break;
+        case "routeNodeEdit":
+            conversation = new RouteNodeEditConversation();
+            break;
+        case "routeNodeShow":
+            conversation = new RouteNodeListConversation();
+            break;
         default:
             throw new DukeException(Messages.ERROR_COMMAND_UNKNOWN);
         }
@@ -117,6 +144,11 @@ public class ConversationManager {
         conversation = null;
     }
 
+    /**
+     * Returns whether the current conversation is finished.
+     *
+     * @return Whether the current conversation is finished.
+     */
     public boolean isFinished() {
         return isFinished;
     }

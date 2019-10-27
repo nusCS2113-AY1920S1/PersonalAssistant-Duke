@@ -14,16 +14,18 @@ import duke.model.transports.Route;
  * Adds a Route to RouteList.
  */
 public class RouteAddCommand extends Command {
-    private String name;
     private static final String MESSAGE_ADDITION = "Got it. I've added this route:\n  ";
+    private String name;
+    private String description;
 
     /**
      * Creates a new RouteAddCommand with the given name.
      *
      * @param name The index of the task.
      */
-    public RouteAddCommand(String name) {
+    public RouteAddCommand(String name, String description) {
         this.name = name;
+        this.description = description;
     }
 
     /**
@@ -38,7 +40,7 @@ public class RouteAddCommand extends Command {
     public CommandResultText execute(Model model) throws DukeDuplicateRouteException, RouteDuplicateException,
             RouteNodeDuplicateException, FileNotSavedException, CorruptedFileException {
         RouteList routes = model.getRoutes();
-        routes.add(new Route(name, ""));
+        routes.add(new Route(name, description));
         model.save();
         return new CommandResultText(MESSAGE_ADDITION + name);
     }

@@ -14,13 +14,9 @@ class ParserUtilTest {
         assertTrue(ParserUtil.createTodo("todo Homework") instanceof Todo);
     }
 
-    @Test
-    void getIndex() throws Exception {
-        assertEquals(ParserUtil.getIndex("done 1".strip().split(" ", 2)[1]), 0);
-    }
 
     @Test
-    void getSafeIndex() throws DukeException {
-        assertEquals(ParserUtil.getSafeIndex("done 5 10 10 10"), 4);
+    void getIndex() throws Exception {
+        assertEquals(ParserUtil.getIntegerIndexInList(0, 1, "done 1".strip().split(" ", 2)[1]), 0);
     }
 }

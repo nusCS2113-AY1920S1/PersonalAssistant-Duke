@@ -9,11 +9,18 @@ public class MarkDoneConversation extends Conversation {
     private static final String command = "done";
     private String index;
 
+    /**
+     * Initialises the Conversation object.
+     */
+
     public MarkDoneConversation() {
         super();
         prompt = Messages.PROMPT_MARKDONE_STARTER;
     }
 
+    /**
+     * Executes Prompt and returns a String reply.
+     */
     @Override
     public void execute(String input) {
         if (isIntInput(input)) {
@@ -24,6 +31,11 @@ public class MarkDoneConversation extends Conversation {
         tryCancelConversation(input);
     }
 
+    /**
+     * Gets result of prompt.
+     *
+     * @return result The result.
+     */
     @Override
     protected void buildResult() {
         if (index != null) {

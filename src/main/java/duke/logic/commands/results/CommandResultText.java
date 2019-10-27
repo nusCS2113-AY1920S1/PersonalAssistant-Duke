@@ -48,6 +48,8 @@ public class CommandResultText extends CommandResult {
      */
     public CommandResultText(Route route) {
         message = "Here is the information of the Route:\n" + route.getName() + "\n";
+        message += (route.getDescription()).replace("/", "\n") + "\n";
+
         int index = 1;
         for (RouteNode node: route.getNodes()) {
             message += "(" + index + ") ";
