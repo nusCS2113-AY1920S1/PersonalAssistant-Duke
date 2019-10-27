@@ -183,6 +183,5 @@ public class MainParser {
     public static void exit() {
         String msg = "Bye. Hope to see you again soon!";
         Ui.printMsg(msg);
-        //duke.Storage.save(tasks); // Don't need to save since any previous commands are already saved
     }
 }

@@ -59,16 +59,7 @@ public abstract class Ui {
         System.out.println(line);
     }
 
-    /**
-     * This method prints the details of the specified task and specified duke.task.TaskList size.
-     * <p>
-     * This method is typically called when a task is created, so that the user can
-     * check the details of the created task.
-     * </p>
-     *
-     * @param currTask duke.task.Task to be printed.
-     * @param listSize Size of the duke.task.TaskList.
-     */
+    //unused
     public static void echoAdd(Task currTask, int listSize) {
         ArrayList<String> msg = new ArrayList<String>(Arrays.asList(
                 "Got it. I've added this task: ",
@@ -86,7 +77,7 @@ public abstract class Ui {
      */
     public static void echoAddRecord(Record currRecord) {
         System.out.println(line);
-        System.out.println("\tGot it. I've added this " + currRecord.getRecordType()  + ": ");
+        System.out.println("\tGot it. I've added this " + currRecord.getRecordType() + ": ");
         System.out.println("\t" + currRecord.getRecordDetail());
         System.out.println(line);
     }
@@ -271,8 +262,8 @@ public abstract class Ui {
      */
     public static void printInvalidDebtFormatError() {
         System.out.println(line);
-        System.out.println("\tplease follow the format"
-                + "'owe(/borrow) [NAME] [AMOUNT] [DESCRIPTION]'");
+        System.out.println("\tplease follow the format "
+                + "'owe(/borrow) [NAME] [AMOUNT] [DESCRIPTION] /due [DURATION] {/tag [TAGNAME]}'");
         System.out.println(line);
     }
 
