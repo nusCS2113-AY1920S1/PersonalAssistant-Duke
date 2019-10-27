@@ -10,23 +10,26 @@ import java.io.IOException;
 
 public class EquipCommand extends Command {
 
-    private final String[] index;
+    private final String[] userInput;
     private InventoryAnomaly inventoryAnomaly = new InventoryAnomaly();
 
-    public EquipCommand(String[] index) {
-        this.index = index;
+    public EquipCommand(String[] userInput) {
+        this.userInput = userInput;
     }
 
     @Override
     public void execute() throws IOException {
         Ui ui = new Ui();
-        int parsedInt = Integer.parseInt(index[1]);
+        //int parsedInt = Integer.parseInt(this.userInput[1]);
         try {
-            inventoryAnomaly.detect(this.index);
+            inventoryAnomaly.detect(this.userInput);
+            int parsedInt = Integer.parseInt(this.userInput[1]);
+            Hustler.inventory.getToEquip(parsedInt - 1);
+
         } catch (CommandLineException e) {
             ui.show_message(e.getMessage());
         }
 
-        Hustler.inventory.getToEquip(parsedInt - 1);
+
     }
 }

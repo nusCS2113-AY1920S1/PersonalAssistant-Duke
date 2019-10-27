@@ -26,6 +26,7 @@ public class Inventory {
 
     public void getToEquip(int index) throws IOException {
         Hustler.avatar.equip(items.get(index));
+        System.out.println("You are equipped with " + items.get(index));
     }
 
     public void list() {

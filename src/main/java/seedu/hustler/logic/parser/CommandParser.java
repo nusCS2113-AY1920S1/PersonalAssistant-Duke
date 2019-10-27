@@ -2,9 +2,9 @@ package seedu.hustler.logic.parser;
 
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.command.achievementCommand.AchievementCommand;
-import seedu.hustler.command.avatar.CheckAvatarCommand;
+import seedu.hustler.logic.command.avatar.CheckAvatarCommand;
 import seedu.hustler.logic.command.avatar.EquipCommand;
-import seedu.hustler.command.avatar.SetNameCommand;
+import seedu.hustler.logic.command.avatar.SetNameCommand;
 import seedu.hustler.logic.command.schedulecommands.AddEntry;
 import seedu.hustler.command.schedulecommands.RemoveEntry;
 import seedu.hustler.command.schedulecommands.UpdateEntry;

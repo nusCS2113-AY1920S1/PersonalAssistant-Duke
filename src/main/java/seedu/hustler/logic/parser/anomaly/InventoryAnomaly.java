@@ -10,10 +10,12 @@ public class InventoryAnomaly extends DetectAnomaly{
         int index = 0;
         try {
             index = Integer.parseInt(userInput[1]);
-            Hustler.inventory.get(index - 1);
+            index--;
+            if(index >= Hustler.inventory.getSize() || index < 0) {
+                throw new CommandLineException("Please input a index that exist inside the shop list!");
+            }
+        } catch (NumberFormatException e) {
             throw new CommandLineException("Please input a number here!");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new CommandLineException("Please input a index that exist inside the shop list!");
         }
     }
 }
