@@ -1,6 +1,7 @@
 package duke.ui.card;
 
 import duke.data.Medicine;
+import duke.data.Treatment;
 
 /**
  * A UI card that displays the basic information of a {@code Medicine}.
@@ -56,10 +57,11 @@ public class MedicineCard extends TreatmentCard {
         }
 
         MedicineCard card = (MedicineCard) object;
-        return medicine.equals(card.getMedicine());
+        return medicine.equals(card.getTreatment());
     }
 
-    public Medicine getMedicine() {
+    @Override
+    public Treatment getTreatment() {
         return medicine;
     }
 }

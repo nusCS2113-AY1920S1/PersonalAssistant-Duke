@@ -1,6 +1,7 @@
 package duke.ui.card;
 
 import duke.data.Plan;
+import duke.data.Treatment;
 
 public class PlanCard extends TreatmentCard {
     private static final String FXML = "PlanCard.fxml";
@@ -44,10 +45,11 @@ public class PlanCard extends TreatmentCard {
         }
 
         PlanCard card = (PlanCard) object;
-        return plan.equals(card.getPlan());
+        return plan.equals(card.getTreatment());
     }
 
-    public Plan getPlan() {
+    @Override
+    public Treatment getTreatment() {
         return plan;
     }
 }

@@ -1,5 +1,6 @@
 package duke.ui.card;
 
+import duke.data.Evidence;
 import duke.data.Result;
 
 /**
@@ -36,10 +37,11 @@ public class ResultCard extends EvidenceCard {
         }
 
         ResultCard card = (ResultCard) object;
-        return result.equals(card.getResult());
+        return result.equals(card.getEvidence());
     }
 
-    public Result getResult() {
+    @Override
+    public Evidence getEvidence() {
         return result;
     }
 }

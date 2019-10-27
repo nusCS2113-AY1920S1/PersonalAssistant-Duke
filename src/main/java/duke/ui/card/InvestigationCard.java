@@ -1,6 +1,7 @@
 package duke.ui.card;
 
 import duke.data.Investigation;
+import duke.data.Treatment;
 
 /**
  * A UI card that displays the basic information of an {@code Investigation}.
@@ -50,10 +51,11 @@ public class InvestigationCard extends TreatmentCard {
         }
 
         InvestigationCard card = (InvestigationCard) object;
-        return investigation.equals(card.getInvestigation());
+        return investigation.equals(card.getTreatment());
     }
 
-    public Investigation getInvestigation() {
+    @Override
+    public Treatment getTreatment() {
         return investigation;
     }
 }

@@ -1,5 +1,6 @@
 package duke.ui.card;
 
+import duke.data.Evidence;
 import duke.data.Observation;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -53,10 +54,11 @@ public class ObservationCard extends EvidenceCard {
         }
 
         ObservationCard card = (ObservationCard) object;
-        return observation.equals(card.getObservation());
+        return observation.equals(card.getEvidence());
     }
 
-    public Observation getObservation() {
+    @Override
+    public Evidence getEvidence() {
         return observation;
     }
 }

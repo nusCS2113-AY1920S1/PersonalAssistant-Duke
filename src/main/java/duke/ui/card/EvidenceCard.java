@@ -55,4 +55,6 @@ public abstract class EvidenceCard extends UiCard {
 
         return (object instanceof EvidenceCard);
     }
+
+    public abstract Evidence getEvidence();
 }

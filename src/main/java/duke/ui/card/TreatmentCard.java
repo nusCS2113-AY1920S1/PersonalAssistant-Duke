@@ -55,4 +55,6 @@ public abstract class TreatmentCard extends UiCard {
 
         return (object instanceof TreatmentCard);
     }
+
+    public abstract Treatment getTreatment();
 }
