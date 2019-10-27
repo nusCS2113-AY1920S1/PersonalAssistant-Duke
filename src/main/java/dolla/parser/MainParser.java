@@ -1,14 +1,11 @@
 package dolla.parser;
 
 import dolla.Tag;
-import dolla.Ui;
+import dolla.ui.Ui;
 
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
 import dolla.command.SwitchModeCommand;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * MainParser directs the program to the appropriate parser depending on the current mode and the user's input.

@@ -1,8 +1,5 @@
 package dolla.ui;
 
-import dolla.Ui;
-import dolla.task.Limit;
-
 /**
  * LimitUi is a class that handles all limit related user interactions.
  */

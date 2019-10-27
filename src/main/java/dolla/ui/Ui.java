@@ -1,6 +1,6 @@
-package dolla;
+package dolla.ui;
 
-import dolla.task.Debt;
+import dolla.Time;
 import dolla.task.Task;
 import dolla.task.Record;
 import dolla.task.RecordList;
@@ -19,8 +19,8 @@ public abstract class Ui {
         + "| | | | | | | || |/ /\\ \\  \n"
         + "| |_| | |_| | || |  __  | \n"
         + "|____/ \\ _ /|_||_|_|  |_|       \n";
-    
-    protected static String line = "\t____________________________________________________________";
+
+    private static String line = "\t____________________________________________________________";
 
     /**
      * Show welcome.

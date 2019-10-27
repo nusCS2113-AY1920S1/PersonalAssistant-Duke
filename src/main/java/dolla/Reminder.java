@@ -1,6 +1,7 @@
 package dolla;
 
 import dolla.task.RecordList;
+import dolla.ui.Ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
