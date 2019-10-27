@@ -16,16 +16,12 @@ import java.util.Scanner;
  */
 public class Dolla {
 
-    //private TaskList tasks = new TaskList(new ArrayList<Task>());
     private DollaData dollaData = new DollaData();
-
-    //Storage storage = new Storage();
 
     /**
      * Creates an instance of Dolla using a data loaded from /data/dolla.txt
      */
     public Dolla() {
-        //tasks = new TaskList(Storage.load());
         load(); //load from save
     }
 
@@ -34,8 +30,6 @@ public class Dolla {
      * @throws Exception when exceptional condition happens
      */
     public void run() throws Exception {
-        //Reminder reminderObject = new Reminder(); //reminder pop up
-        //reminderObject.execute(tasks);
         boolean isExit = false;
         Reminder reminder = new Reminder("debt");
         reminder.showReminder(dollaData);

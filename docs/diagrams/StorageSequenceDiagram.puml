@@ -1,0 +1,41 @@
+@startuml
+!include style.puml
+box Logic STORAGE_COLOR_T1
+participant ":Dolla" as Dolla STORAGE_COLOR
+participant "dollaData:DollaData" as DollaData STORAGE_COLOR
+participant ":Storage" as Storage STORAGE_COLOR
+participant ":DebtList" as DebtList STORAGE_COLOR
+end box
+
+activate Dolla
+Dolla -> Dolla : Dolla()
+activate Dolla
+Dolla -> Storage : load()
+deactivate Dolla
+
+activate Storage
+
+create DollaData
+Dolla -> DollaData : new DollaData()
+activate DollaData
+DollaData -> Storage : getDebtsFromSave()
+Storage -> DollaData
+
+Dolla -> DollaData : execute()
+DollaData -> DollaData : addToRecordList()
+activate DollaData
+DollaData -> DebtList : add()
+activate DebtList
+deactivate DollaData
+
+DebtList -> Storage : setDebts()
+Storage -> Storage : save()
+activate Storage
+deactivate Storage
+
+deactivate Dolla
+deactivate DollaData
+deactivate Storage
+deactivate DebtList
+
+@enduml
