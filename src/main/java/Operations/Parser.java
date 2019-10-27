@@ -93,13 +93,32 @@ public class Parser {
     }
 
     /**
-     * Returns a Date object from a raw date that is stored as a String.
+     * Returns a Date object from a raw date that is stored as a String in every format
+     * @param by Input String containing the date information.
+     * @return A Date object containing the appropriately formatted date.
+     * @throws RoomShareException if the input is uninterpretable.
+     */
+    public Date formatDate(String by) throws RoomShareException {
+        Date date;
+        if (this.formatDateCustom_2(by) != null)
+            date = this.formatDateCustom_2(by);
+        else if (this.formatDateCustom_3(by) != null)
+            date = this.formatDateCustom_3(by);
+        else
+            date = this.formatDateCustom_1(by);
+
+        return date;
+    }
+
+
+    /**
+     * Returns a Date object from a raw date that is stored as a String in a DD/MM/YYYY HH:MM format.
      * If the format of the input string is unacceptable, will throw a DukeException and will not return anything.
      * @param by Input String containing the date information.
      * @return A Date object containing the appropriately formatted date.
      * @throws RoomShareException If by is not in dd/MM/yyyy HH:mm format
      */
-    public Date formatDate(String by) throws RoomShareException {
+    public Date formatDateCustom_1(String by) throws RoomShareException {
         try {
             return new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(by);
         } catch (ParseException e2) {
@@ -112,7 +131,7 @@ public class Parser {
      * @param by Input String containing the date information.
      * @return A Date object containing the appropriately formatted date.
      */
-    public Date formatDateCustom_1(String by) {
+    public Date formatDateCustom_2(String by) {
         try {
             Date date = new Date();
             String[] temp = by.split(" ");
@@ -122,6 +141,7 @@ public class Parser {
             int minutes = Integer.parseInt(time[1]);
             date.setHours(hours);
             date.setMinutes(minutes);
+            date.setSeconds(0);
             if (day.toLowerCase().equals("tomorrow") || day.toLowerCase().equals("tmr")) {
                 date.setDate(date.getDate() + 1);
                 return date;
@@ -140,7 +160,7 @@ public class Parser {
      * @param by Input String containing the date information.
      * @return A Date object containing the appropriately formatted date.
      */
-    public Date formatDateCustom_2(String by) {
+    public Date formatDateCustom_3(String by) {
         try {
             LocalDate date = LocalDate.now();
             DayOfWeek currentDayOfWeek = date.getDayOfWeek();

@@ -74,20 +74,20 @@ public class Storage {
                     String[] dateArray = temp[4].trim().split("-");
                     String scanFromDate = dateArray[0].trim();
                     try {
-                        from = parser.formatDate(scanFromDate);
+                        from = parser.formatDateCustom_1(scanFromDate);
                     } catch (RoomShareException e) {
                         System.out.println("error in loading file: date format error");
                     }
                     String scanToDate = dateArray[1].trim();
                     try {
-                        to = parser.formatDate(scanToDate);
+                        to = parser.formatDateCustom_1(scanToDate);
                     } catch (RoomShareException e) {
                         System.out.println("error in loading file: date format error");
                     }
                 } else {
                     String scanDate = temp[4].trim();
                     try {
-                        date = parser.formatDate(scanDate);
+                        date = parser.formatDateCustom_1(scanDate);
                     } catch (RoomShareException e) {
                         System.out.println("error in loading file: date format error");
                     }
@@ -174,7 +174,7 @@ public class Storage {
                 String description = s.getDescription();
                 String date = convertForStorage(s);
                 String recurrence = s.getRecurrenceSchedule().toString();
-                String user = s.getUser();
+                String user = s.getAssignee();
                 if (s instanceof Assignment) {
                     out = type + "#" +
                             isDone + "#" +

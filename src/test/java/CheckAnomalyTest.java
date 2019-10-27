@@ -1,11 +1,9 @@
 import CustomExceptions.RoomShareException;
-import Model_Classes.FixedDuration;
 import Model_Classes.Meeting;
-import Operations.CheckAnomaly;
 import Operations.Storage;
 import Operations.TaskList;
 import Operations.Parser;
-import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Date;
 
@@ -18,11 +16,11 @@ public class CheckAnomalyTest {
 
     static {
         try {
-            at1 = parser.formatDate("12/12/2019 12:00");
-            at2 = parser.formatDate("20/12/2019 12:00");
-            at3 = parser.formatDate("12/12/2019 10:00");
-            at4 = parser.formatDate("20/12/2019 13:00");
-            at5 = parser.formatDate("21/12/2019 13:00");
+            at1 = parser.formatDateCustom_1("12/12/2019 12:00");
+            at2 = parser.formatDateCustom_1("20/12/2019 12:00");
+            at3 = parser.formatDateCustom_1("12/12/2019 10:00");
+            at4 = parser.formatDateCustom_1("20/12/2019 13:00");
+            at5 = parser.formatDateCustom_1("21/12/2019 13:00");
             taskList = new TaskList(storage.loadFile("data.txt"));
             Meeting event = new Meeting("test2", at2);
         } catch (RoomShareException e) {
