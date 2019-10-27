@@ -18,11 +18,15 @@ public class DeleteAnomaly extends DetectAnomaly {
     public void detect(String[] userInput) throws CommandLineException {
         String[] splitInput = userInput[1].split(" ");
 
+        if (splitInput.length > 1) {
+            throw new CommandLineException("Delete format should be: '/delete <integer>' !");
+        }
+
         int index;
         try {
             index = Integer.parseInt(splitInput[0]);
         } catch (NumberFormatException e) {
-            throw new CommandLineException("Please enter a number after the command.");
+            throw new CommandLineException("Delete format should be: '/delete <integer>' !");
         }
 
         index--;
