@@ -1,6 +1,7 @@
 package entertainment.pro.logic.parsers.commands;
 
 
+import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.commons.enums.COMMANDKEYS;
@@ -39,7 +40,7 @@ public class GetCommand extends CommandSuper {
      * prints out a list of recommendations based on the users set preferences
      * @throws IOException: file was not able to be found
      */
-    public void ExecuteRecommendationCommand() {
+    public void ExecuteRecommendationCommand() throws Exceptions {
         String feedback = "Your recommended movies are: \n";
         MovieHandler movieHandler = ((MovieHandler) this.getUIController());
         ArrayList<Integer> p_indices = movieHandler.getUserProfile().getGenreIdPreference();

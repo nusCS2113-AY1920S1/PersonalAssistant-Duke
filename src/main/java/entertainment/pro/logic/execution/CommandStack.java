@@ -1,6 +1,7 @@
 package entertainment.pro.logic.execution;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.parsers.CommandSuper;
 
 import java.io.IOException;
@@ -18,10 +19,11 @@ public class CommandStack {
 
     /**
      * Adds the command to the command Stack.
+     *
      * @param cmd
      * @throws IOException
      */
-    public static void pushCmd(CommandSuper cmd) throws IOException {
+    public static void pushCmd(CommandSuper cmd) throws IOException, Exceptions {
         if (cmd.getRoot() == COMMANDKEYS.yes) {
             executeLastCommand();
         } else {
@@ -36,6 +38,7 @@ public class CommandStack {
 
     /**
      * Returns the next command for the command history.
+     *
      * @return the next command in the list
      */
     public static String nextCommand() {
@@ -58,6 +61,7 @@ public class CommandStack {
 
     /**
      * pops the latest command from the command list.
+     *
      * @return returns the latest commmand
      */
     public static CommandSuper popCmd() {
@@ -70,7 +74,8 @@ public class CommandStack {
     }
 
     /**
-     *returns the latest command from the command list.
+     * returns the latest command from the command list.
+     *
      * @return returns the latest commmand
      */
     public static CommandSuper topCmd() {
@@ -92,7 +97,7 @@ public class CommandStack {
      *
      * @throws IOException
      */
-    public static void executeLastCommand() throws IOException {
+    public static void executeLastCommand() throws IOException, Exceptions {
         System.out.println("Execute Last Command");
         if (myStack.size() < 1) {
             return;

@@ -1,5 +1,7 @@
 package entertainment.pro.logic.cinemaRequesterAPI;
 
+
+import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.movieRequesterAPI.RequestListener;
 import entertainment.pro.logic.movieRequesterAPI.URLRetriever;
 import entertainment.pro.model.CinemaInfoObject;
@@ -13,6 +15,9 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * Class that handles fetching results from The Google API service and then parsing them into CinemaInfoObjects.
+ */
 public class CinemaRetrieveRequest implements CinemaInfoFetcher {
     private RequestListener mListener;
     private ArrayList<CinemaInfoObject> parsedCinemas;
@@ -33,14 +38,12 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
      * @param location: area to search
      * @return an array_list of cinemas with their info contained inside the CinemaInfoObject Class
      */
-    public ArrayList<CinemaInfoObject> searchNearestCinemas(String location) {
+    public ArrayList<CinemaInfoObject> searchNearestCinemas(String location) throws Exceptions {
         try {
             String url = MAIN_URL + location + "&key=" + API_KEY;
             URLRetriever retrieve = new URLRetriever();
             String json = retrieve.readURLAsString(new URL(url));
             fetchedCinemasJSON(json);
-        } catch (SocketTimeoutException e) {
-            e.printStackTrace();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

@@ -3,6 +3,7 @@ package entertainment.pro.logic.execution;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.parsers.commands.BlacklistCommand;
 import entertainment.pro.logic.parsers.commands.SearchCommand;
 import entertainment.pro.logic.parsers.commands.WatchlistCommand;
@@ -33,6 +34,8 @@ public class CommandStacktest {
             assertEquals(3 , CommandStack.getSize());
             assertEquals(COMMANDKEYS.watchlist ,CommandStack.topCmd().getRoot());
         }catch (IOException e){
+
+        }catch (Exceptions e){
 
         }
 

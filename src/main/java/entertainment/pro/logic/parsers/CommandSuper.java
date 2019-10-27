@@ -1,5 +1,6 @@
 package entertainment.pro.logic.parsers;
 
+import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.commons.enums.COMMANDKEYS;
@@ -24,6 +25,9 @@ public abstract class CommandSuper {
     private COMMANDKEYS subRootCommand;
     private String payload;
     private boolean execute = false;
+
+    protected CommandSuper() {
+    }
 
 
     /**
@@ -212,6 +216,7 @@ public abstract class CommandSuper {
             }
 
             flagMap.put(flagOrder.get(counter), listOfString);
+            System.out.println("checkpoint " + counter + listOfString.size());
             counter++;
         }
 
@@ -288,7 +293,7 @@ public abstract class CommandSuper {
     /**
      * Abstract class to be implemented for each root command class.
      */
-    public abstract void executeCommands() throws IOException;
+    public abstract void executeCommands() throws IOException, Exceptions;
 
 
 

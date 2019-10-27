@@ -1,10 +1,8 @@
 package entertainment.pro.model;
 
+import javax.print.DocFlavor;
 import java.util.ArrayList;
 
-/**
- * structure for UserProfile object
- */
 public class UserProfile {
     private String userName = "";
     private int userAge = -1;
@@ -13,65 +11,35 @@ public class UserProfile {
     private boolean adult = true;
     private ArrayList<String> playlistNames = new ArrayList<>();
     private boolean sortByAlphabetical = false;
+    private boolean sortByHighestRating = false;
     private boolean sortByLatestRelease = false;
 
-    public boolean isSortByAlphabetical() {
-        return sortByAlphabetical;
-    }
-
-    public void setSortByAlphabetical(boolean sortByAlphabetical) {
+    public UserProfile(String userName, int userAge, ArrayList<Integer> genreIdPreference, ArrayList<Integer> genreIdRestriction, boolean adult, ArrayList<String> playlistNames, boolean sortByAlphabetical, boolean sortByHighestRating, boolean sortByLatestRelease) {
+        this.userName = userName;
+        this.userAge = userAge;
+        this.genreIdPreference = genreIdPreference;
+        this.genreIdRestriction = genreIdRestriction;
+        this.adult = adult;
+        this.playlistNames = playlistNames;
         this.sortByAlphabetical = sortByAlphabetical;
-    }
-
-    public boolean isSortByLatestRelease() {
-        return sortByLatestRelease;
-    }
-
-    public void setSortByLatestRelease(boolean sortByLatestRelease) {
+        this.sortByHighestRating = sortByHighestRating;
         this.sortByLatestRelease = sortByLatestRelease;
-    }
-
-    public boolean isSortByHighestRAting() {
-        return sortByHighestRAting;
-    }
-
-    public void setSortByHighestRAting(boolean sortByHighestRAting) {
-        this.sortByHighestRAting = sortByHighestRAting;
-    }
-
-    private boolean sortByHighestRAting = false;
-
-
-    public String getUserName(){
-        return userName;
-    }
-
-    public int getUserAge(){
-        return userAge;
     }
 
     public ArrayList<Integer> getGenreIdPreference() {
         return genreIdPreference;
     }
 
-    public void setUserName(String inputName) {
-        userName = inputName;
+    public void setGenreIdPreference(ArrayList<Integer> genreIdPreference) {
+        this.genreIdPreference = genreIdPreference;
     }
 
-    public void setUserAge(int inputAge) {
-        userAge = inputAge;
+    public ArrayList<Integer> getGenreIdRestriction() {
+        return genreIdRestriction;
     }
 
-    public void setGenreIdPreference(ArrayList<Integer> inputGenre) {
-        genreIdPreference = inputGenre;
-    }
-
-    public void addGenreIdPreference(ArrayList<Integer> inputGenre) {
-        genreIdPreference.addAll(inputGenre);
-    }
-
-    public void removeGenreIdPreference(ArrayList<Integer> inputGenre) {
-        genreIdPreference.removeAll(inputGenre);
+    public void setGenreIdRestriction(ArrayList<Integer> genreIdRestriction) {
+        this.genreIdRestriction = genreIdRestriction;
     }
 
     public boolean isAdult() {
@@ -82,13 +50,28 @@ public class UserProfile {
         this.adult = adult;
     }
 
-
-    public ArrayList<Integer> getGenreIdRestriction() {
-        return genreIdRestriction;
+    public boolean isSortByAlphabetical() {
+        return sortByAlphabetical;
     }
 
-    public void setGenreIdRestriction(ArrayList<Integer> genreIdRestriction) {
-        this.genreIdRestriction = genreIdRestriction;
+    public void setSortByAlphabetical(boolean sortByAlphabetical) {
+        this.sortByAlphabetical = sortByAlphabetical;
+    }
+
+    public boolean isSortByHighestRating() {
+        return sortByHighestRating;
+    }
+
+    public void setSortByHighestRating(boolean sortByHighestRating) {
+        this.sortByHighestRating = sortByHighestRating;
+    }
+
+    public boolean isSortByLatestRelease() {
+        return sortByLatestRelease;
+    }
+
+    public void setSortByLatestRelease(boolean sortByLatestRelease) {
+        this.sortByLatestRelease = sortByLatestRelease;
     }
 
     public void addGenreIdRestriction(ArrayList<Integer> inputGenre) {
@@ -97,6 +80,14 @@ public class UserProfile {
 
     public void removeGenreIdRestriction(ArrayList<Integer> inputGenre) {
         genreIdRestriction.removeAll(inputGenre);
+    }
+
+    public void addGenreIdPreference(ArrayList<Integer> inputGenre) {
+        genreIdPreference.addAll(inputGenre);
+    }
+
+    public void removeGenreIdPreference(ArrayList<Integer> inputGenre) {
+        genreIdPreference.removeAll(inputGenre);
     }
 
     public ArrayList<String> getPlaylistNames() {
@@ -114,4 +105,21 @@ public class UserProfile {
     public void deletePlaylist(String listName) {
         playlistNames.remove(listName);
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public int getUserAge() {
+        return userAge;
+    }
+
+    public void setUserAge(int userAge) {
+        this.userAge = userAge;
+    }
 }
+

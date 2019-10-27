@@ -19,7 +19,7 @@ ProgressBar .track{
 }
 
 ProgressBar .bar{
-    -fx-background-color: #403F3F;
+    -fx-background-color: white;
     -fx-background-radius: 2em;
     -fx-border-radius: 2em;
 }

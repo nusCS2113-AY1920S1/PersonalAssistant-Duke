@@ -1,10 +1,13 @@
 package entertainment.pro.ui;
 
+import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.cinemaRequesterAPI.CinemaRetrieveRequest;
 import entertainment.pro.logic.contexts.CommandContext;
 import entertainment.pro.logic.contexts.ContextHelper;
 import entertainment.pro.logic.contexts.SearchResultContext;
 import entertainment.pro.logic.execution.CommandStack;
+import entertainment.pro.logic.movieRequesterAPI.RequestListener;
+import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
 import entertainment.pro.logic.movieRequesterAPI.MovieResultFilter;
 import entertainment.pro.model.*;
 import entertainment.pro.storage.user.Blacklist;
@@ -27,8 +30,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import entertainment.pro.logic.movieRequesterAPI.RequestListener;
-import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
 import entertainment.pro.logic.parsers.CommandParser;
 import org.json.simple.parser.ParseException;
 import entertainment.pro.storage.utils.PastUserCommands;
@@ -51,22 +52,22 @@ public class MovieHandler extends Controller implements RequestListener {
     private HBox nameHBox, adultHBox, genresHBox, alphaSortHBox, latestDatesHBox, highestRatingHBox;
 
     @FXML
-    private Label userPreferenceLabel, userNameLabel, userAgeLabel, userAdultLabel1, userAdultLabel2,
+    private Label userPreferenceLabel, userAdultLabel1, userAdultLabel2,
             userGenreLabel, sortAlphaOrderLabel, sortLatestDateLabel, sortHighestRatingLabel,
-            sortHighestRatingText, autoCompleteLabel, generalFeedbackLabel;
+            sortHighestRatingText, autoCompleteLabel, generalFeedbackLabel, userNameLabel, userAgeLabel;
 
     @FXML
-    private Text userPreferenceText, userNameText, userAgeText, generalFeedbackText,
-            sortAlphaOrderText, sortLatestDateText, autoCompleteText;
+    private Text userPreferenceText, userNameText, userAgeText,
+            sortAlphaOrderText, sortLatestDateText,  autoCompleteText, generalFeedbackText;
+
+    @FXML
+    private TextFlow genreListText;
 
     @FXML
     private MenuBar menuBar;
 
     @FXML
     private Menu fileMenu, helpMenu;
-
-    @FXML
-    TextFlow genreListText;
 
     @FXML
     private Label mStatusLabel;
@@ -114,9 +115,28 @@ public class MovieHandler extends Controller implements RequestListener {
     private static RetrieveRequest mMovieRequest;
     private static CinemaRetrieveRequest mCinemaRequest;
     private int index = 0;
-    private static SortProfile sortProfile;
     private static PastCommands pastCommands = new PastCommands();;
     static String command = "";
+    ArrayList<Integer> genrePreference = new ArrayList<>();
+    ArrayList<Integer> genreRestriction = new ArrayList<>();
+    ArrayList<String> playlist = new ArrayList<>();
+    boolean isAdultEnabled = false;
+    boolean sortByAlphaOrder = false;
+    boolean sortByRating = false;
+    boolean sortByReleaseDate = false;
+    boolean isMovie = true;
+    String searchEntryName = "";
+    String name = "";
+    int age = 0;
+
+
+    SearchProfile searchProfile = new SearchProfile(name, age, genrePreference, genreRestriction, isAdultEnabled,
+            playlist, sortByAlphaOrder, sortByRating, sortByReleaseDate, searchEntryName, isMovie);
+
+
+    public SearchProfile getSearchProfile() {
+        return searchProfile;
+    }
     Controller controller;
 
 
@@ -152,7 +172,7 @@ public class MovieHandler extends Controller implements RequestListener {
                 //clickEntered(command, control);
                try {
                     CommandParser.parseCommands(command, control);
-                } catch (IOException e) {
+                } catch (IOException | Exceptions e) {
                     e.printStackTrace();
                 }
                 clearSearchTextField();
@@ -172,10 +192,10 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     @FXML
     public void setLabels() throws IOException {
+        System.out.println("called setlabels");
         EditProfileJson editProfileJson = new EditProfileJson();
         userProfile = editProfileJson.load();
-        EditSortProfileJson editSortProfileJson = new EditSortProfileJson();
-        sortProfile = editSortProfileJson.load();
+        //ArrayList<Integer> arrayList = userPr
         try {
             pastCommands.setMap(PastUserCommands.load());
         } catch (ParseException e) {
@@ -183,10 +203,11 @@ public class MovieHandler extends Controller implements RequestListener {
         }
 //        EditPlaylistJson editPlaylistJson = new EditPlaylistJson();
 //        playlists = editPlaylistJson.load();
-        playlists = userProfile.getPlaylistNames();
-        ProfileCommands command = new ProfileCommands(userProfile);
         userNameLabel.setText(userProfile.getUserName());
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
+        playlists = userProfile.getPlaylistNames();
+        ProfileCommands command = new ProfileCommands(userProfile);
+
         System.out.println("changed age");
 
         //setting adult label
@@ -204,17 +225,16 @@ public class MovieHandler extends Controller implements RequestListener {
         restrictions.setFill(Paint.valueOf("#EC7063"));
         genreListText.getChildren().clear();
         genreListText.getChildren().addAll(preferences, restrictions);
-        sortAlphaOrderLabel.setText(sortProfile.getAlphaOrder());
-        sortLatestDateLabel.setText(sortProfile.getLatestDatesOrder());
-        sortHighestRatingLabel.setText(sortProfile.getHighestRatingOrder());
-        userPlaylistsLabel.setText(Integer.toString(playlists.size()));
+        genreListText.setLineSpacing(4);
+        updateSortInterface();
     }
 
 
     @FXML
-    public void initialize() throws IOException {
+    public void initialize() throws IOException, Exceptions {
         setLabels();
         mMovieRequest = new RetrieveRequest(this);
+        mMovieRequest.setSearchProfile(searchProfile);
         mCinemaRequest = new CinemaRetrieveRequest(this);
         CommandContext.initialiseContext();
 
@@ -250,7 +270,7 @@ public class MovieHandler extends Controller implements RequestListener {
             }
         });
 
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES, userProfile.isAdult());
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Date date = new Date();
         String now = formatter.format(date);
@@ -261,7 +281,7 @@ public class MovieHandler extends Controller implements RequestListener {
         pastCommands.setMap(arrayList);
         PastUserCommands.update(pastCommands);
 
-        generalFeedbackText.setText("Welcome to Entertainment Pro. Displaying currently showing movies...");
+        //generalFeedbackText.setText("Welcome to Entertainment Pro. Displaying currently showing movies...");
 
         //Real time changes to text field
         mSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -313,7 +333,11 @@ public class MovieHandler extends Controller implements RequestListener {
 
                     }
                 } else if (event.getCode().equals(KeyCode.ENTER)) {
-                    moviePosterClicked(mMovies.get(index));
+                    try {
+                        moviePosterClicked(mMovies.get(index));
+                    } catch (Exceptions exceptions) {
+                        exceptions.printStackTrace();
+                    }
                     index = 0;
                 }
             }
@@ -353,8 +377,12 @@ public class MovieHandler extends Controller implements RequestListener {
             if (getPastCommands().getMap().get(getPastCommands().getMap().size() - 2).getQuery().startsWith("view entry")) {
                 num = Integer.parseInt(getStrips[2]);
             }
-            showMovie(num);
-            isViewBackMoreInfo = false;
+                    try {
+                        showMovie(num);
+                    } catch (Exceptions exceptions) {
+                        exceptions.printStackTrace();
+                    }
+                    isViewBackMoreInfo = false;
                         getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
                         getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
                         PastUserCommands.update(pastCommands);
@@ -366,7 +394,13 @@ public class MovieHandler extends Controller implements RequestListener {
         } else {
             //System.out.println("this is size: " + mMovies.size());
             mImagesLoadingProgress = new double[mMovies.size()];
-            Platform.runLater(() -> buildMoviesFlowPane(MoviesFinal));
+            Platform.runLater(() -> {
+                try {
+                    buildMoviesFlowPane(MoviesFinal);
+                } catch (Exceptions exceptions) {
+                    exceptions.printStackTrace();
+                }
+            });
             if (isViewBack == true) {
                 getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
                 getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
@@ -381,7 +415,13 @@ public class MovieHandler extends Controller implements RequestListener {
     public void displayMovies() {
         mMovies = SearchResultContext.getMoviesToDisplay();
         mImagesLoadingProgress = new double[mMovies.size()];
-        Platform.runLater(() -> buildMoviesFlowPane(SearchResultContext.getMoviesToDisplay()));
+        Platform.runLater(() -> {
+            try {
+                buildMoviesFlowPane(SearchResultContext.getMoviesToDisplay());
+            } catch (Exceptions exceptions) {
+                exceptions.printStackTrace();
+            }
+        });
     }
 
     /**
@@ -419,7 +459,7 @@ public class MovieHandler extends Controller implements RequestListener {
      *
      * @param movies is a array containing details about every movie/tv show that is being displayed.
      */
-    private void buildMoviesFlowPane(ArrayList<MovieInfoObject> movies) {
+    private void buildMoviesFlowPane(ArrayList<MovieInfoObject> movies) throws Exceptions {
         // Setup progress bar and status label
         mProgressBar.setProgress(0.0);
         mProgressBar.setVisible(true);
@@ -430,12 +470,12 @@ public class MovieHandler extends Controller implements RequestListener {
         mMoviesFlowPane.setVgap(10);
         mMoviesFlowPane.setPadding(new Insets(10, 8, 4, 8));
         mMoviesFlowPane.prefWrapLengthProperty().bind(mMoviesScrollPane.widthProperty());   // bind to scroll pane width
-
+        //mMoviesFlowPane.getChildren().add(generalFeedbackLabel);
         for (int i = 0; i < movies.size(); i++) {
             AnchorPane posterPane = buildMoviePosterPane(movies.get(i), i + 1);
             mMoviesFlowPane.getChildren().add(posterPane);
         }
-
+      //  mMoviesScrollPane.setFitToWidth(true);
         mMoviesScrollPane.setContent(mMoviesFlowPane);
         mMoviesScrollPane.setVvalue(0);
     }
@@ -447,13 +487,19 @@ public class MovieHandler extends Controller implements RequestListener {
      * @return anchorpane consisting of the movie poster, name and the unique id.
      */
 
-    private AnchorPane buildMoviePosterPane(MovieInfoObject movie, int index) {
+    private AnchorPane buildMoviePosterPane(MovieInfoObject movie, int index) throws Exceptions {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("MoviePoster.fxml"));
             AnchorPane posterView = loader.load();
             //posterView.setOnScroll();
-            posterView.setOnMouseClicked((mouseEvent) -> moviePosterClicked(movie));
+            posterView.setOnMouseClicked((mouseEvent) -> {
+                try {
+                    moviePosterClicked(movie);
+                } catch (Exceptions exceptions) {
+                    exceptions.printStackTrace();
+                }
+            });
 
             // set the movie info
             MoviePosterController controller = loader.getController();
@@ -461,13 +507,25 @@ public class MovieHandler extends Controller implements RequestListener {
                 if (movie.getFullPosterPath() != null) {
                     System.out.println("sianz");
                     Image posterImage = new Image(movie.getFullPosterPath(), true);
-                    posterImage.progressProperty().addListener((observable, oldValue, newValue) -> updateProgressBar(movie, newValue.doubleValue()));
+                    posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
+                        try {
+                            updateProgressBar(movie, newValue.doubleValue());
+                        } catch (Exceptions exceptions) {
+                            exceptions.printStackTrace();
+                        }
+                    });
                     controller.getPosterImageView().setImage(posterImage);
                 } else{
                     System.out.println("hi1");
                     Image posterImage = new Image(this.getClass().getResourceAsStream("../../../../EPdata/FakeMoviePoster.png"));
                     System.out.println("hi2");
-                    posterImage.progressProperty().addListener((observable, oldValue, newValue) -> updateProgressBar(movie, newValue.doubleValue()));
+                    posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
+                        try {
+                            updateProgressBar(movie, newValue.doubleValue());
+                        } catch (Exceptions exceptions) {
+                            exceptions.printStackTrace();
+                        }
+                    });
                     System.out.println("hi3");
                     controller.getPosterImageView().setImage(posterImage);
                     System.out.println("sianzzzzz");
@@ -491,7 +549,7 @@ public class MovieHandler extends Controller implements RequestListener {
      * @param movie    Object that contains all the information about a particular movie.
      * @param progress contains the progress value.
      */
-    private void updateProgressBar(MovieInfoObject movie, double progress) {
+    private void updateProgressBar(MovieInfoObject movie, double progress) throws Exceptions {
         // update the progress for that movie in the array
         int index = mMovies.indexOf(movie);
         if (index >= 0) {
@@ -532,7 +590,7 @@ public class MovieHandler extends Controller implements RequestListener {
         return isViewBack;
     }
 
-    public void showMovie(int num) {
+    public void showMovie(int num) throws Exceptions {
         //System.out.println("this is " + mMovies.size());
         MovieInfoObject movie = mMovies.get(num - 1);
         moviePosterClicked(movie);
@@ -657,7 +715,13 @@ public class MovieHandler extends Controller implements RequestListener {
             loader.setLocation(getClass().getClassLoader().getResource("MoviePoster.fxml"));
             AnchorPane posterView = loader.load();
             //posterView.setOnScroll();
-            posterView.setOnMouseClicked((mouseEvent) -> playlistMoviePosterClicked(movie));
+            posterView.setOnMouseClicked((mouseEvent) -> {
+                try {
+                    playlistMoviePosterClicked(movie);
+                } catch (Exceptions exceptions) {
+                    exceptions.printStackTrace();
+                }
+            });
 
             // set the movie info
             MoviePosterController controller = loader.getController();
@@ -665,7 +729,13 @@ public class MovieHandler extends Controller implements RequestListener {
                 System.out.println("hi1");
                 Image posterImage = new Image(this.getClass().getResourceAsStream("../../../../EPdata/FakeMoviePoster.png"));
                 System.out.println("hi2");
-                posterImage.progressProperty().addListener((observable, oldValue, newValue) -> updateProgressBar(movie, newValue.doubleValue()));
+                posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
+                    try {
+                        updateProgressBar(movie, newValue.doubleValue());
+                    } catch (Exceptions exceptions) {
+                        exceptions.printStackTrace();
+                    }
+                });
                 System.out.println("hi3");
                 controller.getPosterImageView().setImage(posterImage);
                 System.out.println("sianzzzzz");
@@ -688,9 +758,10 @@ public class MovieHandler extends Controller implements RequestListener {
 
     private ArrayList<MovieInfoObject> convert(ArrayList<PlaylistMovieInfoObject> toConvert) {
         ArrayList<MovieInfoObject> converted = new ArrayList<>();
-        int fakeType = 12345;
+        boolean isMovie = false;
         for (PlaylistMovieInfoObject log : toConvert) {
-            converted.add(new MovieInfoObject(fakeType, log.getID(), log.getTitle(), log.getReleaseDate(), log.getSummary(), log.getRating(), log.getGenreIDs(), log.getFullPosterPath(), log.getFullBackdropPath()));
+            converted.add(new MovieInfoObject(isMovie, log.getID(), log.getTitle(), log.getReleaseDate(), log.getSummary(), log.getRating(), log.getGenreIDs(), log.getFullPosterPath(), log.getFullBackdropPath(),
+                    log.isAdult()));
         }
         return converted;
     }
@@ -699,7 +770,7 @@ public class MovieHandler extends Controller implements RequestListener {
     /**
      * Tis function is called when the user wants to see more information about a movie.
      */
-    public void moviePosterClicked(MovieInfoObject movie) {
+    public void moviePosterClicked(MovieInfoObject movie) throws Exceptions {
         try {
             //mMainApplication.transitToMovieInfoController(movie);
             mMoviesFlowPane.getChildren().clear();
@@ -762,7 +833,7 @@ public class MovieHandler extends Controller implements RequestListener {
     /**
      * Tis function is called when the user wants to see more information about a movie.
      */
-    public void playlistMoviePosterClicked(MovieInfoObject movie) {
+    public void playlistMoviePosterClicked(MovieInfoObject movie) throws Exceptions {
         try {
             //mMainApplication.transitToMovieInfoController(movie);
 //            mMoviesFlowPane.getChildren().clear();
@@ -821,45 +892,8 @@ public class MovieHandler extends Controller implements RequestListener {
 
 
 
-    /**
-     * Updates the components in the SortProfile accordingly.
-     *
-     * @param isAlphaOrder    true when user have entered command to sort results in alphabetical order and otherwise false.
-     * @param isLatDatesOrder true when user have entered command to sort results based on release dates and otherwise false.
-     * @param isRatingsOrder  true when user have entered command to sort results based on ratings and otherwise false.
-     */
-    public void setSort(boolean isAlphaOrder, boolean isLatDatesOrder, boolean isRatingsOrder) {
-        String yes = "Y";
-        String no = "N";
-        if (isAlphaOrder) {
-            setSortText(yes, no, no);
-        } else if (isLatDatesOrder) {
-            setSortText(no, yes, no);
-        } else if (isRatingsOrder) {
-            setSortText(no, no, yes);
-        }
-
-    }
 
 
-    /**
-     * Sets the updated values for the sort components.
-     * Sets the text for the sort components in the UI.
-     * Updates the changes into json file by calling update function in the end.
-     *
-     * @param txt1 String text to be set in sortAlphaOrderLabel.
-     * @param txt2 String text to be set in sortLatestDateLabel.
-     * @param txt3 String text to be set in sortHighestRatingLabel.
-     */
-    public void setSortText(String txt1, String txt2, String txt3) {
-        sortProfile.setAlphaOrder(txt1);
-        sortAlphaOrderLabel.setText(txt1);
-        sortProfile.setLatestDatesOrder(txt2);
-        sortLatestDateLabel.setText(txt2);
-        sortProfile.setHighestRatingOrder(txt3);
-        sortHighestRatingLabel.setText(txt3);
-        EditSortProfileJson.update(sortProfile);
-    }
 
     public void updateTextField(String updateStr) {
         mSearchTextField.setText(mSearchTextField.getText() + updateStr);
@@ -931,10 +965,6 @@ public class MovieHandler extends Controller implements RequestListener {
         return userProfile;
     }
 
-    public SortProfile getSortProfile() {
-        return sortProfile;
-    }
-
     public static PastCommands getPastCommands() {
         return pastCommands;
     }
@@ -966,81 +996,91 @@ public class MovieHandler extends Controller implements RequestListener {
     /**
      * Displays list of current movies showing on cinemas.
      */
-    public static void showCurrentMovies() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES, userProfile.isAdult());
+    public static void showCurrentMovies() throws Exceptions {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
     }
 
     /**
      * Displays list of current tv shows showing.
      */
-    public static void showCurrentTV() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV, userProfile.isAdult());
+    public static void showCurrentTV() throws Exceptions {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV);
     }
 
     /**
      * Displays list of upcoming movies.
      */
-    public static void showUpcomingMovies() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES, userProfile.isAdult());
+    public static void showUpcomingMovies() throws Exceptions {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
     }
 
     /**
      * Displays list of upcoming tv shows.
      */
-    public static void showUpcomingTV() {
-        mMovieRequest.beginMovieRequest( RetrieveRequest.MoviesRequestType.CURRENT_TV, userProfile.isAdult());
+    public static void showUpcomingTV() throws Exceptions {
+        mMovieRequest.beginMovieRequest( RetrieveRequest.MoviesRequestType.CURRENT_TV);
     }
 
     /**
      * Displays list of popular movies.
      */
-    public static void showPopMovies() {
-        mMovieRequest.beginMovieRequest( RetrieveRequest.MoviesRequestType.POPULAR_MOVIES, userProfile.isAdult());
+    public static void showPopMovies() throws Exceptions {
+        mMovieRequest.beginMovieRequest( RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
     }
 
     /**
      * Displays list of popular tv shows.
      */
-    public static void showPopTV() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV, userProfile.isAdult());
+    public static void showPopTV() throws Exceptions {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV);
     }
 
 
     /**
      * Displays list of trending movies.
      */
-    public static void showTrendMovies() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES, userProfile.isAdult());
+    public static void showTrendMovies() throws Exceptions {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES);
         ;
     }
 
     /**
      * Displays list of trending tv shows.
      */
-    public static void showTrendTV() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV, userProfile.isAdult());
+    public static void showTrendTV() throws Exceptions {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
     }
 
 
-    public static void showSearch(String pay, ArrayList<Long> genres) {
-        //mMovieRequest.beginMovieSearchRequest(payload, userProfile.isAdult());
-        String payload = "";
-        ArrayList<Long> trial = new ArrayList<>();
-        mMovieRequest.getOfflineSearch(payload, trial, userProfile.isAdult());
 
+    public static void showSearchMovie() throws Exceptions {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
     }
 
-    public static void getAllTheMovie() {
-        try {
-            mMovieRequest.getAllTheMovie();
-        } catch (ParseException e) {
-            e.printStackTrace();
+    public static void setSearchProfile(SearchProfile searchProfile) {
+        mMovieRequest.setSearchProfile(searchProfile);
+    }
+
+    public void updateSortInterface() {
+        if (userProfile.isSortByAlphabetical()) {
+            sortAlphaOrderLabel.setText("Y");
+            sortLatestDateLabel.setText("N");
+            sortHighestRatingLabel.setText("N");
+        } else if (userProfile.isSortByLatestRelease()) {
+            sortAlphaOrderLabel.setText("N");
+            sortLatestDateLabel.setText("Y");
+            sortHighestRatingLabel.setText("N");
+        } else if (userProfile.isSortByHighestRating()) {
+            sortAlphaOrderLabel.setText("N");
+            sortLatestDateLabel.setText("N");
+            sortHighestRatingLabel.setText("Y");
+        } else {
+            sortAlphaOrderLabel.setText("N");
+            sortLatestDateLabel.setText("N");
+            sortHighestRatingLabel.setText("N");
         }
     }
 
-    public static void createFiles() {
-        mMovieRequest.create();
-    }
 
     public void setPlaylistName(String name) {
         playlistName = name;

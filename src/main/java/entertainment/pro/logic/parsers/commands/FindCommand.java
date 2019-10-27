@@ -1,6 +1,7 @@
 package entertainment.pro.logic.parsers.commands;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 import entertainment.pro.model.CinemaInfoObject;
@@ -30,7 +31,11 @@ public class FindCommand extends CommandSuper {
     public void executeCommands() {
         switch (this.getSubRootCommand()) {
             case cinema:
-                findCinemas();
+                try {
+                    findCinemas();
+                } catch (Exceptions exceptions) {
+                    exceptions.printStackTrace();
+                }
                 break;
             default:
                 break;
@@ -40,7 +45,7 @@ public class FindCommand extends CommandSuper {
     /**
      * find cinemas near a particular location in the payload and formats them to be displayed on the UI
      */
-    public void findCinemas() {
+    public void findCinemas() throws Exceptions {
         String display = "Here is the list of cinemas near " + getPayload() + ": \n\n";
         ArrayList<CinemaInfoObject> cinemas = ((MovieHandler) this.getUIController()).getCinemaAPIRequester().searchNearestCinemas(getPayload());
         int length = CONST;
