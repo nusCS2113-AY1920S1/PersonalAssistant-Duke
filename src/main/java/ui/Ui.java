@@ -184,6 +184,7 @@ public class Ui {
     }
 
     /**
+
      * Shows a string containing description and format of a specific instruction.
      * @param instruction name of the instruction which user wants to know more
      * @return a string to show manual of specific instruction
@@ -235,11 +236,11 @@ public class Ui {
      * @param optionSequence sequence of the options
      * @return a string shown when the command is completed
      */
-    public String quizDisplay(String question, String[] options, int optionSequence) {
-        String s = ("What is the meaning of " + question + "?\n");
-        int index = 1;
-        for (int i = optionSequence; i < optionSequence + 4; i++) {
-            s += (index + "." + options[i % 4] + "  ");
+    public String quizDisplay(String question, String[] options, int optionSequence){
+        String s = ("What is the meaning of " + question +"?\n");
+        int index=1;
+        for(int i=optionSequence; i<optionSequence+4; i++){
+            s += (index + "." + options[i%4] + "  ");
             index++;
         }
         s += "\n";
@@ -260,6 +261,17 @@ public class Ui {
         }
     }
 
+    public String quizIncorrect(Integer wrongQuiz, Integer countQuiz, ArrayList<String> quizArray){
+        if(wrongQuiz==0){
+            return ("Congratulations! You got " + (countQuiz-wrongQuiz) + "/" + countQuiz +" on this quiz!\n" +
+                    "type exit_quiz to exit.");
+        }
+        else{
+            return ("You got " + (countQuiz-wrongQuiz) + "/" + countQuiz +" on this quiz!\n" +
+                    "These are the words you might want to review:\n" +
+                    quizArray +
+                    "\ntype exit_quiz to exit.");
+        }
     /**
      * Shows to user all words that have a specific beginning.
      * @param begin begin substring to be searched
