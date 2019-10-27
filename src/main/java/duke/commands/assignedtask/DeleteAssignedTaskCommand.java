@@ -45,7 +45,7 @@ public class DeleteAssignedTaskCommand implements Command {
      * .
      *
      * @param assignedTaskManager .
-     * @param tasks               .
+     * @param taskManager         .
      * @param patientManager      .
      * @param ui                  .
      * @param storageManager      .

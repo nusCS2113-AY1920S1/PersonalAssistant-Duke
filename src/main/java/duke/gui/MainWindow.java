@@ -35,6 +35,14 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
     @FXML
+    private Button addPatientButton;
+    @FXML
+    private Button deletePatientButton;
+    @FXML
+    private Button updatePatientButton;
+    @FXML
+    private Button listPatientsButton;
+    @FXML
     private TableView<Patient> patientTable;
     @FXML
     private TableColumn<Patient, Integer> patientIdCol;
@@ -80,7 +88,22 @@ public class MainWindow extends AnchorPane {
     private TextField taskSearchTextField;
     @FXML
     private TextField assignedTaskSearchTextField;
-
+    @FXML
+    private TextField addPatientNameField;
+    @FXML
+    private TextField addPatientNricField;
+    @FXML
+    private TextField addPatientRemarkField;
+    @FXML
+    private TextField addPatientRoomField;
+    @FXML
+    private TextField deletePatientIdField;
+    @FXML
+    private TextField updatePatientIdField;
+    @FXML
+    private TextField updatePatientColumnField;
+    @FXML
+    private TextField updatePatientContentField;
 
     private final Duke duke = new Duke("./data");
 
@@ -108,21 +131,79 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
+        executeDukeWithInput(userInput.getText());
+        userInput.clear();
+    }
+
+    /**
+     * Action takes to after add patient button is being pressed.
+     */
+    @FXML
+    private void handleAddPatientButton() {
+        String name = addPatientNameField.getText();
+        String nric = addPatientNricField.getText();
+        String room = addPatientRoomField.getText();
+        String remark = addPatientRemarkField.getText();
+        String input = "add patient:" + name + ":" + nric + ":" + room + ":" + remark;
+        executeDukeWithInput(input);
+        addPatientNameField.clear();
+        addPatientNricField.clear();
+        addPatientRoomField.clear();
+        addPatientRemarkField.clear();
+    }
+
+    /**
+     * Action takes to after add patient button is being pressed.
+     */
+    @FXML
+    private void handleUpdatePatientButton() {
+        String id = updatePatientIdField.getText();
+        String field = updatePatientColumnField.getText();
+        String content = updatePatientContentField.getText();
+        String input = "update patient:" + "#" + id + ":" + field + ":" + content;
+        executeDukeWithInput(input);
+        updatePatientIdField.clear();
+        updatePatientColumnField.clear();
+        updatePatientContentField.clear();
+    }
+
+    /**
+     * Action takes to after add patient button is being pressed.
+     */
+    @FXML
+    private void handleDeletePatientButton() {
+        String id = deletePatientIdField.getText();
+        String input = "delete patient:" + "#" + id;
+        executeDukeWithInput(input);
+        deletePatientIdField.clear();
+    }
+
+    /**
+     * Action takes to after add patient button is being pressed.
+     */
+    @FXML
+    private void handleListPatientsButton() {
+        executeDukeWithInput("list patients");
+    }
+
+    /**
+     * execute duke core with userInput command given,
+     * and update dialog container and tables.
+     */
+    private void executeDukeWithInput(String inputCommand) {
         String dukeResponses;
         boolean isException = false;
-        try{
-            dukeResponses = duke.run(input);
-        }catch(DukeException de){
+        try {
+            dukeResponses = duke.run(inputCommand);
+        } catch (DukeException de) {
             dukeResponses = de.getMessage();
             isException = true;
         }
         updateTableViews();
         dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(input, userImage),
+            DialogBox.getUserDialog(inputCommand, userImage),
             DialogBox.getDukeDialog(dukeResponses, dukeImage, isException)
         );
-        userInput.clear();
         duke.clearDukeResponses();
     }
 

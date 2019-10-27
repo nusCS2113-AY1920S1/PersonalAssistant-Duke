@@ -54,7 +54,7 @@ public class Duke {
      * Runs the Duke program.
      * Reads user input until a "bye" message is received.
      */
-    public String run(String userInput) throws DukeException{
+    public String run(String userInput) throws DukeException {
         try {
             ui.readUserInputFromGui(userInput);
             ui.showLine();
@@ -85,6 +85,7 @@ public class Duke {
 
     /**
      * .
+     *
      * @return .
      */
     public PatientManager getPatientManager() {
@@ -93,6 +94,7 @@ public class Duke {
 
     /**
      * .
+     *
      * @return .
      */
     public TaskManager getTaskManager() {
@@ -101,6 +103,7 @@ public class Duke {
 
     /**
      * .
+     *
      * @return .
      */
     public AssignedTaskManager getAssignedTaskManager() {

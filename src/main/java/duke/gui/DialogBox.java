@@ -71,10 +71,9 @@ public class DialogBox extends HBox {
      * .
      */
     public static DialogBox getDukeDialog(String text, Image img, boolean isException) {
-        if (isException){
+        if (isException) {
             return new DialogBox(text, img, "#ff0000"); //Dialog with red text
-        }
-        else{
+        } else {
             return new DialogBox(text, img, "0000FF"); //Dialog with blue text
         }
     }

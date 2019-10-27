@@ -29,8 +29,8 @@ public class AssignDeadlineTaskCommand implements Command {
      * .
      *
      * @param assignedTaskManager .
-     * @param tasksList           .
-     * @param patientList         .
+     * @param taskManager         .
+     * @param patientManager      .
      * @param ui                  .
      * @param storageManager      .
      * @throws DukeException .
@@ -41,27 +41,25 @@ public class AssignDeadlineTaskCommand implements Command {
 
         // The followings are written by XUANKUN for temporary use
         try {
-            if (userInput.length < 3 || userInput[0].charAt(0) != '#' || userInput[1].charAt(0) != '#'){
-                throw new DukeException("Invalid format. Please follow format: " +
-                    "assign deadline task: #<patient id> :#<task id> : dd/MM/yyyy HHmm");
+            if (userInput.length < 3 || userInput[0].charAt(0) != '#' || userInput[1].charAt(0) != '#') {
+                throw new DukeException("Invalid format. Please follow format: "
+                    + "assign deadline task: #<patient id> :#<task id> : dd/MM/yyyy HHmm");
             }
-            if (userInput[0].charAt(0) == '#' || userInput[1].charAt(0) == '#') {
-                int pid = Integer.parseInt(userInput[0].substring(1));
-                int tid = Integer.parseInt(userInput[1].substring(1));
-                String datetime = userInput[2];
-                String type = "deadline";
-                if(!taskManager.doesExist(tid)){
-                    throw new DukeException("The task " + tid + " does not exist");
-                }
-                if(!patientManager.doesExist(pid)){
-                    throw new DukeException("The patient " + pid + " does not exist");
-                }
-                AssignedTask newAssignedTask = new AssignedTaskWithDate(pid, tid, datetime, type);
-                assignedTaskManager.addPatientTask(newAssignedTask);
-                storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
-                ui.patientTaskAssigned(newAssignedTask, patientManager.getPatient(pid).getName(),
-                    taskManager.getTask(tid).getDescription());
+            int pid = Integer.parseInt(userInput[0].substring(1));
+            int tid = Integer.parseInt(userInput[1].substring(1));
+            String datetime = userInput[2];
+            String type = "deadline";
+            if (!taskManager.doesExist(tid)) {
+                throw new DukeException("The task " + tid + " does not exist");
             }
+            if (!patientManager.doesExist(pid)) {
+                throw new DukeException("The patient " + pid + " does not exist");
+            }
+            AssignedTask newAssignedTask = new AssignedTaskWithDate(pid, tid, datetime, type);
+            assignedTaskManager.addPatientTask(newAssignedTask);
+            storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
+            ui.patientTaskAssigned(newAssignedTask, patientManager.getPatient(pid).getName(),
+                taskManager.getTask(tid).getDescription());
         } catch (Exception e) {
             throw new DukeException(e.getMessage());
         }

@@ -120,62 +120,63 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="714.0" prefWidth="279.0">
                            <children>
-                              <Button layoutX="161.0" layoutY="190.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="108.0" text="Add Patient" AnchorPane.leftAnchor="161.0" AnchorPane.rightAnchor="8.0" />
-                              <Text fontSmoothingType="LCD" layoutX="35.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Commands" wrappingWidth="207.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="6.1015625">
+                              <Button fx:id="addPatientButton" layoutX="157.0" layoutY="196.0" mnemonicParsing="false" onAction="#handleAddPatientButton" prefHeight="26.0" prefWidth="108.0" text="Add Patient" AnchorPane.leftAnchor="157.0" AnchorPane.rightAnchor="12.0" />
+                              <Text fontSmoothingType="LCD" layoutX="13.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient command shortcuts" wrappingWidth="262.0" AnchorPane.leftAnchor="13.0" AnchorPane.topAnchor="14.41796875">
                                  <font>
-                                    <Font size="24.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Text>
-                              <TextField layoutX="65.0" layoutY="46.0" prefHeight="25.0" prefWidth="208.0" promptText="Name" />
-                              <TextField layoutX="68.0" layoutY="81.0" prefHeight="23.0" prefWidth="200.0" promptText="NRIC" />
-                              <TextField layoutX="68.0" layoutY="113.0" prefHeight="28.0" prefWidth="87.0" promptText="Room" />
-                              <TextField layoutX="68.0" layoutY="146.0" prefHeight="30.0" prefWidth="200.0" promptText="Remark" />
-                              <Text layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" textAlignment="CENTER" wrappingWidth="54.13671875" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Text>
-                              <Text layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nric:" textAlignment="CENTER" wrappingWidth="54.13671875" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                              <TextField fx:id="addPatientNameField" layoutX="75.0" layoutY="62.0" prefHeight="25.0" prefWidth="200.0" promptText="Name" />
+                              <TextField fx:id="addPatientNricField" layoutX="78.0" layoutY="93.0" prefHeight="25.0" prefWidth="193.0" promptText="NRIC" />
+                              <TextField fx:id="addPatientRoomField" layoutX="77.0" layoutY="125.0" prefHeight="28.0" prefWidth="87.0" promptText="Room" />
+                              <TextField fx:id="addPatientRemarkField" layoutX="77.0" layoutY="159.0" prefHeight="30.0" prefWidth="187.0" promptText="Remark" />
+                              <Text layoutX="6.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" textAlignment="CENTER" wrappingWidth="54.13671875" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="216.86328125">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Text>
-                              <Text layoutX="8.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room:" textAlignment="CENTER" wrappingWidth="54.13671875" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                              <Text layoutX="6.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nric:" textAlignment="CENTER" wrappingWidth="54.13671875" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="216.86328125">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Text>
-                              <Text layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room:" textAlignment="CENTER" wrappingWidth="54.13671875" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                              <Text layoutX="6.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room:" textAlignment="CENTER" wrappingWidth="54.13671875" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="216.86328125">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Text>
-                              <Button layoutX="161.0" layoutY="352.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="108.0" text="Update Patient" />
-                              <TextField layoutX="105.0" layoutY="243.0" prefHeight="25.0" prefWidth="167.0" promptText="Patient id" />
-                              <TextField layoutX="143.0" layoutY="278.0" prefHeight="25.0" prefWidth="129.0" promptText="eg name, nric etc" />
-                              <TextField layoutX="144.0" layoutY="311.0" prefHeight="28.0" prefWidth="128.0" promptText="Room" />
-                              <Text layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patinet ID:" textAlignment="CENTER" wrappingWidth="105.13671875">
+                              <Text layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remark:" textAlignment="CENTER" wrappingWidth="80.13671875" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="196.86328125">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Text>
-                              <Text layoutX="7.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Field to update: " textAlignment="CENTER" wrappingWidth="133.13671875">
+                              <Button fx:id="updatePatientButton" layoutX="157.0" layoutY="358.0" mnemonicParsing="false" onAction="#handleUpdatePatientButton" prefHeight="26.0" prefWidth="108.0" text="Update Patient" />
+                              <TextField fx:id="updatePatientIdField" layoutX="101.0" layoutY="256.0" prefHeight="25.0" prefWidth="167.0" promptText="Patient id" />
+                              <TextField fx:id="updatePatientColumnField" layoutX="139.0" layoutY="291.0" prefHeight="25.0" prefWidth="129.0" promptText="eg name, nric etc" />
+                              <TextField fx:id="updatePatientContentField" layoutX="140.0" layoutY="324.0" prefHeight="28.0" prefWidth="128.0" promptText="Room" />
+                              <Text layoutX="-4.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patinet ID:" textAlignment="CENTER" wrappingWidth="105.13671875">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Text>
-                              <Text layoutX="-9.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update content:" textAlignment="CENTER" wrappingWidth="166.13671875">
+                              <Text layoutX="3.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Field to update: " textAlignment="CENTER" wrappingWidth="133.13671875">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Text>
-                              <Button layoutX="161.0" layoutY="453.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="108.0" text="Delete Patient" />
-                              <TextField layoutX="144.0" layoutY="417.0" prefHeight="25.0" prefWidth="129.0" promptText="patient id" />
-                              <Text layoutX="7.0" layoutY="436.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient ID:" textAlignment="CENTER" wrappingWidth="133.13671875">
+                              <Text layoutX="-13.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update content:" textAlignment="CENTER" wrappingWidth="166.13671875">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Text>
+                              <Button fx:id="deletePatientButton" layoutX="157.0" layoutY="462.0" mnemonicParsing="false" onAction="#handleDeletePatientButton" prefHeight="26.0" prefWidth="108.0" text="Delete Patient" />
+                              <TextField fx:id="deletePatientIdField" layoutX="140.0" layoutY="430.0" prefHeight="25.0" prefWidth="129.0" promptText="patient id" />
+                              <Text layoutX="3.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient ID:" textAlignment="CENTER" wrappingWidth="133.13671875">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Text>
+                              <Button fx:id="listPatientsButton" layoutX="157.0" layoutY="556.0" mnemonicParsing="false" onAction="#handleListPatientsButton" prefHeight="26.0" prefWidth="108.0" text="List Patients" />
                            </children>
                         </AnchorPane>
                   </content>
