@@ -10,7 +10,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class AddCommandTest {
     private Ui ui = new Ui();
@@ -63,11 +65,11 @@ class AddCommandTest {
     @Test
     @DisplayName("AddCommand without exception")
     void testAddShowExecute() {
-        AddCommand c = new AddCommand("TestShow|20|5/5/2030|6/5/2030"); //test successful execution.
+        AddCommand c = new AddCommand("TestShow|20|6/5/2030|7/5/2030"); //test successful execution.
         c.execute(model, ui, storage);
         String expected = "Noted. The following shows has been added:\n"
-                          + "1. TestShow (on: 5/5/2030)\n"
-                          + "2. TestShow (on: 6/5/2030)\n";
+                          + "1. TestShow (on: 6/5/2030)\n"
+                          + "2. TestShow (on: 7/5/2030)\n";
         assertEquals(expected, ui.getMessage());
     }
 
