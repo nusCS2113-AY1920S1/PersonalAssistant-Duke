@@ -12,11 +12,6 @@ public class Tag {
     private static final String PREFIX_TAG = "/tag";
     private static final String SPACE = " ";
 
-    /**
-     * Instantiates a new Tag.
-     *
-     * @param inputLine the input line
-     */
     public Tag(String inputLine) {
         this.inputLine = inputLine;
         this.inputArray = inputLine.split(SPACE);
@@ -24,17 +19,14 @@ public class Tag {
         this.tagIndex = - 1;
     }
 
-    /**
-     * Formats state as text for viewing.
-     */
-    public String toString() {
-        return '[' + tagName + ']';
+    private String getTagName() {
+        return tagName;
     }
 
-    /**
-     * Checks if inputArray has tag and changes tagIndex to the index of the tag name.
-     * @return true if inputArray contains "/tag"
-     */
+    public String toString() {
+        return '[' + getTagName() + ']';
+    }
+
     private Boolean hasTag() {
         Boolean hasTag = false;
         int arraySize = inputArray.length;
@@ -49,18 +41,11 @@ public class Tag {
         tagName = inputArray[tagIndex];
     }
 
-    /**
-     * Parses tag.
-     */
     public void parseTag() { //todo: change to be inside parser folder
         if (hasTag()) {
             findTag();
             //todo: store tag properly instead of printing it out.
             System.out.println("TAG IS " + getTagName());
         }
-    }
-
-    public String getTagName() {
-        return tagName;
     }
 }

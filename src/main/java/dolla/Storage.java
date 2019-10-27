@@ -61,7 +61,7 @@ public class Storage {
 
         Ui.showWelcome();
         ArrayList<String> msg = new ArrayList<String>(Arrays.asList(
-                "Hello! I'm Dolla! I help keep track of your finance!",
+                "I help keep track of your finance!",
                 "What can I do for you?"
         ));
 
@@ -167,7 +167,7 @@ public class Storage {
             msg.add("Looks like it's your first time, let me create a save file for you :)");
             createFolder();
         } catch (IOException e) { // exception handling
-            System.out.println("*** there was an error reading duke.txt ***");
+            System.out.println("*** there was an error reading dolla.txt ***");
             MainParser.exit(); // TODO: Find out what is supposed to happen here
         }
 

@@ -26,7 +26,7 @@ public abstract class Ui {
      * Show welcome.
      */
     public static void showWelcome() {
-        System.out.println("Hello from\n" + logo);
+        System.out.println("\tHello from\n" + logo);
     }
 
     /**
@@ -364,7 +364,7 @@ public abstract class Ui {
      * Print search date.
      *
      * @param mode          the mode
-     * @param recordList       the log list
+     * @param recordList       the record list
      * @param searchContent the search content
      */
     public static void printSearchDate(String mode, RecordList recordList, String searchContent) {
@@ -429,6 +429,12 @@ public abstract class Ui {
     public static void printNoReminderMsg() {
         System.out.println(line);
         System.out.println("\tThere are no reminders :)");
+        System.out.println(line);
+    }
+
+    public static void printExitMsg() {
+        System.out.println(line);
+        System.out.println("\tBye. Hope to see you again soon!");
         System.out.println(line);
     }
 }
