@@ -1,4 +1,10 @@
-import duke.data.*;
+import duke.data.GsonStorage;
+import duke.data.Impression;
+import duke.data.Investigation;
+import duke.data.Observation;
+import duke.data.Patient;
+import duke.data.PatientMap;
+import duke.data.Result;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import org.junit.jupiter.api.Test;
