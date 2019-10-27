@@ -2,6 +2,7 @@ package duke.logic;
 
 import duke.exception.DukeException;
 import duke.model.Expense;
+import duke.model.Income;
 import duke.model.PlanBot;
 import javafx.collections.ObservableList;
 
@@ -20,6 +21,8 @@ public interface Logic {
     ObservableList<PlanBot.PlanDialog> getDialogObservableList();
 
     BigDecimal getTagAmount(String tag);
+
+    ObservableList<Income> getExternalIncomeList();
 
     ObservableList<String> getBudgetObservableList();
 

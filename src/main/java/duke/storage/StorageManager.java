@@ -3,6 +3,7 @@ package duke.storage;
 import duke.exception.DukeException;
 import duke.model.Budget;
 import duke.model.ExpenseList;
+import duke.model.IncomeList;
 
 import java.io.IOException;
 import java.util.Map;
@@ -11,19 +12,22 @@ public class StorageManager implements Storage {
 
     private ExpenseListStorage expenseListStorage;
     private PlanAttributesStorage planAttributesStorage;
+    private IncomeListStorage incomeListStorage;
     private BudgetStorage budgetStorage;
 
-    /**
-     * Constructor for StorageManager
-     * @param expenseListStorage storage for expense List
-     * @param planAttributesStorage storage for PlanAttributes from PlanBot
-     * @param budgetStorage Storage for budget
-     */
-    public StorageManager(ExpenseListStorage expenseListStorage,
-                          PlanAttributesStorage planAttributesStorage,
+   /**
+    * Constructor for StorageManager
+    * @param expenseListStorage storage for expense List
+    * @param planAttributesStorage storage for PlanAttributes from PlanBot
+    * @param budgetStorage Storage for budget
+    */
+    public StorageManager(ExpenseListStorage expenseListStorage, 
+                          PlanAttributesStorage planAttributesStorage, 
+                          IncomeListStorage incomeListStorage, 
                           BudgetStorage budgetStorage) {
         this.expenseListStorage = expenseListStorage;
         this.planAttributesStorage = planAttributesStorage;
+        this.incomeListStorage = incomeListStorage;
         this.budgetStorage = budgetStorage;
     }
 
@@ -48,6 +52,15 @@ public class StorageManager implements Storage {
     }
 
     @Override
+    public void saveIncomeList(IncomeList incomeList) throws DukeException {
+        incomeListStorage.saveIncomeList(incomeList);
+    }
+
+    @Override
+    public IncomeList loadIncomeList() throws DukeException {
+        return incomeListStorage.loadIncomeList();
+    }
+
     public Budget loadBudget() throws IOException, DukeException {
         return budgetStorage.loadBudget();
     }
@@ -56,6 +69,4 @@ public class StorageManager implements Storage {
     public void saveBudget(Budget budget) throws DukeException {
         budgetStorage.saveBudget(budget);
     }
-
-
 }

@@ -2,25 +2,14 @@ package duke.logic;
 
 import duke.exception.DukeException;
 import duke.exception.DukeRuntimeException;
-import duke.logic.command.AddExpenseCommand;
-import duke.logic.command.BudgetCommand;
-import duke.logic.command.Command;
-import duke.logic.command.ConfirmTentativeCommand;
-import duke.logic.command.DeleteExpenseCommand;
-import duke.logic.command.ExitCommand;
-import duke.logic.command.FilterExpenseCommand;
-import duke.logic.command.GoToCommand;
-import duke.logic.command.PlanBotCommand;
-import duke.logic.command.SortExpenseCommand;
-import duke.logic.command.ViewExpenseCommand;
-import duke.model.Budget;
+import duke.logic.command.*;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -58,6 +47,7 @@ public class CommandParams {
         new ViewExpenseCommand(),
         new GoToCommand(),
         new PlanBotCommand(),
+        new AddIncomeCommand(),
         new BudgetCommand()
     );
 

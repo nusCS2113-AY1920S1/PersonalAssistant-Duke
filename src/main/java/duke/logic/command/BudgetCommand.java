@@ -58,5 +58,4 @@ public class BudgetCommand extends Command {
         }
         return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.EXPENSE);
     }
-
 }

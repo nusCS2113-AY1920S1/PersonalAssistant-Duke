@@ -3,6 +3,7 @@ package duke.storage;
 import duke.exception.DukeException;
 import duke.model.Budget;
 import duke.model.ExpenseList;
+import duke.model.IncomeList;
 
 import java.io.IOException;
 import java.util.Map;
@@ -19,6 +20,10 @@ public interface Storage {
     void savePlanAttributes(Map<String, String> attributes) throws DukeException;
 
     Map<String, String> loadPlanAttributes();
+
+    void saveIncomeList(IncomeList incomeList) throws DukeException;
+
+    IncomeList loadIncomeList() throws DukeException;
 
     Budget loadBudget() throws IOException, DukeException;
 
