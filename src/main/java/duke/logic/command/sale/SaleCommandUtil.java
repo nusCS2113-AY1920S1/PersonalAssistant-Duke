@@ -8,7 +8,7 @@ public class SaleCommandUtil {
     /**
      * Modifies the {@code original} sale based on {@code saleDescriptor}.
      */
-    static Sale modifySale(Sale original, SaleDescriptor saleDescriptor) {
+    public static Sale modifySale(Sale original, SaleDescriptor saleDescriptor) {
 
         assert original != null;
 

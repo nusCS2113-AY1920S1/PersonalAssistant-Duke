@@ -1,7 +1,12 @@
 package duke.logic.parser.sale;
 
 import duke.commons.core.Message;
-import duke.logic.command.sale.*;
+import duke.logic.command.sale.SaleCommand;
+import duke.logic.command.sale.AddSaleCommand;
+import duke.logic.command.sale.DeleteSaleCommand;
+import duke.logic.command.sale.EditSaleCommand;
+import duke.logic.command.sale.FilterSaleCommand;
+
 import duke.logic.parser.commons.SubCommandParser;
 import duke.logic.parser.exceptions.ParseException;
 

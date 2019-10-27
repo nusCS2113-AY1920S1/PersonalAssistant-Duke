@@ -33,7 +33,7 @@ class SaleParserUtil {
         return descriptor;
     }
 
-    static Pair<Date, Date> createFilterDate(ArgumentMultimap map) {
+    public static Pair<Date, Date> createFilterDate(ArgumentMultimap map) {
         Date from = null;
         Date to = null;
 
