@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import static seedu.hustler.game.achievement.AddTask.addAchievementLevel;
 import static seedu.hustler.game.achievement.AddTask.addPoints;
 import static seedu.hustler.game.achievement.ConsecutiveLogin.*;
-import static seedu.hustler.game.achievement.DoneTask.*;
+import static seedu.hustler.game.achievement.DoneTask.doneAchievementLevel;
+import static seedu.hustler.game.achievement.DoneTask.donePoints;
 
 /**
  * Deals with addition of achievements and unlocking of achievements.
@@ -73,6 +74,28 @@ public class AchievementList {
             if (listAchievement.get(i).getDescription().equals("Busybee") && listAchievement.get(i).getAchievementLevel().equals(addAchievementLevel) && listAchievement.get(i).checkLock()) {
                 listAchievement.get(i).setLock(false);
                 listAchievement.get(i).setPoints(addPoints);
+                System.out.println("You have unlocked this achievement!\n" + listAchievement.get(i));
+            }
+        }
+        return listAchievement;
+    }
+
+    public ArrayList<Achievements> updateCompletionist() {
+        for(int i = 0; i < listAchievement.size(); i += 1) {
+            if (listAchievement.get(i).getDescription().equals("Completionist") && listAchievement.get(i).getAchievementLevel().equals(doneAchievementLevel) && listAchievement.get(i).checkLock()) {
+                listAchievement.get(i).setLock(false);
+                listAchievement.get(i).setPoints(addPoints);
+                System.out.println("You have unlocked this achievement!\n" + listAchievement.get(i));
+            }
+        }
+        return listAchievement;
+    }
+
+    public ArrayList<Achievements> updateDedicate () {
+        for(int i = 0; i < listAchievement.size(); i += 1) {
+            if(listAchievement.get(i).getDescription().equals("Dedicated to the art") && listAchievement.get(i).getAchievementLevel().equals(loginAchievementLevel) && achievementList.get(i).checkLock()) {
+                listAchievement.get(i).setLock(false);
+                listAchievement.get(i).setPoints(loginPoints);
                 System.out.println("You have unlocked this achievement!\n" + listAchievement.get(i));
             }
         }

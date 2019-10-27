@@ -11,10 +11,14 @@ import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.game.avatar.Inventory;
 import seedu.hustler.game.shop.ShopList;
 import seedu.hustler.logic.CommandLineException;
-import seedu.hustler.parser.CommandParser;
+//import seedu.hustler.parser.CommandParser;
 import seedu.hustler.task.Reminders;
 import seedu.hustler.task.TaskList;
+
 import seedu.hustler.ui.Ui;
+
+import seedu.hustler.logic.parser.CommandParser;
+
 import seedu.hustler.ui.timer.TimerManager;
 
 import java.io.IOException;
