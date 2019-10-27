@@ -13,7 +13,8 @@ import java.lang.reflect.Type;
 
 public class TreatmentAdaptor implements JsonSerializer<Treatment>, JsonDeserializer<Treatment> {
     @Override
-    public Treatment deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public Treatment deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+            throws JsonParseException {
         JsonObject result = json.getAsJsonObject();
         String type = result.get("type").getAsString();
         JsonElement element = result.get("properties");
