@@ -1,6 +1,5 @@
 package seedu.hustler.logic.parser.anomaly;
 
-import seedu.hustler.ui.Ui;
 import seedu.hustler.Hustler;
 import seedu.hustler.logic.CommandLineException;
 
@@ -12,22 +11,16 @@ public class AddEntryAnomaly extends DetectAnomaly {
      * @param userInput the index issued by the user
      * @return true or false for anomaly detected
      */
-    public boolean detect(String[] userInput) throws CommandLineException {
-        Ui ui = new Ui();
+    public void detect(String[] userInput) throws CommandLineException {
         int index = -1;
         try {
             index = Integer.parseInt(userInput[1]);
-        } catch (NumberFormatException e) {
-            throw CommandLineException("Please issue a number after the command: /command <index>");
-            return true;
-        }
-        index--;
-        try {
+            index--;
             Hustler.list.get(index);
+        } catch (NumberFormatException e) {
+            throw new CommandLineException("Please issue a number after the command: /command <index>");
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw CommandLineException("Please enter the current index of task.");
-            return true;
+            throw new CommandLineException("Please enter the current index of task.");
         }
-        return false;
     } 
 }
