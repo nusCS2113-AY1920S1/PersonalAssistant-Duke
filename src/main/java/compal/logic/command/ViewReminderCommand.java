@@ -11,11 +11,11 @@ import java.util.Date;
 public class ViewReminderCommand extends Command {
 
     public static final String MESSAGE_USAGE = "view-reminder\n\t"
-            + "Format: view-reminder\n\n\t"
-            + "This command will show all tasks with reminder on\n"
-            + "Examples:\n\t"
-            + "view-reminder\n\t\t"
-            + "show all tasks with reminder on";
+        + "Format: view-reminder\n\n\t"
+        + "This command will show all tasks with reminder on\n"
+        + "Examples:\n\t"
+        + "view-reminder\n\t\t"
+        + "show all tasks with reminder on";
     private static final String MESSAGE_UNABLE_TO_EXECUTE = "Unable to execute command!";
 
     @Override
@@ -46,13 +46,12 @@ public class ViewReminderCommand extends Command {
         calendar.add(Calendar.DATE, 7);
         Date dateAfter = calendar.getTime();
 
-        /*
         calendar.setTime(currentDate);
         Date dateToday = calendar.getTime();
-         */
 
         for (Task task : currList) {
-            if (!task.getisDone() && (task.getEndTime().before(dateAfter) || task.gethasReminder())) {
+            if (!task.getisDone() && ((task.getEndTime().after(dateToday)
+                && task.getEndTime().before(dateAfter)) || task.gethasReminder())) {
                 String taskString = task.toString() + "\n";
                 taskReminder.append(taskString);
             }
