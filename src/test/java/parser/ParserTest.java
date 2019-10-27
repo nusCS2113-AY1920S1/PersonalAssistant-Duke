@@ -16,7 +16,7 @@ class ParserTest {
     @Test
     void parseAddTest() {
         try {
-            String[] taskInfo = {"add", "w/happy w/clap along friends"};
+            String[] taskInfo = {"add", "w/happy m/clap along friends"};
             Command returnedObject = parseAdd(taskInfo);
             assertNotNull(returnedObject);
             assertTrue(returnedObject instanceof AddCommand);
