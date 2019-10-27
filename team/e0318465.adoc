@@ -65,9 +65,9 @@ This section is an excerpt from our DUKE Manager Developer Guide which shows the
 
 *Implementation for listing, deleting and finding of contact:* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/DeveloperGuide.adoc#413-implementation-for-listing-deleting-and-finding-of-contact[list, del, find contacts]]
 
-*Detect Duplicates: * [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/DeveloperGuide.adoc#415-detect-duplicates[detectduplicates]]
+*Detect Duplicates :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/DeveloperGuide.adoc#415-detect-duplicates[detectduplicates]]
 
-*Repeat: * [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/DeveloperGuide.adoc#416-repeat[repeat]]
+*Repeat :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/DeveloperGuide.adoc#416-repeat[repeat]]
 
 *[Proposed Features] Contacts :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/DeveloperGuide.adoc#414-implementation-for-sorting-contacts-coming-in-v20[sortcontacts]]
 
