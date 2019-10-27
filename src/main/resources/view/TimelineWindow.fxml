@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="1007.0" style="-fx-background-color: #303030;" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane layoutX="14.0" layoutY="92.0" prefHeight="240.0" prefWidth="196.0">
+         <content>
+            <ListView fx:id="mondayTask" prefHeight="240.0" prefWidth="189.0" style="-fx-background-color: #696969;" />
+         </content>
+      </ScrollPane>
+      <ScrollPane layoutX="210.0" layoutY="92.0" prefHeight="240.0" prefWidth="196.0">
+         <content>
+            <ListView fx:id="tuesdayTask" prefHeight="240.0" prefWidth="185.0" style="-fx-background-color: #696969;" />
+         </content>
+      </ScrollPane>
+      <ScrollPane layoutX="406.0" layoutY="92.0" prefHeight="240.0" prefWidth="196.0">
+         <content>
+            <ListView fx:id="wednesdayTask" prefHeight="240.0" prefWidth="182.0" style="-fx-background-color: #696969;" />
+         </content>
+      </ScrollPane>
+      <ScrollPane layoutX="798.0" layoutY="92.0" prefHeight="240.0" prefWidth="196.0">
+         <content>
+            <ListView fx:id="thursdayTask" prefHeight="240.0" prefWidth="215.0" style="-fx-background-color: #696969;" />
+         </content>
+      </ScrollPane>
+      <ScrollPane layoutX="602.0" layoutY="92.0" prefHeight="240.0" prefWidth="196.0">
+         <content>
+            <ListView fx:id="fridayTask" prefHeight="240.0" prefWidth="215.0" style="-fx-background-color: #696969;" />
+         </content>
+      </ScrollPane>
+      <ScrollPane layoutX="14.0" layoutY="399.0" prefHeight="240.0" prefWidth="196.0">
+         <content>
+            <ListView fx:id="saturdayTask" prefHeight="238.0" prefWidth="182.0" style="-fx-background-color: #696969;" />
+         </content>
+      </ScrollPane>
+      <ScrollPane layoutX="210.0" layoutY="399.0" prefHeight="240.0" prefWidth="196.0">
+         <content>
+            <ListView fx:id="sundayTask" prefHeight="240.0" prefWidth="181.0" style="-fx-background-color: #696969;" />
+         </content>
+      </ScrollPane>
+      <ScrollPane layoutX="437.0" layoutY="399.0" prefHeight="240.0" prefWidth="186.0">
+         <content>
+            <ListView fx:id="priorityTask" prefHeight="246.0" prefWidth="170.0" style="-fx-background-color: #696969;" />
+         </content>
+      </ScrollPane>
+      <ScrollPane layoutX="623.0" layoutY="399.0" prefHeight="240.0" prefWidth="186.0">
+         <content>
+            <ListView prefHeight="247.0" prefWidth="170.0" style="-fx-background-color: #696969;" />
+         </content>
+      </ScrollPane>
+      <ScrollPane layoutX="809.0" layoutY="399.0" prefHeight="240.0" prefWidth="186.0">
+         <content>
+            <ListView prefHeight="245.0" prefWidth="170.0" style="-fx-background-color: #696969;" />
+         </content>
+      </ScrollPane>
+      <Label layoutX="314.0" text="Your timeline for this week" textFill="#a8a8a8">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Label fx:id="mondayLabel" layoutX="72.0" layoutY="56.0" text="Monday" textFill="#a8a8a8">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="270.0" layoutY="56.0" text="Tuesday" textFill="#a8a8a8">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="447.0" layoutY="56.0" text="Wednesday" textFill="#a8a8a8">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="656.0" layoutY="56.0" text="Thursday" textFill="#a8a8a8">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="853.0" layoutY="56.0" text="Friday" textFill="#a8a8a8">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="274.0" layoutY="359.0" text="Sunday" textFill="#a8a8a8">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="69.0" layoutY="359.0" text="Saturday" textFill="#a8a8a8">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="todayLabel" layoutX="44.0" layoutY="52.0" prefHeight="40.0" prefWidth="134.0" style="-fx-border-color: #009933; -fx-border-width: 3;" textFill="#787878" />
+      <Label layoutX="469.0" layoutY="328.0" prefHeight="78.0" prefWidth="122.0" style="-fx-wrap-text: true;" text="High-Medium priority tasks" textAlignment="JUSTIFY" textFill="#a8a8a8">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="844.0" layoutY="351.0" text="Reminders" textFill="#a8a8a8">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="659.0" layoutY="328.0" prefHeight="78.0" prefWidth="134.0" style="-fx-wrap-text: true;" text="Non-time bound tasks" textAlignment="JUSTIFY" textFill="#a8a8a8">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

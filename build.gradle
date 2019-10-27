@@ -33,7 +33,7 @@ repositories {
 }
 
 application {
-    mainClassName = "DukeLauncher"
+    mainClassName = "chronologer.ChronologerLauncher"
 }
 
 javafx {

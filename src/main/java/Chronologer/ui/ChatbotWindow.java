@@ -1,0 +1,92 @@
+package chronologer.ui;
+
+import chronologer.command.Command;
+import chronologer.exception.ChronologerException;
+import chronologer.parser.Parser;
+import chronologer.parser.ParserFactory;
+import chronologer.storage.Storage;
+import chronologer.task.TaskList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+
+import java.io.File;
+
+/**
+ * UI component that allows the user to interact with Chronologer like a chatbot.
+ * Its mainly acts on the user input and gives the user appopriate feedback.
+ */
+class ChatbotWindow extends UiComponent<Region> {
+
+    private static final String CHRONOLOGER_WELCOME_MESSAGE = "Hello! I'm Chronologer, your task manager!";
+    private static final String FXML = "ChatbotWindow.fxml";
+
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private VBox dialogBoxContainer;
+    @FXML
+    private TextField userInputTextField;
+    @FXML
+    private Button sendButton;
+
+    private Parser parser;
+    private Command command;
+    private TaskList tasks;
+    private Storage storage;
+    /**
+     * Constructs the chatbot window of the application.
+     *
+     * @param command Holds the Command object responsible for executing user commands.
+     * @param parser Holds the Parser object which is responsible for parsing user input.
+     */
+    ChatbotWindow(Command command, Parser parser, TaskList tasks, Storage storage) {
+        super(FXML, null);
+        this.command = command;
+        this.parser = parser;
+        this.tasks = tasks;
+        this.storage = storage;
+        scrollPane.vvalueProperty().bind(dialogBoxContainer.heightProperty());
+        userInputTextField.textProperty();
+        printWelcome();
+    }
+
+    @FXML
+    private void handleUserInput() {
+        String input = userInputTextField.getText();
+        userInputTextField.clear();
+        try {
+            Command command = ParserFactory.parse(input);
+            command.execute(tasks, storage);
+        } catch (ChronologerException e) {
+
+        }
+        DialogBox toChangeDimension = DialogBox.getUserDialog(input);
+        dialogBoxContainer.getChildren().addAll(toChangeDimension.getRoot(), DialogBox.getChronologerDialog(UiTemporary.userOutputForUI).getRoot());
+    }
+
+    private void setText(String text) {
+        userInputTextField.setText(text);
+        userInputTextField.positionCaret(userInputTextField.getText().length());
+    }
+
+    /**
+     * Prints message.
+     *
+     * @param message Message.
+     */
+    private void print(String message) {
+        dialogBoxContainer.getChildren().add(DialogBox.getChronologerDialog(message).getRoot());
+    }
+
+    /**
+      * Prints welcome message.
+      */
+    private void printWelcome() {
+        print(CHRONOLOGER_WELCOME_MESSAGE);
+    }
+
+}
