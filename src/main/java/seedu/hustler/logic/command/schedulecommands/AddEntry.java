@@ -1,8 +1,10 @@
 package seedu.hustler.logic.command.schedulecommands;
 
+import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.parser.anomaly.AddEntryAnomaly;
 import seedu.hustler.schedule.RecommendedSchedule;
+import seedu.hustler.ui.Ui;
 
 /**
  * Adds an entry to recommended schedule.
@@ -32,8 +34,11 @@ public class AddEntry extends Command {
      * Adds an entry to the recommended schedule.
      */
     public void execute() {
-        if (anomaly.detect(userInput)) {
-            return;
+        Ui ui = new Ui();
+        try {
+           anomaly.detect(userInput); 
+        } catch(CommandLineException e) {
+            ui.show_message(e.getMessage());
         }
         int index = Integer.parseInt(this.userInput[1]);
         index--;
