@@ -6,6 +6,7 @@ import duke.logic.Parser.Parser;
 import javafx.fxml.FXML;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -65,10 +66,13 @@ public class PlanQuestionBank {
         question4.addNeighbouring(5);
         questionList.put(4, question4);
 
-        questionList.put(5, new PlanQuestion("How much does your trip cost each way?",
+        PlanQuestion question5 = new PlanQuestion("How much does your trip cost each way?",
                 DOUBLE,
                 DOUBLE,
-                "TRIP_COST"));
+                "TRIP_COST");
+        question5.addNeighbouring(7);
+        questionList.put(5, question5);
+
 
         PlanQuestion question6 = new PlanQuestion("Do you eat at your Hall/RC often?",
                 BOOL_ANSWERS,
@@ -79,14 +83,16 @@ public class PlanQuestionBank {
         questionList.put(6, question6);
 
         PlanQuestion question7 = new PlanQuestion("How many meals per day do pay for daily? <0 - 3>",
-                new String[]{"0", "1", "2", "3"},
-                new String[]{"0", "1", "2", "3"},
+                generateIntRange(0,3),
+                generateIntRange(0,3),
                 "MEALS_PER_DAY");
         question7.addNeighbouring("1", 8);
         question7.addNeighbouring("2", 8);
+        question7.addNeighbouring("3", 8);
         questionList.put(7, question7);
 
-        PlanQuestion question8 = new PlanQuestion("How much does is each meal that you pay for cost? <money amount>",
+        PlanQuestion question8 = new PlanQuestion("How much does each meal that you pay for "
+                + "cost on average? <money amount>",
                 DOUBLE,
                 DOUBLE,
                 "AVERAGE_MEAL_COST");
@@ -115,7 +121,7 @@ public class PlanQuestionBank {
         questionList.put(11, question11);
 
         questionList.put(12, new PlanQuestion("How much do you want to "
-                + " on online shopping monthly? <money amount>",
+                + "spend on online shopping monthly? <money amount>",
                 DOUBLE,
                 DOUBLE,
                 "ONLINE_SHOPPING"));
@@ -272,9 +278,8 @@ public class PlanQuestionBank {
                     phoneBillExpenseBuilder.setAmount(phoneBill);
                     phoneBillExpenseBuilder.setDescription("Phone bill");
                     phoneBillExpenseBuilder.setRecurring(true);
-                    Expense phoneBillExpense = phoneBillExpenseBuilder.build();
-                    phoneBillExpense.tags.add("phone bill");
-                    recommendationExpenseList.add(phoneBillExpense);
+                    phoneBillExpenseBuilder.invertTags("phone bill");
+                    recommendationExpenseList.add(phoneBillExpenseBuilder.build());
                 }
 
                 if (planAttributes.get("NETFLIX").equals("TRUE")) {
@@ -287,9 +292,8 @@ public class PlanQuestionBank {
                     netflixExpenseBuilder.setAmount("4.25");
                     netflixExpenseBuilder.setDescription("Netflix");
                     netflixExpenseBuilder.setRecurring(true);
-                    Expense netflixExpense = netflixExpenseBuilder.build();
-                    netflixExpense.tags.add("phone bill");
-                    recommendationExpenseList.add(netflixExpense);
+                    netflixExpenseBuilder.invertTags("netflix");
+                    recommendationExpenseList.add(netflixExpenseBuilder.build());
                 }
                 if (planAttributes.get("MUSIC_SUBSCRIPTION").equals("TRUE")) {
                     recommendation.append("Spotify has a student plan that is only $5 a month! \n"
@@ -299,14 +303,13 @@ public class PlanQuestionBank {
                     spotifyExpenseBuilder.setAmount("5.00");
                     spotifyExpenseBuilder.setDescription("Spotify");
                     spotifyExpenseBuilder.setRecurring(true);
-                    Expense spotifyExpense = spotifyExpenseBuilder.build();
-                    spotifyExpense.tags.add("phone bill");
-                    recommendationExpenseList.add(spotifyExpense);
+                    spotifyExpenseBuilder.invertTags("spotify");
+                    recommendationExpenseList.add(spotifyExpenseBuilder.build());
                 }
             }
 
-        } catch (NullPointerException e) {
-            throw new DukeException("Missing attributes to make recommendation!");
+        } catch (NullPointerException | NumberFormatException e) {
+            throw new DukeException("Missing attributes to make recommendation!" + e.getMessage());
         }
 
         if (recommendation.toString().isEmpty()) {
