@@ -47,7 +47,7 @@ public class StopTrackerCommand extends Command {
             throw new OofException("Please enter a Module Code!");
         }
         Tracker tracker = findTracker(trackerList, module);
-        if (isStarted(tracker)) {
+        if (!isStarted(tracker)) {
             throw new OofException("Tracker has not been started.");
         } else {
             long totalTime = tracker.getTimeTaken();
@@ -75,7 +75,7 @@ public class StopTrackerCommand extends Command {
      * Reset StartDate and EndDate values to NULL in Task object.
      * @param tracker      Task object.
      */
-    void resetStartEnd(Tracker tracker) {
+    private void resetStartEnd(Tracker tracker) {
         tracker.setStartDate(null);
         tracker.setEndDate(null);
     }
@@ -98,28 +98,16 @@ public class StopTrackerCommand extends Command {
     }
 
     /**
-     * Parse String to get Tracker Module.
-     *
-     * @param tracker Tracker object.
-     * @return Module of Tracker object.
-     */
-    private String getModule(Tracker tracker) {
-        String[] byDate = tracker.toString().split("\\(");
-        String[] byDesc = byDate[0].split(" ", 2);
-        return byDesc[1].trim();
-    }
-
-    /**
      * Find Tracker object in TrackerList where descriptions match.
      *
      * @param trackerList TrackerList object.
      * @return Tracker object that matches user given description.
      * @throws OofException if no matches are found.
      */
-    Tracker findTracker(TrackerList trackerList, String description) throws OofException {
+    private Tracker findTracker(TrackerList trackerList, String description) throws OofException {
         Tracker tracker = null;
         for (int i = 0; i < trackerList.getSize(); i++) {
-            String currentDesc = getModule(trackerList.getTracker(i));
+            String currentDesc = trackerList.getTracker(i).getModule();
             if (description.equals(currentDesc)) {
                 tracker = trackerList.getTracker(i);
                 break;

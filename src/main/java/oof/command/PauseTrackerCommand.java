@@ -57,7 +57,7 @@ public class PauseTrackerCommand extends Command {
      * @param tracker   Tracker object.
      * @return          boolean True if Start Time for Task object is not null.
      */
-    boolean isStarted(Tracker tracker) {
+    private boolean isStarted(Tracker tracker) {
         return tracker.getStartDate() != null;
     }
 
@@ -65,7 +65,7 @@ public class PauseTrackerCommand extends Command {
      * Reset StartDate and EndDate values to NULL in Task object.
      * @param tracker      Task object.
      */
-    void resetStartEnd(Tracker tracker) {
+    private void resetStartEnd(Tracker tracker) {
         tracker.setStartDate(null);
         tracker.setEndDate(null);
     }
@@ -77,7 +77,7 @@ public class PauseTrackerCommand extends Command {
      * @return              difference between two Date.
      * @throws OofException if unable to retrieve Start or End time from Task object.
      */
-    long getDateDiff(Tracker tracker, TimeUnit timeUnit) throws OofException {
+    private long getDateDiff(Tracker tracker, TimeUnit timeUnit) throws OofException {
         try {
             Date start = convertStringToDate(tracker.getStartDate());
             Date end = convertStringToDate(tracker.getEndDate());
@@ -89,28 +89,16 @@ public class PauseTrackerCommand extends Command {
     }
 
     /**
-     * Parse String to get Tracker Module.
-     *
-     * @param tracker Tracker object.
-     * @return Module of Tracker object.
-     */
-    private String getModule(Tracker tracker) {
-        String[] byDate = tracker.toString().split("\\(");
-        String[] byDesc = byDate[0].split(" ", 2);
-        return byDesc[1].trim();
-    }
-
-    /**
      * Find Tracker object in TrackerList where descriptions match.
      *
      * @param trackerList TrackerList object.
      * @return Tracker object that matches user given description.
      * @throws OofException if no matches are found.
      */
-    Tracker findTracker(TrackerList trackerList, String description) throws OofException {
+    private Tracker findTracker(TrackerList trackerList, String description) throws OofException {
         Tracker tracker = null;
         for (int i = 0; i < trackerList.getSize(); i++) {
-            String currentDesc = getModule(trackerList.getTracker(i));
+            String currentDesc = trackerList.getTracker(i).getModule();
             if (description.equals(currentDesc)) {
                 tracker = trackerList.getTracker(i);
                 break;

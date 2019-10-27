@@ -15,6 +15,7 @@ import java.util.Date;
  */
 public class StartTrackerCommand extends Command {
     private String module;
+    private static final long DEFAULT_TIMETAKEN = 0;
 
     /**
      * Constructor for StartTrackerCommand.
@@ -35,15 +36,25 @@ public class StartTrackerCommand extends Command {
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
-     * @throws OofException if invalid Module Code detected.
+     * @throws OofException if invalid Module Code detected or Tracker timer has already started.
      */
     @Override
     public void execute(SemesterList semesterList, TaskList tasks, TrackerList trackerList, Ui ui, Storage storage)
             throws OofException {
-        Tracker tracker = findTracker(trackerList, module);
+        Tracker tracker;
         if (module.isEmpty()) {
             throw new OofException("Please enter a Module Code!");
         } else {
+            boolean isRegistered = isFound(trackerList, module);
+            if (isRegistered) {
+                tracker = findTracker(trackerList, module);
+                if (tracker.getStartDate() != null) {
+                    throw new OofException("Tracker has already started!");
+                }
+            } else {
+                tracker = new Tracker(module, DEFAULT_TIMETAKEN);
+                trackerList.addTracker(tracker);
+            }
             Date now = new Date();
             String date = convertDateToString(now);
             tracker.setStartDate(date);
@@ -52,16 +63,14 @@ public class StartTrackerCommand extends Command {
         }
     }
 
-    /**
-     * Parse String to get Tracker Module.
-     *
-     * @param tracker Tracker object.
-     * @return Module of Tracker object.
-     */
-    private String getModule(Tracker tracker) {
-        String[] byDate = tracker.toString().split("\\(");
-        String[] byDesc = byDate[0].split(" ", 2);
-        return byDesc[1].trim();
+    private boolean isFound(TrackerList trackerList, String module) {
+        for (int i = 0; i < trackerList.getSize(); i++) {
+            Tracker tracker = trackerList.getTracker(i);
+            if (module.equals(tracker.getModule())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -69,19 +78,15 @@ public class StartTrackerCommand extends Command {
      *
      * @param trackerList TrackerList object.
      * @return Tracker object that matches user given description.
-     * @throws OofException if no matches are found.
      */
-    Tracker findTracker(TrackerList trackerList, String description) throws OofException {
+    private Tracker findTracker(TrackerList trackerList, String description) {
         Tracker tracker = null;
         for (int i = 0; i < trackerList.getSize(); i++) {
-            String currentDesc = getModule(trackerList.getTracker(i));
+            String currentDesc = trackerList.getTracker(i).getModule();
             if (description.equals(currentDesc)) {
                 tracker = trackerList.getTracker(i);
                 break;
             }
-        }
-        if (tracker == null) {
-            throw new OofException("Invalid Module Code!");
         }
         return tracker;
     }

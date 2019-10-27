@@ -375,9 +375,9 @@ OOF, your Outstanding Organisation Friend, provides you with a simple and effici
 Begin your journey to optimum productivity by starting your task timer!
 Start your task tracking from current time.
 
-Format: `start DESCRIPTION`
+Format: `start MODULE_CODE`
 
-Example: `start CS2113T Activity Diagram`
+Example: `start CS2113T`
 
 image::demo_images/Demo_StartTracker.png[]
 
@@ -385,9 +385,9 @@ image::demo_images/Demo_StartTracker.png[]
 Not completed with your Task but want to take a break or get started with another task?
 Pause your task tracking at current time.
 
-Format: `pause DESCRIPTION`
+Format: `pause MODULE_CODE`
 
-Example: `pause CS2113T Activity Diagram`
+Example: `pause CS2113T`
 
 image::demo_images/Demo_PauseTracker.png[]
 
@@ -398,7 +398,7 @@ Complete with your Task? Stop task tracking at current time with `stop`.
 
 Your Task automatically will be marked `Done`.
 
-Format: `stop DESCRIPTION`
+Format: `stop MODULE_CODE`
 
 Example: `stop CS2113T Activity Diagram`
 
@@ -409,16 +409,20 @@ Want to view a visual display featuring the amount of time you spend on each of 
 
 Format: `viewTracker`
 
+Example: `viewTracker`
+
+image::demo_images/Demo_ViewTracker.png[]
+
 Format: `viewTracker TIME_PERIOD [_coming soon in v1.4_]`
 
 *Options for TIME_PERIOD* +
 [horizontal]
-DAY:: filter time spent on each `Module` today
-WEEK:: filter time spent on each `Module` over the course of the last 7 days
+Day:: filter time spent on each `Module` today
+Week:: filter time spent on each `Module` over the course of the last 7 days
 
-Example: `viewTracker`
+Example: `viewTracker Day`
 
-image::demo_images/Demo_ViewTracker.png[]
+image::demo_images/Demo_ViewTrackerTimePeriod.png[]
 
 === Exiting the program: `bye`
 Exits the program.
