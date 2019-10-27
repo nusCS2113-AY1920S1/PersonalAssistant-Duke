@@ -71,7 +71,7 @@ public class Duke extends Application {
             ui.showLoadingError();
         }
         try{
-            degreeTask.loadDegreeTasks(storage.fetchListOutput("degreeTasks"));
+            degreeTask.loadDegreeTasks(storage.fetchListOutput("degreeTasks")); //loads information from degreeTasks.txt
             setDegrees(storage.fetchListOutput("listdegrees"));
             loadDegrees();
         } catch (DukeException e) {
