@@ -41,7 +41,7 @@ public class RemindCommandTest {
         Task testTask = new Deadline("test", LocalDateTime.of(2019, 8, 1, 12, 0));
         tasks.add(testTask);
         reminder.execute(tasks, storage);
-        Assertions.assertNotNull(testTask.reminder);
+        Assertions.assertNotNull(testTask.getReminder());
         Assertions.assertTrue(testTask.isReminderTrigger());
     }
 
@@ -53,7 +53,7 @@ public class RemindCommandTest {
         list.add(testTask);
         TaskList tasks = new TaskList(list);
         reminder.execute(tasks, storage);
-        Assertions.assertNotNull(testTask.reminder);
+        Assertions.assertNotNull(testTask.getReminder());
         Assertions.assertFalse(testTask.isReminderTrigger());
     }
 
