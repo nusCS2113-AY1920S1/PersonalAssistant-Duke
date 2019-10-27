@@ -137,7 +137,6 @@ public class TaskList {
      */
     public Task markAsIgnorable(int indexOfTask) {
         Task task = listOfTasks.get(indexOfTask);
-        observableListOfTasks.remove(task);
         task.markAsIgnorable();
         observableListOfTasks.add(task);
         return task;
@@ -151,7 +150,6 @@ public class TaskList {
      */
     public Task markAsUnignorable(int indexOfTask) {
         Task task = listOfTasks.get(indexOfTask);
-        observableListOfTasks.remove(task);
         task.markAsUnignorable();
         observableListOfTasks.add(task);
         return task;
