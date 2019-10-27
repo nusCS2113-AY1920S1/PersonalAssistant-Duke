@@ -172,16 +172,13 @@ public class MainWindow extends AnchorPane{
             sendClicked();
             flowPane.setStyle("-fx-background-color:#ffffff");
             String input = userInput.getText();
-            //Hustler.run(input);
             String token[] = input.split(" ");
-            if(input.equals("achievement")) {
+            if (input.equals("/achievement")) {
                 achievementAction();
-            } else if(token[0].equals("/add") || input.equals("list") || token[0].equals("done") || token[0].equals("delete")) {
-                taskAction();
-            } else if(input.equals("bye")) {
-                Hustler.run("bye");
+            } else if (input.equals("/bye")) {
+                Hustler.run("/bye");
             } else {
-                Hustler.run(userInput.getText());
+                Hustler.run(input);
                 scrollPANEE.setContent(console);
                 console.prefHeightProperty().bind(scrollPANEE.heightProperty());
             }
@@ -234,7 +231,7 @@ public class MainWindow extends AnchorPane{
         flowPane.getChildren().add(whiteSpace0);
 
 
-        Image dateTimeIcon = new Image(new FileInputStream("images/datetime.png"));
+        Image dateTimeIcon = new Image(new FileInputStream("src/main/resources/images/datetime.png"));
 
 
         flowPane.setVgap(10);
@@ -259,14 +256,14 @@ public class MainWindow extends AnchorPane{
             stackPane.setMargin(text,new Insets(0,0,3,50));
             stackPane.setAlignment(text,Pos.CENTER_LEFT);
 
-            Image notDoneCheck = new Image(new FileInputStream("images/notDone.png"));
+            Image notDoneCheck = new Image(new FileInputStream("src/main/resources/images/notDone.png"));
             ImageView notdoneCheckImage = new ImageView();
             notdoneCheckImage.setFitHeight(20);
             notdoneCheckImage.setFitWidth(20);
             notdoneCheckImage.setImage(notDoneCheck);
 
 
-            Image doneCheck = new Image(new FileInputStream("images/done.png"));
+            Image doneCheck = new Image(new FileInputStream("src/main/resources/images/done.png"));
             ImageView doneCheckImage = new ImageView();
             doneCheckImage.setFitHeight(25);
             doneCheckImage.setFitWidth(30);
@@ -429,7 +426,7 @@ public class MainWindow extends AnchorPane{
 
 
 
-        Image lock = new Image(new FileInputStream("images/locked_padlock.png"));
+        Image lock = new Image(new FileInputStream("src/main/resources/images/locked_padlock.png"));
         flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
         Hustler.run("achievement");
@@ -836,7 +833,4 @@ public class MainWindow extends AnchorPane{
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         settings.textFillProperty().setValue(Paint.valueOf("#ffffff"));
     }
-
-
-
 }

@@ -24,7 +24,7 @@ javafx {
 
 application {
     // Change this to your main class.
-    mainClassName = "seedu.hustler.Main"
+    mainClassName = "seedu.hustler.Launcher"
 }
 
 run {
@@ -41,7 +41,7 @@ test {
 
 shadowJar {
     archiveBaseName = "hustler"
-    archiveVersion = "mid-v1.1"
+    archiveVersion = "mid-v1.3"
     archiveClassifier = null
     archiveAppendix = null
 }
