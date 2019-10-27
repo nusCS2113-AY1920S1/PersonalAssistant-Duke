@@ -25,10 +25,7 @@ public class MonthlyBudget {
     private void convertAndStoreConcerts(ArrayList<Event> concertsInMonth) {
         this.totalCost = 0;
         for (Event currEvent : concertsInMonth) {
-            //instantiate new concert class for every event that is a concert, and add to the list.
-            Concert tempConcert = new Concert(currEvent.getDescription(), currEvent.getIsDone(),
-                    currEvent.getStartDate().getUserInputDateString(), currEvent.getEndDate().getUserInputDateString());
-
+            Concert tempConcert = (Concert) currEvent;
             this.listOfConcerts.add(tempConcert);
             this.totalCost += tempConcert.getCost();
         }
