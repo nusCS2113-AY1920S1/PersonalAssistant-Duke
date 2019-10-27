@@ -154,11 +154,11 @@ class ImpressionWindow extends UiElement<Region> {
         StringBuilder allergies = new StringBuilder();
         if (patient.getAllergies() != null) {
             for (String allergy : patient.getAllergies().split(",")) {
-                allergies.append(allergy.trim()).append(System.lineSeparator());
+                allergies.append(allergy.strip()).append(System.lineSeparator());
             }
             allergiesLabel.setText(allergies.toString());
         } else {
-            allergiesLabel.setText("NIL");
+            allergiesLabel.setText(Strings.DISPLAY_ALLERGIES_NONE);
         }
 
         evidenceListPanel.getItems().clear();
