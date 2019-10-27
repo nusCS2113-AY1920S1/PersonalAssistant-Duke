@@ -8,6 +8,7 @@ import org.junit.jupiter.api.io.TempDir;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.HashMap;
 
 public class BudgetTest {
     @TempDir
@@ -15,9 +16,9 @@ public class BudgetTest {
 
     @Test
     public void testBasicOperations() throws IOException, DukeException {
-        Budget budget = new Budget(new File(userDirectory, "test.txt"));
+        Budget budget = new Budget(BigDecimal.ZERO, new HashMap<>());
         budget.setMonthlyBudget(BigDecimal.TEN);
-        Assertions.assertEquals("$10", budget.getMonthlyBudgetString());
+        Assertions.assertEquals("10", budget.getMonthlyBudgetString());
     }
 
 }

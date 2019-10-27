@@ -133,6 +133,11 @@ public class DukePP implements Model {
     public Map<String, String> getKnownPlanAttributes() {
         return planBot.getPlanAttributes();
     }
+  
+    @Override
+    public PlanQuestionBank.PlanRecommendation getRecommendedBudgetPlan() {
+        return planBot.getPlanBudgetRecommendation();
+    }
 
     //************************************************************ IncomeList operations
     public void addIncome(Income income) {
@@ -171,7 +176,6 @@ public class DukePP implements Model {
     public IncomeList getIncomeList() {
         return incomeList;
     }
-
 
     //******************************** Operations for other data....
     //******************************** For example, operations of monthly income list.

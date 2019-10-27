@@ -26,6 +26,10 @@ public class Expense extends DukeItem {
      * The time of the expense.
      */
     private final LocalDateTime time;
+    /**
+     * Is true if expense is a recurring one.
+     */
+    private boolean isRecurring;
 
     /**
      * {@inheritDoc}
@@ -34,6 +38,7 @@ public class Expense extends DukeItem {
         private BigDecimal amount = BigDecimal.ZERO;
         private String description = "";
         private boolean isTentative = false;
+        private boolean isRecurring = false;
         private LocalDateTime time = LocalDateTime.now();
 
         public Builder() {
@@ -106,7 +111,7 @@ public class Expense extends DukeItem {
         public Builder setAmount(BigDecimal amount) throws DukeException {
             if (amount.scale() > 2) {
                 throw new DukeException(
-                    String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, amount.toPlainString()));
+                        String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, amount.toPlainString()));
             }
             this.amount = amount.setScale(2, RoundingMode.UNNECESSARY);
             return this;
@@ -135,6 +140,15 @@ public class Expense extends DukeItem {
         }
 
         /**
+         * @param recurring whether the expense is tentative.
+         * @return this builder.
+         */
+        public Builder setRecurring(boolean recurring) {
+            isRecurring = recurring;
+            return this;
+        }
+
+        /**
          * Sets the time of the expense using a string.
          *
          * @param time the time of the expense as a string.
@@ -149,6 +163,7 @@ public class Expense extends DukeItem {
                 throw new DukeException(String.format(DukeException.MESSAGE_EXPENSE_TIME_INVALID, time));
             }
         }
+
 
         /**
          * Sets the time of the expense.
@@ -181,6 +196,7 @@ public class Expense extends DukeItem {
         amount = builder.amount;
         description = builder.description;
         isTentative = builder.isTentative;
+        isRecurring = builder.isRecurring;
         time = builder.time;
     }
 
@@ -225,11 +241,24 @@ public class Expense extends DukeItem {
     }
 
     /**
+     * Returns whether the expense is recurring.
+     *
+     * @return {@link #isTentative}.
+     */
+    public boolean isRecurring() {
+        return isRecurring;
+    }
+
+
+    /**
      * Return the formatted time.
      *
      * @return String of time that is formatted
      */
     public String getTimeString() {
+        if (isRecurring) {
+            return "recurring";
+        }
         return Parser.formatTime(time);
     }
 

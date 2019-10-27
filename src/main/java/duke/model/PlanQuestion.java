@@ -4,7 +4,6 @@ import duke.exception.DukeException;
 import duke.logic.Parser.Parser;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -20,11 +19,12 @@ public class PlanQuestion {
 
     /**
      * Constructor for PlanQuestion.
-     * @param question String the question we are asking the user
-     * @param answers an Array of strings of the possible answers
+     *
+     * @param question       String the question we are asking the user
+     * @param answers        an Array of strings of the possible answers
      * @param attributeValue an Array of Attributes the attribute could take,
      *                       its size should be the same as the answer array
-     * @param attribute the attribute of the user we want to determine from the question
+     * @param attribute      the attribute of the user we want to determine from the question
      * @throws DukeException when there are errors in the construction of the question
      */
     public PlanQuestion(String question,
@@ -53,7 +53,15 @@ public class PlanQuestion {
         return attribute;
     }
 
+    /**
+     * Returns a set of Integers of neighbouring questions given an attribute.
+     * @param attribute the attribute we want to get the neighbours of.
+     * @return
+     */
     public Set<Integer> getNeighbouringQuestions(String attribute) {
+        if (answersAttributesValue.containsKey("DOUBLE") && (neighbouringQuestions.get("DOUBLE") != null)) {
+            return neighbouringQuestions.get("DOUBLE");
+        }
         if (neighbouringQuestions.containsKey(attribute)) {
             return neighbouringQuestions.get(attribute);
         }
@@ -80,17 +88,43 @@ public class PlanQuestion {
                 return new Reply("Ok noted!", attributes);
             }
 
-        } catch (NoSuchElementException | NumberFormatException e) {
+        } catch (NoSuchElementException | NumberFormatException | NullPointerException e) {
             throw new DukeException("Please enter a valid reply!");
         }
         return new Reply("Something strange happened", attributes);
     }
 
-    public void addNeighbouring(String attribute, Integer neighbouring) {
-        if (neighbouringQuestions.containsKey(attribute)) {
-            neighbouringQuestions.get(attribute).add(neighbouring);
+    /**
+     * Adds a neighbouring question's index to every attribute value.
+     * @param  neighbouring Integer index of neighbouring question
+     */
+    public void addNeighbouring(Integer neighbouring) {
+        if (answersAttributesValue.containsKey("DOUBLE")) {
+            if (neighbouringQuestions.containsKey("DOUBLE")) {
+                neighbouringQuestions.get("DOUBLE").add(neighbouring);
+            } else {
+                neighbouringQuestions.put("DOUBLE", new HashSet<>(Collections.singletonList(neighbouring)));
+            }
+        }
+        for (String attributeValue : answersAttributesValue.values()) {
+            if (neighbouringQuestions.containsKey(attributeValue)) {
+                neighbouringQuestions.get(attributeValue).add(neighbouring);
+            } else {
+                neighbouringQuestions.put(attributeValue, new HashSet<>(Collections.singletonList(neighbouring)));
+            }
+        }
+    }
+
+    /**
+     * Adds a neighbouring question's index to a specific attribute value.
+     * @param neighbouring Integer index of neighbouring question
+     * @param attributeValue String of the attributeValue we want our questions to be mapped to
+     */
+    public void addNeighbouring(String attributeValue, Integer neighbouring) {
+        if (neighbouringQuestions.containsKey(attributeValue)) {
+            neighbouringQuestions.get(attributeValue).add(neighbouring);
         } else {
-            neighbouringQuestions.put(attribute, new HashSet<>(Collections.singletonList(neighbouring)));
+            neighbouringQuestions.put(attributeValue, new HashSet<>(Collections.singletonList(neighbouring)));
         }
     }
 

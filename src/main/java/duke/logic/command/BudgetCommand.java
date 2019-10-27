@@ -33,7 +33,7 @@ public class BudgetCommand extends Command {
 
     public BudgetCommand() {
         super(name, description, usage, Stream.of(BudgetCommand.SecondaryParam.values())
-            .collect(Collectors.toMap(s -> s.name, s -> s.description)));
+                .collect(Collectors.toMap(s -> s.name, s -> s.description)));
     }
 
     @Override
@@ -47,7 +47,7 @@ public class BudgetCommand extends Command {
             if (commandParams.containsParams(SecondaryParam.TAG.name)) {
                 String category = commandParams.getParam(SecondaryParam.TAG.name);
                 model.setCategoryBudget(category, amount);
-            }else{
+            } else {
                 model.setMonthlyBudget(scaledAmount);
             }
             storage.saveBudget(model.getBudget());
@@ -56,7 +56,6 @@ public class BudgetCommand extends Command {
             throw new DukeException(String.format(DukeException.MESSAGE_BUDGET_AMOUNT_INVALID,
                     commandParams.getMainParam()));
         }
-        return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.EXPENSE );
+        return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.EXPENSE);
     }
-
 }
