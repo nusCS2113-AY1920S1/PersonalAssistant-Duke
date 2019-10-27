@@ -1,7 +1,9 @@
 package seedu.hustler.logic.command.task;
 
 import seedu.hustler.Hustler;
+import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
+import seedu.hustler.logic.parser.anomaly.FindAnomaly;
 import seedu.hustler.ui.Ui;
 
 /**
@@ -13,6 +15,10 @@ public class FindCommand extends Command {
      */
     private String[] userInput;
 
+    /**
+     * Detect anomalies for input.
+     */
+    private FindAnomaly anomaly = new FindAnomaly();
     /**
      * Initializes userInput.
      *
@@ -26,10 +32,12 @@ public class FindCommand extends Command {
      * Lists commands which contain keyword.
      */
     public void execute() {
-        if (this.userInput.length == 1) {
-            Ui ui = new Ui();
-            ui.empty_description_error();
+        Ui ui = new Ui();
+        try {
+            anomaly.detect(userInput);
+            Hustler.list.findTask(this.userInput[1]);
+        } catch (CommandLineException e) {
+            ui.show_message(e.getMessage());
         }
-        Hustler.list.findTask(this.userInput[1]);
     }
 }
