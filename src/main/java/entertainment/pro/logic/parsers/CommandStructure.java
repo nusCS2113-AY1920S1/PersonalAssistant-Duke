@@ -47,7 +47,7 @@ public class CommandStructure {
         });
 
         put(COMMANDKEYS.playlist , new COMMANDKEYS[]{
-                COMMANDKEYS.create , COMMANDKEYS.delete , COMMANDKEYS.add , COMMANDKEYS.remove , COMMANDKEYS.set , COMMANDKEYS.list
+                COMMANDKEYS.create , COMMANDKEYS.delete , COMMANDKEYS.add , COMMANDKEYS.remove , COMMANDKEYS.set , COMMANDKEYS.list , COMMANDKEYS.clear
         });
 
         put(COMMANDKEYS.restriction , new COMMANDKEYS[]{

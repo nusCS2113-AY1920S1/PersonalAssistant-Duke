@@ -103,7 +103,7 @@ public class MovieHandler extends Controller implements RequestListener {
     private static UserProfile userProfile;
     private ArrayList<String> playlists;
     private String playlistName = "";
-    private ArrayList<MovieInfoObject> playlistMovies = new ArrayList<>();
+//    private ArrayList<MovieInfoObject> playlistMovies = new ArrayList<>();
 //    private ArrayList<Playlist> playlists;
     private FlowPane mMoviesFlowPane;
     private VBox playlistVBox = new VBox();

@@ -49,24 +49,24 @@ public class PlaylistCommands {
         editPlaylistJson.editPlaylist(playlist);
     }
 
-    public void remove(TreeMap<String, ArrayList<String>> flagMap, ArrayList<MovieInfoObject> mMovies) throws IOException {
+    public void remove(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
 //        ArrayList<Long> userMovies = new ArrayList<>(20);
-        ArrayList<MovieInfoObject> toDelete = new ArrayList<>(20);
+        Playlist playlist = editPlaylistJson.load();
+        ArrayList<PlaylistMovieInfoObject> toDelete = new ArrayList<>();
         for (String log : flagMap.get("-m")) {
             int index = Integer.parseInt(log.trim());
             System.out.println(index);
 //            userMovies.add((mMovies.get(--index)).getID());
-            toDelete.add(mMovies.get(index));
+            toDelete.add(playlist.getMovies().get(--index));
         }
-        Playlist playlist = editPlaylistJson.load();
-        ArrayList<PlaylistMovieInfoObject> newPlaylistMovies = convert(toDelete);
+//        ArrayList<PlaylistMovieInfoObject> newPlaylistMovies = convert(toDelete);
 //        if (playlist.getMovies().get(1).equals(newPlaylistMovies.get(0))) {
 //            System.out.println("yes");
 //        } else {
 //            System.out.println("no");
 //            System.out.println(newPlaylistMovies.get(0).getTitle());
 //        }
-        playlist.remove(newPlaylistMovies);
+        playlist.remove(toDelete);
 //        playlist.remove(removeMovies);
         editPlaylistJson.editPlaylist(playlist);
         System.out.println("hehe");
