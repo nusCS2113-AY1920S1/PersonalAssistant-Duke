@@ -10,19 +10,17 @@ import ui.Wallet;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CommandWeather extends Command {
-    private HashMap<String, HashMap<String, String>> fullWeatherData;
+    private LinkedHashMap<String, LinkedHashMap<String, String>> fullWeatherData;
 
     public CommandWeather(String userInput) {
         this.userInput = userInput;
         this.commandType = CommandType.WEATHER;
         this.description = "Command that displays weather for now, tomorrow or later";
         setFullWeatherData(storeWeatherDataFromJson());
-
     }
 
     @Override
@@ -32,41 +30,50 @@ public class CommandWeather extends Command {
 
     @Override
     public void execute(Wallet wallet) {
-        String status = getWhichWeatherDataUserWants(this.userInput);
-        printWeatherDataOutput(getLengthOfArrayToPrint(status));
+        printWeatherDataOutput();
+
     }
 
     private String getWhichWeatherDataUserWants(String userInput){
         try {
-            String queryFor = Parser.parseForFlag("for", userInput);
-            return queryFor;
+            return Parser.parseForFlag("for", userInput);
         } catch (Exception e){
+            Ui.dukeSays("Please enter in the following format : \n"
+                    + "1. weather /for now \n"
+                    + "2. weather /for later \n"
+                    + "3. weather /for tomorrow \n");
             return "later";
         }
     }
 
     private int getLengthOfArrayToPrint(String status){
-
-        if(status.equals("now")){
-            return 1;
-        } else if(status.equals("tomorrow")){
-            return 2;
-
-        } else if(status.equals("later")){
-            this.fullWeatherData.size();
+        switch (status) {
+            case "now":
+                return 1;
+            case "tomorrow":
+                return 2;
+            case "later":
+                return this.fullWeatherData.size();
         }
         return 1;
     }
 
-    private void printWeatherDataOutput(int size){
-        for (int i = 0; i < size; i++){
-            Iterator it = this.fullWeatherData.get(i).entrySet().iterator();
-            Ui.dukeSays("Duke$$$ has found the following weather details as per your request : \n");
-            while (it.hasNext()){
-                Map.Entry mapElement = (Map.Entry)it.next();
-                System.out.println(mapElement.getKey() + " : " + mapElement.getValue() + "\n");
+
+    private void printWeatherDataOutput(){
+        int size = getLengthOfArrayToPrint(getWhichWeatherDataUserWants(this.userInput));
+        Ui.dukeSays("Duke$$$ has found the following weather forecast as requested :");
+        for(Map.Entry<String, LinkedHashMap<String, String>> weather : this.fullWeatherData.entrySet()) {
+            String weatherKey = weather.getKey();
+            if(Integer.parseInt(weatherKey) < size) {
+                System.out.println("\n");
+                for (Map.Entry<String, String> weatherEntry : weather.getValue().entrySet()) {
+                    String field = weatherEntry.getKey();
+                    String value = weatherEntry.getValue();
+                    System.out.println(field + " : " + value);
+                }
             }
         }
+        Ui.printSeparator();
     }
 
     private String consultWeatherApi() {
@@ -86,29 +93,31 @@ public class CommandWeather extends Command {
         }
     }
 
-    private HashMap<String, HashMap<String, String>> storeWeatherDataFromJson() {
+    private LinkedHashMap<String, LinkedHashMap<String, String>> storeWeatherDataFromJson() {
         String json = consultWeatherApi();
-        HashMap<String, HashMap<String, String>> weatherData = new HashMap<>();
-        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
-        JsonArray arr = jsonObject.getAsJsonArray("consolidated_weather");
-        for (int i = 0; i < arr.size(); i++) {
-            String weatherStateName = arr.get(i).getAsJsonObject().get("weather_state_name").getAsString();
-            String minTemp = arr.get(i).getAsJsonObject().get("min_temp").getAsString();
-            String maxTemp = arr.get(i).getAsJsonObject().get("max_temp").getAsString();
-            String theTemp = arr.get(i).getAsJsonObject().get("the_temp").getAsString();
-            String applicableDate = arr.get(i).getAsJsonObject().get("applicable_date").getAsString();
-            HashMap<String, String> innerMap = new HashMap<>();
-            innerMap.put("applicable_date", applicableDate);
-            innerMap.put("min_temp", minTemp);
-            innerMap.put("max_temp", maxTemp);
-            innerMap.put("the_temp", theTemp);
-            innerMap.put("weatherStateName", weatherStateName);
-            weatherData.put(String.valueOf(i),innerMap);
+        LinkedHashMap<String, LinkedHashMap<String, String>> weatherData = new LinkedHashMap<>();
+        if(json!= null) {
+            JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+            JsonArray arr = jsonObject.getAsJsonArray("consolidated_weather");
+            for (int i = 0; i < arr.size(); i++) {
+                String weatherStateName = arr.get(i).getAsJsonObject().get("weather_state_name").getAsString();
+                String minTemp = arr.get(i).getAsJsonObject().get("min_temp").getAsString();
+                String maxTemp = arr.get(i).getAsJsonObject().get("max_temp").getAsString();
+                String theTemp = arr.get(i).getAsJsonObject().get("the_temp").getAsString();
+                String applicableDate = arr.get(i).getAsJsonObject().get("applicable_date").getAsString();
+                LinkedHashMap<String, String> innerMap = new LinkedHashMap<>();
+                innerMap.put("Forecast Date", applicableDate);
+                innerMap.put("Minimum Temperature in Degrees Celsius", minTemp);
+                innerMap.put("Maximum Temperature in Degrees Celsius", maxTemp);
+                innerMap.put("Current Temperature in Degrees Celsius", theTemp);
+                innerMap.put("State Of Weather", weatherStateName);
+                weatherData.put(String.valueOf(i), innerMap);
+            }
         }
         return weatherData;
     }
 
-    public void setFullWeatherData(HashMap<String, HashMap<String, String>> fullWeatherData) {
+    public void setFullWeatherData(LinkedHashMap<String, LinkedHashMap<String, String>> fullWeatherData) {
         this.fullWeatherData = fullWeatherData;
     }
 }
