@@ -34,19 +34,29 @@ public class CommandWeather extends Command {
 
     }
 
+    /**
+     * getWhichWeatherDataUserWants parses to see until when user wants weather forecast.
+     * @param userInput String is the user entered Input from CLI.
+     * @return this function returns a String based on user's choice
+     */
     private String getWhichWeatherDataUserWants(String userInput){
         try {
-            return Parser.parseForFlag("for", userInput);
+            return Parser.parseForFlag("until", userInput);
         } catch (Exception e){
             Ui.dukeSays("Please enter in the following format : \n"
-                    + "1. weather /for now \n"
-                    + "2. weather /for later \n"
-                    + "3. weather /for tomorrow \n");
+                    + "1. weather /until now \n"
+                    + "2. weather /until later \n"
+                    + "3. weather /until tomorrow \n");
             return "later";
         }
     }
 
-    private int getLengthOfArrayToPrint(String status){
+    /**
+     * getLengthOfHashMapToPrint decides until which point are we to report weather.
+     * @param status String is the time until user requests for weather
+     * @return function returns the length of HashMap we need to print
+     */
+    private int getLengthOfHashMapToPrint(String status){
         switch (status) {
             case "now":
                 return 1;
@@ -58,9 +68,11 @@ public class CommandWeather extends Command {
         return 1;
     }
 
-
+    /**
+     * printWeatherDataOutput loops through the HashMap of HashMap to get weather data.
+     */
     private void printWeatherDataOutput(){
-        int size = getLengthOfArrayToPrint(getWhichWeatherDataUserWants(this.userInput));
+        int size = getLengthOfHashMapToPrint(getWhichWeatherDataUserWants(this.userInput));
         Ui.dukeSays("Duke$$$ has found the following weather forecast as requested :");
         for(Map.Entry<String, LinkedHashMap<String, String>> weather : this.fullWeatherData.entrySet()) {
             String weatherKey = weather.getKey();
@@ -76,6 +88,10 @@ public class CommandWeather extends Command {
         Ui.printSeparator();
     }
 
+    /**
+     * consultWeatherApi fetches data from the api in json.
+     * @return a String of the json data is returned
+     */
     private String consultWeatherApi() {
         try {
             String link = "https://www.metaweather.com/api/location/1062617/";
@@ -93,6 +109,10 @@ public class CommandWeather extends Command {
         }
     }
 
+    /**
+     * storeWeatherDataFromJson loops through the string json and gets needed data.
+     * @return a map of maps is returned containing the weather forecast we need by date
+     */
     private LinkedHashMap<String, LinkedHashMap<String, String>> storeWeatherDataFromJson() {
         String json = consultWeatherApi();
         LinkedHashMap<String, LinkedHashMap<String, String>> weatherData = new LinkedHashMap<>();
