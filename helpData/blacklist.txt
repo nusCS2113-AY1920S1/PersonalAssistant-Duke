@@ -1,0 +1,6 @@
+Blacklist functionality:
+    #add         :Add items to blacklist
+    #remove      :Removes items from blacklist
+
+    usage: blacklist add MOVIE_NAME_OR_ID_OR_KEYWORD [-keyword]
+           blacklist remove MOVIE_NAME_KEYWORD [-keyword]

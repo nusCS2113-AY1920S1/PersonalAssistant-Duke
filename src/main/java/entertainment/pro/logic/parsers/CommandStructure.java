@@ -4,6 +4,9 @@ import entertainment.pro.commons.enums.COMMANDKEYS;
 
 import java.util.TreeMap;
 
+/**
+ * Class to define command structure and command keywords
+ */
 public class CommandStructure {
 
     /**
@@ -16,7 +19,8 @@ public class CommandStructure {
         });
 
         put(COMMANDKEYS.view , new COMMANDKEYS[]{
-                COMMANDKEYS.profile , COMMANDKEYS.filters , COMMANDKEYS.preferences , COMMANDKEYS.watchlist , COMMANDKEYS.info , COMMANDKEYS.showtimes , COMMANDKEYS.blacklist,
+                COMMANDKEYS.profile , COMMANDKEYS.filters , COMMANDKEYS.preferences , COMMANDKEYS.watchlist ,
+                COMMANDKEYS.info , COMMANDKEYS.showtimes , COMMANDKEYS.blacklist,
                 COMMANDKEYS.movies, COMMANDKEYS.tv, COMMANDKEYS.back, COMMANDKEYS.entry
 
         });
@@ -25,27 +29,10 @@ public class CommandStructure {
                 COMMANDKEYS.add, COMMANDKEYS.remove
         });
 
-
-        put(COMMANDKEYS.watchlist , new COMMANDKEYS[]{
-                COMMANDKEYS.add, COMMANDKEYS.remove , COMMANDKEYS.done
-        });
-
-//
-//        put(COMMANDKEYS.add , new COMMANDKEYS[]{
-//                COMMANDKEYS.blacklist, COMMANDKEYS.watchlist
-//        });
-//
-//        put(COMMANDKEYS.remove , new COMMANDKEYS[]{
-//                COMMANDKEYS.blacklist, COMMANDKEYS.watchlist
-//        });
-
         put(COMMANDKEYS.help , new COMMANDKEYS[]{
-                COMMANDKEYS.search , COMMANDKEYS.view , COMMANDKEYS.add , COMMANDKEYS.help , COMMANDKEYS.more , COMMANDKEYS.yes , COMMANDKEYS.set ,  COMMANDKEYS.playlist , COMMANDKEYS.yes
+                COMMANDKEYS.search , COMMANDKEYS.view , COMMANDKEYS.add , COMMANDKEYS.help , COMMANDKEYS.more ,
+                COMMANDKEYS.yes , COMMANDKEYS.set ,  COMMANDKEYS.playlist , COMMANDKEYS.yes
         });
-
-//        put(COMMANDKEYS.more , new COMMANDKEYS[]{
-//                //EMPTY
-//        });
 
         put(COMMANDKEYS.yes , new COMMANDKEYS[]{
                 //EMPTY
@@ -60,7 +47,7 @@ public class CommandStructure {
         });
 
         put(COMMANDKEYS.playlist , new COMMANDKEYS[]{
-                COMMANDKEYS.create , COMMANDKEYS.delete , COMMANDKEYS.add , COMMANDKEYS.remove , COMMANDKEYS.set
+                COMMANDKEYS.create , COMMANDKEYS.delete , COMMANDKEYS.add , COMMANDKEYS.remove , COMMANDKEYS.set , COMMANDKEYS.list
         });
 
         put(COMMANDKEYS.restriction , new COMMANDKEYS[]{
@@ -79,5 +66,16 @@ public class CommandStructure {
 
 
 
-    public static COMMANDKEYS[] AllRoots = new COMMANDKEYS[]{ COMMANDKEYS.search , COMMANDKEYS.remove , COMMANDKEYS.view , COMMANDKEYS.add , COMMANDKEYS.help , COMMANDKEYS.more , COMMANDKEYS.yes , COMMANDKEYS.set ,  COMMANDKEYS.playlist , COMMANDKEYS.preference};
+    public static COMMANDKEYS[] AllRoots = new COMMANDKEYS[]{
+              COMMANDKEYS.search
+            , COMMANDKEYS.view
+            , COMMANDKEYS.help
+            , COMMANDKEYS.yes
+            , COMMANDKEYS.set
+            , COMMANDKEYS.playlist
+            , COMMANDKEYS.blacklist
+            , COMMANDKEYS.watchlist
+            , COMMANDKEYS.get
+            , COMMANDKEYS.preference
+            , COMMANDKEYS.restriction};
 }

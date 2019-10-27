@@ -1,34 +1,54 @@
 package entertainment.pro.storage.user;
 
-import entertainment.pro.storage.utils.BlacklistStorage;
 import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.model.MovieModel;
+import entertainment.pro.storage.utils.BlacklistStorage;
 
 import java.util.ArrayList;
 
+/**
+ * Class Maintains Blacklisted items.
+ *
+ */
 public class Blacklist {
 
     private static ArrayList<String>  blackListKeyWords = new ArrayList<>();
     private static ArrayList<MovieModel>  blackListMovies = new ArrayList<>();
     private static ArrayList<String>  blackListMoviesTitle = new ArrayList<>();
 
-
+    /**
+     * initialises the blacklisted words from the file.
+     * @param keywords
+     * @param movieTitles
+     * @param movies
+     */
     public static void initialiseAll(ArrayList<String> keywords , ArrayList<String> movieTitles , ArrayList<MovieModel> movies) {
         initialiseBlackListKey(keywords);
         initialiseBlackListMovieID(movies);
         initialiseBlackListMovieTitles(movieTitles);
     }
 
+    /**
+     * Initialise keywords arraylist from file data.
+     * @param keywords
+     */
     public static void initialiseBlackListKey(ArrayList<String> keywords) {
         blackListKeyWords = (ArrayList<String>) keywords.clone();
     }
 
-
+    /**
+     * Initialise MovieTitles arraylist from file data.
+     * @param movieTitles
+     */
     public static void initialiseBlackListMovieTitles(ArrayList<String> movieTitles) {
         blackListMoviesTitle = (ArrayList<String>) movieTitles.clone();
     }
 
 
+    /**
+     * Initialise MovieID arraylist from file data.
+     * @param movies
+     */
     public static void initialiseBlackListMovieID(ArrayList<MovieModel> movies) {
         for (MovieModel m : movies) {
 
@@ -54,6 +74,10 @@ public class Blacklist {
         saveBlackList();
     }
 
+    /**
+     * Adding Movies to blacklist.
+     * @param mo movie object
+     */
     public static void addToBlacklistMoviesID(MovieInfoObject mo) {
         if (mo == null) {
             return;
@@ -67,6 +91,10 @@ public class Blacklist {
         saveBlackList();
     }
 
+    /**
+     * Adding Movies to blacklist.
+     * @param movie
+     */
     public static void addToBlacklistMovie(String movie) {
         if (movie.trim() == "") {
             return;
@@ -78,6 +106,10 @@ public class Blacklist {
         saveBlackList();
     }
 
+    /**
+     * Save blackilist to JSON File.
+     *
+     */
     public static void saveBlackList() {
         try {
             BlacklistStorage allbl = new BlacklistStorage();
@@ -90,13 +122,18 @@ public class Blacklist {
 
     }
 
-    public static boolean removeFromBlacklistKeyWord(String movie)  {
-        if (movie.trim() == "") {
+    /**
+     * removes keyword from blacklist.
+     * @param keyword
+     * @return true if keyword successfully removed
+     */
+    public static boolean removeFromBlacklistKeyWord(String keyword)  {
+        if (keyword.trim() == "") {
             return false;
         }
         ArrayList<String> newKeywords = (ArrayList<String>) blackListKeyWords.clone();
         for (String mo : newKeywords) {
-            if (mo.toLowerCase().contains(movie.toLowerCase()) && blackListKeyWords.contains(mo)) {
+            if (mo.toLowerCase().contains(keyword.toLowerCase()) && blackListKeyWords.contains(mo)) {
                 blackListKeyWords.remove(mo);
                 return true;
             }
@@ -108,6 +145,11 @@ public class Blacklist {
 
     }
 
+    /**
+     * removes movie from blacklist.
+     * @param movie movie title
+     * @return true if keyword successfully removed
+     */
     public static boolean removeFromBlacklistMovieTitle(String movie)  {
         if (movie.trim() == "") {
             return false;
@@ -120,6 +162,11 @@ public class Blacklist {
 
     }
 
+    /**
+     * removes movie from blacklist.
+     * @param movie movie object
+     * @return true if keyword successfully removed
+     */
     public static boolean removeFromBlacklistMovies(MovieInfoObject movie)  {
         if (movie != null) {
             return false;
@@ -132,6 +179,11 @@ public class Blacklist {
 
     }
 
+    /**
+     * removes movie title from blacklistMovieTitle Arraylist.
+     * @param movie movie title
+     * @return true if keyword successfully removed
+     */
     public static boolean removeMovieTitle(String movie)  {
 
         if (blackListMoviesTitle.contains(movie.toLowerCase())) {
@@ -142,6 +194,11 @@ public class Blacklist {
         }
     }
 
+    /**
+     * removes movie title from blacklistMovies Arraylist.
+     * @param movie movie title
+     * @return true if keyword successfully removed
+     */
     public static boolean removeMovieObj(String movie)  {
 
         for (MovieModel mo : blackListMovies) {
@@ -153,6 +210,11 @@ public class Blacklist {
         return false;
     }
 
+    /**
+     * removes movie title from blacklistMovies Arraylist.
+     * @param movie movie object
+     * @return true if keyword successfully removed
+     */
     public static boolean removeMovieObjById(MovieInfoObject movie)  {
 
         for (MovieModel mo : blackListMovies) {
@@ -164,20 +226,11 @@ public class Blacklist {
         return false;
     }
 
-    public static String getIndexMovie(int index) {
-        if (index >= blackListKeyWords.size()) {
-            return "";
-        }
-        return blackListKeyWords.get(index - 1);
-    }
 
-    public static String getIndexKeyWord(int index) {
-        if (index >= blackListKeyWords.size()) {
-            return "";
-        }
-        return blackListKeyWords.get(index - 1);
-    }
-
+    /**
+     * Clears blacklist.
+     *
+     */
     public static void clearBlacklist() {
         blackListMoviesTitle.clear();
         blackListMovies.clear();
@@ -185,6 +238,10 @@ public class Blacklist {
         saveBlackList();
     }
 
+    /**
+     * Function to print blacklist on screen
+     * @return String crafted from blacklisted words
+     */
     public static String printList() {
         String feedback = "Blacklisted Keywords: \n";
         int i  = 1;
@@ -226,9 +283,14 @@ public class Blacklist {
         return feedback;
     }
 
+    /**
+     * Gets the blacklistkeywords arraylist.
+     * @return the arraylist keywords
+     */
     public static ArrayList<String> getBlackListMovies() {
         return (ArrayList<String>) blackListKeyWords.clone();
     }
+
 
     public static ArrayList<String> getBlackListAll() {
         ArrayList<String> hints = new ArrayList<>();
@@ -276,20 +338,13 @@ public class Blacklist {
         return hints;
     }
 
-    public static String printHint() {
-        String feedback = "";
-        int i  = 1;
-        for (String e : blackListKeyWords) {
 
-            feedback += e;
-
-            feedback += "\n";
-
-        }
-
-        return feedback;
-    }
-
+    /**
+     * Filters search results to exclude blacklisted items.
+     *
+     * @param mMovies
+     * @return filtered search results.
+     */
     public static ArrayList<MovieInfoObject> filter(ArrayList<MovieInfoObject> mMovies) {
         mMovies = filterByKeyword(mMovies);
         mMovies = filterById(mMovies);
@@ -298,6 +353,11 @@ public class Blacklist {
         return mMovies;
     }
 
+    /**
+     * Filter search results by blacklisted keywords.
+     * @param mMovies
+     * @return filtered search results.
+     */
     private static ArrayList<MovieInfoObject> filterByKeyword(ArrayList<MovieInfoObject> mMovies) {
         ArrayList<MovieInfoObject> filteredMovies = new ArrayList<>();
         for (MovieInfoObject o : mMovies) {
@@ -315,6 +375,11 @@ public class Blacklist {
         return filteredMovies;
     }
 
+    /**
+     * Filter search results by blacklisted movie Ids.
+     * @param mMovies
+     * @return filtered search results.
+     */
     private static ArrayList<MovieInfoObject> filterById(ArrayList<MovieInfoObject> mMovies) {
         ArrayList<MovieInfoObject> filteredMovies = new ArrayList<>();
         for (MovieInfoObject o : mMovies) {
@@ -333,6 +398,11 @@ public class Blacklist {
         return filteredMovies;
     }
 
+    /**
+     * Filter search results by blacklisted movie Titles.
+     * @param mMovies
+     * @return filtered search results.
+     */
     private static ArrayList<MovieInfoObject> filterByTitle(ArrayList<MovieInfoObject> mMovies) {
         ArrayList<MovieInfoObject> filteredMovies = new ArrayList<>();
         for (MovieInfoObject o : mMovies) {

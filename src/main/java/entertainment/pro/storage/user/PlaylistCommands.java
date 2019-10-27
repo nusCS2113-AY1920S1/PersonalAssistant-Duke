@@ -2,153 +2,150 @@ package entertainment.pro.storage.user;
 
 import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.model.Playlist;
+import entertainment.pro.model.PlaylistMovieInfoObject;
 import entertainment.pro.storage.utils.EditPlaylistJson;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.TreeMap;
 
 /**
  * class that contains all methods that deal with individual Playlist object and the list of Playlist objects
  */
 public class PlaylistCommands {
-    private ArrayList<Playlist> playlists;
+    String playlistName;
     private EditPlaylistJson editPlaylistJson;
 
-    public PlaylistCommands(ArrayList<Playlist> playlists) throws IOException {
-        editPlaylistJson = new EditPlaylistJson();
-        this.playlists = playlists;
+    public PlaylistCommands(String name) {
+        playlistName = name;
+        editPlaylistJson = new EditPlaylistJson(name);
     }
 
-    /**
-     * add new Playlist object into the list
-     */
-    public void newPlaylist(String listName) throws IOException {
-        Playlist playlist = new Playlist();
-        playlist.setListName(listName);
-        playlist.setDescription("");
-        playlist.setMoveId(new ArrayList<>(10));
-        editPlaylistJson.addPlaylist(playlist);
+    public void create() throws IOException {
+        Playlist playlist = new Playlist(playlistName);
+        editPlaylistJson.createPlaylist(playlist);
     }
 
-    /**
-     * delete particular Playlist object from list
-     */
-    public void deletePlaylist(String listName) throws IOException {
-        editPlaylistJson.removePlaylist(listName);
+    public void delete() {
+        editPlaylistJson.deletePlaylist();
+    }
+
+    public void add(TreeMap<String, ArrayList<String>> flagMap, ArrayList<MovieInfoObject> mMovies) throws IOException {
+        ArrayList<Long> userMovies = new ArrayList<>(20);
+        ArrayList<MovieInfoObject> playlistMovies = new ArrayList<>(20);
+        for (String log : flagMap.get("-m")) {
+            int index = Integer.parseInt(log.trim());
+            System.out.println(index);
+            userMovies.add((mMovies.get(--index)).getID());
+            playlistMovies.add(mMovies.get(index));
+            System.out.println("hello looky here " + mMovies.get(index).getFullPosterPath());
+        }
+        Playlist playlist = editPlaylistJson.load();
+        ArrayList<PlaylistMovieInfoObject> newPlaylistMovies = convert(playlistMovies);
+        playlist.add(newPlaylistMovies);
+        editPlaylistJson.editPlaylist(playlist);
+    }
+
+    public void remove(TreeMap<String, ArrayList<String>> flagMap, ArrayList<MovieInfoObject> mMovies) throws IOException {
+//        ArrayList<Long> userMovies = new ArrayList<>(20);
+        ArrayList<MovieInfoObject> toDelete = new ArrayList<>(20);
+        for (String log : flagMap.get("-m")) {
+            int index = Integer.parseInt(log.trim());
+            System.out.println(index);
+//            userMovies.add((mMovies.get(--index)).getID());
+            toDelete.add(mMovies.get(index));
+        }
+        Playlist playlist = editPlaylistJson.load();
+        ArrayList<PlaylistMovieInfoObject> newPlaylistMovies = convert(toDelete);
+//        if (playlist.getMovies().get(1).equals(newPlaylistMovies.get(0))) {
+//            System.out.println("yes");
+//        } else {
+//            System.out.println("no");
+//            System.out.println(newPlaylistMovies.get(0).getTitle());
+//        }
+        playlist.remove(newPlaylistMovies);
+//        playlist.remove(removeMovies);
+        editPlaylistJson.editPlaylist(playlist);
+        System.out.println("hehe");
+    }
+
+    public void clear() throws IOException {
+        Playlist playlist = editPlaylistJson.load();
+        playlist.clear();
+        editPlaylistJson.editPlaylist(playlist);
+    }
+
+    private ArrayList<PlaylistMovieInfoObject> convert(ArrayList<MovieInfoObject> movies) {
+        ArrayList<PlaylistMovieInfoObject> convertMovies = new ArrayList<>();
+        for (MovieInfoObject log : movies) {
+            Date date = log.getReleaseDate();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String string = dateFormat.format(date);
+            System.out.println("help " + log.getTitle() + " " + log.getFullPosterPath());
+            int fakeType = 12345;
+            PlaylistMovieInfoObject testMovie = new PlaylistMovieInfoObject(fakeType, log.getID(), log.getTitle(), log.getReleaseDate(), log.getSummary(), log.getRating(), log.getGenreIDs(), log.getFullPosterPath(), log.getFullBackdropPath(), string);
+            convertMovies.add(testMovie);
+        }
+        return convertMovies;
     }
 
     /**
      * set name/description to particular Playlist object
      */
-    public void setToPlaylist(String name, TreeMap<String, ArrayList<String>> flagMap) throws IOException {
+    public void setToPlaylist(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
         if (flagMap.containsKey("-n") && !flagMap.containsKey("-d")) {
-            setPlaylistName(name, flagMap.get("-n").get(0).trim());
+            setPlaylistName(appendFlagMap(flagMap.get("-n")));
         }
         if (flagMap.containsKey("-d") && !flagMap.containsKey("-n")) {
-            setPlaylistDescription(name, flagMap.get("-d").get(0).trim());
+            setPlaylistDescription(appendFlagMap(flagMap.get("-d")));
         }
         if (flagMap.containsKey("-d") && flagMap.containsKey("-n")) {
-            setAll(name, flagMap.get("-n").get(0), flagMap.get("-d").get(0).trim());
+            setAll(appendFlagMap(flagMap.get("-n")), appendFlagMap(flagMap.get("-d")));
         }
+    }
+
+    private String appendFlagMap(ArrayList<String> flagMapArrayList) {
+        String appends = "";
+        boolean flag = true;
+        for (String log : flagMapArrayList) {
+            if (!flag) {
+                appends += ", ";
+            }
+            appends += log.trim();
+            flag = false;
+        }
+        return appends;
     }
 
     /**
      * change name of particular Playlist object
      */
-    public void setPlaylistName(String name, String newName) throws IOException {
-        for (Playlist log : playlists){
-            if (log.getListName().equals(name)) {
-                playlists.remove(log);
-                log.setListName(newName);
-                playlists.add(log);
-                editPlaylistJson.editPlaylist(playlists);
-                break;
-            }
-        }
+    public void setPlaylistName(String newName) throws IOException {
+        Playlist playlist = editPlaylistJson.load();
+        playlist.setPlaylistName(newName);
+        editPlaylistJson.renamePlaylist(playlist, newName);
     }
 
     /**
      * change description of particular Playlist object
      */
-    public void setPlaylistDescription(String name, String description) throws IOException {
-        for (Playlist log : playlists){
-            if (log.getListName().equals(name)) {
-                playlists.remove(log);
-                log.setDescription(description);
-                playlists.add(log);
-                editPlaylistJson.editPlaylist(playlists);
-                break;
-            }
-        }
+    public void setPlaylistDescription(String description) throws IOException {
+        Playlist playlist = editPlaylistJson.load();
+        playlist.setDescription(description);
+        editPlaylistJson.editPlaylist(playlist);
     }
 
     /**
      * to allow setting of both name and description at the same time
      */
-    public void setAll(String name, String newName, String description) throws IOException {
-        for (Playlist log : playlists) {
-            if (log.getListName().equals(name)) {
-                playlists.remove(log);
-                log.setDescription(description);
-                log.setListName(newName);
-                playlists.add(log);
-                editPlaylistJson.editPlaylist(playlists);
-                break;
-            }
-        }
-    }
-
-    /**
-     * add movies to particular Playlist object
-     */
-    public void addToPlaylist(String name, TreeMap<String, ArrayList<String>> flagMap, ArrayList<MovieInfoObject> mMovies) throws IOException {
-        ArrayList<Long> userMovies = new ArrayList<>(20);
-        for (String log : flagMap.get("-m")){
-            int index = Integer.parseInt(log.trim());
-            System.out.println(index);
-            userMovies.add((mMovies.get(--index)).getID());
-        }
-        for (Playlist log : playlists) {
-            if (log.getListName().equals(name)) {
-                playlists.remove(log);
-                log.addMovieId(userMovies);
-                playlists.add(log);
-                editPlaylistJson.editPlaylist(playlists);
-                break;
-            }
-        }
-    }
-
-    /**
-     * remove movies from particular Playlist object
-     */
-    public void removeFromPlaylist(String name, TreeMap<String, ArrayList<String>> flagMap, ArrayList<MovieInfoObject> mMovies) throws IOException {
-        ArrayList<Long> userMovies = new ArrayList<>(20);
-        for (String log : flagMap.get("-m")){
-            int index = Integer.parseInt(log.trim());
-            userMovies.add((mMovies.get(--index)).getID());
-        }
-        for (Playlist log : playlists) {
-            if (log.getListName().equals(name)) {
-                playlists.remove(log);
-                log.removeMovieId(userMovies);
-                playlists.add(log);
-                editPlaylistJson.editPlaylist(playlists);
-                break;
-            }
-        }
-    }
-
-    public void clearPlaylist(String name) throws IOException {
-        for (Playlist log : playlists) {
-            if (log.getListName().equals(name)) {
-                playlists.remove(log);
-                log.setMoveId(new ArrayList<>());
-                playlists.add(log);
-                editPlaylistJson.editPlaylist(playlists);
-                break;
-            }
-        }
+    public void setAll(String newName, String description) throws IOException {
+        Playlist playlist = editPlaylistJson.load();
+        playlist.setPlaylistName(newName);
+        playlist.setDescription(description);
+        editPlaylistJson.renamePlaylist(playlist, newName);
+        editPlaylistJson.editPlaylist(playlist);
     }
 }

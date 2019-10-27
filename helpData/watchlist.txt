@@ -1,0 +1,7 @@
+Watchlist functionality:
+    #add         :
+    #remove      :
+    #done        :
+
+    usage: blacklist add MOVIE_NAME_OR_ID_OR_KEYWORD [-keyword]
+           blacklist remove MOVIE_NAME_KEYWORD [-keyword]

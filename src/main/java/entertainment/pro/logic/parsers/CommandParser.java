@@ -1,19 +1,22 @@
 package entertainment.pro.logic.parsers;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.logic.execution.CommandStack;
 import entertainment.pro.logic.parsers.commands.*;
-import entertainment.pro.logic.Execution.CommandStack;
+import entertainment.pro.model.CommandPair;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
-import entertainment.pro.model.CommandPair;
 
 import java.io.IOException;
 import java.util.Arrays;
 
-
+/**
+ * CommandParser class to determine the root command given the user input.
+ */
 public class CommandParser {
+
     /**
-     * Entry point to command parser Class
+     * Entry point to command parser Class.
      *
      * @param command command that was entered by the user
      */
@@ -25,7 +28,7 @@ public class CommandParser {
     }
 
     /**
-     * Function to get the most probable root and sub root command if there was a typo in the user command
+     * Function to get the most probable root and sub root command if there was a typo in the user command.
      *
      * @param CommandArr command that was entered by the user in split array form
      * @param Command   command that was entered by the user.

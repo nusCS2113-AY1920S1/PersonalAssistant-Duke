@@ -8,6 +8,11 @@ import entertainment.pro.model.CommandPair;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Template command class for each root command.
+ * Contains helper functions to breakdown command to useful functions.
+ *
+ */
 public abstract class CommandSuper {
 
     private Controller uicontroller;
@@ -19,7 +24,6 @@ public abstract class CommandSuper {
     private COMMANDKEYS subRootCommand;
     private String payload;
     private boolean execute = false;
-    private String helpInstructions;
 
 
     /**

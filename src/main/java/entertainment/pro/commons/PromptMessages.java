@@ -26,5 +26,9 @@ public class PromptMessages {
     public static final String INVALID_FORMAT = "⚡ Invalid format. Refer to help for command formats. :-(";
     public static final String OUT_OF_BOUNDS = "⚠ Index requested is out of bounds! :-(";
 
+    public static final String BLACKLIST_ADD_SUCCUESS = "Successfully added to blacklist!";
+    public static final String BLACKLIST_REMOVE_SUCCUESS = "Successfully removed from  blacklist!";
+    public static final String BLACKLIST_REMOVE_FAILURE = "Sorry could not find such an item in your blacklist";
+
 
 }

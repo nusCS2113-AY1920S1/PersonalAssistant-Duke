@@ -38,5 +38,6 @@ public enum COMMANDKEYS {
     tv,
     back,
     entry,
-    done
+    done,
+    list
 }
