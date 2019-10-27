@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class Farmer {
 
-    private final String JSON_KEY_MONEY = "money";
+    private final String JSON_KEY_GOLD = "gold";
     private final String JSON_KEY_LEVEL = "level";
     private final String JSON_KEY_DAY = "day";
     private final String JSON_KEY_LOCATION = "location";
@@ -26,7 +26,7 @@ public class Farmer {
     private final String JSON_KEY_TASK_CURRENT = "task_current";
     private final String JSON_KEY_TASK_STATUS_FAIL = "task_status_fail";
 
-    private int money;
+    private int gold;
     private double level;
     private int day;
     private String location;
@@ -39,7 +39,7 @@ public class Farmer {
     private ArrayList<Double> levelList = new ArrayList<Double>(Arrays.asList(1.1,1.2,1.3,1.4,1.5,1.6,2.1,2.2));
 
     public Farmer() {
-        this.money = 10;
+        this.gold = 20;
         this.level = 1.1;
         this.day = 1;
         this.location = "WheatFarm";
@@ -53,7 +53,7 @@ public class Farmer {
 
     public Farmer(JSONObject jsonObject) throws FarmioException {
         this.level = (Double) jsonObject.get(JSON_KEY_LEVEL);
-        this.money = (int) (long) jsonObject.get(JSON_KEY_MONEY);
+        this.gold = (int) (long) jsonObject.get(JSON_KEY_GOLD);
         this.day = (int) (long) jsonObject.get(JSON_KEY_DAY);
         this.location = (String) jsonObject.get(JSON_KEY_LOCATION);
         this.wheatFarm = new WheatFarm((JSONObject) jsonObject.get(JSON_KEY_FARM_WHEAT));
@@ -64,9 +64,9 @@ public class Farmer {
         this.hasfailedCurrentTask = (Boolean) jsonObject.get(JSON_KEY_TASK_STATUS_FAIL);
     }
 
-    public Farmer(double level, int money, WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm, TaskList tasks) {
+    public Farmer(double level, int gold, WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm, TaskList tasks) {
         this.level = level;
-        this.money = money;
+        this.gold = gold;
         this.wheatFarm = wheatFarm;
         this.chickenFarm = chickenFarm;
         this.cowFarm = cowFarm;
@@ -74,7 +74,7 @@ public class Farmer {
     }
 
     public int getGold() {
-        return money;
+        return gold;
     }
 
     public double getLevel() {
@@ -98,6 +98,8 @@ public class Farmer {
 
         if (level >= 3) {
         }
+        if (level >= 2) {
+        }
         if (level >= 1.4) {
             assets.put("Wheat", wheatFarm.getWheat());
             assets.put("Grain", wheatFarm.getGrain());
@@ -109,7 +111,7 @@ public class Farmer {
             assets.put("Seeds", wheatFarm.getSeeds());
         }
         if (level >= 1.1) {
-            assets.put("Gold", money);
+            assets.put("Gold", gold);
         }
         return assets;
     }
@@ -141,16 +143,16 @@ public class Farmer {
         hasfailedCurrentTask = true;
     }
 
-    public void setMoney(int money) {
-        this.money = money;
+    public void setGold(int gold) {
+        this.gold = gold;
     }
 
-    public void spendMoney(int cost) {
-        money -= cost;
+    public void spendGold(int cost) {
+        gold -= cost;
     }
 
-    public void earnMoney(int profit) {
-        money += profit;
+    public void earnGold(int profit) {
+        gold += profit;
     }
 
     public int getCurrentTask() {
@@ -187,7 +189,7 @@ public class Farmer {
     public JSONObject toJSON(){
         JSONObject obj = new JSONObject();
         obj.put(JSON_KEY_LEVEL, level);
-        obj.put(JSON_KEY_MONEY, money);
+        obj.put(JSON_KEY_GOLD, gold);
         obj.put(JSON_KEY_DAY, day);
         obj.put(JSON_KEY_LOCATION, location);
         obj.put(JSON_KEY_FARM_WHEAT, wheatFarm.toJSON());

@@ -28,7 +28,7 @@ public class SellWheatAction extends Action {
         try {
             simulation.animate("SellWheatSimulation", 0, 6);
             ui.show("Selling grain!");
-            farmer.earnMoney(farmer.getWheatFarm().sell());
+            farmer.earnGold(farmer.getWheatFarm().sell());
             simulation.animate(1000, "SellWheatSimulation", 7);
         } catch (Exception e) {
             e.getMessage();

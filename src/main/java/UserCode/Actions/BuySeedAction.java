@@ -22,13 +22,13 @@ public class BuySeedAction extends Action {
             if (!farmer.getLocation().equals("Market")) {
                 ui.typeWriter("Error! you have attempted to buy seeds despite not being at the market/\n");
             } else {
-                ui.typeWriter("Error! you have attempted to buy seeds despite not having enough money/\n");
+                ui.typeWriter("Error! you have attempted to buy seeds despite not having enough gold/\n");
             }
             throw new FarmioException("Task Error!");
         }
         simulation.animate("BuySeedSimulation", 0, 4);
         farmer.getWheatFarm().buySeeds();
-        farmer.spendMoney(Market.PRICE_OF_SEED);
+        farmer.spendGold(Market.PRICE_OF_SEED);
         simulation.animate(1000, "BuySeedSimulation", 5);
     }
 }

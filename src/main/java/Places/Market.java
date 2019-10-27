@@ -9,23 +9,23 @@ public class Market {
     public final static int PRICE_OF_EGG = 10;
     public final static int PRICE_OF_COW = 500;
     public final static int PRICE_OF_MILK = 15;
-    protected int money;
+    protected int gold;
 
-    public Market (int startingMoney) {
-        this.money = startingMoney;
+    public Market (int startingGold) {
+        this.gold = startingGold;
     }
 
-    public int getMoney() {
-        return money;
+    public int getGold() {
+        return gold;
     }
 
-    public void changeMoney(int change) {
-        money += change;
+    public void changeGold(int change) {
+        gold += change;
     }
 
     public JSONObject toJSON() {
         JSONObject obj = new JSONObject();
-        obj.put("money", money);
+        obj.put("gold", gold);
         return obj;
     }
 }

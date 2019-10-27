@@ -1,4 +1,4 @@
-         MONEY                  BOOLEAN
+         GOLD                     BOOLEAN
 ______________________________________________________
  greaterThanOrEquals | hasSeeds, hasWheat, hasGrain
  greaterThan         |          
@@ -6,4 +6,4 @@ ______________________________________________________
  lessThanOrEquals    |
 _____________________|________________________________
 
-Eg: [If money greaterThanOrEquals 10 do buySeeds]
+Eg: [If gold greaterThanOrEquals 10 do buySeeds]
