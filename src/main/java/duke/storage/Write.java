@@ -30,20 +30,21 @@ public class Write {
         for (String i : meals.keySet()) { //write process for stored food entries
             ArrayList<Meal> mealsInDay = meals.get(i);
             for (int j = 0; j < meals.get(i).size(); j++) {
+                String tempLineStr = "";
                 Meal currentMeal = mealsInDay.get(j);
                 String status = "0";
                 if (currentMeal.getIsDone()) {
                     status = "1";
                 }
-                toWriteStr = currentMeal.getType() + "|" + status + "|" + currentMeal.getDescription()
+                tempLineStr += currentMeal.getType() + "|" + status + "|" + currentMeal.getDescription()
                         + "|date|" + currentMeal.getDate();
                 HashMap<String, Integer> nutritionData = currentMeal.getNutritionalValue();
                 if (nutritionData.size() != 0) {
-                    toWriteStr += "|";
+                    tempLineStr += "|";
                     for (String k : nutritionData.keySet()) {
-                        toWriteStr += k + "|" + nutritionData.get(k) + "|";
+                        tempLineStr += k + "|" + nutritionData.get(k) + "|";
                     }
-                    toWriteStr = toWriteStr.substring(0, toWriteStr.length() - 1) + "\n";
+                    toWriteStr += tempLineStr.substring(0, tempLineStr.length() - 1) + "\n";
                 }
             }
         }

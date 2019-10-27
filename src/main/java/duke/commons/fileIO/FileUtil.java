@@ -3,8 +3,6 @@ package duke.commons.fileIO;
 import duke.commons.exceptions.DukeException;
 
 import java.io.*;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
 
 /**
  * Class in charge of common file operations such as reading and writing from jar resources and
@@ -23,8 +21,13 @@ public class FileUtil {
      * file directory syntax in filepaths config file.
      */
     public static BufferedReader readResourceFile(String fileStr) {
-        InputStream is = FileUtil.class.getClassLoader().getResourceAsStream(fileStr);
-        return new BufferedReader(new InputStreamReader(is));
+        try {
+            InputStream is = FileUtil.class.getClassLoader().getResourceAsStream(fileStr);
+            return new BufferedReader(new InputStreamReader(is));
+        } catch (NullPointerException e) {
+            // TODO: Better Exception handling for invalid resource file.
+            return new BufferedReader(new StringReader(""));
+        }
     }
 
     /**
@@ -51,23 +54,35 @@ public class FileUtil {
     }
 
     /**
-     * Create missing parent folders and missing file on host system.
+     * Create missing parent folders and copy missing file to host system.
      * @param file File that is missing.
      * @throws DukeException if application has difficulty creating new file in host system.
      */
     private static void createMissingFile(File file) throws DukeException {
+        if (file.exists()) {
+            return;
+        }
         try {
-            Files.createDirectory(file.toPath());
-        } catch (IOException e) {
-            throw new DukeException(e.toString());
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        } catch (Exception e) {
+            throw new DukeException("Create missing file error : " + e.toString());
         }
     }
 
     public static void writeFile(String textStr, String fileStr) throws DukeException {
         try {
-            createMissingFile(new File(fileStr));
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileStr));
-            bufferedWriter.write(textStr);
+            File file = new File(fileStr);
+            if (!file.exists()) {
+                createMissingFile(file);
+            }
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+
+            // Split large strings into smaller strings for memory efficiency
+            for (String lineStr : textStr.split("\n")) {
+                bufferedWriter.write(lineStr);
+                bufferedWriter.newLine();
+            }
             bufferedWriter.close();
         } catch (IOException e) {
             throw new DukeException("Unable to write to file: " + fileStr);
