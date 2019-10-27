@@ -1,7 +1,7 @@
 package entertainment.pro.logic.parsers.commands;
 import entertainment.pro.commons.enums.COMMANDKEYS;
 
-import entertainment.pro.logic.contexts.SearchResultContext;
+import entertainment.pro.logic.Contexts.SearchResultContext;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 import entertainment.pro.storage.user.Blacklist;

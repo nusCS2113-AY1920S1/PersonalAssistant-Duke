@@ -1,7 +1,7 @@
 package entertainment.pro.logic.parsers;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
-import entertainment.pro.logic.execution.CommandStack;
+import entertainment.pro.logic.Execution.CommandStack;
 import entertainment.pro.logic.parsers.commands.*;
 import entertainment.pro.model.CommandPair;
 import entertainment.pro.ui.Controller;
@@ -129,7 +129,6 @@ public class CommandParser {
                 System.out.println("blacklist");
                 BlacklistCommand bbc = new BlacklistCommand(UIController);
                 bbc.initCommand(CommandArr , Command);
-
                 if (command.isValidCommand()) {
                     CommandStack.pushCmd(bbc);
                 }
@@ -138,9 +137,16 @@ public class CommandParser {
                 System.out.println("watchlist");
                 WatchlistCommand wlc = new WatchlistCommand(UIController);
                 wlc.initCommand(CommandArr , Command);
-
-                    if (wlc.initCommand(CommandArr, Command)) {
+                if (command.isValidCommand()) {
                     CommandStack.pushCmd(wlc);
+                }
+                break;
+            case find:
+                System.out.println("find");
+                FindCommand fc = new FindCommand(UIController);
+                fc.initCommand(CommandArr , Command);
+                if (command.isValidCommand()) {
+                    CommandStack.pushCmd(fc);
                 }
                 break;
             default:
@@ -260,6 +266,14 @@ public class CommandParser {
 
                 if (wlc.initCommand(commandArr , command)) {
                     CommandStack.pushCmd(wlc);
+                }
+                break;
+            case "find":
+                System.out.println("find");
+                FindCommand fc = new FindCommand(uicontroller);
+                fc.initCommand(commandArr , command);
+                if (fc.initCommand(commandArr, command)) {
+                    CommandStack.pushCmd(fc);
                 }
                 break;
             default:

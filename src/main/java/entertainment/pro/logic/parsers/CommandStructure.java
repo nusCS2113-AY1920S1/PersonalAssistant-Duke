@@ -61,6 +61,9 @@ public class CommandStructure {
         put(COMMANDKEYS.watchlist , new COMMANDKEYS[]{
                 COMMANDKEYS.add,  COMMANDKEYS.set,  COMMANDKEYS.delete
         });
+        put(COMMANDKEYS.find , new COMMANDKEYS[]{
+                COMMANDKEYS.cinema
+        });
     }};
 
 

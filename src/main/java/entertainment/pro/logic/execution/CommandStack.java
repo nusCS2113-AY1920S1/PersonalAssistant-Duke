@@ -1,4 +1,4 @@
-package entertainment.pro.logic.execution;
+package entertainment.pro.logic.Execution;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandSuper;
