@@ -23,7 +23,7 @@ public class ArgumentSplitter {
     }
 
     /**
-     * split command arguments based on specific delimiter
+     * split command arguments based on specific delimiter.
      * @param userInput String input by user.
      * @param delimiter the delimiter that the userInput will be split around.
      * @return <code>String[] {splitStrings[0], splitStrings[1]}</code> Split arguments of the command.
