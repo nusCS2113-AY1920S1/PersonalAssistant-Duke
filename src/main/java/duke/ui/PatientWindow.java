@@ -88,18 +88,22 @@ class PatientWindow extends UiElement<Region> {
         height.setText((heightNum == -1) ? "No height set" : patient.getHeight() + " cm");
         int weightNum = patient.getWeight();
         weight.setText((weightNum == -1) ? "No weight set" : patient.getWeight() + " kg");
-        phone.setText(String.valueOf(patient.getNumber()));
-        address.setText(String.valueOf(patient.getAddress()));
-        history.setText(String.valueOf(patient.getHistory()));
+        int number = patient.getNumber();
+        phone.setText((number == -1) ? "No number set" : String.valueOf(number));
+        String addressStr = patient.getAddress();
+        address.setText(("".equals(addressStr)) ? "No address given" : addressStr);
+        String historyStr = patient.getHistory();
+        history.setText(("".equals(historyStr)) ? "No history provided" : historyStr);
 
         StringBuilder allergies = new StringBuilder();
         if (patient.getAllergies() != null) {
+            //TODO document the fact that comma separated allergies are displayed on distinct rows
             for (String allergy : patient.getAllergies().split(",")) {
-                allergies.append(allergy.trim()).append(System.lineSeparator());
+                allergies.append(allergy.strip()).append(System.lineSeparator());
             }
             allergiesLabel.setText(allergies.toString());
         } else {
-            allergiesLabel.setText("NIL");
+            allergiesLabel.setText("Patient has no allergies");
         }
 
         impressionsListPanel.getItems().clear();

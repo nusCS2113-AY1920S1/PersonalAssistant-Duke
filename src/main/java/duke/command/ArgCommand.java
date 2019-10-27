@@ -86,6 +86,7 @@ public abstract class ArgCommand extends Command {
         } else {
             try {
                 Integer parseInt = Integer.parseInt(str);
+                // TODO document this
                 if (parseInt < 0) {
                     throw new DukeHelpException("The value of '" + switchName + "' cannot be negative!", this);
                 }
