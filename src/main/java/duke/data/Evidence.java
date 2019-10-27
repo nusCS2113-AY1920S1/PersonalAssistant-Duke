@@ -16,8 +16,6 @@ import duke.exception.DukeException;
  */
 public abstract class Evidence extends DukeData {
 
-    private String summary;
-
     public Evidence(String name, Impression impression, Integer priority, String summary) {
         super(name, impression, priority);
         this.summary = summary;
@@ -33,18 +31,10 @@ public abstract class Evidence extends DukeData {
         }
     }
 
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
     @Override
     public String toString() {
         String informationString;
-        informationString = "Summary: " + this.summary + "\n";
+        informationString = "Summary: " + summary + "\n";
         return super.toString() + informationString;
     }
 
@@ -56,7 +46,7 @@ public abstract class Evidence extends DukeData {
     @Override
     public String toReportString() {
         String informationString;
-        informationString = "Summary: " + this.summary + "\n";
+        informationString = "Summary: " + summary + "\n";
         return informationString;
     }
 }

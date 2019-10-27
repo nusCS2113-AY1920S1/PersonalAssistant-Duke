@@ -5,7 +5,7 @@ import duke.exception.DukeException;
 public abstract class DukeData extends DukeObject {
 
     private Integer priority;
-    private String summary;
+    protected String summary;
 
     /**
      * Abstraction of the evidence or treatment data of a patient.
