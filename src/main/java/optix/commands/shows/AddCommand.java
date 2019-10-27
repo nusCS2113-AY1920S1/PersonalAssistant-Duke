@@ -3,6 +3,7 @@ package optix.commands.shows;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
+import optix.exceptions.OptixException;
 import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
@@ -41,8 +42,13 @@ public class AddCommand extends Command {
             showName = detailsArray[0].trim();
             showDates = detailsArray[2].trim().split("\\|");
             seatBasePrice = Double.parseDouble(detailsArray[1]);
-            assert seatBasePrice >= 0 : "Seat Base Price cannot be less than 0";
-        } catch (OptixInvalidCommandException e) {
+            if (seatBasePrice < 0) {
+                throw new OptixException("Seat base price cannot be negative.\n");
+            }
+        } catch (NumberFormatException e) {
+            ui.setMessage("Please set a number for the seat base price.\n");
+            return "show";
+        } catch (OptixException e) {
             ui.setMessage(e.getMessage());
             return "show";
         }

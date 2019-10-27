@@ -40,8 +40,8 @@ public class AddAliasCommand extends Command {
         String command;
         try {
             String[] detailsArray = parseDetails(this.details);
-            newAlias = detailsArray[0];
-            command = detailsArray[1];
+            newAlias = detailsArray[0].trim();
+            command = detailsArray[1].trim();
         } catch (OptixInvalidCommandException e) {
             ui.setMessage(e.getMessage());
             return "";

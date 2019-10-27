@@ -36,10 +36,10 @@ public class ReassignSeatCommand extends Command {
         StringBuilder message = new StringBuilder();
         try {
             String[] detailsArray = parseDetails(this.details);
-            String showName = detailsArray[0];
-            String showDate = detailsArray[1];
-            String oldSeat = detailsArray[2];
-            String newSeat = detailsArray[3];
+            String showName = detailsArray[0].trim();
+            String showDate = detailsArray[1].trim();
+            String oldSeat = detailsArray[2].trim();
+            String newSeat = detailsArray[3].trim();
 
             if (!formatter.isValidDate(showDate)) {
                 throw new OptixInvalidDateException();

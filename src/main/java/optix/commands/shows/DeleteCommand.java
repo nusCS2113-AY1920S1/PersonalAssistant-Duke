@@ -3,6 +3,7 @@ package optix.commands.shows;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
+import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
 
@@ -31,8 +32,17 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
-        String[] detailsArray = parseDetails(details);
+        String[] detailsArray;
+        try {
+            detailsArray = parseDetails(this.details);
+        } catch (OptixInvalidCommandException e) {
+            ui.setMessage(e.getMessage());
+            return "show";
+        }
         String[] showDates = detailsArray[1].split("\\|");
+        for (int i = 0; i < showDates.length; i += 1) {
+            showDates[i] = showDates[i].trim();
+        }
         String showName = detailsArray[0];
 
         StringBuilder message = new StringBuilder(MESSAGE_SUCCESSFUL);
@@ -71,8 +81,20 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String[] parseDetails(String details) {
-        return details.split("\\|",2);
+    public String[] parseDetails(String details) throws OptixInvalidCommandException {
+        String[] detailsArray;
+        try {
+            detailsArray = details.split("\\|",2);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new OptixInvalidCommandException();
+        }
+        if (detailsArray.length != 2) {
+            throw new OptixInvalidCommandException();
+        }
+        for (int i = 0; i < detailsArray.length; i += 1) {
+            detailsArray[i] = detailsArray[i].trim();
+        }
+        return detailsArray;
     }
 
     private boolean hasValidDate(String date) {

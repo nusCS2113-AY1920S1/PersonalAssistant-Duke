@@ -3,10 +3,7 @@ package optix.commands.shows;
 import optix.commons.Model;
 import optix.commons.Storage;
 import optix.ui.Ui;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.File;
 
@@ -15,11 +12,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class AddCommandTest {
-    private Ui ui = new Ui();
+    private Ui ui;
     private static File currentDir = new File(System.getProperty("user.dir"));
     private static File filePath = new File(currentDir.toString() + "\\src\\test\\data\\testOptix");
-    private Storage storage = new Storage(filePath);
-    private Model model = new Model(storage);
+    private Storage storage;
+    private Model model;
+
+    @BeforeEach
+    void init() {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        this.model = new Model(storage);
+    }
 
     @Test
     @DisplayName("Invalid Command test")
@@ -28,6 +32,33 @@ class AddCommandTest {
         c.execute(model, ui, storage);
         String expected = "☹ OOPS!!! That is an invalid command\n"
                 + "Please try again. \n";
+        assertEquals(expected, ui.getMessage());
+    }
+
+    @Test
+    @DisplayName("No Details Test")
+    void testNoDetails() {
+        new AddCommand("").execute(model, ui, storage); // No details
+        String expected = "☹ OOPS!!! That is an invalid command\n"
+                + "Please try again. \n";
+        assertEquals(expected, ui.getMessage());
+    }
+
+    @Test
+    @DisplayName("Negative Base Price Test")
+    void testNegativePrice() {
+        AddCommand c = new AddCommand("Test Show|-5|2/12/2030"); // test has negative seat base price
+        c.execute(model, ui, storage);
+        String expected = "Seat base price cannot be negative.\n";
+        assertEquals(expected, ui.getMessage());
+    }
+
+    @Test
+    @DisplayName("Empty Seat Base Price Test")
+    void EmptyPriceTest() {
+        AddCommand c = new AddCommand("Test Show||2/12/2030"); // no seat base price
+        c.execute(model, ui, storage);
+        String expected = "Please set a number for the seat base price.\n";
         assertEquals(expected, ui.getMessage());
     }
 
@@ -50,8 +81,8 @@ class AddCommandTest {
         AddCommand c = new AddCommand("Test Show|20|5/13/2030|hello"); // test invalid date format
         c.execute(model, ui, storage);
         String expected = "☹ OOPS!!! Unable to add the following shows:\n"
-                          + "1. Test Show (on: 5/13/2030)\n"
-                          + "2. Test Show (on: hello)\n";
+                + "1. Test Show (on: 5/13/2030)\n"
+                + "2. Test Show (on: hello)\n";
         assertEquals(expected, ui.getMessage());
 
         c = new AddCommand("Test Show|20|5/5/2030"); //test date clash
@@ -68,13 +99,13 @@ class AddCommandTest {
         AddCommand c = new AddCommand("TestShow|20|6/5/2030|7/5/2030"); //test successful execution.
         c.execute(model, ui, storage);
         String expected = "Noted. The following shows has been added:\n"
-                          + "1. TestShow (on: 6/5/2030)\n"
-                          + "2. TestShow (on: 7/5/2030)\n";
+                + "1. TestShow (on: 6/5/2030)\n"
+                + "2. TestShow (on: 7/5/2030)\n";
         assertEquals(expected, ui.getMessage());
     }
 
-    @AfterAll
-    static void cleanUp() {
+    @AfterEach
+    void cleanUp() {
         File deletedFile = new File(filePath, "optix.txt");
         deletedFile.delete();
     }

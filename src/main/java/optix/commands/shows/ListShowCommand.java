@@ -14,7 +14,7 @@ public class ListShowCommand extends Command {
     private static final String MESSAGE_SHOW_NOT_FOUND = "☹ OOPS!!! The show cannot be found.\n";
 
     public ListShowCommand(String showName) {
-        this.showName = showName;
+        this.showName = showName.trim();
     }
 
     @Override

@@ -36,10 +36,12 @@ public class SellSeatCommand extends Command {
 
         try {
             String[] detailsArray = parseDetails(this.details);
-            String showName = detailsArray[0];
-            String showDate = detailsArray[1];
-            String[] seats = detailsArray[2].split(" ");
-
+            String showName = detailsArray[0].trim();
+            String showDate = detailsArray[1].trim();
+            String[] seats = detailsArray[2].trim().split(" ");
+            for (int i = 0; i < seats.length; i+= 1) {
+                seats[i] = seats[i].trim();
+            }
             if (!formatter.isValidDate(showDate)) {
                 throw new OptixInvalidDateException();
             }

@@ -6,6 +6,7 @@ import optix.commons.Model;
 import optix.commons.Storage;
 import optix.ui.Ui;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -13,11 +14,18 @@ import java.io.File;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ListDateCommandTest {
-    private Ui ui = new Ui();
+    private Ui ui;
     private static File currentDir = new File(System.getProperty("user.dir"));
     private static File filePath = new File(currentDir.toString() + "\\src\\test\\data\\testOptix");
-    private Storage storage = new Storage(filePath);
-    private Model model = new Model(storage);
+    private Storage storage;
+    private Model model;
+
+    @BeforeEach
+    void init() {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        this.model = new Model(storage);
+    }
 
 
     @Test

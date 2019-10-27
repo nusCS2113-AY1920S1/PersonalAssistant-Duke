@@ -34,8 +34,8 @@ public class ViewSeatsCommand extends Command {
         StringBuilder message = new StringBuilder();
         try {
             String[] arrayDetails = parseDetails(this.details);
-            String showName = arrayDetails[0];
-            String showDate = arrayDetails[1];
+            String showName = arrayDetails[0].trim();
+            String showDate = arrayDetails[1].trim();
 
             if (!formatter.isValidDate(showDate)) {
                 throw new OptixInvalidDateException();
