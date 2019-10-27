@@ -1,6 +1,12 @@
 package seedu.hustler.logic.command.schedulecommands;
 
+<<<<<<< HEAD
+import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
+import seedu.hustler.logic.parser.anomaly.AddEntryAnomaly;
+=======
+import seedu.hustler.logic.command.Command;
+>>>>>>> a60048b1b1ec66262f6aa3c083842ec294f525d5
 import seedu.hustler.schedule.RecommendedSchedule;
 import seedu.hustler.ui.Ui;
 
@@ -13,6 +19,11 @@ public class AddEntry extends Command {
      * User input to parse.
      */
     private String[] userInput;
+
+    /**
+     * Detects anomalies for input.
+     */
+    private AddEntryAnomaly anomaly = new AddEntryAnomaly();
     
     /**
      * Initializes user input with supplied input.
@@ -29,12 +40,14 @@ public class AddEntry extends Command {
     public void execute() {
         Ui ui = new Ui();
         try {
-            int index = Integer.parseInt(this.userInput[1]);
-            index--;
-            RecommendedSchedule.addFromTaskList(index);
-            RecommendedSchedule.displayRecommendedSchedule();
-        } catch (NumberFormatException e) {
-            ui.numberCommandError();
+           anomaly.detect(userInput); 
+        } catch(CommandLineException e) {
+            ui.show_message(e.getMessage());
+            return;
         }
+        int index = Integer.parseInt(this.userInput[1]);
+        index--;
+        RecommendedSchedule.addFromTaskList(index);
+        RecommendedSchedule.displayRecommendedSchedule();
     }
 }
