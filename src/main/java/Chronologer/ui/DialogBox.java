@@ -13,8 +13,6 @@ import javafx.scene.layout.Region;
  */
 public class DialogBox extends UiComponent<Region> {
     private static final String FXML = "DialogBox.fxml";
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image chronologerImage = new Image(this.getClass().getResourceAsStream("/images/DaChronologer.png"));
     @FXML
     private Label dialog;
     @FXML
@@ -28,7 +26,8 @@ public class DialogBox extends UiComponent<Region> {
      */
     private DialogBox(String text, boolean isDuke) {
         super(FXML, null);
-
+        Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUserBlue.png"));
+        Image chronologerImage = new Image(this.getClass().getResourceAsStream("/images/DaChatbotBlue.png"));
         dialog.setText(text);
         if (isDuke) {
             displayPicture.setImage(chronologerImage);

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="1007.0" style="-fx-background-color: #303030;" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="1007.0" style="-fx-background-color: #303030;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane layoutX="14.0" layoutY="92.0" prefHeight="240.0" prefWidth="196.0">
          <content>
@@ -45,17 +45,17 @@
       </ScrollPane>
       <ScrollPane layoutX="437.0" layoutY="399.0" prefHeight="240.0" prefWidth="186.0">
          <content>
-            <ListView fx:id="priorityTask" prefHeight="246.0" prefWidth="170.0" style="-fx-background-color: #696969;" />
+            <ListView fx:id="priorityTask" prefHeight="242.0" prefWidth="300.0" style="-fx-background-color: #696969;" />
          </content>
       </ScrollPane>
       <ScrollPane layoutX="623.0" layoutY="399.0" prefHeight="240.0" prefWidth="186.0">
          <content>
-            <ListView fx:id="tasksWithoutDates" prefHeight="247.0" prefWidth="170.0" style="-fx-background-color: #696969;" />
+            <ListView fx:id="tasksWithoutDates" prefHeight="247.0" prefWidth="300.0" style="-fx-background-color: #696969;" />
          </content>
       </ScrollPane>
       <ScrollPane layoutX="809.0" layoutY="399.0" prefHeight="240.0" prefWidth="186.0">
          <content>
-            <ListView prefHeight="245.0" prefWidth="170.0" style="-fx-background-color: #696969;" />
+            <ListView prefHeight="246.0" prefWidth="300.0" style="-fx-background-color: #696969;" />
          </content>
       </ScrollPane>
       <Label layoutX="314.0" text="Your timeline for this week" textFill="#a8a8a8">

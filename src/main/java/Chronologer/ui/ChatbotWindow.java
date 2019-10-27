@@ -50,7 +50,7 @@ class ChatbotWindow extends UiComponent<Region> {
         this.tasks = tasks;
         this.storage = storage;
         scrollPane.vvalueProperty().bind(dialogBoxContainer.heightProperty());
-        userInputTextField.textProperty();
+
         printWelcome();
     }
 
@@ -64,7 +64,7 @@ class ChatbotWindow extends UiComponent<Region> {
         } catch (ChronologerException e) {
             System.out.println(e.getMessage());
         }
-        DialogBox toChangeDimension = DialogBox.getUserDialog(input);
+        DialogBox toChangeDimension = DialogBox.getUserDialog(" " + input);
         dialogBoxContainer.getChildren().addAll(toChangeDimension.getRoot(), DialogBox.getChronologerDialog(UiTemporary.userOutputForUI).getRoot());
     }
 

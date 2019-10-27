@@ -29,7 +29,7 @@ public class Deadline extends Task implements Serializable {
     @Override
     public String toString() {
         String message = super.getPriorityIcon() + "[D]" + "[" + super.getStatusIcon() + "] " + this.description;
-        String dateString = "(by: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+        String dateString = " (by: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
         if (!comment.isBlank()) {
             dateString = dateString + "  Note to self: " + comment;
         }
