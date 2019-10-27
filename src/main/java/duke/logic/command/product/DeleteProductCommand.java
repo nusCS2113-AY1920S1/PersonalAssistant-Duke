@@ -3,9 +3,11 @@ package duke.logic.command.product;
 import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.message.ProductMessageUtils;
 import duke.model.Model;
 import duke.model.product.Product;
 
+import java.lang.ref.PhantomReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -41,7 +43,7 @@ public class DeleteProductCommand extends ProductCommand {
         for (Product product : toDelete) {
             model.deleteProduct(product);
         }
-
+        model.commit(ProductMessageUtils.MESSAGE_COMMIT_DELETE_PRODUCT);
         return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS, indices.size()),
                 CommandResult.DisplayedPage.PRODUCT);
 
