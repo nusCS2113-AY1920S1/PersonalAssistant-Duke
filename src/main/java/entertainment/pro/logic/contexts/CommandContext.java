@@ -65,7 +65,7 @@ public class CommandContext {
      * Given the a certain Root command, the possible subRoot commands are returned.
      * @param root: index of the movie to mark as done
      */
-    public static ArrayList<String> getPossibilitiesSubRootForRoot(String root) {
+    public static ArrayList<String> getPossibilitiesSubRootGivenRoot(String root) {
         ArrayList<String> hints = new ArrayList<>();
 
         for (Map.Entry<COMMANDKEYS, COMMANDKEYS[]> e: CommandStructure.cmdStructure.entrySet()) {

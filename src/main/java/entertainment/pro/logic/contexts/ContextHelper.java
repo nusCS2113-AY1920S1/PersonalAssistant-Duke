@@ -12,11 +12,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
+
+
 /**
  * Contains helper functions for autocompletion.
  *
  */
 public class ContextHelper {
+
+    private static final int NO_WORDS = 0;
+    private static final int ONE_WORD = 1;
+    private static final int TWO_WORDS = 2;
+    private static final int MORE_THAN_TWO_WORDS = 3;
+
 
 
     /**
@@ -198,11 +206,20 @@ public class ContextHelper {
                     hints.addAll(SearchResultContext.getPossibilities(incompleteCommand));
                 }
                 return hints;
+            case ("watchlist"):
+                //TODO ADD WATCHLIST HINTS
+//                ArrayList<String> hints = Blacklist.getBlackListHints(incompleteCommand);
+//                if (!subRoot.equals("remove")) {
+//                    hints.addAll(SearchResultContext.getPossibilities(incompleteCommand));
+//                }
+//                return hints;
+
             default:
                 return SearchResultContext.getPossibilities(incompleteCommand);
         }
 
     }
+
 
     /**
      * Gets all hints pertaining to the current user input.
@@ -214,25 +231,25 @@ public class ContextHelper {
         String [] splitCommand = command.toLowerCase().split(" ");
         String incompleteCommand = getLastIncompleteWords(command.toLowerCase() , controller);
 
-        if (splitCommand.length == 0) {
+        if (splitCommand.length == NO_WORDS) {
             return CommandContext.getRoot();
-        } else if (splitCommand.length == 1 && isRootCommandComplete(splitCommand[0])) {
-            ArrayList<String> allPossibilities =  CommandContext.getPossibilitiesSubRootForRoot(splitCommand[0]);
+        } else if (splitCommand.length == ONE_WORD && isRootCommandComplete(splitCommand[0])) {
+            ArrayList<String> allPossibilities =  CommandContext.getPossibilitiesSubRootGivenRoot(splitCommand[0]);
             String update = completeCommand(allPossibilities , "");
             ((MovieHandler) controller).updateTextField(update);
             return allPossibilities;
-        } else if (splitCommand.length == 1) {
+        } else if (splitCommand.length == ONE_WORD) {
             ArrayList<String> allPossibilities =  CommandContext.getPossibilitiesForRoot(incompleteCommand);
             String update = completeCommand(allPossibilities , incompleteCommand);
             ((MovieHandler) controller).updateTextField(update);
             return allPossibilities;
-        } else if (splitCommand.length == 2 && isSubRootCommandComplete(splitCommand[1])) {
+        } else if (splitCommand.length == TWO_WORDS && isSubRootCommandComplete(splitCommand[1])) {
             ArrayList<String> allPossibilities  = commandSpecificHints(
                       splitCommand[0]
                     , splitCommand[1]
                     , "");
             return allPossibilities;
-        } else if (splitCommand.length == 2) {
+        } else if (splitCommand.length == TWO_WORDS) {
             ArrayList<String> allPossibilities = CommandContext
                     .getPossibilitiesSubRoot(splitCommand[0] , incompleteCommand);
             String update = completeCommand(allPossibilities , incompleteCommand);
@@ -250,13 +267,6 @@ public class ContextHelper {
         }
 
     }
-
-
-
-
-
-
-
 
 }
 
