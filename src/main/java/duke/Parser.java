@@ -10,6 +10,8 @@ import duke.commands.CopyCommand;
 import duke.commands.DeleteBarCommand;
 import duke.commands.DeleteCommand;
 import duke.commands.DoneCommand;
+import duke.commands.OverlayBarGroup;
+import duke.commands.OverlayBarSong;
 import duke.commands.EditCommand;
 import duke.commands.FindCommand;
 import duke.commands.GroupCommand;
@@ -20,6 +22,8 @@ import duke.commands.RedoCommand;
 import duke.commands.UndoCommand;
 import duke.commands.ViewCommand;
 import duke.commands.AsciiCommand;
+import duke.commands.OverlayGroupGroup;
+
 
 
 /**
@@ -99,6 +103,21 @@ public class Parser {
         case "group":
             if (message.length() >= 7) {
                 return new GroupCommand(message);
+            }
+            break;
+        case "overlay_bar_group":
+            if (message.length() >= 8) {
+                return new OverlayBarGroup(message);
+            }
+            break;
+        case "overlay_group_group":
+            if (message.length() >= 8) {
+                return new OverlayGroupGroup(message);
+            }
+            break;
+        case "overlay_bar_song":
+            if (message.length() >= 8) {
+                return new OverlayBarSong(message);
             }
             break;
         case "copy":

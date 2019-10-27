@@ -18,8 +18,10 @@ import duke.commands.RemindCommand;
 import duke.commands.UndoCommand;
 import duke.commands.ViewCommand;
 import duke.components.SongList;
+import duke.commands.OverlayBarGroup;
+import duke.commands.OverlayBarSong;
 import duke.components.UndoRedoStack;
-
+import duke.commands.OverlayGroupGroup;
 import java.nio.file.Paths;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -43,6 +45,8 @@ public class Duke {
         ui = new Ui();
         tasks = new TaskList();
         songs = new SongList();
+
+        //storage = new Storage(Paths.get("/home/rishi/Desktop/cs2113t/team/main/data/todo_list.txt"));
         storage = new Storage(Paths.get("data", "todo_list.txt"));
         try {
             storage.loadToList(songs);
@@ -94,7 +98,10 @@ public class Duke {
                         || c instanceof CopyCommand
                         || c instanceof AddOverlayCommand
                         || c instanceof ListCommand
-                        || c instanceof AsciiCommand) {
+                        || c instanceof OverlayBarGroup
+                        || c instanceof OverlayBarSong
+                        || c instanceof AsciiCommand
+                        || c instanceof OverlayGroupGroup) {
                     output = c.execute(songs, ui, storage);
                     if (!(c instanceof HelpCommand
                         || c instanceof ViewCommand
