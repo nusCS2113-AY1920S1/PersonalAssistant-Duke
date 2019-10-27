@@ -96,7 +96,7 @@ public class BankList {
      *
      * @return size of bankList.
      */
-    private int getBankListSize() {
+    public int getBankListSize() {
         return bankLists.size();
     }
 
@@ -874,7 +874,8 @@ public class BankList {
                 return bankLists.get(i).getType();
             }
         }
-        throw new BankException("Unable to transfer fund as bank Account does not exist: " + accName);
+        throw new BankException("Unable to transfer fund as bank the sender bank account does not exist: "
+                + accName);
     }
 
     /**
@@ -889,7 +890,8 @@ public class BankList {
                 return bankLists.get(i).getType();
             }
         }
-        throw new BankException("Unable to transfer fund as bank account does not exist: " + accName);
+        throw new BankException("Unable to transfer fund as the receiving bank account does not exist: "
+                + accName);
     }
 
     /**
