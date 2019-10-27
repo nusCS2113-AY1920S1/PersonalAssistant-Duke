@@ -50,13 +50,13 @@ public class GsonStorageTest {
      */
     private String expected = "["
             + "{\"bedNo\":\"A300\",\"allergies\":\"cats\",\"impressions\":{},"
-            //+ "\"height\":0,\"weight\":0,\"age\":0,\"number\":0,"
+            + "\"height\":0,\"weight\":0,\"age\":0,\"number\":0,"
             + "\"name\":\"dummy3\"},"
             + "{\"bedNo\":\"A100\",\"allergies\":\"nuts\",\"impressions\":{},"
-            //+ "\"height\":0,\"weight\":0,\"age\":0,\"number\":0,"
+            + "\"height\":0,\"weight\":0,\"age\":0,\"number\":0,"
             + "\"name\":\"dummy1\"},"
             + "{\"bedNo\":\"A200\",\"impressions\":{},"
-            //+ "\"height\":0,\"weight\":0,\"age\":0,\"number\":0,"
+            + "\"height\":0,\"weight\":0,\"age\":0,\"number\":0,"
             + "\"name\":\"dummy2\"}]";
 
     /**

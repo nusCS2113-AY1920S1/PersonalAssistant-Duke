@@ -79,7 +79,6 @@ class PatientWindow extends UiElement<Region> {
     }
 
     private void updateUi() {
-        // TODO: Set default values if NULL.
         name.setText(String.valueOf(patient.getName()));
         bed.setText(String.valueOf(patient.getBedNo()));
         int ageNum = patient.getAge();
