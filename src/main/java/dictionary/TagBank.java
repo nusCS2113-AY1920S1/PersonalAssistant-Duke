@@ -33,7 +33,7 @@ public class TagBank {
      */
     public void deleteWordAllTags(Word word) {
         for (String tag : word.getTags()) {
-            tagBank.get(tag).remove(word.getWord());
+            tagBank.get(tag).remove(word.getWordString());
         }
     }
 
@@ -55,9 +55,9 @@ public class TagBank {
     public void addWordAllTags(Word word) {
         for (String tag : word.getTags()) {
             if (tagBank.containsKey(tag)) {
-                tagBank.get(tag).add(word.getWord());
+                tagBank.get(tag).add(word.getWordString());
             } else {
-                tagBank.put(tag, new HashSet<>(Collections.singletonList(word.getWord())));
+                tagBank.put(tag, new HashSet<>(Collections.singletonList(word.getWordString())));
             }
         }
     }

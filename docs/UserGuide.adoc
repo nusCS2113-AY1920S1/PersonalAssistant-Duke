@@ -29,7 +29,7 @@ WordUp (WU) is a desktop-based application for english language learners who pre
 .  Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter opens up the window showing a list of commands available. +
 .  Some example commands you can try:
 
-* *`list`* : shows the list of words currently stored in the Word Bank in alphabetical order or otherwise customised in the app settings
+* *`list`* : shows the list of words currently stored in the Word Bank in alphabetical displayOrder or otherwise customised in the app settings
 * **`add`**`w/life m/the existence of an individual human being or animal` : adds a word tagged by “w/” with its corresponding meaning tagged “m/” into the Word Bank
 * **`delete`**`freedom` : deletes the Word Bank entry of the word “freedom”
 * *`exit`* : exits the application
@@ -66,14 +66,14 @@ Examples:
 Shows a list of words categorised as specified. +
 Format: `list [t/EXISTING_TAG] [o/ORDER]`
 
-Example: `list t/emotions o/asc` shows the list of words tagged “emotions” in alphabetical order +
+Example: `list t/emotions o/asc` shows the list of words tagged “emotions” in alphabetical displayOrder +
 
 [TIP]
-Not supplying any tags will show a list containing all words listed in alphabetical order. ++
+Not supplying any tags will show a list containing all words listed in alphabetical displayOrder. ++
 
 List of possible o/ORDER values: +
- `asc` - order the list in ascending alphabetical order +
- `desc` - order the list in descending alphabetical order
+ `asc` - displayOrder the list in ascending alphabetical displayOrder +
+ `desc` - displayOrder the list in descending alphabetical displayOrder
 
 === Editing a person : `edit`
 
@@ -102,7 +102,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The displayOrder of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`

@@ -22,7 +22,7 @@ public class SearchCommand extends Command {
     @Override
     public String execute(Ui ui, Bank bank, Storage storage) {
         try {
-            String meaning = bank.searchForMeaning(this.searchTerm);
+            String meaning = bank.searchWordBankForMeaning(this.searchTerm);
             bank.increaseSearchCount(searchTerm);
             return ui.showSearch(this.searchTerm, meaning);
         } catch (NoWordFoundException e) {

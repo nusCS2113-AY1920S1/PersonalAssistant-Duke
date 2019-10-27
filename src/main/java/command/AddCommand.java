@@ -2,7 +2,7 @@ package command;
 
 import dictionary.Word;
 import dictionary.Bank;
-import exception.WordAlreadyExistException;
+import exception.WordAlreadyExistsException;
 import storage.Storage;
 import ui.Ui;
 
@@ -18,10 +18,10 @@ public class AddCommand extends Command {
     @Override
     public String execute(Ui ui, Bank bank, Storage storage) {
         try {
-            bank.addWord(word);
+            bank.addWordToBank(word);
             storage.writeFile(word.toString(), true);
             return ui.showAdded(word);
-        } catch (WordAlreadyExistException e) {
+        } catch (WordAlreadyExistsException e) {
             return e.showError();
         }
     }

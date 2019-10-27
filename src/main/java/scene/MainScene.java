@@ -3,6 +3,7 @@ package scene;
 import dictionary.Bank;
 import command.Command;
 import command.QuizCommand;
+import dictionary.WordCount;
 import exception.ChangeSceneException;
 import exception.WordUpException;
 import javafx.scene.Scene;

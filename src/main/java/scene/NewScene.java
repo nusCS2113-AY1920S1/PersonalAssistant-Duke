@@ -2,6 +2,7 @@ package scene;
 
 import dictionary.Bank;
 import command.Command;
+import dictionary.WordCount;
 import exception.WordUpException;
 import javafx.stage.Stage;
 import parser.Parser;
@@ -30,6 +31,7 @@ public abstract class NewScene {
     protected Ui ui;
     protected Bank bank;
     protected Storage storage;
+    protected WordCount wordCount;
     protected String greet;
     protected Stage window;
 
@@ -47,6 +49,7 @@ public abstract class NewScene {
         this.ui = ui;
         this.bank = bank;
         this.storage = storage;
+        this.wordCount = wordCount;
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
