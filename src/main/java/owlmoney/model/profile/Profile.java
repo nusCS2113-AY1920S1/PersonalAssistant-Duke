@@ -702,12 +702,12 @@ public class Profile {
      * @return the imported data from the file formatted in List of String arrays.
      * @throws Exception if there are errors importing the data from the file.
      */
-    private List<String[]> importListDataFromStorage(String fileName,Ui ui) throws Exception {
+    private List<String[]> importListDataFromStorage(String fileName,Ui ui) {
         List<String[]> importData = null;
         try {
             importData = storage.readFile(fileName);
         } catch (IOException | NullPointerException e) {
-            throw new Exception(e);
+            ui.printError("Error importing files from storage to process.");
         }
         return importData;
     }
@@ -751,7 +751,7 @@ public class Profile {
             if (bankType.equals(INVESTMENT)) {
                 String transactionFileName = i + INVESTMENT_TRANSACTION_LIST_FILE_NAME;
                 String bondsFileName = i + INVESTMENT_BOND_LIST_FILE_NAME;
-                loadBondsForInvestmentBanks(bondsFileName,bankName, bankType);
+                loadBondsForInvestmentBanks(bondsFileName,bankName);
                 loadTransactionsForBanks(transactionFileName,bankName, bankType);
             } else if (bankType.equals(SAVING)) {
                 String fileName = i + SAVING_TRANSACTION_LIST_FILE_NAME;
@@ -840,10 +840,9 @@ public class Profile {
      *
      * @param fileName the name of the file to obtain transactions from.
      * @param bankName the name of the bank account.
-     * @param bankType the type of bank account.
      * @throws Exception if there are errors importing data.
      */
-    private void loadBondsForInvestmentBanks(String fileName, String bankName, String bankType)
+    private void loadBondsForInvestmentBanks(String fileName, String bankName)
             throws Exception {
         List<String[]> importData = importListDataFromStorage(fileName,ui);
         for (String[] importDataRow : importData) {

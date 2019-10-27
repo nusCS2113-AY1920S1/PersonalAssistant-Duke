@@ -18,6 +18,7 @@ public class GoalsList {
     private static final boolean ISMULTIPLE = true;
     private static final boolean ISSINGLE = false;
     private static final int ISZERO = 0;
+    private Storage storage;
 
 
     /**
@@ -26,6 +27,7 @@ public class GoalsList {
      */
     public GoalsList(Storage storage) {
         goalList = new ArrayList<Goals>();
+        this.storage = storage;
     }
 
     /**
