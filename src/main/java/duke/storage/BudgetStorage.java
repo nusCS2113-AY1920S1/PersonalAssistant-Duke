@@ -1,6 +1,7 @@
 package duke.storage;
 
 import duke.exception.DukeException;
+import duke.logic.Parser.Parser;
 import duke.model.Budget;
 
 import java.io.File;
@@ -53,7 +54,6 @@ public class BudgetStorage {
         }
     }
 
-
     /**
      * loads from the save file.
      *
@@ -74,12 +74,12 @@ public class BudgetStorage {
                 String[] separatedLine = line.split(" ");
                 int lineLength = separatedLine.length;
                 StringBuilder categoryBuilder = new StringBuilder();
-                for (int i = 0; i < lineLength - 3; ++i){
-                    categoryBuilder.append(separatedLine[i]).append(" ");
+                for (int wordNumber = 0; wordNumber < lineLength - 2; ++wordNumber){
+                    categoryBuilder.append(separatedLine[wordNumber]).append(" ");
                 }
                 categoryBuilder.append(separatedLine[lineLength - 2]);
                 String budgetString = separatedLine[lineLength - 1];
-                BigDecimal budget = new BigDecimal(budgetString);
+                BigDecimal budget = Parser.parseMoney(budgetString);
                 budget.setScale(2, RoundingMode.HALF_UP);
                 budgetCategory.put(categoryBuilder.toString(), budget);
             }
