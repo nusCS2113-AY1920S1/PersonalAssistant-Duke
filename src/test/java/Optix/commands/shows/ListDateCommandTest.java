@@ -7,6 +7,7 @@ import optix.commons.Storage;
 import optix.ui.Ui;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -27,17 +28,21 @@ class ListDateCommandTest {
         this.model = new Model(storage);
     }
 
-
     @Test
-    void execute() {
+    @DisplayName("Test for no results")
+    void testNoResults() {
         // try looking for a show that does not exist
         ListDateCommand testCommand1 = new ListDateCommand("december 2020");
         testCommand1.execute(model, ui, storage);
         String expected1 = "__________________________________________________________________________________\n"
-                + "☹ OOPS!!! There are no shows on december 2020.\n"
+                + "☹ OOPS!!! There are no shows on December 2020.\n"
                 + "__________________________________________________________________________________\n";
         assertEquals(expected1, ui.showCommandLine());
+    }
 
+    @Test
+    @DisplayName("Positive Test")
+    void positiveTest() {
         // insert dummy show
         AddCommand insertDummyShow1 = new AddCommand("Dummy Show|20|5/5/2020");
         insertDummyShow1.execute(model, ui, storage);
@@ -52,7 +57,16 @@ class ListDateCommandTest {
                 + "2. Dummy Show (on: 06/05/2020)\n"
                 + "__________________________________________________________________________________\n";
         assertEquals(expected2, ui.showCommandLine());
-        filePath.deleteOnExit();
+    }
+
+    @Test
+    @DisplayName("Incomplete Details")
+    void testIncompleteDetails() {
+        new AddCommand("Test Show|5|5/5/2030").execute(model, ui, storage);
+        new ListDateCommand("May").execute(model, ui, storage);
+        String expected = "☹ OOPS!!! That is an invalid command\n"
+                + "Please try again. \n";
+        assertEquals(expected, ui.getMessage());
     }
 
     @AfterAll

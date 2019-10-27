@@ -7,6 +7,7 @@ import optix.commons.Storage;
 import optix.ui.Ui;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -28,7 +29,8 @@ class ListCommandTest {
     }
 
     @Test
-    void execute() {
+    @DisplayName("Empty list")
+    void testEmptyList() {
         // testing for an empty show list
         ListCommand testCommand1 = new ListCommand();
         testCommand1.execute(model, ui, storage);
@@ -36,7 +38,11 @@ class ListCommandTest {
                 + "☹ OOPS!!! There are no shows in the near future.\n"
                 + "__________________________________________________________________________________\n";
         assertEquals(expected1, ui.showCommandLine());
+    }
 
+    @Test
+    @DisplayName("Positive test")
+    void positiveTest() {
         // testing for a filled show list
         AddCommand addShow1 = new AddCommand("dummy test 1|20|5/5/2020");
         addShow1.execute(model, ui, storage);
@@ -50,7 +56,6 @@ class ListCommandTest {
                 + "2. dummy test 2 (on: 06/05/2020)\n"
                 + "__________________________________________________________________________________\n";
         assertEquals(expected2, ui.showCommandLine());
-        filePath.deleteOnExit();
     }
 
     @AfterAll
