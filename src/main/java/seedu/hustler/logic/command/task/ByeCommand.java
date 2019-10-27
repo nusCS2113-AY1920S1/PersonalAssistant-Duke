@@ -1,4 +1,4 @@
-package seedu.hustler.command.task;
+package seedu.hustler.logic.command.task;
 
 import javafx.application.Platform;
 import seedu.hustler.command.Command;

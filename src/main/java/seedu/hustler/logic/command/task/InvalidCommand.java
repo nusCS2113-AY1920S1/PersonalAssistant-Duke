@@ -1,4 +1,4 @@
-package seedu.hustler.command.task;
+package seedu.hustler.logic.command.task;
 
 import seedu.hustler.command.Command;
 import seedu.hustler.ui.Ui;

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import seedu.hustler.Hustler;
 import seedu.hustler.command.Command;
-import seedu.hustler.parser.CommandParser;
+import seedu.hustler.logic.parser.CommandParser;
 import seedu.hustler.logic.CommandLineException;
 
 public class CommandLog {
