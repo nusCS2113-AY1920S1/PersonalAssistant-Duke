@@ -4,7 +4,6 @@ import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.ContactList;
 import duke.task.FixedDuration;
-import duke.task.DoAfter;
 import duke.task.Repeat;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -470,9 +469,6 @@ public class Ui {
             } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
                 out.println("     " + (i + ONE) + "." + items.get(i).toString());
                 numFound++;
-            } else if (taskType.equals("doafter") && items.get(i) instanceof DoAfter) {
-                out.println("     " + (i + ONE) + "." + items.get(i).toString());
-                numFound++;
             } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
                 out.println("     " + (i + ONE) + "." + items.get(i).toString());
                 numFound++;
@@ -504,9 +500,6 @@ public class Ui {
                 str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
             } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
-                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
-                numFound++;
-            } else if (taskType.equals("doafter") && items.get(i) instanceof DoAfter) {
                 str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
             } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
