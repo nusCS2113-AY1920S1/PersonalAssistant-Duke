@@ -13,9 +13,9 @@ import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
 import duke.model.transports.BusService;
 import duke.model.locations.BusStop;
-import duke.model.locations.Venue;
 import duke.model.transports.Route;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -41,11 +41,6 @@ public interface Model {
      * Returns the list of all bus stops.
      */
     List<BusStop> getAllBusStops();
-
-    /**
-     * Queries and returns a bus stop.
-     */
-    BusStop getBusStop(String query) throws QueryFailedException;
 
     /**
      * Returns the list of all bus routes.

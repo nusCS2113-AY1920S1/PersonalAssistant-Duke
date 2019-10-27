@@ -1,13 +1,14 @@
 package duke.logic.commands;
 
+import duke.commons.exceptions.CorruptedFileException;
+import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.logic.commands.results.CommandResultText;
-import duke.commons.exceptions.DukeException;
-import duke.commons.Messages;
+import duke.model.Event;
 import duke.model.Model;
-import duke.model.Task;
 
 /**
- * Marks a task as done.
+ * Marks an Event as done.
  */
 public class MarkDoneCommand extends Command {
     private int index;
@@ -16,26 +17,27 @@ public class MarkDoneCommand extends Command {
     /**
      * Creates a new MarkDoneCommand with the given index.
      *
-     * @param index The index of the task.
+     * @param index The index of the event.
      */
     public MarkDoneCommand(int index) {
         this.index = index;
     }
 
     /**
-     * Executes this command on the given task list and user interface.
+     * Executes this command and returns a text result.
      *
-     * @param model The model object containing information about the user.
+     * @param model The model object containing event list.
      */
     @Override
-    public CommandResultText execute(Model model) throws DukeException {
+    public CommandResultText execute(Model model) throws QueryOutOfBoundsException, FileNotSavedException,
+            CorruptedFileException {
         try {
-            Task task = model.getEvents().get(index);
-            task.setDone(true);
+            Event event = model.getEvents().get(index);
+            event.setDone(true);
             model.save();
-            return new CommandResultText(MESSAGE_MARK_DONE + task);
+            return new CommandResultText(MESSAGE_MARK_DONE + event);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Messages.ERROR_INDEX_OUT_OF_BOUNDS);
+            throw new QueryOutOfBoundsException("Event");
         }
     }
 }

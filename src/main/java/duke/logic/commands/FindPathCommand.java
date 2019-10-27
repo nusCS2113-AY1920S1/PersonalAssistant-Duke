@@ -4,7 +4,6 @@ import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.logic.commands.results.CommandResultMap;
 import duke.commons.enumerations.Constraint;
 import duke.logic.PathFinder;
-import duke.commons.exceptions.DukeException;
 import duke.model.Model;
 import duke.model.Event;
 import duke.model.locations.Venue;
@@ -51,12 +50,12 @@ public class FindPathCommand extends Command {
     }
 
     /**
-     * Executes this command on the given task list and user interface.
+     * Executes this command and returns a map result.
      *
-     * @param model The model object containing information about the user.
+     * @param model The model object containing event list.
      */
     @Override
-    public CommandResultMap execute(Model model) throws DukeException {
+    public CommandResultMap execute(Model model) throws QueryOutOfBoundsException {
         try {
             Event startPoint = model.getEvents().get(startPointIndex);
             Venue startLocation = startPoint.getLocation();

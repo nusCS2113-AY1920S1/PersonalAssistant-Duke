@@ -1,8 +1,10 @@
 package duke.logic.commands.results;
 
+import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.model.Event;
 import duke.model.lists.VenueList;
 import duke.model.locations.Venue;
+
 import javafx.scene.paint.Paint;
 
 /**
@@ -48,9 +50,7 @@ public class PanelResult {
      * Tries to get the description of the event.
      */
     public String getDescription() {
-        if (event == null) {
-            return null;
-        }
+        assert (event != null) : "This method should only be called if its isReady.";
         return event.getLocation().getAddress();
     }
 
@@ -92,9 +92,9 @@ public class PanelResult {
     /**
      * Gets the index of the field that is currently selected.
      */
-    public int getField() {
+    public int getField() throws QueryOutOfBoundsException {
         if (!isLock) {
-            return -1;
+            throw new QueryOutOfBoundsException("EVENT FIELD");
         }
         return field;
     }

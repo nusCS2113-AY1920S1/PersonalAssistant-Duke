@@ -3,7 +3,9 @@ package duke.logic.selectors;
 import duke.commons.exceptions.EmptyVenueException;
 import duke.model.lists.VenueList;
 import duke.model.locations.Venue;
+
 import javafx.scene.input.KeyCode;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -52,7 +54,18 @@ class LocationSelectorTest {
     }
 
     @Test
-    void unlock() {
+    void unlock() throws EmptyVenueException {
+        VenueList venues = new VenueList();
+        venues.add(v1);
+        venues.add(v2);
+        LocationSelector selector = new LocationSelector(venues);
+        assertFalse(selector.isLock());
+        selector.unlock();
+        assertFalse(selector.isLock());
+        selector.feedKeyCode(KeyCode.ENTER);
+        assertTrue(selector.isLock());
+        selector.unlock();
+        assertFalse(selector.isLock());
     }
 
     @Test
