@@ -34,7 +34,6 @@ class TransferFundTest {
         System.setOut(new PrintStream(outContent));
         BankList bankList = new BankList(storage);
         Ui uiTest = new Ui();
-        String nameDoNotExist = "No Such Name";
         Bank newSavingAccount = new Saving("Test Saving Account", 1000, 2000);
         Bank newInvestmentAccount = new Investment("Test Investment Account", 1000);
         try {
@@ -48,11 +47,10 @@ class TransferFundTest {
         outContent.reset();
 
         BankException thrown = assertThrows(BankException.class, () ->
-                        bankList.bankListIsAccountExistToTransfer(nameDoNotExist, 10),
+                        bankList.bankListIsAccountExistToTransfer("No Such Name", 10),
                 "Expected bankListIsAccountExistToTransfer to throw, but it didn't");
         assertEquals("Unable to transfer fund as bank the sender bank account does not exist: "
-                        + nameDoNotExist,
-                thrown.getMessage());
+                        + "No Such Name", thrown.getMessage());
 
     }
 

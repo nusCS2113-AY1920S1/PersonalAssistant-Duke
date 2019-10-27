@@ -137,10 +137,10 @@ class FindTest {
             outContent.reset();
             transactionListTemp.findMatchingTransaction("10/7/2019",
                     "19/9/2019", "", "", uiTest);
-           String expectedOutput = "Find by: date range" + NEWLINE
+            String expectedOutput = "Find by: date range" + NEWLINE
                    + "Transaction No.      Description                                             "
                    + "Amount          Date                 Category             " + NEWLINE
-                   +"-----------------------------------------------------------------------------"
+                   + "-----------------------------------------------------------------------------"
                    + "----------------------------------------------------" + NEWLINE
                    + "2                    Bubble Tea                                              "
                    + "[-] $10.00      10 July 2019         Food                 " + NEWLINE

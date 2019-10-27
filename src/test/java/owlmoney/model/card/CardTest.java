@@ -23,6 +23,7 @@ class CardTest {
     private static final DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
     private static final String FILE_PATH = "data/";
     private static final Storage storage = new Storage(FILE_PATH);
+
     @Test
     void cardListAddCard_addOneCard_printCardDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -88,8 +89,8 @@ class CardTest {
         assertEquals(1, cardListTemp.getCardListSize());
 
         String expectedOutput = "New details of the cards: " + NEWLINE
-                + "Item No.             Card Name                      Monthly Limit   Remaining Limit " +
-                "     Rebate          " + NEWLINE
+                + "Item No.             Card Name                      Monthly Limit   Remaining Limit "
+                + "     Rebate          " + NEWLINE
                 + "----------------------------------------------------------------------------"
                 + "-----------------------------------------------------" + NEWLINE
                 + "1                    New Card Name                  $1200.00        "
