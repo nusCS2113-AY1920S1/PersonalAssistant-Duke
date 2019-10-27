@@ -18,6 +18,7 @@ import duke.model.transports.BusService;
 import duke.storage.Storage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ModelStub implements Model {
@@ -61,7 +62,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public List<BusStop> getBusStops() {
+    public HashMap<String, BusStop> getBusStops() {
         return null;
     }
 

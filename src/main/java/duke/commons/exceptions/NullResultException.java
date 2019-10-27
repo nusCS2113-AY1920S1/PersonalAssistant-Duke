@@ -3,7 +3,7 @@ package duke.commons.exceptions;
 import duke.commons.Messages;
 
 /**
- * Exception thrown when nothing is found.
+ * Displays an error when nothing is found.
  */
 public class NullResultException extends DukeException {
 

@@ -1,13 +1,14 @@
 package duke.logic.commands;
 
+import duke.commons.exceptions.CorruptedFileException;
+import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.logic.commands.results.CommandResultText;
-import duke.commons.exceptions.DukeException;
-import duke.commons.Messages;
 import duke.model.Event;
 import duke.model.Model;
 
 /**
- * Deletes a task.
+ * Deletes an Event.
  */
 public class DeleteCommand extends Command {
     private int index;
@@ -23,18 +24,19 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Executes this command on the given task list and user interface.
+     * Executes this command and returns a text result.
      *
-     * @param model The model object containing information about the user.
+     * @param model The model object containing event list.
      */
     @Override
-    public CommandResultText execute(Model model) throws DukeException {
+    public CommandResultText execute(Model model) throws QueryOutOfBoundsException, FileNotSavedException,
+            CorruptedFileException {
         try {
             Event event = model.getEvents().remove(index);
             model.save();
             return new CommandResultText(MESSAGE_DELETE + event);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Messages.ERROR_INDEX_OUT_OF_BOUNDS);
+            throw new QueryOutOfBoundsException("EventList");
         }
     }
 }

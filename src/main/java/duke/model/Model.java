@@ -11,8 +11,8 @@ import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
 import duke.model.transports.BusService;
 import duke.model.locations.BusStop;
-import duke.model.locations.Venue;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -37,7 +37,7 @@ public interface Model {
     /**
      * Returns the list of all bus stops.
      */
-    List<BusStop> getBusStops();
+    HashMap<String, BusStop> getBusStops();
 
     /**
      * Returns the list of all bus routes.

@@ -1,17 +1,16 @@
 package duke.logic.commands;
 
-
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 
 /**
- * Lists items in a task list.
+ * Lists items in the Event list.
  */
 public class ListCommand extends Command {
     /**
-     * Executes this command on the given task list and user interface.
+     * Executes this command and returns a text result.
      *
-     * @param model The model object containing information about the user.
+     * @param model The model object containing event list.
      */
     @Override
     public CommandResultText execute(Model model) {
