@@ -1,8 +1,15 @@
 package seedu.hustler.logic.command.schedulecommands;
 
+<<<<<<< HEAD
+import seedu.hustler.logic.CommandLineException;
+import seedu.hustler.logic.command.Command;
+import seedu.hustler.logic.parser.anomaly.RemoveEntryAnomaly;
+=======
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.ui.Ui;
+>>>>>>> a60048b1b1ec66262f6aa3c083842ec294f525d5
 import seedu.hustler.schedule.RecommendedSchedule;
+import seedu.hustler.ui.Ui;
 
 /**
  * Removes an entry from the recommended schedule.
@@ -12,6 +19,11 @@ public class RemoveEntry extends Command {
      * User input to parse.
      */
     private String[] userInput;
+
+    /**
+     * Detects anomalies in input.
+     */
+    private RemoveEntryAnomaly anomaly = new RemoveEntryAnomaly();
     
     /**
      * Initializes userInput with supplied value.
@@ -28,14 +40,16 @@ public class RemoveEntry extends Command {
     public void execute() {
         Ui ui = new Ui();
         try {
-            int index = Integer.parseInt(this.userInput[1]);
-            index--;
-            
-            RecommendedSchedule.recommended.remove(index);
-            RecommendedSchedule.reTime();
-            RecommendedSchedule.displayRecommendedSchedule();
-        } catch (NumberFormatException e) {
-            ui.numberCommandError();
+            anomaly.detect(this.userInput);
+        } catch(CommandLineException e){
+            ui.show_message(e.getMessage());
+            return;
         }
+        int index = Integer.parseInt(this.userInput[1]);
+        index--;
+
+        RecommendedSchedule.recommended.remove(index);
+        RecommendedSchedule.reTime();
+        RecommendedSchedule.displayRecommendedSchedule();
     }
 }
