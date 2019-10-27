@@ -12,7 +12,6 @@ import duke.data.Treatment;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

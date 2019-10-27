@@ -1,7 +1,5 @@
 package duke.data;
 
-import duke.exception.DukeException;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -96,5 +94,6 @@ public class Medicine extends Treatment {
 
     @Override
     public void setSummary(String summary) {
+        // medicine does not have a summary
     }
 }

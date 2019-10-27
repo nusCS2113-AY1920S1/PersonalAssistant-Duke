@@ -35,7 +35,7 @@ public abstract class Treatment extends DukeData {
     @Override
     public String toString() {
         String informationString;
-        informationString = "Status: " + Integer.toString(this.statusIdx) + "\n";
+        informationString = "Status: " + this.statusIdx + "\n";
         informationString += "Status Description: " + getStatusStr() + "\n";
         return super.toString() + informationString;
     }
@@ -43,7 +43,7 @@ public abstract class Treatment extends DukeData {
     @Override
     public String toReportString() {
         String informationString;
-        informationString = "Status of treatment: " + Integer.toString(this.statusIdx) + "\n";
+        informationString = "Status of treatment: " + this.statusIdx + "\n";
         informationString += "Status Description: " + getStatusStr() + "\n";
         return informationString;
     }

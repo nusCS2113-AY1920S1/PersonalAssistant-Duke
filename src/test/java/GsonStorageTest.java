@@ -1,10 +1,6 @@
 import duke.data.GsonStorage;
-import duke.data.Impression;
-import duke.data.Investigation;
-import duke.data.Observation;
 import duke.data.Patient;
 import duke.data.PatientMap;
-import duke.data.Result;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import org.junit.jupiter.api.Test;
@@ -169,7 +165,7 @@ public class GsonStorageTest {
      * When the recreation is done it checks if the first patients are identical to the new ones.
      */
     @Test
-    public void identicalDummyPatient() throws IOException, DukeException, DukeFatalException {
+    public void identicalDummyPatient() throws IOException, DukeException {
         patientMap = storage.resetAllData();
         patientMap.addPatient(dummy1);
         storage.writeJsonFile(patientMap.getPatientHashMap());
@@ -185,7 +181,7 @@ public class GsonStorageTest {
      * When the recreation is done it checks if the first patients are identical to the new ones.
      */
     @Test
-    public void identicalComplexPatient() throws IOException, DukeException, DukeFatalException {
+    public void identicalComplexPatient() throws IOException, DukeException {
         patientMap = storage.resetAllData();
         Patient complexPatient = createComplexPatient();
         patientMap.addPatient(complexPatient);
@@ -200,7 +196,7 @@ public class GsonStorageTest {
      * Tests if patients are transformed from the hash map to the json file properly.
      */
     @Test
-    public void writeJsonFileTest() throws DukeFatalException, IOException, DukeFatalException {
+    public void writeJsonFileTest() throws IOException, DukeFatalException {
         patientMap = storage.resetAllData();
         patientMap.addPatient(dummy1);
         patientMap.addPatient(dummy2);

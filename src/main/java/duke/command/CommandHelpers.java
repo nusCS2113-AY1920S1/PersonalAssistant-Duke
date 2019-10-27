@@ -1,7 +1,5 @@
 package duke.command;
 
-import duke.exception.DukeHelpException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

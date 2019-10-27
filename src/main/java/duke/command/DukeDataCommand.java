@@ -38,7 +38,7 @@ public abstract class DukeDataCommand extends ImpressionCommand {
 
     protected void checkTypeSwitches(String addType) throws DukeException {
         // check if required switches are in place
-        if (addType.equals("medicine")) {
+        if ("medicine".equals(addType)) {
             if (getSwitchVal("dose") == null) {
                 throw new DukeException("I need to know the dose of this course of medicine!");
             }
@@ -64,7 +64,7 @@ public abstract class DukeDataCommand extends ImpressionCommand {
      * @throws NumberFormatException If the string is not a valid representation of an integer.
      */
     protected Integer processStatus(String status, List<String> statusList) throws DukeHelpException {
-        if (status.equals("")) {
+        if ("".equals(status)) {
             return 0;
         } else {
             try {
