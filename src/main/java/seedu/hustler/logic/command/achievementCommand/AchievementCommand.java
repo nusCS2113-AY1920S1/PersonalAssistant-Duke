@@ -1,4 +1,4 @@
-package seedu.hustler.command.achievementCommand;
+package seedu.hustler.logic.command.achievementCommand;
 
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.game.achievement.AchievementList;

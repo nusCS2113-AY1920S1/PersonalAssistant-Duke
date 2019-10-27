@@ -1,6 +1,6 @@
 package seedu.hustler.logic;
 
-import seedu.hustler.parser.DateTimeParser;
+import seedu.hustler.logic.parser.DateTimeParser;
 
 /**
  * Checks if the user input are desired by Duke by checking if the format of the String input is valid based off

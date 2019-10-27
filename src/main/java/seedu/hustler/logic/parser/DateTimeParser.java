@@ -1,4 +1,4 @@
-package seedu.hustler.parser;
+package seedu.hustler.logic.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
