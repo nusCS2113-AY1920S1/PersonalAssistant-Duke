@@ -5,8 +5,8 @@ import java.util.ArrayList;
 //@@author maxxyx96
 public class BudgetList {
     private static final int ZERO = 0;
-    public static final float INITIAL_BUDGET = ZERO;
-    private ArrayList<Float> budgetList;
+    public static final String INITIAL_BUDGET = "0";
+    private ArrayList<String> budgetList;
 
     /**
      * Creates an empty budget list using an array list if there are no
@@ -22,8 +22,26 @@ public class BudgetList {
      *
      * @param list The budget array list.
      */
-    public BudgetList(ArrayList<Float> list) {
+    public BudgetList(ArrayList<String> list) {
         budgetList = list;
+        if (getSize() < 1) {
+            resetBudget(0);
+        }
+    }
+
+    /**
+     * Converts a String input from a string to a float.
+     *
+     * @param input the input to be converted.
+     * @return the float equivalent of the string.
+     */
+    public float floatConverter(String input) {
+        try {
+            return Float.parseFloat(input);
+        } catch (Exception e) {
+            return 0;
+        }
+
     }
 
     /**
@@ -31,10 +49,10 @@ public class BudgetList {
      *
      * @param amount the amount to be added into the budget.
      */
-    public void addToBudget(float amount) {
-        float currentBudget = budgetList.get(ZERO);
-        budgetList.add(amount);
-        budgetList.set(ZERO, currentBudget + amount);
+    public void addToBudget(String amount, String remark) {
+        float currentBudget = floatConverter(budgetList.get(ZERO)) + floatConverter(amount);
+        budgetList.add(amount + " : " + remark);
+        budgetList.set(ZERO, Float.toString(currentBudget));
     }
 
     /**
@@ -43,16 +61,19 @@ public class BudgetList {
      * @return returns the budget that is stored in budgetList.
      */
     public float getBudget() {
-        return budgetList.get(ZERO);
+        return floatConverter(budgetList.get(ZERO));
     }
 
     /**
-     * Resets the current budget in budgetList with the amount stated.
+     * Resets the current budgetList with the amount stated.
      *
      * @param amount The budget amount that is to be reset to.
      */
     public void resetBudget(float amount) {
-        budgetList.set(ZERO, amount);
+        String stringAmount = Float.toString(amount);
+        budgetList.clear();
+        budgetList.add(INITIAL_BUDGET);
+        budgetList.set(ZERO, stringAmount);
     }
 
     /**
@@ -69,10 +90,26 @@ public class BudgetList {
      *
      * @return The list of budget.
      */
-    public ArrayList<Float> getList() {
+    public ArrayList<String> getList() {
         return this.budgetList;
     }
 
+    /**
+     * Get the list of budgets.
+     *
+     * @return The list of budget.
+     */
+    public String getStringList() {
+        if (budgetList.size() < 1) {
+            return "     You have not made an entry yet.";
+        } else {
+            String listString = "     Here are your current expenses: \n";
+            for (int i = 1; i < budgetList.size(); i++) {
+                listString += "     " + (i) + ") " + budgetList.get(i) + "\n";
+            }
+            return listString;
+        }
 
+    }
 }
 //@@author
