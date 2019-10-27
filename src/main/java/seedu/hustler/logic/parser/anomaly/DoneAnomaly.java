@@ -1,6 +1,5 @@
 package seedu.hustler.logic.parser.anomaly;
 
-import seedu.hustler.ui.Ui;
 import seedu.hustler.Hustler;
 import seedu.hustler.logic.CommandLineException;
 
@@ -15,9 +14,7 @@ public class DoneAnomaly extends DetectAnomaly {
      * @param userInput input for which anomaly is detected
      * @return true or false for any anomaly detected
      */
-    public boolean detect(String[] userInput) throws CommandLineException {
-
-        Ui ui = new Ui();
+    public void detect(String[] userInput) throws CommandLineException {
 
         //detects if the /done command is followed by any arguments.
         if (userInput.length == 1) {
@@ -47,7 +44,5 @@ public class DoneAnomaly extends DetectAnomaly {
         if (doneIndex >= Hustler.list.size()) {
             throw new CommandLineException("The task index provided is invalid.");
         }
-
-        return false;
     }
 }
