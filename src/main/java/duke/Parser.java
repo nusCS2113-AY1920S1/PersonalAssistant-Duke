@@ -14,7 +14,8 @@ import duke.commands.FindCommand;
 import duke.commands.DoneCommand;
 import duke.commands.AddBarCommand;
 import duke.commands.AddCommand;
-
+import duke.commands.OverlayBarGroup;
+import duke.commands.OverlayBarSong;
 
 
 /**
@@ -86,11 +87,22 @@ class Parser {
                 return new GroupCommand(message);
             }
             break;
+        case "overlay_bar_group":
+            if (message.length() >= 8) {
+                return new OverlayBarGroup(message);
+            }
+            break;
+        case "overlay_bar_song":
+            if (message.length() >= 8) {
+                return new OverlayBarSong(message);
+            }
+            break;
         case "copy":
             if (message.length() >= 6) {
                 return new CopyCommand(message);
             }
             break;
+
         default:
             return new AddCommand(message);
         }
