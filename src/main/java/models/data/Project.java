@@ -65,18 +65,26 @@ public class Project implements IProject {
 
     @Override
     public void removeMember(Member memberToBeRemoved) {
+        for (Task task : this.taskAndListOfMembersAssigned.keySet()) {
+            this.taskAndListOfMembersAssigned.get(task).remove(memberToBeRemoved);
+        }
+        this.memberAndIndividualListOfTasks.remove(memberToBeRemoved);
         this.memberList.removeMember(memberToBeRemoved);
     }
 
     @Override
     public void addTask(Task newTask) {
         this.taskList.addTask(newTask);
-
         this.taskAndListOfMembersAssigned.put(newTask, new ArrayList<>());
     }
 
     @Override
     public void removeTask(int taskIndexNumber) {
+        Task taskToRemove = this.getTask(taskIndexNumber);
+        for (Member member : this.memberAndIndividualListOfTasks.keySet()) {
+            this.memberAndIndividualListOfTasks.get(member).remove(taskToRemove);
+        }
+        this.taskAndListOfMembersAssigned.remove(taskToRemove);
         this.taskList.removeTask(taskIndexNumber);
     }
 
