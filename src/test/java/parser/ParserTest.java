@@ -15,7 +15,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import static parser.Parser.*;
+import static parser.Parser.parseAdd;
+import static parser.Parser.parseDelete;
+import static parser.Parser.parseList;
+import static parser.Parser.parseTag;
+import static parser.Parser.parseSearch;
+import static parser.Parser.parseQuiz;
+import static parser.Parser.parseSearchFrequency;
+import static parser.Parser.parseHistory;
+import static parser.Parser.parseEdit;
 
 class ParserTest {
 
