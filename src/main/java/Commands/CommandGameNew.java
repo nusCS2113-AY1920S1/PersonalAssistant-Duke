@@ -3,10 +3,8 @@ package Commands;
 import Exceptions.FarmioFatalException;
 import Farmio.Farmer;
 import Farmio.Farmio;
-import Farmio.Level;
 import Farmio.Storage;
 import Exceptions.FarmioException;
-import FrontEnd.Simulation;
 import FrontEnd.Ui;
 
 public class CommandGameNew extends Command {
@@ -15,8 +13,8 @@ public class CommandGameNew extends Command {
         Ui ui = farmio.getUi();
         Storage storage = farmio.getStorage();
         farmio.setFarmer(new Farmer());
-        farmio.getSimulation().animate("GameNew", 0 , true);
-        ui.typeWriter("New Game Created! Starting tutorial...");
+        farmio.getSimulation().simulate("GameNew", 0 , true);
+        ui.typeWriter("New Game Created! Starting tutorial...", true);
         farmio.setStage(Farmio.Stage.LEVEL_START);
     }
 }

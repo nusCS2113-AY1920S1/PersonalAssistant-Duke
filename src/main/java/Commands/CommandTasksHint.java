@@ -16,8 +16,8 @@ public class CommandTasksHint extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
         Ui ui = farmio.getUi();
-        farmio.getSimulation().animate(farmio.getLevel().getPath(), farmio.getLevel().getNarratives().size() - 1);
-        ui.typeWriter(farmio.getLevel().getHint() +"/");
-        ui.typeWriter(message + "/");
+        farmio.getSimulation().simulate(farmio.getLevel().getPath(), farmio.getLevel().getNarratives().size() - 1);
+        ui.typeWriter(farmio.getLevel().getHint(), false);
+        ui.typeWriter(message, false);
     }
 }

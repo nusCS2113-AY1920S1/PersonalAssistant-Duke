@@ -4,27 +4,27 @@ import Exceptions.FarmioFatalException;
 import FrontEnd.Simulation;
 import FrontEnd.Ui;
 
-import java.io.IOException;
-
 public class Menu {
     private static final String ART_NAME = "menu";
     private static final String BULLET = "\t\u2022 ";
     public static void show(Farmio farmio, boolean resume) throws FarmioFatalException {
         Storage storage = farmio.getStorage();
+        Ui ui = farmio.getUi();
         Simulation simulation =farmio.getSimulation();
         if(resume && storage.getSaveExist()) { //resume, save and load
-            simulation.animate("Menu", 2, true);
-            return;
+            simulation.simulate("Menu", 2, true);
         }
-        if(resume){ //resume and save
-            simulation.animate("Menu", 4, true);
-            return;
+        else if(resume){ //resume and save
+            simulation.simulate("Menu", 4, true);
         }
-        if(storage.getSaveExist()){ //load
-            simulation.animate("Menu", 3, true);
-            return;
+        else if(storage.getSaveExist()){ //load
+            simulation.simulate("Menu", 3, true);
         }
-        simulation.animate("Menu", 0, true); //only new and quit
+        else {
+            simulation.simulate("Menu", 0, true); //only new and quit
+        }
+        ui.typeWriter("Enter the option of your choice\nFor example, if you want to create a new game," +
+                " Enter [New Game]", false);
     }
 
     public void showLoadGameWarning(Ui ui, Storage storage, boolean resume){

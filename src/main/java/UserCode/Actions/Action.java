@@ -6,7 +6,9 @@ import Exceptions.FarmioException;
 import FrontEnd.Simulation;
 import FrontEnd.Ui;
 import Farmio.Farmer;
-import org.json.simple.JSONObject;
+import javafx.util.Pair;
+
+import java.util.ArrayList;
 
 public abstract class Action {
 
@@ -64,4 +66,23 @@ public abstract class Action {
         return type.name();
     }
 
+    protected void checkActionCriteria(Ui ui, Farmer farmer, Simulation simulation
+            , ArrayList<Pair<Boolean, String>> criteriaFeedbackList) throws FarmioException, FarmioFatalException {
+        boolean hasError = false;
+        ui.sleep(2000);
+        for (Pair<Boolean, String> criteriaFeedback: criteriaFeedbackList) {
+            if (criteriaFeedback.getKey()) {
+                if (!hasError) {
+                    farmer.setTaskFailed();
+                    simulation.simulate("ErrorInExecution", 0);
+                    hasError = true;
+                }
+                ui.typeWriter(criteriaFeedback.getValue(), false);
+            }
+        }
+        if (hasError) {
+            ui.sleep(2000);
+            throw new FarmioException("Task Error!");
+        }
+    }
 }
