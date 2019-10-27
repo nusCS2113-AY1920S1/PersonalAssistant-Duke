@@ -10,7 +10,7 @@ public class DoneAnomaly extends DetectAnomaly {
 
     private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Done format should be: '/done <integer>'!";
     private static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index provided is invalid!";
-
+    private static final String MESSAGE_TASK_COMPLETED = "This task has already been completed.\n\tYou cannot mark it as done again!";
     /**
      * Detects anomalies in done command input.
      *
@@ -37,6 +37,10 @@ public class DoneAnomaly extends DetectAnomaly {
         doneIndex--;
         if (doneIndex >= Hustler.list.size() || doneIndex < 0) {
             throw new CommandLineException(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+
+        if (Hustler.list.get(doneIndex).isCompleted()) {
+            throw new CommandLineException(MESSAGE_TASK_COMPLETED);
         }
     }
 }

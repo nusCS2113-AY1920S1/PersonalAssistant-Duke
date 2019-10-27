@@ -356,9 +356,6 @@ public class TaskList {
                 }
             });
             break;
-        default:
-            ui.show_message("Task list has remained the same. Please check your sort command.");
-            return;
         }
         if (!CommandLog.isRestoring()) {
             ui.show_list_sorted(list);
