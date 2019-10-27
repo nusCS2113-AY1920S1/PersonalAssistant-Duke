@@ -16,22 +16,21 @@ import java.time.format.DateTimeFormatter;
 public class ListBookingDailyCommand extends Command {
 
     private LocalDate dateStart;
-    private String Date;
 
     /**
-     * Show all bookings on a certain day
+     * Show all bookings on a certain day.
      * @param input from user
      * @param splitStr tokenized input
-     * @throws DukeException
+     * @throws DukeException when entry is invalid
      */
     public ListBookingDailyCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length <= 1) {
             throw new DukeException("☹ OOPS!!! Please create your booking with the following format: "
                     + "date");
         }
-        this.Date = input.substring(8);
+        String date = input.substring(8);
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        this.dateStart = LocalDate.parse(Date, formatterStart);
+        this.dateStart = LocalDate.parse(date, formatterStart);
     }
 
 

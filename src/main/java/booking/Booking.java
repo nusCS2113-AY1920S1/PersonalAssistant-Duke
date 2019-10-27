@@ -1,6 +1,11 @@
 package booking;
 
-import java.time.*;
+import java.time.Month;
+import java.time.ZoneId;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 
@@ -79,8 +84,8 @@ public class Booking {
     }
 
     /**
-     * Version of entry to be stored in file
-     * @return
+     * Version of entry to be stored in file.
+     * @return String entry for file
      */
     public String toWriteFile() {
         return this.name + " | " + this.venue + " | " + this.description + " | "

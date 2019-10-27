@@ -8,7 +8,7 @@ public class User {
     protected boolean loginStatus;
 
     /**
-     *
+     * User account.
      * @param email NUS email (xxx@u.nus.edu)
      * @param password alphanumerical with no special characters
      * @param username preferably name of the user

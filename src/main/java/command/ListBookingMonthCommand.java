@@ -17,21 +17,20 @@ import java.time.format.DateTimeFormatter;
 public class ListBookingMonthCommand extends Command {
 
     private LocalDate dateStart;
-    private String stringDate;
-    private Month  monthStart;
+    private Month monthStart;
 
     /**
-     * Show all bookings in a certain month
+     * Show all bookings in a certain month.
      * @param input from user
      * @param splitStr tokenized input
-     * @throws DukeException
+     * @throws DukeException when entry is ivalid due to format
      */
     public ListBookingMonthCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length <= 1) {
             throw new DukeException("☹ OOPS!!! Please create your booking with the following format: "
                     + "date");
         }
-        this.stringDate = input.substring(10);
+        String stringDate = input.substring(10);
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.dateStart = LocalDate.parse(stringDate, formatterStart);
         this.monthStart = dateStart.getMonth();

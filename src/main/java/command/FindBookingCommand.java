@@ -21,6 +21,13 @@ public class FindBookingCommand extends Command {
     private LocalDateTime dateTimeStart;
     private String datetimeStartString;
 
+    /**
+     * Find the booking request matching the room, date, time and user.
+     * @param input from user
+     * @param splitStr tokenized input
+     * @throws DukeException format error
+     * @throws IOException entry error
+     */
     public FindBookingCommand(String input, String[] splitStr) throws DukeException, IOException {
         if (splitStr.length <= 1) {
             throw new DukeException("☹ OOPS!!! Please create the booking you want to edit with the following format: "

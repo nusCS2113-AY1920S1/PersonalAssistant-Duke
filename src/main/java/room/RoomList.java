@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class RoomList extends ArrayList<Room> {
 
     /**
-     * Creates room list from text file
+     * Creates room list from text file.
      * @param loader Strings from text file containing room list info
      */
     public RoomList(ArrayList<String> loader) {
@@ -29,7 +29,7 @@ public class RoomList extends ArrayList<Room> {
     }
 
     /**
-     * Checks if a room to be added is already present in the room list file
+     * Checks if a room to be added is already present in the room list file.
      * @param roomcode Room code of the target room
      * @return if the room already exists in the file
      * @throws IOException if the input is in the wrong format

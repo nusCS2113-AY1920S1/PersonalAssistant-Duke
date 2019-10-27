@@ -14,7 +14,13 @@ import java.text.ParseException;
 public class FindBookingIndexCommand extends Command {
     private int index;
 
-    public FindBookingIndexCommand(String input, String[] splitStr) throws DukeException, IOException {
+    /**
+     * Find booking via index.
+     * @param input from user
+     * @param splitStr tokenized input
+     * @throws DukeException input error
+     */
+    public FindBookingIndexCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length <= 1) {
             throw new DukeException("☹ OOPS!!! Please create your booking with the following format: "
                     + "index");
@@ -28,8 +34,7 @@ public class FindBookingIndexCommand extends Command {
                         Storage roomstorage, User user) throws DukeException, IOException, ParseException {
         if (index >= bookingList.size()) {
             throw new DukeException("OOPS!!!  No such entry exist!");
-        }
-        else {
+        } else {
             Booking result = bookingList.get(index);
             ui.addToOutput((index + 1) + ". " + result.toString());
         }

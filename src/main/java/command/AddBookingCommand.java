@@ -78,7 +78,8 @@ public class AddBookingCommand extends Command {
         Booking newBooking = new Booking(name, room, description, timeStart, datetime[1]);
         boolean clash = BookingList.checkBooking(bookingList, room, timeStart, datetime[1]);
         if (clash) {
-            throw new DukeException(Constants.UNHAPPY+ " OOPS!!! This slot is already filled, please choose another vacant one");
+            throw new DukeException(Constants.UNHAPPY
+                    + " OOPS!!! This slot is already filled, please choose another vacant one");
         }
         boolean valid = roomList.checkRoom(room);
         if (!valid) {
