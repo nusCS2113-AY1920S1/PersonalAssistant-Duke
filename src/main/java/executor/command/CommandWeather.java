@@ -16,6 +16,10 @@ import java.util.Map;
 public class CommandWeather extends Command {
     private LinkedHashMap<String, LinkedHashMap<String, String>> fullWeatherData;
 
+    /**
+     * CommandWeather displays weather information based on user request.
+     * @param userInput String is the user entered Input from CLI
+     */
     public CommandWeather(String userInput) {
         this.userInput = userInput;
         this.commandType = CommandType.WEATHER;
@@ -39,10 +43,10 @@ public class CommandWeather extends Command {
      * @param userInput String is the user entered Input from CLI.
      * @return this function returns a String based on user's choice
      */
-    private String getWhichWeatherDataUserWants(String userInput){
+    private String getWhichWeatherDataUserWants(String userInput) {
         try {
             return Parser.parseForFlag("until", userInput);
-        } catch (Exception e){
+        } catch (Exception e) {
             Ui.dukeSays("Please enter in the following format : \n"
                     + "1. weather /until now \n"
                     + "2. weather /until later \n"
@@ -56,27 +60,27 @@ public class CommandWeather extends Command {
      * @param status String is the time until user requests for weather
      * @return function returns the length of HashMap we need to print
      */
-    private int getLengthOfHashMapToPrint(String status){
+    private int getLengthOfHashMapToPrint(String status) {
         switch (status) {
-            case "now":
-                return 1;
-            case "tomorrow":
-                return 2;
-            case "later":
-                return this.fullWeatherData.size();
+        case "tomorrow":
+            return 2;
+        case "later":
+            return this.fullWeatherData.size();
+        case "now":
+        default:
+            return 1;
         }
-        return 1;
     }
 
     /**
      * printWeatherDataOutput loops through the HashMap of HashMap to get weather data.
      */
-    private void printWeatherDataOutput(){
+    private void printWeatherDataOutput() {
         int size = getLengthOfHashMapToPrint(getWhichWeatherDataUserWants(this.userInput));
         Ui.dukeSays("Duke$$$ has found the following weather forecast as requested :");
-        for(Map.Entry<String, LinkedHashMap<String, String>> weather : this.fullWeatherData.entrySet()) {
+        for (Map.Entry<String, LinkedHashMap<String, String>> weather : this.fullWeatherData.entrySet()) {
             String weatherKey = weather.getKey();
-            if(Integer.parseInt(weatherKey) < size) {
+            if (Integer.parseInt(weatherKey) < size) {
                 System.out.println("\n");
                 for (Map.Entry<String, String> weatherEntry : weather.getValue().entrySet()) {
                     String field = weatherEntry.getKey();
@@ -116,7 +120,7 @@ public class CommandWeather extends Command {
     private LinkedHashMap<String, LinkedHashMap<String, String>> storeWeatherDataFromJson() {
         String json = consultWeatherApi();
         LinkedHashMap<String, LinkedHashMap<String, String>> weatherData = new LinkedHashMap<>();
-        if(json!= null) {
+        if (json != null) {
             JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
             JsonArray arr = jsonObject.getAsJsonArray("consolidated_weather");
             for (int i = 0; i < arr.size(); i++) {
