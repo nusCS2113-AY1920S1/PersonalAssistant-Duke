@@ -68,7 +68,6 @@ public abstract class CommandSuper {
         this.subCommand = subCommand;
         this.root = root;
 
-
     }
 
     public Controller getUIController() {
@@ -89,11 +88,6 @@ public abstract class CommandSuper {
         processFlags(commandArr , command);
         processPayload(commandArr);
 
-
-//        if (subCommand.length == 0) {
-//            execute = true;
-//        }
-//
         return true;
     }
 
@@ -111,9 +105,6 @@ public abstract class CommandSuper {
         processFlags(commandArr , command);
         processPayload(commandArr);
         setExecute(false);
-
-
-
 
     }
 
@@ -153,8 +144,7 @@ public abstract class CommandSuper {
             CommandPair cmds = CommandDebugger.commandSpellChecker(commandArr, root, this.uicontroller);
             subRootCommand = cmds.getSubRootCommand();
             setExecute(false);
-            ((MovieHandler) uicontroller).setAutoCompleteText("Did you mean :" + root + " " + subRootCommand + " "
-                    + String.join(" ", Arrays.copyOfRange(commandArr, 2 , commandArr.length)));
+            ((MovieHandler) uicontroller).setAutoCompleteText(getDidYouMeanText(commandArr));
             return true;
 
         }
@@ -163,7 +153,18 @@ public abstract class CommandSuper {
     }
 
     /**
-     * find flag values
+     * Get Feedback String.
+     *
+     * @param commandArr
+     * @return Feedback to ask user about his/her intentions for the command
+     */
+    private String getDidYouMeanText(String[] commandArr) {
+        return "Did you mean :" + root + " " + subRootCommand + " "
+                + String.join(" ", Arrays.copyOfRange(commandArr, 2 , commandArr.length));
+    }
+
+    /**
+     * find flag values.
      *
      * @param commandArr command that was entered by the user in split array form
      * @param command   command that was entered by the user.
@@ -176,9 +177,11 @@ public abstract class CommandSuper {
 
         ArrayList<String> flagOrder = new ArrayList<>();
 
+        System.out.println("ROLLING");
         for (String s :commandArr) {
             if (s.matches("-[a-z,A-Z]")) {
                 flagOrder.add(s);
+                System.out.println(s);
             }
         }
 

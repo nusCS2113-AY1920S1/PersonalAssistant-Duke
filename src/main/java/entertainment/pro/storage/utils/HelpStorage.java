@@ -13,13 +13,11 @@ public class HelpStorage {
 
     public static void initialiseAllHelp() {
         for (COMMANDKEYS root: CommandStructure.AllRoots) {
-
             try {
                 cmdHelp.put(root , getHelpInstructions(root.toString()));
             } catch (IOException e) {
                 System.out.println("FILE NOT FOUND");
             }
-
         }
 
     }

@@ -475,7 +475,7 @@ public class MovieHandler extends Controller implements RequestListener {
             AnchorPane posterPane = buildMoviePosterPane(movies.get(i), i + 1);
             mMoviesFlowPane.getChildren().add(posterPane);
         }
-        mMoviesScrollPane.setFitToWidth(true);
+      //  mMoviesScrollPane.setFitToWidth(true);
         mMoviesScrollPane.setContent(mMoviesFlowPane);
         mMoviesScrollPane.setVvalue(0);
     }
