@@ -10,11 +10,11 @@ public class SortAnomaly extends DetectAnomaly {
     /**
      * Detects anomalies for input.
      *
-     * @param sortType input for which anomaly is detected
+     * @param userInput input for which anomaly is detected
      */
     @Override
-    public void detect(String[] sortType) throws CommandLineException {
-        String sortTypeString = sortType[0];
+    public void detect(String[] userInput) throws CommandLineException {
+        String sortTypeString = userInput[1];
         String[] validSortTypes = {"normal", "datetime", "priority"};
         for (String validSortType: validSortTypes) {
             if (sortTypeString.equals(validSortType)) {

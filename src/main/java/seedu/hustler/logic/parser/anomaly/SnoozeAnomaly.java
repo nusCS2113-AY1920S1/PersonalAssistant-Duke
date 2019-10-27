@@ -30,6 +30,8 @@ public class SnoozeAnomaly extends DetectAnomaly {
             throw new CommandLineException("Please enter a number after the command.");
         }
 
+        // 0-based index
+        index--;
         if (index >= Hustler.list.size()) {
             throw new CommandLineException("The task index provided is invalid.");
         }
@@ -42,7 +44,7 @@ public class SnoozeAnomaly extends DetectAnomaly {
             }
         } else {
             // 2nd method to snooze
-            String period = splitInput[3];
+            String period = splitInput[2];
             period.toLowerCase();
             String[] validPeriods = {"minutes", "hours", "days", "weeks", "months"};
             for (String validPeriod : validPeriods) {

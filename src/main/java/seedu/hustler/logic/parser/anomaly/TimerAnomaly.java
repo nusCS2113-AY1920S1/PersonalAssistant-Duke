@@ -15,7 +15,7 @@ public class TimerAnomaly extends DetectAnomaly {
      * @param userInput input for which anomaly is detected
      * @return true or false for any anomaly detected
      */
-    public boolean detect(String[] userInput) throws CommandLineException {
+    public void detect(String[] userInput) throws CommandLineException {
 
         Ui ui = new Ui();
         String[] timeParts = userInput[1].split(" ");
@@ -34,7 +34,5 @@ public class TimerAnomaly extends DetectAnomaly {
                 throw new CommandLineException("Timer format should be: 'timer <integer> <integer> <integer>'!");
             }
         }
-
-	    return false;
     }
 }

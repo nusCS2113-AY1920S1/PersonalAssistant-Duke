@@ -2,11 +2,9 @@ package seedu.hustler.logic.command.task;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.logic.command.Command;
-import seedu.hustler.data.CommandLog;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.parser.anomaly.SnoozeAnomaly;
 import seedu.hustler.ui.Ui;
-import seedu.hustler.parser.ParserForCommand;
 
 /**
  * Command that snoozes tasks.
@@ -38,8 +36,9 @@ public class SnoozeCommand extends Command {
         Ui ui = new Ui();
         try {
             anomaly.detect(userInput);
-            int taskIndex = Integer.parseInt(userInput[0]);
-            Hustler.list.snoozeTask(taskIndex, userInput);
+            int taskIndex = Integer.parseInt(userInput[1].split(" ")[0]) - 1;
+            String[] splitInput = userInput[1].split(" ");
+            Hustler.list.snoozeTask(taskIndex, splitInput);
         } catch (CommandLineException e) {
             ui.show_message(e.getMessage());
         }

@@ -11,9 +11,9 @@ import seedu.hustler.ui.Ui;
  */
 public class SortCommand extends Command {
     /**
-     * User input that contains the way to sort the tasks.
+     * User input to parse.
      */
-    private String[] sortType;
+    private String[] userInput;
 
     /**
      * Detect anomalies for input.
@@ -23,10 +23,10 @@ public class SortCommand extends Command {
     /**
      * Initializes the sortType.
      *
-     * @param sortType type of sort.
+     * @param userInput type of sort.
      */
-    public SortCommand(String[] sortType) {
-        this.sortType = sortType;
+    public SortCommand(String[] userInput) {
+        this.userInput = userInput;
     }
 
     /**
@@ -35,8 +35,8 @@ public class SortCommand extends Command {
     public void execute() {
         Ui ui = new Ui();
         try {
-            anomaly.detect(sortType);
-            Hustler.list.sortTask(sortType[0]);
+            anomaly.detect(userInput);
+            Hustler.list.sortTask(userInput[1]);
         } catch (CommandLineException e) {
             ui.show_message(e.getMessage());
         }

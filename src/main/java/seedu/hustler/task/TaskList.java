@@ -288,14 +288,14 @@ public class TaskList {
      */
     public void snoozeTask(int i, String[] userInput) {
         try {
-            if (userInput[2].contains("/")) {
-                LocalDateTime localDateTime = getDateTime(userInput[2] + " " + userInput[3]);
+            if (userInput[1].contains("/")) {
+                LocalDateTime localDateTime = getDateTime(userInput[1] + " " + userInput[2]);
                 list.get(i).setDateTime(localDateTime);
             } else {
-                int num = Integer.parseInt(userInput[2]);
+                int num = Integer.parseInt(userInput[1]);
                 LocalDateTime ldt = list.get(i).getDateTime();
 
-                switch (userInput[3]) {
+                switch (userInput[2]) {
                 case "minutes":
                     list.get(i).setDateTime(ldt.plusMinutes(num));
                     break;
