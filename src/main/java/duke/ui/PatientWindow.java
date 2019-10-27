@@ -102,7 +102,7 @@ class PatientWindow extends UiElement<Region> {
             }
             allergiesLabel.setText(allergies.toString());
         } else {
-            allergiesLabel.setText(Strings.DISPLAY_ALLERGIES_NONE);
+            allergiesLabel.setText(UiStrings.DISPLAY_ALLERGIES_NONE);
         }
 
         impressionsListPanel.getItems().clear();

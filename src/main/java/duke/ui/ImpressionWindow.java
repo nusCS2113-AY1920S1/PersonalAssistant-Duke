@@ -22,8 +22,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
-import java.util.Map;
-
 /**
  * UI window for the Patient context.
  */
@@ -148,7 +146,7 @@ class ImpressionWindow extends UiElement<Region> {
             }
             allergiesLabel.setText(allergies.toString());
         } else {
-            allergiesLabel.setText(Strings.DISPLAY_ALLERGIES_NONE);
+            allergiesLabel.setText(UiStrings.DISPLAY_ALLERGIES_NONE);
         }
 
         criticalLabel.setText(impression.getCriticalCountStr());
