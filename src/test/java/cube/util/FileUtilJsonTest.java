@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 
 public class FileUtilJsonTest {
 
-    private FileUtilJson storage;
+    private FileUtilJson<StorageManager> storage;
     private StorageManager storageManager;
 
     public void init(String filePath, String fileName) throws CubeException {
-        storage = new FileUtilJson(filePath, fileName);
         storageManager = new StorageManager();
+        storage = new FileUtilJson(filePath, fileName, storageManager);
     }
 
     /**
