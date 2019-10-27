@@ -1,7 +1,9 @@
 package seedu.hustler.logic.command.avatar;
 
 import seedu.hustler.Hustler;
+import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
+import seedu.hustler.logic.parser.anomaly.SetNameAnomaly;
 import seedu.hustler.ui.Ui;
 
 import java.io.IOException;
@@ -14,20 +16,32 @@ public class SetNameCommand extends Command {
     /**
      * The new name of the avatar.
      */
-    private String name;
+    private String[] userInput;
+
+    /**
+     *
+     */
+    private SetNameAnomaly anomaly = new SetNameAnomaly();
+
 
     /**
      * Constructs a new SetNameCommand using the user inputs.
      * @param userInput the String array of the user input.
      */
     public SetNameCommand(String[] userInput) {
-        this.name = userInput[1];
+        this.userInput = userInput;
     }
 
     @Override
     public void execute() throws IOException {
         Ui ui = new Ui();
-        Hustler.avatar.setName(name);
-        ui.showNameChangeSuccess();
+        try {
+            anomaly.detect(userInput);
+            Hustler.avatar.setName(userInput[1]);
+            ui.showNameChangeSuccess();
+        } catch (CommandLineException e) {
+            ui.show_message(e.getMessage());
+        }
+
     }
 }
