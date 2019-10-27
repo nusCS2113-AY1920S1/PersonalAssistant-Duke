@@ -4,7 +4,7 @@ import seedu.hustler.game.achievement.Achievements;
 import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.ConsecutiveLogin;
 import seedu.hustler.game.achievement.DoneTask;
-import seedu.hustler.parser.DateTimeParser;
+import seedu.hustler.logic.parser.DateTimeParser;
 import seedu.hustler.game.achievement.FirstLogin;
 import java.io.BufferedWriter;
 import java.io.File;

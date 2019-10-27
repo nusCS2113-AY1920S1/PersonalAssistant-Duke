@@ -1,6 +1,8 @@
-package seedu.hustler.command.avatar;
+package seedu.hustler.logic.command.avatar;
 
 import seedu.hustler.logic.command.Command;
+import seedu.hustler.logic.CommandLineException;
+import seedu.hustler.logic.parser.anomaly.OneWordAnomaly;
 import seedu.hustler.ui.Ui;
 
 /**
@@ -8,13 +10,22 @@ import seedu.hustler.ui.Ui;
  */
 public class CheckAvatarCommand extends Command {
 
-    public CheckAvatarCommand() {
+    private String[] userInput;
 
+    private OneWordAnomaly anomaly = new OneWordAnomaly();
+
+    public CheckAvatarCommand(String[] userInput) {
+        this.userInput = userInput;
     }
 
     @Override
     public void execute() {
         Ui ui = new Ui();
-        ui.showAvatarStatistics();
+        try {
+            anomaly.detect(userInput);
+            ui.showAvatarStatistics();
+        } catch (CommandLineException e) {
+            ui.show_message(e.getMessage());
+        }
     }
 }
