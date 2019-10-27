@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.hustler.data.*;
 import seedu.hustler.game.achievement.AchievementList;
-import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.ConsecutiveLogin;
 import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.game.avatar.Inventory;
@@ -160,7 +159,7 @@ public class Hustler extends Application {
         avatar = AvatarStorage.reloadBackup();
         AchievementStorage.reloadStatus();
         //AchievementStorage.reloadAchievements();
-        AddTask.updateAchievementLevel();
+        //AddTask.updateAchievementLevel();
     }
 
     /**
@@ -170,7 +169,7 @@ public class Hustler extends Application {
         try {
             taskStorage.save(list.return_list());
             AvatarStorage.save(avatar);
-            AchievementStorage.save();
+            AchievementStorage.save(listAchievements);
             AchievementStorage.saveStatus();
         } catch (IOException e) {
             ui.show_save_error();

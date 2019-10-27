@@ -10,7 +10,6 @@ import seedu.hustler.schedule.Scheduler;
 import seedu.hustler.ui.Ui;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -124,9 +123,9 @@ public class TaskList {
             AddTask.increment();
             AddTask.updateAchievementLevel();
             AddTask.updatePoints();
-            //Hustler.listAchievements.updateBusyBee();
+            Hustler.listAchievements.updateBusyBee();
             System.out.println(addAchievementLevel);
-            AchievementList.updateAddTask(addAchievementLevel);
+            //AchievementList.updateAddTask(addAchievementLevel);
             if (!CommandLog.isRestoring()) {
                 ui.show_task_added(list);
             }

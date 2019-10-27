@@ -206,93 +206,93 @@ public class AchievementStorage {
      * @throws FileNotFoundException when file is not found, will create a
      *     new txtfile to start data storage.
      */
-    public static ArrayList<Achievements> loadAchievements() throws FileNotFoundException {
-        try {
-            Scanner scanner = new Scanner(new File(ACHIEVEMENT_FILEPATH));
-            while (scanner.hasNextLine()) {
-                String[] txt = scanner.nextLine().split("\\|");
-                if (txt[3].equals("Busybee")) {
-                    AddTask addTask = new AddTask(txt[2]);
-                    addTask.setPoints(Integer.parseInt(txt[1]));
-                    if (txt[0].equals("true")) {
-                        addTask.setLock(true);
-                    } else if (txt[0].equals("false")) {
-                        addTask.setLock(false);
-                    }
-                    achievementList.add(addTask);
-                } else if (txt[3].equals("Completionist")) {
-                    DoneTask doneTask = new DoneTask(txt[2]);
-                    doneTask.setPoints(Integer.parseInt(txt[1]));
-                    if (txt[0].equals("true")) {
-                        doneTask.setLock(true);
-                    } else if (txt[0].equals("false")) {
-                        doneTask.setLock(false);
-                    }
-                    achievementList.add(doneTask);
-                } else if (txt[3].equals("Dedicated to the art")) {
-                    ConsecutiveLogin consecutiveLogin = new ConsecutiveLogin(txt[2]);
-                    consecutiveLogin.setPoints(Integer.parseInt(txt[1]));
-                    if (txt[0].equals("true")) {
-                        consecutiveLogin.setLock(true);
-                    } else if (txt[0].equals("false")) {
-                        consecutiveLogin.setLock(false);
-                    }
-                    achievementList.add(consecutiveLogin);
-                } else if (txt[3].equals("Fresh off the boat")) {
-                    FirstLogin firstLogin = new FirstLogin();
-                    achievementList.add(firstLogin);
-                }
-            }
-            return achievementList;
-        } catch (FileNotFoundException e) {
-            return achievementList;
-        }
-    }
+//    public static ArrayList<Achievements> loadAchievements() throws FileNotFoundException {
+//        try {
+//            Scanner scanner = new Scanner(new File(ACHIEVEMENT_FILEPATH));
+//            while (scanner.hasNextLine()) {
+//                String[] txt = scanner.nextLine().split("\\|");
+//                if (txt[3].equals("Busybee")) {
+//                    AddTask addTask = new AddTask(txt[2]);
+//                    addTask.setPoints(Integer.parseInt(txt[1]));
+//                    if (txt[0].equals("true")) {
+//                        addTask.setLock(true);
+//                    } else if (txt[0].equals("false")) {
+//                        addTask.setLock(false);
+//                    }
+//                    achievementList.add(addTask);
+//                } else if (txt[3].equals("Completionist")) {
+//                    DoneTask doneTask = new DoneTask(txt[2]);
+//                    doneTask.setPoints(Integer.parseInt(txt[1]));
+//                    if (txt[0].equals("true")) {
+//                        doneTask.setLock(true);
+//                    } else if (txt[0].equals("false")) {
+//                        doneTask.setLock(false);
+//                    }
+//                    achievementList.add(doneTask);
+//                } else if (txt[3].equals("Dedicated to the art")) {
+//                    ConsecutiveLogin consecutiveLogin = new ConsecutiveLogin(txt[2]);
+//                    consecutiveLogin.setPoints(Integer.parseInt(txt[1]));
+//                    if (txt[0].equals("true")) {
+//                        consecutiveLogin.setLock(true);
+//                    } else if (txt[0].equals("false")) {
+//                        consecutiveLogin.setLock(false);
+//                    }
+//                    achievementList.add(consecutiveLogin);
+//                } else if (txt[3].equals("Fresh off the boat")) {
+//                    FirstLogin firstLogin = new FirstLogin();
+//                    achievementList.add(firstLogin);
+//                }
+//            }
+//            return achievementList;
+//        } catch (FileNotFoundException e) {
+//            return achievementList;
+//        }
+//    }
 
-    public static ArrayList<Achievements> reloadAchievements() throws FileNotFoundException {
-        try {
-            Scanner scanner = new Scanner(new File(ACHIEVEMENT_FILEPATH_BACKUP));
-            achievementList = new ArrayList<>();
-            while (scanner.hasNextLine()) {
-                String[] txt = scanner.nextLine().split("\\|");
-                if(txt[3].equals("Busybee")) {
-                    AddTask addTask = new AddTask(txt[2]);
-                    addTask.setPoints(Integer.parseInt(txt[1]));
-
-                    if(txt[0].equals("true")) {
-                        addTask.setLock(true);
-                    } else if(txt[0].equals("false")) {
-                        addTask.setLock(false);
-                    }
-                    achievementList.add(addTask);
-                } else if(txt[3].equals("Completionist")) {
-                    DoneTask doneTask = new DoneTask(txt[2]);
-                    doneTask.setPoints(Integer.parseInt(txt[1]));
-                    if(txt[0].equals("true")) {
-                        doneTask.setLock(true);
-                    } else if(txt[0].equals("false")) {
-                        doneTask.setLock(false);
-                    }
-                    achievementList.add(doneTask);
-                } else if(txt[3].equals("Dedicated to the art")) {
-                    ConsecutiveLogin consecutiveLogin = new ConsecutiveLogin(txt[2]);
-                    consecutiveLogin.setPoints(Integer.parseInt(txt[1]));
-                    if(txt[0].equals("true")) {
-                        consecutiveLogin.setLock(true);
-                    } else if(txt[0].equals("false")) {
-                        consecutiveLogin.setLock(false);
-                    }
-                    achievementList.add(consecutiveLogin);
-                } else if(txt[3].equals("Fresh off the boat")) {
-                    FirstLogin firstLogin = new FirstLogin();
-                    achievementList.add(firstLogin);
-                }
-            }
-            return achievementList;
-        } catch(FileNotFoundException e) {
-            return achievementList;
-        }
-    }
+//    public static ArrayList<Achievements> reloadAchievements() throws FileNotFoundException {
+//        try {
+//            Scanner scanner = new Scanner(new File(ACHIEVEMENT_FILEPATH_BACKUP));
+//            achievementList = new ArrayList<>();
+//            while (scanner.hasNextLine()) {
+//                String[] txt = scanner.nextLine().split("\\|");
+//                if(txt[3].equals("Busybee")) {
+//                    AddTask addTask = new AddTask(txt[2]);
+//                    addTask.setPoints(Integer.parseInt(txt[1]));
+//
+//                    if(txt[0].equals("true")) {
+//                        addTask.setLock(true);
+//                    } else if(txt[0].equals("false")) {
+//                        addTask.setLock(false);
+//                    }
+//                    achievementList.add(addTask);
+//                } else if(txt[3].equals("Completionist")) {
+//                    DoneTask doneTask = new DoneTask(txt[2]);
+//                    doneTask.setPoints(Integer.parseInt(txt[1]));
+//                    if(txt[0].equals("true")) {
+//                        doneTask.setLock(true);
+//                    } else if(txt[0].equals("false")) {
+//                        doneTask.setLock(false);
+//                    }
+//                    achievementList.add(doneTask);
+//                } else if(txt[3].equals("Dedicated to the art")) {
+//                    ConsecutiveLogin consecutiveLogin = new ConsecutiveLogin(txt[2]);
+//                    consecutiveLogin.setPoints(Integer.parseInt(txt[1]));
+//                    if(txt[0].equals("true")) {
+//                        consecutiveLogin.setLock(true);
+//                    } else if(txt[0].equals("false")) {
+//                        consecutiveLogin.setLock(false);
+//                    }
+//                    achievementList.add(consecutiveLogin);
+//                } else if(txt[3].equals("Fresh off the boat")) {
+//                    FirstLogin firstLogin = new FirstLogin();
+//                    achievementList.add(firstLogin);
+//                }
+//            }
+//            return achievementList;
+//        } catch(FileNotFoundException e) {
+//            return achievementList;
+//        }
+//    }
 
     /**
      * Updates and saves the current achievements onto the txtfile.
@@ -300,21 +300,20 @@ public class AchievementStorage {
      * @return list of updated achievements.
      * @throws IOException when writing of file has errors.
      */
-    public static ArrayList<Achievements> saveAchievements(ArrayList<Achievements> achievementsList) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(new File(ACHIEVEMENT_FILEPATH)));
-        for (int i = 0; i < achievementsList.size(); i += 1) {
-            writer.write(achievementsList.get(i).toTxt());
-            writer.write("\n");
-        }
-        writer.close();
-        return achievementsList;
-    }
+//    public static ArrayList<Achievements> saveAchievements(ArrayList<Achievements> achievementsList) throws IOException {
+//        BufferedWriter writer = new BufferedWriter(new FileWriter(new File(ACHIEVEMENT_FILEPATH)));
+//        for (int i = 0; i < achievementsList.size(); i += 1) {
+//            writer.write(achievementsList.get(i).toTxt());
+//            writer.write("\n");
+//        }
+//        writer.close();
+//        return achievementsList;
+//    }
 
-    public static AchievementList save() throws IOException{
-
+    public static AchievementList save(AchievementList listAchievement) throws IOException{
         BufferedWriter writer = new BufferedWriter(new FileWriter(new File(ACHIEVEMENT_TEST)));
-        for (int i = 0; i < Hustler.listAchievements.size(); i += 1) {
-            writer.write(Hustler.listAchievements.get(i).toTxt());
+        for (int i = 0; i < listAchievement.size(); i += 1) {
+            writer.write(listAchievement.get(i).toTxt());
             writer.write("\n");
         }
         writer.close();
