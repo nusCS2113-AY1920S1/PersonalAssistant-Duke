@@ -35,7 +35,6 @@ class MessageBox extends UiElement<Region> {
      */
     private MessageBox(String text, Image image) {
         super(FXML, null);
-
         message.setText(text);
         message.wrappingWidthProperty().bind(messageHolder.prefWidthProperty());
         avatar.setFill(new ImagePattern(image));

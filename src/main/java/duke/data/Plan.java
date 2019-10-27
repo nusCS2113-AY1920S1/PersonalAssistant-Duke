@@ -35,16 +35,9 @@ public class Plan extends Treatment {
     }
 
     @Override
-    public String toDisplayString() {
-        return null;
-    }
-
-    @Override
     public String toReportString() {
         return null;
     }
-
-
 
     public String getStatusStr() {
         return statusArr.get(getStatusIdx());
