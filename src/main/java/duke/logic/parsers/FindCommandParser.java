@@ -16,12 +16,8 @@ public class FindCommandParser implements ParserInterface<FindCommand> {
      */
     @Override
     public FindCommand parse(String userInput) throws DukeException {
-        String name = userInput.split(" /date ", 2)[0];
-        if (userInput.split(" /date ").length > 1) {
-            String date = userInput.split(" /date ")[1];
-            return new FindCommand(name, date);
-        } else {
-            return new FindCommand(name);
-        }
+        InputValidator.validate(userInput);
+        String[] nameAndDate = ArgumentSplitter.splitArguments(userInput, " /date ");
+        return new FindCommand(nameAndDate[0], nameAndDate[1]);
     }
 }

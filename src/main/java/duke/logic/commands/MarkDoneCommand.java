@@ -20,8 +20,6 @@ import duke.model.user.User;
  */
 public class MarkDoneCommand extends Command {
     private int index;
-    private final String helpText = "Please follow: done <index> /date <date> or "
-            + "done <index> to mark done the indexed meal for current day.";
 
     /**
      * Constructor for MarkDoneCommand.
@@ -30,13 +28,15 @@ public class MarkDoneCommand extends Command {
      */
     public MarkDoneCommand(String indexStr, String date) throws DukeException {
         this(indexStr);
-        Date parsedDate;
-        try {
-            parsedDate = dateFormat.parse(date);
-        } catch (ParseException e) {
-            throw new DukeException("Unable to parse input" + date + " as a date. " + helpText);
+        if (!date.isBlank()) {
+            Date parsedDate;
+            try {
+                parsedDate = dateFormat.parse(date);
+            } catch (ParseException e) {
+                throw new DukeException("Unable to parse input" + date + " as a date.");
+            }
+            this.currentDate = dateFormat.format(parsedDate);
         }
-        this.currentDate = dateFormat.format(parsedDate);
     }
 
     /**
@@ -48,7 +48,7 @@ public class MarkDoneCommand extends Command {
         try {
             this.index = Integer.parseInt(indexStr.trim());
         } catch (NumberFormatException e) {
-            throw new DukeException("Unable to parse input " + indexStr + " as integer index. " + helpText);
+            throw new DukeException("Unable to parse input " + indexStr + " as integer index.");
         }
     }
 
