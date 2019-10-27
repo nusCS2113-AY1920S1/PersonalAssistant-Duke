@@ -46,7 +46,11 @@ public class Parser {
             if (fullCommand.trim().equals("bye")) {
                 return new ByeCommand();
             }else if(fullCommand.trim().equalsIgnoreCase("help")){
-              return new HelpCommand();
+                return new HelpCommand();
+            } else if (fullCommand.trim().contains("show previous")) {
+                return new ShowPreviousCommand(fullCommand);
+            } else if (fullCommand.trim().contains("retrieve previous")) {
+                return new RetrievePreviousCommand(fullCommand);
             } else if (fullCommand.trim().substring(0, 4).equals("list")) {
                 try {
                     String list = fullCommand.trim().substring(5);
@@ -67,15 +71,82 @@ public class Parser {
                             "list name_of_list_to_view\n" +
                             "For example: list todo");
                 }
-            } else if (fullCommand.trim().substring(0, 4).equals("done")) {
+            } else if(fullCommand.startsWith("Week")) {
+                String week = fullCommand.replaceFirst("Week", "");
+                week.trim();
+//                try{
+//                    Integer digit = Integer.parseInt(week);
+//                    if(digit < 1 || digit > 13 ) throw new DukeException("Invalid week command\n" + "Format: Week 'x', where 'x' is a digit." );
+//                } catch (NumberFormatException e) {
+//                    throw new DukeException("Invalid week command\n" + "Format: Week 'x', where 'x' is a digit." );
+//                }
+                return new WeekCommand(fullCommand.trim());
+            } else if(fullCommand.trim().startsWith("done/e")){
+                try { //add/e module_code description /at date from time to time
+                    String activity = fullCommand.replaceFirst("done/e", "");
+                    split = activity.split("/at"); //split[0] is " module_code description", split[1] is "date from time to time"
+                    if (split[0].trim().isEmpty()) {
+                        throw new DukeException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
+                    }
+                    split1 = split[1].split("/from"); //split1[0] is "date", split1[1] is "time to time"
+                    String weekDate;
+                    split2 = split1[0].trim().split(" ");
+                    weekDate = split2[0];
+                    if(weekDate.equalsIgnoreCase("reading") || weekDate.equalsIgnoreCase("exam")
+                            || weekDate.equalsIgnoreCase("week") || weekDate.equalsIgnoreCase("recess")){
+                        weekDate = LT.getValue(split1[0].trim());
+                    }else{
+                        weekDate = split1[0].trim();
+                    }
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //format date
+                    Date date = formatter.parse(weekDate.trim());
+                    split2 = split1[1].split("/to"); //split2[0] is (start) "time", split2[1] is (end) "time"
+                    SimpleDateFormat formatter1 = new SimpleDateFormat("HHmm"); //format time
+                    Date startTime = formatter1.parse(split2[0].trim());
+                    Date endTime = formatter1.parse(split2[1].trim());
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
+                    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+                    String dateString = dateFormat.format(date);
+                    String startTimeString = timeFormat.format(startTime);
+                    String endTimeString = timeFormat.format(endTime);
+                    return new DoneCommand("event",new Event(split[0].trim(), dateString, startTimeString, endTimeString));
+                } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    LOGGER.log(Level.INFO, e.toString(), e);
+                    throw new DukeException("OOPS!!! Please enter in the format as follows:\n" +
+                            "done/e mod_code name_of_event /at dd/MM/yyyy /from HHmm /to HHmm\n" +
+                            "or done/e mod_code name_of_event /at week x day /from HHmm /to HHmm\n");
+                }
+            }  else if (fullCommand.trim().startsWith("done/d")) {
                 try {
-                    split = fullCommand.split(" ");
-                    int index = Integer.parseInt(split[1]) - 1;
-                    return new DoneCommand(index);
-                } catch (NumberFormatException e) {
-                    throw new DukeException("\u2639" + " OOPS!!! Please enter a valid task number.");
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("\u2639" + " OOPS!!! Please do not leave task number blank.");
+                    String activity = fullCommand.trim().replaceFirst("done/d", "");
+                    split = activity.split("/by");
+                    if (split[0].trim().isEmpty()) {
+                        throw new DukeException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
+                    }
+                    String weekDate ="";
+                    split2 = split[1].trim().split(" ");
+                    weekDate = split2[0];
+                    if(weekDate.equalsIgnoreCase("reading") || weekDate.equalsIgnoreCase("exam")
+                            || weekDate.equalsIgnoreCase("week") || weekDate.equalsIgnoreCase("recess")){
+                        weekDate = split[1].substring(0,split[1].length()- 4); // week x day y
+                        String time = split[1].substring(split[1].length()- 4); // time E.g 0300
+                        weekDate = LT.getValue(weekDate) + " " + time;
+                    }else{
+                        weekDate = split[1];
+                    }
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+                    Date date = formatter.parse(weekDate);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
+                    String dateString = dateFormat.format(date);
+                    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+                    String timeString = timeFormat.format(date);
+                    return new DoneCommand("deadline",new Deadline(split[0].trim(), dateString, timeString));
+
+                } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    LOGGER.log(Level.INFO, e.toString(), e);
+                    throw new DukeException("OOPS!!! Please enter in the format as follows:\n" +
+                            "done/d mod_code name_of_event /by dd/MM/yyyy HHmm\n" +
+                            "or done/d mod_code name_of_event /by week x day HHmm\n");
                 }
             } else if (fullCommand.trim().substring(0, 5).equals("add/e")) {
                 try { //add/e module_code description /at date /from time /to time
@@ -300,7 +371,7 @@ public class Parser {
                     split2 = split[1].trim().split(" "); //date time
                     weekDate = split2[0];
                     if(weekDate.equalsIgnoreCase("reading") || weekDate.equalsIgnoreCase("exam")
-                        || weekDate.equalsIgnoreCase("week") || weekDate.equalsIgnoreCase("recess")){
+                            || weekDate.equalsIgnoreCase("week") || weekDate.equalsIgnoreCase("recess")){
                         weekDate = split[1].substring(0,split[1].length()- 4); // week x day y
                         String time = split[1].substring(split[1].length()- 4); // time E.g 0300
                         weekDate = LT.getValue(weekDate) + " " + time;
@@ -353,12 +424,16 @@ public class Parser {
                     throw new DukeException(" OOPS!!! Please enter Do Within Period Task as follows:\n" +
                             " 'Task Description' '(from DD/MM/yyyy to DD/MM/yyyy)'");
                 }
-            } else if(fullCommand.startsWith("Find")){
-                fullCommand = fullCommand.replaceFirst("Find", "");
+            } else if(fullCommand.startsWith("find")) {
+                fullCommand = fullCommand.replaceFirst("find", "");
                 fullCommand = fullCommand.trim();
                 fullCommand = fullCommand.replaceFirst("hours", "");
                 fullCommand = fullCommand.trim();
                 return new FindFreeTimesCommand(Integer.parseInt(fullCommand));
+            } else if (fullCommand.trim().startsWith("retrieve free time ")) {
+                fullCommand = fullCommand.replaceFirst("retrieve free time ", "");
+                fullCommand = fullCommand.trim();
+                return new RetrieveFreeTimesCommand(fullCommand);
             } else {
                 throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
