@@ -20,11 +20,14 @@ public class CommandGameLoad extends Command {
             farmio.setFarmer(new Farmer(storage.loadFarmer()));
             Level level = new Level(storage.getLevel(farmio.getFarmer().getLevel()));
             farmio.setLevel(level);
-            ui.show("Load Game Success!");
+            farmio.getSimulation().animate("GameLoad", 0);
+            ui.typeWriter("Load Game Success!");
         } catch (ParseException | FarmioException e) {
+            farmio.getSimulation().animate("GameNew", 0);
             ui.showWarning("Game save is corrupted!");
             ui.showInfo("Starting a new game.");
         } catch (IOException e) {
+            farmio.getSimulation().animate("GameNew", 0);
             ui.showWarning("No game save detected!");
             ui.showInfo("Starting a new game.");
         }

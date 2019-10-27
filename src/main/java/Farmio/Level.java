@@ -8,14 +8,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Level {
-    ArrayList<String> narratives;
-    String filePath;
-    int endSeeds;
-    int endSeedlings;
-    int endWheat;
-    int endGrain;
-    int endGold;
-    int deadline;
+    private ArrayList<String> narratives;
+    private String filePath;
+    private String objective;
+    private String hint;
+    private int endSeeds;
+    private int endSeedlings;
+    private int endWheat;
+    private int endGrain;
+    private int endGold;
+    private int deadline;
 
     public Level(JSONObject object) {
         JSONArray array = (JSONArray) object.get("narratives");
@@ -30,12 +32,16 @@ public class Level {
         endWheat = Math.toIntExact((Long) object.get("wheat"));
         endGrain = Math.toIntExact((Long) object.get("grain"));
         deadline = Math.toIntExact((Long) object.get("deadline"));
+        objective = (String) object.get("objective");
+        hint = (String) object.get("hint");
     }
 
     public ArrayList<String> getNarratives(){
         return narratives;
     }
-
+    public String getHint() {
+        return hint;
+    }
     public String getPath(){
         return filePath;
     }
@@ -59,7 +65,7 @@ public class Level {
         int seedlings = farmer.wheatFarm.getSeedlings();
         int wheat = farmer.wheatFarm.getWheat();
         int grain = farmer.wheatFarm.getGrain();
-        int gold = farmer.getMoney();
+        int gold = farmer.getGold();
         return (seeds >= endSeeds) && (wheat >= endWheat) && (grain >= endGrain) && (seedlings >= endSeedlings)
                 && (gold >= endGold);
     }
@@ -150,5 +156,9 @@ public class Level {
         goals.put("Wheat", endWheat);
         goals.put("Grain", endGrain);
         return goals;
+    }
+
+    public String getObjective() {
+        return objective;
     }
 }

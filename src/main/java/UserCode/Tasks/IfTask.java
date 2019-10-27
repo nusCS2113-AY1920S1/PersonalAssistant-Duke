@@ -20,6 +20,7 @@ public class IfTask extends Task {
                 action.execute(farmio.getUi(), farmio.getStorage(), farmio.getFarmer(), farmio.getSimulation());
             } else {
                 farmio.getUi().show("Condition not fulfilled, not executing task!");
+                farmio.getUi().sleep(1000);
             }
         }
     }

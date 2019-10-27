@@ -73,7 +73,7 @@ public class Farmer {
         this.tasks = tasks;
     }
 
-    public int getMoney() {
+    public int getGold() {
         return money;
     }
 

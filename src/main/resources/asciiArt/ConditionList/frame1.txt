@@ -1,7 +1,9 @@
-         VALUE                  BOOLEAN
+         MONEY                  BOOLEAN
 ______________________________________________________
  greaterThanOrEquals | hasSeeds, hasWheat, hasGrain
  greaterThan         |          
  lessThan            |          
  lessThanOrEquals    |
- 
+_____________________|________________________________
+
+Eg: [If money greaterThanOrEquals 10 do buySeeds]

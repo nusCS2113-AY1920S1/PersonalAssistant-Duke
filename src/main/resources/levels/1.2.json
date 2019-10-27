@@ -2,7 +2,6 @@
   "narratives": [
     "At the market, you can buy and sell seeds in exchange for gold.",
     "You can now see 'seeds' under your Assets on the left of your screen.",
-    ":Buy some seeds from the market!",
     "Enter [Task] [Action] to buy seeds from the market.~"
   ],
   "gold": 0,
@@ -11,5 +10,7 @@
   "wheat": 0,
   "grain": 0,
   "file_path": "Level1.2",
-  "deadline" : 1
+  "deadline" : 1,
+  "objective": "Buy some seeds from the market",
+  "hint": "1.Enter [market] to check the price of a seed.\n2.Enter [do buyseeds] to buy seeds from the market if you can afford it."
 }

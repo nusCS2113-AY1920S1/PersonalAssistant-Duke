@@ -16,7 +16,7 @@ public class BuySeedAction extends Action {
 
     @Override
     public void execute(Ui ui, Storage storage, Farmer farmer, Simulation simulation) throws FarmioException, FarmioFatalException {
-        if (farmer.getMoney() < Market.PRICE_OF_SEED || !farmer.getLocation().equals("Market")) {
+        if (farmer.getGold() < Market.PRICE_OF_SEED || !farmer.getLocation().equals("Market")) {
             farmer.setTaskFailed();
             simulation.animate("ErrorInExecution", 0, false);
             if (!farmer.getLocation().equals("Market")) {
