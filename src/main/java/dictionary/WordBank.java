@@ -1,12 +1,15 @@
 package dictionary;
 
+import java.util.ArrayList;
+import java.util.SortedMap;
+
 import exception.NoWordFoundException;
 import command.OxfordCall;
+import exception.WordAlreadyExistsException;
 import storage.Storage;
 
 import java.util.HashSet;
 import java.util.TreeMap;
-import java.util.ArrayList;
 
 
 public class WordBank extends Bank {
@@ -31,20 +34,20 @@ public class WordBank extends Bank {
      * @throws NoWordFoundException when the wordBank does not contain the word
      */
     public Word getWord(String word) throws NoWordFoundException {
-        if (wordBank.containsKey(word)) {
-            return wordBank.get(word);
-        } else {
-            throw new NoWordFoundException(word);
+        try {
+            if (wordBank.containsKey(word)) {
+                return wordBank.get(word);
+            } else {
+                throw new NoWordFoundException(word);
+            }
+        } catch (NoWordFoundException e) {
+            e.showError();
         }
+        return null;
     }
 
-    /**
-     * Adds a word to the wordBank.
-     * @param word the word to be added to the wordBank
-     */
-    @Override
-    public void addWord(Word word) {
-        this.wordBank.put(word.getWordString(), word);
+    public boolean isEmpty(){
+        return wordBank.isEmpty();
     }
 
     /**
@@ -52,13 +55,24 @@ public class WordBank extends Bank {
      * @param word string represents a word to be deleted
      * @throws NoWordFoundException if the word doesn't exist in the word bank
      */
-    @Override
     public void deleteWord(Word word) throws NoWordFoundException {
-        if (wordBank.containsKey(word)) {
-            wordBank.remove(word);
+        if (wordBank.containsKey(word.getWordString())) {
+            wordBank.remove(word.getWordString());
         } else {
             throw new NoWordFoundException(word.getWordString());
         }
+    }
+
+    /**
+     * Adds a word to the WordBank.
+     * @param word Word object represents the word to be added
+     * @throws WordAlreadyExistsException if the word has already exists in the WordBank
+     */
+    public void addWord(Word word) throws WordAlreadyExistsException {
+        if (wordBank.containsKey(word.getWordString())) {
+            throw new WordAlreadyExistsException(word.getWordString());
+        }
+        this.wordBank.put(word.getWordString(), word);
     }
 
     /**
@@ -77,6 +91,30 @@ public class WordBank extends Bank {
             wordBank.put(word, temp);
         }
         return s + wordBank.get(word).getMeaning();
+    }
+
+    /**
+     * Searches for all words with a few beginning characters.
+     * @param word a string represents the beginning substring
+     * @return list of words that have that beginning substring
+     * @throws NoWordFoundException if no words in the WordBank have that beginning substring
+     */
+    public ArrayList<String> searchWordWithBegin(String word) throws NoWordFoundException {
+        word = word.toLowerCase();
+        ArrayList<String> arrayList = new ArrayList<>();
+        String upperBoundWord = wordBank.ceilingKey(word);
+        if (!upperBoundWord.startsWith(word)) {
+            throw new NoWordFoundException(word);
+        }
+        SortedMap<String, Word> subMap = wordBank.subMap(upperBoundWord, wordBank.lastKey());
+        for (String s : subMap.keySet()) {
+            if (s.startsWith(word)) {
+                arrayList.add(s);
+            } else {
+                break;
+            }
+        }
+        return arrayList;
     }
 
     /**
@@ -128,5 +166,20 @@ public class WordBank extends Bank {
                 nonExistTags.add(tag);
             }
         }
+    }
+
+    /**
+     * Checks spelling when user input a non-existing word.
+     * @param word word to be searched
+     * @return list of words that is considered to be close from the word user is looking for
+     */
+    public ArrayList<String> getClosedWords(String word) {
+        ArrayList<String> closedWords = new ArrayList<>();
+        for (Word w : wordBank.values()) {
+            if (w.isClosed(word)) {
+                closedWords.add(w.getWordString());
+            }
+        }
+        return closedWords;
     }
 }

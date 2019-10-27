@@ -1,10 +1,11 @@
 package command;
 
-import dictionary.WordBank;
-import dictionary.WordCount;
+import dictionary.Bank;
 import exception.NoWordFoundException;
 import storage.Storage;
 import ui.Ui;
+
+import java.util.ArrayList;
 
 /**
  * Represents a command from user to find tasks containing keywords specified.
@@ -19,13 +20,21 @@ public class SearchCommand extends Command {
     }
 
     @Override
-    public String execute(Ui ui, WordBank wordBank, Storage storage, WordCount wordCount) {
+    public String execute(Ui ui, Bank bank, Storage storage) {
         try {
-            String meaning = wordBank.searchWordMeaning(this.searchTerm);
-            wordCount.increaseSearchCount(searchTerm, wordBank);
+            String meaning = bank.searchWordBankForMeaning(this.searchTerm);
+            bank.increaseSearchCount(searchTerm);
             return ui.showSearch(this.searchTerm, meaning);
         } catch (NoWordFoundException e) {
-            return e.showError();
+            ArrayList<String> arrayList = bank.getClosedWords(this.searchTerm);
+            StringBuilder stringBuilder = new StringBuilder();
+            if (arrayList.size() > 0) {
+                stringBuilder.append("Are you looking for these words instead?\n");
+            }
+            for (int i = 0; i < arrayList.size(); i++) {
+                stringBuilder.append(arrayList.get(i) + "\n");
+            }
+            return e.showError() + stringBuilder;
         }
     }
 }

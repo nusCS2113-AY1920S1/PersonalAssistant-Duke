@@ -1,7 +1,6 @@
 package command;
 
-import dictionary.WordBank;
-import dictionary.WordCount;
+import dictionary.Bank;
 import storage.Storage;
 import ui.Ui;
 
@@ -18,7 +17,7 @@ public class BadCommand extends Command {
     }
 
     @Override
-    public String execute(Ui ui, WordBank wordBank, Storage storage, WordCount wordCount) {
+    public String execute(Ui ui, Bank bank, Storage storage) {
         return this.errorMessage;
     }
 

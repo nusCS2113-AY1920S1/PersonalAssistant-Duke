@@ -1,13 +1,9 @@
 package scene;
 
-import dictionary.WordBank;
 import command.QuizCommand;
+import dictionary.Bank;
 import dictionary.WordCount;
-import exception.ChangeSceneException;
-import exception.InvalidAnswerException;
-import exception.WordBankNotEnoughForQuizException;
-import exception.CommandInvalidException;
-import exception.WordUpException;
+import exception.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -19,8 +15,8 @@ public class QuizScene extends NewScene {
     private QuizCommand quizCommand;
     boolean startQuiz = false;
 
-    public QuizScene(Ui ui, WordBank wordBank, Storage storage, WordCount wordCount, Stage window) {
-        super(ui, wordBank, storage, wordCount, ui.quizGreet(), window);
+    public QuizScene(Ui ui, Bank bank, Storage storage, Stage window) {
+        super(ui, bank, storage, ui.quizGreet(), window);
         setupHandleInput();
     }
 
@@ -66,7 +62,7 @@ public class QuizScene extends NewScene {
 
     private void generateQuiz() throws WordBankNotEnoughForQuizException {
         quizCommand = new QuizCommand();
-        quizCommand.generateQuiz(wordBank);
+        quizCommand.generateQuiz(bank.getWordBankObject());
     }
 
     @Override
@@ -88,7 +84,7 @@ public class QuizScene extends NewScene {
     @Override
     public void resolveException(WordUpException e) {
         if (e instanceof ChangeSceneException) {
-            window.setScene(new MainScene(ui, wordBank, storage, wordCount, window).getScene());
+            window.setScene(new MainScene(ui, bank, storage, window).getScene());
         }
     }
 }

@@ -1,8 +1,7 @@
 package command;
 
 import dictionary.Word;
-import dictionary.WordBank;
-import dictionary.WordCount;
+import dictionary.Bank;
 import storage.Storage;
 import ui.Ui;
 
@@ -16,11 +15,12 @@ public abstract class Command {
     /**
      * Executes the command input of user.
      * @param ui UI class to interact with user
-     * @param wordBank word bank to store all the words
+     * @param bank Bank to store all the information in dictionary
      * @param storage File extracted to store all data
      * @return a string to show to user
      */
-    public String execute(Ui ui, WordBank wordBank, Storage storage, WordCount wordCount) {
+
+    public String execute(Ui ui, Bank bank, Storage storage) {
         return null;
     }
 }

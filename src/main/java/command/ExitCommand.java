@@ -1,7 +1,6 @@
 package command;
 
-import dictionary.WordBank;
-import dictionary.WordCount;
+import dictionary.Bank;
 import storage.Storage;
 import ui.Ui;
 
@@ -13,7 +12,7 @@ import ui.Ui;
 public class ExitCommand extends Command {
 
     @Override
-    public String execute(Ui ui, WordBank wordBank, Storage storage, WordCount wordCount) {
+    public String execute(Ui ui, Bank bank, Storage storage) {
         System.exit(0);
         return null;
     }

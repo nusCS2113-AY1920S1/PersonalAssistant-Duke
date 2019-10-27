@@ -1,7 +1,6 @@
 package command;
 
-import dictionary.WordBank;
-import dictionary.WordCount;
+import dictionary.Bank;
 import exception.WordBankEmptyException;
 import storage.Storage;
 import ui.Ui;
@@ -19,12 +18,12 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public String execute(Ui ui, WordBank wordBank, Storage storage, WordCount wordCount) {
+    public String execute(Ui ui, Bank bank, Storage storage) {
         try {
-            if (wordBank.getWordBank().isEmpty()) {
+            if (bank.wordBankIsEmpty()) {
                 throw new WordBankEmptyException();
             }
-            return ui.showList(wordBank, this.order);
+            return ui.showList(bank.getWordBankData(), this.order);
         } catch (WordBankEmptyException e) {
             return e.showError();
         }

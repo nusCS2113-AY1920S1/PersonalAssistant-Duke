@@ -51,7 +51,7 @@ public class WordCount extends Bank {
      */
     public void increaseSearchCount(String searchTerm, WordBank wordBank) throws NoWordFoundException {
         if (wordBank.getWordBank().containsKey(searchTerm)) {
-            Word searchedWord = wordBank.getWordBank().get(searchTerm);
+            Word searchedWord = wordBank.getWord(searchTerm);
             deleteWord(searchedWord); //delete the word from original search count treemap
             searchedWord.incrementNumberOfSearches(); //increase the search count for the word
             addWord(searchedWord); //add the word to the treemap with key to be the new search count
@@ -64,7 +64,6 @@ public class WordCount extends Bank {
      * Deletes a word from wordCount.
      * @param word the word to be deleted
      */
-    @Override
     public void deleteWord(Word word) {
         int wordSearchCount = word.getNumberOfSearches();
         wordCount.get(wordSearchCount).remove(word.getWordString());
@@ -77,7 +76,6 @@ public class WordCount extends Bank {
      * Adds a word from wordCount.
      * @param word the word to be added
      */
-    @Override
     public void addWord(Word word) {
         int wordSearchCount = word.getNumberOfSearches();
         if (wordCount.containsKey(wordSearchCount)) {
