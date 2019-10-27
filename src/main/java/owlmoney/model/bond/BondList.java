@@ -242,4 +242,13 @@ public class BondList {
         }
         ui.printDivider();
     }
+
+    /**
+     * Imports bond to list.
+     *
+     * @param bond bond object.
+     */
+    public void importBondToList(Bond bond) {
+        bondLists.add(bond);
+    }
 }

@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.exception.TransactionException;
+import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
 /**
- * CardList class that provides a layer of abstraction for the ArrayList that stores credit cards.
+ * Provides a layer of abstraction for the ArrayList that stores credit cards.
  */
 public class CardList {
     private ArrayList<Card> cardLists;
@@ -17,12 +18,15 @@ public class CardList {
     private static final boolean ISMULTIPLE = true;
     private static final boolean ISSINGLE = false;
     private static final int ISZERO = 0;
+    private Storage storage;
 
     /**
      * Creates an arrayList of Cards.
+     * @param storage for importing and exporting purposes.
      */
-    public CardList() {
+    public CardList(Storage storage) {
         cardLists = new ArrayList<Card>();
+        this.storage = storage;
     }
 
     /**

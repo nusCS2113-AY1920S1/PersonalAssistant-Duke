@@ -158,4 +158,34 @@ public class RecurringExpenditureList {
     private void printOneHeader(Ui ui) {
         ui.printTransactionHeader(TRANSTYPE);
     }
+
+    /**
+     * Gets the size of the transactionList.
+     *
+     * @return the size of the transactionList.
+     */
+    public int getSize() {
+        return recurringExpenditures.size();
+    }
+
+    /**
+     * Gets the transaction object from the transactionList by specifying the transaction index.
+     *
+     * @return the transaction object.
+     */
+    public Transaction get(int transactionIndex) {
+        return recurringExpenditures.get(transactionIndex);
+    }
+
+    /**
+     * Adds an expenditure to the TransactionList.
+     *
+     * @param expenditure an instance of an expenditure.
+     */
+    public void importRecurringExpenditureToList(Transaction expenditure) {
+        if (recurringExpenditures.size() >= MAX_LIST_SIZE) {
+            recurringExpenditures.remove(0);
+        }
+        recurringExpenditures.add(expenditure);
+    }
 }
