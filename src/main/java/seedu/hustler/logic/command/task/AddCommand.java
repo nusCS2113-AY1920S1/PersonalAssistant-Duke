@@ -1,10 +1,14 @@
 package seedu.hustler.logic.command.task;
 
 import seedu.hustler.Hustler;
-import seedu.hustler.command.Command;
+import seedu.hustler.logic.command.Command;
+import seedu.hustler.logic.CommandLineException;
+import seedu.hustler.logic.parser.anomaly.AddCommandAnomaly;
 import seedu.hustler.ui.Ui;
 import seedu.hustler.data.CommandLog;
 import seedu.hustler.schedule.Scheduler;
+import java.util.List;
+import java.util.Arrays;
 
 /**
  * Command that adds task to list.
@@ -14,6 +18,11 @@ public class AddCommand extends Command {
      * Contains task type and description.
      */
     private String[] taskInfo;
+
+    /**
+     * Detects anomalies in user input.
+     */
+    private AddCommandAnomaly anomaly = new AddCommandAnomaly();
 
     /**
      * Initializes taskInfo.
@@ -34,26 +43,21 @@ public class AddCommand extends Command {
             CommandLog.deleteLatestLoggedCommand();
             return;
         }
-
-        String[] taskDescription = this.taskInfo[1].split("/");
-        if (taskDescription.length == 1) {
-            Hustler.list.add("todo", taskDescription[0]);
+        try {
+            anomaly.detect(taskInfo);
+        } catch (CommandLineException e) {
+            ui.show_message(e.getMessage());
             return;
         }
 
-        String taskType = "";
-        String timeCommand = taskDescription[1].split(" ")[0];
-        switch (timeCommand) {
-        case "by":
-            taskType = "deadline";
-            break;
-        case "at":
-            taskType = "event";
-            break;
-        default:
-            ui.show_message("/" + timeCommand + " is an invalid addition to /add");
-            return;
+        List<String> taskDescription = Arrays.asList(taskInfo[1].split(" "));
+
+        if (taskDescription.contains("/by")) {
+            Hustler.list.add("deadline", this.taskInfo[1]);
+        } else if (taskDescription.contains("/at")) {
+            Hustler.list.add("event", this.taskInfo[1]);
+        } else {
+            Hustler.list.add("todo", this.taskInfo[1]);
         }
-        Hustler.list.add(taskType, this.taskInfo[1]);
     }
 }
