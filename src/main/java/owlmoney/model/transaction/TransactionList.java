@@ -494,4 +494,47 @@ public class TransactionList {
             ui.printTransactionHeader(TRANSTYPE);
         }
     }
+
+    /**
+     * Gets the size of the transactionList.
+     *
+     * @return the size of the transactionList.
+     */
+    public int getSize() {
+        return transactionLists.size();
+    }
+
+    /**
+     * Gets the transaction object from the transactionList by specifying the transaction index.
+     *
+     * @return the transaction object.
+     */
+    public Transaction get(int transactionIndex) {
+        return transactionLists.get(transactionIndex);
+    }
+
+    /**
+     * Adds an expenditure to the TransactionList.
+     *
+     * @param expenditure an instance of an expenditure.
+     * @param type the type of expenditure
+     */
+    public void importExpenditureToList(Transaction expenditure, String type) {
+        if (transactionLists.size() >= MAX_LIST_SIZE) {
+            transactionLists.remove(0);
+        }
+        transactionLists.add(expenditure);
+    }
+
+    /**
+     * Adds a deposit to the TransactionList.
+     *
+     * @param deposit an instance of an deposit.
+     */
+    public void importDepositToList(Transaction deposit) {
+        if (transactionLists.size() >= MAX_LIST_SIZE) {
+            transactionLists.remove(0);
+        }
+        transactionLists.add(deposit);
+    }
 }

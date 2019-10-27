@@ -2,6 +2,7 @@ package owlmoney.model.goals;
 
 import owlmoney.model.bank.Bank;
 import owlmoney.model.goals.exception.GoalsException;
+import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
 import java.text.DecimalFormat;
@@ -17,13 +18,16 @@ public class GoalsList {
     private static final boolean ISMULTIPLE = true;
     private static final boolean ISSINGLE = false;
     private static final int ISZERO = 0;
+    private Storage storage;
 
 
     /**
      * Creates a instance of GoalsList that contains an arrayList of Goals.
+     * @param storage for importing and exporting purposes.
      */
-    public GoalsList() {
+    public GoalsList(Storage storage) {
         goalList = new ArrayList<Goals>();
+        this.storage = storage;
     }
 
     /**

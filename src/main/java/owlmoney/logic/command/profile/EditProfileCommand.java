@@ -33,7 +33,7 @@ public class EditProfileCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws ProfileException {
-        profile.profileEditUsername(this.name, this.newName, ui);
+        profile.profileSetUsername(this.name, this.newName, ui);
         return this.isExit;
     }
 }
