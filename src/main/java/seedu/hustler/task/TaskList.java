@@ -208,7 +208,6 @@ public class TaskList {
      * Marks a task at index as done.
      *
      * @param i index of the task to mark as done.
-     * @throws IndexOutOfBoundsException if an out of bounds index is requested.
      */
     public void doTask(int i) {
         try {
@@ -263,7 +262,6 @@ public class TaskList {
      *
      * @param i index at which task is snoozed.
      * @param userInput full description of the user's input.
-     * @throws IndexOutOfBoundsException if an out of bounds index is requested.
      */
     public void snoozeTask(int i, String[] userInput) {
         if (userInput[1].contains("/")) {
@@ -294,7 +292,6 @@ public class TaskList {
                 return;
             }
         }
-
         if (!CommandLog.isRestoring()) {
             ui.show_task_snoozed(list.get(i).toString());
         }
