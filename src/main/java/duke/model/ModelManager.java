@@ -7,13 +7,12 @@ import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.lists.VenueList;
 import duke.model.locations.BusStop;
-import duke.model.locations.Venue;
 import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
 import duke.model.transports.BusService;
 import duke.storage.Storage;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -56,8 +55,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<BusStop> getBusStops() {
-        return null;
+    public HashMap<String, BusStop> getBusStops() {
+        return map.getBusStopMap();
     }
 
     @Override

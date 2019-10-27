@@ -1,8 +1,7 @@
 package duke.logic.commands;
 
+import duke.commons.exceptions.NullResultException;
 import duke.logic.commands.results.CommandResultText;
-import duke.commons.Messages;
-import duke.commons.exceptions.DukeException;
 import duke.model.Model;
 import duke.model.locations.BusStop;
 
@@ -18,16 +17,38 @@ public class GetBusStopCommand extends Command {
         this.buscode = busCode;
     }
 
+    /**
+     * Executes this command and returns a text result.
+     *
+     * @param model The model object containing transports.
+     */
     @Override
-    public CommandResultText execute(Model model) throws DukeException {
-        HashMap<String, BusStop> allBus = model.getMap().getBusStopMap();
-        if (allBus.containsKey(this.buscode)) {
-            return new CommandResultText("This is the information for this Bus Stop:\n"
-                    + allBus.get(this.buscode).getAddress() + "\n"
-                    + allBus.get(this.buscode).getLatitude() + "\n"
-                    + allBus.get(this.buscode).getLongitude());
-        }
-        throw new DukeException(Messages.ERROR_API_REQUEST_FAILED);
+    public CommandResultText execute(Model model) throws NullResultException {
+        HashMap<String, BusStop> allBus = model.getBusStops();
+        return new CommandResultText(getResult(allBus));
     }
 
+    /**
+     * Gets the result of the bus stop query.
+     * @param allBus Hash map that stores all bus stops in Singapore.
+     * @return The result of the query in String.
+     * @throws NullResultException If the bus stop could not be found.
+     */
+    private String getResult(HashMap<String, BusStop> allBus) throws NullResultException {
+        if (allBus.containsKey(buscode)) {
+            BusStop busStop = allBus.get(buscode);
+            return getBusStopInformation(busStop);
+        }
+        throw new NullResultException();
+    }
+
+    /**
+     * Gets the information of a bus stop.
+     */
+    private String getBusStopInformation(BusStop busStop) {
+        return "This is the information for this Bus Stop:\n"
+                + busStop.getAddress() + "\n"
+                + busStop.getLatitude() + "\n"
+                + busStop.getLongitude();
+    }
 }

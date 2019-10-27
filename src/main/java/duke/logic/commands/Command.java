@@ -4,13 +4,15 @@ import duke.commons.exceptions.DukeException;
 import duke.model.Model;
 
 /**
- * Abstract class representing individual duke.logic.commands.
+ * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command<T> {
     /**
-     * Executes this command on the given task list and user interface.
+     * Executes the command and returns the result.
      *
-     * @param model The Model object containing task list.
+     * @param model {@code Model} which the command should operate on.
+     * @return feedback of the operation result for display.
+     * @throws DukeException If an error occurs during command execution.
      */
     public abstract T execute(Model model) throws DukeException;
 }

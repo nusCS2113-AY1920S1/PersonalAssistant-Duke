@@ -1,5 +1,6 @@
 package duke.ui;
 
+import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.logic.commands.results.PanelResult;
 import duke.ui.map.PointCard;
 
@@ -7,6 +8,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Represents the side panel of the main window.
@@ -23,6 +27,7 @@ public class SidePanel extends UiPart<AnchorPane> {
     @FXML
     private Label endDate;
 
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private static final String FXML = "SidePanel.fxml";
 
     private SidePanel(PanelResult result) {
@@ -40,17 +45,21 @@ public class SidePanel extends UiPart<AnchorPane> {
     }
 
     private void setHighlight(PanelResult result) {
-        switch (result.getField()) {
-        case 0:
-            description.getStyleClass().add("highlight");
-            break;
-        case 1:
-            startDate.getStyleClass().add("highlight");
-            break;
-        case 2:
-            endDate.getStyleClass().add("highlight");
-            break;
-        default:
+        try {
+            switch (result.getField()) {
+            case 0:
+                description.getStyleClass().add("highlight");
+                break;
+            case 1:
+                startDate.getStyleClass().add("highlight");
+                break;
+            case 2:
+                endDate.getStyleClass().add("highlight");
+                break;
+            default:
+            }
+        } catch (QueryOutOfBoundsException e) {
+            logger.log(Level.FINE, "Nothing needs to be highlighted.");
         }
     }
 

@@ -19,10 +19,9 @@ public class PromptCommand extends Command {
     }
 
     /**
-     * Executes this command with given prompt.
+     * Executes this command and returns a text result.
      *
-     * @param model The Model object containing task list.
-     * @return The CommandResult
+     * @param model The model object containing event list.
      */
     public CommandResultText execute(Model model) {
         return new CommandResultText(prompt);

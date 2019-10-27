@@ -1,13 +1,13 @@
 package duke.logic.commands;
 
+import duke.commons.exceptions.DukeDuplicateTaskException;
 import duke.logic.commands.results.CommandResultText;
-import duke.commons.exceptions.DukeException;
 import duke.model.Event;
 import duke.model.Model;
 import duke.model.lists.EventList;
 
 /**
- * Finds a task by keyword.
+ * Finds an Event by keyword.
  */
 public class FindCommand extends Command {
     private String keyword;
@@ -22,19 +22,31 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes this command on the given task list and user interface.
+     * Executes this command and returns a text result.
      *
-     * @param model The model object containing information about the user.
+     * @param model The model object containing event list.
      */
     @Override
-    public CommandResultText execute(Model model) throws DukeException {
+    public CommandResultText execute(Model model) throws DukeDuplicateTaskException {
         EventList events = model.getEvents();
+        EventList result = find(events);
+        return new CommandResultText(result);
+    }
+
+    /**
+     * Finds events with matching keyword.
+     *
+     * @param events The EventList to be search from.
+     * @return EventList containing the events.
+     * @throws DukeDuplicateTaskException If there are duplicated events found.
+     */
+    private EventList find(EventList events) throws DukeDuplicateTaskException {
         EventList result = new EventList();
         for (Event event: events) {
             if (event.toString().contains(keyword)) {
                 result.add(event);
             }
         }
-        return new CommandResultText(result);
+        return result;
     }
 }

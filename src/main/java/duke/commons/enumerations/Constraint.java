@@ -7,5 +7,5 @@ public enum Constraint {
     MRT,
     BUS,
     MIXED,
-    CAR;
+    CAR
 }

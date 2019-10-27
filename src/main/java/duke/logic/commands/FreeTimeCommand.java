@@ -4,6 +4,9 @@ import duke.logic.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
 import duke.model.Model;
+import duke.model.lists.EventList;
+
+import java.time.LocalDateTime;
 
 /**
  * Retrieves the number of free hours.
@@ -21,13 +24,19 @@ public class FreeTimeCommand extends Command {
     }
 
     /**
-     * Executes this command on the given task list and user interface.
+     * Executes this command and returns a text result.
      *
-     * @param model The model object containing information about the user.
+     * @param model The model object containing event list.
      */
     @Override
     public CommandResultText execute(Model model) throws DukeException {
+        EventList events = model.getSortedList();
+        LocalDateTime result = findTime(events);
 
         throw new DukeException(Messages.ERROR_FILE_NOT_FOUND + "Write the code!");
+    }
+
+    private LocalDateTime findTime(EventList events) {
+        return LocalDateTime.now();
     }
 }
