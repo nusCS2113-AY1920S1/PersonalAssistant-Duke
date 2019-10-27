@@ -52,29 +52,24 @@ This section is an excerpt from our DUKE Manager User Guide which shows the feat
 
 *Finding contacts :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#344-find-contacts--findcontact[findcontact]]
 
-*Detect Duplicates in Task List :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#356-detect-duplicates-in-task-list[Detect Duplicates]]
+*Detect Duplicates in Task List :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#356-detect-duplicates-in-task-list[detectduplicates]]
 
-*Creating a new "Repeat" task :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#314-creating-a-new-repeat-task--repeat[Repeat]]
+*Creating a new "Repeat" task :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#314-creating-a-new-repeat-task--repeat[repeat]]
 
 *Sorting of contacts :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#345-sorting-of-contacts--sortcontact-coming-in-v20[sortcontacts]]
 
 == Contributions to the Developer Guide
 This section is an excerpt from our DUKE Manager Developer Guide which shows the features I have implemented for the project.
 
-*Contacts : addcontact*
-include::../DeveloperGuide.adoc[tag=addcontact]
+*Implementation for adding contact :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/DeveloperGuide.adoc#411-implementation-for-adding-contact[addcontact]]
 
-*Contacts : listcontacts, deletecontact, findcontact*
-include::../DeveloperGuide.adoc[tag=listcontacts]
+*Implementation for listing, deleting and finding of contact:* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/DeveloperGuide.adoc#413-implementation-for-listing-deleting-and-finding-of-contact[list, del, find contacts]]
 
-*Detect Duplicates*
-include::../DeveloperGuide.adoc[tag=detectduplicates]
+*Detect Duplicates: * [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/DeveloperGuide.adoc#415-detect-duplicates[detectduplicates]]
 
-*Repeat*
-include::../DeveloperGuide.adoc[tag=repeat]
+*Repeat: * [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/DeveloperGuide.adoc#416-repeat[repeat]]
 
-*[Proposed Features] Contacts : sortcontacts*
-include::../DeveloperGuide.adoc[tag=sortcontact]
+*[Proposed Features] Contacts :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/DeveloperGuide.adoc#414-implementation-for-sorting-contacts-coming-in-v20[sortcontacts]]
 
 == Design Considerations
 Aspect: How saving is done
