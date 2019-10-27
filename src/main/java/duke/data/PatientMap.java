@@ -29,6 +29,7 @@ public class PatientMap {
             Patient patient = pair.getValue();
             patient.initObservables();
             for (Map.Entry<String, Impression> mapElement : patient.getImpressionsObservableMap().entrySet()) {
+                mapElement.getValue().setParent(patient);
                 mapElement.getValue().initObservables();
                 mapElement.getValue().initChild();
             }

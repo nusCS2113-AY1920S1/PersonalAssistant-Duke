@@ -1,7 +1,10 @@
 import duke.data.GsonStorage;
 import duke.data.Impression;
+import duke.data.Investigation;
+import duke.data.Observation;
 import duke.data.Patient;
 import duke.data.PatientMap;
+import duke.data.Result;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import org.junit.jupiter.api.Test;
@@ -76,20 +79,20 @@ public class GsonStorageTest {
      */
     private Patient createComplexPatient() throws DukeException {
         Patient complexPatient = new Patient("Patient", "C1", "Cats, dogs and peanuts");
-        Impression impression1 = new Impression("testIMP1", "This impression contains "
-                + "possible evidences and treatments about the patient allergies.", complexPatient);
-        Impression impression2 = new Impression("testIMP2", "Contains impression about peanut allgie",
-                complexPatient);
-        Impression impression3 = new Impression("testPrimaryImp", "Describes the patient health",
-                complexPatient);
+        //Impression impression1 = new Impression("testIMP1", "This impression contains "
+        //        + "possible evidences and treatments about the patient allergies.", complexPatient.getBedNo());
+        //Impression impression2 = new Impression("testIMP2", "Contains impression about peanut allgie",
+        //        complexPatient.getBedNo());
+        //Impression impression3 = new Impression("testPrimaryImp", "Describes the patient health",
+        //        complexPatient.getBedNo());
         //Observation observation1 = new Observation("Trouble sleeping", impression3.getName(), 2,
-        // "Patient have not been able to sleep at all for the last week.", false);
+        //        "Patient have not been able to sleep at all for the last week.", false);
         //Observation observation2 = new Observation("Trouble eating", impression3.getName(), 3,
-        // "Patient have not been eating for 3 days.", true);
+        //        "Patient have not been eating for 3 days.", true);
         //Result result1 = new Result("Effect from the new medicine", impression3.getName(), 2,
-        // "After giving the patient some medicine he has started eating more");
-        //Result result2 = new Result("Effect from patient eating more", impression3.getName(), 0,
-        // "The patients now eats more that have resultet in a better overall health");
+        //        "After giving the patient some medicine he has started eating more");
+        //Result result2 = new Result("Effect from patient eating more", impression3.getBedNo(), 0,
+        //        "The patients now eats more that have resultet in a better overall health");
         // impression1.addNewEvidence(observation1); // TODO
         // impression1.addNewEvidence(observation2); // get error when trying to add evidence
         // impression1.addNewEvidence(result1);
@@ -98,18 +101,18 @@ public class GsonStorageTest {
         String[] statusArray2 = {"test4"};
         String[] statusArray3 = {"test5", "test7"};
         //Investigation investigation1 = new Investigation("Investigation1", impression1.getName(),
-        // 1, 1, statusArray1, "Summary of investigation 1");
+        //        1, 1, statusArray1, "Summary of investigation 1");
         //Investigation investigation2 = new Investigation("Investigation3", impression1.getName(),
-        // 0, 1, statusArray2, "Summary of investigation 2");
+        //        0, 1, statusArray2, "Summary of investigation 2");
         //Investigation investigation3 = new Investigation("Investigation4", impression2.getName(),
-        // 4, 0, statusArray3, "Summary of investigation 3");
+        //        4, 0, statusArray3, "Summary of investigation 3");
         // impression1.addNewTreatment(investigation1); // get error when trying to add treatment
         // impression1.addNewTreatment(investigation2);
         // impression2.addNewTreatment(investigation3);
-        complexPatient.addNewImpression(impression1);
-        complexPatient.addNewImpression(impression2);
-        complexPatient.addNewImpression(impression3);
-        complexPatient.setPrimaryDiagnosis(impression3.getName());
+        //        complexPatient.addNewImpression(impression1);
+        //        complexPatient.addNewImpression(impression2);
+        //        complexPatient.addNewImpression(impression3);
+        //        complexPatient.setPrimaryDiagnosis(impression3.getName());
         complexPatient.setHeight(124);
         complexPatient.setWeight(250);
         complexPatient.setAge(84);
