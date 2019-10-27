@@ -1,0 +1,38 @@
+@startuml
+
+!include style.puml
+
+Actor User as user USER_COLOR
+Participant ":Logic" as logic LOGIC_COLOR
+Participant ":Model" as model MODEL_COLOR
+Participant ":Storage" as storage STORAGE_COLOR
+Participant ":UI" as ui UI_COLOR
+
+user -[USER_COLOR]> logic : "add expense 5 burger /on 20/10/2019"
+activate logic LOGIC_COLOR
+
+logic -[LOGIC_COLOR]> model : addToLogList(mode, newLog)
+activate model MODEL_COLOR
+
+model -[LOGIC_COLOR]> storage : setEntries(get())
+activate storage STORAGE_COLOR
+
+storage -[STORAGE_COLOR]> storage : Save to file
+activate storage STORAGE_COLOR_T1
+deactivate storage
+
+storage --[STORAGE_COLOR]> model
+deactivate storage
+
+model --[MODEL_COLOR]> logic
+deactivate model
+
+logic -[UI_COLOR]> ui : echoAddEntry(newEntry)
+activate ui UI_COLOR
+
+ui--[UI_COLOR]> logic
+deactivate ui
+
+logic --[LOGIC_COLOR]> user
+deactivate logic
+@enduml
