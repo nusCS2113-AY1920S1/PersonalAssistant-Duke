@@ -2,8 +2,8 @@ package seedu.hustler.logic.command.avatar;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.logic.command.Command;
-import seedu.hustler.data.AvatarStorage;
 import seedu.hustler.ui.Ui;
+
 import java.io.IOException;
 
 /**

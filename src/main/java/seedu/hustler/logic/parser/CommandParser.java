@@ -55,11 +55,11 @@ public class CommandParser extends Parser {
             CommandLog.recordCommand(rawInput);
             return new DeleteCommand(userInput);
         } else if (userInput[0].equals("redo")) {
-            return new RedoCommand();
+            return new RedoCommand(userInput);
         } else if (userInput[0].equals("/list")) {
-            return new ListCommand();
+            return new ListCommand(userInput);
         } else if (userInput[0].equals("/remind")) {
-            return new RemindCommand();
+            return new RemindCommand(userInput);
         } else if (userInput[0].equals("/done")) {
             CommandLog.recordCommand(rawInput);
             return new DoneCommand(userInput);
@@ -93,9 +93,9 @@ public class CommandParser extends Parser {
         } else if (userInput[0].equals("/shop")) {
             return new ShopListCommand();
         } else if (userInput[0].equals("/inventory")) {
-            return new InventoryCommand();
+            return new InventoryCommand(userInput);
         } else if (userInput[0].equals("/equip")) {
-            return new EquipCommand(Integer.parseInt(userInput[1]));
+            return new EquipCommand(userInput);
         } else if (userInput[0].equals("/buy")) {
             return new BuyCommand(userInput);
         } else if (userInput[0].equals("/remove"))  {
@@ -107,7 +107,7 @@ public class CommandParser extends Parser {
         } else if (userInput[0].equals("/sort")) {
             return new SortCommand(userInput[1]);
         } else if (userInput[0].equals("/bye")) {
-            return new ByeCommand();
+            return new ByeCommand(userInput);
         } else {
             return new InvalidCommand();
         }

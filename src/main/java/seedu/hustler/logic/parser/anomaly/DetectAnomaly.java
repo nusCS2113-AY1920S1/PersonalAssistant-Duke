@@ -14,5 +14,5 @@ public abstract class DetectAnomaly {
      * @param userInput input for which anomaly is detected
      * @return true or false for any anomaly detected
      */
-    public abstract boolean detect(String[] userInput) throws CommandLineException;
+    public abstract void detect(String[] userInput) throws CommandLineException;
 }

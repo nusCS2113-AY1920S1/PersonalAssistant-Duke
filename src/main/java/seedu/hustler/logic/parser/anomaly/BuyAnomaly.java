@@ -9,7 +9,7 @@ public class BuyAnomaly extends DetectAnomaly {
     private final String WRONG_FORMAT_MSG = "Please input a proper format! Type \"/buy <index>\"";
 
     @Override
-    public boolean detect(String[] userInput) throws CommandLineException {
+    public void detect(String[] userInput) throws CommandLineException {
         try {
            int index = Integer.parseInt(userInput[1]);
            if (index <= 0 || index > Hustler.shopList.size()) {
@@ -18,6 +18,5 @@ public class BuyAnomaly extends DetectAnomaly {
         } catch (NumberFormatException e) {
             throw new CommandLineException(WRONG_FORMAT_MSG);
         }
-        return false;
     }
 }

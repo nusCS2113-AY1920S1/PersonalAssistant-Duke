@@ -457,11 +457,11 @@ public class MainWindow extends AnchorPane{
         SP.getChildren().addAll(R,T);
         flowPane.getChildren().add(SP);
 
-        for(int i = 0; i < AchievementList.achievementList.size(); i += 1) {
-            if(!AchievementList.achievementList.get(i).checkLock()) {
+        for(int i = 0; i < Hustler.listAchievements.size(); i += 1) {
+            if(!Hustler.listAchievements.get(i).checkLock()) {
                 StackPane stackPane = new StackPane();
                 Rectangle rect = new Rectangle();
-                Text text = new Text(AchievementList.achievementList.get(i).toString());
+                Text text = new Text(Hustler.listAchievements.get(i).toString());
                 text.setFont(Font.font("Gill Sans", 20));
                 text.setFill(Color.WHITE);
                 rect.setOpacity(0.3);

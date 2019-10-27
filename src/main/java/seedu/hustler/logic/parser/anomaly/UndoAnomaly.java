@@ -1,8 +1,7 @@
 package seedu.hustler.logic.parser.anomaly;
 
-import seedu.hustler.ui.Ui;
-import seedu.hustler.Hustler;
 import seedu.hustler.logic.CommandLineException;
+import seedu.hustler.ui.Ui;
 
 /**
  * Detects undo anomalies in user input.
@@ -15,7 +14,7 @@ public class UndoAnomaly extends DetectAnomaly {
      * @param userInput input for which anomaly is detected
      * @return true or false for any anomaly detected
      */
-    public boolean detect(String[] userInput) throws CommandLineException {
+    public void detect(String[] userInput) throws CommandLineException {
 
         Ui ui = new Ui();
         String[] parsedInput = userInput[1].split(" ");
@@ -33,7 +32,5 @@ public class UndoAnomaly extends DetectAnomaly {
         } catch (NumberFormatException e) {
             throw new CommandLineException("Undo commands should follow this format: 'undo <integer>'!");
         }
-
-        return false;
     }
 }
