@@ -2,6 +2,7 @@ package entertainment.pro.logic.contexts;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import entertainment.pro.logic.contexts.CommandContext;
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandStructure;
 import org.junit.jupiter.api.Test;
@@ -73,7 +74,7 @@ public class CommandContextTest {
     public void testGetPossibilitiesSubRootForRoot(){
         CommandContext.initialiseContext();
         for(COMMANDKEYS ck: CommandStructure.AllRoots){
-            ArrayList<String> possible = CommandContext.getPossibilitiesSubRootForRoot(ck.toString());
+            ArrayList<String> possible = CommandContext.getPossibilitiesSubRootGivenRoot(ck.toString());
             possible.sort(null);
             ArrayList<String> actual =  new ArrayList<>();
             for (COMMANDKEYS c : CommandStructure.cmdStructure.get(ck)){

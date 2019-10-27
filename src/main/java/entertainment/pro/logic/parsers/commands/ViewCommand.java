@@ -1,6 +1,7 @@
 package entertainment.pro.logic.parsers.commands;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.parsers.CommandParser;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.storage.user.WatchlistHandler;
@@ -23,7 +24,7 @@ public class ViewCommand extends CommandSuper {
     }
 
     @Override
-    public void executeCommands() {
+    public void executeCommands() throws Exceptions {
         switch (this.getSubRootCommand()) {
             case watchlist:
                 WatchlistHandler.print_list((MovieHandler) (this.getUIController()));
@@ -48,7 +49,7 @@ public class ViewCommand extends CommandSuper {
         }
     }
 
-    private void executeEntryCommands(int num) {
+    private void executeEntryCommands(int num) throws Exceptions {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Date date = new Date();
         String now = formatter.format(date);
@@ -63,7 +64,7 @@ public class ViewCommand extends CommandSuper {
 
     }
 
-    private void executeBackCommands() {
+    private void executeBackCommands() throws Exceptions {
         PastCommandStructure pastCommandStructure = ((MovieHandler) this.getUIController()).getPastCommands().getMap().get(
                 ((MovieHandler) this.getUIController()).getPastCommands().getMap().size() - 2);
         String command = pastCommandStructure.getQuery();
@@ -80,7 +81,7 @@ public class ViewCommand extends CommandSuper {
 
             try {
                 CommandParser.parseCommands(pastCommand, ((MovieHandler) this.getUIController()));
-            } catch (IOException e) {
+            } catch (IOException | Exceptions e) {
                 e.printStackTrace();
             }
             //executeEntryCommands(num);
@@ -95,7 +96,7 @@ public class ViewCommand extends CommandSuper {
     }
 
 
-    private void executeMovieCommands() {
+    private void executeMovieCommands() throws Exceptions {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Date date = new Date();
         String now = formatter.format(date);
@@ -123,7 +124,7 @@ public class ViewCommand extends CommandSuper {
         }
     }
 
-    private void executeTVCommands() {
+    private void executeTVCommands() throws Exceptions {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Date date = new Date();
         String now = formatter.format(date);

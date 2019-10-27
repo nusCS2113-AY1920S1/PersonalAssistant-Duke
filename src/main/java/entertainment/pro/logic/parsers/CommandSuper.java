@@ -1,5 +1,6 @@
 package entertainment.pro.logic.parsers;
 
+import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.commons.enums.COMMANDKEYS;
@@ -24,6 +25,9 @@ public abstract class CommandSuper {
     private COMMANDKEYS subRootCommand;
     private String payload;
     private boolean execute = false;
+
+    protected CommandSuper() {
+    }
 
 
     /**
@@ -64,7 +68,6 @@ public abstract class CommandSuper {
         this.subCommand = subCommand;
         this.root = root;
 
-
     }
 
     public Controller getUIController() {
@@ -85,11 +88,6 @@ public abstract class CommandSuper {
         processFlags(commandArr , command);
         processPayload(commandArr);
 
-
-//        if (subCommand.length == 0) {
-//            execute = true;
-//        }
-//
         return true;
     }
 
@@ -108,9 +106,6 @@ public abstract class CommandSuper {
         processPayload(commandArr);
         setExecute(false);
 
-
-
-
     }
 
     /**
@@ -124,7 +119,9 @@ public abstract class CommandSuper {
             if (CommandStructure.cmdStructure.get(root).length > 0) {
                 //Supposed to have Sub root but doesnt
                 setExecute(false);
-                ((MovieHandler) uicontroller).setAutoCompleteText("You are missing a few Arguments!!");
+                if (uicontroller != null) {
+                    ((MovieHandler) uicontroller).setAutoCompleteText("You are missing a few Arguments!!");
+                }
                 return false;
             } else {
                 setExecute(true);
@@ -149,8 +146,10 @@ public abstract class CommandSuper {
             CommandPair cmds = CommandDebugger.commandSpellChecker(commandArr, root, this.uicontroller);
             subRootCommand = cmds.getSubRootCommand();
             setExecute(false);
-            ((MovieHandler) uicontroller).setAutoCompleteText("Did you mean :" + root + " " + subRootCommand + " "
-                    + String.join(" ", Arrays.copyOfRange(commandArr, 2 , commandArr.length)));
+            if (uicontroller != null) {
+                ((MovieHandler) uicontroller).setAutoCompleteText(getDidYouMeanText(commandArr));
+            }
+
             return true;
 
         }
@@ -158,8 +157,20 @@ public abstract class CommandSuper {
 
     }
 
+
     /**
-     * find flag values
+     * Get Feedback String.
+     *
+     * @param commandArr
+     * @return Feedback to ask user about his/her intentions for the command
+     */
+    private String getDidYouMeanText(String[] commandArr) {
+        return "Did you mean :" + root + " " + subRootCommand + " "
+                + String.join(" ", Arrays.copyOfRange(commandArr, 2 , commandArr.length));
+    }
+
+    /**
+     * find flag values.
      *
      * @param commandArr command that was entered by the user in split array form
      * @param command   command that was entered by the user.
@@ -172,13 +183,19 @@ public abstract class CommandSuper {
 
         ArrayList<String> flagOrder = new ArrayList<>();
 
+        System.out.println("ROLLING");
         for (String s :commandArr) {
             if (s.matches("-[a-z,A-Z]")) {
                 flagOrder.add(s);
+                System.out.println(s);
             }
         }
 
         boolean first = true;
+
+        if (flagOrder.size() == 0) {
+            return;
+        }
 
         int counter = 0;
 
@@ -199,6 +216,7 @@ public abstract class CommandSuper {
             }
 
             flagMap.put(flagOrder.get(counter), listOfString);
+            System.out.println("checkpoint " + counter + listOfString.size());
             counter++;
         }
 
@@ -240,7 +258,7 @@ public abstract class CommandSuper {
      */
     public static String getThePayload(int start, String[] commandArr) {
         int i = 0;
-        while (i < commandArr.length && !commandArr[i].matches("-[a-z]")) {
+        while (i < commandArr.length && !commandArr[i].matches("-[a-z,A-Z]")) {
             System.out.println(i + "." + commandArr[i]);
             i++;
         }
@@ -275,7 +293,7 @@ public abstract class CommandSuper {
     /**
      * Abstract class to be implemented for each root command class.
      */
-    public abstract void executeCommands() throws IOException;
+    public abstract void executeCommands() throws IOException, Exceptions;
 
 
 

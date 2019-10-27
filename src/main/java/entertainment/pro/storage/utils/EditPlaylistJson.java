@@ -51,8 +51,9 @@ public class EditPlaylistJson {
                         movieGenreIDs[j] = (long) genreArray.get(j);
                     }
                     boolean adult = (boolean) movie.get("adult");
-                    int fakeType = 12345;
-                    playlistMovies.add(new PlaylistMovieInfoObject(fakeType, movieID, movieTitle, null, movieSummary, movieRating, movieGenreIDs, movieFullPosterPath, movieFullBackdropPath, movieReleaseDate));
+                    //int fakeType = 12345;
+                    boolean fakeType = false;
+                    playlistMovies.add(new PlaylistMovieInfoObject(fakeType, movieID, movieTitle, null, movieSummary, movieRating, movieGenreIDs, movieFullPosterPath, movieFullBackdropPath, false, movieReleaseDate));
                 }
                 for (PlaylistMovieInfoObject log : playlistMovies) {
                     System.out.println(log.getTitle() +"choochoo");

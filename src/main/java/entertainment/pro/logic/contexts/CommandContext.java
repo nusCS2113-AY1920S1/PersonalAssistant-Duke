@@ -1,4 +1,4 @@
-package entertainment.pro.logic.Contexts;
+package entertainment.pro.logic.contexts;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandStructure;
@@ -65,7 +65,7 @@ public class CommandContext {
      * Given the a certain Root command, the possible subRoot commands are returned.
      * @param root: index of the movie to mark as done
      */
-    public static ArrayList<String> getPossibilitiesSubRootForRoot(String root) {
+    public static ArrayList<String> getPossibilitiesSubRootGivenRoot(String root) {
         ArrayList<String> hints = new ArrayList<>();
 
         for (Map.Entry<COMMANDKEYS, COMMANDKEYS[]> e: CommandStructure.cmdStructure.entrySet()) {

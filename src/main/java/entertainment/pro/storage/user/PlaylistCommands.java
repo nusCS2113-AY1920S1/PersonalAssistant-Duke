@@ -85,8 +85,9 @@ public class PlaylistCommands {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String string = dateFormat.format(date);
             System.out.println("help " + log.getTitle() + " " + log.getFullPosterPath());
-            int fakeType = 12345;
-            PlaylistMovieInfoObject testMovie = new PlaylistMovieInfoObject(fakeType, log.getID(), log.getTitle(), log.getReleaseDate(), log.getSummary(), log.getRating(), log.getGenreIDs(), log.getFullPosterPath(), log.getFullBackdropPath(), string);
+            //int fakeType = 12345;
+            boolean fakeType = false;
+            PlaylistMovieInfoObject testMovie = new PlaylistMovieInfoObject(fakeType, log.getID(), log.getTitle(), log.getReleaseDate(), log.getSummary(), log.getRating(), log.getGenreIDs(), log.getFullPosterPath(), log.getFullBackdropPath(), log.isAdult(), string);
             convertMovies.add(testMovie);
         }
         return convertMovies;
