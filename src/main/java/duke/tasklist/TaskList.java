@@ -34,6 +34,10 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> tasks) {
         taskList = tasks;
+        for (int i = 0; i < taskList.size(); i++) {
+            Task t = taskList.get(i);
+            t.updateDone();
+        }
     }
 
     public TaskList(TaskList list, Optional<String> filter) {
@@ -80,17 +84,6 @@ public class TaskList {
             return taskList.get(index - 1);
         }
         throw new DukeException("Index not found");
-    }
-
-    /**
-     * sets a duke.task.Task at index i
-     * if there is already a duke.task.Task there then it will be overwritten
-     *
-     * @param i    the index of the duke.task.Task
-     * @param task the new duke.task.Task to be set at index i
-     */
-    public void set(int i, Task task) {
-        taskList.set(i, task);
     }
 
     /**

@@ -93,6 +93,12 @@ public class Task {
         System.out.println(this + " has a new recurrence period of " + recurrence);
     }
 
+    public void updateDone() {
+        if (recurrence.isTimeToReset()) {
+            markAsUndone();
+        }
+    }
+
     public void setPriority(int i) throws DukeException {
         switch (i) {
             case 0:

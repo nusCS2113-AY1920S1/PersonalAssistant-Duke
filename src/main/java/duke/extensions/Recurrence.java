@@ -8,10 +8,10 @@ import java.util.Optional;
 
 public class Recurrence {
     RecurrencePeriod recurrencePeriod;
-    protected LocalDateTime createdDate;
+    protected LocalDateTime lastUpdatedDate;
 
     public Recurrence(Optional<String> recurrencePeriod) throws DukeException {
-        this.createdDate = LocalDateTime.now();
+        this.lastUpdatedDate = LocalDateTime.now();
         if (recurrencePeriod.isPresent()) {
             if ("daily".equals(recurrencePeriod.get())) {
                 this.recurrencePeriod = RecurrencePeriod.DAILY;
@@ -41,16 +41,21 @@ public class Recurrence {
      * This function marks tasks as undone every week/day based on the
      * recurrence period of the task.
      */
-    public boolean isTimeToReset(LocalDateTime dateCreated, LocalDateTime dateNow) {
+    public boolean isTimeToReset() {
+        LocalDateTime dateNow = LocalDateTime.now();
         switch (recurrencePeriod) {
             case DAILY:
-                if (ChronoUnit.DAYS.between(dateCreated, dateNow) > 0) {
+                if (ChronoUnit.DAYS.between(lastUpdatedDate, dateNow) > 0) {
+
+                    lastUpdatedDate = LocalDateTime.now();
                     return true;
                 } else {
+                    System.out.println("not time to reset");
                     return false;
                 }
             case WEEKLY:
-                if (ChronoUnit.DAYS.between(dateCreated, dateNow) > 7) {
+                if (ChronoUnit.DAYS.between(lastUpdatedDate, dateNow) > 7) {
+                    lastUpdatedDate = LocalDateTime.now();
                     return true;
                 } else {
                     return false;
