@@ -30,8 +30,8 @@ public class CategoryStub extends Category {
         double totalCost = 0.00;
         for (int i = 0; i < category.size(); i++) {
             Expenditure currExpenditure = category.get(i);
-            if (currExpenditure.getDateTime().getMonthValue() == month
-                    && currExpenditure.getDateTime().getYear() == year) {
+            if (currExpenditure.getDate().getMonthValue() == month
+                    && currExpenditure.getDate().getYear() == year) {
                 totalCost += currExpenditure.getCost();
             }
         }

@@ -49,7 +49,7 @@ public class Category {
     public double getCategoryMonthTotal() {
         double totalCost = 0.00;
         for (Expenditure expenditure : category) {
-            LocalDate date = expenditure.date;
+            LocalDate date = expenditure.getDate();
             LocalDate now = LocalDate.now(); // Now see if the month and year match.
             if (date.getMonth() == now.getMonth() && date.getYear() == now.getYear()) {
                 // You have a hit.
@@ -105,8 +105,8 @@ public class Category {
         double totalCost = 0.00;
         for (int i = 0; i < category.size(); i++) {
             Expenditure currExpenditure = category.get(i);
-            if (currExpenditure.getDateTime().getMonthValue() == month
-                    && currExpenditure.getDateTime().getYear() == year) {
+            if (currExpenditure.getDate().getMonthValue() == month
+                    && currExpenditure.getDate().getYear() == year) {
                 totalCost += currExpenditure.getCost();
             }
         }

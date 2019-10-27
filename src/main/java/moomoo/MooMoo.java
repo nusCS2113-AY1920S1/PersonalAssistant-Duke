@@ -2,6 +2,7 @@ package moomoo;
 
 import moomoo.command.Command;
 import moomoo.task.Budget;
+import moomoo.task.Expenditure;
 import moomoo.task.Category;
 import moomoo.task.CategoryList;
 import moomoo.task.MooMooException;
@@ -22,16 +23,17 @@ public class MooMoo {
     private Category category;
     private CategoryList categoryList;
     private Budget budget;
+    private Expenditure expenditure;
     public ScheduleList calendar;
     private Ui ui;
 
     /**
-     * Initializes different Category, Transaction Lists, Budget, Storage and Ui.
+     * Initializes different Category, Expenditures, Budget, Storage and Ui.
      */
     public MooMoo() {
         ui = new Ui();
         storage = new Storage("data/budget.txt","data/schedule.txt",
-                "data/category.txt");
+                "data/category.txt", "data/expenditure.txt");
         try {
             categoryList = new CategoryList(storage.loadCategories());
         } catch (MooMooException e) {
@@ -39,6 +41,15 @@ public class MooMoo {
             ui.showResponse();
             categoryList = new CategoryList();
         }
+
+        /*
+        try {
+            category = new Category(storage.loadExpenditures());
+        } catch (MooMooException e) {
+            ui.printExceptions(e);
+            ui.showResponse();
+            category = new Category();
+        } */
 
         HashMap<String, Double> loadedBudget = storage.loadBudget(categoryList.getCategoryList(), ui);
         if (loadedBudget == null) {
@@ -55,6 +66,14 @@ public class MooMoo {
         } else {
             calendar = new ScheduleList(scheduleList);
         }
+        /*
+        ArrayList<Expenditure> category = storage.loadExpenditures(ui);
+        if (category == null) {
+            ui.showResponse();
+            expenditure = new Expenditure();
+        } else {
+            expenditure = new Expenditure(category);
+        } */
     }
 
     /**

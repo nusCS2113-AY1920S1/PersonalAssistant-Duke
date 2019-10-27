@@ -118,12 +118,42 @@ public class Parser {
             if (!categoryName.isBlank()) {
                 return new AddCategoryCommand(categoryName);
             }
-            throw new MooMooException("Try a command like add c/[Category Number]");
+            throw new MooMooException("Try a command like add c/[Category Name]");
+        } else {
+            String categoryName = "";
+            String expenditureName = "";
+            Double amount = 0.0;
+            LocalDate date = LocalDate.now();
+            String[] tokens = input.split("/|\\s+");
+            int tokenCount = tokens.length;
+            for (int i = 0; i < tokenCount; i++) {
+                if (tokens[i].equals("c")) {
+                    categoryName = tokens[i + 1];
+                } else if (tokens[i].equals("n")) {
+                    expenditureName = tokens[i + 1];
+                } else if (tokens[i].equals("a")) {
+                    amount = Double.parseDouble(tokens[i + 1]);
+                } else if (tokens[i].equals("d")) {
+                    date = LocalDate.parse(tokens[i + 1]);
+                }
+            }
+
+            /*
+            for (int j = 0; j < tokenCount; j++) { //for testing
+                System.out.println("Split Output: "+ tokens[j]); //for testing
+            }
+            System.out.println(categoryName);  //for testing
+            System.out.println(expenditureName);  //for testing
+            System.out.println(amount);  //for testing
+            System.out.println(date);  //for testing
+             */
+
+            if (!categoryName.isBlank() && !expenditureName.isBlank() && !amount.equals(0.0)) {
+                return new AddExpenditureCommand(expenditureName, amount, date, categoryName);
+            }
+            throw new MooMooException("Try a command like add n/[Expenditure Name] a/[Amount] d/[Date] "
+                    + "c/[Category Name]");
         }
-        if (input.equals("expenditure")) {
-            return parseAddExpenditure(ui);
-        }
-        throw new MooMooException("Sorry I did not recognize that command.");
     }
 
     private static String removeSuffix(String noSpaceInput) throws MooMooException {
@@ -135,7 +165,8 @@ public class Parser {
         }
         return categoryName;
     }
-  
+
+    /*
     private static Command parseAddExpenditure(Ui ui) {
         ui.showAddExpenditureMessage();
         String input = ui.readCommand();
@@ -145,7 +176,7 @@ public class Parser {
         
         return new AddExpenditureCommand(false, amount, expenditureName);
     }
-
+*/
     private static String parseInput(Scanner scanner, Ui ui, String text) {
         String input;
         try {

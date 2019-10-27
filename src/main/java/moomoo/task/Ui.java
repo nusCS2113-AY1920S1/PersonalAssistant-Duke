@@ -187,8 +187,8 @@ public class Ui {
      * Prints out when a new expenditure is created.
      * @param categoryName name of the new expenditure
      */
-    public void showNewExpenditureMessage(String categoryName) {
-        print("Ok, I've added a new expenditure under " + categoryName);
+    public void showNewExpenditureMessage(String expenditureName, String categoryName) {
+        print("Ok, I've added a new expenditure " + expenditureName + " under " + categoryName + ".");
     }
 
     /**
