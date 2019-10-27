@@ -8,6 +8,7 @@ import duke.data.Medicine;
 import duke.data.Observation;
 import duke.data.Plan;
 import duke.data.Result;
+import duke.data.Treatment;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
 
@@ -22,6 +23,7 @@ public class ImpressionEditCommand extends DukeDataCommand {
         return ImpressionEditSpec.getSpec();
     }
 
+    // TODO: refactor, this method is a behemoth
     @Override
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
@@ -32,7 +34,7 @@ public class ImpressionEditCommand extends DukeDataCommand {
             isAppending = true;
         }
 
-        if (editType == null) { // edit patients
+        if (editType == null) { // edit impression
             editImpression(getImpression(core), isAppending);
         } else {
             if (isSwitchSet("description")) {
@@ -69,21 +71,43 @@ public class ImpressionEditCommand extends DukeDataCommand {
                 throw new DukeHelpException("I can't find a " + editType + " item named '" + editDataName + "'!", this);
             }
 
+            // process status
+            switch (editType) {
+            case "plan":
+                editStatus(editData, Plan.getStatusArr());
+                break;
+            case "medicine":
+                editStatus(editData, Medicine.getStatusArr());
+                break;
+            case "investigation":
+                editStatus(editData, Investigation.getStatusArr());
+                break;
+            default:
+                break;
+            }
+
             // process each switch entered
             for (Map.Entry<String, String> entry : getSwitchVals().entrySet()) {
                 String switchName = entry.getKey();
+                String entryStr = entry.getValue();
                 Integer entryInt = 0;
                 if (getSwitchMap().get(switchName).type.equals(Integer.class)) {
                     entryInt = switchToInt(switchName);
                 }
 
-                if (switchName.equals(editType)) {
+                // ignore switches that are already processed/don't need processing
+                if (switchName.equals(editType) || switchName.equals("status")) {
                     continue;
                 }
+
 
                 // TODO
                 switch (editType) {
                 case "plan":
+                    Plan plan = (Plan) editData;
+                    if (switchName.equals("summary")) {
+                        plan.setSummary((isAppending) ? plan.getSummary() + entryStr : entryStr);
+                    }
                 case "medicine":
                 case "investigation":
                 case "result":
@@ -93,6 +117,15 @@ public class ImpressionEditCommand extends DukeDataCommand {
                 }
 
             }
+        }
+    }
+
+    private void editStatus(DukeData editData, List<String> statusList) throws DukeHelpException {
+        assert (editData instanceof Treatment);
+        String statusStr = getSwitchVal("status");
+        if (statusStr != null) {
+            Treatment treatment = (Treatment) editData;
+            treatment.setStatusIdx(processStatus(statusStr, statusList));
         }
     }
 
@@ -106,7 +139,8 @@ public class ImpressionEditCommand extends DukeDataCommand {
         }
     }
 
-    // this is a terrible method, kill it as soon as possible
+
+    // this is a terrible method, kill it and replace it with proper disambiguation as soon as possible
     private DukeData findDataOfClass(List<DukeData> searchResults, Class dataClass) {
         for (DukeData result : searchResults) {
             if (result.getClass() == dataClass) {
