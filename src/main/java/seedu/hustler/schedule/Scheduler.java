@@ -101,7 +101,6 @@ public class Scheduler {
      * @param task task whose matching entry needs to be removed
      */
     public static void remove(Task task) {
-        displayEntries();
         int index = -1;
         for (int i = 0; i < size(); i++) {
             if (getEntry(i).getTask()
