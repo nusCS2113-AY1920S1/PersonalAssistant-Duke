@@ -51,6 +51,7 @@ public class AddProductCommand extends ProductCommand {
 
         ProductCommandUtil.verifyNewIngredients(model, toAdd);
         model.addProduct(toAdd);
+        model.commit(ProductMessageUtils.MESSAGE_COMMIT_ADD_PRODUCT);
 
         return new CommandResult(String.format(ProductMessageUtils.MESSAGE_ADD_PRODUCT_SUCCESS, toAdd.getProductName()),
                 CommandResult.DisplayedPage.PRODUCT);

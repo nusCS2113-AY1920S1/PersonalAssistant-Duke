@@ -12,7 +12,9 @@ import duke.model.order.Order;
 import java.util.List;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
+import static duke.logic.command.order.OrderCommandUtil.deductInventory;
 import static java.util.Objects.requireNonNull;
+
 
 /**
  * A command to edit the details of an existing order.
@@ -28,7 +30,8 @@ public class EditOrderCommand extends OrderCommand {
         CliSyntax.PREFIX_ORDER_DEADLINE,
         CliSyntax.PREFIX_ORDER_ITEM,
         CliSyntax.PREFIX_ORDER_REMARKS,
-        CliSyntax.PREFIX_ORDER_TOTAL
+        CliSyntax.PREFIX_ORDER_TOTAL,
+        CliSyntax.PREFIX_ORDER_STATUS
     };
 
     private static final String MESSAGE_COMMIT = "Edit order";
@@ -77,7 +80,7 @@ public class EditOrderCommand extends OrderCommand {
 
         //Deduct inventory if order is set to complete.
         if (editedOrder.getStatus() == Order.Status.COMPLETED) {
-            OrderCommandUtil.deductInventory(editedOrder, model);
+            deductInventory(editedOrder, model);
         }
 
         model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDERS);

@@ -9,4 +9,7 @@ public class ProductMessageUtils {
     public static final String MESSAGE_MISSING_PRODUCT_NAME = "Product name must be present";
     public static final String MESSAGE_LIST_SCOPE = "%s products shown";
     public static final String MESSAGE_INVALID_SCOPE_VALUE = "-scope can only take active/archive/all";
+    public static final String MESSAGE_COMMIT_ADD_PRODUCT = "Add product";
+    public static final String MESSAGE_COMMIT_DELETE_PRODUCT = "Delete product(s)";
+    public static final String MESSAGE_COMMIT_EDIT_PRODUCT = "Edit product(s)";
 }
