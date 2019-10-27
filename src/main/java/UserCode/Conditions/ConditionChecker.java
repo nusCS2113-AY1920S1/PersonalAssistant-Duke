@@ -28,7 +28,7 @@ public class ConditionChecker {
     public static boolean check(ValueConditionType valueConditionType, Comparator comparator, int val, Farmio farmio) throws FarmioException {
         int assetValue = 0;
         switch (valueConditionType) {
-            case money:
+            case gold:
                 assetValue = farmio.getFarmer().getGold();
                 break;
         }

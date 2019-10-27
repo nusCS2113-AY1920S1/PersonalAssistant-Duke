@@ -26,7 +26,7 @@ public class SellWheatAction extends Action {
         simulation.simulate("SellWheatSimulation", 0, 6);
         ui.typeWriter("Selling grain!", false);
         ui.sleep(1000);
-        farmer.earnMoney(farmer.getWheatFarm().sell());
+        farmer.earnGold(farmer.getWheatFarm().sell());
         simulation.simulate(1000, "SellWheatSimulation", 7);
     }
 }
