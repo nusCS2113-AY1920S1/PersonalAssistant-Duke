@@ -43,9 +43,14 @@ public class SetupCommand extends Command {
             return checkStatus();
         } else if (setupStage == 2) {
             return "Are you a boy or a girl?";
-        } else if (setupStage == 3) {
-            //set the variable isBoy to true or false
-            return "You're all set! Time to start your journey to become an AlgoSenpai!";
+        } else if (setupStage == 0) {
+            return checkStatus();
+        } else if (setupStage >= 3 && isSettingUp.get()) {
+            if (inputs.get(0).equals("boy") || inputs.get(0).equals("girl")) {
+                return "You're all set! Time to start your journey to become an AlgoSenpai!";
+            } else {
+                return "I'm sorry I did not understand that, please enter your gender again.";
+            }
         } else {
             return checkStatus();
         }

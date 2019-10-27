@@ -9,6 +9,7 @@ import com.algosenpai.app.logic.command.ClearCommand;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.command.HelpCommand;
 import com.algosenpai.app.logic.command.HistoryCommand;
+
 import com.algosenpai.app.logic.command.StatsCommand;
 import com.algosenpai.app.logic.command.InvalidCommand;
 import com.algosenpai.app.logic.command.MenuCommand;
@@ -85,8 +86,13 @@ public class Logic {
 
         if (isSettingUp.get()) {
             setupStage++;
-            if (setupStage == 3) {
-                isSettingUp.set(false);
+            if (setupStage >= 3) {
+                if (!inputs.get(0).equals("boy") || !inputs.get(0).equals("girl")) {
+                    return new SetupCommand(inputs, setupStage, isSettingUp);
+                } else {
+                    isSettingUp.set(false);
+                    setupStage = 0;
+                }
             }
             return new SetupCommand(inputs, setupStage, isSettingUp);
         }
