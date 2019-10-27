@@ -3,9 +3,11 @@ package duke.storage;
 import java.util.ArrayList;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.*;
+import duke.model.meal.MealList;
 import duke.model.user.User;
 import duke.logic.autocorrect.Autocorrect;
+import duke.model.wallet.TransactionList;
+import duke.model.wallet.Wallet;
 
 import static duke.commons.FilePaths.*;
 
@@ -43,8 +45,8 @@ public class Storage {
         loader.loadHelp(lines, specifiedHelp);
     }
 
-    public void loadTransactions(TransactionList transactions, User user) throws DukeException {
-        loader.loadTransactions(transactions, user);
+    public void loadTransactions(TransactionList transactions, Wallet wallet) throws DukeException {
+        loader.loadTransactions(transactions, wallet);
     }
 
     /**

@@ -2,9 +2,13 @@ package duke.storage;
 
 import duke.commons.exceptions.DukeException;
 import duke.model.*;
+import duke.model.meal.Meal;
+import duke.model.meal.MealList;
 import duke.model.user.Gender;
 import duke.model.user.Tuple;
 import duke.model.user.User;
+import duke.model.wallet.Transaction;
+import duke.model.wallet.TransactionList;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -130,7 +134,6 @@ public class Write {
         } else {
             toWrite += "F";
         }
-        toWrite += "|" + user.getAccountBalance();
         ArrayList<Tuple> allWeight = user.getAllWeight();
         for (int i = 0; i < user.getAllWeight().size(); i += 1) {
             toWrite += "\n";

@@ -1,10 +1,11 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.TransactionList;
+import duke.model.wallet.TransactionList;
+import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 import duke.model.Goal;
-import duke.model.MealList;
+import duke.model.meal.MealList;
 import duke.ui.Ui;
 import duke.model.user.User;
 
@@ -28,37 +29,46 @@ public class AddGoalCommand extends Command {
         this.goal = goal;
     }
 
+    public AddGoalCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
+    }
+
     /**
      * Executes AddGoalCommand.
      * @param meals the MealList object in which the meal is supposed to be added
-     * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of meals
-     * @param in the scanner object to handle secondary command IO
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user,
-                        Scanner in, TransactionList transactions) throws DukeException {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         try {
-            meals.addGoal(this.goal, false);
+            meals.addGoal(this.goal);
             ui.showAddedGoal(goal);
             storage.updateGoal(meals);
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
             ui.showLine();
-            String response = ui.readCommand(in);
-            if (response.trim().equals("y")  || response.trim().equals("Y")) {
-                meals.addGoal(this.goal, true);
-                ui.showLine();
-                ui.showAddedGoal(goal);
-                storage.updateGoal(meals);
-            } else if (response.trim().equals("n")  || response.trim().equals("N")) {
-                ui.showLine();
-                throw new DukeException("The set goal command has been canceled");
-            } else {
-                ui.showLine();
-                throw new DukeException("An unknown response has been recorded \n"
-                        + "     The set goal command has been canceled");
-            }
+            isDone = false;
         }
+        ui.showLine();
+    }
+
+    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
+        if (response.trim().equals("y")  || response.trim().equals("Y")) {
+            meals.addGoal(this.goal, true);
+            ui.showLine();
+            ui.showAddedGoal(goal);
+            storage.updateGoal(meals);
+        } else if (response.trim().equals("n")  || response.trim().equals("N")) {
+            ui.showLine();
+            ui.showMessage("The set goal command has been canceled");
+        } else {
+            ui.showLine();
+            ui.showMessage("An unknown response has been recorded \n"
+                    + "     The set goal command has been canceled");
+        }
+        ui.showLine();
     }
 }

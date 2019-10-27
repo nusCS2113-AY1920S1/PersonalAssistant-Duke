@@ -1,8 +1,9 @@
 package duke.logic.commands;
 
-import duke.model.Meal;
-import duke.model.MealList;
-import duke.model.TransactionList;
+import duke.model.meal.Meal;
+import duke.model.meal.MealList;
+import duke.model.wallet.TransactionList;
+import duke.model.wallet.Wallet;
 import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.model.user.User;
@@ -24,17 +25,27 @@ public class AddItemCommand extends Command {
         this.meal = meal;
     }
 
+    public AddItemCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
+    }
+
     /**
      * Execute the AddItemCommand.
      * @param meals the MealList object in which the meal is supposed to be added
-     * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of meals
-     * @param in the scanner object to handle secondary command IO
      */
+
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in, TransactionList transactions) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         meals.addStoredItem(this.meal);
         ui.showAddedItem(this.meal);
         storage.updateDefaults(meals);
+        ui.showLine();
     }
+
+    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
+    }
+
 }

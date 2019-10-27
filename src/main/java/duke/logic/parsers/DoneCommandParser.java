@@ -12,11 +12,16 @@ public class DoneCommandParser implements ParserInterface<MarkDoneCommand> {
      * Parse user input and return MarkDoneCommand.
      * @param userInput String input by user.
      * @return <code>MarkDoneCommand</code> Command object encapsulating the index of the entry to be marked done
-     * @throws DukeException If the userInput cannot be parsed
      */
     @Override
-    public MarkDoneCommand parse(String userInput) throws DukeException {
-        InputValidator.validate(userInput);
+
+    public MarkDoneCommand parse(String userInput) {
+        try {
+            InputValidator.validate(userInput);
+        } catch (DukeException e) {
+            return new MarkDoneCommand(false, "Please enter index of meal to be marked done on today's list or "
+                    + "date and index of meal to be marked done");
+        }
         String[] indexAndDate = ArgumentSplitter.splitArguments(userInput, "/date");
         return new MarkDoneCommand(indexAndDate[0], indexAndDate[1]);
     }

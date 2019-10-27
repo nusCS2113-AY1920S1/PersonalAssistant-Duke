@@ -1,4 +1,6 @@
-package duke.model;
+package duke.model.wallet;
+
+import duke.model.wallet.Transaction;
 
 import java.math.BigDecimal;
 
