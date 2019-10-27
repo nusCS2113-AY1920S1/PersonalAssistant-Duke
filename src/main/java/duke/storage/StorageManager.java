@@ -3,20 +3,26 @@ package duke.storage;
 import duke.exception.DukeException;
 import duke.model.Budget;
 import duke.model.ExpenseList;
+import duke.model.payment.PaymentList;
+import duke.storage.payment.PaymentListStorage;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 
 public class StorageManager implements Storage {
 
     private ExpenseListStorage expenseListStorage;
     private PlanAttributesStorage planAttributesStorage;
     private BudgetStorage budgetStorage;
+    private PaymentListStorage paymentListStorage;
 
-    public StorageManager(ExpenseListStorage expenseListStorage, PlanAttributesStorage planAttributesStorage, BudgetStorage budgetStorage) {
+    public StorageManager(ExpenseListStorage expenseListStorage, PlanAttributesStorage planAttributesStorage,
+                          BudgetStorage budgetStorage, PaymentListStorage paymentListStorage) {
         this.expenseListStorage = expenseListStorage;
         this.planAttributesStorage = planAttributesStorage;
         this.budgetStorage = budgetStorage;
+        this.paymentListStorage = paymentListStorage;
     }
 
     @Override
@@ -49,5 +55,14 @@ public class StorageManager implements Storage {
         budgetStorage.saveBudget(budget);
     }
 
+    @Override
+    public Optional<PaymentList> loadPaymentList() throws DukeException {
+        return paymentListStorage.readPaymentList();
+    }
+
+    @Override
+    public void savePaymentList(PaymentList paymentList) throws IOException {
+        paymentListStorage.savePaymentList(paymentList);
+    }
 
 }

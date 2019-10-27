@@ -29,6 +29,19 @@ public class PaymentList {
         TIME, AMOUNT, PRIORITY;
     }
 
+    public PaymentList() {
+        this.internalTimeSortedList = new ArrayList<>();
+
+        externalList = FXCollections.observableArrayList();
+        externalFinalList = FXCollections.unmodifiableObservableList(externalList);
+
+        updateInternalAmountSortedList();
+        updateInternalPrioritySortedList();
+
+        sortCriteria = DEFAULT_SORT_CRITERIA; // TIME
+        fetchInternalListToExternalList();
+    }
+
     public PaymentList(List<Payment> timeSortedList) {
         this.internalTimeSortedList = timeSortedList;
 
@@ -76,6 +89,16 @@ public class PaymentList {
 
     public ObservableList<Payment> getExternalFinalList() {
         return externalFinalList;
+    }
+
+    /**
+     * Returns all internal payments as a list.
+     * This is for storage ONLY!
+     *
+     * @return list containing all internal payments.
+     */
+    public List<Payment> getInternalList() {
+        return internalTimeSortedList;
     }
 
     private void fetchInternalListToExternalList() {

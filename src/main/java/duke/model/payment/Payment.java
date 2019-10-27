@@ -79,7 +79,7 @@ public class Payment {
             return this;
         }
 
-        public Builder setNote(String note) {
+        public Builder setRemark(String note) {
             this.remark = note;
             return this;
         }

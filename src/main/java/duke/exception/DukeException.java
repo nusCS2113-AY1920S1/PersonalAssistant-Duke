@@ -25,6 +25,7 @@ public class DukeException extends Exception {
     public static final String MESSAGE_INCOME_AMOUNT_INVALID = "%s is not a valid amount!";
     public static final String MESSAGE_INCOME_TIME_INVALID = "%s is not a valid time!";
     public static final String MESSAGE_PRIORITY_NAME_INVALID = "%s is not a priority name.";
+    public static final String MESSAGE_PAYMENT_STORAGE_MISSING_FIELD = "Payment's %s field is missing!";
 
     public DukeException(String message) {
         super(message);

@@ -9,6 +9,7 @@ import javafx.collections.transformation.FilteredList;
 
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -39,11 +40,16 @@ public class DukePP implements Model {
      * This constructor is used for loading DukePP from storage.
      */
     // todo: pass more arguments to constructor as more data are implemented.
-    public DukePP(ExpenseList expenseList, Map<String, String> planAttributes, Budget budget, PaymentList payments) throws DukeException {
+    public DukePP(ExpenseList expenseList, Map<String, String> planAttributes, Budget budget, Optional<PaymentList> OptionalPayments) throws DukeException {
         this.expenseList = expenseList;
         this.planBot = new PlanBot(planAttributes);
         this.budget = budget;
-        this.payments = payments;
+        if(!OptionalPayments.isPresent()) {
+            logger.info("PaymentList is not loaded. It be starting with a empty PaymentList");
+            this.payments = new PaymentList();
+        } else {
+            this.payments = OptionalPayments.get();
+        }
 
         // to be moved to model manager
         filteredPayments = new FilteredList<>(payments.getExternalFinalList());
