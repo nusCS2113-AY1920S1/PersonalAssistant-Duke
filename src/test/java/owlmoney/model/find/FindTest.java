@@ -21,17 +21,20 @@ import owlmoney.model.transaction.Expenditure;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.TransactionList;
 import owlmoney.model.transaction.exception.TransactionException;
+import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
 class FindTest {
     private static final String NEWLINE = System.lineSeparator();
     private static final DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
+    private static final String FILE_PATH = "data/";
+    private static final Storage storage = new Storage(FILE_PATH);
 
     @Test
     void findBankAccount_AccountNameMatch_printDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        BankList bankList = new BankList();
+        BankList bankList = new BankList(storage);
         Ui uiTest = new Ui();
         Bank newSavingAccountOne = new Saving("Test Saving Account 1", 1000, 2000);
         Bank newSavingAccountTwo = new Saving("Test Saving Account 2", 1000, 2000);
@@ -64,7 +67,7 @@ class FindTest {
     void findBankAccount_savingsAccountNameDoNotMatch_printDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        BankList bankList = new BankList();
+        BankList bankList = new BankList(storage);
         Ui uiTest = new Ui();
         Bank newSavingAccountOne = new Saving("Test Saving Account 1", 1000, 2000);
         Bank newSavingAccountTwo = new Saving("Test Saving Account 2", 1000, 2000);
@@ -89,7 +92,7 @@ class FindTest {
     void findBankAccount_investmentAccountNameDoNotMatch_printDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        BankList bankList = new BankList();
+        BankList bankList = new BankList(storage);
         Ui uiTest = new Ui();
         Bank newInvestmentAccountOne = new Investment("Test Investment Account 1", 1000);
         Bank newInvestmentAccountTwo = new Investment("Test Investment Account 2", 2000);

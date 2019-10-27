@@ -15,17 +15,19 @@ import org.junit.jupiter.api.Test;
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.transaction.Expenditure;
 import owlmoney.model.transaction.Transaction;
+import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
 class CardTest {
     private static final String NEWLINE = System.lineSeparator();
     private static final DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
-
+    private static final String FILE_PATH = "data/";
+    private static final Storage storage = new Storage(FILE_PATH);
     @Test
     void cardListAddCard_addOneCard_printCardDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        CardList cardListTemp = new CardList();
+        CardList cardListTemp = new CardList(storage);
         Card newCard = new Card("Test Card", 1000, 1.5);
         Ui uiTest = new Ui();
         try {
@@ -51,7 +53,7 @@ class CardTest {
     void cardListAddCard_addCardWithDuplicateName_throwsException() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        CardList cardListTemp = new CardList();
+        CardList cardListTemp = new CardList(storage);
         Card firstCard = new Card("Test Card", 1000, 1.5);
         Card cardWithDuplicateName = new Card("Test Card", 2000, 0.5);
         Ui uiTest = new Ui();
@@ -72,7 +74,7 @@ class CardTest {
     void cardListEditCard_editCardThatExist_printCardDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        CardList cardListTemp = new CardList();
+        CardList cardListTemp = new CardList(storage);
         Card newCard = new Card("Test Card", 1000, 1.5);
         Ui uiTest = new Ui();
         try {
@@ -102,7 +104,7 @@ class CardTest {
     void cardListEditCard_editCardThatDoNotExist_throwsException() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        CardList cardListTemp = new CardList();
+        CardList cardListTemp = new CardList(storage);
         Card newCard = new Card("Test Card", 1000, 1.5);
         Ui uiTest = new Ui();
         try {
@@ -124,7 +126,7 @@ class CardTest {
     void cardListEditCard_newCardNameClashWithOtherCardName_throwsException() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        CardList cardListTemp = new CardList();
+        CardList cardListTemp = new CardList(storage);
         Card cardToEdit = new Card("Test Card", 1000, 1.5);
         String newCardName = "New Card Name";
         Card cardToClash = new Card(newCardName, 1050, 2.5);
@@ -151,7 +153,7 @@ class CardTest {
     void cardListEditCard_editCardLimitWithUnpaidExpenditure_throwsException() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        CardList cardListTemp = new CardList();
+        CardList cardListTemp = new CardList(storage);
         Ui uiTest = new Ui();
         Date newDate = new Date();
         Card newCard = new Card("Test Card", 1000, 1.5);
@@ -184,7 +186,7 @@ class CardTest {
     void cardListEditCard_editCardLimitOnlyWithoutUnpaidExpenditure_printDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        CardList cardListTemp = new CardList();
+        CardList cardListTemp = new CardList(storage);
         Ui uiTest = new Ui();
         Card newCard = new Card("Test Card", 1000, 1.5);
 
@@ -214,7 +216,7 @@ class CardTest {
     void cardListEditCard_editCardNameOnlyWithoutClash_printDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        CardList cardListTemp = new CardList();
+        CardList cardListTemp = new CardList(storage);
         Ui uiTest = new Ui();
         Card newCard = new Card("Test Card", 1000, 1.5);
 
@@ -245,7 +247,7 @@ class CardTest {
     void cardListEditCard_editCardRebateOnly_printDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        CardList cardListTemp = new CardList();
+        CardList cardListTemp = new CardList(storage);
         Ui uiTest = new Ui();
         Card newCard = new Card("Test Card", 1000, 1.5);
 
@@ -275,7 +277,7 @@ class CardTest {
     void cardListDeleteCard_deleteCardThatExist_printDeleteCardDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        CardList cardListTemp = new CardList();
+        CardList cardListTemp = new CardList(storage);
         Card cardToBeDeleted = new Card("Test Card", 1000, 1.5);
         Ui uiTest = new Ui();
 
@@ -307,7 +309,7 @@ class CardTest {
 
     @Test
     void cardListDeleteCard_deleteCardWithEmptyCardList_throwsException() {
-        CardList cardListTemp = new CardList();
+        CardList cardListTemp = new CardList(storage);
         Ui uiTest = new Ui();
         assertEquals(0, cardListTemp.getCardListSize());
 
@@ -321,7 +323,7 @@ class CardTest {
     void cardListDeleteCard_deleteCardWithNonExistentName_throwsException() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        CardList cardListTemp = new CardList();
+        CardList cardListTemp = new CardList(storage);
         Card newCard = new Card("Test Card", 1000, 1.5);
         Ui uiTest = new Ui();
 
@@ -345,7 +347,7 @@ class CardTest {
     void cardListListCards_cardListNotEmpty_listCardDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        CardList cardListTemp = new CardList();
+        CardList cardListTemp = new CardList(storage);
         Card newCard = new Card("Test Card", 1000, 1.5);
         Ui uiTest = new Ui();
 
@@ -373,7 +375,7 @@ class CardTest {
 
     @Test
     void cardListListCards_cardListEmpty_throwsException() {
-        CardList cardListTemp = new CardList();
+        CardList cardListTemp = new CardList(storage);
         Ui uiTest = new Ui();
         CardException thrown = assertThrows(CardException.class, () ->
                         cardListTemp.cardListListCards(uiTest),

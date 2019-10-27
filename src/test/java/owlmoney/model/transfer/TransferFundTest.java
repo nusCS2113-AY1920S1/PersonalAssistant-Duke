@@ -18,12 +18,13 @@ import owlmoney.model.bank.Investment;
 import owlmoney.model.bank.Saving;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.profile.Profile;
+import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
 class TransferFundTest {
-
-    private static final String NEWLINE = System.lineSeparator();
     private static final DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
+    private static final String FILE_PATH = "data/";
+    private static final Storage storage = new Storage(FILE_PATH);
 
     //all transfer function can be found in Banklist.java and Profile.java
 
@@ -31,7 +32,7 @@ class TransferFundTest {
     void bankListIsAccountExistToTransfer_accountDoesNotExist_throwsException() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        BankList bankList = new BankList();
+        BankList bankList = new BankList(storage);
         Ui uiTest = new Ui();
         String nameDoNotExist = "No Such Name";
         Bank newSavingAccount = new Saving("Test Saving Account", 1000, 2000);
@@ -59,7 +60,7 @@ class TransferFundTest {
     void bankListIsAccountExistToTransfer_accountExistButInsufficientMoneyToTransfer_throwsException() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        BankList bankList = new BankList();
+        BankList bankList = new BankList(storage);
         Ui uiTest = new Ui();
         Bank newSavingAccount = new Saving("Test Saving Account", 1000, 2000);
         Bank newInvestmentAccount = new Investment("Test Investment Account", 1000);
@@ -86,7 +87,7 @@ class TransferFundTest {
     void bankListIsAccountExistToTransfer_accountExistWithSufficientMoneyToTransfer_returnBankType() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        BankList bankList = new BankList();
+        BankList bankList = new BankList(storage);
         Ui uiTest = new Ui();
         Bank newSavingAccount = new Saving("Test Saving Account", 1000, 2000);
         Bank newInvestmentAccount = new Investment("Test Investment Account", 1000);
@@ -113,7 +114,7 @@ class TransferFundTest {
     void bankListIsAccountExistToReceive_accountDoesNotExist_throwsException() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        BankList bankList = new BankList();
+        BankList bankList = new BankList(storage);
         Ui uiTest = new Ui();
         String nameDoNotExist = "No Such Name";
         Bank newSavingAccount = new Saving("Test Saving Account", 1000, 2000);
@@ -138,7 +139,7 @@ class TransferFundTest {
     void bankListIsAccountExistToReceive_accountExist_returnBankType() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        BankList bankList = new BankList();
+        BankList bankList = new BankList(storage);
         Ui uiTest = new Ui();
         Bank newSavingAccount = new Saving("Test Saving Account", 1000, 2000);
         Bank newInvestmentAccount = new Investment("Test Investment Account", 1000);
@@ -163,7 +164,7 @@ class TransferFundTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         Ui uiTest = new Ui();
-        Profile profileTest = new Profile("Test User");
+        Profile profileTest = new Profile("Test User", uiTest);
         Bank newSavingAccount = new Saving("Test Saving Account", 1000, 2000);
         Bank newInvestmentAccount = new Investment("Test Investment Account", 1000);
         Date newDate = new Date();
@@ -190,7 +191,7 @@ class TransferFundTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         Ui uiTest = new Ui();
-        Profile profileTest = new Profile("Test User");
+        Profile profileTest = new Profile("Test User", uiTest);
         Bank newSavingAccount = new Saving("Test Saving Account", 1000, 2000);
         Bank newInvestmentAccount = new Investment("Test Investment Account", 1000);
         Date newDate = new Date();
@@ -222,7 +223,7 @@ class TransferFundTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         Ui uiTest = new Ui();
-        Profile profileTest = new Profile("Test User");
+        Profile profileTest = new Profile("Test User", uiTest);
         Bank newSavingAccount = new Saving("Test Saving Account", 1000, 2000);
         Bank newInvestmentAccount = new Investment("Test Investment Account", 1000);
         Date newDate = new Date();
@@ -254,7 +255,7 @@ class TransferFundTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         Ui uiTest = new Ui();
-        Profile profileTest = new Profile("Test User");
+        Profile profileTest = new Profile("Test User", uiTest);
         Bank newSavingAccount = new Saving("Test Saving Account", 1000, 2000);
         Bank newInvestmentAccount = new Investment("Test Investment Account", 1000);
         Date newDate = new Date();
