@@ -316,7 +316,7 @@ public class ExpenseList extends DukeList<Expense> {
      */
     public BigDecimal getTagAmount(String tag) {
         return internalList.stream()
-                .filter(expense -> expense.getTags().contains(tag))
+                .filter(expense -> expense.getTag().contains(tag))
                 .filter(expense -> !expense.isTentative())
                 .map(Expense::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);

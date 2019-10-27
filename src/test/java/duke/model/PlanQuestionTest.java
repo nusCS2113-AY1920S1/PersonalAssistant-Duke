@@ -18,4 +18,19 @@ public class PlanQuestionTest {
             Assertions.fail(e.getMessage());
         }
     }
+
+    @Test
+    public void testQueries() {
+        try {
+            PlanQuestion question1 = new PlanQuestion("TestQuestion",
+                    new String[]{"YES", "NO"},
+                    new String[]{"TRUE", "FALSE"},
+                    "TEST");
+            question1.getNeighbouringQuestions("MAYBE");
+            Assertions.fail();
+
+        } catch (DukeException e) {
+            Assertions.fail(e.getMessage());
+        }
+    }
 }

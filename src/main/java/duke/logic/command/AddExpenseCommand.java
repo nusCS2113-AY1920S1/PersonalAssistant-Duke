@@ -16,7 +16,7 @@ import java.util.stream.Stream;
  * Responses with the result.
  */
 public class AddExpenseCommand extends Command {
-    private static final String name = "addExpense";
+    private static final String name = "add";
     private static final String description = "Adds a new Expense";
     private static final String usage = "add $cost";
 
@@ -65,7 +65,7 @@ public class AddExpenseCommand extends Command {
         }
 
         if (commandParams.containsParams(SecondaryParam.TAG.name)) {
-            expenseBuilder.invertTags(commandParams.getParam(SecondaryParam.TAG.name));
+            expenseBuilder.setTag(commandParams.getParam(SecondaryParam.TAG.name));
         }
 
         if (commandParams.containsParams(SecondaryParam.TIME.name)) {
