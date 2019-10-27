@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+//@@author Catherinetan99
 public class FindFreeSlotCommand extends Command {
 
     public static final String MESSAGE_USAGE = "findfreeslot\n\t"
