@@ -83,9 +83,11 @@ public class EditPlaylistJson {
     public void renamePlaylist(Playlist playlist, String newName) throws IOException {
         File oldFileName = file;
         editPlaylist(playlist);
-        String fileName = "playlists/" + newName + ".json";
+        String fileName = "./" + newName + ".json";
         File newFile = new File(fileName);
         file.renameTo(newFile);
-        oldFileName.delete();
+//        if (oldFileName.delete()) {
+//            System.out.println("yeboiiii");
+//        }
     }
 }
