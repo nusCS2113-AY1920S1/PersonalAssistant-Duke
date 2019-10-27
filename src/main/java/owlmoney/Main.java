@@ -1,5 +1,7 @@
 package owlmoney;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 import owlmoney.logic.command.Command;
@@ -13,17 +15,20 @@ import owlmoney.model.goals.exception.GoalsException;
 import owlmoney.model.profile.Profile;
 import owlmoney.model.profile.exception.ProfileException;
 import owlmoney.model.transaction.exception.TransactionException;
+import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
 /**
- * The main class.
+ * Starts an instance of OwlMoney.
  */
 class Main {
 
     private Ui ui;
     private ParseCommand parser;
     private Profile profile;
-    //private Storage storage;
+    private Storage storage;
+    private static final String FILE_PATH = "data/";
+    private static final String PROFILE_FILE_NAME = "profile.csv";
 
     /**
      * Initializes a new OwlMoney session.
@@ -31,13 +36,7 @@ class Main {
     private Main() {
         ui = new Ui();
         parser = new ParseCommand();
-        /*storage = new Storage("data/data.txt");
-        try {
-            tasks = new TaskList(storage.readFile());
-        } catch (FileNotFoundException e) {
-            ui.printError("Could not read tasks from disk, will start with empty file");
-            tasks = new TaskList();
-        }*/
+        storage = new Storage(FILE_PATH);
     }
 
     /**
@@ -65,7 +64,7 @@ class Main {
                 Scanner scanner = new Scanner(System.in);
                 String username = scanner.nextLine();
                 checkUserName(username);
-                profile = new Profile(username);
+                profile = new Profile(username, ui);
                 check = false;
             } catch (MainException e) {
                 ui.printError(e.toString());
@@ -78,12 +77,23 @@ class Main {
      */
     private void run() {
         boolean hasExited = false;
-
-        //Temporary do this chunk
-        ui.firstTimeRun();
-        getUserName();
-        ui.greet(profile.profileGetUsername());
-        // until above this line
+        try {
+            List<String[]> importData = storage.readFile(PROFILE_FILE_NAME);
+            String userName = importData.get(0)[0];
+            profile = new Profile(userName, ui);
+            ui.greet(profile.profileGetUsername());
+        } catch (Exception e) {
+            ui.printError("Unable to import profile files, starting fresh");
+            ui.firstTimeRun();
+            getUserName();
+            ui.greet(profile.profileGetUsername());
+            try {
+                storage.writeProfileFile(new String[]{profile.profileGetUsername()},PROFILE_FILE_NAME);
+            } catch (IOException ex) {
+                ui.printError("Unable to save profile now, your data is at risk, but we will" +
+                        "try saving again, feel free to continue using the program.");
+            }
+        }
         while (parser.hasNextLine()) {
             try {
                 Command command = parser.parseLine();

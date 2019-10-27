@@ -1,14 +1,19 @@
 package owlmoney.storage;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.List;
+
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+import com.opencsv.CSVWriter;
 
 /**
- * Storage handles reading and writing tasks from and to disk.
+ * Handles reading and writing data to and from disk.
  */
 public class Storage {
     private final String path;
@@ -18,36 +23,72 @@ public class Storage {
     }
 
     /**
-     * Reads tasks from this instance's path, one task per line during startup of Duke to
-     * reload last saved state.
+     * Writes files dynamically based on parameters specified.
      *
-     * @return An ArrayList of strings, each string representing a task.
-     * @throws FileNotFoundException If the file does not exist or is otherwise inaccessible.
+     * @param inputData input data in ArrayList of String Arrays.
+     * @param fileName name of file when exported
+     * @throws IOException when unable to write data to file.
      */
-    public ArrayList<String> readFile() throws FileNotFoundException {
-        ArrayList<String> out = new ArrayList<>();
-        File f = new File(path);
-        Scanner sc = new Scanner(f);
-        while (sc.hasNextLine()) {
-            out.add(sc.nextLine());
+    public void writeFile(ArrayList<String[]> inputData, String fileName) throws IOException {
+        try (
+                Writer writer = Files.newBufferedWriter(Paths.get(path + fileName));
+                CSVWriter csvWriter = new CSVWriter(writer,
+                        CSVWriter.DEFAULT_SEPARATOR,
+                        CSVWriter.NO_QUOTE_CHARACTER,
+                        CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                        CSVWriter.DEFAULT_LINE_END);
+        ) {
+            for(String[] line : inputData) {
+                csvWriter.writeNext(line);
+            }
+        } catch (IOException e) {
+            throw new IOException(e);
         }
-        return out;
     }
 
     /**
-     * Writes the given string representations of tasks to this instance's path.
-     * Happens when a modification to any task occurs.
+     * Writes file for profile user name only.
      *
-     * @param lines The lines to be written, produced by TaskList's export() method.
-     * @throws IOException If an error occurs while writing the tasks.
+     * @param inputData input data in String Arrays.
+     * @param fileName name of file when exported
+     * @throws IOException when unable to write data to file.
      */
-    public void writeFile(ArrayList<String> lines) throws IOException {
-        new File("data/").mkdirs(); //creates directory if it does not exist
-        FileWriter writer = new FileWriter(path);
-        for (String line : lines) {
-            writer.write(line + "\n");
+    public void writeProfileFile(String[] inputData, String fileName) throws IOException {
+        try (
+                Writer writer = Files.newBufferedWriter(Paths.get(path + fileName));
+                CSVWriter csvWriter = new CSVWriter(writer,
+                        CSVWriter.DEFAULT_SEPARATOR,
+                        CSVWriter.NO_QUOTE_CHARACTER,
+                        CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                        CSVWriter.DEFAULT_LINE_END);
+        ) {
+            String[] headerRecord = {"Name"};
+            csvWriter.writeNext(headerRecord);
+            csvWriter.writeNext(inputData);
+        } catch (IOException e) {
+            throw new IOException(e);
         }
-        writer.close();
     }
 
+    /**
+     * Reads input file for profile user name.
+     *
+     * @param fileName the name of the input file to read from.
+     * @return List of String Array containing the user name.
+     * @throws IOException when unable to read the file.
+     */
+    public List<String[]> readFile(String fileName) throws IOException {
+        try (
+                Reader reader = Files.newBufferedReader(Paths.get(path + fileName));
+                CSVReader csvReader = new CSVReaderBuilder(reader).withSkipLines(1).build();
+        ) {
+            List<String[]> list = new ArrayList<>();
+            list = csvReader.readAll();
+            reader.close();
+            csvReader.close();
+            return list;
+        } catch (IOException e) {
+            throw new IOException(e);
+        }
+    }
 }

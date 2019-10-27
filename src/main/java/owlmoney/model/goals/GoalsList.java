@@ -2,6 +2,7 @@ package owlmoney.model.goals;
 
 import owlmoney.model.bank.Bank;
 import owlmoney.model.goals.exception.GoalsException;
+import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
 import java.text.DecimalFormat;
@@ -21,8 +22,9 @@ public class GoalsList {
 
     /**
      * Creates a instance of GoalsList that contains an arrayList of Goals.
+     * @param storage
      */
-    public GoalsList() {
+    public GoalsList(Storage storage) {
         goalList = new ArrayList<Goals>();
     }
 

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.exception.TransactionException;
+import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
 /**
@@ -20,8 +21,9 @@ public class CardList {
 
     /**
      * Creates an arrayList of Cards.
+     * @param storage
      */
-    public CardList() {
+    public CardList(Storage storage) {
         cardLists = new ArrayList<Card>();
     }
 

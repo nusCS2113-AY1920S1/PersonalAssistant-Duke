@@ -1,5 +1,10 @@
 package owlmoney.model.bank;
 
+import java.io.IOException;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -11,6 +16,7 @@ import owlmoney.model.transaction.Deposit;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.TransactionList;
 import owlmoney.model.transaction.exception.TransactionException;
+import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
 /**
@@ -20,6 +26,12 @@ public class Investment extends Bank {
 
     private static final String INVESTMENT = "investment";
     private BondList bonds;
+    private static final String INVESTMENT_BOND_LIST_FILE_NAME = "_investment_bondList.csv";
+    private static final String INVESTMENT_TRANSACTION_LIST_FILE_NAME = "_investment_transactionList.csv";
+
+    private Storage storage;
+    private static final String FILE_PATH = "data/";
+
 
     /**
      * Creates an instance of an investment account.
@@ -32,6 +44,7 @@ public class Investment extends Bank {
         this.type = INVESTMENT;
         this.transactions = new TransactionList();
         this.bonds = new BondList();
+        this.storage = new Storage(FILE_PATH);
     }
 
     /**
@@ -264,5 +277,111 @@ public class Investment extends Bank {
     @Override
     public void findBondInInvestment(String bondName, Ui ui) throws BondException {
         bonds.findBond(bondName, ui);
+    }
+
+    /**
+     * Prepares bond list for exporting.
+     *
+     * @return properly formatted bond list in arraylist that contains array of strings.
+     */
+    private ArrayList<String[]> prepareExportBondList() {
+        ArrayList<String[]> exportArrayList = new ArrayList<>();
+        DecimalFormat decimalFormat = new DecimalFormat(".00");
+        decimalFormat.setRoundingMode(RoundingMode.DOWN);
+        SimpleDateFormat exportDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        exportArrayList.add(new String[]{"bondName","amount","rate","boughtDate","year",
+                "nextDateToCreditInterest"});
+        for(int i = 0; i < bonds.getSize(); i++) {
+            String bondName = bonds.get(i).getName();
+            double amount = bonds.get(i).getAmount();
+            double rate = bonds.get(i).getYearlyCouponRate();
+            String boughtDate = exportDateFormat.format(bonds.get(i).getDateInDateFormat());
+            int year = bonds.get(i).getYear();
+            String nextDateToCreditInterest = exportDateFormat.format(bonds.get(i).getNextDateToCreditInterest());
+            String stringAmount = decimalFormat.format(amount);
+            String stringRate = decimalFormat.format(rate);
+            String stringYear = Integer.toString(year);
+
+            exportArrayList.add(new String[]
+                    {bondName,stringAmount,stringRate,boughtDate,stringYear,
+                            nextDateToCreditInterest});
+        }
+        return exportArrayList;
+    }
+
+    /**
+     * Exports the bond list.
+     *
+     * @param prependFileName the index of the bankAccount in the bankList.
+     * @throws IOException if there are errors exporting the file.
+     */
+    @Override
+    public void exportInvestmentBondList(String prependFileName) throws IOException {
+        ArrayList<String[]> inputData = prepareExportBondList();
+        try {
+            storage.writeFile(inputData,prependFileName + INVESTMENT_BOND_LIST_FILE_NAME);
+        } catch (IOException e) {
+            throw new IOException(e);
+        }
+    }
+
+    /**
+     * Exports the transaction list.
+     *
+     * @param prependFileName the index of the bankAccount in the bankList.
+     * @throws IOException if there are errors exporting the file.
+     */
+    @Override
+    public void exportBankTransactionList(String prependFileName) throws IOException {
+        ArrayList<String[]> inputData = prepareExportTransactionList();
+        try {
+            storage.writeFile(inputData,prependFileName + INVESTMENT_TRANSACTION_LIST_FILE_NAME);
+        } catch (IOException e) {
+            throw new IOException(e);
+        }
+    }
+
+    /**
+     * Imports new bonds one at a time.
+     *
+     * @param newBond an instance of the bond, contained in 1 line in the saved file.
+     */
+    @Override
+    public void importNewBonds(Bond newBond) {
+        bonds.importBondToList(newBond);
+    }
+
+    /**
+     * Imports new deposits one at a time.
+     *
+     * @param deposit an instance of the deposit, contained in 1 line in the saved file.
+     * @param bankType the type of deposit and bank type.
+     * @throws BankException if the bank account does not support this feature.
+     */
+    @Override
+    public void importNewDeposit(Transaction deposit, String bankType) throws BankException {
+        if (!"bonds".equals(bankType) && !"investment transfer".equals(bankType)) {
+            throw new BankException("This account does not support this feature");
+        }
+        transactions.importDepositToList(deposit);
+    }
+
+    /**
+     * Imports new expenditures one at a time.
+     *
+     * @param expenditure an instance of the expenditure, contained in 1 line in the saved file.
+     * @param bankType the type of bank.
+     * @throws BankException if the bank account does not support this feature.
+     */
+    @Override
+    public void importNewExpenditure(Transaction expenditure, String bankType) throws BankException {
+        if (!"bonds".equals(bankType) && !"investment transfer".equals(bankType)) {
+            throw new BankException("This account does not support savings expenditures");
+        }
+        if (expenditure.getAmount() > this.getCurrentAmount()) {
+            throw new BankException("Bank account cannot have a negative amount");
+        } else {
+            transactions.importExpenditureToList(expenditure, bankType);
+        }
     }
 }
