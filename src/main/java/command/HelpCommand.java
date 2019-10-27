@@ -1,6 +1,6 @@
 package command;
 
-import dictionary.WordBank;
+import dictionary.Bank;
 import storage.Storage;
 import ui.Ui;
 
@@ -18,7 +18,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public String execute(Ui ui, WordBank wordBank, Storage storage) {
+    public String execute(Ui ui, Bank bank, Storage storage) {
         return ui.showHelp(this.instruction);
     }
 }

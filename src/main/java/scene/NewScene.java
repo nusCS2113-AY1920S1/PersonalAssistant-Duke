@@ -1,7 +1,8 @@
 package scene;
 
-import dictionary.WordBank;
+import dictionary.Bank;
 import command.Command;
+import dictionary.WordCount;
 import exception.WordUpException;
 import javafx.stage.Stage;
 import parser.Parser;
@@ -28,25 +29,27 @@ public abstract class NewScene {
     protected Image user = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
     protected Image duke = new Image(this.getClass().getResourceAsStream("/images/duke.jpg"));
     protected Ui ui;
-    protected WordBank wordBank;
+    protected Bank bank;
     protected Storage storage;
+    protected WordCount wordCount;
     protected String greet;
     protected Stage window;
 
     /**
      * Creates a new scene.
      * @param ui to interact with user
-     * @param wordBank to store all words data
+     * @param bank to store all words data
      * @param storage extracted file to store all data
      * @param greet greeting from bot to user when user moves to a new scene
      * @param window main window containing the scene
      */
-    public NewScene(Ui ui, WordBank wordBank, Storage storage, String greet, Stage window) {
+    public NewScene(Ui ui, Bank bank, Storage storage, String greet, Stage window) {
         this.window = window;
         this.greet = greet;
         this.ui = ui;
-        this.wordBank = wordBank;
+        this.bank = bank;
         this.storage = storage;
+        this.wordCount = wordCount;
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -131,7 +134,7 @@ public abstract class NewScene {
 
     protected String getResponse(String fullCommand) throws WordUpException {
         Command c = Parser.parse(fullCommand);
-        return c.execute(ui, wordBank, storage);
+        return c.execute(ui, bank, storage);
     }
 
     protected Scene getScene() {

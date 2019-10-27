@@ -1,7 +1,7 @@
 package ui;
 
 import dictionary.Word;
-import dictionary.WordBank;
+import dictionary.WordCount;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -73,18 +73,18 @@ public class Ui {
     /**
      * Shows the list of all words in the word bank.
      * @param wordBank to store all words
-     * @param order order to show words (ascending / descending)
+     * @param order displayOrder to show words (ascending / descending)
      * @return a string shown when command is completed
      */
-    public String showList(WordBank wordBank, String order) {
+    public String showList(TreeMap<String, Word> wordBank, String order) {
         String returnedString = "Here are your words:\n";
         if (order.equals("asc") || order.equals("")) {
-            for (Map.Entry<String, Word> entry : wordBank.getWordBank().entrySet()) {
+            for (Map.Entry<String, Word> entry : wordBank.entrySet()) {
                 returnedString += entry.getValue() + "\n";
             }
         } else {
-            for (String description : wordBank.getWordBank().descendingKeySet()) {
-                returnedString += wordBank.getWordBank().get(description) + "\n";
+            for (String description : wordBank.descendingKeySet()) {
+                returnedString += wordBank.get(description) + "\n";
             }
         }
         return returnedString;
@@ -127,31 +127,32 @@ public class Ui {
     }
 
     public String showSearch(String description, String meaning) {
-        return ("Here is the meaning of " + description + ": " + meaning);
+        return ("Here is the meaning of " + description + ": " + meaning + "\n");
     }
 
     /**
-     * Shows a list of words ordered by their search count in ascending or descending order as specified by the user.
-     * @param wordBank a main class object containing the word bank content
-     * @param order the order (asc/desc) in which to display the word list
+     * Shows a list of words ordered by their search count in ascending or descending displayOrder as specified.
+     * @param wordCount a main class object containing the word bank content
+     * @param order the displayOrder (asc/desc) in which to display the word list
      * @return a string to show list of words and their search count
      */
-    public String showSearchFrequency(WordBank wordBank, String order) {
-        TreeMap<Integer, TreeMap<String, Word>> wordCount = wordBank.getWordCount(); //get map ordered by word count
+    public String showSearchFrequency(WordCount wordCount, String order) {
+        TreeMap<Integer, TreeMap<String, Word>> wordCountMap = wordCount.getWordCount(); //get map ordered by word count
         String returnedString = "You have searched for these words ";
-        if (order.equals("asc") || order.equals("")) { //list in ascending order
+        if (order.equals(
+                "asc") || order.equals("")) { //list in ascending displayOrder
             returnedString += "least:\n";
-            for (Map.Entry<Integer, TreeMap<String, Word>> entry : wordCount.entrySet()) {
+            for (Map.Entry<Integer, TreeMap<String, Word>> entry : wordCountMap.entrySet()) {
                 returnedString += entry.getKey() + " searches -\n";
                 for (Map.Entry<String, Word> word : entry.getValue().entrySet()) {
                     returnedString += word.getKey() + "\n";
                 }
             }
-        } else { //list in descending order
+        } else { //list in descending displayOrder
             returnedString += "most:\n";
-            for (Integer searchCount : wordCount.descendingKeySet()) {
+            for (Integer searchCount : wordCountMap.descendingKeySet()) {
                 returnedString += searchCount + " searches -\n";
-                for (Map.Entry<String, Word> word : wordCount.get(searchCount).entrySet()) {
+                for (Map.Entry<String, Word> word : wordCountMap.get(searchCount).entrySet()) {
                     returnedString += word.getKey() + "\n";
                 }
             }
@@ -165,7 +166,7 @@ public class Ui {
      * @param numberOfWordsToDisplay number of closest searched words to display
      * @return a string shown when command is completed
      */
-    public String showHistory(Stack<Word> wordHistory, int numberOfWordsToDisplay) {
+    public String showRecentlyAdded(Stack<Word> wordHistory, int numberOfWordsToDisplay) {
         int numberOfWords;
         String s = "";
         if (numberOfWordsToDisplay > wordHistory.size()) {
@@ -191,7 +192,7 @@ public class Ui {
     public String showHelp(String instruction) {
         if (instruction.equals("add")) {
             return "Add a word to wordbank.\n"
-                    + "Format: add w/WORD w/MEANING [t/TAG]";
+                    + "Format: add w/WORD m/MEANING [t/TAG]";
         } else if (instruction.equals("delete")) {
             return "Delete a word or tag from wordbank.\n"
                     + "Format: delete w/WORD_TO_BE_DELETED [t/TAG]";
@@ -271,6 +272,20 @@ public class Ui {
                     quizArray +
                     "\ntype exit_quiz to exit.");
         }
+    /**
+     * Shows to user all words that have a specific beginning.
+     * @param begin begin substring to be searched
+     * @param wordWithBegins list of all words that have that begin substring
+     * @return a string shown to user when the command is completed
+     */
+    public String showSearchBegin(String begin, ArrayList<String> wordWithBegins) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append((wordWithBegins.size() == 1) ? "This is a word that has " : "These are words that have");
+        stringBuilder.append("the same meaning as " + begin + "\n");
+        for (String s : wordWithBegins) {
+            stringBuilder.append(s + "\n");
+        }
+        return stringBuilder.toString();
     }
 }
 

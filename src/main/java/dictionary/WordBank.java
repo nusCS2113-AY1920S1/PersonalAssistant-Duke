@@ -1,27 +1,22 @@
 package dictionary;
 
-import java.util.Map;
 import java.util.ArrayList;
+import java.util.SortedMap;
 
 import exception.NoWordFoundException;
 import command.OxfordCall;
+import exception.WordAlreadyExistsException;
 import storage.Storage;
 
 import java.util.HashSet;
 import java.util.TreeMap;
 
 
-public class WordBank {
+public class WordBank extends Bank {
     private TreeMap<String, Word> wordBank;
-
-    /**
-     * Maps the search count (KEY) to an ordered list of words (VALUE) with that search count.
-     */
-    private TreeMap<Integer, TreeMap<String, Word>> wordCount = new TreeMap<>();
 
     public WordBank(Storage storage) {
         wordBank = storage.loadFile();
-        makeWordCount();
     }
 
     public WordBank(TreeMap<String, Word> wordBank) {
@@ -32,55 +27,52 @@ public class WordBank {
         return wordBank;
     }
 
-    public TreeMap<Integer, TreeMap<String, Word>> getWordCount() {
-        return wordCount;
+    /**
+     * Searched for the Word object containing the word.
+     * @param word the word to be found
+     * @return a Word object containing the word and its meaning
+     * @throws NoWordFoundException when the wordBank does not contain the word
+     */
+    public Word getWord(String word) throws NoWordFoundException {
+        try {
+            if (wordBank.containsKey(word)) {
+                return wordBank.get(word);
+            } else {
+                throw new NoWordFoundException(word);
+            }
+        } catch (NoWordFoundException e) {
+            e.showError();
+        }
+        return null;
     }
 
-    protected void makeWordCount() {
-        for (Map.Entry<String, Word> entry : wordBank.entrySet()) {
-            //find key. if exists append to treemap, else create new hashmap entry
-            int numberOfSearches = entry.getValue().getNumberOfSearches();
-            String wordText = entry.getValue().getWord();
-            Word wordWord = entry.getValue();
-            if (!wordCount.isEmpty()) {
-                if (wordCount.containsKey(numberOfSearches)) {
-                    wordCount.get(numberOfSearches).put(wordText, wordWord);
-                }
-            } else {
-                wordCount.put(numberOfSearches, new TreeMap<>());
-                wordCount.get(numberOfSearches).put(wordText, wordWord);
-            }
+    public boolean isEmpty() {
+        return wordBank.isEmpty();
+    }
+
+    /**
+     * Deletes a word with a specific description.
+     * @param word string represents a word to be deleted
+     * @throws NoWordFoundException if the word doesn't exist in the word bank
+     */
+    public void deleteWord(Word word) throws NoWordFoundException {
+        if (wordBank.containsKey(word.getWordString())) {
+            wordBank.remove(word.getWordString());
+        } else {
+            throw new NoWordFoundException(word.getWordString());
         }
     }
 
     /**
-     * Increases the search count for a word.
-     * @param searchTerm word that is being searched for by the user
-     * @throws NoWordFoundException if word does not exist in the word bank
+     * Adds a word to the WordBank.
+     * @param word Word object represents the word to be added
+     * @throws WordAlreadyExistsException if the word has already exists in the WordBank
      */
-    public void increaseSearchCount(String searchTerm) throws NoWordFoundException {
-        if (wordBank.containsKey(searchTerm)) {
-            Word searchedWord = wordBank.get(searchTerm);
-            int searchCount = searchedWord.getNumberOfSearches();
-            searchedWord.incrementNumberOfSearches();
-            wordCount.get(searchCount).remove(searchTerm);
-            if (wordCount.get(searchCount).isEmpty()) { //treemap is empty, delete key
-                wordCount.remove(searchCount);
-            }
-            int newSearchCount = searchCount + 1;
-            if (wordCount.containsKey(newSearchCount)) {
-                wordCount.get(newSearchCount).put(searchTerm, searchedWord); //add directly to existing treemap
-            } else {
-                wordCount.put(newSearchCount, new TreeMap<>());
-                wordCount.get(newSearchCount).put(searchTerm, searchedWord); //create new entry and add word to treemap
-            }
-        } else {
-            throw new NoWordFoundException(searchTerm);
+    public void addWord(Word word) throws WordAlreadyExistsException {
+        if (wordBank.containsKey(word.getWordString())) {
+            throw new WordAlreadyExistsException(word.getWordString());
         }
-    }
-
-    public void addWord(Word word) {
-        this.wordBank.put(word.getWord(), word);
+        this.wordBank.put(word.getWordString(), word);
     }
 
     /**
@@ -89,7 +81,7 @@ public class WordBank {
      * @return a string represents meaning of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank nor Oxford dictionary
      */
-    public String searchForMeaning(String word)throws NoWordFoundException {
+    public String searchWordMeaning(String word) throws NoWordFoundException {
         word = word.toLowerCase();
         String s = "";
         if (!(wordBank.containsKey(word))) {
@@ -102,30 +94,39 @@ public class WordBank {
     }
 
     /**
+     * Searches for all words with a few beginning characters.
+     * @param word a string represents the beginning substring
+     * @return list of words that have that beginning substring
+     * @throws NoWordFoundException if no words in the WordBank have that beginning substring
+     */
+    public ArrayList<String> searchWordWithBegin(String word) throws NoWordFoundException {
+        word = word.toLowerCase();
+        ArrayList<String> arrayList = new ArrayList<>();
+        String upperBoundWord = wordBank.ceilingKey(word);
+        if (!upperBoundWord.startsWith(word)) {
+            throw new NoWordFoundException(word);
+        }
+        SortedMap<String, Word> subMap = wordBank.subMap(upperBoundWord, wordBank.lastKey());
+        for (String s : subMap.keySet()) {
+            if (s.startsWith(word)) {
+                arrayList.add(s);
+            } else {
+                break;
+            }
+        }
+        return arrayList;
+    }
+
+    /**
      * Updates the meaning of a specific word.
      * @param wordToBeEdited word whose meaning is updated
      * @throws NoWordFoundException if the word doesn't exist in the word bank
      */
-    public Word getAndEditMeaning(String wordToBeEdited, String newMeaning) throws NoWordFoundException {
+    public void editWordMeaning(String wordToBeEdited, String newMeaning) throws NoWordFoundException {
         if (wordBank.containsKey(wordToBeEdited)) {
             wordBank.get(wordToBeEdited).editMeaning(newMeaning);
-            return wordBank.get(wordToBeEdited);
         } else {
             throw new NoWordFoundException(wordToBeEdited);
-        }
-    }
-
-    /**
-     * Deletes a word with a specific description and return it.
-     * @param word string represents a word to be deleted
-     * @return the word itself
-     * @throws NoWordFoundException if the word doesn't exist in the word bank
-     */
-    public Word getAndDelete(String word) throws NoWordFoundException {
-        if (wordBank.containsKey(word)) {
-            return wordBank.remove(word);
-        } else {
-            throw new NoWordFoundException(word);
         }
     }
 
@@ -165,5 +166,20 @@ public class WordBank {
                 nonExistTags.add(tag);
             }
         }
+    }
+
+    /**
+     * Checks spelling when user input a non-existing word.
+     * @param word word to be searched
+     * @return list of words that is considered to be close from the word user is looking for
+     */
+    public ArrayList<String> getClosedWords(String word) {
+        ArrayList<String> closedWords = new ArrayList<>();
+        for (Word w : wordBank.values()) {
+            if (w.isClosed(word)) {
+                closedWords.add(w.getWordString());
+            }
+        }
+        return closedWords;
     }
 }

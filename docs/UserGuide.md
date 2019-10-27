@@ -11,7 +11,7 @@ WordUp (WU) is a desktop-based application for english language learners who pre
 [insert GUI mockup]
 5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter opens up the window showing a list of commands available.
 6. Some example commands you could try:
-   - list shows the list of words currently stored in the Word Bank in alphabetical order or otherwise customised in the app settings
+   - list shows the list of words currently stored in the Word Bank in alphabetical displayOrder or otherwise customised in the app settings
    - add w/life m/the existence of an individual human being or animal : adds a word tagged by “w/” with its corresponding meaning tagged “m/” into the Word Bank
    - delete freedom : deletes the Word Bank entry of the word “freedom”
    - exit : exits the application
@@ -32,7 +32,7 @@ WordUp (WU) is a desktop-based application for english language learners who pre
 - Words in UPPER_CASE are parameter values to be supplied by the user e.g. in add w/WORD m/MEANING, WORD and MEANING are parameters to be replaced by user input, such as in the form of w/life m/the existence of an individual human being or animal.
 - Items in square brackets are optional e.g. r/REMINDERDATE [TIME] can be used as r/24/02/2300 0900 or r/24/02/2300.
 - Items with … after them can be used multiple times including zero times e.g. [t/TAG]... can be used as t/negative, t/emotions, t/lesson3
-- Parameters can be in any order e.g. if the command supplies m/MEANING w/WORD is also acceptable.
+- Parameters can be in any displayOrder e.g. if the command supplies m/MEANING w/WORD is also acceptable.
 
 *Details*
 1. **Viewing commands : `help`**
@@ -45,11 +45,11 @@ WordUp (WU) is a desktop-based application for english language learners who pre
 3. **Listing all words : `list`**
 	Shows a list of words categorised as specified
 	Format: list [t/EXISTING_TAG] [o/ORDER] 
-  e.g. list t/emotions o/asc shows the list of words tagged “emotions” in alphabetical order
-	! Not supplying any tags will show a list containing all words listed in alphabetical order
+  e.g. list t/emotions o/asc shows the list of words tagged “emotions” in alphabetical displayOrder
+	! Not supplying any tags will show a list containing all words listed in alphabetical displayOrder
 	! List of possible o/ORDER values: 
-    asc - order the list in ascending alphabetical order
-    desc - order the list in descending alphabetical order
+    asc - displayOrder the list in ascending alphabetical displayOrder
+    desc - displayOrder the list in descending alphabetical displayOrder
 
 4. **Find meaning of a word: `search`**
 	Shows the meaning of a specific word

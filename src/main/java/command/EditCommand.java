@@ -1,7 +1,7 @@
 package command;
 
 import dictionary.Word;
-import dictionary.WordBank;
+import dictionary.Bank;
 import exception.NoWordFoundException;
 import storage.Storage;
 import ui.Ui;
@@ -12,21 +12,21 @@ import ui.Ui;
  */
 public class EditCommand extends Command {
 
-    protected String editedWord;
+    protected String wordToBeEdited;
     protected String newMeaning;
 
-    public EditCommand(String editedWord, String newMeaning) {
-        this.editedWord = editedWord;
+    public EditCommand(String wordToBeEdited, String newMeaning) {
+        this.wordToBeEdited = wordToBeEdited;
         this.newMeaning = newMeaning;
     }
 
     @Override
-    public String execute(Ui ui, WordBank wordBank, Storage storage) {
+    public String execute(Ui ui, Bank bank, Storage storage) {
         try {
-            // edit word
-            String oldWordToString = wordBank.getWordBank().get(editedWord).toString();
-            Word newWord = wordBank.getAndEditMeaning(editedWord,newMeaning);
-            storage.editFromFile(oldWordToString,newWord.toString());
+            Word oldWord = bank.getWordFromWordBank(wordToBeEdited); //get the original word
+            bank.editWordMeaning(wordToBeEdited, newMeaning); //edit the word in the wordBank
+            Word newWord = bank.getWordFromWordBank(wordToBeEdited); //get the new edited word
+            storage.updateFile(oldWord.toString(), newWord.toString());
             String returned = ui.showEdited(newWord);
             return returned;
 

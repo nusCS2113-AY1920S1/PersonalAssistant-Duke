@@ -10,9 +10,10 @@ import command.ListCommand;
 import command.ExitCommand;
 import command.AddCommand;
 import command.SearchCommand;
-import command.RecentlyAddedCommand;
+import command.HistoryCommand;
 import command.SearchFrequencyCommand;
 import command.EditCommand;
+import command.SearchBeginCommand;
 import command.HelpCommand;
 
 import exception.CommandInvalidException;
@@ -28,6 +29,7 @@ import exception.WrongSearchFrequencyFormatException;
 import exception.WrongEditFormatException;
 import exception.WrongAddTagFormatException;
 import exception.WrongQuizFormatException;
+import exception.WrongSearchBeginFormatException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -58,6 +60,8 @@ public class Parser {
                 command = parseDelete(taskInfo);
             } else if (userCommand.equals("search")) {
                 command = parseSearch(taskInfo);
+            } else if (userCommand.equals("search_begin")) {
+                command = parseSearchBegin(taskInfo);
             } else if (userCommand.equals("list")) {
                 command = parseList(taskInfo);
             } else if (userCommand.equals("history")) {
@@ -107,14 +111,18 @@ public class Parser {
             throw new WrongAddFormatException();
         }
         String[] wordDetail = taskInfo[1].split("w/");
-        if (wordDetail.length != 3) {
+        if (wordDetail.length != 2) {
             throw new WrongAddFormatException();
         }
-        String wordDescription = wordDetail[1].trim();
+        wordDetail = wordDetail[1].split("m/");
+        if (wordDetail.length != 2) {
+            throw new WrongAddFormatException();
+        }
+        String wordDescription = wordDetail[0].trim();
         if (wordDescription.length() == 0) {
             throw new EmptyWordException();
         }
-        String[] meaningAndTag = wordDetail[2].split("t/");
+        String[] meaningAndTag = wordDetail[1].split("t/");
         String meaning = meaningAndTag[0].trim();
         if (meaning.length() == 0) {
             throw new EmptyWordException();
@@ -168,6 +176,13 @@ public class Parser {
         return new SearchCommand(taskInfo[1].substring(2).trim());
     }
 
+    protected static Command parseSearchBegin(String[] taskInfo) throws WrongSearchBeginFormatException {
+        if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
+            throw new WrongSearchBeginFormatException();
+        }
+        return new SearchBeginCommand(taskInfo[1].substring(2).trim());
+    }
+
     /**
      * Parses a list command.
      * @param taskInfo String array containing first stage parsed user input
@@ -189,7 +204,7 @@ public class Parser {
     }
 
     /**
-     * Parses a history command which requests for the list of words in order of entry.
+     * Parses a history command which requests for the list of words in displayOrder of entry.
      * @param taskInfo String array containing first stage parsed user input
      * @return a HistoryCommand object
      * @throws WrongHistoryFormatException when the format of the history command does not match required format
@@ -209,7 +224,7 @@ public class Parser {
         } catch (NumberFormatException nfe) {
             throw new WrongHistoryFormatException();
         }
-        return new RecentlyAddedCommand(numberOfWordsToDisplay);
+        return new HistoryCommand(numberOfWordsToDisplay);
     }
 
     /**

@@ -1,8 +1,8 @@
 package scene;
 
-import dictionary.WordBank;
 import command.QuizCommand;
 import exception.*;
+import dictionary.Bank;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -19,8 +19,8 @@ public class QuizScene extends NewScene {
     private Integer wrongQuiz;
     private ArrayList<String> quizArray;
 
-    public QuizScene(Ui ui, WordBank wordBank, Storage storage, Stage window) {
-        super(ui, wordBank, storage, ui.quizGreet(), window);
+    public QuizScene(Ui ui, Bank bank, Storage storage, Stage window) {
+        super(ui, bank, storage, ui.quizGreet(), window);
         setupHandleInput();
         this.countQuiz = 0;
         this.wrongQuiz = 0;
@@ -77,6 +77,7 @@ public class QuizScene extends NewScene {
         quizCommand = new QuizCommand();
         this.countQuiz+=1;
         quizCommand.generateQuiz(wordBank);
+//        quizCommand.generateQuiz(bank.getWordBankObject());
     }
 
     @Override
@@ -98,7 +99,7 @@ public class QuizScene extends NewScene {
     @Override
     public void resolveException(WordUpException e) {
         if (e instanceof ChangeSceneException) {
-            window.setScene(new MainScene(ui, wordBank, storage, window).getScene());
+            window.setScene(new MainScene(ui, bank, storage, window).getScene());
         }
     }
 

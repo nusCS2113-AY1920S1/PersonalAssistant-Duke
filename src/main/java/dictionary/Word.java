@@ -13,14 +13,14 @@ public class Word {
     private HashSet<String> tags;
 
     /**
+     * Maximum ratio of difference allowed for 2 words to be considered close.
+     */
+    private static final double MAX_DIF_ALLOWED = 0.5;
+
+    /**
      * Number of times that a word is searched.
      */
     private int numberOfSearches;
-
-    /**
-     * String represents the closest time that user search for a specific word.
-     */
-    private String closetSearch;
 
     /**
      * Initializes a word without tags.
@@ -47,24 +47,12 @@ public class Word {
         this.numberOfSearches = 0;
     }
 
-    public void setClosetSearch(String closetSearch) {
-        this.closetSearch = closetSearch;
-    }
-
-    public String getWord() {
+    public String getWordString() {
         return word;
     }
 
     public int getNumberOfSearches() {
         return numberOfSearches;
-    }
-
-    public void incrementNumberOfSearches() {
-        this.numberOfSearches += 1;
-    }
-
-    public String getClosetSearch() {
-        return closetSearch;
     }
 
     public String getMeaning() {
@@ -79,8 +67,37 @@ public class Word {
         this.tags.add(tag);
     }
 
+    public void incrementNumberOfSearches() {
+        this.numberOfSearches += 1;
+    }
+
     public void editMeaning(String newMeaning) {
         this.meaning = newMeaning;
+    }
+
+    /**
+     * Counts the number of different characters with another word.
+     * @param another string represents word to be compared
+     * @return number of different characters between 2 words
+     */
+    private double differenceToWord(String another) {
+        int lengthOfShorterWord = Math.min(another.length(), word.length());
+        int count = 0;
+        for (int i = 0; i < lengthOfShorterWord; i++) {
+            if (word.charAt(i) != another.charAt(i)) {
+                count++;
+            }
+        }
+        return count * 1.0 / lengthOfShorterWord;
+    }
+
+    /**
+     * Checks if 2 words are closed to each other.
+     * @param another string represents word to be compared
+     * @return true if 2 words are closed with each other
+     */
+    public boolean isClosed(String another) {
+        return differenceToWord(another) < MAX_DIF_ALLOWED;
     }
 
     @Override
