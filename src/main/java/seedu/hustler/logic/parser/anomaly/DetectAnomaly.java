@@ -12,5 +12,5 @@ public abstract class DetectAnomaly {
      * @param o input for which anomaly is detected
      * @return true or false for any anomaly detected
      */
-    public abstract boolean detect(Object o);
+    public abstract boolean detect(String[] userInput);
 }
