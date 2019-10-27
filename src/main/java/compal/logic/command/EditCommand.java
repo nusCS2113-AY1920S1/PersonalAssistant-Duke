@@ -57,7 +57,7 @@ public class EditCommand extends Command {
             toEdit.setDescription(description);
         }
         if (date != null) {
-            toEdit.setDate(CompalUtils.dateToString(date));
+            toEdit.setMainDate(CompalUtils.dateToString(date));
         }
         if (startTime != null && !toEdit.getSymbol().equalsIgnoreCase("D")) { //dealine has no start time
             toEdit.setStartTime(startTime);

@@ -16,7 +16,7 @@ public class Deadline extends Task {
     public Deadline(String description, Priority priority, String date, String endTime) {
         super(description, priority);
         super.symbol = "D";
-        super.setDate(date);
+        super.setMainDate(date);
         super.setEndTime(endTime);
     }
 }

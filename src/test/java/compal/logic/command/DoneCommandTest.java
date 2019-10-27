@@ -29,7 +29,7 @@ class DoneCommandTest {
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
-        Event event1 = new Event("Event 1", medium, "01/10/2019", "1400", "1500");
+        Event event1 = new Event("Event 1", medium, "01/10/2019", "01/10/2019", "1400", "1500");
         Deadline deadline1 = new Deadline("Deadline 1", high, "01/10/2019", "1500");
 
         taskArrListMain.add(event1);

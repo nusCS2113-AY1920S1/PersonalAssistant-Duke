@@ -33,7 +33,7 @@ public class CommandParserTestUtil {
     public static void assertParseFailure(CommandParser parserManager, String userInput, String expectedMessage) {
         try {
             parserManager.parseCommand(userInput);
-            throw new AssertionError("ParseException was not thrown.");
+            throw new AssertionError("ParserException was not thrown.");
         } catch (ParserException | ParseException e) {
             assertEquals(expectedMessage, e.getMessage());
         }

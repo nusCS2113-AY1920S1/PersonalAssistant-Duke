@@ -73,6 +73,8 @@ public class ParserManager {
             return new EditCommandParser().parseCommand(restOfInput);
         case CMD_LIST:
             return new ListCommandParser().parseCommand(restOfInput);
+        case CMD_DELETE:
+            return new DeleteCommandParser().parseCommand(restOfInput);
         default:
             return new HelpCommandParser().parseCommand(restOfInput);
         //suppose to return helpCommand();

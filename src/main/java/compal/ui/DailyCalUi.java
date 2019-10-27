@@ -85,7 +85,7 @@ class DailyCalUi {
 
         Comparator<Task> compareByStartTime = Comparator.comparing(Task::getPriority);
         for (Task t : tempOriginalList) {
-            if (t.getStringDate().equals(dateToDisplay)) {
+            if (t.getStringMainDate().equals(dateToDisplay)) {
                 if (t.getSymbol().equals("D") && !t.getisDone()) {
                     deadlineArrayList.add(t);
                 } else if ((t.getSymbol().equals("E") && !t.getisDone())) {

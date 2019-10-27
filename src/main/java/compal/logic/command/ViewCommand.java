@@ -184,7 +184,7 @@ public class ViewCommand extends Command {
                 continue;
             }
 
-            if (t.getStringDate().equals(dateInput)) {
+            if (t.getStringMainDate().equals(dateInput)) {
                 allTask.append(getAsStringView(t));
             }
         }
