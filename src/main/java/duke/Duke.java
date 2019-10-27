@@ -25,7 +25,10 @@ import duke.task.FilterList;
 import duke.task.ContactList;
 import duke.task.TaskList;
 import duke.ui.Ui;
+
+import java.io.File;
 import java.io.IOException;
+
 
 /**
  * Represents a duke that controls the program.
@@ -45,6 +48,12 @@ public class Duke {
     private BudgetList budgetList;
     private static final int ZERO = 0;
 
+    private static final String storageFilePath = "data";
+    private static final String taskFilePath = "data/duke.txt";
+    private static final String priorityFilePath = "data/priority.txt";
+    private static final String budgetFilePath = "data/budget.txt";
+    private static final String contactsFilePath = "data/contacts.txt";
+
     /**
      * Creates a duke to initialize storage, task list, and ui.
      *
@@ -60,6 +69,7 @@ public class Duke {
         priorityStorage = new PriorityStorage(filePath2);
         contactStorage = new ContactStorage(filePathForContacts);
         budgetStorage = new BudgetStorage(filePathForBudget);
+        checkStorageExist();
         try {
             items = new TaskList(storage.read());
         } catch (IOException e) {
@@ -100,6 +110,17 @@ public class Duke {
      */
     public String getResponse(String input) {
         return "Duke heard: " + input;
+    }
+
+    /**
+     * Creates a directory for data storage if there is none created yet.
+     *
+     */
+    public void checkStorageExist() {
+        File storageFileDirectory = new File(storageFilePath);
+        if (!storageFileDirectory.exists()) {
+            storageFileDirectory.mkdirs();
+        }
     }
 
     /**
@@ -229,6 +250,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/duke.txt", "data/priority.txt", "data/budget.txt","data/contacts.txt").run();
+        new Duke(taskFilePath, priorityFilePath, budgetFilePath,contactsFilePath).run();
     }
 }
