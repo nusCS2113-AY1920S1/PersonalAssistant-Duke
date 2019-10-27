@@ -41,7 +41,7 @@ public class FixDurationCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.writeToSaveFile(sb.toString());
     }
 
     public void undo(final String command, final ArrayList<Task> list, final Storage storage) throws IOException {
@@ -55,7 +55,7 @@ public class FixDurationCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.writeToSaveFile(sb.toString());
     }
     /**
      * Tells the main Duke class that the system

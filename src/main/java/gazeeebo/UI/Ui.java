@@ -19,7 +19,6 @@ import java.util.Comparator;
 public class Ui {
     public String fullCommand;
 
-
     public void readCommand() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         fullCommand = reader.readLine().trim();
@@ -29,7 +28,7 @@ public class Ui {
      * This method prompts the user to input the password to login into GAZEEEBO and print a logo and message to welcome the user when he successfully log in.
      *
      * @return the logo
-     * @throws IOException if tDate doesn't get updated.
+     * @throws IOException catch the error if the read file fails.
      */
     public String showWelcome() throws IOException {
         System.out.println("Input password to enter Gazeeebo:");
@@ -43,22 +42,29 @@ public class Ui {
                 + "\n__________________________________________\n";
 
         while (true) {
+
             readCommand();
             ArrayList<StringBuilder> password_list;
             Storage store = new Storage();
-            password_list = store.Password();
+            password_list = store.readFromPasswordFile();
             if (fullCommand.equals(password_list.get(0).toString())) {
-            System.out.println(welcomemessage);
-            LocalDate a = LocalDate.now();
-            System.out.println("Today is " + a.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
+                System.out.println(welcomemessage);
+                LocalDate a = LocalDate.now();
+                System.out.println("Today is " + a.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
                 break;
+
             } else {
                 System.out.println("Incorrect password, please try again:");
             }
+
+
         }
         return welcomemessage;
     }
 
+    /**
+     * List of major features
+     */
     public void MajorCategories() {
         ArrayList<String> majorCategories = new ArrayList<>();
         majorCategories.add("help");
@@ -66,10 +72,11 @@ public class Ui {
         majorCategories.add("expenses");
         majorCategories.add("places");
         majorCategories.add("tasks");
-        majorCategories.add("gpa");
+        majorCategories.add("cap");
         majorCategories.add("spec");
         majorCategories.add("moduleplanner");
         majorCategories.add("notes");
+
         System.out.println("\nContent Page:");
         System.out.println("------------------ " +
                 "");

@@ -1,3 +1,4 @@
+import gazeeebo.storage.NotePageStorage;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
@@ -18,21 +19,22 @@ public class Gazeeebo {
      *
      * @param args a String array that takes in input from the command line
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ArrayList<Task> list;
         Stack<String> CommandStack = new Stack<String>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         Storage store = new Storage();
-        TriviaManager triviaManager = new TriviaManager();
+        TriviaManager triviaManager = new TriviaManager(store);
         boolean isExit = false;
         Ui ui = new Ui();
         try {
             ui.showWelcome();
-            list = store.ReadFile();
-            store.Read_Trivia(triviaManager);
+            list = store.realFromSaveFile();
             NoteStorage.readFromFile("NoteDaily.txt", NoteList.daily);
             NoteStorage.readFromFile("NoteWeekly.txt", NoteList.weekly);
             NoteStorage.readFromFile("NoteMonthly.txt", NoteList.monthly);
+            NotePageStorage.readFromGoalFile();
+            NotePageStorage.readFromModulesFile();
             ui.UpcomingTask(list);
             ui.MajorCategories();
             while (!isExit) {
@@ -59,5 +61,4 @@ public class Gazeeebo {
             System.out.println("System exiting");
         }
     }
-
 }

@@ -31,23 +31,21 @@ public class TriviaManagerTest {
     @Test
     public void testLearnInput() throws IOException {
         String testinput = "Love Qinhuai River";
-        TriviaManager triviaManager = new TriviaManager();
         Storage storage = new Storage();
+        TriviaManager triviaManager = new TriviaManager(storage);
         triviaManager.learnInput(testinput,storage);
         assertEquals("Love Qinhuai River",triviaManager.CommandMemory.get("Love").get(0));
-        triviaManager.CommandMemory.remove("Love");
     }
 
     @Test
     public void testShowPossibleInput() throws IOException{
         String testinput = "Love Qinhuai River";
-        TriviaManager triviaManager= new TriviaManager();
         Storage storage = new Storage();
+        TriviaManager triviaManager= new TriviaManager(storage);
         triviaManager.learnInput(testinput,storage);
         triviaManager.showPossibleInputs("Love");
 //        System.out.print("Could it be one of the below inputs?\n");
 //        System.out.print(triviaManager.CommandMemory.get("Love"));
         assertEquals("Could it be one of the below inputs?\n"+triviaManager.CommandMemory.get("Love").toString()+"\n",outContent.toString());
-        triviaManager.CommandMemory.remove("Love");
     }
 }

@@ -9,7 +9,7 @@ import gazeeebo.commands.Command;
 import java.io.IOException;
 import java.util.*;
 
-public class ContactsCommand extends Command {
+public class ContactCommand extends Command {
     private static final String LINEBREAK = "------------------------------------------\n";
     /**
      * This method is the list of all the contact numbers and you got add/find/delete contacts.
@@ -21,8 +21,8 @@ public class ContactsCommand extends Command {
      */
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
-        HashMap<String, String> map = storage.Contact(); //Read the file
-        Map<String, String> contact = new TreeMap<String, String>(map);
+        HashMap<String, String> map = storage.readFromContactFile(); //Read the file
+        Map<String, String> contactList = new TreeMap<String, String>(map);
 
         System.out.print("Welcome to your contacts page! What would you like to do?\n\n");
         System.out.println("__________________________________________________________");
@@ -37,20 +37,20 @@ public class ContactsCommand extends Command {
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {
             if (ui.fullCommand.equals("add")) {
-                new AddContactCommand(ui, contact);
+                new AddContactCommand(ui, contactList);
             } else if (ui.fullCommand.split(" ")[0].equals("find")) {
-                new FindContactCommand(ui, contact, LINEBREAK);
+                new FindContactCommand(ui, contactList, LINEBREAK);
             } else if (ui.fullCommand.equals("list")) {
-                new ListContactCommand(contact, LINEBREAK);
+                new ListContactCommand(contactList, LINEBREAK);
             } else if (ui.fullCommand.contains("delete")) {
-                new DeleteContactCommand(ui, contact);
+                new DeleteContactCommand(ui, contactList);
             }
             String toStore = "";
-            for (String key : contact.keySet()) {
+            for (String key : contactList.keySet()) {
 
-                toStore = toStore.concat(key + "|" + contact.get(key) + "\n");
+                toStore = toStore.concat(key + "|" + contactList.get(key) + "\n");
             }
-            storage.Storages_Contact(toStore);
+            storage.writeToContactFile(toStore);
             System.out.println("What do you want to do next ?");
             ui.readCommand();
         }

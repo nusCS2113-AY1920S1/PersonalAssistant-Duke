@@ -10,15 +10,15 @@ import java.util.ArrayList;
  */
 public class Module {
     public String name;
-    private ArrayList<Assessment> assessments;
-    private ArrayList<String> miscellaneousInfo;
+    public ArrayList<Assessment> assessments;
+    public ArrayList<String> miscellaneousInfo;
 
     /**
      * Constructor that creates a module given the module name.
      *
      * @param name of the module being created
      */
-    protected Module(String name) {
+    public Module(String name) {
         this.name = name;
         this.assessments = new ArrayList<>();
         this.miscellaneousInfo = new ArrayList<>();
@@ -193,7 +193,7 @@ public class Module {
         System.out.println(assessments.get(assmtNum).toString());
     }
 
-    //MISCELLANOUS INFORMATION FEATURES-----------------------------------------------------------------
+    //MISCELLANEOUS INFORMATION FEATURES-----------------------------------------------------------------
 
     /**
      * Adds a miscellaneous information to the module being edited/viewed.
