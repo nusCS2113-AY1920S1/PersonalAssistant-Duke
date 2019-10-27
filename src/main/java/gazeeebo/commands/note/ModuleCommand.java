@@ -28,7 +28,7 @@ public class ModuleCommand extends Command {
      * @throws DukeException if the module does not exist
      */
     private Module findModule(String moduleName) throws DukeException {
-        for (Module m : GeneralNotePage.modules) {
+        for (Module m: GeneralNotePage.modules) {
             if (m.name.equals(moduleName)) {
                 return m;
             }

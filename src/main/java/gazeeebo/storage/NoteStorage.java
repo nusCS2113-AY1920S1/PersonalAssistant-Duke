@@ -29,6 +29,7 @@ public class NoteStorage {
                 file.write(s + "\n");
             }
         }
+        file.flush();
         file.close();
     }
 
@@ -39,7 +40,7 @@ public class NoteStorage {
      * @param listToReadTo the ArrayList<>Notes</> that the data is to be stored in
      * @throws IOException if the file specified cannot be created or is not a file
      */
-    public static void readFromFile(String fileName, ArrayList<Note> listToReadTo) {
+    public static void readFromFile(String fileName, ArrayList<Note> listToReadTo) throws IOException {
         InputStream inputStream = NoteStorage.class.getResourceAsStream("/" + fileName);
         Scanner txtFile = new Scanner(inputStream);
         while (txtFile.hasNextLine()) {
@@ -52,5 +53,6 @@ public class NoteStorage {
             }
             listToReadTo.add(newNote);
         }
+        inputStream.close();
     }
 }

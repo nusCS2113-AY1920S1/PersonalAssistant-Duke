@@ -1,4 +1,5 @@
 package gazeeebo.commands.schedule;
+import gazeeebo.notes.NoteList;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
@@ -17,10 +18,8 @@ import java.util.Stack;
 /**
  * Lists out all the tasks that the user has in a specified month.
  */
-public class ScheduleMonthlyCommand extends Command {
+public class ScheduleMonthlyCommand extends ScheduleDailyCommand {
     //format for the command: scheduleMonthly <yyyy-MM>
-    protected LocalDate startMonth;
-    protected LocalDate endMonth;
 
     /**
      * This is the main body of the ScheduleMonthly command.
@@ -38,6 +37,8 @@ public class ScheduleMonthlyCommand extends Command {
             System.out.println("The command should be in the format \"scheduleMonthly yyyy-MM\".");
             return;
         }
+        LocalDate startMonth;
+        LocalDate endMonth;
         try {
             startMonth = LocalDate.parse(command[1]+"-01", fmt);
             String lengthOfMonth = Integer.toString(startMonth.lengthOfMonth());
@@ -80,6 +81,8 @@ public class ScheduleMonthlyCommand extends Command {
                 System.out.println((i+1) + "." + schedule.get(i).listFormat());
             }
         }
+        System.out.println(LIST_NOTE_MESSAGE);
+        printNotes(NoteList.monthly, startMonth);
     }
 
     /**

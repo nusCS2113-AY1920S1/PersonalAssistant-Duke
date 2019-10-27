@@ -47,7 +47,7 @@ public class GeneralNotePage {
     public void addModule(Ui ui) throws IOException {
         System.out.println("What module do you want to add?");
         ui.readCommand();
-        for (Module m : modules) {
+        for (Module m: modules) {
             if (m.name.equals(ui.fullCommand)) {
                 System.out.println("You already have a module with the same name. Please add a module with a different name.");
                 return;
@@ -67,7 +67,7 @@ public class GeneralNotePage {
     public void deleteModule(Ui ui) throws IOException {
         System.out.println("Which module do you want to delete?");
         ui.readCommand(); //input module name here
-        for (Module m : modules) {
+        for (Module m: modules) {
             if (m.name.equals(ui.fullCommand)) {
                 modules.remove(m);
                 System.out.println("Okay we have successfully deleted this module:");

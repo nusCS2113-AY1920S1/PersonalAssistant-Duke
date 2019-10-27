@@ -1,4 +1,5 @@
 package gazeeebo.commands.schedule;
+import gazeeebo.notes.NoteList;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
@@ -20,10 +21,8 @@ import java.util.Stack;
 /**
  * Lists out all the tasks that the user has in a specified week.
  */
-public class ScheduleWeeklyCommand extends Command {
+public class ScheduleWeeklyCommand extends ScheduleDailyCommand {
     //format for the command: scheduleWeekly <yyyy-MM-dd(Mon) yyyy-MM-dd(Sun)>
-    protected LocalDate mon;
-    protected LocalDate sun;
     private static final int ONE_WEEK = 7;
 
     /**
@@ -37,6 +36,8 @@ public class ScheduleWeeklyCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws NullPointerException {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate mon;
+        LocalDate sun;
         try {
             String[] date = ui.fullCommand.split(" ");
             if (date.length > 3) {
@@ -108,6 +109,8 @@ public class ScheduleWeeklyCommand extends Command {
                 System.out.println((i+1) + "." + schedule.get(i).listFormat());
             }
         }
+        System.out.println(LIST_NOTE_MESSAGE);
+        printNotes(NoteList.weekly, mon);
     }
 
     /**

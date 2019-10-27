@@ -48,7 +48,7 @@ public class DeleteNoteCommand extends EditNoteCommand {
                 }
             }
         }
-        throw new DukeException("OOPS!!! There are no gazeeebo.notes for this " + period + " to delete.");
+        throw new DukeException("OOPS!!! There are no notes for this " + period + " to delete.");
     }
 
     /**

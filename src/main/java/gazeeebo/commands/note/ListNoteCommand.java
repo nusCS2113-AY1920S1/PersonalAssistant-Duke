@@ -24,7 +24,7 @@ public class ListNoteCommand extends AddNoteCommand {
      *
      * @param listOFNotes the list of notes for the specified period
      */
-    private void printOutNoteList(ArrayList<String> listOFNotes) {
+    public void printOutNoteList(ArrayList<String> listOFNotes) {
         assert !listOFNotes.isEmpty() : "there is an empty note section of a date (bug in DeleteNoteCommand)";
         for (int i = 0; i < listOFNotes.size(); i++) {
             System.out.println((i+1) + ". " + listOFNotes.get(i));
@@ -42,12 +42,12 @@ public class ListNoteCommand extends AddNoteCommand {
     private void printNoteList(ArrayList<Note> periodList, LocalDate dateToList, String period) throws DukeException {
         for (Note n: periodList) {
             if (n.noteDate.equals(dateToList)) {
-                System.out.println("Here are your gazeeebo.notes for that " + period + ":");
+                System.out.println("Here are your notes for that " + period + ":");
                 printOutNoteList(n.notes);
                 return;
             }
         }
-        throw new DukeException("There are no gazeeebo.notes for that " + period + ".");
+        throw new DukeException("There are no notes for that " + period + ".");
     }
 
     /** The main method that executes all the sub methods. */

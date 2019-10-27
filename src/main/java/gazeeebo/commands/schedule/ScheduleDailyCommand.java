@@ -1,5 +1,8 @@
 package gazeeebo.commands.schedule;
 
+import gazeeebo.commands.note.ListNoteCommand;
+import gazeeebo.notes.Note;
+import gazeeebo.notes.NoteList;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
@@ -23,8 +26,7 @@ import java.util.Stack;
  */
 public class ScheduleDailyCommand extends Command {
     //format for the command: scheduleDaily <yyyy-MM-dd>
-    protected LocalDate date;
-
+    public final static String LIST_NOTE_MESSAGE = "\nNotes:";
     /**
      * This is the main body of the ScheduleDaily command.
      *
@@ -43,8 +45,9 @@ public class ScheduleDailyCommand extends Command {
             System.out.println("The command should be in the format \"scheduleDaily yyyy-MM-dd\".");
             return;
         }
+        LocalDate userDate;
         try {
-            date = LocalDate.parse(command[1], fmt);
+            userDate = LocalDate.parse(command[1], fmt);
         } catch (DateTimeParseException e) {
             System.out.println("Please input the date in yyyy-MM-dd format.");
             return;
@@ -65,22 +68,34 @@ public class ScheduleDailyCommand extends Command {
                 case "gazeeebo.tasks.Timebound":
                     LocalDate startDate = ((Timebound) t).dateStart;
                     LocalDate endDate = ((Timebound) t).dateEnd;
-                    if (date.equals(startDate) || date.equals(endDate) ||
-                            (date.isAfter(startDate) && date.isBefore(endDate))) {
+                    if (userDate.equals(startDate) || userDate.equals(endDate) ||
+                            (userDate.isAfter(startDate) && userDate.isBefore(endDate))) {
                         schedule.add(t);
                     }
                     break;
             }
-            if (date.equals(tDate)) {
+            if (userDate.equals(tDate)) {
                 schedule.add(t);
             }
         }
         if (schedule.isEmpty()) {
             System.out.println("You have nothing scheduled on this day!");
         } else {
-            System.out.println("Here is your schedule for " + date.format(fmt) + ":");
+            System.out.println("Here is your schedule for " + userDate.format(fmt) + ":");
             for (int i = 0; i < schedule.size(); i++) {
                 System.out.println((i+1) + "." + schedule.get(i).listFormat());
+            }
+        }
+        System.out.println(LIST_NOTE_MESSAGE);
+        printNotes(NoteList.daily, userDate);
+    }
+
+    protected void printNotes(ArrayList<Note> periodList, LocalDate dateToList) {
+        for (Note n: periodList) {
+            if (n.noteDate.equals(dateToList)) {
+                ListNoteCommand lnc = new ListNoteCommand();
+                lnc.printOutNoteList(n.notes);
+                return;
             }
         }
     }

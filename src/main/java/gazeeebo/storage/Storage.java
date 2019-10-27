@@ -134,6 +134,7 @@ public class Storage {
                     }
                 }
             }
+            inputStream.close();
         return tList;
     }
 
@@ -157,7 +158,7 @@ public class Storage {
      * @return the arrays of password
      * @throws IOException catch the error if the read file fails.
      */
-    public ArrayList<StringBuilder> readFromPasswordFile() {
+    public ArrayList<StringBuilder> readFromPasswordFile() throws IOException {
         ArrayList<StringBuilder> passwordList = new ArrayList<>();
         InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_password);
         Scanner sc = new Scanner(inputStream);
@@ -171,6 +172,7 @@ public class Storage {
             System.out.println(realPassword);
             passwordList.add(realPassword);
         }
+        inputStream.close();
         return passwordList;
     }
 
@@ -195,7 +197,7 @@ public class Storage {
      * @throws IOException catch the error if the read file fails.
      */
 
-    public HashMap<String, String> readFromContactFile() {
+    public HashMap<String, String> readFromContactFile() throws IOException {
         HashMap<String, String> contactList = new HashMap<String, String>();
         InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Contact);
             Scanner sc = new Scanner(inputStream);
@@ -203,6 +205,7 @@ public class Storage {
                 String[] split = sc.nextLine().split("\\|");
                 contactList.put(split[0], split[1]);
             }
+            inputStream.close();
         return contactList;
     }
 
@@ -221,7 +224,7 @@ public class Storage {
         fileWriter.close();
     }
 
-    public HashMap<LocalDate, ArrayList<String>> Expenses() {
+    public HashMap<LocalDate, ArrayList<String>> Expenses() throws IOException {
         HashMap<LocalDate, ArrayList<String>> expenses = new HashMap<LocalDate, ArrayList<String>>();
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Expenses);
@@ -243,10 +246,11 @@ public class Storage {
                 expenses.put(dateOfPurchase, itemAndPriceList);
             }
         }
+        inputStream.close();
         return expenses;
     }
 
-    public HashMap<String, String> Read_Places() {
+    public HashMap<String, String> Read_Places() throws IOException {
         HashMap<String, String> placesList = new HashMap<String, String>();
         InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Places);
         Scanner sc = new Scanner(inputStream);
@@ -254,10 +258,11 @@ public class Storage {
             String[] split = sc.nextLine().split("\\|");
             placesList.put(split[0], split[1]);
         }
+        inputStream.close();
         return placesList;
     }
 
-    public Map<String, ArrayList<String>> Read_Trivia() {
+    public Map<String, ArrayList<String>> Read_Trivia() throws IOException {
         Map<String, ArrayList<String>> CommandMemory = new HashMap<>();
         InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Trivia);
         Scanner sc = new Scanner(inputStream);
@@ -275,6 +280,7 @@ public class Storage {
                 CommandMemory.put(InputCommand.split(" ")[0], newlist);
             }
         }
+        inputStream.close();
         return CommandMemory;
     }
 
@@ -332,6 +338,7 @@ public class Storage {
                     CAPList.put(semNumber, moduleList);
                 }
             }
+            inputStream.close();
         return CAPList;
     }
 
@@ -342,7 +349,7 @@ public class Storage {
         fileWriter.close();
     }
 
-    public HashMap<String, ArrayList<ModuleCategories>> Specialization() {
+    public HashMap<String, ArrayList<ModuleCategories>> Specialization() throws IOException {
         HashMap<String, ArrayList<ModuleCategories>> specMap = new HashMap<>();
         ArrayList<ModuleCategories> modAndBool = new ArrayList<>();
         InputStream inputStream = Storage.class.getResourceAsStream(absolutePathSpecialization);
@@ -384,10 +391,11 @@ public class Storage {
                 modAndBool.add(mC4);
             }
         }
+        inputStream.close();
         return specMap;
     }
 
-    public ArrayList<ArrayList<String>> Read_StudyPlan() {
+    public ArrayList<ArrayList<String>> Read_StudyPlan() throws IOException {
         ArrayList<ArrayList<String>> studyplan = new ArrayList<ArrayList<String>>();
         InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_StudyPlanner);
         Scanner sc = new Scanner(inputStream);
@@ -401,6 +409,7 @@ public class Storage {
                 studyplan.add(temp);
             }
         }
+        inputStream.close();
         return studyplan;
     }
 

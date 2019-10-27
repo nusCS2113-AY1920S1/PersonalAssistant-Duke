@@ -12,17 +12,25 @@ import java.util.Scanner;
 
 public class NotePageStorage {
     public static void writeToGoalFile() throws IOException {
-        FileWriter file = new FileWriter("/goal.txt");
+        File f = new File("/goal.txt");
+        if (f.setWritable(true, false)) {
+            System.out.println("can write");
+        } else {
+            System.out.println("cannot write");
+        }
+        FileWriter file = new FileWriter(f);
         file.write(GeneralNotePage.goal);
+        file.flush();
         file.close();
     }
 
-    public static void readFromGoalFile() {
+    public static void readFromGoalFile() throws IOException {
         InputStream inputStream = NoteStorage.class.getResourceAsStream("/goal.txt");
         Scanner txtFile = new Scanner(inputStream);
         if (txtFile.hasNextLine()) {
             GeneralNotePage.goal = txtFile.nextLine();
         }
+        inputStream.close();
     }
 
     public static void writeToModulesFile() throws IOException {
@@ -39,10 +47,11 @@ public class NotePageStorage {
                 file.write(s + "\n");
             }
         }
+        file.flush();
         file.close();
     }
 
-    public static void readFromModulesFile() {
+    public static void readFromModulesFile() throws IOException {
         InputStream inputStream = NoteStorage.class.getResourceAsStream("/modules.txt");
         Scanner txtFile = new Scanner(inputStream);
         while (txtFile.hasNextLine()) {
@@ -57,5 +66,6 @@ public class NotePageStorage {
             }
             GeneralNotePage.modules.add(m);
         }
+        inputStream.close();
     }
 }
