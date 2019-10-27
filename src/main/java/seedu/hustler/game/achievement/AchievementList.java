@@ -1,5 +1,6 @@
 package seedu.hustler.game.achievement;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static seedu.hustler.game.achievement.AddTask.addAchievementLevel;
@@ -27,30 +28,30 @@ public class AchievementList {
         populate();
     }
 
-//    /**
-//     * When user first starts Hustler, Hustler will create a list of locked achievements.
-//     * It will then store achievements inside achievements.txt.
-//     * @return list of locked achievements.
-//     */
-//    public static ArrayList<Achievements> firstStart(int loginCount) {
-//
-//        if(loginCount == 1) {
-//            achievementList.add(new DoneTask("Bronze"));
-//            achievementList.add(new DoneTask("Silver"));
-//            achievementList.add(new DoneTask("Gold"));
-//            achievementList.add(new AddTask("Bronze"));
-//            achievementList.add(new AddTask("Silver"));
-//            achievementList.add(new AddTask("Gold"));
-//            achievementList.add(new ConsecutiveLogin("Bronze"));
-//            achievementList.add(new ConsecutiveLogin("Silver"));
-//            achievementList.add(new ConsecutiveLogin("Gold"));
-//            achievementList.add(new FirstLogin());
-//            System.out.println("You have unlocked this achievement!\n" + new FirstLogin());
-//            FirstLogin.updatePoints();
-//            storedDateTime = LocalDateTime.now();
-//        }
-//        return achievementList;
-//    }
+    /**
+     * When user first starts Hustler, Hustler will create a list of locked achievements.
+     * It will then store achievements inside achievements.txt.
+     * @return list of locked achievements.
+     */
+    public static ArrayList<Achievements> firstStart(int loginCount) {
+
+        if(loginCount == 1) {
+            achievementList.add(new DoneTask("Bronze"));
+            achievementList.add(new DoneTask("Silver"));
+            achievementList.add(new DoneTask("Gold"));
+            achievementList.add(new AddTask("Bronze"));
+            achievementList.add(new AddTask("Silver"));
+            achievementList.add(new AddTask("Gold"));
+            achievementList.add(new ConsecutiveLogin("Bronze"));
+            achievementList.add(new ConsecutiveLogin("Silver"));
+            achievementList.add(new ConsecutiveLogin("Gold"));
+            achievementList.add(new FirstLogin());
+            System.out.println("You have unlocked this achievement!\n" + new FirstLogin());
+            FirstLogin.updatePoints();
+            storedDateTime = LocalDateTime.now();
+        }
+        return achievementList;
+    }
 
     private ArrayList<Achievements> populate() {
 

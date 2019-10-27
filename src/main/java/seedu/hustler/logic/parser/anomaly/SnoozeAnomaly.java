@@ -2,8 +2,7 @@ package seedu.hustler.logic.parser.anomaly;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.logic.CommandLineException;
-
-import static seedu.hustler.parser.DateTimeParser.getDateTime;
+import static seedu.hustler.logic.parser.DateTimeParser.getDateTime;
 
 /**
  * Detects snooze anomalies in user input.

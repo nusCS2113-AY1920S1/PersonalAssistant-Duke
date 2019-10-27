@@ -3,7 +3,6 @@ package seedu.hustler.logic.command.schedulecommands;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.parser.anomaly.UpdateEntryAnomaly;
-
 import seedu.hustler.ui.Ui;
 import seedu.hustler.schedule.RecommendedSchedule;
 

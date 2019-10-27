@@ -37,37 +37,37 @@ public class AchievementStorage {
 
 
 
-//    /**
-//     * Keeps track of login count.
-//     * @return login count.
-//     * @throws IOException if file is not found.
-//     */
-//    public static int logon() throws IOException {
-//        try {
-//            File file = new File(LOGIN_FILEPATH);
-//            Scanner loginCounter = new Scanner(new File(LOGIN_FILEPATH));
-//            if (loginCounter.hasNextLine()) {
-//                String[] txt = loginCounter.nextLine().split(" ");
-//                int temp = Integer.parseInt(txt[1]);
-//                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-//                writer.write("logon: " + (temp += 1));
-//                writer.close();
-//                loginCount = (temp);
-//                return loginCount;
-//            } else {
-//                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-//                writer.write("logon: 1");
-//                writer.close();
-//                return loginCount = 1;
-//            }
-//        } catch (FileNotFoundException e) {
-//            formatter = new Formatter(LOGIN_FILEPATH);
-//            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(LOGIN_FILEPATH)));
-//            writer.write("logon: 1");
-//            writer.close();
-//            return loginCount = 1;
-//        }
-//    }
+    /**
+     * Keeps track of login count.
+     * @return login count.
+     * @throws IOException if file is not found.
+     */
+    public static int logon() throws IOException {
+        try {
+            File file = new File(LOGIN_FILEPATH);
+            Scanner loginCounter = new Scanner(new File(LOGIN_FILEPATH));
+            if (loginCounter.hasNextLine()) {
+                String[] txt = loginCounter.nextLine().split(" ");
+                int temp = Integer.parseInt(txt[1]);
+                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                writer.write("logon: " + (temp += 1));
+                writer.close();
+                loginCount = (temp);
+                return loginCount;
+            } else {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                writer.write("logon: 1");
+                writer.close();
+                return loginCount = 1;
+            }
+        } catch (FileNotFoundException e) {
+            formatter = new Formatter(LOGIN_FILEPATH);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(LOGIN_FILEPATH)));
+            writer.write("logon: 1");
+            writer.close();
+            return loginCount = 1;
+        }
+    }
 
     /**
      * Keeps track of login count.

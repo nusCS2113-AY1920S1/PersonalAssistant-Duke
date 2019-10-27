@@ -1,6 +1,5 @@
 package seedu.hustler.logic.parser.anomaly;
 
-import seedu.hustler.ui.Ui;
 import seedu.hustler.Hustler;
 import seedu.hustler.logic.CommandLineException;
 
@@ -16,8 +15,6 @@ public class DoneAnomaly extends DetectAnomaly {
      * @return true or false for any anomaly detected
      */
     public void detect(String[] userInput) throws CommandLineException {
-
-        Ui ui = new Ui();
 
         //detects if the /done command is followed by any arguments.
         if (userInput.length == 1) {
