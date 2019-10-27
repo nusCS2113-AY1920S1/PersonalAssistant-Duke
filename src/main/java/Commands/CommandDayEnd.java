@@ -13,8 +13,7 @@ public class CommandDayEnd extends Command {
         Ui ui = farmio.getUi();
         Storage storage = farmio.getStorage();
         Farmer farmer = farmio.getFarmer();
-        farmio.getSimulation().animate("DayEnd", 0);
-        farmio.getUi().show("Press ENTER to start your next day!");
+        farmio.getSimulation().simulate(1000,"DayEnd", 0);
         farmer.nextDay();
         farmio.setStage(Farmio.Stage.DAY_START);
     }

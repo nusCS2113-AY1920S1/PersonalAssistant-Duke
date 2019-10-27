@@ -145,7 +145,7 @@ public class Farmer {
         this.money = money;
     }
 
-    public void spendMoney(int cost) {
+    public void spendGold(int cost) {
         money -= cost;
     }
 

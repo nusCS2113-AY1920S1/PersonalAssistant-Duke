@@ -39,7 +39,7 @@ public class Farmio {
 //                    command = Parser.parse(ui.getInput(), stage); //TODO jx help me review if there is better way
                     command.execute(this);
                 } catch (FarmioException e) {
-                    simulation.animate();
+                    simulation.simulate();
                     ui.showWarning(e.getMessage());
                 }
             }
@@ -109,8 +109,6 @@ public class Farmio {
 
     private static Command checkStage(Farmio.Stage stage) {
         switch (stage) {
-            case WELCOME:
-                return new CommandMenuStart();
             case LEVEL_START:
                 return new CommandLevelStart();
             case RUNNING_DAY:

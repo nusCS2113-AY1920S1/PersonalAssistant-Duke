@@ -1,7 +1,6 @@
 {
   "narratives": [
     "At the market, you can buy and sell seeds in exchange for gold.",
-    "You can now see 'seeds' under your Assets on the left of your screen.",
     "Enter [Task] [Action] to buy seeds from the market.~"
   ],
   "gold": 0,
