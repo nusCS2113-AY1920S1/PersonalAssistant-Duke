@@ -39,7 +39,7 @@ public class CommandStructure {
         });
 
         put(COMMANDKEYS.set , new COMMANDKEYS[]{
-                COMMANDKEYS.name , COMMANDKEYS.age , COMMANDKEYS.preference, COMMANDKEYS.sort
+                COMMANDKEYS.name , COMMANDKEYS.age , COMMANDKEYS.preference, COMMANDKEYS.sort , COMMANDKEYS.restriction
         });
 
         put(COMMANDKEYS.preference , new COMMANDKEYS[]{

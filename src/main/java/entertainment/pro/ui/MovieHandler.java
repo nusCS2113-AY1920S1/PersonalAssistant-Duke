@@ -606,8 +606,18 @@ public class MovieHandler extends Controller implements RequestListener {
             AnchorPane playlistPane = loader.load();
             PlaylistInfoController controller = loader.getController();
             controller.getPlaylistNameLabel().setText(playlist.getPlaylistName());
-            controller.getPlaylistDescriptionLabel().setText(playlist.getDescription());
-            controller.getPlaylistInfoVBox().getChildren().add(buildPlaylistMoviesFlowPane(playlist.getMovies()));
+            if (playlist.getDescription().trim().length() == 0) {
+                controller.getPlaylistDescriptionLabel().setStyle("-fx-font-style: italic");
+                controller.getPlaylistDescriptionLabel().setText("*this playlist does not have a description :(*");
+            } else {
+                controller.getPlaylistDescriptionLabel().setText(playlist.getDescription());
+            }
+            if (playlist.getMovies().size() != 0) {
+                controller.getPlaylistInfoVBox().getChildren().add(buildPlaylistMoviesFlowPane(playlist.getMovies()));
+            } else {
+                Label emptyMoviesLabel = new Label(playlist.getPlaylistName() + " does not contain any movies :(");
+                controller.getPlaylistInfoVBox().getChildren().add(2, emptyMoviesLabel);
+            }
             mMoviesScrollPane.setContent(controller.getPlaylistInfoVBox());
         } catch (IOException e) {
             e.printStackTrace();
