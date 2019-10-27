@@ -4,6 +4,10 @@ import dolla.DollaData;
 import dolla.Ui;
 import dolla.task.RecordList;
 
+/**
+ * InitialModifyCommand is a command that runs first when the
+ * user wants to execute a modify command.
+ */
 public class InitialModifyCommand extends Command {
 
     private int index;
@@ -15,7 +19,7 @@ public class InitialModifyCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
         String currMode = dollaData.getMode();
-        if (isIndexInList(dollaData.getLogList(currMode))) {
+        if (isIndexInList(dollaData.getRecordList(currMode))) {
             Ui.printInitialModifyMsg();
             dollaData.updateMode("modify " + currMode);
             dollaData.prepForModify(currMode, index);
@@ -25,6 +29,11 @@ public class InitialModifyCommand extends Command {
         }
     }
 
+    /**
+     * Returns true is the given index is within the recordList.
+     * @param recordList The recordList containing the record to be modified.
+     * @return true if index is within the specified recordList.
+     */
     private boolean isIndexInList(RecordList recordList) {
         if (index >= recordList.size()) {
             return false;

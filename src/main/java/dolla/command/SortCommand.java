@@ -23,10 +23,10 @@ public class SortCommand extends Command {
         RecordList recordList = new RecordList(new ArrayList<>());
         switch (mode) {
         case "entry":
-            recordList = dollaData.getLogList(mode);
+            recordList = dollaData.getRecordList(mode);
             break;
         case "debt":
-            recordList = dollaData.getLogList(mode);
+            recordList = dollaData.getRecordList(mode);
             break;
         default:
             break; // TODO: What to do here?

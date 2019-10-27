@@ -27,7 +27,7 @@ public class Reminder {
      */
     public void showReminder(DollaData dollaData) {
         RecordList recordList = new RecordList(new ArrayList<>());
-        recordList = dollaData.getLogList(mode);
+        recordList = dollaData.getRecordList(mode);
         today = LocalDate.now();
         printReminder(today, recordList);
     }

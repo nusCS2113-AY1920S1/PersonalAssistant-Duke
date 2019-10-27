@@ -41,13 +41,13 @@ public class ShowListCommand extends Command {
 
         switch (mode) { //TODO: is this needed?
         case "entry":
-            recordList = dollaData.getLogList(mode);
+            recordList = dollaData.getRecordList(mode);
             break;
         case "debt":
-            recordList = dollaData.getLogList(mode);
+            recordList = dollaData.getRecordList(mode);
             break;
         case "limit":
-            recordList = dollaData.getLogList(mode);
+            recordList = dollaData.getRecordList(mode);
             break;
         default:
             break; // TODO: What to do here?

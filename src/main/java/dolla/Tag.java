@@ -1,7 +1,11 @@
 package dolla;
 
 /**
+<<<<<<< .merge_file_a07256
  * This class handles tag related methods.
+=======
+ * This class handles tag related inputs.
+>>>>>>> .merge_file_a11240
  */
 public class Tag {
 
@@ -50,9 +54,15 @@ public class Tag {
     }
 
     /**
+<<<<<<< .merge_file_a07256
      * Parses tag.
      */
     public void parseTag() { //todo: change to be inside parser folder
+=======
+     * Parse tag.
+     */
+    public void parseTag() {
+>>>>>>> .merge_file_a11240
         if (hasTag()) {
             findTag();
             //todo: store tag properly instead of printing it out.
@@ -60,6 +70,14 @@ public class Tag {
         }
     }
 
+<<<<<<< .merge_file_a07256
+=======
+    /**
+     * Gets tag name.
+     *
+     * @return the tag name
+     */
+>>>>>>> .merge_file_a11240
     public String getTagName() {
         return tagName;
     }

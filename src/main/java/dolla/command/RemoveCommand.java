@@ -37,7 +37,7 @@ public class RemoveCommand extends Command {
     //@Override
     public void execute(DollaData dollaData) {
         int logNumInt;
-        RecordList recordList = dollaData.getLogList(mode);
+        RecordList recordList = dollaData.getRecordList(mode);
         boolean isListEmpty = (recordList.size() == 0);
 
         if (isListEmpty) {
@@ -59,6 +59,6 @@ public class RemoveCommand extends Command {
         }
 
         Ui.echoRemove(recordList.get().get(logNumInt).getLogText());
-        dollaData.removeFromLogList(mode,logNumInt);
+        dollaData.removeFromRecordList(mode,logNumInt);
     }
 }

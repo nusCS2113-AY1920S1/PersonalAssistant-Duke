@@ -21,7 +21,7 @@ public class DollaData {
     private int modifyIndex;
 
     /**
-     * Instantiates a new Dolla data.
+     * Creates an instance of DollaDota to store and manipulate data.
      */
     public DollaData() {
         //this.entryList = new EntryList(new ArrayList<Record>());
@@ -36,7 +36,7 @@ public class DollaData {
      * @param mode The mode pertaining to the RecordList to be retrieved.
      * @return The RecordList according to the specified mode.
      */
-    public RecordList getLogList(String mode) {
+    public RecordList getRecordList(String mode) {
         if (mode.equals("entry")) {
             return entryList;
         } else if (mode.equals("debt")) {
@@ -53,7 +53,7 @@ public class DollaData {
      * @param mode   The mode pertaining to the RecordList to be retrieved.
      * @param newRecord The new Record to be added into the relevant RecordList.
      */
-    public void addToLogList(String mode, Record newRecord) {
+    public void addToRecordList(String mode, Record newRecord) {
         if (mode.equals("entry")) {
             entryList.add(newRecord);
         } else if (mode.equals("debt")) {
@@ -67,7 +67,7 @@ public class DollaData {
      * Add to prev position.
      *
      * @param mode         the mode
-     * @param newRecord       the new log
+     * @param newRecord       the new record
      * @param prevPosition the prev position
      */
     public void addToPrevPosition(String mode, Record newRecord, int prevPosition) {
@@ -81,12 +81,12 @@ public class DollaData {
     }
 
     /**
-     * Remove from log list.
+     * Remove from record list.
      *
      * @param mode  the mode
      * @param index the index
      */
-    public void removeFromLogList(String mode, int index) {
+    public void removeFromRecordList(String mode, int index) {
         if (mode.equals("entry")) {
             entryList.removeFromList(index);
         } else if (mode.equals("debt")) {
@@ -97,51 +97,39 @@ public class DollaData {
     }
 
     /**
-     * Modify log list.
+     * Changes the content of a particular log in list to the specified one.
      *
-     * @param newRecord the new log
+     * @param newRecord the new record to replace the current item on the list.
      */
-    public void modifyLogList(Record newRecord) {
+    public void modifyRecordList(Record newRecord) {
         if (prevMode.equals("entry")) {
             entryList.removeFromList(modifyIndex);
             entryList.addWithIndex(modifyIndex, newRecord);
         }
     }
 
-    /**
-     * Gets mode.
-     *
-     * @return the mode
-     */
     public String getMode() {
         return mode;
     }
 
     /**
-     * Update mode.
-     *
-     * @param newMode the new mode
+     * Updates Dolla's mode to the specified new mode.
+     * @param newMode the mode to update to.
      */
     public void updateMode(String newMode) {
         mode = newMode;
     }
 
     /**
-     * Prep for modify.
-     *
-     * @param prevMode the prev mode
-     * @param index    the index
+     * Prepares Dolla for modify mode by storing the previous mode and the index of the log to be modified.
+     * @param prevMode the current mode of Dolla when this method is called.
+     * @param index    the index of the log to be modified.
      */
     public void prepForModify(String prevMode, int index) {
         this.prevMode = prevMode;
         modifyIndex = index;
     }
 
-    /**
-     * Gets modify index.
-     *
-     * @return the modify index
-     */
     public int getModifyIndex() {
         return modifyIndex;
     }

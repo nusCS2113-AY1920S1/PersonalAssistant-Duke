@@ -38,13 +38,13 @@ public class SearchCommand extends Command {
 
         switch (mode) {
         case "entry":
-            recordList = dollaData.getLogList(mode);
+            recordList = dollaData.getRecordList(mode);
             break;
         case "debt":
-            recordList = dollaData.getLogList(mode);
+            recordList = dollaData.getRecordList(mode);
             break;
         case "limit":
-            recordList = dollaData.getLogList(mode);
+            recordList = dollaData.getRecordList(mode);
             break;
         default:
             break;

@@ -28,7 +28,7 @@ public class AddLimitCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
         Limit newLimit = new Limit(type, amount, duration);
-        dollaData.addToLogList("limit", newLimit);
+        dollaData.addToRecordList("limit", newLimit);
         //todo: need to add budget and show and deduct money every time there is an expense entry
         LimitUi.echoAddLimit(newLimit);
     }
