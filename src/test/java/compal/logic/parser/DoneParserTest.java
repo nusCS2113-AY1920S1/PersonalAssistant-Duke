@@ -27,8 +27,8 @@ class DoneParserTest {
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
-        Event event1 = new Event("Event 1", Task.Priority.medium, "01/10/2019", "1400", "1500");
-        Event event2 = new Event("Event 2", Task.Priority.low, "01/10/2019", "1400", "1500");
+        Event event1 = new Event("Event 1", Task.Priority.medium, "01/10/2019", "01/10/2019", "1400", "1500");
+        Event event2 = new Event("Event 2", Task.Priority.low, "01/10/2019", "01/10/2019", "1400", "1500");
 
         Deadline deadline1 = new Deadline("Deadline 1", Task.Priority.high, "01/10/2019", "1500");
 

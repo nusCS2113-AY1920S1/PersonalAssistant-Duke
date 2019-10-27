@@ -52,6 +52,7 @@ public interface CommandParser {
      */
     String MESSAGE_MISSING_TOKEN = "Error: Missing token!";
     String MESSAGE_MISSING_INPUT = "Error: Missing input!";
+    String MESSAGE_INVALID_TIME_FORMAT = "Invalid Time input!";
     String MESSAGE_INVALID_DATE_FORMAT = "Invalid Date input!";
     String MESSAGE_MISSING_DATE_ARG = "ArgumentError: Missing /date";
     String MESSAGE_EXCESSIVE_DATES = "Too many dates! Please limit to less than 7.";
@@ -61,6 +62,7 @@ public interface CommandParser {
     String MESSAGE_MISSING_ID_ARG = "ArgumentError: Missing /id";
     String MESSAGE_MISSING_TYPE_ARG = "ArgumentError: Missing /type";
     String MESSAGE_INVALID_TYPE = "Error: The type does not exist!";
+    String MESSAGE_INVALID_PRIORITY = "Invalid Priority Input";
 
 
     /**
@@ -297,6 +299,9 @@ public interface CommandParser {
             while (scanner.hasNext()) {
                 String eachDateString = scanner.next();
                 if (eachDateString.charAt(0) == TOKEN_SLASH_CHAR) {
+                    if (dateCount == 0) {
+                        throw new ParserException(MESSAGE_MISSING_INPUT);
+                    }
                     break;
                 }
                 dateCount++;
@@ -333,7 +338,11 @@ public interface CommandParser {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             }
             String commandPriority = scanner.next();
-            priorityField = Task.Priority.valueOf(commandPriority.toLowerCase());
+            if (isPriorityValid(commandPriority)) {
+                priorityField = Task.Priority.valueOf(commandPriority.toLowerCase());
+            } else {
+                throw new ParserException(MESSAGE_INVALID_PRIORITY);
+            }
         } else {
             priorityField = Task.Priority.low;
         }
@@ -358,7 +367,11 @@ public interface CommandParser {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             }
             String startTimeField = scanner.next();
-            return startTimeField;
+            if (isTimeValid(startTimeField)) {
+                return startTimeField;
+            } else {
+                throw new ParserException(MESSAGE_INVALID_TIME_FORMAT);
+            }
         } else {
             throw new ParserException(MESSAGE_MISSING_START_TIME_ARG);
         }
@@ -381,7 +394,11 @@ public interface CommandParser {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             }
             String endTimeField = scanner.next();
-            return endTimeField;
+            if (isTimeValid(endTimeField)) {
+                return endTimeField;
+            } else {
+                throw new ParserException(MESSAGE_INVALID_TIME_FORMAT);
+            }
         } else {
             throw new ParserException(MESSAGE_MISSING_END_TIME_ARG);
         }
@@ -469,6 +486,34 @@ public interface CommandParser {
         } catch (ParseException e) {
             throw new ParserException(MESSAGE_INVALID_DATE_FORMAT);
         }
+    }
+
+    //@@author yueyeah
+    /**
+     * Check if the time input is of valid format.
+     *
+     * @param time The time input in the form of a String.
+     * @return True if the time is of valid format, false if not.
+     */
+    default boolean isTimeValid(String time) {
+        String regex = "^(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(time);
+        return matcher.matches();
+    }
+
+    //@@author yueyeah
+    /**
+     * Check if the priority input is valid.
+     *
+     * @param priority The priority input in the form of a String.
+     * @return True if the priority is valid, false if not.
+     */
+    default boolean isPriorityValid(String priority) {
+        String regex = "^(low|medium|high)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(priority);
+        return matcher.matches();
     }
 
     /**

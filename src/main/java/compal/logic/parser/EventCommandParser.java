@@ -14,11 +14,11 @@ import java.util.ArrayList;
 public class EventCommandParser implements CommandParser {
     @Override
     public Command parseCommand(String restOfInput) throws ParserException {
+        String description = getTokenDescription(restOfInput);
         ArrayList<String> startDateList = getTokenDate(restOfInput);
         Task.Priority priority = getTokenPriority(restOfInput);
         String startTime = getTokenStartTime(restOfInput);
         String endTime = getTokenEndTime(restOfInput);
-        String description = getTokenDescription(restOfInput);
         int interval = getTokenInterval(restOfInput);
         String finalDate;
         if (hasToken(restOfInput, TOKEN_FINAL_DATE)) {
