@@ -89,7 +89,7 @@ public class Medicine extends Treatment {
 
     @Override
     public String getSummary() {
-        return null;
+        return "";
     }
 
     @Override
