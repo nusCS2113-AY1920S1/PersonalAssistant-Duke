@@ -1,15 +1,16 @@
 package optix.commands.shows;
 
-import optix.commands.shows.AddCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
 import optix.ui.Ui;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AddCommandTest {
     private Ui ui = new Ui();
@@ -19,42 +20,55 @@ class AddCommandTest {
     private Model model = new Model(storage);
 
     @Test
-    void execute() {
-        AddCommand testCommand = new AddCommand("dummy show name|20|5/5/2020 | 6/10/2020");
+    @DisplayName("Invalid Command test")
+    void testParseDetails() {
+        AddCommand c = new AddCommand("Test Show|20"); //test has less than 3 parameter
+        c.execute(model, ui, storage);
+        String expected = "☹ OOPS!!! That is an invalid command\n"
+                + "Please try again. \n";
+        assertEquals(expected, ui.getMessage());
+    }
 
-        testCommand.execute(model, ui, storage);
-        String expected = "__________________________________________________________________________________\n"
-                + "Noted. The following shows has been added:\n"
-                + "1. dummy show name (on: 5/5/2020)\n"
-                + "2. dummy show name (on: 6/10/2020)\n"
-                + "__________________________________________________________________________________\n";
-        assertEquals(expected, ui.showCommandLine());
+    // need to figure how to do this test.
+    @Test
+    @Disabled
+    void testCostParameter() {
+        try {
+            AddCommand c = new AddCommand("Test Show|-20|5/5/2030"); //test seatBastPrice < 0
+            c.execute(model, ui, storage);
+            fail("Following test should fail");
+        } catch (final RuntimeException e) {
+            assertTrue(true);
+        }
+    }
 
+    @Test
+    @DisplayName("Invalid Show Date Test")
+    void testInvalidShowDate() {
+        AddCommand c = new AddCommand("Test Show|20|5/13/2030|hello"); // test invalid date format
+        c.execute(model, ui, storage);
+        String expected = "☹ OOPS!!! Unable to add the following shows:\n"
+                          + "1. Test Show (on: 5/13/2030)\n"
+                          + "2. Test Show (on: hello)\n";
+        assertEquals(expected, ui.getMessage());
 
-        AddCommand testCommand2 = new AddCommand("dummy show name|20|7/10/2020|6/10/2020");
+        c = new AddCommand("Test Show|20|5/5/2030"); //test date clash
+        c.execute(model, ui, storage);
+        c.execute(model, ui, storage);
+        expected = "☹ OOPS!!! Unable to add the following shows:\n"
+                + "1. Test Show (on: 5/5/2030)\n";
+        assertEquals(expected, ui.getMessage());
+    }
 
-        testCommand2.execute(model, ui, storage);
-        String expected2 = "__________________________________________________________________________________\n"
-                + "Noted. The following shows has been added:\n"
-                + "1. dummy show name (on: 7/10/2020)\n"
-                + "\n"
-                + "☹ OOPS!!! Unable to add the following shows:\n"
-                + "1. dummy show name (on: 6/10/2020)\n"
-                + "__________________________________________________________________________________\n";
-        assertEquals(expected2, ui.showCommandLine());
-
-
-        AddCommand testCommand3 = new AddCommand("dummy show name|20|5/5/2020|6/10/2020");
-
-        testCommand3.execute(model, ui, storage);
-        String expected3 = "__________________________________________________________________________________\n"
-                + "☹ OOPS!!! Unable to add the following shows:\n"
-                + "1. dummy show name (on: 5/5/2020)\n"
-                + "2. dummy show name (on: 6/10/2020)\n"
-                + "__________________________________________________________________________________\n";
-        assertEquals(expected3, ui.showCommandLine());
-
-        filePath.deleteOnExit();
+    @Test
+    @DisplayName("AddCommand without exception")
+    void testAddShowExecute() {
+        AddCommand c = new AddCommand("TestShow|20|5/5/2030|6/5/2030"); //test successful execution.
+        c.execute(model, ui, storage);
+        String expected = "Noted. The following shows has been added:\n"
+                          + "1. TestShow (on: 5/5/2030)\n"
+                          + "2. TestShow (on: 6/5/2030)\n";
+        assertEquals(expected, ui.getMessage());
     }
 
     @AfterAll

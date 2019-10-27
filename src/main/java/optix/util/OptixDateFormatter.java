@@ -66,6 +66,10 @@ public class OptixDateFormatter {
      */
     public boolean isValidDate(String date) {
         String[] splitStr = date.split("/");
+        if (splitStr.length != 3) {
+            return false;
+        }
+
         int yr = Integer.parseInt(splitStr[2]);
         int mth = Integer.parseInt(splitStr[1]);
         int dy = Integer.parseInt(splitStr[0]);
