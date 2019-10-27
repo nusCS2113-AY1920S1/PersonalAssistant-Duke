@@ -5,6 +5,7 @@ import duke.exception.DukeException;
 import duke.logic.Parser.Parser;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -163,11 +164,12 @@ public class PlanQuestionBank {
     PlanRecommendation makeRecommendation(Map<String, String> planAttributes) throws DukeException {
         Map<String, BigDecimal> budgetRecommendation = new HashMap<>();
         StringBuilder recommendation = new StringBuilder();
+        List<Expense> recommendationExpenseList = new ArrayList<>();
         try {
             if (planAttributes.get("NUS_STUDENT").equals("FALSE")) {
                 return new PlanRecommendation("This program is designed for NUS students. \n " +
                         "Since you're not a NUS student, I can't make any recommendations for you :( \n" +
-                        "However, you can still use the program! Type \"goto expense\" to start using." , budgetRecommendation);
+                        "However, you can still use the program! Type \"goto expense\" to start using." , budgetRecommendation , recommendationExpenseList);
             } else { //NUS STUDENT
                 if (planAttributes.get("CAMPUS_LIFE").equals("FALSE")) {
                     String tripCostString = planAttributes.get("TRIP_COST");
@@ -249,18 +251,43 @@ public class PlanQuestionBank {
                 }
                 BigDecimal phoneBill = Parser.parseMoney(planAttributes.get("PHONE_BILL"));
                 if (!phoneBill.equals(BigDecimal.ZERO)) {
-                    recommendation.append("You set set a budget of $" + phoneBill + " for your phone bill.\n\n");
+                    recommendation.append("You set set a budget of $")
+                            .append(phoneBill)
+                            .append(" for your phone bill.\n\n");
                     budgetRecommendation.put("phone bill" , phoneBill);
+                    Expense.Builder phoneBillExpenseBuilder = new Expense.Builder();
+                    phoneBillExpenseBuilder.setAmount(phoneBill);
+                    phoneBillExpenseBuilder.setDescription("Phone bill");
+                    phoneBillExpenseBuilder.setRecurring(true);
+                    Expense phoneBillExpense = phoneBillExpenseBuilder.build();
+                    phoneBillExpense.tags.add("phone bill");
+                    recommendationExpenseList.add(phoneBillExpense);
                 }
+
                 if (planAttributes.get("NETFLIX").equals("TRUE")) {
                     recommendation.append("Netflix has a family plan that is $17.00 per month, so its cheaper if you can find friends to share!\n" +
                             "You should allocate $4.25 to netflix\n\n");
                     budgetRecommendation.put("netflix" , Parser.parseMoney("4.25"));
+                    budgetRecommendation.put("phone bill" , phoneBill);
+                    Expense.Builder netflixExpenseBuilder = new Expense.Builder();
+                    netflixExpenseBuilder.setAmount("4.25");
+                    netflixExpenseBuilder.setDescription("Netflix");
+                    netflixExpenseBuilder.setRecurring(true);
+                    Expense netflixExpense = netflixExpenseBuilder.build();
+                    netflixExpense.tags.add("phone bill");
+                    recommendationExpenseList.add(netflixExpense);
                 }
                 if (planAttributes.get("MUSIC_SUBSCRIPTION").equals("TRUE")) {
                     recommendation.append("Spotify has a student plan that is only $5 a month! \n" +
                             "You should allocate $5 to Spotify");
                     budgetRecommendation.put("spotify" , Parser.parseMoney("5"));
+                    Expense.Builder spotifyExpenseBuilder = new Expense.Builder();
+                    spotifyExpenseBuilder.setAmount("5.00");
+                    spotifyExpenseBuilder.setDescription("Spotify");
+                    spotifyExpenseBuilder.setRecurring(true);
+                    Expense spotifyExpense = spotifyExpenseBuilder.build();
+                    spotifyExpense.tags.add("phone bill");
+                    recommendationExpenseList.add(spotifyExpense);
                 }
             }
 
@@ -270,10 +297,10 @@ public class PlanQuestionBank {
 
         if (recommendation.toString().isEmpty()) {
             return new PlanRecommendation("I can't make any recommendations for you :(. Something probably went wrong"
-                    , budgetRecommendation);
+                    , budgetRecommendation, recommendationExpenseList);
         }
         return new PlanRecommendation(recommendation.toString()
-                , budgetRecommendation);
+                , budgetRecommendation, recommendationExpenseList);
     }
 
     private String[] generateIntRange(int start, int end) {
@@ -284,13 +311,15 @@ public class PlanQuestionBank {
         return strings.toArray(new String[0]);
     }
 
-    class PlanRecommendation{
+    public class PlanRecommendation{
         String recommendation;
         Map<String, BigDecimal> budget;
+        List<Expense> recommendationExpenseList;
 
-        public PlanRecommendation(String recommendation, Map<String, BigDecimal> budget) {
+        public PlanRecommendation(String recommendation, Map<String, BigDecimal> budget, List<Expense> recommendationExpenseList) {
             this.recommendation = recommendation;
             this.budget = budget;
+            this.recommendationExpenseList = recommendationExpenseList;
         }
 
         public String getRecommendation() {
@@ -299,6 +328,10 @@ public class PlanQuestionBank {
 
         public Map<String, BigDecimal> getPlanBudget() {
             return budget;
+        }
+
+        public List<Expense> getRecommendationExpenseList() {
+            return recommendationExpenseList;
         }
     }
 

@@ -51,7 +51,7 @@ public interface Model {
     public ObservableList<PlanBot.PlanDialog> getDialogObservableList();
     public void processPlanInput(String input) throws DukeException;
     public Map<String, String> getKnownPlanAttributes();
-    public Map<String, BigDecimal> getRecommendedBudgetPlan();
+    public PlanQuestionBank.PlanRecommendation getRecommendedBudgetPlan();
 
 
 }

@@ -26,7 +26,9 @@ public class AddExpenseCommand extends Command {
         DESCRIPTION("description", "a short description or name for the expense"),
         TAG("tag", "tags that should be added to the expense"),
         TIME("time", "the time of the expense"),
-        TENTATIVE("tentative", "sets the expense to be tentative");
+        TENTATIVE("tentative", "sets the expense to be tentative"),
+        RECURRING("recurring","sets the expense to be recurring" );
+
 
         private String name;
         private String description;
@@ -72,6 +74,10 @@ public class AddExpenseCommand extends Command {
 
         if (commandParams.containsParams(SecondaryParam.TENTATIVE.name)) {
             expenseBuilder.setTentative(true);
+        }
+
+        if(commandParams.containsParams(SecondaryParam.RECURRING.name)) {
+            expenseBuilder.setRecurring(true);
         }
 
         model.addExpense(expenseBuilder.build());

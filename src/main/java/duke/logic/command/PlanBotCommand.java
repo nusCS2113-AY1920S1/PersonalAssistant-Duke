@@ -3,6 +3,7 @@ package duke.logic.command;
 import duke.exception.DukeException;
 import duke.logic.CommandParams;
 import duke.logic.CommandResult;
+import duke.model.Expense;
 import duke.model.Model;
 import duke.storage.Storage;
 
@@ -36,9 +37,13 @@ public class PlanBotCommand extends Command {
     public CommandResult execute(CommandParams commandParams, Model model, Storage storage) throws DukeException {
         if(commandParams.getMainParam().contains("export")){
             try {
-                for (String category : model.getRecommendedBudgetPlan().keySet()){
-                    model.setCategoryBudget(category, model.getRecommendedBudgetPlan().get(category));
+                for (String category : model.getRecommendedBudgetPlan().getPlanBudget().keySet()){
+                    model.setCategoryBudget(category, model.getRecommendedBudgetPlan().getPlanBudget().get(category));
                 }
+                for (Expense recommendedExpense : model.getRecommendedBudgetPlan().getRecommendationExpenseList()) {
+                    model.addExpense(recommendedExpense);
+                }
+                storage.saveExpenseList(model.getExpenseList());
                 storage.saveBudget(model.getBudget());
                     return new CommandResult("Exported successfully!", CommandResult.DisplayedPane.EXPENSE);
             } catch (NullPointerException e) {

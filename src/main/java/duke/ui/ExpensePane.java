@@ -79,6 +79,8 @@ public class ExpensePane extends UiPart<AnchorPane>  {
                         if (expense != null && expense.isTentative()) {
                             setStyle("-fx-text-background-color: grey;");
 
+                        }else if(expense != null && expense.isRecurring()) {
+                            setStyle("-fx-text-background-color: green;");
                         } else {
                             setStyle("-fx-text-background-color: black;");
                         }

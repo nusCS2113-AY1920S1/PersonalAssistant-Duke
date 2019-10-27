@@ -130,7 +130,7 @@ public class DukePP implements Model {
     }
 
     @Override
-    public Map<String, BigDecimal> getRecommendedBudgetPlan() {
+    public PlanQuestionBank.PlanRecommendation getRecommendedBudgetPlan() {
         return planBot.getPlanBudgetRecommendation();
     }
 

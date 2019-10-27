@@ -58,7 +58,7 @@ public class PlanBot {
      */
     private PlanQuestion currentQuestion;
 
-    private Map<String, BigDecimal> planBudgetRecommendation;
+    private PlanQuestionBank.PlanRecommendation planBudgetRecommendation;
     /**
      * Constructor for PlanBot.
      *
@@ -92,7 +92,7 @@ public class PlanBot {
             currentQuestion = null;
             try {
                 dialogList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes).getRecommendation(), Agent.BOT));
-                planBudgetRecommendation = planQuestionBank.makeRecommendation(planAttributes).getPlanBudget();
+                planBudgetRecommendation = planQuestionBank.makeRecommendation(planAttributes);
                 dialogList.add(new PlanDialog("Here's a recommended budget for you, type \"export\" to export the budget", Agent.BOT));
             } catch (DukeException e) {
                 dialogList.add(new PlanDialog(e.getMessage(), Agent.BOT));
@@ -122,7 +122,7 @@ public class PlanBot {
             PlanDialog emptyQueueDialog = new PlanDialog("Based on what you've told me, here's a recommended budget plan!", Agent.BOT);
             dialogObservableList.add(emptyQueueDialog);
             dialogObservableList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes).getRecommendation(), Agent.BOT));
-            planBudgetRecommendation = planQuestionBank.makeRecommendation(planAttributes).getPlanBudget();
+            planBudgetRecommendation = planQuestionBank.makeRecommendation(planAttributes);
             dialogList.add(new PlanDialog("Here's a recommended budget for you, type \"export\" to export the budget", Agent.BOT));
         } else {
             try {
@@ -138,7 +138,7 @@ public class PlanBot {
                     questionQueue.remove();
                 }else {
                     dialogObservableList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes).getRecommendation(), Agent.BOT));
-                    planBudgetRecommendation = planQuestionBank.makeRecommendation(planAttributes).getPlanBudget();
+                    planBudgetRecommendation = planQuestionBank.makeRecommendation(planAttributes);
                     dialogList.add(new PlanDialog("Here's a recommended budget for you, type \"export\" to export the budget", Agent.BOT));
                 }
             } catch (DukeException e) {
@@ -147,7 +147,7 @@ public class PlanBot {
         }
     }
 
-    public Map<String, BigDecimal> getPlanBudgetRecommendation() {
+    public PlanQuestionBank.PlanRecommendation getPlanBudgetRecommendation() {
         return planBudgetRecommendation;
     }
 
