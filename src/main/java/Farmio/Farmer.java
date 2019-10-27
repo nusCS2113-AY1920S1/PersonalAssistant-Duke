@@ -25,10 +25,12 @@ public class Farmer {
     private final String JSON_KEY_TASK_LIST = "task_list";
     private final String JSON_KEY_TASK_CURRENT = "task_current";
     private final String JSON_KEY_TASK_STATUS_FAIL = "task_status_fail";
+    private final String JSON_KEY_NAME = "name";
 
     private int gold;
     private double level;
     private int day;
+    private String name;
     private String location;
     protected WheatFarm wheatFarm;
     protected ChickenFarm chickenFarm;
@@ -40,7 +42,7 @@ public class Farmer {
 
     public Farmer() {
         this.gold = 10;
-        this.level = 1.6;
+        this.level = 1.1;
         this.day = 1;
         this.location = "WheatFarm";
         this.wheatFarm = new WheatFarm();
@@ -49,6 +51,7 @@ public class Farmer {
         this.tasks = new TaskList();
         this.currentTask = -1;
         this.hasfailedCurrentTask = false;
+        this.name = "name";
     }
 
     public Farmer(JSONObject jsonObject) throws FarmioException {
@@ -62,16 +65,27 @@ public class Farmer {
         this.tasks = new TaskList((JSONArray) jsonObject.get(JSON_KEY_TASK_LIST));
         this.currentTask = (int) (long) jsonObject.get(JSON_KEY_TASK_CURRENT);
         this.hasfailedCurrentTask = (Boolean) jsonObject.get(JSON_KEY_TASK_STATUS_FAIL);
+        this.name = (String) jsonObject.get(JSON_KEY_NAME);
     }
 
-    public Farmer(double level, int gold, WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm, TaskList tasks) {
+    public Farmer(double level, int gold, WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm, TaskList tasks, String name) {
         this.level = level;
         this.gold = gold;
         this.wheatFarm = wheatFarm;
         this.chickenFarm = chickenFarm;
         this.cowFarm = cowFarm;
         this.tasks = tasks;
+        this.name = name;
     }
+
+    public void inputName(String username) {
+        name = username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public int getGold() {
         return gold;
     }
@@ -201,6 +215,7 @@ public class Farmer {
         obj.put(JSON_KEY_TASK_LIST, tasks.toJSON());
         obj.put(JSON_KEY_TASK_CURRENT, currentTask);
         obj.put(JSON_KEY_TASK_STATUS_FAIL, hasfailedCurrentTask);
+        obj.put(JSON_KEY_NAME, name);
         return obj;
     }
 }

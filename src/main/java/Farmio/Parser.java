@@ -36,6 +36,8 @@ class Parser {
                 return new CommandDayEnd(); //TODO check if reset for dayend
             case MENU_START:
                 return parseMenuStart(userInput);
+            case NAME_ADD:
+                return new CommandAddName(userInput);
             case TASK_ADD:
                 return parseTaskAdd(userInput);
             default:
@@ -44,6 +46,10 @@ class Parser {
                 throw new FarmioException("Something went wrong! Restarting game.");
         }
     }
+
+//    private static Command parseName(String userInput) throws FarmioException {
+//        return new CommandAddName(userInput);
+//    }
 
     private static Command parseMenuStart(String userInput) throws FarmioException {
         switch (userInput) {

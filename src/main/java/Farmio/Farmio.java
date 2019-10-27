@@ -59,6 +59,7 @@ public class Farmio {
     public static enum Stage {
         WELCOME,
         MENU_START,
+        NAME_ADD,
         LEVEL_START,
         TASK_ADD,
         RUNNING_DAY,
