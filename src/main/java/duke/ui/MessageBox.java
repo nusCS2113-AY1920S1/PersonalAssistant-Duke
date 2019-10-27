@@ -46,7 +46,6 @@ class MessageBox extends UiElement<Region> {
      */
     static MessageBox getUserMessage(String text) {
         MessageBox messageBox = new MessageBox(text, userAvatar);
-        // TODO: Fix UI so that user's input is not "flipped".
         messageBox.flip();
         return messageBox;
     }

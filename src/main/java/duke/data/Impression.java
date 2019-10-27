@@ -207,12 +207,6 @@ public class Impression extends DukeObject {
     }
 
     @Override
-    public String toDisplayString() {
-        // Todo
-        return null;
-    }
-
-    @Override
     public String toReportString() {
         StringBuilder informationString;
         informationString = new StringBuilder("\n\tDescription of impression: " + this.description + "\n");

@@ -100,14 +100,6 @@ public class Patient extends DukeObject {
     }
 
     /**
-     * This discharge function runs the procedure to discharges a patient from the hospital.
-     * Todo write the function
-     */
-    public void discharge() {
-        // Todo
-    }
-
-    /**
      * This addNewImpression function adds a new impression to the impressions list.
      *
      * @param newImpression the impression to be added
@@ -240,12 +232,6 @@ public class Patient extends DukeObject {
             informationString.append(imp.toString());
         }
         return super.toString() + informationString + "\n";
-    }
-
-    @Override
-    public String toDisplayString() {
-        // Todo
-        return null;
     }
 
     @Override
