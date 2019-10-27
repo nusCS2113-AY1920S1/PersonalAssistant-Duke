@@ -13,6 +13,7 @@ public class AddBreakfastCommandParser implements ParserInterface<AddCommand> {
         } else {
             if (userInput.contains("/cost")) {
                 cost = Integer.parseInt(userInput.split("/cost")[1].trim());
+                userInput = userInput.split("/cost")[0];
             }
             if (userInput.contains("/")) {
                 String mealName = userInput.split("/", 2)[0].trim();
