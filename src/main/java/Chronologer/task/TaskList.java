@@ -1,7 +1,10 @@
 package chronologer.task;
 
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.Callback;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -121,8 +124,7 @@ public class TaskList {
     public Task markAsDone(int indexOfTask) {
         Task task = listOfTasks.get(indexOfTask);
         task.markAsDone();
-        Task taskO = observableListOfTasks.get(indexOfTask);
-        taskO.markAsDone();
+        observableListOfTasks.add(task);
         return task;
     }
 
@@ -135,9 +137,9 @@ public class TaskList {
      */
     public Task markAsIgnorable(int indexOfTask) {
         Task task = listOfTasks.get(indexOfTask);
+        observableListOfTasks.remove(task);
         task.markAsIgnorable();
-        Task taskO = observableListOfTasks.get(indexOfTask);
-        taskO.markAsIgnorable();
+        observableListOfTasks.add(task);
         return task;
     }
 
@@ -149,9 +151,9 @@ public class TaskList {
      */
     public Task markAsUnignorable(int indexOfTask) {
         Task task = listOfTasks.get(indexOfTask);
+        observableListOfTasks.remove(task);
         task.markAsUnignorable();
-        Task taskO = observableListOfTasks.get(indexOfTask);
-        taskO.markAsIgnorable();
+        observableListOfTasks.add(task);
         return task;
     }
 
@@ -211,6 +213,21 @@ public class TaskList {
     }
 
     /**
+     * Fetches all tasks without dates.
+     *
+     * @return tasksWithoutDates tasks with no time constraint.
+     */
+    public ArrayList<Task> obtainTasksWithoutDates() {
+        ArrayList<Task> tasksWithoutDates = new ArrayList<Task>();
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            if (listOfTasks.get(i).startDate == null) {
+                tasksWithoutDates.add(listOfTasks.get(i));
+            }
+        }
+        return tasksWithoutDates;
+    }
+
+    /**
      * This function allows the user to obtain the tasks on a particular date, but only with description.
      *
      * @param dayToFind is of String type which contains the desired date of
@@ -238,8 +255,7 @@ public class TaskList {
     public Task editTaskDescription(int indexOfTask, String newDescription) {
         Task taskToBeEdited = listOfTasks.get(indexOfTask);
         taskToBeEdited.description = newDescription;
-        Task taskO = observableListOfTasks.get(indexOfTask);
-        taskO.description = newDescription;
+        observableListOfTasks.add(taskToBeEdited);
         return taskToBeEdited;
     }
 
@@ -253,9 +269,12 @@ public class TaskList {
     public Task editTaskComment(int indexOfTask, String comment) {
         Task taskToBeEdited = listOfTasks.get(indexOfTask);
         taskToBeEdited.comment = comment;
-        Task taskO = observableListOfTasks.get(indexOfTask);
-        taskO.comment = comment;
+        observableListOfTasks.add(taskToBeEdited);
         return taskToBeEdited;
+    }
+
+    public void updatePriority(Task task) {
+        observableListOfTasks.add(task);
     }
 
     public ArrayList<Task> getTasks() {

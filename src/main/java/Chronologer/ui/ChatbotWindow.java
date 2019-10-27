@@ -62,7 +62,7 @@ class ChatbotWindow extends UiComponent<Region> {
             Command command = ParserFactory.parse(input);
             command.execute(tasks, storage);
         } catch (ChronologerException e) {
-
+            System.out.println(e.getMessage());
         }
         DialogBox toChangeDimension = DialogBox.getUserDialog(input);
         dialogBoxContainer.getChildren().addAll(toChangeDimension.getRoot(), DialogBox.getChronologerDialog(UiTemporary.userOutputForUI).getRoot());
@@ -83,7 +83,7 @@ class ChatbotWindow extends UiComponent<Region> {
     }
 
     /**
-      * Prints welcome message.
+      * Prints chronologer's welcome message.
       */
     private void printWelcome() {
         print(CHRONOLOGER_WELCOME_MESSAGE);

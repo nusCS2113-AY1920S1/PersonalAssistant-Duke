@@ -23,7 +23,6 @@ public class TodoWithDurationParser extends TodoParser {
     public Command parse() throws ChronologerException {
         super.extract();
         int duration = extractDuration(taskFeatures);
-
         return new AddCommand(command, taskDescription, duration);
     }
 

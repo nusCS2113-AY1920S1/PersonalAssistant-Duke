@@ -4,6 +4,7 @@ import chronologer.command.Command;
 import chronologer.parser.Parser;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
+import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,6 +24,9 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.ListChangeListener;
+
+import javax.swing.event.ListDataListener;
+
 /**
  * UI element designed for the user to interact with the application.
  * It has 3 main tasks.
@@ -58,6 +62,8 @@ class TimelineWindow extends UiComponent<Region> {
     private ListView<String> sundayTask;
     @FXML
     private ListView<Task> priorityTask;
+    @FXML
+    private ListView<Task> tasksWithoutDates;
 
     private Parser parser;
     private Command command;
@@ -74,9 +80,15 @@ class TimelineWindow extends UiComponent<Region> {
         this.command = command;
         this.parser = parser;
         this.tasks = tasks;
+        initializeTimelineComponents();
+    }
+
+    private void initializeTimelineComponents() {
         attachTasksListener();
+        attachListenerForObjects();
         populateEveryDay();
         prioritizedTodayTasks();
+        tasksWithoutDates();
     }
 
     /**
@@ -93,35 +105,47 @@ class TimelineWindow extends UiComponent<Region> {
     /**
      * This method populates the ListView with prioritized tasks for the day.
      */
-    private void nondateBoundTasks() {
+    private void tasksWithoutDates() {
         ObservableList<Task> holdTasksWithoutDates;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
-        holdTasksWithoutDates = FXCollections.observableArrayList(tasks.obtainPriorityList(dtf.format(now)));
-        priorityTask.setItems(holdTasksWithoutDates);
+        holdTasksWithoutDates = FXCollections.observableArrayList(tasks.obtainTasksWithoutDates());
+        tasksWithoutDates.setItems(holdTasksWithoutDates);
     }
 
     /**
      *
      */
     private void attachTasksListener() {
-
         tasks.getObservableListOfTasks().addListener((ListChangeListener<Task>) change -> {
             while(change.next()) {
                 if (change.wasAdded()) {
                     populateEveryDay();
                     prioritizedTodayTasks();
+                    tasksWithoutDates();
                 }
                 else if (change.wasRemoved()) {
                     populateEveryDay();
                     prioritizedTodayTasks();
+                    tasksWithoutDates();
                 }
                 else if (change.wasReplaced()) {
                     populateEveryDay();
                     prioritizedTodayTasks();
+                    tasksWithoutDates();
                 }
             }
         });
+    }
+
+    private void attachListenerForObjects() {
+        tasks.getObservableListOfTasks().addListener((InvalidationListener) data -> {
+              System.out.println("HERE");
+              populateEveryDay();
+              prioritizedTodayTasks();
+              tasksWithoutDates();
+            }
+        );
     }
 
 

@@ -15,7 +15,6 @@ public class DialogBox extends UiComponent<Region> {
     private static final String FXML = "DialogBox.fxml";
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image chronologerImage = new Image(this.getClass().getResourceAsStream("/images/DaChronologer.png"));
-    private boolean isDukeNow = true;
     @FXML
     private Label dialog;
     @FXML
@@ -27,17 +26,15 @@ public class DialogBox extends UiComponent<Region> {
      *
      * @param text the text portion of the label is passed in through this parameter.
      */
-    private DialogBox(String text) {
+    private DialogBox(String text, boolean isDuke) {
         super(FXML, null);
 
         dialog.setText(text);
-        if (isDukeNow) {
+        if (isDuke) {
             displayPicture.setImage(chronologerImage);
-            isDukeNow = false;
         }
         else {
             displayPicture.setImage(userImage);
-            isDukeNow = true;
         }
     }
 
@@ -47,11 +44,11 @@ public class DialogBox extends UiComponent<Region> {
      *
      */
     public static DialogBox getUserDialog(String text) {
-        return new DialogBox(text);
+        return new DialogBox(text, false);
     }
 
     public static DialogBox getChronologerDialog(String text) {
-        return new DialogBox(text);
+        return new DialogBox(text, true);
     }
 
 }

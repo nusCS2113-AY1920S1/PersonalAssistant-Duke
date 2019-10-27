@@ -1,5 +1,7 @@
 package chronologer.task;
 
+import javafx.beans.property.StringProperty;
+
 import javax.xml.stream.Location;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -31,7 +33,7 @@ public abstract class Task implements Serializable {
     public Period eventPeriod;
 
     private static final String TICK = "\u2713"; //Tick symbol
-    private static final  String CROSS = "\u2718"; // Cross symbol
+    private static final String CROSS = "\u2718"; // Cross symbol
     private static final String PRIORITY_LOW = "[\u2605]";// Low priority symbol
     private static final String PRIORITY_MED = "[\u2605\u2605]";//Med priority symbol
     private static final String PRIORITY_HIGH = "[\u2605\u2605\u2605]"; //High priority symbol

@@ -40,15 +40,15 @@ public class PriorityCommand extends Command {
         if (newPriority == Priority.INVALID) {
             throw new ChronologerException(ChronologerException.invalidPriorityLevel());
         }
-        if (indexOfTask < 0 || indexOfTask > (tasks.getSize() - 1)) {
+        if (!isIndexValid(indexOfTask,tasks.getSize())) {
             throw new ChronologerException(ChronologerException.taskDoesNotExist());
         }
-
         Task task = tasks.getTasks().get(indexOfTask);
         if (!task.isPrioritizable) {
             UiTemporary.printOutput(NO_PRIORITY);
         } else {
             task.setPriority(newPriority);
+            tasks.updatePriority(task);
             storage.saveFile(tasks.getTasks());
             UiTemporary.printOutput("Got it! " + task.description + " priority level is now " + priorityString);
         }

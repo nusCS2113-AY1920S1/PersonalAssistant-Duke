@@ -50,7 +50,7 @@
       </ScrollPane>
       <ScrollPane layoutX="623.0" layoutY="399.0" prefHeight="240.0" prefWidth="186.0">
          <content>
-            <ListView prefHeight="247.0" prefWidth="170.0" style="-fx-background-color: #696969;" />
+            <ListView fx:id="tasksWithoutDates" prefHeight="247.0" prefWidth="170.0" style="-fx-background-color: #696969;" />
          </content>
       </ScrollPane>
       <ScrollPane layoutX="809.0" layoutY="399.0" prefHeight="240.0" prefWidth="186.0">
