@@ -10,7 +10,7 @@ import duke.storage.Storage;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ConfirmTentativeCommand extends Command{
+public class ConfirmTentativeCommand extends Command {
     /**
      * Creates a new command object, with its name, description, usage and secondary parameters.
      *
@@ -35,6 +35,7 @@ public class ConfirmTentativeCommand extends Command{
             this.description = description;
         }
     }
+
     public ConfirmTentativeCommand() {
         super(name, description, usage, Stream.of(SecondaryParam.values())
                 .collect(Collectors.toMap(s -> s.name, s -> s.description)));

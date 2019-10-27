@@ -3,7 +3,6 @@ package duke.ui;
 import duke.commons.LogsCenter;
 import duke.model.PlanBot;
 import javafx.application.Platform;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -23,6 +22,7 @@ public class PlanPane extends UiPart<BorderPane> {
 
     /**
      * Constructor for the controller.
+     *
      * @param dialogObservableList a ObservableList of PlanDialog from PlanBot
      */
     public PlanPane(ObservableList<PlanBot.PlanDialog> dialogObservableList) {
@@ -30,7 +30,7 @@ public class PlanPane extends UiPart<BorderPane> {
         dialogListView.setItems(dialogObservableList);
         logger.info("DialogList set");
         dialogListView.setCellFactory(planDialogListView -> new PlanDialogListViewCell());
-        Platform.runLater( ()-> dialogListView.scrollTo(dialogObservableList.size()- 1 ));
+        Platform.runLater(() -> dialogListView.scrollTo(dialogObservableList.size() - 1));
     }
 
 
@@ -50,7 +50,6 @@ public class PlanPane extends UiPart<BorderPane> {
             }
         }
     }
-
 
 
 }

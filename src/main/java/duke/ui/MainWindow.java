@@ -100,10 +100,6 @@ public class MainWindow extends UiPart<Stage> {
 
         // this part should be unnecessary
         switch (displayedPane) {
-        case EXPENSE:
-            expensePane.getRoot().setVisible(true);
-            break;
-
         case TRENDING:
             trendingPane.getRoot().setVisible(true);
             break;
@@ -111,6 +107,8 @@ public class MainWindow extends UiPart<Stage> {
         case PLAN:
             planPane.getRoot().setVisible(true);
             break;
+        default: //Expense pane
+            expensePane.getRoot().setVisible(true);
         }
 
         // todo: add more data parts to be added.
@@ -132,7 +130,9 @@ public class MainWindow extends UiPart<Stage> {
             fillInnerPart();
             showPane(commandResult);
 
-            if (commandResult.isExit()) Platform.exit();
+            if (commandResult.isExit()) {
+                Platform.exit();
+            }
 
         } catch (DukeException e) {
             console.setText(e.getMessage());

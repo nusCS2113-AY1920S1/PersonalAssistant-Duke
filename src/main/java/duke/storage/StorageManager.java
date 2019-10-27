@@ -13,7 +13,15 @@ public class StorageManager implements Storage {
     private PlanAttributesStorage planAttributesStorage;
     private BudgetStorage budgetStorage;
 
-    public StorageManager(ExpenseListStorage expenseListStorage, PlanAttributesStorage planAttributesStorage, BudgetStorage budgetStorage) {
+    /**
+     * Constructor for StorageManager
+     * @param expenseListStorage storage for expense List
+     * @param planAttributesStorage storage for PlanAttributes from PlanBot
+     * @param budgetStorage Storage for budget
+     */
+    public StorageManager(ExpenseListStorage expenseListStorage,
+                          PlanAttributesStorage planAttributesStorage,
+                          BudgetStorage budgetStorage) {
         this.expenseListStorage = expenseListStorage;
         this.planAttributesStorage = planAttributesStorage;
         this.budgetStorage = budgetStorage;

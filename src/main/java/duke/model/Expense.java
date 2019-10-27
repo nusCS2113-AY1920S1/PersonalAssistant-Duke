@@ -26,9 +26,8 @@ public class Expense extends DukeItem {
      * The time of the expense.
      */
     private final LocalDateTime time;
-
     /**
-     * Is true if expense is a recurring one
+     * Is true if expense is a recurring one.
      */
     private boolean isRecurring;
 
@@ -143,9 +142,8 @@ public class Expense extends DukeItem {
         /**
          * @param recurring whether the expense is tentative.
          * @return this builder.
-         * @throws DukeException
          */
-        public Builder setRecurring(boolean recurring) throws DukeException {
+        public Builder setRecurring(boolean recurring) {
             isRecurring = recurring;
             return this;
         }

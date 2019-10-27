@@ -36,7 +36,7 @@ public class BudgetStorage {
      */
     public void saveBudget(Budget budget) throws DukeException {
         try {
-            Map<String, BigDecimal>budgetCategory = budget.getBudgetCategory();
+            Map<String, BigDecimal> budgetCategory = budget.getBudgetCategory();
             BUDGET_FILE.createNewFile();
             try (FileWriter fileWriter = new FileWriter(BUDGET_FILE)) {
                 fileWriter.write(budget.getMonthlyBudgetString());
@@ -74,7 +74,7 @@ public class BudgetStorage {
                 String[] separatedLine = line.split(" ");
                 int lineLength = separatedLine.length;
                 StringBuilder categoryBuilder = new StringBuilder();
-                for (int wordNumber = 0; wordNumber < lineLength - 2; ++wordNumber){
+                for (int wordNumber = 0; wordNumber < lineLength - 2; ++wordNumber) {
                     categoryBuilder.append(separatedLine[wordNumber]).append(" ");
                 }
                 categoryBuilder.append(separatedLine[lineLength - 2]);
