@@ -22,28 +22,39 @@ public class PatientEditCommand extends ArgCommand {
         // TODO: Ability to change bed number and name
         // TODO: append
         int height = switchToInt("height");
-        if (height != 0) {
+        if (height != -1) {
             patient.setHeight(height);
         }
 
         int weight = switchToInt("weight");
-        if (weight != 0) {
+        if (weight != -1) {
             patient.setWeight(weight);
         }
 
         int age = switchToInt("age");
-        if (age != 0) {
+        if (age != -1) {
             patient.setAge(age);
         }
 
         int number = switchToInt("number");
-        if (number != 0) {
+        if (number != -1) {
             patient.setNumber(number);
         }
 
-        patient.setAddress(getSwitchVal("address"));
-        patient.setHistory(getSwitchVal("history"));
-        patient.setAllergies(getSwitchVal("allergies"));
+        String address = getSwitchVal("address");
+        if (address != null) {
+            patient.setAddress(address);
+        }
+
+        String history = getSwitchVal("history");
+        if (history != null) {
+            patient.setHistory(history);
+        }
+
+        String allergies = getSwitchVal("allergies");
+        if (allergies != null) {
+            patient.setAllergies(allergies);
+        }
 
         patient.updateAttributes();
         core.ui.print("Edited details of patient!");
