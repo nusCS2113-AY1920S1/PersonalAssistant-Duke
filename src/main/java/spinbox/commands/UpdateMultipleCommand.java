@@ -23,11 +23,11 @@ public class UpdateMultipleCommand extends Command {
     private static final String PROVIDE_INDEX = "Please provide the indexes to be updated.";
     private static final String INVALID_INDEX = "Please enter a valid index.";
     private static final String UPDATE_SINGLE_TASK = "To update a single task, provide the input in this "
-            + "format instead: update <pageContent> / <type> <one index in integer form>.";
-    private static final String INVALID_UPDATE_FORMAT = "Please use valid update-multiple format:\n"
-            + "update-multiple <pageContent> / <type> <indexes separated by ',' without any spacing> <boolean value>\n"
-            + "E.g. update-multiple CG1111 / task 1,2,3 true";
-    private static final String INCORRECT_TAB = "Please specify a valid tab to carry out update-multiple.\n"
+            + "format instead: update <pageContent> / <type> <one index in integer form> <boolean value>";
+    private static final String INVALID_UPDATE_FORMAT = "Please use valid multiple update format:\n"
+            + "update-* <pageContent> / <type> <indexes separated by ',' without any spacing> <boolean value>\n"
+            + "E.g. update-* CG1111 / task 1,2,3 true";
+    private static final String INCORRECT_TAB = "Please specify a valid tab to carry out multiple updates.\n"
             + "List of tabs available: task, note, file";
     private static final String UPDATED_MULTIPLE_FILES = "Noted. I've updated these files:";
     private static final String UPDATED_MULTIPLE_TASKS = "Noted. I've updated these tasks:";

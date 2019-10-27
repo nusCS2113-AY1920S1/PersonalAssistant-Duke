@@ -7,10 +7,11 @@ import spinbox.commands.FindCommand;
 import spinbox.commands.HelpCommand;
 import spinbox.commands.RemoveCommand;
 import spinbox.commands.RemoveMultipleCommand;
+import spinbox.commands.SetDateCommand;
+import spinbox.commands.SetNameCommand;
 import spinbox.commands.UpdateCommand;
 import spinbox.commands.UpdateMultipleCommand;
 import spinbox.commands.ViewCommand;
-import spinbox.commands.SetNameCommand;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 
@@ -127,14 +128,17 @@ public class Parser {
         case "update":
             command = new UpdateCommand(pageDataComponents, content);
             break;
-        case "remove-multiple":
+        case "remove-*":
             command = new RemoveMultipleCommand(pageDataComponents, content);
             break;
-        case "update-multiple":
+        case "update-*":
             command = new UpdateMultipleCommand(pageDataComponents, content);
             break;
         case "find":
             command = new FindCommand(pageDataComponents, content);
+            break;
+        case "set-date":
+            command = new SetDateCommand(pageDataComponents, content);
             break;
         case "set-name":
             command = new SetNameCommand(pageDataComponents, content);

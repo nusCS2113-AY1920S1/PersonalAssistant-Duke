@@ -27,7 +27,7 @@ public class SetNameCommand extends Command {
     private static final String FILE_SET = "File name successfully changed.\n";
     private static final String NOTE_SET = "Note name successfully changed.\n";
     private static final String TASK_SET = "Task name successfully changed.\n";
-    private static final String INVALID_INDEX = "Please enter a valid index.";
+    private static final String INVALID_INDEX = "Please enter a valid index to be set.";
     private static final String PROVIDE_INDEX = "Please provide an index to be set.";
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";
     private static final String INVALID_SET_NAME_FORMAT = "Please use the valid set name format:\n"
@@ -41,7 +41,7 @@ public class SetNameCommand extends Command {
     private String content;
 
     /**
-     * Constructor for initialization of variables to support marking of entities.
+     * Constructor for initialization of variables to support the set name command.
      * @param pageDataComponents page data components.
      * @param content A string containing the content of the processed user input.
      */
@@ -58,7 +58,7 @@ public class SetNameCommand extends Command {
             SpinBoxException {
         File fileChanged;
         Task taskChanged;
-        Notepad noteChanged;
+        String noteSelected;
         int doneStatus;
         String replaceName;
         DateTime start;
@@ -106,7 +106,7 @@ public class SetNameCommand extends Command {
                     Notepad notepad = module.getNotepad();
                     int index = Integer.parseInt(content.split(" ")[1]) - 1;
                     replaceName = content.split("to: ")[1].trim();
-                    String noteSelected = notepad.getLine(index);
+                    noteSelected = notepad.getLine(index);
                     notepad.removeLine(index);
                     notepad.addLine(replaceName);
                     return HORIZONTAL_LINE + "\n" + NOTE_SET + "Note " + (index + 1) + CHANGE_FROM
@@ -150,31 +150,38 @@ public class SetNameCommand extends Command {
                         end = null;
                     }
                     tasks.remove(index);
-                    if (taskType.equals("TODO")) {
+                    switch (taskType) {
+                    case "TODO":
                         taskChanged = tasks.add(new Todo(doneStatus, replaceName));
-                    } else if (taskType.equals("DEADLINE")) {
+                        break;
+                    case "DEADLINE":
                         taskChanged = tasks.add(new Deadline(doneStatus, replaceName, start));
-                    } else if (taskType.equals("EVENT")) {
+                        break;
+                    case "EVENT":
                         taskChanged = tasks.add(new Event(doneStatus, replaceName, start, end));
-                    } else if (taskType.equals("EXAM")) {
+                        break;
+                    case "EXAM":
                         taskChanged = tasks.add(new Exam(doneStatus, replaceName, start, end));
-                    } else if (taskType.equals("LAB")) {
+                        break;
+                    case "LAB":
                         taskChanged = tasks.add(new Lab(doneStatus, replaceName, start, end));
-                    } else if (taskType.equals("LECTURE")) {
+                        break;
+                    case "LECTURE":
                         taskChanged = tasks.add(new Lecture(doneStatus, replaceName, start, end));
-                    } else {
+                        break;
+                    default:
                         taskChanged = tasks.add(new Tutorial(doneStatus, replaceName, start, end));
+                        break;
                     }
                     return HORIZONTAL_LINE + "\n" + TASK_SET + "Task " + (index + 1) + CHANGE_FROM
                             + taskSelected.toString() + TO + taskChanged.toString() + "\n" + HORIZONTAL_LINE;
                 } catch (NumberFormatException e) {
                     throw new InputException(INVALID_INDEX);
-                } catch (IndexOutOfBoundsException e) {
-                    throw new InputException(PROVIDE_INDEX);
                 }
             } else {
                 return NON_EXISTENT_MODULE;
             }
+
         default:
             throw new InputException(INVALID_SET_NAME_FORMAT);
         }

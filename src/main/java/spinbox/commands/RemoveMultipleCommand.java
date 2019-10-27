@@ -28,9 +28,9 @@ public class RemoveMultipleCommand extends Command {
     private static final String REMOVE_SINGLE_TASK = "To remove a single task, provide the input in this "
             + "format instead: remove <pageContent> / <type> <one index in integer form>.";
     private static final String INDEX_SEPARATION = "Ensure that the indexes are separated by ',' without any spacing. "
-            + "E.g. remove-multiple <pageContent> / <type> 2,3,4";
-    private static final String INVALID_REMOVE_FORMAT = "Please use valid remove-multiple format:\n"
-            + "remove-multiple <pageContent> : <type> <index>";
+            + "E.g. remove-* <pageContent> / <type> 2,3,4";
+    private static final String INVALID_REMOVE_FORMAT = "Please use valid multiple removal format:\n"
+            + "remove-* <pageContent> : <type> <index>";
     private static final String REMOVED_MULTIPLE_FILES = "Noted. I've removed these files:";
     private static final String REMOVED_MULTIPLE_TASKS = "Noted. I've removed these tasks:";
 
