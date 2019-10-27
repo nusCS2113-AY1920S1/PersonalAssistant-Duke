@@ -221,9 +221,9 @@ However, this is not a beneficial solution in the long run as we create extensio
 
 === View tasks for the week feature
 
-[[ViewWeekParam]]
+[[ViewweekParam]]
 .Output of ViewWeek Command
-image::ViewWeekParam.png[ViewWeekParam]
+image::ViewweekParam.png[ViewweekParam]
 
 ==== Implementation
 
