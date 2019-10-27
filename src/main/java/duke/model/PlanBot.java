@@ -90,7 +90,7 @@ public class PlanBot {
         if (questionQueue.isEmpty()) {
             currentQuestion = null;
             try {
-                dialogList.add(new PlanDialog(makeRecommendation(), Agent.BOT));
+                dialogList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes), Agent.BOT));
             } catch (DukeException e) {
                 dialogList.add(new PlanDialog(e.getMessage(), Agent.BOT));
             }
@@ -118,7 +118,7 @@ public class PlanBot {
         if (currentQuestion == null) {
             PlanDialog emptyQueueDialog = new PlanDialog("Based on what you've told me, here's a recommended budget plan!", Agent.BOT);
             dialogObservableList.add(emptyQueueDialog);
-            dialogObservableList.add(new PlanDialog(makeRecommendation(), Agent.BOT));
+            dialogObservableList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes), Agent.BOT));
         } else {
             try {
                 PlanQuestion.Reply reply = currentQuestion.getReply(input, planAttributes);
@@ -132,7 +132,7 @@ public class PlanBot {
                     dialogObservableList.add(new PlanDialog(currentQuestion.getQuestion(), Agent.BOT));
                     questionQueue.remove();
                 }else {
-                    dialogObservableList.add(new PlanDialog(makeRecommendation(), Agent.BOT));
+                    dialogObservableList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes), Agent.BOT));
                 }
             } catch (DukeException e) {
                 dialogObservableList.add(new PlanDialog(e.getMessage(), Agent.BOT));
@@ -147,78 +147,7 @@ public class PlanBot {
         return planAttributes;
     }
 
-    /**
-     * Makes recommendations for the user. This should only be called when we know every attribute of the user.
-     *
-     * @return String budget recommendations.
-     * @throws DukeException when there is an error in constructing the recommendation based on the knownAttributes
-     */
-    private String makeRecommendation() throws DukeException {
-        StringBuilder recommendation = new StringBuilder();
-        if (planAttributes.get("NUS_STUDENT").equals("FALSE")) {
-            return "Since you're not a NUS student, I can't make any recommendations for you :(";
-        }
-        if (planAttributes.get("CAMPUS_LIFE").equals("FALSE")) {
-            String tripCostString = planAttributes.get("TRIP_COST");
-            String tripsPerWeekString = planAttributes.get("TRAVEL_DAYS");
-            int tripsPerWeek = Integer.parseInt(tripsPerWeekString);
-            BigDecimal tripsPerWeekBD = BigDecimal.valueOf(tripsPerWeek);
-            BigDecimal tripCost = Parser.parseMoney(tripCostString);
-            BigDecimal monthlyCost = tripCost.multiply(tripsPerWeekBD).multiply(BigDecimal.valueOf(8));
-            switch (planAttributes.get("TRANSPORT_METHOD")) {
-            case "MRT":
-                if (monthlyCost.compareTo(BigDecimal.valueOf(48)) > 0) {
-                    recommendation.append("Based on your travelling habits, it is cheaper to buy concession!\n" +
-                            "MRT concession costs: $48.00 monthly.\n" +
-                            "You should set your transport budget at $48.00 monthly\n");
-                } else {
-                    recommendation.append("You should set transport budget at $" + monthlyCost + " monthly. \n");
-                }
-                break;
-            case "BUS":
-                if (monthlyCost.compareTo(BigDecimal.valueOf(52)) > 0) {
-                    recommendation.append("Based on your travelling habits, it is cheaper to buy concession!\n" +
-                            "MRT concession costs: $52.00 monthly.\n" +
-                            "You should set your transport budget at $52.00 monthly\n");
-                } else {
-                    recommendation.append("You should set transport budget at $" + monthlyCost + " monthly. \n");
-                }
-                break;
-            default:
-                if (monthlyCost.compareTo(BigDecimal.valueOf(85)) > 0) {
-                    recommendation.append("Based on your travelling habits, it is cheaper to buy concession!\n" +
-                            "Combined concession costs: $85.00 monthly.\n" +
-                            "You should set your transport budget at $85.00 monthly\n");
-                } else {
-                    recommendation.append("You should set transport budget at $" + monthlyCost + " monthly. \n");
-                }
-                break;
-            }
 
-            int mealsPerDay =  Integer.parseInt(planAttributes.get("MEALS_PER_DAY"));
-            BigDecimal costPerMeal = Parser.parseMoney(planAttributes.get("AVERAGE_MEAL_COST"));
-            BigDecimal monthlyFoodBudget = costPerMeal.multiply(BigDecimal.valueOf(mealsPerDay)).multiply(BigDecimal.valueOf(30));
-            recommendation.append("You should set food budget at $" + monthlyFoodBudget +  " monthly. \n");
-        } else {
-            if(planAttributes.get("DINE_IN_HALL").equals("TRUE")) {
-                BigDecimal costPerMeal = Parser.parseMoney(planAttributes.get("AVERAGE_MEAL_COST"));
-                BigDecimal monthlyFoodBudget = costPerMeal.multiply(BigDecimal.valueOf(1)).multiply(BigDecimal.valueOf(11)); //11 since 3 meals during each weekend * 1 meal per day
-                recommendation.append("You should set food budget at $" + monthlyFoodBudget + " monthly. \n");
-            }else {
-                int mealsPerDay =  Integer.parseInt(planAttributes.get("MEALS_PER_DAY"));
-                BigDecimal costPerMeal = Parser.parseMoney(planAttributes.get("AVERAGE_MEAL_COST"));
-                BigDecimal monthlyFoodBudget = costPerMeal.multiply(BigDecimal.valueOf(mealsPerDay)).multiply(BigDecimal.valueOf(30));
-                recommendation.append("You should set food budget at $" + monthlyFoodBudget + " monthly. \n");
-            }
-        }
-
-
-
-        if(recommendation.toString().isEmpty()){
-            return "I can't make any recommendations for you :(. Something probably went wrong";
-        }
-        return recommendation.toString();
-    }
 
     /**
      * A container for an individual chat history.

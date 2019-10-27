@@ -1,93 +1,42 @@
 package duke.model;
 
+import duke.commons.LogsCenter;
 import duke.exception.DukeException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class Budget {
 
 
-    private static final String STORAGE_DELIMITER = "\n";
+    private static final Logger logger = LogsCenter.getLogger(Budget.class);
 
-    private File file;
 
     private BigDecimal monthlyBudget;
-
     /**
      * Maps a category to the budget set for the category.
      */
-    private HashMap<String, BigDecimal> budgetCategory;
+    private Map<String, BigDecimal> budgetCategory;
 
-    /**
-     * Constructor of Budget object.
-     *
-     * @param file the File for budget in Duke
-     * @throws DukeException if the file cannot be created or read.
-     * @throws IOException   if the file cannot be created or read.
-     */
-    public Budget(File file) throws DukeException, IOException {
-        this.file = file;
-        load();
-    }
+    private ObservableList<String> budgetObservableList;
 
-    /**
-     * Writes to the save file.
-     *
-     * @throws DukeException if unable to save the file successfully
-     */
-    public void save() throws DukeException {
-        try {
-            file.createNewFile();
-            try (FileWriter fileWriter = new FileWriter(file)) {
-                fileWriter.write(monthlyBudget.toPlainString());
-                fileWriter.write(STORAGE_DELIMITER);
-                if (!budgetCategory.isEmpty()) {
-                    for (String category : budgetCategory.keySet()) {
-                        BigDecimal budget = budgetCategory.get(category);
-                        fileWriter.write(category + " " + budget);
-                        fileWriter.write(STORAGE_DELIMITER);
-                    }
-                }
-            }
-        } catch (IOException e) {
-            throw new DukeException(String.format(DukeException.MESSAGE_SAVE_FILE_FAILED, file.getPath()));
-        }
-    }
-
-
-    /**
-     * loads from the save file.
-     *
-     * @throws DukeException if the file cannot be created or read.if the file cannot be created or read.
-     * @throws IOException   if the file cannot be created or read.
-     */
-    public void load() throws DukeException, IOException {
-        file.createNewFile();
-        monthlyBudget = BigDecimal.ZERO;
-        budgetCategory = new HashMap<>();
-        try (Scanner fileReader = new Scanner(file).useDelimiter(STORAGE_DELIMITER)) {
-            if (fileReader.hasNext()) {
-                String monthlyBudgetString = fileReader.next();
-                monthlyBudget = new BigDecimal(monthlyBudgetString);
-            }
-            while (fileReader.hasNext()) {
-                String line = fileReader.next();
-                String[] separatedLine = line.split(" ");
-                String category = separatedLine[0];
-                String budgetString = separatedLine[1];
-                BigDecimal budget = new BigDecimal(budgetString);
-                budget.setScale(2, RoundingMode.HALF_UP);
-                budgetCategory.put(category, budget);
-            }
-        } catch (IOException e) {
-            throw new DukeException(String.format(DukeException.MESSAGE_LOAD_FILE_FAILED, file.getPath()));
-        }
+    public Budget(BigDecimal monthlyBudget, Map<String, BigDecimal> budgetCategory) {
+        this.monthlyBudget = monthlyBudget;
+        this.budgetCategory = budgetCategory;
+        budgetObservableList = FXCollections.observableArrayList();
+        updateBudgetObservableList();
     }
 
     /**
@@ -97,6 +46,7 @@ public class Budget {
      */
     public void setMonthlyBudget(BigDecimal monthlyBudget) {
         this.monthlyBudget = monthlyBudget;
+        updateBudgetObservableList();
     }
 
     /**
@@ -105,7 +55,7 @@ public class Budget {
      * @return a String of the monthly budget
      */
     public String getMonthlyBudgetString() {
-        return "$" + monthlyBudget.toPlainString();
+        return monthlyBudget.toPlainString();
     }
 
     /**
@@ -116,6 +66,7 @@ public class Budget {
      */
     public void setCategoryBudget(String category, BigDecimal budget) {
         budgetCategory.put(category, budget);
+        updateBudgetObservableList();
     }
 
     /**
@@ -128,8 +79,21 @@ public class Budget {
         return monthlyBudget.subtract(total);
     }
 
-    public HashMap<String, BigDecimal> getBudgetCategory() {
+    public Map<String, BigDecimal> getBudgetCategory() {
         return budgetCategory;
+    }
+
+    public ObservableList<String> getBudgetObservableList() {
+        return budgetObservableList;
+    }
+
+    private void updateBudgetObservableList() {
+        budgetObservableList.clear();
+        budgetObservableList.add("Overall monthly budget: $" + monthlyBudget.toString());
+        for(String category : budgetCategory.keySet()){
+            budgetObservableList.add(category + ": " + budgetCategory.get(category));
+        }
+        logger.info("Size of budgetObserverList: $" + budgetObservableList.size() );
     }
 
 }

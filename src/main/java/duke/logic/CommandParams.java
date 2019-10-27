@@ -5,11 +5,11 @@ import duke.exception.DukeRuntimeException;
 import duke.logic.command.*;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -39,7 +39,6 @@ public class CommandParams {
 
     private static final Supplier<Stream<Command>> COMMANDS = () -> Stream.of(
         new AddExpenseCommand(),
-        // new BudgetCommand(),
         new DeleteExpenseCommand(),
         new ConfirmTentativeCommand(),
         new ExitCommand(),
@@ -48,7 +47,8 @@ public class CommandParams {
         new ViewExpenseCommand(),
         new GoToCommand(),
         new PlanBotCommand(),
-        new AddIncomeCommand()
+        new AddIncomeCommand(),
+        new BudgetCommand()
     );
 
     /**

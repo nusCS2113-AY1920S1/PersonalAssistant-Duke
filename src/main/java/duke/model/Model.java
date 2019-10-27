@@ -4,6 +4,7 @@ import duke.exception.DukeException;
 import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 /**
@@ -29,6 +30,19 @@ public interface Model {
 
     public ExpenseList getExpenseList();
 
+    public String getMonthlyBudgetString();
+
+    public void setMonthlyBudget(BigDecimal monthlyBudget);
+
+    public void setCategoryBudget(String category, BigDecimal budgetBD);
+
+    public BigDecimal getRemaining(BigDecimal total);
+
+    public Map<String, BigDecimal> getBudgetCategory();
+
+    public Budget getBudget();
+
+    public  ObservableList<String> getBudgetObservableList();
     //******************************** Operations for other data....
     //******************************** For example, operations of monthly income list.
     // todo: add other data operations

@@ -130,7 +130,6 @@ public class MainWindow extends UiPart<Stage> {
         String inputString = userInput.getText();
         try {
             CommandResult commandResult;
-
             if (displayedPane == CommandResult.DisplayedPane.PLAN
                     && !inputString.contains("goto")
                     && !inputString.contains("bye")) {

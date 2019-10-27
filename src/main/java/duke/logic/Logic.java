@@ -23,4 +23,7 @@ public interface Logic {
     BigDecimal getTagAmount(String tag);
 
     ObservableList<Income> getExternalIncomeList();
+
+    ObservableList<String> getBudgetObservableList();
+
 }
