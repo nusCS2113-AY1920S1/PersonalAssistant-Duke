@@ -2,21 +2,22 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="800"]
+:figure-caption: Figure
+.Oof welcome screen
+image::docs/images/Oof.png[width="800"]
 endif::[]
 
-ifndef::env-github[]
-image::images/Ui.png[width="970"]
-endif::[]
 
-* The Outstanding Organization Friend (OOF) is catered towards NUS computing students who want to use a desktop application to manage their tasks to be done. 
+* The Outstanding Organization Friend (OOF) is catered towards university students who want to use a desktop application to manage their tasks to be done. 
 
 * OOF is optimized for users who prefer to work with the Command Line Interface (CLI) while still reaping the benefits of a Graphical User Interface (GUI).
 
 * OOF allows users to:
 ** store tasks in the application
-** display tasks in a calendar _(coming soon)_
-** provide reminders for users for approaching deadlines _(coming soon)_
+** display tasks in a calendar
+** display free time slots
+** view upcoming tasks in weekly table format
+** provide reminders for users for approaching deadlines
 
 == Site Map
 

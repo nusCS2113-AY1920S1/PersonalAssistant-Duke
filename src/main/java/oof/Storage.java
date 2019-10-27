@@ -1,11 +1,12 @@
 package oof;
 
 import oof.model.module.Semester;
-import oof.model.task.TaskList;
 import oof.exception.OofException;
+import oof.model.task.Assignment;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
 import oof.model.task.Task;
+import oof.model.task.TaskList;
 import oof.model.task.Todo;
 
 import java.io.BufferedReader;
@@ -22,13 +23,27 @@ import java.util.ArrayList;
 public class Storage {
 
     private ArrayList<Task> arr = new ArrayList<>();
-    private static final String PATH_MANUAL = "src/main/manual.txt";
-    private static final String PATH_THRESHOLD = "oof.config";
-    private static final int INDEX_LABEL_END = 7;
-    private static final int INDEX_DESCRIPTION = 0;
-    private static final int INDEX_DATE = 1;
-    private static final int INDEX_START = 0;
-    private static final int INDEX_END = 1;
+    private static final String DELIMITER_ESCAPED = "\\|\\|";
+    private static final String DONE = "Y";
+    private static final String SPACE = " ";
+    private static final String PATH_OUTPUT = "./output.txt";
+    private static final String PATH_MANUAL = "./manual.txt";
+    private static final String PATH_THRESHOLD = "./oof.config";
+    private static final String TODO = "T";
+    private static final String DEADLINE = "D";
+    private static final String EVENT = "E";
+    private static final String ASSIGNMENT = "A";
+    private static final int INDEX_TYPE = 0;
+    private static final int INDEX_MODULE_CODE = 2;
+    private static final int INDEX_STATUS = 1;
+    private static final int INDEX_DESCRIPTION = 2;
+    private static final int INDEX_DESCRIPTION_ASSIGNMENT = 3;
+    private static final int INDEX_DATE_START = 3;
+    private static final int INDEX_DATE_START_ASSIGNMENT = 4;
+    private static final int INDEX_DATE_END = 5;
+    private static final int INDEX_TIME_START = 4;
+    private static final int INDEX_TIME_START_ASSIGNMENT = 5;
+    private static final int INDEX_TIME_END = 6;
     private static final int DEFAULT_THRESHOLD = 24;
 
     /**
@@ -96,10 +111,10 @@ public class Storage {
     public void writeTaskList(TaskList taskList) {
         try {
             ArrayList<Task> arr = taskList.getTasks();
-            String filename = "output.txt";
+            String filename = PATH_OUTPUT;
             BufferedWriter out = new BufferedWriter(new FileWriter(filename));
             for (Task task : arr) {
-                out.write(task + "\n");
+                out.write(task.toStorageString() + "\n");
             }
             out.close();
         } catch (IOException e) {
@@ -112,46 +127,30 @@ public class Storage {
      *
      * @return TaskList containing Task objects.
      * @throws IOException if file does not exist.
+     * @throws OofException if file is corrupted.
      */
-    public ArrayList<Task> readTaskList() throws IOException {
-        String filename = "output.txt";
-        BufferedReader reader = new BufferedReader(new FileReader(filename));
+    public ArrayList<Task> readTaskList() throws IOException, OofException {
+        BufferedReader reader = new BufferedReader(new FileReader(PATH_OUTPUT));
         String line;
         int counter = 0;
         while ((line = reader.readLine()) != null) {
             counter += 1;
-            if (isTodo(line)) {
-                String details = line.substring(INDEX_LABEL_END).trim();
-                String[] lineSplit = details.split("\\(on: ");
-                String description = lineSplit[INDEX_DESCRIPTION].trim();
-                String on = lineSplit[INDEX_DATE].trim().substring(0, lineSplit[INDEX_DATE].length() - 1);
-                Todo todo = new Todo(description, on);
-                arr.add(todo);
-                if (checkDone(line)) {
-                    arr.get(counter - 1).setStatus();
-                }
-            } else if (isDeadline(line)) {
-                String details = line.substring(INDEX_LABEL_END).trim();
-                String[] lineSplit = details.split("\\(by: ");
-                String description = lineSplit[INDEX_DESCRIPTION].trim();
-                String date = lineSplit[INDEX_DATE].trim().substring(0, lineSplit[INDEX_DATE].length() - 1);
-                Deadline deadline = new Deadline(description, date);
-                arr.add(deadline);
-                if (checkDone(line)) {
-                    arr.get(counter - 1).setStatus();
-                }
-            } else if (isEvent(line)) {
-                String details = line.substring(INDEX_LABEL_END).trim();
-                String[] lineSplit = details.split(" \\(from: ");
-                String description = lineSplit[INDEX_DESCRIPTION].trim();
-                String[] dateSplit = lineSplit[INDEX_DATE].split("to: ");
-                String startDate = dateSplit[INDEX_START].trim().substring(0, dateSplit[INDEX_START].length() - 1);
-                String endDate = dateSplit[INDEX_END].trim().substring(0, dateSplit[INDEX_END].length() - 1);
-                Event event = new Event(description, startDate, endDate);
-                arr.add(event);
-                if (checkDone(line)) {
-                    arr.get(counter - 1).setStatus();
-                }
+            String[] lineSplit = line.split(DELIMITER_ESCAPED);
+            switch (lineSplit[INDEX_TYPE]) {
+            case TODO:
+                addToDo(lineSplit, counter);
+                continue;
+            case DEADLINE:
+                addDeadline(lineSplit, counter);
+                continue;
+            case EVENT:
+                addEvent(lineSplit, counter);
+                continue;
+            case ASSIGNMENT:
+                addAssignment(lineSplit, counter);
+                continue;
+            default:
+                throw new OofException("Output.txt is corrupted!");
             }
         }
         reader.close();
@@ -163,43 +162,76 @@ public class Storage {
     }
 
     /**
-     * Checks if entry in save file is an Event.
-     *
-     * @param line Entry in save file.
-     * @return true if entry starts with [E].
-     */
-    private boolean isEvent(String line) {
-        return line.startsWith("[E]");
-    }
-
-    /**
-     * Checks if entry in save file is a Deadline.
-     *
-     * @param line Entry in save file.
-     * @return true if entry starts with [D].
-     */
-    private boolean isDeadline(String line) {
-        return line.startsWith("[D]");
-    }
-
-    /**
-     * Checks if entry in save file is a Todo.
-     *
-     * @param line Entry in save file.
-     * @return true if entry starts with [T].
-     */
-    private boolean isTodo(String line) {
-        return line.startsWith("[T]");
-    }
-
-    /**
      * Checks if the Task has already been marked as done.
      *
      * @param line Task object in string format.
      * @return true if the Task object has already been marked as done, false otherwise.
      */
     public boolean checkDone(String line) {
-        return line.charAt(4) == 'Y';
+        return line.equals(DONE);
     }
 
+    /**
+     * Adds todo task from persistent storage to taskList.
+     * @param lineSplit Task object split in string array format.
+     * @param counter Current task number in 1 based indexing.
+     */
+    private void addToDo(String[] lineSplit, int counter) {
+        String description = lineSplit[INDEX_DESCRIPTION].trim();
+        String date = lineSplit[INDEX_DATE_START].trim();
+        Todo todo = new Todo(description, date);
+        arr.add(todo);
+        if (checkDone(lineSplit[INDEX_STATUS])) {
+            arr.get(counter - 1).setStatus();
+        }
+    }
+
+    /**
+     * Adds deadline task from persistent storage to taskList.
+     * @param lineSplit Task object split in string array format.
+     * @param counter Current task number in 1 based indexing.
+     */
+    private void addDeadline(String[] lineSplit, int counter) {
+        String description = lineSplit[INDEX_DESCRIPTION].trim();
+        String date = lineSplit[INDEX_DATE_START].trim() + SPACE + lineSplit[INDEX_TIME_START].trim();
+        Deadline deadline = new Deadline(description, date);
+        arr.add(deadline);
+        if (checkDone(lineSplit[INDEX_STATUS])) {
+            arr.get(counter - 1).setStatus();
+        }
+    }
+
+    /**
+     * Adds event task from persistent storage to taskList.
+     * @param lineSplit Task object split in string array format.
+     * @param counter Current task number in 1 based indexing.
+     */
+    private void addEvent(String[] lineSplit, int counter) {
+        String description = lineSplit[INDEX_DESCRIPTION].trim();
+        String startDate = lineSplit[INDEX_DATE_START].trim() + SPACE + lineSplit[INDEX_TIME_START];
+        String endDate = lineSplit[INDEX_DATE_END].trim() + SPACE + lineSplit[INDEX_TIME_END];
+        Event event = new Event(description, startDate, endDate);
+        arr.add(event);
+        if (checkDone(lineSplit[INDEX_STATUS])) {
+            arr.get(counter - 1).setStatus();
+        }
+    }
+
+    /**
+     * Adds Assignment task from persistent storage to taskList.
+     * @param lineSplit Task object split in string array format.
+     * @param counter Current task number in 1 based indexing.
+     */
+    private void addAssignment(String[] lineSplit, int counter) {
+        String moduleCode = lineSplit[INDEX_MODULE_CODE];
+        String description = lineSplit[INDEX_DESCRIPTION_ASSIGNMENT];
+        String startDate = lineSplit[INDEX_DATE_START_ASSIGNMENT];
+        String startTime = lineSplit[INDEX_TIME_START_ASSIGNMENT];
+        String startDateTime = startDate + " " + startTime;
+        Assignment assignment = new Assignment(moduleCode, description, startDateTime);
+        arr.add(assignment);
+        if (checkDone(lineSplit[INDEX_STATUS])) {
+            arr.get(counter - 1).setStatus();
+        }
+    }
 }

@@ -92,11 +92,11 @@ public abstract class Command {
      */
     protected String getDate(Task task) {
         if (task instanceof Todo) {
-            return ((Todo) task).getOn().substring(0, 10);
+            return ((Todo) task).getTodoDate().substring(0, 10);
         } else if (task instanceof Deadline) {
-            return ((Deadline) task).getBy().substring(0, 10);
+            return ((Deadline) task).getDeadlineDateTime().substring(0, 10);
         } else if (task instanceof Event) {
-            return ((Event) task).getStartTime().substring(0, 10);
+            return ((Event) task).getStartDateTime().substring(0, 10);
         }
         return null;
     }

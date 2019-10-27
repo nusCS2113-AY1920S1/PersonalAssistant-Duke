@@ -46,17 +46,17 @@ public class Ui {
     private static final int TIME = 0;
     private static final int DESCRIPTION = 1;
     private static final String ANSI_RESET = "\u001B[0m";
-    private static final String ANSI_RED = "\u001B[31m";
-    private static final String ANSI_GREEN = "\u001B[32m";
-    private static final String ANSI_YELLOW = "\u001B[33m";
-    private static final String ANSI_BLUE = "\u001B[34m";
-    private static final String ANSI_PURPLE = "\u001B[35m";
-    private static final String ANSI_CYAN = "\u001B[36m";
-    private static final String ANSI_WHITE = "\u001B[37m";
+    private static final String ANSI_BRIGHT_RED = "\u001B[91m";
+    private static final String ANSI_BRIGHT_GREEN = "\u001B[92m";
+    private static final String ANSI_BRIGHT_YELLOW = "\u001B[93m";
+    private static final String ANSI_BRIGHT_BLUE = "\u001B[94m";
+    private static final String ANSI_BRIGHT_PURPLE = "\u001B[95m";
+    private static final String ANSI_BRIGHT_CYAN = "\u001B[96m";
     private static final String ANSI_BRIGHT_WHITE = "\u001B[97m";
-    private static final String ANSI_BRIGHT_BG_YELLOW = "\u001B[103m";
-    private static final String[] colouredText = {ANSI_RED, ANSI_GREEN, ANSI_YELLOW,
-            ANSI_BLUE, ANSI_PURPLE, ANSI_CYAN, ANSI_WHITE};
+    private static final String ANSI_BG_BLUE = "\u001B[44m";
+    private static final String ANSI_BG_BLACK = "\u001B[40m";
+    private static final String[] colouredText = {ANSI_BRIGHT_RED, ANSI_BRIGHT_GREEN, ANSI_BRIGHT_YELLOW,
+            ANSI_BRIGHT_BLUE, ANSI_BRIGHT_PURPLE, ANSI_BRIGHT_CYAN, ANSI_BRIGHT_WHITE};
     private Storage storage = new Storage();
 
     /**
@@ -256,6 +256,7 @@ public class Ui {
         System.out.println(" \t" + count + "." + task);
     }
 
+
     /**
      * Prints all tasks scheduled on the provided date.
      *
@@ -373,9 +374,9 @@ public class Ui {
             largestColSize++;
         }
         int numberOfHyphens = ((largestColSize + DATE_SPACES) * DAYS_IN_WEEK) + DAYS_IN_WEEK + DAY_FIRST;
-        System.out.print(ANSI_BRIGHT_WHITE + ANSI_BRIGHT_BG_YELLOW);
+        System.out.print(ANSI_BRIGHT_WHITE + ANSI_BG_BLUE);
         printHyphens(numberOfHyphens);
-        System.out.print(ANSI_BRIGHT_WHITE + ANSI_BRIGHT_BG_YELLOW + "|");
+        System.out.print(ANSI_BRIGHT_WHITE + ANSI_BG_BLUE + "|");
         System.out.print(ANSI_RESET);
         for (int i = 0; i < DAYS_IN_WEEK; i++) {
             printHeaderSpaces(largestColSize);
@@ -398,7 +399,7 @@ public class Ui {
      */
     private void printHyphens(int numberOfHyphens) {
         for (int i = 0; i < numberOfHyphens; i++) {
-            System.out.print(ANSI_BRIGHT_WHITE + ANSI_BRIGHT_BG_YELLOW + "-");
+            System.out.print(ANSI_BRIGHT_WHITE + ANSI_BG_BLUE + "-");
         }
         System.out.println(ANSI_RESET);
     }
@@ -421,7 +422,7 @@ public class Ui {
      */
     private void printHeaderSpaces(int largestColSize) {
         for (int i = 0; i < largestColSize / SPLIT_EVEN; i++) {
-            System.out.print(ANSI_BRIGHT_WHITE + ANSI_BRIGHT_BG_YELLOW + " ");
+            System.out.print(ANSI_BRIGHT_WHITE + ANSI_BG_BLUE + " ");
         }
     }
 
@@ -474,11 +475,12 @@ public class Ui {
         }
         for (int i = 0; i < DAYS_IN_WEEK; i++) {
             if (i != DAYS_IN_WEEK - 1) {
-                System.out.print(" " + colouredText[i] + calendarDates.get(i) + ANSI_RESET + spaces + "|");
+                System.out.print(" " + colouredText[i] + ANSI_BG_BLACK
+                        + calendarDates.get(i) + ANSI_RESET + spaces + "|");
             }
         }
-        System.out.print(" " + colouredText[DAYS_IN_WEEK - 1] + calendarDates.get(DAYS_IN_WEEK - 1) + ANSI_RESET
-                + spaces);
+        System.out.print(" " + colouredText[DAYS_IN_WEEK - 1] + ANSI_BG_BLACK
+                + calendarDates.get(DAYS_IN_WEEK - 1) + ANSI_RESET + spaces);
         printViewWeekBorder();
         System.out.println();
     }
@@ -543,7 +545,7 @@ public class Ui {
      * Prints the side borders of the View Week output.
      */
     private void printViewWeekBorder() {
-        System.out.print(ANSI_BRIGHT_WHITE + ANSI_BRIGHT_BG_YELLOW + "|");
+        System.out.print(ANSI_BRIGHT_WHITE + ANSI_BG_BLUE + "|");
         System.out.print(ANSI_RESET);
     }
 
@@ -763,8 +765,8 @@ public class Ui {
     /**
      * Prints the free time slots in that day.
      *
-     * @param timeSlotStart  The start time of the time slot.
-     * @param timeSlotEnd    The end time of the time slot.
+     * @param timeSlotStart The start time of the time slot.
+     * @param timeSlotEnd   The end time of the time slot.
      */
     public void printFreeSlots(String timeSlotStart, String timeSlotEnd) {
         System.out.println("| " + timeSlotStart + " - " + timeSlotEnd + " |               free                |");

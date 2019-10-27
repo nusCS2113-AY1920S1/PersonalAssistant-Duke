@@ -124,7 +124,7 @@ public class RecurringCommand extends Command {
      * @throws OofException dateTimeIncrement method throws OofException.
      */
     private void addToDoTask(TaskList taskList, Task task, int index, int frequency) throws OofException {
-        String date = ((Todo) task).getOn();
+        String date = ((Todo) task).getTodoDate();
         date = dateTimeIncrement(date, frequency, index);
         Todo todo = new Todo(task.getDescription(), date);
         todo.setFrequency(frequency);
@@ -140,7 +140,7 @@ public class RecurringCommand extends Command {
      * @throws OofException dateTimeIncrement method throws OofException.
      */
     private void addDeadlineTask(TaskList taskList, Task task, int index, int frequency) throws OofException {
-        String date = ((Deadline) task).getBy();
+        String date = ((Deadline) task).getDeadlineDateTime();
         date = dateTimeIncrement(date, frequency, index);
         Deadline deadline = new Deadline(task.getDescription(), date);
         deadline.setFrequency(frequency);
@@ -156,9 +156,9 @@ public class RecurringCommand extends Command {
      * @throws OofException dateTimeIncrement method throws OofException.
      */
     private void addEventTask(TaskList taskList, Task task, int index, int frequency) throws OofException {
-        String startTiming = ((Event) task).getStartTime();
+        String startTiming = ((Event) task).getStartDateTime();
         startTiming = dateTimeIncrement(startTiming, frequency, index);
-        String endTiming = ((Event) task).getEndTime();
+        String endTiming = ((Event) task).getEndDateTime();
         endTiming = dateTimeIncrement(endTiming, frequency, index);
         Event event = new Event(task.getDescription(), startTiming, endTiming);
         event.setFrequency(frequency);

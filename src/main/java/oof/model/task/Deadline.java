@@ -5,25 +5,37 @@ package oof.model.task;
  */
 public class Deadline extends Task {
 
-    protected String by;
+    protected String deadlineDateTime;
 
     /**
      * Constructor for Deadline.
      *
      * @param description Details of the Task.
-     * @param by          Due date and time of the Deadline.
+     * @param deadlineDateTime Due date and time of the Deadline.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String deadlineDateTime) {
         super(description);
-        this.by = by;
+        this.deadlineDateTime = deadlineDateTime;
     }
 
-    public String getBy() {
-        return by;
+    public String getDeadlineDateTime() {
+        return deadlineDateTime;
+    }
+
+    /**
+     * Converts a task object to string format for storage.
+     * @return Task object in string format for storage.
+     */
+    @Override
+    public String toStorageString() {
+        String date = deadlineDateTime.split(" ")[DATE];
+        String time = deadlineDateTime.split(" ")[TIME];
+        return "D" + DELIMITER + getStatusIcon() + DELIMITER + description + DELIMITER + date
+                + DELIMITER + time + DELIMITER + DELIMITER;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + deadlineDateTime + ")";
     }
 }

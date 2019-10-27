@@ -5,6 +5,8 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:figure-caption: Figure
+:table-caption: Table
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -123,7 +125,9 @@ After `setRecurring` method finishes its execution, the `execute` method continu
 
 The following activity diagram summarises what happens when a user executes a new command:
 
-image::RecurringCommandActivityDiagram.png[]
+[[RecurringCommandActivityDiagram]]
+.Activity diagram for Recurring Command
+image::RecurringCommandActivityDiagram.png[RecurringCommandActivityDiagram]
 
 ==== Design Considerations
 
@@ -195,7 +199,9 @@ The `execute` method of `HelpCommand` calls `printHelpCommand` in `Ui` class wit
 
 The following activity diagram summarises what will happen when a user executes a `Help` command:
 
-image::HelpCommandActivityDiagram.png[]
+[[HelpCommandActivityDiagram]]
+.Activity diagram for Help Command
+image::HelpCommandActivityDiagram.png[HelpCommandActivityDiagram]
 
 ==== Design Considerations
 * Created `manual.txt` to store available commands and their instructions
@@ -216,7 +222,9 @@ However, this is not a beneficial solution in the long run as we create extensio
 
 === View tasks for the week feature
 
-image::ViewWeekLarge.png[]
+[[ViewweekParam]]
+.Output of ViewWeek Command
+image::ViewweekParam.png[ViewweekParam]
 
 ==== Implementation
 
@@ -232,6 +240,7 @@ Features elaborated:
 [WARNING]
 As the output is ANSI colour enabled, there is a need to enable ANSI colour support on Windows machines.
 
+.Fixes for Windows command line
 [cols="30%, 70%"]
 |===
 |*Type of fix*|*Description*
@@ -245,9 +254,14 @@ Adhoc fix for `POWERSHELL`|
 run `OOF` with the command `java -jar .\v1.X.jar \| Out-Host`|
 |===
 
+[NOTE]
+Batch files have been included to automate the fixes. Clicking `settings.bat` satisfies the requirements stated above.
+
 * The output of `ViewWeekCommand` resizes automatically based on the length of the `description` of tasks.
 
-image::ViewWeekEmpty.png[]
+[[ViewWeekLarge]]
+.Automatic resize feature in ViewWeek Command
+image::ViewWeekLarge.png[ViewWeekLarge]
 
 Given below is an example usage scenario and how the `ViewWeekCommand` class behaves at each step.
 
@@ -280,7 +294,9 @@ Lastly, `printViewWeekDetails()` method is called to print relevant empty lines,
 
 The following sequence diagram summarises what happens when a user executes a new command:
 
-image::ViewWeekSequenceDiagram.png[]
+[[ViewWeekSequenceDiagram]]
+.Sequence diagram for ViewWeek Command
+image::ViewWeekSequenceDiagram.png[ViewWeekSequenceDiagram, width="890"]
 
 [NOTE]
 The lifeline of the User is a bar due to limitations in the software used to draw the diagram. Full details of the entire program are omitted to prevent over-cluttering of the diagram.
@@ -300,7 +316,9 @@ The tasks in each day can be classified into visual blocks to aid the users into
 
 === View calendar for a month feature
 
-image::calendar.png[]
+[[calendar]]
+.Sample output of Calendar Command
+image::calendar.png[calendar]
 
 ==== Implementation
 The `CalendarCommand` class extends `Command` by providing methods to display tasks for a particular month.
@@ -337,7 +355,9 @@ Since `Todo` objects do not have a `time` attribute, they are always sorted to t
 
 The following sequence diagram summarises what happens when a user executes a `CalendarCommand`:
 
-image::CalendarSequenceDiagram.png[]
+[[CalendarSequenceDiagram]]
+.Sequence diagram for Calendar Command
+image::CalendarSequenceDiagram.png[CalendarSequenceDiagram, width="890"]
 
 ==== Design Considerations
 
@@ -387,7 +407,9 @@ The `findFreeTime` method in `FreeCommand` class is then called by the `execute`
 
 The following activity diagram summarises what happens when a user executes a new command:
 
-image::FreeCommandActivityDiagram.png[]
+[[FreeCommandActivityDiagram]]
+.Activity diagram for Free Command
+image::FreeCommandActivityDiagram.png[FreeCommandActivityDiagram]
 
 ==== Design Considerations
 
@@ -474,8 +496,10 @@ other possible implementations that is less good
 
 === User Stories
 
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*` +
+
 [cols="5%,10%,10%,15%,30%,30%"]
+.Table consolidating the user stories
 |===
 |*S/N*|*Use Case No*|*Priority Level*|*As a ...*|*I can ...*|*So that I can ...*
 |01|01|* * *|University Student|Add a task|Won’t forget the tasks I have to complete
