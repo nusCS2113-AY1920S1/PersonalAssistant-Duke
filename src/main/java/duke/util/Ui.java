@@ -491,7 +491,7 @@ public class Ui {
         printDukeResponse("The tasks of patient " + patient.getId() + " " + patient.getName() + " is found : \n");
         for (int i = 0; i < patientTask.size(); i++) {
             printDukeResponse(tasks.get(i).getId() + ". " + tasks.get(i).getDescription() + "\n");
-            printDukeResponse(patientTask.get(i).toString());
+            printDukeResponse(patientTask.get(i).toString() + "\n");
         }
     }
 
