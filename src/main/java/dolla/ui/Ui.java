@@ -432,6 +432,9 @@ public abstract class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Print exit msg.
+     */
     public static void printExitMsg() {
         System.out.println(line);
         System.out.println("\tBye. Hope to see you again soon!");

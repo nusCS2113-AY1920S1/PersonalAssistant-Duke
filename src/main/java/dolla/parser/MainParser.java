@@ -37,7 +37,8 @@ public class MainParser {
                 || command.equals(MODE_LIMIT) || command.equals(MODE_DEBT)
                 || command.equals(MODE_SHORTCUT);
         if (isExitCommand) {
-            //return new ExitCommand(); // TODO: change
+            exit(); // TODO: change
+            //return new ExitCommand();
         } else if (isSwitchMode) {
             return new SwitchModeCommand(command); // TODO
         } else {

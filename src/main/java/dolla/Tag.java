@@ -12,6 +12,11 @@ public class Tag {
     private static final String PREFIX_TAG = "/tag";
     private static final String SPACE = " ";
 
+    /**
+     * Instantiates a new Tag.
+     *
+     * @param inputLine the input line
+     */
     public Tag(String inputLine) {
         this.inputLine = inputLine;
         this.inputArray = inputLine.split(SPACE);
@@ -37,6 +42,9 @@ public class Tag {
         return hasTag;
     }
 
+    /**
+     * Finds the tag.
+     */
     private void findTag() {
         tagName = inputArray[tagIndex];
     }
