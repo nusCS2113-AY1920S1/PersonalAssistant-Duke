@@ -16,6 +16,7 @@ public class HomeNewCommand extends ArgCommand {
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
         //ideally, we would pass an array of objects
+        nullToEmptyString(); //set optional string parameters to ""
         Integer height = switchToInt("height");
         Integer weight = switchToInt("weight");
         Integer age = switchToInt("age");

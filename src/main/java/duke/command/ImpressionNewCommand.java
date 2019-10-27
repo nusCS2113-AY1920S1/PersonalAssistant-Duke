@@ -28,6 +28,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
 
         //extract parameters and data type
         Integer priority = switchToInt(getSwitchVal("priority"));
+        nullToEmptyString(); //set optional string parameters to ""
         Integer status;
         switch (addType) { //isn't polymorphism fun?
         case "medicine":
@@ -97,6 +98,4 @@ public class ImpressionNewCommand extends DukeDataCommand {
         }
         core.writeJsonFile();
     }
-
-
 }
