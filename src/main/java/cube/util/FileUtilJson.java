@@ -16,6 +16,8 @@ import cube.exception.CubeLoadingException;
 public class FileUtilJson<Type> extends FileUtil {
     private Type fileObject;
     private String fileFullPath;
+    private File file;
+    private ObjectMapper mapper;
 
     /**
      * Constructor with two argument.
@@ -26,6 +28,8 @@ public class FileUtilJson<Type> extends FileUtil {
         super(filePath, fileName);
         this.fileFullPath = filePath + File.separator + fileName;
         this.fileObject = fileObject;
+        this.file = new File(fileFullPath);
+        this.mapper = new ObjectMapper();
     }
 
     /**
@@ -39,10 +43,8 @@ public class FileUtilJson<Type> extends FileUtil {
             System.out.println("Loading file from : " + fileFullPath);
 
             try {
-                File fileSave = new File(fileFullPath);
-                ObjectMapper mapper = new ObjectMapper();
                 JavaType type = mapper.getTypeFactory().constructType(fileObject.getClass());
-                fileObject = mapper.readValue(fileSave, type);
+                fileObject = mapper.readValue(file, type);
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new CubeLoadingException(fileFullPath);
@@ -60,9 +62,7 @@ public class FileUtilJson<Type> extends FileUtil {
     public void save(Type fileObject) throws CubeException {
         checkFileAvailable(fileFullPath);
         try {
-            File fileSave = new File(fileFullPath);
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.writeValue(fileSave, fileObject);
+            mapper.writeValue(file, fileObject);
         } catch (IOException e) {
             e.printStackTrace();
             throw new CubeLoadingException(fileFullPath);
