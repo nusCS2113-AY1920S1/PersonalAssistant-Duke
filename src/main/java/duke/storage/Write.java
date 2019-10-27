@@ -125,8 +125,8 @@ public class Write {
 
     public void writeUser(User user) throws DukeException {
         String toWrite = user.getName() + "|" + user.getAge() + "|"
-                + user.getHeight() + "|" + user.getActivityLevel() + "|" + user.getLoseWeight() + "|";
-        if (user.getSex() == Gender.MALE) {
+                + user.getHeight() + "|" + user.getActivityLevel() + "|" + user.getOriginalWeight() + "|";
+        if (user.getGender() == Gender.MALE) {
             toWrite += "M";
         } else {
             toWrite += "F";

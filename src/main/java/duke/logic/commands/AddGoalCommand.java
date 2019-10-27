@@ -92,5 +92,4 @@ public class AddGoalCommand extends Command {
             ui.succeedSetGoal();
         }
     }
-
 }

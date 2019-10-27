@@ -96,13 +96,13 @@ public class LoadLineParser {
         int age = Integer.parseInt(splitLine[1]);
         int height = Integer.parseInt(splitLine[2]);
         int activityLevel = Integer.parseInt(splitLine[3]);
-        boolean loseWeight = Boolean.parseBoolean(splitLine[4]);
+        int originalWeight = Integer.parseInt(splitLine[4]);
         String sex = splitLine[5];
         BigDecimal accountBalance = new BigDecimal(splitLine[6]);
         if (sex.equals("M")) {
-            return new User(name, age, height, Gender.MALE, activityLevel, loseWeight, accountBalance);
+            return new User(name, age, height, Gender.MALE, activityLevel, originalWeight, accountBalance);
         } else {
-            return new User(name, age, height, Gender.FEMALE, activityLevel, loseWeight, accountBalance);
+            return new User(name, age, height, Gender.FEMALE, activityLevel, originalWeight, accountBalance);
         }
     }
 
