@@ -8,12 +8,12 @@ import javafx.scene.control.Label;
  * A UI card that displays the basic information of an {@code Evidence}.
  */
 public abstract class EvidenceCard extends UiCard {
-    private final String[] priorities = {"No priority", "Critical", "Urgent", "Compulsory", "Optional"};
+    private static final String[] priorities = {"No priority", "Critical", "Urgent", "Compulsory", "Optional"};
 
     @FXML
-    protected Label nameLabel;
+    private Label nameLabel;
     @FXML
-    protected Label criticalLabel;
+    private Label criticalLabel;
 
     private final Evidence evidence;
 
@@ -52,6 +52,6 @@ public abstract class EvidenceCard extends UiCard {
             return true;
         }
 
-        return object instanceof EvidenceCard;
+        return (object instanceof EvidenceCard);
     }
 }
