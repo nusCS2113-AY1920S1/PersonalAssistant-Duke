@@ -3,12 +3,11 @@ package dolla.task;
 import dolla.Time;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * Entry is a Class that stores an instance of the user's expense or income.
  */
-public class Entry extends Log {
+public class Entry extends Record {
     protected char sign; // '+' for income, '-' for expense
     protected String type;
     protected String saveType;
@@ -27,6 +26,7 @@ public class Entry extends Log {
         this.amount = amount;
         this.description = description;
         this.date = date;
+        this.recordType = "entry";
         this.userInput = type + " " + amount + " " + description + " " + "/on " + Time.dateToString(date);
     }
 
@@ -41,7 +41,7 @@ public class Entry extends Log {
      * @return String with information of entry.
      */
     @Override
-    public String getLogText() {
+    public String getRecordDetail() {
         return "[" + type + "] "
                 + "[" + amountToMoney() + "] "
                 + "[" + description + "] "

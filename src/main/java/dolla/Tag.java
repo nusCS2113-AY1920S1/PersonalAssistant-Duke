@@ -1,7 +1,7 @@
 package dolla;
 
 /**
- * This class handles tag related inputs.
+ * This class handles tag related methods.
  */
 public class Tag {
 
@@ -24,17 +24,14 @@ public class Tag {
         this.tagIndex = - 1;
     }
 
-    /**
-     * Formats state as text for viewing.
-     */
-    public String toString() {
-        return '[' + tagName + ']';
+    private String getTagName() {
+        return tagName;
     }
 
-    /**
-     * Checks if inputArray has tag and changes tagIndex to the index of the tag name.
-     * @return true if inputArray contains "/tag"
-     */
+    public String toString() {
+        return '[' + getTagName() + ']';
+    }
+
     private Boolean hasTag() {
         Boolean hasTag = false;
         int arraySize = inputArray.length;
@@ -45,27 +42,21 @@ public class Tag {
         return hasTag;
     }
 
+    /**
+     * Finds the tag.
+     */
     private void findTag() {
         tagName = inputArray[tagIndex];
     }
 
     /**
-     * Parse tag.
+     * Parses tag.
      */
-    public void parseTag() {
+    public void parseTag() { //todo: change to be inside parser folder
         if (hasTag()) {
             findTag();
             //todo: store tag properly instead of printing it out.
             System.out.println("TAG IS " + getTagName());
         }
-    }
-
-    /**
-     * Gets tag name.
-     *
-     * @return the tag name
-     */
-    public String getTagName() {
-        return tagName;
     }
 }

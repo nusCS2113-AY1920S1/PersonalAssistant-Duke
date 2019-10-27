@@ -1,7 +1,7 @@
 package dolla.parser;
 
 import dolla.Time;
-import dolla.Ui;
+import dolla.ui.Ui;
 import dolla.action.Repeat;
 import dolla.command.Command;
 import dolla.command.AddActionCommand;
@@ -11,8 +11,6 @@ import dolla.command.AddDebtsCommand;
 import dolla.command.SortCommand;
 import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
-
-import java.time.LocalDate;
 
 /**
  * DebtsParser is a class that handles the input command and

@@ -23,7 +23,7 @@ public class EntryTest {
     void getLogText() {
         Entry newEntry = createNewEntry();
         assertEquals("[expense] [$100.0] [Expense Description] [/on 03/12/2001]",
-                newEntry.getLogText());
+                newEntry.getRecordDetail());
     }
 
     @Test

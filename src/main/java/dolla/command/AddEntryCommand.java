@@ -1,7 +1,7 @@
 package dolla.command;
 
 import dolla.DollaData;
-import dolla.Ui;
+import dolla.ui.Ui;
 import dolla.action.Redo;
 import dolla.action.Undo;
 import dolla.task.Entry;
@@ -42,13 +42,13 @@ public class AddEntryCommand extends Command {
         Entry newEntry = new Entry(type, amount, description, date);
 
         if (prevPosition == -1) {
-            dollaData.addToLogList(mode, newEntry);
-            index = dollaData.getLogList(mode).size();
+            dollaData.addToRecordList(mode, newEntry);
+            index = dollaData.getRecordList(mode).size();
             Undo.removeCommand(mode, index);
             Redo.clearRedo(mode);
         } else if (prevPosition == -2) {
-            dollaData.addToLogList(mode, newEntry);
-            index = dollaData.getLogList(mode).size();
+            dollaData.addToRecordList(mode, newEntry);
+            index = dollaData.getRecordList(mode).size();
             Undo.removeCommand(mode, index);
             prevPosition = -1; //reset to -1
         } else {
@@ -56,6 +56,6 @@ public class AddEntryCommand extends Command {
             Redo.removeCommand(mode,prevPosition);
             prevPosition = -1; //reset to -1
         }
-        Ui.echoAddEntry(newEntry);
+        Ui.echoAddRecord(newEntry);
     }
 }

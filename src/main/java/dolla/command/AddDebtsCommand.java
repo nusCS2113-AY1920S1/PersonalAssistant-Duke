@@ -1,7 +1,7 @@
 package dolla.command;
 
 import dolla.DollaData;
-import dolla.Ui;
+import dolla.ui.Ui;
 import dolla.action.Redo;
 import dolla.action.Undo;
 import dolla.task.Debt;
@@ -41,14 +41,14 @@ public class AddDebtsCommand extends Command {
     public void execute(DollaData dollaData) {
         String mode = "debt";
         Debt newDebt = new Debt(type, name, amount, description, date);
-        index = dollaData.getLogList(mode).size();
+        index = dollaData.getRecordList(mode).size();
 
         if (prevPosition == -1) {
-            dollaData.addToLogList(mode, newDebt);
+            dollaData.addToRecordList(mode, newDebt);
             Undo.removeCommand(mode,index);
             Redo.clearRedo(mode);
         } else if (prevPosition == -2) {
-            dollaData.addToLogList(mode, newDebt);
+            dollaData.addToRecordList(mode, newDebt);
             Undo.removeCommand(mode,index);
             prevPosition = -1;
         } else {
@@ -56,6 +56,6 @@ public class AddDebtsCommand extends Command {
             Redo.removeCommand(mode, prevPosition);
             prevPosition = -1;
         }
-        Ui.echoAddDebt(newDebt);
+        Ui.echoAddRecord(newDebt);
     }
 }

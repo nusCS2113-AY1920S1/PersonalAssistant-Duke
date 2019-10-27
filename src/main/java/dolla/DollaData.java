@@ -3,16 +3,13 @@ package dolla;
 import dolla.task.DebtList;
 import dolla.task.EntryList;
 import dolla.task.LimitList;
-import dolla.task.LogList;
-import dolla.task.Log;
+import dolla.task.Record;
+import dolla.task.RecordList;
 
 import static dolla.Storage.getDebtsFromSave;
 import static dolla.Storage.getEntriesFromSave;
 import static dolla.Storage.getLimitsFromSave;
 
-/**
- * The type Dolla data.
- */
 public class DollaData {
 
     private String mode = "dolla";
@@ -27,19 +24,19 @@ public class DollaData {
      * Creates an instance of DollaDota to store and manipulate data.
      */
     public DollaData() {
-        //this.entryList = new EntryList(new ArrayList<Log>());
+        //this.entryList = new EntryList(new ArrayList<Record>());
         this.entryList = new EntryList(getEntriesFromSave()); //Import from save file
         this.limitList = new LimitList(getLimitsFromSave()); //Import from save file
         this.debtList = new DebtList(getDebtsFromSave()); //Import from save file
     }
 
     /**
-     * Returns the relevant LogList (ie. EntryList) according to the specified mode.
+     * Returns the relevant RecordList (ie. EntryList) according to the specified mode.
      *
-     * @param mode The mode pertaining to the LogList to be retrieved.
-     * @return The LogList according to the specified mode.
+     * @param mode The mode pertaining to the RecordList to be retrieved.
+     * @return The RecordList according to the specified mode.
      */
-    public LogList getLogList(String mode) {
+    public RecordList getRecordList(String mode) {
         if (mode.equals("entry")) {
             return entryList;
         } else if (mode.equals("debt")) {
@@ -51,18 +48,18 @@ public class DollaData {
     }
 
     /**
-     * Adds a new Log (ie. Entry) into the relevant LogList (ie. EntryList) according to the specified mode.
+     * Adds a new Record (ie. Entry) into the relevant RecordList (ie. EntryList) according to the specified mode.
      *
-     * @param mode   The mode pertaining to the LogList to be retrieved.
-     * @param newLog The new Log to be added into the relevant LogList.
+     * @param mode   The mode pertaining to the RecordList to be retrieved.
+     * @param newRecord The new Record to be added into the relevant RecordList.
      */
-    public void addToLogList(String mode, Log newLog) {
+    public void addToRecordList(String mode, Record newRecord) {
         if (mode.equals("entry")) {
-            entryList.add(newLog);
+            entryList.add(newRecord);
         } else if (mode.equals("debt")) {
-            debtList.add(newLog);
+            debtList.add(newRecord);
         } else if (mode.equals("limit")) {
-            limitList.add(newLog);
+            limitList.add(newRecord);
         }
     }
 
@@ -70,26 +67,26 @@ public class DollaData {
      * Add to prev position.
      *
      * @param mode         the mode
-     * @param newLog       the new log
+     * @param newRecord       the new record
      * @param prevPosition the prev position
      */
-    public void addToPrevPosition(String mode, Log newLog, int prevPosition) {
+    public void addToPrevPosition(String mode, Record newRecord, int prevPosition) {
         if (mode.equals("entry")) {
-            entryList.insertPrevPosition(prevPosition,newLog);
+            entryList.insertPrevPosition(prevPosition, newRecord);
         } else if (mode.equals("debt")) {
-            debtList.insertPrevPosition(prevPosition,newLog);
+            debtList.insertPrevPosition(prevPosition, newRecord);
         } else if (mode.equals("limit")) {
-            limitList.insertPrevPosition(prevPosition,newLog);
+            limitList.insertPrevPosition(prevPosition, newRecord);
         }
     }
 
     /**
-     * Remove from log list.
+     * Remove from record list.
      *
      * @param mode  the mode
      * @param index the index
      */
-    public void removeFromLogList(String mode, int index) {
+    public void removeFromRecordList(String mode, int index) {
         if (mode.equals("entry")) {
             entryList.removeFromList(index);
         } else if (mode.equals("debt")) {
@@ -101,12 +98,13 @@ public class DollaData {
 
     /**
      * Changes the content of a particular log in list to the specified one.
-     * @param newLog The new log to replace the current item on the list.
+     *
+     * @param newRecord the new record to replace the current item on the list.
      */
-    public void modifyLogList(Log newLog) {
+    public void modifyRecordList(Record newRecord) {
         if (prevMode.equals("entry")) {
             entryList.removeFromList(modifyIndex);
-            entryList.addWithIndex(modifyIndex, newLog);
+            entryList.addWithIndex(modifyIndex, newRecord);
         }
     }
 

@@ -1,14 +1,11 @@
 package dolla.parser;
 
 import dolla.Tag;
-import dolla.Ui;
+import dolla.ui.Ui;
 
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
 import dolla.command.SwitchModeCommand;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * MainParser directs the program to the appropriate parser depending on the current mode and the user's input.
@@ -23,7 +20,6 @@ public class MainParser {
     protected static final String SPACE = " ";
     protected static final String COMMAND_BYE = "bye";
 
-
     /**
      * Returns a command corresponding to the user input by directing
      * the input to the relevant dolla.parser.
@@ -36,14 +32,17 @@ public class MainParser {
         //String inputLine = input.nextLine();
         String[] inputArray = inputLine.split(SPACE);
         String command = inputArray[0];
+        boolean isExitCommand = command.equalsIgnoreCase(COMMAND_BYE);
         boolean isSwitchMode = command.equalsIgnoreCase(MODE_DOLLA) || command.equals(MODE_ENTRY)
                 || command.equals(MODE_LIMIT) || command.equals(MODE_DEBT)
                 || command.equals(MODE_SHORTCUT);
-
-        if (command.equals(COMMAND_BYE)) {
-            //return new ExitCommand(); // TODO
+        if (isExitCommand) {
+            exit(); // TODO: change
+            //return new ExitCommand();
         } else if (isSwitchMode) {
             return new SwitchModeCommand(command); // TODO
+        } else {
+            Ui.printErrorMsg(); //todo
         }
 
         Tag tag = new Tag(inputLine);
@@ -181,8 +180,7 @@ public class MainParser {
      * This method will exit the entire program after printing a goodbye message.
      */
     public static void exit() {
-        String msg = "Bye. Hope to see you again soon!";
-        Ui.printMsg(msg);
-        //duke.Storage.save(tasks); // Don't need to save since any previous commands are already saved
+        //TODO: DO SMTH
+        Ui.printExitMsg();
     }
 }

@@ -1,15 +1,12 @@
-package dolla;
+package dolla.ui;
 
-import dolla.task.Log;
-import dolla.task.Debt;
+import dolla.Time;
 import dolla.task.Task;
-import dolla.task.Entry;
-import dolla.task.LogList;
+import dolla.task.Record;
+import dolla.task.RecordList;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * duke.Ui is a class that handles all interactions to the user.
@@ -22,17 +19,21 @@ public abstract class Ui {
         + "| | | | | | | || |/ /\\ \\  \n"
         + "| |_| | |_| | || |  __  | \n"
         + "|____/ \\ _ /|_||_|_|  |_|       \n";
-
-    /**
-     * The constant line.
-     */
     protected static String line = "\t____________________________________________________________";
 
+    private static String welcomeMsg =
+        "\tHello from\n"
+        + logo
+        + line
+        + "\n\tI help keep track of your finance!\n"
+        + "\tWhat can I do for you?";
+
     /**
-     * Show welcome.
+     * Prints DOLLA logo and welcome message.
      */
     public static void showWelcome() {
-        System.out.println("Hello from\n" + logo);
+        System.out.println(welcomeMsg);
+        System.out.println(line);
     }
 
     /**
@@ -65,6 +66,7 @@ public abstract class Ui {
         System.out.println(line);
     }
 
+    //unused
     /**
      * This method prints the details of the specified task and specified duke.task.TaskList size.
      * <p>
@@ -85,39 +87,27 @@ public abstract class Ui {
     }
 
     /**
-     * This method prints the details of the specified entry and is typically called when an entry is entered,
-     * so that the user can check the details of the created entry.
+     * This method prints the details of the specified record and is typically called when a new record is entered,
+     * so that the user can check the details of the created record.
      *
-     * @param currEntry Entry to be printed.
+     * @param currRecord record to be printed, can be an entry, limit or debt.
      */
-    public static void echoAddEntry(Entry currEntry) {
+    public static void echoAddRecord(Record currRecord) {
         System.out.println(line);
-        System.out.println("\tGot it. I've added this entry: ");
-        System.out.println("\t" + currEntry.getLogText());
-        System.out.println(line);
-    }
-
-    /**
-     * Echo add debt.
-     *
-     * @param currDebt the curr debt
-     */
-    public static void echoAddDebt(Debt currDebt) {
-        System.out.println(line);
-        System.out.println("\tGot it. I've added this debt: ");
-        System.out.println("\t" + currDebt.getLogText());
+        System.out.println("\tGot it. I've added this " + currRecord.getRecordType() + ": ");
+        System.out.println("\t" + currRecord.getRecordDetail());
         System.out.println(line);
     }
 
     /**
      * Echo remove.
      *
-     * @param log the log
+     * @param record the record
      */
-    public static void echoRemove(String log) {
+    public static void echoRemove(String record) {
         System.out.println(line);
-        System.out.println("Noted. I've removed this log: ");
-        System.out.println(log);
+        System.out.println("Noted. I've removed this record: ");
+        System.out.println(record);
         System.out.println(line);
     }
 
@@ -225,7 +215,7 @@ public abstract class Ui {
     /**
      * Prints error message when LogNum is not associated to a task.
      *
-     * @param index The Log number that does not exist in the specific list.
+     * @param index The Record number that does not exist in the specific list.
      * @param mode  The mode where the list is to be accessed.
      */
     public static void printNoLogAssocError(int index, String mode) {
@@ -289,8 +279,8 @@ public abstract class Ui {
      */
     public static void printInvalidDebtFormatError() {
         System.out.println(line);
-        System.out.println("\tplease follow the format"
-                + "'owe(/borrow) [NAME] [AMOUNT] [DESCRIPTION]'");
+        System.out.println("\tplease follow the format "
+                + "'owe(/borrow) [NAME] [AMOUNT] [DESCRIPTION] /due [DURATION] {/tag [TAGNAME]}'");
         System.out.println(line);
     }
 
@@ -316,21 +306,21 @@ public abstract class Ui {
         System.out.println(line);
     }
 
-    //public static void printList(String mode, LogList entryList) {
+    //public static void printList(String mode, RecordList entryList) {
 
     /**
      * Prints out a list depending on the mode where 'list' is called.
      *
      * @param mode    The mode that is used when 'list' is input.
-     * @param logList The LogList containing the data of the list to be printed.
+     * @param recordList The RecordList containing the data of the list to be printed.
      */
-    public static void printList(String mode, LogList logList) {
+    public static void printList(String mode, RecordList recordList) {
 
         System.out.println(line);
-        System.out.println("\tHere are the " + mode + " that you have added:");
-        for (int i = 0; i < logList.size(); i++) {
+        System.out.println("\tHere is the list of " + mode + " you have added:");
+        for (int i = 0; i < recordList.size(); i++) {
             int listNum = i + 1;
-            System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
+            System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
         }
         System.out.println(line);
     }
@@ -339,19 +329,19 @@ public abstract class Ui {
      * Print search desc.
      *
      * @param mode          the mode
-     * @param logList       the log list
+     * @param recordList       the log list
      * @param searchContent the search content
      */
-    public static void printSearchDesc(String mode, LogList logList, String searchContent) {
+    public static void printSearchDesc(String mode, RecordList recordList, String searchContent) {
 
         System.out.println(line);
         System.out.println("\tHere are the matching results found in " + mode);
         int listNum = 0;
-        for (int i = 0; i < logList.size(); i++) {
-            String temp = logList.get().get(i).getDescription();
+        for (int i = 0; i < recordList.size(); i++) {
+            String temp = recordList.get().get(i).getDescription();
             if (temp.contains(searchContent)) {
                 listNum += 1;
-                System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
+                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
             }
         }
     }
@@ -360,19 +350,19 @@ public abstract class Ui {
      * Print search name.
      *
      * @param mode          the mode
-     * @param logList       the log list
+     * @param recordList       the log list
      * @param searchContent the search content
      */
-    public static void printSearchName(String mode, LogList logList, String searchContent) {
+    public static void printSearchName(String mode, RecordList recordList, String searchContent) {
 
         System.out.println(line);
         System.out.println("\tHere are the matching results found in " + mode);
         int listNum = 0;
-        for (int i = 0; i < logList.size(); i++) {
-            String tempt = logList.get().get(i).getName();
+        for (int i = 0; i < recordList.size(); i++) {
+            String tempt = recordList.get().get(i).getName();
             if (tempt.contains(searchContent)) {
                 listNum += 1;
-                System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
+                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
             }
         }
     }
@@ -381,18 +371,18 @@ public abstract class Ui {
      * Print search date.
      *
      * @param mode          the mode
-     * @param logList       the log list
+     * @param recordList       the record list
      * @param searchContent the search content
      */
-    public static void printSearchDate(String mode, LogList logList, String searchContent) {
+    public static void printSearchDate(String mode, RecordList recordList, String searchContent) {
         System.out.println(line);
         System.out.println("\tHere are the matching results found in " + mode);
         int listNum = 0;
-        for (int i = 0; i < logList.size(); i++) {
-            String temp = Time.dateToString(logList.get().get(i).getDate());
+        for (int i = 0; i < recordList.size(); i++) {
+            String temp = Time.dateToString(recordList.get().get(i).getDate());
             if (temp.contains(searchContent)) {
                 listNum += 1;
-                System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
+                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
             }
         }
     }
@@ -404,7 +394,7 @@ public abstract class Ui {
      * @param list the list to be printed
      * @param type the type of input of the list
      */
-    public static void printSortedList(ArrayList<Log> list, String type) {
+    public static void printSortedList(ArrayList<Record> list, String type) {
         System.out.println(line);
         if (type.equals("date")) {
             System.out.println("sorting date.........");
@@ -416,7 +406,7 @@ public abstract class Ui {
 
         for (int i = 0; i < list.size(); i++) {
             int listNum = i + 1;
-            System.out.println("\t" + listNum + ". " + list.get(i).getLogText());
+            System.out.println("\t" + listNum + ". " + list.get(i).getRecordDetail());
         }
     }
 
@@ -446,6 +436,15 @@ public abstract class Ui {
     public static void printNoReminderMsg() {
         System.out.println(line);
         System.out.println("\tThere are no reminders :)");
+        System.out.println(line);
+    }
+
+    /**
+     * Print exit msg.
+     */
+    public static void printExitMsg() {
+        System.out.println(line);
+        System.out.println("\tBye. Hope to see you again soon!");
         System.out.println(line);
     }
 }
