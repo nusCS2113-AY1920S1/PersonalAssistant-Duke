@@ -243,6 +243,15 @@ public class RoomShare {
                 TaskList.changeSort(sortType);
                 break;
 
+            case log:
+                try {
+                    String filePath = storage.writeLogFile(TaskList.currentList());
+                    ui.showLogSuccess(filePath);
+                } catch (RoomShareException e) {
+                    ui.showError(e);
+                }
+                break;
+
             default:
                 ui.showCommandError();
                 break;
