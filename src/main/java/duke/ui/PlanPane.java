@@ -2,6 +2,7 @@ package duke.ui;
 
 import duke.commons.LogsCenter;
 import duke.model.PlanBot;
+import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -29,8 +30,7 @@ public class PlanPane extends UiPart<BorderPane> {
         dialogListView.setItems(dialogObservableList);
         logger.info("DialogList set");
         dialogListView.setCellFactory(planDialogListView -> new PlanDialogListViewCell());
-        addAutoScroll(dialogListView);
-
+        Platform.runLater( ()-> dialogListView.scrollTo(dialogObservableList.size()- 1 ));
     }
 
 
@@ -38,7 +38,7 @@ public class PlanPane extends UiPart<BorderPane> {
      * Custom {@code ListCell} that displays the graphics of a {@code PlanBot.PlanDialog}
      * using a {@code PlanBot.PlanDialog}.
      */
-    class PlanDialogListViewCell extends ListCell<PlanBot.PlanDialog> {
+    static class PlanDialogListViewCell extends ListCell<PlanBot.PlanDialog> {
         @Override
         protected void updateItem(PlanBot.PlanDialog dialog, boolean empty) {
             super.updateItem(dialog, empty);
@@ -51,26 +51,6 @@ public class PlanPane extends UiPart<BorderPane> {
         }
     }
 
-
-    /**
-     * Code from https://stackoverflow.com/questions/14779135/javafx-tableview-auto-scroll-to-the-last.
-     *
-     * @param view the listView we want to auto scroll
-     * @param <S>  the object in the list
-     */
-    public static <S> void addAutoScroll(final ListView<S> view) {
-        if (view == null) {
-            throw new NullPointerException();
-        }
-
-        view.getItems().addListener((ListChangeListener<S>) (c -> {
-            c.next();
-            final int size = view.getItems().size();
-            if (size > 0) {
-                view.scrollTo(size - 1);
-            }
-        }));
-    }
 
 
 }

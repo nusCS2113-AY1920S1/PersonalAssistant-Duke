@@ -54,6 +54,9 @@ public class PlanQuestion {
     }
 
     public Set<Integer> getNeighbouringQuestions(String attribute) {
+        if(answersAttributesValue.containsKey("DOUBLE") && (neighbouringQuestions.get("DOUBLE") != null)) {
+            return  neighbouringQuestions.get("DOUBLE");
+        }
         if (neighbouringQuestions.containsKey(attribute)) {
             return neighbouringQuestions.get(attribute);
         }
@@ -80,17 +83,34 @@ public class PlanQuestion {
                 return new Reply("Ok noted!", attributes);
             }
 
-        } catch (NoSuchElementException | NumberFormatException e) {
+        } catch (NoSuchElementException | NumberFormatException | NullPointerException e) {
             throw new DukeException("Please enter a valid reply!");
         }
         return new Reply("Something strange happened", attributes);
     }
 
-    public void addNeighbouring(String attribute, Integer neighbouring) {
-        if (neighbouringQuestions.containsKey(attribute)) {
-            neighbouringQuestions.get(attribute).add(neighbouring);
+    public void addNeighbouring(Integer neighbouring) {
+        if(answersAttributesValue.containsKey("DOUBLE")){
+            if (neighbouringQuestions.containsKey("DOUBLE")) {
+                neighbouringQuestions.get("DOUBLE").add(neighbouring);
+            } else {
+                neighbouringQuestions.put("DOUBLE", new HashSet<>(Collections.singletonList(neighbouring)));
+            }
+        }
+        for(String attributeValue : answersAttributesValue.values()) {
+            if (neighbouringQuestions.containsKey(attributeValue)) {
+                neighbouringQuestions.get(attributeValue).add(neighbouring);
+            } else {
+                neighbouringQuestions.put(attributeValue, new HashSet<>(Collections.singletonList(neighbouring)));
+            }
+        }
+    }
+
+    public void addNeighbouring(String attributeValue, Integer neighbouring) {
+        if (neighbouringQuestions.containsKey(attributeValue)) {
+            neighbouringQuestions.get(attributeValue).add(neighbouring);
         } else {
-            neighbouringQuestions.put(attribute, new HashSet<>(Collections.singletonList(neighbouring)));
+            neighbouringQuestions.put(attributeValue, new HashSet<>(Collections.singletonList(neighbouring)));
         }
     }
 
