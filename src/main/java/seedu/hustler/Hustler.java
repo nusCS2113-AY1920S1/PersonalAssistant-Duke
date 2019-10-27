@@ -139,7 +139,7 @@ public class Hustler extends Application {
         avatar = AvatarStorage.load();
 
         //Check if it's the first time the user logs in.
-        AchievementList.firstStart(AchievementStorage.logon());
+        //AchievementList.firstStart(AchievementStorage.logon());
 
         //Loads information such as number of tasks done, added, points, etc.
         AchievementStorage.loadStatus();

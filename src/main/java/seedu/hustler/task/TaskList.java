@@ -66,23 +66,6 @@ public class TaskList {
     }
 
     /**
-     * Checks whether list is empty or not.
-     *
-     * @return true or false to whether the internal ArrayList is empty or not.
-     */
-    public boolean isEmpty() {
-        return list.isEmpty();
-    }
-
-    public TaskList createCopy() {
-        ArrayList<Task> AL = new ArrayList<Task>();
-	    for (int i = 0; i < this.list.size(); i += 1) {
-            AL.add(this.list.get(i));
-        }
-        return new TaskList(AL);
-    }
-
-    /**
      * Adds a new Task to the task list.
      *
      * @param task new Task to be added.
@@ -90,22 +73,7 @@ public class TaskList {
     public void add(Task task) {
         list.add(task);
         String output = "\t  " + list.get(list.size() - 1).toString();
-        if (!CommandLog.isRestoring()) {
-            AddTask.increment();
-            AddTask.updateAchievementLevel();
-            AddTask.updatePoints();
-            //Hustler.listAchievements.updateBusyBee();
-            System.out.println(addAchievementLevel);
-            AchievementList.updateAddTask(addAchievementLevel);
-
-            if (!CommandLog.isRestoring()) {
-                ui.show_task_added(list);
-            }
-        } else {
-            if (!CommandLog.isRestoring()) {
-                ui.show_task_clash();
-            }
-        }
+        updateAchievement(!CommandLog.isRestoring());
         Scheduler.add(this.getLastTask());
     }
 
@@ -123,91 +91,35 @@ public class TaskList {
         String tag = "";
         if (splitInput.contains("/d")) {
             int difficultyIndex = splitInput.indexOf("/d") + 1;
-            try {
-                difficulty = splitInput.get(difficultyIndex);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                difficulty = "";
-            }
+            difficulty = splitInput.get(difficultyIndex);
         }
         if (splitInput.contains("/tag")) {
             int tagIndex = splitInput.indexOf("/tag") + 1;
-            try {
-                tag = splitInput.get(tagIndex);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                tag = "";
-            }
+            tag = splitInput.get(tagIndex);
         }
         String onlyDescription = getDescription(splitInput);
         boolean checkAnomaly = true;
         if (taskType.equals("todo") && !DetectAnomalies.test(new ToDo(taskDescriptionFull), list)) {
             list.add(new ToDo(onlyDescription, difficulty, tag, LocalDateTime.now()));
             checkAnomaly = false;
-        } else if (taskType.equals("deadline")) {
-            try {
-                String timeStr = getTime(splitInput);
-                LocalDateTime by = getDateTime(timeStr);
-
-                if (splitInput.contains("/every")) {
-                    int everyIndex = splitInput.indexOf("/every");
-                    String frequency = splitInput.get(everyIndex + 1) + " " + splitInput.get(everyIndex + 2);
-                    int numOfMin = convertToMinute(frequency);
-
-                    if (!DetectAnomalies.test(new Deadline(taskDescriptionFull, by), list)) {
-                        list.add(new RecurringDeadline(onlyDescription, by, difficulty, tag,
-                                LocalDateTime.now(), frequency, numOfMin, false));
-                        String taskDate = getOnlyDate(splitInput);
-                        if (Schedule.isValidDate(taskDate)) {
-                            schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
-                        }
-                    }
-                } else if (!DetectAnomalies.test(new Deadline(taskDescriptionFull, by), list)) {
-                    list.add(new Deadline(onlyDescription, by, difficulty, tag, LocalDateTime.now()));
-                    String taskDate = getOnlyDate(splitInput);
-                    if (Schedule.isValidDate(taskDate)) {
-                        schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
-                    }
-                }
+        } else {
+            if (taskType.equals("deadline")) {
+                addDeadline(taskDescriptionFull, difficulty, tag);
                 checkAnomaly = false;
-            } catch (ArrayIndexOutOfBoundsException e) {
-                ui.wrong_description_error();
-                return;
-            } catch (ParseException ignore) {
-                return;
-            }
-        } else if (taskType.equals("event")) {
-            try {
-                String timeStr = getTime(splitInput);
-                LocalDateTime at = getDateTime(timeStr);
-
-                if (splitInput.contains("/every")) {
-                    int everyIndex = splitInput.indexOf("/every");
-                    String frequency = splitInput.get(everyIndex + 1) + " " + splitInput.get(everyIndex + 2);
-                    int numOfMin = convertToMinute(frequency);
-
-                    if (!DetectAnomalies.test(new Event(taskDescriptionFull, at), list)) {
-                        list.add(new RecurringEvent(onlyDescription, at, difficulty, tag,
-                                LocalDateTime.now(), frequency, numOfMin, false));
-                        String taskDate = getOnlyDate(splitInput);
-                        if (Schedule.isValidDate(taskDate)) {
-                            schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
-                        }
-                    }
-                } else if (!DetectAnomalies.test(new Event(taskDescriptionFull, at), list)) {
-                    list.add(new Event(onlyDescription, at, difficulty, tag, LocalDateTime.now()));
-                    String taskDate = getOnlyDate(splitInput);
-                    if (Schedule.isValidDate(taskDate)) {
-                        schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
-                    }
-                }
+            } else {
+                addEvent(taskDescriptionFull, difficulty, tag);
                 checkAnomaly = false;
-            } catch (ArrayIndexOutOfBoundsException e) {
-                ui.wrong_description_error();
-                return;
-            } catch (ParseException ignore) {
-                return;
             }
         }
 
+        updateAchievement(checkAnomaly);
+        Scheduler.add(this.getLastTask());
+    }
+
+    /**
+     * 
+     */
+    public void updateAchievement(boolean checkAnomaly) {
         if (!checkAnomaly) {
             AddTask.increment();
             AddTask.updateAchievementLevel();
@@ -223,8 +135,64 @@ public class TaskList {
                 ui.show_task_clash();
             }
         }
+    }
 
-        Scheduler.add(this.getLastTask());
+    /**
+     *
+     */
+    public void addDeadline(String taskDescriptionFull, String difficulty, String tag) {
+        List<String> splitInput = Arrays.asList(taskDescriptionFull.split(" "));
+        String onlyDescription = getDescription(splitInput);
+        String timeStr = getTime(splitInput);
+        LocalDateTime time = getDateTime(timeStr);
+        boolean isRecurring = false;
+        int everyIndex = 0, numOfMin = 0;
+        String frequency = "";
+
+        if (splitInput.contains("/every")) {
+            isRecurring = true;
+            everyIndex = splitInput.indexOf("/every");
+            frequency = splitInput.get(everyIndex + 1) + " " + splitInput.get(everyIndex + 2);
+            numOfMin = convertToMinute(frequency);
+        }
+        if (!DetectAnomalies.test(new Deadline(taskDescriptionFull, time), list)) {
+            if (isRecurring) {
+                list.add(new RecurringDeadline(onlyDescription, time, difficulty, tag,
+                    LocalDateTime.now(), frequency, numOfMin, false));
+            }
+            else {
+                list.add(new Deadline(onlyDescription, time, difficulty, tag, LocalDateTime.now()));
+            }
+        }
+    }
+
+    /**
+     * 
+     */
+    public void addEvent(String taskDescriptionFull, String difficulty, String tag) {
+        List<String> splitInput = Arrays.asList(taskDescriptionFull.split(" "));
+        String onlyDescription = getDescription(splitInput);
+        String timeStr = getTime(splitInput);
+        LocalDateTime time = getDateTime(timeStr);
+        boolean isRecurring = false;
+        int everyIndex = 0, numOfMin = 0;
+        String frequency = "";
+
+        if (splitInput.contains("/every")) {
+            isRecurring = true;
+            everyIndex = splitInput.indexOf("/every");
+            frequency = splitInput.get(everyIndex + 1) + " " + splitInput.get(everyIndex + 2);
+            numOfMin = convertToMinute(frequency);
+        }
+        if (!DetectAnomalies.test(new Event(taskDescriptionFull, time), list)) {
+            if (isRecurring) {
+                list.add(new RecurringEvent(onlyDescription, time, difficulty, tag,
+                    LocalDateTime.now(), frequency, numOfMin, false));
+            }
+            else {
+                list.add(new Event(onlyDescription, time, difficulty, tag, LocalDateTime.now()));
+            }
+        }
     }
 
     /**
@@ -305,14 +273,14 @@ public class TaskList {
      */
     public void snoozeTask(int i, String[] userInput) {
         try {
-            if (userInput[2].contains("/")) {
-                LocalDateTime localDateTime = getDateTime(userInput[2] + " " + userInput[3]);
+            if (userInput[1].contains("/")) {
+                LocalDateTime localDateTime = getDateTime(userInput[1] + " " + userInput[2]);
                 list.get(i).setDateTime(localDateTime);
             } else {
-                int num = Integer.parseInt(userInput[2]);
+                int num = Integer.parseInt(userInput[1]);
                 LocalDateTime ldt = list.get(i).getDateTime();
 
-                switch (userInput[3]) {
+                switch (userInput[2]) {
                 case "minutes":
                     list.get(i).setDateTime(ldt.plusMinutes(num));
                     break;
@@ -447,7 +415,7 @@ public class TaskList {
      * @param frequency string that denotes the frequency.
      * @return number of minutes.
      */
-    public int convertToMinute(String frequency) {
+    public static int convertToMinute(String frequency) {
         int number = Integer.parseInt(frequency.split(" ")[0]);
         String period = frequency.split(" ")[1];
         int minutes = 0;
@@ -483,7 +451,7 @@ public class TaskList {
         return this.list.get(list.size() - 1);
     }
 
-    private String getDescription(List<String> splitInput) {
+    public static String getDescription(List<String> splitInput) {
         String description = "";
         for (String str : splitInput) {
             if (str.equals("/d") || str.equals("/tag") || str.equals("/by")
@@ -495,7 +463,7 @@ public class TaskList {
         return description.trim();
     }
 
-    private String getTime(List<String> splitInput) {
+    public static String getTime(List<String> splitInput) {
         String time = "";
         for (int i = 0; i < splitInput.size(); i++) {
             if (splitInput.get(i).contains("/by") || (splitInput.get(i).contains("/at"))) {

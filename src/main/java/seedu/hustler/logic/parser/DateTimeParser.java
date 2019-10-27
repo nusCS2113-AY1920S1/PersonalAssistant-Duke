@@ -24,18 +24,13 @@ public class DateTimeParser {
      * @param dateTime date and time of type String.
      * @return date and time of type LocalDateTime.
      */
-    public static LocalDateTime getDateTime(String dateTime) {
+    public static LocalDateTime getDateTime(String dateTime) throws DateTimeParseException {
 
         LocalDateTime localDateTime;
 
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER);
-            localDateTime = LocalDateTime.parse(dateTime,formatter);
-            return localDateTime;
-        } catch (DateTimeParseException e) {
-            System.out.println("Wrong date time format!!!");
-            return null;
-        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER);
+        localDateTime = LocalDateTime.parse(dateTime,formatter);
+        return localDateTime;
     }
 
     /**
