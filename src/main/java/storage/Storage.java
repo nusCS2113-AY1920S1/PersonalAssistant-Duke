@@ -41,6 +41,11 @@ public class Storage {
         return textLoaded;
     }
 
+    /**
+     * To write new entries or changes from the list of bookings to file.
+     * @param bookingList the list used
+     * @throws IOException entry error
+     */
     public void saveToFile(BookingList bookingList) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);
         String toWrite = "";
@@ -51,6 +56,11 @@ public class Storage {
         fileOutputStream.close();
     }
 
+    /**
+     * To write new entries or changes from the list of rooms to file.
+     * @param roomList the list of rooms
+     * @throws IOException invalid entry
+     */
     public void saveToFile(RoomList roomList) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);
         String toWrite = "";

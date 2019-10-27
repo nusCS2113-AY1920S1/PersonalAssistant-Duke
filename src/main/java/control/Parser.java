@@ -1,8 +1,24 @@
 package control;
 
-import command.*;
+import command.ByeCommand;
+import command.Command;
+import command.ListRoomCommand;
+import command.AddBookingCommand;
+import command.AddRoomCommand;
+import command.ApproveCommand;
+import command.CreateAccountCommand;
+import command.DeleteBookingCommand;
+import command.EditBookingCommand;
+import command.FindBookingCommand;
+import command.FindBookingIndexCommand;
+import command.ListBookingDailyCommand;
+import command.ListBookingMonthCommand;
+import command.ListCommand;
+import command.LoginCommand;
+import command.LogoutCommand;
+import command.RejectCommand;
 import exception.DukeException;
-
+import storage.Constants;
 import java.io.IOException;
 
 /**
@@ -42,9 +58,17 @@ public class Parser {
         case "reject":
             return new RejectCommand(input, splitStr);
         case "delete":
-            return new DeleteCommand(input, splitStr);
+            return new DeleteBookingCommand(input, splitStr);
+        case "findindex" :
+            return new FindBookingIndexCommand(input, splitStr);
+        case "find" :
+            return new FindBookingCommand(input, splitStr);
+        case "listday":
+            return new ListBookingDailyCommand(input, splitStr);
+        case "listmonth":
+            return new ListBookingMonthCommand(input, splitStr);
         default:
-            throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeException(Constants.UNHAPPY + " OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }

@@ -54,12 +54,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Visualizes the user's input from entry.
+     * @param text user input
+     * @param img user's image
+     * @return user's input displayed with image like a chat message
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.dialog.setBackground(new Background(new BackgroundFill(Color.SKYBLUE, new CornerRadii(3), null)));
         return db;
     }
 
+    /**
+     * Visualizes the chatbot's input.
+     * @param text input from chatbot
+     * @param img chatbot's image
+     * @return chatbot's input displayed with image like a chat message
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.dialog.setBackground(new Background(new BackgroundFill(Color.LIGHTYELLOW, new CornerRadii(3), null)));

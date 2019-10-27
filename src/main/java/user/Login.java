@@ -2,12 +2,17 @@ package user;
 
 import ui.Ui;
 
-import java.io.*;
+;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Login {
 
     private static String currentUser;
+
     /**
      * verfiyLogin verifies if the email and password input by user is a registered account.
      * @param email for login
@@ -59,10 +64,9 @@ public class Login {
         boolean found = false;
         reader = new BufferedReader(new FileReader(filePath));
         String line = reader.readLine();
-
-        while (line != null){
+        while (line != null) {
             String[] parts = line.split("[|]");
-            if(parts[0].trim().equals(email.trim())) {
+            if (parts[0].trim().equals(email.trim())) {
                 found = true;
             }
             line = reader.readLine();
@@ -71,6 +75,7 @@ public class Login {
         return found;
     }
 
+    /*
     public static boolean checkUsername(String username, String filePath) throws IOException {
         BufferedReader reader;
         boolean exists = true;
@@ -105,5 +110,5 @@ public class Login {
         }
         reader.close();
         return new Guest("guest");
-    }
+    }*/
 }

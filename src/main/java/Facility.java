@@ -6,9 +6,9 @@ public class Facility {
 
     protected String roomCode;
 
-    protected String Name;
+    //protected String Name;
 
-    protected ArrayList <Items> inventory; //convert to 2d array
+    protected ArrayList<Items> inventory; //convert to 2d array
 
     protected int capacity;
 
@@ -18,7 +18,7 @@ public class Facility {
     }
 
     /**
-     * To add a new item into the room's inventory
+     * To add a new item into the room's inventory.
      * @param item the new entry
      * @param amount the quantity of the item
      */
@@ -28,7 +28,7 @@ public class Facility {
     }
 
     /**
-     * To edit the inventory of the room
+     * To edit the inventory of the room.
      * @param item to edit
      * @param amount new quantity of item
      */

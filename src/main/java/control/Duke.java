@@ -49,6 +49,11 @@ public class Duke {
         }
     }
 
+    /**
+     * gets response.
+     * @param input from user
+     * @return respons from chatbot
+     */
     public String getResponse(String input) {
         try {
             ui.setOutput("");
