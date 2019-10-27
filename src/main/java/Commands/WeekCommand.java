@@ -35,7 +35,7 @@ public class WeekCommand extends Command {
     private final ObservableList<Text> friList = FXCollections.observableArrayList();
     private final ObservableList<Text> satList = FXCollections.observableArrayList();
     private final ObservableList<Text> sunList = FXCollections.observableArrayList();
-    public static Week weekList = new Week();
+    private static Week weekList = new Week();
 
     public WeekCommand(String week) {
         this.week = week;

@@ -14,9 +14,11 @@ import java.util.*;
 public class FindFreeTimesCommand extends Command {
     private static final int HALF_HOUR_MARK = 30;
     private static final int HOUR_MARK = 60;
-    private final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
+    private final SimpleDateFormat timeFormat12 = new SimpleDateFormat("hh:mm aa");
+    private final SimpleDateFormat timeFormat24 = new SimpleDateFormat("HHmm");
     private final SimpleDateFormat dateDayFormat = new SimpleDateFormat("E dd/MM/yyyy");
-    private final DateFormat dateTimeFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+    private final DateFormat dateTimeFormat12 = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+    private final DateFormat dateTimeFormat24 = new SimpleDateFormat("E dd/MM/yyyy HHmm");
 
     private final Integer options = 5;
     private final Integer duration;
@@ -145,7 +147,7 @@ public class FindFreeTimesCommand extends Command {
     private void mapDataMap(TaskList events) throws ParseException {
         Date currDate = new Date();
         String strCurrDateDay = dateDayFormat.format(currDate);
-        String strCurrTime = timeFormat.format(currDate);
+        String strCurrTime = timeFormat12.format(currDate);
         ArrayList<Pair<String, String>> temp = new ArrayList<>();
         temp.add(new Pair<>(strCurrTime, strCurrTime));
         dataMap.put(strCurrDateDay, temp);
@@ -162,7 +164,7 @@ public class FindFreeTimesCommand extends Command {
                     for (Task task : data) {
                         String startAndEnd = task.getTime();
                         String[] spiltStartAndEnd = startAndEnd.split("to");
-                        Date startDateTime = dateTimeFormat.parse(strDate + " " + spiltStartAndEnd[0]);
+                        Date startDateTime = dateTimeFormat12.parse(strDate + " " + spiltStartAndEnd[0]);
                         if(startDateTime.after(currDate)) timeArray.add(new Pair<>(spiltStartAndEnd[0].trim(), spiltStartAndEnd[1].trim()));
                     }
                     if(dataMap.containsKey(strDate)) timeArray = mergeTimeArray(dataMap.get(strDate), timeArray);
@@ -202,7 +204,7 @@ public class FindFreeTimesCommand extends Command {
             if(size == 0) {
                 Date currDate = new Date();
                 String strCurrDateDay = dateDayFormat.format(currDate) + " 12:00 AM";
-                currDate = dateTimeFormat.parse(strCurrDateDay);
+                currDate = dateTimeFormat12.parse(strCurrDateDay);
                 currDate = increaseZeroSevenZeroZero(currDate);
                 //currDate = roundByHalfHourMark(currDate);
                 currDate = increaseDateTime(currDate, 24);
@@ -214,7 +216,18 @@ public class FindFreeTimesCommand extends Command {
             for(int i = 1; i <= (options-size); i++){
                 Date tempStart = last.getKey();
                 Date tempEnd = last.getValue();
-                Pair<Date, Date> newFreeTime = new Pair<>(increaseDateTime(tempStart,i), increaseDateTime(tempEnd, i));
+                String currDate = dateDayFormat.format(tempStart) + " 12:00 AM";
+                Date dateBoundary = dateTimeFormat12.parse(currDate);
+                Date dateUpperBoundary = increaseToTwoThreeFiveNine(dateBoundary);
+                Date dateLowerBoundary = increaseZeroSevenZeroZero(dateBoundary);
+                Pair<Date, Date> newFreeTime;
+                if(increaseDateTime(tempStart,i).after(dateLowerBoundary) && increaseDateTime(tempEnd, i).before(dateUpperBoundary)) {
+                    newFreeTime = new Pair<>(increaseDateTime(tempStart,i), increaseDateTime(tempEnd, i));
+                } else {
+                    tempStart = increaseDateTime(dateLowerBoundary, 24);
+                    tempEnd = increaseDateTime(tempStart, duration);
+                    newFreeTime = new Pair<>(increaseDateTime(tempStart,i), increaseDateTime(tempEnd, i));
+                }
                 freeTimeData.add(newFreeTime);
             }
         }
@@ -228,7 +241,7 @@ public class FindFreeTimesCommand extends Command {
         for (String date: dataMap.keySet()) {
             ArrayList<Pair<String, String >> startAndEndTimes = dataMap.get(date);
             for(int i = 0; i < startAndEndTimes.size(); i++){
-                Date dateBoundary = dateTimeFormat.parse(date + " 12:00 AM");
+                Date dateBoundary = dateTimeFormat12.parse(date + " 12:00 AM");
                 Date dateUpperBoundary = increaseToTwoThreeFiveNine(dateBoundary);
                 Date dateLowerBoundary = increaseZeroSevenZeroZero(dateBoundary);
 
@@ -236,9 +249,9 @@ public class FindFreeTimesCommand extends Command {
                     String dateTime = date + " " + startAndEndTimes.get(i).getValue();
                     String dateTimeNextEvent = date + " " + startAndEndTimes.get(i+1).getKey();
 
-                    Date dateTimeStart = dateTimeFormat.parse(dateTime);
+                    Date dateTimeStart = dateTimeFormat12.parse(dateTime);
                     dateTimeStart = roundByHalfHourMark(dateTimeStart);
-                    Date dateNextEvent = dateTimeFormat.parse(dateTimeNextEvent);
+                    Date dateNextEvent = dateTimeFormat12.parse(dateTimeNextEvent);
                     Date dateTimeEnd = increaseDateTime(dateTimeStart, duration);
                     if(dateTimeEnd.after(dateUpperBoundary)) {
                        i = (startAndEndTimes.size() - 1);
@@ -252,7 +265,7 @@ public class FindFreeTimesCommand extends Command {
                 }
                 else if(i == (startAndEndTimes.size() - 1)){
                     String dateTime = date + " " + startAndEndTimes.get(i).getValue();
-                    Date dateTimeStart = dateTimeFormat.parse(dateTime);
+                    Date dateTimeStart = dateTimeFormat12.parse(dateTime);
                     dateTimeStart = roundByHalfHourMark(dateTimeStart);
 
                     Date dateTimeEnd = increaseDateTime(dateTimeStart, duration);
@@ -267,7 +280,7 @@ public class FindFreeTimesCommand extends Command {
                     } else {//dateTimeEnd.after(dateBoundary)
                         String nextKey = dataMap.higherKey(date);
                         if(nextKey == null) {
-                            Date nextDay = dateTimeFormat.parse(date + " 12:00 AM");
+                            Date nextDay = dateTimeFormat12.parse(date + " 12:00 AM");
                             nextDay = increaseDateTime(nextDay, 24);
                             Date nextDayStartTime = increaseDateTime(nextDay, 7);
                             Date nextDayEndTime = increaseDateTime(nextDayStartTime, duration);
@@ -276,7 +289,7 @@ public class FindFreeTimesCommand extends Command {
                         } else {
                             ArrayList<Pair<String, String >> nextDayStartAndEndTimes = dataMap.get(nextKey);
                             String nextDateTime = nextKey + " " + nextDayStartAndEndTimes.get(0).getKey(); //Just need to check first item of next day start time
-                            Date nextDateTimeStart = dateTimeFormat.parse(nextDateTime);
+                            Date nextDateTimeStart = dateTimeFormat12.parse(nextDateTime);
                             Date dateLowerBoundaryPlusDuration = increaseDateTime(dateLowerBoundary, duration);
                             if(dateLowerBoundary.before(nextDateTimeStart) && dateLowerBoundaryPlusDuration.before(nextDateTimeStart)) {
                                 freeTimeData.add(new Pair<>(dateLowerBoundary, dateLowerBoundaryPlusDuration));
@@ -304,19 +317,43 @@ public class FindFreeTimesCommand extends Command {
         return isTrue;
     }
 
+    private static ArrayList<String> compiledFreeTimes = new ArrayList<>();
+
     /**
      * This method generates the output to be shown
      */
     private void setOutput(){
         for (int i = 0; i < freeTimeData.size(); i++) {
+            String compiledFreeTimeToShow;
+            String compiledFreeTime;
             boolean isSameDate = checkIfSameDate(freeTimeData.get(i).getKey(), freeTimeData.get(i).getValue());
-            if (isSameDate)
-                message += (i+1) + ". " + dateTimeFormat.format(freeTimeData.get(i).getKey()) + " until " + timeFormat.format(freeTimeData.get(i).getValue()) + "\n";
-            else
-                message += (i+1) + ". " + dateTimeFormat.format(freeTimeData.get(i).getKey()) + " until " + dateTimeFormat.format(freeTimeData.get(i).getValue()) + "\n";
+            if (isSameDate){
+                compiledFreeTimeToShow = dateTimeFormat12.format(freeTimeData.get(i).getKey()) + " until " + timeFormat12.format(freeTimeData.get(i).getValue());
+                message += (i+1) + ". " + compiledFreeTimeToShow + "\n";
+
+                //TODO: fix lapse to 1am bug eg. /at 27/10/2019 /from 2030 /to 0130 generated
+                String dateTime = dateTimeFormat24.format(freeTimeData.get(i).getKey());
+                String[] spiltDateTime = dateTime.split(" ", 3);
+                compiledFreeTime =  "/at " + spiltDateTime[1]+ " /from " + spiltDateTime[2] + " /to "+ timeFormat24.format(freeTimeData.get(i).getValue());
+            }
+            else {
+                compiledFreeTimeToShow = dateTimeFormat12.format(freeTimeData.get(i).getKey()) + " until " + dateTimeFormat12.format(freeTimeData.get(i).getValue());
+                message += (i+1) + ". " + compiledFreeTimeToShow + "\n";
+                String dateTime = dateTimeFormat24.format(freeTimeData.get(i).getKey());
+                String[] spiltDateTime = dateTime.split(" ", 3);
+
+                //TODO: fix lapse to 1am bug
+                String dateTime1 = dateTimeFormat24.format(freeTimeData.get(i).getValue());
+                String[] spiltDateTime1 = dateTime1.split(" ", 3);
+
+                compiledFreeTime =  "/at " + spiltDateTime[1]+ " /from " + spiltDateTime[2] + " /to "+ timeFormat24.format(freeTimeData.get(i).getValue());
+            }
+            compiledFreeTimes.add(compiledFreeTime);
         }
     }
 
+    //TODO: remove method
+    // Method for data checking
     private void checkDataMap() {
         for(Map.Entry<String, ArrayList<Pair<String, String>>> a: dataMap.entrySet()){
             System.out.println("a: " + a.getKey());
@@ -326,9 +363,15 @@ public class FindFreeTimesCommand extends Command {
         }
     }
 
+    //TODO: remove method
+    // Method for data checking
     private void checkFreeTimeData() {
         for(Pair<Date, Date> c : freeTimeData){
             System.out.println("c: " + c.getKey() + "|" + c.getValue());
         }
+    }
+
+    public static ArrayList<String> getCompiledFreeTimesList() {
+        return compiledFreeTimes;
     }
 }

@@ -283,7 +283,10 @@ public class MainWindow extends BorderPane implements Initializable {
     private void handleUserInput() throws IOException{
         String input = userInput.getText();
         String response = duke.getResponse(input);
-        if(input.startsWith("Week")) week = input;
+        if(input.startsWith("Week")) {
+            week = input;
+            setWeek(false, input);
+        }
 
         duke.getResponse(week);
         outputWeekList = WeekCommand.getWeekList();
@@ -301,9 +304,8 @@ public class MainWindow extends BorderPane implements Initializable {
         retrieveList();
         deadlineTable.setItems(setDeadlineTable());
         setProgressContainer();
-        if (input.startsWith("Week")) {
-            setWeek(false, input);
-        } else if (userInput.getText().equals("bye")) {
+
+        if (userInput.getText().equals("bye")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
             delay.setOnFinished( event -> Platform.exit() );
             delay.play();
@@ -317,6 +319,9 @@ public class MainWindow extends BorderPane implements Initializable {
         if (input.contains("retrieve previous")) {
             String previousInput = Duke.getPreviousInput();
             userInput.setText(previousInput);
+        } else if (input.startsWith("retrieve free time")) {
+            String selectedOption = Duke.getSelectedOption();
+            userInput.setText(selectedOption);
         }
     }
 
