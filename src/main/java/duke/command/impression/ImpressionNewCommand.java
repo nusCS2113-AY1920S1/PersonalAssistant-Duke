@@ -32,7 +32,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
         DukeData newData;
 
         //extract parameters and data type
-        Integer priority = switchToInt(getSwitchVal("priority"));
+        Integer priority = switchToInt("priority");
         if (priority == -1) {
             priority = 0;
         }
