@@ -17,9 +17,11 @@ public class TreatmentAdaptor implements JsonSerializer<Treatment>, JsonDeserial
         JsonObject result = json.getAsJsonObject();
         String type = result.get("type").getAsString();
         JsonElement element = result.get("properties");
-        CustomClassLoader loader = new CustomClassLoader();
-        Class<?> clz = loader.findClass(type);
-        return context.deserialize(element, clz);
+        try {
+            return context.deserialize(element, Class.forName("duke.data." + type));
+        } catch (ClassNotFoundException e) {
+            throw new JsonParseException(e);
+        }
     }
 
     @Override
