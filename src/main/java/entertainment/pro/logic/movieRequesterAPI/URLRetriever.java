@@ -1,5 +1,8 @@
 package entertainment.pro.logic.movieRequesterAPI;
 
+import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.exceptions.Exceptions;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,9 +10,20 @@ import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 
+/**
+ * Static utility class responsible for reading and returning the contents of the given URL as a string.
+ *
+ */
 public class URLRetriever {
 
-    public static String readURLAsString(URL url) throws SocketTimeoutException {
+    /**
+     * Responsible for reading and returning the contents of the given URL as a string.
+     * @param url The URL to read data from.
+     * @return the contents of the URL as a string.
+     * @throws SocketTimeoutException Throws if timeout has occurred on a socket read or accept.
+     * @throws IOException Throws if any error has occured when reading contents.
+     */
+    public static String readURLAsString(URL url) throws Exceptions {
         try {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -35,9 +49,9 @@ public class URLRetriever {
 
             return null;
         } catch (SocketTimeoutException ex) {
-            throw new SocketTimeoutException();
+            throw new Exceptions(PromptMessages.API_TIME_OUT);
         } catch (IOException ex) {
-            return null;
+            throw new Exceptions(PromptMessages.API_FAIL_GENERAL);
         }
     }
 }

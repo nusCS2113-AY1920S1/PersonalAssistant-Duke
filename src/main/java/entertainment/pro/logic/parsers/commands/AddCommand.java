@@ -1,5 +1,6 @@
 package entertainment.pro.logic.parsers.commands;
 
+import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.commons.enums.COMMANDKEYS;
@@ -8,6 +9,7 @@ import entertainment.pro.logic.parsers.CommandSuper;
 import entertainment.pro.model.Deadline;
 import entertainment.pro.model.Period;
 import entertainment.pro.storage.user.WatchlistHandler;
+
 
 
 public class AddCommand extends CommandSuper {
@@ -20,7 +22,11 @@ public class AddCommand extends CommandSuper {
     public void executeCommands() {
         switch (this.getSubRootCommand()) {
             case watchlist:
-                addToWatchList();
+                try {
+                    addToWatchList();
+                } catch (Exceptions exceptions) {
+                    exceptions.printStackTrace();
+                }
                 break;
             case blacklist:
 //                addToBlackList();
@@ -33,7 +39,7 @@ public class AddCommand extends CommandSuper {
     /**
      * Add items to the watchlist.
      */
-    public void addToWatchList() {
+    public void addToWatchList() throws Exceptions {
         try {
             String movie = ((MovieHandler) this.getUIController()).getAPIRequester().beginAddRequest(getPayload());
             movie = movie.toLowerCase();

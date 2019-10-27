@@ -11,7 +11,6 @@ public class PlaylistMovieInfoObject extends MovieInfoObject {
     /**
      * Construct info about a movie/tv show
      *
-     * @param type         type of the object whether is it a movie or a tv show.
      * @param ID           ID stored in the api.
      * @param title        Title of the movie/tv show.
      * @param date         Release date of the movie/tv show.
@@ -21,8 +20,8 @@ public class PlaylistMovieInfoObject extends MovieInfoObject {
      * @param posterPath   Filepath of the movie/tv show poster.
      * @param backdropPath Filepath of the movie/tv show backdrop poster.
      */
-    public PlaylistMovieInfoObject(int type, long ID, String title, Date date, String summary, double rating, long[] genreIDs, String posterPath, String backdropPath, String stringDate) {
-        super(type, ID, title, date, summary, rating, genreIDs, posterPath, backdropPath);
+    public PlaylistMovieInfoObject(boolean isMovie, long ID, String title, Date date, String summary, double rating, long[] genreIDs, String posterPath, String backdropPath, boolean isAdult, String stringDate) {
+        super(isMovie, ID, title, date, summary, rating, genreIDs, posterPath, backdropPath, isAdult);
         this.stringDate = stringDate;
         if (super.getReleaseDate() == null) {
             convertStringToDate();
@@ -31,6 +30,12 @@ public class PlaylistMovieInfoObject extends MovieInfoObject {
             convertDateToString();
         }
     }
+
+    public PlaylistMovieInfoObject(boolean isMovie, long id, String title, String stringDate) {
+        super(isMovie, id, title);
+        this.stringDate = stringDate;
+    }
+
 
     public String getStringDate() {
         return stringDate;

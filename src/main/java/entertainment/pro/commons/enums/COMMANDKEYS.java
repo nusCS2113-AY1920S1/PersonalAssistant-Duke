@@ -1,7 +1,7 @@
 package entertainment.pro.commons.enums;
 
 /**
- * Command Keywords.
+ * Enumerates different Keywords used in command.
  */
 public enum COMMANDKEYS {
     search ,

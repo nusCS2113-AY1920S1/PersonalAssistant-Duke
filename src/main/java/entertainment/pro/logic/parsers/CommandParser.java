@@ -1,6 +1,7 @@
 package entertainment.pro.logic.parsers;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.Execution.CommandStack;
 import entertainment.pro.logic.parsers.commands.*;
 import entertainment.pro.model.CommandPair;
@@ -20,11 +21,17 @@ public class CommandParser {
      *
      * @param command command that was entered by the user
      */
-    public static void parseCommands(String command , Controller uicontroller) throws IOException {
+    /**
+     * Entry point to command parser Class.
+     *
+     * @param command command that was entered by the user
+     */
+    public static void parseCommands(String command , Controller uicontroller) throws IOException, Exceptions {
         String commandArr[] = command.split(" ");
         rootCommand(commandArr , command, uicontroller);
 
     }
+
 
     /**
      * Function to get the most probable root and sub root command if there was a typo in the user command.
@@ -33,8 +40,7 @@ public class CommandParser {
      * @param commandStr   command that was entered by the user.
      * @param uicontroller the controller for the UI
      */
-    public static void processCommand(CommandPair command , String[] commandArr , String commandStr , Controller uicontroller) throws IOException {
-
+    public static void processCommand(CommandPair command , String[] commandArr , String commandStr , Controller uicontroller) throws IOException, Exceptions {
         if (!command.isValidCommand()) {
             return;
         }
@@ -144,7 +150,7 @@ public class CommandParser {
      * @param command   command that was entered by the user.
      * @param uicontroller the controller for the UI
      */
-    public static void rootCommand(String[] commandArr , String command ,  Controller uicontroller) throws IOException {
+    public static void rootCommand(String[] commandArr , String command ,  Controller uicontroller) throws IOException, Exceptions {
 
         System.out.print("Whats happening");
         switch(commandArr[0].toLowerCase()) {
