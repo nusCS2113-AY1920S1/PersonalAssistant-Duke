@@ -296,6 +296,7 @@ public class Impression extends DukeObject {
             mapElement.getValue().setParent(this);
         }
     }
+
     /**
      * Computes the number of critical items in this impression: items with priority 1.
      * @return The number of critical items in this impression.
