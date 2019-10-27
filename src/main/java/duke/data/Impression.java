@@ -296,4 +296,38 @@ public class Impression extends DukeObject {
             mapElement.getValue().setParent(this);
         }
     }
+    /**
+     * Computes the number of critical items in this impression: items with priority 1.
+     * @return The number of critical items in this impression.
+     */
+    public int getCriticalCount() {
+        int count = 0;
+        for (Treatment treatment : treatments.values()) {
+            if (treatment.getPriority() == 1) {
+                ++count;
+            }
+        }
+        for (Evidence evidence : evidences.values()) {
+            if (evidence.getPriority() == 1) {
+                ++count;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * Computes the number of follow up items: the number of Investigations not yet ordered, or whose results have not
+     * been reviewed, and the number of plan items that have not been started on.
+     * @return The number of follow-up items in this impression.
+     */
+    public int getFollowUpCount() {
+        int count = 0;
+        for (Treatment treatment : treatments.values()) {
+            if ((treatment instanceof Investigation && treatment.getStatusIdx() <= 1)
+                    || (treatment instanceof Plan && treatment.getStatusIdx() < 1)) {
+                ++count;
+            }
+        }
+        return count;
+    }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Plan extends Treatment {
 
-    private static final List<String> statusArr = Arrays.asList("Not ordered", "In progress", "Completed");
+    private static final List<String> statusArr = Arrays.asList("Not done/ordered", "In progress", "Completed");
     private String summary;
 
     /**

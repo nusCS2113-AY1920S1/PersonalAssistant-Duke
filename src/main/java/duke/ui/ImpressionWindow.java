@@ -169,7 +169,6 @@ class ImpressionWindow extends UiElement<Region> {
         for (Map.Entry<String, Evidence> pair : impression.getObservableEvidences().entrySet()) {
             evidenceListPanel.getItems().add(newEvidenceCard(pair.getValue()));
             criticalCount += (pair.getValue().getPriority() == 1) ? 1 : 0;
-
         }
 
         for (Map.Entry<String, Treatment> pair : impression.getObservableTreaments().entrySet()) {
