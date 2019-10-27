@@ -105,7 +105,8 @@ public class ParserTest {
             "Delete task by name parsing failed. Expected 'Take medicine' but got: " + testOutputName);
     }
 
-    @Test
+    //@Test
+    /*
     public void parseDeleteAssignedTask() throws DukeException {
         Parser testParserID = new Parser(deleteAssignedTaskInputWithID);
         String[] testOutputID = testParserID.parseDeleteAssignedTask();
@@ -133,7 +134,7 @@ public class ParserTest {
             + desiredOutputUniqueID[0] + " but got: " + testOutputUniqueID[0]);
 
     }
-
+*/
     @Test
     public void parseUpdatePatientTest() throws DukeException {
         Parser testParser = new Parser(updatePatientInput);
