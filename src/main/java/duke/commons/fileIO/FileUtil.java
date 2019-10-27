@@ -82,4 +82,14 @@ public class FileUtil {
     public static String getSystemFilePathStr(String pathStr) {
         return pathStr.replace("/", systemFileSep);
     }
+
+    /**
+     * Helper function to concatenate 2 file paths.
+     * @param parentPathStr Parent directory of path to concatenate.
+     * @param childPathStr Child directory of path to concatenate.
+     * @return Concatenated String of parent and child paths.
+     */
+    public static String concatPaths(String parentPathStr, String childPathStr) {
+        return parentPathStr + systemFileSep + childPathStr;
+    }
 }

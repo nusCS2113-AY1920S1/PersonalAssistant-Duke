@@ -1,5 +1,9 @@
 package duke.storage;
 
+import duke.commons.fileIO.FilePaths;
+import duke.commons.fileIO.FileUtil;
+
+import java.io.BufferedReader;
 import java.io.File;
 
 /**
@@ -7,18 +11,22 @@ import java.io.File;
  */
 public class LoadHelpUtil {
 
-    public static File load(String specifiedHelp) {
-        String line = "";
-        String helpFileName = "";
-        File helpFile;
+    private static String defaultHelpFileStr = "help.txt";
+
+    public static BufferedReader load(String specifiedHelp) {
+        String helpFileRelativePathStr = "";
+
         if (specifiedHelp.isBlank()) {
-            helpFileName = "help.txt";
+            helpFileRelativePathStr = defaultHelpFileStr;
         } else {
-            helpFileName = specifiedHelp + ".txt";
+            helpFileRelativePathStr = specifiedHelp + ".txt";
         }
-        String sep = System.getProperty("file.separator");
-        helpFile = new File("src" + sep + "main" + sep + "java" + sep + "duke"
-                + sep + "commons" + sep + "help" + sep + helpFileName);
-        return helpFile;
+
+        FilePaths filePaths = new FilePaths();
+        String masterHelpFileStr = filePaths.getFilePathStr(FilePaths.FILE_PATH_NAMES.FILE_PATH_MASTER_HELP_FILE);
+        String helpFilePathStr = FileUtil.concatPaths(masterHelpFileStr, helpFileRelativePathStr);
+
+        BufferedReader bufferedReader = FileUtil.readResourceFile(helpFilePathStr);
+        return bufferedReader;
     }
 }

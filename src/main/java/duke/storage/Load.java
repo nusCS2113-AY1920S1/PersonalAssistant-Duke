@@ -84,12 +84,7 @@ public class Load {
     }
 
     public void loadHelp(ArrayList<String> lines, String specifiedHelp) throws DukeException {
-        File helpFile = LoadHelpUtil.load(specifiedHelp);
-        try {
-            bufferedReader = new BufferedReader(new FileReader(helpFile));
-        } catch (Exception e) {
-            throw new DukeException("Unable to access help file");
-        }
+        BufferedReader bufferedReader = LoadHelpUtil.load(specifiedHelp);
         try {
             while ((line = bufferedReader.readLine()) != null) {
                 lines.add(line);

@@ -11,7 +11,7 @@ import java.util.HashMap;
  */
 public class FilePaths {
 
-    private static String filePathsMasterConfigStr = "duke/Data/filepaths.json";
+    private static String filePathsMasterConfigStr = "duke/commons/fileIO/filepaths.json";
     private static Gson gson = new Gson();
     private static Type type = new TypeToken<HashMap<FILE_PATH_NAMES, String>>(){}.getType();
 
@@ -20,7 +20,8 @@ public class FilePaths {
         FILE_PATH_DEFAULT_MEAL_FILE,
         FILE_PATH_GOAL_FILE,
         FILE_PATH_USER_FILE,
-        FILE_PATH_AUTOCORRECT_FILE
+        FILE_PATH_AUTOCORRECT_FILE,
+        FILE_PATH_MASTER_HELP_FILE
     }
 
     protected static HashMap<FILE_PATH_NAMES, String> filePathsConfigMap = new HashMap<FILE_PATH_NAMES, String>();
