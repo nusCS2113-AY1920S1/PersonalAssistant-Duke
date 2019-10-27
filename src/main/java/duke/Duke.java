@@ -15,6 +15,8 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+import java.io.IOException;
+
 /**
  * MAIN CLASS DUKE, start from main function.
  */
@@ -52,12 +54,14 @@ public class Duke {
     /**
      * The execution core of the Duke class.
      */
-    public void run() {
-        ui.showWelcome();
+    public void run() throws IOException, InterruptedException {
+        ui.clearScreen();
+        ui.showWelcome(); //maybe instead of show just showing welcome message, we can show a list of commands to user?
         boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
+                ui.clearScreen();
                 ui.showLine();
 //                Command c = Parser.parse(fullCommand, tasks.size());
                 if (fullCommand.startsWith("order")) {
@@ -75,7 +79,7 @@ public class Duke {
                     c.execute(tasks, ui, taskStorage);
                     isExit = c.isExit();
                 }
-            } catch (DukeException e) {
+            } catch (DukeException | IOException | InterruptedException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
@@ -86,7 +90,7 @@ public class Duke {
     /**
      * =============== MAIN FUNCTION ===============.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
         new Duke("data/tasks.txt").run();
     }
 }

@@ -14,7 +14,7 @@ repositories {
 
 shadowJar {
     archiveBaseName = "mid"
-    archiveVersion = "v1.1"
+    archiveVersion = "v1.3.1"
     archiveClassifier = null
     archiveAppendix = null
 }
@@ -25,6 +25,7 @@ checkstyle {
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+    compile group: 'com.massisframework', name: 'j-text-utils', version: '0.3.4'
 }
 
 test {

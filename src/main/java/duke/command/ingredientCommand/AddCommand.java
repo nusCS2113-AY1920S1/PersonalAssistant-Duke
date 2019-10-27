@@ -30,6 +30,10 @@ public class AddCommand<T> extends Cmd<T> {
         this.entry = entry;
     }
 
+    public AddCommand() {
+
+    }
+
     /**
      * Public method used to add the task in the taskList, and write it on the hard disc.
      *

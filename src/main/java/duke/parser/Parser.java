@@ -95,9 +95,7 @@ public class Parser {
         switch (splitted[0]) {
             //RecipeCommand
             case "dishadd":
-                String[] getnum = splitAndCheck(splitted[1], " /num ");
-                int amount = Integer.parseInt(getnum[1]);
-                return new AddDishCommand(new Dish(getnum[0]), amount);
+                return new AddDishCommand(new Dish(splitted[1]));
             case "dishlist":
                 return new ListDishCommand();
             case "dishdelete" :
