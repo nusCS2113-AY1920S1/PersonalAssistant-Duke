@@ -47,14 +47,7 @@ public class PatientCard extends UiCard {
             diagnosisLabel.setText("No primary diagnosis");
         }
 
-        int critCount = patient.getCriticalCount();
-        if (critCount == 0) {
-            issueLabel.setText("No issues");
-        } else if (critCount == 1) {
-            issueLabel.setText("1 issue");
-        } else {
-            issueLabel.setText(critCount + "issues");
-        }
+        issueLabel.setText(patient.getCriticalCountStr());
     }
 
     /**

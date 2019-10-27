@@ -402,11 +402,18 @@ public class Patient extends DukeObject {
      * Computes the number of critical items for this patient: DukeData objects with priority 1, across all impressions.
      * @return The number of critical DukeData items for this patient.
      */
-    public int getCriticalCount() {
+    public String getCriticalCountStr() {
         int count = 0;
         for (Impression imp : impressions.values()) {
             count += imp.getCriticalCount();
         }
-        return count;
+
+        if (count == 0) {
+            return "No issues";
+        } else if (count == 1) {
+            return "1 issue";
+        } else {
+            return count + "issues";
+        }
     }
 }

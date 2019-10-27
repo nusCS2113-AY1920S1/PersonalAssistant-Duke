@@ -310,12 +310,14 @@ public class Impression extends DukeObject {
         return count;
     }
 
+
     /**
      * Computes the number of follow up items: the number of Investigations not yet ordered, or whose results have not
-     * been reviewed, and the number of plan items that have not been started on.
-     * @return The number of follow-up items in this impression.
+     * been reviewed, and the number of plan items that have not been started on, and returns a string representing
+     * these items.
+     * @return A string indicating the number of follow-up items in this impression.
      */
-    public int getFollowUpCount() {
+    public String getFollowUpCountStr() {
         int count = 0;
         for (Treatment treatment : treatments.values()) {
             if ((treatment instanceof Investigation && treatment.getStatusIdx() <= 1)
@@ -323,6 +325,29 @@ public class Impression extends DukeObject {
                 ++count;
             }
         }
-        return count;
+        if (count == 0) {
+            return "No follow-ups";
+        } else if (count == 1) {
+            return "1 follow-up";
+        } else {
+            return count + "follow-ups";
+        }
+    }
+
+
+    /**
+     * Calls getCriticalCount() to compute the number of critical itmes (items with priority 1) and returns a string
+     * indicating this value.
+     * @return A string indicating the number of critical items that are associated with this Impression.
+     */
+    public String getCriticalCountStr() {
+        int count = getCriticalCount();
+        if (count == 0) {
+            return "No issues";
+        } else if (count == 1) {
+            return "1 issue";
+        } else {
+            return count + "issues";
+        }
     }
 }
