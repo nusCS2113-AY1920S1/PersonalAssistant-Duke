@@ -22,6 +22,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
+import java.util.Map;
+
 /**
  * UI window for the Patient context.
  */
@@ -70,6 +72,15 @@ class ImpressionWindow extends UiElement<Region> {
         patient.getAttributes().addListener((MapChangeListener<String, Object>) change -> {
             updateUi();
         });
+
+        for (Map.Entry<String, Evidence> pair : impression.getObservableEvidences().entrySet()) {
+            evidenceListPanel.getItems().add(newEvidenceCard(pair.getValue()));
+
+        }
+
+        for (Map.Entry<String, Treatment> pair : impression.getObservableTreaments().entrySet()) {
+            treatmentListPanel.getItems().add(newTreatmentCard(pair.getValue()));
+        }
 
         // TODO: optimise by tracking critical and follow-up count in impression
         impression.getObservableEvidences().addListener((MapChangeListener<String, Evidence>) change -> {
