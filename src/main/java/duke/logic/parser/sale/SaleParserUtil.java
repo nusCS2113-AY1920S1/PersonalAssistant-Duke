@@ -12,6 +12,8 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_VALUE;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_IS_SPEND;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_DATE;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_REMARKS;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_FROM;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_TO;
 
 class SaleParserUtil {
 
