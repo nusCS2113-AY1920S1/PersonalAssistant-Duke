@@ -103,6 +103,30 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    @FXML
+    private void handleUserInput() {
+        String input = userInput.getText();
+        String dukeResponses;
+        boolean isException = false;
+        try{
+            dukeResponses = duke.run(input);
+        }catch(DukeException de){
+            dukeResponses = de.getMessage();
+            isException = true;
+        }
+        updateTableViews();
+        dialogContainer.getChildren().addAll(
+            DialogBox.getUserDialog(input, userImage),
+            DialogBox.getDukeDialog(dukeResponses, dukeImage, isException)
+        );
+        userInput.clear();
+        duke.clearDukeResponses();
+    }
+
+    /**
      * .
      */
     public void initializeTableViews() {
@@ -281,24 +305,4 @@ public class MainWindow extends AnchorPane {
         assignedTaskTable.setItems(sortedAssignedTaskData);
     }
 
-
-    /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
-    @FXML
-    private void handleUserInput() {
-        String input = userInput.getText();
-        duke.readUserInputFromGui(input);
-        duke.run();
-        String responses = duke.getDukeResponses();
-        System.out.println(responses);
-        updateTableViews();
-        dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(input, userImage),
-            DialogBox.getDukeDialog(responses, dukeImage)
-        );
-        userInput.clear();
-        duke.clearDukeResponses();
-    }
 }
