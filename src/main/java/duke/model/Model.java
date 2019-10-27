@@ -1,8 +1,10 @@
 package duke.model;
 
 import duke.exception.DukeException;
+import duke.model.payment.Payment;
 import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 import java.math.BigDecimal;
 import java.util.Map;
@@ -52,5 +54,28 @@ public interface Model {
     public void processPlanInput(String input) throws DukeException;
     public Map<String, String> getKnownPlanAttributes();
 
+
+    //************************************************************
+    // Pending Payments operations
+
+    public void addPayment(Payment payment);
+
+    public void setPayment(Payment target, Payment editedPayment);
+
+    public void removePayment(Payment target);
+
+    public void setPaymentSortCriteria(String sortCriteria) throws DukeException;
+
+    public void setMonthPredicate();
+
+    public void setWeekPredicate();
+
+    public void setOutOfDatePredicate();
+
+    public void setSearchKeyword(String keyword);
+
+    public FilteredList<Payment> getFilteredPaymentList();
+
+    public FilteredList<Payment> getSearchResult();
 
 }

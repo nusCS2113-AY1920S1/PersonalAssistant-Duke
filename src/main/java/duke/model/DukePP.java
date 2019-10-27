@@ -2,11 +2,14 @@ package duke.model;
 
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
+import duke.model.payment.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 /**
@@ -18,9 +21,15 @@ public class DukePP implements Model {
 
     private static final Logger logger = LogsCenter.getLogger(DukePP.class);
 
+    // to be moved to model manager
+    private FilteredList<Payment> filteredPayments;
+    private FilteredList<Payment> searchResult;
+    Predicate<Payment> PREDICATE_SHOW_ALL_PAYMENTS = unused -> true;
+
     private final ExpenseList expenseList;
     private final PlanBot planBot;
     private final Budget budget;
+    private final PaymentList payments;
     // todo: add other data inside the DukePP.
 
     public ObservableList<Expense> externalExpenseList;
@@ -30,10 +39,16 @@ public class DukePP implements Model {
      * This constructor is used for loading DukePP from storage.
      */
     // todo: pass more arguments to constructor as more data are implemented.
-    public DukePP(ExpenseList expenseList, Map<String, String> planAttributes, Budget budget) throws DukeException {
+    public DukePP(ExpenseList expenseList, Map<String, String> planAttributes, Budget budget, PaymentList payments) throws DukeException {
         this.expenseList = expenseList;
         this.planBot = new PlanBot(planAttributes);
         this.budget = budget;
+        this.payments = payments;
+
+        // to be moved to model manager
+        filteredPayments = new FilteredList<>(payments.getExternalFinalList());
+        filteredPayments.setPredicate(PREDICATE_SHOW_ALL_PAYMENTS);
+        searchResult = new FilteredList<>(payments.getExternalFinalList());
     }
 
     //******************************** ExpenseList operations
@@ -129,8 +144,61 @@ public class DukePP implements Model {
         return planBot.getPlanAttributes();
     }
 
-    //******************************** Operations for other data....
-    //******************************** For example, operations of monthly income list.
+
+    //************************************************************
+    // Pending Payments operations
+
+    public void addPayment(Payment payment) {
+        payments.add(payment);
+    }
+
+    public void setPayment(Payment target, Payment editedPayment) {
+        payments.setPayment(target, editedPayment);
+    }
+
+    public void removePayment(Payment target) {
+        payments.remove(target);
+    }
+
+    public void setPaymentSortCriteria(String sortCriteria) throws DukeException {
+        payments.setSortCriteria(sortCriteria);
+    }
+
+    /* can be added when filtered list are removed to Model Manager
+    public ObservableList<Payment> getPaymentList() {
+        return payments.getExternalFinalList();
+    }
+
+     */
+
+    public void setMonthPredicate() {
+        PaymentInMonthPredicate monthPredicate = new PaymentInMonthPredicate();
+        filteredPayments.setPredicate(monthPredicate);
+    }
+
+    public void setWeekPredicate() {
+        PaymentInWeekPredicate weekPredicate = new PaymentInWeekPredicate();
+        filteredPayments.setPredicate(weekPredicate);
+    }
+
+    public void setOutOfDatePredicate() {
+        PaymentOutOfDatePredicate outOfDatePredicate = new PaymentOutOfDatePredicate();
+        filteredPayments.setPredicate(outOfDatePredicate);
+    }
+
+    public void setSearchKeyword(String keyword) {
+        SearchKeywordPredicate searchPredicate = new SearchKeywordPredicate(keyword);
+        searchResult.setPredicate(searchPredicate);
+    }
+
+    public FilteredList<Payment> getFilteredPaymentList() {
+        return filteredPayments;
+    }
+
+    public FilteredList<Payment> getSearchResult() {
+        return searchResult;
+    }
+
     //    todo: add other data operations
 
 }

@@ -3,10 +3,8 @@ package duke.model;
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -214,7 +212,7 @@ public class ExpenseList extends DukeList<Expense> {
         try {
             this.sortCriteria = SortCriteria.valueOf(sortCriteria.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new DukeException(String.format(DukeException.MESSAGE_EXPENSE_SORT_CRITERIA_INVALID, sortCriteria));
+            throw new DukeException(String.format(DukeException.MESSAGE_SORT_CRITERIA_INVALID, sortCriteria));
         }
         updateExternalList();
     }
