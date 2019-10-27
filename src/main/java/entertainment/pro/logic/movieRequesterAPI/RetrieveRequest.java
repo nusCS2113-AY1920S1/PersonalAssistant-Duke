@@ -21,7 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class RetrieveRequest implements InfoFetcher, InfoFetcherWithPreference {
+public class RetrieveRequest implements InfoFetcher {
     private RequestListener mListener;
     private ArrayList<MovieInfoObject> p_Movies;
     MovieHandler movieHandler =  new MovieHandler();
@@ -287,17 +287,6 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithPreference {
             ex.printStackTrace();
         }
         return "";
-    }
-
-    public void beginMovieSearchRequestWithPreference(String movieTitle, ArrayList<Integer> genrePreference, ArrayList<Integer> genreRestriction, boolean adult) {
-        try {
-            String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8") + "&include_adult=";
-            url += adult;
-            fetchJSONDataWithPreference(url, genrePreference, genreRestriction);
-
-        } catch (UnsupportedEncodingException ex) {
-            ex.printStackTrace();
-        }
     }
 
     public ArrayList<MovieInfoObject> beginSearchGenre (String genre, boolean adult) {
@@ -628,57 +617,6 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithPreference {
         }
     }
 
-    @Override
-    public void fetchedMoviesJSONWithPreference(String json, ArrayList<Integer> genrePreference,  ArrayList<Integer> genreRestriction) {
-        // If null string returned then there was a lack of internet connection
-        if (json == null) {
-            mListener.requestFailed();
-            return;
-        }
-
-        // Parse received movies
-        JSONParser parser = new JSONParser();
-        JSONObject movieData;
-        try {
-            movieData = (JSONObject) parser.parse(json);
-
-            JSONArray movies = (JSONArray) movieData.get("results");
-            ArrayList<MovieInfoObject> parsedMovies = new ArrayList(20);
-
-            int count = 0;
-
-            MovieResultFilter filter = new MovieResultFilter(genrePreference, genreRestriction);
-            for (int i = 0; i < movies.size(); i++) {
-                MovieInfoObject newMovie = parseMovieJSON((JSONObject) movies.get(i));
-                if (!genrePreference.isEmpty() && genreRestriction.isEmpty()) {
-                    //pref not empty, restriction empty"
-                    if (filter.isFitGenrePreference(newMovie)) {
-                        parsedMovies.add(newMovie);
-                    }
-                } else if (!genrePreference.isEmpty()) {
-                    //pref not empty, restriction not empty
-                    if (filter.isFitGenrePreference(newMovie) && filter.isFitGenreRestriction(newMovie)) {
-                        parsedMovies.add(newMovie);
-                    }
-                } else if (!genreRestriction.isEmpty()) {
-                    //pref empty, restriction not empty"
-                    if (filter.isFitGenreRestriction(newMovie)) {
-                        parsedMovies.add(newMovie);
-                    }
-                } else {
-                    //pref empty, restriction empty"
-                    parsedMovies.add(newMovie);
-                }
-            }
-
-
-            // Notify Listener
-            mListener.requestCompleted(parsedMovies);
-        } catch (org.json.simple.parser.ParseException ex) {
-            Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     // The fetcher reported a connection time out. Notify the request listener.
     /**
      * The function is called when the fetcher reported a connection time out.
@@ -695,16 +633,6 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithPreference {
             fetchThread = new Thread(new MovieInfoFetcher(new URL(URLString), this));
             fetchThread.start();
             //System.out.println("bef MovieInfoFetcher");
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void fetchJSONDataWithPreference(String URLString, ArrayList<Integer> genrePreference, ArrayList<Integer> genreRestriction) {
-        Thread fetchThread = null;
-        try {
-            fetchThread = new Thread(new MovieInfoFetcherWithPreference(new URL(URLString), this, genrePreference, genreRestriction));
-            fetchThread.start();
         } catch (MalformedURLException ex) {
             Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);
         }
