@@ -252,9 +252,12 @@ public class CLIView {
      */
     public void viewAllTasks(IProject projectToManage) {
         HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
-        ArrayList<String> allTaskDetails = projectToManage.getTasks().getAllTaskDetails(tasksAndAssignedMembers);
-        DukeLogger.logDebug(CLIView.class, allTaskDetails.toString());
-        consolePrint(allTaskDetails.toArray(new String[0]));
+        ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
+        ArrayList<String> allTaskDetailsForTable = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers);
+        allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getDescription() + ":");
+        DukeLogger.logDebug(CLIView.class, allTaskDetailsForTable.toString());
+        tableToPrint.add(allTaskDetailsForTable);
+        consolePrintTable(tableToPrint);
     }
 
     /**

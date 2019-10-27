@@ -100,9 +100,9 @@ public class MemberList implements IMemberList {
         } else {
             for (Member member : this.memberList) {
                 memberDetailsForTable.add(member.getIndexNumber() + ". " + member.getName());
-                memberDetailsForTable.add(" - Role: " + member.getRole());
-                memberDetailsForTable.add(" - Phone: " + member.getPhone());
-                memberDetailsForTable.add(" - Email: " + member.getEmail());
+                memberDetailsForTable.add("   - Role: " + member.getRole());
+                memberDetailsForTable.add("   - Phone: " + member.getPhone());
+                memberDetailsForTable.add("   - Email: " + member.getEmail());
                 memberDetailsForTable.add("");
             }
             memberDetailsForTable.remove(memberDetailsForTable.size() - 1);
