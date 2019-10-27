@@ -140,14 +140,7 @@ public class ExpensePane extends UiPart<AnchorPane> {
     private void getTags() {
         tags = new HashSet<>();
         for (Expense expense : logic.getExternalExpenseList()) {
-            String[] tagsString = expense.getTagsString().split(" ");
-            if (tagsString.length > 0) {
-                for (String tag : tagsString) {
-                    if (!tag.equals("")) {
-                        tags.add(tag);
-                    }
-                }
-            }
+            tags.add(expense.getTagsString());
         }
     }
 

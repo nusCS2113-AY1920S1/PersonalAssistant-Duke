@@ -269,7 +269,7 @@ public class PlanQuestionBank {
                     }
                 }
                 BigDecimal phoneBill = Parser.parseMoney(planAttributes.get("PHONE_BILL"));
-                if (!phoneBill.equals(BigDecimal.ZERO)) {
+                if (!phoneBill.equals(Parser.parseMoney("0"))) {
                     recommendation.append("You set set a budget of $")
                             .append(phoneBill)
                             .append(" for your phone bill.\n\n");
