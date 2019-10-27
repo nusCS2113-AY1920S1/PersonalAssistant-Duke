@@ -56,7 +56,11 @@ public class ClearCommand extends Command {
             meals.deleteAllMealsOnDate(dateFormat.format(cal.getTime()));
         }
         ui.showCleared(dateFormat.format(startDate), dateFormat.format(endDate));
-        storage.updateFile(meals);
+        try {
+            storage.updateFile(meals);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         ui.showLine();
     }
 

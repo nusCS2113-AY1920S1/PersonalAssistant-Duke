@@ -60,7 +60,11 @@ public class AddGoalCommand extends Command {
             meals.addGoal(this.goal, true);
             ui.showLine();
             ui.showAddedGoal(goal);
-            storage.updateGoal(meals);
+            try {
+                storage.updateGoal(meals);
+            } catch (DukeException e) {
+                ui.showMessage(e.getMessage());
+            }
         } else if (response.trim().equals("n")  || response.trim().equals("N")) {
             ui.showLine();
             ui.showMessage("The set goal command has been canceled");

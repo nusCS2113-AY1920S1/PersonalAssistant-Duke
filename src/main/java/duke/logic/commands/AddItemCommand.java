@@ -1,5 +1,8 @@
 package duke.logic.commands;
 
+import java.util.Scanner;
+
+import duke.commons.exceptions.DukeException;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
 import duke.model.wallet.TransactionList;
@@ -37,11 +40,16 @@ public class AddItemCommand extends Command {
      */
 
     @Override
+
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
         meals.addStoredItem(this.meal);
         ui.showAddedItem(this.meal);
-        storage.updateDefaults(meals);
+        try {
+            storage.updateDefaults(meals);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
         ui.showLine();
     }
 

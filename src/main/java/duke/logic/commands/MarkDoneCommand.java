@@ -75,7 +75,12 @@ public class MarkDoneCommand extends Command {
             ui.showMessage("Index provided out of bounds for list of meals on " + currentDate);
         } else {
             Meal currentMeal = meals.markDone(currentDate, index);
-            storage.updateFile(meals);
+            try {
+                storage.updateFile(meals);
+            } catch (DukeException e) {
+                ui.showMessage(e.getMessage());
+            }
+
             ui.showDone(currentMeal, meals.getMealsList(currentDate));
             ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
             ui.showCaloriesLeft(currentMeals, user, currentDate);

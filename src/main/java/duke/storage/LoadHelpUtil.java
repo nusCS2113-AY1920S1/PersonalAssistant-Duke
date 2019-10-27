@@ -1,24 +1,31 @@
 package duke.storage;
 
-import java.io.File;
+import duke.commons.file.FilePaths;
+import duke.commons.file.FileUtil;
+
+import java.io.BufferedReader;
 
 /**
  * This class is in charge of parsing user-designated help command to correct filepath.
  */
 public class LoadHelpUtil {
 
-    public static File load(String specifiedHelp) {
-        String line = "";
-        String helpFileName = "";
-        File helpFile;
+    private static String defaultHelpFileStr = "help.txt";
+
+    public static BufferedReader load(String specifiedHelp) {
+        String helpFileRelativePathStr = "";
+
         if (specifiedHelp.isBlank()) {
-            helpFileName = "help.txt";
+            helpFileRelativePathStr = defaultHelpFileStr;
         } else {
-            helpFileName = specifiedHelp + ".txt";
+            helpFileRelativePathStr = specifiedHelp + ".txt";
         }
-        String sep = System.getProperty("file.separator");
-        helpFile = new File("src" + sep + "main" + sep + "java" + sep + "duke"
-                + sep + "commons" + sep + "help" + sep + helpFileName);
-        return helpFile;
+
+        FilePaths filePaths = new FilePaths();
+        String masterHelpFileStr = filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_MASTER_HELP_FILE);
+        String helpFilePathStr = FileUtil.concatPaths(masterHelpFileStr, helpFileRelativePathStr);
+
+        BufferedReader bufferedReader = FileUtil.readResourceFile(helpFilePathStr);
+        return bufferedReader;
     }
 }

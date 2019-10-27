@@ -34,15 +34,15 @@ public class Main {
      */
     public Main() {
         ui = new Ui();
-        storage = new Storage();
         user = new User();
         setup = new UserSetup(user);
         autocorrect = new Autocorrect();
         wallet = new Wallet();
         try {
+            storage = new Storage();
             storage.load(tasks);
         } catch (DukeException e) {
-            ui.showLoadingError();
+            ui.showMessage(e.getMessage());
             tasks = new MealList();
         }
         try {

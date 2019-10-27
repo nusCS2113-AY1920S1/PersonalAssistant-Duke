@@ -71,7 +71,12 @@ public class DeleteCommand extends Command {
         } else {
             Meal currentMeal = meals.delete(currentDate, index);
             ui.showDeleted(currentMeal, meals.getMealsList(currentDate));
-            storage.updateFile(meals);
+            try {
+                storage.updateFile(meals);
+            } catch (DukeException e) {
+                ui.showMessage(e.getMessage());
+            }
+
         }
         ui.showLine();
     }
@@ -83,7 +88,11 @@ public class DeleteCommand extends Command {
         } else {
             Meal currentMeal = meals.delete(currentDate, index);
             ui.showDeleted(currentMeal, meals.getMealsList(currentDate));
-            storage.updateFile(meals);
+            try {
+                storage.updateFile(meals);
+            } catch (DukeException e) {
+                ui.showMessage(e.getMessage());
+            }
         }
         ui.showLine();
     }
