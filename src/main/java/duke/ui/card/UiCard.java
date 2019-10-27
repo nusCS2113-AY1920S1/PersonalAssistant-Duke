@@ -28,4 +28,12 @@ public abstract class UiCard extends AnchorPane {
             throw new AssertionError(e);
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object object) {
+        return object == this;
+    }
 }

@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.controls.JFXScrollPane;
 import duke.data.Patient;
 import duke.data.PatientMap;
+import duke.ui.card.PatientCard;
 import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
