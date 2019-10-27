@@ -68,9 +68,7 @@ class ImpressionWindow extends UiElement<Region> {
     }
 
     public void setImpression(Impression impression, Patient patient) {
-
         assert (patient.getName().equals(impression.getParent().getName()));
-        // TODO: Set default values if NULL.
 
         updateUi();
 

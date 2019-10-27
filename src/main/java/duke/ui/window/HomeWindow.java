@@ -27,7 +27,6 @@ public class HomeWindow extends UiElement<Region> {
     private ScrollPane scrollPane;
 
     private PatientMap patientMap;
-    private List<Patient> patientList;
 
     /**
      * Constructs the Home UI window.
@@ -49,7 +48,7 @@ public class HomeWindow extends UiElement<Region> {
      * Fills {@code patientListPanel}.
      */
     private void fillPatientListPanel() {
-        patientList = new ArrayList<>(patientMap.getPatientHashMap().values());
+        List<Patient> patientList = new ArrayList<>(patientMap.getPatientHashMap().values());
         patientListPanel.getChildren().clear();
 
         ListIterator<Patient> iterator = patientList.listIterator();
