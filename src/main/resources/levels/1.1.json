@@ -6,7 +6,7 @@
     "On the top left corner you can see your current level which is 1.1. This tutorial ends at level 1.4",
     "This is followed by the goals for each level.",
     "Let's get started!",
-    "The goal for this level will be changing your location to the Market.",
+    "The goal for this level is to change your location to the Market.",
     "The first command you will be using is a 'Do' command.\nThe 'Do' command instructs farmer John to carry out an action.",
     "The type of tasks available and the action to be executed can be seen in the middle of the screen.",
     "From the example above, 'Do' is the type of task given and 'gotoMarket' is the action to be carried out by the farmer.",

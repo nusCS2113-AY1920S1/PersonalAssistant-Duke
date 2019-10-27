@@ -72,9 +72,12 @@ public class Farmer {
         this.cowFarm = cowFarm;
         this.tasks = tasks;
     }
-
     public int getGold() {
         return gold;
+    }
+
+    public boolean hasGold() {
+        return gold > 0;
     }
 
     public double getLevel() {
