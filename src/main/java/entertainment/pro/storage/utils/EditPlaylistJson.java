@@ -22,7 +22,7 @@ public class EditPlaylistJson {
     private JSONParser parser = new JSONParser();
 
     public EditPlaylistJson(String playlistName) {
-        String fileName = "../../../../EPdata/playlists/" + playlistName + ".json";
+        String fileName = "./" + playlistName + ".json";
         file = new File(fileName);
     }
 
@@ -83,9 +83,11 @@ public class EditPlaylistJson {
     public void renamePlaylist(Playlist playlist, String newName) throws IOException {
         File oldFileName = file;
         editPlaylist(playlist);
-        String fileName = "playlists/" + newName + ".json";
+        String fileName = "./" + newName + ".json";
         File newFile = new File(fileName);
         file.renameTo(newFile);
-        oldFileName.delete();
+//        if (oldFileName.delete()) {
+//            System.out.println("yeboiiii");
+//        }
     }
 }

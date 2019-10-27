@@ -39,7 +39,7 @@ public class CommandStructure {
         });
 
         put(COMMANDKEYS.set , new COMMANDKEYS[]{
-                COMMANDKEYS.name , COMMANDKEYS.age , COMMANDKEYS.preference, COMMANDKEYS.sort
+                COMMANDKEYS.name , COMMANDKEYS.age , COMMANDKEYS.preference, COMMANDKEYS.sort , COMMANDKEYS.restriction
         });
 
         put(COMMANDKEYS.preference , new COMMANDKEYS[]{
@@ -47,7 +47,7 @@ public class CommandStructure {
         });
 
         put(COMMANDKEYS.playlist , new COMMANDKEYS[]{
-                COMMANDKEYS.create , COMMANDKEYS.delete , COMMANDKEYS.add , COMMANDKEYS.remove , COMMANDKEYS.set , COMMANDKEYS.list
+                COMMANDKEYS.create , COMMANDKEYS.delete , COMMANDKEYS.add , COMMANDKEYS.remove , COMMANDKEYS.set , COMMANDKEYS.list , COMMANDKEYS.clear
         });
 
         put(COMMANDKEYS.restriction , new COMMANDKEYS[]{
@@ -60,6 +60,9 @@ public class CommandStructure {
 
         put(COMMANDKEYS.watchlist , new COMMANDKEYS[]{
                 COMMANDKEYS.add,  COMMANDKEYS.set,  COMMANDKEYS.delete
+        });
+        put(COMMANDKEYS.find , new COMMANDKEYS[]{
+                COMMANDKEYS.cinema
         });
     }};
 

@@ -1,9 +1,11 @@
 package entertainment.pro.ui;
 
-import entertainment.pro.logic.contexts.CommandContext;
-import entertainment.pro.logic.contexts.ContextHelper;
-import entertainment.pro.logic.contexts.SearchResultContext;
-import entertainment.pro.logic.execution.CommandStack;
+import entertainment.pro.logic.cinemaRequesterAPI.CinemaRetrieveRequest;
+import entertainment.pro.logic.Contexts.CommandContext;
+import entertainment.pro.logic.Contexts.ContextHelper;
+import entertainment.pro.logic.Contexts.SearchResultContext;
+import entertainment.pro.logic.Execution.CommandStack;
+import entertainment.pro.logic.movieRequesterAPI.MovieResultFilter;
 import entertainment.pro.model.*;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.storage.utils.*;
@@ -102,13 +104,15 @@ public class MovieHandler extends Controller implements RequestListener {
     private static UserProfile userProfile;
     private ArrayList<String> playlists;
     private String playlistName = "";
-    private ArrayList<MovieInfoObject> playlistMovies = new ArrayList<>();
+    private MovieResultFilter filter = new MovieResultFilter(new ArrayList<>(), new ArrayList<>());
+//    private ArrayList<MovieInfoObject> playlistMovies = new ArrayList<>();
 //    private ArrayList<Playlist> playlists;
     private FlowPane mMoviesFlowPane;
     private VBox playlistVBox = new VBox();
     private static ArrayList<MovieInfoObject> mMovies = new ArrayList<>();
     private double[] mImagesLoadingProgress;
     private static RetrieveRequest mMovieRequest;
+    private static CinemaRetrieveRequest mCinemaRequest;
     private int index = 0;
     private static SortProfile sortProfile;
     private static PastCommands pastCommands = new PastCommands();;
@@ -211,6 +215,7 @@ public class MovieHandler extends Controller implements RequestListener {
     public void initialize() throws IOException {
         setLabels();
         mMovieRequest = new RetrieveRequest(this);
+        mCinemaRequest = new CinemaRetrieveRequest(this);
         CommandContext.initialiseContext();
 
         BlacklistStorage bp = new BlacklistStorage();
@@ -322,7 +327,9 @@ public class MovieHandler extends Controller implements RequestListener {
     public void requestCompleted(ArrayList<MovieInfoObject> moviesInfo) {
         // Build the Movie poster views and add to the flow pane on the main thread
         //System.out.print("Request received");
-        final ArrayList<MovieInfoObject> MoviesFinal = Blacklist.filter(moviesInfo);
+        ArrayList<MovieInfoObject> filteredMovies = Blacklist.filter(moviesInfo);
+        filteredMovies = filter.filter(filteredMovies);
+        final ArrayList<MovieInfoObject> MoviesFinal = filteredMovies;
         mMovies.clear();
         System.out.println("cleared");
         for (MovieInfoObject mf : MoviesFinal) {
@@ -603,8 +610,18 @@ public class MovieHandler extends Controller implements RequestListener {
             AnchorPane playlistPane = loader.load();
             PlaylistInfoController controller = loader.getController();
             controller.getPlaylistNameLabel().setText(playlist.getPlaylistName());
-            controller.getPlaylistDescriptionLabel().setText(playlist.getDescription());
-            controller.getPlaylistInfoVBox().getChildren().add(buildPlaylistMoviesFlowPane(playlist.getMovies()));
+            if (playlist.getDescription().trim().length() == 0) {
+                controller.getPlaylistDescriptionLabel().setStyle("-fx-font-style: italic");
+                controller.getPlaylistDescriptionLabel().setText("*this playlist does not have a description :(*");
+            } else {
+                controller.getPlaylistDescriptionLabel().setText(playlist.getDescription());
+            }
+            if (playlist.getMovies().size() != 0) {
+                controller.getPlaylistInfoVBox().getChildren().add(buildPlaylistMoviesFlowPane(playlist.getMovies()));
+            } else {
+                Label emptyMoviesLabel = new Label(playlist.getPlaylistName() + " does not contain any movies :(");
+                controller.getPlaylistInfoVBox().getChildren().add(2, emptyMoviesLabel);
+            }
             mMoviesScrollPane.setContent(controller.getPlaylistInfoVBox());
         } catch (IOException e) {
             e.printStackTrace();
@@ -898,6 +915,14 @@ public class MovieHandler extends Controller implements RequestListener {
         return mMovieRequest;
     }
 
+    /**
+     * Retrieves the cinemaRetrieveRequest class
+     * @return the cinemaRetrieveRequest class
+     */
+    public CinemaRetrieveRequest getCinemaAPIRequester() {
+        return mCinemaRequest;
+    }
+
     public static String getCommands() {
         return command;
     }
@@ -1026,4 +1051,11 @@ public class MovieHandler extends Controller implements RequestListener {
         buildPlaylistInfo(editPlaylistJson.load());
     }
 
+    public MovieResultFilter getFilter() {
+        return filter;
+    }
+
+    public void setFilter(MovieResultFilter filter) {
+        this.filter = filter;
+    }
 }
