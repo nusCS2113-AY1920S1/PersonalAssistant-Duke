@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import executor.task.TaskList;
+import interpreter.Parser;
 import ui.Wallet;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -17,7 +18,7 @@ public class CommandWeather extends Command {
         this.userInput = userInput;
         this.commandType = CommandType.WEATHER;
         this.description = "Command that displays weather for now, tomorrow or later";
-        setFullWeatherData(storeWeatherDataFromJson(consultWeatherApi()));
+        setFullWeatherData(storeWeatherDataFromJson());
 
     }
 
@@ -32,8 +33,27 @@ public class CommandWeather extends Command {
     }
 
     private String getWhichWeatherDataUserWants(String userInput){
-
+        try {
+            String queryFor = Parser.parseForFlag("for", userInput);
+            return queryFor;
+        } catch (Exception e){
+            return "later";
+        }
     }
+
+    private int getLengthOfArrayToPrint(String status){
+
+        if(status.equals("now")){
+            return 1;
+        } else if(status.equals("tomorrow")){
+            return 2;
+
+        } else if(status.equals("later")){
+            this.fullWeatherData.size();
+        }
+        return 1;
+    }
+
 
 
     private String consultWeatherApi() {
@@ -53,19 +73,22 @@ public class CommandWeather extends Command {
         }
     }
 
-    private HashMap<String, HashMap<String, String>> storeWeatherDataFromJson(String json) {
+    private HashMap<String, HashMap<String, String>> storeWeatherDataFromJson() {
+        String json = consultWeatherApi();
         HashMap<String, HashMap<String, String>> weatherData = new HashMap<>();
         JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
         JsonArray arr = jsonObject.getAsJsonArray("consolidated_weather");
         for (int i = 0; i < arr.size(); i++) {
             String weatherStateName = arr.get(i).getAsJsonObject().get("weather_state_name").getAsString();
-            String min_temp = arr.get(i).getAsJsonObject().get("min_temp").getAsString();
-            String max_temp = arr.get(i).getAsJsonObject().get("max_temp").getAsString();
-            String the_temp = arr.get(i).getAsJsonObject().get("the_temp").getAsString();
+            String minTemp = arr.get(i).getAsJsonObject().get("min_temp").getAsString();
+            String maxTemp = arr.get(i).getAsJsonObject().get("max_temp").getAsString();
+            String theTemp = arr.get(i).getAsJsonObject().get("the_temp").getAsString();
+            String applicableDate = arr.get(i).getAsJsonObject().get("applicable_date").getAsString();
             HashMap<String, String> innerMap = new HashMap<>();
-            innerMap.put("min_temp", min_temp);
-            innerMap.put("max_temp", max_temp);
-            innerMap.put("the_temp", the_temp);
+            innerMap.put("applicable_date", applicableDate);
+            innerMap.put("min_temp", minTemp);
+            innerMap.put("max_temp", maxTemp);
+            innerMap.put("the_temp", theTemp);
             innerMap.put("weatherStateName", weatherStateName);
             weatherData.put(String.valueOf(i),innerMap);
         }
