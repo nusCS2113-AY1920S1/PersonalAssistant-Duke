@@ -1,13 +1,14 @@
 package eggventory.parsers;
 
 import eggventory.commands.Command;
+import eggventory.commands.add.AddLoanCommand;
 import eggventory.commands.add.AddStockCommand;
 import eggventory.commands.add.AddStockTypeCommand;
 import eggventory.enums.CommandType;
 import eggventory.exceptions.BadInputException;
 import eggventory.exceptions.InsufficientInfoException;
 
-
+//@@author cyanoei
 public class ParseAdd {
 
     /**
@@ -37,6 +38,7 @@ public class ParseAdd {
     }
 
 
+    //@@author Deculsion
     /**
      * Processes the contents of an add stocktype command (everything after the words "add" and "stocktype").
      * Splits up the input string into an array containing the various attributes of the stocktype being added.
@@ -56,6 +58,21 @@ public class ParseAdd {
         return new AddStockTypeCommand(CommandType.ADD, addInput[0]);
     }
 
+    //@@author cyanoei
+
+    private Command processAddLoan(String input) throws InsufficientInfoException {
+        String[] addInput = input.split(" +");
+
+        if (addInput.length < 3) {
+            throw new InsufficientInfoException("Please enter loan information after the 'add' command in"
+                    + " this format:\nadd loan <StockCode> <MatricNo> <Quantity>");
+        } else if (addInput[0].isBlank() | addInput[1].isBlank() | addInput[2].isBlank()) {
+            throw new InsufficientInfoException("Please enter loan information after the 'add' command in"
+                    + " this format:\nadd loan <StockCode> <MatricNo> <Quantity>");
+        }
+
+        return new AddLoanCommand(CommandType.ADD, addInput[0], addInput[1], Integer.parseInt(addInput[2]));
+    }
 
 
     /**
@@ -83,6 +100,11 @@ public class ParseAdd {
         case "stocktype":
             addCommand = processAddStockType(addInput[1]);
             break;
+
+        case "loan":
+            addCommand = processAddLoan(addInput[1]);
+            break;
+
         default:
             throw new BadInputException("Unexpected value: " + addInput[0]);
         }

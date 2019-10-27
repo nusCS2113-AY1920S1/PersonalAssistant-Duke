@@ -2,7 +2,7 @@ package eggventory;
 
 import eggventory.enums.PersonProperty;
 import eggventory.exceptions.BadInputException;
-import eggventory.items.Person;
+import eggventory.loans.Person;
 import java.util.ArrayList;
 
 //@@author Raghav-B

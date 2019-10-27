@@ -1,4 +1,4 @@
-package eggventory.items;
+package eggventory.loans;
 
 public class Person {
 

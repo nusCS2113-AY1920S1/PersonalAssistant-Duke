@@ -1,5 +1,6 @@
 package eggventory.commands;
 
+import eggventory.exceptions.BadInputException;
 import eggventory.ui.Ui;
 import eggventory.StockList;
 import eggventory.Storage;
@@ -26,5 +27,5 @@ public abstract class Command {
     /**
      * Executes the command. Need to implement if inheriting from Command class.
      */
-    public abstract String execute(StockList list, Ui ui, Storage storage);
+    public abstract String execute(StockList list, Ui ui, Storage storage) throws BadInputException;
 }

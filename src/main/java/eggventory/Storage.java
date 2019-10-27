@@ -69,6 +69,7 @@ public class Storage {
         fw.close();
     }
 
+    //@@author cyanoei
     /**
      * Saves existing StockType to a text file.
      */

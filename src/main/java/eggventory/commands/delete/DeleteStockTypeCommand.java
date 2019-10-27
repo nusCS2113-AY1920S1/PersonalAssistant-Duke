@@ -7,6 +7,7 @@ import eggventory.commands.Command;
 import eggventory.enums.CommandType;
 import eggventory.items.StockType;
 
+//@@author cyanoei
 public class DeleteStockTypeCommand extends Command {
 
     private String stockTypeName;

@@ -42,6 +42,7 @@ public class StockList {
         stockList.add(new StockType(name, false));
     }
 
+    //@@author cyanoei
     /**
      * Prints every stock within stocklist. Should only be called by Ui.
      * Deletes a StockType object, and all the stocks under it.
@@ -105,6 +106,7 @@ public class StockList {
         stockList.get(0).addStock("Uncategorised", stockCode, quantity, description);
     }
 
+    //@@author cyanoei
     /**
      * Deletes a Stock object from a list.
      * @param stockCode The unique String that identifies a Stock.
@@ -114,13 +116,14 @@ public class StockList {
         Stock deleted;
         for (StockType stockType : stockList) {
             deleted = stockType.deleteStock(stockCode);
-            if (deleted !=  null) { //If something WAS deleted
+            if (deleted !=  null) { //If something was deleted
                 return deleted;
             }
         }
         return null;
     }
 
+    //@@author
     /**
      * Edits a Stock object in a StockList.
      * @param stockCode The unique String that identifies a Stock.

@@ -1,5 +1,9 @@
 package eggventory.items;
 
+import eggventory.loans.Loan;
+
+import java.util.ArrayList;
+
 /**
  * An abstract class representing a type of item that the lab keeps and is able to loan out.
  * Children classes are CollectiveStock and UniqueStock.
@@ -17,6 +21,7 @@ public class Stock {
     private int lost;
     private int minimum; //Minimum quantity the lab should maintain.
     //private int loanLimit; //Maximum quantity an individual can loan. To implement in the future.
+    private ArrayList<Loan> stockLoans;
 
     /**
      * An stock is first added with its stockType, stockCode, description and quantity.
