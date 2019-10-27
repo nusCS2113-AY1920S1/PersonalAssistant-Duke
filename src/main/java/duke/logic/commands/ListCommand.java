@@ -1,5 +1,6 @@
 package duke.logic.commands;
 
+import duke.ui.InputHandler;
 import duke.model.Meal;
 import duke.model.MealList;
 import duke.model.TransactionList;
@@ -11,7 +12,6 @@ import duke.model.user.User;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * ListCommand is a public class that inherits from abstract class Command.
@@ -53,7 +53,7 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Ui ui, Storage storage, User user,
-                        Scanner in, TransactionList transactions) throws DukeException {
+                        InputHandler in, TransactionList transactions) throws DukeException {
         ui.showCalorie(user);
         ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
         if (!meals.checkDate(currentDate)) {

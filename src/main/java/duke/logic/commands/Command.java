@@ -1,5 +1,6 @@
 package duke.logic.commands;
 
+import duke.ui.InputHandler;
 import duke.model.MealList;
 import duke.model.TransactionList;
 import duke.ui.Ui;
@@ -10,7 +11,6 @@ import duke.model.user.User;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Scanner;
 
 /**
  * Command is the abstract base class for all the command objects.
@@ -31,7 +31,7 @@ public abstract class Command {
      * @throws DukeException when there is an error
      */
     public abstract void execute(MealList meals, Ui ui, Storage storage, User user,
-                                 Scanner in, TransactionList transactions) throws DukeException;
+                                 InputHandler in, TransactionList transactions) throws DukeException;
 
     public boolean isExit() {
         return false;

@@ -6,11 +6,10 @@ import duke.commons.exceptions.DukeException;
 import duke.model.TransactionList;
 import duke.storage.Storage;
 import duke.model.MealList;
+import duke.ui.InputHandler;
 import duke.ui.Ui;
 import duke.logic.parsers.Parser;
 import duke.model.user.User;
-
-import java.util.Scanner;
 
 /**
  * Main is a public class that contains the main function to drive the program.
@@ -18,9 +17,9 @@ import java.util.Scanner;
  */
 public class Main {
     private Storage storage;
-    private MealList tasks = new MealList();
+    private MealList meals = new MealList();
     private Ui ui;
-    private Scanner in = new Scanner(System.in);
+    private InputHandler in = new InputHandler(System.in);
     private User user;
     private Autocorrect autocorrect = new Autocorrect();
     private TransactionList transactions = new TransactionList();
@@ -33,13 +32,13 @@ public class Main {
         storage = new Storage();
         user = new User();
         try {
-            storage.load(tasks);
+            storage.load(meals);
         } catch (DukeException e) {
-            ui.showLoadingError();
-            tasks = new MealList();
+            ui.showMessage(e.getMessage());
+            meals = new MealList();
         }
         try {
-            user = storage.loadUser(); //load user inf
+            user = storage.loadUser(); //load user info
         } catch (DukeException e) {
             ui.showUserLoadingError();
         }
@@ -79,12 +78,13 @@ public class Main {
         Parser userParser = new Parser(autocorrect);
         while (!isExit) {
             try {
-                String fullCommand = ui.readCommand(in);
+                String fullCommand = in.getString();
                 ui.showLine();
                 Command c = userParser.parse(fullCommand);
-                c.execute(tasks, ui, storage, user, in, transactions);
+                c.execute(meals, ui, storage, user, in, transactions);
                 isExit = c.isExit();
             } catch (DukeException e) {
+                ui.showLine();
                 ui.showMessage(e.getMessage());
             } finally {
                 ui.showLine();

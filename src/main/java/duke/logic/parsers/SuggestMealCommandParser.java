@@ -1,12 +1,12 @@
 package duke.logic.parsers;
 
 import duke.commons.exceptions.DukeException;
-import duke.logic.commands.SuggestCommand;
+import duke.logic.commands.SuggestMealCommand;
 
 /**
  * Parser class to handle suggestion of meals.
  */
-public class SuggestCommandParser implements ParserInterface<SuggestCommand> {
+public class SuggestMealCommandParser implements ParserInterface<SuggestMealCommand> {
 
     /**
      * Parse user input and return SuggestCommand.
@@ -15,9 +15,9 @@ public class SuggestCommandParser implements ParserInterface<SuggestCommand> {
      * @throws DukeException If the userInput cannot be parsed
      */
     @Override
-    public SuggestCommand parse(String userInput) throws DukeException {
+    public SuggestMealCommand parse(String userInput) throws DukeException {
         InputValidator.validate(userInput);
         // TODO: Finalize suggest command input format and update UG/DG
-        return new SuggestCommand();
+        return new SuggestMealCommand();
     }
 }

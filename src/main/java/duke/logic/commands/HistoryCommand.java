@@ -1,5 +1,6 @@
 package duke.logic.commands;
 
+import duke.ui.InputHandler;
 import duke.model.TransactionList;
 import duke.storage.Storage;
 import duke.model.MealList;
@@ -7,7 +8,6 @@ import duke.ui.Ui;
 import duke.model.user.User;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * HistoryCommand is a public class that inherits form abstract class Command.
@@ -49,7 +49,7 @@ public class HistoryCommand extends Command {
      * @param in the scanner object to handle secondary command IO
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in, TransactionList transactions) {
+    public void execute(MealList meals, Ui ui, Storage storage, User user, InputHandler in, TransactionList transactions) {
         ui.showHistory(historyCommandsList);
     }
 }

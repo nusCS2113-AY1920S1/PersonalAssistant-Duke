@@ -104,13 +104,14 @@ public class User {
             System.out.println("     3) Moderately active (Moderate exercise/ sports 6-7 days/week)");
             System.out.println("     4) Very active (Hard exercise every day, or exercising 2 xs/day) ");
             System.out.println("     5) Extra active (Hard exercise 2 or more times per day, or training for\n"
-                    + "marathon, or triathlon, etc. )");
+                    + "        marathon, or triathlon, etc. )");
             try {
                 activityLevel = Integer.parseInt(in.nextLine()) - 1;
             } catch (NumberFormatException e) {
                 throw new DukeException(e.getMessage());
             }
         }
+
         System.out.println("     Would you like to lose weight?(Y/N)");
         String choice = in.nextLine();
         if (choice.charAt(0) == 'Y') {

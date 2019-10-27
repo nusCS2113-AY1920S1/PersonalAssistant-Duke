@@ -160,11 +160,11 @@ public class MealList {
         int totalConsume = 0;
         for (LocalDate iterator = startDate; iterator.isBefore(currentDate); iterator = iterator.plusDays(1)) {
             if (mealTracker.containsKey(iterator) == false) {
-                totalConsume += goal.getNutritionalValue().get("calorie") / (int) DAYS.between(startDate, endDate);
+                totalConsume += goal.getCalorieTarget() / (int) DAYS.between(startDate, endDate);
             } else {
                 ArrayList<Meal> meals = mealTracker.get(iterator.format(formatter));
                 if (meals.size() == 0) {
-                    totalConsume += goal.getNutritionalValue().get("calorie") / (int) DAYS.between(startDate, endDate);
+                    totalConsume += goal.getCalorieTarget() / (int) DAYS.between(startDate, endDate);
                 } else {
                     for (int i = 0; i < meals.size(); i += 1) {
                         totalConsume += meals.get(i).getNutritionalValue().get("calorie");
@@ -172,10 +172,10 @@ public class MealList {
                 }
             }
         }
-        long daysLeft = DAYS.between(currentDate,endDate);
-        int caloriesRemaining = goal.getNutritionalValue().get("calorie") - totalConsume;
+        int daysLeft = (int) DAYS.between(currentDate,endDate);
+        int caloriesRemaining = goal.getCalorieTarget() - totalConsume;
         if (daysLeft >= 1) {
-            return caloriesRemaining / (int)daysLeft;
+            return caloriesRemaining / daysLeft;
         } else {
             return -1;
         }
@@ -213,12 +213,12 @@ public class MealList {
         storedItems.remove(keyword);
     }
 
-    public void addGoal(Goal goal, boolean override) throws DukeException {
+    public boolean addGoal(Goal goal, boolean override) {
         if (this.goal != null && override == false) {
-            throw new DukeException("You currently have a previously set goal active\n"
-                    + "     Would you like to override the existing goal? (Y/N)");
+            return false;
         } else {
             this.goal = goal;
+            return true;
         }
     }
 

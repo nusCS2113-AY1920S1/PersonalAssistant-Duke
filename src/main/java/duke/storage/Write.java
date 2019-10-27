@@ -1,7 +1,11 @@
 package duke.storage;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.*;
+import duke.model.Goal;
+import duke.model.Meal;
+import duke.model.MealList;
+import duke.model.Transaction;
+import duke.model.TransactionList;
 import duke.model.user.Gender;
 import duke.model.user.Tuple;
 import duke.model.user.User;
@@ -12,7 +16,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static duke.commons.FilePaths.*;
+import static duke.commons.FilePaths.DATA_FILE;
+import static duke.commons.FilePaths.DEFAULTS_FILE;
+import static duke.commons.FilePaths.GOAL_FILE;
+import static duke.commons.FilePaths.TRANSACTION_FILE;
+import static duke.commons.FilePaths.USER_FILE;
 
 /**
  * This object is in charge of all writing to save operations.
@@ -100,14 +108,7 @@ public class Write {
         }
         try {
             Goal goal = mealData.getGoal();
-            String toWrite = "G|0|" + goal.getEndDate() + "|" + goal.getStartDate();
-            HashMap<String, Integer> nutritionData = goal.getNutritionalValue();
-            if (nutritionData.size() != 0) {
-                for (String k : nutritionData.keySet()) {
-                    toWrite += k + "|" + nutritionData.get(k) + "|";
-                }
-                toWrite = toWrite.substring(0, toWrite.length() - 1) + "\n";
-            }
+            String toWrite = goal.toString();
             bufferedWriter.write(toWrite);
             bufferedWriter.close();
         } catch (IOException e) {

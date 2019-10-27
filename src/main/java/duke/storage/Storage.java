@@ -1,13 +1,15 @@
 package duke.storage;
 
+import duke.commons.exceptions.DukeException;
+import duke.logic.autocorrect.Autocorrect;
+import duke.model.MealList;
+import duke.model.TransactionList;
+import duke.model.user.User;
+
 import java.util.ArrayList;
 
-import duke.commons.exceptions.DukeException;
-import duke.model.*;
-import duke.model.user.User;
-import duke.logic.autocorrect.Autocorrect;
-
-import static duke.commons.FilePaths.*;
+import static duke.commons.FilePaths.DATA_FILE;
+import static duke.commons.FilePaths.DEFAULTS_FILE;
 
 /**
  * Storage is a public class, a storage class encapsulates the filePath to read from disk and write to disk.
@@ -20,9 +22,9 @@ public class Storage {
      * This is a function that will load all info required to initialize a MealList object.
      */
     public void load(MealList meals) throws DukeException {
-        loader.loadFile(meals, DATA_FILE);
-        loader.loadFile(meals, DEFAULTS_FILE);
-        loader.loadFile(meals, GOAL_FILE);
+        loader.loadMeals(meals, DATA_FILE);
+        loader.loadMeals(meals, DEFAULTS_FILE);
+        loader.loadGoals(meals);
     }
 
     /**

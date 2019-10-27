@@ -15,6 +15,7 @@ public class AddItemCommandParser implements ParserInterface<AddItemCommand> {
      * @return <code>AddItemCommand</code> Command object encapsulating a breakfast object
      * @throws DukeException when the user input cannot be parsed
      */
+    @Override
     public AddItemCommand parse(String userInput) throws DukeException {
         InputValidator.validate(userInput);
         String[] mealNameAndInfo = ArgumentSplitter.splitMealArguments(userInput);

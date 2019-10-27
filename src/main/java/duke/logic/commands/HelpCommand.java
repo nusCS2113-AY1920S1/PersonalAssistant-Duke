@@ -1,5 +1,6 @@
 package duke.logic.commands;
 
+import duke.ui.InputHandler;
 import duke.commons.exceptions.DukeException;
 import duke.model.MealList;
 import duke.model.TransactionList;
@@ -8,7 +9,6 @@ import duke.storage.Storage;
 import duke.model.user.User;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * The HelpCommand is a public class that extends from the abstract class Command.
@@ -42,7 +42,7 @@ public class HelpCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Ui ui, Storage storage, User user,
-                        Scanner in, TransactionList transactions) throws DukeException {
+                        InputHandler in, TransactionList transactions) throws DukeException {
         ArrayList<String> helpLines = new ArrayList<>();
         storage.loadHelp(helpLines, specifiedHelp);
         ui.showHelp(helpLines);

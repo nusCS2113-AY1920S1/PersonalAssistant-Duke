@@ -1,7 +1,17 @@
 package duke.storage;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.*;
+import duke.model.Breakfast;
+import duke.model.Deposit;
+import duke.model.Dinner;
+import duke.model.Goal;
+import duke.model.Item;
+import duke.model.Lunch;
+import duke.model.Meal;
+import duke.model.MealList;
+import duke.model.Payment;
+import duke.model.Transaction;
+import duke.model.TransactionList;
 import duke.model.user.Gender;
 import duke.model.user.User;
 
@@ -15,35 +25,38 @@ public class LoadLineParser {
      * @param meals the structure that encapsulates the meal data for this session
      */
     public static void parse(MealList meals, String line) throws DukeException {
-        String[] splitLine = line.split("\\|", 4);
-        String taskType = splitLine[0];
-        String status = splitLine[1];
-        String description = splitLine[2];
-        String[] nutritionalValue = splitLine[3].split("\\|");
-        Meal newMeal;
-        if (taskType.equals("B")) {
-            newMeal = new Breakfast(description, nutritionalValue);
-            if (status.equals("1")) {
-                newMeal.markAsDone();
+        try {
+            String[] splitLine = line.split("\\|", 4);
+            String taskType = splitLine[0];
+            String status = splitLine[1];
+            String description = splitLine[2];
+            String[] nutritionalValue = splitLine[3].split("\\|");
+            Meal newMeal;
+            if (taskType.equals("B")) {
+                newMeal = new Breakfast(description, nutritionalValue);
+                if (status.equals("1")) {
+                    newMeal.markAsDone();
+                }
+                LoadMealUtil.load(meals, newMeal);
+            } else if (taskType.equals("L")) {
+                newMeal = new Lunch(description, nutritionalValue);
+                if (status.equals("1")) {
+                    newMeal.markAsDone();
+                }
+                LoadMealUtil.load(meals, newMeal);
+            } else if (taskType.equals("D")) {
+                newMeal = new Dinner(description, nutritionalValue);
+                if (status.equals("1")) {
+                    newMeal.markAsDone();
+                }
+                LoadMealUtil.load(meals, newMeal);
+            } else if (taskType.equals("S")) {
+                newMeal = new Item(description, nutritionalValue);
+                meals.addStoredItem(newMeal);
             }
-            LoadMealUtil.load(meals, newMeal);
-        } else if (taskType.equals("L")) {
-            newMeal = new Lunch(description, nutritionalValue);
-            if (status.equals("1")) {
-                newMeal.markAsDone();
-            }
-            LoadMealUtil.load(meals, newMeal);
-        } else if (taskType.equals("D")) {
-            newMeal = new Dinner(description, nutritionalValue);
-            if (status.equals("1")) {
-                newMeal.markAsDone();
-            }
-            LoadMealUtil.load(meals, newMeal);
-        } else if (taskType.equals("S")) {
-            newMeal = new Item(description, nutritionalValue);
-            meals.addStoredItem(newMeal);
-        } else if (taskType.equals("G")) {
-            meals.addGoal(new Goal(description, nutritionalValue[0], nutritionalValue), true);
+        } catch (Exception e) {
+            throw new DukeException("It appears the storage files have been corrupted, data loaded may be erroneous"
+                    + "or incomplete.");
         }
     }
 
@@ -62,7 +75,19 @@ public class LoadLineParser {
             user.updateAccountBalance(newTransaction);
             LoadTransactionUtil.load(transactionList, newTransaction);
         }
+    }
 
+    public static void parseGoal(MealList meals, String line) throws DukeException {
+        try {
+            if (line != null) {
+                String[] splitLine = line.split("\\|");
+                Goal goal = new Goal(splitLine);
+                meals.addGoal(goal, true);
+            }
+        } catch (Exception e) {
+            throw new DukeException("It appears the goal file has been corrupted. No goal shall be set for"
+                    + " this session");
+        }
     }
 
     public static User parseUser(String line) {

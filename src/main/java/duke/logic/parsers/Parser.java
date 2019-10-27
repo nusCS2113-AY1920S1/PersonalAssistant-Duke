@@ -21,7 +21,7 @@ import static duke.commons.definitions.CommandDefinitions.PARSER_HISTORY_COMMAND
 import static duke.commons.definitions.CommandDefinitions.PARSER_LIST_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_LUNCH_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_PAYMENT_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_SET_GOAL_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_ADD_GOAL_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_SUGGEST_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_UPDATE_WEIGHT_COMMAND;
 import static duke.commons.exceptions.ExceptionMessages.UNKNOWN_COMMAND;
@@ -88,7 +88,7 @@ public class Parser {
                 return new ClearCommandParser().parse(userInput);
             case PARSER_EDIT_COMMAND:
                 return new EditCommandParser().parse(userInput);
-            case PARSER_SET_GOAL_COMMAND:
+            case PARSER_ADD_GOAL_COMMAND:
                 return new AddGoalCommandParser().parse(userInput);
             case PARSER_HELP_COMMAND:
                 return new HelpCommandParser().parse(userInput);
@@ -99,7 +99,7 @@ public class Parser {
             case PARSER_HISTORY_COMMAND:
                 return parserUtil.getHistory(userInput);
             case PARSER_SUGGEST_COMMAND:
-                return new SuggestCommandParser().parse(userInput);
+                return new SuggestMealCommandParser().parse(userInput);
             default:
                 throw new DukeException(UNKNOWN_COMMAND);
         }

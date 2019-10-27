@@ -1,5 +1,6 @@
 package duke.logic.commands;
 
+import duke.ui.InputHandler;
 import duke.commons.exceptions.DukeException;
 import duke.model.Meal;
 import duke.model.MealList;
@@ -10,7 +11,6 @@ import duke.model.user.User;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.Scanner;
 
 /**
  * DeleteCommand is a public class that inherits from abstract class Command.
@@ -60,7 +60,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Ui ui, Storage storage, User user,
-                        Scanner in, TransactionList transactions) throws DukeException {
+                        InputHandler in, TransactionList transactions) throws DukeException {
         if (index <= 0 || index > meals.getMealsList(currentDate).size()) {
             throw new DukeException("Index provided out of bounds for list of meals on " + currentDate);
         }

@@ -1,45 +1,41 @@
 package duke.storage;
 
-import duke.logic.autocorrect.Autocorrect;
 import duke.commons.exceptions.DukeException;
-import duke.model.Meal;
+import duke.logic.autocorrect.Autocorrect;
 import duke.model.MealList;
 import duke.model.TransactionList;
 import duke.model.user.User;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import static duke.commons.FilePaths.*;
+import static duke.commons.FilePaths.AUTOCORRECT_FILE;
+import static duke.commons.FilePaths.GOAL_FILE;
+import static duke.commons.FilePaths.TRANSACTION_FILE;
+import static duke.commons.FilePaths.USER_FILE;
 
 /**
  * This object is in charge of all reading from save operations.
  */
 public class Load {
     private BufferedReader bufferedReader = null;
-    private BufferedWriter bufferedWriter = null;
     private String line;
-    private HashMap<String, ArrayList<Meal>> mealTracker = new HashMap<>();
 
     /**
      * The function will act to load txt file specified by the filepath, parse it and store it in a new task ArrayList
      * to be added in that MealList.
      * @throws DukeException if either the object is unable to open file or it is unable to read the file
      */
-    public void loadFile(MealList meals, File directory) throws DukeException {
-        try { //read data file
-            bufferedReader = new BufferedReader(new FileReader(directory));
-        } catch (FileNotFoundException e) {
-            try {
-                bufferedWriter = new BufferedWriter(new FileWriter(directory));
-            } catch (Exception f) {
-                throw new DukeException("Failed to load file");
-            }
-        }
+    public void loadMeals(MealList meals, File directory) throws DukeException {
+        validateFile(directory);
         try {
             while ((line = bufferedReader.readLine()) != null) {
-                //TODO: Parse the line
                 LoadLineParser.parse(meals, line);
             }
             bufferedReader.close();
@@ -50,16 +46,18 @@ public class Load {
         }
     }
 
-    public void loadTransactions(TransactionList transactions, User user) throws DukeException {
+    public void loadGoals(MealList meals) throws DukeException {
+        validateFile(GOAL_FILE);
         try {
-            bufferedReader = new BufferedReader(new FileReader(TRANSACTION_FILE));
-        } catch (FileNotFoundException e) {
-            try {
-                bufferedWriter = new BufferedWriter(new FileWriter(TRANSACTION_FILE));
-            } catch (Exception f) {
-                throw new DukeException("Failed to load file");
-            }
+            line = bufferedReader.readLine();
+            LoadLineParser.parseGoal(meals, line);
+        } catch (IOException e) {
+            throw new DukeException("Error reading file");
         }
+    }
+
+    public void loadTransactions(TransactionList transactions, User user) throws DukeException {
+        validateFile(TRANSACTION_FILE);
         try {
             while ((line = bufferedReader.readLine()) != null) {
                 LoadLineParser.parseTransactions(transactions, line, user);
@@ -120,4 +118,16 @@ public class Load {
         }
     }
 
+    private void validateFile(File directory) throws DukeException {
+        try {
+            bufferedReader = new BufferedReader(new FileReader(directory));
+        } catch (FileNotFoundException e) {
+            try {
+                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(directory));
+                bufferedReader = new BufferedReader(new FileReader(directory));
+            } catch (Exception f) {
+                throw new DukeException("Failed to load file");
+            }
+        }
+    }
 }
