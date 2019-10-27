@@ -109,6 +109,7 @@ public class ParserGoal {
                 case indexFive:
                     isRunning = false;
                     ui.showQuitGoal();
+                    break;
                 default:
                     ui.showDontKnow();
                 }

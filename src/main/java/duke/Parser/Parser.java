@@ -1,10 +1,13 @@
 package duke.Parser;
 
+import duke.Command.Command;
+import duke.Command.ExitCommand;
+import duke.Command.InvalidCommand;
+import duke.Ui;
 import duke.data.Storage;
 import duke.module.Reminder;
 import duke.module.Schedule;
 import duke.task.TaskList;
-import duke.Ui;
 import duke.sports.ManageStudents;
 import duke.sports.MyClass;
 import duke.sports.MyPlan;
@@ -23,6 +26,23 @@ public class Parser {
      * The ui object responsible for showing things to the user.
      */
     private Ui ui = new Ui();
+    /**
+    public static Command parse(String fullCommand) {
+        Command c;
+        if (fullCommand.equals("bye")) {
+            c = new ExitCommand();
+        } else if (fullCommand.startsWith("add")) {
+            c = new AddCommand();
+        } else if (fullCommand.startsWith("delete")) {
+            c = new DeleteCommand();
+         } else if (fullCommand.startsWith("view")) {
+            c = new ViewCommand();
+         } else {
+            c = new InvalidCommand();
+        }
+        return c;
+    }
+     */
 
     /**
      * Constants to represent the index 3.
