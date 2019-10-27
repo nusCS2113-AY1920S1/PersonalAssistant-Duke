@@ -60,6 +60,16 @@ public abstract class Ui {
     }
 
     //unused
+    /**
+     * This method prints the details of the specified task and specified duke.task.TaskList size.
+     * <p>
+     * This method is typically called when a task is created, so that the user can
+     * check the details of the created task.
+     * </p>
+     *
+     * @param currTask duke.task.Task to be printed.
+     * @param listSize Size of the duke.task.TaskList.
+     */
     public static void echoAdd(Task currTask, int listSize) {
         ArrayList<String> msg = new ArrayList<String>(Arrays.asList(
                 "Got it. I've added this task: ",
