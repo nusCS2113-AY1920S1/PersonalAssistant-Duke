@@ -19,8 +19,4 @@ public interface Ui {
      * @param message Output message.
      */
     void print(String message);
-
-    /**
-     * Gets {@}
-     */
 }
