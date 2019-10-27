@@ -17,7 +17,7 @@ public class SortDate extends Sort {
      */
     public SortDate(ArrayList<Log> unsortedList) {
         super(unsortedList);
-        sortedList.sort(InputComparator.dateComparator());
+        sortedList.sort(ListComparatorUtil.dateComparator());
         SortUi.printSortedList(sortedList,"date");
     }
 }

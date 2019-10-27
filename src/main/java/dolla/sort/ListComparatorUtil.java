@@ -4,7 +4,7 @@ import dolla.task.Log;
 
 import java.util.Comparator;
 
-class InputComparator {
+class ListComparatorUtil {
     private static final int POSITIVE = 1;
     private static final int NEGATIVE = -1;
     private static final int ZERO = 0;

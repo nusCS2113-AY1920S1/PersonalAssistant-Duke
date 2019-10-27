@@ -17,7 +17,7 @@ public class SortDescription extends Sort {
      */
     public SortDescription(ArrayList<Log> unsortedList) {
         super(unsortedList);
-        sortedList.sort(InputComparator.descComparator());
+        sortedList.sort(ListComparatorUtil.descComparator());
         SortUi.printSortedList(sortedList,"description");
     }
 }

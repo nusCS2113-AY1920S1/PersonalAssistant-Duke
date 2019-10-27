@@ -17,7 +17,7 @@ public class SortName extends Sort {
      */
     public SortName(ArrayList<Log> unsortedList) {
         super(unsortedList);
-        sortedList.sort(InputComparator.nameComparator());
+        sortedList.sort(ListComparatorUtil.nameComparator());
         SortUi.printSortedList(sortedList,"name");
     }
 }
