@@ -12,9 +12,10 @@ public abstract class Record {
     protected LocalDate date;
     protected String name;
     protected String userInput;
+    protected String recordType;
     protected Tag tag;
 
-    public abstract String getLogText();
+    public abstract String getRecordDetail();
 
     public abstract String formatSave();//currently assuming no tags
 
@@ -29,6 +30,8 @@ public abstract class Record {
     public String getName() {
         return name;
     }
+
+    public String getRecordType() { return recordType; }
 
     public String getUserInput() {
         return userInput;

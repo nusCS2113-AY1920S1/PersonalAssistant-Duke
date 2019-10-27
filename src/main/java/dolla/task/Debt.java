@@ -28,6 +28,7 @@ public class Debt extends Record {
         this.amount = amount;
         this.description = description;
         this.date = date;
+        this.recordType = "debt";
         this.userInput = type + " " + name + " " + amount + " " + description + " " + "/due " + Time.dateToString(date);
     }
 
@@ -37,7 +38,7 @@ public class Debt extends Record {
      * @return String with information of debt
      */
     @Override
-    public String getLogText() {
+    public String getRecordDetail() {
         return "[" + type + "] "
                 + "[" + name + "] "
                 + "[" + amountToMoney() + "] "

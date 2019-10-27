@@ -2,7 +2,6 @@ package dolla;
 
 import dolla.task.Debt;
 import dolla.task.Task;
-import dolla.task.Entry;
 import dolla.task.Record;
 import dolla.task.RecordList;
 
@@ -80,39 +79,27 @@ public abstract class Ui {
     }
 
     /**
-     * This method prints the details of the specified entry and is typically called when an entry is entered,
-     * so that the user can check the details of the created entry.
+     * This method prints the details of the specified record and is typically called when a new record is entered,
+     * so that the user can check the details of the created record.
      *
-     * @param currEntry Entry to be printed.
+     * @param currRecord record to be printed, can be an entry, limit or debt.
      */
-    public static void echoAddEntry(Entry currEntry) {
+    public static void echoAddRecord(Record currRecord) {
         System.out.println(line);
-        System.out.println("\tGot it. I've added this entry: ");
-        System.out.println("\t" + currEntry.getLogText());
-        System.out.println(line);
-    }
-
-    /**
-     * Echo add debt.
-     *
-     * @param currDebt the curr debt
-     */
-    public static void echoAddDebt(Debt currDebt) {
-        System.out.println(line);
-        System.out.println("\tGot it. I've added this debt: ");
-        System.out.println("\t" + currDebt.getLogText());
+        System.out.println("\tGot it. I've added this " + currRecord.getRecordType()  + ": ");
+        System.out.println("\t" + currRecord.getRecordDetail());
         System.out.println(line);
     }
 
     /**
      * Echo remove.
      *
-     * @param log the log
+     * @param record the record
      */
-    public static void echoRemove(String log) {
+    public static void echoRemove(String record) {
         System.out.println(line);
-        System.out.println("Noted. I've removed this log: ");
-        System.out.println(log);
+        System.out.println("Noted. I've removed this record: ");
+        System.out.println(record);
         System.out.println(line);
     }
 
@@ -325,7 +312,7 @@ public abstract class Ui {
         System.out.println("\tHere are the " + mode + " that you have added:");
         for (int i = 0; i < recordList.size(); i++) {
             int listNum = i + 1;
-            System.out.println("\t" + listNum + ". " + recordList.get().get(i).getLogText());
+            System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
         }
         System.out.println(line);
     }
@@ -346,7 +333,7 @@ public abstract class Ui {
             String temp = recordList.get().get(i).getDescription();
             if (temp.contains(searchContent)) {
                 listNum += 1;
-                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getLogText());
+                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
             }
         }
     }
@@ -367,7 +354,7 @@ public abstract class Ui {
             String tempt = recordList.get().get(i).getName();
             if (tempt.contains(searchContent)) {
                 listNum += 1;
-                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getLogText());
+                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
             }
         }
     }
@@ -387,7 +374,7 @@ public abstract class Ui {
             String temp = Time.dateToString(recordList.get().get(i).getDate());
             if (temp.contains(searchContent)) {
                 listNum += 1;
-                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getLogText());
+                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
             }
         }
     }
@@ -411,7 +398,7 @@ public abstract class Ui {
 
         for (int i = 0; i < list.size(); i++) {
             int listNum = i + 1;
-            System.out.println("\t" + listNum + ". " + list.get(i).getLogText());
+            System.out.println("\t" + listNum + ". " + list.get(i).getRecordDetail());
         }
     }
 

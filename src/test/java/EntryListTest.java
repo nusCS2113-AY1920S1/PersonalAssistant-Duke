@@ -35,7 +35,7 @@ public class EntryListTest {
     void insertPrevPosition() {
         EntryList newEntryList = createNewEntryList();
         newEntryList.insertPrevPosition(0, createNewEntry3());
-        String firstEntryText = newEntryList.getFromList(0).getLogText();
+        String firstEntryText = newEntryList.getFromList(0).getRecordDetail();
         assertEquals("[income] [$300.0] [New Entry] [/on 01/01/1000]", firstEntryText);
     }
 

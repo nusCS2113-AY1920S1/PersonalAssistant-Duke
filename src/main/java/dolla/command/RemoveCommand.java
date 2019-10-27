@@ -58,7 +58,7 @@ public class RemoveCommand extends Command {
             Redo.clearRedo(mode);
         }
 
-        Ui.echoRemove(recordList.get().get(logNumInt).getLogText());
+        Ui.echoRemove(recordList.get().get(logNumInt).getRecordDetail());
         dollaData.removeFromRecordList(mode,logNumInt);
     }
 }

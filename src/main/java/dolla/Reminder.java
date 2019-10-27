@@ -45,7 +45,7 @@ public class Reminder {
             LocalDate check = today.plusDays(2); //remind the user 2 days before
             if (check.compareTo(temp) >= 0) {
                 listNum += 1;
-                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getLogText());
+                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
             }
         }
         if (listNum == 0) {

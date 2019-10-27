@@ -56,6 +56,6 @@ public class AddDebtsCommand extends Command {
             Redo.removeCommand(mode, prevPosition);
             prevPosition = -1;
         }
-        Ui.echoAddDebt(newDebt);
+        Ui.echoAddRecord(newDebt);
     }
 }

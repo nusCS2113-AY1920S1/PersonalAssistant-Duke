@@ -56,6 +56,6 @@ public class AddEntryCommand extends Command {
             Redo.removeCommand(mode,prevPosition);
             prevPosition = -1; //reset to -1
         }
-        Ui.echoAddEntry(newEntry);
+        Ui.echoAddRecord(newEntry);
     }
 }

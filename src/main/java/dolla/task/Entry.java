@@ -26,6 +26,7 @@ public class Entry extends Record {
         this.amount = amount;
         this.description = description;
         this.date = date;
+        this.recordType = "entry";
         this.userInput = type + " " + amount + " " + description + " " + "/on " + Time.dateToString(date);
     }
 
@@ -40,7 +41,7 @@ public class Entry extends Record {
      * @return String with information of entry.
      */
     @Override
-    public String getLogText() {
+    public String getRecordDetail() {
         return "[" + type + "] "
                 + "[" + amountToMoney() + "] "
                 + "[" + description + "] "

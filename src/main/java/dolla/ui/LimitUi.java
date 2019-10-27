@@ -9,18 +9,6 @@ import dolla.task.Limit;
 public class LimitUi extends Ui {
 
     /**
-     * Echo add limit.
-     *
-     * @param currLimit the curr limit
-     */
-    public static void echoAddLimit(Limit currLimit) {
-        System.out.println(line);
-        System.out.println("\tGot it. I've added this limit: ");
-        System.out.println("\t" + currLimit.getLogText());
-        System.out.println(line);
-    }
-
-    /**
      * Prints remove limit message.
      *
      * @param type     the type of limit

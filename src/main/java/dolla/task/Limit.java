@@ -24,6 +24,7 @@ public class Limit extends Record {
         this.type = type;
         this.amount = amount;
         this.duration = duration;
+        this.recordType = "limit";
     }
 
     /**
@@ -31,7 +32,7 @@ public class Limit extends Record {
      * to the user.
      * @return String with information of limit.
      */
-    public String getLogText() {
+    public String getRecordDetail() {
         return "[" + type + "] "
                 + "[" + amountToMoney() + "] "
                 + "[" + duration + "]";

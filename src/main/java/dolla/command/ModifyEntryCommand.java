@@ -31,7 +31,7 @@ public class ModifyEntryCommand extends Command {
     public void execute(DollaData dollaData) {
         Entry newEntry = new Entry(type, amount, description, date);
         dollaData.modifyRecordList(newEntry);
-        Ui.echoAddEntry(newEntry);
+        Ui.echoAddRecord(newEntry);
         dollaData.updateMode("entry");
     }
 }
