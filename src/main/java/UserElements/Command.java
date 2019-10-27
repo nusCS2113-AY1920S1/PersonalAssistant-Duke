@@ -12,6 +12,7 @@ import Events.Formatting.CalendarView;
 import Events.Storage.ClashException;
 import Events.Storage.EventList;
 import Events.Storage.Storage;
+import UserElements.ConcertBudgeting.Budgeting;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,13 +29,15 @@ public class Command {
     /**
      * The String representing the type of command e.g add/delete event
      */
-    protected String command;
+    private String command;
 
     /**
      * The String representing the continuation of the command, if it exists.
      * Contains further specific instructions about the command passed e.g which event to add or delete
      */
-    protected String continuation;
+    private String continuation;
+
+    private Budgeting budgeting;
 
     /**
      * Creates a new command with the command type and specific instructions
