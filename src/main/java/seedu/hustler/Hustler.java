@@ -159,7 +159,7 @@ public class Hustler extends Application {
         list = new TaskList(taskStorage.reloadBackup());
         avatar = AvatarStorage.reloadBackup();
         AchievementStorage.reloadStatus();
-        AchievementStorage.reloadAchievements();
+        //AchievementStorage.reloadAchievements();
         AddTask.updateAchievementLevel();
     }
 

@@ -155,21 +155,6 @@ public class AchievementStorage {
     }
 
     public static AchievementList loadAchievementsss() throws IOException {
-//        try {
-//            Scanner achievementTxt = new Scanner(new File(ACHIEVEMENT_TEST));
-//
-////            for (int i = 0; i < Hustler.shopList.size(); i++) {
-////                Hustler.shopList.updateStatus(i, boolList.get(i));
-////            }
-//            return Hustler.listAchievements;
-//        } catch (FileNotFoundException e) {
-//            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(FILEPATH)));
-//            for (int i = 0; i < 6; i++) {
-//                writer.write("false" + (i != 5 ? "\n" : ""));
-//            }
-//            writer.close();
-//            return Hustler.listAchievements;
-//        }
 
         try {
             Scanner scanner = new Scanner(new File(ACHIEVEMENT_TEST));

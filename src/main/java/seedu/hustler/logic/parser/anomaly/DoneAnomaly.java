@@ -15,7 +15,7 @@ public class DoneAnomaly extends DetectAnomaly {
      * @param userInput input for which anomaly is detected
      * @return true or false for any anomaly detected
      */
-    public boolean detect(String[] userInput) throws CommandLineException {
+    public void detect(String[] userInput) throws CommandLineException {
 
         Ui ui = new Ui();
 
@@ -47,7 +47,5 @@ public class DoneAnomaly extends DetectAnomaly {
         if (doneIndex >= Hustler.list.size()) {
             throw new CommandLineException("The task index provided is invalid.");
         }
-
-        return false;
     }
 }

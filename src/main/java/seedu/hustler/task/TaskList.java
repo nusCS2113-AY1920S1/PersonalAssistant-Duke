@@ -66,7 +66,6 @@ public class TaskList {
     }
 
     /**
-<<<<<<< HEAD
      * Checks whether list is empty or not.
      *
      * @return true or false to whether the internal ArrayList is empty or not.
