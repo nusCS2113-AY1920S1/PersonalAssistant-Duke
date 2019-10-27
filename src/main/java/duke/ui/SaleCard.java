@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
+import java.text.DecimalFormat;
+
 /**
  * Controller for SaleCard.
  * A SaleCard displays a sale,
@@ -33,14 +35,16 @@ public class SaleCard extends UiPart<AnchorPane> {
 
     public SaleCard(Sale sale, int displayedIndex) {
         super(FXML);
-        id.setText(Long.toString(sale.getId()));
+        id.setText("ID: " + Long.toString(sale.getId()));
         double tempValue = sale.getValue();
         if (sale.isSpend() && tempValue > 0.0) {
             tempValue = -tempValue;
         }
-        value.setText(Double.toString(tempValue));
+
+        DecimalFormat df2 = new DecimalFormat("#.##");
+        value.setText("$" + df2.format(tempValue));
         saleDate.setText(TimeParser.convertDateToString(sale.getSaleDate()));
-        description.setText(sale.getDescription());
-        remarks.setText(sale.getRemarks());
+        description.setText("Sale description: " + sale.getDescription());
+        remarks.setText("Remarks: " + sale.getRemarks());
     }
 }

@@ -12,11 +12,12 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+
 <AnchorPane fx:id="SalePage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" style="-fx-border-color: white; -fx-border-insets: 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
-                <StackPane maxHeight="70.0" style="-fx-background-color: white;">
+                <StackPane maxHeight="69.0" minHeight="69.0" style="-fx-background-color: white;">
                <children>
                   <VBox prefHeight="175.0" prefWidth="100.0">
                      <children>
@@ -33,7 +34,7 @@
                                  <children>
                                     <StackPane>
                                        <children>
-                                                  <ImageView fitHeight="50.0" fitWidth="57.0" preserveRatio="true">
+                                                  <ImageView fitHeight="50.0" fitWidth="57.0" preserveRatio="true" StackPane.alignment="BOTTOM_CENTER">
                                                       <image>
                                                           <Image url="@../images/revenue.png" />
                                                       </image>
@@ -54,12 +55,12 @@
                                     <Insets />
                                  </HBox.margin>
                               </VBox>
-                              <Separator orientation="VERTICAL" />
+                              <Separator orientation="VERTICAL" valignment="BOTTOM" />
                               <VBox HBox.hgrow="ALWAYS">
                                  <children>
                                     <StackPane>
                                        <children>
-                                                  <ImageView fitHeight="50.0" fitWidth="50.0" preserveRatio="true">
+                                                  <ImageView fitHeight="50.0" fitWidth="50.0" preserveRatio="true" StackPane.alignment="BOTTOM_CENTER">
                                                       <image>
                                                           <Image url="@../images/cost.png" />
                                                       </image>
@@ -77,12 +78,12 @@
                                     </StackPane>
                                  </children>
                               </VBox>
-                              <Separator layoutX="126.0" layoutY="10.0" orientation="VERTICAL" />
+                              <Separator layoutX="126.0" layoutY="10.0" orientation="VERTICAL" valignment="BOTTOM" />
                               <VBox HBox.hgrow="ALWAYS">
                                  <children>
                                     <StackPane>
                                        <children>
-                                                  <ImageView fitHeight="50.0" fitWidth="50.0" preserveRatio="true">
+                                                  <ImageView fitHeight="50.0" fitWidth="50.0" preserveRatio="true" StackPane.alignment="BOTTOM_CENTER">
                                                       <image>
                                                           <Image url="@../images/profit.png" />
                                                       </image>

@@ -19,6 +19,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_SALE_IS_SPEND = new Prefix("-spend");
     public static final Prefix PREFIX_SALE_DATE = new Prefix("-at");
     public static final Prefix PREFIX_SALE_REMARKS = new Prefix("-rmk");
+    public static final Prefix PREFIX_SALE_FROM = new Prefix("-from");
+    public static final Prefix PREFIX_SALE_TO = new Prefix("-to");
 
     public static final Prefix PREFIX_PRODUCT_NAME = new Prefix("-name");
     public static final Prefix PREFIX_PRODUCT_INGREDIENT = new Prefix("-ingt");
