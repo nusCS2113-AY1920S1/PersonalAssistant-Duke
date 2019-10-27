@@ -24,6 +24,7 @@ import oof.command.SummaryCommand;
 import oof.command.ThresholdCommand;
 import oof.command.PauseTrackerCommand;
 import oof.command.ViewWeekCommand;
+import oof.command.ViewTrackerCommand;
 import oof.exception.OofException;
 
 /**
@@ -146,6 +147,9 @@ public class CommandParser {
             return new PauseTrackerCommand(line);
         case "semester":
             return new SemesterCommand();
+        case "viewTracker":
+            line = line.replaceFirst("viewTracker", "").trim();
+            return new ViewTrackerCommand(line);
         default:
             throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

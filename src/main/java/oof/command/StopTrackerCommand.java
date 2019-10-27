@@ -44,7 +44,7 @@ public class StopTrackerCommand extends Command {
      * Gets the time difference between the start and end of a tracked task.
      * @param task Instance of Task object being tracked.
      * @return number of minutes between start and end of a task.
-     * @throws OofException if start and end date is invalid.
+     * @throws OofException if start or end date is invalid.
      */
     private long getDateDiff(Task task) throws OofException {
         try {
@@ -53,7 +53,7 @@ public class StopTrackerCommand extends Command {
             long diffInMilliSeconds = end.getTime() - start.getTime();
             return TimeUnit.MINUTES.convert(diffInMilliSeconds, TimeUnit.MILLISECONDS);
         } catch (ParseException e) {
-            throw new OofException("Unable to retrieve time taken. Please retry!");
+            throw new OofException("Unable to retrieve time taken.");
         }
     }
 

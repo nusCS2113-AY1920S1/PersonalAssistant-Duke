@@ -52,7 +52,7 @@ public class PauseTrackerCommand extends Command {
             long diffInMillies = end.getTime() - start.getTime();
             return timeUnit.convert(diffInMillies, TimeUnit.MILLISECONDS);
         } catch (ParseException e) {
-            throw new OofException("Unable to retrieve time taken. Please retry!");
+            throw new OofException("Unable to retrieve time taken.");
         }
     }
 

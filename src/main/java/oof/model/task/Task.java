@@ -22,6 +22,7 @@ public abstract class Task {
     private static final int YEARLY = 4;
     private String startDate;
     private String endDate;
+    private String timeLastUpdatedDate;
     private long timeTaken;
 
     /**
@@ -85,6 +86,14 @@ public abstract class Task {
 
     public void setTimeTaken(long timeTaken) {
         this.timeTaken = timeTaken;
+    }
+
+    public String getTimeLastUpdatedDate() {
+        return timeLastUpdatedDate;
+    }
+
+    public void setTimeLastUpdatedDate(String timeLastUpdatedDate) {
+        this.timeLastUpdatedDate = timeLastUpdatedDate;
     }
 
     /**

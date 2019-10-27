@@ -17,6 +17,7 @@ import java.util.Locale;
 public class SummaryCommand extends Command {
 
     private static final int EMPTY = 0;
+    private static final int ADD_A_DAY = 1;
     private TaskList summary = new TaskList();
 
     /**
@@ -59,7 +60,7 @@ public class SummaryCommand extends Command {
      * @return date     String containing formatted date of tomorrow.
      */
     private String getTomorrowDate() {
-        LocalDateTime ldt = LocalDateTime.now().plusDays(1);
+        LocalDateTime ldt = LocalDateTime.now().plusDays(ADD_A_DAY);
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH);
         return format.format(ldt);
     }

@@ -1,6 +1,8 @@
 package oof;
 
 import oof.exception.OofException;
+import oof.model.Tracker;
+import oof.model.TrackerList;
 import oof.model.module.Assessment;
 import oof.model.module.Lesson;
 import oof.model.module.Module;
@@ -1351,5 +1353,23 @@ public class Ui {
     public void printAssessmentRemovalMessage(Assessment assessment) {
         printLine();
         System.out.println(" " + assessment.getModuleCode() + " " + assessment.getName() + " has been removed.");
+    }
+
+    /**
+     * Print Tracker Diagram from TrackerList object.
+     * @param trackerList   ArrayList of Tracker objects.
+     */
+    public void printTrackerDiagram(TrackerList trackerList) {
+        for (int i = 0; i < trackerList.getSize(); i++) {
+            Tracker tracker = trackerList.getTracker(i);
+            int timeTaken = (int) tracker.getTotalTimeTaken();
+            timeTaken /= 10;
+            for (int j = 0; j < timeTaken; j++) {
+                System.out.print("#");
+            }
+            String description = tracker.getTaskDescription();
+            System.out.println("\t" + description + " " + timeTaken + "minutes\n");
+        }
+        printLine();
     }
 }
