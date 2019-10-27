@@ -1,6 +1,7 @@
-package seedu.hustler.command.schedulecommands;
+package seedu.hustler.logic.command.schedulecommands;
 
-import seedu.hustler.command.Command;
+import seedu.hustler.logic.command.Command;
+import seedu.hustler.logic.parser.anomaly.UpdateEntryAnomaly;
 import seedu.hustler.ui.Ui;
 import seedu.hustler.schedule.RecommendedSchedule;
 
@@ -13,6 +14,11 @@ public class UpdateEntry extends Command {
      * User's input that needs to be parsed.
      */
     private String[] userInput;
+
+    /**
+     * Detects anomalies in input.
+     */
+    private UpdateEntryAnomaly anomaly = new UpdateEntryAnomaly();
     
     /**
      * Initialized the userInput with supplied value.
@@ -28,20 +34,18 @@ public class UpdateEntry extends Command {
      * schedule.
      */
     public void execute() {
-        Ui ui = new Ui();
-        try {
-            String[] numbers = userInput[1].split(" ");
-            int index = Integer.parseInt(numbers[0]);
-            int time = this.parseDuration(numbers[1]); 
-            index--;
-            
-            RecommendedSchedule.updateAllocTime(index, time);
-            RecommendedSchedule.displayRecommendedSchedule();
-        } catch (NumberFormatException e) {
-            ui.numberCommandError();
+        if (anomaly.detect(this.userInput)) {
+            return;
         }
+        String[] numbers = userInput[1].split(" ");
+        int index = Integer.parseInt(numbers[0]);
+        int time = this.parseDuration(numbers[1]); 
+        index--;
+
+        RecommendedSchedule.updateAllocTime(index, time);
+        RecommendedSchedule.displayRecommendedSchedule();
     }
-    
+
     /**
      * Parses the date time supplied in the form of H:M:S
      * to seconds.
