@@ -40,13 +40,13 @@ public class Word {
      * Initializes a word with tags.
      * @param word description of the word
      * @param meaning meaning of the word
-     * @param synonymSet hash set containing tags that are added to word
+     * @param tags hash set containing tags that are added to word
      */
 
-    public Word(String word, String meaning, HashSet<String> synonymSet) {
+    public Word(String word, String meaning, HashSet<String> synonyms) {
         this.word = word;
         this.meaning = meaning;
-        this.synonyms = synonymSet;
+        this.synonyms = synonyms;
         this.numberOfSearches = 0;
     }
 

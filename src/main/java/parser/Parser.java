@@ -16,7 +16,20 @@ import command.SearchFrequencyCommand;
 import command.EditCommand;
 import command.AddSynonymCommand;
 
-import exception.*;
+import exception.CommandInvalidException;
+import exception.EmptyWordException;
+import exception.WordUpException;
+import exception.WrongAddFormatException;
+import exception.WrongDeleteFormatException;
+import exception.WrongSearchFormatException;
+import exception.WrongListFormatDescription;
+import exception.WrongHistoryFormatException;
+import exception.ZeroHistoryRequestException;
+import exception.WrongSearchFrequencyFormatException;
+import exception.WrongEditFormatException;
+import exception.WrongAddTagFormatException;
+import exception.WrongQuizFormatException;
+import exception.WrongAddSynonymException;
 
 import java.util.ArrayList;
 import java.util.HashSet;

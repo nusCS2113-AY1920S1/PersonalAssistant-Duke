@@ -24,13 +24,10 @@ public class AddSynonymCommand extends Command {
     public String execute(Ui ui, WordBank wordBank, Storage storage) {
         try {
             HashSet<String> synonymSet = wordBank.addSyn(mainWord, synonyms);
-            System.out.println("My synonymSet contains ");
-            for(String s:synonymSet){
-                System.out.println(s);
-            }
-            System.out.println("End of execute try synonymSet");
+            //System.out.println("My synonymSet contains ");
+            //System.out.println("End of execute try synonymSet");
             String oldData = wordBank.getWordBank().get(mainWord).toString();
-            System.out.println("oldData is "+oldData);
+            //System.out.println("oldData is "+oldData);
             synonymSet = wordBank.getWordBank().get(mainWord).getSynonyms();//Update
 
             String[] splitOldData = oldData.split("<s>");
@@ -39,6 +36,9 @@ public class AddSynonymCommand extends Command {
                 temp = temp + " "+s;
             }
             temp += "<s>";//lock
+            //System.out.println("my temp is "+temp);
+            String updatedData = oldData+temp;
+            //System.out.println("my updated updated is "+updatedData);
             storage.editFromFile(oldData,oldData+temp);
             return ui.showAddSyn(mainWord, synonyms, synonymSet);
         } catch (NoWordFoundException e) {
