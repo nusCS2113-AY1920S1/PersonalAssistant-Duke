@@ -5,6 +5,9 @@ import parser.Parser;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 /**
@@ -395,6 +398,19 @@ public class TaskList implements Serializable, Cloneable {
                 throw new DukeException("That is NOT a valid Integer");
             }
         }
+    }
+
+    /**
+     * sorts this Tasklist according to the priority of all the tasks in descending order
+     */
+    public void sortPriority (){
+        Collections.sort(this.list, new Comparator<Task>() {
+            @Override
+            public int compare(Task o1, Task o2) {
+//                return (o1.getTaskPriority()>o2.getTaskPriority() ? -1 : (o1==o2 ? 0 : 1));
+                return o1.getDescription().compareTo(o2.getDescription());
+            }
+        });
     }
 
     /**

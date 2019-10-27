@@ -21,11 +21,13 @@ import java.util.Date;
 public class Task implements Serializable {
     String description;
     boolean isDone;
+    Integer taskPriority;
     //protected String dueDate;
     private Date dueDate = null;
     private ArrayList<Date> tentativeDates = new ArrayList<>();
     protected static DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HHmm");
     protected static DateFormat dateFormatter_event = new SimpleDateFormat("dd-MM-yyyy HHmm-HHmm");
+
 
     /**
      * Task initialization with string as input.
@@ -35,6 +37,8 @@ public class Task implements Serializable {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.taskPriority = 0;
+
     }
 
     /**
@@ -158,6 +162,8 @@ public class Task implements Serializable {
         return this.isDone;
     }
 
+
+
     /**
      * Returns description.
      *
@@ -185,6 +191,14 @@ public class Task implements Serializable {
         } else {
             return "";
         }
+    }
+
+    public void setTaskPriority(Integer taskPriority) {
+        this.taskPriority = taskPriority;
+    }
+
+    public Integer getTaskPriority() {
+        return taskPriority;
     }
 
     public Date getTentativeDate(int index) {
