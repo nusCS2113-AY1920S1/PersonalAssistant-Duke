@@ -1,7 +1,7 @@
-package seedu.hustler.command.shop;
+package seedu.hustler.logic.command.shop;
 
 import seedu.hustler.Hustler;
-import seedu.hustler.command.Command;
+import seedu.hustler.logic.command.Command;
 
 /**
  * Command to execute the listing of items in the shop.

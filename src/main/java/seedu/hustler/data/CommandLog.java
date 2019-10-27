@@ -3,7 +3,7 @@ package seedu.hustler.data;
 import java.io.IOException;
 import java.util.ArrayList;
 import seedu.hustler.Hustler;
-import seedu.hustler.command.Command;
+import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.parser.CommandParser;
 import seedu.hustler.logic.CommandLineException;
 

@@ -1,6 +1,6 @@
 package seedu.hustler.logic.command.task;
 
-import seedu.hustler.command.Command;
+import seedu.hustler.logic.command.Command;
 import seedu.hustler.data.MemoryManager;
 import seedu.hustler.ui.Ui;
 

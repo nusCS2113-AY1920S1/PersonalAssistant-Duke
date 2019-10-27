@@ -1,7 +1,7 @@
 package seedu.hustler.logic.command.task;
 
 import javafx.application.Platform;
-import seedu.hustler.command.Command;
+import seedu.hustler.logic.command.Command;
 import seedu.hustler.ui.Ui;
 
 /**

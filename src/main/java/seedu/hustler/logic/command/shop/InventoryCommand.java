@@ -1,7 +1,7 @@
-package seedu.hustler.command.shop;
+package seedu.hustler.logic.command.shop;
 
 import seedu.hustler.Hustler;
-import seedu.hustler.command.Command;
+import seedu.hustler.logic.command.Command;
 import seedu.hustler.game.avatar.Inventory;
 
 public class InventoryCommand extends Command {

@@ -1,6 +1,6 @@
-package seedu.hustler.command.schedulecommands;
+package seedu.hustler.logic.command.schedulecommands;
 
-import seedu.hustler.command.Command;
+import seedu.hustler.logic.command.Command;
 import seedu.hustler.ui.Ui;
 import seedu.hustler.schedule.RecommendedSchedule;
 
