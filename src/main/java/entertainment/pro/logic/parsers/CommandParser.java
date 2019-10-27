@@ -114,14 +114,6 @@ public class CommandParser {
                     CommandStack.pushCmd(pfc);
                 }
                 break;
-            case restriction:
-                System.out.println("Restriction");
-                RestrictionCommand rc = new RestrictionCommand(UIController);
-                rc.initCommand(CommandArr, Command, command.getSubRootCommand());
-                if (command.isValidCommand()) {
-                    CommandStack.pushCmd(rc);
-                }
-                break;
             case blacklist:
                 System.out.println("blacklist");
                 BlacklistCommand bbc = new BlacklistCommand(UIController);
@@ -224,13 +216,6 @@ public class CommandParser {
                 PreferenceCommand pfc = new PreferenceCommand(uicontroller);
                 if (pfc.initCommand(commandArr , command)) {
                     CommandStack.pushCmd(pfc);
-                }
-                break;
-            case "restriction":
-                System.out.println("Restriction");
-                RestrictionCommand rc = new RestrictionCommand(uicontroller);
-                if (rc.initCommand(commandArr , command)) {
-                    CommandStack.pushCmd(rc);
                 }
                 break;
             case "get":

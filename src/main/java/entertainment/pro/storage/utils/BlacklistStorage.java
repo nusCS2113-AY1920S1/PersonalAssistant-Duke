@@ -1,7 +1,7 @@
 package entertainment.pro.storage.utils;
 
-import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.model.UserProfile;
+import entertainment.pro.storage.user.Blacklist;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;

@@ -21,6 +21,9 @@ public abstract class CommandSuper {
     private boolean execute = false;
     private String helpInstructions;
 
+    protected CommandSuper() {
+    }
+
 
     /**
      * Function to decide if the command should be executed.
@@ -195,6 +198,7 @@ public abstract class CommandSuper {
             }
 
             flagMap.put(flagOrder.get(counter), listOfString);
+            System.out.println("checkpoint " + counter + listOfString.size());
             counter++;
         }
 

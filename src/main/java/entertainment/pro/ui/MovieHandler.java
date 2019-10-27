@@ -49,22 +49,22 @@ public class MovieHandler extends Controller implements RequestListener {
     private HBox nameHBox, adultHBox, genresHBox, alphaSortHBox, latestDatesHBox, highestRatingHBox;
 
     @FXML
-    private Label userPreferenceLabel, userNameLabel, userAgeLabel, userAdultLabel1, userAdultLabel2,
+    private Label userPreferenceLabel, userAdultLabel1, userAdultLabel2,
             userGenreLabel, sortAlphaOrderLabel, sortLatestDateLabel, sortHighestRatingLabel,
-            sortHighestRatingText, autoCompleteLabel, generalFeedbackLabel;
+            sortHighestRatingText, autoCompleteLabel, generalFeedbackLabel, autoCompleteText, generalFeedbackText;
 
     @FXML
-    private Text userPreferenceText, userNameText, userAgeText, generalFeedbackText,
-            sortAlphaOrderText, sortLatestDateText, autoCompleteText;
+    private Text userPreferenceText, userNameText, userAgeText,
+            sortAlphaOrderText, sortLatestDateText;
+
+    @FXML
+    private TextFlow genreListText;
 
     @FXML
     private MenuBar menuBar;
 
     @FXML
     private Menu fileMenu, helpMenu;
-
-    @FXML
-    TextFlow genreListText;
 
     @FXML
     private Label mStatusLabel;
@@ -106,9 +106,25 @@ public class MovieHandler extends Controller implements RequestListener {
     private double[] mImagesLoadingProgress;
     private static RetrieveRequest mMovieRequest;
     private int index = 0;
-    private static SortProfile sortProfile;
     private static PastCommands pastCommands = new PastCommands();;
     static String command = "";
+    ArrayList<Integer> genrePreference = new ArrayList<>();
+    ArrayList<Integer> genreRestriction = new ArrayList<>();
+    boolean isAdultEnabled = false;
+    boolean sortByAlphaOrder = false;
+    boolean sortByRating = false;
+    boolean sortByReleaseDate = false;
+    boolean isMovie = true;
+    String searchEntryName = "";
+
+
+    SearchProfile searchProfile = new SearchProfile(genrePreference, genreRestriction, isAdultEnabled,
+            sortByAlphaOrder, sortByRating, sortByReleaseDate, searchEntryName, isMovie);
+
+
+    public SearchProfile getSearchProfile() {
+        return searchProfile;
+    }
     Controller controller;
 
 
@@ -164,10 +180,10 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     @FXML
     public void setLabels() throws IOException {
+        System.out.println("called setlabels");
         EditProfileJson editProfileJson = new EditProfileJson();
         userProfile = editProfileJson.load();
-        EditSortProfileJson editSortProfileJson = new EditSortProfileJson();
-        sortProfile = editSortProfileJson.load();
+        //ArrayList<Integer> arrayList = userPr
         try {
             pastCommands.setMap(PastUserCommands.load());
         } catch (ParseException e) {
@@ -176,8 +192,7 @@ public class MovieHandler extends Controller implements RequestListener {
         EditPlaylistJson editPlaylistJson = new EditPlaylistJson();
         playlists = editPlaylistJson.load();
         ProfileCommands command = new ProfileCommands(userProfile);
-        userNameLabel.setText(userProfile.getUserName());
-        userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
+
         System.out.println("changed age");
 
         //setting adult label
@@ -195,10 +210,8 @@ public class MovieHandler extends Controller implements RequestListener {
         restrictions.setFill(Paint.valueOf("#EC7063"));
         genreListText.getChildren().clear();
         genreListText.getChildren().addAll(preferences, restrictions);
-        sortAlphaOrderLabel.setText(sortProfile.getAlphaOrder());
-        sortLatestDateLabel.setText(sortProfile.getLatestDatesOrder());
-        sortHighestRatingLabel.setText(sortProfile.getHighestRatingOrder());
-        userPlaylistsLabel.setText(Integer.toString(playlists.size()));
+        genreListText.setLineSpacing(4);
+        updateSortInterface();
     }
 
 
@@ -206,6 +219,7 @@ public class MovieHandler extends Controller implements RequestListener {
     public void initialize() throws IOException {
         setLabels();
         mMovieRequest = new RetrieveRequest(this);
+        mMovieRequest.setSearchProfile(searchProfile);
         CommandContext.initialiseContext();
 
         BlacklistStorage bp = new BlacklistStorage();
@@ -234,7 +248,7 @@ public class MovieHandler extends Controller implements RequestListener {
             }
         });
 
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES, userProfile.isAdult());
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Date date = new Date();
         String now = formatter.format(date);
@@ -245,7 +259,7 @@ public class MovieHandler extends Controller implements RequestListener {
         pastCommands.setMap(arrayList);
         PastUserCommands.update(pastCommands);
 
-        generalFeedbackText.setText("Welcome to Entertainment Pro. Displaying currently showing movies...");
+        //generalFeedbackText.setText("Welcome to Entertainment Pro. Displaying currently showing movies...");
 
         //Real time changes to text field
         mSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -412,12 +426,12 @@ public class MovieHandler extends Controller implements RequestListener {
         mMoviesFlowPane.setVgap(10);
         mMoviesFlowPane.setPadding(new Insets(10, 8, 4, 8));
         mMoviesFlowPane.prefWrapLengthProperty().bind(mMoviesScrollPane.widthProperty());   // bind to scroll pane width
-
+        //mMoviesFlowPane.getChildren().add(generalFeedbackLabel);
         for (int i = 0; i < movies.size(); i++) {
             AnchorPane posterPane = buildMoviePosterPane(movies.get(i), i + 1);
             mMoviesFlowPane.getChildren().add(posterPane);
         }
-
+        mMoviesScrollPane.setFitToWidth(true);
         mMoviesScrollPane.setContent(mMoviesFlowPane);
         mMoviesScrollPane.setVvalue(0);
     }
@@ -582,45 +596,8 @@ public class MovieHandler extends Controller implements RequestListener {
 
 
 
-    /**
-     * Updates the components in the SortProfile accordingly.
-     *
-     * @param isAlphaOrder    true when user have entered command to sort results in alphabetical order and otherwise false.
-     * @param isLatDatesOrder true when user have entered command to sort results based on release dates and otherwise false.
-     * @param isRatingsOrder  true when user have entered command to sort results based on ratings and otherwise false.
-     */
-    public void setSort(boolean isAlphaOrder, boolean isLatDatesOrder, boolean isRatingsOrder) {
-        String yes = "Y";
-        String no = "N";
-        if (isAlphaOrder) {
-            setSortText(yes, no, no);
-        } else if (isLatDatesOrder) {
-            setSortText(no, yes, no);
-        } else if (isRatingsOrder) {
-            setSortText(no, no, yes);
-        }
-
-    }
 
 
-    /**
-     * Sets the updated values for the sort components.
-     * Sets the text for the sort components in the UI.
-     * Updates the changes into json file by calling update function in the end.
-     *
-     * @param txt1 String text to be set in sortAlphaOrderLabel.
-     * @param txt2 String text to be set in sortLatestDateLabel.
-     * @param txt3 String text to be set in sortHighestRatingLabel.
-     */
-    public void setSortText(String txt1, String txt2, String txt3) {
-        sortProfile.setAlphaOrder(txt1);
-        sortAlphaOrderLabel.setText(txt1);
-        sortProfile.setLatestDatesOrder(txt2);
-        sortLatestDateLabel.setText(txt2);
-        sortProfile.setHighestRatingOrder(txt3);
-        sortHighestRatingLabel.setText(txt3);
-        EditSortProfileJson.update(sortProfile);
-    }
 
     public void updateTextField(String updateStr) {
         mSearchTextField.setText(mSearchTextField.getText() + updateStr);
@@ -684,10 +661,6 @@ public class MovieHandler extends Controller implements RequestListener {
         return userProfile;
     }
 
-    public SortProfile getSortProfile() {
-        return sortProfile;
-    }
-
     public static PastCommands getPastCommands() {
         return pastCommands;
     }
@@ -720,42 +693,42 @@ public class MovieHandler extends Controller implements RequestListener {
      * Displays list of current movies showing on cinemas.
      */
     public static void showCurrentMovies() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES, userProfile.isAdult());
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
     }
 
     /**
      * Displays list of current tv shows showing.
      */
     public static void showCurrentTV() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV, userProfile.isAdult());
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV);
     }
 
     /**
      * Displays list of upcoming movies.
      */
     public static void showUpcomingMovies() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES, userProfile.isAdult());
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
     }
 
     /**
      * Displays list of upcoming tv shows.
      */
     public static void showUpcomingTV() {
-        mMovieRequest.beginMovieRequest( RetrieveRequest.MoviesRequestType.CURRENT_TV, userProfile.isAdult());
+        mMovieRequest.beginMovieRequest( RetrieveRequest.MoviesRequestType.CURRENT_TV);
     }
 
     /**
      * Displays list of popular movies.
      */
     public static void showPopMovies() {
-        mMovieRequest.beginMovieRequest( RetrieveRequest.MoviesRequestType.POPULAR_MOVIES, userProfile.isAdult());
+        mMovieRequest.beginMovieRequest( RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
     }
 
     /**
      * Displays list of popular tv shows.
      */
     public static void showPopTV() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV, userProfile.isAdult());
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV);
     }
 
 
@@ -763,7 +736,7 @@ public class MovieHandler extends Controller implements RequestListener {
      * Displays list of trending movies.
      */
     public static void showTrendMovies() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES, userProfile.isAdult());
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES);
         ;
     }
 
@@ -771,30 +744,36 @@ public class MovieHandler extends Controller implements RequestListener {
      * Displays list of trending tv shows.
      */
     public static void showTrendTV() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV, userProfile.isAdult());
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
     }
 
 
-    public static void showSearch(String pay, ArrayList<Long>genres) {
-        //mMovieRequest.beginMovieSearchRequest(payload, userProfile.isAdult());
-        String payload = "";
-        ArrayList<Long> trial = new ArrayList<>();
-        mMovieRequest.getOfflineSearch(payload, trial, userProfile.isAdult());
-
+    public static void showSearchMovie() {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
     }
 
-    public static void getAllTheMovie() {
-        try {
-            mMovieRequest.getAllTheMovie();
-        } catch (ParseException e) {
-            e.printStackTrace();
+    public static void setSearchProfile(SearchProfile searchProfile) {
+        mMovieRequest.setSearchProfile(searchProfile);
+    }
+
+    public void updateSortInterface() {
+        if (userProfile.isSortByAlphabetical()) {
+            sortAlphaOrderLabel.setText("Y");
+            sortLatestDateLabel.setText("N");
+            sortHighestRatingLabel.setText("N");
+        } else if (userProfile.isSortByLatestRelease()) {
+            sortAlphaOrderLabel.setText("N");
+            sortLatestDateLabel.setText("Y");
+            sortHighestRatingLabel.setText("N");
+        } else if (userProfile.isSortByHighestRating()) {
+            sortAlphaOrderLabel.setText("N");
+            sortLatestDateLabel.setText("N");
+            sortHighestRatingLabel.setText("Y");
+        } else {
+            sortAlphaOrderLabel.setText("N");
+            sortLatestDateLabel.setText("N");
+            sortHighestRatingLabel.setText("N");
         }
     }
-
-    public static void createFiles() {
-        mMovieRequest.create();
-    }
-
-
 
 }
