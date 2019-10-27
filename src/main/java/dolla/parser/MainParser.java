@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * MainParser checks the current mode and user input to create the relevant command.
+ * MainParser directs the program to the appropriate parser depending on the current mode and the user's input.
  */
 public class MainParser {
 
