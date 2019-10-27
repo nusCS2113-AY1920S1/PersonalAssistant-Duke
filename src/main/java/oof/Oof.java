@@ -33,7 +33,7 @@ public class Oof {
         }
         try {
             tasks = new TaskList(storage.readTaskList());
-        } catch (IOException e) {
+        } catch (IOException | OofException e) {
             tasks = new TaskList();
         }
     }

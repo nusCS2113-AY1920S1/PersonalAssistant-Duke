@@ -44,7 +44,7 @@ public class CompleteCommand extends Command {
                 task.setStatus();
                 ui.completeMessage(task);
                 storage.writeTaskList(tasks);
-                storage.checkDone(task.toString());
+                storage.checkDone(task.getStatusIcon());
             }
         } catch (OofException e) {
             ui.printOofException(e);
