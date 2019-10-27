@@ -12,6 +12,10 @@ import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
 import duke.ui.Context;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 public class ImpressionNewCommand extends DukeDataCommand {
 
     @Override
@@ -38,6 +42,11 @@ public class ImpressionNewCommand extends DukeDataCommand {
         case "medicine":
             //TODO check for allergies
             status = processStatus(getSwitchVal("status"), Medicine.getStatusArr());
+            //TODO proper date parsing
+            if ("".equals(getSwitchVal("date"))) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+                setSwitchVal("date", LocalDate.now().format(formatter));
+            }
             Medicine medicine = new Medicine(getSwitchVal("name"), impression, priority, status,
                     getSwitchVal("dose"), getSwitchVal("date"), getSwitchVal("duration"));
             impression.addNewTreatment(medicine);
