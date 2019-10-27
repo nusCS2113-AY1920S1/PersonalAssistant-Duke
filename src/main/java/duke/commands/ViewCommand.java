@@ -8,6 +8,7 @@ import duke.components.SongList;
 
 import java.util.ArrayList;
 
+//@@author jwyf
 /**
  * A class representing the command to view a song from the song list.
  */

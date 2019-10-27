@@ -17,7 +17,7 @@ import duke.commands.Splitter;
 import java.util.concurrent.ExecutionException;
 
 /**
- * A class that splits an object to the bars and then returns an arraylist of the bars to the function
+ * A class that splits an object to the bars and then returns an arraylist of the bars to the function.
  */
 public class OverlayBarSong  extends Command<SongList>  {
     public String message;
@@ -85,7 +85,8 @@ public class OverlayBarSong  extends Command<SongList>  {
         Note note4;
         int barNo;
 
-        if (message.length() < 17 || !message.substring(0, 16).equals("overlay_bar_song")) { //exception if not fully spelt
+        if (message.length() < 17 || !message.substring(0, 16).equals("overlay_bar_song")) {
+            //exception if not fully spelt
             throw new DukeException(message);
         }
 
@@ -143,6 +144,7 @@ public class OverlayBarSong  extends Command<SongList>  {
      *
      * @return a boolean value that represents whether the program will terminate after the command
      */
+
     @Override
     public boolean isExit() {
         return false;

@@ -17,7 +17,7 @@ public class Bar extends CopyObject<Bar> implements Serializable {
     private ArrayList<Chord> chords;
     private int id;
     private ArrayList<String> barChart;
-    private static final int EIGHTH_NOTES_PER_BAR = 8;
+    static final int EIGHTH_NOTES_PER_BAR = 8;
 
     //@@author rohan-av
     /**
@@ -72,7 +72,7 @@ public class Bar extends CopyObject<Bar> implements Serializable {
      * @param notes the input String representing the list of notes that compose a bar
      * @return an ArrayList of Note objects corresponding to the above notes
      */
-    private ArrayList<Note> convertStringToNotes(String notes) throws DukeException {
+    static ArrayList<Note> convertStringToNotes(String notes) throws DukeException {
         ArrayList<Note> result = new ArrayList<>();
         String[] notesArray = notes.split(" ");
         for (String note: notesArray) {
@@ -88,7 +88,7 @@ public class Bar extends CopyObject<Bar> implements Serializable {
      * @param noteList an ArrayList of Note objects, which can be of different durations
      * @return an ArrayList of Chord objects with the specified duration of an 1/8th note
      */
-    private ArrayList<Chord> compileNotesToChords(ArrayList<Note> noteList) {
+    static ArrayList<Chord> compileNotesToChords(ArrayList<Note> noteList) {
         ArrayList<Chord> result = new ArrayList<>();
         for (Note note: noteList) {
             for (int i = 0; i < note.getRelativeUnitDuration(); i++) {
@@ -153,7 +153,7 @@ public class Bar extends CopyObject<Bar> implements Serializable {
      * @param eighthNotesPerBar the number of eighth notes that should be in the bar
      * @throws DukeException an exception indicating the incorrect adding of a Bar due to invalid format
      */
-    public void checkLength(ArrayList<Chord> chords, int eighthNotesPerBar) throws DukeException {
+    public static void checkLength(ArrayList<Chord> chords, int eighthNotesPerBar) throws DukeException {
         if (chords.size() != eighthNotesPerBar) {
             throw new DukeException("addbar", "");
         }

@@ -17,7 +17,7 @@ import duke.commands.Splitter;
 import java.util.concurrent.ExecutionException;
 
 /**
- * A class that splits an object to the bars and then returns an arraylist of the bars to the function
+ * A class that splits an object to the bars and then returns an arraylist of the bars to the function.
  */
 public class OverlayGroupGroup  extends Command<SongList>  {
     public String message;
@@ -63,7 +63,14 @@ public class OverlayGroupGroup  extends Command<SongList>  {
             i += 1;
         }
     }
-    public void combineGroup(Group groupToBeCopied, Group groupToCopyTo){
+    /**
+     * Combines two Groups.
+     *
+     * @param groupToBeCopied the group that is being copied from
+     * @param groupToCopyTo the group that is being copied to
+     */
+
+    public void combineGroup(Group groupToBeCopied, Group groupToCopyTo) {
         ArrayList<Bar> barBeCopiedFrom = groupToBeCopied.getBars();
         ArrayList<Bar> barCopiedTo = groupToCopyTo.getBars();
         Iterator<Bar> iterator1 = barBeCopiedFrom.iterator();
@@ -93,7 +100,8 @@ public class OverlayGroupGroup  extends Command<SongList>  {
         Note note4;
         int barNo;
 
-        if (message.length() < 17 || !message.substring(0, 19).equals("overlay_group_song")) { //exception if not fully spelt
+        if (message.length() < 17 || !message.substring(0, 19).equals("overlay_group_group")) {
+            //exception if not fully spelt
             throw new DukeException(message);
         }
 
@@ -154,6 +162,7 @@ public class OverlayGroupGroup  extends Command<SongList>  {
      *
      * @return a boolean value that represents whether the program will terminate after the command
      */
+
     @Override
     public boolean isExit() {
         return false;

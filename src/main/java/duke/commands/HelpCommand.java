@@ -3,11 +3,9 @@ package duke.commands;
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
-import duke.components.Song;
 import duke.components.SongList;
 
-import java.util.ArrayList;
-
+//@@author SalonetheGreat
 /**
  * A class representing the command to display help: the command list.
  */

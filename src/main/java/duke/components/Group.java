@@ -27,6 +27,7 @@ public class Group implements Serializable {
      *
      * @param object the object to be copied, which in this case is group.
      */
+
     public Group copy(Group object) throws duke.DukeException, IOException,ClassNotFoundException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream out = new ObjectOutputStream(bos);
@@ -37,7 +38,8 @@ public class Group implements Serializable {
         ObjectInputStream in = new ObjectInputStream(bis);
         return (Group) in.readObject();
     }
-    public ArrayList<Bar> getBars(){
+
+    public ArrayList<Bar> getBars() {
         return bars;
     }
 

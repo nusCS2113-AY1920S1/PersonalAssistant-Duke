@@ -1,9 +1,9 @@
 package duke;
 
-import duke.commands.Command;
 import duke.commands.CommandSyntaxMessage;
 import duke.components.Bar;
 import duke.components.Song;
+import duke.components.SongList;
 import duke.tasks.RecurringTask;
 import duke.tasks.Task;
 
@@ -144,23 +144,44 @@ public class Ui {
     }
 
     /**
-     * Returns a String formatted for display that indicates that a task has been deleted by
-     * the done command.
+     * Returns a String formatted for display that indicates that a song has been deleted by
+     * the delete command.
      *
-     * @param list the task list prior to deletion
-     * @param index the index of the item that was deleted
+     * @param songList the song list after deletion
+     * @param deletedSong the song that was deleted
      * @return the formatted String to be displayed
      */
-    public String formatDelete(ArrayList<Task> list,ArrayList<Task> newList, int index) {
-        String word = (list.size() == 2) ? "task" : "tasks";
-        String result = "Noted! I've removed this task:\n "
-                + list.get(index - 1).toString()
+    public String formatDelete(SongList songList, Song deletedSong) {
+        String word = (songList.getSize() == 1) ? "song" : "songs";
+        String result = "Noted! I've removed this song:\n "
+                + deletedSong.getName()
                 + "\n"
                 + "Now you have "
-                + (newList.size())
+                + (songList.getSize())
                 + " "
                 + word
-                + " in the list.";
+                + " in the SongList.";
+        return wrap(result);
+    }
+
+    /**
+     * Returns a String formatted for display that indicates that a bar has been deleted by
+     * the deletebar command.
+     *
+     * @param song the song after deletion
+     * @param deletedBar the bar that was deleted
+     * @return the formatted String to be displayed
+     */
+    public String formatDeleteBar(Song song, Bar deletedBar) {
+        String word = (song.getBars().size() == 1) ? "bar" : "bars";
+        String result = "Noted! I've removed bar: "
+                + (deletedBar.getId() + 1)
+                + "\n"
+                + "Now you have "
+                + (song.getBars().size())
+                + " "
+                + word
+                + " in the song.";
         return wrap(result);
     }
 
@@ -235,7 +256,7 @@ public class Ui {
      * @return the formatted String to be displayed
      */
     public String formatHelp(String helpMessage) throws DukeException {
-        return CommandSyntaxMessage.getMessage(helpMessage);
+        return wrap(CommandSyntaxMessage.getMessage(helpMessage));
     }
 
     /**
@@ -243,7 +264,8 @@ public class Ui {
      * @return the formatted command syntax
      */
     public String formatHelp() {
-        return CommandSyntaxMessage.getMessage();
+        String output = CommandSyntaxMessage.getMessage();
+        return wrap(CommandSyntaxMessage.getMessage());
     }
 
     /**
@@ -265,8 +287,6 @@ public class Ui {
      */
     public String formatAddBar(ArrayList<Song> list, Bar bar, Song song) {
         String word = (list.size() == 1) ? "bar" : "bars";
-        return bar.toString();
-        /*
         String result = "Got it. I've added this bar:\n  "
                 + bar.toString()
                 + "\nto "
@@ -276,12 +296,30 @@ public class Ui {
                 + " "
                 + word
                 + " in the song.";
-        System.out.print("adding the bar here");
         return wrap(result);
-
-         */
-
     }
+
+    /**
+     * Returns a String formatted for display that indicates that a duke.components.Bar object has been edited
+     * by the edit command.
+     *
+     * @param oldBar the previous bar that was changed
+     * @param newBar the new bar
+     * @param song the item that was modified
+     * @return the formatted String to be displayed
+     */
+    public String formatEdit(Bar oldBar, Bar newBar, Song song) {
+        String result = "Got it. I've edited this bar:\n  "
+                + oldBar.toString()
+                + "\nNow you have "
+                + newBar.toString()
+                + " "
+                + "in the song "
+                + song.getName()
+                + ".";
+        return wrap(result);
+    }
+
     /**
      * Returns a String formatted for display that indicates that
      * a duke.components.AddOverlay object has been created
@@ -291,7 +329,6 @@ public class Ui {
      * @param song the song that is being copied to
      * @return the formatted String to be displayed
      */
-
     public String formatAddOverlay(ArrayList<Song> list, int index,Song song) {
         String result = "Got it. I've added this overlay:\n  "
                 + "bar" + new Integer(index).toString() + "\nto "
@@ -369,5 +406,65 @@ public class Ui {
             result = "Nothing is done";
         }
         return result;
+    }
+
+    //@@author SalonetheGreat
+    /**
+     * Returns a message indicating that user cannot undo because it is the first version.
+     * @return the formatted string to be displayed.
+     */
+    public String formatUndo() {
+        String output = "This is the first version.\nYou cannot undo anymore.";
+        return wrap(output);
+    }
+
+    //@@author SalonetheGreat
+    /**
+     * Returns a string indicating that the undo command has been successfully executed.
+     * @param currentVersionIndex current version number, which is used to identify how many times can the user undo
+     * @return a formatted string consisting of
+     *         1. undo successfully
+     *         2. number of undo times left
+     */
+    public String formatUndo(int currentVersionIndex) {
+        String output;
+        if (currentVersionIndex == 0) {
+            output = "Undo successfully! You cannot undo anymore.";
+        } else if (currentVersionIndex == 1) {
+            output = "Undo successfully! You can undo for 1 more time.";
+        } else {
+            output = String.format("Undo successfully! You can undo for %d more times", currentVersionIndex).toString();
+        }
+        return wrap(output);
+    }
+
+    //@@author SalonetheGreat
+    /**
+     * Returns a message indicating that user cannot redo because it is the latest version.
+     * @return the formatted string to be displayed.
+     */
+    public String formatRedo() {
+        String output = "This is the latest version.\nYou cannot redo anymore.\n\n";
+        return wrap(output);
+    }
+
+    //@@author SalonetheGreat
+    /**
+     * Returns a string indicating that the redo command has been successfully executed.
+     * @param numOfRedoLeft number of redo times left, which is used to identify how many times can the user redo
+     * @return a formatted string consisting of
+     *         1. redo successfully
+     *         2. number of redo times left
+     */
+    public String formatRedo(int numOfRedoLeft) {
+        String output;
+        if (numOfRedoLeft == 0) {
+            output = "Redo successfully! You cannot redo anymore.";
+        } else if (numOfRedoLeft == 1) {
+            output = "Redo successfully! You can redo for 1 more time.";
+        } else {
+            output = String.format("Redo successfully! You can redo for %d more times.", numOfRedoLeft).toString();
+        }
+        return wrap(output);
     }
 }

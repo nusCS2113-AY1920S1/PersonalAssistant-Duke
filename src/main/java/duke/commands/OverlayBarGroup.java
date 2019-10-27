@@ -17,7 +17,7 @@ import duke.commands.Splitter;
 import java.util.concurrent.ExecutionException;
 
 /**
- * A class that splits an object to the bars and then returns an arraylist of the bars to the function
+ * A class that splits an object to the bars and then returns an arraylist of the bars to the function.
  */
 public class OverlayBarGroup  extends Command<SongList>  {
     public String message;
@@ -84,12 +84,14 @@ public class OverlayBarGroup  extends Command<SongList>  {
         Note note4;
         int barNo;
 
-        if (message.length() < 17 || !message.substring(0, 17).equals("overlay_bar_group")) { //exception if not fully spelt
+        if (message.length() < 17 || !message.substring(0, 17).equals("overlay_bar_group")) {
+            //exception if not fully spelt
             throw new DukeException(message);
         }
 
         try {
             //the command consists of overlay 10 repeat
+            //overlay_bar_group 1 2 will coppy the bar 1 into group 2
             String[] sections = message.substring(18).split(" ");
             int barIndexToAdd = Integer.parseInt(sections[0]) - 1;
 
@@ -157,6 +159,7 @@ public class OverlayBarGroup  extends Command<SongList>  {
      *
      * @return a boolean value that represents whether the program will terminate after the command
      */
+
     @Override
     public boolean isExit() {
         return false;

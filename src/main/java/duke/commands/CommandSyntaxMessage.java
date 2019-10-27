@@ -5,13 +5,21 @@ import duke.DukeException;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class CommandSyntaxMessage {
+//@@author SalonetheGreat
+
+/**
+ * CommandSyntaxMessage is a class that cannot be instantiated.
+ * To add a new command format, just create a <code>String</code> which indicates the command format,
+ * and add the command name and format into nameToSyntax HashMap.
+ */
+public abstract class CommandSyntaxMessage {
     private static String listSyntax = "list\n";
     private static String newSyntax = "new s/SONG_NAME [key:s/KEY](C) [time:n/TIME_SIG](4/4) [tempo:n/TEMPO](120)\n";
     private static String openSyntax = "open s/SONG_NAME\n";
     private static String viewSyntax = "view [n/BAR_NO](last bar - 1)\n";
     private static String addSyntax = "add s/NOTE\n";
     private static String addbarSyntax = "addbar s/NOTES [bar:n/BAR_NO_TO_ADD_AFTER](last bar)\n";
+    private static String asciiSyntax = "ascii song song_name\n";
     // TODO: add overlay syntax
     private static String overlaySyntax = "To be implemented in version 2.0\n";
     private static String copySyntax = "copy start_num end_num\nFormat: copy start_num end_num insert_num\n";
@@ -24,6 +32,9 @@ public final class CommandSyntaxMessage {
     private static String clearSyntax = "To be implemented in version 2.0\n";
     private static String deleteSyntax = "To be implemented in version 2.0\n";
     private static String exitSyntax = "To be implemented in version 2.0\n";
+    private static String startHelpMessage = "Here are the commands in Ducats.\n";
+    private static String endInstructionMessage =
+            "Alternatively, you can use help [command] to see format for specific command.\n";
 
     private static Map<String, String> nameToSyntax = new HashMap<String, String>() {
         {
@@ -36,6 +47,7 @@ public final class CommandSyntaxMessage {
             put("overlay", overlaySyntax);
             put("copy", copySyntax);
             put("group", groupSyntax);
+            put("ascii", asciiSyntax);
             put("list_group", list_groupSyntax);
             put("play", playSyntax);
             put("close", closeSyntax);
@@ -51,9 +63,12 @@ public final class CommandSyntaxMessage {
      */
     public static String getMessage() {
         StringBuilder output = new StringBuilder();
+        output.append(startHelpMessage);
+        int i = 0;
         for (Map.Entry<String, String> entry : nameToSyntax.entrySet()) {
-            output.append(entry.getKey() + "\nFormat: " + entry.getValue());
+            output.append((++i) + "." + entry.getKey() + "\nFormat: " + entry.getValue() + "\n");
         }
+        output.append(endInstructionMessage);
         return output.toString();
     }
 
@@ -66,7 +81,7 @@ public final class CommandSyntaxMessage {
     public static String getMessage(String helpMessage) throws DukeException {
         if (nameToSyntax.containsKey(helpMessage)) {
             StringBuilder output = new StringBuilder();
-            output.append(helpMessage + "Format: " + nameToSyntax.get(helpMessage));
+            output.append(helpMessage + "\nFormat: " + nameToSyntax.get(helpMessage));
             return output.toString();
         } else {
             throw new DukeException("", "Other");

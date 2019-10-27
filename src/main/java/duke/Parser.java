@@ -1,28 +1,36 @@
 package duke;
 
-import duke.commands.Command;
-import duke.commands.ViewCommand;
-import duke.commands.GroupCommand;
-import duke.commands.NewCommand;
-import duke.commands.HelpCommand;
-import duke.commands.CopyCommand;
-import duke.commands.ByeCommand;
-import duke.commands.ListCommand;
-import duke.commands.AddOverlayCommand;
-import duke.commands.DeleteCommand;
-import duke.commands.FindCommand;
-import duke.commands.DoneCommand;
+
 import duke.commands.AddBarCommand;
 import duke.commands.AddCommand;
+import duke.commands.AddOverlayCommand;
+import duke.commands.ByeCommand;
+import duke.commands.Command;
+import duke.commands.CopyCommand;
+import duke.commands.DeleteBarCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.DoneCommand;
 import duke.commands.OverlayBarGroup;
 import duke.commands.OverlayBarSong;
+import duke.commands.EditCommand;
+import duke.commands.FindCommand;
+import duke.commands.GroupCommand;
+import duke.commands.HelpCommand;
+import duke.commands.ListCommand;
+import duke.commands.NewCommand;
+import duke.commands.RedoCommand;
+import duke.commands.UndoCommand;
+import duke.commands.ViewCommand;
+import duke.commands.AsciiCommand;
+import duke.commands.OverlayGroupGroup;
+
 
 
 /**
  * A class used to interpret the incoming messages and translate them into the appropriate duke.Commands.
  */
 
-class Parser {
+public class Parser {
 
     /**
      * Returns the duke.Commands.duke.Commands.Command object interpreted from the input message,
@@ -32,7 +40,7 @@ class Parser {
      * @return the duke.Commands.duke.Commands.Command object interpreted from the input message
      * @throws DukeException in the case of parsing errors
      */
-    static Command parse(String message) throws DukeException {
+    public static Command parse(String message) throws DukeException {
         switch (message.split(" ")[0]) {
         case "bye":
             if (message.length() == 3) {
@@ -47,6 +55,16 @@ class Parser {
         case "delete":
             if (message.length() >= 8) {
                 return new DeleteCommand(message);
+            }
+            break;
+        case "deletebar":
+            if (message.length() >= 11) {
+                return new DeleteBarCommand(message);
+            }
+            break;
+        case "edit":
+            if (message.length() >= 6) {
+                return new EditCommand(message);
             }
             break;
         case "find":
@@ -92,6 +110,11 @@ class Parser {
                 return new OverlayBarGroup(message);
             }
             break;
+        case "overlay_group_group":
+            if (message.length() >= 8) {
+                return new OverlayGroupGroup(message);
+            }
+            break;
         case "overlay_bar_song":
             if (message.length() >= 8) {
                 return new OverlayBarSong(message);
@@ -102,7 +125,21 @@ class Parser {
                 return new CopyCommand(message);
             }
             break;
-
+        case "ascii":
+            if (message.length() >= 7) {
+                return new AsciiCommand(message);
+            }
+            break;
+        case "redo":
+            if (message.length() == 4) {
+                return new RedoCommand();
+            }
+            break;
+        case "undo":
+            if (message.length() == 4) {
+                return new UndoCommand();
+            }
+            break;
         default:
             return new AddCommand(message);
         }

@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
 /**
- * A class that splits an object to the bars and then returns an arraylist of the bars to the function
+ * A class that splits an object to the bars and then returns an arraylist of the bars to the function.
  */
 public class Splitter  {
     public String message;
@@ -24,6 +24,7 @@ public class Splitter  {
      * Constructor for the command to add a new bar to the current song.
      * @param message the input message that resulted in the creation of the duke.Commands.Command
      */
+
     public Splitter(String message) {
         this.message = message;
     }
@@ -43,19 +44,23 @@ public class Splitter  {
         chordCopiedTo.getNotes().addAll(chordBeCopiedFrom.getNotes());
     }
     /**
-     * Modifies the song in the song list and returns the messages intended to be displayed.
+     * Splits a song object into an array list of bars.
      *
-     * @param songList the duke.components.SongList object that contains the song list
-     * @param ui the Ui object responsible for the reading of user input and the display of
-     *           the responses
-     * @param storage the Storage object used to read and manipulate the .txt file
-     * @return the string to be displayed in duke.Duke
-     * @throws DukeException if an exception occurs in the parsing of the message or in IO
+     * @param object the duke.components.Song is a Song object that needs to be split.
+     * @return the the arraylist of bars
      */
-    public ArrayList<Bar> splitObject(Song object){
+
+    public ArrayList<Bar> splitObject(Song object) {
         return object.getBars();
     }
-    public ArrayList<Bar> splitObject(Group object){
+    /**
+     * Splits a Group object into an array list of bars.
+     *
+     * @param object the duke.components.Grouo is a Group object that needs to be split.
+     * @return the the arraylist of bars
+     */
+
+    public ArrayList<Bar> splitObject(Group object) {
         return object.getBars();
     }
 
