@@ -10,7 +10,7 @@ import command.ListCommand;
 import command.ExitCommand;
 import command.AddCommand;
 import command.SearchCommand;
-import command.RecentlyAddedCommand;
+import command.HistoryCommand;
 import command.SearchFrequencyCommand;
 import command.EditCommand;
 import command.SearchBeginCommand;
@@ -224,7 +224,7 @@ public class Parser {
         } catch (NumberFormatException nfe) {
             throw new WrongHistoryFormatException();
         }
-        return new RecentlyAddedCommand(numberOfWordsToDisplay);
+        return new HistoryCommand(numberOfWordsToDisplay);
     }
 
     /**
