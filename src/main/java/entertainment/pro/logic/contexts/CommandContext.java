@@ -1,4 +1,4 @@
-package entertainment.pro.logic.Contexts;
+package entertainment.pro.logic.contexts;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandStructure;
