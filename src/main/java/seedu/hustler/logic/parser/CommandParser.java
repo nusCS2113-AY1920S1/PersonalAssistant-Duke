@@ -1,16 +1,16 @@
 package seedu.hustler.logic.parser;
 
 import seedu.hustler.logic.command.Command;
-import seedu.hustler.command.achievementCommand.AchievementCommand;
-import seedu.hustler.command.avatar.CheckAvatarCommand;
-import seedu.hustler.command.avatar.EquipCommand;
-import seedu.hustler.command.avatar.SetNameCommand;
+import seedu.hustler.logic.command.achievementCommand.AchievementCommand;
+import seedu.hustler.logic.command.avatar.CheckAvatarCommand;
+import seedu.hustler.logic.command.avatar.EquipCommand;
+import seedu.hustler.logic.command.avatar.SetNameCommand;
 import seedu.hustler.logic.command.schedulecommands.AddEntry;
-import seedu.hustler.command.schedulecommands.RemoveEntry;
-import seedu.hustler.command.schedulecommands.UpdateEntry;
-import seedu.hustler.command.shop.BuyCommand;
-import seedu.hustler.command.shop.InventoryCommand;
-import seedu.hustler.command.shop.ShopListCommand;
+import seedu.hustler.logic.command.schedulecommands.RemoveEntry;
+import seedu.hustler.logic.command.schedulecommands.UpdateEntry;
+import seedu.hustler.logic.command.shop.BuyCommand;
+import seedu.hustler.logic.command.shop.InventoryCommand;
+import seedu.hustler.logic.command.shop.ShopListCommand;
 import seedu.hustler.logic.command.task.*;
 import seedu.hustler.logic.command.timer.*;
 import seedu.hustler.data.CommandLog;

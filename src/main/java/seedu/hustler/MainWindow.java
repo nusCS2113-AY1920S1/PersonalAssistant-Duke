@@ -19,7 +19,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import seedu.hustler.game.achievement.AchievementList;
-import seedu.hustler.parser.DateTimeParser;
+import seedu.hustler.logic.parser.DateTimeParser;
 import seedu.hustler.task.Reminders;
 
 import java.io.FileInputStream;

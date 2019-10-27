@@ -4,7 +4,7 @@ import seedu.hustler.Hustler;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.data.CommandLog;
-import seedu.hustler.parser.ParserForCommand;
+import seedu.hustler.logic.parser.ParserForCommand;
 import seedu.hustler.ui.Ui;
 import seedu.hustler.schedule.Scheduler;
 import seedu.hustler.logic.parser.anomaly.DoneAnomaly;
