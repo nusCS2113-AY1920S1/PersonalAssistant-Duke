@@ -1,7 +1,7 @@
 package seedu.hustler.logic.command.timer;
 
 import seedu.hustler.Hustler;
-import seedu.hustler.command.Command;
+import seedu.hustler.logic.command.Command;
 
 /**
  * Command that shows the time remaining of timer.

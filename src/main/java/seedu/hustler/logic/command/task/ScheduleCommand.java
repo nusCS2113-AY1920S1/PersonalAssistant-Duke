@@ -1,6 +1,6 @@
 package seedu.hustler.logic.command.task;
 
-import seedu.hustler.command.Command;
+import seedu.hustler.logic.command.Command;
 import seedu.hustler.ui.Ui;
 import seedu.hustler.data.Schedule;
 import java.util.Date;

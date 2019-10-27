@@ -1,7 +1,7 @@
 package seedu.hustler.logic.command.task;
 
 import seedu.hustler.Hustler;
-import seedu.hustler.command.Command;
+import seedu.hustler.logic.command.Command;
 
 /**
  * Command that lists tasks in TaskList instance.
