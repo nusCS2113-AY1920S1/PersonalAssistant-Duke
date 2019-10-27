@@ -4,6 +4,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:figure-caption: Figure
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -17,7 +18,11 @@ endif::[]
 By: `Team W17-4`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
-image::Ui.png[width="390"]
+
+[[OofWelcome]]
+.OOF welcome screen
+image::OofWelcome.png[OofWelcome]
+
 *OOF* is catered towards NUS computing students who want to use a desktop application to manage their tasks to be done.
 
 *OOF* is optimized for users who prefer to work with the Command Line Interface (CLI) while still reaping the benefits of a Graphical User Interface (GUI).
@@ -32,7 +37,9 @@ Jump to <<Quick Start>> to get started! Enjoy!
 .  Copy the files to the folder you want to use as the home folder for your Outstanding Organization Friend.
 .  Run the command “java -jar oof.jar”. The application should load within a few seconds.
 +
-image::Mockup.png[width="390"]
+[[OofWelcome]]
+.OOF welcome screen
+image::OofWelcome.png[OofWelcome]
 +
 .  Type a task description in the terminal and press kbd:[Enter] to run it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will list the commands present.
@@ -134,7 +141,7 @@ Example:
 Adds a do-after task called `buy groceries` that will be displayed once the 1st task in the list has been completed.
 
 === Adding a task: `recurring`
-Adds a task that will be repeated every week.
+Adds a task that will be repeated based on user preference.
 
 Format: `recurring INDEX NUMBER_OF_OCCURRENCES`
 
@@ -144,7 +151,7 @@ Format: `recurring INDEX NUMBER_OF_OCCURRENCES`
 
 [NOTE]
 
-The task will require the user to enter the frequency of recurrence in this manner afterwards: +
+The task will require you to enter the frequency of recurrence in this manner afterwards: +
 1. DAILY +
 2. WEEKLY +
 3. MONTHLY +
@@ -152,8 +159,23 @@ The task will require the user to enter the frequency of recurrence in this mann
 
 Example:
 
-* `recurring 4 3` +
-Adds a recurring task called at index `4` that will be repeated for `3` times. User can then choose an option by entering a number `1-4` to choose the frequency of recurrence.
++1.+ User enters `recurring 4 3` 
+
+[[Recurring]]
+.Example to show recurring feature's usage
+image::Recurring.png[Recurring]
+
++2.+ User presses btn:[ENTER] and he/she can then choose an option by entering a number `1-4` to choose the frequency of recurrence.
+
+[[RecurringPrompt]]
+.Options for recurring frequency
+image::RecurringPrompt.png[RecurringPrompt]
+
++3.+ User chooses option `2`.
+
+[[RecurringOutput]]
+.Output after selecting option 2
+image::RecurringOutput.png[RecurringOutput]
 
 === Adding a task: `tentative`
 Adds a task that can be confirmed at a later time.
@@ -290,14 +312,33 @@ Example:
 * `free 10-10-2019` +
 Searches for free time on the given date of `10-10-2019`.
 
-=== View all tasks in week view: `viewWeek`
-Transforms all current tasks recorded into a week view to plan for the week. 
+=== View tasks in week view: `viewWeek`
+Shows you the tasks for any particular week in a table format.
 
 Format: `viewweek DD MM YYYY`
 
 [NOTE]
 Note that the parameters `DD MM YYYY` are optional and the command will automatically generate the current time if no date is entered or when the date entered is invalid.
 
+To see tasks for the week:
+
++1.+ Type `viewweek` as a command and press btn:[ENTER]
+
+[[ViewweekWelcome]]
+.Typing viewweek into OOF
+image::ViewweekWelcome.png[ViewweekWelcome]
+
++2.+ `OOF` displays the tasks for the week for you.
+
+[[ViewweekDefault]]
+.Typing viewweek without date
+image::ViewweekDefault.png[ViewweekDefault]
+
++3.+ If you wish to display tasks for a particular week, you can input `DD MM YYYY`.
+
+[[ViewweekParam]]
+.Typing viewweek with date
+image::ViewweekParam.png[ViewweekParam]
 
 ===  Viewing all tasks in calendar view: `calendar`
 Transforms all current tasks recorded into a calendar view for easy time management. 
