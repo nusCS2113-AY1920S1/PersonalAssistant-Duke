@@ -19,8 +19,8 @@ public class RemoveEntryAnomaly extends DetectAnomaly {
             RecommendedSchedule.recommended.get(index);
         } catch (NumberFormatException e) {
             throw new CommandLineException("Please issue an index after the command: /command <index>");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new CommandLineException("Please enter the current index.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new CommandLineException("Please enter the correct index.");
         }
     } 
 }

@@ -27,7 +27,7 @@ public class UpdateEntryAnomaly extends DetectAnomaly {
             Integer.parseInt(times[2]);
         } catch (NumberFormatException e) {
             throw new CommandLineException("Please follow the format: /update <index> <H:M:S>");
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new CommandLineException("Please enter the correct index.");
         }
     }
