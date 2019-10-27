@@ -4,6 +4,9 @@ import duke.data.Patient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+/**
+ * A UI card that displays the basic information of a {@code Patient}.
+ */
 public class PatientCard extends UiCard {
     private static final String FXML = "PatientCard.fxml";
 
@@ -19,7 +22,9 @@ public class PatientCard extends UiCard {
     private final Patient patient;
 
     /**
-     * An UI element that displays the basic information of a {@code patient}.
+     * Constructs a PatientCard object with the specified {@code Patient}'s details.
+     *
+     * @param patient Patient object.
      */
     public PatientCard(Patient patient) {
         super(FXML);
@@ -29,7 +34,7 @@ public class PatientCard extends UiCard {
     }
 
     /**
-     * Fills up the UI card with the {@code patient}'s details.
+     * Fills up the UI card with the {@code Patient}'s details.
      */
     private void fillPatientCard() {
         nameLabel.setText(patient.getName());

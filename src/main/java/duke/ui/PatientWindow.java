@@ -3,6 +3,7 @@ package duke.ui;
 import com.jfoenix.controls.JFXListView;
 import duke.data.Impression;
 import duke.data.Patient;
+import duke.ui.card.ImpressionCard;
 import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
