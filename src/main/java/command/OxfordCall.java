@@ -2,9 +2,9 @@ package command;
 
 import exception.NoWordFoundException;
 
-import java.io.IOException;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
@@ -78,7 +78,6 @@ public class OxfordCall {
      * @author Ng Jian Wei
      */
     public static String extractFirstDef(String metaData){
-        String result ="";
         String[] temp = metaData.split("definitions", 2);
         String[] temp2 = temp[1].split("]", 2);
         temp2[0] = temp2[0].replaceAll(":","");

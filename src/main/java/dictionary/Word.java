@@ -1,6 +1,5 @@
 package dictionary;
 
-
 import java.util.HashSet;
 
 /**
@@ -51,7 +50,7 @@ public class Word {
     public Word(String word, String meaning, HashSet<String> tags) {
         this.word = word;
         this.meaning = meaning;
-        //this.synonyms = synonyms;
+        this.tags = tags;
         this.numberOfSearches = 0;
     }
 

@@ -136,7 +136,7 @@ public class Parser {
         if (meaningAndTag.length > 1) {
             HashSet<String> tags = new HashSet<>();
             for (int j = 1; j < meaningAndTag.length; ++j) {
-                tags.add(meaningAndTag[j]);
+                tags.add(meaningAndTag[j].trim());
             }
             word = new Word(wordDescription, meaning, tags);
         } else {
@@ -307,7 +307,6 @@ public class Parser {
                 throw new WrongAddSynonymException();
             }
             String mainWord = wordDetail[0].substring(2).trim(); //beverage
-            System.out.println("Main word is "+mainWord);
             if (mainWord.length() == 0) {
                 throw new WrongAddSynonymException();
             }

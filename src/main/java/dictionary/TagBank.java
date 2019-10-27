@@ -2,14 +2,14 @@ package dictionary;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.TreeMap;
 
 public class TagBank {
-    HashMap<String, HashSet<String>> tagBank;
+    private TreeMap<String, HashSet<String>> tagBank;
 
     public TagBank() {
-        tagBank = new HashMap<>();
+        tagBank = new TreeMap<>();
     }
 
     /**
@@ -17,7 +17,7 @@ public class TagBank {
      * @param wordDescription word that need to be added
      * @param tags list of tags that will add the word
      */
-    public void addTag(String wordDescription, ArrayList<String> tags) {
+    public void addWordToSomeTags(String wordDescription, ArrayList<String> tags) {
         for (String tag : tags) {
             if (tagBank.containsKey(tag)) {
                 tagBank.get(tag).add(wordDescription);
@@ -52,13 +52,34 @@ public class TagBank {
      * Adds a word to all tags in TagBank of that the word has.
      * @param word word to add tag
      */
-    public void addWordAllTags(Word word) {
+    public void addWordToAllTags(Word word) {
         for (String tag : word.getTags()) {
             if (tagBank.containsKey(tag)) {
                 tagBank.get(tag).add(word.getWord());
             } else {
                 tagBank.put(tag, new HashSet<>(Collections.singletonList(word.getWord())));
             }
+        }
+    }
+    public String[] getAllTagsAsList() {
+        return tagBank.keySet().toArray(new String[tagBank.size()]);
+    }
+
+    /**
+     * Gets all words of a specific tag as an array.
+     * @param tag a string represents the tag
+     * @return an array of words of that tag
+     */
+    public String[] getAllWordsOfTag(String tag) {
+        HashSet<String> allWords = tagBank.get(tag);
+        return allWords.toArray(new String[allWords.size()]);
+    }
+
+    public void addWordToOneTag(String word, String tag) {
+        if (tagBank.containsKey(tag)) {
+            tagBank.get(tag).add(word);
+        } else {
+            tagBank.put(tag, new HashSet<>(Collections.singletonList(word)));
         }
     }
 }

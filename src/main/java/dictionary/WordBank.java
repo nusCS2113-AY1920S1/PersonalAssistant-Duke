@@ -1,18 +1,12 @@
 package dictionary;
-
-import java.util.Map;
-import java.util.ArrayList;
-import java.util.SortedMap;
-
-import command.AddCommand;
-import exception.NoWordFoundException;
 import command.OxfordCall;
+import exception.NoWordFoundException;
 import exception.WordAlreadyExistException;
 import storage.Storage;
 
-import java.util.HashSet;
-import java.util.TreeMap;
-import java.util.Set;
+import java.util.*;
+
+
 
 
 public class WordBank {
@@ -24,12 +18,12 @@ public class WordBank {
     private TreeMap<Integer, TreeMap<String, Word>> wordCount = new TreeMap<>();
 
     public WordBank(Storage storage) {
-        wordBank = storage.loadFile();
-        makeWordCount();
+            wordBank = storage.loadFile();
+            makeWordCount();
     }
 
-    public WordBank(TreeMap<String, Word> wordBank) {
-        this.wordBank = wordBank;
+    public WordBank() {
+        this.wordBank = new TreeMap<>();
     }
 
     public TreeMap<String, Word> getWordBank() {
@@ -108,10 +102,11 @@ public class WordBank {
     public String searchForMeaning(String word) throws NoWordFoundException {
         word = word.toLowerCase();
         String s = "";
+        String meaning = "";
         if (!(wordBank.containsKey(word))) {
             s = "Unable to locate \"" + word + "\" in local dictionary. Looking up Oxford dictionary\n";
-            String result = OxfordCall.onlineSearch(word);
-            Word temp = new Word(word, result);
+            meaning = OxfordCall.onlineSearch(word);
+            Word temp = new Word(word, meaning);
             wordBank.put(word, temp);
         }
         return s + wordBank.get(word).getMeaning();
@@ -176,7 +171,7 @@ public class WordBank {
      * @return tags lists of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank
      */
-    public HashSet<String> addTag(String wordToBeAddedTag, ArrayList<String> tags) throws NoWordFoundException {
+    public HashSet<String> addWordToSomeTags(String wordToBeAddedTag, ArrayList<String> tags) throws NoWordFoundException {
         if (!wordBank.containsKey(wordToBeAddedTag)) {
             throw new NoWordFoundException(wordToBeAddedTag);
         }
@@ -190,14 +185,14 @@ public class WordBank {
      * Adds synonyms to a specific word in word bank
      * synonymsWords will be added to the wordKey(MAIN WORD)
      */
-    public HashSet<String> addSyn(String wordKey, ArrayList<String> synonymsWords) throws NoWordFoundException {
+    public HashSet<String> addSynonym(String wordKey, ArrayList<String> synonymsWords) throws NoWordFoundException {
         if(!wordBank.containsKey(wordKey)){
             throw new NoWordFoundException(wordKey);
         }
         Word word = wordBank.get(wordKey);
         /**For each synonym in the ArrayList, we add it into hashset synonym of wordKey*/
         for(String synoWord : synonymsWords){
-            word.addSyn(synoWord);
+            word.addSynonym(synoWord);
         }
         return word.getSynonyms(); //return of HashSet<String> is from Word class
     }
@@ -235,5 +230,13 @@ public class WordBank {
             }
         }
         return closedWords;
+    }
+
+    public void addTagToWord(String word, String tag) {
+        wordBank.get(word).addTag(tag);
+    }
+
+    public Word[] getAllWords() {
+        return wordBank.values().toArray(new Word[wordBank.size()]);
     }
 }
