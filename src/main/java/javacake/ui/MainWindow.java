@@ -422,7 +422,7 @@ public class MainWindow extends AnchorPane {
                 avatarDialog.getChildren().add(
                         DialogBox.getTaskDialog(listToSay.get(rand.nextInt(listToSay.size()))));
                 counterTicks.set(0);
-            } else if (isExit && !isSet.get()){
+            } else if (isExit && !isSet.get()) {
                 avatarDialog.getChildren().clear();
                 avatarDialog.getChildren().add(
                         DialogBox.getTaskDialog("NoooOOOOO!!\nDon't leeeeave meee\n:( :( :("));
@@ -436,9 +436,9 @@ public class MainWindow extends AnchorPane {
 
     private void setList(ArrayList<String> list) {
         list.add("Hi, Welcome to JavaCake!\nWant sum cake?\nAll you have to do is get 100%!");
-//        list.add("WELL DONE!!!\nYou rekt that cake!\n");
-//        list.add("soooOOOOO CLOOSEEE!\nYou can do better next time!");
-//        list.add("Baaakaaa!\nYou obviously can do better than that...");
+        //        list.add("WELL DONE!!!\nYou rekt that cake!\n");
+        //        list.add("soooOOOOO CLOOSEEE!\nYou can do better next time!");
+        //        list.add("Baaakaaa!\nYou obviously can do better than that...");
         list.add("I LOVE BIG CAKES AND I CANNOT LIE!");
         list.add("the cake...\n     is a LIE!");
         list.add("Your momma so fat...\nshe segfaulted on JavaCake");
