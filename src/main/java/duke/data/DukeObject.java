@@ -29,14 +29,6 @@ public abstract class DukeObject {
     }
 
     /*
-     * The toDisplayString function returns a String formatted
-     * for pretty printing to the GUI / Display.
-     *
-     * @return the String in pretty print format for display
-     */
-    public abstract String toDisplayString();
-
-    /*
      * The toReportString function returns a String formatted
      * to be used in a Report about the relevant DukeObject.
      *

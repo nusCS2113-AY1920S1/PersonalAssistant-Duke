@@ -29,12 +29,6 @@ public class Observation extends Evidence {
     }
 
     @Override
-    public String toDisplayString() {
-        // todo
-        return null;
-    }
-
-    @Override
     public String toReportString() {
         // todo
         return null;

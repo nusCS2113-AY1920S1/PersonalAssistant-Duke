@@ -44,8 +44,8 @@ public class ImpressionCard extends UiCard {
      */
     private void fillImpressionCard() {
         nameLabel.setText(impression.getName());
-        criticalLabel.setText(impression.getTreatments().size() + " critical(s)");
-        followupLabel.setText("0 follow-up(s)");    // TODO: followupLabel
+        criticalLabel.setText(impression.getCriticalCount() + " critical(s)");
+        followupLabel.setText(impression.getFollowUpCount() + " follow-up(s)");    // TODO: followupLabel
         descriptionLabel.setText(impression.getDescription());
 
         if (isPrimary) {

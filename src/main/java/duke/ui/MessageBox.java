@@ -35,7 +35,6 @@ class MessageBox extends UiElement<Region> {
      */
     private MessageBox(String text, Image image) {
         super(FXML, null);
-
         message.setText(text);
         message.wrappingWidthProperty().bind(messageHolder.prefWidthProperty());
         avatar.setFill(new ImagePattern(image));
@@ -46,7 +45,6 @@ class MessageBox extends UiElement<Region> {
      */
     static MessageBox getUserMessage(String text) {
         MessageBox messageBox = new MessageBox(text, userAvatar);
-        // TODO: Fix UI so that user's input is not "flipped".
         messageBox.flip();
         return messageBox;
     }

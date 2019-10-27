@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Plan extends Treatment {
 
-    private static final List<String> statusArr = Arrays.asList("Not ordered", "In progress", "Completed");
+    private static final List<String> statusArr = Arrays.asList("Not done/ordered", "In progress", "Completed");
     private String summary;
 
     /**
@@ -35,16 +35,9 @@ public class Plan extends Treatment {
     }
 
     @Override
-    public String toDisplayString() {
-        return null;
-    }
-
-    @Override
     public String toReportString() {
         return null;
     }
-
-
 
     public String getStatusStr() {
         return statusArr.get(getStatusIdx());
