@@ -18,7 +18,7 @@ public class AutoUpdateInstalmentCommand extends MoneyCommand {
     private LocalDate currDate = LocalDate.now();
 
     /**
-     * Default Constructor for AutoUpdateInstalmentCommand
+     * Default Constructor for AutoUpdateInstalmentCommand.
      */
     //@@author ChenChao19
     public AutoUpdateInstalmentCommand() {
