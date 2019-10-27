@@ -15,7 +15,6 @@ public class Seat {
         this.seatTier = seatTier;
     }
 
-
     public void setBooked(boolean booked) {
         isBooked = booked;
     }
@@ -64,6 +63,5 @@ public class Seat {
             ticketPrice = basePrice * 1.5;
         }
         return ticketPrice;
-
     }
 }
