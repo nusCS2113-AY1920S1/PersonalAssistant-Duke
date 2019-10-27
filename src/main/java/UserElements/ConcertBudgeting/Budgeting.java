@@ -3,6 +3,7 @@ package UserElements.ConcertBudgeting;
 import Events.EventTypes.Event;
 import Events.EventTypes.EventSubclasses.Concert;
 import Events.Formatting.EventDate;
+
 import java.util.*;
 
 public class Budgeting {
@@ -37,6 +38,26 @@ public class Budgeting {
 //                System.out.println(testConcert.getCost());
 //            }
 //        }
+    }
+
+    /**
+     * update the cost for the month when a new Concert object is added to EventList.
+     *
+     * @param concert Concert that was added.
+     */
+    public void updateMonthlyCost(Concert concert) throws CostExceedsBudgetException{
+        String date = concert.getStartDate().getUserInputDateString();
+        String monthAndYear = date.substring(3, 10);
+
+        MonthlyBudget currMonthlyBudget = monthlyCosts.get(monthAndYear);
+        if (currMonthlyBudget == null) {
+            ArrayList<Event> newList = new ArrayList<>();
+            newList.add(concert);
+            currMonthlyBudget = new MonthlyBudget(newList);
+            monthlyCosts.put(monthAndYear, currMonthlyBudget);
+        } else {
+            currMonthlyBudget.addConcert(concert, this.budget);
+        }
     }
 
     public void setBudget(int budget) {
