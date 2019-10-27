@@ -43,6 +43,8 @@ public class AddState implements ParserState {
                         return new ModuleNameState(parser);
                     } else if (type.charAt(0) == 'e') {
                         return new EventDescriptionState(parser);
+                    } else if (type.charAt(0) == 'g') {
+                        return new GradeDescriptionState(parser);
                     } else {
                         return null;
                     }

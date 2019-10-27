@@ -2,7 +2,6 @@ package duchess.parser.states;
 
 import duchess.exceptions.DuchessException;
 import duchess.logic.commands.AddDeadlineCommand;
-import duchess.logic.commands.AddGradeCommand;
 import duchess.logic.commands.AddTodoCommand;
 import duchess.logic.commands.ByeCommand;
 import duchess.logic.commands.Command;
@@ -124,20 +123,6 @@ public class DefaultState implements ParserState {
                 throw new DuchessException("Usage: export <date>");
             }
             return new ExportCommand(Util.parseToWeekDates(Util.parseDate(words.get(1))));
-        } else if ("grade".equals(keyword)) {
-            try {
-                List<String> score = Arrays.asList(parameters.get("general").split("\\\\"));
-                int marks = Integer.parseInt(score.get(0));
-                int maxMarks = Integer.parseInt(score.get(1));
-                List<String> gradeTokens = Arrays.asList(parameters.get("for").split(" "));
-                String moduleCode = gradeTokens.get(0);
-                String task = gradeTokens.get(1);
-                int weightage = Integer.parseInt(parameters.getOrDefault("weightage", "0"));
-                return new AddGradeCommand(marks, maxMarks, weightage, task, moduleCode);
-            } catch (NumberFormatException | NullPointerException | IndexOutOfBoundsException e) {
-                throw new DuchessException("Usage: grade <marks> /weightage <weightage> /for <module> <assessment>\n"
-                        + "\te.g. grade 15\\30 /weightage 25 /for CS2113 midterm");
-            }
         } else if ("lesson".equals(keyword)) {
             return LessonCommandParser.parse(parameters);
         } else if ("bye".equals(keyword)) {

@@ -31,7 +31,7 @@ public class Parser {
      * Prompts.
      */
     public static final String ADD_TYPE_PROMPT =
-            "What do you want to add? (module | deadline | todo | event)";
+            "What do you want to add? (module | deadline | todo | event | grade)";
     public static final String MODULE_NAME_PROMPT =
             "What's the name of the module? (e.g. Discrete Mathematics)";
     public static final String MODULE_CODE_PROMPT =
@@ -44,6 +44,14 @@ public class Parser {
             "When does %s end? (dd/mm/yyyy hhmm)";
     public static final String EVENT_MODULE_PROMPT =
             "What module is %s for? (enter 'nil' to skip)";
+    public static final String GRADE_MODULE_PROMPT =
+            "What module is %s for? (e.g CS1231)";
+    public static final String GRADE_MARKS_PROMPT =
+            "What's your score for %s? (e.g. 20/30)";
+    public static final String GRADE_DESCRIPTION_PROMPT =
+            "What's the name of the assessment? (e.g midterm)";
+    public static final String GRADE_WEIGHTAGE_PROMPT =
+            "What's the weightage of %s?";
 
     private ParserState parserState;
 
