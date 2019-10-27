@@ -6,8 +6,12 @@ skinparam classBackgroundColor LOGIC_COLOR
 
 Class HiddenOutside #FFFFFF
 
-package Model{
+package Model {
 Class HiddenModel #FFFFFF
+}
+
+package Ui {
+Class HiddenUi #FFFFFF
 }
 
 package Logic {
@@ -36,5 +40,6 @@ XYZCommand -up-|> Command
 note right of XYZCommand: XYZCommand = AddEntryCommand, \nModifyCommand, etc
 
 XYZCommand ..> Model : updates >
+XYZCommand ..> Ui : calls >
 
 @enduml
