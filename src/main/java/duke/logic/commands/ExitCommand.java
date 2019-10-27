@@ -1,6 +1,8 @@
 package duke.logic.commands;
 
-import duke.model.MealList;
+import duke.model.meal.MealList;
+import duke.model.wallet.TransactionList;
+import duke.model.wallet.Wallet;
 import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.model.user.User;
@@ -20,14 +22,17 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * This function will execute the exit command.
-     * @param tasks the TaskList object
-     * @param ui the ui object to display the user interface of an "exit" command
-     * @param storage the storage object that stores the list of meals
-     * @param in the scanner object to handle secondary command IO
+     * Executes the exit command.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
      */
+
     @Override
-    public void execute(MealList tasks, Ui ui, Storage storage, User user, Scanner in) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showBye();
+    }
+
+    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
     }
 }

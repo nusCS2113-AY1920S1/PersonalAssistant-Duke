@@ -4,11 +4,13 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.file.FilePaths;
 import duke.commons.file.FileUtil;
 import duke.model.Goal;
-import duke.model.Meal;
-import duke.model.MealList;
+import duke.model.meal.Meal;
+import duke.model.meal.MealList;
 import duke.model.user.Gender;
 import duke.model.user.Tuple;
 import duke.model.user.User;
+import duke.model.wallet.Transaction;
+import duke.model.wallet.TransactionList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,15 +57,17 @@ public class Write {
     public void writeDefaults(MealList mealData) throws DukeException {
         HashMap<String, HashMap<String, Integer>> storedItems = mealData.getStoredList();
         String toWriteStr = "";
-        for (String i : storedItems.keySet()) { //write process for stored default food values
-            toWriteStr += "S|0|" + i;
+        for (String i : storedItems.keySet()) {
+            //write process for stored default food values
+            String tempLineStr = "";
+            tempLineStr += "S|0|" + i;
             HashMap<String, Integer> nutritionData = storedItems.get(i);
             if (nutritionData.size() != 0) {
-                toWriteStr += "|";
+                tempLineStr += "|";
                 for (String k : nutritionData.keySet()) {
-                    toWriteStr += k + "|" + nutritionData.get(k) + "|";
+                    tempLineStr += k + "|" + nutritionData.get(k) + "|";
                 }
-                toWriteStr = toWriteStr.substring(0, toWriteStr.length() - 1) + "\n";
+                toWriteStr += tempLineStr.substring(0, tempLineStr.length() - 1) + "\n";
             }
         }
 
@@ -91,21 +95,36 @@ public class Write {
      */
 
     public void writeUser(User user) throws DukeException {
-        String toWrite = user.getName() + "|" + user.getAge() + "|"
+        String toWriteStr = user.getName() + "|" + user.getAge() + "|"
                 + user.getHeight() + "|" + user.getActivityLevel() + "|" + user.getLoseWeight() + "|";
         if (user.getSex() == Gender.MALE) {
-            toWrite += "M";
+            toWriteStr += "M";
         } else {
-            toWrite += "F";
+            toWriteStr += "F";
         }
         ArrayList<Tuple> allWeight = user.getAllWeight();
         for (int i = 0; i < user.getAllWeight().size(); i += 1) {
-            toWrite += "\n";
+            toWriteStr += "\n";
             String date = allWeight.get(i).date;
             int weight = allWeight.get(i).weight;
-            toWrite += date + "|" + weight;
+            toWriteStr += date + "|" + weight;
         }
 
-        FileUtil.writeFile(toWrite, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_USER_FILE));
+        FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_USER_FILE));
+    }
+
+    public void writeTransaction(TransactionList transactionList) throws DukeException {
+        HashMap<String, ArrayList<Transaction>> transactions = transactionList.getTransactionTracker();
+        String toWriteStr = "";
+        for (String i : transactions.keySet()) {
+            ArrayList<Transaction> transactionInADay = transactions.get(i);
+            for (int j = 0; j < transactions.get(i).size(); j++) {
+                Transaction currentTransaction = transactionInADay.get(j);
+                toWriteStr += currentTransaction.getType() + "|" + currentTransaction.getTransactionAmount()
+                        + "|" + currentTransaction.getDate() + "\n";
+            }
+        }
+
+        FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_TRANSACTION_FILE));
     }
 }

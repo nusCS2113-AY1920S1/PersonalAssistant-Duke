@@ -297,11 +297,12 @@ Perhaps you want to refer to the nutritional value of a meal you have had in the
 Simply enter the `find` command, followed by the description of the meal you had. Our application will automatically sieve through
 all your past meals, and present you with all the results that are relevant to the description you have provided
 
-****
+[NOTE]
+====
 * The search is case sensitive. e.g `Ham` will not match `ham`
 * Only the description of the meal is searched.
 * Substrings will be matched e.g. `Han` will match `Hans`
-****
+====
 
 Examples:
 
@@ -312,11 +313,46 @@ Returns meals with possible descriptions `steamed fish` and `fish and chips`
 
 Format: `delete INDEX [/date]<DATE>`
 
-****
+Changing your mind and want to remove your planned meal? Use `delete` command to conveniently remove the meal from
+the database!
+
+[NOTE]
+====
 * Deletes the task at the specified `INDEX`.
 * The index refers to the index number shown in the displayed tasklist.
 * The index *must be a positive integer* 1, 2, 3, ...
-****
+====
+
+Examples:
+
+* `delete 3` +
+Delete the 3rd meal on today's list
+
+* `done 1 /date 10/10/2019`
+Delete the 1st meal on 10/10/2019
+
+==== Marked a meal as done: `done`
+
+Format: `done INDEX [/date] <DATE>`
+
+Finished eating your meal? Use `done` command to marked it as done! You can see the updated remaining calories that you can
+eat for the rest of the day!
+
+[NOTE]
+====
+* Deletes the task at the specified `INDEX`.
+* The index refers to the index number shown in the displayed tasklist.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Only meals that have been eaten are counted to the calories you have eaten that day.
+====
+
+Examples:
+
+* `done 2` +
+Mark the 2nd meal on today's list as done
+
+* `done 3 /date 25/10/2019`
+Mark the 3rd meal on 25/10/2019 as done
 
 ==== Adding/modifying a fixed food item: `add`
 

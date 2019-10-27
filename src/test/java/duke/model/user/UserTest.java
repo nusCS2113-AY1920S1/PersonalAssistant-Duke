@@ -1,5 +1,6 @@
 package duke.model.user;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;

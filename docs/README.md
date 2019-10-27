@@ -39,7 +39,8 @@ interface to use our application.
 # Site Map 
 
 
-* [About Us](docs/AboutUs.adoc)
-* [User Guide](docs/UserGuide.adoc)
+* [About Us](AboutUs.adoc)
+* [User Guide](UserGuide.adoc)
+* [Developer Guide](DeveloperGuide.adoc)
 
 # Licence : [MIT](LICENSE)

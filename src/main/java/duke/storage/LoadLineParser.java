@@ -2,8 +2,12 @@ package duke.storage;
 
 import duke.commons.exceptions.DukeException;
 import duke.model.*;
+import duke.model.meal.*;
 import duke.model.user.Gender;
 import duke.model.user.User;
+import duke.model.wallet.*;
+
+import java.math.BigDecimal;
 
 import java.util.List;
 
@@ -57,6 +61,22 @@ public class LoadLineParser {
         }
     }
 
+    public static void parseTransactions(TransactionList transactionList, String line, Wallet wallet) {
+        String[] splitLine = line.split("\\|", 3);
+        String transactionType = splitLine[0];
+        String transactionAmount = splitLine[1];
+        String transactionDate = splitLine[2];
+        Transaction newTransaction;
+        if (transactionType.equals("PAY")) {
+            newTransaction = new Payment(transactionAmount, transactionDate);
+            LoadTransactionUtil.load(wallet.getTransactions(), newTransaction);
+        } else if (transactionType.equals("DEP")) {
+            newTransaction = new Deposit(transactionAmount, transactionDate);
+            wallet.updateAccountBalance(newTransaction);
+            LoadTransactionUtil.load(wallet.getTransactions(), newTransaction);
+        }
+    }
+
     public static User parseUser(String line) {
         String[] splitLine = line.split("\\|");
         String name = splitLine[0];
@@ -71,4 +91,5 @@ public class LoadLineParser {
             return new User(name, age, height, Gender.FEMALE, activityLevel, loseWeight);
         }
     }
+
 }

@@ -1,8 +1,10 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.Meal;
-import duke.model.MealList;
+import duke.model.meal.Meal;
+import duke.model.meal.MealList;
+import duke.model.wallet.TransactionList;
+import duke.model.wallet.Wallet;
 import duke.ui.Ui;
 import duke.storage.Storage;
 
@@ -19,54 +21,73 @@ import duke.model.user.User;
  */
 public class MarkDoneCommand extends Command {
     private int index;
-    private final String helpText = "Please follow: done <index> /date <date> or "
-            + "done <index> to mark done the indexed meal for current day.";
 
     /**
-     * This is a constructor for MarkDoneCommand with the date specified.
+     * Constructor for MarkDoneCommand.
      * @param indexStr the index of meal on the date to be marked as done.
      * @param date the date which meals are to be marked as done.
      */
-    public MarkDoneCommand(String indexStr, String date) throws DukeException {
+
+    public MarkDoneCommand(String indexStr, String date) {
         this(indexStr);
         Date parsedDate;
-        try {
-            parsedDate = dateFormat.parse(date);
-        } catch (ParseException e) {
-            throw new DukeException("Unable to parse input" + date + " as a date. " + helpText);
+        if (!date.isBlank()) {
+            try {
+                parsedDate = dateFormat.parse(date);
+                this.currentDate = dateFormat.format(parsedDate);
+            } catch (ParseException e) {
+                ui.showMessage("Unable to parse input" + date + " as a date. ");
+            }
         }
-        this.currentDate = dateFormat.format(parsedDate);
     }
 
     /**
-     * This is a constructor for MarkDoneCommand with the date unspecified.
+     * Constructor for MarkDoneCommand.
      * @param indexStr the index of meal on the today to be marked as done.
      * @throws DukeException when parseInt is unable to parse the index.
      */
-    public MarkDoneCommand(String indexStr) throws DukeException {
+
+    public MarkDoneCommand(String indexStr) {
         try {
             this.index = Integer.parseInt(indexStr.trim());
         } catch (NumberFormatException e) {
-            throw new DukeException("Unable to parse input " + indexStr + " as integer index. " + helpText);
+            ui.showMessage("Unable to parse input " + indexStr + " as integer index. ");
         }
     }
 
+    public MarkDoneCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
+    }
+
     /**
-     * The object will execute the "mark done" command, updating the current meals, ui, and storage in the process.
-     * @param mealList the MealList object to be marked done
-     * @param ui the ui object to display the user interface of an "mark done" command
-     * @param storage the storage object that stores the list of meals
-     * @param in the scanner object to handle secondary command IO
+     * Executes the MarkDoneCommand.
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
      */
+
     @Override
-    public void execute(MealList mealList, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
-        if (index <= 0 || index > mealList.getMealsList(currentDate).size()) {
-            throw new DukeException("Index provided out of bounds for list of meals on " + currentDate);
+
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
+        if (index <= 0 || index > meals.getMealsList(currentDate).size()) {
+            ui.showMessage("Index provided out of bounds for list of meals on " + currentDate);
+        } else {
+            Meal currentMeal = meals.markDone(currentDate, index);
+            try {
+                storage.updateFile(meals);
+            } catch (DukeException e) {
+                ui.showMessage(e.getMessage());
+            }
+
+            ui.showDone(currentMeal, meals.getMealsList(currentDate));
+            ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
+            ui.showCaloriesLeft(currentMeals, user, currentDate);
+            ui.showLine();
         }
-        Meal currentMeal = mealList.markDone(currentDate, index);
-        storage.updateFile(mealList);
-        ui.showDone(currentMeal, mealList.getMealsList(currentDate));
-        ArrayList<Meal> currentMeals = mealList.getMealsList(currentDate);
-        ui.showCaloriesLeft(currentMeals, user, currentDate);
+    }
+
+    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
     }
 }

@@ -1,9 +1,11 @@
 package duke.ui;
 
 import duke.model.Goal;
-import duke.model.Meal;
+import duke.model.meal.Meal;
+import duke.model.wallet.Transaction;
 import duke.model.user.User;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -29,7 +31,9 @@ public class Ui {
     }
 
     public void showBye() {
-        System.out.println("     " + "Bye. Hope to see you again soon!");
+        System.out.println(boundary);
+        System.out.println(padding + "Bye. Hope to see you again soon!");
+        System.out.println(boundary);
     }
 
     public void showList(ArrayList<Meal> meals)  {
@@ -104,23 +108,12 @@ public class Ui {
         System.out.println(padding + "Failed to load file.");
     }
 
+    public void showLoadinngTransactionError() {
+        System.out.println(padding + "Failed to load transaction file.");
+    }
+
     public void showUserLoadingError() {
         System.out.println(padding + "Unable to load user file.");
-    }
-
-    public void showWelcomeNew() {
-        System.out.println(padding + "Welcome!");
-        System.out.println(padding + "I see that you're new.");
-        System.out.println(padding + "Please enter your particulars to get started!");
-    }
-
-    public void showWelcomeBack(User user) {
-        System.out.println(padding + "Welcome back, "  + user.getName());
-    }
-
-    public void showUserSetupDone(User user) {
-        System.out.println(padding + "Thanks, " + user.getName() + "!");
-        System.out.println(padding + "We are done setting up!");
     }
 
     public void showCalorie(User user) {
@@ -164,4 +157,16 @@ public class Ui {
             }
         }
     }
+
+    public void showWeightUpdate(User user, int weight, String date) {
+        System.out.println(padding + user.getName() + ", your weight has been updated on"
+                + date + " to " + weight + "kg.");
+    }
+
+    public void showTransactionAdded(Transaction transaction, BigDecimal accountBalance) {
+        System.out.println(padding + "Got it. I've added this transaction:");
+        System.out.println(padding + transaction);
+        System.out.println(padding + "Your account balance is: " + accountBalance + " SGD");
+    }
+
 }

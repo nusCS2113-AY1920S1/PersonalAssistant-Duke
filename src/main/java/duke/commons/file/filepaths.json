@@ -4,5 +4,6 @@
     "FILE_PATH_GOAL_FILE": "duke/Data/goal.txt",
     "FILE_PATH_USER_FILE": "duke/Data/user.txt",
     "FILE_PATH_AUTOCORRECT_FILE": "duke/Data/word.txt",
+    "FILE_PATH_TRANSACTION_FILE": "duke/Data/transaction.txt",
     "FILE_PATH_MASTER_HELP_FILE": "duke/commons/help"
 }

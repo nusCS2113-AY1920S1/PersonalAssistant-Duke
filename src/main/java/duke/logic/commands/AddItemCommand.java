@@ -3,11 +3,15 @@ package duke.logic.commands;
 import java.util.Scanner;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.Meal;
-import duke.model.MealList;
+import duke.model.meal.Meal;
+import duke.model.meal.MealList;
+import duke.model.wallet.TransactionList;
+import duke.model.wallet.Wallet;
 import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.model.user.User;
+
+import java.util.Scanner;
 
 /**
  * AddItemCommand is a public class that inherits from abstract class Command.
@@ -17,25 +21,39 @@ public class AddItemCommand extends Command {
     private Meal meal;
 
     /**
-     * This is a constructor for AddCommand which create a new AddCommand object with
-     * the meal specified as the instance field meal.
+     * Constructor for AddItemCommand.
      * @param meal The meal to be added.
      */
     public AddItemCommand(Meal meal) {
         this.meal = meal;
     }
 
+    public AddItemCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
+    }
+
     /**
-     * The object will execute the "add" command, updating the default meal data, ui, and storage in the process.
+     * Execute the AddItemCommand.
      * @param meals the MealList object in which the meal is supposed to be added
-     * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of meals
-     * @param in the scanner object to handle secondary command IO
      */
+
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
+
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         meals.addStoredItem(this.meal);
         ui.showAddedItem(this.meal);
-        storage.updateDefaults(meals);
+        try {
+            storage.updateDefaults(meals);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
+        ui.showLine();
     }
+
+    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
+    }
+
 }

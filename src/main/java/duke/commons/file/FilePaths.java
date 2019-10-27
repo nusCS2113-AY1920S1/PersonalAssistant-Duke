@@ -22,6 +22,7 @@ public class FilePaths {
         FILE_PATH_GOAL_FILE,
         FILE_PATH_USER_FILE,
         FILE_PATH_AUTOCORRECT_FILE,
+        FILE_PATH_TRANSACTION_FILE,
         FILE_PATH_MASTER_HELP_FILE
     }
 

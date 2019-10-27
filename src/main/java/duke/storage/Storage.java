@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import duke.commons.exceptions.DukeException;
 import duke.commons.file.FilePaths;
-import duke.model.MealList;
+import duke.model.meal.MealList;
 import duke.model.user.User;
 import duke.logic.autocorrect.Autocorrect;
+import duke.model.wallet.TransactionList;
+import duke.model.wallet.Wallet;
 
 /**
  * Storage is a public class, a storage class encapsulates the filePath to read from disk and write to disk.
@@ -49,6 +51,10 @@ public class Storage {
         loader.loadHelp(lines, specifiedHelp);
     }
 
+    public void loadTransactions(TransactionList transactions, Wallet wallet) throws DukeException {
+        loader.loadTransactions(transactions, wallet);
+    }
+
     /**
      * This is a function that will update the input/output file from the current arraylist of meals.
      * @param mealData the structure that will store the tasks from the input file
@@ -78,5 +84,9 @@ public class Storage {
      */
     public void saveUser(User user) throws DukeException {
         writer.writeUser(user);
+    }
+
+    public void updateTransaction(TransactionList transactionList) throws DukeException {
+        writer.writeTransaction(transactionList);
     }
 }
