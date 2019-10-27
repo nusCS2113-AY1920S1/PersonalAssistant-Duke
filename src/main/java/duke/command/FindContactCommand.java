@@ -1,34 +1,39 @@
 package duke.command;
 
 import duke.storage.Storage;
+import duke.task.ContactList;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-//@@author talesrune
+//@@author e0318465
 /**
- * Represents a command that locates certain tasks in task list using keyword.
+ * Represents a command that locates a contact in contact list using keyword.
  */
-public class FindCommand extends Command {
+public class FindContactCommand extends Command {
     protected String keyword;
+    protected Ui ui = new Ui();
+    protected ContactList contactList;
 
     /**
      * Creates a command with the specified keyword.
      *
-     * @param keyword The task to be added.
+     * @param keyword The word to be searched in the list of contacts.
+     * @param contactList A list of Contacts.
      */
-    public FindCommand(String keyword) {
+    public FindContactCommand(String keyword, ContactList contactList) {
         this.keyword = keyword;
+        this.contactList = contactList;
     }
 
     /**
-     * Executes a command that locates matching tasks in task list and outputs the result.
+     * Executes a command that locates matching contacts in contact list and outputs the result.
      *
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user the matching tasks based on the keyword.
      */
     @Override
     public void execute(TaskList items, Ui ui) {
-        ui.showFind(items, keyword);
+        ui.showFoundContacts(contactList, keyword);
     }
 
     /**
@@ -36,12 +41,11 @@ public class FindCommand extends Command {
      *
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user the matching tasks based on the keyword.
-     * @return List of tasks.
+     * @return Contacts found that matches keyword.
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        String str = Ui.showFindGui(items, keyword);
-        return str;
+        return Ui.showFoundContactsGui(contactList, keyword);
     }
 
     /**

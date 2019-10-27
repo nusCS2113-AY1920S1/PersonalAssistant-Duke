@@ -181,6 +181,86 @@ public class Ui {
     }
 
     /**
+     * Outputs notes of the task that is added or updated to the user.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     */
+    public void showAddNotes(TaskList items, int index) {
+        out.println("     Nice! Added/Updated notes of this task ^^:");
+        out.println("       " + (index + ONE) + "." + items.get(index).toString()
+                + " | Added Notes: " + items.get(index).getNotes());
+    }
+
+    /**
+     * Outputs notes of the task that is added or updated to the user (GUI).
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     * @return String of the added notes.
+     */
+    public String showAddNotesGui(TaskList items, int index) {
+        String str = "     Nice! Added/Updated notes of this task ^^:\n"
+                + "       " + (index + ONE) + "." + items.get(index).toString()
+                + "\n      | Added Notes: " + items.get(index).getNotes();
+        return str;
+    }
+
+    /**
+     * Outputs notes of the task that is added or updated to the user.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     * @param deletedNotes The deleted notes of the task.
+     */
+    public void showDeleteNotes(TaskList items, int index, String deletedNotes) {
+        out.println("     Deleted notes of this task ^^:");
+        out.println("       " + (index + ONE) + "." + items.get(index).toString()
+                + " | Deleted notes: " + deletedNotes);
+    }
+
+    /**
+     * Outputs notes of the task that is added or updated to the user (GUI).
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     * @param deletedNotes The deleted notes of the task.
+     * @return String of the deleted notes.
+     */
+    public String showDeleteNotesGui(TaskList items, int index, String deletedNotes) {
+        String str = "     Deleted notes of this task ^^:\n"
+                + "       " + (index + ONE) + "." + items.get(index).toString()
+                + "\n      | Deleted notes: " + deletedNotes;
+        return str;
+    }
+
+    /**
+     * Outputs notes of the task to the user.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     */
+    public void showNotes(TaskList items, int index) {
+        out.println("     Here is the task and its notes:");
+        out.println("       " + (index + ONE) + "." + items.get(index).toString()
+                + " | Notes: " + items.get(index).getNotes());
+    }
+
+    /**
+     * Outputs notes of the task to the user (GUI).
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     * @return String of showing notes to the user.
+     */
+    public String showNotesGui(TaskList items, int index) {
+        String str = "     Here is the task and its notes:\n"
+                + "       " + (index + ONE) + "." + items.get(index).toString()
+                + "\n      | Notes: " + items.get(index).getNotes();
+        return str;
+    }
+
+    /**
      * Outputs task that is updated to the user (GUI).
      *
      * @param items The task list that contains a list of tasks.
@@ -466,15 +546,6 @@ public class Ui {
         return message + "\n";
     }
 
-    /**
-     * Outputs an alert when a duplicated inout is detected.
-     */
-    //@@author e0318465
-    public void showDuplicateMsg() {
-        out.println("     The same task is already in the list!");
-    }
-
-
     //@@author maxxyx96
     /**
      * Outputs a message to the user to let it know that it is updating.
@@ -506,6 +577,13 @@ public class Ui {
     }
 
     //@@author e0318465
+    /**
+     * Outputs an alert when a duplicated inout is detected.
+     */
+    public void showDuplicateMsg() {
+        out.println("     The same task is already in the list!");
+    }
+
     /**
      * Outputs the contact details that are most recently added.
      *
@@ -559,6 +637,55 @@ public class Ui {
         String str = "";
         str += "Now you have " + contactList.size() + " contact(s). I've removed this contact:\n";
         str += deletedContact;
+        return str;
+    }
+
+    /**
+     * Outputs the contacts that are matched from the keyword.
+     *
+     * @param contactList The contact list that contains a list of contacts.
+     * @param keyword The keyword to match the contacts.
+     */
+    public void showFoundContacts(ContactList contactList, String keyword) {
+        out.println("     Here are the matching contacts in your list:");
+        int numFound = ZERO;
+        for (int i = ZERO; i < contactList.size(); i++) {
+            String details = contactList.getOnlyDetails(i);
+            details.replaceAll(",", " ");
+            details.toLowerCase();
+            if (details.contains(keyword)) {
+                out.println("     " + contactList.getSpecificContactList(i));
+                numFound++;
+            }
+        }
+        if (numFound == ZERO) {
+            out.println("     No matching tasks found.");
+        }
+    }
+
+    /**
+     * Outputs the tasks that are matched from the keyword to the user in GUI.
+     *
+     * @param contactList The contact list that contains a list of contacts.
+     * @param keyword The keyword to match the contacts.
+     * @return All contacts that matches with keyword.
+     */
+    public static String showFoundContactsGui(ContactList contactList, String keyword) {
+        String str = "";
+        str += "     Here are the matching contacts in your list:\n";
+        int numFound = ZERO;
+        for (int i = ZERO; i < contactList.size(); i++) {
+            String details = contactList.getOnlyDetails(i);
+            String replacedComma = details.replaceAll(",", " ");
+            String stringToFind = replacedComma.toLowerCase();
+            if (stringToFind.contains(keyword)) {
+                str += "     " + contactList.getSpecificContactList(i) + "\n";
+                numFound++;
+            }
+        }
+        if (numFound == ZERO) {
+            str += "     No matching tasks found.";
+        }
         return str;
     }
 
