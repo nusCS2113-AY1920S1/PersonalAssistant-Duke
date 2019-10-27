@@ -107,6 +107,9 @@ public class ImpressionEditCommand extends DukeDataCommand {
                     editData.setName((isAppending) ? editData.getName() + entryStr : entryStr);
                     break;
                 case "priority":
+                    if (entryInt > 4 || entryInt < 0) {
+                        throw new DukeHelpException("Priority must be between 0 and 4!", this);
+                    }
                     editData.setPriority(entryInt);
                     break;
                 case "summary":
