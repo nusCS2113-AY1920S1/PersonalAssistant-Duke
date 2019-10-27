@@ -309,7 +309,7 @@ public abstract class Ui {
     public static void printList(String mode, RecordList recordList) {
 
         System.out.println(line);
-        System.out.println("\tHere are the " + mode + " that you have added:");
+        System.out.println("\tHere is the list of " + mode + " you have added:");
         for (int i = 0; i < recordList.size(); i++) {
             int listNum = i + 1;
             System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());

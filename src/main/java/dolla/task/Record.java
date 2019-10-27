@@ -31,7 +31,9 @@ public abstract class Record {
         return name;
     }
 
-    public String getRecordType() { return recordType; }
+    public String getRecordType() {
+        return recordType;
+    }
 
     public String getUserInput() {
         return userInput;
