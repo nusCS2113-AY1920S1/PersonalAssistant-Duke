@@ -4,7 +4,18 @@ skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR
 
+Class HiddenOutside #FFFFFF
+
+package Model{
+Class HiddenModel #FFFFFF
+}
+
 package Logic {
+
+package Command {
+Class XYZCommand
+Class "{abstract}\nCommand" as Command
+}
 
 package Parser {
 Class "{abstract}\nParser" as Parser
@@ -12,31 +23,18 @@ Class MainParser
 Class XYZParser
 }
 
-package Command {
-Class XYZCommand
-Class "{abstract}\nCommand" as Command
 }
 
-Interface Logic <<Interface>>
-Class LogicManager
-}
-
-package Model{
-Class HiddenModel #FFFFFF
-}
-
-Class HiddenOutside #FFFFFF
 HiddenOutside ..> MainParser
 
-LogicManager .up.|> Logic
+XYZParser -down-|> Parser
+MainParser .down.> XYZParser : creates >
+note left of XYZParser: XYZCommand = EntryParser, \nLimitParser, etc
 
-note right of XYZParser: XYZCommand = EntryParser, \nLimitParser, etc
-
+XYZParser .right.> XYZCommand : creates >
 XYZCommand -up-|> Command
-LogicManager .left.> Command : executes >
-
-LogicManager --> Model
-Command .right.> Model
 note right of XYZCommand: XYZCommand = AddEntryCommand, \nModifyCommand, etc
+
+XYZCommand ..> Model : updates >
 
 @enduml
