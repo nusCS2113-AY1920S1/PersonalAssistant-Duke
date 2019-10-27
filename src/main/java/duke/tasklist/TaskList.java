@@ -63,6 +63,7 @@ public class TaskList {
         return taskList.get(index);
     }
 
+
     public Task get(Optional<String> filter, int index) throws DukeException {
         int counter = -1;
         if (filter.isPresent()) {

@@ -1,8 +1,9 @@
 package duke.task;
 
-import java.time.LocalDate;
+import duke.extensions.Recurrence;
+import duke.extensions.RecurrencePeriod;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 /**
@@ -20,8 +21,8 @@ public class Event extends Task {
      * @param description the description of the event
      * @param          the date and time at which the event will be held
      */
-    public Event(Optional<String> filter, Optional<LocalDateTime> dateTime, Optional<String> recurrencePeriod, String description, int duration) {
-        super(filter, dateTime, recurrencePeriod, description, duration);
+    public Event(Optional<String> filter, Optional<LocalDateTime> dateTime, Recurrence recurrence, String description, int duration) {
+        super(filter, dateTime, recurrence, description, duration);
         this.key = "[E]";
     }
 }

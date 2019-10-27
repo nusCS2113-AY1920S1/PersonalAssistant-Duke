@@ -2,31 +2,26 @@ package duke.task;
 
 import duke.exception.DukeException;
 import duke.extensions.Priority;
+import duke.extensions.Recurrence;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.Optional;
-
 
 /**
  * Superclass for all Tasks that will be added to the duke.task.Task Manager
  */
 public class Task {
-    enum RecurrencePeriod {NONE, DAILY, WEEKLY}
-
     private String description;
 
     private int duration;
     private Optional<String> filter;
     protected Optional<LocalDateTime> dateTime;
-    private Optional<String> recurrencePeriod;
 
     protected boolean isDone;
     protected String key;
-    protected LocalDateTime createdDate;
     protected Priority priority;
+    protected Recurrence recurrence;
 
     /**
      * Constructor function for duke.task.Task
@@ -36,13 +31,12 @@ public class Task {
      *
      * @param description the description of the task
      */
-
-    public Task(Optional<String> filter, Optional<LocalDateTime> dateTime, Optional<String> recurrencePeriod, String description, int duration) {
+    public Task(Optional<String> filter, Optional<LocalDateTime> dateTime, Recurrence recurrence, String description, int duration) {
         this.description = description;
         this.isDone = false;
         this.key = "";
-        this.createdDate = LocalDateTime.now();
         this.priority = Priority.LOW;
+        this.recurrence = recurrence;
         this.filter = filter;
         this.duration = duration;
         this.dateTime = dateTime;
@@ -69,45 +63,11 @@ public class Task {
         isDone = false;
     }
 
-    public String getRecurring() {
-        if ("daily".equals(recurrencePeriod)) {
-            return "D";
-        } else if ("weekly".equals(recurrencePeriod)) {
-            return "W";
-        }
-        return "N";
-    }
 
     public Optional<String> getFilter() {
         return this.filter;
     }
 
-    /**
-     * This function marks tasks as undone every week/day based on the
-     * recurrence period of the task.
-     */
-//    public boolean isTimeToReset(LocalDate dateCreated, LocalDate dateNow) {
-//        switch (recurrencePeriod) {
-//            case DAILY:
-//                if (ChronoUnit.DAYS.between(dateCreated, dateNow) > 0) {
-//                    return true;
-//                } else {
-//                    return false;
-//                }
-//            case WEEKLY:
-//                if (ChronoUnit.DAYS.between(dateCreated, dateNow) > 7) {
-//                    return true;
-//                } else {
-//                    return false;
-//                }
-//            default:
-//                return false;
-//        }
-//    }
-
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
-    }
 
     public void setDescription(String description) {
         this.description = description;
@@ -122,6 +82,15 @@ public class Task {
     public void setDuration(int duration) {
         this.duration = duration;
         System.out.println(this + " has a new duration of " + duration + ((duration == 1) ? "hour" : " hours"));
+    }
+
+    public String getRecurrenceCode() {
+        return recurrence.recurrenceCode();
+    }
+
+    public void setRecurrence(String recurrence) throws DukeException {
+        this.recurrence = new Recurrence(Optional.of(recurrence));
+        System.out.println(this + " has a new recurrence period of " + recurrence);
     }
 
     public void setPriority(int i) throws DukeException {
@@ -180,15 +149,8 @@ public class Task {
 
     @Override
     public String toString() {
-        String recurringDescription = "every week";
-        String recurringIcon = "";
-//        if (recurrencePeriod == RecurrencePeriod.DAILY) {
-//            recurringDescription = "every day";
-//            recurringIcon = "[R]";
-//        } else if (recurrencePeriod == RecurrencePeriod.WEEKLY) {
-//            recurringDescription = "every week";
-//            recurringIcon = "[R]";
-//        }
+        String recurringDescription = recurrence.recurrenceDescription();
+        String recurringIcon = recurrence.recurrenceIcon();
         return recurringIcon + key + "[" + this.getStatusIcon() + "] " + description + recurringDescription
                 + (dateTime.isPresent()
                 ? " (" + dateTime.get().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + ")"
