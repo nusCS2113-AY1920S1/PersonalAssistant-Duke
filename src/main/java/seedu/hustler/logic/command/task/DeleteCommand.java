@@ -1,13 +1,10 @@
 package seedu.hustler.logic.command.task;
 
 import seedu.hustler.Hustler;
+import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
-import seedu.hustler.data.CommandLog;
+import seedu.hustler.logic.parser.anomaly.DeleteAnomaly;
 import seedu.hustler.ui.Ui;
-import seedu.hustler.parser.ParserForCommand;
-import seedu.hustler.schedule.ScheduleEntry;
-import seedu.hustler.schedule.Scheduler;
-import java.util.ArrayList;
 
 /**
  * Command that deletes task in list.
@@ -17,7 +14,12 @@ public class DeleteCommand extends Command {
      * User input that contains index of task to delete.
      */
     private String[] userInput;
-   
+
+    /**
+     * Detect anomalies for input.
+     */
+    private DeleteAnomaly anomaly = new DeleteAnomaly();
+
     /**
     * Initializes userInput.
     *
@@ -31,21 +33,17 @@ public class DeleteCommand extends Command {
      * Deletes task at index taskIndex inside.
      */
     public void execute() {
-        if (this.userInput.length == 1) {
-            Ui ui = new Ui();
-            ui.empty_description_error();
-            CommandLog.deleteLatestLoggedCommand();
-            return;
-        }
-        ParserForCommand doneParser = new ParserForCommand("delete");
+        Ui ui = new Ui();
         if (userInput[1].equals("all")) {
             Hustler.list.clearList();
-            Scheduler.schedule = new ArrayList<ScheduleEntry>();
-
-        } else {
-            int taskIndex = doneParser.parseIndex(this.userInput[1]).intValue();
-            Scheduler.remove(Hustler.list.get(taskIndex));
+            return;
+        }
+        try {
+            anomaly.detect(userInput);
+            int taskIndex = Integer.parseInt(userInput[1].split(" ")[0]) - 1;
             Hustler.list.removeTask(taskIndex);
+        } catch (CommandLineException e) {
+            ui.show_message(e.getMessage());
         }
     }
 }

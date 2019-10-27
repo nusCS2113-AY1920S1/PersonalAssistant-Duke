@@ -14,6 +14,7 @@ public class SnoozeAnomaly extends DetectAnomaly {
      * Detects anomalies for input.
      *
      * @param userInput input for which anomaly is detected
+     * @throws CommandLineException if the user input does not conform the expected format.
      */
     @Override
     public void detect(String[] userInput) throws CommandLineException {
