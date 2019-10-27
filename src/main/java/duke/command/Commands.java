@@ -10,6 +10,7 @@ import duke.command.home.HomeNewCommand;
 import duke.command.home.HomeOpenCommand;
 import duke.command.home.HomeReportCommand;
 import duke.command.impression.ImpressionEditCommand;
+import duke.command.impression.ImpressionFindCommand;
 import duke.command.impression.ImpressionNewCommand;
 import duke.command.patient.PatientDeleteCommand;
 import duke.command.patient.PatientDischargeCommand;
@@ -95,6 +96,8 @@ public class Commands {
                 return new ImpressionNewCommand();
             case "edit":
                 return new ImpressionEditCommand();
+            case "find":
+                return new ImpressionFindCommand();
             default:
                 return null;
             }
