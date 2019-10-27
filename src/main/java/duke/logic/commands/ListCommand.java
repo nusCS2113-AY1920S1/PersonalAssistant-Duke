@@ -32,13 +32,16 @@ public class ListCommand extends Command {
      * @throws DukeException if the date cannot be parsed
      */
     public ListCommand(String date) throws DukeException {
-        Date temp;
-        try {
-            temp = dateFormat.parse(date);
-        } catch (ParseException e) {
-            throw new DukeException(e.getMessage());
+        if (!date.isBlank()) {
+            Date temp;
+            try {
+                temp = dateFormat.parse(date);
+            } catch (ParseException e) {
+                throw new DukeException(e.getMessage());
+            }
+            currentDate = dateFormat.format(temp);
         }
-        currentDate = dateFormat.format(temp);
+
     }
 
     /**

@@ -3,13 +3,8 @@ package duke.model;
 import java.math.BigDecimal;
 
 public class Payment extends Transaction {
-    public Payment(BigDecimal transactionAmount, String dateString) {
-        super(transactionAmount, dateString);
-        super.type = "PAY";
-    }
-
-    public Payment(BigDecimal transactionAmount) {
-        super(transactionAmount);
+    public Payment(String amountString, String dateString) {
+        super(amountString, dateString);
         super.type = "PAY";
     }
 

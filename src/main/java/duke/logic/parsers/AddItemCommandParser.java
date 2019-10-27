@@ -16,8 +16,8 @@ public class AddItemCommandParser implements ParserInterface<AddItemCommand> {
      * @throws DukeException when the user input cannot be parsed
      */
     public AddItemCommand parse(String userInput) throws DukeException {
-        String name = userInput.split("/", 2)[0].trim();
-        String info = "/" + userInput.split("/", 2)[1];
-        return new AddItemCommand(new Item(name, info));
+        InputValidator.validate(userInput);
+        String[] mealNameAndInfo = ArgumentSplitter.splitMealArguments(userInput);
+        return new AddItemCommand(new Item(mealNameAndInfo[0], mealNameAndInfo[1]));
     }
 }

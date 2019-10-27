@@ -16,10 +16,6 @@ public class ListCommandParser implements ParserInterface<ListCommand> {
      */
     @Override
     public ListCommand parse(String userInput) throws DukeException {
-        if (userInput.trim().length() != 0) {
-            return new ListCommand(userInput);
-        } else {
-            return new ListCommand();
-        }
+        return new ListCommand(userInput);
     }
 }

@@ -50,7 +50,7 @@ public class LoadLineParser {
     public static void parseTransactions(TransactionList transactionList, String line, User user) {
         String[] splitLine = line.split("\\|", 3);
         String transactionType = splitLine[0];
-        BigDecimal transactionAmount = new BigDecimal(splitLine[1]);
+        String transactionAmount = splitLine[1];
         String transactionDate = splitLine[2];
         Transaction newTransaction;
         if (transactionType.equals("PAY")) {

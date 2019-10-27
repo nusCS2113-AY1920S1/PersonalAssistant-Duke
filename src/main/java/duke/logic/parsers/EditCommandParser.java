@@ -17,8 +17,8 @@ public class EditCommandParser implements ParserInterface<EditCommand> {
      */
     @Override
     public EditCommand parse(String userInput) throws DukeException {
-        String name = userInput.split("/", 2)[0];
-        String info = "/" + userInput.split("/", 2)[1];
-        return new EditCommand(new Meal(name, info));
+        InputValidator.validate(userInput);
+        String[] mealNameAndInfo = ArgumentSplitter.splitMealArguments(userInput);
+        return new EditCommand(new Meal(mealNameAndInfo[0], mealNameAndInfo[1]));
     }
 }

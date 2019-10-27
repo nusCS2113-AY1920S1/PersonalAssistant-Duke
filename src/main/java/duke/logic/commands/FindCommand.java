@@ -27,8 +27,10 @@ public class FindCommand extends Command {
     }
 
     public FindCommand(String description, String date) {
-        this.description = description;
-        this.currentDate = date;
+        this(description);
+        if (!date.isBlank()) {
+            this.currentDate = date;
+        }
     }
 
     /**
