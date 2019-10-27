@@ -3,8 +3,8 @@ package duke.storage;
 import java.util.ArrayList;
 
 import duke.commons.exceptions.DukeException;
-import duke.commons.fileIO.FilePaths;
-import duke.model.*;
+import duke.commons.file.FilePaths;
+import duke.model.MealList;
 import duke.model.user.User;
 import duke.logic.autocorrect.Autocorrect;
 
@@ -26,9 +26,9 @@ public class Storage {
      * This is a function that will load all info required to initialize a MealList object.
      */
     public void load(MealList meals) throws DukeException {
-        loader.loadFile(meals, filePaths.getFilePathStr(FilePaths.FILE_PATH_NAMES.FILE_PATH_USER_MEALS_FILE));
-        loader.loadFile(meals, filePaths.getFilePathStr(FilePaths.FILE_PATH_NAMES.FILE_PATH_DEFAULT_MEAL_FILE));
-        loader.loadFile(meals, filePaths.getFilePathStr(FilePaths.FILE_PATH_NAMES.FILE_PATH_GOAL_FILE));
+        loader.loadFile(meals, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_USER_MEALS_FILE));
+        loader.loadFile(meals, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_DEFAULT_MEAL_FILE));
+        loader.loadFile(meals, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_GOAL_FILE));
     }
 
     /**

@@ -20,7 +20,7 @@ public class LoadLineParser {
         if (lines.isEmpty()) {
             return;
         }
-        for (String lineStr : lines){
+        for (String lineStr : lines) {
             if (lineStr == null) {
                 continue;
             }

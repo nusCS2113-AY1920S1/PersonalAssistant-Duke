@@ -1,4 +1,5 @@
-package duke.commons.fileIO;
+package duke.commons.file;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.io.BufferedReader;
@@ -11,11 +12,11 @@ import java.util.HashMap;
  */
 public class FilePaths {
 
-    private static String filePathsMasterConfigStr = "duke/commons/fileIO/filepaths.json";
+    private static String filePathsMasterConfigStr = "duke/commons/file/filepaths.json";
     private static Gson gson = new Gson();
-    private static Type type = new TypeToken<HashMap<FILE_PATH_NAMES, String>>(){}.getType();
+    private static Type type = new TypeToken<HashMap<FilePathNames, String>>(){}.getType();
 
-    public enum FILE_PATH_NAMES {
+    public enum FilePathNames {
         FILE_PATH_USER_MEALS_FILE,
         FILE_PATH_DEFAULT_MEAL_FILE,
         FILE_PATH_GOAL_FILE,
@@ -24,7 +25,7 @@ public class FilePaths {
         FILE_PATH_MASTER_HELP_FILE
     }
 
-    protected static HashMap<FILE_PATH_NAMES, String> filePathsConfigMap = new HashMap<FILE_PATH_NAMES, String>();
+    protected static HashMap<FilePathNames, String> filePathsConfigMap = new HashMap<FilePathNames, String>();
 
     public FilePaths() {
         filePathsMasterConfigStr = FileUtil.getSystemFilePathStr(filePathsMasterConfigStr);
@@ -38,14 +39,14 @@ public class FilePaths {
      */
     public static void setFilePathsConfigMap(BufferedReader bufferedReader) {
         filePathsConfigMap = gson.fromJson(bufferedReader, type);
-        for (FILE_PATH_NAMES path_name : filePathsConfigMap.keySet()) {
-            String defaultPathStr = filePathsConfigMap.get(path_name);
+        for (FilePathNames pathName : filePathsConfigMap.keySet()) {
+            String defaultPathStr = filePathsConfigMap.get(pathName);
             String crossCompatiblePathStr = FileUtil.getSystemFilePathStr(defaultPathStr);
-            filePathsConfigMap.replace(path_name, crossCompatiblePathStr);
+            filePathsConfigMap.replace(pathName, crossCompatiblePathStr);
         }
     }
 
-    public String getFilePathStr(FILE_PATH_NAMES filePathName) {
+    public String getFilePathStr(FilePathNames filePathName) {
         return filePathsConfigMap.get(filePathName);
     }
 }

@@ -1,7 +1,7 @@
 package duke.storage;
 
-import duke.commons.fileIO.FilePaths;
-import duke.commons.fileIO.FileUtil;
+import duke.commons.file.FilePaths;
+import duke.commons.file.FileUtil;
 import duke.logic.autocorrect.Autocorrect;
 import duke.commons.exceptions.DukeException;
 import duke.model.MealList;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static duke.commons.fileIO.FilePaths.FILE_PATH_NAMES;
+import static duke.commons.file.FilePaths.FilePathNames;
 
 /**
  * This object is in charge of all reading from save operations.
@@ -49,7 +49,7 @@ public class Load {
     }
 
     public User loadUser() throws DukeException {
-        String userFileStr = filePaths.getFilePathStr(FILE_PATH_NAMES.FILE_PATH_USER_FILE);
+        String userFileStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_USER_FILE);
         User tempUser;
         bufferedReader = FileUtil.readFile(userFileStr, useResourceAsBackup);
         try {
@@ -69,7 +69,7 @@ public class Load {
 
     public void loadAutoCorrect(Autocorrect autocorrect) throws DukeException {
         try {
-            String autocorrectFileStr = filePaths.getFilePathStr(FILE_PATH_NAMES.FILE_PATH_AUTOCORRECT_FILE);
+            String autocorrectFileStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_AUTOCORRECT_FILE);
             bufferedReader = FileUtil.readFile(autocorrectFileStr, useResourceAsBackup);
             while ((lineStr = bufferedReader.readLine()) != null) {
                 autocorrect.load(lineStr.trim());

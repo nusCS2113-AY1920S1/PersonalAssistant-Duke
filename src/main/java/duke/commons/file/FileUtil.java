@@ -1,8 +1,17 @@
-package duke.commons.fileIO;
+package duke.commons.file;
 
 import duke.commons.exceptions.DukeException;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.StringReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.FileWriter;
 
 /**
  * Class in charge of common file operations such as reading and writing from jar resources and
@@ -41,7 +50,7 @@ public class FileUtil {
      * @param fileStr File location of user config file
      * @return BufferedReader object with contents of resource.
      * @throws DukeException If unable to find file in user's file system or incorrect
-     * file directory syntax in filepaths config file.
+     *                       file directory syntax in filepaths config file.
      */
     public static BufferedReader readResourceFile(String fileStr) {
         try {

@@ -1,8 +1,8 @@
 package duke.storage;
 
 import duke.commons.exceptions.DukeException;
-import duke.commons.fileIO.FilePaths;
-import duke.commons.fileIO.FileUtil;
+import duke.commons.file.FilePaths;
+import duke.commons.file.FileUtil;
 import duke.model.Goal;
 import duke.model.Meal;
 import duke.model.MealList;
@@ -49,41 +49,39 @@ public class Write {
             }
         }
 
-        FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FILE_PATH_NAMES.FILE_PATH_USER_MEALS_FILE));
-
+        FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_USER_MEALS_FILE));
     }
 
     public void writeDefaults(MealList mealData) throws DukeException {
         HashMap<String, HashMap<String, Integer>> storedItems = mealData.getStoredList();
-            String toWriteStr = "";
-            for (String i : storedItems.keySet()) { //write process for stored default food values
-                toWriteStr += "S|0|" + i;
-                HashMap<String, Integer> nutritionData = storedItems.get(i);
-                if (nutritionData.size() != 0) {
-                    toWriteStr += "|";
-                    for (String k : nutritionData.keySet()) {
-                        toWriteStr += k + "|" + nutritionData.get(k) + "|";
-                    }
-                    toWriteStr = toWriteStr.substring(0, toWriteStr.length() - 1) + "\n";
-                }
-            }
-
-            FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FILE_PATH_NAMES.FILE_PATH_DEFAULT_MEAL_FILE));
-    }
-
-    public void writeGoal(MealList mealData) throws DukeException {
-            Goal goal = mealData.getGoal();
-            String toWriteStr = "G|0|" + goal.getEndDate() + "|" + goal.getStartDate();
-            HashMap<String, Integer> nutritionData = goal.getNutritionalValue();
+        String toWriteStr = "";
+        for (String i : storedItems.keySet()) { //write process for stored default food values
+            toWriteStr += "S|0|" + i;
+            HashMap<String, Integer> nutritionData = storedItems.get(i);
             if (nutritionData.size() != 0) {
+                toWriteStr += "|";
                 for (String k : nutritionData.keySet()) {
                     toWriteStr += k + "|" + nutritionData.get(k) + "|";
                 }
                 toWriteStr = toWriteStr.substring(0, toWriteStr.length() - 1) + "\n";
             }
+        }
 
-            FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FILE_PATH_NAMES.FILE_PATH_GOAL_FILE));
+        FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_DEFAULT_MEAL_FILE));
+    }
 
+    public void writeGoal(MealList mealData) throws DukeException {
+        Goal goal = mealData.getGoal();
+        String toWriteStr = "G|0|" + goal.getEndDate() + "|" + goal.getStartDate();
+        HashMap<String, Integer> nutritionData = goal.getNutritionalValue();
+        if (nutritionData.size() != 0) {
+            for (String k : nutritionData.keySet()) {
+                toWriteStr += k + "|" + nutritionData.get(k) + "|";
+            }
+            toWriteStr = toWriteStr.substring(0, toWriteStr.length() - 1) + "\n";
+        }
+
+        FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_GOAL_FILE));
     }
 
 
@@ -108,6 +106,6 @@ public class Write {
             toWrite += date + "|" + weight;
         }
 
-        FileUtil.writeFile(toWrite, filePaths.getFilePathStr(FilePaths.FILE_PATH_NAMES.FILE_PATH_USER_FILE));
+        FileUtil.writeFile(toWrite, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_USER_FILE));
     }
 }
