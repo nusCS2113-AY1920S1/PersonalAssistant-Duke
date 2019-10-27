@@ -99,7 +99,7 @@ public class Write {
         }
     }
 
-    public void writeGoal(MealList mealData) {
+    public void writeGoal(User user) {
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(GOAL_FILE));
         } catch (Exception e) {
@@ -107,7 +107,7 @@ public class Write {
             e.printStackTrace();
         }
         try {
-            Goal goal = mealData.getGoal();
+            Goal goal = user.getGoal();
             String toWrite = goal.toString();
             bufferedWriter.write(toWrite);
             bufferedWriter.close();

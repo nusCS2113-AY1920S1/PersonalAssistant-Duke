@@ -4,7 +4,6 @@ import duke.logic.autocorrect.Autocorrect;
 import duke.logic.commands.Command;
 import duke.commons.exceptions.DukeException;
 import duke.model.TransactionList;
-import duke.model.user.UserSetup;
 import duke.storage.Storage;
 import duke.model.MealList;
 import duke.ui.InputHandler;
@@ -67,7 +66,7 @@ public class Main {
         }
         while (!user.getIsSetup()) { //setup user profile if it's empty
             try {
-                user = UserSetup.setup();
+                user.setup();
                 ui.showUserSetupDone(user);
                 storage.saveUser(user);
             } catch (DukeException e) {

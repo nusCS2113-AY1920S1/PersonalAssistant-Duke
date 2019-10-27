@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  * This is a class that will store user information to be used for processing.
@@ -85,8 +86,13 @@ public class User {
         this.weight.add(new Tuple(currentDate, weight));
     }
 
-    public void setGoal(Goal goal) {
-        this.goal = goal;
+    public boolean setGoal(Goal goal, boolean override) {
+        if (this.goal != null && override == false) {
+            return false;
+        } else {
+            this.goal = goal;
+            return true;
+        }
     }
 
     //TODO: might want to refactor this to make it more cohesive (1 degree of separation only)
@@ -167,6 +173,10 @@ public class User {
             calorie = 10 * getWeight() + 6.25 * getHeight() + 5 * getAge() - 161;
         }
         return (int)( this.factor[this.activityLevel] * calorie);
+    }
+
+    public Goal getGoal() {
+        return goal;
     }
 
     public Gender getGender() {

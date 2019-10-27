@@ -24,7 +24,6 @@ public class Storage {
     public void load(MealList meals) throws DukeException {
         loader.loadMeals(meals, DATA_FILE);
         loader.loadMeals(meals, DEFAULTS_FILE);
-        loader.loadGoals(meals);
     }
 
     /**

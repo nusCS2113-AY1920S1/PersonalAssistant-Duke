@@ -77,12 +77,12 @@ public class LoadLineParser {
         }
     }
 
-    public static void parseGoal(MealList meals, String line) throws DukeException {
+    public static void parseGoal(User user, String line) throws DukeException {
         try {
             if (line != null) {
                 String[] splitLine = line.split("\\|");
                 Goal goal = new Goal(splitLine);
-                meals.addGoal(goal, true);
+                user.setGoal(goal, true);
             }
         } catch (Exception e) {
             throw new DukeException("It appears the goal file has been corrupted. No goal shall be set for"

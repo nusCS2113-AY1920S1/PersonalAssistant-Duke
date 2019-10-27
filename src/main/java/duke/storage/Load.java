@@ -46,11 +46,11 @@ public class Load {
         }
     }
 
-    public void loadGoals(MealList meals) throws DukeException {
+    public void loadGoals(User user) throws DukeException {
         validateFile(GOAL_FILE);
         try {
             line = bufferedReader.readLine();
-            LoadLineParser.parseGoal(meals, line);
+            LoadLineParser.parseGoal(user, line);
         } catch (IOException e) {
             throw new DukeException("Error reading file");
         }
@@ -82,6 +82,7 @@ public class Load {
                     tempUser.setWeight(Integer.parseInt(splitWeightInfo[1]), splitWeightInfo[0]);
                 }
                 bufferedReader.close();
+                loadGoals(tempUser);
                 return tempUser;
             } catch (Exception e) {
                 throw new DukeException(e.getMessage());
