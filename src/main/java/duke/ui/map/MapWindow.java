@@ -1,7 +1,6 @@
 package duke.ui.map;
 
 import duke.logic.commands.results.CommandResultMap;
-import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
 import duke.ui.UiPart;
 import javafx.collections.FXCollections;

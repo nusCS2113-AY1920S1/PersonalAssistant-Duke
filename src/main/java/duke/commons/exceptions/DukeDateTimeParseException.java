@@ -1,6 +1,7 @@
 package duke.commons.exceptions;
 
 import duke.commons.Messages;
+import duke.commons.exceptions.DukeException;
 
 /**
  * Displays an error when date / time parsing fails.

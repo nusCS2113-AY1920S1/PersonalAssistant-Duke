@@ -1,11 +1,7 @@
 package duke.model.locations;
 
 /**
-<<<<<<< HEAD
- * Class representing a venue.
-=======
  * Represents a location of an attraction.
->>>>>>> 20921c7839efb1481af98f3b5c7e0465ff5bb57e
  */
 public class Venue {
     private String address;
@@ -53,7 +49,7 @@ public class Venue {
     }
 
     /**
-     * Calculates flat earth distance between 2 points based on latitude & longitude.
+     * Calculates flat earth distance (in metres) between 2 points based on latitude & longitude.
      *
      * @param otherVenue The other venue.
      * @return The absolute flat earth distance between the 2 venues.

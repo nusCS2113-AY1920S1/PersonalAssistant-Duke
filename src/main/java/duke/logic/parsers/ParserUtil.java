@@ -14,11 +14,17 @@ import duke.model.planning.Itinerary;
 import duke.model.planning.Todo;
 
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Defines parsing methods for utility functions.
  */
 public class ParserUtil {
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
     /**
      * Parses the userInput and return a new to-do constructed from it.
      *
@@ -60,7 +66,6 @@ public class ParserUtil {
         if (withinDetails.length != 2) {
             throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }
-
         String[] indexes = withinDetails[0].split(" ");
 
         String type = userInput.substring(withinDetails[0].length()).strip().substring(0, 4);
@@ -88,7 +93,6 @@ public class ParserUtil {
                 coordinates[i] = Double.parseDouble(coordinateStrings[i].strip());
             }
         }
-
         return null;
     }
 
@@ -112,6 +116,7 @@ public class ParserUtil {
         LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[2].strip());
         Venue hotelLocation = ApiParser.getLocationSearch(itineraryDetails[0].strip());
+        logger.log(Level.FINE, hotelLocation.getAddress());
         return new Itinerary(start, end, hotelLocation);
     }
 
@@ -155,13 +160,11 @@ public class ParserUtil {
      */
     public static int getFirstIndex(String userInput) throws DukeException {
         try {
-            String[] indexStrings = userInput.split(" ", 2);
-            if (indexStrings[0].strip().matches("-?(0|[1-9]\\d*)")) {
-                int index = Integer.parseInt(indexStrings[0].strip());
-                return index - 1;
-            } else {
-                throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
+            Matcher matcher = Pattern.compile("\\d+").matcher(userInput);
+            if (matcher.find()) {
+                return Integer.parseInt(matcher.group()) - 1;
             }
+            throw new DukeEmptyFieldException(Messages.ERROR_INPUT_INVALID_FORMAT);
         } catch (NumberFormatException e) {
             throw new DukeUnknownCommandException();
         }
@@ -175,15 +178,14 @@ public class ParserUtil {
      */
     public static int getSecondIndex(String userInput) throws DukeException {
         try {
-            String[] indexStrings = userInput.split(" ", 3);
-            if (indexStrings[1].strip().matches("-?(0|[1-9]\\d*)")) {
-                int index = Integer.parseInt(indexStrings[1].strip());
-                return index - 1;
-            } else if (indexStrings[1].strip().equals("at")) {
-                throw new DukeEmptyFieldException("SECOND_INPUT");
-            } else {
-                throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
+            Matcher matcher = Pattern.compile("\\d+").matcher(userInput);
+            if (!matcher.find()) {
+                throw new DukeEmptyFieldException(Messages.ERROR_INPUT_INVALID_FORMAT);
             }
+            if (matcher.find()) {
+                return Integer.parseInt(matcher.group()) - 1;
+            }
+            throw new DukeEmptyFieldException(Messages.ERROR_INPUT_INVALID_FORMAT);
         } catch (NumberFormatException e) {
             throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }

@@ -2,23 +2,23 @@ package duke.logic.commands;
 
 import duke.logic.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
+import duke.model.Event;
 import duke.model.Model;
-import duke.model.Task;
 
 /**
- * Adds a new task to users todo's.
+ * Adds a new event to users EventList.
  */
 public class AddCommand extends Command {
-    private final Task task;
+    private final Event event;
     private static final String MESSAGE_ADDITION = "Got it. I've added this task:\n  ";
 
     /**
      * Creates a new AddCommand with the given task.
      *
-     * @param task The task to add.
+     * @param event The event to add.
      */
-    public AddCommand(Task task) {
-        this.task = task;
+    public AddCommand(Event event) {
+        this.event = event;
     }
 
     /**
@@ -28,8 +28,8 @@ public class AddCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws DukeException {
-        model.getTasks().add(task);
+        model.getEvents().add(event);
         model.save();
-        return new CommandResultText(MESSAGE_ADDITION + task);
+        return new CommandResultText(MESSAGE_ADDITION + event);
     }
 }

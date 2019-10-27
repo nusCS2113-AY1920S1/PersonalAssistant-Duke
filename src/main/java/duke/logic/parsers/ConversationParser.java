@@ -1,0 +1,43 @@
+package duke.logic.parsers;
+
+import duke.commons.exceptions.DukeUnknownCommandException;
+import duke.logic.conversations.Conversation;
+import duke.logic.conversations.DeleteConversation;
+import duke.logic.conversations.FindConversation;
+import duke.logic.conversations.FindPathConversation;
+import duke.logic.conversations.FreeTimeConversation;
+import duke.logic.conversations.GetBusStopConversation;
+import duke.logic.conversations.MarkDoneConversation;
+import duke.logic.conversations.SearchConversation;
+
+/**
+ * Parser for conversations. Selects conversation based on user input.
+ */
+public class ConversationParser {
+    /**
+     * Parses the input and returns a Conversation object.
+     * @param input The user input from Ui.
+     * @return A conversation object.
+     * @throws DukeUnknownCommandException If input is undefined.
+     */
+    public static Conversation parse(String input) throws DukeUnknownCommandException {
+        switch (input) {
+        case "done":
+            return new MarkDoneConversation();
+        case "delete":
+            return new DeleteConversation();
+        case "findtime":
+            return new FreeTimeConversation();
+        case "busStop":
+            return new GetBusStopConversation();
+        case "findPath":
+            return new FindPathConversation();
+        case "find":
+            return new FindConversation();
+        case "search":
+            return new SearchConversation();
+        default:
+            throw new DukeUnknownCommandException();
+        }
+    }
+}
