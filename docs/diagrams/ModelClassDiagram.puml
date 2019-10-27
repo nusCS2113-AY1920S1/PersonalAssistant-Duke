@@ -1,0 +1,60 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>> {
+Class DollaData
+
+Package Entry {
+Class Entry
+Class EntryList
+}
+
+Package Limit {
+Class Limit
+Class LimitList
+}
+
+Package Debt {
+Class Debt
+Class DebtList
+}
+
+Package Shortcut {
+Class Shortcut
+Class ShortcutList
+}
+
+Class "{abstract}\nRecord" as Record
+Class "{abstract}\nRecordList" as RecordList
+
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> DollaData
+
+DollaData *--down-> "1" EntryList
+DollaData *--down-> "1" LimitList
+DollaData *--down-> "1" DebtList
+DollaData *--down-> "1" ShortcutList
+
+Entry -up-|> Record
+Limit -up-|> Record
+Debt -up-|> Record
+Shortcut -up-|> Record
+
+EntryList -down-|> RecordList
+LimitList -down-|> RecordList
+DebtList -down-|> RecordList
+ShortcutList -down-|> RecordList
+
+EntryList o-right-> "*" Entry
+LimitList o-right-> "*" Limit
+DebtList o-right-> "*" Debt
+ShortcutList o-right-> "*" Shortcut
+RecordList o-up-> Record
+
+
+@enduml
