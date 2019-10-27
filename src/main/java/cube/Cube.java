@@ -9,6 +9,7 @@ import cube.logic.parser.Parser;
 import cube.logic.command.Command;
 import cube.logic.command.util.CommandResult;
 import cube.util.FileUtilJson;
+import cube.util.FileUtilCSV;
 import cube.storage.*;
 import cube.exception.CubeException;
 
@@ -17,7 +18,8 @@ public class Cube {
 
     private StorageManager storageManager;
     private ModelManager modelManager;
-    private FileUtilJson storage;
+    private FileUtilJson<StorageManager> storage;
+    private FileUtilCSV<Food> csv;
     private FoodList foodList;
     private SalesHistory salesHistory;
     private Ui ui;
@@ -29,7 +31,9 @@ public class Cube {
      */
     public Cube(String filePath) {
         ui = new Ui();
-        storage = new FileUtilJson(filePath);
+        storageManager = new StorageManager();
+        storage = new FileUtilJson<>(filePath, "cube.json", storageManager);
+        csv = new FileUtilCSV<>(filePath, "cube.csv", new Food());
 
         try {
             storageManager = storage.load();
@@ -39,7 +43,6 @@ public class Cube {
             Food.updateRevenue(storageManager.getRevenue());
         } catch (CubeException e) {
             ui.showLoadingError(filePath);
-            storageManager = new StorageManager();
             foodList = new FoodList();
             salesHistory = new SalesHistory();
             modelManager = new ModelManager();
@@ -61,6 +64,7 @@ public class Cube {
                 CommandResult result = c.execute(modelManager, storageManager);
                 ui.showCommandResult(result);
                 storage.save(storageManager);
+                //csv.save(foodList.getFoodList());
             } catch (CubeException e) {
                 ui.showError(e.getMessage());
             } finally {
