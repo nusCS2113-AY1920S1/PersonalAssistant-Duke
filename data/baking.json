@@ -151,11 +151,32 @@
     "amount" : 5.0
   } ],
   "sales" : [ {
-    "id" : 1572184351819,
-    "description" : "newDesc",
+    "id" : 1572185869104,
+    "description" : "N/A",
     "value" : 0.0,
     "isSpend" : false,
-    "saleDate" : "2019-10-27T13:52:16.124+0000",
+    "saleDate" : "2009-12-31T16:00:00.000+0000",
+    "remarks" : "N/A"
+  }, {
+    "id" : 1572185873237,
+    "description" : "N/A",
+    "value" : 0.0,
+    "isSpend" : false,
+    "saleDate" : "2019-12-31T16:00:00.000+0000",
+    "remarks" : "N/A"
+  }, {
+    "id" : 1572186006257,
+    "description" : "nothing",
+    "value" : 0.0,
+    "isSpend" : false,
+    "saleDate" : "2014-12-31T16:00:00.000+0000",
+    "remarks" : "N/A"
+  }, {
+    "id" : 1572185922028,
+    "description" : "N/A",
+    "value" : 0.0,
+    "isSpend" : false,
+    "saleDate" : "2019-10-27T14:17:30.223+0000",
     "remarks" : "N/A"
   } ],
   "shortcuts" : [ ]
