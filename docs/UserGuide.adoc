@@ -140,6 +140,7 @@ Format: `budget delete`
 
 === Contacts
 
+// tag::addcontact[]
 ==== Adding a contact : `addcontact`
 This command allows the user to add a new contact that stores name, number, email and office.
 
