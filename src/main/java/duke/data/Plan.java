@@ -44,13 +44,7 @@ public class Plan extends Treatment {
         return null;
     }
 
-    public String getSummary() {
-        return summary;
-    }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
 
     public String getStatusStr() {
         return statusArr.get(getStatusIdx());

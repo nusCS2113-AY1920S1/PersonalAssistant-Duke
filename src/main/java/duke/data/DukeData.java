@@ -5,6 +5,7 @@ import duke.exception.DukeException;
 public abstract class DukeData extends DukeObject {
 
     private Integer priority;
+    protected String summary;
 
     /**
      * Abstraction of the evidence or treatment data of a patient.
@@ -21,12 +22,6 @@ public abstract class DukeData extends DukeObject {
         this.priority = priority;
     }
 
-    /*
-     * This updatePriority function updates priority of treatment
-     * @param int the integer value of the priority between 1 to 4
-     * @return the integer of the updated priority
-     */
-    public abstract Integer updatePriority(Integer priorityVal) throws DukeException;
 
     public void setName(String name) {
         super.setName(getParent().toString() + "\t" + name);
@@ -36,15 +31,29 @@ public abstract class DukeData extends DukeObject {
         return priority;
     }
 
-    public void setPriority(Integer priority) {
+    /**
+     * Updates priority of treatment.
+     * @param priority The integer value of the priority between 1 to 4
+     * @return the integer of the updated priority
+     */
+    public Integer setPriority(Integer priority) throws DukeException {
         this.priority = priority;
+        return getPriority();
     }
 
     @Override
     public String toString() {
         String informationString;
-        informationString = "Impression: " + getParent().toString() + "\n";
-        informationString += "Priority: " + Integer.toString(this.priority) + "\n";
+        informationString = "Impression: " + getParent().getName() + "\n";
+        informationString += "Priority: " + this.priority + "\n";
         return super.toString() + informationString;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }

@@ -13,7 +13,7 @@ public class PatientNewSpec extends ArgSpec {
         cmdArgLevel = ArgLevel.NONE;
         initSwitches(
                 new Switch("name", String.class, false, ArgLevel.REQUIRED, "n"),
-                new Switch("description", String.class, false, ArgLevel.REQUIRED, "d")
+                new Switch("description", String.class, false, ArgLevel.REQUIRED, "desc")
         );
     }
 }

@@ -9,6 +9,7 @@ import duke.data.Observation;
 import duke.data.Plan;
 import duke.data.Result;
 import duke.exception.DukeException;
+import duke.exception.DukeHelpException;
 import duke.ui.Context;
 
 public class ImpressionNewCommand extends DukeDataCommand {
@@ -28,9 +29,14 @@ public class ImpressionNewCommand extends DukeDataCommand {
 
         //extract parameters and data type
         Integer priority = switchToInt(getSwitchVal("priority"));
+        if (priority > 4 || priority < 0) {
+            throw new DukeHelpException("Priority must be between 0 and 4!", this);
+        }
+        nullToEmptyString(); //set optional string parameters to ""
         Integer status;
         switch (addType) { //isn't polymorphism fun?
         case "medicine":
+            //TODO check for allergies
             status = processStatus(getSwitchVal("status"), Medicine.getStatusArr());
             Medicine medicine = new Medicine(getSwitchVal("name"), impression, priority, status,
                     getSwitchVal("dose"), getSwitchVal("date"), getSwitchVal("duration"));
@@ -97,6 +103,4 @@ public class ImpressionNewCommand extends DukeDataCommand {
         }
         core.writeJsonFile();
     }
-
-
 }

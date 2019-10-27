@@ -19,6 +19,8 @@ public class Impression extends DukeObject {
     private transient ObservableMap<String, Treatment> observableTreaments;
     private transient ObservableMap<String, Object> attributes;
 
+    // TODO: integrate finding with autocorrect?
+
     /**
      * Represents the impression a doctor has about a Patient.
      * An Impression object corresponds to the impression a Doctor has of a patient’s Condition,
@@ -28,8 +30,8 @@ public class Impression extends DukeObject {
      * Attributes:
      * - evidence the list of evidences contributing to the impression
      * - treatments: the list of treatments determined by a doctor to deal with the impression
-     * - patient: the Patient it is tagged to     * @param name the name of the impression
-     *
+     * - patient: the Patient it is tagged to
+     * @param name the name of the impression
      * @param description the description of the impression
      */
     public Impression(String name, String description, Patient patient) {
@@ -191,18 +193,17 @@ public class Impression extends DukeObject {
 
     @Override
     public String toString() {
-        StringBuilder informationString;
-        informationString = new StringBuilder("Impression details\n");
-        informationString.append("Description: ").append(this.description).append("\n");
+        StringBuilder infoStrBuilder = new StringBuilder("Impression details\n");
+        infoStrBuilder.append("Description: ").append(this.description).append("\n");
         for (Map.Entry mapElement : this.evidences.entrySet()) {
             Evidence valueE = (Evidence) mapElement.getValue();
-            informationString.append(valueE.toString());
+            infoStrBuilder.append(valueE.toString());
         }
         for (Map.Entry mapElement : this.treatments.entrySet()) {
             Treatment valueT = (Treatment) mapElement.getValue();
-            informationString.append(valueT.toString());
+            infoStrBuilder.append(valueT.toString());
         }
-        return super.toString() + informationString + "\n";
+        return super.toString() + infoStrBuilder.toString() + "\n";
     }
 
     @Override

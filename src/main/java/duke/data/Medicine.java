@@ -75,11 +75,25 @@ public class Medicine extends Treatment {
         return startDate;
     }
 
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
     public String getStatusStr() {
         return statusArr.get(getStatusIdx());
     }
 
     public static List<String> getStatusArr() {
         return Collections.unmodifiableList(statusArr);
+    }
+
+    @Override
+    public String getSummary() {
+        return "";
+    }
+
+    @Override
+    public void setSummary(String summary) {
+        // medicine does not have a summary
     }
 }

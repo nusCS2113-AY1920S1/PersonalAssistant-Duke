@@ -44,7 +44,7 @@ public class HomeFindCommand extends ArgCommand {
             }
         }
 
-        StringBuilder information = new StringBuilder("");
+        StringBuilder information = new StringBuilder();
 
         for (int i = 0; i < searchResult.size(); i++) {
             information.append(i + 1).append(". ");

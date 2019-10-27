@@ -1,7 +1,7 @@
 import duke.DukeCore;
 import duke.data.GsonStorage;
-import duke.exception.DukeFatalException;
 import duke.data.PatientMap;
+import duke.exception.DukeFatalException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;

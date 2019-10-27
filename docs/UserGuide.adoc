@@ -181,7 +181,7 @@ This will go to the context hierarchically above the user's context. In this cas
 
 ==== `new` - Add a new Impression to this Patient
 
-Format: `new -n[ame] "<name>" -d[escription] "<description>" [-g[o]]`
+Format: `new -n[ame] "<name>" -desc[ription] "<description>" [-g[o]]`
 
 Opens the new Impression's context if `-g[o]` is specified.
 
@@ -322,14 +322,12 @@ This will open a new context for the specific Treatment or Evidence identified.
 
 Format: `edit [-app[end]] [_type_ _string_or_idx_] <switch> [<new value>] [<switch> [<new value>]]`
 
-If input without `_type_ _string_or_idx_`, it is functionally the same as <<patient-edit,`edit` for Patients>>, but with different possible switches.
-
-Switches and corresponding new value formats:
+If input without `_type_ _string_or_idx_`, the switches and corresponding new value formats are as follows:
 
 * `-n[ame] "<name>"`
-* `-d[escription] "<description>"`
+* `-desc[ription] "<description>"`
 
-With this additional switch, the command instead edits an associated Treatment or Object. The possible values for `<switch>` and `<new value>` can now be found in the <<type-table,table>> for `new`.
+With an additional type switch, the command instead edits an associated Treatment or Evidence. The possible values for `<switch>` and `<new value>` can be found in the associated <<type-table,table>> for `new`.
 
 ==== `delete` - Delete a Treatment or Evidence item listed on this page
 

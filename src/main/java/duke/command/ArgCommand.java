@@ -91,4 +91,19 @@ public abstract class ArgCommand extends Command {
             }
         }
     }
+
+    /**
+     * Sets the arguments for optional switches that require String-type arguments to the empty String.
+     * NOTE: Switches with ArgLevel.OPTIONAL are ignored by this method.
+     */
+    protected void nullToEmptyString() {
+        for (Map.Entry<String, Switch> entry : getSwitchMap().entrySet()) {
+            String switchName = entry.getKey();
+            Switch switchSpec = entry.getValue();
+            if (getSwitchVal(switchName) == null && switchSpec.type == String.class && switchSpec.argLevel
+                    == ArgLevel.REQUIRED) {
+                setSwitchVal(switchName, "");
+            }
+        }
+    }
 }

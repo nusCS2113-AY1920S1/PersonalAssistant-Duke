@@ -23,7 +23,7 @@ public abstract class Treatment extends DukeData {
     }
 
     @Override
-    public Integer updatePriority(Integer priorityVal) throws DukeException {
+    public Integer setPriority(Integer priorityVal) throws DukeException {
         if (priorityVal >= 0 && priorityVal < 5) {
             super.setPriority(priorityVal);
             return super.getPriority();
@@ -32,18 +32,10 @@ public abstract class Treatment extends DukeData {
         }
     }
 
-    /**
-     * Updates status of the observation, i.e. the stage of completion
-     * @param statusIdx the integer value of the status
-     */
-    public void updateStatus(int statusIdx) {
-        setStatusIdx(statusIdx);
-    }
-
     @Override
     public String toString() {
         String informationString;
-        informationString = "Status: " + Integer.toString(this.statusIdx) + "\n";
+        informationString = "Status: " + this.statusIdx + "\n";
         informationString += "Status Description: " + getStatusStr() + "\n";
         return super.toString() + informationString;
     }
@@ -51,7 +43,7 @@ public abstract class Treatment extends DukeData {
     @Override
     public String toReportString() {
         String informationString;
-        informationString = "Status of treatment: " + Integer.toString(this.statusIdx) + "\n";
+        informationString = "Status of treatment: " + this.statusIdx + "\n";
         informationString += "Status Description: " + getStatusStr() + "\n";
         return informationString;
     }
