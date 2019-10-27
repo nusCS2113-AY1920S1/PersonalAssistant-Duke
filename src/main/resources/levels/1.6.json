@@ -4,7 +4,7 @@
     "Your current location is at the market. You can only plant your seeds in your farm.",
     "Using the knowledge you have learnt so far, help farmer John get rich!~"
   ],
-  "gold": 30,
+  "gold": 20,
   "seeds": 0,
   "seedlings": 0,
   "wheat": 0,

@@ -39,8 +39,8 @@ public class Farmer {
     private ArrayList<Double> levelList = new ArrayList<Double>(Arrays.asList(1.1,1.2,1.3,1.4,1.5,1.6,2.1,2.2));
 
     public Farmer() {
-        this.gold = 20;
-        this.level = 1.1;
+        this.gold = 10;
+        this.level = 1.6;
         this.day = 1;
         this.location = "WheatFarm";
         this.wheatFarm = new WheatFarm();
@@ -72,9 +72,12 @@ public class Farmer {
         this.cowFarm = cowFarm;
         this.tasks = tasks;
     }
-
     public int getGold() {
         return gold;
+    }
+
+    public boolean hasGold() {
+        return gold > 0;
     }
 
     public double getLevel() {
