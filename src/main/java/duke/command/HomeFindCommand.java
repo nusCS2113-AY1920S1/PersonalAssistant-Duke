@@ -38,7 +38,7 @@ public class HomeFindCommand extends ArgCommand {
                         searchResult.addAll(imp.findEvidence(searchTerm));
                     }
                     if (getSwitchVals().containsKey("treatment")) {
-                        searchResult.addAll(imp.findEvidence(searchTerm));
+                        searchResult.addAll(imp.findTreatment(searchTerm));
                     }
                 }
             }
