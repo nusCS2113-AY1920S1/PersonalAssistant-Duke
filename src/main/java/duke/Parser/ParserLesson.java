@@ -109,6 +109,7 @@ public class ParserLesson {
                 case indexFive:
                     isRunning = false;
                     ui.showQuitLesson();
+                    break;
                 default:
                 }
             } catch (ArrayIndexOutOfBoundsException e) {

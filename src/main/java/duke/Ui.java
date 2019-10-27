@@ -2,9 +2,16 @@ package duke;
 
 import duke.Parser.ParserCommand;
 import duke.sports.MyTraining;
+
 import java.util.Scanner;
 
 public class Ui {
+
+    /**
+     * Scanner object to read user input.
+     */
+    Scanner scan = new Scanner(System.in);
+
     /**
      * Declaring new Parser type.
      */
@@ -14,16 +21,15 @@ public class Ui {
      * A method to run the program.
      */
     public void execute() {
-        Scanner sc = new Scanner(System.in);
-        welcome();
+        showWelcome();
         while (true) {
-            if (sc.hasNextLine()) {
-                String command = sc.nextLine();
+            if (scan.hasNextLine()) {
+                String command = scan.nextLine();
                 if (command.equals("bye")) {
-                    goodbye();
+                    showGoodBye();
                     System.exit(0);
                 } else if (command.equals("home")) {
-                    mainMenu();
+                    showMainMenu();
                 } else {
                     parser.parseCommand(command);
                 }
@@ -34,15 +40,23 @@ public class Ui {
     /**
      * This function prints out the welcome message of Duke.
      */
-    public void welcome() {
+    public void showWelcome() {
         System.out.println("Hello! I'm Duke, your personal coach manager!\n"
             + "What can I do for you?");
     }
 
     /**
+     * Reads in an entire line of user input.
+     * @return The entire line of user input.
+     */
+    public String readCommand() {
+        return scan.nextLine();
+    }
+
+    /**
      * Displays main menu on command line.
      */
-    public void mainMenu() {
+    public void showMainMenu() {
         System.out.println("SPORTS MANAGER\n"
             + "1. View Training Schedule\n"
             + "2. Manage Students\n"
@@ -52,7 +66,7 @@ public class Ui {
     /**
      * This function prints out the goodbye message of Duke.
      */
-    public void goodbye() {
+    public void showGoodBye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
