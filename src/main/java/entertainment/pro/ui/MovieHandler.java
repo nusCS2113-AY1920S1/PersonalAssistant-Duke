@@ -1,9 +1,10 @@
 package entertainment.pro.ui;
 
-import entertainment.pro.logic.contexts.CommandContext;
-import entertainment.pro.logic.contexts.ContextHelper;
-import entertainment.pro.logic.contexts.SearchResultContext;
-import entertainment.pro.logic.execution.CommandStack;
+import entertainment.pro.logic.cinemaRequesterAPI.CinemaRetrieveRequest;
+import entertainment.pro.logic.Contexts.CommandContext;
+import entertainment.pro.logic.Contexts.ContextHelper;
+import entertainment.pro.logic.Contexts.SearchResultContext;
+import entertainment.pro.logic.Execution.CommandStack;
 import entertainment.pro.model.*;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.storage.utils.*;
@@ -109,6 +110,7 @@ public class MovieHandler extends Controller implements RequestListener {
     private static ArrayList<MovieInfoObject> mMovies = new ArrayList<>();
     private double[] mImagesLoadingProgress;
     private static RetrieveRequest mMovieRequest;
+    private static CinemaRetrieveRequest mCinemaRequest;
     private int index = 0;
     private static SortProfile sortProfile;
     private static PastCommands pastCommands = new PastCommands();;
@@ -211,6 +213,7 @@ public class MovieHandler extends Controller implements RequestListener {
     public void initialize() throws IOException {
         setLabels();
         mMovieRequest = new RetrieveRequest(this);
+        mCinemaRequest = new CinemaRetrieveRequest(this);
         CommandContext.initialiseContext();
 
         BlacklistStorage bp = new BlacklistStorage();
@@ -896,6 +899,14 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     public RetrieveRequest getAPIRequester() {
         return mMovieRequest;
+    }
+
+    /**
+     * Retrieves the cinemaRetrieveRequest class
+     * @return the cinemaRetrieveRequest class
+     */
+    public CinemaRetrieveRequest getCinemaAPIRequester() {
+        return mCinemaRequest;
     }
 
     public static String getCommands() {
