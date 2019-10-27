@@ -18,13 +18,10 @@ public class PomodoroCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, ParseException, DukeException {
-        Pomodoro pomodoro = new Pomodoro();
+        Pomodoro pomodoro = Pomodoro.getInstance();
         switch (command) {
             case "start":
-                pomodoro.startTimer(ui);
-                break;
-            case "pause":
-                pomodoro.pauseTimer(ui);
+                pomodoro.startTimer();
                 break;
             case "status":
                 pomodoro.getStatus();
@@ -32,8 +29,11 @@ public class PomodoroCommand extends Command {
             case "reset":
                 pomodoro.resetState();
                 break;
-            case "finish":
-                pomodoro.finishTimer(ui);
+            case "restart":
+                pomodoro.restartPomodoro();
+                break;
+            case "stop":
+                pomodoro.stopTimer();
                 break;
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what you are referring to");
