@@ -14,6 +14,29 @@ public class FileUtil {
     private static final String systemFileSep = System.getProperty("file.separator");
 
     /**
+     * Reads file from jar resource or user filesystem.
+     * @param fileStr File location string.
+     * @param useResourceAsBackup Allows file to be loaded from jar resource if
+     *                            not found in user's local filesystem.
+     * @return BufferedReader instance of the file.
+     * @throws DukeException If file cannot be read as a resource or as a file on local filesystem.
+     */
+    public static BufferedReader readFile(String fileStr, boolean useResourceAsBackup) throws DukeException {
+        File file = new File(fileStr);
+        if (file.exists()) {
+            return readUserFile(fileStr);
+        } else {
+            if (useResourceAsBackup) {
+                return readResourceFile(fileStr);
+            } else {
+                createMissingFile(file);
+                // TODO: Better Exception handling for non existing file
+                return new BufferedReader(new StringReader(""));
+            }
+        }
+    }
+
+    /**
      * Reads config file loaded from user file system rather than inside the jar file.
      * @param fileStr File location of user config file
      * @return BufferedReader object with contents of resource.
@@ -38,10 +61,10 @@ public class FileUtil {
      */
     public static BufferedReader readUserFile(String fileStr) throws DukeException {
         File file = new File(fileStr);
-        return readFile(file);
+        return getReaderFromFile(file);
     }
 
-    private static BufferedReader readFile(File file) throws DukeException {
+    private static BufferedReader getReaderFromFile(File file) throws DukeException {
         BufferedReader bufferedReader;
         try {
             bufferedReader = new BufferedReader(new FileReader(file));
@@ -65,11 +88,17 @@ public class FileUtil {
         try {
             file.getParentFile().mkdirs();
             file.createNewFile();
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new DukeException("Create missing file error : " + e.toString());
         }
     }
 
+    /**
+     * Writes text to file given a newline separated string.
+     * @param textStr Input newline separated string to be written to file.
+     * @param fileStr File to be written to.
+     * @throws DukeException If unable to write to file.
+     */
     public static void writeFile(String textStr, String fileStr) throws DukeException {
         try {
             File file = new File(fileStr);
@@ -107,4 +136,5 @@ public class FileUtil {
     public static String concatPaths(String parentPathStr, String childPathStr) {
         return parentPathStr + systemFileSep + childPathStr;
     }
+
 }

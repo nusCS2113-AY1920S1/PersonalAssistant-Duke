@@ -8,9 +8,6 @@ import duke.model.MealList;
 import duke.model.user.User;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,10 +21,10 @@ import static duke.commons.fileIO.FilePaths.FILE_PATH_NAMES;
  */
 public class Load {
     private BufferedReader bufferedReader = null;
-    private BufferedWriter bufferedWriter = null;
-    private String line;
+    private String lineStr;
     private static FilePaths filePaths;
-    private static final boolean useResourceAsBackup = false;
+    // Flag to set if jar resource should be called if user file does not exist in host system.
+    private static final boolean useResourceAsBackup = true;
 
     public Load() {
         filePaths = new FilePaths();
@@ -39,7 +36,7 @@ public class Load {
      * @throws DukeException if either the object is unable to open file or it is unable to read the file
      */
     public void loadFile(MealList meals, String fileStr) throws DukeException {
-        bufferedReader = FileUtil.readResourceFile(fileStr);
+        bufferedReader = FileUtil.readFile(fileStr, useResourceAsBackup);
         try {
             List<String> lines = bufferedReader.lines().collect(Collectors.toList());
             LoadLineParser.parseMealList(meals, lines);
@@ -54,12 +51,12 @@ public class Load {
     public User loadUser() throws DukeException {
         String userFileStr = filePaths.getFilePathStr(FILE_PATH_NAMES.FILE_PATH_USER_FILE);
         User tempUser;
-        bufferedReader = FileUtil.readResourceFile(userFileStr);
+        bufferedReader = FileUtil.readFile(userFileStr, useResourceAsBackup);
         try {
-            line = bufferedReader.readLine();
-            tempUser = LoadLineParser.parseUser(line);
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] splitWeightInfo = line.split("\\|");
+            lineStr = bufferedReader.readLine();
+            tempUser = LoadLineParser.parseUser(lineStr);
+            while ((lineStr = bufferedReader.readLine()) != null) {
+                String[] splitWeightInfo = lineStr.split("\\|");
                 tempUser.setWeight(Integer.parseInt(splitWeightInfo[1]), splitWeightInfo[0]);
             }
             bufferedReader.close();
@@ -73,9 +70,9 @@ public class Load {
     public void loadAutoCorrect(Autocorrect autocorrect) throws DukeException {
         try {
             String autocorrectFileStr = filePaths.getFilePathStr(FILE_PATH_NAMES.FILE_PATH_AUTOCORRECT_FILE);
-            bufferedReader = FileUtil.readResourceFile(autocorrectFileStr);
-            while ((line = bufferedReader.readLine()) != null) {
-                autocorrect.load(line.trim());
+            bufferedReader = FileUtil.readFile(autocorrectFileStr, useResourceAsBackup);
+            while ((lineStr = bufferedReader.readLine()) != null) {
+                autocorrect.load(lineStr.trim());
             }
             bufferedReader.close();
         } catch (Exception e) {
@@ -86,8 +83,8 @@ public class Load {
     public void loadHelp(ArrayList<String> lines, String specifiedHelp) throws DukeException {
         BufferedReader bufferedReader = LoadHelpUtil.load(specifiedHelp);
         try {
-            while ((line = bufferedReader.readLine()) != null) {
-                lines.add(line);
+            while ((lineStr = bufferedReader.readLine()) != null) {
+                lines.add(lineStr);
             }
             bufferedReader.close();
         } catch (IOException e) {
