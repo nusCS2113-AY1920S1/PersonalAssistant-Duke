@@ -1,8 +1,11 @@
-package duke.logic;
+package duke.logic.selectors;
 
 import duke.model.locations.Venue;
 import javafx.scene.input.KeyCode;
 
+/**
+ * Helper class to check the relationship between 2 Venues.
+ */
 public class LocationHelper {
 
     /**

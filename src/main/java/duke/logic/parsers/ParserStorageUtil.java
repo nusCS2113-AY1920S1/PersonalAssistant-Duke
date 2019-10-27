@@ -1,9 +1,8 @@
 package duke.logic.parsers;
 
-import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeDateTimeParseException;
+import duke.commons.exceptions.CorruptedFileException;
 import duke.model.Event;
-import duke.model.Task;
 import duke.model.planning.Todo;
 import duke.model.locations.BusStop;
 import duke.model.transports.Route;
@@ -21,27 +20,24 @@ import java.util.List;
  */
 public class ParserStorageUtil {
     /**
-     * Parses a task from String format back to task.
+     * Parses a Event from String format back to Event.
      *
-     * @param line The String description of a task.
-     * @return The corresponding task object.
+     * @param line The String description of an Event.
+     * @return The corresponding Event object.
      */
-    public static Task createTaskFromStorage(String line) throws DukeDateTimeParseException {
-        String[] taskParts = line.split("\\|");
-        String type = taskParts[0].strip();
-        String status = taskParts[1].strip();
-        String description = taskParts[2].strip();
-        Task task;
-        if ("E".equals(type)) {
-            LocalDateTime start = ParserTimeUtil.parseStringToDate(taskParts[3].strip());
-            LocalDateTime end = ParserTimeUtil.parseStringToDate(taskParts[4].strip());
-            Venue location = getLocationFromStorage(taskParts);
-            task = new Event(description, start, end, location);
-        } else {
-            task = new Todo(description);
-        }
-        task.setDone("true".equals(status));
-        return task;
+    public static Event createTaskFromStorage(String line) throws DukeDateTimeParseException {
+        String[] eventParts = line.split("\\|");
+        String type = eventParts[0].strip();
+        String status = eventParts[1].strip();
+        String description = eventParts[2].strip();
+        Event event;
+        assert ("E".equals(type)) : "There should only be events.";
+        LocalDateTime start = ParserTimeUtil.parseStringToDate(eventParts[3].strip());
+        LocalDateTime end = ParserTimeUtil.parseStringToDate(eventParts[4].strip());
+        Venue location = getLocationFromStorage(eventParts);
+        event = new Event(description, start, end, location);
+        event.setDone("true".equals(status));
+        return event;
     }
 
     /**
@@ -57,19 +53,14 @@ public class ParserStorageUtil {
     }
 
     /**
-     * Parses a task from task to String format.
+     * Parses an Event from Event to String format.
      *
-     * @param task The task.
+     * @param event The Event.
      * @return The corresponding String format of the task object.
      */
-    public static String toStorageString(Task task) throws CorruptedFileException {
-        if (task instanceof Todo) {
-            return "T | " + task.isDone() + " | " + task.getDescription();
-        } else if (task instanceof Event) {
-            return "E | " + task.isDone() + " | " + task.getDescription() + " | " + ((Event) task).getStartDate()
-                    + " | " + ((Event) task).getEndDate() + " | " + ((Event) task).getLocation();
-        }
-        throw new CorruptedFileException("TASK");
+    public static String toStorageString(Event event) {
+        return "E | " + event.isDone() + " | " + event.getDescription() + " | " + event.getStartDate()
+                + " | " + event.getEndDate() + " | " + event.getLocation();
     }
 
     /**
@@ -204,7 +195,7 @@ public class ParserStorageUtil {
     /**
      * Returns a list of todo's from a text file.
      *
-     * @return The List of todo's
+     * @return The List of todo's.
      */
     public static List<Todo> getTodoListFromStorage(String line) {
         List<Todo> todoList = new ArrayList<>();

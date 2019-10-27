@@ -3,7 +3,7 @@ package duke.model.locations;
 import duke.commons.enumerations.Constraint;
 
 /**
- * Class representing a Node in a Route.
+ * Represents one transportation node - bus stop / train station.
  */
 public abstract class RouteNode extends Venue {
     private Constraint type;

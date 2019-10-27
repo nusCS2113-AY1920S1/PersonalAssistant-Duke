@@ -9,7 +9,6 @@ import duke.logic.CreateMap;
 import duke.model.Model;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
-import duke.model.lists.TaskList;
 import duke.model.lists.VenueList;
 import duke.model.Event;
 import duke.model.Task;
@@ -27,7 +26,7 @@ import java.util.List;
 
 public class ModelStub implements Model {
     private Storage storage;
-    private TaskList tasks;
+    private EventList events;
     private RouteList routes;
     private CreateMap map;
 
@@ -36,14 +35,14 @@ public class ModelStub implements Model {
      */
     public ModelStub() {
         storage = new Storage();
-        tasks = new TaskList();
+        events = new EventList();
         routes = new RouteList();
         map = storage.getMap();
     }
 
     @Override
-    public TaskList getTasks() {
-        return tasks;
+    public EventList getEvents() {
+        return events;
     }
 
     @Override
@@ -67,28 +66,8 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public List<Task> getFilteredList() {
-        return tasks.getFilteredList();
-    }
-
-    @Override
-    public List<Task> getChronoSortedList() {
-        return tasks.getChronoList();
-    }
-
-    @Override
-    public List<Venue> getLocationList() {
-        //move this to UniqueTaskList
-        List<Venue> locations = new ArrayList<>();
-        for (Task t : tasks.getEventList()) {
-            locations.add(((Event) t).getLocation());
-        }
-        return locations;
-    }
-
-    @Override
-    public EventList getEventList() {
-        return new EventList(tasks);
+    public EventList getSortedList() {
+        return events.getSortedList();
     }
 
     @Override

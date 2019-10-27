@@ -1,5 +1,6 @@
 package duke.ui.calendar;
 
+import duke.commons.exceptions.DukeDuplicateTaskException;
 import duke.logic.commands.results.CommandResultCalender;
 import duke.model.lists.EventList;
 import duke.model.Event;
@@ -15,11 +16,14 @@ import java.time.YearMonth;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Represents a calender window in the UI.
  */
 public class CalendarWindow extends UiPart<Stage> {
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private static final String FXML = "CalendarWindow.fxml";
     private YearMonth currentYearMonth;
     private int numOfDays;
@@ -121,7 +125,11 @@ public class CalendarWindow extends UiPart<Stage> {
         LocalDate endDate = t.getEndDate().toLocalDate();
         while (!startDate.isAfter(endDate)) {
             if (isSameYearMonth(startDate)) {
-                filteredEvents.get(startDate.getDayOfMonth()).add(t);
+                try {
+                    filteredEvents.get(startDate.getDayOfMonth()).add(t);
+                } catch (DukeDuplicateTaskException e) {
+                    logger.log(Level.WARNING, "Duplicated tasks should not exists.");
+                }
             }
             startDate = startDate.plusDays(1);
         }

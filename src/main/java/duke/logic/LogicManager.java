@@ -5,12 +5,22 @@ import duke.logic.commands.results.CommandResult;
 import duke.commons.exceptions.DukeApiException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.DukeUnknownCommandException;
+import duke.logic.commands.results.PanelResult;
 import duke.logic.conversations.ConversationManager;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
 import duke.model.ModelManager;
 
+import javafx.scene.input.KeyCode;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ * The main logic of the application.
+ */
 public class LogicManager extends Logic {
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private Model model;
     private ConversationManager conversationManager;
 
@@ -30,15 +40,30 @@ public class LogicManager extends Logic {
      */
     public CommandResult execute(String userInput) throws DukeException {
         Command c;
-        try {
-            c = Parser.parseSingleCommand(userInput);
-            conversationManager.clearContext();
-        } catch (DukeApiException e) {
-            throw new DukeException((e.getMessage()));
-        } catch (DukeUnknownCommandException e) {
-            c = getCommandFromConversationManager(userInput);
+        if (EditorManager.isActive()) {
+            logger.log(Level.INFO, "editing...");
+            c = EditorManager.edit(userInput);
+        } else {
+            try {
+                c = Parser.parseComplexCommand(userInput);
+                conversationManager.clearContext();
+            } catch (DukeApiException e) {
+                throw new DukeException((e.getMessage()));
+            } catch (DukeUnknownCommandException e) {
+                c = getCommandFromConversationManager(userInput);
+            }
         }
         return (CommandResult) c.execute(model);
+    }
+
+    /**
+     * Gets response from LogicManager.
+     */
+    public PanelResult execute(KeyCode keyCode) {
+        if (EditorManager.isActive()) {
+            return EditorManager.edit(keyCode);
+        }
+        return new PanelResult();
     }
 
     /**
@@ -46,12 +71,6 @@ public class LogicManager extends Logic {
      */
     private Command getCommandFromConversationManager(String userInput) throws DukeException {
         conversationManager.converse(userInput);
-        if (conversationManager.isFinished()) {
-            String result = conversationManager.getResult();
-            return Parser.parseComplexCommand(result);
-        } else {
-            String prompt = conversationManager.getPrompt();
-            return Parser.parsePromptCommand(prompt);
-        }
+        return conversationManager.getCommand();
     }
 }

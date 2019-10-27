@@ -7,6 +7,7 @@ import duke.logic.commands.AddCommand;
 import duke.logic.commands.AddSampleItineraryCommand;
 import duke.logic.commands.Command;
 import duke.logic.commands.DeleteCommand;
+import duke.logic.commands.EditorCommand;
 import duke.logic.commands.ExitCommand;
 import duke.logic.commands.FindCommand;
 import duke.logic.commands.FindPathCommand;
@@ -45,8 +46,16 @@ public class Parser {
         String inputBody = getWord(input);
 
         switch (commandWord) {
-        case "todo":
-            return new AddCommand(ParserUtil.createTodo(input));
+        case "bye":
+            return new ExitCommand();
+        case "list":
+            return new ListCommand();
+        case "help":
+            return new HelpCommand();
+        case "fetch":
+            return new ViewScheduleCommand();
+        case "edit":
+            return new EditorCommand();
         case "done":
             return new MarkDoneCommand(ParserUtil.getIntegerIndexInList(0, 1, inputBody));
         case "delete":
@@ -64,8 +73,8 @@ public class Parser {
         case "event":
             return new AddCommand(ParserUtil.createEvent(input));
         case "findPath":
-            return new FindPathCommand(input.strip().split(" ")[1], ParserUtil.getFieldInList(0, 2, inputBody),
-                    ParserUtil.getFieldInList(1, 2, inputBody));
+            return new FindPathCommand(input.strip().split(" ")[1], ParserUtil.getIntegerIndexInList(0, 2, inputBody),
+                    ParserUtil.getIntegerIndexInList(1, 2, inputBody));
         case "recommend":
             return new RecommendationsCommand(ParserUtil.createRecommendation(input));
         case "cancel":
@@ -101,38 +110,6 @@ public class Parser {
         default:
             throw new DukeUnknownCommandException();
         }
-    }
-
-    /**
-     * Parses the userInput and return a Command object.
-     *
-     * @param userInput Input created by the ConversationManager object or user input.
-     * @return The corresponding Command object.
-     * @throws DukeException If userInput is undefined.
-     */
-    public static Command parseSingleCommand(String userInput) throws DukeException {
-        switch (userInput) {
-        case "bye":
-            return new ExitCommand();
-        case "list":
-            return new ListCommand();
-        case "help":
-            return new HelpCommand();
-        case "fetch":
-            return new ViewScheduleCommand();
-        default:
-            return parseComplexCommand(userInput);
-        }
-    }
-
-    /**
-     * Parses a PromptCommand.
-     *
-     * @param prompt The prompt.
-     * @return The PromptCommand.
-     */
-    public static Command parsePromptCommand(String prompt) {
-        return new PromptCommand(prompt);
     }
 
     /**

@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Class representing a Bus Stop.
+ * Represents a bus stop.
  */
 public class BusStop extends RouteNode {
     private String busCode;

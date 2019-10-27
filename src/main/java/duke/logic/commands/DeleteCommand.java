@@ -3,8 +3,8 @@ package duke.logic.commands;
 import duke.logic.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
+import duke.model.Event;
 import duke.model.Model;
-import duke.model.Task;
 
 /**
  * Deletes a task.
@@ -30,9 +30,9 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResultText execute(Model model) throws DukeException {
         try {
-            Task task = model.getTasks().remove(index);
+            Event event = model.getEvents().remove(index);
             model.save();
-            return new CommandResultText(MESSAGE_DELETE + task);
+            return new CommandResultText(MESSAGE_DELETE + event);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException(Messages.ERROR_INDEX_OUT_OF_BOUNDS);
         }

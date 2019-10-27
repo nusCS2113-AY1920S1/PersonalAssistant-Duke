@@ -2,9 +2,9 @@ package duke.logic.commands;
 
 import duke.logic.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
+import duke.model.Event;
 import duke.model.Model;
-import duke.model.lists.TaskList;
-import duke.model.Task;
+import duke.model.lists.EventList;
 
 /**
  * Finds a task by keyword.
@@ -28,11 +28,11 @@ public class FindCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws DukeException {
-        TaskList tasks = model.getTasks();
-        TaskList result = new TaskList();
-        for (Task task: tasks) {
-            if (task.toString().contains(keyword)) {
-                result.add(task);
+        EventList events = model.getEvents();
+        EventList result = new EventList();
+        for (Event event: events) {
+            if (event.toString().contains(keyword)) {
+                result.add(event);
             }
         }
         return new CommandResultText(result);

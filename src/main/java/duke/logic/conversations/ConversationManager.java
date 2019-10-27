@@ -1,7 +1,10 @@
 package duke.logic.conversations;
 
-import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
+import duke.logic.commands.Command;
+import duke.logic.parsers.ConversationParser;
+import duke.logic.parsers.Parser;
+import duke.logic.parsers.PromptParser;
 
 /**
  * Manages two-way communications between SGTravel and the user.
@@ -58,61 +61,19 @@ public class ConversationManager {
      * @param input The words from user input.
      */
     private void startConversation(String input) throws DukeException {
-        switch (input) {
-        case "done":
-            conversation = new MarkDoneConversation();
-            break;
-        case "delete":
-            conversation = new DeleteConversation();
-            break;
-        case "findtime":
-            conversation = new FreeTimeConversation();
-            break;
-        case "busStop":
-            conversation = new GetBusStopConversation();
-            break;
-        case "findPath":
-            conversation = new FindPathConversation();
-            break;
-        case "todo":
-            conversation = new ToDoConversation();
-            break;
-        case "find":
-            conversation = new FindConversation();
-            break;
-        case "search":
-            conversation = new SearchConversation();
-            break;
-        case "routeAdd":
-            conversation = new RouteAddConversation();
-            break;
-        case "routeDelete":
-            conversation = new RouteDeleteConversation();
-            break;
-        case "routeEdit":
-            conversation = new RouteEditConversation();
-            break;
-        case "routeGenerate":
-            conversation = new RouteGenerateConversation();
-            break;
-        case "routeShow":
-            conversation = new RouteListConversation();
-            break;
-        case "routeNodeAdd":
-            conversation = new RouteNodeAddConversation();
-            break;
-        case "routeNodeDelete":
-            conversation = new RouteNodeDeleteConversation();
-            break;
-        case "routeNodeEdit":
-            conversation = new RouteNodeEditConversation();
-            break;
-        case "routeNodeShow":
-            conversation = new RouteNodeListConversation();
-            break;
-        default:
-            throw new DukeException(Messages.ERROR_COMMAND_UNKNOWN);
+        conversation = ConversationParser.parse(input);
+    }
+
+    /**
+     * Gets a command from the ConversationManager.
+     * @return Command for logic to execute.
+     * @throws DukeException If the result could not be parse by parser.
+     */
+    public Command getCommand() throws DukeException {
+        if (isFinished) {
+            return Parser.parseComplexCommand(getResult());
         }
+        return PromptParser.parseCommand(getPrompt());
     }
 
     /**
@@ -120,7 +81,7 @@ public class ConversationManager {
      *
      * @return result The String result made from Conversation.
      */
-    public String getResult() {
+    private String getResult() {
         String result = conversation.getResult();
         clearContext();
         return result;
@@ -131,7 +92,7 @@ public class ConversationManager {
      *
      * @return The prompt.
      */
-    public String getPrompt() {
+    private String getPrompt() {
         assert (conversation != null) : "Conversation should not be null";
         return conversation.getPrompt();
     }

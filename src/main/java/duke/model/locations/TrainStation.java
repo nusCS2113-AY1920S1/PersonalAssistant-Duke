@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Class representing a Train Station.
+ * Represents a train station.
  */
 public class TrainStation extends RouteNode {
     private ArrayList<String> trainCodes;

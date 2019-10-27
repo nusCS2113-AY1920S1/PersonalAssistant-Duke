@@ -5,7 +5,6 @@ package duke.model;
  */
 public class Task {
     private String description;
-
     private boolean isDone;
 
     /**
@@ -16,6 +15,15 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    /**
+     * Sets the description of the task.
+     *
+     * @param description The new description.
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**

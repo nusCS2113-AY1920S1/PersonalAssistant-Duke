@@ -15,6 +15,6 @@ public class ListCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) {
-        return new CommandResultText(model.getTasks());
+        return new CommandResultText(model.getEvents());
     }
 }

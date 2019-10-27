@@ -51,7 +51,9 @@ public class Messages {
     public static final String ERROR_FORMAT_INVALID = "☹ I'm sorry, numbers or words cannot be formatted.";
 
     public static final String ERROR_LOCATION_SELECTOR_NULL = "There is no locations to be selected!";
-
+    public static final String ERROR_VENUE_EMPTY = "There are no Venues. VenueList is empty.";
+    public static final String ERROR_EVENT_OUT_OF_BOUND = "The index is out of bounds for the EventList.";
+    public static final String ERROR_EVENT_NOT_SELECTED = "There are no events selected.";
     /**
      * Messages sent via Prompt by Duke.
      * Format is PROMPT_TYPE_DESCRIPTION
@@ -176,7 +178,5 @@ public class Messages {
 
     public static final String PROMPT_ROUTE_STARTING_POINT = "Choose your starting point.";
     public static final String PROMPT_ROUTE_ENDING_POINT = "Choose your end point.";
-
-
     public static final String PROMPT_CANCEL = "Current conversation has ended.";
 }
