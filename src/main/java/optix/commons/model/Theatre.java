@@ -255,15 +255,14 @@ public class Theatre {
         int newSeatRow = getRow(newSeat.substring(0, 1));
         int newSeatCol = getCol(newSeat.substring(1));
 
-
-        if (oldSeat.equals(newSeat)) {
-            message.append(String.format("Your current seat is already %1$s.\n", oldSeat));
-            return message.toString();
-        }
-
         //if seat number is invalid.
         if (oldSeatRow == -1 || oldSeatCol == -1 || newSeatRow == -1 || newSeatCol == -1) {
             message.append("☹ OOPS!!! Please enter valid seat numbers.\n");
+            return message.toString();
+        }
+
+        if (oldSeat.equals(newSeat)) {
+            message.append(String.format("Your current seat is already %1$s.\n", oldSeat));
             return message.toString();
         }
 

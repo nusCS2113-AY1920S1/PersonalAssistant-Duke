@@ -16,7 +16,7 @@ class TheatreTest {
 
     @Test
     void testGetSeatingArrangement() {
-        String expected ="                |STAGE|           \n"
+        String expected = "                |STAGE|           \n"
                         + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                         + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                         + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
@@ -33,7 +33,7 @@ class TheatreTest {
     @Test
     void testSellSeats() {
         theatre.sellSeats("A1", "A2"); // test sell seat function
-        String expected ="                |STAGE|           \n"
+        String expected = "                |STAGE|           \n"
                 + "  [✓][✓][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
@@ -59,7 +59,7 @@ class TheatreTest {
     void testReassignSeat() {
         theatre.sellSeats("A1");
         theatre.reassignSeat("A1", "A2"); // successful reassignment of seats.
-        String expected ="                |STAGE|           \n"
+        String expected = "                |STAGE|           \n"
                 + "  [✘][✓][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
@@ -80,7 +80,7 @@ class TheatreTest {
         theatre.sellSeats("A1", "A2", "A3");
         assertEquals(90, theatre.getProfit());
         theatre.removeSeat("A3");
-        String expected ="                |STAGE|           \n"
+        String expected = "                |STAGE|           \n"
                 + "  [✓][✓][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
