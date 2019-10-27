@@ -74,13 +74,7 @@ public class RouteGenerateCommand extends Command {
                         route.addNode((RouteNode) inbetweenVenue);
                     } catch (RouteNodeDuplicateException e) {
                         //remove duplicate nodes and merge
-                        for (int i = route.getNumNodes() - 1; i >= 0; i--) {
-                            if (!route.getNode(i).equals(inbetweenVenue)) {
-                                route.deleteNode(i);
-                            } else {
-                                break;
-                            }
-                        }
+                        route = pruneDuplicateRoute(route, inbetweenVenue);
                     }
                 }
             }
@@ -94,6 +88,41 @@ public class RouteGenerateCommand extends Command {
             previousVenue = venue;
         }
 
+        updateRouteNodes(route, model);
+
+        model.getRoutes().add(route);
+        model.save();
+
+        return new CommandResultText(Messages.PROMPT_ROUTE_ADD_SUCCESS + "\n" + route.getName());
+    }
+
+    /**
+     * Finds the duplicate RouteNode in a route, and removes the unneeded routes.
+     *
+     * @param route The route object.
+     * @param target The RouteNode that has a duplicate.
+     * @return The route object.
+     * @throws QueryOutOfBoundsException If the node cannot be deleted.
+     */
+    private Route pruneDuplicateRoute(Route route, Venue target) throws QueryOutOfBoundsException {
+        for (int i = route.getNumNodes() - 1; i >= 0; i--) {
+            if (!route.getNode(i).equals(target)) {
+                route.deleteNode(i);
+            } else {
+                break;
+            }
+        }
+
+        return route;
+    }
+
+    /**
+     * Updates the RouteNodes in a route by fetching data from the model if possible.
+     *
+     * @param route The Route object.
+     * @param model The model.
+     */
+    private void updateRouteNodes(Route route, Model model) throws QueryFailedException {
         for (RouteNode routeNode: route.getNodes()) {
             if (routeNode instanceof BusStop) {
                 ((BusStop) routeNode).fetchData(model);
@@ -101,10 +130,5 @@ public class RouteGenerateCommand extends Command {
                 ((TrainStation) routeNode).fetchData(model);
             }
         }
-
-        model.getRoutes().add(route);
-        model.save();
-
-        return new CommandResultText(Messages.PROMPT_ROUTE_ADD_SUCCESS + "\n" + route.getName());
     }
 }

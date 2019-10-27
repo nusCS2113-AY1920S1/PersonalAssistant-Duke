@@ -12,8 +12,6 @@ public class RouteNodeEditConversationTest {
 
     @Test
     void testForAddress() throws DukeException {
-        String expected = "routeNodeEdit 1 1 address test_address";
-
         ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeNodeEdit");
         assertFalse(conversationManager.isFinished());
@@ -42,6 +40,7 @@ public class RouteNodeEditConversationTest {
         conversationManager.converse("address");
         assertFalse(conversationManager.isFinished());
 
+        String expected = "routeNodeEdit 1 1 address test_address";
         conversationManager.converse("test_address");
         assertTrue(conversationManager.isFinished());
         assertEquals(expected, conversationManager.getResult());
@@ -49,8 +48,6 @@ public class RouteNodeEditConversationTest {
 
     @Test
     void testForDescription() throws DukeException {
-        String expected = "routeNodeEdit 1 1 description test_description";
-
         ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeNodeEdit");
         assertFalse(conversationManager.isFinished());
@@ -79,6 +76,7 @@ public class RouteNodeEditConversationTest {
         conversationManager.converse("description");
         assertFalse(conversationManager.isFinished());
 
+        String expected = "routeNodeEdit 1 1 description test_description";
         conversationManager.converse("test_description");
         assertTrue(conversationManager.isFinished());
         assertEquals(expected, conversationManager.getResult());
@@ -86,8 +84,6 @@ public class RouteNodeEditConversationTest {
 
     @Test
     void testForType() throws DukeException {
-        String expected = "routeNodeEdit 1 1 type test_type";
-
         ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeNodeEdit");
         assertFalse(conversationManager.isFinished());
@@ -116,6 +112,7 @@ public class RouteNodeEditConversationTest {
         conversationManager.converse("type");
         assertFalse(conversationManager.isFinished());
 
+        String expected = "routeNodeEdit 1 1 type test_type";
         conversationManager.converse("test_type");
         assertTrue(conversationManager.isFinished());
         assertEquals(expected, conversationManager.getResult());
@@ -123,8 +120,6 @@ public class RouteNodeEditConversationTest {
 
     @Test
     void testForLatitude() throws DukeException {
-        String expected = "routeNodeEdit 1 1 latitude test_latitude";
-
         ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeNodeEdit");
         assertFalse(conversationManager.isFinished());
@@ -153,6 +148,7 @@ public class RouteNodeEditConversationTest {
         conversationManager.converse("latitude");
         assertFalse(conversationManager.isFinished());
 
+        String expected = "routeNodeEdit 1 1 latitude test_latitude";
         conversationManager.converse("test_latitude");
         assertTrue(conversationManager.isFinished());
         assertEquals(expected, conversationManager.getResult());
@@ -160,8 +156,6 @@ public class RouteNodeEditConversationTest {
 
     @Test
     void testForLongitude() throws DukeException {
-        String expected = "routeNodeEdit 1 1 longitude test_longitude";
-
         ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeNodeEdit");
         assertFalse(conversationManager.isFinished());
@@ -190,6 +184,7 @@ public class RouteNodeEditConversationTest {
         conversationManager.converse("longitude");
         assertFalse(conversationManager.isFinished());
 
+        String expected = "routeNodeEdit 1 1 longitude test_longitude";
         conversationManager.converse("test_longitude");
         assertTrue(conversationManager.isFinished());
         assertEquals(expected, conversationManager.getResult());

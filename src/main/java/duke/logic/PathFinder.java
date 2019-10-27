@@ -431,9 +431,6 @@ public class PathFinder {
 
             if (!isGenerated) {
                 ArrayList<TrainStation> trainLine = model.getMap().getTrainLine(trainCode.substring(0, 2));
-                ArrayList<Venue> tempRoute = new ArrayList<>();
-                boolean isStartNodeFound = false;
-
                 //search forward direction
                 result = searchForwardDirectionTrain(startVenue, endVenue, trainCode, trainLine);
                 if (result == null) {

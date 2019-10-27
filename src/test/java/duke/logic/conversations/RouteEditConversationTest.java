@@ -12,8 +12,6 @@ class RouteEditConversationTest {
 
     @Test
     void testForName() throws DukeException {
-        String expected = "routeEdit 1 name test_name";
-
         ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeEdit");
         assertFalse(conversationManager.isFinished());
@@ -34,6 +32,7 @@ class RouteEditConversationTest {
         conversationManager.converse("name");
         assertFalse(conversationManager.isFinished());
 
+        String expected = "routeEdit 1 name test_name";
         conversationManager.converse("test_name");
         assertTrue(conversationManager.isFinished());
         assertEquals(expected, conversationManager.getResult());
@@ -41,8 +40,6 @@ class RouteEditConversationTest {
 
     @Test
     void testForDescription() throws DukeException {
-        String expected = "routeEdit 1 description test_description";
-
         ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeEdit");
         assertFalse(conversationManager.isFinished());
@@ -63,6 +60,7 @@ class RouteEditConversationTest {
         conversationManager.converse("description");
         assertFalse(conversationManager.isFinished());
 
+        String expected = "routeEdit 1 description test_description";
         conversationManager.converse("test_description");
         assertTrue(conversationManager.isFinished());
         assertEquals(expected, conversationManager.getResult());

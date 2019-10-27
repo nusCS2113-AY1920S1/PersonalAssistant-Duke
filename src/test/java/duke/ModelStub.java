@@ -71,6 +71,13 @@ public class ModelStub implements Model {
         return map.getBusStopMap();
     }
 
+    /**
+     * Gets the bust stop from the map.
+     *
+     * @param query The bus stop to query.
+     * @return The BusStop object.
+     * @throws QueryFailedException If the bus stop cannot be found.
+     */
     public BusStop getBusStop(String query) throws QueryFailedException {
         HashMap<String, BusStop> allBus = getMap().getBusStopMap();
         if (allBus.containsKey(query)) {

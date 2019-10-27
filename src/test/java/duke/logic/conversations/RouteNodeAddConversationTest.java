@@ -12,8 +12,6 @@ public class RouteNodeAddConversationTest {
 
     @Test
     void testForBus() throws DukeException {
-        String expected = "routeNodeAdd 1 1 at 17009 by bus";
-
         ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeNodeAdd");
         assertFalse(conversationManager.isFinished());
@@ -42,6 +40,7 @@ public class RouteNodeAddConversationTest {
         conversationManager.converse("bus");
         assertFalse(conversationManager.isFinished());
 
+        String expected = "routeNodeAdd 1 1 at 17009 by bus";
         conversationManager.converse("17009");
         assertTrue(conversationManager.isFinished());
         assertEquals(expected, conversationManager.getResult());
@@ -49,8 +48,6 @@ public class RouteNodeAddConversationTest {
 
     @Test
     void testForTrain() throws DukeException {
-        String expected = "routeNodeAdd 1 1 at 17009 by mrt";
-
         ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeNodeAdd");
         assertFalse(conversationManager.isFinished());
@@ -79,6 +76,7 @@ public class RouteNodeAddConversationTest {
         conversationManager.converse("mrt");
         assertFalse(conversationManager.isFinished());
 
+        String expected = "routeNodeAdd 1 1 at 17009 by mrt";
         conversationManager.converse("17009");
         assertTrue(conversationManager.isFinished());
         assertEquals(expected, conversationManager.getResult());

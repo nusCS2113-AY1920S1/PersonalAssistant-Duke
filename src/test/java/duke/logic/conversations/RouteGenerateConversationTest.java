@@ -12,8 +12,6 @@ class RouteGenerateConversationTest {
 
     @Test
     void testForBus() throws DukeException {
-        String expected = "routeGenerate amk hub to nus by bus";
-
         ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeGenerate");
         assertFalse(conversationManager.isFinished());
@@ -29,6 +27,7 @@ class RouteGenerateConversationTest {
         assertFalse(conversationManager.isFinished());
         assertEquals(Messages.ERROR_CONSTRAINT_UNKNOWN, conversationManager.getPrompt());
 
+        String expected = "routeGenerate amk hub to nus by bus";
         conversationManager.converse("bus");
         assertTrue(conversationManager.isFinished());
         assertEquals(expected, conversationManager.getResult());
@@ -36,8 +35,6 @@ class RouteGenerateConversationTest {
 
     @Test
     void testForTrain() throws DukeException {
-        String expected = "routeGenerate amk hub to nus by mrt";
-
         ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeGenerate");
         assertFalse(conversationManager.isFinished());
@@ -53,6 +50,7 @@ class RouteGenerateConversationTest {
         assertFalse(conversationManager.isFinished());
         assertEquals(Messages.ERROR_CONSTRAINT_UNKNOWN, conversationManager.getPrompt());
 
+        String expected = "routeGenerate amk hub to nus by mrt";
         conversationManager.converse("mrt");
         assertTrue(conversationManager.isFinished());
         assertEquals(expected, conversationManager.getResult());

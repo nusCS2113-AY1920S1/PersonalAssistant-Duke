@@ -48,13 +48,13 @@ class ParserUtilTest {
         assertEquals(expected, ParserUtil.getIntegerInList(0, 1, inputString.strip().split(" ", 2)[1]));
 
         //test for empty input
-        assertThrows(InputNotIntException.class, ()-> {
+        assertThrows(InputNotIntException.class, () -> {
             ParserUtil.getIntegerInList(0, 1, "");
         });
 
         //negative test, input is not integer
         String inputString3 = "done NotInt";
-        assertThrows(InputNotIntException.class, ()-> {
+        assertThrows(InputNotIntException.class, () -> {
             ParserUtil.getIntegerInList(0, 1, inputString3.strip().split(" ", 2)[1]);
         });
     }
@@ -77,25 +77,25 @@ class ParserUtilTest {
         assertEquals(expected, ParserUtil.getIntegerIndexInList(0, 1, inputString.strip().split(" ", 2)[1]));
 
         //test for empty input
-        assertThrows(InputNotIntException.class, ()-> {
+        assertThrows(InputNotIntException.class, () -> {
             ParserUtil.getIntegerIndexInList(0, 1, "");
         });
 
         //negative test, input is not integer
         String inputString3 = "done NotInt";
-        assertThrows(InputNotIntException.class, ()-> {
+        assertThrows(InputNotIntException.class, () -> {
             ParserUtil.getIntegerIndexInList(0, 1, inputString3.strip().split(" ", 2)[1]);
         });
 
         //negative test, test for out of bounds
         String finalInputString1 = "done 1";
-        assertThrows(QueryOutOfBoundsException.class, ()-> {
+        assertThrows(QueryOutOfBoundsException.class, () -> {
             ParserUtil.getIntegerIndexInList(-1, 1, finalInputString1.strip().split(" ", 2)[1]);
         });
 
         //negative test, test for out of bounds
         String finalInputString2 = "done 1";
-        assertThrows(QueryOutOfBoundsException.class, ()-> {
+        assertThrows(QueryOutOfBoundsException.class, () -> {
             ParserUtil.getIntegerIndexInList(2, 1, finalInputString2.strip().split(" ", 2)[1]);
         });
     }

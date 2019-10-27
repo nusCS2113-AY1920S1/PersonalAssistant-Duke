@@ -11,8 +11,6 @@ class RouteAddConversationTest {
 
     @Test
     void converse() throws DukeException {
-        String expected = "routeAdd test_route desc test_description";
-
         ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeAdd");
         assertFalse(conversationManager.isFinished());
@@ -20,6 +18,7 @@ class RouteAddConversationTest {
         conversationManager.converse("test_route");
         assertFalse(conversationManager.isFinished());
 
+        String expected = "routeAdd test_route desc test_description";
         conversationManager.converse("test_description");
         assertTrue(conversationManager.isFinished());
         assertEquals(expected, conversationManager.getResult());

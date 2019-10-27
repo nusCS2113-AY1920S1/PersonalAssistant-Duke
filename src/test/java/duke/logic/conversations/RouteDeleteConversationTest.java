@@ -12,8 +12,6 @@ class RouteDeleteConversationTest {
 
     @Test
     void converse() throws DukeException {
-        String expected = "routeDelete 1";
-
         ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeDelete");
         assertFalse(conversationManager.isFinished());
@@ -23,6 +21,7 @@ class RouteDeleteConversationTest {
         assertFalse(conversationManager.isFinished());
         assertEquals(Messages.PROMPT_NOT_INT, conversationManager.getPrompt());
 
+        String expected = "routeDelete 1";
         conversationManager.converse("1");
         assertTrue(conversationManager.isFinished());
         assertEquals(expected, conversationManager.getResult());

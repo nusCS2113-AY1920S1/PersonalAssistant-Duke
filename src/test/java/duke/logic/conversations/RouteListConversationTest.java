@@ -12,8 +12,6 @@ class RouteListConversationTest {
 
     @Test
     void converse() throws DukeException {
-        String expected = "routeShow 1";
-
         ConversationManager conversationManager = new ConversationManager();
         conversationManager.converse("routeShow");
         assertFalse(conversationManager.isFinished());
@@ -23,6 +21,7 @@ class RouteListConversationTest {
         assertFalse(conversationManager.isFinished());
         assertEquals(Messages.PROMPT_NOT_INT, conversationManager.getPrompt());
 
+        String expected = "routeShow 1";
         conversationManager.converse("1");
         assertTrue(conversationManager.isFinished());
         assertEquals(expected, conversationManager.getResult());
