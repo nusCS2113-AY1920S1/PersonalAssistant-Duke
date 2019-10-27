@@ -24,7 +24,7 @@ public class DollaData {
     private int modifyIndex;
 
     /**
-     * Instantiates a new Dolla data.
+     * Creates an instance of DollaDota to store and manipulate data.
      */
     public DollaData() {
         //this.entryList = new EntryList(new ArrayList<Log>());
@@ -100,9 +100,8 @@ public class DollaData {
     }
 
     /**
-     * Modify log list.
-     *
-     * @param newLog the new log
+     * Changes the content of a particular log in list to the specified one.
+     * @param newLog The new log to replace the current item on the list.
      */
     public void modifyLogList(Log newLog) {
         if (prevMode.equals("entry")) {
@@ -111,40 +110,28 @@ public class DollaData {
         }
     }
 
-    /**
-     * Gets mode.
-     *
-     * @return the mode
-     */
     public String getMode() {
         return mode;
     }
 
     /**
-     * Update mode.
-     *
-     * @param newMode the new mode
+     * Updates Dolla's mode to the specified new mode.
+     * @param newMode the mode to update to.
      */
     public void updateMode(String newMode) {
         mode = newMode;
     }
 
     /**
-     * Prep for modify.
-     *
-     * @param prevMode the prev mode
-     * @param index    the index
+     * Prepares Dolla for modify mode by storing the previous mode and the index of the log to be modified.
+     * @param prevMode the current mode of Dolla when this method is called.
+     * @param index    the index of the log to be modified.
      */
     public void prepForModify(String prevMode, int index) {
         this.prevMode = prevMode;
         modifyIndex = index;
     }
 
-    /**
-     * Gets modify index.
-     *
-     * @return the modify index
-     */
     public int getModifyIndex() {
         return modifyIndex;
     }
