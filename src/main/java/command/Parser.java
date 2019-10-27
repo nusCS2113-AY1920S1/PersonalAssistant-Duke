@@ -18,7 +18,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-
+import java.util.LinkedHashMap;
 /**
  * Parser that parses input from the user.
  */
@@ -40,7 +40,7 @@ public class Parser {
      */
 
     public static boolean parse(String input, TaskList tasklist, Ui ui, Fund fund, Storage storage, ArrayList<String> commandList,
-                                HashMap<String, Payee> managermap, HashMap<String, Project> projectmap) {
+                                HashMap<String, Payee> managermap, LinkedHashMap<String, Project> projectmap) {
         try {
             if (instr.isBye(input)) {
                 //print bye message
@@ -49,6 +49,8 @@ public class Parser {
                 return true;
             } else if (instr.isHistory(input)) {
                 process.history(ui,commandList, storage);
+            } else if (instr.isListProjects(input)){
+                process.listProjects(ui, projectmap);
             } else if (instr.isAddProject(input)) {
                 process.commandHistory(input, ui, storage);
                 if (currentProject == null) {
@@ -141,9 +143,9 @@ public class Parser {
                 throw new AlphaNUSException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (AlphaNUSException e) {
-            process.homePageMessage(currentProject.projectname, projectmap.size(), ui);
+            ui.exceptionMessage(e.getMessage());
         } catch (NullPointerException e) {
-            process.homePageMessage(null, projectmap.size(), ui);
+            ui.exceptionMessage("NULLPOINTEREXCEPTION");
         }
         return false;
     }

@@ -84,6 +84,10 @@ public class Instruction {
         return input.startsWith("history");
     }
 
+    public boolean isListProjects(String input) {
+        return input.equals("list projects");
+    }
+
     public boolean isAddProject(String input) {
         return input.startsWith("add project");
     }

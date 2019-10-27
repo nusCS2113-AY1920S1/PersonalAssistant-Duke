@@ -68,6 +68,18 @@ public class Ui {
         System.out.print(line);
     }
 
+    public void printProjectsList(ArrayList<Project> projectslist) {
+        int index = 1;
+        System.out.print(line);
+        System.out.println("\t" + "Here is the list of projects:");
+        for (Project project: projectslist) {
+            System.out.println("\t" + index + ". " + project.projectname);
+            index++;
+        }
+        System.out.println("\t" + "There are " + projectslist.size() + " projects in the record.");
+        System.out.print(line);
+    }
+
     /**
      * Prints a message to indicate that a project has been added.
      * @param newProject The project that was added.

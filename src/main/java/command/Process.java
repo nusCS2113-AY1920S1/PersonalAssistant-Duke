@@ -13,6 +13,7 @@ import task.Task;
 import task.WithinPeriodTask;
 import ui.Ui;
 
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,6 +22,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Calendar;
+import java.util.LinkedHashMap;
 
 public class Process {
     public SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -57,14 +59,19 @@ public class Process {
         ui.printNoProjectMessage();
     }
 
+    public void listProjects(Ui ui, LinkedHashMap<String, Project> projectmap) {
+        ArrayList<Project> projectslist = ProjectManager.listProjects(projectmap);
+        ui.printProjectsList(projectslist);
+    }
+
     /**
      * Processes the add project command to add a new project to the projectmap.
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
-     * @param projectmap Hashmap containing projects.
+     * @param projectmap LinkedHashMap containing projects.
      * @return
      */
-    public Project addProject(String input, Ui ui, HashMap<String, Project> projectmap) {
+    public Project addProject(String input, Ui ui, LinkedHashMap<String, Project> projectmap) {
         String[] split = input.split("pr/", 2); //TODO check for valid input
         String projectname = split[1];
         Project newProject = ProjectManager.addProject(projectname, projectmap);
@@ -77,10 +84,10 @@ public class Process {
      * Processes the delete project command to delete a project from the projectmap.
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
-     * @param projectmap Hashmap containing projects.
+     * @param projectmap LinkedHashMap containing projects.
      * @return Returns the Project object of the deleted project.
      */
-    public Project deleteProject(String input, Ui ui, HashMap<String, Project> projectmap) {
+    public Project deleteProject(String input, Ui ui, LinkedHashMap<String, Project> projectmap) {
         String[] split = input.split("pr/", 2); //TODO check for valid input
         String projectname = split[1];
         Project deletedProject = ProjectManager.deleteProject(projectname, projectmap);
@@ -94,10 +101,10 @@ public class Process {
      * as the current project that the user is working on.
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
-     * @param projectmap Hashmap containing projects.
+     * @param projectmap HashMap containing projects.
      * @return Returns the Project object of the project that was gone to.
      */
-    public Project goToProject(String input, Ui ui, HashMap<String, Project> projectmap) {
+    public Project goToProject(String input, Ui ui, LinkedHashMap<String, Project> projectmap) {
         String[] split = input.split("pr/", 2); //TODO check for valid input
         String projectname = split[1];
         ui.printGoToProject(projectname);
