@@ -13,17 +13,19 @@ public class TimerAnomaly {
      */
     public boolean detect(String[] userInput) {
 
+        String[] timeParts = userInput[1].split(" ");
+
         //detects whether the number of arguments are exactly three (hours, minutes and
 	//seconds). For example, 'timer 1' and 'timer 1 2 3 4' are invalid inputs.
-        if (userInput.length != 4) {
+        if (timeParts.length != 3) {
             System.out.println("The number of arguments should be exactly three! Timer format should be: 'timer <integer> <integer> <integer>'");
             return true;
         }
 
 	//detects whether the relevant arguments are non-integers. For example, 'timer winter cheese sofa' is a invalid input.
-	for (int i = 1; i < 4; i += 1) {
+	for (int i = 0; i < 3; i += 1) {
             try {
-                int numberOfCommandsToUndo = Integer.parseInt(userInput[i]);
+                int numberOfCommandsToUndo = Integer.parseInt(timeParts[i]);
             } catch (NumberFormatException e) {
                 System.out.println("Timer arguments specified are not integers! Timer format should be: 'timer <integer> <integer> <integer>'");
                 return true;
