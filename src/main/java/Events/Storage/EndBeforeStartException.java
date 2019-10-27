@@ -1,4 +1,5 @@
 package Events.Storage;
 
-public class EndBeforeStartException {
+public class EndBeforeStartException extends Exception {
+    public EndBeforeStartException(){}
 }
