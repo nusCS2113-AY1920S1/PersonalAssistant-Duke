@@ -12,7 +12,7 @@ public class ParserHelperTest {
     public void testParseAssignmentInputHelper() {
         String command = "-i 1 2 -to 3 4 -rm 5 6 7";
         ArrayList<ArrayList<String>> parsedCommands =
-            new ParserHelper().parseAssignmentInputHelper(command);
+            new ParserHelper().parseAssignmentParams(command);
         assertEquals(2, parsedCommands.get(0).size());
         assertEquals(3, parsedCommands.get(1).size());
         assertEquals(2, parsedCommands.get(2).size());
