@@ -40,6 +40,7 @@ public class SaleCard extends UiPart<AnchorPane> {
         if (sale.isSpend() && tempValue > 0.0) {
             tempValue = -tempValue;
         }
+
         DecimalFormat df2 = new DecimalFormat("#.##");
         value.setText("$" + df2.format(tempValue));
         saleDate.setText(TimeParser.convertDateToString(sale.getSaleDate()));
