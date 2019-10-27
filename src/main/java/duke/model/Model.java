@@ -10,6 +10,7 @@ import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -196,10 +197,21 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered sale list to filter by the given {@code predicate}.
-     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredSaleList(Predicate<Sale> predicate);
+
+    /**
+     *
+     * @param from start date to filter not inclusive of itself
+     * @param to end date to filter not inclusive of itself
+     * @return
+     */
+    default Predicate<Sale> getSalesBetween(Date from, Date to) {
+        Predicate<Sale> showSaleBetween =
+                sale -> sale.getSaleDate().before(to) && sale.getSaleDate().after(from);
+        return showSaleBetween;
+    }
 
     /**
      * Creates a Sale entry from a completed Order.
@@ -207,6 +219,11 @@ public interface Model {
      */
     void addSaleFromOrder(Order order);
 
+    /**
+     * Creates a Sale entry from purchase of ingredients.
+     * @param totalCost total added cost of ingredients.
+     * @param toBuyList ArrayList of Item generic of ingredients.
+     */
     void addSaleFromShopping(Double totalCost, ArrayList<Item<Ingredient>> toBuyList);
 
     //========Ingredient operations======
