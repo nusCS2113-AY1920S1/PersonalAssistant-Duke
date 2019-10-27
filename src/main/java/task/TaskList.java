@@ -1,5 +1,6 @@
 package task;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -192,6 +193,26 @@ public class TaskList {
         }
         Collections.sort(priorityList, PriorityComparator);
         return priorityList;
+    }
+
+    //@@author fauzt-reused
+    /**
+     * Retrieves all Event tasks in the main task list in chronologically-ordered list.
+     * @param deadlineDate is the cut-off time to search all prior relevant events
+     * @return all the events in the main task list in chronological order
+     */
+    public ArrayList<Event> obtainEventList(LocalDateTime deadlineDate) {
+        ArrayList<Event> eventList = new ArrayList<>();
+        for (Task item : listOfTasks) {
+            boolean isAnEventBeforeDeadline = item.getClass() == task.Event.class
+                    && item.getStartDate().isBefore(deadlineDate);
+            if (isAnEventBeforeDeadline) {
+                eventList.add((Event) item);
+            }
+        }
+        Collections.sort(eventList);
+
+        return eventList;
     }
 
     /**

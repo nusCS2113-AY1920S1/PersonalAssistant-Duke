@@ -10,17 +10,34 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Finds a free period of time within the user's schedule for a selected duration value.
+ *
+ * @author Fauzan Adipratama
+ * @version 1.3
+ */
 public class TaskScheduleCommand extends Command {
 
     private Long durationToSchedule;
     private final int indexOfTask;
     private final int indexOfDeadline;
 
+    /**
+     * Initialises the command parameter for a selected task to be done by a selected deadline.
+     * @param indexOfTask is the index number of the selected task in the TaskList
+     * @param indexDeadline is the index number of the selected deadline in the TaskList
+     */
     public TaskScheduleCommand(int indexOfTask, int indexDeadline) {
         this.indexOfTask = indexOfTask;
         this.indexOfDeadline = indexDeadline;
     }
 
+    /**
+     * Searches all free periods of time that the user can schedule a given task by a certain deadline.
+     * @param tasks   Holds the list of all the tasks the user has.
+     * @param storage Allows the saving of the file to persistent storage.
+     * @throws DukeException if the selected task is not a compatible type.
+     */
     @Override
     public void execute(TaskList tasks, Storage storage) throws DukeException {
         ArrayList<Task> list = tasks.getTasks();
@@ -39,7 +56,7 @@ public class TaskScheduleCommand extends Command {
         durationToSchedule = (long) t.duration;
         LocalDateTime deadlineDate = d.getStartDate();
 
-        ArrayList<Event> dateList = createDateList(list, deadlineDate);
+        ArrayList<Event> dateList = tasks.obtainEventList(deadlineDate);
         if (dateList.size() == 0) {
             Ui.printOutput("You can schedule this task from now till the deadline.\n"
                     + "Schedule it at the earliest convenience?");
@@ -77,20 +94,6 @@ public class TaskScheduleCommand extends Command {
         if (!isFreeBetweenEvents) {
             Ui.printOutput("There is no free slot to insert the task. Consider freeing up your schedule.");
         }
-    }
-
-    private ArrayList<Event> createDateList(ArrayList<Task> tasks, LocalDateTime deadlineDate) {
-        ArrayList<Event> dateList = new ArrayList<>();
-        for (Task item : tasks) {
-            if (item.getClass() == task.Event.class) {
-                if (item.getStartDate().isBefore(deadlineDate)) {
-                    dateList.add((Event) item);
-                }
-            }
-        }
-        Collections.sort(dateList);
-
-        return dateList;
     }
 
     // TODO: Figure a way for GUI to accept subsequent inputs
