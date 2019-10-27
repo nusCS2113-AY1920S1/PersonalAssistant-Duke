@@ -9,6 +9,7 @@ import oof.model.task.Deadline;
 import oof.model.task.Event;
 import oof.model.task.Task;
 import oof.model.task.Todo;
+import oof.model.tracker.TrackerList;
 
 /**
  * Represents a Command to query schedule on a specified date.
@@ -31,12 +32,14 @@ public class ScheduleCommand extends Command {
      *
      * @param semesterList Instance of SemesterList that stores Semester objects.
      * @param tasks        Instance of TaskList that stores Task objects.
+     * @param trackerList  Instance of TrackerList that stores Tracker objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException if user inputs invalid command or date has no tasks scheduled.
      */
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList tasks, TrackerList trackerList, Ui ui, Storage storage)
+            throws OofException {
         if (this.date.isEmpty()) {
             throw new OofException("OOPS! Please enter a date!");
         }

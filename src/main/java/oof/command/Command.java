@@ -9,6 +9,7 @@ import oof.model.task.Deadline;
 import oof.model.task.Event;
 import oof.model.task.Task;
 import oof.model.task.Todo;
+import oof.model.tracker.TrackerList;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,12 +29,14 @@ public abstract class Command {
      *
      * @param semesterList Instance of SemesterList that stores Semester objects.
      * @param tasks        Instance of TaskList that stores Task objects.
+     * @param trackerList  Instance of TrackerList that stores Tracker objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException Catches invalid commands given by user.
      */
-    public abstract void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException;
+    public abstract void execute(SemesterList semesterList, TaskList tasks, TrackerList trackerList,
+                                 Ui ui, Storage storage) throws OofException;
 
     /**
      * Parses the Timestamp given by the user and returns the parsed

@@ -1,4 +1,4 @@
-package oof.model;
+package oof.model.tracker;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -101,8 +101,8 @@ public class TrackerList {
          * @return      difference between time taken property between two Tracker objects.
          */
         public int compare(Tracker t1, Tracker t2) {
-            int timeTaken1 = (int) t1.getTotalTimeTaken();
-            int timeTaken2 = (int) t2.getTotalTimeTaken();
+            int timeTaken1 = (int) t1.getTimeTaken();
+            int timeTaken2 = (int) t2.getTimeTaken();
             return timeTaken1 - timeTaken2;
         }
     };

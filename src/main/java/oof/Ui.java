@@ -1,8 +1,7 @@
 package oof;
 
 import oof.exception.OofException;
-import oof.model.Tracker;
-import oof.model.TrackerList;
+import oof.model.tracker.TrackerList;
 import oof.model.module.Assessment;
 import oof.model.module.Lesson;
 import oof.model.module.Module;
@@ -793,41 +792,41 @@ public class Ui {
     /**
      * Print when Start Tracker Command is completed.
      *
-     * @param task description of Task object.
+     * @param tracker description of Task object.
      * @param date current date.
      */
-    public void printStartAtCurrent(Task task, String date, long difference) {
+    public void printStartAtCurrent(oof.model.tracker.Tracker tracker, String date, long difference) {
         printLine();
-        System.out.println("Begin " + task.getDescription());
+        System.out.println("Begin " + tracker.getModule());
         System.out.println("It is currently " + date);
-        System.out.println("Current total time spent on " + task.getDescription() + ": " + difference + " minutes");
+        System.out.println("Current total time spent on " + tracker.getModule() + ": " + difference + " minutes");
     }
 
     /**
      * Print when Stop Tracker Command is completed.
      *
-     * @param task       description of Task object.
+     * @param tracker       description of Task object.
      * @param date       current date.
      * @param difference calculated time taken.
      */
-    public void printEndAtCurrent(Task task, String date, long difference) {
+    public void printEndAtCurrent(oof.model.tracker.Tracker tracker, String date, long difference) {
         printLine();
-        System.out.println("Ending " + task.getDescription());
+        System.out.println("Ending " + tracker.getModule());
         System.out.println("It is currently " + date);
-        System.out.println("Total time spent on " + task.getDescription() + ": " + difference + " minutes");
+        System.out.println("Total time spent on " + tracker.getModule() + ": " + difference + " minutes");
     }
 
     /**
      * Print when Stop Tracker Command is completed.
-     * @param task          description of Task object.
+     * @param tracker          description of Task object.
      * @param date          current date.
      * @param difference    calculated time taken.
      */
-    public void printPauseAtCurrent(Task task, String date, long difference) {
+    public void printPauseAtCurrent(oof.model.tracker.Tracker tracker, String date, long difference) {
         printLine();
-        System.out.println("Pausing " + task.getDescription());
+        System.out.println("Pausing " + tracker.getModule());
         System.out.println("It is currently " + date);
-        System.out.println("Total time spent on " + task.getDescription() + ": " + difference + " minutes");
+        System.out.println("Total time spent on " + tracker.getModule() + ": " + difference + " minutes");
     }
 
     /**
@@ -1363,13 +1362,13 @@ public class Ui {
      */
     public void printTrackerDiagram(TrackerList trackerList) {
         for (int i = 0; i < trackerList.getSize(); i++) {
-            Tracker tracker = trackerList.getTracker(i);
-            int timeTaken = (int) tracker.getTotalTimeTaken();
+            oof.model.tracker.Tracker tracker = trackerList.getTracker(i);
+            int timeTaken = (int) tracker.getTimeTaken();
             timeTaken /= 10;
             for (int j = 0; j < timeTaken; j++) {
                 System.out.print("#");
             }
-            String description = tracker.getTaskDescription();
+            String description = tracker.getModule();
             System.out.println("\t" + description + " " + timeTaken + "minutes\n");
         }
         printLine();

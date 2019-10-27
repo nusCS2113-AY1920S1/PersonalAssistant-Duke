@@ -4,6 +4,7 @@ import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
 import oof.command.Command;
 import oof.exception.OofException;
+import oof.model.tracker.TrackerList;
 
 import java.io.IOException;
 
@@ -18,6 +19,7 @@ public class Oof {
     private SemesterList semesterList;
     private Ui ui;
     private Reminder reminder;
+    private TrackerList trackerList;
 
     /**
      * Constructor for Oof for instantiation of other classes Ui, Storage and TaskList.
@@ -36,6 +38,11 @@ public class Oof {
         } catch (IOException | OofException e) {
             tasks = new TaskList();
         }
+        try {
+            trackerList = new TrackerList(storage.readTrackerList());
+        } catch (OofException e) {
+            trackerList = new TrackerList();
+        }
     }
 
     public TaskList getArr() {
@@ -50,7 +57,7 @@ public class Oof {
      */
     public boolean executeCommand(String line) throws OofException {
         Command command = CommandParser.parse(line);
-        command.execute(semesterList, tasks, ui, storage);
+        command.execute(semesterList, tasks, trackerList, ui, storage);
         return command.isExit();
     }
 
@@ -71,6 +78,8 @@ public class Oof {
             }
         }
     }
+
+
 
     /**
      * This is the main method which makes use of run method.

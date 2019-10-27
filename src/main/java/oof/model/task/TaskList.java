@@ -1,7 +1,5 @@
 package oof.model.task;
 
-import oof.model.task.Task;
-
 import java.util.ArrayList;
 
 /**

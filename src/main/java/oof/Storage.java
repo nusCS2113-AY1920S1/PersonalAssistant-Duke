@@ -8,14 +8,17 @@ import oof.model.task.Event;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.model.task.Todo;
+import oof.model.tracker.Tracker;
+import oof.model.tracker.TrackerList;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
+import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a Storage class to store and read Task objects to/from hard disk.
@@ -29,6 +32,7 @@ public class Storage {
     private static final String PATH_OUTPUT = "./output.txt";
     private static final String PATH_MANUAL = "./manual.txt";
     private static final String PATH_THRESHOLD = "./oof.config";
+    private static final String PATH_TRACKER = "./tracker.txt";
     private static final String TODO = "T";
     private static final String DEADLINE = "D";
     private static final String EVENT = "E";
@@ -159,6 +163,61 @@ public class Storage {
 
     public ArrayList<Semester> readSemesterList() throws IOException {
         throw new IOException();
+    }
+
+    /**
+     * Writes Tracker objects to hard disk.
+     * @param trackerList   TrackerList of Tracker objects.
+     * @throws OofException if unable to write TrackerList.
+     */
+    public void writeTrackerList(TrackerList trackerList) throws OofException {
+        try {
+            List<oof.model.tracker.Tracker> arr = trackerList.getTrackers();
+            String filename = PATH_TRACKER;
+            BufferedWriter out = new BufferedWriter(new FileWriter(filename));
+            for (oof.model.tracker.Tracker tracker : arr) {
+                out.write(tracker.toStorageString() + "\n");
+            }
+            out.close();
+        } catch (IOException e) {
+            throw new OofException("Unable to save Tracker data.");
+        }
+    }
+
+    /**
+     * Reads Tracker objects that were previously saved to hard disk.
+     * @return TrackerList that contains Tracker objects.
+     * @throws OofException if unable to read tracker.txt.
+     */
+    public ArrayList<Tracker> readTrackerList() throws OofException {
+        try {
+            File file = new File(PATH_TRACKER);
+            FileReader fileReader = new FileReader(file);
+            BufferedReader br = new BufferedReader(fileReader);
+            ArrayList<oof.model.tracker.Tracker> trackerList = new ArrayList<>();
+            String line;
+            while ((line = br.readLine()) != null) {
+                oof.model.tracker.Tracker tracker = processLine(line);
+                trackerList.add(tracker);
+            }
+            return trackerList;
+        } catch (IOException e) {
+            throw new OofException("Tracker Data Unavailable!");
+        }
+    }
+
+    /**
+     * Processes String of line obtained from tracker.txt.
+     * @param line  String from tracker.txt.
+     * @return      Tracker object updated from data found in line.
+     */
+    private Tracker processLine(String line) {
+        String[] processed = line.split("\t");
+        String module = processed[0];
+        String startDate = processed[1];
+        String lastUpdated = processed[2];
+        long timeTaken = Long.parseLong(processed[3]);
+        return new Tracker(module, startDate, lastUpdated, timeTaken);
     }
 
     /**
