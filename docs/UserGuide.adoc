@@ -951,13 +951,13 @@ Thought of a new profile name? Change it now!
 
 *Command Syntax*
 
-`/edit /profile /newname NAME`
+`/edit /profile /name NAME /newname NAME`
 
 *Example*
 
-`/edit /profile /newname JUNNY`
+`/edit /profile /name Jun /newname JUNNY`
 
-Edits the profile name to JUNNY
+Edits the profile name from `Jun` to `JUNNY`
 
 === Utility Commands
 
@@ -1578,8 +1578,8 @@ AMOUNT] [/date DATE]`
 |*Task*| *Purpose* | *Command Format* | *Example*
 | *Editing profile details*
 | Edit the profile details based on the new details given.
-| `/edit /profile /newname NAME`
-| `/edit /profile /newname JUNNY`
+| `/edit /profile /name NAME /newname NAME`
+| `/edit /profile /name Jun /newname JUNNY`
 
 |======
 
