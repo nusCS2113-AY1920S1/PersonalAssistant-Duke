@@ -187,4 +187,5 @@ public class DialogBox extends HBox {
     public static DialogBox getTaskDialog(String text) {
         return new DialogBox(text);
     }
+
 }

@@ -1,14 +1,10 @@
 package javacake.ui;
 
 import javacake.Duke;
-import javacake.commands.CreateNoteCommand;
 import javacake.commands.EditNoteCommand;
 import javacake.exceptions.DukeException;
 import javacake.commands.QuizCommand;
-import javacake.notes.NoteList;
 import javacake.quiz.Question;
-import javacake.storage.Profile;
-import javacake.storage.Storage;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
@@ -24,8 +20,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -45,6 +44,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private VBox avatarScreen;
     @FXML
+    private VBox avatarDialog;
+    @FXML
     private ScrollPane taskScreen;
     @FXML
     private VBox taskContainer;
@@ -56,6 +57,7 @@ public class MainWindow extends AnchorPane {
     private Button themeModeButton;
     public static boolean isLightMode = true;
     public static boolean isChanged = false;
+    public static boolean doneDialog = false;
 
     private Duke duke;
     private Stage primaryStage;
@@ -68,6 +70,7 @@ public class MainWindow extends AnchorPane {
     private boolean isStarting = true;
     private boolean isTryingReset = false;
     private boolean isWritingNote = false;
+    private boolean isExit = false;
     private String input = "";
     private String response = "";
 
@@ -91,7 +94,7 @@ public class MainWindow extends AnchorPane {
                     + Ui.showWelcomeMsgPhaseB(duke.isFirstTimeUser, duke.userName, duke.userProgress);
             showContentContainer();
         }
-
+        setAvatarDialogLoop();
         showListNotesBox();
         showRemindersBox();
         playGuiModeLoop();
@@ -124,6 +127,7 @@ public class MainWindow extends AnchorPane {
                 System.out.println("EXIT");
                 Duke.logger.log(Level.INFO, "EXITING PROGRAM!");
                 // find out if exit condition
+                isExit = true;
                 handleExit();
             } else if (input.contains("listnote")) {
                 Duke.logger.log(Level.INFO, "`listnote` command");
@@ -209,6 +213,7 @@ public class MainWindow extends AnchorPane {
             avatarScreen.setStyle("-fx-background-color: grey;");
             taskContainer.setStyle("-fx-background-color: grey;");
             noteContainer.setStyle("-fx-background-color: grey;");
+            avatarDialog.setStyle("-fx-background-color: grey;");
         } else { //switches to Light theme
             isLightMode = true;
             this.setStyle("-fx-background-color: white");
@@ -221,6 +226,7 @@ public class MainWindow extends AnchorPane {
             avatarScreen.setStyle("-fx-background-color: #FEE;");
             taskContainer.setStyle("-fx-background-color: pink;");
             noteContainer.setStyle("-fx-background-color: pink;");
+            avatarDialog.setStyle("-fx-background-color: #FEE;");
         }
     }
 
@@ -293,6 +299,7 @@ public class MainWindow extends AnchorPane {
             isQuiz = false;
             DialogBox.isScrollingText = true;
             response = quizCommand.getQuizScore();
+            doneDialog = true;
             if (quizCommand.scoreGrade == QuizCommand.ScoreGrade.BAD) {
                 AvatarScreen.avatarMode = AvatarScreen.AvatarMode.POUT;
             } else if (quizCommand.scoreGrade == QuizCommand.ScoreGrade.OKAY) {
@@ -401,4 +408,46 @@ public class MainWindow extends AnchorPane {
         showTaskContainer();
     }
 
+    private void setAvatarDialogLoop() {
+        ArrayList<String> listToSay = new ArrayList<>();
+        setList(listToSay);
+        avatarDialog.getChildren().add(
+                DialogBox.getTaskDialog(listToSay.get(0)));
+        AtomicLong counterTicks = new AtomicLong();
+        AtomicBoolean isSet = new AtomicBoolean();
+        Random rand = new Random();
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(200), ev -> {
+            if (counterTicks.get() > 30 && !isExit) {
+                avatarDialog.getChildren().clear();
+                avatarDialog.getChildren().add(
+                        DialogBox.getTaskDialog(listToSay.get(rand.nextInt(listToSay.size()))));
+                counterTicks.set(0);
+            } else if (isExit && !isSet.get()){
+                avatarDialog.getChildren().clear();
+                avatarDialog.getChildren().add(
+                        DialogBox.getTaskDialog("NoooOOOOO!!\nDon't leeeeave meee\n:( :( :("));
+                isSet.set(true);
+            }
+            counterTicks.getAndIncrement();
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
+
+    private void setList(ArrayList<String> list) {
+        list.add("Hi, Welcome to JavaCake!\nWant sum cake?\nAll you have to do is get 100%!");
+//        list.add("WELL DONE!!!\nYou rekt that cake!\n");
+//        list.add("soooOOOOO CLOOSEEE!\nYou can do better next time!");
+//        list.add("Baaakaaa!\nYou obviously can do better than that...");
+        list.add("I LOVE BIG CAKES AND I CANNOT LIE!");
+        list.add("the cake...\n     is a LIE!");
+        list.add("Your momma so fat...\nshe segfaulted on JavaCake");
+        list.add("CAAAAAAAAAaaaaakkkke!");
+        list.add("Want to know a secret?\nYour waifu does not love you!");
+        list.add("I LOVE BIG CAKES\nAND I CANNOT LIE!");
+        list.add("the cake...\n     is a LIE!");
+        list.add("Your momma so fat...\nshe segfaulted on JavaCake");
+        list.add("CAAAAAAAAAaaaaakkkke!");
+        list.add("Want to know a secret?\nYour waifu does not love you!");
+    }
 }
