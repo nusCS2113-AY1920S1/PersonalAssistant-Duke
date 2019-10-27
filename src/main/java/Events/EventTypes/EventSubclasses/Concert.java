@@ -3,6 +3,7 @@ package Events.EventTypes.EventSubclasses;
 import Events.EventTypes.Event;
 
 public class Concert extends Event {
+    private int cost;
     /**
      * creates new lesson class with boolean to read from file
      */
@@ -15,5 +16,9 @@ public class Concert extends Event {
      */
     public Concert(String description, String startDateAndTime, String endDateAndTime) {
         super(description, false, startDateAndTime, endDateAndTime, 'C');
+    }
+
+    public int getCost(){
+        return this.cost;
     }
 }
