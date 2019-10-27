@@ -30,6 +30,7 @@ public class EventParser extends DescriptionParser {
             fromDate = extractFromDate(dateTimeFromUser);
             toDate = extractToDate(dateTimeFromUser);
         } catch (ArrayIndexOutOfBoundsException e) {
+            logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new DukeException(DukeException.emptyDateOrTime());
         }
         assert toDate != null;
@@ -42,6 +43,7 @@ public class EventParser extends DescriptionParser {
             String fromDateString = dateTimeFromUser.split("-", 2)[0].trim();
             return DateTimeExtractor.extractDateTime(fromDateString, command);
         } catch (ParseException e) {
+            logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new DukeException(DukeException.wrongDateOrTime());
         }
     }
@@ -51,6 +53,7 @@ public class EventParser extends DescriptionParser {
             String toDateString = dateTimeFromUser.split("-", 2)[1].trim();
             return DateTimeExtractor.extractDateTime(toDateString, command);
         } catch (ParseException e) {
+            logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new DukeException(DukeException.wrongDateOrTime());
         }
     }
