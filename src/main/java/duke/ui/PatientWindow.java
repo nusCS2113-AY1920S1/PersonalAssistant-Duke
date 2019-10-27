@@ -79,24 +79,30 @@ class PatientWindow extends UiElement<Region> {
     }
 
     private void updateUi() {
-        // TODO: Set default values if NULL.
         name.setText(String.valueOf(patient.getName()));
         bed.setText(String.valueOf(patient.getBedNo()));
-        age.setText(patient.getAge() + " years old");
-        height.setText(patient.getHeight() + " cm");
-        weight.setText(patient.getWeight() + " kg");
-        phone.setText(String.valueOf(patient.getNumber()));
-        address.setText(String.valueOf(patient.getAddress()));
-        history.setText(String.valueOf(patient.getHistory()));
+        int ageNum = patient.getAge();
+        age.setText((ageNum == -1) ? "No age set" : ageNum + " years old");
+        int heightNum = patient.getHeight();
+        height.setText((heightNum == -1) ? "No height set" : patient.getHeight() + " cm");
+        int weightNum = patient.getWeight();
+        weight.setText((weightNum == -1) ? "No weight set" : patient.getWeight() + " kg");
+        int number = patient.getNumber();
+        phone.setText((number == -1) ? "No number set" : String.valueOf(number));
+        String addressStr = patient.getAddress();
+        address.setText(("".equals(addressStr)) ? "No address given" : addressStr);
+        String historyStr = patient.getHistory();
+        history.setText(("".equals(historyStr)) ? "No history provided" : historyStr);
 
         StringBuilder allergies = new StringBuilder();
         if (patient.getAllergies() != null) {
+            //TODO document the fact that comma separated allergies are displayed on distinct rows
             for (String allergy : patient.getAllergies().split(",")) {
-                allergies.append(allergy.trim()).append(System.lineSeparator());
+                allergies.append(allergy.strip()).append(System.lineSeparator());
             }
             allergiesLabel.setText(allergies.toString());
         } else {
-            allergiesLabel.setText("NIL");
+            allergiesLabel.setText(UiStrings.DISPLAY_ALLERGIES_NONE);
         }
 
         impressionsListPanel.getItems().clear();

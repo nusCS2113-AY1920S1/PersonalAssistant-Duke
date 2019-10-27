@@ -76,16 +76,21 @@ public abstract class ArgCommand extends Command {
     /**
      * Checks if a particular switch, and if not, attempts to parse it as an Integer.
      * @param switchName The name of the switch being extracted.
-     * @return The Integer that the string represents, or 0 if it is null.
+     * @return The Integer that the string represents, or -1 if it is null.
      * @throws NumberFormatException If the string is not a valid representation of an integer.
      */
     protected Integer switchToInt(String switchName) throws DukeHelpException {
         String str = this.getSwitchVal(switchName);
         if (str == null) {
-            return 0;
+            return -1;
         } else {
             try {
-                return Integer.parseInt(str);
+                Integer parseInt = Integer.parseInt(str);
+                // TODO document this
+                if (parseInt < 0) {
+                    throw new DukeHelpException("The value of '" + switchName + "' cannot be negative!", this);
+                }
+                return parseInt;
             } catch (NumberFormatException excp) {
                 throw new DukeHelpException("The switch '" + switchName + "' must be an integer!", this);
             }

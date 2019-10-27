@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/* @@author gowgos5 */
 abstract class InputHistoryWindow extends UiElement<Region> {
     @FXML
     protected AutoCompleteTextField inputTextField;
@@ -104,6 +105,8 @@ abstract class InputHistoryWindow extends UiElement<Region> {
             break;
         }
     }
+
+    /* @@author aquohn */
 
     protected void storeInput(String input) {
         if (historyPointer != inputHistory.size() - 1 || (historyPointer == inputHistory.size() - 1

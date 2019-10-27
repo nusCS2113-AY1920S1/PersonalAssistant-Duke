@@ -22,8 +22,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
-import java.util.Map;
-
 /**
  * UI window for the Patient context.
  */
@@ -49,9 +47,6 @@ class ImpressionWindow extends UiElement<Region> {
     @FXML
     private JFXListView<TreatmentCard> treatmentListPanel;
 
-    private Integer criticalCount = 0;
-    private Integer followUpCount = 0;
-
     private Patient patient;
     private Impression impression;
 
@@ -76,31 +71,24 @@ class ImpressionWindow extends UiElement<Region> {
             updateUi();
         });
 
+        // TODO: optimise by tracking critical and follow-up count in impression
         impression.getObservableEvidences().addListener((MapChangeListener<String, Evidence>) change -> {
             if (change.wasAdded() && newEvidenceCard(change.getValueAdded()) != null) {
                 evidenceListPanel.getItems().add(newEvidenceCard(change.getValueAdded()));
-                criticalCount += (change.getValueAdded().getPriority() == 1) ? 1 : 0;
             } else if (change.wasRemoved() && newEvidenceCard(change.getValueRemoved()) != null) {
                 evidenceListPanel.getItems().remove(newEvidenceCard(change.getValueRemoved()));
-                criticalCount -= (change.getValueRemoved().getPriority() == 1) ? 1 : 0;
             }
-            criticalLabel.setText(criticalCount + " critical(s)");
+            criticalLabel.setText(impression.getCriticalCountStr());
         });
 
         impression.getObservableTreaments().addListener((MapChangeListener<String, Treatment>) change -> {
             if (change.wasAdded() && newTreatmentCard(change.getValueAdded()) != null) {
                 treatmentListPanel.getItems().add(newTreatmentCard(change.getValueAdded()));
-                criticalCount += (change.getValueAdded().getPriority() == 1) ? 1 : 0;
-                followUpCount += (change.getValueAdded().getStatusIdx() < 5
-                        && change.getValueAdded().getStatusIdx() >= 0) ? 1 : 0;
             } else if (change.wasRemoved() && newTreatmentCard(change.getValueAdded()) != null) {
                 treatmentListPanel.getItems().remove(newTreatmentCard(change.getValueRemoved()));
-                criticalCount -= (change.getValueRemoved().getPriority() == 1) ? 1 : 0;
-                followUpCount -= (change.getValueRemoved().getStatusIdx() < 5
-                        && change.getValueRemoved().getStatusIdx() >= 0) ? 1 : 0;
             }
-            criticalLabel.setText(criticalCount + " critical(s)");
-            followUpLabel.setText(followUpCount + " follow up(s)");
+            criticalLabel.setText(impression.getCriticalCountStr());
+            followUpLabel.setText(impression.getFollowUpCountStr());
         });
     }
 
@@ -154,30 +142,14 @@ class ImpressionWindow extends UiElement<Region> {
         StringBuilder allergies = new StringBuilder();
         if (patient.getAllergies() != null) {
             for (String allergy : patient.getAllergies().split(",")) {
-                allergies.append(allergy.trim()).append(System.lineSeparator());
+                allergies.append(allergy.strip()).append(System.lineSeparator());
             }
             allergiesLabel.setText(allergies.toString());
         } else {
-            allergiesLabel.setText("NIL");
+            allergiesLabel.setText(UiStrings.DISPLAY_ALLERGIES_NONE);
         }
 
-        evidenceListPanel.getItems().clear();
-        treatmentListPanel.getItems().clear();
-        criticalCount = 0;
-        followUpCount = 0;
-
-        for (Map.Entry<String, Evidence> pair : impression.getObservableEvidences().entrySet()) {
-            evidenceListPanel.getItems().add(newEvidenceCard(pair.getValue()));
-            criticalCount += (pair.getValue().getPriority() == 1) ? 1 : 0;
-        }
-
-        for (Map.Entry<String, Treatment> pair : impression.getObservableTreaments().entrySet()) {
-            treatmentListPanel.getItems().add(newTreatmentCard(pair.getValue()));
-            criticalCount += (pair.getValue().getPriority() == 1) ? 1 : 0;
-            followUpCount += (pair.getValue().getStatusIdx() < 5 && pair.getValue().getStatusIdx() >= 0) ? 1 : 0;
-        }
-
-        criticalLabel.setText(criticalCount + " critical(s)");
-        followUpLabel.setText(followUpCount + " follow up(s)");
+        criticalLabel.setText(impression.getCriticalCountStr());
+        followUpLabel.setText(impression.getFollowUpCountStr());
     }
 }
