@@ -1,8 +1,7 @@
 package seedu.hustler.logic.parser.anomaly;
 
-import seedu.hustler.ui.Ui;
-import seedu.hustler.Hustler;
 import seedu.hustler.logic.CommandLineException;
+import seedu.hustler.ui.Ui;
 
 /**
  * Detects timer anomalies in user input.
@@ -15,7 +14,7 @@ public class TimerAnomaly extends DetectAnomaly {
      * @param userInput input for which anomaly is detected
      * @return true or false for any anomaly detected
      */
-    public boolean detect(String[] userInput) throws CommandLineException {
+    public void detect(String[] userInput) throws CommandLineException {
 
         Ui ui = new Ui();
         String[] timeParts = userInput[1].split(" ");
@@ -34,7 +33,5 @@ public class TimerAnomaly extends DetectAnomaly {
                 throw new CommandLineException("Timer format should be: 'timer <integer> <integer> <integer>'!");
             }
         }
-
-	    return false;
     }
 }

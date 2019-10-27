@@ -3,7 +3,7 @@ package seedu.hustler.logic.parser;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.command.achievementCommand.AchievementCommand;
 import seedu.hustler.command.avatar.CheckAvatarCommand;
-import seedu.hustler.command.avatar.EquipCommand;
+import seedu.hustler.logic.command.avatar.EquipCommand;
 import seedu.hustler.command.avatar.SetNameCommand;
 import seedu.hustler.logic.command.schedulecommands.AddEntry;
 import seedu.hustler.command.schedulecommands.RemoveEntry;
@@ -95,7 +95,7 @@ public class CommandParser extends Parser {
         } else if (userInput[0].equals("/inventory")) {
             return new InventoryCommand();
         } else if (userInput[0].equals("/equip")) {
-            return new EquipCommand(Integer.parseInt(userInput[1]));
+            return new EquipCommand(userInput);
         } else if (userInput[0].equals("/buy")) {
             try {
                 int index = Integer.parseInt(userInput[1]);
