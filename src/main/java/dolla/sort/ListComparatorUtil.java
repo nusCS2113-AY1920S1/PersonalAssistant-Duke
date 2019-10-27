@@ -10,7 +10,7 @@ class ListComparatorUtil {
     private static final int ZERO = 0;
 
 
-    static Comparator<Log> dateComparator() {
+    protected static Comparator<Log> dateComparator() {
         return new Comparator<Log>() {
             @Override
             public int compare(Log o1, Log o2) {
@@ -19,7 +19,7 @@ class ListComparatorUtil {
         };
     }
 
-    static Comparator<Log> descComparator() {
+    protected static Comparator<Log> descComparator() {
         return new Comparator<Log>() {
             @Override
             public int compare(Log o1, Log o2) {
@@ -28,7 +28,7 @@ class ListComparatorUtil {
         };
     }
 
-    static Comparator<Log> nameComparator() {
+    protected static Comparator<Log> nameComparator() {
         return new Comparator<Log>() {
             @Override
             public int compare(Log o1, Log o2) {
@@ -37,7 +37,7 @@ class ListComparatorUtil {
         };
     }
 
-    static Comparator<Log> amountComparator() {
+    protected static Comparator<Log> amountComparator() {
         return new Comparator<Log>() {
             @Override
             public int compare(Log o1, Log o2) {
