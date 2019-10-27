@@ -1,5 +1,6 @@
 package owlmoney.model.profile;
 
+import java.time.YearMonth;
 import java.util.Date;
 
 import owlmoney.model.card.exception.CardException;
@@ -658,5 +659,43 @@ public class Profile {
         } else if (type.equals(CARD)) {
             cardList.cardListFindTransaction(name, fromDate, toDate, description, category, ui);
         }
+    }
+
+    public void checkCardExists(String card) throws CardException {
+        cardList.checkCardExists(card);
+    }
+
+    public double getCardUnpaidBillAmount(String card, YearMonth date) throws CardException {
+        double cardBillAmount = cardList.getUnpaidBillAmount(card, date);
+        return cardBillAmount;
+    }
+
+    public double getCardPaidBillAmount(String card, YearMonth date) throws CardException {
+        double cardBillAmount = cardList.getPaidBillAmount(card, date);
+        return cardBillAmount;
+    }
+
+    public double getCardRebateAmount (String card) throws CardException {
+        return cardList.getRebateAmount(card);
+    }
+
+    public void payCardBill(String card, String bank, Expenditure exp, Deposit dep, YearMonth cardDate, Ui ui, String type)
+            throws BankException, TransactionException {
+        bankList.bankListAddExpenditure(bank, exp, ui, type);
+        ui.printMessage("\n");
+        bankList.bankListAddDeposit(bank, dep, ui, type);
+        cardList.transferExpUnpaidToPaid(card, cardDate, type);
+        ui.printMessage("Credit Card bill for " + card + " for the month of " + cardDate
+                + " have been successfully paid!");
+    }
+
+    public void unpayCardBill(String card, YearMonth cardDate, Ui ui, String type) throws TransactionException {
+        cardList.transferExpPaidToUnpaid(card, cardDate, type);
+        ui.printMessage("Credit Card bill for " + card + " for the month of " + cardDate
+                + " have been successfully reverted!");
+    }
+
+    public double getBankExpAmountById(String bank, int expno) throws BankException, TransactionException {
+        return bankList.bankListGetExpAmountById(bank, expno);
     }
 }

@@ -818,4 +818,21 @@ public class BankList {
         throw new BankException("Bank with the following name does not exist: " + bankName);
     }
 
+    /**
+     * Returns expenditure amount based on specified transaction id.
+     *
+     * @param bank  The name of the bank object to search for transaction.
+     * @param expno The transaction id of the transaction to be searched.
+     * @return      Expenditure amount based on specified transaction id.
+     */
+    public double bankListGetExpAmountById(String bank, int expno)
+            throws TransactionException, BankException {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bank)) {
+                return bankLists.get(i).getExpAmountById(expno);
+            }
+        }
+        throw new BankException("Bank with the following name does not exist: " + bank);
+    }
+
 }

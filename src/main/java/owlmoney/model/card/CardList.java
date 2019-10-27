@@ -1,6 +1,7 @@
 package owlmoney.model.card;
 
 import java.text.DecimalFormat;
+import java.time.YearMonth;
 import java.util.ArrayList;
 
 import owlmoney.model.card.exception.CardException;
@@ -83,7 +84,7 @@ public class CardList {
      *
      * @return size of cardList.
      */
-    private int getCardListSize() {
+    public int getCardListSize() {
         return cardLists.size();
     }
 
@@ -100,6 +101,24 @@ public class CardList {
             }
         }
         return false;
+    }
+
+    /**
+     * Throws CardException if the credit card name that the user specified does not exists.
+     *
+     * @param cardName name of credit card.
+     * @throws CardException if the credit card name that the user specified does not exists.
+     */
+    public void checkCardExists(String cardName) throws CardException {
+        boolean isExist = false;
+        for (int i = ISZERO; i < getCardListSize(); i++) {
+            if (cardName.equals(cardLists.get(i).getName())) {
+                isExist = true;
+            }
+        }
+        if (!isExist) {
+            throw new CardException("Credit card " + cardName + " does not exist!");
+        }
     }
 
     /**
@@ -344,5 +363,64 @@ public class CardList {
             }
         }
         throw new CardException("Card with the following name does not exist: " + cardName);
+    }
+
+    /**
+     * Returns the total unpaid expenditure amount based on the specified date.
+     *
+     * @param card      The credit card to search the expenditures from.
+     * @param date      The YearMonth date of the expenditures to search.
+     * @return          The total unpaid expenditure amount based on the specified date.
+     * @throws CardException If
+     */
+    public double getUnpaidBillAmount(String card, YearMonth date) throws CardException {
+        checkCardExists(card);
+        double billAmount = 0;
+        for (int i = 0; i < cardLists.size(); i++) {
+            if (card.equals(cardLists.get(i).getName())) {
+                billAmount = cardLists.get(i).getUnpaidBillAmount(date);
+            }
+        }
+        return billAmount;
+    }
+
+    public double getPaidBillAmount(String card, YearMonth date) throws CardException {
+        checkCardExists(card);
+        double billAmount = 0;
+        for (int i = 0; i < cardLists.size(); i++) {
+            if (card.equals(cardLists.get(i).getName())) {
+                billAmount = cardLists.get(i).getPaidBillAmount(date);
+            }
+        }
+        return billAmount;
+    }
+
+    public double getRebateAmount(String card) throws CardException {
+        checkCardExists(card);
+        double rebateAmount = 0;
+        for (int i = 0; i < cardLists.size(); i++) {
+            if (card.equals(cardLists.get(i).getName())) {
+                rebateAmount = cardLists.get(i).getRebate();
+            }
+        }
+        return rebateAmount;
+    }
+
+    public void transferExpUnpaidToPaid(String card, YearMonth cardDate, String type)
+            throws TransactionException {
+        for (int i = 0; i < cardLists.size(); i++) {
+            if (card.equals(cardLists.get(i).getName())) {
+                cardLists.get(i).transferExpUnpaidToPaid(cardDate, type);
+            }
+        }
+    }
+
+    public void transferExpPaidToUnpaid(String card, YearMonth cardDate, String type)
+            throws TransactionException {
+        for (int i = 0; i < cardLists.size(); i++) {
+            if (card.equals(cardLists.get(i).getName())) {
+                cardLists.get(i).transferExpPaidToUnpaid(cardDate, type);
+            }
+        }
     }
 }
