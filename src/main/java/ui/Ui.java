@@ -2,8 +2,6 @@ package ui;
 
 import booking.Booking;
 import booking.BookingList;
-import command.Command;
-import command.ListCommand;
 import control.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -76,7 +74,7 @@ public class Ui extends AnchorPane {
     private void showList(BookingList bookingList) {
         for (Booking i : bookingList) {
             addToList(new ListBox(i.getName(), i.getVenue(), i.getDateTimeStart().toString(),
-                    i.getDateTimeEnd().toString(), i.getStatus()));
+                    i.getTimeEnd().toString(), i.getStatus()));
         }
     }
 

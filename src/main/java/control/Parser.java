@@ -42,7 +42,11 @@ public class Parser {
         case "reject":
             return new RejectCommand(input, splitStr);
         case "delete":
-            return new DeleteCommand(input, splitStr);
+            return new DeleteBookingCommand(input, splitStr);
+        case "listday":
+            return new ListBookingDailyCommand(input, splitStr);
+        case "listmonth":
+            return new ListBookingMonthCommand(input, splitStr);
         default:
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
