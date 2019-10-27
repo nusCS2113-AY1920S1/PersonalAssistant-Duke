@@ -58,7 +58,6 @@ public class Main {
             ui.showMessage(e.getMessage());
         }
         try {
-            //TODO: Implement in different function
             storage.loadTransactions(transactions, wallet);
         } catch (DukeException e) {
             ui.showLoadinngTransactionError();
