@@ -16,7 +16,7 @@ import java.util.TreeMap;
  * class that contains all methods that deal with Profile object
  */
 public class ProfileCommands {
-    private File genreList;
+//    private File genreList;
     private UserProfile userProfile;
     private EditProfileJson editProfileJson;
     private static String GET_NEW_GENRE_PREF = "-g";
@@ -25,8 +25,8 @@ public class ProfileCommands {
     private static String GET_NEW_ADULT_RATING = "-a";
 
 
-    public ProfileCommands(UserProfile userProfile) throws FileNotFoundException {
-        genreList = new File("../../../../EPdata/genreIDlist.txt");
+    public ProfileCommands(UserProfile userProfile) throws IOException {
+//        genreList = new File("../../../../EPdata/genreIDlist.txt");
         this.userProfile = userProfile;
         this.editProfileJson = new EditProfileJson();
     }
@@ -209,5 +209,29 @@ public class ProfileCommands {
         userProfile.setSortByAlphabetical(isAlphaOrder);
         userProfile.setSortByHighestRating(isRatingsOrder);
         userProfile.setSortByLatestRelease(isLatDatesOrder);
+    }
+
+    public void addPlaylist(String listName) throws IOException {
+        userProfile.addPlaylist(listName);
+        editProfileJson.updateProfile(userProfile);
+    }
+
+    public void deletePlaylist(String listName) throws IOException {
+        userProfile.deletePlaylist(listName);
+        editProfileJson.updateProfile(userProfile);
+    }
+
+    public void renamePlaylist(String oldName, String newName) throws IOException {
+        ArrayList<String> playlistNames = userProfile.getPlaylistNames();
+        ArrayList<String> newPlaylistNames = new ArrayList<>();
+        for (String log : playlistNames) {
+            if (!log.equals(oldName)) {
+                newPlaylistNames.add(log);
+            } else {
+                newPlaylistNames.add(newName);
+            }
+        }
+        userProfile.setPlaylistNames(newPlaylistNames);
+        editProfileJson.updateProfile(userProfile);
     }
 }

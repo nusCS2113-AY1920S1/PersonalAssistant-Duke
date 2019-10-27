@@ -3,9 +3,15 @@ package entertainment.pro.storage.utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entertainment.pro.model.Playlist;
+import entertainment.pro.model.PlaylistMovieInfoObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * class that deals with editing the Playlist.json file
@@ -13,61 +19,76 @@ import java.util.ArrayList;
 public class EditPlaylistJson {
     private ObjectMapper mapper = new ObjectMapper();
     private File file;
-    private InputStream inputStream;
-    private TypeReference<ArrayList<Playlist>> typeReference = new TypeReference<ArrayList<Playlist>>() {};
+    private JSONParser parser = new JSONParser();
 
-
-    public EditPlaylistJson() throws FileNotFoundException {
-        file = new File("EPdata/Playlists.json");
-        this.inputStream = new FileInputStream(file);
+    public EditPlaylistJson(String playlistName) {
+        String fileName = "./" + playlistName + ".json";
+        file = new File(fileName);
     }
 
-    public ArrayList<Playlist> load() throws IOException {
-        return mapper.readValue(inputStream, typeReference);
-    }
-
-    /**
-     * to create and add new playlist to json file
-     */
-    public void addPlaylist(Playlist playlist) throws IOException {
-        File oldFile = file;
-        File newFile = new File("EPdata/tempPlaylists.json");
-        ArrayList<Playlist> playlists = load();
-        playlists.add(playlist);
-        mapper.writeValue(newFile, playlists);
-        inputStream.close();
-        oldFile.delete();
-        newFile.renameTo(new File(file.getAbsolutePath()));
-    }
-
-    /**
-     * to delete a particular playlist from json file
-     */
-    public void removePlaylist(String playlistName) throws IOException {
-        File oldFile = file;
-        File newFile = new File("EPdata/tempPlaylists.json");
-        ArrayList<Playlist> playlists = load();
-        ArrayList<Playlist> newPlaylists = new ArrayList<>(10);
-        for (Playlist log : playlists){
-            if (!log.getListName().equals(playlistName)){
-                newPlaylists.add(log);
+    public Playlist load() throws IOException {
+        if (file.length() != 0) {
+            try {
+                JSONObject playlist = (JSONObject) parser.parse(new FileReader(file));
+                String playlistName = (String) playlist.get("playlistName");
+                String description = (String) playlist.get("description");
+                JSONArray movies = (JSONArray) playlist.get("movies");
+                ArrayList<PlaylistMovieInfoObject> playlistMovies = new ArrayList<>();
+                for (int i = 0; i < movies.size(); i++) {
+                    JSONObject movie = (JSONObject) movies.get(i);
+                    long movieID = (long) movie.get("id");
+                    String movieTitle = (String) movie.get("title");
+                    String movieReleaseDate = (String) movie.get("stringDate");
+                    String movieSummary = (String) movie.get("summary");
+//                    String moviePosterPath = (String) movie.get("moviePosterPath");
+                    String movieFullPosterPath = (String) movie.get("fullPosterPath");
+//                    String movieBackdropPath = (String) movie.get("movieBackdropPath");
+                    String movieFullBackdropPath = (String) movie.get("fullBackdropPath");
+                    double movieRating = (double) movie.get("rating");
+                    JSONArray genreArray = (JSONArray) movie.get("genreIDs");
+                    long[] movieGenreIDs = new long[genreArray.size()];
+                    for (int j = 0; j < genreArray.size(); j++) {
+                        movieGenreIDs[j] = (long) genreArray.get(j);
+                    }
+                    boolean adult = (boolean) movie.get("adult");
+                    //int fakeType = 12345;
+                    boolean fakeType = false;
+                    playlistMovies.add(new PlaylistMovieInfoObject(fakeType, movieID, movieTitle, null, movieSummary, movieRating, movieGenreIDs, movieFullPosterPath, movieFullBackdropPath, false, movieReleaseDate));
+                }
+                for (PlaylistMovieInfoObject log : playlistMovies) {
+                    System.out.println(log.getTitle() +"choochoo");
+                }
+                return new Playlist(playlistName, description, playlistMovies);
+            } catch (ParseException e) {
+                return null;
             }
         }
-        mapper.writeValue(newFile, newPlaylists);
-        inputStream.close();
-        oldFile.delete();
-        newFile.renameTo(new File(file.getAbsolutePath()));
+        else {
+            return null;
+        }
     }
 
-    /**
-     * to edit any particular playlist in json file
-     */
-    public void editPlaylist(ArrayList<Playlist> playlists) throws IOException {
-        File oldFile = file;
-        File newFile = new File("EPdata/tempPlaylists.json");
-        mapper.writeValue(newFile, playlists);
-        inputStream.close();
-        oldFile.delete();
-        newFile.renameTo(new File(file.getAbsolutePath()));
+    public void createPlaylist(Playlist playlist) throws IOException {
+        file.createNewFile();
+        mapper.writeValue(file, playlist);
+    }
+
+    public void deletePlaylist() {
+        file.delete();
+    }
+
+    public void editPlaylist(Playlist playlist) throws IOException {
+        mapper.writeValue(file, playlist);
+    }
+
+    public void renamePlaylist(Playlist playlist, String newName) throws IOException {
+        File oldFileName = file;
+        editPlaylist(playlist);
+        String fileName = "./" + newName + ".json";
+        File newFile = new File(fileName);
+        file.renameTo(newFile);
+//        if (oldFileName.delete()) {
+//            System.out.println("yeboiiii");
+//        }
     }
 }

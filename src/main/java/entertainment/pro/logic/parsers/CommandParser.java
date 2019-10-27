@@ -1,23 +1,27 @@
 package entertainment.pro.logic.parsers;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
-import entertainment.pro.logic.parsers.commands.*;
+import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.Execution.CommandStack;
+import entertainment.pro.logic.parsers.commands.*;
+import entertainment.pro.model.CommandPair;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
-import entertainment.pro.model.CommandPair;
 
 import java.io.IOException;
 import java.util.Arrays;
 
-
+/**
+ * CommandParser class to determine the root command given the user input.
+ */
 public class CommandParser {
+
     /**
-     * Entry point to command parser Class
+     * Entry point to command parser Class.
      *
      * @param command command that was entered by the user
      */
-    public static void parseCommands(String command , Controller UIController) throws IOException {
+    public static void parseCommands(String command , Controller UIController) throws IOException, Exceptions {
         command = command.toLowerCase();
         String commandArr[] = command.split(" ");
         rootCommand(commandArr , command, UIController);
@@ -25,13 +29,13 @@ public class CommandParser {
     }
 
     /**
-     * Function to get the most probable root and sub root command if there was a typo in the user command
+     * Function to get the most probable root and sub root command if there was a typo in the user command.
      *
      * @param CommandArr command that was entered by the user in split array form
      * @param Command   command that was entered by the user.
      * @param UIController the controller for the UI
      */
-    public static void processCommand(CommandPair command , String[] CommandArr , String Command , Controller UIController) throws IOException {
+    public static void processCommand(CommandPair command , String[] CommandArr , String Command , Controller UIController) throws IOException, Exceptions {
 
         if (!command.isValidCommand()) {
             return;
@@ -118,7 +122,6 @@ public class CommandParser {
                 System.out.println("blacklist");
                 BlacklistCommand bbc = new BlacklistCommand(UIController);
                 bbc.initCommand(CommandArr , Command);
-
                 if (command.isValidCommand()) {
                     CommandStack.pushCmd(bbc);
                 }
@@ -127,9 +130,16 @@ public class CommandParser {
                 System.out.println("watchlist");
                 WatchlistCommand wlc = new WatchlistCommand(UIController);
                 wlc.initCommand(CommandArr , Command);
-
-                    if (wlc.initCommand(CommandArr, Command)) {
+                if (command.isValidCommand()) {
                     CommandStack.pushCmd(wlc);
+                }
+                break;
+            case find:
+                System.out.println("find");
+                FindCommand fc = new FindCommand(UIController);
+                fc.initCommand(CommandArr , Command);
+                if (command.isValidCommand()) {
+                    CommandStack.pushCmd(fc);
                 }
                 break;
             default:
@@ -144,7 +154,7 @@ public class CommandParser {
      * @param command   command that was entered by the user.
      * @param uicontroller the controller for the UI
      */
-    public static void rootCommand(String[] commandArr , String command ,  Controller uicontroller) throws IOException {
+    public static void rootCommand(String[] commandArr , String command ,  Controller uicontroller) throws IOException, Exceptions {
 
         System.out.print("Whats happening");
         switch(commandArr[0]) {
@@ -242,6 +252,14 @@ public class CommandParser {
 
                 if (wlc.initCommand(commandArr , command)) {
                     CommandStack.pushCmd(wlc);
+                }
+                break;
+            case "find":
+                System.out.println("find");
+                FindCommand fc = new FindCommand(uicontroller);
+                fc.initCommand(commandArr , command);
+                if (fc.initCommand(commandArr, command)) {
+                    CommandStack.pushCmd(fc);
                 }
                 break;
             default:

@@ -32,6 +32,7 @@ public class MovieInfoObject {
      * @param posterPath Filepath of the movie/tv show poster.
      * @param backdropPath Filepath of the movie/tv show backdrop poster.
      */
+
     public MovieInfoObject(boolean isMovie, long ID, String title, Date date, String summary, double rating, long[] genreIDs, String posterPath, String backdropPath, boolean isAdult) {
        this.isMovie = isMovie;
         movieID = ID;
@@ -46,6 +47,18 @@ public class MovieInfoObject {
     }
 
 
+
+    /**
+     * Construct info about a movie/tv show.
+     * @param id ID stored in the api.
+     * @param title Title of the movie/tv show.
+     */
+    public MovieInfoObject(boolean isMovie, long id, String title) {
+        isMovie = false;
+        movieID = id;
+        movieTitle = title;
+        this.adult = true;
+    }
 
     /**
      * This function sets the root path for movie/tv shows.
@@ -120,5 +133,90 @@ public class MovieInfoObject {
 
     public boolean isAdult() {
         return adult;
+    }
+
+
+    public long getMovieID() {
+        return movieID;
+    }
+
+    public void setMovieID(long movieID) {
+        this.movieID = movieID;
+    }
+
+    public String getMovieTitle() {
+        return movieTitle;
+    }
+
+    public void setMovieTitle(String movieTitle) {
+        this.movieTitle = movieTitle;
+    }
+
+    public Date getMovieReleaseDate() {
+        return movieReleaseDate;
+    }
+
+    public void setMovieReleaseDate(Date movieReleaseDate) {
+        this.movieReleaseDate = movieReleaseDate;
+    }
+
+    public String getMovieSummary() {
+        return movieSummary;
+    }
+
+    public void setMovieSummary(String movieSummary) {
+        this.movieSummary = movieSummary;
+    }
+
+    public String getMoviePosterPath() {
+        return moviePosterPath;
+    }
+
+    public void setMoviePosterPath(String moviePosterPath) {
+        this.moviePosterPath = moviePosterPath;
+    }
+
+    public String getMovieFullPosterPath() {
+        return movieFullPosterPath;
+    }
+
+    public void setMovieFullPosterPath(String movieFullPosterPath) {
+        this.movieFullPosterPath = movieFullPosterPath;
+    }
+
+    public String getMovieBackdropPath() {
+        return movieBackdropPath;
+    }
+
+    public void setMovieBackdropPath(String movieBackdropPath) {
+        this.movieBackdropPath = movieBackdropPath;
+    }
+
+    public String getMovieFullBackdropPath() {
+        return movieFullBackdropPath;
+    }
+
+    public void setMovieFullBackdropPath(String movieFullBackdropPath) {
+        this.movieFullBackdropPath = movieFullBackdropPath;
+    }
+
+    public double getMovieRating() {
+        return movieRating;
+    }
+
+    public void setMovieRating(double movieRating) {
+        this.movieRating = movieRating;
+    }
+
+    public long[] getMovieGenreIDs() {
+        return movieGenreIDs;
+    }
+
+    public void setMovieGenreIDs(long[] movieGenreIDs) {
+        this.movieGenreIDs = movieGenreIDs;
+    }
+
+    public void setAdult(boolean adult) {
+        this.adult = adult;
     }
 }

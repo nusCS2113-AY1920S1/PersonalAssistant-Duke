@@ -2,6 +2,7 @@ package entertainment.pro.logic.parsers.commands;
 
 
 import entertainment.pro.commons.exceptions.DateTimeParseExceptions;
+import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.utils.ProfileCommands;
@@ -35,7 +36,7 @@ public class SearchCommand extends CommandSuper {
     }
 
     @Override
-    public void executeCommands() throws IOException {
+    public void executeCommands() throws Exceptions {
         String payload = getPayload();
         MovieHandler movieHandler = ((MovieHandler) this.getUIController());
         SearchProfile searchProfile = movieHandler.getSearchProfile();
@@ -56,7 +57,7 @@ public class SearchCommand extends CommandSuper {
 
     }
 
-    private void executeMovieSearch(String payload, MovieHandler movieHandler, SearchProfile searchProfile) {
+    private void executeMovieSearch(String payload, MovieHandler movieHandler, SearchProfile searchProfile) throws Exceptions {
         movieHandler.setSearchProfile(searchProfile);
         if (payload.equals(GET_CURRENT)) {
             movieHandler.getAPIRequester().beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
@@ -71,7 +72,7 @@ public class SearchCommand extends CommandSuper {
         }
     }
 
-    private void executeTVSearch(String payload, MovieHandler movieHandler, SearchProfile searchProfile) {
+    private void executeTVSearch(String payload, MovieHandler movieHandler, SearchProfile searchProfile) throws Exceptions {
         movieHandler.setSearchProfile(searchProfile);
         if (payload.equals(GET_CURRENT)) {
             movieHandler.showCurrentTV();

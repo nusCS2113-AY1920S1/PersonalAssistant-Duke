@@ -1,8 +1,10 @@
 package entertainment.pro.logic.movieRequesterAPI;
 
+import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.logic.movieRequesterAPI.InfoFetcher;
+import entertainment.pro.logic.movieRequesterAPI.RequestListener;
 import entertainment.pro.logic.parsers.TimeParser;
 import entertainment.pro.model.SearchProfile;
-import entertainment.pro.ui.MovieHandler;
 import org.apache.commons.lang3.ObjectUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -22,10 +24,12 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Class responsible for fetching results from The MovieDB API and parsing them into objects.
+ */
 public class RetrieveRequest implements InfoFetcher {
     private RequestListener mListener;
     private ArrayList<MovieInfoObject> p_Movies;
-
 
 
     SearchProfile searchProfile;
@@ -58,7 +62,7 @@ public class RetrieveRequest implements InfoFetcher {
     private static final String GENRE_LIST_TV_URL = "genre/tv/list?api_key=";
 
 
-    // Data Keys
+    // Data Keys for both movie and TV shows
     private static final String ADD_ADULT_OPTION = "&include_adult=";
     private static final String kMOVIE_TITLE = "title";
     private static final String kTV_TITLE = "original_name";
@@ -75,7 +79,7 @@ public class RetrieveRequest implements InfoFetcher {
     private static final String kMOVIE_CAST = "cast_id";
     private static final String kADULT = "adult";
 
-    public static String getCastStrings(MovieInfoObject mMovie) {
+    public static String getCastStrings(MovieInfoObject mMovie) throws Exceptions {
 
         try {
             isCast = true;
@@ -117,7 +121,7 @@ public class RetrieveRequest implements InfoFetcher {
         return null;
     }
 
-    public static String getCertStrings(MovieInfoObject mMovie) {
+    public static String getCertStrings(MovieInfoObject mMovie) throws Exceptions {
         try {
             String jsonResult = "";
             boolean isMovie = mMovie.isMovie();
@@ -193,13 +197,13 @@ public class RetrieveRequest implements InfoFetcher {
         NEW_TV
     }
 
-    public RetrieveRequest(RequestListener listener) {
+    public RetrieveRequest(RequestListener listener) throws Exceptions {
         mListener = listener;
         // Check if config is needed
         checkIfConfigNeeded();
     }
 
-    public void beginMovieRequest(RetrieveRequest.MoviesRequestType type) {
+    public void beginMovieRequest(RetrieveRequest.MoviesRequestType type) throws Exceptions {
         boolean isAdult;
         try {
             isAdult = searchProfile.isAdult();
@@ -253,21 +257,21 @@ public class RetrieveRequest implements InfoFetcher {
     }
 
 
-    public String beginAddRequest(String movieTitle) {
+    public String beginAddRequest(String movieTitle) throws Exceptions{
         try {
             String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
             URLRetriever retrieve = new URLRetriever();
             String json = retrieve.readURLAsString(new URL(url));
             fetchedMoviesJSON(json);
             return p_Movies.get(0).getTitle();
-        } catch (UnsupportedEncodingException | MalformedURLException | SocketTimeoutException ex) {
+        } catch (UnsupportedEncodingException | MalformedURLException ex) {
             ex.printStackTrace();
         }
         return "";
     }
 
 
-    public ArrayList<MovieInfoObject> beginSearchGenre (String genre, boolean adult) {
+    public ArrayList<MovieInfoObject> beginSearchGenre (String genre, boolean adult) throws Exceptions {
         try {
             String url = MAIN_URL + "discover/movie?with_genres=" + URLEncoder.encode(genre, "UTF-8") + "&api_key="
                     + API_KEY + "&language=en-US&page=1" + "&include_adult=";
@@ -278,8 +282,6 @@ public class RetrieveRequest implements InfoFetcher {
             //fetchJSONData(url);
         } catch (UnsupportedEncodingException ex) {
             ex.printStackTrace();
-        } catch (SocketTimeoutException e) {
-            e.printStackTrace();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -369,7 +371,7 @@ public class RetrieveRequest implements InfoFetcher {
         mListener.requestTimedOut();
     }
 
-    private void fetchJSONData(String URLString) {
+    private void fetchJSONData(String URLString) throws Exceptions {
         Thread fetchThread = null;
         try {
             fetchThread = new Thread(new MovieInfoFetcher(new URL(URLString), this));
@@ -471,7 +473,7 @@ public class RetrieveRequest implements InfoFetcher {
     private boolean mConfigWasRead;
 
     // Checks if API config data needs to be recached
-    private void checkIfConfigNeeded() {
+    private void checkIfConfigNeeded() throws Exceptions {
         boolean configNeeded = true;
 
         // Get last cache date and reconfig if more than 5 days passed
@@ -540,7 +542,7 @@ public class RetrieveRequest implements InfoFetcher {
     }
 
     // Re-caches the config data to the binary config file
-    private void reCacheConfigData() {
+    private void reCacheConfigData() throws Exceptions {
         try {
             // Download the config data and parse
             //System.out.println("Config URL is: " + CONFIG_URL);
@@ -580,7 +582,7 @@ public class RetrieveRequest implements InfoFetcher {
      * @param movie The movie for which the genre strings need to be fetched.
      * @return A string array for the movie genre strings.
      */
-    public static String[] getGenreStrings(MovieInfoObject movie) {
+    public static String[] getGenreStrings(MovieInfoObject movie) throws Exceptions {
         try {
             String jsonResult = "";
             if (movie.isMovie()) {

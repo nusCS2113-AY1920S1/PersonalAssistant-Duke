@@ -17,7 +17,7 @@ shadowJar {
     archiveAppendix = null
 }
 
-group 'seedu.duke'
+group 'entertainment.pro'
 version '0.1.0'
 
 dependencies {
@@ -29,6 +29,17 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
     implementation 'com.google.code.gson:gson:2.8.2'
     compile group: 'info.movito', name: 'themoviedbapi', version:'1.9'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
 }
 
 test {
@@ -48,7 +59,7 @@ javafx {
 
 application {
     // Change this to your main class.
-    mainClassName = "Launcher"
+    mainClassName = "entertainment.pro.Launcher"
 }
 
 run {

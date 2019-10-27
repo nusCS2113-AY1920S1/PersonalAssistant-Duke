@@ -1,5 +1,6 @@
 package entertainment.pro.logic.parsers;
 
+import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.commons.enums.COMMANDKEYS;
@@ -8,6 +9,11 @@ import entertainment.pro.model.CommandPair;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Template command class for each root command.
+ * Contains helper functions to breakdown command to useful functions.
+ *
+ */
 public abstract class CommandSuper {
 
     private Controller uicontroller;
@@ -19,7 +25,6 @@ public abstract class CommandSuper {
     private COMMANDKEYS subRootCommand;
     private String payload;
     private boolean execute = false;
-    private String helpInstructions;
 
     protected CommandSuper() {
     }
@@ -275,7 +280,7 @@ public abstract class CommandSuper {
     /**
      * Abstract class to be implemented for each root command class.
      */
-    public abstract void executeCommands() throws IOException;
+    public abstract void executeCommands() throws IOException, Exceptions;
 
 
 

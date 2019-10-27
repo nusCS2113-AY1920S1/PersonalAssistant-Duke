@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * Date wrapper class for having a date object and string date.
  */
-public class MyDate {
+public class MyDate implements Comparable<MyDate> {
 
     private boolean hasEndDate = false;
     private Date startdate = null;
@@ -107,5 +107,11 @@ public class MyDate {
         return returnStr;
     }
 
-
+    @Override
+    public int compareTo(MyDate o) {
+        if (getEndDate() == null || o.getEndDate() == null) {
+            return 0;
+        }
+        return getEndDate().compareTo(o.getEndDate());
+    }
 }

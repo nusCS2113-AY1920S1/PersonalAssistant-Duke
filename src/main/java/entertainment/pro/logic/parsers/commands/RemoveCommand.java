@@ -9,6 +9,9 @@ import entertainment.pro.logic.parsers.CommandSuper;
 
 import java.io.IOException;
 
+
+//TODO REMOVE THIS CLASS
+
 public class RemoveCommand extends CommandSuper {
     /**
      * Constructor for each Command Super class.

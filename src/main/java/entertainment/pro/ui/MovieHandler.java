@@ -1,9 +1,13 @@
 package entertainment.pro.ui;
 
+import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.logic.cinemaRequesterAPI.CinemaRetrieveRequest;
 import entertainment.pro.logic.Contexts.CommandContext;
 import entertainment.pro.logic.Contexts.ContextHelper;
 import entertainment.pro.logic.Contexts.SearchResultContext;
 import entertainment.pro.logic.Execution.CommandStack;
+import entertainment.pro.logic.movieRequesterAPI.RequestListener;
+import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
 import entertainment.pro.model.*;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.storage.utils.*;
@@ -25,8 +29,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import entertainment.pro.logic.movieRequesterAPI.RequestListener;
-import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
 import entertainment.pro.logic.parsers.CommandParser;
 import org.json.simple.parser.ParseException;
 import entertainment.pro.storage.utils.PastUserCommands;
@@ -100,11 +102,16 @@ public class MovieHandler extends Controller implements RequestListener {
 
     private AnchorPane anchorPane;
     private static UserProfile userProfile;
-    private ArrayList<Playlist> playlists;
+    private ArrayList<String> playlists;
+    private String playlistName = "";
+//    private ArrayList<MovieInfoObject> playlistMovies = new ArrayList<>();
+//    private ArrayList<Playlist> playlists;
     private FlowPane mMoviesFlowPane;
+    private VBox playlistVBox = new VBox();
     private static ArrayList<MovieInfoObject> mMovies = new ArrayList<>();
     private double[] mImagesLoadingProgress;
     private static RetrieveRequest mMovieRequest;
+    private static CinemaRetrieveRequest mCinemaRequest;
     private int index = 0;
     private static PastCommands pastCommands = new PastCommands();;
     static String command = "";
@@ -160,7 +167,7 @@ public class MovieHandler extends Controller implements RequestListener {
                 //clickEntered(command, control);
                try {
                     CommandParser.parseCommands(command, control);
-                } catch (IOException e) {
+                } catch (IOException | Exceptions e) {
                     e.printStackTrace();
                 }
                 clearSearchTextField();
@@ -189,8 +196,9 @@ public class MovieHandler extends Controller implements RequestListener {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        EditPlaylistJson editPlaylistJson = new EditPlaylistJson();
-        playlists = editPlaylistJson.load();
+//        EditPlaylistJson editPlaylistJson = new EditPlaylistJson();
+//        playlists = editPlaylistJson.load();
+        playlists = userProfile.getPlaylistNames();
         ProfileCommands command = new ProfileCommands(userProfile);
 
         System.out.println("changed age");
@@ -216,14 +224,18 @@ public class MovieHandler extends Controller implements RequestListener {
 
 
     @FXML
-    public void initialize() throws IOException {
+    public void initialize() throws IOException, Exceptions {
         setLabels();
         mMovieRequest = new RetrieveRequest(this);
         mMovieRequest.setSearchProfile(searchProfile);
+        mCinemaRequest = new CinemaRetrieveRequest(this);
         CommandContext.initialiseContext();
 
         BlacklistStorage bp = new BlacklistStorage();
+        System.out.println("Tgt we are winners");
         bp.load();
+
+
 
         HelpStorage.initialiseAllHelp();
 
@@ -234,14 +246,17 @@ public class MovieHandler extends Controller implements RequestListener {
 
                 setAutoCompleteText(ContextHelper.getAllHints(mSearchTextField.getText(), this));
                 event.consume();
+
             } else if (event.getCode().equals(KeyCode.ALT_GRAPH) || event.getCode().equals(KeyCode.ALT)) {
                 System.out.println("I pressed bit");
                 mSearchTextField.clear();
                 String cmd = CommandStack.nextCommand();
                 if (cmd == null) {
-                    setAutoCompleteText("You dont have any entertainment.pro.logic.parsers.commands in history!");
+                    setAutoCompleteText("You dont have any commands in history!");
                 } else {
+                    mSearchTextField.clear();
                     mSearchTextField.setText(cmd);
+
                 }
 
                 mSearchTextField.positionCaret(mSearchTextField.getText().length());
@@ -311,7 +326,11 @@ public class MovieHandler extends Controller implements RequestListener {
 
                     }
                 } else if (event.getCode().equals(KeyCode.ENTER)) {
-                    moviePosterClicked(mMovies.get(index));
+                    try {
+                        moviePosterClicked(mMovies.get(index));
+                    } catch (Exceptions exceptions) {
+                        exceptions.printStackTrace();
+                    }
                     index = 0;
                 }
             }
@@ -349,8 +368,12 @@ public class MovieHandler extends Controller implements RequestListener {
             if (getPastCommands().getMap().get(getPastCommands().getMap().size() - 2).getQuery().startsWith("view entry")) {
                 num = Integer.parseInt(getStrips[2]);
             }
-            showMovie(num);
-            isViewBackMoreInfo = false;
+                    try {
+                        showMovie(num);
+                    } catch (Exceptions exceptions) {
+                        exceptions.printStackTrace();
+                    }
+                    isViewBackMoreInfo = false;
                         getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
                         getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
                         PastUserCommands.update(pastCommands);
@@ -362,7 +385,13 @@ public class MovieHandler extends Controller implements RequestListener {
         } else {
             //System.out.println("this is size: " + mMovies.size());
             mImagesLoadingProgress = new double[mMovies.size()];
-            Platform.runLater(() -> buildMoviesFlowPane(MoviesFinal));
+            Platform.runLater(() -> {
+                try {
+                    buildMoviesFlowPane(MoviesFinal);
+                } catch (Exceptions exceptions) {
+                    exceptions.printStackTrace();
+                }
+            });
             if (isViewBack == true) {
                 getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
                 getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
@@ -377,7 +406,13 @@ public class MovieHandler extends Controller implements RequestListener {
     public void displayMovies() {
         mMovies = SearchResultContext.getMoviesToDisplay();
         mImagesLoadingProgress = new double[mMovies.size()];
-        Platform.runLater(() -> buildMoviesFlowPane(SearchResultContext.getMoviesToDisplay()));
+        Platform.runLater(() -> {
+            try {
+                buildMoviesFlowPane(SearchResultContext.getMoviesToDisplay());
+            } catch (Exceptions exceptions) {
+                exceptions.printStackTrace();
+            }
+        });
     }
 
     /**
@@ -415,7 +450,7 @@ public class MovieHandler extends Controller implements RequestListener {
      *
      * @param movies is a array containing details about every movie/tv show that is being displayed.
      */
-    private void buildMoviesFlowPane(ArrayList<MovieInfoObject> movies) {
+    private void buildMoviesFlowPane(ArrayList<MovieInfoObject> movies) throws Exceptions {
         // Setup progress bar and status label
         mProgressBar.setProgress(0.0);
         mProgressBar.setVisible(true);
@@ -443,20 +478,49 @@ public class MovieHandler extends Controller implements RequestListener {
      * @return anchorpane consisting of the movie poster, name and the unique id.
      */
 
-    private AnchorPane buildMoviePosterPane(MovieInfoObject movie, int index) {
+    private AnchorPane buildMoviePosterPane(MovieInfoObject movie, int index) throws Exceptions {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("MoviePoster.fxml"));
             AnchorPane posterView = loader.load();
             //posterView.setOnScroll();
-            posterView.setOnMouseClicked((mouseEvent) -> moviePosterClicked(movie));
+            posterView.setOnMouseClicked((mouseEvent) -> {
+                try {
+                    moviePosterClicked(movie);
+                } catch (Exceptions exceptions) {
+                    exceptions.printStackTrace();
+                }
+            });
 
             // set the movie info
             MoviePosterController controller = loader.getController();
             try {
-                Image posterImage = new Image(movie.getFullPosterPath(), true);
-                posterImage.progressProperty().addListener((observable, oldValue, newValue) -> updateProgressBar(movie, newValue.doubleValue()));
-                controller.getPosterImageView().setImage(posterImage);
+                if (movie.getFullPosterPath() != null) {
+                    System.out.println("sianz");
+                    Image posterImage = new Image(movie.getFullPosterPath(), true);
+                    posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
+                        try {
+                            updateProgressBar(movie, newValue.doubleValue());
+                        } catch (Exceptions exceptions) {
+                            exceptions.printStackTrace();
+                        }
+                    });
+                    controller.getPosterImageView().setImage(posterImage);
+                } else{
+                    System.out.println("hi1");
+                    Image posterImage = new Image(this.getClass().getResourceAsStream("../../../../EPdata/FakeMoviePoster.png"));
+                    System.out.println("hi2");
+                    posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
+                        try {
+                            updateProgressBar(movie, newValue.doubleValue());
+                        } catch (Exceptions exceptions) {
+                            exceptions.printStackTrace();
+                        }
+                    });
+                    System.out.println("hi3");
+                    controller.getPosterImageView().setImage(posterImage);
+                    System.out.println("sianzzzzz");
+                }
             } catch (NullPointerException ex) {
 
             }
@@ -476,7 +540,7 @@ public class MovieHandler extends Controller implements RequestListener {
      * @param movie    Object that contains all the information about a particular movie.
      * @param progress contains the progress value.
      */
-    private void updateProgressBar(MovieInfoObject movie, double progress) {
+    private void updateProgressBar(MovieInfoObject movie, double progress) throws Exceptions {
         // update the progress for that movie in the array
         int index = mMovies.indexOf(movie);
         if (index >= 0) {
@@ -517,17 +581,187 @@ public class MovieHandler extends Controller implements RequestListener {
         return isViewBack;
     }
 
-    public void showMovie(int num) {
+    public void showMovie(int num) throws Exceptions {
         //System.out.println("this is " + mMovies.size());
         MovieInfoObject movie = mMovies.get(num - 1);
         moviePosterClicked(movie);
         System.out.println("this is it 4");
     }
 
+
+
+    private void buildPlaylistVBox(ArrayList<String> playlists) throws IOException {
+        // Setup progress bar and status label
+        mProgressBar.setProgress(0.0);
+        mProgressBar.setVisible(true);
+        mStatusLabel.setText("Loading..");
+
+        int count = 1;
+        for (String log : playlists) {
+            Playlist playlist = new EditPlaylistJson(log).load();
+            System.out.println(playlist.getPlaylistName());
+            System.out.println(playlist.getMovies().size());
+            AnchorPane playlistPane = buildPlaylistPane(playlist, count);
+            playlistVBox.getChildren().add(playlistPane);
+            count++;
+//            mPlaylistFlowPane.getChildren().add(playlistPane);
+//            System.out.println(playlist.getMovies().size());
+        }
+
+        mMoviesScrollPane.setContent(playlistVBox);
+        mMoviesScrollPane.setVvalue(0);
+    }
+
+    private AnchorPane buildPlaylistPane(Playlist playlist, int i) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getClassLoader().getResource("PlaylistPane.fxml"));
+            AnchorPane playlistPane = loader.load();
+//            playlistPane.setRightAnchor(00);
+//            posterView.setOnScroll();
+            playlistPane.setOnMouseClicked((mouseEvent) -> {
+//                try {
+                    playlistPaneClicked(playlist);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+            });
+            // set the movie info
+            PlaylistController controller = loader.getController();
+            controller.setVBoxColour(i);
+//            controller.setTextColour();
+            controller.getPlaylistNameLabel().setText(playlist.getPlaylistName());
+            if (playlist.getDescription().trim().length() == 0) {
+                controller.getPlaylistDescriptionLabel().setStyle("-fx-font-style: italic");
+                controller.getPlaylistDescriptionLabel().setText("*this playlist does not have a description :(*");
+            } else {
+                controller.getPlaylistDescriptionLabel().setText(playlist.getDescription());
+            }
+            controller.getPlaylistMoviesLabel().setText("No. of movies: " + Integer.toString(playlist.getMovies().size()));
+            System.out.println("no lei here");
+            return playlistPane;
+        } catch (IOException ex) {
+//            Ui.printLine();
+        }
+        System.out.println("fk lah here");
+        return null;
+    }
+
+    private void playlistPaneClicked(Playlist playlist) {
+        buildPlaylistInfo(playlist);
+        playlistName = playlist.getPlaylistName();
+    }
+
+    private void buildPlaylistInfo(Playlist playlist) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getClassLoader().getResource("PlaylistInfo.fxml"));
+            AnchorPane playlistPane = loader.load();
+            PlaylistInfoController controller = loader.getController();
+            controller.getPlaylistNameLabel().setText(playlist.getPlaylistName());
+            if (playlist.getDescription().trim().length() == 0) {
+                controller.getPlaylistDescriptionLabel().setStyle("-fx-font-style: italic");
+                controller.getPlaylistDescriptionLabel().setText("*this playlist does not have a description :(*");
+            } else {
+                controller.getPlaylistDescriptionLabel().setText(playlist.getDescription());
+            }
+            if (playlist.getMovies().size() != 0) {
+                controller.getPlaylistInfoVBox().getChildren().add(buildPlaylistMoviesFlowPane(playlist.getMovies()));
+            } else {
+                Label emptyMoviesLabel = new Label(playlist.getPlaylistName() + " does not contain any movies :(");
+                controller.getPlaylistInfoVBox().getChildren().add(2, emptyMoviesLabel);
+            }
+            mMoviesScrollPane.setContent(controller.getPlaylistInfoVBox());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private FlowPane buildPlaylistMoviesFlowPane(ArrayList<PlaylistMovieInfoObject> movies) {
+        // Setup progress bar and status label
+        mProgressBar.setProgress(0.0);
+        mProgressBar.setVisible(true);
+        mStatusLabel.setText("Loading..");
+        mMovies = convert(movies);
+
+        mMoviesFlowPane = new FlowPane(Orientation.HORIZONTAL);
+        mMoviesFlowPane.setHgap(4);
+        mMoviesFlowPane.setVgap(10);
+        mMoviesFlowPane.setPadding(new Insets(10, 8, 4, 8));
+        mMoviesFlowPane.prefWrapLengthProperty().bind(mMoviesScrollPane.widthProperty());   // bind to scroll pane width
+
+        for (int i = 0; i < movies.size(); i++) {
+            AnchorPane posterPane = buildPlaylistMoviePosterPane(movies.get(i), i + 1);
+            mMoviesFlowPane.getChildren().add(posterPane);
+        }
+
+//        scrollPane.setContent(mMoviesFlowPane);
+//        scrollPane.setVvalue(0);
+        return mMoviesFlowPane;
+    }
+
+    private AnchorPane buildPlaylistMoviePosterPane(MovieInfoObject movie, int index) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getClassLoader().getResource("MoviePoster.fxml"));
+            AnchorPane posterView = loader.load();
+            //posterView.setOnScroll();
+            posterView.setOnMouseClicked((mouseEvent) -> {
+                try {
+                    playlistMoviePosterClicked(movie);
+                } catch (Exceptions exceptions) {
+                    exceptions.printStackTrace();
+                }
+            });
+
+            // set the movie info
+            MoviePosterController controller = loader.getController();
+            try {
+                System.out.println("hi1");
+                Image posterImage = new Image(this.getClass().getResourceAsStream("../../../../EPdata/FakeMoviePoster.png"));
+                System.out.println("hi2");
+                posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
+                    try {
+                        updateProgressBar(movie, newValue.doubleValue());
+                    } catch (Exceptions exceptions) {
+                        exceptions.printStackTrace();
+                    }
+                });
+                System.out.println("hi3");
+                controller.getPosterImageView().setImage(posterImage);
+                System.out.println("sianzzzzz");
+            } catch (NullPointerException ex) {
+
+            }
+            controller.getMovieTitleLabel().setText(movie.getTitle());
+            controller.getMovieNumberLabel().setText(Integer.toString(index));
+            return posterView;
+        } catch (IOException ex) {
+            //Ui.printLine();
+        }
+
+        return null;
+    }
+
+    public void showPlaylistList() throws IOException {
+        buildPlaylistVBox(playlists);
+    }
+
+    private ArrayList<MovieInfoObject> convert(ArrayList<PlaylistMovieInfoObject> toConvert) {
+        ArrayList<MovieInfoObject> converted = new ArrayList<>();
+        boolean isMovie = false;
+        for (PlaylistMovieInfoObject log : toConvert) {
+            converted.add(new MovieInfoObject(isMovie, log.getID(), log.getTitle(), log.getReleaseDate(), log.getSummary(), log.getRating(), log.getGenreIDs(), log.getFullPosterPath(), log.getFullBackdropPath(),
+                    log.isAdult()));
+        }
+        return converted;
+    }
+
+
     /**
      * Tis function is called when the user wants to see more information about a movie.
      */
-    public void moviePosterClicked(MovieInfoObject movie) {
+    public void moviePosterClicked(MovieInfoObject movie) throws Exceptions {
         try {
             //mMainApplication.transitToMovieInfoController(movie);
             mMoviesFlowPane.getChildren().clear();
@@ -581,6 +815,59 @@ public class MovieHandler extends Controller implements RequestListener {
             controller.getMovieGenresLabel().setText(builder.toString());
             mMoviesFlowPane.getChildren().add(posterView);
             mMoviesScrollPane.setContent(mMoviesFlowPane);
+            mMoviesScrollPane.setVvalue(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Tis function is called when the user wants to see more information about a movie.
+     */
+    public void playlistMoviePosterClicked(MovieInfoObject movie) throws Exceptions {
+        try {
+            //mMainApplication.transitToMovieInfoController(movie);
+//            mMoviesFlowPane.getChildren().clear();
+//            mMoviesFlowPane = new FlowPane(Orientation.HORIZONTAL);
+//            mMoviesFlowPane.setHgap(4);
+//            mMoviesFlowPane.setVgap(10);
+//            mMoviesFlowPane.setPadding(new Insets(10, 8, 4, 8));
+//            mMoviesFlowPane.prefWrapLengthProperty().bind(mMoviesScrollPane.widthProperty());
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getClassLoader().getResource("PlaylistMoreInfo.fxml"));
+            AnchorPane posterView = loader.load();
+            PlaylistMovieController controller = loader.getController();
+
+            controller.getMovieTitleLabel().setText(movie.getTitle());
+            controller.getMovieRatingLabel().setText(String.format("%.2f", movie.getRating()));
+            if (movie.getReleaseDate() != null) {
+                Date date = movie.getReleaseDate();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                String printDate = new SimpleDateFormat("dd/MM/yyyy").format(date);
+                controller.getMovieDateLabel().setText(printDate);
+            } else {
+                controller.getMovieDateLabel().setText("N/A");
+            }
+            controller.getMovieSummaryLabel().setText(movie.getSummary());
+            String[] genres = RetrieveRequest.getGenreStrings(movie);
+            StringBuilder builder = new StringBuilder();
+            try {
+                for (String genre : genres) {
+                    builder.append(genre);
+                    System.out.println(genre + "  " + genres.length);
+                    // if not last string in array, append a ,
+                    if (genres.length == 0) {
+                        System.out.println("no genres");
+                    } else if (!genres[genres.length - 1].equals(genre)) {
+                        builder.append(", ");
+                    }
+                }
+            } catch (NullPointerException ex) {
+
+            }
+            controller.getMovieGenresLabel().setText(builder.toString());
+            mMoviesScrollPane.setContent(controller.getPlaylistMovieInfoAnchorPane());
             mMoviesScrollPane.setVvalue(0);
         } catch (IOException e) {
             e.printStackTrace();
@@ -653,6 +940,14 @@ public class MovieHandler extends Controller implements RequestListener {
         return mMovieRequest;
     }
 
+    /**
+     * Retrieves the cinemaRetrieveRequest class
+     * @return the cinemaRetrieveRequest class
+     */
+    public CinemaRetrieveRequest getCinemaAPIRequester() {
+        return mCinemaRequest;
+    }
+
     public static String getCommands() {
         return command;
     }
@@ -665,9 +960,9 @@ public class MovieHandler extends Controller implements RequestListener {
         return pastCommands;
     }
 
-    public ArrayList<Playlist> getPlaylists() {
-        return playlists;
-    }
+//    public ArrayList<Playlist> getPlaylists() {
+//        return playlists;
+//    }
 
     public ArrayList<MovieInfoObject> getmMovies() {
         return mMovies;
@@ -692,42 +987,42 @@ public class MovieHandler extends Controller implements RequestListener {
     /**
      * Displays list of current movies showing on cinemas.
      */
-    public static void showCurrentMovies() {
+    public static void showCurrentMovies() throws Exceptions {
         mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
     }
 
     /**
      * Displays list of current tv shows showing.
      */
-    public static void showCurrentTV() {
+    public static void showCurrentTV() throws Exceptions {
         mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV);
     }
 
     /**
      * Displays list of upcoming movies.
      */
-    public static void showUpcomingMovies() {
+    public static void showUpcomingMovies() throws Exceptions {
         mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
     }
 
     /**
      * Displays list of upcoming tv shows.
      */
-    public static void showUpcomingTV() {
+    public static void showUpcomingTV() throws Exceptions {
         mMovieRequest.beginMovieRequest( RetrieveRequest.MoviesRequestType.CURRENT_TV);
     }
 
     /**
      * Displays list of popular movies.
      */
-    public static void showPopMovies() {
+    public static void showPopMovies() throws Exceptions {
         mMovieRequest.beginMovieRequest( RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
     }
 
     /**
      * Displays list of popular tv shows.
      */
-    public static void showPopTV() {
+    public static void showPopTV() throws Exceptions {
         mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV);
     }
 
@@ -735,7 +1030,7 @@ public class MovieHandler extends Controller implements RequestListener {
     /**
      * Displays list of trending movies.
      */
-    public static void showTrendMovies() {
+    public static void showTrendMovies() throws Exceptions {
         mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES);
         ;
     }
@@ -743,12 +1038,13 @@ public class MovieHandler extends Controller implements RequestListener {
     /**
      * Displays list of trending tv shows.
      */
-    public static void showTrendTV() {
+    public static void showTrendTV() throws Exceptions {
         mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
     }
 
 
-    public static void showSearchMovie() {
+
+    public static void showSearchMovie() throws Exceptions {
         mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
     }
 
@@ -774,6 +1070,16 @@ public class MovieHandler extends Controller implements RequestListener {
             sortLatestDateLabel.setText("N");
             sortHighestRatingLabel.setText("N");
         }
+    }
+
+
+    public void setPlaylistName(String name) {
+        playlistName = name;
+    }
+
+    public void refreshPlaylist() throws IOException {
+        EditPlaylistJson editPlaylistJson = new EditPlaylistJson(playlistName);
+        buildPlaylistInfo(editPlaylistJson.load());
     }
 
 }

@@ -1,0 +1,12 @@
+{
+  "genreIdPreference": [
+    28
+  ],
+  "genreIdRestriction": [
+    16
+  ],
+  "adult": true,
+  "sortByAlphabetical": true,
+  "sortByHighestRating": false,
+  "sortByLatestRelease": false
+}

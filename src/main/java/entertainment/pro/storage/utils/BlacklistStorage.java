@@ -13,6 +13,7 @@ import entertainment.pro.model.MovieModel;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * class that deals with editing the BlackList duke.storage file.
@@ -30,9 +31,14 @@ public class BlacklistStorage {
     private enum BlacklistKeys { KEYS , MOVIES , ID};
 
 
-    public BlacklistStorage() throws FileNotFoundException {
-        file = new File("EPdata/BlacklistStorage.json");
+    public BlacklistStorage() throws IOException {
+        file = new File("./BlacklistStorage.json");
+        if (file.createNewFile()) {
+            createNewBlacklistFile();
+
+        }
         this.inputStream = new FileInputStream(file);
+
     }
 
     /**
@@ -42,35 +48,39 @@ public class BlacklistStorage {
     public void load() throws IOException {
 
         try {
-            FileReader reader = new FileReader("EPdata/BlacklistStorage.json");
-            JSONParser jsonParser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
-            System.out.println("jsonObject");
-            System.out.println(jsonObject.get(BlacklistKeys.KEYS.toString()));
 
-            Gson gson = new Gson();
-            Type type = new TypeToken<ArrayList<String>>() { }.getType();
-            ArrayList<String> keyList = gson.fromJson(jsonObject.get(BlacklistKeys.KEYS.toString()).toString()
-                    , type);
+            File newFile = new File("./BlacklistStorage.json");
+            if (newFile.createNewFile()) {
 
-            Type type2 = new TypeToken<ArrayList<MovieModel>>() { }.getType();
-            ArrayList<MovieModel> movieList = gson.fromJson(jsonObject.get(BlacklistKeys.ID.toString()).toString()
-                    , type2);
+                Blacklist.initialiseAll(new ArrayList<String>() , new ArrayList<String>() , new ArrayList<MovieModel>());
 
+            } else {
+                FileReader reader = new FileReader(newFile);
+                JSONParser jsonParser = new JSONParser();
+                JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
+                System.out.println("jsonObject");
+                System.out.println(jsonObject.get(BlacklistKeys.KEYS.toString()));
 
-            ArrayList<String> movieTitleList = gson.fromJson(jsonObject.get(BlacklistKeys.MOVIES.toString()).toString()
-                    , type);
+                Gson gson = new Gson();
+                Type type = new TypeToken<ArrayList<String>>() { }.getType();
+                ArrayList<String> keyList = gson.fromJson(jsonObject.get(BlacklistKeys.KEYS.toString()).toString()
+                        , type);
 
+                Type type2 = new TypeToken<ArrayList<MovieModel>>() { }.getType();
+                ArrayList<MovieModel> movieList = gson.fromJson(jsonObject.get(BlacklistKeys.ID.toString()).toString()
+                        , type2);
 
+                ArrayList<String> movieTitleList = gson.fromJson(jsonObject.get(BlacklistKeys.MOVIES.toString()).toString()
+                        , type);
 
-            Blacklist.initialiseAll(keyList , movieTitleList , movieList);
+                Blacklist.initialiseAll(keyList , movieTitleList , movieList);
 
+            }
 
 
         } catch (Exception e) {
             //TODO add exception handling
         }
-
     }
 
     /**
@@ -91,15 +101,24 @@ public class BlacklistStorage {
         allblacklist.put(BlacklistKeys.MOVIES , blackListMoviesTitle);
 
         File oldFile = file;
-        File newFile = new File("EPdata/tempBlacklist.json");
+        File newFile = new File("./tempBlacklist.json");
         mapper.writeValue(newFile, allblacklist);
-        inputStream.close();
         oldFile.delete();
         newFile.renameTo(new File(file.getAbsolutePath()));
 
         System.out.println("Successfully DONE SAVING!");
-
-
     }
 
+    public void createNewBlacklistFile() throws IOException {
+
+        JSONObject allblacklist = new JSONObject();
+
+        allblacklist.put(BlacklistKeys.KEYS , new ArrayList<String>());
+        allblacklist.put(BlacklistKeys.ID , new ArrayList<MovieModel>());
+        allblacklist.put(BlacklistKeys.MOVIES , new ArrayList<String>());
+
+        File newFile = new File("./BlacklistStorage.json");
+        mapper.writeValue(newFile, allblacklist);
+
+    }
 }
