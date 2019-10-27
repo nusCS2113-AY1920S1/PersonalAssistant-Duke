@@ -872,6 +872,15 @@ Take note that there is a maximum of *30* character limit.
 | Indicates the number of days you wish to achieve your goal.
 | `DAYS` should contain digits up to *365* only.
 
+| `ACCOUNT_NAME`
+| Indicates the name of the savings account to link the goal for tracking purposes.
+
+(e.g. JunBank Savings Account)
+
+| `ACCOUNT_NAME` should contain alphabetic characters, numeric characters, and spaces only.
+
+`ACCOUNT_NAME` is case-sensitive.
+
 |======
 
 
@@ -886,9 +895,20 @@ like saving for your wedding or retirement, we got you covered!
 
 *Command Syntax*
 
-`/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /by DATE`
+`/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /by DATE [/from ACCOUNT_NAME]`
 
-`/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /in DAYS`
+`/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /in DAYS [/from ACCOUNT_NAME]`
+
+[WARNING]
+====
+
+`ACCOUNT_NAME` can only be names of existing savings bank accounts and not investment accounts or credit cards.
+
+`/by` and `/in` cannot be used together.
+
+`TARGET_AMOUNT` is based on the total amount of money you aim to have in your savings bank account.
+
+====
 
 *Example*
 
@@ -900,19 +920,26 @@ Adds a goal named `Delicious Dinner at WAA COW` which aims to save $`50` in `15`
 
 Adds a goal named `BTO at Punggol Downpayment` which aims to save $`20000` by `10/10/2020`.
 
+* `/add /goals /name GRAD TRIP /amount 2000 /by 30/12/2020 /from JunBank Savings Account`
+
+Adds a goal named GRAD TRIP which aims to save $`2000` by `30/12/2019` and tie it to a savings account named `JunBank
+Savings Account`.
+
 ===== Editing financial goals `/edit /goals`
 
 Changing your life goals? We can certainly help you with that!
 
 *Command Syntax*
 
-`/edit /goals /name GOAL_NAME [/newname GOAL_NAME] [/amount AMOUNT] [/in DAYS] [/by DATE]`
+`/edit /goals /name GOAL_NAME [/newname GOAL_NAME] [/amount AMOUNT] [/in DAYS] [/by DATE] [/from ACCOUNT_NAME]`
 
 [WARNING]
 ====
-At least one of `/newname`, `/amount`, `/in` or `/by` must be used.
+At least one of `/newname`, `/amount`, `/in`, `/by` or `/from` must be used.
 
 `/in` and `/by` cannot be used together at the same time
+
+`ACCOUNT_NAME` can only be names of existing savings bank accounts and not investment accounts or credit cards.
 ====
 
 *Example*
@@ -928,6 +955,15 @@ Edits the goals of `BTO at Punggol Downpayment` amount to $`27500`.
 * `/edit /goals /name BTO at Punggol Downpayment /by 11/11/2021`
 
 Edits the goals of `BTO at Punggol Downpayment` to a new date of `11/11/2021`.
+
+* `/edit /goals /name BTO at Punggol Downpayment /from POBB Savings Account`
+
+Edits the savings account tied to `BTO at Punggol Downpayment` to `POBB Savings Account`.
+
+[TIP]
+====
+You can also add a savings account if the existing goal has no account linked to it.
+====
 
 ===== Deleting financial goals `/delete /goals`
 
@@ -1550,15 +1586,15 @@ AMOUNT] [/date DATE]`
 |*Task*| *Purpose* | *Command Format* | *Example*
 | *Adding financial goals*
 | Add a new financial goal to the user's profile.
-| `/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /by DATE`
+| `/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /by DATE [/from ACCOUNT_NAME]`
 
-`/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /in DAYS`
+`/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /in DAYS [/from ACCOUNT_NAME]`
 
-| `/add /goals /name BTO at Punggol Downpayment /amount 200000 /by 10/10/2020`
+| `/add /goals /name BTO at Punggol Downpayment /amount 200000 /by 10/10/2020 /from JunBank Savings Account`
 
 | *Editing financial goals*
 | Edit the financial goal's details based on the new details given.
-| `/edit /goals /name GOAL_NAME [/newname GOAL_NAME] [/amount AMOUNT] [/in DAYS] [/by DATE]`
+| `/edit /goals /name GOAL_NAME [/newname GOAL_NAME] [/amount AMOUNT] [/in DAYS] [/by DATE] [/from ACCOUNT_NAME]`
 | `/edit /goals /name BTO at Punggol Downpayment /newname BTO at Tampines Downpayment`
 
 | *Deleting financial goals*
