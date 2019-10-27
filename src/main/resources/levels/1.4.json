@@ -6,6 +6,7 @@
     "This is because the seeds have not grown into wheat yet. Thus it will be impossible to harvest wheat if there are no wheat available",
     "For this level, we will be introducing a new task called 'If'.",
     "'If' can be used when you want an action to be executed after a certain condition is met.",
+    "Take note that you cannot change your code between days. Hence, it is important to know when you need to use an 'If' statement",
     "The format of using an 'If' statement is as follows..\nIf [condition] do [action].~"
   ],
   "gold": 0,

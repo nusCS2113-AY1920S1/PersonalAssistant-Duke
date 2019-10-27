@@ -4,13 +4,13 @@
     "Your current location is at the market. You can only plant your seeds in your farm.",
     "Using the knowledge you have learnt so far, help farmer John get rich!"
   ],
-  "gold": 30,
+  "gold": 20,
   "seeds": 0,
   "seedlings": 0,
   "wheat": 0,
   "grain": 0,
   "deadline" : 10,
   "file_path": "Level1.6",
-  "objective": "Earn 30 gold by Day 10",
+  "objective": "Earn 20 gold by Day 10",
   "hint": "1.Enter [market] to calculate your profits from each seed.\n2.Enter [condition] to check how you can use money as a condition for an action\n3.Enter [delete all] to start new code"
 }
