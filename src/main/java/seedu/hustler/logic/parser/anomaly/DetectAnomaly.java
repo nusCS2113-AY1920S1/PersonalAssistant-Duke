@@ -12,7 +12,7 @@ public abstract class DetectAnomaly {
      * Detects anomalies for input.
      *
      * @param userInput input for which anomaly is detected
-     * @throws CommandLineException for anomalies detected
+     * @throws CommandLineException if the user input does not conform the expected format
      */
     public abstract void detect(String[] userInput) throws CommandLineException;
 }

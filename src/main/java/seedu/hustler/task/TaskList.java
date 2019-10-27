@@ -66,23 +66,6 @@ public class TaskList {
     }
 
     /**
-     * Checks whether list is empty or not.
-     *
-     * @return true or false to whether the internal ArrayList is empty or not.
-     */
-    public boolean isEmpty() {
-        return list.isEmpty();
-    }
-
-    public TaskList createCopy() {
-        ArrayList<Task> AL = new ArrayList<Task>();
-	    for (int i = 0; i < this.list.size(); i += 1) {
-            AL.add(this.list.get(i));
-        }
-        return new TaskList(AL);
-    }
-
-    /**
      * Adds a new Task to the task list.
      *
      * @param task new Task to be added.
@@ -90,26 +73,7 @@ public class TaskList {
     public void add(Task task) {
         list.add(task);
         String output = "\t  " + list.get(list.size() - 1).toString();
-<<<<<<< HEAD
         updateAchievement(!CommandLog.isRestoring());
-=======
-        if (!CommandLog.isRestoring()) {
-            AddTask.increment();
-            AddTask.updateAchievementLevel();
-            AddTask.updatePoints();
-            //Hustler.listAchievements.updateBusyBee();
-            System.out.println(addAchievementLevel);
-            AchievementList.updateAddTask(addAchievementLevel);
-
-            if (!CommandLog.isRestoring()) {
-                ui.show_task_added(list);
-            }
-        } else {
-            if (!CommandLog.isRestoring()) {
-                ui.show_task_clash();
-            }
-        }
->>>>>>> a60048b1b1ec66262f6aa3c083842ec294f525d5
         Scheduler.add(this.getLastTask());
     }
 
@@ -309,14 +273,14 @@ public class TaskList {
      */
     public void snoozeTask(int i, String[] userInput) {
         try {
-            if (userInput[2].contains("/")) {
-                LocalDateTime localDateTime = getDateTime(userInput[2] + " " + userInput[3]);
+            if (userInput[1].contains("/")) {
+                LocalDateTime localDateTime = getDateTime(userInput[1] + " " + userInput[2]);
                 list.get(i).setDateTime(localDateTime);
             } else {
-                int num = Integer.parseInt(userInput[2]);
+                int num = Integer.parseInt(userInput[1]);
                 LocalDateTime ldt = list.get(i).getDateTime();
 
-                switch (userInput[3]) {
+                switch (userInput[2]) {
                 case "minutes":
                     list.get(i).setDateTime(ldt.plusMinutes(num));
                     break;
