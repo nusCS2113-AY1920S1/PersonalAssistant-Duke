@@ -106,7 +106,7 @@ abstract class InputHistoryWindow extends UiElement<Region> {
         }
     }
 
-/* @@author aquohn */
+    /* @@author aquohn */
 
     protected void storeInput(String input) {
         if (historyPointer != inputHistory.size() - 1 || (historyPointer == inputHistory.size() - 1

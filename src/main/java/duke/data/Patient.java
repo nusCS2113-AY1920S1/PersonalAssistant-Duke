@@ -60,32 +60,6 @@ public class Patient extends DukeObject {
     }
 
     /**
-     * Represents the patient.
-     * A Patient object corresponds to the biometric information of a patient,
-     * patient details, medical history, the impressions the doctor has about a patient.
-     * Attributes:
-     *
-     * @param name      the name of the patient
-     * @param bedNo     the bed number of the patient
-     * @param allergies the Food and Drug allergies a patient has
-     */
-    public Patient(String name, String bedNo, String allergies) {
-        super(name, null);
-        this.bedNo = bedNo;
-        this.allergies = allergies;
-        this.impressions = new HashMap<>();
-        this.height = null;
-        this.weight = null;
-        this.age = null;
-        this.number = null;
-        this.address = null;
-        this.history = null;
-        this.primaryDiagnosis = null;
-
-        initObservables();
-    }
-
-    /**
      * Attaches a listener to the impressions map.
      * This listener updates the {@code impressions} whenever the patient map is updated.
      */
