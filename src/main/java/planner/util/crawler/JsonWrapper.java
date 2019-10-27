@@ -61,9 +61,7 @@ public class JsonWrapper {
      * For each data set, request for nusMods API.
      */
     public void runRequests(Storage store) throws ModBadRequestStatus {
-        for (Requests req : Requests.values()) {
-            storeJson(req, store);
-        }
+        storeJson(Requests.DETAILED, store);
     }
 
     private void storeJson(Requests type, Storage store) throws ModBadRequestStatus {
@@ -85,7 +83,7 @@ public class JsonWrapper {
                 break;
             }
             default: {
-                throw new IllegalStateException("Unexpected value: " + type);
+                throw new ModBadRequestStatus();
             }
         }
     }
