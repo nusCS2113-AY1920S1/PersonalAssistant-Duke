@@ -19,14 +19,21 @@ public abstract class Ui {
         + "| | | | | | | || |/ /\\ \\  \n"
         + "| |_| | |_| | || |  __  | \n"
         + "|____/ \\ _ /|_||_|_|  |_|       \n";
-
     protected static String line = "\t____________________________________________________________";
 
+    private static String welcomeMsg =
+        "\tHello from\n"
+        + logo
+        + line
+        + "\n\tI help keep track of your finance!\n"
+        + "\tWhat can I do for you?";
+
     /**
-     * Show welcome.
+     * Prints DOLLA logo and welcome message.
      */
     public static void showWelcome() {
-        System.out.println("\tHello from\n" + logo);
+        System.out.println(welcomeMsg);
+        System.out.println(line);
     }
 
     /**

@@ -60,10 +60,7 @@ public class Storage {
     public static void load() {
 
         Ui.showWelcome();
-        ArrayList<String> msg = new ArrayList<String>(Arrays.asList(
-                "I help keep track of your finance!",
-                "What can I do for you?"
-        ));
+        ArrayList<String> msg = new ArrayList<String>();
 
         try {
             FileReader inFile = new FileReader("./data/duke.txt");
