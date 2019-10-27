@@ -73,7 +73,7 @@ public class CommandContextTest {
     public void testGetPossibilitiesSubRootForRoot(){
         CommandContext.initialiseContext();
         for(COMMANDKEYS ck: CommandStructure.AllRoots){
-            ArrayList<String> possible = CommandContext.getPossibilitiesSubRootForRoot(ck.toString());
+            ArrayList<String> possible = CommandContext.getPossibilitiesSubRootGivenRoot(ck.toString());
             possible.sort(null);
             ArrayList<String> actual =  new ArrayList<>();
             for (COMMANDKEYS c : CommandStructure.cmdStructure.get(ck)){
