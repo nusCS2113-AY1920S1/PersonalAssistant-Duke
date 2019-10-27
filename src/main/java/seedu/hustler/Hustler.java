@@ -8,6 +8,13 @@ import seedu.hustler.game.achievement.AchievementList;
 import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.ConsecutiveLogin;
 import seedu.hustler.game.avatar.Avatar;
+<<<<<<< HEAD
+=======
+import seedu.hustler.logic.command.Command;
+import seedu.hustler.data.AvatarStorage;
+import seedu.hustler.data.CommandLog;
+import seedu.hustler.data.MemoryManager;
+>>>>>>> 5792669d6e76bcc92b9d430507e4705777b5c5a7
 import seedu.hustler.game.avatar.Inventory;
 import seedu.hustler.game.shop.ShopList;
 import seedu.hustler.logic.CommandLineException;

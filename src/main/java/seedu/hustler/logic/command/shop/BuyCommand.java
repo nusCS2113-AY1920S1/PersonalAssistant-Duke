@@ -1,7 +1,7 @@
 package seedu.hustler.command.shop;
 
 import seedu.hustler.Hustler;
-import seedu.hustler.command.Command;
+import seedu.hustler.logic.command.Command;
 import seedu.hustler.data.ShopStorage;
 import seedu.hustler.game.avatar.Inventory;
 

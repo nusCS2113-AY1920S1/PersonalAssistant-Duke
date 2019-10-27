@@ -1,6 +1,6 @@
 package seedu.hustler.logic.command.timer;
 
-import seedu.hustler.command.Command;
+import seedu.hustler.logic.command.Command;
 import seedu.hustler.ui.timer.TimerManager;
 import seedu.hustler.schedule.RecommendedSchedule;
 import seedu.hustler.schedule.Scheduler;
