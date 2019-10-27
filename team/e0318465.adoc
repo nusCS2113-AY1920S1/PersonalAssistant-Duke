@@ -44,26 +44,19 @@ Test Code: [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/test/j
 
 This section is an excerpt from our DUKE Manager User Guide which shows the features I have implemented for the project.
 
-*Adding a contact : addcontact*
-include::../UserGuide.adoc[tag=addcontact]
+*Adding a contact :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#341-adding-a-contact--addcontact[addcontact]]
 
-*Listing all contacts : listcontacts*
-include::../UserGuide.adoc[tag=listcontact]
+*Listing all contacts :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#342-listing-all-contacts--listcontact[listcontacts]]
 
-*Deleting specific contacts : deletecontact*
-include::../UserGuide.adoc[tag=deletecontact]
+*Deleting specific contacts :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#343-delete-specific-contacts--deletecontact[deletecontact]]
 
-*Finding contacts : findcontact*
-include::../UserGuide.adoc[tag=findcontact]
+*Finding contacts :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#344-find-contacts--findcontact[findcontact]]
 
-*Detect Duplicates*
-include::../UserGuide.adoc[tag=detectduplicates]
+*Detect Duplicates in Task List :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#356-detect-duplicates-in-task-list[Detect Duplicates]]
 
-*Repeat*
-include::../UserGuide.adoc[tag=repeat]
+*Creating a new "Repeat" task :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#314-creating-a-new-repeat-task--repeat[Repeat]]
 
-*Contacts : sortcontacts*
-include::../UserGuide.adoc[tag=sortcontact]
+*Sorting of contacts :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#345-sorting-of-contacts--sortcontact-coming-in-v20[sortcontacts]]
 
 == Contributions to the Developer Guide
 This section is an excerpt from our DUKE Manager Developer Guide which shows the features I have implemented for the project.
