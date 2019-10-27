@@ -251,7 +251,7 @@ public class Command {
                 Event newEvent = NewEvent(eventType, entryForEvent); //instantiate new event
                 assert newEvent != null;
 
-                if (entryForEvent.getPeriod() == NO_PERIOD) { //non-recurring
+                if (entryForEvent.getPeriod() == NO_PERIOD ) { //non-recurring
                     events.addEvent(newEvent);
                     ui.eventAdded(newEvent, events.getNumEvents());
                 } else { //recurring
@@ -284,7 +284,7 @@ public class Command {
                 break;
             case 'C':
                 newEvent = new Concert(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
-                        entryForEvent.getEndDate());
+                        entryForEvent.getEndDate(), entryForEvent.getCost());
                 break;
             case 'P':
                 newEvent = new Practice(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
@@ -381,7 +381,7 @@ public class Command {
     }
 
     public void listEvents(EventList events, UI ui) {
-        ui.printListOfEvents(events);
+        UI.printListOfEvents(events);
     }
 
     /**
@@ -391,6 +391,7 @@ public class Command {
         private String description;
         private String startDate;
         private String endDate;
+        private int cost; //only for concert events
         private int period; //recurring period. -1(NON_RECURRING) if non-recurring.
 
         public String getDescription() {
@@ -408,6 +409,8 @@ public class Command {
         public int getPeriod() {
             return period;
         }
+
+        public int getCost() { return cost; }
 
         /**
          * contains all info regarding an entry for a non-recurring event
@@ -436,7 +439,12 @@ public class Command {
             if (splitEvent.length == 2) {//cant find period extension of command, event is non-recurring
                 period = NON_RECURRING;
             } else {
-                period = Integer.parseInt(splitEvent[2]);
+                if (command.equals("concert")) {
+                    cost = Integer.parseInt(splitEvent[2]);
+                    period = NON_RECURRING;
+                } else {
+                    period = Integer.parseInt(splitEvent[2]);
+                }
             }
             return this;
         }

@@ -75,7 +75,8 @@ public class EventList {
 
                 switch (eventType) {
                     case CONCERT:
-                        eventArrayList.add(new Concert(description, isDone, startDateAndTime, endDateAndTime));
+                        eventArrayList.add(new Concert(description, isDone, startDateAndTime, endDateAndTime,
+                                Integer.parseInt(splitString[6])));
                         break;
 
                     case LESSON:
