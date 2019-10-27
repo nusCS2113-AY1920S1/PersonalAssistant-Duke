@@ -1,4 +1,4 @@
-import dictionary.WordBank;
+import dictionary.Bank;
 import scene.MainScene;
 import storage.Storage;
 import ui.Ui;
@@ -10,7 +10,7 @@ public class WordUp extends Application {
 
     public Ui ui;
     public Storage storage;
-    public WordBank wordBank;
+    public Bank bank;
     private Stage window;
 
     public static void main(String[] args) {
@@ -23,14 +23,14 @@ public class WordUp extends Application {
     public WordUp() {
         ui = new Ui();
         storage = new Storage("data/wordup.txt");
-        wordBank = new WordBank(storage);
+        bank = new Bank(storage);
     }
 
     @Override
     public void start(Stage stage) {
         window = stage;
 
-        window.setScene(new MainScene(ui, wordBank, storage, window).getScene());
+        window.setScene(new MainScene(ui, bank, storage, window).getScene());
         window.show();
 
         //Step 2. Formatting the window to look as expected

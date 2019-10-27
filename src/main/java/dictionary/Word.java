@@ -14,6 +14,11 @@ public class Word {
     private HashSet<String> synonyms;
 
     /**
+     * Maximum ratio of difference allowed for 2 words to be considered close.
+     */
+    private static final double MAX_DIF_ALLOWED = 0.5;
+
+    /**
      * Number of times that a word is searched.
      */
     private int numberOfSearches;
@@ -43,10 +48,10 @@ public class Word {
      * @param tags hash set containing tags that are added to word
      */
 
-    public Word(String word, String meaning, HashSet<String> synonyms) {
+    public Word(String word, String meaning, HashSet<String> tags) {
         this.word = word;
         this.meaning = meaning;
-        this.synonyms = synonyms;
+        //this.synonyms = synonyms;
         this.numberOfSearches = 0;
     }
 
@@ -88,7 +93,32 @@ public class Word {
 
     public HashSet<String> getSynonyms() { return synonyms;}
 
-    public void addSyn(String synonym){ this.synonyms.add(synonym); }
+    public void addSynonym(String synonym){ this.synonyms.add(synonym); }
+
+    /**
+     * Counts the number of different characters with another word.
+     * @param another string represents word to be compared
+     * @return number of different characters between 2 words
+     */
+    private double differenceToWord(String another) {
+        int lengthOfShorterWord = Math.min(another.length(), word.length());
+        int count = 0;
+        for (int i = 0; i < lengthOfShorterWord; i++) {
+            if (word.charAt(i) != another.charAt(i)) {
+                count++;
+            }
+        }
+        return count * 1.0 / lengthOfShorterWord;
+    }
+
+    /**
+     * Checks if 2 words are closed to each other.
+     * @param another string represents word to be compared
+     * @return true if 2 words are closed with each other
+     */
+    public boolean isClosed(String another) {
+        return differenceToWord(another) < MAX_DIF_ALLOWED;
+    }
 
     @Override
     public String toString() {

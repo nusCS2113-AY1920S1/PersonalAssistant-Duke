@@ -1,6 +1,6 @@
 package command;
 
-import dictionary.WordBank;
+import dictionary.Bank;
 import storage.Storage;
 import ui.Ui;
 
@@ -18,10 +18,10 @@ public class SearchFrequencyCommand extends Command {
     }
 
     @Override
-    public String execute(Ui ui, WordBank wordBank, Storage storage) {
+    public String execute(Ui ui, Bank bank, Storage storage) {
         //ask ui to print something
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
-        return ui.showSearchFrequency(wordBank,order);
+        return ui.showSearchFrequency(bank.getWordBank(), order);
     }
 }

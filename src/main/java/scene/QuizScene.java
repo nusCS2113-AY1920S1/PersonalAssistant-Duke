@@ -1,6 +1,6 @@
 package scene;
 
-import dictionary.WordBank;
+import dictionary.Bank;
 import command.QuizCommand;
 import exception.ChangeSceneException;
 import exception.InvalidAnswerException;
@@ -18,8 +18,8 @@ public class QuizScene extends NewScene {
     private QuizCommand quizCommand;
     boolean startQuiz = false;
 
-    public QuizScene(Ui ui, WordBank wordBank, Storage storage, Stage window) {
-        super(ui, wordBank, storage, ui.quizGreet(), window);
+    public QuizScene(Ui ui, Bank bank, Storage storage, Stage window) {
+        super(ui, bank, storage, ui.quizGreet(), window);
         setupHandleInput();
     }
 
@@ -65,7 +65,7 @@ public class QuizScene extends NewScene {
 
     private void generateQuiz() throws WordBankNotEnoughForQuizException {
         quizCommand = new QuizCommand();
-        quizCommand.generateQuiz(wordBank);
+        quizCommand.generateQuiz(bank.getWordBank());
     }
 
     @Override
@@ -87,7 +87,7 @@ public class QuizScene extends NewScene {
     @Override
     public void resolveException(WordUpException e) {
         if (e instanceof ChangeSceneException) {
-            window.setScene(new MainScene(ui, wordBank, storage, window).getScene());
+            window.setScene(new MainScene(ui, bank, storage, window).getScene());
         }
     }
 }

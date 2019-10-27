@@ -1,7 +1,6 @@
 package parser;
 
 import dictionary.Word;
-
 import command.Command;
 import command.QuizCommand;
 import command.BadCommand;
@@ -15,6 +14,8 @@ import command.RecentlyAddedCommand;
 import command.SearchFrequencyCommand;
 import command.EditCommand;
 import command.AddSynonymCommand;
+import command.SearchBeginCommand;
+import command.HelpCommand;
 
 import exception.CommandInvalidException;
 import exception.EmptyWordException;
@@ -30,6 +31,7 @@ import exception.WrongEditFormatException;
 import exception.WrongAddTagFormatException;
 import exception.WrongQuizFormatException;
 import exception.WrongAddSynonymException;
+import exception.WrongSearchBeginFormatException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -53,14 +55,15 @@ public class Parser {
             if (userCommand.equals("exit")) {
                 return new ExitCommand();
             } else if (userCommand.equals("help")) {
-                // CREATE A HELP COMMAND TO SHOW THE AVAILABLE INSTRUCTION
-                return null;
+                command = parseHelp(taskInfo);
             } else if (userCommand.equals("add")) {
                 command = parseAdd(taskInfo);
             } else if (userCommand.equals("delete")) {
                 command = parseDelete(taskInfo);
             } else if (userCommand.equals("search")) {
                 command = parseSearch(taskInfo);
+            } else if (userCommand.equals("search_begin")) {
+                command = parseSearchBegin(taskInfo);
             } else if (userCommand.equals("list")) {
                 command = parseList(taskInfo);
             } else if (userCommand.equals("history")) {
@@ -92,6 +95,18 @@ public class Parser {
     /**
      * Parses an add command.
      * @param taskInfo String array containing first stage parsed user input
+     * @return an HelpCommand object
+     */
+    protected static Command parseHelp(String[] taskInfo) {
+        if (taskInfo.length == 1) {
+            return new HelpCommand("");
+        }
+        return new HelpCommand(taskInfo[1]);
+    }
+
+    /**
+     * Parses a help command.
+     * @param taskInfo String array containing first stage parsed user input
      * @return an AddCommand object
      * @throws WrongAddFormatException when the format of the delete command does not match the required format
      * @throws EmptyWordException when there is no word entered with the command
@@ -101,14 +116,18 @@ public class Parser {
             throw new WrongAddFormatException();
         }
         String[] wordDetail = taskInfo[1].split("w/");
-        if (wordDetail.length != 3) {
+        if (wordDetail.length != 2) {
             throw new WrongAddFormatException();
         }
-        String wordDescription = wordDetail[1].trim();
+        wordDetail = wordDetail[1].split("m/");
+        if (wordDetail.length != 2) {
+            throw new WrongAddFormatException();
+        }
+        String wordDescription = wordDetail[0].trim();
         if (wordDescription.length() == 0) {
             throw new EmptyWordException();
         }
-        String[] meaningAndTag = wordDetail[2].split("t/");
+        String[] meaningAndTag = wordDetail[1].split("t/");
         String meaning = meaningAndTag[0].trim();
         if (meaning.length() == 0) {
             throw new EmptyWordException();
@@ -160,6 +179,13 @@ public class Parser {
             throw new WrongSearchFormatException();
         }
         return new SearchCommand(taskInfo[1].substring(2).trim());
+    }
+
+    protected static Command parseSearchBegin(String[] taskInfo) throws WrongSearchBeginFormatException {
+        if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
+            throw new WrongSearchBeginFormatException();
+        }
+        return new SearchBeginCommand(taskInfo[1].substring(2).trim());
     }
 
     /**
