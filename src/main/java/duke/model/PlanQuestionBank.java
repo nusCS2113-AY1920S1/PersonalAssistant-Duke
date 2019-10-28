@@ -3,10 +3,8 @@ package duke.model;
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
 import duke.logic.Parser.Parser;
-import javafx.fxml.FXML;
 
 import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -83,8 +81,8 @@ public class PlanQuestionBank {
         questionList.put(6, question6);
 
         PlanQuestion question7 = new PlanQuestion("How many meals per day do pay for daily? <0 - 3>",
-                generateIntRange(0,3),
-                generateIntRange(0,3),
+                generateIntRange(0, 3),
+                generateIntRange(0, 3),
                 "MEALS_PER_DAY");
         question7.addNeighbouring("1", 8);
         question7.addNeighbouring("2", 8);
@@ -198,7 +196,7 @@ public class PlanQuestionBank {
                                     .append("MRT concession costs: $48.00 monthly.\n")
                                     .append("You should set your transport budget at $48.00 monthly\n\n");
                             budgetRecommendation.put("transport", Parser.parseMoney("48.00"));
-                        } else if(monthlyCost.compareTo(BigDecimal.ZERO) == 1){
+                        } else if (monthlyCost.compareTo(BigDecimal.ZERO) == 1) {
                             recommendation.append("You should set transport budget at $")
                                     .append(monthlyCost)
                                     .append(" monthly. \n\n");
@@ -234,12 +232,12 @@ public class PlanQuestionBank {
                         break;
                     }
                     int mealsPerDay = Integer.parseInt(planAttributes.get("MEALS_PER_DAY"));
-                    if(mealsPerDay > 0) {
+                    if (mealsPerDay > 0) {
                         BigDecimal costPerMeal = Parser.parseMoney(planAttributes.get("AVERAGE_MEAL_COST"));
                         BigDecimal monthlyFoodBudget = costPerMeal
                                 .multiply(BigDecimal.valueOf(mealsPerDay))
                                 .multiply(BigDecimal.valueOf(30));
-                        if(monthlyFoodBudget.compareTo(BigDecimal.ZERO) == 1) {
+                        if (monthlyFoodBudget.compareTo(BigDecimal.ZERO) == 1) {
                             recommendation.append("I'd suggest you set your food budget at $")
                                     .append(monthlyFoodBudget)
                                     .append(" monthly. \n\n");
@@ -256,7 +254,7 @@ public class PlanQuestionBank {
                                 .multiply(BigDecimal.valueOf(4))
                                 .multiply(BigDecimal.valueOf(11));
                         //11 since 3 meals during each weekend * 1 meal per day
-                        if(monthlyFoodBudget.compareTo(BigDecimal.ZERO) == 1) {
+                        if (monthlyFoodBudget.compareTo(BigDecimal.ZERO) == 1) {
                             recommendation.append("I'd suggest you set your food budget at $")
                                     .append(monthlyFoodBudget).append(" monthly. \n\n");
                             budgetRecommendation.put("food", monthlyFoodBudget);
@@ -268,7 +266,7 @@ public class PlanQuestionBank {
                         BigDecimal monthlyFoodBudget = costPerMeal.multiply(BigDecimal
                                 .valueOf(mealsPerDay))
                                 .multiply(BigDecimal.valueOf(30));
-                        if(monthlyFoodBudget.compareTo(BigDecimal.ZERO) == 1) {
+                        if (monthlyFoodBudget.compareTo(BigDecimal.ZERO) == 1) {
                             recommendation.append("I'd suggest you set your food budget at $")
                                     .append(monthlyFoodBudget).append(" monthly. \n\n");
                             budgetRecommendation.put("food", monthlyFoodBudget);
@@ -345,8 +343,9 @@ public class PlanQuestionBank {
 
         /**
          * Constructor for PlanRecommendation.
-         * @param recommendation String of the recommendation, text that will appear in the dialog
-         * @param budget Map&lt;String, BigDecimal> map of category as key and amount as the value
+         *
+         * @param recommendation            String of the recommendation, text that will appear in the dialog
+         * @param budget                    Map&lt;String, BigDecimal> map of category as key and amount as the value
          * @param recommendationExpenseList List of expenses to add into expense list.
          */
         public PlanRecommendation(String recommendation,

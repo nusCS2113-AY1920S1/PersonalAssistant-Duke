@@ -2,7 +2,6 @@ package duke.logic;
 
 /**
  * Represents the result of a command execution.
- *
  */
 public class CommandResult {
 

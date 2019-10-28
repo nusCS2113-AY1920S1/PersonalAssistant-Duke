@@ -72,8 +72,8 @@ public class PlanBot {
         if (planAttributes.isEmpty()) {
             dialogObservableList.add(new PlanDialog("Hi, seems like this is the first time using Duke++. "
                     + "Let me plan your budget for you!"
-                    + " Alternatively, type \"goto expense\" to start using Duke++!"
-                    , Agent.BOT));
+                    + " Alternatively, type \"goto expense\" to start using Duke++!",
+                    Agent.BOT));
         }
         try {
             planQuestionBank = new PlanQuestionBank();
@@ -117,7 +117,6 @@ public class PlanBot {
                 questionQueue.clear();
                 questionQueue.addAll(planQuestionBank.getQuestions(planAttributes));
                 logger.info("\n\n\nQueue size: " + questionQueue.size());
-
                 dialogObservableList.add(new PlanDialog(reply.getText(), Agent.BOT));
                 planAttributes = reply.getAttributes();
                 if (!questionQueue.isEmpty()) {
@@ -143,8 +142,7 @@ public class PlanBot {
 
 
     /**
-     * Puts the recommendation into the dialog list
-     * @throws DukeException
+     * Puts the recommendation into the dialog list.
      */
     private void sendCompletedMessage() {
         try {
@@ -164,7 +162,7 @@ public class PlanBot {
                     + recommendedBudgetStringBuilder.toString()
                     + "type \"export\" to export the budget",
                     Agent.BOT));
-        }catch (DukeException e) {
+        } catch (DukeException e) {
             dialogList.add(new PlanDialog(e.getMessage(), Agent.BOT));
         }
 
