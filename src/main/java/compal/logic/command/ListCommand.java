@@ -1,11 +1,11 @@
 package compal.logic.command;
 
+import compal.commons.LogUtils;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.logging.Logger;
 
 //@@author SholihinK
 
@@ -24,6 +24,8 @@ public class ListCommand extends Command {
     private String type = "";
     private String listPrefixTwo;
 
+    private static final Logger logger = LogUtils.getLogger(ListCommand.class);
+
     /**
      * Construct the ListCommand class.
      *
@@ -41,6 +43,7 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult commandExecute(TaskList taskList) {
+        logger.info("Executing list command");
         ArrayList<Task> toList = taskList.getArrList();
         String finalList;
         if (type.isEmpty()) {
@@ -65,7 +68,6 @@ public class ListCommand extends Command {
         if (count == 1) {
             finalList = LIST_EMPTY;
         }
-
         return new CommandResult(finalList, false);
     }
 }

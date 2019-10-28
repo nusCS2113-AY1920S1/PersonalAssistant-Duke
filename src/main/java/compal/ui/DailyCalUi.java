@@ -18,7 +18,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
 
 //@@author SholihinK
-
 /**
  * Create a timetable drawing onto DailyView scroll-pane within tab-pane.
  */
@@ -121,8 +120,6 @@ class DailyCalUi {
                 break;
             }
             Rectangle rectangle = new Rectangle(100, 50);
-            //rectangle.setY(colOneYLayout-25);
-            //rectangle.setX(colOneXLayout + plus);
             rectangle.setFill(Color.ROSYBROWN);
             rectangle.setStroke(Color.BLACK);
 
@@ -143,14 +140,6 @@ class DailyCalUi {
 
     }
 
-    /*private void genDateSLot() {
-        Text date = new Text();
-        date.setText(dateToDisplay);
-        date.setY(colOneYLayout);
-        date.setX(colOneXLayout);
-        colOneYLayout += 50;
-        groupRoot.getChildren().add(date);
-    }*/
 
     /**
      * Call the require functions to create final state of timetable.

@@ -1,6 +1,7 @@
 package compal.logic.command;
 
 import compal.commons.CompalUtils;
+import compal.commons.LogUtils;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 import compal.ui.CalenderUtil;
@@ -10,6 +11,7 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Logger;
 
 //@@author SholihinK
 
@@ -38,6 +40,7 @@ public class ViewCommand extends Command {
     private String viewType;
     private String dateInput;
     private String type;
+    private static final Logger logger = LogUtils.getLogger(ViewCommand.class);
 
     /**
      * Generate constructor for viewCommand.
@@ -74,6 +77,7 @@ public class ViewCommand extends Command {
 
     @Override
     public CommandResult commandExecute(TaskList taskList) {
+        logger.info("Executing view command");
         ArrayList<Task> currList = taskList.getArrList();
 
 
