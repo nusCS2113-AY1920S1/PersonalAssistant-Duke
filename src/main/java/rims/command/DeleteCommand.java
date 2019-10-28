@@ -11,7 +11,7 @@ import rims.resource.Room;
 import rims.resource.ReservationList;
 import rims.exception.RimsException;
 
-
+//@@author hin1
 /**
  * Implements the deletion of a Resource from the ResourceList.
  */
@@ -46,8 +46,7 @@ public class DeleteCommand extends Command {
             ui.print("The following room has been successfully deleted:");
             ui.print(thisResource.toString());
             ui.printLine();
-        }
-        else if (resourceType.equals("item")) {
+        } else if (resourceType.equals("item")) {
             ui.printLine();
             ArrayList<Resource> allOfItem = resources.getAllOfResource(resourceName);
             for (int i = 0; i < allOfItem.size(); i++) {
@@ -59,14 +58,15 @@ public class DeleteCommand extends Command {
                     for (int j = 0; j < thisResourceReservations.size(); j++) {
                         ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
                     }
-                }
-                else {
+                } else {
                     ui.print("No bookings for this resource yet!");
                 }
             }
+            //@@author rabhijit
             ui.printDash();
             ui.printLine();
-            String idInput = ui.getInput("Type in the resource ID(s) (separated by a space for multiple IDs) that you wish to delete:");
+            String idInput = ui.getInput(
+                "Type in the resource ID(s) (separated by a space for multiple IDs) that you wish to delete:");
             String[] splitIdInput = idInput.split(" ");
             ArrayList<Integer> intIdInput = new ArrayList<Integer>();
             for (int i = 0; i < splitIdInput.length; i++) {

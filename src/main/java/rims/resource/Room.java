@@ -1,5 +1,6 @@
 package rims.resource;
 
+//@@author rabhijit
 /**
  * This class represents an instance of a Room. Contains the name of the Room, its resource ID, type,
  * and a list of Reservation objects representing the reservations made for the Room.
@@ -11,7 +12,7 @@ public class Room extends Resource {
      * @param resourceId the resourceId generated for the new Room.
      * @param name the name of the new Room.
      */
-    public Room(int resourceId, String name){
+    public Room(int resourceId, String name) {
         super(resourceId, name);
     }
 
