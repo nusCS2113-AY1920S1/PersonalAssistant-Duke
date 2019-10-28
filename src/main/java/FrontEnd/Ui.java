@@ -1,10 +1,12 @@
 package FrontEnd;
 
 import java.util.Scanner;
+import Farmio.Farmio;
 
 public class Ui {
     private Scanner scanner;
     private final String CLEAR_SCREEN = "\033c" + "\033[2J";
+    private static String USERNAME;
 
     /**
      * Creates a user interface object
@@ -13,6 +15,9 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
+    public void showName(String message) {
+        USERNAME = message;
+    }
     /**
      * Prints the message in the terminal
      * @param message to be printed
@@ -89,6 +94,7 @@ public class Ui {
      */
     public void typeWriter(String text, boolean hasPressEnter) {
         final char LEVEL_BEGIN_PLACEHOLDER = '~';
+        final char NAME = '+';
         boolean isNewline = false;
         int lineLength = 0;
         System.out.print(">>> ");
@@ -104,8 +110,10 @@ public class Ui {
             } else if (text.charAt(i) == LEVEL_BEGIN_PLACEHOLDER) {
                 System.out.println("\n" + " ".repeat(GameConsole.FULL_CONSOLE_WIDTH / 2 - 8) + AsciiColours.GREEN + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE + "\n");
                 return;
+            } else if (text.charAt(i) == NAME) {
+                System.out.print(USERNAME);
             }
-            System.out.printf("%c", text.charAt(i));
+            else System.out.printf("%c", text.charAt(i));
             if (isNewline) {
                 System.out.print("    ");
                 isNewline = false;

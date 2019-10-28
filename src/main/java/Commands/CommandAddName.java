@@ -19,6 +19,7 @@ public class CommandAddName extends Command{
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
         Ui ui = farmio.getUi();
         farmio.getFarmer().inputName(name);
+        ui.showName(name);
       //System.out.println(farmio.getFarmer().getName());
         farmio.setStage(Farmio.Stage.LEVEL_START);
     }
