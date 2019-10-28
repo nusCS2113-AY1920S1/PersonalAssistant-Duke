@@ -1,20 +1,16 @@
 package duke.logic.command.recipecommands;
 
 import duke.logic.command.Command;
-import duke.model.list.recipelist.RecipeIngredientList;
-import duke.storage.RecipeIngredientStorage;
-import duke.model.task.recipetasks.RecipeIngredient;
+import duke.model.list.recipelist.RecipeList;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
 
-import static duke.common.Messages.*;
-import static duke.common.RecipeMessages.COMMAND_LIST_RECIPE_INGREDIENT;
-
 /**
  * Handles the list command and inherits all the fields and methods of Command parent class.
  */
-public class ListRecipeIngredientCommand extends Command<RecipeIngredientList, Ui, RecipeIngredientStorage> {
+public class ListRecipeIngredientCommand extends Command<RecipeList, Ui, RecipeStorage> {
 
     /**
      * Constructor for class ListCommand.
@@ -24,22 +20,22 @@ public class ListRecipeIngredientCommand extends Command<RecipeIngredientList, U
         this.userInput = userInput;
     }
 
-    public ArrayList<String> execute(RecipeIngredientList recipeIngredientList, Ui ui, RecipeIngredientStorage recipeIngredientStorage) {
+    public ArrayList<String> execute(RecipeList recipeIngredientList, Ui ui, RecipeStorage recipeIngredientStorage) {
         ArrayList<String> arrayList = new ArrayList<>();
-        if (userInput.trim().equals(COMMAND_LIST_RECIPE_INGREDIENT)) {
-            arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
-            System.out.println("stuck here1");
-        } else if (userInput.trim().charAt(14) == ' ') {
-            String title = userInput.split("\\s", 2)[1];
-            arrayList.add(MESSAGE_TASKED);
-            for (RecipeIngredient recipeIngredient : recipeIngredientList.getRecipeIngredientList()) {
-                if (recipeIngredient.getRecipeTitle().equals(title)) {
-                    arrayList.add(recipeIngredient.toString());
-                }
-            }
-        } else {
-            arrayList.add(ERROR_MESSAGE_RANDOM);
-        }
+//        if (userInput.trim().equals(COMMAND_LIST_RECIPE_INGREDIENT)) {
+//            arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
+//            System.out.println("stuck here1");
+//        } else if (userInput.trim().charAt(14) == ' ') {
+//            String title = userInput.split("\\s", 2)[1];
+//            arrayList.add(MESSAGE_TASKED);
+//            for (Recipe recipe : recipeIngredientList.getRecipeIngredientList()) {
+//                if (recipe.getRecipeTitle().equals(title)) {
+//                    arrayList.add(recipeIngredient.toString());
+//                }
+//            }
+//        } else {
+//            arrayList.add(ERROR_MESSAGE_RANDOM);
+//        }
         return arrayList;
     }
 
