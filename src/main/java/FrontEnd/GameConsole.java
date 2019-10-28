@@ -21,8 +21,9 @@ class GameConsole {
     private static final int LEFT_COLUMN_SECTION_WIDTH = 15;
 
     private static final String TOP_BORDER = "."+ "_".repeat(FULL_CONSOLE_WIDTH) +".\n";
-    private static final String GOAL_AND_CODE_TITLE = "|"+"----" + AsciiColours.RED + "<GOALS>"
-            + AsciiColours.SANE+ "----"+"|"+" ".repeat(FRAME_SECTION_WIDTH) +"|"+ "-".repeat(12)
+    private static final String GOAL_TITLE = "|"+"----" + AsciiColours.RED + "<GOALS>"
+            + AsciiColours.SANE+ "----"+"|" + AsciiColours.HIGH_INTENSITY + AsciiColours.BLACK;
+    private static final String CODE_TITLE = AsciiColours.SANE + "|"+ "-".repeat(12)
             + AsciiColours.CYAN + "<CODE>" + AsciiColours.SANE + "-".repeat(13)+"|\n";
     private static final String BOX_BOTTOM_BORDER = "|" + "_".repeat(LEFT_COLUMN_SECTION_WIDTH)
             + "|" + "_".repeat(FRAME_SECTION_WIDTH) +"|" + "_".repeat(9)+"|"+"_".repeat(21)+"|\n";
@@ -50,6 +51,13 @@ class GameConsole {
         }
     }
 
+    private static String horizontalCentralisedPanel(String content, int totalSpace) {
+        if (totalSpace > content.length()) {
+            content = " ".repeat((totalSpace - content.length()) / 2) + content;
+        }
+        return horizontalPanel(content, totalSpace);
+    }
+
     /**
      * Creates the virtual Game console with all game variable displayed
      * @param frame the ascii art picture in the center of the console
@@ -59,6 +67,7 @@ class GameConsole {
      * @return the virtual Game console as a String
      */
     static String fullconsole(ArrayList<String> frame, Farmer farmer, Map<String, Integer> Goals, String objective) {
+        String username = farmer.getName();
         StringBuilder output = new StringBuilder();
         String location = farmer.getLocation();
         double level = farmer.getLevel();
@@ -81,7 +90,7 @@ class GameConsole {
         output.append("| " + AsciiColours.GREEN).append(horizontalPanel("Location: " + location, LOCATION_SECTION_WIDTH)).append(AsciiColours.SANE);
         output.append("|\n");
         output.append(BOX_BOTTOM_BORDER);
-        output.append(GOAL_AND_CODE_TITLE);
+        output.append(GOAL_TITLE).append(horizontalCentralisedPanel("Farmer " + username + "'s Adventure", FRAME_SECTION_WIDTH)).append(CODE_TITLE);
         for (int i = 0; i < FRAME_SECTION_HEIGHT; i ++) {
             if (i < ASSET_SECTION_Y_POSITION_WRT_FRAME) {
                 output.append("|").append(goals.get(i)).append(frame.get(i)).append(userCode.get(i)).append("\n");

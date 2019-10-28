@@ -17,21 +17,21 @@ public class Parser {
         if (userInput.matches("^load game$")) {
             return new CommandGameLoad();
         }
-        switch (stage) { //TODO jx help me review if there is better way
+        switch (stage) {
             case WELCOME:
                 return new CommandMenuStart();
-//            case LEVEL_START:
-//                return new CommandLevelStart();
-//            case RUNNING_DAY:
-//                return new CommandTasksRun();
-//            case CHECK_OBJECTIVES:
-//                return new CommandCheckObjectives();
-//            case DAY_START:
-//                return new CommandDayStart();
-//            case LEVEL_END:
-//                return new CommandLevelEnd();
-//            case LEVEL_FAILED:
-//                return new CommandLevelReset();
+            case LEVEL_START:
+                return new CommandLevelStart();
+            case RUNNING_DAY:
+                return new CommandTasksRun();
+            case CHECK_OBJECTIVES:
+                return new CommandCheckObjectives();
+            case DAY_START:
+                return new CommandDayStart();
+            case LEVEL_END:
+                return new CommandLevelEnd();
+            case LEVEL_FAILED:
+                return new CommandLevelReset();
             case DAY_END:
                 return new CommandDayEnd(); //TODO check if reset for dayend
             case MENU_START:

@@ -1,9 +1,7 @@
 package Commands;
 
 import Exceptions.FarmioFatalException;
-import Farmio.Farmer;
 import Farmio.Farmio;
-import Farmio.Storage;
 import Exceptions.FarmioException;
 import FrontEnd.Ui;
 
@@ -12,7 +10,7 @@ public class CommandAddName extends Command{
     private String name;
 
     public CommandAddName(String userInput) {
-        this.name = userInput;
+        this.name = userInput.toUpperCase();
     }
 
     @Override
@@ -20,7 +18,8 @@ public class CommandAddName extends Command{
         Ui ui = farmio.getUi();
         if (name.length() <= 15 && name.length() > 0 && name.matches("[a-zA-Z0-9]+")) {
             farmio.getFarmer().inputName(name);
-            ui.showName(name);
+            ui.registerName(name);
+            ui.typeWriter("Welcome Farmer " + name + ", please press [ENTER] to begin the tutorial or enter [skip] to skip the story", false);
             farmio.setStage(Farmio.Stage.LEVEL_START);
         }
         else if(name.length() == 0) {
