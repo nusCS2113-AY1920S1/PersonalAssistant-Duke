@@ -1,10 +1,6 @@
 package dolla.parser;
 
-import dolla.command.Command;
-import dolla.command.AddLimitCommand;
-import dolla.command.ShowListCommand;
-import dolla.command.ErrorCommand;
-import dolla.command.RemoveLimitCommand;
+import dolla.command.*;
 import dolla.ui.LimitUi;
 
 /**
@@ -69,6 +65,10 @@ public class LimitParser extends Parser {
                 return new ErrorCommand();
             }
             return new RemoveLimitCommand(limitType, duration);
+        } else if (commandToRun.equals("search")) {
+            String component = inputArray[1];
+            String content = inputArray[2];
+            return new SearchCommand(mode, component, content);
         }
         return null;
     }

@@ -1,6 +1,7 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.ui.SearchUi;
 import dolla.ui.Ui;
 import dolla.task.RecordList;
 
@@ -57,23 +58,21 @@ public class SearchCommand extends Command {
             return;
         } else if (mode.equals("entry")) {
             if (component.equals("description")) {
-                Ui.printSearchDesc(mode, recordList, searchContent);
+                SearchUi.printSearchDesc(mode, recordList, searchContent);
             } else if (component.equals("date")) {
-                Ui.printSearchDate(mode, recordList, searchContent);
+                SearchUi.printSearchDate(mode, recordList, searchContent);
             }
         } else if (mode.equals("debt")) {
             if (component.equals("description")) {
-                Ui.printSearchDesc(mode, recordList, searchContent);
+                SearchUi.printSearchDesc(mode, recordList, searchContent);
             } else if (component.equals("name")) {
-                Ui.printSearchName(mode, recordList, searchContent);
+                SearchUi.printSearchName(mode, recordList, searchContent);
             } else if (component.equals("date")) {
-                Ui.printSearchDate(mode, recordList, searchContent);
+                SearchUi.printSearchDate(mode, recordList, searchContent);
             }
         } else if (mode.equals("limit")) {
-            if (component.equals("description")) {
-                Ui.printSearchDesc(mode, recordList, searchContent);
-            } else if (component.equals("date")) {
-                Ui.printSearchDate(mode, recordList, searchContent);
+            if (component.equals("duration")) {
+                SearchUi.printSearchDuration(mode, recordList, searchContent);
             }
         }
     }

@@ -13,6 +13,7 @@ public abstract class Record {
     protected String name;
     protected String userInput;
     protected String recordType;
+    protected String duration;
     protected Tag tag;
 
     public abstract String getRecordDetail();
@@ -37,5 +38,9 @@ public abstract class Record {
 
     public String getUserInput() {
         return userInput;
+    }
+
+    public String getDuration() {
+        return duration;
     }
 }

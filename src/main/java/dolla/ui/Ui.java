@@ -275,16 +275,6 @@ public abstract class Ui {
     }
 
     /**
-     * Print invalid debt format error.
-     */
-    public static void printInvalidDebtFormatError() {
-        System.out.println(line);
-        System.out.println("\tplease follow the format "
-                + "'owe(/borrow) [NAME] [AMOUNT] [DESCRIPTION] /due [DURATION] {/tag [TAGNAME]}'");
-        System.out.println(line);
-    }
-
-    /**
      * Prints Dolla's new mode after being updated.
      *
      * @param newMode The new mode to be switched.
@@ -324,69 +314,6 @@ public abstract class Ui {
         }
         System.out.println(line);
     }
-
-    /**
-     * Print search desc.
-     *
-     * @param mode          the mode
-     * @param recordList       the log list
-     * @param searchContent the search content
-     */
-    public static void printSearchDesc(String mode, RecordList recordList, String searchContent) {
-
-        System.out.println(line);
-        System.out.println("\tHere are the matching results found in " + mode);
-        int listNum = 0;
-        for (int i = 0; i < recordList.size(); i++) {
-            String temp = recordList.get().get(i).getDescription();
-            if (temp.contains(searchContent)) {
-                listNum += 1;
-                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
-            }
-        }
-    }
-
-    /**
-     * Print search name.
-     *
-     * @param mode          the mode
-     * @param recordList       the log list
-     * @param searchContent the search content
-     */
-    public static void printSearchName(String mode, RecordList recordList, String searchContent) {
-
-        System.out.println(line);
-        System.out.println("\tHere are the matching results found in " + mode);
-        int listNum = 0;
-        for (int i = 0; i < recordList.size(); i++) {
-            String tempt = recordList.get().get(i).getName();
-            if (tempt.contains(searchContent)) {
-                listNum += 1;
-                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
-            }
-        }
-    }
-
-    /**
-     * Print search date.
-     *
-     * @param mode          the mode
-     * @param recordList       the record list
-     * @param searchContent the search content
-     */
-    public static void printSearchDate(String mode, RecordList recordList, String searchContent) {
-        System.out.println(line);
-        System.out.println("\tHere are the matching results found in " + mode);
-        int listNum = 0;
-        for (int i = 0; i < recordList.size(); i++) {
-            String temp = Time.dateToString(recordList.get().get(i).getDate());
-            if (temp.contains(searchContent)) {
-                listNum += 1;
-                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
-            }
-        }
-    }
-
 
     /**
      * Print sorted list.
