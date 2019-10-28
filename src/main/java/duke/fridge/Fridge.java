@@ -3,6 +3,7 @@ package duke.fridge;
 import duke.exception.DukeException;
 import duke.ingredient.Ingredient;
 import duke.ingredient.IngredientsList;
+import duke.storage.FridgeStorage;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -13,6 +14,13 @@ public class Fridge {
 
     private IngredientsList currentIngredients;
     private IngredientsList expiredIngredients;
+    private FridgeStorage fridgeStorage;
+
+    public Fridge(FridgeStorage fridgeStorage) throws DukeException {
+        this.fridgeStorage=fridgeStorage;
+        currentIngredients=new IngredientsList(fridgeStorage.load().getAllEntries());
+        expiredIngredients=getExpiredIngredients();
+    }
 
     public Fridge(IngredientsList list) {
         this.currentIngredients = list;
@@ -24,48 +32,22 @@ public class Fridge {
         expiredIngredients = new IngredientsList();
     }
 
-    public void putIngredient(Ingredient ingredient) {
-        if (currentIngredients.has(ingredient) && currentIngredients.getEntry(ingredient).getExpiryDate().equals(ingredient.getExpiryDate())) {
-            int currentAmount = currentIngredients.getEntry(ingredient).getAmount();
-            currentIngredients.getEntry(ingredient).changeAmount(currentAmount + ingredient.getAmount());
-        } else
-            currentIngredients.addEntry(ingredient); // if the ingredient was not in the fridge already or it's expiry date was different than the stored one
+    public void putIngredient(Ingredient ingredient) throws DukeException {
+       currentIngredients.addEntry(ingredient);
+               fridgeStorage.update();
     }
 
     public IngredientsList getAllIngredients(){
         return currentIngredients;
     }
+
     public boolean hasEnough(Ingredient ingredient) {
-        int currAmount = 0;
-        for (Ingredient ing : currentIngredients.getAllEntries()) {
-            if (ing.equals(ingredient))
-                currAmount += ing.getAmount();
-        }
-        return ingredient.getAmount() < currAmount;
+        return currentIngredients.hasEnough(ingredient);
     }
 
     public void useIngredient(Ingredient ingredient) throws DukeException {
-        if (!hasEnough(ingredient)) {
-            int amountAvailable = currentIngredients.has(ingredient) ? currentIngredients.getEntry(ingredient).getAmount() : 0;
-            throw new DukeException("There is not a sufficient amount of " + ingredient.getName() + ", amount available: " + amountAvailable);
-        }
-        currentIngredients.sort(new Comparator<Ingredient>() { // sorting the ingredients descending by amount
-            @Override
-            public int compare(Ingredient o1, Ingredient o2) {
-                return o2.getAmount() - o1.getAmount();
-            }
-        });
-        int neededAmount = ingredient.getAmount();
-        while (neededAmount > 0) {
-            Ingredient toUse = currentIngredients.getEntry(ingredient);
-            int amountLeft = toUse.getAmount() - neededAmount;
-            if (neededAmount < toUse.getAmount()) {
-                toUse.changeAmount(amountLeft);
-                return;
-            }
-            neededAmount -= toUse.getAmount();
-            currentIngredients.removeEntry(toUse);
-        }
+        currentIngredients.addEntry(ingredient);
+        fridgeStorage.update();
     }
 
     public boolean hasExpiredIngredients() {
@@ -83,16 +65,19 @@ public class Fridge {
         return new IngredientsList(expired);
     }
 
-    public IngredientsList removeExpiring(Date expireBefore) {
-
-        IngredientsList expired = getExpiredIngredients(expireBefore);
-        for (Ingredient ingredient : expired.getAllEntries()) {
-            currentIngredients.removeEntry(ingredient);
+    public IngredientsList removeExpiring(Date expireBefore) throws DukeException {
+        List<Ingredient> expired = new ArrayList<>();
+        for(int i=0;i<currentIngredients.getAllEntries().size();i++){
+            if (!currentIngredients.getAllEntries().get(i).getExpiryDate().after(expireBefore)) {
+                expired.add(currentIngredients.getAllEntries().get(i));
+                currentIngredients.getAllEntries().remove(i);
+            }
         }
-        return expired;
+        fridgeStorage.update();
+        return new IngredientsList(expired);
     }
 
-    public IngredientsList removeExpired() {
+    public IngredientsList removeExpired() throws DukeException {
         return removeExpiring(new Date());
     }
 

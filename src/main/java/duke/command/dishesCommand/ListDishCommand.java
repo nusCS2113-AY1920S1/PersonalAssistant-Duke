@@ -1,5 +1,6 @@
 package duke.command.dishesCommand;
 
+import duke.command.ingredientCommand.ListCommand;
 import duke.dish.Dish;
 import duke.dish.DishList;
 import duke.command.Cmd;
@@ -9,7 +10,7 @@ import duke.storage.Storage;
 import duke.ui.Ui;
 
 
-public class ListDishCommand extends Cmd<Dish> {
+public class ListDishCommand extends ListCommand<Dish> {
 
     @Override
     public void execute(GenericList<Dish> dish1, Ui ui, Storage storage) throws DukeException {

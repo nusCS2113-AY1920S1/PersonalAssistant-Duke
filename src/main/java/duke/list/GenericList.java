@@ -1,5 +1,6 @@
 package duke.list;
 
+import duke.exception.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -26,6 +27,8 @@ public abstract class GenericList<T> {
 
     /**
      * Adds a task to the {@link GenericList}.
+     *
+     *
      * @param entry {@link T} to be added to the list
      */
     public void addEntry(T entry) {
@@ -34,6 +37,7 @@ public abstract class GenericList<T> {
 
     /**
      * Returns the number of {@link Task}s in the {@link TaskList} so far.
+     *
      * @return an integer indicating the size of the list of {@link Task}s stored
      */
     public int size() {
@@ -41,9 +45,9 @@ public abstract class GenericList<T> {
     }
 
 
-
     /**
      * Returns the {@link Task} at the position indicated by the taskNb.
+     *
      * @param taskNb the position of the {@link Task} requested in the {@link TaskList}
      * @return the requested {@link Task}
      */
@@ -53,7 +57,8 @@ public abstract class GenericList<T> {
 
     /**
      * Returns a list of all the {@link Task}s in the {@link TaskList}.
-     * @return  {@link ArrayList} of {@link Task}
+     *
+     * @return {@link ArrayList} of {@link Task}
      */
     public List<T> getAllEntries() {
         return genList;
@@ -61,28 +66,30 @@ public abstract class GenericList<T> {
 
     /**
      * Returns the removed {@link Task} from position taskNb in the {@link TaskList}.
+     *
      * @param taskNb the position of the {@link Task} to be removed from the {@link TaskList}
      * @return Task the task that was removed
      */
     public T removeEntry(int taskNb) {
         return genList.remove(taskNb);
     }
-    public boolean removeEntry(T entry) {
+
+    public boolean removeEntry(T entry) throws DukeException {
         return genList.remove(entry);
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return genList.isEmpty();
     }
 
-    public T getEntry(T entry){
-        for(T e: genList)
-            if(e.equals(entry))
+    public T getEntry(T entry) {
+        for (T e : genList)
+            if (e.equals(entry))
                 return e;
         return null;
     }
 
-    public void sort(Comparator comparator){
+    public void sort(Comparator comparator) {
         genList.sort(comparator);
     }
 

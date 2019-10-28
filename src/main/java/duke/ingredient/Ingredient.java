@@ -22,9 +22,10 @@ public class Ingredient implements Printable {
         this.amount = amount;
         this.expiryDate = expiryDate;
     }
+
     public Ingredient(String name, Integer amount, String expiryDate) throws DukeException {
         this(name, amount, Convert.stringToDate(expiryDate));
-        dateAsString=expiryDate;
+        dateAsString = expiryDate;
     }
 
     public int getAmount() {
@@ -59,8 +60,27 @@ public class Ingredient implements Printable {
         return other instanceof Ingredient && ((Ingredient) other).getName().equals(this.name);
     }
 
+    public String toString() {
+        return expiryDate.after(new Date()) ? name + ", amount is: " + amount + " expiring on " + Convert.getDateString(expiryDate, dateAsString) : "WARNING! expired ingredient: " + name + ", amount is: " + amount + " expired on " + Convert.getDateString(expiryDate, dateAsString);
+    }
+    public String toStringNoWarning(){
+        return name + ", amount is: " + amount + " expired on " + Convert.getDateString(expiryDate, dateAsString);
+    }
+
+    public String toStringWithoutDate() {
+        return name + " amount: " + amount;
+    }
+
+    public boolean isExpired() {
+        return !expiryDate.after(new Date());
+    }
+
+    public boolean equalsCompletely(Ingredient other) {
+        return this.equals(other) && this.getExpiryDate().equals(other.getExpiryDate());
+    }
+
     public String printInFile() {
-        return this.getName()+"|"+this.getAmount()+"|"+ dateAsString;
+        return this.getName() + "|" + this.getAmount() + "|" + dateAsString;
     }
     //private String pattern = "dd/MM/yyyy";
     //private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);

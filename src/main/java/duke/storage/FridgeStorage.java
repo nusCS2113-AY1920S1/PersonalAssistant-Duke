@@ -5,7 +5,7 @@ import duke.ingredient.Ingredient;
 import duke.ingredient.IngredientsList;
 import duke.list.GenericList;
 
-import java.util.List;
+import java.io.IOException;
 
 public class FridgeStorage extends Storage<Ingredient> {
     /**
@@ -15,7 +15,7 @@ public class FridgeStorage extends Storage<Ingredient> {
      */
     public FridgeStorage(String fp) {
         super(fp);
-        entries= new IngredientsList();
+        entries = new IngredientsList();
     }
 
     @Override
@@ -24,11 +24,22 @@ public class FridgeStorage extends Storage<Ingredient> {
             //splitting each line to extract the task:
             //type - words[0], done or not - words[1], description - words[2], and more.
             String[] words = next.split("\\|");
-           if(words.length!=3)
-               throw new DukeException("Error while reading from the Fridge Storage");
-           entries.addEntry(new Ingredient(words[0],Integer.parseInt(words[1]),words[2]));
+            if (words.length != 3)
+                throw new DukeException("Error while reading from the Fridge Storage ");
+            entries.addEntry(new Ingredient(words[0], Integer.parseInt(words[1]), words[2]));
         }
+        // System.out.println("in generate size of list is "+entries.size());
         return entries;
+    }
+
+    public void removeAllExpired() throws IOException, DukeException {
+
+        for (int i = 0; i < entries.size(); i++)
+            if (entries.getEntry(i).isExpired()) {
+                entries.removeEntry(i);
+            }
+        update();
+
     }
 
 
