@@ -21,7 +21,7 @@ public class DeleteCardBillCommand extends Command {
     private final int depno;
 
     /**
-     * Constructor to create an instance of DeleteCardBillCommand.
+     * Creates an instance of DeleteCardBillCommand.
      *
      * @param card  Credit card name of bill to be paid.
      * @param date  Month and year of bill to be paid.

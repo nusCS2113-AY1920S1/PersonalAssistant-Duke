@@ -32,7 +32,7 @@ public abstract class ParseCardBill {
     static final String FIRST_DAY = "01/";
 
     /**
-     * Constructor which creates an instance of CardBill object.
+     * Creates an instance of CardBill object.
      *
      * @param data Raw user input date.
      */

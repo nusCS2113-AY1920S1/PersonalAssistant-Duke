@@ -25,7 +25,7 @@ public class AddCardBillCommand extends Command {
     private final String category;
 
     /**
-     * Constructor to create an instance of AddExpenditureCommand.
+     * Creates an instance of AddExpenditureCommand.
      *
      * @param card  Credit card name of bill to be paid.
      * @param date  Month and year of bill to be paid.
