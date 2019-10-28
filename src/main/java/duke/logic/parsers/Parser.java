@@ -19,6 +19,7 @@ import duke.logic.commands.ListCommand;
 import duke.logic.commands.LocationSearchCommand;
 import duke.logic.commands.MarkDoneCommand;
 import duke.logic.commands.PromptCommand;
+import duke.logic.commands.QuickEditCommand;
 import duke.logic.commands.RecommendationsCommand;
 import duke.logic.commands.RouteDeleteCommand;
 import duke.logic.commands.RouteEditCommand;
@@ -56,6 +57,11 @@ public class Parser {
             return new ViewScheduleCommand();
         case "edit":
             return new EditorCommand();
+        case "e":
+            return new QuickEditCommand(ParserUtil.getIntegerIndexInList(0, 4, inputBody),
+                    ParserUtil.getFieldInList(1, 4, inputBody),
+                    ParserUtil.getFieldInList(2, 4, inputBody),
+                    ParserUtil.getFieldInList(3, 4, inputBody));
         case "done":
             return new MarkDoneCommand(ParserUtil.getIntegerIndexInList(0, 1, inputBody));
         case "delete":
@@ -73,8 +79,9 @@ public class Parser {
         case "event":
             return new AddCommand(ParserUtil.createEvent(input));
         case "findPath":
-            return new FindPathCommand(input.strip().split(" ")[1], ParserUtil.getIntegerIndexInList(0, 2, inputBody),
-                    ParserUtil.getIntegerIndexInList(1, 2, inputBody));
+            return new FindPathCommand(ParserUtil.getFieldInList(0, 3, inputBody),
+                    ParserUtil.getIntegerIndexInList(1, 3, inputBody),
+                    ParserUtil.getIntegerIndexInList(2, 3, inputBody));
         case "recommend":
             return new RecommendationsCommand(ParserUtil.createRecommendation(input));
         case "cancel":
@@ -91,7 +98,8 @@ public class Parser {
                     ParserUtil.getFieldInList(2, 3, inputBody));
         case "routeNodeEdit":
             return new RouteNodeEditCommand(ParserUtil.getIntegerIndexInList(0, 3, inputBody),
-                    ParserUtil.getIntegerIndexInList(1, 3, inputBody), ParserUtil.getFieldInList(2, 4, inputBody),
+                    ParserUtil.getIntegerIndexInList(1, 3, inputBody),
+                    ParserUtil.getFieldInList(2, 4, inputBody),
                     ParserUtil.getFieldInList(3, 4, inputBody));
         case "routeDelete":
             return new RouteDeleteCommand(ParserUtil.getIntegerIndexInList(0, 1, inputBody));

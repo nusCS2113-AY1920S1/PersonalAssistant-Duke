@@ -37,6 +37,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setEvents(EventList events) {
+        this.events = events;
+    }
+
+    @Override
     public EventList getEvents() {
         return events;
     }
@@ -57,7 +62,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void save() throws CorruptedFileException, FileNotSavedException {
+    public void save() {
         System.out.println("");
     }
 

@@ -27,7 +27,13 @@ public interface Model {
     EventList getEvents();
 
     /**
-     * Return map object.
+     * Replaces the events of this model with the new one.
+     * @param events The new events.
+     */
+    void setEvents(EventList events);
+
+    /**
+     * Returns map object.
      */
     CreateMap getMap();
 
