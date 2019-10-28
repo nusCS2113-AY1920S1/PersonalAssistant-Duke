@@ -14,17 +14,20 @@ import duke.ui.Ui;
 public class AddIngredient extends AddCommand<Dish> {
 
     private Ingredient ingredient;
+
     private int index;
 
     public AddIngredient(Ingredient ingredient, int index) {
         super();
         this.ingredient = ingredient;
         this.index = index;
+
     }
 
     @Override
     public void execute(GenericList<Dish> dishList, Ui ui, Storage storage) throws DukeException {
         try {
+
             dishList.getEntry(index - 1).addIngredients(ingredient);
             ui.showIngredients(ingredient,dishList.getEntry(index - 1));
         } catch (Exception e) {

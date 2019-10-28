@@ -1,5 +1,6 @@
 package duke.command.dishesCommand;
 
+
 import dnl.utils.text.table.TextTable;
 import duke.dish.Dish;
 import duke.dish.DishList;
@@ -10,9 +11,11 @@ import duke.storage.Storage;
 import duke.ui.Ui;
 
 
+
 public class ListDishCommand extends Cmd<Dish> {
     private TextTable tt;
     private String[] ColNames = {"Dish", "ingredient"}; //initialize the column names of the table
+
 
     @Override
     public void execute(GenericList<Dish> dish1, Ui ui, Storage storage) throws DukeException {
