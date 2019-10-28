@@ -594,7 +594,7 @@ Bonds can only be added to investment accounts.
 
 *Example*
 
-* `/add /bonds /from DBB Vickers Account /name June SSB /amount 1000 /rate 1.92 /year 1`
+* `/add /bonds /from DBB Vickers Account /name June SSB /amount 1000 /rate 1.92 /date 1/1/2019 /year 1`
 
 Adds a bond named `June SSB` charged to `DBB Vickers Account` at $`1000` with an interest rate of `1.92`% bought on
 `1/1/2019` for `1` year(s).
@@ -798,7 +798,7 @@ AMOUNT] [/date DATE]`
 
 [WARNING]
 ====
-At least one of `/desc`, `/category`, `/amount`, `/date` must be used.
+At least one of `/desc`, `/category`, `/amount` or `/date` must be used.
 ====
 
 [TIP]
@@ -1064,7 +1064,7 @@ Take note that there is a maximum of *50* character limit.
 
 ===== Finding savings account details `/find /savings`
 
-Can't remember the name of your savings account? Don't worry *OwlMoney* allows you to find out details of
+Can't remember the name of your savings account? Don't worry *OwlMoney* allows you to find out the details of
 your bank account as long as you remember part of your account name.
 
 *Command Syntax*
@@ -1084,7 +1084,7 @@ Finds and lists all savings accounts that have the phrase `Jun` in the account n
 
 ===== Finding investment account details `/find /investment`
 
-Can't remember the name of your investment account? Don't worry *OwlMoney* allows you to find out details of
+Can't remember the name of your investment account? Don't worry *OwlMoney* allows you to find out the details of
 your bank account as long as you remember part of your account name.
 
 *Command Syntax*
@@ -1104,7 +1104,7 @@ Finds and lists all investment accounts that have the phrase `Vickers` in the ac
 
 ===== Finding credit card details `/find /card`
 
-Searching for a Credit Card? *OwlMoney* helps you by providing you various ways to do it!
+Searching for a Credit Card but forgot the name? *OwlMoney* helps you by providing you various ways to do it!
 
 *Command Syntax*
 
@@ -1311,11 +1311,47 @@ Lists the most recent 10 deposits tied to JunBank Savings Account.
 
 ==== Transferring money between accounts `/transfer`
 
+In this section, you'll be introduced to commands and parameters that help you to transfer funds between different
+bank accounts in *OwlMoney*.
+
+Below is a list of command parameters that you can expect to use for the commands in this section.
+[cols="18%,37%,45%"]
+|======
+|*Parameter*| *Description* | *Acceptable Range of Values*
+| `ACCOUNT_NAME`
+| Indicates the name of the bank account.
+
+(e.g. DBB Vickers Account)
+
+| `ACCOUNT_NAME` should contain alphabetic characters, numeric characters, and spaces only.
+
+`ACCOUNT_NAME` is case-sensitive.
+
+Take note that there is a maximum of *30* character limit.
+
+| `DATE`
+| Indicates the date the expenditure was made.
+
+(e.g. 2/2/2019)
+
+| `DATE` should be in *DD/MM/YYYY* format and cannot be a newer date than the current date.
+
+| `AMOUNT`
+| Indicates the amount of money.
+
+(e.g. 2113.30)
+
+| `AMOUNT` should contain only digits up to *2* decimal places and a maximum of *9* digits.
+
+|======
+
+===== Transferring funds between different bank accounts `/transfer /fund`
+
 Thinking of transferring money between different accounts? We can do that too.
 
 *Command Syntax*
 
-`/transfer /fund /from ACCOUNT_NAME /to ACCOUNT_NAME /amount AMOUNT`
+`/transfer /fund /from ACCOUNT_NAME /to ACCOUNT_NAME /amount AMOUNT /date DATE`
 
 [TIP]
 ====
@@ -1325,13 +1361,13 @@ investment and vice-versa)
 
 *Example*
 
-* `/transfer /fund /from JunBank Savings Account /to POBB Savings Account /amount 500`
+* `/transfer /fund /from JunBank Savings Account /to POBB Savings Account /amount 500 /date 1/1/2019`
 
-Transfers $`500` from `JunBank Savings Account` to `POBB Savings Account`.
+Transfers $`500` from `JunBank Savings Account` to `POBB Savings Account` on `1/1/2019`.
 
-* `transfer /fund /from DBB Vickers Account /to JunBank Savings Account /amount 250`
+* `transfer /fund /from DBB Vickers Account /to JunBank Savings Account /amount 250 /date 1/1/2019`
 
-Transfers $`250` from `DBB Vickers Account` to `JunBank Savings Account`.
+Transfers $`250` from `DBB Vickers Account` to `JunBank Savings Account` on `1/1/2019`.
 
 ==== Adding recurring expenditures `/add /recurbankexp`
 
@@ -1358,7 +1394,7 @@ AMOUNT]`
 
 [WARNING]
 ====
-At least one of `/desc`, `/category`, `/amount` must be used.
+At least one of `/desc`, `/category` or `/amount` must be used.
 ====
 
 *Example*
@@ -1522,7 +1558,7 @@ AMOUNT] [/date DATE]`
 | *Adding investment bonds for investment bank account*
 | Add an investment bond to the investment bank account specified.
 | `/add /bonds /from ACCOUNT_NAME /name BOND_NAME /amount AMOUNT /rate BOND_RATE /date DATE /year YEARS`
-| `/add /bonds /from DBB Vickers Account /name June SSB /amount 1000 /rate 1.92`
+| `/add /bonds /from DBB Vickers Account /name June SSB /amount 1000 /rate 1.92 /date 1/1/2019 /year 1`
 
 | *Editing investment bonds for investment bank account*
 | Edit an investment bond tied to the investment bank account specified based on the new details given.
