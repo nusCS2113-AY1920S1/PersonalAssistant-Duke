@@ -81,7 +81,7 @@ public class ConversationManager {
      *
      * @return result The String result made from Conversation.
      */
-    private String getResult() {
+    public String getResult() {
         String result = conversation.getResult();
         clearContext();
         return result;
@@ -92,7 +92,7 @@ public class ConversationManager {
      *
      * @return The prompt.
      */
-    private String getPrompt() {
+    public String getPrompt() {
         assert (conversation != null) : "Conversation should not be null";
         return conversation.getPrompt();
     }
@@ -103,5 +103,14 @@ public class ConversationManager {
     public void clearContext() {
         isFinished = true;
         conversation = null;
+    }
+
+    /**
+     * Returns whether the current conversation is finished.
+     *
+     * @return Whether the current conversation is finished.
+     */
+    public boolean isFinished() {
+        return isFinished;
     }
 }

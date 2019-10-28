@@ -17,9 +17,7 @@ public class DeleteParser extends CommandParser {
      * @param input The User input
      */
     public DeleteParser(String input) throws DukeException {
-        String result;
-        result = getWord(input);
-        index = ParserUtil.getIndex(result);
+        index = ParserUtil.getIntegerIndexInList(0, 1, input);
     }
 
     /**

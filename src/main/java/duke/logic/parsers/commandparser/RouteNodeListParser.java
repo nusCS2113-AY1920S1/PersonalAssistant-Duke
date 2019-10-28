@@ -18,8 +18,8 @@ public class RouteNodeListParser extends CommandParser {
      * @param input The User input
      */
     public RouteNodeListParser(String input) throws DukeException {
-        firstIndex = ParserUtil.getFirstIndex(input);
-        secondIndex = ParserUtil.getSecondIndex(input);
+        firstIndex = ParserUtil.getIntegerIndexInList(0, 2, input);
+        secondIndex = ParserUtil.getIntegerIndexInList(1, 2, input);
     }
 
     /**

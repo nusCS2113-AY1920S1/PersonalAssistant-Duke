@@ -18,7 +18,7 @@ public class StaticMapParser extends CommandParser {
      * @param input The User input
      */
     public StaticMapParser(String input) throws DukeException {
-        this.location = getWord(input);
+        this.location = input;
     }
 
     /**

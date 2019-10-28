@@ -8,6 +8,15 @@ import duke.logic.conversations.FindPathConversation;
 import duke.logic.conversations.FreeTimeConversation;
 import duke.logic.conversations.GetBusStopConversation;
 import duke.logic.conversations.MarkDoneConversation;
+import duke.logic.conversations.RouteAddConversation;
+import duke.logic.conversations.RouteDeleteConversation;
+import duke.logic.conversations.RouteEditConversation;
+import duke.logic.conversations.RouteGenerateConversation;
+import duke.logic.conversations.RouteListConversation;
+import duke.logic.conversations.RouteNodeAddConversation;
+import duke.logic.conversations.RouteNodeDeleteConversation;
+import duke.logic.conversations.RouteNodeEditConversation;
+import duke.logic.conversations.RouteNodeListConversation;
 import duke.logic.conversations.SearchConversation;
 import duke.logic.conversations.SetupProfileConversation;
 
@@ -39,6 +48,24 @@ public class ConversationParser {
             return new SearchConversation();
         case "profile":
             return new SetupProfileConversation();
+        case "routeAdd":
+            return new RouteAddConversation();
+        case "routeDelete":
+            return new RouteDeleteConversation();
+        case "routeEdit":
+            return new RouteEditConversation();
+        case "routeGenerate":
+            return new RouteGenerateConversation();
+        case "routeShow":
+            return new RouteListConversation();
+        case "routeNodeAdd":
+            return new RouteNodeAddConversation();
+        case "routeNodeDelete":
+            return new RouteNodeDeleteConversation();
+        case "routeNodeEdit":
+            return new RouteNodeEditConversation();
+        case "routeNodeShow":
+            return new RouteNodeListConversation();
         default:
             throw new DukeUnknownCommandException();
         }

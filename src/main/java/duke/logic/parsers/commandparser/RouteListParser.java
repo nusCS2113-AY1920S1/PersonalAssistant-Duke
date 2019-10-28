@@ -17,9 +17,7 @@ public class RouteListParser extends CommandParser {
      * @param input The User input
      */
     public RouteListParser(String input) throws DukeException {
-        String result;
-        result = getWord(input);
-        index = ParserUtil.getIndex(result);
+        index = ParserUtil.getIntegerIndexInList(0, 1, input);
     }
 
     /**

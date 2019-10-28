@@ -3,6 +3,7 @@ package duke.model;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.logic.TransportationMap;
+import duke.commons.exceptions.RouteDuplicateException;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.lists.VenueList;
@@ -11,8 +12,10 @@ import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
 import duke.model.profile.ProfileCard;
 import duke.model.transports.BusService;
+import duke.model.transports.Route;
 import duke.storage.Storage;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -52,6 +55,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setEvents(EventList events) {
+        this.events = events;
+    }
+
+    @Override
     public RouteList getRoutes() {
         return routes;
     }
@@ -62,8 +70,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<BusStop> getBusStops() {
-        return null;
+    public HashMap<String, BusStop> getBusStops() {
+        return map.getBusStopMap();
     }
 
     @Override
@@ -87,6 +95,16 @@ public class ModelManager implements Model {
     @Override
     public ProfileCard getProfileCard() {
         return profileCard;
+    }
+
+    /**
+     * Adds a route to the list of routes.
+     *
+     * @param route The route to add.
+     */
+    @Override
+    public void addRoute(Route route) throws RouteDuplicateException {
+        routes.add(route);
     }
 
     /**

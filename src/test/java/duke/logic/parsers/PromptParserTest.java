@@ -1,6 +1,7 @@
 package duke.logic.parsers;
 
 import duke.logic.commands.PromptCommand;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

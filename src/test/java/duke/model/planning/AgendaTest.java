@@ -5,10 +5,10 @@ import duke.commons.exceptions.DukeException;
 import duke.logic.commands.RecommendationsCommand;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.locations.Venue;
+
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

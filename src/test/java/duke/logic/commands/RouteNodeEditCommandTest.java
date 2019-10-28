@@ -7,6 +7,7 @@ import duke.commons.exceptions.InputNotDoubleException;
 import duke.commons.exceptions.UnknownConstraintException;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,11 +19,11 @@ class RouteNodeEditCommandTest {
     void execute() throws DukeException {
         Model model = new ModelStub();
 
-        RouteAddCommand routeAddCommand = new RouteAddCommand("2113");
+        RouteAddCommand routeAddCommand = new RouteAddCommand("2113", "");
         routeAddCommand.execute(model);
 
         RouteNodeAddCommand routeNodeAddCommand1 =
-                (RouteNodeAddCommand) Parser.parseComplexCommand("routeNodeAdd 1 at 2113T by bus");
+                (RouteNodeAddCommand) Parser.parseComplexCommand("routeNodeAdd 1 at 66211 by bus");
         routeNodeAddCommand1.execute(model);
 
         RouteNodeEditCommand routeNodeEditCommand1 = new RouteNodeEditCommand(0, 0, "address", "2113T");

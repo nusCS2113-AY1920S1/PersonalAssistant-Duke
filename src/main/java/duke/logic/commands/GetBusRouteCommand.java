@@ -20,6 +20,11 @@ public class GetBusRouteCommand extends Command {
         this.bus = bus;
     }
 
+    /**
+     * Executes this command and returns a text result.
+     *
+     * @param model The model object containing transports.
+     */
     @Override
     public CommandResultText execute(Model model) throws DukeException {
         try {

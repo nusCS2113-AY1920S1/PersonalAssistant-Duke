@@ -18,9 +18,9 @@ public class FindPathParser extends CommandParser {
      * @param input The User input
      */
     public FindPathParser(String input) throws DukeException {
-        constraint = input.strip().split(" ")[1];
-        startEventIndex = ParserUtil.getFirstIndex(input);
-        endEventIndex = ParserUtil.getSecondIndex(input);
+        constraint = ParserUtil.getFieldInList(0, 3, input);
+        startEventIndex = ParserUtil.getIntegerIndexInList(1, 3, input);
+        endEventIndex = ParserUtil.getIntegerIndexInList(2, 3, input);
     }
 
     /**

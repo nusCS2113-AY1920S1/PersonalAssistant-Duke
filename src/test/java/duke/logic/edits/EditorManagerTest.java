@@ -1,4 +1,4 @@
-package duke.logic;
+package duke.logic.edits;
 
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.EmptyVenueException;
@@ -9,7 +9,9 @@ import duke.logic.commands.results.PanelResult;
 import duke.model.Event;
 import duke.model.lists.EventList;
 import duke.model.lists.VenueList;
+
 import javafx.scene.input.KeyCode;
+
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

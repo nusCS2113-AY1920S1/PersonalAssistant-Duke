@@ -8,6 +8,18 @@ import duke.logic.commands.EditorCommand;
 import duke.logic.commands.ExitCommand;
 import duke.logic.commands.HelpCommand;
 import duke.logic.commands.ListCommand;
+import duke.logic.commands.LocationSearchCommand;
+import duke.logic.commands.MarkDoneCommand;
+import duke.logic.commands.PromptCommand;
+import duke.logic.commands.QuickEditCommand;
+import duke.logic.commands.RecommendationsCommand;
+import duke.logic.commands.RouteDeleteCommand;
+import duke.logic.commands.RouteEditCommand;
+import duke.logic.commands.RouteListCommand;
+import duke.logic.commands.RouteNodeDeleteCommand;
+import duke.logic.commands.RouteNodeEditCommand;
+import duke.logic.commands.RouteNodeListCommand;
+import duke.logic.commands.StaticMapCommand;
 import duke.logic.commands.ViewScheduleCommand;
 import duke.logic.parsers.commandparser.AddEventParser;
 import duke.logic.parsers.commandparser.AddProfileParser;
@@ -45,6 +57,8 @@ public class Parser {
      */
     public static Command parseComplexCommand(String input) throws DukeException {
         String commandWord = getCommandWord(input);
+        String inputBody = getWord(input);
+
         switch (commandWord) {
         case "bye":
             return new ExitCommand();
@@ -56,50 +70,55 @@ public class Parser {
             return new ViewScheduleCommand();
         case "edit":
             return new EditorCommand();
+        case "e":
+            return new QuickEditCommand(ParserUtil.getIntegerIndexInList(0, 4, inputBody),
+                    ParserUtil.getFieldInList(1, 4, inputBody),
+                    ParserUtil.getFieldInList(2, 4, inputBody),
+                    ParserUtil.getFieldInList(3, 4, inputBody));
         case "done":
-            return new DoneParser(input).parse();
+            return new DoneParser(inputBody).parse();
         case "delete":
-            return new DeleteParser(input).parse();
+            return new DeleteParser(inputBody).parse();
         case "find":
-            return new FindParser(input).parse();
+            return new FindParser(inputBody).parse();
         case "findtime":
-            return new FreeTimeParser(input).parse();
+            return new FreeTimeParser(inputBody).parse();
         case "search":
-            return new LocationSearchParser(input).parse();
+            return new LocationSearchParser(inputBody).parse();
         case "busStop":
-            return new GetBusStopParser(input).parse();
+            return new GetBusStopParser(inputBody).parse();
         case "busRoute":
-            return new GetBusRouteParser(input).parse();
+            return new GetBusRouteParser(inputBody).parse();
         case "event":
             return new AddEventParser(input).parse();
         case "findPath":
-            return new FindPathParser(input).parse();
+            return new FindPathParser(inputBody).parse();
         case "recommend":
             return new RecommendationParser(input).parse();
         case "cancel":
             return new PromptParser().parse();
         case "map":
-            return new StaticMapParser(input).parse();
+            return new StaticMapParser(inputBody).parse();
         case "routeAdd":
-            return new RouteAddParser(input).parse();
+            return new RouteAddParser(inputBody).parse();
         case "routeNodeAdd":
-            return new RouteNodeAddParser(input).parse();
+            return new RouteNodeAddParser(inputBody).parse();
         case "routeEdit":
-            return new RouteEditParser(input).parse();
+            return new RouteEditParser(inputBody).parse();
         case "routeNodeEdit":
-            return new RouteNodeEditParser(input).parse();
+            return new RouteNodeEditParser(inputBody).parse();
         case "routeDelete":
-            return new RouteDeleteParser(input).parse();
+            return new RouteDeleteParser(inputBody).parse();
         case "routeNodeDelete":
-            return new RouteNodeDeleteParser(input).parse();
+            return new RouteNodeDeleteParser(inputBody).parse();
         case "routeShow":
-            return new RouteListParser(input).parse();
+            return new RouteListParser(inputBody).parse();
         case "routeNodeShow":
-            return new RouteNodeListParser(input).parse();
+            return new RouteNodeListParser(inputBody).parse();
         case "addThisList":
             return new AddSampleItineraryCommand();
         case "profile":
-            return new AddProfileParser(input).parse();
+            return new AddProfileParser(inputBody).parse();
         default:
             throw new DukeUnknownCommandException();
         }
@@ -113,6 +132,20 @@ public class Parser {
      */
     private static String getCommandWord(String userInput) {
         return userInput.strip().split(" ")[0];
+    }
+
+    /**
+     * Gets word from the userInput.
+     *
+     * @param userInput The userInput read by the user interface.
+     * @return The word.
+     */
+    private static String getWord(String userInput) throws DukeException {
+        try {
+            return userInput.strip().split(" ", 2)[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return userInput;
+        }
     }
 
 }

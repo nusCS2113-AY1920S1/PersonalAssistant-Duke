@@ -22,9 +22,9 @@ Somerset | 1.3004 | 103.8384 | NS23
 Dhoby Ghaut | 1.2991 | 103.8458 | NS24 | NE6 | CC1
 City Hall | 1.2931 | 103.8521 | NS25 | EW13
 Raffles Place | 1.2830 | 103.8513 | NS26 | EW14
-Marina Bay | 1.2764 | 103.8546 | NS27 | CC2 | CE2
+Marina Bay | 1.2764 | 103.8546 | NS27 | CC33 | CE2
 Marina South Pier | 1.2714 | 103.8636 | NS28
-Bayfront | 1.2813 | 103.8590 | CC1 | CE1 | DT16
+Bayfront | 1.2813 | 103.8590 | CC34 | CE1 | DT16
 Bras Basah | 1.2969 | 103.8507 | CC2
 Esplanade | 1.2939 | 103.8554 | CC3
 Promenade | 1.2540 | 103.8602 | CC4 | DT15 | CE0

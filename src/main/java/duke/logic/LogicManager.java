@@ -7,6 +7,7 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.logic.commands.results.PanelResult;
 import duke.logic.conversations.ConversationManager;
+import duke.logic.edits.EditorManager;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
 import duke.model.ModelManager;

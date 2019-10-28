@@ -14,7 +14,7 @@ public class LocationSearchParser extends CommandParser<LocationSearchCommand> {
      * @param input The User input
      */
     public LocationSearchParser(String input) throws DukeException {
-        location = getWord(input);
+        location = input;
     }
 
     /**

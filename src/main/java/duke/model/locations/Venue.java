@@ -1,9 +1,11 @@
 package duke.model.locations;
 
+import java.io.Serializable;
+
 /**
  * Represents a location of an attraction.
  */
-public class Venue {
+public class Venue implements Serializable {
     private String address;
     private double latitude;
     private double longitude;
@@ -64,6 +66,15 @@ public class Venue {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
         return Math.abs(RADIUS_EARTH * c * 1000);
+    }
+
+    /**
+     * Sets the address of the Venue.
+     *
+     * @param address The address value to set.
+     */
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     /**

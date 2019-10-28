@@ -11,7 +11,7 @@ import duke.model.locations.Venue;
  * Tests the URL connection.
  */
 public class LocationSearchCommand extends Command {
-    private Venue result;
+    private Venue venue;
 
     /**
      *  Creates a new LocationSearchCommand with the given location.
@@ -21,7 +21,7 @@ public class LocationSearchCommand extends Command {
      * @throws ApiTimeoutException If the request times out.
      */
     public LocationSearchCommand(String location) throws ApiNullRequestException, ApiTimeoutException {
-        result = ApiParser.getLocationSearch(location);
+        venue = ApiParser.getLocationSearch(location);
     }
 
     /**
@@ -33,7 +33,7 @@ public class LocationSearchCommand extends Command {
     @Override
     public CommandResultText execute(Model model) {
         return new CommandResultText("These are the coordinates of your search:\n"
-                + result.getAddress() + "\n" + result.getLatitude() + " "
-                + result.getLongitude());
+                + venue.getAddress() + "\n" + venue.getLatitude() + " "
+                + venue.getLongitude());
     }
 }

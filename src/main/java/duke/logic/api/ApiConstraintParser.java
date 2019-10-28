@@ -68,7 +68,7 @@ public class ApiConstraintParser {
     /**
      * Return the nearest transportation from the starting location.
      *
-     * @param start The  starting location
+     * @param start The starting location
      * @param map All transportation location
      * @return Nearest transportation
      */
@@ -84,7 +84,7 @@ public class ApiConstraintParser {
         displacementTrain = getDisplacement(start, nearestTrain);
         displacementBus = getDisplacement(start, nearestBus);
         if (displacementTrain <= displacementBus) {
-            return  nearestTrain;
+            return nearestTrain;
         } else {
             return nearestBus;
         }

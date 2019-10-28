@@ -6,6 +6,7 @@ import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.logic.commands.results.CommandResultText;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +16,7 @@ class RouteShowCommandTest {
 
     @Test
     void execute() throws DukeException {
-        String expected = "Here is the information of the Route:\n2113\n";
+        String expected = "Here is the information of the Route:\n2113\n\n";
 
         Model model = new ModelStub();
 

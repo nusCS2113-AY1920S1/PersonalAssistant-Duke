@@ -19,10 +19,10 @@ public class RouteNodeEditParser extends CommandParser {
      * @param input The User input
      */
     public RouteNodeEditParser(String input) throws DukeException {
-        firstIndex = ParserUtil.getFirstIndex(input);
-        secondIndex = ParserUtil.getSecondIndex(input);
-        thirdFieldInList = ParserUtil.getFieldInList(3, 4, getWord(input));
-        fourthFieldInList = ParserUtil.getFieldInList(4, 4, getWord(input));
+        firstIndex = ParserUtil.getIntegerIndexInList(0, 3, input);
+        secondIndex = ParserUtil.getIntegerIndexInList(1, 3, input);
+        thirdFieldInList = ParserUtil.getFieldInList(2, 4, input);
+        fourthFieldInList = ParserUtil.getFieldInList(3, 4, input);
     }
 
     /**

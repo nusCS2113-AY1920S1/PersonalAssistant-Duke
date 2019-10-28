@@ -9,13 +9,14 @@ import duke.logic.commands.RouteAddCommand;
  */
 public class RouteAddParser extends CommandParser {
     String route;
+    String[] details;
 
     /**
      * Parses user input into route.
      * @param input The User input
      */
     public RouteAddParser(String input) throws DukeException {
-        this.route = getWord(input);
+        details = input.split("desc", 2);
     }
 
     /**
@@ -24,6 +25,10 @@ public class RouteAddParser extends CommandParser {
      */
     @Override
     public Command parse() {
-        return new RouteAddCommand(route);
+        if (details.length == 2) {
+            return new RouteAddCommand(details[0], details[1]);
+        } else {
+            return new RouteAddCommand(details[0], "");
+        }
     }
 }

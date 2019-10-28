@@ -17,7 +17,7 @@ public class FreeTimeParser extends CommandParser {
      * @param input The User input
      */
     public FreeTimeParser(String input) throws DukeException {
-        index = ParserUtil.getIndex(input);
+        index = ParserUtil.getIntegerIndexInList(0, 1, input);
     }
 
     /**

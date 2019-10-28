@@ -9,14 +9,14 @@ import duke.logic.parsers.ParserUtil;
  * Parses the user inputs into suitable format for RouteDeleteCommand.
  */
 public class RouteDeleteParser extends CommandParser {
-    String input;
+    int index;
 
     /**
      * Parses user input into route.
      * @param input The User input
      */
     public RouteDeleteParser(String input) throws DukeException {
-        this.input = getWord(input);
+        this.index = ParserUtil.getIntegerIndexInList(0, 1, input);
     }
 
     /**
@@ -25,6 +25,6 @@ public class RouteDeleteParser extends CommandParser {
      */
     @Override
     public Command parse() throws DukeException {
-        return new RouteDeleteCommand(ParserUtil.getIndex(input));
+        return new RouteDeleteCommand(index);
     }
 }

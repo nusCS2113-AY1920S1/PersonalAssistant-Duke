@@ -18,8 +18,8 @@ public class RouteNodeDeleteParser extends CommandParser {
      * @param input The User input
      */
     public RouteNodeDeleteParser(String input) throws DukeException {
-        firstIndex = ParserUtil.getFirstIndex(input);
-        secondIndex = ParserUtil.getSecondIndex(input);
+        firstIndex = ParserUtil.getIntegerIndexInList(0, 2, input);
+        secondIndex = ParserUtil.getIntegerIndexInList(1, 2, input);
     }
 
     /**

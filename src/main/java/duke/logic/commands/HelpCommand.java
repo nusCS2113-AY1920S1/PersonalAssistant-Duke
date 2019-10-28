@@ -23,9 +23,9 @@ public class HelpCommand extends Command {
             + "    View by Date: fetch <date>\n";
 
     /**
-     * Executes this command on the given task list and user interface.
+     * Executes this command and returns a text result.
      *
-     * @param model The model object containing information about the user.
+     * @param model The model object containing event list.
      */
     @Override
     public CommandResultText execute(Model model) {

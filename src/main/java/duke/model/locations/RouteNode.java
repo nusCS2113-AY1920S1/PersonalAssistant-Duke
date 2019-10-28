@@ -7,7 +7,6 @@ import duke.commons.enumerations.Constraint;
  */
 public abstract class RouteNode extends Venue {
     private Constraint type;
-    private String address;
     private String description;
 
     /**
@@ -22,59 +21,34 @@ public abstract class RouteNode extends Venue {
     public RouteNode(Constraint type, String address, String description, double latitude, double longitude) {
         super(address, latitude, longitude, 0, 0);
         this.type = type;
-        this.address = address;
         this.description = description;
     }
 
-    public Constraint getType() {
-        return type;
-    }
-
+    /**
+     * Gets the coordinates of the RouteNode (latitude, longitude).
+     *
+     * @return The Coordinates.
+     */
     public String getCoordinate() {
         return getLatitude() + ", " + getLongitude();
     }
 
-    public String getAddress() {
-        return address;
+    /**
+     * Gets the type of Constraint (bus / train / custom).
+     *
+     * @return type The type of the RouteNode.
+     */
+    public Constraint getType() {
+        return type;
     }
 
+    /**
+     * Gets the description of the RouteNode.
+     *
+     * @return description The description of the RouteNode.
+     */
     public String getDescription() {
         return description;
-    }
-
-    public double getLatitude() {
-        return super.getLatitude();
-    }
-
-    public double getLongitude() {
-        return super.getLongitude();
-    }
-
-    /**
-     * Sets the latitude of the RouteNode.
-     *
-     * @param latitude The latitude to set.
-     */
-    public void setLatitude(int latitude) {
-        super.setLatitude(latitude);
-    }
-
-    /**
-     * Sets the longitude of the RouteNode.
-     *
-     * @param longitude The latitude to set.
-     */
-    public void setLongitude(int longitude) {
-        super.setLongitude(longitude);
-    }
-
-    /**
-     * Sets the address of the RouteNode.
-     *
-     * @param address The latitude to set.
-     */
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     /**
@@ -102,6 +76,6 @@ public abstract class RouteNode extends Venue {
      */
     @Override
     public String toString() {
-        return address + " (" + getLatitude() + ", " + getLongitude() + ")";
+        return getAddress() + " (" + getLatitude() + ", " + getLongitude() + ")";
     }
 }

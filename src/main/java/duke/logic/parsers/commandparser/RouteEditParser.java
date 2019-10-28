@@ -18,9 +18,9 @@ public class RouteEditParser extends CommandParser {
      * @param input The User input
      */
     public RouteEditParser(String input) throws DukeException {
-        this.firstIndex = ParserUtil.getFirstIndex(input);
-        this.firstEventIndex = getEventIndexInList(1, input);
-        this.secondEventIndex = getEventIndexInList(0, input);
+        this.firstIndex = ParserUtil.getIntegerIndexInList(0, 3, input);
+        this.firstEventIndex = ParserUtil.getFieldInList(1, 3, input);
+        this.secondEventIndex = ParserUtil.getFieldInList(2, 3, input);
     }
 
     /**

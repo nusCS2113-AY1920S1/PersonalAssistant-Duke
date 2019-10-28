@@ -4,6 +4,7 @@ import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.logic.TransportationMap;
+import duke.commons.exceptions.RouteDuplicateException;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.lists.VenueList;
@@ -12,7 +13,9 @@ import duke.model.planning.Itinerary;
 import duke.model.profile.ProfileCard;
 import duke.model.transports.BusService;
 import duke.model.locations.BusStop;
+import duke.model.transports.Route;
 
+import java.util.HashMap;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,7 +29,13 @@ public interface Model {
     EventList getEvents();
 
     /**
-     * Return map object.
+     * Replaces the events of this model with the new one.
+     * @param events The new events.
+     */
+    void setEvents(EventList events);
+
+    /**
+     * Returns map object.
      */
     TransportationMap getMap();
 
@@ -36,9 +45,9 @@ public interface Model {
     EventList getSortedList();
 
     /**
-     * Returns the list of all bus stops.
+     * Returns the map of all bus stops.
      */
-    List<BusStop> getBusStops();
+    HashMap<String, BusStop> getBusStops();
 
     /**
      * Returns the list of all bus routes.
@@ -59,6 +68,13 @@ public interface Model {
      * Returns the list of Routes.
      */
     RouteList getRoutes();
+
+    /**
+     * Adds a route to the list of routes.
+     *
+     * @param route The route to add.
+     */
+    void addRoute(Route route) throws RouteDuplicateException;
 
     /**
      * Saves the Model data in storage.

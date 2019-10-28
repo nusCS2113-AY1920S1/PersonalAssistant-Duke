@@ -15,7 +15,7 @@ public class FindParser extends CommandParser {
      * @param input The User input
      */
     public FindParser(String input) throws DukeException {
-        keyword = getWord(input);
+        keyword = input;
     }
 
     /**

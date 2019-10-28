@@ -15,7 +15,7 @@ public class GetBusStopParser extends CommandParser {
      * @param input The User input
      */
     public GetBusStopParser(String input) throws DukeException {
-        busStopNo = getWord(input);
+        busStopNo = input;
     }
 
     /**
