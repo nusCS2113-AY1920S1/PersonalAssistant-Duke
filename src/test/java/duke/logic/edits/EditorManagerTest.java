@@ -1,4 +1,4 @@
-package duke.logic;
+package duke.logic.edits;
 
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.EmptyVenueException;
@@ -6,7 +6,6 @@ import duke.commons.exceptions.EventNotSelectedException;
 import duke.logic.commands.EditCommand;
 import duke.logic.commands.PromptCommand;
 import duke.logic.commands.results.PanelResult;
-import duke.logic.edits.EditorManager;
 import duke.model.Event;
 import duke.model.lists.EventList;
 import duke.model.lists.VenueList;
