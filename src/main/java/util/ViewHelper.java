@@ -10,7 +10,6 @@ public class ViewHelper {
     private static final int DEFAULT_HORI_BORDER_LENGTH = 60;
 
     public ViewHelper() {
-
     }
 
     /**
