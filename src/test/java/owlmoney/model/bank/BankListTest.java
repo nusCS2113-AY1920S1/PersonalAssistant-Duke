@@ -119,7 +119,7 @@ class BankListTest {
     void bankListGetSavingAccount_cannotFindBank_throwsException() {
         BankList testList = new BankList(new Storage("data/"));
         BankException thrown = assertThrows(BankException.class, () ->
-                        testList.bankListGetSavingAccount("test"),
+                        testList.bankListGetSavingAccount("NOBANKFOUND"),
                 "Expected bankListGetSavingAccount to throw, but it didn't");
         assertEquals("Cannot find savings account with the name: test", thrown.toString());
     }
@@ -150,7 +150,7 @@ class BankListTest {
         Ui testUi = new Ui();
         BankException thrown = assertThrows(BankException.class, () ->
                         testList.bankListDeleteBank("test", "saving", testUi),
-                "Expected bankListGetSavingAccount to throw, but it didn't");
+                "Expected bankListDeleteBank to throw, but it didn't");
         assertEquals("There are 0 bank accounts in your profile", thrown.toString());
     }
 
@@ -166,7 +166,7 @@ class BankListTest {
         }
         BankException thrown = assertThrows(BankException.class, () ->
                         testList.bankListDeleteBank("test", "saving", testUi),
-                "Expected bankListGetSavingAccount to throw, but it didn't");
+                "Expected bankListDeleteBank to throw, but it didn't");
         assertEquals("There must be at least 1 savings account", thrown.toString());
     }
 
@@ -184,7 +184,7 @@ class BankListTest {
         }
         BankException thrown = assertThrows(BankException.class, () ->
                         testList.bankListDeleteBank("test2", "saving", testUi),
-                "Expected bankListGetSavingAccount to throw, but it didn't");
+                "Expected bankListDeleteBank to throw, but it didn't");
         assertEquals("There are no bank accounts with name test2", thrown.toString());
     }
 
@@ -200,7 +200,7 @@ class BankListTest {
         }
         BankException thrown = assertThrows(BankException.class, () ->
                         testList.bankListDeleteBank("test", "investment", testUi),
-                "Expected bankListGetSavingAccount to throw, but it didn't");
+                "Expected bankListDeleteBank to throw, but it didn't");
         assertEquals("test is not of type: investment", thrown.toString());
     }
 
@@ -247,7 +247,7 @@ class BankListTest {
         }
         BankException thrown = assertThrows(BankException.class, () ->
                         testList.bankListEditSavings("test", "test2", "", "", testUi),
-                "Expected bankListGetSavingAccount to throw, but it didn't");
+                "Expected bankListEditSavings to throw, but it didn't");
         assertEquals("There is already a bank account with the name test2", thrown.toString());
     }
 
@@ -263,7 +263,7 @@ class BankListTest {
         }
         BankException thrown = assertThrows(BankException.class, () ->
                         testList.bankListEditSavings("test4", "test2", "", "", testUi),
-                "Expected bankListGetSavingAccount to throw, but it didn't");
+                "Expected bankListEditSavings to throw, but it didn't");
         assertEquals("There are no bank with the name: test4", thrown.toString());
     }
 
@@ -308,7 +308,7 @@ class BankListTest {
         }
         BankException thrown = assertThrows(BankException.class, () ->
                         testList.bankListEditInvestment("test", "test2", "", testUi),
-                "Expected bankListGetSavingAccount to throw, but it didn't");
+                "Expected bankListEditInvestment to throw, but it didn't");
         assertEquals("There is already a bank account with the name test2", thrown.toString());
     }
 
@@ -324,7 +324,7 @@ class BankListTest {
         }
         BankException thrown = assertThrows(BankException.class, () ->
                         testList.bankListEditInvestment("test4", "test2", "", testUi),
-                "Expected bankListGetSavingAccount to throw, but it didn't");
+                "Expected bankListEditInvestment to throw, but it didn't");
         assertEquals("There are no bank with the name: test4", thrown.toString());
     }
 
