@@ -85,6 +85,11 @@ public class Budgeting {
      * @return created map.
      */
     private void createMap(ArrayList<Event> eventList) {
+        if (eventList.isEmpty()) { //if empty list, initialize map and return
+            monthlyCosts = new HashMap<>();
+            return;
+        }
+
         monthlyCosts = new HashMap<>();
         EventDate monthlyDate = null; //stores a date of a day in the month we are currently checking for
         ArrayList<Event> listOfConcerts = new ArrayList<Event>(); //to store the concerts in a given month
