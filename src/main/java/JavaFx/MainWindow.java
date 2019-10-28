@@ -7,7 +7,7 @@ import Interface.Duke;
 import Interface.Storage;
 import Interface.LookupTable;
 import Interface.Week;
-import Tasks.Task;
+import Tasks.Assignment;
 import Tasks.TaskList;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -91,10 +91,10 @@ public class MainWindow extends BorderPane implements Initializable {
 
     private Duke duke;
     private Storage storage;
-    private ArrayList<Task> events;
-    private ArrayList<Task> deadlines;
-    private ArrayList<Task> todos;
-    private ArrayList<Task> overdue;
+    private ArrayList<Assignment> events;
+    private ArrayList<Assignment> deadlines;
+    private ArrayList<Assignment> todos;
+    private ArrayList<Assignment> overdue;
     private TaskList eventsList;
     private TaskList deadlinesList;
     private static LookupTable LT = new LookupTable();
@@ -215,7 +215,7 @@ public class MainWindow extends BorderPane implements Initializable {
         String description;
         String activity;
         ObservableList<DeadlineView> deadlineViews = FXCollections.observableArrayList();
-        for (Task task : deadlines) {
+        for (Assignment task : deadlines) {
             activity = task.toString();
             DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             DateFormat timeFormat= new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -241,7 +241,7 @@ public class MainWindow extends BorderPane implements Initializable {
         String description;
         String activity;
         ObservableList<DeadlineView> overdueViews = FXCollections.observableArrayList();
-        for (Task task : overdue) {
+        for (Assignment task : overdue) {
             activity = task.toString();
             DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             Date date = null;

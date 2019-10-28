@@ -1,4 +1,5 @@
 package Commands;
+
 import Interface.LookupTable;
 import Interface.Storage;
 import Interface.Ui;

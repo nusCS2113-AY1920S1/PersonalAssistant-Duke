@@ -23,6 +23,10 @@ public class AddParse extends Parse {
     private static String fullCommand;
     private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
 
+    /**
+     * Creates AddParse object.
+     * @param fullCommand The entire command that calls for AddParse.
+     */
     public AddParse(String fullCommand)  {
         this.fullCommand = fullCommand;
 
@@ -33,7 +37,7 @@ public class AddParse extends Parse {
      * @throws Exception Returned if command does not adhere to format
      */
     @Override
-    public Command execute() throws Exception {
+    public Command parse() throws Exception {
         if (fullCommand.trim().substring(0, 5).equals("add/d")) {//deadline
             try {
                 String activity = fullCommand.trim().substring(5);

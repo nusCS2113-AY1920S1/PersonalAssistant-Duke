@@ -1,13 +1,12 @@
 package Commands;
+
 import Interface.LookupTable;
 import Interface.Storage;
 import Interface.Ui;
 import JavaFx.AlertBox;
-
-import Tasks.Task;
+import Tasks.Assignment;
 import Tasks.TaskList;
 import javafx.scene.control.Alert;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,14 +15,14 @@ import java.util.HashMap;
  */
 public class AddCommand extends Command {
 
-    private final Task task;
+    private final Assignment task;
 
     /**
      * Creates an AddCommand object.
      *
      * @param task The Task object to be added
      */
-    public AddCommand(Task task) {
+    public AddCommand(Assignment task) {
         this.task = task;
     }
 
@@ -37,16 +36,16 @@ public class AddCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display add task message
      */
     @Override
-    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
+    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) {
         String out = "";
-        AlertBox AB = new AlertBox();
+        AlertBox alertBox = new AlertBox();
         ArrayList<String> conflict = new ArrayList<>();
 
         if (task.getType().equals("[E]")) {
-            HashMap<String, HashMap<String, ArrayList<Task>>> eventsMap = events.getMap();
+            HashMap<String, HashMap<String, ArrayList<Assignment>>> eventsMap = events.getMap();
             if(eventsMap.containsKey(task.getModCode()) && eventsMap.get(task.getModCode()).containsKey(task.getDate())) {
-                ArrayList<Task> temp = eventsMap.get(task.getModCode()).get(task.getDate());
-                for (Task task : temp) {
+                ArrayList<Assignment> temp = eventsMap.get(task.getModCode()).get(task.getDate());
+                for (Assignment task : temp) {
                     {
                         if (task.getTime().equals(this.task.getTime())) {
                             conflict.add(task.toString());
@@ -66,7 +65,7 @@ public class AddCommand extends Command {
                 for (int i = 0; i< conflict.size();i++){
                     show += conflict.get(0);
                 }
-                AB.display("Warning", out, show, Alert.AlertType.WARNING);
+                alertBox.display("Warning", out, show, Alert.AlertType.WARNING);
             }
         } else if (task.getType().equals("[D]")) {
             deadlines.addTask(this.task);

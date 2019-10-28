@@ -8,7 +8,7 @@ import Tasks.TaskList;
 import javafx.scene.control.Alert;
 
 /**
- * Represent the command that deals with tasks that need to be done within a certain period
+ * Represents the command that deals with tasks that need to be done within a certain period
  */
 public class DoWithinPeriodTasksCommand extends Command {
 

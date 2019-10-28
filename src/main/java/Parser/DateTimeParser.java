@@ -8,9 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Creates a Date time
+ * This class parses all date and time for BetterDuke.
  **/
-
 public class DateTimeParser {
     private static String[] dateTimeStringSplit;
     private static String[] dateStringSplit;
@@ -23,7 +22,12 @@ public class DateTimeParser {
     private static SimpleDateFormat timeOutputFormat = new SimpleDateFormat("hh:mm a");
     private static SimpleDateFormat deadlineInputFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
 
-
+    /**
+     * Parses any date that is tagged with event.
+     * @param input The date input
+     * @return The String array containing all the dates.
+     * @throws ParseException On wrong date format to parse.
+     */
     public static String[] EventParse(String input) throws ParseException {
 
         // date from time /to time
@@ -50,7 +54,12 @@ public class DateTimeParser {
         return  out;
     }
 
-
+    /**
+     * Parses any date that is tagged with deadline.
+     * @param input The date input
+     * @return The String array containing all the dates.
+     * @throws ParseException On wrong date format to parse.
+     */
     public static String[] DeadlineParse(String input) throws ParseException {
         // date time
         dateTimeStringSplit = input.trim().split(" ");
@@ -74,7 +83,12 @@ public class DateTimeParser {
 
     }
 
-
+    /**
+     * Parses any date that is tagged as recurring.
+     * @param input The date input
+     * @return The String array containing all the dates.
+     * @throws ParseException On wrong date format to parse.
+     */
     public static String[] recurringEventParse(String input) throws ParseException {
         //1/10/2019 /to 15/11/2019 /from 1500 /to 1700"
         dateTimeStringSplit = input.trim().split("/from"); //dateTimeStringSplit[0] = startDate to endDate
@@ -111,6 +125,12 @@ public class DateTimeParser {
         return out;
     }
 
+    /**
+     * Parses any date that is tagged with reminder.
+     * @param input The date input
+     * @return The String array containing all the dates.
+     * @throws ParseException On wrong date format to parse.
+     */
     public static String[] remindDateParse(String input) throws ParseException {
         // week 9 fri 1500 /to week 9 thu 1500"
         dateTimeStringSplit = input.trim().split("/to"); //dateTimeStringSplit[0] = week 9 fri 1500

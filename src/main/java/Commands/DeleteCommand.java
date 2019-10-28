@@ -1,30 +1,28 @@
 package Commands;
+
 import DukeExceptions.DukeException;
 import Interface.LookupTable;
 import Interface.Storage;
 import Interface.Ui;
-import Tasks.Task;
+import Tasks.Assignment;
 import Tasks.TaskList;
-
-
-import java.io.FileNotFoundException;
 
 /**
  * Represents the command to delete a Task object from a TaskList object.
  */
 public class DeleteCommand extends Command {
 
-    private Task T;
+    private Assignment task;
     private final String list;
     private TaskList listToChange;
 
     /**
      * Creates a DeleteCommand object.
-     * @param T The task to be deleted
+     * @param task The task to be deleted
      * @param list The name of the TaskList that requires changing
      */
-    public DeleteCommand(String list, Task T){
-        this.T =T;
+    public DeleteCommand(String list, Assignment task){
+        this.task = task;
         this.list = list;
     }
 
@@ -38,18 +36,18 @@ public class DeleteCommand extends Command {
      * @throws DukeException On ArrayList out of bound error
      */
     @Override
-    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, FileNotFoundException {
+    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException {
        try{
             if (list.equals("event")) {
-                events.removeTask(T);
+                events.removeTask(task);
                 storage.updateEventList(events);
                 listToChange = events;
             } else if (list.equals("deadline")) {
-                deadlines.removeTask(T);
+                deadlines.removeTask(task);
                 storage.updateDeadlineList(deadlines);
                 listToChange = deadlines;
             }
-            return ui.showDelete(T, listToChange.taskListSize());
+            return ui.showDelete(task, listToChange.taskListSize());
         } catch(ArrayIndexOutOfBoundsException e) {
             throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but we cannot find the input task  :-(\n");
         }

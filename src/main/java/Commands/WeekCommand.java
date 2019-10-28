@@ -4,7 +4,7 @@ import Interface.LookupTable;
 import Interface.Storage;
 import Interface.Ui;
 import Interface.Week;
-import Tasks.Task;
+import Tasks.Assignment;
 import Tasks.TaskList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,7 +44,7 @@ public class WeekCommand extends Command {
         return temp;
     }
 
-    private ArrayList<String> checkIfExist(HashMap<String, ArrayList<Task>> map, ArrayList<String> dates) {
+    private ArrayList<String> checkIfExist(HashMap<String, ArrayList<Assignment>> map, ArrayList<String> dates) {
         ArrayList<String> newDates = new ArrayList<>();
         for(String s: dates){
             if(map.containsKey(s) == true) newDates.add(s);
@@ -88,7 +88,7 @@ public class WeekCommand extends Command {
         if(sunList.size() != 0 ) sunList.sort(WeekCommand::compareByTime);
     }
 
-    private Text generateToShow(Task task) {
+    private Text generateToShow(Assignment task) {
         Text toShow = new Text(task.toShow() + task.getModCode() + "\n" + task.getDescription());
         toShow.setFont(Font.font(10));
         if (task.getStatus()){
@@ -105,12 +105,12 @@ public class WeekCommand extends Command {
     public void setListView(LookupTable LT, TaskList eventsList) {
         ArrayList<String> weekDates = generateDateDay(week);
         for(String module: eventsList.getMap().keySet()) {
-            HashMap<String, ArrayList<Task>> moduleValue = eventsList.getMap().get(module);
+            HashMap<String, ArrayList<Assignment>> moduleValue = eventsList.getMap().get(module);
             ArrayList<String> dates = checkIfExist(moduleValue, weekDates);
             for(String strDate : dates) {
                 String[] spilt = strDate.split(" ", 2);
-                ArrayList<Task> data = moduleValue.get(strDate);
-                for(Task task: data){
+                ArrayList<Assignment> data = moduleValue.get(strDate);
+                for(Assignment task: data){
                     Text toShow = generateToShow(task);
                     String day = spilt[0];
                     updateList(day, toShow);

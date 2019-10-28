@@ -7,7 +7,7 @@ import Interface.LookupTable;
 import Interface.Reminder;
 import Interface.Storage;
 import Interface.Ui;
-import Tasks.Task;
+import Tasks.Assignment;
 import Tasks.TaskList;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -17,9 +17,12 @@ import java.util.Timer;
 import java.util.HashMap;
 import java.util.ArrayList;
 
+/**
+ * Represents the command to set a reminder for the user
+ */
 public class RemindCommand extends Command {
 
-    private Task task;
+    private Assignment task;
     private Date time;
     private HashMap<Date, Timer> timerHashMap;
     private boolean remind;
@@ -32,7 +35,7 @@ public class RemindCommand extends Command {
      * @param time Time for the reminder to be set at
      * @param remind Whether a reminder needs to be set
      */
-    public RemindCommand (Task task, Date time, boolean remind) {
+    public RemindCommand (Assignment task, Date time, boolean remind) {
         this.task = task;
         this.time = time;
         timerHashMap = new HashMap<>();
@@ -52,8 +55,8 @@ public class RemindCommand extends Command {
     public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, DukeInvalidDateTimeException {
         reminder = storage.getReminderObject();
         reminder.setDeadlines(deadlines);
-        HashMap<String, HashMap<String, ArrayList<Task>>> deadlineMap = deadlines.getMap();
-        HashMap<Date, Task> remindMap = reminder.getRemindMap();
+        HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
+        HashMap<Date, Assignment> remindMap = reminder.getRemindMap();
         Date currentDate = new Date();
         DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
         String reminderTime = dateFormat.format(time);
@@ -68,18 +71,18 @@ public class RemindCommand extends Command {
         }
         if (this.time.before(currentDate)) {
             throw new DukeInvalidDateTimeException("Sorry, you cannot set a time that has already passed!");
-        } else if (this.time.after(currentDate)) {
+        } else {
             if (timerHashMap.containsKey(time)) {
-                Task remindedTask = remindMap.get(time);
+                Assignment remindedTask = remindMap.get(time);
                 throw new DukeInvalidDateTimeException("Sorry, you have a reminder set for " + remindedTask.getDescription() + " at: " + task.getDateTime());
             } else if (!deadlineMap.containsKey(task.getModCode())) {
                 throw new DukeException("Sorry, you have no such mod entered in your deadline table!");
             } else if (!deadlineMap.get(task.getModCode()).containsKey(task.getDate())) {
                 throw new DukeException("Sorry, you have no such timing entered in your deadline table!");
             } else {
-                ArrayList<Task> allTaskInDate = deadlineMap.get(task.getModCode()).get(task.getDate());
+                ArrayList<Assignment> allTaskInDate = deadlineMap.get(task.getModCode()).get(task.getDate());
                 boolean hasTask = false;
-                for (Task taskInList : allTaskInDate) {
+                for (Assignment taskInList : allTaskInDate) {
                     if (taskInList.getDescription().equals(task.getDescription())) {
                         hasTask = true;
                         break;

@@ -11,8 +11,9 @@ import Tasks.Event;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
- * Parse Deletecommand for event and deadline and return formatted command to Parser
+ * This class parses the full command that calls for DeleteParse
  */
 public class DeleteParse extends Parse {
     private static String[] split;
@@ -20,16 +21,20 @@ public class DeleteParse extends Parse {
     private static String fullCommand;
     private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
 
-
+    /**
+     * Creates a DeleteParse object.
+     * @param fullCommand The full command that calls for DeleteParse
+     */
     public DeleteParse(String fullCommand) {
         this.fullCommand = fullCommand;
     }
+
     /**
-     * @return Command which represents the parsed Deletecommand
+     * @return Command which represents the parsed DeleteCommand
      * @throws Exception Returned if command does not adhere to format
      */
     @Override
-    public Command execute() throws Exception {
+    public Command parse() throws Exception {
         if (fullCommand.trim().substring(0, 8).equals("delete/e")) {
             try { //add/e module_code description /at date from time to time
                 String activity = fullCommand.trim().substring(8);

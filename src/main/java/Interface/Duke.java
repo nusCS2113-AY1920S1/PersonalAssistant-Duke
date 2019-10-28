@@ -1,4 +1,5 @@
 package Interface;
+
 import Commands.Command;
 import Commands.RetrieveFreeTimesCommand;
 import Commands.RetrievePreviousCommand;
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
  * with commands that includes adding, deleting, displaying list of tasks
  * and to mark completion of a task.
  */
-public class Duke extends Application {
+public class Duke  {
 
     private final Storage storage;
     private final TaskList events;
@@ -49,11 +50,6 @@ public class Duke extends Application {
         }
     }
 
-    @Override
-    public void start(Stage primaryStage) {
-        //...
-    }
-
     /**
      * This method runs the Duke program.
      * @param input The user's input to the Duke program
@@ -64,8 +60,8 @@ public class Duke extends Application {
             Command c = MainParser.parse(input);
             return c.execute(LT,events, deadlines, ui, storage);
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-            return ui.showError(e);
+            LOGGER.severe(e.toString());
+            return ui.getError(e);
         }
     }
 

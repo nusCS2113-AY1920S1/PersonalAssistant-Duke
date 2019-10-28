@@ -3,9 +3,8 @@ package Commands;
 import Interface.LookupTable;
 import Interface.Storage;
 import Interface.Ui;
-import Tasks.Task;
+import Tasks.Assignment;
 import Tasks.TaskList;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -16,10 +15,15 @@ import java.util.Set;
 public class FilterCommand extends Command{
     private String keyword;
 
+    /**
+     * Creates FilterCommand object.
+     * @param Command The full command that calls FilterCommand.
+     */
     public FilterCommand(String Command)
     {
         this.keyword = Command.trim().substring(7);
     }
+
     /**
      * Execute the displaying of all task the contains a certain keyword
      * @param events The TaskList object for events
@@ -28,17 +32,16 @@ public class FilterCommand extends Command{
      * @param storage The Storage object to access file to load or save the tasks
      * @return This returns the method in the Ui object which returns the string to display list message
      */
-
     @Override
     public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) {
         ArrayList<String> out = new ArrayList<>();
-        HashMap<String, HashMap<String, ArrayList<Task>>> emap = events.getMap();
+        HashMap<String, HashMap<String, ArrayList<Assignment>>> emap = events.getMap();
         Set<String> allMods = emap.keySet();
         for (String mod : allMods) {
             Set<String> allDates = emap.get(mod).keySet();
             for (String date : allDates) {
-                ArrayList<Task> temp = emap.get(mod).get(date);
-                for(Task task : temp) {
+                ArrayList<Assignment> temp = emap.get(mod).get(date);
+                for(Assignment task : temp) {
                     if (task.toString().toLowerCase().contains(keyword)|
                             task.toString().toUpperCase().contains(keyword) ){
                         out.add(task.toString());
@@ -46,13 +49,13 @@ public class FilterCommand extends Command{
                 }
             }
         }
-        HashMap<String, HashMap<String, ArrayList<Task>>> dmap = deadlines.getMap();
+        HashMap<String, HashMap<String, ArrayList<Assignment>>> dmap = deadlines.getMap();
         Set<String> allMods1 = dmap.keySet();
         for (String mod : allMods1) {
             Set<String> allDates = dmap.get(mod).keySet();
             for (String date : allDates) {
-                ArrayList<Task> temp = dmap.get(mod).get(date);
-                for(Task task : temp) {
+                ArrayList<Assignment> temp = dmap.get(mod).get(date);
+                for(Assignment task : temp) {
                     if (task.toString().toLowerCase().contains(keyword)|
                             task.toString().toUpperCase().contains(keyword) ){
                         out.add(task.toString());

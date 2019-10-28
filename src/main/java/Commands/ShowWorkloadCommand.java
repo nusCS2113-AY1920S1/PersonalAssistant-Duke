@@ -3,7 +3,7 @@ package Commands;
 import Interface.LookupTable;
 import Interface.Storage;
 import Interface.Ui;
-import Tasks.Task;
+import Tasks.Assignment;
 import Tasks.TaskList;
 
 import java.io.FileNotFoundException;
@@ -32,9 +32,9 @@ public class ShowWorkloadCommand extends Command {
     @Override
     public String execute (LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws ParseException, FileNotFoundException {
         String workloadWeek = LT.getValue(week);
-        HashMap<String, HashMap<String, ArrayList<Task>>> eventMap = events.getMap();
-        HashMap<String, HashMap<String, ArrayList<Task>>> deadlineMap = deadlines.getMap();
-        HashMap<String, ArrayList<Task>> workloadMap = new HashMap<>();
+        HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
+        HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
+        HashMap<String, ArrayList<Assignment>> workloadMap = new HashMap<>();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
         String nextWeekMon = LT.getValue(workloadWeek + " mon");
@@ -49,9 +49,9 @@ public class ShowWorkloadCommand extends Command {
         String followingWeekWed = LT.getValue(followingWeek + " wed");
 
 
-        for (Map.Entry<String, HashMap<String, ArrayList<Task>>> eventModule: eventMap.entrySet()) {
-            HashMap<String, ArrayList<Task>> eventModuleValue = eventModule.getValue();
-            for (Map.Entry<String, ArrayList<Task>> eventItem: eventModuleValue.entrySet()) {
+        for (Map.Entry<String, HashMap<String, ArrayList<Assignment>>> eventModule: eventMap.entrySet()) {
+            HashMap<String, ArrayList<Assignment>> eventModuleValue = eventModule.getValue();
+            for (Map.Entry<String, ArrayList<Assignment>> eventItem: eventModuleValue.entrySet()) {
                 String[] strDayDate = eventItem.getKey().trim().split(" ");
                 String strDate = strDayDate[1].trim();
                 String selectedWeek = LT.getValue(strDate);
@@ -60,9 +60,9 @@ public class ShowWorkloadCommand extends Command {
                     }
                 }
             }
-        for (Map.Entry<String, HashMap<String, ArrayList<Task>>> deadlineModule: deadlineMap.entrySet()) {
-            HashMap<String, ArrayList<Task>> deadlineModuleValue = deadlineModule.getValue();
-            for (Map.Entry<String, ArrayList<Task>> deadlineItem: deadlineModuleValue.entrySet()) {
+        for (Map.Entry<String, HashMap<String, ArrayList<Assignment>>> deadlineModule: deadlineMap.entrySet()) {
+            HashMap<String, ArrayList<Assignment>> deadlineModuleValue = deadlineModule.getValue();
+            for (Map.Entry<String, ArrayList<Assignment>> deadlineItem: deadlineModuleValue.entrySet()) {
                 String[] strDayDate = deadlineItem.getKey().trim().split(" ");
                 String strDate = strDayDate[1].trim();
                 String selectedWeek = LT.getValue(strDate);
@@ -83,7 +83,7 @@ public class ShowWorkloadCommand extends Command {
                 }
             }
         }
-        TreeMap<String, ArrayList<Task>> sortedWorkLoadMap = new TreeMap<>();
+        TreeMap<String, ArrayList<Assignment>> sortedWorkLoadMap = new TreeMap<>();
         sortedWorkLoadMap.putAll(workloadMap);
         return ui.showWorkload(sortedWorkLoadMap);
     }

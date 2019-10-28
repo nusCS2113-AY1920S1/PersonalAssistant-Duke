@@ -1,9 +1,10 @@
 package Commands;
+
 import DukeExceptions.DukeException;
 import Interface.LookupTable;
 import Interface.Storage;
 import Interface.Ui;
-import Tasks.Task;
+import Tasks.Assignment;
 import Tasks.TaskList;
 
 
@@ -12,16 +13,16 @@ import Tasks.TaskList;
  */
 public class DoneCommand extends Command {
 
-    private Task T;
+    private Assignment task;
     private final String list;
 
     /**
      * Creates a DeleteCommand object.
-     * @param T The task to be deleted
+     * @param task The task to be deleted
      * @param list The name of the TaskList that requires changing
      */
-    public DoneCommand(String list, Task T){
-        this.T =T;
+    public DoneCommand(String list, Assignment task){
+        this.task = task;
         this.list = list;
     }
 
@@ -38,14 +39,14 @@ public class DoneCommand extends Command {
     public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException {
         try{
             if (list.equals("event")) {
-                events.updateTask(T);
+                events.updateTask(task);
                 storage.updateEventList(events);
             } else if (list.equals("deadline")) {
-                deadlines.updateTask(T);
+                deadlines.updateTask(task);
                 storage.updateDeadlineList(deadlines);
             }
-            T.setDone(true);
-            return ui.showDone(T);
+            task.setDone(true);
+            return ui.showDone(task);
         } catch(ArrayIndexOutOfBoundsException e) {
             throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but we cannot find the input task  :-(\n");
         }

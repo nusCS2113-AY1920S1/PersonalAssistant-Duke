@@ -13,6 +13,9 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * This class parses the full command that calls for RecurParse.
+ */
 public class RecurParse extends Parse {
 
     private static String fullCommand;
@@ -20,12 +23,16 @@ public class RecurParse extends Parse {
     private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
     private static LookupTable LT = new LookupTable();
 
+    /**
+     * Creates RecurParse object.
+     * @param fullCommand The full command that calls for RecurParse.
+     */
     public RecurParse(String fullCommand) {
         this.fullCommand = fullCommand;
     }
 
     @Override
-    public Command execute() throws Exception {
+    public Command parse() throws Exception {
         try {
             // recur/e (CS1231 project meeting) /start (1/10/2019 to 15/11/2019 /from 1500 /to 1700)
             String activity = fullCommand.trim().substring(7);

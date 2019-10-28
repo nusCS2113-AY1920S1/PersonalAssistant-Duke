@@ -10,6 +10,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Represents the command to add recurring tasks to the events TaskList.
+ */
 public class RecurringCommand extends Command {
     private final String description;
     private final String startTimeString;
@@ -18,7 +21,7 @@ public class RecurringCommand extends Command {
     private String startDateString;
 
     /**
-     * Add task that is recurring over a period of time
+     * Creates RecurringCommand object.
      * @param description Description of a task
      * @param startDateString Start date of a task
      * @param endDateString End date of a task

@@ -13,12 +13,20 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+/**
+ * This class parses the full command that calls for WorkloadParse.
+ */
 public class WorkloadParse extends Parse{
 
     private static String fullCommand;
     private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
     private static LookupTable LT = new LookupTable();
 
+    /**
+     * Creates a WorkloadParse object.
+     * @param fullCommand
+     */
     public WorkloadParse(String fullCommand) {
         this.fullCommand = fullCommand;
     }
@@ -29,7 +37,7 @@ public class WorkloadParse extends Parse{
     }
 
     @Override
-    public Command execute() throws DukeInvalidFormatException {
+    public Command parse() throws DukeInvalidFormatException {
         try {
             Date today = Calendar.getInstance().getTime();
             Date nextWeek = getNextWeekDate(today);

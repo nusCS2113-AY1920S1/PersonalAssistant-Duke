@@ -11,6 +11,9 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * This class parses the full command that calls for RemindParse.
+ */
 public class RemindParse extends Parse {
     private static final String NO_FIELD = "void";
     private String[] modDescriptionsplit;
@@ -18,13 +21,21 @@ public class RemindParse extends Parse {
     private String[] dateDescriptionSplit;
     private static final Logger LOGGER = Logger.getLogger(RemindCommand.class.getName());
 
+    /**
+     * Creates RemindParse object.
+     * @param fullCommand The full Command that calls for RemindParse.
+     */
     public RemindParse(String fullCommand) {
         this.fullCommand = fullCommand;
     }
 
-    //remind/set cs2100 hand in homework /by week 9 fri 1500 /to week 9 thu 1500
+    /**
+     * Parses the entire input to see if it is to remove or set reminder.
+     * @return Returns RemindCommand
+     * @throws Exception On invalid format that called for RemindParse
+     */
     @Override
-    public Command execute() throws Exception {
+    public Command parse() throws Exception {
         try {
             boolean isRemind = false;
             String description = NO_FIELD;

@@ -3,7 +3,7 @@ package Commands;
 import Interface.LookupTable;
 import Interface.Storage;
 import Interface.Ui;
-import Tasks.Task;
+import Tasks.Assignment;
 import Tasks.TaskList;
 import javafx.util.Pair;
 import java.text.DateFormat;
@@ -18,7 +18,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * Represents the command to find free time slots given a time period
+ */
 public class FindFreeTimesCommand extends Command {
     private static final int HALF_HOUR_MARK = 30;
     private static final int HOUR_MARK = 60;
@@ -34,6 +36,10 @@ public class FindFreeTimesCommand extends Command {
     private final NavigableMap<String, ArrayList<Pair<String, String>>> dataMap = new TreeMap<>();
     private String message = new String();
 
+    /**
+     * Creates FindFreeTimesCommand object.
+     * @param duration The time period.
+     */
     public FindFreeTimesCommand(Integer duration) {
         this.duration = duration;
     }
@@ -163,15 +169,15 @@ public class FindFreeTimesCommand extends Command {
         dataMap.put(strCurrDateDay, temp);
 
         for(String module: events.getMap().keySet()) {
-            HashMap<String, ArrayList<Task>> moduleValues = events.getMap().get(module);
+            HashMap<String, ArrayList<Assignment>> moduleValues = events.getMap().get(module);
             for (String strDate : moduleValues.keySet()) {
                 Date date = dateDayFormat.parse(strDate);
                 date = increaseToTwoThreeFiveNine(date);
                 ArrayList<Pair<String, String>> timeArray = new ArrayList<>();
                 if(strDate.equals(strCurrDateDay)) timeArray.add(new Pair<>(strCurrTime, strCurrTime));
                 if(date.after(currDate)) {
-                    ArrayList<Task> data = moduleValues.get(strDate);
-                    for (Task task : data) {
+                    ArrayList<Assignment> data = moduleValues.get(strDate);
+                    for (Assignment task : data) {
                         String startAndEnd = task.getTime();
                         String[] spiltStartAndEnd = startAndEnd.split("to");
                         Date startDateTime = dateTimeFormat12.parse(strDate + " " + spiltStartAndEnd[0]);
