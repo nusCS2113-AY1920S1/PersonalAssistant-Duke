@@ -1,11 +1,11 @@
 package DukeExceptions;
 
-public class DukeInvalidDateTimeException extends DukeException {
+/**
+ * Represents the exception specifically catered to
+ * invalid date and time input by user.
+ */
+public class DukeInvalidDateTimeException extends Exception {
     public DukeInvalidDateTimeException(String message) {
         super(message);
-    }
-
-    public DukeInvalidDateTimeException(String message, Throwable cause) {
-        super(message, cause);
     }
 }

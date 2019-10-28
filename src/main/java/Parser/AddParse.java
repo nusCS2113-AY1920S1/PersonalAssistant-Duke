@@ -2,12 +2,11 @@ package Parser;
 
 import Commands.AddCommand;
 import Commands.Command;
-import DukeExceptions.DukeException;
 import DukeExceptions.DukeInvalidCommandException;
 
 import DukeExceptions.DukeInvalidDateTimeException;
 import DukeExceptions.DukeInvalidFormatException;
-import Interface.*;
+import Commons.Parser;
 import Tasks.Deadline;
 import Tasks.Event;
 import java.text.ParseException;
@@ -23,6 +22,10 @@ public class AddParse extends Parse {
     private static String fullCommand;
     private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
 
+    /**
+     * Creates AddParse object.
+     * @param fullCommand The entire command that calls for AddParse.
+     */
     public AddParse(String fullCommand)  {
         this.fullCommand = fullCommand;
 
@@ -33,7 +36,7 @@ public class AddParse extends Parse {
      * @throws Exception Returned if command does not adhere to format
      */
     @Override
-    public Command execute() throws Exception {
+    public Command parse() throws Exception {
         if (fullCommand.trim().substring(0, 5).equals("add/d")) {//deadline
             try {
                 String activity = fullCommand.trim().substring(5);
@@ -51,12 +54,12 @@ public class AddParse extends Parse {
                 LOGGER.log(Level.INFO, e.toString(), e);
                 throw new DukeInvalidFormatException(" OOPS!!! Please enter deadline as follows:\n" +
                         "add/d mod_code name_of_event /by dd/MM/yyyy HHmm\n" +
-                        "or add/d mod_code name_of_event /by week x day HHmm\n", e);
+                        "or add/d mod_code name_of_event /by week x day HHmm\n");
             } catch (ParseException e) {
                 LOGGER.log(Level.INFO, e.toString(), e);
                 throw new DukeInvalidDateTimeException(" OOPS!!! Please enter deadline as follows:\n" +
                         "add/d mod_code name_of_event /by dd/MM/yyyy HHmm\n" +
-                        "or add/d mod_code name_of_event /by week x day HHmm\n", e);
+                        "or add/d mod_code name_of_event /by week x day HHmm\n");
             }
         } else if (fullCommand.trim().substring(0, 5).equals("add/e")) {
             try { //add/e module_code description /at date from time to time
@@ -73,12 +76,12 @@ public class AddParse extends Parse {
                 return new AddCommand(new Event(split[0].trim(),out[0],out[1],out[2]));
             } catch (ParseException | ArrayIndexOutOfBoundsException e ) {
                 LOGGER.log(Level.INFO, e.toString(), e);
-                throw new DukeException("OOPS!!! Please enter event as follows:\n" +
+                throw new DukeInvalidFormatException("OOPS!!! Please enter event as follows:\n" +
                         "add/e modCode name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
                         "For example: add/e CS1231 project meeting /at 1/1/2020 /from 1500 /to 1700");
             }
         }else {
-            throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeInvalidCommandException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 

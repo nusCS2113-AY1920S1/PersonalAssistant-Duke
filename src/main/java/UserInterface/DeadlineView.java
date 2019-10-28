@@ -1,4 +1,4 @@
-package JavaFx;
+package UserInterface;
 
 public class DeadlineView {
     private String date;

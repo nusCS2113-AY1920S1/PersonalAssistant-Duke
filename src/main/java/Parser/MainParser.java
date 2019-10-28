@@ -1,10 +1,16 @@
 package Parser;
-import Commands.ByeCommand;
 import Commands.Command;
 import Commands.FilterCommand;
+import Commands.ShowPreviousCommand;
 import Commands.HelpCommand;
+import Commands.RetrievePreviousCommand;
+import Commands.ByeCommand;
 import DukeExceptions.DukeException;
+import DukeExceptions.DukeInvalidCommandException;
 
+/**
+ * This class distinguishes the main command and calls for methods with respect to the main command.
+ */
 public class MainParser {
     public static Command parse(String fullCommand) throws Exception {
         String [] stringSplit = fullCommand.split(" ");
@@ -12,21 +18,21 @@ public class MainParser {
         switch (command) {
             case "add/e":
             case "add/d":
-                return new AddParse(fullCommand).execute();
+                return new AddParse(fullCommand).parse();
 
             case "delete/e":
             case "delete/d":
-                return new DeleteParse(fullCommand).execute();
+                return new DeleteParse(fullCommand).parse();
 
             case "recur/e":
-                return new RecurParse(fullCommand).execute();
+                return new RecurParse(fullCommand).parse();
 
             case "remind/set":
             case "remind/rm":
-                return new RemindParse(fullCommand).execute();
+                return new RemindParse(fullCommand).parse();
 
             case "/show":
-                return new WorkloadParse(fullCommand).execute();
+                return new WorkloadParse(fullCommand).parse();
 
             case "filter":
                 return new FilterCommand(fullCommand);
@@ -39,13 +45,19 @@ public class MainParser {
                 return  null;
 
             case "Find":
-                return new FindFreeTimesParse(fullCommand).execute();
+                return new FindFreeTimesParse(fullCommand).parse();
+
+            case "show previous":
+                return new ShowPreviousCommand(fullCommand);
+
+            case "retrieve previous":
+                return new RetrievePreviousCommand(fullCommand);
 
             case "bye":
                 return new ByeCommand();
 
             default:
-                throw new DukeException("Invalid input");
+                throw new DukeInvalidCommandException("Invalid input. Please type help to see all commands");
         }
     }
 }
