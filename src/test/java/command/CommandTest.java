@@ -18,6 +18,9 @@ import java.io.UnsupportedEncodingException;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Positive tests on general functions.
+ */
 
 public class CommandTest {
     public String filename;
@@ -77,6 +80,50 @@ public class CommandTest {
     }
 
     /**
+     * test execute() in EditCommand.java
+     */
+    @Test
+    public void testEditCommand() {
+        try {
+            EditCommand editCommand = new EditCommand("kiwi", "a kind of bird");
+            String edit = editCommand.execute(ui, bank, storage);
+            assertNotEquals(edit, "Got it. I've edited this word:\n" + "kiwi: a kind of bird\n");
+        } catch (Exception e) {
+            fail("execute() in EditCommand failed: " + e.getMessage());
+        }
+    }
+
+    /**
+     * test execute() in HistoryCommand.java
+     */
+    @Test
+    public void testHistoryCommand() {
+        try {
+            HistoryCommand historyCommand = new HistoryCommand(2);
+            String history = historyCommand.execute(ui, bank, storage);
+            assertNotEquals(history,
+                    "Here are the last 2 words you have added:\nkiwi: green fruit\nbanana: yellow fruit");
+        } catch (Exception e) {
+            fail("execute() in HistoryCommand failed: " + e.getMessage());
+        }
+    }
+
+    /**
+     * test execute() in ListCommand.java
+     */
+    @Test
+    public void testListCommand() {
+        try {
+            ListCommand listCommand = new ListCommand("asc");
+            String list = listCommand.execute(ui, bank, storage);
+            Assertions.assertNotEquals(list,
+                    "apple: red fruit\nbanana: yellow fruit\nkiwi: green fruit\norange: orange: fruit\n");
+        } catch (Exception e) {
+            fail("execute() in HistoryCommand failed: " + e.getMessage());
+        }
+    }
+
+    /**
      * test generateQuiz() in QuizCommand.java
      */
     @Test
@@ -88,6 +135,20 @@ public class CommandTest {
                     || (quiz.equals("banana: yellow fruit")) || (quiz.equals("kiwi: green fruit")));
         } catch (Exception e) {
             fail("generateQuiz failed: " + e.getMessage());
+        }
+    }
+
+    /**
+     * test execute() in SearchCommand.java
+     */
+    @Test
+    public void testSearchCommand() {
+        try {
+            SearchCommand searchCommand = new SearchCommand("banana");
+            String search = searchCommand.execute(ui, bank, storage);
+            Assertions.assertNotEquals(search, "Here is the meaning of banana: yellow fruit\n");
+        } catch (Exception e) {
+            fail("execute() in SearchCommand failed: " + e.getMessage());
         }
     }
 
