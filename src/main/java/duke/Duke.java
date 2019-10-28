@@ -66,8 +66,10 @@ public class Duke {
     /**
      * The execution core of the Duke class.
      */
+
     public void run() {
         String fullCommand;
+        ui.clearScreen();
         ui.showWelcome();
         if (fridge.hasExpiredIngredients()) {
             ui.showHasExpiring();
@@ -79,11 +81,16 @@ public class Duke {
         }
         //ui.showOptions();
         ui.showLine();
+
         boolean isExit = false;
         boolean back = false;
         while (!isExit) {
             try {
+
                 ui.showOptions();
+
+                String fullCommand = ui.readCommand();
+                ui.clearScreen();
                 ui.showLine();
                 fullCommand = ui.readCommand();
                 ui.showLine();
@@ -162,7 +169,9 @@ public class Duke {
 
                 }
 
+
             } catch (DukeException | IOException e) {
+
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
@@ -173,7 +182,7 @@ public class Duke {
     /**
      * =============== MAIN FUNCTION ===============.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
         new Duke("data/tasks.txt").run();
     }
 }

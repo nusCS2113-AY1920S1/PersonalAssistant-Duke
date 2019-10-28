@@ -7,12 +7,10 @@ import duke.storage.Printable;
 import java.util.Date;
 
 public class Ingredient implements Printable {
-    private Integer Nb;
     private String name;
     private int amount;
     private Date expiryDate;
     private String dateAsString;
-
 
     public Ingredient(String name, Integer amount, Date expiryDate) throws DukeException       //beef 200 19/07/2019
     {
@@ -82,7 +80,8 @@ public class Ingredient implements Printable {
     public String printInFile() {
         return this.getName() + "|" + this.getAmount() + "|" + dateAsString;
     }
-    //private String pattern = "dd/MM/yyyy";
-    //private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-    //private String TodayDate = simpleDateFormat.format(today);
+
+    public String toString() {
+        return getName();
+    }
 }

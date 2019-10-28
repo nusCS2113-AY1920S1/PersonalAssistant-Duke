@@ -3,11 +3,16 @@ package duke.ingredient;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 
+
 import java.util.Comparator;
+
+
+
 import java.util.Date;
 import java.util.List;
 
 public class IngredientsList extends GenericList<Ingredient> {
+
     public IngredientsList(List<Ingredient> ingredientsList) {
         super(ingredientsList);
         sortByExpiryDate();
@@ -19,8 +24,8 @@ public class IngredientsList extends GenericList<Ingredient> {
 
     public void changeIngredientsDate(int Nb, Date date) throws DukeException {
         genList.get(Nb).changeDate(date);
-
     }
+
 
     @Override
     public void addEntry(Ingredient ingredient) {
@@ -41,6 +46,7 @@ public class IngredientsList extends GenericList<Ingredient> {
         return ingredient.getAmount() <= currAmount;
         // return getAllEntries().contains(ingredient);
     }
+
 
     public void changeName(int Nb, String name) {
         genList.get(Nb).setName(name);
@@ -107,4 +113,3 @@ public class IngredientsList extends GenericList<Ingredient> {
         return true;
     }
 }
-

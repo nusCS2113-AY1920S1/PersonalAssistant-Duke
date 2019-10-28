@@ -1,10 +1,17 @@
 package duke.ui;
 
 import duke.Duke;
+
 import duke.ingredient.Ingredient;
 import duke.ingredient.IngredientsList;
 
 import java.util.Calendar;
+
+import duke.dish.Dish;
+
+
+import java.io.IOException;
+
 import java.util.Scanner;
 
 /**
@@ -243,9 +250,9 @@ public void showIngredientTemplate(){
         showOrderListSize(size);
     }
 
-    public void showAddedDishes(String dish, int Nb) {
+    public void showAddedDishes(String dish) {
         System.out.println("\t you have added the following dish: ");
-        System.out.println("\t " + dish + " \tamount: " + Nb);
+        System.out.println("\t " + dish);
     }
 
     public void showDishes(String Dish, int Nb) {
@@ -255,5 +262,19 @@ public void showIngredientTemplate(){
     public void showDeletedDIsh(String dish) {
         System.out.println("\t The following dish have been removed:");
         System.out.println("\t " + dish);
+    }
+
+    public void showIngredients(Ingredient ingredient, Dish dish) {
+        System.out.println("\t ingredient: " + ingredient.toString()
+                + "\n\t added to: " + dish.getDishname());
+    }
+
+    /**
+     * everytime this method is executed, it clears the console screen
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public void clearScreen() throws IOException, InterruptedException {
+        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
     }
 }

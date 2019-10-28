@@ -1,5 +1,6 @@
 package duke.parser;
 
+
 import duke.Duke;
 import duke.command.Cmd;
 import duke.command.ingredientCommand.AddCommand;
@@ -10,11 +11,25 @@ import duke.exception.DukeException;
 import duke.ingredient.Ingredient;
 import duke.order.Order;
 
+import duke.command.dishesCommand.*;
+import duke.command.ingredientCommand.*;
+import duke.command.orderCommand.*;
+import duke.command.dishesCommand.*;
+import duke.command.dishesCommand.InitCommand;
+
+import duke.exception.DukeException;
+import duke.command.orderCommand.*;
+import duke.ingredient.Ingredient;
+
+import duke.task.Deadline;
+import duke.task.DoWithinPeriodTasks;
+import duke.task.Event;
+import duke.task.Todo;
+
 import java.util.Date;
 
 /**
  * Represents a parser used to parse the input String from the user into a Duke understandable Command.
- * <p>
  * It should deals with making sense of the user command.
  */
 public class Parser {
@@ -136,7 +151,54 @@ public class Parser {
                     throw new DukeException("not a valid type");
             }
 
-    }
+
+//     public static Cmd Parse(String fullCommand) throws DukeException {
+//         //splitted contains the keyword and the rest (description or task number)
+//         String[] splitted = fullCommand.split(" ", 2);
+//         int orderNb;
+//         //switching on the keyword
+//         switch (splitted[0]) {
+//             //RecipeCommand
+//             case "dishadd":
+//                 return new AddDishCommand(new Dish(splitted[1]));
+//             case "dishlist":
+//                 return new ListDishCommand();
+//             case "dishdelete" :
+//                 orderNb = Integer.parseInt(splitted[1]);
+//                 return new DeleteDishCommand(orderNb);
+//             case "dishingr" :
+//                 String[] getIng = splitAndCheck(splitted[1], " /add ");
+//                 int listNum = Integer.parseInt(getIng[1]);
+//                 return new AddIngredient(new Ingredient(getIng[0], listNum, new Date()) , listNum);
+//             case "dishinit" :
+//                 return new InitCommand();
+//             // OrderCommand
+//             case "orderAdd":
+//                 return new AddOrderCommand(new Order(), splitted[1]);
+//             case "orderList":
+//                 // splitted[1] can be orderList all, orderList undone,
+//                 //                    orderList today, orderList undoneToday,
+//                 //                    orderList date xxxx/xx/xx,
+//                 //                    orderList dish dishname
+//                 checkLength(splitted);
+//                 return new ListOrderCommand(splitted[1]);
+//             case "orderDone":
+//                 checkLength(splitted);
+//                 orderNb = Integer.parseInt(splitted[1]);
+//                 return new DoneOrderCommand(orderNb);
+//             case "orderDelete":
+//                 orderNb = Integer.parseInt(splitted[1]);
+//                 return new DeleteOrderCommand(orderNb);
+//             case "orderAlterDate":
+//                 checkLength(splitted);
+//                 String[] getDate = splitAndCheck(splitted[1], " /to ");
+//                 // getDate[0] is the order index, getDate[1] is the newly set date
+//                 return new AlterDateCommand(Integer.parseInt(getDate[0]), getDate[1]);
+//             default:
+//                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
+//         }
+
+//     }
 //    public static Cmd parse(String fullCommand) throws DukeException {
 //        //splitted contains the keyword and the rest (description or task number)
 //        String[] splitted = fullCommand.split(" ", 2);
@@ -226,4 +288,3 @@ public class Parser {
         return x;
     }
 }
-

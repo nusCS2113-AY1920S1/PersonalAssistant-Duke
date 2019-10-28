@@ -1,28 +1,30 @@
 package duke.command.orderCommand;
 
 import duke.command.Cmd;
+import duke.dish.Dish;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
-import duke.order.OrderList;
 import duke.storage.Storage;
 import duke.ui.Ui;
+
+import java.util.Map;
 
 /**
  * Represents a specific {@link Cmd} used to alter the {@link Order} serving date.
  */
-public class AlterServingDateCmd extends Cmd<Order> {
+public class AlterDateCommand extends Cmd<Order> {
 
     private int orderNb;
     private String date;
 
     /**
-     * The constructor method for {@link AlterServingDateCmd}.
+     * The constructor method for {@link AlterDateCommand}.
      *
      * @param number order number
      * @param newDate new serving date of the {@link Order}
      */
-    public AlterServingDateCmd(int number, String newDate) {
+    public AlterDateCommand(int number, String newDate) {
         this.orderNb = number;
         this.date = newDate;
     }
@@ -33,7 +35,26 @@ public class AlterServingDateCmd extends Cmd<Order> {
             if (orderList.getEntry(orderNb).isDone()) {
                 throw new DukeException("Order done already. No alteration is expected.");
             }
-            ((OrderList)orderList).changeOrderDate(orderNb, date);
+            Order order = orderList.getEntry(orderNb);
+            order.setDate(date);
+
+            //Need update when the dish list updates
+            // if this is today's order, then need to update to do list(menu)
+            if (order.isToday()) {
+                // Need to update after menu is created
+                Dish dish;
+                int amount;
+                for (Map.Entry<Dish, Integer> entry : order.getOrderContent().entrySet()) {
+                    dish = entry.getKey();
+                    amount = entry.getValue();
+                    int dishIndex;
+                    for (int i=0; i<amount ;i++) {
+                        //decrement dish amount from the menu
+                        //new AddDishCommand(dishIndex)
+                    }
+                }
+            }
+
             ui.showOrderChangedDate(date,orderList.getEntry(orderNb).toString());
             storage.changeContent(orderNb);
         } else {

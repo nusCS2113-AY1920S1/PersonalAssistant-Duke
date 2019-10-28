@@ -96,5 +96,4 @@ public abstract class GenericList<T> {
     public void clearList() {
         genList.clear();
     }
-
 }
