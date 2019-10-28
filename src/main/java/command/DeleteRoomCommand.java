@@ -14,6 +14,12 @@ public class DeleteRoomCommand extends Command {
     private int index;
     private Room deletedRoom;
 
+    /**
+     * Deletes a room from the room list based on index (1-based).
+     * @param input user input
+     * @param splitStr tokenized user input
+     * @throws DukeException if no index is entered or index is not an integer
+     */
     public DeleteRoomCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length <= 1) {
             throw new DukeException("OOPS!!! Please add the index for the room you want to delete.");
@@ -26,6 +32,16 @@ public class DeleteRoomCommand extends Command {
         }
     }
 
+    /**
+     * Executes the command to delete a room from room list to the system.
+     * @param roomList
+     * @param bookingList bookings list
+     * @param ui user interface
+     * @param bookingStorage handles read write of text file
+     * @param roomStorage
+     * @param user Current user
+     * @throws DukeException
+     */
     @Override
     public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingStorage,
                         Storage roomStorage, User user) throws DukeException {
