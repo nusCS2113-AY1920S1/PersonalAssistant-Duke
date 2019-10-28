@@ -92,7 +92,7 @@ class RecurringExpenditureListTest {
     void deleteRecurringExpenditure_successfulDelete_recurringExpenditureDeleted() {
         RecurringExpenditureList testList = new RecurringExpenditureList();
         Ui testUi = new Ui();
-        Date newDate = new Date("10/26/2019");;
+        Date newDate = new Date("10/26/2019");
         Transaction testExpenditure = new Expenditure("test", 1, newDate, "test");
         try {
             testList.addRecurringExpenditure(testExpenditure, testUi);

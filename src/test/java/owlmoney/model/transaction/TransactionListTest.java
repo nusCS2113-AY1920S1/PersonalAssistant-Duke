@@ -160,7 +160,6 @@ class TransactionListTest {
     @Test
     void getDepositValue_noDeposits_throwsException() {
         TransactionList testList = new TransactionList();
-        Ui testUi = new Ui();
         TransactionException thrown = assertThrows(TransactionException.class, () ->
                         testList.getDepositValue(1),
                 "Expected deleteDepositFromList to throw, but it didn't");
@@ -258,7 +257,7 @@ class TransactionListTest {
     void deleteDeposit_successfulDelete_expenditureDeleted() {
         TransactionList testList = new TransactionList();
         Ui testUi = new Ui();
-        Date newDate = new Date("10/26/2019");;
+        Date newDate = new Date("10/26/2019");
         Transaction testDeposit = new Deposit("test", 1, newDate, "test");
         testList.addDepositToList(testDeposit, testUi, "bank");
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
