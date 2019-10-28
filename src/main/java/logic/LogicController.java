@@ -26,10 +26,13 @@ public class LogicController {
      * Runs the necessary command.
      * */
     public CommandOutput execute(String fullCommand) throws DukeException {
-        CommandOutput commandResult;
-        Command command = NewParser.parseCommand(fullCommand);
-        commandResult = command.execute(model);
-        return commandResult;
+        try {
+            CommandOutput commandResult;
+            Command command = NewParser.parseCommand(fullCommand);
+            commandResult = command.execute(model);
+            return commandResult;
+        } catch (DukeException e) {
+            throw e;
+        }
     }
-
 }

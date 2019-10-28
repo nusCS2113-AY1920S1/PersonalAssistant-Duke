@@ -9,7 +9,7 @@ public class ArgumentTokenizer {
 
     public static HashMap<String, String> tokenize(String userInput) {
         ArrayList<Integer> breakpoints = getSortedBreakpoints(userInput);
-        String[] argumentStrings = breakByBreakpoins(userInput, breakpoints);
+        String[] argumentStrings = breakByBreakpoints(userInput, breakpoints);
         HashMap<String, String> arguments = getMultimap(argumentStrings);
         return arguments;
     }
@@ -30,13 +30,17 @@ public class ArgumentTokenizer {
         return breakpoints;
     }
 
-    public static String[] breakByBreakpoins(String s, ArrayList<Integer> breakpoints) {
-        String[] splites = new String[breakpoints.size() + 1];
-        breakpoints.add(0, 0);
-        for (int i = 0; i < breakpoints.size(); i++) {
-            splites[i] = s.substring(breakpoints.get(i), breakpoints.get(i + 1));
+    public static String[] breakByBreakpoints(String s, ArrayList<Integer> breakpoints) {
+        if (breakpoints.size() == 0) {
+            return new String[]{s};
         }
-        return splites;
+        String[] splits = new String[breakpoints.size() + 1];
+        breakpoints.add(0, 0);
+        for (int i = 0; i < breakpoints.size() - 1; i++) {
+            splits[i] = s.substring(breakpoints.get(i), breakpoints.get(i + 1));
+        }
+        splits[splits.length - 1] = s.substring(breakpoints.get(breakpoints.size() - 1));
+        return splits;
     }
 
     public static HashMap<String, String> getMultimap(String[] argumentStrings) {

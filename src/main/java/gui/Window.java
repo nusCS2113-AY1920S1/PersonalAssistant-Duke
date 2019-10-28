@@ -148,7 +148,7 @@ public class Window {
                 executeCommand(inputField.getText());
                 } catch (DukeException error){
                     //TODO Error handling not done
-                    setOutputArea(error.toString());
+                    setOutputArea(error.getMessage());
                 }
                 im.addToHistory(inputField.getText());
                 inputField.setText("");
