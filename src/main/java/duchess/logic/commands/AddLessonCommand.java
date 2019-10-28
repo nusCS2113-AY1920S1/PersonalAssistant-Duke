@@ -72,25 +72,33 @@ public class AddLessonCommand extends Command {
 
             // Find the corresponding week for the semester.
             int currentWeek = academicYear.getWeekAsInt(compareDate, startDate);
+            int prevTaskListSize = store.getTaskList().size();
 
             for (int i = currentWeek; i <= studyWeeks; i++) {
                 if (academicYear.isSemesterBreak(i) == false) {
                     // Add classes similar to add events.
-                    addLessons(store, ui, storage);
-
+                    addLessons(store, storage);
                     // Both startCopy and endCopy dates MUST BE INCREMENTED to next week.
                     startCopy = startCopy.plusWeeks(1);
                     endCopy = endCopy.plusWeeks(1);
                 }
             }
+
+            int currTaskListSize = store.getTaskList().size();
+
+            if (currTaskListSize > prevTaskListSize) {
+                ui.showLessonsAdded(moduleCode);
+            } else {
+                ui.showNoLessonsAdded(moduleCode);
+            }
         }
     }
 
-    private void addLessons(Store store, Ui ui, Storage storage) throws DuchessException {
+    private void addLessons(Store store, Storage storage) throws DuchessException {
         Event task = new Event(description, endCopy, startCopy);
+
         if (!store.isClashing(task)) {
             store.getTaskList().add(task);
-            ui.showTaskAdded(store.getTaskList(), task);
             store.setDuchessCalendar(CalendarManager.addEntry(store.getDuchessCalendar(), task));
             storage.save(store);
         }

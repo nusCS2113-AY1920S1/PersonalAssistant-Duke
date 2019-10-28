@@ -443,12 +443,40 @@ public class Ui {
         printIndented("You've deleted " + module + ".");
     }
 
+    /**
+     * Displays a message stating lessons of a module have been deleted.
+     *
+     * @param moduleCode module code of required module
+     */
     public void showDeletedLesson(String moduleCode) {
         printIndented("You have deleted lessons for " + moduleCode + ".");
     }
 
+    /**
+     * Displays a message when no lessons are deleted for a module.
+     *
+     * @param moduleCode module code of required module
+     */
     public void showNoDeletedLesson(String moduleCode) {
         printIndented("There are no lessons to be deleted for " + moduleCode + ".");
+    }
+
+    /**
+     * Displays a message when lessons are added for a module.
+     *
+     * @param moduleCode module code of required module
+     */
+    public void showLessonsAdded(String moduleCode) {
+        printIndented("Lessons have been added for " + moduleCode + ".");
+    }
+
+    /**
+     * Displays a message when lessons are not added for a module.
+     *
+     * @param moduleCode module code of required module
+     */
+    public void showNoLessonsAdded(String moduleCode) {
+        printIndented("Lessons have not been added for " + moduleCode + ".");
     }
 
     /**

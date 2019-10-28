@@ -17,7 +17,6 @@ import duchess.logic.commands.ViewScheduleCommand;
 import duchess.parser.Parser;
 import duchess.parser.Util;
 import duchess.parser.commands.DeleteCommandParser;
-import duchess.parser.commands.DeleteLessonCommandParser;
 import duchess.parser.commands.LessonCommandParser;
 import duchess.parser.commands.ListCommandParser;
 import duchess.parser.states.add.AddState;
@@ -56,8 +55,6 @@ public class DefaultState extends ParserState {
             return new FindCommand(arguments);
         } else if ("delete".equals(keyword)) {
             return DeleteCommandParser.parse(parameters);
-        } else if ("ldelete".equals(keyword)) {
-            return DeleteLessonCommandParser.parse(parameters);
         } else if ("done".equals(keyword)) {
             try {
                 return new DoneCommand(Integer.parseInt(arguments.get(0)) - 1);
