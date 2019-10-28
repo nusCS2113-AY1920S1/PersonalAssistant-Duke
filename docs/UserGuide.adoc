@@ -93,7 +93,16 @@ Format: +
 These commands can be used in the modes `*entry*`, `*limit*`, `*debt*` and `*shortcut*`.
 
 Common Commands Available: +
-`*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+`*page*` `*remove*` `*search description*` `*search date*` `*search name*` `*search duration*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+
+=== Show the list of logs of each mode
+
+You can check the list of logs added for the mode that you are currently in.
+
+Format: +
+`*entries*` `*debts*` `*limits*` `*shortcuts*`
+
+*NOTE*: You have to enter that mode first before checking the list of logs.
 
 ==== Change the page of the list: `page`
 
