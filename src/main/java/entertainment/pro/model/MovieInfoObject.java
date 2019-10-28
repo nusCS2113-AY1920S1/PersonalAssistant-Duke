@@ -16,14 +16,14 @@ public class MovieInfoObject extends MovieModel {
     private String backdropPathInfo;
     private String fullBackdropPathInfo;
     private double ratingInfo;
-    private ArrayList<Long> genreIDInfo;
-    private boolean isadultContent;
+    private ArrayList<Long> genreIdInfo;
+    private boolean isAdultContent;
     private String certInfo;
     private ArrayList<String> castInfo;
 
 
     /**
-     *
+     * constructor.
      * @param id the id of the movie/TV show stored in the MovieDB API.
      * @param title the title of the movie or TV show stored in the MovieDB API.
      * @param isMovie whether the objeect stored is a movie or TV show.
@@ -32,14 +32,15 @@ public class MovieInfoObject extends MovieModel {
      * @param posterPathInfo the file path of the poster.
      * @param backdropPathInfo the file path of the backdrop poster.
      * @param ratingInfo the rating of the movie or TV show.
-     * @param genreIDInfo the list of genres pertaining to the movie or TV show.
-     * @param isadultContent whether the movie or TV show contains adult content.
+     * @param genreIdInfo the list of genres pertaining to the movie or TV show.
+     * @param isAdultContent whether the movie or TV show contains adult content.
      * @param certInfo the certification obtained by the movie or TV show.
      * @param castInfo the list of cast pertaining to the movie or TV show.
      */
     public MovieInfoObject(long id, String title, boolean isMovie, Date releaseDateInfo, String summaryInfo,
-                           String posterPathInfo, String backdropPathInfo, double ratingInfo, ArrayList<Long> genreIDInfo,
-                           boolean isadultContent, String certInfo, ArrayList<String> castInfo) {
+                           String posterPathInfo, String backdropPathInfo, double ratingInfo,
+                           ArrayList<Long> genreIdInfo, boolean isAdultContent, String certInfo,
+                           ArrayList<String> castInfo) {
         super(id, title);
         this.isMovie = isMovie;
         this.releaseDateInfo = releaseDateInfo;
@@ -49,8 +50,8 @@ public class MovieInfoObject extends MovieModel {
         this.backdropPathInfo = backdropPathInfo;
         this.fullBackdropPathInfo = fullBackdropPathInfo;
         this.ratingInfo = ratingInfo;
-        this.genreIDInfo = genreIDInfo;
-        this.isadultContent = isadultContent;
+        this.genreIdInfo = genreIdInfo;
+        this.isAdultContent = isAdultContent;
         this.certInfo = certInfo;
         this.castInfo = castInfo;
     }
@@ -63,11 +64,11 @@ public class MovieInfoObject extends MovieModel {
     public MovieInfoObject(long id, String title, boolean isMovie) {
         super(id, title);
         isMovie = false;
-        this.isadultContent = true;
+        this.isAdultContent = true;
     }
 
     /**
-     *
+     * constructor.
      * @param id the id of the movie/TV show stored in the MovieDB API.
      * @param title the title of the movie or TV show stored in the MovieDB API.
      * @param isMovie whether the objeect stored is a movie or TV show.
@@ -76,12 +77,12 @@ public class MovieInfoObject extends MovieModel {
      * @param posterPathInfo the file path of the poster.
      * @param backdropPathInfo the file path of the backdrop poster.
      * @param ratingInfo the rating of the movie or TV show.
-     * @param genreIDInfo the list of genres pertaining to the movie or TV show.
-     * @param isadultContent whether the movie or TV show contains adult content.
+     * @param genreIdInfo the list of genres pertaining to the movie or TV show.
+     * @param isAdultContent whether the movie or TV show contains adult content.
      */
     public MovieInfoObject(long id, String title, boolean isMovie, Date releaseDateInfo, String summaryInfo,
-                           String posterPathInfo, String backdropPathInfo, double ratingInfo, ArrayList<Long> genreIDInfo,
-                           boolean isadultContent) {
+                           String posterPathInfo, String backdropPathInfo, double ratingInfo,
+                           ArrayList<Long> genreIdInfo, boolean isAdultContent) {
         super(id, title);
         this.isMovie = isMovie;
         this.releaseDateInfo = releaseDateInfo;
@@ -91,8 +92,8 @@ public class MovieInfoObject extends MovieModel {
         this.backdropPathInfo = backdropPathInfo;
         this.fullBackdropPathInfo = fullBackdropPathInfo;
         this.ratingInfo = ratingInfo;
-        this.genreIDInfo = genreIDInfo;
-        this.isadultContent = isadultContent;
+        this.genreIdInfo = genreIdInfo;
+        this.isAdultContent = isAdultContent;
     }
 
     /**
@@ -152,7 +153,7 @@ public class MovieInfoObject extends MovieModel {
     }
 
     /**
-     * Repsonsible for setting the poster path of the object
+     * Repsonsible for setting the poster path of the object.
      * @param fullPosterPathInfo the poster path of the movie/TV show.
      */
     public void setFullPosterPathInfo(String fullPosterPathInfo) {
@@ -168,7 +169,7 @@ public class MovieInfoObject extends MovieModel {
     }
 
     /**
-     * Repsonsible for setting the backdrop poster path of the object
+     * Repsonsible for setting the backdrop poster path of the object.
      * @param fullBackdropPathInfo the backdrop poster path of the movie/TV show.
      */
     public void setFullBackdropPathInfo(String fullBackdropPathInfo) {
@@ -195,32 +196,32 @@ public class MovieInfoObject extends MovieModel {
      * Responsible for returning the genre IDs pertaining to the movie/TV show.
      * @return the genre IDs pertaining to the movie/TV show.
      */
-    public ArrayList<Long> getGenreIDInfo() {
-        return genreIDInfo;
+    public ArrayList<Long> getGenreIdInfo() {
+        return genreIdInfo;
     }
 
     /**
      * Responsible for setting the genre IDs pertaining to the movie/TV show.
-     * @param genreIDInfo the genre IDs pertaining to the movie/TV show.
+     * @param genreIdInfo the genre IDs pertaining to the movie/TV show.
      */
-    public void setGenreIDInfo(ArrayList<Long> genreIDInfo) {
-        this.genreIDInfo = genreIDInfo;
+    public void setGenreIdInfo(ArrayList<Long> genreIdInfo) {
+        this.genreIdInfo = genreIdInfo;
     }
 
     /**
      * Responsible for returning whether the object contains adult content or not.
      * @return true if contains adult content and false otherwise.
      */
-    public boolean isIsadultContent() {
-        return isadultContent;
+    public boolean isAdultContent() {
+        return isAdultContent;
     }
 
     /**
      * Responsible for setting whether the object contains adult content or not.
-     * @param isadultContent true if contains adult content and false otherwise.
+     * @param adultContent true if contains adult content and false otherwise.
      */
-    public void setIsadultContent(boolean isadultContent) {
-        this.isadultContent = isadultContent;
+    public void setAdultContent(boolean adultContent) {
+        this.isAdultContent = adultContent;
     }
 
     /**
@@ -260,10 +261,16 @@ public class MovieInfoObject extends MovieModel {
      * @param rootPath The root path for the poster images.
      * @param posterSize A string representing the size variant of the posters to download
      */
-    public void setPosterRootPath(String rootPath, String posterSize)
-    {
+    public void setPosterRootPath(String rootPath, String posterSize) {
         fullPosterPathInfo = String.format("%s%s%s", rootPath, posterSize, posterPathInfo);
         fullBackdropPathInfo = String.format("%s%s%s", rootPath, posterSize, backdropPathInfo);
     }
 
+    public long getId() {
+        return super.getId();
+    }
+
+    public String getMovieTitle() {
+        return super.getTitle();
+    }
 }

@@ -10,6 +10,7 @@ public class MovieModel {
     private String title;
 
     /**
+     * construction for moviemodel.
      * @param id the id of the movie/TV show stored in the MovieDB API.
      * @param title the title of the movie or TV show stored in the MovieDB API.
      */
