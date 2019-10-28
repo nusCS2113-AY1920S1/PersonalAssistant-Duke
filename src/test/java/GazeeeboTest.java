@@ -15,12 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class GazeeeboTest {
 
     @Test
-    public void test() {
+    public void test() throws IOException {
         DeadlineCommand deadlineCommand = new DeadlineCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
         Ui ui = new Ui();
         Storage storage = new Storage();
-        TriviaManager triviaManager = new TriviaManager();
+        TriviaManager triviaManager = new TriviaManager(storage);
         Stack<String> commandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<>();
         try {
