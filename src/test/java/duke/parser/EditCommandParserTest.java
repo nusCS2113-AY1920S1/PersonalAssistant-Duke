@@ -1,7 +1,7 @@
-package duke.extensions;
+package duke.parser;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PomodoroTest {
+class EditCommandParserTest {
 
 }

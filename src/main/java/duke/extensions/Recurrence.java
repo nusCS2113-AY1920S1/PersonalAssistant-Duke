@@ -50,7 +50,6 @@ public class Recurrence {
                     lastUpdatedDate = LocalDateTime.now();
                     return true;
                 } else {
-                    System.out.println("not time to reset");
                     return false;
                 }
             case WEEKLY:

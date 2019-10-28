@@ -47,7 +47,7 @@ public class Storage {
 						.registerSubtype(Task.class)
 						.registerSubtype(Event.class))
 				.create();
-		JsonReader reader = new JsonReader(new FileReader("data/duke.json"));
+		JsonReader reader = new JsonReader(new FileReader("filePath"));
 		Type type = new TypeToken<ArrayList<Task>>() {}.getType();
 		ArrayList<Task> tasks = gson.fromJson(reader, type);
 		return tasks;
@@ -60,7 +60,7 @@ public class Storage {
 	 * @throws IOException in case of IOException then the error in failure of saving should be shown to user
 	 */
 	public void save(TaskList tasks) throws IOException {
-		FileWriter writer = new FileWriter("data/duke.json");
+		FileWriter writer = new FileWriter(filePath);
 		ArrayList<Task> list= tasks.getList();
 		Gson gson = new GsonBuilder()
 				.registerTypeAdapterFactory(RuntimeTypeAdapterFactory
