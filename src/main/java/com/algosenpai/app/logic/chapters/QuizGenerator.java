@@ -14,16 +14,18 @@ public class QuizGenerator {
      */
 
     public ArrayList<QuestionModel> generateQuiz(int selectedChapters, ArrayList<QuestionModel> questionList) {
-        questionList = new ArrayList<QuestionModel>();
+        questionList = new ArrayList<>();
 
         if (selectedChapters == 0) {
             for (int i = 0; i < 10; i++) {
                 questionList.add(ChapterSorting.generateQuestions());
             }
-        } else {
+        } else if (selectedChapters == 2) {
             for (int i = 0; i < 10; i++) {
-                questionList.add(ChapterSorting.generateQuestions());
+                questionList.add(ChapterLinkedList.generateQuestions());
             }
+        } else if (selectedChapters == 3) {
+            questionList.add(ChapterBitmask.generateQuestions());
         }
         return questionList;
     }

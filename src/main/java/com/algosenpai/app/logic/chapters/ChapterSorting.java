@@ -7,13 +7,11 @@ import com.algosenpai.app.logic.models.ReviewTracingModel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.HashSet;
 
-public class ChapterSorting {
+class ChapterSorting {
 
     private static Random random = new Random();
-    private static Scanner s = new Scanner(System.in);
 
     /**
      * Generates the question by using a random number to determine which of the
@@ -22,8 +20,8 @@ public class ChapterSorting {
      * @return A question class that contains the question and expected answer.
      */
 
-    public static QuestionModel generateQuestions() {
-        int questionType = random.nextInt(3);
+    static QuestionModel generateQuestions() {
+        int questionType = getRandomNumber(0, 4);
         switch (questionType) {
         case 0:
             return bubbleSortPassesQuestion();
@@ -47,20 +45,17 @@ public class ChapterSorting {
      * @return the question class with the question.
      */
     private static QuestionModel selectionSortSwapsQuestion() {
-        int arraySize = random.nextInt(4) + 5;
+        //Generates a size to be used for the array between 4 and 8.
+        int arraySize = getRandomNumber(5,4);
+        //Populates the array with integers
         ArrayList<Integer> initialArray = new ArrayList<>(generateArray(arraySize));
-        int swaps = random.nextInt(arraySize - 5) + 1;
-        String question = "An array of " + arraySize + " elements underwent the following Selection Sort Algorithm : "
-                + initialArray + "\n";
-        question += "What would be the new configuration of the elements after " + swaps + " swaps?\n";
-        question += "int i, j, min_idx;\n" + "   for (i = 0; i < n-1; i++) {\n" + "       min_idx = i;\n"
-                + "       for (j = i+1; j < n; j++) {\n" + "           if (arr[j] < arr[min_idx]) {\n"
-                + "               min_idx = j;\n" + "       }\n" + "       }\n" + "   if (min_idx != i) {"
-                + "       swap(arr[min_idx], arr[i]);\n" + "   }" + "}\n";
+        //Determine the number of swaps to be performed.
+        int swaps = getRandomNumber(1,arraySize - 5);
+        //Generates the question from the variables provided.
+        String question = selectionSortSwapsQuestionGenerator(arraySize, initialArray, swaps);
         ReviewTracingListModel rtlm = new ReviewTracingListModel();
         selectionSort(initialArray, swaps, rtlm);
-        QuestionModel newQuestion = new QuestionModel(question, initialArray.toString(), rtlm);
-        return newQuestion;
+        return new QuestionModel(question, initialArray.toString(), rtlm);
     }
 
     /**
@@ -72,19 +67,17 @@ public class ChapterSorting {
      * @return the question class with the question.
      */
     private static QuestionModel insertionSortSwapsQuestion() {
-        int arraySize = random.nextInt(4) + 5;
+        //Generates a size to be used for the array between 4 and 8.
+        int arraySize = getRandomNumber(5,4);
+        //Populates the array with integers
         ArrayList<Integer> initialArray = new ArrayList<>(generateArray(arraySize));
-        int swaps = random.nextInt(arraySize - 2) + 1;
-        String question = "An array of " + arraySize + " elements underwent the following Insertion Sort Algorithm : "
-                + initialArray + "\n";
-        question += "What would be the new configuration of the elements after " + swaps + " swaps?\n\n";
-        question += "int i, key, j;\n" + "for (i = 1; i < n; i++) {\n" + "    key = arr[i];\n"
-                + "    j = i - 1;\n" + "    while (j >= 0 && arr[j] > key) {\n" + "        arr[j + 1] = arr[j];\n"
-                + "        j = j - 1;\n" + "    }\n" + "    arr[j + 1] = key;\n" + "} \n\n";
+        //Determine the number of swaps to be performed.
+        int swaps = getRandomNumber(1, arraySize - 2);
+        // Generates the question from the variables provided.
+        String question = insertionSortSwapQuestionGenerator(arraySize, initialArray, swaps);
         ReviewTracingListModel rtlm = new ReviewTracingListModel();
         insertionSort(initialArray, swaps, rtlm);
-        QuestionModel newQuestion = new QuestionModel(question, initialArray.toString(), rtlm);
-        return newQuestion;
+        return new QuestionModel(question, initialArray.toString(), rtlm);
     }
 
     /**
@@ -96,35 +89,19 @@ public class ChapterSorting {
      * @return the question class with the question.
      */
     private static QuestionModel quickSortPivotsQuestion() {
-        int arraySize = random.nextInt(6) + 6;
+        //Generates a size to be used for the array between 6 and 11.
+        int arraySize = getRandomNumber(6,6);
+        //Populates the array with integers.
         ArrayList<Integer> initialArray = new ArrayList<>(generateArray(arraySize));
+        //Converts to a static array.
         Integer[] arr = initialArray.toArray(new Integer[arraySize]);
         ArrayList<Integer[]> allSteps = new ArrayList<>();
         quickSort(arr, 0, arraySize - 1, allSteps);
-        int numberOfChoices = allSteps.size() - 1;
-        arr = allSteps.get(random.nextInt(numberOfChoices));
+        arr = allSteps.get(getRandomNumber(0, allSteps.size() - 1));
         initialArray = new ArrayList<>(Arrays.asList(arr));
-        String question = "An array of " + arraySize
-                + " elements underwent some passes of the Quick Sort Algorithm to become : " + initialArray + "\n";
-        question += "How many elements could possibly have been the pivot?\n\n";
-        int answer = 0;
-        for (int i = 0; i < arraySize; i++) {
-            Boolean canBePivot = true;
-            for (int j = 0; j < arraySize; j++) {
-                if (i == j) {
-                    continue;
-                }
-                if ((j < i && arr[j] > arr[i]) || (j > i && arr[j] < arr[i])) {
-                    canBePivot = false;
-                    break;
-                }
-            }
-            if (canBePivot) {
-                answer++;
-            }
-        }
-        QuestionModel newQuestion = new QuestionModel(question, Integer.toString(answer), new ReviewTracingListModel());
-        return newQuestion;
+        String question = quickSortPivotQuestionGenerator(arraySize, initialArray);
+        String answer = quickSortPivotAnswerGenerator(arraySize, arr);
+        return new QuestionModel(question, answer, new ReviewTracingListModel());
     }
 
     /**
@@ -136,19 +113,16 @@ public class ChapterSorting {
      * @return the question class with the question.
      */
     private static QuestionModel bubbleSortPassesQuestion() {
-        int arraySize = random.nextInt(7) + 3;
+        //Generates a size to be used for the array between 3 and 9.
+        int arraySize = getRandomNumber(3,7);
+        //Populates the array with integers.
         ArrayList<Integer> initialArray = new ArrayList<>(generateArray(arraySize));
-        int passes = random.nextInt(arraySize - 2) + 1;
-        String question = "An array of " + arraySize + " elements underwent the following Bubble Sort Algorithm : "
-                + initialArray + "\n";
-        question += "What would be the new configuration of the elements after " + passes + " passes?\n\n";
-        question += "for (int i = 0; i < passes; i++) {\n"
-                + "   for (int j = 0; j < arr.size - 1 - i; j ++) {\n" + "       if (arr[j] > arr[j + 1]) {\n"
-                + "            swap (arr[j], arr[j+1]);\n" + "       }\n" + "   }\n" + "}\n\n";
+        //Determines the number of passes.
+        int passes = getRandomNumber(1,arraySize - 2);
+        String question = bubbleSortPassesQuestionGenerator(arraySize, initialArray, passes);
         ReviewTracingListModel rtlm = new ReviewTracingListModel();
         bubbleSort(initialArray, passes, rtlm);
-        QuestionModel newQuestion = new QuestionModel(question, initialArray.toString(), rtlm);
-        return newQuestion;
+        return new QuestionModel(question, initialArray.toString(), rtlm);
     }
 
     /**
@@ -224,9 +198,8 @@ public class ChapterSorting {
                 rtlm.addReviewTracingModel(new ReviewTracingModel(j, j + 1, "c"));
                 if (first > second) {
                     rtlm.addReviewTracingModel(new ReviewTracingModel(j, j + 1, "s"));
-                    int temp = first;
                     arr.set(j, second);
-                    arr.set(j + 1, temp);
+                    arr.set(j + 1, first);
                 }
             }
         }
@@ -285,10 +258,114 @@ public class ChapterSorting {
     private static HashSet<Integer> generateArray(int arraySize) {
         HashSet<Integer> tempStorage = new HashSet<>();
         while (tempStorage.size() != arraySize) {
-            int value = random.nextInt(100);
+            int value = getRandomNumber(0,100);
             tempStorage.add(value);
         }
         return tempStorage;
+    }
+
+    /**
+     * Generates an integer.
+     * @param minimum The minimum value of the integer generated.
+     * @param bound Any value below this could be added to minimum.
+     * @return The integer which is randomly generated.
+     */
+    private static int getRandomNumber(int minimum, int bound) {
+        return random.nextInt(bound) + minimum;
+    }
+
+    /**
+     * Formats the question for the selectionSortSwapsQuestion.
+     * @param arraySize The size of the array.
+     * @param initialArray The arraylist to be shown to the user.
+     * @param swaps The number of swaps to be conducted.
+     * @return The string containing the formatted question.
+     */
+    private static String selectionSortSwapsQuestionGenerator(int arraySize, ArrayList<Integer> initialArray,
+                                                              int swaps) {
+        String question = "An array of " + arraySize + " elements underwent the following Selection Sort Algorithm : "
+                + initialArray + "\n";
+        question += "What would be the new configuration of the elements after " + swaps + " swaps?\n";
+        question += "int i, j, min_idx;\n" + "   for (i = 0; i < n-1; i++) {\n" + "       min_idx = i;\n"
+                + "       for (j = i+1; j < n; j++) {\n" + "           if (arr[j] < arr[min_idx]) {\n"
+                + "               min_idx = j;\n" + "       }\n" + "       }\n" + "   if (min_idx != i) {"
+                + "       swap(arr[min_idx], arr[i]);\n" + "   }" + "}\n";
+        return question;
+    }
+
+    /**
+     * Formats the question for the insertionSortSwapsQuestion.
+     * @param arraySize The size of the array.
+     * @param initialArray The arraylist to be shown to the user.
+     * @param swaps The number of swaps to be conducted.
+     * @return The string containing the formatted question.
+     */
+    private static String insertionSortSwapQuestionGenerator(int arraySize, ArrayList<Integer> initialArray,
+                                                             int swaps) {
+        String question = "An array of " + arraySize + " elements underwent the following Insertion Sort Algorithm : "
+                + initialArray + "\n";
+        question += "What would be the new configuration of the elements after " + swaps + " swaps?\n\n";
+        question += "int i, key, j;\n" + "for (i = 1; i < n; i++) {\n" + "    key = arr[i];\n"
+                + "    j = i - 1;\n" + "    while (j >= 0 && arr[j] > key) {\n" + "        arr[j + 1] = arr[j];\n"
+                + "        j = j - 1;\n" + "    }\n" + "    arr[j + 1] = key;\n" + "} \n\n";
+        return question;
+    }
+
+    /**
+     * Formats the question for the quickSortPivotQuestion.
+     * @param arraySize The size of the array.
+     * @param initialArray The arraylist to be shown to the user.
+     * @return The string containing the formatted question.
+     */
+    private static String quickSortPivotQuestionGenerator(int arraySize, ArrayList<Integer> initialArray) {
+        String question = "An array of " + arraySize
+                + " elements underwent some passes of the Quick Sort Algorithm to become : " + initialArray + "\n";
+        question += "How many elements could possibly have been the pivot?\n\n";
+        return question;
+    }
+
+    /**
+     * Calculates the answer for the quickSortPivotQuestion.
+     * @param arraySize The size of the array.
+     * @param arr The array in the question.
+     * @return The answer for the question in a String format.
+     */
+    private static String quickSortPivotAnswerGenerator(int arraySize, Integer[] arr) {
+        int answer = 0;
+        for (int i = 0; i < arraySize; i++) {
+            boolean canBePivot = true;
+            for (int j = 0; j < arraySize; j++) {
+                if (i == j) {
+                    continue;
+                }
+                if ((j < i && arr[j] > arr[i]) || (j > i && arr[j] < arr[i])) {
+                    canBePivot = false;
+                    break;
+                }
+            }
+            if (canBePivot) {
+                answer++;
+            }
+        }
+        return String.valueOf(answer);
+    }
+
+    /**
+     * Formats the question for the bubbleSortPassesQuestion.
+     * @param arraySize The size of the array.
+     * @param initialArray The arraylist to be shown to the user.
+     * @param passes The number of passes to be conducted.
+     * @return The string containing the formatted question.
+     */
+    private static String bubbleSortPassesQuestionGenerator(int arraySize, ArrayList<Integer> initialArray,
+                                                            int passes) {
+        String question = "An array of " + arraySize + " elements underwent the following Bubble Sort Algorithm : "
+                + initialArray + "\n";
+        question += "What would be the new configuration of the elements after " + passes + " passes?\n\n";
+        question += "for (int i = 0; i < passes; i++) {\n"
+                + "   for (int j = 0; j < arr.size - 1 - i; j ++) {\n" + "       if (arr[j] > arr[j + 1]) {\n"
+                + "            swap (arr[j], arr[j+1]);\n" + "       }\n" + "   }\n" + "}\n\n";
+        return question;
     }
 
 }
