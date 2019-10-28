@@ -16,6 +16,7 @@ import duke.commands.patient.ListPatientsCommand;
 import duke.commands.patient.UpdatePatientCommand;
 import duke.commands.task.AddTaskCommand;
 import duke.commands.task.DeleteTaskCommand;
+import duke.commands.task.FindTaskCommand;
 import duke.commands.task.ListTasksCommand;
 import duke.commands.task.UpdateTaskCommand;
 import duke.exceptions.DukeException;
@@ -106,6 +107,12 @@ public class CommandManager {
                 return new FindPatientCommand(parser.parseUserInput()[0]);
             } catch (Exception e) {
                 throw new DukeException("Please use the `find patient :#<patient id>` format.");
+            }
+        case "find task":
+            try {
+                return new FindTaskCommand(parser.parseUserInput()[0]);
+            } catch (Exception e) {
+                throw new DukeException("Please use the `find task :#<task id>` format.");
             }
         case "find assigned tasks":
             try {
