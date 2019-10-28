@@ -26,7 +26,7 @@ public abstract class Condition {
         return false;
     }
 
-    private static boolean validateBooleanCondition(String userInput) {
+    private static boolean isValidBooleanCondition(String userInput) {
         for (BooleanConditionType type : BooleanConditionType.values()) {
             if ((type.name()).toLowerCase().equals(userInput)) {
                 return true;
@@ -35,7 +35,7 @@ public abstract class Condition {
         return false;
     }
 
-    private static boolean validateValueCondition(String userInput) {
+    private static boolean isValidValueCondition(String userInput) {
         if (userInput.matches("(\\w)+(\\s)*(((less)(\\s)*(than)(\\s)*(or)(\\s)*(equals))|(less(\\s)*than)|((greater)(\\s)*(than)(\\s)*(or)(\\s)*(equals))|((greater)(\\s)*(than)))(\\s)+(\\d)+")) {
             String value = userInput.substring(0, userInput.indexOf(" "));
             for (ValueConditionType c : ValueConditionType.values()) {
@@ -47,8 +47,8 @@ public abstract class Condition {
         return false;
     }
 
-    public static boolean validateCondition(String userInput) {
-        return (validateBooleanCondition(userInput) || validateValueCondition(userInput));
+    public static boolean isValidCondition(String userInput) {
+        return (isValidBooleanCondition(userInput) || isValidValueCondition(userInput));
     }
 
     public static BooleanCondition toBooleanCondition (String userInput) {
@@ -83,9 +83,9 @@ public abstract class Condition {
     }
 
     public static Condition toCondition(String userInput) throws FarmioException {
-        if (validateBooleanCondition(userInput)) {
+        if (isValidBooleanCondition(userInput)) {
             return toBooleanCondition(userInput);
-        } else if (validateValueCondition(userInput)) {
+        } else if (isValidValueCondition(userInput)) {
             return toValueCondition(userInput);
         }
         throw new FarmioException("Failure Creating Condition!");
