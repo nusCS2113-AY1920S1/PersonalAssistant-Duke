@@ -1,10 +1,7 @@
 package chronologer.task;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.util.Callback;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

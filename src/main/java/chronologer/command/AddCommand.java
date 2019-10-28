@@ -77,12 +77,14 @@ public class AddCommand extends Command {
         case "deadline":
             task = new Deadline(taskFeatures, formattedStartDate);
             if (tasks.isClash(task)) {
+                UiTemporary.printOutput(ChronologerException.taskClash());
                 throw new ChronologerException(ChronologerException.taskClash());
             }
             break;
         case "event":
             task = new Event(taskFeatures, formattedStartDate, formattedEndDate);
             if (tasks.isClash(task)) {
+                UiTemporary.printOutput(ChronologerException.taskClash());
                 throw new ChronologerException(ChronologerException.taskClash());
             }
             break;
