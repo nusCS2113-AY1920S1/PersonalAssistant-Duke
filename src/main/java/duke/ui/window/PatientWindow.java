@@ -118,6 +118,11 @@ public class PatientWindow extends UiElement<Region> {
         });
     }
 
+    /**
+     * Retrieves list of UI cards in the Impression context.
+     *
+     * @return List of UI cards.
+     */
     public ObservableList<Node> getCardList() {
         // TODO: bug... Why size is 0?
         window.print("size get: " + cardList.size());

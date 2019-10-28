@@ -91,7 +91,8 @@ public class MainWindow extends UiElement<Stage> {
                 break;
             case PATIENT:
                 contextWindowHolder.getTabs().remove(patientTab);
-                patientTab = new Tab("Patient", new PatientWindow((Patient) uiContext.getObject(), commandWindow).getRoot());
+                patientTab = new Tab("Patient", new PatientWindow((Patient) uiContext.getObject(),
+                        commandWindow).getRoot());
                 contextWindowHolder.getTabs().add(1, patientTab);
                 contextWindowHolder.getSelectionModel().select(patientTab);
                 break;
