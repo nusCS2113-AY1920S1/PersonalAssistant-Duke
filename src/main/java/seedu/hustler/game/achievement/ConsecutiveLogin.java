@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 /**
  * Achievement which can be attained after user logs in consecutively.
- * There is 3 achievement level which depending on the number of consecutive login.
+ * There are 3 achievement levels which depend on the number of consecutive login.
  */
 public class ConsecutiveLogin extends Achievements {
     /**
@@ -91,7 +91,7 @@ public class ConsecutiveLogin extends Achievements {
      */
     public static Boolean checkLogin() {
         LocalDateTime currentTime = LocalDateTime.now();
-        long duration = Duration.between(storedDateTime,currentTime).toMinutes();
+        long duration = Duration.between(storedDateTime,currentTime).toDays();
         if (duration == 1) {
             consecutiveCheck = true;
         } else {
@@ -106,7 +106,7 @@ public class ConsecutiveLogin extends Achievements {
      */
     public static Boolean reset() {
         LocalDateTime currentTime = LocalDateTime.now();
-        long duration = Duration.between(storedDateTime,currentTime).toMinutes();
+        long duration = Duration.between(storedDateTime,currentTime).toDays();
         if (duration > 1) {
             return true;
         } else {

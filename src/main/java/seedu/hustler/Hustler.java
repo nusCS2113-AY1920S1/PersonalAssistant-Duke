@@ -39,7 +39,8 @@ public class Hustler extends Application {
 
 
     /**
-     *
+     * achievementList stores and manage all the achievements available in Hustler.
+     * Achievements can either be locked and unlocked.
      */
     public static AchievementList achievementList = new AchievementList();
 

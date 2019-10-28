@@ -18,11 +18,18 @@ public class AchievementList {
      */
     private ArrayList<Achievements> achievementList;
 
+    /**
+     *
+     */
     public AchievementList() {
         achievementList = new ArrayList<>();
         populate();
     }
 
+    /**
+     *
+     * @return
+     */
     private AchievementList populate() {
 
         this.achievementList.add(new DoneTask("Bronze"));
@@ -39,11 +46,21 @@ public class AchievementList {
         return this;
     }
 
+    /**
+     *
+     * @param lock
+     * @param index
+     * @param points
+     */
     public void updateStatus(Boolean lock, int index, int points) {
         achievementList.get(index).setLock(lock);
         achievementList.get(index).setPoints(points);
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Achievements> updateBusyBee() {
         for(int i = 0; i < this.achievementList.size(); i += 1) {
             if (this.achievementList.get(i).getDescription().equals("Busybee") && achievementList.get(i).getAchievementLevel().equals(addAchievementLevel) && achievementList.get(i).checkLock()) {
@@ -55,6 +72,10 @@ public class AchievementList {
         return achievementList;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Achievements> updateCompletionist() {
         for(int i = 0; i < achievementList.size(); i += 1) {
             if (achievementList.get(i).getDescription().equals("Completionist") && achievementList.get(i).getAchievementLevel().equals(doneAchievementLevel) && achievementList.get(i).checkLock()) {
@@ -66,6 +87,10 @@ public class AchievementList {
         return achievementList;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Achievements> updateDedicated() {
         for(int i = 0; i < achievementList.size(); i += 1) {
             if(achievementList.get(i).getDescription().equals("Dedicated to the art") && achievementList.get(i).getAchievementLevel().equals(loginAchievementLevel) && achievementList.get(i).checkLock()) {
@@ -77,18 +102,34 @@ public class AchievementList {
         return achievementList;
     }
 
+    /**
+     *
+     * @param achievements
+     */
     public void add(Achievements achievements) {
         achievementList.add(achievements);
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     */
     public Achievements get(int i) {
         return achievementList.get(i);
     }
 
+    /**
+     *
+     * @return
+     */
     public int size() {
         return achievementList.size();
     }
 
+    /**
+     *
+     */
     public void list() {
         System.out.println("\uD83D\uDD13 ACHIEVEMENTS UNLOCKED \uD83D\uDD13");
         if(!achievementList.isEmpty()) {
@@ -114,6 +155,10 @@ public class AchievementList {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Achievements> createCopy() {
         ArrayList<Achievements> copy = new ArrayList<>();
 	for (int i = 0; i < achievementList.size(); i += 1) {
