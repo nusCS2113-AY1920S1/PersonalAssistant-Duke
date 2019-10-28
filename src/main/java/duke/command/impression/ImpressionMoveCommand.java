@@ -3,8 +3,11 @@ package duke.command.impression;
 import duke.DukeCore;
 import duke.command.ArgSpec;
 import duke.data.Impression;
+import duke.data.Patient;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
+
+import java.util.List;
 
 public class ImpressionMoveCommand extends ImpressionCommand {
 
@@ -19,8 +22,21 @@ public class ImpressionMoveCommand extends ImpressionCommand {
         String evArg = getSwitchVal("evidence");
         String treatArg = getSwitchVal("treatment");
         Impression impression = getImpression(core);
+        String newImpressionName = getSwitchVal("impression");
+        Impression newImpression;
+        if ("".equals(newImpressionName)) {
+            // ask user to pick
+            newImpression = null;
+        } else {
+            // TODO: proper search
+            List<Impression> newImpressionList = ((Patient) impression.getParent())
+                    .findImpressionsByName(newImpressionName);
+            if (newImpressionList.size() == 0) {
+                throw new DukeException("Can't find an impression of that name!");
+            }
+            newImpression = newImpressionList.get(0);
+        }
 
-        // TODO: proper search
         if (getArg() != null && evArg == null && treatArg == null) {
 
         } else if (getArg() == null && evArg != null && treatArg == null) {
