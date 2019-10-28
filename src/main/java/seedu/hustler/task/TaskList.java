@@ -113,8 +113,9 @@ public class TaskList {
     }
 
     /**
-     *
-     * @param checkAnomaly
+     * Checks if the user have met Busybee achievement conditions and
+     * update accordingly.
+     * @param checkAnomaly check if there's any clashes
      */
     public void updateBusybeeAchievement(boolean checkAnomaly) {
         if (!checkAnomaly) {
@@ -133,7 +134,8 @@ public class TaskList {
     }
 
     /**
-     *
+     * Checks if the user have met Completionist achievement conditions and
+     * update accordingly.
      */
     public void updateCompletionistAchievement() {
             DoneTask.increment();
