@@ -22,7 +22,7 @@ public class CommandTasksHint extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
         Ui ui = farmio.getUi();
-        farmio.getSimulation().simulate(farmio.getLevel().getPath(), farmio.getLevel().getNarratives().size() - 1);
+        farmio.getSimulation().simulate();
         ui.typeWriter(farmio.getLevel().getHint(), false);
         ui.typeWriter(message, false);
     }

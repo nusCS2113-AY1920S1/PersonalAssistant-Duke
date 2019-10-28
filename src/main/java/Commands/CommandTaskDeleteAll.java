@@ -14,7 +14,7 @@ public class CommandTaskDeleteAll extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
         farmio.getFarmer().getTasks().clear();
-        farmio.getSimulation().simulate(farmio.getLevel().getPath(), farmio.getLevel().getNarratives().size());
+        farmio.getSimulation().simulate();
         farmio.getUi().showInfo("You have deleted all tasks!");
     }
 }
