@@ -72,7 +72,7 @@ class EventListTest {
         EventList events = new EventList();
         LocalDateTime startDate = ParserTimeUtil.parseStringToDate("12/12/12");
         LocalDateTime endDate = ParserTimeUtil.parseStringToDate("06/06/18");
-        Event event = new Event("Pulau Ubin", startDate, endDate);
+        final Event event = new Event("Pulau Ubin", startDate, endDate);
         assertThrows(IndexOutOfBoundsException.class, () -> events.get(0));
         assertThrows(IndexOutOfBoundsException.class, () -> events.get(1));
         assertThrows(IndexOutOfBoundsException.class, () -> events.get(-1));
