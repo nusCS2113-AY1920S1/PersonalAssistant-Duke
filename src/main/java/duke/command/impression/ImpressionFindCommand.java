@@ -28,10 +28,10 @@ public class ImpressionFindCommand extends ArgCommand {
             searchResult = impression.find(searchTerm);
         } else {
             if (getSwitchVals().containsKey("evidence")) {
-                searchResult.addAll(impression.findEvidence(searchTerm));
+                searchResult.addAll(impression.findEvidences(searchTerm));
             }
             if (getSwitchVals().containsKey("treatment")) {
-                searchResult.addAll(impression.findTreatment(searchTerm));
+                searchResult.addAll(impression.findTreatments(searchTerm));
             }
         }
 

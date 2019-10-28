@@ -31,16 +31,16 @@ public class HomeFindCommand extends ArgCommand {
                 if (getSwitchVals().containsKey("patient")) {
                     searchResult.add(patient);
                 }
-                ArrayList<Impression> impressionResult = patient.findImpression(searchTerm);
+                ArrayList<Impression> impressionResult = patient.findImpressions(searchTerm);
                 for (Impression imp : impressionResult) {
                     if (getSwitchVals().containsKey("impression")) {
                         searchResult.add(imp);
                     }
                     if (getSwitchVals().containsKey("evidence")) {
-                        searchResult.addAll(imp.findEvidence(searchTerm));
+                        searchResult.addAll(imp.findEvidences(searchTerm));
                     }
                     if (getSwitchVals().containsKey("treatment")) {
-                        searchResult.addAll(imp.findTreatment(searchTerm));
+                        searchResult.addAll(imp.findTreatments(searchTerm));
                     }
                 }
             }

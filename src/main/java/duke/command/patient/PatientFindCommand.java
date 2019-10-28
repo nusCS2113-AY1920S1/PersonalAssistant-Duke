@@ -28,16 +28,16 @@ public class PatientFindCommand extends ArgCommand {
         if (getSwitchVals().isEmpty()) {
             searchResult = patient.find(searchTerm);
         } else {
-            impressionResult = patient.findImpression(searchTerm);
+            impressionResult = patient.findImpressions(searchTerm);
             for (Impression imp : impressionResult) {
                 if (getSwitchVals().containsKey("impression")) {
                     searchResult.add(imp);
                 }
                 if (getSwitchVals().containsKey("evidence")) {
-                    searchResult.addAll(imp.findEvidence(searchTerm));
+                    searchResult.addAll(imp.findEvidences(searchTerm));
                 }
                 if (getSwitchVals().containsKey("treatment")) {
-                    searchResult.addAll(imp.findTreatment(searchTerm));
+                    searchResult.addAll(imp.findTreatments(searchTerm));
                 }
             }
         }

@@ -24,7 +24,7 @@ public abstract class ImpressionCommand extends ArgCommand {
     protected Evidence findEvidence(Impression impression, String searchStr) throws DukeException {
         int idx = idxFromString(searchStr);
         if (idx < 0) {
-            List<Evidence> searchResults = impression.findEvidence(searchStr);
+            List<Evidence> searchResults = impression.findEvidences(searchStr);
             if (searchResults.size() == 0) {
                 throw new DukeException("I can't find any treatment with that in its name!");
             }
@@ -38,7 +38,7 @@ public abstract class ImpressionCommand extends ArgCommand {
     protected Treatment findTreatment(Impression impression, String searchStr) throws DukeException {
         int idx = idxFromString(searchStr);
         if (idx < 0) {
-            List<Treatment> searchResults = impression.findTreatment(searchStr);
+            List<Treatment> searchResults = impression.findTreatments(searchStr);
             if (searchResults.size() == 0) {
                 throw new DukeException("I can't find any treatment with that in its name!");
             }

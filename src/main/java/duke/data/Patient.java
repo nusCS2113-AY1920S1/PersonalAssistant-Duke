@@ -120,17 +120,17 @@ public class Patient extends DukeObject {
     }
 
     /**
-     * This function finds relavent Impressions to the searchTerm.
+     * This function finds Impressions relevant to the searchTerm.
      *
-     * @param searchTerm the serach term
+     * @param searchTerm the search term
      * @return the list of impressions
      */
-    public ArrayList<Impression> findImpression(String searchTerm) {
+    public ArrayList<Impression> findImpressions(String searchTerm) {
         ArrayList<Impression> searchResult = new ArrayList<>();
-        for (Map.Entry<String, Impression> mapElement : this.observableImpressions.entrySet()) {
-            Impression value = mapElement.getValue();
-            if (value.toString().contains(searchTerm)) {
-                searchResult.add(value);
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Impression impression : this.observableImpressions.values()) {
+            if (impression.toString().toLowerCase().contains(lowerSearchTerm)) {
+                searchResult.add(impression);
             }
         }
         return searchResult;
@@ -144,7 +144,7 @@ public class Patient extends DukeObject {
      * @return the hashMap of DukeObjs
      */
     public ArrayList<DukeObject> find(String searchTerm) throws DukeException {
-        ArrayList<Impression> filteredList = findImpression(searchTerm);
+        ArrayList<Impression> filteredList = findImpressions(searchTerm);
         ArrayList<DukeObject> searchResult = new ArrayList<>();
         for (Impression imp : filteredList) {
             searchResult.add(imp);

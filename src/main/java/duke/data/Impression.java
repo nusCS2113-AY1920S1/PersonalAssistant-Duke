@@ -69,12 +69,12 @@ public class Impression extends DukeObject {
      * @param searchTerm the term to be searched for
      * @return ArrayList of the Treatments
      */
-    public ArrayList<Treatment> findTreatment(String searchTerm) {
+    public ArrayList<Treatment> findTreatments(String searchTerm) {
         ArrayList<Treatment> searchResult = new ArrayList<>();
-        for (Map.Entry<String, Treatment> mapElement : this.observableTreaments.entrySet()) {
-            Treatment valueT = mapElement.getValue();
-            if (valueT.toString().contains(searchTerm)) {
-                searchResult.add(valueT);
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Treatment treatment : this.observableTreaments.values()) {
+            if (treatment.toString().toLowerCase().contains(lowerSearchTerm)) {
+                searchResult.add(treatment);
             }
         }
         return searchResult;
@@ -85,12 +85,12 @@ public class Impression extends DukeObject {
      * @param searchTerm the term to be searched for
      * @return ArrayList of the Evidence
      */
-    public ArrayList<Evidence> findEvidence(String searchTerm) {
+    public ArrayList<Evidence> findEvidences(String searchTerm) {
         ArrayList<Evidence> searchResult = new ArrayList<>();
-        for (Map.Entry<String, Evidence> mapElement : this.observableEvidences.entrySet()) {
-            Evidence valueE = mapElement.getValue();
-            if (valueE.toString().contains(searchTerm)) {
-                searchResult.add(valueE);
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Evidence evidence : this.observableEvidences.values()) {
+            if (evidence.toString().contains(lowerSearchTerm)) {
+                searchResult.add(evidence);
             }
         }
         return searchResult;
@@ -104,8 +104,8 @@ public class Impression extends DukeObject {
      */
     public ArrayList<DukeData> find(String searchTerm) {
         ArrayList<DukeData> searchResult = new ArrayList<>();
-        searchResult.addAll(findEvidence(searchTerm));
-        searchResult.addAll(findTreatment(searchTerm));
+        searchResult.addAll(findEvidences(searchTerm));
+        searchResult.addAll(findTreatments(searchTerm));
         return searchResult;
     }
 

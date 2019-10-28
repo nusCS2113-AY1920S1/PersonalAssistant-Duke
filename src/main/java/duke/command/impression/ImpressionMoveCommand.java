@@ -2,6 +2,7 @@ package duke.command.impression;
 
 import duke.DukeCore;
 import duke.command.ArgSpec;
+import duke.data.Impression;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
 
@@ -17,6 +18,8 @@ public class ImpressionMoveCommand extends ImpressionCommand {
         // TODO: query user for correct impression if no impression is given
         String evArg = getSwitchVal("evidence");
         String treatArg = getSwitchVal("treatment");
+        Impression impression = getImpression(core);
+
         // TODO: proper search
         if (getArg() != null && evArg == null && treatArg == null) {
 
@@ -27,5 +30,6 @@ public class ImpressionMoveCommand extends ImpressionCommand {
         } else {
             throw new DukeHelpException("I don't know what you want me to look for!", this);
         }
+
     }
 }
