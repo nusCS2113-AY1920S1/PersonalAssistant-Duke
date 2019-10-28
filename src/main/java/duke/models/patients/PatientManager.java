@@ -1,3 +1,5 @@
+//@@author kkeejjuunn
+
 package duke.models.patients;
 
 import duke.exceptions.DukeException;
@@ -61,7 +63,7 @@ public class PatientManager {
         name = name.toLowerCase();
         ArrayList<Patient> patientsWithThisName = new ArrayList<>();
         for (Patient patient : patientIdMap.values()) {
-            if (patient.getName().toLowerCase().equals(name)) {
+            if (patient.getName().toLowerCase().contains(name)) {
                 patientsWithThisName.add(patient);
             }
         }
