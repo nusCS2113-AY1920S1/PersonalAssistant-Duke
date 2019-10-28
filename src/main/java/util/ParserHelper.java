@@ -185,6 +185,7 @@ public class ParserHelper {
      * @param input The assignment input from the user.
      */
     public ArrayList<ArrayList<Integer>> parseAssignmentParams(String input, Project project) {
+        errorMessages.clear();
         String [] inputParts = input.split("-");
         String allTaskIndexes = "";
         String allAssigneeIndexes = "";
@@ -194,13 +195,13 @@ public class ParserHelper {
             String [] part = s.split(" ");
             switch (part[0]) {
             case "i":
-                allTaskIndexes = s.substring(2);
+                allTaskIndexes = s.substring(2).trim();
                 break;
             case "to":
-                allAssigneeIndexes = s.substring(3);
+                allAssigneeIndexes = s.substring(3).trim();
                 break;
             case "rm":
-                allUnassigneeIndexes = s.substring(3);
+                allUnassigneeIndexes = s.substring(3).trim();
                 break;
             default:
             }
@@ -225,20 +226,22 @@ public class ParserHelper {
      * @return An ArrayList containing only valid member index numbers
      */
     public ArrayList<Integer> parseMembersIndexes(String input, int numberOfMembersInProject) {
-        this.errorMessages.clear();
-        ArrayList<Integer> membersToView = new ArrayList<>();
+        ArrayList<Integer> validMembers = new ArrayList<>();
         if ("all".equals(input)) {
             for (int i = 1; i <= numberOfMembersInProject; i++) {
-                membersToView.add(i);
+                validMembers.add(i);
             }
-            return membersToView;
+            return validMembers;
         }
         String[] inputParts = input.split(" ");
         for (String index : inputParts) {
+            if ("".equals(index)) {
+                continue;
+            }
             try {
                 Integer indexNumber = Integer.parseInt(index);
                 if (indexNumber > 0 && indexNumber <= numberOfMembersInProject) {
-                    membersToView.add(indexNumber);
+                    validMembers.add(indexNumber);
                 } else {
                     errorMessages.add("Member with index " + index + " does not exist.");
                 }
@@ -247,7 +250,7 @@ public class ParserHelper {
                     + ", please ensure it is an integer.");
             }
         }
-        return membersToView;
+        return validMembers;
     }
 
     /**
@@ -266,6 +269,9 @@ public class ParserHelper {
         }
         String[] inputParts = input.split(" ");
         for (String index : inputParts) {
+            if ("".equals(index)) {
+                continue;
+            }
             try {
                 Integer indexNumber = Integer.parseInt(index);
                 if (indexNumber > 0 && indexNumber <= numberOfTasksInProject) {
