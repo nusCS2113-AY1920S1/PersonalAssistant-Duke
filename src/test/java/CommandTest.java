@@ -1,4 +1,5 @@
 import duke.DukeCore;
+import duke.command.ArgCommand;
 import duke.data.GsonStorage;
 import duke.data.PatientMap;
 import duke.exception.DukeFatalException;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -28,7 +30,7 @@ public abstract class CommandTest {
     @BeforeAll
     public static void setupCore() {
         try {
-            core = new DukeCore();
+            core = new DukeCore(testPrint);
             core.patientMap = new PatientMap();
             core.storage = new GsonStorage(testFilePath);
             core.writeJsonFile();
@@ -56,5 +58,8 @@ public abstract class CommandTest {
         if (!testData.delete()) {
             fail("Unable to delete test data file!");
         }
+    }
+
+    private void setupCommand (ArgCommand command, String arg, Map<String, String> switchVals) {
     }
 }
