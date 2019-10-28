@@ -24,18 +24,13 @@ public class SearchCommand extends Command {
     public String execute(Ui ui, Bank bank, Storage storage) {
         try {
             String meaning = bank.searchWordBankForMeaning(this.searchTerm);
-            String[] meanings = meaning.split("#");
-            word = new Word(this.searchTerm, meanings[1]);
             Word word = bank.getWordBankObject().getWord(this.searchTerm);
-            AddCommand addCommand = new AddCommand(word);
-            addCommand.execute(ui, bank, storage);
             if (bank.getWordFromWordBank(searchTerm).getNumberOfSearches() == 0) {
                 storage.updateFile(word.toString(),"");
                 storage.writeFile(word.toString(),true);
             }
             bank.increaseSearchCount(searchTerm);
-
-            return meanings[0] + ui.showSearch(this.searchTerm, meaning);
+            return ui.showSearch(this.searchTerm, meaning);
         } catch (NoWordFoundException e) {
             ArrayList<String> arrayList = bank.getClosedWords(this.searchTerm);
             StringBuilder stringBuilder = new StringBuilder();

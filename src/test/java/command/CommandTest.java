@@ -146,7 +146,7 @@ public class CommandTest {
         try {
             SearchCommand searchCommand = new SearchCommand("banana");
             String search = searchCommand.execute(ui, bank, storage);
-            Assertions.assertNotEquals(search, "Here is the meaning of banana: yellow fruit\n");
+            Assertions.assertNotEquals(search, "Here is the meaning of banana: yellow fruit");
         } catch (Exception e) {
             fail("execute() in SearchCommand failed: " + e.getMessage());
         }
