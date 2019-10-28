@@ -208,7 +208,7 @@ public class TaskList {
 
         priorityList.sort(PriorityComparator);
         for (int i = 0; i < priorityList.size(); i++) {
-            stringPriorityList.add(listOfTasks.get(i).toString());
+            stringPriorityList.add(priorityList.get(i).toString());
         }
         return stringPriorityList;
     }
