@@ -27,6 +27,7 @@ import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleInfoSummary;
 import planner.logic.modules.module.ModuleTask;
 import planner.util.datetime.NattyWrapper;
+import planner.util.logger.PlannerLogger;
 import planner.util.storage.Storage;
 
 public class JsonWrapper {
@@ -129,8 +130,10 @@ public class JsonWrapper {
             return gson.fromJson(reader, listType);
         } catch (IllegalStateException e) {
             e.printStackTrace();
+            PlannerLogger.log(e);
         } catch (IOException ei) {
             System.out.println(Arrays.toString(ei.getStackTrace()));
+            PlannerLogger.log(ei);
         }
         return null;
     }
@@ -164,8 +167,10 @@ public class JsonWrapper {
             return gson.fromJson(reader, listType);
         } catch (IllegalStateException e) {
             e.printStackTrace();
+            PlannerLogger.log(e);
         } catch (IOException ei) {
             System.out.println(Arrays.toString(ei.getStackTrace()));
+            PlannerLogger.log(ei);
         }
         return new ArrayList<>();
     }
@@ -228,8 +233,10 @@ public class JsonWrapper {
             }
         } catch (IllegalStateException e) {
             e.printStackTrace();
+            PlannerLogger.log(e);
         } catch (IOException ei) {
             System.out.println(Arrays.toString(ei.getStackTrace()));
+            PlannerLogger.log(ei);
         }
         return new ArrayList<>();
     }
