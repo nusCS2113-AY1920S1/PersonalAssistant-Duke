@@ -33,8 +33,6 @@ import javafx.scene.text.TextFlow;
 import entertainment.pro.logic.parsers.CommandParser;
 import org.json.simple.parser.ParseException;
 import entertainment.pro.storage.utils.PastUserCommands;
-
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -108,7 +106,6 @@ public class MovieHandler extends Controller implements RequestListener {
     private ArrayList<String> playlists;
     private String playlistName = "";
     private MovieResultFilter filter = new MovieResultFilter(new ArrayList<>(), new ArrayList<>());
-    private PageTracker pageTracker;
 //    private ArrayList<MovieInfoObject> playlistMovies = new ArrayList<>();
 //    private ArrayList<Playlist> playlists;
     private FlowPane mMoviesFlowPane;
@@ -245,7 +242,7 @@ public class MovieHandler extends Controller implements RequestListener {
         System.out.println("Tgt we are winners");
         bp.load();
 
-        pageTracker = new PageTracker();
+
 
         HelpStorage.initialiseAllHelp();
 
@@ -411,7 +408,8 @@ public class MovieHandler extends Controller implements RequestListener {
                 isViewBack = false;
             }
         }
-        pageTracker.setToMainPage();
+
+
     }
 
     public void displayMovies() {
@@ -519,7 +517,7 @@ public class MovieHandler extends Controller implements RequestListener {
                     controller.getPosterImageView().setImage(posterImage);
                 } else{
                     System.out.println("hi1");
-                    Image posterImage = new Image(this.getClass().getResourceAsStream("./FakeMoviePoster.png"));
+                    Image posterImage = new Image(this.getClass().getResourceAsStream("../../../../EPdata/FakeMoviePoster.png"));
                     System.out.println("hi2");
                     posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
                         try {
@@ -599,34 +597,28 @@ public class MovieHandler extends Controller implements RequestListener {
         System.out.println("this is it 4");
     }
 
+
+
     private void buildPlaylistVBox(ArrayList<String> playlists) throws IOException {
         // Setup progress bar and status label
         mProgressBar.setProgress(0.0);
         mProgressBar.setVisible(true);
         mStatusLabel.setText("Loading..");
-        playlistVBox.getChildren().clear();
 
         int count = 1;
-        if (playlists.isEmpty()) {
-            Label emptyLabel = new Label("u do not have any playlist currently :( \n try making some using command: playlist create <playlist name>");
-            playlistVBox.getChildren().add(emptyLabel);
-        } else {
-            for (String log : playlists) {
-                Playlist playlist = new EditPlaylistJson(log).load();
-                System.out.println(playlist.getPlaylistName());
-                System.out.println(playlist.getMovies().size());
-                AnchorPane playlistPane = buildPlaylistPane(playlist, count);
-                playlistVBox.getChildren().add(playlistPane);
-                count++;
+        for (String log : playlists) {
+            Playlist playlist = new EditPlaylistJson(log).load();
+            System.out.println(playlist.getPlaylistName());
+            System.out.println(playlist.getMovies().size());
+            AnchorPane playlistPane = buildPlaylistPane(playlist, count);
+            playlistVBox.getChildren().add(playlistPane);
+            count++;
 //            mPlaylistFlowPane.getChildren().add(playlistPane);
 //            System.out.println(playlist.getMovies().size());
-            }
         }
 
-//        mMoviesScrollPane.setContent(new VBox());
         mMoviesScrollPane.setContent(playlistVBox);
         mMoviesScrollPane.setVvalue(0);
-        pageTracker.setToPlaylistList();
     }
 
     private AnchorPane buildPlaylistPane(Playlist playlist, int i) {
@@ -646,10 +638,10 @@ public class MovieHandler extends Controller implements RequestListener {
             // set the movie info
             PlaylistController controller = loader.getController();
             controller.setVBoxColour(i);
-            controller.setTextColour();
+//            controller.setTextColour();
             controller.getPlaylistNameLabel().setText(playlist.getPlaylistName());
             if (playlist.getDescription().trim().length() == 0) {
-//                controller.getPlaylistDescriptionLabel().setStyle("-fx-font-style: italic; fx-text-fill: #000000");
+                controller.getPlaylistDescriptionLabel().setStyle("-fx-font-style: italic");
                 controller.getPlaylistDescriptionLabel().setText("*this playlist does not have a description :(*");
             } else {
                 controller.getPlaylistDescriptionLabel().setText(playlist.getDescription());
@@ -689,7 +681,6 @@ public class MovieHandler extends Controller implements RequestListener {
                 controller.getPlaylistInfoVBox().getChildren().add(2, emptyMoviesLabel);
             }
             mMoviesScrollPane.setContent(controller.getPlaylistInfoVBox());
-            pageTracker.setToPlaylistInfo();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -736,9 +727,7 @@ public class MovieHandler extends Controller implements RequestListener {
             MoviePosterController controller = loader.getController();
             try {
                 System.out.println("hi1");
-//                Image posterImage = new Image(this.getClass().getResourceAsStream("./FakeMoviePoster.png"));
-                File fakePoster = new File("./FakeMoviePoster.png");
-                Image posterImage = new Image(fakePoster.toURI().toString());
+                Image posterImage = new Image(this.getClass().getResourceAsStream("../../../../EPdata/FakeMoviePoster.png"));
                 System.out.println("hi2");
                 posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
                     try {
@@ -836,7 +825,6 @@ public class MovieHandler extends Controller implements RequestListener {
             mMoviesFlowPane.getChildren().add(posterView);
             mMoviesScrollPane.setContent(mMoviesFlowPane);
             mMoviesScrollPane.setVvalue(0);
-            pageTracker.setToPlaylistMovieInfo();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -1098,27 +1086,9 @@ public class MovieHandler extends Controller implements RequestListener {
         playlistName = name;
     }
 
-    public void refresh() throws IOException {
-//        EditPlaylistJson editPlaylistJson = new EditPlaylistJson(playlistName);
-//        buildPlaylistInfo(editPlaylistJson.load());
-        System.out.println(pageTracker.getCurrentPage());
-        switch (pageTracker.getCurrentPage()) {
-//            case "mainPage":
-//
-//                break;
-            case "playlistList":
-                EditProfileJson editProfileJson = new EditProfileJson();
-                buildPlaylistVBox(editProfileJson.load().getPlaylistNames());
-                break;
-            case "playlistInfo":
-                EditPlaylistJson editPlaylistJson = new EditPlaylistJson(playlistName);
-                buildPlaylistInfo(editPlaylistJson.load());
-                break;
-//            case "playlistMovieInfo":
-//                break;
-            default:
-                break;
-        }
+    public void refreshPlaylist() throws IOException {
+        EditPlaylistJson editPlaylistJson = new EditPlaylistJson(playlistName);
+        buildPlaylistInfo(editPlaylistJson.load());
     }
 
     public MovieResultFilter getFilter() {
@@ -1127,9 +1097,5 @@ public class MovieHandler extends Controller implements RequestListener {
 
     public void setFilter(MovieResultFilter filter) {
         this.filter = filter;
-    }
-
-    public PageTracker getPageTracker() {
-        return pageTracker;
     }
 }

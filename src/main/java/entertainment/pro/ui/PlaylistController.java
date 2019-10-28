@@ -54,8 +54,8 @@ public class PlaylistController {
     }
 
     public void setTextColour() {
-        playlistNameLabel.setStyle("-fx-text-fill: #000000; -fx-font-size: 12pt; -fx-font-weight: bold");
-        playlistDescriptionLabel.setStyle("-fx-text-fill: #000000");
-        playlistMoviesLabel.setStyle("-fx-text-fill: #000000");
+        playlistNameLabel.setTextFill(Color.web("#000000"));
+        playlistDescriptionLabel.setTextFill(Color.web("#000000"));
+        playlistMoviesLabel.setTextFill(Color.web("#000000"));
     }
 }
