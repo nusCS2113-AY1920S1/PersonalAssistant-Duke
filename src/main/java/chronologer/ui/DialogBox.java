@@ -26,8 +26,8 @@ public class DialogBox extends UiComponent<Region> {
      */
     private DialogBox(String text, boolean isDuke) {
         super(FXML, null);
-        Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUserBlue.png"));
-        Image chronologerImage = new Image(this.getClass().getResourceAsStream("/images/DaChatbotBlue.png"));
+        Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserIcon.png"));
+        Image chronologerImage = new Image(this.getClass().getResourceAsStream("/images/ChatIcon.png"));
         dialog.setText(text);
         if (isDuke) {
             displayPicture.setImage(chronologerImage);
