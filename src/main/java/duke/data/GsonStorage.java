@@ -33,7 +33,7 @@ public class GsonStorage {
     private final String filePath;
 
     private Gson gson;
-    private RuntimeTypeAdapterFactory<DukeObject> typeAdapterFactory;
+    //private RuntimeTypeAdapterFactory<DukeObject> typeAdapterFactory;
 
     /**
      * Constructor for GsonStorage.
@@ -42,7 +42,7 @@ public class GsonStorage {
      * @throws DukeFatalException If data file cannot be setup.
      */
     public GsonStorage(String path) throws DukeFatalException {
-        typeAdapterFactory = RuntimeTypeAdapterFactory
+        /*typeAdapterFactory = RuntimeTypeAdapterFactory
                 .of(DukeObject.class, "type")
                 .registerSubtype(Patient.class, "type1")
                 .registerSubtype(Impression.class, "type2")
@@ -53,10 +53,12 @@ public class GsonStorage {
                 .registerSubtype(Plan.class, "type7")
                 .registerSubtype(Medicine.class, "type8")
                 .registerSubtype(Observation.class, "type9")
-                .registerSubtype(Result.class, "type10");
+                .registerSubtype(Result.class, "type10");*/
 
-        gson = new GsonBuilder().registerTypeAdapterFactory(typeAdapterFactory)
-                .create();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Treatment.class, new TreatmentAdaptor())
+                    .registerTypeAdapter(Evidence.class, new EvidenceAdaptor());
+        gson = gsonBuilder.create();//new GsonBuilder().registerTypeAdapterFactory(typeAdapterFactory).create();
 
         File dataDir = new File("data");
         File reportDir = new File("data/reports");

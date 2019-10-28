@@ -7,7 +7,6 @@ import java.util.List;
 public class Plan extends Treatment {
 
     private static final List<String> statusArr = Arrays.asList("Not done/ordered", "In progress", "Completed");
-    private String summary;
 
     /**
      * Represents the Plan devised by the doctor to treat a symptom or impression of a patient.
