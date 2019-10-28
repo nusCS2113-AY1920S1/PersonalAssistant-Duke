@@ -135,8 +135,13 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
             } else if (instr.isSetFund(input)) {
                 process.setFund(input, ui, fund);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isAddFund(input)) {
                 process.addFund(input, ui, fund);
+                process.commandHistory(input, ui, storage);
+            } else if (instr.isAssignFund(input)) {
+                process.assignFund(input, ui, fund, projectmap);
+                process.commandHistory(input, ui, storage);
             } else {
                 throw new AlphaNUSException("      OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
