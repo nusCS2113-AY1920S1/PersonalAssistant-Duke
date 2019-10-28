@@ -177,6 +177,9 @@ It was thus easy to implement this clash detection as a part of adding recurrent
 rescheduling function (to check for clashes when the user attempts to reschedule
 an existing event, so that he/she does not inadvertently create a new schedule conflict).
 
+Testing is also very simple to implement as it can be done unit by unit or as a whole, due to clash detection
+being broken down into multiple simple components, each with a specific purpose.
+
 ==== Expected behaviour of functionality
 When a user attempts to add an event(recurring or otherwise) and the program detects a clash with an existing event
 in the pre-existing list, the following output should be printed: +
