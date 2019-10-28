@@ -12,10 +12,9 @@ public class PlanCard extends TreatmentCard {
      * Constructs a PlanCard object with the specified {@code Plan}'s details.
      *
      * @param plan  Plan object.
-     * @param index Displayed index.
      */
-    public PlanCard(Plan plan, int index) {
-        super(FXML, plan, index);
+    public PlanCard(Plan plan) {
+        super(FXML, plan);
 
         this.plan = plan;
         fillPlanCard();

@@ -18,10 +18,9 @@ public class MedicineCard extends TreatmentCard {
      * Constructs an MedicineCard object with the specified {@code Medicine}'s details.
      *
      * @param medicine Medicine object.
-     * @param index    Displayed index.
      */
-    public MedicineCard(Medicine medicine, int index) {
-        super(FXML, medicine, index);
+    public MedicineCard(Medicine medicine) {
+        super(FXML, medicine);
 
         this.medicine = medicine;
         fillMedicineCard();

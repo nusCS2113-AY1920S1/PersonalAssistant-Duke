@@ -38,6 +38,7 @@ public class HomeWindow extends UiElement<Region> {
         super(FXML, null);
 
         this.patientMap = patientMap;
+        this.patientCardList = new ArrayList<>();
 
         fillPatientListPanel();
         attachPatientListListener();
@@ -46,14 +47,12 @@ public class HomeWindow extends UiElement<Region> {
     }
 
     /**
-     * Fills {@code patientCardList} and {@code patientListPanel}.
+     * Fills {@code patientListPanel}.
      */
     private void fillPatientListPanel() {
-        patientCardList = new ArrayList<>();
-
         for (Patient patient : patientMap.getPatientHashMap().values()) {
-            int patientIndex = patientCardList.size() + 1;
-            PatientCard patientCard = new PatientCard(patient, patientIndex);
+            PatientCard patientCard = new PatientCard(patient);
+            patientCard.setIndex(patientCardList.size() + 1);
             patientCardList.add(patientCard);
         }
 
@@ -67,7 +66,16 @@ public class HomeWindow extends UiElement<Region> {
      */
     private void attachPatientListListener() {
         patientMap.getPatientObservableMap().addListener((MapChangeListener<String, Patient>) change -> {
-            fillPatientListPanel();
+            if (change.wasAdded()) {
+                PatientCard patientCard = new PatientCard(change.getValueAdded());
+                patientCard.setIndex(patientCardList.size() + 1);
+                patientCardList.add(patientCard);
+            } else if (change.wasRemoved()) {
+                patientCardList.remove(new PatientCard(change.getValueRemoved()));
+                patientCardList.forEach(card -> card.setIndex(patientCardList.indexOf(card) + 1));
+            }
+
+            patientListPanel.getChildren().setAll(patientCardList);
         });
     }
 

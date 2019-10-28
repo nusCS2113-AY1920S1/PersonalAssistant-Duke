@@ -20,10 +20,9 @@ public class ObservationCard extends EvidenceCard {
      * Constructs an ObservationCard object with the specified {@code Observation}'s details.
      *
      * @param observation Observation object.
-     * @param index       Displayed index.
      */
-    public ObservationCard(Observation observation, int index) {
-        super(FXML, observation, index);
+    public ObservationCard(Observation observation) {
+        super(FXML, observation);
 
         this.observation = observation;
         fillObservationCard();

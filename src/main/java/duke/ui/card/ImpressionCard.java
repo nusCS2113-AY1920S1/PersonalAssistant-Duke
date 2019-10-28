@@ -29,10 +29,9 @@ public class ImpressionCard extends UiCard {
      *
      * @param impression Impression object.
      * @param isPrimary  If the Impression object is a primary diagnosis.
-     * @param index      Displayed index.
      */
-    public ImpressionCard(Impression impression, boolean isPrimary, int index) {
-        super(FXML, index);
+    public ImpressionCard(Impression impression, boolean isPrimary) {
+        super(FXML);
 
         this.impression = impression;
         this.isPrimary = isPrimary;

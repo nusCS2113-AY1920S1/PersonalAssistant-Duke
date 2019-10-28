@@ -68,14 +68,14 @@ public class PatientWindow extends UiElement<Region> {
                 if (change.getValueAdded().equals(patient.getPrimaryDiagnosis())) {
                     // TODO: index
                     impressionsListPanel.getItems().add(0,
-                            new ImpressionCard(change.getValueAdded(), true, 0));
+                            new ImpressionCard(change.getValueAdded(), true));
                 } else {
                     // TODO: index
-                    impressionsListPanel.getItems().add(new ImpressionCard(change.getValueAdded(), false, 0));
+                    impressionsListPanel.getItems().add(new ImpressionCard(change.getValueAdded(), false));
                 }
             } else if (change.wasRemoved()) {
                 // TODO: index
-                impressionsListPanel.getItems().remove(new ImpressionCard(change.getValueRemoved(), false, 0));
+                impressionsListPanel.getItems().remove(new ImpressionCard(change.getValueRemoved(), false));
             }
         });
     }
@@ -115,12 +115,12 @@ public class PatientWindow extends UiElement<Region> {
                 primaryImpression = pair.getValue();
             } else {
                 // TODO: index
-                impressionsListPanel.getItems().add(new ImpressionCard(pair.getValue(), false, 0));
+                impressionsListPanel.getItems().add(new ImpressionCard(pair.getValue(), false));
             }
 
             if (primaryImpression != null) {
                 // TODO: index
-                impressionsListPanel.getItems().add(0, new ImpressionCard(primaryImpression, true, 0));
+                impressionsListPanel.getItems().add(0, new ImpressionCard(primaryImpression, true));
             }
         }
     }
