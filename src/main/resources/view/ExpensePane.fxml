@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <HBox>
-         <TableView fx:id="expenseTableView" prefWidth="600" prefHeight="600" />
-         <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
-         <VBox>
-            <ListView fx:id="budgetListView" prefHeight="200"></ListView>
-            <Pane fx:id="paneView"  prefHeight="200"/>
-         </VBox>
-      </HBox>
-   </children>
+<?import java.net.URL?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox alignment="CENTER">
+           <Label fx:id="paneTitle" text="Expense"/>
+           <Label fx:id="otherPanes" text="Budget Plan Trend"/>
+            <HBox>
+                <TableView fx:id="expenseTableView" prefWidth="500" prefHeight="500"/>
+                <padding>
+                    <Insets top="25" right="25" bottom="25" left="25"/>
+                </padding>
+                <VBox>
+                    <ListView fx:id="budgetListView" prefHeight="200"></ListView>
+                    <Pane fx:id="paneView" prefHeight="200"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </children>
+    <stylesheets>
+        <URL value="@/layout/ExpensePane.css"/>
+    </stylesheets>
 </AnchorPane>
