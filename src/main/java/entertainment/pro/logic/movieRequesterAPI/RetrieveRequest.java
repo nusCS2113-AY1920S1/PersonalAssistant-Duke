@@ -1,23 +1,18 @@
 package entertainment.pro.logic.movieRequesterAPI;
 
+import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
-import entertainment.pro.logic.movieRequesterAPI.InfoFetcher;
-import entertainment.pro.logic.movieRequesterAPI.RequestListener;
-import entertainment.pro.logic.parsers.TimeParser;
 import entertainment.pro.model.SearchProfile;
-import org.apache.commons.lang3.ObjectUtils;
+import entertainment.pro.storage.utils.offlineSearch.CurrentMoviesOffline;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import entertainment.pro.model.MovieInfoObject;
 
-import javax.swing.*;
 import java.io.*;
 import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -30,20 +25,29 @@ import java.util.logging.Logger;
 public class RetrieveRequest implements InfoFetcher {
     private RequestListener mListener;
     private ArrayList<MovieInfoObject> p_Movies;
+    private SearchProfile searchProfile;
+    RetrieveRequest.MoviesRequestType getType;
 
-
-    SearchProfile searchProfile;
-
-    public void setSearchProfile(SearchProfile searchProfile) {
-        this.searchProfile = searchProfile;
-    }
-
-
-    static boolean isCast = false;
 
     // API Usage constants
     private static final String MAIN_URL = "http://api.themoviedb.org/3/";
     private static final String API_KEY = "5d467eb39777ed643edb8312fb71c157";
+
+    // General API keywords used for both movies and TV shows
+    private static final String REGION_SPECIFIED_IN_API = "&region=SG";
+    private static final String TO_SPECIFY_QUERY = "&query=";
+    private static final String ADD_ADULT_OPTION = "&include_adult=";
+    private static final String TO_SPECIFY_MOVIES = "movie/";
+    private static final String TO_SPECIFY_TV_SHOWS = "tv/";
+    private static final String TO_SPECIFY_ISO = "iso_3166_1";
+    private static final String TO_SPECIFY_RATING = "rating";
+    private static final String TO_SPECIFY_UK = "GB";
+    private static final String TO_SPECIFY_CERTIFICATION = "certification";
+
+    // General Data Request URL's
+    private static final String RELEASE_DATES_URL = "/release_dates?api_key=";
+    private static final String CREDITS_URL = "/credits?api_key=";
+    private static final String RATINGS_URL = "/content_ratings?api_key=";
 
     // Data Request URL's for movies
     private static final String CURRENT_MOVIE_URL = "movie/now_playing?api_key=";
@@ -51,397 +55,31 @@ public class RetrieveRequest implements InfoFetcher {
     private static final String UPCOMING_MOVIE_URL = "movie/upcoming?api_key=";
     private static final String MOVIE_SEARCH_URL = "search/movie?api_key=";
     private static final String TRENDING_MOVIE_URL = "trending/movie/day?api_key=";
+    private static final String TOP_RATED_MOVIE_URL = "movie/top_rated?api_key=";
     private static final String GENRE_LIST_MOVIE_URL = "genre/movie/list?api_key=";
 
     // Data Request URL's for TV shows
-    private static final String TV_SEARCH_URL = "";
     private static final String CURRENT_TV_URL = "tv/on_the_air?api_key=";
     private static final String POPULAR_TV_URL = "tv/popular?api_key=";
-    private static final String NEW_TV_URL = "tv/latest?api_key=";
+    //private static final String NEW_TV_URL = "tv/latest?api_key=";
+    private static final String TV_SEARCH_URL = "search/tv?api_key=";
     private static final String TRENDING_TV_URL = "trending/tv/day?api_key=";
+    private static final String TOP_RATED_TV_URL = "tv/top_rated?api_key=";
     private static final String GENRE_LIST_TV_URL = "genre/tv/list?api_key=";
 
-
     // Data Keys for both movie and TV shows
-    private static final String ADD_ADULT_OPTION = "&include_adult=";
-    private static final String kMOVIE_TITLE = "title";
-    private static final String kTV_TITLE = "original_name";
-    private static final String kMOVIE_RELEASE_DATE = "release_date";
-    private static final String kMOVIE_ID = "id";
-    private static final String kMOVIE_GENRES = "genre_ids";
-    private static final String kMOVIE_SUMMARY = "overview";
-    private static final String kMOVIE_RATING = "vote_average";
-    private static final String kMOVIE_BACKDROP_PATH = "backdrop_path";
-    private static final String kMOVIE_POSTER_PATH = "poster_path";
-
-    private String string;
-
-    private static final String kMOVIE_CAST = "cast_id";
-    private static final String kADULT = "adult";
-
-    public static String getCastStrings(MovieInfoObject mMovie) throws Exceptions {
-
-        try {
-            isCast = true;
-            String jsonResult = "";
-            boolean isMovie = mMovie.isMovie();
-            if (isMovie) {
-                jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "movie/" + mMovie.getID() + "/credits?api_key=" +
-                    RetrieveRequest.API_KEY));
-            } else {
-                jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "tv/" + mMovie.getID() + "/credits?api_key=" +
-                    RetrieveRequest.API_KEY));
-
-            }
-            JSONParser parser = new JSONParser();
-            JSONObject jsonData = (JSONObject) parser.parse(jsonResult);
-            JSONArray casts = (JSONArray) jsonData.get("cast");
-            String castStrings = "";
-            for (int i = 0; i < casts.size(); i += 1) {
-                //if (i == 10) {
-                //  break;
-                //}
-                JSONObject castPair = (JSONObject) casts.get(i);
-                castStrings += castPair.get("name");
-                // if (i != casts.size() - 1) {
-                if (i != casts.size() - 1) {
-                    castStrings += ", ";
-                }
-            }
-
-            return castStrings;
-        } catch (MalformedURLException ex) {
-            ex.printStackTrace();
-        } catch (org.json.simple.parser.ParseException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-        return null;
-    }
-
-    public static String getCertStrings(MovieInfoObject mMovie) throws Exceptions {
-        try {
-            String jsonResult = "";
-            boolean isMovie = mMovie.isMovie();
-            if (isMovie) {
-                jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "movie/" + mMovie.getID() + "/release_dates?api_key=" +
-                    RetrieveRequest.API_KEY));
-            } else {
-                jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "tv/" + mMovie.getID() + "/content_ratings?api_key=" +
-                    RetrieveRequest.API_KEY + "&language=en-US"));
-            }
-           // System.out.println(MAIN_URL + "movie/" + mMovie.getID() + "/release_dates?api_key=" +
-             //   RetrieveRequest.API_KEY);
-            JSONParser parser = new JSONParser();
-            JSONObject jsonData = (JSONObject) parser.parse(jsonResult);
-            JSONArray casts = (JSONArray) jsonData.get("results");
-            //System.out.println("yes1");
-            String certStrings = "";
-            String ret = "N/A";
-            if (isMovie) {
-                for (int i = 0; i < casts.size(); i += 1) {
-                    JSONObject castPair = (JSONObject) casts.get(i);
-                    if (castPair.get("iso_3166_1").equals("GB")) {
-                        Map cert = (Map) casts.get(i);
-                        Iterator<Map.Entry> itr1 = cert.entrySet().iterator();
-                        while (itr1.hasNext()) {
-                            Map.Entry pair = itr1.next();
-                            if (pair.getKey().equals("release_dates")) {
-                                certStrings = pair.getValue().toString();
-                            }
-                        }
-                       // System.out.println("this is:" + certStrings);
-                        String[] getCert = certStrings.strip().split("certification");
-                        if (getCert.length == 2) {
-                            ret = getCert[1].substring(2, getCert[1].length() - 2);
-                        } else {
-                            ret = getCert[getCert.length - 1].substring(2, getCert[getCert.length - 1].length() - 2);
-                        }
-                    }
-                }
-            } else {
-                for (int i = 0; i < casts.size(); i += 1) {
-                    JSONObject castPair = (JSONObject) casts.get(i);
-                    if (castPair.get("iso_3166_1").equals("GB")) {
-                        certStrings = castPair.get("rating").toString();
-                        ret = "Suitable for " +
-                            certStrings + " years & above";
-                    }
-                }
-            }
-          //  System.out.println("this is cert" + ret);
-            return ret;
-        } catch (MalformedURLException ex) {
-            ex.printStackTrace();
-        } catch (org.json.simple.parser.ParseException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-        return null;
-
-    }
-
-    public enum MoviesRequestType {
-        CURRENT_MOVIES,
-        POPULAR_MOVIES,
-        UPCOMING_MOVIES,
-        TRENDING_MOVIES,
-        SEARCH_MOVIES,
-        CURRENT_TV,
-        POPULAR_TV,
-        TRENDING_TV,
-        NEW_TV
-    }
-
-    public RetrieveRequest(RequestListener listener) throws Exceptions {
-        mListener = listener;
-        // Check if config is needed
-        checkIfConfigNeeded();
-    }
-
-    public void beginMovieRequest(RetrieveRequest.MoviesRequestType type) throws Exceptions {
-        boolean isAdult;
-        try {
-            isAdult = searchProfile.isAdult();
-        } catch (NullPointerException e) {
-            isAdult = false;
-        }
-        String requestURL = RetrieveRequest.MAIN_URL;
-        switch (type) {
-            case CURRENT_MOVIES:
-                requestURL += RetrieveRequest.CURRENT_MOVIE_URL + RetrieveRequest.API_KEY +
-                    "&region=SG";
-                break;
-            case POPULAR_MOVIES:
-                requestURL += RetrieveRequest.POPULAR_MOVIE_URL + RetrieveRequest.API_KEY +
-                    "&region=SG";
-                break;
-            case UPCOMING_MOVIES:
-                requestURL += RetrieveRequest.UPCOMING_MOVIE_URL + RetrieveRequest.API_KEY +
-                    "&region=SG";
-                break;
-            case TRENDING_MOVIES:
-                requestURL += RetrieveRequest.TRENDING_MOVIE_URL + RetrieveRequest.API_KEY +
-                    "&region=SG";
-                    break;
-            case CURRENT_TV:
-                requestURL += RetrieveRequest.CURRENT_TV_URL + RetrieveRequest.API_KEY;
-                break;
-            case POPULAR_TV:
-                requestURL += RetrieveRequest.POPULAR_TV_URL + RetrieveRequest.API_KEY;
-                break;
-            case TRENDING_TV:
-                requestURL += RetrieveRequest.TRENDING_TV_URL + RetrieveRequest.API_KEY;
-                break;
-            case NEW_TV:
-                requestURL += RetrieveRequest.NEW_TV_URL + RetrieveRequest.API_KEY;
-                break;
-            case SEARCH_MOVIES:
-                try {
-                    requestURL += RetrieveRequest.MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(searchProfile.getName(), "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                break;
-
-            default:
-                requestURL = null;
-        }
-        requestURL += ADD_ADULT_OPTION + isAdult;
-        System.out.println(requestURL);
-        fetchJSONData(requestURL);
-    }
-
-
-    public String beginAddRequest(String movieTitle) throws Exceptions{
-        try {
-            String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
-            URLRetriever retrieve = new URLRetriever();
-            String json = retrieve.readURLAsString(new URL(url));
-            fetchedMoviesJSON(json);
-            return p_Movies.get(0).getTitle();
-        } catch (UnsupportedEncodingException | MalformedURLException ex) {
-            ex.printStackTrace();
-        }
-        return "";
-    }
-
-    public ArrayList<MovieInfoObject> beginSearchGenre (String genre, boolean adult) throws Exceptions {
-        try {
-            String url = MAIN_URL + "discover/movie?with_genres=" + URLEncoder.encode(genre, "UTF-8") + "&api_key="
-                    + API_KEY + "&language=en-US&page=1" + "&include_adult=";
-            url += adult;
-            URLRetriever retrieve = new URLRetriever();
-            String json = retrieve.readURLAsString(new URL(url));
-            fetchedMoviesJSON(json);
-            //fetchJSONData(url);
-        } catch (UnsupportedEncodingException ex) {
-            ex.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        return p_Movies;
-    }
-
-
-    // JSON data was fetched by the fetcher
-    @Override
-    public void fetchedMoviesJSON(String json) {
-        // If null string returned then there was a lack of internet connection
-        //System.out.println("so far ok0");
-        if (json == null) {
-            mListener.requestFailed();
-            //System.out.println("so far not ok");
-            return;
-        }
-        JSONParser parser = new JSONParser();
-        JSONObject movieData;
-        try {
-            movieData = (JSONObject) parser.parse(json);
-            JSONArray movies = new JSONArray();
-
-                movies = (JSONArray) movieData.get("results");
-                if (movies == null)
-                    System.out.println("mannns");
-
-
-
-        ArrayList<MovieInfoObject> parsedMovies = new ArrayList(20);
-
-
-            for (int i = 0; i < movies.size(); i++) {
-                if (checkCondition((JSONObject) movies.get(i))) {
-                    parsedMovies.add(parseMovieJSON((JSONObject) movies.get(i)));
-                    //System.out.println("yeesss");
-                }
-            }
-            if (searchProfile.isSortByAlphabetical()) {
-                //System.out.println("nooo");
-                //sortByAlphaOrder(parsedMovies);
-                Collections.sort(parsedMovies, new Comparator<MovieInfoObject>() {
-                    public int compare(MovieInfoObject v1, MovieInfoObject v2) {
-                        return v2.getReleaseDate().compareTo(v1.getReleaseDate());
-                    }
-                });
-            } else if (searchProfile.isSortByLatestRelease()) {
-                //System.out.println("boooo");
-                Collections.sort(parsedMovies, new Comparator<MovieInfoObject>() {
-                    public int compare(MovieInfoObject v1, MovieInfoObject v2) {
-                        return v2.getReleaseDate().compareTo(v1.getReleaseDate());
-                    }
-                });
-            } else if (searchProfile.isSortByHighestRating()) {
-                Collections.sort(parsedMovies, new Comparator<MovieInfoObject>() {
-                    public int compare(MovieInfoObject v1, MovieInfoObject v2) {
-                        return Double.compare(v2.getRating(), v1.getRating());
-                    }
-                });
-            }
-
-
-            mListener.requestCompleted(parsedMovies);
-            p_Movies = parsedMovies;
-            //} else {
-
-            //}
-           // System.out.println("so far ok3");
-        } catch (org.json.simple.parser.ParseException ex) {
-            Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-
-    // The fetcher reported a connection time out. Notify the request listener.
-    /**
-     * The function is called when the fetcher reported a connection time out.
-     * Notify the request listener.
-     */
-    @Override
-    public void connectionTimedOut() {
-        mListener.requestTimedOut();
-    }
-
-    private void fetchJSONData(String URLString) throws Exceptions {
-        Thread fetchThread = null;
-        try {
-            fetchThread = new Thread(new MovieInfoFetcher(new URL(URLString), this));
-            fetchThread.start();
-            //System.out.println("bef MovieInfoFetcher");
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-
-    /**
-     * Parses the given JSON string for a movie into a MovieInfo object.
-     */
-    private MovieInfoObject parseMovieJSON(JSONObject movieData) {
-        //long ID = (long) movieData.get(kMOVIE_ID);
-        //boolean adult = (boolean) movieData.get(kADULT);
-        String title = "";
-       boolean isMovie = false;
-       if (searchProfile.isMovie()) {
-                title = (String) movieData.get(kMOVIE_TITLE);
-                isMovie = true;
-            } else {
-                title = (String) movieData.get(kTV_TITLE);
-            }
-        long ID = (long) movieData.get(kMOVIE_ID);
-        double rating = 0.0;
-        try {
-            rating = (double) movieData.get(kMOVIE_RATING);
-        } catch (ClassCastException ex) {
-            // the rating was parsed with a long value, cast to double (issue in simple json library)
-            Long longRating = (Long) movieData.get(kMOVIE_RATING);
-            rating = longRating.doubleValue();
-        }
-
-        String summary = (String) movieData.get(kMOVIE_SUMMARY);
-
-        // Parse genre id array
-        JSONArray genreIDsJsonArray = (JSONArray) movieData.get(kMOVIE_GENRES);
-        long[] genreIDs = new long[genreIDsJsonArray.size()];
-        for (int i = 0; i < genreIDs.length; i++) {
-            genreIDs[i] = (long) genreIDsJsonArray.get(i);
-        }
-
-        // Parse date string from json
-        //SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-DD");
-        Date releaseDate = null;
-
-        //try {
-        String releaseDateString = (String) movieData.get(kMOVIE_RELEASE_DATE);
-        //System.out.println("date is" + releaseDateString);
-
-        if (releaseDateString != null) {
-            try {
-                SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
-                releaseDate = formatter1.parse(releaseDateString);
-                //System.out.println(releaseDate);
-            } catch (ParseException e) {
-                releaseDate = null;
-            }
-        }
-
-        // Get poster and backdrop paths
-        String posterPath = (String) movieData.get(kMOVIE_POSTER_PATH);
-        String backdropPath = (String) movieData.get(kMOVIE_BACKDROP_PATH);
-
-        MovieInfoObject movieInfo = new MovieInfoObject(isMovie, ID, title, releaseDate, summary, rating,
-                genreIDs,posterPath, backdropPath, searchProfile.isAdult());
-
-        // If the base url was fetched and loaded, set the root path and poster size
-        if (mImageBaseURL != null) {
-            movieInfo.setPosterRootPath(mImageBaseURL, mPosterSizes[mPosterSizes.length - 3], mBackdropSizes[mBackdropSizes.length - 1]);
-        }
-
-        return movieInfo;
-    }
+    private static final String MOVIE_TITLE = "title";
+    private static final String TV_TITLE = "original_name";
+    private static final String RELEASE_DATE = "release_date";
+    private static final String DATA_ID = "id";
+    private static final String GENRES = "genre_ids";
+    private static final String SUMMARY = "overview";
+    private static final String RATING = "vote_average";
+    private static final String BACKDROP_PATH = "backdrop_path";
+    private static final String POSTER_PATH = "poster_path";
+    private static final String KEYWORD_FOR_SEARCH_REQUESTS = "results";
+    private static final String KEYWORD_FOR_CAST_REQUESTS = "cast";
+    private static final String KEYWORD_FOR_NAME = "name";
 
     // Config URL
     private final static String CONFIG_URL = MAIN_URL + "configuration?api_key=" + API_KEY;
@@ -463,6 +101,478 @@ public class RetrieveRequest implements InfoFetcher {
     private static String[] mPosterSizes;
     private static String[] mBackdropSizes;
     private boolean mConfigWasRead;
+
+
+
+    /**
+     * Enumerates different types of requests that can be done with MovieDB API.
+     */
+    public enum MoviesRequestType {
+        CURRENT_MOVIES,
+        POPULAR_MOVIES,
+        UPCOMING_MOVIES,
+        TRENDING_MOVIES,
+        TOP_RATED_MOVIES,
+        SEARCH_MOVIES,
+        CURRENT_TV,
+        POPULAR_TV,
+        TRENDING_TV,
+        TOP_RATED_TV,
+        SEARCH_TV,
+    }
+
+    /**
+     * Responsible for setting SearchProfile.
+     * Which will be in turn used to filter search results according to user's prefererences.
+     *
+     * @param searchProfile Object that contains all the users' preferences for a particular search.
+     */
+    public void setSearchProfile(SearchProfile searchProfile) {
+        this.searchProfile = searchProfile;
+    }
+
+    /**
+     * Responsible for setting up interface that listens to completed fetch requests from the MovieDB API.
+     * Also, checks if config is needed.
+     *
+     * @param listener Interface that listens to completed fetch requests from the MovieDB API.
+     * @throws Exceptions
+     */
+    public RetrieveRequest(RequestListener listener) throws Exceptions {
+        mListener = listener;
+        // Check if config is needed
+        checkIfConfigNeeded();
+    }
+
+    /**
+     * Responsible for begining appropriate data request fetch based on type on another thread.
+     * Listener will be called once the data has been fetched and parsed into a object.
+     *
+     * @param type The request type to fetch the appropriate data from the API.
+     * @throws Exceptions to detect UnsupportedEncodingException
+     */
+    public void beginSearchRequest(RetrieveRequest.MoviesRequestType type) throws Exceptions {
+        getType = type;
+        boolean isAdult;
+        try {
+            // check if search is for movies or TV shows
+            isAdult = searchProfile.isAdult();
+        } catch (NullPointerException e) {
+            isAdult = false;
+        }
+        String requestURL = RetrieveRequest.MAIN_URL;
+        switch (type) {
+            // to fetch data for currently showing movies
+            case CURRENT_MOVIES:
+                requestURL += RetrieveRequest.CURRENT_MOVIE_URL + RetrieveRequest.API_KEY +
+                        REGION_SPECIFIED_IN_API;
+                break;
+            // to fetch data for popular movies
+            case POPULAR_MOVIES:
+                requestURL += RetrieveRequest.POPULAR_MOVIE_URL + API_KEY +
+                        REGION_SPECIFIED_IN_API;
+                break;
+            // to fetch data for upcoming movies
+            case UPCOMING_MOVIES:
+                requestURL += RetrieveRequest.UPCOMING_MOVIE_URL + API_KEY +
+                        REGION_SPECIFIED_IN_API;
+                break;
+            // to fetch data for trending movies
+            case TRENDING_MOVIES:
+                requestURL += RetrieveRequest.TRENDING_MOVIE_URL + API_KEY +
+                        REGION_SPECIFIED_IN_API;
+                break;
+            // to fetch data for top-rated movies
+            case TOP_RATED_MOVIES:
+                requestURL += RetrieveRequest.TOP_RATED_MOVIE_URL + API_KEY;
+                break;
+            // to fetch data for currently playing TV shows on the air
+            case CURRENT_TV:
+                requestURL += RetrieveRequest.CURRENT_TV_URL + API_KEY;
+                break;
+            // to fetch data for popular TV shows
+            case POPULAR_TV:
+                requestURL += RetrieveRequest.POPULAR_TV_URL + API_KEY;
+                break;
+            // to fetch data for trending TV shows
+            case TRENDING_TV:
+                requestURL += RetrieveRequest.TRENDING_TV_URL + API_KEY;
+                break;
+            // to fetch data for top-rated TV shows
+            case TOP_RATED_TV:
+                requestURL += RetrieveRequest.TOP_RATED_TV_URL + API_KEY;
+                break;
+            // to fetch data for movies that match the keyword entered by user
+            case SEARCH_MOVIES:
+                try {
+                    requestURL += RetrieveRequest.MOVIE_SEARCH_URL + API_KEY + TO_SPECIFY_QUERY +
+                            URLEncoder.encode(searchProfile.getName(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    throw new Exceptions(PromptMessages.API_FAIL_GENERAL);
+                }
+                break;
+            case SEARCH_TV:
+                try {
+                    requestURL += RetrieveRequest.TV_SEARCH_URL + API_KEY + TO_SPECIFY_QUERY +
+                            URLEncoder.encode(searchProfile.getName(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    throw new Exceptions(PromptMessages.API_FAIL_GENERAL);
+                }
+            default:
+                requestURL = null;
+        }
+        // add adult preference to the url to fetch data approrpariately
+        requestURL += ADD_ADULT_OPTION + isAdult;
+        System.out.println(requestURL);
+        fetchJSONData(requestURL);
+    }
+
+    /**
+     * Responible and called when information about cast and certication is needed about a movie or TV show.
+     * This data have to be fetched by MovieDB API.
+     *
+     * @param object Object that contains all the details about a movie or TV show.
+     * @throws Exceptions
+     */
+    public void beginMoreInfoRequest(MovieInfoObject object)
+            throws Exceptions {
+        String certDetail = getCertStrings(object);
+        object.setCertInfo(certDetail);
+        ArrayList<String> castDetail = getCastStrings(object);
+        object.setCastInfo(castDetail);
+    }
+
+    /**
+     * Responsible for extracting and returning the cert details about a movie/TV show.
+     * This function unlike beginSearchRequest does not call any listener.
+     *
+     * @param infoObject Object that contains details about the movie/TV show.
+     * @return the cert details pertaining to the movie/TV show.
+     * @throws Exceptions when detect MalformedURLExcpetion and/or ParserException.
+     */
+    public static String getCertStrings(MovieInfoObject infoObject) throws Exceptions {
+        String cert = "N/A";
+        try {
+            String jsonResult = "";
+            String url = MAIN_URL;
+            boolean isMovie = infoObject.isMovie();
+            // if object is a movie
+            if (isMovie) {
+                url += TO_SPECIFY_MOVIES + infoObject.getId() + RELEASE_DATES_URL;
+            } else {
+                url += TO_SPECIFY_TV_SHOWS + infoObject.getId() + RATINGS_URL;
+            }
+            url += API_KEY;
+            System.out.println(url);
+            jsonResult = URLRetriever.readURLAsString(new URL(url));
+            JSONParser parser = new JSONParser();
+            JSONObject jsonData = (JSONObject) parser.parse(jsonResult);
+            JSONArray casts = (JSONArray) jsonData.get(KEYWORD_FOR_SEARCH_REQUESTS);
+            if (isMovie) {
+                cert = getMovieCertFromJSON(casts);
+            } else {
+                cert = getTVCertFromJSON(casts);
+            }
+        } catch (MalformedURLException | org.json.simple.parser.ParseException ex) {
+            ex.printStackTrace();
+        }
+        return cert;
+    }
+
+    private static String getTVCertFromJSON(JSONArray casts) {
+        String cert = "N/A";
+        String certStrings = "";
+        for (int i = 0; i < casts.size(); i += 1) {
+            JSONObject castPair = (JSONObject) casts.get(i);
+            if (castPair.get("iso_3166_1").equals("GB")) {
+                certStrings = castPair.get("rating").toString();
+                cert = "Suitable for "
+                        + certStrings + " years & above";
+            }
+        }
+        return cert;
+    }
+
+    private static String getMovieCertFromJSON(JSONArray casts) {
+        String cert = "N/A";
+        String certStrings = "";
+        for (int i = 0; i < casts.size(); i += 1) {
+            JSONObject castPair = (JSONObject) casts.get(i);
+            if (castPair.get("iso_3166_1").equals("US")) {
+                Map certMap = (Map) casts.get(i);
+                Iterator<Map.Entry> itr1 = certMap.entrySet().iterator();
+                while (itr1.hasNext()) {
+                    Map.Entry pair = itr1.next();
+                    if (pair.getKey().equals("release_dates")) {
+                        certStrings = pair.getValue().toString();
+                    }
+                }
+                // System.out.println("this is:" + certStrings);
+                String[] getCert = certStrings.strip().split("certification");
+                if (getCert.length == 2) {
+                    cert = getCert[1].substring(2, getCert[1].length() - 2);
+                } else {
+                    cert = getCert[getCert.length - 1].substring(2, getCert[getCert.length - 1].length() - 2);
+                }
+            }
+        }
+        return cert;
+    }
+
+    /**
+     * Responsible for extracting and returning the list of cast details about a movie/TV show.
+     * This function unlike beginSearchRequest does not call any listener.
+     *
+     * @param infoObject Object that contains details about the movie/TV show.
+     * @return the list of cast pertaining to the movie/TV show.
+     * @throws Exceptions when detect MalformedURLExcpetion and/or ParserException.
+     */
+    public static ArrayList<String> getCastStrings(MovieInfoObject infoObject) throws Exceptions {
+        ArrayList<String> castInfoStrings = new ArrayList<>();
+        try {
+            String jsonResult = "";
+            String url = MAIN_URL;
+            boolean isMovie = infoObject.isMovie();
+            // object is a movie
+            if (isMovie) {
+                url += TO_SPECIFY_MOVIES;
+            } else {
+                url += TO_SPECIFY_TV_SHOWS;
+            }
+            url += infoObject.getId() + CREDITS_URL + API_KEY;
+            System.out.println(url);
+            jsonResult = URLRetriever.readURLAsString(new URL(url));
+            JSONParser parser = new JSONParser();
+            JSONObject jsonData = (JSONObject) parser.parse(jsonResult);
+            JSONArray casts = (JSONArray) jsonData.get(KEYWORD_FOR_CAST_REQUESTS);
+            for (int i = 0; i < casts.size(); i += 1) {
+                JSONObject castPair = (JSONObject) casts.get(i);
+                castInfoStrings.add((String) castPair.get(KEYWORD_FOR_NAME));
+            }
+        } catch (MalformedURLException | org.json.simple.parser.ParseException ex) {
+            throw new Exceptions(PromptMessages.API_FAIL_GENERAL);
+        }
+        return castInfoStrings;
+    }
+
+
+    /**
+     * to be done by marc
+     *
+     * @param movieTitle
+     * @return
+     * @throws Exceptions
+     */
+    public String beginAddRequest(String movieTitle) throws Exceptions {
+        try {
+            String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
+            URLRetriever retrieve = new URLRetriever();
+            String json = retrieve.readURLAsString(new URL(url));
+            fetchedJSON(json);
+            return p_Movies.get(0).getTitle();
+        } catch (UnsupportedEncodingException | MalformedURLException ex) {
+            ex.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
+     * to be done by marc
+     *
+     * @param genre
+     * @param adult
+     * @return
+     * @throws Exceptions
+     */
+    public ArrayList<MovieInfoObject> beginSearchGenre(String genre, boolean adult) throws Exceptions {
+        try {
+            String url = MAIN_URL + "discover/movie?with_genres=" + URLEncoder.encode(genre, "UTF-8") + "&api_key="
+                    + API_KEY + "&language=en-US&page=1" + "&include_adult=";
+            url += adult;
+            URLRetriever retrieve = new URLRetriever();
+            String json = retrieve.readURLAsString(new URL(url));
+            fetchedJSON(json);
+            //fetchJSONData(url);
+        } catch (UnsupportedEncodingException ex) {
+            ex.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return p_Movies;
+    }
+
+
+    /**
+     * Called after JSON data has been fetched by the fetcher.
+     * Extracts and filters results according to user's preferences.
+     *
+     * @param json String that contains all the data extracted by fetcher.
+     */
+    @Override
+    public void fetchedJSON(String json) {
+        // check for null string returned due to a lack of internet connection
+        JSONObject movieData = new JSONObject();
+        if (json == null) {
+            mListener.requestFailed();
+            //System.out.println("so far not ok");
+            try {
+                movieData = callOffline();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //return;
+        } else {
+            //start parsing data into JSONObject
+            JSONParser parser = new JSONParser();
+
+            try {
+                movieData = (JSONObject) parser.parse(json);
+            } catch (org.json.simple.parser.ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        JSONArray movies = new JSONArray();
+        movies = (JSONArray) movieData.get(KEYWORD_FOR_SEARCH_REQUESTS);
+        ArrayList<MovieInfoObject> parsedMovies = new ArrayList(20);
+        for (int i = 0; i < movies.size(); i++) {
+            // add results that meet user stated preferences
+            if (checkCondition((JSONObject) movies.get(i))) {
+                parsedMovies.add(parseMovieJSON((JSONObject) movies.get(i)));
+                //System.out.println("yeesss");
+            }
+        }
+        p_Movies = parsedMovies;
+        if (searchProfile.isSortByAlphabetical()) {
+            sortByAlphaOrder();
+        } else if (searchProfile.isSortByLatestRelease()) {
+            parsedMovies.sort(new Comparator<MovieInfoObject>() {
+                public int compare(MovieInfoObject v1, MovieInfoObject v2) {
+                    return v2.getReleaseDateInfo().compareTo(v1.getReleaseDateInfo());
+                }
+            });
+        } else if (searchProfile.isSortByHighestRating()) {
+            parsedMovies.sort(new Comparator<MovieInfoObject>() {
+                public int compare(MovieInfoObject v1, MovieInfoObject v2) {
+                    return Double.compare(v2.getRatingInfo(), v1.getRatingInfo());
+                }
+            });
+        }
+        mListener.requestCompleted(parsedMovies);
+
+    }
+
+
+    /**
+     *
+     */
+    private JSONObject callOffline() throws IOException {
+        CurrentMoviesOffline currentMoviesOffline = new CurrentMoviesOffline();
+        JSONObject jsonObject = currentMoviesOffline.load();
+        return jsonObject;
+    }
+
+    private void sortByAlphaOrder() {
+        p_Movies.sort(new Comparator<MovieInfoObject>() {
+            public int compare(MovieInfoObject v1, MovieInfoObject v2) {
+                return v1.getTitle().compareTo(v2.getTitle());
+            }
+        });
+    }
+
+
+    /**
+     * Called when the fetcher reported a connection time out.
+     * Responisble for notify the request listener.
+     */
+    @Override
+    public void connectionTimedOut() {
+        mListener.requestTimedOut();
+    }
+
+    /**
+     * Called to fetch data from API for search requests.
+     *
+     * @param URLString The URL pertaining to the type of search request to be carried off.
+     * @throws Exceptions when detect a MalformedURLException.
+     */
+    private void fetchJSONData(String URLString) throws Exceptions {
+        Thread fetchThread = null;
+        try {
+            fetchThread = new Thread(new MovieInfoFetcher(new URL(URLString), this));
+            fetchThread.start();
+            //System.out.println("bef MovieInfoFetcher");
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Called to parses the given JSON string for a movie/TV into a MovieInfo object.
+     *
+     * @param data JSONObject containing the information about a movie/TV show.
+     * @return MovieInfo object containing information about a movie/TV show.
+     */
+    private MovieInfoObject parseMovieJSON(JSONObject data) {
+        String title = "";
+        boolean isMovie = false;
+
+        // Parse title
+        //if the search request was for movies
+        if (searchProfile.isMovie()) {
+            title = (String) data.get(MOVIE_TITLE);
+            isMovie = true;
+        } else {
+            title = (String) data.get(TV_TITLE);
+        }
+
+        // Parse id
+        long ID = (long) data.get(DATA_ID);
+
+        // Parse rating
+        double rating = 0.0;
+        try {
+            rating = (double) data.get(RATING);
+        } catch (ClassCastException ex) {
+            // the rating was parsed with a long value, cast to double (issue in simple json library)
+            Long longRating = (Long) data.get(RATING);
+            rating = longRating.doubleValue();
+        }
+        String summary = (String) data.get(SUMMARY);
+
+        // Parse genre id array
+        JSONArray genreIDsJsonArray = (JSONArray) data.get(GENRES);
+        ArrayList<Long> genreID = new ArrayList<>();
+        for (int i = 0; i < genreIDsJsonArray.size(); i++) {
+            genreID.add((long) genreIDsJsonArray.get(i));
+        }
+
+        // Parse date string from json
+        Date releaseDate = null;
+        String releaseDateString = (String) data.get(RELEASE_DATE);
+        if (releaseDateString != null) {
+            try {
+                SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
+                releaseDate = formatter1.parse(releaseDateString);
+                //System.out.println(releaseDate);
+            } catch (ParseException e) {
+                releaseDate = null;
+            }
+        }
+
+        // Get poster and backdrop paths
+        String posterPath = (String) data.get(POSTER_PATH);
+        String backdropPath = (String) data.get(BACKDROP_PATH);
+
+        MovieInfoObject movieInfo = new MovieInfoObject(ID, title, isMovie, releaseDate, summary,
+                posterPath, backdropPath, rating, genreID, searchProfile.isAdult());
+
+        // If the base url was fetched and loaded, set the root path and poster size
+        if (mImageBaseURL != null) {
+            movieInfo.setPosterRootPath(mImageBaseURL, mPosterSizes[mPosterSizes.length - 3]);
+        }
+
+        return movieInfo;
+    }
 
     // Checks if API config data needs to be recached
     private void checkIfConfigNeeded() throws Exceptions {
@@ -588,11 +698,11 @@ public class RetrieveRequest implements InfoFetcher {
             JSONObject jsonData = (JSONObject) parser.parse(jsonResult);
             JSONArray genres = (JSONArray) jsonData.get("genres");
 
-            Set<Integer>genrePref = new HashSet<>();
-            Set<Integer>genreRestric = new HashSet<>();
-            String[] genreStrings = new String[movie.getGenreIDs().length];
-            for (int i = 0; i < movie.getGenreIDs().length; i++) {
-                genreStrings[i] = getGenreStringForID(movie.getGenreIDs()[i], genres);
+            Set<Integer> genrePref = new HashSet<>();
+            Set<Integer> genreRestric = new HashSet<>();
+            String[] genreStrings = new String[movie.getGenreIDInfo().size()];
+            for (int i = 0; i < movie.getGenreIDInfo().size(); i++) {
+                genreStrings[i] = getGenreStringForID(movie.getGenreIDInfo().get(i), genres);
             }
 
             return genreStrings;
@@ -617,57 +727,57 @@ public class RetrieveRequest implements InfoFetcher {
                 genre = (String) genrePair.get("name");
             }
         }
-
         return genre;
     }
 
 
     private boolean checkCondition(JSONObject entryInfo) {
 
-            Set<Long> genrePref = new HashSet<>();
-            Set<Long> genreRestric = new HashSet<>();
-            boolean haveGenrePref = true;
-            boolean haveGenreRestrict = true;
-            try {
-                for (int i = 0; i < searchProfile.getGenreIdPreference().size(); i += 1) {
-                    genrePref.add(Long.valueOf(searchProfile.getGenreIdPreference().get(i)));
-                }
-            } catch (NullPointerException e) {
-                haveGenrePref = false;
+        Set<Long> genrePref = new HashSet<>();
+        Set<Long> genreRestric = new HashSet<>();
+        boolean haveGenrePref = true;
+        boolean haveGenreRestrict = true;
+        try {
+            for (int i = 0; i < searchProfile.getGenreIdPreference().size(); i += 1) {
+                genrePref.add(Long.valueOf(searchProfile.getGenreIdPreference().get(i)));
             }
-            if (genrePref.size() == 0) {
-                haveGenrePref = false;
+        } catch (NullPointerException e) {
+            haveGenrePref = false;
+        }
+        if (genrePref.size() == 0) {
+            haveGenrePref = false;
+        }
+        try {
+            for (int i = 0; i < searchProfile.getGenreIdRestriction().size(); i += 1) {
+                genreRestric.add(Long.valueOf(searchProfile.getGenreIdRestriction().get(i)));
             }
-            try {
-                for (int i = 0; i < searchProfile.getGenreIdRestriction().size(); i += 1) {
-                    genreRestric.add(Long.valueOf(searchProfile.getGenreIdRestriction().get(i)));
-                }
-            } catch (NullPointerException e) {
-                haveGenreRestrict = false;
-            }
-            JSONArray jsonArray = (JSONArray) entryInfo.get("genre_ids");
-            boolean containPrefGenre = false;
+        } catch (NullPointerException e) {
+            haveGenreRestrict = false;
+        }
+        JSONArray jsonArray = (JSONArray) entryInfo.get("genre_ids");
+        boolean containPrefGenre = false;
 
-             //   System.out.println("this is set " + genrePref);
+        //   System.out.println("this is set " + genrePref);
 
-            for (int i = 0; i < jsonArray.size(); i += 1) {
-               // System.out.println(jsonArray.get(i));
-                if (genreRestric.contains((long) jsonArray.get(i))) {
-                   // System.out.println("this2");
-                    return false;
-                } else if (genrePref.contains((long) jsonArray.get(i))) {
-                    containPrefGenre = true;
-                 //   System.out.println("mannns");
-                }
-            }
-            if ((containPrefGenre) || !(haveGenrePref)) {
-               // System.out.println("ahh");
-                return true;
-
-            } else {
-               // System.out.println("afff");
+        for (int i = 0; i < jsonArray.size(); i += 1) {
+            // System.out.println(jsonArray.get(i));
+            if (genreRestric.contains((long) jsonArray.get(i))) {
+                // System.out.println("this2");
                 return false;
-
+            } else if (genrePref.contains((long) jsonArray.get(i))) {
+                containPrefGenre = true;
+                //   System.out.println("mannns");
             }
+        }
+        if ((containPrefGenre) || !(haveGenrePref)) {
+            // System.out.println("ahh");
+            return true;
+
+        } else {
+            // System.out.println("afff");
+            return false;
+
+        }
     }
+
 }

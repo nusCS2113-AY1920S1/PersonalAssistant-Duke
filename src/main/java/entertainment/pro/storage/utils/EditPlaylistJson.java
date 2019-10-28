@@ -46,14 +46,15 @@ public class EditPlaylistJson {
                     String movieFullBackdropPath = (String) movie.get("fullBackdropPath");
                     double movieRating = (double) movie.get("rating");
                     JSONArray genreArray = (JSONArray) movie.get("genreIDs");
-                    long[] movieGenreIDs = new long[genreArray.size()];
+                    ArrayList<Long> movieGenreIDs = new ArrayList<>();
                     for (int j = 0; j < genreArray.size(); j++) {
-                        movieGenreIDs[j] = (long) genreArray.get(j);
+                        movieGenreIDs.add((long) genreArray.get(j));
+                       // movieGenreIDs[j] = (long) genreArray.get(j);
                     }
                     boolean adult = (boolean) movie.get("adult");
                     //int fakeType = 12345;
                     boolean fakeType = false;
-                    playlistMovies.add(new PlaylistMovieInfoObject(fakeType, movieID, movieTitle, null, movieSummary, movieRating, movieGenreIDs, movieFullPosterPath, movieFullBackdropPath, false, movieReleaseDate));
+                    //playlistMovies.add(new PlaylistMovieInfoObject(movieID, movieTitle, fakeType,null, movieSummary, movieRating, movieGenreIDs, movieFullPosterPath, movieFullBackdropPath, false, movieReleaseDate, movieTitle));
                 }
                 for (PlaylistMovieInfoObject log : playlistMovies) {
                     System.out.println(log.getTitle() +"choochoo");

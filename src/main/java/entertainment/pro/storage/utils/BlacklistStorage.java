@@ -1,6 +1,7 @@
 package entertainment.pro.storage.utils;
 
 
+import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.model.UserProfile;
 import entertainment.pro.storage.user.Blacklist;
@@ -53,9 +54,7 @@ public class BlacklistStorage {
 
             File newFile = new File("./BlacklistStorage.json");
             if (newFile.createNewFile()) {
-
-                Blacklist.initialiseAll(new ArrayList<String>() , new ArrayList<String>() , new ArrayList<MovieModel>());
-
+               Blacklist.initialiseAll(new ArrayList<String>() , new ArrayList<String>() , new ArrayList<MovieModel>());
             } else {
                 FileReader reader = new FileReader(newFile);
                 JSONParser jsonParser = new JSONParser();
@@ -65,17 +64,19 @@ public class BlacklistStorage {
 
                 Gson gson = new Gson();
                 Type type = new TypeToken<ArrayList<String>>() { }.getType();
-                ArrayList<String> keyList = gson.fromJson(jsonObject.get(BlacklistKeys.KEYS.toString()).toString()
+                ArrayList<String> keyList = gson.fromJson(jsonObject.get(BlacklistStorage.BlacklistKeys.KEYS.toString()).toString()
                         , type);
 
-                Type type2 = new TypeToken<ArrayList<MovieModel>>() { }.getType();
-                ArrayList<MovieModel> movieList = gson.fromJson(jsonObject.get(BlacklistKeys.ID.toString()).toString()
+                Type type2 = new TypeToken<ArrayList<MovieModel>>() {
+                }.getType();
+                ArrayList<MovieModel> movieList = gson.fromJson(jsonObject.get(BlacklistStorage.BlacklistKeys.ID.toString()).toString()
                         , type2);
 
-                ArrayList<String> movieTitleList = gson.fromJson(jsonObject.get(BlacklistKeys.MOVIES.toString()).toString()
+                ArrayList<String> movieTitleList = gson.fromJson(jsonObject.get(BlacklistStorage.BlacklistKeys.MOVIES.toString()).toString()
                         , type);
 
-                Blacklist.initialiseAll(keyList , movieTitleList , movieList);
+                Blacklist.initialiseAll(keyList, movieTitleList, movieList);
+
 
             }
 

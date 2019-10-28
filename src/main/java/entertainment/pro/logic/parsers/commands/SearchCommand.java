@@ -80,15 +80,15 @@ public class SearchCommand extends CommandSuper {
     private void executeMovieSearch(String payload, MovieHandler movieHandler, SearchProfile searchProfile) throws Exceptions {
         movieHandler.setSearchProfile(searchProfile);
         if (payload.equals(GET_CURRENT)) {
-            movieHandler.getAPIRequester().beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
+            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
         } else if (payload.equals(GET_UPCOMING)) {
-            movieHandler.getAPIRequester().beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
+            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
         } else if (payload.equals(GET_TRENDING)) {
-            movieHandler.getAPIRequester().beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES);
+            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES);
         } else if (payload.equals(GET_POPULAR)) {
-            movieHandler.getAPIRequester().beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
+            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
         } else {
-            movieHandler.getAPIRequester().beginMovieRequest(RetrieveRequest.MoviesRequestType.SEARCH_MOVIES);
+            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.SEARCH_MOVIES);
         }
     }
 
@@ -96,12 +96,10 @@ public class SearchCommand extends CommandSuper {
         movieHandler.setSearchProfile(searchProfile);
         if (payload.equals(GET_CURRENT)) {
             movieHandler.showCurrentTV();
-        } else if (payload.equals(GET_UPCOMING)) {
-            movieHandler.getAPIRequester().beginMovieRequest(RetrieveRequest.MoviesRequestType.NEW_TV);
         } else if (payload.equals(GET_TRENDING)) {
-            movieHandler.getAPIRequester().beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
+            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
         } else if (payload.equals(GET_POPULAR)) {
-            movieHandler.getAPIRequester().beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV);
+            movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV);
         }
     }
 

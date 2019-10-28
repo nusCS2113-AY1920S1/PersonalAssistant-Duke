@@ -87,7 +87,7 @@ public class Blacklist {
                 return;
             }
         }
-        blackListMovies.add(new MovieModel(mo.getID() , mo.getTitle().toLowerCase()));
+        blackListMovies.add(new MovieModel(mo.getId() , mo.getTitle().toLowerCase()));
         saveBlackList();
     }
 
@@ -218,7 +218,7 @@ public class Blacklist {
     public static boolean removeMovieObjById(MovieInfoObject movie)  {
 
         for (MovieModel mo : blackListMovies) {
-            if (mo.getId() == movie.getID()) {
+            if (mo.getId() == movie.getId()) {
                 blackListMovies.remove(mo);
                 return true;
             }
@@ -385,7 +385,7 @@ public class Blacklist {
         for (MovieInfoObject o : mMovies) {
             boolean isBlacklisted = false;
             for (MovieModel e : blackListMovies) {
-                if (o.getID() == e.getId()) {
+                if (o.getId() == e.getId()) {
                     isBlacklisted = true;
                 }
             }

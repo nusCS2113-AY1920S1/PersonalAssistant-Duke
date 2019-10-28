@@ -15,6 +15,7 @@ public class MovieInfoFetcher implements Runnable {
     private URL mRequestURL;
     private InfoFetcher mRequestListener;
 
+
     /**
      * Responsible for constructing fetcher with a given URL.
      *
@@ -37,7 +38,7 @@ public class MovieInfoFetcher implements Runnable {
     public void run() {
         try {
             String json = URLRetriever.readURLAsString(mRequestURL);
-            mRequestListener.fetchedMoviesJSON(json);
+            mRequestListener.fetchedJSON(json);
             //System.out.println("passed");
         } catch (Exceptions ex) {
             // Notify the listener that the connection have timed out.

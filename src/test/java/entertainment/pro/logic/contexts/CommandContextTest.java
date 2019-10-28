@@ -3,6 +3,7 @@ package entertainment.pro.logic.contexts;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.logic.Contexts.CommandContext;
 import entertainment.pro.logic.parsers.CommandStructure;
 import org.junit.jupiter.api.Test;
 

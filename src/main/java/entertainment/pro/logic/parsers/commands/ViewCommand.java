@@ -32,12 +32,6 @@ public class ViewCommand extends CommandSuper {
             case blacklist:
                 ((MovieHandler) this.getUIController()).setFeedbackText(Blacklist.printList());
                 break;
-            case movies:
-                executeMovieCommands();
-                break;
-            case tv:
-                executeTVCommands();
-                break;
             case back:
                 executeBackCommands();
                 break;
@@ -95,52 +89,4 @@ public class ViewCommand extends CommandSuper {
 
     }
 
-
-    private void executeMovieCommands() throws Exceptions {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        Date date = new Date();
-        String now = formatter.format(date);
-        String payload = getPayload();
-        if (payload.equals("current")) {
-            //  ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieRequest(
-            //        RetrieveRequest.MoviesRequestType.CURRENT_MOVIES,
-            //       ((MovieHandler) this.getUIController()).getUserProfile().isAdult()
-            // )
-            //;
-            ((MovieHandler) this.getUIController()).showCurrentMovies();
-        } else if (payload.equals("upcoming")) {
-            // ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieRequest(
-            //       RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES,
-            //      ((MovieHandler) this.getUIController()).getUserProfile().isAdult()
-            //);
-            ((MovieHandler) this.getUIController()).showUpcomingMovies();
-        } else if (payload.equals("trending")) {
-            ((MovieHandler) this.getUIController()).showTrendMovies();
-        } else if (payload.equals("popular")) {
-            ((MovieHandler) this.getUIController()).showPopMovies();
-        }
-        if (!(((MovieHandler) this.getUIController()).isViewBack())) {
-            ((MovieHandler) this.getUIController()).updatePastCommands(now);
-        }
-    }
-
-    private void executeTVCommands() throws Exceptions {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        Date date = new Date();
-        String now = formatter.format(date);
-        String payload = getPayload();
-        if (payload.equals("current")) {
-            ((MovieHandler) this.getUIController()).showCurrentTV();
-            // movieHandler.setFeedbackText(DukeException.);
-        } else if (payload.equals("upcoming")) {
-            ((MovieHandler) this.getUIController()).showUpcomingTV();
-        } else if (payload.equals("trending")) {
-            ((MovieHandler) this.getUIController()).showTrendTV();
-        } else if (payload.equals("popular")) {
-            ((MovieHandler) this.getUIController()).showPopTV();
-        }
-        if (!(((MovieHandler) this.getUIController()).isViewBack())) {
-            ((MovieHandler) this.getUIController()).updatePastCommands(now);
-        }
-    }
 }
