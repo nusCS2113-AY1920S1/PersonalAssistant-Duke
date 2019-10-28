@@ -1,10 +1,6 @@
 package moomoo.command;
 
-import moomoo.stubs.CategoryListStub;
-import moomoo.stubs.CategoryStub;
-import moomoo.stubs.ScheduleListStub;
-import moomoo.stubs.StorageStub;
-import moomoo.stubs.UiStub;
+import moomoo.stubs.*;
 import moomoo.task.Budget;
 import moomoo.task.MooMooException;
 import org.junit.jupiter.api.Test;
@@ -24,6 +20,9 @@ public class BudgetCommandTest {
 
         File scheduleFile = File.createTempFile("schedule", ".txt");
         scheduleFile.deleteOnExit();
+
+        File expenditureFile = File.createTempFile("expenditure", ".txt");
+        expenditureFile.deleteOnExit();
 
         CategoryListStub newCatList = new CategoryListStub();
 
@@ -45,6 +44,7 @@ public class BudgetCommandTest {
 
         CategoryStub newCategory = new CategoryStub();
         ScheduleListStub newCalendar = new ScheduleListStub();
+        //ExpenditureStub newExpenditure = new ExpenditureStub();
         UiStub newUi = new UiStub();
         StorageStub newStorage = new StorageStub();
         Budget newBudget = new Budget();
@@ -65,6 +65,9 @@ public class BudgetCommandTest {
 
         File scheduleFile = File.createTempFile("schedule", ".txt");
         scheduleFile.deleteOnExit();
+
+        File expenditureFile = File.createTempFile("expenditure", ".txt");
+        expenditureFile.deleteOnExit();
 
         CategoryListStub newCatList = new CategoryListStub();
         newCatList.add(null);
@@ -111,6 +114,9 @@ public class BudgetCommandTest {
 
         File scheduleFile = File.createTempFile("schedule", ".txt");
         scheduleFile.deleteOnExit();
+
+        File expenditureFile = File.createTempFile("expenditure", ".txt");
+        expenditureFile.deleteOnExit();
 
         CategoryListStub newCatList = new CategoryListStub();
         newCatList.add(null);
@@ -165,6 +171,9 @@ public class BudgetCommandTest {
 
         File scheduleFile = File.createTempFile("schedule", ".txt");
         scheduleFile.deleteOnExit();
+
+        File expenditureFile = File.createTempFile("expenditure", ".txt");
+        expenditureFile.deleteOnExit();
 
         CategoryListStub newCatList = new CategoryListStub();
         newCatList.add(null);
