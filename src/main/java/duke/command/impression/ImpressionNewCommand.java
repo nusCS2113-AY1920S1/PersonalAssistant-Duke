@@ -34,14 +34,11 @@ public class ImpressionNewCommand extends DukeDataCommand {
         DukeData newData;
 
         //extract parameters and data type
-        Integer priority = switchToInt("priority");
+        int priority = switchToInt("priority");
         if (priority == -1) {
             priority = 0;
         }
-        assert (priority >= 0);
-        if (priority > 4) {
-            throw new DukeHelpException("Priority must be between 0 and 4!", this);
-        }
+        ImpressionHelpers.checkPriority(priority, this);
         nullToEmptyString(); //set optional string parameters to ""
         Integer status;
         switch (addType) { //isn't polymorphism fun?

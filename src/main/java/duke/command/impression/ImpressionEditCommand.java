@@ -92,7 +92,7 @@ public class ImpressionEditCommand extends DukeDataCommand {
             for (Map.Entry<String, String> entry : getSwitchVals().entrySet()) {
                 String switchName = entry.getKey();
                 String entryStr = entry.getValue();
-                Integer entryInt = 0;
+                int entryInt = 0;
                 if (Integer.class.equals(getSwitchMap().get(switchName).type)) {
                     entryInt = switchToInt(switchName);
                 }
@@ -110,12 +110,9 @@ public class ImpressionEditCommand extends DukeDataCommand {
                     break;
                 case "priority":
                     if (entryInt == -1) {
-                        entryInt = 0;
+                        break;
                     }
-                    assert (entryInt >= 0);
-                    if (entryInt > 4) {
-                        throw new DukeHelpException("Priority must be between 0 and 4!", this);
-                    }
+                    ImpressionHelpers.checkPriority(entryInt, this);
                     editData.setPriority(entryInt);
                     break;
                 case "summary":
