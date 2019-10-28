@@ -3,6 +3,7 @@ package duke.commands;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+
 /**
  * A class representing the command to terminate and exit duke.Duke.
  */

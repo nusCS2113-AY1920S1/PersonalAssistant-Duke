@@ -1,35 +1,35 @@
 package duke.commands;
 
-
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
 import duke.components.Bar;
-import duke.components.Chord;
+import duke.components.Group;
 import duke.components.Note;
 import duke.components.Song;
+import duke.components.Chord;
 import duke.components.SongList;
-
 import java.util.Iterator;
+import duke.commands.Splitter;
+import java.util.concurrent.ExecutionException;
 
 /**
- * A class representing the command to add a new bar of notes to the current song.
+ * A class that splits an object to the bars and then returns an arraylist of the bars to the function.
  */
-public class AddOverlayCommand extends Command<SongList> {
-
-    private int songIndex;
+public class OverlayGroupGroup  extends Command<SongList>  {
     public String message;
+    private int songIndex;
 
     /**
      * Constructor for the command to add a new bar to the current song.
      * @param message the input message that resulted in the creation of the duke.Commands.Command
      */
-    public AddOverlayCommand(String message) {
+    public OverlayGroupGroup(String message) {
         this.message = message;
     }
-
     /**
      * Combines two chords.
      *
@@ -38,19 +38,18 @@ public class AddOverlayCommand extends Command<SongList> {
      */
 
     public void combineChord(Chord chordBeCopiedFrom, Chord chordCopiedTo) {
-
         //ArrayList<Note>noteArrayCopyFrom  = chordBeCopiedFrom.getNotes();
         //Iterator<Note> iterator1 = noteArrayCopyFrom.iterator();
         //while()
         chordCopiedTo.getNotes().addAll(chordBeCopiedFrom.getNotes());
     }
-
     /**
      * Combines two bars.
      *
      * @param barToBeCopied the bar that is being copied from
      * @param barToCopyTo the bar that is being copied to
      */
+
     public void combineBar(Bar barToBeCopied, Bar barToCopyTo) {
         //we need copy the chords from bar1 into bar 2
         ArrayList<Chord> chordBeCopiedFrom = barToBeCopied.getChords();
@@ -61,6 +60,24 @@ public class AddOverlayCommand extends Command<SongList> {
         while (iterator1.hasNext()) {
             Chord chordAdd = iterator1.next();
             combineChord(chordAdd,chordCopiedTo.get(i));
+            i += 1;
+        }
+    }
+    /**
+     * Combines two Groups.
+     *
+     * @param groupToBeCopied the group that is being copied from
+     * @param groupToCopyTo the group that is being copied to
+     */
+
+    public void combineGroup(Group groupToBeCopied, Group groupToCopyTo) {
+        ArrayList<Bar> barBeCopiedFrom = groupToBeCopied.getBars();
+        ArrayList<Bar> barCopiedTo = groupToCopyTo.getBars();
+        Iterator<Bar> iterator1 = barBeCopiedFrom.iterator();
+        int i = 0;
+        while (iterator1.hasNext()) {
+            Bar barAdd = iterator1.next();
+            combineBar(barAdd,barCopiedTo.get(i));
             i += 1;
         }
     }
@@ -82,53 +99,52 @@ public class AddOverlayCommand extends Command<SongList> {
         Note note3;
         Note note4;
         int barNo;
-        if (message.length() < 8 || !message.substring(0, 8).equals("overlay ")) { //exception if not fully spelt
+
+        if (message.length() < 17 || !message.substring(0, 19).equals("overlay_group_group")) {
+            //exception if not fully spelt
             throw new DukeException(message);
         }
+
         try {
             //the command consists of overlay 10 repeat
-            String[] sections = message.substring(8).split(" ");
-            //this refers to the bar that needs to be added:
-            int barIndexToAdd = Integer.parseInt(sections[0]) - 1;
+            //the command consists of overlay_group_song 1 2 1 1 refers to overlay song 1 group 2 onto song 1 group 1
+
+            String[] sections = message.substring(20).split(" ");
+            int songIndexToAddFrom = Integer.parseInt(sections[0]) - 1;
+            int groupIndexToAddFrom = Integer.parseInt(sections[1]) - 1;
+            int songIndexToAddTo = Integer.parseInt(sections[2]) - 1;
+            int groupIndexToAddTo = Integer.parseInt(sections[3]) - 1;
 
             //System.out.println(barIndexToAdd);
-            if (songList.getSize() > songIndex) {
-                Song song = songList.getSongIndex(songIndex);
+            if (songList.getSize() > songIndexToAddFrom && songList.getSize() > songIndexToAddTo) {
+                Song songAddFrom = songList.getSongIndex(songIndexToAddFrom);
                 //System.out.println("adjjdsa1213");
-                ArrayList<Bar> barList = song.getBars();
-                int barIndexToBeCopiedTo = Integer.parseInt(sections[1]) - 1;
-                ///System.out.print("hellqellwe");
-                //System.out.println(barIndexToBeCopiedTo);
-                Bar overlayingBarToBeCopied = barList.get(barIndexToAdd);
-                Bar overlayingBar = overlayingBarToBeCopied.copy(overlayingBarToBeCopied);
+                Song songAddTo =  songList.getSongIndex(songIndexToAddTo);
+                ArrayList<Group> groupListAddFrom = songAddFrom.getGroups();
+                ArrayList<Group> groupListAddTo = songAddTo.getGroups();
+                Group overlayingGroupToBeCopied = groupListAddFrom.get(groupIndexToAddFrom);
+                Group overlayingGroup = overlayingGroupToBeCopied.copy(overlayingGroupToBeCopied);
+
                 //Bar overlayingBar = barList.get(barIndexToAdd);
                 //System.out.println("adjjdsa");
-                ArrayList<Chord> chordsToAdd = overlayingBar.getChords();
-                //System.out.print("sections length ");
-                //System.out.println(sections.length);
                 if (sections.length > 2 && sections[2].equals("repeat")) {
-                    Iterator<Bar> iterator1 = barList.iterator();
+                    Iterator<Group> iterator1 = groupListAddTo.iterator();
                     int i = 0;
                     while (iterator1.hasNext()) {
-                        Bar temp = iterator1.next();
-                        if (i >= barIndexToBeCopiedTo) {
-                            combineBar(overlayingBar, temp);
+                        Group temp = iterator1.next();
+                        if (i >= groupIndexToAddTo) {
+                            combineGroup(overlayingGroup,temp);
                         }
                         i += 1;
                     }
-
                 } else {
                     //System.out.println("no repeat found");
-                    Bar temp = barList.get(barIndexToBeCopiedTo);
-                    ArrayList<Chord> tempChordList = temp.getChords();
-                    //System.out.println("here i after the chord from bar");
-                    //Iterator<Chord> iterator1 = tempChordList.iterator();
-                    combineBar(overlayingBar,temp);
-                    //System.out.println("bar temp gotten");
+                    Group groupToBeCopiedTo = groupListAddTo.get(groupIndexToAddTo);
+                    combineGroup(overlayingGroup,groupToBeCopiedTo);
                 }
                 //add the bar to the song in the songlist
                 storage.updateFile(songList);
-                return ui.formatAddOverlay(songList.getSongList(), barIndexToAdd,song);
+                return ui.formatAddOverlay(songList.getSongList(), groupIndexToAddTo,songAddTo);
             } else {
                 System.out.println("no such index");
                 //System.out.println(songList.getSize());
@@ -140,13 +156,13 @@ public class AddOverlayCommand extends Command<SongList> {
             throw new DukeException(message, "no_index");
         }
     }
-
     /**
      * Returns a boolean value representing whether the program will terminate or not, used in
      * duke.Duke to reassign a boolean variable checked at each iteration of a while loop.
      *
      * @return a boolean value that represents whether the program will terminate after the command
      */
+
     @Override
     public boolean isExit() {
         return false;

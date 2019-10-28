@@ -407,4 +407,64 @@ public class Ui {
         }
         return result;
     }
+
+    //@@author SalonetheGreat
+    /**
+     * Returns a message indicating that user cannot undo because it is the first version.
+     * @return the formatted string to be displayed.
+     */
+    public String formatUndo() {
+        String output = "This is the first version.\nYou cannot undo anymore.";
+        return wrap(output);
+    }
+
+    //@@author SalonetheGreat
+    /**
+     * Returns a string indicating that the undo command has been successfully executed.
+     * @param currentVersionIndex current version number, which is used to identify how many times can the user undo
+     * @return a formatted string consisting of
+     *         1. undo successfully
+     *         2. number of undo times left
+     */
+    public String formatUndo(int currentVersionIndex) {
+        String output;
+        if (currentVersionIndex == 0) {
+            output = "Undo successfully! You cannot undo anymore.";
+        } else if (currentVersionIndex == 1) {
+            output = "Undo successfully! You can undo for 1 more time.";
+        } else {
+            output = String.format("Undo successfully! You can undo for %d more times", currentVersionIndex).toString();
+        }
+        return wrap(output);
+    }
+
+    //@@author SalonetheGreat
+    /**
+     * Returns a message indicating that user cannot redo because it is the latest version.
+     * @return the formatted string to be displayed.
+     */
+    public String formatRedo() {
+        String output = "This is the latest version.\nYou cannot redo anymore.\n\n";
+        return wrap(output);
+    }
+
+    //@@author SalonetheGreat
+    /**
+     * Returns a string indicating that the redo command has been successfully executed.
+     * @param numOfRedoLeft number of redo times left, which is used to identify how many times can the user redo
+     * @return a formatted string consisting of
+     *         1. redo successfully
+     *         2. number of redo times left
+     */
+    public String formatRedo(int numOfRedoLeft) {
+        String output;
+        if (numOfRedoLeft == 0) {
+            output = "Redo successfully! You cannot redo anymore.";
+        } else if (numOfRedoLeft == 1) {
+            output = "Redo successfully! You can redo for 1 more time.";
+        } else {
+            output = String.format("Redo successfully! You can redo for %d more times.", numOfRedoLeft).toString();
+        }
+        return wrap(output);
+    }
 }
