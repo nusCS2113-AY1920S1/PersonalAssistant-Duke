@@ -38,8 +38,11 @@ public class SidePanel extends UiPart<AnchorPane> {
                         PointCard.getCard(result.getVenue(i), result.getVenueColor(i)));
             }
             description.setText(result.getDescription());
+            description.setVisible(true);
             startDate.setText(result.getStartDate());
+            startDate.setVisible(true);
             endDate.setText(result.getEndDate());
+            endDate.setVisible(true);
             setHighlight(result);
         }
     }
