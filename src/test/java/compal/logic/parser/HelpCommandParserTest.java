@@ -1,5 +1,6 @@
 package compal.logic.parser;
 
+
 import compal.logic.command.HelpCommand;
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Task;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static compal.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
 
 public class HelpCommandParserTest {
     private HelpCommandParser parser = new HelpCommandParser();
