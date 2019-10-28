@@ -12,6 +12,9 @@ import wallet.ui.Ui;
  */
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
+    public static final String MESSAGE_USAGE = "Format for delete command:"
+            + "\ndelete expense <id>"
+            + "\nExample: " + COMMAND_WORD + " expense 2";
     public static final String MESSAGE_SUCCESS_DELETE_EXPENSE = "Noted. I've removed this expense:";
     public static final String MESSAGE_ERROR_DELETE_EXPENSE = "An error occurred when trying to delete expense.";
     public static final String MESSAGE_SUCCESS_DELETE_LOAN = "Noted. I've removed this loan:";
@@ -48,7 +51,7 @@ public class DeleteCommand extends Command {
             if (expense != null) {
                 wallet.getExpenseList().setModified(true);
                 System.out.println(MESSAGE_SUCCESS_DELETE_EXPENSE);
-                System.out.println(expense.toString());
+                Ui.printExpense(expense);
             } else {
                 System.out.println(MESSAGE_ERROR_DELETE_EXPENSE);
             }
@@ -87,6 +90,7 @@ public class DeleteCommand extends Command {
             //@@author
 
         default:
+            System.out.println(MESSAGE_USAGE);
             break;
         }
         return false;

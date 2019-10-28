@@ -15,13 +15,13 @@ import java.time.LocalDate;
  */
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
-    public static final String MESSAGE_USAGE = "Usage for add command."
+    public static final String MESSAGE_USAGE = "The format for add command is:"
+            + "\nadd expense <description> $<amount> <category> [/on <date>] [/r <recurrence rate>]."
             + "\nThe options for recurrence rate (/r) are \\\"daily, weekly or monthly\\\""
-            + "\nExample: " + COMMAND_WORD + " expense lunch $5 Food /on 20/02/2019"
-            + "\nExample: " + COMMAND_WORD + " expense phone bills $100 bills /on 10/10/2019 /r monthly"
-            + "\nExample: " + COMMAND_WORD + " expense dinner $10 Food";
-    public static final String MESSAGE_SUCCESS_ADD_TASK = "Got it. I've added this task:";
-    public static final String MESSAGE_SUCCESS_ADD_CONTACT = "Got it. I've added this contact:";
+            + "\nThe options for category are \\\"food, transport, bills, shopping or others\\\""
+            + "\nExample: " + COMMAND_WORD + " expense Lunch $5 Food"
+            + "\nExample: " + COMMAND_WORD + " expense Phone Bills $100 bills /on 10/10/2019 /r monthly";
+    public static final String MESSAGE_SUCCESS_ADD_CONTACT = "Got it. I've added this contact.";
     public static final String MESSAGE_SUCCESS_ADD_EXPENSE = "Got it. I've added this expense:";
     public static final String MESSAGE_SUCCESS_ADD_LOAN = "Got it. I've added this loan:";
     public static final String MESSAGE_NEW_BUDGET = " is your new budget for ";
@@ -88,7 +88,8 @@ public class AddCommand extends Command {
             wallet.getRecordList().addRecord(expense);
             wallet.getExpenseList().setModified(true);
             System.out.println(MESSAGE_SUCCESS_ADD_EXPENSE);
-            System.out.println(expense.toString());
+            //System.out.println(expense.toString());
+            Ui.printExpense(expense);
         }
         if (contact != null) {
             wallet.getContactList().addContact(contact);

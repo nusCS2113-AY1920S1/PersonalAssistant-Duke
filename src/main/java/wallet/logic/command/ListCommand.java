@@ -49,11 +49,11 @@ public class ListCommand extends Command {
     @Override
     public boolean execute(Wallet wallet) {
         boolean isListAll = false;
-        int counter;
 
         switch (record) {
         case "recurring":
             ArrayList<Expense> recList = LogicManager.getWallet().getExpenseList().getRecurringExpense();
+            System.out.println(MESSAGE_LIST_RECURRING_EXPENSES);
             Ui.printExpenseTable(recList);
             break;
 
@@ -81,6 +81,7 @@ public class ListCommand extends Command {
 
         case "expense":
             ArrayList<Expense> expenseList = wallet.getExpenseList().getExpenseList();
+            System.out.println(MESSAGE_LIST_EXPENSES);
             Ui.printExpenseTable(expenseList);
             if (!isListAll) {
                 break;

@@ -70,7 +70,6 @@ public class Ui {
      * Displays the expense list in table format.
      */
     public static void printExpenseTable(ArrayList<Expense> expenseList) {
-        System.out.println("Here are the expenses in your list:");
         System.out.println("-----------------------------------------------------"
                 + "-------------------------------------------------\n"
                 + "|  ID  |              Description                 |"
@@ -93,7 +92,28 @@ public class Ui {
                 + "-------------------------------------------------");
         System.out.printf("Total amount spent: $%.2f\n", total);
     }
-    //@@author
+
+    /**
+     * Displays a single expense in table format.
+     * @param e Expense to be displayed.
+     */
+    public static void printExpense(Expense e) {
+        System.out.println("-----------------------------------------------------"
+                + "-------------------------------------------------\n"
+                + "|  ID  |              Description                 |"
+                + "  Category  |    Date    |   Amount   | Recurring |\n"
+                + "|---------------------------------------------------------------"
+                + "-------------------------------------|");
+        if (e.isRecurring()) {
+            System.out.printf("| %-4d | %-40s | %-10s | %-10s |  $%-7.2f  |  %-7s  |\n", e.getId(),
+                    e.getDescription(), e.getCategory(), e.getDate(), e.getAmount(), e.getRecFrequency());
+        } else {
+            System.out.printf("| %-4d | %-40s | %-10s | %-10s |  $%-7.2f  |  %-7s  |\n",
+                    e.getId(), e.getDescription(), e.getCategory(), e.getDate(), e.getAmount(), "No");
+        }
+        System.out.println("-----------------------------------------------------"
+                + "-------------------------------------------------");
+    }
 
     //@@author matthewng1996
     public void drawPieChart() {
@@ -137,7 +157,6 @@ public class Ui {
      * Displays the loan list in table format.
      */
     public static void printLoanTable(ArrayList<Loan> loanList) {
-
         System.out.println("Here are the loans in your list:");
         printLoanTableHeaders();
         for (Loan loan : loanList) {

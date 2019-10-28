@@ -154,42 +154,65 @@ public class EditCommandParser implements Parser<EditCommand> {
         int id = Integer.parseInt(arguments[0].trim());
         expense.setId(id);
         String parameters = arguments[1].trim();
-        if (parameters.contains("/r")) {
-            String[] getRecurring = parameters.split("/r");
-            if (getRecurring[1].trim().equalsIgnoreCase("DAILY")
-                    || getRecurring[1].trim().equalsIgnoreCase("WEEKLY")
-                    || getRecurring[1].trim().equalsIgnoreCase("MONTHLY")) {
-                expense.setRecurring(true);
-                expense.setRecFrequency(getRecurring[1].trim().toUpperCase());
-            } else if (getRecurring[1].trim().equals("no")) {
-                expense.setRecurring(false);
-                expense.setRecFrequency(null);
+        int recIndex = parameters.indexOf("/r");
+        int dateIndex = parameters.indexOf("/t");
+        int catIndex = parameters.indexOf("/c");
+        int amtIndex = parameters.indexOf("/a");
+        int descIndex = parameters.indexOf("/d");
+        if (recIndex != -1) {
+            if (recIndex > dateIndex && recIndex > catIndex && recIndex > amtIndex && recIndex > descIndex) {
+                String[] getRecurring = parameters.split("/r");
+                if (getRecurring[1].trim().equalsIgnoreCase("DAILY")
+                        || getRecurring[1].trim().equalsIgnoreCase("WEEKLY")
+                        || getRecurring[1].trim().equalsIgnoreCase("MONTHLY")) {
+                    expense.setRecurring(true);
+                    expense.setRecFrequency(getRecurring[1].trim().toUpperCase());
+                } else if (getRecurring[1].trim().equals("no")) {
+                    expense.setRecurring(false);
+                    expense.setRecFrequency(null);
+                }
+                parameters = getRecurring[0].trim();
+            } else {
+                System.out.println(EditCommand.MESSAGE_ERROR_FORMAT);
+                return null;
             }
-            parameters = getRecurring[0].trim();
         }
-        if (parameters.contains("/t")) {
-            String[] getDate = parameters.split("/t");
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate date = LocalDate.parse(getDate[1].trim(), formatter);
-            expense.setDate(date);
-            parameters = getDate[0].trim();
+        if (dateIndex != -1) {
+            if (dateIndex > catIndex && dateIndex > amtIndex && dateIndex > descIndex) {
+                String[] getDate = parameters.split("/t");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate date = LocalDate.parse(getDate[1].trim(), formatter);
+                expense.setDate(date);
+                parameters = getDate[0].trim();
+            } else {
+                System.out.println(EditCommand.MESSAGE_ERROR_FORMAT);
+                return null;
+            }
         }
-        if (parameters.contains("/c")) {
-            String[] getCategory = parameters.split("/c");
-            expense.setCategory(Category.getCategory(getCategory[1].trim()));
-            parameters = getCategory[0].trim();
+        if (catIndex != -1) {
+            if (catIndex > amtIndex && catIndex > descIndex) {
+                String[] getCategory = parameters.split("/c");
+                expense.setCategory(Category.getCategory(getCategory[1].trim()));
+                parameters = getCategory[0].trim();
+            } else {
+                System.out.println(EditCommand.MESSAGE_ERROR_FORMAT);
+                return null;
+            }
         }
-        if (parameters.contains("/a")) {
-            String[] getAmount = parameters.split("/a");
-            expense.setAmount(Double.parseDouble(getAmount[1].trim()));
-            parameters = getAmount[0].trim();
+        if (amtIndex != -1) {
+            if (amtIndex > descIndex) {
+                String[] getAmount = parameters.split("/a");
+                expense.setAmount(Double.parseDouble(getAmount[1].trim()));
+                parameters = getAmount[0].trim();
+            } else {
+                System.out.println(EditCommand.MESSAGE_ERROR_FORMAT);
+                return null;
+            }
         }
-        if (parameters.contains("/d")) {
+        if (descIndex != -1) {
             String[] getDescription = parameters.split("/d");
             expense.setDescription(getDescription[1].trim());
         }
-
         return expense;
-        //@@author
     }
 }

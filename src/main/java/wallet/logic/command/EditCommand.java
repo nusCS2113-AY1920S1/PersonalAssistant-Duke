@@ -15,12 +15,14 @@ import java.util.ArrayList;
  */
 public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
-    public static final String MESSAGE_USAGE = "Usage for edit command."
-            + "\nExample: " + COMMAND_WORD + " expense 2 /a 4.50 /c food /r daily"
-            + "\nExample: " + COMMAND_WORD + " expense 2 /d lunch /a 9 /c Food /r no";
+    public static final String MESSAGE_USAGE = "Format for edit command:"
+            + "\nedit expense <id> [/d <description>] [/t <date>] [/a <amount>] [/c <category>] [/r <recurrence rate>]"
+            + "\nExample: " + COMMAND_WORD + " expense 2 /d Dinner /a 4.50 /c Food /t 10/10/2019 /r daily"
+            + "\nExample: " + COMMAND_WORD + " expense 2 /d Lunch /a 9 /c Food /r no";
     public static final String MESSAGE_SUCCESS_EDIT_EXPENSE = "Successfully edited this expense:";
     public static final String MESSAGE_SUCCESS_EDIT_CONTACT = "Successfully edited this contact:";
     public static final String MESSAGE_SUCCESS_EDIT_LOAN = "Successfully edited this loan:";
+    public static final String MESSAGE_ERROR_FORMAT = "Your format for edit command is wrong.";
     public static final String MESSAGE_ERROR_COMMAND = "An error encountered while executing command.";
 
     private Expense expense;
@@ -79,8 +81,7 @@ public class EditCommand extends Command {
             wallet.getExpenseList().editExpense(index, currentExpense);
             wallet.getExpenseList().setModified(true);
             System.out.println(MESSAGE_SUCCESS_EDIT_EXPENSE);
-            System.out.println(currentExpense.toString());
-            //@@author
+            Ui.printExpense(currentExpense);
         } else if (contact != null) {
             //@@author Xdecosee
             int index = wallet.getContactList().findIndexWithId(contact.getId());
