@@ -26,7 +26,7 @@ public class TaskList extends ArrayList<Task>{
         return this.remove(0);
     }
 
-    public JSONArray toJSON(){
+    public JSONArray toJson(){
         JSONArray array = new JSONArray();
         for(Task task: this){
             array.add(task.toJSON());

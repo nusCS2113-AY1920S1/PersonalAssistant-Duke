@@ -1,5 +1,6 @@
 package Farmio;
 
+import Exceptions.FarmioException;
 import Exceptions.FarmioFatalException;
 import FrontEnd.AsciiColours;
 import org.json.simple.JSONObject;
@@ -7,13 +8,13 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class Storage {
 
     private String appDir;
     private String jsonName = "save.json";
+    private JSONObject jsonFarmer = null;
 
     public Storage() {
         appDir = System.getProperty("user.dir");
@@ -36,10 +37,28 @@ public class Storage {
      * @throws ParseException "save.json" does not contain json data.
      * @throws IOException    "save.json" does not exist.
      */
-    public JSONObject loadFarmer() throws ParseException, IOException {
-        Reader reader = new FileReader(appDir.concat(jsonName));
+    public JSONObject loadFarmer() throws FarmioException {
+        Reader reader = null;
+        try {
+            reader = new FileReader(appDir.concat(jsonName));
+        } catch (FileNotFoundException e) {
+            throw new FarmioException("Game save not found!");
+        }
         JSONParser parser = new JSONParser();
-        return (JSONObject) parser.parse(reader);
+        try {
+            jsonFarmer = (JSONObject) parser.parse(reader);
+        } catch (IOException | ParseException e) {
+            throw new FarmioException("Gave save corrupted!");
+        }
+        return jsonFarmer;
+    }
+
+    public JSONObject loadFarmerBackup() throws FarmioException {
+        if(jsonFarmer == null){
+            throw new FarmioException("Recovery failed!");
+        }
+        recoverFarmer();
+        return jsonFarmer;
     }
 
     /**
@@ -52,7 +71,33 @@ public class Storage {
         FileWriter file;
         try {
             file = new FileWriter(appDir.concat(jsonName));
-            file.write(farmer.toJSON().toJSONString());
+            jsonFarmer = farmer.toJson();
+            file.write(jsonFarmer.toJSONString());
+            file.close();
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean storeFarmerPartial(Farmer farmer) {
+        FileWriter file;
+        try {
+            file = new FileWriter(appDir.concat(jsonName));
+            jsonFarmer = farmer.updateJSON(jsonFarmer);
+            file.write(jsonFarmer.toJSONString());
+            file.close();
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean recoverFarmer() {
+        FileWriter file;
+        try {
+            file = new FileWriter(appDir.concat(jsonName));
+            file.write(jsonFarmer.toJSONString());
             file.close();
         } catch (IOException e) {
             return false;

@@ -52,7 +52,7 @@ public class Farmio {
             ui.showError(e.getMessage());
             ui.showInfo("Encounterd fatal error. Exiting program.");
         }
-        //save the game before quitting
+        storage.storeFarmerPartial(farmer);
         ui.showExit();
     }
 

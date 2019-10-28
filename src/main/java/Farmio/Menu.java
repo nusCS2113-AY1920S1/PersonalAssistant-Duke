@@ -26,12 +26,4 @@ public class Menu {
         ui.typeWriter("Enter the option of your choice\nFor example, if you want to create a new game," +
                 " Enter [New Game]", false);
     }
-
-    public void showLoadGameWarning(Ui ui, Storage storage, boolean resume){
-        if(resume){
-            ui.showWarning("Current game session will be overwritten!");
-            ui.show("Are you sure?");
-        }
-    }
-
 }
