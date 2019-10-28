@@ -37,7 +37,7 @@ public abstract class Action {
      */
     public abstract void execute(Ui ui, Storage storage, Farmer farmer, Simulation simulation) throws FarmioException, FarmioFatalException;
 
-    public static boolean validateAction(String userInput) {
+    public static boolean isValidAction(String userInput) {
         for (ActionType type : ActionType.values()) {
             if ((type.name()).toLowerCase().equals(userInput)) {
                 return true;
