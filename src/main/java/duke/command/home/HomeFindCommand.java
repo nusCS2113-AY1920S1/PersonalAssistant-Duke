@@ -53,9 +53,9 @@ public class HomeFindCommand extends ArgCommand {
             DukeObject item = searchResult.get(i);
             if (item.getParent() != null) {
                 if (item.getParent().getParent() != null) {
-                    information.append(item.getParent().getParent().getName() + " - ");
+                    information.append(item.getParent().getParent().getName()).append(" - ");
                 }
-                information.append(item.getParent().getName() + " - ");
+                information.append(item.getParent().getName()).append(" - ");
             }
             information.append(searchResult.get(i).getName()).append(System.lineSeparator());
         }

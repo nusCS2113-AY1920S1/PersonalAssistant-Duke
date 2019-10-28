@@ -12,7 +12,6 @@ import java.util.Map;
 public class HomeHelpCommand extends ArgCommand {
     private final String filePath = "data" + File.separator + "helpDetails.json";
 
-
     @Override
     protected ArgSpec getSpec() {
         return HomeHelpSpec.getSpec();
@@ -22,29 +21,29 @@ public class HomeHelpCommand extends ArgCommand {
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
         final String[] infoFields = {"command", "summary", "format", "switches", "info"};
-        HashMap<String, HashMap<String,String>> helpDetails;
+        HashMap<String, HashMap<String, String>> helpDetails;
         helpDetails = core.storage.loadHelpHashMap(filePath);
         if (getSwitchVals().isEmpty()) {
             for (Map.Entry<String, HashMap<String, String>> mapElement : helpDetails.entrySet()) {
-                HashMap<String,String> value = mapElement.getValue();
-                String helpInfo = "";
+                HashMap<String, String> value = mapElement.getValue();
+                StringBuilder helpInfo = new StringBuilder();
                 for (int i = 0; i < 3; i++) {
-                    helpInfo += infoFields[i] + ": " + value.get(infoFields[i]) + "\n";
+                    helpInfo.append(infoFields[i]).append(": ").append(value.get(infoFields[i])).append("\n");
                 }
-                core.ui.print(helpInfo);
+                core.ui.print(helpInfo.toString());
             }
         } else {
             for (Map.Entry<String, String> mapElement : getSwitchVals().entrySet()) {
                 String key = mapElement.getKey();
                 if (helpDetails.containsKey(key)) {
-                    HashMap<String,String> value = helpDetails.get(key);
-                    String helpInfo = "";
+                    HashMap<String, String> value = helpDetails.get(key);
+                    StringBuilder helpInfo = new StringBuilder();
                     for (String field : infoFields) {
                         if (value.containsKey(field)) {
-                            helpInfo += field + ": " + value.get(field) + "\n";
+                            helpInfo.append(field).append(": ").append(value.get(field)).append("\n");
                         }
                     }
-                    core.ui.print(helpInfo);
+                    core.ui.print(helpInfo.toString());
                 }
             }
         }
