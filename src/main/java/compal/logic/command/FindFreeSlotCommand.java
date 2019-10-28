@@ -82,7 +82,7 @@ public class FindFreeSlotCommand extends Command {
         }
 
         ArrayList<String> finalList;
-        int duration = hour * 60 + min;
+        long duration = calculateDuration(hour, min);
 
         finalList = getFreeSlots(arrayList, startPointer, oneDayAfter, duration);
         String result = printResult(finalList);
@@ -99,13 +99,14 @@ public class FindFreeSlotCommand extends Command {
      * @param duration duration of time slot needed
      * @return
      */
-    public ArrayList<String> getFreeSlots(ArrayList<Task> arrayList, Date startTime, Date endTime, int duration) {
+    public ArrayList<String> getFreeSlots(ArrayList<Task> arrayList, Date startTime, Date endTime, long duration) {
         Date startPointer = startTime;
         Date endPointer;
         ArrayList<String> stringArrayList = new ArrayList<>();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HHmm");
 
         if (arrayList.isEmpty()) {
+            stringArrayList.add("Empty");
             return stringArrayList;
         }
 
@@ -139,14 +140,18 @@ public class FindFreeSlotCommand extends Command {
     public String printResult(ArrayList<String> arrayList) {
         StringBuilder finalList = new StringBuilder();
 
-        if (arrayList.isEmpty()) {
-            return ("You are free for the entire day!");
-        }
-
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String stringDate = simpleDateFormat.format(date);
 
-        finalList.append("Here are the available time slots for " + stringDate + " :\n");
+        if (arrayList.isEmpty()) {
+            return ("You have no available slots on " + stringDate + " ! :(");
+        }
+
+        if (arrayList.get(0).equals("Empty")) {
+            return ("You are free for the entire day! You have no tasks on " + stringDate + "!");
+        }
+
+        finalList.append("Here are the available time slots for " + stringDate + ":\n");
         for (int i = 1; i <= arrayList.size(); i++) {
             finalList.append(i + ". " + arrayList.get(i - 1));
         }
@@ -166,12 +171,13 @@ public class FindFreeSlotCommand extends Command {
     }
 
     /**
-     * Converts milliseconds to minutes. Returns number of minutes.
+     * Gets duration in milliseconds.
      *
-     * @param milliseconds Number of milliseconds
-     * @return Number of minutes
+     * @param hour Hour input
+     * @param min Minute input
+     * @return Duration in milliseconds
      */
-    public long convertMsToMin(long milliseconds) {
-        return milliseconds / 60000;
+    public long calculateDuration(int hour, int min) {
+        return (hour * 60 + min) * 60000;
     }
 }

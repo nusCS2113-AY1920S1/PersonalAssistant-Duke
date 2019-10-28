@@ -114,7 +114,7 @@ public interface CommandParser {
         }
     }
 
-    //@@author
+    //@@author Catherinetan99
     /**
      * Returns the reminder status in the String input.
      *
@@ -196,7 +196,7 @@ public interface CommandParser {
             int intInput = Integer.parseInt(input);
             return intInput;
         } else {
-            throw new ParserException(MESSAGE_MISSING_ID_ARG);
+            throw new ParserException("ArgumentError: Missing " + token);
         }
     }
 
