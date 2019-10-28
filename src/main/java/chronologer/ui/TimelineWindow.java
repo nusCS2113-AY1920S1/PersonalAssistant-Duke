@@ -4,31 +4,21 @@ import chronologer.command.Command;
 import chronologer.parser.Parser;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.collections.ListChangeListener;
-import javafx.scene.paint.Paint;
 import javafx.util.Callback;
-
-import javax.swing.event.ListDataListener;
 
 /**
  * UI element designed for the user to interact with the application.
@@ -39,14 +29,17 @@ import javax.swing.event.ListDataListener;
  */
 class TimelineWindow extends UiComponent<Region> {
     private static final String FXML = "TimelineWindow.fxml";
-    private static final Double mondayX = 1.0;
-    private static final Double tuesdayX = 136.0;
-    private static final Double wednesdayX = 269.0;
-    private static final Double thursdayX = 403.0;
-    private static final Double fridayX = 538.0;
-    private static final Double saturdayX = 671.0;
-    private static final Double sundayX = 806.0;
+    private static final Double mondayX = 44.0;
+    private static final Double tuesdayX = 241.0;
+    private static final Double wednesdayX = 436.0;
+    private static final Double thursdayX = 633.0;
+    private static final Double fridayX = 815.0;
+    private static final Double saturdayX = 44.0;
+    private static final Double sundayX = 241.0;
+    private static final Double weekdayY = 50.0;
+    private static final Double weekendY = 357.0;
     private static Double moveXOfDays = 0.0;
+    private static Double moveYOfDays = 0.0;
 
 
     @FXML
@@ -67,6 +60,8 @@ class TimelineWindow extends UiComponent<Region> {
     private ListView<String> priorityTask;
     @FXML
     private ListView<String> tasksWithoutDates;
+    @FXML
+    private Label todayLabel;
 
     private Parser parser;
     private Command command;
@@ -91,11 +86,18 @@ class TimelineWindow extends UiComponent<Region> {
 
     private void initializeTimelineComponents() {
         attachTasksListener();
-        attachListenerForObjects();
         populateEveryDay();
         prioritizedTodayTasks();
         tasksWithoutDates();
         initializeListViewComponents();
+    }
+
+    /**
+     * This @FXML initialize() is a special function where static members of the GUI can be initialised.
+     */
+    @FXML
+    public void initialize() {
+
     }
 
     private void initializeListViewComponents() {
@@ -155,17 +157,6 @@ class TimelineWindow extends UiComponent<Region> {
         });
     }
 
-    private void attachListenerForObjects() {
-        tasks.getObservableListOfTasks().addListener((InvalidationListener) data -> {
-                System.out.println("HERE");
-                populateEveryDay();
-                prioritizedTodayTasks();
-                tasksWithoutDates();
-            }
-        );
-    }
-
-
     /**
      * This method will populate the ListViews of the timeline.
      */
@@ -184,22 +175,34 @@ class TimelineWindow extends UiComponent<Region> {
         String saturday = dtf.format(sundayDate.minusDays(1));
         String sunday = dtf.format(sundayDate);
         String shiftLocationOfHighlight = dtf.format(now);
-
+        todayLabel.setStyle("-fx-border-color: #009933; -fx-border-width: 3;");
         if (shiftLocationOfHighlight.equals(monday)) {
             moveXOfDays = mondayX;
+            moveYOfDays = weekdayY;
         }  else if (shiftLocationOfHighlight.equals(tuesday)) {
             moveXOfDays = tuesdayX;
+            moveYOfDays = weekdayY;
         }  else if (shiftLocationOfHighlight.equals(wednesday)) {
             moveXOfDays = wednesdayX;
+            moveYOfDays = weekdayY;
         }  else if (shiftLocationOfHighlight.equals(thursday)) {
             moveXOfDays = thursdayX;
+            moveYOfDays = weekdayY;
         }  else if (shiftLocationOfHighlight.equals(friday)) {
             moveXOfDays = fridayX;
+            moveYOfDays = weekdayY;
         }  else if (shiftLocationOfHighlight.equals(saturday)) {
             moveXOfDays = saturdayX;
+            moveYOfDays = weekendY;
+            todayLabel.setStyle("-fx-border-color: #FF0000;");
         }  else if (shiftLocationOfHighlight.equals(sunday)) {
             moveXOfDays = sundayX;
+            moveYOfDays = weekendY;
+            todayLabel.setStyle("-fx-border-color: #FF0000;");
         }
+
+        todayLabel.setLayoutX(moveXOfDays);
+        todayLabel.setLayoutY(moveYOfDays);
 
         ObservableList<String> mondayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(monday));
         mondayTask.setItems(mondayTasks);

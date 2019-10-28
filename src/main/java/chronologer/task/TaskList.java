@@ -1,10 +1,7 @@
 package chronologer.task;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.util.Callback;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -246,7 +243,7 @@ public class TaskList {
         ArrayList<String> scheduleDescriptionOnly = new ArrayList<>();
         for (int i = 0; i < obtainDescriptions.size(); i++) {
             if (obtainDescriptions.get(i).toString().contains(dayToFind)) {
-                scheduleDescriptionOnly.add(obtainDescriptions.get(i).description.split("\\d+", 2)[0].trim());
+                scheduleDescriptionOnly.add(obtainDescriptions.get(i).getDescription().trim());
             }
         }
         return scheduleDescriptionOnly;
