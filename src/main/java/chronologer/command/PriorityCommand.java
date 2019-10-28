@@ -5,7 +5,6 @@ import chronologer.storage.Storage;
 import chronologer.task.Priority;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.ui.Ui;
 import chronologer.ui.UiTemporary;
 
 /**
@@ -45,6 +44,8 @@ public class PriorityCommand extends Command {
         }
         Task task = tasks.getTasks().get(indexOfTask);
         task.setPriority(newPriority);
+        //Important workaround to update priority list if a task today is updated.
+        tasks.updatePriority(task);
         storage.saveFile(tasks.getTasks());
         UiTemporary.printOutput("Got it! " + task.getDescription() + " priority level is now " + priorityString);
     }

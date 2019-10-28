@@ -2,6 +2,8 @@ package chronologer.task;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -167,8 +169,8 @@ public class TaskList {
     public Task addLocation(Integer indexOfTask, String taskWithLocation) {
         Task taskHasLocation = listOfTasks.get(indexOfTask);
         taskHasLocation.setLocation("Location of the task is " + taskWithLocation);
+        observableListOfTasks.add(taskHasLocation);
         return taskHasLocation;
-
     }
 
     /**
@@ -207,7 +209,6 @@ public class TaskList {
                 priorityList.add(listOfTask);
             }
         }
-
         priorityList.sort(PriorityComparator);
         for (int i = 0; i < priorityList.size(); i++) {
             stringPriorityList.add(priorityList.get(i).toString());
@@ -228,6 +229,21 @@ public class TaskList {
             }
         }
         return tasksWithoutDates;
+    }
+
+    /**
+     * Fetches all reminders for the current date.
+     *
+     * @return Holds reminders for the current date.
+     */
+    public ArrayList<String> fetchReminders(LocalDateTime currentDateTime) {
+        ArrayList<String> reminders = new ArrayList<>();
+        for (Task listOfTask : listOfTasks) {
+                if (listOfTask.isReminderTrigger() && listOfTask.reminder.reminderDate == currentDateTime) {
+                    reminders.add(listOfTask.getDescription());
+                }
+            }
+        return reminders;
     }
 
     /**
@@ -258,6 +274,7 @@ public class TaskList {
      */
     public Task editTaskDescription(int indexOfTask, String newDescription) {
         Task taskToBeEdited = listOfTasks.get(indexOfTask);
+        observableListOfTasks.remove(taskToBeEdited);
         taskToBeEdited.setDescription(newDescription);
         observableListOfTasks.add(taskToBeEdited);
         return taskToBeEdited;
@@ -272,6 +289,7 @@ public class TaskList {
      */
     public Task editTaskComment(int indexOfTask, String comment) {
         Task taskToBeEdited = listOfTasks.get(indexOfTask);
+        observableListOfTasks.remove(taskToBeEdited);
         taskToBeEdited.setComment(comment);
         observableListOfTasks.add(taskToBeEdited);
         return taskToBeEdited;

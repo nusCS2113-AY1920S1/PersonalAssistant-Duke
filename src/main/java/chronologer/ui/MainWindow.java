@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import javax.swing.text.ChangedCharSetException;
 import java.io.File;
 import java.util.ArrayList;
 
