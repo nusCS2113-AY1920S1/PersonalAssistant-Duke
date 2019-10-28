@@ -69,7 +69,7 @@ public class QuizScene extends NewScene {
                         s = ui.quizResponse(true, quizCommand.answer);
                     } else {
                         s = ui.quizResponse(false, quizCommand.answer);
-                        quizArray.add(quizCommand.question + ": "+quizCommand.answer);
+                        quizArray.add(quizCommand.question + ": " + quizCommand.answer);
                         wrongQuiz += 1;
                     }
                     this.generateQuiz();
