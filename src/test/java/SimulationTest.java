@@ -1,8 +1,8 @@
-import Exceptions.FarmioFatalException;
-import Farmio.Farmio;
-import Farmio.Level;
-import Farmio.Storage;
-import FrontEnd.Simulation;
+import exceptions.FarmioFatalException;
+import farmio.Farmio;
+import farmio.Level;
+import farmio.Storage;
+import frontend.Simulation;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
