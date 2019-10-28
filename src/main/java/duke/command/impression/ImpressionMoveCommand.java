@@ -65,12 +65,12 @@ public class ImpressionMoveCommand extends ImpressionCommand {
         moveData.setParent(newImpression);
         if (moveData instanceof Evidence) {
             Evidence evidence = (Evidence) moveData;
-            impression.deleteEvidence(evidence.toString());
             newImpression.addNewEvidence(evidence);
+            impression.deleteEvidence(evidence.getName());
         } else if (moveData instanceof Treatment) {
             Treatment treatment = (Treatment) moveData;
-            impression.deleteTreatment(treatment.toString());
             newImpression.addNewTreatment(treatment);
+            impression.deleteTreatment(treatment.getName());
         }
     }
 }
