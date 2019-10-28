@@ -42,7 +42,7 @@ public class Category {
      * Calculates the total expenditure for every entry in the category.
      * @return totalCost
      */
-    double getCategoryMonthTotal() {
+    public double getCategoryMonthTotal() {
         double totalCost = 0.00;
         for (Expenditure expenditure : category) {
             LocalDate date = expenditure.date;
