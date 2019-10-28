@@ -1,5 +1,6 @@
 package rims.exception;
 
+//@@author rabhijit
 /**
  * A custom exception for RIMS, when inputs don't fit the desired format or
  * have no meaning.

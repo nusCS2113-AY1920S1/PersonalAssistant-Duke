@@ -14,6 +14,7 @@ import rims.resource.ReservationList;
 import rims.resource.Resource;
 import rims.exception.RimsException;
 
+//@@author isbobby
 /**
  * Creates a Reservation for a Resource in the ResourceList, given the ID of the user,
  * the name of the Resource and the dates between which the Reservation is valid.
@@ -27,6 +28,7 @@ public class ReserveCommand extends Command {
     protected String stringDateTill;
     protected int userId;
 
+    //@@author rabhijit
     /**
      * Constructor for a ReserveCommand, for a Room which is to be loaned from effective immediately
      * till a certain future date.
@@ -91,6 +93,7 @@ public class ReserveCommand extends Command {
         this.userId = userId;
     }
 
+    //@@author isbobby
     /**
      * Checks if the reservation is possible given the number of available Resources and Reservations
      * that are already in place, and if it is possible, creates a Reservation for the desired number of 

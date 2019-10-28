@@ -1,5 +1,6 @@
 package rims.resource;
 
+//@@author rabhijit
 /**
  * This class represents an instance of an Item. Contains the name of the Item, its resource ID, type,
  * and a list of Reservation objects representing the reservations made for the Item.

@@ -11,7 +11,7 @@ import rims.resource.Room;
 import rims.resource.ReservationList;
 import rims.exception.RimsException;
 
-
+//@@author hin1
 /**
  * Implements the deletion of a Resource from the ResourceList.
  */
@@ -64,6 +64,7 @@ public class DeleteCommand extends Command {
                     ui.print("No bookings for this resource yet!");
                 }
             }
+            //@@author rabhijit
             ui.printDash();
             ui.printLine();
             String idInput = ui.getInput("Type in the resource ID(s) (separated by a space for multiple IDs) that you wish to delete:");

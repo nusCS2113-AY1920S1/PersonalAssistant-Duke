@@ -17,6 +17,7 @@ import rims.resource.Resource;
 import rims.resource.Reservation;
 import rims.resource.ReservationList;
 
+//@@author rabhijit
 /**
  * This class takes in a String of input from the Ui, and depending on the content of
  * the input, parses it into a unique executable command that will carry out the tasks
@@ -51,6 +52,7 @@ public class Parser {
             CalendarCommand.printCal();
             c = new ListCommand();
         }
+        //@@author aarushisingh1
         else if (words[0].equals("list") && words.length > 1) {
             String paramType = words[1].substring(1);
             if (paramType.equals("date") || paramType.equals("room") || paramType.equals("item")) {
@@ -61,6 +63,7 @@ public class Parser {
                 throw new RimsException("Invalid list parameter! Please specify '/list' or '/item' to view a detailed list of a resource.");
             }
         }
+        //@@author hin1
         else if (words[0].equals("add")) {
             String roomOrItem = ui.getInput("Would you like to add an item or a room to the inventory?");
             if (roomOrItem.equals("room")) {
@@ -90,6 +93,7 @@ public class Parser {
                 throw new RimsException("Please choose a room or item to delete from your inventory.");
             }
         }
+        //@@author rabhijit
         else if (words[0].equals("loan")) {
             String roomOrItem = ui.getInput("Would you like to loan an item or room from the inventory?");
             ui.printLine();
@@ -218,7 +222,7 @@ public class Parser {
             }
             ArrayList<Integer> resourcesToReturn = new ArrayList<Integer>();
             ArrayList<Integer> reservationsToCancel = new ArrayList<Integer>();
-            String stringReservations = ui.getInput("Enter the reservation ID(s) (separated by a space for multiple IDs) that you wish to return:");
+            String stringReservations = ui.getInput("Enter the reservation ID(s) (separated by a space for multiple IDs) that you wish to return / cancel:");
             String[] splitStringReservations = stringReservations.split(" ");
             for (int j = 0; j < splitStringReservations.length; j++) {
                 int thisReservationId = Integer.parseInt(splitStringReservations[j]);

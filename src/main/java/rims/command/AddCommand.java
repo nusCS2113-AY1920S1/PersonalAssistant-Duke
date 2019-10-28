@@ -8,6 +8,7 @@ import rims.resource.Room;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
 
+//@@author hin1
 /**
  * Implements the addition of a new Resource to the ResourceList.
  */
