@@ -285,11 +285,13 @@ public class Ui {
         }
     }
 
+    //@@author kkeejjuunn
+
     /**
      * It shows message of a patient being deleted.
      */
     public void patientDeleted() {
-        printDukeResponse("Got it. The patient is deleted.");
+        printDukeResponse("Got it. The patient is deleted.\n");
     }
 
     //@@author kkeejjuunn
@@ -481,11 +483,11 @@ public class Ui {
     }
 
     /**
-     * It shows all info of tasks found which are associated with the patient given by user.
+     * It displays all the tasks assigned to the patient who is to be deleted.
      *
      * @param patient     patient given by user
      * @param patientTask list of patienttasks being found associated with the patient
-     * @param tasks       list of tasks relate to patienttasks found
+     * @param tasks       list of tasks assigned to the patient
      */
     public void patientTaskFound(Patient patient, ArrayList<AssignedTask> patientTask, ArrayList<Task> tasks) {
         printDukeResponse("The tasks of patient " + patient.getId() + " " + patient.getName() + " is found : \n");
@@ -512,6 +514,21 @@ public class Ui {
             printDukeResponse(patients.get(i).getId() + ". " + patients.get(i).getName() + "\n");
             printDukeResponse(patientTask.get(i).toString());
             showLine();
+        }
+    }
+
+    //@@author kkeejjuunn
+
+    /**
+     * It shows all info of tasks found which are associated with the patient given by user.
+     *
+     * @param patient     patient given by user
+     * @param tasks       list of tasks relate to patienttasks found
+     */
+    public void assignedTasksFoundWhenDeletePatient(Patient patient, ArrayList<Task> tasks) {
+        printDukeResponse(patient.getName() + " is assigned with the following tasks : \n");
+        for (int i = 0; i < tasks.size(); i++) {
+            printDukeResponse(tasks.get(i).getId() + ". " + tasks.get(i).getDescription() + "\n");
         }
     }
 
