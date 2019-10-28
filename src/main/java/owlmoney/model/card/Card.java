@@ -1,6 +1,7 @@
 package owlmoney.model.card;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.transaction.Transaction;
@@ -17,6 +18,8 @@ public class Card {
     private double rebate;
     private TransactionList paid;
     private TransactionList unpaid;
+    private static final int OBJ_DOES_NOT_EXIST = -1;
+    private static final int ONE_ARRAY_INDEX = 1;
 
     /**
      * Creates a Card with details of name, limit and rebate.
@@ -220,5 +223,63 @@ public class Card {
     void findTransaction(String fromDate, String toDate, String description, String category, Ui ui)
             throws TransactionException {
         unpaid.findMatchingTransaction(fromDate, toDate, description, category, ui);
+    }
+
+    /**
+     * Returns the total amount of all unpaid card expenditures of specified date.
+     *
+     * @param date  The YearMonth date of unpaid card expenditures to get the total amount.
+     * @return      The total amount of all unpaid card expenditures of specified date.
+     */
+    public double getUnpaidBillAmount(YearMonth date) {
+        return unpaid.getMonthAmountSpent(date.getMonthValue(), date.getYear());
+    }
+
+    /**
+     * Returns the total amount of all paid card expenditures of specified date.
+     *
+     * @param date  The YearMonth date of paid card expenditures to get the total amount.
+     * @return      The total amount of all paid card expenditures of specified date.
+     */
+    public double getPaidBillAmount(YearMonth date) {
+        return paid.getMonthAmountSpent(date.getMonthValue(), date.getYear());
+    }
+
+    /**
+     * Transfers expenditures from unpaid list to paid list.
+     *
+     * @param cardDate      The YearMonth date of expenditures to transfer.
+     * @param type          Type of expenditure (card or bank).
+     * @throws TransactionException If invalid transaction when deleting.
+     */
+    void transferExpUnpaidToPaid(YearMonth cardDate, String type) throws TransactionException {
+        for (int i = 0; i < unpaid.getSize(); i++) {
+            int id = unpaid.getExpenditureIdByYearMonth(cardDate);
+            if (id != OBJ_DOES_NOT_EXIST) {
+                Transaction exp = unpaid.getExpenditureObjByYearMonth(id);
+                paid.addExpenditureToList(exp, type);
+                unpaid.deleteExpenditureFromList(id + ONE_ARRAY_INDEX);
+                i -= ONE_ARRAY_INDEX;
+            }
+        }
+    }
+
+    /**
+     * Transfers expenditures from paid list to unpaid list.
+     *
+     * @param cardDate      The YearMonth date of expenditures to transfer.
+     * @param type          Type of expenditure (card or bank).
+     * @throws TransactionException If invalid transaction when deleting.
+     */
+    void transferExpPaidToUnpaid(YearMonth cardDate, String type) throws TransactionException {
+        for (int i = 0; i < paid.getSize(); i++) {
+            int id = paid.getExpenditureIdByYearMonth(cardDate);
+            if (id != OBJ_DOES_NOT_EXIST) {
+                Transaction exp = paid.getExpenditureObjByYearMonth(id);
+                unpaid.addExpenditureToList(exp, type);
+                paid.deleteExpenditureFromList(id + ONE_ARRAY_INDEX);
+                i -= ONE_ARRAY_INDEX;
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -27,8 +28,7 @@ public class TransactionList {
     private static final String FINDDESCRIPTION = "description";
     private static final String FINDCATEGORY = "category";
     private static final String FINDDATE = "date range";
-
-
+    private static final int OBJ_DOES_NOT_EXIST = -1;
 
 
     /**
@@ -105,7 +105,7 @@ public class TransactionList {
     }
 
     /**
-     * Adds an expenditure to the TransactionList.
+     * Adds an expenditure to the TransactionList and print UI.
      *
      * @param exp an instance of an expenditure.
      * @param ui  required for printing.
@@ -119,6 +119,19 @@ public class TransactionList {
             ui.printMessage("Added expenditure with the following details:");
             printOneTransaction(ONE_INDEX, exp, ISSINGLE, ui);
         }
+    }
+
+    /**
+     * Adds an expenditure to the TransactionList and do not print UI.
+     * Called by Card transferExpUnpaidToPaid() only.
+     *
+     * @param exp an instance of an expenditure.
+     */
+    public void addExpenditureToList(Transaction exp, String type) {
+        if (transactionLists.size() >= MAX_LIST_SIZE) {
+            transactionLists.remove(0);
+        }
+        transactionLists.add(exp);
     }
 
     /**
@@ -140,7 +153,7 @@ public class TransactionList {
     }
 
     /**
-     * Deletes an expenditure to the TransactionList.
+     * Deletes an expenditure to the TransactionList and print UI.
      *
      * @param index index of the expenditure in the TransactionList.
      * @param ui    required for printing.
@@ -158,6 +171,30 @@ public class TransactionList {
                 transactionLists.remove(index - ONE_INDEX);
                 ui.printMessage("Details of deleted Expenditure:");
                 printOneTransaction(ONE_INDEX, temp, ISSINGLE, ui);
+                return temp.getAmount();
+            }
+        } else {
+            throw new TransactionException("Index is out of transaction list range");
+        }
+    }
+
+    /**
+     * Deletes an expenditure to the TransactionList and do not print UI.
+     * Called by Card transferExpUnpaidToPaid() only.
+     *
+     * @param index index of the expenditure in the TransactionList.
+     * @throws TransactionException If invalid transaction.
+     */
+    public double deleteExpenditureFromList(int index) throws TransactionException {
+        if (transactionLists.size() <= ISZERO) {
+            throw new TransactionException("There are no transactions in this bank account");
+        }
+        if ((index - ONE_INDEX) >= ISZERO && (index - ONE_INDEX) < transactionLists.size()) {
+            if (!transactionLists.get(index - 1).getSpent()) {
+                throw new TransactionException("The transaction is a deposit");
+            } else {
+                Transaction temp = transactionLists.get(index - ONE_INDEX);
+                transactionLists.remove(index - ONE_INDEX);
                 return temp.getAmount();
             }
         } else {
@@ -536,5 +573,29 @@ public class TransactionList {
             transactionLists.remove(0);
         }
         transactionLists.add(deposit);
+    }
+
+    /**
+     * Gets the expenditure id of an expenditure that matches the YearMonth date.
+     *
+     * @param yearMonth The date that will be used to search for expenditures.
+     * @return  The expenditure id if found. Else, return -1.
+     */
+    public int getExpenditureIdByYearMonth(YearMonth yearMonth) {
+        for (int i = 0; i < transactionLists.size(); i++) {
+            LocalDate transactionDate = transactionLists.get(i).getLocalDate();
+            int transactionMonth = transactionDate.getMonthValue();
+            int transactionYear = transactionDate.getYear();
+            int requiredMonth = yearMonth.getMonthValue();
+            int requiredYear = yearMonth.getYear();
+            if ((transactionMonth == requiredMonth) && (transactionYear == requiredYear)) {
+                return i;
+            }
+        }
+        return OBJ_DOES_NOT_EXIST;
+    }
+
+    public Transaction getExpenditureObjByYearMonth(int index) {
+        return transactionLists.get(index);
     }
 }
