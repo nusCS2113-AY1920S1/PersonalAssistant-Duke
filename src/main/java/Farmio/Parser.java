@@ -4,6 +4,7 @@ import Commands.*;
 import Exceptions.FarmioException;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
+import UserCode.Tasks.TemplateTask;
 
 public class Parser {
     public static Command parse(String userInput, Farmio.Stage stage) throws FarmioException {
@@ -80,6 +81,9 @@ public class Parser {
         if (userInput.startsWith("delete")) {
             return parseTaskDelete(userInput);
         }
+        if (userInput.startsWith("edit")) {
+            return parseEditTask(userInput);
+        }
         if (userInput.toLowerCase().equals("start")) {
             return new CommandDayStart();
         }
@@ -92,10 +96,8 @@ public class Parser {
         if (userInput.equals("market")) {
             return new CommandMarketShow();
         }
-        if (userInput.startsWith("do")) {
-            return parseDoTask(userInput);
-        } else if (userInput.startsWith("if") || userInput.startsWith("for") || userInput.startsWith("while")) {
-            return parseConditionalTask(userInput);
+        if (userInput.startsWith("do") || userInput.startsWith("if") || userInput.startsWith("for") || userInput.startsWith("while")) {
+            return addTask(userInput);
         } else if (userInput.equals("hint") || userInput.equals(""))
             return new CommandTasksHint();
         throw new FarmioException("Invalid command!");
@@ -109,7 +111,22 @@ public class Parser {
         throw new FarmioException("Invalid Command!");
     }
 
-    private static Command parseDoTask(String userInput) throws FarmioException {
+    private static Command addTask(String userInput) throws FarmioException {
+        TemplateTask t;
+        if (userInput.startsWith("do")) {
+            t = parseDoTask(userInput);
+        } else {
+            t = parseConditionalTask(userInput);
+        }
+        return new CommandTaskCreate(t.getTaskType(), t.getCondition(), t.getAction());
+    }
+
+    private static Command addDoTask (String userInput) throws FarmioException {
+        TemplateTask tTask = parseDoTask(userInput);
+        return new CommandTaskCreate(tTask.getTaskType(), tTask.getCondition(), tTask.getAction());
+    }
+
+    private static TemplateTask parseDoTask(String userInput) throws FarmioException {
         String taskType = "", userAction = "";
         try {
             taskType = userInput.substring(0, userInput.indexOf(" "));
@@ -121,13 +138,13 @@ public class Parser {
             throw new FarmioException("Invalid task type!");
         }
         if (Action.validateAction(userAction)) {
-            return new CommandTaskCreate("do","true", userAction);
+            return new TemplateTask("do","true", userAction);
         } else {
             throw new FarmioException("Invalid action!");
         }
     }
 
-    private static Command parseConditionalTask (String userInput) throws FarmioException {
+    private static TemplateTask parseConditionalTask (String userInput) throws FarmioException {
         String taskType = "", condition = "", action = "";
         try {
             taskType = (userInput.substring(0, userInput.indexOf(" "))).trim();
@@ -145,6 +162,7 @@ public class Parser {
         if (!Action.validateAction(action)) {
             throw new FarmioException("Invalid Action!");
         }
-        return new CommandTaskCreate(taskType, condition, action);
+        return new TemplateTask(taskType, condition, action);
     }
+    
 }
