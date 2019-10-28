@@ -243,7 +243,7 @@ public class TaskList {
         ArrayList<String> scheduleDescriptionOnly = new ArrayList<>();
         for (int i = 0; i < obtainDescriptions.size(); i++) {
             if (obtainDescriptions.get(i).toString().contains(dayToFind)) {
-                scheduleDescriptionOnly.add(obtainDescriptions.get(i).description.split("\\d+", 2)[0].trim());
+                scheduleDescriptionOnly.add(obtainDescriptions.get(i).getDescription().trim());
             }
         }
         return scheduleDescriptionOnly;
