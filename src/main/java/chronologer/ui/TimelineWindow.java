@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -24,6 +25,8 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.ListChangeListener;
+import javafx.scene.paint.Paint;
+import javafx.util.Callback;
 
 import javax.swing.event.ListDataListener;
 
@@ -61,13 +64,14 @@ class TimelineWindow extends UiComponent<Region> {
     @FXML
     private ListView<String> sundayTask;
     @FXML
-    private ListView<Task> priorityTask;
+    private ListView<String> priorityTask;
     @FXML
-    private ListView<Task> tasksWithoutDates;
+    private ListView<String> tasksWithoutDates;
 
     private Parser parser;
     private Command command;
     private TaskList tasks;
+    private static final String DEFAULT_CONTROL_INNER_BACKGROUND = "#373737";
 
     /**
      * Constructs a UiComponent with the corresponding FXML file name and root object.
@@ -91,13 +95,26 @@ class TimelineWindow extends UiComponent<Region> {
         populateEveryDay();
         prioritizedTodayTasks();
         tasksWithoutDates();
+        initializeListViewComponents();
+    }
+
+    private void initializeListViewComponents() {
+        initializeListViewDarkComponents(mondayTask);
+        initializeListViewDarkComponents(tuesdayTask);
+        initializeListViewDarkComponents(wednesdayTask);
+        initializeListViewDarkComponents(thursdayTask);
+        initializeListViewDarkComponents(fridayTask);
+        initializeListViewDarkComponents(saturdayTask);
+        initializeListViewDarkComponents(sundayTask);
+        initializeListViewDarkComponents(priorityTask);
+        initializeListViewDarkComponents(tasksWithoutDates);
     }
 
     /**
      * This method populates the ListView with prioritized tasks for the day.
      */
     private void prioritizedTodayTasks() {
-        ObservableList<Task> holdPriorityTasks;
+        ObservableList<String> holdPriorityTasks;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
         holdPriorityTasks = FXCollections.observableArrayList(tasks.obtainPriorityList(dtf.format(now)));
@@ -108,7 +125,7 @@ class TimelineWindow extends UiComponent<Region> {
      * This method populates the ListView with prioritized tasks for the day.
      */
     private void tasksWithoutDates() {
-        ObservableList<Task> holdTasksWithoutDates;
+        ObservableList<String> holdTasksWithoutDates;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
         holdTasksWithoutDates = FXCollections.observableArrayList(tasks.obtainTasksWithoutDates());
@@ -198,6 +215,21 @@ class TimelineWindow extends UiComponent<Region> {
         saturdayTask.setItems(saturdayTasks);
         ObservableList<String> sundayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(sunday));
         sundayTask.setItems(sundayTasks);
+    }
 
+    private void initializeListViewDarkComponents(ListView<String> stringListView) {
+        stringListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+            @Override
+            public ListCell<String> call(ListView<String> param) {
+                return new ListCell<String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setText(item);
+                        setStyle("-fx-control-inner-background: " + DEFAULT_CONTROL_INNER_BACKGROUND + ";");
+                    }
+                };
+            }
+        });
     }
 }
