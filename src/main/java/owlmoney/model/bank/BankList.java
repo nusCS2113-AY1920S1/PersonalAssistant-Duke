@@ -1,5 +1,9 @@
 package owlmoney.model.bank;
 
+import java.io.IOException;
+import java.math.RoundingMode;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -8,6 +12,7 @@ import owlmoney.model.bond.Bond;
 import owlmoney.model.bond.exception.BondException;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.exception.TransactionException;
+import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
 /**
@@ -15,18 +20,28 @@ import owlmoney.ui.Ui;
  */
 public class BankList {
     private ArrayList<Bank> bankLists;
+    private Storage storage;
     private static final String SAVING = "saving";
     private static final String INVESTMENT = "investment";
     private static final int ONE_INDEX = 1;
     private static final boolean ISMULTIPLE = true;
     private static final boolean ISSINGLE = false;
     private static final int ISZERO = 0;
+    private static final String FILE_PATH = "data/";
+    private static final String PROFILE_BANK_LIST_FILE_NAME = "profile_banklist.csv";
+    private static final String INVESTMENT_BOND_LIST_FILE_NAME = "_investment_bondList.csv";
+    private static final String INVESTMENT_TRANSACTION_LIST_FILE_NAME = "_investment_transactionList.csv";
+    private static final String SAVING_TRANSACTION_LIST_FILE_NAME = "_saving_transactionList.csv";
+    private static final String SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME = "_saving_recurring_transactionList.csv";
+
 
     /**
      * Creates a instance of BankList that contains an arrayList of Banks.
+     * @param storage for importing and exporting purposes.
      */
-    public BankList() {
+    public BankList(Storage storage) {
         bankLists = new ArrayList<Bank>();
+        this.storage = storage;
     }
 
     /**
@@ -36,7 +51,7 @@ public class BankList {
      * @return The name of the bank account.
      */
     public Bank bankListGetSavingAccount(String bankName) throws BankException {
-        for (int i = 0; i < bankLists.size(); i++) {
+        for (int i = 0; i < getBankListSize(); i++) {
             if (bankLists.get(i).getAccountName().equals(bankName) && bankLists.get(i).getType().equals(SAVING)) {
                 return bankLists.get(i);
             }
@@ -58,6 +73,13 @@ public class BankList {
         bankLists.add(newBank);
         ui.printMessage("Added new bank with following details: ");
         printOneBank(ONE_INDEX, newBank, ISSINGLE, ui);
+        prepareExportBankListNamesAndType();
+        try {
+            exportBankList();
+        } catch (IOException e) {
+            ui.printError("Error trying to save your additions to disk. Your data is"
+                    + " at risk, but we will try again, feel free to continue using the program.");
+        }
     }
 
     /**
@@ -74,7 +96,7 @@ public class BankList {
      *
      * @return size of bankList.
      */
-    private int getBankListSize() {
+    public int getBankListSize() {
         return bankLists.size();
     }
 
@@ -167,6 +189,21 @@ public class BankList {
                     bankLists.remove(i);
                     ui.printMessage("Removed bank with the following details: ");
                     printOneBank(ONE_INDEX, temp, ISSINGLE, ui);
+                    try {
+                        exportBankList();
+                        Files.deleteIfExists(Paths.get(FILE_PATH + Integer.toString(i)
+                                + INVESTMENT_BOND_LIST_FILE_NAME));
+                        Files.deleteIfExists(Paths.get(FILE_PATH + Integer.toString(i)
+                                + INVESTMENT_TRANSACTION_LIST_FILE_NAME));
+                        Files.deleteIfExists(Paths.get(FILE_PATH + Integer.toString(i)
+                                + SAVING_TRANSACTION_LIST_FILE_NAME));
+                        Files.deleteIfExists(Paths.get(FILE_PATH + Integer.toString(i)
+                                + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME));
+                    } catch (IOException e) {
+                        ui.printError("Error trying to save your deletions to disk."
+                                + " Your data is at risk, but we will try again,"
+                                + " feel free to continue using the program.");
+                    }
                     break;
                 }
             }
@@ -185,7 +222,7 @@ public class BankList {
      */
     public void bankListEditSavings(String bankName, String newName, String amount, String income, Ui ui)
             throws BankException {
-        for (int i = ISZERO; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankLists.get(i).getAccountName().equals(bankName)
                     && "saving".equals(bankLists.get(i).getType())) {
                 if (!(newName.isEmpty() || newName.isBlank())) {
@@ -200,6 +237,12 @@ public class BankList {
                 }
                 ui.printMessage("New details of the account:");
                 printOneBank(ONE_INDEX, bankLists.get(i), ISSINGLE, ui);
+                try {
+                    exportBankList();
+                } catch (IOException e) {
+                    ui.printError("Error trying to save your edits to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -232,7 +275,7 @@ public class BankList {
      */
     public void bankListEditInvestment(String bankName, String newName, String amount, Ui ui)
             throws BankException {
-        for (int i = ISZERO; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankLists.get(i).getAccountName().equals(bankName)
                     && "investment".equals(bankLists.get(i).getType())) {
                 if (!(newName.isEmpty() || newName.isBlank())) {
@@ -244,6 +287,12 @@ public class BankList {
                 }
                 ui.printMessage("New details of the account:");
                 printOneBank(ONE_INDEX, bankLists.get(i), ISSINGLE, ui);
+                try {
+                    exportBankList();
+                } catch (IOException e) {
+                    ui.printError("Error trying to save your edits to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
+                }
                 break;
             }
         }
@@ -285,7 +334,7 @@ public class BankList {
      */
     public void bankListListBankExpenditure(String bankToList, Ui ui, int displayNum)
             throws TransactionException, BankException {
-        for (int i = ISZERO; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankToList.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).listAllExpenditure(ui, displayNum);
                 return;
@@ -305,7 +354,7 @@ public class BankList {
      */
     public void bankListListBankDeposit(String bankToList, Ui ui, int displayNum)
             throws TransactionException, BankException {
-        for (int i = ISZERO; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankToList.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).listAllDeposit(ui, displayNum);
                 return;
@@ -326,9 +375,16 @@ public class BankList {
      */
     public void bankListAddExpenditure(String accName, Transaction exp, Ui ui, String type)
             throws BankException {
-        for (int i = ISZERO; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankLists.get(i).getAccountName().equals(accName)) {
                 bankLists.get(i).addInExpenditure(exp, ui, type);
+                try {
+                    exportBankList();
+                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                } catch (IOException e) {
+                    ui.printError("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -350,9 +406,16 @@ public class BankList {
      */
     public void bankListEditExpenditure(int expNum, String editFromBank, String desc,
             String amount, String date, String category, Ui ui) throws BankException, TransactionException {
-        for (int i = ISZERO; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankLists.get(i).getAccountName().equals(editFromBank)) {
                 bankLists.get(i).editExpenditureDetails(expNum, desc, amount, date, category, ui);
+                try {
+                    exportBankList();
+                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                } catch (IOException e) {
+                    ui.printError("Error trying to save your edits to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -370,9 +433,16 @@ public class BankList {
      */
     public void bankListDeleteExpenditure(int expNum, String deleteFromBank, Ui ui)
             throws TransactionException, BankException {
-        for (int i = ISZERO; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (deleteFromBank.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).deleteExpenditure(expNum, ui);
+                try {
+                    exportBankList();
+                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                } catch (IOException e) {
+                    ui.printError("Error trying to save your deletes to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -390,9 +460,16 @@ public class BankList {
      * @throws BankException If bank name does not exist.
      */
     public void bankListAddDeposit(String accName, Transaction dep, Ui ui, String bankType) throws BankException {
-        for (int i = ISZERO; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankLists.get(i).getAccountName().equals(accName)) {
                 bankLists.get(i).addDepositTransaction(dep, ui, bankType);
+                try {
+                    exportBankList();
+                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                } catch (IOException e) {
+                    ui.printError("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -414,9 +491,16 @@ public class BankList {
      */
     public void bankListEditDeposit(int expNum, String editFromBank, String desc,
             String amount, String date, Ui ui) throws BankException, TransactionException {
-        for (int i = ISZERO; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankLists.get(i).getAccountName().equals(editFromBank)) {
                 bankLists.get(i).editDepositDetails(expNum, desc, amount, date, ui);
+                try {
+                    exportBankList();
+                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                } catch (IOException e) {
+                    ui.printError("Error trying to save your edits to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -433,9 +517,16 @@ public class BankList {
      * @throws TransactionException If transaction is not a deposit.
      */
     public void bankListDeleteDeposit(String accName, int index, Ui ui) throws BankException, TransactionException {
-        for (int i = ISZERO; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankLists.get(i).getAccountName().equals(accName)) {
                 bankLists.get(i).deleteDepositTransaction(index, ui);
+                try {
+                    exportBankList();
+                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                } catch (IOException e) {
+                    ui.printError("Error trying to save your deletions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -469,9 +560,17 @@ public class BankList {
      * @throws BankException If bank account does not exist.
      */
     public void bankListAddBond(String accName, Bond bond, Ui ui) throws BankException {
-        for (int i = ISZERO; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (accName.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).addBondToInvestmentAccount(bond, ui);
+                try {
+                    exportBankList();
+                    bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
+                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                } catch (IOException e) {
+                    ui.printError("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -493,6 +592,14 @@ public class BankList {
         for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankName.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).investmentEditBond(bondName, year, rate, ui);
+                try {
+                    exportBankList();
+                    bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
+                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                } catch (IOException e) {
+                    ui.printError("Error trying to save your edits to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -511,6 +618,14 @@ public class BankList {
         for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankName.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).investmentDeleteBond(bondName, ui);
+                try {
+                    exportBankList();
+                    bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
+                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                } catch (IOException e) {
+                    ui.printError("Error trying to save your deletions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -600,7 +715,7 @@ public class BankList {
      * @throws BankException If no bank of such name is found.
      */
     public double getSavingAmount(String savingName) throws BankException {
-        for (int i = 0; i < bankLists.size(); i++) {
+        for (int i = 0; i < getBankListSize(); i++) {
             if (bankLists.get(i).getAccountName().equals(savingName)) {
                 return bankLists.get(i).getCurrentAmount();
             }
@@ -619,9 +734,20 @@ public class BankList {
      */
     public void bankListAddRecurringExpenditure(String bankName, Transaction newRecurringExpenditure, Ui ui)
             throws BankException, TransactionException {
-        for (int i = 0; i < bankLists.size(); i++) {
+        for (int i = 0; i < getBankListSize(); i++) {
             if (bankLists.get(i).getAccountName().equals(bankName)) {
                 bankLists.get(i).savingAddRecurringExpenditure(newRecurringExpenditure, ui);
+                try {
+                    exportBankList();
+                    if (bankLists.get(i).getType().equals(INVESTMENT)) {
+                        bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
+                    }
+                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                    bankLists.get(i).exportBankRecurringTransactionList(Integer.toString(i));
+                } catch (IOException e) {
+                    ui.printError("Error trying to save your additions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -639,9 +765,20 @@ public class BankList {
      */
     public void bankListDeleteRecurringExpenditure(String bankName, int index, Ui ui)
             throws BankException, TransactionException {
-        for (int i = 0; i < bankLists.size(); i++) {
+        for (int i = 0; i < getBankListSize(); i++) {
             if (bankLists.get(i).getAccountName().equals(bankName)) {
                 bankLists.get(i).savingDeleteRecurringExpenditure(index, ui);
+                try {
+                    exportBankList();
+                    if (bankLists.get(i).getType().equals(INVESTMENT)) {
+                        bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
+                    }
+                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                    bankLists.get(i).exportBankRecurringTransactionList(Integer.toString(i));
+                } catch (IOException e) {
+                    ui.printError("Error trying to save your deletions to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -658,7 +795,7 @@ public class BankList {
      */
     public void bankListListRecurringExpenditure(String bankName, Ui ui)
             throws BankException, TransactionException {
-        for (int i = 0; i < bankLists.size(); i++) {
+        for (int i = 0; i < getBankListSize(); i++) {
             if (bankLists.get(i).getAccountName().equals(bankName)) {
                 bankLists.get(i).savingListRecurringExpenditure(ui);
                 return;
@@ -679,9 +816,20 @@ public class BankList {
     public void bankListEditRecurringExpenditure(
             String bankName, int index, String description, String amount, String category, Ui ui)
             throws BankException, TransactionException {
-        for (int i = 0; i < bankLists.size(); i++) {
+        for (int i = 0; i < getBankListSize(); i++) {
             if (bankLists.get(i).getAccountName().equals(bankName)) {
                 bankLists.get(i).savingEditRecurringExpenditure(index, description, amount, category, ui);
+                try {
+                    exportBankList();
+                    if (bankLists.get(i).getType().equals(INVESTMENT)) {
+                        bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
+                    }
+                    bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+                    bankLists.get(i).exportBankRecurringTransactionList(Integer.toString(i));
+                } catch (IOException e) {
+                    ui.printError("Error trying to save your edits to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
+                }
                 return;
             }
         }
@@ -694,8 +842,21 @@ public class BankList {
      * @param ui Used for printing,
      */
     public void bankListUpdateRecurringTransactions(Ui ui) {
-        for (int i = 0; i < bankLists.size(); i++) {
+        for (int i = 0; i < getBankListSize(); i++) {
             bankLists.get(i).updateRecurringTransactions(ui);
+            try {
+                exportBankList();
+                if (bankLists.get(i).getType().equals(INVESTMENT)) {
+                    bankLists.get(i).exportInvestmentBondList(Integer.toString(i));
+                }
+                if (bankLists.get(i).getType().equals(SAVING)) {
+                    bankLists.get(i).exportBankRecurringTransactionList(Integer.toString(i));
+                }
+                bankLists.get(i).exportBankTransactionList(Integer.toString(i));
+            } catch (IOException | BankException e) {
+                ui.printError("Error trying to save your updates to disk. Your data is"
+                        + " at risk, but we will try again, feel free to continue using the program.");
+            }
         }
     }
 
@@ -713,7 +874,8 @@ public class BankList {
                 return bankLists.get(i).getType();
             }
         }
-        throw new BankException("Unable to transfer fund as bank Account does not exist: " + accName);
+        throw new BankException("Unable to transfer fund as bank the sender bank account does not exist: "
+                + accName);
     }
 
     /**
@@ -728,7 +890,8 @@ public class BankList {
                 return bankLists.get(i).getType();
             }
         }
-        throw new BankException("Unable to transfer fund as bank account does not exist: " + accName);
+        throw new BankException("Unable to transfer fund as the receiving bank account does not exist: "
+                + accName);
     }
 
     /**
@@ -818,4 +981,112 @@ public class BankList {
         throw new BankException("Bank with the following name does not exist: " + bankName);
     }
 
+    /**
+     * Prepares the bankList for exporting of bank name and type of the bank account.
+     *
+     * @return ArrayList of String arrays for containing each bank in the bank list.
+     */
+    private ArrayList<String[]> prepareExportBankListNamesAndType() {
+        ArrayList<String[]> exportArrayList = new ArrayList<>();
+        DecimalFormat decimalFormat = new DecimalFormat(".00");
+        decimalFormat.setRoundingMode(RoundingMode.DOWN);
+        exportArrayList.add(new String[]{"accountName","type","amount","income"});
+        for (int i = 0; i < getBankListSize(); i++) {
+            String accountName = bankLists.get(i).getAccountName();
+            String accountType = bankLists.get(i).getType();
+            double amount = bankLists.get(i).getCurrentAmount();
+            double income = 0;
+            String stringAmount = decimalFormat.format(amount);
+            try {
+                income = bankLists.get(i).getIncome();
+            } catch (BankException e) {
+                income = 0;
+            }
+            String stringIncome = decimalFormat.format(income);
+            exportArrayList.add(new String[]{accountName,accountType,stringAmount,stringIncome});
+        }
+        return exportArrayList;
+    }
+
+    /**
+     * Writes the data of the bank list that was prepared to permanent storage.
+     *
+     * @throws IOException when unable to write to file.
+     */
+    private void exportBankList() throws IOException {
+        ArrayList<String[]> inputData = prepareExportBankListNamesAndType();
+        storage.writeFile(inputData,PROFILE_BANK_LIST_FILE_NAME);
+    }
+
+    /**
+     * Imports bonds loaded from save file into respective investment accounts.
+     *
+     * @param bankName bank name the bond should be imported to.
+     * @param newBond an instance of the bond to be imported.
+     * @throws BankException if the bank account does not support this feature.
+     */
+    public void bankListImportNewBonds(String bankName, Bond newBond) throws BankException {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
+            if (bankName.equals(bankLists.get(i).getAccountName())) {
+                bankLists.get(i).importNewBonds(newBond);
+            }
+        }
+    }
+
+    /**
+     * Imports deposits loaded from save file into respective bank accounts.
+     * @param bankName bank name the deposits should be imported to.
+     * @param deposit an instance of the deposit to be imported.
+     * @param bankType the type of bank account.
+     * @throws BankException if the bank account does not support this feature.
+     */
+    public void bankListImportNewDeposit(String bankName, Transaction deposit, String bankType)
+            throws BankException {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName)) {
+                bankLists.get(i).importNewDeposit(deposit, bankType);
+            }
+        }
+    }
+
+    /**
+     * Imports expenditures loaded from save file into respective bank accounts.
+     * @param bankName bank name the deposits should be imported to.
+     * @param expenditure an instance of the expenditure to be imported.
+     * @param type type of expenditure.
+     * @throws BankException if the bank account does not support this feature.
+     */
+    public void bankListImportNewExpenditure(String bankName, Transaction expenditure, String type)
+            throws BankException {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName)) {
+                bankLists.get(i).importNewExpenditure(expenditure,type);
+                return;
+            }
+        }
+        throw new BankException("There is no account with the name: " + bankName);
+    }
+
+    /**
+     * Imports banks loaded from save file into bankList.
+     * @param newBank an instance of the bank account to be imported.
+     */
+    public void bankListImportNewBank(Bank newBank) {
+        bankLists.add(newBank);
+    }
+
+    /**
+     * Imports recurring expenditures from save file into respective bank accounts.
+     * @param bankName bank name the deposits should be imported to.
+     * @param newRecurringExpenditure an instance of the expenditure to be imported.
+     * @throws BankException if the bank account does not support this feature.
+     */
+    public void bankListImportNewRecurringExpenditure(String bankName, Transaction newRecurringExpenditure)
+            throws BankException {
+        for (int i = 0; i < getBankListSize(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName)) {
+                bankLists.get(i).importNewRecurringExpenditure(newRecurringExpenditure);
+            }
+        }
+    }
 }

@@ -47,7 +47,7 @@ public abstract class Transaction {
      *
      * @return True if transaction deducts from bank amount.
      */
-    boolean getSpent() {
+    public boolean getSpent() {
         return this.spent;
     }
 
@@ -84,7 +84,7 @@ public abstract class Transaction {
      *
      * @return The date that the expenditure was made in Date format.
      */
-    Date getDateInDateFormat() {
+    public Date getDateInDateFormat() {
         return this.date;
     }
 

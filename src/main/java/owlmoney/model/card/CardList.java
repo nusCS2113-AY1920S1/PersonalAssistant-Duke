@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.exception.TransactionException;
+import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
 /**
- * CardList class that provides a layer of abstraction for the ArrayList that stores credit cards.
+ * Provides a layer of abstraction for the ArrayList that stores credit cards.
  */
 public class CardList {
     private ArrayList<Card> cardLists;
@@ -17,12 +18,15 @@ public class CardList {
     private static final boolean ISMULTIPLE = true;
     private static final boolean ISSINGLE = false;
     private static final int ISZERO = 0;
+    private Storage storage;
 
     /**
      * Creates an arrayList of Cards.
+     * @param storage for importing and exporting purposes.
      */
-    public CardList() {
+    public CardList(Storage storage) {
         cardLists = new ArrayList<Card>();
+        this.storage = storage;
     }
 
     /**
@@ -74,7 +78,7 @@ public class CardList {
      */
     private void cardListCheckListEmpty() throws CardException {
         if (cardLists.size() <= ISZERO) {
-            throw new CardException("There are 0 cards in your profile");
+            throw new CardException("There are 0 cards in your profile.");
         }
     }
 
@@ -83,7 +87,7 @@ public class CardList {
      *
      * @return size of cardList.
      */
-    private int getCardListSize() {
+    public int getCardListSize() {
         return cardLists.size();
     }
 
@@ -112,7 +116,7 @@ public class CardList {
     private void compareCard(Card currentCard, String newCardName) throws CardException {
         for (int i = ISZERO; i < getCardListSize(); i++) {
             if (cardLists.get(i).getName().equals(newCardName) && !cardLists.get(i).equals(currentCard)) {
-                throw new CardException("There is already a credit card with the name " + newCardName);
+                throw new CardException("There is already a credit card with the name: " + newCardName);
             }
         }
     }
@@ -154,12 +158,12 @@ public class CardList {
                 if (!(rebate.isEmpty() || rebate.isBlank())) {
                     cardLists.get(i).setRebate(Double.parseDouble(rebate));
                 }
-                ui.printMessage("New details of the cards:\n");
+                ui.printMessage("New details of the cards: ");
                 printOneCard(ONE_INDEX, cardLists.get(i), ISSINGLE, ui);
                 return;
             }
         }
-        throw new CardException("Card could not be found for editing card details");
+        throw new CardException("Card could not be found for editing card details.");
     }
 
     /**
