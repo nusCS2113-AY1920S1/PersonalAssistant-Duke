@@ -79,7 +79,7 @@ public class ReserveCommand extends Command {
     /**
      * Constructor for a ReserveCommand, for an Item which is to be reserved from a given date in the future
      * till a further future date.
-     * @param roomName the name of the Item to be reserved.
+     * @param itemName the name of the Item to be reserved.
      * @param qty the quantity of the Item to be reserved.
      * @param stringDateFrom the date from which the Item is to be loaned out, in String format.
      * @param stringDateTill the date by which the Item must be returned, in String format.
@@ -135,8 +135,7 @@ public class ReserveCommand extends Command {
                 ui.print(bookedResources.get(i).toString() + " (ID: " + bookedResources.get(i).getResourceId() + ")");
             }
             ui.printLine();
-        }
-        else {
+        } else {
             throw new RimsException("This item is not available between the dates you've selected!");
         }
     }

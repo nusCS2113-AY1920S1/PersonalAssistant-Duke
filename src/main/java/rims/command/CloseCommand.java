@@ -18,7 +18,6 @@ public class CloseCommand extends Command {
      * @param ui An instance of the user interface.
      * @param storage An instance of the Storage class.
      * @param resources The ResourceList, containing all the created Resources thus far.
-     * @throws ParseException if any date is un-parsable
      * @throws IOException if there is an error in saving Resources or Reservations to disk
      */
     public void execute(Ui ui, Storage storage, ResourceList resources) throws IOException {

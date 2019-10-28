@@ -28,7 +28,7 @@ public class AddCommand extends Command {
 
     /**
      * Constructor of a new AddCommand for a new Item.
-     * @param roomName the name of the new Item to be added to the ResourceList.
+     * @param itemName the name of the new Item to be added to the ResourceList.
      * @param qty the quantity of the new Item to be added.
      */
     public AddCommand(String itemName, int qty) {
@@ -54,8 +54,7 @@ public class AddCommand extends Command {
             ui.print("The following room has been successfully added:");
             ui.print(newRoom.toString());
             ui.printLine();
-        }
-        else if (resourceType.equals("item")) {
+        } else if (resourceType.equals("item")) {
             for (int i = 0; i < qty; i++) {
                 int resourceId = resources.generateResourceId();
                 Item newItem = new Item(resourceId, resourceName);

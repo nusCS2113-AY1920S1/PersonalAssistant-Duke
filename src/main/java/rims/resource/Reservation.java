@@ -26,12 +26,13 @@ public class Reservation {
      * Constructor for a newly created Reservation.
      * @param reservationId the generated reservation ID of this new Reservation
      * @param resourceId the ID of the resource for which this Reservation has been made.
-     * @param userID the ID of the user who made this Reservation.
+     * @param userId the ID of the user who made this Reservation.
      * @param dateFrom the Date from which this Reservation has been made.
      * @param dateTill the Date till which this Reservation has been made.
      * @throws ParseException if the dates given are in an invalid format.
      */
-    public Reservation(int reservationId, int resourceId, int userId, Date dateFrom, Date dateTill) throws ParseException {
+    public Reservation(int reservationId, int resourceId, int userId,
+        Date dateFrom, Date dateTill) throws ParseException {
         this.reservationId = reservationId;
         this.resourceId = resourceId;
         this.userId = userId;
@@ -43,12 +44,13 @@ public class Reservation {
      * Constructor for an existing Reservation loaded from storage.
      * @param reservationId the reservation ID of this Reservation
      * @param resourceId the ID of the resource for which this Reservation has been made.
-     * @param userID the ID of the user who made this Reservation.
+     * @param userId the ID of the user who made this Reservation.
      * @param dateFrom the string representation of the date from which this Reservation has been made.
      * @param dateTill the string representation of the date till which this Reservation has been made.
      * @throws ParseException if the dates given are in an invalid format.
      */
-    public Reservation(int reservationId, int resourceId, int userId, String dateFrom, String dateTill) throws ParseException {
+    public Reservation(int reservationId, int resourceId, int userId,
+        String dateFrom, String dateTill) throws ParseException {
         this.reservationId = reservationId;
         this.resourceId = resourceId;
         this.userId = userId;
@@ -114,7 +116,8 @@ public class Reservation {
      * @return a String version of the attributes of the Reservation.
      */
     public String toString() {
-        String output = "[" + reservationId + "]" + " borrowed by user: " + userId + " from " + getDateToPrint(dateFrom) + " till " + getDateToPrint(dateTill);
+        String output = "[" + reservationId + "]" + " borrowed by user: " + userId + " from " 
+            + getDateToPrint(dateFrom) + " till " + getDateToPrint(dateTill);
         if (isOverdue()) {
             return output + " [OVERDUE]";
         }
@@ -126,7 +129,8 @@ public class Reservation {
      * @return a compact String version of the attributes of the Reservation.
      */
     public String toDataFormat() {
-        return reservationId + "," + resourceId + "," + userId + "," + dateToString(dateFrom) + "," + dateToString(dateTill);
+        return reservationId + "," + resourceId + "," + userId + ","
+            + dateToString(dateFrom) + "," + dateToString(dateTill);
     }
 
     /**
@@ -160,7 +164,8 @@ public class Reservation {
         DateFormat dayFormat = new SimpleDateFormat("d");
         int day = Integer.parseInt(dayFormat.format(date)) % 10;
         String suffix = day == 1 ? "st" : (day == 2 ? "nd" : (day == 3 ? "rd" : "th"));
-        String stringDate = (new SimpleDateFormat("EEEEE, ")).format(date) + (dayFormat.format(date)) + suffix + " " + (new SimpleDateFormat("MMMMM yyyy, hh:mm aaa")).format(date);
+        String stringDate = (new SimpleDateFormat("EEEEE, ")).format(date) + (dayFormat.format(date)) + suffix
+            + " " + (new SimpleDateFormat("MMMMM yyyy, hh:mm aaa")).format(date);
         return stringDate;
     }
 
@@ -170,12 +175,13 @@ public class Reservation {
      */
     public int getDaysDueIn() {
         Date currentDate = new Date(System.currentTimeMillis());
-        int daysLeftToDue = (int) (TimeUnit.DAYS.convert((getEndDate().getTime() - currentDate.getTime()), TimeUnit.MILLISECONDS));
+        int daysLeftToDue = (int) (TimeUnit.DAYS.convert((getEndDate().getTime()
+            - currentDate.getTime()), TimeUnit.MILLISECONDS));
         return daysLeftToDue;
     }
 
     /**
-     * Checks if this Reservation is expiring within a given number of days
+     * Checks if this Reservation is expiring within a given number of days.
      * @param daysDue the number of days within which this Reservation is checked for expiry
      * @return a boolean: true if it is expiring within the given number of days, false otherwise
      */
@@ -189,7 +195,8 @@ public class Reservation {
      */
     public boolean isOverdue() {
         Date currentDate = new Date(System.currentTimeMillis());
-        int daysLeftToDue = (int) (TimeUnit.DAYS.convert((getEndDate().getTime() - currentDate.getTime()), TimeUnit.MILLISECONDS));
+        int daysLeftToDue = (int) (TimeUnit.DAYS.convert((getEndDate().getTime()
+            - currentDate.getTime()), TimeUnit.MILLISECONDS));
         if ((daysLeftToDue < 0) || (daysLeftToDue == 0 && (getEndDate().getTime() - currentDate.getTime() < 0))) {
             return true;
         }
