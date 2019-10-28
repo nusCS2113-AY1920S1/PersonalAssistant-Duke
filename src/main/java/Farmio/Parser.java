@@ -47,10 +47,6 @@ public class Parser {
         }
     }
 
-//    private static Command parseName(String userInput) throws FarmioException {
-//        return new CommandAddName(userInput);
-//    }
-
     private static Command parseMenuStart(String userInput) throws FarmioException {
         switch (userInput) {
             case "load game":
@@ -114,7 +110,16 @@ public class Parser {
     }
 
     private static Command parseDoTask(String userInput) throws FarmioException {
-        String userAction = (userInput.substring(userInput.indexOf(" "))).trim();
+        String taskType = "", userAction = "";
+        try {
+            taskType = userInput.substring(0, userInput.indexOf(" "));
+            userAction = (userInput.substring(userInput.indexOf(" "))).trim();
+        } catch (Exception e ) {
+            throw new FarmioException("Invalid command format!");
+        }
+        if (!taskType.equals("do")) {
+            throw new FarmioException("Invalid task type!");
+        }
         if (Action.validateAction(userAction)) {
             return new CommandTaskCreate("do","true", userAction);
         } else {
@@ -132,9 +137,9 @@ public class Parser {
             throw new FarmioException("Invalid command format!");
         }
         if (!taskType.equals("if")  && ! taskType.equals("for") && !taskType.equals("while")) {
-            throw new FarmioException("Invalid Task Type!");
+            throw new FarmioException("Invalid task type!");
         }
-        if (!Condition.validateCondition(condition)) {
+        if (!Condition.isValidCondition(condition)) {
             throw new FarmioException("Invalid Condition!");
         }
         if (!Action.validateAction(action)) {
