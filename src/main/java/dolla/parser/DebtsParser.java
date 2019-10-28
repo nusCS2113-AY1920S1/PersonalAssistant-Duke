@@ -43,7 +43,7 @@ public class DebtsParser extends Parser {
                 return new ErrorCommand();
             } catch (Exception e) {
                 return new ErrorCommand();
-            }
+        }
             return processAdd(type, name, amount);
         } else if (commandToRun.equals("search")) {
             String component = inputArray[1];
