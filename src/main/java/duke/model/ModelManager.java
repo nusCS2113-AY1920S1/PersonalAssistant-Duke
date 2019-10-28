@@ -1,6 +1,7 @@
 package duke.model;
 
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.logic.CreateMap;
@@ -14,6 +15,7 @@ import duke.model.transports.BusService;
 import duke.model.transports.Route;
 import duke.storage.Storage;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -70,13 +72,33 @@ public class ModelManager implements Model {
     public List<Agenda> getRecommendations(int numDays, Itinerary itinerary) throws DukeException {
         List<Agenda> recommendations = storage.readVenues(numDays);
         itinerary.setTasks(recommendations);
-        storage.writeRecommendations(itinerary);
+        storage.writeItineraries(itinerary, 2);
         return recommendations;
     }
 
     @Override
     public VenueList getEventVenues() {
         return new VenueList(events);
+    }
+
+    @Override
+    public void saveItinerary(Itinerary itinerary) throws FileNotSavedException {
+        storage.writeItineraries(itinerary, 1);
+    }
+
+    @Override
+    public void itineraryListSave(Itinerary itinerary) throws FileNotSavedException, FileNotFoundException {
+        storage.writeItinerarySave(itinerary);
+    }
+
+    @Override
+    public String listItineraries() throws FileLoadFailException {
+        return storage.readItineraryList();
+    }
+
+    @Override
+    public Itinerary getItinerary(String number) throws DukeException {
+        return storage.getItinerary(number);
     }
 
     /**

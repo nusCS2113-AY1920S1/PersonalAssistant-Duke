@@ -22,7 +22,7 @@ class RecommendationsCommandTest {
         Venue hotel = new Venue("YEW TEE INDUSTRIAL ESTATE", 1.3973210291170202,
                 103.753758637401, 0, 0);
 
-        Itinerary itinerary = new Itinerary(startDate,endDate,hotel);
+        Itinerary itinerary = new Itinerary(startDate,endDate,hotel, "Test");
         RecommendationsCommand recommendationsCommand = new RecommendationsCommand(itinerary);
         CommandResultText commandResult = recommendationsCommand.execute(model);
         String result1 = commandResult.getMessage();

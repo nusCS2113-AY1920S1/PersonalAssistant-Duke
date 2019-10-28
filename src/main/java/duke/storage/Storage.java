@@ -10,6 +10,7 @@ import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.commons.exceptions.StorageFileNotFoundException;
 import duke.logic.parsers.ParserStorageUtil;
 import duke.model.Event;
+import duke.model.lists.AgendaList;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.logic.parsers.ParserTimeUtil;
@@ -23,6 +24,7 @@ import duke.model.planning.Todo;
 import duke.model.transports.BusService;
 import duke.model.locations.Venue;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -45,10 +47,13 @@ public class Storage {
     private CreateMap map;
     private static final String BUS_FILE_PATH = "/data/bus.txt";
     private static final String RECOMMENDATIONS_FILE_PATH = "/data/recommendations.txt";
-    private static final String SAMPLE_RECOMMENDATIONS_FILE_PATH = "samples.txt";
+    private static final String ITINERARIES_FILE_PATH = "itineraries.txt";
     private static final String TRAIN_FILE_PATH = "/data/train.txt";
     private static final String EVENTS_FILE_PATH = "events.txt";
     private static final String ROUTES_FILE_PATH = "routes.txt";
+    private static final String SAMPLE_RECOMMENDATIONS_FILE_PATH = "samples.txt";
+    private static final String ITINERARY_LIST_FILE_PATH = "itineraryTable.txt";
+    private int numItineraries = 1;
 
     /**
      * Constructs a Storage object that contains information from the model.
@@ -117,8 +122,8 @@ public class Storage {
     /**
      * Reads events from filepath. Creates empty events if file cannot be read.
      *
-     * @throws DukeDateTimeParseException If the datetime of an event cannot be parsed.
-     * @throws DukeDuplicateTaskException If there is a duplicate event.
+     * @throws DukeDateTimeParseException   If the datetime of an event cannot be parsed.
+     * @throws DukeDuplicateTaskException   If there is a duplicate event.
      * @throws StorageFileNotFoundException If the file cannot be read.
      */
     private void readEvent() throws DukeDuplicateTaskException, DukeDateTimeParseException,
@@ -140,9 +145,9 @@ public class Storage {
     /**
      * Reads routes from filepath. Creates empty routes if file cannot be read.
      *
-     * @exception RouteNodeDuplicateException If there is a duplicate route that is read.
-     * @exception CorruptedFileException If the reading has failed.
-     * @exception StorageFileNotFoundException If the storage file cannot be found.
+     * @throws RouteNodeDuplicateException  If there is a duplicate route that is read.
+     * @throws CorruptedFileException       If the reading has failed.
+     * @throws StorageFileNotFoundException If the storage file cannot be found.
      */
     private void readRoutes() throws RouteNodeDuplicateException, CorruptedFileException, StorageFileNotFoundException {
         List<Route> newRoutes = new ArrayList<>();
@@ -247,17 +252,23 @@ public class Storage {
      *
      * @throws FileNotSavedException If the file cannot be saved.
      */
-    public void writeRecommendations(Itinerary itinerary) throws FileNotSavedException {
+    public void writeItineraries(Itinerary itinerary, int type) throws FileNotSavedException {
+        String file;
+        if (type == 1) {
+            file = ITINERARIES_FILE_PATH;
+        } else {
+            file = SAMPLE_RECOMMENDATIONS_FILE_PATH;
+        }
         try {
-            FileWriter writer = new FileWriter(SAMPLE_RECOMMENDATIONS_FILE_PATH);
-            writer.write(itinerary.getStartDate().toString() + "\n" + itinerary.getEndDate().toString() + "\n"
-                    + itinerary.getHotelLocation().toString() + "\n");
+            FileWriter writer = new FileWriter(file, true);
+            writer.write(itinerary.getName() + "\n" + itinerary.getStartDate().toString() + "\n"
+                    + itinerary.getEndDate().toString() + "\n" + itinerary.getHotelLocation().toString() + "\n");
             for (Agenda agenda : itinerary.getList()) {
                 writer.write(agenda.toString());
             }
             writer.close();
         } catch (IOException e) {
-            throw new FileNotSavedException(RECOMMENDATIONS_FILE_PATH);
+            throw new FileNotSavedException(file);
         }
     }
 
@@ -265,7 +276,7 @@ public class Storage {
      * Reads recommendations from filepath.
      *
      * @throws DukeDateTimeParseException If the datetime cannot be parsed.
-     * @throws FileLoadFailException If the file fails to load.
+     * @throws FileLoadFailException      If the file fails to load.
      */
     public static Itinerary readRecommendations() throws DukeDateTimeParseException, FileLoadFailException {
         List<Agenda> agendaList = new ArrayList<>();
@@ -276,7 +287,7 @@ public class Storage {
             LocalDateTime start = ParserTimeUtil.parseStringToDate(s.nextLine());
             LocalDateTime end = ParserTimeUtil.parseStringToDate(s.nextLine());
             Venue hotel = ParserStorageUtil.getVenueFromStorage(s.nextLine());
-            itinerary = new Itinerary(start,end,hotel);
+            itinerary = new Itinerary(start, end, hotel, "New Recommendation");
             while (s.hasNext()) {
                 List<Venue> venueList = new ArrayList<>();
                 List<Todo> todoList;
@@ -305,5 +316,71 @@ public class Storage {
 
     public RouteList getRoutes() {
         return routes;
+    }
+
+    public void writeItinerarySave(Itinerary itinerary) throws FileNotFoundException, FileNotSavedException {
+        try {
+            FileWriter writer = new FileWriter(ITINERARY_LIST_FILE_PATH, true);
+            writer.write(numItineraries++ + " | " + itinerary.getName() + "\n");
+            writer.close();
+        } catch (IOException e) {
+            throw new FileNotSavedException(ITINERARY_LIST_FILE_PATH);
+        }
+    }
+
+    public String readItineraryList() throws FileLoadFailException {
+        StringBuilder output = new StringBuilder();
+        try {
+            File f = new File(ITINERARY_LIST_FILE_PATH);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String input = s.nextLine();
+                String number = input.split("\\|", 2)[0].strip();
+                String name = input.split("\\|", 2)[1].strip();
+                output.append(number).append(". ").append(name).append("\n");
+            }
+        } catch (FileNotFoundException e) {
+            throw new FileLoadFailException(ITINERARY_LIST_FILE_PATH);
+        }
+        return output.toString();
+    }
+
+    public Itinerary getItinerary(String number) throws DukeException {
+        Itinerary itinerary = null;
+        try {
+            File f = new File(ITINERARY_LIST_FILE_PATH);
+            Scanner s = new Scanner(f);
+            String name = null;
+            while (s.hasNext()) {
+                String input = s.nextLine();
+                String number1 = input.split("\\|", 2)[0].strip();
+                if (number.equals(number1)) {
+                    name = input.split("\\|", 2)[1].strip();
+                }
+            }
+            File z = new File(ITINERARIES_FILE_PATH);
+            Scanner s1 = new Scanner(z);
+            AgendaList agendaList = new AgendaList();
+            while (s1.hasNext()) {
+                if(s1.nextLine().equals(name)) {
+                    LocalDateTime start = ParserTimeUtil.parseStringToDate(s1.nextLine());
+                    LocalDateTime end = ParserTimeUtil.parseStringToDate(s1.nextLine());
+                    Venue hotel = ParserStorageUtil.getVenueFromStorage(s1.nextLine());
+                    itinerary = new Itinerary(start, end, hotel, name);
+                    List<Venue> venueList = new ArrayList<>();
+                    List<Todo> todoList;
+                    final int number2 = ParserStorageUtil.getNumberFromStorage(s1.nextLine());
+                    venueList.add(ParserStorageUtil.getVenueFromStorage(s1.nextLine()));
+                    todoList = ParserStorageUtil.getTodoListFromStorage(s1.nextLine());
+                    Agenda agenda = new Agenda(todoList, venueList, number2);
+                    agendaList.add(agenda);
+                }
+            }
+            assert itinerary != null;
+            itinerary.setTasks(agendaList);
+            return itinerary;
+        } catch(FileNotFoundException | DukeDateTimeParseException e){
+                throw new FileLoadFailException(ITINERARY_LIST_FILE_PATH);
+        }
     }
 }

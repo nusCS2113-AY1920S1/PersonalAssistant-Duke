@@ -8,6 +8,8 @@ import duke.model.Model;
 import duke.model.planning.Itinerary;
 import duke.storage.Storage;
 
+import java.io.FileNotFoundException;
+
 /**
  * Creates a new custom itinerary.
  */
@@ -28,7 +30,9 @@ public class NewItineraryCommand extends Command {
      * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResultText execute(Model model) throws DukeException {
+    public CommandResultText execute(Model model) throws DukeException, FileNotFoundException {
+        model.itineraryListSave(this.itinerary);
+        model.saveItinerary(this.itinerary);
         return new CommandResultText("New Itinerary Created :" + this.itinerary.printItinerary());
     }
 }

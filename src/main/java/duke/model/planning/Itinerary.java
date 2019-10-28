@@ -14,15 +14,17 @@ public class Itinerary extends AgendaList {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Venue hotelLocation;
+    private String name;
 
     /**
      * Constructor to initialise new Itinerary.
      */
-    public Itinerary(LocalDateTime startDate, LocalDateTime endDate, Venue hotelLocation) {
+    public Itinerary(LocalDateTime startDate, LocalDateTime endDate, Venue hotelLocation, String name) {
         super();
         this.startDate = startDate;
         this.endDate = endDate;
         this.hotelLocation = hotelLocation;
+        this.name = name;
     }
 
     public LocalDateTime getStartDate() {
@@ -35,6 +37,10 @@ public class Itinerary extends AgendaList {
 
     public Venue getHotelLocation() {
         return hotelLocation;
+    }
+
+    public String getName() {
+        return name;
     }
 
     /**
@@ -58,8 +64,8 @@ public class Itinerary extends AgendaList {
 
         int days = this.getNumberOfDays();
 
-        StringBuilder result = new StringBuilder("Here are the list of Recommended Locations in "
-                +  days + " days around " + this.getHotelLocation().getAddress() + ": \n");
+        StringBuilder result = new StringBuilder("Here are the list of Locations in "
+                +  days + " days around " + this.getHotelLocation().getAddress() + " with name " + this.name + ": \n");
 
         for (int i = 0; i < days; i++) {
             Agenda list1 = this.getList().get(i);

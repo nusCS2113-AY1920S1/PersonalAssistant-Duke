@@ -2,6 +2,7 @@ package duke;
 
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.QueryFailedException;
 import duke.commons.exceptions.RouteDuplicateException;
@@ -17,6 +18,7 @@ import duke.model.transports.BusService;
 import duke.model.transports.Route;
 import duke.storage.Storage;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -101,4 +103,28 @@ public class ModelStub implements Model {
     public VenueList getEventVenues() {
         return new VenueList();
     }
+
+    @Override
+    public Itinerary getItinerary(String number) throws DukeException {
+        return storage.getItinerary(number);
+    }
+
+    @Override
+    public void saveItinerary(Itinerary itinerary) throws FileNotSavedException {
+        storage.writeItineraries(itinerary, 1);
+    }
+
+    @Override
+    public String listItineraries() throws FileLoadFailException {
+        return storage.readItineraryList();
+    }
+
+    @Override
+    public void itineraryListSave(Itinerary itinerary) throws FileNotSavedException, FileNotFoundException {
+        storage.writeItinerarySave(itinerary);
+    }
+
+
+
+
 }

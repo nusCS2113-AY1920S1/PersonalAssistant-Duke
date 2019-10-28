@@ -2,6 +2,7 @@ package duke.model;
 
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.logic.CreateMap;
@@ -14,6 +15,7 @@ import duke.model.transports.BusService;
 import duke.model.locations.BusStop;
 import duke.model.transports.Route;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -80,4 +82,13 @@ public interface Model {
      * Returns a list of event venues.
      */
     VenueList getEventVenues();
+
+    void saveItinerary(Itinerary itinerary) throws FileNotSavedException;
+
+    void itineraryListSave(Itinerary itinerary) throws FileNotSavedException, FileNotFoundException;
+
+    String listItineraries() throws FileLoadFailException;
+
+
+    Itinerary getItinerary(String number) throws DukeException;
 }

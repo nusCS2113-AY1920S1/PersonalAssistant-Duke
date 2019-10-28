@@ -16,6 +16,7 @@ import duke.logic.commands.GetBusRouteCommand;
 import duke.logic.commands.GetBusStopCommand;
 import duke.logic.commands.HelpCommand;
 import duke.logic.commands.ListCommand;
+import duke.logic.commands.ListItineraryCommand;
 import duke.logic.commands.LocationSearchCommand;
 import duke.logic.commands.MarkDoneCommand;
 import duke.logic.commands.NewItineraryCommand;
@@ -27,6 +28,7 @@ import duke.logic.commands.RouteListCommand;
 import duke.logic.commands.RouteNodeDeleteCommand;
 import duke.logic.commands.RouteNodeEditCommand;
 import duke.logic.commands.RouteNodeListCommand;
+import duke.logic.commands.ShowItineraryCommand;
 import duke.logic.commands.StaticMapCommand;
 import duke.logic.commands.ViewScheduleCommand;
 
@@ -110,6 +112,10 @@ public class Parser {
             return new AddSampleItineraryCommand();
         case "newItinerary":
             return new NewItineraryCommand(ParserUtil.createNewItinerary(input));
+        case "listItinerary":
+            return new ListItineraryCommand();
+        case "showItinerary":
+            return new ShowItineraryCommand(getWord(input));
         default:
             throw new DukeUnknownCommandException();
         }
@@ -139,18 +145,4 @@ public class Parser {
         }
     }
 
-    /**
-     * Gets the field at a given index in a String, delimited by whitespace.
-     *
-     * @param index The index of the field.
-     * @param userInput The userInput read by the user interface.
-     * @return The field.
-     */
-    private static String getEventIndexInList(int index, String userInput) {
-        if (index == 1) {
-            return userInput.strip().split(" ", 4)[2];
-        } else {
-            return userInput.strip().split(" ", 4)[3];
-        }
-    }
 }

@@ -25,6 +25,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -119,7 +120,7 @@ public class MainWindow extends UiPart<Stage> {
                     new MapWindow((CommandResultMap) result).show();
                 }
 
-            } catch (DukeException e) {
+            } catch (DukeException | FileNotFoundException e) {
                 dukeShow(e.getMessage());
             }
         });

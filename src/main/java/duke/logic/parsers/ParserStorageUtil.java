@@ -199,7 +199,7 @@ public class ParserStorageUtil {
      */
     public static List<Todo> getTodoListFromStorage(String line) {
         List<Todo> todoList = new ArrayList<>();
-        String[] todoParts = line.split("\\|");
+        String[] todoParts = line.split("\\| ");
         for (String todoPart : todoParts) {
             Todo todo = new Todo(todoPart);
             todoList.add(todo);
