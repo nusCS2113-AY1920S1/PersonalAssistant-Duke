@@ -16,9 +16,13 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 
 public class QuizTest {
-    private Assertions Assert;
     public String filename = "C:\\Users\\user\\gitclones\\main\\src\\test\\WordUpTest.txt";
 
+    /**
+     * Create wordup test file.
+     * @throws FileNotFoundException if filename is not found
+     * @throws UnsupportedEncodingException if encoding is not supported
+     */
     @BeforeEach
     public void createWordUpTestFile() throws FileNotFoundException, UnsupportedEncodingException {
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
@@ -29,6 +33,9 @@ public class QuizTest {
         writer.close();
     }
 
+    /**
+     * test generateQuiz() in QuizCommand.java
+     */
     @Test
     public void generateQuizTest() {
         try {
@@ -36,19 +43,22 @@ public class QuizTest {
             WordBank wordBank = new WordBank(storage.loadFile());
             QuizCommand quizCommand = new QuizCommand();
             String quiz = quizCommand.generateQuiz(wordBank);
-            Assert.assertTrue(quiz.equals("apple: red fruit") || quiz.equals("orange: orange fruit") ||
-                    quiz.equals("banana: yellow fruit") || quiz.equals("kiwi: green fruit"));
+            Assertions.assertTrue((quiz.equals("apple: red fruit")) || (quiz.equals("orange: orange fruit"))
+                    || (quiz.equals("banana: yellow fruit")) || (quiz.equals("kiwi: green fruit")));
         } catch (Exception e) {
             fail("generateQuiz failed: " + e.getMessage());
         }
     }
 
+    /**
+     * Delete wordup test file.
+     */
     @AfterEach
-    public void deleteWordUpTestFile(){
+    public void deleteWordUpTestFile() {
         File file = new File(filename);
-        if(file.delete()) {
+        if (file.delete()) {
             System.out.println("File deleted successfully");
-        }else {
+        } else {
             System.out.println("Failed to delete the file");
         }
     }

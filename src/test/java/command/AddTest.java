@@ -19,6 +19,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class AddTest {
     public String filename = "C:\\Users\\user\\gitclones\\main\\src\\test\\WordUpTest.txt";
 
+    /**
+     * Create wordup test file.
+     * @throws FileNotFoundException if filename is not found
+     * @throws UnsupportedEncodingException if encoding is not supported
+     */
     @BeforeEach
     public void createWordUpTestFile() throws FileNotFoundException, UnsupportedEncodingException {
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
@@ -29,8 +34,11 @@ public class AddTest {
         writer.close();
     }
 
+    /**
+     * Test execute() in AddCommand.java.
+     */
     @Test
-    public void executeAddCommandTest(){
+    public void executeAddCommandTest() {
         try {
             Storage storage = new Storage(filename);
             Bank bank = new Bank(storage);
@@ -44,12 +52,15 @@ public class AddTest {
         }
     }
 
+    /**
+     * Delete wordup test file.
+     */
     @AfterEach
-    public void deleteWordUpTestFile(){
+    public void deleteWordUpTestFile() {
         File file = new File(filename);
-        if(file.delete()) {
+        if (file.delete()) {
             System.out.println("File deleted successfully");
-        }else {
+        } else {
             System.out.println("Failed to delete the file");
         }
     }
