@@ -310,4 +310,17 @@ public class UI {
         System.out.println("Operation has been cancelled.");
         System.out.print(lineSeparation);
     }
+
+    public static void printCostForMonth(String monthAndYear, int cost) {
+        System.out.print(lineSeparation);
+        System.out.println("Your total concert costs for " + monthAndYear + " is:");
+        System.out.println("$" + cost);
+        System.out.print(lineSeparation);
+    }
+
+    public static void printNoCostsForThatMonth() {
+        System.out.print(lineSeparation);
+        System.out.println("There are no concerts for that month!");
+        System.out.print(lineSeparation);
+    }
 }
