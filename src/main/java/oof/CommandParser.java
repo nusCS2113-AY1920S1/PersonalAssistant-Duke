@@ -2,6 +2,8 @@ package oof;
 
 import java.util.InputMismatchException;
 
+import oof.command.AddAssessmentCommand;
+import oof.command.AddAssignmentCommand;
 import oof.command.AddDeadlineCommand;
 import oof.command.AddEventCommand;
 import oof.command.AddLessonCommand;
@@ -110,12 +112,15 @@ public class CommandParser {
         case "stop":
             line = line.replaceFirst("stop", "").trim();
             return new StopTrackerCommand(line);
-        case "threshold":
-            line = line.replaceFirst("threshold", "").trim();
-            return new ThresholdCommand(line);
         case "pause":
             line = line.replaceFirst("pause", "").trim();
             return new PauseTrackerCommand(line);
+        case "viewtracker":
+            line = line.replaceFirst("viewtracker", "").trim();
+            return new ViewTrackerCommand(line);
+        case "threshold":
+            line = line.replaceFirst("threshold", "").trim();
+            return new ThresholdCommand(line);
         case "semester":
             return parseSemester(argumentArray, line);
         case "module":
@@ -211,6 +216,146 @@ public class CommandParser {
             throw new OofException("OOPS!!! Please enter valid numbers!");
         } catch (InputMismatchException e) {
             throw new OofException("OOPS!!! Please enter a valid number!");
+        }
+    }
+
+    /**
+     * Parses input if the user input starts with semester.
+     * @param argumentArray Command inputted by user in string array format.
+     * @param line Command inputted by user in string format.
+     * @return Returns relevant Semester Commands if the parameters are valid.
+     * @throws OofException Throws exception if the parameters are invalid.
+     */
+    private static Command parseSemester(String[] argumentArray, String line) throws OofException {
+        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
+            return new ViewSemesterCommand();
+        } else {
+            if (argumentArray[INDEX_TASK_TYPE].equals("add")) {
+                line = line.replaceFirst("semester add", "").trim();
+                return new AddSemesterCommand(line);
+            } else if (argumentArray[INDEX_TASK_TYPE].equals("delete")) {
+                try {
+                    int deleteIndex = Integer.parseInt(line.replaceFirst("semester delete", "")
+                            .trim()) - 1;
+                    return new DeleteSemesterCommand(deleteIndex);
+                } catch (NumberFormatException e) {
+                    throw new OofException("OOPS!!! Please enter a valid number!");
+                }
+            } else {
+                throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+        }
+    }
+
+    /**
+     * Parses input if the user input starts with module.
+     * @param argumentArray Command inputted by user in string array format.
+     * @param line Command inputted by user in string format.
+     * @return Returns relevant Module Commands if the parameters are valid.
+     * @throws OofException Throws exception if the parameters are invalid.
+     */
+    private static Command parseModule(String[] argumentArray, String line) throws OofException {
+        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
+            return new ViewModuleCommand();
+        } else {
+            if (argumentArray[INDEX_TASK_TYPE].equals("add")) {
+                line = line.replaceFirst("module add", "").trim();
+                return new AddModuleCommand(line);
+            } else if (argumentArray[INDEX_TASK_TYPE].equals("delete")) {
+                try {
+                    int deleteIndex = Integer.parseInt(line.replaceFirst("module delete", "")
+                            .trim()) - 1;
+                    return new DeleteModuleCommand(deleteIndex);
+                } catch (NumberFormatException e) {
+                    throw new OofException("OOPS!!! Please enter a valid number!");
+                }
+            } else {
+                throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+        }
+    }
+
+    /**
+     * Parses input if the user input starts with lesson.
+     * @param argumentArray Command inputted by user in string array format.
+     * @param line Command inputted by user in string format.
+     * @return Returns relevant Lesson Commands if the parameters are valid.
+     * @throws OofException Throws exception if the parameters are invalid.
+     */
+    private static Command parseLesson(String[] argumentArray, String line) throws OofException {
+        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
+            return new ViewLessonCommand();
+        } else {
+            if (argumentArray[INDEX_TASK_TYPE].equals("add")) {
+                line = line.replaceFirst("lesson add", "").trim();
+                return new AddLessonCommand(line);
+            } else if (argumentArray[INDEX_TASK_TYPE].equals("delete")) {
+                try {
+                    int deleteIndex = Integer.parseInt(line.replaceFirst("lesson delete", "")
+                            .trim()) - 1;
+                    return new DeleteLessonCommand(deleteIndex);
+                } catch (NumberFormatException e) {
+                    throw new OofException("OOPS!!! Please enter a valid number!");
+                }
+            } else {
+                throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+        }
+    }
+
+    /**
+     * Parses input if the user input starts with assignment.
+     * @param argumentArray Command inputted by user in string array format.
+     * @param line Command inputted by user in string format.
+     * @return Returns relevant Assignment Commands if the parameters are valid.
+     * @throws OofException Throws exception if the parameters are invalid.
+     */
+    private static Command parseAssignment(String[] argumentArray, String line) throws OofException {
+        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
+            return new ViewAssignmentCommand();
+        } else {
+            if (argumentArray[INDEX_TASK_TYPE].equals("add")) {
+                line = line.replaceFirst("assignment add", "").trim();
+                return new AddAssignmentCommand(line);
+            } else if (argumentArray[INDEX_TASK_TYPE].equals("delete")) {
+                try {
+                    int deleteIndex = Integer.parseInt(line.replaceFirst("assignment delete", "")
+                            .trim()) - 1;
+                    return new DeleteAssignmentCommand(deleteIndex);
+                } catch (NumberFormatException e) {
+                    throw new OofException("OOPS!!! Please enter a valid number!");
+                }
+            } else {
+                throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+        }
+    }
+
+    /**
+     * Parses input if the user input starts with assessment.
+     * @param argumentArray Command inputted by user in string array format.
+     * @param line Command inputted by user in string format.
+     * @return Returns relevant Assessment Commands if the parameters are valid.
+     * @throws OofException Throws exception if the parameters are invalid.
+     */
+    private static Command parseAssessment(String[] argumentArray, String line) throws OofException {
+        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
+            return new ViewAssessmentCommand();
+        } else {
+            if (argumentArray[INDEX_TASK_TYPE].equals("add")) {
+                line = line.replaceFirst("assessment add", "").trim();
+                return new AddAssessmentCommand(line);
+            } else if (argumentArray[INDEX_TASK_TYPE].equals("delete")) {
+                try {
+                    int deleteIndex = Integer.parseInt(line.replaceFirst("assessment delete", "")
+                            .trim()) - 1;
+                    return new DeleteAssessmentCommand(deleteIndex);
+                } catch (NumberFormatException e) {
+                    throw new OofException("OOPS!!! Please enter a valid number!");
+                }
+            } else {
+                throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
         }
     }
 }
