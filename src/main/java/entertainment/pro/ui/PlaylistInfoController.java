@@ -10,8 +10,6 @@ public class PlaylistInfoController {
     private Label playlistNameLabel;
     @FXML
     private Label playlistDescriptionLabel;
-//    @FXML
-//    private ScrollPane playlistMoviesScrollPane;
     @FXML
     private VBox playlistInfoVBox;
 
@@ -30,14 +28,6 @@ public class PlaylistInfoController {
     public void setPlaylistDescriptionLabel(Label playlistDescriptionLabel) {
         this.playlistDescriptionLabel = playlistDescriptionLabel;
     }
-
-//    public ScrollPane getPlaylistMoviesScrollPane() {
-//        return playlistMoviesScrollPane;
-//    }
-//
-//    public void setPlaylistMoviesScrollPane(ScrollPane playlistMoviesScrollPane) {
-//        this.playlistMoviesScrollPane = playlistMoviesScrollPane;
-//    }
 
     public VBox getPlaylistInfoVBox() {
         return playlistInfoVBox;

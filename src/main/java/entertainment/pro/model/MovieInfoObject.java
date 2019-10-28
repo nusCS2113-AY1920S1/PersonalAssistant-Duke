@@ -22,8 +22,8 @@ public class MovieInfoObject {
 
 
     /**
-     * Construct info about a movie/tv show
-     * @param ID ID stored in the api.
+     * Construct info about a movie/tv show.
+     * @param id id stored in the api.
      * @param title Title of the movie/tv show.
      * @param date Release date of the movie/tv show.
      * @param summary Plot summary of the movie/tv show.
@@ -33,9 +33,10 @@ public class MovieInfoObject {
      * @param backdropPath Filepath of the movie/tv show backdrop poster.
      */
 
-    public MovieInfoObject(boolean isMovie, long ID, String title, Date date, String summary, double rating, long[] genreIDs, String posterPath, String backdropPath, boolean isAdult) {
-       this.isMovie = isMovie;
-        movieID = ID;
+    public MovieInfoObject(boolean isMovie, long id, String title, Date date, String summary,
+                           double rating, long[] genreIDs, String posterPath, String backdropPath, boolean isAdult) {
+        this.isMovie = isMovie;
+        movieID = id;
         movieTitle = title;
         movieReleaseDate = date;
         movieSummary = summary;
@@ -107,23 +108,19 @@ public class MovieInfoObject {
      * This function returns the rating of the movie/tv show.
      * @return
      */
-    public double getRating()
-    {
+    public double getRating() {
         return movieRating;
     }
 
-    public long[] getGenreIDs()
-    {
+    public long[] getGenreIDs() {
         return movieGenreIDs;
     }
 
-    public String getFullPosterPath()
-    {
+    public String getFullPosterPath() {
         return movieFullPosterPath;
     }
 
-    public String getFullBackdropPath()
-    {
+    public String getFullBackdropPath() {
         return movieFullBackdropPath;
     }
 

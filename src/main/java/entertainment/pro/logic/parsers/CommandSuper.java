@@ -7,7 +7,10 @@ import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.model.CommandPair;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Template command class for each root command.
@@ -62,7 +65,7 @@ public abstract class CommandSuper {
     /**
      * Constructor for each Command Super class.
      */
-    public CommandSuper(COMMANDKEYS root , COMMANDKEYS[] subCommand , Controller uicontroller) {
+    public CommandSuper(COMMANDKEYS root, COMMANDKEYS[] subCommand, Controller uicontroller) {
 
         this.uicontroller = uicontroller;
         this.subCommand = subCommand;
@@ -70,7 +73,7 @@ public abstract class CommandSuper {
 
     }
 
-    public Controller getUIController() {
+    public Controller getUiController() {
         return uicontroller;
     }
 
@@ -81,11 +84,11 @@ public abstract class CommandSuper {
      * @param commandArr command that was entered by the user in split array form
      * @param command   command that was entered by the user.
      */
-    public boolean initCommand(String[] commandArr , String command) {
+    public boolean initCommand(String[] commandArr, String command) {
         if (!subCommand(commandArr)) {
             return false;
         }
-        processFlags(commandArr , command);
+        processFlags(commandArr, command);
         processPayload(commandArr);
 
         return true;
@@ -102,7 +105,7 @@ public abstract class CommandSuper {
     public void initCommand(String[] commandArr, String command, COMMANDKEYS subRootCommand) {
 
         this.subRootCommand = subRootCommand;
-        processFlags(commandArr , command);
+        processFlags(commandArr, command);
         processPayload(commandArr);
         setExecute(false);
 
@@ -160,13 +163,11 @@ public abstract class CommandSuper {
 
     /**
      * Get Feedback String.
-     *
-     * @param commandArr
      * @return Feedback to ask user about his/her intentions for the command
      */
     private String getDidYouMeanText(String[] commandArr) {
         return "Did you mean :" + root + " " + subRootCommand + " "
-                + String.join(" ", Arrays.copyOfRange(commandArr, 2 , commandArr.length));
+                + String.join(" ", Arrays.copyOfRange(commandArr, 2, commandArr.length));
     }
 
     /**
@@ -175,11 +176,11 @@ public abstract class CommandSuper {
      * @param commandArr command that was entered by the user in split array form
      * @param command   command that was entered by the user.
      */
-    public void processFlags(String[] commandArr , String command) {
+    public void processFlags(String[] commandArr, String command) {
 
         String f = "";
         boolean found = false;
-        String commandFlagSplit[] = command.split("-[a-z,A-Z]");
+        String[] commandFlagSplit = command.split("-[a-z,A-Z]");
 
         ArrayList<String> flagOrder = new ArrayList<>();
 
@@ -204,7 +205,7 @@ public abstract class CommandSuper {
                 first = false;
                 continue;
             }
-            String flagsIndividualValues[] = flagValues.split(",");
+            String[] flagsIndividualValues = flagValues.split(",");
 
             ArrayList<String> listOfString = flagMap.get(flagOrder.get(counter));
             if (listOfString == null) {
@@ -222,7 +223,7 @@ public abstract class CommandSuper {
 
         if (flagOrder.size() != 0) {
             if (flagMap.get(flagOrder.get(flagOrder.size() - 1)) == null) {
-                flagMap.put(flagOrder.get(flagOrder.size() - 1) , new ArrayList<String>());
+                flagMap.put(flagOrder.get(flagOrder.size() - 1), new ArrayList<String>());
             }
 
         }
@@ -241,9 +242,9 @@ public abstract class CommandSuper {
     public void processPayload(String []commandArr) {
         if (this.root != COMMANDKEYS.none) {
             if (this.subRootCommand != COMMANDKEYS.none) {
-                payload =  getThePayload(2 , commandArr);
+                payload =  getThePayload(2, commandArr);
             } else {
-                payload = getThePayload(1 , commandArr);
+                payload = getThePayload(1, commandArr);
             }
         } else {
             payload = "";
@@ -282,19 +283,15 @@ public abstract class CommandSuper {
             flagsStr += " ";
             for (String val : entry.getValue()) {
                 flagsStr += val;
-                flagsStr += " , ";
+                flagsStr += ", ";
             }
         }
 
         return getRoot().toString() + " " + getSubRootCommand().toString() + " "  + payload + " " + flagsStr;
     }
 
-
     /**
      * Abstract class to be implemented for each root command class.
      */
     public abstract void executeCommands() throws IOException, Exceptions;
-
-
-
 }

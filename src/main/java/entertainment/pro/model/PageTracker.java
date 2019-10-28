@@ -1,11 +1,17 @@
 package entertainment.pro.model;
 
+/**
+ * to track which page of the gui the user is at to help with refreshing to show live changes users make.
+ */
 public class PageTracker {
     private boolean mainPage;
     private boolean playlistList;
     private boolean playlistInfo;
     private boolean playlistMovieInfo;
 
+    /**
+     * constructor for PageTracker.
+     */
     public PageTracker() {
         mainPage = true;
         playlistList = false;
@@ -21,6 +27,9 @@ public class PageTracker {
         this.mainPage = mainPage;
     }
 
+    /**
+     * set current page to MainPage.
+     */
     public void setToMainPage() {
         mainPage = true;
         playlistList = false;
@@ -36,6 +45,9 @@ public class PageTracker {
         this.playlistList = playlistList;
     }
 
+    /**
+     * set current page to PlaylistList.
+     */
     public void setToPlaylistList() {
         mainPage = false;
         playlistList = true;
@@ -51,6 +63,9 @@ public class PageTracker {
         this.playlistInfo = playlistInfo;
     }
 
+    /**
+     * set current page to PlaylistInfo.
+     */
     public void setToPlaylistInfo() {
         mainPage = false;
         playlistList = false;
@@ -66,6 +81,9 @@ public class PageTracker {
         this.playlistMovieInfo = playlistMovieInfo;
     }
 
+    /**
+     * set current page to PlaylistMovieInfo.
+     */
     public void setToPlaylistMovieInfo() {
         mainPage = false;
         playlistList = false;
@@ -73,6 +91,9 @@ public class PageTracker {
         playlistMovieInfo = true;
     }
 
+    /**
+     * to find out which page the gui is currently on.
+     */
     public String getCurrentPage() {
         if (mainPage) {
             return "mainPage";

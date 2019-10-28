@@ -6,10 +6,7 @@ public class CinemaInfoObject {
     private String address;
 
     /**
-     * initialises the parameters of the information about the cinema
-     * @param name
-     * @param rating
-     * @param address
+     * initialises the parameters of the information about the cinema.
      */
     public CinemaInfoObject(String name, double rating, String address) {
         this.name = name;
@@ -18,24 +15,24 @@ public class CinemaInfoObject {
     }
 
     /**
-     * return the name of the cinema
-     * @return : name of cinema
+     * return the name of the cinema.
+     * @return name of cinema
      */
     public String getName() {
         return name;
     }
 
     /**
-     * returns the rating of the cinema
-     * @return: returns the rating of the cinema
+     * returns the rating of the cinema.
+     * @return returns the rating of the cinema
      */
     public double getRating() {
         return rating;
     }
 
     /**
-     * returns an address of the cinema or a description
-     * @return: an address of the cinema or a description
+     * returns an address of the cinema or a description.
+     * @return an address of the cinema or a description
      */
     public String getAddress() {
         return address;

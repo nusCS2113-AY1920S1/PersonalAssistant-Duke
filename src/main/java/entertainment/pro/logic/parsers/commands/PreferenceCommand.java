@@ -33,19 +33,19 @@ public class PreferenceCommand extends CommandSuper {
     @Override
     public void executeCommands() throws IOException {
         setContainsInputs();
-        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
+        MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         switch (this.getSubRootCommand()) {
-            case add:
-                executeAddPreference(containsPossibleInputs, movieHandler);
-                break;
-            case remove:
-                executeRemovePreference(containsPossibleInputs, movieHandler);
-                break;
-            case clear:
-                executeClearPreference(containsPossibleInputs, movieHandler);
-                break;
-            default:
-                break;
+        case add:
+            executeAddPreference(containsPossibleInputs, movieHandler);
+            break;
+        case remove:
+            executeRemovePreference(containsPossibleInputs, movieHandler);
+            break;
+        case clear:
+            executeClearPreference(containsPossibleInputs, movieHandler);
+            break;
+        default:
+            break;
         }
         movieHandler.clearSearchTextField();
         System.out.println("this is done1");
@@ -61,7 +61,8 @@ public class PreferenceCommand extends CommandSuper {
      * payload: none
      * flag: -g (genre name -- not genre ID)
      */
-    private void executeAddPreference(ArrayList<String> containsPossibleInputs, MovieHandler movieHandler) throws IOException {
+    private void executeAddPreference(ArrayList<String> containsPossibleInputs,
+                                      MovieHandler movieHandler) throws IOException {
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
         for (int i = 0; i < containsPossibleInputs.size(); i += 1) {
             if (getFlagMap().containsKey(containsPossibleInputs.get(i))) {
@@ -77,8 +78,8 @@ public class PreferenceCommand extends CommandSuper {
      * payload: none
      * flag: -g (genre name -- not genre ID)
      */
-    private void executeRemovePreference(ArrayList<String> containsPossibleInputs, MovieHandler movieHandler) throws IOException {
-
+    private void executeRemovePreference(ArrayList<String> containsPossibleInputs,
+                                         MovieHandler movieHandler) throws IOException {
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
         for (int i = 0; i < containsPossibleInputs.size(); i += 1) {
             if (getFlagMap().containsKey(containsPossibleInputs.get(i))) {
@@ -89,14 +90,15 @@ public class PreferenceCommand extends CommandSuper {
     }
 
     /**
-     * clear all preference that was set previously
+     * clear all preference that was set previously.
      * root: preference
      * sub: clear
      * payload: none
-     * flag: -g (genre name -- not genre ID) -a (adult -- yes to allow adult content, no to restrict, set to yes by default)
+     * flag: -g (genre name -- not genre ID)
+     *       -a (adult -- yes to allow adult content, no to restrict, set to yes by default)
      */
-    private void executeClearPreference(ArrayList<String> containsPossibleInputs, MovieHandler movieHandler) throws IOException {
-
+    private void executeClearPreference(ArrayList<String> containsPossibleInputs,
+                                        MovieHandler movieHandler) throws IOException {
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
         for (int i = 0; i < containsPossibleInputs.size(); i += 1) {
             if (getFlagMap().containsKey(containsPossibleInputs.get(i))) {

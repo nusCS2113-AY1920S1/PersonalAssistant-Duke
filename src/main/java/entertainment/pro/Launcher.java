@@ -8,6 +8,7 @@ import javafx.application.Application;
  */
 public class Launcher {
     private static WatchlistHandler tasks;
+
     public static void main(String[] args) {
         tasks = new WatchlistHandler();
         Application.launch(Main.class,args);
