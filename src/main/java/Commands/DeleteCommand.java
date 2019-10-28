@@ -1,7 +1,11 @@
 package Commands;
 import DukeExceptions.DukeException;
-import Tasks.*;
-import Interface.*;
+import Interface.LookupTable;
+import Interface.Storage;
+import Interface.Ui;
+import Tasks.Task;
+import Tasks.TaskList;
+
 
 import java.io.FileNotFoundException;
 
@@ -34,7 +38,7 @@ public class DeleteCommand extends Command {
      * @throws DukeException On ArrayList out of bound error
      */
     @Override
-    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, FileNotFoundException {
+    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, FileNotFoundException {
        try{
             if (list.equals("event")) {
                 events.removeTask(T);

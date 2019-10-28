@@ -1,10 +1,7 @@
 package Parser;
 
 import Commands.Command;
-import Interface.LookupTable;
-import Interface.Storage;
-import Interface.Ui;
-import Tasks.TaskList;
+
 
 public abstract class Parse {
     public abstract Command execute() throws Exception;
@@ -18,14 +15,5 @@ public abstract class Parse {
         } else {
             return false;
         }
-    }
-    public static boolean isInteger(String s) {
-        try {
-            Integer.parseInt(s);
-        } catch(NumberFormatException | NullPointerException e) {
-            return false;
-        }
-        // only got here if we didn't return false
-        return true;
     }
 }

@@ -2,14 +2,20 @@ package Commands;
 
 import DukeExceptions.DukeException;
 import DukeExceptions.DukeInvalidDateTimeException;
-import DukeExceptions.DukeInvalidFormatException;
-import Interface.*;
+
+import Interface.LookupTable;
+import Interface.Reminder;
+import Interface.Storage;
+import Interface.Ui;
 import Tasks.Task;
 import Tasks.TaskList;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
 import java.util.logging.Logger;
+import java.util.Date;
+import java.util.Timer;
+import java.util.HashMap;
+import java.util.ArrayList;
 
 public class RemindCommand extends Command {
 
@@ -43,7 +49,7 @@ public class RemindCommand extends Command {
      * @throws DukeException On invalid task and time input
      */
     @Override
-    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, DukeInvalidDateTimeException {
+    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, DukeInvalidDateTimeException {
         reminder = storage.getReminderObject();
         reminder.setDeadlines(deadlines);
         HashMap<String, HashMap<String, ArrayList<Task>>> deadlineMap = deadlines.getMap();

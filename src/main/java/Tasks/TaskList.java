@@ -1,5 +1,6 @@
 package Tasks;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * To keep track of the list of task input by user.
@@ -9,8 +10,6 @@ public class TaskList {
 
     private ArrayList<Task> list;
     private HashMap<String, HashMap<String, ArrayList<Task>>> map;
-    private HashMap<String, HashMap<String, ArrayList<String>>> deadlineList = new HashMap<>();
-    private HashMap<String, HashMap<String, ArrayList<String>>> eventList = new HashMap<>();
     private ArrayList<String> deadlineArrList = new ArrayList<>();
     private ArrayList<String> eventArrList = new ArrayList<>();
 
@@ -28,14 +27,6 @@ public class TaskList {
 
     public HashMap<String, HashMap<String, ArrayList<Task>>> getMap(){
         return this.map;
-    }
-
-    public ArrayList<Task> getListFromDate(Task task) {
-        return this.map.get(task.getModCode()).get(task.getDate());
-    }
-
-    public HashMap<String, ArrayList<Task>> getMapFromModCode(Task task) {
-        return this.map.get(task.getModCode());
     }
 
     public void addTask(Task task){
@@ -123,46 +114,6 @@ public class TaskList {
                 this.eventArrList.add(description);
             }
         }
-    }
-
-    /**
-     * This method gets the schedule requested by user.
-     * @return This returns the String containing the schedule requested by user
-     */
-    public String schedule() {
-        sortList();
-        int sizeOfDeadlineArr = getDeadlineArrList().size();
-        int sizeOfEventArr = getEventArrList().size();
-        String finalSchedule = "Here is your schedule!\n";
-        if (sizeOfDeadlineArr != 0) {
-            finalSchedule += "DEADLINE Task\n";
-            int num = 1;
-
-            for (int i = 0; i < sizeOfDeadlineArr; i++) {
-                finalSchedule = finalSchedule + num + "." + getDeadlineArrList().get(i) + "\n";
-                num++;
-            }
-        }
-        if (sizeOfEventArr != 0) {
-            finalSchedule += "EVENT Task\n";
-            int num = 1;
-
-            for (int i = 0; i < sizeOfEventArr; i++) {
-                finalSchedule = finalSchedule + num + "." + getEventArrList().get(i) + "\n";
-                num++;
-            }
-        }
-        deadlineArrList.clear();
-        eventArrList.clear();
-        return finalSchedule;
-    }
-
-    private ArrayList<String> getDeadlineArrList() {
-        return this.deadlineArrList;
-    }
-
-    private ArrayList<String> getEventArrList() {
-        return this.eventArrList;
     }
 
 

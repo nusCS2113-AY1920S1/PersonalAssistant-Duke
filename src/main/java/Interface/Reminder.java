@@ -18,12 +18,16 @@ import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.Timer;
+import java.util.HashMap;
+import java.util.TimerTask;
 import java.util.logging.Logger;
 
 public class Reminder {
 
     private Timer timer;
+
     private HashMap<Date, Timer> timerMap;
     private HashMap<Date, Task> remindMap;
     private Storage storage;

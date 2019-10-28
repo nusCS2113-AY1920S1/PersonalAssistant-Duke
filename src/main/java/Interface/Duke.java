@@ -1,8 +1,8 @@
 package Interface;
-import DukeExceptions.DukeException;
-import DukeExceptions.DukeInvalidDateTimeException;
-import Tasks.*;
-import Commands.*;
+import Commands.Command;
+import Commands.RetrieveFreeTimesCommand;
+import Commands.RetrievePreviousCommand;
+import Tasks.TaskList;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

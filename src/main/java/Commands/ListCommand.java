@@ -1,6 +1,8 @@
 package Commands;
-import Tasks.*;
-import Interface.*;
+import Interface.LookupTable;
+import Interface.Storage;
+import Interface.Ui;
+import Tasks.TaskList;
 /**
  * Represents the command to show the list of tasks on a TaskList object
  */

@@ -9,7 +9,15 @@ import javafx.util.Pair;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.NavigableMap;
+import java.util.TreeMap;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class FindFreeTimesCommand extends Command {
     private static final int HALF_HOUR_MARK = 30;

@@ -4,7 +4,8 @@ import Commands.Command;
 import Commands.ShowWorkloadCommand;
 import DukeExceptions.DukeInvalidCommandException;
 import DukeExceptions.DukeInvalidFormatException;
-import Interface.*;
+import Interface.Parser;
+import Interface.LookupTable;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

@@ -1,9 +1,11 @@
 package Commands;
-import Tasks.*;
 import DukeExceptions.DukeException;
-import Interface.*;
+import Interface.LookupTable;
+import Interface.Storage;
+import Interface.Ui;
+import Tasks.Task;
+import Tasks.TaskList;
 
-import java.io.FileNotFoundException;
 
 /**
  * Represents the command to delete a Task object from a TaskList object.
