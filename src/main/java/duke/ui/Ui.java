@@ -229,4 +229,23 @@ public class Ui {
         System.out.println(UI_PADDING + "The setGoal Command is successful");
     }
 
+    public void showStats(User user) {
+        System.out.println(UI_BOUNDARY);
+        if (user.getGoal() == null) {
+            showStatsNoGoal();
+        } else {
+            showStatsWithGoal(user);
+        }
+        System.out.println(UI_BOUNDARY);
+    }
+
+    public void showStatsNoGoal() {
+        System.out.println(UI_PADDING + "It appears that a diet plan has not been setup for this session of DIYeats.");
+        System.out.println(UI_PADDING + "Please use the `setgoal` command to create a diet plan customized for you!");
+    }
+
+    public void showStatsWithGoal(User user) {
+
+    }
+
 }

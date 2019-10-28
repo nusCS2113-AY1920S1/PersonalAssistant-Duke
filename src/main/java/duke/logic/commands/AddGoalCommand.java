@@ -45,8 +45,8 @@ public class AddGoalCommand extends Command {
         askForEndDate();
         askForWeightTarget();
         askForTargetLifestyle();
-        writeGoalToMeals(meals);
-        storage.updateGoal(meals);
+        writeGoalToUser(user);
+        storage.updateGoal(user);
     }
 
     private void askForStartDate() throws DukeException {
@@ -79,11 +79,11 @@ public class AddGoalCommand extends Command {
         goal.setLifestyleTarget(activityLevel);
     }
 
-    private void writeGoalToMeals(MealList meals) throws DukeException {
-        if (meals.addGoal(goal, false) == false) {
+    private void writeGoalToUser(User user) throws DukeException {
+        if (user.setGoal(goal, false) == false) {
             ui.queryOverrideExistingGoal();
             if (in.getApproval()) {
-                meals.addGoal(goal, true);
+                user.setGoal(goal, true);
                 ui.succeedSetGoal();
             } else {
                 ui.failSetGoal();

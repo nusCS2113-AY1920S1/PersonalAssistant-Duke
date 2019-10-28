@@ -22,7 +22,6 @@ public class MealList {
     private String currentDate = dateFormat.format(calendarDate.getTime());
     private HashMap<String, ArrayList<Meal>> mealTracker = new HashMap<>();
     private HashMap<String, HashMap<String, Integer>> storedItems = new HashMap<>();
-    private Goal goal = null;
 
     /**
      * This is the constructor of MealList object if there is no argument.
@@ -151,36 +150,6 @@ public class MealList {
         return mealTracker;
     }
 
-
-    public int caloriesAvgToGoal() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-        LocalDate startDate = LocalDate.parse(goal.getStartDate(), formatter);
-        LocalDate endDate = LocalDate.parse(goal.getEndDate(), formatter);
-        LocalDate currentDate = LocalDate.parse(this.currentDate, formatter);
-        int totalConsume = 0;
-        for (LocalDate iterator = startDate; iterator.isBefore(currentDate); iterator = iterator.plusDays(1)) {
-            if (mealTracker.containsKey(iterator) == false) {
-                totalConsume += goal.getCalorieTarget() / (int) DAYS.between(startDate, endDate);
-            } else {
-                ArrayList<Meal> meals = mealTracker.get(iterator.format(formatter));
-                if (meals.size() == 0) {
-                    totalConsume += goal.getCalorieTarget() / (int) DAYS.between(startDate, endDate);
-                } else {
-                    for (int i = 0; i < meals.size(); i += 1) {
-                        totalConsume += meals.get(i).getNutritionalValue().get("calorie");
-                    }
-                }
-            }
-        }
-        int daysLeft = (int) DAYS.between(currentDate,endDate);
-        int caloriesRemaining = goal.getCalorieTarget() - totalConsume;
-        if (daysLeft >= 1) {
-            return caloriesRemaining / daysLeft;
-        } else {
-            return -1;
-        }
-    }
-
     /**
      * This function is used to check if a entry with the corresponding date is stored.
      * @param date the date to be checked
@@ -211,23 +180,6 @@ public class MealList {
 
     public void removeStoredItem(String keyword) {
         storedItems.remove(keyword);
-    }
-
-    public boolean addGoal(Goal goal, boolean override) {
-        if (this.goal != null && override == false) {
-            return false;
-        } else {
-            this.goal = goal;
-            return true;
-        }
-    }
-
-    /**
-     * This function is a getter for Goal.
-     * @return goal the data structure storing the goal
-     */
-    public Goal getGoal() {
-        return goal;
     }
 
     /**

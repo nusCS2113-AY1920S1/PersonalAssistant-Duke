@@ -67,8 +67,8 @@ public class Storage {
     /**
      * This is a function that will write data from a MealList object to the goals save file.
      */
-    public void updateGoal(MealList mealData) {
-        writer.writeGoal(mealData);
+    public void updateGoal(User user) {
+        writer.writeGoal(user);
     }
 
     /**

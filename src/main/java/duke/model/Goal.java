@@ -2,6 +2,12 @@ package duke.model;
 
 import duke.commons.exceptions.DukeException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
+import static java.time.temporal.ChronoUnit.DAYS;
+
 /**
  * Goal is a public class that defines all user set dietary goals.
  */
@@ -53,6 +59,22 @@ public class Goal {
 
     public String getStartDate() {
         return this.startDate;
+    }
+
+    public int daysLeftToGoal() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        LocalDate endDate = LocalDate.parse(this.endDate, formatter);
+        LocalDate currentDate = LocalDate.now();
+        int daysLeft = (int) DAYS.between(currentDate,endDate);
+        return daysLeft;
+    }
+
+    public int durationOfGoal() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        LocalDate startDate = LocalDate.parse(this.startDate, formatter);
+        LocalDate endDate = LocalDate.parse(this.endDate, formatter);
+        int duration = (int) DAYS.between(startDate,endDate);
+        return duration;
     }
 
     public double getWeightTarget() {
