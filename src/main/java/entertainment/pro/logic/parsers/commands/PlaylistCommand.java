@@ -66,7 +66,6 @@ public class PlaylistCommand extends CommandSuper {
         testCommand.create();
         movieHandler.clearSearchTextField();
         movieHandler.setLabels();
-        movieHandler.refresh();
     }
 
     /**
@@ -84,7 +83,6 @@ public class PlaylistCommand extends CommandSuper {
         testCommand.delete();
         movieHandler.clearSearchTextField();
         movieHandler.setLabels();
-        movieHandler.refresh();
     }
 
     /**

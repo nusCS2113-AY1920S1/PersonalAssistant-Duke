@@ -125,7 +125,7 @@ public class MovieHandler extends Controller implements RequestListener {
     private ArrayList<String> playlists;
     private String playlistName = "";
     private MovieResultFilter filter = new MovieResultFilter(new ArrayList<>(), new ArrayList<>());
-    private PageTracker pageTracker;
+    private PageTracker pageTracker = new PageTracker();
     private FlowPane mMoviesFlowPane;
     private VBox playlistVBox = new VBox();
     private static ArrayList<MovieInfoObject> mMovies = new ArrayList<>();
@@ -264,7 +264,7 @@ public class MovieHandler extends Controller implements RequestListener {
         System.out.println("Tgt we are winners");
         bp.load();
 
-        pageTracker = new PageTracker();
+
 
         HelpStorage.initialiseAllHelp();
 
@@ -430,7 +430,8 @@ public class MovieHandler extends Controller implements RequestListener {
                 isViewBack = false;
             }
         }
-        pageTracker.setToMainPage();
+
+
     }
 
     /**
@@ -542,7 +543,7 @@ public class MovieHandler extends Controller implements RequestListener {
                     controller.getPosterImageView().setImage(posterImage);
                 } else {
                     System.out.println("hi1");
-                    Image posterImage = new Image(this.getClass().getResourceAsStream("./FakeMoviePoster.png"));
+                    Image posterImage = new Image(this.getClass().getResourceAsStream("../../../../EPdata/FakeMoviePoster.png"));
                     System.out.println("hi2");
                     posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
                         try {
@@ -626,6 +627,8 @@ public class MovieHandler extends Controller implements RequestListener {
         System.out.println("this is it 4");
     }
 
+
+
     private void buildPlaylistVBox(ArrayList<String> playlists) throws IOException {
         // Setup progress bar and status label
         mProgressBar.setProgress(0.0);
@@ -664,7 +667,7 @@ public class MovieHandler extends Controller implements RequestListener {
             // set the movie info
             PlaylistController controller = loader.getController();
             controller.setVBoxColour(i);
-            controller.setTextColour();
+//            controller.setTextColour();
             controller.getPlaylistNameLabel().setText(playlist.getPlaylistName());
             if (playlist.getDescription().trim().length() == 0) {
                 controller.getPlaylistDescriptionLabel().setText("*this playlist does not have a description :(*");

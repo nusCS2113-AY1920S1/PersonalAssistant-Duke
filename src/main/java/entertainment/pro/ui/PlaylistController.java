@@ -59,7 +59,7 @@ public class PlaylistController {
      * to set the text colour in VBox.
      */
     public void setTextColour() {
-        playlistNameLabel.setStyle("-fx-text-fill: #000000; -fx-font-size: 12pt; -fx-font-weight: bold");
+        playlistNameLabel.setStyle("-fx-text-fill: #000000; -fx-font-style: bold");
         playlistDescriptionLabel.setStyle("-fx-text-fill: #000000");
         playlistMoviesLabel.setStyle("-fx-text-fill: #000000");
     }
