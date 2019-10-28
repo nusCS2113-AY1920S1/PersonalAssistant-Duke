@@ -23,8 +23,12 @@ public class DukePP implements Model {
     private static final Logger logger = LogsCenter.getLogger(DukePP.class);
 
     // to be moved to model manager
+    /*
     private FilteredList<Payment> filteredPayments;
     private FilteredList<Payment> searchResult;
+    Predicate<Payment> PREDICATE_SHOW_ALL_PAYMENTS = unused -> true;
+     */
+
     Predicate<Payment> PREDICATE_SHOW_ALL_PAYMENTS = unused -> true;
 
     private final ExpenseList expenseList;
@@ -52,9 +56,11 @@ public class DukePP implements Model {
         }
 
         // to be moved to model manager
+        /*
         filteredPayments = new FilteredList<>(payments.getExternalFinalList());
         filteredPayments.setPredicate(PREDICATE_SHOW_ALL_PAYMENTS);
         searchResult = new FilteredList<>(payments.getExternalFinalList());
+         */
     }
 
     //******************************** ExpenseList operations
@@ -158,52 +164,63 @@ public class DukePP implements Model {
         payments.add(payment);
     }
 
-    public void setPayment(Payment target, Payment editedPayment) {
-        payments.setPayment(target, editedPayment);
+    public void setPayment(int index, Payment editedPayment) throws DukeException {
+        payments.setPayment(index, editedPayment);
     }
 
-    public void removePayment(Payment target) {
-        payments.remove(target);
+    public void removePayment(int index) throws DukeException {
+        payments.remove(index);
     }
 
     public void setPaymentSortCriteria(String sortCriteria) throws DukeException {
         payments.setSortCriteria(sortCriteria);
     }
 
-    /* can be added when filtered list are removed to Model Manager
-    public ObservableList<Payment> getPaymentList() {
-        return payments.getExternalFinalList();
+    public void setAllPredicate() {
+        payments.setPredicate(PREDICATE_SHOW_ALL_PAYMENTS);
     }
-
-     */
 
     public void setMonthPredicate() {
         PaymentInMonthPredicate monthPredicate = new PaymentInMonthPredicate();
-        filteredPayments.setPredicate(monthPredicate);
+        payments.setPredicate(monthPredicate);
     }
 
     public void setWeekPredicate() {
         PaymentInWeekPredicate weekPredicate = new PaymentInWeekPredicate();
-        filteredPayments.setPredicate(weekPredicate);
+        payments.setPredicate(weekPredicate);
     }
 
     public void setOutOfDatePredicate() {
         PaymentOutOfDatePredicate outOfDatePredicate = new PaymentOutOfDatePredicate();
-        filteredPayments.setPredicate(outOfDatePredicate);
+        payments.setPredicate(outOfDatePredicate);
     }
 
     public void setSearchKeyword(String keyword) {
         SearchKeywordPredicate searchPredicate = new SearchKeywordPredicate(keyword);
-        searchResult.setPredicate(searchPredicate);
+        payments.setSearchPredicate(searchPredicate);
+    }
+
+    public Payment getPayment(int index) throws DukeException {
+        return payments.getPayment(index);
     }
 
     public FilteredList<Payment> getFilteredPaymentList() {
-        return filteredPayments;
+        return payments.getFilteredList();
     }
 
     public FilteredList<Payment> getSearchResult() {
-        return searchResult;
+        return payments.getSearchResult();
     }
+
+    /**
+     * Returns the paymentList itself for storage update ONLY.
+     *
+     * @return the paymentList
+     */
+    public PaymentList getPaymentList() {
+        return payments;
+    }
+
 
     //    todo: add other data operations
 

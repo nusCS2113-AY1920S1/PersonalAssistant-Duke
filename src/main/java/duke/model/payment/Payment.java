@@ -4,6 +4,8 @@ import duke.exception.DukeException;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Payment {
 
@@ -74,8 +76,12 @@ public class Payment {
             return this;
         }
 
-        public Builder setDue(LocalDate due) {
-            this.due = due;
+        public Builder setDue(String due) throws DukeException {
+            try {
+                this.due = LocalDate.parse(due, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            } catch (DateTimeParseException e) {
+                throw new DukeException(String.format(DukeException.MESSAGE_PAYMENT_TIME_INVALID, due));
+            }
             return this;
         }
 
@@ -84,8 +90,12 @@ public class Payment {
             return this;
         }
 
-        public Builder setAmount(BigDecimal amount) {
-            this.amount = amount;
+        public Builder setAmount(String amount) throws DukeException {
+            try {
+                this.amount = new BigDecimal(amount);
+            } catch (NumberFormatException e) {
+                throw new DukeException(String.format(DukeException.MESSAGE_PAYMENT_AMOUNT_INVALID, amount));
+            }
             return this;
         }
 

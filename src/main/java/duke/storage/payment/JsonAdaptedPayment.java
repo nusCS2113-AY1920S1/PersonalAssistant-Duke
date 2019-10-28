@@ -83,8 +83,7 @@ public class JsonAdaptedPayment {
             throw new DukeException(String.format(DukeException.MESSAGE_PAYMENT_STORAGE_MISSING_FIELD, "due"));
         }
 
-        final LocalDate modelDue = LocalDate.parse(due, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        paymentBuilder.setDue(modelDue);
+        paymentBuilder.setDue(due);
 
         if (remark == null) {
             throw new DukeException(String.format(DukeException.MESSAGE_PAYMENT_STORAGE_MISSING_FIELD, "remark"));
@@ -96,8 +95,8 @@ public class JsonAdaptedPayment {
             throw new DukeException(String.format(DukeException.MESSAGE_PAYMENT_STORAGE_MISSING_FIELD, "amount"));
         }
 
-        final BigDecimal modelAmount = new BigDecimal(amount);
-        paymentBuilder.setAmount(modelAmount);
+
+        paymentBuilder.setAmount(amount);
 
         if (priority == null) {
             throw new DukeException(String.format(DukeException.MESSAGE_PAYMENT_STORAGE_MISSING_FIELD, "priority"));
