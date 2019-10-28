@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+//@@author isbobby
 /**
  * This class represents an instance of a Reservation. Contains the reservation ID, the resource ID of the Resource
  * that it represents a booking of, and the dates between which this Resource has been booked.
@@ -95,6 +96,7 @@ public class Reservation {
         return dateTill;
     }
 
+    //@@author rabhijit
     /**
      * Checks if this Reservation has expired (the current date is past the ending date of this Reservation).
      * @return a boolean: true if this Reservation has not expired yet, false otherwise.

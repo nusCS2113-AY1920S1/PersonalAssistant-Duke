@@ -7,6 +7,7 @@ import java.text.ParseException;
 import rims.command.Command;
 import rims.exception.RimsException;
 
+//@@author rabhijit
 /**
  * The main class that instantiates all the sub-classes that carry out
  * the relevant sub-tasks of RIMS.

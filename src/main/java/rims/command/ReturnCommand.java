@@ -10,6 +10,7 @@ import rims.core.Storage;
 import rims.core.Ui;
 import rims.exception.RimsException;
 
+//@@author isbobby
 /**
  * Implements the returning of multiple Resources by removing the relevant Reservation objects.
  */

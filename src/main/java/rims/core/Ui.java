@@ -8,6 +8,7 @@ import rims.resource.Reservation;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
 
+//@@author rabhijit
 /**
  * Handles the taking in of input from the user and passes it to the Parser to translate it into usable commands.
  * Also handles printing of messages for the user's reading.
@@ -49,6 +50,7 @@ public class Ui {
         return input;
     }
 
+    //@@author isbobby
     /**
      * Prints a question for the user, before obtaining a new String input in response from the user.
      * @return the new input typed by the user.
@@ -78,6 +80,7 @@ public class Ui {
         return intInput;
     }
 
+    //@@author rabhijit
     /**
      * Prints a line of underscores.
      */
@@ -85,6 +88,7 @@ public class Ui {
         System.out.println(tab + line);
     }
 
+    //@@author isbobby
     /**
      * Prints a line of dashes.
      */
@@ -92,6 +96,7 @@ public class Ui {
         System.out.println(tab + dash);
     }
 
+    //@@author rabhijit
     /**
      * Prints a desired line for the user to read.
      */
@@ -149,6 +154,7 @@ public class Ui {
         formattedPrintArray(commands);
     }
 
+    //@@author danielcyc
     /**
      * Prints the RIMS logo, as part of the RIMS welcome message.
      */

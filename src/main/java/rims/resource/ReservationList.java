@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import rims.exception.RimsException;
 
+//@@author isbobby
 /**
  * This class contains all the Reservations made for a particular Resource.
  * This ReservationList is stored as an attribute in its corresponding Resource, for which it stores its reservations.
@@ -109,6 +110,7 @@ public class ReservationList {
         }
     }
 
+    //@@author rabhijit
     /**
      * Returns the number of Reservations made for this particular Resource.
      * @return the size of the ReservationList.
@@ -175,6 +177,7 @@ public class ReservationList {
         throw new RimsException("Item is not currently booked!");
     }
 
+    //@@author isbobby
     /**
      * Gets the list of Reservations that a certain user has made for this particular Resource.
      * @param userId the ID of the user whose Reservations for this Resource are being obtained.
@@ -191,6 +194,7 @@ public class ReservationList {
         return userReservations;
     }
 
+    //@@author rabhijit
     /**
      * Returns the list of currently active Reservations, including overdue Reservations, which are expiring
      * in a given number of days.

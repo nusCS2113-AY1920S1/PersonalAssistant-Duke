@@ -6,7 +6,7 @@ import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
 
-
+//@@author rabhijit
 /**
  * Carries out the necessary operations to close RIMS; saving all existing Resources and Reservations to disk
  * in text format, sending the farewell message, and setting the exit code to terminate the program.

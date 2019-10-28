@@ -11,6 +11,7 @@ import rims.resource.Reservation;
 import rims.resource.ReservationList;
 import rims.exception.RimsException;
 
+//@@author rabhijit
 /**
  * Shows the TaskList of all the currently existing Tasks in String format.
  */
@@ -81,6 +82,7 @@ public class ListCommand extends Command {
             ui.printLine();
         }
 
+        //@@author aarushisingh1
         else if (listType.equals("item")) {
             if (!resources.isItem(resourceName)) {
                 throw new RimsException("There is no such item!");

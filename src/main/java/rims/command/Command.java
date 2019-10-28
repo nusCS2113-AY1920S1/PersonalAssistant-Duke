@@ -8,6 +8,7 @@ import rims.core.Storage;
 import rims.core.Ui;
 import rims.exception.RimsException;
 
+//@@author rabhijit
 /**
  * The parent class of all possible Commands understood by RIMS. Sets the exit code
  * to false by default and lists methods common to all the commands.

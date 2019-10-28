@@ -15,6 +15,7 @@ import rims.resource.Reservation;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
 
+//@@author rabhijit
 /**
  * Converts data files containing a text version of the stored resources and reservations into an
  * array of Resource instances, containing their respective Reservations.
@@ -72,6 +73,7 @@ public class Storage {
         }
     }
 
+    //@@author isbobby
     /**
      * Obtains the contents of a ResourceList line by line from a text file in a
      * specified file path.
@@ -92,6 +94,7 @@ public class Storage {
         return resourceReservations;
     }
 
+    //@@author rabhijit
     /**
      * Put contents of a ResourceList into a text file for future reference.
      *
