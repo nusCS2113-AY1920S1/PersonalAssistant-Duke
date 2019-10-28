@@ -6,6 +6,13 @@ import duke.model.Expense;
 import duke.model.Income;
 import duke.model.Model;
 import duke.model.PlanBot;
+import duke.logic.command.PlanBotCommand;
+import duke.model.Expense;
+import duke.model.ExpenseList;
+import duke.model.Model;
+import duke.model.PlanBot;
+import duke.model.payment.Payment;
+import duke.model.Income;
 import duke.storage.Storage;
 import javafx.collections.ObservableList;
 
@@ -54,6 +61,16 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<String> getBudgetObservableList() {
         return model.getBudgetObservableList();
+    }
+
+    @Override
+    public ObservableList<Payment> getFilteredPaymentList() {
+        return model.getFilteredPaymentList();
+    }
+
+    @Override
+    public ObservableList<Payment> getPaymentSearchResult() {
+        return model.getSearchResult();
     }
 
 }

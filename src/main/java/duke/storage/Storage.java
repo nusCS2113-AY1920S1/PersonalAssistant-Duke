@@ -3,10 +3,13 @@ package duke.storage;
 import duke.exception.DukeException;
 import duke.model.Budget;
 import duke.model.ExpenseList;
+import duke.model.payment.PaymentList;
 import duke.model.IncomeList;
+
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * API of the Storage component
@@ -28,6 +31,10 @@ public interface Storage {
     Budget loadBudget() throws IOException, DukeException;
 
     void saveBudget(Budget budget) throws DukeException;
+
+    Optional<PaymentList> loadPaymentList() throws DukeException;
+
+    void savePaymentList(PaymentList paymentList) throws IOException;
 
     // todo: add other interface methods for other lists.
 }

@@ -1,9 +1,9 @@
 package duke.logic;
-
 import duke.exception.DukeException;
 import duke.exception.DukeRuntimeException;
 import duke.logic.command.AddExpenseCommand;
 import duke.logic.command.AddIncomeCommand;
+import duke.logic.command.AddExpenseCommand;
 import duke.logic.command.BudgetCommand;
 import duke.logic.command.Command;
 import duke.logic.command.ConfirmTentativeCommand;
@@ -14,7 +14,9 @@ import duke.logic.command.GoToCommand;
 import duke.logic.command.PlanBotCommand;
 import duke.logic.command.SortExpenseCommand;
 import duke.logic.command.ViewExpenseCommand;
-
+import duke.logic.command.payment.*;
+import duke.logic.command.AddIncomeCommand;
+import duke.model.Budget;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -49,17 +51,22 @@ public class CommandParams {
     private static final Pattern SPACE_REGEX = Pattern.compile("(\\s+)");
 
     private static final Supplier<Stream<Command>> COMMANDS = () -> Stream.of(
-            new AddExpenseCommand(),
-            new DeleteExpenseCommand(),
-            new ConfirmTentativeCommand(),
-            new ExitCommand(),
-            new FilterExpenseCommand(),
-            new SortExpenseCommand(),
-            new ViewExpenseCommand(),
-            new GoToCommand(),
-            new PlanBotCommand(),
-            new AddIncomeCommand(),
-            new BudgetCommand()
+        new DeleteExpenseCommand(),
+        new ConfirmTentativeCommand(),
+        new ExitCommand(),
+        new FilterExpenseCommand(),
+        new SortExpenseCommand(),
+        new ViewExpenseCommand(),
+        new GoToCommand(),
+        new PlanBotCommand(),
+        new BudgetCommand(),
+        new AddPaymentCommand(),
+        new ChangePaymentCommand(),
+        new DeletePaymentCommand(),
+        new FilterPaymentCommand(),
+        new SearchPaymentCommand(),
+        new SortPaymentCommand(),
+        new AddIncomeCommand()
     );
 
     /**

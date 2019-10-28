@@ -213,7 +213,7 @@ public class IncomeList extends DukeList<Income> {
         try {
             this.sortCriteria = SortCriteria.valueOf(sortCriteria.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new DukeException(String.format(DukeException.MESSAGE_EXPENSE_SORT_CRITERIA_INVALID, sortCriteria));
+            throw new DukeException(String.format(DukeException.MESSAGE_SORT_CRITERIA_INVALID, sortCriteria));
         }
         updateExternalList();
     }

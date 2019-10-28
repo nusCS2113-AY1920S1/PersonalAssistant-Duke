@@ -4,6 +4,7 @@ import duke.exception.DukeException;
 import duke.model.Expense;
 import duke.model.Income;
 import duke.model.PlanBot;
+import duke.model.payment.Payment;
 import javafx.collections.ObservableList;
 
 import java.math.BigDecimal;
@@ -25,5 +26,9 @@ public interface Logic {
     ObservableList<Income> getExternalIncomeList();
 
     ObservableList<String> getBudgetObservableList();
+
+    ObservableList<Payment> getFilteredPaymentList();
+
+    ObservableList<Payment> getPaymentSearchResult();
 
 }

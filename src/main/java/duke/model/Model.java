@@ -1,8 +1,11 @@
 package duke.model;
 
 import duke.exception.DukeException;
+import duke.model.payment.Payment;
+import duke.model.payment.PaymentList;
 import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 import java.math.BigDecimal;
 import java.util.Map;
@@ -54,6 +57,35 @@ public interface Model {
     public PlanQuestionBank.PlanRecommendation getRecommendedBudgetPlan();
 
 
+    //************************************************************
+    // Pending Payments operations
+
+    public void addPayment(Payment payment);
+
+    public void setPayment(int index, Payment editedPayment) throws DukeException;
+
+    public void removePayment(int index) throws DukeException;
+
+    public void setPaymentSortCriteria(String sortCriteria) throws DukeException;
+
+    public void setAllPredicate();
+
+    public void setMonthPredicate();
+
+    public void setWeekPredicate();
+
+    public void setOutOfDatePredicate();
+
+    public void setSearchKeyword(String keyword);
+
+    public Payment getPayment(int index) throws DukeException;
+
+    public FilteredList<Payment> getFilteredPaymentList();
+
+    public FilteredList<Payment> getSearchResult();
+
+    public PaymentList getPaymentList();
+
     //******************************** IncomeList operations
 
     public void addIncome(Income income);
@@ -71,4 +103,5 @@ public interface Model {
     public ObservableList<Income> getIncomeExternalList();
 
     public IncomeList getIncomeList();
+
 }

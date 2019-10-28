@@ -9,7 +9,9 @@ public class CommandResult {
         EXPENSE,
         TRENDING,
         BUDGET,
-        PLAN;
+        PLAN,
+        PAYMENT,
+        PAYMENT_SEARCH;
         // todo: add more custom pages.
     }
 
