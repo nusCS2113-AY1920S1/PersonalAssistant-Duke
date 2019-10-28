@@ -13,5 +13,5 @@
   "file_path": "Level1.6",
   "objective": "Earn 30 gold by Day 10",
   "hint": "1.Enter [market] to calculate your profits from each seed.\n2.Enter [condition] to check how you can use gold as a condition for an action\n3.Enter [delete all] to start new code",
-  "modelAnswer" : ""
+  "modelAnswer" : "||"
 }

@@ -3,9 +3,7 @@ package Farmio;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Level {
     private ArrayList<String> narratives;
@@ -115,7 +113,6 @@ public class Level {
 
     private String checkIncompleteObjectives(Farmer farmer){
         //todo -Level-dependant objective checker
-        //change to horizontal list
         String output = "";
         int seeds = farmer.wheatFarm.getSeeds();
         int wheat = farmer.wheatFarm.getWheat();
@@ -145,10 +142,22 @@ public class Level {
         return output;
     }
 
+    //need to rename this lol
+    public List<String> convertStringToList(String modelAnswer){
+        //todo build a much more comprehensive parser for level
+        String[] taskItems = modelAnswer.split("|");
+        List<String> modelTaskList =new ArrayList<String>(Arrays.asList(taskItems));
+        return  modelTaskList;
+    }
 
     public String levelParser(String userActions, String modelAns){
         //separate user list into arraylist , separate model ans into subsections
-        //compare
+        List<String> modelTaskList = convertStringToList(modelAnswer);
+        //compare the two given
+
+
+
+
        return "model ans";
     }
 
@@ -156,7 +165,7 @@ public class Level {
         //todo convert to some sort of metric for future iterations
         //farmio.getFarmer().tasks.toStringArray();
         //include some sort of level parser
-        //jlevelParser(userAction, modelAns);
+        //levelParser(userAction, modelAns);
         return "getPermutation Feedback";
 }
 
@@ -189,7 +198,7 @@ public class Level {
                 //add enter and day end
                 feedback += "detailed feedback : -- \n";
                 feedback += checkIncompleteObjectives(farmer);
-                feedback += "Press [ENTER] to continue the game or [RESET] to restart the level"
+                feedback += "\n Press [ENTER] to continue the game or [RESET] to restart the level";
             }
             return feedback;
         }

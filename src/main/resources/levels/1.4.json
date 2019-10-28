@@ -18,5 +18,5 @@
   "file_path": "Level1.4",
   "objective": "Harvest wheat by Day 2",
   "hint": "1.Enter [delete all]\n2.Enter [if haswheat do harvestwheat]",
-  "modelAnswer": "if hasWheat do harvestWheat"
+  "modelAnswer": "|if hasWheat do harvestWheat|"
 }

@@ -12,5 +12,5 @@
   "deadline" : 1,
   "objective": "Buy some seeds from the market",
   "hint": "1.Enter [market] to check the price of a seed.\n2.Enter [do buyseeds] to buy seeds from the market if you can afford it.",
-  "modelAnswer": "do buySeeds"
+  "modelAnswer": "|do buySeeds|"
 }
