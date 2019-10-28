@@ -160,4 +160,15 @@ public final class RegexUtil {
         return input.matches(dateRegex);
     }
 
+    /**
+     * Checks if date is in MM/YYYY format from year 1900 to 2099.
+     *
+     * @param input The user input that is subject to Regex checking.
+     * @return the result of the check on whether it fulfills the criteria.
+     */
+    public static boolean regexCheckMonthYearFormat(String input) {
+        String dateRegex = "(0?[1-9]|1[012])/((19|20)\\d\\d)";
+        return input.matches(dateRegex);
+    }
+
 }

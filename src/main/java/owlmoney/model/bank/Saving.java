@@ -447,4 +447,15 @@ public class Saving extends Bank {
     public void importNewRecurringExpenditure(Transaction expenditure) {
         recurringExpenditures.importRecurringExpenditureToList(expenditure);
     }
+
+    /**
+     * Returns expenditure amount based on the specified expenditure id.
+     *
+     * @param expno Expenditure id of the expenditure to be searched.
+     * @return Expenditure amount based on the specified expenditure id.
+     * @throws TransactionException If transaction is not an expenditure.
+     */
+    double getExpAmountById(int expno) throws TransactionException {
+        return transactions.getExpenditureAmount(expno);
+    }
 }

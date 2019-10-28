@@ -357,6 +357,17 @@ public abstract class Bank {
     }
 
     /**
+     * Returns expenditure amount based on the specified expenditure id.
+     *
+     * @param expno Expenditure id of the expenditure to be searched.
+     * @return Expenditure amount based on the specified expenditure id.
+     * @throws TransactionException If transaction is not an expenditure.
+     */
+    double getExpAmountById(int expno) throws TransactionException {
+        throw new TransactionException("This account does not support this feature");
+    }
+
+    /**
      * Finds the transactions from the bank object that matches with the keywords specified by the user.
      *
      * @param fromDate The date to search from.
