@@ -10,6 +10,7 @@ import duke.data.Medicine;
 import duke.data.Plan;
 import duke.data.Treatment;
 import duke.exception.DukeException;
+import duke.exception.DukeHelpException;
 
 import java.util.List;
 
@@ -40,6 +41,9 @@ public class ImpressionStatusCommand extends ArgCommand {
         String statusStr = getSwitchVal("set");
         if (statusStr == null) {
             status = treatment.getStatusIdx() + 1;
+            if (status >= statusList.size()) {
+                throw new DukeHelpException("This treatment cannot progress any further!", this);
+            }
         } else {
             status = ImpressionHelpers.processStatus(statusStr, statusList);
         }
