@@ -37,26 +37,24 @@ public class PlaylistCommands {
     /**
      * to add movies to playlist.
      */
-    public void add(TreeMap<String, ArrayList<String>> flagMap, ArrayList<MovieInfoObject> mMovies) throws IOException {
+    public void add(TreeMap<String, ArrayList<String>> flagMap, ArrayList<MovieInfoObject> movies) throws IOException {
         Playlist playlist = editPlaylistJson.load();
         ArrayList<MovieInfoObject> playlistMovies = new ArrayList<>();
         for (String log : flagMap.get("-m")) {
             int index = Integer.parseInt(log.trim()) - 1;
             try {
-                PlaylistExceptions.checkIndex(index, mMovies.size());
+                PlaylistExceptions.checkIndex(index, movies.size());
             } catch (PlaylistExceptions e) {
                 System.out.println(e);
                 continue;
             }
-            MovieInfoObject movie = mMovies.get(index);
+            MovieInfoObject movie = movies.get(index);
             try {
                 PlaylistExceptions.checkMovieForAdd(movie, playlist);
                 playlistMovies.add(movie);
             } catch (PlaylistExceptions e) {
                 System.out.println(e);
             }
-            System.out.println("what lies");
-            System.out.println("hello looky here " + movie.getFullPosterPath());
         }
         ArrayList<PlaylistMovieInfoObject> newPlaylistMovies = convert(playlistMovies);
         playlist.add(newPlaylistMovies);
@@ -95,15 +93,16 @@ public class PlaylistCommands {
     private ArrayList<PlaylistMovieInfoObject> convert(ArrayList<MovieInfoObject> movies) {
         ArrayList<PlaylistMovieInfoObject> convertMovies = new ArrayList<>();
         for (MovieInfoObject log : movies) {
-            Date date = log.getReleaseDate();
+            Date date = log.getReleaseDateInfo();
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String string = dateFormat.format(date);
-            System.out.println("help " + log.getTitle() + " " + log.getFullPosterPath());
+            System.out.println("help " + log.getTitle() + " " + log.getFullPosterPathInfo());
             //int fakeType = 12345;
             boolean fakeType = false;
-            PlaylistMovieInfoObject testMovie = new PlaylistMovieInfoObject(fakeType, log.getID(),
-                    log.getTitle(), log.getReleaseDate(), log.getSummary(), log.getRating(),
-                    log.getGenreIDs(), log.getFullPosterPath(), log.getFullBackdropPath(), log.isAdult(), string);
+            PlaylistMovieInfoObject testMovie = new PlaylistMovieInfoObject(fakeType, log.getId(),
+                    log.getTitle(), log.getReleaseDateInfo(), log.getSummaryInfo(), log.getRatingInfo(),
+                    log.getGenreIdInfo(), log.getFullPosterPathInfo(), log.getFullBackdropPathInfo(),
+                    log.isAdultContent(), string);
             convertMovies.add(testMovie);
         }
         return convertMovies;

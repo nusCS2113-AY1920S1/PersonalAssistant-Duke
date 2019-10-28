@@ -33,7 +33,7 @@ public class PlaylistExceptions extends Exceptions {
     public static void checkMovieForAdd(MovieInfoObject movie, Playlist playlist) throws PlaylistExceptions {
         boolean flag = false;
         for (PlaylistMovieInfoObject log : playlist.getMovies()) {
-            if (movie.getID() == log.getID()) {
+            if (movie.getId() == log.getId()) {
                 flag = true;
                 break;
             }
@@ -52,7 +52,7 @@ public class PlaylistExceptions extends Exceptions {
     public static void checkMovieForRemove(MovieInfoObject movie, Playlist playlist) throws PlaylistExceptions {
         boolean flag = true;
         for (PlaylistMovieInfoObject log : playlist.getMovies()) {
-            if (movie.getID() == log.getID()) {
+            if (movie.getId() == log.getId()) {
                 flag = false;
                 break;
             }

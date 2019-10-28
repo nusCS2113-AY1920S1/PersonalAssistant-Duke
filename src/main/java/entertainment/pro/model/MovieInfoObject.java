@@ -1,219 +1,276 @@
 package entertainment.pro.model;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * Model class to represent a movie/tv show by storing details about it.
  */
-public class MovieInfoObject {
+public class MovieInfoObject extends MovieModel {
     private boolean isMovie;
-    private long movieID;
-    private String movieTitle;
-    private Date movieReleaseDate;
-    private String movieSummary;
-    private String moviePosterPath;
-    private String movieFullPosterPath;
-    private String movieBackdropPath;
-    private String movieFullBackdropPath;
-    private double movieRating;
-    private long[] movieGenreIDs;
-    private boolean adult;
+    private Date releaseDateInfo;
+    private String summaryInfo;
+    private String posterPathInfo;
+    private String fullPosterPathInfo;
+    private String backdropPathInfo;
+    private String fullBackdropPathInfo;
+    private double ratingInfo;
+    private ArrayList<Long> genreIdInfo;
+    private boolean isAdultContent;
+    private String certInfo;
+    private ArrayList<String> castInfo;
 
 
     /**
-     * Construct info about a movie/tv show.
-     * @param id id stored in the api.
-     * @param title Title of the movie/tv show.
-     * @param date Release date of the movie/tv show.
-     * @param summary Plot summary of the movie/tv show.
-     * @param rating Rating of the movie or tv show.
-     * @param genreIDs Array of numbers that contains the genres belonging to the movie/tv show extracted from api.
-     * @param posterPath Filepath of the movie/tv show poster.
-     * @param backdropPath Filepath of the movie/tv show backdrop poster.
+     * constructor.
+     * @param id the id of the movie/TV show stored in the MovieDB API.
+     * @param title the title of the movie or TV show stored in the MovieDB API.
+     * @param isMovie whether the objeect stored is a movie or TV show.
+     * @param releaseDateInfo the release date of the movie or TV show.
+     * @param summaryInfo the plot summary of the movie or TV show.
+     * @param posterPathInfo the file path of the poster.
+     * @param backdropPathInfo the file path of the backdrop poster.
+     * @param ratingInfo the rating of the movie or TV show.
+     * @param genreIdInfo the list of genres pertaining to the movie or TV show.
+     * @param isAdultContent whether the movie or TV show contains adult content.
+     * @param certInfo the certification obtained by the movie or TV show.
+     * @param castInfo the list of cast pertaining to the movie or TV show.
      */
-
-    public MovieInfoObject(boolean isMovie, long id, String title, Date date, String summary,
-                           double rating, long[] genreIDs, String posterPath, String backdropPath, boolean isAdult) {
+    public MovieInfoObject(long id, String title, boolean isMovie, Date releaseDateInfo, String summaryInfo,
+                           String posterPathInfo, String backdropPathInfo, double ratingInfo,
+                           ArrayList<Long> genreIdInfo, boolean isAdultContent, String certInfo,
+                           ArrayList<String> castInfo) {
+        super(id, title);
         this.isMovie = isMovie;
-        movieID = id;
-        movieTitle = title;
-        movieReleaseDate = date;
-        movieSummary = summary;
-        movieRating = rating;
-        moviePosterPath = posterPath;
-        movieBackdropPath = backdropPath;
-        movieGenreIDs = genreIDs;
-        this.adult = isAdult;
+        this.releaseDateInfo = releaseDateInfo;
+        this.summaryInfo = summaryInfo;
+        this.posterPathInfo = posterPathInfo;
+        this.fullPosterPathInfo = fullPosterPathInfo;
+        this.backdropPathInfo = backdropPathInfo;
+        this.fullBackdropPathInfo = fullBackdropPathInfo;
+        this.ratingInfo = ratingInfo;
+        this.genreIdInfo = genreIdInfo;
+        this.isAdultContent = isAdultContent;
+        this.certInfo = certInfo;
+        this.castInfo = castInfo;
     }
-
-
 
     /**
      * Construct info about a movie/tv show.
      * @param id ID stored in the api.
      * @param title Title of the movie/tv show.
      */
-    public MovieInfoObject(boolean isMovie, long id, String title) {
+    public MovieInfoObject(long id, String title, boolean isMovie) {
+        super(id, title);
         isMovie = false;
-        movieID = id;
-        movieTitle = title;
-        this.adult = true;
+        this.isAdultContent = true;
     }
 
     /**
-     * This function sets the root path for movie/tv shows.
-     * @param rootPath The root path of the poster.
-     * @param posterSize String that consist of number of movie/tv posters to be downloaded.
-     * @param backdropSize String that consist of number of backdrop posters to be downloaded.
+     * constructor.
+     * @param id the id of the movie/TV show stored in the MovieDB API.
+     * @param title the title of the movie or TV show stored in the MovieDB API.
+     * @param isMovie whether the objeect stored is a movie or TV show.
+     * @param releaseDateInfo the release date of the movie or TV show.
+     * @param summaryInfo the plot summary of the movie or TV show.
+     * @param posterPathInfo the file path of the poster.
+     * @param backdropPathInfo the file path of the backdrop poster.
+     * @param ratingInfo the rating of the movie or TV show.
+     * @param genreIdInfo the list of genres pertaining to the movie or TV show.
+     * @param isAdultContent whether the movie or TV show contains adult content.
      */
-    public void setPosterRootPath(String rootPath, String posterSize, String backdropSize) {
-        movieFullPosterPath = String.format("%s%s%s", rootPath, posterSize, moviePosterPath);
-        movieFullBackdropPath = String.format("%s%s%s", rootPath, posterSize, movieBackdropPath);
+    public MovieInfoObject(long id, String title, boolean isMovie, Date releaseDateInfo, String summaryInfo,
+                           String posterPathInfo, String backdropPathInfo, double ratingInfo,
+                           ArrayList<Long> genreIdInfo, boolean isAdultContent) {
+        super(id, title);
+        this.isMovie = isMovie;
+        this.releaseDateInfo = releaseDateInfo;
+        this.summaryInfo = summaryInfo;
+        this.posterPathInfo = posterPathInfo;
+        this.fullPosterPathInfo = fullPosterPathInfo;
+        this.backdropPathInfo = backdropPathInfo;
+        this.fullBackdropPathInfo = fullBackdropPathInfo;
+        this.ratingInfo = ratingInfo;
+        this.genreIdInfo = genreIdInfo;
+        this.isAdultContent = isAdultContent;
     }
 
     /**
-     * This function returns the movie/tv show ID as per the api.
-     * @return the movie/tv show ID.
+     * Resonsible for returning whether the object is storing a movie or TV show.
+     * @return true if the object is storing a movie and false otherwise.
      */
-    public long getID() {
-        return movieID;
-    }
-
-    /**
-     * This function returns the movie/tv show title.
-     * @return the movie/tv show title.
-     */
-    public String getTitle() {
-        return movieTitle;
-    }
-
-    /**
-     * This function returns the release date of the movie/tv show.
-     * @return the release date of the movie/tv show.
-     */
-    public Date getReleaseDate() {
-        return movieReleaseDate;
-    }
-
-    /**
-     * This function returns the plot summary of the movie/tv show.
-     * @return the plot summary of the movie/tv show.
-     */
-    public String getSummary() {
-        return movieSummary;
-    }
-
-    /**
-     * This function returns the rating of the movie/tv show.
-     * @return
-     */
-    public double getRating() {
-        return movieRating;
-    }
-
-    public long[] getGenreIDs() {
-        return movieGenreIDs;
-    }
-
-    public String getFullPosterPath() {
-        return movieFullPosterPath;
-    }
-
-    public String getFullBackdropPath() {
-        return movieFullBackdropPath;
-    }
-
     public boolean isMovie() {
         return isMovie;
     }
 
-    public boolean isAdult() {
-        return adult;
+    /**
+     * Responsible for setting whether the object is storing a movie or TV show.
+     * @param movie true if the object is storing a movie and false otherwise.
+     */
+    public void setMovie(boolean movie) {
+        isMovie = movie;
     }
 
-
-    public long getMovieID() {
-        return movieID;
+    /**
+     * Responsible for returning the release date of the object.
+     * @return the release date of the movie/TV show.
+     */
+    public Date getReleaseDateInfo() {
+        return releaseDateInfo;
     }
 
-    public void setMovieID(long movieID) {
-        this.movieID = movieID;
+    /**
+     * Responsible for setting the release date of the object.
+     * @param releaseDateInfo the release date of the movie/TV show.
+     */
+    public void setReleaseDateInfo(Date releaseDateInfo) {
+        this.releaseDateInfo = releaseDateInfo;
+    }
+
+    /**
+     * Responsible for returning the plot summary of the object.
+     * @return the plot summary of the movie/TV show.
+     */
+    public String getSummaryInfo() {
+        return summaryInfo;
+    }
+
+    /**
+     * Responsible for setting the plot summary of the object.
+     * @param summaryInfo the plot summary of the movie/TV show.
+     */
+    public void setSummaryInfo(String summaryInfo) {
+        this.summaryInfo = summaryInfo;
+    }
+
+    /**
+     * Responsible for returning the poster path of the object.
+     * @return the poster path of the movie/TV show.
+     */
+    public String getFullPosterPathInfo() {
+        return fullPosterPathInfo;
+    }
+
+    /**
+     * Repsonsible for setting the poster path of the object.
+     * @param fullPosterPathInfo the poster path of the movie/TV show.
+     */
+    public void setFullPosterPathInfo(String fullPosterPathInfo) {
+        this.fullPosterPathInfo = fullPosterPathInfo;
+    }
+
+    /**
+     * Responsible for returning the backdrop poster path of the object.
+     * @return the backdrop poster path of the movie/TV show.
+     */
+    public String getFullBackdropPathInfo() {
+        return fullBackdropPathInfo;
+    }
+
+    /**
+     * Repsonsible for setting the backdrop poster path of the object.
+     * @param fullBackdropPathInfo the backdrop poster path of the movie/TV show.
+     */
+    public void setFullBackdropPathInfo(String fullBackdropPathInfo) {
+        this.fullBackdropPathInfo = fullBackdropPathInfo;
+    }
+
+    /**
+     * Responsible for getting the rating of the movie/TV show.
+     * @return the rating of the movie/TV show.
+     */
+    public double getRatingInfo() {
+        return ratingInfo;
+    }
+
+    /**
+     * Responsible forsetting the rating of the movie/TV show.
+     * @param ratingInfo the rating of the movie/TV show.
+     */
+    public void setRatingInfo(double ratingInfo) {
+        this.ratingInfo = ratingInfo;
+    }
+
+    /**
+     * Responsible for returning the genre IDs pertaining to the movie/TV show.
+     * @return the genre IDs pertaining to the movie/TV show.
+     */
+    public ArrayList<Long> getGenreIdInfo() {
+        return genreIdInfo;
+    }
+
+    /**
+     * Responsible for setting the genre IDs pertaining to the movie/TV show.
+     * @param genreIdInfo the genre IDs pertaining to the movie/TV show.
+     */
+    public void setGenreIdInfo(ArrayList<Long> genreIdInfo) {
+        this.genreIdInfo = genreIdInfo;
+    }
+
+    /**
+     * Responsible for returning whether the object contains adult content or not.
+     * @return true if contains adult content and false otherwise.
+     */
+    public boolean isAdultContent() {
+        return isAdultContent;
+    }
+
+    /**
+     * Responsible for setting whether the object contains adult content or not.
+     * @param adultContent true if contains adult content and false otherwise.
+     */
+    public void setAdultContent(boolean adultContent) {
+        this.isAdultContent = adultContent;
+    }
+
+    /**
+     * Responsible for getting the cert information about the movie/TV show.
+     * @return the cert information about the movie/TV show.
+     */
+    public String getCertInfo() {
+        return certInfo;
+    }
+
+    /**
+     * Responsible for setting the cert information about the movie/TV show.
+     * @param certInfo the cert information about the movie/TV show.
+     */
+    public void setCertInfo(String certInfo) {
+        this.certInfo = certInfo;
+    }
+
+    /**
+     * Responisible for returning the list of cast information pertaining to the movie/TV show.
+     * @return the list of cast information pertaining to the movie/TV show.
+     */
+    public ArrayList<String> getCastInfo() {
+        return castInfo;
+    }
+
+    /**
+     * Responisible for setting the list of cast information pertaining to the movie/TV show.
+     * @param castInfo list of cast information pertaining to the movie/TV show.
+     */
+    public void setCastInfo(ArrayList<String> castInfo) {
+        this.castInfo = castInfo;
+    }
+
+    /**
+     * Responsible for setting the root path for the movie/TV show posters and backdrop posters.
+     * @param rootPath The root path for the poster images.
+     * @param posterSize A string representing the size variant of the posters to download
+     */
+    public void setPosterRootPath(String rootPath, String posterSize) {
+        fullPosterPathInfo = String.format("%s%s%s", rootPath, posterSize, posterPathInfo);
+        fullBackdropPathInfo = String.format("%s%s%s", rootPath, posterSize, backdropPathInfo);
+    }
+
+    public long getId() {
+        return super.getId();
     }
 
     public String getMovieTitle() {
-        return movieTitle;
-    }
-
-    public void setMovieTitle(String movieTitle) {
-        this.movieTitle = movieTitle;
-    }
-
-    public Date getMovieReleaseDate() {
-        return movieReleaseDate;
-    }
-
-    public void setMovieReleaseDate(Date movieReleaseDate) {
-        this.movieReleaseDate = movieReleaseDate;
-    }
-
-    public String getMovieSummary() {
-        return movieSummary;
-    }
-
-    public void setMovieSummary(String movieSummary) {
-        this.movieSummary = movieSummary;
-    }
-
-    public String getMoviePosterPath() {
-        return moviePosterPath;
-    }
-
-    public void setMoviePosterPath(String moviePosterPath) {
-        this.moviePosterPath = moviePosterPath;
-    }
-
-    public String getMovieFullPosterPath() {
-        return movieFullPosterPath;
-    }
-
-    public void setMovieFullPosterPath(String movieFullPosterPath) {
-        this.movieFullPosterPath = movieFullPosterPath;
-    }
-
-    public String getMovieBackdropPath() {
-        return movieBackdropPath;
-    }
-
-    public void setMovieBackdropPath(String movieBackdropPath) {
-        this.movieBackdropPath = movieBackdropPath;
-    }
-
-    public String getMovieFullBackdropPath() {
-        return movieFullBackdropPath;
-    }
-
-    public void setMovieFullBackdropPath(String movieFullBackdropPath) {
-        this.movieFullBackdropPath = movieFullBackdropPath;
-    }
-
-    public double getMovieRating() {
-        return movieRating;
-    }
-
-    public void setMovieRating(double movieRating) {
-        this.movieRating = movieRating;
-    }
-
-    public long[] getMovieGenreIDs() {
-        return movieGenreIDs;
-    }
-
-    public void setMovieGenreIDs(long[] movieGenreIDs) {
-        this.movieGenreIDs = movieGenreIDs;
-    }
-
-    public void setAdult(boolean adult) {
-        this.adult = adult;
+        return super.getTitle();
     }
 }

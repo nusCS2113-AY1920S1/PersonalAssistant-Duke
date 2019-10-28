@@ -70,10 +70,10 @@ public class SearchResultContext {
         }
         HashMap<Long, Integer> movieDup = new HashMap<Long, Integer>();
         for (MovieInfoObject a: mMovies) {
-            movieDup.put(a.getID(), new Integer(1));
+            movieDup.put(a.getId() , new Integer(1));
         }
         for (MovieInfoObject e: moviesInfo) {
-            if (movieDup.get(e.getID()) == null) {
+            if (movieDup.get(e.getId()) == null) {
                 mMovies.add(e);
                 keywords.add(e.getTitle());
             }

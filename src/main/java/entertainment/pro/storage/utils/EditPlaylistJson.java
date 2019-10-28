@@ -43,15 +43,16 @@ public class EditPlaylistJson {
                     long movieID = (long) movie.get("id");
                     String movieTitle = (String) movie.get("title");
                     String movieReleaseDate = (String) movie.get("stringDate");
-                    String movieSummary = (String) movie.get("summary");
+                    String movieSummary = (String) movie.get("summaryInfo");
                     String movieFullPosterPath = (String) movie.get("fullPosterPath");
                     String movieFullBackdropPath = (String) movie.get("fullBackdropPath");
-                    double movieRating = (double) movie.get("rating");
-                    JSONArray genreArray = (JSONArray) movie.get("genreIDs");
-                    long[] movieGenreIDs = new long[genreArray.size()];
+                    double movieRating = (double) movie.get("ratingInfo");
+                    JSONArray genreArray = (JSONArray) movie.get("genreIdInfo");
+                    ArrayList<Long> movieGenreIDs = new ArrayList<>();
                     for (int j = 0; j < genreArray.size(); j++) {
-                        movieGenreIDs[j] = (long) genreArray.get(j);
+                        movieGenreIDs.add((long) genreArray.get(j));
                     }
+                    boolean adult = (boolean) movie.get("adultContent");
                     playlistMovies.add(new PlaylistMovieInfoObject(false, movieID, movieTitle, null,
                             movieSummary, movieRating, movieGenreIDs, movieFullPosterPath, movieFullBackdropPath,
                             false, movieReleaseDate));

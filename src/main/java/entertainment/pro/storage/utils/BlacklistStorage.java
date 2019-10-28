@@ -1,6 +1,7 @@
 package entertainment.pro.storage.utils;
 
 
+import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.model.UserProfile;
 import entertainment.pro.storage.user.Blacklist;
@@ -55,9 +56,7 @@ public class BlacklistStorage {
 
             File newFile = new File("./BlacklistStorage.json");
             if (newFile.createNewFile()) {
-
                 Blacklist.initialiseAll(new ArrayList<String>(), new ArrayList<String>(), new ArrayList<MovieModel>());
-
             } else {
                 FileReader reader = new FileReader(newFile);
                 JSONParser jsonParser = new JSONParser();

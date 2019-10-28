@@ -192,6 +192,10 @@ public class PlaylistCommand extends CommandSuper {
             } catch (PlaylistExceptions e) {
                 System.out.println(e);
             }
+        } else {
+            PlaylistCommands playlistCommands = new PlaylistCommands(playlistName);
+            playlistCommands.setToPlaylist(this.getFlagMap());
+            movieHandler.refresh();
         }
         movieHandler.clearSearchTextField();
     }
