@@ -3,20 +3,20 @@ package Commands;
 import Exceptions.FarmioException;
 import Exceptions.FarmioFatalException;
 import Farmio.Farmio;
+import FrontEnd.Ui;
+import UserCode.Tasks.Task;
 import UserCode.Tasks.TemplateTask;
+import Farmio.Storage;
+import Farmio.Farmer;
 
 public class CommandTaskEdit extends Command {
+    private TemplateTask templateTask;
     private int taskID;
-    private String taskType;
-    private String condition;
-    private String action;
 
 
     public CommandTaskEdit(int taskID, TemplateTask templateTask) {
         this.taskID = taskID;
-        this.taskType = templateTask.getTaskType();
-        this.condition = templateTask.getCondition();
-        this.action = templateTask.getAction();
+        this.templateTask = templateTask;
     }
 
     /**
@@ -26,8 +26,15 @@ public class CommandTaskEdit extends Command {
      */
     @Override
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
-        System.out.println("test\r");
-        farmio.getUi().getInput();
-        System.out.println("exiting");
+        Ui ui = farmio.getUi();
+        Task task = templateTask.toTask(farmio);
+        Storage storage = farmio.getStorage();
+        Farmer farmer = farmio.getFarmer();
+        if (taskID < 1 || taskID > farmer.getTasks().size()) {
+            throw new FarmioException("Invalid Task ID!");
+        }
+        farmer.getTasks().editTask(taskID, task);
+        farmio.getSimulation().simulate(farmio.getLevel().getPath(), farmio.getLevel().getNarratives().size() - 1);
+        ui.showInfo("Successfully edited task!");
     }
 }
