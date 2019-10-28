@@ -3,13 +3,12 @@ package UserElements.ConcertBudgeting;
 import Events.EventTypes.Event;
 import Events.EventTypes.EventSubclasses.Concert;
 import Events.Formatting.EventDate;
-import Events.Storage.EventList;
 
 import java.util.ArrayList;
 
 public class MonthlyBudget {
     private ArrayList<Concert> listOfConcerts = new ArrayList<>(); //list storing all concerts happening in the month
-    private float totalCost; //total cost of concerts in month
+    private int totalCost; //total cost of concerts in month
     EventDate date;
 
     /**
@@ -19,10 +18,10 @@ public class MonthlyBudget {
      */
     public MonthlyBudget(ArrayList<Event> listOfConcerts) {
         setDateToFirstOfMonth(listOfConcerts.get(0).getStartDate()); //set EventDate date to first day of month
-        convertAndStoreConcerts(listOfConcerts); //convert events to Concert objects, and store in list.
+        storeConcerts(listOfConcerts); //convert events to Concert objects, and store in list.
     }
 
-    private void convertAndStoreConcerts(ArrayList<Event> concertsInMonth) {
+    private void storeConcerts(ArrayList<Event> concertsInMonth) {
         this.totalCost = 0;
         for (Event currEvent : concertsInMonth) {
             Concert tempConcert = (Concert) currEvent;
@@ -31,13 +30,21 @@ public class MonthlyBudget {
         }
     }
 
+    public void addConcert(Concert concert, int budget) throws CostExceedsBudgetException {
+        int newCost = this.totalCost + concert.getCost();
+        if (newCost > budget) {
+            throw new CostExceedsBudgetException(concert, budget);
+        }
+        this.listOfConcerts.add(concert);
+    }
+
     /**
      * Updates EventDate date to correct value.
      * @param date EventDate of first event in the list of concerts for the current month
      */
     private void setDateToFirstOfMonth(EventDate date) {
         String dateString = date.getUserInputDateString();
-        dateString = "01" + dateString.substring(2);
+        dateString = "01" + dateString.substring(2,10);
         this.date = new EventDate(dateString);
     }
 

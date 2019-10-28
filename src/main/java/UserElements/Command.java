@@ -10,9 +10,10 @@ import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.EventDate;
 import Events.Formatting.CalendarView;
 import Events.Storage.ClashException;
+import Events.Storage.EndBeforeStartException;
 import Events.Storage.EventList;
 import Events.Storage.Storage;
-import UserElements.ConcertBudgeting.Budgeting;
+import UserElements.ConcertBudgeting.CostExceedsBudgetException;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,8 +37,6 @@ public class Command {
      * Contains further specific instructions about the command passed e.g which event to add or delete
      */
     private String continuation;
-
-    private Budgeting budgeting;
 
     /**
      * Creates a new command with the command type and specific instructions
@@ -99,23 +98,23 @@ public class Command {
                 break;
 
             case "lesson":
-                createNewEvent(events, ui, 'L');
+                addNewEvent(events, ui, 'L');
                 break;
 
             case "concert":
-                createNewEvent(events, ui, 'C');
+                addNewEvent(events, ui, 'C');
                 break;
 
             case "practice":
-                createNewEvent(events, ui, 'P');
+                addNewEvent(events, ui, 'P');
                 break;
 
             case "exam":
-                createNewEvent(events, ui, 'E');
+                addNewEvent(events, ui, 'E');
                 break;
 
             case "recital":
-                createNewEvent(events, ui, 'R');
+                addNewEvent(events, ui, 'R');
                 break;
 
             case "view":
@@ -240,7 +239,7 @@ public class Command {
         }
     }
 
-    public void createNewEvent(EventList events, UI ui, char eventType) {
+    public void addNewEvent(EventList events, UI ui, char eventType) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
         } else {
@@ -251,9 +250,11 @@ public class Command {
                 Event newEvent = NewEvent(eventType, entryForEvent); //instantiate new event
                 assert newEvent != null;
 
-                if (entryForEvent.getPeriod() == NO_PERIOD ) { //non-recurring
+                if (entryForEvent.getPeriod() == NO_PERIOD) { //non-recurring
+
                     events.addEvent(newEvent);
                     ui.eventAdded(newEvent, events.getNumEvents());
+
                 } else { //recurring
                     events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
                     ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
@@ -261,9 +262,11 @@ public class Command {
 
             } catch (ClashException e) { //clash found
                 ui.scheduleClash(e.getClashEvent());
+            } catch (CostExceedsBudgetException e) { //budget exceeded in attempt to add concert
+                ui.costExceedsBudget(e.getConcert(), e.getBudget());
             } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | NullPointerException e) {
                 ui.eventFormatWrong();
-            } catch (Exception e) { //start time is after end time
+            } catch (EndBeforeStartException e) { //start time is after end time
                 ui.eventEndsBeforeStart();
             }
         }

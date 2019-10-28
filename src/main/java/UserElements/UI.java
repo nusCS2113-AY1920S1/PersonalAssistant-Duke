@@ -1,5 +1,6 @@
 package UserElements;
 
+import Events.EventTypes.EventSubclasses.Concert;
 import Events.Storage.EventList;
 import Events.EventTypes.Event;
 import Events.Formatting.EventDate;
@@ -183,7 +184,7 @@ public class UI {
     public void rescheduleFormatWrong() {
         System.out.print(lineSeparation);
         System.out.println("Please enter command in the following format:\n" +
-            "reschedule <taskIndex> dd-MM-yyyy HHmm HHmm\n" +
+                "reschedule <taskIndex> dd-MM-yyyy HHmm HHmm\n" +
                 "Please ensure that the taskIndex is a valid integer as well!");
         System.out.print(lineSeparation);
     }
@@ -202,6 +203,7 @@ public class UI {
         System.out.println("The event you added ends before it starts! Please try again.");
         System.out.print(lineSeparation);
     }
+
     /**
      * prints message when event index from input is not an integer
      */
@@ -297,5 +299,15 @@ public class UI {
         System.out.println("Here is the calendar of the next 7 days!");
         System.out.println(calendarInfo);
         System.out.println("\nEnter a command:");
+    }
+
+    public void costExceedsBudget(Concert concert, int budget) {
+        System.out.print(lineSeparation);
+        System.out.println("The following concert you wanted to add causes you to exceed the stipulated budget for that month!");
+        System.out.println(concert.toString());
+        String date = concert.getStartDate().getFormattedDateString().substring(8, 16);
+        System.out.println("exceeds budget of $" + budget + " for the month of " + date);
+        System.out.println("Operation has been cancelled.");
+        System.out.print(lineSeparation);
     }
 }
