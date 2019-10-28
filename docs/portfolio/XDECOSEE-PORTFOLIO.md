@@ -32,7 +32,7 @@ A collation of my code files and lines of codes I written can be viewed from thi
 * _Integrated [Gradle Shadow](https://github.com/johnrengelman/shadow) to compile project code into jar_: [#42](https://github.com/AY1920S1-CS2113T-W17-2/main/pull/42)
 * _Added License for project code_: [#64](https://github.com/AY1920S1-CS2113T-W17-2/main/pull/64)
 #### Community
-* _Reviewed Github Pull Requests_ : 
+* _Reviewed Github Pull Requests_ : [#44](https://github.com/AY1920S1-CS2113T-W17-2/main/pull/44), [#51](https://github.com/AY1920S1-CS2113T-W17-2/main/pull/51), [#52](https://github.com/AY1920S1-CS2113T-W17-2/main/pull/52), [#58](https://github.com/AY1920S1-CS2113T-W17-2/main/pull/58), [#71](https://github.com/AY1920S1-CS2113T-W17-2/main/pull/71), [#78](https://github.com/AY1920S1-CS2113T-W17-2/main/pull/78), [#80](https://github.com/AY1920S1-CS2113T-W17-2/main/pull/80), [#84](https://github.com/AY1920S1-CS2113T-W17-2/main/pull/84), [#103](https://github.com/AY1920S1-CS2113T-W17-2/main/pull/103), [#106](https://github.com/AY1920S1-CS2113T-W17-2/main/pull/106)
 ## 3. Documentation Contribution
 ### 3.1 User Guide
 ### 3.2 Developer Guide
