@@ -52,7 +52,7 @@ public class ImpressionHelpers {
      * @throws DukeException If a matching evidence or treatment cannot be found, given the provided search terms, or
      * more than one search term was non-null.
      */
-   public static DukeData getData(String allStr, String evidStr, String treatStr, Impression impression)
+    public static DukeData getData(String allStr, String evidStr, String treatStr, Impression impression)
             throws DukeException {
         DukeData data;
         DukeException dataNotFound;
