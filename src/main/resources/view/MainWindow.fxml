@@ -19,27 +19,27 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFx.MainWindow">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="719.0" prefWidth="998.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFx.MainWindow">
    <bottom>
       <HBox prefHeight="36.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="37.0" prefWidth="517.0" HBox.hgrow="ALWAYS" />
-            <Button fx:id="submitButton" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="157.0" prefWidth="85.0" text="Submit" HBox.hgrow="ALWAYS" />
+            <Button fx:id="submitButton" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="38.0" prefWidth="80.0" text="Submit" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
    </bottom>
    <right>
-      <VBox prefHeight="599.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="518.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="dukeResponseTable" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;" VBox.vgrow="ALWAYS">
+            <TableView fx:id="dukeResponseTable" prefHeight="243.0" prefWidth="200.0" style="-fx-border-color: black;" VBox.vgrow="ALWAYS">
                <columns>
-                  <TableColumn fx:id="dukeResponseColumn" editable="false" prefWidth="198.0" resizable="false" sortable="false" style="-fx-alignment: center;" text="Reponse" />
+                  <TableColumn fx:id="dukeResponseColumn" editable="false" prefWidth="198.0" resizable="false" sortable="false" style="-fx-alignment: center;" text="Response" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <TableView fx:id="overdueTable" prefHeight="200.0" prefWidth="208.0" style="-fx-border-color: black;" VBox.vgrow="ALWAYS">
+            <TableView fx:id="overdueTable" prefHeight="282.0" prefWidth="200.0" style="-fx-border-color: black;" VBox.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="overdueDateColumn" prefWidth="72.0" style="-fx-alignment: center;" text="Days Due" />
                   <TableColumn fx:id="overdueTaskColumn" prefWidth="124.0" style="-fx-alignment: center;" text="Overdue" />
@@ -52,7 +52,7 @@
       </VBox>
    </right>
    <top>
-      <VBox minHeight="-Infinity" prefHeight="190.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+      <VBox minHeight="-Infinity" prefHeight="164.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="66.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                <children>
@@ -82,16 +82,16 @@
                      </children></HBox>
                </children>
             </HBox>
-            <ScrollPane hbarPolicy="NEVER" minHeight="-Infinity" prefHeight="120.0" prefWidth="1000.0" vbarPolicy="NEVER">
+            <ScrollPane hbarPolicy="NEVER" minHeight="-Infinity" prefHeight="100.0" prefWidth="1000.0" vbarPolicy="NEVER">
                <content>
-                  <HBox fx:id="progressContainer" minHeight="-Infinity" prefHeight="109.0" prefWidth="1000.0" />
+                  <HBox fx:id="progressContainer" minHeight="-Infinity" prefHeight="93.0" prefWidth="1000.0" />
                </content>
             </ScrollPane>
          </children>
       </VBox>
    </top>
    <center>
-      <VBox prefHeight="585.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+      <VBox minHeight="-Infinity" prefHeight="518.0" prefWidth="798.0" BorderPane.alignment="CENTER">
          <children>
             <GridPane prefHeight="50.0" prefWidth="800.0" style="-fx-border-insets: 0; -fx-border-color: black; -fx-grid-lines-visible: true;">
                <columnConstraints>
@@ -144,7 +144,7 @@
                   </Label>
                </children>
             </GridPane>
-            <GridPane prefHeight="563.0" prefWidth="800.0">
+            <GridPane prefHeight="475.0" prefWidth="798.0" VBox.vgrow="ALWAYS">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
