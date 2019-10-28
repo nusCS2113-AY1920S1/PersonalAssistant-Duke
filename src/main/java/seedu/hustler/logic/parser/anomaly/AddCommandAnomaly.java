@@ -20,7 +20,10 @@ public class AddCommandAnomaly extends DetectAnomaly {
             List<String> splitInput = Arrays.asList(userInput[1].split(" "));
             if (splitInput.contains("/d")) {
                 int difficultyIndex = splitInput.indexOf("/d") + 1;
-                splitInput.get(difficultyIndex);
+                String difficulty = splitInput.get(difficultyIndex);
+                if (!(difficulty.equals("H") || difficulty.equals("E") || difficulty.equals("M"))) {
+                    throw new CommandLineException("Difficulty should be H, M or E.");
+                }
             }
 
             if (splitInput.contains("/tag")) {
@@ -33,7 +36,17 @@ public class AddCommandAnomaly extends DetectAnomaly {
                 if (splitInput.contains("/every")) {
                     int everyIndex = splitInput.indexOf("/every");
                     String frequency = splitInput.get(everyIndex + 1) + " " + splitInput.get(everyIndex + 2);
+                    String unit = splitInput.get(everyIndex + 2);
+                    if (!(unit.equals("days") || unit.equals("weeks") ||  unit.equals("minutes") 
+                        || unit.equals("hours") || unit.equals("months"))) {
+                        throw new CommandLineException("/every units are minutes, hours, days, weeks, months."); 
+                    }
                     TaskList.convertToMinute(frequency);
+                }
+            }
+            else {
+                if (splitInput.contains("/every")) {
+                    throw new CommandLineException("/every does not work on ToDo tasks.");
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
