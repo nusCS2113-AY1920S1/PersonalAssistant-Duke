@@ -1,5 +1,3 @@
-//@@author carrieng0323852
-
 package com.algosenpai.app.logic;
 
 import com.algosenpai.app.logic.chapters.QuizGenerator;
@@ -24,6 +22,8 @@ import com.algosenpai.app.logic.command.UndoCommand;
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.stats.UserStats;
+
+import java.io.FileNotFoundException;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.ArrayList;
@@ -35,8 +35,6 @@ public class Logic {
     private QuizGenerator quizMaker;
 
     //All variables for the settings of the program
-    private int setupStage = 0;
-    private AtomicBoolean isSettingUp = new AtomicBoolean(false);
     private double playerExp = 0.0;
 
     //All variables for the quiz function
@@ -47,23 +45,29 @@ public class Logic {
     private AtomicInteger questionNumber = new AtomicInteger(0);
     private int prevResult = 0;
 
-    // Review features;
+    // VariabReview features;
     private ArrayList<QuestionModel> archiveList;
 
     // History features;
     private ArrayList<String> historyList;
 
     /**
-     * Initializes logic for the application.
-     * @param parser parser for user inputs.
-     * @param userStats user states.
+     * Initializes logic for the application with all the different components.
      */
-    public Logic(Parser parser, UserStats userStats) {
-        this.parser = parser;
-        this.userStats = userStats;
+    public Logic() throws FileNotFoundException {
+        this.parser = new Parser();
+        this.userStats =  new UserStats();
         quizMaker = new QuizGenerator();
         historyList = new ArrayList<>();
         archiveList = new ArrayList<>();
+    }
+
+    /**
+     * Gets the player exp level.
+     * @return the double value representing the exp level.
+     */
+    public double getPlayerExp() {
+        return this.playerExp;
     }
 
     /**
@@ -84,27 +88,9 @@ public class Logic {
             return new QuizCommand(inputs, quizList, questionNumber, isQuizMode, isNewQuiz);
         }
 
-        if (isSettingUp.get()) {
-            setupStage++;
-            if (setupStage >= 3) {
-                if (!inputs.get(0).equals("boy") || !inputs.get(0).equals("girl")) {
-                    return new SetupCommand(inputs, setupStage, isSettingUp);
-                } else {
-                    isSettingUp.set(false);
-                    setupStage = 0;
-                }
-            }
-            return new SetupCommand(inputs, setupStage, isSettingUp);
-        }
-
         switch (inputs.get(0)) {
         case "hello":
-            if (!isSettingUp.get()) {
-                isSettingUp.set(true);
-                setupStage++;
-                return new SetupCommand(inputs, setupStage, isSettingUp);
-            }
-            return new SetupCommand(inputs, setupStage, isSettingUp);
+            return new SetupCommand(inputs);
         case "help":
             return new HelpCommand(inputs);
         case "menu":

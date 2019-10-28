@@ -3,7 +3,8 @@ plugins {
     id 'application'
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '5.1.0'
-    id 'org.openjfx.javafxplugin' version '0.0.7'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
+    id 'org.asciidoctor.convert' version '1.5.6'
 }
 
 checkstyle {
@@ -30,7 +31,6 @@ repositories {
 }
 
 application {
-    // Change this to your main class.
     mainClassName = "com.algosenpai.app.Launcher"
 }
 
@@ -56,10 +56,43 @@ test {
     testLogging {
         events "passed", "skipped", "failed"
     }
+
     systemProperty 'java.awt.headless', 'true'
     systemProperty 'testfx.robot', 'glass'
     systemProperty 'testfx.headless', 'true'
     systemProperty 'prism.order', 'sw'
     systemProperty 'prism.text', 't2k'
     systemProperty 'testfx.setup.timeout', '2500'
+
 }
+
+asciidoctor {
+    backends 'html5'
+    sourceDir 'docs'
+    outputDir "${buildDir}/docs"
+
+    attributes = [
+            linkcss: true,
+            stylesheet: 'gh-pages.css',
+            'source-highlighter': 'coderay',
+            icons: 'font',
+            experimental: true,
+            sectlinks: true,
+            idprefix: '',
+            idseparator: '-',
+            'site-root': "${sourceDir}",
+            'site-name': 'AlgoSenpai Adventures',
+            'site-githuburl': 'https://github.com/AY1920S1-CS2113T-T09-3/main',
+    ]
+
+    options['template_dirs'].each {
+        inputs.files fileTree(it)
+    }
+}
+
+task copyStylesheets(type: Copy) {
+    from "${asciidoctor.sourceDir}/stylesheets"
+    into "${asciidoctor.outputDir}/html5/stylesheets"
+}
+asciidoctor.dependsOn copyStylesheets
+

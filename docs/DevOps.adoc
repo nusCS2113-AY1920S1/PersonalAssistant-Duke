@@ -1,0 +1,44 @@
+= AlgoSenpai Adventures - Dev Ops
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-T09-3/main
+
+== Build Automation
+
+We use Gradle to automate builds of AlgoSenpai Adventures.
+
+== Continuous Integration
+
+We use https://travis-ci.org/[Travis CI] to perform _Continuous Integration_ on our projects.
+
+== Coverage Reporting
+
+We use https://coveralls.io/[Coveralls] to track the code coverage of our projects.
+
+== Documentation Previews
+
+When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged.
+
+== Making a Release
+
+Here are the steps to create a new release.
+
+.  Update the version number in the issue tracker.
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number. e.g. `v1.0`
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+
+== Managing Dependencies
+
+Gradle downloads the dependencies automatically.
