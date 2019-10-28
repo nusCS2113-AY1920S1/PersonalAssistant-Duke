@@ -11,23 +11,30 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.*;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -41,18 +48,6 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
-    @FXML
-    private Button addPatientButton;
-    @FXML
-    private Button deletePatientButton;
-    @FXML
-    private Button updatePatientButton;
-    @FXML
-    private Button listPatientsButton;
-    @FXML
-    private Button listTasksButton;
     @FXML
     private TableView<Patient> patientTable;
     @FXML
@@ -131,64 +126,17 @@ public class MainWindow extends AnchorPane {
     private DatePicker assignTaskStartDatePicker;
     @FXML
     private DatePicker assignTaskEndDatePicker;
-    @FXML
-    private PieChart pieChart;
-
 
     private final Duke duke = new Duke("./data");
-//    public void initializePieChartViews() throws DukeException {
-//
-//         //PieChart pieChart = new PieChart();
-//        Map<String, Integer> counterMap = new HashMap<>();
-//        counterMap = duke.getStorageManager().loadCommandFrequency();
-//        ArrayList<Integer> frequencyList = new ArrayList<Integer>(counterMap.values());
-//        ArrayList<String> commandNameList = new ArrayList<String>(counterMap.keySet());
-//
-//        ObservableList<javafx.scene.chart.PieChart.Data> list = FXCollections.observableArrayList(
-//
-//                new javafx.scene.chart.PieChart.Data(commandNameList.get(0) , frequencyList.get(0)),
-//                new javafx.scene.chart.PieChart.Data(commandNameList.get(1) , frequencyList.get(1))
-//        );
-//        pieChart.setData(list);
-//
-//    }
-
-    public void handlePieChartButton() throws DukeException, IOException {
-        Map<String, Integer> counterMap = new HashMap<>();
-        counterMap = duke.getStorageManager().loadCommandFrequency();
-        ArrayList<Integer> frequencyList = new ArrayList<Integer>(counterMap.values());
-        ArrayList<String> commandNameList = new ArrayList<String>(counterMap.keySet());
-        ObservableList<javafx.scene.chart.PieChart.Data> list = FXCollections.observableArrayList(
-
-                new PieChart.Data(commandNameList.get(0) , frequencyList.get(0)),
-                new PieChart.Data(commandNameList.get(1) , frequencyList.get(1))
-//                new PieChart.Data(commandNameList.get(2) , frequencyList.get(2))
-//                new PieChart.Data(commandNameList.get(3) , frequencyList.get(3)),
-//                new PieChart.Data(commandNameList.get(4) , frequencyList.get(4)),
-//                new PieChart.Data(commandNameList.get(5) , frequencyList.get(5)),
-//                new PieChart.Data(commandNameList.get(6) , frequencyList.get(6)),
-//                new PieChart.Data(commandNameList.get(7) , frequencyList.get(7)),
-//                new PieChart.Data(commandNameList.get(8) , frequencyList.get(8))
-//                new PieChart.Data(commandNameList.get(9) , frequencyList.get(9)),
-//                new PieChart.Data(commandNameList.get(10) , frequencyList.get(10)),
-//                new PieChart.Data(commandNameList.get(11) , frequencyList.get(11)),
-//                new PieChart.Data(commandNameList.get(12) , frequencyList.get(12))
-
-        );
-        pieChart.setData(list);
-    }
-
-
-
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
 
     private ObservableList<AssignedTask> assignedTaskData = FXCollections
-        .observableArrayList(duke.getAssignedTaskManager().getAssignTasks());
+            .observableArrayList(duke.getAssignedTaskManager().getAssignTasks());
     private ObservableList<Task> taskData = FXCollections.observableArrayList(duke.getTaskManager().getTaskList());
     private ObservableList<Patient> patientData = FXCollections
-        .observableArrayList(duke.getPatientManager().getPatientList());
+            .observableArrayList(duke.getPatientManager().getPatientList());
 
     /**
      * .
@@ -208,6 +156,84 @@ public class MainWindow extends AnchorPane {
         executeDukeWithInput(userInput.getText());
         userInput.clear();
     }
+
+    //@@author qjie7
+
+    /**
+     * Event handler of PieChartPopUpButton.
+     */
+    public void handlePieChartPopUpButton() throws DukeException {
+        Map<String, Integer> counterMap = new HashMap<>();
+        counterMap = duke.getStorageManager().loadCommandFrequency();
+        ArrayList<Integer> frequencyList = new ArrayList<Integer>(counterMap.values());
+        ArrayList<String> commandNameList = new ArrayList<String>(counterMap.keySet());
+        final Scene scene = new Scene(new Group());
+        Stage stage = new Stage();
+        stage.setTitle("Pie Chart");
+
+        stage.setWidth(500);
+        stage.setHeight(500);
+
+        ObservableList<PieChart.Data> pieChartData =
+                FXCollections.observableArrayList(
+                    new PieChart.Data(commandNameList.get(0), frequencyList.get(0)),
+                    new PieChart.Data(commandNameList.get(1), frequencyList.get(1)),
+                    new PieChart.Data(commandNameList.get(2), frequencyList.get(2)),
+                    new PieChart.Data(commandNameList.get(3), frequencyList.get(3)),
+                    new PieChart.Data(commandNameList.get(4), frequencyList.get(4)),
+                    new PieChart.Data(commandNameList.get(5), frequencyList.get(5)),
+                    new PieChart.Data(commandNameList.get(6), frequencyList.get(6)),
+                    new PieChart.Data(commandNameList.get(7), frequencyList.get(7)),
+                    new PieChart.Data(commandNameList.get(8), frequencyList.get(8))
+                );
+        final PieChart chart = new PieChart(pieChartData);
+        chart.setTitle("Command Frequency");
+
+        ((Group) scene.getRoot()).getChildren().add(chart);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    /**
+     * Event handler of BarCharPopUpButton.
+     */
+    public void handleBarChartPopUpButton() throws DukeException {
+        Map<String, Integer> counterMap;
+        counterMap = duke.getStorageManager().loadCommandFrequency();
+        final ArrayList<Integer> frequencyList = new ArrayList<Integer>(counterMap.values());
+        final ArrayList<String> commandNameList = new ArrayList<String>(counterMap.keySet());
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        final String yearInString = Integer.toString(year);
+        Stage stage = new Stage();
+        stage.setTitle("Bar Chart");
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        final BarChart<String, Number> bc = new BarChart<String, Number>(xAxis, yAxis);
+        bc.setTitle("Command Frequency");
+        xAxis.setLabel("Command");
+        yAxis.setLabel("Frequency");
+
+        XYChart.Series series1 = new XYChart.Series();
+
+        series1.setName(yearInString);
+        series1.getData().add(new XYChart.Data(commandNameList.get(0), frequencyList.get(0)));
+        series1.getData().add(new XYChart.Data(commandNameList.get(1), frequencyList.get(1)));
+        series1.getData().add(new XYChart.Data(commandNameList.get(2), frequencyList.get(2)));
+        series1.getData().add(new XYChart.Data(commandNameList.get(3), frequencyList.get(3)));
+        series1.getData().add(new XYChart.Data(commandNameList.get(4), frequencyList.get(4)));
+        series1.getData().add(new XYChart.Data(commandNameList.get(5), frequencyList.get(5)));
+        series1.getData().add(new XYChart.Data(commandNameList.get(6), frequencyList.get(6)));
+        series1.getData().add(new XYChart.Data(commandNameList.get(7), frequencyList.get(7)));
+        series1.getData().add(new XYChart.Data(commandNameList.get(8), frequencyList.get(8)));
+
+        Scene scene = new Scene(bc, 800, 600);
+        bc.getData().addAll(series1);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
 
     /**
      * Action takes to after add patient button is being pressed.
@@ -276,8 +302,8 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleDeleteTaskButton() {
-        String Id = deleteTaskIdField.getText();
-        String input = "delete task:" + "#" + Id;
+        String id = deleteTaskIdField.getText();
+        String input = "delete task:" + "#" + id;
         executeDukeWithInput(input);
         deleteTaskIdField.clear();
     }
@@ -304,15 +330,15 @@ public class MainWindow extends AnchorPane {
         String startTime = assignTaskStartTimeField.getText();
         String endTime = assignTaskEndTimeField.getText();
         String input = "assign period task :" + "#" + patientId + " :"
-                        + "#" + taskId + " :" + startDateInString + " " + startTime
-                        + " :" + endDateInString + " " + endTime;
+                + "#" + taskId + " :" + startDateInString + " " + startTime
+                + " :" + endDateInString + " " + endTime;
         executeDukeWithInput(input);
         assignTaskIdField.clear();
         assignTaskPatientIdField.clear();
         assignTaskStartTimeField.clear();
         assignTaskEndTimeField.clear();
     }
-
+    //@@author
 
 
     /**
@@ -330,8 +356,8 @@ public class MainWindow extends AnchorPane {
         }
         updateTableViews();
         dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(inputCommand, userImage),
-            DialogBox.getDukeDialog(dukeResponses, dukeImage, isException)
+                DialogBox.getUserDialog(inputCommand, userImage),
+                DialogBox.getDukeDialog(dukeResponses, dukeImage, isException)
         );
         duke.clearDukeResponses();
     }
@@ -483,10 +509,10 @@ public class MainWindow extends AnchorPane {
                     if (assignedTask.getType().toLowerCase().contains(lowerCaseFilter)) {
                         return true;
                     } else if (duke.getTaskManager().getTask((assignedTask.getTid()))
-                        .getDescription().toLowerCase().contains(lowerCaseFilter)) {
+                            .getDescription().toLowerCase().contains(lowerCaseFilter)) {
                         return true;
                     } else if (duke.getPatientManager().getPatient((assignedTask.getPid()))
-                        .getName().toLowerCase().contains(lowerCaseFilter)) {
+                            .getName().toLowerCase().contains(lowerCaseFilter)) {
                         return true;
                     } else if (String.valueOf(assignedTask.getUuid()).contains(lowerCaseFilter)) {
                         return true;
