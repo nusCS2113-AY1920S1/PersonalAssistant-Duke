@@ -1,14 +1,14 @@
 package Commands;
 
-import Interface.LookupTable;
-import Interface.Storage;
-import Interface.Ui;
-import JavaFx.AlertBox;
+import Commons.LookupTable;
+import Commons.Storage;
+import Commons.Ui;
+import UserInterface.AlertBox;
 import Tasks.TaskList;
 import javafx.scene.control.Alert;
 
 /**
- * Represent the command that deals with tasks that need to be done within a certain period
+ * Represents the command that deals with tasks that need to be done within a certain period
  */
 public class DoWithinPeriodTasksCommand extends Command {
 

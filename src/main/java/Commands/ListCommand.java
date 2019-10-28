@@ -1,6 +1,9 @@
 package Commands;
-import Tasks.*;
-import Interface.*;
+
+import Commons.LookupTable;
+import Commons.Storage;
+import Commons.Ui;
+import Tasks.TaskList;
 /**
  * Represents the command to show the list of tasks on a TaskList object
  */

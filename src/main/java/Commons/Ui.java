@@ -1,11 +1,13 @@
-package Interface;
-import DukeExceptions.DukeException;
-import DukeExceptions.DukeInvalidCommandException;
-import Tasks.*;
+package Commons;
+import Tasks.Assignment;
+import Tasks.TaskList;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.Date;
 
 /**
  * Represents the user interface which displays the messages to
@@ -36,7 +38,7 @@ public class Ui {
     /**
      * Displays add task message when user wants to add a task.
      */
-    public String showAdd(Task task, int listSize){
+    public String showAdd(Assignment task, int listSize){
         return "Got it. I've added this task:\n" + task.toString() + "\n"
                 + "Now you have " + listSize + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
@@ -44,20 +46,18 @@ public class Ui {
     /**
      * Displays done task message when user marks a task as done.
      */
-    public String showDone(Task task){
+    public String showDone(Assignment task){
         return "Nice! I've marked this task as done:\n" + task.toString() + "\n";
     }
 
     /**
      * Displays the delete task message when user wants to delete a task.
      */
-    public String showDelete(Task task, int listSize){
+    public String showDelete(Assignment task, int listSize){
         listSize -= 1;
         return "Noted. I've removed this task:\n" + task.toString() + "\n" + "Now you have "
                 + listSize  + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
-
-
 
     /**
      * Displays the free time found with the template to be shown.
@@ -69,25 +69,16 @@ public class Ui {
     }
 
     /**
-     * Displays the chosen free time after the user select the best free time slot available.
-     * @param message The chosen free time
-     * @return The chosen free time. Otherwise, operation cancelled.
-     */
-    public String showFixedDurationTask(String message){
-        return message.equals(NO_FIELD) ? "Operation cancelled!\nPlease enter another command.": "Your selected task is been added.\n" + message;
-    }
-
-    /**
      * Displays the show reminder message when user sets a reminder for a task.
      */
-    public String showReminder(Task task, String time) {
+    public String showReminder(Assignment task, String time) {
         return "Reminder has been set for " + task.getModCode() + " " + task.getDescription() + "at: " + time;
     }
 
     /**
      * Displays the show cancel reminder message when user sets a reminder for a task.
      */
-    public String showCancelReminder(Task task, String time) {
+    public String showCancelReminder(Assignment task, String time) {
         return "Reminder has been removed for " + task.getModCode() + " " + task.getDescription() + "at: " + time;
     }
 
@@ -101,18 +92,9 @@ public class Ui {
     /**
      * Displays any of the DukeException error message caught throughout the program.
      */
-    public String showError(DukeException e){
+    public String getError(Exception e){
         return e.getMessage() + "\n";
     }
-
-
-    public String showUserSchedule(String finalSchedule) {
-        return "Here is your schedule which have been categorised into TODO, DEADLINE and EVENTS\n" +
-                finalSchedule;
-    }
-
-
-
 
     /**
      * Displays the show reminder message when user enter a task with a period to do within
@@ -175,18 +157,18 @@ public class Ui {
      * @return This returns the string of workload
      * @throws ParseException
      */
-    public String showWorkload(TreeMap<String, ArrayList<Task>> workloadMap) throws ParseException {
+    public String showWorkload(TreeMap<String, ArrayList<Assignment>> workloadMap) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat formatter1 = new SimpleDateFormat("E");
         String workloadSchedule = "Here is your recommended schedule for next week:\n";
         if (workloadMap.isEmpty()) {
             return "You have no tasks scheduled for next week! \n";
         } else {
-            for (Map.Entry<String, ArrayList<Task>> workload: workloadMap.entrySet()) {
+            for (Map.Entry<String, ArrayList<Assignment>> workload: workloadMap.entrySet()) {
                 Date tempDay = formatter.parse(workload.getKey());
                 String day = formatter1.format(tempDay);
                 workloadSchedule = workloadSchedule + day + ": \n";
-                for (Task task: workload.getValue()) {
+                for (Assignment task: workload.getValue()) {
                     workloadSchedule = workloadSchedule + task.getType() + " " + task.getModCode() + " "
                             + task.getDescription() + "\n";
                 }
@@ -206,9 +188,6 @@ public class Ui {
             for (int i = 0; i < size; i++) {
                 output += (i + 1) + ". " + outputList.get(i);
             }
-
-            //System.out.println(output);
-
             return output;
         }
     }

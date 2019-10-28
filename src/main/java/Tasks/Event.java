@@ -3,7 +3,7 @@ package Tasks;
 /**
  * Represents a task called event.
  */
-public class Event extends Task {
+public class Event extends Assignment{
 
     private final String by;
     private final String start;

@@ -2,16 +2,17 @@ package Parser;
 
 import Commands.Command;
 import Commands.DeleteCommand;
-import DukeExceptions.DukeException;
+import DukeExceptions.DukeInvalidCommandException;
 import DukeExceptions.DukeInvalidFormatException;
-import Interface.*;
+import Commons.Parser;
 import Tasks.Deadline;
 import Tasks.Event;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
- * Parse Deletecommand for event and deadline and return formatted command to Parser
+ * This class parses the full command that calls for DeleteParse
  */
 public class DeleteParse extends Parse {
     private static String[] split;
@@ -19,16 +20,20 @@ public class DeleteParse extends Parse {
     private static String fullCommand;
     private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
 
-
+    /**
+     * Creates a DeleteParse object.
+     * @param fullCommand The full command that calls for DeleteParse
+     */
     public DeleteParse(String fullCommand) {
         this.fullCommand = fullCommand;
     }
+
     /**
-     * @return Command which represents the parsed Deletecommand
+     * @return Command which represents the parsed DeleteCommand
      * @throws Exception Returned if command does not adhere to format
      */
     @Override
-    public Command execute() throws Exception {
+    public Command parse() throws Exception {
         if (fullCommand.trim().substring(0, 8).equals("delete/e")) {
             try { //add/e module_code description /at date from time to time
                 String activity = fullCommand.trim().substring(8);
@@ -38,13 +43,13 @@ public class DeleteParse extends Parse {
                     throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
                 }
                 if (split[0].trim().isEmpty()) {
-                    throw new DukeException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
+                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
                 }
                 String[] out = DateTimeParser.EventParse(split[1]);
                 return new DeleteCommand("event", new Event(split[0].trim(), out[0],out[1],out[2]));
             } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                 LOGGER.log(Level.INFO, e.toString(), e);
-                throw new DukeException("OOPS!!! Please enter in the format as follows:\n" +
+                throw new DukeInvalidFormatException("OOPS!!! Please enter in the format as follows:\n" +
                         "delete/e mod_code name_of_event /at dd/MM/yyyy /from HHmm /to HHmm\n" +
                         "or delete/e mod_code name_of_event /at week x day /from HHmm /to HHmm\n");
             }
@@ -57,19 +62,19 @@ public class DeleteParse extends Parse {
                     throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
                 }
                 if (split[0].trim().isEmpty()) {
-                    throw new DukeException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
+                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
                 }
                 String[] out = DateTimeParser.DeadlineParse(split[1]);
                 return new DeleteCommand("deadline", new Deadline(split[0].trim(), out[0],out[1]));
 
             } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                 LOGGER.log(Level.INFO, e.toString(), e);
-                throw new DukeException("OOPS!!! Please enter in the format as follows:\n" +
+                throw new DukeInvalidFormatException("OOPS!!! Please enter in the format as follows:\n" +
                         "delete/d mod_code name_of_event /by dd/MM/yyyy HHmm\n" +
                         "or delete/d mod_code name_of_event /by week x day HHmm\n");
             }
         } else {
-            throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeInvalidCommandException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }
