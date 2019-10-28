@@ -19,6 +19,7 @@ public class Level {
     private int endGold;
     private int deadline;
 
+    private int level = checkLevel(filePath,"Level");
     private boolean detailedFeedbackProvided = false;
 
     private objectiveResult levelState;
@@ -38,6 +39,7 @@ public class Level {
         deadline = Math.toIntExact((Long) object.get("deadline"));
         objective = (String) object.get("objective");
         hint = (String) object.get("hint");
+        level = filePath;
     }
 
     /**
@@ -144,6 +146,12 @@ public class Level {
 
     public String getDetailedFeedback( Farmio farmio){
         //states what went wrong with the level
+
+        //find out what level theyre at
+
+
+
+
         return "";
     }
 
@@ -204,4 +212,18 @@ public class Level {
     public String getObjective() {
         return objective;
     }
+
+
+    //returns the level in int
+    public int checkLevel(String filePath, String word){
+        String level = filePath;
+        if(filePath.contains(word)){
+            String tempWord = word + " ";
+            level = level.replaceAll(tempWord, "");
+            tempWord = " " + word;
+            level = level.replaceAll(tempWord, "");
+        }
+        return Integer.parseInt(level);
+    }
+
 }
