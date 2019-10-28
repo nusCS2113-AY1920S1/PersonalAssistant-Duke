@@ -7,8 +7,8 @@ import chronologer.task.Deadline;
 import java.time.LocalDateTime;
 
 public class DeadlineTest {
-    LocalDateTime fromDate = LocalDateTime.of(2001, 1, 1, 1, 0);
-    Deadline deadline = new Deadline("test", fromDate);
+    private LocalDateTime fromDate = LocalDateTime.of(2001, 1, 1, 1, 0);
+    private Deadline deadline = new Deadline("test", fromDate);
 
     @Test
     public void testDeadlineCreation() {
