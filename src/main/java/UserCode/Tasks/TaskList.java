@@ -25,8 +25,16 @@ public class TaskList extends ArrayList<Task>{
     public void editTask(int taskID, Task task) throws FarmioException {
         try {
             this.set(taskID - 1, task);
-        } catch (Exception e) {
-            throw new FarmioException("Error editing task!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new FarmioException("Invalid TaskID!");
+        }
+    }
+
+    public void insertTask (int taskID, Task task) throws FarmioException {
+        try {
+            this.add(taskID - 1, task);
+        } catch (IndexOutOfBoundsException e) {
+            throw new FarmioException("Invalid Insert Position!");
         }
     }
 
@@ -54,8 +62,8 @@ public class TaskList extends ArrayList<Task>{
         try {
             Task t = this.remove(taskID - 1);
             return t.toString();
-        } catch (Exception e) {
-            throw new FarmioException("Error deleting task!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new FarmioException("Invalid TaskID!");
         }
     }
 }
