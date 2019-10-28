@@ -2,6 +2,8 @@ package dictionary;
 
 import exception.NoWordFoundException;
 import exception.WordAlreadyExistsException;
+import exception.WordBankEmptyException;
+import exception.WordCountEmptyException;
 import storage.Storage;
 
 import java.util.ArrayList;
@@ -104,11 +106,11 @@ public class Bank {
         return wordBank.searchWordWithBegin(begin);
     }
 
-    public String searchWordBankForMeaning(String searchTerm) throws NoWordFoundException {
+    public String searchWordBankForMeaning(String searchTerm) throws WordBankEmptyException, NoWordFoundException {
         return wordBank.searchWordMeaning(searchTerm);
     }
 
-    public void increaseSearchCount(String searchTerm) throws NoWordFoundException {
+    public void increaseSearchCount(String searchTerm) throws WordCountEmptyException, NoWordFoundException {
         wordCount.increaseSearchCount(searchTerm, wordBank);
     }
 

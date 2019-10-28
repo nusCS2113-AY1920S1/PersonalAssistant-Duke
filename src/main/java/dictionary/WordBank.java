@@ -6,6 +6,7 @@ import java.util.SortedMap;
 import exception.NoWordFoundException;
 import command.OxfordCall;
 import exception.WordAlreadyExistsException;
+import exception.WordBankEmptyException;
 import storage.Storage;
 
 import java.util.HashSet;
@@ -81,9 +82,12 @@ public class WordBank extends Bank {
      * @return a string represents meaning of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank nor Oxford dictionary
      */
-    public String searchWordMeaning(String word) throws NoWordFoundException {
+    public String searchWordMeaning(String word) throws WordBankEmptyException, NoWordFoundException {
         word = word.toLowerCase();
         String s = "";
+        if (wordBank.isEmpty()) {
+            throw new WordBankEmptyException();
+        }
         if (!(wordBank.containsKey(word))) {
             s = "Unable to locate \"" + word + "\" in local dictionary. Looking up Oxford dictionary\n";
             String result = OxfordCall.onlineSearch(word);

@@ -2,6 +2,8 @@ package command;
 
 import dictionary.Bank;
 import exception.NoWordFoundException;
+import exception.WordBankEmptyException;
+import exception.WordCountEmptyException;
 import storage.Storage;
 import ui.Ui;
 
@@ -35,6 +37,8 @@ public class SearchCommand extends Command {
                 stringBuilder.append(arrayList.get(i) + "\n");
             }
             return e.showError() + stringBuilder;
+        } catch (WordBankEmptyException | WordCountEmptyException e) {
+            return e.showError();
         }
     }
 }
