@@ -16,7 +16,7 @@ import static duchess.parser.Parser.ADD_TYPE_PROMPT;
 /**
  * Handles the parsing of entity type to add.
  */
-public class AddState implements ParserState {
+public class AddState extends ParserState {
     private final Parser parser;
 
     public AddState(Parser parser) {
@@ -45,6 +45,8 @@ public class AddState implements ParserState {
                         return new EventDescriptionState(parser);
                     } else if (type.charAt(0) == 'g') {
                         return new GradeDescriptionState(parser);
+                    } else if (type.charAt(0) == 'd') {
+                        return new DeadlineDescriptionState(parser);
                     } else {
                         return null;
                     }

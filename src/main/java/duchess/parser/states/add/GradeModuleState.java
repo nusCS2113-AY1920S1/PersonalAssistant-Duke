@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Handles the parsing of grades associated with modules.
  */
-public class GradeModuleState implements ParserState {
+public class GradeModuleState extends ParserState {
     private final Parser parser;
     private final String description;
     private final int marks;
@@ -31,6 +31,7 @@ public class GradeModuleState implements ParserState {
      * @param weightage the weightage of the grade
      */
     public GradeModuleState(Parser parser, String description, int marks, int maxMarks, int weightage) {
+        super("module");
         this.parser = parser;
         this.description = description;
         this.marks = marks;
@@ -39,17 +40,7 @@ public class GradeModuleState implements ParserState {
     }
 
     @Override
-    public Command parse(String input) throws DuchessException {
-        Map<String, String> parameters = Util.parameterizeWithoutCommand(input);
-        return processModule(parameters.get("general"));
-    }
-
-    @Override
-    public Command continueParsing(Map<String, String> parameters) {
-        return processModule(parameters.get("module"));
-    }
-
-    private Command processModule(String moduleCode) {
+    public Command process(String moduleCode, Map<String, String> parameters) {
         if (moduleCode == null) {
             return new DisplayCommand(String.format(Parser.GRADE_MODULE_PROMPT, description));
         } else {

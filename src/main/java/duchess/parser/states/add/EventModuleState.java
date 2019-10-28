@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Handles the parsing of events associated with modules.
  */
-public class EventModuleState implements ParserState {
+public class EventModuleState extends ParserState {
     private final Parser parser;
     private final String description;
     private final LocalDateTime start;
@@ -29,6 +29,7 @@ public class EventModuleState implements ParserState {
      * @param end the end time of the event
      */
     public EventModuleState(Parser parser, String description, LocalDateTime start, LocalDateTime end) {
+        super("module");
         this.parser = parser;
         this.description = description;
         this.start = start;
@@ -36,19 +37,9 @@ public class EventModuleState implements ParserState {
     }
 
     @Override
-    public Command parse(String input) {
-        Map<String, String> parameters = Util.parameterizeWithoutCommand(input);
-        return processDescription(parameters.get("general"));
-    }
-
-    @Override
-    public Command continueParsing(Map<String, String> parameters) {
-        return processDescription(parameters.get("module"));
-    }
-
-    private Command processDescription(String module) {
+    public Command process(String module, Map<String, String> parameters) {
         if (module == null) {
-            return new DisplayCommand(String.format(Parser.EVENT_MODULE_PROMPT, description));
+            return new DisplayCommand(String.format(Parser.TASK_MODULE_PROMPT, description));
         } else if (module.equals("nil")) {
             this.parser.setParserState(new DefaultState(parser));
             return new AddEventCommand(description, end, start);

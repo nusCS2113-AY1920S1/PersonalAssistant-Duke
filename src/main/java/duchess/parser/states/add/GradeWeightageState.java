@@ -13,7 +13,7 @@ import java.util.Optional;
 /**
  * Handles the parsing of grade weightage.
  */
-public class GradeWeightageState implements ParserState {
+public class GradeWeightageState extends ParserState {
     private final Parser parser;
     private final String description;
     private final int marks;
@@ -28,6 +28,7 @@ public class GradeWeightageState implements ParserState {
      * @param maxMarks the maximum marks obtainable
      */
     public GradeWeightageState(Parser parser, String description, int marks, int maxMarks) {
+        super("weightage");
         this.parser = parser;
         this.description = description;
         this.marks = marks;
@@ -35,17 +36,7 @@ public class GradeWeightageState implements ParserState {
     }
 
     @Override
-    public Command parse(String input) throws DuchessException {
-        Map<String, String> parameters = Util.parameterizeWithoutCommand(input);
-        return processWeightage(parameters.get("general"), parameters);
-    }
-
-    @Override
-    public Command continueParsing(Map<String, String> parameters) throws DuchessException {
-        return processWeightage(parameters.get("weightage"), parameters);
-    }
-
-    private Command processWeightage(String weightage, Map<String, String> parameters) throws DuchessException {
+    public Command process(String weightage, Map<String, String> parameters) throws DuchessException {
         Optional<ParserState> nextState = Optional.ofNullable(weightage)
                 .map(weight -> {
                     try {

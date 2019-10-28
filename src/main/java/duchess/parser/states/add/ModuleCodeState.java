@@ -14,27 +14,24 @@ import java.util.Optional;
 /**
  * Handles the parsing of module code.
  */
-public class ModuleCodeState implements ParserState {
+public class ModuleCodeState extends ParserState {
     private final Parser parser;
     private final String moduleName;
 
+    /**
+     * Initializes a state to process module code.
+     *
+     * @param parser the main parser instance
+     * @param moduleName the name of the module
+     */
     public ModuleCodeState(Parser parser, String moduleName) {
+        super("code");
         this.parser = parser;
         this.moduleName = moduleName;
     }
 
     @Override
-    public Command parse(String input) {
-        Map<String, String> parameters = Util.parameterizeWithoutCommand(input);
-        return processModuleCode(parameters.get("general"));
-    }
-
-    @Override
-    public Command continueParsing(Map<String, String> parameters) {
-        return processModuleCode(parameters.get("code"));
-    }
-
-    private Command processModuleCode(String code) {
+    public Command process(String code, Map<String, String> parameters) {
         Optional<Command> createCommand = Optional.ofNullable(code)
                 .map(moduleCode -> new AddModuleCommand(this.moduleName, moduleCode));
 

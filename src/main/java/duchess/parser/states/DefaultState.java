@@ -1,7 +1,6 @@
 package duchess.parser.states;
 
 import duchess.exceptions.DuchessException;
-import duchess.logic.commands.AddDeadlineCommand;
 import duchess.logic.commands.AddTodoCommand;
 import duchess.logic.commands.ByeCommand;
 import duchess.logic.commands.Command;
@@ -24,12 +23,11 @@ import duchess.parser.commands.LessonCommandParser;
 import duchess.parser.commands.ListCommandParser;
 import duchess.parser.states.add.AddState;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class DefaultState implements ParserState {
+public class DefaultState extends ParserState {
     private Parser parser;
 
     public DefaultState(Parser parser) {
@@ -78,23 +76,6 @@ public class DefaultState implements ParserState {
             } else {
                 String description = String.join(" ", arguments);
                 return new AddTodoCommand(description);
-            }
-        } else if ("deadline".equals(keyword)) {
-            int separatorIndex = arguments.indexOf("/by");
-            if (arguments.size() == 0 || separatorIndex <= 0) {
-                throw new DuchessException("Format for deadline: deadline <task> /by <deadline>");
-            }
-            String description = String.join(" ", arguments.subList(0, separatorIndex));
-            if (arguments.get(arguments.size() - 1).charAt(0) == '#') {
-                arguments = arguments.subList(0, arguments.size() - 1);
-                String dateTime = arguments.get(separatorIndex + 1) + " " + arguments.get(separatorIndex + 2);
-                LocalDateTime deadline = Util.parseDateTime(dateTime);
-                String moduleCode = arguments.get(arguments.size() - 1).substring(1);
-                return new AddDeadlineCommand(description, deadline, moduleCode);
-            } else {
-                String dateTime = arguments.get(separatorIndex + 1) + " " + arguments.get(separatorIndex + 2);
-                LocalDateTime deadline = Util.parseDateTime(dateTime);
-                return new AddDeadlineCommand(description, deadline);
             }
         } else if ("reminder".equals(keyword)) {
             return new ReminderCommand();

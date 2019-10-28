@@ -13,7 +13,7 @@ import java.util.Optional;
 /**
  * Handles the parsing of grade descriptions.
  */
-public class GradeDescriptionState implements ParserState {
+public class GradeDescriptionState extends ParserState {
     private final Parser parser;
 
     /**
@@ -22,21 +22,12 @@ public class GradeDescriptionState implements ParserState {
      * @param parser the main parser instance
      */
     public GradeDescriptionState(Parser parser) {
+        super("name");
         this.parser = parser;
     }
 
     @Override
-    public Command parse(String input) throws DuchessException {
-        Map<String, String> parameters = Util.parameterizeWithoutCommand(input);
-        return processDescription(parameters.get("general"), parameters);
-    }
-
-    @Override
-    public Command continueParsing(Map<String, String> parameters) throws DuchessException {
-        return processDescription(parameters.get("name"), parameters);
-    }
-
-    private Command processDescription(String description, Map<String, String> parameters) throws DuchessException {
+    public Command process(String description, Map<String, String> parameters) throws DuchessException {
         Optional<ParserState> nextState = Optional.ofNullable(description)
                 .map(desc -> new GradeMarksState(parser, desc));
 

@@ -13,27 +13,24 @@ import java.util.Optional;
 /**
  * Handles the parsing of event start time.
  */
-public class EventFromState implements ParserState {
+public class EventFromState extends ParserState {
     private final Parser parser;
     private final String description;
 
+    /**
+     * Initializes a state to parse event start time.
+     *
+     * @param parser the main parser instance
+     * @param description the event description
+     */
     public EventFromState(Parser parser, String description) {
+        super("from");
         this.parser = parser;
         this.description = description;
     }
 
     @Override
-    public Command parse(String input) throws DuchessException {
-        Map<String, String> parameters = Util.parameterizeWithoutCommand(input);
-        return processFromDate(parameters.get("general"), parameters);
-    }
-
-    @Override
-    public Command continueParsing(Map<String, String> parameters) throws DuchessException {
-        return processFromDate(parameters.get("from"), parameters);
-    }
-
-    private Command processFromDate(String from, Map<String, String> parameters) throws DuchessException {
+    public Command process(String from, Map<String, String> parameters) throws DuchessException {
         Optional<ParserState> nextState = Optional.ofNullable(from)
                 .map(date -> {
                     try {

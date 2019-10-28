@@ -43,7 +43,7 @@ public class Parser {
             "When does %s start? (dd/mm/yyyy hhmm)";
     public static final String EVENT_END_PROMPT =
             "When does %s end? (dd/mm/yyyy hhmm)";
-    public static final String EVENT_MODULE_PROMPT =
+    public static final String TASK_MODULE_PROMPT =
             "What module is %s for? (enter 'nil' to skip)";
     public static final String GRADE_MODULE_PROMPT =
             "What module is %s for? (e.g CS1231)";
@@ -53,6 +53,16 @@ public class Parser {
             "What's the name of the assessment? (e.g midterm)";
     public static final String GRADE_WEIGHTAGE_PROMPT =
             "What's the weightage of %s?";
+    public static final String DEADLINE_DESCRIPTION_PROMPT =
+            "What's the name of the deadline?";
+    public static final String DEADLINE_DEADLINE_PROMPT =
+            "When is %s due?";
+
+    /**
+     * Error messages.
+     */
+    public static final String PARSING_ERROR_MESSAGE =
+            "An unexpected error occurred while processing your command.";
 
     private ParserState parserState;
 

@@ -29,8 +29,8 @@ public class ReminderCommandTest {
 
     @Test
     public void testExecuteWithDeadlines() throws DuchessException {
-        String firstDeadline = "deadline homework assignment /by 23/12/2019 1800";
-        String secondDeadline = "deadline school project tasks /by 01/11/2020 0900";
+        String firstDeadline = "add deadline /name homework assignment /by 23/12/2019 1800 /module nil";
+        String secondDeadline = "add deadline /name school project tasks /by 01/11/2020 0900 /module nil";
 
         String filename = "text_file";
         Store store = new Store();

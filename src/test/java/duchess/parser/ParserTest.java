@@ -21,7 +21,7 @@ class ParserTest {
             "Stub test");
     }
 
-    private class ParserStateStub implements ParserState {
+    private class ParserStateStub extends ParserState {
         @Override
         public Command parse(String input) throws DuchessException {
             throw new DuchessException("Stub test");

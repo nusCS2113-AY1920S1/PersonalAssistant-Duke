@@ -13,25 +13,16 @@ import java.util.Optional;
 /**
  * Handles the parsing of event descriptions.
  */
-public class EventDescriptionState implements ParserState {
+public class EventDescriptionState extends ParserState {
     private final Parser parser;
 
     public EventDescriptionState(Parser parser) {
+        super("name");
         this.parser = parser;
     }
 
     @Override
-    public Command parse(String input) throws DuchessException {
-        Map<String, String> parameters = Util.parameterizeWithoutCommand(input);
-        return processDescription(parameters.get("general"), parameters);
-    }
-
-    @Override
-    public Command continueParsing(Map<String, String> parameters) throws DuchessException {
-        return processDescription(parameters.get("name"), parameters);
-    }
-
-    private Command processDescription(String description, Map<String, String> parameters) throws DuchessException {
+    public Command process(String description, Map<String, String> parameters) throws DuchessException {
         Optional<ParserState> nextState = Optional.ofNullable(description)
                 .map(desc -> new EventFromState(parser, desc));
 

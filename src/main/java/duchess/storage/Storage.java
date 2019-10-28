@@ -62,7 +62,6 @@ public class Storage {
             fileStream.close();
             return store;
         } catch (IOException | ClassCastException e) {
-            e.printStackTrace();
             throw new DuchessException(UNREADABLE_FILE_MESSAGE);
         }
     }
