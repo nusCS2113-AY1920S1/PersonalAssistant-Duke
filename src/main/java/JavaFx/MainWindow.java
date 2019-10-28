@@ -11,6 +11,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -76,11 +77,10 @@ public class MainWindow extends BorderPane implements Initializable {
     @FXML
     private TableColumn<DeadlineView, String> overdueTaskColumn;
     @FXML
-    private TableView<DeadlineView> deadlineTable;
+    private TableView<dukeResponseView> dukeResponseTable;
     @FXML
-    private TableColumn<DeadlineView, String> deadlineDateColumn;
-    @FXML
-    private TableColumn<DeadlineView, String> deadlineTaskColumn;
+    TableColumn dukeResponseColumn;
+
     private Duke duke;
     private Storage storage;
     private ArrayList<Task> events;
@@ -109,10 +109,7 @@ public class MainWindow extends BorderPane implements Initializable {
 
             retrieveList();
             openReminderBox();
-
-            deadlineDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-            deadlineTaskColumn.setCellValueFactory(new PropertyValueFactory<>("task"));
-            deadlineTable.setItems(setDeadlineTable());
+            setDeadlineTable();
 
             overdueDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
             overdueTaskColumn.setCellValueFactory(new PropertyValueFactory<>("task"));
@@ -203,6 +200,8 @@ public class MainWindow extends BorderPane implements Initializable {
         }
     }
 
+    private ObservableList<dukeResponseView> betterDukeResponse = FXCollections.observableArrayList();
+
     private ObservableList<DeadlineView> setDeadlineTable()  {
         String to;
         String description;
@@ -277,6 +276,21 @@ public class MainWindow extends BorderPane implements Initializable {
         }
     }
 
+    private void setDukeResponse() {
+        dukeResponseTable.getColumns().clear();
+//        TableColumn dukeIndexColumn = new TableColumn<>();
+//        dukeIndexColumn.setText("Index");
+//        dukeIndexColumn.setMinWidth(35);
+//        dukeIndexColumn.setCellValueFactory(new PropertyValueFactory<>("index"));
+        dukeResponseColumn = new TableColumn<>();
+        dukeResponseColumn.setText("Duke Response");
+        dukeResponseColumn.setSortable(false);
+//        deadlineTaskColumn.setMinWidth(165);
+        dukeResponseColumn.setCellValueFactory(new PropertyValueFactory("response"));
+        dukeResponseTable.setItems(betterDukeResponse);
+        dukeResponseTable.getColumns().add(dukeResponseColumn);
+    }
+
     @FXML
     private void handleUserInput() throws IOException{
         String input = userInput.getText();
@@ -300,7 +314,13 @@ public class MainWindow extends BorderPane implements Initializable {
 //        }
 
         retrieveList();
-        deadlineTable.setItems(setDeadlineTable());
+        if(!response.isEmpty()) {
+            Text temp = new Text(response);
+            temp.setWrappingWidth(dukeResponseColumn.getWidth() - 10);
+            Integer index = betterDukeResponse.size() + 1;
+            betterDukeResponse.add(new dukeResponseView(index.toString(), temp));
+            setDukeResponse();
+        }
         setProgressContainer();
 
         if (userInput.getText().equals("bye")) {
