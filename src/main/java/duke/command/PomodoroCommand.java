@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.storage.Storage;
+import duke.storage.UndoStack;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 import duke.extensions.Pomodoro;
@@ -38,5 +39,10 @@ public class PomodoroCommand extends Command {
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what you are referring to");
         }
+    }
+
+    @Override
+    public void savePrevState(TaskList tasks, UndoStack undoStack) throws DukeException {
+
     }
 }

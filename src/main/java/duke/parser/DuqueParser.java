@@ -2,6 +2,8 @@ package duke.parser;
 
 import duke.command.*;
 import duke.exception.DukeException;
+import duke.storage.UndoStack;
+
 import java.util.Optional;
 
 /**
@@ -18,7 +20,7 @@ public class DuqueParser {
      * @throws DukeException in case of user input errors which duke.parser.Parser cannot recognise, the parser will return
      *                       specific error messages depending on the reason of the error
      */
-    public static Command parseCommand(String fullCommand) throws DukeException {
+    public static Command parseCommand(String fullCommand, UndoStack undoStack) throws DukeException {
         Optional<String> filter = Optional.empty();
         fullCommand = fullCommand.trim();
         if (fullCommand.charAt(0) == '-') {
@@ -78,6 +80,11 @@ public class DuqueParser {
                     throw new DukeException("☹ OOPS!!! Please specify which pomodoro timer you would like to start!");
                 }
                 return new PomodoroCommand(fcArray[1]);
+            case "undo":
+                if (fcArray.length != 1) {
+                    throw new DukeException("☹ OOPS!!! There should not be any description for undo!");
+                }
+                return new UndoCommand(undoStack);
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

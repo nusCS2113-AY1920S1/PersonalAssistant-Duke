@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.storage.Storage;
+import duke.storage.UndoStack;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
@@ -15,6 +16,9 @@ import java.text.ParseException;
  */
 public abstract class Command {
 	public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, ParseException, DukeException;
+
+	public abstract void savePrevState(TaskList tasks, UndoStack undoStack) throws DukeException;
+
 	public boolean isExit() {
 		return false;
 	}

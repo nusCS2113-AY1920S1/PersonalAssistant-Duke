@@ -3,6 +3,7 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.storage.Storage;
+import duke.storage.UndoStack;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
@@ -29,5 +30,12 @@ public class DoneCommand extends Command {
         ui.showLine("Congratulations on completing the following task:");
         ui.showLine(t.getDescription());
 		storage.save(tasks);
+    }
+
+    @Override
+    public void savePrevState(TaskList tasks, UndoStack undoStack) throws DukeException {
+        Task t = tasks.get(filter, index);
+        undoStack.addAction(new SetCommand(filter, index, new Task(t)));
+        System.out.println(t);
     }
 }

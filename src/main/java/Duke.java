@@ -2,6 +2,7 @@ import duke.command.Command;
 import duke.exception.DukeException;
 import duke.parser.DuqueParser;
 import duke.storage.Storage;
+import duke.storage.UndoStack;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
@@ -16,9 +17,11 @@ public class Duke {
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
+    private UndoStack undoStack;
 
     public Duke(String filepath) {
         ui = new Ui();
+        undoStack = new UndoStack();
         storage = new Storage(filepath);
         try {
             tasks = new TaskList(storage.load());
@@ -39,7 +42,8 @@ public class Duke {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                Command c = DuqueParser.parseCommand(fullCommand);
+                Command c = DuqueParser.parseCommand(fullCommand, undoStack);
+                c.savePrevState(tasks, undoStack);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (ParseException e) {

@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.storage.Storage;
+import duke.storage.UndoStack;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.TaskListPrinter;
@@ -41,5 +42,10 @@ public class FindCommand extends Command {
 			TaskList foundTasks = new TaskList(foundTasksTemp);
 			listCommand.execute(foundTasks, ui, storage);
 		}
+	}
+
+	@Override
+	public void savePrevState(TaskList tasks, UndoStack undoStack) throws DukeException {
+
 	}
 }

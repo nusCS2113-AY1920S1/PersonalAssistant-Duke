@@ -5,6 +5,7 @@ import duke.exception.DukeException;
 import duke.parser.DateTimeParser;
 import duke.parser.KeywordAndField;
 import duke.storage.Storage;
+import duke.storage.UndoStack;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
@@ -65,4 +66,10 @@ public class EditCommand extends Command {
         }
         storage.save(tasks);
     }
+
+	@Override
+	public void savePrevState(TaskList tasks, UndoStack undoStack) throws DukeException {
+		Task t = tasks.get(filter, taskListIndex);
+		undoStack.addAction(new SetCommand(filter, taskListIndex, new Task(t)));
+	}
 }
