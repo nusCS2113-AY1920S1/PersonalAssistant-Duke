@@ -12,10 +12,7 @@ import duke.storages.StorageManager;
 import java.util.ArrayList;
 
 public class DeleteAssignedTaskCommand implements Command {
-    private int patientId;
-    private int taskId;
-    private String deletedPatientInfo;
-    private String[] command;
+    private int taskUniqueId;
 
 
     /**
@@ -24,20 +21,19 @@ public class DeleteAssignedTaskCommand implements Command {
      * @param deleteInfo .
      * @throws DukeException .
      */
-    public DeleteAssignedTaskCommand(String[] deleteInfo) throws DukeException {
+    public DeleteAssignedTaskCommand(String deleteInfo) throws DukeException {
+        super();
+        char firstChar = deleteInfo.charAt(0);
 
-        char firstChar = deleteInfo[0].charAt(0);
         try {
-            if (firstChar == '#') {
-                this.patientId = Integer.parseInt(deleteInfo[0].substring(1));
-            } else if (firstChar == '%') {
-                this.taskId = Integer.parseInt(deleteInfo[0].substring(1));
-            } else {
-                this.deletedPatientInfo = deleteInfo[0];
+            if (deleteInfo.charAt(0) != '#') {
+                throw new DukeException("Invalid format. Please follow: "
+                        + "delete assigned task : #<taskUniqueID>");
             }
-        } catch (Exception e) {
-            throw new DukeException("Try to follow the format: delete assigned task %<taskUniqueID>/#<patientID>/"
-                + "<patientName>");
+            taskUniqueId = Integer.parseInt(deleteInfo.substring(1));
+
+        } catch (DukeException e) {
+            throw new DukeException("Warning " + e.getMessage());
         }
     }
 
@@ -57,43 +53,14 @@ public class DeleteAssignedTaskCommand implements Command {
                         StorageManager storageManager)
         throws DukeException {
 
-        if (patientId != 0) {
-            try {
-                Patient toBeDeletedPatient = patientManager.getPatient(patientId);
-                if (assignedTaskManager.doesPatientIdExist(patientId)) {
-                    assignedTaskManager.deleteAllTasksBelongToThePatient(patientId);
-                    storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
-                    ui.patientTaskAllDeleted(patientManager.getPatient(patientId));
-                } else {
-                    throw new DukeException("This Patient does not have any tasks.");
-                }
-            } catch (DukeException e) {
-                throw new DukeException(e.getMessage());
-            }
-        } else if (taskId != 0) {
-            try {
-                assignedTaskManager.deletePatientTaskByUniqueId(taskId);
-                storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
-                ui.patientTaskDeleted(taskId);
-            } catch (DukeException e) {
-                throw new DukeException("Task is not found!");
-            }
-        } else {
-            try {
-                String deletePatientName = this.deletedPatientInfo;
-                ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(deletePatientName);
-                int tempPatientId = patientsWithSameName.get(0).getId();
-                if (assignedTaskManager.doesPatientIdExist(tempPatientId)) {
-                    assignedTaskManager.deleteAllTasksBelongToThePatient(tempPatientId);
-                    storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
-                    ui.patientTaskAllDeleted(patientManager.getPatient(tempPatientId));
-                } else {
-                    throw new DukeException("This Patient does not have any tasks.");
-                }
-            } catch (Exception e) {
-                throw new DukeException(e.getMessage());
-            }
+        try {
+            assignedTaskManager.deletePatientTaskByUniqueId(taskUniqueId);
+            storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
+            ui.patientTaskDeleted(taskUniqueId);
+        } catch (DukeException e) {
+            throw new DukeException("Task is not found!");
         }
+
     }
 
     /**
