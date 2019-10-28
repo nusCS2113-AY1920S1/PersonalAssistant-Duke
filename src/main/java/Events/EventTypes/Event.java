@@ -1,6 +1,9 @@
 package Events.EventTypes;
 
 import Events.Formatting.EventDate;
+import Events.Storage.Goal;
+
+import java.util.ArrayList;
 
 /**
  * Model_Class.Event object inherits Model_Class.Task.
@@ -12,6 +15,7 @@ public abstract class Event implements Comparable<Event> {
     protected EventDate startEventDate;
     protected EventDate endEventDate;
     protected char eventType;
+    protected ArrayList<Goal> goalsList;
 
     /**
      * Creates event with one date input (e.g todo)
@@ -26,6 +30,7 @@ public abstract class Event implements Comparable<Event> {
         this.startEventDate = new EventDate(dateAndTime);
         this.endEventDate = null; //no end date, set to null
         this.eventType = 'T'; //event with no end date can only be todo type
+        this.goalsList = new ArrayList<>();
     }
 
     /**
@@ -42,6 +47,7 @@ public abstract class Event implements Comparable<Event> {
         this.startEventDate = new EventDate(startDateAndTime);
         this.endEventDate = new EventDate(endDateAndTime);
         this.eventType = eventType;
+        this.goalsList = new ArrayList<>();
     }
 
     /**
@@ -113,6 +119,19 @@ public abstract class Event implements Comparable<Event> {
     public void rescheduleEndDate(EventDate newEndDate) {
         this.endEventDate = newEndDate;
     }
+
+    public void addGoal(Goal goalInput) {
+        goalsList.add(goalInput);
+    }
+
+    public void removeGoal(int goalID) {
+        goalsList.remove(goalID);
+    }
+
+    public ArrayList<Goal> getGoalList() {
+        return goalsList;
+    }
+
 
     @Override
     public int compareTo(Event currEvent) {

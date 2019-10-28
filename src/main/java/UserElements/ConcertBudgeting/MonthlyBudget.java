@@ -3,7 +3,6 @@ package UserElements.ConcertBudgeting;
 import Events.EventTypes.Event;
 import Events.EventTypes.EventSubclasses.Concert;
 import Events.Formatting.EventDate;
-import Events.Storage.EventList;
 
 import java.util.ArrayList;
 
@@ -18,7 +17,7 @@ public class MonthlyBudget {
      * @param listOfConcerts Contains the list of Concert objects in the current month for easy access
      */
     public MonthlyBudget(ArrayList<Event> listOfConcerts) {
-        setDateToFirstOfMonth(listOfConcerts.get(0).getStartDate()); //set EventDate date to first day of month
+        //setDateToFirstOfMonth(listOfConcerts.get(0).getStartDate()); //set EventDate date to first day of month
         convertAndStoreConcerts(listOfConcerts); //convert events to Concert objects, and store in list.
     }
 
