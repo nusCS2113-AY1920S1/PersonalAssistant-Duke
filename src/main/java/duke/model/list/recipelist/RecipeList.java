@@ -55,6 +55,16 @@ public class RecipeList {
         }
     }
 
+    public int containsRecipeIngredient(String recipeTitle, String recipeIngredient) {
+        ArrayList<String> arrayList = new ArrayList<>(this.recipeLHM.get(recipeTitle).getRequiredIngredients().getRequiredIngredientList());
+        if (arrayList.contains(recipeIngredient)) {
+            System.out.println("this is the position of the duplicate ingredient " + arrayList.indexOf(recipeIngredient));
+            return arrayList.indexOf(recipeIngredient);
+        } else {
+            return -1;
+        }
+    }
+
     public void editRating(String recipeTitle, String rating) {
         this.recipeLHM.get(recipeTitle).editRating(rating);
     }
@@ -80,6 +90,10 @@ public class RecipeList {
 
     public void clearReqIngredient(String recipeTitle) {
         this.recipeLHM.get(recipeTitle).getRequiredIngredients().clearIngredients();
+    }
+
+    public void removeDupReqIngredient(int index, String recipeTitle) {
+        this.recipeLHM.get(recipeTitle).getRequiredIngredients().removeIngredient(index);
     }
 
     public void insertPrepStep(String recipeTitle, String position, String prepStep) {

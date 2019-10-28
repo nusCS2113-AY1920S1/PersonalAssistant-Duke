@@ -65,6 +65,10 @@ public class RequiredIngredients {
         requiredIngredientList.clear();
     }
 
+    public void removeIngredient(int index) {
+        requiredIngredientList.remove(index);
+    }
+
     public int getSize() {
         return requiredIngredientList.size();
     }
@@ -82,6 +86,14 @@ public class RequiredIngredients {
             }
         }
         return joinedString;
+    }
+
+    public ArrayList<String> getRequiredIngredientList () {
+        ArrayList<String> arrayList = new ArrayList<>();
+        for (Ingredient ingredient : requiredIngredientList) {
+            arrayList.add(ingredient.getIngredientName());
+        }
+        return arrayList;
     }
 
     public String toSaveString() {
