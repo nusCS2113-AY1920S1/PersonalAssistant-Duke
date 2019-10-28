@@ -287,7 +287,8 @@ public class ParserHelper {
         return tasksToView;
     }
 
-    private void checkForSameMemberIndexes(ArrayList<Integer> assignees, ArrayList<Integer> unassignees, Project project) {
+    private void checkForSameMemberIndexes(ArrayList<Integer> assignees, ArrayList<Integer> unassignees,
+        Project project) {
         ArrayList<Integer> repeated = new ArrayList<>();
         for (Integer index: assignees) {
             if (unassignees.contains(index)) {
