@@ -6,6 +6,7 @@ import duke.commons.exceptions.EventNotSelectedException;
 import duke.logic.commands.EditCommand;
 import duke.logic.commands.PromptCommand;
 import duke.logic.commands.results.PanelResult;
+import duke.logic.edits.EditorManager;
 import duke.model.Event;
 import duke.model.lists.EventList;
 import duke.model.lists.VenueList;

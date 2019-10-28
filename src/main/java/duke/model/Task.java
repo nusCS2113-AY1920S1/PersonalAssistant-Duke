@@ -1,9 +1,11 @@
 package duke.model;
 
+import java.io.Serializable;
+
 /**
  * Represents a generic task, which can be marked as done.
  */
-public class Task {
+public class Task implements Serializable {
     private String description;
     private boolean isDone;
 
