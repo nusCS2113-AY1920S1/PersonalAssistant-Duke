@@ -1,3 +1,5 @@
+import chronologer.exception.ChronologerException;
+import chronologer.parser.ParserFactory;
 import chronologer.task.Event;
 import chronologer.task.Priority;
 import org.junit.jupiter.api.Assertions;
@@ -63,6 +65,13 @@ public class EventTest {
         event.setEndDate(newEndDate);
         Assertions.assertEquals(event.toString(),
             "[\u2605\u2605][E][\u2718] Test event(at: 01/01/2003 0100-02/02/2003 0200)");//Test
+    }
+
+    @Test
+    public void whenExceptionThrown() {
+        Assertions.assertThrows(ChronologerException.class, () -> {
+            ParserFactory.parse("event");
+        });
     }
 
 }
