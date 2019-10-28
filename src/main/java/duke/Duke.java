@@ -1,8 +1,6 @@
 package duke;
 
-import duke.exception.DukeException;
 import duke.logic.command.Command;
-import duke.logic.command.CommandBooking;
 import duke.logic.parser.Parser;
 import duke.model.list.bookinglist.BookingList;
 import duke.model.list.inventorylist.InventoryList;
@@ -41,14 +39,9 @@ public class Duke {
         bookingStorage = new BookingStorage(filePathBookings);
         recipeStorage = new RecipeStorage(filePathRecipes);
 
-        try {
-            inventoryList = new InventoryList(inventoryStorage.load());
-            bookingList = new BookingList(bookingStorage.load());
-            recipeList = new RecipeList(recipeStorage.load());
-        } catch (DukeException e) {
-            ui.showIngredientLoadingError();
-            ui.showLoadingError();
-        }
+        inventoryList = new InventoryList(inventoryStorage.load());
+        bookingList = new BookingList(bookingStorage.load());
+        recipeList = new RecipeList(recipeStorage.load());
     }
 
     public String showWelcome() {
@@ -59,7 +52,7 @@ public class Duke {
     // I hope its responsibility is to call relevant objects to initiate the run
     //I hope it is not the responsibility of the runProgram method to decide what does the command user type and react to it.
     // Please check it again
-    public ArrayList<String> runProgram(String userInput) throws DukeException, ParseException {
+    public ArrayList<String> runProgram(String userInput) throws ParseException {
 
         ArrayList<String> arrayList = new ArrayList<>();
 
@@ -170,12 +163,12 @@ public class Duke {
 
         // BOOKING.
         else if (userInput.trim().equals(COMMAND_LIST_BOOKINGS)) {
-            CommandBooking command = Parser.parseBooking(userInput);
+            Command<BookingList, Ui, BookingStorage> command = Parser.parse(userInput);
             return command.execute(bookingList, ui, bookingStorage);
 
         } else if (userInput.contains(COMMAND_ADD_BOOKING)) {
             if (userInput.trim().substring(0, 10).equals(COMMAND_ADD_BOOKING)) {
-                CommandBooking command = Parser.parseBooking(userInput);
+                Command<BookingList, Ui, BookingStorage> command = Parser.parse(userInput);
                 return command.execute(bookingList, ui, bookingStorage);
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
@@ -183,7 +176,7 @@ public class Duke {
             }
         } else if (userInput.contains(COMMAND_DELETE_BOOKING)) {
             if (userInput.trim().substring(0, 13).equals(COMMAND_DELETE_BOOKING)) {
-                CommandBooking command = Parser.parseBooking(userInput);
+                Command<BookingList, Ui, BookingStorage> command = Parser.parse(userInput);
                 return command.execute(bookingList, ui, bookingStorage);
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
@@ -191,7 +184,7 @@ public class Duke {
             }
         } else if (userInput.contains(COMMAND_VIEW_BOOKING_SCHEDULE)) {
             if (userInput.trim().substring(0, 19).equals(COMMAND_VIEW_BOOKING_SCHEDULE)) {
-                CommandBooking command = Parser.parseBooking(userInput);
+                Command<BookingList, Ui, BookingStorage> command = Parser.parse(userInput);
                 return command.execute(bookingList, ui, bookingStorage);
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
@@ -199,7 +192,7 @@ public class Duke {
             }
         } else if (userInput.contains(COMMAND_FIND_BOOKING)) {
             if (userInput.trim().substring(0, 11).equals(COMMAND_FIND_BOOKING)) {
-                CommandBooking command = Parser.parseBooking(userInput);
+                Command<BookingList, Ui, BookingStorage> command = Parser.parse(userInput);
                 return command.execute(bookingList, ui, bookingStorage);
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
@@ -207,7 +200,7 @@ public class Duke {
             }
         } else if (userInput.contains(COMMAND_VIEW_ORDERS)) {
             if (userInput.trim().substring(0, 10).equals(COMMAND_VIEW_ORDERS)) {
-                CommandBooking command = Parser.parseBooking(userInput);
+                Command<BookingList, Ui, BookingStorage> command = Parser.parse(userInput);
                 return command.execute(bookingList, ui, bookingStorage);
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);

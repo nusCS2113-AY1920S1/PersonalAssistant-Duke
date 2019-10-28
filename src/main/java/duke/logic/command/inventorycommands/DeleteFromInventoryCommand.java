@@ -1,6 +1,5 @@
 package duke.logic.command.inventorycommands;
 
-import duke.exception.DukeException;
 import duke.logic.command.Command;
 import duke.model.list.inventorylist.InventoryList;
 import duke.model.task.ingredienttasks.Ingredient;
@@ -29,11 +28,9 @@ public class DeleteFromInventoryCommand extends Command<InventoryList, Ui, Inven
      * Processes the delete command to delete task in the task list.
      * @param inventoryList contains the task list
      * @param inventoryStorage deals with loading tasks from the file and saving tasks in the file
-     * @throws DukeException if Duke cannot recognize the user input
-     *                      or user inputs an invalid index or the list of tasks is empty
      */
     @Override
-    public ArrayList<String> execute(InventoryList inventoryList, Ui ui, InventoryStorage inventoryStorage) throws DukeException {
+    public ArrayList<String> execute(InventoryList inventoryList, Ui ui, InventoryStorage inventoryStorage) {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_DELETE_FROM_INVENTORY)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);

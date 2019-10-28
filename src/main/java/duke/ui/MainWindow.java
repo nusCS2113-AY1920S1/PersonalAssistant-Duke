@@ -1,7 +1,6 @@
 package duke.ui;
 
 import duke.Duke;
-import duke.exception.DukeException;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 
@@ -64,7 +63,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws DukeException, ParseException {
+    private void handleUserInput() throws ParseException {
         String input = userInput.getText();
         if (input.isEmpty()) {
             showMessage("Pls input a command to proceed");

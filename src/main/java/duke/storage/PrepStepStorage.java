@@ -1,6 +1,5 @@
 package duke.storage;
 
-import duke.exception.DukeException;
 import duke.model.list.recipelist.PrepStepList;
 import duke.model.task.recipetasks.PrepStep;
 
@@ -43,9 +42,8 @@ public class PrepStepStorage {
      * Load all the save tasks in the file.
      *
      * @return the list of tasks in taskList
-     * @throws DukeException if Duke is not able to load the tasks from the file or unable to open the file
      */
-    public ArrayList<PrepStep> load() throws DukeException {
+    public ArrayList<PrepStep> load() {
         try {
             FileReader fileReader = new FileReader(filePathPrepStep);
             BufferedReader bufferedReader = new BufferedReader(fileReader);

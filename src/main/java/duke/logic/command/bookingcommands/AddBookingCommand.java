@@ -1,8 +1,7 @@
 package duke.logic.command.bookingcommands;
 
+import duke.logic.command.Command;
 import duke.model.list.bookinglist.BookingList;
-import duke.logic.command.CommandBooking;
-import duke.exception.DukeException;
 import duke.storage.BookingStorage;
 import duke.ui.Ui;
 
@@ -10,12 +9,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class AddBookingCommand extends CommandBooking {
+public class AddBookingCommand extends Command<BookingList, Ui, BookingStorage> {
 
     private static String msg = "";
 
-    public AddBookingCommand(String userInputCommand) {
-        this.userInputCommand = userInputCommand;
+    public AddBookingCommand(String userInput) {
+        this.userInput = userInput;
     }
 
     private static boolean isDateParsable(String bookingDate) {
@@ -29,14 +28,14 @@ public class AddBookingCommand extends CommandBooking {
     }
 
     @Override
-    public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws DukeException, ParseException {
+    public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
-        String[] temp = userInputCommand.split("\\s", 6);
-        if (userInputCommand.trim().equals("addbooking")) {
+        String[] temp = userInput.split("\\s", 6);
+        if (userInput.trim().equals("addbooking")) {
             arrayList.add("Booking details cannot be empty!\n" +
                     "       Please enter in the following format:\n" +
-                    "       addbooking <customer_name> <customer_contact> <number_of_pax> <booking_date_dd/MM/yyyy> <order_name>");
-        } else if (userInputCommand.trim().charAt(10) == ' ' && temp.length == 6) {
+                    "       addbooking <customer_name> <customer_contact> <number_of_pax> <booking_date_dd/MM/yyyy> orders/ <order_name_1>, <order_name_2>");
+        } else if (userInput.trim().charAt(10) == ' ' && temp.length == 6) {
             String customerName = temp[1].trim();
             String customerContact = temp[2].trim();
             String numberOfPax = temp[3].trim();
