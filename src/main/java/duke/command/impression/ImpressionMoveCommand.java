@@ -8,9 +8,7 @@ import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.Treatment;
 import duke.exception.DukeException;
-import duke.exception.DukeHelpException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ImpressionMoveCommand extends ImpressionCommand {
@@ -27,7 +25,7 @@ public class ImpressionMoveCommand extends ImpressionCommand {
         String targetImpressionName = getSwitchVal("impression");
         Impression newImpression;
         if ("".equals(targetImpressionName)) {
-            // ask user to pick
+            // TODO ask user to pick
             newImpression = null;
         } else {
             // TODO: proper search
@@ -39,7 +37,7 @@ public class ImpressionMoveCommand extends ImpressionCommand {
             newImpression = newImpressionList.get(0);
         }
 
-        DukeData moveData = findDataByName(getArg(), getSwitchVal("evidence"),
+        DukeData moveData = findVarTypeData(getArg(), getSwitchVal("evidence"),
                 getSwitchVal("treatment"), getImpression(core));
 
         moveData.setParent(newImpression);

@@ -18,7 +18,7 @@ public class ImpressionDeleteCommand extends ImpressionCommand {
     @Override
     public void execute(DukeCore core) throws DukeException {
         Impression impression = getImpression(core);
-        DukeData delData = findDataByName(getArg(), getSwitchVal("evidence"),
+        DukeData delData = findVarTypeData(getArg(), getSwitchVal("evidence"),
                 getSwitchVal("treatment"), impression);
         String delMsg = "'" + delData.getName() + "' deleted!";
         if (delData instanceof Evidence) {

@@ -12,6 +12,7 @@ import duke.exception.DukeHelpException;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: refactor into helper class
 public abstract class ImpressionCommand extends ArgCommand {
 
     protected Impression getImpression(DukeCore core) throws DukeException {
@@ -73,7 +74,7 @@ public abstract class ImpressionCommand extends ArgCommand {
         }
     }
 
-    protected DukeData findDataByName(String arg, String evArg, String treatArg, Impression impression)
+    protected DukeData findVarTypeData(String arg, String evArg, String treatArg, Impression impression)
             throws DukeException {
         DukeData data;
         DukeException dataNotFound;
