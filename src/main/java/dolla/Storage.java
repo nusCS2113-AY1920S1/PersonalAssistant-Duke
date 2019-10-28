@@ -18,6 +18,7 @@ import java.io.File;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * duke.Storage handles the saving and loading of data from ./data/duke.txt,
@@ -30,6 +31,7 @@ public class Storage {
     private static ArrayList<Record> debts = new ArrayList<Record>();
     private static ArrayList<Record> shortcuts = new ArrayList<Record>();
     private static ArrayList<Record> storage = new ArrayList<Record>();
+    private static HashMap<Tag, Record> tagStorage = new HashMap<>();
 
     private static double stringToDouble(String str) {
         double newDouble = 0.0;

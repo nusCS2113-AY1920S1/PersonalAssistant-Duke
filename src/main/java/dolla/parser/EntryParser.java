@@ -1,5 +1,6 @@
 package dolla.parser;
 
+import dolla.Tag;
 import dolla.action.Repeat;
 import dolla.command.Command;
 import dolla.command.AddEntryCommand;
@@ -10,6 +11,7 @@ import dolla.command.InitialModifyCommand;
 import dolla.command.SortCommand;
 import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
+import dolla.task.Entry;
 
 public class EntryParser extends Parser {
 
@@ -62,6 +64,9 @@ public class EntryParser extends Parser {
             addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
                     description, date, -1);
         }
+        Entry entry = new Entry(inputArray[1], stringToDouble(inputArray[2]), description, date); //doenst work
+        Tag t = new Tag();
+        t.handleTag(inputLine, inputArray, entry); //todo: change
         return addEntry;
     }
 }

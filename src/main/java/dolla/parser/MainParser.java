@@ -1,6 +1,5 @@
 package dolla.parser;
 
-import dolla.Tag;
 import dolla.ui.Ui;
 
 import dolla.command.Command;
@@ -12,13 +11,13 @@ import dolla.command.SwitchModeCommand;
  */
 public class MainParser {
 
-    protected static final String MODE_DOLLA = "dolla";
-    protected static final String MODE_ENTRY = "entry";
-    protected static final String MODE_LIMIT = "limit";
-    protected static final String MODE_DEBT = "debt";
-    protected static final String MODE_SHORTCUT = "shortcut";
-    protected static final String SPACE = " ";
-    protected static final String COMMAND_BYE = "bye";
+    private static final String MODE_DOLLA = "dolla";
+    private static final String MODE_ENTRY = "entry";
+    private static final String MODE_LIMIT = "limit";
+    private static final String MODE_DEBT = "debt";
+    private static final String MODE_SHORTCUT = "shortcut";
+    private static final String SPACE = " ";
+    private static final String COMMAND_BYE = "bye";
 
     /**
      * Returns a command corresponding to the user input by directing
@@ -41,12 +40,8 @@ public class MainParser {
             //return new ExitCommand();
         } else if (isSwitchMode) {
             return new SwitchModeCommand(command); // TODO
-        } else {
-            Ui.printErrorMsg(); //todo
         }
 
-        Tag tag = new Tag(inputLine);
-        tag.parseTag();
         switch (mode) {
         case MODE_DOLLA:
             DollaParser dollaParser = new DollaParser(inputLine);
@@ -61,7 +56,7 @@ public class MainParser {
         case MODE_LIMIT:
             LimitParser limitParser = new LimitParser(inputLine);
             return limitParser.handleInput(mode, inputLine);
-        case "modify entry": //is this a mode? (asking cause im not sure)
+        case "modify entry": //is this a mode?
             ModifyParser modifyParser = new ModifyParser(inputLine);
             return modifyParser.handleInput(mode, inputLine);
         default:

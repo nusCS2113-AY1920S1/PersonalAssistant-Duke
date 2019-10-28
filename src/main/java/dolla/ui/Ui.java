@@ -1,5 +1,6 @@
 package dolla.ui;
 
+import dolla.Tag;
 import dolla.Time;
 import dolla.task.Task;
 import dolla.task.Record;
@@ -445,6 +446,27 @@ public abstract class Ui {
     public static void printExitMsg() {
         System.out.println(line);
         System.out.println("\tBye. Hope to see you again soon!");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints a message to inform user that a new tag has been added.
+     * @param tag     Tag that is added.
+     * @param record  Record the tag is added to.
+     */
+    public static void printAddedTagMsg(String tag, Record record) {
+        System.out.println(line);
+        System.out.println("\tNoted. I have added the tag " + tag + " to " + record.getRecordDetail());
+        System.out.println(line);
+    }
+
+    /**
+     * Prints a message to inform user that a new tag has been added.
+     * @param tag     Tag that is added.
+     */
+    public static void printAddedTagMsg(String tag) {
+        System.out.println(line);
+        System.out.println("\tNoted. I have added the tag " + tag);
         System.out.println(line);
     }
 }

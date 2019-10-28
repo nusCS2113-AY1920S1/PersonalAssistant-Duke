@@ -25,7 +25,6 @@ public abstract class Parser {
     protected static int redoFlag = 0;
     protected static int prevPosition;
 
-
     /**
      * Creates an instance of a parser.
      * @param inputLine The entire string containing the user's input.

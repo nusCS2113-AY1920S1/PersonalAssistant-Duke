@@ -1,7 +1,5 @@
 package dolla.task;
 
-import dolla.Tag;
-
 import java.time.LocalDate;
 
 /**
@@ -13,7 +11,8 @@ public abstract class Record {
     protected String name;
     protected String userInput;
     protected String recordType;
-    protected Tag tag;
+
+    String[] record = {"entry", "limit", "debt"};
 
     public abstract String getRecordDetail();
 
