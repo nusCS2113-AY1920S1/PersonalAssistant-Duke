@@ -84,9 +84,30 @@ public class AssignedTaskManager {
         for (AssignedTask assignedTask : assignedTaskIdMap.values()) {
             if (assignedTask.getTid() == id) {
                 assignedTaskIdMap.remove(assignedTask.getPid(), assignedTask);
+                return;
             }
         }
     }
+
+    /**
+     * .
+     *
+     * @param id .
+     * @throws DukeException .
+     */
+    public void deleteAllAssignedTaskByTaskId(int id) throws DukeException {
+        int count = 0;
+        for (AssignedTask assignedTask : assignedTaskIdMap.values()) {
+            if (assignedTask.getTid() == id) {
+                count ++;
+            }
+        }
+
+        for (int i = 0; i < count - 1; i++) {
+            deleteAssignedTaskByTaskId(id);
+        }
+    }
+
 
 
     /**
