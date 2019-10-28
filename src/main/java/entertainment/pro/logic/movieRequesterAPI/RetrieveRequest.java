@@ -3,7 +3,7 @@ package entertainment.pro.logic.movieRequesterAPI;
 import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.model.SearchProfile;
-import entertainment.pro.storage.utils.offlineSearch.CurrentMoviesOffline;
+import entertainment.pro.storage.utils.OfflineSearchStorage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -23,11 +23,13 @@ import java.util.logging.Logger;
  * Class responsible for fetching results from The MovieDB API and parsing them into objects.
  */
 public class RetrieveRequest implements InfoFetcher {
+    private static final String DEFAULT_IMAGE_FILENAME = "/images/cross.png";
     private RequestListener mListener;
     private ArrayList<MovieInfoObject> p_Movies;
     private SearchProfile searchProfile;
-    RetrieveRequest.MoviesRequestType getType;
-
+    private static RetrieveRequest.MoviesRequestType getType;
+    private boolean isOffline = false;
+    private static String UNAVAILABLE_INFO = "N/A";
 
     // API Usage constants
     private static final String MAIN_URL = "http://api.themoviedb.org/3/";
@@ -42,6 +44,7 @@ public class RetrieveRequest implements InfoFetcher {
     private static final String TO_SPECIFY_ISO = "iso_3166_1";
     private static final String TO_SPECIFY_RATING = "rating";
     private static final String TO_SPECIFY_UK = "GB";
+    private static final String TO_SPECIFY_US = "US";
     private static final String TO_SPECIFY_CERTIFICATION = "certification";
 
     // General Data Request URL's
@@ -101,7 +104,6 @@ public class RetrieveRequest implements InfoFetcher {
     private static String[] mPosterSizes;
     private static String[] mBackdropSizes;
     private boolean mConfigWasRead;
-
 
 
     /**
@@ -234,12 +236,13 @@ public class RetrieveRequest implements InfoFetcher {
      * @param object Object that contains all the details about a movie or TV show.
      * @throws Exceptions
      */
-    public void beginMoreInfoRequest(MovieInfoObject object)
-            throws Exceptions {
-        String certDetail = getCertStrings(object);
-        object.setCertInfo(certDetail);
-        ArrayList<String> castDetail = getCastStrings(object);
-        object.setCastInfo(castDetail);
+    public void beginMoreInfoRequest(MovieInfoObject object) throws Exceptions {
+        if (!isOffline) {
+            String certDetail = getCertStrings(object);
+            object.setCertInfo(certDetail);
+            ArrayList<String> castDetail = getCastStrings(object);
+            object.setCastInfo(castDetail);
+        }
     }
 
     /**
@@ -247,11 +250,11 @@ public class RetrieveRequest implements InfoFetcher {
      * This function unlike beginSearchRequest does not call any listener.
      *
      * @param infoObject Object that contains details about the movie/TV show.
-     * @return the cert details pertaining to the movie/TV show.
-     * @throws Exceptions when detect MalformedURLExcpetion and/or ParserException.
+     * @return The cert details pertaining to the movie/TV show.
+     * @throws Exceptions when detect MalformedURLException or ParserException.
      */
     public static String getCertStrings(MovieInfoObject infoObject) throws Exceptions {
-        String cert = "N/A";
+        String cert = UNAVAILABLE_INFO;
         try {
             String jsonResult = "";
             String url = MAIN_URL;
@@ -279,13 +282,19 @@ public class RetrieveRequest implements InfoFetcher {
         return cert;
     }
 
-    private static String getTVCertFromJSON(JSONArray casts) {
-        String cert = "N/A";
+    /**
+     * Responsible for extracting and returning the certification for a TV show from a JSONArray.
+     *
+     * @param certInfo JSONArray from which the certification for the TV show is extacted.
+     * @return Certification for the TV show from a JSONArray.
+     */
+    private static String getTVCertFromJSON(JSONArray certInfo) {
+        String cert = UNAVAILABLE_INFO;
         String certStrings = "";
-        for (int i = 0; i < casts.size(); i += 1) {
-            JSONObject castPair = (JSONObject) casts.get(i);
-            if (castPair.get("iso_3166_1").equals("GB")) {
-                certStrings = castPair.get("rating").toString();
+        for (int i = 0; i < certInfo.size(); i += 1) {
+            JSONObject castPair = (JSONObject) certInfo.get(i);
+            if (castPair.get(TO_SPECIFY_ISO).equals(TO_SPECIFY_UK)) {
+                certStrings = castPair.get(TO_SPECIFY_RATING).toString();
                 cert = "Suitable for "
                         + certStrings + " years & above";
             }
@@ -293,22 +302,28 @@ public class RetrieveRequest implements InfoFetcher {
         return cert;
     }
 
-    private static String getMovieCertFromJSON(JSONArray casts) {
-        String cert = "N/A";
+    /**
+     * Responsible for extracting and returning the certification for a movie from a JSONArray.
+     *
+     * @param certInfo JSONArray from which the certification for the movie is extacted.
+     * @return Certification for the movie from a JSONArray.
+     */
+    private static String getMovieCertFromJSON(JSONArray certInfo) {
+        String cert = UNAVAILABLE_INFO;
         String certStrings = "";
-        for (int i = 0; i < casts.size(); i += 1) {
-            JSONObject castPair = (JSONObject) casts.get(i);
-            if (castPair.get("iso_3166_1").equals("US")) {
-                Map certMap = (Map) casts.get(i);
+        for (int i = 0; i < certInfo.size(); i += 1) {
+            JSONObject castPair = (JSONObject) certInfo.get(i);
+            if (castPair.get(TO_SPECIFY_ISO).equals(TO_SPECIFY_US)) {
+                Map certMap = (Map) certInfo.get(i);
                 Iterator<Map.Entry> itr1 = certMap.entrySet().iterator();
                 while (itr1.hasNext()) {
                     Map.Entry pair = itr1.next();
-                    if (pair.getKey().equals("release_dates")) {
+                    if (pair.getKey().equals(RELEASE_DATE)) {
                         certStrings = pair.getValue().toString();
                     }
                 }
                 // System.out.println("this is:" + certStrings);
-                String[] getCert = certStrings.strip().split("certification");
+                String[] getCert = certStrings.strip().split(TO_SPECIFY_CERTIFICATION);
                 if (getCert.length == 2) {
                     cert = getCert[1].substring(2, getCert[1].length() - 2);
                 } else {
@@ -404,6 +419,7 @@ public class RetrieveRequest implements InfoFetcher {
 
     /**
      * Called after JSON data has been fetched by the fetcher.
+     * If JSON is empty, calls the apprpriate function to extract offline data.
      * Extracts and filters results according to user's preferences.
      *
      * @param json String that contains all the data extracted by fetcher.
@@ -411,28 +427,34 @@ public class RetrieveRequest implements InfoFetcher {
     @Override
     public void fetchedJSON(String json) {
         // check for null string returned due to a lack of internet connection
+        String data = "";
         JSONObject movieData = new JSONObject();
         if (json == null) {
-            mListener.requestFailed();
+            //mListener.requestFailed();
             //System.out.println("so far not ok");
+            //return;
+            isOffline = true;
+            OfflineSearchStorage offlineSearchStorage = new OfflineSearchStorage();
             try {
-                movieData = callOffline();
+                data = offlineSearchStorage.load();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            //return;
         } else {
-            //start parsing data into JSONObject
-            JSONParser parser = new JSONParser();
-
-            try {
-                movieData = (JSONObject) parser.parse(json);
-            } catch (org.json.simple.parser.ParseException e) {
-                e.printStackTrace();
-            }
+            isOffline = false;
+            data = json;
+        }
+        //start parsing data into JSONObject
+        JSONParser parser = new JSONParser();
+        try {
+            movieData = (JSONObject) parser.parse(data);
+        } catch (org.json.simple.parser.ParseException e) {
+            e.printStackTrace();
         }
         JSONArray movies = new JSONArray();
         movies = (JSONArray) movieData.get(KEYWORD_FOR_SEARCH_REQUESTS);
+
+
         ArrayList<MovieInfoObject> parsedMovies = new ArrayList(20);
         for (int i = 0; i < movies.size(); i++) {
             // add results that meet user stated preferences
@@ -462,15 +484,6 @@ public class RetrieveRequest implements InfoFetcher {
     }
 
 
-    /**
-     *
-     */
-    private JSONObject callOffline() throws IOException {
-        CurrentMoviesOffline currentMoviesOffline = new CurrentMoviesOffline();
-        JSONObject jsonObject = currentMoviesOffline.load();
-        return jsonObject;
-    }
-
     private void sortByAlphaOrder() {
         p_Movies.sort(new Comparator<MovieInfoObject>() {
             public int compare(MovieInfoObject v1, MovieInfoObject v2) {
@@ -480,12 +493,17 @@ public class RetrieveRequest implements InfoFetcher {
     }
 
 
+    public static MoviesRequestType getGetType() {
+        return getType;
+    }
+
     /**
      * Called when the fetcher reported a connection time out.
      * Responisble for notify the request listener.
      */
     @Override
     public void connectionTimedOut() {
+        //isOffline = true;
         mListener.requestTimedOut();
     }
 
@@ -547,8 +565,13 @@ public class RetrieveRequest implements InfoFetcher {
         }
 
         // Parse date string from json
-        Date releaseDate = null;
-        String releaseDateString = (String) data.get(RELEASE_DATE);
+        Date releaseDate = new Date();
+        String releaseDateString = "";
+        if (searchProfile.isMovie()) {
+            releaseDateString = (String) data.get(RELEASE_DATE);
+        } else {
+            releaseDateString = (String) data.get("first_air_date");
+        }
         if (releaseDateString != null) {
             try {
                 SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
@@ -560,15 +583,33 @@ public class RetrieveRequest implements InfoFetcher {
         }
 
         // Get poster and backdrop paths
-        String posterPath = (String) data.get(POSTER_PATH);
-        String backdropPath = (String) data.get(BACKDROP_PATH);
+        String posterPath = "";
+        String backdropPath = "";
+        if (isOffline) {
+            posterPath = DEFAULT_IMAGE_FILENAME;
+            backdropPath = DEFAULT_IMAGE_FILENAME;
+        } else {
+            posterPath = (String) data.get(POSTER_PATH);
+            backdropPath = (String) data.get(BACKDROP_PATH);
+        }
 
-        MovieInfoObject movieInfo = new MovieInfoObject(ID, title, isMovie, releaseDate, summary,
-                posterPath, backdropPath, rating, genreID, searchProfile.isAdult());
-
+        MovieInfoObject movieInfo;
+        if (isOffline) {
+            String cert = (String) data.get("cert");
+            JSONArray jsonArray = (JSONArray) data.get("cast");
+            ArrayList<String> getCast = new ArrayList<>();
+            for (int i = 0; i < jsonArray.size(); i += 1) {
+                getCast.add((String) jsonArray.get(i));
+            }
+            movieInfo = new MovieInfoObject(ID, title, isMovie, releaseDate, summary,
+                    posterPath, backdropPath, rating, genreID, searchProfile.isAdult(), cert, getCast);
+        } else {
+            movieInfo = new MovieInfoObject(ID, title, isMovie, releaseDate, summary,
+                    posterPath, backdropPath, rating, genreID, searchProfile.isAdult());
+        }
         // If the base url was fetched and loaded, set the root path and poster size
         if (mImageBaseURL != null) {
-            movieInfo.setPosterRootPath(mImageBaseURL, mPosterSizes[mPosterSizes.length - 3]);
+            movieInfo.setPosterRootPath(mImageBaseURL, mPosterSizes[mPosterSizes.length - 3], isOffline);
         }
 
         return movieInfo;
@@ -706,14 +747,9 @@ public class RetrieveRequest implements InfoFetcher {
             }
 
             return genreStrings;
-        } catch (MalformedURLException ex) {
-            ex.printStackTrace();
-        } catch (org.json.simple.parser.ParseException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
+        } catch (MalformedURLException | org.json.simple.parser.ParseException ex) {
             ex.printStackTrace();
         }
-
         return null;
     }
 
