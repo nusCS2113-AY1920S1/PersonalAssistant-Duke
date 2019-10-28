@@ -1,6 +1,7 @@
 package seedu.duke.email.storage;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 import seedu.duke.common.model.Model;
 import seedu.duke.common.network.Http;
 import seedu.duke.common.storage.Storage;
@@ -15,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
@@ -101,10 +103,17 @@ public class EmailStorage implements Storage {
 
     private static String prepareEmailListIndexString(EmailList emailList) throws JSONException {
         String content = "";
+        content += prepareTimestampJson().toString() + "\n";
         for (Email email : emailList) {
             content += email.toIndexJson().toString() + "\n";
         }
         return content;
+    }
+
+    private static JSONObject prepareTimestampJson() throws JSONException {
+        JSONObject timeJson = new JSONObject();
+        timeJson.put("timestamp", Storage.getTimestamp());
+        return timeJson;
     }
 
     /**
@@ -118,8 +127,9 @@ public class EmailStorage implements Storage {
         try {
             Path indexPath = Storage.prepareDataPath(assignIndexDirIfNotExist(indexDir));
             List<String> emailStringList = Storage.readLinesFromFile(indexPath);
-            for (String line : emailStringList) {
-                readAndAddEmailWithIndexString(emailList, line);
+            LocalDateTime timestamp = getTimestamp(emailStringList);
+            for (int i = 1; i < emailStringList.size(); i++) {
+                readAndAddEmailWithIndexString(emailList, emailStringList.get(i));
             }
             UI.getInstance().showMessage("Saved email file successfully loaded...");
         } catch (IOException e) {
@@ -128,6 +138,13 @@ public class EmailStorage implements Storage {
             UI.getInstance().showError("Email save file is in wrong format");
         }
         return emailList;
+    }
+
+    private static LocalDateTime getTimestamp(List<String> emailStringList) throws IOException {
+        if (emailStringList.size() < 1) {
+            throw new IOException();
+        }
+        return Storage.parseTimestamp(emailStringList.get(0));
     }
 
     private static String assignIndexDirIfNotExist(String indexDir) {
