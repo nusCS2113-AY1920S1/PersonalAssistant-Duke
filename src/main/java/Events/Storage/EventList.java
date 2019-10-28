@@ -56,8 +56,8 @@ public class EventList {
         final char PRACTICE = 'P';
         final char EXAM = 'E';
         final char RECITAL = 'R';
-
         eventArrayList = new ArrayList<>();
+
         for (String currLine : inputList) {
             boolean isDone = currLine.substring(0, 3).equals("✓");
             char eventType = currLine.charAt(3);
@@ -243,6 +243,9 @@ public class EventList {
      * @param eventNo Index of event to be deleted
      */
     public void deleteEvent(int eventNo) {
+        if (this.eventArrayList.get(eventNo).getType() == 'C') {
+            budgeting.removeMonthlyCost((Concert) this.eventArrayList.get(eventNo));
+        }
         this.eventArrayList.remove(eventNo);
     }
 
@@ -322,6 +325,13 @@ public class EventList {
      * Used to reinstate deleted event in case of failure to reschedule
      */
     public void undoDeletionOfEvent(Event event) {
+        try {
+            if (event.getType() == 'C') {
+                this.budgeting.updateMonthlyCost((Concert) event);
+            }
+        } catch (CostExceedsBudgetException e) {
+            //ignore exception, will never happen
+        }
         eventArrayList.add(event);
     }
 
