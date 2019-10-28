@@ -20,5 +20,6 @@
   "file_path": "Level1.1",
   "deadline" : 1,
   "objective": "Travel to the Market",
-  "hint": "Enter [do gotomarket] to create a task that tells Farmer + to drive to the market."
+  "hint": "Enter [do gotomarket] to create a task that tells Farmer + to drive to the market.",
+  "modelAnswer": "do gotoMarket"
 }

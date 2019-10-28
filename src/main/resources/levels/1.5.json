@@ -11,5 +11,6 @@
   "deadline" : 2,
   "file_path": "Level1.5",
   "objective": "Sell your grain at the market to get money",
-  "hint": "you can only buy or sell items at the market"
+  "hint": "you can only buy or sell items at the market",
+  "modelAnswer": ""
 }

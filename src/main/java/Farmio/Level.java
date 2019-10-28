@@ -18,6 +18,7 @@ public class Level {
     private int endGrain;
     private int endGold;
     private int deadline;
+    public String modelAnswer;
 
     private boolean detailedFeedbackProvided = true;
 
@@ -38,6 +39,7 @@ public class Level {
         deadline = Math.toIntExact((Long) object.get("deadline"));
         objective = (String) object.get("objective");
         hint = (String) object.get("hint");
+        modelAnswer = (String) object.get("modelAnswer");
     }
 
     /**
@@ -113,7 +115,7 @@ public class Level {
 
     private String checkIncompleteObjectives(Farmer farmer){
         //todo -Level-dependant objective checker
-
+        //change to horizontal list
         String output = "";
         int seeds = farmer.wheatFarm.getSeeds();
         int wheat = farmer.wheatFarm.getWheat();
@@ -121,41 +123,56 @@ public class Level {
 
         if(seeds != endSeeds){
             int balancedWheatSeed = endSeeds - seeds;
-            output += "\nSeeds left :"  + balancedWheatSeed;
+            output += " Seeds left :"  + balancedWheatSeed;
         }
         else {
-            output += "\nSeeds Completed";
+            output += " Seeds Completed";
         }
         if(wheat != endWheat){
             int balancedWheatGreen = endWheat - wheat;
-            output += "\n Wheat left :"  + balancedWheatGreen;
+            output += " | Wheat left :"  + balancedWheatGreen;
         }
         else {
-            output += "\nWheat Completed";
+            output += " | Wheat Completed";
         }
         if(grain != endGrain){
             int balancedWheatRipe = endGrain - grain;
-            output += "\nGrain left :" + balancedWheatRipe;
-        }
-        else {
-            output += "\nGrain Completed";
+            output += " | Grain left :" + balancedWheatRipe;
+        } else {
+            output += " | Grain Completed";
         }
 
         return output;
     }
 
+
+    public String levelParser(String userActions, String modelAns){
+        //separate user list into arraylist , separate model ans into subsections
+        //compare
+       return "model ans";
+    }
+
+    public String getPermutationFeedback(Farmio farmio, double levelNumber){
+        //todo convert to some sort of metric for future iterations
+        //farmio.getFarmer().tasks.toStringArray();
+        //include some sort of level parser
+        //jlevelParser(userAction, modelAns);
+        return "getPermutation Feedback";
+}
+
     //only applicable if level fails
     public String getDetailedFeedback( Farmio farmio){
         double levelNumber = farmio.getFarmer().getLevel();
         String output = "";
-        if(levelNumber == 1.4){
-                output += " The objective of this level was to " + objective;
-                output += "\nUnfortunately you were unable to complete within the allocated time of " + deadline + " days";
-                //Iterate through task list
-                output += "\nYour actions ";
-                output += farmio.getFarmer().tasks.toString();
+        output += " The objective of this level was to " + objective;
+        output += "\nUnfortunately you were unable to complete within the allocated time of " + deadline + " days";
 
-        }
+        //Iterate through task list
+        output += "\nYour actions ";
+        output += farmio.getFarmer().tasks.toString();
+
+        output += getPermutationFeedback(farmio, levelNumber);
+
         return output;
     }
 
@@ -169,8 +186,10 @@ public class Level {
         else if(currentLevelState == objectiveResult.NOT_DONE){ //day completed but tasks not achieved succesfult
             String feedback = "tasks have yet to be completed";
             if(detailedFeedbackProvided){
+                //add enter and day end
                 feedback += "detailed feedback : -- \n";
                 feedback += checkIncompleteObjectives(farmer);
+                feedback += "Press [ENTER] to continue the game or [RESET] to restart the level"
             }
             return feedback;
         }
