@@ -16,6 +16,7 @@ import oof.model.tracker.TrackerList;
  */
 public class ScheduleCommand extends Command {
     private String date;
+    private static final int LIST_EMPTY = 0;
 
     /**
      * Constructor for ScheduleCommand.
@@ -32,19 +33,17 @@ public class ScheduleCommand extends Command {
      *
      * @param semesterList Instance of SemesterList that stores Semester objects.
      * @param tasks        Instance of TaskList that stores Task objects.
-     * @param trackerList  Instance of TrackerList that stores Tracker objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException if user inputs invalid command or date has no tasks scheduled.
      */
-    public void execute(SemesterList semesterList, TaskList tasks, TrackerList trackerList, Ui ui, Storage storage)
-            throws OofException {
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
         if (this.date.isEmpty()) {
             throw new OofException("OOPS! Please enter a date!");
         }
         TaskList scheduledTasks = scheduleByDate(tasks);
-        if (scheduledTasks.getSize() == 0) {
+        if (scheduledTasks.getSize() == LIST_EMPTY) {
             throw new OofException("There are no Tasks scheduled on " + this.date + ".");
         }
         ui.printTasksByDate(scheduledTasks, this.date);

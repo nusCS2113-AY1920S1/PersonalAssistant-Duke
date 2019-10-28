@@ -42,14 +42,12 @@ public class AddEventCommand extends Command {
      *
      * @param semesterList Instance of SemesterList that stores Semester objects.
      * @param tasks        Instance of TaskList that stores Task objects.
-     * @param trackerList  Instance of TrackerList that stores Tracker objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException if user input invalid commands.
      */
-    public void execute(SemesterList semesterList, TaskList tasks, TrackerList trackerList, Ui ui, Storage storage)
-            throws OofException {
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
         String[] lineSplit = line.split(" /from ");
         if (!hasDescription(lineSplit)) {
             throw new OofException("OOPS!!! The event needs a description.");

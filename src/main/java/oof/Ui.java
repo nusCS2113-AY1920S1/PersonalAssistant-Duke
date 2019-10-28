@@ -1,7 +1,9 @@
 package oof;
 
 import oof.exception.OofException;
-import oof.model.tracker.TrackerList;
+import oof.model.tracker.ModuleTracker;
+import oof.model.tracker.ModuleTrackerList;
+import oof.model.tracker.Tracker;
 import oof.model.module.Assessment;
 import oof.model.module.Lesson;
 import oof.model.module.Module;
@@ -44,6 +46,8 @@ public class Ui {
     private static final int LEAST_COL_SIZE = 19;
     private static final int TIME = 0;
     private static final int DESCRIPTION = 1;
+    private static final int TEN_MINUTES_BLOCK = 10;
+    private static final int FIRST_VAR = 0;
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_BRIGHT_RED = "\u001B[91m";
     private static final String ANSI_BRIGHT_GREEN = "\u001B[92m";
@@ -63,7 +67,7 @@ public class Ui {
      *
      * @return Scanner to scan for an integer of user input.
      */
-    int scanInt() {
+    public int scanInt() {
         return scan.nextInt();
     }
 
@@ -209,7 +213,7 @@ public class Ui {
      * @return User input if it is equals to "Y" or "N"
      */
     public String printContinuePrompt() {
-        String input;
+        String input = "";
         while (true) {
             System.out.println(" Continue anyway? (Y/N)");
             input = scanLine();
@@ -581,7 +585,7 @@ public class Ui {
      *
      * @param largestColSize Longest possible description for task.
      */
-    private void printEntryBodySpace(int largestColSize) {
+    public void printEntryBodySpace(int largestColSize) {
         printViewWeekBorder();
         if (!isEven(largestColSize)) {
             largestColSize++;
@@ -615,7 +619,7 @@ public class Ui {
      *
      * @param yearMonth Object containing month and year information.
      */
-    private void printCalendarLabel(YearMonth yearMonth) {
+    public void printCalendarLabel(YearMonth yearMonth) {
         String[] months = {"", "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST",
                 "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
         String month = months[yearMonth.getMonthValue()];
@@ -626,7 +630,7 @@ public class Ui {
     /**
      * Prints calendar header.
      */
-    private void printCalendarHeader() {
+    public void printCalendarHeader() {
         System.out.println("-----------------------------------------------------------------------------------------"
                 + "------------------------------------------------------------------");
         System.out.println("|         SUN         |         MON         |         TUE         |         WED         |"
@@ -640,7 +644,7 @@ public class Ui {
      *
      * @param yearMonth Object containing month and year information.
      */
-    private void printCalendarBody(YearMonth yearMonth, ArrayList<ArrayList<String[]>> calendar) {
+    public void printCalendarBody(YearMonth yearMonth, ArrayList<ArrayList<String[]>> calendar) {
         String[] date = {"  ", " 1", " 2", " 3", " 4", " 5", " 6", " 7",
                 " 8", " 9", "10", "11", "12", "13", "14", "15",
                 "16", "17", "18", "19", "20", "21", "22", "23",
@@ -690,7 +694,7 @@ public class Ui {
      * @param dayIndex      Offset for current day.
      * @param calendarRows  Number of rows to be printed for current week.
      */
-    private void printCalendarDetails(ArrayList<ArrayList<String[]>> calendar, ArrayList<String> calendarDates,
+    public void printCalendarDetails(ArrayList<ArrayList<String[]>> calendar, ArrayList<String> calendarDates,
                                      int dayIndex, int calendarRows) {
         for (int row = 0; row < calendarRows; row++) {
             System.out.print("|");
@@ -719,7 +723,7 @@ public class Ui {
      * @param taskTime Time of deadline or event.
      * @param taskName Name of deadline or event.
      */
-    private void printDeadlineAndEvent(String taskTime, String taskName) {
+    public void printDeadlineAndEvent(String taskTime, String taskName) {
         if (taskName.length() > TEXT_SIZE_SHORT) {
             taskName = taskName.substring(DESCRIPTION_SHORT_START, DESCRIPTION_SHORT_END);
             System.out.print(" " + taskTime + " " + taskName + ".. |");
@@ -734,7 +738,7 @@ public class Ui {
      *
      * @param taskName Name of todo.
      */
-    private void printTodo(String taskName) {
+    public void printTodo(String taskName) {
         if (taskName.length() > TEXT_SIZE_LONG) {
             taskName = taskName.substring(DESCRIPTION_LONG_START, DESCRIPTION_LONG_END);
             System.out.print(" " + taskName + ".. |");
@@ -792,41 +796,39 @@ public class Ui {
     /**
      * Print when Start Tracker Command is completed.
      *
-     * @param tracker description of Task object.
-     * @param date current date.
+     * @param tracker description of Tracker object.
      */
-    public void printStartAtCurrent(oof.model.tracker.Tracker tracker, String date, long difference) {
+    public void printStartAtCurrent(Tracker tracker) {
         printLine();
-        System.out.println("Begin " + tracker.getModule());
-        System.out.println("It is currently " + date);
-        System.out.println("Current total time spent on " + tracker.getModule() + ": " + difference + " minutes");
+        String assignmentName = tracker.getDescription();
+        System.out.println("Begin Assignment: " + assignmentName);
+        System.out.println("It is currently " + tracker.getLastUpdated());
+        System.out.println("Current total time spent on " + assignmentName + ": " + tracker.getTimeTaken() + " minutes");
     }
 
     /**
      * Print when Stop Tracker Command is completed.
      *
-     * @param tracker       description of Task object.
-     * @param date       current date.
-     * @param difference calculated time taken.
+     * @param tracker       description of Tracker object.
      */
-    public void printEndAtCurrent(oof.model.tracker.Tracker tracker, String date, long difference) {
+    public void printEndAtCurrent(Tracker tracker) {
         printLine();
-        System.out.println("Ending " + tracker.getModule());
-        System.out.println("It is currently " + date);
-        System.out.println("Total time spent on " + tracker.getModule() + ": " + difference + " minutes");
+        String assignmentName = tracker.getDescription();
+        System.out.println("Ending Assignment: " + assignmentName);
+        System.out.println("It is currently " + tracker.getLastUpdated());
+        System.out.println("Total time spent on " + assignmentName + ": " + tracker.getTimeTaken() + " minutes");
     }
 
     /**
      * Print when Stop Tracker Command is completed.
-     * @param tracker          description of Task object.
-     * @param date          current date.
-     * @param difference    calculated time taken.
+     * @param tracker          description of Tracker object.
      */
-    public void printPauseAtCurrent(oof.model.tracker.Tracker tracker, String date, long difference) {
+    public void printPauseAtCurrent(Tracker tracker) {
         printLine();
-        System.out.println("Pausing " + tracker.getModule());
-        System.out.println("It is currently " + date);
-        System.out.println("Total time spent on " + tracker.getModule() + ": " + difference + " minutes");
+        String assignmentName = tracker.getDescription();
+        System.out.println("Pausing Assignment: " + assignmentName);
+        System.out.println("It is currently " + tracker.getLastUpdated());
+        System.out.println("Total time spent on " + assignmentName + ": " + tracker.getTimeTaken() + " minutes");
     }
 
     /**
@@ -1358,19 +1360,25 @@ public class Ui {
 
     /**
      * Print Tracker Diagram from TrackerList object.
-     * @param trackerList   ArrayList of Tracker objects.
+     *
+     * @param moduleTrackerList   ArrayList of Tracker objects.
      */
-    public void printTrackerDiagram(TrackerList trackerList) {
-        for (int i = 0; i < trackerList.getSize(); i++) {
-            oof.model.tracker.Tracker tracker = trackerList.getTracker(i);
-            int timeTaken = (int) tracker.getTimeTaken();
-            timeTaken /= 10;
-            for (int j = 0; j < timeTaken; j++) {
-                System.out.print("#");
-            }
-            String description = tracker.getModule();
-            System.out.println("\t" + description + " " + timeTaken + "minutes\n");
-        }
+    public void printTrackerDiagram(ModuleTrackerList moduleTrackerList) {
         printLine();
+        for (int i = 0; i < moduleTrackerList.getSize(); i++) {
+            ModuleTracker moduleTracker = moduleTrackerList.getModuleTracker(i);
+            int timeTaken = (int) moduleTracker.getTimeTaken();
+            int segmentedTimeTaken = timeTaken / TEN_MINUTES_BLOCK;
+            for (int j = 0; j < segmentedTimeTaken; j++) {
+                if (j == FIRST_VAR) {
+                    System.out.println("| ");
+                    System.out.print("| #");
+                } else {
+                    System.out.print("#");
+                }
+            }
+            String moduleCode = moduleTracker.getModuleCode();
+            System.out.print("\t" + moduleCode + " -- " + timeTaken + " minutes\n");
+        }
     }
 }

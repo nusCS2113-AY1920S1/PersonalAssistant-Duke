@@ -1,61 +1,93 @@
 package oof.model.tracker;
 
-public class Tracker {
-    private String module;
-    private String startDate;
-    private String endDate;
-    private String lastUpdated;
-    private long timeTaken = 0;
-    private static final String DELIMITER = "\t";
+import oof.model.task.Assignment;
 
-    public Tracker(String module, long timeTaken) {
-        this.module = module;
-        this.timeTaken = timeTaken;
-    }
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Tracker extends Assignment{
+
+    private static final String DELIMITER = ",";
+    private Date startDate;
+    private Date lastUpdated;
+    private long timeTaken;
 
     /**
      * Constructor for Tracker.
-     * @param module        String of Module Code.
-     * @param startDate     String of starting date.
-     * @param lastUpdated   String of last updated date.
-     * @param timeTaken     long of Time Taken.
+     *
+     * @param startDate     start Date of Tracker.
+     * @param lastUpdated   last updated Date of Tracker.
+     * @param timeTaken     total time spent on Assignment.
      */
-    public Tracker(String module, String startDate, String lastUpdated, long timeTaken) {
-        this.module = module;
+    public Tracker(String moduleCode, String description, String deadlineDateTime, Date startDate, Date lastUpdated, long timeTaken) {
+        super(moduleCode, description, deadlineDateTime);
         this.startDate = startDate;
         this.lastUpdated = lastUpdated;
         this.timeTaken = timeTaken;
     }
 
-    public String getModule() {
-        return module;
+    /**
+     * Get time difference between start and end Dates of a tracked Assignment object.
+     * @param start     start time in Date format.
+     * @return          number of minutes between start and end time of a tracked Assignment.
+     */
+    public String getDateDiff(Date start) {
+        DecimalFormat timeFormatter = new DecimalFormat("###");
+        Date end = new Date();
+        long diff = end.getTime() - start.getTime();
+        int diffMin = (int) (diff / (60 * 60 * 1000));
+        return timeFormatter.format(diffMin);
     }
 
-    public void setModule(String module) {
-        this.module = module;
+    /**
+     * Store details of Tracker in desired format.
+     * @return  formatted details of Tracker
+     */
+    public String toStorageString() {
+        SimpleDateFormat writeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        Date start = getStartDate();
+        Date updated = getLastUpdated();
+        String startDate;
+
+        String moduleCode = getModuleCode();
+        String description = getDescription();
+        String deadline = getDeadlineDateTime();
+        if (start != null) {
+            startDate = writeFormat.format(start);
+        } else {
+            startDate = null;
+        }
+        String lastUpdated = writeFormat.format(updated);
+        String timeTaken = Long.toString(getTimeTaken());
+
+        return moduleCode + DELIMITER + description + DELIMITER + deadline + DELIMITER + startDate + DELIMITER
+                + lastUpdated + DELIMITER + timeTaken;
     }
 
-    public String getStartDate() {
+    /**
+     * Updates startDate and timeTaken properties of Tracker object.
+     * @param totalTime     total Time spent on Assignment.
+     */
+    public void updateTracker(long totalTime, Date lastUpdated) {
+        setLastUpdated(lastUpdated);
+        setTimeTaken(totalTime);
+        setStartDate(null);
+    }
+
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
-    public String getLastUpdated() {
+    public Date getLastUpdated() {
         return lastUpdated;
     }
 
-    public void setLastUpdated(String lastUpdated) {
+    public void setLastUpdated(Date lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 
@@ -67,7 +99,4 @@ public class Tracker {
         this.timeTaken = timeTaken;
     }
 
-    public String toStorageString() {
-        return getModule() + DELIMITER + getStartDate() + DELIMITER + getLastUpdated() + DELIMITER + getTimeTaken();
-    }
 }

@@ -1,7 +1,7 @@
 package oof.model.tracker;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class TrackerList {
@@ -21,6 +21,22 @@ public class TrackerList {
      */
     public TrackerList() {
         this.trackerList = new ArrayList<>();
+    }
+
+    /**
+     * Find Tracker object in TrackerList where descriptions match.
+     *
+     * @return Tracker object that matches user given description.
+     */
+    public Tracker findTrackerByDesc(String description) {
+        for (int i = 0; i < getSize(); i++) {
+            Tracker tracker = getTracker(i);
+            String currentDesc = tracker.getDescription();
+            if (description.equals(currentDesc)) {
+                return tracker;
+            }
+        }
+        return null;
     }
 
     /**
@@ -71,15 +87,6 @@ public class TrackerList {
     }
 
     /**
-     * Deletes a Tracker object from the trackerList.
-     *
-     * @param index Index of Tracker object, specified by the user.
-     */
-    public void deleteTracker(int index) {
-        trackerList.remove(index);
-    }
-
-    /**
      * Checks if index is within bounds of trackerList.
      *
      * @param index Index of trackerList.
@@ -90,20 +97,10 @@ public class TrackerList {
     }
 
     /**
-     * Compare time taken property between two Tracker objects.
+     * Check if trackerList is empty.
+     * @return  true if trackerList is empty.
      */
-    public static Comparator<Tracker> timeTaken = new Comparator<>() {
-
-        /**
-         * Compare time taken property between two Tracker objects.
-         * @param t1    Tracker object.
-         * @param t2    Tracker object.
-         * @return      difference between time taken property between two Tracker objects.
-         */
-        public int compare(Tracker t1, Tracker t2) {
-            int timeTaken1 = (int) t1.getTimeTaken();
-            int timeTaken2 = (int) t2.getTimeTaken();
-            return timeTaken1 - timeTaken2;
-        }
-    };
+    public boolean isEmpty() {
+        return trackerList.isEmpty();
+    }
 }

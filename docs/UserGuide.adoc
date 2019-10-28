@@ -372,46 +372,41 @@ A successful you begins with self-awareness!
 OOF, your Outstanding Organisation Friend, provides you with a simple and efficient way to keep track of the amount of time you spend on each module!
 
 ==== Start tracker: `start`
-Begin your journey to optimum productivity by starting your task timer!
-Start your task tracking from current time.
+Begin your journey to optimum productivity by starting your Tracker timer!
+Start your tracking on a Module from current time.
 
-Format: `start MODULE_CODE`
+Format: `start ASSIGNMENT_DESCRIPTION`
 
-Example: `start CS2113T`
+Example: `start user guide`
 
-image::demo_images/Demo_StartTracker.png[]
+image::Demo_StartTracker.png[]
 
 ==== Pause tracker: `pause`
-Not completed with your Task but want to take a break or get started with another task?
-Pause your task tracking at current time.
+Want to take a break or get started with another Module?
+Pause your tracking on a Module at current time.
 
-Format: `pause MODULE_CODE`
+Format: `pause ASSIGNMENT_DESCRIPTION`
 
-Example: `pause CS2113T`
+Example: `pause user guide`
 
-image::demo_images/Demo_PauseTracker.png[]
+image::Demo_PauseTracker.png[]
 
 ==== Stop tracker: `stop`
-Complete with your Task? Stop task tracking at current time with `stop`.
+Completed with a Module that you're currently working on?
+Stop your tracking on a Module at current time with `stop`.
 
-[NOTE]
+Format: `stop ASSIGNMENT_DESCRIPTION`
 
-Your Task automatically will be marked `Done`.
+Example: `stop user guide`
 
-Format: `stop MODULE_CODE`
-
-Example: `stop CS2113T Activity Diagram`
-
-image::demo_images/Demo_StopTracker.png[]
+image::Demo_StopTracker.png[]
 
 ==== View tracker: `viewTracker`
 Want to view a visual display featuring the amount of time you spend on each of your `Module` over time?
 
 Format: `viewTracker`
 
-Example: `viewTracker`
-
-image::demo_images/Demo_ViewTracker.png[]
+image::Demo_ViewTracker.png[]
 
 Format: `viewTracker TIME_PERIOD [_coming soon in v1.4_]`
 
@@ -421,8 +416,6 @@ Day:: filter time spent on each `Module` today
 Week:: filter time spent on each `Module` over the course of the last 7 days
 
 Example: `viewTracker Day`
-
-image::demo_images/Demo_ViewTrackerTimePeriod.png[]
 
 === Exiting the program: `bye`
 Exits the program.

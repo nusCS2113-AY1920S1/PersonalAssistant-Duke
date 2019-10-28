@@ -3,20 +3,19 @@ package oof.command;
 import oof.Storage;
 import oof.Ui;
 import oof.exception.OofException;
+import oof.model.tracker.ModuleTracker;
+import oof.model.tracker.ModuleTrackerList;
+import oof.model.tracker.Tracker;
 import oof.model.tracker.TrackerList;
 import oof.model.module.SemesterList;
-import oof.model.task.Assignment;
-import oof.model.task.Task;
 import oof.model.task.TaskList;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class ViewTrackerCommand extends Command {
-    private TrackerList trackerList = new TrackerList();
-    private static final long DEFAULT_TIMETAKEN = 0;
-    private static final String TASK_DESCRIPTION = "Others";
     private String period;
+    private static final int EMPTY = 0;
 
     /**
      * Constructor of ViewTrackerCommand.
@@ -27,95 +26,84 @@ public class ViewTrackerCommand extends Command {
     }
 
     /**
-     * Calculate total time spent on various modules.
-     * @param tasks     list of Task objects.
-     * @return          TrackerList of TaskTracker objects.
-     */
-    private TrackerList timeSpentByModule(TaskList tasks) {
-        TrackerList trackerList = new TrackerList();
-        oof.model.tracker.Tracker tracker = new oof.model.tracker.Tracker(TASK_DESCRIPTION, DEFAULT_TIMETAKEN);
-        trackerList.addTracker(tracker);
-
-        for (int i = 0; i < tasks.getSize(); i++) {
-            long totalTime = 0;
-            boolean isFound = false;
-            Task t = tasks.getTask(i);
-
-            if (t instanceof Assignment) {
-                Assignment a = (Assignment) t;
-
-                for (int j = 0; j < trackerList.getSize(); j++) {
-                    tracker = trackerList.getTracker(j);
-                    String module = t.getDescription();
-                    if (module.equals(a.getModuleCode())) {
-                        totalTime += tracker.getTimeTaken();
-                        trackerList.getTracker(j).setTimeTaken(totalTime);
-                        isFound = true;
-                        break;
-                    }
-                }
-
-                if (!isFound) {
-                    tracker.setModule(a.getModuleCode());
-                    totalTime = tracker.getTimeTaken();
-                    tracker.setTimeTaken(totalTime);
-                    trackerList.addTracker(tracker);
-                }
-            } else {
-                for (int j = 0; j < trackerList.getSize(); j++) {
-                    String module = trackerList.getTracker(j).getModule();
-                    if (module.equals("Others")) {
-                        totalTime = trackerList.getTracker(j).getTimeTaken();
-                        totalTime += tracker.getTimeTaken();
-                        trackerList.getTracker(j).setTimeTaken(totalTime);
-                        break;
-                    }
-                }
-            }
-        }
-        return trackerList;
-    }
-
-    /**
-     * Sort trackerList by timeTaken in ascending order.
-     * @param trackerList   ArrayList of Tracker objects.
-     * @return              sorted TrackerList object.
-     */
-    private TrackerList sortAscending(TrackerList trackerList) {
-        ArrayList<oof.model.tracker.Tracker> list = new ArrayList<>();
-        for (int i = 0; i < trackerList.getSize(); i++) {
-            oof.model.tracker.Tracker t = trackerList.getTracker(i);
-            list.add(t);
-        }
-        Collections.sort(list, trackerList.timeTaken);
-        TrackerList sortedTL = new TrackerList();
-        for (int i = 0; i < list.size(); i++) {
-            sortedTL.addTracker(list.get(i));
-        }
-        return sortedTL;
-    }
-
-    /**
-     * Queries a visual diagram featuring a histogram sharing the total amount of time spent on each Module by user.
+     * Queries a visual diagram featuring a histogram sharing the total amount of time spent on each Module by user in blocks of 10 minutes.
      *
      * @param semesterList Instance of SemesterList that stores Semester objects.
      * @param tasks        Instance of TaskList that stores Task objects.
-     * @param trackerList  Instance of TrackerList that stores Tracker objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException if TrackerList is empty.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList tasks, TrackerList trackerList, Ui ui, Storage storage)
-            throws OofException {
-        trackerList = timeSpentByModule(tasks);
-        if (trackerList.getSize() == 0) {
-            throw new OofException("There are no completed Tasks!");
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+        TrackerList trackerList = storage.readTrackerList();
+        ModuleTrackerList moduleTrackerList = timeSpentByModule(trackerList);
+        if (moduleTrackerList.getSize() == EMPTY) {
+            throw new OofException("There are no completed Assignments!");
         }
-        TrackerList sortedTL = sortAscending(trackerList);
-        System.out.println("Overall Sorted List: " + sortedTL); // debug
+        ModuleTrackerList sortedTL = sortAscending(moduleTrackerList);
         ui.printTrackerDiagram(sortedTL);
+    }
+
+    /**
+     * Calculate total time spent on various modules.
+     * @param trackerList     list of Tracker objects.
+     * @return          TrackerList of Tracker objects.
+     */
+    private ModuleTrackerList timeSpentByModule(TrackerList trackerList) {
+        ModuleTrackerList moduleTrackerList = new ModuleTrackerList();
+        Tracker tracker = null;
+
+        for (int i = 0; i < trackerList.getSize(); i++) {
+            tracker = trackerList.getTracker(i);
+            String moduleCode = tracker.getModuleCode();
+            boolean isFound = false;
+
+            if (moduleTrackerList.getSize() == EMPTY) {
+                long timeTaken = tracker.getTimeTaken();
+                ModuleTracker moduleTracker = new ModuleTracker(moduleCode,timeTaken);
+                moduleTrackerList.addModuleTracker(moduleTracker);
+            } else {
+                for (int j = 0; j < moduleTrackerList.getSize(); j++) {
+                    ModuleTracker moduleTracker = moduleTrackerList.getModuleTracker(j);
+                    String savedModule = moduleTracker.getModuleCode();
+                    if (moduleCode.equals(savedModule)) {
+                        long timeTaken = tracker.getTimeTaken();
+                        long totalTime = moduleTracker.getTimeTaken();
+                        totalTime += timeTaken;
+                        moduleTracker.setTimeTaken(totalTime);
+                        isFound = true;
+                        break;
+                    }
+                }
+                if (!isFound) {
+                    long timeTaken = tracker.getTimeTaken();
+                    ModuleTracker moduleTracker = new ModuleTracker(moduleCode, timeTaken);
+                    moduleTrackerList.addModuleTracker(moduleTracker);
+                }
+            }
+        }
+        return moduleTrackerList;
+    }
+
+    /**
+     * Sort trackerList by timeTaken in ascending order.
+     * @param moduleTrackerList   ArrayList of Tracker objects.
+     * @return              sorted TrackerList object.
+     */
+    private ModuleTrackerList sortAscending(ModuleTrackerList moduleTrackerList) {
+        ArrayList<ModuleTracker> list = new ArrayList<>();
+        for (int i = 0; i < moduleTrackerList.getSize(); i++) {
+            ModuleTracker mt = moduleTrackerList.getModuleTracker(i);
+            list.add(mt);
+        }
+        Collections.sort(list, moduleTrackerList.timeTaken);
+        ModuleTrackerList sortedTL = new ModuleTrackerList();
+        for (int i = 0; i < list.size(); i++) {
+            sortedTL.addModuleTracker(list.get(i));
+        }
+        return sortedTL;
     }
 
     @Override

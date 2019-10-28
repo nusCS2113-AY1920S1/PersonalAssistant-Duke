@@ -2,6 +2,8 @@ package oof.command;
 
 import oof.Storage;
 import oof.model.module.SemesterList;
+import oof.model.task.Assignment;
+import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.model.tracker.Tracker;
 import oof.Ui;
@@ -11,20 +13,20 @@ import oof.model.tracker.TrackerList;
 import java.util.Date;
 
 /**
- * Represents a Command to start a task tracker.
+ * Represents a Command to start an Assignment Task tracker.
  */
 public class StartTrackerCommand extends Command {
-    private String module;
+    private String description;
     private static final long DEFAULT_TIMETAKEN = 0;
 
     /**
      * Constructor for StartTrackerCommand.
      *
-     * @param description of Task to start tracking.
+     * @param description of Assignment Task to start tracking.
      */
     public StartTrackerCommand(String description) {
         super();
-        this.module = description;
+        this.description = description;
     }
 
     /**
@@ -32,63 +34,81 @@ public class StartTrackerCommand extends Command {
      *
      * @param semesterList Instance of SemesterList that stores Semester objects.
      * @param tasks        Instance of TaskList that stores Task objects.
-     * @param trackerList  Instance of TrackerList that stores Tracker objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException if invalid Module Code detected or Tracker timer has already started.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList tasks, TrackerList trackerList, Ui ui, Storage storage)
-            throws OofException {
-        Tracker tracker;
-        if (module.isEmpty()) {
-            throw new OofException("Please enter a Module Code!");
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+        if (description.isEmpty()) {
+            throw new OofException("Please enter an Assignment description!");
         } else {
-            boolean isRegistered = isFound(trackerList, module);
-            if (isRegistered) {
-                tracker = findTracker(trackerList, module);
-                if (tracker.getStartDate() != null) {
-                    throw new OofException("Tracker has already started!");
+            TrackerList trackerList = storage.readTrackerList();
+            Tracker tracker = trackerList.findTrackerByDesc(description);
+            if (tracker == null) {
+                boolean isFound = false;
+                for (int i = 0; i < tasks.getSize(); i++) {
+                    Task t = tasks.getTask(i);
+                    if (t instanceof Assignment) {
+                        Assignment assignment = findAssignment(description, tasks);
+                        Date current = new Date();
+                        String moduleCode = assignment.getModuleCode();
+                        String deadline = assignment.getDeadlineDateTime();
+
+                        tracker = new Tracker(moduleCode, description, deadline, current, current, DEFAULT_TIMETAKEN);
+                        trackerList.addTracker(tracker);
+                        storage.writeTrackerList(trackerList);
+                        ui.printStartAtCurrent(tracker);
+                        isFound = true;
+                        break;
+
+                    }
+                }
+                if (!isFound) {
+                    throw new OofException("Invalid Assignment description!");
                 }
             } else {
-                tracker = new Tracker(module, DEFAULT_TIMETAKEN);
-                trackerList.addTracker(tracker);
-            }
-            Date now = new Date();
-            String date = convertDateToString(now);
-            tracker.setStartDate(date);
-            storage.writeTrackerList(trackerList);
-            ui.printStartAtCurrent(tracker, date, tracker.getTimeTaken());
-        }
-    }
-
-    private boolean isFound(TrackerList trackerList, String module) {
-        for (int i = 0; i < trackerList.getSize(); i++) {
-            Tracker tracker = trackerList.getTracker(i);
-            if (module.equals(tracker.getModule())) {
-                return true;
+                updateTrackerList(trackerList);
+                storage.writeTrackerList(trackerList);
+                ui.printStartAtCurrent(tracker);
             }
         }
-        return false;
     }
 
     /**
-     * Find Tracker object in TrackerList where descriptions match.
+     * Updated Assignment that have been tracked in the past.
      *
-     * @param trackerList TrackerList object.
-     * @return Tracker object that matches user given description.
+     * @param trackerList   TrackerList of Tracker objects.
      */
-    private Tracker findTracker(TrackerList trackerList, String description) {
-        Tracker tracker = null;
+    private void updateTrackerList(TrackerList trackerList) {
         for (int i = 0; i < trackerList.getSize(); i++) {
-            String currentDesc = trackerList.getTracker(i).getModule();
-            if (description.equals(currentDesc)) {
-                tracker = trackerList.getTracker(i);
+            Tracker tracker = trackerList.getTracker(i);
+            if (description.equals(tracker.getDescription())) {
+                trackerList.getTracker(i).setLastUpdated(new Date());
+                trackerList.getTracker(i).setStartDate(new Date());
                 break;
             }
         }
-        return tracker;
+    }
+
+    /**
+     * Find Assignment object in TaskList where descriptions match.
+     * @param description   description of Task.
+     * @param taskList      TaskList of Task objects.
+     * @return              Assignment object with description that matches given description.
+     */
+    private Assignment findAssignment(String description, TaskList taskList) {
+        for (int i = 0; i < taskList.getSize(); i++) {
+            Task task = taskList.getTask(i);
+            if (task instanceof Assignment) {
+                Assignment assignment = (Assignment) task;
+                if (description.equals(assignment.getDescription())) {
+                    return assignment;
+                }
+            }
+        }
+        return null;
     }
 
     @Override

@@ -17,7 +17,10 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,12 +30,13 @@ public class Storage {
 
     private ArrayList<Task> arr = new ArrayList<>();
     private static final String DELIMITER_ESCAPED = "\\|\\|";
+    private static final String DELIMITER_TRACKER = ",";
     private static final String DONE = "Y";
     private static final String SPACE = " ";
     private static final String PATH_OUTPUT = "./output.txt";
     private static final String PATH_MANUAL = "./manual.txt";
     private static final String PATH_THRESHOLD = "./oof.config";
-    private static final String PATH_TRACKER = "./tracker.txt";
+    private static final String PATH_TRACKER = "./tracker.csv";
     private static final String TODO = "T";
     private static final String DEADLINE = "D";
     private static final String EVENT = "E";
@@ -49,6 +53,12 @@ public class Storage {
     private static final int INDEX_TIME_START_ASSIGNMENT = 5;
     private static final int INDEX_TIME_END = 6;
     private static final int DEFAULT_THRESHOLD = 24;
+    private static final int ARGUMENT_FIRST = 0;
+    private static final int ARGUMENT_SECOND = 1;
+    private static final int ARGUMENT_THIRD = 2;
+    private static final int ARGUMENT_FOURTH = 3;
+    private static final int ARGUMENT_FIFTH = 4;
+    private static final int ARGUMENT_SIXTH = 5;
 
     /**
      * Reads and prints all commands available to user.
@@ -167,15 +177,17 @@ public class Storage {
 
     /**
      * Writes Tracker objects to hard disk.
+     *
      * @param trackerList   TrackerList of Tracker objects.
      * @throws OofException if unable to write TrackerList.
      */
     public void writeTrackerList(TrackerList trackerList) throws OofException {
         try {
-            List<oof.model.tracker.Tracker> arr = trackerList.getTrackers();
+            List<Tracker> arr = trackerList.getTrackers();
             String filename = PATH_TRACKER;
             BufferedWriter out = new BufferedWriter(new FileWriter(filename));
-            for (oof.model.tracker.Tracker tracker : arr) {
+            for (int i = 0; i < trackerList.getSize(); i++) {
+                Tracker tracker = trackerList.getTracker(i);
                 out.write(tracker.toStorageString() + "\n");
             }
             out.close();
@@ -186,38 +198,53 @@ public class Storage {
 
     /**
      * Reads Tracker objects that were previously saved to hard disk.
+     *
      * @return TrackerList that contains Tracker objects.
      * @throws OofException if unable to read tracker.txt.
      */
-    public ArrayList<Tracker> readTrackerList() throws OofException {
+    public TrackerList readTrackerList() throws OofException {
         try {
             File file = new File(PATH_TRACKER);
             FileReader fileReader = new FileReader(file);
             BufferedReader br = new BufferedReader(fileReader);
-            ArrayList<oof.model.tracker.Tracker> trackerList = new ArrayList<>();
+            TrackerList trackerList = new TrackerList();
             String line;
             while ((line = br.readLine()) != null) {
-                oof.model.tracker.Tracker tracker = processLine(line);
-                trackerList.add(tracker);
+                Tracker tracker = processLine(line);
+                trackerList.addTracker(tracker);
             }
             return trackerList;
-        } catch (IOException e) {
-            throw new OofException("Tracker Data Unavailable!");
+        } catch (IOException | ParseException e) {
+            throw new OofException("Unable to process stored Tracker data.");
         }
     }
 
     /**
      * Processes String of line obtained from tracker.txt.
+     *
      * @param line  String from tracker.txt.
      * @return      Tracker object updated from data found in line.
      */
-    private Tracker processLine(String line) {
-        String[] processed = line.split("\t");
-        String module = processed[0];
-        String startDate = processed[1];
-        String lastUpdated = processed[2];
-        long timeTaken = Long.parseLong(processed[3]);
-        return new Tracker(module, startDate, lastUpdated, timeTaken);
+    private Tracker processLine(String line) throws ParseException {
+        SimpleDateFormat readFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        Date start;
+
+        String[] processed = line.split(DELIMITER_TRACKER);
+        String moduleCode = processed[ARGUMENT_FIRST];
+        String description = processed[ARGUMENT_SECOND];
+        String deadline = processed[ARGUMENT_THIRD];
+        String startDate = processed[ARGUMENT_FOURTH];
+        String lastUpdated = processed[ARGUMENT_FIFTH];
+        long timeTaken = Long.parseLong(processed[ARGUMENT_SIXTH]);
+
+        if (startDate.equals("null")) {
+            start = null;
+        } else {
+            start = readFormat.parse(startDate);
+        }
+        Date updated = readFormat.parse(lastUpdated);
+
+        return new Tracker(moduleCode, description, deadline, start, updated, timeTaken);
     }
 
     /**

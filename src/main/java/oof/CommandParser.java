@@ -102,8 +102,8 @@ public class CommandParser {
             return new PauseTrackerCommand(line);
         case "semester":
             return new SemesterCommand();
-        case "viewTracker":
-            line = line.replaceFirst("viewTracker", "").trim();
+        case "viewtracker":
+            line = line.replaceFirst("viewtracker", "").trim();
             return new ViewTrackerCommand(line);
         default:
             throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");

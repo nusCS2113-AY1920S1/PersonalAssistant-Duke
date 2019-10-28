@@ -38,11 +38,6 @@ public class Oof {
         } catch (IOException | OofException e) {
             tasks = new TaskList();
         }
-        try {
-            trackerList = new TrackerList(storage.readTrackerList());
-        } catch (OofException e) {
-            trackerList = new TrackerList();
-        }
     }
 
     public TaskList getArr() {
@@ -57,7 +52,7 @@ public class Oof {
      */
     public boolean executeCommand(String line) throws OofException {
         Command command = CommandParser.parse(line);
-        command.execute(semesterList, tasks, trackerList, ui, storage);
+        command.execute(semesterList, tasks, ui, storage);
         return command.isExit();
     }
 
