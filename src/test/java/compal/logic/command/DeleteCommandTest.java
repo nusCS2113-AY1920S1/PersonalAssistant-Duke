@@ -24,15 +24,12 @@ public class DeleteCommandTest {
 
     @BeforeEach
     void setUp() {
-        Event testEvent = new Event("Event 1", medium, "01/10/2019", "01/10/2019", "1400", "1500");
-        Deadline testDeadline = new Deadline("Deadline 1", high, "01/10/2019", "1500");
-
         this.taskListMain.setArrList(taskArrListMain);
         this.taskListDup.setArrList(taskArrListDup);
-
+        Event testEvent = new Event("Event 1", medium, "01/10/2019", "01/10/2019", "1400", "1500");
+        Deadline testDeadline = new Deadline("Deadline 1", high, "01/10/2019", "1500");
         taskListMain.addTask(testEvent);
         taskListMain.addTask(testDeadline);
-
         taskListDup.addTask(testEvent);
         taskListDup.addTask(testDeadline);
     }
@@ -44,7 +41,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    void execute_validTaskIDEvent_success() throws CommandException {
+    void execute_validTaskIdEvent_success() throws CommandException {
         DeleteCommand testDeleteCommand = new DeleteCommand(0);
         CommandResult testCommandResult = testDeleteCommand.commandExecute(taskListMain);
         String testString = testCommandResult.feedbackToUser;
@@ -54,7 +51,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    void execute_validTaskIDDeadline_success() throws CommandException {
+    void execute_validTaskIdDeadline_success() throws CommandException {
         DeleteCommand testDeleteCommand = new DeleteCommand(1);
         CommandResult testCommandResult = testDeleteCommand.commandExecute(taskListMain);
         String testString = testCommandResult.feedbackToUser;

@@ -16,7 +16,6 @@ import static compal.model.tasks.Task.Priority.high;
 import static compal.model.tasks.Task.Priority.medium;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 //@@author SholihinK
 class DoneCommandTest {

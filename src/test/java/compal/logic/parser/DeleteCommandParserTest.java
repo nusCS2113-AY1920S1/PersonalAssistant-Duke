@@ -26,15 +26,12 @@ public class DeleteCommandParserTest {
 
     @BeforeEach
     void setUp() {
-        Event testEvent = new Event("Event 1", Task.Priority.medium, "01/10/2019", "01/10/2019", "1400", "1500");
-        Deadline testDeadline = new Deadline("Deadline 1", Task.Priority.high, "01/10/2019", "1500");
-
         this.taskListMain.setArrList(taskArrListMain);
         this.taskListDup.setArrList(taskArrListDup);
-
+        Event testEvent = new Event("Event 1", Task.Priority.medium, "01/10/2019", "01/10/2019", "1400", "1500");
+        Deadline testDeadline = new Deadline("Deadline 1", Task.Priority.high, "01/10/2019", "1500");
         this.taskListDup.addTask(testEvent);
         this.taskListDup.addTask(testDeadline);
-
         this.taskListMain.addTask(testEvent);
         this.taskListMain.addTask(testDeadline);
     }
