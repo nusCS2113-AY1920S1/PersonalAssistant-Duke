@@ -16,6 +16,8 @@ import duke.exception.DukeHelpException;
 import java.util.List;
 import java.util.Map;
 
+import static duke.command.impression.ImpressionHelpers.getImpression;
+
 public class ImpressionEditCommand extends DukeDataCommand {
 
     @Override

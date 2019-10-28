@@ -16,6 +16,8 @@ import duke.ui.context.Context;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static duke.command.impression.ImpressionHelpers.getImpression;
+
 public class ImpressionNewCommand extends DukeDataCommand {
 
     @Override

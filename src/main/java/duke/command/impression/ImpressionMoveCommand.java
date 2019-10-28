@@ -1,6 +1,7 @@
 package duke.command.impression;
 
 import duke.DukeCore;
+import duke.command.ArgCommand;
 import duke.command.ArgSpec;
 import duke.data.DukeData;
 import duke.data.Evidence;
@@ -11,7 +12,11 @@ import duke.exception.DukeException;
 
 import java.util.List;
 
-public class ImpressionMoveCommand extends ImpressionCommand {
+import static duke.command.impression.ImpressionHelpers.findVarTypeData;
+import static duke.command.impression.ImpressionHelpers.getImpression;
+import static duke.command.impression.ImpressionHelpers.getPatient;
+
+public class ImpressionMoveCommand extends ArgCommand {
 
     @Override
     protected ArgSpec getSpec() {
@@ -29,8 +34,7 @@ public class ImpressionMoveCommand extends ImpressionCommand {
             newImpression = null;
         } else {
             // TODO: proper search
-            List<Impression> newImpressionList = ((Patient) impression.getParent())
-                    .findImpressionsByName(targetImpressionName);
+            List<Impression> newImpressionList = getPatient(impression).findImpressionsByName(targetImpressionName);
             if (newImpressionList.size() == 0) {
                 throw new DukeException("Can't find an impression with that name!");
             }
@@ -38,7 +42,7 @@ public class ImpressionMoveCommand extends ImpressionCommand {
         }
 
         DukeData moveData = findVarTypeData(getArg(), getSwitchVal("evidence"),
-                getSwitchVal("treatment"), getImpression(core));
+                getSwitchVal("treatment"), getImpression(core), this);
 
         moveData.setParent(newImpression);
         if (moveData instanceof Evidence) {

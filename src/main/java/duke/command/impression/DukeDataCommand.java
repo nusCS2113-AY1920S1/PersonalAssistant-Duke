@@ -1,5 +1,6 @@
 package duke.command.impression;
 
+import duke.command.ArgCommand;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
 
@@ -7,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public abstract class DukeDataCommand extends ImpressionCommand {
+public abstract class DukeDataCommand extends ArgCommand {
 
     private static final Map<String, List<String>> forbiddenSwitchesMap = Map.ofEntries(
             Map.entry("medicine", Arrays.asList("summary", "subjective", "objective")),

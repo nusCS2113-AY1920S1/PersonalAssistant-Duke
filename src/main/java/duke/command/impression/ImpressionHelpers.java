@@ -5,6 +5,7 @@ import duke.command.ArgCommand;
 import duke.data.DukeData;
 import duke.data.Evidence;
 import duke.data.Impression;
+import duke.data.Patient;
 import duke.data.Treatment;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
@@ -13,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 // TODO: refactor into helper class
-public abstract class ImpressionCommand extends ArgCommand {
+public class ImpressionHelpers {
 
-    protected Impression getImpression(DukeCore core) throws DukeException {
+    public static Impression getImpression(DukeCore core) throws DukeException {
         try {
             return (Impression) core.uiContext.getObject();
         } catch (ClassCastException excp) {
@@ -23,8 +24,16 @@ public abstract class ImpressionCommand extends ArgCommand {
         }
     }
 
+    public static Patient getPatient(Impression impression) throws DukeException {
+        try {
+            return (Patient) impression.getParent();
+        } catch (ClassCastException excp) {
+            throw new DukeException("This Impression is not attached to a Patient!");
+        }
+    }
+
     // TODO: proper search
-    protected Evidence findEvidence(Impression impression, String searchStr) throws DukeException {
+    public static Evidence findEvidence(Impression impression, String searchStr) throws DukeException {
         int idx = idxFromString(searchStr);
         if (idx < 0) {
             List<Evidence> searchResults = impression.findEvidencesByName(searchStr);
@@ -38,7 +47,7 @@ public abstract class ImpressionCommand extends ArgCommand {
         }
     }
 
-    protected Treatment findTreatment(Impression impression, String searchStr) throws DukeException {
+    public static Treatment findTreatment(Impression impression, String searchStr) throws DukeException {
         int idx = idxFromString(searchStr);
         if (idx < 0) {
             List<Treatment> searchResults = impression.findTreatmentsByName(searchStr);
@@ -52,7 +61,7 @@ public abstract class ImpressionCommand extends ArgCommand {
         }
     }
 
-    protected DukeData findData(Impression impression, String searchStr) throws DukeException {
+    public static DukeData findData(Impression impression, String searchStr) throws DukeException {
         int idx = idxFromString(searchStr);
         if (idx < 0) {
             List<DukeData> searchResults = impression.findByName(searchStr);
@@ -66,7 +75,7 @@ public abstract class ImpressionCommand extends ArgCommand {
         }
     }
 
-    protected int idxFromString(String inputStr) {
+    public static int idxFromString(String inputStr) {
         try {
             return Integer.parseInt(inputStr);
         } catch (NumberFormatException excp) {
@@ -74,14 +83,14 @@ public abstract class ImpressionCommand extends ArgCommand {
         }
     }
 
-    protected DukeData findVarTypeData(String arg, String evArg, String treatArg, Impression impression)
+    public static DukeData findVarTypeData(String arg, String evArg, String treatArg, Impression impression,
+                                           ArgCommand command)
             throws DukeException {
         DukeData data;
         DukeException dataNotFound;
         List<DukeData> findList;
 
         // TODO handle idx
-
         if (arg != null && evArg == null && treatArg == null) {
             findList = new ArrayList<DukeData>(impression.findByName(arg));
             dataNotFound = new DukeException("Can't find any data item with that name!");
@@ -92,7 +101,7 @@ public abstract class ImpressionCommand extends ArgCommand {
             findList = new ArrayList<DukeData>(impression.findTreatmentsByName(treatArg));
             dataNotFound = new DukeException("Can't find any treatments with that name!");
         } else {
-            throw new DukeHelpException("I don't know what you want me to look for!", this);
+            throw new DukeHelpException("I don't know what you want me to look for!", command);
         }
 
         // TODO proper search
