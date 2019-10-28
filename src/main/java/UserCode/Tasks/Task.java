@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
 
 public abstract class Task {
 
-    public enum Type {
+    public enum taskType {
         DO,
         IF,
         IF_ELSE,
@@ -24,9 +24,9 @@ public abstract class Task {
     protected Condition condition;
     protected Action action;
 
-    private Type type;
+    private taskType type;
 
-    public Task(Type type, Condition condition, Action action) {
+    public Task(taskType type, Condition condition, Action action) {
         this.condition = condition;
         this.action = action;
         this.type = type;
@@ -47,7 +47,7 @@ public abstract class Task {
     public static Task toTask(JSONObject object) throws FarmioException {
         Condition condition = Condition.toCondition((JSONObject) object.get(Task.JSON_KEY_CONDITION));
         Action action = Action.toAction((String) object.get(JSON_KEY_ACTION));
-        switch(Type.valueOf((String) object.get(Task.JSON_KEY_TYPE))){
+        switch(taskType.valueOf((String) object.get(Task.JSON_KEY_TYPE))){
             case DO:
                 return new DoTask(condition, action);
             case IF:

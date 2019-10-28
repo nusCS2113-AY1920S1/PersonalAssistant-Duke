@@ -24,7 +24,7 @@ public class CommandLevelStart extends Command {
         int frameId = 0;
         for(String narrative: level.getNarratives()){
             String userInput = ui.getInput();
-            if (!userInput.equals("")) {
+            if (userInput.equals("skip")) {
                 farmio.getSimulation().simulate(level.getPath(), level.getNarratives().size() - 1);
                 break;
             }

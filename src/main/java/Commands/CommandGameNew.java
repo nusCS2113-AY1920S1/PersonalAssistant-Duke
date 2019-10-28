@@ -19,7 +19,8 @@ public class CommandGameNew extends Command {
         Storage storage = farmio.getStorage();
         farmio.setFarmer(new Farmer());
         farmio.getSimulation().simulate("GameNew", 0 , true);
-        ui.typeWriter("New Game Created! Starting tutorial...", true);
-        farmio.setStage(Farmio.Stage.LEVEL_START);
+        ui.typeWriter("New Game Created!", false);
+        ui.typeWriter("Enter your name:", false);
+        farmio.setStage(Farmio.Stage.NAME_ADD);
     }
 }

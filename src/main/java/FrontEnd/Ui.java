@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Ui {
     private Scanner scanner;
     private final String CLEAR_SCREEN = "\033c" + "\033[2J";
+    private static String username;
 
     /**
      * Creates a user interface object
@@ -13,6 +14,9 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
+    public void registerName(String message) {
+        username = message;
+    }
     /**
      * Prints the message in the terminal
      * @param message to be printed
@@ -87,8 +91,9 @@ public class Ui {
      * @param text to be printed
      * @param hasPressEnter if 'Press ENTER' should be added to the print
      */
-    public void typeWriter(String text, boolean hasPressEnter) {
+    public void typeWriter(String text, boolean hasPressEnter) { //TODO clean this method up
         final char LEVEL_BEGIN_PLACEHOLDER = '~';
+        final char NAME_PLACEHOLDER = '+';
         boolean isNewline = false;
         int lineLength = 0;
         System.out.print(">>> ");
@@ -105,7 +110,13 @@ public class Ui {
                 System.out.println("\n" + " ".repeat(GameConsole.FULL_CONSOLE_WIDTH / 2 - 8) + AsciiColours.GREEN + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE + "\n");
                 return;
             }
-            System.out.printf("%c", text.charAt(i));
+            if (text.charAt(i) == NAME_PLACEHOLDER) {
+                System.out.print(username);
+                lineLength += username.length() - 1;
+            }
+            else {
+                System.out.printf("%c", text.charAt(i));
+            }
             if (isNewline) {
                 System.out.print("    ");
                 isNewline = false;
