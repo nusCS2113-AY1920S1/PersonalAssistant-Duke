@@ -49,9 +49,10 @@ public class Saving extends Bank {
         this.transactions = new TransactionList();
         this.recurringExpenditures = new RecurringExpenditureList();
         Calendar calendar = Calendar.getInstance();
-        calendar.clear();
-        calendar.setTime(new Date());
         calendar.set(Calendar.DATE, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
         calendar.add(Calendar.MONTH, 1);
         nextIncomeDate = calendar.getTime();
         this.storage = new Storage(FILE_PATH);
@@ -87,70 +88,60 @@ public class Saving extends Bank {
     }
 
     /**
-     * Gets the description of the bank accounts.
-     *
-     * @return the description of the bank account which includes income and type.
-     */
-    @Override
-    public String getDescription() {
-        return super.getDescription() + "\nIncome: $" + new DecimalFormat("0.00").format(getIncome());
-    }
-
-    /**
      * Adds an expenditure tied to this instance of the bank account.
      *
-     * @param exp      an instance of expenditure.
-     * @param ui       required for printing.
-     * @param bankType Type of bank to add expenditure into.
+     * @param expenditure an instance of expenditure.
+     * @param ui          required for printing.
+     * @param bankType    Type of bank to add expenditure into.
      * @throws BankException If bank account becomes negative after adding expenditure.
      */
     @Override
-    public void addInExpenditure(Transaction exp, Ui ui, String bankType) throws BankException {
+    public void addInExpenditure(Transaction expenditure, Ui ui, String bankType) throws BankException {
         if (!"bank".equals(bankType) && !"savings transfer".equals(bankType)) {
             throw new BankException("Bonds cannot be added to this account");
         }
-        if (exp.getAmount() > this.getCurrentAmount()) {
+        if (expenditure.getAmount() > this.getCurrentAmount()) {
             throw new BankException("Bank account cannot have a negative amount");
         } else {
-            transactions.addExpenditureToList(exp, ui, bankType);
-            deductFromAmount(exp.getAmount());
+            transactions.addExpenditureToList(expenditure, ui, bankType);
+            deductFromAmount(expenditure.getAmount());
         }
     }
 
     /**
      * Lists the deposits in the current bank account.
      *
-     * @param ui         Ui of OwlMoney.
-     * @param displayNum Number of deposits to list.
+     * @param ui                Ui of OwlMoney.
+     * @param depositsToDisplay Number of deposits to list.
      * @throws TransactionException If no deposit is found.
      */
     @Override
-    void listAllDeposit(Ui ui, int displayNum) throws TransactionException {
-        transactions.listDeposit(ui, displayNum);
+    void listAllDeposit(Ui ui, int depositsToDisplay) throws TransactionException {
+        transactions.listDeposit(ui, depositsToDisplay);
     }
 
     /**
      * Lists the expenditures in the current bank account.
      *
-     * @param ui         Ui of OwlMoney.
-     * @param displayNum Number of expenditure to list.
+     * @param ui                    Ui of OwlMoney.
+     * @param expendituresToDisplay Number of expenditure to list.
      * @throws TransactionException If no expenditure is found.
      */
     @Override
-    void listAllExpenditure(Ui ui, int displayNum) throws TransactionException {
-        transactions.listExpenditure(ui, displayNum);
+    void listAllExpenditure(Ui ui, int expendituresToDisplay) throws TransactionException {
+        transactions.listExpenditure(ui, expendituresToDisplay);
     }
 
     /**
      * Deletes an expenditure tied to this bank account.
      *
-     * @param exId The id of the expenditure in ExpenditureList.
-     * @param ui   required for printing.
+     * @param expenditureIndex The index of the expenditure in ExpenditureList.
+     * @param ui               required for printing.
      * @throws TransactionException If invalid transaction.
      */
     @Override
-    public void deleteExpenditure(int exId, Ui ui) throws TransactionException {
-        addToAmount(transactions.deleteExpenditureFromList(exId, ui));
+    public void deleteExpenditure(int expenditureIndex, Ui ui) throws TransactionException {
+        addToAmount(transactions.deleteExpenditureFromList(expenditureIndex, ui));
     }
 
     /**
@@ -166,24 +157,25 @@ public class Saving extends Bank {
     /**
      * Edits the expenditure details from the current bank account.
      *
-     * @param expNum   Transaction number.
-     * @param desc     New description.
-     * @param amount   New amount.
-     * @param date     New date.
-     * @param category New category.
-     * @param ui       Ui of OwlMoney.
+     * @param expenditureIndex Transaction number.
+     * @param description      New description.
+     * @param amount           New amount.
+     * @param date             New date.
+     * @param category         New category.
+     * @param ui               Ui of OwlMoney.
      * @throws TransactionException If incorrect date format.
      * @throws BankException        If amount is negative after editing expenditure.
      */
     @Override
-    void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui)
+    void editExpenditureDetails(
+            int expenditureIndex, String description, String amount, String date, String category, Ui ui)
             throws TransactionException, BankException {
         if (!(amount.isEmpty() || amount.isBlank()) && this.getCurrentAmount()
-                + transactions.getExpenditureAmount(expNum) < Double.parseDouble(amount)) {
+                + transactions.getExpenditureAmount(expenditureIndex) < Double.parseDouble(amount)) {
             throw new BankException("Bank account cannot have a negative amount");
         }
-        double oldAmount = transactions.getExpenditureAmount(expNum);
-        double newAmount = transactions.editExpenditure(expNum, desc, amount, date, category, ui);
+        double oldAmount = transactions.getExpenditureAmount(expenditureIndex);
+        double newAmount = transactions.editExpenditure(expenditureIndex, description, amount, date, category, ui);
         this.addToAmount(oldAmount);
         this.deductFromAmount(newAmount);
     }
@@ -191,23 +183,23 @@ public class Saving extends Bank {
     /**
      * Edits the deposit details from the current bank account.
      *
-     * @param expNum Transaction number.
-     * @param desc   New description.
-     * @param amount New amount.
-     * @param date   New date.
-     * @param ui     Ui of OwlMoney.
+     * @param depositIndex Transaction number.
+     * @param description  New description.
+     * @param amount       New amount.
+     * @param date         New date.
+     * @param ui           Ui of OwlMoney.
      * @throws TransactionException If incorrect date format.
      * @throws BankException        If amount becomes negative after editing deposit.
      */
     @Override
-    void editDepositDetails(int expNum, String desc, String amount, String date, Ui ui)
+    void editDepositDetails(int depositIndex, String description, String amount, String date, Ui ui)
             throws TransactionException, BankException {
         if (!(amount.isEmpty() || amount.isBlank()) && this.getCurrentAmount()
-                + Double.parseDouble(amount) < transactions.getDepositValue(expNum)) {
+                + Double.parseDouble(amount) < transactions.getDepositValue(depositIndex)) {
             throw new BankException("Bank account cannot have a negative amount");
         }
-        double oldAmount = transactions.getDepositValue(expNum);
-        double newAmount = transactions.editDeposit(expNum, desc, amount, date, ui);
+        double oldAmount = transactions.getDepositValue(depositIndex);
+        double newAmount = transactions.editDeposit(depositIndex, description, amount, date, ui);
         this.addToAmount(newAmount);
         this.deductFromAmount(oldAmount);
     }
@@ -215,17 +207,17 @@ public class Saving extends Bank {
     /**
      * Adds a new deposit to the current bank account.
      *
-     * @param dep      Deposit to add.
+     * @param deposit  Deposit to add.
      * @param ui       Ui of OwlMoney.
      * @param bankType Type of bank to add deposit into.
      */
     @Override
-    void addDepositTransaction(Transaction dep, Ui ui, String bankType) throws BankException {
+    void addDepositTransaction(Transaction deposit, Ui ui, String bankType) throws BankException {
         if (!"bank".equals(bankType) && !"savings transfer".equals(bankType)) {
             throw new BankException("This account does not support investment account deposits");
         }
-        transactions.addDepositToList(dep, ui, bankType);
-        addToAmount(dep.getAmount());
+        transactions.addDepositToList(deposit, ui, bankType);
+        addToAmount(deposit.getAmount());
     }
 
     /**
@@ -250,8 +242,8 @@ public class Saving extends Bank {
      * Updates the recurring expenditure to the net date and add an expenditure to expenditure list if overdue.
      *
      * @param recurringExpenditure The recurring expenditure to check.
-     * @param outdatedState The state of the recurring expenditure if it is outdated.
-     * @param ui Used for printing.
+     * @param outdatedState        The state of the recurring expenditure if it is outdated.
+     * @param ui                   Used for printing.
      * @return Outdated state of the expenditure.
      * @throws BankException If bank amount becomes negative.
      */
@@ -282,6 +274,7 @@ public class Saving extends Bank {
 
     /**
      * Updates all recurring expenditures in the bank.
+     *
      * @param ui Used for printing.
      */
     @Override
@@ -307,7 +300,7 @@ public class Saving extends Bank {
      * Adds a new recurring expenditure to the bank.
      *
      * @param newExpenditure New recurring expenditure to be added.
-     * @param ui Used for printing.
+     * @param ui             Used for printing.
      * @throws TransactionException If the recurring expenditure list is full.
      */
     void savingAddRecurringExpenditure(Transaction newExpenditure, Ui ui) throws TransactionException {
@@ -318,7 +311,7 @@ public class Saving extends Bank {
      * Deletes a recurring expenditure from the bank.
      *
      * @param index Index of the recurring expenditure.
-     * @param ui Used for printing.
+     * @param ui    Used for printing.
      * @throws TransactionException If there are 0 recurring expenditures or index is out of range.
      */
     void savingDeleteRecurringExpenditure(int index, Ui ui) throws TransactionException {
@@ -328,11 +321,11 @@ public class Saving extends Bank {
     /**
      * Edits a recurring transaction from the bank.
      *
-     * @param index Index of the recurring expenditure.
+     * @param index       Index of the recurring expenditure.
      * @param description New description of the recurring expenditure.
-     * @param amount New amount of the recurring expenditure.
-     * @param category New category of the recurring expenditure.
-     * @param ui Used for printing.
+     * @param amount      New amount of the recurring expenditure.
+     * @param category    New category of the recurring expenditure.
+     * @param ui          Used for printing.
      * @throws TransactionException If there are 0 recurring expenditures or index is out of range.
      */
     void savingEditRecurringExpenditure(int index, String description, String amount, String category, Ui ui)
@@ -360,7 +353,7 @@ public class Saving extends Bank {
     public void exportBankTransactionList(String prependFileName) throws IOException {
         ArrayList<String[]> inputData = prepareExportTransactionList();
         try {
-            storage.writeFile(inputData,prependFileName + SAVING_TRANSACTION_LIST_FILE_NAME);
+            storage.writeFile(inputData, prependFileName + SAVING_TRANSACTION_LIST_FILE_NAME);
         } catch (IOException e) {
             throw new IOException(e);
         }
@@ -371,7 +364,7 @@ public class Saving extends Bank {
      *
      * @return properly formatted recurring transaction list in Arraylist that contains array of strings.
      * @throws BankException if the bank account does not support this feature.
-     * @throws IOException if there are errors exporting the file.
+     * @throws IOException   if there are errors exporting the file.
      */
     @Override
     ArrayList<String[]> prepareExportRecurringTransactionList() throws BankException, IOException {
@@ -379,9 +372,9 @@ public class Saving extends Bank {
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         decimalFormat.setRoundingMode(RoundingMode.DOWN);
         SimpleDateFormat exportDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        exportArrayList.add(new String[]{"description","amount","date","category","spent"});
+        exportArrayList.add(new String[] {"description", "amount", "date", "category", "spent"});
 
-        for (int i = 0; i < recurringExpenditures.getSize(); i++) {
+        for (int i = 0; i < recurringExpenditures.getListSize(); i++) {
             String description = recurringExpenditures.get(i).getDescription();
             double amount = recurringExpenditures.get(i).getAmount();
             String date = exportDateFormat.format(recurringExpenditures.get(i).getDateInDateFormat());
@@ -389,7 +382,7 @@ public class Saving extends Bank {
             boolean spent = recurringExpenditures.get(i).getSpent();
             String stringAmount = decimalFormat.format(amount);
             String stringSpent = String.valueOf(spent);
-            exportArrayList.add(new String[] {description,stringAmount,date,category,stringSpent});
+            exportArrayList.add(new String[] {description, stringAmount, date, category, stringSpent});
         }
         return exportArrayList;
     }
@@ -399,13 +392,13 @@ public class Saving extends Bank {
      *
      * @param prependFileName the index of the bankAccount in the bankList.
      * @throws BankException if the bank account does not support this feature.
-     * @throws IOException if there are errors exporting the file.
+     * @throws IOException   if there are errors exporting the file.
      */
     @Override
     void exportBankRecurringTransactionList(String prependFileName) throws BankException, IOException {
         ArrayList<String[]> inputData = prepareExportRecurringTransactionList();
         try {
-            storage.writeFile(inputData,prependFileName + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME);
+            storage.writeFile(inputData, prependFileName + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME);
         } catch (IOException e) {
             throw new IOException(e);
         }
@@ -415,7 +408,7 @@ public class Saving extends Bank {
      * Imports new expenditures one at a time.
      *
      * @param expenditure an instance of the expenditure, contained in 1 line in the saved file.
-     * @param bankType the type of bank account.
+     * @param bankType    the type of bank account.
      * @throws BankException if the bank account does not support this feature.
      */
     @Override
@@ -433,7 +426,7 @@ public class Saving extends Bank {
     /**
      * Imports new deposits one at a time.
      *
-     * @param deposit an instance of the deposit, contained in 1 line in the saved file.
+     * @param deposit  an instance of the deposit, contained in 1 line in the saved file.
      * @param bankType the type of deposit and bank type.
      * @throws BankException if the bank account does not support this feature.
      */

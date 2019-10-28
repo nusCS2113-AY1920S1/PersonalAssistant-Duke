@@ -11,7 +11,7 @@ import owlmoney.ui.Ui;
  */
 public class RecurringExpenditureList {
     private ArrayList<Transaction> recurringExpenditures;
-    private static final int MAX_LIST_SIZE = 2000;
+    private static final int MAX_LIST_SIZE = 100;
     private static final String TRANSTYPE = "transaction";
     private static final String ITEMTYPE = "item";
     private static final boolean ISMULTIPLE = true;
@@ -157,15 +157,6 @@ public class RecurringExpenditureList {
      */
     private void printOneHeader(Ui ui) {
         ui.printTransactionHeader(TRANSTYPE);
-    }
-
-    /**
-     * Gets the size of the transactionList.
-     *
-     * @return the size of the transactionList.
-     */
-    public int getSize() {
-        return recurringExpenditures.size();
     }
 
     /**
