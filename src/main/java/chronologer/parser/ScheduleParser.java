@@ -3,6 +3,7 @@ package chronologer.parser;
 import chronologer.command.Command;
 import chronologer.command.TaskScheduleCommand;
 import chronologer.exception.ChronologerException;
+import chronologer.ui.UiTemporary;
 
 /**
  * Extract the components required for the schedule command from the user input.
@@ -33,6 +34,7 @@ public class ScheduleParser extends IndexParser {
         try {
             convertedIndex = Integer.parseInt(extractedIndex) - 1;
         } catch (NumberFormatException e) {
+            UiTemporary.printOutput(ChronologerException.unknownUserCommand());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.unknownUserCommand());
         }

@@ -3,6 +3,7 @@ package chronologer.parser;
 import chronologer.command.Command;
 import chronologer.command.LocationCommand;
 import chronologer.exception.ChronologerException;
+import chronologer.ui.UiTemporary;
 
 /**
  * Extract the components required for the location command from the user input.
@@ -29,6 +30,7 @@ public class LocationParser extends IndexParser {
             String[] locationCommandParts = taskFeatures.split("\\s+", 2);
             locationString = locationCommandParts[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
+            UiTemporary.printOutput(ChronologerException.invalidLocation());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.invalidLocation());
         }

@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
  */
 public class Event extends Task implements Serializable, Comparable<Event> {
 
+    private static final String EVENT = "EVENT";
+
     /**
      * creates a new Event task.
      *
@@ -40,7 +42,7 @@ public class Event extends Task implements Serializable, Comparable<Event> {
     public String toString() {
         String message = super.getPriorityIcon() + "[E]" + "[" + super.getStatusIcon() + "] " + this.description;
         String dateString = "(at: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + "-"
-                + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+            + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
         if (!comment.isBlank()) {
             dateString = dateString + "  Note to self: " + comment;
         }
@@ -56,4 +58,8 @@ public class Event extends Task implements Serializable, Comparable<Event> {
         }
     }
 
+    @Override
+    public String getType() {
+        return EVENT;
+    }
 }

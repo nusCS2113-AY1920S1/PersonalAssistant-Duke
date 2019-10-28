@@ -3,6 +3,7 @@ package chronologer.parser;
 import chronologer.command.Command;
 import chronologer.command.EditCommand;
 import chronologer.exception.ChronologerException;
+import chronologer.ui.UiTemporary;
 
 /**
  * Extract the components required for the edit command from the user input.
@@ -11,6 +12,8 @@ import chronologer.exception.ChronologerException;
  * @version v1.0
  */
 public class EditParser extends IndexParser {
+
+    private static final String EMPTY_DESCRIPTION = "No description";
 
     public EditParser(String userInput, String command) {
         super(userInput, command);
@@ -27,6 +30,8 @@ public class EditParser extends IndexParser {
         String[] editCommandParts = taskFeatures.split("\\s+", 2);
         String newDescription = editCommandParts[1].trim();
         if (newDescription.isEmpty()) {
+            UiTemporary.printOutput(ChronologerException.emptyUserDescription());
+            logger.writeLog(EMPTY_DESCRIPTION, this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyUserDescription());
         }
         return newDescription;

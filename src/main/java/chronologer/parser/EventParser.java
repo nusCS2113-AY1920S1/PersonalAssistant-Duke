@@ -3,6 +3,7 @@ package chronologer.parser;
 import chronologer.command.AddCommand;
 import chronologer.command.Command;
 import chronologer.exception.ChronologerException;
+import chronologer.ui.UiTemporary;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -31,6 +32,7 @@ public class EventParser extends DescriptionParser {
             toDate = extractToDate(dateTimeFromUser);
         } catch (ArrayIndexOutOfBoundsException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
+            UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         }
         assert toDate != null;
@@ -44,6 +46,7 @@ public class EventParser extends DescriptionParser {
             return DateTimeExtractor.extractDateTime(fromDateString, command);
         } catch (ParseException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
+            UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
     }
@@ -54,6 +57,7 @@ public class EventParser extends DescriptionParser {
             return DateTimeExtractor.extractDateTime(toDateString, command);
         } catch (ParseException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
+            UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
     }
