@@ -1,11 +1,42 @@
 package parser;
 
-import command.*;
+import command.AddTagCommand;
+import command.Command;
+import command.EditCommand;
+import command.ExitCommand;
+import command.HelpCommand;
+import command.SearchBeginCommand;
+import command.SearchFrequencyCommand;
+import command.SetReminderCommand;
+import command.QuizCommand;
+import command.ListCommand;
+import command.AddCommand;
+import command.DeleteCommand;
+import command.SearchCommand;
+import command.HistoryCommand;
+import command.BadCommand;
+
 import dictionary.Word;
 
-import exception.*;
+import exception.CommandInvalidException;
+import exception.WordUpException;
+import exception.WrongQuizFormatException;
+import exception.WrongAddTagFormatException;
+import exception.WrongEditFormatException;
+import exception.WrongSearchFrequencyFormatException;
+import exception.WrongSearchFormatException;
+import exception.WrongHistoryFormatException;
+import exception.WrongListFormatDescription;
+import exception.WrongDeleteFormatException;
+import exception.WrongAddFormatException;
+import exception.WrongReminderFormatException;
+import exception.EmptyWordException;
+import exception.WrongSearchBeginFormatException;
+import exception.ZeroHistoryRequestException;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 
 /**
@@ -228,6 +259,24 @@ public class Parser {
             }
         }
         return new SearchFrequencyCommand(order);
+    }
+
+    /**
+     * Parses a date String.
+     * @param dateInput String value of date from user input
+     * @return Date object containing date values from date String input
+     */
+    public static Date parseDate(String dateInput) {
+        String pattern = "dd-MM-yyyy HHmm";
+        SimpleDateFormat formattedDate = new SimpleDateFormat(pattern);
+        Date date = new Date();
+
+        try {
+            date = formattedDate.parse(dateInput);
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 
     /**

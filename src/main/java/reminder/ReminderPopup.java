@@ -17,13 +17,15 @@ public class ReminderPopup extends NewScene {
         reminderPopup.show();
     }
 
-
-
     public void makeReminderPopup() {
         reminderScene = setReminderScene();
         reminderPopup = setReminderWindow();
     }
 
+    /**
+     * Creates a reminder scene.
+     * @return reminder scene with initialised values
+     */
     public Scene setReminderScene() {
         Label secondLabel = new Label("Remember to study these words:");
 
@@ -33,6 +35,10 @@ public class ReminderPopup extends NewScene {
         return new Scene(secondaryLayout, 230, 100);
     }
 
+    /**
+     * Creates a reminder stage.
+     * @return reminder stage with initialised values
+     */
     public Stage setReminderWindow() {
         reminderPopup = new Stage();
         reminderPopup.setTitle("Study Reminder");

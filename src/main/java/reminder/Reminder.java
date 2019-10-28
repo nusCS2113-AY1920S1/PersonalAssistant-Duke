@@ -1,7 +1,7 @@
 package reminder;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.Timer;
 
 public class Reminder {
     Timer timer;
@@ -10,18 +10,4 @@ public class Reminder {
         timer = new Timer();
         timer.schedule(new RemindTask(timer), date);
     }
-
-    public static Date parseDate(String dateInput) {
-        String pattern = "dd-MM-yyyy HHmm";
-        SimpleDateFormat formattedDate = new SimpleDateFormat(pattern);
-        Date date = new Date();
-
-        try {
-            date = formattedDate.parse(dateInput);
-        } catch (java.text.ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
-    }
-
 }

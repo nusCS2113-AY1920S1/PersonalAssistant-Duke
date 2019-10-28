@@ -50,7 +50,8 @@ public class WordCount extends Bank {
      * @param searchTerm word that is being searched for by the user
      * @throws NoWordFoundException if word does not exist in the word bank
      */
-    public void increaseSearchCount(String searchTerm, WordBank wordBank) throws WordCountEmptyException, NoWordFoundException {
+    public void increaseSearchCount(String searchTerm, WordBank wordBank)
+            throws WordCountEmptyException, NoWordFoundException {
         if (wordCount.isEmpty()) {
             throw new WordCountEmptyException();
         }
