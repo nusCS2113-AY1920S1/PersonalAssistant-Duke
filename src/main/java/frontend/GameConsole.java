@@ -2,7 +2,11 @@ package frontend;
 
 import farmio.Farmer;
 
-import java.util.*;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+
 
 /**
  * Creates a virtual game console on the terminal.
@@ -20,20 +24,59 @@ class GameConsole {
     private static final int ASSET_SECTION_Y_POSITION_WRT_FRAME = 7;
     private static final int LEFT_COLUMN_SECTION_WIDTH = 15;
 
-    private static final String TOP_BORDER = "."+ "_".repeat(FULL_CONSOLE_WIDTH) +".\n";
-    private static final String GOAL_TITLE = "|"+"----" + AsciiColours.RED + "<GOALS>"
-            + AsciiColours.SANE+ "----"+"|" + AsciiColours.HIGH_INTENSITY + AsciiColours.BLACK;
-    private static final String CODE_TITLE = AsciiColours.SANE + "|"+ "-".repeat(12)
-            + AsciiColours.CYAN + "<CODE>" + AsciiColours.SANE + "-".repeat(13)+"|\n";
-    private static final String BOX_BOTTOM_BORDER = "|" + "_".repeat(LEFT_COLUMN_SECTION_WIDTH)
-            + "|" + "_".repeat(FRAME_SECTION_WIDTH) +"|" + "_".repeat(9)+"|"+"_".repeat(21)+"|\n";
-    private static final String ASSETS_TITLE = "---" + AsciiColours.YELLOW + "<ASSETS>" + AsciiColours.SANE + "----";
-    private static final String MENU_SEPARATOR = "|"+"_".repeat(LEFT_COLUMN_SECTION_WIDTH)+"|"
-            + "_".repeat(FRAME_SECTION_WIDTH)+"|" + "_".repeat(USER_CODE_SECTION_WIDTH)+"|\n";
-    private static final String MENU_TITLE = "|" + AsciiColours.BACKGROUND_BLUE + AsciiColours.HIGH_INTENSITY
-            + AsciiColours.UNDERLINE + " [EXIT] to exit" + " ".repeat(6) + "[MENU]"
-           + " for full instruction list or settings" + " ".repeat(10) + "[HINT] for hint on <CODE>"
-            + " ".repeat(3) + AsciiColours.SANE + "|\n";
+    private static final String TOP_BORDER = "."
+            + "_".repeat(FULL_CONSOLE_WIDTH)
+            + ".\n";
+    private static final String GOAL_TITLE = "|"
+            + "----" + AsciiColours.RED
+            + "<GOALS>"
+            + AsciiColours.SANE
+            + "----"
+            + "|"
+            + AsciiColours.HIGH_INTENSITY
+            + AsciiColours.BLACK;
+    private static final String CODE_TITLE = AsciiColours.SANE
+            + "|"
+            + "-".repeat(12)
+            + AsciiColours.CYAN
+            + "<CODE>"
+            + AsciiColours.SANE
+            + "-".repeat(13)
+            + "|\n";
+    private static final String BOX_BOTTOM_BORDER = "|"
+            + "_".repeat(LEFT_COLUMN_SECTION_WIDTH)
+            + "|"
+            + "_".repeat(FRAME_SECTION_WIDTH)
+            + "|"
+            + "_".repeat(9)
+            + "|"
+            + "_".repeat(21)
+            + "|\n";
+    private static final String ASSETS_TITLE = "---"
+            + AsciiColours.YELLOW
+            + "<ASSETS>"
+            + AsciiColours.SANE
+            + "----";
+    private static final String MENU_SEPARATOR = "|"
+            + "_".repeat(LEFT_COLUMN_SECTION_WIDTH)
+            + "|"
+            + "_".repeat(FRAME_SECTION_WIDTH)
+            + "|"
+            + "_".repeat(USER_CODE_SECTION_WIDTH)
+            + "|\n";
+    private static final String MENU_TITLE = "|"
+            + AsciiColours.BACKGROUND_BLUE
+            + AsciiColours.HIGH_INTENSITY
+            + AsciiColours.UNDERLINE
+            + " [EXIT] to exit"
+            + " ".repeat(6)
+            + "[MENU]"
+            + " for full instruction list or settings"
+            + " ".repeat(10)
+            + "[HINT] for hint on <CODE>"
+            + " ".repeat(3)
+            + AsciiColours.SANE
+            + "|\n";
     private static final String TOO_LONG = "<";
     private static Map<String,Integer> previousAssetSet;
 
@@ -62,40 +105,34 @@ class GameConsole {
      * Creates the virtual Game console with all game variable displayed.
      * @param frame the ascii art picture in the center of the console.
      * @param farmer The farmer who's statistics will be displayed on the console.
-     * @param Goals The list of Goals the farmer has to accomplish.
+     * @param goalMap The list of Goals the farmer has to accomplish.
      * @param objective The mission of the level.
      * @return the virtual Game console as a String.
      */
-    static String fullconsole(ArrayList<String> frame, Farmer farmer, Map<String, Integer> Goals, String objective) {
-        String username = farmer.getName();
+    static String fullconsole(ArrayList<String> frame, Farmer farmer, Map<String, Integer> goalMap, String objective) {
         StringBuilder output = new StringBuilder();
         String location = farmer.getLocation();
         double level = farmer.getLevel();
-        int day = farmer.getDay();
         ArrayList<String> userCode = farmer.getTasks().toStringArray();
-        ArrayList<String> assets = formatAssets(farmer.getAssets(), Goals);
+        ArrayList<String> assets = formatAssets(farmer.getAssets(), goalMap);
         ArrayList<String> goals;
-        if (level == 1.1) {
-            goals = tutorial1_1Goals(location);
-        } else {
-            goals = formatGoals(Goals, farmer.getAssets());
-        }
+        goals = (level == 1.1) ? tutorial1_1Goals(location) : formatGoals(goalMap, farmer.getAssets());
         userCode = formatAndHighlightCode(userCode, farmer.getCurrentTask(), farmer.isHasfailedCurrentTask());
         output.append(AsciiColours.SANE).append(TOP_BORDER);
-        output.append("|   " + AsciiColours.BLUE).append(horizontalPanel("Level: " + Double.toString(level),
-                LEVEL_SECTION_WIDTH)).append(AsciiColours.SANE).append("  |");
-        output.append(AsciiColours.RED + "Objective: " + AsciiColours.SANE).append(AsciiColours.HIGH_INTENSITY)
-                .append(objective).append(AsciiColours.SANE)
+        output.append("|   " + AsciiColours.BLUE).append(horizontalPanel("Level: "
+                        + level, LEVEL_SECTION_WIDTH)).append(AsciiColours.SANE).append("  |");
+        output.append(AsciiColours.RED).append("Objective: ").append(AsciiColours.SANE)
+                .append(AsciiColours.HIGH_INTENSITY).append(objective).append(AsciiColours.SANE)
                 .append(" ".repeat(FRAME_SECTION_WIDTH - objective.length() - 11));
-        output.append("|" + AsciiColours.MAGENTA).append(horizontalPanel("Day: " + Integer.toString(day),
-                DAY_SECTION_WIDTH)).append(AsciiColours.SANE).append(" ");
-        output.append("| " + AsciiColours.GREEN).append(horizontalPanel("Location: " + location,
-                LOCATION_SECTION_WIDTH)).append(AsciiColours.SANE);
+        output.append("|").append(AsciiColours.MAGENTA).append(horizontalPanel("Day: "
+                        + farmer.getDay(), DAY_SECTION_WIDTH)).append(AsciiColours.SANE).append(" ");
+        output.append("| ").append(AsciiColours.GREEN).append(horizontalPanel("Location: "
+                        + location, LOCATION_SECTION_WIDTH)).append(AsciiColours.SANE);
         output.append("|\n");
         output.append(BOX_BOTTOM_BORDER);
-        output.append(GOAL_TITLE).append(horizontalCentralisedPanel("Farmer " + username + "'s Adventure",
-                FRAME_SECTION_WIDTH)).append(CODE_TITLE);
-        for (int i = 0; i < FRAME_SECTION_HEIGHT; i ++) {
+        output.append(GOAL_TITLE).append(horizontalCentralisedPanel("Farmer " + farmer.getName()
+                        + "'s Adventure", FRAME_SECTION_WIDTH)).append(CODE_TITLE);
+        for (int i = 0; i < FRAME_SECTION_HEIGHT; i++) {
             if (i < ASSET_SECTION_Y_POSITION_WRT_FRAME) {
                 output.append("|").append(goals.get(i)).append(frame.get(i)).append(userCode.get(i)).append("\n");
             } else if (i == ASSET_SECTION_Y_POSITION_WRT_FRAME) {
@@ -120,21 +157,21 @@ class GameConsole {
     private static ArrayList<String> formatAndHighlightCode(ArrayList<String> userCode, int currentTask,
                                                             boolean hasFailedCurrentTask) {
         ArrayList<String> userCodeOutput = new ArrayList<>();
-        while (userCode.size() < FRAME_SECTION_HEIGHT){
+        while (userCode.size() < FRAME_SECTION_HEIGHT) {
             userCode.add("");
         }
         int i = 0;
         for (String s: userCode) {
             if (i == currentTask && !hasFailedCurrentTask) {
-                userCodeOutput.add(AsciiColours.HIGHLIGHT+ horizontalPanel(s, USER_CODE_SECTION_WIDTH)
+                userCodeOutput.add(AsciiColours.HIGHLIGHT + horizontalPanel(s, USER_CODE_SECTION_WIDTH)
                         + AsciiColours.SANE + "|");
-            } else if (i == currentTask){
+            } else if (i == currentTask) {
                 userCodeOutput.add(AsciiColours.ERROR + horizontalPanel(s, USER_CODE_SECTION_WIDTH)
                         + AsciiColours.SANE + "|");
             } else {
                 userCodeOutput.add(horizontalPanel(s, USER_CODE_SECTION_WIDTH) + "|");
             }
-            i ++;
+            i++;
         }
         return userCodeOutput;
     }
@@ -147,7 +184,7 @@ class GameConsole {
     static String blankConsole(ArrayList<String> frame) {
         StringBuilder output = new StringBuilder();
         output.append(AsciiColours.SANE).append(TOP_BORDER);
-        for (int i = 0; i < FULL_CONSOLE_HEIGHT; i ++) {
+        for (int i = 0; i < FULL_CONSOLE_HEIGHT; i++) {
             output.append(frame.get(i)).append("\n");
         }
         return output.toString();
@@ -166,7 +203,7 @@ class GameConsole {
         } else {
             goals.add(AsciiColours.NOT_DONE + "Location:Market" + AsciiColours.SANE);
         }
-        while(goals.size() < ASSET_SECTION_Y_POSITION_WRT_FRAME) {
+        while (goals.size() < ASSET_SECTION_Y_POSITION_WRT_FRAME) {
             goals.add(" ".repeat(LEFT_COLUMN_SECTION_WIDTH));
         }
         return goals;
@@ -180,14 +217,14 @@ class GameConsole {
      */
     private static ArrayList<String> formatGoals(Map<String, Integer> goals, Map<String, Integer> assets) {
         ArrayList<String> formattedGoals = new ArrayList<>();
-        Set< Map.Entry< String,Integer> > goalSet = goals.entrySet();
-        for (Map.Entry< String,Integer> goal:goalSet) {
+        Set<Map.Entry<String,Integer>> goalSet = goals.entrySet();
+        for (Map.Entry<String,Integer> goal:goalSet) {
             String s = goal.getKey() + ": " +  goal.getValue();
             if (assets.containsKey(goal.getKey()) && goal.getValue() <= assets.get(goal.getKey())
                     && goal.getValue() > 0) {
                 formattedGoals.add(0, AsciiColours.DONE + horizontalPanel(s, LEFT_COLUMN_SECTION_WIDTH)
                         + AsciiColours.SANE);
-            } else if ((assets.containsKey(goal.getKey())&& goal.getValue() > 0)){
+            } else if ((assets.containsKey(goal.getKey()) && goal.getValue() > 0)) {
                 formattedGoals.add(AsciiColours.NOT_DONE + horizontalPanel(s, LEFT_COLUMN_SECTION_WIDTH)
                         + AsciiColours.SANE);
             }
@@ -206,8 +243,8 @@ class GameConsole {
      */
     private static ArrayList<String> formatAssets(Map<String, Integer> assets, Map<String, Integer> goals) {
         ArrayList<String> formattedAssets = new ArrayList<>();
-        Set< Map.Entry< String,Integer> > assetSet = assets.entrySet();
-        for (Map.Entry< String,Integer> asset:assetSet) {
+        Set<Map.Entry<String,Integer>> assetSet = assets.entrySet();
+        for (Map.Entry<String,Integer> asset:assetSet) {
             String s = asset.getKey() + ": " +  asset.getValue();
             String toAdd = horizontalPanel(s, LEFT_COLUMN_SECTION_WIDTH);
             if (previousAssetSet != null && previousAssetSet.containsKey(asset.getKey())

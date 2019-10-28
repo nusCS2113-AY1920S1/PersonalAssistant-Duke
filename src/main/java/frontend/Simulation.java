@@ -61,7 +61,7 @@ public class Simulation {
      */
     public void simulate(String framePath, int startFrame, int endFrame, boolean isFullscreen)
             throws FarmioFatalException {
-        for(int i =  startFrame; i <= endFrame; i ++) {
+        for (int i =  startFrame; i <= endFrame; i++) {
             simulate(framePath, i, isFullscreen);
         }
     }
@@ -92,7 +92,7 @@ public class Simulation {
      * @throws FarmioFatalException if any file cannot be found.
      */
     public void simulate(String framePath, int startFrame, int endFrame) throws FarmioFatalException {
-        for(int i =  startFrame; i <= endFrame; i ++) {
+        for (int i =  startFrame; i <= endFrame; i++) {
             simulate(framePath, i);
         }
     }

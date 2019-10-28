@@ -17,6 +17,7 @@ public class Ui {
     public void registerName(String message) {
         username = message;
     }
+
     /**
      * Prints the message in the terminal.
      * @param message to be printed.
@@ -28,7 +29,7 @@ public class Ui {
     /**
      * Prints the exit message.
      */
-    public void showExit(){
+    public void showExit() {
         typeWriter("Bye-Bye", false);
     }
 
@@ -60,7 +61,7 @@ public class Ui {
      * @param message as the info message.
      */
     public void showInfo(String message) {
-        show(AsciiColours.CYAN + "Info: " + AsciiColours.SANE + message );
+        show(AsciiColours.CYAN + "Info: " + AsciiColours.SANE + message);
     }
 
     /**
@@ -77,9 +78,9 @@ public class Ui {
      * @param delay time in milliseconds.
      */
     public void sleep(int delay) {
-        try{
+        try {
             Thread.sleep(delay);
-        }catch(InterruptedException ex){
+        } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
             clearScreen();
             showWarning("Simulator refersh interrupted! Interface may not display correctly.");
@@ -98,8 +99,8 @@ public class Ui {
         int lineLength = 0;
         System.out.print(">>> ");
         sleep(150);
-        for(int i = 0; i < text.length(); i++) {
-            lineLength ++;
+        for (int i = 0; i < text.length(); i++) {
+            lineLength++;
             if (lineLength > GameConsole.FULL_CONSOLE_WIDTH - 10 && text.charAt(i) == ' ') {
                 System.out.print("\n   ");
                 lineLength = 0;
@@ -114,8 +115,7 @@ public class Ui {
             if (text.charAt(i) == NAME_PLACEHOLDER) {
                 System.out.print(username);
                 lineLength += username.length() - 1;
-            }
-            else {
+            } else {
                 System.out.printf("%c", text.charAt(i));
             }
             if (isNewline) {
