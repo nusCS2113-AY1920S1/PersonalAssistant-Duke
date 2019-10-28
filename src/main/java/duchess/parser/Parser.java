@@ -16,6 +16,7 @@ public class Parser {
      */
     public static final String TASKS_KEYWORD = "tasks";
     public static final String MODULES_KEYWORD = "modules";
+    public static final String GRADES_KEYWORD = "grades";
     public static final String TASK_KEYWORD = "task";
     public static final String MODULE_KEYWORD = "module";
 
@@ -23,7 +24,7 @@ public class Parser {
      * Usage for commands.
      */
     public static final String LIST_USAGE =
-            "Usage: list (tasks | modules)";
+            "Usage: list (tasks | modules | grades /module <module_code>)";
     public static final String DELETE_USAGE =
             "Usage: delete (task | module) /no <number>";
 

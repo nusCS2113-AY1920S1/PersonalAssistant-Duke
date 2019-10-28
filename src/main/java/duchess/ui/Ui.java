@@ -120,6 +120,17 @@ public class Ui {
     }
 
     /**
+     * Displays grades in the given module.
+     *
+     * @param grades list of grades
+     * @param module module containing grades
+     */
+    public void showGradeList(List<Grade> grades, Module module) {
+        printIndented("Here are your grades for " + module + ":");
+        showGrades(grades);
+    }
+
+    /**
      * Prints the task that was added.
      *
      * @param tasks List of all tasks

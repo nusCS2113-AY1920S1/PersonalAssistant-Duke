@@ -1,6 +1,7 @@
 package duchess.parser.commands;
 
 import duchess.exceptions.DuchessException;
+import duchess.logic.commands.ListGradesCommand;
 import duchess.logic.commands.ListModulesCommand;
 import duchess.logic.commands.ListTasksCommand;
 import duchess.parser.Util;
@@ -24,7 +25,15 @@ class ListCommandParserTest {
                 ListCommandParser.parse(parameters2) instanceof ListTasksCommand
         );
 
-        Map<String, String> parameters3 = Util.parameterize("list something");
-        assertThrows(DuchessException.class, () -> ListCommandParser.parse(parameters3));
+        Map<String, String> parameters3 = Util.parameterize("list grades /module CS1231");
+        assertTrue(
+                ListCommandParser.parse(parameters3) instanceof ListGradesCommand
+        );
+
+        Map<String, String> parameters4 = Util.parameterize("list grades something");
+        assertThrows(DuchessException.class, () -> ListCommandParser.parse(parameters4));
+
+        Map<String, String> parameters5 = Util.parameterize("list something");
+        assertThrows(DuchessException.class, () -> ListCommandParser.parse(parameters5));
     }
 }
