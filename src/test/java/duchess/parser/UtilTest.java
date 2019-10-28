@@ -3,7 +3,6 @@ package duchess.parser;
 import duchess.exceptions.DuchessException;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +14,7 @@ public class UtilTest {
         assertThrows(
             DuchessException.class,
             () -> {
-                Util.parseDateTime(List.of("12/12/2019"), 0);
+                Util.parseDateTime("12/12/2019");
             }
         );
     }

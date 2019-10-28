@@ -5,6 +5,7 @@ import duchess.exceptions.DuchessException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
@@ -21,10 +22,16 @@ import java.util.TreeMap;
 public class Util {
     private static final String INVALID_FORMAT_MESSAGE = "Please enter dates in the format dd/mm/yyyy hhmm";
     private static final String INVALID_DATE_FORMAT_MESSAGE = "Please enter date in the format dd/mm/yyyy";
-    private static final String padTiming = " 0000";
     private static final DateTimeFormatter formatter =
             DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm")
                     .withResolverStyle(ResolverStyle.STRICT);
+    private static final String MON = "MON";
+    private static final String TUE = "TUE";
+    private static final String WED = "WED";
+    private static final String THUR = "THUR";
+    private static final String FRI = "FRI";
+    private static final String SAT = "SAT";
+    private static final String SUN = "SUN";
 
     private Util() {
         // Note that this class is not meant to be instantiated
@@ -34,47 +41,74 @@ public class Util {
     }
 
     /**
-     * Parses a given string and returns a {@code LocalDate} object.
+     * Obtains an instance of LocalTime from a text string using a formatter of pattern "HHmm".
      *
-     * @param date the string to parse
-     * @return {@code LocalDate} obtained by parsing the supplied string
-     * @throws DuchessException the supplied string is formatted incorrectly
+     * @param time text to parse
+     * @return the parsed local time
      */
-    public static LocalDate parseDate(String date) throws DuchessException {
-        try {
-            return LocalDate.parse(date + padTiming, formatter);
-        } catch (DateTimeParseException e) {
+    private static LocalTime parseTime(String time) {
+        return LocalTime.parse(time, DateTimeFormatter.ofPattern("HHmm"));
+    }
+
+    /**
+     * Obtains an instance of LocalDate from a text string containing a day of week.
+     *
+     * @param day text to process
+     * @return the next nearest date which falls on the day of week indicated by {@code day}
+     * @throws DuchessException thrown if text input does not indicate a day of week
+     */
+    private static LocalDate processDayOfWeek(String day) throws DuchessException {
+        String capitalDay = day.toUpperCase();
+        if (capitalDay.contains(MON)) {
+            return LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+        } else if (capitalDay.contains(TUE)) {
+            return LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
+        } else if (capitalDay.contains(WED)) {
+            return LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.WEDNESDAY));
+        } else if (capitalDay.contains(THUR)) {
+            return LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.THURSDAY));
+        } else if (capitalDay.contains(FRI)) {
+            return LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
+        } else if (capitalDay.contains(SAT)) {
+            return LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
+        } else if (capitalDay.contains(SUN)) {
+            return LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+        } else {
             throw new DuchessException(INVALID_DATE_FORMAT_MESSAGE);
         }
     }
 
     /**
-     * Parses a given string and returns a {@code LocalDateTime} object.
+     * Obtains an instance of LocalDate from a text string using a formatter of pattern "dd/MM/yyyy".
      *
-     * @param dateTime the string to parse
-     * @return {@code LocalDateTime} obtained by parsing the supplied string
-     * @throws DuchessException if the supplied string is formatted incorrectly
+     * @param date date to parse
+     * @return the parsed local date
+     * @throws DuchessException thrown if text input is not in ISO format, or does not indicate a day of week
      */
-    public static LocalDateTime parseDateTime(String dateTime) throws DuchessException {
+    public static LocalDate parseDate(String date) throws DuchessException {
         try {
-            return LocalDateTime.parse(dateTime, formatter);
+            return LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         } catch (DateTimeParseException e) {
-            throw new DuchessException(INVALID_FORMAT_MESSAGE);
+            return processDayOfWeek(date);
         }
     }
 
     /**
-     * Parses a list of string and returns a {@code LocalDateTime} object.
+     * Obtains an instance of LocalDateTime from a text input.
+     * Text input is parsed to given LocalDate and LocalTime.
+     * LocalDate and LocalTime is then used to form LocalDateTime.
      *
-     * @param tokens the datetime string split at space
-     * @param offset the offset of the datetime tokens from the beginning of the list
-     * @return {@code LocalDateTime} object obtained by parsing the supplied tokens
-     * @throws DuchessException if the format is invalid or there are insufficient tokens to parse
+     * @param dateTime dateTime to parse
+     * @return the parsed local date time
+     * @throws DuchessException thrown if invalid
      */
-    public static LocalDateTime parseDateTime(List<String> tokens, int offset) throws DuchessException {
+    public static LocalDateTime parseDateTime(String dateTime) throws DuchessException {
         try {
-            String dateTime = tokens.get(offset) + " " + tokens.get(offset + 1);
-            return parseDateTime(dateTime);
+            String[] arr = dateTime.split(" ");
+            if (arr.length > 2) {
+                throw new DuchessException(INVALID_FORMAT_MESSAGE);
+            }
+            return LocalDateTime.of(parseDate(arr[0]), parseTime(arr[1]));
         } catch (IndexOutOfBoundsException e) {
             throw new DuchessException(INVALID_FORMAT_MESSAGE);
         }
@@ -151,4 +185,5 @@ public class Util {
     public static Map<String, String> parameterizeWithoutCommand(String input) {
         return parameterize("dummy " + input);
     }
+
 }
