@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class SongList {
 
     private ArrayList<Song> list = new ArrayList<>();
+    private int activeIndex = 0; // default song to be edited is the first one
 
     /**
      * Removes an element from the song list.
@@ -30,6 +31,27 @@ public class SongList {
         list.add(newSong);
     }
 
+    //@@author rohan-av
+
+    /**
+     * Returns the index in the song list of the song that is currently being edited.
+     *
+     * @return the index of the active song in the song list
+     */
+    public int getActiveIndex() {
+        return activeIndex;
+    }
+
+    /**
+     * Sets the active index of the song to be edited.
+     *
+     * @param idx the index of the song that is to be edited
+     */
+    public void setActiveIndex(int idx) {
+        activeIndex = idx;
+    }
+
+    //@@author jwyf
     /**
      * Returns the ducats.components.Song object at the specified index
      *
@@ -70,6 +92,23 @@ public class SongList {
         for (Song song: list) {
             if (song.getName().contains(query)) {
                 result.add(song);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Returns an integer corresponding to the index of the first Song object in the SongList whose name matches the
+     * given query.
+     *
+     * @param query the name of the Song to be searched for
+     * @return the index corresponding to the song, -1 otherwise
+     */
+    public int findSongIndex(String query) {
+        int result = -1;
+        for (Song song: list) {
+            if (song.getName().contains(query)) {
+                result = list.indexOf(song);
             }
         }
         return result;

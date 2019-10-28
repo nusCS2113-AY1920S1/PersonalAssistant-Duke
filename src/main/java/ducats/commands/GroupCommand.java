@@ -57,7 +57,7 @@ public class GroupCommand extends Command<SongList> {
 
             if (songList.getSize() > 0) {
                 Group group = createGroup(songList.getSongIndex(0), name, startNo, endNo);
-                songList.getSongIndex(0).getGroups().add(group);
+                songList.getSongIndex(songList.getActiveIndex()).getGroups().add(group);
             } else {
                 throw new DucatsException(message, "group");
             }

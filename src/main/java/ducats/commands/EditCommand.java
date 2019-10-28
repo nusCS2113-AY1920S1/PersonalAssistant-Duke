@@ -41,11 +41,10 @@ public class EditCommand extends Command<SongList> {
         try {
             String[] sections = message.substring(5).split(" ");
             barNo = Integer.parseInt(sections[0].substring(4));
-
             int notesIndex = message.indexOf(sections[1]);
-
             Bar newBar = new Bar(barNo, message.substring(notesIndex));
 
+            songIndex = songList.getActiveIndex();
             Song song = songList.getSongIndex(songIndex);
 
             song.getBars().add(barNo - 1, newBar);

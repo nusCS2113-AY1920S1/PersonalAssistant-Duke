@@ -1,30 +1,30 @@
 package ducats;
 
-import ducats.components.Jaccard;
 import ducats.commands.AddBarCommand;
 import ducats.commands.AddOverlayCommand;
+import ducats.commands.AsciiCommand;
 import ducats.commands.ByeCommand;
 import ducats.commands.Command;
 import ducats.commands.CopyCommand;
 import ducats.commands.DeleteBarCommand;
 import ducats.commands.DeleteCommand;
-import ducats.commands.OverlayBarGroup;
-import ducats.commands.OverlayBarSong;
 import ducats.commands.EditCommand;
 import ducats.commands.GroupCommand;
 import ducats.commands.HelpCommand;
 import ducats.commands.ListCommand;
 import ducats.commands.NewCommand;
+import ducats.commands.OpenCommand;
+import ducats.commands.OverlayBarGroup;
+import ducats.commands.OverlayBarSong;
+import ducats.commands.OverlayGroupGroup;
 import ducats.commands.RedoCommand;
 import ducats.commands.UndoCommand;
 import ducats.commands.ViewCommand;
-import ducats.commands.AsciiCommand;
-import ducats.commands.OverlayGroupGroup;
+import ducats.components.Jaccard;
 
 /**
  * A class used to interpret the incoming messages and translate them into the appropriate duke.Commands.
  */
-
 public class Parser {
 
     /**
@@ -39,7 +39,7 @@ public class Parser {
         String [] commandList = {"bye", "list", "delete", "deletebar","edit",
                                     "find","done", "new","help","view","addbar",
                                     "overlay","group","overlay_bar_group",
-                                    "overlay_group_group","overlay_bar_song","ascii","redo","undo"};
+                                    "overlay_group_group","overlay_bar_song","ascii","redo","undo", "open"};
         double maximumVal = 0;
         String commandName = "";
         Jaccard similarityChecker = new Jaccard();
@@ -62,6 +62,11 @@ public class Parser {
         case "list":
             if (message.length() == 4) {
                 return new ListCommand();
+            }
+            break;
+        case "open":
+            if (message.length() >= 6) {
+                return new OpenCommand(message);
             }
             break;
         case "delete":

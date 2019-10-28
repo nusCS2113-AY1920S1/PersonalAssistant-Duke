@@ -37,7 +37,6 @@ public class ViewCommand extends Command<SongList> {
         if (message.length() < 5 || !message.substring(0, 5).equals("view ")) { //exception if not fully spelt
             throw new DucatsException(message);
         }
-        Song song;
         songName = message.substring(5).trim();
         ArrayList<Song> findList = songList.findSong(songName);
 

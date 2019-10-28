@@ -54,7 +54,7 @@ public class CopyCommand extends Command<SongList> {
             //exception if not fully spelt
             throw new DucatsException(message);
         }
-        song = songList.getSongIndex(0);
+        song = songList.getSongIndex(songList.getActiveIndex());
         try {
             message = message.substring(5).trim();
             String[] sections = message.split(" ");
