@@ -49,10 +49,7 @@ public class SuggestCommand extends Command {
         */
 
         mealSuggestionAnalytics = new MealSuggestionAnalytics();
-
-        // TODO: Load meal list from default food items resource in storage.
-        suggestedMealList = mealSuggestionAnalytics.getMealSuggestions(meals.getMealsList(currentDateStr),
-                meals, calendarDate, maxMealsToSuggest);
+        suggestedMealList = mealSuggestionAnalytics.getMealSuggestions(meals, calendarDate, maxMealsToSuggest);
 
         if (suggestedMealList.size() > 0) {
             ui.showSuggestedMealList(suggestedMealList, currentDateStr);
@@ -60,6 +57,7 @@ public class SuggestCommand extends Command {
             isDone = false;
         } else {
             ui.showMessage("No meals could be suggested by DIYeats");
+            ui.showLine();
             isDone = true;
         }
 
@@ -76,7 +74,7 @@ public class SuggestCommand extends Command {
         }
 
         if (1 > mealSelectedIndex || mealSelectedIndex > suggestedMealList.size()) {
-            ui.showMessage("Index out of bounds. Please enter index (inclusive)" +
+            ui.showMessage("Index out of bounds. Please try again and enter index (inclusive)" +
                     " between 1 and " + suggestedMealList.size());
             return;
         }
