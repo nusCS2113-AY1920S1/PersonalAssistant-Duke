@@ -29,14 +29,15 @@ public class ImpressionMoveCommand extends ArgCommand {
             newImpression = null;
         } else {
             // TODO: proper search
-            List<Impression> newImpressionList = ImpressionHelpers.getPatient(impression).findImpressionsByName(targetImpressionName);
+            List<Impression> newImpressionList = ImpressionHelpers.getPatient(impression)
+                    .findImpressionsByName(targetImpressionName);
             if (newImpressionList.size() == 0) {
                 throw new DukeException("Can't find an impression with that name!");
             }
             newImpression = newImpressionList.get(0);
         }
 
-        DukeData moveData = ImpressionHelpers.findVarTypeData(getArg(), getSwitchVal("evidence"),
+        DukeData moveData = ImpressionHelpers.getData(getArg(), getSwitchVal("evidence"),
                 getSwitchVal("treatment"), ImpressionHelpers.getImpression(core));
 
         moveData.setParent(newImpression);

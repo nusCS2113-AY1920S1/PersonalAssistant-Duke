@@ -2,10 +2,8 @@ package duke.command.impression;
 
 import duke.DukeCore;
 import duke.data.DukeData;
-import duke.data.Evidence;
 import duke.data.Impression;
 import duke.data.Patient;
-import duke.data.Treatment;
 import duke.exception.DukeException;
 import duke.exception.DukeUtilException;
 
@@ -14,6 +12,12 @@ import java.util.List;
 
 public class ImpressionHelpers {
 
+    /**
+     * Gets the current Impression being displayed.
+     * @param core The DukeCore that the app is running on.
+     * @return The current Impression.
+     * @throws DukeException If the current context is not an Impression, should not happen.
+     */
     public static Impression getImpression(DukeCore core) throws DukeException {
         try {
             return (Impression) core.uiContext.getObject();
@@ -22,6 +26,12 @@ public class ImpressionHelpers {
         }
     }
 
+    /**
+     * Gets the Patient that is the parent of an Impression.
+     * @param impression The impression whose parent we are trying to get.
+     * @return The parent Patient of an Impression.
+     * @throws DukeException If the parent of the Impression is not a Patient, should not happen.
+     */
     public static Patient getPatient(Impression impression) throws DukeException {
         try {
             return (Patient) impression.getParent();
@@ -30,72 +40,33 @@ public class ImpressionHelpers {
         }
     }
 
-    // TODO: proper search
-    public static Evidence findEvidence(Impression impression, String searchStr) throws DukeException {
-        int idx = idxFromString(searchStr);
-        if (idx < 0) {
-            List<Evidence> searchResults = impression.findEvidencesByName(searchStr);
-            if (searchResults.size() == 0) {
-                throw new DukeException("I can't find any treatment with that in its name!");
-            }
-            return searchResults.get(0); // I hate this
-        } else {
-            // get by idx
-            return null;
-        }
-    }
-
-    public static Treatment findTreatment(Impression impression, String searchStr) throws DukeException {
-        int idx = idxFromString(searchStr);
-        if (idx < 0) {
-            List<Treatment> searchResults = impression.findTreatmentsByName(searchStr);
-            if (searchResults.size() == 0) {
-                throw new DukeException("I can't find any treatment with that in its name!");
-            }
-            return searchResults.get(0);
-        } else {
-            // get by idx
-            return null;
-        }
-    }
-
-    public static DukeData findData(Impression impression, String searchStr) throws DukeException {
-        int idx = idxFromString(searchStr);
-        if (idx < 0) {
-            List<DukeData> searchResults = impression.findByName(searchStr);
-            if (searchResults.size() == 0) {
-                throw new DukeException("I can't find any treatment with that in its name!");
-            }
-            return searchResults.get(0);
-        } else {
-            // get by idx
-            return null;
-        }
-    }
-
-    public static int idxFromString(String inputStr) {
-        try {
-            return Integer.parseInt(inputStr);
-        } catch (NumberFormatException excp) {
-            return -1;
-        }
-    }
-
-    public static DukeData findVarTypeData(String arg, String evArg, String treatArg, Impression impression)
+    /**
+     * General-purpose function for finding DukeData by name or index. One and only one of allStr (search evidences
+     * and treatments), treatStr (search treatments) and evidStr (search evidences) is to be non-null. The appropriate
+     * search in the names will then be performed.
+     * @param allStr A search term that will be searched for amongst both treatments and evidences.
+     * @param evidStr A search term that will be searched for amongst evidences.
+     * @param treatStr A search term that will be searched for amongst treatments.
+     * @param impression The impression whose DukeData we want to find.
+     * @return The required DukeData matching the user's query.
+     * @throws DukeException If a matching evidence or treatment cannot be found, given the provided search terms, or
+     * more than one search term was non-null.
+     */
+   public static DukeData getData(String allStr, String evidStr, String treatStr, Impression impression)
             throws DukeException {
         DukeData data;
         DukeException dataNotFound;
         List<DukeData> findList;
 
         // TODO handle idx
-        if (arg != null && evArg == null && treatArg == null) {
-            findList = new ArrayList<DukeData>(impression.findByName(arg));
+        if (allStr != null && evidStr == null && treatStr == null) {
+            findList = new ArrayList<DukeData>(impression.findByName(allStr));
             dataNotFound = new DukeException("Can't find any data item with that name!");
-        } else if (arg == null && evArg != null && treatArg == null) {
-            findList = new ArrayList<DukeData>(impression.findEvidencesByName(evArg));
+        } else if (allStr == null && evidStr != null && treatStr == null) {
+            findList = new ArrayList<DukeData>(impression.findEvidencesByName(evidStr));
             dataNotFound = new DukeException("Can't find any evidences with that name!");
-        } else if (arg == null && evArg == null && treatArg != null) {
-            findList = new ArrayList<DukeData>(impression.findTreatmentsByName(treatArg));
+        } else if (allStr == null && evidStr == null && treatStr != null) {
+            findList = new ArrayList<DukeData>(impression.findTreatmentsByName(treatStr));
             dataNotFound = new DukeException("Can't find any treatments with that name!");
         } else {
             throw new DukeUtilException("I don't know what you want me to look for!");
@@ -111,11 +82,14 @@ public class ImpressionHelpers {
         return data;
     }
 
-    public static int checkPriority(int priority) throws DukeUtilException {
-        if (priority < 0 || priority > 4) {
-            throw new DukeUtilException("Priority must be between 0 and 4!");
-        } else {
-            return priority;
+    /**
+     * Checks if an integer is a valid priority value.
+     * @param priority The integer to check.
+     * @throws DukeUtilException If the priority is out of the valid range.
+     */
+    public static void checkPriority(int priority) throws DukeUtilException {
+        if (priority < 0 || priority > DukeData.PRIORITY_MAX) {
+            throw new DukeUtilException("Priority must be between 0 and " + DukeData.PRIORITY_MAX + "!");
         }
     }
 

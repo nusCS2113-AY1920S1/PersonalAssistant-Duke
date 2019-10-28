@@ -4,6 +4,7 @@ import duke.exception.DukeException;
 
 public abstract class DukeData extends DukeObject {
 
+    public static final int PRIORITY_MAX = 4;
     private Integer priority;
     protected String summary;
 

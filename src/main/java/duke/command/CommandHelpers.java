@@ -125,4 +125,17 @@ public class CommandHelpers {
             }
         }
     }
+
+    /**
+     * Extracts an index from a string argument.
+     * @param inputStr The string to parse, generally a command argument.
+     * @return The index represented by the string, or -1 if the string does not represent an index.
+     */
+    public static int idxFromString(String inputStr) {
+        try {
+            return Integer.parseInt(inputStr);
+        } catch (NumberFormatException excp) {
+            return -1;
+        }
+    }
 }

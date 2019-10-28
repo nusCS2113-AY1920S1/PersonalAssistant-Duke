@@ -23,7 +23,7 @@ public class ImpressionStatusCommand extends ArgCommand {
     @Override
     public void execute(DukeCore core) throws DukeException {
         Impression impression = ImpressionHelpers.getImpression(core);
-        Treatment treatment = ImpressionHelpers.findTreatment(impression, getArg());
+        Treatment treatment = (Treatment) ImpressionHelpers.getData(null, null, getArg(), impression);
         List<String> statusList;
         Class targetClass = treatment.getClass(); //statics don't play nice with polymorphism
         if (targetClass == Medicine.class) {
