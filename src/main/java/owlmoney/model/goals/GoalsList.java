@@ -95,14 +95,14 @@ public class GoalsList {
                 if (goalList.get(i).getGoalsName().equals(goalName)) {
                     Goals temp = goalList.get(i);
                     goalList.remove(i);
+                    ui.printMessage("Details of the goal being removed:");
+                    printOneGoal(ONE_INDEX, temp, ISSINGLE, ui);
                     try {
                         exportGoalList();
                     } catch (IOException e) {
                         ui.printError("Error trying to save your goals to disk. Your data is"
                                 + " at risk, but we will try again, feel free to continue using the program.");
                     }
-                    ui.printMessage("Details of the goal being removed:");
-                    printOneGoal(ONE_INDEX, temp, ISSINGLE, ui);
                     break;
                 }
             }
@@ -116,7 +116,7 @@ public class GoalsList {
      * @param newGoalName  New Goal Name that user intends to change.
      * @throws GoalsException If there's a goal of the same name.
      */
-    public void compareGoals(Goals currentGoals, String newGoalName) throws GoalsException {
+    private void compareGoals(Goals currentGoals, String newGoalName) throws GoalsException {
         for (int i = ISZERO; i < goalList.size(); i++) {
             if (goalList.get(i).getGoalsName().equals(newGoalName) && !goalList.get(i).equals(currentGoals)) {
                 throw new GoalsException("There is already a goal with the same name " + newGoalName);
