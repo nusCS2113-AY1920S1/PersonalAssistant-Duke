@@ -1,5 +1,6 @@
 package owlmoney.model.profile;
 
+import java.time.YearMonth;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -948,5 +949,105 @@ public class Profile {
      */
     private void profileImportNewGoals(Goals newGoal) {
         goalsList.bankListImportNewGoal(newGoal);
+    }
+
+    /**
+     * Throws exception if credit card does not exist.
+     *
+     * @param card  The credit card to be checked if exist.
+     * @throws CardException    Throws exception if credit card does not exist.
+     */
+    public void checkCardExists(String card) throws CardException {
+        cardList.checkCardExists(card);
+    }
+
+    /**
+     * Returns the total unpaid expenditures amount based on the specified date.
+     *
+     * @param card  The card which the expenditures belongs to.
+     * @param date  The YearMonth date to search for expenditures.
+     * @return      The total unpaid expenditures amount based on the specified date.
+     * @throws CardException    If card does not exist.
+     */
+    public double getCardUnpaidBillAmount(String card, YearMonth date) throws CardException {
+        double cardBillAmount = cardList.getUnpaidBillAmount(card, date);
+        return cardBillAmount;
+    }
+
+    /**
+     * Returns the total paid expenditures amount based on the specified date.
+     *
+     * @param card  The card which the expenditures belongs to.
+     * @param date  The YearMonth date to search for expenditures.
+     * @return      The total paid expenditures amount based on the specified date.
+     * @throws CardException    If card does not exist.
+     */
+    public double getCardPaidBillAmount(String card, YearMonth date) throws CardException {
+        double cardBillAmount = cardList.getPaidBillAmount(card, date);
+        return cardBillAmount;
+    }
+
+    /**
+     * Returns the monthly rebate of the credit card.
+     *
+     * @param card  The credit card to get the monthly rebate information from.
+     * @return      The monthly rebate of the credit card.
+     * @throws CardException    If card does not exist.
+     */
+    public double getCardRebateAmount(String card) throws CardException {
+        return cardList.getRebateAmount(card);
+    }
+
+    /**
+     * Adds the YearMonth's card bill into bank expenditure, card rebates into bank deposit,
+     * and transfer card expenditures from unpaid to paid transaction list.
+     *
+     * @param card      The credit card name of the card transactions to be transferred.
+     * @param bank      The bank name of the bank to add expenditure and deposit.
+     * @param exp       The expenditure object to be added into the bank's transaction list.
+     * @param dep       The deposit object to be added into the bank's transaction list.
+     * @param cardDate  The YearMonth date of the card bill.
+     * @param ui        The Ui of OwlMoney.
+     * @param type      Type of expenditure (card or bank).
+     * @throws BankException        If bank account does not exist.
+     * @throws TransactionException If invalid transaction when transferring transaction.
+     */
+    public void payCardBill(String card, String bank, Expenditure exp, Deposit dep, YearMonth cardDate,
+            Ui ui, String type)
+            throws BankException, TransactionException {
+        bankList.bankListAddExpenditure(bank, exp, ui, type);
+        ui.printMessage("\n");
+        bankList.bankListAddDeposit(bank, dep, ui, type);
+        cardList.transferExpUnpaidToPaid(card, cardDate, type);
+        ui.printMessage("Credit Card bill for " + card + " for the month of " + cardDate
+                + " have been successfully paid!");
+    }
+
+    /**
+     * Transfers the YearMonth card expenditures from paid to unpaid transaction list.
+     *
+     * @param card      The credit card name of the card transactions to be transferred.
+     * @param cardDate  The YearMonth date of the card transactions to be transferred.
+     * @param ui        The Ui of OwlMoney.
+     * @param type      Type of expenditure (card or bank).
+     * @throws TransactionException If invalid transaction when transferring transaction.
+     */
+    public void unpayCardBill(String card, YearMonth cardDate, Ui ui, String type) throws TransactionException {
+        cardList.transferExpPaidToUnpaid(card, cardDate, type);
+        ui.printMessage("Credit Card bill for " + card + " for the month of " + cardDate
+                + " have been successfully reverted!");
+    }
+
+    /**
+     * Returns expenditure amount in bank based on specified transaction id.
+     *
+     * @param bank  The name of the bank to search for transaction.
+     * @param expno The transaction id of the transaction to be searched.
+     * @return      The expenditure amount in bank based on specified transaction id.
+     * @throws BankException        If bank account does not exist.
+     * @throws TransactionException If transaction does not exist.
+     */
+    public double getBankExpAmountById(String bank, int expno) throws BankException, TransactionException {
+        return bankList.bankListGetExpAmountById(bank, expno);
     }
 }
