@@ -14,17 +14,20 @@ A collation of my code files and lines of codes I written can be viewed from thi
   * _Purpose_: Users will be required to tag each loan record with the contacts details of the person whom they borrow or lend money to. 
   * _How it Works_: Users can manage their contact list by adding, editing or deleting contacts. Each contact will require the name of the contact and optional user input which is the contact's phone number and other details.
 * **Import Data**
-  * _Purpose_: Users can transfer records of their loans or monthly expenses from CSV files to **WalletCLi**. 
+  * _Purpose_: Allow users to transfer records of their loans or expenses from CSV files to **WalletCLi**. 
   * _Justification_: For users who are not comfortable with Command Line interface, they can still utilise our statistics feature to have a quick analysis their monthly expenditure by importing their data into **WalletCLi**.
   * _How it Works_: User will have to let **WalletCLi** know what is the name of the file which they want to import expenses or loan records from. The file has to be formatted correctly and placed within the same directory as the running application for **WalletCLi** to detect.
   * _Resource Credit_: [OpenCSV](http://opencsv.sourceforge.net/)
 * **Export Data**
-  * _Purpose_: Users can transfer records of their loans or monthly expenses from **WalletCLi** to CSV files.
+  * _Purpose_: Allow users to transfer records of their loans or monthly expenses from **WalletCLi** to CSV files.
   * _Justification_: Aside from personal expenses, users can utilize **WalletCLi** to track group expenses that they are in charge of. Group expenses can be household expenses, one-off holiday expenses or event and project budgeting. In view of this, this feature will be useful when users want to send a copy of the data with other people.
   * _How it Works_: When users request to export loans or expenses from a particular month, records will be retrieved and written into CSV files and saved into the same directory as the running application.
   * _Resource Credit_: [OpenCSV](http://opencsv.sourceforge.net/)
 * **Help Section**
+  * _Purpose_: Users can easily refer to the different command syntaxes when running the application.
+   * _How it Works_:  **WalletCLi** groups sets of commands into their own help section and user can select a section to read.  **WalletCLi** will provide the command format, command description and usage examples.
 ### 2.3 Other Contributions
+
 ## 3. Documentation Contribution
 ### 3.1 User Guide
 ### 3.2 Developer Guide
