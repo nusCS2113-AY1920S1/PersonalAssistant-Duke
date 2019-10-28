@@ -82,13 +82,12 @@ public class WordBank extends Bank {
     public String searchWordMeaning(String word) throws NoWordFoundException {
         word = word.toLowerCase();
         String s = "";
+        String result=null;
         if (!(wordBank.containsKey(word))) {
             s = "Unable to locate \"" + word + "\" in local dictionary. Looking up Oxford dictionary\n";
-            String result = OxfordCall.onlineSearch(word);
-            Word temp = new Word(word, result);
-            wordBank.put(word, temp);
+            result = OxfordCall.onlineSearch(word);
         }
-        return s + wordBank.get(word).getMeaning();
+        return s + "#" + result;
     }
 
     /**
