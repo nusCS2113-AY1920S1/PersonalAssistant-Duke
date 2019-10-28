@@ -7,6 +7,7 @@ import duke.exception.DukeHelpException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Abstract class for commands that involve an argument.
@@ -46,7 +47,7 @@ public abstract class ArgCommand extends Command {
     }
 
     protected String getArg() {
-        return arg;
+        return Objects.requireNonNullElse(arg, "");
     }
 
     protected abstract ArgSpec getSpec();

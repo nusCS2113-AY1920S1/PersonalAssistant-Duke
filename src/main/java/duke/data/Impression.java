@@ -108,6 +108,7 @@ public class Impression extends DukeObject {
         searchResult.addAll(findTreatments(searchTerm));
         return searchResult;
     }
+
     /**
      * This function searches for treatments whose names contain the searchTerm.
      * @param searchTerm the term to be searched for
