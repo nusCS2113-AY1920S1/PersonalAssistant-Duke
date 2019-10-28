@@ -25,7 +25,10 @@ public class SearchCommand extends Command {
         try {
             String meaning = bank.searchWordBankForMeaning(this.searchTerm);
             Word word = bank.getWordBankObject().getWord(this.searchTerm);
-            storage.writeFile(word.toString(),true);
+            if(bank.getWordFromWordBank(searchTerm).getNumberOfSearches()==0){
+                storage.updateFile(word.toString(),"");
+                storage.writeFile(word.toString(),true);
+            }
             bank.increaseSearchCount(searchTerm);
             return ui.showSearch(this.searchTerm, meaning);
         } catch (NoWordFoundException e) {
