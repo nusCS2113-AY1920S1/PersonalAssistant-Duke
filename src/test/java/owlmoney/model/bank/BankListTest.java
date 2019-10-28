@@ -5,52 +5,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
 class BankListTest {
-    private static final String NEWLINE = System.lineSeparator();
-
-    @Test
-    void bankListAddBank_successfulAdd_printBankDetails() {
-        BankList testList = new BankList(new Storage("data/"));
-        Ui testUi = new Ui();
-        Saving newBank = new Saving("test", 123, 123);
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        try {
-            testList.bankListAddBank(newBank, testUi);
-        } catch (BankException errorMessage) {
-            System.out.println("Expects success but error was thrown");
-        }
-        String outputMessage = "Added new bank with following details: " + NEWLINE + "Item No.             "
-                + "Account Name                        Account Type    Current Amount  Income          "
-                + NEWLINE + "--------------------------------------------------------------------------------"
-                + "-------------------------------------------------" + NEWLINE + "1                    test "
-                + "                               saving          $123.00         $123.00         " + NEWLINE
-                + "------------------------------------------------------------------------------------------"
-                + "---------------------------------------" + NEWLINE;
-        assertEquals(outputMessage, outContent.toString());
-        outContent.reset();
-        Investment newBank2 = new Investment("invest", 456);
-        try {
-            testList.bankListAddBank(newBank2, testUi);
-        } catch (BankException errorMessage) {
-            System.out.println("Expects success but error was thrown");
-        }
-        String outputMessage2 = "Added new bank with following details: " + NEWLINE + "Item No.             "
-                + "Account Name                        Account Type    Current Amount  Income          "
-                + NEWLINE + "--------------------------------------------------------------------------------"
-                + "-------------------------------------------------" + NEWLINE + "1                    "
-                + "invest                              investment      $456.00         Not Applicable  "
-                + NEWLINE + "------------------------------------------------------------------------------"
-                + "---------------------------------------------------" + NEWLINE;
-        assertEquals(outputMessage2,outContent.toString());
-    }
 
     @Test
     void bankListAddBank_duplicateBankName_throwsError() {
@@ -205,35 +164,6 @@ class BankListTest {
     }
 
     @Test
-    void bankListDeleteBank_successfulDelete_displayDeletedBankDetails() {
-        BankList testList = new BankList(new Storage("data/"));
-        Ui testUi = new Ui();
-        Saving newBank = new Saving("test", 123, 123);
-        Saving newBank2 = new Saving("test2", 456, 456);
-        try {
-            testList.bankListAddBank(newBank, testUi);
-            testList.bankListAddBank(newBank2, testUi);
-        } catch (BankException errorMessage) {
-            System.out.println("Expects success but error was thrown");
-        }
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        try {
-            testList.bankListDeleteBank("test2", "saving", testUi);
-        } catch (BankException errorMessage) {
-            System.out.println("Expects success but error was thrown");
-        }
-        String outputMessage = "Removed bank with the following details: " + NEWLINE + "Item No.             "
-                + "Account Name                        Account Type    Current Amount  Income          "
-                + NEWLINE + "--------------------------------------------------------------------------------"
-                + "-------------------------------------------------" + NEWLINE + "1                    test2"
-                + "                               saving          $456.00         $456.00         " + NEWLINE
-                + "------------------------------------------------------------------------------------------"
-                + "---------------------------------------" + NEWLINE;
-        assertEquals(outputMessage, outContent.toString());
-    }
-
-    @Test
     void bankListEditSavings_duplicateName_throwsException() {
         BankList testList = new BankList(new Storage("data/"));
         Ui testUi = new Ui();
@@ -268,33 +198,6 @@ class BankListTest {
     }
 
     @Test
-    void bankListEditSavings_editedBankDetails_displayNewDetails() {
-        BankList testList = new BankList(new Storage("data/"));
-        Ui testUi = new Ui();
-        Saving newBank = new Saving("test", 123, 123);
-        try {
-            testList.bankListAddBank(newBank, testUi);
-        } catch (BankException errorMessage) {
-            System.out.println("Expects success but error was thrown");
-        }
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        try {
-            testList.bankListEditSavings("test", "edit", "456", "456", testUi);
-        } catch (BankException errorMessage) {
-            System.out.println("Expects success but error was thrown");
-        }
-        String outputMessage = "New details of the account:" + NEWLINE + "Item No.             Account Name  "
-                + "                      Account Type    Current Amount  Income          " + NEWLINE + "-----"
-                + "------------------------------------------------------------------------------------------"
-                + "----------------------------------" + NEWLINE + "1                    edit                "
-                + "                saving          $456.00         $456.00         " + NEWLINE + "-----------"
-                + "------------------------------------------------------------------------------------------"
-                + "----------------------------" + NEWLINE;
-        assertEquals(outputMessage, outContent.toString());
-    }
-
-    @Test
     void bankListEditInvestment_duplicateName_throwsException() {
         BankList testList = new BankList(new Storage("data/"));
         Ui testUi = new Ui();
@@ -326,32 +229,5 @@ class BankListTest {
                         testList.bankListEditInvestment("test4", "test2", "", testUi),
                 "Expected bankListEditInvestment to throw, but it didn't");
         assertEquals("There are no bank with the name: test4", thrown.toString());
-    }
-
-    @Test
-    void bankListEditInvestment_succeedEditing_displaysNewDetails() {
-        BankList testList = new BankList(new Storage("data/"));
-        Ui testUi = new Ui();
-        Investment newBank = new Investment("test", 123);
-        try {
-            testList.bankListAddBank(newBank, testUi);
-        } catch (BankException errorMessage) {
-            System.out.println("Expects success but error was thrown");
-        }
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        try {
-            testList.bankListEditInvestment("test", "edit", "456", testUi);
-        } catch (BankException errorMessage) {
-            System.out.println("Expects success but error was thrown");
-        }
-        String outputMessage = "New details of the account:" + NEWLINE + "Item No.             Account Name  "
-                + "                      Account Type    Current Amount  Income          " + NEWLINE + "-----"
-                + "------------------------------------------------------------------------------------------"
-                + "----------------------------------" + NEWLINE + "1                    edit                "
-                + "                investment      $456.00         Not " + "Applicable  " + NEWLINE + "------"
-                + "------------------------------------------------------------------------------------------"
-                + "---------------------------------" + NEWLINE;
-        assertEquals(outputMessage, outContent.toString());
     }
 }
