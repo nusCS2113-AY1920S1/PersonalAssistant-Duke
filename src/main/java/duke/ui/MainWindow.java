@@ -52,13 +52,18 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.show();
     }
 
+    /**
+     * Constructor for controller of the mainWindow.
+     * @param primaryStage Stage of Duke
+     * @param logic Logic object of duke
+     */
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML_FILE_NAME, primaryStage);
         this.primaryStage = primaryStage;
         this.logic = logic;
 
         displayedPane = CommandResult.DisplayedPane.EXPENSE;
-        if(logic.getExternalExpenseList().isEmpty()){
+        if (logic.getExternalExpenseList().isEmpty()) {
             //initial boot
             displayedPane = CommandResult.DisplayedPane.PLAN;
         }
@@ -112,7 +117,7 @@ public class MainWindow extends UiPart<Stage> {
         case TRENDING:
             trendingPane.getRoot().setVisible(true);
             break;
-            
+
         case PLAN:
             planPane.getRoot().setVisible(true);
             break;

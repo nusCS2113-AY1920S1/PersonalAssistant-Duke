@@ -3,10 +3,8 @@ package duke.model;
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -104,25 +102,26 @@ public class IncomeList extends DukeList<Income> {
 
         /**
          * Returns a filtered list based on the view scope.
+         *
          * @param currentList List of Incomes we want to filter down
          * @return the filtered List of Income
          */
         public List<Income> view(List<Income> currentList) {
             switch (viewScopeName) {
-                case DAY:
-                    return dayView(currentList);
+            case DAY:
+                return dayView(currentList);
 
-                case WEEK:
-                    return weekView(currentList);
+            case WEEK:
+                return weekView(currentList);
 
-                case MONTH:
-                    return monthView(currentList);
+            case MONTH:
+                return monthView(currentList);
 
-                case YEAR:
-                    return yearView(currentList);
+            case YEAR:
+                return yearView(currentList);
 
-                default: // case ALL:
-                    return currentList; // the viewScope here is ALL.
+            default: // case ALL:
+                return currentList; // the viewScope here is ALL.
             }
         }
 
@@ -153,7 +152,6 @@ public class IncomeList extends DukeList<Income> {
     }
 
      */
-
     public IncomeList(List<Income> internalList) {
         super(internalList, "income");
         viewScope = new ViewScope(ViewScopeName.ALL);

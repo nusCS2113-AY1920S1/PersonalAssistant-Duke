@@ -32,7 +32,7 @@ import java.util.stream.Stream;
  * autoCompleter will complete the last token, which can be a commandName or a parameter.
  * Instead, if the given input is same as last complement,
  * autoCompleter will iterate through other suitable complements in the list.
- *
+ * <p>
  * The mechanism of complement and iteration is firstly getting a suitable token(complement),
  * which can be either a complete commandName or parameter, or just original last token from input
  * in case that no suitable complements can be applied to current input.
@@ -43,39 +43,61 @@ public class AutoCompleter {
 
     private static final Logger logger = LogsCenter.getLogger(AutoCompleter.class);
 
-    /** Three keywords used to decide the purpose of complement **/
+    /**
+     * Three keywords used to decide the purpose of complement.
+     **/
     private static final String EMPTY_STRING = "";
     private static final String SPACE = " ";
     private static final String PARAMETER_INDICATOR = "/";
 
-    /** The list storing all commands' names **/
+    /**
+     * The list storing all commands' names.
+     **/
     private final List<String> allCommandNames;
 
-    /** CommandNames mapped to their respective secondaryParams' names **/
+    /**
+     * CommandNames mapped to their respective secondaryParams' names.
+     **/
     private final HashMap<String, List<String>> allSecondaryParams;
 
-    /** The most recent complement provided by auto-completer **/
+    /**
+     * The most recent complement provided by auto-completer.
+     **/
     private String lastComplement;
 
-    /** The purpose of complement **/
+    /**
+     * The purpose of complement.
+     **/
     private Purpose purpose;
 
-    /** The content inside the userInput TextField when TAB key is pressed **/
+    /**
+     * The content inside the userInput TextField when TAB key is pressed.
+     **/
     private String fromInput;
 
-    /** Number of tokens of {@code fromInput} **/
+    /**
+     * Number of tokens of {@code fromInput}.
+     **/
     private int numberOfTokens;
 
-    /** The starting index of the last token in {@code fromInput} **/
+    /**
+     * The starting index of the last token in {@code fromInput}.
+     **/
     private int startIndexOfLastToken;
 
-    /** All suitable tokens that can replace the last token of {@code fromInput} **/
+    /**
+     * All suitable tokens that can replace the last token of {@code fromInput}.
+     **/
     private List<String> complementList;
 
-    /** The index used to iterate through {@code complementList} **/
+    /**
+     * The index used to iterate through {@code complementList}.
+     **/
     private int iteratingIndex;
 
-    /** A supplier that supplies streams of all command classes **/
+    /**
+     * A supplier that supplies streams of all command classes.
+     **/
     private static final Supplier<Stream<Command>> COMMANDS = () -> Stream.of(
             new AddExpenseCommand(),
             new DeleteExpenseCommand(),
@@ -139,10 +161,10 @@ public class AutoCompleter {
     }
 
     /**
-     * Replaces the last token of {@code fromInput} with complement token
+     * Replaces the last token of {@code fromInput} with complement token.
      * and stores this modified String in {@code lastComplement}.
      * This modified String is full complement and will be set as text in userInput TextField.
-     *
+     * <p>
      * i.e full complement = fromInput - last token of fromInput + complement token.
      *
      * @return Full complement going to be set in userInput TextField
@@ -154,7 +176,7 @@ public class AutoCompleter {
     }
 
     /**
-     * Tests whether the given input is same as the most recent complement
+     * Tests whether the given input is same as the most recent complement.
      * This is a criteria to help decide purpose.
      *
      * @return True if {@code fromInput} is same as {@code lastComplement} and false otherwise
@@ -307,7 +329,7 @@ public class AutoCompleter {
      */
     private void iterateIndex() {
         iteratingIndex += 1;
-        if(iteratingIndex >= complementList.size()) {
+        if (iteratingIndex >= complementList.size()) {
             iteratingIndex = 0;
         }
     }

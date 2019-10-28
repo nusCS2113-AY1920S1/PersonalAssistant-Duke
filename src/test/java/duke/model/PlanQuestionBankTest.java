@@ -33,8 +33,8 @@ public class PlanQuestionBankTest {
             Assertions.assertFalse(questionQueue.isEmpty());
 
             /*
-            This goes through the entire chatbot with the first valid answer
-            and checks if we get a proper recommendation.
+            This goes through the entire questionBank with the first valid answer
+            and checks if we get a proper recommendation, i.e simulating a conversation.
              */
             while (!questionQueue.isEmpty()) {
                 PlanQuestion currentQuestion = questionQueue.peek();
