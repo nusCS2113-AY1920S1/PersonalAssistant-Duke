@@ -215,6 +215,7 @@ public class TaskList {
         return eventList;
     }
 
+    //@@author
     /**
      * This function allows the user to obtain the tasks on a particular date, but
      * only with description.

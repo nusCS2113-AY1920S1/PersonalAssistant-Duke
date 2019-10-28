@@ -41,20 +41,20 @@ public class TaskScheduleCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) throws DukeException {
         ArrayList<Task> list = tasks.getTasks();
-        Todo t;
-        Deadline d;
+        Todo todo;
+        Deadline deadline;
         try {
-            t = (Todo) list.get(indexOfTask);
+            todo = (Todo) list.get(indexOfTask);
         } catch (ClassCastException e) {
             throw new DukeException("Task selected is not a Todo with a duration");
         }
         try {
-            d = (Deadline) list.get(indexOfDeadline);
+            deadline = (Deadline) list.get(indexOfDeadline);
         } catch (ClassCastException e) {
             throw new DukeException("Task selected is not a Deadline");
         }
-        durationToSchedule = (long) t.duration;
-        LocalDateTime deadlineDate = d.getStartDate();
+        durationToSchedule = (long) todo.duration;
+        LocalDateTime deadlineDate = deadline.getStartDate();
 
         ArrayList<Event> dateList = tasks.obtainEventList(deadlineDate);
         if (dateList.size() == 0) {
