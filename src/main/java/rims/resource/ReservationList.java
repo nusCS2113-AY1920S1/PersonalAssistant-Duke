@@ -40,13 +40,13 @@ public class ReservationList {
      * @param indexNo the index number of the desired Reservation.
      * @return the Reservation itself.
      */
-    public Reservation getReservationByIndex(int i) {
-        return reservations.get(i);
+    public Reservation getReservationByIndex(int indexNo) {
+        return reservations.get(indexNo);
     }
 
     /**
      * Returns a Reservation in the Reservation array by its reservation ID.
-     * @param indexNo the reservation ID of the desired Reservation.
+     * @param reservationId the reservation ID of the desired Reservation.
      * @return the Reservation itself.
      * @throws RimsException if no reservation has such an ID.
      */
@@ -62,7 +62,7 @@ public class ReservationList {
 
     /**
      * Adds a new Reservation to the ReservationList.
-     * @param thisResource the newly created Reservation.
+     * @param newReservation the newly created Reservation.
      */
     public void add(Reservation newReservation) {
         reservations.add(newReservation);
@@ -79,7 +79,8 @@ public class ReservationList {
      * @throws ParseException if the dates given are in an invalid format.
      * @throws RimsException if the date of return is before the date of borrowing.
      */
-    public void createReservation(int reservationId, int resourceId, int userId, Date startDate, Date endDate) throws ParseException, RimsException {
+    public void createReservation(int reservationId, int resourceId, int userId, 
+        Date startDate, Date endDate) throws ParseException, RimsException {
         Date currentDate = new Date(System.currentTimeMillis());
         if (startDate.after(endDate)) {
             throw new RimsException("Your date of return must be after your date of borrowing!");
@@ -135,7 +136,8 @@ public class ReservationList {
         Date currentDate = new Date(System.currentTimeMillis());
         for (int i = 0; i < size(); i++) {
             Reservation thisReservation = getReservationByIndex(i);
-            if ((currentDate.after(thisReservation.getStartDate()) && currentDate.before(thisReservation.getEndDate())) || thisReservation.isOverdue()) {
+            if ((currentDate.after(thisReservation.getStartDate()) && currentDate.before(thisReservation.getEndDate())) 
+                || thisReservation.isOverdue()) {
                 return false;
             }
         }
@@ -154,7 +156,9 @@ public class ReservationList {
         }
         for (int i = 0; i < size(); i++) {
             Reservation thisReservation = getReservationByIndex(i);
-            if (((startDate.after(thisReservation.getStartDate()) && startDate.before(thisReservation.getEndDate())) || (endDate.after(thisReservation.getStartDate()) && endDate.before(thisReservation.getEndDate()))) || thisReservation.isOverdue()) {
+            if (((startDate.after(thisReservation.getStartDate()) && startDate.before(thisReservation.getEndDate()))
+                || (endDate.after(thisReservation.getStartDate()) && endDate.before(thisReservation.getEndDate()))) 
+                || thisReservation.isOverdue()) {
                 return false;
             }
         }
@@ -170,7 +174,8 @@ public class ReservationList {
         Date currentDate = new Date(System.currentTimeMillis());
         for (int i = 0; i < size(); i++) {
             Reservation thisReservation = getReservationByIndex(i);
-            if ((currentDate.after(thisReservation.getStartDate()) && currentDate.before(thisReservation.getEndDate())) || thisReservation.isOverdue()) {
+            if ((currentDate.after(thisReservation.getStartDate()) && currentDate.before(thisReservation.getEndDate())) 
+                || thisReservation.isOverdue()) {
                 return thisReservation;
             }
         }

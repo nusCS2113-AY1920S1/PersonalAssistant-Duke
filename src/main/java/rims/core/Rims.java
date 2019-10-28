@@ -26,7 +26,8 @@ public class Rims {
      * @throws FileNotFoundException if any file path is invalid
      * @throws ParseException if data is stored in an invalid format and is thus unable to be parsed
      */
-    public Rims(String resourceFilePath, String reserveFilePath) throws FileNotFoundException, ParseException, RimsException {
+    public Rims(String resourceFilePath, String reserveFilePath)
+        throws FileNotFoundException, ParseException, RimsException {
         ui = new Ui();
         storage = new Storage(resourceFilePath, reserveFilePath);
         resources = new ResourceList(ui, storage.getResources());
@@ -47,8 +48,7 @@ public class Rims {
                 Command c = parser.parseInput(ui.getInput());
                 c.execute(ui, storage, resources);
                 toExit = c.getExitCode();
-            }
-            catch (RimsException e) {
+            } catch (RimsException e) {
                 e.displayError();
             }
         }
@@ -59,7 +59,7 @@ public class Rims {
      * @throws FileNotFoundException if file path does not exist
      * @throws ParseException if any input is un-parsable
      * @throws IOException if there is an error in reading input or printing output
-     * @throws DukeException if the input has no meaning or does not follow our format
+     * @throws RimsException if the input has no meaning or does not follow our format
      */
     public static void main(String[] args) throws FileNotFoundException, ParseException, IOException, RimsException {
         new Rims("data/resources.txt", "data/reserves.txt").run();

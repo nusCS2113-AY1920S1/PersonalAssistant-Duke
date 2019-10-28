@@ -50,5 +50,6 @@ public abstract class Command {
      * @throws IOException if there is an error in saving Resources to disk
      * @throws RimsException if there is a non-formatting-related issue in the input
      */
-    abstract public void execute(Ui ui, Storage storage, ResourceList resources) throws ParseException, IOException, RimsException;
+    public abstract void execute(Ui ui, Storage storage, ResourceList resources)
+        throws ParseException, IOException, RimsException;
 }

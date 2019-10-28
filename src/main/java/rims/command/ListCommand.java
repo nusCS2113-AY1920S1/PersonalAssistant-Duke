@@ -80,10 +80,8 @@ public class ListCommand extends Command {
                 }
             }
             ui.printLine();
-        }
-
         //@@author aarushisingh1
-        else if (listType.equals("item")) {
+        } else if (listType.equals("item")) {
             if (!resources.isItem(resourceName)) {
                 throw new RimsException("There is no such item!");
             }
@@ -97,16 +95,13 @@ public class ListCommand extends Command {
                     for (int j = 0; j < thisResourceReservations.size(); j++) {
                         ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
                     }
-                }
-                else {
+                } else {
                     ui.print("No bookings for this resource yet!");
                 }
             }
             ui.printDash();
             ui.printLine();
-        }
-
-        else if (listType.equals("room")) {
+        } else if (listType.equals("room")) {
             if (!resources.isRoom(resourceName)) {
                 throw new RimsException("There is no such room!");
             }
@@ -117,8 +112,7 @@ public class ListCommand extends Command {
                 for (int j = 0; j < thisResourceReservations.size(); j++) {
                     ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
                 }
-            }
-            else {
+            } else {
                 ui.print("No bookings for this resource yet!");
             }
             ui.printLine();

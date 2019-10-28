@@ -17,20 +17,24 @@ public class Ui {
     protected Scanner inputScanner;
     protected String input;
     protected int intInput;
-    protected String line = "____________________________________________________________________________________________________________________________________________";
-    protected String dash = "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ";
-    protected String hash = "********************************************************************************************************************************************";
+    protected String line = "______________________________________________"
+        + "______________________________________________________________________________________________";
+    protected String dash = "- - - - - - - - - - - - - - - - - - - - - - - - - "
+        + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ";
+    protected String hash = "***************************************************************" 
+        + "*****************************************************************************";
     protected String tab = "\t";
-    protected ArrayList<String> welcomeMsg = new ArrayList<String>(Arrays.asList("Welcome to RIMS, your Resource & Inventory Management System.",
-                                                                                 "How can I help you?"));
+    protected ArrayList<String> welcomeMsg = new ArrayList<String>(Arrays.asList("Welcome to RIMS, your Resource"
+        + "& Inventory Management System.",
+        "How can I help you?"));
     protected ArrayList<String> commands = new ArrayList<String>(Arrays.asList("add - add a new resource to inventory",
-                                                                               "delete - delete an existing resource from inventory",
-                                                                               "loan - loan out an item from now till your desired future date",
-                                                                               "reserve - reserve an item between two future dates",
-                                                                               "return - return a loan or reservation",
-                                                                               "list - see all resources and current reservations",
-                                                                               "\t" + "list /item - see all loans and future reservations of a particular item",
-                                                                               "\t" + "list /room - see all loans and future reservations of a particular room"));
+        "delete - delete an existing resource from inventory",
+        "loan - loan out an item from now till your desired future date",
+        "reserve - reserve an item between two future dates",
+        "return - return a loan or reservation",
+        "list - see all resources and current reservations",
+        "\t" + "list /item - see all loans and future reservations of a particular item",
+        "\t" + "list /room - see all loans and future reservations of a particular room"));
 
     /**
      * Constructor of the Ui. Initializes the scanner to take in user input,
@@ -159,29 +163,74 @@ public class Ui {
      * Prints the RIMS logo, as part of the RIMS welcome message.
      */
     public void printLogo() {
-        String logo = "\n" +
-                tab + "          _____                    _____                    _____                    _____          \n" +
-                tab + "         /\\    \\                  /\\    \\                  /\\    \\                  /\\    \\         \n" +
-                tab + "        /::\\    \\                /::\\    \\                /::\\____\\                /::\\    \\        \n" +
-                tab + "       /::::\\    \\               \\:::\\    \\              /::::|   |               /::::\\    \\       \n" +
-                tab + "      /::::::\\    \\               \\:::\\    \\            /:::::|   |              /::::::\\    \\      \n" +
-                tab + "     /:::/\\:::\\    \\               \\:::\\    \\          /::::::|   |             /:::/\\:::\\    \\     \n" +
-                tab + "    /:::/__\\:::\\    \\               \\:::\\    \\        /:::/|::|   |            /:::/__\\:::\\    \\    \n" +
-                tab + "   /::::\\   \\:::\\    \\              /::::\\    \\      /:::/ |::|   |            \\:::\\   \\:::\\    \\   \n" +
-                tab + "  /::::::\\   \\:::\\    \\    ____    /::::::\\    \\    /:::/  |::|___|______    ___\\:::\\   \\:::\\    \\  \n" +
-                tab + " /:::/\\:::\\   \\:::\\____\\  /\\   \\  /:::/\\:::\\    \\  /:::/   |::::::::\\    \\  /\\   \\:::\\   \\:::\\    \\ \n" +
-                tab + "/:::/  \\:::\\   \\:::|    |/::\\   \\/:::/  \\:::\\____\\/:::/    |:::::::::\\____\\/::\\   \\:::\\   \\:::\\____\\\n" +
-                tab + "\\::/   |::::\\  /:::|____|\\:::\\  /:::/    \\::/    /\\::/    / ~~~~~/:::/    /\\:::\\   \\:::\\   \\::/    /\n" +
-                tab + " \\/____|:::::\\/:::/    /  \\:::\\/:::/    / \\/____/  \\/____/      /:::/    /  \\:::\\   \\:::\\   \\/____/ \n" +
-                tab + "       |:::::::::/    /    \\::::::/    /                       /:::/    /    \\:::\\   \\:::\\    \\     \n" +
-                tab + "       |::|\\::::/    /      \\::::/____/                       /:::/    /      \\:::\\   \\:::\\____\\    \n" +
-                tab + "       |::| \\::/____/        \\:::\\    \\                      /:::/    /        \\:::\\  /:::/    /    \n" +
-                tab + "       |::|  ~|               \\:::\\    \\                    /:::/    /          \\:::\\/:::/    /     \n" +
-                tab + "       |::|   |                \\:::\\    \\                  /:::/    /            \\::::::/    /      \n" +
-                tab + "       \\::|   |                 \\:::\\____\\                /:::/    /              \\::::/    /       \n" +
-                tab + "        \\:|   |                  \\::/    /                \\::/    /                \\::/    /        \n" +
-                tab + "         \\|___|                   \\/____/                  \\/____/                  \\/____/         \n" +
-                tab + "                                                                                                    \n";
+        String logo = "\n" 
+                +
+                tab + "          _____                    _____"
+                + "_____                    _____          \n"
+                +
+                tab + "         /\\    \\                  /\\    \\"
+                + "                  /\\    \\                  /\\    \\         \n"
+                +
+                tab + "        /::\\    \\                /::\\    \\"
+                + "                /::\\____\\                /::\\    \\        \n"
+                +
+                tab + "       /::::\\    \\               \\:::\\    "
+                + "\\              /::::|   |               /::::\\    \\       \n"
+                +
+                tab + "      /::::::\\    \\               \\:::\\    \\        "
+                + "    /:::::|   |              /::::::\\    \\      \n"
+                +
+                tab + "     /:::/\\:::\\    \\               \\:::\\    "
+                + "\\          /::::::|   |             /:::/\\:::\\    \\     \n"
+                +
+                tab + "    /:::/__\\:::\\    \\               \\:::\\    "
+                + "\\        /:::/|::|   |            /:::/__\\:::\\    \\    \n"
+                +
+                tab + "   /::::\\   \\:::\\    \\              /::::\\    "
+                + "\\      /:::/ |::|   |            \\:::\\   \\:::\\    \\   \n"
+                +
+                tab + "  /::::::\\   \\:::\\    \\    ____    /::::::\\    "
+                + "\\    /:::/  |::|___|______    ___\\:::\\   \\:::\\    \\  \n"
+                +
+                tab + " /:::/\\:::\\   \\:::\\____\\  /\\   \\  /:::/\\:::"
+                + "\\    \\  /:::/   |::::::::\\    \\  /\\   \\:::\\   \\:::\\    \\ \n"
+                +
+                tab + "/:::/  \\:::\\   \\:::|    |/::\\   \\/:::/  "
+                + "\\:::\\____\\/:::/    |:::::::::\\____\\/::\\   \\:::\\   \\:::\\____\\\n"
+                +
+                tab + "\\::/   |::::\\  /:::|____|\\:::\\  /:::/    "
+                + "\\::/    /\\::/    / ~~~~~/:::/    /\\:::\\   \\:::\\   \\::/    /\n"
+                +
+                tab + " \\/____|:::::\\/:::/    /  \\:::\\/:::/    "
+                + "/ \\/____/  \\/____/      /:::/    /  \\:::\\   \\:::\\"
+                + "   \\/____/ \n"
+                +
+                tab + "       |:::::::::/    /    \\::::::/    "
+                + "/                       /:::/    /    \\:::\\   \\:::\\    \\     \n"
+                +
+                tab + "       |::|\\::::/    /      \\::::/____/"
+                + "                       /:::/    /      \\:::\\   \\:::\\____\\    \n"
+                +
+                tab + "       |::| \\::/____/        \\:::\\    \\"
+                + "                      /:::/    /        \\:::\\  /:::/    /    \n"
+                +
+                tab + "       |::|  ~|               \\:::\\    \\"
+                + "                    /:::/    /          \\:::\\/:::/    /     \n"
+                +
+                tab + "       |::|   |                \\:::\\    \\"
+                + "                  /:::/    /            \\::::::/    /      \n"
+                +
+                tab + "       \\::|   |                 \\:::\\____\\"
+                + "                /:::/    /              \\::::/    /       \n"
+                +
+                tab + "        \\:|   |                  \\::/    /   "
+                + "             \\::/    /                \\::/    /        \n"
+                +
+                tab + "         \\|___|                   \\/____/"
+                + "                  \\/____/                  \\/____/         \n"
+                +
+                tab + "                                                         "
+                + "                                           \n";
         System.out.println(logo);
     }
 
