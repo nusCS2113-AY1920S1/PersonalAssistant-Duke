@@ -25,17 +25,22 @@ public class Parser {
         if (userInput.equals("quit game") || userInput.equals("exit")) {
             return new CommandGameQuit();
         }
-        if (stage != Farmio.Stage.WELCOME && stage != Farmio.Stage.MENU_START && userInput.matches("^save game$")) {
+        if (stage != Farmio.Stage.WELCOME && stage != Farmio.Stage.MENU_START && userInput.equals("save game")) {
             return new CommandGameSave();
         }
-        if (userInput.matches("^load game$")) {
+        if (userInput.equals("load game")) {
             return new CommandGameLoad();
+        }
+        if (userInput.equals("new game")) {
+            return new CommandGameNew();
         }
         switch (stage) {
             case WELCOME:
                 return new CommandMenuStart();
             case LEVEL_START:
                 return new CommandLevelStart();
+            case MENU:
+                return parseMenu(userInput);
             case RUNNING_DAY:
                 return new CommandTasksRun();
             case CHECK_OBJECTIVES:
@@ -48,16 +53,12 @@ public class Parser {
                 return new CommandLevelReset();
             case DAY_END:
                 return new CommandDayEnd(); //TODO check if reset for dayend
-            case MENU_START:
-                return parseMenuStart(userInput);
             case NAME_ADD:
                 return new CommandAddName(userInput);
             case TASK_ADD:
                 return parseTaskAdd(userInput);
             default:
-                //Game should not reach this stage.
-                stage = Farmio.Stage.WELCOME;
-                throw new FarmioException("Something went wrong! Restarting game.");
+                throw new FarmioException("Invalid Command!");
         }
     }
 
@@ -78,6 +79,14 @@ public class Parser {
                 return new CommandGameQuit();
             default:
                 throw new FarmioException("Invalid command!");
+        }
+    }
+
+    private static Command parseMenu(String userInput) throws FarmioException {
+        if(userInput.equals("resume game")){
+            return new CommandLevelStart();
+        }else {
+            throw new FarmioException("Invalid command!");
         }
     }
 
@@ -109,7 +118,7 @@ public class Parser {
      */
     private static Command parseTaskAdd(String userInput) throws FarmioException {
         if (userInput.equals("menu")) {
-            return new CommandMenuStart();
+            return new CommandMenu();
         }
         if (userInput.equals("deleteall") || userInput.equals("delete all")) {
             return new CommandTaskDeleteAll();

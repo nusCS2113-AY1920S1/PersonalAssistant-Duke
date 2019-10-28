@@ -4,7 +4,7 @@ import Exceptions.FarmioFatalException;
 import Farmio.*;
 import Exceptions.FarmioException;
 
-public class CommandMenuStart extends Command {
+public class CommandMenu extends Command {
 
     /**
      * Shows the menu
@@ -13,7 +13,7 @@ public class CommandMenuStart extends Command {
      */
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
-        Menu.show(farmio, false);
-        farmio.setStage(Farmio.Stage.MENU_START);
+        Menu.show(farmio, true);
+        farmio.setStage(Farmio.Stage.MENU);
     }
 }
