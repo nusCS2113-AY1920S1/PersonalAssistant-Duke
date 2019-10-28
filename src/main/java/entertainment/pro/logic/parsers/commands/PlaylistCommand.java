@@ -62,7 +62,6 @@ public class PlaylistCommand extends CommandSuper {
         testCommand.create();
         movieHandler.clearSearchTextField();
         movieHandler.setLabels();
-        movieHandler.refresh();
     }
 
     /**
@@ -80,7 +79,6 @@ public class PlaylistCommand extends CommandSuper {
         testCommand.delete();
         movieHandler.clearSearchTextField();
         movieHandler.setLabels();
-        movieHandler.refresh();
     }
 
     /**
@@ -110,7 +108,7 @@ public class PlaylistCommand extends CommandSuper {
         PlaylistCommands testCommand = new PlaylistCommands(this.getPayload());
         testCommand.remove(this.getFlagMap());
         movieHandler.clearSearchTextField();
-        movieHandler.refresh();
+        movieHandler.refreshPlaylist();
     }
 
     /**
@@ -125,14 +123,14 @@ public class PlaylistCommand extends CommandSuper {
         MovieHandler movieHandler = ((MovieHandler) this.getUIController());
         PlaylistCommands testCommand = new PlaylistCommands(this.getPayload());
         testCommand.setToPlaylist(this.getFlagMap());
+        String appendName = appendFlagMap(this.getFlagMap().get("-n"));
         if (this.getFlagMap().containsKey("-n")) {
-            String appendName = appendFlagMap(this.getFlagMap().get("-n"));
             ProfileCommands profileCommands = new ProfileCommands(new EditProfileJson().load());
             profileCommands.renamePlaylist(this.getPayload(), appendName);
             movieHandler.setPlaylistName(appendName);
         }
         movieHandler.clearSearchTextField();
-        movieHandler.refresh();
+        movieHandler.refreshPlaylist();
     }
 
     /**
@@ -148,15 +146,12 @@ public class PlaylistCommand extends CommandSuper {
         testCommand.clear();
         movieHandler.clearSearchTextField();
 //        movieHandler.initialize();
-        movieHandler.refresh();
     }
 
     private void executePlaylistListing() throws IOException {
         MovieHandler movieHandler = ((MovieHandler)this.getUIController());
-        if (!movieHandler.getPageTracker().isPlaylistList()) {
-            movieHandler.showPlaylistList();
+        movieHandler.showPlaylistList();
 //        movieHandler.goToPlaylistListing();
-        }
         movieHandler.clearSearchTextField();
     }
 
