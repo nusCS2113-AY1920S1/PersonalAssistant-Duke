@@ -15,8 +15,8 @@ checkstyle {
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
-    compile group: 'org.mnode.ical4j', name: 'ical4j', version: '3.0.6'
-
+    compile group: 'org.mnode.ical4j', name: 'ical4j', version: '3.0.11'
+    compile 'org.slf4j:slf4j-simple:1.7.21'
 }
 
 test {
