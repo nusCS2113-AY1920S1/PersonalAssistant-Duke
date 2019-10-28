@@ -3,6 +3,7 @@ package javacake.commands;
 import javacake.Logic;
 import javacake.exceptions.DukeException;
 import javacake.storage.Profile;
+import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 import javacake.storage.Storage;
 
@@ -16,12 +17,12 @@ public class DoneCommand extends Command {
      * Execute checking of task in tasks.
      * @param logic TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
-     * @param storage Storage needed to write the updated data
+     * @param storageManager storage container
      * @throws DukeException Shows error when task number is invalid
      * @return
      */
     @Override
-    public String execute(Logic logic, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
         input = input.substring(5);
         try {
             int num = Integer.parseInt(input);

@@ -2,8 +2,7 @@ package javacake.commands;
 
 import javacake.Logic;
 import javacake.exceptions.DukeException;
-import javacake.storage.Profile;
-import javacake.storage.Storage;
+import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
 public class HelpCommand extends Command {
@@ -23,13 +22,12 @@ public class HelpCommand extends Command {
      * Execute S.O.S.
      * @param logic tracks current location in program
      * @param ui the Ui responsible for outputting messages
-     * @param storage Storage needed to write the updated data
-     * @param profile Profile of the user
+     * @param storageManager storage container
      * @throws DukeException Error thrown when unable to close reader
      * @return method for the related help requested.
      */
     @Override
-    public String execute(Logic logic, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
         switch (input) {
             case "help" : return mainHelp();
             case "help back" : return exitHelp();

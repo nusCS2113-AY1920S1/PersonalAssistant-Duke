@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -17,6 +18,7 @@ import java.util.List;
 public class AvatarScreen extends VBox {
     @FXML
     private ImageView avatarImage;
+
 
     public enum AvatarMode {
         HAPPY, SAD, POUT
@@ -58,6 +60,7 @@ public class AvatarScreen extends VBox {
         initialiseList();
         avatarMode = type;
         setStyleLoop();
+
     }
 
     /**

@@ -5,6 +5,7 @@ import javacake.exceptions.DukeException;
 import javacake.storage.Profile;
 import javacake.Logic;
 import javacake.storage.Storage;
+import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 import javacake.quiz.Question;
 
@@ -33,13 +34,12 @@ public class GoToCommand extends Command {
 
     /**
      * Execute jumping to given index.
-     * @param logic tracks current location in program
+     * @param logic TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
-     * @param storage Storage needed to write the updated data
-     * @param profile Profile of the user
+     * @param storageManager storage container
      * @throws DukeException Error thrown when unable to close reader
      */
-    public String execute(Logic logic, Ui ui, Storage storage, Profile profile)
+    public String execute(Logic logic, Ui ui, StorageManager storageManager)
             throws DukeException {
         int intIndex = Integer.parseInt(indexQueue.poll()) - 1;
         logic.updateFilePath(logic.gotoFilePath(intIndex));
@@ -53,9 +53,9 @@ public class GoToCommand extends Command {
             if (filePath.contains("1. Java Basics")) {
                 if (Duke.isCliMode()) {
                     return new QuizCommand(Question.QuestionType.BASIC, Duke.isCliMode())
-                            .execute(logic, ui, storage, profile);
+                            .execute(logic, ui, storageManager);
                 } else {
-                    QuizCommand.setProfile(profile);
+                    QuizCommand.setProfile(storageManager.profile);
                     logic.insertQueries();
                     QuizCommand.logic = logic;
                     return "!@#_QUIZ_1";
@@ -63,9 +63,9 @@ public class GoToCommand extends Command {
             } else if (filePath.contains("2. Object-Oriented Programming")) {
                 if (Duke.isCliMode()) {
                     return new QuizCommand(Question.QuestionType.OOP, Duke.isCliMode())
-                            .execute(logic, ui, storage, profile);
+                            .execute(logic, ui, storageManager);
                 } else {
-                    QuizCommand.setProfile(profile);
+                    QuizCommand.setProfile(storageManager.profile);
                     logic.insertQueries();
                     QuizCommand.logic = logic;
                     return "!@#_QUIZ_2";
@@ -73,9 +73,9 @@ public class GoToCommand extends Command {
             } else if (filePath.contains("3. Extensions")) {
                 if (Duke.isCliMode()) {
                     return new QuizCommand(Question.QuestionType.EXTENSIONS, Duke.isCliMode())
-                            .execute(logic, ui, storage, profile);
+                            .execute(logic, ui, storageManager);
                 } else {
-                    QuizCommand.setProfile(profile);
+                    QuizCommand.setProfile(storageManager.profile);
                     logic.insertQueries();
                     QuizCommand.logic = logic;
                     return "!@#_QUIZ_3";
@@ -83,9 +83,9 @@ public class GoToCommand extends Command {
             } else {
                 if (Duke.isCliMode()) {
                     return new QuizCommand(Question.QuestionType.ALL, Duke.isCliMode())
-                            .execute(logic, ui, storage, profile);
+                            .execute(logic, ui, storageManager);
                 } else {
-                    QuizCommand.setProfile(profile);
+                    QuizCommand.setProfile(storageManager.profile);
                     logic.insertQueries();
                     QuizCommand.logic = logic;
                     return "!@#_QUIZ_4";
@@ -95,13 +95,13 @@ public class GoToCommand extends Command {
         logic.insertQueries();
         if (logic.containsDirectory()) {
             if (indexQueue.size() != 0) {
-                return execute(logic, ui, storage, profile);
+                return execute(logic, ui, storageManager);
             }
             return (logic.displayDirectories());
         } else {
             logic.updateFilePath(logic.gotoFilePath(0));
             if (indexQueue.size() != 0) {
-                return execute(logic, ui, storage, profile);
+                return execute(logic, ui, storageManager);
             }
             return (logic.readQuery());
         }

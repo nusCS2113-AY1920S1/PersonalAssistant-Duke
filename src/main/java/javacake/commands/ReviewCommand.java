@@ -4,6 +4,7 @@ import javacake.Logic;
 import javacake.exceptions.DukeException;
 import javacake.storage.Profile;
 import javacake.storage.Storage;
+import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 import javacake.quiz.Question;
 
@@ -26,15 +27,14 @@ public class ReviewCommand extends Command {
     /**
      * Executes the review of a quiz after a quiz is completed.
      *
-     * @param logic how far the program is currently in in the table of contents.
-     * @param ui the UI responsible for inputs and outputs of the program.
-     * @param storage Storage to write updated data.
-     * @param profile Profile of the user.
+     * @param logic TaskList containing current tasks
+     * @param ui the Ui responsible for outputting messages
+     * @param storageManager storage container
      * @throws DukeException This method does not throw this exception.
      * @return
      */
     @Override
-    public String execute(Logic logic, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
         int index = 0;
         while (!isExitReview) {
             ui.showLine();
@@ -55,6 +55,6 @@ public class ReviewCommand extends Command {
             }
         }
         ui.showLine();
-        return new BackCommand().execute(logic, ui, storage, profile);
+        return new BackCommand().execute(logic, ui, storageManager);
     }
 }

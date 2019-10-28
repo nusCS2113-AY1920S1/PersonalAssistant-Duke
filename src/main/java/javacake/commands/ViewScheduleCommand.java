@@ -5,6 +5,7 @@ import com.joestelmach.natty.Parser;
 import javacake.exceptions.DukeException;
 import javacake.Logic;
 import javacake.storage.Profile;
+import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 import javacake.storage.Storage;
 import javacake.tasks.Task;
@@ -23,7 +24,7 @@ public class ViewScheduleCommand extends Command {
     }
 
     @Override
-    public String execute(Logic logic, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
         if (input.length() == 12) {
             throw new DukeException("     ☹ OOPS!!! The description of a viewschedule cannot be empty.");
         }
