@@ -1,9 +1,8 @@
 package duke.ui;
 
-import duke.ui.card.UiCard;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.stage.Stage;
-
-import java.util.List;
 
 /**
  * Application Programming Interface (API) of the UI component of the application.
@@ -28,5 +27,5 @@ public interface Ui {
      *
      * @return List of UI cards.
      */
-    List<UiCard> getCardList();
+    ObservableList<Node> getCardList();
 }

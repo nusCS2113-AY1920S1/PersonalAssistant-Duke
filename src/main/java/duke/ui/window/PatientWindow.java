@@ -6,12 +6,16 @@ import duke.data.Patient;
 import duke.ui.UiElement;
 import duke.ui.UiStrings;
 import duke.ui.card.ImpressionCard;
+import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * UI window for the Patient context.
@@ -20,84 +24,66 @@ public class PatientWindow extends UiElement<Region> {
     private static final String FXML = "PatientWindow.fxml";
 
     @FXML
-    private Label name;
+    private Label nameLabel;
     @FXML
-    private Label age;
+    private Label ageLabel;
     @FXML
-    private Label height;
+    private Label heightLabel;
     @FXML
-    private Label weight;
+    private Label weightLabel;
     @FXML
-    private Label bed;
+    private Label bedLabel;
     @FXML
-    private Label phone;
+    private Label phoneLabel;
     @FXML
-    private Label address;
+    private Label addressLabel;
     @FXML
-    private Label history;
+    private Label historyLabel;
     @FXML
     private Label allergiesLabel;
     @FXML
-    private JFXListView<ImpressionCard> impressionsListPanel;
+    private JFXListView<Node> impressionsListPanel;
 
     private Patient patient;
+    private List<Node> cardList;
+    private CommandWindow window;
 
     /**
      * Constructs the patient UI window.
      */
-    public PatientWindow(Patient patient) {
+    public PatientWindow(Patient patient, CommandWindow window) {
         super(FXML, null);
 
         this.patient = patient;
-        setPatient();
-    }
+        this.cardList = new ArrayList<>();
+        this.window = window;
 
-    private void setPatient() {
         if (patient == null) {
             return;
         }
 
-        updateUi();
-
-        patient.getAttributes().addListener((MapChangeListener<String, Object>) change -> {
-            updateUi();
-        });
-
-        patient.getImpressionsObservableMap().addListener((MapChangeListener<String, Impression>) change -> {
-            if (change.wasAdded()) {
-                if (change.getValueAdded().equals(patient.getPrimaryDiagnosis())) {
-                    // TODO: index
-                    impressionsListPanel.getItems().add(0,
-                            new ImpressionCard(change.getValueAdded(), true));
-                } else {
-                    // TODO: index
-                    impressionsListPanel.getItems().add(new ImpressionCard(change.getValueAdded(), false));
-                }
-            } else if (change.wasRemoved()) {
-                // TODO: index
-                impressionsListPanel.getItems().remove(new ImpressionCard(change.getValueRemoved(), false));
-            }
-        });
+        updatePatientWindow();
+        attachPatientWindowListener();
     }
 
-    private void updateUi() {
-        name.setText(String.valueOf(patient.getName()));
-        bed.setText(String.valueOf(patient.getBedNo()));
+    private void updatePatientWindow() {
+        nameLabel.setText(String.valueOf(patient.getName()));
+        bedLabel.setText(String.valueOf(patient.getBedNo()));
         int ageNum = patient.getAge();
-        age.setText((ageNum == -1) ? "No age set" : ageNum + " years old");
+        ageLabel.setText((ageNum == -1) ? UiStrings.DISPLAY_AGE_NOT_SET : ageNum + " years old");
         int heightNum = patient.getHeight();
-        height.setText((heightNum == -1) ? "No height set" : patient.getHeight() + " cm");
+        heightLabel.setText((heightNum == -1) ? UiStrings.DISPLAY_HEIGHT_NOT_SET : patient.getHeight() + " cm");
         int weightNum = patient.getWeight();
-        weight.setText((weightNum == -1) ? "No weight set" : patient.getWeight() + " kg");
+        weightLabel.setText((weightNum == -1) ? UiStrings.DISPLAY_WEIGHT_NOT_SET : patient.getWeight() + " kg");
         int number = patient.getNumber();
-        phone.setText((number == -1) ? "No number set" : String.valueOf(number));
+        phoneLabel.setText((number == -1) ? UiStrings.DISPLAY_NUMBER_NOT_SET : String.valueOf(number));
         String addressStr = patient.getAddress();
-        address.setText(("".equals(addressStr)) ? "No address given" : addressStr);
+        addressLabel.setText(("".equals(addressStr)) ? UiStrings.DISPLAY_ADDRESS_NOT_SET : addressStr);
         String historyStr = patient.getHistory();
-        history.setText(("".equals(historyStr)) ? "No history provided" : historyStr);
+        historyLabel.setText(("".equals(historyStr)) ? UiStrings.DISPLAY_HISTORY_NOT_SET : historyStr);
 
         StringBuilder allergies = new StringBuilder();
-        if (patient.getAllergies() != null) {
+        if ("".equals(patient.getAllergies())) {
             //TODO document the fact that comma separated allergies are displayed on distinct rows
             for (String allergy : patient.getAllergies().split(",")) {
                 allergies.append(allergy.strip()).append(System.lineSeparator());
@@ -107,21 +93,34 @@ public class PatientWindow extends UiElement<Region> {
             allergiesLabel.setText(UiStrings.DISPLAY_ALLERGIES_NONE);
         }
 
-        impressionsListPanel.getItems().clear();
-        for (Map.Entry<String, Impression> pair : patient.getImpressionsObservableMap().entrySet()) {
-            Impression primaryImpression = null;
+        cardList.clear();
+        for (Impression impression : patient.getImpressionsObservableMap().values()) {
+            ImpressionCard impressionCard;
 
-            if (pair.getValue().equals(patient.getPrimaryDiagnosis())) {
-                primaryImpression = pair.getValue();
+            if (impression.equals(patient.getPrimaryDiagnosis())) {
+                impressionCard = new ImpressionCard(impression, true);
+                cardList.add(0, impressionCard);
             } else {
-                // TODO: index
-                impressionsListPanel.getItems().add(new ImpressionCard(pair.getValue(), false));
-            }
-
-            if (primaryImpression != null) {
-                // TODO: index
-                impressionsListPanel.getItems().add(0, new ImpressionCard(primaryImpression, true));
+                impressionCard = new ImpressionCard(impression, false);
+                cardList.add(impressionCard);
             }
         }
+
+        impressionsListPanel.setItems(FXCollections.observableList(cardList));
+        impressionsListPanel.getItems().forEach(card -> {
+            ((ImpressionCard) card).setIndex(impressionsListPanel.getItems().indexOf(card) + 1);
+        });
+    }
+
+    private void attachPatientWindowListener() {
+        patient.getAttributes().addListener((MapChangeListener<String, Object>) change -> {
+            updatePatientWindow();
+        });
+    }
+
+    public ObservableList<Node> getCardList() {
+        // TODO: bug... Why size is 0?
+        window.print("size get: " + cardList.size());
+        return FXCollections.observableList(cardList);
     }
 }

@@ -34,7 +34,7 @@ public class HomeOpenCommand extends ArgCommand {
                 PatientCard card = (PatientCard) core.ui.getCardList().get(index - 1);
                 patient = card.getPatient();
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("No such patient in the list.");
+                throw new DukeException("I cannot find this patient!");
             }
         }
 

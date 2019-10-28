@@ -17,7 +17,8 @@ public class PatientOpenSpec extends ArgSpec {
         initSwitches(
                 //new Switch("critical", String.class, true, ArgLevel.REQUIRED, "c"),
                 //new Switch("investigation", String.class, true, ArgLevel.REQUIRED, "i"),
-                new Switch("impression", String.class, true, ArgLevel.REQUIRED, "im")
+                new Switch("impression", String.class, true, ArgLevel.REQUIRED, "im"),
+                new Switch("index", Integer.class, true, ArgLevel.REQUIRED, "i")
         );
     }
 }

@@ -6,17 +6,16 @@ import duke.command.Parser;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.PatientMap;
+import duke.ui.UiElement;
 import duke.ui.context.Context;
 import duke.ui.context.UiContext;
-import duke.ui.UiElement;
-import duke.ui.card.UiCard;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.util.List;
 
 /**
  * Main UI window of the application.
@@ -40,6 +39,7 @@ public class MainWindow extends UiElement<Stage> {
 
     private CommandWindow commandWindow;
     private HomeWindow homeWindow;
+    private PatientWindow patientWindow;
     private Tab homeTab;
     private Tab patientTab;
     private Tab impressionTab;
@@ -73,7 +73,8 @@ public class MainWindow extends UiElement<Stage> {
         homeTab = new Tab("Home", homeWindow.getRoot());
         contextWindowHolder.getTabs().add(homeTab);
 
-        patientTab = new Tab("Patient", new PatientWindow(null).getRoot());
+        patientWindow = new PatientWindow(null, commandWindow);
+        patientTab = new Tab("Patient", patientWindow.getRoot());
         contextWindowHolder.getTabs().add(patientTab);
 
         impressionTab = new Tab("Impression", new ImpressionWindow(null, null).getRoot());
@@ -90,7 +91,7 @@ public class MainWindow extends UiElement<Stage> {
                 break;
             case PATIENT:
                 contextWindowHolder.getTabs().remove(patientTab);
-                patientTab = new Tab("Patient", new PatientWindow((Patient) uiContext.getObject()).getRoot());
+                patientTab = new Tab("Patient", new PatientWindow((Patient) uiContext.getObject(), commandWindow).getRoot());
                 contextWindowHolder.getTabs().add(1, patientTab);
                 contextWindowHolder.getSelectionModel().select(patientTab);
                 break;
@@ -132,16 +133,16 @@ public class MainWindow extends UiElement<Stage> {
      *
      * @return List of UI cards.
      */
-    public List<UiCard> getCardList() {
+    public ObservableList<Node> getCardList() {
         switch (uiContext.getContext()) {
         case HOME:
             return homeWindow.getPatientCardList();
         case PATIENT:
+            return patientWindow.getCardList();
         case EVIDENCE:
         case TREATMENT:
         case IMPRESSION:
         case INVESTIGATION:
-            break;
         default:
             break;
         }

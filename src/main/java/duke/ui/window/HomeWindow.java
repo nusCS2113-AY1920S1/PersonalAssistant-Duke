@@ -6,14 +6,12 @@ import duke.data.Patient;
 import duke.data.PatientMap;
 import duke.ui.UiElement;
 import duke.ui.card.PatientCard;
-import duke.ui.card.UiCard;
 import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * UI window for the Home context.
@@ -27,7 +25,6 @@ public class HomeWindow extends UiElement<Region> {
     private ScrollPane scrollPane;
 
     private PatientMap patientMap;
-    private List<UiCard> patientCardList;
 
     /**
      * Constructs the Home UI window.
@@ -38,7 +35,6 @@ public class HomeWindow extends UiElement<Region> {
         super(FXML, null);
 
         this.patientMap = patientMap;
-        this.patientCardList = new ArrayList<>();
 
         fillPatientListPanel();
         attachPatientListListener();
@@ -52,12 +48,9 @@ public class HomeWindow extends UiElement<Region> {
     private void fillPatientListPanel() {
         for (Patient patient : patientMap.getPatientHashMap().values()) {
             PatientCard patientCard = new PatientCard(patient);
-            patientCard.setIndex(patientCardList.size() + 1);
-            patientCardList.add(patientCard);
+            patientCard.setIndex(patientListPanel.getChildren().size() + 1);
+            patientListPanel.getChildren().add(patientCard);
         }
-
-        patientListPanel.getChildren().clear();
-        patientListPanel.getChildren().addAll(patientCardList);
     }
 
     /**
@@ -68,18 +61,19 @@ public class HomeWindow extends UiElement<Region> {
         patientMap.getPatientObservableMap().addListener((MapChangeListener<String, Patient>) change -> {
             if (change.wasAdded()) {
                 PatientCard patientCard = new PatientCard(change.getValueAdded());
-                patientCard.setIndex(patientCardList.size() + 1);
-                patientCardList.add(patientCard);
+                patientListPanel.getChildren().add(patientCard);
             } else if (change.wasRemoved()) {
-                patientCardList.remove(new PatientCard(change.getValueRemoved()));
-                patientCardList.forEach(card -> card.setIndex(patientCardList.indexOf(card) + 1));
+                patientListPanel.getChildren().remove(new PatientCard(change.getValueRemoved()));
             }
 
-            patientListPanel.getChildren().setAll(patientCardList);
+            patientListPanel.getChildren().forEach(node -> {
+                PatientCard card = (PatientCard) node;
+                card.setIndex(patientListPanel.getChildren().indexOf(card) + 1);
+            });
         });
     }
 
-    public List<UiCard> getPatientCardList() {
-        return patientCardList;
+    public ObservableList<Node> getPatientCardList() {
+        return patientListPanel.getChildrenUnmodifiable();
     }
 }
