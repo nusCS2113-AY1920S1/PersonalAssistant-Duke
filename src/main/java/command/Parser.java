@@ -138,7 +138,7 @@ public class Parser {
             } else if (instr.isAddFund(input)) {
                 process.addFund(input, ui, fund);
             } else {
-                throw new AlphaNUSException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new AlphaNUSException("      OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (AlphaNUSException e) {
             process.homePageMessage(currentProject.projectname, projectmap.size(), ui);
