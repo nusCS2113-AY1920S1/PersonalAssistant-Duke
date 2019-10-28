@@ -4,6 +4,7 @@ import javacake.Logic;
 import javacake.exceptions.DukeException;
 import javacake.storage.Profile;
 import javacake.storage.Storage;
+import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
 import java.io.File;
@@ -111,15 +112,14 @@ public class CreateNoteCommand extends Command {
     /**
      * Checks if file name already exists.
      * If file name does not exist, create note for user.
-     * @param logic tracks current location in program
+     * @param logic TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
-     * @param storage Storage needed to write the updated data
-     * @param profile Profile of the user
+     * @param storageManager storage container
      * @return Message when note is created successfully.
      * @throws DukeException If file does not exists.
      */
     @Override
-    public String execute(Logic logic, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append(userGivenFileName).append(".txt");

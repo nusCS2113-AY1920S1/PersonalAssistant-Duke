@@ -3,6 +3,7 @@ package javacake.commands;
 import javacake.Logic;
 import javacake.exceptions.DukeException;
 import javacake.storage.Profile;
+import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 import javacake.storage.Storage;
 
@@ -14,13 +15,12 @@ public class BackCommand extends Command {
 
     /**
      * Execute going back to previous index.
-     * @param logic tracks current location in program
+     * @param logic TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
-     * @param storage Storage needed to write the updated data
-     * @param profile Profile of the user
+     * @param storageManager storage container
      * @throws DukeException Error thrown when unable to close file reader
      */
-    public String execute(Logic logic, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
 
         logic.backToPreviousPath();
         logic.insertQueries();

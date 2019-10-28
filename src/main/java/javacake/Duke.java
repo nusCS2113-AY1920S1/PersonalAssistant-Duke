@@ -4,6 +4,7 @@ import javacake.commands.Command;
 import javacake.exceptions.DukeException;
 import javacake.storage.Profile;
 import javacake.storage.Storage;
+import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
 import java.io.BufferedReader;
@@ -18,8 +19,9 @@ public class Duke  {
     private static Logic logic;
     private static boolean isCliMode = true;
 
-    public static Storage storage;
-    public static Profile profile;
+    public static StorageManager storageManager;
+    //    public static Storage storage;
+    //    public static Profile profile;
     public static boolean isFirstTimeUser;
     public static String userName;
     public static int userProgress = 0;
@@ -34,11 +36,11 @@ public class Duke  {
         ui = new Ui();
         try {
             logic = Logic.getInstance();
-            storage = new Storage();
-            //tasks = new TaskList(storage.load());
-            profile = new Profile();
-            userProgress = profile.getTotalProgress();
-            userName = profile.getUsername();
+            storageManager = new StorageManager();
+            //            storage = new Storage();
+            //            profile = new Profile();
+            userProgress = storageManager.profile.getTotalProgress();
+            userName = storageManager.profile.getUsername();
             // Default username when creating new profile
             checkIfNewUser("NEW_USER_!@#");
         } catch (DukeException e) {
@@ -69,7 +71,7 @@ public class Duke  {
         //To overwrite "NEW_USER_!@# with new inputted username if needed
         if (isFirstTimeUser) {
             try {
-                profile.overwriteName(userName);
+                storageManager.profile.overwriteName(userName);
                 ui.showLine();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
@@ -104,7 +106,7 @@ public class Duke  {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
-                ui.showMessage(c.execute(logic, ui, storage, profile));
+                ui.showMessage(c.execute(logic, ui, storageManager));
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
@@ -124,7 +126,7 @@ public class Duke  {
         }
         try {
             Command c = Parser.parse(input);
-            return c.execute(logic, ui, storage, profile);
+            return c.execute(logic, ui, storageManager);
         } catch (DukeException e) {
             return e.getMessage();
         }

@@ -8,6 +8,7 @@ import javacake.exceptions.DukeException;
 import javacake.quiz.Question;
 import javacake.storage.Profile;
 import javacake.storage.Storage;
+import javacake.storage.StorageManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -63,12 +64,12 @@ public class Ui {
         return strA.toString();
     }
 
-    public static String showDeadlineReminder(Storage storage, Profile profile) {
-        return new ReminderCommand().execute(Logic.getInstance(), new Ui(), storage, profile);
+    public static String showDeadlineReminder(StorageManager storageManager) {
+        return new ReminderCommand().execute(Logic.getInstance(), new Ui(), storageManager);
     }
 
-    public static String showNoteList(Storage storage, Profile profile) throws DukeException {
-        return new ListNoteCommand().execute(Logic.getInstance(), new Ui(), storage, profile);
+    public static String showNoteList(StorageManager storageManager) throws DukeException {
+        return new ListNoteCommand().execute(Logic.getInstance(), new Ui(), storageManager);
     }
 
     /**

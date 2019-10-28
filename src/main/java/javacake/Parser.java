@@ -13,6 +13,7 @@ import javacake.commands.HelpCommand;
 import javacake.commands.ListCommand;
 import javacake.commands.ListNoteCommand;
 import javacake.commands.OverviewCommand;
+import javacake.commands.ReminderCommand;
 import javacake.commands.ResetCommand;
 import javacake.commands.ScoreCommand;
 import javacake.exceptions.DukeException;
@@ -60,6 +61,8 @@ public class Parser {
             return new ListNoteCommand();
         } else if (input.equals("deadline")) {
             return new AddCommand(inputCommand);
+        } else if (input.equals("reminder")) {
+            return new ReminderCommand();
         } else if (input.equals("change")) {
             MainWindow.isChanged = true;
             return new ChangeColorCommand();

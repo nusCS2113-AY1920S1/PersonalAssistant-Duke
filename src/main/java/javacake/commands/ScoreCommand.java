@@ -1,11 +1,15 @@
 package javacake.commands;
 
-import javacake.storage.Profile;
 import javacake.Logic;
-import javacake.storage.Storage;
+import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
 public class ScoreCommand extends Command {
+    //3 different grades: BAD, OKAY, GOOD
+    private int questionGrades = 3;
+    //4 different quizzes
+    private int questionTypes = 4;
+    private int totalQuestionQuantum = questionGrades * questionTypes;
 
     public ScoreCommand() {
 
@@ -15,13 +19,12 @@ public class ScoreCommand extends Command {
      * Executes showing quiz score.
      * @param logic TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
-     * @param storage Storage needed to write the updated data
-     * @param profile Profile of the user
+     * @param storageManager storage container
      * @return
      */
     @Override
-    public String execute(Logic logic, Ui ui, Storage storage, Profile profile) {
-        return Ui.getQuizResults(profile.getTotalProgress());
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) {
+        return Ui.getQuizResults(storageManager.profile.getTotalProgress());
 
     }
 
@@ -33,14 +36,14 @@ public class ScoreCommand extends Command {
     private String getQuizResults(int progress) {
         StringBuilder str = new StringBuilder();
         str.append("Here's your quiz progress so far :D\n");
-        for (int i = 0; i < 12; ++i) {
+        for (int i = 0; i < totalQuestionQuantum; ++i) {
             if (i < progress) {
                 str.append("#");
             } else {
                 str.append("-");
             }
         }
-        progress = progress * 100 / 12;
+        progress = progress * 100 / totalQuestionQuantum;
         if (progress == 99) {
             progress = 100;
         }
