@@ -9,7 +9,7 @@ public class QuizStorage extends Storage {
         this.quizFilePath = filepath;
     }
     @Override
-    public void writeFile(String s, boolean append){
+    public void writeFile(String s, boolean append) {
         super.writeFile(s, append);
         return;
     }

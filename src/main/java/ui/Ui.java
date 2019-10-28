@@ -22,10 +22,8 @@ public class Ui {
         return ("\n                      |   | _ _ _|   /  \\ _  \n"
                 + "                      |/\\|(_)| (_|  \\__/|_) \n"
                 + "                                            |   \n\n"
-                + "Welcome, what would you like to do today?"
-        );
+                + "Welcome, what would you like to do today?");
     }
-
     /**
      * Greets user when they move to quiz scene.
      * @return a greeting string
@@ -35,8 +33,7 @@ public class Ui {
                 + "                      |/\\|(_)| (_|  \\__/|_) \n"
                 + "                                            |   \n"
                 + "Let's do some quiz to enhance your word knowledge \n"
-                + "Type \"start\" to begin quiz or \"exit_quiz\" to go back"
-        );
+                + "Type \"start\" to begin quiz or \"exit_quiz\" to go back");
     }
 
     public String showDeleted(Word w) {
@@ -236,11 +233,11 @@ public class Ui {
      * @param optionSequence sequence of the options
      * @return a string shown when the command is completed
      */
-    public String quizDisplay(String question, String[] options, int optionSequence){
-        String s = ("What is the meaning of " + question +"?\n");
-        int index=1;
-        for(int i=optionSequence; i<optionSequence+4; i++){
-            s += (index + "." + options[i%4] + "  ");
+    public String quizDisplay(String question, String[] options, int optionSequence) {
+        String s = ("What is the meaning of " + question + "?\n");
+        int index = 1;
+        for (int i = optionSequence; i < optionSequence+4; i++){
+            s += (index + "." + options[i % 4] + "  ");
             index++;
         }
         s += "\n";
@@ -263,13 +260,19 @@ public class Ui {
 
     public String quizIncorrect(Integer wrongQuiz, Integer countQuiz, ArrayList<String> quizArray) {
         if (wrongQuiz == 0) {
-            return ("Congratulations! You got " + (countQuiz - wrongQuiz) + "/" + countQuiz + " on this quiz!\n" +
-                    "type exit_quiz to exit.");
+            return ("Congratulations! You got "
+                    + (countQuiz - wrongQuiz)
+                    + "/" + countQuiz
+                    + " on this quiz!\n"
+                    + "type exit_quiz to exit.");
         } else {
-            return ("You got " + (countQuiz - wrongQuiz) + "/" + countQuiz + " on this quiz!\n" +
-                    "These are the words you might want to review:\n" +
-                    quizArray +
-                    "\ntype exit_quiz to exit.");
+            return ("You got " + (countQuiz - wrongQuiz)
+                    + "/"
+                    + countQuiz
+                    + " on this quiz!\n"
+                    + "These are the words you might want to review:\n"
+                    + quizArray
+                    + "\ntype exit_quiz to exit.");
         }
     }
     /**
@@ -288,4 +291,3 @@ public class Ui {
         return stringBuilder.toString();
     }
 }
-

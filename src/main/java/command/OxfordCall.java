@@ -77,7 +77,7 @@ public class OxfordCall {
      * Extracts the first definition inside the metadata.
      * @author Ng Jian Wei
      */
-    public static String extractFirstDef(String metaData){
+    public static String extractFirstDef(String metaData) {
         String[] temp = metaData.split("definitions", 2);
         String[] temp2 = temp[1].split("]", 2);
         temp2[0] = temp2[0].replaceAll(":","");

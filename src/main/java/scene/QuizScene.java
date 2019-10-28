@@ -1,7 +1,11 @@
 package scene;
 
 import command.QuizCommand;
-import exception.*;
+import exception.ChangeSceneException;
+import exception.InvalidAnswerException;
+import exception.WordBankNotEnoughForQuizException;
+import exception.CommandInvalidException;
+import exception.WordUpException;
 import dictionary.Bank;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -33,22 +37,25 @@ public class QuizScene extends NewScene {
     }
 
     @Override
-    public String getResponse(String fullCommand)
-            throws ChangeSceneException, InvalidAnswerException, WordBankNotEnoughForQuizException, CommandInvalidException {
+    public String getResponse(String fullCommand) throws
+            ChangeSceneException,
+            InvalidAnswerException,
+            WordBankNotEnoughForQuizException,
+            CommandInvalidException {
         if (fullCommand.equals("exit_quiz")) {
             throw new ChangeSceneException();
         } else if (!startQuiz && fullCommand.equals("start")) {
             this.generateQuiz();
             startQuiz = true;
             return ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
-        } else if(countQuiz==5){
+        } else if (countQuiz == 5) {
             startQuiz = false;
             return ui.quizIncorrect(wrongQuiz, countQuiz, quizArray);
         }
         else {
-            if(!startQuiz){
+            if (!startQuiz) {
                 throw new CommandInvalidException(fullCommand);
-            } else{
+            } else {
                 String s;
                 try {
                     int i = Integer.parseInt(fullCommand);
@@ -57,10 +64,10 @@ public class QuizScene extends NewScene {
                     }
                     if (fullCommand.equals(Integer.toString((4 - quizCommand.optionSequence) % 4 + 1))) {
                         s = ui.quizResponse(true, quizCommand.answer);
-                    } else{
+                    } else {
                         s = ui.quizResponse(false, quizCommand.answer);
                         quizArray.add(quizCommand.question+": "+quizCommand.answer);
-                        wrongQuiz+=1;
+                        wrongQuiz += 1;
                     }
                     this.generateQuiz();
                     return s + "\n" + ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
@@ -75,7 +82,7 @@ public class QuizScene extends NewScene {
 
     private void generateQuiz() throws WordBankNotEnoughForQuizException {
         quizCommand = new QuizCommand();
-        this.countQuiz+=1;
+        this.countQuiz += 1;
         //quizCommand.generateQuiz(wordBank);
         quizCommand.generateQuiz(bank.getWordBankObject());
     }
@@ -102,6 +109,4 @@ public class QuizScene extends NewScene {
             window.setScene(new MainScene(ui, bank, storage, window).getScene());
         }
     }
-
-
 }

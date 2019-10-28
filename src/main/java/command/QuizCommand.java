@@ -70,6 +70,6 @@ public class QuizCommand extends Command {
         }
 
         optionSequence = random.nextInt(4);
-        return this.question+": "+this.answer;
+        return this.question + ": " + this.answer;
     }
 }
