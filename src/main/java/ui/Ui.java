@@ -66,15 +66,20 @@ public class Ui extends AnchorPane {
         );
         userInput.clear();
         if (input.equals("list")) {
+            listContainer.getChildren().clear();
             BookingList bookingList = duke.getBookingList();
             showList(bookingList);
         }
     }
 
     private void showList(BookingList bookingList) {
+        addToList(new ListBox("S/N", "Name", "Venue", "Date", "From",
+                "To", "Status"));
+        Integer index = 1;
         for (Booking i : bookingList) {
-            addToList(new ListBox(i.getName(), i.getVenue(), i.getDateTimeStart().toString(),
-                    i.getTimeEnd().toString(), i.getStatus()));
+            addToList(new ListBox(index.toString(), i.getName(), i.getVenue(), i.getDateStart().toString(),
+                    i.getTimeStart().toString(), i.getTimeEnd().toString(), i.getStatus()));
+            index++;
         }
     }
 
