@@ -220,6 +220,7 @@ public class Ui {
     }
 
     private void showStatsWithGoal(User user) {
+        System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "These are your user statistics as of today:");
         System.out.println(UI_PADDING + "Original weight: " + user.getOriginalWeight());
         System.out.println(UI_PADDING + "Current Weight: " + user.getWeight());
@@ -230,6 +231,7 @@ public class Ui {
         System.out.println(UI_PADDING + "Avg calorie balance that must be maintained to reach goal: "
                 + user.getCalorieBalance() + " calories");
         showOnTrack(user);
+        System.out.println(UI_BOUNDARY);
     }
 
     private void showOnTrack(User user) {

@@ -29,6 +29,6 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return " SGD" + this.transactionAmount + "| " + getDate();
+        return " SGD" + this.transactionAmount + "|" + getDate();
     }
 }

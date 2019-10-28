@@ -21,7 +21,7 @@ public class AddLunchCommandParser implements ParserInterface<AddCommand> {
         try {
             InputValidator.validate(userInput);
             String[] mealNameAndInfo = ArgumentSplitter.splitMealArguments(userInput);
-            return new AddCommand(new Lunch(mealNameAndInfo[0], mealNameAndInfo[1]), 0);
+            return new AddCommand(new Lunch(mealNameAndInfo[0], mealNameAndInfo[1]), "0");
         } catch (DukeException e) {
             return new AddCommand(false, e.getMessage());
         }

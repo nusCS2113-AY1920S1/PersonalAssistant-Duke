@@ -9,23 +9,15 @@ public class Wallet {
     public Wallet() {
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
     public TransactionList getTransactions() {
         return transactions;
-    }
-
-    public Account getAccount() {
-        return account;
     }
 
     public BigDecimal getAccountBalance() {
         return this.account.getAmount();
     }
 
-    public void setAccountBalance(int accountBalance) {
+    public void setAccountBalance(String accountBalance) {
         this.account.setAmount(new BigDecimal(accountBalance));
     }
 
@@ -38,8 +30,8 @@ public class Wallet {
         }
     }
 
-    public void addTransactions(int cost, String date) {
-        this.transactions.addTransaction(new Transaction(Integer.toString(cost),date));
+    public void addTransactions(String cost, String date) {
+        this.transactions.addTransaction(new Transaction(cost, date));
         this.account.withdraw(new BigDecimal(cost));
     }
 }

@@ -15,14 +15,14 @@ import java.util.ArrayList;
  */
 public class AddCommand extends Command {
     private Meal meal;
-    private int cost;
+    private String cost;
     /**
      * Constructor for AddCommand.
      * the meal specified as the instance field meal.
      * @param meal The meal to be added.
      */
 
-    public AddCommand(Meal meal, int cost) {
+    public AddCommand(Meal meal, String cost) {
         this.meal = meal;
         this.cost = cost;
     }

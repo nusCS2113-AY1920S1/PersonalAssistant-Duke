@@ -33,7 +33,7 @@ public abstract class Command {
      * @param user the object that handles all user data
      * @throws DukeException when there is an error
      */
-    public abstract void execute(MealList meals, Storage storage, User user, Wallet wallet);
+    public abstract void execute(MealList meals, Storage storage, User user, Wallet wallet) throws DukeException;
 
     public void setResponse(String response) {
         this.response = response;

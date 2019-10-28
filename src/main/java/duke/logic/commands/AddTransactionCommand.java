@@ -1,5 +1,6 @@
 package duke.logic.commands;
 
+import duke.commons.exceptions.DukeException;
 import duke.model.meal.MealList;
 import duke.model.user.User;
 import duke.model.wallet.Transaction;
@@ -36,9 +37,11 @@ public class AddTransactionCommand extends Command {
      * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) throws DukeException {
         ui.showLine();
         wallet.getTransactions().addTransaction(this.transaction);
+        wallet.updateAccountBalance(this.transaction);
+        storage.updateTransaction(wallet);
         ui.showTransactionAdded(this.transaction, wallet.getAccountBalance());
         ui.showLine();
     }

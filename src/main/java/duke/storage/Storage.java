@@ -30,14 +30,15 @@ public class Storage {
     public void load(MealList meals, User user) throws DukeException {
         loader.loadFile(meals, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_USER_MEALS_FILE));
         loader.loadFile(meals, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_DEFAULT_MEAL_FILE));
-        loader.loadGoals(user);
     }
 
     /**
      * This is a function that will load user info from user.txt.
      */
     public User loadUser() throws DukeException {
-        return loader.loadUser();
+        User user = loader.loadUser();
+        loader.loadGoals(user);
+        return user;
     }
 
     /**
@@ -86,7 +87,7 @@ public class Storage {
         writer.writeUser(user);
     }
 
-    public void updateTransaction(TransactionList transactionList) throws DukeException {
-        writer.writeTransaction(transactionList);
+    public void updateTransaction(Wallet wallet) throws DukeException {
+        writer.writeTransaction(wallet);
     }
 }

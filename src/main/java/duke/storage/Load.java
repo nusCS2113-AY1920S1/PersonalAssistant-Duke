@@ -71,7 +71,7 @@ public class Load {
         bufferedReader = FileUtil.readFile(transactionFilePathStr, useResourceAsBackup);
         try {
             lineStr = bufferedReader.readLine();
-            wallet.setAccountBalance(Integer.parseInt(lineStr));
+            wallet.setAccountBalance(lineStr);
             while ((lineStr = bufferedReader.readLine()) != null) {
                 LoadLineParser.parseTransactions(transactions, lineStr, wallet);
             }
@@ -87,7 +87,6 @@ public class Load {
         bufferedReader = FileUtil.readFile(userFileStr, useResourceAsBackup);
         try {
             lineStr = bufferedReader.readLine();
-            System.out.println(lineStr);
             tempUser = LoadLineParser.parseUser(lineStr);
             while ((lineStr = bufferedReader.readLine()) != null) {
                 String[] splitWeightInfo = lineStr.split("\\|");

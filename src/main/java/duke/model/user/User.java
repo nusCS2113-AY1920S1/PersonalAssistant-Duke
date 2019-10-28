@@ -28,7 +28,7 @@ public class User {
     private Account account;
     private Goal goal = null;
     private String lastDate = "28/10/2019";
-    private double originalWeight;
+    private double originalWeight = 0;
 
     /**
      * This is a contructor to create an empty user profile.
@@ -120,8 +120,8 @@ public class User {
         if (this.goal != null && override == false) {
             return false;
         } else {
-            goal.setOriginalWeight(originalWeight);
             this.goal = goal;
+            this.goal.setOriginalWeight(originalWeight);
             calculateTargetCalories();
             return true;
         }
