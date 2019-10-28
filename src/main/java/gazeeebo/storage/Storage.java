@@ -2,7 +2,6 @@ package gazeeebo.storage;
 
 import java.io.*;
 
-
 import gazeeebo.commands.capCalculator.CAPCommand;
 import gazeeebo.commands.specialization.ModuleCategories;
 import gazeeebo.tasks.Deadline;
@@ -159,6 +158,19 @@ public class Storage {
      */
     public ArrayList<StringBuilder> readFromPasswordFile() {
         ArrayList<StringBuilder> passwordList = new ArrayList<>();
+//<<<<<<< HEAD
+//        if (new File(absolutePath_password).exists()) {
+//            File file = new File(absolutePath_password);
+//            Scanner sc = new Scanner(file);
+//            while (sc.hasNext()) {
+//                String decodedPassword = sc.nextLine();
+//                char[] decryption = decodedPassword.toCharArray();
+//                StringBuilder realPassword = new StringBuilder();
+//                for (int i = decodedPassword.length() - 1; i >= 0; i--) {
+//                    realPassword.append(decryption[i]);
+//                }
+//                passwordList.add(realPassword);
+//=======
         InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_password);
         Scanner sc = new Scanner(inputStream);
         while (sc.hasNext()) {
@@ -167,6 +179,7 @@ public class Storage {
             StringBuilder realPassword = new StringBuilder();
             for (int i = decodedPassword.length() - 1; i >= 0; i--) {
                 realPassword.append(decryption[i]);
+//>>>>>>> da7261b2c2cf013f94ae0d85b8a1be3d8f7a9b20
             }
             System.out.println(realPassword);
             passwordList.add(realPassword);

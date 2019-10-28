@@ -9,6 +9,9 @@ import gazeeebo.commands.Command;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Deals with the user input in the contacts page.
+ */
 public class ContactCommand extends Command {
     private static final String LINEBREAK = "------------------------------------------\n";
     /**
@@ -25,15 +28,15 @@ public class ContactCommand extends Command {
         Map<String, String> contactList = new TreeMap<String, String>(map);
 
         System.out.print("Welcome to your contacts page! What would you like to do?\n\n");
-        System.out.println("__________________________________________________________");
-        System.out.println("1. Add contacts: add");
-        System.out.println("2. Find contacts base on name: find name");
-        System.out.println("3. Delete a contact: delete name");
-        System.out.println("4. See your contacts list: list");
-        System.out.println("5. Exit contact page: esc");
-        System.out.println("__________________________________________________________");
-
-
+        String helpContact = "__________________________________________________________\n"
+                + "1. Add contacts: add\n"
+                + "2. Find contacts base on name: find name\n"
+                + "3. Delete a contact: delete name\n"
+                + "4. See your contacts list: list\n"
+                + "5. Help Command: help\n"
+                + "6. Exit contact page: esc\n"
+                + "__________________________________________________________\n\n";
+        System.out.print(helpContact);
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {
             if (ui.fullCommand.equals("add")) {
@@ -44,6 +47,11 @@ public class ContactCommand extends Command {
                 new ListContactCommand(contactList, LINEBREAK);
             } else if (ui.fullCommand.contains("delete")) {
                 new DeleteContactCommand(ui, contactList);
+            } else if (ui.fullCommand.equals("help")) {
+                System.out.println(helpContact);
+            }
+            else {
+                System.out.println("Incorrect format");
             }
             String toStore = "";
             for (String key : contactList.keySet()) {
@@ -54,7 +62,7 @@ public class ContactCommand extends Command {
             System.out.println("What do you want to do next ?");
             ui.readCommand();
         }
-        System.out.println("Going back to Main Menu");
+        System.out.print("Going back to Main Menu\n");
     }
 
     @Override

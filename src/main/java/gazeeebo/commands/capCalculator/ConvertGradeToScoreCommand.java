@@ -1,5 +1,8 @@
 package gazeeebo.commands.capCalculator;
 
+/**
+ * Coverts Grade to Integer score.
+ */
 public class ConvertGradeToScoreCommand {
     /**
      * Converts the alphabetical score to integer score.
@@ -8,28 +11,41 @@ public class ConvertGradeToScoreCommand {
      */
     public double converter(String grade) {
         double score;
-        if (grade.equals("A") || grade.equals("A+")) {
-            score = 5.0;
-        } else if(grade.equals("A-")) {
-            score = 4.5;
-        } else if(grade.equals("B+")) {
-            score = 4.0;
-        } else if(grade.equals("B")) {
-            score = 3.5;
-        } else if(grade.equals("B-")) {
-            score = 3.0;
-        } else if(grade.equals("C+")) {
-            score = 2.5;
-        } else if(grade.equals("C")) {
-            score = 2.0;
-        } else if(grade.equals("D+")) {
-            score = 1.5;
-        } else if(grade.equals("D")) {
-            score = 1.0;
-        } else if(grade.equals("F")) {
-            score = 0.0;
-        } else {
-            score = 0.1; //denote this number to make it not counted into the CAP
+        switch (grade) {
+            case "A+":
+            case "A":
+                score = 5.0;
+                break;
+            case "A-":
+                score = 4.5;
+                break;
+            case "B+":
+                score = 4.0;
+                break;
+            case "B":
+                score = 3.5;
+                break;
+            case "B-":
+                score = 3.0;
+                break;
+            case "C+":
+                score = 2.5;
+                break;
+            case "C":
+                score = 2.0;
+                break;
+            case "D+":
+                score = 1.5;
+                break;
+            case "D":
+                score = 1.0;
+                break;
+            case "F":
+                score = 0.0;
+                break;
+            default:
+                score = 0.1;
+                break;
         }
         return score;
     }
