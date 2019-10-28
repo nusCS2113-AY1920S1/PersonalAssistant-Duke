@@ -12,14 +12,21 @@ import java.util.ArrayList;
 
 public class Storage {
 
-    private static String appDir;
+    private String appDir;
+    private String jsonName = "save.json";
 
     public Storage() {
         appDir = System.getProperty("user.dir");
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            jsonName = "\\" + jsonName;
+        } else {
+            jsonName = "/" + jsonName;
+        }
     }
 
     public boolean getSaveExist() {
-        return new File(appDir.concat("\\save.json")).exists();
+        System.out.println(new File(appDir.concat(jsonName)).toString());
+        return new File(appDir.concat(jsonName)).exists();
     }
 
     /**
@@ -30,7 +37,7 @@ public class Storage {
      * @throws IOException    "save.json" does not exist.
      */
     public JSONObject loadFarmer() throws ParseException, IOException {
-        Reader reader = new FileReader(appDir.concat("\\save.json"));
+        Reader reader = new FileReader(appDir.concat(jsonName));
         JSONParser parser = new JSONParser();
         return (JSONObject) parser.parse(reader);
     }
@@ -44,7 +51,7 @@ public class Storage {
     public boolean storeFarmer(Farmer farmer) {
         FileWriter file;
         try {
-            file = new FileWriter(appDir.concat("\\save.json"));
+            file = new FileWriter(appDir.concat(jsonName));
             file.write(farmer.toJSON().toJSONString());
             file.close();
         } catch (IOException e) {
@@ -55,7 +62,7 @@ public class Storage {
 
     public ArrayList<String> loadFrame(String path, int frameId, int frameWidth, int frameHeight) throws FarmioFatalException {
         path = "asciiArt/" + path + "/frame" + frameId + ".txt";
-        BufferedReader   bufferedReader = new BufferedReader(new InputStreamReader(getResourceStream(path)));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getResourceStream(path)));
         String line;
         ArrayList<String> frame = new ArrayList<>();
         while (true) {
@@ -71,22 +78,22 @@ public class Storage {
             }
             frame.add(
                     "|" +
-                    AsciiColours.BACKGROUND_WHITE +
-                    AsciiColours.BLACK +
-                    line +
-                    AsciiColours.SANE +
-                    "|"
+                            AsciiColours.BACKGROUND_WHITE +
+                            AsciiColours.BLACK +
+                            line +
+                            AsciiColours.SANE +
+                            "|"
             );
         }
         if (frame.size() < frameHeight) {
             for (int i = frame.size(); i < frameHeight; i++) {
                 frame.add(
                         "|" +
-                        AsciiColours.BACKGROUND_WHITE +
-                        AsciiColours.BLACK +
-                        String.format("%" + frameWidth + "s", "") +
-                        AsciiColours.SANE +
-                        "|"
+                                AsciiColours.BACKGROUND_WHITE +
+                                AsciiColours.BLACK +
+                                String.format("%" + frameWidth + "s", "") +
+                                AsciiColours.SANE +
+                                "|"
                 );
             }
         }
@@ -103,7 +110,7 @@ public class Storage {
         }
     }
 
-    private InputStream getResourceStream(String path){
+    private InputStream getResourceStream(String path) {
         return ClassLoader.getSystemClassLoader().getResourceAsStream(path);
     }
 
