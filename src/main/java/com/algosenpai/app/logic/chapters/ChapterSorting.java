@@ -258,7 +258,7 @@ class ChapterSorting {
     private static HashSet<Integer> generateArray(int arraySize) {
         HashSet<Integer> tempStorage = new HashSet<>();
         while (tempStorage.size() != arraySize) {
-            int value = random.nextInt(100);
+            int value = getRandomNumber(0,100);
             tempStorage.add(value);
         }
         return tempStorage;

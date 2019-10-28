@@ -7,20 +7,18 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Random;
-import java.util.Scanner;
 
-public class ChapterLinkedList {
+class ChapterLinkedList {
 
 
     private static Random random = new Random();
-    private static Scanner s = new Scanner(System.in);
 
     /**
      * Generates a random question related to linked lists.
      * @return a question model according to the random number being generated.
      */
-    public static QuestionModel generateQuestions() {
-        int questionType = random.nextInt(4);
+    static QuestionModel generateQuestions() {
+        int questionType = getRandomNumber(0, 4);
         switch (questionType) {
         case 0:
             return stackPopPushQuestion();
@@ -40,19 +38,17 @@ public class ChapterLinkedList {
      * @return a question to the generateQuestion function.
      */
     private static QuestionModel pseudoCodeQuestion() {
-        int arraySize = random.nextInt(4) + 6;
-        ArrayList<Integer> array = new ArrayList<>(createList(arraySize));
-        for (int i = 0; i < array.size(); i++) {
-            array.set(i, array.get(i) % 10);
-        }
-        String question = "In the pseudocode program below, list is an initially empty Singly Linked List.\n"
-                + "The function populateList() adds the integers " + array + " to the tail of the list sequentially.\n"
-                + "What is the output of the program?";
+        //Generates a size for the array between 6 and 9.
+        int arraySize = getRandomNumber(6, 4);
+        //Populates the array with elements no greater than 10.
+        ArrayList<Integer> array = new ArrayList<>(createList(arraySize, 10));
+        //Formats the question
+        String question = pseudoCodeQuestionGenerator(array);
         ArrayList<String> pseudoCode = new ArrayList<>();
         generatePseudoCode(pseudoCode);
         question += printPseudoCode(pseudoCode);
-        int answer = calculateSum(array, pseudoCode);
-        return new QuestionModel(question, String.valueOf(answer), new ReviewTracingListModel());
+        String answer = calculateSum(array, pseudoCode);
+        return new QuestionModel(question, answer, new ReviewTracingListModel());
     }
 
     /**
@@ -60,9 +56,9 @@ public class ChapterLinkedList {
      * 
      * @param array      The ArrayList which makes up the Linked List.
      * @param pseudoCode The list of instructions in the pseudo-code.
-     * @return The value of the sum given in the pseudo-code.
+     * @return The value of the sum given in the pseudo-code in a String format.
      */
-    private static int calculateSum(ArrayList<Integer> array, ArrayList<String> pseudoCode) {
+    private static String calculateSum(ArrayList<Integer> array, ArrayList<String> pseudoCode) {
         int sum = 0;
         int index = 0;
         for (String i : pseudoCode) {
@@ -89,7 +85,7 @@ public class ChapterLinkedList {
                 break;
             }
         }
-        return sum;
+        return String.valueOf(sum);
     }
 
     /**
@@ -102,9 +98,10 @@ public class ChapterLinkedList {
         pseudoCode.add("populateList();");
         pseudoCode.add("int sum = 0;");
         pseudoCode.add("Node n = list.head; //list.head/list.tail points to the first/last integer in list");
-        int noOfCommands = random.nextInt(4) + 4;
+        //Generates a number of commands between 4 and 7.
+        int noOfCommands = getRandomNumber(4,4);
         for (int i = 0; i < noOfCommands; i++) {
-            int commandToAdd = random.nextInt(6);
+            int commandToAdd = getRandomNumber(0,6);
             switch (commandToAdd) {
             case 0:
                 pseudoCode.add("n = n.next;");
@@ -139,18 +136,16 @@ public class ChapterLinkedList {
      * @return a question which contains the question to the generateQuestions function.
      */
     private static QuestionModel singleInsertLinkedListQuestion() {
-        int listSize = random.nextInt(4) + 5;
-        LinkedList<Integer> ll = createList(listSize);
-        int valueToAdd = random.nextInt(100);
-        String positionToAdd;
-        if (random.nextInt(2) == 1) {
-            positionToAdd = "head";
-        } else {
-            positionToAdd = "tail";
-        }
-        String question = "Consider the Singly Linked List of size " + listSize + " below."
-                + " It undergoes an insertion of value " + valueToAdd + " at the " + positionToAdd
-                + ".\nWhat would be the new sequence of integers?";
+        //Generates a size for the linked list between 5 and 8.
+        int listSize = getRandomNumber(5,4);
+        //Populates the linked list with values.
+        LinkedList<Integer> ll = createList(listSize, 100);
+        //Decide on a value to be added between 0 and 100.
+        int valueToAdd = getRandomNumber(0,100);
+        //Decide on the position to be added.
+        String positionToAdd = getPositionToAdd();
+        //Formats the question.
+        String question = singleInsertLinkedListQuestionGenerator(listSize, valueToAdd, positionToAdd);
         question += printList(ll);
         if (positionToAdd.equals("head")) {
             ll.addFirst(valueToAdd);
@@ -170,16 +165,20 @@ public class ChapterLinkedList {
      * @return the question to the generateQuestion function.
      */
     private static QuestionModel queuePopPushQuestion() {
-        int queueSize = random.nextInt(4) + 4;
-        LinkedList<Integer> queue = createList(queueSize);
-        ArrayList<String> instructions = new ArrayList<String>();
-        int numberOfInstructions = random.nextInt(3) + 4;
+        //Generates a size for the queue between 4 and 8.
+        int queueSize = getRandomNumber(5,4);
+        //Populates the queue with positive integers under 100.
+        LinkedList<Integer> queue = createList(queueSize, 100);
+        ArrayList<String> instructions = new ArrayList<>();
+        //Determines the number of instructions to be added.
+        int numberOfInstructions = getRandomNumber(4,3);
+        //Populate instructions
         addInstructions(instructions, numberOfInstructions);
-        String question = "A Queue of size " + queueSize
-                + " undergoes a series of operations as shown below.\n"
-                + "What would be the new value called upon queue.peek()?";
+        //Formats the question
+        String question = queuePopPushQuestionGenerator(queueSize);
         question += printQueue(queue);
         question += printInstructions(instructions);
+        //Updates the queue according to the question.
         changeQueue(instructions, queue);
         String answer = String.valueOf(queue.getLast());
         return new QuestionModel(question, answer, new ReviewTracingListModel());
@@ -216,14 +215,15 @@ public class ChapterLinkedList {
      * @return the question being generated to generateQuestion.
      */
     private static QuestionModel stackPopPushQuestion() {
-        int stackSize = random.nextInt(4) + 4;
-        LinkedList<Integer> stack = createList(stackSize);
-        ArrayList<String> instructions = new ArrayList<String>();
-        int numberOfInstructions = random.nextInt(3) + 4;
+        //Generates a random number for the size of the stack between 4 and 8.
+        int stackSize = getRandomNumber(4,5);
+        //Populates the stack with numbers.
+        LinkedList<Integer> stack = createList(stackSize, 100);
+        ArrayList<String> instructions = new ArrayList<>();
+        //Determines the number of instructions to be carried out between 4 and 6.
+        int numberOfInstructions = getRandomNumber(4,6);
         addInstructions(instructions, numberOfInstructions);
-        String question = "A Stack of size " + stackSize
-                + " undergoes a series of operations as shown below.\n"
-                + "What would be the new value called upon stack.peek()?";
+        String question = stackPopPushQuestionGenerator(stackSize);
         question += printStack(stack);
         question += printInstructions(instructions);
         changeStack(instructions, stack);
@@ -261,11 +261,11 @@ public class ChapterLinkedList {
      */
     private static void addInstructions(ArrayList<String> instructions, int numberOfInstructions) {
         for (int i = 0; i < numberOfInstructions; i++) {
-            int val = random.nextInt(2);
-            int toadd = random.nextInt(100);
+            int val = getRandomNumber(0,2);
+            int toadd = getRandomNumber(0,100);
             switch (val) {
             case 0:
-                String combined = "Push(" + Integer.toString(toadd) + ");";
+                String combined = "Push(" + toadd + ");";
                 instructions.add(combined);
                 break;
             case 1:
@@ -283,14 +283,13 @@ public class ChapterLinkedList {
      * @param size The number of elements to be in the Linked List.
      * @return The Linked List data structure to be used for the question.
      */
-    private static LinkedList<Integer> createList(int size) {
+    private static LinkedList<Integer> createList(int size, int bound) {
         HashSet<Integer> set = new HashSet<>();
         while (set.size() != size) {
-            int value = random.nextInt(100);
+            int value = getRandomNumber(0, bound);
             set.add(value);
         }
-        LinkedList<Integer> stackCreated = new LinkedList<>(set);
-        return stackCreated;
+        return new LinkedList<>(set);
     }
 
     /**
@@ -300,11 +299,11 @@ public class ChapterLinkedList {
      * @return The String containing the instructions.
      */
     private static String printPseudoCode(ArrayList<String> pseudoCode) {
-        String string = new String();
+        StringBuilder string = new StringBuilder();
         for (String cmd : pseudoCode) {
-            string += cmd + "\n";
+            string.append(cmd).append("\n");
         }
-        return string;
+        return string.toString();
     }
 
     /**
@@ -314,15 +313,15 @@ public class ChapterLinkedList {
      * @return The string representing the linkedlist.
      */
     private static String printList(LinkedList<Integer> ll) {
-        String linkedListString = new String();
+        StringBuilder linkedListString = new StringBuilder();
         for (int i : ll) {
-            linkedListString += "[" + i + "]";
+            linkedListString.append("[").append(i).append("]");
             if (i != ll.getLast()) {
-                linkedListString += " -> ";
+                linkedListString.append(" -> ");
             }
         }
-        linkedListString += "\n";
-        return linkedListString;
+        linkedListString.append("\n");
+        return linkedListString.toString();
     }
 
     /**
@@ -332,12 +331,12 @@ public class ChapterLinkedList {
      * @return The string which represents the stack.
      */
     private static String printStack(LinkedList<Integer> stack) {
-        String s = new String();
+        StringBuilder s = new StringBuilder();
         for (int i : stack) {
-            s += "[" + i + "] <- ";
+            s.append("[").append(i).append("] <- ");
         }
-        s += "Head\n";
-        return s;
+        s.append("Head\n");
+        return s.toString();
     }
 
     /**
@@ -347,12 +346,12 @@ public class ChapterLinkedList {
      * @return The formatted String.
      */
     private static String printQueue(LinkedList<Integer> queue) {
-        String q = new String();
+        StringBuilder q = new StringBuilder();
         for (int i : queue) {
-            q += "[" + i + "] -> ";
+            q.append("[").append(i).append("] -> ");
         }
-        q += "Front";
-        return q;
+        q.append("Front");
+        return q.toString();
     }
 
     /**
@@ -362,13 +361,86 @@ public class ChapterLinkedList {
      * @return The String containing the instructions given by the list.
      */
     private static String printInstructions(ArrayList<String> instructions) {
-        String instructs = new String();
+        StringBuilder instructs = new StringBuilder();
         int i = 1;
         for (String s : instructions) {
-            instructs += i + ". " + s + "\n";
+            instructs.append(i).append(". ").append(s).append("\n");
             i++;
         }
-        return instructs;
+        return instructs.toString();
     }
+
+    /**
+     * Generates an integer.
+     * @param minimum The minimum value of the integer generated.
+     * @param bound Any value below this could be added to minimum.
+     * @return The integer which is randomly generated.
+     */
+    private static int getRandomNumber(int minimum, int bound) {
+        return random.nextInt(bound) + minimum;
+    }
+
+    /**
+     * Formats the question for pseudoCodeQuestion.
+     * @param array The array representing the singly linked list.
+     * @return The formatted string.
+     */
+    private static String pseudoCodeQuestionGenerator(ArrayList<Integer> array) {
+        return "In the pseudocode program below, list is an initially empty Singly Linked List.\n"
+                + "The function populateList() adds the integers " + array + " to the tail of the list sequentially.\n"
+                + "What is the output of the program?";
+    }
+
+    /**
+     * Decides the position to add the value to by generating a random number 1, or 2.
+     * @return A String containing the position. Either "head" or "tail"
+     */
+    private static String getPositionToAdd() {
+        String positionToAdd;
+        if (getRandomNumber(0,2) == 1) {
+            positionToAdd = "head";
+        } else {
+            positionToAdd = "tail";
+        }
+        return positionToAdd;
+    }
+
+    /**
+     * Formats the question for the singleInsertLinkedListQuestion.
+     * @param listSize The size of the linkedlist.
+     * @param valueToAdd The value to add to the linked list.
+     * @param positionToAdd The position at which to add the value at.
+     * @return The formatted String question.
+     */
+    private static String singleInsertLinkedListQuestionGenerator(int listSize, int valueToAdd, String positionToAdd) {
+        return "Consider the Singly Linked List of size " + listSize + " below."
+                + " It undergoes an insertion of value " + valueToAdd + " at the " + positionToAdd
+                + ".\nWhat would be the new sequence of integers?";
+    }
+
+    /**
+     * Formats the question for the queuePopPushQuestion.
+     * @param queueSize The size of the queue in question.
+     * @return The formatted String.
+     */
+    private static String queuePopPushQuestionGenerator(int queueSize) {
+        return "A Queue of size " + queueSize
+                + " undergoes a series of operations as shown below.\n"
+                + "What would be the new value called upon queue.peek()?";
+    }
+
+    /**
+     * Formats the question for the stackPopPushQuestion.
+     * @param stackSize The size of the stack in question.
+     * @return The formatted String.
+     */
+    private static String stackPopPushQuestionGenerator(int stackSize) {
+        return "A Stack of size " + stackSize
+                + " undergoes a series of operations as shown below.\n"
+                + "What would be the new value called upon stack.peek()?";
+    }
+
+
+
 
 }

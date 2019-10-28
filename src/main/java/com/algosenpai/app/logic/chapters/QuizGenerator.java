@@ -22,7 +22,7 @@ public class QuizGenerator {
             }
         } else {
             for (int i = 0; i < 10; i++) {
-                questionList.add(ChapterSorting.generateQuestions());
+                questionList.add(ChapterLinkedList.generateQuestions());
             }
         }
         return questionList;
