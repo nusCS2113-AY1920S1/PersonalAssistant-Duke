@@ -3,7 +3,6 @@ package gazeeebo.commands.expenses;
 import gazeeebo.UI.Ui;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -23,16 +22,16 @@ public class FindExpenseCommand {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateOfPurchase = LocalDate.parse(date, fmt);
         boolean isExist = false;
-        for(LocalDate key: expenses.keySet()) {
+        for (LocalDate key: expenses.keySet()) {
             if (dateOfPurchase.equals(key)) {
                 for (int i = 0; i < expenses.get(key).size(); i++) {
-                    System.out.println((i+1) + "." + expenses.get(key).get(i));
+                    System.out.println((i + 1) + "." + expenses.get(key).get(i));
                 }
                 isExist = true;
                 break;
             }
         }
-        if(!isExist) {
+        if (!isExist) {
             System.out.println(date + " is not found in the list.");
         }
 

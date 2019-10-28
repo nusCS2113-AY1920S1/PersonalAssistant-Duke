@@ -41,10 +41,10 @@ public class DeleteExpenseCommand {
         LocalDate getKey = LocalDate.parse(getKeyFromList, fmt);
 
         String getValueFromList = expenseList.get(index).split(" ")[1] + " " + expenseList.get(index).split(" ")[2];
-        for(LocalDate key : expenses.keySet()) {
-            if(key.equals(getKey)) {
-                for(int i = 0; i < expenses.get(key).size(); i++) {
-                    if(expenses.get(key).get(i).equals(getValueFromList)) {
+        for (LocalDate key : expenses.keySet()) {
+            if (key.equals(getKey)) {
+                for (int i = 0; i < expenses.get(key).size(); i++) {
+                    if (expenses.get(key).get(i).equals(getValueFromList)) {
                         expenses.get(key).remove(i);
 
                     }

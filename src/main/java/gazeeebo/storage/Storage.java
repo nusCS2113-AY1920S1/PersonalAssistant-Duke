@@ -3,8 +3,8 @@ package gazeeebo.storage;
 import java.io.BufferedWriter;
 import java.io.File;
 
-import gazeeebo.commands.specialization.ModuleCategories;
 import gazeeebo.commands.gpacalculator.GPACommand;
+import gazeeebo.commands.specialization.ModuleCategory;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.DoAfter;
 import gazeeebo.tasks.Event;
@@ -17,10 +17,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.*;
 
 
@@ -36,6 +33,8 @@ public class Storage {
 
     private String absolutePathSpecialization = "Specialization.txt";
     private String absolutePath_StudyPlanner = "Study_Plan.txt";
+    private String absolutePathCompletedElectives = "CompletedElectives.txt";
+
 
     public void Storages(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath);
@@ -335,53 +334,55 @@ public class Storage {
         fileWriter.close();
     }
 
-    public HashMap<String, ArrayList<ModuleCategories>> Specialization() throws IOException {
-        HashMap<String, ArrayList<ModuleCategories>> specMap = new HashMap<>();
-        ArrayList<ModuleCategories> modAndBool = new ArrayList<>();
+    public HashMap<String, ArrayList<ModuleCategory>> Specialization() throws IOException {
+        HashMap<String, ArrayList<ModuleCategory>> specMap = new HashMap<>();
         if (new File(absolutePathSpecialization).exists()) {
             File file = new File(absolutePathSpecialization);
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 String[] split = sc.nextLine().split("\\|");
-                if (split[0].equals("commsB")) {
-                    ModuleCategories mC = new ModuleCategories(split[2].trim());
-                    if (split[3].equals("D")) {
-                        mC.isDone = true;
-                    } else {
-                        mC.isDone = false;
-                    }
-                    modAndBool.add(mC);
-                } else if (split[0].equals("commsD")) {
-                    ModuleCategories mC2 = new ModuleCategories(split[2].trim());
-                    if (split[3].equals("D")) {
-                        mC2.isDone = true;
-                    } else {
-                        mC2.isDone = false;
-                    }
-                    modAndBool.add(mC2);
-
-                } else if (split[0].equals("embB")) {
-                    ModuleCategories mC3 = new ModuleCategories(split[2].trim());
-                    if (split[3].equals("D")) {
-                        mC3.isDone = true;
-                    } else {
-                        mC3.isDone = false;
-                    }
-                    modAndBool.add(mC3);
-                } else if (split[0].equals("embD")) {
-                    ModuleCategories mC4 = new ModuleCategories(split[2].trim());
-                    if (split[3].equals("D")) {
-                        mC4.isDone = true;
-                    } else {
-                        mC4.isDone = false;
-                    }
-                    modAndBool.add(mC4);
-                }
-
+                ArrayList<ModuleCategory> moduleBD = new ArrayList<>();
+                ModuleCategory mC = new ModuleCategory(split[2]);
+                moduleBD.add(mC);
+                specMap.put(split[1], moduleBD);
             }
         }
         return specMap;
     }
+
+    public void completedElectivesStorage(String fileContent) throws IOException {
+        FileWriter fileWriter = new FileWriter(absolutePathCompletedElectives);
+        fileWriter.write(fileContent);
+        fileWriter.flush();
+        fileWriter.close();
+    }
+
+    public HashMap<String, ArrayList<String>> completedElectives() throws IOException {
+        HashMap<String, ArrayList<String>> completedEMap = new HashMap<>();
+        if (new File(absolutePathCompletedElectives).exists()) {
+            File file = new File(absolutePathCompletedElectives);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                ArrayList<String> completedElectiveList = new ArrayList<>();
+                String[] split = sc.nextLine().split("\\|");
+                String checkKey = split[0];
+                boolean isEqual = false;
+                for (String key : completedEMap.keySet()) {
+                    if (checkKey.equals(key)) { //if date equal
+                        completedEMap.get(key).add(split[1]);
+                        isEqual = true;
+                    }
+                }
+
+                if (isEqual == false) {
+                    completedElectiveList.add(split[1]);
+                    completedEMap.put(checkKey, completedElectiveList);
+                }
+            }
+        }
+        return completedEMap;
+    }
+
         public ArrayList<ArrayList<String>> Read_StudyPlan () throws IOException {
             ArrayList<ArrayList<String>> studyplan = new ArrayList<ArrayList<String>>();
             if (new File(absolutePath_StudyPlanner).exists()) {
