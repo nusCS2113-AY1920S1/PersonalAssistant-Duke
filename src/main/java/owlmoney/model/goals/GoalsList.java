@@ -5,7 +5,10 @@ import owlmoney.model.goals.exception.GoalsException;
 import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
+import java.io.IOException;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,6 +22,8 @@ public class GoalsList {
     private static final boolean ISSINGLE = false;
     private static final int ISZERO = 0;
     private Storage storage;
+    private static final String PROFILE_GOAL_LIST_FILE_NAME = "profile_goallist.csv";
+
 
 
     /**
@@ -44,6 +49,12 @@ public class GoalsList {
                 printOneGoal((i + ONE_INDEX), goalList.get(i), ISMULTIPLE, ui);
             }
             ui.printDivider();
+            try {
+                exportGoalList();
+            } catch (IOException e) {
+                ui.printError("Error trying to save your goals to disk. Your data is"
+                        + " at risk, but we will try again, feel free to continue using the program.");
+            }
         }
     }
 
@@ -59,6 +70,12 @@ public class GoalsList {
             throw new GoalsException("There is already a goal with the same name " + goals.getGoalsName());
         }
         goalList.add(goals);
+        try {
+            exportGoalList();
+        } catch (IOException e) {
+            ui.printError("Error trying to save your goals to disk. Your data is"
+                    + " at risk, but we will try again, feel free to continue using the program.");
+        }
         ui.printMessage("Added a new goal with the below details: ");
         printOneGoal(ONE_INDEX, goals, ISSINGLE, ui);
     }
@@ -78,6 +95,12 @@ public class GoalsList {
                 if (goalList.get(i).getGoalsName().equals(goalName)) {
                     Goals temp = goalList.get(i);
                     goalList.remove(i);
+                    try {
+                        exportGoalList();
+                    } catch (IOException e) {
+                        ui.printError("Error trying to save your goals to disk. Your data is"
+                                + " at risk, but we will try again, feel free to continue using the program.");
+                    }
                     ui.printMessage("Details of the goal being removed:");
                     printOneGoal(ONE_INDEX, temp, ISSINGLE, ui);
                     break;
@@ -142,7 +165,13 @@ public class GoalsList {
                     goalList.get(i).setGoalsDate(date);
                 }
                 if (savingAcc != null) {
-                    goalList.get(i).setSavingAcc(savingAcc);
+                    goalList.get(i).setSavingAccount(savingAcc);
+                }
+                try {
+                    exportGoalList();
+                } catch (IOException e) {
+                    ui.printError("Error trying to save your goals to disk. Your data is"
+                            + " at risk, but we will try again, feel free to continue using the program.");
                 }
                 ui.printMessage("New details of goals changed: ");
                 printOneGoal(ONE_INDEX, goalList.get(i), ISSINGLE, ui);
@@ -165,14 +194,65 @@ public class GoalsList {
         if (!isMultiplePrinting) {
             ui.printGoalHeader();
         }
-        if (!goal.getSavingAcc().isBlank()) {
+        if (!goal.getSavingAccount().isBlank()) {
             goal.isDone(Double.parseDouble(goal.getRemainingAmount()));
         }
         ui.printGoal(num, goal.getGoalsName(), "$"
                         + new DecimalFormat("0.00").format(goal.getGoalsAmount()),
-                goal.getSavingAcc(),"$" + goal.getRemainingAmount(), goal.getGoalsDate(), goal.getStatus());
+                goal.getSavingAccount(),"$" + goal.getRemainingAmount(), goal.getGoalsDate(), goal.getStatus());
         if (!isMultiplePrinting) {
             ui.printDivider();
         }
+    }
+
+    /**
+     * Gets the size of the goalList which counts all the goals stored in the ArrayList of goals.
+     *
+     * @return size of goalList.
+     */
+    private int getGoalListSize() {
+        return goalList.size();
+    }
+
+    /**
+     * Prepares the goalList for exporting of attributes of each goal.
+     *
+     * @return ArrayList of String arrays for containing each bank in the bank list.
+     */
+    private ArrayList<String[]> prepareExportGoalList() {
+        ArrayList<String[]> exportArrayList = new ArrayList<>();
+        DecimalFormat decimalFormat = new DecimalFormat(".00");
+        decimalFormat.setRoundingMode(RoundingMode.DOWN);
+        SimpleDateFormat exportDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        exportArrayList.add(new String[]{"goalName","amount","date","savingsAccountName","doneStatus"});
+        for (int i = 0; i < getGoalListSize(); i++) {
+            String goalName = goalList.get(i).getGoalsName();
+            double amount = goalList.get(i).getGoalsAmount();
+            String stringAmount = decimalFormat.format(amount);
+            String date = exportDateFormat.format(goalList.get(i).getGoalsDateInDateFormat());
+            String savingsAccountName = goalList.get(i).getSavingAccount();
+            boolean doneStatus = goalList.get(i).getRawStatus();
+            String stringDoneStatus = String.valueOf(doneStatus);
+            exportArrayList.add(new String[]{goalName,stringAmount,date,savingsAccountName,stringDoneStatus});
+        }
+        return exportArrayList;
+    }
+
+    /**
+     * Writes the data of the bank list that was prepared to permanent storage.
+     *
+     * @throws IOException when unable to write to file.
+     */
+    private void exportGoalList() throws IOException {
+        ArrayList<String[]> inputData = prepareExportGoalList();
+        storage.writeFile(inputData,PROFILE_GOAL_LIST_FILE_NAME);
+    }
+
+    /**
+     * Imports goals loaded from save file into goalList.
+     * @param newGoal an instance of the goal to be imported.
+     */
+    public void bankListImportNewGoal(Goals newGoal) {
+        goalList.add(newGoal);
     }
 }

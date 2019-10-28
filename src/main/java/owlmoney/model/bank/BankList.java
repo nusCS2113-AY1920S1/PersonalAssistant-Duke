@@ -73,7 +73,6 @@ public class BankList {
         bankLists.add(newBank);
         ui.printMessage("Added new bank with following details: ");
         printOneBank(ONE_INDEX, newBank, ISSINGLE, ui);
-        prepareExportBankListNamesAndType();
         try {
             exportBankList();
         } catch (IOException e) {
