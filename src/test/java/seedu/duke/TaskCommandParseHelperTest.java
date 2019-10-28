@@ -11,6 +11,8 @@ import seedu.duke.task.command.TaskSnoozeCommand;
 import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.task.command.TaskFindCommand;
 import seedu.duke.task.entity.Task;
+import seedu.duke.task.command.TaskCommandParseHelper;
+
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -197,14 +199,15 @@ public class TaskCommandParseHelperTest {
     public void parseSnoozeCommandTest() {
         try {
             Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
-            Method method = parser.getDeclaredMethod("parseSnoozeCommand", String.class);
+            Method method = parser.getDeclaredMethod("parseSnoozeCommand", String.class, ArrayList.class);
             method.setAccessible(true);
-            assertTrue(method.invoke(null, "snooze 1") instanceof TaskSnoozeCommand);
-            assertTrue(method.invoke(null, "snooze 1") instanceof TaskSnoozeCommand);
-            assertTrue(method.invoke(null, "snooze 1  ") instanceof TaskSnoozeCommand);
-            assertTrue(method.invoke(null, "snooze ") instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "snooze 1  a") instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "snooze 1a") instanceof InvalidCommand);
+            ArrayList<Command.Option> optionList = new ArrayList<Command.Option>();
+            assertTrue(method.invoke(null, "snooze 1", optionList) instanceof TaskSnoozeCommand);
+            assertTrue(method.invoke(null, "snooze 1", optionList) instanceof TaskSnoozeCommand);
+            assertTrue(method.invoke(null, "snooze 1  ", optionList) instanceof TaskSnoozeCommand);
+            assertTrue(method.invoke(null, "snooze ", optionList) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "snooze 1  a", optionList) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "snooze 1a", optionList) instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
@@ -308,5 +311,25 @@ public class TaskCommandParseHelperTest {
         } catch (IllegalAccessException e) {
             fail("No Access");
         }
+    }
+
+    @Test
+    public void checkTimeStringTest() {
+        assertEquals("Mon", TaskCommandParseHelper.checkTimeString("Mon 1212").getKey());
+        assertEquals("1212", TaskCommandParseHelper.checkTimeString("Mon 1212").getValue());
+        assertEquals("1212", TaskCommandParseHelper.checkTimeString("Mon 1212  ").getValue());
+        assertEquals("Tue", TaskCommandParseHelper.checkTimeString("Tue").getKey());
+        assertEquals(null, TaskCommandParseHelper.checkTimeString("Tue").getValue());
+        assertEquals("Tue", TaskCommandParseHelper.checkTimeString("Tue   ").getKey());
+        assertEquals("Thu", TaskCommandParseHelper.checkTimeString("thu").getKey());
+        assertEquals("2322", TaskCommandParseHelper.checkTimeString("thu 2322").getValue());
+        assertEquals("Fri", TaskCommandParseHelper.checkTimeString("Fri    2000").getKey());
+        assertEquals("Tue", TaskCommandParseHelper.checkTimeString("Tue tue").getKey());
+        assertEquals(null, TaskCommandParseHelper.checkTimeString("1212").getValue());
+        assertEquals(null, TaskCommandParseHelper.checkTimeString("").getKey());
+        assertEquals(null, TaskCommandParseHelper.checkTimeString("").getValue());
+        assertEquals(null, TaskCommandParseHelper.checkTimeString("").getKey());
+        assertEquals("1212", TaskCommandParseHelper.checkTimeString("1212 1212").getKey());
+        assertEquals("1212", TaskCommandParseHelper.checkTimeString("1212").getKey());
     }
 }

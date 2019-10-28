@@ -1,5 +1,6 @@
 package seedu.duke.task.command;
 
+import javafx.util.Pair;
 import seedu.duke.CommandParseHelper;
 import seedu.duke.task.entity.Task;
 
@@ -13,14 +14,20 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 
 public class TaskParseNaturalDateHelper {
-
+//    private static String day;
+//    private static String timing;
+//
+//    TaskParseNaturalDateHelper(String day, String timing) {
+//        this.day = day;
+//        this.timing = timing;
+//    }
     /**
      * Checks if the input is a short form for a day of the week.
      *
      * @param input an input to be checked.
      * @return false if the input is not short form or not a day of the week.
      */
-    private static boolean isCorrectNaturalDate(String input) {
+    public static boolean isCorrectNaturalDate(String input) {
         DayOfWeek[] dayOfWeeks = DayOfWeek.values();
         for (int i = 0; i < dayOfWeeks.length; i++) {
             String day = dayOfWeeks[i].getDisplayName(TextStyle.SHORT, Locale.US);
@@ -75,18 +82,9 @@ public class TaskParseNaturalDateHelper {
      *                                               to a wrong format
      */
     public static LocalDateTime getDate(String timeString) throws CommandParseHelper.UserInputException {
-        String day = null;
-        String timing = null;
-        if (!timeString.contains("/") && !timeString.isEmpty()) {
-            String timeStr = timeString.substring(0, 1).toUpperCase() + timeString.substring(1).toLowerCase();
-            if (timeStr.contains(" ")) {
-                String[] tokens = timeStr.split("\\s+", 3);
-                day = tokens[0];
-                timing = tokens[1];
-            } else {
-                day = timeStr;
-            }
-        }
+        Pair<String, String> dateTime = TaskCommandParseHelper.checkTimeString(timeString);
+        String day = dateTime.getKey();
+        String timing = dateTime.getValue();
         if (isCorrectNaturalDate(day)) {
             return convertNaturalDate(day, timing);
         } else {
