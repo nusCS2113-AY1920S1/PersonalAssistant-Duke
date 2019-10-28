@@ -47,6 +47,8 @@ public class DateTimeExtractor {
         } else if (command.equals("view")) {
             dateView = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
             return dateView;
+        } else if (command.equals("schedule")) {
+            return LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
         } else if (command.equals("assignment")) {
             dateView = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
             return dateView;

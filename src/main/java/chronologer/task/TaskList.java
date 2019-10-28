@@ -1,5 +1,6 @@
 package chronologer.task;
 
+import java.time.LocalDateTime;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.util.ArrayList;
@@ -229,6 +230,27 @@ public class TaskList {
         return tasksWithoutDates;
     }
 
+    //@@author fauzt-reused
+    /**
+     * Retrieves all Event tasks in the main task list in chronologically-ordered list.
+     * @param deadlineDate is the cut-off time to search all prior relevant events
+     * @return all the events in the main task list in chronological order
+     */
+    public ArrayList<Event> obtainEventList(LocalDateTime deadlineDate) {
+        ArrayList<Event> eventList = new ArrayList<>();
+        for (Task item : listOfTasks) {
+            boolean isAnEventBeforeDeadline = item.getClass() == Event.class
+                    && item.getStartDate().isBefore(deadlineDate);
+            if (isAnEventBeforeDeadline) {
+                eventList.add((Event) item);
+            }
+        }
+        Collections.sort(eventList);
+
+        return eventList;
+    }
+
+    //@@author
     /**
      * This function allows the user to obtain the tasks on a particular date, but
      * only with description.
