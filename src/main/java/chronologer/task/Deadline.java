@@ -44,10 +44,11 @@ public class Deadline extends Task implements Serializable {
     @Override
     public String toString() {
         String message = "";
-        if(modCode.isBlank()) {
+        if (modCode.isBlank()) {
             message = super.getPriorityIcon() + "[D]" + "[" + super.getStatusIcon() + "] " + this.description;
         } else {
-            message = super.getPriorityIcon() + "[D]" + "[" + super.getStatusIcon() + "] " + this.modCode + " " + this.description;
+            message = super.getPriorityIcon() + "[D]" + "[" + super.getStatusIcon() + "] " + this.modCode + " "
+                    + this.description;
         }
         String dateString = " (by: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
         if (!comment.isBlank()) {
