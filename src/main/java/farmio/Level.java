@@ -170,7 +170,7 @@ public class Level {
             String feedback = "tasks have yet to be completed";
             if(detailedFeedbackProvided){
                 feedback += "detailed feedback : -- \n";
-                feedback += checkIncompleteObjectives(farmer);
+                feedback += checkIncompleteObjectives(farmer) + "\nContinue to next day? \nPress [ENTER] to continue or Enter [RESET] to reset the level";
             }
             return feedback;
         }

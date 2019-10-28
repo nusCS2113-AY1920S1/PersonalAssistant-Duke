@@ -6,9 +6,9 @@ import farmio.Level;
 
 public class CommandCheckObjectives extends Command {
     /**
-     * Checks if objectives are met and sets the corresponding stage according to the results
-     * @param farmio the game where the stage is set based on the results
-     * @throws FarmioFatalException if simulaton file cannot be found
+     * Checks if objectives are met and sets the corresponding stage according to the results.
+     * @param farmio the game where the stage is set based on the results.
+     * @throws FarmioFatalException if simulaton file cannot be found.
      */
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {

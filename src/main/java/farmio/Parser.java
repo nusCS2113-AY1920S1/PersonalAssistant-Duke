@@ -22,6 +22,8 @@ import commands.CommandTasksHint;
 import commands.CommandTaskDelete;
 import commands.CommandTaskEdit;
 import commands.CommandTaskInsert;
+
+
 import usercode.tasks.Task;
 import usercode.tasks.IfTask;
 import usercode.tasks.ForTask;
@@ -77,7 +79,7 @@ public class Parser {
         case LEVEL_FAILED:
             return new CommandLevelReset();
         case DAY_END:
-            return new CommandDayEnd(); //TODO check if reset for dayend
+            return parseDayEnd(userInput);
         case NAME_ADD:
             return new CommandAddName(userInput);
         case TASK_ADD:
