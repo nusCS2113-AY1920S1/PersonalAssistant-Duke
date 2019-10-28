@@ -8,7 +8,7 @@ import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.Treatment;
 import duke.exception.DukeException;
-import duke.exception.DukeHelpException;
+import duke.exception.DukeUtilException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,8 +83,7 @@ public class ImpressionHelpers {
         }
     }
 
-    public static DukeData findVarTypeData(String arg, String evArg, String treatArg, Impression impression,
-                                           ArgCommand command)
+    public static DukeData findVarTypeData(String arg, String evArg, String treatArg, Impression impression)
             throws DukeException {
         DukeData data;
         DukeException dataNotFound;
@@ -101,7 +100,7 @@ public class ImpressionHelpers {
             findList = new ArrayList<DukeData>(impression.findTreatmentsByName(treatArg));
             dataNotFound = new DukeException("Can't find any treatments with that name!");
         } else {
-            throw new DukeHelpException("I don't know what you want me to look for!", command);
+            throw new DukeUtilException("I don't know what you want me to look for!");
         }
 
         // TODO proper search
@@ -114,9 +113,9 @@ public class ImpressionHelpers {
         return data;
     }
 
-    public static int checkPriority(int priority, ArgCommand command) throws DukeHelpException {
+    public static int checkPriority(int priority) throws DukeUtilException {
         if (priority < 0 || priority > 4) {
-            throw new DukeHelpException("Priority must be between 0 and 4!", command);
+            throw new DukeUtilException("Priority must be between 0 and 4!");
         } else {
             return priority;
         }
@@ -130,8 +129,8 @@ public class ImpressionHelpers {
      * @return The Integer that the string represents, or 0 if it is null.
      * @throws NumberFormatException If the string is not a valid representation of an integer.
      */
-    public static int processStatus(String status, List<String> statusList, ArgCommand command)
-            throws DukeHelpException {
+    public static int processStatus(String status, List<String> statusList)
+            throws DukeUtilException {
         assert (status != null);
         if ("".equals(status)) {
             return 0;
@@ -139,7 +138,7 @@ public class ImpressionHelpers {
             try {
                 int convertedStatus = Integer.parseInt(status);
                 if (convertedStatus < 0 || convertedStatus >= statusList.size()) {
-                    throw new DukeHelpException(status + "is not a valid numeric value for the status!", command);
+                    throw new DukeUtilException(status + "is not a valid numeric value for the status!");
                 }
                 return convertedStatus;
             } catch (NumberFormatException excp) { // not numeric
@@ -149,7 +148,7 @@ public class ImpressionHelpers {
                         return i;
                     }
                 }
-                throw new DukeHelpException("'" + status + "' is not a valid status name!", command);
+                throw new DukeUtilException("'" + status + "' is not a valid status name!");
             }
         }
     }

@@ -20,7 +20,7 @@ public class ImpressionDeleteCommand extends ArgCommand {
     public void execute(DukeCore core) throws DukeException {
         Impression impression = ImpressionHelpers.getImpression(core);
         DukeData delData = ImpressionHelpers.findVarTypeData(getArg(), getSwitchVal("evidence"),
-                getSwitchVal("treatment"), impression, this);
+                getSwitchVal("treatment"), impression);
         String delMsg = "'" + delData.getName() + "' deleted!";
         if (delData instanceof Evidence) {
             impression.deleteEvidence(delData.getName());

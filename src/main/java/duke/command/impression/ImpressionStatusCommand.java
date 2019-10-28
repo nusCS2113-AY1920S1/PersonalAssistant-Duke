@@ -41,7 +41,7 @@ public class ImpressionStatusCommand extends ArgCommand {
         if (statusStr == null) {
             status = treatment.getStatusIdx() + 1;
         } else {
-            status = ImpressionHelpers.processStatus(statusStr, statusList, this);
+            status = ImpressionHelpers.processStatus(statusStr, statusList);
         }
         treatment.setStatusIdx(status);
 

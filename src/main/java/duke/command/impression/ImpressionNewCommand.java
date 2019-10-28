@@ -10,7 +10,6 @@ import duke.data.Observation;
 import duke.data.Plan;
 import duke.data.Result;
 import duke.exception.DukeException;
-import duke.exception.DukeHelpException;
 import duke.ui.context.Context;
 
 import java.time.LocalDate;
@@ -36,7 +35,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
         if (priority == -1) {
             priority = 0;
         }
-        ImpressionHelpers.checkPriority(priority, this);
+        ImpressionHelpers.checkPriority(priority);
         nullToEmptyString(); //set optional string parameters to ""
         Integer status;
         switch (addType) { //isn't polymorphism fun?
@@ -65,7 +64,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
             break;
 
         case "investigation":
-            status = processStatus(getSwitchVal("status"), Investigation.getStatusArr());
+            status = ImpressionHelpers.processStatus(getSwitchVal("status"), Investigation.getStatusArr());
             Investigation invx = new Investigation(getSwitchVal("name"), impression, priority, status,
                     getSwitchVal("summary"));
             impression.addNewTreatment(invx);

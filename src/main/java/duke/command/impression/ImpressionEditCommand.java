@@ -12,6 +12,7 @@ import duke.data.Result;
 import duke.data.Treatment;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
+import duke.exception.DukeUtilException;
 
 import java.util.List;
 import java.util.Map;
@@ -110,7 +111,7 @@ public class ImpressionEditCommand extends DukeDataCommand {
                     if (entryInt == -1) {
                         break;
                     }
-                    ImpressionHelpers.checkPriority(entryInt, this);
+                    ImpressionHelpers.checkPriority(entryInt);
                     editData.setPriority(entryInt);
                     break;
                 case "summary":
@@ -161,12 +162,12 @@ public class ImpressionEditCommand extends DukeDataCommand {
         core.writeJsonFile();
     }
 
-    private void editStatus(DukeData editData, List<String> statusList) throws DukeHelpException {
+    private void editStatus(DukeData editData, List<String> statusList) throws DukeUtilException {
         assert (editData instanceof Treatment);
         String statusStr = getSwitchVal("status");
         if (statusStr != null) {
             Treatment treatment = (Treatment) editData;
-            treatment.setStatusIdx(processStatus(statusStr, statusList));
+            treatment.setStatusIdx(ImpressionHelpers.processStatus(statusStr, statusList));
         }
     }
 

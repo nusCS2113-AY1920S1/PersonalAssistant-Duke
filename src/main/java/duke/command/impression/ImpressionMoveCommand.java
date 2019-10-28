@@ -38,7 +38,7 @@ public class ImpressionMoveCommand extends ArgCommand {
         }
 
         DukeData moveData = ImpressionHelpers.findVarTypeData(getArg(), getSwitchVal("evidence"),
-                getSwitchVal("treatment"), ImpressionHelpers.getImpression(core), this);
+                getSwitchVal("treatment"), ImpressionHelpers.getImpression(core));
 
         moveData.setParent(newImpression);
         if (moveData instanceof Evidence) {

@@ -17,8 +17,8 @@ public class ImpressionPriorityCommand extends ArgCommand {
     @Override
     public void execute(DukeCore core) throws DukeException {
         DukeData prioData = ImpressionHelpers.findVarTypeData(getArg(), getSwitchVal("evidence"),
-                getSwitchVal("treatment"), ImpressionHelpers.getImpression(core), this);
-        int priority = ImpressionHelpers.checkPriority(switchToInt("set"), this);
+                getSwitchVal("treatment"), ImpressionHelpers.getImpression(core));
+        int priority = ImpressionHelpers.checkPriority(switchToInt("set"));
         prioData.setPriority(priority);
         core.writeJsonFile();
         core.ui.print("Updated '" + prioData.getName() + "' priority to " + priority + "!");
