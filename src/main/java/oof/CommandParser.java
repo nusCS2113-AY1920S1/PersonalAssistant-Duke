@@ -4,11 +4,19 @@ import java.util.InputMismatchException;
 
 import oof.command.AddDeadlineCommand;
 import oof.command.AddEventCommand;
+import oof.command.AddLessonCommand;
+import oof.command.AddModuleCommand;
+import oof.command.AddSemesterCommand;
 import oof.command.AddToDoCommand;
 import oof.command.CalendarCommand;
 import oof.command.Command;
 import oof.command.CompleteCommand;
+import oof.command.DeleteAssessmentCommand;
+import oof.command.DeleteAssignmentCommand;
 import oof.command.DeleteCommand;
+import oof.command.DeleteLessonCommand;
+import oof.command.DeleteModuleCommand;
+import oof.command.DeleteSemesterCommand;
 import oof.command.ExitCommand;
 import oof.command.FindCommand;
 import oof.command.FreeCommand;
@@ -23,9 +31,16 @@ import oof.command.StopTrackerCommand;
 import oof.command.SummaryCommand;
 import oof.command.ThresholdCommand;
 import oof.command.PauseTrackerCommand;
+import oof.command.ViewAssessmentCommand;
+import oof.command.ViewAssignmentCommand;
+import oof.command.ViewLessonCommand;
+import oof.command.ViewModuleCommand;
+import oof.command.ViewSemesterCommand;
 import oof.command.ViewWeekCommand;
 import oof.command.ViewTrackerCommand;
 import oof.exception.OofException;
+
+import java.util.InputMismatchException;
 
 /**
  * Represents a parser to process the commands inputted by the user.
@@ -38,6 +53,7 @@ public class CommandParser {
     private static final int INDEX_ARGUMENT_COMMAND = 0;
     private static final int INDEX_ARGUMENT_TASK_NUMBER = 1;
     private static final int INDEX_ARGUMENT_COUNT = 2;
+    private static final int INDEX_TASK_TYPE = 1;
 
     /**
      * Parses the input given by user and calls specific Commands
@@ -101,10 +117,15 @@ public class CommandParser {
             line = line.replaceFirst("pause", "").trim();
             return new PauseTrackerCommand(line);
         case "semester":
-            return new SemesterCommand();
-        case "viewtracker":
-            line = line.replaceFirst("viewtracker", "").trim();
-            return new ViewTrackerCommand(line);
+            return parseSemester(argumentArray, line);
+        case "module":
+            return parseModule(argumentArray, line);
+        case "lesson":
+            return parseLesson(argumentArray, line);
+        case "assignment":
+            return parseAssignment(argumentArray, line);
+        case "assessment":
+            return parseAssessment(argumentArray, line);
         default:
             throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

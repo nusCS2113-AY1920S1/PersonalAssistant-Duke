@@ -1,5 +1,9 @@
 package oof;
 
+import oof.model.module.Assessment;
+import oof.model.module.Lesson;
+import oof.model.module.Module;
+import oof.model.module.Semester;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
 import oof.command.Command;
@@ -17,6 +21,10 @@ public class Oof {
     private Storage storage;
     private TaskList tasks;
     private SemesterList semesterList;
+    private Semester semester;
+    private Module module;
+    private Lesson lesson;
+    private Assessment assessment;
     private Ui ui;
     private Reminder reminder;
     private TrackerList trackerList;
@@ -30,8 +38,12 @@ public class Oof {
         reminder = new Reminder();
         try {
             semesterList = new SemesterList(storage.readSemesterList());
-        } catch (IOException e) {
+            semester = new Semester(storage.readModuleList());
+            module = new Module(storage.readLessonList(), storage.readAssessmentList());
+        } catch (IOException | OofException e) {
             semesterList = new SemesterList();
+            semester = new Semester();
+            module = new Module();
         }
         try {
             tasks = new TaskList(storage.readTaskList());

@@ -307,16 +307,25 @@ Gives a list of all the tasks not done that were brought forward to the next day
 Format: `viewUndone`
 
 === View free time slots: `free`
-Gives a list of free time slots for the date given.
+Planning for your next project meeting or meeting up with your friends? With the `free` command `Oof` displays all your free time slots in a given date!
 
 Format: `free DD-MM-YYYY`
 
 * `Date` has to *strictly* be in the format as stated above.
 
-Example:
+To view your free time slots for a given date:
 
-* `free 10-10-2019` +
-Searches for free time on the given date of `10-10-2019`.
++1.+ Type `free 30-10-2019` as a command press btn:[ENTER]
+
+[[FreeTimeExample]]
+.Typing free 30-10-2019 into OOF
+image::FreeTimeExample.png[FreeTimeExample]
+
++2.+ `OOF` displays all the free time slots that you have.
+
+[[FreeTimeDisplay]]
+.Typing free with a valid date in the valid format of DD-MM-YYYY
+image::FreeTimeDisplay.png[FreeTimeDisplay]
 
 === View tasks in week view: `viewWeek`
 Shows you the tasks for any particular week in a table format.
@@ -357,7 +366,7 @@ Format: `calendar MONTH YEAR`
 Example: `calendar 10 2019`
 
 === Setting reminders for upcoming deadlines: `reminder`
-Reminders will be given when the application is launched if deadlines are due in less than 24 hours.
+Have multiple assignments due and not sure which to prioritise first? Fret not as `Oof` will remind you of any deadlines due within 24 hours once it is start up!
 
 Format: `reminder`
 
@@ -528,7 +537,7 @@ e.g. `free 10-10-2019`
 * *Calendar*: `calendar MONTH YEAR` +
 e.g. `calendar 10 2019`
 
-* *Reminder*: `reminder`
+* *Reminder*: `reminder` 
 
 * *Start Task Tracker*: `start DESCRIPTION`
 e.g. `start CS2113T Activity Diagram`
@@ -541,7 +550,7 @@ e.g. `stop CS2113T Activity Diagram`
 
 * *ViewTracker*: `viewTracker`
 
-* *Bye*: `bye` 
+* *Bye*: `bye`
 
 * *Estimate*: `estimate [_coming soon in v2.0_]` +
 e.g. `estimate 1 48` 
