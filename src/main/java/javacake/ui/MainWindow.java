@@ -5,6 +5,8 @@ import javacake.commands.EditNoteCommand;
 import javacake.exceptions.DukeException;
 import javacake.commands.QuizCommand;
 import javacake.quiz.Question;
+import javacake.storage.Profile;
+import javacake.storage.Storage;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
@@ -86,12 +88,12 @@ public class MainWindow extends AnchorPane {
         topBar.getChildren().add(new TopBar());
         TopBar.setUpProgressBars();
 
-        if (duke.isFirstTimeUser) {
-            response = Ui.showWelcomeMsgPhaseA(duke.isFirstTimeUser);
+        if (Duke.isFirstTimeUser) {
+            response = Ui.showWelcomeMsgPhaseA(Duke.isFirstTimeUser);
             showContentContainer();
         } else {
-            response = Ui.showWelcomeMsgPhaseA(duke.isFirstTimeUser)
-                    + Ui.showWelcomeMsgPhaseB(duke.isFirstTimeUser, duke.userName, duke.userProgress);
+            response = Ui.showWelcomeMsgPhaseA(Duke.isFirstTimeUser)
+                    + Ui.showWelcomeMsgPhaseB(Duke.isFirstTimeUser, Duke.userName, Duke.userProgress);
             showContentContainer();
         }
         setAvatarDialogLoop();
@@ -123,38 +125,18 @@ public class MainWindow extends AnchorPane {
             Duke.logger.log(Level.INFO, "INPUT: " + input);
             DialogBox.isScrollingText = true;
             AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
-            if (input.contains("exit")) {
-                System.out.println("EXIT");
-                Duke.logger.log(Level.INFO, "EXITING PROGRAM!");
-                // find out if exit condition
-                isExit = true;
+            if (input.equals("exit")) {
                 handleExit();
-            } else if (input.contains("listnote")) {
-                Duke.logger.log(Level.INFO, "`listnote` command");
-                showListNotesBox();
+            } else if (input.equals("listnote")) {
+                handleListNote();
             } else if (input.contains("createnote")) {
-                Duke.logger.log(Level.INFO, "`createnote` command");
-                response = duke.getResponse(input);
-                showContentContainer();
-                showListNotesBox();
-            } else if (isStarting && duke.isFirstTimeUser) { //set up new username
-                System.out.println("start and first");
-                Duke.logger.log(Level.INFO, "New user initialising...");
+                handleCreateNote();
+            } else if (isStarting && Duke.isFirstTimeUser) { //set up new username
                 handleStartAndFirstTime();
             } else if (isTryingReset) { //confirmation of reset
-                Duke.logger.log(Level.INFO, "isTryingReset...");
-                System.out.println("resetting time");
                 handleResetConfirmation();
             } else if (isWritingNote) {
-                Duke.logger.log(Level.INFO, "isWritingNote...");
-                DialogBox.isScrollingText = false;
-                if (input.equals("/save")) {
-                    isWritingNote = false;
-                    response = EditNoteCommand.successSaveMessage();
-                } else {
-                    response = EditNoteCommand.writeSaveGui(input);
-                }
-                showContentContainer();
+                handleWriteNote();
             } else {
                 Duke.logger.log(Level.INFO, "executing normal(else) mode!");
                 response = duke.getResponse(input);
@@ -171,24 +153,12 @@ public class MainWindow extends AnchorPane {
                     Duke.logger.log(Level.INFO, "Response: " + response);
                     //response = duke.getResponse(input);
                     if (response.contains("!@#_EDIT_NOTE")) {
-                        Duke.logger.log(Level.INFO, "Editing note initialise!");
-                        isWritingNote = true;
-                        response = EditNoteCommand.getHeadingMessage();
-                        DialogBox.isScrollingText = false;
-                        showContentContainer();
-                        EditNoteCommand.clearTextFileContent();
+                        handleEditNote();
                     } else {
-                        Duke.logger.log(Level.INFO, "Normal commands mode!");
-                        System.out.println("starting BUT not firsttime");
-                        showContentContainer();
+                        handleNormalCommand();
                     }
                 } else if (isQuiz) {
-                    //Must be quizCommand: checking of answers
-                    Duke.logger.log(Level.INFO, "Quiz Mode!");
-                    System.out.println("quiz answer checking");
-                    DialogBox.isScrollingText = false;
-                    handleGuiQuiz();
-                    showContentContainer();
+                    handleQuiz();
                 }
                 //System.out.println("End->Next");
             }
@@ -250,7 +220,57 @@ public class MainWindow extends AnchorPane {
         return quizCommand.getNextQuestion();
     }
 
+    private void handleNormalCommand() {
+        Duke.logger.log(Level.INFO, "Normal commands mode!");
+        System.out.println("starting BUT not firsttime");
+        showContentContainer();
+    }
+    private void handleEditNote() throws DukeException {
+        Duke.logger.log(Level.INFO, "Editing note initialised!");
+        isWritingNote = true;
+        response = EditNoteCommand.getHeadingMessage();
+        DialogBox.isScrollingText = false;
+        showContentContainer();
+        EditNoteCommand.clearTextFileContent();
+    }
+
+    private void handleQuiz() throws DukeException {
+        //Must be quizCommand: checking of answers
+        Duke.logger.log(Level.INFO, "Quiz Mode!");
+        System.out.println("quiz answer checking");
+        DialogBox.isScrollingText = false;
+        handleGuiQuiz();
+        showContentContainer();
+    }
+
+    private void handleWriteNote() throws DukeException {
+        Duke.logger.log(Level.INFO, "isWritingNote...");
+        DialogBox.isScrollingText = false;
+        if (input.equals("/save")) {
+            isWritingNote = false;
+            response = EditNoteCommand.successSaveMessage();
+        } else {
+            response = EditNoteCommand.writeSaveGui(input);
+        }
+        showContentContainer();
+    }
+    private void handleListNote() throws DukeException {
+        Duke.logger.log(Level.INFO, "`listnote` command");
+        showListNotesBox();
+    }
+
+    private void handleCreateNote() throws DukeException {
+        Duke.logger.log(Level.INFO, "`createnote` command");
+        response = duke.getResponse(input);
+        showContentContainer();
+        showListNotesBox();
+    }
+
     private void handleExit() {
+        System.out.println("EXIT");
+        Duke.logger.log(Level.INFO, "EXITING PROGRAM!");
+        // find out if exit condition
+        isExit = true;
         response = duke.getResponse(input);
         showContentContainer();
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
@@ -259,23 +279,27 @@ public class MainWindow extends AnchorPane {
     }
 
     private void handleStartAndFirstTime() throws DukeException {
-        duke.userName = input;
-        duke.storageManager.profile.overwriteName(duke.userName);
-        response = Ui.showWelcomeMsgPhaseB(duke.isFirstTimeUser, duke.userName, duke.userProgress);
+        System.out.println("start and first");
+        Duke.logger.log(Level.INFO, "New user initialising...");
+        Duke.userName = input;
+        Duke.storageManager.profile.overwriteName(Duke.userName);
+        response = Ui.showWelcomeMsgPhaseB(Duke.isFirstTimeUser, Duke.userName, Duke.userProgress);
         showContentContainer();
         isStarting = false;
     }
 
     private void handleResetConfirmation() throws DukeException {
+        Duke.logger.log(Level.INFO, "isTryingReset...");
+        System.out.println("resetting time");
         if (input.equals("yes")) {
             //resets
-            duke.storageManager.profile.resetProfile();
-            duke.storageManager.storage.resetStorage();
+            Profile.resetProfile();
+            Storage.resetStorage();
             duke = new Duke();
             //            duke.profile = new Profile();
-            duke.userProgress = duke.storageManager.profile.getTotalProgress();
-            duke.userName = duke.storageManager.profile.getUsername();
-            duke.isFirstTimeUser = true;
+            Duke.userProgress = Duke.storageManager.profile.getTotalProgress();
+            Duke.userName = Duke.storageManager.profile.getUsername();
+            Duke.isFirstTimeUser = true;
             showRemindersBox();
             response = "Reset confirmed!\nPlease type in new username:\n";
             TopBar.resetProgress();
