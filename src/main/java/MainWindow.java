@@ -138,6 +138,7 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
         try {
             Command command = ParserFactory.parse(input);
+            assert command != null;
             command.execute(tasks, storage);
             tasks = new TaskList(storage.loadFile(file));
             refreshAllLists();
