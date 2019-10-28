@@ -90,6 +90,30 @@ asciidoctor {
     }
 }
 
+asciidoctor {
+    backends 'html5'
+    sourceDir 'docs'
+    outputDir "${buildDir}/docs"
+
+    attributes = [
+            linkcss: true,
+            stylesheet: 'gh-pages.css',
+            'source-highlighter': 'coderay',
+            icons: 'font',
+            experimental: true,
+            sectlinks: true,
+            idprefix: '',
+            idseparator: '-',
+            'site-root': "${sourceDir}",
+            'site-name': 'AlgoSenpai Adventures',
+            'site-githuburl': 'https://github.com/AY1920S1-CS2113T-T09-3/main',
+    ]
+
+    options['template_dirs'].each {
+        inputs.files fileTree(it)
+    }
+}
+
 task copyStylesheets(type: Copy) {
     from "${asciidoctor.sourceDir}/stylesheets"
     into "${asciidoctor.outputDir}/html5/stylesheets"

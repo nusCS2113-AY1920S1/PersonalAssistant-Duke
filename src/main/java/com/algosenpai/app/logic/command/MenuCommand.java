@@ -1,5 +1,3 @@
-//@@author carrieng0323852
-
 package com.algosenpai.app.logic.command;
 
 import java.util.ArrayList;
@@ -7,8 +5,8 @@ import java.util.ArrayList;
 public class MenuCommand extends Command {
 
     /**
-     * Create new command.
-     * @param inputs input from user.
+     * Initializes command to show available commands.
+     * @param inputs user input.
      */
     public MenuCommand(ArrayList<String> inputs) {
         super(inputs);

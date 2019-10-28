@@ -21,7 +21,7 @@ class ChapterSorting {
      */
 
     static QuestionModel generateQuestions() {
-        int questionType = getRandomNumber(0, 4);
+        int questionType = getRandomNumber(0, 3);
         switch (questionType) {
         case 0:
             return bubbleSortPassesQuestion();

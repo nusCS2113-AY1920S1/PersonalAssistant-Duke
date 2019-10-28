@@ -1,10 +1,6 @@
 package com.algosenpai.app.logic.command;
 
-import com.algosenpai.app.logic.models.QuestionModel;
-
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class SetupCommand extends Command {
 

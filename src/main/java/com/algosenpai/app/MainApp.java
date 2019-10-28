@@ -52,7 +52,7 @@ public class MainApp extends Application {
     public void start(Stage stage) throws IOException {
         initialize();
         startSplashScreen(stage);
-        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
         pause.setOnFinished(event -> {
             try {
                 stage.close();
