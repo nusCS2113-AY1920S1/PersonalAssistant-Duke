@@ -1,8 +1,8 @@
 package duke.storage;
 
 import duke.exception.DukeException;
-import duke.list.recipelist.PrepStepList;
-import duke.task.recipetasks.PrepStep;
+import duke.model.list.recipelist.PrepStepList;
+import duke.model.task.recipetasks.PrepStep;
 
 import java.io.*;
 import java.util.ArrayList;

@@ -1,17 +1,15 @@
 package duke;
 
-import duke.command.*;
 import duke.exception.DukeException;
-import duke.list.bookinglist.BookingList;
-import duke.list.inventorylist.InventoryList;
-import duke.list.recipelist.RecipeIngredientList;
-import duke.list.recipelist.RecipeList;
-import duke.list.recipelist.RecipeTitleList;
-import duke.parser.Parser;
-import duke.storage.*;
-import duke.task.recipetasks.Feedback;
-import duke.task.recipetasks.Rating2;
-import duke.task.recipetasks.RecipeIngredient;
+import duke.logic.command.Command;
+import duke.logic.command.CommandBooking;
+import duke.logic.parser.Parser;
+import duke.model.list.bookinglist.BookingList;
+import duke.model.list.inventorylist.InventoryList;
+import duke.model.list.recipelist.RecipeList;
+import duke.storage.BookingStorage;
+import duke.storage.InventoryStorage;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 import java.text.ParseException;
@@ -30,16 +28,9 @@ public class Duke {
     private Ui ui;
 
     private InventoryStorage inventoryStorage;
-    private RecipeIngredientStorage recipeIngredientStorage;
     private BookingStorage bookingStorage;
-    private RecipeTitleStorage recipeTitleStorage;
     private InventoryList inventoryList;
-    private RecipeIngredientList recipeIngredientList;
     private BookingList bookingList;
-    private RecipeTitleList recipeTitleList;
-    private RecipeIngredient recipeIngredient;
-    private Rating2 rating2;
-    private Feedback feedback;
 
     private RecipeStorage recipeStorage;
     private RecipeList recipeList;
@@ -47,15 +38,11 @@ public class Duke {
     public Duke(Ui ui) {
         this.ui = ui;
         inventoryStorage = new InventoryStorage(filePathInventory);
-        recipeIngredientStorage = new RecipeIngredientStorage(filePathRecipeIngredients);
-        recipeTitleStorage = new RecipeTitleStorage(filePathRecipeTitle);
         bookingStorage = new BookingStorage(filePathBookings);
         recipeStorage = new RecipeStorage(filePathRecipes);
 
         try {
             inventoryList = new InventoryList(inventoryStorage.load());
-            recipeIngredientList = new RecipeIngredientList(recipeIngredientStorage.load());
-            recipeTitleList = new RecipeTitleList(recipeTitleStorage.load());
             bookingList = new BookingList(bookingStorage.load());
             recipeList = new RecipeList(recipeStorage.load());
         } catch (DukeException e) {
@@ -75,20 +62,14 @@ public class Duke {
     public ArrayList<String> runProgram(String userInput) throws DukeException, ParseException {
 
         ArrayList<String> arrayList = new ArrayList<>();
-        if (userInput.contains(COMMAND_ADD_RECIPE_TITLE)) {
-            if (userInput.trim().substring(0, 14).equals(COMMAND_ADD_RECIPE_TITLE)) {
-                CommandRecipeTitle command = Parser.parseRecipeTitle(userInput);
-                return command.execute(recipeTitleList, ui, recipeTitleStorage);
-            } else {
-                arrayList.add(ERROR_MESSAGE_RANDOM);
-                return arrayList;
-            }
-        } else if (userInput.contains(COMMAND_ADD_RECIPE)) {
+
+        // RECIPE.
+        if (userInput.contains(COMMAND_ADD_RECIPE)) {
             System.out.println("stuck here5");
             if (userInput.trim().substring(0, 9).equals(COMMAND_ADD_RECIPE)) {
                 System.out.println("stuck here6");
-                CommandRecipe command = Parser.parseRecipe(userInput);
-                return command.execute(recipeList, recipeStorage);
+                Command<RecipeList, Ui, RecipeStorage> command = Parser.parse(userInput);
+                return command.execute(recipeList, ui, recipeStorage);
             } else {
                 System.out.println("stuck here7");
                 arrayList.add(ERROR_MESSAGE_RANDOM);
@@ -97,81 +78,98 @@ public class Duke {
         } else if (userInput.contains(COMMAND_DELETE_RECIPE)) {
             if (userInput.trim().substring(0, 12).equals(COMMAND_DELETE_RECIPE)) {
                 System.out.println("stuck here6");
-                CommandRecipe command = Parser.parseRecipe(userInput);
-                return command.execute(recipeList, recipeStorage);
+                Command<RecipeList, Ui, RecipeStorage> command = Parser.parse(userInput);
+                return command.execute(recipeList, ui, recipeStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
+        } else if (userInput.contains(COMMAND_LIST_RECIPES)) {
+            System.out.println("stuck here list all recipes 100");
+            if (userInput.trim().substring(0, 14).equals(COMMAND_LIST_RECIPES)) {
+                System.out.println("stuck here list all recipes 101");
+                Command<RecipeList, Ui, RecipeStorage> command = Parser.parse(userInput);
+                return command.execute(recipeList, ui, recipeStorage);
             } else {
                 System.out.println("stuck here7");
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
-        } else if (userInput.contains(COMMAND_LIST_RECIPES)) {
-            if (userInput.trim().substring(0, 14).equals(COMMAND_LIST_RECIPES)) {
-                System.out.println("stuck here6");
-                CommandRecipe command = Parser.parseRecipe(userInput);
-                return command.execute(recipeList, recipeStorage);
+        } else if (userInput.contains(COMMAND_VIEW_RECIPE)) {
+            if (userInput.trim().substring(0, 10).equals(COMMAND_VIEW_RECIPE)) {
+                Command<RecipeList, Ui, RecipeStorage> command = Parser.parse(userInput);
+                return command.execute(recipeList, ui, recipeStorage);
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
-        } else if (userInput.contains(COMMAND_LIST_RECIPE_INGREDIENT)) {
-            if (userInput.trim().substring(0, 14).equals(COMMAND_LIST_RECIPE_INGREDIENT)) {
-                CommandRecipeIngredient command = Parser.parseRecipeIngredient(userInput);
-                return command.execute(recipeIngredientList, ui, recipeIngredientStorage);
+        } else if (userInput.contains(COMMAND_EDIT_REQ_INGREDIENT)) {
+            if (userInput.trim().substring(0, 17).equals(COMMAND_EDIT_REQ_INGREDIENT)) {
+                Command<RecipeList, Ui, RecipeStorage> command = Parser.parse(userInput);
+                return command.execute(recipeList, ui, recipeStorage);
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
-        } else if (userInput.contains(COMMAND_ADD_RECIPE_INGREDIENT)) {
-            if (userInput.trim().substring(0, 19).equals(COMMAND_ADD_RECIPE_INGREDIENT)) {
-                CommandRecipeIngredient command = Parser.parseRecipeIngredient(userInput);
-                return command.execute(recipeIngredientList, ui, recipeIngredientStorage);
+        } else if (userInput.contains(COMMAND_EDIT_RATING)) {
+            if (userInput.trim().substring(0, 10).equals(COMMAND_EDIT_RATING)) {
+                Command<RecipeList, Ui, RecipeStorage> command = Parser.parse(userInput);
+                return command.execute(recipeList, ui, recipeStorage);
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
-        } else if (userInput.contains(COMMAND_DELETE_RECIPE_INGREDIENT)) {
-            if (userInput.trim().substring(0, 5).equals(COMMAND_DELETE_RECIPE_INGREDIENT)) {
-                CommandRecipeIngredient command = Parser.parseRecipeIngredient(userInput);
-                return command.execute(recipeIngredientList, ui, recipeIngredientStorage);
+        } else if (userInput.contains(COMMAND_EDIT_FEEDBACK)) {
+            if (userInput.trim().substring(0, 12).equals(COMMAND_EDIT_FEEDBACK)) {
+                Command<RecipeList, Ui, RecipeStorage> command = Parser.parse(userInput);
+                return command.execute(recipeList, ui, recipeStorage);
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
-        } else if (userInput.contains(COMMAND_DELETE_RECIPE_TITLE)) {
-            if (userInput.trim().substring(0, 5).equals(COMMAND_DELETE_RECIPE_TITLE)) {
-                CommandRecipeTitle command = Parser.parseRecipeTitle(userInput);
-                return command.execute(recipeTitleList, ui, recipeTitleStorage);
+        } else if (userInput.contains(COMMAND_EDIT_PREPSTEP)) {
+            if (userInput.trim().substring(0, 12).equals(COMMAND_EDIT_PREPSTEP)) {
+                Command<RecipeList, Ui, RecipeStorage> command = Parser.parse(userInput);
+                return command.execute(recipeList, ui, recipeStorage);
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
-        } else if (userInput.contains(COMMAND_ADD_TO_INVENTORY)) {
+        }
+
+
+        // INVENTORY.
+        else if (userInput.contains(COMMAND_ADD_TO_INVENTORY)) {
             System.out.println("stuck here17");
             if (userInput.trim().substring(0, 14).equals(COMMAND_ADD_TO_INVENTORY)) {
                 System.out.println("stuck here18");
-                CommandInventory command = Parser.parseIngredient(userInput);
-                return command.execute(inventoryList, inventoryStorage);
+                Command<InventoryList, Ui, InventoryStorage> command = Parser.parse(userInput);
+                return command.execute(inventoryList, ui, inventoryStorage);
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
         } else if (userInput.contains(COMMAND_DELETE_FROM_INVENTORY)) {
             if (userInput.trim().substring(0, 19).equals(COMMAND_DELETE_FROM_INVENTORY)) {
-                CommandInventory command = Parser.parseIngredient(userInput);
-                return command.execute(inventoryList, inventoryStorage);
+                Command<InventoryList, Ui, InventoryStorage> command = Parser.parse(userInput);
+                return command.execute(inventoryList, ui, inventoryStorage);
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
         } else if (userInput.contains(COMMAND_LIST_INVENTORY)) {
             if (userInput.trim().substring(0, 13).equals(COMMAND_LIST_INVENTORY)) {
-                CommandInventory command = Parser.parseIngredient(userInput);
-                return command.execute(inventoryList, inventoryStorage);
+                Command<InventoryList, Ui, InventoryStorage> command = Parser.parse(userInput);
+                return command.execute(inventoryList, ui, inventoryStorage);
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
-        } else if (userInput.trim().equals(COMMAND_LIST_BOOKINGS)) {
+        }
+
+
+        // BOOKING.
+        else if (userInput.trim().equals(COMMAND_LIST_BOOKINGS)) {
             CommandBooking command = Parser.parseBooking(userInput);
             return command.execute(bookingList, ui, bookingStorage);
 
