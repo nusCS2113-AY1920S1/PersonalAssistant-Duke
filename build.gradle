@@ -23,7 +23,7 @@ repositories {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "ducats"
     archiveVersion = "0.1.3"
     archiveClassifier = null
     archiveAppendix = null
@@ -36,7 +36,7 @@ checkstyle {
 application {
     // Change this to your main class.
 
-    mainClassName = "duke.Duke"
+    mainClassName = "ducats.Duke"
 
 }
 
