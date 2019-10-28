@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" type="HBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1030.0" type="HBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="cakeLeft" fitHeight="80.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -41,7 +41,7 @@
       </ImageView>
       <AnchorPane>
          <HBox.margin>
-            <Insets left="150.0" />
+            <Insets left="190.0" />
          </HBox.margin>
          <children>
             <ProgressBar fx:id="progressA" layoutX="40.0" layoutY="37.0" prefHeight="20.0" prefWidth="60.0" progress="0.0" stylesheets="@../css/progressbarA.css" />

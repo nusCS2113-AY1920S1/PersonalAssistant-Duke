@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 public class Profile {
-    private static String filepath = "data/save/savefile.txt";
+    private static String filepath = "data";
     private String username;
     private ArrayList<Integer> topicsDone = new ArrayList<>();
 
     public Profile() throws DukeException {
-        this("data/");
+        this("data");
     }
 
     /**
@@ -27,9 +27,11 @@ public class Profile {
      * @throws DukeException when unable to create profile
      */
     public Profile(String filename) throws DukeException {
+        filepath = filename;
+        filepath += "/save/savefile.txt";
+        File file = new File(filepath);
+        Duke.logger.log(Level.INFO,"Filepath: " + filepath);
         try {
-            File file = new File("data/save/savefile.txt");
-            Duke.logger.log(Level.INFO,"Filepath: " + filepath);
             try {
                 if (!file.getParentFile().getParentFile().exists()) {
                     file.getParentFile().getParentFile().mkdir();
