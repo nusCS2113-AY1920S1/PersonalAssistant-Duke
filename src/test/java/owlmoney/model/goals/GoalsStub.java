@@ -33,7 +33,7 @@ public class GoalsStub extends Goals {
     }
 
     @Override
-    public String getSavingAcc() {
+    public String getSavingAccount() {
         return "Jun Saving";
     }
 

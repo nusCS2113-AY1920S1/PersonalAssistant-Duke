@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -27,8 +28,7 @@ public class TransactionList {
     private static final String FINDDESCRIPTION = "description";
     private static final String FINDCATEGORY = "category";
     private static final String FINDDATE = "date range";
-
-
+    private static final int OBJ_DOES_NOT_EXIST = -1;
 
 
     /**
@@ -42,18 +42,18 @@ public class TransactionList {
      * Lists the expenditures in the current bank account.
      *
      * @param ui         required for printing.
-     * @param displayNum Number of expenditures to list.
+     * @param expendituresToDisplay Number of expenditures to list.
      * @throws TransactionException If no expenditure is found or no expenditure is in the list.
      */
-    public void listExpenditure(Ui ui, int displayNum) throws TransactionException {
+    public void listExpenditure(Ui ui, int expendituresToDisplay) throws TransactionException {
         if (transactionLists.size() <= ISZERO) {
             throw new TransactionException("There are no transactions in this bank account");
         } else {
-            int counter = displayNum;
+            int counter = expendituresToDisplay;
             boolean expenditureExist = false;
             for (int i = transactionLists.size() - ONE_INDEX; i >= ISZERO; i--) {
                 if (transactionLists.get(i).getSpent()) {
-                    printOneHeader(counter, displayNum, ui);
+                    printOneHeader(counter, expendituresToDisplay, ui);
                     printOneTransaction((i + ONE_INDEX), transactionLists.get(i), ISMULTIPLE, ui);
                     counter--;
                     expenditureExist = true;
@@ -75,18 +75,18 @@ public class TransactionList {
      * Lists the deposits in the current bank account.
      *
      * @param ui         required for printing.
-     * @param displayNum Number of deposits to list.
+     * @param depositsToDisplay Number of deposits to list.
      * @throws TransactionException If no deposit is found.
      */
-    public void listDeposit(Ui ui, int displayNum) throws TransactionException {
+    public void listDeposit(Ui ui, int depositsToDisplay) throws TransactionException {
         if (transactionLists.size() <= ISZERO) {
             throw new TransactionException("There are no transactions in this bank account");
         } else {
-            int counter = displayNum;
+            int counter = depositsToDisplay;
             boolean depositExist = false;
             for (int i = transactionLists.size() - ONE_INDEX; i >= ISZERO; i--) {
                 if (!transactionLists.get(i).getSpent()) {
-                    printOneHeader(counter, displayNum, ui);
+                    printOneHeader(counter, depositsToDisplay, ui);
                     printOneTransaction((i + ONE_INDEX), transactionLists.get(i), ISMULTIPLE, ui);
                     counter--;
                     depositExist = true;
@@ -105,42 +105,55 @@ public class TransactionList {
     }
 
     /**
-     * Adds an expenditure to the TransactionList.
+     * Adds an expenditure to the TransactionList and print UI.
      *
-     * @param exp an instance of an expenditure.
+     * @param newExpenditure an instance of an expenditure.
      * @param ui  required for printing.
      */
-    public void addExpenditureToList(Transaction exp, Ui ui, String type) {
+    public void addExpenditureToList(Transaction newExpenditure, Ui ui, String type) {
+        if (transactionLists.size() >= MAX_LIST_SIZE) {
+            transactionLists.remove(0);
+        }
+        transactionLists.add(newExpenditure);
+        if (!"bonds".equals(type)) {
+            ui.printMessage("Added expenditure with the following details:");
+            printOneTransaction(ONE_INDEX, newExpenditure, ISSINGLE, ui);
+        }
+    }
+
+    /**
+     * Adds an expenditure to the TransactionList and do not print UI.
+     * Called by Card transferExpUnpaidToPaid() only.
+     *
+     * @param exp an instance of an expenditure.
+     */
+    public void addExpenditureToList(Transaction exp, String type) {
         if (transactionLists.size() >= MAX_LIST_SIZE) {
             transactionLists.remove(0);
         }
         transactionLists.add(exp);
-        if (!"bonds".equals(type)) {
-            ui.printMessage("Added expenditure with the following details:");
-            printOneTransaction(ONE_INDEX, exp, ISSINGLE, ui);
-        }
     }
 
     /**
      * Adds a deposit to the TransactionList.
      *
-     * @param dep an instance of an deposit.
+     * @param newDeposit an instance of an deposit.
      * @param ui  required for printing.
      */
-    public void addDepositToList(Transaction dep, Ui ui, String bankType) {
+    public void addDepositToList(Transaction newDeposit, Ui ui, String bankType) {
         if (transactionLists.size() >= MAX_LIST_SIZE) {
             transactionLists.remove(0);
         }
-        transactionLists.add(dep);
+        transactionLists.add(newDeposit);
         if ("bank".equals(bankType) || "savings transfer".equals(bankType)
                 || "investment transfer".equals(bankType)) {
             ui.printMessage("Added deposit with the following details:");
-            printOneTransaction(ONE_INDEX, dep, ISSINGLE, ui);
+            printOneTransaction(ONE_INDEX, newDeposit, ISSINGLE, ui);
         }
     }
 
     /**
-     * Deletes an expenditure to the TransactionList.
+     * Deletes an expenditure to the TransactionList and print UI.
      *
      * @param index index of the expenditure in the TransactionList.
      * @param ui    required for printing.
@@ -166,10 +179,34 @@ public class TransactionList {
     }
 
     /**
+     * Deletes an expenditure to the TransactionList and do not print UI.
+     * Called by Card transferExpUnpaidToPaid() only.
+     *
+     * @param index index of the expenditure in the TransactionList.
+     * @throws TransactionException If invalid transaction.
+     */
+    public double deleteExpenditureFromList(int index) throws TransactionException {
+        if (transactionLists.size() <= ISZERO) {
+            throw new TransactionException("There are no transactions in this bank account");
+        }
+        if ((index - ONE_INDEX) >= ISZERO && (index - ONE_INDEX) < transactionLists.size()) {
+            if (!transactionLists.get(index - 1).getSpent()) {
+                throw new TransactionException("The transaction is a deposit");
+            } else {
+                Transaction temp = transactionLists.get(index - ONE_INDEX);
+                transactionLists.remove(index - ONE_INDEX);
+                return temp.getAmount();
+            }
+        } else {
+            throw new TransactionException("Index is out of transaction list range");
+        }
+    }
+
+    /**
      * Edits the specific expenditure in the list.
      *
-     * @param expNum   Transaction number of the expenditure.
-     * @param desc     New description of the expenditure.
+     * @param expenditureIndex   Transaction number of the expenditure.
+     * @param description     New description of the expenditure.
      * @param amount   New amount of the expenditure.
      * @param date     New date of the expenditure.
      * @param category New category of the expenditure.
@@ -177,62 +214,64 @@ public class TransactionList {
      * @return New amount of the expenditure.
      * @throws TransactionException If incorrect date format.
      */
-    public double editExpenditure(int expNum, String desc, String amount, String date, String category, Ui ui)
+    public double editExpenditure(
+            int expenditureIndex, String description, String amount, String date, String category, Ui ui)
             throws TransactionException {
-        if (!(desc.isBlank() || desc.isEmpty())) {
-            transactionLists.get(expNum - ONE_INDEX).setDescription(desc);
+        if (!(description.isBlank() || description.isEmpty())) {
+            transactionLists.get(expenditureIndex - ONE_INDEX).setDescription(description);
         }
         if (!(amount.isBlank() || amount.isEmpty())) {
-            transactionLists.get(expNum - ONE_INDEX).setAmount(Double.parseDouble(amount));
+            transactionLists.get(expenditureIndex - ONE_INDEX).setAmount(Double.parseDouble(amount));
         }
         if (!(date.isBlank() || date.isEmpty())) {
             DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
             try {
-                transactionLists.get(expNum - ONE_INDEX).setDate(temp.parse(date));
+                transactionLists.get(expenditureIndex - ONE_INDEX).setDate(temp.parse(date));
             } catch (ParseException e) {
                 //check handled in ParseEditExpenditure
                 throw new TransactionException(e.toString());
             }
         }
         if (!(category.isBlank() || category.isEmpty())) {
-            transactionLists.get(expNum - ONE_INDEX).setCategory(category);
+            transactionLists.get(expenditureIndex - ONE_INDEX).setCategory(category);
         }
         ui.printMessage("Edited details of the specified expenditure:");
-        printOneTransaction(ONE_INDEX, transactionLists.get(expNum - ONE_INDEX), ISSINGLE, ui);
-        return transactionLists.get(expNum - ONE_INDEX).getAmount();
+        printOneTransaction(ONE_INDEX, transactionLists.get(expenditureIndex - ONE_INDEX), ISSINGLE, ui);
+        return transactionLists.get(expenditureIndex - ONE_INDEX).getAmount();
     }
 
     /**
      * Edits the specific deposit in the list.
      *
-     * @param expNum Transaction number of the deposit.
-     * @param desc   New description of the deposit.
+     * @param depositIndex Transaction number of the deposit.
+     * @param description   New description of the deposit.
      * @param amount New amount of the deposit.
      * @param date   New date of the deposit.
      * @param ui     required for printing.
      * @return New amount of the deposit.
      * @throws TransactionException If incorrect date format.
      */
-    public double editDeposit(int expNum, String desc, String amount, String date, Ui ui) throws TransactionException {
+    public double editDeposit(int depositIndex, String description, String amount, String date, Ui ui)
+            throws TransactionException {
         ui.printMessage("Editing transaction...\n");
-        if (!(desc.isBlank() || desc.isEmpty())) {
-            transactionLists.get(expNum - ONE_INDEX).setDescription(desc);
+        if (!(description.isBlank() || description.isEmpty())) {
+            transactionLists.get(depositIndex - ONE_INDEX).setDescription(description);
         }
         if (!(amount.isBlank() || amount.isEmpty())) {
-            transactionLists.get(expNum - ONE_INDEX).setAmount(Double.parseDouble(amount));
+            transactionLists.get(depositIndex - ONE_INDEX).setAmount(Double.parseDouble(amount));
         }
         if (!(date.isBlank() || date.isEmpty())) {
             DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
             try {
-                transactionLists.get(expNum - ONE_INDEX).setDate(temp.parse(date));
+                transactionLists.get(depositIndex - ONE_INDEX).setDate(temp.parse(date));
             } catch (ParseException e) {
                 //check handled in ParseEditExpenditure
                 throw new TransactionException(e.toString());
             }
         }
         ui.printMessage("Edited details of the specified deposits:");
-        printOneTransaction(ONE_INDEX, transactionLists.get(expNum - ONE_INDEX), ISSINGLE, ui);
-        return transactionLists.get(expNum - ONE_INDEX).getAmount();
+        printOneTransaction(ONE_INDEX, transactionLists.get(depositIndex - ONE_INDEX), ISSINGLE, ui);
+        return transactionLists.get(depositIndex - ONE_INDEX).getAmount();
     }
 
     /**
@@ -536,5 +575,29 @@ public class TransactionList {
             transactionLists.remove(0);
         }
         transactionLists.add(deposit);
+    }
+
+    /**
+     * Gets the expenditure id of an expenditure that matches the YearMonth date.
+     *
+     * @param yearMonth The date that will be used to search for expenditures.
+     * @return  The expenditure id if found. Else, return -1.
+     */
+    public int getExpenditureIdByYearMonth(YearMonth yearMonth) {
+        for (int i = 0; i < transactionLists.size(); i++) {
+            LocalDate transactionDate = transactionLists.get(i).getLocalDate();
+            int transactionMonth = transactionDate.getMonthValue();
+            int transactionYear = transactionDate.getYear();
+            int requiredMonth = yearMonth.getMonthValue();
+            int requiredYear = yearMonth.getYear();
+            if ((transactionMonth == requiredMonth) && (transactionYear == requiredYear)) {
+                return i;
+            }
+        }
+        return OBJ_DOES_NOT_EXIST;
+    }
+
+    public Transaction getExpenditureObjByYearMonth(int index) {
+        return transactionLists.get(index);
     }
 }

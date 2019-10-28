@@ -15,6 +15,7 @@ public class BondList {
     private static final boolean ISMULTIPLE = true;
     private static final boolean ISSINGLE = false;
     private static final int ISZERO = 0;
+    private static final int MAX_LIST_SIZE = 20;
 
     /**
      * Creates an arrayList of bonds.
@@ -250,5 +251,14 @@ public class BondList {
      */
     public void importBondToList(Bond bond) {
         bondLists.add(bond);
+    }
+
+    /**
+     * Checks if the bond list is full.
+     *
+     * @return If the bond list is full.
+     */
+    public boolean isListFull() {
+        return getSize() >= MAX_LIST_SIZE;
     }
 }

@@ -24,6 +24,8 @@ public class BankList {
     private static final String SAVING = "saving";
     private static final String INVESTMENT = "investment";
     private static final int ONE_INDEX = 1;
+    private static final int MAX_SAVINGS_LIMIT = 7;
+    private static final int MAX_INVESTMENT_LIMIT = 3;
     private static final boolean ISMULTIPLE = true;
     private static final boolean ISSINGLE = false;
     private static final int ISZERO = 0;
@@ -70,10 +72,15 @@ public class BankList {
         if (bankAccountExists(newBank.getAccountName())) {
             throw new BankException("There is already a bank account with the name " + newBank.getAccountName());
         }
+        String accountType = newBank.getType();
+        if (accountType.equals(SAVING) && getNumberOfAccountType(accountType) >= MAX_SAVINGS_LIMIT) {
+            throw new BankException("The maximum limit of 7 savings account has been reached");
+        } else if (accountType.equals(INVESTMENT) && getNumberOfAccountType(accountType) >= MAX_INVESTMENT_LIMIT) {
+            throw new BankException("The maximum limit of 3 investment account has been reached");
+        }
         bankLists.add(newBank);
         ui.printMessage("Added new bank with following details: ");
         printOneBank(ONE_INDEX, newBank, ISSINGLE, ui);
-        prepareExportBankListNamesAndType();
         try {
             exportBankList();
         } catch (IOException e) {
@@ -169,7 +176,7 @@ public class BankList {
         if (hasCorrectBankNameAndType(bankName, bankType)) {
             return true;
         } else {
-            throw new BankException(bankName + " is not not of type: " + bankType);
+            throw new BankException(bankName + " is not of type: " + bankType);
         }
     }
 
@@ -218,7 +225,7 @@ public class BankList {
      * @param amount   New amount of bank account.
      * @param income   New income of bank account.
      * @param ui       required for printing.
-     * @throws BankException If bank account does not exist.
+     * @throws BankException If bank account does not exist or duplicate bank name.
      */
     public void bankListEditSavings(String bankName, String newName, String amount, String income, Ui ui)
             throws BankException {
@@ -271,7 +278,7 @@ public class BankList {
      * @param newName  New name of bank account.
      * @param amount   New amount of bank account.
      * @param ui       required for printing.
-     * @throws BankException If duplicate bank name found.
+     * @throws BankException If bank account does not exist or duplicate bank name.
      */
     public void bankListEditInvestment(String bankName, String newName, String amount, Ui ui)
             throws BankException {
@@ -293,9 +300,10 @@ public class BankList {
                     ui.printError("Error trying to save your edits to disk. Your data is"
                             + " at risk, but we will try again, feel free to continue using the program.");
                 }
-                break;
+                return;
             }
         }
+        throw new BankException("There are no bank with the name: " + bankName);
     }
 
     /**
@@ -1088,5 +1096,40 @@ public class BankList {
                 bankLists.get(i).importNewRecurringExpenditure(newRecurringExpenditure);
             }
         }
+    }
+
+    /**
+     * Checks if the bond list of the specified bank is full.
+     *
+     * @param bankName Name of investment account.
+     * @return If the bond list from the specified investment account is full.
+     * @throws BankException If used on savings account or investment account does not exist.
+     */
+    public boolean bankListIsBondListFull(String bankName) throws BankException {
+        for (int i = 0; i < getBankListSize(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName)) {
+                return bankLists.get(i).investmentIsBondListFull();
+            }
+        }
+        throw new BankException("Cannot find bank with name: " + bankName);
+    }
+
+    /**
+     * Returns expenditure amount based on specified transaction id.
+     *
+     * @param bank  The name of the bank to search for transaction.
+     * @param expenditureId The transaction id of the transaction to be searched.
+     * @return      Expenditure amount based on specified transaction id.
+     * @throws TransactionException If transaction does not exist.
+     * @throws BankException        If bank account does not exist.
+     */
+    public double bankListGetExpAmountById(String bank, int expenditureId)
+            throws TransactionException, BankException {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bank)) {
+                return bankLists.get(i).getExpAmountById(expenditureId);
+            }
+        }
+        throw new BankException("Bank with the following name does not exist: " + bank);
     }
 }

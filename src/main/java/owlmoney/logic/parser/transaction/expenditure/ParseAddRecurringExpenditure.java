@@ -1,7 +1,6 @@
 package owlmoney.logic.parser.transaction.expenditure;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 
 import owlmoney.logic.command.Command;
@@ -70,9 +69,10 @@ public class ParseAddRecurringExpenditure extends ParseRecurringExpenditure {
      */
     public Command getCommand() {
         Calendar calendar = Calendar.getInstance();
-        calendar.clear();
-        calendar.setTime(new Date());
         calendar.set(Calendar.DATE, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
         calendar.add(Calendar.MONTH, 1);
         AddRecurringExpenditureCommand newAddRecurringExpenditureCommand = new AddRecurringExpenditureCommand(
                 expendituresParameters.get(FROM), Double.parseDouble(expendituresParameters.get(AMOUNT)),

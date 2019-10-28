@@ -4,10 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import owlmoney.logic.command.Command;
-import owlmoney.logic.command.PlaceHolderEmptyCommand;
 import owlmoney.logic.command.bank.ListInvestmentCommand;
 import owlmoney.logic.command.bank.ListSavingsCommand;
 import owlmoney.logic.command.goals.ListGoalsCommand;
+import owlmoney.logic.parser.cardbill.ParseAddCardBill;
+import owlmoney.logic.parser.cardbill.ParseCardBill;
+import owlmoney.logic.parser.cardbill.ParseDeleteCardBill;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.command.card.ListCardCommand;
 import owlmoney.logic.parser.bond.ParseAddBond;
@@ -63,7 +65,7 @@ class ParseType extends Parser {
      */
     private static final String[] TYPE_KEYWORDS = new String[] {
         "/savings", "/investment", "/cardexpenditure", "/bankexpenditure", "/goals", "/card",
-        "/recurbankexp", "/bonds", "/profile", "/deposit", "/fund", "/banktransaction", "/cardtransaction"
+        "/recurbankexp", "/bonds", "/profile", "/deposit", "/fund", "/banktransaction", "/cardtransaction", "/cardbill"
     };
     private static final List<String> TYPE_KEYWORD_LISTS = Arrays.asList(TYPE_KEYWORDS);
     private static final String BANK = "bank";
@@ -370,6 +372,19 @@ class ParseType extends Parser {
                 return parseFindCardTransaction.getCommand();
             }
             throw new ParserException("You entered an invalid type for cardtransaction");
+        case "/cardbill":
+            if ("/add".equals(command)) {
+                ParseCardBill parseAddCardBill = new ParseAddCardBill(rawData);
+                parseAddCardBill.fillHashTable();
+                parseAddCardBill.checkParameter();
+                return parseAddCardBill.getCommand();
+            } else if ("/delete".equals(command)) {
+                ParseCardBill parseDeleteCardBill = new ParseDeleteCardBill(rawData);
+                parseDeleteCardBill.fillHashTable();
+                parseDeleteCardBill.checkParameter();
+                return parseDeleteCardBill.getCommand();
+            }
+            throw new ParserException("You entered an invalid type for cardbill");
         default:
             throw new ParserException("You entered an invalid type");
         }

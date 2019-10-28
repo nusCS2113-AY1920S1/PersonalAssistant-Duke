@@ -16,7 +16,7 @@ public class Goals {
     private String name;
     private double amount;
     private Date date;
-    private Bank savingAcc = null;
+    private Bank savingAccount = null;
     private boolean done = false;
 
     /**
@@ -44,7 +44,7 @@ public class Goals {
         this.name = name;
         this.amount = amount;
         this.date = date;
-        this.savingAcc = savingAcc;
+        this.savingAccount = savingAcc;
         if (Double.parseDouble(getRemainingAmount()) <= 0) {
             this.done = true;
         }
@@ -64,7 +64,7 @@ public class Goals {
      *
      * @return name of the Goal.
      */
-    public String getGoalsName() {
+    String getGoalsName() {
         return this.name;
     }
 
@@ -73,7 +73,7 @@ public class Goals {
      *
      * @return amount of the Goal.
      */
-    public double getGoalsAmount() {
+    double getGoalsAmount() {
         return this.amount;
     }
 
@@ -82,9 +82,18 @@ public class Goals {
      *
      * @return date of the Goal.
      */
-    public String getGoalsDate() {
+    String getGoalsDate() {
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         return temp.format(this.date);
+    }
+
+    /**
+     * Gets the date of the Goal in date format..
+     *
+     * @return date of the Goal in date format.
+     */
+    Date getGoalsDateInDateFormat() {
+        return this.date;
     }
 
     /**
@@ -92,11 +101,11 @@ public class Goals {
      *
      * @return name of Saving Account.
      */
-    public String getSavingAcc() {
-        if (savingAcc == null) {
+    String getSavingAccount() {
+        if (savingAccount == null) {
             return "NOT TIED";
         } else {
-            return savingAcc.getAccountName();
+            return savingAccount.getAccountName();
         }
     }
 
@@ -105,11 +114,11 @@ public class Goals {
      *
      * @return remaining amount left to reaching goal.
      */
-    public String getRemainingAmount() {
-        if (savingAcc == null) {
+    String getRemainingAmount() {
+        if (savingAccount == null) {
             return new DecimalFormat("0.00").format(getGoalsAmount());
         } else {
-            double remainingAmount = getGoalsAmount() - savingAcc.getCurrentAmount();
+            double remainingAmount = getGoalsAmount() - savingAccount.getCurrentAmount();
             if (remainingAmount <= 0) {
                 return "0.00";
             } else {
@@ -123,7 +132,7 @@ public class Goals {
      *
      * @param remainingAmount amount remaining to reach goal.
      */
-    public void isDone(Double remainingAmount) {
+    void isDone(Double remainingAmount) {
         if (remainingAmount <= 0) {
             done = true;
         }
@@ -134,8 +143,17 @@ public class Goals {
      *
      * @return tick / cross if goal is achieved.
      */
-    public String getStatus() {
+    String getStatus() {
         return done ? "✓" : "✘";
+    }
+
+    /**
+     * Gets the status of Goal if achieved.
+     *
+     * @return tick / cross if goal is achieved.
+     */
+    boolean getRawStatus() {
+        return done;
     }
 
     /**
@@ -170,12 +188,12 @@ public class Goals {
      *
      * @param newSavingAcc new saving account to tie to Goal.
      */
-    void setSavingAcc(Bank newSavingAcc) throws GoalsException {
+
+    void setSavingAccount(Bank newSavingAcc) throws GoalsException {
         if (newSavingAcc.getCurrentAmount() < this.getGoalsAmount()) {
-            this.savingAcc = newSavingAcc;
+            this.savingAccount = newSavingAcc;
         } else {
             throw new GoalsException("You cannot add a goal that is already achieved!");
         }
-
     }
 }

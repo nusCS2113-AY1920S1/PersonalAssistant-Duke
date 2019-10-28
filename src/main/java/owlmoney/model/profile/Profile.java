@@ -1,5 +1,6 @@
 package owlmoney.model.profile;
 
+import java.time.YearMonth;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,6 +49,7 @@ public class Profile {
     private static final String DEPOSITCATEGORY = "Deposit";
     private static final String FILE_PATH = "data/";
     private static final String PROFILE_BANK_LIST_FILE_NAME = "profile_banklist.csv";
+    private static final String PROFILE_GOAL_LIST_FILE_NAME = "profile_goallist.csv";
     private static final String INVESTMENT_BOND_LIST_FILE_NAME = "_investment_bondList.csv";
     private static final String INVESTMENT_TRANSACTION_LIST_FILE_NAME = "_investment_transactionList.csv";
     private static final String SAVING_TRANSACTION_LIST_FILE_NAME = "_saving_transactionList.csv";
@@ -55,7 +57,6 @@ public class Profile {
     private static final String PROFILE_FILE_NAME = "profile.csv";
     private static final String HAS_SPENT = "true";
     private static final String NOT_SPENT = "false";
-
 
     /**
      * Creates a new instance of the user profile.
@@ -73,8 +74,9 @@ public class Profile {
         try {
             loadBanksFromImportedData();
             iterateBanksToAddTransaction();
+            loadGoalsFromImportedData();
         } catch (Exception e) {
-            ui.printError("Error importing banks, data related to some bank accounts are not available");
+            ui.printError("Error importing saved data, some data might not be available");
         }
     }
 
@@ -144,6 +146,9 @@ public class Profile {
      */
     public void profileDeleteBank(String bankName, String bankType, Ui ui) throws BankException {
         bankList.bankListDeleteBank(bankName, bankType, ui);
+        if (bankType.equals(SAVING)) {
+            goalsList.changeTiedAccountsToNull(bankName);
+        }
     }
 
     /**
@@ -159,37 +164,37 @@ public class Profile {
     /**
      * Adds a new expenditure tied to a specific bank account or credit card.
      *
-     * @param accName The name of the bank account or credit card.
-     * @param exp     An expenditure object.
+     * @param bankName The name of the bank account or credit card.
+     * @param expenditure     An expenditure object.
      * @param ui      required for printing.
      * @param type    Represents type of expenditure to be added.
      * @throws BankException If bank amount becomes negative after adding expenditure.
      */
-    public void profileAddNewExpenditure(String accName, Transaction exp, Ui ui, String type)
+    public void profileAddNewExpenditure(String bankName, Transaction expenditure, Ui ui, String type)
             throws BankException, CardException {
         if (CARD.equals(type)) {
-            cardList.cardListAddExpenditure(accName, exp, ui, type);
+            cardList.cardListAddExpenditure(bankName, expenditure, ui, type);
         } else if (BANK.equals(type) || BONDS.equals(type)) {
-            bankList.bankListAddExpenditure(accName, exp, ui, type);
+            bankList.bankListAddExpenditure(bankName, expenditure, ui, type);
         }
     }
 
     /**
      * Deletes an expenditure tied to a specific bank account.
      *
-     * @param expIndex    The index of the expenditure in the expenditureList tied to a specific bank account.
+     * @param expenditureIndex    The index of the expenditure in the expenditureList tied to a specific bank account.
      * @param accountName The name of the card or bank account.
      * @param ui          required for printing.
      * @throws BankException        If bank account does not exist.
      * @throws TransactionException If invalid transaction.
      * @throws CardException        If card does not exist.
      */
-    public void profileDeleteExpenditure(int expIndex, String accountName, Ui ui,
+    public void profileDeleteExpenditure(int expenditureIndex, String accountName, Ui ui,
             String type) throws BankException, TransactionException, CardException {
         if ("bank".equals(type)) {
-            bankList.bankListDeleteExpenditure(expIndex, accountName, ui);
+            bankList.bankListDeleteExpenditure(expenditureIndex, accountName, ui);
         } else if ("card".equals(type)) {
-            cardList.cardListDeleteExpenditure(expIndex, accountName, ui);
+            cardList.cardListDeleteExpenditure(expenditureIndex, accountName, ui);
         }
     }
 
@@ -212,27 +217,27 @@ public class Profile {
      *
      * @param listedBankOrCard Bank account or credit card to list from.
      * @param ui               required for printing.
-     * @param displayNum       Number of expenditure to list.
+     * @param expendituresToDisplay       Number of expenditure to list.
      * @param type             Type of account to add expenditure into.
      * @throws BankException        If bank account does not exist.
      * @throws TransactionException If no expenditure found or no expenditure is in the list..
      * @throws CardException        If the credit card name cannot be found.
      */
-    public void profileListExpenditure(String listedBankOrCard, Ui ui, int displayNum, String type)
+    public void profileListExpenditure(String listedBankOrCard, Ui ui, int expendituresToDisplay, String type)
             throws BankException, TransactionException, CardException {
         if ("card".equals(type)) {
-            cardList.cardListListCardExpenditure(listedBankOrCard, ui, displayNum);
+            cardList.cardListListCardExpenditure(listedBankOrCard, ui, expendituresToDisplay);
         } else if ("bank".equals(type)) {
-            bankList.bankListListBankExpenditure(listedBankOrCard, ui, displayNum);
+            bankList.bankListListBankExpenditure(listedBankOrCard, ui, expendituresToDisplay);
         }
     }
 
     /**
      * Edits a specific expenditure from a specific bank account.
      *
-     * @param expNum       Transaction number of the expenditure.
+     * @param expenditureIndex       Transaction number of the expenditure.
      * @param editFromBank Bank account of expenditure.
-     * @param desc         New description of expenditure.
+     * @param description         New description of expenditure.
      * @param amount       New amount of expenditure.
      * @param date         New date of expenditure.
      * @param category     New category of expenditure.
@@ -240,13 +245,13 @@ public class Profile {
      * @throws BankException        If bank account does not exist.
      * @throws TransactionException If incorrect date format.
      */
-    public void profileEditExpenditure(int expNum, String editFromBank, String desc, String amount,
+    public void profileEditExpenditure(int expenditureIndex, String editFromBank, String description, String amount,
             String date, String category, Ui ui, String type)
             throws BankException, TransactionException, CardException {
         if ("card".equals(type)) {
-            cardList.cardListEditExpenditure(expNum, editFromBank, desc, amount, date, category, ui);
+            cardList.cardListEditExpenditure(expenditureIndex, editFromBank, description, amount, date, category, ui);
         } else if ("bank".equals(type)) {
-            bankList.bankListEditExpenditure(expNum, editFromBank, desc, amount, date, category, ui);
+            bankList.bankListEditExpenditure(expenditureIndex, editFromBank, description, amount, date, category, ui);
         }
     }
 
@@ -282,46 +287,46 @@ public class Profile {
     /**
      * Deletes a specific deposit from a specific bank account.
      *
-     * @param depIndex Transaction number of the deposit.
+     * @param depositIndex Transaction number of the deposit.
      * @param bankName Bank name of the deposit.
      * @param ui       required for printing.
      * @throws BankException        If bank account does not exist.
      * @throws TransactionException If transaction is not a deposit.
      */
-    public void profileDeleteDeposit(int depIndex, String bankName, Ui ui)
+    public void profileDeleteDeposit(int depositIndex, String bankName, Ui ui)
             throws BankException, TransactionException {
-        bankList.bankListDeleteDeposit(bankName, depIndex, ui);
+        bankList.bankListDeleteDeposit(bankName, depositIndex, ui);
     }
 
     /**
      * Adds a new deposit to a specific bank account.
      *
-     * @param accName  Bank account name.
-     * @param dep      Deposit to be added.
+     * @param accountName  Bank account name.
+     * @param deposit      Deposit to be added.
      * @param ui       required for printing.
      * @param bankType Type of bank to add deposit into
      * @throws BankException If bank account does not exist.
      */
-    public void profileAddNewDeposit(String accName, Transaction dep, Ui ui, String bankType)
+    public void profileAddNewDeposit(String accountName, Transaction deposit, Ui ui, String bankType)
             throws BankException {
-        bankList.bankListAddDeposit(accName, dep, ui, bankType);
+        bankList.bankListAddDeposit(accountName, deposit, ui, bankType);
     }
 
     /**
      * Edits a specific deposit from a specific bank account.
      *
-     * @param expNum       Transaction number of the deposit.
+     * @param expenditureIndex       Transaction number of the deposit.
      * @param editFromBank Bank account of deposit.
-     * @param desc         New description of deposit.
+     * @param description         New description of deposit.
      * @param amount       New amount of deposit.
      * @param date         New date of deposit.
      * @param ui           required for deposit.
      * @throws BankException        If bank account does not exist.
      * @throws TransactionException If incorrect date format.
      */
-    public void profileEditDeposit(int expNum, String editFromBank, String desc, String amount,
+    public void profileEditDeposit(int expenditureIndex, String editFromBank, String description, String amount,
             String date, Ui ui) throws BankException, TransactionException {
-        bankList.bankListEditDeposit(expNum, editFromBank, desc, amount, date, ui);
+        bankList.bankListEditDeposit(expenditureIndex, editFromBank, description, amount, date, ui);
     }
 
     /**
@@ -916,5 +921,146 @@ public class Profile {
     private void profileImportNewRecurringExpenditure(String bankName, Transaction newRecurringExpenditure)
             throws BankException {
         bankList.bankListImportNewRecurringExpenditure(bankName, newRecurringExpenditure);
+    }
+
+    /**
+     * Checks if the bond list from the specified bank name is full.
+     *
+     * @param bankName Investment account name.
+     * @return If the bond list from the specified investment account is full.
+     * @throws BankException If used on a savings account or if investment account does not exist.
+     */
+    public boolean profileIsBondListFull(String bankName) throws BankException {
+        return bankList.bankListIsBondListFull(bankName);
+    }
+
+    /**
+     * Add goals from imported data.
+     *
+     * @throws Exception if there are errors importing data.
+     */
+    private void loadGoalsFromImportedData() throws Exception {
+        List<String[]> importData = importListDataFromStorage(PROFILE_GOAL_LIST_FILE_NAME,ui);
+        for (String[] importDataRow : importData) {
+            String goalName = importDataRow[0];
+            String amount = importDataRow[1];
+            String date = importDataRow[2];
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date dateInFormat = dateFormat.parse(date);
+            String savingsAccountName = importDataRow[3];
+            double doubleAmount = Double.parseDouble(amount);
+            Goals newGoal = new Goals(goalName,doubleAmount,dateInFormat,
+                    bankList.bankListGetSavingAccount(savingsAccountName));
+            profileImportNewGoals(newGoal);
+        }
+    }
+
+    /**
+     * Imports one instance of goals.
+     *
+     * @param newGoal an instance of goals object.
+     */
+    private void profileImportNewGoals(Goals newGoal) {
+        goalsList.bankListImportNewGoal(newGoal);
+    }
+
+    /**
+     * Throws exception if credit card does not exist.
+     *
+     * @param card  The credit card to be checked if exist.
+     * @throws CardException    Throws exception if credit card does not exist.
+     */
+    public void checkCardExists(String card) throws CardException {
+        cardList.checkCardExists(card);
+    }
+
+    /**
+     * Returns the total unpaid expenditures amount based on the specified date.
+     *
+     * @param card  The card which the expenditures belongs to.
+     * @param date  The YearMonth date to search for expenditures.
+     * @return      The total unpaid expenditures amount based on the specified date.
+     * @throws CardException    If card does not exist.
+     */
+    public double getCardUnpaidBillAmount(String card, YearMonth date) throws CardException {
+        double cardBillAmount = cardList.getUnpaidBillAmount(card, date);
+        return cardBillAmount;
+    }
+
+    /**
+     * Returns the total paid expenditures amount based on the specified date.
+     *
+     * @param card  The card which the expenditures belongs to.
+     * @param date  The YearMonth date to search for expenditures.
+     * @return      The total paid expenditures amount based on the specified date.
+     * @throws CardException    If card does not exist.
+     */
+    public double getCardPaidBillAmount(String card, YearMonth date) throws CardException {
+        double cardBillAmount = cardList.getPaidBillAmount(card, date);
+        return cardBillAmount;
+    }
+
+    /**
+     * Returns the monthly rebate of the credit card.
+     *
+     * @param card  The credit card to get the monthly rebate information from.
+     * @return      The monthly rebate of the credit card.
+     * @throws CardException    If card does not exist.
+     */
+    public double getCardRebateAmount(String card) throws CardException {
+        return cardList.getRebateAmount(card);
+    }
+
+    /**
+     * Adds the YearMonth's card bill into bank expenditure, card rebates into bank deposit,
+     * and transfer card expenditures from unpaid to paid transaction list.
+     *
+     * @param card      The credit card name of the card transactions to be transferred.
+     * @param bank      The bank name of the bank to add expenditure and deposit.
+     * @param expenditure       The expenditure object to be added into the bank's transaction list.
+     * @param deposit       The deposit object to be added into the bank's transaction list.
+     * @param cardDate  The YearMonth date of the card bill.
+     * @param ui        The Ui of OwlMoney.
+     * @param type      Type of expenditure (card or bank).
+     * @throws BankException        If bank account does not exist.
+     * @throws TransactionException If invalid transaction when transferring transaction.
+     */
+    public void payCardBill(String card, String bank, Expenditure expenditure, Deposit deposit, YearMonth cardDate,
+            Ui ui, String type)
+            throws BankException, TransactionException {
+        bankList.bankListAddExpenditure(bank, expenditure, ui, type);
+        ui.printMessage("\n");
+        bankList.bankListAddDeposit(bank, deposit, ui, type);
+        cardList.transferExpUnpaidToPaid(card, cardDate, type);
+        ui.printMessage("Credit Card bill for " + card + " for the month of " + cardDate
+                + " have been successfully paid!");
+    }
+
+    /**
+     * Transfers the YearMonth card expenditures from paid to unpaid transaction list.
+     *
+     * @param card      The credit card name of the card transactions to be transferred.
+     * @param cardDate  The YearMonth date of the card transactions to be transferred.
+     * @param ui        The Ui of OwlMoney.
+     * @param type      Type of expenditure (card or bank).
+     * @throws TransactionException If invalid transaction when transferring transaction.
+     */
+    public void unpayCardBill(String card, YearMonth cardDate, Ui ui, String type) throws TransactionException {
+        cardList.transferExpPaidToUnpaid(card, cardDate, type);
+        ui.printMessage("Credit Card bill for " + card + " for the month of " + cardDate
+                + " have been successfully reverted!");
+    }
+
+    /**
+     * Returns expenditure amount in bank based on specified transaction id.
+     *
+     * @param bank  The name of the bank to search for transaction.
+     * @param expenditureId The transaction id of the transaction to be searched.
+     * @return      The expenditure amount in bank based on specified transaction id.
+     * @throws BankException        If bank account does not exist.
+     * @throws TransactionException If transaction does not exist.
+     */
+    public double getBankExpAmountById(String bank, int expenditureId) throws BankException, TransactionException {
+        return bankList.bankListGetExpAmountById(bank, expenditureId);
     }
 }
