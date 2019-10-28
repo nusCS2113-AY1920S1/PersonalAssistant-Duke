@@ -8,15 +8,7 @@ public class Reminder {
 
     public Reminder(Date date) {
         timer = new Timer();
-        timer.schedule(new RemindTask(), date);
-    }
-
-    class RemindTask extends TimerTask {
-        public void run() {
-            //retrieve word list and their meanings here
-            System.out.println("Time's up!");
-            timer.cancel(); //Terminate the timer thread
-        }
+        timer.schedule(new RemindTask(timer), date);
     }
 
     public static Date parseDate(String dateInput) {
@@ -32,30 +24,4 @@ public class Reminder {
         return date;
     }
 
-//    public static void main(String args[]) {
-//        while (true) {
-//            ArrayList<String> words = new ArrayList<>();
-//            Scanner in = new Scanner(System.in);
-//            String s = in.nextLine();
-//            if (s.equals("schedule")) {
-//                System.out.println("Please enter the list of words.");
-//                System.out.println("Enter an empty line to end input");
-//                String word = in.nextLine();
-//                while (!word.equals("")) {
-//                    words.add(word);
-//                    word = in.nextLine();
-//                }
-//                System.out.println("You have entered these words:");
-//                for (String wordEntered : words) {
-//                    System.out.println(wordEntered);
-//                }
-//                System.out.println("Please enter the date and time you wish to be reminded in the format:\n "
-//                        + "DD-MM-YYYY MMHH");
-//                String dateInput = in.nextLine();
-//                Date date = parseDate(dateInput);
-//                System.out.println(date);
-//                new reminder.Reminder(date);
-//            }
-//        }
-//    }
 }

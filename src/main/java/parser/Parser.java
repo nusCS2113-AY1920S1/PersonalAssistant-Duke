@@ -1,35 +1,9 @@
 package parser;
 
+import command.*;
 import dictionary.Word;
-import command.Command;
-import command.QuizCommand;
-import command.BadCommand;
-import command.DeleteCommand;
-import command.AddTagCommand;
-import command.ListCommand;
-import command.ExitCommand;
-import command.AddCommand;
-import command.SearchCommand;
-import command.HistoryCommand;
-import command.SearchFrequencyCommand;
-import command.EditCommand;
-import command.SearchBeginCommand;
-import command.HelpCommand;
 
-import exception.CommandInvalidException;
-import exception.EmptyWordException;
-import exception.WordUpException;
-import exception.WrongAddFormatException;
-import exception.WrongDeleteFormatException;
-import exception.WrongSearchFormatException;
-import exception.WrongListFormatDescription;
-import exception.WrongHistoryFormatException;
-import exception.ZeroHistoryRequestException;
-import exception.WrongSearchFrequencyFormatException;
-import exception.WrongEditFormatException;
-import exception.WrongAddTagFormatException;
-import exception.WrongQuizFormatException;
-import exception.WrongSearchBeginFormatException;
+import exception.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -68,8 +42,8 @@ public class Parser {
                 command = parseHistory(taskInfo);
             } else if (userCommand.equals("freq")) {
                 command = parseSearchFrequency(taskInfo);
-//            } else if (userCommand.equals("schedule")) {
-//                command = parseReminder(taskInfo);
+            } else if (userCommand.equals("schedule")) {
+                command = parseReminder(taskInfo);
             } else if (userCommand.equals("edit")) {
                 command = parseEdit(taskInfo);
             } else if (userCommand.equals("tag")) {
@@ -89,9 +63,12 @@ public class Parser {
         }
     }
 
-//    protected static Command parseReminder(String[] taskInfo) {
-//
-//    }
+    protected static Command parseReminder(String[] taskInfo) throws WrongReminderFormatException {
+        if (taskInfo.length != 1) {
+            throw new WrongReminderFormatException();
+        }
+        return new SetReminderCommand(1); //first state for reminder; start setup
+    }
 
     /**
      * Parses a help command.

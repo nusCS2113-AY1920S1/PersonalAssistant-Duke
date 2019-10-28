@@ -184,16 +184,18 @@ public class Ui {
             case 1: //request for the list of words user wants to be reminded of
                 return "Please enter the list of words.\n"
                 + "Enter an empty line to end input";
-            case 2: //request the reminder date and time from user
+            case 2:
+                return "Enter next word or an empty line to end input\n";
+            case 3: //request the reminder date and time from user
                 return "Please enter the date and time of the reminder in the format:"
-                        + "DD-MM-YYYY MMHH";
+                        + "dd-MM-yyyy HHmm";
             default:
                 return "Invalid state";
         }
     }
 
     public String showReminderSummary(ArrayList<String> reminderWordList, Date date) {
-        String s = "Done! You will be reminded on:\n" + date + "to study these words:\n";
+        String s = "Done! You will be reminded on:\n" + date + " to study these words:\n";
         for (String word : reminderWordList) {
             s += word + "\n";
         }

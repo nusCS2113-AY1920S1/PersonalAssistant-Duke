@@ -32,11 +32,8 @@ public abstract class NewScene {
     protected Ui ui;
     protected Bank bank;
     protected Storage storage;
-    protected WordCount wordCount;
     protected String greet;
     protected Stage window;
-    protected int reminderSetUpState;
-    protected boolean isSettingUpReminder;
 
     /**
      * Creates a new scene.
@@ -52,7 +49,6 @@ public abstract class NewScene {
         this.ui = ui;
         this.bank = bank;
         this.storage = storage;
-        this.wordCount = wordCount;
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -136,34 +132,7 @@ public abstract class NewScene {
     }
 
     protected String getResponse(String userInput) throws WordUpException {
-        Command c;
-        if (isSettingUpReminder) {
-            if (reminderSetUpState == 1) {
-                c = new SetReminderCommand(reminderSetUpState);
-                reminderSetUpState += 1;
-            } else if (reminderSetUpState == 2) { //when user is entering a list of words
-                if (userInput.equals("")) { //user enters a blank line; end of list input
-                    reminderSetUpState += 1; //assert state 3
-                    c = new SetReminderCommand(reminderSetUpState);
-                } else {
-                    c = new SetReminderCommand(userInput);
-                }
-            } else if (reminderSetUpState == 3) {
-                c = new SetReminderCommand(reminderSetUpState);
-                reminderSetUpState += 1; //assert state 4
-            } else if (reminderSetUpState == 4) {
-                c = new SetReminderCommand(reminderSetUpState);
-                reminderSetUpState = 0;
-                isSettingUpReminder = false;
-            } else {
-                throw new WordUpException();
-            }
-        } else {
-            c = Parser.parse(userInput);
-            if (c instanceof SetReminderCommand) {
-                isSettingUpReminder = true;
-            }
-        }
+        Command c = Parser.parse(userInput);
         return c.execute(ui, bank, storage);
     }
 

@@ -8,6 +8,7 @@ import ui.Ui;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Represents a command from user to add a task.
@@ -16,9 +17,10 @@ import java.util.Date;
 public class SetReminderCommand extends Command {
 
     private static final int ASK_FOR_WORDS = 1;
-    private static final int ASK_FOR_REMINDERDATE = 2;
+    private static final int ASK_FOR_NEW_WORD = 2;
+    private static final int ASK_FOR_REMINDER_DATE = 3;
 
-    protected ArrayList<String> reminderWordList;
+    protected static ArrayList<String> reminderWordList = new ArrayList<>();
     protected String userResponse;
 
     /**
@@ -34,6 +36,11 @@ public class SetReminderCommand extends Command {
         userResponse = userInput;
     }
 
+    public SetReminderCommand(int state, String userInput) {
+        reminderSetupState = state;
+        userResponse = userInput;
+    }
+
     @Override
     public String execute(Ui ui, Bank bank, Storage storage) {
         try {
@@ -42,8 +49,9 @@ public class SetReminderCommand extends Command {
                     return ui.showReminderSetup(ASK_FOR_WORDS);
                 case 2: //take in the words
                     reminderWordList.add(userResponse);
+                    return ui.showReminderSetup(ASK_FOR_NEW_WORD);
                 case 3: //ask for reminder date
-                    return ui.showReminderSetup(ASK_FOR_REMINDERDATE);
+                    return ui.showReminderSetup(ASK_FOR_REMINDER_DATE);
                 case 4:
                     Date date = Reminder.parseDate(userResponse);
                     new Reminder(date);
