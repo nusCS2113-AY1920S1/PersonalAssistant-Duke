@@ -196,16 +196,21 @@ public class TaskList {
      *                  schedule.
      * @return priorityList the tasks of the given day sorted by priority
      */
-    public ArrayList<Task> obtainPriorityList(String dayToFind) {
-        ArrayList<Task> priorityList = new ArrayList<Task>();
-        for (int i = 0; i < listOfTasks.size(); i++) {
-            if (listOfTasks.get(i).toString().contains(dayToFind)
-                    && !listOfTasks.get(i).priority.equals(Priority.LOW)) {
-                priorityList.add(listOfTasks.get(i));
+    public ArrayList<String> obtainPriorityList(String dayToFind) {
+        ArrayList<Task> priorityList = new ArrayList<>();
+        ArrayList<String> stringPriorityList = new ArrayList<>();
+        for (Task listOfTask : listOfTasks) {
+            if (listOfTask.toString().contains(dayToFind)
+                && !listOfTask.priority.equals(Priority.LOW)) {
+                priorityList.add(listOfTask);
             }
         }
-        Collections.sort(priorityList, PriorityComparator);
-        return priorityList;
+
+        priorityList.sort(PriorityComparator);
+        for (int i = 0; i < priorityList.size(); i++) {
+            stringPriorityList.add(listOfTasks.get(i).toString());
+        }
+        return stringPriorityList;
     }
 
     /**
@@ -213,11 +218,11 @@ public class TaskList {
      *
      * @return tasksWithoutDates tasks with no time constraint.
      */
-    public ArrayList<Task> obtainTasksWithoutDates() {
-        ArrayList<Task> tasksWithoutDates = new ArrayList<Task>();
+    public ArrayList<String> obtainTasksWithoutDates() {
+        ArrayList<String> tasksWithoutDates = new ArrayList<>();
         for (int i = 0; i < listOfTasks.size(); i++) {
             if (listOfTasks.get(i).startDate == null) {
-                tasksWithoutDates.add(listOfTasks.get(i));
+                tasksWithoutDates.add(listOfTasks.get(i).getDescription());
             }
         }
         return tasksWithoutDates;

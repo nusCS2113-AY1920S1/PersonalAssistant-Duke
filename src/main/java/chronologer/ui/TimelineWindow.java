@@ -25,6 +25,7 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.ListChangeListener;
+import javafx.scene.paint.Paint;
 import javafx.util.Callback;
 
 import javax.swing.event.ListDataListener;
@@ -63,14 +64,15 @@ class TimelineWindow extends UiComponent<Region> {
     @FXML
     private ListView<String> sundayTask;
     @FXML
-    private ListView<Task> priorityTask;
+    private ListView<String> priorityTask;
     @FXML
-    private ListView<Task> tasksWithoutDates;
+    private ListView<String> tasksWithoutDates;
 
     private Parser parser;
     private Command command;
     private TaskList tasks;
-    private static final String DEFAULT_CONTROL_INNER_BACKGROUND = "derive(black,80%)";
+    private static final String DEFAULT_CONTROL_INNER_BACKGROUND = "#373737";
+
     /**
      * Constructs a UiComponent with the corresponding FXML file name and root object.
      * The FXML file written should not have a controller attribute as this is handled by the loadFXMLFile.
@@ -96,7 +98,7 @@ class TimelineWindow extends UiComponent<Region> {
         initializeListViewComponents();
     }
 
-    private void initializeListViewComponents(){
+    private void initializeListViewComponents() {
         initializeListViewDarkComponents(mondayTask);
         initializeListViewDarkComponents(tuesdayTask);
         initializeListViewDarkComponents(wednesdayTask);
@@ -104,13 +106,15 @@ class TimelineWindow extends UiComponent<Region> {
         initializeListViewDarkComponents(fridayTask);
         initializeListViewDarkComponents(saturdayTask);
         initializeListViewDarkComponents(sundayTask);
+        initializeListViewDarkComponents(priorityTask);
+        initializeListViewDarkComponents(tasksWithoutDates);
     }
 
     /**
      * This method populates the ListView with prioritized tasks for the day.
      */
     private void prioritizedTodayTasks() {
-        ObservableList<Task> holdPriorityTasks;
+        ObservableList<String> holdPriorityTasks;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
         holdPriorityTasks = FXCollections.observableArrayList(tasks.obtainPriorityList(dtf.format(now)));
@@ -121,7 +125,7 @@ class TimelineWindow extends UiComponent<Region> {
      * This method populates the ListView with prioritized tasks for the day.
      */
     private void tasksWithoutDates() {
-        ObservableList<Task> holdTasksWithoutDates;
+        ObservableList<String> holdTasksWithoutDates;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
         holdTasksWithoutDates = FXCollections.observableArrayList(tasks.obtainTasksWithoutDates());

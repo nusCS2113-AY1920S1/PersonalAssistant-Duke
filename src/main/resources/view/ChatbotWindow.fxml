@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="329.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="329.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane fx:id="scrollPane" prefHeight="614.0" prefWidth="329.0">
          <content>
-            <VBox fx:id="dialogBoxContainer" prefHeight="614.0" prefWidth="454.0" style="-fx-background-color: #696969;" />
+            <VBox fx:id="dialogBoxContainer" prefHeight="614.0" prefWidth="454.0" style="-fx-background-color: #373737;" />
          </content>
       </ScrollPane>
       <TextField fx:id="userInputTextField" layoutY="613.0" onAction="#handleUserInput" prefHeight="39.0" prefWidth="257.0" />
