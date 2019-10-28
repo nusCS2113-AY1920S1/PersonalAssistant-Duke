@@ -593,6 +593,14 @@ public class Ui {
             throw new DukeException("Please provide a proper parameter into getPatient function!");
         }
     }
+
+    public void showHelpOptions(ArrayList<String> helpOptions) {
+        String output = "These are the commands that the user can use, and their respective formats:\n";
+        for (String command : helpOptions) {
+            output += " - " + command + "\n";
+        }
+        printDukeResponse(output);
+    }
     //@@author
 
 }

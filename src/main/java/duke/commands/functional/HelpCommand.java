@@ -39,6 +39,7 @@ public class HelpCommand implements Command {
 
     @Override
     public void execute(AssignedTaskManager patientTask, TaskManager tasks, PatientManager patientList, Ui ui, StorageManager storageManager) throws DukeException {
+        ui.showHelpOptions(userCommandList);
 
     }
 

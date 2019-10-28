@@ -8,6 +8,7 @@ import duke.commands.assignedtask.DeleteAssignedTaskCommand;
 import duke.commands.assignedtask.FindAssignedTaskCommand;
 import duke.commands.functional.DukeCommand;
 import duke.commands.functional.ExitCommand;
+import duke.commands.functional.HelpCommand;
 import duke.commands.functional.UndoCommand;
 import duke.commands.patient.AddPatientCommand;
 import duke.commands.patient.DeletePatientCommand;
@@ -77,8 +78,10 @@ public class CommandManager {
             return new DukeCommand();
         case "bye":
             return new ExitCommand();
-        case "undo" :
+        case "undo":
             return new UndoCommand();
+        case "help":
+            return new HelpCommand();
         default:
             throw new DukeException("Could not understand user input.");
         }

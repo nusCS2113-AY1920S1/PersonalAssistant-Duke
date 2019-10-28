@@ -386,4 +386,9 @@ public class MainWindow extends AnchorPane {
         assignedTaskTable.setItems(sortedAssignedTaskData);
     }
 
+    @FXML
+    private void openHelpWindow() {
+
+    }
+
 }
