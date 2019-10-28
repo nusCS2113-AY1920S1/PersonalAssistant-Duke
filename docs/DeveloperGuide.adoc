@@ -1753,6 +1753,50 @@ Use case ends.
 
 
 
+*Actor: Existing user* +
+[[UC-38]] *Use case: UC38 - Search for specific bank account, credit card or bonds* +
+*Preconditions:*
+
+* *User has a profile created*
+* *User has added a bank account to the profile*
+* *User has added a credit card to the profile*
+* *User has added an investment bond tied to his investment bank account*
+
+*Main success scenario:*
+
+. User choose to search for specific bank account, credit card or bonds.
+. System requests for the keyword to be used for searching.
+. User specifies the keyword to be used for searching.
+. System displays information found from the search.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. System detects invalid user input.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: Organized User* +
+[[UC-39]] *Use case: UC39 - View financial details in a user friendly format* +
+*Preconditions:*
+
+* *User has a profile created*
+* *User has existing financial details (e.g. transaction records, goals)*
+
+*Main success scenario:*
+
+. User chooses the type of financial details to list.
+. System displays the information in a table format.
++
+Use case ends.
+
 [appendix]
 == Non Functional Requirements
 . The application should work on any computer running a <<mainstream-os, mainstream OS>> OS that has Java 11 installed.

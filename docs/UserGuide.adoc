@@ -1663,20 +1663,80 @@ AMOUNT] [/date DATE]`
 
 |======
 |*Task*| *Purpose* | *Command Format* | *Example*
-| *List details*
-| List the details of the specified input.
-| `/list .........`
-| `/list .........`
+| *Listing general details of profile*
+| List the general details of the bank accounts, cards or goals in the profile.
+| `/list /savings`
 
-| *Find*
-| List the details of the specified input.
-| `/find .........`
-| `/find .........`
+`/list /investment`
 
-| *Transferring Money*
-| List the details of the specified input.
-| `/transfer .........`
-| `/transfer .........`
+`/list /card`
+
+`/list /goals`
+
+| `/list /savings`
+
+`/list /investment`
+
+`/list /card`
+
+`/list /goals`
+
+
+| *Listing specific details of cards, accounts, bonds etc.*
+| List the general specific details of cards, accounts, bonds etc.
+| `/list /bonds /from ACCOUNT_NAME [/num NUMBER]`
+
+`/list /bankexpenditure /from ACCOUNT_NAME [/num NUMBER]`
+
+`/list /cardexpenditure /from CARD_NAME [/num NUMBER]`
+
+`/list /deposit /from ACCOUNT_NAME [/num NUMBER]`
+
+
+| `/list /bonds /from DBB Vickers Account`
+
+`/list /bankexpenditure /from JunBank Savings Account /num 60`
+
+`/list /cardexpenditure /from POBB Tomorrow Card`
+
+`/list /deposit /from JunBank Savings Account /num 10`
+
+
+
+| *Finding bank accounts or cards that matches with the keyword specified by the user*
+| List the bank accounts or cards that matches with the keyword specified.
+| `/find /savings /name ACCOUNT_NAME`
+
+`/find /investment /name ACCOUNT_NAME`
+
+`/find /card /name CARD_NAME`
+
+| `/find /savings /name Jun`
+
+`/find /investment /name Vickers`
+
+`/find /card /name POBB`
+
+| *Finding investment bonds within a specified investment account that matches with the keyword specified by the user*
+| List the bonds' details within a specified investment account that matches with the keyword specified.
+| `/find /bonds /name BOND_NAME /from ACCOUNT_NAME`
+| `/find /bonds /name SSB /from DBB Vickers Account`
+
+| *Finding transaction records within a specified bank account or card that matches with the keyword specified by the
+user*
+| List the transaction records within a specified bank account or card that matches with the keyword specified.
+| `/find /banktransaction /name ACCOUNT_NAME /desc DESCRIPTION [/from DATE /to DATE] [/category CATEGORY]`
+
+`/find /cardtransaction /name CARD_NAME /desc DESCRIPTION [/from DATE /to DATE] [/category CATEGORY]`
+
+| `/find /banktransaction /name JunBank Savings Account /desc bubble tea /from 1/1/2019 /to 7/1/2019 /category food`
+
+`/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea /from 1/1/2019 to 7/1/2019 /category food`
+
+| *Transferring funds between bank accounts*
+| Transfer funds from one account to another account based on the amount specified by the user.
+| `/transfer /fund /from ACCOUNT_NAME /to ACCOUNT_NAME /amount AMOUNT /date DATE`
+| `/transfer /fund /from JunBank Savings Account /to POBB Savings Account /amount 500 /date 1/1/2019`
 
 |======
 
