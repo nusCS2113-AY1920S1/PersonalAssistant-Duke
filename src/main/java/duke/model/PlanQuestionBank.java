@@ -145,9 +145,7 @@ public class PlanQuestionBank {
                 if (knownAttributes.containsKey(questionAttribute)) {
                     String attributeValue = knownAttributes.get(questionAttribute);
                     Set<Integer> children = questionList.get(index).getNeighbouringQuestions(attributeValue);
-                    if (!children.isEmpty()) {
                         questionsToAdd.addAll(children);
-                    }
                 }
             } catch (NullPointerException e) {
                 throw new DukeException("Error getting neighbouring questions!");
@@ -302,7 +300,7 @@ public class PlanQuestionBank {
                 }
                 if (planAttributes.get("MUSIC_SUBSCRIPTION").equals("TRUE")) {
                     recommendation.append("Spotify has a student plan that is only $5 a month! \n"
-                            + "You should allocate $5 to Spotify");
+                            + "You should allocate $5 to Spotify\n\n");
                     budgetRecommendation.put("spotify", Parser.parseMoney("5"));
                     Expense.Builder spotifyExpenseBuilder = new Expense.Builder();
                     spotifyExpenseBuilder.setAmount("5.00");
@@ -310,6 +308,12 @@ public class PlanQuestionBank {
                     spotifyExpenseBuilder.setRecurring(true);
                     spotifyExpenseBuilder.setTag("spotify");
                     recommendationExpenseList.add(spotifyExpenseBuilder.build());
+                }
+                if(Parser.parseMoney(planAttributes.get("ONLINE_SHOPPING")).compareTo(BigDecimal.ZERO) == 1) {
+                    budgetRecommendation.put("online shopping", Parser.parseMoney(planAttributes.get("ONLINE_SHOPPING")));
+                    recommendation.append("You should allocate $"
+                            + planAttributes.get("ONLINE_SHOPPING")
+                            + " to online shopping." );
                 }
             }
 
@@ -336,6 +340,9 @@ public class PlanQuestionBank {
         return strings.toArray(new String[0]);
     }
 
+    /**
+     * Simple container for recommendation.
+     */
     public class PlanRecommendation {
         String recommendation;
         Map<String, BigDecimal> budget;

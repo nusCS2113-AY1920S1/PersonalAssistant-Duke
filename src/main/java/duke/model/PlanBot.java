@@ -93,6 +93,7 @@ public class PlanBot {
             PlanQuestion firstQuestion = questionQueue.peek();
             currentQuestion = firstQuestion;
             questionQueue.remove();
+            assert firstQuestion != null;
             PlanDialog initial = new PlanDialog(firstQuestion.getQuestion(), Agent.BOT);
             dialogObservableList.add(initial);
         }
@@ -172,7 +173,7 @@ public class PlanBot {
     /**
      * A container for an individual chat history.
      */
-    public class PlanDialog {
+    public static class PlanDialog {
         public String text;
         public Agent agent;
 
