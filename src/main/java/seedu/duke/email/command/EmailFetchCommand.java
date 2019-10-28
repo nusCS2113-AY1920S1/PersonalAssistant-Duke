@@ -2,12 +2,12 @@ package seedu.duke.email.command;
 
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
-import seedu.duke.email.EmailStorage;
+import seedu.duke.email.storage.EmailStorage;
 import seedu.duke.ui.UI;
 
 public class EmailFetchCommand extends Command {
 
-    EmailFetchCommand() {
+    public EmailFetchCommand() {
     }
 
     @Override

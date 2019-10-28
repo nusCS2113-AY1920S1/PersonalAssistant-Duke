@@ -1,8 +1,10 @@
-package seedu.duke.email;
+package seedu.duke.email.storage;
 
 import org.json.JSONException;
 import seedu.duke.common.model.Model;
 import seedu.duke.common.network.Http;
+import seedu.duke.email.parser.EmailFormatParseHelper;
+import seedu.duke.email.EmailList;
 import seedu.duke.email.entity.Email;
 import seedu.duke.ui.UI;
 
@@ -13,7 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
 
-import static seedu.duke.email.EmailContentParseHelper.allKeywordInEmail;
+import static seedu.duke.email.parser.EmailContentParseHelper.allKeywordInEmail;
 
 /**
  * Handles loading and saving of emails from local storage.

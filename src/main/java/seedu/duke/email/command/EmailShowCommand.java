@@ -9,7 +9,7 @@ import seedu.duke.ui.UI;
 public class EmailShowCommand extends Command {
     private int index;
 
-    EmailShowCommand(int index) {
+    public EmailShowCommand(int index) {
         this.index = index;
     }
 

@@ -24,8 +24,8 @@ public class TaskUpdateCommand extends Command {
      * @param descriptions what to modify to
      * @param attributes   what attribute to modify ==== BASE ====
      */
-    TaskUpdateCommand(int index, ArrayList<String> descriptions,
-                      ArrayList<TaskUpdateCommand.Attributes> attributes) {
+    public TaskUpdateCommand(int index, ArrayList<String> descriptions,
+                             ArrayList<TaskUpdateCommand.Attributes> attributes) {
         this.index = index;
         this.descriptions = descriptions;
         this.attributes = attributes;

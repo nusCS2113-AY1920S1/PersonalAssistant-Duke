@@ -7,7 +7,7 @@ import seedu.duke.ui.UI;
 
 public class EmailListCommand extends Command {
 
-    EmailListCommand() {
+    public EmailListCommand() {
     }
 
     @Override

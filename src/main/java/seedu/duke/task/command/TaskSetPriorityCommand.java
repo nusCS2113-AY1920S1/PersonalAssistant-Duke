@@ -20,7 +20,7 @@ public class TaskSetPriorityCommand extends Command {
      * @param index         index of task
      * @param priorityLevel priority level set for the task
      */
-    TaskSetPriorityCommand(int index, String priorityLevel) {
+    public TaskSetPriorityCommand(int index, String priorityLevel) {
         this.index = index;
         this.priorityLevel = priorityLevel;
     }

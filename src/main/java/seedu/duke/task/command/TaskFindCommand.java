@@ -16,7 +16,7 @@ public class TaskFindCommand extends Command {
      *
      * @param keyword the keyword that the target task needs to match
      */
-    TaskFindCommand(String keyword) {
+    public TaskFindCommand(String keyword) {
         this.keyword = keyword;
     }
 

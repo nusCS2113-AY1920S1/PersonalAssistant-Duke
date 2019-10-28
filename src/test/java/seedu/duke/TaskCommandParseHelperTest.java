@@ -100,7 +100,7 @@ public class TaskCommandParseHelperTest {
     @Test
     public void parseDoneCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
+            Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
             Method method =
                     parser.getDeclaredMethod("parseDoneCommand", String.class);
             method.setAccessible(true);
@@ -135,7 +135,7 @@ public class TaskCommandParseHelperTest {
     public void parseDeleteCommandTest() {
         try {
             fakeModel();
-            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
+            Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
             Method method = parser.getDeclaredMethod("parseDeleteCommand", String.class);
             method.setAccessible(true);
             //positive cases
@@ -163,7 +163,7 @@ public class TaskCommandParseHelperTest {
     @Test
     public void parseFindCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
+            Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
             Method method = parser.getDeclaredMethod("parseFindCommand", String.class);
             method.setAccessible(true);
             //positive cases
@@ -187,7 +187,7 @@ public class TaskCommandParseHelperTest {
     @Test
     public void parseReminderCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
+            Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
             Method method = parser.getDeclaredMethod("parseReminderCommand", String.class);
             method.setAccessible(true);
             //positive cass
@@ -216,7 +216,7 @@ public class TaskCommandParseHelperTest {
     @Test
     public void parseDoAfterCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
+            Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
             Method method = parser.getDeclaredMethod("parseDoAfterCommand", String.class, ArrayList.class);
             method.setAccessible(true);
 
@@ -256,7 +256,7 @@ public class TaskCommandParseHelperTest {
     @Test
     public void parseSnoozeCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
+            Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
             Method method = parser.getDeclaredMethod("parseSnoozeCommand", String.class, ArrayList.class);
             method.setAccessible(true);
             ArrayList<Command.Option> optionList = new ArrayList<Command.Option>();
@@ -286,7 +286,7 @@ public class TaskCommandParseHelperTest {
     @Test
     public void parseAddToDoCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
+            Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
             Method method = parser.getDeclaredMethod("parseAddToDoCommand", String.class,
                     String.class, ArrayList.class, String.class);
             method.setAccessible(true);
@@ -321,7 +321,7 @@ public class TaskCommandParseHelperTest {
     @Test
     public void parseAddDeadlineCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
+            Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
             Method method = parser.getDeclaredMethod("parseAddDeadlineCommand", String.class,
                     LocalDateTime.class, String.class, ArrayList.class, String.class);
             method.setAccessible(true);
@@ -362,7 +362,7 @@ public class TaskCommandParseHelperTest {
     @Test
     public void parseAddEventCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
+            Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
             Method method = parser.getDeclaredMethod("parseEventCommand", String.class, LocalDateTime.class,
                     String.class, ArrayList.class, String.class);
             method.setAccessible(true);

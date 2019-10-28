@@ -20,7 +20,7 @@ public class TaskDoAfterCommand extends Command {
      * @param index              index of task.
      * @param doAfterDescription of task.
      */
-    TaskDoAfterCommand(int index, String doAfterDescription) {
+    public TaskDoAfterCommand(int index, String doAfterDescription) {
         this.index = index;
         this.doAfterDescription = doAfterDescription;
     }

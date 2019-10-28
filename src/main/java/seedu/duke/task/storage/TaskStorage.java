@@ -1,8 +1,9 @@
-package seedu.duke.task;
+package seedu.duke.task.storage;
 
 import seedu.duke.CommandParseHelper;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
+import seedu.duke.task.TaskList;
 import seedu.duke.task.command.TaskReminderCommand;
 import seedu.duke.task.entity.Task;
 import seedu.duke.ui.UI;

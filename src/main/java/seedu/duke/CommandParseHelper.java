@@ -3,8 +3,8 @@ package seedu.duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.Command.Option;
 import seedu.duke.common.command.InvalidCommand;
-import seedu.duke.email.command.EmailCommandParseHelper;
-import seedu.duke.task.command.TaskCommandParseHelper;
+import seedu.duke.email.parser.EmailCommandParseHelper;
+import seedu.duke.task.parser.TaskCommandParseHelper;
 import seedu.duke.ui.UI;
 
 import java.util.ArrayList;

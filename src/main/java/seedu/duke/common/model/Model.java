@@ -1,11 +1,11 @@
 package seedu.duke.common.model;
 
-import seedu.duke.email.EmailContentParseHelper;
+import seedu.duke.email.parser.EmailContentParseHelper;
 import seedu.duke.email.EmailList;
-import seedu.duke.email.EmailStorage;
+import seedu.duke.email.storage.EmailStorage;
 import seedu.duke.email.EmailTags;
 import seedu.duke.task.TaskList;
-import seedu.duke.task.TaskStorage;
+import seedu.duke.task.storage.TaskStorage;
 import seedu.duke.ui.UI;
 
 public class Model {

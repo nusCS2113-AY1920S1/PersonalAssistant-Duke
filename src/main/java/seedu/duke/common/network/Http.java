@@ -3,9 +3,9 @@ package seedu.duke.common.network;
 import javafx.application.Platform;
 import org.json.JSONException;
 import org.json.JSONObject;
-import seedu.duke.email.EmailFormatParseHelper;
+import seedu.duke.email.parser.EmailFormatParseHelper;
 import seedu.duke.email.EmailList;
-import seedu.duke.email.EmailStorage;
+import seedu.duke.email.storage.EmailStorage;
 import seedu.duke.ui.UI;
 
 import java.awt.Desktop;

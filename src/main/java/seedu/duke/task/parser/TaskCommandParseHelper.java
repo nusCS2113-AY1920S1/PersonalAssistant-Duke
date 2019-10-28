@@ -1,4 +1,4 @@
-package seedu.duke.task.command;
+package seedu.duke.task.parser;
 
 import seedu.duke.CommandParseHelper;
 import seedu.duke.common.command.Command;
@@ -7,6 +7,17 @@ import seedu.duke.common.command.FlipCommand;
 import seedu.duke.common.command.HelpCommand;
 import seedu.duke.common.command.InvalidCommand;
 import seedu.duke.common.model.Model;
+import seedu.duke.task.command.TaskAddCommand;
+import seedu.duke.task.command.TaskDeleteCommand;
+import seedu.duke.task.command.TaskDoAfterCommand;
+import seedu.duke.task.command.TaskDoneCommand;
+import seedu.duke.task.command.TaskFindCommand;
+import seedu.duke.task.command.TaskListCommand;
+import seedu.duke.task.command.TaskParseNaturalDateHelper;
+import seedu.duke.task.command.TaskReminderCommand;
+import seedu.duke.task.command.TaskSetPriorityCommand;
+import seedu.duke.task.command.TaskSnoozeCommand;
+import seedu.duke.task.command.TaskUpdateCommand;
 import seedu.duke.task.entity.Task;
 import seedu.duke.ui.UI;
 

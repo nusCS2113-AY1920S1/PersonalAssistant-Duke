@@ -1,4 +1,4 @@
-package seedu.duke.email.command;
+package seedu.duke.email.parser;
 
 import seedu.duke.CommandParseHelper;
 import seedu.duke.common.command.Command;
@@ -7,6 +7,11 @@ import seedu.duke.common.command.FlipCommand;
 import seedu.duke.common.command.HelpCommand;
 import seedu.duke.common.command.InvalidCommand;
 import seedu.duke.common.model.Model;
+import seedu.duke.email.command.EmailFetchCommand;
+import seedu.duke.email.command.EmailListCommand;
+import seedu.duke.email.command.EmailListTagCommand;
+import seedu.duke.email.command.EmailShowCommand;
+import seedu.duke.email.command.EmailTagCommand;
 import seedu.duke.ui.UI;
 
 import java.util.ArrayList;

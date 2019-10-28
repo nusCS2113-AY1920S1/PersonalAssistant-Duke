@@ -13,7 +13,7 @@ public class TaskReminderCommand extends Command {
      *
      * @param dayLimit the maximum number of days from now for a task to be considered as near
      */
-    TaskReminderCommand(int dayLimit) {
+    public TaskReminderCommand(int dayLimit) {
         this.dayLimit = dayLimit;
     }
 

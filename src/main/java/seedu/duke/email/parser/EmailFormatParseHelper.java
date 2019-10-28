@@ -1,8 +1,9 @@
-package seedu.duke.email;
+package seedu.duke.email.parser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import seedu.duke.email.EmailList;
 import seedu.duke.email.entity.Email;
 
 import java.time.LocalDateTime;
