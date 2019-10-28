@@ -34,7 +34,7 @@ public class MovieInfoFetcher implements Runnable {
     public void run() {
         try {
             String json = URLRetriever.readURLAsString(movieRequestUrl);
-            movieRequestListener.fetchedMoviesJSON(json);
+            movieRequestListener.fetchedJSON(json);
             //System.out.println("passed");
         } catch (Exceptions ex) {
             // Notify the listener that the connection have timed out.

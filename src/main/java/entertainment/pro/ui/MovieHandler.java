@@ -292,7 +292,7 @@ public class MovieHandler extends Controller implements RequestListener {
             }
         });
 
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
+        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Date date = new Date();
         String now = formatter.format(date);
@@ -462,7 +462,7 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     @Override
     public void requestFailed() {
-        Platform.runLater(() -> showDownloadFailureAlert("No internet connection"));
+        //Platform.runLater(() -> showDownloadFailureAlert("No internet connection"));
     }
 
     /**
@@ -530,9 +530,9 @@ public class MovieHandler extends Controller implements RequestListener {
             // set the movie info
             MoviePosterController controller = loader.getController();
             try {
-                if (movie.getFullPosterPath() != null) {
+                if (movie.getFullPosterPathInfo() != null) {
                     System.out.println("sianz");
-                    Image posterImage = new Image(movie.getFullPosterPath(), true);
+                    Image posterImage = new Image(movie.getFullPosterPathInfo(), true);
                     posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
                         try {
                             updateProgressBar(movie, newValue.doubleValue());
@@ -784,9 +784,9 @@ public class MovieHandler extends Controller implements RequestListener {
         ArrayList<MovieInfoObject> converted = new ArrayList<>();
         boolean isMovie = false;
         for (PlaylistMovieInfoObject log : toConvert) {
-            converted.add(new MovieInfoObject(isMovie, log.getID(), log.getTitle(),
-                    log.getReleaseDate(), log.getSummary(), log.getRating(), log.getGenreIDs(),
-                    log.getFullPosterPath(), log.getFullBackdropPath(), log.isAdult()));
+            converted.add(new MovieInfoObject(log.getId(), log.getTitle(), isMovie,log.getReleaseDateInfo(), log.getSummaryInfo(), log.getFullPosterPathInfo(), log.getFullBackdropPathInfo(),
+                    log.getRatingInfo(), log.getGenreIDInfo(), log.isIsadultContent()));
+
         }
         return converted;
     }
@@ -810,9 +810,9 @@ public class MovieHandler extends Controller implements RequestListener {
             InfoController controller = loader.getController();
 
             controller.getMovieTitleLabel().setText(movie.getTitle());
-            controller.getMovieRatingLabel().setText(String.format("%.2f", movie.getRating()));
-            if (movie.getReleaseDate() != null) {
-                Date date = movie.getReleaseDate();
+            controller.getMovieRatingLabel().setText(String.format("%.2f", movie.getRatingInfo()));
+            if (movie.getReleaseDateInfo() != null) {
+                Date date = movie.getReleaseDateInfo();
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(date);
                 String printDate = new SimpleDateFormat("dd/MM/yyyy").format(date);
@@ -821,15 +821,22 @@ public class MovieHandler extends Controller implements RequestListener {
                 controller.getMovieReleaseDateLabel().setText("N/A");
             }
             try {
-                Image posterImage = new Image(movie.getFullBackdropPath(), true);
+                Image posterImage = new Image(movie.getFullBackdropPathInfo(), true);
                 controller.getMovieBackdropImageView().setImage(posterImage);
             } catch (NullPointerException ex) {
 
             }
 
-            controller.getMovieSummaryLabel().setText(movie.getSummary());
-            controller.getMovieCastLabel().setText(RetrieveRequest.getCastStrings(movie));
-            controller.getMovieCertLabel().setText(RetrieveRequest.getCertStrings(movie));
+            controller.getMovieSummaryLabel().setText(movie.getSummaryInfo());
+            mMovieRequest.beginMoreInfoRequest(movie);
+            ArrayList<String> castStrings = movie.getCastInfo();
+            String cast = "";
+            for (int i = 0; i < castStrings.size(); i += 1) {
+                cast += castStrings.get(i);
+                cast += ", ";
+            }
+            controller.getMovieCastLabel().setText(cast);
+            controller.getMovieCertLabel().setText(movie.getCertInfo());
             String[] genres = RetrieveRequest.getGenreStrings(movie);
             StringBuilder builder = new StringBuilder();
             try {
@@ -866,9 +873,9 @@ public class MovieHandler extends Controller implements RequestListener {
             PlaylistMovieController controller = loader.getController();
 
             controller.getMovieTitleLabel().setText(movie.getTitle());
-            controller.getMovieRatingLabel().setText(String.format("%.2f", movie.getRating()));
-            if (movie.getReleaseDate() != null) {
-                Date date = movie.getReleaseDate();
+            controller.getMovieRatingLabel().setText(String.format("%.2f", movie.getRatingInfo()));
+            if (movie.getReleaseDateInfo() != null) {
+                Date date = movie.getReleaseDateInfo();
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(date);
                 String printDate = new SimpleDateFormat("dd/MM/yyyy").format(date);
@@ -876,7 +883,7 @@ public class MovieHandler extends Controller implements RequestListener {
             } else {
                 controller.getMovieDateLabel().setText("N/A");
             }
-            controller.getMovieSummaryLabel().setText(movie.getSummary());
+            controller.getMovieSummaryLabel().setText(movie.getSummaryInfo());
             String[] genres = RetrieveRequest.getGenreStrings(movie);
             StringBuilder builder = new StringBuilder();
             try {
@@ -1018,42 +1025,43 @@ public class MovieHandler extends Controller implements RequestListener {
      * Displays list of current movies showing on cinemas.
      */
     public static void showCurrentMovies() throws Exceptions {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
+        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
     }
 
     /**
      * Displays list of current tv shows showing.
      */
     public static void showCurrentTV() throws Exceptions {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV);
+        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV);
     }
 
     /**
      * Displays list of upcoming movies.
      */
     public static void showUpcomingMovies() throws Exceptions {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
+        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
     }
 
     /**
      * Displays list of upcoming tv shows.
      */
     public static void showUpcomingTV() throws Exceptions {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV);
+        mMovieRequest.beginSearchRequest( RetrieveRequest.MoviesRequestType.CURRENT_TV);
     }
 
     /**
      * Displays list of popular movies.
      */
     public static void showPopMovies() throws Exceptions {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
+
+        mMovieRequest.beginSearchRequest( RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
     }
 
     /**
      * Displays list of popular tv shows.
      */
     public static void showPopTV() throws Exceptions {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV);
+        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV);
     }
 
 
@@ -1061,7 +1069,7 @@ public class MovieHandler extends Controller implements RequestListener {
      * Displays list of trending movies.
      */
     public static void showTrendMovies() throws Exceptions {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES);
+        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES);
         ;
     }
 
@@ -1069,13 +1077,13 @@ public class MovieHandler extends Controller implements RequestListener {
      * Displays list of trending tv shows.
      */
     public static void showTrendTV() throws Exceptions {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
+        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
     }
 
 
 
     public static void showSearchMovie() throws Exceptions {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
+        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
     }
 
     public static void setSearchProfile(SearchProfile searchProfile) {

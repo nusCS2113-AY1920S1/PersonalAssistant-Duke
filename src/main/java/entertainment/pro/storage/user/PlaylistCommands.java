@@ -42,9 +42,9 @@ public class PlaylistCommands {
         for (String log : flagMap.get("-m")) {
             int index = Integer.parseInt(log.trim());
             System.out.println(index);
-            userMovies.add((mMovies.get(--index)).getID());
+            userMovies.add((mMovies.get(--index)).getId());
             playlistMovies.add(mMovies.get(index));
-            System.out.println("hello looky here " + mMovies.get(index).getFullPosterPath());
+            System.out.println("hello looky here " + mMovies.get(index).getFullPosterPathInfo());
         }
         Playlist playlist = editPlaylistJson.load();
         ArrayList<PlaylistMovieInfoObject> newPlaylistMovies = convert(playlistMovies);
@@ -90,15 +90,13 @@ public class PlaylistCommands {
     private ArrayList<PlaylistMovieInfoObject> convert(ArrayList<MovieInfoObject> movies) {
         ArrayList<PlaylistMovieInfoObject> convertMovies = new ArrayList<>();
         for (MovieInfoObject log : movies) {
-            Date date = log.getReleaseDate();
+            Date date = log.getReleaseDateInfo();
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String string = dateFormat.format(date);
-            System.out.println("help " + log.getTitle() + " " + log.getFullPosterPath());
+            System.out.println("help " + log.getTitle() + " " + log.getFullPosterPathInfo());
             //int fakeType = 12345;
             boolean fakeType = false;
-            PlaylistMovieInfoObject testMovie = new PlaylistMovieInfoObject(fakeType, log.getID(),
-                    log.getTitle(), log.getReleaseDate(), log.getSummary(), log.getRating(),
-                    log.getGenreIDs(), log.getFullPosterPath(), log.getFullBackdropPath(), log.isAdult(), string);
+            PlaylistMovieInfoObject testMovie = new PlaylistMovieInfoObject(fakeType, log.getId(), log.getTitle(), log.getReleaseDateInfo(), log.getSummaryInfo(), log.getRatingInfo(), log.getGenreIDInfo(), log.getFullPosterPathInfo(), log.getFullBackdropPathInfo(), log.isIsadultContent(), string);
             convertMovies.add(testMovie);
         }
         return convertMovies;

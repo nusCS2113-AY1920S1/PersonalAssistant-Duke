@@ -3,6 +3,7 @@ package entertainment.pro.model;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class PlaylistMovieInfoObject extends MovieInfoObject {
@@ -11,7 +12,7 @@ public class PlaylistMovieInfoObject extends MovieInfoObject {
     /**
      * Construct info about a movie/tv show.
      *
-     * @param id           id stored in the api.
+     * @param ID           id stored in the api.
      * @param title        Title of the movie/tv show.
      * @param date         Release date of the movie/tv show.
      * @param summary      Plot summary of the movie/tv show.
@@ -20,12 +21,11 @@ public class PlaylistMovieInfoObject extends MovieInfoObject {
      * @param posterPath   Filepath of the movie/tv show poster.
      * @param backdropPath Filepath of the movie/tv show backdrop poster.
      */
-    public PlaylistMovieInfoObject(boolean isMovie, long id, String title, Date date, String summary, double rating,
-                                   long[] genreIDs, String posterPath, String backdropPath, boolean isAdult,
-                                   String stringDate) {
-        super(isMovie, id, title, date, summary, rating, genreIDs, posterPath, backdropPath, isAdult);
+
+    public PlaylistMovieInfoObject(boolean isMovie, long ID, String title, Date date, String summary, double rating, ArrayList<Long> genreIDs, String posterPath, String backdropPath, boolean isAdult, String stringDate) {
+        super(ID, title, isMovie, date, summary, posterPath, backdropPath, rating, genreIDs, isAdult);
         this.stringDate = stringDate;
-        if (super.getReleaseDate() == null) {
+        if (super.getReleaseDateInfo() == null) {
             convertStringToDate();
         }
         if (stringDate == null) {
@@ -34,7 +34,7 @@ public class PlaylistMovieInfoObject extends MovieInfoObject {
     }
 
     public PlaylistMovieInfoObject(boolean isMovie, long id, String title, String stringDate) {
-        super(isMovie, id, title);
+        super(id, title, isMovie);
         this.stringDate = stringDate;
     }
 
@@ -49,7 +49,7 @@ public class PlaylistMovieInfoObject extends MovieInfoObject {
 
     private void convertStringToDate() {
         try {
-            super.setMovieReleaseDate(new SimpleDateFormat("yyyy-MM-dd").parse(stringDate));
+            super.setReleaseDateInfo(new SimpleDateFormat("yyyy-MM-dd").parse(stringDate));
         } catch (ParseException e) {
             System.out.println("cant convert date");
         }
@@ -57,7 +57,7 @@ public class PlaylistMovieInfoObject extends MovieInfoObject {
 
     private void convertDateToString() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        stringDate = dateFormat.format(super.getReleaseDate());
+        stringDate = dateFormat.format(super.getReleaseDateInfo());
     }
 
     @Override
@@ -66,7 +66,7 @@ public class PlaylistMovieInfoObject extends MovieInfoObject {
             return true;
         }
         PlaylistMovieInfoObject playlistMovieInfoObject = (PlaylistMovieInfoObject) object;
-        if (playlistMovieInfoObject.getID() == super.getID()) {
+        if (playlistMovieInfoObject.getId() == super.getId()) {
             return true;
         }
         return false;

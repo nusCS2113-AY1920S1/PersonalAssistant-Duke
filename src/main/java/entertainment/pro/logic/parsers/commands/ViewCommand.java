@@ -25,26 +25,20 @@ public class ViewCommand extends CommandSuper {
     @Override
     public void executeCommands() throws Exceptions {
         switch (this.getSubRootCommand()) {
-        case watchlist:
-            WatchlistHandler.print_list((MovieHandler) (this.getUiController()));
-            break;
-        case blacklist:
-            ((MovieHandler) this.getUiController()).setFeedbackText(Blacklist.printList());
-            break;
-        case movies:
-            executeMovieCommands();
-            break;
-        case tv:
-            executeTvCommands();
-            break;
-        case back:
-            executeBackCommands();
-            break;
-        case entry:
-            executeEntryCommands(Integer.parseInt(getPayload()));
-            break;
-        default:
-            break;
+            case watchlist:
+                WatchlistHandler.print_list((MovieHandler) (this.getUiController()));
+                break;
+            case blacklist:
+                ((MovieHandler) this.getUiController()).setFeedbackText(Blacklist.printList());
+                break;
+            case back:
+                executeBackCommands();
+                break;
+            case entry:
+                executeEntryCommands(Integer.parseInt(getPayload()));
+                break;
+            default:
+                break;
         }
     }
 
@@ -66,7 +60,7 @@ public class ViewCommand extends CommandSuper {
     private void executeBackCommands() throws Exceptions {
         PastCommandStructure pastCommandStructure =
                 ((MovieHandler) this.getUiController()).getPastCommands().getMap().get(
-                ((MovieHandler) this.getUiController()).getPastCommands().getMap().size() - 2);
+                        ((MovieHandler) this.getUiController()).getPastCommands().getMap().size() - 2);
         String command = pastCommandStructure.getQuery();
         String[] getStrips = command.split(" ");
         System.out.println("this is past command " + command);
@@ -144,3 +138,4 @@ public class ViewCommand extends CommandSuper {
         }
     }
 }
+
