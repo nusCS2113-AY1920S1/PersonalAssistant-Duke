@@ -97,6 +97,7 @@ public class AddCommand extends Command {
             System.out.println(MESSAGE_SUCCESS_ADD_CONTACT);
             System.out.println(contact.toString());
         }
+        //@@author A0171206R
         if (loan != null) {
             wallet.getLoanList().addLoan(loan);
             wallet.getRecordList().addRecord(loan);
@@ -106,7 +107,7 @@ public class AddCommand extends Command {
             Ui.printLoanRow(loan);
             Ui.printLoanTableClose();
         }
-
+        //@@author
         return false;
     }
 }

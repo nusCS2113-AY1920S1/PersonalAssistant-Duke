@@ -14,29 +14,57 @@ import java.util.List;
 public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
+    public static final String MESSAGE_ERROR_WRITING_CSV = "Error in writing to csv!";
+    public static final String MESSAGE_SUCCESS_WRITING_CSV = "Export success! File saved to -> ";
     private List<String[]> data;
+    private String type;
 
-    public ExportCommand(List<String[]> data) {
+    /**
+     * Constructs the EditCommand object with data and type.
+     *
+     * @param data Processed Data from memory store.
+     * @param type type of data.
+     */
+    public ExportCommand(List<String[]> data, String type) {
         this.data = data;
+        this.type = type;
     }
 
+    /**
+     * Exports data into home folder.
+     *
+     * @param wallet The Wallet Object.
+     * @return false.
+     */
     @Override
     public boolean execute(Wallet wallet) {
-        File loanCsv;
-        FileWriter output;
+
         try {
             File current = new File(ExportCommand.class.getProtectionDomain().getCodeSource().getLocation()
                     .toURI().getPath());
-            loanCsv = new File(current.getParentFile().getPath(), "exportedLoans.csv");
-            output = new FileWriter(loanCsv);
-            CSVWriter writer = new CSVWriter(output);
-            writer.writeAll(data);
-            writer.close();
-            System.out.println("Export success! File saved to -> " + loanCsv);
+            File csv = null;
+            FileWriter output;
+            if ("expenses".equals(type)) {
+                csv = new File(current.getParentFile().getPath(), "exportedExpenses.csv");
+            } else if ("loans".equals(type)) {
+                csv = new File(current.getParentFile().getPath(), "exportedLoans.csv");
+            }
+
+            if (csv != null) {
+                output = new FileWriter(csv);
+                CSVWriter writer = new CSVWriter(output);
+                writer.writeAll(data);
+                writer.close();
+                output.close();
+                System.out.println(MESSAGE_SUCCESS_WRITING_CSV + csv);
+            } else {
+                System.out.println(MESSAGE_ERROR_WRITING_CSV);
+            }
+
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            System.out.println(MESSAGE_ERROR_WRITING_CSV);
         } catch (IOException e) {
-            System.out.println("Error in writing to csv!");
+            System.out.println(MESSAGE_ERROR_WRITING_CSV);
         }
 
 

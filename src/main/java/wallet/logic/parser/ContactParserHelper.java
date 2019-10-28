@@ -20,7 +20,7 @@ public class ContactParserHelper {
         for (String s : toJoin) {
             result += s + " ";
         }
-        return result;
+        return result.trim();
     }
 
     /**
@@ -76,17 +76,17 @@ public class ContactParserHelper {
         }
 
         name = concatList(nameList);
-        if (name.trim().isEmpty()) {
+        if (name.isEmpty()) {
             return null;
         }
 
         details = concatList(detailsList);
-        if (details.trim().isEmpty()) {
+        if (details.isEmpty()) {
             details = null;
         }
 
         phone = concatList(phoneList);
-        if (phone.trim().isEmpty()) {
+        if (phone.isEmpty()) {
             phone = null;
         }
 
@@ -138,25 +138,25 @@ public class ContactParserHelper {
         }
 
         name = concatList(nameList);
-        if (name.trim().isEmpty()) {
+        if (name.isEmpty()) {
             name = null;
         }
 
-        if (detailsIndex != -1) {
+        if (detailsIndex >= 0) {
             details = concatList(detailsList);
-            if (details.trim().isEmpty()) {
+            if (details.isEmpty()) {
                 details = "";
             }
         }
 
-        if (phoneIndex != -1) {
+        if (phoneIndex >= 0) {
             phone = concatList(phoneList);
-            if (phone.trim().isEmpty()) {
+            if (phone.isEmpty()) {
                 phone = "";
             }
         }
 
-        if (nameIndex == -1 && phoneIndex == -1 && detailsIndex == -1) {
+        if (nameIndex < 0 && phoneIndex < 0 && detailsIndex < 0) {
             return null;
         }
 

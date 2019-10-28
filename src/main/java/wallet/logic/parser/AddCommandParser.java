@@ -14,6 +14,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class AddCommandParser implements Parser<AddCommand> {
+
+    public static final String MESSAGE_ERROR_ADD_CONTACT = "Error in input format when adding contact.";
+
     /**
      * Returns an AddCommand object.
      *
@@ -113,18 +116,20 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ArrayIndexOutOfBoundsException Out of index.
      * @throws ParseException                 ParseException.
      */
-    private Loan parseLoan(String input) throws ArrayIndexOutOfBoundsException, ParseException {
+    Loan parseLoan(String input) throws ArrayIndexOutOfBoundsException, ParseException {
+        //@@author A0171206R
         Loan loan = null;
         Boolean isLend = false;
 
-        String[] info = input.split(" ", 4);
-        String description = info[0];
-        double amount = Double.parseDouble(info[1].replace("$", ""));
+        String[] info = input.split("\\$", 2);
+        String description = info[0].trim();
+        info = info[1].split(" ", 4);
+        double amount = Double.parseDouble(info[0].trim());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate createdDate = LocalDate.parse(info[2].trim(), formatter);
+        LocalDate createdDate = LocalDate.parse(info[1].trim(), formatter);
 
         info = info[3].split("/c ");
-        int contactId = Integer.parseInt(info[1]);
+        int contactId = Integer.parseInt(info[1].trim());
 
         if (input.contains("/l")) {
             isLend = true;
@@ -132,11 +137,14 @@ public class AddCommandParser implements Parser<AddCommand> {
             isLend = false;
         }
 
-        ArrayList<Contact> contactList = LogicManager.getWallet().getContactList().getContactList();
-        int index = LogicManager.getWallet().getContactList().findIndexWithId(contactId);
+        ArrayList<Contact> contactList = LogicManager.getWalletList().getWalletList()
+                .get(LogicManager.getWalletList().getState()).getContactList().getContactList();
+        int index = LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState())
+                .getContactList().findIndexWithId(contactId);
         Contact person = new ContactList(contactList).getContact(index);
         loan = new Loan(description, createdDate, amount, isLend, false, person);
         return loan;
+        //@@author
     }
 
     /**
@@ -146,12 +154,13 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @return The Contact object.
      * @throws ArrayIndexOutOfBoundsException Out of index.
      */
-    private Contact parseContact(String input) throws ArrayIndexOutOfBoundsException {
+    public Contact parseContact(String input) throws ArrayIndexOutOfBoundsException {
         //@@author Xdecosee
         String[] info = input.split(" ");
         ContactParserHelper contactHelper = new ContactParserHelper();
         Contact contact = contactHelper.newInput(info);
         if (contact == null) {
+            System.out.println(MESSAGE_ERROR_ADD_CONTACT);
             return null;
         } else {
             return contact;

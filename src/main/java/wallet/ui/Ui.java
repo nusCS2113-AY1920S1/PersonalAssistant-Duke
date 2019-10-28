@@ -1,12 +1,12 @@
 package wallet.ui;
 
 import wallet.logic.LogicManager;
+import wallet.logic.command.ListCommand;
 import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.thread.ChartThread;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -24,6 +24,7 @@ public class Ui {
     }
 
     //@@author matthewng1996
+
     /**
      * Prints the welcome message of the program.
      */
@@ -42,6 +43,7 @@ public class Ui {
     }
 
     //@@author
+
     /**
      * Prints the goodbye message when the user exits the program.
      */
@@ -66,6 +68,7 @@ public class Ui {
     }
 
     //@@author kyang96
+
     /**
      * Displays the expense list in table format.
      */
@@ -116,20 +119,21 @@ public class Ui {
     }
 
     //@@author matthewng1996
-    public void drawPieChart() {
-        ChartThread chartThread = new ChartThread();
+    public void drawPieChart(ArrayList<Expense> expenseList) {
+        ChartThread chartThread = new ChartThread(expenseList);
         System.out.println("Please wait while we draw the pie chart...");
     }
 
     //@@author Xdecosee
+
     /**
      * Displays the contact list in table format.
      */
-    public static void printContactTable() {
-        ArrayList<Contact> contactListCopy = LogicManager.getWallet().getContactList().getContactList();
+    public static void printContactTable(ArrayList<Contact> contactList) {
+        ArrayList<Contact> contactListCopy = contactList;
         String dash = "-";
-        String lineBreak = dash.repeat(100);
-        String headerBreak = dash.repeat(98);
+        String lineBreak = new String(new char[100]).replace("\0", dash);
+        String headerBreak = new String(new char[98]).replace("\0", dash);
         System.out.println(lineBreak);
         System.out.printf("| %-4s | %-20s | %-20s | %-43s |\n", "ID", "Name", "Phone", "Detail");
         System.out.println("|" + headerBreak + "|");
@@ -157,18 +161,21 @@ public class Ui {
      * Displays the loan list in table format.
      */
     public static void printLoanTable(ArrayList<Loan> loanList) {
-        System.out.println("Here are the loans in your list:");
+        //@@author A0171206R
+        System.out.println(ListCommand.MESSAGE_LIST_LOANS);
         printLoanTableHeaders();
         for (Loan loan : loanList) {
             printLoanRow(loan);
         }
         printLoanTableClose();
+        //@@author
     }
 
     /**
      * Default headers for Loan table.
      */
     public static void printLoanTableHeaders() {
+        //@@author A0171206R
         System.out.println("--------------------------------------------------------"
                 + "-------------------------------------------------------"
                 + "-------------------------------------\n"
@@ -177,6 +184,7 @@ public class Ui {
                 + "|-----------------------------------------------------"
                 + "---------------------------------------------------------"
                 + "------------------------------------|");
+        //@@author
     }
 
     /**
@@ -185,6 +193,7 @@ public class Ui {
      * @param loan The Loan object.
      */
     public static void printLoanRow(Loan loan) {
+        //@@author A0171206R
         if (!loan.getIsLend() && !loan.getIsSettled()) {
             System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
                     loan.getId(), "No", loan.getDescription(), loan.getAmount(), loan.getDate(), "Borrow from",
@@ -202,14 +211,17 @@ public class Ui {
                     loan.getId(), "Yes", loan.getDescription(), loan.getAmount(), loan.getDate(), "Lend to",
                     loan.getPerson().getName(), loan.getPerson().getPhoneNum());
         }
+        //@@author
     }
 
     /**
      * Prints line to close of the Loans table.
      */
     public static void printLoanTableClose() {
+        //@@author A0171206R
         System.out.println("----------------------------------------"
                 + "---------------------------------------------------"
                 + "--------------------------------------------------------");
+        //@@author
     }
 }

@@ -2,11 +2,16 @@ package wallet.logic.command;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import wallet.logic.LogicManager;
 import wallet.model.Wallet;
+import wallet.model.WalletList;
+import wallet.model.contact.Contact;
 import wallet.model.record.Category;
 import wallet.model.record.Expense;
+import wallet.model.record.Loan;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -14,14 +19,31 @@ public class DeleteCommandTest {
     //@@author kyang96
     private static Wallet testWallet = new Wallet();
 
+    /**
+     * setUp() method to make dummy objects for testing delete logic.
+     */
     @BeforeAll
     public static void setUp() {
+        WalletList dummyWalletList = new WalletList();
         testWallet.getExpenseList().addExpense(new Expense("Lunch", LocalDate.now(), 3, Category.FOOD, false, null));
         testWallet.getExpenseList().addExpense(new Expense("Dinner", LocalDate.now(), 5, Category.FOOD, false, null));
+        Contact person1 = new Contact("Mary", "Friend", "1234 5678");
+        Contact person2 = new Contact("Jane", "Girlfriend", "8765 4321");
+        testWallet.getContactList().addContact(person1);
+        testWallet.getContactList().addContact(person2);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate createdDate = LocalDate.parse("24/10/2019", formatter);
+        Loan loan1 = new Loan("lunch", createdDate, 10.0, false, false, person1);
+        Loan loan2 = new Loan("dinner", createdDate, 10.0, true, false, person2);
+        testWallet.getLoanList().addLoan(loan1);
+        testWallet.getLoanList().addLoan(loan2);
+
+        dummyWalletList.getWalletList().add(testWallet);
+        LogicManager.setWalletList(dummyWalletList);
     }
 
     @Test
-    public void execute_validId_success() {
+    public void execute_expense_validId_success() {
         DeleteCommand command = new DeleteCommand("expense", 1);
         command.execute(testWallet);
         Expense e = testWallet.getExpenseList().findExpenseWithId(1);
@@ -31,9 +53,21 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidId_error() {
+    public void execute_expense_invalidId_error() {
         DeleteCommand command = new DeleteCommand("expense", 4);
         command.execute(testWallet);
         assertEquals(2, testWallet.getExpenseList().getSize());
     }
+    //@@author
+
+    //@@author A0171206R
+    @Test
+    public void execute_loan_validId_success() {
+        DeleteCommand command = new DeleteCommand("loan", 1);
+        command.execute(testWallet);
+        Loan l = testWallet.getLoanList().findLoanWithId(1);
+        assertEquals(null, l);
+        assertEquals(1, testWallet.getLoanList().getSize());
+    }
+    //@@author
 }

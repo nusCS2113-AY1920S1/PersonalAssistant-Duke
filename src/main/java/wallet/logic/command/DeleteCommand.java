@@ -57,8 +57,8 @@ public class DeleteCommand extends Command {
             }
             break;
         //@@author
-
         case "loan":
+            //@@author A0171206R
             Loan loan = wallet.getLoanList().deleteLoan(id);
             if (loan != null) {
                 wallet.getLoanList().setModified(true);
@@ -66,7 +66,8 @@ public class DeleteCommand extends Command {
                 Ui.printLoanTableHeaders();
                 Ui.printLoanRow(loan);
                 Ui.printLoanTableClose();
-                if (!LogicManager.getWallet().getLoanList().checkUnsettledLoan()) {
+                if (!LogicManager.getWalletList().getWalletList().get(LogicManager.getWalletList().getState())
+                        .getLoanList().checkUnsettledLoan()) {
                     LogicManager.getReminder().autoRemindStop();
                     System.out.println("Turning off auto reminders because all loans have been settled!");
                 }
@@ -74,9 +75,9 @@ public class DeleteCommand extends Command {
                 System.out.println(MESSAGE_ERROR_DELETE_LOAN);
             }
             break;
+            //@@author
 
         case "contact":
-
             //@@author Xdecosee
             Contact contact = wallet.getContactList().deleteContact(id);
             if (contact != null) {

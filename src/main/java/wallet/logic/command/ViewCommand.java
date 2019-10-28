@@ -2,6 +2,7 @@
 
 package wallet.logic.command;
 
+import wallet.logic.LogicManager;
 import wallet.model.Wallet;
 import wallet.model.record.Budget;
 import wallet.model.record.Category;
@@ -30,10 +31,7 @@ public class ViewCommand extends Command {
     @Override
     public boolean execute(Wallet wallet) {
         Ui ui = new Ui();
-        if (type[0].equals("pie")) {
-            ui.drawPieChart();
-            return false;
-        } else if (type.length == 2) {
+        if (type.length == 2) {
             String[] monthYear = type[1].split("/", 2);
             int month = Integer.parseInt(monthYear[0].trim());
             int year = Integer.parseInt(monthYear[1].trim());
@@ -60,7 +58,18 @@ public class ViewCommand extends Command {
                     }
                 }
                 //@@author
+                ArrayList<Expense> expenseList = new ArrayList<Expense>();
+                for (Expense e : LogicManager.getWallet().getExpenseList().getExpenseList()) {
+                    if (e.getDate().getMonthValue() == month && e.getDate().getYear() == year) {
+                        expenseList.add(e);
+                    }
+                }
+                ui.drawPieChart(expenseList);
             }
+        } else if (type.length == 1 && type[0].equals("stats")) {
+            ArrayList<Expense> expenseList = wallet.getExpenseList().getExpenseList();
+            ui.drawPieChart(expenseList);
+            return false;
         } else {
             System.out.println(MESSAGE_USAGE);
         }
