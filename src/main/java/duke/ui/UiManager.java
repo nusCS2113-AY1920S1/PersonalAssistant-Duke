@@ -2,6 +2,7 @@ package duke.ui;
 
 import duke.DukeCore;
 import duke.ui.card.UiCard;
+import duke.ui.window.MainWindow;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
@@ -51,6 +52,9 @@ public class UiManager implements Ui {
         mainWindow.print(displayMessage);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<UiCard> getCardList() {
         return mainWindow.getCardList();

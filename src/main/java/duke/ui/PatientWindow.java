@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * UI window for the Patient context.
  */
-class PatientWindow extends UiElement<Region> {
+public class PatientWindow extends UiElement<Region> {
     private static final String FXML = "PatientWindow.fxml";
 
     @FXML
@@ -43,7 +43,7 @@ class PatientWindow extends UiElement<Region> {
     /**
      * Constructs the patient UI window.
      */
-    PatientWindow(Patient patient) {
+    public PatientWindow(Patient patient) {
         super(FXML, null);
 
         this.patient = patient;

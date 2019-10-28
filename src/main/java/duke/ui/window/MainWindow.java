@@ -1,4 +1,4 @@
-package duke.ui;
+package duke.ui.window;
 
 import duke.DukeCore;
 import duke.command.Executor;
@@ -6,8 +6,13 @@ import duke.command.Parser;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.PatientMap;
+import duke.ui.CommandWindow;
+import duke.ui.Context;
+import duke.ui.ImpressionWindow;
+import duke.ui.PatientWindow;
+import duke.ui.UiContext;
+import duke.ui.UiElement;
 import duke.ui.card.UiCard;
-import duke.ui.window.HomeWindow;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -20,7 +25,7 @@ import java.util.List;
  * Main UI window of the application.
  * Acts as a container for child UI elements.
  */
-class MainWindow extends UiElement<Stage> {
+public class MainWindow extends UiElement<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     @FXML
@@ -48,7 +53,7 @@ class MainWindow extends UiElement<Stage> {
      * @param primaryStage Main stage of the application.
      * @param core         Core of Dr. Duke.
      */
-    MainWindow(Stage primaryStage, DukeCore core) {
+    public MainWindow(Stage primaryStage, DukeCore core) {
         super(FXML, primaryStage);
 
         this.primaryStage = primaryStage;
@@ -109,21 +114,27 @@ class MainWindow extends UiElement<Stage> {
     /**
      * Shows the main UI window.
      */
-    void show() {
+    public void show() {
         primaryStage.show();
     }
 
     /**
      * {@inheritDoc}
      */
-    void print(String message) {
+    public void print(String message) {
         commandWindow.print(message);
     }
 
-    Stage getPrimaryStage() {
+    public Stage getPrimaryStage() {
         return primaryStage;
     }
 
+
+    /**
+     * Retrieves list of UI cards in current {@code UiContext}.
+     *
+     * @return List of UI cards.
+     */
     public List<UiCard> getCardList() {
         switch (uiContext.getContext()) {
         case HOME:
@@ -133,6 +144,8 @@ class MainWindow extends UiElement<Stage> {
         case TREATMENT:
         case IMPRESSION:
         case INVESTIGATION:
+            break;
+        default:
             break;
         }
 

@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * UI window for the Patient context.
  */
-class ImpressionWindow extends UiElement<Region> {
+public class ImpressionWindow extends UiElement<Region> {
     private static final String FXML = "ImpressionWindow.fxml";
 
     @FXML
@@ -55,7 +55,7 @@ class ImpressionWindow extends UiElement<Region> {
     /**
      * Constructs the patient UI window.
      */
-    ImpressionWindow(Impression impression, Patient patient) {
+    public ImpressionWindow(Impression impression, Patient patient) {
         super(FXML, null);
         if (impression != null && patient != null) {
             this.patient = patient;
@@ -64,6 +64,12 @@ class ImpressionWindow extends UiElement<Region> {
         }
     }
 
+    /**
+     * Set impressions for {@code patient}.
+     *
+     * @param impression Impression object.
+     * @param patient Patient object.
+     */
     public void setImpression(Impression impression, Patient patient) {
         assert (patient.getName().equals(impression.getParent().getName()));
 
