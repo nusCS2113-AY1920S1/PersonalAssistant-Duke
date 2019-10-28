@@ -24,44 +24,24 @@ public class ImpressionMoveCommand extends ImpressionCommand {
     public void execute(DukeCore core) throws DukeException {
         // TODO: query user for correct impression if no impression is given
         Impression impression = getImpression(core);
-        String newImpressionName = getSwitchVal("impression");
+        String targetImpressionName = getSwitchVal("impression");
         Impression newImpression;
-        if ("".equals(newImpressionName)) {
+        if ("".equals(targetImpressionName)) {
             // ask user to pick
             newImpression = null;
         } else {
             // TODO: proper search
             List<Impression> newImpressionList = ((Patient) impression.getParent())
-                    .findImpressionsByName(newImpressionName);
+                    .findImpressionsByName(targetImpressionName);
             if (newImpressionList.size() == 0) {
                 throw new DukeException("Can't find an impression with that name!");
             }
             newImpression = newImpressionList.get(0);
         }
 
-        String evArg = getSwitchVal("evidence");
-        String treatArg = getSwitchVal("treatment");
-        DukeData moveData;
-        DukeException dataNotFound;
-        List<DukeData> moveList;
-        if (getArg() != null && evArg == null && treatArg == null) {
-            moveList = new ArrayList<DukeData>(impression.findByName(getArg()));
-            dataNotFound = new DukeException("Can't find any data item with that name!");
-        } else if (getArg() == null && evArg != null && treatArg == null) {
-            moveList = new ArrayList<DukeData>(impression.findEvidencesByName(evArg));
-            dataNotFound = new DukeException("Can't find any evidences with that name!");
-        } else if (getArg() == null && evArg == null && treatArg != null) {
-            moveList = new ArrayList<DukeData>(impression.findTreatmentsByName(treatArg));
-            dataNotFound = new DukeException("Can't find any treatments with that name!");
-        } else {
-            throw new DukeHelpException("I don't know what you want me to look for!", this);
-        }
+        DukeData moveData = findDataByName(getArg(), getSwitchVal("evidence"),
+                getSwitchVal("treatment"), getImpression(core));
 
-        if (moveList.size() != 0) {
-            moveData = moveList.get(0);
-        } else {
-            throw dataNotFound;
-        }
         moveData.setParent(newImpression);
         if (moveData instanceof Evidence) {
             Evidence evidence = (Evidence) moveData;
@@ -72,5 +52,8 @@ public class ImpressionMoveCommand extends ImpressionCommand {
             newImpression.addNewTreatment(treatment);
             impression.deleteTreatment(treatment.getName());
         }
+
+        core.ui.print("'" + moveData.getName() + "' moved from '" + impression.getName() + "' to '"
+                + newImpression.getName() + "'");
     }
 }
