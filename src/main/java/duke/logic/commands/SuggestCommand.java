@@ -1,10 +1,13 @@
 package duke.logic.commands;
 
 import duke.logic.suggestion.MealSuggestionAnalytics;
+import duke.model.meal.Meal;
 import duke.model.meal.MealList;
 import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -14,6 +17,9 @@ import java.util.Calendar;
 public class SuggestCommand extends Command {
 
     private int maxMealsToSuggest;
+    private MealSuggestionAnalytics mealSuggestionAnalytics;
+    private AddCommand addCommand;
+    private ArrayList<Meal> suggestedMealList;
 
     // TODO: Support for meal types (eg: lunch, dinner) from user so that only relevant meals suggested.
 
@@ -24,6 +30,7 @@ public class SuggestCommand extends Command {
      */
     public SuggestCommand(Calendar suggestionDate, int maxMealsToSuggest) {
         this.calendarDate = suggestionDate;
+        this.currentDateStr = dateFormat.format(this.calendarDate.getTime());
         this.maxMealsToSuggest = maxMealsToSuggest;
     }
 
@@ -40,13 +47,43 @@ public class SuggestCommand extends Command {
               user, the date provided and the user meal parameters provided to get the best meal
               suggestion.
         */
-        // Allow followup user action after meals are suggested.
-        // isDone = false;
-        MealSuggestionAnalytics mealSuggestionAnalytics = new MealSuggestionAnalytics();
+
+        mealSuggestionAnalytics = new MealSuggestionAnalytics();
+
+        // TODO: Load meal list from default food items resource in storage.
+        suggestedMealList = mealSuggestionAnalytics.getMealSuggestions(meals.getMealsList(currentDateStr),
+                meals, calendarDate, maxMealsToSuggest);
+
+        if (suggestedMealList.size() > 0) {
+            ui.showSuggestedMealList(suggestedMealList, currentDateStr);
+            // Allow followup user action after meals are suggested.
+            isDone = false;
+        } else {
+            ui.showMessage("No meals could be suggested by DIYeats");
+            isDone = true;
+        }
+
     }
 
     @Override
     public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
+        int mealSelectedIndex;
+        try {
+            mealSelectedIndex = Integer.parseInt(this.responseStr);
+        } catch (NumberFormatException e) {
+            ui.showMessage("Could not parse " + responseStr + " as a number. Please input an integer.");
+            return;
+        }
 
+        if (1 > mealSelectedIndex || mealSelectedIndex > suggestedMealList.size()) {
+            ui.showMessage("Index out of bounds. Please enter index (inclusive)" +
+                    " between 1 and " + suggestedMealList.size());
+            return;
+        }
+
+        Meal chosenMeal = suggestedMealList.get(mealSelectedIndex + 1);
+        // TODO: Fix cost of meal
+        addCommand = new AddCommand(chosenMeal, 0);
+        addCommand.execute(meals, storage, user, wallet);
     }
 }

@@ -54,7 +54,7 @@ public class FindCommand extends Command {
                 matchingMeals.add(element);
             }
         }
-        ui.showList(matchingMeals);
+        ui.showMealList(matchingMeals);
         ui.showLine();
     }
 

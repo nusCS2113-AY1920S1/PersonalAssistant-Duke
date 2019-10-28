@@ -36,14 +36,28 @@ public class Ui {
         System.out.println(boundary);
     }
 
-    public void showList(ArrayList<Meal> meals)  {
+    public void showList(ArrayList<Meal> meals, String messageStr) {
         showPadding();
-        System.out.println("Here are the meals in your list: ");
+        System.out.println(messageStr);
         for (int i = 1; i <= meals.size(); i++) {
             Meal currentMeal = meals.get(i - 1);
             showPadding();
             System.out.println(i + ". " + currentMeal);
         }
+    }
+
+    public void showMealList(ArrayList<Meal> meals)  {
+        String messageStr = "Here are the meals in your list: ";
+        showList(meals, messageStr);
+    }
+
+    public void showSuggestedMealList(ArrayList<Meal> meals, String dateStr) {
+        String messageStr = "Here are the suggested meals for " + dateStr;
+        showList(meals, messageStr);
+        showLine();
+        showMessage("Please select which meal you would like by providing " +
+                "index of meal item in the list above. Enter 0 to decline suggestions.");
+
     }
 
     public void showDone(Meal currentMeal, ArrayList<Meal> meals) {

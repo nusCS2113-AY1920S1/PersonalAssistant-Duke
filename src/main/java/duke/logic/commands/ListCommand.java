@@ -55,7 +55,7 @@ public class ListCommand extends Command {
         if (!meals.checkDate(currentDateStr)) {
             ui.showMessage("There isn't any food on " + currentDateStr);
         }
-        ui.showList(currentMeals);
+        ui.showMealList(currentMeals);
         ui.showCaloriesLeft(currentMeals, user, currentDateStr);
         //ui.showRemainingCalorie(currentMeals, user, tasks.caloriesAvgToGoal());
         ui.showLine();
