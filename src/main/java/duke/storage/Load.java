@@ -53,10 +53,9 @@ public class Load {
     public void loadTransactions(TransactionList transactions, Wallet wallet) throws DukeException {
         String transactionFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_TRANSACTION_FILE);
         bufferedReader = FileUtil.readFile(transactionFilePathStr, useResourceAsBackup);
-
         try {
             lineStr = bufferedReader.readLine();
-            wallet.setAccountBalance(Integer.parseInt(lineStr));
+            wallet.setAccountBalance(lineStr);
             while ((lineStr = bufferedReader.readLine()) != null) {
                 LoadLineParser.parseTransactions(transactions, lineStr, wallet);
             }

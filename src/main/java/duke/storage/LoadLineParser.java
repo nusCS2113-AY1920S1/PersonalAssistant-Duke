@@ -72,7 +72,6 @@ public class LoadLineParser {
             LoadTransactionUtil.load(wallet.getTransactions(), newTransaction);
         } else if (transactionType.equals("DEP")) {
             newTransaction = new Deposit(transactionAmount, transactionDate);
-            wallet.updateAccountBalance(newTransaction);
             LoadTransactionUtil.load(wallet.getTransactions(), newTransaction);
         }
     }

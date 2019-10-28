@@ -30,7 +30,7 @@ public class TransactionList {
     public void addTransaction(Transaction transaction) {
         String dateStr = transaction.getDate();
         if (!transactionTracker.containsKey(dateStr)) {
-            transactionTracker.put(dateStr, new ArrayList<Transaction>());
+            transactionTracker.put(dateStr, new ArrayList<>());
         }
         transactionTracker.get(dateStr).add(transaction);
     }

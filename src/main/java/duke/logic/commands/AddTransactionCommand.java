@@ -41,11 +41,11 @@ public class AddTransactionCommand extends Command {
      * @param user the object that handles all user data
      * @param wallet the wallet object that stores transaction information
      */
-
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
         wallet.getTransactions().addTransaction(this.transaction);
+        wallet.updateAccountBalance(this.transaction);
         ui.showTransactionAdded(this.transaction, wallet.getAccountBalance());
         ui.showLine();
     }
