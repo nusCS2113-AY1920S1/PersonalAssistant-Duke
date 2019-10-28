@@ -29,7 +29,7 @@ public class CommandGameLoad extends Command {
             ui.typeWriter("Load Game Success!", true);
         } catch (FarmioException e) {
             if(farmio.getStage() == Farmio.Stage.MENU_START){
-                farmio.getSimulation().simulate("GameNew", 0);
+                farmio.getSimulation().simulate("GameNew", 0, true);
                 ui.showWarning(e.getMessage());
                 ui.showInfo("Starting a new game.");
             }else {

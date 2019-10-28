@@ -81,6 +81,9 @@ public class Storage {
     }
 
     public boolean storeFarmerPartial(Farmer farmer) {
+        if(jsonFarmer == null){
+            return false;
+        }
         FileWriter file;
         try {
             file = new FileWriter(appDir.concat(jsonName));
