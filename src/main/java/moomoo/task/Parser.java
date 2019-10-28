@@ -75,8 +75,8 @@ public class Parser {
             String month;
             try {
                 month = scanner.next();
-                if (0 < Integer.valueOf(month) && Integer.valueOf(month) < 13) {
-                    return new GraphCategoryCommand(input, Integer.valueOf(month));
+                if (0 < Integer.parseInt(month) && Integer.parseInt(month) < 13) {
+                    return new GraphCategoryCommand(input, Integer.parseInt(month));
                 } else {
                     throw new MooMooException("Month must be from 1 to 12 inclusive!");
                 }
@@ -88,42 +88,52 @@ public class Parser {
     }
     
     private static Command parseList(Scanner scanner, Ui ui) throws MooMooException {
-        String text = "What do you wish to list?" + "\ncategory" + "\nexpenditure";
+        String text = "What do you wish to list?" + "\n(c/) category" + "\n(n/) expenditure";
         String input = parseInput(scanner, ui, text);
-        switch (input) {
-        case ("category"):
+        if (input.equals("c/")) {
             return new ListCategoryCommand();
-        default:
-            throw new MooMooException("Sorry I did not recognize that command.");
         }
+        throw new MooMooException("Sorry I did not recognize that command.");
     }
     
     private static Command parseDelete(Scanner scanner, Ui ui) throws MooMooException {
-        String text = "What do you wish to delete?" + "\ncategory" + "\nexpenditure";
-        String input = parseInput(scanner, ui, "delete");
-        switch (input) {
-        case ("category"):
-            return new DeleteCategoryCommand();
-        default:
-            throw new MooMooException("Sorry I did not recognize that command.");
+        String text = "What do you wish to delete?" + "\n(c/) category" + "\n(n/) expenditure";
+        String input = parseInput(scanner, ui, text);
+        if (input.startsWith("c/")) {
+            String categoryNumber = removeSuffix(input);
+            try {
+                return new DeleteCategoryCommand(Integer.parseInt(categoryNumber));
+            } catch (NumberFormatException e) {
+                throw new MooMooException("Try a command like delete c/[Category Number]");
+            }
         }
+        throw new MooMooException("Sorry I did not recognize that command.");
     }
     
     private static Command parseAdd(Scanner scanner, Ui ui) throws MooMooException {
-        String text = "What do you wish to add?" + "\ncategory" + "\nexpenditure";
+        String text = "What do you wish to add?" + "\n(c/) category" + "\n(n/) expenditure";
         String input = parseInput(scanner, ui, text);
-        switch (input) {
-        case ("category"): return parseAddCategory(scanner, ui);
-        case ("expenditure"): return parseAddExpenditure(ui);
-        default:
-            throw new MooMooException("Sorry I did not recognize that command.");
+        if (input.startsWith("c/")) {
+            String categoryName = removeSuffix(input);
+            if (!categoryName.isBlank()) {
+                return new AddCategoryCommand(categoryName);
+            }
+            throw new MooMooException("Try a command like add c/[Category Number]");
         }
+        if (input.equals("expenditure")) {
+            return parseAddExpenditure(ui);
+        }
+        throw new MooMooException("Sorry I did not recognize that command.");
     }
 
-    private static AddCategoryCommand parseAddCategory(Scanner scanner, Ui ui) {
-        String text = "Please enter a name for your new category.";
-        String input = parseInput(scanner, ui, text);
-        return new AddCategoryCommand(input);
+    private static String removeSuffix(String noSpaceInput) throws MooMooException {
+        String categoryName;
+        try {
+            categoryName = noSpaceInput.substring(2).trim();
+        } catch (NoSuchElementException e) {
+            throw new MooMooException("Please enter a category after the /");
+        }
+        return categoryName;
     }
   
     private static Command parseAddExpenditure(Ui ui) {
@@ -139,7 +149,7 @@ public class Parser {
     private static String parseInput(Scanner scanner, Ui ui, String text) {
         String input;
         try {
-            input = scanner.next();
+            input = scanner.nextLine().trim();
         } catch (NoSuchElementException e) {
             ui.showInputPrompt(text);
             input = ui.readCommand();
@@ -236,7 +246,7 @@ public class Parser {
             if (input.startsWith("c/") && count % 2 == 0) {
                 inputCategory += input.substring(2).toLowerCase();
             } else if (input.startsWith("b/") && count % 2 != 0) {
-                double budget = 0;
+                double budget;
                 try {
                     budget = Double.parseDouble(input.substring(2));
                     if (budget <= 0) {
