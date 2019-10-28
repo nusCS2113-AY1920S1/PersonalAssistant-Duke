@@ -61,6 +61,5 @@ public class ListCommand extends Command {
         }
         ui.showList(currentMeals);
         ui.showCaloriesLeft(currentMeals, user, currentDate);
-        //ui.showRemainingCalorie(currentMeals, user, tasks.caloriesAvgToGoal());
     }
 }

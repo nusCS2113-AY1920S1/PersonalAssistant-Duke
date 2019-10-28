@@ -80,6 +80,7 @@ public class AddGoalCommand extends Command {
     }
 
     private void writeGoalToUser(User user) throws DukeException {
+        goal.setCalorieTarget(user.getDailyCalorie() * goal.durationOfGoal() - user.getCalorieChangeToReachTarget());
         if (user.setGoal(goal, false) == false) {
             ui.queryOverrideExistingGoal();
             if (in.getApproval()) {

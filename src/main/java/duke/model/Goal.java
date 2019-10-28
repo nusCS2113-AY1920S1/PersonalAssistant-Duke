@@ -15,6 +15,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class Goal {
     private String endDate;
     private String startDate;
+    private double originalWeight;
     private double weightTarget;
     private int calorieTarget;
     private int caloriesLeft;
@@ -52,26 +53,35 @@ public class Goal {
         this.lifestyleTarget = level;
     }
 
+    public void setOriginalWeight(double originalWeight) {
+        this.originalWeight = originalWeight;
+    }
+
+    public void setCalorieTarget(int calorieTarget) {
+        this.calorieTarget = calorieTarget;
+    }
+
     public void updateStats (MealList meals) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         LocalDate startDate = LocalDate.parse(this.startDate, formatter);
         LocalDate currentDate = LocalDate.now();
         int totalConsume = 0;
         HashMap<String, ArrayList<Meal>> mealTracker = meals.getMealTracker();
-        for (LocalDate iterator = startDate; iterator.isBefore(currentDate); iterator = iterator.plusDays(1)) {
-            totalConsume += sumCaloriesInADay(mealTracker, iterator);
+        for (LocalDate iterator = startDate; iterator.isBefore(currentDate) || iterator.isEqual(currentDate);
+             iterator = iterator.plusDays(1)) {
+            totalConsume += sumCaloriesInADay(mealTracker, iterator.format(formatter));
         }
         this.caloriesConsumed = totalConsume;
         this.caloriesLeft = this.calorieTarget - totalConsume;
     }
 
-    private int sumCaloriesInADay(HashMap<String, ArrayList<Meal>> mealTracker, LocalDate iterator) {
+    private int sumCaloriesInADay(HashMap<String, ArrayList<Meal>> mealTracker, String iterator) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         int caloriesConsumed = 0;
-        if (mealTracker.containsKey(iterator) == false) {
+        if (!mealTracker.containsKey(iterator)) {
             caloriesConsumed += this.calorieTarget / durationOfGoal();
         } else {
-            ArrayList<Meal> meals = mealTracker.get(iterator.format(formatter));
+            ArrayList<Meal> meals = mealTracker.get(iterator);
             if (meals.size() == 0) {
                 caloriesConsumed += this.calorieTarget / durationOfGoal();
             } else {
@@ -137,6 +147,10 @@ public class Goal {
 
     public int getLifestyleTarget() {
         return this.lifestyleTarget;
+    }
+
+    public double getWeightDifference() {
+        return this.weightTarget - this.originalWeight;
     }
 
     /**

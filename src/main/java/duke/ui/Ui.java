@@ -2,6 +2,7 @@ package duke.ui;
 
 import duke.model.Goal;
 import duke.model.Meal;
+import duke.model.MealList;
 import duke.model.Transaction;
 import duke.model.user.User;
 
@@ -101,7 +102,7 @@ public class Ui {
         System.out.println(UI_PADDING + "Failed to load file.");
     }
 
-    public void showLoadinngTransactionError() {
+    public void showLoadingTransactionError() {
         System.out.println(UI_PADDING + "Failed to load transaction file.");
     }
 
@@ -244,12 +245,12 @@ public class Ui {
 
     private void showStatsWithGoal(User user) {
         System.out.println(UI_PADDING + "These are your user statistics as of today:");
-        System.out.println(UI_PADDING + "Difference between original weight: " + user.getOriginalWeight());
+        System.out.println(UI_PADDING + "Original weight: " + user.getOriginalWeight());
         System.out.println(UI_PADDING + "Current Weight: " + user.getWeight());
         System.out.println(UI_PADDING + "Target Weight: " + user.getWeightTarget());
         System.out.println(UI_PADDING + "Days left to end of diet plan: " + user.getDaysLeftToGoal());
-        System.out.println(UI_PADDING + "Target avg calorie balance: " + user.getTargetCalorieBalance() + " calories");
-        System.out.println(UI_PADDING + "Avg current calorie balance: " + user.getAverageCalorieBalance() + " calories");
+        System.out.println(UI_PADDING + "Avg current calorie balance: "
+                + user.getAverageCalorieBalance() + " calories");
         System.out.println(UI_PADDING + "Avg calorie balance that must be maintained to reach goal: "
                 + user.getCalorieBalance() + " calories");
         showOnTrack(user);

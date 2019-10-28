@@ -154,6 +154,7 @@ public class User {
         if (this.goal != null && override == false) {
             return false;
         } else {
+            goal.setOriginalWeight(originalWeight);
             this.goal = goal;
             return true;
         }
@@ -226,18 +227,6 @@ public class User {
         return goal.daysLeftToGoal();
     }
 
-    public int getCalorieBalance() {
-        return goal.getCaloriesLeft() / goal.daysLeftToGoal();
-    }
-
-    public int getTargetCalorieBalance() {
-        return goal.getCalorieTarget() / goal.durationOfGoal();
-    }
-
-    public int getAverageCalorieBalance() {
-        return goal.getCaloriesConsumed() / goal.daysElapsedSinceStart();
-    }
-
     /**
      * This is a function to obtain all the weight at different date.
      */
@@ -260,17 +249,31 @@ public class User {
         } else {
             calorie = 10 * getWeight() + 6.25 * getHeight() + 5 * getAge() - 161;
         }
-        return (int)( this.factor[this.activityLevel] * calorie);
+        return (int)(this.factor[this.activityLevel] * calorie);
+    }
+
+    public int getCalorieChangeToReachTarget() {
+        return (int) (7700 * (getWeightTarget() - getWeight()));
+    }
+
+    public int getAvgCalorieChangeToReachTarget() {
+        if (getDaysLeftToGoal() == 0) {
+            return 0;
+        } else {
+            return getCalorieChangeToReachTarget() / getDaysLeftToGoal();
+        }
+    }
+
+    public int getCalorieBalance() {
+        return getDailyCalorie() + getAvgCalorieChangeToReachTarget();
+    }
+
+    public int getAverageCalorieBalance() {
+        return goal.getCaloriesConsumed() / (goal.daysElapsedSinceStart() + 1);
     }
 
     public Goal getGoal() {
         return goal;
-    }
-
-    public double getCurrentToTargetWeightDiff() {
-        double targetWeight = this.goal.getWeightTarget();
-        double currentWeight = getWeight();
-        return currentWeight - targetWeight;
     }
 
     public Gender getGender() {

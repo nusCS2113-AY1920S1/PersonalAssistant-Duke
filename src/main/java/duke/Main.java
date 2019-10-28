@@ -51,7 +51,7 @@ public class Main {
             //TODO: Implement in different function
             storage.loadTransactions(transactions, user);
         } catch (DukeException e) {
-            ui.showLoadinngTransactionError();
+            ui.showLoadingTransactionError();
         }
     }
 
@@ -84,7 +84,6 @@ public class Main {
                 c.execute(meals, ui, storage, user, in, transactions);
                 isExit = c.isExit();
             } catch (DukeException e) {
-                ui.showLine();
                 ui.showMessage(e.getMessage());
             } finally {
                 ui.showLine();
