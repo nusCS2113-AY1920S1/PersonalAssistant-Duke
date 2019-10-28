@@ -1,3 +1,5 @@
+//@@author kkeejjuunn
+
 package duke.commands.patient;
 
 import duke.commands.Command;
@@ -38,10 +40,14 @@ public class FindPatientCommand implements Command {
             try {
                 id = Integer.parseInt(command.substring(1, command.length()));
             } catch (Exception e) {
-                throw new DukeException("Please follow the format 'find patient #<id>' or 'find patient <name>'.");
+                throw new DukeException("The patient id is invalid.");
             }
-            Patient patient = patientManager.getPatient(id);
-            ui.patientsFoundById(patient);
+            try {
+                Patient patient = patientManager.getPatient(id);
+                ui.patientsFoundById(patient);
+            } catch (Exception e) {
+                throw new DukeException("The patient id does not exist.");
+            }
         } else {
             ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(command);
             ui.patientsFoundByName(patientsWithSameName, command);
