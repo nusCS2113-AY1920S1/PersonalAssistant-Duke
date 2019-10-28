@@ -1,6 +1,5 @@
 package dolla;
 
-
 import dolla.parser.MainParser;
 import dolla.task.Debt;
 import dolla.task.Entry;
@@ -15,10 +14,7 @@ import java.io.IOException;
 import java.io.FileWriter;
 import java.io.File;
 
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 
 /**
  * duke.Storage handles the saving and loading of data from ./data/duke.txt,
