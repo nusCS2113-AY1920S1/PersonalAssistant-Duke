@@ -1,4 +1,4 @@
-package usercode.Actions;
+package usercode.actions;
 
 public enum ActionType {
     buySeeds,

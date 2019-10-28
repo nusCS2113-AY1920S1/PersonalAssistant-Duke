@@ -1,10 +1,10 @@
-package usercode.Tasks;
+package usercode.tasks;
 
 import exceptions.FarmioFatalException;
 import farmio.Farmio;
-import usercode.Actions.Action;
+import usercode.actions.Action;
 import exceptions.FarmioException;
-import usercode.Conditions.Condition;
+import usercode.conditions.Condition;
 import org.json.simple.JSONObject;
 
 public abstract class Task {

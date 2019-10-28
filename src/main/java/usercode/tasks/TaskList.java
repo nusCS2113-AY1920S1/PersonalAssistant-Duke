@@ -1,4 +1,4 @@
-package usercode.Tasks;
+package usercode.tasks;
 
 import exceptions.FarmioException;
 import org.json.simple.JSONArray;
