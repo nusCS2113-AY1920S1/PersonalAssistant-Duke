@@ -1,11 +1,14 @@
 package compal.model.tasks;
 
 import compal.commons.CompalUtils;
+import compal.commons.LogUtils;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Logger;
 
 /**
  * Represents task with description, status and reminder.
@@ -25,6 +28,7 @@ public abstract class Task implements Serializable {
     private Priority priority;
     private long priorityScore;
     private int id;
+    private static final Logger logger = LogUtils.getLogger(Task.class);
 
 
     /**
@@ -245,6 +249,7 @@ public abstract class Task implements Serializable {
         try {
             time = format.parse(timeInput);
         } catch (ParseException e) {
+            logger.severe("Invalid start time input receive from tasks.txt!");
             e.printStackTrace();
         }
         this.startTime = time;
@@ -433,6 +438,7 @@ public abstract class Task implements Serializable {
         try {
             time = format.parse(timeInput);
         } catch (ParseException e) {
+            logger.severe("Invalid end time input receive from tasks.txt!");
             e.printStackTrace();
         }
         this.endTime = time;

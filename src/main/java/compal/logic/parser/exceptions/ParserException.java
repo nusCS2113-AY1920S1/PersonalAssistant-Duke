@@ -1,6 +1,9 @@
 package compal.logic.parser.exceptions;
 
+import compal.commons.LogUtils;
 import compal.ui.UiUtil;
+
+import java.util.logging.Logger;
 
 
 /**
@@ -13,6 +16,7 @@ public class ParserException extends Exception {
 
     private String description;
     private UiUtil uiUtil;
+    private static final Logger logger = LogUtils.getLogger(ParserException.class);
 
     public ParserException(String description) {
         this.description = description;
@@ -21,6 +25,7 @@ public class ParserException extends Exception {
 
     @Override
     public String toString() {
+        logger.warning("Parser exception detected :" + description);
         uiUtil.printg(description);
         compal.ui.UiUtil.tabWindow.getSelectionModel().select(0);
         return description;
