@@ -3,6 +3,7 @@ package chronologer.parser;
 import chronologer.command.AddCommand;
 import chronologer.command.Command;
 import chronologer.exception.ChronologerException;
+import chronologer.ui.UiTemporary;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -35,6 +36,7 @@ public class TodoWithinPeriodParser extends TodoParser {
         try {
             from = dateTimeFromUser.split("-", 2)[0].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
+            UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         }
@@ -43,6 +45,7 @@ public class TodoWithinPeriodParser extends TodoParser {
             startDate = DateTimeExtractor.extractDateTime(from, command);
         } catch (ParseException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
+            UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
         return startDate;
@@ -55,12 +58,14 @@ public class TodoWithinPeriodParser extends TodoParser {
             to = dateTimeFromUser.split("-", 2)[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
+            UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         }
         LocalDateTime endDate;
         try {
             endDate = DateTimeExtractor.extractDateTime(to, command);
         } catch (ParseException e) {
+            UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }

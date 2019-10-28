@@ -36,13 +36,14 @@ public class PriorityCommand extends Command {
 
         Priority newPriority = Priority.getPriorityLevel(priorityString);
         if (newPriority == Priority.INVALID) {
+            UiTemporary.printOutput(ChronologerException.invalidPriorityLevel());
             throw new ChronologerException(ChronologerException.invalidPriorityLevel());
         }
-        if (!isIndexValid(indexOfTask,tasks.getSize())) {
+        if (!isIndexValid(indexOfTask, tasks.getSize())) {
+            UiTemporary.printOutput(ChronologerException.taskDoesNotExist());
             throw new ChronologerException(ChronologerException.taskDoesNotExist());
         }
         Task task = tasks.getTasks().get(indexOfTask);
-
         task.setPriority(newPriority);
         storage.saveFile(tasks.getTasks());
         UiTemporary.printOutput("Got it! " + task.getDescription() + " priority level is now " + priorityString);

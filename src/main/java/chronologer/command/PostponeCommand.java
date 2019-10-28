@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * Postpones a task to different times.
  *
  * @author Tan Yi Xiang
- * @version 1.4
+ * @version 1.5
  */
 public class PostponeCommand extends Command {
 
@@ -25,7 +25,8 @@ public class PostponeCommand extends Command {
 
     private static final String POSTPONED_DEADLINE = "Got it! I've postponed this deadline:\n";
     private static final String POSTPONED_EVENT = "Got it! I've postponed this event:\n";
-    private static final String TOBEFIXED = "Postpone for TODO to be fixed once TODO overhaul completed.";
+    private static final String POSTPONED_TODO = "Got it! I've postponed this TODO:\n";
+    private static final String UNABLE_TO_POSTPONE = "Timeless and Duration based TODO tasks can't be postponed.";
 
     /**
      * Initializes the different parameters to postpone a task.
@@ -60,12 +61,13 @@ public class PostponeCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         if (!isIndexValid(indexOfTask, tasks.getSize())) {
+            UiTemporary.printOutput(ChronologerException.taskDoesNotExist());
             throw new ChronologerException(ChronologerException.taskDoesNotExist());
         }
 
         Task taskToBePostponed = tasks.getTasks().get(indexOfTask);
         String description = taskToBePostponed.getDescription();
-        if (isDeadline(taskToBePostponed)) {
+        if (tasks.isDeadline(taskToBePostponed)) {
             if (isDeadlineClash(description, startDate, tasks)) {
                 throw new ChronologerException(ChronologerException.taskClash());
             } else {
@@ -73,7 +75,7 @@ public class PostponeCommand extends Command {
                 storage.saveFile(tasks.getTasks());
                 UiTemporary.printOutput(POSTPONED_DEADLINE + taskToBePostponed.toString());
             }
-        } else if (isEvent(taskToBePostponed)) {
+        } else if (tasks.isEvent(taskToBePostponed)) {
             if (isEventClash(description, startDate, toDate, tasks)) {
                 throw new ChronologerException(ChronologerException.taskClash());
             } else {
@@ -82,18 +84,14 @@ public class PostponeCommand extends Command {
                 storage.saveFile(tasks.getTasks());
                 UiTemporary.printOutput(POSTPONED_EVENT + taskToBePostponed.toString());
             }
+        } else if (tasks.isTodoPeriod(taskToBePostponed)) {
+            taskToBePostponed.setStartDate(startDate);
+            taskToBePostponed.setEndDate(toDate);
+            storage.saveFile(tasks.getTasks());
+            UiTemporary.printOutput(POSTPONED_TODO + taskToBePostponed.toString());
         } else {
-            UiTemporary.printOutput(TOBEFIXED);
+            UiTemporary.printOutput(UNABLE_TO_POSTPONE);
         }
-    }
-
-
-    private boolean isDeadline(Task task) {
-        return task.getEndDate() == null;
-    }
-
-    private boolean isEvent(Task task) {
-        return task.getEndDate() != null && task.getStartDate() != null;
     }
 
     private boolean isDeadlineClash(String description, LocalDateTime startDate, TaskList tasks) {

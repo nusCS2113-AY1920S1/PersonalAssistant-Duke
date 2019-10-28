@@ -20,7 +20,7 @@ public enum Priority {
      * @return Correct priority level
      */
     public static Priority getPriorityLevel(String priorityString) {
-        switch (priorityString) {
+        switch (priorityString.toLowerCase()) {
         case "high":
             return Priority.HIGH;
         case "medium":

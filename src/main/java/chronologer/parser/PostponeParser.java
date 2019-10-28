@@ -3,6 +3,7 @@ package chronologer.parser;
 import chronologer.command.Command;
 import chronologer.command.PostponeCommand;
 import chronologer.exception.ChronologerException;
+import chronologer.ui.UiTemporary;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -30,6 +31,7 @@ public class PostponeParser extends IndexParser {
         try {
             dateString = postponeCommandParts[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
+            UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
         }
@@ -50,6 +52,7 @@ public class PostponeParser extends IndexParser {
             newFromDate = DateTimeExtractor.extractDateTime(obtainStartDate, command);
             newToDate = DateTimeExtractor.extractDateTime(obtainEndDate, command);
         } catch (ParseException e) {
+            UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
@@ -59,6 +62,7 @@ public class PostponeParser extends IndexParser {
         try {
             newFromDate = DateTimeExtractor.extractDateTime(dateString, command);
         } catch (ParseException e) {
+            UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
