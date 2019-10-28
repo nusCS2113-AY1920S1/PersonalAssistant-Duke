@@ -8,7 +8,6 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Repeat;
-import duke.task.DoAfter;
 import duke.task.FixedDuration;
 import duke.ui.Ui;
 
@@ -16,7 +15,7 @@ import java.text.ParseException;
 
 //@@author talesrune
 /**
- * Representing a command that updates an existing task.
+ * Represents a command that updates an existing task.
  */
 public class UpdateCommand extends Command {
     protected String taskDesc;
@@ -78,12 +77,6 @@ public class UpdateCommand extends Command {
                         throw new DukeException("     You are updating the same type of task! (Event)");
                     } else {
                         newtaskObj = new Event(items.get(index).getDescription(), "01/01/2001 0001");
-                    }
-                } else if (typeDesc.equals("doafter")) {
-                    if (items.get(index) instanceof DoAfter) {
-                        throw new DukeException("     You are updating the same type of task! (DoAfter)");
-                    } else {
-                        newtaskObj = new DoAfter(items.get(index).getDescription(), "null");
                     }
                 } else if (typeDesc.equals("fixedduration")) {
                     if (items.get(index) instanceof FixedDuration) {
@@ -151,13 +144,6 @@ public class UpdateCommand extends Command {
                         return "     (>_<) OOPS!!! You are updating the same type of task! (Event)";
                     } else {
                         newtaskObj = new Event(items.get(index).getDescription(), "01/01/2001 0001");
-                    }
-                } else if (typeDesc.equals("doafter")) {
-                    if (items.get(index) instanceof DoAfter) {
-                        //throw new DukeException("     You are updating the same type of task! (DoAfter)");
-                        return "     (>_<) OOPS!!! You are updating the same type of task! (DoAfter)";
-                    } else {
-                        newtaskObj = new DoAfter(items.get(index).getDescription(), "null");
                     }
                 } else if (typeDesc.equals("fixedduration")) {
                     if (items.get(index) instanceof FixedDuration) {

@@ -1,14 +1,17 @@
 package duke.command;
 
 import duke.storage.Storage;
+import duke.task.BudgetList;
 import duke.task.TaskList;
 import duke.ui.Ui;
-import duke.task.BudgetList;
 
-import duke.dukeexception.DukeException;
 import java.io.IOException;
 
 //@@author maxxyx96
+
+/**
+ * Represents a command to show the budget.
+ */
 public class ViewBudgetCommand extends Command {
 
     protected Ui ui = new Ui();
@@ -45,7 +48,7 @@ public class ViewBudgetCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        return ui.showBudgetGui(budgetList.getBudget());
+        return ui.showBudgetGui(budgetList.getBudget()) + "\n" + ui.showBudgetListGui(budgetList.getStringList());
     }
 
     /**

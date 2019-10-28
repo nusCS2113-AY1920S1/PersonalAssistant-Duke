@@ -10,7 +10,7 @@ import duke.ui.Ui;
 import java.io.IOException;
 
 /**
- * Representing a command that adds contacts.
+ * Represents a command that adds contacts.
  */
 //@@author e0318465
 public class AddContactsCommand extends Command {

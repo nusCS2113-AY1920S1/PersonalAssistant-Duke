@@ -26,7 +26,7 @@ public class Contacts {
     }
 
     /**
-     * Extracting a contact content into string that is suitable for text file.
+     * Extracts a contact content into string that is suitable for text file.
      *
      * @return String that contains the details of the contact.
      */
@@ -35,22 +35,22 @@ public class Contacts {
     }
 
     /**
-     * Extracting a contact content into readable string.
+     * Extracts a contact content into readable string.
      *
-     * @return String that contains the details of the contact.
+     * @return String that contains the details of the contact in a reader friendly format.
      */
     @Override
     public String toString() {
-        return "Name: " + name
-                + "\nNumber: " + contact
-                + "\nEmail: " + email
-                + "\nOffice: " + office;
+        return "     Name: " + name
+                + "\n     Number: " + contact
+                + "\n     Email: " + email
+                + "\n     Office: " + office;
     }
 
     /**
      * Extracting a contact content into readable string (GUI).
      *
-     * @return String that contains the details of the contact.
+     * @return String that contains the details of the contact to look readable in the GUI.
      */
     public String toStringGui() {
         return "Name: " + name + ", " + contact + ", " + email + ", " + office;

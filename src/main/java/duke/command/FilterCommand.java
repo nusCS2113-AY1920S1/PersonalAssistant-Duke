@@ -7,13 +7,12 @@ import duke.ui.Ui;
 import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.FixedDuration;
-import duke.task.DoAfter;
 import duke.task.Repeat;
 import duke.task.Event;
 
 //@@author talesrune
 /**
- * Representing a command that filters certain tasks in task list from the type of task.
+ * Represents a command that filters certain tasks in task list from the type of task.
  */
 public class FilterCommand extends Command {
     protected String taskType;
@@ -70,9 +69,6 @@ public class FilterCommand extends Command {
             } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
                 filterList.add(items.get(i));
                 filterList.setFilterIndex(FOUR);
-            } else if (taskType.equals("doafter") && items.get(i) instanceof DoAfter) {
-                filterList.add(items.get(i));
-                filterList.setFilterIndex(FIVE);
             } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
                 filterList.add(items.get(i));
                 filterList.setFilterIndex(SIX);

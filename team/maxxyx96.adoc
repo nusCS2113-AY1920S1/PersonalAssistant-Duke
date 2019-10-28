@@ -1,0 +1,59 @@
+= Ong Yu Xuan - Project Portfolio
+
+== PROJECT: Duke Manager 
+
+---
+
+== Overview
+
+DUKE Manager is for those who prefer an electronic handbook as compared to a hard copy one. It is also optimised for those who prefer to input notes as a CLI / text messenger style.
+
+== Summary of contributions
+
+* *Major enhancement 1*: Added Budget
+** What it does: Tracks basic expenses that the code 
+** Justification: 
+** Highlights:
+
+* *Major enhancement 2*: Added Backup feature
+** What it does:
+** Justification: 
+** Highlights:
+
+* *Minor enhancement 1*: FriendlierSyntax
+
+* *Minor enhancement 2*: Auto create storage folder if there is no existing folder
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases 
+** Enhancements to existing features:
+
+** Documentation:
+
+** Community:
+
+** Tools:
+*** Integrated travis CI into project
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]

@@ -4,7 +4,6 @@ import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.ContactList;
 import duke.task.FixedDuration;
-import duke.task.DoAfter;
 import duke.task.Repeat;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -178,6 +177,86 @@ public class Ui {
     public void showUpdate(TaskList items, int index) {
         out.println("     Nice! I've updated this task ^^:");
         out.println("       " + (index + ONE) + "." + items.get(index).toString());
+    }
+
+    /**
+     * Outputs notes of the task that is added or updated to the user.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     */
+    public void showAddNotes(TaskList items, int index) {
+        out.println("     Nice! Added/Updated notes of this task ^^:");
+        out.println("       " + (index + ONE) + "." + items.get(index).toString()
+                + " | Added Notes: " + items.get(index).getNotes());
+    }
+
+    /**
+     * Outputs notes of the task that is added or updated to the user (GUI).
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     * @return String of the added notes.
+     */
+    public String showAddNotesGui(TaskList items, int index) {
+        String str = "     Nice! Added/Updated notes of this task ^^:\n"
+                + "       " + (index + ONE) + "." + items.get(index).toString()
+                + "\n      | Added Notes: " + items.get(index).getNotes();
+        return str;
+    }
+
+    /**
+     * Outputs notes of the task that is added or updated to the user.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     * @param deletedNotes The deleted notes of the task.
+     */
+    public void showDeleteNotes(TaskList items, int index, String deletedNotes) {
+        out.println("     Deleted notes of this task ^^:");
+        out.println("       " + (index + ONE) + "." + items.get(index).toString()
+                + " | Deleted notes: " + deletedNotes);
+    }
+
+    /**
+     * Outputs notes of the task that is added or updated to the user (GUI).
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     * @param deletedNotes The deleted notes of the task.
+     * @return String of the deleted notes.
+     */
+    public String showDeleteNotesGui(TaskList items, int index, String deletedNotes) {
+        String str = "     Deleted notes of this task ^^:\n"
+                + "       " + (index + ONE) + "." + items.get(index).toString()
+                + "\n      | Deleted notes: " + deletedNotes;
+        return str;
+    }
+
+    /**
+     * Outputs notes of the task to the user.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     */
+    public void showNotes(TaskList items, int index) {
+        out.println("     Here is the task and its notes:");
+        out.println("       " + (index + ONE) + "." + items.get(index).toString()
+                + " | Notes: " + items.get(index).getNotes());
+    }
+
+    /**
+     * Outputs notes of the task to the user (GUI).
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     * @return String of showing notes to the user.
+     */
+    public String showNotesGui(TaskList items, int index) {
+        String str = "     Here is the task and its notes:\n"
+                + "       " + (index + ONE) + "." + items.get(index).toString()
+                + "\n      | Notes: " + items.get(index).getNotes();
+        return str;
     }
 
     /**
@@ -390,9 +469,6 @@ public class Ui {
             } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
                 out.println("     " + (i + ONE) + "." + items.get(i).toString());
                 numFound++;
-            } else if (taskType.equals("doafter") && items.get(i) instanceof DoAfter) {
-                out.println("     " + (i + ONE) + "." + items.get(i).toString());
-                numFound++;
             } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
                 out.println("     " + (i + ONE) + "." + items.get(i).toString());
                 numFound++;
@@ -424,9 +500,6 @@ public class Ui {
                 str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
             } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
-                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
-                numFound++;
-            } else if (taskType.equals("doafter") && items.get(i) instanceof DoAfter) {
                 str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
             } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
@@ -466,30 +539,20 @@ public class Ui {
         return message + "\n";
     }
 
-    /**
-     * Outputs an alert when a duplicated inout is detected.
-     */
-    //@@author e0318465
-    public void showDuplicateMsg() {
-        out.println("     The same task is already in the list!");
-    }
-
-
     //@@author maxxyx96
     /**
      * Outputs a message to the user to let it know that it is updating.
      */
     public void showBackupMessage() {
-        out.println("     Duke Manager has been backed up!");
+        out.println("     Duke Manager has been backed up!\n"
+                + "     Duke has opened the backup file location in file explorer!");
     }
 
-    public void showBackupFolderMessage() {
-        out.println("     Duke has opened the backup file location in file explorer!");
+    public static String showBackupMessageGui() {
+        return "     Duke Manager has been backed up! \n"
+                + "     Duke has opened the backup file location in file explorer!";
     }
-
-    public String showBackupMessageGui() {
-        return "     Duke Manager has been backed up!";
-    }
+    //@@author
 
 
 
@@ -505,21 +568,26 @@ public class Ui {
         out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum - ONE));
         out.println("     Current priority: " + priority);
     }
-    //@@author
+
+    //@@author e0318465
+    /**
+     * Outputs an alert when a duplicated inout is detected.
+     */
+    public void showDuplicateMsg() {
+        out.println("     The same task is already in the list!");
+    }
 
     /**
      * Outputs the contact details that are most recently added.
      *
      * @param contactList The list of contacts.
      */
-    //@@author e0318465
     public void showAddedContact(ContactList contactList) {
-        out.println("     Got it. Contact added:");
         if (contactList.size() == ZERO) {
             out.println("     You have no contacts!");
         } else {
+            out.println("Got it, now you have " + contactList.size() + " contacts. Contact added.");
             out.println(contactList.get(contactList.size() - ONE));
-            out.println("     Now you have " + contactList.size() + " contacts.");
         }
     }
 
@@ -530,12 +598,12 @@ public class Ui {
     * @return String to output list of contacts to GUI.
      */
     public static String showAddedContactGui(ContactList contactList) {
-        String str = "Got it. Contact added:\n";
+        String str = "";
         if (contactList.size() == ZERO) {
-            str += "You have no contacts!";
+            str += "     You have no contacts!";
         } else {
+            str += "\n     Got it, now you have " + contactList.size() + " contacts. Contact added:\n";
             str += contactList.get(contactList.size() - ONE);
-            str += "\nNow you have " + contactList.size() + " contacts.";
         }
         return str;
     }
@@ -547,9 +615,8 @@ public class Ui {
      * @param deletedContact The contact that is deleted.
      */
     public void showContactDeleted(ContactList contactList, String deletedContact) {
-        out.println("Noted. I've removed this contact:");
+        out.println("Now you have " + contactList.size() + " contact(s). I've removed this contact:");
         out.println(deletedContact);
-        out.println("Now you have " + contactList.size() + " contact(s) in the list.");
     }
 
     /**
@@ -560,9 +627,58 @@ public class Ui {
      * @return String of deleted contact to user.
      */
     public static String showContactDeletedGui(ContactList contactList, String deletedContact) {
-        String str = "     Noted. I've removed this contact:\n";
+        String str = "";
+        str += "Now you have " + contactList.size() + " contact(s). I've removed this contact:\n";
         str += deletedContact;
-        str += "\n     Now you have " + contactList.size() + " contact(s) in the list.";
+        return str;
+    }
+
+    /**
+     * Outputs the contacts that are matched from the keyword.
+     *
+     * @param contactList The contact list that contains a list of contacts.
+     * @param keyword The keyword to match the contacts.
+     */
+    public void showFoundContacts(ContactList contactList, String keyword) {
+        out.println("     Here are the matching contacts in your list:");
+        int numFound = ZERO;
+        for (int i = ZERO; i < contactList.size(); i++) {
+            String details = contactList.getOnlyDetails(i);
+            details.replaceAll(",", " ");
+            details.toLowerCase();
+            if (details.contains(keyword)) {
+                out.println("     " + contactList.getSpecificContactList(i));
+                numFound++;
+            }
+        }
+        if (numFound == ZERO) {
+            out.println("     No matching tasks found.");
+        }
+    }
+
+    /**
+     * Outputs the tasks that are matched from the keyword to the user in GUI.
+     *
+     * @param contactList The contact list that contains a list of contacts.
+     * @param keyword The keyword to match the contacts.
+     * @return All contacts that matches with keyword.
+     */
+    public static String showFoundContactsGui(ContactList contactList, String keyword) {
+        String str = "";
+        str += "     Here are the matching contacts in your list:\n";
+        int numFound = ZERO;
+        for (int i = ZERO; i < contactList.size(); i++) {
+            String details = contactList.getOnlyDetails(i);
+            String replacedComma = details.replaceAll(",", " ");
+            String stringToFind = replacedComma.toLowerCase();
+            if (stringToFind.contains(keyword)) {
+                str += "     " + contactList.getSpecificContactList(i) + "\n";
+                numFound++;
+            }
+        }
+        if (numFound == ZERO) {
+            str += "     No matching tasks found.";
+        }
         return str;
     }
 
@@ -633,4 +749,35 @@ public class Ui {
     public String showResetBudgetGui(float budget) {
         return "     Your previous budget of " + budget + " has been reset.";
     }
+
+    /**
+     * Shows the remarks user input when adding the budget.
+     *
+     * @param remark the remarks user inputted while adding/subtracting budget.
+     * @return String of the remark message.
+     */
+    public String showRemarkGui(String remark) {
+        return "     Remarks entered: " + remark;
+    }
+
+    /**
+     * Shows the list of budget currently in Duke Manager.
+     * @param list List of the budget stored.
+     *
+     * @return the list of the budget.
+     */
+    public String showBudgetListGui(String list) {
+        return list;
+    }
+
+    /**
+     * Shows the user that the input limit has been exceeded.
+     *
+     * @return String of the message to be shown.
+     */
+    public String showBudgetExceededLimitMessageGui() {
+        return "     The limits of budget has been exceeded (> 999,999 or < -999,999),"
+                + "\n     No action has been done. ";
+    }
+    //@@author
 }

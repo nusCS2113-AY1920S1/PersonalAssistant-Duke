@@ -6,7 +6,7 @@ import duke.task.TaskList;
 
 //@@author talesrune
 /**
- * Representing a command that marks a task as done.
+ * Represents a command that marks a task as done.
  */
 public class DoneCommand extends Command {
     protected final int index;

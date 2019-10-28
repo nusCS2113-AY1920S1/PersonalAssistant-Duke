@@ -1,49 +1,48 @@
 package duke.command;
 
 import duke.storage.Storage;
-import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+
 //@@author talesrune
 /**
- * Represents a command that adds a new task.
+ * Representing a command that adds or updates notes an existing task.
  */
-public class AddCommand extends Command {
-    protected Task task;
+public class ShowNotesCommand extends Command {
+    protected int index;
 
     /**
-     * Creates a command with the specified task.
+     * Creates a command with the specified parameters to add or update notes.
      *
-     * @param task The task to be added.
+
+     * @param index The index of the task.
      */
-    public AddCommand(Task task) {
-        this.task = task;
+    public ShowNotesCommand(int index) {
+        this.index = index;
     }
 
     /**
-     * Executes a command that adds the task into task list and outputs the result.
+     * Executes a command that adds or updates the notes of the task in task list and outputs the result.
      *
      * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is added successfully.
+     * @param ui To tell the user that it is added or updated successfully.
      */
     @Override
     public void execute(TaskList items, Ui ui) {
-        items.add(task);
-        ui.showAdd(items);
+        ui.showNotes(items, index);
     }
 
     /**
-     * Executes a command that adds the task into task list and outputs the result (GUI).
+     * Executes a command that adds or updates the notes of the task in task list and outputs the result (GUI).
      *
      * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is added successfully.
+     * @param ui To tell the user that it is added or updated successfully.
      * @return String to be outputted to the user.
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        items.add(task);
-        String str = Ui.showAddGui(items);
+        String str = ui.showNotesGui(items, index);
         return str;
     }
 

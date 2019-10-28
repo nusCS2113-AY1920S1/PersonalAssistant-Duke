@@ -8,10 +8,15 @@ import duke.task.BudgetList;
 import java.io.IOException;
 
 //@@author maxxyx96
+
+/**
+ * Represents a command to reset the budget amount.
+ */
 public class ResetBudgetCommand extends Command {
     protected BudgetList budgetList;
     protected Ui ui = new Ui();
     protected float amount;
+    private static final float MAX_BUDGET = 999999;
 
 
     /**
@@ -25,6 +30,18 @@ public class ResetBudgetCommand extends Command {
         this.amount = amount;
     }
 
+    /**
+     * Checks if the budget exceeds the limits of what was intended for.
+     *
+     * @param amount the amount to be checked.
+     * @return Returns true if the amount is within limit, false otherwise.
+     */
+    public boolean isExceedLimit(float amount) {
+        if (amount < -MAX_BUDGET || amount > MAX_BUDGET) {
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Executes a command with task list and ui.
@@ -50,9 +67,13 @@ public class ResetBudgetCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        Float previousBudget = budgetList.getBudget();
-        budgetList.resetBudget(amount);
-        return ui.showResetBudgetGui(previousBudget) + "\n" + ui.showBudgetGui(budgetList.getBudget());
+        if (!isExceedLimit(amount)) {
+            Float previousBudget = budgetList.getBudget();
+            budgetList.resetBudget(amount);
+            return ui.showResetBudgetGui(previousBudget) + "\n" + ui.showBudgetGui(budgetList.getBudget());
+        } else {
+            return ui.showBudgetExceededLimitMessageGui();
+        }
     }
 
     /**

@@ -25,7 +25,10 @@ import duke.task.FilterList;
 import duke.task.ContactList;
 import duke.task.TaskList;
 import duke.ui.Ui;
+
+import java.io.File;
 import java.io.IOException;
+
 
 /**
  * Represents a duke that controls the program.
@@ -45,6 +48,12 @@ public class Duke {
     private BudgetList budgetList;
     private static final int ZERO = 0;
 
+    private static final String storageFilePath = "data";
+    private static final String taskFilePath = "data/duke.txt";
+    private static final String priorityFilePath = "data/priority.txt";
+    private static final String budgetFilePath = "data/budget.txt";
+    private static final String contactsFilePath = "data/contacts.txt";
+
     /**
      * Creates a duke to initialize storage, task list, and ui.
      *
@@ -60,6 +69,7 @@ public class Duke {
         priorityStorage = new PriorityStorage(filePath2);
         contactStorage = new ContactStorage(filePathForContacts);
         budgetStorage = new BudgetStorage(filePathForBudget);
+        checkStorageExist();
         try {
             items = new TaskList(storage.read());
         } catch (IOException e) {
@@ -83,11 +93,9 @@ public class Duke {
         }
         try {
             budgetList = new BudgetList(budgetStorage.read());
-            System.out.println(budgetList);
         } catch (IOException e) {
             ui.showLoadingError();
             budgetList = new BudgetList();
-            budgetList.addToBudget(ZERO);
         }
     }
 
@@ -102,6 +110,28 @@ public class Duke {
         return "Duke heard: " + input;
     }
 
+    //@@author maxxyx96
+    /**
+     * Creates a directory for data storage if there is none created yet.
+     *
+     */
+    public void checkStorageExist() {
+        File storageFileDirectory = new File(storageFilePath);
+        if (!storageFileDirectory.exists()) {
+            storageFileDirectory.mkdirs();
+        }
+    }
+
+    /**
+     * Gets the budget list from Duke.
+     *
+     * @return the budget List.
+     */
+    public BudgetList getBudgetList() {
+        return budgetList;
+    }
+    //@@author
+
     /**
      * Retrieves a command from interpreting the user input (GUI).
      *
@@ -110,18 +140,19 @@ public class Duke {
      * @throws Exception  If there is an error reading the command.
      */
     public Command getCommand(String sentence) throws Exception {
-        Command cmd = Parser.parse(sentence, items, budgetList);
+        Command cmd = Parser.parse(sentence, items, budgetList, contactList);
         return cmd;
     }
 
     /**
-     * Executes a command to overwrite exiting storage with an updated task list (GUI).
+     * Executes a command to overwrite exiting storage with the current updated lists(GUI).
      *
      * @param cmd Command to be executed.
      * @throws IOException  If there is an error writing the text file.
      */
     public void saveState(Command cmd) throws IOException {
-        cmd.executeStorage(items,ui,storage);
+        cmd.executeStorage(items, ui, storage, budgetStorage, budgetList,
+                contactStorage, contactList, priorityStorage, priorityList);
     }
 
     /**
@@ -184,7 +215,7 @@ public class Duke {
             sentence = ui.readCommand();
             ui.showLine(); //Please do not remove!
             try {
-                Command cmd = Parser.parse(sentence, items, budgetList);
+                Command cmd = Parser.parse(sentence, items, budgetList, contactList);
                 if (cmd instanceof ExitCommand) {
                     priorityStorage.write(priorityList);
                     budgetStorage.write(budgetList);
@@ -228,6 +259,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/duke.txt", "data/priority.txt", "data/budget.txt","data/contacts.txt").run();
+        new Duke(taskFilePath, priorityFilePath, budgetFilePath,contactsFilePath).run();
     }
 }

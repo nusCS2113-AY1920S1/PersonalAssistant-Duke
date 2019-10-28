@@ -6,6 +6,10 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 //@@author gervaiseang
+
+/**
+ *  Represents a command to set reminders to tasks.
+ */
 public class RemindCommand extends Command {
     protected int taskIndex;
     protected int reminder;
