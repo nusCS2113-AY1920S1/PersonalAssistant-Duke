@@ -50,7 +50,7 @@ public class ImpressionHelpers {
      * @param impression The impression whose DukeData we want to find.
      * @return The required DukeData matching the user's query.
      * @throws DukeException If a matching evidence or treatment cannot be found, given the provided search terms, or
-     * more than one search term was non-null.
+     *                       more than one search term was non-null.
      */
     public static DukeData getData(String allStr, String evidStr, String treatStr, Impression impression)
             throws DukeException {
