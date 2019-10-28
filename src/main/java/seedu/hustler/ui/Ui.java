@@ -24,7 +24,7 @@ public class Ui {
     /**
      * Print with formatting.
      */
-    public void show_message(String message) {
+    public void showMessage(String message) {
         System.out.println(LINE);
         System.out.println("\t" + message);
         System.out.println(LINE);
@@ -33,7 +33,7 @@ public class Ui {
     /**
      * Prints an output message if list history was not saved.
      */
-    public void show_save_error() {
+    public void showSaveError() {
         System.out.println(LINE);
         System.out.println("\tCouldn't saveAchievements file.");
         System.out.println(LINE);
@@ -42,7 +42,7 @@ public class Ui {
     /**
      * Prints a bye message if user enters bye.
      */
-    public void show_bye_message() {
+    public void showByeMessage() {
         System.out.println(LINE);
         System.out.println("\tBye. Hope to see you again soon!");
         System.out.println(LINE);
@@ -51,30 +51,20 @@ public class Ui {
     /**
      * Prints an error message if user does not enter a valid command.
      */
-    public void correct_command_error() {
+    public void correctCommandError() {
         if (!CommandLog.isRestoring()) {
             System.out.println(LINE);
-            System.out.println("\tPlease enter a valid command: add, "
-                + "list, bye, find, delete.");
+            System.out.println("\tPlease enter a valid command: /add, "
+                + "/list, /bye, /find, /delete. Refer to User Guide for more info.");
             System.out.println(LINE);
         }
-    }
-
-    /**
-     * Prints an error message if the format of event or deadline
-     * commands is not correct.
-     */
-    public void wrong_description_error() {
-        System.out.println(LINE);
-        System.out.println("\tDescription needs a '/' before by/at");
-        System.out.println(LINE);
     }
 
     /**
      * Prints an error message if user performs an operation on a nonexistent
      * task.
      */
-    public void task_doesnt_exist_error() {
+    public void taskDoesntExistError() {
         System.out.println(LINE);
         System.out.println("\tTask doesn't exist. Please choose another.");
         System.out.println(LINE);
@@ -83,7 +73,7 @@ public class Ui {
     /**
      * Prints error message if an empty list is asked to be displayed.
      */
-    public void show_empty_list_error() {
+    public void showEmptyListError() {
         System.out.println(LINE);
         System.out.println("\tList is empty. Please type "
             + "another command apart from list.");
@@ -94,21 +84,9 @@ public class Ui {
      * Prints an error message if a command like find, delete, todo, deadline,
      * event or others is entered without a following description.
      */
-    public void empty_description_error() {
+    public void emptyDescriptionError() {
         System.out.println(LINE);
         System.out.println("\tPlease enter a description after the command.");
-        System.out.println(LINE);
-    }
-
-    /**
-     * Prints an error message when the format of the date/time
-     * entered for event or deadline is not correct.
-     */
-    public void date_time_error() {
-        System.out.println(LINE);
-        System.out.println("\tFormat of time is incorrect either in command "
-            + "or saveAchievements file. Saving event/deadline as mentioned without date "
-            + "time parsing.");
         System.out.println(LINE);
     }
 
@@ -137,15 +115,6 @@ public class Ui {
     public void showAvatarStatistics() {
         System.out.println(LINE);
         System.out.println(Hustler.avatar.toString());
-        System.out.println(LINE);
-    }
-
-    /**
-     * Prints an error message when the format of show command is wrong.
-     */
-    public void showFormatError() {
-        System.out.println(LINE);
-        System.out.println("\tShow command invalid. Please only type \"show <DD/MM/YYYY>\"");
         System.out.println(LINE);
     }
 
@@ -252,14 +221,18 @@ public class Ui {
 
     /**
      * Prints the tasks that contains the searched keyword.
-     * @param list collection of tasks.
-     * @param matchingTasks list of integers which contains the matching tasks.
+     * @param matchingTasks the ArrayList of matching tasks.
+     * @param taskDescription the queried description.
      */
-    public void show_matching_tasks(ArrayList<Task> list, ArrayList<Integer> matchingTasks) {
+    public void showMatchingTasks(ArrayList<Task> matchingTasks, String taskDescription) {
         System.out.println(LINE);
-        System.out.println("\tFound " + matchingTasks.size() + ". Here you go.");
-        for (Integer id : matchingTasks) {
-            System.out.println("\t  " + (id + 1) + ". " + list.get(id).toString());
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No task found given the query \"" + taskDescription + "\".");
+        } else {
+            System.out.println("\tFound " + matchingTasks.size() + " task(s) given the query \"" + taskDescription + "\". Here you go.");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println("\t" + (i + 1) + ". " + matchingTasks.get(i).toString());
+            }
         }
         System.out.println(LINE);
     }
@@ -272,12 +245,5 @@ public class Ui {
         System.out.println(LINE);
         System.out.println("\tTask list has been successfully sorted!");
         show_list(list);
-    }
-
-    /** Issue an error if command not followed by number in case of
-     * commands like done, delete amongst others.
-     */
-    public void numberCommandError() {
-        this.show_message("Command should be followed by a number. /command <number>");
     }
 }

@@ -25,7 +25,7 @@ public class CheckAvatarCommand extends Command {
             anomaly.detect(userInput);
             ui.showAvatarStatistics();
         } catch (CommandLineException e) {
-            ui.show_message(e.getMessage());
+            ui.showMessage(e.getMessage());
         }
     }
 }

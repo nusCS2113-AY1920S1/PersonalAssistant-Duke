@@ -7,8 +7,6 @@ import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.parser.anomaly.BuyAnomaly;
 import seedu.hustler.ui.Ui;
 
-import java.io.IOException;
-
 /**
  * Command to purchase an item in the shop with the given index.
  */
@@ -48,7 +46,7 @@ public class BuyCommand extends Command {
             ShopStorage.update();
             Hustler.inventory.updateInventory();
         } catch (CommandLineException e) {
-            ui.show_message(e.getMessage());
+            ui.showMessage(e.getMessage());
         }
     }
 }

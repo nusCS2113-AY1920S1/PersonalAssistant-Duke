@@ -26,10 +26,10 @@ public class ByeCommand extends Command {
         Ui ui = new Ui();
         try {
             byeAnomaly.detect(userInput);
-            ui.show_bye_message();
+            ui.showByeMessage();
             Platform.exit();
         } catch(CommandLineException e) {
-            ui.show_message(e.getMessage());
+            ui.showMessage(e.getMessage());
         }
 
 

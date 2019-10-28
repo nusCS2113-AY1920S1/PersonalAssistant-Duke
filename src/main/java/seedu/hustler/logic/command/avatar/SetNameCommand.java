@@ -40,7 +40,7 @@ public class SetNameCommand extends Command {
             Hustler.avatar.setName(userInput[1]);
             ui.showNameChangeSuccess();
         } catch (CommandLineException e) {
-            ui.show_message(e.getMessage());
+            ui.showMessage(e.getMessage());
         }
 
     }

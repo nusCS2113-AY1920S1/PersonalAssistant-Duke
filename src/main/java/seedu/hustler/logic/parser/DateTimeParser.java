@@ -53,6 +53,29 @@ public class DateTimeParser {
     }
 
     /**
+     * Obtains the Date without the Time in LocaLDateTime.
+     * @param localDateTime the localDateTime of the task.
+     * @return the String given in "DD/MM/YYYY" format.
+     */
+    public static String convertDateTimeToDate(LocalDateTime localDateTime) {
+        int day = localDateTime.getDayOfMonth();
+        int month = localDateTime.getMonthValue();
+        int year = localDateTime.getYear();
+        return String.format("%02d/%02d/%04d", day, month, year);
+    }
+
+    /**
+     * Obtains only the time in LocalDateTime.
+     * @param localDateTime the localDateTime of the task.
+     * @return the String given in "HHMM" format.
+     */
+    public static String getTimeOnly(LocalDateTime localDateTime) {
+        int hour = localDateTime.getHour();
+        int minute = localDateTime.getMinute();
+        return String.format("%02d%02d", hour, minute);
+    }
+
+    /**
      * Convert type LocalDateTime to String.
      * @param localDateTime date and time of type LocalDateTime.
      * @return date and time of type String.

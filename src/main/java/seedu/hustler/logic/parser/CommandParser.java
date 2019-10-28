@@ -91,7 +91,7 @@ public class CommandParser extends Parser {
         } else if (userInput[0].equals("/showtimer")) {
             return new ShowTimerCommand();
         } else if (userInput[0].equals("/shop")) {
-            return new ShopListCommand();
+            return new ShopListCommand(userInput);
         } else if (userInput[0].equals("/inventory")) {
             return new InventoryCommand(userInput);
         } else if (userInput[0].equals("/equip")) {

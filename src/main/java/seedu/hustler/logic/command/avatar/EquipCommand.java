@@ -27,7 +27,7 @@ public class EquipCommand extends Command {
             Hustler.inventory.getToEquip(parsedInt - 1);
 
         } catch (CommandLineException e) {
-            ui.show_message(e.getMessage());
+            ui.showMessage(e.getMessage());
         }
 
 

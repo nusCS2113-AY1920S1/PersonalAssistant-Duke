@@ -34,7 +34,7 @@ public class ScheduleCommand extends Command {
     public void execute() {
         if (this.userInput.length == 1) {
             Ui ui = new Ui();
-            ui.empty_description_error();
+            ui.emptyDescriptionError();
         }
         Date date = schedule.convertStringToDate(this.userInput[1]);
         if (date != (null)) {

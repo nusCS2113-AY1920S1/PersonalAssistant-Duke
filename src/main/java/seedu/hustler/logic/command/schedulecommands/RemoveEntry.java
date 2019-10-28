@@ -37,7 +37,7 @@ public class RemoveEntry extends Command {
         try {
             anomaly.detect(this.userInput);
         } catch(CommandLineException e){
-            ui.show_message(e.getMessage());
+            ui.showMessage(e.getMessage());
             return;
         }
         int index = Integer.parseInt(this.userInput[1]);

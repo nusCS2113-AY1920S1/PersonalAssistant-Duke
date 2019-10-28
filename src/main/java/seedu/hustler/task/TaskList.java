@@ -5,12 +5,14 @@ import seedu.hustler.data.CommandLog;
 import seedu.hustler.data.Schedule;
 import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.DoneTask;
+import seedu.hustler.logic.parser.DateTimeParser;
 import seedu.hustler.schedule.Scheduler;
 import seedu.hustler.ui.Ui;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Stream;
 
 import static seedu.hustler.logic.parser.DateTimeParser.getDateTime;
 
@@ -265,6 +267,20 @@ public class TaskList {
     }
 
     /**
+     * Clear all done tasks in the task list.
+     */
+    public void clearDone() {
+        if (list.isEmpty()) {
+            if (!CommandLog.isRestoring()) {
+                ui.show_list_empty();
+            }
+        } else {
+            list.removeIf(Task::isCompleted);
+            ui.show_list_cleared();
+        }
+    }
+
+    /**
      * Snoozes task at index.
      *
      * @param i index at which task is snoozed.
@@ -295,7 +311,7 @@ public class TaskList {
                 list.get(i).setDateTime(ldt.plusMonths(num));
                 break;
             default:
-                ui.show_message("You have typed in the wrong format. Please re-enter the snooze command.");
+                ui.showMessage("You have typed in the wrong format. Please re-enter the snooze command.");
                 return;
             }
         }
@@ -372,7 +388,7 @@ public class TaskList {
     public void displayList() {
         if (list.isEmpty()) {
             if (!CommandLog.isRestoring()) {
-                ui.show_empty_list_error();
+                ui.showEmptyListError();
             }
         } else {
             if (!CommandLog.isRestoring()) {
@@ -386,20 +402,39 @@ public class TaskList {
      *
      * @param taskDescription a character sequence from which tasks will be found.
      */
-    public void findTask(String taskDescription) {
+    public ArrayList<Task> findTasks(String taskDescription) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : list) {
+            if (task.getDescription().contains(taskDescription)
+                || task.getTag().equalsIgnoreCase(taskDescription)) {
+                matchingTasks.add(task);
+            } else if (task.getDateTime() != null) {
+                if (DateTimeParser.convertDateTimeToDate(task.getDateTime()).equals(taskDescription)
+                    || DateTimeParser.getTimeOnly(task.getDateTime()).equals(taskDescription)) {
+                    matchingTasks.add(task);
+                }
+            }
+        }
+        return matchingTasks;
+    } /*
         ArrayList<Integer> matchingTasks = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getDescription().contains(taskDescription)
                 || list.get(i).getTag().equalsIgnoreCase(taskDescription)) {
                 matchingTasks.add(i);
+            } else if (list.get(i).getDateTime() != null) {
+                if (DateTimeParser.convertDateTimeToDate(list.get(i).getDateTime()).equals(taskDescription)
+                    || DateTimeParser.getTimeOnly(list.get(i).getDateTime()).equals(taskDescription)) {
+                    matchingTasks.add(i);
+                }
             }
         }
         if (matchingTasks.isEmpty()) {
-            ui.task_doesnt_exist_error();
+            ui.taskDoesntExistError();
         } else {
             ui.show_matching_tasks(list, matchingTasks);
         }
-    }
+    }*/
 
     /**
      * Converts the frequency into number of minutes.

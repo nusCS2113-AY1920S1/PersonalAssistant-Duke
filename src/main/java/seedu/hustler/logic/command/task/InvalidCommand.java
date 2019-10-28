@@ -12,6 +12,6 @@ public class InvalidCommand extends Command {
      */
     public void execute() {
         Ui ui = new Ui();
-        ui.correct_command_error();
+        ui.correctCommandError();
     }
 }

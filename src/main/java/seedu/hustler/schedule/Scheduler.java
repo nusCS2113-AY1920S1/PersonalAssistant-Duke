@@ -153,7 +153,7 @@ public class Scheduler {
             output = "Tasks completed. Please add more.";
         }
         Ui ui = new Ui();
-        ui.show_message(output);
+        ui.showMessage(output);
     }
     
     /**

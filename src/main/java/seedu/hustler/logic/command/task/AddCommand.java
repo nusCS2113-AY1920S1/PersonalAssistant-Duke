@@ -6,7 +6,7 @@ import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.parser.anomaly.AddCommandAnomaly;
 import seedu.hustler.ui.Ui;
 import seedu.hustler.data.CommandLog;
-import seedu.hustler.schedule.Scheduler;
+
 import java.util.List;
 import java.util.Arrays;
 
@@ -39,14 +39,14 @@ public class AddCommand extends Command {
     public void execute() {
         Ui ui = new Ui();
         if (this.taskInfo.length == 1) {
-            ui.empty_description_error();
+            ui.emptyDescriptionError();
             CommandLog.deleteLatestLoggedCommand();
             return;
         }
         try {
             anomaly.detect(taskInfo);
         } catch (CommandLineException e) {
-            ui.show_message(e.getMessage());
+            ui.showMessage(e.getMessage());
             return;
         }
 

@@ -128,7 +128,7 @@ public class Hustler extends Application {
             saveStorage();
             System.out.println();
         } catch (CommandLineException e) {
-            e.getErrorMsg();
+            ui.showMessage(e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -166,7 +166,7 @@ public class Hustler extends Application {
             AchievementStorage.saveAchievements(achievementList);
             AchievementStorage.saveStatus();
         } catch (IOException e) {
-            ui.show_save_error();
+            ui.showSaveError();
         }
     }
 }

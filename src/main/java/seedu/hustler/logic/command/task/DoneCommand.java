@@ -41,7 +41,7 @@ public class DoneCommand extends Command {
             Hustler.list.doTask(taskIndex);
             Scheduler.remove(Hustler.list.get(taskIndex));
         } catch (CommandLineException e) {
-            ui.show_message(e.getMessage());
+            ui.showMessage(e.getMessage());
         }
     }
 }
