@@ -14,7 +14,7 @@ public class CommandTaskDelete extends Command {
     /**
      * Delete a specific task from the task list
      * @param farmio the game with the tasklist to be editted
-     * @throws FarmioException if TaskID is invalid
+     * @throws FarmioException if TaskID is invalid, or if there is error deleting task
      * @throws FarmioFatalException if simulation file cannot be found
      */
     @Override
@@ -22,8 +22,12 @@ public class CommandTaskDelete extends Command {
         if (taskID < 1 || taskID > farmio.getFarmer().getTasks().size()) {
             throw new FarmioException("Invalid TaskID!");
         }
-        String taskToString = farmio.getFarmer().getTasks().removeTask(taskID);
-        farmio.getSimulation().simulate();
-        farmio.getUi().showInfo("You have deleted task: " + taskToString);
+        try {
+            String taskToString = farmio.getFarmer().getTasks().removeTask(taskID);
+            farmio.getSimulation().simulate();
+            farmio.getUi().showInfo("You have deleted task: " + taskToString);
+        } catch (Exception e) {
+            throw new FarmioException("Error deleting task!");
+        }
     }
 }
