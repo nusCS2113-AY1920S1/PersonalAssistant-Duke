@@ -10,9 +10,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class UiTest {
 
     static String wrap(String content) {
-        return ("\n__________________________________\n"
+        return ("\n_____________________________________________\n"
                 + content
-                + "\n__________________________________\n");
+                + "\n_____________________________________________\n");
     }
 
     @Test
