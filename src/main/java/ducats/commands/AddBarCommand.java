@@ -48,7 +48,7 @@ public class AddBarCommand extends Command<SongList> {
             int notesIndex = message.indexOf(sections[1]);
 
             Bar newBar = new Bar(barNo, message.substring(notesIndex));
-
+            songIndex = songList.getActiveIndex();
             Song song = songList.getSongIndex(songIndex);
 
             song.addBar(newBar);

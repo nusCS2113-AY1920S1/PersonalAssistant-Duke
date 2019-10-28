@@ -91,7 +91,7 @@ public class OverlayBarGroup  extends Command<SongList>  {
             //overlay_bar_group 1 2 will coppy the bar 1 into group 2
             String[] sections = message.substring(18).split(" ");
             int barIndexToAdd = Integer.parseInt(sections[0]) - 1;
-
+            songIndex = songList.getActiveIndex();
             //System.out.println(barIndexToAdd);
             if (songList.getSize() > songIndex) {
                 Song song = songList.getSongIndex(songIndex);

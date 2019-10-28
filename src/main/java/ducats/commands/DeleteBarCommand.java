@@ -42,10 +42,10 @@ public class DeleteBarCommand extends Command<SongList> {
         if (songList.getSize() == 0) {
             throw new DucatsException("", "empty");
         }
-        if (barIndex > songList.getSongIndex(0).getBars().size() || barIndex < 1) {
+        if (barIndex > songList.getSongIndex(songList.getActiveIndex()).getBars().size() || barIndex < 1) {
             throw new DucatsException("", "index");
         } else {
-            Song song = songList.getSongIndex(0);
+            Song song = songList.getSongIndex(songList.getActiveIndex());
             Bar deletedBar = song.getBars().get(barIndex - 1);
             song.getBars().remove(barIndex - 1);
             try {
