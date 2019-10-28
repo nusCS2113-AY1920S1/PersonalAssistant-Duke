@@ -1,6 +1,6 @@
-import command.QuizCommand;
+package command;
+
 import dictionary.WordBank;
-import exception.WordBankNotEnoughForQuizException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,10 +17,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class QuizTest {
     private Assertions Assert;
+    public String filename = "C:\\Users\\user\\gitclones\\main\\src\\test\\WordUpTest.txt";
 
     @BeforeEach
     public void createWordUpTestFile() throws FileNotFoundException, UnsupportedEncodingException {
-        PrintWriter writer = new PrintWriter("C:\\Users\\user\\gitclones\\main\\src\\test\\WordUpTest.txt", "UTF-8");
+        PrintWriter writer = new PrintWriter(filename, "UTF-8");
         writer.println("apple: red fruit");
         writer.println("orange: orange fruit");
         writer.println("banana: yellow fruit");
@@ -28,14 +29,10 @@ public class QuizTest {
         writer.close();
     }
 
-    public void QuizTest() throws WordBankNotEnoughForQuizException {
-
-    }
-
     @Test
     public void generateQuizTest() {
         try {
-            Storage storage = new Storage("C:\\Users\\user\\gitclones\\main\\src\\test\\WordUpTest.txt");
+            Storage storage = new Storage(filename);
             WordBank wordBank = new WordBank(storage.loadFile());
             QuizCommand quizCommand = new QuizCommand();
             String quiz = quizCommand.generateQuiz(wordBank);
@@ -48,12 +45,11 @@ public class QuizTest {
 
     @AfterEach
     public void deleteWordUpTestFile(){
-        File file = new File("C:\\Users\\user\\gitclones\\main\\src\\test\\WordUpTest.txt");
+        File file = new File(filename);
         if(file.delete()) {
             System.out.println("File deleted successfully");
         }else {
             System.out.println("Failed to delete the file");
         }
     }
-
 }
