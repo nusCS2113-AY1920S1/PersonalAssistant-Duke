@@ -9,9 +9,6 @@ public class ViewHelper {
     private static final String VERTI_BORDER_UNIT = "|";
     private static final int DEFAULT_HORI_BORDER_LENGTH = 60;
 
-    public ViewHelper() {
-    }
-
     /**
      * Returns a String array that contains input in table form.
      * @param toPrintAll ArrayList with each element fitting into one table, and each element consists of an
