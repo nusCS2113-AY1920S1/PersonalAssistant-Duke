@@ -713,7 +713,7 @@ public class MovieHandler extends Controller implements RequestListener {
             // set the movie info
             PlaylistController controller = loader.getController();
             controller.setVBoxColour(i);
-//            controller.setTextColour();
+            controller.setTextColour();
             controller.getPlaylistNameLabel().setText(playlist.getPlaylistName());
             if (playlist.getDescription().trim().length() == 0) {
                 controller.getPlaylistDescriptionLabel().setText("*this playlist does not have a description :(*");
