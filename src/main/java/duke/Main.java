@@ -8,6 +8,10 @@ import duke.model.Model;
 import duke.storage.BudgetStorage;
 import duke.storage.ExpenseListStorage;
 import duke.storage.ExpenseListStorageManager;
+import duke.storage.PlanAttributesStorage;
+import duke.storage.PlanAttributesStorageManager;
+import duke.storage.Storage;
+import duke.storage.StorageManager;
 import duke.storage.payment.PaymentListStorage;
 import duke.storage.payment.PaymentListStorageManager;
 import duke.storage.IncomeListStorage;
@@ -42,7 +46,7 @@ public class Main extends Application {
 
         PaymentListStorage paymentListStorage = new PaymentListStorageManager();
 
-        storage = new StorageManager(expenseListStorage, 
+        storage = new StorageManager(expenseListStorage,
                                      planAttributesStorage, 
                                      incomeListStorage, 
                                      budgetStorage,
@@ -51,7 +55,8 @@ public class Main extends Application {
         model = new DukePP(storage.loadExpenseList(),
                 storage.loadPlanAttributes(),
                 storage.loadIncomeList(),
-                storage.loadBudget());
+                storage.loadBudget(),
+                storage.loadPaymentList());
 
 
         logic = new LogicManager(model, storage);
