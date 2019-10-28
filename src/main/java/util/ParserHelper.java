@@ -1,11 +1,11 @@
 package util;
 
-import models.member.Member;
-import models.task.Task;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import models.data.Project;
+import models.member.Member;
+import models.task.Task;
 
 public class ParserHelper {
     private SortHelper sortHelper;
@@ -53,7 +53,6 @@ public class ParserHelper {
                 break;
             }
         }
-
         return memberDetails;
     }
 
@@ -183,40 +182,41 @@ public class ParserHelper {
     /**
      * Parses input String to get valid task and member index numbers, as well as error messages
      * for invalid index numbers.
-     * @param input The input from the user.
+     * @param input The assignment input from the user.
      */
-    public ArrayList<ArrayList<String>> parseAssignmentInputHelper(String input) {
-        ArrayList<String> allIndexesToAssign = new ArrayList<>();
-        ArrayList<String> allIndexesToUnassign = new ArrayList<>();
-        ArrayList<String> allTasksIndexes = new ArrayList<>();
-
+    public ArrayList<ArrayList<Integer>> parseAssignmentParams(String input, Project project) {
+        errorMessages.clear();
         String [] inputParts = input.split("-");
+        String allTaskIndexes = "";
+        String allAssigneeIndexes = "";
+        String allUnassigneeIndexes = "";
 
         for (String s : inputParts) {
             String [] part = s.split(" ");
             switch (part[0]) {
             case "i":
-                allTasksIndexes = new ArrayList<>(Arrays.asList(part));
-                allTasksIndexes.remove("i");
+                allTaskIndexes = s.substring(2).trim();
                 break;
             case "to":
-                allIndexesToAssign = new ArrayList<>(Arrays.asList(part));
-                allIndexesToAssign.remove("to");
+                allAssigneeIndexes = s.substring(3).trim();
                 break;
             case "rm":
-                allIndexesToUnassign = new ArrayList<>(Arrays.asList(s.split(" ")));
-                allIndexesToUnassign.remove("rm");
+                allUnassigneeIndexes = s.substring(3).trim();
                 break;
             default:
             }
         }
 
-        ArrayList<ArrayList<String>> assignmentOutput = new ArrayList<>();
-        assignmentOutput.add(allIndexesToAssign);
-        assignmentOutput.add(allIndexesToUnassign);
-        assignmentOutput.add(allTasksIndexes);
+        ArrayList<ArrayList<Integer>> assignmentParams = new ArrayList<>();
+        assignmentParams.add(parseTasksIndexes(allTaskIndexes, project.getNumOfTasks()));
 
-        return assignmentOutput;
+        ArrayList<Integer> assignees = parseMembersIndexes(allAssigneeIndexes, project.getNumOfMembers());
+        ArrayList<Integer> unassignees = parseMembersIndexes(allUnassigneeIndexes, project.getNumOfMembers());
+        checkForSameMemberIndexes(assignees, unassignees, project);
+        assignmentParams.add(assignees);
+        assignmentParams.add(unassignees);
+
+        return assignmentParams;
     }
 
     /**
@@ -226,20 +226,22 @@ public class ParserHelper {
      * @return An ArrayList containing only valid member index numbers
      */
     public ArrayList<Integer> parseMembersIndexes(String input, int numberOfMembersInProject) {
-        this.errorMessages.clear();
-        ArrayList<Integer> membersToView = new ArrayList<>();
+        ArrayList<Integer> validMembers = new ArrayList<>();
         if ("all".equals(input)) {
             for (int i = 1; i <= numberOfMembersInProject; i++) {
-                membersToView.add(i);
+                validMembers.add(i);
             }
-            return membersToView;
+            return validMembers;
         }
         String[] inputParts = input.split(" ");
         for (String index : inputParts) {
+            if ("".equals(index)) {
+                continue;
+            }
             try {
                 Integer indexNumber = Integer.parseInt(index);
                 if (indexNumber > 0 && indexNumber <= numberOfMembersInProject) {
-                    membersToView.add(indexNumber);
+                    validMembers.add(indexNumber);
                 } else {
                     errorMessages.add("Member with index " + index + " does not exist.");
                 }
@@ -248,7 +250,7 @@ public class ParserHelper {
                     + ", please ensure it is an integer.");
             }
         }
-        return membersToView;
+        return validMembers;
     }
 
     /**
@@ -267,6 +269,9 @@ public class ParserHelper {
         }
         String[] inputParts = input.split(" ");
         for (String index : inputParts) {
+            if ("".equals(index)) {
+                continue;
+            }
             try {
                 Integer indexNumber = Integer.parseInt(index);
                 if (indexNumber > 0 && indexNumber <= numberOfTasksInProject) {
@@ -280,6 +285,24 @@ public class ParserHelper {
             }
         }
         return tasksToView;
+    }
+
+    private void checkForSameMemberIndexes(ArrayList<Integer> assignees, ArrayList<Integer> unassignees,
+        Project project) {
+        ArrayList<Integer> repeated = new ArrayList<>();
+        for (Integer index: assignees) {
+            if (unassignees.contains(index)) {
+                repeated.add(index);
+                errorMessages.add("Cannot assign and unassign task to member " + index + " ("
+                    + project.getMembers().getMember(index).getName() + ") at the same time");
+
+            }
+        }
+
+        for (Integer index: repeated) {
+            assignees.remove(assignees.indexOf(index));
+            unassignees.remove(unassignees.indexOf(index));
+        }
     }
 
     public ArrayList<String> getErrorMessages() {

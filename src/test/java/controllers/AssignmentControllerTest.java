@@ -52,19 +52,6 @@ public class AssignmentControllerTest {
         assertEquals("Test task", project.getTask(1).getTaskName());
     }
 
-    @Test
-    void testParseAssignmentInput() {
-        AssignmentController assignmentController = new AssignmentController(project);
-        String assignCommand = "assign task -i 1 -to 1 2 -rm 3 4";
-        assignmentController.parseAssignmentInput(assignCommand.substring(12));
-        assertEquals(2, assignmentController.getValidMembersToAssign().size());
-        assertEquals(1, assignmentController.getValidMembersToAssign().get(0));
-        assertEquals(2, assignmentController.getValidMembersToAssign().get(1));
-        assertEquals(1, assignmentController.getValidMembersToUnassign().size());
-        assertEquals(3, assignmentController.getValidMembersToUnassign().get(0));
-        assertEquals(1, assignmentController.getValidTaskIndexes().size());
-        assertEquals(1, assignmentController.getValidTaskIndexes().get(0));
-    }
 
     @Test
     void testAssignAndUnassign() {
