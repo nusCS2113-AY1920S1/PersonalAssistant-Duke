@@ -285,7 +285,7 @@ public class MainWindow extends BorderPane implements Initializable {
 //        dukeIndexColumn.setMinWidth(35);
 //        dukeIndexColumn.setCellValueFactory(new PropertyValueFactory<>("index"));
         dukeResponseColumn = new TableColumn<>();
-        dukeResponseColumn.setText("Duke Response");
+        dukeResponseColumn.setText("Response");
         dukeResponseColumn.setSortable(false);
 //        deadlineTaskColumn.setMinWidth(165);
         dukeResponseColumn.setCellValueFactory(new PropertyValueFactory("response"));
