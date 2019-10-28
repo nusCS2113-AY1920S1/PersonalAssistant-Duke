@@ -176,7 +176,7 @@ public class Impression extends DukeObject {
             this.observableEvidences.remove(keyIdentifier);
             return evidence;
         } else {
-            throw new DukeException("I don't have that entry in the list!");
+            throw new DukeException("I can't delete that evidence because I don't have it!");
         }
     }
 
@@ -190,7 +190,7 @@ public class Impression extends DukeObject {
         if (this.observableEvidences.containsKey(keyIdentifier)) {
             return this.observableEvidences.get(keyIdentifier);
         } else {
-            throw new DukeException("I don't have that entry in the list!");
+            throw new DukeException("I don't have any evidence called that!");
         }
     }
 
@@ -217,7 +217,7 @@ public class Impression extends DukeObject {
             this.observableTreaments.remove(keyIdentifier);
             return treatment;
         } else {
-            throw new DukeException("I don't have that entry in the list!");
+            throw new DukeException("I can't delete that treatment because I don't have it!");
         }
     }
 
@@ -231,7 +231,7 @@ public class Impression extends DukeObject {
         if (this.observableTreaments.containsKey(keyIdentifier)) {
             return this.observableTreaments.get(keyIdentifier);
         } else {
-            throw new DukeException("I don't have that entry in the list!");
+            throw new DukeException("I don't have any treatment called that!");
         }
     }
 
