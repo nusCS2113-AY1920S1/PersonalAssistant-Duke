@@ -148,22 +148,13 @@ public class Parser {
      * @return Array of strings to be used by 'delete assigned task' command.
      * @throws DukeException when user input cannot be parsed properly.
      */
-    public String[] parseDeleteAssignedTask() throws DukeException {
+    public String parseDeleteAssignedTask() throws DukeException {
         try {
-            String[] formattedInput = new String[2];
-            if (parsedInput.length <= 2) {
-                formattedInput[0] = parsedInput[1];
-                return formattedInput;
-            } else {
-                for (int i = 1; i <= formattedInput.length; i++) {
-                    formattedInput[i - 1] = parsedInput[i].trim();
-                }
-                return formattedInput;
-            }
+            String formattedInput;
+            formattedInput = parsedInput[1].trim();
+            return formattedInput;
         } catch (Exception e) {
-            throw new DukeException("Please follow the `delete assigned task :<patient name> or #<patient id>"
-                + " :<task name> or #<task id>` or "
-                + " `delete patient task :%<unique assigned task id>` format.");
+            throw new DukeException("Please follow the `delete assigned task :#<taskUniqueID>");
         }
     }
 
