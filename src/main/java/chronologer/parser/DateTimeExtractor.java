@@ -47,6 +47,9 @@ public class DateTimeExtractor {
         } else if (command.equals("view")) {
             dateView = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
             return dateView;
+        } else if (command.equals("assignment")) {
+            dateView = LocalDateTime.parse(dateTimeFromUser, DATE_FORMATTER);
+            return dateView;
         }
         // Allows the developer to know that a command other than deadline or event was
         // passed to the function!

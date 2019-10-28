@@ -2,7 +2,7 @@ package chronologer.parser;
 
 import chronologer.command.Command;
 import chronologer.command.ExitCommand;
-import chronologer.command.ExportCommand;
+// import chronologer.command.ExportCommand;
 import chronologer.command.ListCommand;
 import chronologer.exception.ChronologerException;
 import chronologer.ui.Ui;
@@ -45,7 +45,7 @@ public class ParserFactory {
             }
             return new TodoParser(userInput, command).parse();
         case "deadline":
-            return new DeadlineParser(userInput, command).parse();
+            return new DeadlineParser(userInput, command, false).parse();
         case "event":
             return new EventParser(userInput, command).parse();
         case "find":
@@ -80,8 +80,10 @@ public class ParserFactory {
             return new LocationParser(userInput, command).parse();
         case "schedule":
             return new ScheduleParser(userInput, command).parse();
-        case "export":
-            return new ExportCommand();
+        // case "export":
+        //     return new ExportCommand();
+        case "assignment":
+            return new DeadlineParser(userInput, command, true).parse();
 
         default:
             // Empty string or unknown command.

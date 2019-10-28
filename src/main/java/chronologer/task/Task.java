@@ -21,6 +21,7 @@ public abstract class Task implements Serializable {
     protected String comment;
     protected boolean isIgnored;
     protected boolean isDone;
+    protected String modCode;
 
     private static final String TICK = "\u2713"; // Tick symbol
     private static final String CROSS = "\u2718"; // Cross symbol
@@ -39,6 +40,7 @@ public abstract class Task implements Serializable {
         this.isIgnored = false;
         this.priority = Priority.MEDIUM;
         this.comment = "";
+        this.modCode = "";
     }
 
     /**
@@ -166,6 +168,10 @@ public abstract class Task implements Serializable {
 
     public void setDone(boolean isDone) {
         this.isDone = isDone;
+    }
+
+    public String getModCode() {
+        return modCode;
     }
 
 }
