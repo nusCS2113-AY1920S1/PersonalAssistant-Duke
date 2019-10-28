@@ -1,6 +1,7 @@
 package ducats;
 
 
+import ducats.components.Jaccard;
 import ducats.commands.AddBarCommand;
 import ducats.commands.AddOverlayCommand;
 import ducats.commands.ByeCommand;
@@ -20,7 +21,8 @@ import ducats.commands.UndoCommand;
 import ducats.commands.ViewCommand;
 import ducats.commands.AsciiCommand;
 import ducats.commands.OverlayGroupGroup;
-
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -38,7 +40,25 @@ public class Parser {
      * @throws DucatsException in the case of parsing errors
      */
     public static Command parse(String message) throws DucatsException {
-        switch (message.split(" ")[0]) {
+
+        String [] commandList = {"bye", "list", "delete", "deletebar","edit",
+                                    "find","done", "new","help","view","addbar",
+                                    "overlay","group","overlay_bar_group",
+                                    "overlay_group_group","overlay_bar_song","ascii","redo","undo"};
+        double maximumVal = 0;
+        String commandName = "";
+        Jaccard similarityChecker = new Jaccard();
+        String [] messageSplit = message.split(" ");
+        for (String temp: commandList) {
+            double similarityValue = similarityChecker.similarity(temp,messageSplit[0]);
+            if (maximumVal < similarityValue) {
+                maximumVal = similarityValue;
+                commandName = temp;
+            }
+        }
+        messageSplit[0] = commandName;
+        message = String.join(" ", messageSplit);
+        switch (commandName) {
         case "bye":
             if (message.length() == 3) {
                 return new ByeCommand();
