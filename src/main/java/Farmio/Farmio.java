@@ -66,6 +66,7 @@ public class Farmio {
         MENU_START,
         NAME_ADD,
         LEVEL_START,
+        MENU,
         TASK_ADD,
         RUNNING_DAY,
         CHECK_OBJECTIVES,
