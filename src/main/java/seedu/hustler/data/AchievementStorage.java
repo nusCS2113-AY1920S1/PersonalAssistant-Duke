@@ -6,7 +6,6 @@ import seedu.hustler.logic.parser.DateTimeParser;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.Formatter;
 import java.util.Scanner;
 
 import static seedu.hustler.game.achievement.Achievements.totalPoints;
@@ -23,10 +22,7 @@ public class AchievementStorage {
     public static final String STATUS_FILEPATH = "data/status.txt";
     public static final String ACHIEVEMENT_FILEPATH_BACKUP = "data/achievementBackup.txt";
     public static final String STATUS_FILEPATH_BACKUP = "data/statusBackup.txt";
-
-    private static Formatter formatter;
-
-
+    
     public static int loadStatus() throws IOException {
         try {
             Scanner scanner = new Scanner(new File(STATUS_FILEPATH));
@@ -47,7 +43,6 @@ public class AchievementStorage {
             }
             return numberOfTasks;
         } catch (FileNotFoundException e) {
-            formatter = new Formatter(STATUS_FILEPATH);
             BufferedWriter writer = new BufferedWriter(new FileWriter(new File(STATUS_FILEPATH)));
             writer.write("Add: 0\n");
             writer.write("Done: 0\n");
@@ -60,7 +55,7 @@ public class AchievementStorage {
         }
     }
 
-    public static int reloadStatus() throws IOException {
+    public static int reloadStatus() {
         try {
             Scanner scanner = new Scanner(new File(STATUS_FILEPATH_BACKUP));
             while (scanner.hasNextLine()) {
@@ -107,8 +102,7 @@ public class AchievementStorage {
         writer.close();
     }
 
-    public static AchievementList loadAchievements() throws IOException {
-
+    public static AchievementList loadAchievements() {
         try {
             int index = 0;
             Scanner scanner = new Scanner(new File(ACHIEVEMENT_FILEPATH));
@@ -124,7 +118,7 @@ public class AchievementStorage {
     }
 
 
-    public static AchievementList reloadAchievements() throws FileNotFoundException {
+    public static AchievementList reloadAchievements() {
         try {
             int index = 0;
             Scanner scanner = new Scanner(new File(ACHIEVEMENT_FILEPATH_BACKUP));
