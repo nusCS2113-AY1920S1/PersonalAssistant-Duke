@@ -60,7 +60,8 @@ public class UpdatePatientCommand implements Command {
                 ui.showPatientInfo(patientToBeUpdated);
             } catch (Exception e) {
                 throw new DukeException(
-                        "Please follow the format 'update patient :#<id> :<Name/NRIC/Room/Remark> :<new information>'.");
+                        "Please follow the format 'update patient :#<id> :<Name/NRIC/Room/Remark> "
+                                + ":<new information>'.");
             }
         } else {
             throw new DukeException(

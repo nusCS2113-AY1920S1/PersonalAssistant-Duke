@@ -1,4 +1,5 @@
 //@@author kkeejjuunn
+
 package duke.models.patients;
 
 import javafx.beans.property.SimpleIntegerProperty;
@@ -130,5 +131,7 @@ public class Patient {
      *
      * @param remark contains the remark of the patient which is a string.
      */
-    public void setRemark(String remark) { this.remark.set(remark); }
+    public void setRemark(String remark) {
+        this.remark.set(remark);
+    }
 }
