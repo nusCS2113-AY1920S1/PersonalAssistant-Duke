@@ -35,6 +35,11 @@ public abstract class NewScene {
     protected String greet;
     protected Stage window;
 
+    public NewScene() {
+
+    }
+
+
     /**
      * Creates a new scene.
      * @param ui to interact with user
@@ -115,6 +120,7 @@ public abstract class NewScene {
                 resolveException(e);
             }
         });
+
     }
 
     protected void handleUserInput() throws WordUpException {
