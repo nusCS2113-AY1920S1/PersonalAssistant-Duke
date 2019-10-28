@@ -237,7 +237,7 @@ public class Ui {
     public String quizDisplay(String question, String[] options, int optionSequence) {
         String s = ("What is the meaning of " + question + "?\n");
         int index = 1;
-        for (int i = optionSequence; i < optionSequence+4; i++ ) {
+        for (int i = optionSequence; i < optionSequence + 4; i++) {
             s += (index + "." + options[i % 4] + "  ");
             index++;
         }
