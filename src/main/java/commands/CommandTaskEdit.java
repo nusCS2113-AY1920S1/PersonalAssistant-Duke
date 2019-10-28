@@ -19,20 +19,21 @@ public class CommandTaskEdit extends Command {
     }
 
     /**
-     * Edit a Task in the tasklist
-     * @param farmio the game which contains the tasklist to be editted
-     * @throws FarmioFatalException if the simulation file cannot be found
+     * Edit a Task in the tasklist.
+     * @param farmio the game which contains the tasklist to be editted.
+     * @throws FarmioFatalException if the simulation file cannot be found.
      */
     @Override
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
-        Ui ui = farmio.getUi();
         Storage storage = farmio.getStorage();
         Farmer farmer = farmio.getFarmer();
         if (taskID < 1 || taskID > farmer.getTasks().size()) {
             throw new FarmioException("Invalid Task ID!");
         }
         farmer.getTasks().editTask(taskID, task);
-        farmio.getSimulation().simulate(farmio.getLevel().getPath(), farmio.getLevel().getNarratives().size() - 1);
+        farmio.getSimulation().simulate(farmio.getLevel().getPath(),
+                farmio.getLevel().getNarratives().size() - 1);
+        Ui ui = farmio.getUi();
         ui.showInfo("Successfully edited task!");
     }
 }

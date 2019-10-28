@@ -15,11 +15,11 @@ public class CommandTaskInsert extends Command {
     }
 
     /**
-     * Inserts a Task at the specified position
+     * Inserts a Task at the specified position.
      *
-     * @param farmio the game which contains the TaskList
-     * @throws FarmioException if the TaskID is invalid
-     * @throws FarmioFatalException if the Simlation file cannot be found
+     * @param farmio the game which contains the TaskList.
+     * @throws FarmioException if the TaskID is invalid.
+     * @throws FarmioFatalException if the Simlation file cannot be found.
      */
     @Override
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {

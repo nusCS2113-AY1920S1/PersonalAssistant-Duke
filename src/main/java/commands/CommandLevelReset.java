@@ -9,16 +9,16 @@ import frontend.Ui;
 
 public class CommandLevelReset extends Command {
     /**
-     * Resets the level and farmer variables to previous state
-     * @param farmio The game which is reverted to a previous state
-     * @throws FarmioFatalException if simulation file cannot be found
+     * Resets the level and farmer variables to previous state.
+     * @param farmio The game which is reverted to a previous state.
+     * @throws FarmioFatalException if simulation file cannot be found.
      */
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
         Ui ui = farmio.getUi();
         Storage storage = farmio.getStorage();
-        try{
-            farmio.setFarmer(new Farmer(storage.loadFarmer()));//TODO implement level.reset to reset the stage in case user types some wrong thing
+        try {
+            farmio.setFarmer(new Farmer(storage.loadFarmer()));
         } catch (FarmioException e) {
             ui.showWarning(e.getMessage());
             ui.showInfo("Attempting recovery process.");

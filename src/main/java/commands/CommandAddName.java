@@ -6,7 +6,7 @@ import exceptions.FarmioException;
 import frontend.Ui;
 
 
-public class CommandAddName extends Command{
+public class CommandAddName extends Command {
     private String name;
 
     public CommandAddName(String userInput) {
@@ -20,21 +20,21 @@ public class CommandAddName extends Command{
         if (name.length() <= 15 && name.length() > 0 && (name.matches("[a-zA-Z0-9]+") || name.contains("_"))) {
             farmio.getFarmer().inputName(name);
             ui.registerName(name);
-            ui.typeWriter("Welcome Farmer " + name + ", please press [ENTER] to begin the tutorial or enter [skip] to skip the story", false);
+            ui.typeWriter("Welcome Farmer "
+                    + name
+                    + ", please press [ENTER] to begin the tutorial"
+                    +
+                    " or enter [skip] to skip the story", false);
             farmio.setStage(Farmio.Stage.LEVEL_START);
-        }
-        else if(name.length() == 0) {
+        } else if (name.length() == 0) {
             ui.typeWriter("Provide a name.", false);
             ui.typeWriter("Enter a name:", false);
-        }
-        else if(name.length() > 15) {
+        } else if (name.length() > 15) {
             ui.typeWriter("Your name can have a maximum of 15 characters.", false);
             ui.typeWriter("Enter your name:", false);
-        }
-        else {
+        } else {
             ui.typeWriter("Special Characters are not allowed", false);
             ui.typeWriter("Enter your name:", false);
         }
     }
-
 }

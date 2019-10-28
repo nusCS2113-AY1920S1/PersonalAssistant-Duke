@@ -8,9 +8,9 @@ import frontend.Ui;
 
 public class CommandDayStart extends Command {
     /**
-     * Shows and sets the start of a new day
-     * @param farmio The game where its stage is set to RUNNING_DAY
-     * @throws FarmioFatalException if simulation file is missing
+     * Shows and sets the start of a new day.
+     * @param farmio The game where its stage is set to RUNNING_DAY.
+     * @throws FarmioFatalException if simulation file is missing.
      */
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
