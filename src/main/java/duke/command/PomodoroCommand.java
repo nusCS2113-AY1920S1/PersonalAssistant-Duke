@@ -7,9 +7,6 @@ import duke.tasklist.TaskList;
 import duke.ui.Ui;
 import duke.extensions.Pomodoro;
 
-import java.io.IOException;
-import java.text.ParseException;
-
 public class PomodoroCommand extends Command {
     String command;
 
@@ -18,7 +15,7 @@ public class PomodoroCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, ParseException, DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Pomodoro pomodoro = Pomodoro.getInstance();
         switch (command) {
             case "start":
@@ -37,7 +34,7 @@ public class PomodoroCommand extends Command {
                 pomodoro.stopTimer();
                 break;
             default:
-                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what you are referring to");
+                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what pomodoro you are referring to");
         }
     }
 

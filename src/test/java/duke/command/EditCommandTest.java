@@ -65,7 +65,7 @@ public class EditCommandTest {
 
         editCommand = new EditCommandParser().parse(Optional.of("cs"), "1 -priority 2");
         editCommand.execute(tasks, ui, storage);
-        String expectedTaskPriority = "H";
+        String expectedTaskPriority = "High";
         String actualTaskPriority = tasks.get(1).getPriority();
         assertEquals(expectedTaskPriority, actualTaskPriority);
 
@@ -83,7 +83,7 @@ public class EditCommandTest {
 
         editCommand = new EditCommandParser().parse(Optional.of("cs"), "1 -r weekly");
         editCommand.execute(tasks, ui, storage);
-        String expectedTaskRecurrence = "W";
+        String expectedTaskRecurrence = "Weekly";
         String actualTaskRecurrence = tasks.get(1).getRecurrenceCode();
         assertEquals(expectedTaskRecurrence, actualTaskRecurrence);
     }
@@ -100,7 +100,7 @@ public class EditCommandTest {
 
         editCommand = new EditCommandParser().parse(Optional.empty(), "1 -priority 2");
         editCommand.execute(tasks, ui, storage);
-        String expectedTaskPriority = "H";
+        String expectedTaskPriority = "High";
         String actualTaskPriority = tasks.get(0).getPriority();
         assertEquals(expectedTaskPriority, actualTaskPriority);
 
@@ -118,7 +118,7 @@ public class EditCommandTest {
 
         editCommand = new EditCommandParser().parse(Optional.empty(), "3 -r weekly");
         editCommand.execute(tasks, ui, storage);
-        String expectedTaskRecurrence = "W";
+        String expectedTaskRecurrence = "Weekly";
         String actualTaskRecurrence = tasks.get(2).getRecurrenceCode();
         assertEquals(expectedTaskRecurrence, actualTaskRecurrence);
     }
