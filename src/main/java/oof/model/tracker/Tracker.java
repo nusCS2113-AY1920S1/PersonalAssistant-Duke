@@ -6,7 +6,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Tracker extends Assignment{
+public class Tracker extends Assignment {
 
     private static final String DELIMITER = ",";
     private Date startDate;
@@ -20,7 +20,8 @@ public class Tracker extends Assignment{
      * @param lastUpdated   last updated Date of Tracker.
      * @param timeTaken     total time spent on Assignment.
      */
-    public Tracker(String moduleCode, String description, String deadlineDateTime, Date startDate, Date lastUpdated, long timeTaken) {
+    public Tracker(String moduleCode, String description, String deadlineDateTime,
+                   Date startDate, Date lastUpdated, long timeTaken) {
         super(moduleCode, description, deadlineDateTime);
         this.startDate = startDate;
         this.lastUpdated = lastUpdated;

@@ -803,7 +803,8 @@ public class Ui {
         String assignmentName = tracker.getDescription();
         System.out.println("Begin Assignment: " + assignmentName);
         System.out.println("It is currently " + tracker.getLastUpdated());
-        System.out.println("Current total time spent on " + assignmentName + ": " + tracker.getTimeTaken() + " minutes");
+        System.out.println("Current total time spent on " + assignmentName + ": "
+                + tracker.getTimeTaken() + " minutes");
     }
 
     /**

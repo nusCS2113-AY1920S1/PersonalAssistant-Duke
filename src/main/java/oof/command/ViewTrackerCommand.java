@@ -26,7 +26,8 @@ public class ViewTrackerCommand extends Command {
     }
 
     /**
-     * Queries a visual diagram featuring a histogram sharing the total amount of time spent on each Module by user in blocks of 10 minutes.
+     * Queries a visual diagram featuring a histogram sharing the total amount of time
+     * spent on each Module by user in blocks of 10 minutes.
      *
      * @param semesterList Instance of SemesterList that stores Semester objects.
      * @param tasks        Instance of TaskList that stores Task objects.
@@ -53,7 +54,7 @@ public class ViewTrackerCommand extends Command {
      */
     private ModuleTrackerList timeSpentByModule(TrackerList trackerList) {
         ModuleTrackerList moduleTrackerList = new ModuleTrackerList();
-        Tracker tracker = null;
+        Tracker tracker;
 
         for (int i = 0; i < trackerList.getSize(); i++) {
             tracker = trackerList.getTracker(i);
@@ -100,8 +101,8 @@ public class ViewTrackerCommand extends Command {
         }
         Collections.sort(list, moduleTrackerList.timeTaken);
         ModuleTrackerList sortedTL = new ModuleTrackerList();
-        for (int i = 0; i < list.size(); i++) {
-            sortedTL.addModuleTracker(list.get(i));
+        for (ModuleTracker moduleTracker : list) {
+            sortedTL.addModuleTracker(moduleTracker);
         }
         return sortedTL;
     }
