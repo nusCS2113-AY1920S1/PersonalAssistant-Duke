@@ -6,6 +6,8 @@ import Exceptions.FarmioFatalException;
 import FrontEnd.Simulation;
 import FrontEnd.Ui;
 
+import java.util.EnumSet;
+
 public class Farmio {
     private Storage storage;
     private Farmer farmer;
@@ -35,8 +37,11 @@ public class Farmio {
             }
             while (!isExit) {
                 try {
-                    command = checkStage(stage) == null ? Parser.parse(ui.getInput(), stage) : checkStage(stage);
-//                    command = Parser.parse(ui.getInput(), stage); //TODO jx help me review if there is better way
+                    if (Stage.noInput.contains(stage)) {
+                        command = Parser.parse(" ", stage);
+                    } else {
+                        command = Parser.parse(ui.getInput(), stage);
+                    }
                     command.execute(this);
                 } catch (FarmioException e) {
                     simulation.simulate();
@@ -67,7 +72,10 @@ public class Farmio {
         DAY_END,
         DAY_START,
         LEVEL_END,
-        LEVEL_FAILED
+        LEVEL_FAILED;
+
+        public static EnumSet<Stage> noInput = EnumSet.of(LEVEL_START, RUNNING_DAY, CHECK_OBJECTIVES, DAY_START, LEVEL_END, LEVEL_FAILED);
+        public static EnumSet<Stage> reqInput = EnumSet.complementOf(noInput);
     }
 
     public Storage getStorage() {
@@ -106,24 +114,5 @@ public class Farmio {
 
     public void setExit() {
         this.isExit = true;
-    }
-
-    private static Command checkStage(Farmio.Stage stage) {
-        switch (stage) {
-            case LEVEL_START:
-                return new CommandLevelStart();
-            case RUNNING_DAY:
-                return new CommandTasksRun();
-            case CHECK_OBJECTIVES:
-                return new CommandCheckObjectives();
-            case DAY_START:
-                return new CommandDayStart();
-            case LEVEL_END:
-                return new CommandLevelEnd();
-            case LEVEL_FAILED:
-                return new CommandLevelReset();
-            default:
-                return null;
-        }
     }
 }
