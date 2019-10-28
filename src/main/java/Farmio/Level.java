@@ -95,7 +95,7 @@ public class Level {
         objectiveResult currentLevelState;
         if(checkDeadlineExceeded(day)){
             currentLevelState =  objectiveResult.FAILED;
-            getFeedback(farmer, currentLevelState);
+            //getFeedback(farmer, currentLevelState);
         }
         else {
             if (allDone(farmer)) {
@@ -107,7 +107,7 @@ public class Level {
                 currentLevelState = objectiveResult.NOT_DONE;
             }
         }
-        //getFeedback(farmer, currentLevelState);
+        getFeedback(farmer, currentLevelState);
         return currentLevelState;
     }
 
