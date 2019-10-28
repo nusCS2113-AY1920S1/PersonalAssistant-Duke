@@ -5,7 +5,6 @@ import Farmio.Farmio;
 import Exceptions.FarmioException;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
-import org.json.simple.JSONObject;
 
 public class IfTask extends Task {
 
@@ -15,7 +14,7 @@ public class IfTask extends Task {
      * @param action The action to be executed if the condition is true
      */
     public IfTask(Condition condition, Action action) {
-        super(Type.IF, condition, action);
+        super(taskType.IF, condition, action);
     }
 
     @Override
