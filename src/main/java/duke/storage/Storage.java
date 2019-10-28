@@ -86,7 +86,7 @@ public class Storage {
         writer.writeUser(user);
     }
 
-    public void updateTransaction(TransactionList transactionList) throws DukeException {
-        writer.writeTransaction(transactionList);
+    public void updateTransaction(Wallet wallet) throws DukeException {
+        writer.writeTransaction(wallet);
     }
 }

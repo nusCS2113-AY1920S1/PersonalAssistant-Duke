@@ -34,7 +34,7 @@ public abstract class Command {
      * @throws DukeException when there is an error
      */
 
-    public abstract void execute(MealList meals, Storage storage, User user, Wallet wallet);
+    public abstract void execute(MealList meals, Storage storage, User user, Wallet wallet) throws DukeException;
 
     public abstract void execute2(MealList meals, Storage storage, User user, Wallet wallet);
 

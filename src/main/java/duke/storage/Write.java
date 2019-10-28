@@ -11,6 +11,7 @@ import duke.model.user.Tuple;
 import duke.model.user.User;
 import duke.model.wallet.Transaction;
 import duke.model.wallet.TransactionList;
+import duke.model.wallet.Wallet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -115,9 +116,14 @@ public class Write {
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_USER_FILE));
     }
 
-    public void writeTransaction(TransactionList transactionList) throws DukeException {
-        HashMap<String, ArrayList<Transaction>> transactions = transactionList.getTransactionTracker();
-        String toWriteStr = "";
+    /**
+     * Save all the recorded transactions.
+     * @param wallet
+     * @throws DukeException
+     */
+    public void writeTransaction(Wallet wallet) throws DukeException {
+        HashMap<String, ArrayList<Transaction>> transactions = wallet.getTransactions().getTransactionTracker();
+        String toWriteStr = wallet.getAccountBalance() + "\n";
         for (String i : transactions.keySet()) {
             ArrayList<Transaction> transactionInADay = transactions.get(i);
             for (int j = 0; j < transactions.get(i).size(); j++) {

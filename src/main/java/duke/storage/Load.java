@@ -71,7 +71,6 @@ public class Load {
         bufferedReader = FileUtil.readFile(userFileStr, useResourceAsBackup);
         try {
             lineStr = bufferedReader.readLine();
-            System.out.println(lineStr);
             tempUser = LoadLineParser.parseUser(lineStr);
             while ((lineStr = bufferedReader.readLine()) != null) {
                 String[] splitWeightInfo = lineStr.split("\\|");
