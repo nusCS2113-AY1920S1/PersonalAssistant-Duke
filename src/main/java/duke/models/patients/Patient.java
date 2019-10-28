@@ -1,3 +1,5 @@
+//@@author kkeejjuunn
+
 package duke.models.patients;
 
 import javafx.beans.property.SimpleIntegerProperty;
@@ -122,5 +124,14 @@ public class Patient {
      */
     public void setRoom(String room) {
         this.room.set(room);
+    }
+
+    /**
+     * It sets the remark of the patient.
+     *
+     * @param remark contains the remark of the patient which is a string.
+     */
+    public void setRemark(String remark) {
+        this.remark.set(remark);
     }
 }
