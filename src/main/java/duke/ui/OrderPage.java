@@ -1,8 +1,6 @@
 package duke.ui;
 
 import duke.commons.core.LogsCenter;
-import duke.model.commons.Item;
-import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -35,10 +33,12 @@ public class OrderPage extends UiPart<AnchorPane> {
     private Label canceled;
 
     /**
-     * Creates an order page.
+     * Creates an order page displaying orders from {@code orderList}.
      */
-    public OrderPage(ObservableList<Order> orderList, ObservableList<Item<Ingredient>> inventoryList) {
+    public OrderPage(ObservableList<Order> orderList) {
         super(FXML);
+
+        logger.info("Initializing Order Page");
         orderListView.setItems(orderList);
         orderListView.setCellFactory(listView -> new OrderListViewCell());
 

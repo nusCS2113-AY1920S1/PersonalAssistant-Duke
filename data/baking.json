@@ -29,6 +29,17 @@
     "status" : "ACTIVE",
     "total" : 0.0,
     "items" : [ ]
+  },
+    {
+      "id": 1572194002488,
+      "creationDate": "2019-10-27T16:33:22.488+0000",
+      "name": "customer",
+      "contact": "N/A",
+      "remarks": "N/A",
+      "deliveryDate": "2019-10-27T16:33:12.837+0000",
+      "status": "ACTIVE",
+      "total": 0.0,
+      "items": []
   } ],
   "products" : [ {
     "productName" : "1",

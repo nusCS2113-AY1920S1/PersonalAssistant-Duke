@@ -21,7 +21,6 @@ public class LogsCenter {
     private static final int MAX_FILE_SIZE_IN_BYTES = (int) (Math.pow(2, 20) * 5); // 5MB
     private static final String LOG_FILE = "BakingHome.log";
     private static Level currentLogLevel = Level.INFO;
-    private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
     private static FileHandler fileHandler;
     private static ConsoleHandler consoleHandler;
 
