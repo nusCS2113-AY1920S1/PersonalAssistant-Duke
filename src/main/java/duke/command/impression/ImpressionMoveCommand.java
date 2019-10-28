@@ -17,6 +17,7 @@ public class ImpressionMoveCommand extends ImpressionCommand {
         // TODO: query user for correct impression if no impression is given
         String evArg = getSwitchVal("evidence");
         String treatArg = getSwitchVal("treatment");
+        // TODO: proper search
         if (getArg() != null && evArg == null && treatArg == null) {
 
         } else if (getArg() == null && evArg != null && treatArg == null) {
