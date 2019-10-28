@@ -2,9 +2,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import command.CommentCommand;
-import exception.DukeException;
-import parser.ParserFactory;
+import chronologer.command.CommentCommand;
+import chronologer.exception.ChronologerException;
+import chronologer.parser.ParserFactory;
 
 /**
  * unit test for search command feature.
@@ -36,7 +36,7 @@ public class CommentCommandTest {
     @Test
     @DisplayName("Test Parser with invalid comment input")
     void testParserInvalidLong() {
-        Assertions.assertThrows(DukeException.class, () -> {
+        Assertions.assertThrows(ChronologerException.class, () -> {
             ParserFactory.parse("comment");
         });
     }
