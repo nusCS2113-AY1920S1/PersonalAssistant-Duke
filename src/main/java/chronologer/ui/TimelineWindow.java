@@ -91,6 +91,7 @@ class TimelineWindow extends UiComponent<Region> {
         tasksWithoutDates();
         initializeListViewComponents();
     }
+
     /**
      * This @FXML initialize() is a special function where static members of the GUI can be initialised.
      */
