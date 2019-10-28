@@ -69,21 +69,8 @@ public class TaskList {
 
 
     public Task get(Optional<String> filter, int index) throws DukeException {
-        int counter = -1;
-        if (filter.isPresent()) {
-            for (int i = 0; i < taskList.size(); i++) {
-                Task t = taskList.get(i);
-                if (t.getFilter().equals(filter)) {
-                    counter++;
-                }
-                if (counter == index - 1) {
-                    return t;
-                }
-            }
-        } else {
-            return taskList.get(index - 1);
-        }
-        throw new DukeException("Index not found");
+        int i = reduceFilter(filter, index);
+        return taskList.get(i);
     }
 
     /**
@@ -204,5 +191,34 @@ public class TaskList {
             }
         }
         return new TaskList(list);
+    }
+
+	public void insert(Optional<String> filter, int index, Task t) throws DukeException {
+        int i = reduceFilter(filter, index);
+        taskList.add(i, t);
+	}
+
+    public void set(Optional<String> filter, int index, Task t) throws DukeException {
+        int i = reduceFilter(filter, index);
+        taskList.remove(i);
+        taskList.add(i, t);
+    }
+
+    private int reduceFilter(Optional<String> filter, int index) throws DukeException {
+        int counter = -1;
+        if (filter.isPresent()) {
+            for (int i = 0; i < taskList.size(); i++) {
+                Task t = taskList.get(i);
+                if (t.getFilter().equals(filter)) {
+                    counter++;
+                }
+                if (counter == index - 1) {
+                    return i;
+                }
+            }
+        } else {
+            return index - 1;
+        }
+        throw new DukeException("Index not found");
     }
 }

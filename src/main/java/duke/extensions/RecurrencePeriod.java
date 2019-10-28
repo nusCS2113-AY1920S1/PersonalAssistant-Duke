@@ -6,11 +6,11 @@ public enum RecurrencePeriod {
     public String recurrenceCode() {
         switch (this) {
             case DAILY:
-                return "D";
+                return "Daily";
             case WEEKLY:
-                return "W";
+                return "Weekly";
             default:
-                return "N";
+                return "NA";
         }
     }
 

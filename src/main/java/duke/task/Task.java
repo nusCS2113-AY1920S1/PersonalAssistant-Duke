@@ -42,6 +42,17 @@ public class Task {
         this.dateTime = dateTime;
     }
 
+    public Task(Task other) {
+        this.description = other.description;
+        this.isDone = other.isDone;
+        this.key = other.key;
+        this.priority = other.priority;
+        this.recurrence = other.recurrence;
+        this.filter = other.filter;
+        this.duration = other.duration;
+        this.dateTime = other.dateTime;
+    }
+
     /**
      * Returns a String object to show if a duke.task.Task has been marked done or not
      *
@@ -155,9 +166,8 @@ public class Task {
 
     @Override
     public String toString() {
-        String recurringDescription = recurrence.recurrenceDescription();
         String recurringIcon = recurrence.recurrenceIcon();
-        return recurringIcon + key + "[" + this.getStatusIcon() + "] " + description + recurringDescription
+        return recurringIcon + key + "[" + this.getStatusIcon() + "] " + description
                 + (dateTime.isPresent()
                 ? " (" + dateTime.get().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + ")"
                 : "");

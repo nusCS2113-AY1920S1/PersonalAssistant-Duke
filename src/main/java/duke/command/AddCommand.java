@@ -5,6 +5,7 @@ import duke.extensions.AbnormalityChecker;
 import duke.extensions.Recurrence;
 import duke.extensions.RecurrencePeriod;
 import duke.storage.Storage;
+import duke.storage.UndoStack;
 import duke.task.*;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
@@ -58,5 +59,11 @@ public class AddCommand extends Command {
                 break;
         }
         storage.save(tasks);
+    }
+
+    @Override
+    public void savePrevState(TaskList tasks, UndoStack undoStack) {
+        int idx = tasks.size();
+        undoStack.addAction(new DeleteCommand(Optional.empty(), Integer.toString(idx + 1)));
     }
 }

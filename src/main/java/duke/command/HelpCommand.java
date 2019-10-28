@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.storage.Storage;
+import duke.storage.UndoStack;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
@@ -26,6 +27,11 @@ public class HelpCommand extends Command{
         System.out.println("Locating task by name: find KEYWORD [MORE_KEYWORDS]");
         System.out.println("Deleting a task: delete INDEX");
         System.out.println("CLearing all entries: clear");
+    }
+
+    @Override
+    public void savePrevState(TaskList tasks, UndoStack undoStack) throws DukeException {
+
     }
 
 }

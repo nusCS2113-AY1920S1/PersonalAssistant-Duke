@@ -11,7 +11,6 @@ public enum Priority {
 	/**
 	 * Method to get priority level of a task
 	 * @return integer value representing the priority level of the task
-	 * @throws DukeException
 	 */
 	public int priorityLevel() {
 		switch(this) {
@@ -27,11 +26,11 @@ public enum Priority {
 	public String priorityCode() {
 		switch(this) {
 			case LOW:
-				return "L";
+				return "Low";
 			case MEDIUM:
-				return "M";
+				return "Medium";
 			default:
-				return "H";
+				return "High";
 		}
 	}
 }
