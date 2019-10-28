@@ -1,35 +1,49 @@
 package duke.storage;
 
+import duke.Main;
+import duke.commons.LogsCenter;
 import duke.exception.DukeException;
 import duke.model.Budget;
 import duke.model.ExpenseList;
+import duke.model.payment.PaymentList;
+import duke.storage.payment.PaymentListStorage;
 import duke.model.IncomeList;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 public class StorageManager implements Storage {
+
+    private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
 
     private ExpenseListStorage expenseListStorage;
     private PlanAttributesStorage planAttributesStorage;
     private IncomeListStorage incomeListStorage;
     private BudgetStorage budgetStorage;
+    private PaymentListStorage paymentListStorage;
 
     /**
      * Constructor for StorageManager
      *
-     * @param expenseListStorage    storage for expense List
-     * @param planAttributesStorage storage for PlanAttributes from PlanBot
+     * @param expenseListStorage    Storage for expense List
+     * @param planAttributesStorage Storage for PlanAttributes from PlanBot
+     * @param incomeListStorage     Storage for income
      * @param budgetStorage         Storage for budget
+     * @param paymentListStorage    Storage for payment
      */
     public StorageManager(ExpenseListStorage expenseListStorage,
                           PlanAttributesStorage planAttributesStorage,
                           IncomeListStorage incomeListStorage,
-                          BudgetStorage budgetStorage) {
+                          BudgetStorage budgetStorage,
+                          PaymentListStorage paymentListStorage) {
+
         this.expenseListStorage = expenseListStorage;
         this.planAttributesStorage = planAttributesStorage;
         this.incomeListStorage = incomeListStorage;
         this.budgetStorage = budgetStorage;
+        this.paymentListStorage = paymentListStorage;
     }
 
     @Override
@@ -70,4 +84,16 @@ public class StorageManager implements Storage {
     public void saveBudget(Budget budget) throws DukeException {
         budgetStorage.saveBudget(budget);
     }
+
+    @Override
+    public Optional<PaymentList> loadPaymentList() throws DukeException {
+        logger.info("start loading paymentList");
+        return paymentListStorage.readPaymentList();
+    }
+
+    @Override
+    public void savePaymentList(PaymentList paymentList) throws IOException {
+        paymentListStorage.savePaymentList(paymentList);
+    }
+
 }

@@ -5,7 +5,19 @@ import duke.logic.Logic;
 import duke.logic.LogicManager;
 import duke.model.DukePP;
 import duke.model.Model;
-import duke.storage.*;
+
+import duke.storage.BudgetStorage;
+import duke.storage.ExpenseListStorage;
+import duke.storage.ExpenseListStorageManager;
+import duke.storage.PlanAttributesStorage;
+import duke.storage.PlanAttributesStorageManager;
+import duke.storage.Storage;
+import duke.storage.StorageManager;
+import duke.storage.payment.PaymentListStorage;
+import duke.storage.payment.PaymentListStorageManager;
+import duke.storage.IncomeListStorage;
+import duke.storage.IncomeListStorageManager;
+
 import duke.ui.Ui;
 import duke.ui.UiManager;
 import javafx.application.Application;
@@ -34,12 +46,12 @@ public class Main extends Application {
         IncomeListStorage incomeListStorage = new IncomeListStorageManager();
         BudgetStorage budgetStorage = new BudgetStorage();
 
-        storage = new StorageManager(expenseListStorage, planAttributesStorage, incomeListStorage, budgetStorage);
+        PaymentListStorage paymentListStorage = new PaymentListStorageManager();
 
-        model = new DukePP(storage.loadExpenseList(), storage.loadPlanAttributes(),storage.loadIncomeList(), storage.loadBudget());
+        storage = new StorageManager(expenseListStorage, planAttributesStorage, incomeListStorage, budgetStorage, paymentListStorage);
 
-        int size = storage.loadExpenseList().getExternalList().size();
-        logger.info("The size of external list from storage is " + size);
+        model = new DukePP(storage.loadExpenseList(), storage.loadPlanAttributes(), storage.loadIncomeList(), storage.loadBudget(), storage.loadPaymentList());
+
 
         logic = new LogicManager(model, storage);
 
