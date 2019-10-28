@@ -1,3 +1,5 @@
+//@@author kkeejjuunn
+
 package duke.commands.patient;
 
 import duke.commands.Command;
@@ -90,9 +92,10 @@ public class DeletePatientCommand implements Command {
             ui.assignedTasksFoundWhenDeletePatient(patientToBeDeleted, assignedTasks);
             assignedTaskManager.deleteAllTasksBelongToThePatient(patientToBeDeleted.getId());
             storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
+            patientManager.deletePatient(patientToBeDeleted.getId());
         } catch (DukeException e) {
+            patientManager.deletePatient(patientToBeDeleted.getId());
         }
-        patientManager.deletePatient(patientToBeDeleted.getId());
         storageManager.savePatients(patientManager.getPatientList());
         ui.patientDeleted();
     }
