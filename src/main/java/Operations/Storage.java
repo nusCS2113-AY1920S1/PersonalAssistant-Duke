@@ -254,10 +254,12 @@ public class Storage {
     public String writeLogFile(ArrayList<Task> list) throws RoomShareException {
         String fileName = "log " + new Date().toString() + ".txt";
         fileName = fileName.replaceAll(" ", "_").replaceAll(":","_");
-        String fileSeparator = System.clearProperty("file.separator");
-        String filePath = "logs" + fileSeparator + fileName;
+        String filePath = "logs\\" + fileName;
+        String folderName = "logs";
         try {
             File file = new File(filePath);
+            File folder = new File(folderName);
+            if (!folder.exists()) folder.mkdir();
             file.createNewFile();
             PrintWriter writer = new PrintWriter(filePath, "UTF-8");
             for (Task t : list) {
