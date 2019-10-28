@@ -130,7 +130,7 @@ public class Parser {
         if (!taskType.equals("if")  && ! taskType.equals("for") && !taskType.equals("while")) {
             throw new FarmioException("Invalid Task Type!");
         }
-        if (!Condition.validateCondition(condition)) {
+        if (!Condition.isValidCondition(condition)) {
             throw new FarmioException("Invalid Condition!");
         }
         if (!Action.validateAction(action)) {
