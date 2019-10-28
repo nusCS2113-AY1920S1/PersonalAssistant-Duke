@@ -35,7 +35,6 @@ public class DeleteRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> 
                     arrayList.add(ERROR_MESSAGE_DELETE_RECIPE_NOT_FOUND);
                     recipeStorage.saveFile(recipeList);
                 } else {
-                    System.out.println(value.getFeedback());
                     arrayList.add(MESSAGE_RECIPE_DELETED + "       " + description + "\n" + "Now you have " + recipeList.getSize() + " recipe(s) in the list.");
                     recipeStorage.saveFile(recipeList);
                 }
