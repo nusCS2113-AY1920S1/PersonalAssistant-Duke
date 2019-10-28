@@ -62,11 +62,9 @@ public class PlanQuestionTest {
             Assertions.assertThrows(DukeException.class, ()-> {
                question.getReply("some random input", KNOWN_ATTRIBUTES);
             });
+            Assertions.assertTrue(question.getNeighbouringQuestions("SOME_RANDOM__ATTRIBUTE").isEmpty());
             Assertions.assertThrows(DukeException.class, ()-> {
-                question.addNeighbouring("SOME_RANDOM_ATTRIBUTE", 1);
-            });
-            Assertions.assertThrows(DukeException.class, ()-> {
-                question.getNeighbouringQuestions("SOME_RANDOM_ATTRIBUTE");
+                question.addNeighbouring("SOME_RANDOM__ATTRIBUTE", 1);
             });
         } catch (DukeException e) {
             Assertions.fail(e.getMessage());
