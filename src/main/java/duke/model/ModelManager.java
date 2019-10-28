@@ -2,18 +2,17 @@ package duke.model;
 
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileNotSavedException;
-import duke.logic.CreateMap;
+import duke.logic.TransportationMap;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.lists.VenueList;
 import duke.model.locations.BusStop;
-import duke.model.locations.Venue;
 import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
+import duke.model.profile.ProfileCard;
 import duke.model.transports.BusService;
 import duke.storage.Storage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +22,8 @@ public class ModelManager implements Model {
     private Storage storage;
     private EventList events;
     private RouteList routes;
-    private CreateMap map;
+    private TransportationMap map;
+    private ProfileCard profileCard;
 
     /**
      * Constructs a new ModelManager object.
@@ -33,10 +33,16 @@ public class ModelManager implements Model {
         events = storage.getEvents();
         map = storage.getMap();
         routes = storage.getRoutes();
+        profileCard = storage.getProfileCard();
     }
 
     @Override
-    public CreateMap getMap() {
+    public String getName() {
+        return profileCard.getPersonName();
+    }
+
+    @Override
+    public TransportationMap getMap() {
         return map;
     }
 
@@ -78,6 +84,11 @@ public class ModelManager implements Model {
         return new VenueList(events);
     }
 
+    @Override
+    public ProfileCard getProfileCard() {
+        return profileCard;
+    }
+
     /**
      * Saves the file to local storage.
      *
@@ -86,5 +97,10 @@ public class ModelManager implements Model {
     @Override
     public void save() throws FileNotSavedException {
         storage.write();
+    }
+
+    @Override
+    public boolean isNewUser() {
+        return storage.getIsNewUser();
     }
 }

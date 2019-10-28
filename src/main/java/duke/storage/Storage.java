@@ -4,6 +4,7 @@ import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeDuplicateTaskException;
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
@@ -13,8 +14,9 @@ import duke.model.Event;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.logic.parsers.ParserTimeUtil;
-import duke.logic.CreateMap;
+import duke.logic.TransportationMap;
 import duke.model.locations.BusStop;
+import duke.model.profile.ProfileCard;
 import duke.model.transports.Route;
 import duke.model.locations.TrainStation;
 import duke.model.planning.Agenda;
@@ -42,13 +44,15 @@ public class Storage {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private EventList events;
     private RouteList routes;
-    private CreateMap map;
+    private TransportationMap map;
+    private ProfileCard profileCard;
     private static final String BUS_FILE_PATH = "/data/bus.txt";
     private static final String RECOMMENDATIONS_FILE_PATH = "/data/recommendations.txt";
     private static final String SAMPLE_RECOMMENDATIONS_FILE_PATH = "samples.txt";
     private static final String TRAIN_FILE_PATH = "/data/train.txt";
     private static final String EVENTS_FILE_PATH = "events.txt";
     private static final String ROUTES_FILE_PATH = "routes.txt";
+    private static final String PROFILE_FILE_PATH = "profile.txt";
 
     /**
      * Constructs a Storage object that contains information from the model.
@@ -70,6 +74,7 @@ public class Storage {
             DukeDuplicateTaskException, DukeDateTimeParseException {
         readBus();
         readTrain();
+        readProfile();
         readEvent();
         readRoutes();
     }
@@ -111,7 +116,7 @@ public class Storage {
             }
         }
         s.close();
-        this.map = new CreateMap(busStopData, busData);
+        this.map = new TransportationMap(busStopData, busData);
 
     }
 
@@ -198,6 +203,28 @@ public class Storage {
     }
 
     /**
+     * Reads the profile from filepath. Creates new empty profile if file doesnt exist.
+     */
+    public void readProfile() throws StorageFileNotFoundException {
+        profileCard = new ProfileCard();
+        try {
+            File f = new File(PROFILE_FILE_PATH);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String input = s.nextLine();
+                profileCard = ParserStorageUtil.createProfileFromStorage(profileCard, input);
+            }
+
+            s.close();
+        } catch (FileNotFoundException | DukeDateTimeParseException | DukeUnknownCommandException e) {
+
+            throw new StorageFileNotFoundException(PROFILE_FILE_PATH);
+
+        }
+
+    }
+
+    /**
      * Writes the tasks into a file of the given filepath.
      *
      * @throws FileNotSavedException If a file cannot be saved.
@@ -205,6 +232,22 @@ public class Storage {
     public void write() throws FileNotSavedException {
         writeEvents();
         writeRoutes();
+        writeProfile();
+    }
+
+    /**
+     * Writes the profile to local storage.
+     *
+     * @throws FileNotSavedException If the file cannot be saved.
+     */
+    private void writeProfile() throws FileNotSavedException {
+        try {
+            FileWriter writer = new FileWriter(PROFILE_FILE_PATH);
+            writer.write(ParserStorageUtil.toProfileStorageString(profileCard) + "\n");
+            writer.close();
+        } catch (IOException e) {
+            throw new FileNotSavedException(PROFILE_FILE_PATH);
+        }
     }
 
     /**
@@ -300,11 +343,19 @@ public class Storage {
         return events;
     }
 
-    public CreateMap getMap() {
+    public TransportationMap getMap() {
         return this.map;
     }
 
     public RouteList getRoutes() {
         return routes;
+    }
+
+    public ProfileCard getProfileCard() {
+        return profileCard;
+    }
+
+    public boolean getIsNewUser() {
+        return profileCard.isNewUser();
     }
 }

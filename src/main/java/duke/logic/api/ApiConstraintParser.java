@@ -1,6 +1,6 @@
 package duke.logic.api;
 
-import duke.logic.CreateMap;
+import duke.logic.TransportationMap;
 import duke.model.locations.BusStop;
 import duke.model.locations.TrainStation;
 import duke.model.locations.Venue;
@@ -72,7 +72,7 @@ public class ApiConstraintParser {
      * @param map All transportation location
      * @return Nearest transportation
      */
-    public static Venue getNearestTransport(Venue start, CreateMap map) {
+    public static Venue getNearestTransport(Venue start, TransportationMap map) {
         TrainStation nearestTrain = getNearestTrainStation(start, map.getTrainMap());
         BusStop nearestBus = getNearestBusStop(start, map.getBusStopMap());
         return nearestTransport(start, nearestTrain, nearestBus);

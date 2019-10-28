@@ -3,28 +3,26 @@ package duke;
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileNotSavedException;
-import duke.logic.CreateMap;
+import duke.logic.TransportationMap;
 import duke.model.Model;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.lists.VenueList;
-import duke.model.Event;
-import duke.model.Task;
 import duke.model.locations.BusStop;
-import duke.model.locations.Venue;
 import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
+import duke.model.profile.ProfileCard;
 import duke.model.transports.BusService;
 import duke.storage.Storage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ModelStub implements Model {
     private Storage storage;
     private EventList events;
     private RouteList routes;
-    private CreateMap map;
+    private TransportationMap map;
+    private ProfileCard profileCard;
 
     /**
      * Construct the ModelStub for testing.
@@ -41,7 +39,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public CreateMap getMap() {
+    public TransportationMap getMap() {
         return map;
     }
 
@@ -78,5 +76,20 @@ public class ModelStub implements Model {
     @Override
     public VenueList getEventVenues() {
         return new VenueList();
+    }
+
+    @Override
+    public ProfileCard getProfileCard() {
+        return profileCard;
+    }
+
+    @Override
+    public boolean isNewUser() {
+        return  storage.getIsNewUser();
+    }
+
+    @Override
+    public String getName() {
+        return profileCard.getPersonName();
     }
 }

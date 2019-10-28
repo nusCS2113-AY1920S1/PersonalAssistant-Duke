@@ -132,7 +132,12 @@ public class Messages {
     public static final String PROMPT_RECOMMEND_STARTER = "How many days will you be visiting SG?";
     public static final String PROMPT_RECOMMEND_SUCCESS = "Recommended Attractions:";
 
+    public static final String PROMPT_SETUP_PROFILE = "Welcome to SGTravel.\n Please enter your name.";
+    public static final String PROMPT_BIRTHDAY = "Enter your birthday.";
+
     public static final String PROMPT_CANCEL = "Current conversation has ended.";
     public static final String PROMPT_ROUTE_STARTING_POINT = "Choose your starting point.";
     public static final String PROMPT_ROUTE_ENDING_POINT = "Choose your end point.";
+
+    public static final String STARTUP_WELCOME_MESSAGE = "Welcome to SGTravel\n";
 }

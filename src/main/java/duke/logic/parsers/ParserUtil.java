@@ -45,7 +45,7 @@ public class ParserUtil {
      * @param userInput The userInput read by the user interface.
      * @return The new Event object.
      */
-    protected static Event createEvent(String userInput) throws DukeException {
+    public static Event createEvent(String userInput) throws DukeException {
         String[] withinDetails = userInput.substring("event".length()).strip().split("between| and");
         if (withinDetails.length == 1) {
             throw new DukeUnknownCommandException();
@@ -61,7 +61,13 @@ public class ParserUtil {
         return new Event(withinDetails[0].strip(), start, end);
     }
 
-    protected static RouteNode createRouteNode(String userInput) throws DukeException {
+    /**
+     * Parses the userInput and return a new RouteNode constructed from it.
+     *
+     * @param userInput The userInput read by the user interface.
+     * @return The new RouteNode object.
+     */
+    public static RouteNode createRouteNode(String userInput) throws DukeException {
         String[] withinDetails = userInput.strip().split("at |with ", 2);
         if (withinDetails.length != 2) {
             throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
@@ -102,7 +108,7 @@ public class ParserUtil {
      * @param userInput The userInput read by the user interface.
      * @return The new Itinerary object.
      */
-    protected static Itinerary createRecommendation(String userInput) throws DukeException {
+    public static Itinerary createRecommendation(String userInput) throws DukeException {
         String[] itineraryDetails = userInput.substring("recommend".length()).strip().split("between| and");
         if (itineraryDetails.length == 1) {
             throw new DukeUnknownCommandException();
@@ -188,21 +194,6 @@ public class ParserUtil {
             throw new DukeEmptyFieldException(Messages.ERROR_INPUT_INVALID_FORMAT);
         } catch (NumberFormatException e) {
             throw new DukeException(Messages.ERROR_INPUT_INVALID_FORMAT);
-        }
-    }
-
-    /**
-     * Creates a new RouteNodeAddCommand from input, factoring for empty indexNode field.
-     * @param input Input created by the ConversationManager object or user input.
-     * @return RouteNodeAddCommand The command.
-     */
-    public static RouteNodeAddCommand createRouteNodeAddCommand(String input) throws DukeException {
-        try {
-            return new RouteNodeAddCommand(ParserUtil.createRouteNode(input),
-                    ParserUtil.getFirstIndex(input), ParserUtil.getSecondIndex(input), false);
-        } catch (DukeEmptyFieldException e) {
-            return new RouteNodeAddCommand(ParserUtil.createRouteNode(input),
-                    ParserUtil.getFirstIndex(input), 0, true);
         }
     }
 

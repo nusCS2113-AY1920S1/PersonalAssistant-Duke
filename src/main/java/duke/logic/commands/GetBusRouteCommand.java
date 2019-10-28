@@ -1,6 +1,7 @@
 package duke.logic.commands;
 
 import duke.commons.Messages;
+import duke.commons.enumerations.Direction;
 import duke.logic.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
 import duke.model.Model;
@@ -26,7 +27,7 @@ public class GetBusRouteCommand extends Command {
             HashMap<String, BusService> busMap = model.getMap().getBusMap();
             BusService bus = busMap.get(this.bus);
             String result = "";
-            for (String busCode : bus.getDirection(1)) {
+            for (String busCode : bus.getDirection(Direction.FORWARD)) {
                 result = result.concat(busCode + "\n");
             }
             return new CommandResultText(MESSAGE_BUS_ROUTE + result);
