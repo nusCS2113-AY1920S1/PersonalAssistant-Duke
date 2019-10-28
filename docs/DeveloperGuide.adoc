@@ -17,7 +17,19 @@ endif::[]
 
 By: `Team W17-3`      Since: `Aug 2019`      Licence: `MIT`
 
+== Introduction
+
+*OwlMoney* is a command line based desktop application written in *Java 11*. It is written in an *Object Oriented
+Programming* (OOP) fashion which provides multiple layers of abstraction for ease of customisability and modularity
+for future improvements and revisions.
+Interested in contributing to the *OwlMoney* project? This guide provides information that will not only help you
+get started as a *OwlMoney* contributor, but you'll find useful to refer to even if you are already an experienced
+contributor.
+
 == Setting up
+
+The sub-sections below introduces the prerequisites and steps required to get you started quickly so that you can
+start developing on this project quickly!
 
 === Prerequisites
 . *JDK `11`*
@@ -51,6 +63,9 @@ This will generate all resources required by the application and tests.
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
+
+Before you get down and dirty and start writing code, the configurations below can ease your burden and fix common
+syntax and styling issues! Configure them and you will notice the benefits in the long run!
 
 ==== Configuring the coding style
 
@@ -98,6 +113,11 @@ When you are ready to start coding,
 
 == Design
 
+The following section explains the design of *OwlMoney*.
+
+It is described in a top-down approach to start you off with a broader view of the entire application before going into
+the specific implementations of the individual features.
+
 [[Design-Architecture]]
 === Architecture
 .Architecture Diagram
@@ -108,7 +128,8 @@ Given below is a quick overview of each component.
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+To update a diagram, modify the diagram in the `.pptx` file, select the objects of the diagram, and choose `Save as
+picture`.
 
 `Main` has only one class called link:{repoURL}/src/main/java/owlmoney/Main.java[`Main`]. It is
 responsible for,
@@ -274,9 +295,12 @@ To be added.
 
 === Common Classes
 
-To be added.
+To be added in v1.4.
 
 == Implementation
+
+The following section describes the specific implementation of each feature and how data flows across various `objects`
+and `methods` to obtain a successful execution.
 
 === Parsing Commands in General
 .Sequence Diagram of Parsing Commands
@@ -476,7 +500,10 @@ fund transfer.
 
 == Documentation
 
-We use asciidoc for writing documentation.
+We use asciidoc for writing documentation. We recommend you to document features that you have done to keep other
+developers aware of your implementation.
+
+Feel free to modify documentations of our original features as well!
 
 [NOTE]
 We chose asciidoc over Markdown because asciidoc,
@@ -582,6 +609,9 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
+Testing is integral to the success of *OwlMoney*. We perform tests regularly during the development of *OwlMoney* and
+recommend you to be consistent with this ideology and do so too!
+
 === Running Tests
 
 There are *2* ways to run tests.
@@ -609,6 +639,12 @@ e.g. `owlmoney.model.bond.BondListTest`
 e.g. `owlmoney.model.bond.BondListTest`
 
 == Dev Ops
+
+Development and Operations (Dev Ops) is integral to ensure consistent releases and updates are produced to fix bugs
+and introduce new features to *OwlMoney* while ensuring existing features do not break.
+We use multiple tools to automate checks and ensure high levels of consistency across the board.
+
+Below are configurations and services that were used during the development of *OwlMoney*.
 
 === Build Automation
 

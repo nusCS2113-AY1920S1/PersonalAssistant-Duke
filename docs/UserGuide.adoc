@@ -334,7 +334,7 @@ An expenditure cannot be added to an investment bank account.
 
 *Example*
 
-* `/add /bankexpenditure /amount 1.20 /from JunBank Savings Account /date 28/09/2019 /description bubble tea /category
+* `/add /bankexpenditure /amount 1.20 /from JunBank Savings Account /date 28/09/2019 /desc bubble tea /category
 Dining`
 
 Adds an expenditure that deducts from `JunBank Savings Account` dated on `28/09/2019` that costs $`1.20` with
@@ -402,7 +402,7 @@ Saved up some spare cash to deposit into your bank account? Record them here!
 
 *Example*
 
-* `/add /deposit /to JunBank Savings Account /amount 300 /description FREELANCE WORK /date 10/10/2019`
+* `/add /deposit /to JunBank Savings Account /amount 300 /desc FREELANCE WORK /date 10/10/2019`
 
 Deposits $`300` earned from `FREELANCE WORK` work into `JunBank Savings Account`.
 
@@ -872,6 +872,15 @@ Take note that there is a maximum of *30* character limit.
 | Indicates the number of days you wish to achieve your goal.
 | `DAYS` should contain digits up to *365* only.
 
+| `ACCOUNT_NAME`
+| Indicates the name of the savings account to link the goal for tracking purposes.
+
+(e.g. JunBank Savings Account)
+
+| `ACCOUNT_NAME` should contain alphabetic characters, numeric characters, and spaces only.
+
+`ACCOUNT_NAME` is case-sensitive.
+
 |======
 
 
@@ -886,9 +895,20 @@ like saving for your wedding or retirement, we got you covered!
 
 *Command Syntax*
 
-`/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /by DATE`
+`/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /by DATE [/from ACCOUNT_NAME]`
 
-`/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /in DAYS`
+`/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /in DAYS [/from ACCOUNT_NAME]`
+
+[WARNING]
+====
+
+`ACCOUNT_NAME` can only be names of existing savings bank accounts and not investment accounts or credit cards.
+
+`/by` and `/in` cannot be used together.
+
+`TARGET_AMOUNT` is based on the total amount of money you aim to have in your savings bank account.
+
+====
 
 *Example*
 
@@ -900,19 +920,26 @@ Adds a goal named `Delicious Dinner at WAA COW` which aims to save $`50` in `15`
 
 Adds a goal named `BTO at Punggol Downpayment` which aims to save $`20000` by `10/10/2020`.
 
+* `/add /goals /name GRAD TRIP /amount 2000 /by 30/12/2020 /from JunBank Savings Account`
+
+Adds a goal named GRAD TRIP which aims to save $`2000` by `30/12/2019` and tie it to a savings account named `JunBank
+Savings Account`.
+
 ===== Editing financial goals `/edit /goals`
 
 Changing your life goals? We can certainly help you with that!
 
 *Command Syntax*
 
-`/edit /goals /name GOAL_NAME [/newname GOAL_NAME] [/amount AMOUNT] [/in DAYS] [/by DATE]`
+`/edit /goals /name GOAL_NAME [/newname GOAL_NAME] [/amount AMOUNT] [/in DAYS] [/by DATE] [/from ACCOUNT_NAME]`
 
 [WARNING]
 ====
-At least one of `/newname`, `/amount`, `/in` or `/by` must be used.
+At least one of `/newname`, `/amount`, `/in`, `/by` or `/from` must be used.
 
 `/in` and `/by` cannot be used together at the same time
+
+`ACCOUNT_NAME` can only be names of existing savings bank accounts and not investment accounts or credit cards.
 ====
 
 *Example*
@@ -928,6 +955,15 @@ Edits the goals of `BTO at Punggol Downpayment` amount to $`27500`.
 * `/edit /goals /name BTO at Punggol Downpayment /by 11/11/2021`
 
 Edits the goals of `BTO at Punggol Downpayment` to a new date of `11/11/2021`.
+
+* `/edit /goals /name BTO at Punggol Downpayment /from POBB Savings Account`
+
+Edits the savings account tied to `BTO at Punggol Downpayment` to `POBB Savings Account`.
+
+[TIP]
+====
+You can also add a savings account if the existing goal has no account linked to it.
+====
 
 ===== Deleting financial goals `/delete /goals`
 
@@ -951,13 +987,13 @@ Thought of a new profile name? Change it now!
 
 *Command Syntax*
 
-`/edit /profile /newname NAME`
+`/edit /profile /name NAME /newname NAME`
 
 *Example*
 
-`/edit /profile /newname JUNNY`
+`/edit /profile /name Jun /newname JUNNY`
 
-Edits the profile name to JUNNY
+Edits the profile name from `Jun` to `JUNNY`
 
 === Utility Commands
 
@@ -1037,7 +1073,7 @@ your bank account as long as you remember part of your account name.
 
 [WARNING]
 ====
-`ACCOUNT_NAME` is case-sensitive.
+`ACCOUNT_NAME` used for searching is case-insensitive.
 ====
 
 *Example*
@@ -1057,7 +1093,7 @@ your bank account as long as you remember part of your account name.
 
 [WARNING]
 ====
-`ACCOUNT_NAME` is case-sensitive.
+`ACCOUNT_NAME` used for searching is case-insensitive.
 ====
 
 *Example*
@@ -1076,7 +1112,7 @@ Searching for a Credit Card? *OwlMoney* helps you by providing you various ways 
 
 [WARNING]
 ====
-`CARD_NAME` is case-sensitive.
+`CARD_NAME` used for searching is case-insensitive.
 ====
 
 *Example*
@@ -1096,9 +1132,9 @@ you various ways to do it!
 
 [WARNING]
 ====
-`BOND_NAME` is case-sensitive.
+`BOND_NAME` used for searching is case-insensitive.
 
-`ACCOUNT_NAME` is case-sensitive.
+`ACCOUNT_NAME` used for searching is case-insensitive.
 ====
 
 *Example*
@@ -1111,39 +1147,118 @@ Account.
 ===== Finding bank transaction details `/find /banktransaction`
 
 Looking for a transaction from a bank account? *OwlMoney* is able to help you with that by providing you various ways
-to do it!
+to do it! It allows you to search by description, category or a date range!
 
 *Command Syntax*
 
-`/find /banktransaction /name ACCOUNT_NAME /desc DESCRIPTION [/from DATE /to DATE]`
+`/find /banktransaction /name ACCOUNT_NAME /desc DESCRIPTION [/from DATE /to DATE] [/category CATEGORY]`
 
 [NOTE]
 ====
 Transactions includes both expenditures and deposits.
 ====
 
+[WARNING]
+====
+At least one of `/desc`, `/category`, or `/from` with `/to` must be used.
+
+`DESCRIPTION` used for searching is case-insensitive.
+
+`CATEGORY` used for searching is case-insensitive.
+====
+
 *Example*
 
-* `/find /banktransaction /name JunBank Savings Account /desc bubble tea /from 1/1/2019 /to 7/1/2019`
+* `/find /banktransaction /name JunBank Savings Account /desc bubble tea
 
-Finds all transactions with the description `bubble tea` charged to `JunBank Savings Account` between `1/1/2019` and
-`7/1/2019`.
+Finds and lists all transactions with the description `bubble tea` charged to `JunBank Savings Account`.
+
+* `/find /banktransaction /name JunBank Savings Account /from 1/1/2019 to 7/1/2019`
+
+Finds and lists all transactions that fall between the date range of `1/1/2019` and `7/1/2019` from the bank named
+`JunBank Savings Account`.
+
+* `/find /banktransaction /name JunBank Savings Account /category food`
+
+Finds and lists all transactions that matches the category `food` from the bank named `JunBank Savings Account`
+
+* `/find /banktransaction /name JunBank Savings Account /desc bubble tea /from 1/1/2019 /to 7/1/2019 /category food`
+
+Finds and lists all transactions that matches any one of the categories:
+
+* BANK_NAME -> JunBank Savings Account | DESCRIPTION -> bubble tea
+
+* BANK_NAME -> JunBank Savings Account | FROM -> 1/1/2019  TO -> 7/1/2019
+
+* BANK_NAME -> JunBank Savings Account | CATEGORY -> food
+
+[TIP]
+====
+In the last example above, *OwlMoney* provided you with the flexibility of performing *3* searches in one command:
+
+. Search by description
+
+. Search by date range
+
+. Search by category
+
+====
 
 ===== Finding card transaction details `/find /cardtransaction`
 
 Looking for transactions from a credit card? *OwlMoney* is able to help you with that by providing you various ways to
-do it!
+do it! It allows you to search by description, category or a date range!
 
 *Command Syntax*
 
-`/find /cardtransaction /name CARD_NAME /desc DESCRIPTION [/from DATE /to DATE]`
+`/find /cardtransaction /name CARD_NAME /desc DESCRIPTION [/from DATE /to DATE] [/category CATEGORY]`
+
+[NOTE]
+====
+Transactions includes both expenditures and deposits.
+====
+
+[WARNING]
+====
+At least one of `/desc`, `/category`, or `/from` with `/to` must be used.
+
+`DESCRIPTION` used for searching is case-insensitive.
+
+`CATEGORY` used for searching is case-insensitive.
+====
 
 *Example*
 
-* `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea /from 1/1/2019 /to 7/1/2019`
+* `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea`
 
-Finds all transactions with the description `bubble tea` charged to `POBB Tomorrow Card` between `1/1/2019` and
- `7/1/2019`.
+Finds and list all transactions that matches with the description `bubble tea` from the credit card named `POBB
+Tomorrow Card1`
+
+* `/find /cardtransaction /name POBB Tomorrow Card /from 1/1/2019 /to 7/1/2019`
+
+Finds all transactions charged to `POBB Tomorrow Card` between `1/1/2019` and `7/1/2019`.
+
+* `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea /from 1/1/2019 to 7/1/2019 /category food`
+
+Finds and lists all transactions that matches any one of the categories:
+
+* CARD_NAME -> POBB Tomorrow Card | DESCRIPTION -> bubble tea
+
+* CARD_NAME -> POBB Tomorrow Card | FROM -> 1/1/2019  TO -> 7/1/2019
+
+* CARD_NAME -> POBB Tomorrow Card | CATEGORY -> food
+
+[TIP]
+====
+In the last example above, *OwlMoney* provided you with the flexibility of performing *3* searches in one command:
+
+. Search by description
+
+. Search by date range
+
+. Search by category
+
+====
 
 ==== Listing multiple details `/list`
 
@@ -1152,6 +1267,8 @@ Curious to find out your transactions for your accounts? Let us show you how it 
 *Command Syntax*
 
 `/list /savings`
+
+`/list /investment`
 
 `/list /card`
 
@@ -1162,6 +1279,8 @@ Curious to find out your transactions for your accounts? Let us show you how it 
 `/list /bankexpenditure /from ACCOUNT_NAME [/num NUMBER]`
 
 `/list /cardexpenditure /from CARD_NAME [/num NUMBER]`
+
+`/list /deposit /from ACCOUNT_NAME [/num NUMBER]`
 
 [TIP]
 ====
@@ -1180,11 +1299,15 @@ Lists all investment accounts.
 
 * `/list /bankexpenditure /from JunBank Savings Account /num 60`
 
-Lists the most recent 60 transactions linked to JunBank Savings Account.
+Lists the most recent 60 expenditures tied to JunBank Savings Account.
 
 * `/list /cardexpenditure /from POBB Tomorrow Card`
 
-Lists the most recent 30 transactions tied to the POBB Tomorrow Card.
+Lists the most recent 30 expenditures tied to the POBB Tomorrow Card.
+
+* `/list /deposit /from JunBank Savings Account /num 10`
+
+Lists the most recent 10 deposits tied to JunBank Savings Account.
 
 ==== Transferring money between accounts `/transfer`
 
@@ -1196,7 +1319,8 @@ Thinking of transferring money between different accounts? We can do that too.
 
 [TIP]
 ====
-*OwlMoney* allows you to transfer funds between investment and savings accounts.
+*OwlMoney* provides you to the flexibility to transfer funds between different account types. (e.g. Savings to
+investment and vice-versa)
 ====
 
 *Example*
@@ -1221,7 +1345,8 @@ Postpaid mobile plan bills that are consistent monthly? We can save you the hass
 
 `/add /recurbankexp /amount 72.90 /from JunBank Savings Account /desc Telco Bills /category Bills`
 
-Adds a recurring expenditure that deducts $`72.90` every month to pay `Telco Bills` charged to `JunBank Savings
+Adds a recurring expenditure that deducts $`72.90` every *1st* of the month to pay `Telco Bills` charged to `JunBank
+Savings
 Account` categorised under the `Bills` category.
 
 ==== Editing recurring expenditure `/edit /recurbankexp`
@@ -1281,6 +1406,16 @@ paying for the coverage.
 *A*: You do not need to save the data manually. Whenever you run any commands that make changes, *OwlMoney*'s data are
 saved automatically in the `data` directory.
 
+*Q*: Can I edit the data stored in the files of `data` directory?
+*A*: Yes you *MAY* do it! However, you *RISK* corrupting *YOUR DATA* if you enter malformed inputs as *OwlMoney*
+*TRUSTS* the modifications you make to the files. This is *NOT A BUG* and is designed as it is. *OwlMoney* *MAY NOT*
+function optimally if malformed inputs are loaded in from corrupted save files.
+
+*Q*: How do I edit the data stored in the files of `data` directory?
+*A*: The data of the files are clearly labelled with column names in the `.csv` files and you can easily make sense of
+it! As long as you follow the constraints set out for each `PARAMETER` as mentioned in all previous sections, you
+should be fine!
+
 == Command Summary
 This section provides a quick reference for all commands available in *OwlMoney*.
 
@@ -1330,7 +1465,7 @@ This section provides a quick reference for all commands available in *OwlMoney*
 | *Adding expenditures for savings bank account*
 | Add a new expenditure record to the savings bank account specified.
 | `/add /bankexpenditure /amount AMOUNT /from ACCOUNT_NAME /date DATE /desc DESCRIPTION [/category CATEGORY]`
-| `/add /bankexpenditure /amount 1.20 /from JunBank Savings Account /date 28/09/2019 /description bubble tea /category
+| `/add /bankexpenditure /amount 1.20 /from JunBank Savings Account /date 28/09/2019 /desc bubble tea /category
 Dining`
 
 | *Editing expenditures for savings bank account*
@@ -1347,7 +1482,7 @@ AMOUNT] [/date DATE]`
 | *Adding deposit for savings bank account*
 | Add a new deposit record to the savings bank account.
 | `/add /deposit /to ACCOUNT_NAME /amount AMOUNT /desc DESCRIPTION /date DATE`
-| `/add /deposit /to JunBank Savings Account /amount 300 /description FREELANCE WORK /date 10/10/2019`
+| `/add /deposit /to JunBank Savings Account /amount 300 /desc FREELANCE WORK /date 10/10/2019`
 
 | *Editing deposit for savings bank account*
 |  Edit an existing deposit record tied to the savings bank account based on the new details given.
@@ -1451,15 +1586,15 @@ AMOUNT] [/date DATE]`
 |*Task*| *Purpose* | *Command Format* | *Example*
 | *Adding financial goals*
 | Add a new financial goal to the user's profile.
-| `/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /by DATE`
+| `/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /by DATE [/from ACCOUNT_NAME]`
 
-`/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /in DAYS`
+`/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /in DAYS [/from ACCOUNT_NAME]`
 
-| `/add /goals /name BTO at Punggol Downpayment /amount 200000 /by 10/10/2020`
+| `/add /goals /name BTO at Punggol Downpayment /amount 200000 /by 10/10/2020 /from JunBank Savings Account`
 
 | *Editing financial goals*
 | Edit the financial goal's details based on the new details given.
-| `/edit /goals /name GOAL_NAME [/newname GOAL_NAME] [/amount AMOUNT] [/in DAYS] [/by DATE]`
+| `/edit /goals /name GOAL_NAME [/newname GOAL_NAME] [/amount AMOUNT] [/in DAYS] [/by DATE] [/from ACCOUNT_NAME]`
 | `/edit /goals /name BTO at Punggol Downpayment /newname BTO at Tampines Downpayment`
 
 | *Deleting financial goals*
@@ -1479,8 +1614,8 @@ AMOUNT] [/date DATE]`
 |*Task*| *Purpose* | *Command Format* | *Example*
 | *Editing profile details*
 | Edit the profile details based on the new details given.
-| `/edit /profile /newname NAME`
-| `/edit /profile /newname JUNNY`
+| `/edit /profile /name NAME /newname NAME`
+| `/edit /profile /name Jun /newname JUNNY`
 
 |======
 
