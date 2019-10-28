@@ -7,7 +7,7 @@ This portfolio describes the contributions that I made to my school project, [Wa
 ## 2. Summary of Contributions
 This section shows a summary of contributions which I made for **WalletCLi**.
 ### 2.1 Code Contributed
-A collation of my code files and lines of codes I written can be viewed from this link:
+A collation of my code files and lines of codes I written can be viewed from this link: 
 [Code Contribution Report](https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=Xdecosee)
 ### 2.2 Features Implemented
 #### Contact Management
