@@ -42,7 +42,7 @@ public class Farmer {
 
     public Farmer() {
         this.gold = 10;
-        this.level = 1.1;
+        this.level = 1.1; // temp relaced
         this.day = 1;
         this.location = "WheatFarm";
         this.wheatFarm = new WheatFarm();
