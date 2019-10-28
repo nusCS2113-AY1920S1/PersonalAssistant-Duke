@@ -7,7 +7,9 @@ import duke.data.Evidence;
 import duke.data.Impression;
 import duke.data.Treatment;
 import duke.exception.DukeException;
+import duke.exception.DukeHelpException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ImpressionCommand extends ArgCommand {
@@ -69,5 +71,36 @@ public abstract class ImpressionCommand extends ArgCommand {
         } catch (NumberFormatException excp) {
             return -1;
         }
+    }
+
+    protected DukeData findDataByName(String arg, String evArg, String treatArg, Impression impression)
+            throws DukeException {
+        DukeData data;
+        DukeException dataNotFound;
+        List<DukeData> findList;
+
+        // TODO handle idx
+
+        if (arg != null && evArg == null && treatArg == null) {
+            findList = new ArrayList<DukeData>(impression.findByName(arg));
+            dataNotFound = new DukeException("Can't find any data item with that name!");
+        } else if (arg == null && evArg != null && treatArg == null) {
+            findList = new ArrayList<DukeData>(impression.findEvidencesByName(evArg));
+            dataNotFound = new DukeException("Can't find any evidences with that name!");
+        } else if (arg == null && evArg == null && treatArg != null) {
+            findList = new ArrayList<DukeData>(impression.findTreatmentsByName(treatArg));
+            dataNotFound = new DukeException("Can't find any treatments with that name!");
+        } else {
+            throw new DukeHelpException("I don't know what you want me to look for!", this);
+        }
+
+        // TODO proper search
+        if (findList.size() != 0) {
+            data = findList.get(0);
+        } else {
+            throw dataNotFound;
+        }
+
+        return data;
     }
 }
