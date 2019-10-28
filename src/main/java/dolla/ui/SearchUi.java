@@ -68,7 +68,7 @@ public class SearchUi extends Ui {
     }
 
     /**
-     * Print the result of searching by duration (for limit mode only)
+     * Print the result of searching by duration (for limit mode only).
      * @param mode the mode
      * @param recordList the record list
      * @param searchContent the search content
@@ -79,7 +79,7 @@ public class SearchUi extends Ui {
         int listNum = 0;
         for (int i = 0; i < recordList.size(); i++) {
             String temp = recordList.get().get(i).getDuration();
-            if(temp.contains(searchContent)) {
+            if (temp.contains(searchContent)) {
                 listNum += 1;
                 System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
             }

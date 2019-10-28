@@ -1,6 +1,6 @@
 package dolla.ui;
 
-public class DebtUi extends Ui{
+public class DebtUi extends Ui {
 
     /**
      * Print invalid debt format error.

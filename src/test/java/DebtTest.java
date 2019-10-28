@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DebtTest {
 
     private Debt createNewDebt() {
-        return new Debt("owe", "tata", 20, "food", LocalDate.parse("2019-01-01" ));
+        return new Debt("owe", "tata", 20, "food", LocalDate.parse("2019-01-01"));
     }
 
     @Test
