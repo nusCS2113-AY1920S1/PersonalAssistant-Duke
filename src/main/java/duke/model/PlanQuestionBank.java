@@ -198,7 +198,7 @@ public class PlanQuestionBank {
                                     .append("MRT concession costs: $48.00 monthly.\n")
                                     .append("You should set your transport budget at $48.00 monthly\n\n");
                             budgetRecommendation.put("transport", Parser.parseMoney("48.00"));
-                        } else {
+                        } else if(monthlyCost.compareTo(BigDecimal.ZERO) == 1){
                             recommendation.append("You should set transport budget at $")
                                     .append(monthlyCost)
                                     .append(" monthly. \n\n");
@@ -234,14 +234,18 @@ public class PlanQuestionBank {
                         break;
                     }
                     int mealsPerDay = Integer.parseInt(planAttributes.get("MEALS_PER_DAY"));
-                    BigDecimal costPerMeal = Parser.parseMoney(planAttributes.get("AVERAGE_MEAL_COST"));
-                    BigDecimal monthlyFoodBudget = costPerMeal
-                            .multiply(BigDecimal.valueOf(mealsPerDay))
-                            .multiply(BigDecimal.valueOf(30));
-                    recommendation.append("I'd suggest you set your food budget at $")
-                            .append(monthlyFoodBudget)
-                            .append(" monthly. \n\n");
-                    budgetRecommendation.put("food ", monthlyFoodBudget);
+                    if(mealsPerDay > 0) {
+                        BigDecimal costPerMeal = Parser.parseMoney(planAttributes.get("AVERAGE_MEAL_COST"));
+                        BigDecimal monthlyFoodBudget = costPerMeal
+                                .multiply(BigDecimal.valueOf(mealsPerDay))
+                                .multiply(BigDecimal.valueOf(30));
+                        if(monthlyFoodBudget.compareTo(BigDecimal.ZERO) == 1) {
+                            recommendation.append("I'd suggest you set your food budget at $")
+                                    .append(monthlyFoodBudget)
+                                    .append(" monthly. \n\n");
+                            budgetRecommendation.put("food ", monthlyFoodBudget);
+                        }
+                    }
                 } else { //Stays in campus
                     recommendation.append("Since you live in campus, "
                             + "you can just allocate a small budget of $10 to transport! \n\n");
@@ -252,9 +256,11 @@ public class PlanQuestionBank {
                                 .multiply(BigDecimal.valueOf(4))
                                 .multiply(BigDecimal.valueOf(11));
                         //11 since 3 meals during each weekend * 1 meal per day
-                        recommendation.append("I'd suggest you set your food budget at $")
-                                .append(monthlyFoodBudget).append(" monthly. \n\n");
-                        budgetRecommendation.put("food", monthlyFoodBudget);
+                        if(monthlyFoodBudget.compareTo(BigDecimal.ZERO) == 1) {
+                            recommendation.append("I'd suggest you set your food budget at $")
+                                    .append(monthlyFoodBudget).append(" monthly. \n\n");
+                            budgetRecommendation.put("food", monthlyFoodBudget);
+                        }
 
                     } else { //Eats all meals outside of hall
                         int mealsPerDay = Integer.parseInt(planAttributes.get("MEALS_PER_DAY"));
@@ -262,10 +268,11 @@ public class PlanQuestionBank {
                         BigDecimal monthlyFoodBudget = costPerMeal.multiply(BigDecimal
                                 .valueOf(mealsPerDay))
                                 .multiply(BigDecimal.valueOf(30));
-                        recommendation.append("I'd suggest you set your food budget at $")
-                                .append(monthlyFoodBudget)
-                                .append(" monthly. \n\n");
-                        budgetRecommendation.put("food", monthlyFoodBudget);
+                        if(monthlyFoodBudget.compareTo(BigDecimal.ZERO) == 1) {
+                            recommendation.append("I'd suggest you set your food budget at $")
+                                    .append(monthlyFoodBudget).append(" monthly. \n\n");
+                            budgetRecommendation.put("food", monthlyFoodBudget);
+                        }
                     }
                 }
                 BigDecimal phoneBill = Parser.parseMoney(planAttributes.get("PHONE_BILL"));

@@ -55,8 +55,9 @@ public class PlanQuestion {
 
     /**
      * Returns a set of Integers of neighbouring questions given an attribute.
+     *
      * @param attribute the attribute we want to get the neighbours of.
-     * @return
+     * @return a set of indexes of neighbouring questions, an empty set if no enighboring quesion
      */
     public Set<Integer> getNeighbouringQuestions(String attribute) {
         if (answersAttributesValue.containsKey("DOUBLE") && (neighbouringQuestions.get("DOUBLE") != null)) {
@@ -96,7 +97,8 @@ public class PlanQuestion {
 
     /**
      * Adds a neighbouring question's index to every attribute value.
-     * @param  neighbouring Integer index of neighbouring question
+     *
+     * @param neighbouring Integer index of neighbouring question
      */
     public void addNeighbouring(Integer neighbouring) {
         if (answersAttributesValue.containsKey("DOUBLE")) {
@@ -117,14 +119,19 @@ public class PlanQuestion {
 
     /**
      * Adds a neighbouring question's index to a specific attribute value.
-     * @param neighbouring Integer index of neighbouring question
+     *
+     * @param neighbouring   Integer index of neighbouring question
      * @param attributeValue String of the attributeValue we want our questions to be mapped to
      */
-    public void addNeighbouring(String attributeValue, Integer neighbouring) {
-        if (neighbouringQuestions.containsKey(attributeValue)) {
-            neighbouringQuestions.get(attributeValue).add(neighbouring);
+    public void addNeighbouring(String attributeValue, Integer neighbouring) throws DukeException {
+        if (!answersAttributesValue.containsValue(attributeValue)) {
+            throw new DukeException(attributeValue + " is not a valid attribute value for " + attribute);
         } else {
-            neighbouringQuestions.put(attributeValue, new HashSet<>(Collections.singletonList(neighbouring)));
+            if (neighbouringQuestions.containsKey(attributeValue)) {
+                neighbouringQuestions.get(attributeValue).add(neighbouring);
+            } else {
+                neighbouringQuestions.put(attributeValue, new HashSet<>(Collections.singletonList(neighbouring)));
+            }
         }
     }
 
