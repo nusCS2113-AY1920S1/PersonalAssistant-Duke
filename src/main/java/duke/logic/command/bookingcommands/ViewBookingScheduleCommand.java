@@ -1,7 +1,6 @@
 package duke.logic.command.bookingcommands;
 
-import duke.logic.command.CommandBooking;
-import duke.exception.DukeException;
+import duke.logic.command.Command;
 import duke.model.list.bookinglist.BookingList;
 import duke.storage.BookingStorage;
 import duke.model.task.bookingtasks.Booking;
@@ -14,10 +13,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class ViewBookingScheduleCommand extends CommandBooking {
+public class ViewBookingScheduleCommand extends Command<BookingList, Ui, BookingStorage> {
 
-    public ViewBookingScheduleCommand(String userInputCommand) {
-        this.userInputCommand = userInputCommand;
+    public ViewBookingScheduleCommand(String userInput) {
+        this.userInput = userInput;
     }
 
     private static boolean isDateParsable(String bookingDate) {
@@ -50,14 +49,14 @@ public class ViewBookingScheduleCommand extends CommandBooking {
     }
 
     @Override
-    public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws DukeException, ParseException {
+    public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
-        if (userInputCommand.trim().equals("viewbookingschedule")) {
+        if (userInput.trim().equals("viewbookingschedule")) {
             arrayList.add("Booking date cannot be empty!\n" +
                     "       Please enter in the following format:\n" +
                     "       viewbookingschedule <date: dd/MM/yyyy>");
-        } else if (userInputCommand.trim().charAt(19) == ' ') {
-            String inputDate = userInputCommand.substring(20).trim();
+        } else if (userInput.trim().charAt(19) == ' ') {
+            String inputDate = userInput.substring(20).trim();
             if (isDateParsable(inputDate)) {
                 Date currDate = new SimpleDateFormat("dd/MM/yyyy").parse(inputDate);
                 

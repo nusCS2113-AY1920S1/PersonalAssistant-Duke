@@ -1,7 +1,7 @@
 package duke.logic.command.bookingcommands;
 
+import duke.logic.command.Command;
 import duke.model.list.bookinglist.BookingList;
-import duke.logic.command.CommandBooking;
 import duke.storage.BookingStorage;
 import duke.ui.Ui;
 
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Handles the list command and inherits all the fields and methods of Command parent class.
  */
-public class AllBookingsCommand extends CommandBooking {
+public class AllBookingsCommand extends Command<BookingList, Ui, BookingStorage> {
 
     /**
      * Processes the list command to display all tasks in task list.

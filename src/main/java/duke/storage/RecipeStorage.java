@@ -1,6 +1,5 @@
 package duke.storage;
 
-import duke.exception.DukeException;
 import duke.model.list.recipelist.RecipeList;
 import duke.model.task.recipetasks.Recipe;
 
@@ -51,10 +50,9 @@ public class RecipeStorage {
      * Load all the save tasks in the file.
      *
      * @return the list of tasks in taskList
-     * @throws DukeException if Duke is not able to load the tasks from the file or unable to open the file
      */
 
-    public LinkedHashMap<String, Recipe> load() throws DukeException {
+    public LinkedHashMap<String, Recipe> load() {
         try {
             FileReader fileReader = new FileReader(filePathRecipes);
             BufferedReader bufferedReader = new BufferedReader(fileReader);

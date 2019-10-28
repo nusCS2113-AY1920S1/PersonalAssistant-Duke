@@ -1,8 +1,7 @@
 package duke.logic.command.bookingcommands;
 
+import duke.logic.command.Command;
 import duke.model.list.bookinglist.BookingList;
-import duke.logic.command.CommandBooking;
-import duke.exception.DukeException;
 import duke.storage.BookingStorage;
 import duke.ui.Ui;
 
@@ -15,15 +14,15 @@ import static duke.common.Messages.ERROR_MESSAGE_UNKNOWN_INDEX;
 /**
  * Handles the delete command and inherits all the fields and methods of Command parent class.
  */
-public class DeleteBookingCommand extends CommandBooking {
+public class DeleteBookingCommand extends Command<BookingList, Ui, BookingStorage> {
     private static String msg = "";
 
     /**
      * Constructor for class DeleteCommand.
-     * @param userInputCommand String containing input command from user
+     * @param userInput String containing input command from user
      */
-    public DeleteBookingCommand(String userInputCommand) {
-        this.userInputCommand = userInputCommand;
+    public DeleteBookingCommand(String userInput) {
+        this.userInput = userInput;
     }
 
     /**
@@ -45,18 +44,16 @@ public class DeleteBookingCommand extends CommandBooking {
      * @param bookingList contains the booking list
      * @param ui deals with interactions with the user
      * @param bookingStorage deals with loading tasks from the file and saving tasks in the file
-     * @throws DukeException if Duke cannot recognize the user input
-     *                      or user inputs an invalid index or the list of tasks is empty
      */
     @Override
-    public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws DukeException {
+    public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) {
         ArrayList<String> arrayList = new ArrayList<>();
-        if (userInputCommand.trim().equals("deletebooking")) {
+        if (userInput.trim().equals("deletebooking")) {
             arrayList.add("Booking index cannot be empty!\n" +
                     "       Please enter in the following format:\n" +
                     "       deletebooking <booking_index>");
-        } else if (userInputCommand.trim().charAt(13) == ' ') {
-            String input = userInputCommand.split("\\s",2)[1].trim();
+        } else if (userInput.trim().charAt(13) == ' ') {
+            String input = userInput.split("\\s",2)[1].trim();
             if (isParsable(input)) {
                 int index = Integer.parseInt(input);
                 if (index > bookingList.getSize() || index <= 0) {

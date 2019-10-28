@@ -1,6 +1,5 @@
 package duke.logic.parser;
 
-import duke.logic.command.CommandBooking;
 import duke.logic.command.*;
 import duke.logic.command.bookingcommands.*;
 import duke.logic.command.inventorycommands.AddToInventoryCommand;
@@ -40,25 +39,21 @@ public class Parser {
             return new EditFeedbackCommand(input);
         } else if (input.trim().contains(COMMAND_EDIT_PREPSTEP)) {
             return new EditPrepStepCommand(input);
+        } else if (input.contains(COMMAND_FIND_BOOKING)) {
+            return new FindBookingCommand(input);
+        } else if (input.contains(COMMAND_ADD_BOOKING)) {
+            return new AddBookingCommand(input);
+        } else if (input.contains(COMMAND_DELETE_BOOKING)) {
+            return new DeleteBookingCommand(input);
+        } else if (input.contains(COMMAND_VIEW_BOOKING_SCHEDULE)) {
+            return new ViewBookingScheduleCommand(input);
+        } else if (input.contains(COMMAND_VIEW_ORDERS)) {
+            return new ViewOrdersCommand(input);
+        } else if (input.contains(COMMAND_LIST_BOOKINGS)) {
+            return new AllBookingsCommand();
         } else {
             System.out.println("went to listallrecipes");
             return new ListAllRecipeCommand(input);
-        }
-    }
-
-    public static CommandBooking parseBooking(String userInputCommand) {
-        if (userInputCommand.contains(COMMAND_FIND_BOOKING)) {
-            return new FindBookingCommand(userInputCommand);
-        } else if (userInputCommand.contains(COMMAND_ADD_BOOKING)) {
-            return new AddBookingCommand(userInputCommand);
-        } else if (userInputCommand.contains(COMMAND_DELETE_BOOKING)) {
-            return new DeleteBookingCommand(userInputCommand);
-        } else if (userInputCommand.contains(COMMAND_VIEW_BOOKING_SCHEDULE)) {
-            return new ViewBookingScheduleCommand(userInputCommand);
-        } else if (userInputCommand.contains(COMMAND_VIEW_ORDERS)) {
-            return new ViewOrdersCommand(userInputCommand);
-        } else {
-            return new AllBookingsCommand();
         }
     }
 }

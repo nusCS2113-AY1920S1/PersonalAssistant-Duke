@@ -1,6 +1,5 @@
 package duke.storage;
 
-import duke.exception.DukeException;
 import duke.model.list.inventorylist.InventoryList;
 import duke.model.task.ingredienttasks.Ingredient;
 
@@ -52,9 +51,8 @@ public class InventoryStorage {
      * Load all the save tasks in the file.
      *
      * @return the list of tasks in taskList
-     * @throws DukeException if Duke is not able to load the tasks from the file or unable to open the file
      */
-    public HashMap<String, Ingredient> load() throws DukeException {
+    public HashMap<String, Ingredient> load() {
             try {
             FileReader fileReader = new FileReader(filePathInventory);
             BufferedReader bufferedReader = new BufferedReader(fileReader);

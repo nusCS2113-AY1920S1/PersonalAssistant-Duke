@@ -1,6 +1,5 @@
 package duke.model.list.bookinglist;
 
-import duke.exception.DukeException;
 import duke.model.task.bookingtasks.Booking;
 
 import java.text.ParseException;
@@ -8,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
-import static duke.common.Messages.ERROR_MESSAGE_NOTFOUND;
 
 
 public class BookingList {
