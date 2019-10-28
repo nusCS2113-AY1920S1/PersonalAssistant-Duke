@@ -324,4 +324,8 @@ public class PlannerUi {
             System.out.println(hold);
         }
     }
+
+    public void showUpdatedMsg() {
+        System.out.println("Your module data files has been updated!");
+    }
 }
