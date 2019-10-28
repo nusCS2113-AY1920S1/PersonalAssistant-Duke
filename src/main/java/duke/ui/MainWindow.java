@@ -6,12 +6,15 @@ import duke.command.Parser;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.PatientMap;
+import duke.ui.card.UiCard;
 import duke.ui.window.HomeWindow;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 /**
  * Main UI window of the application.
@@ -34,6 +37,7 @@ class MainWindow extends UiElement<Stage> {
     private Parser parser;
 
     private CommandWindow commandWindow;
+    private HomeWindow homeWindow;
     private Tab homeTab;
     private Tab patientTab;
     private Tab impressionTab;
@@ -63,7 +67,8 @@ class MainWindow extends UiElement<Stage> {
         commandWindow = new CommandWindow(executor, parser);
         commandWindowHolder.getChildren().add(commandWindow.getRoot());
 
-        homeTab = new Tab("Home", new HomeWindow(patientMap).getRoot());
+        homeWindow = new HomeWindow(patientMap);
+        homeTab = new Tab("Home", homeWindow.getRoot());
         contextWindowHolder.getTabs().add(homeTab);
 
         patientTab = new Tab("Patient", new PatientWindow(null).getRoot());
@@ -91,7 +96,7 @@ class MainWindow extends UiElement<Stage> {
                 contextWindowHolder.getTabs().remove(impressionTab);
                 Impression impression = (Impression) uiContext.getObject();
                 impressionTab = new Tab("Impression", new ImpressionWindow(impression,
-                        (Patient)impression.getParent()).getRoot());
+                        (Patient) impression.getParent()).getRoot());
                 contextWindowHolder.getTabs().add(2, impressionTab);
                 contextWindowHolder.getSelectionModel().select(impressionTab);
                 break;
@@ -117,5 +122,20 @@ class MainWindow extends UiElement<Stage> {
 
     Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public List<UiCard> getCardList() {
+        switch (uiContext.getContext()) {
+        case HOME:
+            return homeWindow.getPatientCardList();
+        case PATIENT:
+        case EVIDENCE:
+        case TREATMENT:
+        case IMPRESSION:
+        case INVESTIGATION:
+            break;
+        }
+
+        return null;
     }
 }

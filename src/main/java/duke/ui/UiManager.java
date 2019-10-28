@@ -1,10 +1,13 @@
 package duke.ui;
 
 import duke.DukeCore;
+import duke.ui.card.UiCard;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 /**
  * Manager of the UI component of the application.
@@ -21,7 +24,7 @@ public class UiManager implements Ui {
      * @param core Core of Dr. Duke.
      */
     public UiManager(DukeCore core) {
-        // TODO: We do not need the entire Duke's core in the Ui component.
+        // TODO: We do not need the entire Duke's core in the UI component.
         this.core = core;
     }
 
@@ -46,6 +49,11 @@ public class UiManager implements Ui {
     public void print(String message) {
         String displayMessage = message.replace("\t", "\n");
         mainWindow.print(displayMessage);
+    }
+
+    @Override
+    public List<UiCard> getCardList() {
+        return mainWindow.getCardList();
     }
 
     /**

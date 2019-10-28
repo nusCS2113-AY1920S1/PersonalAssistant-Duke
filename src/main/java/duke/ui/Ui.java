@@ -1,6 +1,9 @@
 package duke.ui;
 
+import duke.ui.card.UiCard;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 /**
  * Application Programming Interface (API) of the UI component of the application.
@@ -19,4 +22,11 @@ public interface Ui {
      * @param message Output message.
      */
     void print(String message);
+
+    /**
+     * Retrieves list of UI cards in current {@code UiContext}.
+     *
+     * @return List of UI cards.
+     */
+    List<UiCard> getCardList();
 }

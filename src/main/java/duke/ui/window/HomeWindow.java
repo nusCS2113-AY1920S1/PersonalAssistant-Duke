@@ -6,6 +6,7 @@ import duke.data.Patient;
 import duke.data.PatientMap;
 import duke.ui.UiElement;
 import duke.ui.card.PatientCard;
+import duke.ui.card.UiCard;
 import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -13,7 +14,6 @@ import javafx.scene.layout.Region;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * UI window for the Home context.
@@ -27,6 +27,7 @@ public class HomeWindow extends UiElement<Region> {
     private ScrollPane scrollPane;
 
     private PatientMap patientMap;
+    private List<UiCard> patientCardList;
 
     /**
      * Constructs the Home UI window.
@@ -45,17 +46,19 @@ public class HomeWindow extends UiElement<Region> {
     }
 
     /**
-     * Fills {@code patientListPanel}.
+     * Fills {@code patientCardList} and {@code patientListPanel}.
      */
     private void fillPatientListPanel() {
-        List<Patient> patientList = new ArrayList<>(patientMap.getPatientHashMap().values());
-        patientListPanel.getChildren().clear();
+        patientCardList = new ArrayList<>();
 
-        ListIterator<Patient> iterator = patientList.listIterator();
-        while (iterator.hasNext()) {
-            PatientCard patientCard = new PatientCard(iterator.next(), iterator.nextIndex());
-            patientListPanel.getChildren().add(patientCard);
+        for (Patient patient : patientMap.getPatientHashMap().values()) {
+            int patientIndex = patientCardList.size() + 1;
+            PatientCard patientCard = new PatientCard(patient, patientIndex);
+            patientCardList.add(patientCard);
         }
+
+        patientListPanel.getChildren().clear();
+        patientListPanel.getChildren().addAll(patientCardList);
     }
 
     /**
@@ -66,5 +69,9 @@ public class HomeWindow extends UiElement<Region> {
         patientMap.getPatientObservableMap().addListener((MapChangeListener<String, Patient>) change -> {
             fillPatientListPanel();
         });
+    }
+
+    public List<UiCard> getPatientCardList() {
+        return patientCardList;
     }
 }
