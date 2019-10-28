@@ -136,7 +136,7 @@ Format: `open _patient_id_ *[-im[pression]]*`
 
 If the optional `*-im[pression]*` switch is provided, access the <<impression, primary impression>> for that particular Patient.
 
-// TODO
+// TODO: Complete documentation
 ==== `find`
 
 ==== `history` - Add miscellaneous notes to a patient's history [[home-history]]
