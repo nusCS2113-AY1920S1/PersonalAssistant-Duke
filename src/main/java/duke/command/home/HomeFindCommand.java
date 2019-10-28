@@ -6,7 +6,9 @@ import duke.command.ArgSpec;
 import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Patient;
+import duke.data.SearchResult;
 import duke.exception.DukeException;
+import duke.ui.context.Context;
 
 import java.util.ArrayList;
 
@@ -45,20 +47,25 @@ public class HomeFindCommand extends ArgCommand {
                 }
             }
         }
-
-        StringBuilder information = new StringBuilder();
+        /*StringBuilder information = new StringBuilder();
 
         for (int i = 0; i < searchResult.size(); i++) {
             information.append(i + 1).append(". ");
             DukeObject item = searchResult.get(i);
             if (item.getParent() != null) {
                 if (item.getParent().getParent() != null) {
-                    information.append(item.getParent().getParent().getName() + " - ");
+                    information.append(item.getParent().getParent().getName()).append(" - ");
                 }
-                information.append(item.getParent().getName() + " - ");
+                information.append(item.getParent().getName()).append(" - ");
             }
             information.append(searchResult.get(i).getName()).append(System.lineSeparator());
+        }*/
+        if (searchResult != null) {
+            SearchResult search = new SearchResult(searchTerm, searchResult, null);
+            core.uiContext.setContext(Context.SEARCH, search);
+            core.ui.print("Returning result of search of " + searchTerm);
+        } else {
+            throw new DukeException("Error in executing search command.");
         }
-        core.ui.print(findStr + information.toString());
     }
 }

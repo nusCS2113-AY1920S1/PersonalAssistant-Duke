@@ -3,7 +3,6 @@ package duke.command.impression;
 import duke.DukeCore;
 import duke.command.ArgCommand;
 import duke.command.ArgSpec;
-import duke.data.DukeData;
 import duke.data.Impression;
 import duke.data.Investigation;
 import duke.data.Medicine;

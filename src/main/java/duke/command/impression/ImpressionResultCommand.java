@@ -4,7 +4,6 @@ import duke.DukeCore;
 import duke.command.ArgCommand;
 import duke.command.ArgSpec;
 import duke.data.Impression;
-import duke.data.Investigation;
 import duke.exception.DukeException;
 
 public class ImpressionResultCommand extends ArgCommand {

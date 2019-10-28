@@ -6,7 +6,6 @@ import duke.command.ArgSpec;
 import duke.data.DukeData;
 import duke.data.Evidence;
 import duke.data.Impression;
-import duke.data.Patient;
 import duke.data.Treatment;
 import duke.exception.DukeException;
 

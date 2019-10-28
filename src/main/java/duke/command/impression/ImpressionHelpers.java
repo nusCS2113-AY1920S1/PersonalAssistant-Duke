@@ -1,7 +1,6 @@
 package duke.command.impression;
 
 import duke.DukeCore;
-import duke.command.ArgCommand;
 import duke.data.DukeData;
 import duke.data.Evidence;
 import duke.data.Impression;
@@ -13,7 +12,6 @@ import duke.exception.DukeUtilException;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: refactor into helper class
 public class ImpressionHelpers {
 
     public static Impression getImpression(DukeCore core) throws DukeException {

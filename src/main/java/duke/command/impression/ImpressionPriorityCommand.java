@@ -5,7 +5,6 @@ import duke.command.ArgCommand;
 import duke.command.ArgSpec;
 import duke.data.DukeData;
 import duke.exception.DukeException;
-import duke.exception.DukeHelpException;
 
 public class ImpressionPriorityCommand extends ArgCommand {
 

@@ -2,7 +2,6 @@ package duke.command.impression;
 
 import duke.command.ArgCommand;
 import duke.exception.DukeException;
-import duke.exception.DukeHelpException;
 
 import java.util.Arrays;
 import java.util.List;

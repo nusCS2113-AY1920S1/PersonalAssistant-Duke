@@ -13,8 +13,10 @@ public class HomeHistorySpec extends ArgSpec {
 
     private HomeHistorySpec() {
         emptyArgMsg = "You didn't tell me anything about the patient!";
-        cmdArgLevel = ArgLevel.REQUIRED;
+        cmdArgLevel = ArgLevel.NONE;
         initSwitches(
+                new Switch("bed", String.class, true, ArgLevel.REQUIRED, "b"),
+                new Switch("index", Integer.class, true, ArgLevel.REQUIRED, "i"),
                 new Switch("message", String.class, false, ArgLevel.REQUIRED, "m"),
                 new Switch("rewrite", String.class, true, ArgLevel.REQUIRED, "r")
         );
