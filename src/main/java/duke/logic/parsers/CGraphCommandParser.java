@@ -2,12 +2,13 @@ package duke.logic.parsers;
 
 import duke.logic.commands.AddCommand;
 import duke.commons.exceptions.DukeException;
+import duke.logic.commands.CGraphCommand;
 import duke.model.meal.Lunch;
 
 /**
- * Parser class to handle addition of lunch item to model.
+ * Parser class to handle information to CGraphCommand
  */
-public class AddLunchCommandParser implements ParserInterface<AddCommand> {
+public class CGraphCommandParser implements ParserInterface<CGraphCommand> {
 
     /**
      * Parses user input and returns an AddCommand encapsulating a Lunch object.
@@ -17,13 +18,17 @@ public class AddLunchCommandParser implements ParserInterface<AddCommand> {
      */
     @Override
 
-    public AddCommand parse(String userInput) {
+    public CGraphCommand parse(String userInput) {
         try {
             InputValidator.validate(userInput);
-            String[] mealNameAndInfo = ArgumentSplitter.splitMealArguments(userInput);
-            return new AddCommand(new Lunch(mealNameAndInfo[0], mealNameAndInfo[1]), 0);
+            String[] lineSplit = userInput.split(" ");
+            String type = lineSplit[0];
+            int month = Integer.parseInt(lineSplit[2]);
+            int year = Integer.parseInt(lineSplit[4]);
+            return new CGraphCommand(month, year, type);
         } catch (DukeException e) {
-            return new AddCommand(false, e.getMessage());
+            return new CGraphCommand(false, e.getMessage());
         }
     }
 }
+

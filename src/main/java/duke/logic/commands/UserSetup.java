@@ -4,6 +4,10 @@ import duke.model.user.Gender;
 import duke.model.user.User;
 import duke.ui.UserUi;
 
+/**
+ * UserSetup is a public class that facilitates user profile creation.
+ */
+
 public class UserSetup {
     private User user;
     private UserUi ui = new UserUi();

@@ -11,11 +11,13 @@ import duke.model.user.User;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class UpdateWeightCommand extends Command {
     private String description;
-
+    private String weight;
+    private String date;
     /**
      * Constructor for UpdateWeightCommand.
      * @param description the data to update the user document with
@@ -34,6 +36,7 @@ public class UpdateWeightCommand extends Command {
      * @param meals the MealList object in which the meals are supposed to be added
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
@@ -41,26 +44,54 @@ public class UpdateWeightCommand extends Command {
         String[] temp = description.split("/date");
         Calendar calendarDate = Calendar.getInstance();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String date = dateFormat.format(calendarDate.getTime());
+        date = dateFormat.format(calendarDate.getTime());
+        weight = temp[0].trim();
+        HashMap<String, Integer> allWeight = user.getAllWeight();
         if (temp.length > 1) {
+            date = temp[1];
+        }
+        if (!allWeight.containsKey(date)) {
             try {
-                user.setWeight(Integer.parseInt(temp[0].trim()), temp[1]);
-                date = temp[1];
+                user.setWeight(Integer.parseInt(weight), date);
+                ui.showWeightUpdate(user, Integer.parseInt(weight), date);
+                ui.showLine();
             } catch (DukeException e) {
                 ui.showMessage(e.getMessage());
             }
         } else {
-            user.setWeight(Integer.parseInt(temp[0]));
+            isDone = false;
+            ui.showConfirmation(weight, date);
+            ui.showLine();
         }
         try {
             storage.saveUser(user);
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
         }
-        ui.showWeightUpdate(user, Integer.parseInt(temp[0].trim()), date);
-        ui.showLine();
+    }
+
+    public void setResponse(String response) {
+        this.response = response.toLowerCase().substring(0,1);
     }
 
     public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
+        if (this.response.equals("y")) {
+            try {
+                user.setWeight(Integer.parseInt(weight), date);
+                ui.showWeightUpdate(user, Integer.parseInt(weight), date);
+            } catch (DukeException e) {
+                ui.showMessage(e.getMessage());
+            }
+        } else {
+            ui.showRejected();
+        }
+        isDone = true;
+        try {
+            storage.saveUser(user);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
+        ui.showLine();
     }
 }

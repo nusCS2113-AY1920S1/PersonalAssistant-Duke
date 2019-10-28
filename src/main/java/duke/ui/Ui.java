@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class Ui {
     private static final String padding = "     ";
     private static final String boundary = "    ____________________________________________________________";
-    public Scanner in = new Scanner(System.in);
 
     public void showWelcome() {
         System.out.println(boundary);
@@ -95,11 +94,6 @@ public class Ui {
                 + endDateStr + " have been cleared");
     }
 
-    public String readCommand(Scanner in) {
-        String input = in.nextLine();
-        return input;
-    }
-
     public void showMessage(String message) {
         System.out.println(padding + message);
     }
@@ -159,10 +153,18 @@ public class Ui {
     }
 
     public void showWeightUpdate(User user, int weight, String date) {
-        System.out.println(padding + user.getName() + ", your weight has been updated on"
+        System.out.println(padding + user.getName() + ", your weight has been updated on "
                 + date + " to " + weight + "kg.");
     }
 
+    public void showRejected() {
+        System.out.println(padding + "Understood, I've stopped the update.");
+    }
+
+    public void showConfirmation(String weight, String date) {
+        System.out.println(padding + "You have entered " + weight + " on " + date + ".");
+        System.out.println(padding + "Would you like to overwrite the record on " + date + "?(Y/N)");
+    }
     public void showTransactionAdded(Transaction transaction, BigDecimal accountBalance) {
         System.out.println(padding + "Got it. I've added this transaction:");
         System.out.println(padding + transaction);

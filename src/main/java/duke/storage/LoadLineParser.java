@@ -79,6 +79,11 @@ public class LoadLineParser {
 
     public static User parseUser(String line) {
         String[] splitLine = line.split("\\|");
+        System.out.println(line);
+        System.out.println(splitLine.length);
+        for (int i = 0; i < splitLine.length; i += 1) {
+            System.out.print(splitLine[i] + ",");
+        }
         String name = splitLine[0];
         int age = Integer.parseInt(splitLine[1]);
         int height = Integer.parseInt(splitLine[2]);

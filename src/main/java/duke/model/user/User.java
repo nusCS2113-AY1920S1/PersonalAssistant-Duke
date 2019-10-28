@@ -8,17 +8,14 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * This is a class that will store user information to be used for processing.
  */
 
 public class User {
-    private ArrayList<Tuple> weight = new ArrayList();
+    private HashMap<String, Integer> weight = new HashMap();
     private int height = 0;
     private int age = 0;
     private Gender sex = null;
@@ -28,7 +25,7 @@ public class User {
     private double[] factor = {1.2, 1.375, 1.55, 1.725, 1.9};
     private boolean loseWeight = false;
     private boolean hasSetMaintain = false;
-    private Account account;
+    private String lastDate = "29/10/2019";
 
     /**
      * This is a contructor to create an empty user profile.
@@ -68,7 +65,18 @@ public class User {
         Calendar calendarDate = Calendar.getInstance();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String currentDate = dateFormat.format(calendarDate.getTime());
-        this.weight.add(new Tuple(currentDate, weight));
+        this.weight.put(currentDate, weight);
+        Date lastDateDate = new Date();
+        try {
+            lastDateDate = dateFormat.parse(lastDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Calendar lastDateCalendar = Calendar.getInstance();
+        lastDateCalendar.setTime(lastDateDate);
+        if (calendarDate.after(lastDateCalendar)){
+            this.lastDate = currentDate;
+        }
     }
 
     /**
@@ -86,12 +94,28 @@ public class User {
             throw new DukeException(e.getMessage());
         }
         String currentDate = dateFormat.format(temp.getTime());
-        this.weight.add(new Tuple(currentDate, weight));
-    }
+        this.weight.put(currentDate, weight);
 
-    //TODO: might want to refactor (1 DoS)
-    public String getCurrency() {
-        return account.getCurrency();
+        Date lastDateDate = new Date();
+        try {
+            lastDateDate = dateFormat.parse(lastDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Calendar lastDateCalendar = Calendar.getInstance();
+        lastDateCalendar.setTime(lastDateDate);
+
+        Date currDateDate = new Date();
+        try {
+            currDateDate = dateFormat.parse(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Calendar currDateCalendar = Calendar.getInstance();
+        currDateCalendar.setTime(currDateDate);
+        if (lastDateCalendar.before(currDateCalendar)){
+            this.lastDate = date;
+        }
     }
 
     public void setName(String name) {
@@ -134,15 +158,21 @@ public class User {
         return this.age;
     }
 
+    public String getLastDate() {
+        return this.lastDate;
+    }
     public int getWeight() {
-        return this.weight.get(this.weight.size() - 1).weight;
+        Calendar calendarDate = Calendar.getInstance();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String currentDate = dateFormat.format(calendarDate.getTime());
+        return this.weight.get(getLastDate());
     }
 
     /**
      * This is a function to obtain all the weight at different date.
      */
 
-    public ArrayList<Tuple> getAllWeight() {
+    public HashMap<String, Integer> getAllWeight() {
         return this.weight;
     }
 

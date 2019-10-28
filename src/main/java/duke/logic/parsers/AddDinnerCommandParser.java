@@ -13,7 +13,6 @@ public class AddDinnerCommandParser implements ParserInterface<AddCommand> {
      * Parses user input and returns an AddCommand encapsulating a Dinner object.
      * @param userInput String input by user.
      * @return <code>AddCommand</code> Command object encapsulating a breakfast object
-     * @throws DukeException when the user input cannot be parsed
      */
     @Override
     public AddCommand parse(String userInput) {

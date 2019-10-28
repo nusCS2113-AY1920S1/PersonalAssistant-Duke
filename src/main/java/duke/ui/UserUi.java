@@ -2,6 +2,8 @@ package duke.ui;
 
 import duke.model.user.User;
 
+/** UserUi is a public class that facilitates the output of User info
+ */
 public class UserUi {
     private static final String padding = "     ";
     private static final String boundary = "    ____________________________________________________________";

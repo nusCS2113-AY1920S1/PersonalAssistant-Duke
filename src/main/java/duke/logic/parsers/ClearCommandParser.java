@@ -12,7 +12,6 @@ public class ClearCommandParser implements ParserInterface<ClearCommand> {
      * Parse user input and return ClearCommand.
      * @param userInput String input by user.
      * @return <code>ClearCommand</code> Command object demarcating the region of data to be deleted
-     * @throws DukeException If the userInput cannot be parsed
      */
 
     @Override

@@ -17,7 +17,6 @@ public class DepositCommandParser implements ParserInterface<AddTransactionComma
      * Parse user input and return AddTransactionCommand.
      * @param userInput String input by user.
      * @return <code>AddTransactionCommand</code> Command object encapsulating the amount to be deposited
-     * @throws DukeException If the userInput cannot be parsed
      */
     @Override
 
