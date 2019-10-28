@@ -451,11 +451,11 @@ public class Saving extends Bank {
     /**
      * Returns expenditure amount based on the specified expenditure id.
      *
-     * @param expno Expenditure id of the expenditure to be searched.
+     * @param expenditureId Expenditure id of the expenditure to be searched.
      * @return Expenditure amount based on the specified expenditure id.
      * @throws TransactionException If transaction is not an expenditure.
      */
-    double getExpAmountById(int expno) throws TransactionException {
-        return transactions.getExpenditureAmount(expno);
+    double getExpAmountById(int expenditureId) throws TransactionException {
+        return transactions.getExpenditureAmount(expenditureId);
     }
 }
