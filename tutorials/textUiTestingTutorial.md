@@ -13,7 +13,7 @@
    del ACTUAL.TXT
    
    REM compile the code into the bin folder
-   javac  -cp ..\src -Xlint:none -d ..\bin ..\src\main\java\duke.Duke.java
+   javac  -cp ..\src -Xlint:none -d ..\bin ..\src\main\java\duke.Ducats.java
    IF ERRORLEVEL 1 (
        echo ********** BUILD FAILURE **********
        exit /b 1
@@ -21,7 +21,7 @@
    REM no error here, errorlevel == 0
    
    REM run the program, feed duke.commands from input.txt file and redirect the output to the ACTUAL.TXT
-   java -classpath ..\bin duke.Duke < input.txt > ACTUAL.TXT
+   java -classpath ..\bin duke.Ducats < input.txt > ACTUAL.TXT
    
    REM compare the output to the expected output
    FC ACTUAL.TXT EXPECTED.TXT
@@ -44,14 +44,14 @@
    fi
    
    # compile the code into the bin folder, terminates if error occurred
-   if ! javac -cp ../src -Xlint:none -d ../bin ../src/main/java/duke.Duke.java
+   if ! javac -cp ../src -Xlint:none -d ../bin ../src/main/java/duke.Ducats.java
    then
        echo "********** BUILD FAILURE **********"
        exit 1
    fi
    
    # run the program, feed duke.commands from input.txt file and redirect the output to the ACTUAL.TXT
-   java -classpath ../bin duke.Duke < input.txt > ACTUAL.TXT
+   java -classpath ../bin duke.Ducats < input.txt > ACTUAL.TXT
    
    # compare the output to the expected output
    diff ACTUAL.TXT EXPECTED.TXT
