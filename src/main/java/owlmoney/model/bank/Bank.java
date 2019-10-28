@@ -1,6 +1,10 @@
 package owlmoney.model.bank;
 
+import java.io.IOException;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.Bond;
@@ -385,5 +389,114 @@ public abstract class Bank {
     void findTransaction(String fromDate, String toDate, String description, String category, Ui ui)
             throws TransactionException {
         transactions.findMatchingTransaction(fromDate, toDate, description, category, ui);
+    }
+
+    /**
+     * Exports bond details of the bank account.
+     *
+     * @param prependFileName the index of the bankAccount in the bankList.
+     * @throws BankException if the bank account does not support this feature.
+     * @throws IOException if there are problems with loading saved data.
+     */
+    void exportInvestmentBondList(String prependFileName) throws BankException, IOException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Prepares transaction details of the bank account for exporting.
+     *
+     * @return the arrayList that is formatted nicely ready to be exported.
+     */
+    ArrayList<String[]> prepareExportTransactionList() {
+        ArrayList<String[]> exportArrayList = new ArrayList<>();
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        decimalFormat.setRoundingMode(RoundingMode.DOWN);
+        SimpleDateFormat exportDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        exportArrayList.add(new String[]{"description","amount","date","category","spent"});
+
+        for (int i = 0; i < transactions.getSize(); i++) {
+            String description = transactions.get(i).getDescription();
+            double amount = transactions.get(i).getAmount();
+            String date = exportDateFormat.format(transactions.get(i).getDateInDateFormat());
+            String category = transactions.get(i).getCategory();
+            boolean spent = transactions.get(i).getSpent();
+            String stringAmount = decimalFormat.format(amount);
+            String stringSpent = String.valueOf(spent);
+            exportArrayList.add(new String[] {description,stringAmount,date,category,stringSpent});
+        }
+        return exportArrayList;
+    }
+
+    /**
+     * Prepares transaction details of the bank account for exporting.
+     *
+     * @throws BankException if the bank account does not support this feature.
+     * @throws IOException if there are problems with loading saved data.
+     */
+    ArrayList<String[]> prepareExportRecurringTransactionList() throws BankException, IOException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Exports transaction details of the bank account.
+     *
+     * @param prependFileName the index of the bankAccount in the bankList.
+     * @throws BankException if the bank account does not support this feature.
+     * @throws IOException if there are problems with loading saved data.
+     */
+    void exportBankTransactionList(String prependFileName) throws BankException, IOException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Exports recurring transaction details of the bank account.
+     *
+     * @param prependFileName the index of the bankAccount in the bankList.
+     * @throws BankException if the bank account does not support this feature.
+     * @throws IOException if there are problems with loading saved data.
+     */
+    void exportBankRecurringTransactionList(String prependFileName) throws BankException, IOException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Imports bonds from the imported saved file line by line.
+     *
+     * @param newBond an instance of the bond, contained in 1 line in the saved file.
+     * @throws BankException if the bank account does not support this feature.
+     */
+    void importNewBonds(Bond newBond) throws BankException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Imports deposits from the imported saved file line by line.
+     *
+     * @param deposit an instance of the deposit, contained in 1 line in the saved file.
+     * @param bankType the type of deposit and bank type.
+     * @throws BankException if the bank account does not support this feature.
+     */
+    void importNewDeposit(Transaction deposit, String bankType) throws BankException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Imports expenditures from the imported saved file line by line.
+     *
+     * @param expenditure an instance of the expenditure, contained in 1 line in the saved file.
+     * @param type the type of expenditure.
+     * @throws BankException if the bank account does not support this feature.     */
+    void importNewExpenditure(Transaction expenditure, String type) throws BankException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Imports recurring expenditures from the imported saved file line by line.
+     *
+     * @param expenditure an instance of the recurring expenditure, contained in 1 line in the saved file.
+     * @throws BankException if the bank account does not support this feature.
+     */
+    void importNewRecurringExpenditure(Transaction expenditure) throws BankException {
+        throw new BankException("This account does not support this feature");
     }
 }

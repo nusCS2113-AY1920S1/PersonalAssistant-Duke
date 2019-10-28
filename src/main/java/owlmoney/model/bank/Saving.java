@@ -1,9 +1,12 @@
 package owlmoney.model.bank;
 
+import java.io.IOException;
+import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -13,6 +16,7 @@ import owlmoney.model.transaction.RecurringExpenditureList;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.TransactionList;
 import owlmoney.model.transaction.exception.TransactionException;
+import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
 /**
@@ -25,6 +29,11 @@ public class Saving extends Bank {
     private static final String ACCOUNT_TYPE = "bank";
     private Date nextIncomeDate;
     private RecurringExpenditureList recurringExpenditures;
+    private static final String SAVING_TRANSACTION_LIST_FILE_NAME = "_saving_transactionList.csv";
+    private static final String SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME = "_saving_recurring_transactionList.csv";
+
+    private Storage storage;
+    private static final String FILE_PATH = "data/";
 
     /**
      * Creates an instance of a savings account.
@@ -45,6 +54,7 @@ public class Saving extends Bank {
         calendar.set(Calendar.DATE, 1);
         calendar.add(Calendar.MONTH, 1);
         nextIncomeDate = calendar.getTime();
+        this.storage = new Storage(FILE_PATH);
     }
 
     /**
@@ -339,6 +349,112 @@ public class Saving extends Bank {
     void savingListRecurringExpenditure(Ui ui) throws TransactionException {
         recurringExpenditures.listRecurringExpenditure(ui);
     }
+
+    /**
+     * Exports the transaction list.
+     *
+     * @param prependFileName the index of the bankAccount in the bankList.
+     * @throws IOException if there are errors exporting the file.
+     */
+    @Override
+    public void exportBankTransactionList(String prependFileName) throws IOException {
+        ArrayList<String[]> inputData = prepareExportTransactionList();
+        try {
+            storage.writeFile(inputData,prependFileName + SAVING_TRANSACTION_LIST_FILE_NAME);
+        } catch (IOException e) {
+            throw new IOException(e);
+        }
+    }
+
+    /**
+     * Prepares the recurring transaction list for exporting.
+     *
+     * @return properly formatted recurring transaction list in Arraylist that contains array of strings.
+     * @throws BankException if the bank account does not support this feature.
+     * @throws IOException if there are errors exporting the file.
+     */
+    @Override
+    ArrayList<String[]> prepareExportRecurringTransactionList() throws BankException, IOException {
+        ArrayList<String[]> exportArrayList = new ArrayList<>();
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        decimalFormat.setRoundingMode(RoundingMode.DOWN);
+        SimpleDateFormat exportDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        exportArrayList.add(new String[]{"description","amount","date","category","spent"});
+
+        for (int i = 0; i < recurringExpenditures.getSize(); i++) {
+            String description = recurringExpenditures.get(i).getDescription();
+            double amount = recurringExpenditures.get(i).getAmount();
+            String date = exportDateFormat.format(recurringExpenditures.get(i).getDateInDateFormat());
+            String category = recurringExpenditures.get(i).getCategory();
+            boolean spent = recurringExpenditures.get(i).getSpent();
+            String stringAmount = decimalFormat.format(amount);
+            String stringSpent = String.valueOf(spent);
+            exportArrayList.add(new String[] {description,stringAmount,date,category,stringSpent});
+        }
+        return exportArrayList;
+    }
+
+    /**
+     * Exports the recurring transaction list.
+     *
+     * @param prependFileName the index of the bankAccount in the bankList.
+     * @throws BankException if the bank account does not support this feature.
+     * @throws IOException if there are errors exporting the file.
+     */
+    @Override
+    void exportBankRecurringTransactionList(String prependFileName) throws BankException, IOException {
+        ArrayList<String[]> inputData = prepareExportRecurringTransactionList();
+        try {
+            storage.writeFile(inputData,prependFileName + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME);
+        } catch (IOException e) {
+            throw new IOException(e);
+        }
+    }
+
+    /**
+     * Imports new expenditures one at a time.
+     *
+     * @param expenditure an instance of the expenditure, contained in 1 line in the saved file.
+     * @param bankType the type of bank account.
+     * @throws BankException if the bank account does not support this feature.
+     */
+    @Override
+    public void importNewExpenditure(Transaction expenditure, String bankType) throws BankException {
+        if (!"bank".equals(bankType) && !"savings transfer".equals(bankType)) {
+            throw new BankException("Bonds cannot be added to this account");
+        }
+        if (expenditure.getAmount() > this.getCurrentAmount()) {
+            throw new BankException("Bank account cannot have a negative amount");
+        } else {
+            transactions.importExpenditureToList(expenditure, bankType);
+        }
+    }
+
+    /**
+     * Imports new deposits one at a time.
+     *
+     * @param deposit an instance of the deposit, contained in 1 line in the saved file.
+     * @param bankType the type of deposit and bank type.
+     * @throws BankException if the bank account does not support this feature.
+     */
+    @Override
+    public void importNewDeposit(Transaction deposit, String bankType) throws BankException {
+        if (!"bank".equals(bankType) && !"savings transfer".equals(bankType)) {
+            throw new BankException("This account does not support investment account deposits");
+        }
+        transactions.importDepositToList(deposit);
+    }
+
+    /**
+     * Imports new recurring expenditures one at a time.
+     *
+     * @param expenditure an instance of the recurring expenditure, contained in 1 line in the saved file.
+     */
+    @Override
+    public void importNewRecurringExpenditure(Transaction expenditure) {
+        recurringExpenditures.importRecurringExpenditureToList(expenditure);
+    }
+
 
     /**
      * Returns expenditure amount based on the specified expenditure id.

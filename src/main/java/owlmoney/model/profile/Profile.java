@@ -1,8 +1,13 @@
 package owlmoney.model.profile;
 
 import java.time.YearMonth;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
+import owlmoney.model.bank.Investment;
+import owlmoney.model.bank.Saving;
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.bank.Bank;
 import owlmoney.model.bank.BankList;
@@ -19,6 +24,7 @@ import owlmoney.model.transaction.Deposit;
 import owlmoney.model.transaction.Expenditure;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.exception.TransactionException;
+import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
 /**
@@ -29,26 +35,48 @@ public class Profile {
     private BankList bankList;
     private CardList cardList;
     private GoalsList goalsList;
+    private Storage storage;
+    private Ui ui;
 
     private static final String BANK = "bank";
     private static final String SAVING = "saving";
+    private static final String BONDS = "bonds";
     private static final String INVESTMENT = "investment";
     private static final String CARD = "card";
     private static final String ISBANK = "savings transfer";
     private static final String ISINVESTMENT = "investment transfer";
     private static final String TRANSFERCATEGORY = "Fund Transfer";
     private static final String DEPOSITCATEGORY = "Deposit";
+    private static final String FILE_PATH = "data/";
+    private static final String PROFILE_BANK_LIST_FILE_NAME = "profile_banklist.csv";
+    private static final String INVESTMENT_BOND_LIST_FILE_NAME = "_investment_bondList.csv";
+    private static final String INVESTMENT_TRANSACTION_LIST_FILE_NAME = "_investment_transactionList.csv";
+    private static final String SAVING_TRANSACTION_LIST_FILE_NAME = "_saving_transactionList.csv";
+    private static final String SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME = "_saving_recurring_transactionList.csv";
+    private static final String PROFILE_FILE_NAME = "profile.csv";
+    private static final String HAS_SPENT = "true";
+    private static final String NOT_SPENT = "false";
+
 
     /**
      * Creates a new instance of the user profile.
      *
      * @param newUserName The username that the user desires to use.
+     * @param ui required for printing.
      */
-    public Profile(String newUserName) {
+    public Profile(String newUserName, Ui ui) {
+        storage = new Storage(FILE_PATH);
         this.username = newUserName;
-        this.bankList = new BankList();
-        this.cardList = new CardList();
-        this.goalsList = new GoalsList();
+        this.bankList = new BankList(storage);
+        this.cardList = new CardList(storage);
+        this.goalsList = new GoalsList(storage);
+        this.ui = ui;
+        try {
+            loadBanksFromImportedData();
+            iterateBanksToAddTransaction();
+        } catch (Exception e) {
+            ui.printError("Error importing banks, data related to some bank accounts are not available");
+        }
     }
 
     /**
@@ -61,18 +89,24 @@ public class Profile {
     }
 
     /**
-     * Edits username of user.
+     * Sets the username of the user.
      *
      * @param name existing name of user.
      * @param newName new name that user wants to change to.
      * @param ui required for printing
      * @throws ProfileException if name don't match or change same name or name contain special character.
      */
-    public void profileEditUsername(String name, String newName, Ui ui) throws ProfileException {
+    public void profileSetUsername(String name, String newName, Ui ui) throws ProfileException {
         checkProfileName(name, newName);
         this.username = newName;
         ui.printMessage("\nProfile name was: " + name);
         ui.printMessage("Now changed to: " + newName);
+        try {
+            storage.writeProfileFile(new String[]{profileGetUsername()},PROFILE_FILE_NAME);
+        } catch (IOException ex) {
+            ui.printError("Unable to save profile now, your data is at risk, but we will"
+                    + " try saving again, feel free to continue using the program.");
+        }
     }
 
     /**
@@ -134,9 +168,9 @@ public class Profile {
      */
     public void profileAddNewExpenditure(String accName, Transaction exp, Ui ui, String type)
             throws BankException, CardException {
-        if ("card".equals(type)) {
+        if (CARD.equals(type)) {
             cardList.cardListAddExpenditure(accName, exp, ui, type);
-        } else if ("bank".equals(type) || "bonds".equals(type)) {
+        } else if (BANK.equals(type) || BONDS.equals(type)) {
             bankList.bankListAddExpenditure(accName, exp, ui, type);
         }
     }
@@ -660,6 +694,231 @@ public class Profile {
             cardList.cardListFindTransaction(name, fromDate, toDate, description, category, ui);
         }
     }
+
+    /**
+     * Imports data generally for further processing based on file name specified.
+     *
+     * @param fileName the name of the file to be imported.
+     * @param ui required for printing.
+     * @return the imported data from the file formatted in List of String arrays.
+     * @throws Exception if there are errors importing the data from the file.
+     */
+    private List<String[]> importListDataFromStorage(String fileName,Ui ui) {
+        List<String[]> importData = null;
+        try {
+            importData = storage.readFile(fileName);
+        } catch (IOException | NullPointerException e) {
+            ui.printError("Error importing files from storage to process.");
+        }
+        return importData;
+    }
+
+    /**
+     * Add banks from imported data.
+     *
+     * @throws Exception if there are errors importing data.
+     */
+    private void loadBanksFromImportedData() throws Exception {
+        List<String[]> importData = importListDataFromStorage(PROFILE_BANK_LIST_FILE_NAME,ui);
+        for (String[] importDataRow : importData) {
+            String bankName = importDataRow[0];
+            String bankType = importDataRow[1];
+            String amount = importDataRow[2];
+            double doubleAmount = Double.parseDouble(amount);
+            String income = importDataRow[3];
+            double doubleIncome = Double.parseDouble(income);
+            if (bankType.equals(INVESTMENT)) {
+                Bank newInvestment = new Investment(bankName, doubleAmount);
+                profileImportNewBank(newInvestment);
+            } else if (bankType.equals(SAVING)) {
+                Bank newSaving = new Saving(bankName, doubleAmount, doubleIncome);
+                profileImportNewBank(newSaving);
+            } else {
+                throw new BankException("Error importing banks, data related to some bank accounts are not available");
+            }
+        }
+    }
+
+    /**
+     * Iterates the bank file line by line to add specific details tied to the bank account.
+     *
+     * @throws Exception if there are errors importing data.
+     */
+    private void iterateBanksToAddTransaction() throws Exception {
+        List<String[]> importBankData = importListDataFromStorage(PROFILE_BANK_LIST_FILE_NAME,ui);
+        for (int i = 0; i < importBankData.size(); i++) {
+            String bankName = importBankData.get(i)[0];
+            String bankType = importBankData.get(i)[1];
+            if (bankType.equals(INVESTMENT)) {
+                String transactionFileName = i + INVESTMENT_TRANSACTION_LIST_FILE_NAME;
+                String bondsFileName = i + INVESTMENT_BOND_LIST_FILE_NAME;
+                loadBondsForInvestmentBanks(bondsFileName,bankName);
+                loadTransactionsForBanks(transactionFileName,bankName, bankType);
+            } else if (bankType.equals(SAVING)) {
+                String fileName = i + SAVING_TRANSACTION_LIST_FILE_NAME;
+                loadTransactionsForBanks(fileName,bankName, bankType);
+                String recurringTransactionFileName = i + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME;
+                loadRecurringTransactionsForBanks(recurringTransactionFileName,bankName,bankType);
+            }
+        }
+    }
+
+    /**
+     * Loads the transactions tied to the bank account.
+     *
+     * @param fileName the name of the file to obtain transactions from.
+     * @param bankName the name of the bank account.
+     * @param bankType the type of bank account.
+     * @throws Exception if there are errors importing data.
+     */
+    private void loadTransactionsForBanks(String fileName, String bankName, String bankType)
+            throws Exception {
+        List<String[]> importData = importListDataFromStorage(fileName,ui);
+        for (String[] importDataRow : importData) {
+            String description = importDataRow[0];
+            String amount = importDataRow[1];
+            double doubleAmount = Double.parseDouble(amount);
+            String date = importDataRow[2];
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date dateInFormat = dateFormat.parse(date);
+            String category = importDataRow[3];
+            String hasSpent = importDataRow[4];
+            if (bankType.equals(INVESTMENT)) {
+                if (hasSpent.equals(HAS_SPENT)) {
+                    Transaction newExpenditure = new Expenditure(description, doubleAmount, dateInFormat, category);
+                    profileImportNewExpenditure(bankName, newExpenditure, BONDS);
+                } else if (hasSpent.equals(NOT_SPENT)) {
+                    Transaction newDeposit = new Deposit(description, doubleAmount, dateInFormat, category);
+                    profileImportNewDeposit(bankName, newDeposit, BONDS);
+                }
+            } else if (bankType.equals(SAVING)) {
+                if (hasSpent.equals(HAS_SPENT)) {
+                    Transaction newExpenditure = new Expenditure(description, doubleAmount, dateInFormat, category);
+                    profileImportNewExpenditure(bankName, newExpenditure, BANK);
+                } else if (hasSpent.equals(NOT_SPENT)) {
+                    Transaction newDeposit = new Deposit(description, doubleAmount, dateInFormat, category);
+                    profileImportNewDeposit(bankName, newDeposit, BANK);
+                }
+            }
+        }
+    }
+
+    /**
+     * Loads the recurring transactions tied to the bank account.
+     *
+     * @param fileName the name of the file to obtain transactions from.
+     * @param bankName the name of the bank account.
+     * @param bankType the type of bank account.
+     * @throws Exception if there are errors importing data.
+     */
+    private void loadRecurringTransactionsForBanks(String fileName, String bankName, String bankType)
+            throws Exception {
+        List<String[]> importData = importListDataFromStorage(fileName,ui);
+        for (String[] importDataRow : importData) {
+            String description = importDataRow[0];
+            String amount = importDataRow[1];
+            double doubleAmount = Double.parseDouble(amount);
+            String date = importDataRow[2];
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date dateInFormat = dateFormat.parse(date);
+            String category = importDataRow[3];
+            String hasSpent = importDataRow[4];
+            if (bankType.equals(SAVING)) {
+                if (hasSpent.equals(HAS_SPENT)) {
+                    Transaction newExpenditure = new Expenditure(description, doubleAmount, dateInFormat, category);
+                    profileImportNewRecurringExpenditure(bankName, newExpenditure);
+                } else if (hasSpent.equals(NOT_SPENT)) {
+                    Transaction newDeposit = new Deposit(description, doubleAmount, dateInFormat, category);
+                    profileImportNewRecurringExpenditure(bankName, newDeposit);
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Loads the bonds tied to the investment bank account.
+     *
+     * @param fileName the name of the file to obtain transactions from.
+     * @param bankName the name of the bank account.
+     * @throws Exception if there are errors importing data.
+     */
+    private void loadBondsForInvestmentBanks(String fileName, String bankName)
+            throws Exception {
+        List<String[]> importData = importListDataFromStorage(fileName,ui);
+        for (String[] importDataRow : importData) {
+            String bondName = importDataRow[0];
+            String amount = importDataRow[1];
+            double doubleAmount = Double.parseDouble(amount);
+            String rate = importDataRow[2];
+            double doubleRate = Double.parseDouble(rate);
+            String date = importDataRow[3];
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date dateInFormat = dateFormat.parse(date);
+            String year = importDataRow[4];
+            int integerYear = Integer.parseInt(year);
+            Bond newBond = new Bond(bondName, doubleAmount, doubleRate, dateInFormat, integerYear);
+            profileImportNewBonds(bankName, newBond);
+        }
+    }
+
+    /**
+     * Imports one instance of bonds.
+     *
+     * @param bankName the name of the bank account.
+     * @param newBond an instance of the bond to be imported.
+     * @throws BankException if the bank account does not support this feature.
+     */
+    private void profileImportNewBonds(String bankName, Bond newBond) throws BankException {
+        bankList.bankListImportNewBonds(bankName, newBond);
+    }
+
+    /**
+     * Imports one instance of deposit.
+     *
+     * @param bankName the name of the bank account.
+     * @param deposit an instance of the deposit.
+     * @param bankType the type of bank account.
+     * @throws BankException if the bank account does not support this feature.
+     */
+    private void profileImportNewDeposit(String bankName, Transaction deposit, String bankType) throws BankException {
+        bankList.bankListImportNewDeposit(bankName, deposit, bankType);
+    }
+
+    /**
+     * Imports one instance of an expenditure.
+     *
+     * @param bankName the name of the bank account.
+     * @param expenditure an instance of the expenditure.
+     * @param type the type of expenditure.
+     * @throws BankException if the bank account does not support this feature.
+     */
+    private void profileImportNewExpenditure(String bankName, Transaction expenditure, String type)
+            throws BankException {
+        bankList.bankListImportNewExpenditure(bankName, expenditure, type);
+    }
+
+    /**
+     * Imports one instance of a bank account.
+     *
+     * @param newBank an instance of a new bank account.
+     */
+    private void profileImportNewBank(Bank newBank) {
+        bankList.bankListImportNewBank(newBank);
+    }
+
+    /**
+     * Imports one instance of recurring expenditure.
+     *
+     * @param bankName the name of the bank account.
+     * @param newRecurringExpenditure an instance of the recurring expenditure.
+     * @throws BankException if the bank account does not support this feature.
+     */
+    private void profileImportNewRecurringExpenditure(String bankName, Transaction newRecurringExpenditure)
+            throws BankException {
+        bankList.bankListImportNewRecurringExpenditure(bankName, newRecurringExpenditure);
+    }
+
 
     public void checkCardExists(String card) throws CardException {
         cardList.checkCardExists(card);
