@@ -1,9 +1,9 @@
 package duke.logic.command;
 
+import duke.exception.DukeException;
 import duke.logic.CommandParams;
 import duke.logic.CommandResult;
 import duke.model.Expense;
-import duke.exception.DukeException;
 import duke.model.Model;
 import duke.storage.Storage;
 
@@ -16,7 +16,7 @@ import java.util.stream.Stream;
  * Responses with the result.
  */
 public class AddExpenseCommand extends Command {
-    private static final String name = "addExpense";
+    private static final String name = "add";
     private static final String description = "Adds a new Expense";
     private static final String usage = "add $cost";
 
@@ -26,7 +26,9 @@ public class AddExpenseCommand extends Command {
         DESCRIPTION("description", "a short description or name for the expense"),
         TAG("tag", "tags that should be added to the expense"),
         TIME("time", "the time of the expense"),
-        TENTATIVE("tentative", "sets the expense to be tentative");
+        TENTATIVE("tentative", "sets the expense to be tentative"),
+        RECURRING("recurring", "sets the expense to be recurring");
+
 
         private String name;
         private String description;
@@ -42,10 +44,10 @@ public class AddExpenseCommand extends Command {
      */
     public AddExpenseCommand() {
         super(name,
-            description,
-            usage,
-            Stream.of(SecondaryParam.values())
-                .collect(Collectors.toMap(s -> s.name, s -> s.description))
+                description,
+                usage,
+                Stream.of(SecondaryParam.values())
+                        .collect(Collectors.toMap(s -> s.name, s -> s.description))
         );
     }
 
@@ -63,7 +65,7 @@ public class AddExpenseCommand extends Command {
         }
 
         if (commandParams.containsParams(SecondaryParam.TAG.name)) {
-            expenseBuilder.invertTags(commandParams.getParam(SecondaryParam.TAG.name));
+            expenseBuilder.setTag(commandParams.getParam(SecondaryParam.TAG.name));
         }
 
         if (commandParams.containsParams(SecondaryParam.TIME.name)) {
@@ -72,6 +74,10 @@ public class AddExpenseCommand extends Command {
 
         if (commandParams.containsParams(SecondaryParam.TENTATIVE.name)) {
             expenseBuilder.setTentative(true);
+        }
+
+        if (commandParams.containsParams(SecondaryParam.RECURRING.name)) {
+            expenseBuilder.setRecurring(true);
         }
 
         model.addExpense(expenseBuilder.build());

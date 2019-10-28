@@ -54,6 +54,7 @@ public interface Model {
     public ObservableList<PlanBot.PlanDialog> getDialogObservableList();
     public void processPlanInput(String input) throws DukeException;
     public Map<String, String> getKnownPlanAttributes();
+    public PlanQuestionBank.PlanRecommendation getRecommendedBudgetPlan();
 
 
     //************************************************************
@@ -84,5 +85,23 @@ public interface Model {
     public FilteredList<Payment> getSearchResult();
 
     public PaymentList getPaymentList();
+
+    //******************************** IncomeList operations
+
+    public void addIncome(Income income);
+
+    public void deleteIncome(int index) throws DukeException;
+
+    public void clearIncome();
+
+    public void filterIncome(String filterCriteria) throws DukeException;
+
+    public void sortIncome(String sortCriteria) throws DukeException;
+
+    public void viewIncome(String viewScope, int previous) throws DukeException;
+
+    public ObservableList<Income> getIncomeExternalList();
+
+    public IncomeList getIncomeList();
 
 }

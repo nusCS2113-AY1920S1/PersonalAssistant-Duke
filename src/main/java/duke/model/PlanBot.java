@@ -2,11 +2,9 @@ package duke.model;
 
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
-import duke.logic.Parser.Parser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -58,6 +56,8 @@ public class PlanBot {
      */
     private PlanQuestion currentQuestion;
 
+    private PlanQuestionBank.PlanRecommendation planBudgetRecommendation;
+
     /**
      * Constructor for PlanBot.
      *
@@ -69,13 +69,11 @@ public class PlanBot {
         dialogObservableList = FXCollections.observableList(dialogList);
         this.planAttributes = planAttributes;
         this.questionQueue = new LinkedList<>();
-        if (!planAttributes.isEmpty()) {
-            StringBuilder knownAttributes = new StringBuilder("Here's what I know about you: \n");
-            for (String key : planAttributes.keySet()) {
-                knownAttributes.append(key + " : " + planAttributes.get(key) + "\n");
-            }
-            PlanDialog knownDialog = new PlanDialog(knownAttributes.toString(), Agent.BOT);
-            dialogObservableList.add(knownDialog);
+        if (planAttributes.isEmpty()) {
+            dialogObservableList.add(new PlanDialog("Hi, seems like this is the first time using Duke++. "
+                    + "Let me plan your budget for you!"
+                    + " Alternatively, type \"goto expense\" to start using Duke++!"
+                    , Agent.BOT));
         }
         try {
             planQuestionBank = new PlanQuestionBank();
@@ -90,11 +88,12 @@ public class PlanBot {
         if (questionQueue.isEmpty()) {
             currentQuestion = null;
             try {
-                dialogList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes), Agent.BOT));
+                sendCompletedMessage();
             } catch (DukeException e) {
                 dialogList.add(new PlanDialog(e.getMessage(), Agent.BOT));
             }
         } else {
+            dialogList.add(new PlanDialog("Tell me more about yourself to give you recommendations", Agent.BOT));
             PlanQuestion firstQuestion = questionQueue.peek();
             currentQuestion = firstQuestion;
             questionQueue.remove();
@@ -116,23 +115,22 @@ public class PlanBot {
     public void processInput(String input) throws DukeException {
         dialogObservableList.add(new PlanDialog(input, Agent.USER));
         if (currentQuestion == null) {
-            PlanDialog emptyQueueDialog = new PlanDialog("Based on what you've told me, here's a recommended budget plan!", Agent.BOT);
-            dialogObservableList.add(emptyQueueDialog);
-            dialogObservableList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes), Agent.BOT));
+            sendCompletedMessage();
         } else {
             try {
                 PlanQuestion.Reply reply = currentQuestion.getReply(input, planAttributes);
                 questionQueue.clear();
                 questionQueue.addAll(planQuestionBank.getQuestions(planAttributes));
                 logger.info("\n\n\nQueue size: " + questionQueue.size());
+
                 dialogObservableList.add(new PlanDialog(reply.getText(), Agent.BOT));
                 planAttributes = reply.getAttributes();
                 if (!questionQueue.isEmpty()) {
                     currentQuestion = questionQueue.peek();
                     dialogObservableList.add(new PlanDialog(currentQuestion.getQuestion(), Agent.BOT));
                     questionQueue.remove();
-                }else {
-                    dialogObservableList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes), Agent.BOT));
+                } else {
+                    sendCompletedMessage();
                 }
             } catch (DukeException e) {
                 dialogObservableList.add(new PlanDialog(e.getMessage(), Agent.BOT));
@@ -140,13 +138,32 @@ public class PlanBot {
         }
     }
 
-
-
+    public PlanQuestionBank.PlanRecommendation getPlanBudgetRecommendation() {
+        return planBudgetRecommendation;
+    }
 
     public Map<String, String> getPlanAttributes() {
         return planAttributes;
     }
 
+    public void sendCompletedMessage() throws DukeException {
+        dialogList.add(new PlanDialog(planQuestionBank
+                .makeRecommendation(planAttributes)
+                .getRecommendation(), Agent.BOT));
+        planBudgetRecommendation = planQuestionBank
+                .makeRecommendation(planAttributes);
+        StringBuilder recommendedBudgetStringBuilder = new StringBuilder();
+        for (String category : planBudgetRecommendation.getPlanBudget().keySet()) {
+            recommendedBudgetStringBuilder.append(category)
+                    .append(" : ")
+                    .append(planBudgetRecommendation.getPlanBudget().get(category))
+                    .append("\n");
+        }
+        dialogList.add(new PlanDialog("Here's a recommended budget for you: \n"
+                + recommendedBudgetStringBuilder.toString()
+                + "type \"export\" to export the budget",
+                Agent.BOT));
+    }
 
 
     /**

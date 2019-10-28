@@ -1,6 +1,7 @@
 package duke.storage;
 
 import duke.exception.DukeException;
+import duke.logic.Parser.Parser;
 import duke.model.Budget;
 
 import java.io.File;
@@ -35,7 +36,7 @@ public class BudgetStorage {
      */
     public void saveBudget(Budget budget) throws DukeException {
         try {
-            Map<String, BigDecimal>budgetCategory = budget.getBudgetCategory();
+            Map<String, BigDecimal> budgetCategory = budget.getBudgetCategory();
             BUDGET_FILE.createNewFile();
             try (FileWriter fileWriter = new FileWriter(BUDGET_FILE)) {
                 fileWriter.write(budget.getMonthlyBudgetString());
@@ -52,7 +53,6 @@ public class BudgetStorage {
             throw new DukeException(String.format(DukeException.MESSAGE_SAVE_FILE_FAILED, BUDGET_FILE.getPath()));
         }
     }
-
 
     /**
      * loads from the save file.
@@ -72,11 +72,16 @@ public class BudgetStorage {
             while (fileReader.hasNext()) {
                 String line = fileReader.next();
                 String[] separatedLine = line.split(" ");
-                String category = separatedLine[0];
-                String budgetString = separatedLine[1];
-                BigDecimal budget = new BigDecimal(budgetString);
+                int lineLength = separatedLine.length;
+                StringBuilder categoryBuilder = new StringBuilder();
+                for (int wordNumber = 0; wordNumber < lineLength - 2; ++wordNumber) {
+                    categoryBuilder.append(separatedLine[wordNumber]).append(" ");
+                }
+                categoryBuilder.append(separatedLine[lineLength - 2]);
+                String budgetString = separatedLine[lineLength - 1];
+                BigDecimal budget = Parser.parseMoney(budgetString);
                 budget.setScale(2, RoundingMode.HALF_UP);
-                budgetCategory.put(category, budget);
+                budgetCategory.put(categoryBuilder.toString(), budget);
             }
         } catch (IOException e) {
             throw new DukeException(String.format(DukeException.MESSAGE_LOAD_FILE_FAILED, BUDGET_FILE.getPath()));

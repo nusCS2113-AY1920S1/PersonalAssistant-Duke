@@ -9,6 +9,7 @@ public class CommandResult {
     public enum DisplayedPane {
         EXPENSE,
         TRENDING,
+        BUDGET,
         PLAN,
         PAYMENT,
         PAYMENT_SEARCH;

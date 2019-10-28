@@ -7,6 +7,7 @@ import duke.model.Budget;
 import duke.model.ExpenseList;
 import duke.model.payment.PaymentList;
 import duke.storage.payment.PaymentListStorage;
+import duke.model.IncomeList;
 
 import java.io.IOException;
 import java.util.Map;
@@ -19,13 +20,28 @@ public class StorageManager implements Storage {
 
     private ExpenseListStorage expenseListStorage;
     private PlanAttributesStorage planAttributesStorage;
+    private IncomeListStorage incomeListStorage;
     private BudgetStorage budgetStorage;
     private PaymentListStorage paymentListStorage;
 
-    public StorageManager(ExpenseListStorage expenseListStorage, PlanAttributesStorage planAttributesStorage,
-                          BudgetStorage budgetStorage, PaymentListStorage paymentListStorage) {
+    /**
+     * Constructor for StorageManager
+     *
+     * @param expenseListStorage    Storage for expense List
+     * @param planAttributesStorage Storage for PlanAttributes from PlanBot
+     * @param incomeListStorage     Storage for income
+     * @param budgetStorage         Storage for budget
+     * @param paymentListStorage    Storage for payment
+     */
+    public StorageManager(ExpenseListStorage expenseListStorage,
+                          PlanAttributesStorage planAttributesStorage,
+                          IncomeListStorage incomeListStorage,
+                          BudgetStorage budgetStorage,
+                          PaymentListStorage paymentListStorage) {
+
         this.expenseListStorage = expenseListStorage;
         this.planAttributesStorage = planAttributesStorage;
+        this.incomeListStorage = incomeListStorage;
         this.budgetStorage = budgetStorage;
         this.paymentListStorage = paymentListStorage;
     }
@@ -51,6 +67,15 @@ public class StorageManager implements Storage {
     }
 
     @Override
+    public void saveIncomeList(IncomeList incomeList) throws DukeException {
+        incomeListStorage.saveIncomeList(incomeList);
+    }
+
+    @Override
+    public IncomeList loadIncomeList() throws DukeException {
+        return incomeListStorage.loadIncomeList();
+    }
+
     public Budget loadBudget() throws IOException, DukeException {
         return budgetStorage.loadBudget();
     }

@@ -2,6 +2,7 @@ package duke.logic;
 
 import duke.exception.DukeException;
 import duke.exception.DukeRuntimeException;
+
 import duke.logic.command.AddExpenseCommand;
 import duke.logic.command.BudgetCommand;
 import duke.logic.command.Command;
@@ -14,14 +15,16 @@ import duke.logic.command.PlanBotCommand;
 import duke.logic.command.SortExpenseCommand;
 import duke.logic.command.ViewExpenseCommand;
 import duke.logic.command.payment.*;
+import duke.logic.command.AddIncomeCommand;
 import duke.model.Budget;
 
+
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -65,7 +68,8 @@ public class CommandParams {
         new DeletePaymentCommand(),
         new FilterPaymentCommand(),
         new SearchPaymentCommand(),
-        new SortPaymentCommand()
+        new SortPaymentCommand(),
+        new AddIncomeCommand()
     );
 
     /**

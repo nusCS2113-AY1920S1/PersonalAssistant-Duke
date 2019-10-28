@@ -28,6 +28,7 @@ javafx {
     version = "11.0.2"
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
+
 dependencies {
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
