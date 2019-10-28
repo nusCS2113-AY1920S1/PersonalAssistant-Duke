@@ -27,14 +27,15 @@ public class CommandGameLoad extends Command {
             farmio.setLevel(level);
             farmio.getSimulation().simulate("GameLoad", 0);
             ui.typeWriter("Load Game Success!", true);
-        } catch (ParseException | FarmioException e) {
-            farmio.getSimulation().simulate("GameNew", 0);
-            ui.showWarning("Game save is corrupted!");
-            ui.showInfo("Starting a new game.");
-        } catch (IOException e) {
-            farmio.getSimulation().simulate("GameNew", 0);
-            ui.showWarning("No game save detected!");
-            ui.showInfo("Starting a new game.");
+        } catch (FarmioException e) {
+            if(farmio.getStage() == Farmio.Stage.MENU_START){
+                farmio.getSimulation().simulate("GameNew", 0);
+                ui.showWarning(e.getMessage());
+                ui.showInfo("Starting a new game.");
+            }else {
+                ui.showWarning(e.getMessage());
+                ui.showInfo("Load game failed! Resume to previous session.");
+            }
         }
         farmio.setStage(Farmio.Stage.LEVEL_START);
     }

@@ -94,7 +94,7 @@ public class WheatFarm extends Farm {
     }
 
     @Override
-    public JSONObject toJSON() {
+    public JSONObject toJson() {
         JSONObject obj = new JSONObject();
         obj.put(JSON_KEY_SEED, seeds);
         obj.put(JSON_KEY_SEEDLING, seedlings);

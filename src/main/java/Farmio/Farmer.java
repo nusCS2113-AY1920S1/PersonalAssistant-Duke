@@ -230,19 +230,24 @@ public class Farmer {
         day += 1;
     }
 
-    public JSONObject toJSON(){
+    public JSONObject toJson(){
         JSONObject obj = new JSONObject();
         obj.put(JSON_KEY_LEVEL, level);
         obj.put(JSON_KEY_GOLD, gold);
         obj.put(JSON_KEY_DAY, day);
         obj.put(JSON_KEY_LOCATION, location);
-        obj.put(JSON_KEY_FARM_WHEAT, wheatFarm.toJSON());
-        obj.put(JSON_KEY_FARM_CHICKEN, chickenFarm.toJSON());
-        obj.put(JSON_KEY_FARM_COW, cowFarm.toJSON());
-        obj.put(JSON_KEY_TASK_LIST, tasks.toJSON());
+        obj.put(JSON_KEY_FARM_WHEAT, wheatFarm.toJson());
+        obj.put(JSON_KEY_FARM_CHICKEN, chickenFarm.toJson());
+        obj.put(JSON_KEY_FARM_COW, cowFarm.toJson());
+        obj.put(JSON_KEY_TASK_LIST, tasks.toJson());
         obj.put(JSON_KEY_TASK_CURRENT, currentTask);
         obj.put(JSON_KEY_TASK_STATUS_FAIL, hasfailedCurrentTask);
         obj.put(JSON_KEY_NAME, name);
         return obj;
+    }
+
+    public JSONObject updateJSON(JSONObject object){
+        object.replace(JSON_KEY_TASK_LIST, tasks.toJson());
+        return object;
     }
 }

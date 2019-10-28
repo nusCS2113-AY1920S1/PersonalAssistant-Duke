@@ -19,6 +19,7 @@ public class CommandLevelEnd extends Command {
         Storage storage = farmio.getStorage();
         Farmer farmer = farmio.getFarmer();
         Level level = new Level(storage.getLevel(farmer.nextLevel()));
+        storage.storeFarmer(farmer);
         farmio.setLevel(level);
         farmio.setStage(Farmio.Stage.LEVEL_START);
     }

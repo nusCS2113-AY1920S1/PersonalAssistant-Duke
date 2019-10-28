@@ -17,6 +17,7 @@ public class CommandDayStart extends Command {
     public void execute(Farmio farmio) throws FarmioFatalException {
         Ui ui = farmio.getUi();
         Storage storage = farmio.getStorage();
+        storage.storeFarmer(farmio.getFarmer());
         farmio.getSimulation().simulate("DayStart", 1, 5);
         ui.show(AsciiColours.MAGENTA + AsciiColours.UNDERLINE + "Day Started!" + AsciiColours.SANE);
         ui.sleep(400);
