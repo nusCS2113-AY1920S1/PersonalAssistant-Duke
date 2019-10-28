@@ -4,7 +4,7 @@ import exceptions.FarmioException;
 import exceptions.FarmioFatalException;
 import farmio.Farmio;
 import frontend.Ui;
-import usercode.Tasks.Task;
+import usercode.tasks.Task;
 import farmio.Storage;
 import farmio.Farmer;
 

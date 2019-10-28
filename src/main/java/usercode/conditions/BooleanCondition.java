@@ -1,4 +1,4 @@
-package usercode.Conditions;
+package usercode.conditions;
 
 import farmio.Farmio;
 import org.json.simple.JSONObject;

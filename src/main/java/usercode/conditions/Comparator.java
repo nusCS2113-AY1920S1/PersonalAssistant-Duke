@@ -1,4 +1,4 @@
-package usercode.Conditions;
+package usercode.conditions;
 
 public enum Comparator {
     lessThan,

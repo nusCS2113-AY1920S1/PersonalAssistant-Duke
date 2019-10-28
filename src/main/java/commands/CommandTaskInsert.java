@@ -3,7 +3,7 @@ package commands;
 import exceptions.FarmioException;
 import exceptions.FarmioFatalException;
 import farmio.Farmio;
-import usercode.Tasks.Task;
+import usercode.tasks.Task;
 
 public class CommandTaskInsert extends Command {
     private Task task;

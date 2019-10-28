@@ -22,14 +22,14 @@ import commands.CommandTasksHint;
 import commands.CommandTaskDelete;
 import commands.CommandTaskEdit;
 import commands.CommandTaskInsert;
-import usercode.Tasks.Task;
-import usercode.Tasks.IfTask;
-import usercode.Tasks.ForTask;
-import usercode.Tasks.DoTask;
-import usercode.Tasks.WhileTask;
+import usercode.tasks.Task;
+import usercode.tasks.IfTask;
+import usercode.tasks.ForTask;
+import usercode.tasks.DoTask;
+import usercode.tasks.WhileTask;
 import exceptions.FarmioException;
-import usercode.Actions.Action;
-import usercode.Conditions.Condition;
+import usercode.actions.Action;
+import usercode.conditions.Condition;
 
 /**
  * Parser class is responsible for parsing all user input and generating the corresponding Command.

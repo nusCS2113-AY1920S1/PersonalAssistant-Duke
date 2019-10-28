@@ -1,4 +1,4 @@
-package usercode.Actions;
+package usercode.actions;
 
 import exceptions.FarmioFatalException;
 import farmio.Storage;

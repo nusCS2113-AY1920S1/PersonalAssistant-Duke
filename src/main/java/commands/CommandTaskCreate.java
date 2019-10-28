@@ -6,7 +6,7 @@ import farmio.Storage;
 import farmio.Farmer;
 import exceptions.FarmioException;
 import frontend.Ui;
-import usercode.Tasks.*;
+import usercode.tasks.*;
 
 public class CommandTaskCreate extends Command {
     private Task task;

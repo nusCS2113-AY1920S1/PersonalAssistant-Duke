@@ -1,10 +1,10 @@
-package usercode.Tasks;
+package usercode.tasks;
 
 import exceptions.FarmioFatalException;
 import farmio.Farmio;
 import exceptions.FarmioException;
-import usercode.Actions.Action;
-import usercode.Conditions.Condition;
+import usercode.actions.Action;
+import usercode.conditions.Condition;
 
 public class WhileTask extends Task {
 
