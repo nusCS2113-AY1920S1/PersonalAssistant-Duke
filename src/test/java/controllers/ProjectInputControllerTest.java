@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProjectInputControllerTest {
     private ProjectRepository projectRepository;
-    private CLIView consoleView;
     private ProjectInputController projectInputController;
     private DateTimeHelper dateTimeHelper;
     private String simulatedUserInput;
@@ -23,8 +22,7 @@ class ProjectInputControllerTest {
 
     ProjectInputControllerTest() {
         this.projectRepository = new ProjectRepository();
-        this.consoleView = new CLIView();
-        this.projectInputController = new ProjectInputController(consoleView,projectRepository);
+        this.projectInputController = new ProjectInputController(projectRepository);
         this.dateTimeHelper = new DateTimeHelper();
     }
 
