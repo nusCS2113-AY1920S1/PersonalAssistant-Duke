@@ -7,13 +7,11 @@ import duke.data.PatientMap;
 import duke.ui.UiElement;
 import duke.ui.card.PatientCard;
 import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
 
 /**
  * UI window for the Home context.
@@ -48,12 +46,9 @@ public class HomeWindow extends UiElement<Region> {
      * Fills {@code patientListPanel}.
      */
     private void fillPatientListPanel() {
-        List<Patient> patientList = new ArrayList<>(patientMap.getPatientHashMap().values());
-        patientListPanel.getChildren().clear();
-
-        ListIterator<Patient> iterator = patientList.listIterator();
-        while (iterator.hasNext()) {
-            PatientCard patientCard = new PatientCard(iterator.next(), iterator.nextIndex());
+        for (Patient patient : patientMap.getPatientHashMap().values()) {
+            PatientCard patientCard = new PatientCard(patient);
+            patientCard.setIndex(patientListPanel.getChildren().size() + 1);
             patientListPanel.getChildren().add(patientCard);
         }
     }
@@ -64,7 +59,21 @@ public class HomeWindow extends UiElement<Region> {
      */
     private void attachPatientListListener() {
         patientMap.getPatientObservableMap().addListener((MapChangeListener<String, Patient>) change -> {
-            fillPatientListPanel();
+            if (change.wasAdded()) {
+                PatientCard patientCard = new PatientCard(change.getValueAdded());
+                patientListPanel.getChildren().add(patientCard);
+            } else if (change.wasRemoved()) {
+                patientListPanel.getChildren().remove(new PatientCard(change.getValueRemoved()));
+            }
+
+            patientListPanel.getChildren().forEach(node -> {
+                PatientCard card = (PatientCard) node;
+                card.setIndex(patientListPanel.getChildren().indexOf(card) + 1);
+            });
         });
+    }
+
+    public ObservableList<Node> getPatientCardList() {
+        return patientListPanel.getChildrenUnmodifiable();
     }
 }

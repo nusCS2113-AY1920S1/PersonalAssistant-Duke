@@ -7,7 +7,7 @@ import duke.command.home.HomeReportCommand;
 import duke.data.DukeObject;
 import duke.data.Patient;
 import duke.exception.DukeException;
-import duke.ui.Context;
+import duke.ui.context.Context;
 
 public class PatientDischargeCommand extends ArgCommand {
 

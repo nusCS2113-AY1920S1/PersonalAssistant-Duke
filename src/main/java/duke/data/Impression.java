@@ -386,11 +386,11 @@ public class Impression extends DukeObject {
     public String getCriticalCountStr() {
         int count = getCriticalCount();
         if (count == 0) {
-            return "No issues";
+            return "No critical issues";
         } else if (count == 1) {
-            return "1 issue";
+            return "1 critical issue";
         } else {
-            return count + "issues";
+            return count + "critical issues";
         }
     }
 }

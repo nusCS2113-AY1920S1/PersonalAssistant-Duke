@@ -1,4 +1,4 @@
-package duke.ui;
+package duke.ui.window;
 
 import com.jfoenix.controls.JFXListView;
 import duke.data.Evidence;
@@ -10,6 +10,8 @@ import duke.data.Patient;
 import duke.data.Plan;
 import duke.data.Result;
 import duke.data.Treatment;
+import duke.ui.UiElement;
+import duke.ui.UiStrings;
 import duke.ui.card.EvidenceCard;
 import duke.ui.card.InvestigationCard;
 import duke.ui.card.MedicineCard;
@@ -27,7 +29,7 @@ import java.util.Map;
 /**
  * UI window for the Patient context.
  */
-class ImpressionWindow extends UiElement<Region> {
+public class ImpressionWindow extends UiElement<Region> {
     private static final String FXML = "ImpressionWindow.fxml";
 
     @FXML
@@ -55,7 +57,7 @@ class ImpressionWindow extends UiElement<Region> {
     /**
      * Constructs the patient UI window.
      */
-    ImpressionWindow(Impression impression, Patient patient) {
+    public ImpressionWindow(Impression impression, Patient patient) {
         super(FXML, null);
         if (impression != null && patient != null) {
             this.patient = patient;
@@ -64,6 +66,12 @@ class ImpressionWindow extends UiElement<Region> {
         }
     }
 
+    /**
+     * Set impressions for {@code patient}.
+     *
+     * @param impression Impression object.
+     * @param patient Patient object.
+     */
     public void setImpression(Impression impression, Patient patient) {
         assert (patient.getName().equals(impression.getParent().getName()));
 
@@ -111,10 +119,10 @@ class ImpressionWindow extends UiElement<Region> {
     private EvidenceCard newEvidenceCard(Evidence evidence) {
         if (evidence instanceof Observation) {
             // TODO: index
-            return new ObservationCard((Observation) evidence, 0);
+            return new ObservationCard((Observation) evidence);
         } else if (evidence instanceof Result) {
             // TODO: index
-            return new ResultCard((Result) evidence, 0);
+            return new ResultCard((Result) evidence);
         } else {
             return null;
         }
@@ -128,13 +136,13 @@ class ImpressionWindow extends UiElement<Region> {
     private TreatmentCard newTreatmentCard(Treatment treatment) {
         if (treatment instanceof Investigation) {
             // TODO: index
-            return new InvestigationCard((Investigation) treatment, 0);
+            return new InvestigationCard((Investigation) treatment);
         } else if (treatment instanceof Medicine) {
             // TODO: index
-            return new MedicineCard((Medicine) treatment, 0);
+            return new MedicineCard((Medicine) treatment);
         } else if (treatment instanceof Plan) {
             // TODO: index
-            return new PlanCard((Plan) treatment, 0);
+            return new PlanCard((Plan) treatment);
         } else {
             return null;
         }

@@ -22,7 +22,7 @@ import duke.command.patient.PatientNewCommand;
 import duke.command.patient.PatientOpenCommand;
 import duke.command.patient.PatientPrimaryCommand;
 import duke.command.patient.PatientReportCommand;
-import duke.ui.Context;
+import duke.ui.context.Context;
 
 /**
  * Maintains the associations between command keywords and commands (e.g. "list" -> ListCommand). For use in parsing
