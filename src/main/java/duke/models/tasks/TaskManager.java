@@ -1,3 +1,5 @@
+//@@author kkeejjuunn
+
 package duke.models.tasks;
 
 import duke.exceptions.DukeException;
@@ -42,15 +44,16 @@ public class TaskManager {
     }
 
     /**
-     * .
-     * @param description .
-     * @return .
+     * Finds all the tasks which contain the given description.
+     *
+     * @param description contains the description to be searched.
+     * @return an ArrayList of tasks that contain the given description.
      */
     public ArrayList<Task> getTaskByDescription(String description) {
         description = description.toLowerCase();
         ArrayList<Task> tasksWithThisDescription = new ArrayList<>();
         for (Task task : taskIdMap.values()) {
-            if (task.getDescription().toLowerCase().equals(description)) {
+            if (task.getDescription().toLowerCase().contains(description)) {
                 tasksWithThisDescription.add(task);
             }
         }

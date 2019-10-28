@@ -157,6 +157,8 @@ public class Ui {
         }
     }
 
+    //@@author kkeejjuunn
+
     /**
      * Print out patient is being found.
      *
@@ -165,6 +167,18 @@ public class Ui {
     public void patientsFoundById(Patient patient) {
         printDukeResponse("Got it. The patient is found.");
         showPatientInfo(patient);
+    }
+
+    //@@author kkeejjuunn
+
+    /**
+     * Print out task is being found.
+     *
+     * @param task task being found
+     */
+    public void taskFoundById(Task task) {
+        printDukeResponse("Got it. The task is found.");
+        showTaskInfo(task);
     }
 
     /**
