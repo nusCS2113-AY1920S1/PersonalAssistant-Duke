@@ -39,7 +39,7 @@ class AddStateTest {
 
         assertTrue(
                 addState.continueParsing(Util.parameterizeWithoutCommand("todo")) instanceof DisplayCommand);
-        assertTrue(parser.getParserState() instanceof AddState);
+        assertTrue(parser.getParserState() instanceof TodoNameState);
 
         assertTrue(
                 addState.continueParsing(Util.parameterizeWithoutCommand("module")) instanceof DisplayCommand);

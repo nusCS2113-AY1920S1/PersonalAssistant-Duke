@@ -58,6 +58,8 @@ public class Parser {
             "What's the name of the deadline?";
     public static final String DEADLINE_DEADLINE_PROMPT =
             "When is %s due?";
+    public static final String TODO_DESCRIPTION_PROMPT =
+            "What's the to-do about?";
 
     /**
      * Error messages.

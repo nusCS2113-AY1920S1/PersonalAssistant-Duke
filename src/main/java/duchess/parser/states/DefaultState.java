@@ -1,7 +1,6 @@
 package duchess.parser.states;
 
 import duchess.exceptions.DuchessException;
-import duchess.logic.commands.AddTodoCommand;
 import duchess.logic.commands.ByeCommand;
 import duchess.logic.commands.Command;
 import duchess.logic.commands.DisplayCalendarCommand;
@@ -64,18 +63,6 @@ public class DefaultState extends ParserState {
                 return new DoneCommand(Integer.parseInt(arguments.get(0)) - 1);
             } catch (NumberFormatException e) {
                 throw new DuchessException("Please supply a number. Eg: done 2");
-            }
-        } else if ("todo".equals(keyword)) {
-            if (arguments.size() == 0) {
-                throw new DuchessException("Format for todo: todo <task>");
-            }
-            if (arguments.get(arguments.size() - 1).charAt(0) == '#') {
-                String description = String.join(" ", arguments.subList(0, arguments.size() - 1));
-                String moduleCode = arguments.get(arguments.size() - 1).substring(1);
-                return new AddTodoCommand(description, moduleCode);
-            } else {
-                String description = String.join(" ", arguments);
-                return new AddTodoCommand(description);
             }
         } else if ("reminder".equals(keyword)) {
             return new ReminderCommand();

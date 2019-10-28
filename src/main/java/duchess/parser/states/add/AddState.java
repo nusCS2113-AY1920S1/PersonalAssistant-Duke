@@ -47,6 +47,8 @@ public class AddState extends ParserState {
                         return new GradeDescriptionState(parser);
                     } else if (type.charAt(0) == 'd') {
                         return new DeadlineDescriptionState(parser);
+                    } else if (type.charAt(0) == 't') {
+                        return new TodoNameState(parser);
                     } else {
                         return null;
                     }
