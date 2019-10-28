@@ -28,7 +28,8 @@ public class PlanQuestionBankTest {
             questionQueue.addAll(planQuestionBank.getQuestions(knownAttributes));
             Assertions.assertFalse(questionQueue.isEmpty());
             /*
-            This goes through the entire chatbot with the first valid answer and checks if we get a proper recommendation.
+            This goes through the entire chatbot with the first valid answer
+            and checks if we get a proper recommendation.
              */
             while (!questionQueue.isEmpty()) {
                 PlanQuestion currentQuestion = questionQueue.peek();
@@ -48,8 +49,8 @@ public class PlanQuestionBankTest {
             }
             PlanQuestionBank.PlanRecommendation recommendation = planQuestionBank
                     .makeRecommendation(knownAttributes);
-            Assertions.assertNotEquals(recommendation.recommendation,"I can't make any recommendations for you"
-                    + " :(. Something probably went wrong" );
+            Assertions.assertNotEquals(recommendation.recommendation, "I can't make any recommendations for you"
+                    + " :(. Something probably went wrong");
             Assertions.assertFalse(recommendation.getPlanBudget().isEmpty());
             Assertions.assertNotNull(recommendation.getRecommendationExpenseList());
         } catch (DukeException | NoSuchFieldException | IllegalAccessException e) {

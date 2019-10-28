@@ -55,6 +55,7 @@ public class PlanQuestion {
 
     /**
      * Returns a set of Integers of neighbouring questions given an attribute.
+     *
      * @param attribute the attribute we want to get the neighbours of.
      * @return a set of indexes of neighbouring questions, an empty set if no enighboring quesion
      */
@@ -64,7 +65,8 @@ public class PlanQuestion {
         }
         if (neighbouringQuestions.containsKey(attribute)) {
             return neighbouringQuestions.get(attribute);
-        }return new HashSet<>();
+        }
+        return new HashSet<>();
     }
 
     Reply getReply(String input, Map<String, String> attributes) throws DukeException {
@@ -95,7 +97,8 @@ public class PlanQuestion {
 
     /**
      * Adds a neighbouring question's index to every attribute value.
-     * @param  neighbouring Integer index of neighbouring question
+     *
+     * @param neighbouring Integer index of neighbouring question
      */
     public void addNeighbouring(Integer neighbouring) {
         if (answersAttributesValue.containsKey("DOUBLE")) {
@@ -116,13 +119,14 @@ public class PlanQuestion {
 
     /**
      * Adds a neighbouring question's index to a specific attribute value.
-     * @param neighbouring Integer index of neighbouring question
+     *
+     * @param neighbouring   Integer index of neighbouring question
      * @param attributeValue String of the attributeValue we want our questions to be mapped to
      */
     public void addNeighbouring(String attributeValue, Integer neighbouring) throws DukeException {
-        if(!answersAttributesValue.containsValue(attributeValue)){
+        if (!answersAttributesValue.containsValue(attributeValue)) {
             throw new DukeException(attributeValue + " is not a valid attribute value for " + attribute);
-        }else {
+        } else {
             if (neighbouringQuestions.containsKey(attributeValue)) {
                 neighbouringQuestions.get(attributeValue).add(neighbouring);
             } else {
