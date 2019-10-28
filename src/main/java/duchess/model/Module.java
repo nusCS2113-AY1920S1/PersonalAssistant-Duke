@@ -71,4 +71,8 @@ public class Module {
     public void addGrade(Grade grade) {
         this.grades.add(grade);
     }
+
+    public void deleteGrade(int gradeNo) {
+        this.grades.remove(gradeNo);
+    }
 }

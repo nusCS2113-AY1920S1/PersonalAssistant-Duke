@@ -45,11 +45,14 @@ public class AddGradeCommand extends Command {
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         Grade grade = new Grade(assessment, marks, maxMarks, weightage);
-        Optional<Module> optionalModule = store.findModuleByCode(moduleCode);
-        Module module = optionalModule.orElseThrow(() -> new DuchessException("Unable to find given module."));
-        module.addGrade(grade);
-        ui.showGradeAdded(module, grade, module.getGrades());
-        storage.save(store);
+        Optional<Module> module = store.findModuleByCode(moduleCode);
+        if (module.isPresent()) {
+            module.get().addGrade(grade);
+            ui.showGradeAdded(module.get(), grade, module.get().getGrades());
+            storage.save(store);
+        } else {
+            throw new DuchessException("Unable to find given module.");
+        }
     }
 }
 

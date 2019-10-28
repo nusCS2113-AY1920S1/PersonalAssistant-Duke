@@ -107,6 +107,10 @@ public class Ui {
         showGrades(grades);
     }
 
+    public void showDeletedGrade(String gradeDescription, Module module) {
+        printIndented("You've deleted " + gradeDescription + " for " + module + ".");
+    }
+
     /**
      * Displays grades in the list given.
      *

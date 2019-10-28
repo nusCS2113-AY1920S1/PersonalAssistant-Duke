@@ -2,6 +2,7 @@ package duchess.parser.commands;
 
 import duchess.exceptions.DuchessException;
 import duchess.logic.commands.Command;
+import duchess.logic.commands.DeleteGradeCommand;
 import duchess.logic.commands.DeleteModuleCommand;
 import duchess.logic.commands.DeleteTaskCommand;
 import duchess.parser.Parser;
@@ -25,6 +26,12 @@ public class DeleteCommandParser {
                 return new DeleteTaskCommand(number);
             } else if (type.equals(Parser.MODULE_KEYWORD)) {
                 return new DeleteModuleCommand(number);
+            } else if (type.equals(Parser.GRADE_KEYWORD)) {
+                String moduleCode = parameters.get(Parser.MODULE_KEYWORD);
+                if (moduleCode == null) {
+                    throw new IllegalArgumentException();
+                }
+                return new DeleteGradeCommand(moduleCode, number);
             } else {
                 throw new IllegalArgumentException();
             }

@@ -17,8 +17,11 @@ public class ListGradesCommand extends Command {
 
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
-        Optional<Module> optionalModule = store.findModuleByCode(moduleCode);
-        Module module = optionalModule.orElseThrow(() -> new DuchessException("Unable to find given module."));
-        ui.showGradeList(module.getGrades(), module);
+        Optional<Module> module = store.findModuleByCode(moduleCode);
+        if (module.isPresent()) {
+            ui.showGradeList(module.get().getGrades(), module.get());
+        } else {
+            throw new DuchessException("Unable to find given module.");
+        }
     }
 }
