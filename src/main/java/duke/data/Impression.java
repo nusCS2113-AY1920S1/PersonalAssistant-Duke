@@ -89,7 +89,7 @@ public class Impression extends DukeObject {
         ArrayList<Evidence> searchResult = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Evidence evidence : this.observableEvidences.values()) {
-            if (evidence.toString().contains(lowerSearchTerm)) {
+            if (evidence.toString().toLowerCase().contains(lowerSearchTerm)) {
                 searchResult.add(evidence);
             }
         }
@@ -106,6 +106,49 @@ public class Impression extends DukeObject {
         ArrayList<DukeData> searchResult = new ArrayList<>();
         searchResult.addAll(findEvidences(searchTerm));
         searchResult.addAll(findTreatments(searchTerm));
+        return searchResult;
+    }
+    /**
+     * This function searches for treatments whose names contain the searchTerm.
+     * @param searchTerm the term to be searched for
+     * @return ArrayList of the Treatments
+     */
+    public ArrayList<Treatment> findTreatmentsByName(String searchTerm) {
+        ArrayList<Treatment> searchResult = new ArrayList<>();
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Map.Entry<String, Treatment> entry : this.observableTreaments.entrySet()) {
+            if (entry.getKey().toLowerCase().contains(lowerSearchTerm)) {
+                searchResult.add(entry.getValue());
+            }
+        }
+        return searchResult;
+    }
+
+    /**
+     * This function searches for evidences whose names contain the searchTerm.
+     * @param searchTerm the term to be searched for
+     * @return ArrayList of the Evidences
+     */
+    public ArrayList<Evidence> findEvidencesByName(String searchTerm) {
+        ArrayList<Evidence> searchResult = new ArrayList<>();
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Map.Entry<String, Evidence> entry : this.observableEvidences.entrySet()) {
+            if (entry.getKey().toLowerCase().contains(lowerSearchTerm)) {
+                searchResult.add(entry.getValue());
+            }
+        }
+        return searchResult;
+    }
+
+    /**
+     * This function searches for DukeData whose names contain the searchTerm.
+     * @param searchTerm String to be used to filter the DukeData
+     * @return the list of DukeData
+     */
+    public ArrayList<DukeData> findByName(String searchTerm) {
+        ArrayList<DukeData> searchResult = new ArrayList<>();
+        searchResult.addAll(findEvidencesByName(searchTerm));
+        searchResult.addAll(findTreatmentsByName(searchTerm));
         return searchResult;
     }
 
