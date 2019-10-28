@@ -15,16 +15,25 @@ import java.util.ArrayList;
 
 public class FindAssignedTaskCommand implements Command {
 
-    private String command;
+    private int patientId;
 
     /**
      * .
      *
      * @param cmd .
      */
-    public FindAssignedTaskCommand(String cmd) {
+    public FindAssignedTaskCommand(String cmd) throws DukeException {
         super();
-        this.command = cmd;
+        try {
+            if (cmd.charAt(0) != '#') {
+                throw new DukeException("Invalid format. Please follow: "
+                        + "find assigned tasks : #<patientID>");
+            }
+            patientId = Integer.parseInt(cmd.substring(1));
+
+        } catch (DukeException e) {
+            throw new DukeException("Warning " + e.getMessage());
+        }
     }
 
     /**
@@ -41,44 +50,22 @@ public class FindAssignedTaskCommand implements Command {
     public void execute(AssignedTaskManager assignedTaskManager, TaskManager tasksManager,
                         PatientManager patientManager,
                         Ui ui, StorageManager storageManager) throws DukeException {
-        char firstChar = command.charAt(0);
-        if (firstChar == '#') {
-            int id;
-            id = Integer.parseInt(command.substring(1, command.length()));
-            Patient patient = patientManager.getPatient(id);
-            if (assignedTaskManager.doesPatientIdExist(id)) {
-                ArrayList<AssignedTask> patientTask = assignedTaskManager.getPatientTask(id);
-                ArrayList<Task> tempTask = new ArrayList<>();
+        try {
+            Patient patient = patientManager.getPatient(patientId);
+            if (assignedTaskManager.doesPatientIdExist(patientId)) {
+                ArrayList<AssignedTask> patientTask = assignedTaskManager.getPatientTask(patientId);
+                ArrayList<Task> newTask = new ArrayList<>();
                 for (AssignedTask tempPatientTask : patientTask) {
-                    tempTask.add(tasksManager.getTask(tempPatientTask.getPid()));
+                    newTask.add(tasksManager.getTask(tempPatientTask.getPid()));
                 }
-                ui.patientTaskFound(patient, patientTask, tempTask);
+                ui.patientTaskFound(patient, patientTask, newTask);
             } else {
-                throw new DukeException("This patient does not have any tasks.");
+                throw new DukeException("This patient does not exist.");
             }
-        } else {
-            String name = command.toLowerCase();
-            ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(name);
-            ArrayList<AssignedTask> patientWithTask = new ArrayList<>();
-            ArrayList<Task> tempTask = new ArrayList<>();
-
-            try {
-                for (Patient patient : patientsWithSameName) {
-                    if (patient.getName().toLowerCase().equals(name)) {
-                        patientWithTask = assignedTaskManager.getPatientTask(patient.getId());
-                    }
-                }
-                for (AssignedTask tempPatientTask : patientWithTask) {
-                    tempTask.add(tasksManager.getTask(tempPatientTask.getTid()));
-                }
-                ui.patientTaskFound(patientsWithSameName.get(0), patientWithTask, tempTask);
-
-            } catch (Exception e) {
-                throw new DukeException("The patient does not have any tasks");
-            }
+        } catch (DukeException e) {
+            throw new DukeException("Warning " + e.getMessage());
         }
     }
-
 
     @Override
     public boolean isExit() {
