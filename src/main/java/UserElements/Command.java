@@ -7,11 +7,12 @@ import Events.EventTypes.EventSubclasses.Concert;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
-import Events.Formatting.EventDate;
 import Events.Formatting.CalendarView;
+import Events.Formatting.EventDate;
 import Events.Storage.ClashException;
 import Events.Storage.EndBeforeStartException;
 import Events.Storage.EventList;
+import Events.Storage.Goal;
 import Events.Storage.Storage;
 import UserElements.ConcertBudgeting.CostExceedsBudgetException;
 
@@ -139,6 +140,15 @@ public class Command {
                 printCalendar(events, ui);
                 break;
 
+
+            case "budget":
+                showBudget(events, ui);
+                break;
+            
+            case "goal":
+                goalsManagement(events, ui);
+                break;
+
             default:
                 ui.printInvalidCommand();
                 changesMade = false;
@@ -168,6 +178,21 @@ public class Command {
             String newDescription = splitInfo[1];
             events.editEvent(eventIndex, newDescription);
             ui.printEditedEvent(eventIndex + 1, events.getEvent(eventIndex));
+        }
+    }
+
+    private void showBudget(EventList events, UI ui) {
+        if (continuation.isEmpty()) {
+            ui.eventDescriptionEmpty();
+        } else {
+            String monthAndYear = continuation;
+            try {
+                int cost = events.getBudgeting().getCostForMonth(monthAndYear);
+                UI.printCostForMonth(monthAndYear, cost);
+                //NEED TO PRINT COST HERE!
+            } catch (NullPointerException e) {
+                UI.printNoCostsForThatMonth();
+            }
         }
     }
 
@@ -247,7 +272,7 @@ public class Command {
 
             try {
                 EntryForEvent entryForEvent = new EntryForEvent().invoke(); //separate all info into relevant details
-                Event newEvent = NewEvent(eventType, entryForEvent); //instantiate new event
+                Event newEvent = newEvent(eventType, entryForEvent); //instantiate new event
                 assert newEvent != null;
 
                 if (entryForEvent.getPeriod() == NO_PERIOD) { //non-recurring
@@ -278,7 +303,7 @@ public class Command {
      * @param entryForEvent contains all necessary info for creating new event
      * @return instantiated event
      */
-    private Event NewEvent(char eventType, EntryForEvent entryForEvent) {
+    private Event newEvent(char eventType, EntryForEvent entryForEvent) {
         Event newEvent = null;
         switch (eventType) {
             case 'L':
@@ -348,20 +373,26 @@ public class Command {
 
     public void rescheduleEvent(EventList events, UI ui) {
         Event copyOfEvent = null, newEvent = null;
+        EventDate copyOfStartDate;
+        EventDate copyOfEndDate;
         try {
             String[] rescheduleDetail = continuation.split(" "); //split details by space (dd-MM-yyyy HHmm HHmm)
             int eventIndex = Integer.parseInt(rescheduleDetail[0]) - 1;
-            copyOfEvent = events.getEvent(eventIndex); //copy of event in case rescheduling fails
 
             newEvent = events.getEvent(eventIndex); //event to be used as a replacement.
+
+            copyOfStartDate = new EventDate(newEvent.getStartDate().getUserInputDateString());
+            copyOfEndDate = new EventDate(newEvent.getEndDate().getUserInputDateString());
 
             EventDate newStartDate = new EventDate(rescheduleDetail[1] + " " + rescheduleDetail[2]);
             EventDate newEndDate = new EventDate(rescheduleDetail[1] + " " + rescheduleDetail[3]);
 
+            events.deleteEvent(eventIndex); //delete event from list before continuing
+
             newEvent.rescheduleStartDate(newStartDate); //reschedule start date & time
             newEvent.rescheduleEndDate(newEndDate); //reschedule end date & time
 
-            events.deleteEvent(eventIndex); //delete event from list before continuing
+
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             ui.rescheduleFormatWrong();
             return;
@@ -372,10 +403,66 @@ public class Command {
             ui.rescheduleEvent(newEvent);
         } catch (ClashException clashE) {
             ui.scheduleClash(clashE.getClashEvent());
-            events.undoDeletionOfEvent(copyOfEvent); //reinstate previous event when rescheduling fails
+            newEvent.rescheduleStartDate(copyOfStartDate);
+            newEvent.rescheduleEndDate(copyOfEndDate);
+            events.undoDeletionOfEvent(newEvent);
+        } catch (CostExceedsBudgetException e) {
+            ui.costExceedsBudget(e.getConcert(), e.getBudget());
+            newEvent.rescheduleStartDate(copyOfStartDate);
+            newEvent.rescheduleEndDate(copyOfEndDate);
+            events.undoDeletionOfEvent(newEvent);
         } catch (Exception e) {
             ui.eventEndsBeforeStart();
-            events.undoDeletionOfEvent(copyOfEvent); //reinstate previous event when rescheduling fails
+            newEvent.rescheduleStartDate(copyOfStartDate);
+            newEvent.rescheduleEndDate(copyOfEndDate);
+            events.undoDeletionOfEvent(newEvent);
+        }
+    }
+
+    /**
+     * Manages the goals of an existing event.
+     *
+     * @param events The event list.
+     */
+    public void goalsManagement(EventList events, UI ui) {
+        if (continuation.isEmpty()) {
+            ui.noSuchEvent();
+            return;
+        }
+        try {
+            String[] splitGoal = continuation.split("/");
+            String[] goalCommand = splitGoal[0].split(" ");
+            int eventIndex = Integer.parseInt(goalCommand[1]) - 1;
+            if (goalCommand.length == 3) {
+                int goalIndex = Integer.parseInt(goalCommand[2]);
+                switch (goalCommand[0]) {
+                    case "delete":
+                        events.getEvent(eventIndex).removeGoal(goalIndex - 1);
+                        ui.goalDeleted();
+                        break;
+
+                    case "edit":
+                        //edit goal
+                        break;
+                }
+            } else {
+                switch (goalCommand[0]) {
+                    case "add":
+                        Goal newGoal = new Goal(splitGoal[1]);
+                        events.getEvent(eventIndex).addGoal(newGoal);
+                        ui.goalAdded();
+                        break;
+
+                    case "view":
+                        //print goals list
+                        ui.printEventGoals(events.getEvent(eventIndex));
+                        break;
+                }
+            }
+        } catch (IndexOutOfBoundsException ne) {
+            ui.noSuchEvent();
+        } catch (NumberFormatException numE) {
+            ui.notAnInteger();
         }
     }
 
@@ -413,7 +500,9 @@ public class Command {
             return period;
         }
 
-        public int getCost() { return cost; }
+        public int getCost() {
+            return cost;
+        }
 
         /**
          * contains all info regarding an entry for a non-recurring event

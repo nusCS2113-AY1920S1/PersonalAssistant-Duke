@@ -3,10 +3,9 @@ package UserElements;
 import Events.EventTypes.EventSubclasses.Concert;
 import Events.Storage.EventList;
 import Events.EventTypes.Event;
-import Events.Formatting.EventDate;
-import Events.Formatting.Predicate;
+import Events.Storage.EventList;
+import Events.Storage.Goal;
 
-import java.util.Date;
 import java.util.Queue;
 
 
@@ -74,6 +73,23 @@ public class UI {
         System.out.print(lineSeparation);
         System.out.println("Sorry! I don't know what that means.");
         System.out.print(lineSeparation);
+    }
+
+    public void printEventGoals(Event viewEventGoal) {
+        System.out.println("Here is the list of goals for the following event: " + viewEventGoal.toString());
+        int goalIndex = 1;
+        for (Goal goalObject : viewEventGoal.getGoalList()) {
+            System.out.println(goalIndex + ". " + goalObject.getGoal());
+            goalIndex += 1;
+        }
+    }
+
+    public void goalAdded() {
+        System.out.println("Ok, the goal has been added to the event.");
+    }
+
+    public void goalDeleted() {
+        System.out.println("Ok, the goal has been deleted from the event.");
     }
 
     /**
@@ -308,6 +324,19 @@ public class UI {
         String date = concert.getStartDate().getFormattedDateString().substring(8, 16);
         System.out.println("exceeds budget of $" + budget + " for the month of " + date);
         System.out.println("Operation has been cancelled.");
+        System.out.print(lineSeparation);
+    }
+
+    public static void printCostForMonth(String monthAndYear, int cost) {
+        System.out.print(lineSeparation);
+        System.out.println("Your total concert costs for " + monthAndYear + " is:");
+        System.out.println("$" + cost);
+        System.out.print(lineSeparation);
+    }
+
+    public static void printNoCostsForThatMonth() {
+        System.out.print(lineSeparation);
+        System.out.println("There are no concerts for that month!");
         System.out.print(lineSeparation);
     }
 }

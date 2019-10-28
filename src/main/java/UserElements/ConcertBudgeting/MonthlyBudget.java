@@ -7,9 +7,9 @@ import Events.Formatting.EventDate;
 import java.util.ArrayList;
 
 public class MonthlyBudget {
-    private ArrayList<Concert> listOfConcerts = new ArrayList<>(); //list storing all concerts happening in the month
+    private ArrayList<Concert> listOfConcerts; //list storing all concerts happening in the month
     private int totalCost; //total cost of concerts in month
-    EventDate date;
+    private EventDate date;
 
     /**
      * Constructor for monthly budget class.
@@ -17,8 +17,15 @@ public class MonthlyBudget {
      * @param listOfConcerts Contains the list of Concert objects in the current month for easy access
      */
     public MonthlyBudget(ArrayList<Event> listOfConcerts) {
+        this.listOfConcerts = new ArrayList<>();
         setDateToFirstOfMonth(listOfConcerts.get(0).getStartDate()); //set EventDate date to first day of month
         storeConcerts(listOfConcerts); //convert events to Concert objects, and store in list.
+    }
+
+    public MonthlyBudget(EventDate date) {
+        this.totalCost = 0;
+        setDateToFirstOfMonth(date);
+        listOfConcerts = new ArrayList<>();
     }
 
     private void storeConcerts(ArrayList<Event> concertsInMonth) {
@@ -34,6 +41,8 @@ public class MonthlyBudget {
         int newCost = this.totalCost + concert.getCost();
         if (newCost > budget) {
             throw new CostExceedsBudgetException(concert, budget);
+        } else {
+            this.totalCost = newCost;
         }
         this.listOfConcerts.add(concert);
     }
@@ -50,5 +59,20 @@ public class MonthlyBudget {
 
     public ArrayList<Concert> getListOfConcerts() {
         return this.listOfConcerts;
+    }
+
+    public void removeConcert(Concert concert) {
+        for (Concert currConcert : listOfConcerts) {
+            if (currConcert.getStartDate().getUserInputDateString().equals(concert.getStartDate().getUserInputDateString())) {
+                listOfConcerts.remove(currConcert);
+                break;
+            }
+        }
+
+        this.totalCost -= concert.getCost();
+    }
+
+    public int getTotalCost() {
+        return this.totalCost;
     }
 }
