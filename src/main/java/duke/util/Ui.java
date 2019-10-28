@@ -285,6 +285,8 @@ public class Ui {
         }
     }
 
+    //@@author kkeejjuunn
+
     /**
      * It shows message of a patient being deleted.
      */
@@ -501,17 +503,13 @@ public class Ui {
      * It shows all info of patientTasks found which are associated with the task given by user.
      *
      * @param task        task given by user
-     * @param patientTask list of patienttasks being found associated with the task
      * @param patients    list of patients relate to task
      */
-    public void taskPatientFound(Task task, ArrayList<AssignedTask> patientTask, ArrayList<Patient> patients) {
+    public void taskPatientFound(Task task, ArrayList<Patient> patients) {
         printDukeResponse("The task " + task.getId() + " " + task.getDescription()
-            + " assigned to following patient(s) is/are found : \n");
-        for (int i = 0; i < patientTask.size(); i++) {
-            showLine();
+                + " is assigned to following patient(s) : \n");
+        for (int i = 0; i < patients.size(); i++) {
             printDukeResponse(patients.get(i).getId() + ". " + patients.get(i).getName() + "\n");
-            printDukeResponse(patientTask.get(i).toString());
-            showLine();
         }
     }
 
