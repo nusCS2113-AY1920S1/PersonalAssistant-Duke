@@ -80,11 +80,10 @@ public class AssignedTaskManager {
      * @param id .
      * @throws DukeException .
      */
-    public void deleteAllPatientTaskByTaskId(int id) throws DukeException {
+    public void deleteAssignedTaskByTaskId(int id) throws DukeException {
         for (AssignedTask assignedTask : assignedTaskIdMap.values()) {
             if (assignedTask.getTid() == id) {
                 assignedTaskIdMap.remove(assignedTask.getPid(), assignedTask);
-                return;
             }
         }
     }
