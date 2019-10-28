@@ -5,18 +5,17 @@ import Exceptions.FarmioFatalException;
 import Farmio.Farmio;
 import FrontEnd.Ui;
 import UserCode.Tasks.Task;
-import UserCode.Tasks.TemplateTask;
 import Farmio.Storage;
 import Farmio.Farmer;
 
 public class CommandTaskEdit extends Command {
-    private TemplateTask templateTask;
+    private Task task;
     private int taskID;
 
 
-    public CommandTaskEdit(int taskID, TemplateTask templateTask) {
+    public CommandTaskEdit(int taskID, Task task) {
         this.taskID = taskID;
-        this.templateTask = templateTask;
+        this.task = task;
     }
 
     /**
@@ -27,7 +26,6 @@ public class CommandTaskEdit extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
         Ui ui = farmio.getUi();
-        Task task = templateTask.toTask(farmio);
         Storage storage = farmio.getStorage();
         Farmer farmer = farmio.getFarmer();
         if (taskID < 1 || taskID > farmer.getTasks().size()) {

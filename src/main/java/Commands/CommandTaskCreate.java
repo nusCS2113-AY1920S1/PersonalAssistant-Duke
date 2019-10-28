@@ -11,10 +11,10 @@ import UserCode.Conditions.Condition;
 import UserCode.Tasks.*;
 
 public class CommandTaskCreate extends Command {
-    private TemplateTask templateTask;
+    private Task task;
 
-    public CommandTaskCreate(TemplateTask templateTask) {
-        this.templateTask = templateTask;
+    public CommandTaskCreate(Task task) {
+        this.task = task;
     }
 
     /**
@@ -26,7 +26,6 @@ public class CommandTaskCreate extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
         Ui ui = farmio.getUi();
-        Task task = templateTask.toTask(farmio);
         Storage storage = farmio.getStorage();
         Farmer farmer = farmio.getFarmer();
         farmer.getTasks().addTask(task);
