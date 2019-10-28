@@ -4,7 +4,6 @@ import chronologer.exception.ChronologerException;
 import chronologer.task.Task;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
-import chronologer.ui.Ui;
 import chronologer.ui.UiTemporary;
 
 import java.util.ArrayList;

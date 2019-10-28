@@ -9,14 +9,11 @@ import chronologer.task.TaskList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import javax.swing.text.ChangedCharSetException;
 import java.io.File;
 import java.util.ArrayList;
 
 /**
- * Main UI window of the application.
- * Acts as a container for child UI elements.
+ * Main UI window of the application. Acts as a container for child UI elements.
  */
 class MainWindow extends UiComponent<Stage> {
     private static final String FXML = "MainWindow.fxml";
