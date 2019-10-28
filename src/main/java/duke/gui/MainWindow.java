@@ -387,7 +387,8 @@ public class MainWindow extends AnchorPane {
     }
 
     @FXML
-    private void openHelpWindow() {
+    private void openHelpTab() {
+
 
     }
 
