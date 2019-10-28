@@ -32,6 +32,22 @@ public class ProfileCommands {
     }
 
     /**
+     * change name in profile.
+     */
+    public void setName(String name) throws IOException {
+        userProfile.setUserName(name);
+        editProfileJson.updateProfile(userProfile);
+    }
+
+    /**
+     * change age in profile.
+     */
+    public void setAge(String age) throws IOException {
+        userProfile.setUserAge(Integer.parseInt(age));
+        editProfileJson.updateProfile(userProfile);
+    }
+
+    /**
      * to add preferences to userprofile.
      */
     public void addPreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException {
