@@ -112,18 +112,16 @@ public class Parser {
     }
 
     private static Command addTask(String userInput) throws FarmioException {
-        TemplateTask t;
-        if (userInput.startsWith("do")) {
-            t = parseDoTask(userInput);
-        } else {
-            t = parseConditionalTask(userInput);
-        }
-        return new CommandTaskCreate(t.getTaskType(), t.getCondition(), t.getAction());
+        TemplateTask t = parseTask(userInput);
+        return new CommandTaskCreate(t);
     }
 
-    private static Command addDoTask (String userInput) throws FarmioException {
-        TemplateTask tTask = parseDoTask(userInput);
-        return new CommandTaskCreate(tTask.getTaskType(), tTask.getCondition(), tTask.getAction());
+    private static TemplateTask parseTask(String userInput) throws FarmioException {
+        if (userInput.startsWith("do")) {
+            return parseDoTask(userInput);
+        } else {
+            return parseConditionalTask(userInput);
+        }
     }
 
     private static TemplateTask parseDoTask(String userInput) throws FarmioException {
@@ -164,5 +162,19 @@ public class Parser {
         }
         return new TemplateTask(taskType, condition, action);
     }
-    
+
+    private static Command parseEditTask (String userInput) throws FarmioException {
+        String s = "", task = "";
+        try {
+            s = userInput.substring(0, userInput.indexOf(" "));
+            task = userInput.substring(userInput.indexOf(" ") + 1);
+        } catch (Exception e) {
+            throw new FarmioException("Invalid command format!");
+        }
+        if (!s.equals("edit")) {
+            throw new FarmioException("Invalid Command!");
+        }
+        throw new FarmioException("invalid command");
+    }
+
 }
