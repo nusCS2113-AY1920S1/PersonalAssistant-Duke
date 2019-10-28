@@ -1053,6 +1053,7 @@ public class MovieHandler extends Controller implements RequestListener {
      * Displays list of popular movies.
      */
     public static void showPopMovies() throws Exceptions {
+
         mMovieRequest.beginSearchRequest( RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
     }
 

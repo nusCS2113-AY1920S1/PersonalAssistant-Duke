@@ -82,7 +82,6 @@ public class Blacklist {
                 return;
             }
         }
-
         blackListMovies.add(new MovieModel(mo.getId() , mo.getTitle().toLowerCase()));
         saveBlackList();
     }

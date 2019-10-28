@@ -21,6 +21,7 @@ public class PlaylistMovieInfoObject extends MovieInfoObject {
      * @param posterPath   Filepath of the movie/tv show poster.
      * @param backdropPath Filepath of the movie/tv show backdrop poster.
      */
+
     public PlaylistMovieInfoObject(boolean isMovie, long ID, String title, Date date, String summary, double rating, ArrayList<Long> genreIDs, String posterPath, String backdropPath, boolean isAdult, String stringDate) {
         super(ID, title, isMovie, date, summary, posterPath, backdropPath, rating, genreIDs, isAdult);
         this.stringDate = stringDate;

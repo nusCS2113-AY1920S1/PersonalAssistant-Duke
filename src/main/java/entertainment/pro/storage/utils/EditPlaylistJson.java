@@ -53,7 +53,6 @@ public class EditPlaylistJson {
                         movieGenreIDs.add((long) genreArray.get(j));
                        // movieGenreIDs[j] = (long) genreArray.get(j);
                     }
-
                     boolean adult = (boolean) movie.get("adult");
                     //int fakeType = 12345;
                     boolean fakeType = false;

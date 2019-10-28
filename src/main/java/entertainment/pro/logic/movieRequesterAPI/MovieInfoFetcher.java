@@ -12,7 +12,6 @@ public class MovieInfoFetcher implements Runnable {
     private URL movieRequestUrl;
     private InfoFetcher movieRequestListener;
 
-
     /**
      * Responsible for constructing fetcher with a given URL.
      *

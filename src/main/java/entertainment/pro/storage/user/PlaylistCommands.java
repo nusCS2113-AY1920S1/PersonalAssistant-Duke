@@ -96,7 +96,6 @@ public class PlaylistCommands {
             System.out.println("help " + log.getTitle() + " " + log.getFullPosterPathInfo());
             //int fakeType = 12345;
             boolean fakeType = false;
-
             PlaylistMovieInfoObject testMovie = new PlaylistMovieInfoObject(fakeType, log.getId(), log.getTitle(), log.getReleaseDateInfo(), log.getSummaryInfo(), log.getRatingInfo(), log.getGenreIDInfo(), log.getFullPosterPathInfo(), log.getFullBackdropPathInfo(), log.isIsadultContent(), string);
             convertMovies.add(testMovie);
         }
