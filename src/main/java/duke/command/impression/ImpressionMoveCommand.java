@@ -24,15 +24,15 @@ public class ImpressionMoveCommand extends ImpressionCommand {
     public void execute(DukeCore core) throws DukeException {
         // TODO: query user for correct impression if no impression is given
         Impression impression = getImpression(core);
-        String newImpressionName = getSwitchVal("impression");
+        String targetImpressionName = getSwitchVal("impression");
         Impression newImpression;
-        if ("".equals(newImpressionName)) {
+        if ("".equals(targetImpressionName)) {
             // ask user to pick
             newImpression = null;
         } else {
             // TODO: proper search
             List<Impression> newImpressionList = ((Patient) impression.getParent())
-                    .findImpressionsByName(newImpressionName);
+                    .findImpressionsByName(targetImpressionName);
             if (newImpressionList.size() == 0) {
                 throw new DukeException("Can't find an impression with that name!");
             }
@@ -52,5 +52,8 @@ public class ImpressionMoveCommand extends ImpressionCommand {
             newImpression.addNewTreatment(treatment);
             impression.deleteTreatment(treatment.getName());
         }
+
+        core.ui.print("'" + moveData.getName() + "' moved from '" + impression.getName() + "' to '"
+                + newImpression.getName() + "'");
     }
 }

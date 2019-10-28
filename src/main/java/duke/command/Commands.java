@@ -9,6 +9,7 @@ import duke.command.home.HomeHistoryCommand;
 import duke.command.home.HomeNewCommand;
 import duke.command.home.HomeOpenCommand;
 import duke.command.home.HomeReportCommand;
+import duke.command.impression.ImpressionDeleteCommand;
 import duke.command.impression.ImpressionEditCommand;
 import duke.command.impression.ImpressionFindCommand;
 import duke.command.impression.ImpressionMoveCommand;
@@ -101,6 +102,8 @@ public class Commands {
                 return new ImpressionFindCommand();
             case "move":
                 return new ImpressionMoveCommand();
+            case "delete":
+                return new ImpressionDeleteCommand();
             default:
                 return null;
             }
