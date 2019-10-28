@@ -63,25 +63,12 @@ public class Parser {
     }
 
     /**
-     * Returns the correct Command depending on which action the user chose at the menu screen
+     * Allows the user to resume the game from the menu
      *
      * @param userInput input String from the user
      * @return Command that corresponds to the user's actions
      * @throws FarmioException if user input is invalid
      */
-    private static Command parseMenuStart(String userInput) throws FarmioException {
-        switch (userInput) {
-            case "load game":
-                return new CommandGameLoad();
-            case "new game":
-                return new CommandGameNew();
-            case "quit game":
-                return new CommandGameQuit();
-            default:
-                throw new FarmioException("Invalid command!");
-        }
-    }
-
     private static Command parseMenu(String userInput) throws FarmioException {
         if(userInput.equals("resume game")){
             return new CommandLevelStart();
@@ -125,6 +112,9 @@ public class Parser {
         }
         if (userInput.startsWith("delete")) {
             return parseTaskDelete(userInput);
+        }
+        if (userInput.startsWith("insert")) {
+            return insertTask(userInput);
         }
         if (userInput.startsWith("edit")) {
             return editTask(userInput);
@@ -193,7 +183,7 @@ public class Parser {
         try {
             taskType = userInput.substring(0, userInput.indexOf(" "));
             userAction = (userInput.substring(userInput.indexOf(" "))).trim();
-        } catch (Exception e ) {
+        } catch (IndexOutOfBoundsException e ) {
             throw new FarmioException("Invalid command format!");
         }
         if (!taskType.equals("do")) {
@@ -220,7 +210,7 @@ public class Parser {
             taskType = (userInput.substring(0, userInput.indexOf(" "))).trim();
             condition = (userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("do"))).trim();
             action = userInput.substring(userInput.lastIndexOf(" ") + 1);
-        } catch (Exception e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new FarmioException("Invalid command format!");
         }
         if (!taskType.equals("if")  && !taskType.equals("for") && !taskType.equals("while")) {
@@ -265,7 +255,7 @@ public class Parser {
                 userInput = (userInput.substring(userInput.indexOf(" ") + 1)).trim();
                 taskID = (userInput.substring(0, userInput.indexOf(" "))).trim();
                 taskDesc = (userInput.substring(userInput.indexOf(" ") + 1)).trim();
-            } catch (Exception e) {
+            } catch (IndexOutOfBoundsException e) {
                 throw new FarmioException("Invalid command format!");
             }
             if (!keyword.equals("edit")) {
@@ -273,6 +263,34 @@ public class Parser {
             }
             Task task = parseTask(taskDesc);
             return new CommandTaskEdit(Integer.parseInt(taskID), task);
+        } else {
+            throw new FarmioException("Invalid Command Format");
+        }
+    }
+
+    /**
+     * Parses commands meant to insert a Task at a specific position in the TaskList
+     *
+     * @param userInput user input String
+     * @return Command that inserts a Task at the specified position
+     * @throws FarmioException if the user input is of invalid format, or the task description is invalid
+     */
+    private static Command insertTask(String userInput) throws FarmioException {
+        String keyword = "", taskID = "", taskDesc = "";
+        if (userInput.matches("(insert)\\s+\\d+\\s+.+")) {
+            try {
+                keyword = userInput.substring(0, userInput.indexOf(" "));
+                userInput = (userInput.substring(userInput.indexOf(" ") + 1)).trim();
+                taskID = (userInput.substring(0, userInput.indexOf(" "))).trim();
+                taskDesc = (userInput.substring(userInput.indexOf(" ") + 1)).trim();
+            } catch (IndexOutOfBoundsException e) {
+                throw new FarmioException("Invalid command format!");
+            }
+            if (!keyword.equals("insert")) {
+                throw new FarmioException("Invalid Command!");
+            }
+            Task task = parseTask(taskDesc);
+            return new CommandTaskInsert(Integer.parseInt(taskID), task);
         } else {
             throw new FarmioException("Invalid Command Format");
         }
