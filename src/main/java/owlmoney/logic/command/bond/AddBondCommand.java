@@ -59,6 +59,10 @@ public class AddBondCommand extends Command {
     public boolean execute(Profile profile, Ui ui) throws BankException, BondException, CardException {
         Bond newBond = new Bond(this.bondName, this.amount, this.rate, this.date, this.year);
         Expenditure newExpenditure = new Expenditure(this.bondName, this.amount, this.date, BONDS);
+        if (profile.profileIsBondListFull(this.bankAccountName)) {
+            throw new BondException("The maximum limit of 20 bonds has been reach for the bank account named: "
+                    + this.bankAccountName);
+        }
         profile.profileIsBondUnique(this.bankAccountName, newBond);
         profile.profileAddNewExpenditure(this.bankAccountName, newExpenditure, ui, this.type);
         profile.profileAddNewBond(this.bankAccountName, newBond, ui);

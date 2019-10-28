@@ -1,7 +1,6 @@
 package owlmoney.model.transaction;
 
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -118,17 +117,6 @@ public abstract class Transaction {
         } else {
             return "[-] $";
         }
-    }
-
-    /**
-     * Displays the description, amount added/spent, date and category of transaction.
-     *
-     * @return description, amount added/spent, date and category of transaction in String format.
-     */
-    String getDetails() {
-        return "Description: " + getDescription() + "\nAmount: " + checkDebitCredit()
-                + new DecimalFormat("0.00").format(getAmount()) + "\nDate: " + getDate()
-                + "\nCategory: " + getCategory() + "\n";
     }
 
     /**
