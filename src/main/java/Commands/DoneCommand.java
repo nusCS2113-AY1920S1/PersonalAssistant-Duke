@@ -12,7 +12,6 @@ public class DoneCommand extends Command {
 
     private Task T;
     private final String list;
-    private TaskList listToChange;
 
     /**
      * Creates a DeleteCommand object.

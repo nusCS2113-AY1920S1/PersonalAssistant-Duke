@@ -72,10 +72,15 @@ public class Parser {
                             "For example: list todo");
                 }
             } else if(fullCommand.startsWith("Week")) {
-                fullCommand = fullCommand.replaceFirst("Week", "");
-                fullCommand = fullCommand.trim();
-                Integer week = Integer.parseInt(fullCommand);
-                return new WeekCommand(week);
+                String week = fullCommand.replaceFirst("Week", "");
+                week.trim();
+//                try{
+//                    Integer digit = Integer.parseInt(week);
+//                    if(digit < 1 || digit > 13 ) throw new DukeException("Invalid week command\n" + "Format: Week 'x', where 'x' is a digit." );
+//                } catch (NumberFormatException e) {
+//                    throw new DukeException("Invalid week command\n" + "Format: Week 'x', where 'x' is a digit." );
+//                }
+                return new WeekCommand(fullCommand.trim());
             } else if(fullCommand.trim().startsWith("done/e")){
                 try { //add/e module_code description /at date from time to time
                     String activity = fullCommand.replaceFirst("done/e", "");
@@ -425,6 +430,10 @@ public class Parser {
                 fullCommand = fullCommand.replaceFirst("hours", "");
                 fullCommand = fullCommand.trim();
                 return new FindFreeTimesCommand(Integer.parseInt(fullCommand));
+            } else if (fullCommand.trim().startsWith("retrieve free time ")) {
+                fullCommand = fullCommand.replaceFirst("retrieve free time ", "");
+                fullCommand = fullCommand.trim();
+                return new RetrieveFreeTimesCommand(fullCommand);
             } else {
                 throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

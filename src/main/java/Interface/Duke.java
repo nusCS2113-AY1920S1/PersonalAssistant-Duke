@@ -93,4 +93,11 @@ public class Duke extends Application {
         String previousInput = RetrievePreviousCommand.getChosenOutput();
         return previousInput;
     }
+
+    public static String getSelectedOption() {
+        String selectedOption = RetrieveFreeTimesCommand.getSelectedOption();
+        return selectedOption;
+    }
+
+
 }

@@ -62,7 +62,7 @@ public class TaskList {
 
     public void updateTask(Task task) {
         for(Task taskInList : this.map.get(task.getModCode()).get(task.getDate())) {
-            if(taskInList.getDescription().equals(task.getDescription())) {
+            if(taskInList.getDateTime().equals(task.getDateTime())) {
                 Integer index = this.map.get(task.getModCode()).get(task.getDate()).indexOf(taskInList);
                 Task temp = this.map.get(task.getModCode()).get(task.getDate()).get(index);
                 temp.setDone(true);
