@@ -138,9 +138,18 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                          arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
                      } else {
                          if (isParsable(quantity) && isKnownUnit(unit)) {
-                             recipeList.appendReqIngredient(recipeTitle, ingredientName, quantity, unit, additionalInfo);
-                             recipeStorage.saveFile(recipeList);
-                             arrayList.add(MESSAGE_ADDED_TO_REQ_INGREDIENTS + "\n" + "       " + ingredientName);
+                             if (recipeList.containsRecipeIngredient(recipeTitle, ingredientName) == -1) {
+                                 // what if they anyhow input position?
+                                 recipeList.appendReqIngredient(recipeTitle, ingredientName, quantity, unit, additionalInfo);
+                                 recipeStorage.saveFile(recipeList);
+                                 arrayList.add(MESSAGE_ADDED_TO_REQ_INGREDIENTS + "\n" + "       " + ingredientName);
+                             } else {
+                                 int index = recipeList.containsRecipeIngredient(recipeTitle, ingredientName);
+                                 recipeList.removeDupReqIngredient(index, recipeTitle);
+                                 recipeList.appendReqIngredient(recipeTitle, ingredientName, quantity, unit, additionalInfo);
+                                 recipeStorage.saveFile(recipeList);
+                                 arrayList.add(MESSAGE_ADDED_TO_REQ_INGREDIENTS + "\n" + "       " + ingredientName);
+                             }
                          } else if (!isParsable(quantity) && isKnownUnit(unit)){
                              arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY);
                          } else  if (!isKnownUnit(unit) && isParsable(quantity)) {

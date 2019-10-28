@@ -25,20 +25,20 @@ public class RequiredIngredients {
             String ingredientName, quantity, unit, additionalInfo, remaining, remaining2;
             String[] split = individualIng[j].split(",", 2);
             if (split.length == 2) {
-                ingredientName = split[0];
-                remaining = split[1];
+                ingredientName = split[0].trim();
+                remaining = split[1].trim();
                 String[] split2 = remaining.split(",", 2);
                 if (split2.length == 2) {
-                    quantity = split2[0];
-                    remaining2 = split2[1];
+                    quantity = split2[0].trim();
+                    remaining2 = split2[1].trim();
                     String[] split3 = remaining2.split(",", 2);
                     if (split3.length == 2) {
-                        unit = split3[0];
-                        additionalInfo = split3[1];
+                        unit = split3[0].trim();
+                        additionalInfo = split3[1].trim();
                         this.requiredIngredientList.add(new Ingredient(ingredientName, quantity, unit, additionalInfo));
                     }
                     else if (split3.length == 1) {
-                        unit = split3[0];
+                        unit = split3[0].trim();
                         additionalInfo = "No additional information.";
                         this.requiredIngredientList.add(new Ingredient(ingredientName, quantity, unit, additionalInfo));
                     }
@@ -81,8 +81,7 @@ public class RequiredIngredients {
             int i = 0;
             for (Ingredient ingredient : requiredIngredientList) {
                 ++i;
-                joinedString = joinedString.concat(Integer.toString(i) + ". " + ingredient.toString() + "\n");
-                // joinedString = joinedString.concat(String.join("\n", Integer.toString(i) + ". " + ingredient.toString()));
+                joinedString = joinedString.concat(i + ".  " + ingredient.toString() + "\n");
             }
         }
         return joinedString;

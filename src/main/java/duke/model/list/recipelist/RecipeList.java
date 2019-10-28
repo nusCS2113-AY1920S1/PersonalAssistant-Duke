@@ -46,13 +46,7 @@ public class RecipeList {
     }
 
     public boolean containsRecipe(String recipeTitle) {
-        if (this.recipeLHM.containsKey(recipeTitle)) {
-            System.out.println("true fefesges");
-            return true;
-        } else {
-            System.out.println("false fefesges");
-            return false;
-        }
+        return this.recipeLHM.containsKey(recipeTitle);
     }
 
     public int containsRecipeIngredient(String recipeTitle, String recipeIngredient) {
