@@ -19,7 +19,8 @@ public class PlaylistExceptions extends Exceptions {
     public static void checkNameExist(String name, UserProfile userProfile) throws PlaylistExceptions {
         for (String log : userProfile.getPlaylistNames()) {
             if (name.equals(log)) {
-                throw new PlaylistExceptions("ohno u already have a playlist with the same name :( pls try again with another name for this playlist");
+                throw new PlaylistExceptions("ohno u already have a playlist with the same name :( "
+                        + "pls try again with another name for this playlist");
             }
         }
     }
@@ -38,7 +39,8 @@ public class PlaylistExceptions extends Exceptions {
             }
         }
         if (flag) {
-            throw new PlaylistExceptions("ohno the movie < " + movie.getMovieTitle() + " > has already been added to this playlist :( pls try again with another movie");
+            throw new PlaylistExceptions("ohno the movie < " + movie.getMovieTitle()
+                    + " > has already been added to this playlist :( pls try again with another movie");
         }
     }
 
@@ -56,7 +58,8 @@ public class PlaylistExceptions extends Exceptions {
             }
         }
         if (flag) {
-            throw new PlaylistExceptions("ohno the movie < " + movie.getMovieTitle() + " > does not belong to this playlist :( pls try again with another movie");
+            throw new PlaylistExceptions("ohno the movie < " + movie.getMovieTitle()
+                    + " > does not belong to this playlist :( pls try again with another movie");
         }
     }
 
@@ -74,7 +77,8 @@ public class PlaylistExceptions extends Exceptions {
             }
         }
         if (flag) {
-            throw new PlaylistExceptions("ohno the playlist < " + name + " > does not exist :( pls try again with another playlist");
+            throw new PlaylistExceptions("ohno the playlist < " + name
+                    + " > does not exist :( pls try again with another playlist");
         }
     }
 
@@ -85,7 +89,8 @@ public class PlaylistExceptions extends Exceptions {
      */
     public static void checkIndex(int i, int size) throws PlaylistExceptions {
         if ((i < 0) || (i >= size)) {
-            throw new PlaylistExceptions("ohno the index < " + i + "> does not exist :( pls try again with another index");
+            throw new PlaylistExceptions("ohno the index < " + i
+                    + "> does not exist :( pls try again with another index");
         }
     }
 }
