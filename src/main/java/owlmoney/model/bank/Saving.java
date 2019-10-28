@@ -1,7 +1,6 @@
 package owlmoney.model.bank;
 
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -40,9 +39,10 @@ public class Saving extends Bank {
         this.transactions = new TransactionList();
         this.recurringExpenditures = new RecurringExpenditureList();
         Calendar calendar = Calendar.getInstance();
-        calendar.clear();
-        calendar.setTime(new Date());
         calendar.set(Calendar.DATE, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
         calendar.add(Calendar.MONTH, 1);
         nextIncomeDate = calendar.getTime();
     }
@@ -74,16 +74,6 @@ public class Saving extends Bank {
     @Override
     public double getIncome() {
         return income;
-    }
-
-    /**
-     * Gets the description of the bank accounts.
-     *
-     * @return the description of the bank account which includes income and type.
-     */
-    @Override
-    public String getDescription() {
-        return super.getDescription() + "\nIncome: $" + new DecimalFormat("0.00").format(getIncome());
     }
 
     /**

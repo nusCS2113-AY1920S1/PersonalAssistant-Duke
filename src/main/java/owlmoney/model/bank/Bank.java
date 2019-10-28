@@ -76,16 +76,6 @@ public abstract class Bank {
     }
 
     /**
-     * Gets the details of the bank account which consist of name and amount.
-     *
-     * @return accountName and currentAmount.
-     */
-    public String getDescription() {
-        return "Account name: " + accountName + "\nType: " + getType() + "\nCurrent Amount: $"
-                + new DecimalFormat("0.00").format(currentAmount);
-    }
-
-    /**
      * Deducts from amount in bank.
      *
      * @param amount Amount to be deducted.
