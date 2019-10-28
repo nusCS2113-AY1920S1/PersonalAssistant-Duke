@@ -741,9 +741,9 @@ public class RetrieveRequest implements InfoFetcher {
 
             Set<Integer> genrePref = new HashSet<>();
             Set<Integer> genreRestric = new HashSet<>();
-            String[] genreStrings = new String[movie.getGenreIDInfo().size()];
-            for (int i = 0; i < movie.getGenreIDInfo().size(); i++) {
-                genreStrings[i] = getGenreStringForID(movie.getGenreIDInfo().get(i), genres);
+            String[] genreStrings = new String[movie.getGenreIdInfo().size()];
+            for (int i = 0; i < movie.getGenreIdInfo().size(); i++) {
+                genreStrings[i] = getGenreStringForID(movie.getGenreIdInfo().get(i), genres);
             }
 
             return genreStrings;

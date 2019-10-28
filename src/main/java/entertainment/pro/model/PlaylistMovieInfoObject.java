@@ -12,7 +12,7 @@ public class PlaylistMovieInfoObject extends MovieInfoObject {
     /**
      * Construct info about a movie/tv show.
      *
-     * @param ID           id stored in the api.
+     * @param id           id stored in the api.
      * @param title        Title of the movie/tv show.
      * @param date         Release date of the movie/tv show.
      * @param summary      Plot summary of the movie/tv show.
@@ -22,8 +22,10 @@ public class PlaylistMovieInfoObject extends MovieInfoObject {
      * @param backdropPath Filepath of the movie/tv show backdrop poster.
      */
 
-    public PlaylistMovieInfoObject(boolean isMovie, long ID, String title, Date date, String summary, double rating, ArrayList<Long> genreIDs, String posterPath, String backdropPath, boolean isAdult, String stringDate) {
-        super(ID, title, isMovie, date, summary, posterPath, backdropPath, rating, genreIDs, isAdult);
+    public PlaylistMovieInfoObject(boolean isMovie, long id, String title, Date date, String summary,
+                                   double rating, ArrayList<Long> genreIDs, String posterPath,
+                                   String backdropPath, boolean isAdult, String stringDate) {
+        super(id, title, isMovie, date, summary, posterPath, backdropPath, rating, genreIDs, isAdult);
         this.stringDate = stringDate;
         if (super.getReleaseDateInfo() == null) {
             convertStringToDate();
@@ -32,12 +34,6 @@ public class PlaylistMovieInfoObject extends MovieInfoObject {
             convertDateToString();
         }
     }
-
-    public PlaylistMovieInfoObject(boolean isMovie, long id, String title, String stringDate) {
-        super(id, title, isMovie);
-        this.stringDate = stringDate;
-    }
-
 
     public String getStringDate() {
         return stringDate;
@@ -70,5 +66,10 @@ public class PlaylistMovieInfoObject extends MovieInfoObject {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public long getId() {
+        return super.getId();
     }
 }
