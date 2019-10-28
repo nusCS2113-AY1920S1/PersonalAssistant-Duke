@@ -1,19 +1,44 @@
 package farmio;
 
-import commands.*;
+import commands.Command;
+import commands.CommandGameLoad;
+import commands.CommandGameQuit;
+import commands.CommandGameSave;
+import commands.CommandGameNew;
+import commands.CommandMenuStart;
+import commands.CommandLevelEnd;
+import commands.CommandLevelStart;
+import commands.CommandTasksRun;
+import commands.CommandCheckObjectives;
+import commands.CommandDayEnd;
+import commands.CommandDayStart;
+import commands.CommandLevelReset;
+import commands.CommandAddName;
+import commands.CommandMenu;
+import commands.CommandTaskDeleteAll;
+import commands.CommandShowList;
+import commands.CommandTaskCreate;
+import commands.CommandTasksHint;
+import commands.CommandTaskDelete;
+import commands.CommandTaskEdit;
+import commands.CommandTaskInsert;
+import usercode.Tasks.Task;
+import usercode.Tasks.IfTask;
+import usercode.Tasks.ForTask;
+import usercode.Tasks.DoTask;
+import usercode.Tasks.WhileTask;
 import exceptions.FarmioException;
 import usercode.Actions.Action;
 import usercode.Conditions.Condition;
-import usercode.Tasks.*;
 
 /**
- * Parser class is responsible for parsing all user input and generating the corresponding Command
+ * Parser class is responsible for parsing all user input and generating the corresponding Command.
  */
 
 public class Parser {
 
     /**
-     * Returns a Command depending on the current Stage of the game, and the user's input
+     * Returns a Command depending on the current Stage of the game, and the user's input.
      *
      * @param userInput input String either from user or Farmio depending on the game stage
      * @param stage enum that represents the current game stage
@@ -35,44 +60,44 @@ public class Parser {
             return new CommandGameNew();
         }
         switch (stage) {
-            case WELCOME:
-                return new CommandMenuStart();
-            case LEVEL_START:
-                return new CommandLevelStart();
-            case MENU:
-                return parseMenu(userInput);
-            case RUNNING_DAY:
-                return new CommandTasksRun();
-            case CHECK_OBJECTIVES:
-                return new CommandCheckObjectives();
-            case DAY_START:
-                return new CommandDayStart();
-            case LEVEL_END:
-                return new CommandLevelEnd();
-            case LEVEL_FAILED:
-                return new CommandLevelReset();
-            case DAY_END:
-                return new CommandDayEnd(); //TODO check if reset for dayend
-            case NAME_ADD:
-                return new CommandAddName(userInput);
-            case TASK_ADD:
-                return parseTaskAdd(userInput);
-            default:
-                throw new FarmioException("Invalid Command!");
+        case WELCOME:
+            return new CommandMenuStart();
+        case LEVEL_START:
+            return new CommandLevelStart();
+        case MENU:
+            return parseMenu(userInput);
+        case RUNNING_DAY:
+            return new CommandTasksRun();
+        case CHECK_OBJECTIVES:
+            return new CommandCheckObjectives();
+        case DAY_START:
+            return new CommandDayStart();
+        case LEVEL_END:
+            return new CommandLevelEnd();
+        case LEVEL_FAILED:
+            return new CommandLevelReset();
+        case DAY_END:
+            return new CommandDayEnd(); //TODO check if reset for dayend
+        case NAME_ADD:
+            return new CommandAddName(userInput);
+        case TASK_ADD:
+            return parseTaskAdd(userInput);
+        default:
+            throw new FarmioException("Invalid Command!");
         }
     }
 
     /**
-     * Allows the user to resume the game from the menu
+     * Allows the user to resume the game from the menu.
      *
      * @param userInput input String from the user
      * @return Command that corresponds to the user's actions
      * @throws FarmioException if user input is invalid
      */
     private static Command parseMenu(String userInput) throws FarmioException {
-        if(userInput.equals("resume game")){
+        if (userInput.equals("resume game")) {
             return new CommandLevelStart();
-        }else {
+        } else {
             throw new FarmioException("Invalid command!");
         }
     }
@@ -86,7 +111,7 @@ public class Parser {
      * @throws FarmioException if user input is invalid
      */
     private static Command parseDayEnd(String userInput) throws FarmioException {
-        if (userInput.length() == 0 ) {
+        if (userInput.length() == 0) {
             return new CommandDayEnd();
         }
         if (userInput.equals("reset")) {
@@ -131,15 +156,17 @@ public class Parser {
         if (userInput.equals("market")) {
             return new CommandShowList("MarketList");
         }
-        if (userInput.startsWith("do") || userInput.startsWith("if") || userInput.startsWith("for") || userInput.startsWith("while")) {
+        if (userInput.startsWith("do") || userInput.startsWith("if")
+                || userInput.startsWith("for") || userInput.startsWith("while")) {
             return new CommandTaskCreate(parseTask(userInput));
-        } else if (userInput.equals("hint") || userInput.equals(""))
+        } else if (userInput.equals("hint") || userInput.equals("")) {
             return new CommandTasksHint();
+        }
         throw new FarmioException("Invalid command!");
     }
 
     /**
-     * Used to parse the user's command if it is determined to be a delete task command
+     * Used to parse the user's command if it is determined to be a delete task command.
      *
      * @param userInput user input String
      * @return Command that deletes the specified task when executed
@@ -154,7 +181,7 @@ public class Parser {
     }
 
     /**
-     * Determines if the user is creating a DoTask or a ConditionalTask, and calls the corresponding function
+     * Determines if the user is creating a DoTask or a ConditionalTask, and calls the corresponding function.
      * to further parse the user input
      *
      * @param userInput user input String
@@ -179,11 +206,12 @@ public class Parser {
      * @throws FarmioException if user input is of incorrect format, or the taskType or action is invalid
      */
     private static Task parseDoTask(String userInput) throws FarmioException {
-        String taskType = "", userAction = "";
+        String taskType = "";
+        String userAction = "";
         try {
             taskType = userInput.substring(0, userInput.indexOf(" "));
             userAction = (userInput.substring(userInput.indexOf(" "))).trim();
-        } catch (IndexOutOfBoundsException e ) {
+        } catch (IndexOutOfBoundsException e) {
             throw new FarmioException("Invalid command format!");
         }
         if (!taskType.equals("do")) {
@@ -197,15 +225,18 @@ public class Parser {
     }
 
     /**
-     * Parses Conditional Tasks. The function first breaks the input String into three parts, the taskType, condition, and action.
+     * Parses Conditional Tasks. The function first breaks the input String into three parts,
+     * the taskType, condition, and action.
      * If all are valid, then the corresponding Task is created and returned
      *
      * @param userInput user input String
      * @return Task corresponding to the user input
-     * @throws FarmioException if user input is of wrong format, or if either the tasktype, action or condition is invalid
+     * @throws FarmioException if user input is of wrong format, or either the tasktype, action or condition is invalid
      */
-    private static Task parseConditionalTask (String userInput) throws FarmioException {
-        String taskType = "", condition = "", action = "";
+    private static Task parseConditionalTask(String userInput) throws FarmioException {
+        String taskType = "";
+        String condition = "";
+        String action = "";
         try {
             taskType = (userInput.substring(0, userInput.indexOf(" "))).trim();
             condition = (userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("do"))).trim();
@@ -224,31 +255,35 @@ public class Parser {
         }
         Task task;
         switch (taskType) {
-            case "if":
-                task = new IfTask(Condition.toCondition(condition), Action.toAction(action));
-                break;
-            case "for":
-                task = new ForTask(Condition.toCondition(condition), Action.toAction(action));
-                break;
-            case "while":
-                task = new WhileTask(Condition.toCondition(condition), Action.toAction(action));
-            default:
-                throw new FarmioException("Error Creating Task!");
+        case "if":
+            task = new IfTask(Condition.toCondition(condition), Action.toAction(action));
+            break;
+        case "for":
+            task = new ForTask(Condition.toCondition(condition), Action.toAction(action));
+            break;
+        case "while":
+            task = new WhileTask(Condition.toCondition(condition), Action.toAction(action));
+            break;
+        default:
+            throw new FarmioException("Error Creating Task!");
         }
         return task;
     }
 
     /**
-     * Parses commands meant to edit any Task in the TaskList. The function uses regex to validate if the input String is of the
-     * correct format, then breaks it into three parts, the keyword "edit", the taskID to be edited, and the description of the Task
-     * to replace the current Task. The task description is validated using the parseTask() function.
+     * Parses commands meant to edit any Task in the TaskList. The function uses regex to validate
+     * if the input String is of the correct format, then breaks it into three parts, the keyword "edit",
+     * the taskID to be edited, and the description of the Task to replace the current Task.
+     * The task description is validated using the parseTask() function.
      *
      * @param userInput user input String
      * @return Command that will edit the Task in the TaskList with the specified ID when executed
      * @throws FarmioException if the user's input is of wrong format or the task description is invalid
      */
     private static Command editTask(String userInput) throws FarmioException {
-        String keyword = "", taskID = "",  taskDesc = "";
+        String keyword = "";
+        String taskID = "";
+        String taskDesc = "";
         if (userInput.matches("(edit)\\s+\\d+\\s+.+")) {
             try {
                 keyword = userInput.substring(0, userInput.indexOf(" "));
@@ -269,14 +304,16 @@ public class Parser {
     }
 
     /**
-     * Parses commands meant to insert a Task at a specific position in the TaskList
+     * Parses commands meant to insert a Task at a specific position in the TaskList.
      *
      * @param userInput user input String
      * @return Command that inserts a Task at the specified position
      * @throws FarmioException if the user input is of invalid format, or the task description is invalid
      */
     private static Command insertTask(String userInput) throws FarmioException {
-        String keyword = "", taskID = "", taskDesc = "";
+        String keyword = "";
+        String taskID = "";
+        String taskDesc = "";
         if (userInput.matches("(insert)\\s+\\d+\\s+.+")) {
             try {
                 keyword = userInput.substring(0, userInput.indexOf(" "));
