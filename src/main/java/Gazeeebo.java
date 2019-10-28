@@ -1,3 +1,4 @@
+import gazeeebo.storage.NotePageStorage;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
@@ -29,10 +30,12 @@ public class Gazeeebo {
         Ui ui = new Ui();
         try {
             ui.showWelcome();
-            list = store.ReadFile();
+            list = store.realFromSaveFile();
             NoteStorage.readFromFile("NoteDaily.txt", NoteList.daily);
             NoteStorage.readFromFile("NoteWeekly.txt", NoteList.weekly);
             NoteStorage.readFromFile("NoteMonthly.txt", NoteList.monthly);
+            NotePageStorage.readFromGoalFile();
+            NotePageStorage.readFromModulesFile();
             ui.UpcomingTask(list);
             ui.MajorCategories();
             while (!isExit) {
@@ -59,5 +62,4 @@ public class Gazeeebo {
             System.out.println("System exiting");
         }
     }
-
 }

@@ -66,7 +66,7 @@ public class SnoozeCommand extends Command {
             for (int i = 0; i < list.size(); i++) {
                 sb.append(list.get(i).toString() + "\n");
                 }
-                storage.Storages(sb.toString());
+                storage.writeToSaveFile(sb.toString());
             }
         }
         catch (DukeException e) {

@@ -27,7 +27,7 @@ public class ChangePasswordCommand extends Command {
         System.out.println("Enter your current password:");
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {
-            if (ui.fullCommand.equals(storage.Password().get(0).toString())) {
+            if (ui.fullCommand.equals(storage.readFromPasswordFile().get(0).toString())) {
                 System.out.println("Enter new password:");
                 ui.readCommand();
                 String realPassword = ui.fullCommand;
@@ -36,7 +36,7 @@ public class ChangePasswordCommand extends Command {
                 for (int i = realPassword.length() - 1; i >= 0; i--) {
                     decodedPassword.append(decryption[i]);
                 }
-                storage.Storages_password(decodedPassword.toString());
+                storage.writeToPasswordFile(decodedPassword.toString());
                 System.out.println("Password successfully changed.");
                 break;
             } else {

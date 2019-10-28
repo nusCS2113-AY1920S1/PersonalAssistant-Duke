@@ -32,7 +32,7 @@ public class UndoneCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.writeToSaveFile(sb.toString());
     }
     public void undo(String command, ArrayList<Task> list, Storage storage) throws IOException {
         int numberCheck = Integer.parseInt(command.substring(7)) - 1;
@@ -41,7 +41,7 @@ public class UndoneCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.writeToSaveFile(sb.toString());
         System.out.println("Nice! I've undo this command" + command);
     }
     @Override

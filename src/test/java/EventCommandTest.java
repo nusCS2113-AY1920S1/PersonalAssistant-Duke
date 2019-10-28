@@ -5,6 +5,12 @@ import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
+<<<<<<< HEAD
+import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.UI.Ui;
+import gazeeebo.commands.tasks.EventCommand;
+=======
+>>>>>>> e3e66bcb49dadb4b966d587fb444e87e331407a2
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
