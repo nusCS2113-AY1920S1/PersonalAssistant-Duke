@@ -99,7 +99,7 @@ public class AssignedTaskManager {
         int count = 0;
         for (AssignedTask assignedTask : assignedTaskIdMap.values()) {
             if (assignedTask.getTid() == id) {
-                count ++;
+                count++;
             }
         }
 
