@@ -24,6 +24,7 @@ import static duke.commons.definitions.CommandDefinitions.PARSER_PAYMENT_COMMAND
 import static duke.commons.definitions.CommandDefinitions.PARSER_SET_GOAL_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_SUGGEST_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_UPDATE_WEIGHT_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_CGRAPH_COMMAND;
 import static duke.commons.exceptions.ExceptionMessages.UNKNOWN_COMMAND;
 
 /**
@@ -100,6 +101,8 @@ public class Parser {
                 return parserUtil.getHistory(userInput);
             case PARSER_SUGGEST_COMMAND:
                 return new SuggestCommandParser().parse(userInput);
+            case PARSER_CGRAPH_COMMAND:
+                return new CGraphCommandParser().parse(userInput);
             default:
                 throw new DukeException(UNKNOWN_COMMAND);
         }

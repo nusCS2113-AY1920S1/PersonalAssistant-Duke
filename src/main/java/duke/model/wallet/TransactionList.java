@@ -44,6 +44,10 @@ public class TransactionList {
         }
     }
 
+    public HashMap<String, ArrayList<Transaction>> getTransactionList() {
+        return this.transactionTracker;
+    }
+
     public HashMap<String, ArrayList<Transaction>> getTransactionTracker() {
         return transactionTracker;
     }

@@ -17,12 +17,15 @@ public class PaymentCommandParser implements ParserInterface<AddTransactionComma
      * Parse user input and return PaymentCommandParser.
      * @param userInput String input by user
      * @return <code>AddTransactionCommand</code> Command object encapsulating the details of the transaction
-     * @throws DukeException If the userInput cannot be parsed
      */
     @Override
     public AddTransactionCommand parse(String userInput) throws DukeException {
-        InputValidator.validate(userInput);
-        String[] amountAndDate = ArgumentSplitter.splitArguments(userInput, "/date");
-        return new AddTransactionCommand(new Payment(amountAndDate[0], amountAndDate[1]));
+        try {
+            InputValidator.validate(userInput);
+            String[] amountAndDate = ArgumentSplitter.splitArguments(userInput, "/date");
+            return new AddTransactionCommand(new Payment(amountAndDate[0], amountAndDate[1]));
+        } catch (DukeException e) {
+            return new AddTransactionCommand(false, e.getMessage());
+        }
     }
 }

@@ -60,7 +60,7 @@ public class DeleteCommand extends Command {
      * @param meals the MealList object in which the meals are supposed to be added
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
-     * @throws DukeException when the index of the object to be deleted is out of bounds
+     * @param wallet the wallet object that stores transaction information
      */
 
     @Override

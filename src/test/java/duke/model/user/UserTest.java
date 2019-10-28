@@ -2,6 +2,7 @@ package duke.model.user;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +20,6 @@ public class UserTest {
         assertEquals(user.getActivityLevel(), 0);
         assertEquals(user.getLoseWeight(), true);
         assertEquals(user.getAge(), 22);
-        assertTrue(user.getAllWeight() instanceof ArrayList);
+        assertTrue(user.getAllWeight() instanceof HashMap);
     }
 }

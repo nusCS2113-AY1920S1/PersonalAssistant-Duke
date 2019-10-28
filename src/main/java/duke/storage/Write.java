@@ -14,6 +14,7 @@ import duke.model.wallet.TransactionList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * This object is in charge of all writing to save operations.
@@ -102,14 +103,15 @@ public class Write {
         } else {
             toWriteStr += "F";
         }
-        ArrayList<Tuple> allWeight = user.getAllWeight();
-        for (int i = 0; i < user.getAllWeight().size(); i += 1) {
+        toWriteStr += "|" + user.getLastDate();
+        HashMap<String, Integer> allWeight = user.getAllWeight();
+        Iterator iterator = allWeight.keySet().iterator();
+        while (iterator.hasNext()) {
             toWriteStr += "\n";
-            String date = allWeight.get(i).date;
-            int weight = allWeight.get(i).weight;
+            String date = (String) iterator.next();
+            int weight = allWeight.get(date);
             toWriteStr += date + "|" + weight;
         }
-
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_USER_FILE));
     }
 

@@ -13,12 +13,16 @@ public class AddGoalCommandParser implements ParserInterface<AddGoalCommand> {
      * Parse user input and return AddGoalCommand.
      * @param userInput String input by user
      * @return <code>AddGoalCommand</code> Command object encapsulating the goal object
-     * @throws DukeException If the userInput cannot be parsed
      */
     @Override
-    public AddGoalCommand parse(String userInput) throws DukeException {
-        String name = userInput.split(" ", 2)[0].trim();
-        String info = userInput.split(" ", 2)[1];
-        return new AddGoalCommand(new Goal(name, info));
+    public AddGoalCommand parse(String userInput) {
+        try {
+            String name = userInput.split(" ", 2)[0].trim();
+            String info = userInput.split(" ", 2)[1];
+            Goal goal = new Goal(name,info);
+            return new AddGoalCommand(new Goal(name, info));
+        } catch (DukeException e) {
+            return new AddGoalCommand(false, e.getMessage());
+        }
     }
 }
