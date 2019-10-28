@@ -9,11 +9,12 @@ import oof.model.task.Assignment;
  */
 public class Module {
 
-    private String moduleCode;
-    private String moduleName;
-    private ArrayList<Lesson> lessons;
-    private ArrayList<Assessment> assessments;
-    private ArrayList<Assignment> assignments;
+    private static final String DELIMITER = "||";
+    private static String moduleCode;
+    private static String moduleName;
+    private static ArrayList<Lesson> lessons;
+    private static ArrayList<Assessment> assessments;
+    private static ArrayList<Assignment> assignments;
 
     /**
      * Constructor for Module object.
@@ -22,67 +23,105 @@ public class Module {
      * @param moduleName String containing module name.
      */
     public Module(String moduleCode, String moduleName) {
-        this.moduleCode = moduleCode.toUpperCase();
-        this.moduleName = moduleName;
-        this.lessons = new ArrayList<>();
-        this.assessments = new ArrayList<>();
-        this.assignments = new ArrayList<>();
+        Module.moduleCode = moduleCode.toUpperCase();
+        Module.moduleName = moduleName;
+        lessons = new ArrayList<>();
+        assessments = new ArrayList<>();
+        assignments = new ArrayList<>();
     }
 
-    public String getModuleCode() {
+    public Module(ArrayList<Lesson> lessons, ArrayList<Assessment> assessments) {
+        this.lessons = lessons;
+        this.assessments = assessments;
+    }
+
+    public Module() {
+        this.lessons = new ArrayList<>();
+        this.assessments = new ArrayList<>();
+    }
+
+    public static String getModuleCode() {
         return moduleCode;
     }
 
     public void setModuleCode(String moduleCode) {
-        this.moduleCode = moduleCode;
+        Module.moduleCode = moduleCode;
     }
 
-    public String getModuleName() {
+    public static String getModuleName() {
         return moduleName;
     }
 
     public void setModuleName(String moduleName) {
-        this.moduleName = moduleName;
+        Module.moduleName = moduleName;
     }
 
-    public ArrayList<Lesson> getLessons() {
+    public static ArrayList<Lesson> getLessons() {
         return lessons;
     }
 
-    public void setLessons(ArrayList<Lesson> lessons) {
-        this.lessons = lessons;
+    public static Lesson getLesson(int index) {
+        return lessons.get(index);
     }
 
-    public ArrayList<Assessment> getAssessments() {
+    public void setLessons(ArrayList<Lesson> lessons) {
+        Module.lessons = lessons;
+    }
+
+    public static ArrayList<Assessment> getAssessments() {
         return assessments;
     }
 
-    public void setAssessments(ArrayList<Assessment> assessments) {
-        this.assessments = assessments;
+    public static Assessment getAssessment(int index) {
+        return assessments.get(index);
     }
 
-    public ArrayList<Assignment> getAssignments() {
+    public void setAssessments(ArrayList<Assessment> assessments) {
+        Module.assessments = assessments;
+    }
+
+    public static ArrayList<Assignment> getAssignments() {
         return assignments;
     }
 
-    public void setAssignments(ArrayList<Assignment> assignments) {
-        this.assignments = assignments;
+    public static Assignment getAssignment(int index) {
+        return assignments.get(index);
     }
 
-    public void addLesson(Lesson lesson) {
+    public void setAssignments(ArrayList<Assignment> assignments) {
+        Module.assignments = assignments;
+    }
+
+    public static void addAssignment(Assignment assignment) {
+        assignments.add(assignment);
+    }
+
+    public static void removeAssignment(int index) {
+        assignments.remove(index);
+    }
+
+    public static void addLesson(Lesson lesson) {
         lessons.add(lesson);
     }
 
-    public void removeLesson(int index) {
+    public static void removeLesson(int index) {
         lessons.remove(index);
     }
 
-    public void addAssessment(Assessment assessment) {
+    public static void addAssessment(Assessment assessment) {
         assessments.add(assessment);
     }
 
-    public void removeAssessment(int index) {
+    public static void removeAssessment(int index) {
         assessments.remove(index);
+    }
+
+    /**
+     * Converts a Module object to string format for storage.
+     * @return Module object in string format for storage.
+     */
+    public String toStorageString() {
+        return "M" + DELIMITER + moduleCode + DELIMITER + moduleName;
     }
 
     @Override

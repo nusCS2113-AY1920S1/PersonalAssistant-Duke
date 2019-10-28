@@ -5,6 +5,7 @@ package oof.model.module;
  */
 public class Assessment {
 
+    private static final String DELIMITER = "||";
     private String moduleCode;
     private String name;
     private String date;
@@ -16,14 +17,12 @@ public class Assessment {
      *
      * @param moduleCode String containing module code.
      * @param name       String containing assessment name.
-     * @param date       String containing date of assessment.
      * @param startTime  String containing start time of assessment.
      * @param endTime    String containing end time of assessment.
      */
-    public Assessment(String moduleCode, String name, String date, String startTime, String endTime) {
+    public Assessment(String moduleCode, String name, String startTime, String endTime) {
         this.moduleCode = moduleCode;
         this.name = name;
-        this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -66,6 +65,14 @@ public class Assessment {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    /**
+     * Converts a Lesson object to string format for storage.
+     * @return Lesson object in string format for storage.
+     */
+    public String toStorageString() {
+        return "A" + DELIMITER + moduleCode + DELIMITER + name + DELIMITER + startTime + DELIMITER + endTime;
     }
 
 }
