@@ -255,19 +255,6 @@ Example:
 * `threshold 48` +
 Changes the threshold of the program to 48 hours.
 
-=== Color code tasks: `colorcode`
-Changes the entire task font color to the one given.
-
-Format: `colorcode INDEX #RRGGBB`
-
-* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
-* `#RRGGBB` refers to the hex color codes corresponding to the html color names.
-
-Examples:
-
-* `colorcode 1 #008000` +
-Color codes the 1st task in the list of tasks to a green color.
-
 === Viewing a summary of a day's task by date: `schedule`
 Gives a summary of all the tasks and events that is related to a specific date.
 
@@ -290,18 +277,13 @@ Example:
 * `summary` +
 Provides a summary of a list of todo, deadlines and events that will occur tomorrow.
 
-=== Sorting deadlines in chronological order: `sort`
-Sorts and displays all current deadlines recorded by chronological order.
-
-Format: `sort`
-
 === View undone tasks brought forward to the next day: `viewUndone`
 Gives a list of all the tasks not done that were brought forward to the next day.
 
 Format: `viewUndone`
 
 === View free time slots: `free`
-Gives a list of free time slots for the date given.
+Planning for your next project meeting or meeting up with your friends? With the `free` command `Oof` displays all your free time slots in a given date! 
 
 Format: `free DD-MM-YYYY`
 
@@ -351,7 +333,7 @@ Format: `calendar MONTH YEAR`
 Example: `calendar 10 2019`
 
 === Setting reminders for upcoming deadlines: `reminder`
-Reminders will be given when the application is launched if deadlines are due in less than 24 hours.
+Have multiple assignments due and not sure which to prioritise first? Fret not as `Oof` will remind you of any deadlines due within 24 hours once it is start up!
 
 Format: `reminder`
 
