@@ -55,6 +55,17 @@ shadowJar {
     archiveAppendix = null
 }
 
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
+}
+
 coveralls {
     jacocoReportPath 'build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml'
+}
+
+tasks.coveralls {
+    dependsOn 'check'
 }
