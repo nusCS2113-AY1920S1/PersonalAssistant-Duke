@@ -75,6 +75,7 @@ public class ExportCommand extends Command {
             calendarOutputter.output(calendar, outputStream);
             UiTemporary.printOutput("Success,ics file written at src/ChronologerDatabase/calendar");
         } catch (IOException e) {
+            UiTemporary.printOutput(ChronologerException.errorWriteCalendar());
             throw new ChronologerException(ChronologerException.errorWriteCalendar());
         }
 

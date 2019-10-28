@@ -61,6 +61,7 @@ public class PostponeCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         if (!isIndexValid(indexOfTask, tasks.getSize())) {
+            UiTemporary.printOutput(ChronologerException.taskDoesNotExist());
             throw new ChronologerException(ChronologerException.taskDoesNotExist());
         }
 
