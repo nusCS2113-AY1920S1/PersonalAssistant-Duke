@@ -55,30 +55,27 @@ public class PlanQuestion {
 
     /**
      * Returns a set of Integers of neighbouring questions given an attribute.
-     * @param attribute the attribute we want to get the neighbours of.
+     *
+     * @param attributeValue the attribute value we want to get the neighbours of.
      * @return
      */
-    public Set<Integer> getNeighbouringQuestions(String attribute) {
+    public Set<Integer> getNeighbouringQuestions(String attributeValue) throws DukeException {
         if (answersAttributesValue.containsKey("DOUBLE") && (neighbouringQuestions.get("DOUBLE") != null)) {
             return neighbouringQuestions.get("DOUBLE");
         }
-        if (neighbouringQuestions.containsKey(attribute)) {
-            return neighbouringQuestions.get(attribute);
+        if (!neighbouringQuestions.containsKey(attributeValue)) {
+            throw new DukeException("No such attributeValue: " + attributeValue);
         }
-        return new HashSet<>();
+        return neighbouringQuestions.get(attributeValue);
     }
 
     Reply getReply(String input, Map<String, String> attributes) throws DukeException {
         try {
-
-            if (answersAttributesValue.size() == 1) {
-                if (answersAttributesValue.containsKey("DOUBLE")) {
-                    BigDecimal scaledAmount = Parser.parseMoney(input);
-                    String attributeVal = scaledAmount.toString();
-                    attributes.put(attribute, attributeVal);
-                    return new Reply("Ok noted!", attributes);
-                }
-
+            if (answersAttributesValue.size() == 1 && answersAttributesValue.containsKey("DOUBLE")) {
+                BigDecimal scaledAmount = Parser.parseMoney(input);
+                String attributeVal = scaledAmount.toString();
+                attributes.put(attribute, attributeVal);
+                return new Reply("Ok noted!", attributes);
             } else {
                 if (!answersAttributesValue.containsKey(input.toUpperCase())) {
                     throw new NoSuchElementException();
@@ -87,16 +84,15 @@ public class PlanQuestion {
                 attributes.put(attribute, attributeVal);
                 return new Reply("Ok noted!", attributes);
             }
-
         } catch (NoSuchElementException | NumberFormatException | NullPointerException e) {
             throw new DukeException("Please enter a valid reply!");
         }
-        return new Reply("Something strange happened", attributes);
     }
 
     /**
      * Adds a neighbouring question's index to every attribute value.
-     * @param  neighbouring Integer index of neighbouring question
+     *
+     * @param neighbouring Integer index of neighbouring question
      */
     public void addNeighbouring(Integer neighbouring) {
         if (answersAttributesValue.containsKey("DOUBLE")) {
@@ -117,16 +113,23 @@ public class PlanQuestion {
 
     /**
      * Adds a neighbouring question's index to a specific attribute value.
-     * @param neighbouring Integer index of neighbouring question
+     *
+     * @param neighbouring   Integer index of neighbouring question
      * @param attributeValue String of the attributeValue we want our questions to be mapped to
      */
-    public void addNeighbouring(String attributeValue, Integer neighbouring) {
-        if (neighbouringQuestions.containsKey(attributeValue)) {
-            neighbouringQuestions.get(attributeValue).add(neighbouring);
+    public void addNeighbouring(String attributeValue, Integer neighbouring) throws DukeException {
+        if (!this.answersAttributesValue.containsValue(attributeValue)) {
+            throw new DukeException("No such value " + attributeValue + "in the question!");
         } else {
-            neighbouringQuestions.put(attributeValue, new HashSet<>(Collections.singletonList(neighbouring)));
+            if (neighbouringQuestions.containsKey(attributeValue)) {
+                neighbouringQuestions.get(attributeValue).add(neighbouring);
+            } else {
+                neighbouringQuestions.put(attributeValue, new HashSet<>(Collections.singletonList(neighbouring)));
+            }
         }
+
     }
+
 
     static class Reply {
         private String text;
