@@ -290,6 +290,10 @@ Refer to the guide <<Documentation#, here>>.
 
 Refer to the guide <<Testing#, here>>.
 
+== Dev Ops
+
+Refer to the guide <<DevOps#, here>>.
+
 
 [appendix]
 == Product Scope

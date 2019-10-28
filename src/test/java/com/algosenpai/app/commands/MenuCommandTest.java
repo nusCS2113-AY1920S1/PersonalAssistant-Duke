@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 
-public class HistoryCommandTest extends ApplicationTest {
+public class MenuCommandTest extends ApplicationTest {
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -44,42 +44,56 @@ public class HistoryCommandTest extends ApplicationTest {
     }
 
     @Test
-    void testHistoryMousePress() {
-        clickOn("#userInput").write("history");
+    void testMenuMousePress() {
+        clickOn("#userInput").write("menu");
         clickOn("#sendButton");
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(1);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals("history", actualText);
+        Assertions.assertEquals("menu", actualText);
     }
 
     @Test
-    void testHistoryKeyPress() {
-        clickOn("#userInput").write("history");
-        clickOn("#sendButton");
+    void testMenuKeyPress() {
+        clickOn("#userInput").write("menu").press(KeyCode.ENTER);
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(1);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals("history", actualText);
+        Assertions.assertEquals("menu", actualText);
     }
 
     @Test
-    void testHistoryWithSpace() {
-        clickOn("#userInput").write(" history ").clickOn("#sendButton");
+    void testMenuWithSpace() {
+        clickOn("#userInput").write(" menu ").clickOn("#sendButton");
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(1);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals(" history ", actualText);
+        Assertions.assertEquals(" menu ", actualText);
     }
 
     @Test
-    void testHistoryWithLimits() {
-        clickOn("#userInput").write("command 1").clickOn("#sendButton");
-        clickOn("#userInput").write(" history ").clickOn("#sendButton");
+    void testMenuOutput() {
+        clickOn("#userInput").write("menu").clickOn("#sendButton");
         VBox container = find();
-        DialogBox dialogBox = (DialogBox) container.getChildren().get(4);
+        DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals("Have you forgotten our conversation?\ncommand 1\n history \n", actualText);
+        Assertions.assertEquals("Senpai will teach you! Try these commands\n"
+                + "MENU\n"
+                + "START\n"
+                + "SELECT\n"
+                + "RESULT\n"
+                + "REPORT\n"
+                + "BACK\n"
+                + "HISTORY\n"
+                + "UNDO\n"
+                + "CLEAR\n"
+                + "RESET\n"
+                + "SAVE\n"
+                + "HELP\n"
+                + "EXIT\n"
+                + "PRINT\n"
+                + "ARCHIVE\n"
+                + "INVALID\n", actualText);
     }
 
     <T extends Node> T find() {
