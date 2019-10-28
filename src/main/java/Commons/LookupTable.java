@@ -1,4 +1,4 @@
-package Interface;
+package Commons;
 
 
 import java.io.BufferedReader;

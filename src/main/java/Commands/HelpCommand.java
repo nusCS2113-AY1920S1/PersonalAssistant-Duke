@@ -1,8 +1,8 @@
 package Commands;
 
-import Interface.LookupTable;
-import Interface.Storage;
-import Interface.Ui;
+import Commons.LookupTable;
+import Commons.Storage;
+import Commons.Ui;
 import Tasks.TaskList;
 /**
  * Represents the command to display a guide to all commands

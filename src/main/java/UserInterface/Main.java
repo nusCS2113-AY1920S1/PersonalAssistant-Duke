@@ -1,5 +1,5 @@
-package JavaFx;
-import Interface.Duke;
+package UserInterface;
+import Commons.Duke;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

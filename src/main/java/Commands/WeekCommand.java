@@ -1,9 +1,9 @@
 package Commands;
 
-import Interface.LookupTable;
-import Interface.Storage;
-import Interface.Ui;
-import Interface.Week;
+import Commons.LookupTable;
+import Commons.Storage;
+import Commons.Ui;
+import Commons.Week;
 import Tasks.Assignment;
 import Tasks.TaskList;
 import javafx.collections.FXCollections;
@@ -11,10 +11,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class WeekCommand extends Command {

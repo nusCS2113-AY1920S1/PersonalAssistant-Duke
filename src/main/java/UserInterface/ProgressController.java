@@ -1,4 +1,4 @@
-package JavaFx;
+package UserInterface;
 
 import Tasks.Assignment;
 import javafx.fxml.FXML;

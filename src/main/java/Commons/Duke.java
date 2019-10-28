@@ -1,11 +1,9 @@
-package Interface;
+package Commons;
 
 import Commands.Command;
 import Commands.RetrieveFreeTimesCommand;
 import Commands.RetrievePreviousCommand;
 import Tasks.TaskList;
-import javafx.application.Application;
-import javafx.stage.Stage;
 
 import Parser.MainParser;
 import java.util.ArrayList;

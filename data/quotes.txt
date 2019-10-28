@@ -1,4 +1,3 @@
-“What is deferred is not avoided.”
 “The way to get started is to quit talking and begin doing.”
 “Sometimes, things may not go your way, but the effort should be there every single night.”
 “Plans are nothing; planning is everything.”
@@ -65,3 +64,4 @@ Don't procrastinate. Life is way too short.”
 “Think of many things; do one.”
 “A day can really slip by when you’re deliberately avoiding what you’re supposed to do.”
 “If you want to get ahead in life, I’ve found that perhaps the most useless word in the world is tomorrow.”
+“What is deferred is not avoided.”

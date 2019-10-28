@@ -1,4 +1,4 @@
-package Interface;
+package Commons;
 import DukeExceptions.DukeIOException;
 import DukeExceptions.DukeInvalidDateTimeException;
 import Tasks.Assignment;

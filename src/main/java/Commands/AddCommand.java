@@ -1,9 +1,9 @@
 package Commands;
 
-import Interface.LookupTable;
-import Interface.Storage;
-import Interface.Ui;
-import JavaFx.AlertBox;
+import Commons.LookupTable;
+import Commons.Storage;
+import Commons.Ui;
+import UserInterface.AlertBox;
 import Tasks.Assignment;
 import Tasks.TaskList;
 import javafx.scene.control.Alert;

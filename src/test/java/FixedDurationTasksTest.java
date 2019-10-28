@@ -1,7 +1,7 @@
 import Commands.Command;
-import Interface.Parser;
-import Interface.Storage;
-import Interface.Ui;
+import Commons.Parser;
+import Commons.Storage;
+import Commons.Ui;
 import Tasks.TaskList;
 import org.junit.jupiter.api.Test;
 

@@ -1,7 +1,7 @@
-package Interface;
+package Commons;
 import DukeExceptions.DukeException;
 import DukeExceptions.DukeInvalidDateTimeException;
-import JavaFx.AlertBox;
+import UserInterface.AlertBox;
 import Tasks.Assignment;
 import Tasks.TaskList;
 import javafx.application.Platform;

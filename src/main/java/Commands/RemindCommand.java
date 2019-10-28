@@ -3,10 +3,10 @@ package Commands;
 import DukeExceptions.DukeException;
 import DukeExceptions.DukeInvalidDateTimeException;
 
-import Interface.LookupTable;
-import Interface.Reminder;
-import Interface.Storage;
-import Interface.Ui;
+import Commons.LookupTable;
+import Commons.Reminder;
+import Commons.Storage;
+import Commons.Ui;
 import Tasks.Assignment;
 import Tasks.TaskList;
 import java.text.DateFormat;

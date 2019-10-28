@@ -1,13 +1,12 @@
 package Commands;
 
-import JavaFx.ProgressController;
+import UserInterface.ProgressController;
 import Tasks.TaskList;
 import javafx.fxml.FXMLLoader;
 import javafx.util.Pair;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
 
 public class UpdateProgressIndicatorCommand {
     TaskList eventList;

@@ -1,20 +1,16 @@
-package JavaFx;
+package UserInterface;
 import Commands.ShowPreviousCommand;
 import Commands.WeekCommand;
 import Commands.UpdateProgressIndicatorCommand;
 import DukeExceptions.DukeIOException;
-import Interface.Duke;
-import Interface.Storage;
-import Interface.LookupTable;
-import Interface.Week;
+import Commons.Duke;
+import Commons.Storage;
+import Commons.LookupTable;
+import Commons.Week;
 import Tasks.Assignment;
 import Tasks.TaskList;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -40,8 +36,6 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -85,7 +79,7 @@ public class MainWindow extends BorderPane implements Initializable {
     @FXML
     private TableColumn<DeadlineView, String> overdueTaskColumn;
     @FXML
-    private TableView<dukeResponseView> dukeResponseTable;
+    private TableView<DukeResponseView> dukeResponseTable;
     @FXML
     TableColumn dukeResponseColumn;
 
@@ -208,7 +202,7 @@ public class MainWindow extends BorderPane implements Initializable {
         }
     }
 
-    private ObservableList<dukeResponseView> betterDukeResponse = FXCollections.observableArrayList();
+    private ObservableList<DukeResponseView> betterDukeResponse = FXCollections.observableArrayList();
 
     private ObservableList<DeadlineView> setDeadlineTable()  {
         String to;
@@ -326,7 +320,7 @@ public class MainWindow extends BorderPane implements Initializable {
             Text temp = new Text(response);
             temp.setWrappingWidth(dukeResponseColumn.getWidth() - 10);
             Integer index = betterDukeResponse.size() + 1;
-            betterDukeResponse.add(new dukeResponseView(index.toString(), temp));
+            betterDukeResponse.add(new DukeResponseView(index.toString(), temp));
             setDukeResponse();
         }
         setProgressContainer();

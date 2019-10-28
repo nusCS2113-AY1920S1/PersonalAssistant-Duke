@@ -1,9 +1,9 @@
 package Commands;
 
 import DukeExceptions.DukeException;
-import Interface.LookupTable;
-import Interface.Storage;
-import Interface.Ui;
+import Commons.LookupTable;
+import Commons.Storage;
+import Commons.Ui;
 import Tasks.Assignment;
 import Tasks.TaskList;
 

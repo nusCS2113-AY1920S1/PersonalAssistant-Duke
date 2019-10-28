@@ -1,11 +1,10 @@
-package Interface;
+package Commons;
 import Commands.*;
 import DukeExceptions.DukeException;
-import JavaFx.AlertBox;
+import UserInterface.AlertBox;
 import Tasks.*;
 import javafx.scene.control.Alert;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
