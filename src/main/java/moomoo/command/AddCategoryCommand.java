@@ -1,6 +1,12 @@
 package moomoo.command;
 
-import moomoo.task.*;
+import moomoo.task.MooMooException;
+import moomoo.task.Storage;
+import moomoo.task.Ui;
+import moomoo.task.Budget;
+import moomoo.task.Category;
+import moomoo.task.CategoryList;
+import moomoo.task.ScheduleList;
 
 public class AddCategoryCommand extends Command {
 
@@ -8,7 +14,7 @@ public class AddCategoryCommand extends Command {
 
     public AddCategoryCommand(String categoryName) {
         super(false, "");
-        this.categoryName =categoryName;
+        this.categoryName = categoryName;
     }
 
     @Override

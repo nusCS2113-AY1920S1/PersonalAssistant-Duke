@@ -9,6 +9,7 @@ public class CategoryList {
     public CategoryList() {
         categoryList = new ArrayList<>();
     }
+
     public CategoryList(ArrayList<Category> categoryList) {
         this.categoryList = categoryList;
     }
@@ -125,6 +126,7 @@ public class CategoryList {
         }
         return null;
     }
+
     /**
      * Populate the categoryList array with dummy variables. FOT TESTING PURPOSES
      */

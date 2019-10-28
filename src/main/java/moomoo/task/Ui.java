@@ -217,8 +217,5 @@ public class Ui {
      */
     public void showInputPrompt(String text) {
         print(text);
-//        print("What do you wish to " + text + "?"
-//                + "\ncategory"
-//                + "\nexpenditure");
     }
 }

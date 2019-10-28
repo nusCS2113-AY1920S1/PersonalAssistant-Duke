@@ -11,10 +11,7 @@ import moomoo.command.ListBudgetCommand;
 import moomoo.command.ListCategoryCommand;
 import moomoo.command.SavingsBudgetCommand;
 import moomoo.command.ScheduleCommand;
-<<<<<<< HEAD
-=======
 import moomoo.command.SetBudgetCommand;
->>>>>>> 784c79fefa864cfdad3cfb0ea278a62ac40e0c47
 import moomoo.command.TotalCommand;
 
 import java.time.LocalDate;
@@ -86,19 +83,11 @@ public class Parser {
     }
 
     private static Command parseAdd(Scanner scanner, Ui ui) throws MooMooException {
-<<<<<<< HEAD
         String text = "What do you wish to add?" + "\ncategory" + "\nexpenditure";
         String input = parseInput(scanner, ui, text);
         switch (input) {
         case ("category"): return parseAddCategory(scanner, ui);
         case ("expenditure"): return parseAddExpenditure(ui);
-=======
-        switch (scanner.next()) {
-        case ("category"):
-            return new AddCategoryCommand();
-        case ("expenditure"):
-            return parseAddExpenditure(ui);
->>>>>>> 784c79fefa864cfdad3cfb0ea278a62ac40e0c47
         default:
             throw new MooMooException("Sorry I did not recognize that command.");
         }

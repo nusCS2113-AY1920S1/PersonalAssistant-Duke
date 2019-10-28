@@ -32,6 +32,10 @@ public class Expenditure {
         this.dateTime = dateTime;
     }
 
+    /**
+     * Initializes value of expenditure as given by user.
+     * @param cost Cost of the expenditure
+     */
     public Expenditure(double cost) {
         this.cost += cost;
         long minDay = LocalDate.of(1970, 1, 1).toEpochDay();

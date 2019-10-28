@@ -1,6 +1,12 @@
 package moomoo.command;
 
-import moomoo.task.*;
+import moomoo.task.MooMooException;
+import moomoo.task.Storage;
+import moomoo.task.Ui;
+import moomoo.task.Budget;
+import moomoo.task.Category;
+import moomoo.task.CategoryList;
+import moomoo.task.ScheduleList;
 
 public class DeleteCategoryCommand extends Command {
 
