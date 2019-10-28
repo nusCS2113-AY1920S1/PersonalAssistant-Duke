@@ -4,7 +4,10 @@ package planner.util.crawler;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -57,11 +60,35 @@ public class JsonWrapper {
         return natty.dateToLocalDateTime(input);
     }
 
+
+    private HashMap<String, ModuleInfoDetailed> getMapFromList(List<ModuleInfoDetailed> modsList) {
+        HashMap<String, ModuleInfoDetailed> ret = new HashMap<>();
+        for (ModuleInfoDetailed temp : modsList) {
+            String modCode = temp.getModuleCode();
+            ret.put(modCode, temp);
+        }
+        return ret;
+    }
+
     /**
      * For each data set, request for nusMods API.
      */
     public void runRequests(Storage store) throws ModBadRequestStatus {
         storeJson(Requests.DETAILED, store);
+    }
+
+    /**
+     * Updating detailed module list file in data folder.
+     * @param academicYear Academic Year input by user.
+     * @param store Storage object to write files.
+     * @throws ModBadRequestStatus If the user's status return from API call is not 200 (success).
+     */
+    public void runRequests(String academicYear, Storage store) throws ModBadRequestStatus {
+        store.setDataPath(Paths.get(listDetailedFile));
+        if (store.getDataPathExists()) {
+            return;
+        }
+        requestsData.storeModData(requestsData.requestModuleListDetailed(academicYear), store);
     }
 
     private void storeJson(Requests type, Storage store) throws ModBadRequestStatus {
@@ -144,6 +171,24 @@ public class JsonWrapper {
     }
 
     /**
+     * Overloaded function to generate runtime file from resources instead of query file from NUSMODS.
+     * @param set Flag to run code.
+     * @return HashMap
+     * @throws ModFailedJsonException If the user's status return from API call is not 200 (success).
+     */
+    public HashMap<String, ModuleInfoDetailed> getModuleDetailedMap(boolean set) throws ModFailedJsonException {
+        if (set) {
+            InputStream in = this.getClass().getResourceAsStream("/data/modsDetailedListData.json");
+            Type listType = new TypeToken<List<ModuleInfoDetailed>>(){}.getType();
+            InputStreamReader inputStreamReader = new InputStreamReader(in, StandardCharsets.UTF_8);
+            List<ModuleInfoDetailed> modsList = gson.fromJson(inputStreamReader, listType);
+            return getMapFromList(modsList);
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Main helper function to obtained HashMap of detailed info from modsDetailedListData.json.
      * @return HashMap with module code as the key and ModuleInfoSummary object as the value.
      * @throws ModFailedJsonException If the previous call to getModuleListObject() returns null.
@@ -153,12 +198,7 @@ public class JsonWrapper {
         if (modsList.size() == 0) {
             throw new ModFailedJsonException();
         }
-        HashMap<String, ModuleInfoDetailed> ret = new HashMap<>();
-        for (ModuleInfoDetailed temp : modsList) {
-            String modCode = temp.getModuleCode();
-            ret.put(modCode, temp);
-        }
-        return ret;
+        return getMapFromList(modsList);
     }
 
 

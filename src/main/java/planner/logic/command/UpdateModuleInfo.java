@@ -1,3 +1,5 @@
+// @@author namiwa
+
 package planner.logic.command;
 
 import java.util.HashMap;
@@ -11,6 +13,10 @@ import planner.util.storage.Storage;
 
 public class UpdateModuleInfo extends ModuleCommand {
 
+    public UpdateModuleInfo(Arguments args) {
+        super(args);
+    }
+
     @Override
     public void execute(
             HashMap<String, ModuleInfoDetailed> detailedMap,
@@ -19,7 +25,9 @@ public class UpdateModuleInfo extends ModuleCommand {
             PlannerUi plannerUi,
             Storage store,
             JsonWrapper jsonWrapper) throws ModException {
-        jsonWrapper.runRequests(store);
+
+        String year = arg("academicYear");
+        jsonWrapper.runRequests(year, store);
         detailedMap.putAll(jsonWrapper.getModuleDetailedMap());
         tasks.setTasks(jsonWrapper.readJsonTaskList(store));
         plannerUi.showUpdatedMsg();
