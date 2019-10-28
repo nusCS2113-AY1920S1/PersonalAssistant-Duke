@@ -19,8 +19,7 @@ public class Level {
     private int endGold;
     private int deadline;
 
-    private int level = checkLevel(filePath,"Level");
-    private boolean detailedFeedbackProvided = false;
+    private boolean detailedFeedbackProvided = true;
 
     private objectiveResult levelState;
 
@@ -39,7 +38,6 @@ public class Level {
         deadline = Math.toIntExact((Long) object.get("deadline"));
         objective = (String) object.get("objective");
         hint = (String) object.get("hint");
-        level = filePath;
     }
 
     /**
@@ -114,6 +112,8 @@ public class Level {
     }
 
     private String checkIncompleteObjectives(Farmer farmer){
+        //todo -Level-dependant objective checker
+
         String output = "";
         int seeds = farmer.wheatFarm.getSeeds();
         int wheat = farmer.wheatFarm.getWheat();
@@ -144,19 +144,20 @@ public class Level {
         return output;
     }
 
+    //only applicable if level fails
     public String getDetailedFeedback( Farmio farmio){
-        //states what went wrong with the level
+        double levelNumber = farmio.getFarmer().getLevel();
+        String output = "";
+        if(levelNumber == 1.4){
+                output += " The objective of this level was to " + objective;
+                output += "\nUnfortunately you were unable to complete within the allocated time of " + deadline + " days";
+                //Iterate through task list
+                output += "\nYour actions ";
+                output += farmio.getFarmer().tasks.toString();
 
-        //find out what level theyre at
-
-
-
-
-        return "";
+        }
+        return output;
     }
-
-
-
 
     public String getFeedback(Farmio farmio){
         Farmer farmer = farmio.getFarmer();
@@ -175,9 +176,9 @@ public class Level {
         }
 
         else if (currentLevelState == objectiveResult.FAILED){
-            String feedback = "Oh no! The objectives were not met by the deadline! Level failed";
+            String feedback = "Oh no! The objectives were not met by the deadline! Level failed ! \n";
             if(detailedFeedbackProvided){
-               feedback += "detailed feedback";
+               feedback +=  getDetailedFeedback(farmio); // only applicable for failed levels
             }
             return feedback;
         }
@@ -211,19 +212,6 @@ public class Level {
      */
     public String getObjective() {
         return objective;
-    }
-
-
-    //returns the level in int
-    public int checkLevel(String filePath, String word){
-        String level = filePath;
-        if(filePath.contains(word)){
-            String tempWord = word + " ";
-            level = level.replaceAll(tempWord, "");
-            tempWord = " " + word;
-            level = level.replaceAll(tempWord, "");
-        }
-        return Integer.parseInt(level);
     }
 
 }
