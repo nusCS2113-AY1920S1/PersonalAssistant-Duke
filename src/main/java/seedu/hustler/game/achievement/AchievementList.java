@@ -19,7 +19,8 @@ public class AchievementList {
     private ArrayList<Achievements> achievementList;
 
     /**
-     *
+     * Creates a new instance of achievement list and populates
+     * achievement list with achievements.
      */
     public AchievementList() {
         achievementList = new ArrayList<>();
@@ -27,8 +28,9 @@ public class AchievementList {
     }
 
     /**
-     *
-     * @return
+     * Adds all available achievements to achievement list
+     * and initialise the achievements.
+     * @return achievement list.
      */
     private AchievementList populate() {
 
@@ -47,10 +49,10 @@ public class AchievementList {
     }
 
     /**
-     *
-     * @param lock
-     * @param index
-     * @param points
+     * Updates status of an achievement.
+     * @param lock to unlock achievement.
+     * @param index index of achievement inside achievement list.
+     * @param points set points gained from unlocking achievement.
      */
     public void updateStatus(Boolean lock, int index, int points) {
         achievementList.get(index).setLock(lock);
@@ -58,8 +60,9 @@ public class AchievementList {
     }
 
     /**
-     *
-     * @return
+     * Checks if the condition for busybee have been satisfied
+     * and updates status of achievement accordingly.
+     * @return updated version of achievement list.
      */
     public ArrayList<Achievements> updateBusyBee() {
         for(int i = 0; i < this.achievementList.size(); i += 1) {
@@ -73,8 +76,9 @@ public class AchievementList {
     }
 
     /**
-     *
-     * @return
+     * Checks if the condition for completionist have been satisfied
+     * and updates status of achievement accordingly.
+     * @return updated version of achievement list.
      */
     public ArrayList<Achievements> updateCompletionist() {
         for(int i = 0; i < achievementList.size(); i += 1) {
@@ -88,8 +92,9 @@ public class AchievementList {
     }
 
     /**
-     *
-     * @return
+     * Checks if the condition for consecutive login have been satisfied
+     * and updates status of achievement accordingly.
+     * @return updated version of achievement list.
      */
     public ArrayList<Achievements> updateDedicated() {
         for(int i = 0; i < achievementList.size(); i += 1) {
@@ -103,32 +108,32 @@ public class AchievementList {
     }
 
     /**
-     *
-     * @param achievements
+     * Adds achievements to achievement list.
+     * @param achievements achievement to be added to achievement list.
      */
     public void add(Achievements achievements) {
         achievementList.add(achievements);
     }
 
     /**
-     *
-     * @param i
-     * @return
+     * Gets a particular achievement from achievement list.
+     * @param i index of achievement.
+     * @return an achievement.
      */
     public Achievements get(int i) {
         return achievementList.get(i);
     }
 
     /**
-     *
-     * @return
+     * Gets the size of achievement list.
+     * @return size of achievement.
      */
     public int size() {
         return achievementList.size();
     }
 
     /**
-     *
+     * Display all achievements from achievement list.
      */
     public void list() {
         System.out.println("\uD83D\uDD13 ACHIEVEMENTS UNLOCKED \uD83D\uDD13");
@@ -156,8 +161,8 @@ public class AchievementList {
     }
 
     /**
-     *
-     * @return
+     * Creates a duplicate of achievement list.
+     * @return array of achievements.
      */
     public ArrayList<Achievements> createCopy() {
         ArrayList<Achievements> copy = new ArrayList<>();
