@@ -220,7 +220,7 @@ public class Ui {
     }
 
     public String showChosenPreviousChoice(String chosenInput) {
-        String message = "Your chosen previous input is \n" + chosenInput + " .";
+        String message = "Your chosen previous input is: \n" + chosenInput;
         return message;
     }
 
