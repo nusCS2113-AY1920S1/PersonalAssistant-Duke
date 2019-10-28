@@ -46,6 +46,5 @@ public class ImpressionMoveCommand extends ImpressionCommand {
         } else {
             throw new DukeHelpException("I don't know what you want me to look for!", this);
         }
-
     }
 }

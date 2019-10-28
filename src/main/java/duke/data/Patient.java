@@ -137,6 +137,23 @@ public class Patient extends DukeObject {
     }
 
     /**
+     * This function finds Impressions whose names contain the searchTerm.
+     *
+     * @param searchTerm the search term
+     * @return the list of impressions
+     */
+    public ArrayList<Impression> findImpressionsByName(String searchTerm) {
+        ArrayList<Impression> searchResult = new ArrayList<>();
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Map.Entry<String, Impression> entry : this.observableImpressions.entrySet()) {
+            if (entry.getKey().toLowerCase().contains(lowerSearchTerm)) {
+                searchResult.add(entry.getValue());
+            }
+        }
+        return searchResult;
+    }
+
+    /**
      * This function find returns a list of all DukeObjs
      * with names related to the patient containing the search term.
      *

@@ -377,7 +377,6 @@ public class Impression extends DukeObject {
         }
     }
 
-
     /**
      * Calls getCriticalCount() to compute the number of critical itmes (items with priority 1) and returns a string
      * indicating this value.
