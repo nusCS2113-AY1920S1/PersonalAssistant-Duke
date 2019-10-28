@@ -49,6 +49,7 @@ public class Profile {
     private static final String DEPOSITCATEGORY = "Deposit";
     private static final String FILE_PATH = "data/";
     private static final String PROFILE_BANK_LIST_FILE_NAME = "profile_banklist.csv";
+    private static final String PROFILE_GOAL_LIST_FILE_NAME = "profile_goallist.csv";
     private static final String INVESTMENT_BOND_LIST_FILE_NAME = "_investment_bondList.csv";
     private static final String INVESTMENT_TRANSACTION_LIST_FILE_NAME = "_investment_transactionList.csv";
     private static final String SAVING_TRANSACTION_LIST_FILE_NAME = "_saving_transactionList.csv";
@@ -73,8 +74,9 @@ public class Profile {
         try {
             loadBanksFromImportedData();
             iterateBanksToAddTransaction();
+            loadGoalsFromImportedData();
         } catch (Exception e) {
-            ui.printError("Error importing banks, data related to some bank accounts are not available");
+            ui.printError("Error importing saved data, some data might not be available");
         }
     }
 
@@ -930,6 +932,36 @@ public class Profile {
      */
     public boolean profileIsBondListFull(String bankName) throws BankException {
         return bankList.bankListIsBondListFull(bankName);
+    }
+
+    /**
+     * Add goals from imported data.
+     *
+     * @throws Exception if there are errors importing data.
+     */
+    private void loadGoalsFromImportedData() throws Exception {
+        List<String[]> importData = importListDataFromStorage(PROFILE_GOAL_LIST_FILE_NAME,ui);
+        for (String[] importDataRow : importData) {
+            String goalName = importDataRow[0];
+            String amount = importDataRow[1];
+            String date = importDataRow[2];
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date dateInFormat = dateFormat.parse(date);
+            String savingsAccountName = importDataRow[3];
+            double doubleAmount = Double.parseDouble(amount);
+            Goals newGoal = new Goals(goalName,doubleAmount,dateInFormat,
+                    bankList.bankListGetSavingAccount(savingsAccountName));
+            profileImportNewGoals(newGoal);
+        }
+    }
+
+    /**
+     * Imports one instance of goals.
+     *
+     * @param newGoal an instance of goals object.
+     */
+    private void profileImportNewGoals(Goals newGoal) {
+        goalsList.bankListImportNewGoal(newGoal);
     }
 
     /**
