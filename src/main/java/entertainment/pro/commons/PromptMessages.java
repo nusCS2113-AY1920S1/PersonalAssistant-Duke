@@ -1,7 +1,6 @@
 package entertainment.pro.commons;
 
 /**
- *
  * Contains and defines messages printed by the app.
  *
  */
@@ -26,8 +25,8 @@ public class PromptMessages {
 
     public static final String AUTOCOMPLETION_PROMPT = "Did you mean this?";
 
-    public static final String UNKNOWN_COMMAND = "☹ I'm sorry, but I don't know what that means. " +
-            "Refer to help for command formats :-(";
+    public static final String UNKNOWN_COMMAND = "☹ I'm sorry, but I don't know what that means. "
+            + "Refer to help for command formats :-(";
     public static final String INVALID_FORMAT = "⚡ Invalid format. Refer to help for command formats. :-(";
     public static final String OUT_OF_BOUNDS = "⚠ Index requested is out of bounds! :-(";
 
@@ -39,9 +38,7 @@ public class PromptMessages {
     public static final String API_FAIL_GENERAL = "☹ I'sorry, but something went wrong when fetching data";
     public static final String API_FAIL_EMPTY = "☹ I'sorry, but I could not find anything related to your request";
     public static final String API_TIME_OUT = "☹ I'sorry, but your request took so long";
-    public static final String API_OFFLINE = "☹ I'sorry, no internet connection detected. " +
-            "So, the app will operate in offline mode";
+    public static final String API_OFFLINE = "☹ I'sorry, no internet connection detected. "
+            + "So, the app will operate in offline mode";
     public static final String API_INVALID_REQUEST = "☹ I'sorry, but your request is either unclear or invalid";
-
-
 }

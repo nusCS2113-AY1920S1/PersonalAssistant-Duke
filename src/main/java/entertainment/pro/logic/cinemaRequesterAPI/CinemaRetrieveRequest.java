@@ -1,6 +1,5 @@
 package entertainment.pro.logic.cinemaRequesterAPI;
 
-
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.movieRequesterAPI.RequestListener;
 import entertainment.pro.logic.movieRequesterAPI.URLRetriever;
@@ -11,7 +10,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -19,23 +17,23 @@ import java.util.ArrayList;
  * Class that handles fetching results from The Google API service and then parsing them into CinemaInfoObjects.
  */
 public class CinemaRetrieveRequest implements CinemaInfoFetcher {
-    private RequestListener mListener;
+    private RequestListener variableListener;
     private ArrayList<CinemaInfoObject> parsedCinemas;
     private static final String MAIN_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=cinemas+near+";
     private static final String API_KEY = "AIzaSyBocJpxC7ChqlrS_mq6L-GpgudmXCzcXig";
 
     /**
-     * constructor for cinema retrieve request class
-     * @param mListener: calls the thread to execute the API
+     * constructor for cinema retrieve request class.
+     * @param variableListener calls the thread to execute the API
      */
-    public CinemaRetrieveRequest(RequestListener mListener) {
-        this.mListener = mListener;
-        parsedCinemas= new ArrayList<>();
+    public CinemaRetrieveRequest(RequestListener variableListener) {
+        this.variableListener = variableListener;
+        parsedCinemas = new ArrayList<>();
     }
 
     /**
-     * finds the nearest cinemas upon entering a desired location
-     * @param location: area to search
+     * finds the nearest cinemas upon entering a desired location.
+     * @param location area to search
      * @return an array_list of cinemas with their info contained inside the CinemaInfoObject Class
      */
     public ArrayList<CinemaInfoObject> searchNearestCinemas(String location) throws Exceptions {
@@ -51,13 +49,13 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
     }
 
     /**
-     * parses the results from json into a CinemaInfoObject
-     * @param json: result from the api request
+     * parses the results from json into a CinemaInfoObject.
+     * @param json result from the api request
      */
     @Override
     public void fetchedCinemasJSON(String json) {
         if (json == null) {
-            mListener.requestFailed();
+            variableListener.requestFailed();
             return;
         }
         JSONParser parser = new JSONParser();
@@ -76,8 +74,8 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
     }
 
     /**
-     * extracts out the data of each cinema from JSONObject to a MovieInfoObject
-     * @param cinemaData: JSONObject to be parsed
+     * extracts out the data of each cinema from JSONObject to a MovieInfoObject.
+     * @param cinemaData JSONObject to be parsed
      * @return CinemaInfoObject of the desired cinema
      */
     public CinemaInfoObject parseCinemaJSON(JSONObject cinemaData) {
@@ -86,8 +84,8 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
         try {
             rating = (double)(cinemaData.get("rating"));
         } catch (ClassCastException e) {
-            long d_rating = (long)(cinemaData.get("rating"));
-            rating = (double)(d_rating);
+            long doubleRating = (long)(cinemaData.get("rating"));
+            rating = (double)(doubleRating);
         }
         String address = (String)(cinemaData.get("formatted_address"));
         CinemaInfoObject cinema = new CinemaInfoObject(name, rating, address);
@@ -100,6 +98,6 @@ public class CinemaRetrieveRequest implements CinemaInfoFetcher {
      */
     @Override
     public void connectionTimedOut() {
-        mListener.requestTimedOut();
+        variableListener.requestTimedOut();
     }
 }

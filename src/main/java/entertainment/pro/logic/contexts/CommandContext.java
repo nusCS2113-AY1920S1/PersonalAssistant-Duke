@@ -46,7 +46,7 @@ public class CommandContext {
 
     /**
      * Given the incomplete keyword, returns all possible root commands.
-     * @param key: Incomplete root command from user input
+     * @param key Incomplete root command from user input
      * @return An arraylist of possible root commands that the user might be trying to type
      */
     public static ArrayList<String> getPossibilitiesForRoot(String key) {
@@ -63,7 +63,7 @@ public class CommandContext {
 
     /**
      * Given the a certain Root command, the possible subRoot commands are returned.
-     * @param root: index of the movie to mark as done
+     * @param root index of the movie to mark as done
      */
     public static ArrayList<String> getPossibilitiesSubRootGivenRoot(String root) {
         ArrayList<String> hints = new ArrayList<>();
@@ -84,7 +84,7 @@ public class CommandContext {
 
     /**
      * Given the incomplete keyword, returns all possible subroot commands.
-     * @param key: Incomplete subroot command from user input
+     * @param key Incomplete subroot command from user input
      * @return An arraylist of possible root commands that the user might be trying to type
      */
     public static ArrayList<String> getPossibilitiesSubRoot(String key) {
@@ -102,11 +102,11 @@ public class CommandContext {
 
     /**
      * Given the incomplete keyword, returns all possible subroot commands.
-     * @param key: Incomplete subroot command from user input
-     * @param root: The root command
+     * @param key Incomplete subroot command from user input
+     * @param root The root command
      * @return An arraylist of possible root commands that the user might be trying to type
      */
-    public static ArrayList<String> getPossibilitiesSubRoot(String root , String key) {
+    public static ArrayList<String> getPossibilitiesSubRoot(String root, String key) {
         ArrayList<String> hints = new ArrayList<>();
 
         for (COMMANDKEYS a : CommandStructure.cmdStructure.get(COMMANDKEYS.valueOf(root.toLowerCase()))) {

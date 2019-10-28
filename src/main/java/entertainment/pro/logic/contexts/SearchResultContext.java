@@ -10,14 +10,16 @@ import java.util.HashMap;
  * Auto complete makes use of helper functions from this class to perform autocompletion for commands
  */
 public class SearchResultContext {
-
-
+    
     static ArrayList<String> keywords = new ArrayList<>();
 
     static ArrayList<MovieInfoObject> mMovies = new ArrayList<>();
 
     static ArrayList<MovieInfoObject> mCurrentMovies = new ArrayList<>();
 
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
     public static void initialiseContext(String[] listOfKeys) {
         for (String a:listOfKeys) {
             keywords.add(a);
@@ -26,7 +28,7 @@ public class SearchResultContext {
 
     /**
      * Given the a certain Root command, the possible subRoot commands are returned.
-     * @param key: index of the movie to mark as done
+     * @param key index of the movie to mark as done
      * @return Arraylist of possible string values
      */
     public static ArrayList<String> getPossibilities(String key) {
@@ -42,7 +44,7 @@ public class SearchResultContext {
 
     /**
      * Gets the search result at a certain index.
-     * @param i: index of the movie to return
+     * @param i index of the movie to return
      * @return  Return MovieInfoObject
      */
     public static MovieInfoObject getIndex(int i) {
@@ -52,7 +54,7 @@ public class SearchResultContext {
 
     /**
      * Add results from the search query into search result context.
-     * @param moviesInfo: Arraylist of Search results
+     * @param moviesInfo Arraylist of Search results
      */
     public static void addResults(ArrayList<MovieInfoObject> moviesInfo) {
         mCurrentMovies.clear();
@@ -66,9 +68,9 @@ public class SearchResultContext {
             }
             return;
         }
-        HashMap<Long , Integer> movieDup = new HashMap<Long, Integer>();
+        HashMap<Long, Integer> movieDup = new HashMap<Long, Integer>();
         for (MovieInfoObject a: mMovies) {
-            movieDup.put(a.getID() , new Integer(1));
+            movieDup.put(a.getID(), new Integer(1));
         }
         for (MovieInfoObject e: moviesInfo) {
             if (movieDup.get(e.getID()) == null) {

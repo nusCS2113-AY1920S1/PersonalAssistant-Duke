@@ -20,8 +20,6 @@ public class URLRetriever {
      * Responsible for reading and returning the contents of the given URL as a string.
      * @param url The URL to read data from.
      * @return the contents of the URL as a string.
-     * @throws SocketTimeoutException Throws if timeout has occurred on a socket read or accept.
-     * @throws IOException Throws if any error has occured when reading contents.
      */
     public static String readURLAsString(URL url) throws Exceptions {
         try {

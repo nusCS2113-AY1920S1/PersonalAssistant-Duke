@@ -7,16 +7,11 @@ import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 
-import java.io.IOException;
-
-
 //TODO REMOVE THIS CLASS
 
 public class RemoveCommand extends CommandSuper {
     /**
      * Constructor for each Command Super class.
-     *
-     * @param uicontroller
      */
     public RemoveCommand(Controller uicontroller) {
         super(COMMANDKEYS.remove, CommandStructure.cmdStructure.get(COMMANDKEYS.remove), uicontroller);
@@ -24,30 +19,32 @@ public class RemoveCommand extends CommandSuper {
 
     /**
      * executes the entertainment.pro.logic.parsers.commands based on the subroot command that is passed to it
-     * @throws IOException
      */
     @Override
-    public void executeCommands() throws IOException {
-        switch(this.getSubRootCommand()) {
-            case watchlist:
-                String mov = getPayload();
-                System.out.println(mov);
-                if (WatchlistHandler.removeFromWatchlist(mov, (MovieHandler)(this.getUIController()))) {
-                        ((MovieHandler) getUIController()).setFeedbackText("Successfully removed the movie from WatchList: " + mov);
-                } else {
-                        ((MovieHandler) getUIController()).setFeedbackText("Such a movie does not exist in your WatchList. Check your spelling?");
-                }
-                break;
-            case blacklist:
-
-                break;
-            default:
-                break;
+    public void executeCommands() {
+        switch (this.getSubRootCommand()) {
+        case watchlist:
+            String mov = getPayload();
+            System.out.println(mov);
+            if (WatchlistHandler.removeFromWatchlist(mov, (MovieHandler)(this.getUiController()))) {
+                ((MovieHandler) getUiController())
+                        .setFeedbackText("Successfully removed the movie from WatchList: " + mov);
+            } else {
+                ((MovieHandler) getUiController())
+                        .setFeedbackText("Such a movie does not exist in your WatchList. Check your spelling?");
+            }
+            break;
+        case blacklist:
+            break;
+        default:
+            break;
         }
     }
 
 
-
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
     public static boolean isInteger(String s, int radix) {
         if (s.isEmpty()) {
             return false;
@@ -60,7 +57,7 @@ public class RemoveCommand extends CommandSuper {
                     continue;
                 }
             }
-            if (Character.digit(s.charAt(i) , radix) < 0) {
+            if (Character.digit(s.charAt(i), radix) < 0) {
                 return false;
             }
         }

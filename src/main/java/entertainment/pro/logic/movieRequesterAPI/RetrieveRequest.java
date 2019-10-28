@@ -1,9 +1,6 @@
 package entertainment.pro.logic.movieRequesterAPI;
 
 import entertainment.pro.commons.exceptions.Exceptions;
-import entertainment.pro.logic.movieRequesterAPI.InfoFetcher;
-import entertainment.pro.logic.movieRequesterAPI.RequestListener;
-import entertainment.pro.logic.parsers.TimeParser;
 import entertainment.pro.model.SearchProfile;
 import org.apache.commons.lang3.ObjectUtils;
 import org.json.simple.JSONArray;
@@ -11,13 +8,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import entertainment.pro.model.MovieInfoObject;
 
-import javax.swing.*;
 import java.io.*;
 import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -28,8 +22,8 @@ import java.util.logging.Logger;
  * Class responsible for fetching results from The MovieDB API and parsing them into objects.
  */
 public class RetrieveRequest implements InfoFetcher {
-    private RequestListener mListener;
-    private ArrayList<MovieInfoObject> p_Movies;
+    private RequestListener movieListener;
+    private ArrayList<MovieInfoObject> parsedMovies;
 
 
     SearchProfile searchProfile;
@@ -79,19 +73,21 @@ public class RetrieveRequest implements InfoFetcher {
     private static final String kMOVIE_CAST = "cast_id";
     private static final String kADULT = "adult";
 
-    public static String getCastStrings(MovieInfoObject mMovie) throws Exceptions {
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
+    public static String getCastStrings(MovieInfoObject movie) throws Exceptions {
 
         try {
             isCast = true;
             String jsonResult = "";
-            boolean isMovie = mMovie.isMovie();
+            boolean isMovie = movie.isMovie();
             if (isMovie) {
-                jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "movie/" + mMovie.getID() + "/credits?api_key=" +
-                    RetrieveRequest.API_KEY));
+                jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "movie/" + movie.getID()
+                        + "/credits?api_key=" + RetrieveRequest.API_KEY));
             } else {
-                jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "tv/" + mMovie.getID() + "/credits?api_key=" +
-                    RetrieveRequest.API_KEY));
-
+                jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "tv/" + movie.getID()
+                        + "/credits?api_key=" + RetrieveRequest.API_KEY));
             }
             JSONParser parser = new JSONParser();
             JSONObject jsonData = (JSONObject) parser.parse(jsonResult);
@@ -121,18 +117,21 @@ public class RetrieveRequest implements InfoFetcher {
         return null;
     }
 
-    public static String getCertStrings(MovieInfoObject mMovie) throws Exceptions {
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
+    public static String getCertStrings(MovieInfoObject movie) throws Exceptions {
         try {
             String jsonResult = "";
-            boolean isMovie = mMovie.isMovie();
+            boolean isMovie = movie.isMovie();
             if (isMovie) {
-                jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "movie/" + mMovie.getID() + "/release_dates?api_key=" +
-                    RetrieveRequest.API_KEY));
+                jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "movie/" + movie.getID()
+                        + "/release_dates?api_key=" + RetrieveRequest.API_KEY));
             } else {
-                jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "tv/" + mMovie.getID() + "/content_ratings?api_key=" +
-                    RetrieveRequest.API_KEY + "&language=en-US"));
+                jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "tv/" + movie.getID()
+                        + "/content_ratings?api_key=" + RetrieveRequest.API_KEY + "&language=en-US"));
             }
-           // System.out.println(MAIN_URL + "movie/" + mMovie.getID() + "/release_dates?api_key=" +
+           // System.out.println(MAIN_URL + "movie/" + movie.getID() + "/release_dates?api_key=" +
              //   RetrieveRequest.API_KEY);
             JSONParser parser = new JSONParser();
             JSONObject jsonData = (JSONObject) parser.parse(jsonResult);
@@ -166,8 +165,8 @@ public class RetrieveRequest implements InfoFetcher {
                     JSONObject castPair = (JSONObject) casts.get(i);
                     if (castPair.get("iso_3166_1").equals("GB")) {
                         certStrings = castPair.get("rating").toString();
-                        ret = "Suitable for " +
-                            certStrings + " years & above";
+                        ret = "Suitable for "
+                                + certStrings + " years & above";
                     }
                 }
             }
@@ -197,12 +196,18 @@ public class RetrieveRequest implements InfoFetcher {
         NEW_TV
     }
 
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
     public RetrieveRequest(RequestListener listener) throws Exceptions {
-        mListener = listener;
+        movieListener = listener;
         // Check if config is needed
         checkIfConfigNeeded();
     }
 
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
     public void beginMovieRequest(RetrieveRequest.MoviesRequestType type) throws Exceptions {
         boolean isAdult;
         try {
@@ -210,67 +215,68 @@ public class RetrieveRequest implements InfoFetcher {
         } catch (NullPointerException e) {
             isAdult = false;
         }
-        String requestURL = RetrieveRequest.MAIN_URL;
+        String requestUrl = RetrieveRequest.MAIN_URL;
         switch (type) {
-            case CURRENT_MOVIES:
-                requestURL += RetrieveRequest.CURRENT_MOVIE_URL + RetrieveRequest.API_KEY +
-                    "&region=SG";
-                break;
-            case POPULAR_MOVIES:
-                requestURL += RetrieveRequest.POPULAR_MOVIE_URL + RetrieveRequest.API_KEY +
-                    "&region=SG";
-                break;
-            case UPCOMING_MOVIES:
-                requestURL += RetrieveRequest.UPCOMING_MOVIE_URL + RetrieveRequest.API_KEY +
-                    "&region=SG";
-                break;
-            case TRENDING_MOVIES:
-                requestURL += RetrieveRequest.TRENDING_MOVIE_URL + RetrieveRequest.API_KEY +
-                    "&region=SG";
-                    break;
-            case CURRENT_TV:
-                requestURL += RetrieveRequest.CURRENT_TV_URL + RetrieveRequest.API_KEY;
-                break;
-            case POPULAR_TV:
-                requestURL += RetrieveRequest.POPULAR_TV_URL + RetrieveRequest.API_KEY;
-                break;
-            case TRENDING_TV:
-                requestURL += RetrieveRequest.TRENDING_TV_URL + RetrieveRequest.API_KEY;
-                break;
-            case NEW_TV:
-                requestURL += RetrieveRequest.NEW_TV_URL + RetrieveRequest.API_KEY;
-                break;
-            case SEARCH_MOVIES:
-                try {
-                    requestURL += RetrieveRequest.MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(searchProfile.getName(), "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                break;
-
-            default:
-                requestURL = null;
+        case CURRENT_MOVIES:
+            requestUrl += RetrieveRequest.CURRENT_MOVIE_URL + RetrieveRequest.API_KEY + "&region=SG";
+            break;
+        case POPULAR_MOVIES:
+            requestUrl += RetrieveRequest.POPULAR_MOVIE_URL + RetrieveRequest.API_KEY + "&region=SG";
+            break;
+        case UPCOMING_MOVIES:
+            requestUrl += RetrieveRequest.UPCOMING_MOVIE_URL + RetrieveRequest.API_KEY + "&region=SG";
+            break;
+        case TRENDING_MOVIES:
+            requestUrl += RetrieveRequest.TRENDING_MOVIE_URL + RetrieveRequest.API_KEY + "&region=SG";
+            break;
+        case CURRENT_TV:
+            requestUrl += RetrieveRequest.CURRENT_TV_URL + RetrieveRequest.API_KEY;
+            break;
+        case POPULAR_TV:
+            requestUrl += RetrieveRequest.POPULAR_TV_URL + RetrieveRequest.API_KEY;
+            break;
+        case TRENDING_TV:
+            requestUrl += RetrieveRequest.TRENDING_TV_URL + RetrieveRequest.API_KEY;
+            break;
+        case NEW_TV:
+            requestUrl += RetrieveRequest.NEW_TV_URL + RetrieveRequest.API_KEY;
+            break;
+        case SEARCH_MOVIES:
+            try {
+                requestUrl += RetrieveRequest.MOVIE_SEARCH_URL + API_KEY + "&query="
+                        + URLEncoder.encode(searchProfile.getName(), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            break;
+        default:
+            requestUrl = null;
         }
-        requestURL += ADD_ADULT_OPTION + isAdult;
-        System.out.println(requestURL);
-        fetchJSONData(requestURL);
+        requestUrl += ADD_ADULT_OPTION + isAdult;
+        System.out.println(requestUrl);
+        fetchJSONData(requestUrl);
     }
 
-
-    public String beginAddRequest(String movieTitle) throws Exceptions{
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
+    public String beginAddRequest(String movieTitle) throws Exceptions {
         try {
             String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
             URLRetriever retrieve = new URLRetriever();
             String json = retrieve.readURLAsString(new URL(url));
             fetchedMoviesJSON(json);
-            return p_Movies.get(0).getTitle();
+            return parsedMovies.get(0).getTitle();
         } catch (UnsupportedEncodingException | MalformedURLException ex) {
             ex.printStackTrace();
         }
         return "";
     }
 
-    public ArrayList<MovieInfoObject> beginSearchGenre (String genre, boolean adult) throws Exceptions {
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
+    public ArrayList<MovieInfoObject> beginSearchGenre(String genre, boolean adult) throws Exceptions {
         try {
             String url = MAIN_URL + "discover/movie?with_genres=" + URLEncoder.encode(genre, "UTF-8") + "&api_key="
                     + API_KEY + "&language=en-US&page=1" + "&include_adult=";
@@ -284,7 +290,7 @@ public class RetrieveRequest implements InfoFetcher {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        return p_Movies;
+        return parsedMovies;
     }
 
 
@@ -294,7 +300,7 @@ public class RetrieveRequest implements InfoFetcher {
         // If null string returned then there was a lack of internet connection
         //System.out.println("so far ok0");
         if (json == null) {
-            mListener.requestFailed();
+            movieListener.requestFailed();
             //System.out.println("so far not ok");
             return;
         }
@@ -304,14 +310,12 @@ public class RetrieveRequest implements InfoFetcher {
             movieData = (JSONObject) parser.parse(json);
             JSONArray movies = new JSONArray();
 
-                movies = (JSONArray) movieData.get("results");
-                if (movies == null)
-                    System.out.println("mannns");
+            movies = (JSONArray) movieData.get("results");
+            if (movies == null) {
+                System.out.println("mannns");
+            }
 
-
-
-        ArrayList<MovieInfoObject> parsedMovies = new ArrayList(20);
-
+            ArrayList<MovieInfoObject> parsedMovies = new ArrayList(20);
 
             for (int i = 0; i < movies.size(); i++) {
                 if (checkCondition((JSONObject) movies.get(i))) {
@@ -343,8 +347,8 @@ public class RetrieveRequest implements InfoFetcher {
             }
 
 
-            mListener.requestCompleted(parsedMovies);
-            p_Movies = parsedMovies;
+            movieListener.requestCompleted(parsedMovies);
+            this.parsedMovies = parsedMovies;
             //} else {
 
             //}
@@ -362,13 +366,13 @@ public class RetrieveRequest implements InfoFetcher {
      */
     @Override
     public void connectionTimedOut() {
-        mListener.requestTimedOut();
+        movieListener.requestTimedOut();
     }
 
-    private void fetchJSONData(String URLString) throws Exceptions {
+    private void fetchJSONData(String urlString) throws Exceptions {
         Thread fetchThread = null;
         try {
-            fetchThread = new Thread(new MovieInfoFetcher(new URL(URLString), this));
+            fetchThread = new Thread(new MovieInfoFetcher(new URL(urlString), this));
             fetchThread.start();
             //System.out.println("bef MovieInfoFetcher");
         } catch (MalformedURLException ex) {
@@ -381,17 +385,17 @@ public class RetrieveRequest implements InfoFetcher {
      * Parses the given JSON string for a movie into a MovieInfo object.
      */
     private MovieInfoObject parseMovieJSON(JSONObject movieData) {
-        //long ID = (long) movieData.get(kMOVIE_ID);
+        //long id = (long) movieData.get(kMOVIE_ID);
         //boolean adult = (boolean) movieData.get(kADULT);
         String title = "";
-       boolean isMovie = false;
-       if (searchProfile.isMovie()) {
-                title = (String) movieData.get(kMOVIE_TITLE);
-                isMovie = true;
-            } else {
-                title = (String) movieData.get(kTV_TITLE);
-            }
-        long ID = (long) movieData.get(kMOVIE_ID);
+        boolean isMovie = false;
+        if (searchProfile.isMovie()) {
+            title = (String) movieData.get(kMOVIE_TITLE);
+            isMovie = true;
+        } else {
+            title = (String) movieData.get(kTV_TITLE);
+        }
+        long id = (long) movieData.get(kMOVIE_ID);
         double rating = 0.0;
         try {
             rating = (double) movieData.get(kMOVIE_RATING);
@@ -432,12 +436,13 @@ public class RetrieveRequest implements InfoFetcher {
         String posterPath = (String) movieData.get(kMOVIE_POSTER_PATH);
         String backdropPath = (String) movieData.get(kMOVIE_BACKDROP_PATH);
 
-        MovieInfoObject movieInfo = new MovieInfoObject(isMovie, ID, title, releaseDate, summary, rating,
+        MovieInfoObject movieInfo = new MovieInfoObject(isMovie, id, title, releaseDate, summary, rating,
                 genreIDs,posterPath, backdropPath, searchProfile.isAdult());
 
         // If the base url was fetched and loaded, set the root path and poster size
         if (mImageBaseURL != null) {
-            movieInfo.setPosterRootPath(mImageBaseURL, mPosterSizes[mPosterSizes.length - 3], mBackdropSizes[mBackdropSizes.length - 1]);
+            movieInfo.setPosterRootPath(mImageBaseURL, mPosterSizes[mPosterSizes.length - 3],
+                    mBackdropSizes[mBackdropSizes.length - 1]);
         }
 
         return movieInfo;
@@ -462,7 +467,7 @@ public class RetrieveRequest implements InfoFetcher {
     private static String mImageSecureBaseURL;
     private static String[] mPosterSizes;
     private static String[] mBackdropSizes;
-    private boolean mConfigWasRead;
+    private boolean movieConfigWasRead;
 
     // Checks if API config data needs to be recached
     private void checkIfConfigNeeded() throws Exceptions {
@@ -483,7 +488,7 @@ public class RetrieveRequest implements InfoFetcher {
             }
         }
 
-        if (configNeeded || !mConfigWasRead) {
+        if (configNeeded || !movieConfigWasRead) {
             //System.out.println("Config recache needed");
             reCacheConfigData();
         } else {
@@ -503,16 +508,16 @@ public class RetrieveRequest implements InfoFetcher {
             mPosterSizes = (String[]) file.readObject();
             mBackdropSizes = (String[]) file.readObject();
 
-            mConfigWasRead = true;
+            movieConfigWasRead = true;
             file.close();
         } catch (FileNotFoundException ex) {
             // No file found, config will be recached
-            mConfigWasRead = false;
+            movieConfigWasRead = false;
         } catch (IOException ex) {
             // Error reading - config will be recached
-            mConfigWasRead = false;
+            movieConfigWasRead = false;
         } catch (ClassNotFoundException ex) {
-            mConfigWasRead = false;
+            movieConfigWasRead = false;
         }
     }
 
@@ -554,8 +559,10 @@ public class RetrieveRequest implements InfoFetcher {
                     // Get the string arrays for the poster and backdrop size strings
                     JSONArray posterSizesData = (JSONArray) imageConfigData.get(kCONFIG_POSTER_SIZES);
                     JSONArray backdropSizesData = (JSONArray) imageConfigData.get(kCONFIG_BACKDROP_SIZES);
-                    mPosterSizes = Arrays.copyOf(posterSizesData.toArray(), posterSizesData.toArray().length, String[].class);
-                    mBackdropSizes = Arrays.copyOf(backdropSizesData.toArray(), backdropSizesData.toArray().length, String[].class);
+                    mPosterSizes = Arrays.copyOf(posterSizesData.toArray(),
+                            posterSizesData.toArray().length, String[].class);
+                    mBackdropSizes = Arrays.copyOf(backdropSizesData.toArray(),
+                            backdropSizesData.toArray().length, String[].class);
 
                     writeConfigData();
                 } catch (org.json.simple.parser.ParseException ex) {
@@ -588,8 +595,8 @@ public class RetrieveRequest implements InfoFetcher {
             JSONObject jsonData = (JSONObject) parser.parse(jsonResult);
             JSONArray genres = (JSONArray) jsonData.get("genres");
 
-            Set<Integer>genrePref = new HashSet<>();
-            Set<Integer>genreRestric = new HashSet<>();
+            Set<Integer> genrePref = new HashSet<>();
+            Set<Integer> genreRestric = new HashSet<>();
             String[] genreStrings = new String[movie.getGenreIDs().length];
             for (int i = 0; i < movie.getGenreIDs().length; i++) {
                 genreStrings[i] = getGenreStringForID(movie.getGenreIDs()[i], genres);
@@ -623,51 +630,48 @@ public class RetrieveRequest implements InfoFetcher {
 
 
     private boolean checkCondition(JSONObject entryInfo) {
-
-            Set<Long> genrePref = new HashSet<>();
-            Set<Long> genreRestric = new HashSet<>();
-            boolean haveGenrePref = true;
-            boolean haveGenreRestrict = true;
-            try {
-                for (int i = 0; i < searchProfile.getGenreIdPreference().size(); i += 1) {
-                    genrePref.add(Long.valueOf(searchProfile.getGenreIdPreference().get(i)));
-                }
-            } catch (NullPointerException e) {
-                haveGenrePref = false;
+        Set<Long> genrePref = new HashSet<>();
+        Set<Long> genreRestric = new HashSet<>();
+        boolean haveGenrePref = true;
+        boolean haveGenreRestrict = true;
+        try {
+            for (int i = 0; i < searchProfile.getGenreIdPreference().size(); i += 1) {
+                genrePref.add(Long.valueOf(searchProfile.getGenreIdPreference().get(i)));
             }
-            if (genrePref.size() == 0) {
-                haveGenrePref = false;
+        } catch (NullPointerException e) {
+            haveGenrePref = false;
+        }
+        if (genrePref.size() == 0) {
+            haveGenrePref = false;
+        }
+        try {
+            for (int i = 0; i < searchProfile.getGenreIdRestriction().size(); i += 1) {
+                genreRestric.add(Long.valueOf(searchProfile.getGenreIdRestriction().get(i)));
             }
-            try {
-                for (int i = 0; i < searchProfile.getGenreIdRestriction().size(); i += 1) {
-                    genreRestric.add(Long.valueOf(searchProfile.getGenreIdRestriction().get(i)));
-                }
-            } catch (NullPointerException e) {
-                haveGenreRestrict = false;
-            }
-            JSONArray jsonArray = (JSONArray) entryInfo.get("genre_ids");
-            boolean containPrefGenre = false;
+        } catch (NullPointerException e) {
+            haveGenreRestrict = false;
+        }
+        JSONArray jsonArray = (JSONArray) entryInfo.get("genre_ids");
+        boolean containPrefGenre = false;
 
-             //   System.out.println("this is set " + genrePref);
+        //   System.out.println("this is set " + genrePref);
 
-            for (int i = 0; i < jsonArray.size(); i += 1) {
-               // System.out.println(jsonArray.get(i));
-                if (genreRestric.contains((long) jsonArray.get(i))) {
-                   // System.out.println("this2");
-                    return false;
-                } else if (genrePref.contains((long) jsonArray.get(i))) {
-                    containPrefGenre = true;
-                 //   System.out.println("mannns");
-                }
-            }
-            if ((containPrefGenre) || !(haveGenrePref)) {
-               // System.out.println("ahh");
-                return true;
-
-            } else {
-               // System.out.println("afff");
+        for (int i = 0; i < jsonArray.size(); i += 1) {
+            // System.out.println(jsonArray.get(i));
+            if (genreRestric.contains((long) jsonArray.get(i))) {
+                // System.out.println("this2");
                 return false;
-
+            } else if (genrePref.contains((long) jsonArray.get(i))) {
+                containPrefGenre = true;
+                //   System.out.println("mannns");
             }
+        }
+        if ((containPrefGenre) || !(haveGenrePref)) {
+            // System.out.println("ahh");
+            return true;
+        } else {
+            // System.out.println("afff");
+            return false;
+        }
     }
 }
