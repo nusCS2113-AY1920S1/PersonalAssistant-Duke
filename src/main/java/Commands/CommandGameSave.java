@@ -6,9 +6,13 @@ import Farmio.Farmio;
 import FrontEnd.Ui;
 
 public class CommandGameSave extends Command{
-
+    /**
+     * Saves the game
+     * @param farmio the game to be saved
+     * @throws FarmioFatalException if simulation file cannot be found
+     */
     @Override
-    public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
+    public void execute(Farmio farmio) throws FarmioFatalException {
         Ui ui = farmio.getUi();
         if(farmio.getStorage().storeFarmer(farmio.getFarmer())){
             farmio.getSimulation().simulate();

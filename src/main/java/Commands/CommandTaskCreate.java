@@ -1,5 +1,6 @@
 package Commands;
 
+import Exceptions.FarmioFatalException;
 import Farmio.Farmio;
 import Farmio.Storage;
 import Farmio.Farmer;
@@ -8,8 +9,6 @@ import FrontEnd.Ui;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
 import UserCode.Tasks.*;
-
-//IN PROGRESS
 
 public class CommandTaskCreate extends Command {
     private String taskType;
@@ -22,8 +21,14 @@ public class CommandTaskCreate extends Command {
         this.action = action;
     }
 
+    /**
+     * Creating a Task based on the interpretation of the parser
+     * @param farmio the game that contains the tasklist that is being changed
+     * @throws FarmioException if action is executed although its criteria is not met
+     * @throws FarmioFatalException if simulation file cannot be found
+     */
     @Override
-    public void execute(Farmio farmio) throws FarmioException {
+    public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
         Ui ui = farmio.getUi();
         Storage storage = farmio.getStorage();
         Farmer farmer = farmio.getFarmer();

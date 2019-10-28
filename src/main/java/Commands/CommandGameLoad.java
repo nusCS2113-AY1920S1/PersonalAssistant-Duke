@@ -12,6 +12,11 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 
 public class CommandGameLoad extends Command {
+    /**
+     * Tries to Load the game and creates a new game if unsuccessful
+     * @param farmio the game to be resumed from load state
+     * @throws FarmioFatalException if simulation file cannot be found
+     */
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
         Ui ui = farmio.getUi();
