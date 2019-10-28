@@ -8,7 +8,6 @@ import ui.Ui;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Finds a free period of time within the user's schedule for a selected duration value.
@@ -21,6 +20,7 @@ public class TaskScheduleCommand extends Command {
     private Long durationToSchedule;
     private final int indexOfTask;
     private final int indexOfDeadline;
+    private final LocalDateTime deadlineDate;
 
     /**
      * Initialises the command parameter for a selected task to be done by a selected deadline.
@@ -30,6 +30,13 @@ public class TaskScheduleCommand extends Command {
     public TaskScheduleCommand(int indexOfTask, int indexDeadline) {
         this.indexOfTask = indexOfTask;
         this.indexOfDeadline = indexDeadline;
+        this.deadlineDate = null;
+    }
+    
+    public TaskScheduleCommand(int indexOfTask, LocalDateTime deadlineDate) {
+        this.indexOfTask = indexOfTask;
+        this.deadlineDate = deadlineDate;
+        this.indexOfDeadline = -1;
     }
 
     /**
@@ -40,26 +47,36 @@ public class TaskScheduleCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage) throws DukeException {
-        ArrayList<Task> list = tasks.getTasks();
         Todo todo;
         Deadline deadline;
+        LocalDateTime deadlineDate;
+
+        ArrayList<Task> list = tasks.getTasks();
+        if (this.deadlineDate == null) {
+            try {
+                deadline = (Deadline) list.get(indexOfDeadline);
+            } catch (ClassCastException e) {
+                throw new DukeException("Task selected is not a Deadline");
+            }
+            deadlineDate = deadline.getStartDate();
+        }
+        else {
+            deadlineDate = this.deadlineDate;
+        }
+        if (LocalDateTime.now().isAfter(deadlineDate)) {
+            throw new DukeException("The selected deadline is overdue!");
+        }
+
         try {
             todo = (Todo) list.get(indexOfTask);
         } catch (ClassCastException e) {
             throw new DukeException("Task selected is not a Todo with a duration");
         }
-        try {
-            deadline = (Deadline) list.get(indexOfDeadline);
-        } catch (ClassCastException e) {
-            throw new DukeException("Task selected is not a Deadline");
-        }
         durationToSchedule = (long) todo.duration;
-        LocalDateTime deadlineDate = deadline.getStartDate();
 
         ArrayList<Event> dateList = tasks.obtainEventList(deadlineDate);
         if (dateList.size() == 0) {
-            Ui.printOutput("You can schedule this task from now till the deadline.\n"
-                    + "Schedule it at the earliest convenience?");
+            Ui.printOutput("You can schedule this task from now till the deadline.");
             return;
         }
 
