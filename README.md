@@ -1,8 +1,9 @@
 # COMPal
 
 [![Build Status](https://travis-ci.org/AY1920S1-CS2113T-W17-1/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113T-W17-1/main)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2c8cd9789ad44ad08787c63de509d493)](https://www.codacy.com/manual/SholihinK/main_2?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S1-CS2113T-W17-1/main&amp;utm_campaign=Badge_Grade)
 
-![Screenshot of COMPal UI](/docs/images/Ui.png)
+<img src="/docs/images/Ui.png" width="670">
 
 **COMPal** is a Command Line Interface calendar application that targets students who prefer to use a desktop application for managing their busy student life. **COMPal** presents your timetable in a ***user-friendly layout*** that gives an ***informative overview*** of your schedule in just a brief glance. 
 
