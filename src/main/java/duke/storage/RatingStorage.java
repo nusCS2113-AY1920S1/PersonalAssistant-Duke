@@ -1,8 +1,8 @@
 package duke.storage;
 
 import duke.exception.DukeException;
-import duke.list.recipelist.RatingList;
-import duke.task.recipetasks.Rating2;
+import duke.model.list.recipelist.RatingList;
+import duke.model.task.recipetasks.Rating2;
 
 import java.io.*;
 import java.util.ArrayList;
