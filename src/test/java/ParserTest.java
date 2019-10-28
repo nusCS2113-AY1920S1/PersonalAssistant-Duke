@@ -3,7 +3,7 @@ import duke.command.Command;
 import duke.command.home.HomeNewCommand;
 import duke.command.Parser;
 import duke.exception.DukeException;
-import duke.ui.UiContext;
+import duke.ui.context.UiContext;
 import mocks.DoctorCommand;
 import mocks.TestCommands;
 import org.junit.jupiter.api.Test;

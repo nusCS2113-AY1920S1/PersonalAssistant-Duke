@@ -11,7 +11,7 @@ import duke.data.Plan;
 import duke.data.Result;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
-import duke.ui.Context;
+import duke.ui.context.Context;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

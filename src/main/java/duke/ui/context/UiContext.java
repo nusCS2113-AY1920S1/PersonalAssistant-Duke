@@ -1,4 +1,4 @@
-package duke.ui;
+package duke.ui.context;
 
 import duke.data.DukeObject;
 import duke.exception.DukeException;
