@@ -2,7 +2,6 @@ package seedu.hustler.task;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.data.CommandLog;
-import seedu.hustler.data.Schedule;
 import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.DoneTask;
 import seedu.hustler.logic.parser.DateTimeParser;
@@ -12,7 +11,6 @@ import seedu.hustler.ui.Ui;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Stream;
 
 import static seedu.hustler.logic.parser.DateTimeParser.getDateTime;
 
@@ -31,11 +29,6 @@ public class TaskList {
      * Ui instance that communicates errors with the user.
      */
     private Ui ui = new Ui();
-
-    /**
-     * Schedule instance to plan schedule.
-     */
-    private Schedule schedule = new Schedule();
 
     /**
      * Initializes list.
@@ -212,7 +205,7 @@ public class TaskList {
      *
      * @return ArrayList of Tasks.
      */
-    public ArrayList<Task> return_list() {
+    public ArrayList<Task> returnList() {
         return list;
     }
 
@@ -416,25 +409,7 @@ public class TaskList {
             }
         }
         return matchingTasks;
-    } /*
-        ArrayList<Integer> matchingTasks = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getDescription().contains(taskDescription)
-                || list.get(i).getTag().equalsIgnoreCase(taskDescription)) {
-                matchingTasks.add(i);
-            } else if (list.get(i).getDateTime() != null) {
-                if (DateTimeParser.convertDateTimeToDate(list.get(i).getDateTime()).equals(taskDescription)
-                    || DateTimeParser.getTimeOnly(list.get(i).getDateTime()).equals(taskDescription)) {
-                    matchingTasks.add(i);
-                }
-            }
-        }
-        if (matchingTasks.isEmpty()) {
-            ui.taskDoesntExistError();
-        } else {
-            ui.show_matching_tasks(list, matchingTasks);
-        }
-    }*/
+    }
 
     /**
      * Converts the frequency into number of minutes.
@@ -503,17 +478,6 @@ public class TaskList {
         return time.trim();
     }
 
-    private String getOnlyDate(List<String> splitInput) {
-        String date = "";
-        for (int i = 0; i < splitInput.size(); i++) {
-            if (splitInput.get(i).contains("/by") || (splitInput.get(i).contains("/at"))) {
-                date += splitInput.get(i + 1);
-                break;
-            }
-        }
-        return date.trim();
-    }
-
     /**
      * Checks whether two instances of TaskList are equal.
      *
@@ -521,12 +485,10 @@ public class TaskList {
      * @return true or false to the comparison.
      */
     public boolean equals(TaskList temp) {
-
         if (this.size() != temp.size()) {
             System.out.println("Length not equal");
             return false;
         }
-
         for (int i = 0; i < this.size(); i++) {
             if (!this.get(i).equals(temp.get(i))) {
                 System.out.println(this.get(i).description + temp.get(i).description + "?");
