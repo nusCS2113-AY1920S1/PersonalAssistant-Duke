@@ -5,49 +5,49 @@ import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 import entertainment.pro.model.CinemaInfoObject;
-import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class FindCommand extends CommandSuper {
 
     public static final int CONST = 5;
+
     /**
-     * Constructor for each Command Super class
+     * Constructor for each Command Super class.
      *
-     * @param uicontroller: UI controller for javafx
+     * @param uicontroller UI controller for javafx
      */
-    public FindCommand (Controller uicontroller) {
+    public FindCommand(Controller uicontroller) {
         super(COMMANDKEYS.find, CommandStructure.cmdStructure.get(COMMANDKEYS.find), uicontroller);
     }
 
     /**
-     * Function to execute commands depending on the subroot command
+     * Function to execute commands depending on the subroot command.
      */
     @Override
     public void executeCommands() {
         switch (this.getSubRootCommand()) {
-            case cinema:
-                try {
-                    findCinemas();
-                } catch (Exceptions exceptions) {
-                    exceptions.printStackTrace();
-                }
-                break;
-            default:
-                break;
+        case cinema:
+            try {
+                findCinemas();
+            } catch (Exceptions exceptions) {
+                exceptions.printStackTrace();
+            }
+            break;
+        default:
+            break;
         }
     }
 
     /**
-     * find cinemas near a particular location in the payload and formats them to be displayed on the UI
+     * find cinemas near a particular location in the payload and formats them to be displayed on the UI.
      */
     public void findCinemas() throws Exceptions {
         String display = "Here is the list of cinemas near " + getPayload() + ": \n\n";
-        ArrayList<CinemaInfoObject> cinemas = ((MovieHandler) this.getUIController()).getCinemaAPIRequester().searchNearestCinemas(getPayload());
+        ArrayList<CinemaInfoObject> cinemas =
+                ((MovieHandler) this.getUiController()).getCinemaAPIRequester().searchNearestCinemas(getPayload());
         int length = CONST;
         if (cinemas.size() < CONST) {
             length = cinemas.size();
@@ -62,7 +62,7 @@ public class FindCommand extends CommandSuper {
         } else {
             display = "no cinemas in this location, please try a different one";
         }
-        ((MovieHandler) this.getUIController()).clearSearchTextField();
-        ((MovieHandler) this.getUIController()).setFeedbackText(display);
+        ((MovieHandler) this.getUiController()).clearSearchTextField();
+        ((MovieHandler) this.getUiController()).setFeedbackText(display);
     }
 }

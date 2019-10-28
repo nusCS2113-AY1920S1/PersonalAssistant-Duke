@@ -1,8 +1,6 @@
-package entertainment.pro.logic.Contexts;
+package entertainment.pro.logic.contexts;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
-import entertainment.pro.logic.Contexts.CommandContext;
-import entertainment.pro.logic.Contexts.SearchResultContext;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.ui.Controller;
@@ -11,8 +9,6 @@ import entertainment.pro.ui.MovieHandler;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
-
-
 
 /**
  * Contains helper functions for autocompletion.
@@ -89,11 +85,11 @@ public class ContextHelper {
      * If the incomplete word is only the command, then a single word is returned.
      * If payload is incomplete, the entire payload is returned
      *
-     * @param command: Incomplete user input
+     * @param command Incomplete user input
      * @param controller Ui controller
      * @return String of incomplete words
      */
-    public static String getLastIncompleteWords(String command , Controller controller) {
+    public static String getLastIncompleteWords(String command, Controller controller) {
         String[] splitCommand = command.split(" ");
 
         String incompleteCommand = "";
@@ -106,9 +102,9 @@ public class ContextHelper {
         } else {
 
             String processedCommand = String.join(" ",
-                    Arrays.copyOfRange(splitCommand , 2 , splitCommand.length));
-            String commandFlagSplit[] = processedCommand.split("-[a-z]");
-            String lastinput[] = commandFlagSplit[commandFlagSplit.length - 1].split(",");
+                    Arrays.copyOfRange(splitCommand, 2, splitCommand.length));
+            String[] commandFlagSplit = processedCommand.split("-[a-z]");
+            String[] lastinput = commandFlagSplit[commandFlagSplit.length - 1].split(",");
             incompleteCommand = lastinput[lastinput.length - 1 ];
 
         }
@@ -122,7 +118,7 @@ public class ContextHelper {
      * @param b second String
      * @return index of the end of common substring
      */
-    public static int subStringIndex(String a , String b) {
+    public static int subStringIndex(String a, String b) {
         int counter = 0;
         for (int i = 0;; i++) {
             if (i >= a.length() || i >= b.length()) {
@@ -174,21 +170,17 @@ public class ContextHelper {
 
 
     private static ArrayList<String> commandSpecificHints(String root) {
-
-        switch(root.toLowerCase().trim()) {
-            case("blacklist"):
-                System.out.println("BLACKLSITWEDM vervle");
-                return Blacklist.getBlackListAll();
-
-            default:
-                return new ArrayList<String>() {
-                    {
-                        add("Do you need help?? Enter (help <Root COMMAND> to learn more about your command)");
-                    }
-                };
-
+        switch (root.toLowerCase().trim()) {
+        case("blacklist"):
+            System.out.println("BLACKLSITWEDM vervle");
+            return Blacklist.getBlackListAll();
+        default:
+            return new ArrayList<String>() {
+                {
+                    add("Do you need help?? Enter (help <Root COMMAND> to learn more about your command)");
+                }
+            };
         }
-
     }
 
     /**
@@ -198,26 +190,24 @@ public class ContextHelper {
      * @param incompleteCommand Incomplete portion of the user input
      * @returns all possible strings
      */
-    private static ArrayList<String> commandSpecificHints(String root , String subRoot , String incompleteCommand) {
-        switch(root) {
-            case("blacklist"):
-                ArrayList<String> hints = Blacklist.getBlackListHints(incompleteCommand);
-                if (!subRoot.equals("remove")) {
-                    hints.addAll(SearchResultContext.getPossibilities(incompleteCommand));
-                }
-                return hints;
-            case ("watchlist"):
+    private static ArrayList<String> commandSpecificHints(String root, String subRoot, String incompleteCommand) {
+        switch (root) {
+        case("blacklist"):
+            ArrayList<String> hints = Blacklist.getBlackListHints(incompleteCommand);
+            if (!subRoot.equals("remove")) {
+                hints.addAll(SearchResultContext.getPossibilities(incompleteCommand));
+            }
+            return hints;
+        case ("watchlist"):
                 //TODO ADD WATCHLIST HINTS
 //                ArrayList<String> hints = Blacklist.getBlackListHints(incompleteCommand);
 //                if (!subRoot.equals("remove")) {
 //                    hints.addAll(SearchResultContext.getPossibilities(incompleteCommand));
 //                }
 //                return hints;
-
-            default:
-                return SearchResultContext.getPossibilities(incompleteCommand);
+        default:
+            return SearchResultContext.getPossibilities(incompleteCommand);
         }
-
     }
 
 
@@ -227,41 +217,41 @@ public class ContextHelper {
      * @param controller for the UI.
      * @returns all possible strings
      */
-    public static ArrayList<String> getAllHints(String command , Controller controller) {
+    public static ArrayList<String> getAllHints(String command, Controller controller) {
         String [] splitCommand = command.toLowerCase().split(" ");
-        String incompleteCommand = getLastIncompleteWords(command.toLowerCase() , controller);
+        String incompleteCommand = getLastIncompleteWords(command.toLowerCase(), controller);
 
         if (splitCommand.length == NO_WORDS) {
             return CommandContext.getRoot();
         } else if (splitCommand.length == ONE_WORD && isRootCommandComplete(splitCommand[0])) {
             ArrayList<String> allPossibilities =  CommandContext.getPossibilitiesSubRootGivenRoot(splitCommand[0]);
-            String update = completeCommand(allPossibilities , "");
+            String update = completeCommand(allPossibilities, "");
             ((MovieHandler) controller).updateTextField(update);
             return allPossibilities;
         } else if (splitCommand.length == ONE_WORD) {
             ArrayList<String> allPossibilities =  CommandContext.getPossibilitiesForRoot(incompleteCommand);
-            String update = completeCommand(allPossibilities , incompleteCommand);
+            String update = completeCommand(allPossibilities, incompleteCommand);
             ((MovieHandler) controller).updateTextField(update);
             return allPossibilities;
         } else if (splitCommand.length == TWO_WORDS && isSubRootCommandComplete(splitCommand[1])) {
             ArrayList<String> allPossibilities  = commandSpecificHints(
-                      splitCommand[0]
-                    , splitCommand[1]
-                    , "");
+                    splitCommand[0],
+                    splitCommand[1],
+                    "");
             return allPossibilities;
         } else if (splitCommand.length == TWO_WORDS) {
             ArrayList<String> allPossibilities = CommandContext
-                    .getPossibilitiesSubRoot(splitCommand[0] , incompleteCommand);
-            String update = completeCommand(allPossibilities , incompleteCommand);
+                    .getPossibilitiesSubRoot(splitCommand[0], incompleteCommand);
+            String update = completeCommand(allPossibilities, incompleteCommand);
             ((MovieHandler) controller).updateTextField(update);
             return allPossibilities;
         } else {
             ArrayList<String> allPossibilities  = commandSpecificHints(
-                      splitCommand[0]
-                    , splitCommand[1]
-                    , incompleteCommand);
+                    splitCommand[0],
+                    splitCommand[1],
+                    incompleteCommand);
 
-            String update = completeCommand(allPossibilities , incompleteCommand);
+            String update = completeCommand(allPossibilities, incompleteCommand);
             ((MovieHandler) controller).updateTextField(update);
             return allPossibilities;
         }

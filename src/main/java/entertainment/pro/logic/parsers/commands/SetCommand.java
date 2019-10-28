@@ -1,6 +1,5 @@
 package entertainment.pro.logic.parsers.commands;
 
-import entertainment.pro.storage.utils.ProfileCommands;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.storage.user.WatchlistHandler;
@@ -12,22 +11,20 @@ import java.io.IOException;
 
 public class SetCommand extends CommandSuper {
     public SetCommand(Controller uicontroller) {
-        super(COMMANDKEYS.set, CommandStructure.cmdStructure.get(COMMANDKEYS.set) , uicontroller);
+        super(COMMANDKEYS.set, CommandStructure.cmdStructure.get(COMMANDKEYS.set), uicontroller);
     }
 
     @Override
     public void executeCommands() throws IOException {
-        switch (this.getSubRootCommand()){
-            case watchlist:
-                System.out.println("enter");
-                executeTaskDone();
-                break;
-            default:
-                break;
+        switch (this.getSubRootCommand()) {
+        case watchlist:
+            System.out.println("enter");
+            executeTaskDone();
+            break;
+        default:
+            break;
         }
     }
-
-
 
     /**
      * set the duke.task on the watchlist as done
@@ -42,9 +39,9 @@ public class SetCommand extends CommandSuper {
             index = index.strip();
             int i = Integer.valueOf(index);
             System.out.println(i);
-            WatchlistHandler.markAsDone(i, (MovieHandler)(this.getUIController()));
+            WatchlistHandler.markAsDone(i, (MovieHandler)(this.getUiController()));
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            ((MovieHandler)(this.getUIController())).setFeedbackText("please enter a valid duke.task number");
+            ((MovieHandler)(this.getUiController())).setFeedbackText("please enter a valid duke.task number");
         }
     }
 }

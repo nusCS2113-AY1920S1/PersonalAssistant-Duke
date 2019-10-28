@@ -21,18 +21,18 @@ public class AddCommand extends CommandSuper {
     @Override
     public void executeCommands() {
         switch (this.getSubRootCommand()) {
-            case watchlist:
-                try {
-                    addToWatchList();
-                } catch (Exceptions exceptions) {
-                    exceptions.printStackTrace();
-                }
-                break;
-            case blacklist:
+        case watchlist:
+            try {
+                addToWatchList();
+            } catch (Exceptions exceptions) {
+                exceptions.printStackTrace();
+            }
+            break;
+        case blacklist:
 //                addToBlackList();
-                break;
-            default:
-                break;
+            break;
+        default:
+            break;
         }
     }
 
@@ -41,28 +41,29 @@ public class AddCommand extends CommandSuper {
      */
     public void addToWatchList() throws Exceptions {
         try {
-            String movie = ((MovieHandler) this.getUIController()).getAPIRequester().beginAddRequest(getPayload());
+            String movie = ((MovieHandler) this.getUiController()).getAPIRequester().beginAddRequest(getPayload());
             movie = movie.toLowerCase();
             String type = this.getFlagMap().get("-d").get(0);
             switch (type) {
-                case " d ":
-                    String endDate = this.getFlagMap().get("-e").get(0);
-                    Deadline deadline = new Deadline(movie, "D", endDate);
-                    WatchlistHandler.add(deadline);
-                    break;
-                case " p ":
-                    String stDate = this.getFlagMap().get("-s").get(0);
-                    String enDate = this.getFlagMap().get("-e").get(0);
-                    Period period = new Period(movie, "P", stDate, enDate);
-                    WatchlistHandler.add(period);
-                    break;
-                default:
-                    break;
+            case " d ":
+                String endDate = this.getFlagMap().get("-e").get(0);
+                Deadline deadline = new Deadline(movie, "D", endDate);
+                WatchlistHandler.add(deadline);
+                break;
+            case " p ":
+                String stDate = this.getFlagMap().get("-s").get(0);
+                String enDate = this.getFlagMap().get("-e").get(0);
+                Period period = new Period(movie, "P", stDate, enDate);
+                WatchlistHandler.add(period);
+                break;
+            default:
+                break;
             }
-            WatchlistHandler.print_list((MovieHandler) (this.getUIController()));
+            WatchlistHandler.print_list((MovieHandler) (this.getUiController()));
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            ((MovieHandler) (this.getUIController())).setFeedbackText("Please enter a valid command in the form of: \n" +
-                    "add watchlist <name of movie> -d <type of duke.task> -s <start date only for duke.task> -e <end date for duke.task>");
+            ((MovieHandler) (this.getUiController())).setFeedbackText("Please enter a valid command in the form of: \n"
+                    + "add watchlist <name of movie> -d <type of duke.task> -s"
+                    + " <start date only for duke.task> -e <end date for duke.task>");
         }
     }
 }

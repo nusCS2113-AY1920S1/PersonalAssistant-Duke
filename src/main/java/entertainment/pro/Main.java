@@ -18,6 +18,9 @@ public class Main extends Application {
     private Scene mainMoviesScene;
     private BorderPane mainLayout;
 
+    /**
+     * to start the application.
+     */
     public void start(Stage primaryStage) {
         mainWindow = primaryStage;
         setUp();

@@ -9,12 +9,13 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
- * class that deals with editing the Playlist.json file
+ * class that deals with editing the Playlist.json file.
  */
 public class EditPlaylistJson {
     private ObjectMapper mapper = new ObjectMapper();
@@ -26,6 +27,9 @@ public class EditPlaylistJson {
         file = new File(fileName);
     }
 
+    /**
+     * to load Playlist object from playlist json file.
+     */
     public Playlist load() throws IOException {
         if (file.length() != 0) {
             try {
@@ -40,9 +44,7 @@ public class EditPlaylistJson {
                     String movieTitle = (String) movie.get("title");
                     String movieReleaseDate = (String) movie.get("stringDate");
                     String movieSummary = (String) movie.get("summary");
-//                    String moviePosterPath = (String) movie.get("moviePosterPath");
                     String movieFullPosterPath = (String) movie.get("fullPosterPath");
-//                    String movieBackdropPath = (String) movie.get("movieBackdropPath");
                     String movieFullBackdropPath = (String) movie.get("fullBackdropPath");
                     double movieRating = (double) movie.get("rating");
                     JSONArray genreArray = (JSONArray) movie.get("genreIDs");
@@ -51,20 +53,23 @@ public class EditPlaylistJson {
                         movieGenreIDs.add((long) genreArray.get(j));
                        // movieGenreIDs[j] = (long) genreArray.get(j);
                     }
+
                     boolean adult = (boolean) movie.get("adult");
                     //int fakeType = 12345;
                     boolean fakeType = false;
-                    //playlistMovies.add(new PlaylistMovieInfoObject(movieID, movieTitle, fakeType,null, movieSummary, movieRating, movieGenreIDs, movieFullPosterPath, movieFullBackdropPath, false, movieReleaseDate, movieTitle));
+
+                    playlistMovies.add(new PlaylistMovieInfoObject(false, movieID, movieTitle, null,
+                            movieSummary, movieRating, movieGenreIDs, movieFullPosterPath, movieFullBackdropPath,
+                            false, movieReleaseDate));
                 }
                 for (PlaylistMovieInfoObject log : playlistMovies) {
-                    System.out.println(log.getTitle() +"choochoo");
+                    System.out.println(log.getTitle() + "choochoo");
                 }
                 return new Playlist(playlistName, description, playlistMovies);
             } catch (ParseException e) {
                 return null;
             }
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -82,14 +87,13 @@ public class EditPlaylistJson {
         mapper.writeValue(file, playlist);
     }
 
+    /**
+     * to rename the corresponding json file to the new playlist name.
+     */
     public void renamePlaylist(Playlist playlist, String newName) throws IOException {
-        File oldFileName = file;
         editPlaylist(playlist);
         String fileName = "./" + newName + ".json";
         File newFile = new File(fileName);
         file.renameTo(newFile);
-//        if (oldFileName.delete()) {
-//            System.out.println("yeboiiii");
-//        }
     }
 }

@@ -12,6 +12,9 @@ import java.util.ArrayList;
 
 public class PastUserCommands {
 
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
     public static void update(PastCommands pastCommands) {
         JSONParser parser = new JSONParser();
         JSONArray jsonArray = new JSONArray();
@@ -40,22 +43,25 @@ public class PastUserCommands {
         }
     }
 
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
     public static ArrayList<PastCommandStructure> load() throws IOException, ParseException {
         ArrayList<PastCommandStructure> arrayList = new ArrayList<PastCommandStructure>();
-            JSONParser parser = new JSONParser();
-            JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("data/pastCommands.json"));
-            if (jsonArray == null) {
-                System.out.println("thisss");
-                return arrayList;
-            } else {
-                for (int i = 0; i < jsonArray.size(); i += 1) {
-                    JSONObject jsonObject = ((JSONObject) jsonArray.get(i));
-                    String date = (String) jsonObject.get("date");
-                    String query = (String) jsonObject.get("query");
-                    PastCommandStructure pastCommandStructure = new PastCommandStructure(date, query);
-                    arrayList.add(pastCommandStructure);
-                }
-                return arrayList;
+        JSONParser parser = new JSONParser();
+        JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("data/pastCommands.json"));
+        if (jsonArray == null) {
+            System.out.println("thisss");
+            return arrayList;
+        } else {
+            for (int i = 0; i < jsonArray.size(); i += 1) {
+                JSONObject jsonObject = ((JSONObject) jsonArray.get(i));
+                String date = (String) jsonObject.get("date");
+                String query = (String) jsonObject.get("query");
+                PastCommandStructure pastCommandStructure = new PastCommandStructure(date, query);
+                arrayList.add(pastCommandStructure);
             }
+            return arrayList;
+        }
     }
 }

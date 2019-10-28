@@ -10,9 +10,9 @@ public class PlaylistMovieInfoObject extends MovieInfoObject {
     private String stringDate;
 
     /**
-     * Construct info about a movie/tv show
+     * Construct info about a movie/tv show.
      *
-     * @param ID           ID stored in the api.
+     * @param ID           id stored in the api.
      * @param title        Title of the movie/tv show.
      * @param date         Release date of the movie/tv show.
      * @param summary      Plot summary of the movie/tv show.

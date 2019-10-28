@@ -1,9 +1,9 @@
 package entertainment.pro.logic.parsers;
 
-
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.model.CommandPair;
 import entertainment.pro.ui.Controller;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,8 +23,8 @@ public class CommandDebugger {
      * @param controller UI controller
      * @return
      */
-    public static CommandPair commandSpellChecker(String[] undefinedCommandArr, COMMANDKEYS root, Controller controller) {
-
+    public static CommandPair commandSpellChecker(String[] undefinedCommandArr,
+                                                  COMMANDKEYS root, Controller controller) {
         System.out.println("Cant find anything");
         root = getCorrectedRoot(undefinedCommandArr, root);
         COMMANDKEYS mostSimilarSub = getCorrectedSubRoot(undefinedCommandArr, root);
@@ -50,7 +50,8 @@ public class CommandDebugger {
         score = INITSCORE;
         COMMANDKEYS mostSimilarSub = COMMANDKEYS.none;
 
-        if (root != COMMANDKEYS.none && CommandStructure.cmdStructure.get(root).length != 0 && undefinedCommandArr.length > 1) {
+        if (root != COMMANDKEYS.none && CommandStructure.cmdStructure.get(root).length != 0
+                && undefinedCommandArr.length > 1) {
             for (COMMANDKEYS s : CommandStructure.cmdStructure.get(root)) {
                 double temp = calculateJaccardSimilarity(s.toString(), undefinedCommandArr[1]);
                 if (temp > score) {
@@ -88,9 +89,6 @@ public class CommandDebugger {
 
     /**
      * Compute string similarity based on  Jaccard Similarity algorithm.
-     *
-     * @param word1
-     * @param word2
      * @return the similarity score based on the algorithm
      */
     public static Double calculateJaccardSimilarity(CharSequence word1, CharSequence word2) {
@@ -118,5 +116,4 @@ public class CommandDebugger {
         }
         return Double.valueOf(iset.size()) / Double.valueOf(unionSet.size());
     }
-
 }

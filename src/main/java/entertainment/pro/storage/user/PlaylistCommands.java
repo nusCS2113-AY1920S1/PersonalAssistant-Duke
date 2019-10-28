@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.TreeMap;
 
 /**
- * class that contains all methods that deal with individual Playlist object and the list of Playlist objects
+ * class that contains all methods that deal with individual Playlist object and the list of Playlist objects.
  */
 public class PlaylistCommands {
     String playlistName;
@@ -33,6 +33,9 @@ public class PlaylistCommands {
         editPlaylistJson.deletePlaylist();
     }
 
+    /**
+     * to add movies to playlist.
+     */
     public void add(TreeMap<String, ArrayList<String>> flagMap, ArrayList<MovieInfoObject> mMovies) throws IOException {
         ArrayList<Long> userMovies = new ArrayList<>(20);
         ArrayList<MovieInfoObject> playlistMovies = new ArrayList<>(20);
@@ -49,6 +52,9 @@ public class PlaylistCommands {
         editPlaylistJson.editPlaylist(playlist);
     }
 
+    /**
+     * to remove movies from playlist.
+     */
     public void remove(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
 //        ArrayList<Long> userMovies = new ArrayList<>(20);
         Playlist playlist = editPlaylistJson.load();
@@ -72,6 +78,9 @@ public class PlaylistCommands {
         System.out.println("hehe");
     }
 
+    /**
+     * to clear all movies in playlist.
+     */
     public void clear() throws IOException {
         Playlist playlist = editPlaylistJson.load();
         playlist.clear();
@@ -87,6 +96,7 @@ public class PlaylistCommands {
             System.out.println("help " + log.getTitle() + " " + log.getFullPosterPathInfo());
             //int fakeType = 12345;
             boolean fakeType = false;
+
             PlaylistMovieInfoObject testMovie = new PlaylistMovieInfoObject(fakeType, log.getId(), log.getTitle(), log.getReleaseDateInfo(), log.getSummaryInfo(), log.getRatingInfo(), log.getGenreIDInfo(), log.getFullPosterPathInfo(), log.getFullBackdropPathInfo(), log.isIsadultContent(), string);
             convertMovies.add(testMovie);
         }
@@ -94,7 +104,7 @@ public class PlaylistCommands {
     }
 
     /**
-     * set name/description to particular Playlist object
+     * set name/description to particular Playlist object.
      */
     public void setToPlaylist(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
         if (flagMap.containsKey("-n") && !flagMap.containsKey("-d")) {
@@ -122,7 +132,7 @@ public class PlaylistCommands {
     }
 
     /**
-     * change name of particular Playlist object
+     * change name of particular Playlist object.
      */
     public void setPlaylistName(String newName) throws IOException {
         Playlist playlist = editPlaylistJson.load();
@@ -131,7 +141,7 @@ public class PlaylistCommands {
     }
 
     /**
-     * change description of particular Playlist object
+     * change description of particular Playlist object.
      */
     public void setPlaylistDescription(String description) throws IOException {
         Playlist playlist = editPlaylistJson.load();
@@ -140,7 +150,7 @@ public class PlaylistCommands {
     }
 
     /**
-     * to allow setting of both name and description at the same time
+     * to allow setting of both name and description at the same time.
      */
     public void setAll(String newName, String description) throws IOException {
         Playlist playlist = editPlaylistJson.load();

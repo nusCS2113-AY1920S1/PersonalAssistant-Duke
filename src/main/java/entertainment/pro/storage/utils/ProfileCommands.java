@@ -11,7 +11,7 @@ import java.util.TreeMap;
 
 
 /**
- * class that contains all methods that deal with Profile object
+ * class that contains all methods that deal with Profile object.
  */
 public class ProfileCommands {
     //    private File genreList;
@@ -22,13 +22,18 @@ public class ProfileCommands {
     private static String GET_NEW_SORT = "-s";
     private static String GET_NEW_ADULT_RATING = "-a";
 
-
+    /**
+     * constructor for ProfileCommands.
+     */
     public ProfileCommands(UserProfile userProfile) throws IOException {
         //genreList = new File("../../../../EPdata/genreIDlist.txt");
         this.userProfile = userProfile;
         this.editProfileJson = new EditProfileJson();
     }
 
+    /**
+     * to add preferences to userprofile.
+     */
     public void addPreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException {
         ArrayList<Integer> genrePreferences = new ArrayList<>(50);
         ArrayList<Integer> genreRestrict = new ArrayList<>(50);
@@ -66,6 +71,9 @@ public class ProfileCommands {
     }
 
 
+    /**
+     * to remove preferences from userprofile.
+     */
     public void removePreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException {
         ArrayList<Integer> removeGenrePreferences = new ArrayList<>(50);
         ArrayList<Integer> removeGenreRestrict = new ArrayList<>(50);
@@ -98,6 +106,9 @@ public class ProfileCommands {
 
     }
 
+    /**
+     * to clear userprofile preferences.
+     */
     public void clearPreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException {
         if (getInput.equals(GET_NEW_GENRE_PREF)) {
             clearGenrePreference();
@@ -113,7 +124,6 @@ public class ProfileCommands {
         }
         editProfileJson.updateProfile(userProfile);
     }
-
 
     private void clearSortPreference() {
         setSort(false, false, false);
@@ -150,9 +160,12 @@ public class ProfileCommands {
     /**
      * Updates the components in the SortProfile accordingly.
      *
-     * @param isAlphaOrder    true when user have entered command to sort results in alphabetical order and otherwise false.
-     * @param isLatDatesOrder true when user have entered command to sort results based on release dates and otherwise false.
-     * @param isRatingsOrder  true when user have entered command to sort results based on ratings and otherwise false.
+     * @param isAlphaOrder    true when user have entered command to
+     *                        sort results in alphabetical order and otherwise false.
+     * @param isLatDatesOrder true when user have entered command to
+     *                        sort results based on release dates and otherwise false.
+     * @param isRatingsOrder  true when user have entered command to
+     *                        sort results based on ratings and otherwise false.
      */
     public void setSort(boolean isAlphaOrder, boolean isLatDatesOrder, boolean isRatingsOrder) {
         userProfile.setSortByAlphabetical(isAlphaOrder);
@@ -162,7 +175,7 @@ public class ProfileCommands {
 
 
     /**
-     * set user preferences
+     * set user preferences.
      */
     public void setPreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
         if (flagMap.containsKey("-g")) {
@@ -177,7 +190,7 @@ public class ProfileCommands {
     }
 
     /**
-     * set user preferences -- for genre
+     * set user preferences -- for genre.
      */
     private void setGenrePreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
         ArrayList<Integer> genrePreferences = new ArrayList<>(10);
@@ -189,7 +202,7 @@ public class ProfileCommands {
     }
 
     /**
-     * set user preferences -- for adult content restriction
+     * set user preferences -- for adult content restriction.
      * yes = allow adult content
      * no = restrict adult content
      */
@@ -203,7 +216,7 @@ public class ProfileCommands {
     }
 
     /**
-     * to allow setting of both genre and adult content restriction preferences at the same time
+     * to allow setting of both genre and adult content restriction preferences at the same time.
      */
     private void setAll(TreeMap<String, ArrayList<String>> flagMap, String value) throws IOException {
         ArrayList<Integer> genrePreferences = new ArrayList<>(10);
@@ -220,7 +233,7 @@ public class ProfileCommands {
     }
 
     /**
-     * set user restrictions
+     * set user restrictions.
      */
     public void setRestriction(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
         ArrayList<Integer> genreRestrictions = new ArrayList<>(10);
@@ -231,6 +244,9 @@ public class ProfileCommands {
         editProfileJson.updateProfile(userProfile);
     }
 
+    /**
+     * add restriction to userprofile.
+     */
     public void addRestriction(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
         ArrayList<Integer> genreRestrictions = new ArrayList<>(50);
         for (String log : flagMap.get("-g")) {
@@ -240,6 +256,9 @@ public class ProfileCommands {
         editProfileJson.updateProfile(userProfile);
     }
 
+    /**
+     * remove restriction from userprofile.
+     */
     public void removeRestriction(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
         ArrayList<Integer> genreRestrictions = new ArrayList<>(50);
         for (String log : flagMap.get("-g")) {
@@ -254,43 +273,46 @@ public class ProfileCommands {
         editProfileJson.updateProfile(userProfile);
     }
 
-    public void addPreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
-        ArrayList<Integer> genrePreferences = new ArrayList<>(50);
-        for (String log : flagMap.get("-g")) {
-            genrePreferences.add(findGenreID(log));
-        }
-        userProfile.addGenreIdPreference(genrePreferences);
-        editProfileJson.updateProfile(userProfile);
-    }
+//    public void addPreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
+//        ArrayList<Integer> genrePreferences = new ArrayList<>(50);
+//        for (String log : flagMap.get("-g")) {
+//            genrePreferences.add(findGenreID(log));
+//        }
+//        userProfile.addGenreIdPreference(genrePreferences);
+//        editProfileJson.updateProfile(userProfile);
+//    }
+//
+//    public void removePreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
+//        ArrayList<Integer> genrePreferences = new ArrayList<>(50);
+//        for (String log : flagMap.get("-g")) {
+//            genrePreferences.add(findGenreID(log));
+//        }
+//        userProfile.removeGenreIdPreference(genrePreferences);
+//        editProfileJson.updateProfile(userProfile);
+//    }
+//
+//    public void clearPreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
+//        if (flagMap.containsKey("-g")) {
+//            clearGenrePreference();
+//        }
+//        if (flagMap.containsKey("-a")) {
+//            clearAdultPreference();
+//        }
+//        if (flagMap.containsKey("-g") && flagMap.containsKey("-a")) {
+//            clearAll();
+//        }
+//    }
+//
+//
+//    private void clearAll() throws IOException {
+//        userProfile.removeGenreIdPreference(userProfile.getGenreIdPreference());
+//        userProfile.setAdult(true);
+//        editProfileJson.updateProfile(userProfile);
+//    }
 
-    public void removePreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
-        ArrayList<Integer> genrePreferences = new ArrayList<>(50);
-        for (String log : flagMap.get("-g")) {
-            genrePreferences.add(findGenreID(log));
-        }
-        userProfile.removeGenreIdPreference(genrePreferences);
-        editProfileJson.updateProfile(userProfile);
-    }
-
-    public void clearPreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
-        if (flagMap.containsKey("-g")) {
-            clearGenrePreference();
-        }
-        if (flagMap.containsKey("-a")) {
-            clearAdultPreference();
-        }
-        if (flagMap.containsKey("-g") && flagMap.containsKey("-a")) {
-            clearAll();
-        }
-    }
-
-
-    private void clearAll() throws IOException {
-        userProfile.removeGenreIdPreference(userProfile.getGenreIdPreference());
-        userProfile.setAdult(true);
-        editProfileJson.updateProfile(userProfile);
-    }
-
+    /**
+     * to find genreId for corresponding genre name.
+     */
     public static Integer findGenreID(String genreName) throws IOException {
         genreName = genreName.trim();
         ObjectMapper mapper = new ObjectMapper();
@@ -308,14 +330,14 @@ public class ProfileCommands {
         return 0;
     }
 
-    private String findGenreName(int ID) throws IOException {
+    private String findGenreName(int id) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         InputStream inputStream = new FileInputStream("EPdata/GenreId.json");
         TypeReference<ArrayList<GenreId>> typeReference = new TypeReference<ArrayList<GenreId>>() {
         };
         ArrayList<GenreId> genreIds = mapper.readValue(inputStream, typeReference);
         for (GenreId log : genreIds) {
-            if (log.getId() == ID) {
+            if (log.getId() == id) {
                 inputStream.close();
                 return log.getGenre();
             }
@@ -324,6 +346,9 @@ public class ProfileCommands {
         return "0";
     }
 
+    /**
+     * to get Label text for genres.
+     */
     public String convertToLabel(ArrayList<Integer> userList) throws IOException {
         String labelText = "";
         for (Integer log : userList) {
@@ -333,6 +358,9 @@ public class ProfileCommands {
         return labelText;
     }
 
+    /**
+     * to get Label text for adult preferences.
+     */
     public String getAdultLabel() {
         if (userProfile.isAdult()) {
             return "allow";
@@ -351,6 +379,9 @@ public class ProfileCommands {
         editProfileJson.updateProfile(userProfile);
     }
 
+    /**
+     * to rename playlist in userprofile.
+     */
     public void renamePlaylist(String oldName, String newName) throws IOException {
         ArrayList<String> playlistNames = userProfile.getPlaylistNames();
         ArrayList<String> newPlaylistNames = new ArrayList<>();

@@ -8,8 +8,6 @@ import entertainment.pro.storage.utils.HelpStorage;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 
-import java.io.IOException;
-
 /**
  * Help command class to handle help command functions.
  */
@@ -20,17 +18,15 @@ public class HelpCommand extends CommandSuper {
 
     /**
      * Function to execute commands depending on the subroot command.
-     * @throws IOException
      */
     @Override
     public void executeCommands() {
         //TODO Display help options
-        ((MovieHandler) this.getUIController()).setFeedbackText(getHelp());
+        ((MovieHandler) this.getUiController()).setFeedbackText(getHelp());
     }
 
     /**
      * Function to get help pertaining to each root command.
-     * @throws IOException
      */
     private String getHelp() {
         return HelpStorage.getCmdHelp().get(getSubRootCommand());

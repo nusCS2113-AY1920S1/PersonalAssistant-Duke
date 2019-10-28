@@ -7,8 +7,22 @@ public class SearchProfile extends UserProfile {
     private String name;
     private boolean isMovie;
 
-    public SearchProfile(String userName, int userAge, ArrayList<Integer> genreIdPreference, ArrayList<Integer> genreIdRestriction, boolean adult, ArrayList<String> playlistNames, boolean sortByAlphabetical, boolean sortByHighestRating, boolean sortByLatestRelease, String name, boolean isMovie) {
-        super(userName, userAge, genreIdPreference, genreIdRestriction, adult, playlistNames, sortByAlphabetical, sortByHighestRating, sortByLatestRelease);
+    /**
+     * constructor for SearchProfile.
+     */
+    public SearchProfile(String userName, int userAge, ArrayList<Integer> genreIdPreference,
+                         ArrayList<Integer> genreIdRestriction, boolean adult, ArrayList<String> playlistNames,
+                         boolean sortByAlphabetical, boolean sortByHighestRating, boolean sortByLatestRelease,
+                         String name, boolean isMovie) {
+        super.setUserName(userName);
+        super.setUserAge(userAge);
+        super.setGenreIdPreference(genreIdPreference);
+        super.setGenreIdRestriction(genreIdRestriction);
+        super.setAdult(adult);
+        super.setPlaylistNames(playlistNames);
+        super.setSortByAlphabetical(sortByAlphabetical);
+        super.setSortByHighestRating(sortByHighestRating);
+        super.setSortByLatestRelease(sortByLatestRelease);
         this.name = name;
         this.isMovie = isMovie;
     }
@@ -29,7 +43,11 @@ public class SearchProfile extends UserProfile {
         isMovie = movie;
     }
 
-    public void setFromUserPreference(SearchProfile searchProfile, String entryName, boolean isMovie, UserProfile userProfile) {
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
+    public void setFromUserPreference(SearchProfile searchProfile, String entryName,
+                                      boolean isMovie, UserProfile userProfile) {
         searchProfile.setGenreIdPreference(userProfile.getGenreIdPreference());
         searchProfile.setGenreIdRestriction(userProfile.getGenreIdRestriction());
         searchProfile.setAdult(userProfile.isAdult());
@@ -40,9 +58,12 @@ public class SearchProfile extends UserProfile {
         searchProfile.setName(entryName);
     }
 
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
     public void iniitalizeBackSearchProfile(SearchProfile searchProfile) {
-        ArrayList<Integer>newEmptyGenrePref = new ArrayList<>();
-        ArrayList<Integer>newEmptyGenreRestrict = new ArrayList<>();
+        ArrayList<Integer> newEmptyGenrePref = new ArrayList<>();
+        ArrayList<Integer> newEmptyGenreRestrict = new ArrayList<>();
         String newEmptyEntry = "";
         searchProfile.setGenreIdPreference(newEmptyGenrePref);
         searchProfile.setGenreIdRestriction(newEmptyGenreRestrict);
@@ -52,8 +73,5 @@ public class SearchProfile extends UserProfile {
         searchProfile.setSortByLatestRelease(false);
         searchProfile.setName(newEmptyEntry);
         searchProfile.setMovie(false);
-
     }
-
-
 }

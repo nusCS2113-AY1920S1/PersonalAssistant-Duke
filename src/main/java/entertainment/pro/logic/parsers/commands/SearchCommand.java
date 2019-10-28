@@ -1,15 +1,12 @@
 package entertainment.pro.logic.parsers.commands;
 
-
-
 import entertainment.pro.commons.exceptions.DateTimeParseExceptions;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
 import entertainment.pro.model.SearchProfile;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import entertainment.pro.logic.movieRequesterAPI.MovieResultFilter;
-import entertainment.pro.model.GenreId;
+//import com.fasterxml.jackson.core.type.TypeReference;
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import entertainment.pro.model.GenreId;
 import entertainment.pro.storage.utils.ProfileCommands;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
@@ -17,12 +14,8 @@ import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
-
 import java.io.IOException;
-
 
 public class SearchCommand extends CommandSuper {
 
@@ -58,26 +51,26 @@ public class SearchCommand extends CommandSuper {
     @Override
     public void executeCommands() throws Exceptions {
         String payload = getPayload();
-        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
+        MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         SearchProfile searchProfile = movieHandler.getSearchProfile();
         searchProfile.iniitalizeBackSearchProfile(searchProfile);
         getPreferences(movieHandler, searchProfile, payload, isMovie);
         switch (this.getSubRootCommand()) {
-            case movies:
-                isMovie = true;
-                searchProfile.setMovie(true);
-                executeMovieSearch(payload, movieHandler, searchProfile);
-                break;
-            case tvshows:
-                executeTVSearch(payload, movieHandler, searchProfile);
-                break;
-            default:
-                break;
+        case movies:
+            isMovie = true;
+            searchProfile.setMovie(true);
+            executeMovieSearch(payload, movieHandler, searchProfile);
+            break;
+        case tvshows:
+            executeTvSearch(payload, movieHandler, searchProfile);
+            break;
+        default:
+            break;
         }
-
     }
 
-    private void executeMovieSearch(String payload, MovieHandler movieHandler, SearchProfile searchProfile) throws Exceptions {
+    private void executeMovieSearch(String payload, MovieHandler movieHandler,
+                                    SearchProfile searchProfile) throws Exceptions {
         movieHandler.setSearchProfile(searchProfile);
         if (payload.equals(GET_CURRENT)) {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
@@ -92,7 +85,8 @@ public class SearchCommand extends CommandSuper {
         }
     }
 
-    private void executeTVSearch(String payload, MovieHandler movieHandler, SearchProfile searchProfile) throws Exceptions {
+    private void executeTvSearch(String payload, MovieHandler movieHandler,
+                                 SearchProfile searchProfile) throws Exceptions {
         movieHandler.setSearchProfile(searchProfile);
         if (payload.equals(GET_CURRENT)) {
             movieHandler.showCurrentTV();
@@ -321,21 +315,4 @@ public class SearchCommand extends CommandSuper {
     }
 
 **/
-
-
-    private Integer findGenreID(String genreName) throws IOException {
-        genreName = genreName.trim();
-        ObjectMapper mapper = new ObjectMapper();
-        InputStream inputStream = new FileInputStream("EPdata/GenreId.json");
-        TypeReference<ArrayList<GenreId>> typeReference = new TypeReference<ArrayList<GenreId>>() {};
-        ArrayList<GenreId> genreIds = mapper.readValue(inputStream, typeReference);
-        for (GenreId log : genreIds){
-            if (log.getGenre().equalsIgnoreCase(genreName)){
-                inputStream.close();
-                return log.getId();
-            }
-        }
-        inputStream.close();
-        return 0;
-    }
 }

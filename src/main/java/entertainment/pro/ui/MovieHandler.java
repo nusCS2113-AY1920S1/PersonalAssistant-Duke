@@ -2,10 +2,10 @@ package entertainment.pro.ui;
 
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.cinemaRequesterAPI.CinemaRetrieveRequest;
-import entertainment.pro.logic.Contexts.CommandContext;
-import entertainment.pro.logic.Contexts.ContextHelper;
-import entertainment.pro.logic.Contexts.SearchResultContext;
-import entertainment.pro.logic.Execution.CommandStack;
+import entertainment.pro.logic.contexts.CommandContext;
+import entertainment.pro.logic.contexts.ContextHelper;
+import entertainment.pro.logic.contexts.SearchResultContext;
+import entertainment.pro.logic.execution.CommandStack;
 import entertainment.pro.logic.movieRequesterAPI.RequestListener;
 import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
 import entertainment.pro.logic.movieRequesterAPI.MovieResultFilter;
@@ -13,6 +13,8 @@ import entertainment.pro.model.*;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.storage.utils.*;
 import entertainment.pro.xtra.PastCommands;
+import entertainment.pro.storage.utils.PastUserCommands;
+
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -32,7 +34,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import entertainment.pro.logic.parsers.CommandParser;
 import org.json.simple.parser.ParseException;
-import entertainment.pro.storage.utils.PastUserCommands;
+
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -46,44 +49,60 @@ public class MovieHandler extends Controller implements RequestListener {
     private ScrollPane mMoviesScrollPane;
 
     @FXML
-    private VBox vbox0, vBox1, vBox2, vBox3, gneresVBox, mainVBox, searchCommandVBox, generalFeedbackVBox, autoCompleteVBox;
+    Label userAdultLabel2;
+    @FXML
+    Label sortAlphaOrderLabel;
+    @FXML
+    Label sortLatestDateLabel;
+    @FXML
+    Label sortHighestRatingLabel;
+    @FXML
+    Label userNameLabel;
+    @FXML
+    Label userAgeLabel;
+    @FXML
+    private Label mStatusLabel;
+    @FXML
+    private Label userPlaylistsLabel;
 
     @FXML
-    private HBox nameHBox, adultHBox, genresHBox, alphaSortHBox, latestDatesHBox, highestRatingHBox;
-
+    Text autoCompleteText;
     @FXML
-    private Label userPreferenceLabel, userAdultLabel1, userAdultLabel2,
-            userGenreLabel, sortAlphaOrderLabel, sortLatestDateLabel, sortHighestRatingLabel,
-            sortHighestRatingText, autoCompleteLabel, generalFeedbackLabel, userNameLabel, userAgeLabel;
-
-    @FXML
-    private Text userPreferenceText, userNameText, userAgeText,
-            sortAlphaOrderText, sortLatestDateText,  autoCompleteText, generalFeedbackText;
+    Text generalFeedbackText;
 
     @FXML
     private TextFlow genreListText;
 
     @FXML
+    private TextField mSearchTextField;
+
+    @FXML
     private MenuBar menuBar;
-
-    @FXML
-    private Menu fileMenu, helpMenu;
-
-    @FXML
-    private Label mStatusLabel;
-
 
     @FXML
     private ProgressBar mProgressBar;
 
     @FXML
-    private TextField mSearchTextField;
-
-    @FXML
     private AnchorPane movieAnchorPane;
 
-    @FXML
-    private Label userPlaylistsLabel;
+
+//    @FXML
+//    private VBox vbox0, vBox1, vBox2, vBox3, gneresVBox, mainVBox, searchCommandVBox, generalFeedbackVBox, autoCompleteVBox;
+//
+//    @FXML
+//    private HBox nameHBox, adultHBox, genresHBox, alphaSortHBox, latestDatesHBox, highestRatingHBox;
+
+//    @FXML
+//    private Label userPreferenceLabel, userAdultLabel1, userAdultLabel2,
+//            userGenreLabel, sortAlphaOrderLabel, sortLatestDateLabel, sortHighestRatingLabel,
+//            sortHighestRatingText, autoCompleteLabel, generalFeedbackLabel, userNameLabel, userAgeLabel
+
+//    @FXML
+//    private Menu fileMenu, helpMenu;
+
+//    @FXML
+//    private Text userPreferenceText, userNameText, userAgeText,
+//            sortAlphaOrderText, sortLatestDateText,  autoCompleteText, generalFeedbackText;
 
 
     private boolean isViewBack = false;
@@ -106,8 +125,7 @@ public class MovieHandler extends Controller implements RequestListener {
     private ArrayList<String> playlists;
     private String playlistName = "";
     private MovieResultFilter filter = new MovieResultFilter(new ArrayList<>(), new ArrayList<>());
-//    private ArrayList<MovieInfoObject> playlistMovies = new ArrayList<>();
-//    private ArrayList<Playlist> playlists;
+    private PageTracker pageTracker = new PageTracker();
     private FlowPane mMoviesFlowPane;
     private VBox playlistVBox = new VBox();
     private static ArrayList<MovieInfoObject> mMovies = new ArrayList<>();
@@ -115,7 +133,7 @@ public class MovieHandler extends Controller implements RequestListener {
     private static RetrieveRequest mMovieRequest;
     private static CinemaRetrieveRequest mCinemaRequest;
     private int index = 0;
-    private static PastCommands pastCommands = new PastCommands();;
+    private static PastCommands pastCommands = new PastCommands();
     static String command = "";
     ArrayList<Integer> genrePreference = new ArrayList<>();
     ArrayList<Integer> genreRestriction = new ArrayList<>();
@@ -137,9 +155,12 @@ public class MovieHandler extends Controller implements RequestListener {
     public SearchProfile getSearchProfile() {
         return searchProfile;
     }
+
     Controller controller;
 
-
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
     public static void updatePastCommands(String now) {
         PastCommandStructure pastCommandStructure = new PastCommandStructure(now, command);
         ArrayList<PastCommandStructure> arrayList = pastCommands.getMap();
@@ -170,7 +191,7 @@ public class MovieHandler extends Controller implements RequestListener {
                 System.out.println("Hello");
                 command = mSearchTextField.getText();
                 //clickEntered(command, control);
-               try {
+                try {
                     CommandParser.parseCommands(command, control);
                 } catch (IOException | Exceptions e) {
                     e.printStackTrace();
@@ -188,7 +209,7 @@ public class MovieHandler extends Controller implements RequestListener {
     }
 
     /**
-     * This function is called when JavaFx runtime when view is loaded
+     * This function is called when JavaFx runtime when view is loaded.
      */
     @FXML
     public void setLabels() throws IOException {
@@ -201,8 +222,6 @@ public class MovieHandler extends Controller implements RequestListener {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-//        EditPlaylistJson editPlaylistJson = new EditPlaylistJson();
-//        playlists = editPlaylistJson.load();
         userNameLabel.setText(userProfile.getUserName());
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
         playlists = userProfile.getPlaylistNames();
@@ -230,6 +249,9 @@ public class MovieHandler extends Controller implements RequestListener {
     }
 
 
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
     @FXML
     public void initialize() throws IOException, Exceptions {
         setLabels();
@@ -369,14 +391,15 @@ public class MovieHandler extends Controller implements RequestListener {
                 @Override
                 public void run() {
                     // Update UI here.
-            PastCommandStructure pastCommandStructure = getPastCommands().getMap().get(
-                    getPastCommands().getMap().size() - 2);
-            String command = pastCommandStructure.getQuery();
-            String[] getStrips = command.split(" ");
-            int num = 0;
-            if (getPastCommands().getMap().get(getPastCommands().getMap().size() - 2).getQuery().startsWith("view entry")) {
-                num = Integer.parseInt(getStrips[2]);
-            }
+                    PastCommandStructure pastCommandStructure = getPastCommands().getMap().get(
+                            getPastCommands().getMap().size() - 2);
+                    String command = pastCommandStructure.getQuery();
+                    String[] getStrips = command.split(" ");
+                    int num = 0;
+                    if (getPastCommands().getMap().get(getPastCommands().getMap().size() - 2)
+                            .getQuery().startsWith("view entry")) {
+                        num = Integer.parseInt(getStrips[2]);
+                    }
                     try {
                         showMovie(num);
                     } catch (Exceptions exceptions) {
@@ -389,7 +412,6 @@ public class MovieHandler extends Controller implements RequestListener {
                         isViewBack = false;
                 }
             });
-
 
         } else {
             //System.out.println("this is size: " + mMovies.size());
@@ -412,6 +434,9 @@ public class MovieHandler extends Controller implements RequestListener {
 
     }
 
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
     public void displayMovies() {
         mMovies = SearchResultContext.getMoviesToDisplay();
         mImagesLoadingProgress = new double[mMovies.size()];
@@ -433,7 +458,7 @@ public class MovieHandler extends Controller implements RequestListener {
     }
 
     /**
-     * This function is called when data for the movies/tv shows failed due to internet connection
+     * This function is called when data for the movies/tv shows failed due to internet connection.
      */
     @Override
     public void requestFailed() {
@@ -482,6 +507,7 @@ public class MovieHandler extends Controller implements RequestListener {
 
 
     /**
+     * to build the movie posters.
      * @param movie a object that contains information about a movie
      * @param index a unique number assigned to every movie/tv show that is being displayed.
      * @return anchorpane consisting of the movie poster, name and the unique id.
@@ -515,7 +541,7 @@ public class MovieHandler extends Controller implements RequestListener {
                         }
                     });
                     controller.getPosterImageView().setImage(posterImage);
-                } else{
+                } else {
                     System.out.println("hi1");
                     Image posterImage = new Image(this.getClass().getResourceAsStream("../../../../EPdata/FakeMoviePoster.png"));
                     System.out.println("hi2");
@@ -573,7 +599,8 @@ public class MovieHandler extends Controller implements RequestListener {
                 String command = pastCommandStructure.getQuery();
                 String[] getStrips = command.split(" ");
                 int num = 0;
-                if (getPastCommands().getMap().get(getPastCommands().getMap().size() - 2).getQuery().startsWith("view entry")) {
+                if (getPastCommands().getMap().get(getPastCommands().getMap().size() - 2)
+                        .getQuery().startsWith("view entry")) {
                     num = Integer.parseInt(getStrips[2]);
                 }
                 showMovie(num);
@@ -590,6 +617,9 @@ public class MovieHandler extends Controller implements RequestListener {
         return isViewBack;
     }
 
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
     public void showMovie(int num) throws Exceptions {
         //System.out.println("this is " + mMovies.size());
         MovieInfoObject movie = mMovies.get(num - 1);
@@ -604,21 +634,26 @@ public class MovieHandler extends Controller implements RequestListener {
         mProgressBar.setProgress(0.0);
         mProgressBar.setVisible(true);
         mStatusLabel.setText("Loading..");
+        playlistVBox.getChildren().clear();
 
         int count = 1;
-        for (String log : playlists) {
-            Playlist playlist = new EditPlaylistJson(log).load();
-            System.out.println(playlist.getPlaylistName());
-            System.out.println(playlist.getMovies().size());
-            AnchorPane playlistPane = buildPlaylistPane(playlist, count);
-            playlistVBox.getChildren().add(playlistPane);
-            count++;
-//            mPlaylistFlowPane.getChildren().add(playlistPane);
-//            System.out.println(playlist.getMovies().size());
+        if (playlists.isEmpty()) {
+            Label emptyLabel = new Label("u do not have any playlist currently :( "
+                    + "\n try making some using command: playlist create <playlist name>");
+            playlistVBox.getChildren().add(emptyLabel);
+        } else {
+            for (String log : playlists) {
+                Playlist playlist = new EditPlaylistJson(log).load();
+                System.out.println(playlist.getPlaylistName());
+                System.out.println(playlist.getMovies().size());
+                AnchorPane playlistPane = buildPlaylistPane(playlist, count);
+                playlistVBox.getChildren().add(playlistPane);
+                count++;
+            }
+            mMoviesScrollPane.setContent(playlistVBox);
+            mMoviesScrollPane.setVvalue(0);
+            pageTracker.setToPlaylistList();
         }
-
-        mMoviesScrollPane.setContent(playlistVBox);
-        mMoviesScrollPane.setVvalue(0);
     }
 
     private AnchorPane buildPlaylistPane(Playlist playlist, int i) {
@@ -626,14 +661,8 @@ public class MovieHandler extends Controller implements RequestListener {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("PlaylistPane.fxml"));
             AnchorPane playlistPane = loader.load();
-//            playlistPane.setRightAnchor(00);
-//            posterView.setOnScroll();
             playlistPane.setOnMouseClicked((mouseEvent) -> {
-//                try {
-                    playlistPaneClicked(playlist);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                playlistPaneClicked(playlist);
             });
             // set the movie info
             PlaylistController controller = loader.getController();
@@ -641,12 +670,12 @@ public class MovieHandler extends Controller implements RequestListener {
 //            controller.setTextColour();
             controller.getPlaylistNameLabel().setText(playlist.getPlaylistName());
             if (playlist.getDescription().trim().length() == 0) {
-                controller.getPlaylistDescriptionLabel().setStyle("-fx-font-style: italic");
                 controller.getPlaylistDescriptionLabel().setText("*this playlist does not have a description :(*");
             } else {
                 controller.getPlaylistDescriptionLabel().setText(playlist.getDescription());
             }
-            controller.getPlaylistMoviesLabel().setText("No. of movies: " + Integer.toString(playlist.getMovies().size()));
+            controller.getPlaylistMoviesLabel()
+                    .setText("No. of movies: " + Integer.toString(playlist.getMovies().size()));
             System.out.println("no lei here");
             return playlistPane;
         } catch (IOException ex) {
@@ -681,6 +710,7 @@ public class MovieHandler extends Controller implements RequestListener {
                 controller.getPlaylistInfoVBox().getChildren().add(2, emptyMoviesLabel);
             }
             mMoviesScrollPane.setContent(controller.getPlaylistInfoVBox());
+            pageTracker.setToPlaylistInfo();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -703,9 +733,6 @@ public class MovieHandler extends Controller implements RequestListener {
             AnchorPane posterPane = buildPlaylistMoviePosterPane(movies.get(i), i + 1);
             mMoviesFlowPane.getChildren().add(posterPane);
         }
-
-//        scrollPane.setContent(mMoviesFlowPane);
-//        scrollPane.setVvalue(0);
         return mMoviesFlowPane;
     }
 
@@ -726,9 +753,8 @@ public class MovieHandler extends Controller implements RequestListener {
             // set the movie info
             MoviePosterController controller = loader.getController();
             try {
-                System.out.println("hi1");
-                Image posterImage = new Image(this.getClass().getResourceAsStream("../../../../EPdata/FakeMoviePoster.png"));
-                System.out.println("hi2");
+                File fakePoster = new File("./FakeMoviePoster.png");
+                Image posterImage = new Image(fakePoster.toURI().toString());
                 posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
                     try {
                         updateProgressBar(movie, newValue.doubleValue());
@@ -736,9 +762,7 @@ public class MovieHandler extends Controller implements RequestListener {
                         exceptions.printStackTrace();
                     }
                 });
-                System.out.println("hi3");
                 controller.getPosterImageView().setImage(posterImage);
-                System.out.println("sianzzzzz");
             } catch (NullPointerException ex) {
 
             }
@@ -762,6 +786,7 @@ public class MovieHandler extends Controller implements RequestListener {
         for (PlaylistMovieInfoObject log : toConvert) {
             converted.add(new MovieInfoObject(log.getId(), log.getTitle(), isMovie,log.getReleaseDateInfo(), log.getSummaryInfo(), log.getFullPosterPathInfo(), log.getFullBackdropPathInfo(),
                     log.getRatingInfo(), log.getGenreIDInfo(), log.isIsadultContent()));
+
         }
         return converted;
     }
@@ -842,13 +867,6 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     public void playlistMoviePosterClicked(MovieInfoObject movie) throws Exceptions {
         try {
-            //mMainApplication.transitToMovieInfoController(movie);
-//            mMoviesFlowPane.getChildren().clear();
-//            mMoviesFlowPane = new FlowPane(Orientation.HORIZONTAL);
-//            mMoviesFlowPane.setHgap(4);
-//            mMoviesFlowPane.setVgap(10);
-//            mMoviesFlowPane.setPadding(new Insets(10, 8, 4, 8));
-//            mMoviesFlowPane.prefWrapLengthProperty().bind(mMoviesScrollPane.widthProperty());
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("PlaylistMoreInfo.fxml"));
             AnchorPane posterView = loader.load();
@@ -885,6 +903,7 @@ public class MovieHandler extends Controller implements RequestListener {
             controller.getMovieGenresLabel().setText(builder.toString());
             mMoviesScrollPane.setContent(controller.getPlaylistMovieInfoAnchorPane());
             mMoviesScrollPane.setVvalue(0);
+            pageTracker.setToPlaylistMovieInfo();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -907,6 +926,9 @@ public class MovieHandler extends Controller implements RequestListener {
         mSearchTextField.positionCaret(mSearchTextField.getText().length());
     }
 
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
     public void setFeedbackText(ArrayList<String> txtArr) {
         String output = "";
         for (String s : txtArr) {
@@ -932,6 +954,9 @@ public class MovieHandler extends Controller implements RequestListener {
         autoCompleteText.setText(text);
     }
 
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
     public void setAutoCompleteText(ArrayList<String> txtArr) {
         String output = "";
         Set<String> hashSet = new HashSet<String>();
@@ -957,7 +982,7 @@ public class MovieHandler extends Controller implements RequestListener {
     }
 
     /**
-     * Retrieves the cinemaRetrieveRequest class
+     * Retrieves the cinemaRetrieveRequest class.
      * @return the cinemaRetrieveRequest class
      */
     public CinemaRetrieveRequest getCinemaAPIRequester() {
@@ -975,10 +1000,6 @@ public class MovieHandler extends Controller implements RequestListener {
     public static PastCommands getPastCommands() {
         return pastCommands;
     }
-
-//    public ArrayList<Playlist> getPlaylists() {
-//        return playlists;
-//    }
 
     public ArrayList<MovieInfoObject> getmMovies() {
         return mMovies;
@@ -1068,6 +1089,9 @@ public class MovieHandler extends Controller implements RequestListener {
         mMovieRequest.setSearchProfile(searchProfile);
     }
 
+    /**
+     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     */
     public void updateSortInterface() {
         if (userProfile.isSortByAlphabetical()) {
             sortAlphaOrderLabel.setText("Y");
@@ -1093,9 +1117,22 @@ public class MovieHandler extends Controller implements RequestListener {
         playlistName = name;
     }
 
-    public void refreshPlaylist() throws IOException {
-        EditPlaylistJson editPlaylistJson = new EditPlaylistJson(playlistName);
-        buildPlaylistInfo(editPlaylistJson.load());
+    /**
+     * to refresh the gui page so it reflects user's changes.
+     */
+    public void refresh() throws IOException {
+        switch (pageTracker.getCurrentPage()) {
+        case "playlistList":
+            EditProfileJson editProfileJson = new EditProfileJson();
+            buildPlaylistVBox(editProfileJson.load().getPlaylistNames());
+            break;
+        case "playlistInfo":
+            EditPlaylistJson editPlaylistJson = new EditPlaylistJson(playlistName);
+            buildPlaylistInfo(editPlaylistJson.load());
+            break;
+        default:
+            break;
+        }
     }
 
     public MovieResultFilter getFilter() {
@@ -1104,5 +1141,19 @@ public class MovieHandler extends Controller implements RequestListener {
 
     public void setFilter(MovieResultFilter filter) {
         this.filter = filter;
+    }
+
+    public PageTracker getPageTracker() {
+        return pageTracker;
+    }
+
+    /**
+     * to go back to playlist info page from playlistmovieinfo page.
+     */
+    public void backToPlaylistInfo() throws IOException {
+        if (pageTracker.isPlaylistMovieInfo()) {
+            pageTracker.setToPlaylistInfo();
+            refresh();
+        }
     }
 }
