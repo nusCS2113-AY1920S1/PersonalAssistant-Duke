@@ -44,13 +44,13 @@ public class ImpressionMoveCommand extends ImpressionCommand {
         DukeData moveData;
         DukeException dataNotFound;
         List<DukeData> moveList;
-        if (!"".equals(getArg()) && "".equals(evArg) && "".equals(treatArg)) {
+        if (getArg() != null && evArg == null && treatArg == null) {
             moveList = new ArrayList<DukeData>(impression.findByName(getArg()));
             dataNotFound = new DukeException("Can't find any data item with that name!");
-        } else if ("".equals(getArg()) && !"".equals(evArg) && "".equals(treatArg)) {
+        } else if (getArg() == null && evArg != null && treatArg == null) {
             moveList = new ArrayList<DukeData>(impression.findEvidencesByName(evArg));
             dataNotFound = new DukeException("Can't find any evidences with that name!");
-        } else if ("".equals(getArg()) && "".equals(evArg) && !"".equals(treatArg)) {
+        } else if (getArg() == null && evArg == null && treatArg != null) {
             moveList = new ArrayList<DukeData>(impression.findTreatmentsByName(treatArg));
             dataNotFound = new DukeException("Can't find any treatments with that name!");
         } else {
@@ -63,5 +63,14 @@ public class ImpressionMoveCommand extends ImpressionCommand {
             throw dataNotFound;
         }
         moveData.setParent(newImpression);
+        if (moveData instanceof Evidence) {
+            Evidence evidence = (Evidence) moveData;
+            impression.deleteEvidence(evidence.toString());
+            newImpression.addNewEvidence(evidence);
+        } else if (moveData instanceof Treatment) {
+            Treatment treatment = (Treatment) moveData;
+            impression.deleteTreatment(treatment.toString());
+            newImpression.addNewTreatment(treatment);
+        }
     }
 }

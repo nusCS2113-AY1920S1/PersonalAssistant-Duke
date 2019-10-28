@@ -47,7 +47,7 @@ public abstract class ArgCommand extends Command {
     }
 
     protected String getArg() {
-        return Objects.requireNonNullElse(arg, "");
+        return arg;
     }
 
     protected abstract ArgSpec getSpec();
