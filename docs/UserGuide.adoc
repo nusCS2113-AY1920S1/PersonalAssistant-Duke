@@ -289,10 +289,19 @@ Format: `free DD-MM-YYYY`
 
 * `Date` has to *strictly* be in the format as stated above.
 
-Example:
+To view your free time slots for a given date: 
 
-* `free 10-10-2019` +
-Searches for free time on the given date of `10-10-2019`.
++1.+ Type `free 30-10-2019` as a command press btn:[ENTER]
+
+[[FreeTimeExample]]
+.Typing free 30-10-2019 into OOF 
+image::FreeTimeExample.png[FreeTimeExample]
+
++2.+ `OOF` displays all the free time slots that you have. 
+
+[[FreeTimeDisplay]]
+.Typing free with a valid date in the valid format of DD-MM-YYYY 
+image::FreeTimeDisplay.png[FreeTimeDisplay]
 
 === View tasks in week view: `viewWeek`
 Shows you the tasks for any particular week in a table format.
