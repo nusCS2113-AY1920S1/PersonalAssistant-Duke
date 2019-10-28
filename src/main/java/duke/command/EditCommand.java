@@ -1,6 +1,5 @@
 package duke.command;
 
-import com.sun.source.tree.UsesTree;
 import duke.exception.DukeException;
 import duke.parser.DateTimeParser;
 import duke.parser.KeywordAndField;

@@ -17,7 +17,7 @@ public enum RecurrencePeriod {
     public String recurrenceDescription() {
         switch (this) {
             case DAILY:
-                return " every dai";
+                return " every day";
             case WEEKLY:
                 return " every week";
             default:
