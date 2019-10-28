@@ -1,9 +1,9 @@
-import command.AddCommand;
-import command.Command;
-import exception.DukeException;
+import chronologer.command.AddCommand;
+import chronologer.command.Command;
+import chronologer.exception.ChronologerException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import parser.ParserFactory;
+import chronologer.parser.ParserFactory;
 
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
@@ -40,7 +40,7 @@ public class ParserFactoryTest {
     }
 
     @Test
-    public void testToDoParsing() throws DukeException, NoSuchFieldException, IllegalAccessException {
+    public void testToDoParsing() throws ChronologerException, NoSuchFieldException, IllegalAccessException {
         Field[] todoFields = getAddCommandFields(todo);
         Command todoTest = ParserFactory.parse("todo test");
         Field[] toDoTestFields = getAddCommandFields(todoTest);
@@ -48,7 +48,7 @@ public class ParserFactoryTest {
     }
 
     @Test
-    public void testDeadlineParsing() throws DukeException, NoSuchFieldException, IllegalAccessException {
+    public void testDeadlineParsing() throws ChronologerException, NoSuchFieldException, IllegalAccessException {
         Field[] deadlineFields = getAddCommandFields(deadline);
         Command deadlineTest = ParserFactory.parse("deadline test /by 01/01/2001 0100");
         Field[] deadlineTestFields = getAddCommandFields(deadlineTest);
@@ -56,7 +56,7 @@ public class ParserFactoryTest {
     }
 
     @Test
-    public void testEventParsing() throws DukeException, NoSuchFieldException, IllegalAccessException {
+    public void testEventParsing() throws ChronologerException, NoSuchFieldException, IllegalAccessException {
         Field[] eventFields = getAddCommandFields(event);
         Command eventTest = ParserFactory.parse("event test /at 01/01/2001 0100 - 01/01/2001 1300");
         Field[] eventTestFields = getAddCommandFields(eventTest);
@@ -65,19 +65,19 @@ public class ParserFactoryTest {
 
     @Test
     public void testExceptionForDeadline() {
-        Assertions.assertThrows(DukeException.class, () -> {
+        Assertions.assertThrows(ChronologerException.class, () -> {
             ParserFactory.parse("deadline");
         });
-        Assertions.assertThrows(DukeException.class, () -> {
+        Assertions.assertThrows(ChronologerException.class, () -> {
             ParserFactory.parse("deadline test");
         });
         Assertions.assertThrows(DateTimeParseException.class, () -> {
             ParserFactory.parse("deadline test /by");
         });
-        Assertions.assertThrows(DukeException.class, () -> {
+        Assertions.assertThrows(ChronologerException.class, () -> {
             ParserFactory.parse("deadline /by 01/01/2001 0100");
         });
-        Assertions.assertThrows(DukeException.class, () -> {
+        Assertions.assertThrows(ChronologerException.class, () -> {
             ParserFactory.parse("deadline test 01/01/2001 0100");
         });
     }

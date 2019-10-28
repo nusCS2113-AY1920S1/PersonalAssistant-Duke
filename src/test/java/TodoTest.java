@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import exception.DukeException;
-import parser.DateTimeExtractor;
-import parser.ParserFactory;
-import task.Todo;
+import chronologer.exception.ChronologerException;
+import chronologer.parser.DateTimeExtractor;
+import chronologer.parser.ParserFactory;
+import chronologer.task.Todo;
 
 /**
  * This class implements the unit testing code for the To-do class.
@@ -28,13 +28,13 @@ public class TodoTest {
 
     @Test
     public void whenExceptionThrown() {
-        Assertions.assertThrows(DukeException.class, () -> {
+        Assertions.assertThrows(ChronologerException.class, () -> {
             ParserFactory.parse("todo");
         });
     }
 
     @Test
-    public void testTodoWithinPeriod() throws DukeException {
+    public void testTodoWithinPeriod() throws ChronologerException {
         try {
             LocalDateTime from;
             LocalDateTime to;
@@ -43,7 +43,7 @@ public class TodoTest {
             Todo newTodo = new Todo("testTodo", from, to);
             Assertions.assertEquals(newTodo.getStartDate(), from);
         } catch (ParseException e) {
-            throw new DukeException(DukeException.wrongDateOrTime());
+            throw new ChronologerException(ChronologerException.wrongDateOrTime());
         }
     }
 }

@@ -1,9 +1,9 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import task.Deadline;
-import task.Task;
-import task.TaskList;
+import chronologer.task.Deadline;
+import chronologer.task.Task;
+import chronologer.task.TaskList;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

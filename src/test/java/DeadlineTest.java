@@ -1,8 +1,8 @@
-import exception.DukeException;
+import chronologer.exception.ChronologerException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import parser.ParserFactory;
-import task.Deadline;
+import chronologer.parser.ParserFactory;
+import chronologer.task.Deadline;
 
 import java.time.LocalDateTime;
 
@@ -16,12 +16,12 @@ public class DeadlineTest {
         LocalDateTime date = deadline.getStartDate();
         Assertions.assertEquals(title, "test");
         Assertions.assertEquals(date, fromDate);
-        Assertions.assertEquals(deadline.toString(), "[\u2605\u2605][D][\u2718] test(by: 01/01/2001 0100)");//Test
+        Assertions.assertEquals(deadline.toString(), "[\u2605\u2605][D][\u2718] test (by: 01/01/2001 0100)");//Test
     }
 
     @Test
     public void whenExceptionThrown() {
-        Assertions.assertThrows(DukeException.class, () -> {
+        Assertions.assertThrows(ChronologerException.class, () -> {
             ParserFactory.parse("deadline");
         });
     }
