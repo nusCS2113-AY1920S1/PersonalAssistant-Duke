@@ -1,12 +1,12 @@
 package scene;
 
 import command.QuizCommand;
-import dictionary.Bank;
 import exception.ChangeSceneException;
 import exception.InvalidAnswerException;
 import exception.WordBankNotEnoughForQuizException;
 import exception.CommandInvalidException;
 import exception.WordUpException;
+import dictionary.Bank;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -14,13 +14,25 @@ import javafx.stage.Stage;
 import storage.Storage;
 import ui.Ui;
 
+import java.util.ArrayList;
+
 public class QuizScene extends NewScene {
     private QuizCommand quizCommand;
     boolean startQuiz = false;
+    private Integer countQuiz;
+    private Integer wrongQuiz;
+    private ArrayList<String> quizArray;
 
+    /**
+     * Instantiates a QuizScene.
+     * @param storage object required to create quiz scene
+     */
     public QuizScene(Ui ui, Bank bank, Storage storage, Stage window) {
         super(ui, bank, storage, ui.quizGreet(), window);
         setupHandleInput();
+        this.countQuiz = 0;
+        this.wrongQuiz = 0;
+        this.quizArray = new ArrayList<>();
     }
 
     @Override
@@ -29,42 +41,54 @@ public class QuizScene extends NewScene {
     }
 
     @Override
-    public String getResponse(String userInput)
-            throws ChangeSceneException, InvalidAnswerException,
-            WordBankNotEnoughForQuizException, CommandInvalidException {
+    public String getResponse(String userInput) throws
+            ChangeSceneException,
+            InvalidAnswerException,
+            WordBankNotEnoughForQuizException,
+            CommandInvalidException {
         if (userInput.equals("exit_quiz")) {
             throw new ChangeSceneException();
-        }
-        if (!startQuiz) {
-            if (userInput.equals("start")) {
-                generateQuiz();
-                startQuiz = true;
-                return ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
-            } else {
-                throw new CommandInvalidException(userInput);
-            }
+        } else if (!startQuiz && userInput.equals("start")) {
+            this.generateQuiz();
+            startQuiz = true;
+            return ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
+        } else if (countQuiz == 5) {
+            startQuiz = false;
+            return ui.quizIncorrect(wrongQuiz, countQuiz, quizArray);
         } else {
-            String s;
-            try {
-                int i = Integer.parseInt(userInput);
-                if (i < 1 || i > 4) {
+            if (!startQuiz) {
+                throw new CommandInvalidException(userInput);
+            } else {
+                String s;
+                try {
+                    int i = Integer.parseInt(userInput);
+                    if (i < 1 || i > 4) {
+                        throw new InvalidAnswerException();
+                    }
+                    if (userInput.equals(Integer.toString((4 - quizCommand.optionSequence) % 4 + 1))) {
+                        s = ui.quizResponse(true, quizCommand.answer);
+                    } else {
+                        s = ui.quizResponse(false, quizCommand.answer);
+                        quizArray.add(quizCommand.question + ": " + quizCommand.answer);
+                        wrongQuiz += 1;
+                    }
+                    this.generateQuiz();
+                    return s
+                            + "\n"
+                            + ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
+                } catch (NumberFormatException e) {
+
                     throw new InvalidAnswerException();
                 }
-                if (userInput.equals(Integer.toString((4 - quizCommand.optionSequence) % 4 + 1))) {
-                    s = ui.quizResponse(true, quizCommand.answer);
-                } else {
-                    s = ui.quizResponse(false, quizCommand.answer);
-                }
-                generateQuiz();
-                return s + "\n" + ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
-            } catch (NumberFormatException e) {
-                throw new InvalidAnswerException();
             }
+
         }
     }
 
     private void generateQuiz() throws WordBankNotEnoughForQuizException {
         quizCommand = new QuizCommand();
+        this.countQuiz += 1;
+        //quizCommand.generateQuiz(wordBank);
         quizCommand.generateQuiz(bank.getWordBankObject());
     }
 

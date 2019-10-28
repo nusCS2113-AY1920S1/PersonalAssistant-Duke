@@ -18,8 +18,7 @@ public class Ui {
         return ("\n                      |   | _ _ _|   /  \\ _  \n"
                 + "                      |/\\|(_)| (_|  \\__/|_) \n"
                 + "                                            |   \n\n"
-                + "Welcome, what would you like to do today?"
-            );
+                + "Welcome, what would you like to do today?");
     }
 
     /**
@@ -28,11 +27,10 @@ public class Ui {
      */
     public String quizGreet() {
         return ("\n                      |   | _ _ _|   /  \\ _  \n"
-                    + "                      |/\\|(_)| (_|  \\__/|_) \n"
+                + "                      |/\\|(_)| (_|  \\__/|_) \n"
                 + "                                            |   \n"
                 + "Let's do some quiz to enhance your word knowledge \n"
-                + "Type \"start\" to begin quiz or \"exit_quiz\" to go back"
-            );
+                + "Type \"start\" to begin quiz or \"exit_quiz\" to go back");
     }
 
     public String showDeleted(Word w) {
@@ -203,6 +201,7 @@ public class Ui {
     }
 
     /**
+
      * Shows a string containing description and format of a specific instruction.
      * @param instruction name of the instruction which user wants to know more
      * @return a string to show manual of specific instruction
@@ -280,6 +279,31 @@ public class Ui {
     }
 
     /**
+     * Shows score of the quiz.
+     * @param wrongQuiz is the number of wrong answers answered
+     * @param countQuiz is number of questions answered
+     * @param quizArray are the words where the user had wrong answers
+     * @return a string shown
+     */
+    public String quizIncorrect(Integer wrongQuiz, Integer countQuiz, ArrayList<String> quizArray) {
+        if (wrongQuiz == 0) {
+            return ("Congratulations! You got "
+                    + (countQuiz - wrongQuiz)
+                    + "/" + countQuiz
+                    + " on this quiz!\n"
+                    + "type exit_quiz to exit.");
+        } else {
+            return ("You got " + (countQuiz - wrongQuiz)
+                    + "/"
+                    + countQuiz
+                    + " on this quiz!\n"
+                    + "These are the words you might want to review:\n"
+                    + quizArray
+                    + "\ntype exit_quiz to exit.");
+        }
+    }
+
+    /**
      * Shows to user all words that have a specific beginning.
      * @param begin begin substring to be searched
      * @param wordWithBegins list of all words that have that begin substring
@@ -295,4 +319,3 @@ public class Ui {
         return stringBuilder.toString();
     }
 }
-

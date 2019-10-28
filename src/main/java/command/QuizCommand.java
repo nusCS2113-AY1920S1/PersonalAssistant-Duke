@@ -41,13 +41,14 @@ public class QuizCommand extends Command {
         return false;
     }
 
+
     /**
      * Creates a quiz with 4 options 1, 2, 3, 4 for user.
      * @param wordBank word bank to contain all the words
      * @throws WordBankNotEnoughForQuizException if word bank have fewer than 4
      *     words, it cannot generate the quiz
      */
-    public void generateQuiz(WordBank wordBank) throws WordBankNotEnoughForQuizException {
+    public String generateQuiz(WordBank wordBank) throws WordBankNotEnoughForQuizException {
         int sizeOfWordBank = wordBank.getWordBank().size();
         if (sizeOfWordBank < 4) {
             throw new WordBankNotEnoughForQuizException();
@@ -69,5 +70,6 @@ public class QuizCommand extends Command {
         }
 
         optionSequence = random.nextInt(4);
+        return this.question + ": " + this.answer;
     }
 }
