@@ -99,7 +99,7 @@ public class DeleteTaskCommand implements Command {
                 relatedPatients.add(patientManager.getPatient(patientTask.getPid()));
             }
             ui.taskPatientFound(taskToBeDeleted, patientTasks, relatedPatients);
-            assignedTaskManager.deleteAllPatientTaskByTaskId(taskToBeDeleted.getId());
+            assignedTaskManager.deleteAssignedTaskByTaskId(taskToBeDeleted.getId());
             storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
             taskManager.deleteTask(taskToBeDeleted.getId());
             storageManager.saveTasks(taskManager.getTaskList());
