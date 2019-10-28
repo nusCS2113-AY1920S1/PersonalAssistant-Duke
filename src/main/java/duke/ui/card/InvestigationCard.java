@@ -15,10 +15,9 @@ public class InvestigationCard extends TreatmentCard {
      * Constructs an InvestigationCard object with the specified {@code Investigation}'s details.
      *
      * @param investigation Investigation object.
-     * @param index         Displayed index.
      */
-    public InvestigationCard(Investigation investigation, int index) {
-        super(FXML, investigation, index);
+    public InvestigationCard(Investigation investigation) {
+        super(FXML, investigation);
 
         this.investigation = investigation;
         fillInvestigationCard();

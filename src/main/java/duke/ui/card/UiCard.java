@@ -17,15 +17,14 @@ public abstract class UiCard extends AnchorPane {
     @FXML
     private Label indexLabel;
 
-    private int index;
+    private final String cardType;
 
     /**
      * Constructs a UiCard object with the specified {@code DukeObject}'s details.
      *
      * @param fxmlFileName Name of FXML file.
-     * @param index        Displayed index.
      */
-    public UiCard(String fxmlFileName, int index) {
+    UiCard(String fxmlFileName) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(DukeCore.class.getResource(FXML_FILE_FOLDER + fxmlFileName));
             fxmlLoader.setController(this);
@@ -36,8 +35,7 @@ public abstract class UiCard extends AnchorPane {
             throw new AssertionError(e);
         }
 
-        this.index = index;
-        indexLabel.setText(indexLabel.getText() + " " + index);
+        cardType = indexLabel.getText();
     }
 
     /**
@@ -48,7 +46,12 @@ public abstract class UiCard extends AnchorPane {
         return object == this;
     }
 
-    public int getIndex() {
-        return index;
+    /**
+     * Set index of card.
+     *
+     * @param index New index.
+     */
+    public void setIndex(int index) {
+        indexLabel.setText(cardType + " " + index);
     }
 }

@@ -120,9 +120,9 @@ public class Patient extends DukeObject {
     }
 
     /**
-     * This function finds relavent Impressions to the searchTerm.
+     * This function finds relevant Impressions to the searchTerm.
      *
-     * @param searchTerm the serach term
+     * @param searchTerm the search term
      * @return the list of impressions
      */
     public ArrayList<Impression> findImpression(String searchTerm) {
@@ -137,7 +137,7 @@ public class Patient extends DukeObject {
     }
 
     /**
-     * This function find returns a list of all DukeObjs
+     * This function find returns a list of all DukeObjects.
      * with names related to the patient containing the search term.
      *
      * @param searchTerm String to be used to filter the DukeObj
@@ -258,8 +258,8 @@ public class Patient extends DukeObject {
     }
 
     public void initObservables() {
-        initObservableAttributes();
         initObservableImpressions();
+        initObservableAttributes();
     }
 
     private void initObservableAttributes() {
@@ -278,7 +278,7 @@ public class Patient extends DukeObject {
         attributes.put("history", getHistory());
         attributes.put("allergies", getAllergies());
         attributes.put("diagnosis", getPrimaryDiagnosis());
-        attributes.put("impressions", impressions);
+        attributes.put("impressions", getImpressionsObservableMap().size());
     }
 
     private void initObservableImpressions() {

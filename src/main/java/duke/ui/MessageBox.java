@@ -16,7 +16,7 @@ import javafx.scene.text.Text;
 
 import java.util.Collections;
 
-class MessageBox extends UiElement<Region> {
+public class MessageBox extends UiElement<Region> {
     private static final String FXML = "MessageBox.fxml";
     private static final Image userAvatar = new Image(DukeCore.class.getResourceAsStream("/images/user.png"));
     private static final Image dukeAvatar = new Image(DukeCore.class.getResourceAsStream("/images/duke.png"));
@@ -43,7 +43,7 @@ class MessageBox extends UiElement<Region> {
     /**
      * Creates a message box for the user's input.
      */
-    static MessageBox getUserMessage(String text) {
+    public static MessageBox getUserMessage(String text) {
         MessageBox messageBox = new MessageBox(text, userAvatar);
         messageBox.flip();
         return messageBox;
@@ -52,7 +52,7 @@ class MessageBox extends UiElement<Region> {
     /**
      * Creates a new message box for Duke's response.
      */
-    static MessageBox getDukeMessage(String text) {
+    public static MessageBox getDukeMessage(String text) {
         MessageBox messageBox = new MessageBox(text, dukeAvatar);
         messageBox.flip();
         return messageBox;

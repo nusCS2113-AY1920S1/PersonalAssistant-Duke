@@ -1,9 +1,10 @@
-package duke.ui;
+package duke.ui.window;
 
 import duke.command.Command;
 import duke.command.Executor;
 import duke.command.Parser;
 import duke.exception.DukeException;
+import duke.ui.MessageBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -17,7 +18,7 @@ import javafx.scene.layout.VBox;
  * 2. Use the Parser to parse VALID user's input into a defined command and displays the corresponding result.
  * 3. Displays the appropriate error message for INVALID user's input.
  */
-class CommandWindow extends InputHistoryWindow {
+public class CommandWindow extends InputHistoryWindow {
     private static final String FXML = "CommandWindow.fxml";
     private static final String MESSAGE_WELCOME_GREET = "Hello! I'm Dr. Duke.";
     private static final String MESSAGE_WELCOME_QUESTION = "What can I do for you today?";
@@ -37,7 +38,7 @@ class CommandWindow extends InputHistoryWindow {
      *
      * @param executor Executor object responsible for executing user commands.
      */
-    CommandWindow(Executor executor, Parser parser) {
+    public CommandWindow(Executor executor, Parser parser) {
         super(FXML, null);
 
         this.parser = parser;
@@ -92,7 +93,7 @@ class CommandWindow extends InputHistoryWindow {
      *
      * @param message Message.
      */
-    void print(String message) {
+    public void print(String message) {
         messageContainer.getChildren().add(MessageBox.getDukeMessage(message).getRoot());
     }
 

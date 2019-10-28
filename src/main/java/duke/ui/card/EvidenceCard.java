@@ -22,10 +22,9 @@ public abstract class EvidenceCard extends UiCard {
      *
      * @param fxmlFileName Name of FXML file.
      * @param evidence     Evidence object.
-     * @param index        Displayed index.
      */
-    public EvidenceCard(String fxmlFileName, Evidence evidence, int index) {
-        super(fxmlFileName, index);
+    public EvidenceCard(String fxmlFileName, Evidence evidence) {
+        super(fxmlFileName);
 
         this.evidence = evidence;
         fillEvidenceCard();

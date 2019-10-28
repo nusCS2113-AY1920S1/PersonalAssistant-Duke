@@ -1,4 +1,4 @@
-package duke.ui;
+package duke.ui.context;
 
 /**
  * Enum defining the types of contexts that Dr. Duke can take on.

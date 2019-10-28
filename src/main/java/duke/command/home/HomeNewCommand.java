@@ -5,7 +5,7 @@ import duke.command.ArgCommand;
 import duke.command.ArgSpec;
 import duke.data.Patient;
 import duke.exception.DukeException;
-import duke.ui.Context;
+import duke.ui.context.Context;
 
 public class HomeNewCommand extends ArgCommand {
 

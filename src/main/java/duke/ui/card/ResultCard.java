@@ -15,10 +15,9 @@ public class ResultCard extends EvidenceCard {
      * Constructs a ResultCard object with the specified {@code Result}'s details.
      *
      * @param result Result object.
-     * @param index  Displayed index.
      */
-    public ResultCard(Result result, int index) {
-        super(FXML, result, index);
+    public ResultCard(Result result) {
+        super(FXML, result);
 
         this.result = result;
     }

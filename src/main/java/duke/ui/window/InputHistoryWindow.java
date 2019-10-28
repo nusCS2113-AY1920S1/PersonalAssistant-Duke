@@ -1,6 +1,8 @@
-package duke.ui;
+package duke.ui.window;
 
 import duke.exception.DukeException;
+import duke.ui.AutoCompleteTextField;
+import duke.ui.UiElement;
 import javafx.fxml.FXML;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
@@ -14,7 +16,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /* @@author gowgos5 */
-abstract class InputHistoryWindow extends UiElement<Region> {
+public abstract class InputHistoryWindow extends UiElement<Region> {
     @FXML
     protected AutoCompleteTextField inputTextField;
 
@@ -26,7 +28,7 @@ abstract class InputHistoryWindow extends UiElement<Region> {
     /**
      * Constructs the command window of the application.
      */
-    InputHistoryWindow(String fxmlFileName, Region root) {
+    public InputHistoryWindow(String fxmlFileName, Region root) {
         super(fxmlFileName, root);
 
 
@@ -107,7 +109,6 @@ abstract class InputHistoryWindow extends UiElement<Region> {
     }
 
     /* @@author aquohn */
-
     protected void storeInput(String input) {
         if (historyPointer != inputHistory.size() - 1 || (historyPointer == inputHistory.size() - 1
                 && !input.equals(inputHistory.get(historyPointer)))) {

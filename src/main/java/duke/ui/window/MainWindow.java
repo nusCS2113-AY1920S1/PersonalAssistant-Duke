@@ -1,4 +1,4 @@
-package duke.ui;
+package duke.ui.window;
 
 import duke.DukeCore;
 import duke.command.Executor;
@@ -6,8 +6,12 @@ import duke.command.Parser;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.PatientMap;
-import duke.ui.window.HomeWindow;
+import duke.ui.UiElement;
+import duke.ui.context.Context;
+import duke.ui.context.UiContext;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
@@ -17,7 +21,7 @@ import javafx.stage.Stage;
  * Main UI window of the application.
  * Acts as a container for child UI elements.
  */
-class MainWindow extends UiElement<Stage> {
+public class MainWindow extends UiElement<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     @FXML
@@ -34,6 +38,8 @@ class MainWindow extends UiElement<Stage> {
     private Parser parser;
 
     private CommandWindow commandWindow;
+    private HomeWindow homeWindow;
+    private PatientWindow patientWindow;
     private Tab homeTab;
     private Tab patientTab;
     private Tab impressionTab;
@@ -44,7 +50,7 @@ class MainWindow extends UiElement<Stage> {
      * @param primaryStage Main stage of the application.
      * @param core         Core of Dr. Duke.
      */
-    MainWindow(Stage primaryStage, DukeCore core) {
+    public MainWindow(Stage primaryStage, DukeCore core) {
         super(FXML, primaryStage);
 
         this.primaryStage = primaryStage;
@@ -63,10 +69,12 @@ class MainWindow extends UiElement<Stage> {
         commandWindow = new CommandWindow(executor, parser);
         commandWindowHolder.getChildren().add(commandWindow.getRoot());
 
-        homeTab = new Tab("Home", new HomeWindow(patientMap).getRoot());
+        homeWindow = new HomeWindow(patientMap);
+        homeTab = new Tab("Home", homeWindow.getRoot());
         contextWindowHolder.getTabs().add(homeTab);
 
-        patientTab = new Tab("Patient", new PatientWindow(null).getRoot());
+        patientWindow = new PatientWindow(null, commandWindow);
+        patientTab = new Tab("Patient", patientWindow.getRoot());
         contextWindowHolder.getTabs().add(patientTab);
 
         impressionTab = new Tab("Impression", new ImpressionWindow(null, null).getRoot());
@@ -83,7 +91,8 @@ class MainWindow extends UiElement<Stage> {
                 break;
             case PATIENT:
                 contextWindowHolder.getTabs().remove(patientTab);
-                patientTab = new Tab("Patient", new PatientWindow((Patient) uiContext.getObject()).getRoot());
+                patientTab = new Tab("Patient", new PatientWindow((Patient) uiContext.getObject(),
+                        commandWindow).getRoot());
                 contextWindowHolder.getTabs().add(1, patientTab);
                 contextWindowHolder.getSelectionModel().select(patientTab);
                 break;
@@ -91,7 +100,7 @@ class MainWindow extends UiElement<Stage> {
                 contextWindowHolder.getTabs().remove(impressionTab);
                 Impression impression = (Impression) uiContext.getObject();
                 impressionTab = new Tab("Impression", new ImpressionWindow(impression,
-                        (Patient)impression.getParent()).getRoot());
+                        (Patient) impression.getParent()).getRoot());
                 contextWindowHolder.getTabs().add(2, impressionTab);
                 contextWindowHolder.getSelectionModel().select(impressionTab);
                 break;
@@ -104,18 +113,41 @@ class MainWindow extends UiElement<Stage> {
     /**
      * Shows the main UI window.
      */
-    void show() {
+    public void show() {
         primaryStage.show();
     }
 
     /**
      * {@inheritDoc}
      */
-    void print(String message) {
+    public void print(String message) {
         commandWindow.print(message);
     }
 
-    Stage getPrimaryStage() {
+    public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+
+    /**
+     * Retrieves list of UI cards in current {@code UiContext}.
+     *
+     * @return List of UI cards.
+     */
+    public ObservableList<Node> getCardList() {
+        switch (uiContext.getContext()) {
+        case HOME:
+            return homeWindow.getPatientCardList();
+        case PATIENT:
+            return patientWindow.getCardList();
+        case EVIDENCE:
+        case TREATMENT:
+        case IMPRESSION:
+        case INVESTIGATION:
+        default:
+            break;
+        }
+
+        return null;
     }
 }

@@ -1,5 +1,7 @@
 package duke.ui;
 
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.stage.Stage;
 
 /**
@@ -19,4 +21,11 @@ public interface Ui {
      * @param message Output message.
      */
     void print(String message);
+
+    /**
+     * Retrieves list of UI cards in current {@code UiContext}.
+     *
+     * @return List of UI cards.
+     */
+    ObservableList<Node> getCardList();
 }
