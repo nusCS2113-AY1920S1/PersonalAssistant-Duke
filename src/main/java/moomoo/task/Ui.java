@@ -215,9 +215,7 @@ public class Ui {
     /**
      * Prompts the user to enter what to add.
      */
-    public void showAddMessage(String text) {
-        print("What do you wish to " + text + "?"
-                + "\ncategory"
-                + "\nexpenditure");
+    public void showInputPrompt(String text) {
+        print(text);
     }
 }

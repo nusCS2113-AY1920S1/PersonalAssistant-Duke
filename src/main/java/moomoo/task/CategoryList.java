@@ -9,7 +9,7 @@ public class CategoryList {
     public CategoryList() {
         categoryList = new ArrayList<>();
     }
-    
+
     public CategoryList(ArrayList<Category> categoryList) {
         this.categoryList = categoryList;
     }
@@ -20,6 +20,18 @@ public class CategoryList {
     
     public Category get(int i) {
         return categoryList.get(i);
+    }
+
+    public ArrayList<Category> getCategoryList() {
+        return categoryList;
+    }
+
+    public void add(Category newCategory) {
+        categoryList.add(newCategory);
+    }
+
+    public void delete(int categoryNumber) {
+        categoryList.remove(categoryNumber);
     }
     
     /**
@@ -83,10 +95,6 @@ public class CategoryList {
         
         return longestName;
     }
-    
-    public ArrayList<Category> getCategoryList() {
-        return categoryList;
-    }
 
     /**
      * Calculates the total of all expenditures from all categories for selected month and year.
@@ -99,10 +107,6 @@ public class CategoryList {
             total += category.getCategoryTotalPerMonthYear(month, year);
         }
         return total;
-    }
-
-    public void add(Category newCategory) {
-        categoryList.add(newCategory);
     }
 
     public void deleteCategory(int categoryNumber) {
@@ -122,7 +126,6 @@ public class CategoryList {
         }
         return null;
     }
-    
 
     /**
      * Populate the categoryList array with dummy variables. FOR TESTING PURPOSES.

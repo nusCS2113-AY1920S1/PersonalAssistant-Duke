@@ -1,5 +1,6 @@
 package moomoo.task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Category {
@@ -8,7 +9,6 @@ public class Category {
     private ArrayList<Expenditure> category;
 
     public Category() {
-
     }
 
     /**
@@ -44,8 +44,13 @@ public class Category {
      */
     public double getCategoryMonthTotal() {
         double totalCost = 0.00;
-        for (int i = 0; i < category.size(); i++) {
-            totalCost += category.get(i).getCost();
+        for (Expenditure expenditure : category) {
+            LocalDate date = expenditure.date;
+            LocalDate now = LocalDate.now(); // Now see if the month and year match.
+            if (date.getMonth() == now.getMonth() && date.getYear() == now.getYear()) {
+                // You have a hit.
+                totalCost += expenditure.getCost();
+            }
         }
         return totalCost;
     }

@@ -30,10 +30,13 @@ public class MooMoo {
      */
     public MooMoo() {
         ui = new Ui();
-        storage = new Storage("data/budget.txt","data/schedule.txt");
-
-        categoryList = new CategoryList(storage.loadCategories());
-        if (categoryList == null) {
+        storage = new Storage("data/budget.txt","data/schedule.txt",
+                "data/category.txt");
+        try {
+            categoryList = new CategoryList(storage.loadCategories());
+        } catch (MooMooException e) {
+            ui.printException(e);
+            ui.showResponse();
             categoryList = new CategoryList();
         }
 
@@ -52,7 +55,6 @@ public class MooMoo {
         } else {
             calendar = new ScheduleList(scheduleList);
         }
-
     }
 
     /**
