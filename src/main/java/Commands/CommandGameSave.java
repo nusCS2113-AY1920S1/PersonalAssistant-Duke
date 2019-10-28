@@ -14,7 +14,7 @@ public class CommandGameSave extends Command{
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
         Ui ui = farmio.getUi();
-        if(farmio.getStorage().storeFarmer(farmio.getFarmer())){
+        if(farmio.getStorage().storeFarmerPartial(farmio.getFarmer())){
             farmio.getSimulation().simulate();
             ui.show("Game saved successfully!");
         } else {

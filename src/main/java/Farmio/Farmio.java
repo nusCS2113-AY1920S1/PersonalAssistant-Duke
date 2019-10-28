@@ -52,7 +52,7 @@ public class Farmio {
             ui.showError(e.getMessage());
             ui.showInfo("Encounterd fatal error. Exiting program.");
         }
-        //save the game before quitting
+        storage.storeFarmerPartial(farmer);
         ui.showExit();
     }
 
@@ -66,6 +66,7 @@ public class Farmio {
         MENU_START,
         NAME_ADD,
         LEVEL_START,
+        MENU,
         TASK_ADD,
         RUNNING_DAY,
         CHECK_OBJECTIVES,
@@ -102,6 +103,7 @@ public class Farmio {
 
     public void setFarmer(Farmer farmer) {
         this.farmer = farmer;
+        ui.registerName(farmer.getName());
     }
 
     public void setStage(Stage stage) {

@@ -22,11 +22,19 @@ public class TaskList extends ArrayList<Task>{
         this.add(task);
     }
 
+    public void editTask(int taskID, Task task) throws FarmioException {
+        try {
+            this.set(taskID - 1, task);
+        } catch (Exception e) {
+            throw new FarmioException("Error editing task!");
+        }
+    }
+
     public Task popTask() {
         return this.remove(0);
     }
 
-    public JSONArray toJSON(){
+    public JSONArray toJson(){
         JSONArray array = new JSONArray();
         for(Task task: this){
             array.add(task.toJSON());
@@ -42,8 +50,12 @@ public class TaskList extends ArrayList<Task>{
         return list;
     }
 
-    public String removeTask (int taskID) {
-        Task t = this.remove(taskID - 1);
-        return t.toString();
+    public String removeTask (int taskID) throws FarmioException {
+        try {
+            Task t = this.remove(taskID - 1);
+            return t.toString();
+        } catch (Exception e) {
+            throw new FarmioException("Error deleting task!");
+        }
     }
 }

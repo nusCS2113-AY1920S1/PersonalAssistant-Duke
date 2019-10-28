@@ -1,5 +1,6 @@
 package Farmio;
 
+import Exceptions.FarmioException;
 import Exceptions.FarmioFatalException;
 import FrontEnd.AsciiColours;
 import org.json.simple.JSONObject;
@@ -7,19 +8,26 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class Storage {
 
-    private static String appDir;
+    private String appDir;
+    private String jsonName = "save.json";
+    private JSONObject jsonFarmer = null;
 
     public Storage() {
         appDir = System.getProperty("user.dir");
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            jsonName = "\\" + jsonName;
+        } else {
+            jsonName = "/" + jsonName;
+        }
     }
 
     public boolean getSaveExist() {
-        return new File(appDir.concat("\\save.json")).exists();
+        System.out.println(new File(appDir.concat(jsonName)).toString());
+        return new File(appDir.concat(jsonName)).exists();
     }
 
     /**
@@ -29,10 +37,28 @@ public class Storage {
      * @throws ParseException "save.json" does not contain json data.
      * @throws IOException    "save.json" does not exist.
      */
-    public JSONObject loadFarmer() throws ParseException, IOException {
-        Reader reader = new FileReader(appDir.concat("\\save.json"));
+    public JSONObject loadFarmer() throws FarmioException {
+        Reader reader = null;
+        try {
+            reader = new FileReader(appDir.concat(jsonName));
+        } catch (FileNotFoundException e) {
+            throw new FarmioException("Game save not found!");
+        }
         JSONParser parser = new JSONParser();
-        return (JSONObject) parser.parse(reader);
+        try {
+            jsonFarmer = (JSONObject) parser.parse(reader);
+        } catch (IOException | ParseException e) {
+            throw new FarmioException("Gave save corrupted!");
+        }
+        return jsonFarmer;
+    }
+
+    public JSONObject loadFarmerBackup() throws FarmioException {
+        if(jsonFarmer == null){
+            throw new FarmioException("Recovery failed!");
+        }
+        recoverFarmer();
+        return jsonFarmer;
     }
 
     /**
@@ -44,8 +70,37 @@ public class Storage {
     public boolean storeFarmer(Farmer farmer) {
         FileWriter file;
         try {
-            file = new FileWriter(appDir.concat("\\save.json"));
-            file.write(farmer.toJSON().toJSONString());
+            file = new FileWriter(appDir.concat(jsonName));
+            jsonFarmer = farmer.toJson();
+            file.write(jsonFarmer.toJSONString());
+            file.close();
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean storeFarmerPartial(Farmer farmer) {
+        if(jsonFarmer == null){
+            return false;
+        }
+        FileWriter file;
+        try {
+            file = new FileWriter(appDir.concat(jsonName));
+            jsonFarmer = farmer.updateJSON(jsonFarmer);
+            file.write(jsonFarmer.toJSONString());
+            file.close();
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean recoverFarmer() {
+        FileWriter file;
+        try {
+            file = new FileWriter(appDir.concat(jsonName));
+            file.write(jsonFarmer.toJSONString());
             file.close();
         } catch (IOException e) {
             return false;
@@ -55,7 +110,7 @@ public class Storage {
 
     public ArrayList<String> loadFrame(String path, int frameId, int frameWidth, int frameHeight) throws FarmioFatalException {
         path = "asciiArt/" + path + "/frame" + frameId + ".txt";
-        BufferedReader   bufferedReader = new BufferedReader(new InputStreamReader(getResourceStream(path)));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getResourceStream(path)));
         String line;
         ArrayList<String> frame = new ArrayList<>();
         while (true) {
@@ -71,22 +126,22 @@ public class Storage {
             }
             frame.add(
                     "|" +
-                    AsciiColours.BACKGROUND_WHITE +
-                    AsciiColours.BLACK +
-                    line +
-                    AsciiColours.SANE +
-                    "|"
+                            AsciiColours.BACKGROUND_WHITE +
+                            AsciiColours.BLACK +
+                            line +
+                            AsciiColours.SANE +
+                            "|"
             );
         }
         if (frame.size() < frameHeight) {
             for (int i = frame.size(); i < frameHeight; i++) {
                 frame.add(
                         "|" +
-                        AsciiColours.BACKGROUND_WHITE +
-                        AsciiColours.BLACK +
-                        String.format("%" + frameWidth + "s", "") +
-                        AsciiColours.SANE +
-                        "|"
+                                AsciiColours.BACKGROUND_WHITE +
+                                AsciiColours.BLACK +
+                                String.format("%" + frameWidth + "s", "") +
+                                AsciiColours.SANE +
+                                "|"
                 );
             }
         }
@@ -103,7 +158,7 @@ public class Storage {
         }
     }
 
-    private InputStream getResourceStream(String path){
+    private InputStream getResourceStream(String path) {
         return ClassLoader.getSystemClassLoader().getResourceAsStream(path);
     }
 

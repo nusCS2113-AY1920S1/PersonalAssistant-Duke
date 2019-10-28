@@ -9,7 +9,7 @@ public class ChickenFarm extends Farm {
     }
 
     @Override
-    public JSONObject toJSON() {
+    public JSONObject toJson() {
         JSONObject obj = new JSONObject();
         return obj;
     }
