@@ -26,7 +26,11 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.duke.CommandParseHelper;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -78,7 +82,8 @@ public class MainWindow extends AnchorPane {
 
         // show email
         webEngine = webView.getEngine();
-        webEngine.load("https://www.google.com");
+        //webEngine.load("https://www.google.com");
+        webEngine.loadContent(loadDefaultWebView());
 
         // initialize GUI with database
         //updateTasksList();
@@ -101,6 +106,24 @@ public class MainWindow extends AnchorPane {
         double screenWidth = screenBounds.getWidth(); //1280
         rootAnchorPane.setPrefHeight(screenHeight - 30);
         rootAnchorPane.setPrefWidth(screenWidth);
+    }
+
+    private String loadDefaultWebView() {
+        try {
+            String htmlDir = "." + File.separator + "src" + File.separator + "main" + File.separator +
+                    "resources" + File.separator + "html" + File.separator + "defaultWebView.html";
+            File htmlFile = new File(htmlDir);
+            FileInputStream in = new FileInputStream(htmlFile);
+            Scanner scanner = new Scanner(in);
+            String content = "";
+            while(scanner.hasNextLine()) {
+                content += scanner.nextLine();
+            }
+            return content;
+        } catch (FileNotFoundException e) {
+            return "Welcome to Email Manager!";
+        }
+
     }
 
     /**
@@ -341,7 +364,6 @@ public class MainWindow extends AnchorPane {
             @Override
             public void handle(ActionEvent event) {
                 popup.hide();
-                System.out.println(popup);
             }
         });
         return button;

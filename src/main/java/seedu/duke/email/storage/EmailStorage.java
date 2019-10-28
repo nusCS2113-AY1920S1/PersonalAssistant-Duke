@@ -256,7 +256,6 @@ public class EmailStorage {
 
     private static String readEmailContentFromFolder(String filename) throws FileNotFoundException {
         String fileDir = getFolderDir() + filename;
-        System.out.println(fileDir);
         File emailFile = new File(fileDir);
         FileInputStream emailIn = new FileInputStream(emailFile);
         Scanner emailScanner = new Scanner(emailIn);

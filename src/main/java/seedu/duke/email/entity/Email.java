@@ -3,7 +3,6 @@ package seedu.duke.email.entity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import seedu.duke.email.parser.EmailContentParseHelper;
 import seedu.duke.email.parser.EmailFormatParseHelper;
 import seedu.duke.email.storage.EmailStorage;
 import seedu.duke.ui.UI;
@@ -100,7 +99,7 @@ public class Email {
      * @param keywordPair keywordPair of the tag
      * @param relevance   relevance of the tag
      */
-    public void addTag(EmailContentParseHelper.KeywordPair keywordPair, int relevance) {
+    public void addTag(KeywordPair keywordPair, int relevance) {
         for (Tag tag : tags) {
             if (tag.getKeywordPair().getKeyword().equals(keywordPair.getKeyword())) {
                 return;
@@ -278,16 +277,16 @@ public class Email {
      */
     public static class Tag {
         private static final int INFINITY = 0x3f3f3f;
-        private EmailContentParseHelper.KeywordPair keywordPair;
+        private KeywordPair keywordPair;
         private int relevance = INFINITY;
 
-        public Tag(EmailContentParseHelper.KeywordPair keywordPair, int relevance) {
+        public Tag(KeywordPair keywordPair, int relevance) {
             this.keywordPair = keywordPair;
             this.relevance = relevance;
         }
 
         public Tag(String keyword) {
-            this.keywordPair = new EmailContentParseHelper.KeywordPair(keyword);
+            this.keywordPair = new KeywordPair(keyword);
         }
 
         /**
@@ -306,11 +305,11 @@ public class Email {
             int relevance = json.getInt("relevance");
 
 
-            this.keywordPair = new EmailContentParseHelper.KeywordPair(keyword, expressionList);
+            this.keywordPair = new KeywordPair(keyword, expressionList);
             this.relevance = relevance;
         }
 
-        public EmailContentParseHelper.KeywordPair getKeywordPair() {
+        public KeywordPair getKeywordPair() {
             return this.keywordPair;
         }
 
