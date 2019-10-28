@@ -145,7 +145,7 @@ public class PlanQuestionBank {
                 if (knownAttributes.containsKey(questionAttribute)) {
                     String attributeValue = knownAttributes.get(questionAttribute);
                     Set<Integer> children = questionList.get(index).getNeighbouringQuestions(attributeValue);
-                        questionsToAdd.addAll(children);
+                    questionsToAdd.addAll(children);
                 }
             } catch (NullPointerException e) {
                 throw new DukeException("Error getting neighbouring questions!");
@@ -309,11 +309,11 @@ public class PlanQuestionBank {
                     spotifyExpenseBuilder.setTag("spotify");
                     recommendationExpenseList.add(spotifyExpenseBuilder.build());
                 }
-                if(Parser.parseMoney(planAttributes.get("ONLINE_SHOPPING")).compareTo(BigDecimal.ZERO) == 1) {
+                if (Parser.parseMoney(planAttributes.get("ONLINE_SHOPPING")).compareTo(BigDecimal.ZERO) == 1) {
                     budgetRecommendation.put("online shopping", Parser.parseMoney(planAttributes.get("ONLINE_SHOPPING")));
                     recommendation.append("You should allocate $"
                             + planAttributes.get("ONLINE_SHOPPING")
-                            + " to online shopping." );
+                            + " to online shopping.");
                 }
             }
 
