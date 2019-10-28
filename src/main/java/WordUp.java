@@ -23,7 +23,7 @@ public class WordUp extends Application {
     public WordUp() {
         ui = new Ui();
         storage = new Storage("data/wordup.txt");
-        bank = storage.loadExcelFile();
+        bank = new Bank(storage);
     }
 
     @Override

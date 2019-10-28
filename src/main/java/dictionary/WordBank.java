@@ -1,15 +1,15 @@
 package dictionary;
 
-import java.util.ArrayList;
-import java.util.SortedMap;
-
-import exception.NoWordFoundException;
 import command.OxfordCall;
+import exception.NoWordFoundException;
 import exception.WordAlreadyExistsException;
 import storage.Storage;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.SortedMap;
 import java.util.TreeMap;
+
 
 public class WordBank extends Bank {
     private TreeMap<String, Word> wordBank;
@@ -18,8 +18,8 @@ public class WordBank extends Bank {
         wordBank = storage.loadFile();
     }
 
-    public WordBank() {
-        this.wordBank = new TreeMap<>();
+    public WordBank(TreeMap<String, Word> wordBank) {
+        this.wordBank = wordBank;
     }
 
     public TreeMap<String, Word> getWordBank() {
@@ -136,7 +136,7 @@ public class WordBank extends Bank {
      * @return tags lists of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank
      */
-    public HashSet<String> addWordToSomeTags(String wordToBeAddedTag, ArrayList<String> tags) throws NoWordFoundException {
+    public HashSet<String> addTag(String wordToBeAddedTag, ArrayList<String> tags) throws NoWordFoundException {
         if (!wordBank.containsKey(wordToBeAddedTag)) {
             throw new NoWordFoundException(wordToBeAddedTag);
         }
@@ -145,22 +145,6 @@ public class WordBank extends Bank {
             word.addTag(tag);
         }
         return word.getTags();
-    }
-
-    /**
-     * Adds synonyms to a specific word in word bank
-     * synonymsWords will be added to the wordKey(MAIN WORD)
-     */
-    public HashSet<String> addSynonym(String wordKey, ArrayList<String> synonymsWords) throws NoWordFoundException {
-        if(!wordBank.containsKey(wordKey)){
-            throw new NoWordFoundException(wordKey);
-        }
-        Word word = wordBank.get(wordKey);
-        /**For each synonym in the ArrayList, we add it into hashset synonym of wordKey*/
-        for(String synoWord : synonymsWords){
-            word.addSynonym(synoWord);
-        }
-        return word.getSynonyms(); //return of HashSet<String> is from Word class
     }
 
     /**
@@ -196,13 +180,5 @@ public class WordBank extends Bank {
             }
         }
         return closedWords;
-    }
-
-    public void addTagToWord(String word, String tag) {
-        wordBank.get(word).addTag(tag);
-    }
-
-    public Word[] getAllWords() {
-        return wordBank.values().toArray(new Word[wordBank.size()]);
     }
 }

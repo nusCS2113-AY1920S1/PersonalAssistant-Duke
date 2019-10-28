@@ -11,7 +11,6 @@ import java.util.TreeMap;
 public class Bank {
     WordBank wordBank;
     TagBank tagBank;
-    SynonymBank synonymBank;
     WordCount wordCount;
 
     public Bank() {
@@ -89,12 +88,6 @@ public class Bank {
         HashSet<String> tagsOfWord = wordBank.addTag(wordDescription, tags);
         tagBank.addTag(wordDescription, tags);
         return tagsOfWord;
-    }
-
-    public HashSet<String> addSynonym(String wordDescription, ArrayList<String> synonyms) throws NoWordFoundException {
-        HashSet<String> synonymsOfWord = wordBank.addSynonym(wordDescription, synonyms);
-        synonymBank.addSynonym(wordDescription, synonyms);
-        return synonymsOfWord;
     }
 
 
