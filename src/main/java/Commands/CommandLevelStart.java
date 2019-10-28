@@ -9,8 +9,13 @@ import Farmio.Farmer;
 import Farmio.Level;
 
 public class CommandLevelStart extends Command {
+    /**
+     * Starts the level
+     * @param farmio the game where level is extracted from for narratives
+     * @throws FarmioFatalException if simulation file cannot be found
+     */
     @Override
-    public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
+    public void execute(Farmio farmio) throws FarmioFatalException {
         Ui ui = farmio.getUi();
         Storage storage = farmio.getStorage();
         Farmer farmer = farmio.getFarmer();
