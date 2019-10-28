@@ -826,237 +826,6 @@ public class Ui {
     }
 
     /**
-     * Prints Semester menu and returns option selected by user.
-     *
-     * @return Option selected by user.
-     */
-    public int scanSemesterMenuOption() {
-        int response = 0;
-        while (response < 1 || response > 5) {
-            printLine();
-            System.out.println(" Choose one of the following options:");
-            System.out.println(" \t1. View Semester List");
-            System.out.println(" \t2. Add Semester");
-            System.out.println(" \t3. Edit Semester");
-            System.out.println(" \t4. Delete Semester");
-            System.out.println(" \t5. Quit");
-            printLine();
-            response = scanInt();
-        }
-        return response;
-    }
-
-    /**
-     * Prints Module menu and returns option selected by user.
-     *
-     * @param semester Instance of Semester object.
-     * @return Option selected by user.
-     */
-    public int scanModuleMenuOption(Semester semester) {
-        int response = 0;
-        while (response < 1 || response > 5) {
-            printLine();
-            ;
-            System.out.println(" " + semester.toString());
-            System.out.println(" Choose one of the following options:");
-            System.out.println(" \t1. View Module List");
-            System.out.println(" \t2. Add Module");
-            System.out.println(" \t3. Edit Module");
-            System.out.println(" \t4. Delete Module");
-            System.out.println(" \t5. Back");
-            response = scanInt();
-        }
-        return response;
-    }
-
-    /**
-     * Scans Academic Year of Semester.
-     *
-     * @return String containing Academic Year of Semester.
-     */
-    public String scanAcademicYear() {
-        printLine();
-        System.out.println(" Enter Academic Year: ");
-        return scanLine();
-    }
-
-    /**
-     * Scans name of Semester.
-     *
-     * @return String containing name of Semester.
-     */
-    public String scanSemesterName() {
-        printLine();
-        System.out.println(" Enter Semester Name (e.g. \"Semester 1\"): ");
-        return scanLine();
-    }
-
-    /**
-     * Scans start date of Semester.
-     *
-     * @return String containing start date of Semester.
-     */
-    public String scanSemesterStartDate() {
-        printLine();
-        System.out.println(" Enter Start Date: ");
-        return scanLine();
-    }
-
-    /**
-     * Scans end date of Semester.
-     *
-     * @return String containing end date of Semester.
-     */
-    public String scanSemesterEndDate() {
-        printLine();
-        System.out.println(" Enter End Date: ");
-        return scanLine();
-    }
-
-    /**
-     * Scans Module Code.
-     *
-     * @return String containing Module Code.
-     */
-    public String scanModuleCode() {
-        printLine();
-        System.out.println(" Enter Module Code: ");
-        return scanLine();
-    }
-
-    /**
-     * Scans name of Module.
-     *
-     * @return String containing name of Module.
-     */
-    public String scanModuleName() {
-        printLine();
-        System.out.println(" Enter Module Name: ");
-        return scanLine();
-    }
-
-    /**
-     * Scans name of Lesson.
-     *
-     * @return String containing name of Lesson.
-     */
-    public String scanLessonName() {
-        printLine();
-        System.out.println(" Enter Lesson Name: ");
-        return scanLine();
-    }
-
-    /**
-     * Scans location of Lesson.
-     *
-     * @return String containing location of Lesson.
-     */
-    public String scanLocation() {
-        printLine();
-        System.out.println(" Enter Lesson Location: ");
-        return scanLine();
-    }
-
-    /**
-     * Scans day of week.
-     *
-     * @return Enum representing day of the week.
-     */
-    public DayOfWeek scanDay() {
-        while (true) {
-            printLine();
-            System.out.println(" Enter Lesson Day: ");
-            System.out.println(" \t1. Monday\n \t2. Tuesday\n \t3. Wednesday\n \t4. Thursday\n \t5. Friday");
-            System.out.println(" \t6. Saturday\n \t7. Sunday");
-            int day = scan.nextInt();
-            switch (day) {
-            case 1:
-                return DayOfWeek.MONDAY;
-            case 2:
-                return DayOfWeek.TUESDAY;
-            case 3:
-                return DayOfWeek.WEDNESDAY;
-            case 4:
-                return DayOfWeek.THURSDAY;
-            case 5:
-                return DayOfWeek.FRIDAY;
-            case 6:
-                return DayOfWeek.SATURDAY;
-            case 7:
-                return DayOfWeek.SUNDAY;
-            default:
-                break;
-            }
-        }
-    }
-
-    /**
-     * Scans starting time.
-     *
-     * @return String containing start time.
-     */
-    public String scanStartTime() {
-        printLine();
-        System.out.println(" Enter Start Time: ");
-        return scanLine();
-    }
-
-    /**
-     * Scans ending time.
-     *
-     * @return String containing end time.
-     */
-    public String scanEndTime() {
-        printLine();
-        System.out.println(" Enter End Time: ");
-        return scanLine();
-    }
-
-    /**
-     * Scans name of Assignment.
-     *
-     * @return String containing name of Assignment.
-     */
-    public String scanAssignmentName() {
-        printLine();
-        System.out.println(" Enter Assignment Name: ");
-        return scanLine();
-    }
-
-    /**
-     * Scans deadline of Assignment.
-     *
-     * @return String containing deadline of Assignment.
-     */
-    public String scanAssignmentDeadline() {
-        printLine();
-        System.out.println(" Enter Deadline: ");
-        return scanLine();
-    }
-
-    /**
-     * Scans name of Assessment.
-     *
-     * @return String containing name of Assessment.
-     */
-    public String scanAssessmentName() {
-        printLine();
-        System.out.println(" Enter Assessment Name: ");
-        return scanLine();
-    }
-
-    /**
-     * Scans date of Assessment.
-     *
-     * @return String containing date of Assessment.
-     */
-    public String scanAssessmentDate() {
-        printLine();
-        System.out.println(" Enter Assessment Date: ");
-        return scanLine();
-    }
-
-    /**
      * Prints list of Semesters and returns selected Semester.
      *
      * @param semesterList Instance of SemesterList object.
@@ -1074,24 +843,17 @@ public class Ui {
     }
 
     /**
-     * Prints edit options for Semester.
+     * Prints list of Modules in a selected Semester.
      *
      * @param semester Instance of Semester object.
-     * @return Edit option selected by user.
      */
-    public int scanSemesterEditOption(Semester semester) {
-        int response = 0;
-        while (response < 1 || response > 5) {
-            printLine();
-            System.out.println(" Choose one of the options to edit:");
-            System.out.println(" \t1. Academic Year: " + semester.getAcademicYear());
-            System.out.println(" \t2. Semester Name: " + semester.getSemesterName());
-            System.out.println(" \t3. Start Date:    " + semester.getStartDate());
-            System.out.println(" \t4. End Date:      " + semester.getEndDate());
-            System.out.println(" \t5. Back");
-            response = scanInt();
+    public void printModuleList(Semester semester) {
+        printLine();
+        System.out.println(semester.toString());
+        int index;
+        for (index = 1; index <= semester.getModules().size(); index++) {
+            System.out.println(" \t" + index + ". " + semester.getModules().get(index - 1).toString());
         }
-        return response;
     }
 
     /**
@@ -1104,101 +866,56 @@ public class Ui {
         int response = 0;
         while (response < 1 || response > semester.getModules().size() + 1) {
             printLine();
-            System.out.println(semester.toString());
             System.out.println(" Choose one of the following options:");
-            int index;
-            for (index = 1; index <= semester.getModules().size(); index++) {
-                System.out.println(" \t" + index + ". " + semester.getModules().get(index - 1).toString());
-            }
-            System.out.println(" \t" + index + ". Back");
+            printModuleList(semester);
             response = scanInt();
         }
         return response - 1;
     }
 
     /**
-     * Prints edit options for Module.
+     * Prints list of Lessons in a selected Module.
      *
      * @param module Instance of Module object.
-     * @return Edit option selected by user.
      */
-    public int scanModuleEditOption(Module module) {
-        int response = 0;
-        while (response < 1 || response > 3) {
-            printLine();
-            System.out.println(" Choose one of the options to edit:");
-            System.out.println(" \t1. Module Code: " + module.getModuleCode());
-            System.out.println(" \t2. Module Name: " + module.getModuleName());
-            System.out.println(" \t3. Back");
-            response = scanInt();
+    public void printLessonList(Module module) {
+        printLine();
+        System.out.println(module.toString());
+        int index;
+        for (index = 1; index <= module.getLessons().size(); index++) {
+            System.out.println(" \t" + index + ". " + module.getLessons().get(index - 1).getLessonName() + " "
+                    + module.getLessons().get(index - 1).getLessonTimeString());
         }
-        return response;
     }
 
     /**
-     * Prints list of Lessons and returns selected Lesson.
+     * Prints list of Assignments in a selected Module.
      *
      * @param module Instance of Module object.
-     * @return Lesson selected by user.
      */
-    public int scanLessonOption(Module module) {
-        int response = 0;
-        while (response < 1 || response > module.getLessons().size() + 1) {
-            printLine();
-            System.out.println(module.toString());
-            System.out.println(" Choose one of the following options:\n");
-            int index;
-            for (index = 1; index <= module.getLessons().size(); index++) {
-                System.out.println(" \t" + index + ". " + module.getLessons().get(index - 1).getLessonName());
-            }
-            System.out.println(" \t" + index + ". Back");
-            response = scanInt();
+    public void printAssignmentList(Module module) {
+        printLine();
+        System.out.println(module.toString());
+        int index;
+        for (index = 1; index <= module.getAssignments().size(); index++) {
+            System.out.println(" \t" + index + ". " + module.getAssignments().get(index - 1).getDescription());
         }
-        return response - 1;
     }
 
     /**
-     * Prints list of Assignments and returns selected assignment.
+     * Prints list of Assessments in a selected Module.
      *
      * @param module Instance of Module object.
-     * @return Assignment selected by user.
      */
-    public int scanAssignmentOption(Module module) {
-        int response = 0;
-        while (response < 1 || response > module.getAssignments().size() + 1) {
-            printLine();
-            System.out.println(module.toString());
-            System.out.println(" Choose one of the following options:\n");
-            int index;
-            for (index = 1; index <= module.getAssignments().size(); index++) {
-                System.out.println(" \t" + index + ". " + module.getAssignments().get(index - 1).getDescription());
-            }
-            System.out.println(" \t" + index + ". Back");
-            response = scanInt();
+    public void printAssessmentList(Module module) {
+        printLine();
+        System.out.println(" " + module.toString());
+        int index;
+        for (index = 1; index <= module.getAssessments().size(); index++) {
+            System.out.println(" \t" + index + ". " + module.getAssessments().get(index - 1).getName() + " "
+                    + module.getAssessments().get(index - 1).getStartTime() + " to "
+                    + module.getAssessments().get(index - 1).getEndTime());
         }
-        return response - 1;
-    }
-
-    /**
-     * Prints list of Assessments and returns selected assessment.
-     *
-     * @param module Instance of Module object.
-     * @return Assessment selected by user.
-     */
-    public int scanAssessmentOption(Module module) {
-        int response = 0;
-        while (response < 1 || response > module.getAssessments().size() + 1) {
-            printLine();
-            System.out.println(" " + module.toString());
-            System.out.println(" Choose one of the following options:\n");
-            int index;
-            for (index = 1; index <= module.getAssessments().size(); index++) {
-                System.out.println(" \t" + index + ". " + module.getAssessments().get(index - 1).getName());
-            }
-            System.out.println(" \t" + index + ". Back");
-            response = scanInt();
-        }
-        return response - 1;
     }
 
     /**
@@ -1206,38 +923,14 @@ public class Ui {
      *
      * @param semesterList Instance containing List of all Semester objects.
      */
-    private void printSemesterList(SemesterList semesterList) {
+    public void printSemesterList(SemesterList semesterList) {
         int index = 1;
         for (Semester semester : semesterList.getSemesterList()) {
             System.out.println(" \t" + index++ + ". " + semester.getAcademicYear() + " "
                     + semester.getSemesterName());
         }
-        System.out.println(" \t" + index + ". Back");
     }
 
-    /**
-     * Adds or removes Lesson, Assignment and Assessment.
-     *
-     * @param module Module object being modified.
-     * @return Option input by user.
-     */
-    public int scanViewModuleOption(Module module) {
-        int response = 0;
-        while (response < 1 || response > 7) {
-            printLine();
-            System.out.println(" " + module.getModuleCode() + " " + module.getModuleName());
-            System.out.println(" Choose one of the following options:");
-            System.out.println(" \t1. Add Lesson");
-            System.out.println(" \t2. Add Assignment");
-            System.out.println(" \t3. Add Assessment");
-            System.out.println(" \t4. Remove Lesson");
-            System.out.println(" \t5. Remove Assignment");
-            System.out.println(" \t6. Remove Assessment");
-            System.out.println(" \t7. Back");
-            response = scanInt();
-        }
-        return response;
-    }
 
     /**
      * Prints notification for added Semester.
