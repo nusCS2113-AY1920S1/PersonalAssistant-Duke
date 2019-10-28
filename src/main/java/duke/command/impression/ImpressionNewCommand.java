@@ -16,8 +16,6 @@ import duke.ui.context.Context;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static duke.command.impression.ImpressionHelpers.getImpression;
-
 public class ImpressionNewCommand extends DukeDataCommand {
 
     @Override
@@ -30,7 +28,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
         super.execute(core);
         String addType = uniqueDataType();
         checkTypeSwitches(addType);
-        Impression impression = getImpression(core);
+        Impression impression = ImpressionHelpers.getImpression(core);
         DukeData newData;
 
         //extract parameters and data type

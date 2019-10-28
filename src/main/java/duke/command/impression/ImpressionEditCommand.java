@@ -16,8 +16,6 @@ import duke.exception.DukeHelpException;
 import java.util.List;
 import java.util.Map;
 
-import static duke.command.impression.ImpressionHelpers.getImpression;
-
 public class ImpressionEditCommand extends DukeDataCommand {
 
     @Override
@@ -37,7 +35,7 @@ public class ImpressionEditCommand extends DukeDataCommand {
         }
 
         if (editType == null) { // edit impression
-            editImpression(getImpression(core), isAppending);
+            editImpression(ImpressionHelpers.getImpression(core), isAppending);
         } else {
             if (isSwitchSet("description")) {
                 throw new DukeHelpException("Descriptions are only for impressions!", this);
@@ -48,7 +46,7 @@ public class ImpressionEditCommand extends DukeDataCommand {
             // TODO: select by index
 
             String editDataName = getSwitchVal(editType);
-            List<DukeData> searchResults = getImpression(core).find(editDataName);
+            List<DukeData> searchResults = ImpressionHelpers.getImpression(core).find(editDataName);
             switch (editType) {
             case "plan":
                 editData = findDataOfClass(searchResults, Plan.class);
