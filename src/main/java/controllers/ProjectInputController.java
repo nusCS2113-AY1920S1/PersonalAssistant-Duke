@@ -9,53 +9,53 @@ import models.task.Task;
 import repositories.ProjectRepository;
 import util.AssignmentViewHelper;
 import util.ParserHelper;
+import util.ViewHelper;
 import util.factories.MemberFactory;
 import util.factories.TaskFactory;
 import util.log.DukeLogger;
-import views.CLIView;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class ProjectInputController implements IController {
     private Scanner manageProjectInput;
     private ProjectRepository projectRepository;
-    private CLIView consoleView;
     private MemberFactory memberFactory;
+    private boolean isManagingAProject;
+    private ViewHelper viewHelper;
 
     /**
      * Constructor for ProjectInputController takes in a View model and a ProjectRepository.
      * ProjectInputController is responsible for handling user input when user chooses to manage a project.
-     * @param consoleView The main UI of ArchDuke.
      * @param projectRepository The object holding all projects.
      */
-    public ProjectInputController(CLIView consoleView, ProjectRepository projectRepository) {
+    public ProjectInputController(ProjectRepository projectRepository) {
         this.manageProjectInput = new Scanner(System.in);
         this.projectRepository = projectRepository;
-        this.consoleView = consoleView;
         this.memberFactory = new MemberFactory();
+        this.isManagingAProject = true;
+        this.viewHelper = new ViewHelper();
     }
 
     /**
      * Allows the user to manage the project by branching into the project of their choice.
      * @param input User input containing project index number (to add to project class).
      */
-    public void onCommandReceived(String input) {
-        DukeLogger.logInfo(ProjectInputController.class, "Managing project: " + input);
+    @Override
+    public String[] onCommandReceived(String input) {
+        //DukeLogger.logInfo(ProjectInputController.class, "Managing project: " + input);
         int projectNumber;
         try {
             projectNumber = Integer.parseInt(input);
         } catch (NumberFormatException err) {
-            this.consoleView.consolePrint("Input is not a number! Please input a proper project index!");
-            return;
+            isManagingAProject = false;
+            return new String[] {"Input is not a number! Please input a proper project index!"};
         }
         Project projectToManage = projectRepository.getItem(projectNumber);
-        this.consoleView.consolePrint("Now managing: " + projectToManage.getDescription());
-        boolean isManagingAProject = true;
-        while (isManagingAProject) {
-            isManagingAProject = manageProject(projectToManage);
-        }
+        isManagingAProject = true;
+        return manageProject(projectToManage);
     }
 
     /**
@@ -63,52 +63,50 @@ public class ProjectInputController implements IController {
      * @param projectToManage The project specified by the user.
      * @return Boolean variable giving status of whether the exit command is entered.
      */
-    public boolean manageProject(Project projectToManage) {
-        boolean isManagingAProject = true;
+    private String[] manageProject(Project projectToManage) {
         if (manageProjectInput.hasNextLine()) {
             String projectFullCommand = manageProjectInput.nextLine();
             DukeLogger.logInfo(ProjectInputController.class, "Managing:"
                     + projectToManage.getDescription() + ",input:'"
                     + projectFullCommand + "'");
             if (projectFullCommand.matches("exit")) {
-                isManagingAProject = projectExit(projectToManage);
+                isManagingAProject = false;
+                return projectExit(projectToManage);
             } else if (projectFullCommand.matches("add member.*")) {
-                projectAddMember(projectToManage, projectFullCommand);
+                return projectAddMember(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("edit member.*")) {
-                projectEditMember(projectToManage, projectFullCommand);
+                return projectEditMember(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("delete member.*")) {
-                projectDeleteMember(projectToManage, projectFullCommand);
+                return projectDeleteMember(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view members.*")) {
-                projectViewMembers(projectToManage);
+                return projectViewMembers(projectToManage);
             } else if (projectFullCommand.matches("role.*")) {
-                projectRoleMembers(projectToManage, projectFullCommand);
+                return projectRoleMembers(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view credits.*")) {
-                projectViewCredits(projectToManage);
+                return projectViewCredits(projectToManage);
             } else if (projectFullCommand.matches("add task.*")) {
-                projectAddTask(projectToManage, projectFullCommand);
+                return projectAddTask(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view tasks.*")) {
-                projectViewTasks(projectToManage, projectFullCommand);
+                return projectViewTasks(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view assignments.*")) {
-                projectViewAssignments(projectToManage, projectFullCommand);
+                return projectViewAssignments(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view task requirements.*")) { // need to refactor this
-                projectViewTaskRequirements(projectToManage, projectFullCommand);
+                return projectViewTaskRequirements(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("edit task requirements.*")) {
-                projectEditTaskRequirements(projectToManage, projectFullCommand);
+                return projectEditTaskRequirements(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("edit task.*")) {
-                projectEditTask(projectToManage, projectFullCommand);
+                return projectEditTask(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("delete task.*")) {
-                projectDeleteTask(projectToManage, projectFullCommand);
+                return projectDeleteTask(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("assign task.*")) {
-                projectAssignTask(projectToManage, projectFullCommand);
+                return projectAssignTask(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("bye")) {
-                consoleView.end();
+                return end();
             } else {
-                consoleView.consolePrint("Invalid command. Try again!");
+                return new String[] {"Invalid command. Try again!"};
             }
-        } else {
-            consoleView.consolePrint("Please enter a command.");
         }
-        return isManagingAProject;
+        return new String[] {"Please enter a command."};
     }
 
     /**
@@ -116,18 +114,17 @@ public class ProjectInputController implements IController {
      * @param projectToManage : The project specified by the user.
      * @param projectFullCommand : User input.
      */
-    public void projectRoleMembers(Project projectToManage, String projectFullCommand) {
+    public String[] projectRoleMembers(Project projectToManage, String projectFullCommand) {
         String parsedCommands = projectFullCommand.substring(5);
         String[] commandOptions = parsedCommands.split(" -n ");
         if (commandOptions.length != 2) {
-            consoleView.consolePrint("Wrong command format! Please enter role INDEX -n ROLE_NAME");
-            return;
+            return new String[] {"Wrong command format! Please enter role INDEX -n ROLE_NAME"};
         }
         int memberIndex = Integer.parseInt(commandOptions[0]);
         IMember selectedMember = projectToManage.getMembers().getMember(memberIndex);
         selectedMember.setRole(commandOptions[1]);
-        consoleView.consolePrint("Successfully changed the role of " + selectedMember.getName() + " to "
-                                + selectedMember.getRole() + ".");
+        return new String[] {"Successfully changed the role of " + selectedMember.getName() + " to "
+                                + selectedMember.getRole() + "."};
     }
 
     /**
@@ -135,17 +132,18 @@ public class ProjectInputController implements IController {
      * @param projectToManage The project specified by the user.
      * @param projectCommand The user input.
      */
-    public void projectAddMember(Project projectToManage, String projectCommand) {
+    public String[] projectAddMember(Project projectToManage, String projectCommand) {
         String memberDetails = projectCommand.substring(11);
         int numberOfCurrentMembers = projectToManage.getNumOfMembers();
         memberDetails = memberDetails + " -x " + numberOfCurrentMembers;
         IMember newMember = memberFactory.create(memberDetails);
         if (newMember.getName() != null) {
             projectToManage.addMember((Member) newMember);
-            consoleView.addMember(projectToManage, newMember.getDetails());
+            return new String[] {"Added new member to: " + projectToManage.getDescription(), ""
+                    + "Member details" + newMember.getDetails()};
         } else {
-            consoleView.consolePrint("Failed to add member. Please ensure you have entered "
-                    + "at least the name of the new member.");
+            return new String[] {"Failed to add member. Please ensure you have entered "
+                    + "at least the name of the new member."};
         }
     }
 
@@ -154,17 +152,18 @@ public class ProjectInputController implements IController {
      * @param projectToManage The project specified by the user.
      * @param projectCommand The user input.
      */
-    public void projectEditMember(Project projectToManage, String projectCommand) {
+    public String[] projectEditMember(Project projectToManage, String projectCommand) {
         try {
             int memberIndexNumber = Integer.parseInt(projectCommand.substring(12).split(" ")[0]);
             if (projectToManage.getNumOfMembers() >= memberIndexNumber && memberIndexNumber > 0) {
                 String updatedMemberDetails = projectCommand.substring(projectCommand.indexOf("-"));
-                consoleView.editMember(projectToManage, memberIndexNumber, updatedMemberDetails);
+                projectToManage.editMember(memberIndexNumber,updatedMemberDetails);
+                return new String[] { "Updated member details with the index number " + memberIndexNumber};
             } else {
-                consoleView.consolePrint("The member index entered is invalid.");
+                return new String[] {"The member index entered is invalid."};
             }
         } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
-            consoleView.consolePrint("Please enter the updated member details format correctly.");
+            return new String[] {"Please enter the updated member details format correctly."};
         }
     }
 
@@ -173,50 +172,66 @@ public class ProjectInputController implements IController {
      * @param projectToManage The project specified by the user.
      * @param projectCommand The user input.
      */
-    public void projectDeleteMember(Project projectToManage, String projectCommand) {
+    public String[] projectDeleteMember(Project projectToManage, String projectCommand) {
         int memberIndexNumber = Integer.parseInt(projectCommand.substring(14).split(" ")[0]);
         if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
             Member memberToRemove = projectToManage.getMembers().getMember(memberIndexNumber);
             projectToManage.removeMember(memberToRemove);
-            consoleView.consolePrint("Removed member with the index number " + memberIndexNumber);
+            return new String[] {"Removed member with the index number " + memberIndexNumber};
         } else {
-            consoleView.consolePrint("The member index entered is invalid.");
+            return new String[] {"The member index entered is invalid."};
         }
     }
 
     /**
      * Displays all the members in the current project.
+     * Can be updated later on to include more information (tasks etc).
      * @param projectToManage The project specified by the user.
      */
-    public void projectViewMembers(Project projectToManage) {
-        consoleView.viewAllMembers(projectToManage);
+    public String[] projectViewMembers(Project projectToManage) {
+        ArrayList<String> allMemberDetailsForTable = projectToManage.getMembers().getAllMemberDetailsForTable();
+        String header = "Members of " + projectToManage.getDescription() + ":";
+        allMemberDetailsForTable.add(0, header);
+        DukeLogger.logDebug(ProjectInputController.class, allMemberDetailsForTable.toString());
+        ArrayList<ArrayList<String>> tablesToPrint = new ArrayList<>();
+        tablesToPrint.add(allMemberDetailsForTable);
+        return viewHelper.consolePrintTable(tablesToPrint);
     }
 
     /**
      * Displays the members’ credits, their index number, name, and name of tasks completed.
      * @param projectToManage The project specified by the user.
      */
-    public void projectViewCredits(IProject projectToManage) {
-        consoleView.viewCredits(projectToManage);
+    public String[] projectViewCredits(IProject projectToManage) {
+        ArrayList<String> allCredits = projectToManage.getCredits();
+        DukeLogger.logDebug(ProjectInputController.class, allCredits.toString());
+        if (allCredits.isEmpty()) {
+            allCredits.add(0, "There are no members in this project.");
+        } else {
+            allCredits.add(0, "Here are all the member credits: ");
+        }
+        return allCredits.toArray(new String[0]);
     }
+
 
     /**
      * Adds a task to the current project.
      * @param projectToManage The project specified by the user.
      * @param projectCommand The user input.
      */
-    public void projectAddTask(Project projectToManage, String projectCommand) {
+    public String[] projectAddTask(Project projectToManage, String projectCommand) {
         try {
             TaskFactory taskFactory = new TaskFactory();
             ITask newTask = taskFactory.createTask(projectCommand.substring(9));
             if (newTask.getDetails() != null) {
-                consoleView.addTask(projectToManage, (Task) newTask);
-            } else {
-                consoleView.consolePrint("Failed to create new task. Please ensure all "
-                        + "necessary parameters are given");
+                projectToManage.addTask((Task) newTask);
+                return new String[] {"Added new task to the list."};
             }
+            return new String[] {"Failed to create new task. Please ensure all "
+                        + "necessary parameters are given"};
+
         } catch (NumberFormatException | ParseException e) {
-            consoleView.consolePrint("Please enter your task format correctly.");
+            return new String[] {"Please enter your task format correctly."};
         }
     }
 
@@ -225,18 +240,19 @@ public class ProjectInputController implements IController {
      * @param projectToManage The project specified by the user.
      * @param projectCommand The user input.
      */
-    public void projectEditTask(Project projectToManage, String projectCommand) {
+    public String[] projectEditTask(Project projectToManage, String projectCommand) {
         try {
             int taskIndexNumber = Integer.parseInt(projectCommand.substring(10).split(" ")[0]);
             String updatedTaskDetails = projectCommand.substring(projectCommand.indexOf("-"));
 
             if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
-                consoleView.editTask(projectToManage, updatedTaskDetails, taskIndexNumber);
-            } else {
-                consoleView.consolePrint("The task index entered is invalid.");
+                projectToManage.editTask(taskIndexNumber, updatedTaskDetails);
+                return new String[] { "The task has been updated!" };
             }
+            return new String[] {"The task index entered is invalid."};
+
         } catch (NumberFormatException e) {
-            consoleView.consolePrint("Please enter your task format correctly.");
+            return new String[] {"Please enter your task format correctly."};
         }
     }
 
@@ -245,12 +261,14 @@ public class ProjectInputController implements IController {
      * @param projectToManage The project specified by the user.
      * @param projectCommand The user input.
      */
-    public void projectDeleteTask(Project projectToManage, String projectCommand) {
+    public String[] projectDeleteTask(Project projectToManage, String projectCommand) {
         int taskIndexNumber = Integer.parseInt(projectCommand.substring(12).split(" ")[0]);
         if (projectToManage.getNumOfTasks() >= taskIndexNumber) {
-            consoleView.removeTask(projectToManage, taskIndexNumber);
+            String removedTaskString = "Removed " + projectToManage.getTask(taskIndexNumber).getTaskName();
+            projectToManage.removeTask(taskIndexNumber);
+            return new String[] {removedTaskString};
         } else {
-            consoleView.consolePrint("The task index entered is invalid.");
+            return new String[] {"The task index entered is invalid."};
         }
     }
 
@@ -259,17 +277,17 @@ public class ProjectInputController implements IController {
      * @param projectToManage The project specified by the user.
      * @param projectCommand The user input.
      */
-    public void projectEditTaskRequirements(Project projectToManage, String projectCommand) {
+    public String[] projectEditTaskRequirements(Project projectToManage, String projectCommand) {
         try {
             int taskIndexNumber = Integer.parseInt(projectCommand.substring(23).split(" ")[0]);
             String updatedTaskRequirements = projectCommand.substring(projectCommand.indexOf("-"));
             if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
-                consoleView.editTaskRequirements(projectToManage, taskIndexNumber, updatedTaskRequirements);
-            } else {
-                consoleView.consolePrint("The task index entered is invalid.");
+                projectToManage.editTaskRequirements(taskIndexNumber,updatedTaskRequirements);
+                return new String[] {"The requirements of your specified task has been updated!"};
             }
+            return new String[] {"The task index entered is invalid."};
         } catch (NumberFormatException e) {
-            consoleView.consolePrint("Task index is missing! Please input a proper task index!");
+            return new String[] {"Task index is missing! Please input a proper task index!"};
         }
     }
 
@@ -278,23 +296,23 @@ public class ProjectInputController implements IController {
      * @param projectToManage The project specified by the user.
      * @param projectCommand The user input.
      */
-    public void projectViewTaskRequirements(Project projectToManage, String projectCommand) {
+    public String[] projectViewTaskRequirements(Project projectToManage, String projectCommand) {
         if (projectCommand.length() < 23) {
-            consoleView.consolePrint("Please indicate the index of the task to be viewed.");
+            return new String[] {"Please indicate the index of the task to be viewed."};
         } else {
             try {
                 int taskIndex = Integer.parseInt(projectCommand.substring(23));
                 if (projectToManage.getNumOfTasks() >= taskIndex && taskIndex > 0) {
                     if (projectToManage.getTask(taskIndex).getNumOfTaskRequirements() == 0) {
-                        consoleView.consolePrint("This task has no specific requirements.");
+                        return new String[] {"This task has no specific requirements."};
                     } else {
-                        consoleView.viewTaskRequirements(projectToManage, taskIndex);
+                        ArrayList<String> taskRequirements = projectToManage.getTask(taskIndex).getTaskRequirements();
+                        return taskRequirements.toArray(new String[0]);
                     }
-                } else {
-                    consoleView.consolePrint("The task index entered is invalid.");
                 }
+                return new String[] {"The task index entered is invalid."};
             } catch (NumberFormatException e) {
-                consoleView.consolePrint("Input is not a number! Please input a proper task index!");
+                return new String[] {"Input is not a number! Please input a proper task index!"};
             }
         }
     }
@@ -304,11 +322,13 @@ public class ProjectInputController implements IController {
      * @param projectToManage The project specified by the user.
      * @param projectCommand The user input.
      */
-    public void projectAssignTask(Project projectToManage, String projectCommand) {
+    public String[] projectAssignTask(Project projectToManage, String projectCommand) {
         AssignmentController assignmentController = new AssignmentController(projectToManage);
         assignmentController.assignAndUnassign(projectCommand.substring(12));
-        consoleView.consolePrint(assignmentController.getErrorMessages().toArray(new String[0]));
-        consoleView.consolePrint(assignmentController.getSuccessMessages().toArray(new String[0]));
+        ArrayList<String> errorMessages = assignmentController.getErrorMessages();
+        ArrayList<String> successMessages = assignmentController.getSuccessMessages();
+        errorMessages.addAll(successMessages);
+        return errorMessages.toArray(new String[0]);
     }
 
     /**
@@ -316,21 +336,22 @@ public class ProjectInputController implements IController {
      * @param projectToManage The project to manage.
      * @param projectFullCommand The full command by the user.
      */
-    private void projectViewAssignments(Project projectToManage, String projectFullCommand) {
+    private String[] projectViewAssignments(Project projectToManage, String projectFullCommand) {
         String input = projectFullCommand.substring(18);
         if (input.charAt(0) == 'm') {
-            projectViewMembersAssignments(projectToManage, projectFullCommand.substring(20));
+            return projectViewMembersAssignments(projectToManage, projectFullCommand.substring(20));
         } else if (input.charAt(0) == 't') {
-            projectViewTasksAssignments(projectToManage, projectFullCommand.substring(20));
+            return projectViewTasksAssignments(projectToManage, projectFullCommand.substring(20));
         }
+        return null;
     }
 
     /**
      * Displays the assigned tasks in the current project.
      * @param assignedTaskList The list containing the assignment of the tasks.
      */
-    public void projectViewAssignedTasks(ArrayList<String> assignedTaskList) {
-        consoleView.consolePrint(assignedTaskList.toArray(new String[0]));
+    public String[] projectViewAssignedTasks(ArrayList<String> assignedTaskList) {
+        return assignedTaskList.toArray(new String[0]);
     }
 
     /**
@@ -338,13 +359,26 @@ public class ProjectInputController implements IController {
      * @param projectToManage The project specified by the user.
      * @param projectCommand The user input.
      */
-    public void projectViewTasks(Project projectToManage, String projectCommand) {
+    public String[] projectViewTasks(Project projectToManage, String projectCommand) {
         if (("view tasks").equals(projectCommand)) {
-            consoleView.viewAllTasks(projectToManage);
+            HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
+            ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
+            ArrayList<String> allTaskDetailsForTable
+                    = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers);
+            allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getDescription() + ":");
+            DukeLogger.logDebug(ProjectInputController.class, allTaskDetailsForTable.toString());
+            tableToPrint.add(allTaskDetailsForTable);
+            return viewHelper.consolePrintTable(tableToPrint);
         } else if (projectCommand.length() >= 11) {
             String sortCriteria = projectCommand.substring(11);
-            consoleView.viewSortedTasks(projectToManage, sortCriteria);
+            HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
+            ArrayList<String> allTaskDetails =
+                    projectToManage.getTasks().getAllSortedTaskDetails(tasksAndAssignedMembers,sortCriteria);
+
+            DukeLogger.logDebug(ProjectInputController.class, allTaskDetails.toString());
+            return allTaskDetails.toArray(new String[0]);
         }
+        return null;
     }
 
     /**
@@ -352,15 +386,15 @@ public class ProjectInputController implements IController {
      * @param projectToManage the project being managed.
      * @param projectCommand The command by the user containing index numbers of the members to view.
      */
-    public void projectViewMembersAssignments(Project projectToManage, String projectCommand) {
+    public String[] projectViewMembersAssignments(Project projectToManage, String projectCommand) {
         ParserHelper parserHelper = new ParserHelper();
         ArrayList<Integer> validMembers = parserHelper.parseMembersIndexes(projectCommand,
             projectToManage.getNumOfMembers());
         if (!parserHelper.getErrorMessages().isEmpty()) {
-            consoleView.consolePrint(parserHelper.getErrorMessages().toArray(new String[0]));
+            return parserHelper.getErrorMessages().toArray(new String[0]);
         }
-        consoleView.consolePrint(AssignmentViewHelper.getMemberOutput(validMembers,
-            projectToManage).toArray(new String[0]));
+        return AssignmentViewHelper.getMemberOutput(validMembers,
+            projectToManage).toArray(new String[0]);
     }
 
     /**
@@ -368,28 +402,31 @@ public class ProjectInputController implements IController {
      * @param projectToManage The project to manage.
      * @param projectCommand The user input.
      */
-    private void projectViewTasksAssignments(Project projectToManage, String projectCommand) {
+    private String[] projectViewTasksAssignments(Project projectToManage, String projectCommand) {
         ParserHelper parserHelper = new ParserHelper();
         ArrayList<Integer> validTasks = parserHelper.parseTasksIndexes(projectCommand,
             projectToManage.getNumOfTasks());
         if (!parserHelper.getErrorMessages().isEmpty()) {
-            consoleView.consolePrint(parserHelper.getErrorMessages().toArray(new String[0]));
+            return parserHelper.getErrorMessages().toArray(new String[0]);
         }
-        consoleView.consolePrint(AssignmentViewHelper.getTaskOutput(validTasks,
-            projectToManage).toArray(new String[0]));
+        return AssignmentViewHelper.getTaskOutput(validTasks,
+            projectToManage).toArray(new String[0]);
     }
-
 
     /**
      * Exits the current project.
      * @param projectToManage The project specified by the user.
      * @return Boolean variable specifying the exit status.
      */
-    public boolean projectExit(Project projectToManage) {
-        boolean isManagingAProject;
-        isManagingAProject = false;
-        consoleView.exitProject(projectToManage.getDescription());
+    public String[] projectExit(Project projectToManage) {
+        return new String[] {"Exited project: " + projectToManage.getDescription()};
+    }
+
+    public boolean getIsManagingAProject() {
         return isManagingAProject;
     }
 
+    public String[] end() {
+        return new String[] {"Bye. Hope to see you again soon!"};
+    }
 }
