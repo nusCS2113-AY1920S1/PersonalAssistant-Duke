@@ -21,7 +21,7 @@ public class IfElseTask extends Task {
      * @param elseAction The action to be executed if the condition is false
      */
     public IfElseTask(Condition condition, Action ifAction, Action elseAction) {
-        super(Type.IF_ELSE, condition, ifAction);
+        super(taskType.IF_ELSE, condition, ifAction);
         this.ifAction = ifAction;
         this.elseAction = elseAction;
     }
