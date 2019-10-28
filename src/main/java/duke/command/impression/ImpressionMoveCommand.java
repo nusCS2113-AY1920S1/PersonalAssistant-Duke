@@ -10,6 +10,7 @@ import duke.data.Treatment;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ImpressionMoveCommand extends ImpressionCommand {
@@ -41,29 +42,25 @@ public class ImpressionMoveCommand extends ImpressionCommand {
         String evArg = getSwitchVal("evidence");
         String treatArg = getSwitchVal("treatment");
         DukeData moveData;
+        DukeException dataNotFound;
+        List<DukeData> moveList;
         if (!"".equals(getArg()) && "".equals(evArg) && "".equals(treatArg)) {
-            List<DukeData> moveList = impression.findByName(getArg());
-            if (moveList.size() != 0) {
-                moveData = moveList.get(0);
-            } else {
-                throw new DukeException("Can't find any data item with that name!");
-            }
+            moveList = new ArrayList<DukeData>(impression.findByName(getArg()));
+            dataNotFound = new DukeException("Can't find any data item with that name!");
         } else if ("".equals(getArg()) && !"".equals(evArg) && "".equals(treatArg)) {
-            List<Evidence> moveList = impression.findEvidencesByName(evArg);
-            if (moveList.size() != 0) {
-                moveData = moveList.get(0);
-            } else {
-                throw new DukeException("Can't find any evidences with that name!");
-            }
+            moveList = new ArrayList<DukeData>(impression.findEvidencesByName(evArg));
+            dataNotFound = new DukeException("Can't find any evidences with that name!");
         } else if ("".equals(getArg()) && "".equals(evArg) && !"".equals(treatArg)) {
-            List<Treatment> moveList = impression.findTreatmentsByName(treatArg);
-            if (moveList.size() != 0) {
-                moveData = moveList.get(0);
-            } else {
-                throw new DukeException("Can't find any treatments with that name!");
-            }
+            moveList = new ArrayList<DukeData>(impression.findTreatmentsByName(treatArg));
+            dataNotFound = new DukeException("Can't find any treatments with that name!");
         } else {
             throw new DukeHelpException("I don't know what you want me to look for!", this);
+        }
+
+        if (moveList.size() != 0) {
+            moveData = moveList.get(0);
+        } else {
+            throw dataNotFound;
         }
         moveData.setParent(newImpression);
     }
