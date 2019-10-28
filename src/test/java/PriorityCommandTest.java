@@ -15,6 +15,12 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+
+/**
+ * Test class for priority commands.
+ * @author Tan Yi Xiang
+ * @version V1.0
+ */
 class PriorityCommandTest {
 
     private static TaskList tasks;
@@ -76,7 +82,7 @@ class PriorityCommandTest {
      * Ensure that file is deleted to prevent repetition related errors and preserve space.
      */
     @AfterAll
-    public static void teardownSetup() {
+    static void teardownSetup() {
         assert file.delete();
     }
 

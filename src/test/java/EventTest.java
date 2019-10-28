@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  * @author Tan Yi Xiang
  * @version 1.0
  */
-public class EventTest {
+class EventTest {
 
     private static final String EVENT = "EVENT";
     private LocalDateTime fromDate = LocalDateTime.of(2001, 1, 1, 1, 0);
@@ -68,7 +68,7 @@ public class EventTest {
     }
 
     @Test
-    public void whenExceptionThrown() {
+    void whenExceptionThrown() {
         Assertions.assertThrows(ChronologerException.class, () -> {
             ParserFactory.parse("event");
         });
