@@ -6,11 +6,19 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A helper class for all file io operations.
  */
 public interface Storage {
+    DateTimeFormatter timestampFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss'Z'")
+            .withResolverStyle(ResolverStyle.STRICT);
+
     /**
      * Saves content to a designated path.
      * @param path where the content is stored to
@@ -18,7 +26,9 @@ public interface Storage {
      * @throws IOException when error occurs at file io
      */
     static void saveToFile(Path path, String content) throws IOException {
-        createFileIfNotExist(path);
+        if (!fileExists(path)) {
+            createFileIfNotExist(path);
+        }
         Files.writeString(path, content, StandardOpenOption.WRITE);
     }
 
@@ -31,6 +41,11 @@ public interface Storage {
      */
     static String readFromFile(Path path) throws IOException {
         return Files.readString(path);
+    }
+
+    static List<String> readLinesFromFile(Path path) throws IOException {
+        String content = readFromFile(path);
+        return content.lines().collect(Collectors.toList());
     }
 
     /**
@@ -75,5 +90,28 @@ public interface Storage {
      */
     static Path prepareEmailPath(String filename) {
         return Path.of(".", "data", "emails", filename);
+    }
+
+    /**
+     * Gets a timestamp to be used in file.
+     *
+     * @return timestamp in string
+     */
+    static String getTimestamp() {
+        return LocalDateTime.now().format(timestampFormatter);
+    }
+
+    static String formatDateTime(LocalDateTime dateTime) {
+        return dateTime.format(timestampFormatter);
+    }
+
+    /**
+     * Parses a timestamp to LocalDateTime.
+     *
+     * @param timestamp timestamp stored in file in string
+     * @return LocalDateTime parsed from timestamp
+     */
+    static LocalDateTime parseTimestamp(String timestamp) {
+        return LocalDateTime.parse(timestamp, timestampFormatter);
     }
 }

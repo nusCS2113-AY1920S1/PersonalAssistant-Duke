@@ -178,15 +178,6 @@ public class Email {
         return this.sender.toString();
     }
 
-    /**
-     * Get the pathname for this email.
-     *
-     * @return pathname for this email.
-     */
-    public String getEmailFilePath() {
-        return EmailStorage.getFolderDir() + File.separator + this.subject;
-    }
-
     public String toFilename() {
         String filename = shaHash(this.subject) + "-" + this.getDateTimePlainString() + ".htm";
         return filename;

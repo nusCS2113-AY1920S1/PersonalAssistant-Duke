@@ -3,6 +3,7 @@ package seedu.duke.email.storage;
 import org.json.JSONException;
 import seedu.duke.common.model.Model;
 import seedu.duke.common.network.Http;
+import seedu.duke.common.storage.Storage;
 import seedu.duke.email.parser.EmailFormatParseHelper;
 import seedu.duke.email.EmailList;
 import seedu.duke.email.entity.Email;
@@ -13,6 +14,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
 import java.util.Scanner;
 
 import static seedu.duke.email.parser.EmailContentParseHelper.allKeywordInEmail;
@@ -20,74 +23,9 @@ import static seedu.duke.email.parser.EmailContentParseHelper.allKeywordInEmail;
 /**
  * Handles loading and saving of emails from local storage.
  */
-public class EmailStorage {
-
-    /**
-     * Get the pathname of the data/email.txt.
-     *
-     * @return pathname of the email.txt file.
-     */
-    public static String getDataDir() {
-        String dir = "";
-        String workingDir = System.getProperty("user.dir");
-        if (workingDir.endsWith(File.separator + "text-ui-test")) {
-            dir = ".." + File.separator + "data";
-        } else if (workingDir.endsWith(File.separator + "main")) {
-            dir = "." + File.separator + "data";
-        } else {
-            dir = "." + File.separator + "data";
-        }
-        return dir + File.separator;
-    }
-
-    /**
-     * Get the pathname of the data/email.txt.
-     *
-     * @return pathname of the email.txt file.
-     */
-    public static String getEmailIndexDir() {
-        String dir = "";
-        String workingDir = System.getProperty("user.dir");
-        if (workingDir.endsWith(File.separator + "text-ui-test")) {
-            dir = ".." + File.separator + "data" + File.separator + "email.txt";
-        } else if (workingDir.endsWith(File.separator + "main")) {
-            dir = "." + File.separator + "data" + File.separator + "email.txt";
-        } else {
-            dir = "." + File.separator + "data" + File.separator + "email.txt";
-        }
-        return dir;
-    }
-
-    /**
-     * Get the pathname of the data/emails/ folder, in which all the html files are saved.
-     *
-     * @return pathname of the data/emails/ folder.
-     */
-    public static String getFolderDir() {
-        String dir = "";
-        String workingDir = System.getProperty("user.dir");
-        if (workingDir.endsWith(File.separator + "text-ui-test")) {
-            dir = ".." + File.separator + "data" + File.separator + "emails" + File.separator;
-        } else if (workingDir.endsWith(File.separator + "main")) {
-            dir = "." + File.separator + "data" + File.separator + "emails" + File.separator;
-        } else {
-            dir = "." + File.separator + "data" + File.separator + "emails" + File.separator;
-        }
-        return dir;
-    }
-
-    private static String getUserInfoDir() {
-        String dir = "";
-        String workingDir = System.getProperty("user.dir");
-        if (workingDir.endsWith(File.separator + "text-ui-test")) {
-            dir = ".." + File.separator + "data" + File.separator + "user.txt";
-        } else if (workingDir.endsWith(File.separator + "main")) {
-            dir = "." + File.separator + "data" + File.separator + "user.txt";
-        } else {
-            dir = "." + File.separator + "data" + File.separator + "user.txt";
-        }
-        return dir;
-    }
+public class EmailStorage implements Storage {
+    private static String indexFilename = "email.txt";
+    private static String userFilename = "user.txt";
 
     /**
      * To implement with code to fetch emails from online server to local storage. May need to sync the
@@ -132,7 +70,6 @@ public class EmailStorage {
      */
     public static void saveEmails(EmailList emailList) {
         try {
-            prepareFolder();
             saveEmailListToIndex(emailList);
             saveEmailListToFolder(emailList);
         } catch (IOException e) {
@@ -144,30 +81,22 @@ public class EmailStorage {
     }
 
     private static void saveEmailListToFolder(EmailList emailList) throws IOException {
-        String folderDir = getFolderDir();
         for (Email email : emailList) {
             if (email.getBody() != null) {
-                saveEmailToFolder(folderDir, email);
+                saveEmailToFolder(email);
             }
         }
     }
 
-    private static void saveEmailToFolder(String folderDir, Email email) throws IOException {
-        File emailSource = new File(folderDir + email.toFilename());
-        emailSource.createNewFile();
-        FileOutputStream emailOut = new FileOutputStream(emailSource, false);
-        emailOut.write(email.getRawJson().getBytes());
-        emailOut.close();
+    private static void saveEmailToFolder(Email email) throws IOException {
+        Path emailPath = Storage.prepareEmailPath(email.toFilename());
+        Storage.saveToFile(emailPath, email.getRawJson());
     }
 
     private static void saveEmailListToIndex(EmailList emailList) throws IOException, JSONException {
-        String indexDir = getEmailIndexDir();
-        File indexFile = new File(indexDir);
-        indexFile.createNewFile();
-        FileOutputStream indexOut = new FileOutputStream(indexFile, false);
         String content = prepareEmailListIndexString(emailList);
-        indexOut.write(content.getBytes());
-        indexOut.close();
+        Path indexPath = Storage.prepareDataPath(indexFilename);
+        Storage.saveToFile(indexPath, content);
     }
 
     private static String prepareEmailListIndexString(EmailList emailList) throws JSONException {
@@ -176,15 +105,6 @@ public class EmailStorage {
             content += email.toIndexJson().toString() + "\n";
         }
         return content;
-    }
-
-    private static void prepareFolder() throws IOException {
-        File emailFolder = new File(getFolderDir());
-        if (!emailFolder.exists()) {
-            emailFolder.mkdir();
-        }
-        File indexFile = new File(getEmailIndexDir());
-        indexFile.createNewFile();
     }
 
     /**
@@ -196,21 +116,12 @@ public class EmailStorage {
     public static EmailList readEmailFromFile(String indexDir) {
         EmailList emailList = new EmailList();
         try {
-            prepareFolder();
-            indexDir = assignIndexDirIfNotExist(indexDir);
-            File indexFile = new File(indexDir);
-            FileInputStream indexIn = new FileInputStream(indexFile);
-            Scanner scanner = new Scanner(indexIn);
-            while (scanner.hasNextLine()) {
-                String input = scanner.nextLine();
-                readEmailWithIndexString(emailList, input);
+            Path indexPath = Storage.prepareDataPath(assignIndexDirIfNotExist(indexDir));
+            List<String> emailStringList = Storage.readLinesFromFile(indexPath);
+            for (String line : emailStringList) {
+                readAndAddEmailWithIndexString(emailList, line);
             }
             UI.getInstance().showMessage("Saved email file successfully loaded...");
-            indexIn.close();
-        } catch (FileNotFoundException e) {
-            // It is acceptable if there is no save file. Empty list returned
-            UI.getInstance().showMessage("Email file not found. Empty email list is used.");
-            return new EmailList();
         } catch (IOException e) {
             UI.getInstance().showError("Read save file IO exception");
         } catch (EmailFormatParseHelper.EmailParsingException e) {
@@ -221,26 +132,27 @@ public class EmailStorage {
 
     private static String assignIndexDirIfNotExist(String indexDir) {
         if ("".equals(indexDir)) {
-            return getEmailIndexDir();
+            return indexFilename;
         }
         return indexDir;
     }
 
-    private static void readEmailWithIndexString(EmailList emailList, String input)
-            throws EmailFormatParseHelper.EmailParsingException, FileNotFoundException {
+    private static void readAndAddEmailWithIndexString(EmailList emailList, String input)
+            throws EmailFormatParseHelper.EmailParsingException {
         Email indexEmail = EmailFormatParseHelper.parseIndexJson(input);
-        String filename = indexEmail.toFilename();
-        //try {
-        Email fileEmail = readEmailFromFolder(indexEmail, filename);
-        emailList.add(fileEmail);
-        //} catch (FileNotFoundException e) {
-        //    UI.getInstance().showError("An email file not found.");
-        //}
+        String emailFilename = indexEmail.toFilename();
+        try {
+            Email fileEmail = readEmailFromFolder(indexEmail, emailFilename);
+            emailList.add(fileEmail);
+        } catch (IOException e) {
+            UI.getInstance().showDebug("Email file not found for " + indexEmail.getSubject());
+        }
     }
 
-    private static Email readEmailFromFolder(Email indexEmail, String filename)
-            throws FileNotFoundException, EmailFormatParseHelper.EmailParsingException {
-        String emailContent = readEmailContentFromFolder(filename);
+    private static Email readEmailFromFolder(Email indexEmail, String emailFilename)
+            throws IOException, EmailFormatParseHelper.EmailParsingException {
+        Path emailPath = Storage.prepareEmailPath(emailFilename);
+        String emailContent = Storage.readFromFile(emailPath);
         Email fileEmail = parseEmailFromFolder(indexEmail, emailContent);
         return fileEmail;
     }
@@ -254,18 +166,6 @@ public class EmailStorage {
         return fileEmail;
     }
 
-    private static String readEmailContentFromFolder(String filename) throws FileNotFoundException {
-        String fileDir = getFolderDir() + filename;
-        File emailFile = new File(fileDir);
-        FileInputStream emailIn = new FileInputStream(emailFile);
-        Scanner emailScanner = new Scanner(emailIn);
-        String emailContent = "";
-        while (emailScanner.hasNextLine()) {
-            emailContent += emailScanner.nextLine();
-        }
-        return emailContent;
-    }
-
     /**
      * Saves authorisation token for user account.
      *
@@ -273,11 +173,8 @@ public class EmailStorage {
      */
     public static void saveRefreshToken(String token) {
         try {
-            prepareFolder();
-            File userInfoFile = new File(getUserInfoDir());
-            FileOutputStream out = new FileOutputStream(userInfoFile, false);
-            out.write(token.getBytes());
-            out.close();
+            Path userPath = Storage.prepareDataPath(userFilename);
+            Storage.saveToFile(userPath, token);
         } catch (IOException e) {
             UI.getInstance().showError("Save refresh token failed");
         }
@@ -290,7 +187,6 @@ public class EmailStorage {
      */
     public static String readRefreshToken() {
         try {
-            prepareFolder();
             return readRefreshTokenContent();
         } catch (FileNotFoundException e) {
             UI.getInstance().showError("User info file not found");
@@ -302,14 +198,7 @@ public class EmailStorage {
     }
 
     private static String readRefreshTokenContent() throws IOException {
-        String token = "";
-        File userInfoFile = new File(getUserInfoDir());
-        userInfoFile.createNewFile();
-        FileInputStream in = new FileInputStream(userInfoFile);
-        Scanner scanner = new Scanner(in);
-        while (scanner.hasNext()) {
-            token += scanner.next();
-        }
-        return token;
+        Path userPath = Storage.prepareDataPath(userFilename);
+        return Storage.readFromFile(userPath);
     }
 }

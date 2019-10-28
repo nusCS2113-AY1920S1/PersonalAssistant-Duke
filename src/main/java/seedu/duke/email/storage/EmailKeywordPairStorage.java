@@ -2,13 +2,15 @@ package seedu.duke.email.storage;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import seedu.duke.common.storage.Storage;
 import seedu.duke.email.EmailKeywordPairList;
+import seedu.duke.email.EmailList;
 import seedu.duke.email.entity.KeywordPair;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 
 /**
  * A helper class to save and read keyword pairs to and from local file.
@@ -25,7 +27,7 @@ public class EmailKeywordPairStorage implements Storage {
      */
     public static void saveKeywordPairList(EmailKeywordPairList keywordPairList) throws JSONException,
             IOException {
-        String content = constructKeywordPairJson(keywordPairList).toString();
+        String content = constructKeywordFileJson(keywordPairList).toString();
         Path path = Storage.prepareDataPath(keywordPairFilename);
         Storage.saveToFile(path, content);
     }
@@ -40,7 +42,7 @@ public class EmailKeywordPairStorage implements Storage {
     public static EmailKeywordPairList readKeywordPairList() throws IOException, JSONException {
         Path path = Storage.prepareDataPath(keywordPairFilename);
         String content = Storage.readFromFile(path);
-        return parseKeywordPairJson(new JSONArray(content));
+        return parseKeywordPairJson(new JSONObject(content));
     }
 
     /**
@@ -52,6 +54,20 @@ public class EmailKeywordPairStorage implements Storage {
         return Storage.fileExists(Storage.prepareDataPath(keywordPairFilename));
     }
 
+    private static JSONObject constructKeywordFileJson(EmailKeywordPairList keywordPairList) throws JSONException {
+        JSONObject fileJson = new JSONObject();
+        fileJson.put("timestamp", getKeywordPairTimestamp(keywordPairList));
+        fileJson.put("keywordPairs", constructKeywordPairJson(keywordPairList));
+        return fileJson;
+    }
+
+    private static String getKeywordPairTimestamp(EmailKeywordPairList keywordPairList) {
+        if (keywordPairList.getUpdatedOn() == null) {
+            return Storage.getTimestamp();
+        }
+        return Storage.formatDateTime(keywordPairList.getUpdatedOn());
+    }
+
     private static JSONArray constructKeywordPairJson(EmailKeywordPairList keywordPairList) throws JSONException {
         JSONArray array = new JSONArray();
         for (KeywordPair keywordPair : keywordPairList) {
@@ -60,11 +76,14 @@ public class EmailKeywordPairStorage implements Storage {
         return array;
     }
 
-    private static EmailKeywordPairList parseKeywordPairJson(JSONArray array) throws JSONException {
+    private static EmailKeywordPairList parseKeywordPairJson(JSONObject fileJson) throws JSONException {
+        LocalDateTime timestamp = Storage.parseTimestamp(fileJson.getString("timestamp"));
+        JSONArray array = fileJson.getJSONArray("keywordPairs");
         EmailKeywordPairList keywordPairList = new EmailKeywordPairList();
         for (int i = 0; i < array.length(); i++) {
             keywordPairList.add(new KeywordPair(array.getJSONObject(i)));
         }
+        keywordPairList.setUpdatedOn(timestamp);
         return keywordPairList;
     }
 }
