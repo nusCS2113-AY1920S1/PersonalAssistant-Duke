@@ -23,7 +23,10 @@ import duke.commands.UndoCommand;
 import duke.commands.ViewCommand;
 import duke.commands.AsciiCommand;
 import duke.commands.OverlayGroupGroup;
+import duke.components.Jaccard;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -41,7 +44,25 @@ public class Parser {
      * @throws DukeException in the case of parsing errors
      */
     public static Command parse(String message) throws DukeException {
-        switch (message.split(" ")[0]) {
+
+        String [] commandList = {"bye", "list", "delete", "deletebar","edit",
+                                    "find","done", "new","help","view","addbar",
+                                    "overlay","group","overlay_bar_group",
+                                    "overlay_group_group","overlay_bar_song","ascii","redo","undo"};
+        double maximumVal = 0;
+        String commandName = "";
+        Jaccard similarityChecker = new Jaccard();
+        String [] messageSplit = message.split(" ");
+        for (String temp: commandList) {
+            double similarityValue = similarityChecker.similarity(temp,messageSplit[0]);
+            if (maximumVal < similarityValue) {
+                maximumVal = similarityValue;
+                commandName = temp;
+            }
+        }
+        messageSplit[0] = commandName;
+        message = String.join(" ", messageSplit);
+        switch (commandName) {
         case "bye":
             if (message.length() == 3) {
                 return new ByeCommand();
