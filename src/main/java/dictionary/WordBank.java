@@ -88,7 +88,6 @@ public class WordBank extends Bank {
             Word temp = new Word(word, result);
             wordBank.put(word, temp);
         }
-        //return s + result;
         return s + wordBank.get(word).getMeaning();
     }
 
