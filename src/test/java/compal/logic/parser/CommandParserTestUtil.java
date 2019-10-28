@@ -1,5 +1,6 @@
 package compal.logic.parser;
 
+import compal.logic.command.Command;
 import compal.logic.command.CommandResult;
 import compal.logic.command.exceptions.CommandException;
 import compal.logic.parser.exceptions.ParserException;
@@ -16,11 +17,12 @@ public class CommandParserTestUtil {
      * Asserts that the parsing of user input by  parserManager is successful and the command created
      * equals to expectedCommand.
      */
-    public static void assertParseSuccess(CommandParser commandParser, String userInput,
-                                   CommandResult expectedCommand, TaskList taskList) {
+    public static void assertParseSuccess(CommandParser testCommandParser, String userInput,
+                                   CommandResult expectedCommandResult, TaskList taskList) {
         try {
-            CommandResult command = commandParser.parseCommand(userInput).commandExecute(taskList);
-            assertEquals(expectedCommand.feedbackToUser, command.feedbackToUser);
+            Command testCommand = testCommandParser.parseCommand(userInput);
+            CommandResult testCommandResult = testCommand.commandExecute(taskList);
+            assertEquals(expectedCommandResult.feedbackToUser, testCommandResult.feedbackToUser);
         } catch (ParserException | CommandException | ParseException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
