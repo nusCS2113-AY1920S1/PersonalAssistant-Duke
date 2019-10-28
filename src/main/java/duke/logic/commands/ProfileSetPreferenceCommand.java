@@ -20,7 +20,7 @@ public class ProfileSetPreferenceCommand extends Command {
      */
     public ProfileSetPreferenceCommand(String category, String setting) throws CategoryNotFoundException {
         this.category = category.toLowerCase();
-        if (setting.toLowerCase().equals("true")) {
+        if (setting.equalsIgnoreCase("true")) {
             this.setting = true;
         } else {
             this.setting = false;

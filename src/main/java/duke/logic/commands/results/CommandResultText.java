@@ -10,8 +10,6 @@ import duke.model.profile.ProfileCard;
 import duke.model.transports.Route;
 import duke.model.locations.RouteNode;
 
-import java.time.LocalDateTime;
-import java.time.Period;
 
 /**
  * Defines the result of various commands as a string.

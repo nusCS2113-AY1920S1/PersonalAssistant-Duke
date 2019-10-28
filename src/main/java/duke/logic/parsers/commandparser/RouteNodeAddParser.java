@@ -1,6 +1,5 @@
 package duke.logic.parsers.commandparser;
 
-import duke.commons.exceptions.DukeEmptyFieldException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.InputNotIntException;
 import duke.logic.commands.Command;

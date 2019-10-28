@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class profileCardTest {
+public class ProfileCardTest {
     private ProfileCard profileCard = new ProfileCard();
 
     @Test
