@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 
-public class HistoryCommandTest extends ApplicationTest {
+public class HelpCommandTest extends ApplicationTest {
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -44,42 +44,51 @@ public class HistoryCommandTest extends ApplicationTest {
     }
 
     @Test
-    void testHistoryMousePress() {
-        clickOn("#userInput").write("history");
+    void testHelpMousePress() {
+        clickOn("#userInput").write("help 1");
         clickOn("#sendButton");
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(1);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals("history", actualText);
+        Assertions.assertEquals("help 1", actualText);
     }
 
     @Test
-    void testHistoryKeyPress() {
-        clickOn("#userInput").write("history");
-        clickOn("#sendButton");
+    void testHelpKeyPress() {
+        clickOn("#userInput").write("help 1").press(KeyCode.ENTER);
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(1);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals("history", actualText);
+        Assertions.assertEquals("help 1", actualText);
     }
 
     @Test
-    void testHistoryWithSpace() {
-        clickOn("#userInput").write(" history ").clickOn("#sendButton");
+    void testHelpWithSpace() {
+        clickOn("#userInput").write(" help 1 ").clickOn("#sendButton");
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(1);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals(" history ", actualText);
+        Assertions.assertEquals(" help 1 ", actualText);
     }
 
     @Test
-    void testHistoryWithLimits() {
-        clickOn("#userInput").write("command 1").clickOn("#sendButton");
-        clickOn("#userInput").write(" history ").clickOn("#sendButton");
+    void testHelpOutputChapter1() {
+        clickOn("#userInput").write("help 1").clickOn("#sendButton");
         VBox container = find();
-        DialogBox dialogBox = (DialogBox) container.getChildren().get(4);
+        DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals("Have you forgotten our conversation?\ncommand 1\n history \n", actualText);
+        Assertions.assertEquals("Try solving these problems on Kattis:\n"
+                + "cups, lineup, mjehuric, sidewayssorting", actualText);
+    }
+
+    @Test
+    void testHelpOutputChapter2() {
+        clickOn("#userInput").write("help 2").clickOn("#sendButton");
+        VBox container = find();
+        DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
+        String actualText = dialogBox.getDialog().getText();
+        Assertions.assertEquals("Try solving these problems on Kattis:\n"
+                + "coconut, integerlists, joinstrings", actualText);
     }
 
     <T extends Node> T find() {

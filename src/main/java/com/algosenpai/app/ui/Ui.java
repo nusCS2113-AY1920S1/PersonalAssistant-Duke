@@ -7,6 +7,7 @@ import com.algosenpai.app.ui.components.DialogBox;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -33,29 +34,35 @@ public class Ui extends AnchorPane {
     private TextField userInput;
 
     @FXML
-    private Button sendButton;
-    @FXML
     private ProgressBar levelProgress;
+
     @FXML
     private Label playerName;
+
     @FXML
     private Label playerLevel;
+
     @FXML
     private ImageView userPic;
 
+    @FXML
+    private Button sendButton;
+
+    private AnimationTimerController animationTimerController;
     private Logic logic;
     private double playerExp = 0.0;
+    private int idleMinutesMax = 180;
 
+    private static final String GREETING_MESSAGE = "Welcome to AlgoSenpai Adventures! Type 'hello' to start!";
+    private static final String BOY_PROFILE_PICTURE_PATH = "/images/boyplayer.jpg";
+    private static final String GIRL_PROFILE_PICTURE_PATH = "/images/girlplayer.png";
+    private static final String DEFAULT_PROFILE_PICTURE_PATH = "/images/unknown.png";
+    private static final String SENPAI_PROFILE_PICTURE_PATH = "/images/miku.png";
 
-    private Image boyImage = new Image(this.getClass().getResourceAsStream("/images/boyplayer.jpg"));
-    private Image girlImage = new Image(this.getClass().getResourceAsStream("/images/girlplayer.png"));
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/unknown.png"));
-    private Image senpaiImage = new Image(this.getClass().getResourceAsStream("/images/miku.png"));
-
-    int idleMaxMinutes = 180;
-
-    AnimationTimerController animationTimerController;
-
+    private Image boyImage = new Image(this.getClass().getResourceAsStream(BOY_PROFILE_PICTURE_PATH));
+    private Image girlImage = new Image(this.getClass().getResourceAsStream(GIRL_PROFILE_PICTURE_PATH));
+    private Image userImage = new Image(this.getClass().getResourceAsStream(DEFAULT_PROFILE_PICTURE_PATH));
+    private Image senpaiImage = new Image(this.getClass().getResourceAsStream(SENPAI_PROFILE_PICTURE_PATH));
 
     /**
      * Renders the nodes on the GUI.
@@ -63,15 +70,14 @@ public class Ui extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getSenpaiDialog(
-                "Welcome to AlgoSenpai Adventures! Type 'hello' to start!", senpaiImage));
+        dialogContainer.getChildren().add(DialogBox.getSenpaiDialog(GREETING_MESSAGE, senpaiImage));
         userPic.setImage(userImage);
         levelProgress.setProgress(playerExp);
         handle();
     }
 
-    public void setLogic(Logic l) {
-        logic = l;
+    public void setLogic(Logic logic) {
+        this.logic = logic;
     }
 
     /**
@@ -96,31 +102,41 @@ public class Ui extends AnchorPane {
     private void handleUserInput() {
         resetIdle();
         String input = userInput.getText();
-        Command command = logic.executeCommand(input);
-        String response = command.execute();
+        Command commandGenerated = logic.executeCommand(input);
+        String response = commandGenerated.execute();
+
         if (input.equals("undo")) {
             undoChat();
         } else if (input.equals("clear")) {
             clearChat();
         } else if (input.equals("exit")) {
             exit();
-        } else if (response.equals("You're all set! Time to start your journey to become an AlgoSenpai!")) {
+        } else if (response.startsWith("Hello ")) {
             playerLevel.setText("You are Level 1");
-            changeUserImage(input);
-            printtoGui(input, response, userImage, senpaiImage);
-        } else if (response.equals("Are you a boy or a girl?")) {
-            playerName.setText("Hi, " + input + "!");
-            printtoGui(input, response, userImage, senpaiImage);
+            if (response.substring(6, 9).equals("Mr.")) {
+                changeUserImage("boy");
+            } else if (response.substring(6, 9).equals("Mrs")) {
+                changeUserImage("girl");
+            }
+            playerName.setText("Hi, " + "!");
+            printToGui(input, response, userImage, senpaiImage);
         } else if (response.startsWith("You got ")) {
-            updateLevelProgress(0.1);
-            printtoGui(input, response, userImage, senpaiImage);
+            double expGain = ((double) Integer.parseInt(response.substring(8, 9)) / 10) * 5;
+            updateLevelProgress(expGain);
+            printToGui(input, response, userImage, senpaiImage);
         } else {
-            printtoGui(input, response, userImage, senpaiImage);
+            printToGui(input, response, userImage, senpaiImage);
         }
     }
 
-    private void resetIdle() {
-        idleMaxMinutes = 180;
+    /**
+     * Creates the dialog box on GUI to show the response of the Senpai.
+     * @param text the response of the program.
+     * @param image the profile picture of the Senpai.
+     */
+    private void printSenpaiText(String text, Image image) {
+        dialogContainer.getChildren().add(DialogBox.getSenpaiDialog(text, image));
+        userInput.clear();
     }
 
     /**
@@ -129,18 +145,27 @@ public class Ui extends AnchorPane {
      * @param text the String that user has typed in
      * @param image the profile picture of the user.
      */
-    private void printSenpaiText(String text, Image image) {
-        dialogContainer.getChildren().add(DialogBox.getSenpaiDialog(text, image));
-        userInput.clear();
+    private void printUserText(String text, Image image) {
+        dialogContainer.getChildren().add(DialogBox.getUserDialog(text, image));
     }
 
     /**
-     * Creates the dialog box on GUI to show the response of the Senpai.
-     * @param text the response of the program.
-     * @param image the profile picture of the Senpai.
+     * Prints the chat bubbles to the GUI.
+     * @param input the user input text.
+     * @param response the text generated by the program
+     * @param userImage the profile picture of the user
+     * @param senpaiImage the profile picture of the Senpai.
      */
-    private void printUserText(String text, Image image) {
-        dialogContainer.getChildren().add(DialogBox.getUserDialog(text, image));
+    private void printToGui(String input, String response, Image userImage, Image senpaiImage) {
+        printUserText(input, userImage);
+        printSenpaiText(response, senpaiImage);
+    }
+
+    /**
+     * Resets the idleMinutesMax variable.
+     */
+    private void resetIdle() {
+        idleMinutesMax = 180;
     }
 
     /**
@@ -178,28 +203,16 @@ public class Ui extends AnchorPane {
         animationTimerController = new AnimationTimerController(1000) {
             @Override
             public void handle() {
-                if (idleMaxMinutes > 0) {
-                    idleMaxMinutes--;
+                final String HELP_MESSAGE = "Hello do you need help?";
+                if (idleMinutesMax > 0) {
+                    idleMinutesMax--;
                 } else {
-                    idleMaxMinutes = 180;
-                    dialogContainer.getChildren()
-                            .add(DialogBox.getSenpaiDialog("Hello do you need help?", senpaiImage));
+                    idleMinutesMax = 180;
+                    printSenpaiText(HELP_MESSAGE, senpaiImage);
                 }
             }
         };
         animationTimerController.start();
-    }
-
-    /**
-     * Prints the chat bubbles to the GUI.
-     * @param input the user input text.
-     * @param response the text generated by the program
-     * @param userImage the profile picture of the user
-     * @param senpaiImage the profile picture of the Senpai.
-     */
-    private void printtoGui(String input, String response, Image userImage, Image senpaiImage) {
-        printUserText(input, userImage);
-        printSenpaiText(response, senpaiImage);
     }
 
     /**
