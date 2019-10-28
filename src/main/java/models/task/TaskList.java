@@ -49,6 +49,34 @@ public class TaskList {
     }
 
     /**
+     * Returns an ArrayList with String descriptions of task details to be presented in table format.
+     * @param tasksAndAssignedMembers HashMap containing tasks with assigned members.
+     * @return An ArrayList with String descriptions of task details sorted by name by default to be presented in table
+     *         format.
+     */
+    public ArrayList<String> getAllTaskDetailsForTable(HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers) {
+        ArrayList<String> allTaskDetailsForTable = new ArrayList<>();
+        if (this.taskList.size() == 0) {
+            allTaskDetailsForTable.add(" - There are currently no tasks! -");
+        } else {
+            ArrayList<String> allTaskDetails = this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers,
+                    taskList, "/PRIORITY");
+
+            for (String s : allTaskDetails) {
+                String[] indivTaskDetails = s.split(" [|] ");
+                allTaskDetailsForTable.add(indivTaskDetails[0]);
+
+                for (int i = 1; i < indivTaskDetails.length; i++) {
+                    allTaskDetailsForTable.add("   - " + indivTaskDetails[i]);
+                }
+                allTaskDetailsForTable.add("");
+            }
+            allTaskDetailsForTable.remove(allTaskDetailsForTable.size() - 1);
+        }
+        return allTaskDetailsForTable;
+    }
+
+    /**
      * Returns an ArrayList with String descriptions of task details sorted by the criteria specified by the user.
      * @param tasksAndAssignedMembers HashMap containing tasks with assigned members.
      * @param sortCriteria Criteria to sort chosen by user.
@@ -136,6 +164,8 @@ public class TaskList {
             int indexToBeRemoved = Integer.parseInt(indexesToBeRemoved[i]);
             if (indexToBeRemoved > 0
                     && indexToBeRemoved <= this.taskList.get(taskIndexNumber - 1).getNumOfTaskRequirements()) {
+                //input validation if input index to be removed does not exist, but currently does not show mistake to
+                // user
                 this.taskList.get(taskIndexNumber - 1).removeTaskRequirement(indexToBeRemoved);
             }
         }

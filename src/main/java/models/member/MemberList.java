@@ -89,6 +89,27 @@ public class MemberList implements IMemberList {
         return memberDetails;
     }
 
+    /**
+     * Returns an ArrayList of Strings in the format to be printed in table form.
+     * @return An ArrayList of Strings in the format to be printed in table form.
+     */
+    public ArrayList<String> getAllMemberDetailsForTable() {
+        ArrayList<String> memberDetailsForTable = new ArrayList<>();
+        if (this.memberList.size() == 0) {
+            memberDetailsForTable.add(" - There are currently no members! -");
+        } else {
+            for (Member member : this.memberList) {
+                memberDetailsForTable.add(member.getIndexNumber() + ". " + member.getName());
+                memberDetailsForTable.add("   - Role: " + member.getRole());
+                memberDetailsForTable.add("   - Phone: " + member.getPhone());
+                memberDetailsForTable.add("   - Email: " + member.getEmail());
+                memberDetailsForTable.add("");
+            }
+            memberDetailsForTable.remove(memberDetailsForTable.size() - 1);
+        }
+        return memberDetailsForTable;
+    }
+
     @Override
     public Member getMember(int i) {
         return this.memberList.get(i - 1);

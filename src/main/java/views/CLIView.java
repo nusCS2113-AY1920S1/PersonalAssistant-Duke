@@ -237,9 +237,13 @@ public class CLIView {
      * @param projectToManage The project specified by the user.
      */
     public void viewAllMembers(Project projectToManage) {
-        ArrayList<String> allMemberDetails = projectToManage.getMembers().getAllMemberDetails();
-        DukeLogger.logDebug(CLIView.class, allMemberDetails.toString());
-        consolePrint(allMemberDetails.toArray(new String[0]));
+        ArrayList<String> allMemberDetailsForTable = projectToManage.getMembers().getAllMemberDetailsForTable();
+        String header = "Members of " + projectToManage.getDescription() + ":";
+        allMemberDetailsForTable.add(0, header);
+        DukeLogger.logDebug(CLIView.class, allMemberDetailsForTable.toString());
+        ArrayList<ArrayList<String>> tablesToPrint = new ArrayList<>();
+        tablesToPrint.add(allMemberDetailsForTable);
+        consolePrintTable(tablesToPrint);
     }
 
     /**
@@ -248,9 +252,13 @@ public class CLIView {
      */
     public void viewAllTasks(IProject projectToManage) {
         HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
-        ArrayList<String> allTaskDetails = projectToManage.getTasks().getAllTaskDetails(tasksAndAssignedMembers);
-        DukeLogger.logDebug(CLIView.class, allTaskDetails.toString());
-        consolePrint(allTaskDetails.toArray(new String[0]));
+        ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
+        ArrayList<String> allTaskDetailsForTable
+                = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers);
+        allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getDescription() + ":");
+        DukeLogger.logDebug(CLIView.class, allTaskDetailsForTable.toString());
+        tableToPrint.add(allTaskDetailsForTable);
+        consolePrintTable(tableToPrint);
     }
 
     /**
