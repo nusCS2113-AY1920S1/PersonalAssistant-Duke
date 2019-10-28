@@ -136,7 +136,7 @@ public class Write {
         for (int i = 0; i < user.getAllWeight().size(); i += 1) {
             toWrite += "\n";
             String date = allWeight.get(i).date;
-            int weight = allWeight.get(i).weight;
+            double weight = allWeight.get(i).weight;
             toWrite += date + "|" + weight;
         }
         try {

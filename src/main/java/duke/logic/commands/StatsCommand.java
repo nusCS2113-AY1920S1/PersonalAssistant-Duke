@@ -16,6 +16,7 @@ public class StatsCommand extends Command {
     @Override
     public void execute(MealList meals, Ui ui, Storage storage, User user,
                         InputHandler in, TransactionList transactions) throws DukeException {
+        user.updateStats(meals);
         ui.showStats(user);
     }
 

@@ -230,22 +230,38 @@ public class Ui {
     }
 
     public void showStats(User user) {
-        System.out.println(UI_BOUNDARY);
         if (user.getGoal() == null) {
             showStatsNoGoal();
         } else {
             showStatsWithGoal(user);
         }
-        System.out.println(UI_BOUNDARY);
     }
 
-    public void showStatsNoGoal() {
+    private void showStatsNoGoal() {
         System.out.println(UI_PADDING + "It appears that a diet plan has not been setup for this session of DIYeats.");
         System.out.println(UI_PADDING + "Please use the `setgoal` command to create a diet plan customized for you!");
     }
 
-    public void showStatsWithGoal(User user) {
-
+    private void showStatsWithGoal(User user) {
+        System.out.println(UI_PADDING + "These are your user statistics as of today:");
+        System.out.println(UI_PADDING + "Difference between original weight: " + user.getOriginalWeight());
+        System.out.println(UI_PADDING + "Current Weight: " + user.getWeight());
+        System.out.println(UI_PADDING + "Target Weight: " + user.getWeightTarget());
+        System.out.println(UI_PADDING + "Days left to end of diet plan: " + user.getDaysLeftToGoal());
+        System.out.println(UI_PADDING + "Target avg calorie balance: " + user.getTargetCalorieBalance() + " calories");
+        System.out.println(UI_PADDING + "Avg current calorie balance: " + user.getAverageCalorieBalance() + " calories");
+        System.out.println(UI_PADDING + "Avg calorie balance that must be maintained to reach goal: "
+                + user.getCalorieBalance() + " calories");
+        showOnTrack(user);
     }
 
+    private void showOnTrack(User user) {
+        if (user.getOriginalWeight() > user.getWeightTarget() && user.getWeight() > user.getWeightTarget()) {
+            System.out.println(UI_PADDING + "Great Job! You are on track to reaching your diet goals!");
+        } else if (user.getOriginalWeight() < user.getWeightTarget() && user.getWeight() < user.getWeightTarget()) {
+            System.out.println(UI_PADDING + "Great Job! You are on track to reaching your diet goals!");
+        } else {
+            System.out.println(UI_PADDING + "Oh no, you are deviating from your diet plan. Try harder!");
+        }
+    }
 }

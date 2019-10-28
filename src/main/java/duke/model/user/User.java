@@ -2,6 +2,7 @@ package duke.model.user;
 
 import duke.commons.exceptions.DukeException;
 import duke.model.Goal;
+import duke.model.MealList;
 import duke.model.Transaction;
 
 import java.math.BigDecimal;
@@ -114,6 +115,7 @@ public class User {
         BigDecimal accountBalance = new BigDecimal(in.nextLine());
         this.account = new Account(accountBalance);
         this.name = name;
+        this.originalWeight = weight;
         setWeight(weight);
         this.height = height;
         this.activityLevel = activityLevel;
@@ -124,7 +126,7 @@ public class User {
      * This is a function to update weight at time of input.
      * @param weight Weight at time of input
      */
-    public void setWeight(int weight) {
+    public void setWeight(double weight) {
         Calendar calendarDate = Calendar.getInstance();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String currentDate = dateFormat.format(calendarDate.getTime());
@@ -196,6 +198,10 @@ public class User {
         this.activityLevel = activityLevel;
     }
 
+    public void updateStats(MealList meals) {
+        this.goal.updateStats(meals);
+    }
+
     public String getName() {
         return this.name;
     }
@@ -210,6 +216,26 @@ public class User {
 
     public double getOriginalWeight() {
         return this.originalWeight;
+    }
+
+    public double getWeightTarget() {
+        return goal.getWeightTarget();
+    }
+
+    public int getDaysLeftToGoal() {
+        return goal.daysLeftToGoal();
+    }
+
+    public int getCalorieBalance() {
+        return goal.getCaloriesLeft() / goal.daysLeftToGoal();
+    }
+
+    public int getTargetCalorieBalance() {
+        return goal.getCalorieTarget() / goal.durationOfGoal();
+    }
+
+    public int getAverageCalorieBalance() {
+        return goal.getCaloriesConsumed() / goal.daysElapsedSinceStart();
     }
 
     /**

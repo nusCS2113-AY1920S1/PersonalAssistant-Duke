@@ -5,6 +5,7 @@ import duke.commons.exceptions.DukeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -16,6 +17,8 @@ public class Goal {
     private String startDate;
     private double weightTarget;
     private int calorieTarget;
+    private int caloriesLeft;
+    private int caloriesConsumed;
     private int lifestyleTarget;
 
     public Goal() {
@@ -49,6 +52,37 @@ public class Goal {
         this.lifestyleTarget = level;
     }
 
+    public void updateStats (MealList meals) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        LocalDate startDate = LocalDate.parse(this.startDate, formatter);
+        LocalDate currentDate = LocalDate.now();
+        int totalConsume = 0;
+        HashMap<String, ArrayList<Meal>> mealTracker = meals.getMealTracker();
+        for (LocalDate iterator = startDate; iterator.isBefore(currentDate); iterator = iterator.plusDays(1)) {
+            totalConsume += sumCaloriesInADay(mealTracker, iterator);
+        }
+        this.caloriesConsumed = totalConsume;
+        this.caloriesLeft = this.calorieTarget - totalConsume;
+    }
+
+    private int sumCaloriesInADay(HashMap<String, ArrayList<Meal>> mealTracker, LocalDate iterator) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        int caloriesConsumed = 0;
+        if (mealTracker.containsKey(iterator) == false) {
+            caloriesConsumed += this.calorieTarget / durationOfGoal();
+        } else {
+            ArrayList<Meal> meals = mealTracker.get(iterator.format(formatter));
+            if (meals.size() == 0) {
+                caloriesConsumed += this.calorieTarget / durationOfGoal();
+            } else {
+                for (int i = 0; i < meals.size(); i += 1) {
+                    caloriesConsumed += meals.get(i).getNutritionalValue().get("calorie");
+                }
+            }
+        }
+        return caloriesConsumed;
+    }
+
     /**
      * This is a getter for date.
      * @return description of the task
@@ -59,6 +93,14 @@ public class Goal {
 
     public String getStartDate() {
         return this.startDate;
+    }
+
+    public int daysElapsedSinceStart() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        LocalDate startDate = LocalDate.parse(this.startDate, formatter);
+        LocalDate currentDate = LocalDate.now();
+        int daysElapsed = (int) DAYS.between(startDate,currentDate);
+        return daysElapsed;
     }
 
     public int daysLeftToGoal() {
@@ -83,6 +125,14 @@ public class Goal {
 
     public int getCalorieTarget() {
         return this.calorieTarget;
+    }
+
+    public int getCaloriesLeft() {
+        return this.caloriesLeft;
+    }
+
+    public int getCaloriesConsumed() {
+        return this.caloriesConsumed;
     }
 
     public int getLifestyleTarget() {
