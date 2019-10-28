@@ -146,9 +146,9 @@ public abstract class ParseGoals {
      * @param valueString value of number of days.
      * @throws ParserException If days is set too long after or contain invalid parameters.
      */
-    void checkInt(String variable, String valueString) throws ParserException {
-        if (!RegexUtil.regexCheckListNumber(valueString)) {
-            throw new ParserException(variable + " can only be a positive number with at most 9 digits");
+    void checkDay(String variable, String valueString) throws ParserException {
+        if (!RegexUtil.regexCheckDay(valueString)) {
+            throw new ParserException(variable + " can only be a positive number up to only 365 days!");
         }
     }
 

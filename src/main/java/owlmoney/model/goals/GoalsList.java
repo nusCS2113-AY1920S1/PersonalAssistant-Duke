@@ -31,6 +31,18 @@ public class GoalsList {
     }
 
     /**
+     * Limits the number of goals that user can have when setting goals.
+     *
+     * @throws GoalsException If number of goals exceeds 20.
+     */
+    private void checkNumGoals() throws GoalsException {
+        if (goalList.size() >= 20) {
+            System.out.println(goalList.size());
+            throw new GoalsException("You've reached the limit of 20 goals!");
+        }
+    }
+
+    /**
      * Lists all goals in GoalsList.
      *
      * @param ui required for printing.
@@ -42,8 +54,9 @@ public class GoalsList {
             ui.printGoalHeader();
             for (int i = ISZERO; i < goalList.size(); i++) {
                 printOneGoal((i + ONE_INDEX), goalList.get(i), ISMULTIPLE, ui);
+                System.out.println(goalList.get(i).convertDateToDays());
             }
-            ui.printDivider();
+            ui.printGoalDivider();
         }
     }
 
@@ -58,6 +71,10 @@ public class GoalsList {
         if (goalExists(goals.getGoalsName())) {
             throw new GoalsException("There is already a goal with the same name " + goals.getGoalsName());
         }
+        if (goals.getStatus().equals("✓")) {
+            throw new GoalsException("You cannot add a goal that is already achieved!");
+        }
+        checkNumGoals();
         goalList.add(goals);
         ui.printMessage("Added a new goal with the below details: ");
         printOneGoal(ONE_INDEX, goals, ISSINGLE, ui);
@@ -167,12 +184,12 @@ public class GoalsList {
         }
         if (!goal.getSavingAcc().isBlank()) {
             goal.isDone(Double.parseDouble(goal.getRemainingAmount()));
-        }
+    }
         ui.printGoal(num, goal.getGoalsName(), "$"
-                        + new DecimalFormat("0.00").format(goal.getGoalsAmount()),
+            + new DecimalFormat("0.00").format(goal.getGoalsAmount()),
                 goal.getSavingAcc(),"$" + goal.getRemainingAmount(), goal.getGoalsDate(), goal.getStatus());
         if (!isMultiplePrinting) {
-            ui.printDivider();
+            ui.printGoalDivider();
         }
     }
 }

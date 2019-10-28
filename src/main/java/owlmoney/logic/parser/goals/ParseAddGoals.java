@@ -57,7 +57,7 @@ public class ParseAddGoals extends ParseGoals {
             }
 
             if (IN.equals(key) && (!value.isBlank())) {
-                checkInt(IN, value);
+                checkDay(IN, value);
                 by = convertDaysToDate(Integer.parseInt(value));
             }
 

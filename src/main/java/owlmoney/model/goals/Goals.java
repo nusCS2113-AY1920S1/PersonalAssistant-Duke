@@ -1,11 +1,13 @@
 package owlmoney.model.goals;
 
 import owlmoney.model.bank.Bank;
+import owlmoney.model.goals.exception.GoalsException;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Contains the details for each goal.
@@ -46,6 +48,15 @@ public class Goals {
         if (Double.parseDouble(getRemainingAmount()) <= 0) {
             this.done = true;
         }
+    }
+
+    public String convertDateToDays() {
+        long diffInMillies = Math.abs(this.date.getTime() - new Date().getTime());
+        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        if (diff <= 10) {
+            return this.name + "due in " + diff + "days";
+        }
+        return null;
     }
 
     /**
@@ -159,7 +170,12 @@ public class Goals {
      *
      * @param newSavingAcc new saving account to tie to Goal.
      */
-    void setSavingAcc(Bank newSavingAcc) {
-        this.savingAcc = newSavingAcc;
+    void setSavingAcc(Bank newSavingAcc) throws GoalsException {
+        if (newSavingAcc.getCurrentAmount() < this.getGoalsAmount()) {
+            this.savingAcc = newSavingAcc;
+        } else {
+            throw new GoalsException("You cannot add a goal that is already achieved!");
+        }
+
     }
 }
