@@ -19,6 +19,10 @@ public class Level {
     private int endGold;
     private int deadline;
 
+    private boolean detailedFeedbackProvided = false;
+
+    private objectiveResult levelState;
+
     public Level(JSONObject object) {
         JSONArray array = (JSONArray) object.get("narratives");
         narratives = new ArrayList<>();
@@ -89,31 +93,25 @@ public class Level {
             farmio.getFarmer().resetTaskFailed();
             return objectiveResult.INVALID;
         }
-
         Farmer farmer = farmio.getFarmer();
         int day = farmer.getDay();
-        objectiveResult currentLevelState;
         if(checkDeadlineExceeded(day)){
-            currentLevelState =  objectiveResult.FAILED;
-            //getFeedback(farmer, currentLevelState);
+            levelState = objectiveResult.FAILED;
         }
         else {
             if (allDone(farmer)) {
-                currentLevelState = objectiveResult.DONE;
+                levelState = objectiveResult.DONE;
             } else if (checkDeadlineExceeded(day + 1)){
-                currentLevelState = objectiveResult.FAILED;
+                levelState = objectiveResult.FAILED;
             }
             else{
-                currentLevelState = objectiveResult.NOT_DONE;
+                levelState = objectiveResult.NOT_DONE;
             }
         }
-        getFeedback(farmer, currentLevelState);
-        return currentLevelState;
+        return levelState;
     }
 
     private String checkIncompleteObjectives(Farmer farmer){
-       //compare the differences
-       //check the level types
         String output = "";
         int seeds = farmer.wheatFarm.getSeeds();
         int wheat = farmer.wheatFarm.getWheat();
@@ -144,22 +142,45 @@ public class Level {
         return output;
     }
 
+    public String getDetailedFeedback( Farmio farmio){
+        //states what went wrong with the level
+        return "";
+    }
 
-    private String getFeedback(Farmer farmer, objectiveResult currentLevelState){
-       //get Feedback on whats not completed
-        //need to complete.
+
+
+
+    public String getFeedback(Farmio farmio){
+        Farmer farmer = farmio.getFarmer();
+        objectiveResult currentLevelState = farmio.getLevel().getLevelState();
         if(currentLevelState == objectiveResult.DONE){
-            return "all tasks has been completed";
+            return "well done you have completed the level - all tasks has been completed succesfully";
         }
 
-        else if(currentLevelState == objectiveResult.NOT_DONE){
-            return checkIncompleteObjectives(farmer);
+        else if(currentLevelState == objectiveResult.NOT_DONE){ //day completed but tasks not achieved succesfult
+            String feedback = "tasks have yet to be completed";
+            if(detailedFeedbackProvided){
+                feedback += "detailed feedback : -- \n";
+                feedback += checkIncompleteObjectives(farmer);
+            }
+            return feedback;
         }
 
         else if (currentLevelState == objectiveResult.FAILED){
-            return "level failed";
+            String feedback = "Oh no! The objectives were not met by the deadline! Level failed";
+            if(detailedFeedbackProvided){
+               feedback += "detailed feedback";
+            }
+            return feedback;
+        }
+        else if (currentLevelState == objectiveResult.INVALID){
+            return "Oh no! There has been an error during code execution!";
         }
         return "";
+    }
+
+    public objectiveResult getLevelState(){
+        return levelState;
     }
 
     /**
