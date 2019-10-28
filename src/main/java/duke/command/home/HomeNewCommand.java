@@ -8,7 +8,6 @@ import duke.exception.DukeException;
 import duke.ui.context.Context;
 
 public class HomeNewCommand extends ArgCommand {
-
     @Override
     protected ArgSpec getSpec() {
         return HomeNewSpec.getSpec();
@@ -17,6 +16,7 @@ public class HomeNewCommand extends ArgCommand {
     @Override
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
+
         //ideally, we would pass an array of objects
         nullToEmptyString(); //set optional string parameters to ""
         Integer height = switchToInt("height");
@@ -33,12 +33,12 @@ public class HomeNewCommand extends ArgCommand {
             }
         }
 
-        core.ui.print("Patient added.");
         Patient patient = new Patient(getSwitchVal("name"), bed,
                 getSwitchVal("allergies"), height, weight, age, number,
                 address, history);
         core.patientMap.addPatient(patient);
         core.writeJsonFile();
+        core.ui.print("Patient added.");
 
         if (isSwitchSet("go")) {
             core.uiContext.setContext(Context.PATIENT, patient);

@@ -3,6 +3,8 @@ package duke.command.home;
 import duke.DukeCore;
 import duke.command.ArgCommand;
 import duke.command.ArgSpec;
+import duke.command.CommandHelpers;
+import duke.data.Patient;
 import duke.exception.DukeException;
 
 public class HomeHistoryCommand extends ArgCommand {
@@ -15,21 +17,22 @@ public class HomeHistoryCommand extends ArgCommand {
     @Override
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
-        if (core.patientMap.patientExist(getArg())) {
-            String patientDetails = getArg() + ", " + core.patientMap.getPatient(getArg()).getName();
-            String message = getSwitchVal("message");
-            String rewrite = getSwitchVal("rewrite");
-            String newHistory = message;
-            if (rewrite != null && (rewrite.toLowerCase().equals("y")
-                    || rewrite.toLowerCase().equals("yes") || rewrite.toLowerCase().equals("ye"))) {
-                core.patientMap.getPatient(getArg()).setHistory(message);
-            } else {
-                newHistory = core.patientMap.getPatient(getArg()).appendHistory(message);
-            }
-            core.writeJsonFile();
-            core.ui.print("History of " + patientDetails + " updated with:\n" + newHistory + "\n");
+
+        String bed = getSwitchVal("bed");
+        int index = switchToInt("index");
+        Patient patient = CommandHelpers.findPatient(core, bed, index);
+        String patientDetails = getArg() + ", " + patient.getName();
+        String message = getSwitchVal("message");
+        String rewrite = getSwitchVal("rewrite");
+        String newHistory = message;
+
+        if (rewrite != null && (rewrite.toLowerCase().equals("y")
+                || rewrite.toLowerCase().equals("yes") || rewrite.toLowerCase().equals("ye"))) {
+            patient.setHistory(message);
         } else {
-            throw new DukeException("No such Patient!");
+            newHistory = patient.appendHistory(message);
         }
+        core.writeJsonFile();
+        core.ui.print("History of " + patientDetails + " updated with:\n" + newHistory + "\n");
     }
 }
