@@ -7,11 +7,12 @@ import Events.EventTypes.EventSubclasses.Concert;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
-import Events.Formatting.EventDate;
 import Events.Formatting.CalendarView;
+import Events.Formatting.EventDate;
 import Events.Storage.ClashException;
 import Events.Storage.EndBeforeStartException;
 import Events.Storage.EventList;
+import Events.Storage.Goal;
 import Events.Storage.Storage;
 import UserElements.ConcertBudgeting.CostExceedsBudgetException;
 
@@ -139,8 +140,13 @@ public class Command {
                 printCalendar(events, ui);
                 break;
 
+
             case "budget":
                 showBudget(events, ui);
+                break;
+            
+            case "goal":
+                goalsManagement(events, ui);
                 break;
 
             default:
@@ -410,6 +416,53 @@ public class Command {
             newEvent.rescheduleStartDate(copyOfStartDate);
             newEvent.rescheduleEndDate(copyOfEndDate);
             events.undoDeletionOfEvent(newEvent);
+        }
+    }
+
+    /**
+     * Manages the goals of an existing event.
+     *
+     * @param events The event list.
+     */
+    public void goalsManagement(EventList events, UI ui) {
+        if (continuation.isEmpty()) {
+            ui.noSuchEvent();
+            return;
+        }
+        try {
+            String[] splitGoal = continuation.split("/");
+            String[] goalCommand = splitGoal[0].split(" ");
+            int eventIndex = Integer.parseInt(goalCommand[1]) - 1;
+            if (goalCommand.length == 3) {
+                int goalIndex = Integer.parseInt(goalCommand[2]);
+                switch (goalCommand[0]) {
+                    case "delete":
+                        events.getEvent(eventIndex).removeGoal(goalIndex - 1);
+                        ui.goalDeleted();
+                        break;
+
+                    case "edit":
+                        //edit goal
+                        break;
+                }
+            } else {
+                switch (goalCommand[0]) {
+                    case "add":
+                        Goal newGoal = new Goal(splitGoal[1]);
+                        events.getEvent(eventIndex).addGoal(newGoal);
+                        ui.goalAdded();
+                        break;
+
+                    case "view":
+                        //print goals list
+                        ui.printEventGoals(events.getEvent(eventIndex));
+                        break;
+                }
+            }
+        } catch (IndexOutOfBoundsException ne) {
+            ui.noSuchEvent();
+        } catch (NumberFormatException numE) {
+            ui.notAnInteger();
         }
     }
 
