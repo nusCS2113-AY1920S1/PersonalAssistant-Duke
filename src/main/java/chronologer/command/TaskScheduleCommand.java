@@ -12,43 +12,82 @@ import chronologer.ui.UiTemporary;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Collections;
 
+/**
+ * Finds a free period of time within the user's schedule for a selected duration value.
+ *
+ * @author Fauzan Adipratama
+ * @version 1.3
+ */
 public class TaskScheduleCommand extends Command {
 
     private Long durationToSchedule;
     private final int indexOfTask;
-    private final int indexOfDeadline;
+    private final Integer indexOfDeadline;
+    private final LocalDateTime deadlineDate;
 
+    /**
+     * Initialises the command parameter for a selected task to be done by a selected deadline.
+     * @param indexOfTask is the index number of the selected task in the TaskList
+     * @param indexDeadline is the index number of the selected deadline in the TaskList
+     */
     public TaskScheduleCommand(int indexOfTask, int indexDeadline) {
         this.indexOfTask = indexOfTask;
         this.indexOfDeadline = indexDeadline;
+        this.deadlineDate = null;
     }
 
+    /**
+     * Initialises the command parameter for a selected task to be done by an inputted date.
+     * @param indexOfTask is the index number of the selected task in the TaskList
+     * @param deadlineDate is the date to schedule the task by
+     */
+    public TaskScheduleCommand(int indexOfTask, LocalDateTime deadlineDate) {
+        this.indexOfTask = indexOfTask;
+        this.deadlineDate = deadlineDate;
+        this.indexOfDeadline = -1;
+    }
+
+    /**
+     * Searches all free periods of time that the user can schedule a given task by a certain deadline.
+     * @param tasks   Holds the list of all the tasks the user has.
+     * @param storage Allows the saving of the file to persistent storage.
+     * @throws ChronologerException if the selected task is not a compatible type.
+     */
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
+        Todo todo;
+        Deadline deadline;
+        LocalDateTime deadlineDate;
+
         ArrayList<Task> list = tasks.getTasks();
-        Todo t;
-        Deadline d;
+
         try {
-            t = (Todo) list.get(indexOfTask);
+            todo = (Todo) list.get(indexOfTask);
         } catch (ClassCastException e) {
             UiTemporary.printOutput("Task selected is not a Todo with a duration");
             throw new ChronologerException("Task selected is not a Todo with a duration");
         }
-        try {
-            d = (Deadline) list.get(indexOfDeadline);
-        } catch (ClassCastException e) {
-            UiTemporary.printOutput("Task selected is not a Deadline");
-            throw new ChronologerException("Task selected is not a Deadline");
-        }
-        durationToSchedule = (long) t.duration;
-        LocalDateTime deadlineDate = d.getStartDate();
+        durationToSchedule = (long) todo.duration;
 
-        ArrayList<Event> dateList = createDateList(list, deadlineDate);
+        if (this.deadlineDate == null) {
+            try {
+                deadline = (Deadline) list.get(indexOfDeadline);
+            } catch (ClassCastException e) {
+                UiTemporary.printOutput("Task selected is not a Deadline");
+                throw new ChronologerException("Task selected is not a Deadline");
+            }
+            deadlineDate = deadline.getStartDate();
+        } else {
+            deadlineDate = this.deadlineDate;
+        }
+        if (LocalDateTime.now().isAfter(deadlineDate)) {
+            throw new ChronologerException("The selected deadline is overdue!");
+        }
+
+        ArrayList<Event> dateList = tasks.obtainEventList(deadlineDate);
         if (dateList.size() == 0) {
-            UiTemporary.printOutput("You can schedule this task from now till the deadline.\n"
-                    + "Schedule it at the earliest convenience?");
+            UiTemporary.printOutput("You can schedule this task from now till the deadline.\n");
             return;
         }
 
@@ -84,21 +123,6 @@ public class TaskScheduleCommand extends Command {
         if (!isFreeBetweenEvents) {
             UiTemporary.printOutput("There is no free slot to insert the task. Consider freeing up your schedule.");
         }
-    }
-
-    private ArrayList<Event> createDateList(ArrayList<Task> tasks, LocalDateTime deadlineDate) {
-        ArrayList<Event> dateList = new ArrayList<>();
-        for (Task item : tasks) {
-            //NOTE CHANGE HERE NO LONGER TASK.EVENT.CLASS
-            if (item.getClass() == Event.class) {
-                if (item.getStartDate().isBefore(deadlineDate)) {
-                    dateList.add((Event) item);
-                }
-            }
-        }
-        Collections.sort(dateList);
-
-        return dateList;
     }
 
     // TODO: Figure a way for GUI to accept subsequent inputs

@@ -14,8 +14,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- * Main UI window of the application.
- * Acts as a container for child UI elements.
+ * Main UI window of the application. Acts as a container for child UI elements.
  */
 class MainWindow extends UiComponent<Stage> {
     private static final String FXML = "MainWindow.fxml";

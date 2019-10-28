@@ -17,9 +17,10 @@ bin/
 *.file
 ArrayList
 *.log
+*.ics
 
 #Vscode specific
 .project
 .settings/
 .classpath
-launch.json
+*.json

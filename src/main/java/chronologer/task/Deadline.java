@@ -28,9 +28,28 @@ public class Deadline extends Task implements Serializable {
         setReminder(3);
     }
 
+    /**
+     * Constructor for deadline task.
+     *
+     * @param description Description of the deadline
+     * @param atDate      Due date for deadline
+     */
+    public Deadline(String description, LocalDateTime atDate, String modCode) {
+        super(description);
+        this.startDate = atDate;
+        this.modCode = modCode;
+        setReminder(3);
+    }
+
     @Override
     public String toString() {
-        String message = super.getPriorityIcon() + "[D]" + "[" + super.getStatusIcon() + "] " + this.description;
+        String message = "";
+        if (modCode.isBlank()) {
+            message = super.getPriorityIcon() + "[D]" + "[" + super.getStatusIcon() + "] " + this.description;
+        } else {
+            message = super.getPriorityIcon() + "[D]" + "[" + super.getStatusIcon() + "] " + this.modCode + " "
+                    + this.description;
+        }
         String dateString = " (by: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
         if (!comment.isBlank()) {
             dateString = dateString + "  Note to self: " + comment;

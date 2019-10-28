@@ -1,5 +1,6 @@
 package chronologer.task;
 
+import java.time.LocalDateTime;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -204,8 +205,7 @@ public class TaskList {
         ArrayList<Task> priorityList = new ArrayList<>();
         ArrayList<String> stringPriorityList = new ArrayList<>();
         for (Task listOfTask : listOfTasks) {
-            if (listOfTask.toString().contains(dayToFind)
-                && !listOfTask.priority.equals(Priority.LOW)) {
+            if (listOfTask.toString().contains(dayToFind) && !listOfTask.priority.equals(Priority.LOW)) {
                 priorityList.add(listOfTask);
             }
         }
@@ -231,6 +231,27 @@ public class TaskList {
         return tasksWithoutDates;
     }
 
+    //@@author fauzt-reused
+    /**
+     * Retrieves all Event tasks in the main task list in chronologically-ordered list.
+     * @param deadlineDate is the cut-off time to search all prior relevant events
+     * @return all the events in the main task list in chronological order
+     */
+    public ArrayList<Event> obtainEventList(LocalDateTime deadlineDate) {
+        ArrayList<Event> eventList = new ArrayList<>();
+        for (Task item : listOfTasks) {
+            boolean isAnEventBeforeDeadline = item.getClass() == Event.class
+                    && item.getStartDate().isBefore(deadlineDate);
+            if (isAnEventBeforeDeadline) {
+                eventList.add((Event) item);
+            }
+        }
+        Collections.sort(eventList);
+
+        return eventList;
+    }
+
+    //@@author
     /**
      * Fetches all reminders for the current date.
      *
@@ -259,7 +280,8 @@ public class TaskList {
         ArrayList<String> scheduleDescriptionOnly = new ArrayList<>();
         for (int i = 0; i < obtainDescriptions.size(); i++) {
             if (obtainDescriptions.get(i).toString().contains(dayToFind)) {
-                scheduleDescriptionOnly.add(obtainDescriptions.get(i).getDescription().trim());
+                scheduleDescriptionOnly.add(obtainDescriptions.get(i).getModCode().trim() + " "
+                        + obtainDescriptions.get(i).getDescription().trim());
             }
         }
         return scheduleDescriptionOnly;
@@ -310,7 +332,6 @@ public class TaskList {
     public boolean isTodoPeriod(Task task) {
         return (TODO_PERIOD.equals(task.getType()));
     }
-
 
     public void updatePriority(Task task) {
         observableListOfTasks.add(task);
