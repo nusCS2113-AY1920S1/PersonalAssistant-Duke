@@ -42,7 +42,8 @@ public class FindCommand extends Command {
      * @param in the scanner object to handle secondary command IO
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user, InputHandler in, TransactionList transactions) {
+    public void execute(MealList meals, Ui ui, Storage storage, User user, InputHandler in,
+                        TransactionList transactions) {
         ArrayList<Meal> matchingMeals = new ArrayList<>();
         ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
         for (Meal element: currentMeals) {

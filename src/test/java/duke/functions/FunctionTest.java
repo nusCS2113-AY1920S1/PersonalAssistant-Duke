@@ -7,6 +7,7 @@ import duke.logic.parsers.Parser;
 import duke.storage.Storage;
 import duke.model.user.User;
 import duke.model.MealList;
+import duke.ui.InputHandler;
 import duke.ui.Ui;
 import duke.model.TransactionList;
 
@@ -21,7 +22,7 @@ public class FunctionTest {
     private Storage storage;
     private MealList tasks = new MealList();
     private Ui ui;
-    private Scanner in = new Scanner(System.in);
+    private InputHandler in = new InputHandler(System.in);
     private User user;
     private Autocorrect autocorrect = new Autocorrect();
 

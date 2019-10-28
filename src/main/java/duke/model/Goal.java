@@ -61,7 +61,7 @@ public class Goal {
         this.calorieTarget = calorieTarget;
     }
 
-    public void updateStats (MealList meals) {
+    public void updateStats(MealList meals) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         LocalDate startDate = LocalDate.parse(this.startDate, formatter);
         LocalDate currentDate = LocalDate.now();
