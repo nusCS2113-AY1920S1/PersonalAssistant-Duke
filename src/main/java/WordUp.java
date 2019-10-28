@@ -39,4 +39,3 @@ public class WordUp extends Application {
         window.setMinWidth(400.0);
     }
 }
-

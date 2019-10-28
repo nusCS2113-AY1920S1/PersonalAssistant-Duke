@@ -2,9 +2,9 @@ package command;
 
 import exception.NoWordFoundException;
 
-import java.io.IOException;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
@@ -24,7 +24,7 @@ public class OxfordCall {
     public static String onlineSearch(String word) throws NoWordFoundException {
         String queryWord = word;
         String alpha = doInBackground(queryWord);
-        String result = cleanUp(alpha);
+        String result = extractFirstDef(alpha);
         return result;
     }
 
@@ -43,6 +43,7 @@ public class OxfordCall {
     }
 
     /**
+     * Request for metaData
      * Searches for the word online.
      * @param word word to be searched
      * @return Meanings found by online dictionary
@@ -76,7 +77,7 @@ public class OxfordCall {
      * Extracts the first definition inside the metadata.
      * @author Ng Jian Wei
      */
-    public static String cleanUp(String metaData) {
+    public static String extractFirstDef(String metaData) {
         String[] temp = metaData.split("definitions", 2);
         String[] temp2 = temp[1].split("]", 2);
         temp2[0] = temp2[0].replaceAll(":","");

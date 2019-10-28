@@ -1,16 +1,14 @@
 package dictionary;
 
-import java.util.ArrayList;
-import java.util.SortedMap;
-
-import exception.NoWordFoundException;
 import command.OxfordCall;
+import exception.NoWordFoundException;
 import exception.WordAlreadyExistsException;
 import storage.Storage;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.SortedMap;
 import java.util.TreeMap;
-
 
 public class WordBank extends Bank {
     private TreeMap<String, Word> wordBank;
