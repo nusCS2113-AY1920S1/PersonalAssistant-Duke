@@ -17,15 +17,15 @@ import duke.ui.Ui;
  * balanced at around 20% (1kg = 7700cal = 7.7kcal)
  */
 public class AddGoalCommand extends Command {
-    private Goal goal = new Goal();
-    private User user;
+    private Goal goal;
     private Ui ui;
-    private InputHandler in;
 
     /**
      * Constructor for AddGoalCommand.
      */
     public AddGoalCommand() {
+        goal = new Goal();
+        ui = new Ui();
     }
 
     public AddGoalCommand(boolean flag, String message) {
@@ -46,7 +46,7 @@ public class AddGoalCommand extends Command {
         ui.showLine();
         InputHandler in = new InputHandler(response);
         try {
-            switch(stage) {
+            switch (stage) {
                 case 0:
                     ui.showQueryStartDate();
                     break;

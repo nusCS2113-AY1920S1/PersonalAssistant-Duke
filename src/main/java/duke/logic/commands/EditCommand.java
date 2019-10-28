@@ -22,6 +22,7 @@ public class EditCommand extends Command {
         this.isFail = true;
         this.error = message;
     }
+
     /**
      * Executes the EditCommand.
      * @param meals the MealList object in which the meals are supposed to be added

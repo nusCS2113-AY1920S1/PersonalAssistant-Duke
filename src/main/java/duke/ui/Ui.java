@@ -162,47 +162,35 @@ public class Ui {
     }
 
     public void showQueryStartDate() {
-        System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "Please input the start date of your plan:");
-        System.out.println(UI_BOUNDARY);
     }
 
     public void showQueryEndDate() {
-        System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "Please input the end date of your plan:");
-        System.out.println(UI_BOUNDARY);
     }
 
     public void showQueryTargetWeight() {
-        System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "Please enter your target weight by the end of your plan:");
-        System.out.println(UI_BOUNDARY);
     }
 
     public void showQueryTargetLifestyle() {
-        System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "Would you like to include more exercise in conjunction with your diet?");
         System.out.println(UI_PADDING + "Incorporating increased levels of exercise in conjunction with a diet plan");
         System.out.println(UI_PADDING + "will result in healthier and more effective weight management!");
         System.out.println(UI_PADDING + "Please reply (yes/no):");
-        System.out.println(UI_BOUNDARY);
     }
 
     public void queryOverrideExistingGoal() {
-        System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "It appears there is a preexisting goal already in place");
         System.out.println(UI_PADDING + "Would you like to override the old goal with the new one?");
         System.out.println(UI_PADDING + "Please reply (yes/no):");
-        System.out.println(UI_BOUNDARY);
     }
 
     public void failSetGoal() {
-        System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "The setGoal Command has been aborted");
     }
 
     public void succeedSetGoal() {
-        System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "The setGoal Command is successful");
     }
 

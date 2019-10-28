@@ -38,7 +38,7 @@ public class UpdateWeightCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
-        switch(stage) {
+        switch (stage) {
             case 0:
                 stage0(user, storage);
                 break;
