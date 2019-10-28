@@ -106,9 +106,20 @@ public class Duke {
      *
      * @return .
      */
-    public AssignedTaskManager getAssignedTaskManager() {
+    public StorageManager getStorageManager() {
+        return storageManager;
+    }
+
+    /**
+     * .
+     *
+     * @return .
+     */
+    public  AssignedTaskManager getAssignedTaskManager() {
         return assignedTaskManager;
     }
+
+
 
 
     /**

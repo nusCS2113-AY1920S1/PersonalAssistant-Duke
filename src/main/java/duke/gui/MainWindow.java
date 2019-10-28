@@ -11,15 +11,24 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -42,6 +51,8 @@ public class MainWindow extends AnchorPane {
     private Button updatePatientButton;
     @FXML
     private Button listPatientsButton;
+    @FXML
+    private Button listTasksButton;
     @FXML
     private TableView<Patient> patientTable;
     @FXML
@@ -104,8 +115,71 @@ public class MainWindow extends AnchorPane {
     private TextField updatePatientColumnField;
     @FXML
     private TextField updatePatientContentField;
+    @FXML
+    private TextField addTaskNameField;
+    @FXML
+    private TextField deleteTaskIdField;
+    @FXML
+    private TextField assignTaskIdField;
+    @FXML
+    private TextField assignTaskPatientIdField;
+    @FXML
+    private TextField assignTaskStartTimeField;
+    @FXML
+    private TextField assignTaskEndTimeField;
+    @FXML
+    private DatePicker assignTaskStartDatePicker;
+    @FXML
+    private DatePicker assignTaskEndDatePicker;
+    @FXML
+    private PieChart pieChart;
+
 
     private final Duke duke = new Duke("./data");
+//    public void initializePieChartViews() throws DukeException {
+//
+//         //PieChart pieChart = new PieChart();
+//        Map<String, Integer> counterMap = new HashMap<>();
+//        counterMap = duke.getStorageManager().loadCommandFrequency();
+//        ArrayList<Integer> frequencyList = new ArrayList<Integer>(counterMap.values());
+//        ArrayList<String> commandNameList = new ArrayList<String>(counterMap.keySet());
+//
+//        ObservableList<javafx.scene.chart.PieChart.Data> list = FXCollections.observableArrayList(
+//
+//                new javafx.scene.chart.PieChart.Data(commandNameList.get(0) , frequencyList.get(0)),
+//                new javafx.scene.chart.PieChart.Data(commandNameList.get(1) , frequencyList.get(1))
+//        );
+//        pieChart.setData(list);
+//
+//    }
+
+    public void handlePieChartButton() throws DukeException, IOException {
+        Map<String, Integer> counterMap = new HashMap<>();
+        counterMap = duke.getStorageManager().loadCommandFrequency();
+        ArrayList<Integer> frequencyList = new ArrayList<Integer>(counterMap.values());
+        ArrayList<String> commandNameList = new ArrayList<String>(counterMap.keySet());
+        ObservableList<javafx.scene.chart.PieChart.Data> list = FXCollections.observableArrayList(
+
+                new PieChart.Data(commandNameList.get(0) , frequencyList.get(0)),
+                new PieChart.Data(commandNameList.get(1) , frequencyList.get(1))
+//                new PieChart.Data(commandNameList.get(2) , frequencyList.get(2))
+//                new PieChart.Data(commandNameList.get(3) , frequencyList.get(3)),
+//                new PieChart.Data(commandNameList.get(4) , frequencyList.get(4)),
+//                new PieChart.Data(commandNameList.get(5) , frequencyList.get(5)),
+//                new PieChart.Data(commandNameList.get(6) , frequencyList.get(6)),
+//                new PieChart.Data(commandNameList.get(7) , frequencyList.get(7)),
+//                new PieChart.Data(commandNameList.get(8) , frequencyList.get(8))
+//                new PieChart.Data(commandNameList.get(9) , frequencyList.get(9)),
+//                new PieChart.Data(commandNameList.get(10) , frequencyList.get(10)),
+//                new PieChart.Data(commandNameList.get(11) , frequencyList.get(11)),
+//                new PieChart.Data(commandNameList.get(12) , frequencyList.get(12))
+
+        );
+        pieChart.setData(list);
+    }
+
+
+
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
@@ -153,7 +227,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Action takes to after add patient button is being pressed.
+     * Action takes to after update patient button is being pressed.
      */
     @FXML
     private void handleUpdatePatientButton() {
@@ -168,7 +242,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Action takes to after add patient button is being pressed.
+     * Action takes to after delete patient button is being pressed.
      */
     @FXML
     private void handleDeletePatientButton() {
@@ -185,6 +259,61 @@ public class MainWindow extends AnchorPane {
     private void handleListPatientsButton() {
         executeDukeWithInput("list patients");
     }
+
+    /**
+     * Action takes to after add patient button is being pressed.
+     */
+    @FXML
+    private void handleAddTaskButton() {
+        String name = addTaskNameField.getText();
+        String input = "add task:" + name;
+        executeDukeWithInput(input);
+        addTaskNameField.clear();
+    }
+
+    /**
+     * Action takes to after add patient button is being pressed.
+     */
+    @FXML
+    private void handleDeleteTaskButton() {
+        String Id = deleteTaskIdField.getText();
+        String input = "delete task:" + "#" + Id;
+        executeDukeWithInput(input);
+        deleteTaskIdField.clear();
+    }
+
+    /**
+     * Action takes to after add patient button is being pressed.
+     */
+    @FXML
+    private void handleListTasksButton() {
+        executeDukeWithInput("list tasks");
+    }
+
+    /**
+     * Action takes to after add patient button is being pressed.
+     */
+    @FXML
+    private void handleAssignTaskButton() {
+        String taskId = assignTaskIdField.getText();
+        String patientId = assignTaskPatientIdField.getText();
+        LocalDate startDate = assignTaskStartDatePicker.getValue();
+        LocalDate endDate = assignTaskEndDatePicker.getValue();
+        String startDateInString = startDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String endDateInString = endDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String startTime = assignTaskStartTimeField.getText();
+        String endTime = assignTaskEndTimeField.getText();
+        String input = "assign period task :" + "#" + patientId + " :"
+                        + "#" + taskId + " :" + startDateInString + " " + startTime
+                        + " :" + endDateInString + " " + endTime;
+        executeDukeWithInput(input);
+        assignTaskIdField.clear();
+        assignTaskPatientIdField.clear();
+        assignTaskStartTimeField.clear();
+        assignTaskEndTimeField.clear();
+    }
+
+
 
     /**
      * execute duke core with userInput command given,
