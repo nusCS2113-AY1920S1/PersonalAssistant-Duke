@@ -23,6 +23,10 @@ public class QuizScene extends NewScene {
     private Integer wrongQuiz;
     private ArrayList<String> quizArray;
 
+    /**
+     * Instantiates a QuizScene.
+     * @param storage object required to create quiz scene
+     */
     public QuizScene(Ui ui, Bank bank, Storage storage, Stage window) {
         super(ui, bank, storage, ui.quizGreet(), window);
         setupHandleInput();
@@ -51,8 +55,7 @@ public class QuizScene extends NewScene {
         } else if (countQuiz == 5) {
             startQuiz = false;
             return ui.quizIncorrect(wrongQuiz, countQuiz, quizArray);
-        }
-        else {
+        } else {
             if (!startQuiz) {
                 throw new CommandInvalidException(fullCommand);
             } else {
@@ -66,11 +69,13 @@ public class QuizScene extends NewScene {
                         s = ui.quizResponse(true, quizCommand.answer);
                     } else {
                         s = ui.quizResponse(false, quizCommand.answer);
-                        quizArray.add(quizCommand.question+": "+quizCommand.answer);
+                        quizArray.add(quizCommand.question + ": "+quizCommand.answer);
                         wrongQuiz += 1;
                     }
                     this.generateQuiz();
-                    return s + "\n" + ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
+                    return s
+                            + "\n"
+                            + ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
                 } catch (NumberFormatException e) {
 
                     throw new InvalidAnswerException();

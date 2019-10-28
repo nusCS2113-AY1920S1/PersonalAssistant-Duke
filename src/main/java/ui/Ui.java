@@ -24,6 +24,7 @@ public class Ui {
                 + "                                            |   \n\n"
                 + "Welcome, what would you like to do today?");
     }
+
     /**
      * Greets user when they move to quiz scene.
      * @return a greeting string
@@ -236,7 +237,7 @@ public class Ui {
     public String quizDisplay(String question, String[] options, int optionSequence) {
         String s = ("What is the meaning of " + question + "?\n");
         int index = 1;
-        for (int i = optionSequence; i < optionSequence+4; i++){
+        for (int i = optionSequence; i < optionSequence+4; i++) {
             s += (index + "." + options[i % 4] + "  ");
             index++;
         }
@@ -258,6 +259,13 @@ public class Ui {
         }
     }
 
+    /**
+     * Shows score of the quiz.
+     * @param wrongQuiz is the number of wrong answers answered
+     * @param countQuiz is number of questions answered
+     * @param quizArray are the words where the user had wrong answers
+     * @return a string shown
+     */
     public String quizIncorrect(Integer wrongQuiz, Integer countQuiz, ArrayList<String> quizArray) {
         if (wrongQuiz == 0) {
             return ("Congratulations! You got "
@@ -275,6 +283,7 @@ public class Ui {
                     + "\ntype exit_quiz to exit.");
         }
     }
+
     /**
      * Shows to user all words that have a specific beginning.
      * @param begin begin substring to be searched
