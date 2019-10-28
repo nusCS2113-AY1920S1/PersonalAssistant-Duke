@@ -88,13 +88,13 @@ public class Parser {
             return new CommandDayStart();
         }
         if (userInput.equals("conditions") || userInput.equals("condition")) {
-            return new CommandConditionShow();
+            return new CommandShowList("ConditionList");
         }
         if (userInput.equals("actions") || userInput.equals("action")) {
-            return new CommandActionShow();
+            return new CommandShowList("ActionList");
         }
         if (userInput.equals("market")) {
-            return new CommandMarketShow();
+            return new CommandShowList("MarketList");
         }
         if (userInput.startsWith("do") || userInput.startsWith("if") || userInput.startsWith("for") || userInput.startsWith("while")) {
             return addTask(userInput);
