@@ -50,41 +50,52 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                          unit = remaining4;
                          additionalInfo = NO_ADDITIONAL_INFO;
                      }
-
-                     if (recipeTitle.isEmpty() || position.isEmpty() || ingredientName.isEmpty() || quantity.isEmpty() || unit.isEmpty()) {
+                     if (recipeTitle.isEmpty() || position.isEmpty() || ingredientName.isEmpty()) {
                          arrayList.add(ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCOMPLETE);
                      } else if (!recipeList.containsRecipe(recipeTitle)) {
                          arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
                      } else {
-                         if (isParsable(quantity) && isKnownUnit(unit) && isParsable(position) && isValidPosition(recipeTitle, position, recipeList)) {
-                             if (recipeList.containsRecipeIngredient(recipeTitle, ingredientName) == -1) {
+                         if (recipeList.containsRecipeIngredient(recipeTitle, ingredientName).equals("null")) {
+                             if (isParsable(quantity) && isKnownUnit(unit) && isParsable(position) && isValidPosition(recipeTitle, position, recipeList)) {
                                  // what if they anyhow input position?
                                  recipeList.insertReqIngredient(recipeTitle, position, ingredientName, quantity, unit, additionalInfo);
                                  recipeStorage.saveFile(recipeList);
                                  arrayList.add(MESSAGE_ADDED_TO_REQ_INGREDIENTS + "\n" + "       " + ingredientName);
                              } else {
-                                 int index = recipeList.containsRecipeIngredient(recipeTitle, ingredientName);
-                                 recipeList.removeDupReqIngredient(index, recipeTitle);
-                                 recipeList.insertReqIngredient(recipeTitle, position, ingredientName, quantity, unit, additionalInfo);
-                                 recipeStorage.saveFile(recipeList);
-                                 arrayList.add(MESSAGE_ADDED_TO_REQ_INGREDIENTS + "\n" + "       " + ingredientName);
+                                 if (!isParsable(quantity)) {
+                                     arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY + "\n");
+                                 }
+                                 if (!isKnownUnit(unit)) {
+                                     arrayList.add(ERROR_MESSAGE_INVALID_UNIT + "\n");
+                                 }
+                                 if (!isParsable(position)) {
+                                     arrayList.add(ERROR_MESSAGE_INVALID_INDEX + "\n");
+                                 }
+                                 if (!isValidPosition(recipeTitle, position, recipeList)) {
+                                     arrayList.add(ERROR_MESSAGE_REQ_INGREDIENT_INVALID_POSITION);
+                                 } else {
+                                     arrayList.add(ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT + "\n");
+                                 }
                              }
                          } else {
-                             if (!isParsable(quantity)) {
-                                 arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY + "\n");
+                             String prevIngredient = recipeList.containsRecipeIngredient(recipeTitle, ingredientName);
+                             System.out.println(prevIngredient);
+                             String[] part = prevIngredient.split(",", 5);
+                             System.out.println(part[0] + "..." + part[1] + "..." + part[2] + "..." + part[3] + "...");
+                             String index = part[4].trim();
+                             if (quantity.isEmpty()) {
+                                 quantity = part[1].trim();
                              }
-                             if (!isKnownUnit(unit)) {
-                                 arrayList.add(ERROR_MESSAGE_INVALID_UNIT + "\n");
+                             if (unit.isEmpty()) {
+                                 unit = part[2].trim();
                              }
-                             if (!isParsable(position)) {
-                                 arrayList.add(ERROR_MESSAGE_INVALID_INDEX + "\n");
+                             if (additionalInfo.equals(NO_ADDITIONAL_INFO)){
+                                 additionalInfo = part[3].trim();
                              }
-                             if (!isValidPosition(recipeTitle, position, recipeList)) {
-                                 arrayList.add(ERROR_MESSAGE_REQ_INGREDIENT_INVALID_POSITION);
-                             }
-                             else {
-                                 arrayList.add(ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT + "\n");
-                             }
+                             recipeList.removeDupReqIngredient(Integer.parseInt(index), recipeTitle);
+                             recipeList.insertReqIngredient(recipeTitle, position, ingredientName, quantity, unit, additionalInfo);
+                             recipeStorage.saveFile(recipeList);
+                             arrayList.add(MESSAGE_ADDED_TO_REQ_INGREDIENTS + "\n" + "       " + ingredientName);
                          }
                      }
                  }
@@ -132,30 +143,44 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                          additionalInfo = NO_ADDITIONAL_INFO;
                      }
 
-                     if (recipeTitle.isEmpty() || ingredientName.isEmpty() || quantity.isEmpty() || unit.isEmpty()) {
+                     if (recipeTitle.isEmpty() || ingredientName.isEmpty()) {
                          arrayList.add(ERROR_MESSAGE_EDIT_INGREDIENT_APP_INCOMPLETE);
                      } else if (!recipeList.containsRecipe(recipeTitle)) {
                          arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
                      } else {
-                         if (isParsable(quantity) && isKnownUnit(unit)) {
-                             if (recipeList.containsRecipeIngredient(recipeTitle, ingredientName) == -1) {
+                         if (recipeList.containsRecipeIngredient(recipeTitle, ingredientName).equals("null")) {
+                             if (isParsable(quantity) && isKnownUnit(unit)) {
+
                                  // what if they anyhow input position?
                                  recipeList.appendReqIngredient(recipeTitle, ingredientName, quantity, unit, additionalInfo);
                                  recipeStorage.saveFile(recipeList);
                                  arrayList.add(MESSAGE_ADDED_TO_REQ_INGREDIENTS + "\n" + "       " + ingredientName);
+                             } else if (!isParsable(quantity) && isKnownUnit(unit)){
+                                 arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY);
+                             } else  if (!isKnownUnit(unit) && isParsable(quantity)) {
+                                 arrayList.add(ERROR_MESSAGE_INVALID_UNIT);
                              } else {
-                                 int index = recipeList.containsRecipeIngredient(recipeTitle, ingredientName);
-                                 recipeList.removeDupReqIngredient(index, recipeTitle);
-                                 recipeList.appendReqIngredient(recipeTitle, ingredientName, quantity, unit, additionalInfo);
-                                 recipeStorage.saveFile(recipeList);
-                                 arrayList.add(MESSAGE_ADDED_TO_REQ_INGREDIENTS + "\n" + "       " + ingredientName);
+                                 arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY_OR_UNIT);
                              }
-                         } else if (!isParsable(quantity) && isKnownUnit(unit)){
-                             arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY);
-                         } else  if (!isKnownUnit(unit) && isParsable(quantity)) {
-                             arrayList.add(ERROR_MESSAGE_INVALID_UNIT);
                          } else {
-                             arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY_OR_UNIT);
+                             String prevIngredient = recipeList.containsRecipeIngredient(recipeTitle, ingredientName);
+                             System.out.println(prevIngredient);
+                             String[] part = prevIngredient.split(",", 5);
+                             System.out.println(part[0] + "..." + part[1] + "..." + part[2] + "..." + part[3] + "...");
+                             String index = part[4].trim();
+                             if (quantity.isEmpty()) {
+                                 quantity = part[1].trim();
+                             }
+                             if (unit.isEmpty()) {
+                                 unit = part[2].trim();
+                             }
+                             if (additionalInfo.equals(NO_ADDITIONAL_INFO)){
+                                 additionalInfo = part[3].trim();
+                             }
+                             recipeList.removeDupReqIngredient(Integer.parseInt(index), recipeTitle);
+                             recipeList.appendReqIngredient(recipeTitle, ingredientName, quantity, unit, additionalInfo);
+                             recipeStorage.saveFile(recipeList);
+                             arrayList.add(MESSAGE_ADDED_TO_REQ_INGREDIENTS + "\n" + "       " + ingredientName);
                          }
                      }
                  }

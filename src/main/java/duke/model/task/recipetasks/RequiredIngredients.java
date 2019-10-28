@@ -90,7 +90,7 @@ public class RequiredIngredients {
     public ArrayList<String> getRequiredIngredientList () {
         ArrayList<String> arrayList = new ArrayList<>();
         for (Ingredient ingredient : requiredIngredientList) {
-            arrayList.add(ingredient.getIngredientName());
+            arrayList.add(ingredient.toSaveString());
         }
         return arrayList;
     }
