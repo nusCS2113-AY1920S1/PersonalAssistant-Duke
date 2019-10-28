@@ -11,6 +11,7 @@ import duke.command.home.HomeOpenCommand;
 import duke.command.home.HomeReportCommand;
 import duke.command.impression.ImpressionEditCommand;
 import duke.command.impression.ImpressionFindCommand;
+import duke.command.impression.ImpressionMoveCommand;
 import duke.command.impression.ImpressionNewCommand;
 import duke.command.patient.PatientDeleteCommand;
 import duke.command.patient.PatientDischargeCommand;
@@ -98,6 +99,8 @@ public class Commands {
                 return new ImpressionEditCommand();
             case "find":
                 return new ImpressionFindCommand();
+            case "move":
+                return new ImpressionMoveCommand();
             default:
                 return null;
             }

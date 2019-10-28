@@ -91,7 +91,7 @@ public class ImpressionEditCommand extends DukeDataCommand {
                 String switchName = entry.getKey();
                 String entryStr = entry.getValue();
                 Integer entryInt = 0;
-                if (getSwitchMap().get(switchName).type.equals(Integer.class)) {
+                if (Integer.class.equals(getSwitchMap().get(switchName).type)) {
                     entryInt = switchToInt(switchName);
                 }
 
