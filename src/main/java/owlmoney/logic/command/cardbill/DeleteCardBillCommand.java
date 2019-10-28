@@ -1,14 +1,11 @@
 package owlmoney.logic.command.cardbill;
 
 import java.time.YearMonth;
-import java.util.Date;
 
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.profile.Profile;
-import owlmoney.model.transaction.Deposit;
-import owlmoney.model.transaction.Expenditure;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
