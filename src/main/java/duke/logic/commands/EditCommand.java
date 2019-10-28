@@ -22,6 +22,7 @@ public class EditCommand extends Command {
         this.canSave = canSave;
         this.events = events;
     }
+
     /**
      * Executes this command and returns a text result.
      *
