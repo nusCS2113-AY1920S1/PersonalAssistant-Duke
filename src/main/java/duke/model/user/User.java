@@ -25,7 +25,7 @@ public class User {
     private double[] factor = {1.2, 1.375, 1.55, 1.725, 1.9};
     private boolean loseWeight = false;
     private boolean hasSetMaintain = false;
-    private String lastDate = "29/10/2019";
+    private String lastDate = "28/10/2019";
 
     /**
      * This is a contructor to create an empty user profile.
