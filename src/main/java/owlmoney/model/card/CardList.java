@@ -375,7 +375,7 @@ public class CardList {
      * @param card      The credit card to search the expenditures from.
      * @param date      The YearMonth date of the expenditures to search.
      * @return          The total unpaid expenditure amount based on the specified date.
-     * @throws CardException If
+     * @throws CardException If card does not exist.
      */
     public double getUnpaidBillAmount(String card, YearMonth date) throws CardException {
         checkCardExists(card);
@@ -388,6 +388,14 @@ public class CardList {
         return billAmount;
     }
 
+    /**
+     * Returns the total paid expenditure amount based on the specified date.
+     *
+     * @param card      The credit card to search the expenditures from.
+     * @param date      The YearMonth date of the expenditures to search.
+     * @return          The total unpaid expenditure amount based on the specified date.
+     * @throws CardException    If card does not exist.
+     */
     public double getPaidBillAmount(String card, YearMonth date) throws CardException {
         checkCardExists(card);
         double billAmount = 0;
@@ -399,6 +407,13 @@ public class CardList {
         return billAmount;
     }
 
+    /**
+     * Returns the monthly rebate of the credit card.
+     *
+     * @param card  The credit card to get the monthly rebate information from.
+     * @return      The monthly rebate of the credit card.
+     * @throws CardException    If card does not exist.
+     */
     public double getRebateAmount(String card) throws CardException {
         checkCardExists(card);
         double rebateAmount = 0;
@@ -410,6 +425,14 @@ public class CardList {
         return rebateAmount;
     }
 
+    /**
+     * Transfers expenditures from unpaid list to paid list.
+     *
+     * @param card      The credit card of which the expenditures to transfer.
+     * @param cardDate  The YearMonth date of expenditures to transfer.
+     * @param type      Type of expenditure (card or bank).
+     * @throws TransactionException If invalid transaction when deleting.
+     */
     public void transferExpUnpaidToPaid(String card, YearMonth cardDate, String type)
             throws TransactionException {
         for (int i = 0; i < cardLists.size(); i++) {
@@ -419,6 +442,14 @@ public class CardList {
         }
     }
 
+    /**
+     * Transfers expenditures from paid list to unpaid list.
+     *
+     * @param card      The credit card of which the expenditures to transfer.
+     * @param cardDate  The YearMonth date of expenditures to transfer.
+     * @param type      Type of expenditure (card or bank).
+     * @throws TransactionException If invalid transaction when deleting.
+     */
     public void transferExpPaidToUnpaid(String card, YearMonth cardDate, String type)
             throws TransactionException {
         for (int i = 0; i < cardLists.size(); i++) {

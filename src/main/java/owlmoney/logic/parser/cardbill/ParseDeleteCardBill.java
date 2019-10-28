@@ -8,6 +8,9 @@ import owlmoney.logic.command.cardbill.AddCardBillCommand;
 import owlmoney.logic.command.cardbill.DeleteCardBillCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
+/**
+ * Parses the inputs for deleting a card bill.
+ */
 public class ParseDeleteCardBill extends ParseCardBill {
     private YearMonth yearMonth;
 
@@ -55,7 +58,11 @@ public class ParseDeleteCardBill extends ParseCardBill {
         }
     }
 
-
+    /**
+     * Returns the command to execute the deleting of a card bill.
+     *
+     * @return DeleteCardBillCommand to be executed.
+     */
     @Override
     public Command getCommand() {
         DeleteCardBillCommand newDeleteCardBillCommand =

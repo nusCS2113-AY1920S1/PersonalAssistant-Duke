@@ -7,6 +7,9 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.cardbill.AddCardBillCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
+/**
+ * Parses the inputs for adding a card bill.
+ */
 public class ParseAddCardBill extends ParseCardBill {
     private YearMonth yearMonth;
     private static final String ADD = "/add";
@@ -52,10 +55,15 @@ public class ParseAddCardBill extends ParseCardBill {
         }
     }
 
-
+    /**
+     * Returns the command to execute the adding of a card bill.
+     *
+     * @return AddCardBillCommand to be executed.
+     */
     @Override
     public Command getCommand() {
-        AddCardBillCommand newAddCardBillCommand = new AddCardBillCommand(cardBillParameters.get(CARD), yearMonth, cardBillParameters.get(BANK));
+        AddCardBillCommand newAddCardBillCommand = new AddCardBillCommand(cardBillParameters.get(CARD),
+                yearMonth, cardBillParameters.get(BANK));
         return newAddCardBillCommand;
     }
 }

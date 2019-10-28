@@ -17,12 +17,15 @@ import owlmoney.logic.parser.ParseRawData;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
+/**
+ * Abstracts common CardBill methods and functions where the child parsers will inherit from.
+ */
 public abstract class ParseCardBill {
     HashMap<String, String> cardBillParameters = new HashMap<String, String>();
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
     private static final String[] CARDBILL_KEYWORD = new String[] {
-            "/card", "/date", "/bank", "/expno", "/depno"
+        "/card", "/date", "/bank", "/expno", "/depno"
     };
     private static final List<String> CARDBILL_KEYWORD_LISTS = Arrays.asList(CARDBILL_KEYWORD);
     static final String CARD = "/card";
@@ -103,7 +106,8 @@ public abstract class ParseCardBill {
                 return yearMonthDate;
 
             } catch (DateTimeParseException e) {
-                throw new ParserException("Parser Error: Incorrect date format." + " Date format is mm/yyyy in year range of 1900-2099");
+                throw new ParserException("Parser Error: Incorrect date format. "
+                        + "Date format is mm/yyyy in year range of 1900-2099");
             }
 
         }

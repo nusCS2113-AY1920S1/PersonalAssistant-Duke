@@ -455,7 +455,6 @@ public class Saving extends Bank {
         recurringExpenditures.importRecurringExpenditureToList(expenditure);
     }
 
-
     /**
      * Returns expenditure amount based on the specified expenditure id.
      *

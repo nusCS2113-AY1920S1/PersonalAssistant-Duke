@@ -575,7 +575,12 @@ public class TransactionList {
         transactionLists.add(deposit);
     }
 
-
+    /**
+     * Gets the expenditure id of an expenditure that matches the YearMonth date.
+     *
+     * @param yearMonth The date that will be used to search for expenditures.
+     * @return  The expenditure id if found. Else, return -1.
+     */
     public int getExpenditureIdByYearMonth(YearMonth yearMonth) {
         for (int i = 0; i < transactionLists.size(); i++) {
             LocalDate transactionDate = transactionLists.get(i).getLocalDate();

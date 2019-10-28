@@ -1090,13 +1090,14 @@ public class BankList {
         }
     }
 
-
     /**
      * Returns expenditure amount based on specified transaction id.
      *
-     * @param bank  The name of the bank object to search for transaction.
+     * @param bank  The name of the bank to search for transaction.
      * @param expno The transaction id of the transaction to be searched.
      * @return      Expenditure amount based on specified transaction id.
+     * @throws TransactionException If transaction does not exist.
+     * @throws BankException        If bank account does not exist.
      */
     public double bankListGetExpAmountById(String bank, int expno)
             throws TransactionException, BankException {
