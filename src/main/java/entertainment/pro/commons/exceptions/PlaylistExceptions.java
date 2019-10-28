@@ -93,4 +93,20 @@ public class PlaylistExceptions extends Exceptions {
                     + "> does not exist :( pls try again with another index");
         }
     }
+
+    /**
+     * check whether user input a number for movie index.
+     * @throws PlaylistExceptions when user input characters instead
+     */
+    public static void checkIndexInput(String input) throws PlaylistExceptions {
+        boolean flag = false;
+        try {
+            Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            flag = true;
+        }
+        if (flag) {
+            throw new PlaylistExceptions("ohno <" + input + "> is not a number :( pls try again with a number");
+        }
+    }
 }

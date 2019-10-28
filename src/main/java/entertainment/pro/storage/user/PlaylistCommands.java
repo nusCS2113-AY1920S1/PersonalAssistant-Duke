@@ -41,6 +41,12 @@ public class PlaylistCommands {
         Playlist playlist = editPlaylistJson.load();
         ArrayList<MovieInfoObject> playlistMovies = new ArrayList<>();
         for (String log : flagMap.get("-m")) {
+            try {
+                PlaylistExceptions.checkIndexInput(log.trim());
+            } catch (PlaylistExceptions e) {
+                System.out.println(e);
+                continue;
+            }
             int index = Integer.parseInt(log.trim()) - 1;
             try {
                 PlaylistExceptions.checkIndex(index, movies.size());
@@ -68,6 +74,12 @@ public class PlaylistCommands {
         Playlist playlist = editPlaylistJson.load();
         ArrayList<PlaylistMovieInfoObject> toDelete = new ArrayList<>();
         for (String log : flagMap.get("-m")) {
+            try {
+                PlaylistExceptions.checkIndexInput(log.trim());
+            } catch (PlaylistExceptions e) {
+                System.out.println(e);
+                continue;
+            }
             int index = Integer.parseInt(log.trim()) - 1;
             try {
                 PlaylistExceptions.checkIndex(index, playlist.getMovies().size());
