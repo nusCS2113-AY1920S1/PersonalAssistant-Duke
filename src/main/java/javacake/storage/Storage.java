@@ -22,7 +22,7 @@ public class Storage {
     private static ArrayList<Note> noteCollection = new ArrayList<>();
     public static TaskList currentTaskData;
 
-    private static String defaultFilePath = "data/";
+    private static String defaultFilePath = "data";
     private String filepath;
     private TaskType dataType;
 
@@ -35,27 +35,38 @@ public class Storage {
      * Constructor for storage.
      */
     public Storage() throws DukeException {
-        this.currentTaskData = new TaskList();
-        //Initialise new deadline file
-        try {
-            File tasksFile = new File("data/tasks/deadline.txt");
-            File notesFile = new File("data/notes/");
-            filepath = tasksFile.getPath();
-            Duke.logger.log(Level.INFO,"Filepath: " + filepath);
-            generateFolder(notesFile);
+        this(defaultFilePath);
+    }
 
+    /**
+     * Initialises the 'data' based on previous data
+     * from filepath.
+     * @param altPath The storage path of the saved data
+     * @throws DukeException Exception when file is not found
+     */
+    public Storage(String altPath) throws DukeException {
+        this.currentTaskData = new TaskList();
+        defaultFilePath = altPath;
+        //Initialise new deadline file
+        filepath = defaultFilePath + "/tasks/deadline.txt";
+        File tasksFile = new File(filepath);
+        //Initialise new notes directory
+        File notesFile = new File(defaultFilePath + "/notes/");
+        generateFolder(notesFile);
+        Duke.logger.log(Level.INFO,"Filepath: " + filepath);
+        try {
             if (!tasksFile.getParentFile().getParentFile().exists()) {
                 tasksFile.getParentFile().getParentFile().mkdir();
                 tasksFile.getParentFile().mkdir();
                 tasksFile.createNewFile();
-                System.out.println("A" + tasksFile.getParentFile().getParentFile().getPath());
+                //System.out.println("A" + tasksFile.getParentFile().getParentFile().getPath());
             } else if (!tasksFile.getParentFile().exists()) {
                 tasksFile.getParentFile().mkdir();
                 tasksFile.createNewFile();
-                System.out.println("B" + tasksFile.getParentFile().getPath());
+                //System.out.println("B" + tasksFile.getParentFile().getPath());
             } else if (!tasksFile.exists()) {
                 tasksFile.createNewFile();
-                System.out.println("C" + tasksFile.getPath());
+                //System.out.println("C" + tasksFile.getPath());
             } else {
                 Duke.logger.log(Level.INFO, filepath + " is found!");
             }
@@ -108,8 +119,6 @@ public class Storage {
             throw new DukeException("Failed to create storage.");
         }
 
-        //Initialise new notes directory
-
     }
 
     /**
@@ -137,16 +146,6 @@ public class Storage {
         } else if (!sampleFile.exists()) {
             sampleFile.mkdirs();
         }
-    }
-
-    /**
-     * Initialises the 'data' based on previous data
-     * from filepath.
-     * @param filepath The storage path of the saved data
-     * @throws DukeException Exception when file is not found
-     */
-    public Storage(String filepath) throws DukeException {
-        this();
     }
 
     /**
@@ -214,7 +213,7 @@ public class Storage {
      * @return size of internal data
      */
     public static int getInternalDataSize() {
-        return tempTaskData.size();
+        return currentTaskData.size();
     }
 
     public ArrayList<Task> getData() {
