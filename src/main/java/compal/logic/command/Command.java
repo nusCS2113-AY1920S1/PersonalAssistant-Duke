@@ -2,8 +2,6 @@ package compal.logic.command;
 
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.TaskList;
-import java.util.Calendar;
-import java.util.Date;
 
 
 public abstract class Command {
