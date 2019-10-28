@@ -12,7 +12,9 @@ public abstract class Record {
     protected String userInput;
     protected String recordType;
 
-    String[] record = {"entry", "limit", "debt"};
+    protected static final String RECORD_ENTRY = "entry";
+    protected static final String RECORD_LIMIT = "limit";
+    protected static final String RECORD_DEBT = "debt";
 
     public abstract String getRecordDetail();
 

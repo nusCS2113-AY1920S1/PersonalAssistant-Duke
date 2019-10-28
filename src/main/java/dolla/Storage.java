@@ -31,7 +31,6 @@ public class Storage {
     private static ArrayList<Record> debts = new ArrayList<Record>();
     private static ArrayList<Record> shortcuts = new ArrayList<Record>();
     private static ArrayList<Record> storage = new ArrayList<Record>();
-    private static HashMap<Tag, Record> tagStorage = new HashMap<>();
 
     private static double stringToDouble(String str) {
         double newDouble = 0.0;

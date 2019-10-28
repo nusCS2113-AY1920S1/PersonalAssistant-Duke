@@ -16,7 +16,6 @@ public class DollaData {
     private EntryList entryList; // TODO: Find out alternatives to using a public variable
     private DebtList debtList;
     private LimitList limitList;
-    private TagList tagList; //todo: change
 
     private String prevMode;
     private int modifyIndex;

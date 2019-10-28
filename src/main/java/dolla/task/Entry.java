@@ -26,7 +26,7 @@ public class Entry extends Record {
         this.amount = amount;
         this.description = description;
         this.date = date;
-        this.recordType = "entry";
+        this.recordType = RECORD_ENTRY;
         this.userInput = type + " " + amount + " " + description + " " + "/on " + Time.dateToString(date);
     }
 

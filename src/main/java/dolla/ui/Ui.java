@@ -1,6 +1,5 @@
 package dolla.ui;
 
-import dolla.Tag;
 import dolla.Time;
 import dolla.task.Task;
 import dolla.task.Record;

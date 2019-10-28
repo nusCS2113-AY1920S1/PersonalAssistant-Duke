@@ -45,10 +45,10 @@ public class Tag {
     /**
      * Method handles input to check for tag and store it.
      */
-    public void handleTag(String inputLine, String[] inputArray, Record record) { //todo: change to be inside parser folder
+    public void handleTag(String inputLine, String[] inputArray, Record record) { //todo: change to inside parser
         if (hasTag(inputArray)) {
             extractTagName(inputLine);
-            dolla.Dolla.tagList.addTag(tagName, record); //todo: find out how to store
+            Dolla.tagList.addTag(tagName, record); //todo: find out how to store
             Ui.printAddedTagMsg(tagName);
         }
     }

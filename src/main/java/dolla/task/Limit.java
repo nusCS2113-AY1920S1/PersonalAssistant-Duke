@@ -22,7 +22,7 @@ public class Limit extends Record {
         this.type = type;
         this.amount = amount;
         this.duration = duration;
-        this.recordType = record[1];
+        this.recordType = RECORD_LIMIT;
     }
 
     /**
