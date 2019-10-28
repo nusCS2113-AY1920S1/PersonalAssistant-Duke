@@ -16,8 +16,8 @@ import java.time.LocalDateTime;
  */
 public class ScheduleParser extends IndexParser {
 
-    private final int INDEX_INPUT = 0;
-    private final int DATE_INPUT = 1;
+    private static final int INDEX_INPUT = 0;
+    private static final int DATE_INPUT = 1;
 
     public ScheduleParser(String userInput, String command) {
         super(userInput, command);
@@ -41,9 +41,9 @@ public class ScheduleParser extends IndexParser {
         case DATE_INPUT:
             LocalDateTime dateOfDeadline = extractDeadlineDate(taskFeatures);
             return new TaskScheduleCommand(indexOfTask, dateOfDeadline);
+        default:
+            return null;
         }
-
-        return null;
     }
 
     private int extractDeadlineIndex(String taskFeatures) throws ChronologerException {

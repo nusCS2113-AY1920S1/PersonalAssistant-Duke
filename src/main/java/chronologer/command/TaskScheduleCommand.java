@@ -36,7 +36,12 @@ public class TaskScheduleCommand extends Command {
         this.indexOfDeadline = indexDeadline;
         this.deadlineDate = null;
     }
-    
+
+    /**
+     * Initialises the command parameter for a selected task to be done by an inputted date.
+     * @param indexOfTask is the index number of the selected task in the TaskList
+     * @param deadlineDate is the date to schedule the task by
+     */
     public TaskScheduleCommand(int indexOfTask, LocalDateTime deadlineDate) {
         this.indexOfTask = indexOfTask;
         this.deadlineDate = deadlineDate;
@@ -73,8 +78,7 @@ public class TaskScheduleCommand extends Command {
                 throw new ChronologerException("Task selected is not a Deadline");
             }
             deadlineDate = deadline.getStartDate();
-        }
-        else {
+        } else {
             deadlineDate = this.deadlineDate;
         }
         if (LocalDateTime.now().isAfter(deadlineDate)) {

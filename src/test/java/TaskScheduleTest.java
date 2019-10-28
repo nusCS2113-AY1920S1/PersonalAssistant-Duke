@@ -55,9 +55,6 @@ public class TaskScheduleTest {
     public void testCommandByIndexInput() throws ChronologerException, NoSuchFieldException, IllegalAccessException {
         Field[] commandFields;
 
-        Todo expectedTodo = (Todo) tasks.getTasks().get(1);
-        Deadline expectedDeadline = (Deadline) tasks.getTasks().get(0);
-
         Command test = new TaskScheduleCommand(1, 0);
         test.execute(tasks, storage);
         commandFields = getTaskScheduleCommandFields(test);
@@ -69,6 +66,9 @@ public class TaskScheduleTest {
         Deadline testDeadline = (Deadline) tasks.getTasks().get(testIndexOfDeadline);
         LocalDateTime testDeadlineDate = (LocalDateTime) commandFields[3].get(test);
 
+        Todo expectedTodo = (Todo) tasks.getTasks().get(1);
+        Deadline expectedDeadline = (Deadline) tasks.getTasks().get(0);
+
         Assertions.assertEquals(testDuration, 2);
         Assertions.assertSame(testTodo, expectedTodo);
         Assertions.assertSame(testDeadline, expectedDeadline);
@@ -78,8 +78,6 @@ public class TaskScheduleTest {
     @Test
     public void testCommandByDateInput() throws ChronologerException, NoSuchFieldException, IllegalAccessException {
         Field[] commandFields;
-
-        Todo expectedTodo = (Todo) tasks.getTasks().get(1);
 
         LocalDateTime expectedDeadlineDate = LocalDateTime.of(9999, 1, 1, 1, 0);
         Command test = new TaskScheduleCommand(1, expectedDeadlineDate);
@@ -91,6 +89,8 @@ public class TaskScheduleTest {
         Todo testTodo = (Todo) tasks.getTasks().get(testIndexOfTodo);
         int testIndexOfDeadline = (int) commandFields[2].get(test);
         LocalDateTime testDeadlineDate = (LocalDateTime) commandFields[3].get(test);
+
+        Todo expectedTodo = (Todo) tasks.getTasks().get(1);
 
         Assertions.assertEquals(testDuration, 2);
         Assertions.assertSame(testTodo, expectedTodo);
