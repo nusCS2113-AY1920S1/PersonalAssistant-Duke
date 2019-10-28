@@ -67,7 +67,7 @@ public class DeadlineCommand extends Command {
                 Deadline indivDeadline = new Deadline(description, priority, startDateString, endTime);
                 taskList.addTask(indivDeadline);
                 finalList += indivDeadline.toString();
-                startDate = incrementDateByDays(startDate, DEFAULT_WEEK_INTERVAL);
+                startDate = CompalUtils.incrementDateByDays(startDate, DEFAULT_WEEK_INTERVAL);
             }
         }
         return new CommandResult(finalList, true);

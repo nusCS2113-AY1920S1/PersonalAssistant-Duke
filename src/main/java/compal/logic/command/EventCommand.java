@@ -76,10 +76,9 @@ public class EventCommand extends Command {
         for (String startDateString : startDateList) {
             Date startDate = CompalUtils.stringToDate(startDateString);
             while (!startDate.after(finalDate)) {
-                String eventAdditionString = createAndAddEvent(isInOneDay, taskList, description, startDate,
-                        priority, startTime, endTime);
+                String eventAdditionString = createAndAddEvent(isInOneDay, taskList, startDate);
                 finalList += eventAdditionString;
-                startDate = incrementDateByDays(startDate, interval);
+                startDate = CompalUtils.incrementDateByDays(startDate, interval);
             }
         }
         return new CommandResult(finalList, true);
@@ -92,21 +91,16 @@ public class EventCommand extends Command {
      *
      * @param isInOneDay True if duration of event is within one day, False if drags on to next day.
      * @param taskList The list of tasks, where the event will be added to.
-     * @param description The description of the task.
      * @param startDate The start date of the task, in the form of a Date object.
-     * @param priority The priority of the task.
-     * @param startTime The start time of the task, in the form of a String object.
-     * @param endTime The end time of the task, in the form of a String object.
      * @return The string output of the addition of the task, to be returned to logic manager as a command result.
      */
-    public String createAndAddEvent(boolean isInOneDay, TaskList taskList, String description, Date startDate,
-                                    Task.Priority priority, String startTime, String endTime) {
+    public String createAndAddEvent(boolean isInOneDay, TaskList taskList, Date startDate) {
         String startDateString = CompalUtils.dateToString(startDate);
         String trailingDateString;
         if (isInOneDay) {
             trailingDateString = startDateString;
         } else {
-            Date trailingDate = incrementDateByDays(startDate, DEFAULT_DAY_INTERVAL);
+            Date trailingDate = CompalUtils.incrementDateByDays(startDate, DEFAULT_DAY_INTERVAL);
             trailingDateString = CompalUtils.dateToString(trailingDate);
         }
         Event indivEvent = new Event(description, priority, startDateString, trailingDateString, startTime, endTime);
