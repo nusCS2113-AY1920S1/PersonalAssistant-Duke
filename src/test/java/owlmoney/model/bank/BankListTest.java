@@ -17,7 +17,7 @@ class BankListTest {
 
     @Test
     void bankListAddBank_successfulAdd_printBankDetails() {
-        BankList testList = new BankList(new Storage("data/test"));
+        BankList testList = new BankList(new Storage("data/"));
         Ui testUi = new Ui();
         Saving newBank = new Saving("test", 123, 123);
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -54,7 +54,7 @@ class BankListTest {
 
     @Test
     void bankListAddBank_duplicateBankName_throwsError() {
-        BankList testList = new BankList(new Storage("data/test"));
+        BankList testList = new BankList(new Storage("data/"));
         Ui testUi = new Ui();
         Saving newBank = new Saving("test", 123, 123);
         Saving newBank2 = new Saving("test", 456, 456);
@@ -71,7 +71,7 @@ class BankListTest {
 
     @Test
     void bankListAddBank_maxLimit_throwsError() {
-        BankList testList = new BankList(new Storage("data/test"));
+        BankList testList = new BankList(new Storage("data/"));
         Ui testUi = new Ui();
         for (int i = 0; i < 7; i++) {
             Saving newBank = new Saving(i + "test", 123, 123);
@@ -103,7 +103,7 @@ class BankListTest {
 
     @Test
     void getBankListSize_zeroAndOneAccount_returnsZeroFirstThenOne() {
-        BankList testList = new BankList(new Storage("data/test"));
+        BankList testList = new BankList(new Storage("data/"));
         Ui testUi = new Ui();
         assertEquals(0, testList.getBankListSize());
         Saving newBank = new Saving("test", 123, 123);
@@ -117,7 +117,7 @@ class BankListTest {
 
     @Test
     void bankListGetSavingAccount_cannotFindBank_throwsException() {
-        BankList testList = new BankList(new Storage("data/test"));
+        BankList testList = new BankList(new Storage("data/"));
         BankException thrown = assertThrows(BankException.class, () ->
                         testList.bankListGetSavingAccount("test"),
                 "Expected bankListGetSavingAccount to throw, but it didn't");
@@ -126,7 +126,7 @@ class BankListTest {
 
     @Test
     void bankListGetSavingAccount_foundBank_returnsBank() {
-        BankList testList = new BankList(new Storage("data/test"));
+        BankList testList = new BankList(new Storage("data/"));
         Ui testUi = new Ui();
         assertEquals(0, testList.getBankListSize());
         Saving newBank = new Saving("test", 123, 123);
@@ -146,7 +146,7 @@ class BankListTest {
 
     @Test
     void bankListDeleteBank_zeroBankAccount_throwsException() {
-        BankList testList = new BankList(new Storage("data/test"));
+        BankList testList = new BankList(new Storage("data/"));
         Ui testUi = new Ui();
         BankException thrown = assertThrows(BankException.class, () ->
                         testList.bankListDeleteBank("test", "saving", testUi),
@@ -156,7 +156,7 @@ class BankListTest {
 
     @Test
     void bankListDeleteBank_deleteLastSavingAccount_throwsException() {
-        BankList testList = new BankList(new Storage("data/test"));
+        BankList testList = new BankList(new Storage("data/"));
         Ui testUi = new Ui();
         Saving newBank = new Saving("test", 123, 123);
         try {
@@ -172,7 +172,7 @@ class BankListTest {
 
     @Test
     void bankListDeleteBank_bankAccountDoesNotExist_throwsException() {
-        BankList testList = new BankList(new Storage("data/test"));
+        BankList testList = new BankList(new Storage("data/"));
         Ui testUi = new Ui();
         Saving newBank = new Saving("test", 123, 123);
         Saving newBank2 = new Saving("test3", 456, 456);
@@ -190,7 +190,7 @@ class BankListTest {
 
     @Test
     void bankListDeleteBank_wrongAccountType_throwsException() {
-        BankList testList = new BankList(new Storage("data/test"));
+        BankList testList = new BankList(new Storage("data/"));
         Ui testUi = new Ui();
         Saving newBank = new Saving("test", 123, 123);
         try {
@@ -206,7 +206,7 @@ class BankListTest {
 
     @Test
     void bankListDeleteBank_successfulDelete_displayDeletedBankDetails() {
-        BankList testList = new BankList(new Storage("data/test"));
+        BankList testList = new BankList(new Storage("data/"));
         Ui testUi = new Ui();
         Saving newBank = new Saving("test", 123, 123);
         Saving newBank2 = new Saving("test2", 456, 456);
@@ -235,7 +235,7 @@ class BankListTest {
 
     @Test
     void bankListEditSavings_duplicateName_throwsException() {
-        BankList testList = new BankList(new Storage("data/test"));
+        BankList testList = new BankList(new Storage("data/"));
         Ui testUi = new Ui();
         Saving newBank = new Saving("test", 123, 123);
         Saving newBank2 = new Saving("test2", 456, 456);
@@ -253,7 +253,7 @@ class BankListTest {
 
     @Test
     void bankListEditSavings_cannotFindBank_throwsException() {
-        BankList testList = new BankList(new Storage("data/test"));
+        BankList testList = new BankList(new Storage("data/"));
         Ui testUi = new Ui();
         Saving newBank = new Saving("test", 123, 123);
         try {
@@ -269,7 +269,7 @@ class BankListTest {
 
     @Test
     void bankListEditSavings_editedBankDetails_displayNewDetails() {
-        BankList testList = new BankList(new Storage("data/test"));
+        BankList testList = new BankList(new Storage("data/"));
         Ui testUi = new Ui();
         Saving newBank = new Saving("test", 123, 123);
         try {
@@ -296,7 +296,7 @@ class BankListTest {
 
     @Test
     void bankListEditInvestment_duplicateName_throwsException() {
-        BankList testList = new BankList(new Storage("data/test"));
+        BankList testList = new BankList(new Storage("data/"));
         Ui testUi = new Ui();
         Investment newBank = new Investment("test", 123);
         Saving newBank2 = new Saving("test2", 456, 456);
@@ -314,7 +314,7 @@ class BankListTest {
 
     @Test
     void bankListEditInvestment_bankNotFound_throwsException() {
-        BankList testList = new BankList(new Storage("data/test"));
+        BankList testList = new BankList(new Storage("data/"));
         Ui testUi = new Ui();
         Investment newBank = new Investment("test", 123);
         try {
@@ -330,7 +330,7 @@ class BankListTest {
 
     @Test
     void bankListEditInvestment_succeedEditing_displaysNewDetails() {
-        BankList testList = new BankList(new Storage("data/test"));
+        BankList testList = new BankList(new Storage("data/"));
         Ui testUi = new Ui();
         Investment newBank = new Investment("test", 123);
         try {
