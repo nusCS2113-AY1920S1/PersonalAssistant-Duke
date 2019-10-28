@@ -1418,9 +1418,9 @@ To find out which recurring expenditure to delete, use the `/list` or `/find` fu
 
 *Example*
 
-* `/delete /recurexpenditure /from JunBank Savings Account /desc Telco Bills`
+* `/delete /recurexpenditure /from JunBank Savings Account /transno 1`
 
-Deletes a recurring expenditure from `JunBank Savings Account` with description `Telco Bills`.
+Deletes a recurring expenditure from `JunBank Savings Account` with transaction number `1`.
 
 == Future Enhancements `[coming in v2.0]`
 === Multi-Currency Support `/currency USD`
