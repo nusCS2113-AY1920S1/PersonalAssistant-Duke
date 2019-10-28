@@ -91,7 +91,7 @@ public class ConsecutiveLogin extends Achievements {
      */
     public static Boolean checkLogin() {
         LocalDateTime currentTime = LocalDateTime.now();
-        long duration = Duration.between(storedDateTime,currentTime).toDays();
+        long duration = Duration.between(storedDateTime,currentTime).toMinutes();
         if (duration == 1) {
             consecutiveCheck = true;
         } else {
@@ -119,7 +119,8 @@ public class ConsecutiveLogin extends Achievements {
      * @return consecutive counts.
      */
     public static int updateCount() {
-        if (!checkLogin() && reset()) {
+
+        if(!checkLogin() && reset()) {
             consecutiveCount = 0;
         } else if (checkLogin()) {
             consecutiveCount++;

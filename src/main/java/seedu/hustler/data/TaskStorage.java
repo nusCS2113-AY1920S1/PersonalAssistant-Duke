@@ -1,26 +1,16 @@
 package seedu.hustler.data;
 
+import seedu.hustler.schedule.Scheduler;
+import seedu.hustler.task.*;
+
+import java.io.*;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.FileWriter;
 
-import seedu.hustler.task.Deadline;
-import seedu.hustler.task.RecurringDeadline;
-import seedu.hustler.task.RecurringEvent;
-import seedu.hustler.task.Event;
-import seedu.hustler.task.ToDo;
-import seedu.hustler.task.Task;
-
-import seedu.hustler.schedule.Scheduler;
-import seedu.hustler.schedule.ScheduleEntry;
 import static seedu.hustler.logic.parser.DateTimeParser.getDateTime;
 
 /**
@@ -292,7 +282,7 @@ public class TaskStorage {
 
     /**
      * Creates a backup copy of hustler.txt each time the user uses this app; used for UndoCommand.
-     * @param inputList the list of tasks to save to disc.
+     * @param inputList the list of tasks to saveAchievements to disc.
      * @throws IOException if file could not be saved
      */
     public void createBackup(ArrayList<Task> inputList) throws IOException {
@@ -307,7 +297,7 @@ public class TaskStorage {
             directory.mkdir();
         }
 
-        // save inputs
+        // saveAchievements inputs
         String savedLine = inputList.get(0).toSaveFormat();
         for (int i = 1; i < inputList.size(); i++) {
             savedLine = savedLine + "\n" + inputList.get(i).toSaveFormat();
