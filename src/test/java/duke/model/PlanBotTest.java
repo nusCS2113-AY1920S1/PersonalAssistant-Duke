@@ -1,6 +1,5 @@
 package duke.model;
 
-import duke.exception.DukeException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -15,12 +14,8 @@ public class PlanBotTest {
         Assertions.assertNotNull(planBot.getDialogObservableList());
         Assertions.assertFalse(planBot.getDialogObservableList().isEmpty());
         int currSize = planBot.getDialogObservableList().size();
-        try {
-            planBot.processInput("yes");
-            int newSize = planBot.getDialogObservableList().size();
-            Assertions.assertTrue(newSize > currSize);
-        } catch (DukeException e) {
-            Assertions.fail(e.getMessage());
-        }
+        planBot.processInput("yes");
+        int newSize = planBot.getDialogObservableList().size();
+        Assertions.assertTrue(newSize > currSize);
     }
 }

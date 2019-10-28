@@ -87,11 +87,7 @@ public class PlanBot {
         }
         if (questionQueue.isEmpty()) {
             currentQuestion = null;
-            try {
-                sendCompletedMessage();
-            } catch (DukeException e) {
-                dialogList.add(new PlanDialog(e.getMessage(), Agent.BOT));
-            }
+            sendCompletedMessage();
         } else {
             dialogList.add(new PlanDialog("Tell me more about yourself to give you recommendations", Agent.BOT));
             PlanQuestion firstQuestion = questionQueue.peek();
@@ -110,9 +106,8 @@ public class PlanBot {
      * Processes the input String of the user.
      *
      * @param input the input String of the user
-     * @throws DukeException when there is invalid input
      */
-    public void processInput(String input) throws DukeException {
+    public void processInput(String input) {
         dialogObservableList.add(new PlanDialog(input, Agent.USER));
         if (currentQuestion == null) {
             sendCompletedMessage();
@@ -146,23 +141,33 @@ public class PlanBot {
         return planAttributes;
     }
 
-    public void sendCompletedMessage() throws DukeException {
-        dialogList.add(new PlanDialog(planQuestionBank
-                .makeRecommendation(planAttributes)
-                .getRecommendation(), Agent.BOT));
-        planBudgetRecommendation = planQuestionBank
-                .makeRecommendation(planAttributes);
-        StringBuilder recommendedBudgetStringBuilder = new StringBuilder();
-        for (String category : planBudgetRecommendation.getPlanBudget().keySet()) {
-            recommendedBudgetStringBuilder.append(category)
-                    .append(" : ")
-                    .append(planBudgetRecommendation.getPlanBudget().get(category))
-                    .append("\n");
+
+    /**
+     * Puts the recommendation into the dialog list
+     * @throws DukeException
+     */
+    private void sendCompletedMessage() {
+        try {
+            dialogList.add(new PlanDialog(planQuestionBank
+                    .makeRecommendation(planAttributes)
+                    .getRecommendation(), Agent.BOT));
+            planBudgetRecommendation = planQuestionBank
+                    .makeRecommendation(planAttributes);
+            StringBuilder recommendedBudgetStringBuilder = new StringBuilder();
+            for (String category : planBudgetRecommendation.getPlanBudget().keySet()) {
+                recommendedBudgetStringBuilder.append(category)
+                        .append(" : ")
+                        .append(planBudgetRecommendation.getPlanBudget().get(category))
+                        .append("\n");
+            }
+            dialogList.add(new PlanDialog("Here's a recommended budget for you: \n"
+                    + recommendedBudgetStringBuilder.toString()
+                    + "type \"export\" to export the budget",
+                    Agent.BOT));
+        }catch (DukeException e) {
+            dialogList.add(new PlanDialog(e.getMessage(), Agent.BOT));
         }
-        dialogList.add(new PlanDialog("Here's a recommended budget for you: \n"
-                + recommendedBudgetStringBuilder.toString()
-                + "type \"export\" to export the budget",
-                Agent.BOT));
+
     }
 
 
