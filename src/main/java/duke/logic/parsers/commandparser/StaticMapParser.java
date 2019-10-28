@@ -11,7 +11,7 @@ import duke.logic.commands.StaticMapCommand;
  * Parses the user inputs into suitable format for StaticMapCommand.
  */
 public class StaticMapParser extends CommandParser {
-    String location;
+    private String location;
 
     /**
      * Parses user input into location.

@@ -8,7 +8,7 @@ import duke.logic.commands.FindCommand;
  * Parses the user inputs into suitable format for FindCommand.
  */
 public class FindParser extends CommandParser {
-    String keyword;
+    private String keyword;
 
     /**
      * Parses user input into keyword.

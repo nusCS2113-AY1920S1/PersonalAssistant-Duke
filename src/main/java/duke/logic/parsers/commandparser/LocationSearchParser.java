@@ -7,7 +7,7 @@ import duke.logic.commands.LocationSearchCommand;
  * Parses the user inputs into suitable format for LocationSearchCommand.
  */
 public class LocationSearchParser extends CommandParser<LocationSearchCommand> {
-    String location;
+    private String location;
 
     /**
      * Parses user input into location.

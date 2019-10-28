@@ -8,8 +8,7 @@ import duke.logic.commands.RouteAddCommand;
  * Parses the user inputs into suitable format for RouteAddCommand.
  */
 public class RouteAddParser extends CommandParser {
-    String route;
-    String[] details;
+    private String[] details;
 
     /**
      * Parses user input into route.

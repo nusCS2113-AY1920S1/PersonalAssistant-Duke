@@ -3,7 +3,6 @@ package duke.logic.parsers;
 import duke.commons.enumerations.Direction;
 import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.CorruptedFileException;
-import duke.commons.exceptions.DukeEmptyFieldException;
 import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.model.Event;
 import duke.model.planning.Todo;

@@ -9,9 +9,9 @@ import duke.logic.parsers.ParserUtil;
  * Parses the user inputs into suitable format for RouteEditCommand.
  */
 public class RouteEditParser extends CommandParser {
-    int firstIndex;
-    String firstEventIndex;
-    String secondEventIndex;
+    private int firstIndex;
+    private String firstEventIndex;
+    private String secondEventIndex;
 
     /**
      * Parses user input into parameter for RouteEditCommand.

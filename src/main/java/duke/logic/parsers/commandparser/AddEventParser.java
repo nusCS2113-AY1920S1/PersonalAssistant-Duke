@@ -10,7 +10,7 @@ import duke.model.Event;
  * Parses the user inputs into suitable format for AddCommand.
  */
 public class AddEventParser extends CommandParser {
-    Event event;
+    private Event event;
 
     /**
      * Parses user input into event.

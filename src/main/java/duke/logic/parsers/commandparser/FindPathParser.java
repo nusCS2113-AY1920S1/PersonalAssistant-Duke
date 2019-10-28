@@ -9,9 +9,9 @@ import duke.logic.parsers.ParserUtil;
  * Parses the user inputs into suitable format for FindPathCommand.
  */
 public class FindPathParser extends CommandParser {
-    String constraint;
-    int startEventIndex;
-    int endEventIndex;
+    private String constraint;
+    private int startEventIndex;
+    private int endEventIndex;
 
     /**
      * Parses user input into parameter for FindPathCommand.

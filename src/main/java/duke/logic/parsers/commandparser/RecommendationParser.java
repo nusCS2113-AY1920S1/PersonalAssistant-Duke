@@ -10,7 +10,7 @@ import duke.model.planning.Itinerary;
  * Parses the user inputs into suitable format for RecommendationsCommand.
  */
 public class RecommendationParser extends CommandParser {
-    Itinerary recommendation;
+    private Itinerary recommendation;
 
     /**
      * Parses user input into recommendation.

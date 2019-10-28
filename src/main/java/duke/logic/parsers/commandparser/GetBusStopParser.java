@@ -8,7 +8,7 @@ import duke.logic.commands.GetBusStopCommand;
  * Parses the user inputs into suitable format for GetBusStopCommand.
  */
 public class GetBusStopParser extends CommandParser {
-    String busStopNo;
+    private String busStopNo;
 
     /**
      * Parses user input into busStopNo.

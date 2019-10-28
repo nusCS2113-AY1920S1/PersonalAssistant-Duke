@@ -9,7 +9,7 @@ import duke.logic.parsers.ParserUtil;
  * Parses the user inputs into suitable format for RouteDeleteCommand.
  */
 public class RouteDeleteParser extends CommandParser {
-    int index;
+    private int index;
 
     /**
      * Parses user input into route.

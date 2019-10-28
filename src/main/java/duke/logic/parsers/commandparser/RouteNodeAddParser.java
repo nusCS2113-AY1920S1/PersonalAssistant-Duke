@@ -12,9 +12,9 @@ import duke.model.locations.RouteNode;
  * Parses the user inputs into suitable format for RouteNodeAddCommand.
  */
 public class RouteNodeAddParser extends CommandParser {
-    String input;
-    RouteNode routeNode;
-    int firstIndex;
+    private String input;
+    private RouteNode routeNode;
+    private int firstIndex;
 
     /**
      * Parses user input into parameter for RouteNodeAddCommand.
