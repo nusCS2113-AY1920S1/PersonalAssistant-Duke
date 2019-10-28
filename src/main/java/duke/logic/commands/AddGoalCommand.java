@@ -1,14 +1,13 @@
 package duke.logic.commands;
 
-import duke.ui.InputHandler;
 import duke.commons.exceptions.DukeException;
-import duke.model.wallet.TransactionList;
-import duke.model.wallet.Wallet;
-import duke.storage.Storage;
 import duke.model.Goal;
 import duke.model.meal.MealList;
-import duke.ui.Ui;
 import duke.model.user.User;
+import duke.model.wallet.Wallet;
+import duke.storage.Storage;
+import duke.ui.InputHandler;
+import duke.ui.Ui;
 
 /**
  * AddGoalCommand is a public class that inherits from abstract class Command.

@@ -1,7 +1,7 @@
 package duke.logic.parsers;
 
-import duke.logic.commands.EditCommand;
 import duke.commons.exceptions.DukeException;
+import duke.logic.commands.EditCommand;
 import duke.model.meal.Meal;
 
 /**

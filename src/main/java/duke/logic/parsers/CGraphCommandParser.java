@@ -1,9 +1,7 @@
 package duke.logic.parsers;
 
-import duke.logic.commands.AddCommand;
 import duke.commons.exceptions.DukeException;
 import duke.logic.commands.CGraphCommand;
-import duke.model.meal.Lunch;
 
 /**
  * Parser class to handle information to CGraphCommand.

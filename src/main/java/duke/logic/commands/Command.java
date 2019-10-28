@@ -1,11 +1,11 @@
 package duke.logic.commands;
 
-import duke.model.meal.MealList;
-import duke.model.wallet.Wallet;
-import duke.ui.Ui;
-import duke.storage.Storage;
 import duke.commons.exceptions.DukeException;
+import duke.model.meal.MealList;
 import duke.model.user.User;
+import duke.model.wallet.Wallet;
+import duke.storage.Storage;
+import duke.ui.Ui;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

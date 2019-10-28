@@ -1,7 +1,7 @@
 package duke.logic.parsers;
 
-import duke.logic.commands.HelpCommand;
 import duke.commons.exceptions.DukeException;
+import duke.logic.commands.HelpCommand;
 
 /**
  * Parser class to handle the parsing of a help command.

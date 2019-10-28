@@ -1,7 +1,7 @@
 package duke.logic.parsers;
 
-import duke.logic.commands.ListCommand;
 import duke.commons.exceptions.DukeException;
+import duke.logic.commands.ListCommand;
 
 /**
  * Parser class to handle a list command.

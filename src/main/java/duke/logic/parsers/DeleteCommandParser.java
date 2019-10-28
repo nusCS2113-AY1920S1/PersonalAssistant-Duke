@@ -1,7 +1,7 @@
 package duke.logic.parsers;
 
-import duke.logic.commands.DeleteCommand;
 import duke.commons.exceptions.DukeException;
+import duke.logic.commands.DeleteCommand;
 
 /**
  * Parser class to handle deletion of a single item from model.

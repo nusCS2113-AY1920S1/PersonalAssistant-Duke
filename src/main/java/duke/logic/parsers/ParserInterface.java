@@ -1,7 +1,7 @@
 package duke.logic.parsers;
 
-import duke.logic.commands.Command;
 import duke.commons.exceptions.DukeException;
+import duke.logic.commands.Command;
 import duke.ui.Ui;
 
 import java.text.DateFormat;

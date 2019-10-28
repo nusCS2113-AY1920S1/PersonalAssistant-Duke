@@ -1,10 +1,10 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.wallet.Wallet;
-import duke.storage.Storage;
 import duke.model.meal.MealList;
 import duke.model.user.User;
+import duke.model.wallet.Wallet;
+import duke.storage.Storage;
 
 import java.text.ParseException;
 import java.util.Calendar;
