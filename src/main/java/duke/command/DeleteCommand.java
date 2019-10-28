@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.storage.Storage;
+import duke.storage.UndoStack;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
@@ -34,5 +35,11 @@ public class DeleteCommand extends Command {
             ui.showLine("Now you have " + tasks.size() + " tasks in the list.");
         }
         storage.save(tasks);
+    }
+
+    @Override
+    public void savePrevState(TaskList tasks, UndoStack undoStack) throws DukeException {
+        Task t = tasks.get(filter, index);
+        undoStack.addAction(new InsertCommand(filter, index, t));
     }
 }

@@ -32,5 +32,4 @@ public class RandomCommand extends ListCommand {
         TaskList randomTask = new TaskList(randomTaskTemp);
         TaskListPrinter.print(ui, randomTask);
     }
-
 }

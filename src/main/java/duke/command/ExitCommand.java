@@ -1,6 +1,8 @@
 package duke.command;
 
+import duke.exception.DukeException;
 import duke.storage.Storage;
+import duke.storage.UndoStack;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
@@ -15,6 +17,11 @@ public class ExitCommand extends Command {
 	@Override
 	public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
 		storage.save(tasks);
+	}
+
+	@Override
+	public void savePrevState(TaskList tasks, UndoStack undoStack) throws DukeException {
+		
 	}
 
 	@Override

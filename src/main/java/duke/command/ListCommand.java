@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.storage.Storage;
+import duke.storage.UndoStack;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.TaskListPrinter;
@@ -85,6 +86,11 @@ public class ListCommand extends Command {
             default:
                 throw new DukeException("The description of list is invalid");
         }
+
+    }
+
+    @Override
+    public void savePrevState(TaskList tasks, UndoStack undoStack) throws DukeException {
 
     }
 }
