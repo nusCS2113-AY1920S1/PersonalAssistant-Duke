@@ -10,7 +10,7 @@ import duke.exception.DukeUtilException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImpressionHelpers {
+public class ImpressionUtils {
 
     /**
      * Gets the current Impression being displayed.

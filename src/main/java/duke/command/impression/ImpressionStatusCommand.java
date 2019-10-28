@@ -22,8 +22,8 @@ public class ImpressionStatusCommand extends ArgCommand {
 
     @Override
     public void execute(DukeCore core) throws DukeException {
-        Impression impression = ImpressionHelpers.getImpression(core);
-        Treatment treatment = (Treatment) ImpressionHelpers.getData(null, null, getArg(), impression);
+        Impression impression = ImpressionUtils.getImpression(core);
+        Treatment treatment = (Treatment) ImpressionUtils.getData(null, null, getArg(), impression);
         List<String> statusList;
         Class targetClass = treatment.getClass(); //statics don't play nice with polymorphism
         if (targetClass == Medicine.class) {
@@ -44,7 +44,7 @@ public class ImpressionStatusCommand extends ArgCommand {
                 throw new DukeHelpException("This treatment cannot progress any further!", this);
             }
         } else {
-            status = ImpressionHelpers.processStatus(statusStr, statusList);
+            status = ImpressionUtils.processStatus(statusStr, statusList);
         }
         treatment.setStatusIdx(status);
 

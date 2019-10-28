@@ -15,7 +15,7 @@ public class ImpressionResultCommand extends ArgCommand {
 
     @Override
     public void execute(DukeCore core) throws DukeException {
-        Impression impression = ImpressionHelpers.getImpression(core);
+        //Impression impression = ImpressionUtils.getImpression(core);
         // TODO: find by name or index
     }
 

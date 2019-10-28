@@ -36,7 +36,7 @@ public class ImpressionEditCommand extends DukeDataCommand {
         }
 
         if (editType == null) { // edit impression
-            editImpression(ImpressionHelpers.getImpression(core), isAppending);
+            editImpression(ImpressionUtils.getImpression(core), isAppending);
         } else {
             if (isSwitchSet("description")) {
                 throw new DukeHelpException("Descriptions are only for impressions!", this);
@@ -47,7 +47,7 @@ public class ImpressionEditCommand extends DukeDataCommand {
             // TODO: select by index
 
             String editDataName = getSwitchVal(editType);
-            List<DukeData> searchResults = ImpressionHelpers.getImpression(core).find(editDataName);
+            List<DukeData> searchResults = ImpressionUtils.getImpression(core).find(editDataName);
             switch (editType) {
             case "plan":
                 editData = findDataOfClass(searchResults, Plan.class);
@@ -111,7 +111,7 @@ public class ImpressionEditCommand extends DukeDataCommand {
                     if (entryInt == -1) {
                         break;
                     }
-                    ImpressionHelpers.checkPriority(entryInt);
+                    ImpressionUtils.checkPriority(entryInt);
                     editData.setPriority(entryInt);
                     break;
                 case "summary":
@@ -167,7 +167,7 @@ public class ImpressionEditCommand extends DukeDataCommand {
         String statusStr = getSwitchVal("status");
         if (statusStr != null) {
             Treatment treatment = (Treatment) editData;
-            treatment.setStatusIdx(ImpressionHelpers.processStatus(statusStr, statusList));
+            treatment.setStatusIdx(ImpressionUtils.processStatus(statusStr, statusList));
         }
     }
 

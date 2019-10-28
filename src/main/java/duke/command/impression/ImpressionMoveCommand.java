@@ -21,7 +21,7 @@ public class ImpressionMoveCommand extends ArgCommand {
     @Override
     public void execute(DukeCore core) throws DukeException {
         // TODO: query user for correct impression if no impression is given
-        Impression impression = ImpressionHelpers.getImpression(core);
+        Impression impression = ImpressionUtils.getImpression(core);
         String targetImpressionName = getSwitchVal("impression");
         Impression newImpression;
         if ("".equals(targetImpressionName)) {
@@ -29,7 +29,7 @@ public class ImpressionMoveCommand extends ArgCommand {
             newImpression = null;
         } else {
             // TODO: proper search
-            List<Impression> newImpressionList = ImpressionHelpers.getPatient(impression)
+            List<Impression> newImpressionList = ImpressionUtils.getPatient(impression)
                     .findImpressionsByName(targetImpressionName);
             if (newImpressionList.size() == 0) {
                 throw new DukeException("Can't find an impression with that name!");
@@ -37,8 +37,8 @@ public class ImpressionMoveCommand extends ArgCommand {
             newImpression = newImpressionList.get(0);
         }
 
-        DukeData moveData = ImpressionHelpers.getData(getArg(), getSwitchVal("evidence"),
-                getSwitchVal("treatment"), ImpressionHelpers.getImpression(core));
+        DukeData moveData = ImpressionUtils.getData(getArg(), getSwitchVal("evidence"),
+                getSwitchVal("treatment"), ImpressionUtils.getImpression(core));
 
         moveData.setParent(newImpression);
         if (moveData instanceof Evidence) {

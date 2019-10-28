@@ -27,7 +27,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
         super.execute(core);
         String addType = uniqueDataType();
         checkTypeSwitches(addType);
-        Impression impression = ImpressionHelpers.getImpression(core);
+        Impression impression = ImpressionUtils.getImpression(core);
         DukeData newData;
 
         //extract parameters and data type
@@ -35,13 +35,13 @@ public class ImpressionNewCommand extends DukeDataCommand {
         if (priority == -1) {
             priority = 0;
         }
-        ImpressionHelpers.checkPriority(priority);
+        ImpressionUtils.checkPriority(priority);
         nullToEmptyString(); //set optional string parameters to ""
         Integer status;
         switch (addType) { //isn't polymorphism fun?
         case "medicine":
             //TODO check for allergies
-            status = ImpressionHelpers.processStatus(getSwitchVal("status"), Medicine.getStatusArr());
+            status = ImpressionUtils.processStatus(getSwitchVal("status"), Medicine.getStatusArr());
             //TODO proper date parsing
             if ("".equals(getSwitchVal("date"))) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
@@ -55,7 +55,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
             break;
 
         case "plan":
-            status = ImpressionHelpers.processStatus(getSwitchVal("status"), Plan.getStatusArr());
+            status = ImpressionUtils.processStatus(getSwitchVal("status"), Plan.getStatusArr());
             Plan plan = new Plan(getSwitchVal("name"), impression, priority, status,
                     getSwitchVal("summary"));
             impression.addNewTreatment(plan);
@@ -64,7 +64,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
             break;
 
         case "investigation":
-            status = ImpressionHelpers.processStatus(getSwitchVal("status"), Investigation.getStatusArr());
+            status = ImpressionUtils.processStatus(getSwitchVal("status"), Investigation.getStatusArr());
             Investigation invx = new Investigation(getSwitchVal("name"), impression, priority, status,
                     getSwitchVal("summary"));
             impression.addNewTreatment(invx);

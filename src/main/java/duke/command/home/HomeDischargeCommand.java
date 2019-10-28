@@ -3,7 +3,7 @@ package duke.command.home;
 import duke.DukeCore;
 import duke.command.ArgCommand;
 import duke.command.ArgSpec;
-import duke.command.CommandHelpers;
+import duke.command.CommandUtils;
 import duke.data.Patient;
 import duke.exception.DukeException;
 
@@ -22,7 +22,7 @@ public class HomeDischargeCommand extends ArgCommand {
     public void execute(DukeCore core) throws DukeException {
         String bed = getSwitchVal("bed");
         int index = switchToInt("index");
-        Patient patient = CommandHelpers.findPatient(core, bed, index);
+        Patient patient = CommandUtils.findPatient(core, bed, index);
 
         HomeReportCommand.createReport(patient, header, explanation, getSwitchVal("summary"));
         core.patientMap.deletePatient(patient.getBedNo());

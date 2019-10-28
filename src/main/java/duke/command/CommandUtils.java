@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * Functions for command autocompletion and autocorrection.
  */
-public class CommandHelpers {
+public class CommandUtils {
 
     /**
      * Given a switch name provided by the user, finds the switch it is referring to, or the closest match,
