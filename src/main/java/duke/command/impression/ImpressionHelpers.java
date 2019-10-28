@@ -116,9 +116,9 @@ public class ImpressionHelpers {
 
     public static int checkPriority(int priority, ArgCommand command) throws DukeHelpException {
         if (priority < 0 || priority > 4) {
-            return priority;
-        } else {
             throw new DukeHelpException("Priority must be between 0 and 4!", command);
+        } else {
+            return priority;
         }
     }
 }

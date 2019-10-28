@@ -16,5 +16,7 @@ public class ImpressionPrimaryCommand extends Command {
         Impression impression = getImpression(core);
         Patient patient = getPatient(impression);
         patient.setPrimaryDiagnosis(impression.getName());
+        core.writeJsonFile();
+        core.ui.print("Updated " + patient.getName() + "'s primary diagnosis to '" + impression.getName() + "'!");
     }
 }
