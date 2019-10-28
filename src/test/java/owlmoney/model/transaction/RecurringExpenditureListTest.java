@@ -46,7 +46,7 @@ class RecurringExpenditureListTest {
     void addRecurringExpenditure_listFull_throwsException() {
         RecurringExpenditureList testList = new RecurringExpenditureList();
         Ui testUi = new Ui();
-        Date newDate = new Date("10/26/2019");;
+        Date newDate = new Date("10/26/2019");
         for (int i = 0; i < 100; i++) {
             Transaction testExpenditure = new Expenditure("test" + i, 1, newDate, "test");
             try {

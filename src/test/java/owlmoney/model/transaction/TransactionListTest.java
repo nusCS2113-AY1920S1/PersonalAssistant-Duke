@@ -131,7 +131,7 @@ class TransactionListTest {
     void deleteExpenditure_successfulDelete_expenditureDeleted() {
         TransactionList testList = new TransactionList();
         Ui testUi = new Ui();
-        Date newDate = new Date("10/26/2019");;
+        Date newDate = new Date("10/26/2019");
         Transaction testExpenditure = new Expenditure("test", 1, newDate, "test");
         testList.addExpenditureToList(testExpenditure, testUi, "bank");
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
