@@ -5,6 +5,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -16,6 +20,8 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 class SavingTest {
+    private static final String NEWLINE = System.lineSeparator();
+
     @Test
     void addInExpenditure_notAddingToSavingAccount_throwsException() {
         Ui uiTest = new Ui();
@@ -183,21 +189,133 @@ class SavingTest {
         Ui uiTest = new Ui();
         Bank testSaving = new Saving("testBank", 1200, 1000);
         Transaction testDeposit = new Deposit("test", 20, new Date("1/1/2019"), "test");
-        Transaction testExpenditure = new Expenditure("test", 1201, new Date("1/1/2019"), "test");
         try {
             testSaving.addDepositTransaction(testDeposit, uiTest, "bank");
             assertEquals(1220.00, testSaving.getCurrentAmount());
-            testSaving.addInExpenditure(testExpenditure, uiTest, "bank");
-            assertEquals(19.00, testSaving.getCurrentAmount());
             testSaving.editDepositDetails(1, "", "10", "", uiTest);
         } catch (BankException | TransactionException errorMessage) {
             System.out.println("Expects success but error was thrown");
         }
-        assertEquals(9.00, testSaving.getCurrentAmount());
+        assertEquals(1210.00, testSaving.getCurrentAmount());
     }
 
     @Test
-    void updateRecurringTransactions_expenditureUpdated_bankAmountChanged() {
+    void savingAddRecurringExpenditure_recurringExpenditureAdded_newRecurringExpenditureInList() {
+        Ui testUi = new Ui();
+        Saving savingTest = new Saving("test", 100, 100);
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.MONTH, -1);
+        Expenditure testExpenditure = new Expenditure("testExpenditure", 10, calendar.getTime(), "testExpenditure");
+        try {
+            savingTest.savingAddRecurringExpenditure(testExpenditure, testUi);
+
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error was thrown");
+        }
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        try {
+            savingTest.savingListRecurringExpenditure(testUi);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error was thrown");
+        }
+        String outputMessage = "Transaction No.      Description                                             "
+                + "Amount          Date                 Category             " + NEWLINE + "-----------------"
+                + "------------------------------------------------------------------------------------------"
+                + "----------------------" + NEWLINE + "1                    testExpenditure                 "
+                + "                        [-] $10.00      28 September 2019    testExpenditure      "
+                + NEWLINE + "--------------------------------------------------------------------------------"
+                + "-------------------------------------------------" + NEWLINE;
+        assertEquals(outputMessage, outContent.toString());
+    }
+
+    @Test
+    void savingDeleteRecurringExpenditure_recurringExpenditureDeleted_noRecurringExpenditureInList() {
+        Ui testUi = new Ui();
+        Saving savingTest = new Saving("test", 100, 100);
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.MONTH, -1);
+        Expenditure testExpenditure = new Expenditure("testExpenditure", 10, calendar.getTime(), "testExpenditure");
+        try {
+            savingTest.savingAddRecurringExpenditure(testExpenditure, testUi);
+
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error was thrown");
+        }
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        try {
+            savingTest.savingListRecurringExpenditure(testUi);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error was thrown");
+        }
+        String outputMessage = "Transaction No.      Description                                             "
+                + "Amount          Date                 Category             " + NEWLINE + "-----------------"
+                + "------------------------------------------------------------------------------------------"
+                + "----------------------" + NEWLINE + "1                    testExpenditure                 "
+                + "                        [-] $10.00      28 September 2019    testExpenditure      "
+                + NEWLINE + "--------------------------------------------------------------------------------"
+                + "-------------------------------------------------" + NEWLINE;
+        assertEquals(outputMessage, outContent.toString());
+        try {
+            savingTest.savingDeleteRecurringExpenditure(1, testUi);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error was thrown");
+        }
+        TransactionException thrown = assertThrows(TransactionException.class, () ->
+                        savingTest.savingListRecurringExpenditure(testUi),
+                "Expected deleteRecurringExpenditure to throw, but it didn't");
+        assertEquals("There are no recurring expenditures in this account", thrown.toString());
+    }
+
+    @Test
+    void savingEditRecurringExpenditure_recurringExpenditureEdited_newDetailsShown() {
+        Ui testUi = new Ui();
+        Saving savingTest = new Saving("test", 100, 100);
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.MONTH, -1);
+        Expenditure testExpenditure = new Expenditure("testExpenditure", 10, calendar.getTime(), "testExpenditure");
+        try {
+            savingTest.savingAddRecurringExpenditure(testExpenditure, testUi);
+
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error was thrown");
+        }
+        try {
+            savingTest.savingListRecurringExpenditure(testUi);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error was thrown");
+        }
+        try {
+            savingTest.savingEditRecurringExpenditure(1, "editExpenditure", "25.25", "editExpenditure", testUi);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error was thrown");
+        }
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        try {
+            savingTest.savingListRecurringExpenditure(testUi);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error was thrown");
+        }
+        String outputMessage = "Transaction No.      Description                                             "
+                + "Amount          Date                 Category             " + NEWLINE + "-----------------"
+                + "------------------------------------------------------------------------------------------"
+                + "----------------------" + NEWLINE + "1                    editExpenditure                 "
+                + "                        [-] $25.25      28 September 2019    editExpenditure      "
+                + NEWLINE + "--------------------------------------------------------------------------------"
+                + "-------------------------------------------------" + NEWLINE;
+        assertEquals(outputMessage, outContent.toString());
+    }
+
+    @Test
+    void savingUpdateRecurringTransactions_expenditureUpdated_bankAmountChanged() {
         Ui testUi = new Ui();
         Saving savingTest = new Saving("test", 100, 100);
         Calendar calendar = Calendar.getInstance();

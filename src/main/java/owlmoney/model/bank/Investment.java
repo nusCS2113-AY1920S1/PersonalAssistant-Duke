@@ -28,7 +28,6 @@ public class Investment extends Bank {
     private BondList bonds;
     private static final String INVESTMENT_BOND_LIST_FILE_NAME = "_investment_bondList.csv";
     private static final String INVESTMENT_TRANSACTION_LIST_FILE_NAME = "_investment_transactionList.csv";
-
     private Storage storage;
     private static final String FILE_PATH = "data/";
 
@@ -50,21 +49,21 @@ public class Investment extends Bank {
     /**
      * Adds an expenditure tied to this instance of the bank account.
      *
-     * @param exp      an instance of expenditure.
+     * @param expenditure      an instance of expenditure.
      * @param ui       required for printing.
      * @param bankType Type of bank to add expenditure into.
      * @throws BankException If amount becomes negative after adding expenditure.
      */
     @Override
-    public void addInExpenditure(Transaction exp, Ui ui, String bankType) throws BankException {
+    public void addInExpenditure(Transaction expenditure, Ui ui, String bankType) throws BankException {
         if (!"bonds".equals(bankType) && !"investment transfer".equals(bankType)) {
             throw new BankException("This account does not support savings expenditures");
         }
-        if (exp.getAmount() > this.getCurrentAmount()) {
+        if (expenditure.getAmount() > this.getCurrentAmount()) {
             throw new BankException("Bank account cannot have a negative amount");
         } else {
-            transactions.addExpenditureToList(exp, ui, bankType);
-            deductFromAmount(exp.getAmount());
+            transactions.addExpenditureToList(expenditure, ui, bankType);
+            deductFromAmount(expenditure.getAmount());
         }
     }
 
@@ -153,13 +152,13 @@ public class Investment extends Bank {
     /**
      * Lists the bonds in the bank specified bank account.
      *
-     * @param displayNum the number of bonds to display.
+     * @param investmentsToDisplay the number of bonds to display.
      * @param ui         required for printing.
      * @throws BondException if there are not bonds.
      */
     @Override
-    void investmentListBond(int displayNum, Ui ui) throws BondException {
-        bonds.listBond(displayNum, ui);
+    void investmentListBond(int investmentsToDisplay, Ui ui) throws BondException {
+        bonds.listBond(investmentsToDisplay, ui);
     }
 
     /**
@@ -247,24 +246,24 @@ public class Investment extends Bank {
      * Lists the deposits in the current bank account.
      *
      * @param ui         Ui of OwlMoney.
-     * @param displayNum Number of deposits to list.
+     * @param depositsToDisplay Number of deposits to list.
      * @throws TransactionException If no deposit is found.
      */
     @Override
-    void listAllDeposit(Ui ui, int displayNum) throws TransactionException {
-        transactions.listDeposit(ui, displayNum);
+    void listAllDeposit(Ui ui, int depositsToDisplay) throws TransactionException {
+        transactions.listDeposit(ui, depositsToDisplay);
     }
 
     /**
      * Lists the expenditures in the current bank account.
      *
      * @param ui         Ui of OwlMoney.
-     * @param displayNum Number of expenditure to list.
+     * @param expendituresToDisplay Number of expenditure to list.
      * @throws TransactionException If no expenditure is found.
      */
     @Override
-    void listAllExpenditure(Ui ui, int displayNum) throws TransactionException {
-        transactions.listExpenditure(ui, displayNum);
+    void listAllExpenditure(Ui ui, int expendituresToDisplay) throws TransactionException {
+        transactions.listExpenditure(ui, expendituresToDisplay);
     }
 
     /**
@@ -382,5 +381,14 @@ public class Investment extends Bank {
         } else {
             transactions.importExpenditureToList(expenditure, bankType);
         }
+    }
+
+    /**
+     * Checks if the bond list is full.
+     *
+     * @return if the bon list is full.
+     */
+    public boolean investmentIsBondListFull() {
+        return bonds.isListFull();
     }
 }

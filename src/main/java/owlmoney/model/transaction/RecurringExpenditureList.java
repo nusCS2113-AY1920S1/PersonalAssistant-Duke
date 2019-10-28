@@ -160,15 +160,6 @@ public class RecurringExpenditureList {
     }
 
     /**
-     * Gets the size of the transactionList.
-     *
-     * @return the size of the transactionList.
-     */
-    public int getSize() {
-        return recurringExpenditures.size();
-    }
-
-    /**
      * Gets the transaction object from the transactionList by specifying the transaction index.
      *
      * @return the transaction object.

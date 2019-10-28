@@ -175,4 +175,29 @@ public class GoalsList {
             ui.printDivider();
         }
     }
+
+    /**
+     * Get the goal from the specified index.
+     *
+     * @param index Index of goal in goals list.
+     * @return Goal in the specified index.
+     */
+    private Goals getGoal(int index) {
+        return goalList.get(index);
+    }
+
+    /**
+     * Change all goals tied to a deleted account to untied.
+     *
+     * @param bankName Name of deleted bank account.
+     */
+    public void changeTiedAccountsToNull(String bankName) {
+        for (int i = ISZERO; i < goalList.size(); i++) {
+            Goals currentGoal = getGoal(i);
+            String tiedAccount = currentGoal.getSavingAcc();
+            if (bankName.equals(tiedAccount)) {
+                currentGoal.setSavingAcc(null);
+            }
+        }
+    }
 }

@@ -25,14 +25,14 @@ class TransactionListTest {
         Ui testUi = new Ui();
         Date newDate = new Date("10/26/2019");
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
-        String printedMessage = "Added expenditure with the following details:" + NEWLINE +
-                "Item No.             Description                                             Amount          Date   " +
-                "              Category             " + NEWLINE +
-                "-------------------------------------------------------------------------------------------------" +
-                "--------------------------------" + NEWLINE + "1                    test                         " +
-                "                           [-] $1.00       " + temp.format(newDate) + "      test                 " +
-                NEWLINE + "-----------------------------------------------------------------------------------------" +
-                "----------------------------------------" + NEWLINE;
+        String printedMessage = "Added expenditure with the following details:" + NEWLINE + "Item No.        "
+                + "     Description                                             Amount         "
+                + " Date                 Category             " + NEWLINE + "--------------------------------"
+                + "------------------------------------------------------------------------------------------"
+                + "-------" + NEWLINE + "1                    test                                           "
+                + "         [-] $1.00       " + temp.format(newDate) + "      test                 "
+                + NEWLINE + "--------------------------------------------------------------------------------"
+                + "-------------------------------------------------" + NEWLINE;
         Transaction testExpenditure = new Expenditure("test", 1, newDate, "test");
         testList.addExpenditureToList(testExpenditure, testUi, "bank");
         assertEquals(printedMessage, outContent.toString());
@@ -63,14 +63,14 @@ class TransactionListTest {
         Ui testUi = new Ui();
         Date newDate = new Date("10/26/2019");
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
-        String printedMessage = "Added deposit with the following details:" + NEWLINE +
-                "Item No.             Description                                             Amount          Date   " +
-                "              Category             " + NEWLINE +
-                "-------------------------------------------------------------------------------------------------" +
-                "--------------------------------" + NEWLINE + "1                    test                         " +
-                "                           [+] $1.00       " + temp.format(newDate) + "      test                 " +
-                NEWLINE + "-----------------------------------------------------------------------------------------" +
-                "----------------------------------------" + NEWLINE;
+        String printedMessage = "Added deposit with the following details:" + NEWLINE + "Item No.            "
+                + " Description                                             Amount          Date             "
+                + "    Category             " + NEWLINE + "--------------------------------------------------"
+                + "-------------------------------------------------------------------------------" + NEWLINE
+                + "1                    test                                                    [+] $1.00    "
+                + "   " + temp.format(newDate) + "      test                 " + NEWLINE + "-----------------"
+                + "------------------------------------------------------------------------------------------"
+                + "----------------------" + NEWLINE;
         Transaction testDeposit = new Deposit("test", 1, newDate, "test");
         testList.addDepositToList(testDeposit, testUi, "bank");
         assertEquals(printedMessage, outContent.toString());
@@ -132,16 +132,7 @@ class TransactionListTest {
         TransactionList testList = new TransactionList();
         Ui testUi = new Ui();
         Date newDate = new Date("10/26/2019");;
-        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         Transaction testExpenditure = new Expenditure("test", 1, newDate, "test");
-        String deletedMessage = "Details of deleted Expenditure:" + NEWLINE +
-                "Item No.             Description                                             Amount          Date   " +
-                "              Category             " + NEWLINE +
-                "----------------------------------------------------------------------------------------------------" +
-                "-----------------------------" + NEWLINE + "1                    test                             " +
-                "                       [-] $1.00       " + temp.format(newDate) + "      test                 " +
-                NEWLINE + "-----------------------------------------------------------------------------------------" +
-                "----------------------------------------" + NEWLINE;
         testList.addExpenditureToList(testExpenditure, testUi, "bank");
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
@@ -150,6 +141,15 @@ class TransactionListTest {
         } catch (TransactionException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
         }
+        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
+        String deletedMessage = "Details of deleted Expenditure:" + NEWLINE + "Item No.             "
+                + "Description                                             Amount          Date              "
+                + "   Category             " + NEWLINE + "---------------------------------------------------"
+                + "------------------------------------------------------------------------------" + NEWLINE
+                + "1                    test                                                    [-] $1.00    "
+                + "   " + temp.format(newDate) + "      test                 " + NEWLINE + "-----------------"
+                + "------------------------------------------------------------------------------------------"
+                + "----------------------" + NEWLINE;
         assertEquals(deletedMessage, outContent.toString());
         TransactionException thrown = assertThrows(TransactionException.class, () ->
                         testList.deleteExpenditureFromList(1, testUi),
@@ -259,20 +259,20 @@ class TransactionListTest {
         TransactionList testList = new TransactionList();
         Ui testUi = new Ui();
         Date newDate = new Date("10/26/2019");;
-        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         Transaction testDeposit = new Deposit("test", 1, newDate, "test");
-        String deletedMessage = "Details of deleted deposit:" + NEWLINE +
-                "Item No.             Description                                             Amount          Date   " +
-                "              Category             " + NEWLINE +
-                "----------------------------------------------------------------------------------------------------" +
-                "-----------------------------" + NEWLINE + "1                    test                             " +
-                "                       [+] $1.00       " + temp.format(newDate) + "      test                 " +
-                NEWLINE + "-----------------------------------------------------------------------------------------" +
-                "----------------------------------------" + NEWLINE;
         testList.addDepositToList(testDeposit, testUi, "bank");
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         testList.deleteDepositFromList(1, testUi);
+        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
+        String deletedMessage = "Details of deleted deposit:" + NEWLINE + "Item No.             Description  "
+                + "                                           Amount          Date                 Category  "
+                + "           " + NEWLINE + "----------------------------------------------------------------"
+                + "-----------------------------------------------------------------" + NEWLINE + "1         "
+                + "           test                                                    [+] $1.00       "
+                + temp.format(newDate) + "      test                 " + NEWLINE + "-------------------------"
+                + "------------------------------------------------------------------------------------------"
+                + "--------------" + NEWLINE;
         assertEquals(deletedMessage, outContent.toString());
         TransactionException thrown = assertThrows(TransactionException.class, () ->
                         testList.getDepositValue(1),
@@ -305,7 +305,6 @@ class TransactionListTest {
     @Test
     void listDeposit_twoDepositsListOne_listOneDeposit() {
         TransactionList testList = new TransactionList();
-        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         Ui testUi = new Ui();
         Date newDate = new Date("10/26/2019");
         Transaction testDeposit = new Deposit("test", 1, newDate, "test");
@@ -314,18 +313,19 @@ class TransactionListTest {
         testList.addDepositToList(testDeposit2, testUi, "bank");
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        String outputMessage = "Transaction No.      Description                                             Amount  " +
-                "        Date                 Category             " + NEWLINE + "----------------------------------" +
-                "-----------------------------------------------------------------------------------------------" +
-                NEWLINE + "2                    test                                                    [+] $2.00    " +
-                "   " + temp.format(newDate) +"      test                 " + NEWLINE + "---------------------------" +
-                "---------------------------------------------------------------------------------------------------" +
-                "---" + NEWLINE;
         try {
             testList.listDeposit(testUi, 1);
         } catch (TransactionException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
         }
+        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
+        String outputMessage = "Transaction No.      Description                                             "
+                + "Amount          Date                 Category             " + NEWLINE + "-----------------"
+                + "------------------------------------------------------------------------------------------"
+                + "----------------------" + NEWLINE + "2                    test                            "
+                + "                        [+] $2.00       " + temp.format(newDate) + "      test            "
+                + "     " + NEWLINE + "----------------------------------------------------------------------"
+                + "-----------------------------------------------------------" + NEWLINE;
         assertEquals(outputMessage, outContent.toString());
     }
 
@@ -354,7 +354,6 @@ class TransactionListTest {
     @Test
     void listExpenditure_twoExpendituresListOne_listOneExpenditure() {
         TransactionList testList = new TransactionList();
-        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         Ui testUi = new Ui();
         Date newDate = new Date("10/26/2019");
         Transaction testExpenditure = new Expenditure("test", 1, newDate, "test");
@@ -363,18 +362,19 @@ class TransactionListTest {
         testList.addExpenditureToList(testExpenditure2, testUi, "bank");
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        String outputMessage = "Transaction No.      Description                                             Amount  " +
-                "        Date                 Category             " + NEWLINE + "----------------------------------" +
-                "-----------------------------------------------------------------------------------------------" +
-                NEWLINE + "2                    test                                                    [-] $2.00    " +
-                "   " + temp.format(newDate) +"      test                 " + NEWLINE + "----------------------------" +
-                "----------------------------------------------" +
-                "-------------------------------------------------------" + NEWLINE;
         try {
             testList.listExpenditure(testUi, 1);
         } catch (TransactionException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
         }
+        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
+        String outputMessage = "Transaction No.      Description                                             "
+                + "Amount          Date                 Category             " + NEWLINE + "-----------------"
+                + "------------------------------------------------------------------------------------------"
+                + "----------------------" + NEWLINE + "2                    test                            "
+                + "                        [-] $2.00       " + temp.format(newDate) + "      test            "
+                + "     " + NEWLINE + "----------------------------------------------------------------------"
+                + "-----------------------------------------------------------" + NEWLINE;
         assertEquals(outputMessage, outContent.toString());
     }
 
@@ -382,7 +382,6 @@ class TransactionListTest {
     void editExpenditure_successfulEdit_expenditureDetailsUpdated() {
         TransactionList testList = new TransactionList();
         DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
-        DateFormat temp2 = new SimpleDateFormat("dd MMMM yyyy");
         Ui testUi = new Ui();
         Date newDate = new Date("10/26/2019");
         Date editedDate = new Date("10/25/2019");
@@ -396,18 +395,19 @@ class TransactionListTest {
         }
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        String outputMessage = "Transaction No.      Description                                             Amount  " +
-                "        Date                 Category             " + NEWLINE + "----------------------------------" +
-                "-----------------------------------------------------------------------------------------------" +
-                NEWLINE + "1                    edit                                                    [-] $5.35    " +
-                "   " + temp2.format(editedDate) +"      edit                 " + NEWLINE + "------------------------" +
-                "---------------------------------------------------------------------------------------------------" +
-                "------" + NEWLINE;
         try {
             testList.listExpenditure(testUi, 1);
         } catch (TransactionException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
         }
+        DateFormat temp2 = new SimpleDateFormat("dd MMMM yyyy");
+        String outputMessage = "Transaction No.      Description                                             "
+                + "Amount          Date                 Category             " + NEWLINE + "-----------------"
+                + "------------------------------------------------------------------------------------------"
+                + "----------------------" + NEWLINE + "1                    edit                            "
+                + "                        [-] $5.35       " + temp2.format(editedDate) + "      edit        "
+                + "         " + NEWLINE + "------------------------------------------------------------------"
+                + "---------------------------------------------------------------" + NEWLINE;
         assertEquals(outputMessage, outContent.toString());
     }
 
@@ -415,7 +415,6 @@ class TransactionListTest {
     void editDeposit_successfulEdit_depositDetailsUpdated() {
         TransactionList testList = new TransactionList();
         DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
-        DateFormat temp2 = new SimpleDateFormat("dd MMMM yyyy");
         Ui testUi = new Ui();
         Date newDate = new Date("10/26/2019");
         Date editedDate = new Date("10/25/2019");
@@ -429,18 +428,43 @@ class TransactionListTest {
         }
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        String outputMessage = "Transaction No.      Description                                             Amount  " +
-                "        Date                 Category             " + NEWLINE + "----------------------------------" +
-                "-----------------------------------------------------------------------------------------------" +
-                NEWLINE + "1                    edit                                                    [+] $5.35    " +
-                "   " + temp2.format(editedDate) +"      test                 " + NEWLINE + "------------------------" +
-                "---------------------------------------------------------------------------------------------------" +
-                "------" + NEWLINE;
         try {
             testList.listDeposit(testUi, 1);
         } catch (TransactionException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
         }
+        DateFormat temp2 = new SimpleDateFormat("dd MMMM yyyy");
+        String outputMessage = "Transaction No.      Description                                             "
+                + "Amount          Date                 Category             " + NEWLINE + "-----------------"
+                + "------------------------------------------------------------------------------------------"
+                + "----------------------" + NEWLINE + "1                    edit                            "
+                + "                        [+] $5.35       " + temp2.format(editedDate) + "      test        "
+                + "         " + NEWLINE + "------------------------------------------------------------------"
+                + "---------------------------------------------------------------" + NEWLINE;
         assertEquals(outputMessage, outContent.toString());
+    }
+
+    @Test
+    void getSize_threeTransactions_returnsThree() {
+        TransactionList testList = new TransactionList();
+        Ui testUi = new Ui();
+        Date newDate = new Date("10/26/2019");
+        Transaction testExpenditure = new Expenditure("test", 1, newDate, "test");
+        Transaction testExpenditure2 = new Expenditure("test2", 2, newDate, "test");
+        Transaction testDeposit = new Deposit("test3", 3, newDate, "test");
+        testList.addExpenditureToList(testExpenditure, testUi, "bank");
+        testList.addExpenditureToList(testExpenditure2, testUi, "bank");
+        testList.addDepositToList(testDeposit, testUi, "bank");
+        assertEquals(3, testList.getSize());
+    }
+
+    @Test
+    void get_oneTransaction_returnsSpecifiedTransaction() {
+        TransactionList testList = new TransactionList();
+        Ui testUi = new Ui();
+        Date newDate = new Date("10/26/2019");
+        Transaction testExpenditure = new Expenditure("test", 1, newDate, "test");
+        testList.addExpenditureToList(testExpenditure, testUi, "bank");
+        assertEquals(testExpenditure, testList.get(0));
     }
 }

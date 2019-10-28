@@ -24,21 +24,21 @@ class RecurringExpenditureListTest {
         RecurringExpenditureList testList = new RecurringExpenditureList();
         Ui testUi = new Ui();
         Date newDate = new Date("10/26/2019");
-        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
-        String printedMessage = "Added expenditure with the following details:" + NEWLINE +
-                "Item No.             Description                                             Amount          Date   " +
-                "              Category             " + NEWLINE +
-                "-------------------------------------------------------------------------------------------------" +
-                "--------------------------------" + NEWLINE + "1                    test                         " +
-                "                           [-] $1.00       " + temp.format(newDate) + "      test                 " +
-                NEWLINE + "-----------------------------------------------------------------------------------------" +
-                "----------------------------------------" + NEWLINE;
         Transaction testExpenditure = new Expenditure("test", 1, newDate, "test");
         try {
             testList.addRecurringExpenditure(testExpenditure, testUi);
         } catch (TransactionException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
         }
+        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
+        String printedMessage = "Added expenditure with the following details:" + NEWLINE + "Item No.        "
+                + "     Description                                             Amount          Date         "
+                + "        Category             " + NEWLINE + "----------------------------------------------"
+                + "-----------------------------------------------------------------------------------"
+                + NEWLINE + "1                    test                                                    [-]"
+                + " $1.00       " + temp.format(newDate) + "      test                 " + NEWLINE + "-------"
+                + "------------------------------------------------------------------------------------------"
+                + "--------------------------------" + NEWLINE;
         assertEquals(printedMessage, outContent.toString());
     }
 
@@ -93,16 +93,7 @@ class RecurringExpenditureListTest {
         RecurringExpenditureList testList = new RecurringExpenditureList();
         Ui testUi = new Ui();
         Date newDate = new Date("10/26/2019");;
-        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         Transaction testExpenditure = new Expenditure("test", 1, newDate, "test");
-        String deletedMessage = "Deleted expenditure with the following details:" + NEWLINE +
-                "Item No.             Description                                             Amount          Date   " +
-                "              Category             " + NEWLINE +
-                "----------------------------------------------------------------------------------------------------" +
-                "-----------------------------" + NEWLINE + "1                    test                             " +
-                "                       [-] $1.00       " + temp.format(newDate) + "      test                 " +
-                NEWLINE + "-----------------------------------------------------------------------------------------" +
-                "----------------------------------------" + NEWLINE;
         try {
             testList.addRecurringExpenditure(testExpenditure, testUi);
         } catch (TransactionException errorMessage) {
@@ -115,6 +106,15 @@ class RecurringExpenditureListTest {
         } catch (TransactionException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
         }
+        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
+        String deletedMessage = "Deleted expenditure with the following details:" + NEWLINE + "Item No.      "
+                + "       Description                                             Amount          Date       "
+                + "          Category             " + NEWLINE + "--------------------------------------------"
+                + "-------------------------------------------------------------------------------------"
+                + NEWLINE + "1                    test                                                    [-]"
+                + " $1.00       " + temp.format(newDate) + "      test                 " + NEWLINE + "-------"
+                + "------------------------------------------------------------------------------------------"
+                + "--------------------------------" + NEWLINE;
         assertEquals(deletedMessage, outContent.toString());
         assertEquals(0, testList.getListSize());
     }
@@ -134,7 +134,6 @@ class RecurringExpenditureListTest {
         RecurringExpenditureList testList = new RecurringExpenditureList();
         Ui testUi = new Ui();
         Date newDate = new Date("10/26/2019");
-        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         Transaction testExpenditure = new Expenditure("test", 1, newDate, "test");
         try {
             testList.addRecurringExpenditure(testExpenditure, testUi);
@@ -148,13 +147,15 @@ class RecurringExpenditureListTest {
         } catch (TransactionException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
         }
-        String outputMessage = "Transaction No.      Description                                             Amount  " +
-                "        Date                 Category             " + NEWLINE + "----------------------------------" +
-                "-----------------------------------------------------------------------------------------------" +
-                NEWLINE + "1                    test                                                    [-] $1.00    " +
-                "   " + temp.format(newDate) +"      test                 " + NEWLINE + "-----------------------------------" +
-                "----------------------------------------------------------------------------------------------" +
-                NEWLINE;
+        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
+
+        String outputMessage = "Transaction No.      Description                                             "
+                + "Amount          Date                 Category             " + NEWLINE + "-----------------"
+                + "------------------------------------------------------------------------------------------"
+                + "----------------------" + NEWLINE + "1                    test                            "
+                + "                        [-] $1.00       " + temp.format(newDate) + "      test            "
+                + "     " + NEWLINE + "----------------------------------------------------------------------"
+                + "-----------------------------------------------------------" + NEWLINE;
         assertEquals(outputMessage, outContent.toString());
     }
 
@@ -205,5 +206,32 @@ class RecurringExpenditureListTest {
         assertEquals(400.00, editedTransaction.getAmount());
         assertEquals("edit", editedTransaction.getCategory());
         assertEquals("edit", editedTransaction.getDescription());
+    }
+
+    @Test
+    void getListSize_oneExpenditure_returnsOne() {
+        RecurringExpenditureList testList = new RecurringExpenditureList();
+        Ui testUi = new Ui();
+        assertEquals(0, testList.getListSize());
+        Transaction testExpenditure = new Expenditure("test", 1, new Date(), "test");
+        try {
+            testList.addRecurringExpenditure(testExpenditure, testUi);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+        assertEquals(1, testList.getListSize());
+    }
+
+    @Test
+    void get_oneExpenditure_returnsSpecifiedExpenditure() {
+        RecurringExpenditureList testList = new RecurringExpenditureList();
+        Ui testUi = new Ui();
+        Transaction testExpenditure = new Expenditure("test", 1, new Date(), "test");
+        try {
+            testList.addRecurringExpenditure(testExpenditure, testUi);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+        assertEquals(testExpenditure, testList.get(0));
     }
 }
