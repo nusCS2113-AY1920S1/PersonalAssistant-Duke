@@ -18,7 +18,6 @@ public class Meal {
     protected SimpleDateFormat dateparser = new SimpleDateFormat("dd/MM/yyyy");
     protected String date = dateparser.format(Calendar.getInstance().getTime());
     protected HashMap<String, Integer> nutritionValue = new HashMap<String, Integer>();
-    protected BigDecimal cost;
 
     /**
      * This is the constructor of Task object.

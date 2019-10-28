@@ -118,8 +118,8 @@ public class Write {
 
     /**
      * Save all the recorded transactions.
-     * @param wallet
-     * @throws DukeException
+     * @param wallet the database of all transactions.
+     * @throws DukeException if error occurs.
      */
     public void writeTransaction(Wallet wallet) throws DukeException {
         HashMap<String, ArrayList<Transaction>> transactions = wallet.getTransactions().getTransactionTracker();
