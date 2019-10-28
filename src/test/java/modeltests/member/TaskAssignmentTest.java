@@ -1,5 +1,9 @@
 package modeltests.member;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
 import models.data.Project;
 import models.member.Member;
 import models.task.Task;
@@ -7,15 +11,12 @@ import models.task.TaskState;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 class TaskAssignmentTest {
     private final Project project;
     private final Member member1;
     private final Member member2;
     private final Member member3;
+    private final Task task;
 
     /*
     Set up a dummy project for the test. It is assumed that all other components are working.
@@ -27,8 +28,7 @@ class TaskAssignmentTest {
         this.member1 = new Member("Tom", "NIL", "NIL", 1, "member");
         this.member2 = new Member("Dick", "NIL","NIL", 2, "member");
         this.member3 = new Member("Harry", "NIL", "NIL", 3, "member");
-        Task task = new Task("Test task", 0,
-            null, 0, TaskState.OPEN, new ArrayList<>());
+        this.task = new Task("Test task", 0,null, 0, TaskState.OPEN, new ArrayList<>());
         this.project.addMember(member1);
         this.project.addMember(member2);
         this.project.addMember(member3);
@@ -65,32 +65,11 @@ class TaskAssignmentTest {
         project.createAssignment(project.getTask(1),member1);
         project.createAssignment(project.getTask(1),member2);
         project.createAssignment(project.getTask(1),member3);
-        assertEquals("[Test task is assigned to: , Tom, Dick, Harry]", project.getAssignedTaskList().toString());
-        /* assertEquals(0, projectInputController.getUnassigneesIndex().size());
-        assertEquals(2,
-            project.getTask(1).getAssignedMembers().getNumberOfAssignees());
-        assertEquals("Tom",
-            project.getTask(1).getAssignedMembers().getMember(1).getName());
-        assertEquals("Harry",
-            project.getTask(1).getAssignedMembers().getMember(2).getName());
-        assertEquals("Cannot unassign member with index 2 (Dick) "
-            + "because they are not assigned the task yet!",
-            projectInputController.getMessageForView().get(0));
-        assertEquals("Member with index number 4 does not exist!",
-            projectInputController.getMessageForView().get(1));
+        assertTrue(project.containsAssignment(task, member1));
+        assertTrue(project.containsAssignment(task, member2));
+        assertTrue(project.containsAssignment(task, member3));
+//      assertEquals("[Test task is assigned to: , Tom, Dick, Harry]", project.getAssignedTaskList().toString());
 
-        projectCommand = "assign task i/1 to/ 1 rm/ 3";
-        projectInputController = new AssignmentController();
-        projectInputController.manageAssignment(project,
-            projectCommand.substring(12).split(" "), consoleView);
-        assertEquals(0, projectInputController.getAssigneesIndex().size());
-        assertEquals(1, projectInputController.getUnassigneesIndex().size());
-        assertEquals("Member with index 1 (Tom) has already been assigned this task!",
-            projectInputController.getMessageForView().get(0));
-        assertEquals(1,
-            project.getTask(1).getAssignedMembers().getNumberOfAssignees());
-        assertEquals("Tom",
-            project.getTask(1).getAssignedMembers().getMember(1).getName()); */
     }
 
     /*@Test
