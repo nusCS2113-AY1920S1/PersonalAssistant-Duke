@@ -202,8 +202,7 @@ public class TaskList {
         ArrayList<Task> priorityList = new ArrayList<>();
         ArrayList<String> stringPriorityList = new ArrayList<>();
         for (Task listOfTask : listOfTasks) {
-            if (listOfTask.toString().contains(dayToFind)
-                && !listOfTask.priority.equals(Priority.LOW)) {
+            if (listOfTask.toString().contains(dayToFind) && !listOfTask.priority.equals(Priority.LOW)) {
                 priorityList.add(listOfTask);
             }
         }
@@ -243,7 +242,8 @@ public class TaskList {
         ArrayList<String> scheduleDescriptionOnly = new ArrayList<>();
         for (int i = 0; i < obtainDescriptions.size(); i++) {
             if (obtainDescriptions.get(i).toString().contains(dayToFind)) {
-                scheduleDescriptionOnly.add(obtainDescriptions.get(i).getDescription().trim());
+                scheduleDescriptionOnly.add(obtainDescriptions.get(i).getModCode().trim() + " "
+                        + obtainDescriptions.get(i).getDescription().trim());
             }
         }
         return scheduleDescriptionOnly;
@@ -292,7 +292,6 @@ public class TaskList {
     public boolean isTodoPeriod(Task task) {
         return (TODO_PERIOD.equals(task.getType()));
     }
-
 
     public void updatePriority(Task task) {
         observableListOfTasks.add(task);

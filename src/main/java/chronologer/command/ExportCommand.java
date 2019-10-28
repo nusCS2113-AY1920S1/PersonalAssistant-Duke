@@ -4,7 +4,6 @@ import chronologer.exception.ChronologerException;
 import chronologer.storage.Storage;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-
 import chronologer.ui.UiTemporary;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.Calendar;

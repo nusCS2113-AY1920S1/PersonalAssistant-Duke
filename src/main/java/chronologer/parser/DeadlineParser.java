@@ -16,17 +16,27 @@ import java.time.LocalDateTime;
  */
 public class DeadlineParser extends DescriptionParser {
 
-    public DeadlineParser(String userInput, String command) {
+    /**
+     * creates new paerser for deadline.
+     * 
+     * @param userInput  input from user
+     * @param command    command type
+     * @param hasModCode if task has a module code associated
+     */
+    public DeadlineParser(String userInput, String command, boolean hasModCode) {
         super(userInput, command);
         this.checkType = Flag.BY.getFlag();
+        this.hasModCode = hasModCode;
     }
-
 
     @Override
     public Command parse() throws ChronologerException {
         super.extract();
         LocalDateTime startDate = extractStartDate(taskFeatures);
-
+        if (hasModCode) {
+            String modCode = extractModCode(taskFeatures);
+            return new AddCommand(command, taskDescription, startDate, null, modCode);
+        }
         return new AddCommand(command, taskDescription, startDate, null);
     }
 

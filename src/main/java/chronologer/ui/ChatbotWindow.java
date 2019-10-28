@@ -13,8 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-import java.io.File;
-
 /**
  * UI component that allows the user to interact with Chronologer like a chatbot.
  * Its mainly acts on the user input and gives the user appopriate feedback.

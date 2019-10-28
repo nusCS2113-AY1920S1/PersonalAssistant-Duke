@@ -20,43 +20,65 @@ import java.time.LocalDateTime;
 public class AddCommand extends Command {
 
     private String command;
-    private String taskFeatures;
+    private String taskDescription;
     private LocalDateTime formattedStartDate;
     private LocalDateTime formattedEndDate;
     private int duration = 0;
+    private String modCode;
 
     /**
      * Initializes the different parameters when adding a task.
      *
-     * @param command      Holds the command type.
-     * @param taskFeatures Holds the description of the task provided by the user.
-     * @param startDate    Holds the start date of the task.
-     * @param endDate      Holds the end date of the task.
+     * @param command         Holds the command type.
+     * @param taskDescription Holds the description of the task provided by the
+     *                        user.
+     * @param startDate       Holds the start date of the task.
+     * @param endDate         Holds the end date of the task.
+     * @param modCode         Holds the module code of the task, if any
      */
-
-    public AddCommand(String command, String taskFeatures, LocalDateTime startDate, LocalDateTime endDate) {
+    public AddCommand(String command, String taskDescription, LocalDateTime startDate, LocalDateTime endDate,
+            String modCode) {
 
         this.command = command;
-        this.taskFeatures = taskFeatures;
+        this.taskDescription = taskDescription;
+        this.formattedStartDate = startDate;
+        this.formattedEndDate = endDate;
+        this.modCode = modCode;
+    }
+
+    /**
+     * Initializes the different parameters when adding a task.
+     *
+     * @param command         Holds the command type.
+     * @param taskDescription Holds the description of the task provided by the
+     *                        user.
+     * @param duration        Holds the duration period the task.
+     */
+    public AddCommand(String command, String taskDescription, Integer duration) {
+        this.command = command;
+        this.taskDescription = taskDescription;
+        this.duration = duration;
+    }
+
+    /**
+     * Initializes the different parameters when adding a task.
+     * 
+     * @param command         Holds the command type.
+     * @param taskDescription Holds the description of the task provided by the
+     *                        user.
+     * @param startDate       Holds the start date of the task.
+     * @param endDate         Holds the end date of the task.
+     */
+    public AddCommand(String command, String taskDescription, LocalDateTime startDate, LocalDateTime endDate) {
+        this.command = command;
+        this.taskDescription = taskDescription;
         this.formattedStartDate = startDate;
         this.formattedEndDate = endDate;
     }
 
     /**
-     * Initializes the different parameters when adding a task.
-     *
-     * @param command       Holds the command type.
-     * @param taskFeatures  Holds the description of the task provided by the user.
-     * @param duration      Holds the duration period the task.
-     */
-    public AddCommand(String command, String taskFeatures, Integer duration) {
-        this.command = command;
-        this.taskFeatures = taskFeatures;
-        this.duration = duration;
-    }
-
-    /**
-     * Adds the task to the TaskList and saves the updated TaskList to persistent storage.
+     * Adds the task to the TaskList and saves the updated TaskList to persistent
+     * storage.
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
@@ -67,22 +89,29 @@ public class AddCommand extends Command {
         switch (command) {
         case "todo":
             if (formattedStartDate != null) {
-                task = new Todo(taskFeatures, formattedStartDate, formattedEndDate);
+                task = new Todo(taskDescription, formattedStartDate, formattedEndDate);
             } else if (duration != 0) {
-                task = new Todo(taskFeatures, duration);
+                task = new Todo(taskDescription, duration);
             } else {
-                task = new Todo(taskFeatures);
+                task = new Todo(taskDescription);
             }
             break;
         case "deadline":
-            task = new Deadline(taskFeatures, formattedStartDate);
+            task = new Deadline(taskDescription, formattedStartDate);
             if (tasks.isClash(task)) {
                 UiTemporary.printOutput(ChronologerException.taskClash());
                 throw new ChronologerException(ChronologerException.taskClash());
             }
             break;
         case "event":
-            task = new Event(taskFeatures, formattedStartDate, formattedEndDate);
+            task = new Event(taskDescription, formattedStartDate, formattedEndDate);
+            if (tasks.isClash(task)) {
+                UiTemporary.printOutput(ChronologerException.taskClash());
+                throw new ChronologerException(ChronologerException.taskClash());
+            }
+            break;
+        case "assignment":
+            task = new Deadline(taskDescription, formattedStartDate, modCode);
             if (tasks.isClash(task)) {
                 UiTemporary.printOutput(ChronologerException.taskClash());
                 throw new ChronologerException(ChronologerException.taskClash());
@@ -95,8 +124,8 @@ public class AddCommand extends Command {
 
         tasks.add(task);
         storage.saveFile(tasks.getTasks());
-        UiTemporary.printOutput("Got it! I've added this task:" + "\n  " + task.toString()
-            + "\nNow you have " + tasks.getSize() + " task(s) in the list.");
+        UiTemporary.printOutput("Got it! I've added this task:" + "\n  " + task.toString() + "\nNow you have "
+                + tasks.getSize() + " task(s) in the list.");
 
     }
 }

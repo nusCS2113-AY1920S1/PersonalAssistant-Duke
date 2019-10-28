@@ -18,6 +18,7 @@ public abstract class Parser {
     String command;
     String taskFeatures;
     String checkType;
+    boolean hasModCode;
     MyLogger logger = new MyLogger(this.getClass().getName(), "errors");
 
     /**
