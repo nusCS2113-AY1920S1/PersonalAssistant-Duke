@@ -3,8 +3,9 @@ Type 'help <name>' to find out more about the command <name>. This only works fo
 A star (*) next to the name means that the command is not enabled.
 
 add
-    add stock <Stock Code> <Quantity> <Description>
+    add stock <Stock Type> <Stock Code> <Quantity> <Description>
     add stocktype <Stock Type>
+    add person <Matric No.> <Name>
 
 delete
     delete stock <Stock Code>

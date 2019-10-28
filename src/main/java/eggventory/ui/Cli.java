@@ -4,6 +4,7 @@ package eggventory.ui;
 
 import java.util.Scanner;
 
+//@@author Raghav-B
 /**
  * Manages the CLI of Eggventory.
  * Prints intro and exit messages, and the standard newline.
