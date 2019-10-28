@@ -2,6 +2,7 @@ package seedu.duke.email.command;
 
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
+import seedu.duke.common.model.Model;
 import seedu.duke.email.EmailList;
 
 public class EmailListCommand extends Command {
@@ -10,9 +11,9 @@ public class EmailListCommand extends Command {
     }
 
     @Override
-    public boolean execute() {
+    public boolean execute(Model model) {
         if (!silent) {
-            EmailList emailList = Duke.getModel().getEmailList();
+            EmailList emailList = model.getEmailList();
             try {
                 responseMsg += emailList.toString();
                 Duke.getUI().showResponse(responseMsg);

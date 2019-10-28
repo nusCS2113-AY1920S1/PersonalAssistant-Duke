@@ -2,6 +2,7 @@ package seedu.duke.task.command;
 
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
+import seedu.duke.common.model.Model;
 import seedu.duke.task.TaskList;
 
 public class TaskReminderCommand extends Command {
@@ -30,8 +31,8 @@ public class TaskReminderCommand extends Command {
      * @return true as the command can always be correctly executed
      */
     @Override
-    public boolean execute() {
-        TaskList taskList = Duke.getModel().getTaskList();
+    public boolean execute(Model model) {
+        TaskList taskList = model.getTaskList();
         TaskList nearTasks = taskList.findNear(dayLimit);
         responseMsg = constructReminderMessage(nearTasks);
         if (!silent) {

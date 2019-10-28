@@ -2,6 +2,7 @@ package seedu.duke.email.command;
 
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
+import seedu.duke.common.model.Model;
 import seedu.duke.email.EmailList;
 
 import java.util.ArrayList;
@@ -25,8 +26,8 @@ public class EmailTagCommand extends Command {
     }
 
     @Override
-    public boolean execute() {
-        EmailList emailList = Duke.getModel().getEmailList();
+    public boolean execute(Model model) {
+        EmailList emailList = model.getEmailList();
         responseMsg = emailList.addTags(index, tags);
         Duke.getUI().showResponse(responseMsg);
         return true;

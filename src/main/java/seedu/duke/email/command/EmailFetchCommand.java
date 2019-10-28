@@ -2,6 +2,7 @@ package seedu.duke.email.command;
 
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
+import seedu.duke.common.model.Model;
 import seedu.duke.email.EmailStorage;
 
 public class EmailFetchCommand extends Command {
@@ -10,11 +11,11 @@ public class EmailFetchCommand extends Command {
     }
 
     @Override
-    public boolean execute() {
+    public boolean execute(Model model) {
         if (!silent) {
             EmailStorage.syncWithServer();
             responseMsg = "Fetching emails and syncing with local storage...\n\n";
-            responseMsg += Duke.getModel().getEmailList().toString();
+            responseMsg += model.getEmailList().toString();
             Duke.getUI().showResponse(responseMsg);
         }
         return true;

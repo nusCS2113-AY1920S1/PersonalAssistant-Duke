@@ -110,6 +110,14 @@ public class CommandParseHelper {
      * @return the parse result, which is a command ready to be executed
      */
     public static Command parseCommand(String commandString) throws UserInputException {
+        return parseCommandOfType(commandString, inputType);
+    }
+
+    public static Command parseCommand(String commandString, InputType userInputType) throws UserInputException {
+        return parseCommandOfType(commandString, userInputType);
+    }
+
+    private static Command parseCommandOfType(String commandString, InputType userInputType) throws UserInputException {
         if (!isCommandFormat(commandString)) {
             if (ui != null) {
                 ui.showError("Command is in wrong format");
@@ -118,9 +126,9 @@ public class CommandParseHelper {
         }
         ArrayList<Option> optionList = parseOptions(commandString);
         String strippedCommandString = stripOptions(commandString);
-        if (inputType == InputType.TASK) {
+        if (userInputType == InputType.TASK) {
             return TaskCommandParseHelper.parseTaskCommand(strippedCommandString, optionList);
-        } else if (inputType == InputType.EMAIL) {
+        } else if (userInputType == InputType.EMAIL) {
             return parseEmailCommand(strippedCommandString, optionList);
         } else {
             return new InvalidCommand();
