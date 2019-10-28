@@ -1,5 +1,9 @@
 package seedu.duke.email.entity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,11 +36,36 @@ public class KeywordPair {
         this.expressions = new ArrayList<>(List.of(keyword));
     }
 
+    /**
+     * Construct kewordPair from a json object.
+     *
+     * @param json a json object containing full information of a keyword pair
+     */
+    public KeywordPair(JSONObject json) throws JSONException {
+        keyword = json.getString("keyword");
+        expressions = new ArrayList<>();
+        JSONArray expressionArray = json.getJSONArray("expressions");
+        for (int i = 0; i < expressionArray.length(); i++) {
+            expressions.add(expressionArray.getString(i));
+        }
+    }
+
     public String getKeyword() {
         return this.keyword;
     }
 
     public ArrayList<String> getExpressions() {
         return this.expressions;
+    }
+
+    public JSONObject toJsonObject() throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put("keyword", this.keyword);
+        JSONArray expressionArray = new JSONArray();
+        for (String expression : expressions) {
+            expressionArray.put(expression);
+        }
+        json.put("expressions", expressionArray);
+        return json;
     }
 }

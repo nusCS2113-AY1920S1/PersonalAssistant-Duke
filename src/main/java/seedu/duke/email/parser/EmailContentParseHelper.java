@@ -1,9 +1,15 @@
 package seedu.duke.email.parser;
 
+import org.json.JSONException;
+import seedu.duke.common.model.Model;
+import seedu.duke.common.storage.Storage;
+import seedu.duke.email.EmailKeywordPairList;
 import seedu.duke.email.entity.Email;
 import seedu.duke.email.entity.KeywordPair;
+import seedu.duke.email.storage.EmailKeywordPairStorage;
 import seedu.duke.ui.UI;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +23,6 @@ public class EmailContentParseHelper {
     private static int KEYWORD_SUBJECT_WEIGHTAGE = 5;
     private static int KEYWORD_SENDER_WEIGHTAGE = 3;
     private static int KEYWORD_BODY_WEIGHTAGE = 1;
-    private static ArrayList<KeywordPair> keywordList;
     private static int INFINITY = 0x3f3f3f;
     private static int FUZZY_LIMIT = 3;
 
@@ -27,6 +32,7 @@ public class EmailContentParseHelper {
      * @param email Email to be scanned for keywords
      */
     public static void allKeywordInEmail(Email email) {
+        EmailKeywordPairList keywordList = Model.getInstance().getKeywordPairList();
         for (KeywordPair keywordPair : keywordList) {
             int relevance = keywordInEmail(email, keywordPair);
             if (relevance > 0) {
@@ -88,30 +94,48 @@ public class EmailContentParseHelper {
     /**
      * Keyword List for searching.
      */
-    public static void initKeywordList() {
-        ArrayList<KeywordPair> keywordList = new ArrayList<>();
-        keywordList.add(new KeywordPair("CS2113T", new ArrayList<String>(List.of(
+    public static EmailKeywordPairList initKeywordList() {
+        if (EmailKeywordPairStorage.keywordPairFileExists()) {
+            try {
+                return EmailKeywordPairStorage.readKeywordPairList();
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+                UI.getInstance().showDebug("Keyword list file reading with error. Default used...");
+            }
+        }
+        EmailKeywordPairList keywordList = getDefaultKeywordPairList();
+        try {
+            EmailKeywordPairStorage.saveKeywordPairList(keywordList);
+        } catch (JSONException | IOException e) {
+            UI.getInstance().showError("Keyword Pair List Save Failed...");
+        }
+        return keywordList;
+    }
+
+    private static EmailKeywordPairList getDefaultKeywordPairList() {
+        EmailKeywordPairList keywordList = new EmailKeywordPairList();
+        keywordList.add(new KeywordPair("CS2113T", new ArrayList<>(List.of(
                 "CS2113T", "CS2113", "TAN KIAN WEI, JASON", "Leow Wei Xiang", "Akshay Narayan", "Akshay"))));
-        keywordList.add(new KeywordPair("CS2101", new ArrayList<String>(List.of(
+        keywordList.add(new KeywordPair("CS2101", new ArrayList<>(List.of(
                 "CS2101", "Anita Toh Ann Lee"))));
-        keywordList.add(new KeywordPair("CG2271", new ArrayList<String>(List.of(
+        keywordList.add(new KeywordPair("CG2271", new ArrayList<>(List.of(
                 "CG2271", "Djordje Jevdjic"))));
-        keywordList.add(new KeywordPair("CS2102", new ArrayList<String>(List.of(
+        keywordList.add(new KeywordPair("CS2102", new ArrayList<>(List.of(
                 "CS2102", "Adi Yoga Sidi Prabawa"))));
-        keywordList.add(new KeywordPair("CS3230", new ArrayList<String>(List.of(
+        keywordList.add(new KeywordPair("CS3230", new ArrayList<>(List.of(
                 "CS3230", "Divesh Aggarwal"))));
-        keywordList.add(new KeywordPair("CEG Admin", new ArrayList<String>(List.of(
+        keywordList.add(new KeywordPair("CEG Admin", new ArrayList<>(List.of(
                 "Low Mun Bak"))));
-        keywordList.add(new KeywordPair("SEP", new ArrayList<String>(List.of(
+        keywordList.add(new KeywordPair("SEP", new ArrayList<>(List.of(
                 "SEP", "Student Exchange Programme"))));
-        keywordList.add(new KeywordPair("Tutorial", new ArrayList<String>(List.of(
+        keywordList.add(new KeywordPair("Tutorial", new ArrayList<>(List.of(
                 "Tutorial"))));
-        keywordList.add(new KeywordPair("Assignment", new ArrayList<String>(List.of(
+        keywordList.add(new KeywordPair("Assignment", new ArrayList<>(List.of(
                 "Assignment"))));
-        keywordList.add(new KeywordPair("Spam", new ArrayList<String>(List.of(
+        keywordList.add(new KeywordPair("Spam", new ArrayList<>(List.of(
                 "UHC Wellness", "luminus-do-not-reply", "NUS Libraries"))));
 
-        EmailContentParseHelper.keywordList = keywordList;
+        return keywordList;
     }
 
     /**

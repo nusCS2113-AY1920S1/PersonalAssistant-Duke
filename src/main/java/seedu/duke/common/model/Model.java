@@ -1,5 +1,6 @@
 package seedu.duke.common.model;
 
+import seedu.duke.email.EmailKeywordPairList;
 import seedu.duke.email.parser.EmailContentParseHelper;
 import seedu.duke.email.EmailList;
 import seedu.duke.email.storage.EmailStorage;
@@ -12,6 +13,7 @@ public class Model {
     private static Model model;
     private TaskList taskList;
     private EmailList emailList;
+    private EmailKeywordPairList keywordPairList;
 
     private Model() {
     }
@@ -27,11 +29,12 @@ public class Model {
      * Initializes model structure.
      */
     public void initModel() {
+        keywordPairList = new EmailKeywordPairList();
         taskList = new TaskList();
         emailList = new EmailList();
+        keywordPairList = EmailContentParseHelper.initKeywordList();
         taskList = TaskStorage.readTaskFromFile();
         emailList = EmailStorage.readEmailFromFile("");
-        EmailContentParseHelper.initKeywordList();
     }
 
     public TaskList getTaskList() {
@@ -51,6 +54,14 @@ public class Model {
         this.emailList = emailList;
         updateGuiEmailList();
         updateEmailTagList();
+    }
+
+    public EmailKeywordPairList getKeywordPairList() {
+        return keywordPairList;
+    }
+
+    public void setKeywordPairList(EmailKeywordPairList keywordPairList) {
+        this.keywordPairList = keywordPairList;
     }
 
     /**
