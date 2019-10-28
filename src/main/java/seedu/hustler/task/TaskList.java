@@ -3,19 +3,15 @@ package seedu.hustler.task;
 import seedu.hustler.Hustler;
 import seedu.hustler.data.CommandLog;
 import seedu.hustler.data.Schedule;
-import seedu.hustler.game.achievement.AchievementList;
 import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.DoneTask;
 import seedu.hustler.schedule.Scheduler;
 import seedu.hustler.ui.Ui;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import static seedu.hustler.game.achievement.AddTask.addAchievementLevel;
-import static seedu.hustler.game.achievement.DoneTask.doneAchievementLevel;
 import static seedu.hustler.logic.parser.DateTimeParser.getDateTime;
 
 /**
@@ -73,7 +69,7 @@ public class TaskList {
     public void add(Task task) {
         list.add(task);
         String output = "\t  " + list.get(list.size() - 1).toString();
-        updateAchievement(!CommandLog.isRestoring());
+        updateBusybeeAchievement(!CommandLog.isRestoring());
         Scheduler.add(this.getLastTask());
     }
 
@@ -112,21 +108,21 @@ public class TaskList {
             }
         }
 
-        updateAchievement(checkAnomaly);
+        updateBusybeeAchievement(checkAnomaly);
         Scheduler.add(this.getLastTask());
     }
 
     /**
-     * 
+     * Checks if the user have met Busybee achievement conditions and
+     * update accordingly.
+     * @param checkAnomaly check if there's any clashes
      */
-    public void updateAchievement(boolean checkAnomaly) {
+    public void updateBusybeeAchievement(boolean checkAnomaly) {
         if (!checkAnomaly) {
             AddTask.increment();
             AddTask.updateAchievementLevel();
             AddTask.updatePoints();
-            //Hustler.listAchievements.updateBusyBee();
-            System.out.println(addAchievementLevel);
-            AchievementList.updateAddTask(addAchievementLevel);
+            Hustler.achievementList.updateBusyBee();
             if (!CommandLog.isRestoring()) {
                 ui.show_task_added(list);
             }
@@ -135,6 +131,20 @@ public class TaskList {
                 ui.show_task_clash();
             }
         }
+    }
+
+    /**
+     * Checks if the user have met Completionist achievement conditions and
+     * update accordingly.
+     */
+    public void updateCompletionistAchievement() {
+            DoneTask.increment();
+            DoneTask.updateAchievementLevel();
+            DoneTask.updatePoints();
+            Hustler.achievementList.updateCompletionist();
+            if (!CommandLog.isRestoring()) {
+                ui.show_task_done(list.toString());
+            }
     }
 
     /**
@@ -213,10 +223,7 @@ public class TaskList {
         try {
             list.get(i).markAsDone();
             if (list.get(i).isDone) {
-                DoneTask.increment();
-                DoneTask.updateAchievementLevel();
-                DoneTask.updatePoints();
-                AchievementList.updateDoneTask(doneAchievementLevel);
+                updateCompletionistAchievement();
                 if (!CommandLog.isRestoring()) {
                     ui.show_task_done(list.get(i).toString());
                 }

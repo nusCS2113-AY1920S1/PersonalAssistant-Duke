@@ -1,7 +1,7 @@
 package seedu.hustler.logic.command.achievementCommand;
 
+import seedu.hustler.Hustler;
 import seedu.hustler.logic.command.Command;
-import seedu.hustler.game.achievement.AchievementList;
 
 /**
  * Command to see all achievements.
@@ -13,6 +13,7 @@ public class AchievementCommand extends Command {
      *
      */
     public void execute() {
-        AchievementList.showList();
+        Hustler.achievementList.list();
+        //AchievementList.showList();
     }
 }

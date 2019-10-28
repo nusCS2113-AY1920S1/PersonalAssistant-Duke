@@ -18,7 +18,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import seedu.hustler.game.achievement.AchievementList;
 import seedu.hustler.logic.parser.DateTimeParser;
 import seedu.hustler.task.Reminders;
 
@@ -429,7 +428,7 @@ public class MainWindow extends AnchorPane{
         Image lock = new Image(new FileInputStream("src/main/resources/images/locked_padlock.png"));
         flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
-        Hustler.run("achievement");
+        Hustler.run("/achievement");
 
         flowPane.setVgap(10);
 
@@ -457,11 +456,11 @@ public class MainWindow extends AnchorPane{
         SP.getChildren().addAll(R,T);
         flowPane.getChildren().add(SP);
 
-        for(int i = 0; i < Hustler.listAchievements.size(); i += 1) {
-            if(!Hustler.listAchievements.get(i).checkLock()) {
+        for(int i = 0; i < Hustler.achievementList.size(); i += 1) {
+            if(!Hustler.achievementList.get(i).checkLock()) {
                 StackPane stackPane = new StackPane();
                 Rectangle rect = new Rectangle();
-                Text text = new Text(Hustler.listAchievements.get(i).toString());
+                Text text = new Text(Hustler.achievementList.get(i).toString());
                 text.setFont(Font.font("Gill Sans", 20));
                 text.setFill(Color.WHITE);
                 rect.setOpacity(0.3);
@@ -497,8 +496,8 @@ public class MainWindow extends AnchorPane{
         StackPanel.getChildren().addAll(Rec,Txt);
         flowPane.getChildren().add(StackPanel);
 
-        for(int i = 0; i < AchievementList.achievementList.size(); i += 1) {
-            if(AchievementList.achievementList.get(i).checkLock()) {
+        for(int i = 0; i < Hustler.achievementList.size(); i += 1) {
+            if(Hustler.achievementList.get(i).checkLock()) {
                 ImageView imageview = new ImageView();
                 imageview.setImage(lock);
                 imageview.setFitHeight(30);
@@ -506,7 +505,7 @@ public class MainWindow extends AnchorPane{
                 imageview.setOpacity(0.3);
                 StackPane stackPane = new StackPane();
                 Rectangle rect = new Rectangle();
-                Text text = new Text(AchievementList.achievementList.get(i).toString());
+                Text text = new Text(Hustler.achievementList.get(i).toString());
                 text.setFont(Font.font("Gill Sans", 20));
                 text.setStyle("-fx-fill: white");
                 text.setOpacity(0.3);
