@@ -1,4 +1,4 @@
-package duke.ui;
+package duke.ui.window;
 
 import com.jfoenix.controls.JFXListView;
 import duke.data.Evidence;
@@ -10,6 +10,8 @@ import duke.data.Patient;
 import duke.data.Plan;
 import duke.data.Result;
 import duke.data.Treatment;
+import duke.ui.UiElement;
+import duke.ui.UiStrings;
 import duke.ui.card.EvidenceCard;
 import duke.ui.card.InvestigationCard;
 import duke.ui.card.MedicineCard;

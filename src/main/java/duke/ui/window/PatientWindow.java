@@ -1,8 +1,10 @@
-package duke.ui;
+package duke.ui.window;
 
 import com.jfoenix.controls.JFXListView;
 import duke.data.Impression;
 import duke.data.Patient;
+import duke.ui.UiElement;
+import duke.ui.UiStrings;
 import duke.ui.card.ImpressionCard;
 import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
