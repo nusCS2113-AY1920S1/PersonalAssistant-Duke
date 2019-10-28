@@ -10,6 +10,7 @@ import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.EventDate;
 import Events.Formatting.Predicate;
 import UserElements.ConcertBudgeting.Budgeting;
+import UserElements.ConcertBudgeting.CostExceedsBudgetException;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,8 +56,8 @@ public class EventList {
         final char PRACTICE = 'P';
         final char EXAM = 'E';
         final char RECITAL = 'R';
-
         eventArrayList = new ArrayList<>();
+
         for (String currLine : inputList) {
             boolean isDone = currLine.substring(0, 3).equals("✓");
             char eventType = currLine.charAt(3);
@@ -75,7 +76,8 @@ public class EventList {
 
                 switch (eventType) {
                     case CONCERT:
-                        eventArrayList.add(new Concert(description, isDone, startDateAndTime, endDateAndTime));
+                        eventArrayList.add(new Concert(description, isDone, startDateAndTime, endDateAndTime,
+                                Integer.parseInt(splitString[6])));
                         break;
 
                     case LESSON:
@@ -97,7 +99,7 @@ public class EventList {
             }
         }
 
-        budgeting = new Budgeting(eventArrayList, 5);
+        budgeting = new Budgeting(eventArrayList, 50);
     }
 
     /**
@@ -117,13 +119,17 @@ public class EventList {
      *
      * @param event Model_Class.Event object to be added
      */
-    public void addEvent(Event event) throws Exception {
+    public void addEvent(Event event) throws EndBeforeStartException, ClashException, CostExceedsBudgetException {
         if (event.getStartDate().getEventJavaDate().compareTo(event.getEndDate().getEventJavaDate()) == 1) {
-            throw new Exception();
+            throw new EndBeforeStartException();
         }
 
         Event clashEvent = clashEvent(event); //check the list for a schedule clash
         if (clashEvent == null) { //null means no clash was found
+            if (event.getType() == 'C') {
+                this.budgeting.updateMonthlyCost((Concert) event);
+            }
+
             this.eventArrayList.add(event);
         } else { //if clash is found, notify user via terminal.
             throw new ClashException(clashEvent);
@@ -237,6 +243,9 @@ public class EventList {
      * @param eventNo Index of event to be deleted
      */
     public void deleteEvent(int eventNo) {
+        if (this.eventArrayList.get(eventNo).getType() == 'C') {
+            budgeting.removeMonthlyCost((Concert) this.eventArrayList.get(eventNo));
+        }
         this.eventArrayList.remove(eventNo);
     }
 
@@ -316,6 +325,18 @@ public class EventList {
      * Used to reinstate deleted event in case of failure to reschedule
      */
     public void undoDeletionOfEvent(Event event) {
+        try {
+            if (event.getType() == 'C') {
+                this.budgeting.updateMonthlyCost((Concert) event);
+            }
+        } catch (CostExceedsBudgetException e) {
+            //ignore exception, will never happen
+        }
         eventArrayList.add(event);
+    }
+
+
+    public Budgeting getBudgeting() {
+        return budgeting;
     }
 }

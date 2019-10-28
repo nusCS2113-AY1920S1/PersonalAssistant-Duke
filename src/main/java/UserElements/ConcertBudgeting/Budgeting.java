@@ -1,7 +1,9 @@
 package UserElements.ConcertBudgeting;
 
 import Events.EventTypes.Event;
+import Events.EventTypes.EventSubclasses.Concert;
 import Events.Formatting.EventDate;
+
 import java.util.*;
 
 public class Budgeting {
@@ -12,12 +14,12 @@ public class Budgeting {
      * MonthlyBudget is the class corresponding to the month being analyzed, stores all details
      * for budget analysis including the corresponding Concert objects.
      */
-    private Map<String, MonthlyBudget> monthlyCosts;
+    private HashMap<String, MonthlyBudget> monthlyCosts;
 
     int budget; //current user defined budget
 
     /**
-     * Constructor for budgeting system.
+     * Constructor for budgeting system. Sets budget and creates new map of monthly costs.
      *
      * @param eventList List of Event objects containing all events currently in the list, to be used
      *                  in monthly budget/cost calculation
@@ -25,6 +27,51 @@ public class Budgeting {
     public Budgeting(ArrayList<Event> eventList, int budget) {
         this.budget = budget;
         createMap(eventList);
+
+//        Iterator monthlyCostIterator = monthlyCosts.entrySet().iterator();
+//
+//        while (monthlyCostIterator.hasNext()) {
+//            Map.Entry mapElement = (Map.Entry)monthlyCostIterator.next();
+//            MonthlyBudget testMonthlyBudget = (MonthlyBudget) mapElement.getValue();
+//            for (Concert testConcert : testMonthlyBudget.getListOfConcerts()){
+//                System.out.print(testConcert.toString() + " ");
+//                System.out.println(testConcert.getCost());
+//            }
+//        }
+    }
+
+    /**
+     * remove costs from list when deleting a Concert object.
+     *
+     * @param concert Concert to be deleted.
+     */
+    public void removeMonthlyCost(Concert concert) {
+        String monthAndYear = getMonthAndYear(concert.getStartDate());
+
+        MonthlyBudget currMonthlyBudget = monthlyCosts.get(monthAndYear);
+        currMonthlyBudget.removeConcert(concert);
+
+        if (currMonthlyBudget.getListOfConcerts().isEmpty()) {
+            monthlyCosts.remove(monthAndYear);
+        }
+    }
+
+    /**
+     * update the cost for the month when a new Concert object is added to EventList.
+     *
+     * @param concert Concert that was added.
+     */
+    public void updateMonthlyCost(Concert concert) throws CostExceedsBudgetException {
+        String monthAndYear = getMonthAndYear(concert.getStartDate());
+
+        MonthlyBudget currMonthlyBudget = monthlyCosts.get(monthAndYear);
+        if (currMonthlyBudget == null) {
+            currMonthlyBudget = new MonthlyBudget(concert.getStartDate());
+            currMonthlyBudget.addConcert(concert, this.budget);
+            monthlyCosts.put(monthAndYear, currMonthlyBudget);
+        } else {
+            currMonthlyBudget.addConcert(concert, this.budget);
+        }
     }
 
     public void setBudget(int budget) {
@@ -38,7 +85,7 @@ public class Budgeting {
      * @return created map.
      */
     private void createMap(ArrayList<Event> eventList) {
-        monthlyCosts = new HashMap<String, MonthlyBudget>();
+        monthlyCosts = new HashMap<>();
         EventDate monthlyDate = null; //stores a date of a day in the month we are currently checking for
         ArrayList<Event> listOfConcerts = new ArrayList<Event>(); //to store the concerts in a given month
         String monthAndYear = "";
@@ -87,5 +134,9 @@ public class Budgeting {
         MonthAndYear = MonthAndYear.substring(3, 10); //get MM-yyyy from dd-MM-yyyy HHmm
 
         return MonthAndYear;
+    }
+
+    public int getCostForMonth(String monthAndYear) throws NullPointerException {
+        return monthlyCosts.get(monthAndYear).getTotalCost();
     }
 }

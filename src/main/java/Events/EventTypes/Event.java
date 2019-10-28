@@ -12,9 +12,9 @@ import java.util.ArrayList;
 public abstract class Event implements Comparable<Event> {
     protected String description;
     protected boolean isDone;
-    protected EventDate startEventDate;
-    protected EventDate endEventDate;
-    protected char eventType;
+    private EventDate startEventDate;
+    private EventDate endEventDate;
+    private char eventType;
     protected ArrayList<Goal> goalsList;
 
     /**
@@ -29,7 +29,7 @@ public abstract class Event implements Comparable<Event> {
         this.isDone = isDone;
         this.startEventDate = new EventDate(dateAndTime);
         this.endEventDate = null; //no end date, set to null
-        this.eventType = 'T'; //event with no end date can only be todo type
+        this.eventType = 'T'; //event with no end date can only be ToDo
         this.goalsList = new ArrayList<>();
     }
 
