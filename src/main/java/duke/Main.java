@@ -41,8 +41,9 @@ public class Main extends Application {
         PlanAttributesStorage planAttributesStorage = new PlanAttributesStorageManager();
         BudgetStorage budgetStorage = new BudgetStorage();
         PaymentListStorage paymentListStorage = new PaymentListStorageManager();
+        logger.info("PaymentListStorage is set");
         storage = new StorageManager(expenseListStorage, planAttributesStorage, budgetStorage, paymentListStorage);
-
+        logger.info("Storage is set");
         model = new DukePP(storage.loadExpenseList(), storage.loadPlanAttributes(), storage.loadBudget(), storage.loadPaymentList());
 
         logic = new LogicManager(model, storage);

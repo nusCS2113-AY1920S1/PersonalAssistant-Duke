@@ -10,7 +10,8 @@ import java.time.format.DateTimeParseException;
 public class Payment {
 
     // private static final int DESCRIPTION_MAX_LENGTH = 500;
-    private static final String NOT_ASSIGNED = "Not assigned yet..";
+    private static final String NOT_ASSIGNED = "";
+    private static final Priority DEFAULT_PRIORITY = Priority.MEDIUM;
 
     private String description;
     private String receiver;
@@ -44,14 +45,13 @@ public class Payment {
     }
 
     public static class Builder {
-        private String description;
-        private String receiver;
+        private String description = NOT_ASSIGNED;
+        private String receiver = NOT_ASSIGNED;
         private LocalDate due;
-        // private int daysToDue;
-        private String remark;
+        private String remark = NOT_ASSIGNED;
 
         private BigDecimal amount;
-        private Priority priority;
+        private Priority priority = DEFAULT_PRIORITY;
 
         public Builder() {
 

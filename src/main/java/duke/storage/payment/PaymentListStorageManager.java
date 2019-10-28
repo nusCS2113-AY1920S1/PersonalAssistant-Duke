@@ -24,13 +24,21 @@ public class PaymentListStorageManager implements PaymentListStorage {
 
     public PaymentListStorageManager() throws IOException {
         FileUtil.createIfMissing(filePath);
+        logger.info("PaymentList.txt file created");
     }
 
     @Override
     public Optional<PaymentList> readPaymentList() throws DukeException {
 
+        logger.info("Entered the JsonStorageManager");
+
+        if(PAYMENTS_FILE.length() == 0) {
+            return Optional.of(new PaymentList());
+        }
+
         Optional<JsonSerializablePaymentList> jsonPaymentList = JsonUtil.readJsonFile(
                 filePath, JsonSerializablePaymentList.class);
+        logger.info("Json file is read");
         if(!jsonPaymentList.isPresent()) {
             return Optional.empty();
         }

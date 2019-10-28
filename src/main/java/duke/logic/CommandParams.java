@@ -13,6 +13,7 @@ import duke.logic.command.GoToCommand;
 import duke.logic.command.PlanBotCommand;
 import duke.logic.command.SortExpenseCommand;
 import duke.logic.command.ViewExpenseCommand;
+import duke.logic.command.payment.*;
 import duke.model.Budget;
 
 import java.util.Arrays;
@@ -58,7 +59,13 @@ public class CommandParams {
         new ViewExpenseCommand(),
         new GoToCommand(),
         new PlanBotCommand(),
-        new BudgetCommand()
+        new BudgetCommand(),
+        new AddPaymentCommand(),
+        new ChangePaymentCommand(),
+        new DeletePaymentCommand(),
+        new FilterPaymentCommand(),
+        new SearchPaymentCommand(),
+        new SortPaymentCommand()
     );
 
     /**

@@ -1,5 +1,7 @@
 package duke.storage;
 
+import duke.Main;
+import duke.commons.LogsCenter;
 import duke.exception.DukeException;
 import duke.model.Budget;
 import duke.model.ExpenseList;
@@ -9,8 +11,11 @@ import duke.storage.payment.PaymentListStorage;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 public class StorageManager implements Storage {
+
+    private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
 
     private ExpenseListStorage expenseListStorage;
     private PlanAttributesStorage planAttributesStorage;
@@ -57,6 +62,7 @@ public class StorageManager implements Storage {
 
     @Override
     public Optional<PaymentList> loadPaymentList() throws DukeException {
+        logger.info("start loading paymentList");
         return paymentListStorage.readPaymentList();
     }
 

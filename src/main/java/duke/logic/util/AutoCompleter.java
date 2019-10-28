@@ -11,6 +11,7 @@ import duke.logic.command.GoToCommand;
 import duke.logic.command.PlanBotCommand;
 import duke.logic.command.SortExpenseCommand;
 import duke.logic.command.ViewExpenseCommand;
+import duke.logic.command.payment.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,7 +85,13 @@ public class AutoCompleter {
             new SortExpenseCommand(),
             new ViewExpenseCommand(),
             new GoToCommand(),
-            new PlanBotCommand()
+            new PlanBotCommand(),
+            new AddPaymentCommand(),
+            new ChangePaymentCommand(),
+            new DeletePaymentCommand(),
+            new FilterPaymentCommand(),
+            new SearchPaymentCommand(),
+            new SortPaymentCommand()
     );
 
     /**

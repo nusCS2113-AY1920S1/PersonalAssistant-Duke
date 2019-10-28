@@ -53,16 +53,21 @@ public class FilterPaymentCommand extends Command {
 
         String timeScope = commandParams.getMainParam().toLowerCase();
 
-        if (timeScope.equals(OUF_OF_DATE_SCOPE)) {
-            model.setOutOfDatePredicate();
-        } else if (timeScope.equals(WEEK_SCOPE)) {
-            model.setWeekPredicate();
-        } else if (timeScope.equals(MONTH_SCOPE)) {
-            model.setMonthPredicate();
-        } else if (timeScope.equals(ALL_SCOPE)) {
-            model.setAllPredicate();
-        } else {
-            throw new DukeException(String.format(DukeException.MESSAGE_PAYMENT_SCOPE_INVALID, timeScope));
+        switch (timeScope) {
+            case OUF_OF_DATE_SCOPE:
+                model.setOutOfDatePredicate();
+                break;
+            case WEEK_SCOPE:
+                model.setWeekPredicate();
+                break;
+            case MONTH_SCOPE:
+                model.setMonthPredicate();
+                break;
+            case ALL_SCOPE:
+                model.setAllPredicate();
+                break;
+            default:
+                throw new DukeException(String.format(DukeException.MESSAGE_PAYMENT_SCOPE_INVALID, timeScope));
         }
 
         return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.PAYMENT);
