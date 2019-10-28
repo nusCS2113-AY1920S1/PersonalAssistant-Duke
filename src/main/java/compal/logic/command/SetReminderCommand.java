@@ -4,6 +4,7 @@ import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
+//@@author Catherinetan99
 public class SetReminderCommand extends Command {
 
     public static final String MESSAGE_USAGE = "set-reminder\n\t"

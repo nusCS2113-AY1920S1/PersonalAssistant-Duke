@@ -20,7 +20,7 @@ public class TaskStorageParser implements StorageParser<Task> {
     public Task parseData(String[] parts) {
         switch (parts[1]) {
         case SYMBOL_DEADLINE:
-            return new Deadline(parts[2], stringToPriority(parts[4]), parts[5], parts[7]);
+            return new Deadline(parts[2], stringToPriority(parts[4]), parts[5], parts[8]);
         case SYMBOL_EVENT:
             return new Event(parts[2], stringToPriority(parts[4]), parts[5], parts[6], parts[7], parts[8]);
         default:
