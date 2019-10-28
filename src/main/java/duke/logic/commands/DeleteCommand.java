@@ -1,11 +1,9 @@
 package duke.logic.commands;
 
-import duke.ui.InputHandler;
 import duke.commons.exceptions.DukeException;
-import duke.model.Meal;
-import duke.model.MealList;
-import duke.model.TransactionList;
-import duke.ui.Ui;
+import duke.model.meal.Meal;
+import duke.model.meal.MealList;
+import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 import duke.model.user.User;
 
@@ -26,46 +24,56 @@ public class DeleteCommand extends Command {
      * @param indexStr the index of meal on the date to be deleted.
      * @param date Date of meal to be deleted.
      */
-    public DeleteCommand(String indexStr, String date) throws DukeException {
+    public DeleteCommand(String indexStr, String date) {
         this(indexStr);
         Date parsedDate;
         try {
             parsedDate = dateFormat.parse(date);
+            currentDate = dateFormat.format(parsedDate);
         } catch (ParseException e) {
-            throw new DukeException("Unable to parse input " + date + " as a date. " + helpText);
+            ui.showMessage("Unable to parse input " + date + " as a date. " + helpText);
         }
-        currentDate = dateFormat.format(parsedDate);
     }
 
     /**
      * Constructor for DeleteCommand.
      * @param indexStr the index of meal to be deleted.
      */
-    public DeleteCommand(String indexStr) throws DukeException {
+    public DeleteCommand(String indexStr) {
         try {
             this.index = Integer.parseInt(indexStr.trim());
         } catch (NumberFormatException nfe) {
-            throw new DukeException("Unable to parse input " + indexStr + " as integer index. " + helpText);
+            ui.showMessage("Unable to parse input " + indexStr + " as integer index. " + helpText);
         }
+    }
+
+    public DeleteCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
     }
 
     /**
      * Executes the DeleteCommand.
      * @param meals the MealList object in which the meals are supposed to be added
-     * @param ui the ui object to display the results of the command to the user
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
-     * @param in the scanner object to handle secondary command IO
-     * @throws DukeException when the index of the object to be deleted is out of bounds
+     * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user,
-                        InputHandler in, TransactionList transactions) throws DukeException {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         if (index <= 0 || index > meals.getMealsList(currentDate).size()) {
-            throw new DukeException("Index provided out of bounds for list of meals on " + currentDate);
+            ui.showMessage("Index provided out of bounds for list of meals on " + currentDate);
+        } else {
+            Meal currentMeal = meals.delete(currentDate, index);
+            ui.showDeleted(currentMeal, meals.getMealsList(currentDate));
+            try {
+                storage.updateFile(meals);
+            } catch (DukeException e) {
+                ui.showMessage(e.getMessage());
+            }
+
         }
-        Meal currentMeal = meals.delete(currentDate, index);
-        ui.showDeleted(currentMeal, meals.getMealsList(currentDate));
-        storage.updateFile(meals);
+        ui.showLine();
     }
 }

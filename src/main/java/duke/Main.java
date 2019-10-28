@@ -1,15 +1,18 @@
 package duke;
 
+import duke.commons.exceptions.DukeException;
 import duke.logic.autocorrect.Autocorrect;
 import duke.logic.commands.Command;
-import duke.commons.exceptions.DukeException;
-import duke.model.TransactionList;
-import duke.storage.Storage;
-import duke.model.MealList;
-import duke.ui.InputHandler;
-import duke.ui.Ui;
+import duke.logic.commands.UserSetup;
 import duke.logic.parsers.Parser;
+import duke.model.meal.MealList;
 import duke.model.user.User;
+import duke.model.wallet.TransactionList;
+import duke.model.wallet.Wallet;
+import duke.storage.Storage;
+import duke.ui.Ui;
+
+import java.util.Scanner;
 
 /**
  * Main is a public class that contains the main function to drive the program.
@@ -19,20 +22,25 @@ public class Main {
     private Storage storage;
     private MealList meals = new MealList();
     private Ui ui;
-    private InputHandler in = new InputHandler(System.in);
+    private Scanner in = new Scanner(System.in);
     private User user;
-    private Autocorrect autocorrect = new Autocorrect();
+    private Autocorrect autocorrect;
     private TransactionList transactions = new TransactionList();
+    private UserSetup setup;
+    private Wallet wallet;
 
     /**
      * This is a constructor of Duke to start the program.
      */
     public Main() {
         ui = new Ui();
-        storage = new Storage();
         user = new User();
+        setup = new UserSetup(user);
+        autocorrect = new Autocorrect();
+        wallet = new Wallet();
         try {
-            storage.load(meals);
+            storage = new Storage();
+            storage.load(meals, user);
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
             meals = new MealList();
@@ -40,16 +48,17 @@ public class Main {
         try {
             user = storage.loadUser(); //load user info
         } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
             ui.showUserLoadingError();
         }
+        setup = new UserSetup(user);
         try {
             storage.loadWord(autocorrect);
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
         }
         try {
-            //TODO: Implement in different function
-            storage.loadTransactions(transactions, user);
+            storage.loadTransactions(transactions, wallet);
         } catch (DukeException e) {
             ui.showLoadingTransactionError();
         }
@@ -59,34 +68,31 @@ public class Main {
      *  Run is a function that generate the flow of duke program from beginning until the end.
      */
     public void run() {
-        if (!user.getIsSetup()) {
-            ui.showWelcomeNew();
-        } else {
-            ui.showWelcomeBack(user);
+        setup.start();
+        while (!setup.getIsDone()) { //setup user profile if it's empty
+            String info = in.nextLine();
+            setup.initialise(info);
         }
-        while (!user.getIsSetup()) { //setup user profile if it's empty
-            try {
-                user.setup();
-                ui.showUserSetupDone(user);
-                storage.saveUser(user);
-            } catch (DukeException e) {
-                ui.showMessage(e.getMessage());
-            }
-        }
+        user = setup.getUser();
         boolean isExit = false;
-        ui.showWelcome();
         Parser userParser = new Parser(autocorrect);
         while (!isExit) {
             try {
-                String fullCommand = in.getString();
-                ui.showLine();
+                String fullCommand = in.nextLine();
                 Command c = userParser.parse(fullCommand);
-                c.execute(meals, ui, storage, user, in, transactions);
+                if (c.isFail()) {
+                    c.failure();
+                } else {
+                    c.execute(meals, storage, user, wallet);
+                    while (!c.isDone()) {
+                        String word = in.nextLine();
+                        c.setResponse(word);
+                        c.execute(meals, storage, user, wallet);
+                    }
+                }
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showMessage(e.getMessage());
-            } finally {
-                ui.showLine();
             }
         }
     }

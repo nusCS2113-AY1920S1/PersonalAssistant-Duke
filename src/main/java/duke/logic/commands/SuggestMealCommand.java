@@ -1,18 +1,14 @@
 package duke.logic.commands;
 
-import duke.ui.InputHandler;
-import duke.commons.exceptions.DukeException;
 import duke.logic.suggestion.MealSuggestionAnalytics;
-import duke.model.MealList;
-import duke.model.TransactionList;
+import duke.model.meal.MealList;
 import duke.model.user.User;
+import duke.model.wallet.Wallet;
 import duke.storage.Storage;
-import duke.ui.Ui;
 
 public class SuggestMealCommand extends Command {
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user,
-                        InputHandler in, TransactionList transactionList) throws DukeException {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         /*
         TODO: analyze the list of SuggestMeal objects as well as the current calorie goal of the
               user, the date provided and the user meal parameters provided to get the best meal

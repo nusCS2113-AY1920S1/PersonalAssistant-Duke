@@ -1,16 +1,12 @@
-package duke.model;
+package duke.model.meal;
 
 import duke.commons.exceptions.DukeException;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-
-import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
  * MealList is a public class that represents the list of meals under DIYeats.

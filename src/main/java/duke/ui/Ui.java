@@ -1,10 +1,9 @@
 package duke.ui;
 
 import duke.model.Goal;
-import duke.model.Meal;
-import duke.model.MealList;
-import duke.model.Transaction;
+import duke.model.meal.Meal;
 import duke.model.user.User;
+import duke.model.wallet.Transaction;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,14 +14,6 @@ public class Ui {
     private static final String UI_BOUNDARY = "    ____________________________________________________________";
     public Scanner in = new Scanner(System.in);
 
-    public void showWelcome() {
-        System.out.println(UI_BOUNDARY);
-        System.out.println(UI_PADDING + "Hello! I'm DIYeats");
-        System.out.println(UI_PADDING + "What can I do for you?");
-        System.out.println(UI_BOUNDARY);
-        System.out.println();
-    }
-
     public void showLine() {
         System.out.println(UI_BOUNDARY);
     }
@@ -32,7 +23,9 @@ public class Ui {
     }
 
     public void showBye() {
-        System.out.println("     " + "Bye. Hope to see you again soon!");
+        System.out.println(UI_BOUNDARY);
+        System.out.println(UI_PADDING + "Bye. Hope to see you again soon!");
+        System.out.println(UI_BOUNDARY);
     }
 
     public void showList(ArrayList<Meal> meals)  {
@@ -110,39 +103,8 @@ public class Ui {
         System.out.println(UI_PADDING + "Unable to load user file.");
     }
 
-    public void showWelcomeNew() {
-        System.out.println(UI_PADDING + "Welcome!");
-        System.out.println(UI_PADDING + "I see that you're new.");
-        System.out.println(UI_PADDING + "Please enter your particulars to get started!");
-    }
-
-    public void showWelcomeBack(User user) {
-        System.out.println(UI_PADDING + "Welcome back, "  + user.getName());
-    }
-
-    public void showUserSetupDone(User user) {
-        System.out.println(UI_PADDING + "Thanks, " + user.getName() + "!");
-        System.out.println(UI_PADDING + "We are done setting up!");
-    }
-
     public void showCalorie(User user) {
         System.out.println(UI_PADDING + "This is your daily calorie limit: " + user.getDailyCalorie());
-    }
-
-    public void showRemainingCalorie(ArrayList<Meal> mealsOfDay, User user, int remainingCalories) {
-        int limit = user.getDailyCalorie();
-        int consumeTotal = 0;
-        for (int i = 0; i < mealsOfDay.size(); i++) {
-            if (mealsOfDay.get(i).getIsDone()) {
-                consumeTotal += mealsOfDay.get(i).getNutritionalValue().get("calorie");
-            }
-        }
-        if (remainingCalories == -1) {
-            System.out.println(UI_PADDING + "You have this many calories left today: " + (limit - consumeTotal));
-        } else {
-            System.out.println(UI_PADDING + "You have this many calories left today: "
-                    + (remainingCalories - consumeTotal));
-        }
     }
 
     public void showHelp(ArrayList<String> helpLines) {
@@ -165,6 +127,20 @@ public class Ui {
                 System.out.println(UI_PADDING + UI_PADDING + (idx + 1) + ". " + commandHistoryList.get(idx));
             }
         }
+    }
+
+    public void showWeightUpdate(User user, int weight, String date) {
+        System.out.println(UI_PADDING + user.getName() + ", your weight has been updated on "
+                + date + " to " + weight + "kg.");
+    }
+
+    public void showRejected() {
+        System.out.println(UI_PADDING + "Understood, I've stopped the update.");
+    }
+
+    public void showConfirmation(String weight, String date) {
+        System.out.println(UI_PADDING + "You have entered " + weight + " on " + date + ".");
+        System.out.println(UI_PADDING + "Would you like to overwrite the record on " + date + "?(Y/N)");
     }
 
     public void showTransactionAdded(Transaction transaction, BigDecimal accountBalance) {

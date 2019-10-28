@@ -1,7 +1,7 @@
 package duke.storage;
 
-import duke.model.Transaction;
-import duke.model.TransactionList;
+import duke.model.wallet.Transaction;
+import duke.model.wallet.TransactionList;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -14,6 +14,10 @@ public class InputHandler {
         this.in = new Scanner(inputStream);
     }
 
+    public InputHandler(String inputStream) {
+        this.in = new Scanner(inputStream);
+    }
+
     public String getString() throws DukeException {
         try {
             String string = in.nextLine();

@@ -2,33 +2,33 @@ package duke.model.user;
 
 import duke.commons.exceptions.DukeException;
 import duke.model.Goal;
-import duke.model.MealList;
-import duke.model.Transaction;
+import duke.model.meal.MealList;
+import duke.model.wallet.Account;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Scanner;
+import java.util.HashMap;
 
 /**
  * This is a class that will store user information to be used for processing.
  */
 public class User {
-    private ArrayList<Tuple> weight = new ArrayList();
-    private double originalWeight;
+    private HashMap<String, Double> weight = new HashMap();
     private int height = 0;
-    private int age;
-    private Gender gender;
+    private int age = 0;
+    private Gender gender = null;
     private boolean isSetup;
-    private String name;
-    private int activityLevel;
+    private String name = null;
+    private int activityLevel = 5;
     private double[] factor = {1.2, 1.375, 1.55, 1.725, 1.9};
     private Account account;
     private Goal goal = null;
+    private String lastDate = "28/10/2019";
+    private double originalWeight;
 
     /**
      * This is a contructor to create an empty user profile.
@@ -47,8 +47,7 @@ public class User {
      * @param activityLevel how active the user is
      * @param originalWeight their original weight
      */
-    public User(String name, int age, int height, Gender gender, int activityLevel, int originalWeight,
-                BigDecimal accountBalance) {
+    public User(String name, int age, int height, Gender gender, int activityLevel, double originalWeight) {
         this.name = name;
         this.height = height;
         this.age = age;
@@ -56,70 +55,6 @@ public class User {
         this.isSetup = true;
         this.activityLevel = activityLevel;
         this.originalWeight = originalWeight;
-        this.account = new Account(accountBalance);
-    }
-
-    /**
-     * This is a contructor to update an empty user profile with all the info.
-     * Used during startup.
-     */
-
-    public void setup() throws DukeException {
-        Scanner in = new Scanner(System.in);
-        String name;
-        double weight = 0;
-        int height = 0;
-        System.out.println("     Input name");
-        name = in.nextLine();
-        try {
-            System.out.println("     Input age");
-            height = Integer.parseInt(in.nextLine());
-        } catch (NumberFormatException e) {
-            throw new DukeException(e.getMessage());
-        }
-        try {
-            System.out.println("     Input weight(kg)");
-            weight = Double.parseDouble(in.nextLine());
-        } catch (NumberFormatException e) {
-            throw new DukeException(e.getMessage());
-        }
-        try {
-            System.out.println("     Input height(cm)");
-            height = Integer.parseInt(in.nextLine());
-        } catch (NumberFormatException e) {
-            throw new DukeException(e.getMessage());
-        }
-        System.out.println("     Input gender(Male/Female)");
-        String gender = in.nextLine();
-        if (gender.charAt(0) == 'M') {
-            this.gender = Gender.MALE;
-        } else {
-            this.gender = Gender.FEMALE;
-        }
-        int activityLevel = 5;
-        while (activityLevel > 4 || activityLevel < 0) {
-            System.out.println("     Input Activity Level");
-            System.out.println("     1) Sedentary (Little or no exercise, desk job");
-            System.out.println("     2) Lightly active (Light exercise/ sports 1-3 days/week");
-            System.out.println("     3) Moderately active (Moderate exercise/ sports 6-7 days/week)");
-            System.out.println("     4) Very active (Hard exercise every day, or exercising 2 xs/day) ");
-            System.out.println("     5) Extra active (Hard exercise 2 or more times per day, or training for\n"
-                    + "marathon, or triathlon, etc. )");
-            try {
-                activityLevel = Integer.parseInt(in.nextLine()) - 1;
-            } catch (NumberFormatException e) {
-                throw new DukeException(e.getMessage());
-            }
-        }
-        System.out.println("      What is your initial account balance? (in SGD)");
-        BigDecimal accountBalance = new BigDecimal(in.nextLine());
-        this.account = new Account(accountBalance);
-        this.name = name;
-        this.originalWeight = weight;
-        setWeight(weight);
-        this.height = height;
-        this.activityLevel = activityLevel;
-        this.isSetup = true;
     }
 
     /**
@@ -130,7 +65,18 @@ public class User {
         Calendar calendarDate = Calendar.getInstance();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String currentDate = dateFormat.format(calendarDate.getTime());
-        this.weight.add(new Tuple(currentDate, weight));
+        this.weight.put(currentDate, weight);
+        Date lastDateDate = new Date();
+        try {
+            lastDateDate = dateFormat.parse(lastDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Calendar lastDateCalendar = Calendar.getInstance();
+        lastDateCalendar.setTime(lastDateDate);
+        if (calendarDate.after(lastDateCalendar)) {
+            this.lastDate = currentDate;
+        }
     }
 
     /**
@@ -138,7 +84,7 @@ public class User {
      * @param weight Weight at time of input
      * @param date String of the date in DD/MM/YYYY format
      */
-    public void setWeight(int weight, String date) throws DukeException {
+    public void setWeight(double weight, String date) throws DukeException {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date temp;
         try {
@@ -147,7 +93,27 @@ public class User {
             throw new DukeException(e.getMessage());
         }
         String currentDate = dateFormat.format(temp.getTime());
-        this.weight.add(new Tuple(currentDate, weight));
+        Date lastDateDate = new Date();
+        try {
+            lastDateDate = dateFormat.parse(lastDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.weight.put(currentDate, weight);
+        Calendar lastDateCalendar = Calendar.getInstance();
+        lastDateCalendar.setTime(lastDateDate);
+
+        Date currDateDate = new Date();
+        try {
+            currDateDate = dateFormat.parse(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Calendar currDateCalendar = Calendar.getInstance();
+        currDateCalendar.setTime(currDateDate);
+        if (lastDateCalendar.before(currDateCalendar)) {
+            this.lastDate = date;
+        }
     }
 
     public boolean setGoal(Goal goal, boolean override) {
@@ -156,6 +122,7 @@ public class User {
         } else {
             goal.setOriginalWeight(originalWeight);
             this.goal = goal;
+            calculateTargetCalories();
             return true;
         }
     }
@@ -165,26 +132,12 @@ public class User {
         this.account.deposit(depositAmount);
     }
 
-    public BigDecimal getAccountBalance() {
-        return this.account.getAmount();
+    public void setOriginalWeight(double originalWeight) {
+        this.originalWeight = originalWeight;
     }
 
-    public void setAccountBalance(BigDecimal accountBalance) {
-        this.account.setAmount(accountBalance);
-    }
-
-    public void updateAccountBalance(Transaction transaction) {
-        BigDecimal transactionAmount = transaction.getTransactionAmount();
-        if (transaction.getType().equals("PAY")) {
-            this.account.withdraw(transactionAmount);
-        } else if (transaction.getType().equals("DEP")) {
-            this.account.deposit(transactionAmount);
-        }
-    }
-
-    //TODO: might want to refactor (1 DoS)
-    public String getCurrency() {
-        return account.getCurrency();
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setHeight(int height) {
@@ -203,6 +156,14 @@ public class User {
         this.goal.updateStats(meals);
     }
 
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public void setIsSetup() {
+        this.isSetup = true;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -211,8 +172,12 @@ public class User {
         return this.age;
     }
 
+    public String getLastDate() {
+        return this.lastDate;
+    }
+
     public double getWeight() {
-        return this.weight.get(this.weight.size() - 1).weight;
+        return this.weight.get(getLastDate());
     }
 
     public double getOriginalWeight() {
@@ -230,7 +195,7 @@ public class User {
     /**
      * This is a function to obtain all the weight at different date.
      */
-    public ArrayList<Tuple> getAllWeight() {
+    public HashMap<String, Double> getAllWeight() {
         return this.weight;
     }
 
@@ -262,6 +227,12 @@ public class User {
         } else {
             return getCalorieChangeToReachTarget() / getDaysLeftToGoal();
         }
+    }
+
+    public void calculateTargetCalories() {
+        int target = getDailyCalorie() * goal.durationOfGoal()
+                - getCalorieChangeToReachTarget();
+        goal.setCalorieTarget(target);
     }
 
     public int getCalorieBalance() {

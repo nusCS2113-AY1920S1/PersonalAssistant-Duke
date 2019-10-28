@@ -1,8 +1,7 @@
 package duke.logic.commands;
 
-import duke.ui.InputHandler;
-import duke.model.MealList;
-import duke.model.TransactionList;
+import duke.model.meal.MealList;
+import duke.model.wallet.Wallet;
 import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.commons.exceptions.DukeException;
@@ -20,20 +19,39 @@ public abstract class Command {
     protected DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     protected Calendar calendarDate = Calendar.getInstance();
     protected String currentDate = dateFormat.format(calendarDate.getTime());
+    protected Ui ui = new Ui();
+    protected String response;
+    protected boolean isDone = true;
+    protected boolean isFail = false;
+    protected String error;
+    protected int stage = 0;
+
 
     /**
      * This class is an abstract class that will change according to the inheritor.
      * @param meals the MealList object in which the meals are supposed to be added
-     * @param ui the ui object to display the results of the command to the user
-     * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
-     * @param in the scanner object to handle secondary command IO
      * @throws DukeException when there is an error
      */
-    public abstract void execute(MealList meals, Ui ui, Storage storage, User user,
-                                 InputHandler in, TransactionList transactions) throws DukeException;
+    public abstract void execute(MealList meals, Storage storage, User user, Wallet wallet);
+
+    public void setResponse(String response) {
+        this.response = response;
+    }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
 
     public boolean isExit() {
         return false;
+    }
+
+    public void failure() {
+        ui.showMessage(this.error);
+    }
+
+    public boolean isFail() {
+        return this.isFail;
     }
 }

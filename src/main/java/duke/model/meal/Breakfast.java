@@ -1,4 +1,4 @@
-package duke.model;
+package duke.model.meal;
 
 /**
  * breakfast is a public class that extends from meal.

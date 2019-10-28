@@ -2,6 +2,7 @@ package duke.logic.parsers;
 
 import duke.logic.commands.Command;
 import duke.commons.exceptions.DukeException;
+import duke.ui.Ui;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -11,7 +12,7 @@ import java.text.SimpleDateFormat;
  * @param <T> type of Command returned.
  */
 public interface ParserInterface<T extends Command> {
-
+    Ui ui = new Ui();
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     /**
      * Parses user input into a Command of type T and returns it.

@@ -15,6 +15,7 @@ public class ListCommandParser implements ParserInterface<ListCommand> {
      * @throws DukeException if the user input cannot be parsed
      */
     @Override
+
     public ListCommand parse(String userInput) throws DukeException {
         return new ListCommand(userInput);
     }

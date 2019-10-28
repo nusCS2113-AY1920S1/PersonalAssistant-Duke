@@ -15,7 +15,8 @@ public class HelpCommandParser implements ParserInterface<HelpCommand> {
      * @throws DukeException If the userInput cannot be parsed
      */
     @Override
-    public HelpCommand parse(String userInput) throws DukeException {
+
+    public HelpCommand parse(String userInput) {
         return new HelpCommand(userInput);
     }
 }

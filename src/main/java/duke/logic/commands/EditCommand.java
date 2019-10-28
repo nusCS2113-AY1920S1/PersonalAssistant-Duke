@@ -1,13 +1,11 @@
 package duke.logic.commands;
 
-import duke.ui.InputHandler;
 import duke.commons.exceptions.DukeException;
-import duke.model.TransactionList;
-import duke.storage.Storage;
-import duke.model.Meal;
-import duke.model.MealList;
-import duke.ui.Ui;
+import duke.model.meal.Meal;
+import duke.model.meal.MealList;
 import duke.model.user.User;
+import duke.model.wallet.Wallet;
+import duke.storage.Storage;
 
 public class EditCommand extends Command {
     private Meal updatedMeal;
@@ -20,21 +18,28 @@ public class EditCommand extends Command {
         this.updatedMeal = meal;
     }
 
+    public EditCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
+    }
     /**
      * Executes the EditCommand.
      * @param meals the MealList object in which the meals are supposed to be added
-     * @param ui the ui object to display the results of the command to the user
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
-     * @param in the scanner object to handle secondary command IO
-     * @throws DukeException if there is a parsing error for the date
+     * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user,
-                        InputHandler in, TransactionList transactions) throws DukeException {
-        updatedMeal = meals.updateMeal(updatedMeal);
-        String dateStr = updatedMeal.getDate();
-        ui.showUpdated(this.updatedMeal, meals.getMealsList(this.updatedMeal.getDate()), user, dateStr);
-        storage.updateFile(meals);
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
+        try {
+            updatedMeal = meals.updateMeal(updatedMeal);
+            String dateStr = updatedMeal.getDate();
+            ui.showUpdated(this.updatedMeal, meals.getMealsList(this.updatedMeal.getDate()), user, dateStr);
+            storage.updateFile(meals);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
+        ui.showLine();
     }
 }

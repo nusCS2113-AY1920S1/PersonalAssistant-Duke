@@ -1,5 +1,7 @@
 package duke.model;
 
+import duke.model.meal.Meal;
+
 /**
  * item is a public class that extends from meal.
  */

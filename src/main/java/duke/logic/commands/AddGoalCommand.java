@@ -2,10 +2,11 @@ package duke.logic.commands;
 
 import duke.ui.InputHandler;
 import duke.commons.exceptions.DukeException;
-import duke.model.TransactionList;
+import duke.model.wallet.TransactionList;
+import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 import duke.model.Goal;
-import duke.model.MealList;
+import duke.model.meal.MealList;
 import duke.ui.Ui;
 import duke.model.user.User;
 
@@ -28,69 +29,89 @@ public class AddGoalCommand extends Command {
     public AddGoalCommand() {
     }
 
+    public AddGoalCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
+    }
+
     /**
      * Executes AddGoalCommand.
-     * @param meals the MealList object in which the meal is supposed to be added
-     * @param ui the ui object to display the user interface of an "add" command
-     * @param storage the storage object that stores the list of meals
-     * @param in the scanner object to handle secondary command IO
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user,
-                        InputHandler in, TransactionList transactions) throws DukeException {
-        this.ui = ui;
-        this.user = user;
-        this.in = in;
-        askForStartDate();;
-        askForEndDate();
-        askForWeightTarget();
-        askForTargetLifestyle();
-        writeGoalToUser(user);
-        storage.updateGoal(user);
-    }
-
-    private void askForStartDate() throws DukeException {
-        ui.showQueryStartDate();
-        String date = in.getDate();
-        goal.setStartDate(date);
-    }
-
-    private void askForEndDate() throws DukeException {
-        ui.showQueryEndDate();
-        String date = in.getDate();
-        goal.setEndDate(date);
-    }
-
-    private void askForWeightTarget() throws DukeException {
-        ui.showQueryTargetWeight();
-        double weight = in.getDouble();
-        goal.setWeightTarget(weight);
-    }
-
-    private void askForTargetLifestyle() throws DukeException {
-        int activityLevel = 5;
-        ui.showQueryTargetLifestyle();
-        if (in.getApproval()) {
-            while (activityLevel > 4 || activityLevel < 0) {
-                ui.showActivityLevel();
-                activityLevel = in.getInt() - 1;
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        isDone = false;
+        ui.showLine();
+        InputHandler in = new InputHandler(response);
+        try {
+            switch(stage) {
+                case 0:
+                    ui.showQueryStartDate();
+                    break;
+                case 1:
+                    String startDate = in.getDate();
+                    goal.setStartDate(startDate);
+                    ui.showQueryEndDate();
+                    break;
+                case 2:
+                    String endDate = in.getDate();
+                    goal.setEndDate(endDate);
+                    ui.showQueryTargetWeight();
+                    break;
+                case 3:
+                    double weight = in.getDouble();
+                    goal.setWeightTarget(weight);
+                    ui.showQueryTargetLifestyle();
+                    break;
+                case 4:
+                    if (in.getApproval()) {
+                        ui.showActivityLevel();
+                    } else {
+                        goal.setLifestyleTarget(5);
+                        if (user.setGoal(goal, false)) {
+                            ui.succeedSetGoal();
+                            isDone = true;
+                        } else {
+                            ui.queryOverrideExistingGoal();
+                            stage++; //skip the next stage
+                        }
+                    }
+                    break;
+                case 5:
+                    int activityLevel = in.getInt() - 1;
+                    if (activityLevel >= 5 || activityLevel < 0) {
+                        throw new DukeException("Please enter a valid activity level.");
+                    } else {
+                        goal.setLifestyleTarget(activityLevel);
+                    }
+                    if (user.setGoal(goal, false)) {
+                        ui.succeedSetGoal();
+                        isDone = true;
+                    } else {
+                        ui.queryOverrideExistingGoal();
+                    }
+                    break;
+                case 6:
+                    if (in.getApproval()) {
+                        user.setGoal(goal, true);
+                        ui.succeedSetGoal();
+                        isDone = true;
+                    } else {
+                        ui.failSetGoal();
+                        isDone = true;
+                    }
+                    break;
+                default:
+                    isDone = true;
+                    throw new DukeException("There is a problem with the setgoal command.");
             }
-        }
-        goal.setLifestyleTarget(activityLevel);
-    }
-
-    private void writeGoalToUser(User user) throws DukeException {
-        goal.setCalorieTarget(user.getDailyCalorie() * goal.durationOfGoal() - user.getCalorieChangeToReachTarget());
-        if (user.setGoal(goal, false) == false) {
-            ui.queryOverrideExistingGoal();
-            if (in.getApproval()) {
-                user.setGoal(goal, true);
-                ui.succeedSetGoal();
-            } else {
-                ui.failSetGoal();
-            }
-        } else {
-            ui.succeedSetGoal();
+            ui.showLine();
+            stage++;
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
         }
     }
 }

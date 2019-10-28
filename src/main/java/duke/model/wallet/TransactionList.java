@@ -1,6 +1,4 @@
-package duke.model;
-
-import duke.model.user.User;
+package duke.model.wallet;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -44,6 +42,10 @@ public class TransactionList {
             transactionTracker.put(dateStr, new ArrayList<>());
             return transactionTracker.get(dateStr);
         }
+    }
+
+    public HashMap<String, ArrayList<Transaction>> getTransactionList() {
+        return this.transactionTracker;
     }
 
     public HashMap<String, ArrayList<Transaction>> getTransactionTracker() {

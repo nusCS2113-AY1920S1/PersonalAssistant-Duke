@@ -1,6 +1,8 @@
 package duke.model;
 
 import duke.commons.exceptions.DukeException;
+import duke.model.meal.Meal;
+import duke.model.meal.MealList;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -61,6 +63,42 @@ public class Goal {
         this.calorieTarget = calorieTarget;
     }
 
+    /**
+     * This is a getter for date.
+     * @return description of the task
+     */
+    public String getEndDate() {
+        return this.endDate;
+    }
+
+    public String getStartDate() {
+        return this.startDate;
+    }
+
+    public double getWeightTarget() {
+        return this.weightTarget;
+    }
+
+    public int getCalorieTarget() {
+        return this.calorieTarget;
+    }
+
+    public int getCaloriesLeft() {
+        return this.caloriesLeft;
+    }
+
+    public int getCaloriesConsumed() {
+        return this.caloriesConsumed;
+    }
+
+    public int getLifestyleTarget() {
+        return this.lifestyleTarget;
+    }
+
+    public double getWeightDifference() {
+        return this.weightTarget - this.originalWeight;
+    }
+
     public void updateStats(MealList meals) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         LocalDate startDate = LocalDate.parse(this.startDate, formatter);
@@ -93,18 +131,6 @@ public class Goal {
         return caloriesConsumed;
     }
 
-    /**
-     * This is a getter for date.
-     * @return description of the task
-     */
-    public String getEndDate() {
-        return this.endDate;
-    }
-
-    public String getStartDate() {
-        return this.startDate;
-    }
-
     public int daysElapsedSinceStart() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         LocalDate startDate = LocalDate.parse(this.startDate, formatter);
@@ -127,30 +153,6 @@ public class Goal {
         LocalDate endDate = LocalDate.parse(this.endDate, formatter);
         int duration = (int) DAYS.between(startDate,endDate);
         return duration;
-    }
-
-    public double getWeightTarget() {
-        return this.weightTarget;
-    }
-
-    public int getCalorieTarget() {
-        return this.calorieTarget;
-    }
-
-    public int getCaloriesLeft() {
-        return this.caloriesLeft;
-    }
-
-    public int getCaloriesConsumed() {
-        return this.caloriesConsumed;
-    }
-
-    public int getLifestyleTarget() {
-        return this.lifestyleTarget;
-    }
-
-    public double getWeightDifference() {
-        return this.weightTarget - this.originalWeight;
     }
 
     /**

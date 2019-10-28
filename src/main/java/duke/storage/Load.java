@@ -1,10 +1,13 @@
 package duke.storage;
 
 import duke.commons.exceptions.DukeException;
+import duke.commons.file.FilePaths;
+import duke.commons.file.FileUtil;
 import duke.logic.autocorrect.Autocorrect;
-import duke.model.MealList;
-import duke.model.TransactionList;
+import duke.model.meal.MealList;
 import duke.model.user.User;
+import duke.model.wallet.TransactionList;
+import duke.model.wallet.Wallet;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,53 +17,63 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import static duke.commons.FilePaths.AUTOCORRECT_FILE;
-import static duke.commons.FilePaths.GOAL_FILE;
-import static duke.commons.FilePaths.TRANSACTION_FILE;
-import static duke.commons.FilePaths.USER_FILE;
+import static duke.commons.file.FilePaths.FilePathNames;
 
 /**
  * This object is in charge of all reading from save operations.
  */
 public class Load {
     private BufferedReader bufferedReader = null;
-    private String line;
+    private String lineStr;
+    private static FilePaths filePaths;
+    // Flag to set if jar resource should be called if user file does not exist in host system.
+    private static final boolean useResourceAsBackup = true;
+
+    public Load() {
+        filePaths = new FilePaths();
+    }
 
     /**
      * The function will act to load txt file specified by the filepath, parse it and store it in a new task ArrayList
      * to be added in that MealList.
      * @throws DukeException if either the object is unable to open file or it is unable to read the file
      */
-    public void loadMeals(MealList meals, File directory) throws DukeException {
-        validateFile(directory);
+    public void loadFile(MealList meals, String fileStr) throws DukeException {
+        bufferedReader = FileUtil.readFile(fileStr, useResourceAsBackup);
         try {
-            while ((line = bufferedReader.readLine()) != null) {
-                LoadLineParser.parse(meals, line);
-            }
+            List<String> lines = bufferedReader.lines().collect(Collectors.toList());
+            LoadLineParser.parseMealList(meals, lines);
             bufferedReader.close();
         } catch (FileNotFoundException e) {
             throw new DukeException("Unable to open file");
         } catch (IOException e) {
-            throw new DukeException("Error reading file");
+            throw new DukeException("Error reading file. Unable to close file.");
         }
     }
 
     public void loadGoals(User user) throws DukeException {
-        validateFile(GOAL_FILE);
+        String goalFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_GOAL_FILE);
+        bufferedReader = FileUtil.readFile(goalFilePathStr, useResourceAsBackup);
         try {
-            line = bufferedReader.readLine();
-            LoadLineParser.parseGoal(user, line);
+            lineStr = bufferedReader.readLine();
+            LoadLineParser.parseGoal(user, lineStr);
         } catch (IOException e) {
             throw new DukeException("Error reading file");
         }
     }
 
-    public void loadTransactions(TransactionList transactions, User user) throws DukeException {
-        validateFile(TRANSACTION_FILE);
+
+    public void loadTransactions(TransactionList transactions, Wallet wallet) throws DukeException {
+        String transactionFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_TRANSACTION_FILE);
+        bufferedReader = FileUtil.readFile(transactionFilePathStr, useResourceAsBackup);
         try {
-            while ((line = bufferedReader.readLine()) != null) {
-                LoadLineParser.parseTransactions(transactions, line, user);
+            lineStr = bufferedReader.readLine();
+            wallet.setAccountBalance(Integer.parseInt(lineStr));
+            while ((lineStr = bufferedReader.readLine()) != null) {
+                LoadLineParser.parseTransactions(transactions, lineStr, wallet);
             }
             bufferedReader.close();
         } catch (IOException e) {
@@ -69,32 +82,30 @@ public class Load {
     }
 
     public User loadUser() throws DukeException {
+        String userFileStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_USER_FILE);
         User tempUser;
-        if (USER_FILE.length() == 0) { //user.txt has nothing
-            return new User();
-        } else {
-            try {
-                bufferedReader = new BufferedReader(new FileReader(USER_FILE));
-                String line = bufferedReader.readLine();
-                tempUser = LoadLineParser.parseUser(line);
-                while ((line = bufferedReader.readLine()) != null) {
-                    String[] splitWeightInfo = line.split("\\|");
-                    tempUser.setWeight(Integer.parseInt(splitWeightInfo[1]), splitWeightInfo[0]);
-                }
-                bufferedReader.close();
-                loadGoals(tempUser);
-                return tempUser;
-            } catch (Exception e) {
-                throw new DukeException(e.getMessage());
+        bufferedReader = FileUtil.readFile(userFileStr, useResourceAsBackup);
+        try {
+            lineStr = bufferedReader.readLine();
+            System.out.println(lineStr);
+            tempUser = LoadLineParser.parseUser(lineStr);
+            while ((lineStr = bufferedReader.readLine()) != null) {
+                String[] splitWeightInfo = lineStr.split("\\|");
+                tempUser.setWeight(Integer.parseInt(splitWeightInfo[1]), splitWeightInfo[0]);
             }
+            bufferedReader.close();
+            return tempUser;
+        } catch (Exception e) {
+            throw new DukeException(e.getMessage());
         }
     }
 
     public void loadAutoCorrect(Autocorrect autocorrect) throws DukeException {
         try {
-            bufferedReader = new BufferedReader(new FileReader(AUTOCORRECT_FILE));
-            while ((line = bufferedReader.readLine()) != null) {
-                autocorrect.load(line.trim());
+            String autocorrectFileStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_AUTOCORRECT_FILE);
+            bufferedReader = FileUtil.readFile(autocorrectFileStr, useResourceAsBackup);
+            while ((lineStr = bufferedReader.readLine()) != null) {
+                autocorrect.load(lineStr.trim());
             }
             bufferedReader.close();
         } catch (Exception e) {
@@ -103,15 +114,10 @@ public class Load {
     }
 
     public void loadHelp(ArrayList<String> lines, String specifiedHelp) throws DukeException {
-        File helpFile = LoadHelpUtil.load(specifiedHelp);
+        BufferedReader bufferedReader = LoadHelpUtil.load(specifiedHelp);
         try {
-            bufferedReader = new BufferedReader(new FileReader(helpFile));
-        } catch (Exception e) {
-            throw new DukeException("Unable to access help file");
-        }
-        try {
-            while ((line = bufferedReader.readLine()) != null) {
-                lines.add(line);
+            while ((lineStr = bufferedReader.readLine()) != null) {
+                lines.add(lineStr);
             }
             bufferedReader.close();
         } catch (IOException e) {

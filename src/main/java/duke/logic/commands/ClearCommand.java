@@ -1,11 +1,9 @@
 package duke.logic.commands;
 
-import duke.ui.InputHandler;
 import duke.commons.exceptions.DukeException;
-import duke.model.TransactionList;
+import duke.model.wallet.Wallet;
 import duke.storage.Storage;
-import duke.model.MealList;
-import duke.ui.Ui;
+import duke.model.meal.MealList;
 import duke.model.user.User;
 
 import java.text.ParseException;
@@ -26,32 +24,41 @@ public class ClearCommand extends Command {
      * @param endDateStr the end of the time period to be cleared, inclusive
      * @throws DukeException if the inputs cannot be parsed
      */
-    public ClearCommand(String startDateStr, String endDateStr) throws DukeException {
+    public ClearCommand(String startDateStr, String endDateStr) {
         try {
             startDate = dateFormat.parse(startDateStr);
             endDate = dateFormat.parse(endDateStr);
         } catch (ParseException e) {
-            throw new DukeException("Unable to parse input " + startDateStr + " and " + endDateStr + " as dates.");
+            ui.showMessage("Unable to parse input " + startDateStr + " and " + endDateStr + " as dates.");
         }
+    }
+
+    public ClearCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
     }
 
     /**
      * Executes the ClearCommand.
      * @param meals the MealList object in which the meals are supposed to be added
-     * @param ui the ui object to display the results of the command to the user
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
-     * @param in the scanner object to handle secondary command IO
+     * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user,
-                        InputHandler in, TransactionList transactions) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         Calendar cal = Calendar.getInstance();
         cal.setTime(startDate);
         for (cal.setTime(startDate); !cal.getTime().after(endDate); cal.add(Calendar.DATE, 1)) {
             meals.deleteAllMealsOnDate(dateFormat.format(cal.getTime()));
         }
         ui.showCleared(dateFormat.format(startDate), dateFormat.format(endDate));
-        storage.updateFile(meals);
+        try {
+            storage.updateFile(meals);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
+        ui.showLine();
     }
 }

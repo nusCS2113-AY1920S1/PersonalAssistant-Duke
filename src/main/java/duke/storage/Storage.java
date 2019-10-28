@@ -1,29 +1,36 @@
 package duke.storage;
 
 import duke.commons.exceptions.DukeException;
+import duke.commons.file.FilePaths;
 import duke.logic.autocorrect.Autocorrect;
-import duke.model.MealList;
-import duke.model.TransactionList;
+import duke.model.meal.MealList;
 import duke.model.user.User;
+import duke.model.wallet.TransactionList;
+import duke.model.wallet.Wallet;
 
 import java.util.ArrayList;
-
-import static duke.commons.FilePaths.DATA_FILE;
-import static duke.commons.FilePaths.DEFAULTS_FILE;
 
 /**
  * Storage is a public class, a storage class encapsulates the filePath to read from disk and write to disk.
  */
 public class Storage {
-    private Load loader = new Load();
-    private Write writer = new Write();
+    private Load loader;
+    private Write writer;
+    private FilePaths filePaths;
+
+    public Storage() {
+        loader = new Load();
+        writer = new Write();
+        filePaths = new FilePaths();
+    }
 
     /**
      * This is a function that will load all info required to initialize a MealList object.
      */
-    public void load(MealList meals) throws DukeException {
-        loader.loadMeals(meals, DATA_FILE);
-        loader.loadMeals(meals, DEFAULTS_FILE);
+    public void load(MealList meals, User user) throws DukeException {
+        loader.loadFile(meals, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_USER_MEALS_FILE));
+        loader.loadFile(meals, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_DEFAULT_MEAL_FILE));
+        loader.loadGoals(user);
     }
 
     /**
@@ -44,8 +51,8 @@ public class Storage {
         loader.loadHelp(lines, specifiedHelp);
     }
 
-    public void loadTransactions(TransactionList transactions, User user) throws DukeException {
-        loader.loadTransactions(transactions, user);
+    public void loadTransactions(TransactionList transactions, Wallet wallet) throws DukeException {
+        loader.loadTransactions(transactions, wallet);
     }
 
     /**
@@ -53,21 +60,21 @@ public class Storage {
      * @param mealData the structure that will store the tasks from the input file
      */
     //TODO: maybe we can put the errors in the ui file
-    public void updateFile(MealList mealData) {
+    public void updateFile(MealList mealData) throws DukeException {
         writer.writeFile(mealData);
     }
 
     /**
      * This is a function that will write data from a MealList object to the defaultitems save file.
      */
-    public void updateDefaults(MealList mealData) {
+    public void updateDefaults(MealList mealData) throws DukeException {
         writer.writeDefaults(mealData);
     }
 
     /**
      * This is a function that will write data from a MealList object to the goals save file.
      */
-    public void updateGoal(User user) {
+    public void updateGoal(User user) throws DukeException {
         writer.writeGoal(user);
     }
 

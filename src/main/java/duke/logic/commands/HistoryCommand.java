@@ -1,11 +1,9 @@
 package duke.logic.commands;
 
-import duke.ui.InputHandler;
-import duke.model.TransactionList;
-import duke.storage.Storage;
-import duke.model.MealList;
-import duke.ui.Ui;
+import duke.model.meal.MealList;
 import duke.model.user.User;
+import duke.model.wallet.Wallet;
+import duke.storage.Storage;
 
 import java.util.ArrayList;
 
@@ -19,14 +17,20 @@ public class HistoryCommand extends Command {
     /**
      * Constructor for HistoryCommand.
      */
+
     public HistoryCommand() {
         historyCommandsList = new ArrayList<String>();
     }
 
+    public HistoryCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
+    }
     /**
      * Add command to history of commands.
      * @param commandStr the command to be added to the list of executed commands thus far
      */
+
     public void addCommand(String commandStr) {
         if (!commandStr.equals("history")) {
             historyCommandsList.add(commandStr);
@@ -36,21 +40,23 @@ public class HistoryCommand extends Command {
     /**
      * Clears the history of the commands executed thus far.
      */
+
     public void clearHistory() {
         historyCommandsList.clear();
     }
 
+
     /**
      * Executes the HistoryCommand.
      * @param meals the MealList object in which the meals are supposed to be added
-     * @param ui the ui object to display the results of the command to the user
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
-     * @param in the scanner object to handle secondary command IO
+     * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user, InputHandler in,
-                        TransactionList transactions) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         ui.showHistory(historyCommandsList);
+        ui.showLine();
     }
 }

@@ -1,46 +1,109 @@
 package duke.logic.commands;
 
-import duke.ui.InputHandler;
 import duke.commons.exceptions.DukeException;
-import duke.model.TransactionList;
-import duke.storage.Storage;
-import duke.model.MealList;
-import duke.ui.Ui;
+import duke.model.meal.MealList;
 import duke.model.user.User;
+import duke.model.wallet.Wallet;
+import duke.storage.Storage;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
 
 public class UpdateWeightCommand extends Command {
     private String description;
-
+    private String weight;
+    private String date;
     /**
      * Constructor for UpdateWeightCommand.
      * @param description the data to update the user document with
      */
+
     public UpdateWeightCommand(String description) {
         this.description = description;
+    }
+
+    public UpdateWeightCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
     }
 
     /**
      * Executes the UpdateWeightCommand.
      * @param meals the MealList object in which the meals are supposed to be added
-     * @param ui the ui object to display the results of the command to the user
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
-     * @param in the scanner object to handle secondary command IO
-     * @throws DukeException when there is an error parsing the date
+     * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user,
-                        InputHandler in, TransactionList transactions) throws DukeException {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        switch(stage) {
+            case 0:
+                stage0(user, storage);
+                break;
+            case 1:
+                stage1(user, storage);
+                break;
+            default:
+                isDone = true;
+        }
+        stage++;
+    }
+
+    public void stage0(User user, Storage storage) {
+        ui.showLine();
         String[] temp = description.split("/date");
+        Calendar calendarDate = Calendar.getInstance();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        date = dateFormat.format(calendarDate.getTime());
+        weight = temp[0].trim();
+        HashMap<String, Double> allWeight = user.getAllWeight();
         if (temp.length > 1) {
+            date = temp[1];
+        }
+        if (!allWeight.containsKey(date)) {
             try {
-                user.setWeight(Integer.parseInt(temp[0].trim()), temp[1]);
+                user.setWeight(Integer.parseInt(weight), date);
+                ui.showWeightUpdate(user, Integer.parseInt(weight), date);
+                ui.showLine();
             } catch (DukeException e) {
-                throw new DukeException(e.getMessage());
+                ui.showMessage(e.getMessage());
             }
         } else {
-            user.setWeight(Integer.parseInt(temp[0]));
+            isDone = false;
+            ui.showConfirmation(weight, date);
+            ui.showLine();
         }
-        storage.saveUser(user);
+        try {
+            storage.saveUser(user);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
+    }
+
+    public void stage1(User user, Storage storage) {
+        ui.showLine();
+        if (this.response.equals("y")) {
+            try {
+                user.setWeight(Integer.parseInt(weight), date);
+                ui.showWeightUpdate(user, Integer.parseInt(weight), date);
+            } catch (DukeException e) {
+                ui.showMessage(e.getMessage());
+            }
+        } else {
+            ui.showRejected();
+        }
+        isDone = true;
+        try {
+            storage.saveUser(user);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
+        ui.showLine();
+    }
+
+    public void setResponse(String response) {
+        this.response = response.toLowerCase().substring(0,1);
     }
 }

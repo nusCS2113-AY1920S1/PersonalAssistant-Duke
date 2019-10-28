@@ -8,7 +8,9 @@ import duke.logic.commands.StatsCommand;
 import duke.logic.commands.UpdateWeightCommand;
 
 import static duke.commons.definitions.CommandDefinitions.PARSER_ADD_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_ADD_GOAL_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_BREAKFAST_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_CGRAPH_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_CLEAR_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_DELETE_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_DEPOSIT_COMMAND;
@@ -22,7 +24,6 @@ import static duke.commons.definitions.CommandDefinitions.PARSER_HISTORY_COMMAND
 import static duke.commons.definitions.CommandDefinitions.PARSER_LIST_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_LUNCH_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_PAYMENT_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_ADD_GOAL_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_STATS_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_SUGGEST_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_UPDATE_WEIGHT_COMMAND;
@@ -104,6 +105,8 @@ public class Parser {
                 return new SuggestMealCommandParser().parse(userInput);
             case PARSER_STATS_COMMAND:
                 return new StatsCommand();
+            case PARSER_CGRAPH_COMMAND:
+                return new CGraphCommandParser().parse(userInput);
             default:
                 throw new DukeException(UNKNOWN_COMMAND);
         }

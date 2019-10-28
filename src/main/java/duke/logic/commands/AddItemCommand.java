@@ -1,10 +1,9 @@
 package duke.logic.commands;
 
-import duke.ui.InputHandler;
-import duke.model.Meal;
-import duke.model.MealList;
-import duke.model.TransactionList;
-import duke.ui.Ui;
+import duke.commons.exceptions.DukeException;
+import duke.model.meal.Meal;
+import duke.model.meal.MealList;
+import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 import duke.model.user.User;
 
@@ -23,18 +22,28 @@ public class AddItemCommand extends Command {
         this.meal = meal;
     }
 
+    public AddItemCommand(boolean flag, String message) {
+        this.isFail = true;
+        this.error = message;
+    }
+
     /**
      * Execute the AddItemCommand.
-     * @param meals the MealList object in which the meal is supposed to be added
-     * @param ui the ui object to display the user interface of an "add" command
-     * @param storage the storage object that stores the list of meals
-     * @param in the scanner object to handle secondary command IO
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user, InputHandler in,
-                        TransactionList transactions) {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         meals.addStoredItem(this.meal);
         ui.showAddedItem(this.meal);
-        storage.updateDefaults(meals);
+        try {
+            storage.updateDefaults(meals);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
+        ui.showLine();
     }
 }
