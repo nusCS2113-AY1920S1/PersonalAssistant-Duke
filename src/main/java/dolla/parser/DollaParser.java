@@ -1,6 +1,7 @@
 package dolla.parser;
 
 import dolla.Time;
+import dolla.ui.DebtUi;
 import dolla.ui.Ui;
 import dolla.command.AddDebtsCommand;
 import dolla.command.AddEntryCommand;
@@ -51,7 +52,7 @@ public class DollaParser extends Parser {
                 date = Time.readDate(dateString[1]);
 
             } catch (IndexOutOfBoundsException e) {
-                Ui.printInvalidDebtFormatError();
+                DebtUi.printInvalidDebtFormatError();
                 return new ErrorCommand();
             } catch (Exception e) {
                 return new ErrorCommand();
