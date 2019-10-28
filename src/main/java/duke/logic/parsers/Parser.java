@@ -18,6 +18,7 @@ import duke.logic.commands.HelpCommand;
 import duke.logic.commands.ListCommand;
 import duke.logic.commands.LocationSearchCommand;
 import duke.logic.commands.MarkDoneCommand;
+import duke.logic.commands.NewItineraryCommand;
 import duke.logic.commands.PromptCommand;
 import duke.logic.commands.RecommendationsCommand;
 import duke.logic.commands.RouteDeleteCommand;
@@ -107,6 +108,8 @@ public class Parser {
             return ParserUtil.createRouteGenerateCommand(inputBody);
         case "addThisList":
             return new AddSampleItineraryCommand();
+        case "newItinerary":
+            return new NewItineraryCommand(ParserUtil.createNewItinerary(input));
         default:
             throw new DukeUnknownCommandException();
         }

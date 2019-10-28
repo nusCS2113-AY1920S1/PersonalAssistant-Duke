@@ -253,7 +253,7 @@ public class Storage {
             writer.write(itinerary.getStartDate().toString() + "\n" + itinerary.getEndDate().toString() + "\n"
                     + itinerary.getHotelLocation().toString() + "\n");
             for (Agenda agenda : itinerary.getList()) {
-                writer.write(agenda.toString() + "\n");
+                writer.write(agenda.toString());
             }
             writer.close();
         } catch (IOException e) {
