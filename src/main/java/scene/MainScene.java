@@ -29,8 +29,8 @@ public class MainScene extends NewScene {
     }
 
     @Override
-    public String getResponse(String fullCommand) throws ChangeSceneException {
-        Command c = Parser.parse(fullCommand);
+    public String getResponse(String userInput) throws ChangeSceneException {
+        Command c = Parser.parse(userInput);
         if (c instanceof QuizCommand) {
             throw new ChangeSceneException();
         }

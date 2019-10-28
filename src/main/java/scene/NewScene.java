@@ -1,5 +1,6 @@
 package scene;
 
+import command.SetReminderCommand;
 import dictionary.Bank;
 import command.Command;
 import dictionary.WordCount;
@@ -34,6 +35,8 @@ public abstract class NewScene {
     protected WordCount wordCount;
     protected String greet;
     protected Stage window;
+    protected int reminderSetUpState;
+    protected boolean isSettingUpReminder;
 
     /**
      * Creates a new scene.
@@ -132,8 +135,35 @@ public abstract class NewScene {
         return;
     }
 
-    protected String getResponse(String fullCommand) throws WordUpException {
-        Command c = Parser.parse(fullCommand);
+    protected String getResponse(String userInput) throws WordUpException {
+        Command c;
+        if (isSettingUpReminder) {
+            if (reminderSetUpState == 1) {
+                c = new SetReminderCommand(reminderSetUpState);
+                reminderSetUpState += 1;
+            } else if (reminderSetUpState == 2) { //when user is entering a list of words
+                if (userInput.equals("")) { //user enters a blank line; end of list input
+                    reminderSetUpState += 1; //assert state 3
+                    c = new SetReminderCommand(reminderSetUpState);
+                } else {
+                    c = new SetReminderCommand(userInput);
+                }
+            } else if (reminderSetUpState == 3) {
+                c = new SetReminderCommand(reminderSetUpState);
+                reminderSetUpState += 1; //assert state 4
+            } else if (reminderSetUpState == 4) {
+                c = new SetReminderCommand(reminderSetUpState);
+                reminderSetUpState = 0;
+                isSettingUpReminder = false;
+            } else {
+                throw new WordUpException();
+            }
+        } else {
+            c = Parser.parse(userInput);
+            if (c instanceof SetReminderCommand) {
+                isSettingUpReminder = true;
+            }
+        }
         return c.execute(ui, bank, storage);
     }
 

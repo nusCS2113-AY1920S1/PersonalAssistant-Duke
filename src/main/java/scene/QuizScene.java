@@ -29,28 +29,28 @@ public class QuizScene extends NewScene {
     }
 
     @Override
-    public String getResponse(String fullCommand)
+    public String getResponse(String userInput)
             throws ChangeSceneException, InvalidAnswerException,
             WordBankNotEnoughForQuizException, CommandInvalidException {
-        if (fullCommand.equals("exit_quiz")) {
+        if (userInput.equals("exit_quiz")) {
             throw new ChangeSceneException();
         }
         if (!startQuiz) {
-            if (fullCommand.equals("start")) {
+            if (userInput.equals("start")) {
                 generateQuiz();
                 startQuiz = true;
                 return ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
             } else {
-                throw new CommandInvalidException(fullCommand);
+                throw new CommandInvalidException(userInput);
             }
         } else {
             String s;
             try {
-                int i = Integer.parseInt(fullCommand);
+                int i = Integer.parseInt(userInput);
                 if (i < 1 || i > 4) {
                     throw new InvalidAnswerException();
                 }
-                if (fullCommand.equals(Integer.toString((4 - quizCommand.optionSequence) % 4 + 1))) {
+                if (userInput.equals(Integer.toString((4 - quizCommand.optionSequence) % 4 + 1))) {
                     s = ui.quizResponse(true, quizCommand.answer);
                 } else {
                     s = ui.quizResponse(false, quizCommand.answer);

@@ -90,7 +90,6 @@ public class Bank {
         return tagsOfWord;
     }
 
-
     public void deleteTags(String deletedWord, ArrayList<String> tags,
                            ArrayList<String> deletedTags, ArrayList<String> nullTags) {
         wordBank.deleteTags(deletedWord, tags, deletedTags, nullTags);

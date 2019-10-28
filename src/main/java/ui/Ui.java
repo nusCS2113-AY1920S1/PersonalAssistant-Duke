@@ -3,11 +3,7 @@ package ui;
 import dictionary.Word;
 import dictionary.WordCount;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.HashSet;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Represents the object that displays prompts and feedback from the system to the user's commands.
@@ -179,6 +175,27 @@ public class Ui {
         for (int i = 0; i < numberOfWords; i++) {
             s += wordHistory.peek() + "\n";
             wordHistory.pop();
+        }
+        return s;
+    }
+
+    public String showReminderSetup(int state) {
+        switch (state) {
+            case 1: //request for the list of words user wants to be reminded of
+                return "Please enter the list of words.\n"
+                + "Enter an empty line to end input";
+            case 2: //request the reminder date and time from user
+                return "Please enter the date and time of the reminder in the format:"
+                        + "DD-MM-YYYY MMHH";
+            default:
+                return "Invalid state";
+        }
+    }
+
+    public String showReminderSummary(ArrayList<String> reminderWordList, Date date) {
+        String s = "Done! You will be reminded on:\n" + date + "to study these words:\n";
+        for (String word : reminderWordList) {
+            s += word + "\n";
         }
         return s;
     }

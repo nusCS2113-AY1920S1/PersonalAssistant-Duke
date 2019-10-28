@@ -68,6 +68,8 @@ public class Parser {
                 command = parseHistory(taskInfo);
             } else if (userCommand.equals("freq")) {
                 command = parseSearchFrequency(taskInfo);
+//            } else if (userCommand.equals("schedule")) {
+//                command = parseReminder(taskInfo);
             } else if (userCommand.equals("edit")) {
                 command = parseEdit(taskInfo);
             } else if (userCommand.equals("tag")) {
@@ -87,8 +89,12 @@ public class Parser {
         }
     }
 
+//    protected static Command parseReminder(String[] taskInfo) {
+//
+//    }
+
     /**
-     * Parses an add command.
+     * Parses a help command.
      * @param taskInfo String array containing first stage parsed user input
      * @return an HelpCommand object
      */
@@ -100,7 +106,7 @@ public class Parser {
     }
 
     /**
-     * Parses a help command.
+     * Parses an add command.
      * @param taskInfo String array containing first stage parsed user input
      * @return an AddCommand object
      * @throws WrongAddFormatException when the format of the delete command does not match the required format
@@ -300,5 +306,7 @@ public class Parser {
         }
         return new QuizCommand();
     }
+
+
 
 }
