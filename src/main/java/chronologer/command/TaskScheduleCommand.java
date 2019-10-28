@@ -23,7 +23,7 @@ public class TaskScheduleCommand extends Command {
 
     private Long durationToSchedule;
     private final int indexOfTask;
-    private final int indexOfDeadline;
+    private final Integer indexOfDeadline;
     private final LocalDateTime deadlineDate;
 
     /**

@@ -1,15 +1,14 @@
-import command.Command;
-import command.TaskScheduleCommand;
-import exception.DukeException;
+import chronologer.command.Command;
+import chronologer.command.TaskScheduleCommand;
+import chronologer.exception.ChronologerException;
+import chronologer.storage.Storage;
+import chronologer.task.Deadline;
+import chronologer.task.Task;
+import chronologer.task.TaskList;
+import chronologer.task.Todo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import storage.Storage;
-import task.Deadline;
-import task.Task;
-import task.TaskList;
-import task.Todo;
-
 import java.io.File;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
@@ -53,7 +52,7 @@ public class TaskScheduleTest {
     }
 
     @Test
-    public void testCommandByIndexInput() throws DukeException, NoSuchFieldException, IllegalAccessException {
+    public void testCommandByIndexInput() throws ChronologerException, NoSuchFieldException, IllegalAccessException {
         Field[] commandFields;
 
         Todo expectedTodo = (Todo) tasks.getTasks().get(1);
@@ -77,7 +76,7 @@ public class TaskScheduleTest {
     }
 
     @Test
-    public void testCommandByDateInput() throws DukeException, NoSuchFieldException, IllegalAccessException {
+    public void testCommandByDateInput() throws ChronologerException, NoSuchFieldException, IllegalAccessException {
         Field[] commandFields;
 
         Todo expectedTodo = (Todo) tasks.getTasks().get(1);
@@ -117,11 +116,11 @@ public class TaskScheduleTest {
             Command test = new TaskScheduleCommand(1, 100);
             test.execute(tasks, storage);
         });
-        Assertions.assertThrows(DukeException.class, () -> {
+        Assertions.assertThrows(ChronologerException.class, () -> {
             Command test = new TaskScheduleCommand(1, 1);
             test.execute(tasks, storage);
         });
-        Assertions.assertThrows(DukeException.class, () -> {
+        Assertions.assertThrows(ChronologerException.class, () -> {
             Command test = new TaskScheduleCommand(0, 0);
             test.execute(tasks, storage);
         });
@@ -129,7 +128,7 @@ public class TaskScheduleTest {
 
     @Test
     public void testDateException() {
-        Assertions.assertThrows(DukeException.class, () -> {
+        Assertions.assertThrows(ChronologerException.class, () -> {
             LocalDateTime exceptionDate = LocalDateTime.of(2001, 1, 1, 1, 0);
             Command test = new TaskScheduleCommand(1, exceptionDate);
             test.execute(tasks, storage);
