@@ -1,19 +1,22 @@
 package seedu.hustler.data;
 
 import seedu.hustler.Hustler;
-import seedu.hustler.game.achievement.*;
+import seedu.hustler.game.achievement.AchievementList;
 import seedu.hustler.logic.parser.DateTimeParser;
-
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.Scanner;
 
-import static seedu.hustler.game.achievement.AchievementList.achievementList;
 import static seedu.hustler.game.achievement.Achievements.totalPoints;
 import static seedu.hustler.game.achievement.AddTask.numberOfTasks;
-import static seedu.hustler.game.achievement.ConsecutiveLogin.*;
+import static seedu.hustler.game.achievement.ConsecutiveLogin.storedDateTime;
+import static seedu.hustler.game.achievement.ConsecutiveLogin.consecutiveCount;
+import static seedu.hustler.game.achievement.ConsecutiveLogin.reset;
+import static seedu.hustler.game.achievement.ConsecutiveLogin.checkLogin;
 import static seedu.hustler.game.achievement.DoneTask.numberOfDone;
 
 /**
@@ -21,62 +24,34 @@ import static seedu.hustler.game.achievement.DoneTask.numberOfDone;
  */
 public class AchievementStorage {
 
+    /**
+     * File path of achievement.txt that stores all achievement data.
+     */
     public static final String ACHIEVEMENT_FILEPATH = "data/achievement.txt";
-    public static final String LOGIN_FILEPATH = "data/login.txt";
+
+    /**
+     * File path of status.txt that contains all the information regarding
+     * progress of the user with regards to achievements.
+     */
     public static final String STATUS_FILEPATH = "data/status.txt";
 
+    /**
+     * File path of achievementBackup.txt that is used for undo/redo command.
+     */
     public static final String ACHIEVEMENT_FILEPATH_BACKUP = "data/achievementBackup.txt";
+
+    /**
+     * File path of statusBackup.txt that is used for undo/redo command.
+     */
     public static final String STATUS_FILEPATH_BACKUP = "data/statusBackup.txt";
 
-
-    public static final String ACHIEVEMENT_TEST = "data/achievementsss.txt";
-
-
-    private static Formatter formatter;
-    private static int loginCount = 0;
-
-
-
-
-
     /**
-     * Keeps track of login count.
-     * @return login count.
-     * @throws IOException if file is not found.
+     * Attempts to load the status.txt file and initialises
+     * @return progress with updated statistics.
+     * @throws IOException throws an error if there is no status.txt file.
+     * Creates a new instance and initialises all status.
      */
-    public static int logon() throws IOException {
-        try {
-            File file = new File(LOGIN_FILEPATH);
-            Scanner loginCounter = new Scanner(new File(LOGIN_FILEPATH));
-            if (loginCounter.hasNextLine()) {
-                String[] txt = loginCounter.nextLine().split(" ");
-                int temp = Integer.parseInt(txt[1]);
-                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-                writer.write("logon: " + (temp += 1));
-                writer.close();
-                loginCount = (temp);
-                return loginCount;
-            } else {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-                writer.write("logon: 1");
-                writer.close();
-                return loginCount = 1;
-            }
-        } catch (FileNotFoundException e) {
-            formatter = new Formatter(LOGIN_FILEPATH);
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(LOGIN_FILEPATH)));
-            writer.write("logon: 1");
-            writer.close();
-            return loginCount = 1;
-        }
-    }
-
-    /**
-     * Keeps track of login count.
-     * @return login count.
-     * @throws IOException if file is not found.
-     */
-    public static int loadStatus() throws IOException {
+    public static AchievementList loadStatus() throws IOException {
         try {
             Scanner scanner = new Scanner(new File(STATUS_FILEPATH));
             while (scanner.hasNextLine()) {
@@ -93,21 +68,25 @@ public class AchievementStorage {
                     consecutiveCount = Integer.parseInt(txt[1]);
                 }
             }
-            return numberOfTasks;
+            return Hustler.achievementList;
         } catch (FileNotFoundException e) {
-            formatter = new Formatter(STATUS_FILEPATH);
             BufferedWriter writer = new BufferedWriter(new FileWriter(new File(STATUS_FILEPATH)));
             writer.write("Add: 0\n");
             writer.write("Done: 0\n");
             writer.write("TotalPoints: 0\n");
             writer.write("LastLogin: 0\n");
             writer.write("ConsecutiveCount: 0\n");
+            storedDateTime = LocalDateTime.now();
             writer.close();
-            return numberOfTasks;
+            return Hustler.achievementList;
         }
     }
 
-    public static int reloadStatus() throws IOException {
+    /**
+     * Backup for status.
+     * @return previous state of achievement list.
+     */
+    public static AchievementList reloadStatus() {
         try {
             Scanner scanner = new Scanner(new File(STATUS_FILEPATH_BACKUP));
             while (scanner.hasNextLine()) {
@@ -121,12 +100,12 @@ public class AchievementStorage {
                 } else if(txt[0].equals("LastLogin:")) {
                     storedDateTime = DateTimeParser.getDateTime(txt[1] + " " + txt[2]);
                 } else if(txt[0].equals("ConsecutiveCount:")) {
-                    consecutiveCount = Integer.parseInt(txt[1]);
+                   consecutiveCount = Integer.parseInt(txt[1]);
                 }
             }
-            return numberOfTasks;
+            return Hustler.achievementList;
         } catch (FileNotFoundException e) {
-            return numberOfTasks;
+            return Hustler.achievementList;
         }
     }
 
@@ -154,192 +133,73 @@ public class AchievementStorage {
         writer.close();
     }
 
-    public static AchievementList loadAchievementsss() throws IOException {
-//        try {
-//            Scanner achievementTxt = new Scanner(new File(ACHIEVEMENT_TEST));
-//
-////            for (int i = 0; i < Hustler.shopList.size(); i++) {
-////                Hustler.shopList.updateStatus(i, boolList.get(i));
-////            }
-//            return Hustler.listAchievements;
-//        } catch (FileNotFoundException e) {
-//            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(FILEPATH)));
-//            for (int i = 0; i < 6; i++) {
-//                writer.write("false" + (i != 5 ? "\n" : ""));
-//            }
-//            writer.close();
-//            return Hustler.listAchievements;
-//        }
-
-        try {
-            Scanner scanner = new Scanner(new File(ACHIEVEMENT_TEST));
-            while (scanner.hasNextLine()) {
-                String[] txt = scanner.nextLine().split("\\|");
-                if (txt[3].equals("Busybee")) {
-                    AddTask addTask = new AddTask(txt[2]);
-                    addTask.setPoints(Integer.parseInt(txt[1]));
-                    if (txt[0].equals("true")) {
-                        addTask.setLock(true);
-                    } else if (txt[0].equals("false")) {
-                        addTask.setLock(false);
-                    }
-                    Hustler.listAchievements.add(addTask);
-                } else if (txt[3].equals("Completionist")) {
-                    DoneTask doneTask = new DoneTask(txt[2]);
-                    doneTask.setPoints(Integer.parseInt(txt[1]));
-                    if (txt[0].equals("true")) {
-                        doneTask.setLock(true);
-                    } else if (txt[0].equals("false")) {
-                        doneTask.setLock(false);
-                    }
-                    achievementList.add(doneTask);
-                } else if (txt[3].equals("Dedicated to the art")) {
-                    ConsecutiveLogin consecutiveLogin = new ConsecutiveLogin(txt[2]);
-                    consecutiveLogin.setPoints(Integer.parseInt(txt[1]));
-                    if (txt[0].equals("true")) {
-                        consecutiveLogin.setLock(true);
-                    } else if (txt[0].equals("false")) {
-                        consecutiveLogin.setLock(false);
-                    }
-                    achievementList.add(consecutiveLogin);
-                } else if (txt[3].equals("Fresh off the boat")) {
-                    FirstLogin firstLogin = new FirstLogin();
-                    achievementList.add(firstLogin);
-                }
-            }
-            return Hustler.listAchievements;
-        } catch (FileNotFoundException e) {
-            return Hustler.listAchievements;
-        }
-    }
-
-
-
-
-
     /**
-     * Loads achievement from text file and add them into achievement list.
-     * @return list of achievement.
-     * @throws FileNotFoundException when file is not found, will create a
-     *     new txtfile to start data storage.
+     * Attempts to load the achievement.txt file and initialise the lock status and
+     * points gained.
+     * @return achievement list with updated status.
      */
-    public static ArrayList<Achievements> loadAchievements() throws FileNotFoundException {
+    public static AchievementList loadAchievements() {
         try {
+            int index = 0;
             Scanner scanner = new Scanner(new File(ACHIEVEMENT_FILEPATH));
             while (scanner.hasNextLine()) {
                 String[] txt = scanner.nextLine().split("\\|");
-                if (txt[3].equals("Busybee")) {
-                    AddTask addTask = new AddTask(txt[2]);
-                    addTask.setPoints(Integer.parseInt(txt[1]));
-                    if (txt[0].equals("true")) {
-                        addTask.setLock(true);
-                    } else if (txt[0].equals("false")) {
-                        addTask.setLock(false);
-                    }
-                    achievementList.add(addTask);
-                } else if (txt[3].equals("Completionist")) {
-                    DoneTask doneTask = new DoneTask(txt[2]);
-                    doneTask.setPoints(Integer.parseInt(txt[1]));
-                    if (txt[0].equals("true")) {
-                        doneTask.setLock(true);
-                    } else if (txt[0].equals("false")) {
-                        doneTask.setLock(false);
-                    }
-                    achievementList.add(doneTask);
-                } else if (txt[3].equals("Dedicated to the art")) {
-                    ConsecutiveLogin consecutiveLogin = new ConsecutiveLogin(txt[2]);
-                    consecutiveLogin.setPoints(Integer.parseInt(txt[1]));
-                    if (txt[0].equals("true")) {
-                        consecutiveLogin.setLock(true);
-                    } else if (txt[0].equals("false")) {
-                        consecutiveLogin.setLock(false);
-                    }
-                    achievementList.add(consecutiveLogin);
-                } else if (txt[3].equals("Fresh off the boat")) {
-                    FirstLogin firstLogin = new FirstLogin();
-                    achievementList.add(firstLogin);
-                }
+                Hustler.achievementList.updateStatus(Boolean.parseBoolean(txt[0]),index,Integer.parseInt(txt[1]));
+                index += 1;
             }
-            return achievementList;
+            return Hustler.achievementList;
         } catch (FileNotFoundException e) {
-            return achievementList;
-        }
-    }
-
-    public static ArrayList<Achievements> reloadAchievements() throws FileNotFoundException {
-        try {
-            Scanner scanner = new Scanner(new File(ACHIEVEMENT_FILEPATH_BACKUP));
-            achievementList = new ArrayList<>();
-            while (scanner.hasNextLine()) {
-                String[] txt = scanner.nextLine().split("\\|");
-                if(txt[3].equals("Busybee")) {
-                    AddTask addTask = new AddTask(txt[2]);
-                    addTask.setPoints(Integer.parseInt(txt[1]));
-
-                    if(txt[0].equals("true")) {
-                        addTask.setLock(true);
-                    } else if(txt[0].equals("false")) {
-                        addTask.setLock(false);
-                    }
-                    achievementList.add(addTask);
-                } else if(txt[3].equals("Completionist")) {
-                    DoneTask doneTask = new DoneTask(txt[2]);
-                    doneTask.setPoints(Integer.parseInt(txt[1]));
-                    if(txt[0].equals("true")) {
-                        doneTask.setLock(true);
-                    } else if(txt[0].equals("false")) {
-                        doneTask.setLock(false);
-                    }
-                    achievementList.add(doneTask);
-                } else if(txt[3].equals("Dedicated to the art")) {
-                    ConsecutiveLogin consecutiveLogin = new ConsecutiveLogin(txt[2]);
-                    consecutiveLogin.setPoints(Integer.parseInt(txt[1]));
-                    if(txt[0].equals("true")) {
-                        consecutiveLogin.setLock(true);
-                    } else if(txt[0].equals("false")) {
-                        consecutiveLogin.setLock(false);
-                    }
-                    achievementList.add(consecutiveLogin);
-                } else if(txt[3].equals("Fresh off the boat")) {
-                    FirstLogin firstLogin = new FirstLogin();
-                    achievementList.add(firstLogin);
-                }
-            }
-            return achievementList;
-        } catch(FileNotFoundException e) {
-            return achievementList;
+            return Hustler.achievementList;
         }
     }
 
     /**
-     * Updates and saves the current achievements onto the txtfile.
-     * @param achievementsList updated list of achievements to be saved.
-     * @return list of updated achievements.
-     * @throws IOException when writing of file has errors.
+     * Backup for all achievement progress.
+     * @return previous state of achievement list.
      */
-    public static ArrayList<Achievements> saveAchievements(ArrayList<Achievements> achievementsList) throws IOException {
+    public static AchievementList reloadAchievements() {
+        try {
+            int index = 0;
+            Scanner scanner = new Scanner(new File(ACHIEVEMENT_FILEPATH_BACKUP));
+            Hustler.achievementList = new AchievementList();
+
+            while (scanner.hasNextLine()) {
+                String[] txt = scanner.nextLine().split("\\|");
+                Hustler.achievementList.updateStatus(Boolean.parseBoolean(txt[0]),index,Integer.parseInt(txt[1]));
+                index += 1;
+                }
+            return Hustler.achievementList;
+        } catch(FileNotFoundException e) {
+            return Hustler.achievementList;
+        }
+    }
+
+    /**
+     * Saves all achievement progress.
+     * @param achievementList current achievement list.
+     * @return current achievement list.
+     * @throws IOException throws ann error if achievement.txt
+     * is not found.
+     */
+    public static AchievementList saveAchievements(AchievementList achievementList) throws IOException{
         BufferedWriter writer = new BufferedWriter(new FileWriter(new File(ACHIEVEMENT_FILEPATH)));
-        for (int i = 0; i < achievementsList.size(); i += 1) {
-            writer.write(achievementsList.get(i).toTxt());
-            writer.write("\n");
-        }
-        writer.close();
-        return achievementsList;
-    }
-
-    public static AchievementList save() throws IOException{
-
-        BufferedWriter writer = new BufferedWriter(new FileWriter(new File(ACHIEVEMENT_TEST)));
-        for (int i = 0; i < Hustler.listAchievements.size(); i += 1) {
-            writer.write(Hustler.listAchievements.get(i).toTxt());
+        for (int i = 0; i < achievementList.size(); i += 1) {
+            writer.write(achievementList.get(i).toTxt());
             writer.write("\n");
         }
         writer.close();
 
-        return Hustler.listAchievements;
+        return achievementList;
     }
 
-    public static ArrayList<Achievements> createBackup(ArrayList<Achievements> achievementsList) throws IOException {
+    /**
+     * Creates backup text file for achievements and status.
+     * @param achievementList current achievement list.
+     * @return returns achievement list.
+     * @throws IOException throws an error if statusBackup.txt
+     * or achievementBackup.txt.
+     */
+    public static AchievementList createBackup(AchievementList achievementList) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(new File(STATUS_FILEPATH_BACKUP)));
         writer.write("Add: " + numberOfTasks);
         writer.write("\n");
@@ -359,12 +219,12 @@ public class AchievementStorage {
         writer.close();
 
         writer = new BufferedWriter(new FileWriter(new File(ACHIEVEMENT_FILEPATH_BACKUP)));
-        for(int i = 0; i < achievementsList.size(); i += 1) {
-            writer.write(achievementsList.get(i).toTxt());
+        for(int i = 0; i < achievementList.size(); i += 1) {
+            writer.write(achievementList.get(i).toTxt());
             writer.write("\n");
         }
         writer.close();
-        return achievementsList;
+        return achievementList;
     }
 
 }
