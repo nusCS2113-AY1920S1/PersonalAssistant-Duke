@@ -121,4 +121,36 @@ public class ImpressionHelpers {
             return priority;
         }
     }
+
+    /**
+     * Checks if a status is a string or an integer, and returns the appropriate integer if it is a string.
+     * @param status The String supplied as an argument to the status switch.
+     * @param statusList The status descriptions that the numeric value of the status represent. The numeric value of
+     *                  the status is the index of the corresponding description in the array.
+     * @return The Integer that the string represents, or 0 if it is null.
+     * @throws NumberFormatException If the string is not a valid representation of an integer.
+     */
+    public static int processStatus(String status, List<String> statusList, ArgCommand command)
+            throws DukeHelpException {
+        assert (status != null);
+        if ("".equals(status)) {
+            return 0;
+        } else {
+            try {
+                int convertedStatus = Integer.parseInt(status);
+                if (convertedStatus < 0 || convertedStatus >= statusList.size()) {
+                    throw new DukeHelpException(status + "is not a valid numeric value for the status!", command);
+                }
+                return convertedStatus;
+            } catch (NumberFormatException excp) { // not numeric
+                // TODO: parse with autocorrect?
+                for (int i = 0; i < statusList.size(); ++i) {
+                    if (statusList.get(i).equalsIgnoreCase(status)) {
+                        return i;
+                    }
+                }
+                throw new DukeHelpException("'" + status + "' is not a valid status name!", command);
+            }
+        }
+    }
 }

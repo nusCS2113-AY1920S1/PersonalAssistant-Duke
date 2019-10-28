@@ -42,7 +42,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
         switch (addType) { //isn't polymorphism fun?
         case "medicine":
             //TODO check for allergies
-            status = processStatus(getSwitchVal("status"), Medicine.getStatusArr());
+            status = ImpressionHelpers.processStatus(getSwitchVal("status"), Medicine.getStatusArr());
             //TODO proper date parsing
             if ("".equals(getSwitchVal("date"))) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
@@ -56,7 +56,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
             break;
 
         case "plan":
-            status = processStatus(getSwitchVal("status"), Plan.getStatusArr());
+            status = ImpressionHelpers.processStatus(getSwitchVal("status"), Plan.getStatusArr());
             Plan plan = new Plan(getSwitchVal("name"), impression, priority, status,
                     getSwitchVal("summary"));
             impression.addNewTreatment(plan);
