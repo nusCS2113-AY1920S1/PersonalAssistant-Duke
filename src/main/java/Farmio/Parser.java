@@ -110,16 +110,7 @@ public class Parser {
     }
 
     private static Command parseDoTask(String userInput) throws FarmioException {
-        String taskType = "", userAction = "";
-        try {
-            taskType = userInput.substring(0, userInput.indexOf(" "));
-            userAction = (userInput.substring(userInput.indexOf(" "))).trim();
-        } catch (Exception e ) {
-            throw new FarmioException("Invalid command format!");
-        }
-        if (!taskType.equals("do")) {
-            throw new FarmioException("Invalid task type!");
-        }
+        String userAction = (userInput.substring(userInput.indexOf(" "))).trim();
         if (Action.validateAction(userAction)) {
             return new CommandTaskCreate("do","true", userAction);
         } else {
@@ -137,7 +128,7 @@ public class Parser {
             throw new FarmioException("Invalid command format!");
         }
         if (!taskType.equals("if")  && ! taskType.equals("for") && !taskType.equals("while")) {
-            throw new FarmioException("Invalid task type!");
+            throw new FarmioException("Invalid Task Type!");
         }
         if (!Condition.isValidCondition(condition)) {
             throw new FarmioException("Invalid Condition!");
