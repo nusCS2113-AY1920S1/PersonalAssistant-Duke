@@ -22,6 +22,7 @@ public class UpdateWeightCommand extends Command {
      * Constructor for UpdateWeightCommand.
      * @param description the data to update the user document with
      */
+
     public UpdateWeightCommand(String description) {
         this.description = description;
     }

@@ -1,18 +1,18 @@
 package duke.ui;
 
-/** UserUi is a public class that facilitates the output of Graph data
+/** UserUi is a public class that facilitates the output of Graph data.
  */
 public class GraphUi {
     private static final String padding = "     ";
     private static final String boundary = "    ____________________________________________________________";
     private String[][] graph = new String[50][60];
-    private String[] month = { "January", "February", "March"
-                             , "April", "May", "June"
-                             , "July", "August", "September"
-                             , "October", "November", "December"};
+    private String[] month = { "January", "February", "March",
+                               "April", "May", "June",
+                               "July", "August", "September",
+                               "October", "November", "December"};
 
     public void showWeight(String[][] graph, int month) {
-        System.out.println(this.month[month-1]);
+        System.out.println(this.month[month - 1]);
         for (int i = 0; i < graph.length; i += 1) {
             System.out.print(" |");
             for (int j = 0; j < graph[i].length; j += 1) {

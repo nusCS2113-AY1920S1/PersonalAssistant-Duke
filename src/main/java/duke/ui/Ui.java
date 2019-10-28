@@ -165,6 +165,7 @@ public class Ui {
         System.out.println(padding + "You have entered " + weight + " on " + date + ".");
         System.out.println(padding + "Would you like to overwrite the record on " + date + "?(Y/N)");
     }
+
     public void showTransactionAdded(Transaction transaction, BigDecimal accountBalance) {
         System.out.println(padding + "Got it. I've added this transaction:");
         System.out.println(padding + transaction);

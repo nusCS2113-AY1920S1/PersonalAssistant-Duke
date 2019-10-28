@@ -74,7 +74,7 @@ public class User {
         }
         Calendar lastDateCalendar = Calendar.getInstance();
         lastDateCalendar.setTime(lastDateDate);
-        if (calendarDate.after(lastDateCalendar)){
+        if (calendarDate.after(lastDateCalendar)) {
             this.lastDate = currentDate;
         }
     }
@@ -113,7 +113,7 @@ public class User {
         }
         Calendar currDateCalendar = Calendar.getInstance();
         currDateCalendar.setTime(currDateDate);
-        if (lastDateCalendar.before(currDateCalendar)){
+        if (lastDateCalendar.before(currDateCalendar)) {
             this.lastDate = date;
         }
     }
@@ -161,6 +161,7 @@ public class User {
     public String getLastDate() {
         return this.lastDate;
     }
+
     public int getWeight() {
         Calendar calendarDate = Calendar.getInstance();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");

@@ -23,17 +23,19 @@ import java.util.HashMap;
  * It calculates the data desired by user and visualised it on Command Line.
  */
 
-public class CGraphCommand extends Command{
+public class CGraphCommand extends Command {
     private int month;
     private int year;
     private String type;
     private GraphUi graphUi = new GraphUi();
+
     /**
      * Constructor for CGraphCommand.
      * @param month month of the graph desired
      * @param year year of the graph desired
      * @param type type of the data to be graphed
      */
+
     public CGraphCommand(int month, int year, String type) {
         this.month = month;
         this.year = year;
@@ -119,11 +121,12 @@ public class CGraphCommand extends Command{
         int pos;
         for (int i = 0; i < daysInMonth; i += 1) {
             pos = (int)(((float)dataHolder.get(i) / (float)highest) * 20);
-            graph[20-pos][i*2] = "*";
+            graph[20 - pos][i * 2] = "*";
         }
         for (int i = 0; i < daysInMonth - 1; i += 1) {
-            pos = (int)(((float)((dataHolder.get(i) + dataHolder.get(i+1)) / 2) / (float)highest) * 20);
-            graph[20-pos][i*2+1] = "*";
+            pos = (int)(((float)((dataHolder.get(i)
+                    + dataHolder.get(i + 1)) / 2) / (float)highest) * 20);
+            graph[20 - pos][i * 2 + 1] = "*";
         }
         graphUi.showWeight(graph, month);
     }

@@ -6,7 +6,7 @@ import duke.logic.commands.CGraphCommand;
 import duke.model.meal.Lunch;
 
 /**
- * Parser class to handle information to CGraphCommand
+ * Parser class to handle information to CGraphCommand.
  */
 public class CGraphCommandParser implements ParserInterface<CGraphCommand> {
 
