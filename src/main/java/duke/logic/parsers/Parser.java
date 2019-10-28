@@ -8,6 +8,8 @@ import duke.logic.commands.EditorCommand;
 import duke.logic.commands.ExitCommand;
 import duke.logic.commands.HelpCommand;
 import duke.logic.commands.ListCommand;
+import duke.logic.commands.ProfileSetPreferenceCommand;
+import duke.logic.commands.ProfileShowCommand;
 import duke.logic.commands.QuickEditCommand;
 import duke.logic.commands.ViewScheduleCommand;
 import duke.logic.parsers.commandparser.AddEventParser;
@@ -108,6 +110,11 @@ public class Parser {
             return new AddSampleItineraryCommand();
         case "profile":
             return new AddProfileParser(inputBody).parse();
+        case "profileShow":
+            return new ProfileShowCommand();
+        case "profileSet":
+            return new ProfileSetPreferenceCommand(ParserUtil.getFieldInList(0,2,inputBody),
+                        ParserUtil.getFieldInList(1,2,inputBody));
         default:
             throw new DukeUnknownCommandException();
         }

@@ -68,6 +68,10 @@ public class ParserUtil {
         return new Event(withinDetails[0].strip(), start, end);
     }
 
+    /**
+     * Returns routeNode base on user input.
+     *
+     */
     public static RouteNode createRouteNode(String userInput) throws DukeException {
         try {
             String[] withinDetails = userInput.strip().split("at | with ", 2);

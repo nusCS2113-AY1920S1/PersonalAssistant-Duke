@@ -36,6 +36,8 @@ public class Messages {
     public static final String ERROR_ROUTE_NODE_DUPLICATE = "✇ Node already exists! :-(";
     public static final String ERROR_ROUTE_NODE_NOT_FOUND = "☢ Route not found! :-(";
 
+    public static final String ERROR_CATEGORY_NOT_FOUND = "✇ Category does not exists! :-(";
+
     public static final String ANOMALY_FOUND = "⚡ Anomaly detected! Please check your tasks. :-(";
 
     public static final String ERROR_API_REQUEST_FAILED =

@@ -6,8 +6,12 @@ import duke.model.lists.EventList;
 import duke.model.locations.BusStop;
 import duke.model.locations.CustomNode;
 import duke.model.locations.TrainStation;
+import duke.model.profile.ProfileCard;
 import duke.model.transports.Route;
 import duke.model.locations.RouteNode;
+
+import java.time.LocalDateTime;
+import java.time.Period;
 
 /**
  * Defines the result of various commands as a string.
@@ -78,5 +82,21 @@ public class CommandResultText extends CommandResult {
 
         message +=  node.getAddress() + "\n" + node.getDescription() + "\n"
                 + "(" + node.getType().toString() + ", " + node.getCoordinate() + ")";
+    }
+
+    /**
+     * Alternative constructor that helps to create text for a list of events.
+     */
+    public CommandResultText(ProfileCard profileCard) {
+        message = "PROFILE:\n\n";
+        message += "Name: " + profileCard.getPersonName() + "\n";
+        message += "Age: " + profileCard.getAge() + "\n";
+        message += "Likes:\n";
+        String[] category = {"sports", "entertainment", "arts", "lifestyle"};
+        int i = 0;
+        for (Boolean setting : profileCard.getPreference()) {
+            message += (category[i] + " : " + setting + "\n");
+            i += 1;
+        }
     }
 }

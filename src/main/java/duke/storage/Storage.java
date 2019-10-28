@@ -1,10 +1,10 @@
 package duke.storage;
 
+import duke.commons.exceptions.CategoryNotFoundException;
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeDuplicateTaskException;
 import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
@@ -71,7 +71,7 @@ public class Storage {
      * Reads all storage file.
      */
     private void read() throws RouteNodeDuplicateException, CorruptedFileException, StorageFileNotFoundException,
-            DukeDuplicateTaskException, DukeDateTimeParseException {
+            DukeDuplicateTaskException, DukeDateTimeParseException, CategoryNotFoundException {
         readBus();
         readTrain();
         readProfile();
@@ -205,7 +205,8 @@ public class Storage {
     /**
      * Reads the profile from filepath. Creates new empty profile if file doesnt exist.
      */
-    public void readProfile() throws StorageFileNotFoundException {
+    public void readProfile() throws StorageFileNotFoundException,
+            DukeDateTimeParseException, CategoryNotFoundException {
         profileCard = new ProfileCard();
         try {
             File f = new File(PROFILE_FILE_PATH);
@@ -216,7 +217,7 @@ public class Storage {
             }
 
             s.close();
-        } catch (FileNotFoundException | DukeDateTimeParseException | DukeUnknownCommandException e) {
+        } catch (FileNotFoundException e) {
 
             throw new StorageFileNotFoundException(PROFILE_FILE_PATH);
 

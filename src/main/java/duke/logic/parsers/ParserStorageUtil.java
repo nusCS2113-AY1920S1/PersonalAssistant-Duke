@@ -1,6 +1,7 @@
 package duke.logic.parsers;
 
 import duke.commons.enumerations.Direction;
+import duke.commons.exceptions.CategoryNotFoundException;
 import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeUnknownCommandException;
@@ -62,14 +63,20 @@ public class ParserStorageUtil {
      * @return The corresponding ProfileCard object.
      */
     public static ProfileCard createProfileFromStorage(ProfileCard profileCard, String line)
-            throws DukeDateTimeParseException, DukeUnknownCommandException {
+            throws DukeDateTimeParseException, CategoryNotFoundException {
         String[] token = line.split("\\|");
         switch (token[0].strip()) {
         case "person":
             profileCard.setPerson(token[1].strip(), ParserTimeUtil.parseStringToDate(token[2].strip()));
             break;
+        case "preference":
+            String[] category = {"", "sports", "entertainment", "arts", "lifestyle"};
+            for (int i = 1; i < token.length; i++) {
+                profileCard.setPreference(category[i], token[i].strip().equals("true"));
+            }
+            break;
         default:
-            throw new DukeUnknownCommandException();
+            break;
         }
         return profileCard;
     }
@@ -115,9 +122,13 @@ public class ParserStorageUtil {
      */
     public static String toProfileStorageString(ProfileCard profileCard) {
         String profileString = "";
-        profileString += "person | " + profileCard.getPersonName() + " | " + profileCard.getPersonBirthday();
+        profileString += "person | " + profileCard.getPersonName() + " | " + profileCard.getPersonBirthday() + "\n";
 
-        //profileString += "preference | " + profileCard.toPreferenceString() + "\n";
+        profileString += "preference";
+        for (Boolean i : profileCard.getPreference()) {
+            profileString += " | " + i;
+        }
+        profileString += "\n";
         //profileString += "favorite | " + profileCard.toString()
         return profileString;
     }
