@@ -62,7 +62,7 @@ public class Deadline extends Task {
         String output = "";
         output = "[D]" + this.getStatus() + " (by: " + formatDate() + ")";
         if (this.doAfterDescription != null && !this.doAfterDescription.equals("")) {
-            output += "\n\tAfter which: " + doAfterDescription;
+            output += System.lineSeparator() + "\tAfter which: " + doAfterDescription;
         }
         for (String tagName : tags) {
             output += " #" + tagName;

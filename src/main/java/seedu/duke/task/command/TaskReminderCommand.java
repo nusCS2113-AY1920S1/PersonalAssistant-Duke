@@ -46,7 +46,7 @@ public class TaskReminderCommand extends Command {
         if (nearTasks.size() == 0) {
             msg += "There is no near event or deadline. ";
         } else {
-            msg += "There are near events or deadlines within " + dayLimit + " days: \n";
+            msg += "There are near events or deadlines within " + dayLimit + " days: " + System.lineSeparator();
             msg += nearTasks.toString();
         }
         return msg;

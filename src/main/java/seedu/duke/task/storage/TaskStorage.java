@@ -57,7 +57,7 @@ public class TaskStorage {
     private static String constructTaskListFileString(TaskList taskList) {
         String content = "";
         for (Task task : taskList) {
-            content += task.toFileString() + "\n";
+            content += task.toFileString() + System.lineSeparator();
         }
         return content;
     }

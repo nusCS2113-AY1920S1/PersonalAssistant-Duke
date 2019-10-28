@@ -103,9 +103,9 @@ public class EmailStorage implements Storage {
 
     private static String prepareEmailListIndexString(EmailList emailList) throws JSONException {
         String content = "";
-        content += prepareTimestampJson().toString() + "\n";
+        content += prepareTimestampJson().toString() + System.lineSeparator();
         for (Email email : emailList) {
-            content += email.toIndexJson().toString() + "\n";
+            content += email.toIndexJson().toString() + System.lineSeparator();
         }
         return content;
     }
@@ -134,17 +134,18 @@ public class EmailStorage implements Storage {
             UI.getInstance().showMessage("Saved email file successfully loaded...");
         } catch (IOException e) {
             UI.getInstance().showError("Read save file IO exception");
-        } catch (EmailFormatParseHelper.EmailParsingException e) {
+        } catch (EmailFormatParseHelper.EmailParsingException | JSONException e) {
             UI.getInstance().showError("Email save file is in wrong format");
         }
         return emailList;
     }
 
-    private static LocalDateTime getTimestamp(List<String> emailStringList) throws IOException {
+    private static LocalDateTime getTimestamp(List<String> emailStringList) throws IOException, JSONException {
         if (emailStringList.size() < 1) {
             throw new IOException();
         }
-        return Storage.parseTimestamp(emailStringList.get(0));
+        String timestamp = new JSONObject(emailStringList.get(0)).getString("timestamp");
+        return Storage.parseTimestamp(timestamp);
     }
 
     private static String assignIndexDirIfNotExist(String indexDir) {

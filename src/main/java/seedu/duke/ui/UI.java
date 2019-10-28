@@ -52,12 +52,12 @@ public class UI {
      * Initializes ui.
      */
     public void initUi() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        logo = "Hello from\n" + logo + "\n";
+        String logo = " ____        _        " + System.lineSeparator()
+                + "|  _ \\ _   _| | _____ "  + System.lineSeparator()
+                + "| | | | | | | |/ / _ \\"  + System.lineSeparator()
+                + "| |_| | |_| |   <  __/"  + System.lineSeparator()
+                + "|____/ \\__,_|_|\\_\\___|"  + System.lineSeparator();
+        logo = "Hello from" + System.lineSeparator() + logo + System.lineSeparator();
         logo += "What can I do for you?";
         showMessage(logo);
         mainWindow.setInputPrefix();
@@ -106,7 +106,7 @@ public class UI {
         this.responseMsg = msg;
         System.out.println("------------------------------");
         System.out.println(msg);
-        System.out.println("------------------------------\n");
+        System.out.println("------------------------------" + System.lineSeparator());
         showGui(msg);
     }
 

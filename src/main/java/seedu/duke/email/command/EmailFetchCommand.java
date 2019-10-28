@@ -14,7 +14,8 @@ public class EmailFetchCommand extends Command {
     public boolean execute(Model model) {
         if (!silent) {
             EmailStorage.syncWithServer();
-            responseMsg = "Fetching emails and syncing with local storage...\n\n";
+            responseMsg = "Fetching emails and syncing with local storage..." + System.lineSeparator()
+                    + System.lineSeparator();
             responseMsg += model.getEmailList().toString();
             UI.getInstance().showResponse(responseMsg);
         }

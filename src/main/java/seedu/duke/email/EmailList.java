@@ -29,7 +29,7 @@ public class EmailList extends ArrayList<Email> {
         int index = 0;
         String listOfEmails = "This is your list of emails " + "(total of " + this.size() + "): ";
         for (Email email : this) {
-            listOfEmails += "\n" + (++index) + ". " + email.toGuiString();
+            listOfEmails += System.lineSeparator() + (++index) + ". " + email.toGuiString();
         }
         return listOfEmails;
     }
@@ -62,7 +62,8 @@ public class EmailList extends ArrayList<Email> {
         for (String tag : tags) {
             email.addTag(tag);
         }
-        String responseMsg = "Tags added: " + tags.toString() + "\nto email: " + email.getSubject();
+        String responseMsg =
+                "Tags added: " + tags.toString() + System.lineSeparator() + "to email: " + email.getSubject();
         return responseMsg;
     }
 

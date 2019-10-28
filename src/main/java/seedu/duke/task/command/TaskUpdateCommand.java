@@ -64,7 +64,7 @@ public class TaskUpdateCommand extends Command {
                     break;
                 }
             }
-            responseMsg += msg + "\n";
+            responseMsg += msg + System.lineSeparator();
         } catch (CommandParseHelper.CommandParseException e) {
             if (!silent) {
                 UI.getInstance().showError(e.getMessage());

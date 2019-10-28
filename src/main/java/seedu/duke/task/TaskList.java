@@ -28,7 +28,7 @@ public class TaskList extends ArrayList<Task> {
         }
         String msg = "Here are the tasks in your task list:";
         for (int i = 0; i < this.size(); i++) {
-            msg += "\n" + (i + 1);
+            msg += System.lineSeparator() + (i + 1);
             msg += ". " + this.get(i);
         }
         return msg;
@@ -51,7 +51,7 @@ public class TaskList extends ArrayList<Task> {
         if (searchResult.size() > 0) {
             msg += "Here are the matching tasks in your list:";
             for (int i = 0; i < searchResult.size(); i++) {
-                msg += "\n" + (i + 1) + ". " + searchResult.get(i);
+                msg += System.lineSeparator() + (i + 1) + ". " + searchResult.get(i);
             }
         } else {
             msg += "There is no matching task in your list.";
@@ -86,8 +86,8 @@ public class TaskList extends ArrayList<Task> {
     }
 
     private String constructDoneMessage(int index) {
-        String msg = "Nice! I've marked this task as done:\n";
-        msg += this.get(index).toString() + "\n";
+        String msg = "Nice! I've marked this task as done:" + System.lineSeparator();
+        msg += this.get(index).toString() + System.lineSeparator();
         msg += "Now you have " + this.size()
                 + " tasks in the list.";
         return msg;
@@ -108,8 +108,8 @@ public class TaskList extends ArrayList<Task> {
     }
 
     private String constructDeleteMessage(Task deleted) {
-        String msg = "Noted. I've removed this task: \n";
-        msg += deleted + "\n";
+        String msg = "Noted. I've removed this task:" + System.lineSeparator();
+        msg += deleted + System.lineSeparator();
         msg += "Now you have " + this.size() + " tasks in the list.";
         return msg;
     }

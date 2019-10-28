@@ -24,9 +24,10 @@ public class InvalidCommand extends Command {
     public boolean execute(Model model) {
         responseMsg = "This is an invalid command.";
         if (msg != null) {
-            responseMsg += "\n\n" + msg;
+            responseMsg += System.lineSeparator() + System.lineSeparator() + msg;
         }
-        responseMsg += "\n\nEnter \'help\' for more information.";
+        responseMsg += System.lineSeparator() + System.lineSeparator() + "Enter \'help\' for more "
+                + "information.";
         UI.getInstance().showResponse(responseMsg);
         return false;
     }

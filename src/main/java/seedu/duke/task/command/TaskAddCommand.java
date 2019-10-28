@@ -88,15 +88,16 @@ public class TaskAddCommand extends Command {
         TaskList clashTasks = taskList.findClash(task);
         String clashMsg = "";
         if (clashTasks.size() > 0) {
-            clashMsg = "\n\nWarning: New task added clashes with other task(s) in the list.\n";
+            clashMsg = System.lineSeparator() + System.lineSeparator() + "Warning: New task added clashes "
+                + "with other task(s) in the list." + System.lineSeparator();
             clashMsg += clashTasks.toString();
         }
         return clashMsg;
     }
 
     private void constructAddCommandMessage(TaskList taskList, Task task, String clashMsg) {
-        String msg = "Got it. I've added this task: \n";
-        msg += "  " + task.toString() + "\n";
+        String msg = "Got it. I've added this task: " + System.lineSeparator();
+        msg += "  " + task.toString() + System.lineSeparator();
         msg += "Now you have " + taskList.size() + " task(s) in the list. ";
         msg += clashMsg;
         responseMsg = msg;

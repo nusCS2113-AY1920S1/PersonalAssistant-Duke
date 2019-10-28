@@ -73,7 +73,7 @@ public class MainWindow extends AnchorPane {
 
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
-        String welcome = "Hi, I'm Duke!\nHow may I help you?";
+        String welcome = "Hi, I'm Duke!" + System.lineSeparator() + "How may I help you?";
 
         // show welcome message
         dialogContainer.getChildren().addAll(
@@ -136,7 +136,8 @@ public class MainWindow extends AnchorPane {
     public void showGuiMessage(String msg, String input, String command) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(command + "\n\n" + msg, dukeImage)
+                DialogBox.getDukeDialog(command + System.lineSeparator() + System.lineSeparator() + msg,
+                        dukeImage)
         );
     }
 

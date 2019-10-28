@@ -4,10 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import seedu.duke.email.parser.EmailFormatParseHelper;
-import seedu.duke.email.storage.EmailStorage;
 import seedu.duke.ui.UI;
 
-import java.io.File;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -220,9 +218,9 @@ public class Email {
      * @return a string capturing the email info
      */
     public String toCliString() {
-        String output = this.subject + "\n\t" + "From: " + this.sender.toString() + "\n\t"
-                + "ReceivedDateTime: " + getDateTimeString() + "\n\t" + "Body: " + body.substring(0, 30)
-                + "...\n";
+        String output = this.subject + System.lineSeparator() + "\t" + "From: " + this.sender.toString() +
+                System.lineSeparator() + "\tReceivedDateTime: " + getDateTimeString() + System.lineSeparator()
+                + "\t" + "Body: " + body.substring(0, 30) + "..." + System.lineSeparator();
         return output;
     }
 
@@ -255,7 +253,7 @@ public class Email {
     public String toGuiString() {
         String guiStr = this.subject;
         if (tags.size() > 0) {
-            guiStr += "\n";
+            guiStr += System.lineSeparator();
             for (Tag tag : tags) {
                 guiStr += " #" + tag.getKeywordPair().getKeyword();
             }
