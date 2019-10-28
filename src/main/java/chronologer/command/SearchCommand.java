@@ -3,7 +3,6 @@ package chronologer.command;
 import chronologer.task.Event;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.ui.Ui;
 import chronologer.storage.Storage;
 import chronologer.ui.UiTemporary;
 

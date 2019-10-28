@@ -5,7 +5,6 @@ import chronologer.storage.Storage;
 import chronologer.task.Priority;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.ui.Ui;
 import chronologer.ui.UiTemporary;
 
 /**

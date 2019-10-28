@@ -21,7 +21,7 @@ public class ParserFactoryTest {
     private Field[] getAddCommandFields(Command command) throws NoSuchFieldException {
         Field[] commandFields = new Field[4];
         commandFields[0] = command.getClass().getDeclaredField("command");
-        commandFields[1] = command.getClass().getDeclaredField("taskFeatures");
+        commandFields[1] = command.getClass().getDeclaredField("taskDescription");
         commandFields[2] = command.getClass().getDeclaredField("formattedStartDate");
         commandFields[3] = command.getClass().getDeclaredField("formattedEndDate");
         commandFields[0].setAccessible(true);

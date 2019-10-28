@@ -6,7 +6,6 @@ import chronologer.task.Deadline;
 import chronologer.task.Event;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
-import chronologer.ui.Ui;
 import chronologer.ui.UiTemporary;
 
 import java.time.LocalDateTime;
