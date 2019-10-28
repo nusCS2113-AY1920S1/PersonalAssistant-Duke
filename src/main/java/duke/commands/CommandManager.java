@@ -48,36 +48,91 @@ public class CommandManager {
         Parser parser = new Parser(userInput);
         switch (keyWord) {
         case "add patient":
-            return new AddPatientCommand(parser.parseAddPatient());
+            try {
+                return new AddPatientCommand(parser.parseUserInput());
+            } catch (Exception e) {
+                throw new DukeException("Please follow the  "
+                        + "`add patient :<patient name> :<NRIC> :<patient room> :<patient_remark>` "
+                        + "format.");
+            }
         case "add task":
-            return new AddTaskCommand(parser.parseAddTask());
+            try {
+                return new AddTaskCommand(parser.parseUserInput()[0]);
+            } catch (Exception e) {
+                throw new DukeException("Please follow the `add task :<task description>` format.");
+            }
         case "assign deadline task":
-            return new AssignDeadlineTaskCommand(parser.parseAssignDeadlineTask());
+            try {
+                return new AssignDeadlineTaskCommand(parser.parseUserInput());
+            } catch (Exception e) {
+                throw new DukeException("Please follow the "
+                        + "`assign deadline task :#<patient id> :#<task id> "
+                        + ":<dd/MM/YYYY HHmm>` format.");
+            }
         case "assign period task":
-            return new AssignPeriodTaskCommand(parser.parseAssignPeriodTask());
+            try {
+                return new AssignPeriodTaskCommand(parser.parseUserInput());
+            } catch (Exception e) {
+                throw new DukeException("Please follow the "
+                        + "`assign event task :#<patient id> :#<task ID> "
+                        + ":<dd/MM/YYYY HHmm> to <dd/MM/YYYY HHmm>` format.");
+            }
         case "list patients":
             return new ListPatientsCommand();
         case "list tasks":
             return new ListTasksCommand();
         case "delete assigned task":
-            return new DeleteAssignedTaskCommand(parser.parseDeleteAssignedTask());
+            try {
+                return new DeleteAssignedTaskCommand(parser.parseUserInput()[0]);
+            } catch (Exception e) {
+                throw new DukeException("Please follow the `delete assigned task :#<patient id>"
+                        + " :#<task id>` or "
+                        + " `delete patient task :%<unique assigned task id>` format.");
+            }
         case "delete patient":
-            return new DeletePatientCommand(parser.parseDeletePatient());
+            try {
+                return new DeletePatientCommand(parser.parseUserInput()[0]);
+            } catch (Exception e) {
+                throw new DukeException("Please follow the `delete patient :#<patient id>` format");
+            }
         case "delete task":
-            return new DeleteTaskCommand(parser.parseDeleteTask());
+            try {
+                return new DeleteTaskCommand(parser.parseUserInput()[0]);
+            } catch (Exception e) {
+                throw new DukeException("Please follow the `delete task :#<task id>` format");
+            }
         case "find patient":
-            return new FindPatientCommand((parser.parseFindPatient()));
+            try {
+                return new FindPatientCommand(parser.parseUserInput()[0]);
+            } catch (Exception e) {
+                throw new DukeException("Please use the `find patient :#<patient id>` format.");
+            }
         case "find assigned tasks":
-            return new FindAssignedTaskCommand((parser.parseFindAssignedTasks()));
+            try {
+                return new FindAssignedTaskCommand(parser.parseUserInput()[0]);
+            } catch (Exception e) {
+                throw new DukeException("Please use the `find assigned tasks "
+                        + ":#<patient id>` format.");
+            }
         case "update patient":
-            return new UpdatePatientCommand(parser.parseUpdatePatient());
+            try {
+                return new UpdatePatientCommand(parser.parseUserInput());
+            } catch (Exception e) {
+                throw new DukeException("Please use the `update patient :<patient name> or #<patient id>"
+                        + ":<name/NRIC/room/remark> :<updated info>` format.");
+            }
         case "update task":
-            return new UpdateTaskCommand(parser.parseUpdateTask());
+            try {
+                return new UpdateTaskCommand(parser.parseUserInput());
+            } catch (Exception e) {
+                throw new DukeException("Please use the `update task :#<task id>"
+                        + " :<updated description>` format.");
+            }
         case "duke":
             return new DukeCommand();
         case "bye":
             return new ExitCommand();
-        case "undo" :
+        case "undo":
             return new UndoCommand();
         default:
             throw new DukeException("Could not understand user input.");
