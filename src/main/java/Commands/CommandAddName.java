@@ -16,6 +16,7 @@ public class CommandAddName extends Command{
     @Override
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
         Ui ui = farmio.getUi();
+        farmio.getSimulation().simulate();
         if (name.length() <= 15 && name.length() > 0 && (name.matches("[a-zA-Z0-9]+") || name.contains("_"))) {
             farmio.getFarmer().inputName(name);
             ui.registerName(name);
