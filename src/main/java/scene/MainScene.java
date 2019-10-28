@@ -67,10 +67,7 @@ public class MainScene extends NewScene {
                 //execute step 4
                 reminderSetUpState += 1; //assert state 4
                 c = new SetReminderCommand(reminderSetUpState, userInput);
-            } else if (reminderSetUpState == 4) {
-                //reset
                 isSettingUpReminder = false;
-                c = new SetReminderCommand(reminderSetUpState);
             } else {
                 throw new ReminderSetupException();
             }

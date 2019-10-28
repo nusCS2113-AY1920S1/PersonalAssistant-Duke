@@ -17,7 +17,6 @@ class RemindTask extends TimerTask {
         Platform.runLater(() -> {
             new ReminderPopup();
         });
-        System.out.println("Time up");
         timer.cancel(); //Terminate the timer thread
     }
 }
