@@ -47,10 +47,6 @@ public class Parser {
         }
     }
 
-//    private static Command parseName(String userInput) throws FarmioException {
-//        return new CommandAddName(userInput);
-//    }
-
     private static Command parseMenuStart(String userInput) throws FarmioException {
         switch (userInput) {
             case "load game":
