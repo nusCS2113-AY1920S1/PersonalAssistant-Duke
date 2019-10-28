@@ -1,15 +1,11 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.wallet.TransactionList;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 import duke.model.Goal;
 import duke.model.meal.MealList;
-import duke.ui.Ui;
 import duke.model.user.User;
-
-import java.util.Scanner;
 
 /**
  * AddGoalCommand is a public class that inherits from abstract class Command.
@@ -29,9 +25,9 @@ public class AddGoalCommand extends Command {
         this.goal = goal;
     }
 
-    public AddGoalCommand(boolean flag, String message) {
+    public AddGoalCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
 
     /**
@@ -56,7 +52,7 @@ public class AddGoalCommand extends Command {
 
     public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
-        if (response.trim().equals("y")  || response.trim().equals("Y")) {
+        if (responseStr.trim().equals("y")  || responseStr.trim().equals("Y")) {
             meals.addGoal(this.goal, true);
             ui.showLine();
             ui.showAddedGoal(goal);
@@ -65,7 +61,7 @@ public class AddGoalCommand extends Command {
             } catch (DukeException e) {
                 ui.showMessage(e.getMessage());
             }
-        } else if (response.trim().equals("n")  || response.trim().equals("N")) {
+        } else if (responseStr.trim().equals("n")  || responseStr.trim().equals("N")) {
             ui.showLine();
             ui.showMessage("The set goal command has been canceled");
         } else {

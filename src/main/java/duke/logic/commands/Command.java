@@ -1,7 +1,6 @@
 package duke.logic.commands;
 
 import duke.model.meal.MealList;
-import duke.model.wallet.TransactionList;
 import duke.model.wallet.Wallet;
 import duke.ui.Ui;
 import duke.storage.Storage;
@@ -11,7 +10,6 @@ import duke.model.user.User;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Scanner;
 
 /**
  * Command is the abstract base class for all the command objects.
@@ -20,12 +18,12 @@ import java.util.Scanner;
 public abstract class Command {
     protected DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     protected Calendar calendarDate = Calendar.getInstance();
-    protected String currentDate = dateFormat.format(calendarDate.getTime());
+    protected String currentDateStr = dateFormat.format(calendarDate.getTime());
     protected Ui ui = new Ui();
-    protected String response;
+    protected String responseStr;
     protected boolean isDone = true;
     protected boolean isFail = false;
-    protected String error;
+    protected String errorStr;
 
     /**
      * This class is an abstract class that will change according to the inheritor.
@@ -38,8 +36,8 @@ public abstract class Command {
 
     public abstract void execute2(MealList meals, Storage storage, User user, Wallet wallet);
 
-    public void setResponse(String response) {
-        this.response = response;
+    public void setResponseStr(String responseStr) {
+        this.responseStr = responseStr;
     }
 
     public boolean isDone() {
@@ -51,7 +49,7 @@ public abstract class Command {
     }
 
     public void failure() {
-        ui.showMessage(this.error);
+        ui.showMessage(this.errorStr);
     }
 
     public boolean isFail() {

@@ -1,17 +1,14 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.wallet.TransactionList;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 import duke.model.meal.MealList;
-import duke.ui.Ui;
 import duke.model.user.User;
 
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Scanner;
 
 /**
  * ClearCommand is a public class that inherits from abstract class Command.
@@ -36,9 +33,9 @@ public class ClearCommand extends Command {
         }
     }
 
-    public ClearCommand(boolean flag, String message) {
+    public ClearCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
 
     /**

@@ -1,17 +1,11 @@
 package duke.logic.commands;
 
-import java.util.Scanner;
-
 import duke.commons.exceptions.DukeException;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
-import duke.model.wallet.TransactionList;
 import duke.model.wallet.Wallet;
-import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.model.user.User;
-
-import java.util.Scanner;
 
 /**
  * AddItemCommand is a public class that inherits from abstract class Command.
@@ -28,9 +22,9 @@ public class AddItemCommand extends Command {
         this.meal = meal;
     }
 
-    public AddItemCommand(boolean flag, String message) {
+    public AddItemCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
 
     /**

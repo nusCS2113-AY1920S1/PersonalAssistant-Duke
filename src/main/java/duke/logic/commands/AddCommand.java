@@ -1,14 +1,11 @@
 package duke.logic.commands;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import duke.commons.exceptions.DukeException;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
-import duke.model.wallet.TransactionList;
 import duke.model.wallet.Wallet;
-import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.model.user.User;
 
@@ -30,9 +27,9 @@ public class AddCommand extends Command {
         this.cost = cost;
     }
 
-    public AddCommand(boolean flag, String message) {
+    public AddCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
 
     /**

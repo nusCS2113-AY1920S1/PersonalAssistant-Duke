@@ -60,7 +60,7 @@ public class Main {
         try {
             storage.loadTransactions(transactions, wallet);
         } catch (DukeException e) {
-            ui.showLoadinngTransactionError();
+            ui.showLoadingTransactionError();
         }
     }
 
@@ -86,7 +86,7 @@ public class Main {
                     c.execute(tasks, storage, user, wallet);
                     while (!c.isDone()) {
                         String word = in.nextLine();
-                        c.setResponse(word);
+                        c.setResponseStr(word);
                         c.execute2(tasks, storage, user, wallet);
                     }
                 }

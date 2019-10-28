@@ -83,8 +83,8 @@ public class UserUi {
         System.out.println(boundary);
     }
 
-    public void showMessage(String message) {
-        System.out.println(padding + message);
+    public void showMessage(String messageStr) {
+        System.out.println(padding + messageStr);
     }
 }
 

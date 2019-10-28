@@ -2,14 +2,11 @@ package duke.logic.commands;
 
 import duke.commons.exceptions.DukeException;
 import duke.model.meal.MealList;
-import duke.model.wallet.TransactionList;
 import duke.model.wallet.Wallet;
-import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.model.user.User;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * The HelpCommand is a public class that extends from the abstract class Command.
@@ -34,9 +31,9 @@ public class HelpCommand extends Command {
         this.specifiedHelp = specifiedHelp;
     }
 
-    public HelpCommand(boolean flag, String message) {
+    public HelpCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
 
     /**

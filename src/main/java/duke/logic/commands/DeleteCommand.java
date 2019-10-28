@@ -3,15 +3,12 @@ package duke.logic.commands;
 import duke.commons.exceptions.DukeException;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
-import duke.model.wallet.TransactionList;
 import duke.model.wallet.Wallet;
-import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.model.user.User;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.Scanner;
 
 /**
  * DeleteCommand is a public class that inherits from abstract class Command.
@@ -33,7 +30,7 @@ public class DeleteCommand extends Command {
         Date parsedDate;
         try {
             parsedDate = dateFormat.parse(date);
-            currentDate = dateFormat.format(parsedDate);
+            currentDateStr = dateFormat.format(parsedDate);
         } catch (ParseException e) {
             ui.showMessage("Unable to parse input " + date + " as a date. " + helpText);
         }
@@ -51,9 +48,9 @@ public class DeleteCommand extends Command {
         }
     }
 
-    public DeleteCommand(boolean flag, String message) {
+    public DeleteCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
     /**
      * Executes the DeleteCommand.
@@ -66,11 +63,11 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
-        if (index <= 0 || index > meals.getMealsList(currentDate).size()) {
-            ui.showMessage("Index provided out of bounds for list of meals on " + currentDate);
+        if (index <= 0 || index > meals.getMealsList(currentDateStr).size()) {
+            ui.showMessage("Index provided out of bounds for list of meals on " + currentDateStr);
         } else {
-            Meal currentMeal = meals.delete(currentDate, index);
-            ui.showDeleted(currentMeal, meals.getMealsList(currentDate));
+            Meal currentMeal = meals.delete(currentDateStr, index);
+            ui.showDeleted(currentMeal, meals.getMealsList(currentDateStr));
             try {
                 storage.updateFile(meals);
             } catch (DukeException e) {
@@ -83,11 +80,11 @@ public class DeleteCommand extends Command {
 
     public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
-        if (index <= 0 || index > meals.getMealsList(currentDate).size()) {
-            ui.showMessage("Index provided out of bounds for list of meals on " + currentDate);
+        if (index <= 0 || index > meals.getMealsList(currentDateStr).size()) {
+            ui.showMessage("Index provided out of bounds for list of meals on " + currentDateStr);
         } else {
-            Meal currentMeal = meals.delete(currentDate, index);
-            ui.showDeleted(currentMeal, meals.getMealsList(currentDate));
+            Meal currentMeal = meals.delete(currentDateStr, index);
+            ui.showDeleted(currentMeal, meals.getMealsList(currentDateStr));
             try {
                 storage.updateFile(meals);
             } catch (DukeException e) {

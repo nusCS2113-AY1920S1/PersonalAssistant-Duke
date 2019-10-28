@@ -1,15 +1,10 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.DukeException;
 import duke.model.meal.MealList;
 import duke.model.wallet.Transaction;
-import duke.model.wallet.TransactionList;
 import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
-import duke.ui.Ui;
-
-import java.util.Scanner;
 
 public class AddTransactionCommand extends Command {
     private Transaction transaction;
@@ -18,9 +13,9 @@ public class AddTransactionCommand extends Command {
         this.transaction = transaction;
     }
 
-    public AddTransactionCommand(boolean flag, String message) {
+    public AddTransactionCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
 
     @Override

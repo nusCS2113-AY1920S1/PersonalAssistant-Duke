@@ -1,17 +1,14 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.wallet.TransactionList;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 import duke.model.meal.MealList;
-import duke.ui.Ui;
 import duke.model.user.User;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Scanner;
 
 public class UpdateWeightCommand extends Command {
     private String description;
@@ -24,9 +21,9 @@ public class UpdateWeightCommand extends Command {
         this.description = description;
     }
 
-    public UpdateWeightCommand(boolean flag, String message) {
+    public UpdateWeightCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
 
     /**

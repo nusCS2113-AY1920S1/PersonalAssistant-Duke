@@ -2,24 +2,19 @@ package duke.logic.commands;
 
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
-import duke.model.wallet.TransactionList;
 import duke.model.wallet.Wallet;
-import duke.ui.Ui;
 import duke.storage.Storage;
-import duke.commons.exceptions.DukeException;
 import duke.model.user.User;
 
 import java.text.ParseException;
 import java.util.Date;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * ListCommand is a public class that inherits from abstract class Command.
  * It displays all the meals in a relevant day in a list to the user
  */
 public class ListCommand extends Command {
-    private String date;
 
     /**
      * Constructor for ListCommand.
@@ -29,22 +24,22 @@ public class ListCommand extends Command {
 
     /**
      * Constructor for ListCommand.
-     * @param date The date of the data to List
+     * @param dateStr The date of the data to List
      */
 
-    public ListCommand(String date) {
+    public ListCommand(String dateStr) {
         Date temp;
         try {
-            temp = dateFormat.parse(date);
-            currentDate = dateFormat.format(temp);
+            temp = dateFormat.parse(dateStr);
+            currentDateStr = dateFormat.format(temp);
         } catch (ParseException e) {
             ui.showMessage(e.getMessage());
         }
     }
 
-    public ListCommand(boolean flag, String message) {
+    public ListCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
 
     /**
@@ -56,12 +51,12 @@ public class ListCommand extends Command {
     public void execute(MealList meals,  Storage storage, User user, Wallet wallet) {
         ui.showLine();
         ui.showCalorie(user);
-        ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
-        if (!meals.checkDate(currentDate)) {
-            ui.showMessage("There isn't any food on " + currentDate);
+        ArrayList<Meal> currentMeals = meals.getMealsList(currentDateStr);
+        if (!meals.checkDate(currentDateStr)) {
+            ui.showMessage("There isn't any food on " + currentDateStr);
         }
         ui.showList(currentMeals);
-        ui.showCaloriesLeft(currentMeals, user, currentDate);
+        ui.showCaloriesLeft(currentMeals, user, currentDateStr);
         //ui.showRemainingCalorie(currentMeals, user, tasks.caloriesAvgToGoal());
         ui.showLine();
     }

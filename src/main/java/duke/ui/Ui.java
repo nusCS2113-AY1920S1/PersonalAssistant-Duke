@@ -100,15 +100,15 @@ public class Ui {
         return input;
     }
 
-    public void showMessage(String message) {
-        System.out.println(padding + message);
+    public void showMessage(String messageStr) {
+        System.out.println(padding + messageStr);
     }
 
     public void showLoadingError() {
         System.out.println(padding + "Failed to load file.");
     }
 
-    public void showLoadinngTransactionError() {
+    public void showLoadingTransactionError() {
         System.out.println(padding + "Failed to load transaction file.");
     }
 

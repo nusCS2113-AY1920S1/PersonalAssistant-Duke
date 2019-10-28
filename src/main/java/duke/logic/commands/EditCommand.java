@@ -1,15 +1,11 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.wallet.TransactionList;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
-import duke.ui.Ui;
 import duke.model.user.User;
-
-import java.util.Scanner;
 
 public class EditCommand extends Command {
     private Meal updatedMeal;
@@ -22,9 +18,9 @@ public class EditCommand extends Command {
         this.updatedMeal = meal;
     }
 
-    public EditCommand(boolean flag, String message) {
+    public EditCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
     /**
      * Executes the EditCommand.

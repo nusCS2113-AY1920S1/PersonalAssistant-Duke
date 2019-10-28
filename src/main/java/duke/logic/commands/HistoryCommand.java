@@ -1,14 +1,11 @@
 package duke.logic.commands;
 
-import duke.model.wallet.TransactionList;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 import duke.model.meal.MealList;
-import duke.ui.Ui;
 import duke.model.user.User;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * HistoryCommand is a public class that inherits form abstract class Command.
@@ -25,9 +22,9 @@ public class HistoryCommand extends Command {
         historyCommandsList = new ArrayList<String>();
     }
 
-    public HistoryCommand(boolean flag, String message) {
+    public HistoryCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
     /**
      * Add command to history of commands.

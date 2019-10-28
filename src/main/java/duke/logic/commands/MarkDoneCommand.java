@@ -3,15 +3,12 @@ package duke.logic.commands;
 import duke.commons.exceptions.DukeException;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
-import duke.model.wallet.TransactionList;
 import duke.model.wallet.Wallet;
-import duke.ui.Ui;
 import duke.storage.Storage;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Scanner;
 
 import duke.model.user.User;
 
@@ -25,18 +22,18 @@ public class MarkDoneCommand extends Command {
     /**
      * Constructor for MarkDoneCommand.
      * @param indexStr the index of meal on the date to be marked as done.
-     * @param date the date which meals are to be marked as done.
+     * @param dateStr the date which meals are to be marked as done.
      */
 
-    public MarkDoneCommand(String indexStr, String date) {
+    public MarkDoneCommand(String indexStr, String dateStr) {
         this(indexStr);
         Date parsedDate;
-        if (!date.isBlank()) {
+        if (!dateStr.isBlank()) {
             try {
-                parsedDate = dateFormat.parse(date);
-                this.currentDate = dateFormat.format(parsedDate);
+                parsedDate = dateFormat.parse(dateStr);
+                this.currentDateStr = dateFormat.format(parsedDate);
             } catch (ParseException e) {
-                ui.showMessage("Unable to parse input" + date + " as a date. ");
+                ui.showMessage("Unable to parse input" + dateStr + " as a date. ");
             }
         }
     }
@@ -55,9 +52,9 @@ public class MarkDoneCommand extends Command {
         }
     }
 
-    public MarkDoneCommand(boolean flag, String message) {
+    public MarkDoneCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
 
     /**
@@ -71,19 +68,19 @@ public class MarkDoneCommand extends Command {
 
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
-        if (index <= 0 || index > meals.getMealsList(currentDate).size()) {
-            ui.showMessage("Index provided out of bounds for list of meals on " + currentDate);
+        if (index <= 0 || index > meals.getMealsList(currentDateStr).size()) {
+            ui.showMessage("Index provided out of bounds for list of meals on " + currentDateStr);
         } else {
-            Meal currentMeal = meals.markDone(currentDate, index);
+            Meal currentMeal = meals.markDone(currentDateStr, index);
             try {
                 storage.updateFile(meals);
             } catch (DukeException e) {
                 ui.showMessage(e.getMessage());
             }
 
-            ui.showDone(currentMeal, meals.getMealsList(currentDate));
-            ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
-            ui.showCaloriesLeft(currentMeals, user, currentDate);
+            ui.showDone(currentMeal, meals.getMealsList(currentDateStr));
+            ArrayList<Meal> currentMeals = meals.getMealsList(currentDateStr);
+            ui.showCaloriesLeft(currentMeals, user, currentDateStr);
             ui.showLine();
         }
     }
