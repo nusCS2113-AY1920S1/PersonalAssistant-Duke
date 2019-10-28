@@ -1,5 +1,6 @@
 package UserCode.Actions;
 
+import Exceptions.FarmioFatalException;
 import Farmio.Farmer;
 import Farmio.Storage;
 import FrontEnd.Simulation;
@@ -11,20 +12,17 @@ public class GotoFarmAction extends Action {
         super(ActionType.gotoWheatFarm);
     }
 
-    public void execute(Ui ui, Storage storage, Farmer farmer, Simulation simulation) {
-        try {
-            if (farmer.getLocation().equals("WheatFarm")) {
-                simulation.animate(1000, "GotoWheatFarmSimulation", 12);
-                ui.typeWriter("You are already at the WheatFarm/");
-                return;
-            }
+    public void execute(Ui ui, Storage storage, Farmer farmer, Simulation simulation) throws FarmioFatalException {
+        if (farmer.getLocation().equals("WheatFarm")) {
+            simulation.simulate("GotoWheatFarmSimulation", 12);
+            ui.typeWriter("You are already at the WheatFarm", false);
+        } else {
             farmer.changeLocation("Traveling");
-            simulation.animate("GotoWheatFarmSimulation", 1, 11);
+            simulation.simulate("GotoWheatFarmSimulation", 1, 11);
             farmer.changeLocation("WheatFarm");
-            simulation.animate(1000, "GotoWheatFarmSimulation", 12);
-            ui.typeWriter("You have arrived at the WheatFarm/");
-        } catch (Exception e) {
-            e.getMessage();
+            simulation.simulate("GotoWheatFarmSimulation", 12);
+            ui.typeWriter("You have arrived at the WheatFarm", false);
         }
+        ui.sleep(1000);
     }
 }

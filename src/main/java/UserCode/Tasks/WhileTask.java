@@ -8,8 +8,13 @@ import UserCode.Conditions.Condition;
 
 public class WhileTask extends Task {
 
+    /**
+     * Creates a Task of type while
+     * @param condition The condition to be considerd
+     * @param action The action to be executed while the condition is true
+     */
     public WhileTask(Condition condition, Action action) {
-        super(Type.WHILE, condition, action);
+        super(taskType.WHILE, condition, action);
     }
 
     @Override

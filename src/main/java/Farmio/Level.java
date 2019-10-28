@@ -8,15 +8,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Level {
-    ArrayList<String> narratives;
-    String filePath;
-    int endSeeds;
-    int endWheat;
-    int endGrain;
-    int endGold;
-    int deadline;
+    private ArrayList<String> narratives;
+    private String filePath;
+    private String objective;
+    private String hint;
+    private int endSeeds;
+    private int endSeedlings;
+    private int endWheat;
+    private int endGrain;
+    private int endGold;
+    private int deadline;
 
-    public Level(JSONObject object, Farmer farmer) {
+    public Level(JSONObject object) {
         JSONArray array = (JSONArray) object.get("narratives");
         narratives = new ArrayList<>();
         for (Object i : array) {
@@ -25,15 +28,34 @@ public class Level {
         filePath = (String) object.get("file_path");
         endGold = Math.toIntExact((Long) object.get("gold"));
         endSeeds = Math.toIntExact((Long) object.get("seeds"));
+        endSeedlings = Math.toIntExact((Long) object.get("seedlings"));
         endWheat = Math.toIntExact((Long) object.get("wheat"));
         endGrain = Math.toIntExact((Long) object.get("grain"));
         deadline = Math.toIntExact((Long) object.get("deadline"));
+        objective = (String) object.get("objective");
+        hint = (String) object.get("hint");
     }
 
+    /**
+     * Get the narrative of the level
+     * @return the list of narrative
+     */
     public ArrayList<String> getNarratives(){
         return narratives;
     }
 
+    /**
+     * Get hint for completing the level
+     * @return the hint
+     */
+    public String getHint() {
+        return hint;
+    }
+
+    /**
+     * Get path for simulation of the level's narrative
+     * @return the file path
+     */
     public String getPath(){
         return filePath;
     }
@@ -54,10 +76,12 @@ public class Level {
             return farmer.getLocation().equals("Market");
         }
         int seeds = farmer.wheatFarm.getSeeds();
+        int seedlings = farmer.wheatFarm.getSeedlings();
         int wheat = farmer.wheatFarm.getWheat();
         int grain = farmer.wheatFarm.getGrain();
-        int gold = farmer.getMoney();
-        return (seeds >= endSeeds) && (wheat >= endWheat) && (grain >= endGrain) && (gold >= endGold);
+        int gold = farmer.getGold();
+        return (seeds >= endSeeds) && (wheat >= endWheat) && (grain >= endGrain) && (seedlings >= endSeedlings)
+                && (gold >= endGold);
     }
 
     public objectiveResult checkAnswer(Farmio farmio){
@@ -138,14 +162,25 @@ public class Level {
         return "";
     }
 
-
-
+    /**
+     * Get the list of goals to be completed
+     * @return the list of goals
+     */
     public Map<String, Integer> getGoals() {
         Map<String, Integer> goals = new HashMap< String,Integer>();
         goals.put("Gold", endGold);
         goals.put("Seeds", endSeeds);
+        goals.put("Seedlings", endSeedlings);
         goals.put("Wheat", endWheat);
         goals.put("Grain", endGrain);
         return goals;
+    }
+
+    /**
+     * Get the main objective of the level
+     * @return the objective of the level
+     */
+    public String getObjective() {
+        return objective;
     }
 }

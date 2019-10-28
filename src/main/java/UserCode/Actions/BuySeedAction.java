@@ -7,6 +7,9 @@ import Exceptions.FarmioException;
 import FrontEnd.Simulation;
 import FrontEnd.Ui;
 import Places.Market;
+import javafx.util.Pair;
+
+import java.util.ArrayList;
 
 public class BuySeedAction extends Action {
 
@@ -16,19 +19,13 @@ public class BuySeedAction extends Action {
 
     @Override
     public void execute(Ui ui, Storage storage, Farmer farmer, Simulation simulation) throws FarmioException, FarmioFatalException {
-        if (farmer.getMoney() < Market.PRICE_OF_SEED || !farmer.getLocation().equals("Market")) {
-            farmer.setTaskFailed();
-            simulation.animate("ErrorInExecution", 0, false);
-            if (!farmer.getLocation().equals("Market")) {
-                ui.typeWriter("Error! you have attempted to buy seeds despite not being at the market/\n");
-            } else {
-                ui.typeWriter("Error! you have attempted to buy seeds despite not having enough money/\n");
-            }
-            throw new FarmioException("Task Error!");
-        }
-        simulation.animate("BuySeedSimulation", 0, 4);
+        ArrayList<Pair<Boolean, String>> criteriaFeedbackList = new ArrayList<>();
+        criteriaFeedbackList.add(new Pair<>(farmer.getGold() < Market.PRICE_OF_SEED, "Error! you have attempted to buy seeds despite not having enough money"));
+        criteriaFeedbackList.add(new Pair<>(!farmer.getLocation().equals("Market"), "Error! you have attempted to buy seeds despite not being at the market"));
+        checkActionCriteria(ui, farmer, simulation, criteriaFeedbackList);
+        simulation.simulate("BuySeedSimulation", 0, 4);
         farmer.getWheatFarm().buySeeds();
-        farmer.spendMoney(Market.PRICE_OF_SEED);
-        simulation.animate(1000, "BuySeedSimulation", 5);
+        farmer.spendGold(Market.PRICE_OF_SEED);
+        simulation.simulate(1000, "BuySeedSimulation", 5);
     }
 }

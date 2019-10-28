@@ -2,13 +2,15 @@
   "narratives": [
     "After selling your wheat, you can observe that you have more gold than when you first started.",
     "Your current location is at the market. You can only plant your seeds in your farm.",
-    "Using the knowledge you have learnt so far, help farmer John get rich!",
-    ":Earn 100 gold within the next month.~"
+    "Using the knowledge you have learnt so far, help farmer + get rich!~"
   ],
-  "gold": 100,
+  "gold": 20,
   "seeds": 0,
+  "seedlings": 0,
   "wheat": 0,
   "grain": 0,
-  "deadline" : 5,
-  "file_path": "Level1.6"
+  "deadline" : 10,
+  "file_path": "Level1.6",
+  "objective": "Earn 30 gold by Day 10",
+  "hint": "1.Enter [market] to calculate your profits from each seed.\n2.Enter [condition] to check how you can use gold as a condition for an action\n3.Enter [delete all] to start new code"
 }

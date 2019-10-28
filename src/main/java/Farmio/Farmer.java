@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class Farmer {
 
-    private final String JSON_KEY_MONEY = "money";
+    private final String JSON_KEY_GOLD = "gold";
     private final String JSON_KEY_LEVEL = "level";
     private final String JSON_KEY_DAY = "day";
     private final String JSON_KEY_LOCATION = "location";
@@ -25,10 +25,12 @@ public class Farmer {
     private final String JSON_KEY_TASK_LIST = "task_list";
     private final String JSON_KEY_TASK_CURRENT = "task_current";
     private final String JSON_KEY_TASK_STATUS_FAIL = "task_status_fail";
+    private final String JSON_KEY_NAME = "name";
 
-    private int money;
+    private int gold;
     private double level;
     private int day;
+    private String name;
     private String location;
     protected WheatFarm wheatFarm;
     protected ChickenFarm chickenFarm;
@@ -39,7 +41,7 @@ public class Farmer {
     private ArrayList<Double> levelList = new ArrayList<Double>(Arrays.asList(1.1,1.2,1.3,1.4,1.5,1.6,2.1,2.2));
 
     public Farmer() {
-        this.money = 10;
+        this.gold = 10;
         this.level = 1.1;
         this.day = 1;
         this.location = "WheatFarm";
@@ -49,11 +51,12 @@ public class Farmer {
         this.tasks = new TaskList();
         this.currentTask = -1;
         this.hasfailedCurrentTask = false;
+        this.name = "name";
     }
 
     public Farmer(JSONObject jsonObject) throws FarmioException {
         this.level = (Double) jsonObject.get(JSON_KEY_LEVEL);
-        this.money = (int) (long) jsonObject.get(JSON_KEY_MONEY);
+        this.gold = (int) (long) jsonObject.get(JSON_KEY_GOLD);
         this.day = (int) (long) jsonObject.get(JSON_KEY_DAY);
         this.location = (String) jsonObject.get(JSON_KEY_LOCATION);
         this.wheatFarm = new WheatFarm((JSONObject) jsonObject.get(JSON_KEY_FARM_WHEAT));
@@ -62,19 +65,33 @@ public class Farmer {
         this.tasks = new TaskList((JSONArray) jsonObject.get(JSON_KEY_TASK_LIST));
         this.currentTask = (int) (long) jsonObject.get(JSON_KEY_TASK_CURRENT);
         this.hasfailedCurrentTask = (Boolean) jsonObject.get(JSON_KEY_TASK_STATUS_FAIL);
+        this.name = (String) jsonObject.get(JSON_KEY_NAME);
     }
 
-    public Farmer(double level, int money, WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm, TaskList tasks) {
+    public Farmer(double level, int gold, WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm, TaskList tasks, String name) {
         this.level = level;
-        this.money = money;
+        this.gold = gold;
         this.wheatFarm = wheatFarm;
         this.chickenFarm = chickenFarm;
         this.cowFarm = cowFarm;
         this.tasks = tasks;
+        this.name = name;
     }
 
-    public int getMoney() {
-        return money;
+    public void inputName(String username) {
+        name = username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public boolean hasGold() {
+        return gold > 0;
     }
 
     public double getLevel() {
@@ -99,17 +116,19 @@ public class Farmer {
         if (level >= 3) {
         }
         if (level >= 2) {
-
         }
-        if(level >= 1.3) {
+        if (level >= 1.4) {
             assets.put("Wheat", wheatFarm.getWheat());
             assets.put("Grain", wheatFarm.getGrain());
+        }
+        if(level >= 1.3) {
+            assets.put("Seedlings", wheatFarm.getSeedlings());
         }
         if (level >= 1.2) {
             assets.put("Seeds", wheatFarm.getSeeds());
         }
         if (level >= 1.1) {
-            assets.put("Gold", money);
+            assets.put("Gold", gold);
         }
         return assets;
     }
@@ -128,6 +147,10 @@ public class Farmer {
         return tasks;
     }
 
+    /**
+     * Checks if curent task has failed and resets current task
+     * @return true if current task has failed and false otherwise
+     */
     public boolean isHasfailedCurrentTask() {
         if (hasfailedCurrentTask) {
             currentTask = -1;
@@ -135,28 +158,43 @@ public class Farmer {
         }
         return false;
     }
+
+    /**
+     * Reverts task list execution failure
+     */
     public void resetTaskFailed() {hasfailedCurrentTask = false;}
 
+    /**
+     * Sets task list execution as failed
+     */
     public void setTaskFailed() {
         hasfailedCurrentTask = true;
     }
 
-    public void setMoney(int money) {
-        this.money = money;
+    public void setGold(int gold) {
+        this.gold = gold;
     }
 
-    public void spendMoney(int cost) {
-        money -= cost;
+    public void spendGold(int cost) {
+        gold -= cost;
     }
 
-    public void earnMoney(int profit) {
-        money += profit;
+    public void earnGold(int profit) {
+        gold += profit;
     }
 
+    /**
+     * Gets the index of the current task in execution
+     * @return the index of the current task
+     */
     public int getCurrentTask() {
         return this.currentTask;
     }
 
+    /**
+     * Increases the level
+     * @return the next level number. 0 if current level is not registered or game has ended
+     */
     public double nextLevel(){
         if (level < levelList.get(levelList.size() - 1)) {
             level = levelList.get(levelList.indexOf(level) + 1);
@@ -165,7 +203,12 @@ public class Farmer {
         return 0;
     }
 
-    public void startDay(Farmio farmio) throws FarmioException, FarmioFatalException {
+    /**
+     * Takes care of TaskList execution and handles task failure
+     * @param farmio The game where the day should be started
+     * @throws FarmioFatalException if file from action's simulation cannot be found
+     */
+    public void startDay(Farmio farmio) throws FarmioFatalException {
         try {
             for (int i = 0; i < tasks.size(); i++) {
                 this.currentTask = i;
@@ -178,16 +221,15 @@ public class Farmer {
         }
     }
 
-    public void nextDay() throws FarmioException, FarmioFatalException {
+    public void nextDay() {
         wheatFarm.growSeedlings();
         day += 1;
     }
 
-
     public JSONObject toJSON(){
         JSONObject obj = new JSONObject();
         obj.put(JSON_KEY_LEVEL, level);
-        obj.put(JSON_KEY_MONEY, money);
+        obj.put(JSON_KEY_GOLD, gold);
         obj.put(JSON_KEY_DAY, day);
         obj.put(JSON_KEY_LOCATION, location);
         obj.put(JSON_KEY_FARM_WHEAT, wheatFarm.toJSON());
@@ -196,6 +238,7 @@ public class Farmer {
         obj.put(JSON_KEY_TASK_LIST, tasks.toJSON());
         obj.put(JSON_KEY_TASK_CURRENT, currentTask);
         obj.put(JSON_KEY_TASK_STATUS_FAIL, hasfailedCurrentTask);
+        obj.put(JSON_KEY_NAME, name);
         return obj;
     }
 }

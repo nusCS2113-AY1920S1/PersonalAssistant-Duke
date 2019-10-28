@@ -6,7 +6,9 @@ import Exceptions.FarmioException;
 import FrontEnd.Simulation;
 import FrontEnd.Ui;
 import Farmio.Farmer;
-import org.json.simple.JSONObject;
+import javafx.util.Pair;
+
+import java.util.ArrayList;
 
 public abstract class Action {
 
@@ -24,6 +26,15 @@ public abstract class Action {
      * }
      **/
 
+    /**
+     * Executes the Action
+     * @param ui The user interface used to print messages of the action
+     * @param storage which stores the assets after acton execution
+     * @param farmer The farmer whose variables are displayed and changed
+     * @param simulation The simulation object initialised with farmio
+     * @throws FarmioException if there is an error in executing the tasklist
+     * @throws FarmioFatalException if file for simulation is missing
+     */
     public abstract void execute(Ui ui, Storage storage, Farmer farmer, Simulation simulation) throws FarmioException, FarmioFatalException;
 
     public static boolean validateAction(String userInput) {
@@ -64,4 +75,33 @@ public abstract class Action {
         return type.name();
     }
 
+    /**
+     * Checks if Action criteria is met before execution
+     * @param ui The user interface used to print messages of the action
+     * @param farmer The farmer whose variables are displayed and changed
+     * @param simulation The simulation object initialised with farmio
+     * @param criteriaFeedbackList The list of criterias and their respective feedback messages
+     * @throws FarmioException if there is an error in executing the tasklist
+     * @throws FarmioFatalException if file for simulation is missing
+
+     */
+    protected void checkActionCriteria(Ui ui, Farmer farmer, Simulation simulation
+            , ArrayList<Pair<Boolean, String>> criteriaFeedbackList) throws FarmioException, FarmioFatalException {
+        boolean hasError = false;
+        ui.sleep(2000);
+        for (Pair<Boolean, String> criteriaFeedback: criteriaFeedbackList) {
+            if (criteriaFeedback.getKey()) {
+                if (!hasError) {
+                    farmer.setTaskFailed();
+                    simulation.simulate("ErrorInExecution", 0);
+                    hasError = true;
+                }
+                ui.typeWriter(criteriaFeedback.getValue(), false);
+            }
+        }
+        if (hasError) {
+            ui.sleep(2000);
+            throw new FarmioException("Task Error!");
+        }
+    }
 }

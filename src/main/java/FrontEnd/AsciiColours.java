@@ -9,7 +9,7 @@ import java.util.List;
  * <li>String msg = Ansi.Blink.colorize("BOOM!")</li>
  *
  * Or, if you are adverse to that, you can use the constants directly:
- * <li>String msg = new Ansi(Ansi.ITALIC, Ansi.GREEN).format("Green money")</li>
+ * <li>String msg = new Ansi(Ansi.ITALIC, Ansi.GREEN).format("Green gold")</li>
  * Or, even:
  * <li>String msg = Ansi.BLUE + "scientific"</li>
  *
@@ -55,7 +55,8 @@ public final class AsciiColours {
     public static final String	BACKGROUND_CYAN		= "\u001B[46m";
     public static final String	BACKGROUND_WHITE	= "\u001B[47m";
 
-    public static final String	DONE			= "\u001B[31m";
+    public static final String	DONE			= GREEN;
+    public static final String	NOT_DONE			= HIGH_INTENSITY;
     static final String  HIGHLIGHT           = "\u001B[0m"  + "\u001B[1m" + BACKGROUND_GREEN;
     static final String  ERROR           = "\u001B[0m"  + "\u001B[1m" + BACKGROUND_RED;
 

@@ -14,8 +14,14 @@ public class IfElseTask extends Task {
     private Action ifAction;
     private Action elseAction;
 
+    /**
+     * Creates an if else task
+     * @param condition The condition to be considered
+     * @param ifAction The action to be executed if the condition is true
+     * @param elseAction The action to be executed if the condition is false
+     */
     public IfElseTask(Condition condition, Action ifAction, Action elseAction) {
-        super(Type.IF_ELSE, condition, ifAction);
+        super(taskType.IF_ELSE, condition, ifAction);
         this.ifAction = ifAction;
         this.elseAction = elseAction;
     }

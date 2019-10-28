@@ -6,6 +6,10 @@ import Farmio.Farmer;
 import Farmio.Storage;
 import FrontEnd.Simulation;
 import FrontEnd.Ui;
+import Places.Market;
+import javafx.util.Pair;
+
+import java.util.ArrayList;
 
 public class SellWheatAction extends Action {
 
@@ -15,29 +19,14 @@ public class SellWheatAction extends Action {
 
     @Override
     public void execute(Ui ui, Storage storage, Farmer farmer, Simulation simulation) throws FarmioFatalException, FarmioException {
-        if (!farmer.getWheatFarm().hasGrain() || !farmer.getLocation().equals("Market")) {
-            farmer.setTaskFailed();
-            simulation.animate("ErrorInExecution", 0);
-            if (!farmer.getWheatFarm().hasGrain()) {
-                ui.typeWriter("Error! you have attempted to sell grain despite not having any grain/\n");
-            } else {
-                ui.typeWriter("Error! you have attempted to sell grain despite not being at the market/\n");
-            }
-            throw new FarmioException("Task Error!");
-        }
-        try {
-            simulation.animate("SellWheatSimulation", 0, 6);
-            ui.show("Selling grain!");
-            farmer.earnMoney(farmer.getWheatFarm().sell());
-            simulation.animate(1000, "SellWheatSimulation", 7);
-        } catch (Exception e) {
-            e.getMessage();
-        }
+        ArrayList<Pair<Boolean, String>> criteriaFeedbackList = new ArrayList<>();
+        criteriaFeedbackList.add(new Pair<>(!farmer.getWheatFarm().hasGrain(), "Error! you have attempted to sell grain despite not having any grain"));
+        criteriaFeedbackList.add(new Pair<>(!farmer.getLocation().equals("Market"), "Error! you have attempted to sell grain despite not being at the market"));
+        checkActionCriteria(ui, farmer, simulation, criteriaFeedbackList);
+        simulation.simulate("SellWheatSimulation", 0, 6);
+        ui.typeWriter("Selling grain!", false);
+        ui.sleep(1000);
+        farmer.earnGold(farmer.getWheatFarm().sell());
+        simulation.simulate(1000, "SellWheatSimulation", 7);
     }
-
-//    public JSONObject toJSON() {
-//        JSONObject obj = super.toJSON();
-//        obj.put("action", "selling_wheat");
-//        return obj;
-//    }
 }

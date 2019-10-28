@@ -1,91 +1,128 @@
 package FrontEnd;
 
-import Exceptions.FarmioFatalException;
-import Farmio.Farmio;
-import Farmio.Storage;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
+import Farmio.Farmio;
 
 public class Ui {
     private Scanner scanner;
     private final String CLEAR_SCREEN = "\033c" + "\033[2J";
+    private static String USERNAME;
 
+    /**
+     * Creates a user interface object
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
+    public void showName(String message) {
+        USERNAME = message;
+    }
+    /**
+     * Prints the message in the terminal
+     * @param message to be printed
+     */
     public void show(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Prints the exit message
+     */
     public void showExit(){
-        typeWriter("Bye-Bye");
+        typeWriter("Bye-Bye", false);
     }
 
+    /**
+     * Prints an error in the terminal
+     * @param message to be printed as an error
+     */
     public void showError(String message) {
         show("Error: " + message);
     }
 
+    /**
+     * Prints a warning in the terminal
+     * @param message as the warning message
+     */
     public void showWarning(String message) {
-        show("Warning: " + message);
+        show(AsciiColours.RED + "Warning: " + message + AsciiColours.SANE);
     }
 
-    public void clearScreen() {
+    /**
+     * Clears the screen
+     */
+    void clearScreen() {
         System.out.println(CLEAR_SCREEN);
     }
 
+    /**
+     * Prints a message as an info
+     * @param message as the info message
+     */
     public void showInfo(String message) {
-        show("Info: " + message);
+        show(AsciiColours.CYAN + "Info: " + AsciiColours.SANE + message );
     }
 
+    /**
+     * Gets user input
+     * @return the user input
+     */
     public String getInput() {
         show("\nInput: ");
-        return scanner.nextLine();
+        return scanner.nextLine().replace("[","").replace("]","");
     }
 
-    public void typeWriter(String text) { //ill clean this shit up soon.
-        final char OBJECTIVE_PLACEHOLDER = ':';
-        final char LEVEL_BEGIN_PLACEHOLDER = '~';
-        final char EARLY_ESCAPE_PLACEHOLDER = '/';
-        int i;
-        int lineLength = 0;
-        System.out.print(">>> ");
+    /**
+     * Delays the program
+     * @param delay time in milliseconds
+     */
+    public void sleep(int delay) {
         try{
-            Thread.sleep(150);//0.5s pause between characters
+            Thread.sleep(delay);
         }catch(InterruptedException ex){
             Thread.currentThread().interrupt();
+            clearScreen();
+            showWarning("Simulator refersh interrupted! Interface may not display correctly.");
         }
-        for(i = 0; i < text.length(); i++) {
+    }
+
+    /**
+     * Prints text to the terminal type writer style
+     * @param text to be printed
+     * @param hasPressEnter if 'Press ENTER' should be added to the print
+     */
+    public void typeWriter(String text, boolean hasPressEnter) {
+        final char LEVEL_BEGIN_PLACEHOLDER = '~';
+        final char NAME = '+';
+        boolean isNewline = false;
+        int lineLength = 0;
+        System.out.print(">>> ");
+        sleep(150);
+        for(int i = 0; i < text.length(); i++) {
             lineLength ++;
-            if (lineLength > 95 && text.charAt(i) == ' ') {
-                System.out.println();
-                System.out.print("   ");
+            if (lineLength > GameConsole.FULL_CONSOLE_WIDTH - 10 && text.charAt(i) == ' ') {
+                System.out.print("\n   ");
                 lineLength = 0;
             } else if (text.charAt(i) == '\n') {
-                System.out.print("   ");
-                lineLength = 0;
-            } else if (text.charAt(i) == OBJECTIVE_PLACEHOLDER) {
-                show(AsciiColours.RED + AsciiColours.UNDERLINE + "[Objective]" + AsciiColours.SANE);
-                System.out.print("   ");
+                isNewline = true;
                 lineLength = 0;
             } else if (text.charAt(i) == LEVEL_BEGIN_PLACEHOLDER) {
-                System.out.println("\n\n"+ " ".repeat(44) + AsciiColours.GREEN + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE+ "\n");
+                System.out.println("\n" + " ".repeat(GameConsole.FULL_CONSOLE_WIDTH / 2 - 8) + AsciiColours.GREEN + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE + "\n");
                 return;
-            } else if (text.charAt(i) == EARLY_ESCAPE_PLACEHOLDER) {
-                return;
+            } else if (text.charAt(i) == NAME) {
+                System.out.print(USERNAME);
             }
-            System.out.printf("%c", text.charAt(i));
-            try{
-                Thread.sleep(40);//0.5s pause between characters
-            }catch(InterruptedException ex){
-                Thread.currentThread().interrupt();
+            else System.out.printf("%c", text.charAt(i));
+            if (isNewline) {
+                System.out.print("    ");
+                isNewline = false;
             }
+            sleep(10);
         }
-        show("\n\n" + " ".repeat(77) + "Press ENTER to continue..");
+        if (hasPressEnter) {
+            show("\n\n" + " ".repeat(GameConsole.FULL_CONSOLE_WIDTH - GameConsole.USER_CODE_SECTION_WIDTH) + "Press [ENTER] to continue..");
+        }
+        show("");
     }
 }

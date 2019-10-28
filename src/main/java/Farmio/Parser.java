@@ -5,11 +5,10 @@ import Exceptions.FarmioException;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
 
-class Parser {
-    static Command parse(String userInput, Farmio.Stage stage) throws FarmioException {
-        System.out.println(stage.name());
+public class Parser {
+    public static Command parse(String userInput, Farmio.Stage stage) throws FarmioException {
         userInput = userInput.toLowerCase().trim();
-        if (userInput.equals("quit game")) {
+        if (userInput.equals("quit game") || userInput.equals("exit")) {
             return new CommandGameQuit();
         }
         if (stage != Farmio.Stage.WELCOME && stage != Farmio.Stage.MENU_START && userInput.matches("^save game$")) {
@@ -18,33 +17,39 @@ class Parser {
         if (userInput.matches("^load game$")) {
             return new CommandGameLoad();
         }
-        switch (stage) {
+        switch (stage) { //TODO jx help me review if there is better way
             case WELCOME:
                 return new CommandMenuStart();
+//            case LEVEL_START:
+//                return new CommandLevelStart();
+//            case RUNNING_DAY:
+//                return new CommandTasksRun();
+//            case CHECK_OBJECTIVES:
+//                return new CommandCheckObjectives();
+//            case DAY_START:
+//                return new CommandDayStart();
+//            case LEVEL_END:
+//                return new CommandLevelEnd();
+//            case LEVEL_FAILED:
+//                return new CommandLevelReset();
+            case DAY_END:
+                return new CommandDayEnd(); //TODO check if reset for dayend
             case MENU_START:
                 return parseMenuStart(userInput);
-            case LEVEL_START:
-                return new CommandLevelStart();
+            case NAME_ADD:
+                return new CommandAddName(userInput);
             case TASK_ADD:
                 return parseTaskAdd(userInput);
-            case RUNNING_DAY:
-                return new CommandTasksRun();
-            case CHECK_OBJECTIVES:
-                return new CommandCheckObjectives();
-            case DAY_END:
-                return new CommandDayEnd();
-            case DAY_START:
-                return new CommandDayNew();
-            case LEVEL_END:
-                return new CommandLevelEnd();
-            case LEVEL_FAILED:
-                return new CommandLevelReset();
             default:
                 //Game should not reach this stage.
                 stage = Farmio.Stage.WELCOME;
                 throw new FarmioException("Something went wrong! Restarting game.");
         }
     }
+
+//    private static Command parseName(String userInput) throws FarmioException {
+//        return new CommandAddName(userInput);
+//    }
 
     private static Command parseMenuStart(String userInput) throws FarmioException {
         switch (userInput) {
@@ -88,13 +93,16 @@ class Parser {
         if (userInput.equals("actions") || userInput.equals("action")) {
             return new CommandActionShow();
         }
+        if (userInput.equals("market")) {
+            return new CommandMarketShow();
+        }
         if (userInput.startsWith("do")) {
             return parseDoTask(userInput);
         } else if (userInput.startsWith("if") || userInput.startsWith("for") || userInput.startsWith("while")) {
             return parseConditionalTask(userInput);
-        } else if (userInput.equals(""))
-            return new CommandTasksNull();
-        return new CommandTasksNull("Invalid command!");
+        } else if (userInput.equals("hint") || userInput.equals(""))
+            return new CommandTasksHint();
+        throw new FarmioException("Invalid command!");
     }
 
     private static Command parseTaskDelete(String userInput) throws FarmioException {
@@ -134,5 +142,4 @@ class Parser {
         }
         return new CommandTaskCreate(taskType, condition, action);
     }
-
 }

@@ -1,13 +1,15 @@
 {
   "narratives": [
     "Now that you have some seeds, you can start growing your farm!",
-    ":Plant the seeds in your farm!",
     "Note that your current location is at the market. You can only plant your seeds in your farm.~"
   ],
   "gold": 0,
   "seeds": 0,
-  "wheat": 1,
+  "seedlings": 1,
+  "wheat": 0,
   "grain": 0,
   "deadline" : 1,
-  "file_path": "Level1.3"
+  "file_path": "Level1.3",
+  "objective": "Plant the seeds in your wheat farm",
+  "hint": "1.Enter [delete all] to delete all your code.\n2.Enter [do gotowheatfarm] to drive back to your wheat farm\n3.Enter [do plantseeds] to plant seeds"
 }

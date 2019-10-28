@@ -6,6 +6,10 @@ import Farmio.Farmer;
 import Farmio.Storage;
 import FrontEnd.Simulation;
 import FrontEnd.Ui;
+import Places.Market;
+import javafx.util.Pair;
+
+import java.util.ArrayList;
 
 public class PlantSeedAction extends Action {
 
@@ -13,34 +17,14 @@ public class PlantSeedAction extends Action {
         super(ActionType.plantSeeds);
     }
 
-    /*public PlantSeedAction(JSONObject obj){
-        super(obj);
-    }*/
-
     @Override
     public void execute(Ui ui, Storage storage, Farmer farmer, Simulation simulation) throws FarmioFatalException, FarmioException {
-        if (!farmer.getWheatFarm().hasSeeds() || !farmer.getLocation().equals("WheatFarm")) {
-            farmer.setTaskFailed();
-            simulation.animate("ErrorInExecution", 0);
-            if (!farmer.getWheatFarm().hasSeeds()) {
-                ui.typeWriter("Error! you have attempted to plant seeds despite not having any seeds/\n");
-            } else {
-                ui.typeWriter("Error! you have attempted to plant seeds despite not being at the Wheatfarm/\n");
-            }
-            throw new FarmioException("Task Error!");
-        }
-        try {
-            simulation.animate("PlantSeedSimulation", 0, 10);
-            farmer.getWheatFarm().plantSeeds();
-            simulation.animate(1000, "PlantSeedSimulation", 11);
-        } catch (Exception e) {
-            e.getMessage();
-        }
+        ArrayList<Pair<Boolean, String>> criteriaFeedbackList = new ArrayList<>();
+        criteriaFeedbackList.add(new Pair<>(!farmer.getWheatFarm().hasSeeds(), "Error! you have attempted to plant seeds despite not having any seeds"));
+        criteriaFeedbackList.add(new Pair<>(!farmer.getLocation().equals("WheatFarm"), "Error! you have attempted to plant seeds despite not being at the Wheatfarm"));
+        checkActionCriteria(ui, farmer, simulation, criteriaFeedbackList);
+        simulation.simulate("PlantSeedSimulation", 0, 10);
+        farmer.getWheatFarm().plantSeeds();
+        simulation.simulate(1000, "PlantSeedSimulation", 11);
     }
-
-//    public JSONObject toJSON() {
-//        JSONObject obj = super.toJSON();
-//        obj.put("action", "plant_seed");
-//        return obj;
-//    }
 }

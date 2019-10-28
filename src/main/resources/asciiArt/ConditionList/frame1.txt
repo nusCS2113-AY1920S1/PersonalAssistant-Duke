@@ -1,7 +1,9 @@
-         VALUE                  BOOLEAN
+         GOLD                     BOOLEAN
 ______________________________________________________
  greaterThanOrEquals | hasSeeds, hasWheat, hasGrain
  greaterThan         |          
  lessThan            |          
  lessThanOrEquals    |
- 
+_____________________|________________________________
+
+Eg: [If gold greaterThanOrEquals 10 do buySeeds]

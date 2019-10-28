@@ -1,1 +1,16 @@
-2
+     .______.__________________._________________.
+     |-Task-|----CONDITION-----|------ACTION-----| 
+     |do    |hasSeeds          |gotoMarket       |
+     |if    |hasWheat          |buySeeds         |
+     |      |hasGrain          |gotoWheatFarm    |
+     |      |hasGold           |plantSeeds       |
+     |      |                  |harvestWheat     |
+     |      |                  |sellGrain        |
+     |      |                  |                 |
+     |      |                  |                 |
+     |      |                  |                 |
+     |      |                  |                 |
+     |      |                  |                 |
+     |      |                  |                 |
+     |      |                  |                 |
+     |______|__________________|_________________|

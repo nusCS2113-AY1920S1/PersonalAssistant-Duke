@@ -19,6 +19,10 @@ public class ConditionChecker {
         {
             return farmio.getFarmer().getWheatFarm().hasGrain();
         }
+        if (condition == BooleanConditionType.hasGold)
+        {
+            return farmio.getFarmer().hasGold();
+        }
         if (condition == BooleanConditionType.TRUE) {
             return true;
         }
@@ -28,11 +32,10 @@ public class ConditionChecker {
     public static boolean check(ValueConditionType valueConditionType, Comparator comparator, int val, Farmio farmio) throws FarmioException {
         int assetValue = 0;
         switch (valueConditionType) {
-            case money:
-                assetValue = farmio.getFarmer().getMoney();
+            case gold:
+                assetValue = farmio.getFarmer().getGold();
                 break;
         }
-        System.out.println("comparing " + assetValue + " against " + val + " with comparator " + comparator.name());
         switch (comparator) {
             case lessThan:
                 return assetValue < val;

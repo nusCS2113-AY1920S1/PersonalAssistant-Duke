@@ -14,20 +14,17 @@ public class GotoMarketAction extends Action {
 
     @Override
     public void execute(Ui ui, Storage storage, Farmer farmer, Simulation simulation) throws FarmioFatalException {
-        try {
-            if (farmer.getLocation().equals("Market")) {
-                simulation.animate(1000, "GotoMarketSimulation", 12);
-                ui.typeWriter("You are already at the market/");
-                return;
-            }
+        if (farmer.getLocation().equals("Market")) {
+            simulation.simulate("GotoMarketSimulation", 12);
+            ui.typeWriter("You are already at the market", false);
+        } else {
             farmer.changeLocation("Traveling");
-            simulation.animate("GotoMarketSimulation", 1, 11);
+            simulation.simulate("GotoMarketSimulation", 1, 11);
             farmer.changeLocation("Market");
-            simulation.animate(1000, "GotoMarketSimulation", 12);
-            ui.typeWriter("You have arrived at the market/");
-        } catch (Exception e) {
-            e.getMessage();
+            simulation.simulate("GotoMarketSimulation", 12);
+            ui.typeWriter("You have arrived at the market", false);
         }
+        ui.sleep(1000);
     }
 }
 
