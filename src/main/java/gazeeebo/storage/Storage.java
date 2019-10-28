@@ -31,6 +31,7 @@ public class Storage {
 
     private String absolutePathSpecialization = "/Specialization.txt";
     private String absolutePath_StudyPlanner = "/Study_Plan.txt";
+    private String absolutePath_Prerequisite = "/Prerequisite.txt";
 
     public void writeToSaveFile(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath);
@@ -408,6 +409,22 @@ public class Storage {
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
+    }
+
+    public HashMap<String, ArrayList<String>> readFromPrerequisiteFile() {
+        HashMap<String,ArrayList<String>> PrerequisiteList = new  HashMap<String,ArrayList<String>>();
+        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Prerequisite);
+        Scanner sc = new Scanner(inputStream);
+        while(sc.hasNext()){
+            String WholeSentence = sc.nextLine();
+            String head = WholeSentence.split(" ")[0];
+            ArrayList<String> Prerequisites = new ArrayList<String>();
+            for(int i = 1;i<WholeSentence.split(" ").length;i++){
+                Prerequisites.add(WholeSentence.split(" ")[i]);
+            }
+            PrerequisiteList.put(head,Prerequisites);
+        }
+        return PrerequisiteList;
     }
 
 }
