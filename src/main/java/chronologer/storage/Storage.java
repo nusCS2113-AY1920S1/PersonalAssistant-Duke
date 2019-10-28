@@ -2,6 +2,7 @@ package chronologer.storage;
 
 import chronologer.exception.ChronologerException;
 import chronologer.task.Task;
+import chronologer.ui.UiTemporary;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -61,6 +62,7 @@ public class Storage {
             objectOutputStream.close(); // always close
             fileOutputStream.close(); // always close
         } catch (IOException e) {
+            UiTemporary.printOutput(ChronologerException.unableToWriteFile());
             throw new ChronologerException(ChronologerException.unableToWriteFile());
         }
     }
@@ -86,10 +88,13 @@ public class Storage {
 
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
+            UiTemporary.printOutput(ChronologerException.fileDoesNotExist());
             throw new ChronologerException(ChronologerException.fileDoesNotExist());
         } catch (IOException e) {
+            UiTemporary.printOutput(ChronologerException.unableToReadFile());
             throw new ChronologerException(ChronologerException.unableToReadFile());
         } catch (Exception e) {
+            UiTemporary.printOutput(ChronologerException.classDoesNotExist());
             throw new ChronologerException(ChronologerException.classDoesNotExist());
         }
     }

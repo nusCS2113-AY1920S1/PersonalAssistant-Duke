@@ -2,6 +2,7 @@ package chronologer.parser;
 
 import chronologer.command.Command;
 import chronologer.exception.ChronologerException;
+import chronologer.ui.UiTemporary;
 
 /**
  * Backbone of all parsers that process input based on list index.
@@ -31,9 +32,11 @@ public abstract class IndexParser extends Parser {
             index = Integer.parseInt(taskFeatures.split("\\s+", 2)[0].trim()) - 1;
         } catch (NumberFormatException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
+            UiTemporary.printOutput(ChronologerException.unknownUserCommand());
             throw new ChronologerException(ChronologerException.unknownUserCommand());
         }
         if (index < 0) {
+            UiTemporary.printOutput(NEGATIVE_NUM_DETECTED);
             throw new ChronologerException(NEGATIVE_NUM_DETECTED);
         }
         return index;

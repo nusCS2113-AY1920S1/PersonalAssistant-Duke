@@ -33,11 +33,13 @@ public class TaskScheduleCommand extends Command {
         try {
             t = (Todo) list.get(indexOfTask);
         } catch (ClassCastException e) {
+            UiTemporary.printOutput("Task selected is not a Todo with a duration");
             throw new ChronologerException("Task selected is not a Todo with a duration");
         }
         try {
             d = (Deadline) list.get(indexOfDeadline);
         } catch (ClassCastException e) {
+            UiTemporary.printOutput("Task selected is not a Deadline");
             throw new ChronologerException("Task selected is not a Deadline");
         }
         durationToSchedule = (long) t.duration;

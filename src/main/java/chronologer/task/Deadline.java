@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
  */
 public class Deadline extends Task implements Serializable {
 
+    private static final String DEADLINE = "DEADLINE";
+
     /**
      * Constructor for deadline task.
      *
@@ -34,6 +36,11 @@ public class Deadline extends Task implements Serializable {
             dateString = dateString + "  Note to self: " + comment;
         }
         return message.concat(dateString);
+    }
+
+    @Override
+    public String getType() {
+        return DEADLINE;
     }
 
     @Override

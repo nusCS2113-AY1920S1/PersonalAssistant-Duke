@@ -89,6 +89,7 @@ public class AddCommand extends Command {
             }
             break;
         default:
+            UiTemporary.printOutput(ChronologerException.unknownUserCommand());
             throw new ChronologerException(ChronologerException.unknownUserCommand());
         }
 

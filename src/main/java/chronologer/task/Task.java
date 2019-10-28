@@ -1,6 +1,5 @@
 package chronologer.task;
 
-import javafx.beans.property.StringProperty;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -92,6 +91,8 @@ public abstract class Task implements Serializable {
         }
         return message;
     }
+
+    public abstract String getType();
 
     abstract boolean isClash(Task taskToCheck);
 

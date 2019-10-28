@@ -15,6 +15,11 @@ import java.util.Comparator;
  */
 public class TaskList {
 
+    private static final String DEADLINE = "DEADLINE";
+    private static final String EVENT = "EVENT";
+    private static final String TODO_DURATION = "TODO DURATION";
+    private static final String TODO_PERIOD = "TODO PERIOD";
+
     private ArrayList<Task> listOfTasks;
     private ObservableList<Task> observableListOfTasks;
 
@@ -172,7 +177,7 @@ public class TaskList {
      * @param dayToFind is of String type which contains the desired date of
      *                  schedule.
      * @return sortDateList the sorted schedule of all the tasks on a particular
-     *         date.
+     *         ate.
      */
     public ArrayList<Task> schedule(String dayToFind) {
         ArrayList<Task> sortedDateList = new ArrayList<Task>();
@@ -271,6 +276,23 @@ public class TaskList {
         observableListOfTasks.add(taskToBeEdited);
         return taskToBeEdited;
     }
+
+    public boolean isDeadline(Task task) {
+        return (DEADLINE.equals(task.getType()));
+    }
+
+    public boolean isEvent(Task task) {
+        return (EVENT.equals(task.getType()));
+    }
+
+    public boolean isTodoDuration(Task task) {
+        return (TODO_DURATION.equals(task.getType()));
+    }
+
+    public boolean isTodoPeriod(Task task) {
+        return (TODO_PERIOD.equals(task.getType()));
+    }
+
 
     public void updatePriority(Task task) {
         observableListOfTasks.add(task);

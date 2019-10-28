@@ -2,6 +2,7 @@ package chronologer.parser;
 
 import chronologer.command.Command;
 import chronologer.exception.ChronologerException;
+import chronologer.ui.UiTemporary;
 
 /**
  * Backbone of all parsers that process input based on strings.
@@ -31,6 +32,7 @@ public abstract class DescriptionParser extends Parser {
         }
         String description = taskFeatures.split(checkType,2)[0].trim();
         if (description.isEmpty()) {
+            UiTemporary.printOutput(ChronologerException.emptyUserDescription());
             throw new ChronologerException(ChronologerException.emptyUserDescription());
         }
         return description;

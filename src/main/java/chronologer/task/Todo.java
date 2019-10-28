@@ -1,6 +1,7 @@
 package chronologer.task;
 
 import java.time.LocalDateTime;
+
 import chronologer.parser.DateTimeExtractor;
 
 import java.io.Serializable;
@@ -13,6 +14,11 @@ import java.io.Serializable;
  * @version v2.0
  */
 public class Todo extends Task implements Serializable {
+
+    private static final String TODO = "TODO";
+    private static final String TODO_DURATION = "TODO DURATION";
+    private static final String TODO_PERIOD = "TODO PERIOD";
+
     public int duration = 0;
 
     public Todo(String description) {
@@ -51,12 +57,12 @@ public class Todo extends Task implements Serializable {
             message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
         } else if (this.duration == 0) {
             message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description
-                    + " (from: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: "
-                    + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+                + " (from: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: "
+                + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
 
         } else {
             message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " "
-                    + "(for " + duration + " hours)";
+                + "(for " + duration + " hours)";
         }
         if (!comment.isBlank()) {
             message = message + "  Note to self: " + comment;
@@ -72,5 +78,16 @@ public class Todo extends Task implements Serializable {
     @Override
     boolean isClash(Task taskToCheck) {
         return false;
+    }
+
+    @Override
+    public String getType() {
+        if (duration != 0) {
+            return TODO_DURATION;
+        } else if (startDate != null) {
+            return TODO_PERIOD;
+        } else {
+            return TODO;
+        }
     }
 }

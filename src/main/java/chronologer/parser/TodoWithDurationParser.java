@@ -3,6 +3,7 @@ package chronologer.parser;
 import chronologer.command.AddCommand;
 import chronologer.command.Command;
 import chronologer.exception.ChronologerException;
+import chronologer.ui.UiTemporary;
 
 /**
  * Extract the components required to add a TodoWithDuration task.
@@ -32,6 +33,7 @@ public class TodoWithDurationParser extends TodoParser {
         try {
             duration = Integer.parseInt(substring.split("\\s+", 2)[0].trim());
         } catch (NumberFormatException e) {
+            UiTemporary.printOutput(INVALID_DURATION);
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(INVALID_DURATION);
         }
