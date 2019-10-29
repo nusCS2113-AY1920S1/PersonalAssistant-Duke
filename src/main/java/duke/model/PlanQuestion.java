@@ -11,11 +11,16 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
+/**
+ * A single question that is being asked to the user.
+ */
 public class PlanQuestion {
     private String question;
     private Map<String, String> answersAttributesValue;
     private Map<String, Set<Integer>> neighbouringQuestions;
     private String attribute;
+
+    private final static String SUCCESS_MESSAGE = "Ok noted!";
 
     /**
      * Constructor for PlanQuestion.
@@ -35,7 +40,6 @@ public class PlanQuestion {
         this.answersAttributesValue = new HashMap<>();
         int answersSize = answers.length;
         if (attributeValue.length < answersSize) {
-            answersSize = attributeValue.length;
             throw new DukeException("Some question was set up incorrectly!!! This shouldn't have happened!");
         }
         for (int i = 0; i < answersSize; ++i) {
@@ -69,26 +73,31 @@ public class PlanQuestion {
         return new HashSet<>();
     }
 
+    /**
+     *  Returns a success message if the input provided is a valid one and
+     *  the question is successfully processed.
+     * @param input the input string for the question
+     * @param attributes the currently known attributes about the user
+     * @return Reply containing the updated attributes and success message
+     * @throws DukeException
+     */
     Reply getReply(String input, Map<String, String> attributes) throws DukeException {
         try {
-
             if (answersAttributesValue.size() == 1) {
                 if (answersAttributesValue.containsKey("DOUBLE")) {
                     BigDecimal scaledAmount = Parser.parseMoney(input);
                     String attributeVal = scaledAmount.toString();
                     attributes.put(attribute, attributeVal);
-                    return new Reply("Ok noted!", attributes);
+                    return new Reply(SUCCESS_MESSAGE , attributes);
                 }
-
             } else {
                 if (!answersAttributesValue.containsKey(input.toUpperCase())) {
                     throw new NoSuchElementException();
                 }
                 String attributeVal = answersAttributesValue.get(input.toUpperCase());
                 attributes.put(attribute, attributeVal);
-                return new Reply("Ok noted!", attributes);
+                return new Reply(SUCCESS_MESSAGE, attributes);
             }
-
         } catch (NoSuchElementException | NumberFormatException | NullPointerException e) {
             throw new DukeException("Please enter a valid reply!");
         }
