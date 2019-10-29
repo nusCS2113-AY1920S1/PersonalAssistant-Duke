@@ -1,5 +1,7 @@
 import duke.command.ArgCommand;
+import duke.command.Command;
 import duke.command.impression.ImpressionNewCommand;
+import duke.command.impression.ImpressionPrimaryCommand;
 import duke.data.Impression;
 import duke.data.Medicine;
 import duke.data.Patient;
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -67,5 +70,25 @@ public class ImpressionCommandTest extends CommandTest {
         } catch (DukeException excp) {
             fail("Exception thrown while executing valid command!");
         }
+    }
+
+    @Test
+    public void impressionPrimaryCommand_fullCommand_setAsPrimary() {
+        Command primaryCmd = new ImpressionPrimaryCommand();
+        Impression newImpression = new Impression("name2", "description2", patient);
+        patient.addNewImpression(newImpression);
+
+        try {
+            patient.setPrimaryDiagnosis("name2");
+        } catch (DukeException excp) {
+            fail("Exception thrown while setting primary diagnosis through API!");
+        }
+
+        try {
+            primaryCmd.execute(core);
+        } catch (DukeException excp) {
+            fail("Exception thrown while setting primary diagnosis through command!");
+        }
+        assertEquals(newImpression, patient.getPrimaryDiagnosis());
     }
 }
