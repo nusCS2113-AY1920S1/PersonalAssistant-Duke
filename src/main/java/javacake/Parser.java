@@ -31,44 +31,27 @@ public class Parser {
      */
     public static Command parse(String inputCommand) throws DukeException {
         String[] buffer = inputCommand.split("\\s+");
-        String input = buffer[0];
-        helper(input);
-        if (input.equals("exit")) {
-            return new ExitCommand();
-        } else if (input.equals("list")) {
-            return new ListCommand();
-        } else if (input.equals("back")) {
-            return new BackCommand();
-        } else if (input.equals("help")) {
-            return new HelpCommand(inputCommand);
-        } else if (input.equals("score")) {
-            return new ScoreCommand();
-        } else if (input.equals("reset")) {
-            return new ResetCommand();
-        } else if (input.equals("goto")) {
-            if (inputCommand.length() <= 4) {
-                throw new DukeException("Please specify index number in 'goto' command!");
-            }
-            return new GoToCommand(inputCommand.substring(5));
-        } else if (input.equals("overview")) {
-            return new OverviewCommand();
-        } else if (input.equals("createnote")) {
-            return new CreateNoteCommand(inputCommand);
-        } else if (input.equals("editnote")) {
-            return new EditNoteCommand(inputCommand);
-        } else if (input.equals("listnote")) {
-            return new ListNoteCommand();
-        } else if (input.equals("deletenote")) {
-            return new DeleteNoteCommand(inputCommand);
-        } else if (input.equals("deadline")) {
-            return new AddCommand(inputCommand);
-        } else if (input.equals("reminder")) {
-            return new ReminderCommand();
-        } else if (input.equals("change")) {
-            MainWindow.isChanged = true;
-            return new ChangeColorCommand();
-        } else {
-            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
+        String commandWord = buffer[0];
+        helper(commandWord);
+        switch (commandWord) {
+            case ("exit"): return new ExitCommand();
+            case ("list"): return new ListCommand();
+            case ("back"): return new BackCommand();
+            case ("score"): return new ScoreCommand();
+            case ("reset"): return new ResetCommand();
+            case ("goto"): return new GoToCommand(inputCommand);
+            case ("overview"): return new OverviewCommand();
+            case ("createnote"): return new CreateNoteCommand(inputCommand);
+            case ("editnote"): return new EditNoteCommand(inputCommand);
+            case ("listnote"): return new ListNoteCommand();
+            case ("deletenote"): return new DeleteNoteCommand(inputCommand);
+            case ("deadline"): return new AddCommand(inputCommand);
+            case ("reminder"): return new ReminderCommand();
+            case ("change"):
+                MainWindow.isChanged = true;
+                return new ChangeColorCommand();
+            default:
+                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }
     }
 

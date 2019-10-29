@@ -10,6 +10,7 @@ import javacake.ui.Ui;
 import javacake.quiz.Question;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -19,17 +20,32 @@ public class GoToCommand extends Command {
 
     /**
      * constructor for goto command. Contains a queue of index in which user wants to navigate into.
+     * Splits command into 2, space delimiter, max size of inputDivider = 2
      * @param inputCommand Parsed goto command by user
      */
     public GoToCommand(String inputCommand) throws DukeException {
-        if (inputCommand.matches("\\d+")) { //check if input is numeric
-            indexQueue.add(inputCommand);
+        String[] inputDivider = inputCommand.split("\\s+", 2);
+        String gotoIndex;
+
+        if (inputDivider.length == 1) { // no goto index
+            throw new DukeException("Please specify the index you wish to go!");
         } else {
-            String[] buffer = inputCommand.split("\\.");
-            for (int i = 0; i < buffer.length; i++) {
-                indexQueue.add(buffer[i]);
-            }
+            gotoIndex = inputDivider[1];
         }
+        if (gotoIndex.matches("\\d+")) { //check if input is numeric
+            indexQueue.add(gotoIndex);
+        } else {
+            processMultipleIndexes(gotoIndex);
+        }
+    }
+
+    /**
+     * Queues the index when multiple indexes are detected.
+     * @param gotoIndex Index user wants to view.
+     */
+    private void processMultipleIndexes(String gotoIndex) {
+        String[] buffer = gotoIndex.split("\\.");
+        indexQueue.addAll(Arrays.asList(buffer));
     }
 
     /**

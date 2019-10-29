@@ -4,8 +4,6 @@ import javacake.Logic;
 import javacake.exceptions.DukeException;
 import javacake.notes.Note;
 import javacake.notes.NoteList;
-import javacake.storage.Profile;
-import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
