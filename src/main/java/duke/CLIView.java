@@ -129,13 +129,14 @@ public class CLIView {
      * @param foundStudent Name of student that has been found.
      * @return Student that has been found
      */
+
     public String printFoundStudent(final String foundStudent) {
         return "Here are the matching names in your list: " + foundStudent;
     }
-
     /**
      * Prints message when asking for date for goal.
      */
+
     public void showGoalPromptDate() {
         System.out.println("Please enter the date of the day "
             + "in this format: dd/MM/yyyy");
@@ -201,7 +202,7 @@ public class CLIView {
      */
     public void showDontKnow() {
         System.out.println("\u2639 OOPS!!! I'm sorry,"
-            + "but I don't know what that means :-(");
+            + "but I don't know what that means");
     }
 
     /**

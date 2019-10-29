@@ -1,4 +1,4 @@
-package duke.Command;
+package duke.command;
 
 import duke.CLIView;
 import duke.data.Storage;
@@ -8,8 +8,8 @@ import duke.sports.MyPlan;
 import duke.task.TaskList;
 
 /**
- * Represents a Command class which will be inherited
- * by specific *Command subclasses
+ * Represents a command class which will be inherited
+ * by specific *command subclasses
  * to run their specific execute functions.
  */
 public abstract class Command {

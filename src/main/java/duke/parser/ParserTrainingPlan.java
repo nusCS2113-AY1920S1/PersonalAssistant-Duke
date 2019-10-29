@@ -62,7 +62,7 @@ public class ParserTrainingPlan implements IParser {
             }
             break;
         default:
-            System.out.println("Incorrect Command.");
+            System.out.println("Incorrect command.");
         }
     }
 }

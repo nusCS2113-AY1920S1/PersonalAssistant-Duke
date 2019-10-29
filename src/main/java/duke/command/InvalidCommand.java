@@ -1,4 +1,4 @@
-package duke.Command;
+package duke.command;
 
 import duke.CLIView;
 import duke.data.Storage;
@@ -8,7 +8,7 @@ import duke.sports.MyPlan;
 import duke.task.TaskList;
 
 /**
- * Represents a subclass of Command class which informs the user that the
+ * Represents a subclass of command class which informs the user that the
  * user input was an invalid command.
  */
 public class InvalidCommand extends Command {

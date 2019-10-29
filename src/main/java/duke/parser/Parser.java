@@ -18,52 +18,52 @@ import java.util.Date;
  */
 public class Parser {
 
-    /**
-     * The ui object responsible for showing things to the user.
-     */
+/**
+ * The ui object responsible for showing things to the user.
+ */
     private CLIView cliView = new CLIView();
 
-    /*
-    public static Command parse(String fullCommand) {
-        Command c;
-        if (fullCommand.equals("bye")) {
-            c = new ExitCommand();
-        } else if (fullCommand.startsWith("add")) {
-            c = new AddCommand();
-        } else if (fullCommand.startsWith("delete")) {
-            c = new DeleteCommand();
-         } else if (fullCommand.startsWith("view")) {
-            c = new ViewCommand();
-         } else {
-            c = new InvalidCommand();
-        }
-        return c;
+/*
+public static command parse(String fullCommand) {
+    command c;
+    if (fullCommand.equals("bye")) {
+        c = new ExitCommand();
+    } else if (fullCommand.startsWith("add")) {
+        c = new AddCommand();
+    } else if (fullCommand.startsWith("delete")) {
+        c = new DeleteCommand();
+     } else if (fullCommand.startsWith("view")) {
+        c = new ViewCommand();
+     } else {
+        c = new InvalidCommand();
     }
-     */
+    return c;
+}
+ */
 
-    /**
-     * Constants to represent the index 3.
-     */
+/**
+ * Constants to represent the index 3.
+ */
     public static final int INDEX_THREE = 3;
-    /**
-     * Constants to represent the index 4.
-     */
+/**
+ * Constants to represent the index 4.
+ */
     public static final int INDEX_FOUR = 4;
-    /**
-     * Constants to represent the index 5.
-     */
+/**
+ * Constants to represent the index 5.
+ */
     public static final int INDEX_FIVE = 5;
-    /**
-     * Constants to represent the index 6.
-     */
+/**
+ * Constants to represent the index 6.
+ */
     public static final int INDEX_SIX = 6;
-    /**
-     * Constants to represent the index 7.
-     */
+/**
+ * Constants to represent the index 7.
+ */
     public static final int INDEX_SEVEN = 7;
-    /**
-     * Constants to represent the index 10.
-     */
+/**
+ * Constants to represent the index 10.
+ */
     public static final int INDEX_TEN = 10;
 
     /**
