@@ -4,6 +4,7 @@ import dolla.Time;
 
 import java.time.LocalDate;
 
+//@@author tatayu
 /**
  * Debt is a Class that stores an instance of the user's owe and borrow cases.
  */

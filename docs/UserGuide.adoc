@@ -59,7 +59,7 @@ image::Ui/Shortcuts.png[width="500", align="center"]
 Love eating pizza everyday but find it a chore to retype the same thing to keep track of your spending? Add a shortcut so you need to type less to add frequent expenses or incomes!
 
 === Reminders
-Have Dolla let you know when an expense is coming up, and when a budget or saving is about to be exceeded!
+Have Dolla let you know when the due date of your debts is coming soon!
 
 === Settings `[coming in v2.0]`
 Customise various features of Dolla, like how many items to show per page on a list, what kind of things Dolla will remind you about, or even the statistics that's pinned on the app!
@@ -93,7 +93,16 @@ Format: +
 These commands can be used in the modes `*entry*`, `*limit*`, `*debt*` and `*shortcut*`.
 
 Common Commands Available: +
-`*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+`*page*` `*remove*` `*search description*` `*search date*` `*search name*` `*search duration*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+
+=== Show the list of logs of each mode
+
+You can check the list of logs added for the mode that you are currently in.
+
+Format: +
+`*entries*` `*debts*` `*limits*` `*shortcuts*`
+
+*NOTE*: You have to enter that mode first before checking the list of logs.
 
 ==== Change the page of the list: `page`
 
@@ -117,15 +126,45 @@ Example:
 
 * `remove 2`
 
-==== Find a task from the list: `find`
+==== Search for a task from the list by description: `search description`
 
-Find entries from the list based on the keyword(s) input by the user. +
+Search for logs from the list by description based on the keyword(s) input by the user. +
 Format: +
-`*find* [KEYWORD(S)]`
+`*search description* [KEYWORD(S)]`
 
 Example:
 
-* `find milk`
+* `search description store`
+
+==== Search for a task from the list by date: `search date`
+
+Search for logs from the list by date based on the keyword(s) input by the user. +
+Format: +
+`*search date* [KEYWORD(S)]`
+
+Example:
+
+* `search date 29`
+
+==== Search for a task from the list by name: `search name`
+
+Search for logs from the list by name based on the keyword(s) input by the user. +
+Format: +
+`*search name* [KEYWORD(S)]`
+
+Example:
+
+* `search name tata`
+
+==== Search for a task from the list by duration: `search duration`
+
+Search for logs from the list by duration based on the keyword(s) input by the user. +
+Format: +
+`*search duration* [KEYWORD(S)]`
+
+Example:
+
+* `search duration monthly`
 
 ==== Modify an expense/income: `modify`
 
@@ -218,17 +257,11 @@ Examples:
 
 * `add recurring income $800 part time job /every month`
 
-==== Reminders: `reminder`
+==== Reminders:
 
 Reminders for upcoming payments and budgets that are about to be broken. +
-Format: +
-`*reminder*`
 
 *NOTE*: Reminders will automatically pop up with the greeting message when the app is ran.
-
-Example:
-
-* `reminder`
 
 ==== Add loans and debts: `owe`, `borrow`
 
@@ -274,7 +307,7 @@ Format: +
 `*entries*`
 
 Common Commands Available: +
-`*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+`*page*` `*remove*` `*search description*` `*search date*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
 
 ==== Add to shortcut: `create shortcut`
 
@@ -297,7 +330,7 @@ Format: +
 *NOTE*: In this mode, `*[DURATION]*` can be daily, weekly or monthly.
 
 ==== Common Commands Available: +
-`*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+`*page*` `*remove*` `*search duration*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
 
 ==== Set duration-based expense budget: `set budget`
 
@@ -349,7 +382,7 @@ Format: +
 `*debts*`
 
 Common Commands Available: +
-`*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+`*page*` `*remove*` `*search description*` `*search date*` `*search name*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
 
 {nbsp} +
 
@@ -360,7 +393,7 @@ Format: +
 `*shortcuts*`
 
 Common Commands Available: +
-`*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+`*page*` `*remove*` `*search*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
 
 ==== Add an entry from your shortcuts to entries: `add shortcut`
 
@@ -404,8 +437,14 @@ e.g. `add expense $400 tuition /on 24/09/2019 /tag job`
 e.g. `page 3`
 * *remove:* `remove [LIST NO.]` +
 e.g. `remove 3`
-* *find:* `find [KEYWORD(S)]` +
-e.g. `find milk`
+* *search description:* `search [KEYWORD(S)]` +
+e.g. `search store`
+* *search date:* `search [KEYWORD(S)]` +
+e.g. `search 29`
+* *search name:* `search [KEYWORD(S)]` +
+e.g. `search tata`
+* *search duration:* `search [KEYWORD(S)]` +
+e.g. `search monthly`
 * *modify:* `modify [LIST NO.] {COMPONENT}` +
 e.g. `modify 4 tag`
 * *sort /date:* `sort /date ascending/descending` +
@@ -418,13 +457,12 @@ e.g. sort /amount ascending
 e.g. `add recurring expense $59 phone bill /every month /starting 01/01/2019 /tag bill`
 * *add recurring income:* `add recurring income [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
 e.g. `add recurring income $800 pocket money /every month /starting 01/01/2019 /tag allowances`
-* *set budget* `set budget [AMOUNT] /every [DURATION]` +
+* *set budget* `set budget [AMOUNT] [DURATION]` +
 * *set budget* `set budget [AMOUNT] /tag [TAG]` +
 e.g. `set budget $20 /tag bubble tea`
-e.g. `set budget $50 every week`
+e.g. `set budget $50 weekly`
 * *set saving* `set saving [AMOUNT] /for [DURATION]` +
 e.g. `set saving $300 /for every month`
-* *reminder:* `reminder`
 * *owe:* `owe [FRIEND] [AMOUNT] [DESCRIPTION]` +
 e.g. `owe xx $4 bubble tea`
 * *borrow:* `borrow [FRIEND] [AMOUNT] [DESCRIPTION]` +
