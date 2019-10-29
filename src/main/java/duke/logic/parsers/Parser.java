@@ -66,7 +66,6 @@ public class Parser {
         this.parserUtil.parse(fullCommand);
         String command = this.parserUtil.getCommand();
         String userInput = this.parserUtil.getUserInput();
-
         switch (command) {
             case PARSER_EXIT_COMMAND:
                 return new ExitCommand();

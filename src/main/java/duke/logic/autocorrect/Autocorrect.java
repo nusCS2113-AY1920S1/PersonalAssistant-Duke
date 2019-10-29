@@ -49,7 +49,7 @@ public class Autocorrect {
                         setWord(partitionedData[0]);
                         execute();
                         String nutrient = getWord();
-                        userInput.replace("/" + partitionedData[0], "/" + nutrient);
+                        userInput = userInput.replace("/" + partitionedData[0], "/" + nutrient);
                     }
                 }
             } else {

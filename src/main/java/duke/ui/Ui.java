@@ -172,7 +172,6 @@ public class Ui {
     }
 
     public void showActivityLevel() {
-        System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "Input Activity Level");
         System.out.println(UI_PADDING + "1) Sedentary (Little or no exercise, desk job");
         System.out.println(UI_PADDING + "2) Lightly active (Light exercise/ sports 1-3 days/week");
@@ -180,7 +179,6 @@ public class Ui {
         System.out.println(UI_PADDING + "4) Very active (Hard exercise every day, or exercising 2 xs/day) ");
         System.out.println(UI_PADDING + "5) Extra active (Hard exercise 2 or more times per day, or training for\n"
                 + UI_PADDING + "   marathon, or triathlon, etc. )");
-        System.out.println(UI_BOUNDARY);
     }
 
     public void showQueryStartDate() {

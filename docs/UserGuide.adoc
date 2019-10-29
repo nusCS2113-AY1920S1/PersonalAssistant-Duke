@@ -356,23 +356,77 @@ Mark the 3rd meal on 25/10/2019 as done
 
 ==== Adding/modifying a fixed food item: `add`
 
-Format: `add DESCRIPTION [/TAG]<QUANTITY>... `
+Format: `add DESCRIPTION [/TAG]<QUANTITY>...`
 
 Tired of entering the same nutritional values for a recurring dish repeatedly? By using the `add` command, you can set default
 nutritional values for food items that have the same description.
 
-==== Setting a nutritional goal to be met : `goal`
+Examples:
 
-Format: `goal END_DATE [/TAGS] <QUANTITY>...`
+* `add Mega Zinger burger /calories 1100` +
+This will assign the default values of 1100 calories to food items that have the name "Mega Zinger burger"
+** Next time when you enter a meal item, say `lunch Mega Zinger burger`, it will already have the 1100 calories associated with it
++
+image::Add_Command_1.png[]
+[NOTE]
+====
+* Only one set of default values can exist for every name of a meal
+* To overrride the existing defaults, simply run another add command with the same name, or override the existing
+tag within the `breakfast`, `lunch` or `dinner` command.
+
+====
+
+==== Setting a nutritional goal to be met : `setgoal`
+
+Format: `setgoal`
+
+[NOTE]
+====
+* This command is a prerequisite for many other features in the application. Please try to set this up as soon as possible
+to enjoy the full capabilities of our application.
+====
 
 Want to set a nutritional goal to be met at the end of a set timeframe, e.g: consuming at most a certain amount of calories worth of foods
 by the end of the month? Use the `goal` command!
 
-[NOTE]
+The setting up of a goal is a multi-stage process, and the following steps will walk you through it:
 ====
-* The number of user input tags should at least number 1
-* Current date is obtained from the system date in your computer.
-* Dates should be entered in the following format: day/month/year.
+* Step 1: Enter the `setgoal` command and press kbd:[Enter] you should be prompted with the message shown below.
+Please enter the start date of the plan in the following format: `dd/MM/yyyy`, eg: 1st December 2019 will be `01/12/2019`
++
+image::Setgoal_1.png[]
+
+* Step 2 : After the previous step, the software will prompt you for the end date of the plan. Please enter the end date
+of the plan in the following format: `dd/MM/yyyy`, eg: 31st December 2019 will be `31/12/2019`
++
+image::Setgoal_2.png[]
+
+* Step 3 : Now, the software will prompt you to enter your desired body weight by the end of the diet plan. Please enter
+your desired body weight, rounded off to the first decimal place.
++
+image::Setgoal_3.png[]
+
+* Step 4: You will now be prompted for an option to change your current lifestyle to a more active one. If you wish to do so, enter
+`yes` , and proceed to step 5. Otherwise, enter `no` and proceed to step 6.
++
+image::Setgoal_4.png[]
+
+* Step 5: If you entered `yes` for the previous step, you will be prompted with the query below. Please select your desired
+activity level by entering the index of the activity level in the list
++
+image::Setgoal_5.png[]
+
+* Step 6: At this point, you may be prompted with one of two messages, as shown below
++
+image::Setgoal_6.png[]
++
+If you see the message above, congrats! You have successfully setup your goals.
+Otherwise, you may see the message below:
++
+image::Setgoal_7.png[]
++
+This means that there is a goal already stored in the software, which could have been setup by you previously in another session.
+If you wish to override the old goal with the new one you just made, type `yes`. Otherwise, type `no` to abort the setgoal command.
 ====
 
 ==== Updating personal info: `update`
@@ -443,10 +497,19 @@ Examples:
 
 Format: `stats [/date]<START_DATE> <END_DATE>`
 
-Want to know if you are meeting your nutritional quota for the month? Your average nutrient intake across each of your
+[NOTE]
+====
+* This command does not work if no goal has been set. Please refer to the setgoal commmand to set a goal.
+====
+
+Want to know if you are meeting your nutritional quota for the day? Your average nutrient intake across each of your
 three meals for the past month, or what is the average nutritional intake you will need to maintain in order to hit your set quota for the month?
 Simply enter the `stats` command, and our application will compute all the necessary data for you, and display them to you in a clear and
 concise manner
+
+.Stats Command output if a goal has been set
+image::Stats_Command.png[]
+
 
 ==== Graph nutrition track record: `graph`
 
