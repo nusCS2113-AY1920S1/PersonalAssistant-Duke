@@ -16,6 +16,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //@@author talesrune
 /**
@@ -30,6 +32,7 @@ public class Storage {
     private static final int TWO = 2;
     private static final int THREE = 3;
     private static final int FOUR = 4;
+    private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Creates a storage with a specified filePath.
@@ -144,6 +147,7 @@ public class Storage {
                 }
             } catch (Exception e) {
                 ui.showErrorMsg("     Error when reading current line, please fix the text file:");
+                logr.log(Level.SEVERE,"Error when reading current line, please fix the text file", e);
                 e.printStackTrace();
                 ui.showErrorMsg("     Duke will continue reading the rest of file");
             }

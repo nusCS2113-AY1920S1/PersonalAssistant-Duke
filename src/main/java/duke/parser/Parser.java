@@ -40,6 +40,8 @@ import duke.task.ContactList;
 
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -54,6 +56,7 @@ public class Parser {
     private static final int FOUR = 4;
     private static final int SIX = 6;
     private static final String EMPTY_STRING = "";
+    private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     //@@author maxxyx96
     /**
@@ -280,6 +283,8 @@ public class Parser {
                     repeatPeriod = repeatSettings.split(repeatTimes + " ")[ONE];
 
                 } catch (Exception e) {
+                    logr.log(Level.WARNING,"Format is in: repeat <task> /from <date time> "
+                            + "/for <repeat times> <days/weeks>", e);
                     throw new DukeException("Format is in: repeat <task> /from <date time> "
                             + "/for <repeat times> <days/weeks>");
                 }
@@ -326,6 +331,7 @@ public class Parser {
                 try {
                     duration = Integer.parseInt(durDesc.split(" ")[ZERO].trim());
                 } catch (Exception e) {
+                    logr.log(Level.WARNING,"Format is in: fixedduration <task> /for <duration> <unit>");
                     throw new DukeException("Format is in: fixedduration <task> /for <duration> <unit>");
                 }
                 unit = durDesc.split(" ")[ONE].trim();
@@ -358,6 +364,7 @@ public class Parser {
                 try {
                     taskNum = Integer.parseInt(holder[ZERO].trim());
                 } catch (Exception e) {
+                    logr.log(Level.WARNING,"The task number must be an integer");
                     throw new DukeException("The task number must be an integer");
                 }
 
@@ -368,6 +375,7 @@ public class Parser {
                 try {
                     priority = Integer.parseInt(holder[ONE].trim());
                 } catch (Exception e) {
+                    logr.log(Level.WARNING,"The priority must be an integer");
                     throw new DukeException("The priority must be an integer");
                 }
 
@@ -389,6 +397,7 @@ public class Parser {
                     try {
                         target = Integer.parseInt(arr[ONE]);
                     } catch (Exception e) {
+                        logr.log(Level.WARNING,"The target priority must be an integer");
                         throw new DukeException("The target priority must be an integer");
                     }
 
@@ -494,6 +503,7 @@ public class Parser {
                                           contactDetails[TWO], contactDetails[THREE]);
                 return new AddContactsCommand(contactObj);
             } catch (Exception e) {
+                logr.log(Level.WARNING,"Format is in: addcontact <name>, <contact>, <email>, <office>",e);
                 throw new DukeException("Format is in: addcontact <name>, <contact>, <email>, <office>");
             }
         } else if (sentence.equals("listcontacts") || sentence.equals("lc")) {
