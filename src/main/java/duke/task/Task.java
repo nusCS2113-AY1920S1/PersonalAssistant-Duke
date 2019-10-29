@@ -19,6 +19,7 @@ public class Task {
     public LocalDateTime dueDate;
 
     public int priority;
+    public int reminders;
 
     /**
      * Creates a task with the specified description.
@@ -119,17 +120,18 @@ public class Task {
         return (isDone ? "[\u2713]" : "[\u2718]"); //return [✓]" : "[✗] symbols
     }
 
-    //@@author
+    //@@author gervaiseang
     /**
-     * Returns the remaining days of reminder.
+     * Returns the reminder of one task.
      *
-     * @return integer of the number of days left of the reminded task.
+     * @return integer of the number of days to set the reminded task.
      */
+
     public int getReminder() {
-        return numberOfDays;
+        return this.numberOfDays;
     }
 
-
+    //@@author gervaiseang
     /**
      * Set the remaining days of reminder.
      *
@@ -140,23 +142,13 @@ public class Task {
         this.numberOfDays = remainingDays;
     }
 
+    //@@author
     /**
      * Set the remaining days of reminder.
      *
      * @return boolean that triggers the reminder.
      */
     public boolean isTriggerReminder() {
-        /*if (dueDate != null) {
-            LocalDateTime reminderDate = dueDate.minusDays(numberOfDays);
-            return LocalDateTime.now().isAfter(reminderDate);
-        }
-        if (currentDate != null) {
-            LocalDateTime reminderDate = currentDate.minusDays(numberOfDays);
-            return LocalDateTime.now().isAfter(reminderDate);
-        }*/
-        if (isDone() == false) {
-            System.out.println("     High priority: ");
-        }
         return false;
     }
 

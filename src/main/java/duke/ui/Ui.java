@@ -73,6 +73,7 @@ public class Ui {
         return in.nextLine();
     }
 
+    //@@author gervaiseang
     /**
      * Outputs all the reminders of the user.
      *
@@ -90,17 +91,17 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    //@@author gervaiseang
     /**
      * Outputs task that is successfully sets a reminder to the user (GUI).
      *
-     * @param num indicated number of days to set the reminder
      * @param items The task list that contains a list of tasks.
+     * @param index indicated number of days to set the reminder
      * @return String of the task that is completed.
      */
-    public static String showReminderGui(Task num, TaskList items) {
-        String str = ("     You will get a reminder for this task in "
-                + num.getReminder()
-                + " days\n" + items.toString());
+    public String showReminderGui(TaskList items, int index) {
+        String str = "     You have set a reminder for this task \n"
+                + items.get(index);
         return str;
     }
 

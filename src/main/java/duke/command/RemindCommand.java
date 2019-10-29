@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.storage.Storage;
+//import duke.task.Reminders;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -13,6 +14,7 @@ import duke.ui.Ui;
 public class RemindCommand extends Command {
     protected int taskIndex;
     protected int reminder;
+    //    protected Reminders reminders;
 
     public RemindCommand(int task, int remind) {
         this.taskIndex = task;
@@ -42,7 +44,8 @@ public class RemindCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        return null;
+        String str = ui.showReminderGui(items, taskIndex);
+        return str;
     }
 
     /**
