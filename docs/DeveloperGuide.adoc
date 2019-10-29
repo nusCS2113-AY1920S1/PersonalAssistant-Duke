@@ -431,7 +431,8 @@ of the `FreeCommand` class.
 
 === Time Tracker feature
 ==== Implementation
-The `ViewTrackerCommand` class extends `Command` class by providing functions to display a bar graph visualising the amount of time spent on each `Module` filtered by `Day`, `Week` and `All`.
+The `ViewTrackerCommand` class extends `Command` class by providing functions to display a histogram
+visualising the amount of time spent on each `Module` filtered by `Day`, `Week` and `All`.
 
 In addition, it contains the following feature:
 
@@ -441,32 +442,102 @@ In addition, it contains the following feature:
 Provided below is an example scenario of use and how `ViewTrackerCommand` class behaves and interact with other relevant classes.
 
 *Step 1:* +
-The user enters `start CS2113T Activity Diagram`. The `parse` method in `CommandParser` class is called to parse the user input to obtain the String `CS2113T Activity Diagram` as the `Task` that the user wants to start the Time Tracker timer for.
+The user enters `start user guide`.
+The `parse` method in `CommandParser` class is called to parse the user input to obtain the String `user guide` as the `description` that the user wants to start the Time Tracker timer for.
 
 [WARNING]
 `OofException` will be thrown is the user enters an invalid command.
 
 *Step 2:* +
-The `execute` method of `ViewTrackerCommand` class will...
+The `execute` method of `ViewTrackerCommand` class will read and save all `TrackerList` objects saved in persistent storage, `tracker.csv` through the `Storage.readTrackerList()` method in the `Storage` class.
+
+* *Step 2a:* +
+The `readTrackerList` method in `Storage` class will retrieve and read `tracker.csv` from persisitent storage by using `FileReader` on `File`.
+
+* *Step 2b:* +
+The `BufferedReader` will then be performed upon `FileReader` to allow `tracker.csv` to be read line-by-line, calling the `processLine` method each time.
+
+* *Step 2c:* +
+The `processLine` method of `Storage` class will split each line into its respective fields through the use of a `,` delimiter before parsing and assign them into the correct fields.
+A new `Tracker` object will be created with the processed data and returned to the `readTrackerList` method.
+
+* *Step 2d:* +
+The `Tracker` object returned to `readTrackerList` will be added into the `TrackerList` object and upon completing the entire `tracker.txt` file, the final `TrackerList` object will be returned to the `execute` method of `ViewTrackerCommand`.
+
+[WARNING]
+`OofException` will be thrown is `tracker.csv` cannot be processed.
+
+*Step 3:* +
+The `execute` method of `ViewTrackerCommand` class will then call upon the `timeSpentByModule` method of `ViewTrackerCommand`.
+This is where each `Tracker` object in the `TrackerList` object will be processed by their `ModuleCode` property.
+
+* *Step 3a:* +
+A `ModuleTrackerList` object is created.
+The `ModuleCode` of `Tracker` object is retrieved and the `ModuleTrackerList` object is searched for a `ModuleCode` property of `ModuleTracker` object that matches that of the `ModuleCode` in the `Tracker` object.
+
+* *Step 3b:* +
+If a match is found, the `TimeTaken` property of the `Tracker` object will be added to the `TimeTaken` property of the `ModuleTracker` object, updating the `ModuleTrackerList` object before the search is ended.
+This will continue until all `Tracker` objects of the `TrackerList` object are processed.
+
+* *Step 3c:* +
+The `ModuleTrackerList` object will then be returned to the `execute` method of `ViewTrackerCommand`.
+
+[WARNING]
+`OofException` will be thrown is the `ModuleTrackerList` is empty.
+
+*Step 4:* +
+The `execute` method of `ViewTrackerCommand` class will then call upon the `sortAscending` method of `ViewTrackerCommand` class.
+This is where the `ModuleTrackerList` will be sorted in ascending order according to their `TimeTaken` property.
+
+* *Step 4a:* +
+An ArrayList of `ModuleTracker` objects is created and updated with the `ModuleTracker` objects of the `ModuleTrackerList`.
+
+* *Step 4b:* +
+The ArrayList is then processed and sorted by their `TimeTaken` property through the `Collections.sort` method.
+
+* *Step 4c:* +
+A new `ModuleTrackerList` object is created and updated with the `ModuleTracker` elements of the sorted ArrayList and returned to the `execute` method of `ViewTrackerCommand`.
+
+*Step 5:* +
+The `execute` method of `ViewTrackerCommand` calls `printTrackerDiagram` in the `Ui` class with the new `ModuleTrackerList` as the parameter.
+This is where the tracker diagram will be printed.
 
 The following activity diagram summarises what will happen when a user executes a `ViewTracker` command:
 
-image::ViewTrackerCommandActivityDiagram.png[]
+image::viewTrackerCommandActivityDiagram.png[]
 
 ==== Design Considerations
-* what is done
+* *Creating `tracker.csv` to store past entries and their associated information*
 ** Rationale: +
-why it is done
+With scalability in mind, the use of persistent storage will grant our users access to previous `Tracker` entries that they have made and allow our tracker diagram to be generated over a more extensive range of entries made before the current run of *OOF*.
+The use of `.csv` format for persistent storage and delimiting each respective field by `,`.
+As some data fields can contain multiple whitespaces and tabs, the use of a whitespace delimiter may affect the processing algorithm negatively.
+The use of a comma is also less likely in module codes, task descriptions and dates.
 
 ** Alternatives Considered: +
-other possible implementations that is less good
+The use of `.txt` and delimiter by `\t` has been considered.
+However, the use of a tab may interfere with the processing algorithm should the user input contains four consecutive whitespaces -- which is processed as an equivalent to `\t`.
 
-* what is done
+* *Implementating of both `Tracker` and `TrackerList` as well as ModuleTracker` and `ModuleTrackerList` classes*
 ** Rationale: +
-why it is done
+With future expansions in mind, this will allow two different forms of categorisation throughout the `Tracker` feature.
+This will ultimately facilitate the expansion the `ViewTrackerComamnd` feature to showcase a histogram sharing total time spent sorted either by
+*** `ModuleCode` of `ModuleTracker` objects in `ModuleTrackerList`
+*** `description` of `Tracker` objects in `TrackerList`.
 
 ** Alternatives Considered: +
-other possible implementations that is less good
+The implementation of `Tracker` and `TrackerList` alone would be enough to facilitate the time spent on each Assignment
+and allow the user to view a histogram of the amount of time spent on each Assignment.
+
+* *Splitting the `timeTaken` property in `ModuleTrackerList` into blocks of ten minutes in the histogram*
+** Rationale: +
+As more Assignments get completed over time, the `timeTaken` property in `ModuleTracker` objects will increase exponentially.
+With the estimated amount of ten work hours weekly on each module, this may result in hundreds of minutes spent on `Assignment` for each `ModuleCode`.
+By splitting the `timeTaken` property in `ModuleTrackerList` into blocks of ten minutes, the number of `#` printed will reduce drastically and allow a more compact diagram to be printed without compromising its accuracy beyond tolerance.
+
+** Alternatives Considered: +
+Without the splitting of the `timeTaken` property of `ModuleTracker` objects in the `ModuleTrackerList`, an additional variable `segmentedTimeTaken` will not be required and the user will be able to see a more accurate histogram
+as it will be printing one `#` to represent one minute instead.
 
 === Logging
 
