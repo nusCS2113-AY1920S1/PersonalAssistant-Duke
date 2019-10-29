@@ -1,5 +1,6 @@
  edit
 6
+1
 todo edited
 edit fail
 edit
@@ -25,7 +26,16 @@ deadline edited
 list
  edit
 6
+1
 td5
+edit
+1
+2
+10
+edit
+1
+2
+8
 edit
 3
 1
@@ -42,5 +52,25 @@ edit
 2
 1
 d1
+edit
+3
+3
+3
+edit
+2
+3
+2
+edit
+3
+3
+5
+edit
+2
+3
+5
+edit
+1
+2
+5
 list
 bye

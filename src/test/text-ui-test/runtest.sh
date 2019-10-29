@@ -92,7 +92,7 @@ else
     #exit 1
 fi
 
-#                 TEST EditCommand
+#                 TEST EditCommand multi-steps
 java -classpath ../../../bin leduc.Duke test6/test6.txt data/config.txt data/welcome.txt < test6/input6.txt > test6/ACTUAL6.TXT
 
 # compare the output to the expected output
@@ -107,7 +107,7 @@ else
     exit 1
 fi
 
-#                 TEST EditCommand
+#                 TEST StatsCommand
 java -classpath ../../../bin leduc.Duke test7/test7.txt data/config.txt data/welcome.txt < test7/input7.txt > test7/ACTUAL7.TXT
 
 # compare the output to the expected output
