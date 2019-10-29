@@ -26,7 +26,6 @@ public class Parser {
     private static Instruction instr = new Instruction();
     private static Process process = new Process();
 
-    private static Project currentProject = null;
 
     /**
      * Method that parses input from the user and executes processes based on the input.
@@ -39,8 +38,7 @@ public class Parser {
      * @throws AlphaNUSException if input is not valid.
      */
 
-    public static boolean parse(String input, TaskList tasklist, Ui ui, Fund fund, Storage storage, ArrayList<String> commandList,
-                                HashMap<String, Payee> managermap, LinkedHashMap<String, Project> projectmap) {
+    public static boolean parse(String input, TaskList tasklist, Ui ui, Fund fund, Storage storage, ArrayList<String> commandList) {
         try {
             if (instr.isBye(input)) {
                 //print bye message
@@ -50,28 +48,16 @@ public class Parser {
             } else if (instr.isHistory(input)) {
                 process.history(ui,commandList, storage);
             } else if (instr.isListProjects(input)){
-                process.listProjects(ui, projectmap);
+                process.listProjects(ui);
             } else if (instr.isAddProject(input)) {
                 process.commandHistory(input, ui, storage);
-                if (currentProject == null) {
-                    currentProject = process.addProject(input, ui, projectmap);
-                } else {
-                    process.addProject(input, ui, projectmap);
-                }
+                process.addProject(input, ui);
             } else if (instr.isDeleteProject(input)) {
-                Project deletedProject = process.deleteProject(input, ui, projectmap);
+                process.deleteProject(input, ui);
                 process.commandHistory(input, ui, storage);
-                if (currentProject == deletedProject) {
-                    currentProject = null;
-                }
             } else if (instr.isGoToProject(input)) {
-                if (currentProject == null) {
-                    process.noProject(ui);
-                    process.commandHistory(input, ui, storage);
-                } else {
-                    currentProject = process.goToProject(input, ui, projectmap);
-                    process.commandHistory(input, ui, storage);
-                }
+                process.goToProject(input, ui);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isList(input)) {
                 ui.printList(tasklist, "list");
                 process.commandHistory(input, ui, storage);
@@ -87,7 +73,7 @@ public class Parser {
                 process.doAfter(input, tasklist, ui);
                 //Storage.save(tasklist.returnArrayList());
             } else if (instr.isDeletePayment(input)) {
-                process.deletePayment(input, managermap, ui);
+                process.deletePayment(input, ui);
                 process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
 
@@ -121,16 +107,16 @@ public class Parser {
                 // process.edit(input,tasklist,ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddPayment(input)) {
-                process.addPayment(input, managermap, ui);
+                process.addPayment(input, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isgetpayee(input)) {
-                process.findPayee(input, ui, managermap);
+                process.findPayee(input, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddPayee(input)) {
-                process.addPayee(input, managermap, ui);
+                process.addPayee(input, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isDeletePayee(input)) {
-                process.deletePayee(input, managermap, ui);
+                process.deletePayee(input, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isInvoice(input)) {
                 process.inVoice(input, tasklist, ui);

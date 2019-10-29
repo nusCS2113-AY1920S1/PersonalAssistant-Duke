@@ -36,9 +36,9 @@ public class AlphaNUS {
         //ArrayList<Task> arraylist = storage.load(); <-- Giving file not found exception, to remove
         tasklist = new TaskList();
         fund = new Fund(); //TODO the fund need to be stored in the text file.
-        managermap = new HashMap<String, Payee>();
+        //managermap = new HashMap<String, Payee>();
         ArrayList<String> commandList = storage.load();
-        projectmap = new LinkedHashMap<String, Project>();//To replace managermap in main class
+        //projectmap = new LinkedHashMap<String, Project>();//To replace managermap in main class
         run();
     }
 
@@ -51,7 +51,7 @@ public class AlphaNUS {
         boolean isExit = false;
         while (!isExit) {
             String input = ui.readInput();
-            isExit = Parser.parse(input, tasklist, ui, fund, storage, commandList, managermap, projectmap);
+            isExit = Parser.parse(input, tasklist, ui, fund, storage, commandList);
         }
     }
 

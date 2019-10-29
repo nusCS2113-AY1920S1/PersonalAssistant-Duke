@@ -41,3 +41,16 @@ goto project pr/ flag  | 28-10-2019 01:30:07
 add project pr/ rag  | 28-10-2019 01:31:43
 goto project pr/   | 28-10-2019 01:31:48
 goto project pr/ rg  | 28-10-2019 01:31:58
+add project pr/rag  | 29-10-2019 17:21:21
+add project pr/flag  | 29-10-2019 17:21:26
+goto project pr/rag  | 29-10-2019 17:21:44
+goto project pr/flag  | 29-10-2019 17:21:49
+delete project pr/rag  | 29-10-2019 17:22:10
+add project pr/rag  | 29-10-2019 17:46:53
+add project pr/flag  | 29-10-2019 17:46:56
+goto project pr/rag  | 29-10-2019 17:47:10
+add payment p/yh i/toy c/10000.00 v/a102312  | 29-10-2019 17:47:20
+add payee p/yh e/e013021@qweqcc m/A123012 ph/1929929  | 29-10-2019 17:48:04
+add payment p/yh i/toy c/10000.00 v/a102312  | 29-10-2019 17:48:12
+goto project pr/flag  | 29-10-2019 17:48:34
+goto project pr/rag  | 29-10-2019 17:48:41

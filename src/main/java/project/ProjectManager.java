@@ -1,18 +1,26 @@
 package project;
 
+import payment.Payee;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public abstract class ProjectManager {
+public class ProjectManager {
+    public Project currentProject;
+    public LinkedHashMap<String, Project> projectmap;
 
+    public ProjectManager() {
+        this.currentProject = null;
+        this.projectmap = new LinkedHashMap<>();
+    }
 
     /**
      * Adds a new project to the project map.
      * @param projectname Name of the project to add.
-     * @param projectmap LinkedHashMap of projects.
      * @return Returns the project object of the added project.
      */
-    public static Project addProject(String projectname, LinkedHashMap<String, Project> projectmap) {
+    public Project addProject(String projectname) {
         Project newProject = new Project(projectname);
         projectmap.put(projectname, newProject);
         return newProject;
@@ -21,11 +29,13 @@ public abstract class ProjectManager {
     /**
      * Deletes a project in the project map.
      * @param projectname Name of the project to delete.
-     * @param projectmap LinkedHashMap of projects.
      * @return Returns the project object of the deleted project.
      */
-    public static Project deleteProject(String projectname, LinkedHashMap<String, Project> projectmap) {
+    public Project deleteProject(String projectname) {
         Project deletedProject = projectmap.get(projectname);//TODO check if project exists
+        if (currentProject == deletedProject) {
+            currentProject = null;
+        }
         projectmap.remove(projectname); //TODO assert projectname does not exist
         return deletedProject;
     }
@@ -33,19 +43,18 @@ public abstract class ProjectManager {
     /**
      * Method to go to the project in the projectmap.
      * @param projectname Name of project to go to.
-     * @param projectmap LinkedHashMap of projects.
      * @return Returns the project object of the project to go to.
      */
-    public static Project gotoProject(String projectname, LinkedHashMap<String, Project> projectmap) {
-        return projectmap.get(projectname);
+    public Project gotoProject(String projectname) {
+        currentProject = projectmap.get(projectname);
+        return currentProject;
     }
 
     /**
      * Lists all projects in the projectmap.
-     * @param projectmap LinkedHashMap of projects.
      * @return Returns an ArrayList of projects.
      */
-    public static ArrayList<Project> listProjects(LinkedHashMap<String, Project> projectmap) {
+    public ArrayList<Project> listProjects() {
         ArrayList<Project> projectslist = new ArrayList<>();
         for (Project project: projectmap.values()){
             projectslist.add(project);
@@ -54,7 +63,7 @@ public abstract class ProjectManager {
     }
 
     //TODO --> adds spending for project when adding payments
-    public static void addSpending() {
+    public void addSpending() {
 
     }
 
@@ -64,7 +73,7 @@ public abstract class ProjectManager {
     }
 
     //TODO --> assign budget
-    public static void assignBudget() {
+    public void assignBudget() {
 
     }
 
@@ -72,12 +81,19 @@ public abstract class ProjectManager {
      * Allocates budget to a project.
      * @param projectname Name of the project.
      * @param budget Budget allocated to the project.
-     * @param projectmap Hashmap of projects.
      * @return Returns the Project object the budget is allocated to.
      */
-    public static Project allocateBudget(String projectname, double budget, LinkedHashMap<String, Project> projectmap) {
+    public Project allocateBudget(String projectname, double budget) {
         Project projectallocated = projectmap.get(projectname);
         projectmap.get(projectname).budget = budget;
         return projectallocated; //TODO --> allocates budget to a project
+    }
+
+    public Project getCurrentProject() {
+        return currentProject;
+    }
+
+    public HashMap<String, Payee> getCurrentProjectManagerMap(){
+        return currentProject.managermap;
     }
 }
