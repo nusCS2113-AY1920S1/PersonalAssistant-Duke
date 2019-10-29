@@ -1,12 +1,13 @@
 package UserInterface;
+
 import Commands.ShowPreviousCommand;
 import Commands.WeekCommand;
 import Commands.UpdateProgressIndicatorCommand;
-import DukeExceptions.DukeIOException;
 import Commons.Duke;
-import Commons.Storage;
 import Commons.LookupTable;
-import Commons.Week;
+import Commons.Storage;
+import Commons.WeekList;
+import DukeExceptions.DukeIOException;
 import Tasks.Assignment;
 import Tasks.TaskList;
 import javafx.animation.PauseTransition;
@@ -36,12 +37,7 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-import java.util.Scanner;
-import java.util.HashMap;
-import java.util.Date;
-import java.util.Calendar;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -81,7 +77,7 @@ public class MainWindow extends BorderPane implements Initializable {
     @FXML
     private TableView<DukeResponseView> dukeResponseTable;
     @FXML
-    TableColumn dukeResponseColumn;
+    TableColumn<DukeResponseView, String> dukeResponseColumn;
 
     private Duke duke;
     private Storage storage;
@@ -91,10 +87,13 @@ public class MainWindow extends BorderPane implements Initializable {
     private ArrayList<Assignment> overdue;
     private TaskList eventsList;
     private TaskList deadlinesList;
-    private static LookupTable LT = new LookupTable();
+    private static LookupTable LT;
     public static ArrayList<String> outputList = new ArrayList<>();
-    public static Week outputWeekList = new Week();
+    public static WeekList outputWeekList = new WeekList();
     private static final Logger LOGGER = Logger.getLogger(MainWindow.class.getName());
+    static {
+        LT = new LookupTable();
+    }
 
 
     /**
@@ -187,19 +186,15 @@ public class MainWindow extends BorderPane implements Initializable {
      * @throws IOException On input error reading lines in the file
      * @throws ParseException On conversion error from string to Task object
      */
-    private void retrieveList() {
-        try {
-            storage = new Storage();
-            eventsList = new TaskList();
-            deadlinesList = new TaskList();
-            overdue = new ArrayList<>();
-            storage.readEventList(eventsList);
-            storage.readDeadlineList(deadlinesList);
-            events = eventsList.getList();
-            deadlines = deadlinesList.getList();
-        } catch (DukeIOException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
+    private void retrieveList() throws DukeIOException {
+        storage = new Storage();
+        eventsList = new TaskList();
+        deadlinesList = new TaskList();
+        overdue = new ArrayList<>();
+        storage.readEventList(eventsList);
+        storage.readDeadlineList(deadlinesList);
+        events = eventsList.getList();
+        deadlines = deadlinesList.getList();
     }
 
     private ObservableList<DukeResponseView> betterDukeResponse = FXCollections.observableArrayList();
@@ -285,45 +280,61 @@ public class MainWindow extends BorderPane implements Initializable {
 //        dukeIndexColumn.setMinWidth(35);
 //        dukeIndexColumn.setCellValueFactory(new PropertyValueFactory<>("index"));
         dukeResponseColumn = new TableColumn<>();
-        dukeResponseColumn.setText("Response");
+        dukeResponseColumn.setText("Duke Response");
         dukeResponseColumn.setSortable(false);
-//        deadlineTaskColumn.setMinWidth(165);
         dukeResponseColumn.setCellValueFactory(new PropertyValueFactory("response"));
         dukeResponseTable.setItems(betterDukeResponse);
         dukeResponseTable.getColumns().add(dukeResponseColumn);
     }
 
     @FXML
-    private void handleUserInput() throws IOException{
+    private void handleUserInput() throws IOException {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         if(input.startsWith("Week")) {
-            week = input;
-            setWeek(false, input);
+            Integer digit = -1;
+            boolean isDigit = true;
+            try {
+                String strInput = input.replaceFirst("Week", "");
+                if(!strInput.isEmpty()) {
+                    if(strInput.charAt(0) == ' ') {
+                        strInput = strInput.trim();
+                        digit = Integer.parseInt(strInput);
+                    } else {
+                        isDigit = false;
+                    }
+                }
+            } catch (NumberFormatException e){
+                isDigit = false;
+                userInput.clear();
+                throw new NumberFormatException("Invalid Week");
+            } finally {
+                if (isDigit && digit > 0 && digit < 14) {
+                    week = "Week " + digit;
+                    setWeek(false, week);
+                }
+            }
         }
 
         duke.getResponse(week);
         outputWeekList = WeekCommand.getWeekList();
-        updateListView(input);
+        updateListView();
 
         outputList = ShowPreviousCommand.getOutputList();
-//        int i = 1;
-//        for (String output : outputList) {
-//            System.out.println(i);
-//            AlertBox.display("", "", output, Alert.AlertType.INFORMATION);  //TODO, show in the chatbox section
-////            for(String s: filteredInput) sall += s;
-////        AlertBox.display("", "", sall, Alert.AlertType.INFORMATION);
-//        }
+        setDeadlineTable();
+        overdueDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        overdueTaskColumn.setCellValueFactory(new PropertyValueFactory<>("task"));
+        overdueTable.setItems(setOverdueTable());
 
         retrieveList();
+        setProgressContainer();
         if(!response.isEmpty()) {
             Text temp = new Text(response);
-            temp.setWrappingWidth(dukeResponseColumn.getWidth() - 10);
+            temp.setWrappingWidth(dukeResponseColumn.getWidth() - 15);
             Integer index = betterDukeResponse.size() + 1;
             betterDukeResponse.add(new DukeResponseView(index.toString(), temp));
             setDukeResponse();
         }
-        setProgressContainer();
 
         if (userInput.getText().equals("bye")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
@@ -339,7 +350,7 @@ public class MainWindow extends BorderPane implements Initializable {
         if (input.contains("retrieve previous")) {
             String previousInput = Duke.getPreviousInput();
             userInput.setText(previousInput);
-        } else if (input.startsWith("retrieve free time")) {
+        } else if (input.startsWith("retrieve/freetime ")) {
             String selectedOption = Duke.getSelectedOption();
             userInput.setText(selectedOption);
         }
@@ -373,7 +384,7 @@ public class MainWindow extends BorderPane implements Initializable {
             selectedWeek = LT.getValue(date);
             currentWeek.setText(selectedWeek + " ( " + LT.getValue(selectedWeek.toLowerCase()) + " )");
             week = selectedWeek;
-            currentWeek.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.ITALIC,23));
+            currentWeek.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.ITALIC,30));
             currentWeek.setTextFill(Color.GOLDENROD);
         }
         else{
@@ -382,15 +393,13 @@ public class MainWindow extends BorderPane implements Initializable {
         }
     }
 
-    private void updateListView(String input){
-//        if(input.startsWith("Week")) {
-            monEventView.setItems(outputWeekList.getMonList());
-            tueEventView.setItems(outputWeekList.getTueList());
-            wedEventView.setItems(outputWeekList.getWedList());
-            thuEventView.setItems(outputWeekList.getThuList());
-            friEventView.setItems(outputWeekList.getFriList());
-            satEventView.setItems(outputWeekList.getSatList());
-            sunEventView.setItems(outputWeekList.getSunList());
-//        }
+    private void updateListView(){
+        monEventView.setItems(outputWeekList.getMonList());
+        tueEventView.setItems(outputWeekList.getTueList());
+        wedEventView.setItems(outputWeekList.getWedList());
+        thuEventView.setItems(outputWeekList.getThuList());
+        friEventView.setItems(outputWeekList.getFriList());
+        satEventView.setItems(outputWeekList.getSatList());
+        sunEventView.setItems(outputWeekList.getSunList());
     }
 }
