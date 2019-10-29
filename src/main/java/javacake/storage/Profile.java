@@ -1,6 +1,7 @@
 package javacake.storage;
 
 import javacake.Duke;
+import javacake.commands.QuizCommand;
 import javacake.exceptions.DukeException;
 
 import java.io.BufferedReader;
@@ -15,7 +16,11 @@ import java.util.logging.Level;
 public class Profile {
     private static String filepath = "data";
     private String username;
-    private ArrayList<Integer> topicsDone = new ArrayList<>();
+    private ArrayList<Integer> overalltopicsDone = new ArrayList<>();
+    private ArrayList<Integer> individualTopicsDone = new ArrayList<>();
+    int totalNumOfMainTopics = 4;
+    int levelsOfDifficulty = 3;
+
 
     public Profile() throws DukeException {
         this("data");
@@ -63,8 +68,10 @@ public class Profile {
             while ((line = reader.readLine()) != null) {
                 if (count == -1) {
                     username = line;
+                } else if (count < 4) {
+                    overalltopicsDone.add(Integer.parseInt(line));
                 } else {
-                    topicsDone.add(Integer.parseInt(line));
+                    individualTopicsDone.add(Integer.parseInt(line));
                 }
                 ++count;
             }
@@ -105,18 +112,28 @@ public class Profile {
      * @param contentIdx idx of content
      * @throws DukeException when unable to write progress
      */
-    public void setMarks(int contentIdx, int marks) throws DukeException {
-        topicsDone.set(contentIdx, marks);
+    public void setOverallMarks(int contentIdx, int marks) throws DukeException {
+        overalltopicsDone.set(contentIdx, marks);
         writeProgress();
     }
+
+    public void setIndividualMarks(int contentIdx, int marks) throws DukeException {
+        individualTopicsDone.set(contentIdx, marks);
+        writeProgress();
+    }
+
 
     /**
      * Method to get topic score.
      * @param contentIdx idx of content
      * @return score of the specified topic
      */
-    public int getContentMarks(int contentIdx) {
-        return topicsDone.get(contentIdx);
+    public int getOverallContentMarks(int contentIdx) {
+        return overalltopicsDone.get(contentIdx);
+    }
+
+    public int getIndividualContentMarks(int contentIdx) {
+        return individualTopicsDone.get(contentIdx);
     }
 
     /**
@@ -125,18 +142,21 @@ public class Profile {
      */
     public int getTotalProgress() {
         int count = 0;
-        for (int i : topicsDone) {
+        for (int i : overalltopicsDone) {
             count += i;
         }
         return count;
     }
 
+    /**
+     * Method that creates data to be written into savefile.txt.
+     */
     private void initialiseUser() throws DukeException {
         username = "NEW_USER_!@#";
         try {
             PrintWriter out = new PrintWriter(filepath);
             out.println(username);
-            for (int i = 0; i < 4; ++i) {
+            for (int i = 0; i < totalNumOfMainTopics * (levelsOfDifficulty + 1); ++i) {
                 out.println("0");
             }
             out.close();
@@ -149,7 +169,10 @@ public class Profile {
         try {
             PrintWriter out = new PrintWriter(filepath);
             out.println(username);
-            for (int i : topicsDone) {
+            for (int i : overalltopicsDone) {
+                out.println("" + i);
+            }
+            for (int i: individualTopicsDone) {
                 out.println("" + i);
             }
             out.close();

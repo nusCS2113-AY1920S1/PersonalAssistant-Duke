@@ -18,8 +18,8 @@ public class ListCommandTest {
         String line2 = "1. Java Basics";
         String line3 = "2. Object-Oriented Programming";
         String line4 = "3. Extensions";
-        String line5 = "4. Overall Quiz";
-        String line6 = "Key in the index to learn more about the topic!";
+        String line5 = "4. Overall Test";
+        String line6 = "Key in the index to learn more about the topic or do the quiz!";
         StringBuilder sb = new StringBuilder();
         sb.append(line1).append("\n");
         sb.append(line2).append("\n");

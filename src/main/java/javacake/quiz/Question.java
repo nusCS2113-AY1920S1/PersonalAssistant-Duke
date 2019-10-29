@@ -9,6 +9,10 @@ public class Question {
         BASIC, OOP, EXTENSIONS, ALL
     }
 
+    public enum QuestionDifficulty {
+        EASY, MEDIUM, HARD
+    }
+
     public Question(String question, String answer) {
         this.question = question;
         this.answer = answer;

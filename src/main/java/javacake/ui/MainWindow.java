@@ -210,21 +210,28 @@ public class MainWindow extends AnchorPane {
 
 
     private String getFirstQn(String cmdMode) throws DukeException {
-        switch (cmdMode) {
-        case "!@#_QUIZ_1":
-            quizCommand = new QuizCommand(Question.QuestionType.BASIC, false);
-            break;
-        case "!@#_QUIZ_2":
-            quizCommand = new QuizCommand(Question.QuestionType.OOP, false);
-            break;
-        case "!@#_QUIZ_3":
-            quizCommand = new QuizCommand(Question.QuestionType.EXTENSIONS, false);
-            break;
-        case "!@#_QUIZ_4":
-            quizCommand = new QuizCommand(Question.QuestionType.ALL, false);
-            break;
-        default:
+        Question.QuestionType qnType;
+        Question.QuestionDifficulty qnDifficulity;
+
+        if (cmdMode.contains("!@#_QUIZ_1")) {
+            qnType = Question.QuestionType.BASIC;
+        } else if (cmdMode.contains("!@#_QUIZ_2")) {
+            qnType = Question.QuestionType.OOP;
+        } else if (cmdMode.contains("!@#_QUIZ_3")) {
+            qnType = Question.QuestionType.EXTENSIONS;
+        } else {
+            qnType = Question.QuestionType.ALL;
         }
+
+        if (cmdMode.contains("EZ")) {
+            qnDifficulity = Question.QuestionDifficulty.EASY;
+        } else if (cmdMode.contains("MED")) {
+            qnDifficulity = Question.QuestionDifficulty.MEDIUM;
+        } else {
+            qnDifficulity = Question.QuestionDifficulty.HARD;
+        }
+        quizCommand = new QuizCommand(qnType, qnDifficulity, false);
+
         return quizCommand.getNextQuestion();
     }
 
