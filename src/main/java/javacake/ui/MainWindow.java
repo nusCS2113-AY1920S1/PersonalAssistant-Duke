@@ -315,6 +315,7 @@ public class MainWindow extends AnchorPane {
         System.out.println("EXIT");
         Duke.logger.log(Level.INFO, "EXITING PROGRAM!");
         // find out if exit condition
+        AvatarScreen.avatarMode = AvatarScreen.AvatarMode.SAD;
         isExit = true;
         response = duke.getResponse(input);
         showContentContainer();
