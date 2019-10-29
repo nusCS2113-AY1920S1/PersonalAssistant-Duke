@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
 import java.io.PrintStream;
 
 import owlmoney.model.bank.exception.BankException;
@@ -571,6 +573,9 @@ class BankListTest {
         } catch (BankException errorMessage) {
             System.out.println("Expects success but error was thrown");
         }
+        String output = outContent.toString();
+        System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out)));
+        System.out.println(output);
         String outputMessage = "New details of the account:" + NEWLINE + "Item No.             Account Name  "
                 + "                      Account Type    Current Amount  Income          " + NEWLINE + "-----"
                 + "------------------------------------------------------------------------------------------"
@@ -578,6 +583,7 @@ class BankListTest {
                 + "                investment      $456.00         Not " + "Applicable  " + NEWLINE + "------"
                 + "------------------------------------------------------------------------------------------"
                 + "---------------------------------" + NEWLINE;
-        assertEquals(outputMessage, outContent.toString());
+        System.out.println(outputMessage);
+        assertEquals(outputMessage, output);
     }
 }
