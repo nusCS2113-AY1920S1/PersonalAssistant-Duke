@@ -8,6 +8,8 @@
       <module name="duke.test" target="11" />
       <module name="main.main" target="11" />
       <module name="main.test" target="11" />
+      <module name="seedu.duke.main.main" target="11" />
+      <module name="seedu.duke.main.test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
