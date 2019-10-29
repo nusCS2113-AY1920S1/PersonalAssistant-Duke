@@ -30,7 +30,7 @@ public class RetrievePreviousCommand extends Command{
      */
     @Override
     public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeInvalidCommandException {
-        fullCommand = fullCommand.replace("retrieve previous", "");
+        fullCommand = fullCommand.replace("retrieve/previous", "");
         fullCommand = fullCommand.trim();
 
         ArrayList<String> retrievedList;
