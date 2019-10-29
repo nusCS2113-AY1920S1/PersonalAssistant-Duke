@@ -1,5 +1,6 @@
 package entertainment.pro.logic.parsers.commands;
 
+import entertainment.pro.commons.exceptions.SetExceptions;
 import entertainment.pro.storage.utils.ProfileCommands;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
@@ -82,9 +83,15 @@ public class SetCommand extends CommandSuper {
     private void executeSetAge() throws IOException {
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
-        command.setAge(this.getPayload());
+        try {
+            SetExceptions.checkAgeInput(this.getPayload());
+            command.setAge(this.getPayload());
+            movieHandler.setLabels();
+        } catch (SetExceptions e) {
+            System.out.println(e);
+        }
         movieHandler.clearSearchTextField();
-        movieHandler.setLabels();
+
     }
 
     /**
