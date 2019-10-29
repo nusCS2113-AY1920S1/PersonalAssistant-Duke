@@ -1,6 +1,5 @@
-package commandtestpackage;
+package templates;
 
-import commandtestpackage.CommandTest;
 import duke.data.Impression;
 import duke.data.Investigation;
 import duke.data.Medicine;
