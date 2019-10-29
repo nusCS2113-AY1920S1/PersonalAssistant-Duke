@@ -1,6 +1,7 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
+import duke.logic.command.order.SortOrderCommand;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
@@ -131,6 +132,12 @@ public class ModelManager implements Model {
     public void updateFilteredOrderList(Predicate<Order> predicate) {
         requireNonNull(predicate);
         filteredOrders.setPredicate(predicate);
+    }
+
+    @Override
+    public void sortOrders(SortOrderCommand.SortCriteria criteria, boolean isIncreasing) {
+        requireNonNull(criteria);
+        bakingHome.sortOrders(criteria, isIncreasing);
     }
 
     @Override

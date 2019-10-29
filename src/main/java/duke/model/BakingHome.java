@@ -1,10 +1,12 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
+import duke.logic.command.order.SortOrderCommand;
 import duke.model.commons.Item;
 import duke.model.commons.Quantity;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
+import duke.model.order.OrderComparator;
 import duke.model.product.Product;
 import duke.model.sale.Sale;
 import duke.model.shortcut.Shortcut;
@@ -62,6 +64,13 @@ public class BakingHome implements ReadOnlyBakingHome {
     }
 
     //================Order operations================
+
+    public void sortOrders(SortOrderCommand.SortCriteria criteria, boolean isIncreasing) {
+        requireNonNull(criteria);
+
+        orders.sort(new OrderComparator((criteria)), isIncreasing);
+
+    }
 
     /**
      * Replaces the contents of the order list with {@code orders}.
@@ -123,6 +132,7 @@ public class BakingHome implements ReadOnlyBakingHome {
     public ObservableList<Order> getOrderList() {
         return orders.asUnmodifiableObservableList();
     }
+
 
     //================Sale operations================
 

@@ -17,11 +17,11 @@ public interface SubCommandParser<T extends Command> extends Parser<T> {
 
     /**
      * Used to get sub-command and args.
-     * Capture group 1: Sub-command word.
+     * Capture group 1: (Optional) Sub-command word.
      * Capture group 2: (Optional) Args.
      * for example, in "add -item bread -qty 1", group 1 is "add", group 2 is "-item bread -qty 1"
      */
-    Pattern SUB_COMMAND_AND_ARGS_FORMAT = Pattern.compile("^(\\w+)\\s*(.*)?");
+    Pattern SUB_COMMAND_AND_ARGS_FORMAT = Pattern.compile("^(\\w+)?\\s*(.*)?");
 
     /**
      * Returns the sub command word. If sub command is not present, returns an empty string.
@@ -35,6 +35,11 @@ public interface SubCommandParser<T extends Command> extends Parser<T> {
         if (!matcher.matches()) {
             return "";
         }
+
+        if (matcher.group(1) == null) {
+            return "";
+        }
+
         return matcher.group(1).strip();
     }
 
