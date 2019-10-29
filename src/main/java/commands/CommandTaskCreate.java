@@ -6,7 +6,7 @@ import farmio.Storage;
 import farmio.Farmer;
 import exceptions.FarmioException;
 import frontend.Ui;
-import usercode.tasks.*;
+import usercode.tasks.Task;
 
 public class CommandTaskCreate extends Command {
     private Task task;
@@ -16,10 +16,10 @@ public class CommandTaskCreate extends Command {
     }
 
     /**
-     * Creating a Task based on the interpretation of the parser
-     * @param farmio the game that contains the tasklist that is being changed
-     * @throws FarmioException if action is executed although its criteria is not met
-     * @throws FarmioFatalException if simulation file cannot be found
+     * Creating a Task based on the interpretation of the parser.
+     * @param farmio the game that contains the tasklist that is being changed.
+     * @throws FarmioException if action is executed although its criteria is not met.
+     * @throws FarmioFatalException if simulation file cannot be found.
      */
     @Override
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
