@@ -21,8 +21,8 @@ public class AddCommandAnomaly extends DetectAnomaly {
             if (splitInput.contains("/d")) {
                 int difficultyIndex = splitInput.indexOf("/d") + 1;
                 String difficulty = splitInput.get(difficultyIndex);
-                if (!(difficulty.equals("H") || difficulty.equals("E") || difficulty.equals("M"))) {
-                    throw new CommandLineException("Difficulty should be H, M or E.");
+                if (!(difficulty.equals("H") || difficulty.equals("L") || difficulty.equals("M"))) {
+                    throw new CommandLineException("Difficulty should be H, M or L.");
                 }
             }
 
@@ -31,7 +31,7 @@ public class AddCommandAnomaly extends DetectAnomaly {
                 splitInput.get(tagIndex);
             }
             if (splitInput.contains("/by") || splitInput.contains("/at")) {
-                String timeStr = TaskList.getTime(splitInput);
+                String timeStr = TaskList.getTimeString(splitInput);
                 getDateTime(timeStr);
                 if (splitInput.contains("/every")) {
                     int everyIndex = splitInput.indexOf("/every");
