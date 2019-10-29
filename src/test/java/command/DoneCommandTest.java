@@ -42,4 +42,13 @@ public class DoneCommandTest {
                 .execute(tasks, new ArrayList<Member>(), null));
     }
 
+    //@@author: Jason
+    @Test
+    public void execute_stringAfterIntegerInput_throwsDukeException() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new ToDo("test"));
+        assertThrows(DukeException.class, () -> new DoneCommand("1 string")
+                .execute(tasks, new ArrayList<Member>(), null));
+    }
+
 }
