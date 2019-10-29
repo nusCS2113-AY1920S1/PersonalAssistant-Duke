@@ -457,10 +457,40 @@ intake across a time period charted as a graph.
 
 ==== Suggest potential food items: `suggest`
 
-Format: `suggest [/date]<DATE>`
+Format: `suggest [/date] <DATE> [/type] <MealType> [/display] <Integer>`
 
-Not sure what food items to add to tomorrow's meal schedule? Simply use the `suggest` command, which will automatically suggest
-a meal that will conform to your set nutritional goals based on the recurring meals that you have entered so far.
+Not sure what food items to add to tomorrow's meal schedule? Simply use the `suggest` command, which will automatically suggest a meal that will conform to your set nutritional goals based on the default meals available. The command allows you to also set for which meal the suggestion should be for as well as the maximum number of meal suggestions you want to see.
+
+Examples:
+
+1. You want a dinner meal suggestion for 29/10/2019 with up to maximum 5 meals to be suggested.
+
+    `suggest /date 29/10/2019 /type d /display 3`
+
+    +
+    image::Suggest_Command_1.png[width=""]
+    +
+
+2. You want a breakfast suggestion for today.
+
+    `suggest /type b`
+
+    +
+    image::Suggest_Command_2.png[width=""]
+    +
+
+You can opt to type 0 to reject all the suggestions, but if you did choose a suggestion, the command will add it to your list and will also show you the potential amount of calories your current plan has given that you ate everything (not only the ones marked as done).
+
+    +
+    image::Suggest_Command_3.png[width=""]
+    +
+
+[NOTE]
+====
+* The default meal type (if not specified) is lunch.
+* The default date (if not specified) is the current date on the user's computer.
+* The default display size (if not specified) is 5.
+====
 
 ==== Formulate exercise plan: `exercise`
 
@@ -485,5 +515,4 @@ A: Whenever you run any commands that makes changes to the data stored in the ap
 *Q: How do I migrate my data in between computers?*
 
 A: If you wish to migrate your data to another computer, simply copy and paste the entire directory of the application over to the new computer.
-
 
