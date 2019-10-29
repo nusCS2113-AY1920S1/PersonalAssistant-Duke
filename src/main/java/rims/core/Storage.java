@@ -15,11 +15,12 @@ import rims.resource.Reservation;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
 
+//@@author rabhijit
 /**
  * Converts data files containing a text version of the stored resources and reservations into an
  * array of Resource instances, containing their respective Reservations.
  *
- * Format of data files:
+ * <p>Format of data files:
  * Resource.txt: [ resource id ] [ type ] [ name ]
  * Reserve.txt: [ reservation id ] [ resource id ] [ user id ] [ date from ] [ date until ]
  */
@@ -29,8 +30,9 @@ public class Storage {
     protected File reservationFile;
 
     /**
-     * Constructor for the Storage class. Accesses the resource file path and reserve file path and runs the method
-     * readResourceFile() to convert the text representation of Resources and Reservations into an actual array of Resources.
+     * Constructor for the Storage class. Accesses the resource file path
+     * and reserve file path and runs the method readResourceFile() to convert the
+     * text representation of Resources and Reservations into an actual array of Resources.
      * @param resourceFile the file path where the text version of Resources are stored.
      * @param reserveFile the file path where the text version of Reservations are stored.
      */
@@ -44,7 +46,7 @@ public class Storage {
      * Obtains the contents of a ResourceList line by line from a text file in a
      * specified file path.
      *
-     * Data retrieval:
+     * <p>Data retrieval:
      * 1. Open the resource file
      * 2. Loop through each single entry to fetch [ resource id ] [ type ] [ name
      * ]
@@ -64,14 +66,14 @@ public class Storage {
             if (input[1].equals("I")) {
                 Item newItem = new Item(Integer.parseInt(input[0]), input[2], reservations);
                 resources.add(newItem);
-            }
-            else if (input[1].equals("R")) {
+            } else if (input[1].equals("R")) {
                 Room newRoom = new Room(Integer.parseInt(input[0]), input[2], reservations);
                 resources.add(newRoom);
             }
         }
     }
 
+    //@@author isbobby
     /**
      * Obtains the contents of a ResourceList line by line from a text file in a
      * specified file path.
@@ -85,13 +87,15 @@ public class Storage {
         while (fileScanner.hasNextLine()) {
             String[] line = fileScanner.nextLine().split(",");
             if (line[1].equals(resourceId)) {
-                Reservation newReservation = new Reservation(Integer.parseInt(line[0]), Integer.parseInt(line[1]), Integer.parseInt(line[2]), line[3], line[4]);
+                Reservation newReservation = new Reservation(Integer.parseInt(line[0]),
+                    Integer.parseInt(line[1]), Integer.parseInt(line[2]), line[3], line[4]);
                 resourceReservations.add(newReservation);
             }
         }
         return resourceReservations;
     }
 
+    //@@author rabhijit
     /**
      * Put contents of a ResourceList into a text file for future reference.
      *

@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import rims.exception.RimsException;
 
+//@@author rabhijit
 /**
  * This class represents an instance of a Resource. Contains the name of the Resource, its resource ID, type,
  * and a list of Reservation objects representing the reservations made for the Resource.

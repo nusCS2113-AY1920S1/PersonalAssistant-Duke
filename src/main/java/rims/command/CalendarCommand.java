@@ -1,5 +1,6 @@
 package rims.command;
 
+//@@author danielcyc
 public abstract class CalendarCommand extends Command{
     private static int cellLength = 15;
     private static int cellHeight = 6;

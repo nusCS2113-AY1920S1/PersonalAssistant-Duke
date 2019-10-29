@@ -1,5 +1,7 @@
 package rims.resource;
 
+//@@author rabhijit
+=======
 import rims.exception.RimsException;
 
 /**
@@ -13,7 +15,7 @@ public class Room extends Resource {
      * @param resourceId the resourceId generated for the new Room.
      * @param name the name of the new Room.
      */
-    public Room(int resourceId, String name){
+    public Room(int resourceId, String name) {
         super(resourceId, name);
     }
 

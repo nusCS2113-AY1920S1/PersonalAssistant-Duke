@@ -14,6 +14,7 @@ import rims.resource.Item;
 import rims.resource.Room;
 import rims.exception.RimsException;
 
+//@@author rabhijit
 /**
  * Stores an array of the Resources created thus far, as well as functions to
  * search, find for, create and delete Resources.
@@ -22,6 +23,7 @@ public class ResourceList {
     protected Ui ui;
     protected ArrayList<Resource> resources;
 
+    //@@author hin1
     /**
      * Constructor for the ResourceList. Takes in an array of Resources from the Storage instance
      * and saves it.
@@ -52,6 +54,7 @@ public class ResourceList {
         ui.printLine();
     }
 
+    //@@author rabhijit
     /**
      * Adds a new Resource to the ResourceList.
      * @param thisResource the newly created Resource.
@@ -80,6 +83,7 @@ public class ResourceList {
         }
     }
 
+    //@@author isbobby
     /**
      * Removes a Resource from the ResourceList, as specified by the ID of that resource.
      * @param resourceId the ID of the Resource
@@ -100,6 +104,7 @@ public class ResourceList {
         }
     }
 
+    //@@author rabhijit
     /**
      * Returns the ResourceList itself.
      * @return the array of Resources.
@@ -124,8 +129,7 @@ public class ResourceList {
         for (int i = 0; i < size(); i++) {
             try {
                 Resource thisResource = getResourceById(i);
-            }
-            catch (RimsException e) {
+            } catch (RimsException e) {
                 return i;
             }
         }
@@ -196,7 +200,7 @@ public class ResourceList {
     }
 
     /**
-     * Returns an array of all the resources of a certain name
+     * Returns an array of all the resources of a certain name.
      * @param resourceName the name of the Resources to be obtained.
      * @return an array of all the Resources with that name.
      */
@@ -211,6 +215,7 @@ public class ResourceList {
         return allOfResource;
     }
 
+    //@@author isbobby
     /**
      * Returns the number of resources of a certain name.
      * @param resourceName the name of the Resources to be counted.
@@ -388,7 +393,8 @@ public class ResourceList {
         DateFormat dayFormat = new SimpleDateFormat("d");
         int day = Integer.parseInt(dayFormat.format(date)) % 10;
         String suffix = day == 1 ? "st" : (day == 2 ? "nd" : (day == 3 ? "rd" : "th"));
-        String stringDate = (new SimpleDateFormat("EEEEE, ")).format(date) + (dayFormat.format(date)) + suffix + " of " + (new SimpleDateFormat("MMMMM yyyy, hh:mm aaa")).format(date);
+        String stringDate = (new SimpleDateFormat("EEEEE, ")).format(date) + (dayFormat.format(date))
+            + suffix + " of " + (new SimpleDateFormat("MMMMM yyyy, hh:mm aaa")).format(date);
         return stringDate;
     }
 
