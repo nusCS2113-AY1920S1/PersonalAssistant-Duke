@@ -31,7 +31,8 @@ public class Impression extends DukeObject {
      * - evidence the list of evidences contributing to the impression
      * - treatments: the list of treatments determined by a doctor to deal with the impression
      * - patient: the Patient it is tagged to
-     * @param name the name of the impression
+     *
+     * @param name        the name of the impression
      * @param description the description of the impression
      */
     public Impression(String name, String description, Patient patient) {
@@ -66,6 +67,7 @@ public class Impression extends DukeObject {
 
     /**
      * This functions search for treatment relevant to the searchTerm.
+     *
      * @param searchTerm the term to be searched for
      * @return ArrayList of the Treatments
      */
@@ -82,6 +84,7 @@ public class Impression extends DukeObject {
 
     /**
      * This functions search for Evidence relevant to the searchTerm.
+     *
      * @param searchTerm the term to be searched for
      * @return ArrayList of the Evidence
      */
@@ -111,6 +114,7 @@ public class Impression extends DukeObject {
 
     /**
      * This function searches for treatments whose names contain the searchTerm.
+     *
      * @param searchTerm the term to be searched for
      * @return ArrayList of the Treatments
      */
@@ -127,6 +131,7 @@ public class Impression extends DukeObject {
 
     /**
      * This function searches for evidences whose names contain the searchTerm.
+     *
      * @param searchTerm the term to be searched for
      * @return ArrayList of the Evidences
      */
@@ -143,6 +148,7 @@ public class Impression extends DukeObject {
 
     /**
      * This function searches for DukeData whose names contain the searchTerm.
+     *
      * @param searchTerm String to be used to filter the DukeData
      * @return the list of DukeData
      */
@@ -337,6 +343,7 @@ public class Impression extends DukeObject {
 
     /**
      * Computes the number of critical items in this impression: items with priority 1.
+     *
      * @return The number of critical items in this impression.
      */
     public int getCriticalCount() {
@@ -359,6 +366,7 @@ public class Impression extends DukeObject {
      * Computes the number of follow up items: the number of Investigations not yet ordered, or whose results have not
      * been reviewed, and the number of plan items that have not been started on, and returns a string representing
      * these items.
+     *
      * @return A string indicating the number of follow-up items in this impression.
      */
     public String getFollowUpCountStr() {
@@ -381,6 +389,7 @@ public class Impression extends DukeObject {
     /**
      * Calls getCriticalCount() to compute the number of critical itmes (items with priority 1) and returns a string
      * indicating this value.
+     *
      * @return A string indicating the number of critical items that are associated with this Impression.
      */
     public String getCriticalCountStr() {
@@ -392,5 +401,14 @@ public class Impression extends DukeObject {
         } else {
             return count + "critical issues";
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Impression)) {
+            return false;
+        }
+
+        return this.getName().equals(((Impression) obj).getName());
     }
 }

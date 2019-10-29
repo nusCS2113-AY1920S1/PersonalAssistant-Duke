@@ -31,7 +31,7 @@
                 <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="15.0" layoutY="-1.0" pickOnBounds="true"
                            preserveRatio="true">
                     <image>
-                        <Image url="@../images/patient.png"/>
+                        <Image url="@../images/patient_home.png"/>
                     </image>
                 </ImageView>
                 <Label layoutX="52.0" layoutY="1.0" prefHeight="22.0" prefWidth="134.0" text="PATIENT">
@@ -109,42 +109,42 @@
             <content>
                 <AnchorPane maxWidth="400.0" minHeight="0.0" minWidth="0.0" prefHeight="90.0" prefWidth="400.0">
                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="242.0" layoutY="9.0" pickOnBounds="true"
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="228.0" layoutY="10.0" pickOnBounds="true"
                                    preserveRatio="true">
                             <image>
                                 <Image url="@../images/impression_critical.png"/>
                             </image>
                         </ImageView>
-                        <Label fx:id="criticalLabel" layoutX="284.0" layoutY="13.0" maxHeight="-Infinity"
-                               maxWidth="-Infinity" prefHeight="22.0" prefWidth="112.0" text="Critical">
+                        <Label fx:id="criticalLabel" layoutX="267.0" layoutY="15.0" maxHeight="-Infinity"
+                               maxWidth="-Infinity" prefHeight="22.0" prefWidth="128.0" text="Critical Issues">
                             <font>
-                                <Font name="System Bold" size="15.0"/>
+                                <Font name="System Bold" size="14.0"/>
                             </font>
                         </Label>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="242.0" layoutY="49.0" pickOnBounds="true"
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="228.0" layoutY="50.0" pickOnBounds="true"
                                    preserveRatio="true">
                             <image>
                                 <Image url="@../images/impression_follow-up.png"/>
                             </image>
                         </ImageView>
-                        <Label fx:id="followUpLabel" layoutX="284.0" layoutY="53.0" maxHeight="-Infinity"
-                               maxWidth="-Infinity" prefHeight="22.0" prefWidth="114.0" text="Follow-up">
+                        <Label fx:id="followUpLabel" layoutX="268.0" layoutY="54.0" maxHeight="-Infinity"
+                               maxWidth="-Infinity" prefHeight="22.0" prefWidth="127.0" text="Follow-up">
                             <font>
-                                <Font name="System Bold" size="15.0"/>
+                                <Font name="System Bold" size="14.0"/>
                             </font>
                         </Label>
-                        <ScrollPane layoutX="7.0" layoutY="5.0" prefHeight="81.0" prefWidth="219.0"
+                        <ScrollPane layoutX="7.0" layoutY="5.0" prefHeight="82.0" prefWidth="210.0"
                                     style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
                             <content>
                                 <AnchorPane maxWidth="383.0" minHeight="0.0" minWidth="0.0" prefHeight="90.0"
-                                            prefWidth="214.0">
+                                            prefWidth="188.0">
                                     <children>
                                         <Label fx:id="nameLabel" alignment="TOP_LEFT" layoutX="8.0" layoutY="2.0"
-                                               prefWidth="190.0"
+                                               prefHeight="610.0" prefWidth="176.0"
                                                text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut turpis sit amet justo dapibus blandit vel a augue. Suspendisse placerat dapibus porta. Donec finibus augue euismod vestibulum iaculis. Maecenas vitae suscipit nisi. Fusce quis ante quis leo pellentesque mattis at id ante. Ut aliquam, sem ac aliquam pharetra, mi leo eleifend magna, nec gravida nunc magna quis urna. Nunc vel massa porta, consequat mauris ac, lacinia mauris. Nulla eget laoreet erat, in pellentesque lectus. Nunc purus magna, bibendum ut semper in, sollicitudin ut lectus. Ut sed est sem. Nullam dictum sagittis varius. Vivamus sed justo vitae lectus finibus ultrices vitae id erat. Nunc ornare faucibus leo, rhoncus viverra nisl malesuada a. Nunc vitae nisl quam."
                                                wrapText="true">
                                             <font>
-                                                <Font size="15.0"/>
+                                                <Font size="14.0"/>
                                             </font>
                                         </Label>
                                     </children>
@@ -199,7 +199,7 @@
                                text="Vestibulum maximus nulla mi, a cursus sem iaculis non. Vestibulum a nibh odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tellus sem, egestas vel risus ac, volutpat vestibulum tortor. Nam at diam non est euismod finibus eu nec mi. Mauris vitae libero efficitur, vestibulum nulla in, euismod ex. Ut ut rutrum libero. Morbi et nisl dictum, semper mi et, iaculis augue. Phasellus eleifend tortor eget ante venenatis euismod. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos."
                                wrapText="true">
                             <font>
-                                <Font size="15.0"/>
+                                <Font size="14.0"/>
                             </font>
                         </Label>
                     </children>

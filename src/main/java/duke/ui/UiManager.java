@@ -39,7 +39,7 @@ public class UiManager implements Ui {
         try {
             showMainWindow(primaryStage);
         } catch (Throwable e) {
-            System.out.println(e.getMessage());
+            showErrorDialogAndShutdown("Fatal error encountered on application startup", e);
         }
     }
 
@@ -88,7 +88,6 @@ public class UiManager implements Ui {
      */
     private void showErrorDialogAndShutdown(String title, Throwable error) {
         final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-        errorAlert.initOwner(mainWindow.getPrimaryStage());
         errorAlert.setTitle(title);
         errorAlert.setHeaderText(error.getMessage());
         errorAlert.setContentText(error.toString());

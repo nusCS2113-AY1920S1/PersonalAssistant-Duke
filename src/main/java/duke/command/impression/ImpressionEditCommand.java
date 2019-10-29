@@ -7,6 +7,7 @@ import duke.data.Impression;
 import duke.data.Investigation;
 import duke.data.Medicine;
 import duke.data.Observation;
+import duke.data.Patient;
 import duke.data.Plan;
 import duke.data.Result;
 import duke.data.Treatment;
@@ -172,10 +173,15 @@ public class ImpressionEditCommand extends DukeDataCommand {
     }
 
     private void editImpression(Impression impression, boolean isAppending) {
+        Patient patient = (Patient) impression.getParent();
+
         String newName = getSwitchVal("name");
         if (newName != null) {
+            patient.getImpressionsObservableMap().remove(impression.getName());
             impression.setName((isAppending) ? impression.getName() + newName : newName);
+            patient.getImpressionsObservableMap().put(newName, impression);
         }
+
         String newDesc = getSwitchVal("description");
         if (newDesc != null) {
             impression.setDescription((isAppending) ? impression.getDescription() + newDesc : newDesc);

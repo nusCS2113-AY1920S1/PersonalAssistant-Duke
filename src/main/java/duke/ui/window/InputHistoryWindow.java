@@ -105,6 +105,7 @@ public abstract class InputHistoryWindow extends UiElement<Region> {
         case ENTER:
             keyEvent.consume();
             handleAction();
+            break;
         default:
             break;
         }

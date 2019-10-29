@@ -102,6 +102,7 @@ public class MainWindow extends UiElement<Stage> {
                 }
 
                 Impression impression = (Impression) uiContext.getObject();
+                // TODO: parent is transient. bug...
                 impressionWindow = new ImpressionWindow(impression, (Patient) impression.getParent());
                 impressionTab = new Tab("Impression", impressionWindow.getRoot());
                 contextWindowHolder.getTabs().add(2, impressionTab);
