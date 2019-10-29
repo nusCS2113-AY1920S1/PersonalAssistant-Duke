@@ -142,7 +142,12 @@ public class Card {
      * @throws TransactionException If no expenditure is found or no expenditure is in the list.
      */
     void listAllExpenditure(Ui ui, int displayNum) throws TransactionException {
-        unpaid.listExpenditure(ui, displayNum);
+        try {
+            unpaid.listExpenditure(ui, displayNum);
+        } catch (TransactionException e) {
+            throw new TransactionException("There are no expenditures in this card.");
+        }
+
     }
 
     /**
@@ -153,7 +158,11 @@ public class Card {
      * @throws TransactionException If no expenditure is found or no expenditure is in the list.
      */
     void listAllPaidExpenditure(Ui ui, int displayNum) throws TransactionException {
-        paid.listExpenditure(ui, displayNum);
+        try {
+            paid.listExpenditure(ui, displayNum);
+        } catch (TransactionException e) {
+            throw new TransactionException("There are no expenditures in this card.");
+        }
     }
 
     /**
@@ -266,14 +275,18 @@ public class Card {
      * @throws TransactionException If invalid transaction when deleting.
      */
     void transferExpUnpaidToPaid(YearMonth cardDate, String type) throws TransactionException {
-        for (int i = 0; i < unpaid.getSize(); i++) {
-            int id = unpaid.getExpenditureIdByYearMonth(cardDate);
-            if (id != OBJ_DOES_NOT_EXIST) {
-                Transaction exp = unpaid.getExpenditureObjByYearMonth(id);
-                paid.addExpenditureToList(exp, type);
-                unpaid.deleteExpenditureFromList(id + ONE_ARRAY_INDEX);
-                i -= ONE_ARRAY_INDEX;
+        try {
+            for (int i = 0; i < unpaid.getSize(); i++) {
+                int id = unpaid.getExpenditureIdByYearMonth(cardDate);
+                if (id != OBJ_DOES_NOT_EXIST) {
+                    Transaction exp = unpaid.getExpenditureObjectByYearMonth(id);
+                    paid.addExpenditureToList(exp, type);
+                    unpaid.deleteExpenditureFromList(id + ONE_ARRAY_INDEX);
+                    i -= ONE_ARRAY_INDEX;
+                }
             }
+        } catch (TransactionException e) {
+            throw new TransactionException("There are no expenditures in this card.");
         }
     }
 
@@ -285,14 +298,18 @@ public class Card {
      * @throws TransactionException If invalid transaction when deleting.
      */
     void transferExpPaidToUnpaid(YearMonth cardDate, String type) throws TransactionException {
-        for (int i = 0; i < paid.getSize(); i++) {
-            int id = paid.getExpenditureIdByYearMonth(cardDate);
-            if (id != OBJ_DOES_NOT_EXIST) {
-                Transaction exp = paid.getExpenditureObjByYearMonth(id);
-                unpaid.addExpenditureToList(exp, type);
-                paid.deleteExpenditureFromList(id + ONE_ARRAY_INDEX);
-                i -= ONE_ARRAY_INDEX;
+        try {
+            for (int i = 0; i < paid.getSize(); i++) {
+                int id = paid.getExpenditureIdByYearMonth(cardDate);
+                if (id != OBJ_DOES_NOT_EXIST) {
+                    Transaction exp = paid.getExpenditureObjectByYearMonth(id);
+                    unpaid.addExpenditureToList(exp, type);
+                    paid.deleteExpenditureFromList(id + ONE_ARRAY_INDEX);
+                    i -= ONE_ARRAY_INDEX;
+                }
             }
+        } catch (TransactionException e) {
+            throw new TransactionException("There are no expenditures in this card.");
         }
     }
 }
