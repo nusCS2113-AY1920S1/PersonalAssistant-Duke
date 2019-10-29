@@ -40,7 +40,7 @@ public abstract class Command {
      * @param tasks The ArrayList of Task objects.
      * @param sharedUi The Ui object to manage user interface to user.
      * @param storage The Storage object to save and load user's tasks.
-     * @param schedule The Schedule object to store classes in timeslots.
+     * @param schedule The Schedule object to store classes in time slots.
      * @param students The ManageStudents object to manage students in classes.
      * @param plan The MyPlan object to manage the training plans.
      */

@@ -71,22 +71,6 @@ public class Duke  {
         Ui ui = new Ui();
         ui.execute();
     }
-/*
-    public static void main(final String[] args) throws FileNotFoundException, ParseException {
-        new Duke().run();
-    }
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            String fullCommand = ui.readCommand();
-            Command c = Parser.parse(fullCommand);
-            c.execute(tasks, ui, storage, schedule, students, plan);
-            isExit = c.isExit();
-        }
-    }
-*/
-
     /*
      * Upon running launcher main, start() will run.
      */

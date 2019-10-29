@@ -55,7 +55,7 @@ public class TaskList {
      *
      * @param i This is the first parameter
      *          it takes the newly created Deadline/ToDo/Event
-     * @param c
+     * @param c Second parameter to tae in a string.
      */
     public void addTask(final Item i, final String c) {
         list.add(i);
