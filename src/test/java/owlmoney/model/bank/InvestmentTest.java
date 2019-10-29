@@ -305,7 +305,7 @@ class InvestmentTest {
 
     //Tests function for find feature.
     @Test
-    void findInvestmentInBond_bondNameThatExist_success() {
+    void findBondInInvestment_bondNameThatExist_success() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         Ui uiTest = new Ui();
@@ -339,7 +339,7 @@ class InvestmentTest {
 
     //Tests function for find feature.
     @Test
-    void findInvestmentInBond_bondNameDoesNotExist_throwsException() {
+    void findBondInInvestment_bondNameDoesNotExist_throwsException() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         Ui uiTest = new Ui();
