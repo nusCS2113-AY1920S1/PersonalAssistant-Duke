@@ -192,10 +192,6 @@ public class Storage {
         return arr;
     }
 
-    public ArrayList<Semester> readSemesterList() throws IOException {
-        throw new IOException();
-    }
-
     /**
      * Writes Tracker objects to hard disk.
      *
@@ -266,6 +262,116 @@ public class Storage {
         Date updated = readFormat.parse(lastUpdated);
 
         return new Tracker(moduleCode, description, deadline, start, updated, timeTaken);
+    }
+
+    /**
+     * Writes Semester objects to hard disk.
+     *
+     * @param semesterList SemesterList that contains Semester objects.
+     */
+    public void writeSemesterList(SemesterList semesterList, Semester semester, Module module) {
+        try {
+            ArrayList<Semester> semesters = semesterList.getSemesterList();
+            BufferedWriter out = new BufferedWriter(new FileWriter(PATH_SEMESTER));
+            for (Semester sem : semesters) {
+                out.write(sem.toStorageString() + "\n");
+            }
+            ArrayList<Module> modules = semester.getModules();
+            for (Module mod : modules) {
+                out.write(mod.toStorageString() + "\n");
+            }
+            ArrayList<Lesson> lessons = module.getLessons();
+            for (Lesson lesson : lessons) {
+                out.write(lesson.toStorageString() + "\n");
+            }
+            ArrayList<Assessment> assessments = module.getAssessments();
+            for (Assessment assessment : assessments) {
+                out.write(assessment.toStorageString() + "\n");
+            }
+            out.close();
+        } catch (IOException e) {
+            System.out.println(e + ", thus please try inputting other things.");
+        }
+    }
+
+    /**
+     * Reads Semester objects that were previously saved to hard disk.
+     *
+     * @return SemesterList containing Semester objects.
+     * @throws IOException if file does not exist.
+     * @throws OofException if file is corrupted.
+     */
+    public ArrayList<Semester> readSemesterList() throws IOException, OofException {
+        BufferedReader reader = new BufferedReader(new FileReader(PATH_SEMESTER));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] lineSplit = line.split(DELIMITER_ESCAPED);
+            if (lineSplit[INDEX_TYPE].equals(SEMESTER)) {
+                addSemester(lineSplit);
+            }
+        }
+        reader.close();
+        return semesterList;
+    }
+
+    /**
+     * Reads Module objects that were previously saved to hard disk.
+     *
+     * @return Modules containing module objects.
+     * @throws IOException if file does not exist.
+     * @throws OofException if file is corrupted.
+     */
+    public ArrayList<Module> readModuleList() throws IOException, OofException {
+        BufferedReader reader = new BufferedReader(new FileReader(PATH_SEMESTER));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] lineSplit = line.split(DELIMITER_ESCAPED);
+            if (lineSplit[INDEX_TYPE].equals(MODULE)) {
+                addModule(lineSplit);
+            }
+        }
+        reader.close();
+        return modules;
+    }
+
+    /**
+     * Reads Lesson objects that were previously saved to hard disk.
+     *
+     * @return Lessons containing lesson objects.
+     * @throws IOException if file does not exist.
+     * @throws OofException if file is corrupted.
+     */
+    public ArrayList<Lesson> readLessonList() throws IOException, OofException {
+        BufferedReader reader = new BufferedReader(new FileReader(PATH_SEMESTER));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] lineSplit = line.split(DELIMITER_ESCAPED);
+            if (lineSplit[INDEX_TYPE].equals(LESSON)) {
+                addLesson(lineSplit);
+            }
+        }
+        reader.close();
+        return lessons;
+    }
+
+    /**
+     * Reads Assessment objects that were previously saved to hard disk.
+     *
+     * @return Assessments containing assessment objects.
+     * @throws IOException if file does not exist.
+     * @throws OofException if file is corrupted.
+     */
+    public ArrayList<Assessment> readAssessmentList() throws IOException, OofException {
+        BufferedReader reader = new BufferedReader(new FileReader(PATH_SEMESTER));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] lineSplit = line.split(DELIMITER_ESCAPED);
+            if (lineSplit[INDEX_TYPE].equals(ASSESSMENT)) {
+                addAssessment(lineSplit);
+            }
+        }
+        reader.close();
+        return assessments;
     }
 
     /**

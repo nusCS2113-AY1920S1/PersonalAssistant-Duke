@@ -23,16 +23,18 @@ By: `Team W17-4`      Since: `Aug 2019`      Licence: `MIT`
 .OOF welcome screen
 image::OofWelcome.png[OofWelcome]
 
-*OOF* is catered towards NUS computing students who want to use a desktop application to manage their tasks to be done.
+*OOF* is an application designed to assist University students with time-management and productivity.
+
+*OOF* is catered towards University students who want to use a desktop application to manage the tasks that they need to complete.
 
 *OOF* is optimized for users who prefer to work with the Command Line Interface (CLI) while still reaping the benefits of a Graphical User Interface (GUI).
 
-Interested in using *OOF* to plan your timetable more effectively?
+Interested in using *OOF* to plan your week more effectively?
 Jump to <<Quick Start>> to get started! Enjoy!
 
 == Quick Start
 
-.  Ensure you have Java 11 or above installed on your computer.
+.  Ensure that you have Java 11 or above installed on your computer.
 .  Download the latest `oof.jar` and `save file`  link:{repoURL}/releases[here].
 .  Copy the files to the folder you want to use as the home folder for your Outstanding Organization Friend.
 .  Run the command “java -jar oof.jar”. The application should load within a few seconds.
@@ -41,7 +43,7 @@ Jump to <<Quick Start>> to get started! Enjoy!
 .OOF welcome screen
 image::OofWelcome.png[OofWelcome]
 +
-.  Type a task description in the terminal and press kbd:[Enter] to run it. +
+.  Enter a task description in the terminal and press kbd:[Enter] to run it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will list the commands present.
 .  Some example commands you can try: 
 
@@ -63,11 +65,11 @@ e.g. `deadline DESCRIPTION /by DD-MM-YYYY HH:MM`
 [NOTE]
 
 Don't worry if you do not understand everything at once. +
-There are plentiful examples provided to aid your understanding of the commands' usage.
+There are plenty of examples provided to aid your understanding of the commands' usage.
 ====
 
 === Viewing manual : `help`
-Shows a list of commands that can be used.
+Need some help? View your manual with a simple command!
 
 Format: `help`
 
@@ -76,10 +78,10 @@ Example:
 * `help` +
 Provides a list of commands available to the user.
 
-image::demo_images/Demo_Help.png[]
+image::Demo_Help.png[]
 
 === Viewing individual command help : `help`
-Shows instructions for an individual command that can be used.
+Need some tips for a specific command? Use our individual help function!
 
 Format: `help COMMAND`
 
@@ -90,10 +92,11 @@ Example:
 * `help Deadline` +
 Provides the instruction to add a task with a deadline.
 
-image::demo_images/Demo_IndividualHelp.png[]
+image::Demo_IndividualHelp.png[]
 
 === Adding a task: `deadline`
-Adds a task with a deadline to be completed by. +
+Do you have a Deadline to fulfil and feel worried that it may slip your mind?
+Add a task with a deadline to be completed by with `deadline`. +
 
 Format: `deadline DESCRIPTION /by DD-MM-YYYY HH:MM`
 
@@ -106,7 +109,7 @@ Example:
 Adds a task with description and datetime to be `homework` and `2019 20-09-2019 13:00` respectively.
 
 === Adding a task: `event`
-Adds an event with a scheduled time. +
+Do you have an Event to attend? Simply add an event and its scheduled date and time. +
 
 Format: `event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
 
@@ -119,7 +122,8 @@ Example:
 Adds an event with description, start and end time to be `project meeting`, `20-09-2019 13:00` and `20-09-2019 17:00` respectively.
 
 === Adding a task: `todo`
-Adds a task to be done on a specific day.
+Do you have a task that needs to be completed on a specific date?
+Add a Todo task with our simple one-liner command!
 
 Format: `todo DESCRIPTION /on DD-MM-YYYY`
 
@@ -131,7 +135,7 @@ Example:
 * `todo withdraw money /on 19-09-2019` +
 Adds a task called `withdraw money` on `19-09-2019`.
 
-=== Adding a task: `do-after`
+=== Adding a task: `do-after [_coming soon in v1.4_]`
 Adds a task that needs to be done after a specified task.
 
 Format: `do-after INDEX DESCRIPTION`
@@ -145,7 +149,8 @@ Example:
 Adds a do-after task called `buy groceries` that will be displayed once the 1st task in the list has been completed.
 
 === Adding a task: `recurring`
-Adds a task that will be repeated based on user preference.
+Do you have a task that happens on a recurring basis?
+Simple add a task that will be repeated automatically based on your preference!
 
 Format: `recurring INDEX NUMBER_OF_OCCURRENCES`
 
@@ -181,8 +186,9 @@ image::RecurringPrompt.png[RecurringPrompt]
 .Output after selecting option 2
 image::RecurringOutput.png[RecurringOutput]
 
-=== Adding a task: `tentative`
-Adds a task that can be confirmed at a later time.
+=== Adding a task: `tentative [_coming soon in v1.4_]`
+Not sure if a task has to be attended to on a specific date?
+You can add a task that can be confirmed at a later time.
 
 Format: `tentative DESCRIPTION`
 
@@ -194,12 +200,12 @@ Example:
 Adds a tentative task called `group lunch`.
 
 === Listing tasks: `list`
-Lists all the tasks that are currently saved in *OOF*.
+Watch as *OOF* lists all the tasks that are currently saved in your storage!
 
 Format: `list`
 
 === Marking task as done: `done`
-Marks a task as complete.
+Completed a task? Mark it as completed with a single command that is as easy as one-two-three!
 
 Format: `done INDEX`
 
@@ -208,10 +214,11 @@ Format: `done INDEX`
 Examples:
 
 * `done 1` +
-Deletes the 1st task in the list of tasks.
+Marks the 1st task in the list of tasks as complete.
 
 === Deleting a task: `delete`
-Deletes a task in the list of tasks.
+Want to remove a task you added in the past?
+Simple use the delete function to remove a task from your list of tasks.
 
 Format: `delete INDEX`
 
@@ -224,7 +231,7 @@ Deletes the 1st task in the list of tasks.
 
 
 === Finding a task: `find`
-Finds tasks that match the description given.
+Search for your tasks that match the description given with our `find` function!
 
 Format: `find DESCRIPTION`
 
@@ -235,12 +242,12 @@ Example:
 * `find withdraw money` +
 Finds tasks with `withdraw money` in the description.
 
-=== Filter tasks by categories: `filter`
-Filter tasks by matching the category given.
+=== Filter tasks by categories: `filter [_coming soon in v1.4_]`
+Filter your tasks by category with our `filter` function!
 
 Format: `filter CATEGORY`
 
-* `Cateogry` of the task can be any one of the following: todo, deadline, event, recurring.
+* `Cateogry` of the task can be any one of the following: todo, deadline, event, assignment, recurring.
 
 Example:
 
@@ -248,7 +255,7 @@ Example:
 Displays all todo tasks.
 
 === Choose threshold for tasks: `threshold`
-Adjusts the threshold of tasks to the duration given.
+Adjust the threshold of your tasks to your desire duration!
 
 Format: `threshold HH`
 
@@ -259,8 +266,8 @@ Example:
 * `threshold 48` +
 Changes the threshold of the program to 48 hours.
 
-=== Color code tasks: `colorcode`
-Changes the entire task font color to the one given.
+=== Color code tasks: `colorcode [_coming soon in v1.4_]`
+Are you a visual person? You can change your entire task font color to one of your choice with `colorcode`!
 
 Format: `colorcode INDEX #RRGGBB`
 
@@ -273,7 +280,8 @@ Examples:
 Color codes the 1st task in the list of tasks to a green color.
 
 === Viewing a summary of a day's task by date: `schedule`
-Gives a summary of all the tasks and events that is related to a specific date.
+Wonder what is up on a specific date?
+Get a summary of all your tasks and events that is related to a specific date with `schedule`.
 
 Format: `schedule DD-MM-YYYY`
 
@@ -285,7 +293,8 @@ Example:
 Provides a summary of a list of todo, deadlines and events that will occur on `04-10-2019`.
 
 === Viewing a summary of the next day’s task: `summary`
-Gives a summary of all the tasks to be done for the next day.
+Want to plan your day ahead for tomorrow?
+Get a summary of all your tasks to be done for the next day with `summary`.
 
 Format: `summary`
 
@@ -294,15 +303,17 @@ Example:
 * `summary` +
 Provides a summary of a list of todo, deadlines and events that will occur tomorrow.
 
-image::demo_images/Demo_Summary.png[]
+image::Demo_Summary.png[]
 
 === Sorting deadlines in chronological order: `sort`
-Sorts and displays all current deadlines recorded by chronological order.
+Prioritise more efficiently with our `sort` function!
+This displays all your current deadlines recorded in chronological order.
 
 Format: `sort`
 
-=== View undone tasks brought forward to the next day: `viewUndone`
-Gives a list of all the tasks not done that were brought forward to the next day.
+=== View undone tasks brought forward to the next day: `viewUndone [_coming soon in v1.4_]`
+Wonder if any tasks remain undone for today?
+Get a list of all the tasks not done that were brought forward to the next day with `viewundone`!
 
 Format: `viewUndone`
 
@@ -427,12 +438,13 @@ Week:: filter time spent on each `Module` over the course of the last 7 days
 Example: `viewTracker Day`
 
 === Exiting the program: `bye`
-Exits the program.
+Want to exit the program? Use `bye`!
 
 Format: `bye`
 
 === Add estimated time taken: `estimate [_coming soon in v2.0_]`
-Adds the estimated time taken to complete a task.
+Do you know an estimated amount of time a specific task will take to be completed?
+Note it down on your *OOF* with the estimated time taken function.
 
 Format: `estimate INDEX HH`
 
@@ -445,7 +457,8 @@ Example:
 Adds to the 1st task the estimated time taken of 48 hours to complete it.
 
 === Adding a task: `range [_coming soon in v2.0_]`
-Adds a task that needs to be completed within a certain time period 
+Do you have a task that needs to be completed within a certain time period?
+Just add a `range` task!
 
 Format: `range DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
 
@@ -458,12 +471,13 @@ Example:
 Adds a task with description and time period to be `study for exam` and between `01-10-2019 21:00` to `05-10-2019 11:00`.
 
 === View two different calendars side-by-side: `viewDual [_coming soon in v2.0_]`
-Transforms all current tasks into two calendar views, one for tutor tasks and one for student tasks. 
+Want to view multiple calendars side-by-side?
+`viewDual` transforms all current tasks into two calendar views, one for tutor tasks and one for student tasks.
 
 Format: `viewDual`
 
 === Export calendar: `export [_coming soon in v2.0_]`
-Export all current tasks recorded into a shareable format in calendar view.  
+You may export all current tasks recorded into a shareable format in calendar view with our `export` function!
 
 Format: `export`
 
