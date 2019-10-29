@@ -284,17 +284,18 @@ public class ParserUtil {
                 List<Venue> venueList = new ArrayList<>();
                 List<Todo> todoList = new ArrayList<>();
                 final int number = Integer.parseInt(itineraryDetails[i++]);
-                while(itineraryDetails[i++].equals("/venue")) {
+                while(itineraryDetails[i].equals("/venue")) {
+                    i++;
                     venueList.add(ApiParser.getLocationSearch(itineraryDetails[i++]));
                     StringBuilder todos = new StringBuilder();
                     if(i == itineraryDetails.length - 1 || itineraryDetails[i].matches("-?\\d+")) {
                         throw new ItineraryEmptyTodoException();
                     }
-                    todos.append(itineraryDetails[++i]).append(" | ");
+                    todos.append(itineraryDetails[++i]).append("|");
                     i++;
                     while(itineraryDetails[i].equals("/and") ) {
                         i++;
-                        todos.append(itineraryDetails[i++]).append(" | ");
+                        todos.append(itineraryDetails[i++]).append("|");
                         if(i >= itineraryDetails.length) {
                             break;
                         }

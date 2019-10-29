@@ -8,6 +8,7 @@ import duke.model.planning.Itinerary;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,7 +28,11 @@ class RecommendationsCommandTest {
         CommandResultText commandResult = recommendationsCommand.execute(model);
         String result1 = commandResult.getMessage();
 
-        assertEquals(result1, itinerary.printItinerary().toString());
+        assertEquals(result1, itinerary.printItinerary());
+
+        File file = new File("testSamples.txt");
+        file.delete();
+
     }
 
 }

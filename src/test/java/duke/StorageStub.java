@@ -1,6 +1,5 @@
-package duke.storage;
+package duke;
 
-import duke.commons.exceptions.ApiFailedRequestException;
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeDuplicateTaskException;
@@ -11,23 +10,22 @@ import duke.commons.exceptions.ItineraryInsufficientAgendas;
 import duke.commons.exceptions.RecommendationDayExceededException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.commons.exceptions.StorageFileNotFoundException;
+import duke.logic.CreateMap;
 import duke.logic.parsers.ParserStorageUtil;
+import duke.logic.parsers.ParserTimeUtil;
 import duke.model.Event;
 import duke.model.lists.AgendaList;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
-import duke.logic.parsers.ParserTimeUtil;
-import duke.logic.CreateMap;
 import duke.model.locations.BusStop;
-import duke.model.transports.Route;
 import duke.model.locations.TrainStation;
+import duke.model.locations.Venue;
 import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
 import duke.model.planning.Todo;
 import duke.model.transports.BusService;
-import duke.model.locations.Venue;
+import duke.model.transports.Route;
 
-import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,34 +34,30 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Manages storage of Duke data in local storage.
- */
-public class Storage {
+public class StorageStub {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private EventList events;
     private RouteList routes;
     private CreateMap map;
     private static final String BUS_FILE_PATH = "/data/bus.txt";
     private static final String RECOMMENDATIONS_FILE_PATH = "/data/recommendations.txt";
-    private static final String ITINERARIES_FILE_PATH = "itineraries.txt";
+    private static final String ITINERARIES_FILE_PATH = "testItineraries.txt";
     private static final String TRAIN_FILE_PATH = "/data/train.txt";
     private static final String EVENTS_FILE_PATH = "events.txt";
     private static final String ROUTES_FILE_PATH = "routes.txt";
-    private static final String SAMPLE_RECOMMENDATIONS_FILE_PATH = "samples.txt";
-    private static final String ITINERARY_LIST_FILE_PATH = "itineraryTable.txt";
+    private static final String SAMPLE_RECOMMENDATIONS_FILE_PATH = "testSamples.txt";
+    private static final String ITINERARY_LIST_FILE_PATH = "testItineraryTable.txt";
 
     /**
      * Constructs a Storage object that contains information from the model.
      */
-    public Storage() {
+    public StorageStub() {
         events = new EventList();
         routes = new RouteList();
         try {
@@ -328,11 +322,11 @@ public class Storage {
             FileReader fr=new FileReader(f1);
             BufferedReader br = new BufferedReader(fr);
             String s;
-            while((s=br.readLine())!=null)
-            {
+            while((s=br.readLine())!=null) {
                 linecount++;
             }
             fr.close();
+            br.close();
             writer.write(++linecount + " | " + itinerary.getName() + "\n");
             writer.close();
         } catch (IOException e) {
@@ -351,25 +345,16 @@ public class Storage {
                 String name = input.split("\\|", 2)[1].strip();
                 output.append(number).append(". ").append(name).append("\n");
             }
+            s.close();
         } catch (FileNotFoundException e) {
             throw new FileLoadFailException(new File(ITINERARY_LIST_FILE_PATH));
         }
         return output.toString();
     }
 
-    public Itinerary getItinerary(String number) throws DukeException {
+    public Itinerary getItinerary(String name) throws DukeException {
         Itinerary itinerary = null;
         try {
-            File f = new File(ITINERARY_LIST_FILE_PATH);
-            Scanner s = new Scanner(f);
-            String name = null;
-            while (s.hasNext()) {
-                String input = s.nextLine();
-                String number1 = input.split("\\|", 2)[0].strip();
-                if (number.equals(number1)) {
-                    name = input.split("\\|", 2)[1].strip();
-                }
-            }
             File z = new File(ITINERARIES_FILE_PATH);
             Scanner s1 = new Scanner(z);
             AgendaList agendaList = new AgendaList();
@@ -385,7 +370,8 @@ public class Storage {
                         List<Todo> todoList;
                         final int number2 = Integer.parseInt(s2.split("\\|")[1]);
                         String newVenue = s1.nextLine();
-                        while(newVenue.contains(" ")) {
+                        while(newVenue.split("\\| ")[1].substring(0,newVenue.split("\\| ")[1].length() - 1)
+                                .matches("^\\d*\\.?\\d*$")) {
                             venueList.add(ParserStorageUtil.getVenueFromStorage(newVenue));
                             newVenue = s1.nextLine();
                         }
@@ -400,7 +386,6 @@ public class Storage {
                     }
                 }
             }
-            s.close();
             s1.close();
             assert itinerary != null;
             itinerary.setTasks(agendaList);
@@ -421,5 +406,6 @@ public class Storage {
     public RouteList getRoutes() {
         return routes;
     }
+
 
 }

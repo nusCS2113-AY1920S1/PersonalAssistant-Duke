@@ -58,7 +58,7 @@ public class Agenda extends VenueList {
         }
         for (Todo todo : this.getTodoList()) {
             result.append(todo.toString());
-            result.append(" | ");
+            result.append("|");
         }
         result.append("\n");
         return result.toString();

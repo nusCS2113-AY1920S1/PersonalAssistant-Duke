@@ -91,7 +91,7 @@ public interface Model {
     String listItineraries() throws FileLoadFailException;
 
 
-    Itinerary getItinerary(String number) throws DukeException;
+    Itinerary getItinerary(String number) throws DukeException, FileNotFoundException;
 
     Itinerary readRecommendations() throws FileLoadFailException, DukeDateTimeParseException;
 }
