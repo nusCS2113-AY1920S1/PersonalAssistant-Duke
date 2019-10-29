@@ -6,7 +6,6 @@ import leduc.storage.Storage;
 import leduc.task.*;
 import org.junit.jupiter.api.Test;
 
-import java.lang.management.GarbageCollectorMXBean;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -135,9 +134,9 @@ public class PostponeCommandTest {
         assertTrue(task.isHomework());
         Date d = ((HomeworkTask) task).getDeadlines();
         Date dAfter = d;
-        dAfter.setD(d.getD().plusDays(1));
+        dAfter.setDate(d.getDate().plusDays(1));
         Date dBefore = d;
-        dAfter.setD(d.getD().plusDays(-1));
+        dAfter.setDate(d.getDate().plusDays(-1));
 
         PostponeCommand postponeCommand6 = new PostponeCommand("postpone 6 /by "+ dBefore);
         try{

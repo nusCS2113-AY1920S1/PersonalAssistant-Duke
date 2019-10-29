@@ -62,12 +62,12 @@ public class ShowCommand extends Command {
     public void getListTaskExactDay(LocalDate date, ArrayList<Task> allTaskHavingDate, ArrayList<Task> showTaskList){
         for(Task t : allTaskHavingDate){
             if(t.isHomework()){
-                if(((HomeworkTask)t).getDeadlines().getD().toLocalDate().isEqual(date)){
+                if(((HomeworkTask)t).getDeadlines().getDate().toLocalDate().isEqual(date)){
                     showTaskList.add(t);
                 }
             }
             if(t.isEvent()){
-                if(((EventsTask)t).getDateFirst().getD().toLocalDate().isEqual(date)){
+                if(((EventsTask)t).getDateFirst().getDate().toLocalDate().isEqual(date)){
                     showTaskList.add(t);
                 }
             }
@@ -77,12 +77,12 @@ public class ShowCommand extends Command {
     public void getListTaskMonth(int dateMonth, int dateYear, ArrayList<Task> allTaskHavingDate, ArrayList<Task> showTaskList){
         for(Task t : allTaskHavingDate){
             if(t.isHomework()){
-                if(((HomeworkTask)t).getDeadlines().getD().getMonthValue() == dateMonth && ((HomeworkTask)t).getDeadlines().getD().getYear() == dateYear){
+                if(((HomeworkTask)t).getDeadlines().getDate().getMonthValue() == dateMonth && ((HomeworkTask)t).getDeadlines().getDate().getYear() == dateYear){
                     showTaskList.add(t);
                 }
             }
             if(t.isEvent()){
-                if(((EventsTask)t).getDateFirst().getD().getMonthValue() == dateMonth && ((EventsTask)t).getDateFirst().getD().getYear() == dateYear){
+                if(((EventsTask)t).getDateFirst().getDate().getMonthValue() == dateMonth && ((EventsTask)t).getDateFirst().getDate().getYear() == dateYear){
                     showTaskList.add(t);
                 }
             }
@@ -92,12 +92,12 @@ public class ShowCommand extends Command {
     public void getListTaskYear(int dateYear, ArrayList<Task> allTaskHavingDate, ArrayList<Task> showTaskList){
         for(Task t : allTaskHavingDate){
             if(t.isHomework()){
-                if(((HomeworkTask)t).getDeadlines().getD().getYear() == dateYear){
+                if(((HomeworkTask)t).getDeadlines().getDate().getYear() == dateYear){
                     showTaskList.add(t);
                 }
             }
             if(t.isEvent()){
-                if(((EventsTask)t).getDateFirst().getD().getYear() == dateYear){
+                if(((EventsTask)t).getDateFirst().getDate().getYear() == dateYear){
                     showTaskList.add(t);
                 }
             }

@@ -106,15 +106,15 @@ public class HomeworkTask extends Task {
     /**
      * Allow postpone the deadline of the homework task.
      * With verification that the new deadline should be after the old one.
-     * @param d Date d : the new deadline
+     * @param date Date date : the new deadline
      * @throws PostponeHomeworkException Exception caught when the new deadline is before the old one.
      */
-    public void postponeHomework(Date d) throws PostponeHomeworkException {
-        if (d.getD().isBefore(this.deadlines.getD())){
+    public void postponeHomework(Date date) throws PostponeHomeworkException {
+        if (date.getDate().isBefore(this.deadlines.getDate())){
             throw new PostponeHomeworkException();
         }
         else{
-            this.deadlines = d;
+            this.deadlines = date;
         }
     }
 }
