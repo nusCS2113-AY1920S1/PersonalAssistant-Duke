@@ -513,13 +513,13 @@ public class Ui {
 
      //@@author kkeejjuunn
 
-     /**
-      * It shows all info of patientTasks found which are associated with the task given by user.
-      *
-      * @param task        task given by user
-      * @param patients    list of patients relate to task
-      */
-     public void taskPatientFound(Task task, ArrayList<Patient> patients) {
+    /**
+     * It shows all info of patientTasks found which are associated with the task given by user.
+     *
+     * @param task        task given by user
+     * @param patients    list of patients relate to task
+     */
+    public void taskPatientFound(Task task, ArrayList<Patient> patients) {
         printDukeResponse("The task " + task.getId() + " " + task.getDescription()
                 + " is assigned to following patient(s) : \n");
         for (int i = 0; i < patients.size(); i++) {
