@@ -46,7 +46,7 @@ public class NewParser {
             Method[] parse = new Method[dict.length];
             // the parse method array should be corresponding to the dict String array.
             parse[0] = AddCommandParser.class.getDeclaredMethod("parseAdd", String.class);
-
+            parse[1] = ListCommandParser.class.getDeclaredMethod("parseList", String.class);
             for (int i = 0; i < dict.length; i++) {
                 if (splites[0].equals(dict[i])) {
                     temp = (Command) parse[i].invoke(null, splites[1]);

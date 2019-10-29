@@ -39,8 +39,8 @@ public class ModelController implements Model {
      * */
     @Override
     public void save() {
-        //TODO
-    }
+        storage.saveTasks(tasksManager.getTaskList());
+        storage.loadTasks();    }
 
     @Override
     public ArrayList<Task> getTaskList() {
@@ -48,10 +48,16 @@ public class ModelController implements Model {
     }
 
     @Override
-    public void addTask(String name) throws DukeException {
-        tasksManager.addTask(name);
+    public TasksManager getTasksManager() {
+        return tasksManager;
+    }
+
+    @Override
+    public Task addTask(String name) throws DukeException {
+        Task newTask = tasksManager.addTask(name);
         storage.saveTasks(tasksManager.getTaskList());
         storage.loadTasks();
+        return newTask;
 //        String json = gson.toJson(tasksManager.getTaskList());
 //        System.out.println("CHECK FOR THE STUFF");
 //        System.out.println(json);
@@ -71,6 +77,11 @@ public class ModelController implements Model {
     @Override
     public ArrayList<Member> getMemberList() {
         return memberManager.getMemberList();
+    }
+
+    @Override
+    public MemberManager getMemberManager() {
+        return memberManager;
     }
 
     @Override

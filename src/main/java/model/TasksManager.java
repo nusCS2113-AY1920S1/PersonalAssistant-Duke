@@ -25,10 +25,12 @@ public class TasksManager implements Serializable {
      * @param name The name of the new task, case sensitive.
      * @throws DukeException If duplicated task name if found.
      */
-    public void addTask(String name) throws DukeException {
+    public Task addTask(String name) throws DukeException {
         name = name.trim();
         if (!hasTask(name)) {
-            taskList.add(new Task(name));
+            Task newTask = new Task(name);
+            taskList.add(newTask);
+            return newTask;
         } else {
             throw new DukeException(MESSAGE_DUPLICATED_TASK_NAME);
         }
