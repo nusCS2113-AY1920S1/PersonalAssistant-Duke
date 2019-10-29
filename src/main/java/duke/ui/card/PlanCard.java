@@ -30,23 +30,6 @@ public class PlanCard extends TreatmentCard {
         statusLabel.setText(statusText);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals(Object object) {
-        if (super.equals(object)) {
-            return true;
-        }
-
-        if (!(object instanceof PlanCard)) {
-            return false;
-        }
-
-        PlanCard card = (PlanCard) object;
-        return plan == card.getTreatment();
-    }
-
     @Override
     public Treatment getTreatment() {
         return plan;
