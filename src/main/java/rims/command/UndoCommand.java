@@ -23,20 +23,27 @@ public class UndoCommand extends Command {
     /**
      * Constructor of an UndoCommand, which takes in the parameter of a Command object, for the Ui to
      * notify the user about the command that was undone.
-     * @param previousCommand
+     * @param previousCommand Command inputted by the user that last changed ResourceList.
      */
     public UndoCommand(Command previousCommand) {
         prevCommand = previousCommand;
     }
 
-    @Override
     /**
      * Undoes the previous Command by reloading the previous state captured in the external .txt files
      * back into ResourceList resources by using storage. Not required to amend if new commands are present.
+     *
+     * @param ui An instance of the user interface.
+     * @param storage An instance of the Storage class.
+     * @param resources The ResourceList, containing all the created Resources thus far.
+     * @throws ParseException
+     * @throws IOException
+     * @throws RimsException
      */
+    @Override
     public void execute(Ui ui, Storage storage, ResourceList resources) throws ParseException, IOException, RimsException {
         storage.readResourceFile();
-        resources = new ResourceList(ui, storage.getResources());
+        resources.setResources(storage.getResources());
 
         ui.printLine();
         ui.print("The previous command has been undone!");

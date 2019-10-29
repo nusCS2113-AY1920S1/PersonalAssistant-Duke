@@ -114,6 +114,12 @@ public class ResourceList {
     }
 
     /**
+     * Assigns a new ArrayList of Resources within ResourceList
+     * @param resources
+     */
+    public void setResources(ArrayList<Resource> resources) { this.resources = resources; }
+
+    /**
      * Returns the number of items in the ResourceList.
      * @return the number of items in the ResourceList.
      */

@@ -2,14 +2,7 @@ package rims.core;
 
 import java.util.ArrayList;
 
-import rims.command.Command;
-import rims.command.CloseCommand;
-import rims.command.ListCommand;
-import rims.command.AddCommand;
-import rims.command.DeleteCommand;
-import rims.command.ReserveCommand;
-import rims.command.ReturnCommand;
-import rims.command.CalendarCommand;
+import rims.command.*;
 import rims.exception.RimsException;
 import rims.core.Ui;
 import rims.core.ResourceList;
@@ -220,6 +213,8 @@ public class Parser {
                 reservationsToCancel.add(thisReservationId);
             }
             c = new ReturnCommand(userId, resourcesToReturn, reservationsToCancel);
+        } else if (words[0].equals("undo")) {
+            c = new UndoCommand(new ListCommand());
         } else {
             throw new RimsException("Please enter a recognizable command!");
         }
