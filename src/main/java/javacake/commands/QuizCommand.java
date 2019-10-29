@@ -33,6 +33,8 @@ public class QuizCommand extends Command {
     public ScoreGrade scoreGrade;
     public int totalNumOfQns = 0;
     public static Logic logic = Logic.getInstance();
+    public final int levelsOfDifficulty = 3;
+
 
     public enum ScoreGrade {
         BAD, OKAY, GOOD
@@ -191,13 +193,13 @@ public class QuizCommand extends Command {
 
         switch (qnDifficulty) {
         case EASY:
-            individualtopicIdx = overalltopicIdx * 3;
+            individualtopicIdx = overalltopicIdx * levelsOfDifficulty;
             break;
         case MEDIUM:
-            individualtopicIdx = overalltopicIdx * 3 + 1;
+            individualtopicIdx = overalltopicIdx * levelsOfDifficulty + 1;
             break;
         case HARD:
-            individualtopicIdx = overalltopicIdx * 3 + 2;
+            individualtopicIdx = overalltopicIdx * levelsOfDifficulty + 2;
             break;
         default:
             throw new DukeException("Topic Idx out of bounds!");
@@ -205,13 +207,13 @@ public class QuizCommand extends Command {
 
         if (totalScore > profile.getIndividualContentMarks(individualtopicIdx)) {
             profile.setIndividualMarks(individualtopicIdx,totalScore);
-            if (individualtopicIdx % 3 == 0) {
+            if (individualtopicIdx % levelsOfDifficulty == 0) {
                 totalScore += profile.getIndividualContentMarks(individualtopicIdx + 1);
                 totalScore += profile.getIndividualContentMarks(individualtopicIdx + 2);
-            } else if (individualtopicIdx % 3 == 1) {
+            } else if (individualtopicIdx % levelsOfDifficulty == 1) {
                 totalScore += profile.getIndividualContentMarks(individualtopicIdx + 1);
                 totalScore += profile.getIndividualContentMarks(individualtopicIdx - 1);
-            } else if (individualtopicIdx % 3 == 2) {
+            } else if (individualtopicIdx % levelsOfDifficulty == 2) {
                 totalScore += profile.getIndividualContentMarks(individualtopicIdx - 2);
                 totalScore += profile.getIndividualContentMarks(individualtopicIdx - 1);
             }

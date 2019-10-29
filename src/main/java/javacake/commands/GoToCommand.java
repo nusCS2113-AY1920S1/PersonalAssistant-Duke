@@ -10,7 +10,6 @@ import javacake.ui.Ui;
 import javacake.quiz.Question;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
 import java.util.LinkedList;
 import java.util.Queue;
 

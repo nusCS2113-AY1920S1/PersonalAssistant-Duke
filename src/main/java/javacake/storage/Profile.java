@@ -1,6 +1,7 @@
 package javacake.storage;
 
 import javacake.Duke;
+import javacake.commands.QuizCommand;
 import javacake.exceptions.DukeException;
 
 import java.io.BufferedReader;
@@ -17,6 +18,9 @@ public class Profile {
     private String username;
     private ArrayList<Integer> overalltopicsDone = new ArrayList<>();
     private ArrayList<Integer> individualTopicsDone = new ArrayList<>();
+    int totalNumOfMainTopics = 4;
+    int levelsOfDifficulty = 3;
+
 
     public Profile() throws DukeException {
         this("data");
@@ -144,12 +148,15 @@ public class Profile {
         return count;
     }
 
+    /**
+     * Method that creates data to be written into savefile.txt.
+     */
     private void initialiseUser() throws DukeException {
         username = "NEW_USER_!@#";
         try {
             PrintWriter out = new PrintWriter(filepath);
             out.println(username);
-            for (int i = 0; i < 4; ++i) {
+            for (int i = 0; i < totalNumOfMainTopics * (levelsOfDifficulty + 1); ++i) {
                 out.println("0");
             }
             out.close();
