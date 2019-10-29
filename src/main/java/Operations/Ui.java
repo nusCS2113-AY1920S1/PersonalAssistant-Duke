@@ -32,24 +32,24 @@ public class Ui {
 
 
     public void helpAdd() {
-        System.out.println("adds a Meeting or Assignment to the list");
+        System.out.println("Adds a Meeting or Assignment to the list\n");
         System.out.println("You must specify the description, type of task, and time of the task");
-        System.out.println("Each field has a particular format of entry");
+        System.out.println("Each field has a particular format of entry\n");
         System.out.println("Type of task must be either meeting or assignment, wrapped in '#'\n" +
-                "\te.g #meeting# # assignment#");
+                "\te.g #meeting# # assignment#\n");
         System.out.println("Description must be wrapped in parentheses\n " +
-                "\te.g (description)");
+                "\te.g (description)\n");
         System.out.println("Priority must be either high medium or low, wrapped in asterisks '*'\n " +
-                "\te.g *low*");
+                "\te.g *low*\n");
         System.out.println("Time must be specified, wrapped in '&'\n" +
-                "\te.g &22/12/2019 18:00&  &this friday 13:00&  &next monday 14:00&  &tmr 16:00&");
-        System.out.println("If time isn't specified, then the duration of the task must at least be specified");
+                "\te.g &22/12/2019 18:00&  &this friday 13:00&  &next monday 14:00&  &tmr 16:00&\n");
+        System.out.println("If time isn't specified, then the duration of the task must at least be specified\n");
         System.out.println("Duration can be specified by wrapping in '^', in terms of number of hours or number of minutes");
-        System.out.println("\te.g ^2 hours^ ^1 minutes^");
+        System.out.println("\te.g ^2 hours^ ^1 minutes^\n");
         System.out.println("Recurrence of the task can be specified by wrapping either days, weeks or months" +
-                "\nin '%'\n\te.g %day% %week% %month%");
+                "\nin '%'\n\te.g %day% %week% %month%\n");
         System.out.println("Task can also be assigned to a name, by wrapping the name in '@'\n" +
-                "\te.g @Alice@");
+                "\te.g @Alice@\n");
         System.out.println("You must specify the task type, description, and either time or duration");
         System.out.println("The rest of the fields can still be changed later using other commands");
     }
@@ -58,6 +58,75 @@ public class Ui {
         System.out.println("Deletes the tasks in the index or the specified range");
         System.out.println("\te.g delete 1");
         System.out.println("\te.g delete 3 - 5");
+    }
+
+    public void helperList() {
+        System.out.println("Shows the list of task that are currently in the Task list");
+        System.out.println("\teg. list");
+    }
+
+    public void helpDone() {
+        System.out.println("Marks the specified task as done/completed");
+        System.out.println("\teg. done 1");
+        System.out.println("\teg. done 2 - 4");
+    }
+
+    public void helpRestore() {
+        System.out.println("Restores a deleted task back into the task list based on its index");
+        System.out.println("\teg. restore 2");
+    }
+
+    public void helpFind() {
+        System.out.println("Finds tasks in the task list based on keyword specified");
+        System.out.println("\teg. find maths");
+        System.out.println("\treturns all tasks that contains the 'maths' keyword");
+    }
+
+    public void helpPriority() {
+        System.out.println("Changes the priority of the specified task");
+        System.out.println("\t3 levels of priority: 1 (High), 2 (Medium), 3 (Low)");
+        System.out.println("\teg. priority 1");
+    }
+
+    public void helpSnooze() {
+        System.out.println("Snoozes a task for a specified amount of time");
+        System.out.println("\teg. snooze 1 2 hours");
+        System.out.println("\tThis snoozes task 1 for a period of 2 hours");
+    }
+
+    public void helpReorder() {
+        System.out.println("Reorder 2 different tasks in the task list");
+        System.out.println("\teg. reorder 1 3");
+        System.out.println("\tThis will swap the order task 1 and task 3");
+    }
+
+    /**
+     * not sure pls ask
+     */
+    public void helpSubtask() {
+        System.out.println("");
+    }
+
+    public void helpUpdate() {
+        System.out.println("Updates the task details");
+        System.out.println("Fields that are updatable: ");
+        System.out.println("\tDescription: (new_description)");
+        System.out.println("\tDate Time: &20/09/2019 20:00&");
+        System.out.println("\tPriority: *high*");
+        System.out.println("\tDuration: ^3 hours^");
+        System.out.println("\tRecurrence: %day%");
+        System.out.println("\tAssignee: @joel@");
+    }
+
+    /**
+     * ???
+     */
+    public void helpSort() {
+        System.out.println("Sorts based on task type");
+    }
+
+    public void helpLog() {
+        System.out.println("Logs the current task list into a saved file");
     }
 
     /**
@@ -165,7 +234,7 @@ public class Ui {
     }
 
     public void helpList() {
-        System.out.println("Here are a list of commands you can input: \n add \n list \n find \n delete \n" +
+        System.out.println("Here are a list of commands you can input: \n add \n delete \n list \n done \n restore \n find \n priority \n snooze \n reorder \n subtask \n update \n sort \n log \n" +
                 "For more information about a specific command you can \nEnter help followed by a command, eg. help add");
     }
 
