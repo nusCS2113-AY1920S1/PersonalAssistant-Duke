@@ -1,5 +1,6 @@
 package Farmio;
 
+import javafx.util.Pair;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -150,28 +151,56 @@ public class Level {
         return  modelTaskList;
     }
 
-    public String levelParser(String userActions, String modelAns){
-        //separate user list into arraylist , separate model ans into subsections
-        List<String> modelTaskList = convertStringToList(modelAnswer);
-        //compare the two given
+    public List<String> convertTaskListFormat(List<String> TaskList){
 
+        List<String> splitTaskList = new ArrayList<String>();
+        for(String TaskListItems: TaskList)
+        {
+            //removed numbering
+            String removedNumbering = TaskListItems.substring(TaskListItems.indexOf(".")+1);
+            removedNumbering.trim();// removed the numbering
 
+            //separate based on actions - todo check how its divided
+            //String[] splitString = TaskListItems.split("\\s+");
+            String[] splitString = TaskListItems.split("(?<!\\G\\w+)\\s"); //splits on every second space
 
+            splitTaskList.add(splitString[0]);
+            if(splitString[1] != null && !splitString[1].isEmpty()){
+                splitTaskList.add(splitString[1]);
+            }
 
-       return "model ans";
+        }
+        return splitTaskList;
     }
 
-    public String getPermutationFeedback(Farmio farmio, double levelNumber){
+    /*
+    //need to refactor to a levelParser class
+    public String levelParser(List<String> userTaskList, String modelAnswer){
+        //separate user list into arraylist , separate model ans into subsections
+        List<String> modelTaskList = convertStringToList(modelAnswer);
+        List<String> modifieduserTaskList = convertTaskListFormat(userTaskList);
+        //compare the two given
+        //i need to print out what it looks like on the
+       return "model ans";
+    }
+    */
+
+    public String getPermutationFeedback(Farmio farmio,double levelNumber){
         //todo convert to some sort of metric for future iterations
-        //farmio.getFarmer().tasks.toStringArray();
-        //include some sort of level parser
-        //levelParser(userAction, modelAns);
+        List<String> userTaskList = farmio.getFarmer().tasks.toStringArray();
+        List<String> modelTaskList = convertStringToList(modelAnswer);
+        List<String> modifieduserTaskList = convertTaskListFormat(userTaskList);
+
+
+
+
+        //return  levelParser(userTaskList, modelAnswer);
         return "getPermutation Feedback";
 }
 
     //only applicable if level fails
     public String getDetailedFeedback( Farmio farmio){
-        double levelNumber = farmio.getFarmer().getLevel();
+        double levelNumber = farmio.getFarmer().getLevel(); // unsure if this is needed rn
         String output = "";
         output += " The objective of this level was to " + objective;
         output += "\nUnfortunately you were unable to complete within the allocated time of " + deadline + " days";
