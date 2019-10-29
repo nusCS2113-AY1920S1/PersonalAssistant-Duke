@@ -41,7 +41,7 @@ public class ManageStudents {
     /**
      * @return list of all the students.
      */
-    public ArrayList<MyStudent> getStudentList() {
+    private ArrayList<MyStudent> getStudentList() {
         return studentList;
     }
 

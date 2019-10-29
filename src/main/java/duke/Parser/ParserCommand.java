@@ -29,8 +29,8 @@ public class ParserCommand implements IParser {
             Scanner sc = new Scanner(System.in);
             switch (input) {
                 case "1":
-                    final int returnLessonOption = 3
-                    final int returnMonthlyOption = 3
+                    final int returnLessonOption = 3;
+                    final int returnMonthlyOption = 3;
                     final int theNumberThree = 3;
                     // Schedule
                     ui.trainingScheduleHeading();

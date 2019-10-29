@@ -20,9 +20,9 @@ public class ExitCommand extends Command {
      * @param students The ManageStudents object to manage students in classes.
      * @param plan The MyPlan object to manage the training plans.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage,
-                          Schedule schedule, ManageStudents students,
-                          MyPlan plan) {
+    public void execute(final TaskList tasks, final Ui ui, final Storage storage,
+                          final Schedule schedule, final ManageStudents students,
+                          final MyPlan plan) {
         makeExitTrue();
         ui.showGoodBye();
     }
