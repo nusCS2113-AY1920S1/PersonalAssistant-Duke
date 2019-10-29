@@ -3,15 +3,15 @@ package duke.commons.file;
 import duke.commons.exceptions.DukeException;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.StringReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.FileWriter;
+import java.io.StringReader;
 
 /**
  * Class in charge of common file operations such as reading and writing from jar resources and

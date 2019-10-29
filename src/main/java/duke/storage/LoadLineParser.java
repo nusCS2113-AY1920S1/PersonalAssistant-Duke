@@ -1,13 +1,20 @@
 package duke.storage;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.*;
-import duke.model.meal.*;
+import duke.model.Goal;
+import duke.model.Item;
+import duke.model.meal.Breakfast;
+import duke.model.meal.Dinner;
+import duke.model.meal.Lunch;
+import duke.model.meal.Meal;
+import duke.model.meal.MealList;
 import duke.model.user.Gender;
 import duke.model.user.User;
-import duke.model.wallet.*;
-
-import java.math.BigDecimal;
+import duke.model.wallet.Deposit;
+import duke.model.wallet.Payment;
+import duke.model.wallet.Transaction;
+import duke.model.wallet.TransactionList;
+import duke.model.wallet.Wallet;
 
 import java.util.List;
 
@@ -28,40 +35,43 @@ public class LoadLineParser {
             if (lineStr == null) {
                 continue;
             }
-            String[] splitLine = lineStr.split("\\|", 4);
-            String taskType = splitLine[0];
-            String status = splitLine[1];
-            String description = splitLine[2];
-            String[] nutritionalValue = splitLine[3].split("\\|");
-            Meal newMeal;
-            if (taskType.equals("B")) {
-                newMeal = new Breakfast(description, nutritionalValue);
-                if (status.equals("1")) {
-                    newMeal.markAsDone();
+            try {
+                String[] splitLine = lineStr.split("\\|", 4);
+                String taskType = splitLine[0];
+                String status = splitLine[1];
+                String description = splitLine[2];
+                String[] nutritionalValue = splitLine[3].split("\\|");
+                Meal newMeal;
+                if (taskType.equals("B")) {
+                    newMeal = new Breakfast(description, nutritionalValue);
+                    if (status.equals("1")) {
+                        newMeal.markAsDone();
+                    }
+                    LoadMealUtil.load(meals, newMeal);
+                } else if (taskType.equals("L")) {
+                    newMeal = new Lunch(description, nutritionalValue);
+                    if (status.equals("1")) {
+                        newMeal.markAsDone();
+                    }
+                    LoadMealUtil.load(meals, newMeal);
+                } else if (taskType.equals("D")) {
+                    newMeal = new Dinner(description, nutritionalValue);
+                    if (status.equals("1")) {
+                        newMeal.markAsDone();
+                    }
+                    LoadMealUtil.load(meals, newMeal);
+                } else if (taskType.equals("S")) {
+                    newMeal = new Item(description, nutritionalValue);
+                    meals.addStoredItem(newMeal);
                 }
-                LoadMealUtil.load(meals, newMeal);
-            } else if (taskType.equals("L")) {
-                newMeal = new Lunch(description, nutritionalValue);
-                if (status.equals("1")) {
-                    newMeal.markAsDone();
-                }
-                LoadMealUtil.load(meals, newMeal);
-            } else if (taskType.equals("D")) {
-                newMeal = new Dinner(description, nutritionalValue);
-                if (status.equals("1")) {
-                    newMeal.markAsDone();
-                }
-                LoadMealUtil.load(meals, newMeal);
-            } else if (taskType.equals("S")) {
-                newMeal = new Item(description, nutritionalValue);
-                meals.addStoredItem(newMeal);
-            } else if (taskType.equals("G")) {
-                meals.addGoal(new Goal(description, nutritionalValue[0], nutritionalValue), true);
+            } catch (Exception e) {
+                throw new DukeException("It appears the storage files have been corrupted, data loaded may be erroneous"
+                        + "or incomplete.");
             }
         }
     }
 
-    public static void parseTransactions(TransactionList transactionList, String line, Wallet wallet) {
+    public static void parseTransactions(String line, Wallet wallet) {
         String[] splitLine = line.split("\\|", 3);
         String transactionType = splitLine[0];
         String transactionAmount = splitLine[1];
@@ -72,8 +82,20 @@ public class LoadLineParser {
             LoadTransactionUtil.load(wallet.getTransactions(), newTransaction);
         } else if (transactionType.equals("DEP")) {
             newTransaction = new Deposit(transactionAmount, transactionDate);
-            wallet.updateAccountBalance(newTransaction);
             LoadTransactionUtil.load(wallet.getTransactions(), newTransaction);
+        }
+    }
+
+    public static void parseGoal(User user, String line) throws DukeException {
+        try {
+            if (line != null) {
+                String[] splitLine = line.split("\\|");
+                Goal goal = new Goal(splitLine);
+                user.setGoal(goal, true);
+            }
+        } catch (Exception e) {
+            throw new DukeException("It appears the goal file has been corrupted. No goal shall be set for"
+                    + " this session");
         }
     }
 
@@ -83,13 +105,12 @@ public class LoadLineParser {
         int age = Integer.parseInt(splitLine[1]);
         int height = Integer.parseInt(splitLine[2]);
         int activityLevel = Integer.parseInt(splitLine[3]);
-        boolean loseWeight = Boolean.parseBoolean(splitLine[4]);
+        int originalWeight = Integer.parseInt(splitLine[4]);
         String sex = splitLine[5];
         if (sex.equals("M")) {
-            return new User(name, age, height, Gender.MALE, activityLevel, loseWeight);
+            return new User(name, age, height, Gender.MALE, activityLevel, originalWeight);
         } else {
-            return new User(name, age, height, Gender.FEMALE, activityLevel, loseWeight);
+            return new User(name, age, height, Gender.FEMALE, activityLevel, originalWeight);
         }
     }
-
 }

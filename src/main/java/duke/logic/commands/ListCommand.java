@@ -2,13 +2,13 @@ package duke.logic.commands;
 
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
+import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
-import duke.model.user.User;
 
 import java.text.ParseException;
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * ListCommand is a public class that inherits from abstract class Command.
@@ -44,8 +44,10 @@ public class ListCommand extends Command {
 
     /**
      * Executes the ListCommand.
-     * @param meals the MealList object in which the meal(s) is supposed to be listed
-     * @param storage the storage object that stores the list of meals
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
      */
     @Override
     public void execute(MealList meals,  Storage storage, User user, Wallet wallet) {
@@ -55,12 +57,9 @@ public class ListCommand extends Command {
         if (!meals.checkDate(currentDateStr)) {
             ui.showMessage("There isn't any food on " + currentDateStr);
         }
+
         ui.showMealList(currentMeals);
         ui.showCaloriesLeft(currentMeals, user, currentDateStr);
-        //ui.showRemainingCalorie(currentMeals, user, tasks.caloriesAvgToGoal());
         ui.showLine();
-    }
-
-    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
     }
 }

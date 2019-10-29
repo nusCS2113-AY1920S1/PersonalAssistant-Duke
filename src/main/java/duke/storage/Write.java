@@ -7,13 +7,14 @@ import duke.model.Goal;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
 import duke.model.user.Gender;
-import duke.model.user.Tuple;
 import duke.model.user.User;
 import duke.model.wallet.Transaction;
 import duke.model.wallet.TransactionList;
+import duke.model.wallet.Wallet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * This object is in charge of all writing to save operations.
@@ -54,8 +55,9 @@ public class Write {
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_USER_MEALS_FILE));
     }
 
-    public void writeDefaults(MealList mealData) throws DukeException {
-        HashMap<String, HashMap<String, Integer>> storedItems = mealData.getStoredList();
+
+    public void writeDefaults(MealList user) throws DukeException {
+        HashMap<String, HashMap<String, Integer>> storedItems = user.getStoredList();
         String toWriteStr = "";
         for (String i : storedItems.keySet()) {
             //write process for stored default food values
@@ -70,52 +72,47 @@ public class Write {
                 toWriteStr += tempLineStr.substring(0, tempLineStr.length() - 1) + "\n";
             }
         }
-
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_DEFAULT_MEAL_FILE));
     }
 
-    public void writeGoal(MealList mealData) throws DukeException {
-        Goal goal = mealData.getGoal();
-        String toWriteStr = "G|0|" + goal.getEndDate() + "|" + goal.getStartDate();
-        HashMap<String, Integer> nutritionData = goal.getNutritionalValue();
-        if (nutritionData.size() != 0) {
-            for (String k : nutritionData.keySet()) {
-                toWriteStr += k + "|" + nutritionData.get(k) + "|";
-            }
-            toWriteStr = toWriteStr.substring(0, toWriteStr.length() - 1) + "\n";
-        }
-
+    public void writeGoal(User user) throws DukeException {
+        Goal goal = user.getGoal();
+        String toWriteStr = goal.toString();
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_GOAL_FILE));
     }
-
 
     /**
      * This is a function that will store the user information into a file.
      * @param user the user class that contains all personal information to be stored.
      */
-
     public void writeUser(User user) throws DukeException {
         String toWriteStr = user.getName() + "|" + user.getAge() + "|"
-                + user.getHeight() + "|" + user.getActivityLevel() + "|" + user.getLoseWeight() + "|";
-        if (user.getSex() == Gender.MALE) {
+                + user.getHeight() + "|" + user.getActivityLevel() + "|" + user.getOriginalWeight() + "|";
+        if (user.getGender() == Gender.MALE) {
             toWriteStr += "M";
         } else {
             toWriteStr += "F";
         }
-        ArrayList<Tuple> allWeight = user.getAllWeight();
-        for (int i = 0; i < user.getAllWeight().size(); i += 1) {
+        toWriteStr += "|" + user.getLastDate();
+        HashMap<String, Double> allWeight = user.getAllWeight();
+        Iterator iterator = allWeight.keySet().iterator();
+        while (iterator.hasNext()) {
             toWriteStr += "\n";
-            String date = allWeight.get(i).date;
-            int weight = allWeight.get(i).weight;
+            String date = (String) iterator.next();
+            double weight = allWeight.get(date);
             toWriteStr += date + "|" + weight;
         }
-
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_USER_FILE));
     }
 
-    public void writeTransaction(TransactionList transactionList) throws DukeException {
-        HashMap<String, ArrayList<Transaction>> transactions = transactionList.getTransactionTracker();
-        String toWriteStr = "";
+    /**
+     * Save all the recorded transactions.
+     * @param wallet the database of all transactions.
+     * @throws DukeException if error occurs.
+     */
+    public void writeTransaction(Wallet wallet) throws DukeException {
+        HashMap<String, ArrayList<Transaction>> transactions = wallet.getTransactions().getTransactionTracker();
+        String toWriteStr = wallet.getAccountBalance() + "\n";
         for (String i : transactions.keySet()) {
             ArrayList<Transaction> transactionInADay = transactions.get(i);
             for (int j = 0; j < transactions.get(i).size(); j++) {
@@ -124,7 +121,6 @@ public class Write {
                         + "|" + currentTransaction.getDate() + "\n";
             }
         }
-
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_TRANSACTION_FILE));
     }
 }

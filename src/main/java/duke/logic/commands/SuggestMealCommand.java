@@ -3,7 +3,6 @@ package duke.logic.commands;
 import duke.logic.suggestion.MealSuggestionAnalytics;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
-import duke.model.meal.SuggestMeal;
 import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
@@ -15,7 +14,7 @@ import java.util.Calendar;
 /**
  * Class to handle suggestion command arguments from the user and pass them to the analytic module.
  */
-public class SuggestCommand extends Command {
+public class SuggestMealCommand extends Command {
 
     private int maxMealsToSuggest;
     private String mealSuggestionTypeStr;
@@ -30,7 +29,7 @@ public class SuggestCommand extends Command {
      * @param suggestionDate Date on which meal suggestion is required.
      * @param maxMealsToSuggest Maximum number of suggested meals to be shown to the user.
      */
-    public SuggestCommand(Calendar suggestionDate, int maxMealsToSuggest, String mealTypeStr) {
+    public SuggestMealCommand(Calendar suggestionDate, int maxMealsToSuggest, String mealTypeStr) {
         this.calendarDate = suggestionDate;
         this.currentDateStr = dateFormat.format(this.calendarDate.getTime());
         this.maxMealsToSuggest = maxMealsToSuggest;
@@ -38,7 +37,7 @@ public class SuggestCommand extends Command {
     }
 
     // Constructor called when parser fails to parse arguments
-    public SuggestCommand(boolean flag, String messageStr) {
+    public SuggestMealCommand(boolean flag, String messageStr) {
         this.isFail = flag;
         this.errorStr = messageStr;
     }
@@ -55,12 +54,18 @@ public class SuggestCommand extends Command {
 
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
-        /*
-        TODO: analyze the list of SuggestMeal objects as well as the current calorie goal of the
-              user, the date provided and the user meal parameters provided to get the best meal
-              suggestion.
-        */
+        switch (stage) {
+            case 0:
+                execute_stage_0(meals, storage, user, wallet);
+                stage++;
+                break;
+            case 1:
+                execute_stage_1(meals, storage, user, wallet);
+                break;
+        }
+    }
 
+    public void execute_stage_0(MealList meals, Storage storage, User user, Wallet wallet) {
         mealSuggestionAnalytics = new MealSuggestionAnalytics();
         int calorieLimit = getCalorieLimit(user, meals.getMealsList(currentDateStr));
         suggestedMealList = mealSuggestionAnalytics.getMealSuggestions(meals, calendarDate, calorieLimit,
@@ -78,8 +83,8 @@ public class SuggestCommand extends Command {
 
     }
 
-    @Override
-    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
+    // second stage user input execution
+    public void execute_stage_1(MealList meals, Storage storage, User user, Wallet wallet) {
         int mealSelectedIndex;
         try {
             mealSelectedIndex = Integer.parseInt(this.responseStr);
@@ -101,7 +106,7 @@ public class SuggestCommand extends Command {
 
         Meal chosenMeal = suggestedMealList.get(mealSelectedIndex - 1);
         // TODO: Fix cost of meal
-        addCommand = new AddCommand(chosenMeal, 0);
+        addCommand = new AddCommand(chosenMeal, "0");
         addCommand.execute(meals, storage, user, wallet);
         isDone = true;
     }

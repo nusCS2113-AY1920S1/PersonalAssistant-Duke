@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import duke.commons.exceptions.DukeException;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
+import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
-import duke.model.user.User;
 
 /**
  * AddCommand is a public class that inherits from abstract class Command.
@@ -15,14 +15,14 @@ import duke.model.user.User;
  */
 public class AddCommand extends Command {
     private Meal meal;
-    private int cost;
+    private String cost;
     /**
      * Constructor for AddCommand.
      * the meal specified as the instance field meal.
      * @param meal The meal to be added.
      */
 
-    public AddCommand(Meal meal, int cost) {
+    public AddCommand(Meal meal, String cost) {
         this.meal = meal;
         this.cost = cost;
     }
@@ -34,11 +34,11 @@ public class AddCommand extends Command {
 
     /**
      * Executes add command.
-     * @param meals the MealList object in which the meal is supposed to be added
-     * @param storage the storage object that stores the list of meals
-     * @throws DukeException if there is a parsing error
+     * @param meals the MealList object in which the meals are supposed to be added
+     * @param storage the storage object that handles all reading and writing to files
+     * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
      */
-    @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
         try {
@@ -51,8 +51,5 @@ public class AddCommand extends Command {
             ui.showMessage(e.getMessage());
         }
         ui.showLine();
-    }
-
-    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
     }
 }

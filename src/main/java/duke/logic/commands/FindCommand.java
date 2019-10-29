@@ -2,12 +2,11 @@ package duke.logic.commands;
 
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
+import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 
 import java.util.ArrayList;
-
-import duke.model.user.User;
 
 /**
  * The FindCommand is a public class that extends from the abstract class Command.
@@ -41,8 +40,8 @@ public class FindCommand extends Command {
      * @param meals the MealList object in which the meals are supposed to be added
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
+     * @param wallet the wallet object that stores transaction information
      */
-
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
@@ -56,8 +55,5 @@ public class FindCommand extends Command {
         }
         ui.showMealList(matchingMeals);
         ui.showLine();
-    }
-
-    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
     }
 }

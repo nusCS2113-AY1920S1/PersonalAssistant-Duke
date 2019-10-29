@@ -13,11 +13,15 @@ public class AddItemCommandParser implements ParserInterface<AddItemCommand> {
      * Parses user input and returns an AddItemCommand encapsulating a Item object.
      * @param userInput String input by user.
      * @return <code>AddItemCommand</code> Command object encapsulating a breakfast object
-     * @throws DukeException when the user input cannot be parsed
      */
-    public AddItemCommand parse(String userInput) throws DukeException {
-        InputValidator.validate(userInput);
-        String[] mealNameAndInfo = ArgumentSplitter.splitMealArguments(userInput);
-        return new AddItemCommand(new Item(mealNameAndInfo[0], mealNameAndInfo[1]));
+    @Override
+    public AddItemCommand parse(String userInput) {
+        try {
+            InputValidator.validate(userInput);
+            String[] mealNameAndInfo = ArgumentSplitter.splitMealArguments(userInput);
+            return new AddItemCommand(new Item(mealNameAndInfo[0], mealNameAndInfo[1]));
+        } catch (DukeException e) {
+            return new AddItemCommand(false, e.getMessage());
+        }
     }
 }

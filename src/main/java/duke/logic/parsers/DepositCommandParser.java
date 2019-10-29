@@ -4,10 +4,6 @@ import duke.commons.exceptions.DukeException;
 import duke.logic.commands.AddTransactionCommand;
 import duke.model.wallet.Deposit;
 
-import java.math.BigDecimal;
-import java.text.ParseException;
-import java.util.Date;
-
 /**
  * Parser class to handle deposits to the wallet.
  */
@@ -17,7 +13,6 @@ public class DepositCommandParser implements ParserInterface<AddTransactionComma
      * Parse user input and return AddTransactionCommand.
      * @param userInput String input by user.
      * @return <code>AddTransactionCommand</code> Command object encapsulating the amount to be deposited
-     * @throws DukeException If the userInput cannot be parsed
      */
     @Override
 

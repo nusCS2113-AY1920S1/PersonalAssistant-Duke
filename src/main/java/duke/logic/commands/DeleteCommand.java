@@ -3,9 +3,9 @@ package duke.logic.commands;
 import duke.commons.exceptions.DukeException;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
+import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
-import duke.model.user.User;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -24,7 +24,6 @@ public class DeleteCommand extends Command {
      * @param indexStr the index of meal on the date to be deleted.
      * @param date Date of meal to be deleted.
      */
-
     public DeleteCommand(String indexStr, String date) {
         this(indexStr);
         Date parsedDate;
@@ -52,14 +51,14 @@ public class DeleteCommand extends Command {
         this.isFail = true;
         this.errorStr = messageStr;
     }
+
     /**
      * Executes the DeleteCommand.
      * @param meals the MealList object in which the meals are supposed to be added
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
-     * @throws DukeException when the index of the object to be deleted is out of bounds
+     * @param wallet the wallet object that stores transaction information
      */
-
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
@@ -78,19 +77,4 @@ public class DeleteCommand extends Command {
         ui.showLine();
     }
 
-    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
-        ui.showLine();
-        if (index <= 0 || index > meals.getMealsList(currentDateStr).size()) {
-            ui.showMessage("Index provided out of bounds for list of meals on " + currentDateStr);
-        } else {
-            Meal currentMeal = meals.delete(currentDateStr, index);
-            ui.showDeleted(currentMeal, meals.getMealsList(currentDateStr));
-            try {
-                storage.updateFile(meals);
-            } catch (DukeException e) {
-                ui.showMessage(e.getMessage());
-            }
-        }
-        ui.showLine();
-    }
 }

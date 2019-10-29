@@ -1,7 +1,7 @@
 package duke.logic.parsers;
 
-import duke.logic.commands.AddCommand;
 import duke.commons.exceptions.DukeException;
+import duke.logic.commands.AddCommand;
 import duke.model.meal.Lunch;
 
 /**
@@ -17,11 +17,11 @@ public class AddLunchCommandParser implements ParserInterface<AddCommand> {
      */
     @Override
 
-    public AddCommand parse(String userInput) throws DukeException {
+    public AddCommand parse(String userInput) {
         try {
             InputValidator.validate(userInput);
             String[] mealNameAndInfo = ArgumentSplitter.splitMealArguments(userInput);
-            return new AddCommand(new Lunch(mealNameAndInfo[0], mealNameAndInfo[1]), 0);
+            return new AddCommand(new Lunch(mealNameAndInfo[0], mealNameAndInfo[1]), "0");
         } catch (DukeException e) {
             return new AddCommand(false, e.getMessage());
         }

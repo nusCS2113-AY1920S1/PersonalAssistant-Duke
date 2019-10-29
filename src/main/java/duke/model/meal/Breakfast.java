@@ -12,6 +12,7 @@ public class Breakfast extends Meal {
     public Breakfast(String description, String details) {
         super(description, details);
         super.type = "B";
+        super.cost = "0";
     }
 
     /**
@@ -21,5 +22,6 @@ public class Breakfast extends Meal {
     public Breakfast(String description, String[] details) {
         super(description, details);
         super.type = "B";
+        super.cost = "0";
     }
 }
