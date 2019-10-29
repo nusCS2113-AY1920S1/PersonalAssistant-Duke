@@ -19,7 +19,7 @@ public class ProductCommandUtil {
      * @param productDescriptor contains the information to edit with.
      * @return edited product.
      */
-    public static Product getUpdatedProduct(Product toEdit, ProductDescriptor productDescriptor) {
+    public static Product getEditedProductFromDescriptor(Product toEdit, ProductDescriptor productDescriptor) {
         assert toEdit != null;
 
         String newProductName = productDescriptor.getProductName().orElse(toEdit.getProductName());
@@ -37,9 +37,13 @@ public class ProductCommandUtil {
      * @param productDescriptor contains the information to edit with
      * @return edited product
      */
-    public static Product getProductFromDescriptor(ProductDescriptor productDescriptor) throws ParseException {
+    public static Product getAddedProductFromDescriptor(ProductDescriptor productDescriptor) throws ParseException {
         Product product = new Product();
-        if (!productDescriptor.getProductName().isPresent()) {
+        if (! productDescriptor.getProductName().isPresent()) {
+            throw new ParseException(ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
+        }
+        String name = productDescriptor.getProductName().get();
+        if (name.isBlank() || name.isEmpty()) {
             throw new ParseException(ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
         }
         product.setProductName(productDescriptor.getProductName().get());

@@ -29,7 +29,7 @@ public class AddProductCommand extends ProductCommand {
      */
     public AddProductCommand(ProductDescriptor descriptor) throws ParseException {
         requireNonNull(descriptor);
-        this.toAdd = ProductCommandUtil.getProductFromDescriptor(descriptor);
+        this.toAdd = ProductCommandUtil.getAddedProductFromDescriptor(descriptor);
     }
 
 

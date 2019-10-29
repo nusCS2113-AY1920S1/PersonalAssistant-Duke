@@ -50,7 +50,7 @@ public class EditProductCommand extends ProductCommand {
             throw new CommandException(Message.MESSAGE_INVALID_INDEX);
         }
         Product toEdit = lastShownList.get(index.getZeroBased());
-        Product editedProduct = ProductCommandUtil.getUpdatedProduct(toEdit, productDescriptor);
+        Product editedProduct = ProductCommandUtil.getEditedProductFromDescriptor(toEdit, productDescriptor);
         ProductCommandUtil.verifyNewIngredients(model, editedProduct);
         try {
             model.setProduct(toEdit, editedProduct);

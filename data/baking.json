@@ -1,31 +1,20 @@
 {
-  "orders" : [ ],
+  "orders" : [ {
+    "id" : 1572362282419,
+    "creationDate" : "2019-10-29T15:18:02.419+0000",
+    "name" : "customer",
+    "contact" : "N/A",
+    "remarks" : "N/A",
+    "deliveryDate" : "2019-10-29T15:15:56.092+0000",
+    "status" : "ACTIVE",
+    "total" : 0.0,
+    "items" : [ ]
+  } ],
   "products" : [ {
-    "productName" : "l",
-    "ingredientItems" : [ {
-      "ingredient" : {
-        "name" : "Cheese",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 1.1
-    }, {
-      "ingredient" : {
-        "name" : "Chicken",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 2.0
-    }, {
-      "ingredient" : {
-        "name" : "Hello",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 2.0
-    } ],
-    "ingredientCost" : 4.84,
-    "retailPrice" : 5.5,
+    "productName" : "product 1",
+    "ingredientItems" : [ ],
+    "ingredientCost" : 0.0,
+    "retailPrice" : 0.0,
     "status" : "ACTIVE"
   } ],
   "inventory" : [ {

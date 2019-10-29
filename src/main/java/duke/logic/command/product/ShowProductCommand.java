@@ -18,13 +18,11 @@ public class ShowProductCommand extends ProductCommand {
     public static final String MESSAGE_SHOW_PRODUCT_SUCCESS = "Showing product %s";
 
     public final Index index;
-    public final ProductDescriptor productDescriptor;
 
-    public ShowProductCommand(Index index, ProductDescriptor productDescriptor) {
-        requireAllNonNull(index, productDescriptor);
+    public ShowProductCommand(Index index) {
+        requireAllNonNull(index);
 
         this.index = index;
-        this.productDescriptor = new ProductDescriptor(productDescriptor);
     }
     /**
      * Executes the command and returns the result message.

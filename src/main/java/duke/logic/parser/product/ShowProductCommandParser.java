@@ -35,6 +35,6 @@ public class ShowProductCommandParser implements Parser<ShowProductCommand> {
             throw new ParseException(Message.MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
-        return new ShowProductCommand(index, createProductDescriptor(map));
+        return new ShowProductCommand(index);
     }
 }
