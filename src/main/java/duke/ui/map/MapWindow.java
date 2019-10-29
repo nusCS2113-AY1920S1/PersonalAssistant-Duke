@@ -29,9 +29,6 @@ public class MapWindow extends UiPart<Stage> {
     private static final String FXML = "MapWindow.fxml";
     private ObservableList<Venue> locations = FXCollections.observableArrayList();
 
-    private Image image = null;
-    private RouteNode centerNode = null;
-
     private void generateNodes(List<RouteNode> routes) {
         locations.addAll(routes);
     }
@@ -95,14 +92,6 @@ public class MapWindow extends UiPart<Stage> {
      */
     public void show() {
         getRoot().show();
-    }
-
-    private void setImage(Image image) {
-        this.image = image;
-        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-        map.setBackground(new Background(backgroundImage));
-        System.out.println("done");
     }
 
     /**

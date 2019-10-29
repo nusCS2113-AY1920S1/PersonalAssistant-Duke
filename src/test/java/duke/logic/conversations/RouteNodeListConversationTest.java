@@ -3,7 +3,6 @@ package duke.logic.conversations;
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.logic.RouteManager;
-import duke.model.ModelManager;
 import duke.model.lists.RouteList;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class RouteNodeListConversationTest {
+class
+RouteNodeListConversationTest {
 
     @Test
     void converse() throws DukeException {

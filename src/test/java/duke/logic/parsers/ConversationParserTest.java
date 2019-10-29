@@ -35,10 +35,10 @@ class ConversationParserTest {
         assertTrue(ConversationParser.parse("search", new RouteManager(new RouteList()))
                 instanceof SearchConversation);
         assertThrows(DukeUnknownCommandException.class,
-                () -> ConversationParser.parse("sdasds", new RouteManager(new RouteList())));
+            () -> ConversationParser.parse("sdasds", new RouteManager(new RouteList())));
         assertThrows(DukeUnknownCommandException.class,
-                () -> ConversationParser.parse("deleteeee", new RouteManager(new RouteList())));
+            () -> ConversationParser.parse("deleteeee", new RouteManager(new RouteList())));
         assertThrows(DukeUnknownCommandException.class,
-                () -> ConversationParser.parse("DElete", new RouteManager(new RouteList())));
+            () -> ConversationParser.parse("DElete", new RouteManager(new RouteList())));
     }
 }

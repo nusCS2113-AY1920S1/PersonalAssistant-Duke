@@ -141,11 +141,7 @@ public class RouteNodeShowCommand extends Command {
      * @return Whether the node is close enough to be added.
      */
     private boolean isWithinDistance(RouteNode query, RouteNode node) {
-        if ((node.getLatitude() - query.getLatitude()) < 0.04
-                && (node.getLongitude() - query.getLongitude()) < 0.04) {
-            return true;
-        } else {
-            return false;
-        }
+        return (node.getLatitude() - query.getLatitude()) < 0.04
+                && (node.getLongitude() - query.getLongitude()) < 0.04;
     }
 }

@@ -93,8 +93,8 @@ public class RouteNodeNeighboursCommand extends Command {
         RouteNode node = model.getRoutes().get(indexRoute).getNode(indexNode);
         for (Map.Entry mapElement : model.getMap().getBusStopMap().entrySet()) {
             if (((BusStop) mapElement.getValue()).getDistance(node) < DISTANCE_THRESHOLD) {
-                if (!(node instanceof BusStop) || ((BusStop) mapElement.getValue()).getBusCode()
-                        != ((BusStop) node).getBusCode()) {
+                if (node instanceof BusStop
+                        && !((BusStop) mapElement.getValue()).getBusCode().equals(((BusStop) node).getBusCode())) {
                     temp.add((BusStop) mapElement.getValue());
                 }
             }
@@ -102,7 +102,7 @@ public class RouteNodeNeighboursCommand extends Command {
 
         for (Map.Entry mapElement : model.getMap().getTrainMap().entrySet()) {
             if (((TrainStation) mapElement.getValue()).getDistance(node) < DISTANCE_THRESHOLD
-                    && ((TrainStation) mapElement.getValue()).getAddress() != node.getAddress()) {
+                    && !((TrainStation) mapElement.getValue()).getAddress().equals(node.getAddress())) {
                 temp.add((TrainStation) mapElement.getValue());
             }
         }
@@ -191,11 +191,7 @@ public class RouteNodeNeighboursCommand extends Command {
      * @return Whether the node is close enough to be added.
      */
     private boolean isWithinDistance(RouteNode query, RouteNode node) {
-        if ((node.getLatitude() - query.getLatitude()) < 0.04
-                && (node.getLongitude() - query.getLongitude()) < 0.04) {
-            return true;
-        } else {
-            return false;
-        }
+        return (node.getLatitude() - query.getLatitude()) < 0.04
+                && (node.getLongitude() - query.getLongitude()) < 0.04;
     }
 }

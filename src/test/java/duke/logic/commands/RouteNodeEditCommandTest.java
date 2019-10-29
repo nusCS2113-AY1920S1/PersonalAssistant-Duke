@@ -5,7 +5,6 @@ import duke.commons.enumerations.Constraint;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.InputNotDoubleException;
 import duke.commons.exceptions.UnknownConstraintException;
-import duke.logic.parsers.Parser;
 import duke.model.Model;
 
 import duke.model.locations.BusStop;

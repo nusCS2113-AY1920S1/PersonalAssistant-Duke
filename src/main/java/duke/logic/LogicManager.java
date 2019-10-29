@@ -39,21 +39,23 @@ public class LogicManager extends Logic {
      * @return CommandResult Object containing information for Ui to display.
      */
     public CommandResult execute(String userInput) throws DukeException {
+        String input = userInput;
+
         Command c;
         if (EditorManager.isActive()) {
             logger.log(Level.INFO, "editing...");
-            c = EditorManager.edit(userInput);
+            c = EditorManager.edit(input);
         } else  {
             if (model.getRouteManager().isActivated() && !conversationManager.isInConversation()) {
-                userInput = model.getRouteManager().getConversationPrefix() + userInput;
+                input = model.getRouteManager().getConversationPrefix() + input;
             }
             try {
-                c = Parser.parseComplexCommand(userInput);
+                c = Parser.parseComplexCommand(input);
                 conversationManager.clearContext();
             } catch (DukeApiException e) {
                 throw new DukeException((e.getMessage()));
             } catch (DukeUnknownCommandException e) {
-                c = getCommandFromConversationManager(userInput);
+                c = getCommandFromConversationManager(input);
             }
         }
         return (CommandResult) c.execute(model);

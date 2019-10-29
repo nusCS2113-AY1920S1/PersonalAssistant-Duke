@@ -34,14 +34,4 @@ public class LocationCard extends UiPart<StackPane> {
     public static StackPane getCard(Venue location, String id) {
         return new LocationCard(location, id).getRoot();
     }
-
-    /**
-     * Sets the image of the node visualized by a LocationCard.
-     *
-     * @param node The locationCard of the node.
-     * @param id The id of the image to set.
-     */
-    public static void setImage(LocationCard node, String id) {
-
-    }
 }

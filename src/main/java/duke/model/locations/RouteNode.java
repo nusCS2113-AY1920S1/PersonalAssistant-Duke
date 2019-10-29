@@ -2,8 +2,6 @@ package duke.model.locations;
 
 import duke.commons.enumerations.Constraint;
 
-import java.util.ArrayList;
-
 /**
  * Represents one transportation node - bus stop / train station.
  */

@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ParserTest {
-    private ModelManager model = new ModelManager();
 
     @Test
     void parse() throws Exception {

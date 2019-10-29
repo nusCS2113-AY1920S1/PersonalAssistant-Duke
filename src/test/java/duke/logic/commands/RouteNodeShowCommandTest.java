@@ -17,8 +17,6 @@ class RouteNodeShowCommandTest {
 
     @Test
     void execute() throws DukeException {
-        String expected = "Here is the information of the Bus Stop:\n66211\nBerwick Dr\n"
-                + "\n(BUS, 1.36412138937997, 103.86103467229529)";
         Model model = new ModelStub();
 
         RouteAddCommand routeAddCommand =
@@ -33,6 +31,8 @@ class RouteNodeShowCommandTest {
                 (RouteNodeListCommand) Parser.parseComplexCommand("routeNodeList 1 1");
         CommandResultText result = routeNodeListCommand.execute(model);
 
+        String expected = "Here is the information of the Bus Stop:\n66211\nBerwick Dr\n"
+                + "\n(BUS, 1.36412138937997, 103.86103467229529)";
         assertEquals(expected, result.getMessage());
 
         //negative test for non-existing route
