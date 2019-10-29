@@ -2,7 +2,8 @@ package duke.parser;
 
 
 import duke.sports.MyPlan;
-import duke.CLIView;
+import duke.CliView;
+
 import java.io.FileNotFoundException;
 
 public class ParserTrainingPlan implements IParser {
@@ -10,11 +11,14 @@ public class ParserTrainingPlan implements IParser {
     /**
      * Ui class.
      */
-    private CLIView cliView;
+    private CliView cliView;
+
     /**
      * To parse training plan command.
+     *
      * @param input command.
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException in the event the file is not able to be
+     *                               located in the directory
      */
     @Override
     public void parseCommand(final String input) throws FileNotFoundException {
@@ -48,8 +52,8 @@ public class ParserTrainingPlan implements IParser {
             case "add-activity":
                 int num = 2;
                 System.out.println(plan.addActivity(word[num],
-                        Integer.parseInt(word[++num]),
-                        Integer.parseInt(word[++num])));
+                    Integer.parseInt(word[++num]),
+                    Integer.parseInt(word[++num])));
                 break;
             case "delete":
                 System.out.println("To be added.");
@@ -62,7 +66,7 @@ public class ParserTrainingPlan implements IParser {
             }
             break;
         default:
-            System.out.println("Incorrect command.");
+            System.out.println("Incorrect Command.");
         }
     }
 }

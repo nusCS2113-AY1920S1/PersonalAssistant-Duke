@@ -1,6 +1,6 @@
 package duke.parser;
 
-import duke.CLIView;
+import duke.CliView;
 import duke.data.Storage;
 import duke.module.Schedule;
 
@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.Scanner;
 
+//@@author Sfloydzy
 public class ParserSchedule {
     /**
      * Constants to represent the index 3.
@@ -21,18 +22,7 @@ public class ParserSchedule {
      * Constants to represent the index 5.
      */
     private final int indexFive = 5;
-    /**
-     * Constants to represent the index 6.
-     */
-    private final int indexSix = 6;
-    /**
-     * Constants to represent the index 7.
-     */
-    private final int indexSeven = 7;
-    /**
-     * Constants to represent the index 10.
-     */
-    private final int indexTen = 10;
+
     /**
      * Boolean status to check if the class can exit.
      */
@@ -40,7 +30,7 @@ public class ParserSchedule {
     /**
      * The ui object responsible for showing things to the user.
      */
-    private CLIView cliView;
+    private CliView cliView;
     /**
      * The schedule object.
      */
@@ -53,20 +43,24 @@ public class ParserSchedule {
      * The storage object for Schedule.
      */
     private Storage scheduleStorage;
+
     /**
      * Constructor for ParserSchedule.
+     *
      * @throws FileNotFoundException if file does not exist
-     * @throws ParseException if user input is not in the correct format
+     * @throws ParseException        if user input is not in the correct format
      */
     public ParserSchedule() throws FileNotFoundException, ParseException {
-        cliView = new CLIView();
+        cliView = new CliView();
         scheduleStorage = new Storage(
             ".\\src\\main\\java\\duke\\data\\timeslots.txt");
         schedule = new Schedule(scheduleStorage.loadSchedule());
         sc = new Scanner(System.in);
     }
+
     /**
      * Method to run when entering daily schedule.
+     *
      * @throws ParseException if user input is not in the correct format
      */
     public void dailySchedule() throws ParseException {
@@ -86,13 +80,13 @@ public class ParserSchedule {
 
                 case 2:
                     cliView.showPromptStartTime();
-                    String startTime = sc.nextLine();
                     cliView.showPromptEndTime();
-                    String endTime = sc.nextLine();
                     cliView.showPromptClassLocation();
+                    String className = sc.nextLine();
+                    String startTime = sc.nextLine();
+                    String endTime = sc.nextLine();
                     String location = sc.nextLine();
                     cliView.showPromptClassName();
-                    String className = sc.nextLine();
                     System.out.println(schedule.addClass(startTime,
                         endTime, location,
                         className, scheduleStorage));

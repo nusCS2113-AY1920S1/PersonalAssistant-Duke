@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.CLIView;
+import duke.CliView;
 import duke.data.Storage;
 import duke.module.Schedule;
 import duke.sports.ManageStudents;
@@ -8,7 +8,7 @@ import duke.sports.MyPlan;
 import duke.task.TaskList;
 
 /**
- * Represents a subclass of command class which ends the program.
+ * Represents a subclass of Command class which ends the program.
  */
 public class ExitCommand extends Command {
     /**
@@ -20,7 +20,7 @@ public class ExitCommand extends Command {
      * @param students The ManageStudents object to manage students in classes.
      * @param plan The MyPlan object to manage the training plans.
      */
-    public void execute(final TaskList tasks, final CLIView cliView,
+    public void execute(final TaskList tasks, final CliView cliView,
                         final Storage storage, final Schedule schedule,
                         final ManageStudents students, final MyPlan plan) {
         makeExitTrue();

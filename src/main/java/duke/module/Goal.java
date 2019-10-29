@@ -17,6 +17,7 @@ public class Goal {
 
     /**
      * Constructor for Goal objects.
+     *
      * @param dateArrayListMap The hash map of goals of the day from loading
      *                         the goals.txt text file.
      */
@@ -26,6 +27,7 @@ public class Goal {
 
     /**
      * Shows all goals on a specific day.
+     *
      * @param day The day to view all goals.
      * @return A message containing all the goals of the day to be printed.
      * @throws ParseException if the user input is in wrong format.
@@ -50,8 +52,9 @@ public class Goal {
 
     /**
      * Adds a goal to the goals hash map.
-     * @param date The date to add the goal to.
-     * @param message The goal to add to the goals hash map.
+     *
+     * @param date        The date to add the goal to.
+     * @param message     The goal to add to the goals hash map.
      * @param goalStorage The object responsible for storing the goals hash map.
      * @return A message showing task completed successfully.
      * @throws ParseException if the user input is in wrong format.
@@ -78,8 +81,9 @@ public class Goal {
 
     /**
      * Removes a goal from the goals hash map.
-     * @param day The date to remove the goal from.
-     * @param message The specific goal to remove from the hash map.
+     *
+     * @param day         The date to remove the goal from.
+     * @param message     The specific goal to remove from the hash map.
      * @param goalStorage The object responsible for storing the goals hash map.
      * @return A message showing task completed successfully.
      * @throws ParseException if the user input is in wrong format.
@@ -100,7 +104,8 @@ public class Goal {
 
     /**
      * Removes all the goals from the goals hash map for a day.
-     * @param day The date to remove all the goals from.
+     *
+     * @param day         The date to remove all the goals from.
      * @param goalStorage The object responsible for storing the goals hash map.
      * @return A message showing task completed successfully.
      * @throws ParseException if the user input is in wrong format.

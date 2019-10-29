@@ -1,5 +1,6 @@
 package duke.parser;
-import duke.CLIView;
+
+import duke.CliView;
 
 import java.io.FileNotFoundException;
 
@@ -20,12 +21,13 @@ public class ParserCommand implements IParser {
 
     /**
      * Parse the respective command.
+     *
      * @param input command.
      * @throws FileNotFoundException throws exception.
      */
     public void parseCommand(final String input) {
         try {
-            CLIView cliView = new CLIView();
+            CliView cliView = new CliView();
             Scanner sc = new Scanner(System.in);
             switch (input) {
             case "1":
@@ -74,8 +76,8 @@ public class ParserCommand implements IParser {
                 parserTrainingPlan.parseCommand(trainingInput);
                 break;
             default:
-                System.out.println("\u2639 OOPS!!! I'm sorry,"
-                        + "but I don't know what that means :-(");
+                System.out.println("OOPS!!! I'm sorry,"
+                    + "but I don't know what that means :-(");
                 break;
             }
         } catch (FileNotFoundException | ParseException e) {

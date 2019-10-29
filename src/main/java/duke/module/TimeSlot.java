@@ -33,7 +33,7 @@ public final class TimeSlot {
      * @param name  the specified name of the event
      */
     public TimeSlot(final Date start, final Date end,
-                     final String loc, final String name) {
+                    final String loc, final String name) {
         this.startTime = start;
         this.endTime = end;
         this.location = loc;
@@ -42,6 +42,7 @@ public final class TimeSlot {
 
     /**
      * Getter method to obtain the name of the class.
+     *
      * @return The name of the class
      */
     public String getClassName() {
@@ -50,6 +51,7 @@ public final class TimeSlot {
 
     /**
      * Getter method to obtain the start time of the class.
+     *
      * @return The start time of the class
      */
     public Date getStartTime() {
@@ -58,6 +60,7 @@ public final class TimeSlot {
 
     /**
      * Getter method to obtain the end time of the class.
+     *
      * @return The end time of the class
      */
     public Date getEndTime() {
@@ -66,6 +69,7 @@ public final class TimeSlot {
 
     /**
      * Getter method to obtain the location where the class is held.
+     *
      * @return The location where the class is held
      */
     public String getLocation() {
@@ -74,6 +78,7 @@ public final class TimeSlot {
 
     /**
      * Setter method to set the name of the class.
+     *
      * @param name The name of the class
      */
     public void setClassName(final String name) {
@@ -82,6 +87,7 @@ public final class TimeSlot {
 
     /**
      * Setter method to set the start time of the class.
+     *
      * @param date The start time of the class
      */
     public void setStartTime(final Date date) {
@@ -90,6 +96,7 @@ public final class TimeSlot {
 
     /**
      * Setter method to set the end time of the class.
+     *
      * @param date The end time of the class
      */
     public void setEndTime(final Date date) {
@@ -98,6 +105,7 @@ public final class TimeSlot {
 
     /**
      * Setter method to set the location where the class is held.
+     *
      * @param myLocation The location where the class is held
      */
     public void setLocation(final String myLocation) {

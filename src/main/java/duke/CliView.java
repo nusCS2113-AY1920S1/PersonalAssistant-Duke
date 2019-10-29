@@ -5,7 +5,7 @@ import duke.sports.MyTraining;
 
 import java.util.Scanner;
 
-public class CLIView {
+public class CliView {
 
     /**
      * Scanner object to read user input.
@@ -47,6 +47,7 @@ public class CLIView {
 
     /**
      * Reads in an entire line of user input.
+     *
      * @return The entire line of user input.
      */
     public String readCommand() {
@@ -123,6 +124,7 @@ public class CLIView {
             + "activities or switching activity positions "
             + "(Cmd: plan edit [intensity level] [plan number])");
     }
+
     /**
      * Displays student from student list that is matching to search.
      *
@@ -144,6 +146,7 @@ public class CLIView {
 
     /**
      * Prints all possible actions with goal once entered.
+     *
      * @param goalDate The date of the day
      */
     public void showGoalAllActions(final String goalDate) {
@@ -158,6 +161,7 @@ public class CLIView {
 
     /**
      * Prints message when asking for goal to add.
+     *
      * @param goalDate The date of the day
      */
     public void showGoalPromptAddGoal(final String goalDate) {
@@ -167,6 +171,7 @@ public class CLIView {
 
     /**
      * Prints message when asking for goal to delete.
+     *
      * @param goalDate The date of the day
      */
     public void showGoalPromptDeleteGoal(final String goalDate) {
@@ -201,8 +206,8 @@ public class CLIView {
      * Prints message showing don't know what it means.
      */
     public void showDontKnow() {
-        System.out.println("\u2639 OOPS!!! I'm sorry,"
-            + "but I don't know what that means");
+        System.out.println("OOPS!!! I'm sorry,"
+            + "but I don't know what that means :-(");
     }
 
     /**
@@ -215,6 +220,7 @@ public class CLIView {
 
     /**
      * Prints all possible actions with lesson once entered.
+     *
      * @param lessonDate The date of the day
      */
     public void showLessonAllActions(final String lessonDate) {
@@ -229,6 +235,7 @@ public class CLIView {
 
     /**
      * Prints message when asking for lesson to add.
+     *
      * @param lessonDate The date of the day
      */
     public void showLessonPromptAddLesson(final String lessonDate) {
@@ -238,6 +245,7 @@ public class CLIView {
 
     /**
      * Prints message when asking for lesson to delete.
+     *
      * @param lessonDate The date of the day
      */
     public void showLessonPromptDeleteLesson(final String lessonDate) {
@@ -263,7 +271,8 @@ public class CLIView {
 
     /**
      * Prints message when plan is successfully loaded.
-     * @param planNum The plan number of the plan to be loaded.
+     *
+     * @param planNum   The plan number of the plan to be loaded.
      * @param intensity The intensity of the plan to be loaded.
      */
     public void showPlanLoaded(final int planNum, final String intensity) {
@@ -309,6 +318,7 @@ public class CLIView {
 
     /**
      * Prints message when plan is being created.
+     *
      * @param intensity The intensity of the plan to be created.
      */
     public void showPlanCreating(final String intensity) {
@@ -319,6 +329,7 @@ public class CLIView {
 
     /**
      * Prints message when activity is successfully added.
+     *
      * @param activity The activity object to be added.
      */
     public void showActivityAdded(final MyTraining activity) {
@@ -328,6 +339,7 @@ public class CLIView {
 
     /**
      * Prints message to show all plans loaded into the current list.
+     *
      * @param plans The plans to be printed out.
      */
     public void showViewPlan(final String plans) {
@@ -360,6 +372,7 @@ public class CLIView {
 
     /**
      * Prints all possible actions with schedule once entered.
+     *
      * @param scheduleDate The date to see classes of the day
      */
     public void showScheduleAllActions(final String scheduleDate) {

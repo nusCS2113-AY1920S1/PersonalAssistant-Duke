@@ -14,6 +14,7 @@ public class ParserManageStudents implements IParser {
 
     /**
      * To parse ManageStudents commands.
+     *
      * @param input command.
      */
     @Override
@@ -30,7 +31,7 @@ public class ParserManageStudents implements IParser {
             String age = splitByComma[1];
             String address = splitByComma[2];
             MyStudent myNewStudent = new MyStudent(
-                    name, age, address);
+                name, age, address);
             students.addStudent(myNewStudent);
             break;
 
@@ -87,11 +88,12 @@ public class ParserManageStudents implements IParser {
             break;
 
         default:
-            System.out.println("Incorrect command.");
+            System.out.println("Incorrect Command.");
         }
-
-//    Storage storage = new Storage();
-//    storage.updateStudentList(students.getStudentList());
-//    break;
+        /**
+         * Storage storage = new Storage();
+         *         storage.updateStudentList(students.getStudentList());
+         *         break;
+         */
     }
 }

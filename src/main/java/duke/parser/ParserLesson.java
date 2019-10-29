@@ -1,6 +1,6 @@
 package duke.parser;
 
-import duke.CLIView;
+import duke.CliView;
 import duke.data.Storage;
 import duke.module.Lesson;
 
@@ -48,19 +48,20 @@ public class ParserLesson {
     /**
      * The ui object responsible for showing things to the user.
      */
-    private CLIView cliView;
+    private CliView cliView;
     /**
      * The scanner object responsible for taking in user input.
      */
     private Scanner myLessonScan;
+
     /**
      * Constructor for ParserLesson.
      *
      * @throws FileNotFoundException if file does not exist
-     * @throws ParseException if user input is not in the correct format
+     * @throws ParseException        if user input is not in the correct format
      */
     public ParserLesson() throws FileNotFoundException, ParseException {
-        cliView = new CLIView();
+        cliView = new CliView();
         lessonStorage = new Storage(
             ".\\src\\main\\java\\duke\\data\\lessons.txt");
         lesson = new Lesson(lessonStorage.loadLesson());
