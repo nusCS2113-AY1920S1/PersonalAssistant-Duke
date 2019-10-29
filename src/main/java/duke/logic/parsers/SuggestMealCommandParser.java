@@ -33,8 +33,8 @@ public class SuggestMealCommandParser implements ParserInterface<SuggestMealComm
         for (String argNameStr : argumentsMap.keySet()) {
             if (!(argNameStr.equals(dateArgStr) || argNameStr.equals(displayArgStr)
                     || argNameStr.equals(mealTypeArgStr))) {
-                return new SuggestMealCommand(true, "Unknown argument " + argNameStr +
-                        ". Type `help suggest` to get command syntax.");
+                return new SuggestMealCommand(true, "Unknown argument " + argNameStr
+                        + ". Type `help suggest` to get command syntax.");
             }
         }
 
@@ -42,8 +42,8 @@ public class SuggestMealCommandParser implements ParserInterface<SuggestMealComm
             try {
                 suggestionDate.setTime(dateFormat.parse(argumentsMap.get(dateArgStr)));
             } catch (ParseException e) {
-                return new SuggestMealCommand(true, "Unable to parse" + dateArgStr + " as a date. " +
-                        "Please follow DD/MM/YYYY format.");
+                return new SuggestMealCommand(true, "Unable to parse" + dateArgStr + " as a date. "
+                        + "Please follow DD/MM/YYYY format.");
             }
         }
 
@@ -51,8 +51,8 @@ public class SuggestMealCommandParser implements ParserInterface<SuggestMealComm
             try {
                 maxMealsToSuggest = Integer.parseInt(argumentsMap.get(displayArgStr).trim());
             } catch (NumberFormatException e) {
-                return new SuggestMealCommand(true, "Unable to parse display as integer. Please " +
-                        "input as integer. eg: /display 5");
+                return new SuggestMealCommand(true, "Unable to parse display as integer. Please "
+                        + "input as integer. eg: /display 5");
             }
         }
 
@@ -62,9 +62,9 @@ public class SuggestMealCommandParser implements ParserInterface<SuggestMealComm
             if (tempMealTypeStr.equals("B") || tempMealTypeStr.equals("L") || tempMealTypeStr.equals("D")) {
                 mealTypeStr = tempMealTypeStr;
             } else {
-                return new SuggestMealCommand(true, "Unable to parse meal type as breakfast, " +
-                        "lunch or dinner.\nPlease input a single character \"b\", \"l\" or \"d\"" +
-                        " which signify breakfast, lunch and dinner respectively.");
+                return new SuggestMealCommand(true, "Unable to parse meal type as breakfast, "
+                        + "lunch or dinner.\nPlease input a single character \"b\", \"l\" or \"d\""
+                        + " which signify breakfast, lunch and dinner respectively.");
             }
         }
 

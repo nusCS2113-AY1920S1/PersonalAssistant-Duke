@@ -62,6 +62,8 @@ public class SuggestMealCommand extends Command {
             case 1:
                 execute_stage_1(meals, storage, user, wallet);
                 break;
+            default:
+                isDone = true;
         }
     }
 
@@ -99,8 +101,8 @@ public class SuggestMealCommand extends Command {
             isDone = true;
             return;
         } else if (1 > mealSelectedIndex || mealSelectedIndex > suggestedMealList.size()) {
-            ui.showMessage("Index out of bounds. Please try again and enter index (inclusive)" +
-                    " between 1 and " + suggestedMealList.size());
+            ui.showMessage("Index out of bounds. Please try again and enter index (inclusive)"
+                    + " between 1 and " + suggestedMealList.size());
             return;
         }
 

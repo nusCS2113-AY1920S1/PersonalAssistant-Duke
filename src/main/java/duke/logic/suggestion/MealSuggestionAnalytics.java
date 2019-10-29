@@ -53,18 +53,17 @@ public class MealSuggestionAnalytics {
         SuggestMeal calorieLimitMeal = new SuggestMeal();
         calorieLimitMeal.addNutritionalValue("calorie", calorieLimit);
 
-        int startIdx, endIdx, compareIdx;
-        compareIdx = Collections.binarySearch(tempSuggestionMealList, calorieLimitMeal);
+        int startIdx = 0;
+        int endIdx;
+        int compareIdx = Collections.binarySearch(tempSuggestionMealList, calorieLimitMeal);
 
         // a meal with the exact calorie limit exists
         if (compareIdx >= 0) {
-            startIdx = 0;
             endIdx = compareIdx + 1;
         } else {
             // meal with same calories as calorie limit not found.
             // negative index returned by subList.
-            startIdx = 0;
-            endIdx = -1*(compareIdx + 1);
+            endIdx = -1 * (compareIdx + 1);
         }
         return new ArrayList<SuggestMeal>(tempSuggestionMealList.subList(startIdx, endIdx));
     }

@@ -47,8 +47,8 @@ public class Ui {
         String messageStr = "Here are the suggested meals for " + dateStr;
         showList(meals, messageStr);
         showLine();
-        showMessage("Please select which meal you would like by providing " +
-                "index of meal item in the list above.");
+        showMessage("Please select which meal you would like by providing "
+                + "index of meal item in the list above.");
         showMessage("Enter 0 to decline suggestions.");
 
     }
@@ -86,10 +86,10 @@ public class Ui {
             }
         }
         System.out.println(UI_PADDING + "On " + dateStr + ", you have:");
-        System.out.println(UI_PADDING + UI_PADDING + (user.getDailyCalorie() - totalActualConsume) +
-                            " calories left (marked as done)");
-        System.out.println(UI_PADDING + UI_PADDING + (user.getDailyCalorie() - totalPossibleConsume) +
-                            " calories left (total)");
+        System.out.println(UI_PADDING + UI_PADDING + (user.getDailyCalorie() - totalActualConsume)
+                + " calories left (marked as done)");
+        System.out.println(UI_PADDING + UI_PADDING + (user.getDailyCalorie() - totalPossibleConsume)
+                + " calories left (total)");
     }
 
     public void showAddedItem(Meal currentMeal) {
