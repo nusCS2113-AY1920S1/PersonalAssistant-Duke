@@ -3,7 +3,8 @@ package cube.model.sale;
 import java.util.Comparator;
 import java.util.Date;
 
-class SaleComparator implements Comparator<Sale> {
+class SalesComparator implements Comparator<Sale> {
+	@Override
 	public int compare(Sale a, Sale b) {
 		return a.getDate().compareTo(b.getDate());
 	}
