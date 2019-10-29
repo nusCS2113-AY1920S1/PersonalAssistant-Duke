@@ -1,7 +1,3 @@
-“Don’t put off for tomorrow what you can do today because if you enjoy it today, you can do it again tomorrow.”
-“Begin doing what you want to do now. We are not living in eternity. We have only this moment.”
-“The really happy people are those who have broken the chains of procrastination, those who find satisfaction in doing the job at hand. You can be, too.”
-“Success is not obtained overnight. It comes in instalments; you get a little bit today, a little bit tomorrow until the whole package is given out. The day you procrastinate, you lose that day’s success.”
 “Don’t wait. The time will never be just right.”
 “The best way to get something done is to begin.”
 "Success is not final; failure is not fatal: It is the courage to continue that counts."
@@ -65,3 +61,7 @@ Don't procrastinate. Life is way too short.”
 “You may delay, but time will not, and lost time is never found again.”
 “Following-through is the only thing that separates dreamers from people that accomplish great things.”
 “Things may come to those who wait, but only the things left by those who hustle.”
+“Don’t put off for tomorrow what you can do today because if you enjoy it today, you can do it again tomorrow.”
+“Begin doing what you want to do now. We are not living in eternity. We have only this moment.”
+“The really happy people are those who have broken the chains of procrastination, those who find satisfaction in doing the job at hand. You can be, too.”
+“Success is not obtained overnight. It comes in instalments; you get a little bit today, a little bit tomorrow until the whole package is given out. The day you procrastinate, you lose that day’s success.”
