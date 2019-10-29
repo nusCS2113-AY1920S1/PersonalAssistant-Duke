@@ -209,15 +209,17 @@ public class Investment extends Bank {
      * @param targetBond the target bond to delete.
      * @param endDate    the maturity date of the bond.
      */
-    private void removeBondIfMature(Ui ui, Bond targetBond, Date endDate) {
+    private boolean removeBondIfMature(Ui ui, Bond targetBond, Date endDate) {
         if (targetBond.getNextDateToCreditInterest().compareTo(endDate) > 0) {
             try {
                 ui.printMessage("Bond has reached maturity, removing bond.");
                 investmentDeleteBond(targetBond.getName(), ui);
+                return true;
             } catch (BondException e) {
                 ui.printError("Unable to delete bond after crediting interest.");
             }
         }
+        return false;
     }
 
     /**
@@ -237,7 +239,9 @@ public class Investment extends Bank {
                 addBondInterestDeposit(targetBond,ui);
                 nextDateToCreditInterest = calculateNextInterestDate(nextDateToCreditInterest);
                 targetBond.setNextDateToCreditInterest(nextDateToCreditInterest);
-                removeBondIfMature(ui, targetBond, endDate);
+                if (removeBondIfMature(ui, targetBond, endDate)) {
+                    i--;
+                }
             }
         }
     }
