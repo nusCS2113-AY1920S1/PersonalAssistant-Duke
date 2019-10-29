@@ -445,20 +445,22 @@ public class Storage {
 
     /**
      * Load plans from the text file to a map.
-     * @param map the map of plans to be saved to
+     * @return map of plans
      * @throws FileNotFoundException File not found
      */
-    public void loadPlans(final Map<String,
-            ArrayList<MyTraining>> map) throws FileNotFoundException {
-        //MyPlan plan = new MyPlan();
-        ArrayList<MyTraining> list = new ArrayList<>();
-
-        File f = new File(".\\src\\main\\java\\duke\\data\\plan.txt");
-        String intensity = "";
-        int planNum = 0;
+    public Map<String, ArrayList<MyTraining>> loadPlans()
+            throws FileNotFoundException {
         try {
+            ArrayList<MyTraining> list = new ArrayList<>();
+            Map<String, ArrayList<MyTraining>> temp = new HashMap<>();
+
+            File f = new File(".\\src\\main\\java\\duke\\data\\plan.txt");
+            String intensity = "";
+            int planNum = 0;
+
             if (f.length() == 0) {
                 System.out.println("Plan file is empty. Loading failed.");
+                return temp;
             } else {
                 while (fileInput.hasNextLine()) {
                     String in = fileInput.nextLine();
@@ -491,26 +493,26 @@ public class Storage {
                     }
 
                     if (in.equals("\n")) {
-                        //String key = plan.createKey(intensity, planNum);
-                        //map.put(key, list);
-                        System.out.println("Check");
+                        String key = intensity + planNum;
+                        temp.put(key, list);
                     }
                 }
+                fileInput.close();
+                return temp;
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Exception: " + e);
+            return null;
         }
     }
 
     /**
      * Saves the map of plans to the text file after clearing it.
      * @param map Updated map of plans to be saved
+     * @param keys List of plans present in the map
      * @throws IOException IO
      */
-    public void savePlans(final Map<String, ArrayList<MyTraining>> map)
-            throws IOException {
-        MyPlan plan = new MyPlan();
-        ArrayList<String> keys = plan.keyList();
+    public void savePlans(final Map<String, ArrayList<MyTraining>> map,
+                          final ArrayList<String> keys) throws IOException {
 
         PrintWriter clear = new PrintWriter(
                 ".\\src\\main\\java\\duke\\data\\plan.txt");

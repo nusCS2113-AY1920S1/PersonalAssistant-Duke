@@ -128,6 +128,15 @@ public class Ui {
             + "activities or switching activity positions "
             + "(Cmd: plan edit [intensity level] [plan number])");
     }
+
+    /**
+     * Show plan list when option 1 is chosen from trainingProgramHeading.
+     */
+    public void trainingPlanListHeading() {
+        System.out.flush();
+        System.out.println("PLAN LIST:\n");
+    }
+
     /**
      * Displays student from student list that is matching to search.
      *

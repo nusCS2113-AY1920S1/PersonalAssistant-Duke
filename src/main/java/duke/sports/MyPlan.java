@@ -1,9 +1,6 @@
 package duke.sports;
 
 import duke.Ui;
-import duke.data.Storage;
-
-import java.io.FileNotFoundException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,10 +24,6 @@ public class MyPlan {
     private Ui ui;
 
      /**
-      * Represents the file path for the plans.
-      */
-    private String filePath;
-     /**
       * Represents the list for the current loaded plan to be viewed or edited.
       */
     private ArrayList<MyTraining> list = new ArrayList<>();
@@ -46,60 +39,21 @@ public class MyPlan {
       * Represents the name of the individual activity in a plan.
       */
     private String name;
-     /**
-      * Represents the number of sets of the activity in a plan.
-      */
-    private int sets;
-     /**
-      * Represents the number of repetitions of the activity in a plan.
-      */
-    private int reps;
 
      /**
       * The constructor for MyPlan.
-      * @throws FileNotFoundException if file is not found.
+      * @param mapOfPlans map of plans
       */
-    public MyPlan() throws FileNotFoundException {
-        filePath = ".\\src\\main\\java\\duke\\data\\plan.txt";
-        new Storage(filePath).loadPlans(getMap());
+    public MyPlan(final Map<String, ArrayList<MyTraining>> mapOfPlans) {
+        this.map = mapOfPlans;
     }
 
-     /**
-      * A getter to retrieve the filepath.
-      * @return filepath
-      */
-    public String getFilePath() {
-        return this.filePath;
-    }
      /**
       * A getter to retrieve the activity name in a plan.
       * @return name of activity
       */
     public String getName() {
         return this.name;
-    }
-     /**
-      * A getter to retrieve the number of sets of an activity.
-      * @return number of sets of an activity
-      */
-    public int getSets() {
-        return this.sets;
-    }
-
-     /**
-      * A getter to retrieve the number of repetitions in an activity.
-      * @return number of repetitions in an activity
-      */
-    public int getReps() {
-        return this.reps;
-    }
-
-     /**
-      * A getter to retrieve the map of all plans loaded.
-      * @return the map of all plans
-      */
-    private Map<String, ArrayList<MyTraining>> getMap() {
-        return this.map;
     }
 
      /**
@@ -141,7 +95,7 @@ public class MyPlan {
       * @return the arraylist of keys, sorted by intensity and plan number
       */
     public ArrayList<String> keyList() {
-        Set<String> keys = getMap().keySet();
+        Set<String> keys = map.keySet();
         ArrayList<String> kl = new ArrayList<>(keys);
         Collections.sort(kl, new Comparator<String>() {
             public int compare(final String a, final String b) {
@@ -301,15 +255,15 @@ public class MyPlan {
       * @param intensity intensity of plan to be loaded
       * @param plan plan number passed as a string
       */
-    public void loadPlan(final String intensity, final String plan) {
+    public void loadPlanToList(final String intensity, final String plan) {
         clearPlan();
         if (!Intensity.contains(intensity)) {
             ui.showIntensityLevel();
         } else {
             int planNum = Integer.parseInt(plan.split("/")[1]);
             String key = createKey(intensity, planNum);
-            if (getMap().containsKey(key)) {
-                for (MyTraining t : getMap().get(key)) {
+            if (map.containsKey(key)) {
+                for (MyTraining t : map.get(key)) {
                     getList().add(t);
                 }
                 ui.showPlanLoaded(planNum, intensity);
@@ -327,16 +281,16 @@ public class MyPlan {
                           final String intensity, final String key) {
         if (key.equals("0")) {
             int planNum = 0;
-            Set<String> keys = getMap().keySet();
+            Set<String> keys = map.keySet();
             for (String k : keys) {
                 if (k.contains(intensity)) {
                     planNum++;
                 }
             }
             String k = createKey(intensity, planNum);
-            getMap().put(k, newList);
+            map.put(k, newList);
         } else {
-            getMap().put(key, newList);
+            map.put(key, newList);
         }
     }
 
@@ -390,10 +344,10 @@ public class MyPlan {
     public void deletePlan(final String intensity,
                              final int planNum) throws IOException {
         String key = createKey(intensity, planNum);
-        if (!getMap().containsKey(key)) {
+        if (!map.containsKey(key)) {
             ui.showIntensityAndNumber();
         } else {
-            getMap().remove(key);
+            map.remove(key);
             ui.showPlanRemoved();
         }
         //new Storage(getFilePath()).savePlans(getMap());

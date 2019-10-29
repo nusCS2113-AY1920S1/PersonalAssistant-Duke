@@ -1,9 +1,11 @@
 package duke.Parser;
 
 
+import duke.data.Storage;
 import duke.sports.MyPlan;
 import duke.Ui;
 import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class ParserTrainingPlan implements IParser {
 
@@ -12,15 +14,30 @@ public class ParserTrainingPlan implements IParser {
      */
     private Ui ui;
     /**
+     * A scanner to handle user input.
+     */
+    private Scanner sc;
+
+    /**
+     * Constructor for ParserTrainingPlan.
+     * @throws FileNotFoundException File does not exist
+     */
+    public ParserTrainingPlan() throws FileNotFoundException {
+        ui = new Ui();
+        MyPlan plan = new MyPlan(new Storage(
+                ".\\src\\main\\java\\duke\\data\\plan.txt").loadPlans());
+        sc = new Scanner(System.in);
+    }
+    /**
      * To parse training plan command.
      * @param input command.
      * @throws FileNotFoundException
      */
     @Override
     public void parseCommand(final String input) throws FileNotFoundException {
-        MyPlan plan = new MyPlan();
         String[] word = input.split(" ");
         String cmd = word[0];
+
         switch (cmd) {
             case "plan":
                 if (word[1].equals("view")) {
@@ -30,10 +47,6 @@ public class ParserTrainingPlan implements IParser {
                     plan.createPlan(word[2].toLowerCase());
                 } else if (word[1].equals("edit")) {
                     System.out.println("To be created...");
-                } else if (word[1].equals("save")) {
-                    //String fp = plan.getFilePath();
-                    //new Storage(fp).savePlans(plan.getMap());
-                    ui.showSavePlanToMap();
                 }
                 break;
             case "training":

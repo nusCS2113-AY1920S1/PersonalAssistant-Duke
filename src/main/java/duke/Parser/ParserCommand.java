@@ -70,8 +70,11 @@ public class ParserCommand implements IParser {
                     break;
                 case "3":
                     ui.trainingProgramHeading();
-                    String trainingInput = sc.nextLine();
-                    parserTrainingPlan.parseCommand(trainingInput);
+                    executeType = sc.nextInt();
+                    sc.nextLine();
+                    if(executeType == 1) {
+
+                    }
                     break;
                 default:
                     System.out.println("\u2639 OOPS!!! I'm sorry,"

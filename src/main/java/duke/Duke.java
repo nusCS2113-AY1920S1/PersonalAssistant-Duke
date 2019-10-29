@@ -68,7 +68,8 @@ public class Duke extends Application {
         schedule = new Schedule(
             new Storage(".\\src\\main\\java\\duke\\data\\timeslots.txt"
             ).loadSchedule());
-        plan = new MyPlan();
+        plan = new MyPlan(new Storage(
+                ".\\src\\main\\java\\duke\\data\\plan.txt").loadPlans());
     }
 
     /**
