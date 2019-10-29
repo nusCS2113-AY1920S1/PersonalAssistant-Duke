@@ -41,9 +41,11 @@ public class CommandResultText extends CommandResult {
      * Alternative constructor that helps to create text for a list of Routes.
      */
     public CommandResultText(RouteList routes) {
+        int index = 1;
         message = "Here is the information of Routes:\n";
         for (Route route: routes.getRoutes()) {
-            message += route.getDescription() + "\n";
+            message += "(" + index + ") " + route.getName() + "\n" + route.getDescription() + "\n";
+            index++;
         }
     }
 

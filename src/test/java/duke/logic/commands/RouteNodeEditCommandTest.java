@@ -8,10 +8,12 @@ import duke.commons.exceptions.UnknownConstraintException;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
 
+import duke.model.locations.BusStop;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RouteNodeEditCommandTest {
 
@@ -22,9 +24,10 @@ class RouteNodeEditCommandTest {
         RouteAddCommand routeAddCommand = new RouteAddCommand("2113", "");
         routeAddCommand.execute(model);
 
-        RouteNodeAddCommand routeNodeAddCommand1 =
-                (RouteNodeAddCommand) Parser.parseComplexCommand("routeNodeAdd 1 at 66211 by bus");
-        routeNodeAddCommand1.execute(model);
+        BusStop newNode = new BusStop("66211", "", "", 0, 0);
+        newNode.fetchData(model);
+        model.getRoutes().get(0).addNode(newNode);
+        assertTrue(model.getRoutes().get(0).getNode(0) instanceof BusStop);
 
         RouteNodeEditCommand routeNodeEditCommand1 = new RouteNodeEditCommand(0, 0, "address", "2113T");
         routeNodeEditCommand1.execute(model);

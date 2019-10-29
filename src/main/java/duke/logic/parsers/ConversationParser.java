@@ -58,6 +58,7 @@ public class ConversationParser {
             return new RouteDeleteConversation();
         case "routeEdit":
             return new RouteEditConversation();
+        case "routeManagergenerate":
         case "routeGenerate":
             return new RouteGenerateConversation();
         case "routeList":

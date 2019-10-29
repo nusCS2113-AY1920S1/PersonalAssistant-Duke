@@ -174,19 +174,21 @@ public class ApiParser {
      * @return result The String param.
      */
     public static String generateStaticMapLines(ArrayList<String> points, String rgb, String lineWidth) {
-        String result = "[";
-        for (String point: points) {
-            result += "[" + point + "]";
-            result += ",";
-        }
-        result = result.substring(0, result.length() - 1) + "]";
+        String result = "";
+        if (points.size() > 0) {
+            result = "[";
+            for (String point : points) {
+                result += "[" + point + "]";
+                result += ",";
+            }
+            result = result.substring(0, result.length() - 1) + "]";
 
-        if (!rgb.isEmpty()) {
-            result += ":" + rgb + ":" + lineWidth;
-        } else {
-            result += ":0,0,0:" + lineWidth;
+            if (!rgb.isEmpty()) {
+                result += ":" + rgb + ":" + lineWidth;
+            } else {
+                result += ":0,0,0:" + lineWidth;
+            }
         }
-
         return result;
     }
 
@@ -203,8 +205,13 @@ public class ApiParser {
      */
     public static String createStaticMapPoint(String latitude, String longitude,
                                               String r, String g, String b, String label) {
-        return "[" + latitude + "," + longitude + ",\"" + r + "," + g + "," + b + "\",\""
-                + (Character.toString(label.charAt(0))).toUpperCase() + "\"]";
+        try {
+            return "[" + latitude + "," + longitude + ",\"" + r + "," + g + "," + b + "\",\""
+                    + (Character.toString(label.charAt(0))).toUpperCase() + "\"]";
+        } catch (NullPointerException e) {
+            return "[" + latitude + "," + longitude + ",\"" + r + "," + g + "," + b + "\",\""
+                    + "\"]";
+        }
     }
 
     /**

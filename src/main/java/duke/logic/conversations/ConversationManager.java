@@ -16,6 +16,11 @@ public class ConversationManager {
     private Conversation conversation;
     private RouteManager routeManager;
 
+    /**
+     * Constructs the ConversationManager object and include the RouteManager.
+     *
+     * @param routeManager The RouteManager object.
+     */
     public ConversationManager(RouteManager routeManager) {
         isFinished = true;
         isInConversation = false;
@@ -126,5 +131,7 @@ public class ConversationManager {
      *
      * @return Whether there is an ongoing conversation.
      */
-    public boolean isInConversation() {return isInConversation;}
+    public boolean isInConversation() {
+        return isInConversation;
+    }
 }

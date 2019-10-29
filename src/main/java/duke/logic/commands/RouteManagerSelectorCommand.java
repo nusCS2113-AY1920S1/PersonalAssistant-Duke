@@ -4,9 +4,9 @@ import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 
-public class RouteManagerSelectorCommand extends Command{
+public class RouteManagerSelectorCommand extends Command {
     private int index;
-    private static final String MESSAGE_SUCCESS = "Alright! Selecting this Route.\n  ";
+    private static final String MESSAGE_SUCCESS = "Alright! Selecting this Route.\n";
 
     /**
      * Creates a new DeleteCommand with the given index.

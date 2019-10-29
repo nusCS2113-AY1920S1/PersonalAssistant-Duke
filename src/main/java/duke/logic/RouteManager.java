@@ -153,6 +153,15 @@ public class RouteManager {
     }
 
     /**
+     * Returns the size of the Route being selected.
+     *
+     * @return The size of the Rotue being selected.
+     */
+    public int getRouteSize() {
+        return routes.get(routeIndex - 1).getNumNodes();
+    }
+
+    /**
      * Returns the appropriate help message in context.
      *
      * @return The appropriate help message.

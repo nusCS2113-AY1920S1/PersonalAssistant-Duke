@@ -29,6 +29,7 @@ public class RouteNodeShowCommand extends Command {
     private static final String GREEN_VALUE_QUERY = "255";
     private static final String BLUE_VALUE_QUERY = "0";
     private static final String LINE_WIDTH = "2";
+    private static final int NODE_MAX_SIZE = 9;
     private int indexRoute;
     private int indexNode;
 
@@ -65,7 +66,7 @@ public class RouteNodeShowCommand extends Command {
         }
 
         Venue query = ApiParser.getLocationSearch(param);
-        ArrayList<String> points = generateOtherPoints(route, node);
+        ArrayList<String> points = generateOtherPoints(route, node, indexNode);
 
         Image image = ApiParser.getStaticMap(ApiParser.generateStaticMapParams(DIMENSIONS, DIMENSIONS, ZOOM_LEVEL,
                 String.valueOf(query.getLatitude()), String.valueOf(query.getLongitude()), "",
@@ -75,17 +76,21 @@ public class RouteNodeShowCommand extends Command {
     }
 
     /**
-     * Generates the other points in the Route as an ArrayList.
+     * Generates NODE_MAX_SIZE other nodes beside the selected one in the Route as an ArrayList.
      *
      * @param route The Route object.
      * @param query The original RouteNode being queried.
      * @return points The ArrayList of points.
      */
-    public ArrayList<String> generateOtherPoints(Route route, RouteNode query) {
+    public ArrayList<String> generateOtherPoints(Route route, RouteNode query, int indexNode) {
         ArrayList<String> points = new ArrayList<>();
-        for (RouteNode node: route.getNodes()) {
-            if (!node.equals(query)) {
-                points.add(node.getLatitude() + "," + node.getLongitude());
+        int startIndex = Math.max(0, indexNode - 3);
+        int endIndex = Math.min(route.getNumNodes() - 1, startIndex + NODE_MAX_SIZE);
+
+        for (int i = startIndex; i < endIndex; i++) {
+            if (!(route.getNode(i)).equals(query)) {
+                points.add(route.getNode(i).getLatitude() + "," + route.getNode(i).getLongitude());
+
             }
         }
 
@@ -93,7 +98,7 @@ public class RouteNodeShowCommand extends Command {
     }
 
     /**
-     * Generates the line parameters for the StaticMap request/
+     * Generates the line parameters for the StaticMap request.
      *
      * @param points The ArrayList of points.
      * @param rgb The RGB value.
@@ -136,8 +141,8 @@ public class RouteNodeShowCommand extends Command {
      * @return Whether the node is close enough to be added.
      */
     private boolean isWithinDistance(RouteNode query, RouteNode node) {
-        if ((node.getLatitude() - query.getLatitude()) < 0.04 &&
-                (node.getLongitude() - query.getLongitude()) < 0.04) {
+        if ((node.getLatitude() - query.getLatitude()) < 0.04
+                && (node.getLongitude() - query.getLongitude()) < 0.04) {
             return true;
         } else {
             return false;

@@ -39,32 +39,32 @@ public class RouteManagerEditConversation extends Conversation {
     @Override
     public void execute(String input) {
         switch (state) {
-            case 1:
-                if (isRouteEdit && isRouteField(input)) {
-                    field = input;
-                    prompt = Messages.PROMPT_ROUTENODE_EDIT_VALUE;
-                    state++;
-                } else if (!isRouteEdit && isRouteNodeField(input)) {
-                    field = input;
-                    prompt = Messages.PROMPT_ROUTENODE_EDIT_VALUE;
-                    state++;
-                }
+        case 1:
+            if (isRouteEdit && isRouteField(input)) {
+                field = input;
+                prompt = Messages.PROMPT_ROUTENODE_EDIT_VALUE;
+                state++;
+            } else if (!isRouteEdit && isRouteNodeField(input)) {
+                field = input;
+                prompt = Messages.PROMPT_ROUTENODE_EDIT_VALUE;
+                state++;
+            }
 
-                break;
-            case 2:
-                if (isRouteEdit) {
-                    prompt = Messages.PROMPT_ROUTE_EDIT_SUCCESS;
-                } else {
-                    prompt = Messages.PROMPT_ROUTENODE_EDIT_SUCCESS;
-                }
-                newValue = input;
+            break;
+        case 2:
+            if (isRouteEdit) {
+                prompt = Messages.PROMPT_ROUTE_EDIT_SUCCESS;
+            } else {
+                prompt = Messages.PROMPT_ROUTENODE_EDIT_SUCCESS;
+            }
+            newValue = input;
 
-                buildResult();
-                setFinished(true);
-                break;
-            default:
-                prompt = Messages.PROMPT_ERROR;
-                break;
+            buildResult();
+            setFinished(true);
+            break;
+        default:
+            prompt = Messages.PROMPT_ERROR;
+            break;
         }
         tryCancelConversation(input);
     }

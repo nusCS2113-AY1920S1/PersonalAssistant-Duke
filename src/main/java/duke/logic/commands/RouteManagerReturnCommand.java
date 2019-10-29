@@ -17,7 +17,7 @@ public class RouteManagerReturnCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws DukeException {
-        if (model.getRouteManager().getNodeIndex() == -1 && model.getRouteManager().getRouteIndex() != -1  ) {
+        if (model.getRouteManager().getNodeIndex() == -1 && model.getRouteManager().getRouteIndex() != -1) {
             model.getRouteManager().resetRoute();
         }
         model.getRouteManager().resetNode();

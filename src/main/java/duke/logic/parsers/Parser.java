@@ -25,7 +25,11 @@ import duke.logic.commands.RouteEditCommand;
 import duke.logic.commands.RouteListCommand;
 import duke.logic.commands.RouteManagerExitCommand;
 import duke.logic.commands.RouteManagerHelpCommand;
+import duke.logic.commands.RouteManagerInfoCommand;
+import duke.logic.commands.RouteManagerNodeBackCommand;
+import duke.logic.commands.RouteManagerNodeInfoCommand;
 import duke.logic.commands.RouteManagerNearbyCommand;
+import duke.logic.commands.RouteManagerNodeNextCommand;
 import duke.logic.commands.RouteManagerNodeSelectorCommand;
 import duke.logic.commands.RouteManagerReturnCommand;
 import duke.logic.commands.RouteManagerSelectorCommand;
@@ -113,7 +117,6 @@ public class Parser {
         case "routeNodeList":
             return new RouteNodeListCommand(ParserUtil.getIntegerIndexInList(0, 2, inputBody),
                     ParserUtil.getIntegerIndexInList(1, 2, inputBody));
-        case "routeManagergenerate":
         case "routeGenerate":
             return ParserUtil.createRouteGenerateCommand(inputBody);
         case "routeShow":
@@ -135,6 +138,14 @@ public class Parser {
             return new RouteManagerReturnCommand();
         case "routeManagerNodenearby":
             return new RouteManagerNearbyCommand();
+        case "routeManagerinfo":
+            return new RouteManagerInfoCommand();
+        case "routeManagerNodeinfo":
+            return new RouteManagerNodeInfoCommand();
+        case "routeManagerNodenext":
+            return new RouteManagerNodeNextCommand();
+        case "routeManagerNodeback":
+            return new RouteManagerNodeBackCommand();
         case "routeManagerNodehelp":
         case "routeManagerhelp":
             return new RouteManagerHelpCommand();

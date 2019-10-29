@@ -34,7 +34,7 @@ public class RouteNodeNeighboursCommand extends Command {
     private static final String LINE_WIDTH = "2";
     private static final String MESSAGE_SUCCESS = "Here are some Nodes that are close to this:\n";
     private static final int DISTANCE_THRESHOLD = 3000;
-    private static final int MAX_SIZE = 10;
+    private static final int NEIGHBOUR_MAX_SIZE = 5;
     private int indexRoute;
     private int indexNode;
 
@@ -93,22 +93,22 @@ public class RouteNodeNeighboursCommand extends Command {
         RouteNode node = model.getRoutes().get(indexRoute).getNode(indexNode);
         for (Map.Entry mapElement : model.getMap().getBusStopMap().entrySet()) {
             if (((BusStop) mapElement.getValue()).getDistance(node) < DISTANCE_THRESHOLD) {
-                if (!(node instanceof BusStop) || ((BusStop) mapElement.getValue()).getBusCode() !=
-                        ((BusStop) node).getBusCode()) {
+                if (!(node instanceof BusStop) || ((BusStop) mapElement.getValue()).getBusCode()
+                        != ((BusStop) node).getBusCode()) {
                     temp.add((BusStop) mapElement.getValue());
                 }
             }
         }
 
         for (Map.Entry mapElement : model.getMap().getTrainMap().entrySet()) {
-            if (((TrainStation) mapElement.getValue()).getDistance(node) < DISTANCE_THRESHOLD &&
-                    ((TrainStation) mapElement.getValue()).getAddress() != node.getAddress()) {
+            if (((TrainStation) mapElement.getValue()).getDistance(node) < DISTANCE_THRESHOLD
+                    && ((TrainStation) mapElement.getValue()).getAddress() != node.getAddress()) {
                 temp.add((TrainStation) mapElement.getValue());
             }
         }
 
-        temp.sort((Venue o1, Venue o2)-> (int) (o1.getDistance(node)-o2.getDistance(node)));
-        for (int i = 0; i < MAX_SIZE && i < temp.size(); i++) {
+        temp.sort((Venue o1, Venue o2) -> (int) (o1.getDistance(node) - o2.getDistance(node)));
+        for (int i = 0; i < NEIGHBOUR_MAX_SIZE && i < temp.size(); i++) {
             result.add(temp.get(i));
         }
 
@@ -116,7 +116,7 @@ public class RouteNodeNeighboursCommand extends Command {
     }
 
     /**
-     * Generates the other points in the Route as an ArrayList.
+     * Generates 6 other nodes beside the selected one in the Route as an ArrayList.
      *
      * @param route The Route object.
      * @param query The original RouteNode being queried.
@@ -124,9 +124,13 @@ public class RouteNodeNeighboursCommand extends Command {
      */
     public ArrayList<String> generateOtherPoints(Route route, RouteNode query) {
         ArrayList<String> points = new ArrayList<>();
-        for (RouteNode node: route.getNodes()) {
-            if (!node.equals(query)) {
-                points.add(node.getLatitude() + "," + node.getLongitude());
+        int startIndex = Math.max(0, indexNode - 3);
+        int endIndex = Math.min(route.getNumNodes() - 1, startIndex + 6);
+
+        for (int i = startIndex; i < endIndex; i++) {
+            if (!(route.getNode(i)).equals(query)) {
+                points.add(route.getNode(i).getLatitude() + "," + route.getNode(i).getLongitude());
+
             }
         }
 
@@ -134,7 +138,7 @@ public class RouteNodeNeighboursCommand extends Command {
     }
 
     /**
-     * Generates the line parameters for the StaticMap request/
+     * Generates the line parameters for the StaticMap request.
      *
      * @param points The ArrayList of points.
      * @param rgb The RGB value.
@@ -187,8 +191,8 @@ public class RouteNodeNeighboursCommand extends Command {
      * @return Whether the node is close enough to be added.
      */
     private boolean isWithinDistance(RouteNode query, RouteNode node) {
-        if ((node.getLatitude() - query.getLatitude()) < 0.04 &&
-                (node.getLongitude() - query.getLongitude()) < 0.04) {
+        if ((node.getLatitude() - query.getLatitude()) < 0.04
+                && (node.getLongitude() - query.getLongitude()) < 0.04) {
             return true;
         } else {
             return false;

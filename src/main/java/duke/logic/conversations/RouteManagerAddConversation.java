@@ -36,23 +36,23 @@ public class RouteManagerAddConversation extends Conversation {
     @Override
     public void execute(String input) {
         switch (state) {
-            case 1:
-                if (isConstraint(input)) {
-                    type = input;
-                    prompt = Messages.PROMPT_ROUTENODE_ADD_INPUT;
-                    state++;
-                }
+        case 1:
+            if (isConstraint(input)) {
+                type = input;
+                prompt = Messages.PROMPT_ROUTENODE_ADD_INPUT;
+                state++;
+            }
 
-                break;
-            case 2:
-                address = input;
+            break;
+        case 2:
+            address = input;
 
-                buildResult();
-                setFinished(true);
-                break;
-            default:
-                prompt = Messages.PROMPT_ERROR;
-                break;
+            buildResult();
+            setFinished(true);
+            break;
+        default:
+            prompt = Messages.PROMPT_ERROR;
+            break;
         }
         tryCancelConversation(input);
     }

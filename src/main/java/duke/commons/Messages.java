@@ -9,12 +9,14 @@ public class Messages {
      */
     public static final String ROUTEMANAGER_WELCOME_MESSAGE = "Route Manager is now turned on...\n";
     public static final String ROUTEMANAGER_STATUS_ROUTELIST_STARTER = "Here is the information of your routes:\n";
-    public static final String ROUTEMANAGER_STATUS_ROUTELIST_EMPTY = "There's no Routes at the moment, try creating one!";
+    public static final String ROUTEMANAGER_STATUS_ROUTELIST_EMPTY =
+            "There's no Routes at the moment, try creating one!";
     public static final String ROUTEMANAGER_STATUS_ROUTELIST_END =
             "Select a Route by typing select, or type help to get some assistance!";
     public static final String ROUTEMANAGER_CONVERSATION_PREFIX_ROUTE = "routeManager";
     public static final String ROUTEMANAGER_CONVERSATION_PREFIX_ROUTENODE = "routeManagerNode";
-    public static final String ROUTEMANAGER_HELP_GENERAL = "Here are the following things you can do without selecting anything:\n"
+    public static final String ROUTEMANAGER_HELP_GENERAL =
+            "Here are the following things you can do without selecting anything:\n"
             + "add - Add a Route\n"
             + "select - Selects a Route\n"
             + "info - Lists all available Routes\n"

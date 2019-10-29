@@ -4,7 +4,7 @@ import duke.commons.exceptions.DukeException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 
-public class RouteManagerNodeSelectorCommand extends Command{
+public class RouteManagerNodeSelectorCommand extends Command {
     private int index;
     private static final String MESSAGE_SUCCESS = "Alright! Selecting this Node.\n";
 
