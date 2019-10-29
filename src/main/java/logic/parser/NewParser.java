@@ -14,6 +14,7 @@ public class NewParser {
     private static final String ADD_COMMAND_WORD = "ADD";
     private static final String LIST_COMMAND_WORD = "LIST";
     private static final String DELETE_COMMAND_WORD = "DELETE";
+    private static final String DONE_COMMAND_WORD = "DONE";
 
     //@@author JustinChia1997
 
@@ -38,6 +39,7 @@ public class NewParser {
                 "ADD", "LIST", "DONE", "BYE", "DELETE", "FIND", "SNOOZE",
                 "SCHEDULE", "CHECK", "LINK", "UNLINK", "REMOVE", "HELP"
         };
+
         commandWord = SpellingErrorCorrector.commandCorrector(dict, commandWord);
 
         switch (commandWord) {
@@ -45,6 +47,9 @@ public class NewParser {
                 return AddCommandParser.parseAddCommand(arguments);
             case LIST_COMMAND_WORD:
                 return ListCommandParser.parseListCommand(arguments);
+
+            case DONE_COMMAND_WORD:
+                return DoneCommandParser.parseDoneCommand(arguments);
             default:
                 throw new DukeException("Command not found");
 
@@ -53,34 +58,3 @@ public class NewParser {
     }
 }
 
-
-//       try {
-//            Method[] parse = new Method[dict.length];
-//            // the parse method array should be corresponding to the dict String array.
-//            parse[0] = AddCommandParser.class.getDeclaredMethod("parseAdd", String.class);
-//            parse[1] = ListCommandParser.class.getDeclaredMethod("parseList", String.class);
-//            for (int i = 0; i < dict.length; i++) {
-//                if (splites[0].equals(dict[i])) {
-//                    temp = (Command) parse[i].invoke(null, splites[1]);
-//                }
-//            }
-//            if (temp == null) {
-//                throw new DukeException("command not found");
-//            }
-//        } catch (DukeException e) {
-//            throw e;
-//        } catch (NoSuchMethodException e) {
-//            throw new DukeException("no such method");
-//        } catch (InvocationTargetException e) {
-//            if (e.getCause().getClass().equals(DukeException.class)) {
-//                throw (DukeException) e.getCause();
-//            } else {
-//                e.getCause().printStackTrace();
-//            }
-//        } catch (IllegalAccessException e) {
-//            throw new DukeException("illegal access Exception");
-//        }
-//        if (temp == null) {
-//            throw new DukeException("cannot resolve this command");
-//        }
-//        return temp;
