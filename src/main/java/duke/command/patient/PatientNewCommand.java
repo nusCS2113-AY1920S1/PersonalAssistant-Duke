@@ -9,7 +9,6 @@ import duke.exception.DukeException;
 import duke.ui.context.Context;
 
 public class PatientNewCommand extends ArgCommand {
-
     @Override
     protected ArgSpec getSpec() {
         return PatientNewSpec.getSpec();
@@ -20,14 +19,14 @@ public class PatientNewCommand extends ArgCommand {
         super.execute(core);
 
         Patient patient = (Patient) core.uiContext.getObject();
-        Impression imp = new Impression(getSwitchVal("name"), getSwitchVal("description"), patient);
-        patient.addNewImpression(imp);
+        Impression impression = new Impression(getSwitchVal("name"), getSwitchVal("description"), patient);
+        patient.addNewImpression(impression);
         patient.updateAttributes();
-        core.ui.print("Impression added:\n" + patient.getImpression(imp.getName()).toString());
         core.writeJsonFile();
+        core.ui.print("Impression added:\n" + patient.getImpression(impression.getName()).toString());
 
         if (isSwitchSet("go")) {
-            core.uiContext.setContext(Context.IMPRESSION, imp);
+            core.uiContext.setContext(Context.IMPRESSION, impression);
         }
     }
 }

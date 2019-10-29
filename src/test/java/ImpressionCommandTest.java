@@ -31,7 +31,11 @@ public class ImpressionCommandTest extends CommandTest {
         patient = new Patient("name", "bedNo", "allergies", 0, 0,
                 0, 0, "", "");
         impression = new Impression("name", "description", patient);
-        patient.addNewImpression(impression);
+        try {
+            patient.addNewImpression(impression);
+        } catch (DukeException excp) {
+            fail("Duplicate impression in patient, somehow.");
+        }
         core.patientMap.addPatient(patient);
         core.uiContext.setContext(Context.IMPRESSION, impression);
     }
@@ -76,7 +80,11 @@ public class ImpressionCommandTest extends CommandTest {
     public void impressionPrimaryCommand_fullCommand_setAsPrimary() {
         Command primaryCmd = new ImpressionPrimaryCommand();
         Impression newImpression = new Impression("name2", "description2", patient);
-        patient.addNewImpression(newImpression);
+        try {
+            patient.addNewImpression(newImpression);
+        } catch (DukeException excp) {
+            fail("Duplicate impression in patient, somehow.");
+        }
 
         try {
             patient.setPrimaryDiagnosis("name2");

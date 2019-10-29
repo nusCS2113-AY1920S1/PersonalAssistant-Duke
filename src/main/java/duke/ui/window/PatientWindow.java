@@ -6,16 +6,12 @@ import duke.data.Patient;
 import duke.ui.UiElement;
 import duke.ui.UiStrings;
 import duke.ui.card.ImpressionCard;
-import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * UI window for the Patient context.
@@ -45,7 +41,6 @@ public class PatientWindow extends UiElement<Region> {
     private JFXListView<Node> impressionsListPanel;
 
     private Patient patient;
-    private List<Node> cardList;
     private CommandWindow window;
 
     /**
@@ -55,7 +50,6 @@ public class PatientWindow extends UiElement<Region> {
         super(FXML, null);
 
         this.patient = patient;
-        this.cardList = new ArrayList<>();
         this.window = window;
 
         if (patient == null) {
@@ -93,20 +87,19 @@ public class PatientWindow extends UiElement<Region> {
             allergiesLabel.setText(UiStrings.DISPLAY_ALLERGIES_NONE);
         }
 
-        cardList.clear();
+        impressionsListPanel.getItems().clear();
         for (Impression impression : patient.getImpressionsObservableMap().values()) {
             ImpressionCard impressionCard;
 
             if (impression.equals(patient.getPrimaryDiagnosis())) {
                 impressionCard = new ImpressionCard(impression, true);
-                cardList.add(0, impressionCard);
+                impressionsListPanel.getItems().add(0, impressionCard);
             } else {
                 impressionCard = new ImpressionCard(impression, false);
-                cardList.add(impressionCard);
+                impressionsListPanel.getItems().add(impressionCard);
             }
         }
 
-        impressionsListPanel.setItems(FXCollections.observableList(cardList));
         impressionsListPanel.getItems().forEach(card -> {
             ((ImpressionCard) card).setIndex(impressionsListPanel.getItems().indexOf(card) + 1);
         });
@@ -124,8 +117,7 @@ public class PatientWindow extends UiElement<Region> {
      * @return List of UI cards.
      */
     public ObservableList<Node> getCardList() {
-        // TODO: bug... Why size is 0?
-        window.print("size get: " + cardList.size());
-        return FXCollections.observableList(cardList);
+        // TODO: Bug. Size 0 when called by commands
+        return impressionsListPanel.getItems();
     }
 }
