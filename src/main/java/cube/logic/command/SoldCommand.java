@@ -64,7 +64,6 @@ public class SoldCommand extends Command{
 		// new function
 		double profit = revenue - quantity * toSold.getCost();
 		Sale saleRecord = new Sale(quantity, revenue, profit, soldDate);
-		System.out.println(salesHistory.size());
 		salesHistory.add(saleRecord);
 		System.out.println(salesHistory.size());
 		storage.storeSalesHistory(salesHistory);
