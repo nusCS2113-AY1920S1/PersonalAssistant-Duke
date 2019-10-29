@@ -50,6 +50,7 @@ public abstract class Command {
 
     public void failure() {
         ui.showMessage(this.errorStr);
+        ui.showLine();
     }
 
     public boolean isFail() {

@@ -56,7 +56,8 @@ public class Ui {
         showList(meals, messageStr);
         showLine();
         showMessage("Please select which meal you would like by providing " +
-                "index of meal item in the list above. Enter 0 to decline suggestions.");
+                "index of meal item in the list above.");
+        showMessage("Enter 0 to decline suggestions.");
 
     }
 
@@ -83,14 +84,20 @@ public class Ui {
      * @param dateStr Date in which remaining calories are computed.
      */
     public void showCaloriesLeft(ArrayList<Meal> meals, User user, String dateStr) {
-        int totalConsume = 0;
+        int totalActualConsume = 0;
+        int totalPossibleConsume = 0;
         for (int i = 0; i < meals.size(); i += 1) {
+            int currentMealCalorie = meals.get(i).getNutritionalValue().get("calorie");
+            totalPossibleConsume += currentMealCalorie;
             if (meals.get(i).getIsDone()) {
-                totalConsume += meals.get(i).getNutritionalValue().get("calorie");
+                totalActualConsume += currentMealCalorie;
             }
         }
-        System.out.println(padding + "Now you have " + (user.getDailyCalorie()
-                - totalConsume) + " calories left on " + dateStr);
+        System.out.println(padding + "On " + dateStr + ", you have:");
+        System.out.println(padding + padding + (user.getDailyCalorie() - totalActualConsume) +
+                            " calories left (marked as done)");
+        System.out.println(padding + padding + (user.getDailyCalorie() - totalPossibleConsume) +
+                            " calories left (total)");
     }
 
     public void showAddedItem(Meal currentMeal) {
