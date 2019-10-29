@@ -20,7 +20,7 @@ public class ExpenseList extends DukeList<Expense> {
     private static final Logger logger = LogsCenter.getLogger(ExpenseList.class);
 
     private enum SortCriteria {
-        AMOUNT(Comparator.comparing(Expense::getAmount)),
+        AMOUNT(Comparator.comparing(Expense::getAmount).reversed()),
         TIME(Comparator.comparing(Expense::getTime).reversed()),
         DESCRIPTION(Comparator.comparing(Expense::getDescription));
 
