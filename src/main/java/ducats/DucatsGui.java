@@ -34,50 +34,6 @@ public class DucatsGui extends Application {
         stage.setMinHeight(550);
         stage.setMinWidth(700);
         stage.show();
-
-//        window = stage;
-//        window.setTitle("Ducats");
-//
-//        CommandLine commandLine = new CommandLine("", "Enter a command...");
-//        commandLine.setId("commandLine");
-//        commandLine.requestFocus();
-//        commandLine.setOnKeyPressed(e -> {
-//            if (e.getCode().equals(KeyCode.ENTER)) {
-//                System.out.println(commandLine.getText());
-//                commandLine.clear();
-//                commandLine.setPromptText("Enter command here...");
-//                commandLine.setFocusTraversable(false);
-//            }
-//        });
-//
-//
-//
-//        //VBox layout = new VBox(10);
-//        GridPane layout = new GridPane();
-//        layout.setPadding(new Insets(10,10,10,10));
-//        layout.setVgap(8);
-//        layout.setHgap(10);
-//
-//        GridPane.setConstraints(commandLine, 0, 0);
-//        layout.getChildren().add(commandLine);
-//
-//        VBox vBox = new VBox();
-//
-//        scene = new Scene(layout, 300, 250);
-//
-//        //applying stylesheet to the scene
-//        scene.getStylesheets().add("style/ducats.css");
-//        scene.getStylesheets().add("style/persistent-prompt.css");
-//        window.setScene(scene);
-//        window.setMinWidth(1024);
-//        window.setMinHeight(760);
-//
-//        window.setOnCloseRequest(e -> {
-//            e.consume();
-//            closeProgram();
-//        });
-//        window.show();
-
     }
 
     private void closeProgram() {
