@@ -15,4 +15,9 @@ public class SwitchModeCommand extends Command {
         dollaData.updateMode(newMode);
         Ui.printModeUpdated(dollaData.getMode());
     }
+
+    @Override
+    public String getCommandInfo() {
+        return null;
+    };
 }

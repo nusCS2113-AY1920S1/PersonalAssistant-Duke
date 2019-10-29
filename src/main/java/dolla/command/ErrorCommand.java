@@ -12,4 +12,9 @@ public class ErrorCommand extends Command {
     public void execute(DollaData dollaData) {
         return; // Don't do anything
     }
+
+    @Override
+    public String getCommandInfo() {
+        return null;
+    };
 }

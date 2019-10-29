@@ -58,4 +58,9 @@ public class SortCommand extends Command {
             }
         }
     }
+
+    @Override
+    public String getCommandInfo() {
+        return null;
+    };
 }

@@ -71,4 +71,9 @@ public class ShowListCommand extends Command {
             Ui.printList(mode, recordList);
         }
     }
+
+    @Override
+    public String getCommandInfo() {
+        return null;
+    };
 }

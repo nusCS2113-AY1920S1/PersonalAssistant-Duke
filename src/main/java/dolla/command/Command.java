@@ -16,6 +16,12 @@ public abstract class Command {
     public abstract void execute(DollaData dollaData) throws Exception;
 
     /**
+     * Returns a string containing the data stored in the command.
+     * @return string containing data stored in command.
+     */
+    public abstract String getCommandInfo();
+
+    /**
      * Returns an integer variable from the specified string.
      * <p>
      *     Returns 0 if the specified string is not of a number.

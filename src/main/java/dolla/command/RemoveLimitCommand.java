@@ -25,4 +25,9 @@ public class RemoveLimitCommand extends Command {
         dollaData.removeLimit(type, duration);
         LimitUi.echoRemoveLimit(type, duration);
     }
+
+    @Override
+    public String getCommandInfo() {
+        return null;
+    };
 }

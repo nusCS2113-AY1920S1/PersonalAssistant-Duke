@@ -60,4 +60,9 @@ public class RemoveCommand extends Command {
         Ui.echoRemove(recordList.get().get(logNumInt).getRecordDetail());
         dollaData.removeFromRecordList(mode,logNumInt);
     }
+
+    @Override
+    public String getCommandInfo() {
+        return null;
+    };
 }

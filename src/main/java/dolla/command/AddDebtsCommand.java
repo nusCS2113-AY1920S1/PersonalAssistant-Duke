@@ -58,4 +58,9 @@ public class AddDebtsCommand extends Command {
         }
         Ui.echoAddRecord(newDebt);
     }
+
+    @Override
+    public String getCommandInfo() {
+        return null;
+    };
 }
