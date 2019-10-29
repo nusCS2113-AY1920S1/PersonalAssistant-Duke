@@ -1,7 +1,5 @@
 package command;
 
-
-import control.Duke;
 import booking.BookingList;
 import exception.DukeException;
 import storage.Storage;
@@ -9,21 +7,21 @@ import room.AddRoom;
 import room.RoomList;
 import ui.Ui;
 import user.User;
-
+import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
-
 
 public class AddRoomCommand extends Command {
+
     private String[] splitC;
     private String roomcode;
     private String[] datesplit;
     private String date;
     private String timeslot;
 
+    //@@ zkchang97
     /**
-     * Creates anew room entry in the list of rooms.
-     * format is addroom ROOMCODE /date DD/MM/YYYY /timeslot HH:MM AM/PM to HH:MM AM/PM
+     * Creates a new room entry in the list of rooms.
+     * Format is addroom ROOMCODE /date DD/MM/YYYY /timeslot HH:MM AM/PM to HH:MM AM/PM
      * @param input from user
      * @param splitStr tokenized input
      * @throws DukeException when format is incorrect
@@ -50,14 +48,23 @@ public class AddRoomCommand extends Command {
         this.timeslot = datesplit[1];
     }
 
-
+    /**
+     * Executes the command to add a room to the system.
+     * @param roomList room list
+     * @param bookingList bookings list
+     * @param ui user interface
+     * @param bookingstorage booking storage in command execution
+     * @param roomstorage room storage in command execution
+     * @param user current user
+     * @throws IOException if input entry is incorrect
+     */
     @Override
-    public void execute(RoomList rooms,  Ui ui, Storage roomStorage)
-            throws DukeException, IOException, ParseException {
-        AddRoom addroom = new AddRoom(date[0], timeslot[0], timeslot[1]);
-        rooms.add(addroom);
-        roomStorage.saveToFile(rooms);
+    public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingstorage,
+                        Storage roomstorage, User user) throws IOException {
+        AddRoom addroom = new AddRoom(roomcode, date, timeslot);
+        roomList.add(addroom);
+        roomstorage.saveToFile(roomList);
         ui.addToOutput("Got it, I've added this room.\n"
-            + addroom.toString() + "\n" + "Now you have " + rooms.size() + " room(s) in the list.");
+            + addroom.toString() + "\n" + "Now you have " + roomList.size() + " room(s) in the list.");
     }
 }

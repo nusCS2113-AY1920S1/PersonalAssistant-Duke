@@ -7,4 +7,5 @@ public class BookingConstants {
     public static final int DESCRIPTION = 2;
     public static final int TIMESTART = 3;
     public static final int TIMEEND = 4;
+    public static final int STATUS = 5;
 }

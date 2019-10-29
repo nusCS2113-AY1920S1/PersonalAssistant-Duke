@@ -12,26 +12,44 @@ import storage.Constants;
 * items not present just put qty 0
 *
 * must link to ROOM
+* item of inventory of room
 *
  */
 
 
-public class Inventory extends ArrayList<Item>{
-    //create an arraylist of ITEMS
-    private String name;
-    private int quantity;
-    ArrayList<Item> Inventory;
-
+public class Inventory extends ArrayList<Item> {
     /**
      * Create Inventory from text file.
      * @param loader strings from text file containing Item info
      * @throws DukeException if file format incorrect
      */
-    public Inventory (ArrayList<String> loader){
+
+
+    public Inventory(ArrayList<String> loader) { //loads previous inventory data stored in text file
         for (String line : loader) {
             String[] splitStr = line.split("\\|", 2);
-            int parsed = parseInt(splitStr[Constants.ITEMQTY]);
-            this.add(new Item(splitStr[Constants.ITEMNAME], parseInt((splitStr[Constants.ITEMQTY])));
+            this.add(new Item(splitStr[Constants.ITEMNAME], Integer.parseInt(splitStr[Constants.ITEMQTY])));
+        }
     }
 
+    public Inventory() {
+        super();
+    }
+
+    /**
+     * To check if an item already exists in the current inventory.
+     * @param inventory the list of requests
+     * @param inputItem the item in question
+     * @return if the item already exists
+     */
+    public static boolean checkInventory(Inventory inventory, String inputItem) {
+        boolean found = false;
+
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i).name.equals(inputItem)) {
+                    found = true;
+            }
+        }
+        return found;
+    }
 }

@@ -12,13 +12,11 @@ public class User {
      * @param email NUS email (xxx@u.nus.edu)
      * @param password alphanumerical with no special characters
      * @param username preferably name of the user
-     * @param userType A (Admin), R (Resident) or C (Club Head)
      */
-    public User(String email, String password, String username, String userType){
+    public User(String email, String password, String username){
         this.email = email;
         this.password = password;
         this.username = username;
-        this.userType = userType;
     }
 
     public User(String username, String userType) {
@@ -30,7 +28,7 @@ public class User {
     }
 
     public String toWriteFile() {
-        return email + " | " + password + " | " + username + " | " + userType;
+        return email + " | " + password + " | " + username;
     }
 
     public boolean getLoginStatus() {
@@ -40,6 +38,7 @@ public class User {
     public void setLoginStatus() {
         loginStatus = true;
     }
+
 
     public String getUsername() {
         return username;

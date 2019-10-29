@@ -24,6 +24,8 @@ public class Parser {
             return new ByeCommand();
         case "login":
             return new LoginCommand(input, splitStr);
+        case "logout":
+            return new LogoutCommand(input, splitStr);
         case "create":
             return new CreateAccountCommand(input, splitStr);
         case "add":
@@ -36,12 +38,19 @@ public class Parser {
             return new ListRoomCommand();
         case "edit":
             return new EditBookingCommand(input, splitStr);
-        case "inventory":
-            return new ;
+        case "approve":
+            return new ApproveCommand(input, splitStr);
+        case "reject":
+            return new RejectCommand(input, splitStr);
+        case "delete":
+            return new DeleteCommand(input, splitStr);
+//            return new EditBookingCommand(input, splitStr);
+        //case "inventory":
+        //    return new ;
         case "addinventory":
             return new AddInventoryCommand(input, splitStr);
-        case "edit inventory":
-            return new;
+        //case "edit inventory":
+        //    return new;
         default:
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
