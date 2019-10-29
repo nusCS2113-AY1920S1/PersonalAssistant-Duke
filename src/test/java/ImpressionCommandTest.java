@@ -89,6 +89,6 @@ public class ImpressionCommandTest extends CommandTest {
         } catch (DukeException excp) {
             fail("Exception thrown while setting primary diagnosis through command!");
         }
-        assertEquals(newImpression, patient.getPrimaryDiagnosis());
+        assertEquals(impression, patient.getPrimaryDiagnosis());
     }
 }
