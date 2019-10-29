@@ -4,6 +4,7 @@ import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.message.InventoryMessageUtils;
 import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
@@ -24,8 +25,6 @@ public class EditInventoryCommand extends InventoryCommand {
         CliSyntax.PREFIX_INVENTORY_QUANTITY,
         CliSyntax.PREFIX_INVENTORY_REMARKS
     };
-
-    public static final String MESSAGE_SUCCESS = "Edited Ingredient %s in the inventory list";
 
     public final Index index;
     public final InventoryDescriptor inventoryDescriptor;
@@ -51,9 +50,10 @@ public class EditInventoryCommand extends InventoryCommand {
         Item<Ingredient> edited = InventoryCommandUtil.createNewInventory(toEdit, inventoryDescriptor);
 
         model.setInventory(toEdit, edited);
-        model.updateFilteredInventoryList(Model.PREDICATE_SHOW_ALL_INVENTORY);
+        model.commit(InventoryMessageUtils.MESSAGE_COMMIT_EDIT_INVENTORY);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, edited.getItem().getName()),
+        return new CommandResult(String.format(InventoryMessageUtils.MESSAGE_SUCCESS_EDIT_INVENTORY,
+                edited.getItem().getName()),
                 CommandResult.DisplayedPage.INVENTORY);
     }
 }
