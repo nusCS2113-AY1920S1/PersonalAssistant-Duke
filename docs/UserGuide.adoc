@@ -1316,6 +1316,8 @@ Take note that there is a maximum of *30* character limit.
 
 `/list /deposit /from ACCOUNT_NAME [/num NUMBER]`
 
+`/list /recurbankexp /from ACCOUNT_NAME`
+
 [TIP]
 ====
 When `/num` is not specified, it is defaulted to 30 most recent records.

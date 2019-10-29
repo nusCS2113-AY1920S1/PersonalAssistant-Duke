@@ -12,8 +12,8 @@ import owlmoney.ui.Ui;
 public class RecurringExpenditureList {
     private ArrayList<Transaction> recurringExpenditures;
     private static final int MAX_LIST_SIZE = 100;
-    private static final String TRANSTYPE = "transaction";
-    private static final String ITEMTYPE = "item";
+    private static final String RECURTRANSTYPE = "recurTransaction";
+    private static final String RECURITEMTYPE = "recurItem";
     private static final boolean ISMULTIPLE = true;
     private static final boolean ISSINGLE = false;
 
@@ -71,8 +71,8 @@ public class RecurringExpenditureList {
         if (recurringExpenditures.size() <= 0) {
             throw new TransactionException("There are no recurring expenditures in this account");
         }
+        printOneHeader(ui);
         for (int i = 0; i < recurringExpenditures.size(); i++) {
-            printOneHeader(ui);
             printOneTransaction((i + 1), recurringExpenditures.get(i), ISMULTIPLE, ui);
         }
         ui.printDivider();
@@ -140,7 +140,7 @@ public class RecurringExpenditureList {
      */
     private void printOneTransaction(int num, Transaction transaction, boolean isMultiplePrinting, Ui ui) {
         if (!isMultiplePrinting) {
-            ui.printTransactionHeader(ITEMTYPE);
+            ui.printTransactionHeader(RECURITEMTYPE);
         }
         ui.printTransaction(num, transaction.getDescription(),
                 (transaction.checkDebitCredit() + new DecimalFormat("0.00")
@@ -156,7 +156,7 @@ public class RecurringExpenditureList {
      * @param ui         The object use for printing.
      */
     private void printOneHeader(Ui ui) {
-        ui.printTransactionHeader(TRANSTYPE);
+        ui.printTransactionHeader(RECURTRANSTYPE);
     }
 
     /**
