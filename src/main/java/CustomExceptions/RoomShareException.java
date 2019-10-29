@@ -90,7 +90,8 @@ public class RoomShareException extends Exception {
             message = WRONG_SORT_TYPE_TEXT;
             break;
 
-        case others:
+        case logError:
+            message = "Error writing to a new log file. Please try again.";
             break;
 
         default:

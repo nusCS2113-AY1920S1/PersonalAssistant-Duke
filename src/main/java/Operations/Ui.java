@@ -2,6 +2,8 @@ package Operations;
 
 import Enums.TimeUnit;
 
+import java.io.IOException;
+
 /**
  * class to tell user about errors and completion of operations
  */
@@ -151,6 +153,9 @@ public class Ui {
         System.out.println("Your task's priority has been set");
     }
 
+    /**
+     * Prompt user to enter the second index
+     */
     public void promptSecondIndex() {
         System.out.println("Please enter the index to swap to");
     }
@@ -164,8 +169,16 @@ public class Ui {
                 "For more information about a specific command you can \nEnter help followed by a command, eg. help add");
     }
 
+    /**
+     * Show the message of an error encountered
+     * @param e the encountered error
+     */
     public void showError(Exception e){
         System.out.println(e);
+    }
+
+    public void showLogSuccess(String filePath) {
+        System.out.println("Log has been successfully written to " + filePath);
     }
 
     public static void clearScreen() throws IOException, InterruptedException {
