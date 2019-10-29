@@ -10,22 +10,41 @@ import duke.ui.Ui;
 import java.io.IOException;
 
 /**
- * duke.command.DeleteCommand which executes the procedure for
- * deleting duke.task.Task objects from the duke.tasklist.TaskList
+ * Class that handles the auto assigning task to some existing filter
  */
 public class AutoAssignCommand extends Command {
     private int index;
 
+    /**
+     * Constructor for AutoAssignCommand
+     *
+     * @param index
+     */
     public AutoAssignCommand(String index) {
         this.index = Integer.parseInt(index);
     }
 
+    /**
+     * Executes auto assignment of a task to some existing filter
+     *
+     * @param tasks TaskList of all of user's tasks
+     * @param ui Ui handling user interaction
+     * @param storage Storage handling saving and loading of TaskList
+     * @throws IOException
+     * @throws DukeException
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
         TaskAssigner.assign(tasks, tasks.get(index-1));
         storage.save(tasks);
     }
 
+    /**
+     *
+     * @param tasks
+     * @param undoStack
+     * @throws DukeException
+     */
     @Override
     public void savePrevState(TaskList tasks, UndoStack undoStack) throws DukeException {
 

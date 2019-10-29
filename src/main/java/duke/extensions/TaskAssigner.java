@@ -5,7 +5,16 @@ import duke.tasklist.TaskList;
 
 import java.util.*;
 
+/**
+ * Class that contains logic for vectorizing task descriptions and proposing closest filter
+ */
 public class TaskAssigner {
+    /**
+     * Finds a suitable filter and asks if user wants to assign to it
+     *
+     * @param tasks TaskList of all of user's tasks
+     * @param task Task to be auto assigned
+     */
     public static void assign(TaskList tasks, Task task) {
         if (task.getFilter().isPresent()) {
             System.out.println(String.format("This task already has a filter \"%s\"!", task.getFilter().get()));
@@ -64,6 +73,12 @@ public class TaskAssigner {
         }
     }
 
+    /**
+     * Cleans and tokenizes a task's description into arraylist of strings
+     *
+     * @param task Task whose description is to be tokenized
+     * @return ArrayList<string> containing tokens of task description
+     */
     private static ArrayList<String> tokenize(Task task) {
         String description = task.getDescription();
         description = description.trim();
@@ -72,6 +87,12 @@ public class TaskAssigner {
         return new ArrayList<String>(Arrays.asList(tokens_array));
     }
 
+    /**
+     * Generates a map for unique token to index in count vector
+     *
+     * @param tokens_per_task An arraylist that contains arraylist of tokens for each task description
+     * @return A map that maps unique tokens to their index in the count vector
+     */
     private static Map<String, Integer> getUniqueTokens(ArrayList<ArrayList<String>> tokens_per_task) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         for (int i=0; i<tokens_per_task.size(); i++){
@@ -85,6 +106,13 @@ public class TaskAssigner {
         return map;
     }
 
+    /**
+     * Given the tokens for a task's description and mapping to tokens to index, generate the count vector
+     *
+     * @param tokens tokens for a particular task description
+     * @param uniqueTokens a map that maps unique tokens to their index in the count vector
+     * @return Arraylist of numbers which represent vector counts for description
+     */
     private static ArrayList<Integer> getVectorCount(ArrayList<String> tokens, Map<String, Integer> uniqueTokens) {
         ArrayList<Integer> vector = new ArrayList<Integer>();
         // Initialize the vector
@@ -99,6 +127,11 @@ public class TaskAssigner {
         return vector;
     }
 
+    /**
+     *
+     * @param tasks TaskList of all of user's tasks
+     * @return Set of filters
+     */
     private static HashSet<String> getFilters(TaskList tasks) {
         ArrayList<String> filters = new ArrayList<String>();
         for (int i=0; i<tasks.size(); i++) {
@@ -112,6 +145,13 @@ public class TaskAssigner {
         return hashSet;
     }
 
+    /**
+     *
+     * @param filters Set of filters
+     * @param tasks TaskList of all of user's tasks
+     * @param vectorCounts VectorCounts for each task
+     * @return Map of filter to average VectorCount of filter
+     */
     private static Map<String, ArrayList<Integer>> getFilterVectors(Set<String> filters, TaskList tasks,
                                                                    ArrayList<ArrayList<Integer>> vectorCounts) {
         Map<String, ArrayList<Integer>> filterVectorCounts = new HashMap<String, ArrayList<Integer>>();
@@ -134,6 +174,12 @@ public class TaskAssigner {
         return filterVectorCounts;
     }
 
+    /**
+     *
+     * @param taskVector VectorCount of task we want to auto assign
+     * @param filterVectorCounts Average VectorCounts of all the filters
+     * @return The closest filter or null if best cosine similarity is 0
+     */
     private static String findClosestFilter (ArrayList<Integer> taskVector, Map<String, ArrayList<Integer>> filterVectorCounts) {
         String closestFilter = null;
         double maxSimilarity = 0;
@@ -150,6 +196,12 @@ public class TaskAssigner {
         return closestFilter;
     }
 
+    /**
+     *
+     * @param vectorA first vectorCount
+     * @param vectorB second vectorCount
+     * @return Cosine similarity between the 2 vectors
+     */
     private static double cosine_similarity(ArrayList<Integer> vectorA, ArrayList<Integer> vectorB) {
         // A and B must have same length
         double dotProduct = 0;

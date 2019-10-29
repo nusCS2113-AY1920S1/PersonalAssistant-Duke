@@ -14,19 +14,38 @@ import java.util.Optional;
 import java.util.Random;
 
 /**
- * duke.command.RandomCommand class which executes the command of displaying a random
- * duke.task.Task in duke.tasklist.TaskList to the user
+ * Class which executes the command of displaying a random Task to user
  */
 public class RandomCommand extends ListCommand {
-
+    /**
+     * Constructor for RandomCommand
+     *
+     * @param filter filter for each task
+     */
     public RandomCommand(Optional<String> filter) {
         super(filter);
     }
 
+    /**
+     * Constructor for RandomCommand
+     *
+     * @param modeInformation information of the sorted order
+     * @param filter filter for each task
+     */
     public RandomCommand(String modeInformation, Optional<String> filter) {
         super(modeInformation, filter);
     }
 
+    /**
+     * Shows random task to user
+     *
+     * @param tasks
+     * @param ui Ui handling user interactions
+     * @param storage Storage handling saving and loading of TaskList
+     * @throws DukeException if specified sort order given is invalid
+     * @throws IOException NA
+     * @throws ParseException NA
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, ParseException, DukeException {
         Random randomGenerator = new Random();
