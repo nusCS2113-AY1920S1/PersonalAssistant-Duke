@@ -6,7 +6,7 @@ import model.Task;
 import utils.DukeException;
 
 public class DeleteTaskCommand extends Command {
-    public static final String COMMAND_WORD = "task";
+
     private int taskIndex;
 
     public DeleteTaskCommand(int taskIndex) {

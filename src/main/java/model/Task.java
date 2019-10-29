@@ -56,6 +56,10 @@ public class Task {
         this.description = description;
     }
 
+    public void setMemberList(ArrayList<String> memberList) {
+        this.memberList = memberList;
+    }
+
     public boolean isDone() {
         return isDone;
     }

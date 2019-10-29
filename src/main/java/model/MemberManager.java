@@ -64,13 +64,16 @@ public class MemberManager {
         return null;
     }
 
+    //@@author linyuyang28
     /**
      * Delete a member from the member list.
      *
-     * @param toDelete The Member object to be deleted.
+     * @param name the name of the member to be deleted
      */
-    public void deleteMember(Member toDelete) {
+    public Member deleteMember(String name) {
+        Member toDelete = this.getMemberByName(name);
         memberList.remove(toDelete);
+        return toDelete;
     }
 
     /**

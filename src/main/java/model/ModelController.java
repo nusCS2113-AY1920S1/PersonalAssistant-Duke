@@ -2,6 +2,7 @@ package model;
 
 import utils.DukeException;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
@@ -61,18 +62,15 @@ public class ModelController implements Model {
         return newTask;
     }
 
-    @Override
-    public Task deleteTask(String name) throws DukeException {
-        Task toDelete = tasksManager.getTaskByName(name);
-        ArrayList<String> memberList = toDelete.getMemberList();
-        tasksManager.deleteTask(toDelete);
-        return toDelete;
-    }
 
     @Override
     public boolean hasTask(String name) throws DukeException {
         return tasksManager.hasTask(name);
     }
+
+
+
+    //=================Member interfaces=============================================
 
     @Override
     public ArrayList<Member> getMemberList() {
@@ -91,16 +89,11 @@ public class ModelController implements Model {
     }
 
     @Override
-    public Member deleteMember(String name) throws DukeException {
-        Member toDelete = memberManager.getMemberByName(name);
-        memberManager.deleteMember(toDelete);
-        return toDelete;
-    }
-
-    @Override
     public boolean hasMember(String name) throws DukeException {
         return memberManager.hasMember(name);
     }
+
+    //============================
 
     @Override
     public void link(int taskIndex, String memberName) {
@@ -112,6 +105,22 @@ public class ModelController implements Model {
     @Override
     public void unlink(int taskIndex, String memberName) {
 
+    }
+
+    @Override
+    //@@author yuyanglin28
+    public Member deleteMember(String name) throws DukeException {
+        tasksManager.deleteMemberInTasks(name);
+        return memberManager.deleteMember(name);
+    }
+
+    @Override
+    public Task deleteTask(int taskIndex) throws DukeException {
+
+        Task toDelete = tasksManager.getTaskByName(name);
+        ArrayList<String> memberList = toDelete.getMemberList();
+        tasksManager.deleteTask(toDelete);
+        return tasksManager.deleteTask(taskIndex);;
     }
 
 }

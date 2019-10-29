@@ -1,21 +1,21 @@
 package logic.command;
 
+
+import model.Member;
 import model.Model;
-import model.Task;
 import utils.DukeException;
 
-public class DeleteMemberCommand {
+public class DeleteMemberCommand extends Command{
 
-    public static final String COMMAND_WORD = "task";
-    private String taskName;
+    private String memberName;
 
-    public DeleteTaskCommand(String taskName) {
-        this.taskName = taskName;
+    public DeleteMemberCommand(String memberName) {
+        this.memberName = memberName;
     }
 
     @Override
     public CommandOutput execute(Model model) throws DukeException {
-        Task temp = model.deleteTask(taskName);
-        return new CommandOutput("you have removed a task: " + temp.getName());
+        Member temp = model.deleteMember(memberName);
+        return new CommandOutput("you have removed a member: " + temp.getName());
     }
 }

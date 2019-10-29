@@ -45,7 +45,7 @@ public class NewParser {
         commandWord = SpellingErrorCorrector.commandCorrector(dict, commandWord);
 
         switch (commandWord) {
-            
+
             case ADD_COMMAND_WORD:
                 return AddCommandParser.parseAddCommand(arguments);
             case LIST_COMMAND_WORD:

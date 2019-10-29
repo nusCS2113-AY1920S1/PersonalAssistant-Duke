@@ -58,8 +58,9 @@ public class TasksManager implements Serializable {
      *
      * @param toDelete The Task object to be deleted.
      */
-    public void deleteTask(Task toDelete) {
-        taskList.remove(toDelete);
+    public Task deleteTask(int taskIndex) {
+
+        return taskList.remove(taskIndex);
     }
 
     /**
@@ -88,6 +89,14 @@ public class TasksManager implements Serializable {
             for (int j = 0; j < toDelete.length; j++) {
                 tasks[i].deleteMember(toDelete[j]);
             }
+        }
+    }
+
+    //@@author yuyanglin28
+    public void deleteMemberInTasks(String memberName) {
+        for (int i=0; i<taskList.size(); i++) {
+            Task toCheck = taskList.get(i);
+            toCheck.deleteMember(memberName);
         }
     }
 
