@@ -214,7 +214,11 @@ public class User {
         } else {
             calorie = 10 * getWeight() + 6.25 * getHeight() + 5 * getAge() - 161;
         }
-        return (int)(this.factor[this.activityLevel] * calorie);
+        if (goal == null || goal.getActivityLevelTarget() == 5) {
+            return (int) (this.factor[this.activityLevel] * calorie);
+        } else {
+            return (int) (this.factor[goal.getActivityLevelTarget()] * calorie);
+        }
     }
 
     public int getCalorieChangeToReachTarget() {
@@ -230,13 +234,17 @@ public class User {
     }
 
     public void calculateTargetCalories() {
-        int target = getDailyCalorie() * goal.durationOfGoal()
+        int target = getDailyCalorie() * this.goal.durationOfGoal()
                 - getCalorieChangeToReachTarget();
-        goal.setCalorieTarget(target);
+        this.goal.setCalorieTarget(target);
     }
 
     public int getCalorieBalance() {
         return getDailyCalorie() + getAvgCalorieChangeToReachTarget();
+    }
+
+    public double getActivityLevelDifference() {
+        return this.factor[goal.getActivityLevelTarget()] - this.factor[this.activityLevel];
     }
 
     public int getAverageCalorieBalance() {

@@ -25,4 +25,5 @@ public class CommandDefinitions {
     public static final String PARSER_PAYMENT_COMMAND = "pay";
     public static final String PARSER_STATS_COMMAND = "stats";
     public static final String PARSER_CGRAPH_COMMAND = "cgraph";
+    public static final String PARSER_SUGGEST_EXERCISE_COMMAND = "suggestexercise";
 }
