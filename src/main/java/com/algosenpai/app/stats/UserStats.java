@@ -1,8 +1,15 @@
 package com.algosenpai.app.stats;
 
+import com.algosenpai.app.storage.Storage;
 import com.algosenpai.app.storage.UserStorageParser;
 import javafx.util.Pair;
+
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -24,57 +31,58 @@ import java.util.HashMap;
  * </p>
  */
 public class UserStats {
+    private String userName;
+    private String gender;
+    private int level;
+    private int expLevel;
+    private String userDataFilePath;
 
-    //username of the player
-    private String username;
     // Array of chapter stats
     private ArrayList<ChapterStat> chapterData;
 
     // Stats for the current chapter
     private ChapterStat currentChapter;
 
-    private String characterImagePath;
-
     //Maps the chapter names to an index value
     private HashMap<String, Integer> chapterNumber;
 
     /**
      * Constructs a new UserStats by reading in from the UserData text file.
-     * ChapterStat objects are passed from the parser into here to be stored into
-     * their respective data structures.
+     * If the text file doesn't exist, the UserStats variables are populated with default values.
+     * @param userDataFilePath the file path to the text file.
      */
-    public UserStats() throws FileNotFoundException {
+    public UserStats(String userDataFilePath) throws IOException {
         chapterData = new ArrayList<>();
         chapterNumber = new HashMap<>();
-        UserStorageParser userStorageParser = new UserStorageParser();
-        //Reads in redundant blank lines
+        this.userDataFilePath = userDataFilePath;
 
-        userStorageParser.nextLine();
-        userStorageParser.nextLine();
-        this.username = userStorageParser.nextLine();
-        this.characterImagePath = userStorageParser.nextLine();
-
-        while (userStorageParser.hasMoreTokens()) {
-            userStorageParser.nextLine();
-            ChapterStat currStat = userStorageParser.nextChapterStat();
-            chapterData.add(currStat);
-            chapterNumber.put(currStat.chapterName, currStat.chapterNumber);
+        File file = new File(userDataFilePath);
+        if (!file.isFile()) {
+            this.userName = "Name";
+            this.gender = "???";
+            this.level = 1;
+            this.expLevel = 0;
+        } else {
+            String userStatsString = Files.readString(Paths.get(userDataFilePath), StandardCharsets.US_ASCII);
+            String [] tokens = userStatsString.split("\n",7);
+            this.userName = tokens[2];
+            this.gender = tokens[3];
+            this.level = Integer.parseInt(tokens[4]);
+            this.expLevel = Integer.parseInt(tokens[5]);
         }
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     /**
      * Constructor. Needs no explanation.
      */
-    public UserStats(String username, String characterImagePath, ArrayList<ChapterStat> chapterData) {
-        this.username = username;
-        this.characterImagePath = characterImagePath;
+    public UserStats(String username, String gender, int level, int expLevel, ArrayList<ChapterStat> chapterData) {
+        this.userName = username;
+        this.gender = gender;
+        this.level = level;
+        this.expLevel = expLevel;
         this.chapterData = chapterData;
         chapterNumber = new HashMap<>();
-        for (ChapterStat stat: chapterData) {
+        for (ChapterStat stat : chapterData) {
             chapterNumber.put(stat.chapterName, stat.chapterNumber);
         }
     }
@@ -166,18 +174,56 @@ public class UserStats {
         return -1;
     }
 
-    /**
-     * Checkstyle.
-     */
-    public String getCharacterImagePath() {
-        return characterImagePath;
+    public ArrayList<String> getChapters() {
+        return new ArrayList<>(chapterNumber.keySet());
     }
 
     /**
-     * Checkstyle.
+     * Gets the gender of the user.
+     * @return the gender of the user.
      */
-    public void setCharacterImagePath(String characterImagePath) {
-        this.characterImagePath = characterImagePath;
+    public String getGender() {
+        return gender;
+    }
+
+    /**
+     * Sets the gender of the user.
+     * @param gender the String representing the gender of the user.
+     */
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    /**
+     * Gets the username of the user.
+     * @return the String representing the name of the user.
+     */
+    public String getUsername() {
+        return this.userName;
+    }
+
+    /**
+     * Sets the username of the user.
+     * @param username the String representing the name of the user.
+     */
+    public void setUsername(String username) {
+        this.userName = username;
+    }
+
+    public int getUserLevel() {
+        return this.level;
+    }
+
+    public void setUserLevel(int level) {
+        this.level = level;
+    }
+
+    public int getUserExp() {
+        return this.expLevel;
+    }
+
+    public void setUserExp(int expLevel) {
+        this.expLevel = expLevel;
     }
 
     /**
@@ -196,13 +242,15 @@ public class UserStats {
     public String toString() {
         String result = "";
         result += "AlgoSenpai Adventures Overall Report\n\n";
-        result += username + "\n";
-        result += characterImagePath + "\n";
+        result += userName + "\n";
+        result += gender + "\n";
+        result += level + "\n";
+        result += expLevel + "\n";
 
         for (ChapterStat chapterStat:chapterData) {
             result += "\n" + chapterStat.toString();
         }
-        return  result;
+        return result;
     }
 
     /**
@@ -215,11 +263,13 @@ public class UserStats {
         // Get the first 6 lines. 6th line contains the chapterData.
         String [] tokens = string.split("\n",6);
         String userName = tokens[2];
-        String characterImagePath = tokens[3];
+        String gender = tokens[3];
+        int level = Integer.parseInt(tokens[4]);
+        int expLevel = Integer.parseInt(tokens[5]);
 
         // No chapters in the list, so exit early, otherwise will cause parsing error.
         if (tokens.length < 6) {
-            return new UserStats(userName,characterImagePath,new ArrayList<>());
+            return new UserStats(userName, gender, level, expLevel, new ArrayList<>());
         }
         // Each chapter's data is separated by 2 newlines, so split like this to get the chapterData
         String[] chapterDataTokens = tokens[5].split("\n\n");
@@ -227,12 +277,7 @@ public class UserStats {
         for (String chapterString: chapterDataTokens) {
             chapterStats.add(ChapterStat.parseString(chapterString));
         }
-        return new UserStats(userName, characterImagePath, chapterStats);
-    }
-
-    public void saveUserStats() {
-        UserStorageParser userStorageParser = new UserStorageParser();
-        userStorageParser.saveUserData(this.toString());
+        return new UserStats(userName, gender, level, expLevel, chapterStats);
     }
 
     /**
@@ -241,7 +286,14 @@ public class UserStats {
      */
     public static UserStats getDefaultUserStats() {
         // TODO Currently it returns an empty object, but it should ideally be a list of all chapters, with 0 attempts.
-        return new UserStats("Name", "miku.png", new ArrayList<>());
+        return new UserStats("Name", "nil", 1, 0, new ArrayList<>());
+    }
+
+    /**
+     * Saves all the data into the text file.
+     */
+    public void saveUserStats() throws IOException {
+        Storage.saveData(userDataFilePath, this.toString());
     }
 
     public ArrayList<ChapterStat> getChapterData() {
@@ -269,8 +321,10 @@ public class UserStats {
             }
 
             return isEqual
-                    && username.equals(other.username)
-                    && characterImagePath.equals(other.characterImagePath);
+                    && userName.equals(other.userName)
+                    && gender.equals(other.gender)
+                    && level == other.level
+                    && expLevel == other.expLevel;
 
         } else {
             return false;

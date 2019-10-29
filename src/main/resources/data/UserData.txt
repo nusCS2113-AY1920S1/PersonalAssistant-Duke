@@ -3,7 +3,7 @@ AlgoSenpai Adventures Overall Report
 User1
 miku.png
 
-Chapter 1 : Sorting
+Chapter 1 : sorting
 Total Attempts made : 2
 Total Questions answered : 20
 Total Questions correct : 15
@@ -11,7 +11,7 @@ Total Questions wrong : 5
 Percentage of Questions correct : 75.0
 Comments : "You are almost there!"
 
-Chapter 2 : Linked List
+Chapter 2 : linked-list
 Total Attempts made : 0
 Total Questions answered : 0
 Total Questions correct : 0
@@ -19,7 +19,7 @@ Total Questions wrong : 0
 Percentage of Questions correct : 0
 Comments : "Try your best!"
 
-Chapter 3 : Bitmask
+Chapter 3 : bitmask
 Total Attempts made : 0
 Total Questions answered : 0
 Total Questions correct : 0
@@ -27,7 +27,7 @@ Total Questions wrong : 0
 Percentage of Questions correct : 0
 Comments : "Try your best!"
 
-Chapter 4 : Binary Heap
+Chapter 4 : binary-heap
 Total Attempts made : 0
 Total Questions answered : 0
 Total Questions correct : 0
@@ -35,7 +35,7 @@ Total Questions wrong : 0
 Percentage of Questions correct : 0
 Comments : "Try your best!"
 
-Chapter 5 : Binary Search Tree
+Chapter 5 : binary-search-tree
 Total Attempts made : 0
 Total Questions answered : 0
 Total Questions correct : 0

@@ -14,12 +14,23 @@ import java.util.ArrayList;
 
 public class PdfDocumentWriterUtility {
 
+    /**
+     * Font size.
+     */
     private int size;
+
+    /**
+     * Font color.
+     */
     private BaseColor color;
+
+    /**
+     * Font style.
+     */
     private String fontFactory;
 
     /**
-     * Initialize the text styling for pdf document.
+     * Initializes the text styles.
      */
     public PdfDocumentWriterUtility() {
         size = 16;
@@ -28,9 +39,9 @@ public class PdfDocumentWriterUtility {
     }
 
     /**
-     * Save content to PDF.
-     * @param paragraphs content for the document.
-     * @param documentName name of the document.
+     * Saves content to pdf.
+     * @param paragraphs document content.
+     * @param documentName document name.
      * @throws FileNotFoundException file not found.
      * @throws DocumentException document error.
      */
