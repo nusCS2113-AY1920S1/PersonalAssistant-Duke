@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class is created to parse out the list of all the commands available to
+ * the userInput TextField.
+ */
 public class AutoComplete {
     private final String[] list = {
         "add income",
@@ -47,10 +51,18 @@ public class AutoComplete {
     private List<String> commandList = Arrays.asList(list);
 
     //@@author ChenChao19
+    /**
+     * This is the constructor for the AutoComplete class.
+     * It automatically sorts the list of all commands when it instantiates.
+     */
     public AutoComplete() {
         Collections.sort(commandList);
     }
 
+    /**
+     * This method is the getter for the list of commands.
+     * @return The list of the sorted commands.
+     */
     public List<String> getCommandList() {
         return commandList;
     }

@@ -22,6 +22,7 @@ public class Loan extends Item {
 
     private DateTimeFormatter dateTimeFormatter;
 
+    //@@author chengweixuan
     /**
      * Constructor of the Loan Object to record outgoing and incoming loans.
      * @param amount Total amount of the loan
@@ -29,7 +30,6 @@ public class Loan extends Item {
      * @param startDate Date which the loan was made
      * @param type Type determining the loan is incoming or outgoing
      */
-    //@@author chengweixuan
     public Loan(float amount, String description, LocalDate startDate, Type type) {
         super(amount, description);
         this.startDate = startDate;

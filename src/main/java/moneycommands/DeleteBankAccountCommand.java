@@ -39,8 +39,8 @@ public class DeleteBankAccountCommand extends MoneyCommand {
                 + deletedBank.getDescription(), "bank", Parser.shortcutTime("now"));
         account.getExpListTotal().add(expenditure);
 
-        storage.markDeletedEntry("BAN", index + 1);
-        account.getBankTrackerList().remove(deletedBank);
+        storage.addDeletedBank(deletedBank);
+        account.getBankTrackerList().remove(index);
         ui.appendToOutput("The bank account tracker below has been removed: \n");
         ui.appendToOutput(deletedBank.getBankAccountInfo() + "\n");
     }
@@ -48,11 +48,9 @@ public class DeleteBankAccountCommand extends MoneyCommand {
     @Override
     //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
-       storage.undoDeletedEntry(account, "BAN", index + 1);
-       Expenditure exp = account.getExpListTotal().get(account.getExpListTotal().size() - 1);
-//       if (exp == account.getExpListCurrMonth().get(account.getExpListCurrMonth().size() - 1)) {
-//           account.getExpListCurrMonth().remove(exp);
-//       }
+       BankTracker bt = storage.getDeletedBankTracker();
+       account.getExpListTotal().remove(account.getExpListTotal().size() - 1);
+       account.getBankTrackerList().add(index, bt);
        storage.writeToFile(account);
 
         ui.appendToOutput(" Last command undone: \n");

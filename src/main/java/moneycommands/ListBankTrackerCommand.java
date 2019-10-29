@@ -2,17 +2,17 @@ package moneycommands;
 
 import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
+import controlpanel.Ui;
 import money.Account;
 import money.BankTracker;
-import controlpanel.Ui;
+
 
 import java.util.ArrayList;
 
 /**
- * This class responds to "list bank trackers" command to list down all
- * the existing bank account trackers.
+ * This class responds to "list bank trackers" command to list down all the existing bank account trackers.
  */
-public class ListBankTrackerCommand extends MoneyCommand{
+public class ListBankTrackerCommand extends MoneyCommand {
 
     //@@author cctt1014
     public ListBankTrackerCommand() {
@@ -39,7 +39,7 @@ public class ListBankTrackerCommand extends MoneyCommand{
         ArrayList<BankTracker> accountList = account.getBankTrackerList();
         ui.appendToOutput("Here are the bank accounts and their info:\n");
         for (int i = 0; i < accountList.size(); i++) {
-            ui.appendToOutput((i+1) + ". ----------------------------------------\n");
+            ui.appendToOutput((i + 1) + ". ----------------------------------------\n");
             ui.appendToOutput(accountList.get(i).getBankAccountInfo() + "\n");
             ui.appendToOutput("-------------------------------------------\n");
         }

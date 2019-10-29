@@ -14,9 +14,12 @@ import java.text.ParseException;
 public class UndoCommand extends  MoneyCommand {
 
     //@@author Chianhaoplanks
-    public UndoCommand() {}
+    public UndoCommand() {
+    }
 
-    public boolean isExit() { return  false; }
+    public boolean isExit() {
+        return  false;
+    }
 
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException {

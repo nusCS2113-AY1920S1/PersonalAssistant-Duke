@@ -116,8 +116,6 @@ public class Parser {
             moneyCommand = new SettleLoanCommand(cmd);
         } else if (cmd.startsWith("delete loan")) {
             moneyCommand = new DeleteLoanCommand(cmd);
-        } else if (cmd.startsWith("add bill")) {
-            moneyCommand = new AddBillCommand(cmd);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }

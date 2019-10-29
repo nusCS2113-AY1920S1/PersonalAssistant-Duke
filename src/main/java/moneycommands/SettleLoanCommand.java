@@ -28,12 +28,12 @@ public class SettleLoanCommand extends MoneyCommand {
     private boolean isSettled;
     private String payDirection;
 
+    //@@author chengweixuan
     /**
      * Constructor of the command which initialises the settle loan command.
      * Determines the type of of loan to settle specified in the user input.
      * @param command Settle command inputted by user
      */
-    //@@author chengweixuan
     public SettleLoanCommand(String command) {
         if (command.startsWith("paid")) {
             inputString = command.replaceFirst("paid ", "");

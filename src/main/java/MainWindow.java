@@ -68,20 +68,20 @@ public class MainWindow extends AnchorPane {
     public void setDuke(Duke d) {
         duke = d;
         boolean isNewUser = duke.getAccount().isToInitialize();
-        if(isNewUser){
+        if (isNewUser) {
             dialogContainer.getChildren().addAll(
                     DialogBox.getDukeDialog("enter start to begin", dukeImage));
-        }else{
+        } else {
             dialogContainer.getChildren().addAll(
                     DialogBox.getDukeDialog("Welcome Back To Financial Ghost", dukeImage));
         }
     }
 
+    //@@author cctt1014
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to.
      * the dialog container. Clears the user input after processing.
      */
-    //@@author cctt1014
     @FXML
     private void handleUserInput() throws IOException, ParseException, DukeException {
         String input = userInput.getText();
@@ -131,6 +131,10 @@ public class MainWindow extends AnchorPane {
     }
 
     //@@author ChenChao19
+    /**
+     * AutoComplete function where the T extField userInput will be bind with an
+     * auto completed list of commands.
+     */
     @FXML
     private void autoCompleteFunction() {
         AutoComplete autoComplete = new AutoComplete();
@@ -148,6 +152,12 @@ public class MainWindow extends AnchorPane {
         suggestions.setPrefWidth(200);
     }
 
+    /**
+     * Calls the autoCompleteFunction and overrides the handler of
+     * some key events to memorise the history of the commands type
+     * in by the user. Press up for previous commands typed in the Textfield
+     * userInput and down for next commands.
+     */
     @FXML
     private void help() {
         autoCompleteFunction();

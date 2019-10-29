@@ -12,6 +12,7 @@ public class Split extends Expenditure {
     private float eachOwe;
     private float outstandingAmount;
 
+    //@@author chengweixuan
     /**
      * Constructor of the Split Object to record split expenditure.
      * @param price Price of the item spent on
@@ -20,7 +21,6 @@ public class Split extends Expenditure {
      * @param boughtDate Date which the item is bought
      * @param parties ArrayList containing information on people the split expenditure is split with
      */
-    //@@author chengweixuan
     public Split(float price, String description, String category, LocalDate boughtDate, ArrayList<Pair<String, Boolean>> parties) {
         super(price, description, category, boughtDate);
         this.parties = parties;
@@ -66,11 +66,13 @@ public class Split extends Expenditure {
      * This method sets the debt of a person in the split expenditure to settled.
      * @param settleNo
      */
-    public void hasSettledSplit(int settleNo) {
-        String nameOfPerson = getNameOfPerson(settleNo);
-        Pair<String, Boolean> temp = new Pair<>(nameOfPerson, true);
-        parties.set(settleNo, temp);
-        outstandingAmount -= eachOwe;
+    public void settleSplit(int settleNo, int toggle) {
+        if (toggle > 0) {
+            setIsPersonSettled(settleNo, true);
+        } else if (toggle < 0) {
+            setIsPersonSettled(settleNo, false);
+        }
+        outstandingAmount -= (toggle * eachOwe);
         if (outstandingAmount == 0) {
             isSettled = true;
         }
@@ -102,4 +104,9 @@ public class Split extends Expenditure {
         return everyone.toString().substring(0, everyone.toString().length() - 3);
     }
 
+    public void setIsPersonSettled(int settleNo, boolean value) {
+        String nameOfPerson = getNameOfPerson(settleNo);
+        Pair<String, Boolean> temp = new Pair<>(nameOfPerson, value);
+        parties.set(settleNo, temp);
+    }
 }

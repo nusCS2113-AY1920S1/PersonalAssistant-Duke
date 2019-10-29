@@ -15,10 +15,10 @@ import java.text.ParseException;
  */
 public class ListInstalmentCommand extends MoneyCommand {
 
+    //@@author ChenChao19
     /**
      * Constructor of the list command.
      */
-    //@@author ChenChao19
     public ListInstalmentCommand(){
     }
 

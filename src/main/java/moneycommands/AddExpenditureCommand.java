@@ -23,12 +23,12 @@ public class AddExpenditureCommand extends MoneyCommand {
     private String category;
     private LocalDate boughtTime;
 
+    //@@author chengweixuan
     /**
      * Constructor of the command which initialises the add expenditure command
      * with the expenditure data within the user input.
      * @param command add command inputted from user
      */
-    //@@author chengweixuan
     public AddExpenditureCommand(String command) {
         inputString = command.replaceFirst("spent ", "");
     }

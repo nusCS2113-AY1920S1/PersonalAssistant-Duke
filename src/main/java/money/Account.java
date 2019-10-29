@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ * This class is created to store the information of the user's financial information.
+ */
 public class Account {
     private ArrayList<Income> incomeListTotal;
     private ArrayList<Expenditure> expListTotal;
@@ -20,6 +23,10 @@ public class Account {
     private boolean toInitialize;
 
     //@@author ChenChao19
+    /**
+     * Constructor of the Account Object to record financial information of the user.
+     * This constructor is used when initializing a new account.
+     */
     public Account() {
         incomeListTotal = new ArrayList<>();
         expListTotal = new ArrayList<>();
@@ -30,6 +37,11 @@ public class Account {
         toInitialize = true;
     }
 
+    /**
+     * Constructor of the Account Object to record financial information of the user.
+     * This constructor is used when a previous account is parsed in as a parameter.
+     * @param account A previously existing account that is parsed in.
+     */
     public Account(Account account) {
         incomeListTotal = account.getIncomeListTotal();
         expListTotal = account.getExpListTotal();
@@ -46,6 +58,11 @@ public class Account {
     }
 
     //@@author therealnickcheong
+    /**
+     * This method is to initialize the user account when he uses Financial Ghost for the first time.
+     * @param userSavings The initial savings the user have in his account
+     * @param avgExp The average Expenditure per month of the user
+     */
     public void initialize(float userSavings, float avgExp) {
         LocalDate nowDate = LocalDate.now();
         Income initialSavings;
@@ -85,6 +102,10 @@ public class Account {
         return loans;
     }
 
+    /**
+     * This method iterates through all the loans and sum them up.
+     * @return The total amount of all the loans
+     */
     public float getLoansTotal() {
         float total = 0;
         for (Loan l : loans) {
@@ -93,6 +114,10 @@ public class Account {
         return total;
     }
 
+    /**
+     * This method iterate through all the loans and select the outgoing loans and put them in a list.
+     * @return The list of outgoing loans.
+     */
     public ArrayList<Loan> getOutgoingLoans() {
         ArrayList<Loan> outgoingLoans = new ArrayList<>();
         for (Loan l : loans) {
@@ -103,6 +128,10 @@ public class Account {
         return outgoingLoans;
     }
 
+    /**
+     * This method iterate through all the loans and select the incoming loans and put them in a list.
+     * @return The list of incoming loans.
+     */
     public ArrayList<Loan> getIncomingLoans() {
         ArrayList<Loan> incomingLoans = new ArrayList<>();
         for (Loan l : loans) {
@@ -114,6 +143,10 @@ public class Account {
     }
 
     //@@author therealnickcheong
+    /**
+     * This method sorts the short term goal with a custom comparator function.
+     * @param shortTermGoals The lists of short term goals
+     */
     public void sortShortTermGoals(ArrayList<Goal> shortTermGoals) {
         Collections.sort(shortTermGoals, new Comparator<Goal>() {
             @Override
@@ -137,6 +170,11 @@ public class Account {
         this.baseSavings = baseSavings;
     }
 
+    /**
+     * This method iterate through the list of the income and
+     * sum them up.
+     * @return The sum of all the income
+     */
     public float getTotalIncome() {
         float total = 0;
         for (Income i : incomeListTotal) {
@@ -145,6 +183,11 @@ public class Account {
         return total;
     }
 
+    /**
+     * This method iterate through the list of the expenditure and
+     * sum them up.
+     * @return The sum of all the expenditure
+     */
     public float getTotalExp() {
         float total = 0;
         for (Expenditure i : expListTotal) {
@@ -181,14 +224,13 @@ public class Account {
         this.toInitialize = initStatus;
     }
 
-
+    //@@author cctt1014
     /**
      * This method helps to find the corresponding bank account tracker by given description(name).
      * @param name The given description
      * @return The corresponding tracker
      * @throws DukeException Handle the case when there is no such account
      */
-    //@@author cctt1014
     public BankTracker findTrackerByName(String name) throws DukeException {
         BankTracker bankTracker = null;
         for (BankTracker b : bankTrackerList) {

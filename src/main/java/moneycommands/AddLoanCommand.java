@@ -23,7 +23,7 @@ public class AddLoanCommand extends MoneyCommand {
     private String description;
     private LocalDate startDate;
 
-
+    //@@author chengweixuan
     /**
      * Constructor of the command which initialises the add loan command
      * with the loan data within the user input.
@@ -31,7 +31,6 @@ public class AddLoanCommand extends MoneyCommand {
      * data in user input.
      * @param command add command inputted from user
      */
-    //@@author chengweixuan
     public AddLoanCommand(String command) {
         if (command.startsWith("lent")) {
             inputString = command.replaceFirst("lent ", "");

@@ -2,15 +2,19 @@ package help;
 
 import java.util.ArrayList;
 
+/**
+ * This class is created to memorise previous commands type in by the user.
+ */
 public class History {
-    private String previousCommand;
-    private String nextCommand;
     private int currIndex;
     private ArrayList<String> commandsEntered;
     private boolean flag;
     private boolean flagForFirstPress;
 
     //@@author ChenChao19
+    /**
+     * This is the constructor for recording previous commands type in by the user.
+     */
     public History() {
         commandsEntered = new ArrayList<>();
         this.flagForFirstPress = true;
@@ -33,18 +37,24 @@ public class History {
         return currIndex;
     }
 
-    public int getMaxIndex() {
-        return commandsEntered.size(); //0-based indexing
-    }
-
     public void setCurrIndex() {
         currIndex = commandsEntered.size(); //0-based indexing
+    }
+
+    public int getMaxIndex() {
+        return commandsEntered.size(); //0-based indexing
     }
 
     public void setFlagForFirstPress() {
         flagForFirstPress = true;
     }
 
+    /**
+     * This method gets the previous command that the user type into the TextField
+     * userInput. It is called when the user pressed the up button on the keyboard
+     * and triggers a key event.
+     * @return The previous command entered by the user.
+     */
     public String getPreviousCommand() {
         if (flagForFirstPress) {
             currIndex = getMaxIndex() - 1;
@@ -54,10 +64,15 @@ public class History {
                 currIndex -= 1;
             }
         }
-        previousCommand = commandsEntered.get(currIndex);
-        return previousCommand;
+        return commandsEntered.get(currIndex);
     }
 
+    /**
+     * This method gets the next command that the user type into the TextField
+     * userInput. It is called when the user pressed the down button on the keyboard
+     * and triggers a key event.
+     * @return The next command entered by the user.
+     */
     public String getNextCommand() {
         if (currIndex == getMaxIndex()) {
             currIndex = getMaxIndex() - 1;
@@ -66,7 +81,6 @@ public class History {
                 currIndex += 1;
             }
         }
-        nextCommand = commandsEntered.get(currIndex);
-        return nextCommand;
+        return commandsEntered.get(currIndex);
     }
 }

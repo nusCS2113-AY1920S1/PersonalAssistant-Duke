@@ -20,16 +20,17 @@ import java.util.ArrayList;
 public class SettleSplitCommand extends MoneyCommand {
 
     private String inputString;
-    private int serialNo;
-    private Split sToSettle;
+    private static int serialNo;
+    private static int settleNo;
+    private static Split sToSettle;
 
+    //@@author chengweixuan
     /**
      * Constructor of the command which initialises the settle split expenditure command
      * with the data for the index of the split expenditure in the Total Expenditure List
      * and the person who has settled the debt
      * @param command Settle split expenditure command inputted from user
      */
-    //@@author chengweixuan
     public SettleSplitCommand(String command) {
         inputString = command.replaceFirst("settle ", "");
     }
@@ -39,7 +40,8 @@ public class SettleSplitCommand extends MoneyCommand {
         return false;
     }
 
-    private int getSettleNo(String person, ArrayList<Pair<String, Boolean>> parties, String description) throws DukeException {
+    private int getSettleNo(String person, ArrayList<Pair<String, Boolean>> parties, String description, boolean value)
+            throws DukeException {
 
         if (Parser.isNumeric(person)) {
             int personIndex = Integer.parseInt(person) - 1;
@@ -47,7 +49,7 @@ public class SettleSplitCommand extends MoneyCommand {
                 return Integer.parseInt(person) - 1;
             }
         } else {
-            Pair<String, Boolean> toSearch = new Pair<>(person, false);
+            Pair<String, Boolean> toSearch = new Pair<>(person, value);
             if (parties.contains(toSearch)) {
                 return parties.indexOf(toSearch);
             }
@@ -78,18 +80,17 @@ public class SettleSplitCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
-        int settleNo;
         try {
             String[] splitStr = inputString.split(" ", 2);
             serialNo = Integer.parseInt(splitStr[0]) - 1;
             sToSettle = getSplitToSettle(account.getExpListTotal());
-            settleNo = getSettleNo(splitStr[1], sToSettle.getParties(), sToSettle.getDescription());
+            settleNo = getSettleNo(splitStr[1], sToSettle.getParties(), sToSettle.getDescription(), false);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("The serial number of the expenditure is Out Of Bounds!");
+            throw new DukeException("The serial number of the expenditure is Out of Bounds!");
         }
 
         try {
-            sToSettle.hasSettledSplit(settleNo);
+            sToSettle.settleSplit(settleNo, 1);
             account.getExpListTotal().set(serialNo, sToSettle);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("The serial number of the party specified is Out of Bounds!\n");
@@ -116,8 +117,26 @@ public class SettleSplitCommand extends MoneyCommand {
 
     @Override
     //@@author Chianhaoplanks
-    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
-        throw new DukeException("Command can't be undone!\n");
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException{
+        account.getIncomeListTotal().remove(account.getIncomeListTotal().size() - 1);
+        try {
+            String[] splitStr = inputString.split(" ", 2);
+            serialNo = Integer.parseInt(splitStr[0]) - 1;
+            sToSettle = getSplitToSettle(account.getExpListTotal());
+            settleNo = getSettleNo(splitStr[1], sToSettle.getParties(), sToSettle.getDescription(), true);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("The serial number of the expenditure is Out Of Bounds!");
+        }
+        try {
+            sToSettle.settleSplit(settleNo, -1);
+            account.getExpListTotal().set(serialNo, sToSettle);
+            storage.writeToFile(account);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("The serial number of the party specified is Out of Bounds!\n");
+        }
+
+        ui.appendToOutput("Last command undone:\n");
+        ui.appendToOutput(account.getExpListTotal().get(serialNo).toString() + '\n');
     }
 
 }

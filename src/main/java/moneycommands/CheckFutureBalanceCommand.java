@@ -21,12 +21,12 @@ public class CheckFutureBalanceCommand extends MoneyCommand {
     private String description;
     private LocalDate futureDate;
 
+    //@@author cctt1014
     /**
      * The constructor parses the input command and gets the description and the date
      * @param inputString The command typed in by the user
      * @throws ParseException The exception for parsing the date
      */
-    //@@author cctt1014
     public CheckFutureBalanceCommand(String inputString) throws ParseException {
         description = inputString.split(" /at ")[0];
         description = description.replaceFirst("check-balance ", "");

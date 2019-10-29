@@ -1,3 +1,5 @@
+package money;
+
 import controlpanel.MoneyStorage;
 import controlpanel.Parser;
 import money.Expenditure;

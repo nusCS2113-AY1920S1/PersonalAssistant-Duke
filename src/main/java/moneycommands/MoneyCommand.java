@@ -1,9 +1,9 @@
 package moneycommands;
 
 import controlpanel.MoneyStorage;
-import money.*;
 import controlpanel.DukeException;
 import controlpanel.Ui;
+import money.Account;
 
 import java.text.ParseException;
 
@@ -14,6 +14,7 @@ public abstract class MoneyCommand {
     }
 
     public abstract boolean isExit();
+
     public abstract void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException;
 
     //@@author Chianhaoplanks

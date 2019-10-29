@@ -21,12 +21,12 @@ public class AddIncomeCommand extends MoneyCommand {
     private float salary;
     private LocalDate payDay;
 
+    //@@author chengweixuan
     /**
      * Constructor of the command which initialises the add income command
      * with the income source data within the user input.
      * @param command add command inputted from user
      */
-    //@@author chengweixuan
     public AddIncomeCommand(String command) {
         inputString = command.replaceFirst("add income ", "");
     }
