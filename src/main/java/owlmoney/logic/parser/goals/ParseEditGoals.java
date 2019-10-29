@@ -59,7 +59,7 @@ public class ParseEditGoals extends ParseGoals {
                 changeCounter++;
             }
             if (IN.equals(key) && !(value.isEmpty() || value.isBlank())) {
-                checkInt(IN, value);
+                checkDay(IN, value);
                 by = convertDaysToDate(Integer.parseInt(value));
                 changeCounter++;
             }

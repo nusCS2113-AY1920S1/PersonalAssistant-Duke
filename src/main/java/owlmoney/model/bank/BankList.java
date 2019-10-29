@@ -674,6 +674,7 @@ public class BankList {
                 return;
             }
         }
+        throw new BankException("Cannot find bank with name: " + bankName);
     }
 
     /**

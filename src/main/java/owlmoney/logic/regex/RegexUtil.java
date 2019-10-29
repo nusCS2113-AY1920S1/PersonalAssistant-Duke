@@ -139,7 +139,7 @@ public final class RegexUtil {
      * @return the result of the check on whether it fulfills the criteria.
      */
     public static boolean regexCheckDay(String input) {
-        final String dayRegex = "^[1-9]\\d{0,2}$";
+        final String dayRegex = "^(?:[1-9]\\d?|[12]\\d{2}|3[0-5]\\d|36[0-5])$";
         if (input.matches(dayRegex)) {
             int parsedDay = Integer.parseInt(input);
             return (parsedDay <= 365);

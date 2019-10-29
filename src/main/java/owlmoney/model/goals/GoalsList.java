@@ -25,14 +25,25 @@ public class GoalsList {
     private static final String PROFILE_GOAL_LIST_FILE_NAME = "profile_goallist.csv";
 
 
-
     /**
      * Creates a instance of GoalsList that contains an arrayList of Goals.
+     *
      * @param storage for importing and exporting purposes.
      */
     public GoalsList(Storage storage) {
         goalList = new ArrayList<Goals>();
         this.storage = storage;
+    }
+
+    /**
+     * Limits the number of goals that user can have when setting goals.
+     *
+     * @throws GoalsException If number of goals exceeds 20.
+     */
+    private void checkNumGoals() throws GoalsException {
+        if (goalList.size() >= 20) {
+            throw new GoalsException("You've reached the limit of 20 goals!");
+        }
     }
 
     /**
@@ -48,7 +59,7 @@ public class GoalsList {
             for (int i = ISZERO; i < goalList.size(); i++) {
                 printOneGoal((i + ONE_INDEX), goalList.get(i), ISMULTIPLE, ui);
             }
-            ui.printDivider();
+            ui.printGoalDivider();
             try {
                 exportGoalList();
             } catch (IOException e) {
@@ -69,6 +80,10 @@ public class GoalsList {
         if (goalExists(goals.getGoalsName())) {
             throw new GoalsException("There is already a goal with the same name " + goals.getGoalsName());
         }
+        if (goals.getStatus().equals("✓")) {
+            throw new GoalsException("You cannot add a goal that is already achieved!");
+        }
+        checkNumGoals();
         goalList.add(goals);
         try {
             exportGoalList();
@@ -165,7 +180,12 @@ public class GoalsList {
                     goalList.get(i).setGoalsDate(date);
                 }
                 if (savingAcc != null) {
-                    goalList.get(i).setSavingAccount(savingAcc);
+                    if (savingAcc.getCurrentAmount() < goalList.get(i).getGoalsAmount()) {
+                        goalList.get(i).setSavingAccount(savingAcc);
+                    } else {
+                        throw new GoalsException("You cannot add a goal that is already achieved!");
+                    }
+
                 }
                 try {
                     exportGoalList();
@@ -197,11 +217,10 @@ public class GoalsList {
         if (!goal.getSavingAccount().isBlank()) {
             goal.isDone(Double.parseDouble(goal.getRemainingAmount()));
         }
-        ui.printGoal(num, goal.getGoalsName(), "$"
-                        + new DecimalFormat("0.00").format(goal.getGoalsAmount()),
-                goal.getSavingAccount(),"$" + goal.getRemainingAmount(), goal.getGoalsDate(), goal.getStatus());
+        ui.printGoal(num, goal.getGoalsName(), "$" + new DecimalFormat("0.00").format(goal.getGoalsAmount()),
+                goal.getSavingAccount(), "$" + goal.getRemainingAmount(), goal.getGoalsDate(), goal.getStatus());
         if (!isMultiplePrinting) {
-            ui.printDivider();
+            ui.printGoalDivider();
         }
     }
 
@@ -249,7 +268,7 @@ public class GoalsList {
         DecimalFormat decimalFormat = new DecimalFormat(".00");
         decimalFormat.setRoundingMode(RoundingMode.DOWN);
         SimpleDateFormat exportDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        exportArrayList.add(new String[]{"goalName","amount","date","savingsAccountName","doneStatus"});
+        exportArrayList.add(new String[]{"goalName", "amount", "date", "savingsAccountName", "doneStatus"});
         for (int i = 0; i < getGoalListSize(); i++) {
             String goalName = goalList.get(i).getGoalsName();
             double amount = goalList.get(i).getGoalsAmount();
@@ -258,7 +277,7 @@ public class GoalsList {
             String savingsAccountName = goalList.get(i).getSavingAccount();
             boolean doneStatus = goalList.get(i).getRawStatus();
             String stringDoneStatus = String.valueOf(doneStatus);
-            exportArrayList.add(new String[]{goalName,stringAmount,date,savingsAccountName,stringDoneStatus});
+            exportArrayList.add(new String[]{goalName, stringAmount, date, savingsAccountName, stringDoneStatus});
         }
         return exportArrayList;
     }
@@ -270,11 +289,12 @@ public class GoalsList {
      */
     private void exportGoalList() throws IOException {
         ArrayList<String[]> inputData = prepareExportGoalList();
-        storage.writeFile(inputData,PROFILE_GOAL_LIST_FILE_NAME);
+        storage.writeFile(inputData, PROFILE_GOAL_LIST_FILE_NAME);
     }
 
     /**
      * Imports goals loaded from save file into goalList.
+     *
      * @param newGoal an instance of the goal to be imported.
      */
     public void bankListImportNewGoal(Goals newGoal) {
