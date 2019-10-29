@@ -1,12 +1,9 @@
 import javacake.commands.QuizCommand;
-import javacake.exceptions.DukeException;
-import javacake.quiz.BasicQuestion;
+import javacake.exceptions.CakeException;
 import javacake.quiz.Question;
-import javacake.quiz.QuestionList;
 import org.junit.jupiter.api.Test;
 
 import static javacake.commands.QuizCommand.MAX_QUESTIONS;
-import static javacake.commands.QuizCommand.TotalMaxQuestions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
@@ -15,7 +12,7 @@ import java.util.Set;
 
 public class QuestionListTest {
     @Test
-    public void initializeBasicQuizTest() throws DukeException {
+    public void initializeBasicQuizTest() throws CakeException {
         QuizCommand quiz = new QuizCommand(Question.QuestionType.BASIC, Question.QuestionDifficulty.EASY, true);
         quiz.filePath = "content/MainList/1. Java Basics/4. Test Yourself!/1. Easy Quiz";
         quiz.totalNumOfQns = 5;

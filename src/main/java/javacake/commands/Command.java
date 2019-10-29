@@ -1,13 +1,9 @@
 package javacake.commands;
 
 import javacake.Logic;
-import javacake.exceptions.DukeException;
-import javacake.storage.Profile;
+import javacake.exceptions.CakeException;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
-import javacake.storage.Storage;
-
-import java.io.IOException;
 
 public abstract class Command {
     protected CmdType type;
@@ -23,7 +19,7 @@ public abstract class Command {
     }
 
     public abstract String execute(Logic logic, Ui ui, StorageManager storageManager)
-            throws DukeException;
+            throws CakeException;
 
     /**
      * Method to get the type of command.

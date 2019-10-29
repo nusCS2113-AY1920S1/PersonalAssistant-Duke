@@ -4,10 +4,8 @@ import javacake.Logic;
 import javacake.commands.ListNoteCommand;
 import javacake.commands.QuizCommand;
 import javacake.commands.ReminderCommand;
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 import javacake.quiz.Question;
-import javacake.storage.Profile;
-import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 
 import java.io.BufferedReader;
@@ -68,7 +66,7 @@ public class Ui {
         return new ReminderCommand().execute(Logic.getInstance(), new Ui(), storageManager);
     }
 
-    public static String showNoteList(StorageManager storageManager) throws DukeException {
+    public static String showNoteList(StorageManager storageManager) throws CakeException {
         return new ListNoteCommand().execute(Logic.getInstance(), new Ui(), storageManager);
     }
 
@@ -124,9 +122,9 @@ public class Ui {
     /**
      * Method to display text from file.
      * @param reader BufferedReader to read in text from file
-     * @throws DukeException Error thrown when unable to close reader
+     * @throws CakeException Error thrown when unable to close reader
      */
-    public void displayTextFile(BufferedReader reader) throws DukeException {
+    public void displayTextFile(BufferedReader reader) throws CakeException {
         String lineBuffer;
         try {
             while ((lineBuffer = reader.readLine()) != null) {
@@ -134,16 +132,16 @@ public class Ui {
             }
             reader.close();
         } catch (IOException e) {
-            throw new DukeException("File not found!");
+            throw new CakeException("File not found!");
         }
     }
 
     /**
      * Method to get text from file.
      * @param reader BufferedReader to read in text from file
-     * @throws DukeException Error thrown when unable to close reader
+     * @throws CakeException Error thrown when unable to close reader
      */
-    public static String getTextFile(BufferedReader reader) throws DukeException {
+    public static String getTextFile(BufferedReader reader) throws CakeException {
         String lineBuffer;
         String output = "";
         try {
@@ -153,7 +151,7 @@ public class Ui {
             }
             reader.close();
         } catch (IOException e) {
-            throw new DukeException("File not found!");
+            throw new CakeException("File not found!");
         }
         return output;
     }

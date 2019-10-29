@@ -1,6 +1,6 @@
 package javacake.notes;
 
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,9 +20,9 @@ public class NoteList {
      * Using Depth-First-Search to find all text files.
      * In current directory, the text files are notes.
      * @return ArrayList storing all the notes.
-     * @throws DukeException If text file does not exist.
+     * @throws CakeException If text file does not exist.
      */
-    public ArrayList<Note> compileNotes() throws DukeException {
+    public ArrayList<Note> compileNotes() throws CakeException {
         try {
             Stream<Path> walk = Files.walk(Paths.get("data/notes/"));
             List<String> result = walk.filter(Files::isRegularFile)
@@ -33,7 +33,7 @@ public class NoteList {
                 al.add(new Note(processedName));
             }
         } catch (NullPointerException | IOException e) {
-            throw new DukeException("Content not found!" + "\nPls key 'back' or 'list' to view previous content!");
+            throw new CakeException("Content not found!" + "\nPls key 'back' or 'list' to view previous content!");
         }
         return al;
     }
@@ -42,14 +42,14 @@ public class NoteList {
      * Format the names to only display the last partition of file path.
      * @param resultName File paths that are not processed.
      * @return String containing the last partition of file path.
-     * @throws DukeException If index of array does not exist.
+     * @throws CakeException If index of array does not exist.
      */
-    private String processFileNames(String resultName) throws DukeException {
+    private String processFileNames(String resultName) throws CakeException {
         try {
             String[] partitionsInFilePath = resultName.split("\\\\");
             return partitionsInFilePath[partitionsInFilePath.length - 1];
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(e.getMessage());
+            throw new CakeException(e.getMessage());
         }
     }
 }

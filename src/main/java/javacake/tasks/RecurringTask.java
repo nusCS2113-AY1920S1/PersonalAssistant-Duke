@@ -1,6 +1,6 @@
 package javacake.tasks;
 
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -27,7 +27,7 @@ public class RecurringTask extends ToDo {
 
         try {
             setFrequency(frequency);
-        } catch (DukeException e) {
+        } catch (CakeException e) {
             //e.getMessage();
         }
 
@@ -53,7 +53,7 @@ public class RecurringTask extends ToDo {
         }
     }
 
-    private void setFrequency(String freq) throws DukeException {
+    private void setFrequency(String freq) throws CakeException {
         switch (freq) {
         case "daily":
             this.frequency = Frequency.DAILY;
@@ -68,7 +68,7 @@ public class RecurringTask extends ToDo {
             this.freq = "m";
             break;
         default:
-            throw new DukeException("Please enter a frequency: daily, weekly or monthly");
+            throw new CakeException("Please enter a frequency: daily, weekly or monthly");
         }
     }
 

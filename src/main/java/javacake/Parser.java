@@ -9,14 +9,13 @@ import javacake.commands.DeleteNoteCommand;
 import javacake.commands.EditNoteCommand;
 import javacake.commands.ExitCommand;
 import javacake.commands.GoToCommand;
-import javacake.commands.HelpCommand;
 import javacake.commands.ListCommand;
 import javacake.commands.ListNoteCommand;
 import javacake.commands.OverviewCommand;
 import javacake.commands.ReminderCommand;
 import javacake.commands.ResetCommand;
 import javacake.commands.ScoreCommand;
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 import javacake.ui.MainWindow;
 
 public class Parser {
@@ -27,9 +26,9 @@ public class Parser {
      *              to identify the intent
      * @return a subclass of the Command Class along
      *         with their respective intent
-     * @throws DukeException Shows error when unknown command is inputted
+     * @throws CakeException Shows error when unknown command is inputted
      */
-    public static Command parse(String inputCommand) throws DukeException {
+    public static Command parse(String inputCommand) throws CakeException {
         String[] buffer = inputCommand.split("\\s+");
         String commandWord = buffer[0];
         helper(commandWord);
@@ -51,7 +50,7 @@ public class Parser {
                 MainWindow.isChanged = true;
                 return new ChangeColorCommand();
             default:
-                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
+                throw new CakeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }
     }
 
@@ -61,7 +60,7 @@ public class Parser {
      * 1) if user types one alphabet wrongly, eg. trre instead of tree.
      * 2) if user accidentally types extra or less letter, eg. treee or tre instead of tree.
      */
-    private static void helper(String input) throws DukeException {
+    private static void helper(String input) throws CakeException {
         String[] commands = {"exit", "list", "back", "help", "score", "reset", "goto",
             "overview", "deadline", "editnote", "createnote", "listnote", "deletenote"};
 
@@ -95,7 +94,7 @@ public class Parser {
             }
 
             if (isTypo) {
-                throw new DukeException("Sorry, but do you mean this : " + command);
+                throw new CakeException("Sorry, but do you mean this : " + command);
             }
         }
     }

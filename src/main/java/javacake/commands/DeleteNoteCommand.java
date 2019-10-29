@@ -1,7 +1,7 @@
 package javacake.commands;
 
 import javacake.Logic;
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
@@ -16,16 +16,16 @@ public class DeleteNoteCommand extends Command {
      * Constructor for DeleteNoteCommand.
      * Command used to delete a specific existing notes.
      * @param inputCommand Command input from the user.
-     * @throws DukeException If user does not input parameter.
+     * @throws CakeException If user does not input parameter.
      */
-    public DeleteNoteCommand(String inputCommand) throws DukeException {
+    public DeleteNoteCommand(String inputCommand) throws CakeException {
         try {
             String[] parametersInCommand = inputCommand.split("\\s+");
             String inputFileName = parametersInCommand[1];
             processFile(inputFileName);
             type = CmdType.DELETENOTE;
         } catch (NullPointerException e) {
-            throw new DukeException(e.getMessage());
+            throw new CakeException(e.getMessage());
         }
     }
 
@@ -36,10 +36,10 @@ public class DeleteNoteCommand extends Command {
      * @param ui the Ui responsible for outputting messages
      * @param storageManager storage container
      * @return Notification messages depending delete outcome.
-     * @throws DukeException If file does not exist.
+     * @throws CakeException If file does not exist.
      */
     @Override
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         try {
             File tempFile = new File(fullFilePath);
             if (tempFile.delete()) {
@@ -48,7 +48,7 @@ public class DeleteNoteCommand extends Command {
                 return "Unable to delete " + fileName + ".txt";
             }
         } catch (Exception e) {
-            throw new DukeException(e.getMessage());
+            throw new CakeException(e.getMessage());
         }
     }
 
@@ -57,13 +57,13 @@ public class DeleteNoteCommand extends Command {
      * Checks for illegal characters and if file exists.
      * Assigns inputFileName to fileName to prepare for deletion.
      * @param inputFileName Name of file user wants to delete.
-     * @throws DukeException If illegal character or invalid file name detected.
+     * @throws CakeException If illegal character or invalid file name detected.
      */
-    private void processFile(String inputFileName) throws DukeException {
+    private void processFile(String inputFileName) throws CakeException {
         if (containsIllegalCharacters(inputFileName)) {
-            throw new DukeException("Invalid file name: Illegal character in file name detected!");
+            throw new CakeException("Invalid file name: Illegal character in file name detected!");
         } else if (fileDoesNotExist(inputFileName)) {
-            throw new DukeException("Invalid file name: No such file!");
+            throw new CakeException("Invalid file name: No such file!");
         } else {
             fileName = inputFileName;
         }

@@ -1,6 +1,6 @@
 package javacake.quiz;
 
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +28,7 @@ public class QuestionList {
      * Updates the current number of basic questions in the hardcoded file path and returns all the questions stored.
      * @return ArrayList of all the basic questions available.
      */
-    private ArrayList<BasicQuestion> initBasicList() throws DukeException {
+    private ArrayList<BasicQuestion> initBasicList() throws CakeException {
         //        try {
         //            dir = new File(getClass().getResource("/content/MainList").toURI());
         //        } catch (URISyntaxException e) {
@@ -63,7 +63,7 @@ public class QuestionList {
                 String[] questions = qns.split("\\|\\s*");
                 basicQuestionList.add(new BasicQuestion(questions[0], questions[1]));
             } catch (IOException e) {
-                throw new DukeException("File not found!");
+                throw new CakeException("File not found!");
             }
         }
         return basicQuestionList;
@@ -73,7 +73,7 @@ public class QuestionList {
      * Updates the current number of oop questions in the hardcoded file path and returns all the questions stored.
      * @return ArrayList of all the oop questions available.
      */
-    private ArrayList<OopQuestion> initOopList() throws DukeException {
+    private ArrayList<OopQuestion> initOopList() throws CakeException {
         //        try {
         //            dir = new File(getClass().getResource("/content/MainList").toURI());
         //        } catch (URISyntaxException e) {
@@ -108,7 +108,7 @@ public class QuestionList {
                 oopQuestionList.add(new OopQuestion(questions[0], questions[1]));
 
             } catch (IOException e) {
-                throw new DukeException("File not found!");
+                throw new CakeException("File not found!");
             }
         }
         return oopQuestionList;
@@ -119,7 +119,7 @@ public class QuestionList {
      * and returns all the questions stored.
      * @return ArrayList of all the extension questions available.
      */
-    private ArrayList<ExtensionQuestion> initExtensionList() throws DukeException {
+    private ArrayList<ExtensionQuestion> initExtensionList() throws CakeException {
         //        try {
         //            dir = new File(getClass().getResource("/content/MainList").toURI());
         //        } catch (URISyntaxException e) {
@@ -152,7 +152,7 @@ public class QuestionList {
                 extensionQuestionList.add(new ExtensionQuestion(questions[0], questions[1]));
 
             } catch (IOException e) {
-                throw new DukeException("File not found!");
+                throw new CakeException("File not found!");
             }
         }
         return extensionQuestionList;
@@ -162,7 +162,7 @@ public class QuestionList {
      * Randomly selects MAX_QUESTIONS number of questions from the list of all questions.
      * @return ArrayList of Question of size MAX_QUESTIONS.
      */
-    public ArrayList<Question> pickQuestions() throws DukeException {
+    public ArrayList<Question> pickQuestions() throws CakeException {
         ArrayList<Question> allQuestions = new ArrayList<>();
         allQuestions.addAll(initBasicList());
         allQuestions.addAll(initOopList());
@@ -181,7 +181,7 @@ public class QuestionList {
             try {
                 chosenQuestions.add(allQuestions.get(randomNum));
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Something went wrong when loading the quiz: index out of bounds.");
+                throw new CakeException("Something went wrong when loading the quiz: index out of bounds.");
             }
         }
         return chosenQuestions;
@@ -192,7 +192,7 @@ public class QuestionList {
      * @param type QuestionType of questions to be selected.
      * @return ArrayList of Question of specified topic of size MAX_QUESTIONS.
      */
-    public ArrayList<Question> pickQuestions(Question.QuestionType type) throws DukeException {
+    public ArrayList<Question> pickQuestions(Question.QuestionType type) throws CakeException {
         ArrayList<Question> tempList = new ArrayList<>();
         switch (type) {
         case BASIC:
@@ -227,7 +227,7 @@ public class QuestionList {
             try {
                 chosenQuestions.add(tempList.get(randomNum));
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Something went wrong when loading the quiz: index out of bounds.");
+                throw new CakeException("Something went wrong when loading the quiz: index out of bounds.");
             }
         }
         return chosenQuestions;

@@ -1,9 +1,7 @@
 package javacake.commands;
 
 import javacake.Logic;
-import javacake.exceptions.DukeException;
-import javacake.storage.Profile;
-import javacake.storage.Storage;
+import javacake.exceptions.CakeException;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
@@ -45,9 +43,9 @@ public class OverviewCommand extends Command {
      * @param ui the Ui responsible for outputting messages
      * @param storageManager storage container
      * @return formatted directory of content.
-     * @throws DukeException when file is not found.
+     * @throws CakeException when file is not found.
      */
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
 
         logic.setDefaultFilePath();
         logic.insertQueries();
@@ -89,7 +87,7 @@ public class OverviewCommand extends Command {
             }
             return sb.toString();
         } catch (IOException e) {
-            throw new DukeException(e.getMessage());
+            throw new CakeException(e.getMessage());
         }
     }
 

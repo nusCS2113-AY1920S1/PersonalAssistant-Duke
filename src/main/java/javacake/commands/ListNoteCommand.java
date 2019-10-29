@@ -1,7 +1,7 @@
 package javacake.commands;
 
 import javacake.Logic;
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 import javacake.notes.Note;
 import javacake.notes.NoteList;
 import javacake.storage.StorageManager;
@@ -20,9 +20,9 @@ public class ListNoteCommand extends Command {
      * @param ui the Ui responsible for outputting messages
      * @param storageManager storage container
      * @return String of the file names of the notes.
-     * @throws DukeException If file does not exist.
+     * @throws CakeException If file does not exist.
      */
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         StringBuilder sb = new StringBuilder();
         notesArchive = new NoteList().compileNotes();
         sb.append("You have " + notesArchive.size() + " note(s) available!").append("\n");

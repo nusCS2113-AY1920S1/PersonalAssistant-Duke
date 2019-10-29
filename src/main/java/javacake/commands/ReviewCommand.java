@@ -1,9 +1,7 @@
 package javacake.commands;
 
 import javacake.Logic;
-import javacake.exceptions.DukeException;
-import javacake.storage.Profile;
-import javacake.storage.Storage;
+import javacake.exceptions.CakeException;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 import javacake.quiz.Question;
@@ -30,11 +28,11 @@ public class ReviewCommand extends Command {
      * @param logic TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
      * @param storageManager storage container
-     * @throws DukeException This method does not throw this exception.
+     * @throws CakeException This method does not throw this exception.
      * @return
      */
     @Override
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         int index = 0;
         while (!isExitReview) {
             ui.showLine();

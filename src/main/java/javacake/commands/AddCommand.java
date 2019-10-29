@@ -1,8 +1,7 @@
 package javacake.commands;
 
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 import javacake.Logic;
-import javacake.storage.Profile;
 import javacake.storage.StorageManager;
 import javacake.storage.TaskList;
 import javacake.ui.Ui;
@@ -25,11 +24,11 @@ public class AddCommand extends Command {
      * @param logic TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
      * @param storageManager storage container
-     * @throws DukeException Shows error when deletion is not possible
+     * @throws CakeException Shows error when deletion is not possible
      * @return
      */
     @Override
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         String output = TaskList.runDeadline(storageManager.storage.currentTaskData.getData(),
                 input, TaskList.TaskState.NOT_DONE);
         Storage.generateFolder(new File("data/tasks/"));

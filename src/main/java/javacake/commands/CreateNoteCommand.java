@@ -1,8 +1,7 @@
 package javacake.commands;
 
 import javacake.Logic;
-import javacake.exceptions.DukeException;
-import javacake.storage.Profile;
+import javacake.exceptions.CakeException;
 import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
@@ -23,9 +22,9 @@ public class CreateNoteCommand extends Command {
     /**
      * Constructor for CreateNoteCommand.
      * @param inputCommand Input Command from the user to create note.
-     * @throws DukeException If the input command is invalid.
+     * @throws CakeException If the input command is invalid.
      */
-    public CreateNoteCommand(String inputCommand) throws DukeException {
+    public CreateNoteCommand(String inputCommand) throws CakeException {
         type = CmdType.CREATENOTE;
         //File file = new File(defaultDirectoryPath + defaultFileName);
         Storage.generateFolder(new File("data/notes/"));
@@ -39,23 +38,23 @@ public class CreateNoteCommand extends Command {
      * If inputCommand has a parameter, command checks if specified file name is valid.
      * Creates file if specified file name is valid.
      * @param inputCommand Input Command from the user to create note.
-     * @throws DukeException If the input command is invalid.
+     * @throws CakeException If the input command is invalid.
      */
-    private void processCreateNoteCommand(String inputCommand) throws DukeException {
+    private void processCreateNoteCommand(String inputCommand) throws CakeException {
         String[] wordsInInputCommand = inputCommand.split("\\s+");
 
         if (createNoteCommandHasSpecifiedFileName(inputCommand)) {
             if (!containsIllegals(wordsInInputCommand[1])) {
                 userGivenFileName = wordsInInputCommand[1];
             } else {
-                throw new DukeException("Invalid file name: Illegal character in file name detected!");
+                throw new CakeException("Invalid file name: Illegal character in file name detected!");
             }
         } else if (validCommandWithNoSpecifiedFileName(inputCommand)) {
             while (checkNotesFileExist(defaultDirectoryPath + userGivenFileName + ".txt")) {
                 generateNewDefaultFileName();
             }
         } else {
-            throw new DukeException("Invalid command: To write notes, "
+            throw new CakeException("Invalid command: To write notes, "
                     + "type 'createnote' followed by desired (optional) filename.");
         }
     }
@@ -116,10 +115,10 @@ public class CreateNoteCommand extends Command {
      * @param ui the Ui responsible for outputting messages
      * @param storageManager storage container
      * @return Message when note is created successfully.
-     * @throws DukeException If file does not exists.
+     * @throws CakeException If file does not exists.
      */
     @Override
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append(userGivenFileName).append(".txt");
@@ -128,17 +127,17 @@ public class CreateNoteCommand extends Command {
             String newFilePath = sb.toString();
             //System.out.println(newFilePath);
             if (checkNotesFileExist(newFilePath)) {
-                throw new DukeException("File already exists, please type 'editnote "
+                throw new CakeException("File already exists, please type 'editnote "
                         + formattedFileName + "' to edit the file instead");
             } else  {
                 File file = new File(newFilePath);
                 if (!file.createNewFile()) {
-                    throw new DukeException("File '" + formattedFileName + "' was not created! Pls try again!");
+                    throw new CakeException("File '" + formattedFileName + "' was not created! Pls try again!");
                 }
                 return "File '" + formattedFileName + "'has been created successfully!\n";
             }
         } catch (IOException e) {
-            throw new DukeException(e.getMessage());
+            throw new CakeException(e.getMessage());
         }
 
     }

@@ -1,11 +1,9 @@
 package javacake.commands;
 
 import javacake.Logic;
-import javacake.exceptions.DukeException;
-import javacake.storage.Profile;
+import javacake.exceptions.CakeException;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
-import javacake.storage.Storage;
 
 public class DeleteCommand extends Command {
     public DeleteCommand(String str) {
@@ -18,11 +16,11 @@ public class DeleteCommand extends Command {
      * @param logic TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
      * @param storageManager storage container
-     * @throws DukeException Shows error when deletion is not possible
+     * @throws CakeException Shows error when deletion is not possible
      * @return
      */
     @Override
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         input = input.substring(7);
         /*try {
             int num = Integer.parseInt(input);

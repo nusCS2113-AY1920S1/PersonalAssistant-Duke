@@ -1,9 +1,9 @@
 package javacake.commands;
 
-import javacake.Duke;
+import javacake.JavaCake;
 import javacake.Logic;
 import javacake.Parser;
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 import javacake.storage.Profile;
 import javacake.storage.StorageManager;
 import javacake.ui.TopBar;
@@ -46,7 +46,7 @@ public class QuizCommand extends Command {
      * @param questionType the topic of the quiz.
      */
     public QuizCommand(Question.QuestionType questionType, Question.QuestionDifficulty questionDifficulty,
-                       Boolean isCli) throws DukeException {
+                       Boolean isCli) throws CakeException {
         qnDifficulty = questionDifficulty;
         type = CmdType.QUIZ;
         chosenQuestions = new ArrayList<>();
@@ -65,7 +65,7 @@ public class QuizCommand extends Command {
     /**
      * Method to get all questions in the given directory.
      */
-    public void getQuestions() throws DukeException {
+    public void getQuestions() throws CakeException {
 
 
         for (int i = 1; i <= totalNumOfQns; i++) {
@@ -82,7 +82,7 @@ public class QuizCommand extends Command {
                 String[] questions = stringBuilder.toString().substring(0,stringBuilder.length() - 1).split("\\|\\s*");
                 this.questionList.add(new Question(questions[0], questions[1]));
             } catch (Exception e) {
-                throw new DukeException("Error in loading file :(");
+                throw new CakeException("Error in loading file :(");
             }
         }
 
@@ -93,7 +93,7 @@ public class QuizCommand extends Command {
     /**
      * Randomly selects MAX_QUESTIONS number of questions of the specified topic from the list of all questions..
      */
-    public void pickQuestions() throws DukeException {
+    public void pickQuestions() throws CakeException {
         ArrayList<Question> tempList = questionList;
         Random rand = new Random();
         ArrayList<Integer> chosenNumbers = new ArrayList<>();
@@ -107,7 +107,7 @@ public class QuizCommand extends Command {
             try {
                 chosenQuestions.add(tempList.get(randomNum));
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Something went wrong when loading the quiz: index out of bounds.");
+                throw new CakeException("Something went wrong when loading the quiz: index out of bounds.");
             }
         }
     }
@@ -117,10 +117,10 @@ public class QuizCommand extends Command {
      * @param logic TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
      * @param storageManager storage container
-     * @throws DukeException Error thrown when there is a problem with score calculation.
+     * @throws CakeException Error thrown when there is a problem with score calculation.
      */
     @Override
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         logic.insertQueries();
         assert !logic.containsDirectory();
         this.filePath = logic.getFullFilePath();
@@ -138,7 +138,7 @@ public class QuizCommand extends Command {
             ui.showLine();
         }
         if (currScore > MAX_QUESTIONS) {
-            throw new DukeException("Something went wrong when calculating the score:\n"
+            throw new CakeException("Something went wrong when calculating the score:\n"
                     + "Calculated score is greater than maximum possible score.");
         }
 
@@ -158,7 +158,7 @@ public class QuizCommand extends Command {
      * Method to execute but for GUI.
      */
 
-    public void runGui() throws DukeException {
+    public void runGui() throws CakeException {
         totalNumOfQns = logic.getNumOfFiles();
         getQuestions();
         pickQuestions();
@@ -169,9 +169,9 @@ public class QuizCommand extends Command {
      * if it's less than the current totalScore.
      * @param totalScore new totalScore of user
      * @param profile profile object of user
-     * @throws DukeException error if question type is undefined
+     * @throws CakeException error if question type is undefined
      */
-    public void overwriteOldScore(int totalScore, Profile profile) throws DukeException {
+    public void overwriteOldScore(int totalScore, Profile profile) throws CakeException {
         int individualtopicIdx;
         int overalltopicIdx;
         switch (qnType) {
@@ -188,7 +188,7 @@ public class QuizCommand extends Command {
             overalltopicIdx = 3;
             break;
         default:
-            throw new DukeException("Topic Idx out of bounds!");
+            throw new CakeException("Topic Idx out of bounds!");
         }
 
         switch (qnDifficulty) {
@@ -202,7 +202,7 @@ public class QuizCommand extends Command {
             individualtopicIdx = overalltopicIdx * levelsOfDifficulty + 2;
             break;
         default:
-            throw new DukeException("Topic Idx out of bounds!");
+            throw new CakeException("Topic Idx out of bounds!");
         }
 
         if (totalScore > profile.getIndividualContentMarks(individualtopicIdx)) {
@@ -220,10 +220,10 @@ public class QuizCommand extends Command {
 
             profile.setOverallMarks(overalltopicIdx, totalScore);
 
-            if (!Duke.isCliMode()) {
+            if (!JavaCake.isCliMode()) {
                 switch (overalltopicIdx) {
                 case 0:
-                    Duke.logger.log(Level.INFO, totalScore + " YEET");
+                    JavaCake.logger.log(Level.INFO, totalScore + " YEET");
                     TopBar.progValueA = (double) totalScore / TotalMaxQuestions;
                     break;
                 case 1:
@@ -257,11 +257,11 @@ public class QuizCommand extends Command {
      * Method to check if answer is correct.
      * If it is, then update the score.
      * @param input the answer inputted by the user
-     * @throws DukeException error thrown if user inputs wrong type of answer.
+     * @throws CakeException error thrown if user inputs wrong type of answer.
      */
-    public void checkAnswer(String input) throws DukeException {
+    public void checkAnswer(String input) throws CakeException {
         if (!isNumeric(input)) {
-            throw new DukeException("Please input answers in the form of a positive integer");
+            throw new CakeException("Please input answers in the form of a positive integer");
         }
         if (prevQuestion.isAnswerCorrect(input)) {
             currScore++;
@@ -280,9 +280,9 @@ public class QuizCommand extends Command {
     /**
      * Method to get the score of the quiz.
      * @return String containing what Cake said about the quiz.
-     * @throws DukeException error thrown if failed to overwrite score.
+     * @throws CakeException error thrown if failed to overwrite score.
      */
-    public String getQuizScore() throws DukeException {
+    public String getQuizScore() throws CakeException {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("This is your score:");
         stringBuilder.append("    ").append(currScore).append(" / ").append(MAX_QUESTIONS).append("\n");

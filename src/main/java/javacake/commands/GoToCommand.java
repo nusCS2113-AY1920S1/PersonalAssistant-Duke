@@ -1,15 +1,12 @@
 package javacake.commands;
 
-import javacake.Duke;
-import javacake.exceptions.DukeException;
-import javacake.storage.Profile;
+import javacake.JavaCake;
+import javacake.exceptions.CakeException;
 import javacake.Logic;
-import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 import javacake.quiz.Question;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -23,12 +20,12 @@ public class GoToCommand extends Command {
      * Splits command into 2, space delimiter, max size of inputDivider = 2
      * @param inputCommand Parsed goto command by user
      */
-    public GoToCommand(String inputCommand) throws DukeException {
+    public GoToCommand(String inputCommand) throws CakeException {
         String[] inputDivider = inputCommand.split("\\s+", 2);
         String gotoIndex;
 
         if (inputDivider.length == 1) { // no goto index
-            throw new DukeException("Please specify the index you wish to go!");
+            throw new CakeException("Please specify the index you wish to go!");
         } else {
             gotoIndex = inputDivider[1];
         }
@@ -53,16 +50,16 @@ public class GoToCommand extends Command {
      * @param logic TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
      * @param storageManager storage container
-     * @throws DukeException Error thrown when unable to close reader or error in quiz format
+     * @throws CakeException Error thrown when unable to close reader or error in quiz format
      */
     public String execute(Logic logic, Ui ui, StorageManager storageManager)
-            throws DukeException {
+            throws CakeException {
         int intIndex = Integer.parseInt(indexQueue.poll()) - 1;
         logic.updateFilePath(logic.gotoFilePath(intIndex));
         String filePath = logic.getFullFilePath();
         if (filePath.contains("Quiz")) {
             if (!filePath.substring(filePath.length() - 4).equals("Quiz")) {
-                throw new DukeException("Sorry, please type 'back' or 'list' instead.");
+                throw new CakeException("Sorry, please type 'back' or 'list' instead.");
             }
             return handleQuiz(logic, ui, storageManager);
         }
@@ -81,7 +78,7 @@ public class GoToCommand extends Command {
         }
     }
 
-    private String handleQuiz(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    private String handleQuiz(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         String filePath = logic.getFullFilePath();
         Question.QuestionType qnType;
         Question.QuestionDifficulty qnDifficulity;
@@ -105,8 +102,8 @@ public class GoToCommand extends Command {
             qnDifficulity = Question.QuestionDifficulty.HARD;
         }
 
-        if (Duke.isCliMode()) {
-            return new QuizCommand(qnType, qnDifficulity, Duke.isCliMode())
+        if (JavaCake.isCliMode()) {
+            return new QuizCommand(qnType, qnDifficulity, JavaCake.isCliMode())
                     .execute(logic, ui, storageManager);
         } else {
             String response = null;

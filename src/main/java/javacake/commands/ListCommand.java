@@ -1,11 +1,9 @@
 package javacake.commands;
 
-import javacake.exceptions.DukeException;
+import javacake.exceptions.CakeException;
 import javacake.Logic;
-import javacake.storage.Profile;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
-import javacake.storage.Storage;
 
 public class ListCommand extends Command {
     public ListCommand() {
@@ -19,7 +17,7 @@ public class ListCommand extends Command {
      * @param storageManager storage container
      */
     @Override
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         logic.setDefaultFilePath();
         return (logic.processQueries());
     }
