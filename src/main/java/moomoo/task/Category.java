@@ -1,5 +1,6 @@
 package moomoo.task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Category {
@@ -8,7 +9,6 @@ public class Category {
     private ArrayList<Expenditure> category;
 
     public Category() {
-
     }
 
     /**
@@ -21,7 +21,7 @@ public class Category {
         this.monthTotal = 0.00;
     }
 
-    public int getCategoryArraySize() {
+    public int size() {
         return category.size();
     }
 
@@ -38,16 +38,61 @@ public class Category {
         category.add(newExpenditure);
     }
 
+    public void deleteExpenditure(int expenditureNumber) {
+        category.remove(expenditureNumber);
+    }
+
     /**
      * Calculates the total expenditure for every entry in the category.
      * @return totalCost
      */
     public double getCategoryMonthTotal() {
         double totalCost = 0.00;
-        for (int i = 0; i < category.size(); i++) {
-            totalCost += category.get(i).getCost();
+        for (Expenditure expenditure : category) {
+            LocalDate date = expenditure.getDate();
+            LocalDate now = LocalDate.now(); // Now see if the month and year match.
+            if (date.getMonth() == now.getMonth() && date.getYear() == now.getYear()) {
+                // You have a hit.
+                totalCost += expenditure.getCost();
+            }
         }
         return totalCost;
+    }
+    
+    public void setCategoryMonthTotal() {
+        monthTotal = getCategoryMonthTotal();
+    }
+    
+    /**
+     * Return the expenditure with the largest value.
+     * @return expenditure The value of the largest expenditure
+     */
+    public double getLargestExpenditure() {
+        double expenditure = 0;
+        for (Expenditure exp : category) {
+            if (exp.getCost() > expenditure) {
+                expenditure = exp.getCost();
+            }
+        }
+        return expenditure;
+    }
+    
+    /**
+     * The expenditure with the longest name.
+     * @return The name of the longest expenditure
+     */
+    public int getLongestExpenditure() {
+        int longestName = 0;
+        for (Expenditure exp : category) {
+            if (exp.toString().length() > longestName) {
+                longestName = exp.toString().length();
+            }
+            if (longestName >= 14) {
+                longestName = 14;
+                break;
+            }
+        }
+        return longestName;
     }
 
     /**
@@ -60,8 +105,8 @@ public class Category {
         double totalCost = 0.00;
         for (int i = 0; i < category.size(); i++) {
             Expenditure currExpenditure = category.get(i);
-            if (currExpenditure.getDateTime().getMonthValue() == month
-                    && currExpenditure.getDateTime().getYear() == year) {
+            if (currExpenditure.getDate().getMonthValue() == month
+                    && currExpenditure.getDate().getYear() == year) {
                 totalCost += currExpenditure.getCost();
             }
         }
@@ -72,18 +117,6 @@ public class Category {
         return monthTotal;
     }
 
-    public void addExpenditure() {
-
-    }
-
-    public void editExpenditure() {
-
-    }
-
-    public void deleteExpenditure() {
-
-    }
-    
     /**
      * Set the month total (FOR TESTING PURPOSES).
      * @param value The value to be set
@@ -92,4 +125,20 @@ public class Category {
         monthTotal = value;
     }
     
+    /**
+     * Populate the categoryList array with dummy variables. FOR TESTING PURPOSES.
+     */
+    public void testPopulate() {
+        ArrayList<String> population = new ArrayList<String>();
+        population.add("SanicTheHodgepodge");
+        population.add("MetalGearLiquid");
+        population.add("GTB");
+        population.add("Far:Automata");
+        population.add("League of Mobile Legends");
+        for (int i = 0; i < 5; i += 1) {
+            Expenditure newExp = new Expenditure(population.get(i), i * 100 / (i + 3), null);
+            category.add(newExp);
+        }
+        monthTotal = 75;
+    }
 }
