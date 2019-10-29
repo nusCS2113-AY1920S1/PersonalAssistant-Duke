@@ -30,9 +30,10 @@ public class SummaryCommand extends Command {
 
     /**
      * Get a summary of tomorrow's tasks.
-     * @param input  LocalDateTime of a day after today.
-     * @param arr       TaskList of all tasks
-     * @return          a TaskList of tomorrow's tasks.
+     *
+     * @param input LocalDateTime of a day after today.
+     * @param arr   TaskList of all tasks
+     * @return a TaskList of tomorrow's tasks.
      */
     private TaskList getSummary(String input, TaskList arr) {
         for (int i = 0; i < arr.getSize(); i++) {
@@ -49,8 +50,9 @@ public class SummaryCommand extends Command {
 
     /**
      * Check Task type.
-     * @param task      Task object.
-     * @return          boolean if Task object is of a valid Task type or not.
+     *
+     * @param task Task object.
+     * @return boolean if Task object is of a valid Task type or not.
      */
     private boolean isValid(Task task) {
         return task instanceof Todo || task instanceof Deadline || task instanceof Event;
@@ -58,6 +60,7 @@ public class SummaryCommand extends Command {
 
     /**
      * Get the date of tomorrow in format DD-MM-YYYY.
+     *
      * @return date     String containing formatted date of tomorrow.
      */
     private String getTomorrowDate() {
@@ -70,25 +73,19 @@ public class SummaryCommand extends Command {
      * Gets a summary of tomorrow's Tasks.
      *
      * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param taskList    Instance of TaskList that stores Task objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException if there are no tasks scheduled for tomorrow.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage)
-            throws OofException {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
         String tomorrow = getTomorrowDate();
-        TaskList summary = getSummary(tomorrow, tasks);
+        TaskList summary = getSummary(tomorrow, taskList);
         if (summary.getSize() == EMPTY) {
             throw new OofException("There are no Tasks scheduled on " + tomorrow + ".");
         }
         ui.printTasksByDate(summary, tomorrow);
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

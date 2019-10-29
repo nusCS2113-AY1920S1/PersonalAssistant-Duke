@@ -14,8 +14,8 @@ public abstract class Task {
     }
 
     static final String DELIMITER = "||";
-    static final int DATE = 0;
-    static final int TIME = 1;
+    static final int INDEX_DATE = 0;
+    static final int INDEX_TIME = 1;
     String description;
     boolean status;
     private Frequency frequency;

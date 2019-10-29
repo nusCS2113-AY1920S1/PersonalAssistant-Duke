@@ -1,4 +1,9 @@
-S||19/20||semester 1
-M||CS2113T||software engineering
-L||lecture||01-11-2019 16:00||01-11-2019 18:00
-A||CS2113T||exam||23-11-2019 13:00||23-11-2019 15:00
+SEMESTER||19/20||semester 1||01-10-2019||31-10-2019
+MODULE||CS2113T||software engineering
+LESSON||CS2113T||tutorial||WEDNESDAY||17:00||18:00
+LESSON||CS2113T||lecture||FRIDAY||16:00||18:00
+LESSON||CS2113T||tutorial||MONDAY||18:00||20:00
+MODULE||CS2105||Introduction to Computer Networks
+LESSON||CS2105||tutorial||WEDNESDAY||15:00||18:00
+MODULE||CS2106||Introduction to Operating Systems
+LESSON||CS2106||lecture||WEDNESDAY||14:00||16:00

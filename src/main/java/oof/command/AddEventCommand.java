@@ -1,18 +1,17 @@
 package oof.command;
 
-import oof.model.module.SemesterList;
-import oof.model.task.TaskList;
-import oof.Ui;
-import oof.Storage;
-import oof.exception.OofException;
-import oof.model.task.Event;
-import oof.model.task.Task;
-import oof.model.tracker.TrackerList;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import oof.Storage;
+import oof.Ui;
+import oof.exception.OofException;
+import oof.model.module.SemesterList;
+import oof.model.task.Event;
+import oof.model.task.Task;
+import oof.model.task.TaskList;
 
 /**
  * Represents a Command to add Event objects
@@ -21,6 +20,10 @@ import java.util.Date;
 public class AddEventCommand extends Command {
 
     private String line;
+    private static final int INDEX_DESCRIPTION = 0;
+    private static final int INDEX_DATES = 1;
+    private static final int INDEX_DATE_START = 0;
+    private static final int INDEX_DATE_END = 1;
 
     /**
      * Constructor for AddEventCommand.
@@ -41,13 +44,13 @@ public class AddEventCommand extends Command {
      * store the object added in the hard disk.
      *
      * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param taskList     Instance of TaskList that stores Task objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException if user input invalid commands.
      */
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
         String[] lineSplit = line.split(" /from ");
         if (!hasDescription(lineSplit)) {
             throw new OofException("OOPS!!! The event needs a description.");
@@ -56,54 +59,69 @@ public class AddEventCommand extends Command {
         } else if (!hasEndDate(lineSplit)) {
             throw new OofException("OOPS!!! The event needs an end date.");
         }
-        String description = lineSplit[0].trim();
-        String[] dateSplit = lineSplit[1].split(" /to ");
-        String startDate = parseTimeStamp(dateSplit[0]);
-        String endDate = parseTimeStamp(dateSplit[1]);
-        if (isDateValid(startDate) && isDateValid(endDate)) {
-            SimpleDateFormat format = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm");
-            try {
-                Date newStartTime = format.parse(dateSplit[0]);
-                Date newEndTime = format.parse(dateSplit[1]);
-                if (!isStartDateBeforeEndDate(newStartTime, newEndTime)) {
-                    throw new OofException("OOPS!!! The start date of an event cannot be after the end date.");
-                }
-                ArrayList<Event> eventClashes = checkClashes(tasks, newStartTime, newEndTime);
-                boolean hasClashes = !eventClashes.isEmpty();
-                if (hasClashes) {
-                    ui.printClashWarning(eventClashes);
-                    if (!isContinue(ui)) {
-                        return;
-                    }
-                }
-            } catch (ParseException e) {
-                throw new OofException("Timestamp given is invalid! Please try again.");
-            }
-            Task task = new Event(description, dateSplit[0], dateSplit[1]);
-            tasks.addTask(task);
-            ui.addTaskMessage(task, tasks.getSize());
-            storage.writeTaskList(tasks);
-        } else if (isDateValid(startDate)) {
-            throw new OofException("OOPS!!! The end date is invalid.");
-        } else if (isDateValid(endDate)) {
-            throw new OofException("OOPS!!! The start date is invalid.");
-        } else {
+        String description = lineSplit[INDEX_DESCRIPTION].trim();
+        String[] dateSplit = lineSplit[INDEX_DATES].split(" /to ");
+        String startDate = parseTimeStamp(dateSplit[INDEX_DATE_START]);
+        String endDate = parseTimeStamp(dateSplit[INDEX_DATE_END]);
+        if (!isDateValid(startDate) && !isDateValid(endDate)) {
             throw new OofException("OOPS!!! The start and end dates are invalid.");
+        } else if (!isDateValid(startDate)) {
+            throw new OofException("OOPS!!! The start date is invalid.");
+        } else if (!isDateValid(endDate)) {
+            throw new OofException("OOPS!!! The end date is invalid.");
         }
+        if (hasClashes(taskList, ui, dateSplit)) {
+            return;
+        }
+        Task task = new Event(description, dateSplit[INDEX_DATE_START], dateSplit[INDEX_DATE_END]);
+        taskList.addTask(task);
+        ui.addTaskMessage(task, taskList.getSize());
+        storage.writeTaskList(taskList);
+    }
+
+    /**
+     * Checks if event being added clashes with other events.
+     *
+     * @param taskList  Instance of TaskList that stores Task objects.
+     * @param ui        Instance of Ui that is responsible for visual feedback.
+     * @param dateSplit String array containing start date and end date.
+     * @return true if clash is found and user chooses not to add event, false otherwise
+     * @throws OofException if start date is after end date or if timestamp is invalid
+     */
+    protected boolean hasClashes(TaskList taskList, Ui ui, String[] dateSplit) throws OofException {
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        try {
+            Date newStartTime = format.parse(dateSplit[INDEX_DATE_START]);
+            Date newEndTime = format.parse(dateSplit[INDEX_DATE_END]);
+            if (!isStartDateBeforeEndDate(newStartTime, newEndTime)) {
+                throw new OofException("OOPS!!! The start date cannot be after the end date.");
+            }
+            ArrayList<Event> eventClashes = checkClashes(taskList, newStartTime, newEndTime);
+            boolean hasClashes = !eventClashes.isEmpty();
+            if (hasClashes) {
+                ui.printClashWarning(eventClashes);
+                if (!isContinue(ui)) {
+                    return true;
+                }
+            }
+        } catch (ParseException e) {
+            throw new OofException("Timestamp given is invalid! Please try again.");
+        }
+        return false;
     }
 
     /**
      * Iterates through current task and checks if any events clashes with new event being added.
      *
-     * @param arr          Instance of TaskList that stores Task objects.
+     * @param taskList     Instance of TaskList that stores Task objects.
      * @param newStartTime Start time of event.
      * @param newEndTime   End time of event.
      * @throws ParseException if time entry is invalid.
      */
-    public ArrayList<Event> checkClashes(TaskList arr, Date newStartTime, Date newEndTime) throws ParseException {
+    private ArrayList<Event> checkClashes(TaskList taskList, Date newStartTime, Date newEndTime) throws ParseException {
         ArrayList<Event> clashes = new ArrayList<>();
-        SimpleDateFormat format = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm");
-        for (Task t : arr.getTasks()) {
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        for (Task t : taskList.getTasks()) {
             if (t instanceof Event) {
                 Event event = (Event) t;
                 Date currStartTime = format.parse(event.getStartDateTime());
@@ -124,7 +142,7 @@ public class AddEventCommand extends Command {
      * @return true if description is more than length 0 and is not whitespace.
      */
     private boolean hasDescription(String[] lineSplit) {
-        return lineSplit[0].trim().length() > 0;
+        return lineSplit[INDEX_DESCRIPTION].trim().length() > 0;
     }
 
     /**
@@ -134,7 +152,7 @@ public class AddEventCommand extends Command {
      * @return true if there is a start date and start date is not whitespace.
      */
     private boolean hasStartDate(String[] lineSplit) {
-        return lineSplit.length > 1 && lineSplit[1].split(" /to ")[0].trim().length() > 0;
+        return lineSplit.length > 1 && lineSplit[INDEX_DATES].split(" /to ")[INDEX_DATE_START].trim().length() > 0;
     }
 
     /**
@@ -184,12 +202,4 @@ public class AddEventCommand extends Command {
         return response.equals("Y");
     }
 
-    /**
-     * Checks if ExitCommand is called for Oof to terminate.
-     *
-     * @return false.
-     */
-    public boolean isExit() {
-        return false;
-    }
 }

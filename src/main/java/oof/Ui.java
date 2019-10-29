@@ -1,19 +1,6 @@
 package oof;
 
-import oof.exception.OofException;
-import oof.model.tracker.ModuleTracker;
-import oof.model.tracker.ModuleTrackerList;
-import oof.model.tracker.Tracker;
-import oof.model.module.Assessment;
-import oof.model.module.Lesson;
-import oof.model.module.Module;
-import oof.model.module.Semester;
-import oof.model.module.SemesterList;
-import oof.model.task.Assignment;
-import oof.model.task.Event;
-import oof.model.task.Task;
-import oof.model.task.TaskList;
-
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.YearMonth;
@@ -22,12 +9,26 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
+import oof.exception.OofException;
+import oof.model.module.Lesson;
+import oof.model.module.Module;
+import oof.model.module.Semester;
+import oof.model.module.SemesterList;
+import oof.model.task.Assessment;
+import oof.model.task.Assignment;
+import oof.model.task.Event;
+import oof.model.task.Task;
+import oof.model.task.TaskList;
+import oof.model.tracker.ModuleTracker;
+import oof.model.tracker.ModuleTrackerList;
+import oof.model.tracker.Tracker;
+
 /**
  * Represents a Ui class that is responsible for Input/Output operations.
  */
 public class Ui {
 
-    private Scanner scan = new Scanner(System.in);
+    private Scanner scan;
     private static final int DATE_SPACES = 3;
     private static final int SPLIT_EVEN = 2;
     private static final int DAY_FIRST = 1;
@@ -62,6 +63,10 @@ public class Ui {
             ANSI_BRIGHT_BLUE, ANSI_BRIGHT_PURPLE, ANSI_BRIGHT_CYAN, ANSI_BRIGHT_WHITE};
     private Storage storage = new Storage();
 
+    public Ui() {
+        scan = new Scanner(System.in);
+    }
+
     /**
      * Scans for an integer of user input.
      *
@@ -85,13 +90,13 @@ public class Ui {
      * Prints 3D ascii logo OOF.
      */
     public void printOofLogo() {
-        String logo = "                ________  ________  ________ \n"
-                + "               |\\   __  \\|\\   __  \\|\\  _____\\\n"
-                + "               \\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\__/ \n"
-                + "                \\ \\  \\\\\\  \\ \\  \\\\\\  \\ \\   __\\\n"
-                + "                 \\ \\  \\\\\\  \\ \\  \\\\\\  \\ \\  \\_|\n"
-                + "                  \\ \\_______\\ \\_______\\ \\__\\ \n"
-                + "                   \\|_______|\\|_______|\\|__|\n";
+        String logo = "                          ________  ________  ________ \n"
+                + "                         |\\   __  \\|\\   __  \\|\\  _____\\\n"
+                + "                         \\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\__/ \n"
+                + "                          \\ \\  \\\\\\  \\ \\  \\\\\\  \\ \\   __\\\n"
+                + "                           \\ \\  \\\\\\  \\ \\  \\\\\\  \\ \\  \\_|\n"
+                + "                            \\ \\_______\\ \\_______\\ \\__\\ \n"
+                + "                             \\|_______|\\|_______|\\|__|\n";
         printLine();
         System.out.println(logo);
     }
@@ -127,7 +132,7 @@ public class Ui {
      * Prints lines.
      */
     public void printLine() {
-        System.out.println("____________________________________________________________");
+        System.out.println("________________________________________________________________________________");
     }
 
     /**
@@ -145,7 +150,6 @@ public class Ui {
         } else {
             System.out.println(" Now you have " + size + " task in the list.");
         }
-        printLine();
     }
 
     /**
@@ -841,24 +845,21 @@ public class Ui {
      * @param threshold The threshold for upcoming deadlines requested by the user.
      */
     public void printUpdatedThreshold(String threshold) {
+        printLine();
         System.out.println(" Threshold has been updated to " + threshold);
     }
 
     /**
-     * Prints list of Semesters and returns selected Semester.
+     * Prints list of semesters.
      *
-     * @param semesterList Instance of SemesterList object.
-     * @return Semester selected by user.
+     * @param semesterList Instance containing List of all Semester objects.
      */
-    public int scanSemesterOption(SemesterList semesterList) {
-        int response = 0;
-        while (response < 1 || response > semesterList.getSize() + 1) {
-            printLine();
-            System.out.println(" Choose one of the following options:");
-            printSemesterList(semesterList);
-            response = scanInt();
+    public void printSemesterList(SemesterList semesterList) {
+        int index = 1;
+        printLine();
+        for (Semester semester : semesterList.getSemesterList()) {
+            System.out.println(" \t" + index++ + ". " + semester.toString());
         }
-        return response - 1;
     }
 
     /**
@@ -876,23 +877,6 @@ public class Ui {
     }
 
     /**
-     * Prints list of Modules and returns selected Module.
-     *
-     * @param semester Instance of Semester object.
-     * @return Module selected by user.
-     */
-    public int scanModuleOption(Semester semester) {
-        int response = 0;
-        while (response < 1 || response > semester.getModules().size() + 1) {
-            printLine();
-            System.out.println(" Choose one of the following options:");
-            printModuleList(semester);
-            response = scanInt();
-        }
-        return response - 1;
-    }
-
-    /**
      * Prints list of Lessons in a selected Module.
      *
      * @param module Instance of Module object.
@@ -901,55 +885,13 @@ public class Ui {
         printLine();
         System.out.println(module.toString());
         int index;
-        for (index = 1; index <= module.getLessons().size(); index++) {
-            System.out.println(" \t" + index + ". " + module.getLessons().get(index - 1).getLessonName() + " "
-                    + module.getLessons().get(index - 1).getLessonTimeString());
+        ArrayList<Lesson> lessons = module.getLessons();
+        for (index = 1; index <= lessons.size(); index++) {
+            Lesson lesson = lessons.get(index - 1);
+            System.out.println(" \t" + index + ". " + lesson.getLessonName() + ", " + lesson.getDayString() + " "
+                    + lesson.getLessonTimeString());
         }
     }
-
-    /**
-     * Prints list of Assignments in a selected Module.
-     *
-     * @param module Instance of Module object.
-     */
-    public void printAssignmentList(Module module) {
-        printLine();
-        System.out.println(module.toString());
-        int index;
-        for (index = 1; index <= module.getAssignments().size(); index++) {
-            System.out.println(" \t" + index + ". " + module.getAssignments().get(index - 1).getDescription());
-        }
-    }
-
-    /**
-     * Prints list of Assessments in a selected Module.
-     *
-     * @param module Instance of Module object.
-     */
-    public void printAssessmentList(Module module) {
-        printLine();
-        System.out.println(" " + module.toString());
-        int index;
-        for (index = 1; index <= module.getAssessments().size(); index++) {
-            System.out.println(" \t" + index + ". " + module.getAssessments().get(index - 1).getName() + " "
-                    + module.getAssessments().get(index - 1).getStartTime() + " to "
-                    + module.getAssessments().get(index - 1).getEndTime());
-        }
-    }
-
-    /**
-     * Prints list of semesters.
-     *
-     * @param semesterList Instance containing List of all Semester objects.
-     */
-    public void printSemesterList(SemesterList semesterList) {
-        int index = 1;
-        for (Semester semester : semesterList.getSemesterList()) {
-            System.out.println(" \t" + index++ + ". " + semester.getAcademicYear() + " "
-                    + semester.getSemesterName());
-        }
-    }
-
 
     /**
      * Prints notification for added Semester.
@@ -1026,33 +968,33 @@ public class Ui {
     }
 
     /**
-     * Prints notification for removed Assignment.
-     *
-     * @param assignment Assignment object being removed.
-     */
-    public void printAssignmentRemovalMessage(Assignment assignment) {
-        printLine();
-        System.out.println(" " + assignment.getModuleCode() + " " + assignment.getDescription() + " has been removed.");
-    }
-
-    /**
      * Prints notification for added Assessment.
      *
      * @param assessment Assessment object being added.
      */
     public void printAssessmentAddedMessage(Assessment assessment) {
         printLine();
-        System.out.println(" \"" + assessment.getModuleCode() + " " + assessment.getName() + "\" has been added!");
+        System.out.println(" \"" + assessment.toString() + "\" has been added!");
     }
 
-    /**
-     * Prints notification for removed Assessment.
-     *
-     * @param assessment Assessment object being removed.
-     */
-    public void printAssessmentRemovalMessage(Assessment assessment) {
+    public void printSelectSemesterMessage(Semester semester) {
         printLine();
-        System.out.println(" " + assessment.getModuleCode() + " " + assessment.getName() + " has been removed.");
+        System.out.println(" \"" + semester.toString() + "\" has been selected!");
+    }
+
+    public void printSelectModuleMessage(Module module) {
+        printLine();
+        System.out.println(" \"" + module.toString() + "\" has been selected!");
+    }
+
+    public void printCurrentlySelectedSemester(Semester semester) {
+        printLine();
+        System.out.println(" Currently Selected: " + semester.toString());
+    }
+
+    public void printCurrentlySelectedModule(Module module) {
+        printLine();
+        System.out.println(" Currently Selected: " + module.toString());
     }
 
     /**

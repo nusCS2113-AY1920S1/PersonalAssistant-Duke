@@ -1,5 +1,6 @@
 package oof.command;
 
+import oof.SelectedInstance;
 import oof.Storage;
 import oof.Ui;
 import oof.exception.OofException;
@@ -13,7 +14,7 @@ public class AddModuleCommand extends Command {
     private String line;
     private static final int INDEX_CODE = 0;
     private static final int INDEX_NAME = 1;
-    private Semester semester;
+    private static final String REGEX_SPLIT = "/name";
 
     /**
      * Constructor for AddModuleCommand.
@@ -27,42 +28,43 @@ public class AddModuleCommand extends Command {
 
     @Override
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
-        String codeAndName = line.replaceFirst("/code", "").trim();
-        if (!hasCode(codeAndName)) {
+        String[] argumentSplit = line.split(REGEX_SPLIT);
+        if (!hasCode(argumentSplit)) {
             throw new OofException("OOPS!! The module needs a code.");
-        } else {
-            String[] codeAndNameSplit = codeAndName.split("/name");
-            if (!hasName(codeAndNameSplit)) {
-                throw new OofException("OOPS!! The module needs a name");
-            }
+        } else if (!hasName(argumentSplit)) {
+            throw new OofException("OOPS!! The module needs a name.");
         }
-        String[] codeAndNameSplit = codeAndName.split("/name");
-        String code = codeAndNameSplit[INDEX_CODE].trim();
-        String name = codeAndNameSplit[INDEX_NAME].trim();
+        String code = argumentSplit[INDEX_CODE].trim();
+        String name = argumentSplit[INDEX_NAME].trim();
+        SelectedInstance selectedInstance = SelectedInstance.getInstance();
+        Semester semester = selectedInstance.getSemester();
+        if (semester == null) {
+            throw new OofException("OOPS!! Please select a semester!");
+        }
         Module module = new Module(code, name);
-        Semester.addModule(module);
+        semester.addModule(module);
         ui.printModuleAddedMessage(module);
-        storage.writeSemesterList(semesterList, semester, module);
+        storage.writeSemesters(semesterList);
     }
 
     /**
      * Checks if module has a code.
      *
-     * @param code processed user input.
-     * @return true if code is more than length 0 and is not whitespace
+     * @param argumentSplit processed user input.
+     * @return true if Module code is more than length 0 and is not whitespace.
      */
-    private boolean hasCode(String code) {
-        return code.trim().length() > 0;
+    private boolean hasCode(String[] argumentSplit) {
+        return argumentSplit.length > 0 && argumentSplit[INDEX_CODE].trim().length() > 0;
     }
 
     /**
      * Checks if module has a name.
      *
-     * @param lineSplit processed user input.
+     * @param argumentSplit processed user input.
      * @return true if name is more than length 0 and is not whitespace
      */
-    private boolean hasName(String[] lineSplit) {
-        return lineSplit[INDEX_NAME].trim().length() > 0;
+    private boolean hasName(String[] argumentSplit) {
+        return argumentSplit.length > 1 && argumentSplit[INDEX_NAME].trim().length() > 0;
     }
 
     @Override

@@ -1,20 +1,20 @@
 package oof.command;
 
 import oof.Storage;
-import oof.model.module.SemesterList;
-import oof.model.task.TaskList;
 import oof.Ui;
 import oof.exception.OofException;
+import oof.model.module.SemesterList;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
 import oof.model.task.Task;
+import oof.model.task.TaskList;
 import oof.model.task.Todo;
-import oof.model.tracker.TrackerList;
 
 /**
  * Represents a Command to query schedule on a specified date.
  */
 public class ScheduleCommand extends Command {
+
     private String date;
     private static final int LIST_EMPTY = 0;
 
@@ -32,17 +32,17 @@ public class ScheduleCommand extends Command {
      * Queries schedule on specified date.
      *
      * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param taskList     Instance of TaskList that stores Task objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException if user inputs invalid command or date has no tasks scheduled.
      */
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
         if (this.date.isEmpty()) {
             throw new OofException("OOPS! Please enter a date!");
         }
-        TaskList scheduledTasks = scheduleByDate(tasks);
+        TaskList scheduledTasks = scheduleByDate(taskList);
         if (scheduledTasks.getSize() == LIST_EMPTY) {
             throw new OofException("There are no Tasks scheduled on " + this.date + ".");
         }
@@ -63,13 +63,13 @@ public class ScheduleCommand extends Command {
     /**
      * Checks TaskList for Tasks associated to indicated date.
      *
-     * @param arr ArrayList of Task objects.
+     * @param taskList ArrayList of Task objects.
      * @return ArrayList of Task objects associated to given date.
      */
-    private TaskList scheduleByDate(TaskList arr) {
+    private TaskList scheduleByDate(TaskList taskList) {
         TaskList scheduledTasks = new TaskList();
-        for (int i = 0; i < arr.getSize(); i++) {
-            Task t = arr.getTask(i);
+        for (int i = 0; i < taskList.getSize(); i++) {
+            Task t = taskList.getTask(i);
             if (isValid(t)) {
                 String date = getDate(t);
                 if (compareDate(this.date, date)) {
@@ -88,10 +88,5 @@ public class ScheduleCommand extends Command {
      */
     private boolean isValid(Task task) {
         return task instanceof Todo || task instanceof Deadline || task instanceof Event;
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

@@ -35,12 +35,12 @@ public class Event extends Task {
      */
     @Override
     public String toStorageString() {
-        String startDate = startDateTime.split(" ")[DATE];
-        String startTime = startDateTime.split(" ")[TIME];
-        String endDate = endDateTime.split(" ")[DATE];
-        String endTime = endDateTime.split(" ")[TIME];
-        return "E" + DELIMITER + getStatusIcon() + DELIMITER + description + DELIMITER + startDate
-                + DELIMITER + startTime + DELIMITER + endDate + DELIMITER + endTime;
+        String startDate = startDateTime.split(" ")[INDEX_DATE];
+        String startTime = startDateTime.split(" ")[INDEX_TIME];
+        String endDate = endDateTime.split(" ")[INDEX_DATE];
+        String endTime = endDateTime.split(" ")[INDEX_TIME];
+        return "EVENT" + DELIMITER + getStatusIcon() + DELIMITER + description + DELIMITER + startDate
+                + DELIMITER + startTime + DELIMITER + endDate + DELIMITER + endTime  + DELIMITER;
     }
 
     @Override

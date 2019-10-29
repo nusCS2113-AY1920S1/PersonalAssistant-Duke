@@ -1,5 +1,6 @@
 package oof.command;
 
+import oof.SelectedInstance;
 import oof.Storage;
 import oof.Ui;
 import oof.exception.OofException;
@@ -29,13 +30,15 @@ public class DeleteModuleCommand extends Command {
 
     @Override
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
-        if (Semester.getModules().size() == EMPTY) {
+        SelectedInstance selectedInstance = SelectedInstance.getInstance();
+        Semester semester = selectedInstance.getSemester();
+        if (!semester.isIndexValid(index)) {
             throw new OofException("OOPS!!! Invalid number!");
         }
-        Module module = Semester.getModule(this.index);
-        Semester.removeModule(this.index);
+        Module module = semester.getModule(index);
+        semester.removeModule(index);
         ui.printModuleRemovalMessage(module);
-        storage.writeSemesterList(semesterList, semester, module);
+        storage.writeSemesters(semesterList);
     }
 
     @Override

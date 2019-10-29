@@ -7,22 +7,22 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    protected ArrayList<Task> taskList;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructor for TaskList.
      *
-     * @param taskList TaskList that contains Task objects.
+     * @param tasks TaskList that contains Task objects.
      */
-    public TaskList(ArrayList<Task> taskList) {
-        this.taskList = taskList;
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /**
      * Constructor for TaskList.
      */
     public TaskList() {
-        this.taskList = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -31,7 +31,7 @@ public class TaskList {
      * @return TaskList containing all its Task objects.
      */
     public ArrayList<Task> getTasks() {
-        return taskList;
+        return tasks;
     }
 
     /**
@@ -40,7 +40,7 @@ public class TaskList {
      * @return Number of Task objects in the TaskList.
      */
     public int getSize() {
-        return taskList.size();
+        return tasks.size();
     }
 
     /**
@@ -50,7 +50,7 @@ public class TaskList {
      * @return Task object at a particular index.
      */
     public Task getTask(int index) {
-        return taskList.get(index);
+        return tasks.get(index);
     }
 
     /**
@@ -59,7 +59,7 @@ public class TaskList {
      * @param task Task object to be added to TaskList.
      */
     public void addTask(Task task) {
-        taskList.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -69,7 +69,7 @@ public class TaskList {
      * @param task  Task to be added.
      */
     public void addTaskToIndex(int index, Task task) {
-        taskList.add(index, task);
+        tasks.add(index, task);
     }
 
     /**
@@ -78,7 +78,7 @@ public class TaskList {
      * @param index Index of Task object, specified by the user.
      */
     public void deleteTask(int index) {
-        taskList.remove(index);
+        tasks.remove(index);
     }
 
     /**
@@ -88,6 +88,6 @@ public class TaskList {
      * @return True if index is within bounds of TaskList, false otherwise.
      */
     public boolean isIndexValid(int index) {
-        return index < this.getSize() && index >= 0;
+        return index < tasks.size() && index >= 0;
     }
 }

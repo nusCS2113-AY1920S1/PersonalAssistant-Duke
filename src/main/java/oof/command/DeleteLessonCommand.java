@@ -1,11 +1,11 @@
 package oof.command;
 
+import oof.SelectedInstance;
 import oof.Storage;
 import oof.Ui;
 import oof.exception.OofException;
 import oof.model.module.Lesson;
 import oof.model.module.Module;
-import oof.model.module.Semester;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
 
@@ -16,8 +16,6 @@ public class DeleteLessonCommand extends Command {
 
     private int index;
     private static final int EMPTY = 0;
-    private Module module;
-    private Semester semester;
 
     /**
      * Constructor for DeleteLessonCommand.
@@ -31,13 +29,15 @@ public class DeleteLessonCommand extends Command {
 
     @Override
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
-        if (Module.getLessons().size() == EMPTY) {
+        SelectedInstance selectedInstance = SelectedInstance.getInstance();
+        Module module = selectedInstance.getModule();
+        if (!module.isLessonIndexValid(index)) {
             throw new OofException("OOPS!!! Invalid number!");
         }
-        Lesson lesson = Module.getLesson(this.index);
-        Module.removeLesson(this.index);
-        ui.printLessonRemovalMessage(Module.getModuleCode(), lesson);
-        storage.writeSemesterList(semesterList, semester, module);
+        Lesson lesson = module.getLesson(this.index);
+        module.removeLesson(this.index);
+        ui.printLessonRemovalMessage(module.getModuleCode(), lesson);
+        storage.writeSemesters(semesterList);
     }
 
     @Override

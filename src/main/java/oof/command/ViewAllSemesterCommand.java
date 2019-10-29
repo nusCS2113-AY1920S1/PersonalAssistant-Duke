@@ -9,12 +9,12 @@ import oof.model.task.TaskList;
 /**
  * Represents a Command to view the list of Semesters.
  */
-public class ViewSemesterCommand extends Command {
+public class ViewAllSemesterCommand extends Command {
 
     /**
      * Default Constructor for ViewSemesterCommand.
      */
-    public ViewSemesterCommand() {
+    public ViewAllSemesterCommand() {
         super();
     }
 

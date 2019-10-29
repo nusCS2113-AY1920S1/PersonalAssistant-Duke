@@ -4,9 +4,9 @@ import oof.Storage;
 import oof.model.module.SemesterList;
 import oof.model.task.Assignment;
 import oof.model.task.Task;
-import oof.model.task.TaskList;
 import oof.Ui;
 import oof.exception.OofException;
+import oof.model.task.TaskList;
 import oof.model.tracker.Tracker;
 import oof.model.tracker.TrackerList;
 
@@ -132,10 +132,5 @@ public class StopTrackerCommand extends Command {
             }
         }
         return null;
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

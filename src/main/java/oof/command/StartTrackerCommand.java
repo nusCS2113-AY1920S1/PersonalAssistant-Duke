@@ -36,18 +36,17 @@ public class StartTrackerCommand extends Command {
      * Starts Tracker timer.
      *
      * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param taskList     Instance of TaskList that stores Task objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException if invalid Module Code detected or Tracker timer has already started.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
         if (description.isEmpty()) {
             throw new OofException("Please enter the Assignment module code and description!");
         }
-
         String[] input = description.split(" ", 2);
         if (input.length < MINIMUM_SIZE) {
             throw new OofException("Invalid input!");
@@ -58,7 +57,7 @@ public class StartTrackerCommand extends Command {
         TrackerList trackerList = storage.readTrackerList();
         Tracker tracker = trackerList.findTrackerByDesc(moduleDescription, moduleCode);
 
-        Assignment assignment = findAssignment(moduleDescription, moduleCode, tasks);
+        Assignment assignment = findAssignment(moduleDescription, moduleCode, taskList);
         if (assignment == null) {
             throw new OofException("Assignment Not Found!");
         }
@@ -70,7 +69,7 @@ public class StartTrackerCommand extends Command {
         }
 
         if (tracker == null) {
-            tracker = addNewTracker(moduleDescription, moduleCode, tasks);
+            tracker = addNewTracker(moduleDescription, moduleCode, taskList);
             trackerList.addTracker(tracker);
         } else {
             updateTrackerList(moduleDescription, moduleCode, trackerList);
@@ -151,10 +150,5 @@ public class StartTrackerCommand extends Command {
                 break;
             }
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

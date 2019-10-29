@@ -2,10 +2,9 @@ package oof.command;
 
 import oof.Storage;
 import oof.model.module.SemesterList;
-import oof.model.task.TaskList;
 import oof.Ui;
 import oof.exception.OofException;
-import oof.model.tracker.TrackerList;
+import oof.model.task.TaskList;
 
 import java.util.ArrayList;
 
@@ -30,15 +29,14 @@ public class HelpCommand extends Command {
      * Prints a help manual.
      *
      * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param taskList     Instance of TaskList that stores Task objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException if user input invalid commands.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage)
-            throws OofException {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
         ArrayList<String> commands = storage.readManual();
         if (keyword.isEmpty()) {
             ui.printHelpCommands();
@@ -94,10 +92,5 @@ public class HelpCommand extends Command {
      */
     private boolean isKeyword(int index) {
         return index > 0;
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }
