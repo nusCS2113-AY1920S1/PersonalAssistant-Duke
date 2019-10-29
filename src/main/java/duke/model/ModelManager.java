@@ -356,6 +356,15 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Double computeTotalCost(ArrayList<Item<Ingredient>> ingredientList) {
+        Double totalCost = 0.0;
+        for (Item<Ingredient> item : ingredientList) {
+            totalCost += item.getTotalPrice();
+        }
+        return totalCost;
+    }
+
+    @Override
     public ObservableList<Item<Ingredient>> getFilteredShoppingList() {
         return filteredShoppingList;
     }

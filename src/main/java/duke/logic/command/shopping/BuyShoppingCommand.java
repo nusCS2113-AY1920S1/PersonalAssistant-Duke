@@ -59,11 +59,10 @@ public class BuyShoppingCommand extends ShoppingCommand {
                 model.addInventory(toBuy);
             }
 
-            totalCost += toBuy.getTotalPrice();
-
             model.setShoppingList(toBuy, ShoppingCommandUtil.createNewIngredient(toBuy, ZERO_QUANTITY));
         }
 
+        totalCost = model.computeTotalCost(toBuyList);
         model.addSaleFromShopping(totalCost, toBuyList);
         model.commit(ShoppingMessageUtils.MESSAGE_COMMIT_BUY_SHOPPING);
 

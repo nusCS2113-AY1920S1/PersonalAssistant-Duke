@@ -310,6 +310,8 @@ public interface Model {
      */
     void clearShoppingList(List<Item<Ingredient>> emptyList);
 
+    Double computeTotalCost(ArrayList<Item<Ingredient>> ingredientList);
+
     //=========Shortcut operations=======
 
     /**
