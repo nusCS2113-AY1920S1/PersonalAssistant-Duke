@@ -8,6 +8,7 @@ import javacake.ui.Ui;
 import javacake.storage.Storage;
 
 public class DoneCommand extends Command {
+
     public DoneCommand(String str) {
         type = CmdType.DONE;
         input = str;

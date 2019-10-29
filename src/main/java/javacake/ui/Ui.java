@@ -83,10 +83,10 @@ public class Ui {
      * Prints help message to assist user.
      */
     public static String helpMessage() {
-        return "\nType 'list' to view main topics\n"
-                + "Type 'overview' to view all content\n"
-                + "Type 'help' to view all commands available\n"
-                + "Type 'exit' to rage quit\n";
+        return "\nType 'list' to view main topics.\n"
+                + "Type 'overview' to view all content.\n"
+                + "Type 'help' to view all commands available.\n"
+                + "Type 'exit' to rage quit.\n";
     }
 
     /**
