@@ -976,7 +976,7 @@ public class Profile {
             Date dateInFormat = dateFormat.parse(date);
             String savingsAccountName = importDataRow[3];
             double doubleAmount = Double.parseDouble(amount);
-            if (savingsAccountName.equals("")) {
+            if ("".equals(savingsAccountName)) {
                 newGoal = new Goals(goalName,doubleAmount,dateInFormat);
             } else {
                 newGoal = new Goals(goalName,doubleAmount,dateInFormat,
