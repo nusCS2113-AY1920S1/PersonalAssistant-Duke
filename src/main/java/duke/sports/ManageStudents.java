@@ -14,15 +14,6 @@ public class ManageStudents {
      */
     private final ArrayList<MyStudent> studentList;
 
-    /**
-     * To declare the type of particular.
-     *
-     * private String detailType;
-     *
-     * The input details.
-     *
-     * private String detailMessage;
-     */
 
     /**
      * Constructor of Manage Students to initialise ManageStudent class.
@@ -30,13 +21,6 @@ public class ManageStudents {
     public ManageStudents() {
         studentList = new ArrayList<>();
     }
-
-    /**
-     public void setStudentList(ArrayList<MyStudent> studentList.txt) {
-     this.studentList.txt = studentList.txt;
-     }
-     */
-
 
     /**
      * Function to get all available students in the list.
@@ -89,24 +73,6 @@ public class ManageStudents {
             + "\n"
             + "Now you have " + getStudentListSize() + " students.");
     }
-    /**
-     * A method to assign details to the student.
-     * @param type the type of particular
-     * @param detailMessage the input details
-
-    public void setDetail(String type, String detailMessage) {
-    this.detailType = type;
-    this.detailMessage = detailMessage;
-    }
-
-    public String getDetailType() {
-    return detailType;
-    }
-
-    public String getDetailMessage() {
-    return detailMessage;
-    }
-     */
 
     /**
      * Method to remove a particular student in a list.

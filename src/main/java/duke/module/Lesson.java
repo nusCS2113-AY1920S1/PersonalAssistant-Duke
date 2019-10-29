@@ -84,7 +84,8 @@ public class Lesson {
      * Removes a lesson learnt from the lessons hash map.
      *
      * @param day           The date to remove the lesson learnt from.
-     * @param message       The specific lesson learnt to remove from the hash map.
+     * @param message       The specific lesson learnt to
+     *                      remove from the hash map.
      * @param lessonStorage The object responsible for storing
      *                      the lessons hash map.
      * @return A message showing task completed successfully.

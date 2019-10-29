@@ -90,10 +90,5 @@ public class ParserManageStudents implements IParser {
         default:
             System.out.println("Incorrect Command.");
         }
-        /**
-         * Storage storage = new Storage();
-         *         storage.updateStudentList(students.getStudentList());
-         *         break;
-         */
     }
 }
