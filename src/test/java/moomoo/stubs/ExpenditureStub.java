@@ -30,4 +30,8 @@ public class ExpenditureStub extends Expenditure {
     public double getCost() {
         return cost;
     }
+
+    public String getName() {
+        return name;
+    }
 }

@@ -149,7 +149,7 @@ public class Parser {
         while (!"".equals(input)) {
             if (input.startsWith("c/")) {
                 if (isNewCategory) {
-                    if (inputCategory != "") {
+                    if (!"".equals(inputCategory)) {
                         categories.add(inputCategory);
                     }
                     inputCategory = input.substring(2).toLowerCase();
@@ -175,7 +175,7 @@ public class Parser {
                 }
                 inputCategory = "";
             } else {
-                if (inputCategory != "") {
+                if (!"".equals(inputCategory)) {
                     inputCategory += " " + input;
                 } else {
                     throw new MooMooException("Please input in this format \"c/CATEGORY b/BUDGET\"");
@@ -212,7 +212,7 @@ public class Parser {
         while (!"".equals(input)) {
             if (input.startsWith("c/")) {
                 if (isNewCategory) {
-                    if (inputCategory != "") {
+                    if (!"".equals(inputCategory)) {
                         categories.add(inputCategory);
                     }
                     inputCategory = input.substring(2).toLowerCase();
@@ -238,7 +238,7 @@ public class Parser {
                 }
                 inputCategory = "";
             } else {
-                if (inputCategory != "") {
+                if (!"".equals(inputCategory)) {
                     inputCategory += " " + input;
                 } else {
                     throw new MooMooException("Please input in this format \"c/CATEGORY b/BUDGET\"");
@@ -274,7 +274,7 @@ public class Parser {
 
         while (!"".equals(input)) {
             if (input.startsWith("c/")) {
-                if (inputCategory != "") {
+                if (!"".equals(inputCategory)) {
                     categories.add(inputCategory);
                     inputCategory = "";
                 }
