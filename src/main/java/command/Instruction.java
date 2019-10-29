@@ -104,4 +104,6 @@ public class Instruction {
         return input.startsWith("add fund");
     }
 
+    public boolean isAssignFund(String input) { return input.startsWith("assign fund"); }
+
 }
