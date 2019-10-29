@@ -125,6 +125,14 @@ public class AchievementList {
     }
 
     /**
+     * Gets achievement list.
+     * @return current achievement list.
+     */
+    public ArrayList<Achievements> getAchievementList() {
+        return achievementList;
+    }
+
+    /**
      * Gets the size of achievement list.
      * @return size of achievement.
      */
