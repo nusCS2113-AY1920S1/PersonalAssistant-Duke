@@ -1,4 +1,7 @@
 = OwlMoney
+
+image:https://travis-ci.org/shamussy/main.svg?branch=master["Build Status", link="https://travis-ci.org/shamussy/main"]
+
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 ifdef::env-github[]
@@ -8,8 +11,6 @@ endif::[]
 ifndef::env-github[]
 image::images/UiReadMe.png[width="970"]
 endif::[]
-
-image:https://travis-ci.org/shamussy/main.svg?branch=master["Build Status", link="https://travis-ci.org/shamussy/main"]
 
 * OwlMoney is a finance tracker desktop application. It has a Graphical User Interface (GUI) but most of the user
 interaction happens in the Command Line Interface (CLI).
