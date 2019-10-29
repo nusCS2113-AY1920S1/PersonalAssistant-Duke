@@ -407,4 +407,18 @@ public class Patient extends DukeObject {
             return count + "critical issues";
         }
     }
+
+    public boolean equals(Patient other) throws DukeException {
+        boolean fieldsEqual;
+        try {
+            fieldsEqual = (bedNo.equals(other.bedNo)) && allergies.equals(other.getAllergies())
+                    && height.equals(other.getHeight()) && weight.equals(other.getWeight())
+                    && age.equals(other.getAge()) && number.equals(other.getNumber())
+                    && address.equals(other.getAddress()) && history.equals(other.getHistory()));
+        } catch (NullPointerException excp) {
+            throw new DukeException("Invalid patient: either one of these patients has null fields!");
+        }
+        return fieldsEqual && primaryDiagnosis == other.getPrimaryDiagnosis()
+                && observableImpressions.equals(other.getImpressionsObservableMap());
+    }
 }

@@ -80,32 +80,6 @@ public class GsonStorageTest {
     }
 
     /**
-     * Compares all the attributes of two patients and returns true if they all are the same, otherwise it returns
-     * false.
-     *
-     * @return A boolean stating if the storage function is working properly or not.
-     */
-    private boolean identical(Patient patient1, Patient patient2) {
-        if (!(patient1.getBedNo().equals(patient2.getBedNo()))) {
-            return false;
-        } else if (!(java.util.Objects.equals(patient1.getAllergies(), patient2.getAllergies()))) {
-            return false;
-        } else if (!(java.util.Objects.equals(patient1.getHeight(), patient2.getHeight()))) {
-            return false;
-        } else if (!(java.util.Objects.equals(patient1.getWeight(), patient2.getWeight()))) {
-            return false;
-        } else if (!(java.util.Objects.equals(patient1.getAge(), patient2.getAge()))) {
-            return false;
-        } else if (!(java.util.Objects.equals(patient1.getNumber(), patient2.getNumber()))) {
-            return false;
-        } else if (!(java.util.Objects.equals(patient1.getAddress(), patient2.getAddress()))) {
-            return false;
-        } else {
-            return java.util.Objects.equals(patient1.getHistory(), patient2.getHistory());
-        }
-    }
-
-    /**
      * Tests if patients are transformed from the json file to the hash map properly.
      */
     @Test
@@ -115,9 +89,9 @@ public class GsonStorageTest {
         fileWriter.write(expected);
         fileWriter.close();
         patientMap = new PatientMap(storage);
-        assertTrue(identical(patientMap.getPatient("A100"), dummy1));
-        assertTrue(identical(patientMap.getPatient("A200"), dummy2));
-        assertTrue(identical(patientMap.getPatient("A300"), dummy3));
+        assertTrue(patientMap.getPatient("A100").equals(dummy1));
+        assertTrue(patientMap.getPatient("A200").equals(dummy2));
+        assertTrue(patientMap.getPatient("A300").equals(dummy3));
     }
 
     /**
@@ -132,7 +106,7 @@ public class GsonStorageTest {
         storage.writeJsonFile(patientMap.getPatientHashMap());
         patientMap = new PatientMap(storage);
         Patient dummyPatientRecreated = patientMap.getPatient(dummy1.getBedNo());
-        boolean equals = identical(dummy1, dummyPatientRecreated);
+        boolean equals = dummy1.equals(dummyPatientRecreated);
         assertTrue(equals);
     }
 
@@ -149,7 +123,7 @@ public class GsonStorageTest {
         storage.writeJsonFile(patientMap.getPatientHashMap());
         storage.loadPatientHashMap();
         Patient complexPatientRecreated = patientMap.getPatient(complexPatient.getBedNo());
-        boolean equals = identical(complexPatient, complexPatientRecreated);
+        boolean equals = complexPatient.equals(complexPatientRecreated);
         assertTrue(equals);
     }
 
