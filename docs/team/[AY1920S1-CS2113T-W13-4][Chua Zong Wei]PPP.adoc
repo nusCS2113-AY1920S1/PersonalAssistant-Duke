@@ -1,0 +1,354 @@
+= Chua Zong Wei - Project Portfolio for DIYeats
+:sectnums:
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:warning-caption: :warning:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-W13-4/main
+
+By: `Team 13-4`      Since: `Sept 2019`      Licence: `MIT`
+
+== About the project
+My team was tasked with enhancing a basic command line interface based task scheduling application called Duke. To satisfy
+our project requirements, we chose the morph the application into DIYeats, a dietary management software that allows users to
+plan out their diet with ease. Additionally, our application is also capable of suggesting meals and exercise plans that are customized
+to every user based on their BMI, providing them with a personalized user experience that caters specifically to them.
+
+.DIYeats user interface
+image::Ui2.png[width="800"]
+
+My primary role in the object was to design and write the code for the `add`, `setgoal` and `suggestexercise` commands. The following
+sections will help illustrate these enhancements in more detail, as well as the relevant documentation I have added to the
+user and developer guides in relation to these enhancements.
+
+Additionally, the following annotations will be used throughout this user guide:
+
+[TIP]
+====
+This symbol denotes a tip which you may find useful when using the application.
+====
+[WARNING]
+====
+This symbol denotes a warning which you will need to be careful of when using the application.
+====
+[NOTE]
+====
+This symbol denotes some information or caveats that you will need to take note of when using the application.
+====
+
+== Summary of contributions
+The following section summarizes the contributions I have made to the coding and documentation of my team project
+
+**Enhancement added:**
+
+.  `add` command: I added the ability to set default nutritional values to food names
+* *What it does*: The `add` command allows the user to assign default nutritional values to a food name. The user
+   may rewrite these default values by re-entering the `add` command with the same food name.
+* *Justification*: In the course of populating their diet plan, users may come across certain food items that need to be entered
+   repetitively across the entire plan. For example, if they have "bread" everyday for breakfast it becomes a chore to type the name
+   of the item repeatedly, along with its associated nutritional values. With the `add` command, the user simply has to assign
+   default nutritional values to "bread" once, and from then on he/she can simply enter "bread", and the system will automatically
+   assign the default nutritional values assigned with "bread" to the meal. This expedites user input.
+* *Highlights*: This enhancement works in tandem with our plan to include all the meal items at the NUS Deck canteen into our application.
+. `setgoal` command: I added the ability for the user to set a dietary goal to be met by a deadline
+* *What it does*: The `setgoal` command allows the user to set a goal to be met by a deadline(e.g: losing weight). With
+   a goal set, the software can generate meaningful data that will allow the user to reach their dietary goals.
+* *Justification*: Sometimes, the user may find themselves consuming too many or too little calories to maintain a healthy
+   lifestyle. By allowing the user to set a target for themselves, it will keep them on track for their dietary plan, and allow the software
+   to suggest and plan a meal and exercise schedule for the user that caters to their specific needs.
+* *Highlights* : This enhancement works in tandem and is core in the implementation of the `suggestmeals` and `suggestexercise` command.
+. `suggestexercise` command (Major): I added the ability for the software to automatically suggest an exercise plan for the user
+* *What it does* Once the user has set a goal to be met using the `setgoal` command, the `suggestexercise` will automatically
+  suggest an exercise regime that aligns with the user's goals.
+* *Justification* When the user is following a strict dietary plan, it becomes difficult to calculate exactly how much exercise is required to lose weight,
+  and how much exercise is too much and unhealthy for the body. With the `suggestexercise` command, the software will automatically
+  formulate a suitable exercise regime for the user that aligns with their goals.
+
+
+**Code Contributed**
+
+Code contributed for this project is tracked via reposense, which can be accessed with this link:
+https://bit.ly/2qTIxAx
+
+**Other Contributions**
+
+* Project Management:
+** Assigned issues and user stories to be worked on.
+* Enhancements to existing features:
+** Refactored major parts of the code to improve code quality.
+* Documentation:
+** Creating and writing the User Guide.
+** In charge of adapting the developer guide into adoc format.
+* Tools:
+** Implemented CheckStyle tools into code base.
+
+== Contributions to the User Guide
+We had to update our original User Guide with instructions for the enhancements that
+we had added. The following is an excerpt from our DIYeats User Guide, showing additions that I have
+made for the features and command sections.
+
+**Features**
+
+In this section, you will be introduced to the various command formats that will be used in *DIYeats*, along with their associated syntax.
+
+[TIP]
+====
+Don't worry if you don't understand the usage of the commands at a glance.
+Examples will be provided to aid in your understanding of the commands.
+====
+====
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.
+**  For example, the command `add n/ MEAL` can be entered as the following:
+.. `add n/ burger`
+.. `add n/ fries`
+.. `add n/ burger and fries`
+** But not:
+.. `add n/{nbsp}` (The user defined field is empty)
+* Fields in square brackets `[]` are optional, and can be omitted from the input statement if unnecessary
+** For example, `n/ MEAL [t/ TAG]` can be entered as:
+.. `n/ burger t/ calories`
+.. `n/ fries t/ sodium`
+.. `n/ burger`
+* Fields in arrow brackets `<>` are required after its preceding  optional tag
+** For example, `[t/ TAG]` `<QUANTITY>` can be entered as:
+.. `t/ calories` `100`
+.. `t/ sodium` `10`
+.. `{nbsp}` (The optional tag is not present)
+** But not:
+.. `t/calories` `{nbsp}` (The required user defined field is empty)
+* Fields with `…`​ after them can be used multiple times including zero times
+** For example, `[t/ TAG]...` can be entered as:
+.. `{nbsp}` (i.e. 0 times)
+.. `t/ calories`
+.. `t/ calcium t/ sodium`,  etc.
+====
+
+[WARNING]
+====
+* Commands demonstrated in the user guide only accept numerical inputs in the *integer format*, unless otherwise stated
+** For example, `20` should be entered instead of `twenty` when trying to input a number
+* Parameter values should not be *empty or negative* (unless otherwise stated).
+* All commands to be entered in the CLI should be proceeded with the kbd:[Enter] key,
+====
+
+Now that you have familiarized yourself with the command syntax that will be used, lets move on to the actual commands that can be used in *DIYeats*!
+
+**Commands**
+
+*Listing nutritional intake for the day: `list`*
+
+Format: `list [/date] <DATE>`
+
+Want to view your current nutritional intake for today? Simply enter the command `list` to show your current recorded nutritional intake for breakfast, lunch and dinner.
+
+The command also supports the viewing of data from other dates: simply specify the date after adding a `/date` flag.
+
+Examples:
+
+* You want to view your data today:
+** `list`
+* You want to view your data from 26th of December, 2019:
+** `list /date 26/12/2019`
+* You want to view your data from 1st of January, 2018:
+** `list /date 1/1/2018`
+
+[NOTE]
+====
+* Current date is obtained from the system date in your computer.
+* Dates should be entered in the following format: day/month/year.
+====
+
+*Adding a breakfast item: `breakfast`*
+
+Format: `breakfast DESCRIPTION [/TAG]<QUANTITY>... [/date] <DATE>`
+
+Want to add a breakfast item with its associated nutritional information? Use the `breakfast` command!
+
+The command also supports the addition of data to other dates: simply specify the date after adding a `/date` flag at the end of the statement
+
+Examples:
+
+* You ate a hamburger today, but you are unsure of its nutritional value:
+** `breakfast hamburger`
+* You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt
+** `breakfast hamburger /calories 1000 /sodium 10`
+* You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt on 1st of January, 2019, but you are only adding the item today
+** `breakfast hamburger /calories 1000 /sodium 10 /date 1/1/2019`
+
+[NOTE]
+====
+* Current date is obtained from the system date in your computer.
+* Dates should be entered in the following format: day/month/year.
+====
+
+*Adding a lunch item: `lunch`*
+
+Format: `lunch DESCRIPTION [/TAG]<QUANTITY>... [/date] <DATE>`
+
+Want to add a lunch item with its associated nutritional information? Use the `lunch` command!
+
+The command also supports the addition of data to other dates: simply specify the date after adding a `/date` flag at the end of the statement
+
+Examples:
+
+* You ate a hamburger today, but you are unsure of its nutritional value:
+** `lunch hamburger`
+* You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt
+** `lunch hamburger /calories 1000 /sodium 10`
+* You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt on 1st of January, 2019, but you are only adding the item today
+** `lunch hamburger /calories 1000 /sodium 10 /date 1/1/2019`
+
+[NOTE]
+====
+* Current date is obtained from the system date in your computer.
+* Dates should be entered in the following format: day/month/year.
+====
+
+
+*Adding a dinner item: `dinner`*
+
+Format: `dinner DESCRIPTION [/TAG]<QUANTITY>... [/date] <DATE>`
+
+Want to add a dinner item with its associated nutritional information? Use the `dinner` command!
+
+The command also supports the addition of data to other dates: simply specify the date after adding a `/date` flag at the end of the statement
+
+Examples:
+
+* You ate a hamburger today, but you are unsure of its nutritional value:
+** `dinner hamburger`
+* You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt
+** `dinner hamburger /calories 1000 /sodium 10`
+* You ate a hamburger that had 1000 calories and 10 grams of sodium worth in salt on 1st of January, 2019, but you are only adding the item today
+** `dinner hamburger /calories 1000 /sodium 10 /date 1/1/2019`
+
+[NOTE]
+====
+* Current date is obtained from the system date in your computer.
+* Dates should be entered in the following format: day/month/year.
+====
+
+== Contributions to Developer Guide
+
+We had to update our original Developer Guide with instructions for the enhancements that we had added. The following is an excerpt from our DIYeats developer Guide, showing additions that I have made for the Design section, as well as the Add command in the implementation section.
+
+*Design*
+
+*Architecture*
+
+.Architecture Diagram
+image::architecture.png[width="500"]
+
+The figure above illustrates how our program might look like from a high-level perspective. Each of the major processes in the figure above will be elaborated on in the following sections.
+
+`Main` has one function `run` which is executed immediately when the program is run. This function is responsible for:
+
+* At application launch: initialize the UI, Model, Storage and Logic components of the code in the correct sequence
+
+* During application runtime: support high level exchange of information between each of the aforementioned component
+
+* At shutdown: Stop all running processes, and initiate any cleanup methods whenever required
+
+*Model*
+
+.Model Diagram : Meal Management
+image::model.png[width="800"]
+
+The Model component of the code is in charge of tracking and managing all of the meal data involved during the application's runtime. It accomplishes this by:
+
+* Initializing a MealList object, which stores:
+** All of the user's meal info
+** All of the previously defined default meal values
+* Initializing a Goal object, which stores the user defined dietary targets to be met.
+* Being capable of operating independently of all the other code components.
+
+.Model Diagram: Cost Management
+image::transactionmodel.png[width="800"]
+
+The Model component of the code is in charge of managing the transaction data involved during the application's runtime. It accomplishes this by:
+
+* Initializing a TransactionList object, which stores
+** All of the transactions information (e.g. transaction amount, dates of transaction).
+* Being capable of operating independently of all the other code components.
+
+*Storage*
+
+.Storage Diagram
+image::storage.png[width="800"]
+
+The storage component of the code is in charge of reading and writing to files in the Data package of the main program directory. it accomplishes this by:
+
+* Initializing a Load object, which:
+** Is capable of reading and parsing data from the text save files in the Data directory, using its constituent functions as well as subsidiary classes.
+** Being capable of operating independently of all the other code components.
+* Initializing a Write object, which:
+** Is capable of writing data to the text save files in the Data directory, using its constituent functions.
+** Being capable of operating independently of all the other code components.
+
+*Logic*
+
+.Logic Diagram
+image::logic.png[width="800"]
+
+The Logic component of the code is in charge of parsing all of the user's commands and executing them. It accomplishes this in the following steps:
+
+. The UI receives a command from the user, and sends it over to the Logic component
+. The Parser object in the Logic component receives the command, and calls the autocorrect function to correct any typo errors present in the command
+. The corrected command is inserted in the commandHistory
+. Depending on the type of command issued, the parser calls the commandparser associated with the command, which parses the command into its relevant data chunks.
+. A command object relevant to the user given command is then instantiated from the data in the user given command
+. The command object is then passed to the main function, which immediately executes it
+
+*Ui*
+
+The Ui component of the code is in charge of:
+
+. Executing all user commands through the Logic component
+. Presenting data from the model component of the code to the user through the command line interface
+
+**Add command**
+
+The Add feature gives the user the ability to assign default nutritional values associated with certain meal names.
+
+This section describes the implementation and design considerations involved in the Add feature, and how the Add feature expedites user input.
+
+**Current implementation**
+
+Assuming that there are no preexisting default values assigned to meals, and the user inputs the `add` command `add hotcakes /calories 300`, the application processes the command through the following steps:
+
+. The `Main` class calls the parse function of the `Parser` class to parse the user input.
+
+. After parsing, the data is then used to create an instance of the `AddItemCommand` object, which is then returned to the `Main` function.
+. The `Main` function would then invoke the `AddItemCommand#execute()` function.
+. The `AddItemCommand#execute()` function then further invokes the `MealList#addStoredItem(...)` function, which stores the data in a `storedItems` object of type `HashMap<String, HashMap<String, Integer>>`, in the following format:
+* The key of the encapsulating hashmap is the name of the meal that is to be assigned default values, in this instance, it has only one member `hotcakes`
+* The internal hashmap associated with the key `hotcakes` is used to store the nutritional tags (e.g calories, sodium, etc.), along with the default quantity associated with it. In this case, the internal hashmap only has one key `calories`, which is associated with the integer value `300`
+
+The steps carried out by the program as described above are captured in figure 5, the sequence diagram as shown below.
+
+.Add command sequence diagram
+image::addcommand.png[width="800"]
+
+**Design considerations**
+
+Problem 1: *How to store the data associated with this command*
+
+* Solution 1 (current implementation): Hashmap of a Hashmap
+** By storing the data in this format, this feature can be easily extendable to store multiple different default values associated to different nutritional tags to a single meal. Additionally, read and write access can be carried out in approximately O(n) time, where n is the amount of nutritional tags associated to a single meal. As n is unlikely to be large (n > 10), the process is not time complex.
+
+Problem 2: *Where to instantiate the data structure used to store the data for this command*
+
+* Solution 1 (current implementation): Directly in the MealList data structure
+** By instantiating the data structure directly in the MealList data structure, it becomes straightforward to access the data whenever a new meal is added.
+** However, this violates the separation of concerns architecture principle
+* Solution 2 (planned implementation by v1.3): In a separate class
+** By instantiating the data structure in a different class, it improves the cohesion of the code, and satisfies the separation of concerns principle
+
+
