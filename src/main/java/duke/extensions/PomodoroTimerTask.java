@@ -4,8 +4,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class PomodoroTimerTask extends TimerTask {
-    Timer t;
-    int minutesRemaining;
+    private Timer t;
+    private int minutesRemaining;
 
     public PomodoroTimerTask(Timer t, int minutesRemaining) {
         this.minutesRemaining = minutesRemaining;

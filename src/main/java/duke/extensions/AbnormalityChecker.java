@@ -10,9 +10,10 @@ public class AbnormalityChecker {
     public AbnormalityChecker(TaskList taskList) {
         this.taskList = taskList;
     }
+
     public boolean checkEventClash(Event event) {
         Task task;
-        for (int i=0; i<taskList.size(); i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             task = taskList.get(i);
             if (task instanceof Event) {
                 if (((Event) task).getDateTime().equals(event.getDateTime())) {

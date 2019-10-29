@@ -1,3 +1,7 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.ParseException;
+
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.parser.DuqueParser;
@@ -5,10 +9,6 @@ import duke.storage.Storage;
 import duke.storage.UndoStack;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.ParseException;
 
 /**
  * Main class which is responsible for the running of the task manager
@@ -29,6 +29,10 @@ public class Duke {
             ui.showLoadingError();
             tasks = new TaskList();
         }
+    }
+
+    public static void main(String[] args) {
+        new Duke("data/duke.json").run();
     }
 
     /**
@@ -53,9 +57,5 @@ public class Duke {
             }
         }
         ui.exit();
-    }
-
-    public static void main(String[] args) {
-        new Duke("data/duke.json").run();
     }
 }

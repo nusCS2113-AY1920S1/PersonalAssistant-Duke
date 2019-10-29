@@ -1,14 +1,14 @@
 package duke.extensions;
 
-import duke.exception.DukeException;
-
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
+import duke.exception.DukeException;
+
 public class Recurrence {
-    RecurrencePeriod recurrencePeriod;
-    protected LocalDateTime lastUpdatedDate;
+    private LocalDateTime lastUpdatedDate;
+    private RecurrencePeriod recurrencePeriod;
 
     public Recurrence(Optional<String> recurrencePeriod) throws DukeException {
         this.lastUpdatedDate = LocalDateTime.now();
@@ -44,23 +44,23 @@ public class Recurrence {
     public boolean isTimeToReset() {
         LocalDateTime dateNow = LocalDateTime.now();
         switch (recurrencePeriod) {
-            case DAILY:
-                if (ChronoUnit.DAYS.between(lastUpdatedDate, dateNow) > 0) {
+        case DAILY:
+            if (ChronoUnit.DAYS.between(lastUpdatedDate, dateNow) > 0) {
 
-                    lastUpdatedDate = LocalDateTime.now();
-                    return true;
-                } else {
-                    return false;
-                }
-            case WEEKLY:
-                if (ChronoUnit.DAYS.between(lastUpdatedDate, dateNow) > 7) {
-                    lastUpdatedDate = LocalDateTime.now();
-                    return true;
-                } else {
-                    return false;
-                }
-            default:
+                lastUpdatedDate = LocalDateTime.now();
+                return true;
+            } else {
                 return false;
+            }
+        case WEEKLY:
+            if (ChronoUnit.DAYS.between(lastUpdatedDate, dateNow) > 7) {
+                lastUpdatedDate = LocalDateTime.now();
+                return true;
+            } else {
+                return false;
+            }
+        default:
+            return false;
         }
     }
 }

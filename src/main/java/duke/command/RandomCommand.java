@@ -1,17 +1,17 @@
 package duke.command;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.Random;
+
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.TaskListPrinter;
 import duke.ui.Ui;
-
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.Random;
 
 public class RandomCommand extends ListCommand {
 

@@ -1,27 +1,25 @@
 package duke.task;
 
-import duke.exception.DukeException;
-import duke.extensions.Priority;
-import duke.extensions.Recurrence;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+
+import duke.exception.DukeException;
+import duke.extensions.Priority;
+import duke.extensions.Recurrence;
 
 /**
  * Superclass for all Tasks that will be added to the duke.task.Task Manager
  */
 public class Task {
-    private String description;
-
-    private int duration;
-    private Optional<String> filter;
     protected Optional<LocalDateTime> dateTime;
-
     protected boolean isDone;
     protected String key;
     protected Priority priority;
     protected Recurrence recurrence;
+    private String description;
+    private int duration;
+    private Optional<String> filter;
 
     /**
      * Constructor function for duke.task.Task
@@ -31,7 +29,8 @@ public class Task {
      *
      * @param description the description of the task
      */
-    public Task(Optional<String> filter, Optional<LocalDateTime> dateTime, Recurrence recurrence, String description, int duration) {
+    public Task(Optional<String> filter, Optional<LocalDateTime> dateTime, Recurrence recurrence,
+                String description, int duration) {
         this.description = description;
         this.isDone = false;
         this.key = "";
@@ -79,22 +78,6 @@ public class Task {
         return this.filter;
     }
 
-
-    public void setDescription(String description) {
-        this.description = description;
-        System.out.println(this + " description has been successfully updated");
-    }
-
-    public void setDateTime(Optional<LocalDateTime> dateTime) {
-        this.dateTime = dateTime;
-        System.out.println(this + " has a new deadline of " + dateTime.get().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-        System.out.println(this + " has a new duration of " + duration + ((duration == 1) ? "hour" : " hours"));
-    }
-
     public String getRecurrenceCode() {
         return recurrence.recurrenceCode();
     }
@@ -110,30 +93,16 @@ public class Task {
         }
     }
 
-    public void setPriority(int i) throws DukeException {
-        switch (i) {
-            case 0:
-                priority = Priority.LOW;
-                System.out.println(this + " has a new priority of LOW");
-                break;
-            case 1:
-                priority = Priority.MEDIUM;
-                System.out.println(this + " has a new priority of MEDIUM");
-                break;
-            case 2:
-                priority = Priority.HIGH;
-                System.out.println(this + " has a new priority of HIGH");
-                break;
-            default:
-                throw new DukeException("No such priority exists.");
-        }
-    }
-
     public String getDuration() {
         if (duration == 0) {
             return "N";
         }
         return Integer.toString(duration);
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+        System.out.println(this + " has a new duration of " + duration + ((duration == 1) ? "hour" : " hours"));
     }
 
     public int getPriorityLevel() {
@@ -144,6 +113,25 @@ public class Task {
         return priority.priorityCode();
     }
 
+    public void setPriority(int i) throws DukeException {
+        switch (i) {
+        case 0:
+            priority = Priority.LOW;
+            System.out.println(this + " has a new priority of LOW");
+            break;
+        case 1:
+            priority = Priority.MEDIUM;
+            System.out.println(this + " has a new priority of MEDIUM");
+            break;
+        case 2:
+            priority = Priority.HIGH;
+            System.out.println(this + " has a new priority of HIGH");
+            break;
+        default:
+            throw new DukeException("No such priority exists.");
+        }
+    }
+
     /**
      * Returns a String which describes the task
      *
@@ -151,9 +139,14 @@ public class Task {
      */
     public String getDescription() {
         return dateTime.map(localDateTime ->
-                this.description + " " +
-                        localDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")))
+                this.description + " "
+                        + localDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")))
                 .orElseGet(() -> this.description);
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+        System.out.println(this + " description has been successfully updated");
     }
 
     public boolean hasDateTime() {
@@ -162,6 +155,12 @@ public class Task {
 
     public LocalDateTime getDateTime() {
         return dateTime.get();
+    }
+
+    public void setDateTime(Optional<LocalDateTime> dateTime) {
+        this.dateTime = dateTime;
+        System.out.println(this + " has a new deadline of "
+                + dateTime.get().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
     }
 
     @Override

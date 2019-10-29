@@ -1,14 +1,5 @@
 package duke.command;
 
-import duke.exception.DukeException;
-import duke.extensions.Recurrence;
-import duke.parser.EditCommandParser;
-import duke.storage.Storage;
-import duke.task.Task;
-import duke.tasklist.TaskList;
-import duke.ui.Ui;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -16,6 +7,16 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+
+import duke.exception.DukeException;
+import duke.extensions.Recurrence;
+import duke.parser.EditCommandParser;
+import duke.storage.Storage;
+import duke.task.Task;
+import duke.tasklist.TaskList;
+import duke.ui.Ui;
 
 public class EditCommandTest {
     private static final String FILE_PATH = "data/editCommandTest.json";
@@ -37,9 +38,12 @@ public class EditCommandTest {
         Optional<String> empty = Optional.empty();
 
         //Date parameters
-        Optional<LocalDateTime> dateTime1 = Optional.of(LocalDateTime.of(2017, Month.OCTOBER, 29, 0, 0));
-        Optional<LocalDateTime> dateTime2 = Optional.of(LocalDateTime.of(2018, Month.OCTOBER, 29, 0, 0));
-        Optional<LocalDateTime> dateTime3 = Optional.of(LocalDateTime.of(2017, Month.FEBRUARY, 10, 0, 0));
+        Optional<LocalDateTime> dateTime1 = Optional.of(LocalDateTime.of(2017, Month.OCTOBER, 29,
+                0, 0));
+        Optional<LocalDateTime> dateTime2 = Optional.of(LocalDateTime.of(2018, Month.OCTOBER, 29,
+                0, 0));
+        Optional<LocalDateTime> dateTime3 = Optional.of(LocalDateTime.of(2017, Month.FEBRUARY, 10,
+                0, 0));
 
         //Description parameters
         String description1 = "cs2113 is the best :')";
@@ -131,7 +135,8 @@ public class EditCommandTest {
         editCommand = new EditCommandParser().parse(Optional.empty(), "1 -desc hello world");
         Exception exception = assertThrows(DukeException.class, () ->
                 editCommand.execute(tasks, ui, storage));
-        assertEquals("☹ OOPS!!! I'm sorry, but I don't know what field you are trying to edit!", exception.getMessage());
+        assertEquals("☹ OOPS!!! I'm sorry, but I don't know what field you are trying to edit!",
+                exception.getMessage());
     }
 
     @Test

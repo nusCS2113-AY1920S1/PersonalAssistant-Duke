@@ -1,14 +1,14 @@
 package duke.tasklist;
 
-import duke.exception.DukeException;
-import duke.task.Task;
-import duke.ui.Ui;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Optional;
+
+import duke.exception.DukeException;
+import duke.task.Task;
+import duke.ui.Ui;
 
 /**
  * Represents the data structure containing all tasks added to the task manager
@@ -174,8 +174,8 @@ public class TaskList {
         for (Task t : taskList) {
             if (t.hasDateTime()) {
                 LocalDateTime taskDate = t.getDateTime();
-                if (ChronoUnit.DAYS.between(currDate, taskDate) < 7 &&
-                        ChronoUnit.DAYS.between(currDate, taskDate) > -1) {
+                if (ChronoUnit.DAYS.between(currDate, taskDate) < 7
+                        && ChronoUnit.DAYS.between(currDate, taskDate) > -1) {
                     temp.add(t);
                 }
             }
@@ -193,10 +193,10 @@ public class TaskList {
         return new TaskList(list);
     }
 
-	public void insert(Optional<String> filter, int index, Task t) throws DukeException {
+    public void insert(Optional<String> filter, int index, Task t) throws DukeException {
         int i = reduceFilter(filter, index);
         taskList.add(i, t);
-	}
+    }
 
     public void set(Optional<String> filter, int index, Task t) throws DukeException {
         int i = reduceFilter(filter, index);

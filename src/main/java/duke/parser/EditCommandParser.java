@@ -1,10 +1,10 @@
 package duke.parser;
 
-import duke.command.EditCommand;
-import duke.exception.DukeException;
-
 import java.util.ArrayList;
 import java.util.Optional;
+
+import duke.command.EditCommand;
+import duke.exception.DukeException;
 
 public class EditCommandParser implements Parser<EditCommand> {
 
@@ -20,7 +20,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             if (s.length == 1) {
                 throw new DukeException("Please enter something for me to edit!");
             } else {
-               keywordAndEdits.add(new KeywordAndField(s[0], s[1]));
+                keywordAndEdits.add(new KeywordAndField(s[0], s[1]));
             }
         }
         return keywordAndEdits;
