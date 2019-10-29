@@ -17,10 +17,10 @@ import java.time.Period;
 public class AutoUpdateInstalmentCommand extends MoneyCommand {
     private LocalDate currDate = LocalDate.now();
 
+    //@@author ChenChao19
     /**
      * Default Constructor for AutoUpdateInstalmentCommand.
      */
-    //@@author ChenChao19
     public AutoUpdateInstalmentCommand() {
     }
 

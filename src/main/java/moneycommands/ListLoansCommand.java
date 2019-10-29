@@ -16,12 +16,12 @@ public class ListLoansCommand extends MoneyCommand {
 
     private String inputString;
 
+    //@@author chengweixuan
     /**
      * Constructor of the list command. Isolates the command that determines what type
      * of loans to list.
      * @param command List command inputted from user
      */
-    //@@author chengweixuan
     public ListLoansCommand(String command) {
         command = command.replaceFirst("list ", "");
         command = command.replace("loans", "");

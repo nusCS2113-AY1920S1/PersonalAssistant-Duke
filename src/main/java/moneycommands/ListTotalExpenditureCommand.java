@@ -11,10 +11,10 @@ import money.Expenditure;
  */
 public class ListTotalExpenditureCommand extends MoneyCommand {
 
+    //@@author chengweixuan
     /**
      * Constructor of the list command.
      */
-    //@@author chengweixuan
     public ListTotalExpenditureCommand(){
     }
 

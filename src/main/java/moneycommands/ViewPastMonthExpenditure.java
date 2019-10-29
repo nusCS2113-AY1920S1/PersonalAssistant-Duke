@@ -18,12 +18,12 @@ public class ViewPastMonthExpenditure extends MoneyCommand {
     private int month;
     private int year;
 
+    //@@author chengweixuan
     /**
      * Constructor of the command which initialises the check expenditure command
      * with the data for the month and year to check as given in the user input.
      * @param command Check command inputted from user
      */
-    //@@author chengweixuan
     public ViewPastMonthExpenditure(String command) throws DukeException {
         if (command.equals("list month")) {
             LocalDate currDate = LocalDate.now();

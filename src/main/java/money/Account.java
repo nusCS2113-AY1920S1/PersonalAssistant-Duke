@@ -22,11 +22,11 @@ public class Account {
     private float goalSavings;
     private boolean toInitialize;
 
+    //@@author ChenChao19
     /**
      * Constructor of the Account Object to record financial information of the user.
      * This constructor is used when initializing a new account.
      */
-    //@@author ChenChao19
     public Account() {
         incomeListTotal = new ArrayList<>();
         expListTotal = new ArrayList<>();
@@ -58,7 +58,6 @@ public class Account {
     }
 
     //@@author therealnickcheong
-
     /**
      * This method is to initialize the user account when he uses Financial Ghost for the first time.
      * @param userSavings The initial savings the user have in his account
@@ -143,11 +142,11 @@ public class Account {
         return incomingLoans;
     }
 
+    //@@author therealnickcheong
     /**
      * This method sorts the short term goal with a custom comparator function.
      * @param shortTermGoals The lists of short term goals
      */
-    //@@author therealnickcheong
     public void sortShortTermGoals(ArrayList<Goal> shortTermGoals) {
         Collections.sort(shortTermGoals, new Comparator<Goal>() {
             @Override
@@ -225,14 +224,13 @@ public class Account {
         this.toInitialize = initStatus;
     }
 
-
+    //@@author cctt1014
     /**
      * This method helps to find the corresponding bank account tracker by given description(name).
      * @param name The given description
      * @return The corresponding tracker
      * @throws DukeException Handle the case when there is no such account
      */
-    //@@author cctt1014
     public BankTracker findTrackerByName(String name) throws DukeException {
         BankTracker bankTracker = null;
         for (BankTracker b : bankTrackerList) {

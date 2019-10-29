@@ -17,10 +17,10 @@ import java.time.temporal.ChronoUnit;
  */
 public class ListGoalsCommand extends MoneyCommand {
 
+    //@@author therealnickcheong
     /**
      * Constructor of the list command.
      */
-    //@@author therealnickcheong
     public ListGoalsCommand() {
     }
 

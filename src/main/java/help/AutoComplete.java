@@ -50,11 +50,11 @@ public class AutoComplete {
     };
     private List<String> commandList = Arrays.asList(list);
 
+    //@@author ChenChao19
     /**
      * This is the constructor for the AutoComplete class.
      * It automatically sorts the list of all commands when it instantiates.
      */
-    //@@author ChenChao19
     public AutoComplete() {
         Collections.sort(commandList);
     }

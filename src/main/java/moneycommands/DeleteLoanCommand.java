@@ -16,12 +16,12 @@ public class DeleteLoanCommand extends MoneyCommand {
     private String inputString;
     private int serialNo;
 
+    //@@author chengweixuan
     /**
      * Constructor of the command which initialises the delete expenditure command
      * with the index of the item to be deleted within the user input.
      * @param command delete command inputted from user
      */
-    //@@author chengweixuan
     public DeleteLoanCommand(String command) throws DukeException {
         try {
             inputString = command;

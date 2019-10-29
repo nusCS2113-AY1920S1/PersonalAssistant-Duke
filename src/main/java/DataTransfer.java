@@ -15,13 +15,13 @@ public interface DataTransfer {
         HISTOGRAM, LINE_GRAPH, PIE_CHART
     }
 
+    //@@author cctt1014
     /**
      * This function gets the data of the current month's income and expenditure
      * from the account then passes the data to getHistogram method and return the
      * histogram it gets from getHistogram.
      * @return histogram for the monthly report
      */
-    //@@author cctt1014
     static HBox getMonthlyData(Account account, Type type) throws IOException {
         ArrayList<String> xData = new ArrayList<>();
         xData.add("Income");

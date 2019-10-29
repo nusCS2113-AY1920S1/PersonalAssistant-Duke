@@ -26,12 +26,12 @@ public class AddSplitCommand extends MoneyCommand {
     private LocalDate boughtTime;
     private ArrayList<Pair<String, Boolean>> parties;
 
+    //@@author chengweixuan
     /**
      * Constructor of the command which initialises the add split expenditure command
      * with the split expenditure data within the user input.
      * @param command add command inputted from user
      */
-    //@@author chengweixuan
     public AddSplitCommand(String command) {
         inputString = command.replaceFirst("split ", "");
     }

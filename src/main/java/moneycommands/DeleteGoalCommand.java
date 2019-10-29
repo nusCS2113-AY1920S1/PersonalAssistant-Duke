@@ -16,12 +16,12 @@ public class DeleteGoalCommand extends MoneyCommand {
 
     private int serialNo;
 
+    //@@author therealnickcheong
     /**
      * Constructor of the command which initialises the delete goal command
      * with the index of the item to be deleted within the user input
      * @param index delete command inputted from user
      */
-    //@@author therealnickcheong
     public DeleteGoalCommand(int index){
         serialNo = index;
     }
