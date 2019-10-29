@@ -1,3 +1,5 @@
+package duke.src.test.java;
+
 import duke.DukeCore;
 import duke.command.ArgCommand;
 import duke.data.GsonStorage;
