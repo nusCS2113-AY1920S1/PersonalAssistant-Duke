@@ -38,16 +38,18 @@ public class DeleteRoomCommand extends Command {
 
     /**
      * Executes the command to delete a room from room list to the system.
-     * @param roomList
+     * @param roomList list of rooms
      * @param bookingList bookings list
      * @param ui user interface
      * @param bookingStorage handles read write of text file
-     * @param roomStorage
+     * @param roomStorage file storage for room list
      * @param user Current user
-     * @throws DukeException
+     * @throws DukeException invalid entry
      */
     @Override
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui, Storage inventoryStorage, Storage bookingStorage, Storage roomStorage, User user) throws DukeException {
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage inventoryStorage, Storage bookingStorage, Storage roomStorage, User user)
+            throws DukeException {
         if (index < 0 || index > roomList.size() - 1) {
             throw new DukeException("OOPS!!! You have entered an index that is out of bounds.");
         }

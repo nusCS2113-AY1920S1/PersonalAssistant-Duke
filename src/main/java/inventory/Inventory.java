@@ -1,30 +1,19 @@
 package inventory;
+
 import java.util.ArrayList;
 
 import exception.DukeException;
 import storage.Constants;
 
 
-/* purpose of inventory
-* er
-* just need a checklist of things and its quantity
-* use same default fof every room
-* items not present just put qty 0
-*
-* must link to ROOM
-* item of inventory of room
-*
- */
-
 
 public class Inventory extends ArrayList<Item> {
+
     /**
      * Create Inventory from text file.
      * @param loader strings from text file containing Item info
      * @throws DukeException if file format incorrect
      */
-
-
     public Inventory(ArrayList<String> loader) { //loads previous inventory data stored in text file
         for (String line : loader) {
             String[] splitStr = line.split("\\|", 2);
@@ -44,14 +33,11 @@ public class Inventory extends ArrayList<Item> {
      */
     public static boolean checkInventory(Inventory inventory, String inputItem) {
         boolean found = false;
-
         for (int i = 0; i < inventory.size(); i++) {
             if (inventory.get(i).getName().equals(inputItem)) {
-                    found = true;
+                found = true;
             }
         }
         return found;
     }
-
-
 }

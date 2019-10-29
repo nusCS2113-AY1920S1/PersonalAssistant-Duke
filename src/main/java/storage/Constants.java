@@ -18,7 +18,7 @@ public class Constants {
     public static final int ROOMTIMESLOT = 3;
     public static final int ITEMNAME = 0;
     public static final int ITEMQTY = 1;
-   // public static final int ROOMDATE = 1;
-    //public static final int ROOMTIMESLOT = 2;
+    public static final int ROOMDATETIMESTART = 1;
+    public static final int ROOMDATETIMEEND = 2;
     public static final String UNHAPPY = "☹";
 }

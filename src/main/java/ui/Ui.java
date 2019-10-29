@@ -127,6 +127,9 @@ public class Ui extends AnchorPane {
         System.out.println("    ____________________________________________________________");
     }
 
+    /**
+     * to exit the application.
+     */
     public void showBye() {
         setOutput("Bye. Hope to see you again soon!");
         Platform.exit();
