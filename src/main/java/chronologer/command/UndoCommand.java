@@ -21,7 +21,7 @@ public class UndoCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
-        tasks.listOfTasks = ChronologerStateList.undo();
+        tasks.updateListOfTasks(ChronologerStateList.undo());
         tasks.updatePriority(null);
         storage.saveFile(tasks.getTasks());
         UiTemporary.printOutput("undo successful");

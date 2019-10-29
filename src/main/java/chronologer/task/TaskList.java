@@ -23,9 +23,8 @@ public class TaskList {
     private static final String TODO_DURATION = "TODO DURATION";
     private static final String TODO_PERIOD = "TODO PERIOD";
 
-    public ArrayList<Task> listOfTasks;
+    private ArrayList<Task> listOfTasks;
     private ObservableList<Task> observableListOfTasks;
-    private Integer currentStatePointer = 1;
 
     public TaskList(ArrayList<Task> listOfTasks) {
         this.listOfTasks = listOfTasks;
@@ -335,6 +334,9 @@ public class TaskList {
     public void updatePriority(Task task) {
         observableListOfTasks.add(task);
         observableListOfTasks.remove(task);
+    }
+    public void updateListOfTasks (ArrayList<Task> updatedListOfTasks) {
+        listOfTasks = updatedListOfTasks;
     }
 
     public ArrayList<Task> getTasks() {

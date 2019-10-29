@@ -13,8 +13,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- * Main class of the application.
- * The core of Dr. Duke, which holds the UI and storage components.
+ * Main class of the application which holds the UI as well as instantiates
+ * storage components.
  */
 public class ChronologerMain extends Application {
 

@@ -21,7 +21,7 @@ public class RedoCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
-        tasks.listOfTasks = ChronologerStateList.redo();
+        tasks.updateListOfTasks(ChronologerStateList.redo());
         tasks.updatePriority(null);
         storage.saveFile(tasks.getTasks());
         UiTemporary.printOutput("redo successful");

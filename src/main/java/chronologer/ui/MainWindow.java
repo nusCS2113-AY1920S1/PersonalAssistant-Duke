@@ -2,7 +2,6 @@ package chronologer.ui;
 
 import chronologer.ChronologerMain;
 import chronologer.command.Command;
-import chronologer.exception.ChronologerException;
 import chronologer.parser.Parser;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
@@ -11,7 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.util.ArrayList;
 
 /**
  * Main UI window of the application. Acts as a container for child UI elements.
@@ -33,7 +31,7 @@ class MainWindow extends UiComponent<Stage> {
     private File file = new File(filePath);
 
     /**
-     * Constructs the main UI window to house child UI elements.
+     * Constructs the main UI window to house all the different child UI elements.
      *
      * @param baseStage Base stage of the application.
      * @param main      Main of Chronologer.

@@ -124,7 +124,7 @@ public class AddCommand extends Command {
         }
 
         tasks.add(task);
-        ChronologerStateList.addState(tasks.listOfTasks);
+        ChronologerStateList.addState(tasks.getTasks());
         storage.saveFile(tasks.getTasks());
         UiTemporary.printOutput("Got it! I've added this task:" + "\n  " + task.toString() + "\nNow you have "
                 + tasks.getSize() + " task(s) in the list.");
