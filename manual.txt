@@ -12,11 +12,7 @@ Event               event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:M
 
 Todo                todo DESCRIPTION /on DD-MM-YYYY
 
-Do-after            do-after INDEX DESCRIPTION
-
 Recurring           recurring DESCRIPTION
-
-Tentative           tentative DESCRIPTION
 
 List                list
 
@@ -26,11 +22,7 @@ Delete              delete INDEX
 
 Find                find DESCRIPTION
 
-Filter              filter CATEGORY
-
 Threshold           threshold HH
-
-Color Code          colorcode INDEX #RRGGBB
 
 Schedule            schedule DD-MM-YYYY
 
@@ -38,13 +30,19 @@ Summary             summary
 
 Sort                sort
 
-View Undone         viewUndone
-
 Free                free DD-MM-YYYY
 
 View Week           viewWeek
 
 Calendar            calendar MONTH YEAR
+
+Start Tracker       start ASSIGNMENT_DESCRIPTION
+
+Pause Tracker       pause ASSIGNMENT_DESCRIPTION
+
+Stop Tracker        stop ASSIGNMENT_DESCRIPTION
+
+View Tracker        viewtracker
 
 Reminder            reminder
 

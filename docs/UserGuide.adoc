@@ -68,7 +68,8 @@ Don't worry if you do not understand everything at once. +
 There are plenty of examples provided to aid your understanding of the commands' usage.
 ====
 
-=== Viewing manual : `help`
+=== General Commands
+==== Viewing manual : `help`
 Need some help? View your manual with a simple command!
 
 Format: `help`
@@ -80,7 +81,7 @@ Provides a list of commands available to the user.
 
 image::Demo_Help.png[]
 
-=== Viewing individual command help : `help`
+==== Viewing individual command help : `help`
 Need some tips for a specific command? Use our individual help function!
 
 Format: `help COMMAND`
@@ -94,7 +95,21 @@ Provides the instruction to add a task with a deadline.
 
 image::Demo_IndividualHelp.png[]
 
-=== Adding a task: `deadline`
+==== Exiting the program: `bye`
+Want to exit the program? Use `bye`!
+
+Format: `bye`
+
+==== Export calendar: `export [_coming soon in v2.0_]`
+You may export all current tasks recorded into a shareable format in calendar view with our `export` function!
+
+Format: `export`
+
+=== Task Commands
+Learn how to add, edit and many more here!
+All guidance for task-related commands are found in this segment.
+
+==== Adding a task: `deadline`
 Do you have a Deadline to fulfil and feel worried that it may slip your mind?
 Add a task with a deadline to be completed by with `deadline`. +
 
@@ -108,7 +123,7 @@ Example:
 * `deadline homework /by 2019 20-09-2019 13:00` +
 Adds a task with description and datetime to be `homework` and `2019 20-09-2019 13:00` respectively.
 
-=== Adding a task: `event`
+==== Adding a task: `event`
 Do you have an Event to attend? Simply add an event and its scheduled date and time. +
 
 Format: `event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
@@ -121,7 +136,7 @@ Example:
 * `event project meeting /from 20-09-2019 13:00 /to 20-09-2019 17:00` +
 Adds an event with description, start and end time to be `project meeting`, `20-09-2019 13:00` and `20-09-2019 17:00` respectively.
 
-=== Adding a task: `todo`
+==== Adding a task: `todo`
 Do you have a task that needs to be completed on a specific date?
 Add a Todo task with our simple one-liner command!
 
@@ -135,20 +150,8 @@ Example:
 * `todo withdraw money /on 19-09-2019` +
 Adds a task called `withdraw money` on `19-09-2019`.
 
-=== Adding a task: `do-after [_coming soon in v1.4_]`
-Adds a task that needs to be done after a specified task.
 
-Format: `do-after INDEX DESCRIPTION`
-
-* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
-* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
-
-Example:
-
-* `do-after 1 buy groceries` +
-Adds a do-after task called `buy groceries` that will be displayed once the 1st task in the list has been completed.
-
-=== Adding a task: `recurring`
+==== Adding a task: `recurring`
 Do you have a task that happens on a recurring basis?
 Simple add a task that will be repeated automatically based on your preference!
 
@@ -168,7 +171,7 @@ The task will require you to enter the frequency of recurrence in this manner af
 
 Example:
 
-+1.+ User enters `recurring 4 3` 
++1.+ User enters `recurring 4 3`
 
 [[Recurring]]
 .Example to show recurring feature's usage
@@ -186,7 +189,20 @@ image::RecurringPrompt.png[RecurringPrompt]
 .Output after selecting option 2
 image::RecurringOutput.png[RecurringOutput]
 
-=== Adding a task: `tentative [_coming soon in v1.4_]`
+==== Adding a task: `do-after [_coming soon in v1.4_]`
+Adds a task that needs to be done after a specified task.
+
+Format: `do-after INDEX DESCRIPTION`
+
+* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
+* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+
+Example:
+
+* `do-after 1 buy groceries` +
+Adds a do-after task called `buy groceries` that will be displayed once the 1st task in the list has been completed.
+
+==== Adding a task: `tentative [_coming soon in v1.4_]`
 Not sure if a task has to be attended to on a specific date?
 You can add a task that can be confirmed at a later time.
 
@@ -199,12 +215,12 @@ Example:
 * `tentative group lunch` +
 Adds a tentative task called `group lunch`.
 
-=== Listing tasks: `list`
+==== Listing tasks: `list`
 Watch as *OOF* lists all the tasks that are currently saved in your storage!
 
 Format: `list`
 
-=== Marking task as done: `done`
+==== Marking task as done: `done`
 Completed a task? Mark it as completed with a single command that is as easy as one-two-three!
 
 Format: `done INDEX`
@@ -216,7 +232,7 @@ Examples:
 * `done 1` +
 Marks the 1st task in the list of tasks as complete.
 
-=== Deleting a task: `delete`
+==== Deleting a task: `delete`
 Want to remove a task you added in the past?
 Simple use the delete function to remove a task from your list of tasks.
 
@@ -230,7 +246,7 @@ Examples:
 Deletes the 1st task in the list of tasks.
 
 
-=== Finding a task: `find`
+==== Finding a task: `find`
 Search for your tasks that match the description given with our `find` function!
 
 Format: `find DESCRIPTION`
@@ -242,19 +258,8 @@ Example:
 * `find withdraw money` +
 Finds tasks with `withdraw money` in the description.
 
-=== Filter tasks by categories: `filter [_coming soon in v1.4_]`
-Filter your tasks by category with our `filter` function!
 
-Format: `filter CATEGORY`
-
-* `Cateogry` of the task can be any one of the following: todo, deadline, event, assignment, recurring.
-
-Example:
-
-* `filter todo` +
-Displays all todo tasks.
-
-=== Choose threshold for tasks: `threshold`
+==== Choose threshold for tasks: `threshold`
 Adjust the threshold of your tasks to your desire duration!
 
 Format: `threshold HH`
@@ -266,20 +271,7 @@ Example:
 * `threshold 48` +
 Changes the threshold of the program to 48 hours.
 
-=== Color code tasks: `colorcode [_coming soon in v1.4_]`
-Are you a visual person? You can change your entire task font color to one of your choice with `colorcode`!
-
-Format: `colorcode INDEX #RRGGBB`
-
-* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
-* `#RRGGBB` refers to the hex color codes corresponding to the html color names.
-
-Examples:
-
-* `colorcode 1 #008000` +
-Color codes the 1st task in the list of tasks to a green color.
-
-=== Viewing a summary of a day's task by date: `schedule`
+==== Viewing a summary of a day's task by date: `schedule`
 Wonder what is up on a specific date?
 Get a summary of all your tasks and events that is related to a specific date with `schedule`.
 
@@ -292,7 +284,7 @@ Example:
 * `schedule 04-10-2019` +
 Provides a summary of a list of todo, deadlines and events that will occur on `04-10-2019`.
 
-=== Viewing a summary of the next day’s task: `summary`
+==== Viewing a summary of the next day’s task: `summary`
 Want to plan your day ahead for tomorrow?
 Get a summary of all your tasks to be done for the next day with `summary`.
 
@@ -305,19 +297,14 @@ Provides a summary of a list of todo, deadlines and events that will occur tomor
 
 image::Demo_Summary.png[]
 
-=== Sorting deadlines in chronological order: `sort`
+==== Sorting deadlines in chronological order: `sort`
 Prioritise more efficiently with our `sort` function!
 This displays all your current deadlines recorded in chronological order.
 
 Format: `sort`
 
-=== View undone tasks brought forward to the next day: `viewUndone [_coming soon in v1.4_]`
-Wonder if any tasks remain undone for today?
-Get a list of all the tasks not done that were brought forward to the next day with `viewundone`!
 
-Format: `viewUndone`
-
-=== View free time slots: `free`
+==== View free time slots: `free`
 Planning for your next project meeting or meeting up with your friends? With the `free` command `Oof` displays all your free time slots in a given date!
 
 Format: `free DD-MM-YYYY`
@@ -338,7 +325,91 @@ image::FreeTimeExample.png[FreeTimeExample]
 .Typing free with a valid date in the valid format of DD-MM-YYYY
 image::FreeTimeDisplay.png[FreeTimeDisplay]
 
-=== View tasks in week view: `viewWeek`
+==== Setting reminders for upcoming deadlines: `reminder`
+Have multiple assignments due and not sure which to prioritise first? Fret not as `Oof` will remind you of any deadlines due within 24 hours once it is start up!
+
+Format: `reminder`
+
+
+==== Filter tasks by categories: `filter [_coming soon in v1.4_]`
+Filter your tasks by category with our `filter` function!
+
+Format: `filter CATEGORY`
+
+* `Cateogry` of the task can be any one of the following: todo, deadline, event, assignment, recurring.
+
+Example:
+
+* `filter todo` +
+Displays all todo tasks.
+
+==== Color code tasks: `colorcode [_coming soon in v1.4_]`
+Are you a visual person? You can change your entire task font color to one of your choice with `colorcode`!
+
+Format: `colorcode INDEX #RRGGBB`
+
+* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
+* `#RRGGBB` refers to the hex color codes corresponding to the html color names.
+
+Examples:
+
+* `colorcode 1 #008000` +
+Color codes the 1st task in the list of tasks to a green color.
+
+==== View undone tasks brought forward to the next day: `viewUndone [_coming soon in v1.4_]`
+Wonder if any tasks remain undone for today?
+Get a list of all the tasks not done that were brought forward to the next day with `viewundone`!
+
+Format: `viewUndone`
+
+==== Add estimated time taken: `estimate [_coming soon in v2.0_]`
+Do you know an estimated amount of time a specific task will take to be completed?
+Note it down on your *OOF* with the estimated time taken function.
+
+Format: `estimate INDEX HH`
+
+* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
+* `time` has to *strictly* be in the format as stated above.
+
+Example:
+
+* `estimate 1 48` +
+Adds to the 1st task the estimated time taken of 48 hours to complete it.
+
+==== Adding a task: `range [_coming soon in v2.0_]`
+Do you have a task that needs to be completed within a certain time period?
+Just add a `range` task!
+
+Format: `range DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
+
+* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+* `Date and time` have to *strictly* be in the format as stated above.
+
+Example:
+
+* `range study for exam /from 01-10-2019 21:00 /to 05-10-2019 11:00` +
+Adds a task with description and time period to be `study for exam` and between `01-10-2019 21:00` to `05-10-2019 11:00`.
+
+
+=== Calendar Commands
+====  Viewing all tasks in calendar view: `calendar`
+Transforms all current tasks recorded into a calendar view for easy time management.
+
+Format: `calendar MONTH YEAR`
+
+* `MONTH` is an integer from 1-12 (representing January to December).
+* `YEAR` is an integer greater than or equal to 0.
+
+Example: `calendar 10 2019`
+
+==== View two different calendars side-by-side: `viewDual [_coming soon in v2.0_]`
+Want to view multiple calendars side-by-side?
+`viewDual` transforms all current tasks into two calendar views, one for tutor tasks and one for student tasks.
+
+Format: `viewDual`
+
+=== Week View Commands
+==== View tasks in week view: `viewWeek`
 Shows you the tasks for any particular week in a table format.
 
 Format: `viewweek DD MM YYYY`
@@ -366,27 +437,13 @@ image::ViewweekDefault.png[ViewweekDefault]
 .Typing viewweek with date
 image::ViewweekParam.png[ViewweekParam]
 
-===  Viewing all tasks in calendar view: `calendar`
-Transforms all current tasks recorded into a calendar view for easy time management. 
-
-Format: `calendar MONTH YEAR`
-
-* `MONTH` is an integer from 1-12 (representing January to December).
-* `YEAR` is an integer greater than or equal to 0.
-
-Example: `calendar 10 2019`
-
-=== Setting reminders for upcoming deadlines: `reminder`
-Have multiple assignments due and not sure which to prioritise first? Fret not as `Oof` will remind you of any deadlines due within 24 hours once it is start up!
-
-Format: `reminder`
-
-=== Viewing, adding, editing and removing of semester and module data: `semester`
+=== Semester Commands
+==== Viewing, adding, editing and removing of semester and module data: `semester`
 Opens menu to view, add, edit and remove Semester and Module data.
 
 Format: `semester`
 
-=== Task Tracker Commands
+=== Assignment Tracker Commands
 A successful you begins with self-awareness!
 
 OOF, your Outstanding Organisation Friend, provides you with a simple and efficient way to keep track of the amount of time you spend on each module!
@@ -437,50 +494,6 @@ Week:: filter time spent on each `Module` over the course of the last 7 days
 
 Example: `viewTracker Day`
 
-=== Exiting the program: `bye`
-Want to exit the program? Use `bye`!
-
-Format: `bye`
-
-=== Add estimated time taken: `estimate [_coming soon in v2.0_]`
-Do you know an estimated amount of time a specific task will take to be completed?
-Note it down on your *OOF* with the estimated time taken function.
-
-Format: `estimate INDEX HH`
-
-* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
-* `time` has to *strictly* be in the format as stated above.
-
-Example:
-
-* `estimate 1 48` +
-Adds to the 1st task the estimated time taken of 48 hours to complete it.
-
-=== Adding a task: `range [_coming soon in v2.0_]`
-Do you have a task that needs to be completed within a certain time period?
-Just add a `range` task!
-
-Format: `range DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
-
-* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
-* `Date and time` have to *strictly* be in the format as stated above.
-
-Example:
-
-* `range study for exam /from 01-10-2019 21:00 /to 05-10-2019 11:00` +
-Adds a task with description and time period to be `study for exam` and between `01-10-2019 21:00` to `05-10-2019 11:00`.
-
-=== View two different calendars side-by-side: `viewDual [_coming soon in v2.0_]`
-Want to view multiple calendars side-by-side?
-`viewDual` transforms all current tasks into two calendar views, one for tutor tasks and one for student tasks.
-
-Format: `viewDual`
-
-=== Export calendar: `export [_coming soon in v2.0_]`
-You may export all current tasks recorded into a shareable format in calendar view with our `export` function!
-
-Format: `export`
-
 == FAQ
 
 *Q*: How do I view my tasks on the Calendar? +
@@ -505,13 +518,13 @@ e.g. `event project meeting /from 20-09-2019 13:00 /to 20-09-2019 17:00`
 * *Todo*: `todo DESCRIPTION /on DD-MM-YYYY` +
 e.g. `todo withdraw money /on 19-09-2019`
 
-* *Do-after*: `Do-after INDEX DESCRIPTION` +
+* *Do-after*: `Do-after INDEX DESCRIPTION [_coming soon in v1.4_]` +
 e.g. `do-after 1 buy groceries`
 
 * *Recurring*: `recurring INDEX NUMBER_OF_OCCURRENCES` +
 e.g. `recurring 4 3`
 
-* *Tentative*: `tentative DESCRIPTION` +
+* *Tentative*: `tentative DESCRIPTION [_coming soon in v1.4_]` +
 e.g. `tentative group lunch`
 
 * *List*: `list` 
@@ -525,13 +538,13 @@ e.g. `delete 1`
 * *Find*: `find DESCRIPTION` +
 e.g. `find withdraw money`  
 
-* *Filter*: `filter CATEGORY` +
+* *Filter*: `filter CATEGORY [_coming soon in v1.4_]` +
 e.g. `filter todo` 
 
 * *Threshold*: `threshold HH` +
 e.g. `threshold 48`
 
-* *Colorcode*: `colorcode INDEX #RRGGBB` +
+* *Colorcode*: `colorcode INDEX #RRGGBB [_coming soon in v1.4_]` +
 e.g. `colorcode 1 #008000`
 
 * *Schedule*: `schedule DD-MM-YYYY` +
@@ -541,7 +554,7 @@ e.g. `schedule 04-10-2019`
 
 * *Sort*: `sort` 
 
-* *ViewUndone*: `viewUndone`
+* *ViewUndone*: `viewUndone [_coming soon in v1.4_]`
 
 * *Free*: `free DD-MM-YYYY` +
 e.g. `free 10-10-2019`
