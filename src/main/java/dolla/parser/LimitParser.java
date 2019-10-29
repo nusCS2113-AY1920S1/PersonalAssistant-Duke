@@ -120,7 +120,7 @@ public class LimitParser extends Parser {
                 limitDuration = LIMIT_DURATION_M;
             } else {
                 LimitUi.invalidLimitDurationPrinter();
-                throw new Exception(); //todo:change to limit exception
+                //throw new Exception(); todo:change to limit exception
             }
         } catch (IndexOutOfBoundsException e) {
             LimitUi.invalidSetCommandPrinter();
