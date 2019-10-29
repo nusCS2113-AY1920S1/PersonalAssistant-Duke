@@ -24,6 +24,23 @@ public interface Ui {
     void print(String message);
 
     /**
+     * Displays an info pop-up dialog on screen.
+     *
+     * @param title   Title of dialog.
+     * @param message Dialog message.
+     */
+    void showInfoDialog(String title, String message);
+
+    /**
+     * Shows an error alert dialog with {@code title} and error message, {@code e}.
+     * Exits the application after the user has closed the alert dialog.
+     *
+     * @param title Title of error dialog.
+     * @param e     Thrown Error.
+     */
+    void showErrorDialogAndShutdown(String title, Throwable e);
+
+    /**
      * Retrieves indexed list of DukeObjects.
      * List is dependent on the current {@code UiContext}.
      *

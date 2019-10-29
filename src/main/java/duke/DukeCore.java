@@ -8,6 +8,7 @@ import duke.ui.Ui;
 import duke.ui.UiManager;
 import duke.ui.context.UiContext;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -41,7 +42,7 @@ public class DukeCore extends Application {
                 patientMap = storage.resetAllData();
             }
         } catch (DukeFatalException | IOException e) {
-            stop();
+            ui.showErrorDialogAndShutdown("Error encountered!", e);
         }
     }
 
@@ -67,6 +68,7 @@ public class DukeCore extends Application {
      */
     @Override
     public void stop() {
-        // TODO: Terminate application gracefully
+        Platform.exit();
+        System.exit(0);
     }
 }
