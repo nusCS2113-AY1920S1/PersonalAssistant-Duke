@@ -27,7 +27,7 @@ public class PrioritizeCommandTest {
         Ui ui = new Ui();
         Storage storage = null;
         try {
-            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
+            storage = new Storage(System.getProperty("user.dir")+ "/src/test/java/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/java/testFile/configTest.txt",System.getProperty("user.dir")+ "/src/test/java/testFile/welcome.txt");
         } catch (FileException e) {
             e.printStackTrace();
         } catch (MeaninglessException e) {
@@ -54,7 +54,7 @@ public class PrioritizeCommandTest {
             }
         }
         date1 = new Date(d1);
-        tasks.add(new DeadlinesTask("d1",date1));
+        tasks.add(new HomeworkTask("d1",date1));
 
         try{
             d1 = LocalDateTime.parse("21/09/2019 22:22".trim(), formatter);
@@ -84,7 +84,7 @@ public class PrioritizeCommandTest {
             }
         }
         date1 = new Date(d1);
-        tasks.add(new DeadlinesTask("d1",date1));
+        tasks.add(new HomeworkTask("d1",date1));
 
         assertTrue(tasks.size()==6);
 

@@ -1,0 +1,42 @@
+ ____        _        
+|  _ \ _   _| | _____ 
+| | | | | | | |/ / _ \
+| |_| | |_| |   <  __/
+|____/ \__,_|_|\_\___|
+
+	---------------------------------------------------------------------------------
+	test welcome message
+
+	---------------------------------------------------------------------------------
+	 MeaninglessException:
+		 OOPS!!! I'm sorry, but I don't know what that means :-("
+	 MeaninglessException:
+		 OOPS!!! I'm sorry, but I don't know what that means :-("
+	 MeaninglessException:
+		 OOPS!!! I'm sorry, but I don't know what that means :-("
+	 emptyHomeworkException:
+		 ☹ OOPS!!! The description of a homework task cannot be empty
+	 MeaninglessException:
+		 OOPS!!! I'm sorry, but I don't know what that means :-("
+	 NonExistentDateException:
+		 ☹ OOPS!!! 
+			 The date doesn't exist
+	 emptyEventDateException:
+		 ☹ OOPS!!! Please enter a period for the event task
+	 emptyHomeworkException:
+		 ☹ OOPS!!! The description of a homework task cannot be empty
+	 emptyHomeworkDateException:
+		 ☹ OOPS!!! Please enter a deadline for the task
+	 emptyEventDateException:
+		 ☹ OOPS!!! Please enter a period for the event task
+	 emptyEventException:
+		 ☹ OOPS!!! The description of a event task cannot be empty
+	 emptyTodoException:
+		 ☹ OOPS!!! The description of a todo cannot be empty.
+	 NonExistentTaskException:
+		 ☹ OOPS!!! The task doesn't exist
+	 NonExistentTaskException:
+		 ☹ OOPS!!! The task doesn't exist
+	---------------------------------------------------------------------------------
+	 Bye. Hope to see you again soon!
+	---------------------------------------------------------------------------------

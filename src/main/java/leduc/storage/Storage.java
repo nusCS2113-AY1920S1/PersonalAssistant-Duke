@@ -7,6 +7,9 @@ import leduc.exception.MeaninglessException;
 import leduc.task.*;
 
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -20,18 +23,27 @@ import java.util.Scanner;
 public class Storage {
     private File file;
     private File configFile;
+    private File welcomeFile;
 
     /**
      * Constructor of leduc.storage.Storage
      * @param file String representing the path of the file
      * @param configFile String representing the path of the file storing the shortcut
      */
-    public Storage(String file, String configFile) throws FileException, MeaninglessException {
+    public Storage(String file, String configFile, String welcomeFile) throws FileException, MeaninglessException {
         this.file = new File(file);
         try {
             this.file.createNewFile();
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            //  Case of a jar execution : create or use the duke.txt file in the current path
+            this.file = new File ("duke.txt");
+            try{
+                this.file.createNewFile();
+            }
+            catch( IOException e1){
+                e1.printStackTrace();
+            }
         }
         this.configFile = new File(configFile);
         try {
@@ -42,8 +54,43 @@ public class Storage {
                 loadConfig();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            //  Case of a jar execution : create or use the config.txt file in the current path
+            this.configFile = new File ("config.txt");
+            try{
+                if(this.configFile.createNewFile()){ //if file exist, return false
+                    saveConfig();
+                }
+                else {
+                    loadConfig();
+                }
+            }
+            catch( IOException e1){
+                e1.printStackTrace();
+            }
         }
+        this.welcomeFile = new File(welcomeFile);
+        try {
+            this.welcomeFile.createNewFile();
+        } catch (IOException e) {
+            //e.printStackTrace();
+            // Case of a jar execution : create or use the welcome.txt file in the current path
+            this.welcomeFile = new File ("welcome.txt");
+            try{
+                this.welcomeFile.createNewFile();
+            }
+            catch( IOException e1){
+                e1.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Getter of welcome File
+     * @return the welcome File
+     */
+    public File getWelcomeFile(){
+        return this.welcomeFile;
     }
 
     /**
