@@ -1,0 +1,397 @@
+{
+  "results": [
+    {
+      "first_air_date": "2004-05-10",
+      "overview": "I Am Not An Animal is an animated comedy series about the only six talking animals in the world, whose cosseted existence in a vivisection unit is turned upside down when they are liberated by animal rights activists.",
+      "cert": "Suitable for 15 years & above",
+      "genre_ids": [
+        16,
+        35
+      ],
+      "cast": [
+        "John Shrapnel",
+        "Simon Pegg",
+        "Steve Coogan",
+        "Arthur Mathews",
+        "Julia Davis"
+      ],
+      "original_name": "I Am Not an Animal",
+      "vote_average": 9.5,
+      "name": "I Am Not an Animal",
+      "id": 100
+    },
+    {
+      "first_air_date": "2019-05-06",
+      "overview": "The true story of one of the worst man-made catastrophes in history: the catastrophic nuclear accident at Chernobyl. A tale of the brave men and women who sacrificed to save Europe from unimaginable disaster.",
+      "cert": "Suitable for 15 years & above",
+      "genre_ids": [
+        18
+      ],
+      "cast": [
+        "Jared Harris",
+        "Stellan Skarsgård",
+        "Emily Watson",
+        "Paul Ritter",
+        "Jessie Buckley"
+      ],
+      "original_name": "Chernobyl",
+      "vote_average": 8.6,
+      "name": "Chernobyl",
+      "id": 87108
+    },
+    {
+      "first_air_date": "2013-12-02",
+      "overview": "Rick is a mentally-unbalanced but scientifically-gifted old man who has recently reconnected with his family. He spends most of his time involving his young grandson Morty in dangerous, outlandish adventures throughout space and alternate universes. Compounded with Morty's already unstable family life, these events cause Morty much distress at home and school.",
+      "cert": "N\/A",
+      "genre_ids": [
+        16,
+        35,
+        10759,
+        10765
+      ],
+      "cast": [
+        "Justin Roiland",
+        "Chris Parnell",
+        "Spencer Grammer",
+        "Sarah Chalke"
+      ],
+      "original_name": "Rick and Morty",
+      "vote_average": 8.5,
+      "name": "Rick and Morty",
+      "id": 60625
+    },
+    {
+      "first_air_date": "2008-01-20",
+      "overview": "When Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given a prognosis of only two years left to live. He becomes filled with a sense of fearlessness and an unrelenting desire to secure his family's financial future at any cost as he enters the dangerous world of drugs and crime.",
+      "cert": "Suitable for 18 years & above",
+      "genre_ids": [
+        18
+      ],
+      "cast": [
+        "Bryan Cranston",
+        "Aaron Paul",
+        "Anna Gunn",
+        "Dean Norris",
+        "Betsy Brandt"
+      ],
+      "original_name": "Breaking Bad",
+      "vote_average": 8.4,
+      "name": "Breaking Bad",
+      "id": 1396
+    },
+    {
+      "first_air_date": "2010-07-25",
+      "overview": "A modern update finds the famous sleuth and his doctor partner solving crime in 21st century London.",
+      "cert": "Suitable for 15 years & above",
+      "genre_ids": [
+        80,
+        18,
+        9648
+      ],
+      "cast": [
+        "Benedict Cumberbatch",
+        "Martin Freeman",
+        "Rupert Graves",
+        "Mark Gatiss",
+        "Una Stubbs"
+      ],
+      "original_name": "Sherlock",
+      "vote_average": 8.3,
+      "name": "Sherlock",
+      "id": 19885
+    },
+    {
+      "first_air_date": "2016-11-06",
+      "overview": "David Attenborough presents a documentary series exploring how animals meet the challenges of surviving in the most iconic habitats on earth.",
+      "cert": "N\/A",
+      "genre_ids": [
+        99
+      ],
+      "cast": [
+        "David Attenborough"
+      ],
+      "original_name": "Planet Earth II",
+      "vote_average": 8.3,
+      "name": "Planet Earth II",
+      "id": 68595
+    },
+    {
+      "first_air_date": "2016-07-15",
+      "overview": "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.",
+      "cert": "Suitable for 15 years & above",
+      "genre_ids": [
+        18,
+        9648,
+        10765
+      ],
+      "cast": [
+        "Winona Ryder",
+        "David Harbour",
+        "Finn Wolfhard",
+        "Millie Bobby Brown",
+        "Gaten Matarazzo"
+      ],
+      "original_name": "Stranger Things",
+      "vote_average": 8.3,
+      "name": "Stranger Things",
+      "id": 66732
+    },
+    {
+      "first_air_date": "2011-10-02",
+      "overview": "Twelve-year-old Gon Freecss one day discovers that the father he had always been told was dead was alive and well. His Father, Ging, is a Hunter\u2014a member of society's elite with a license to go anywhere or do almost anything. Gon, determined to follow in his father's footsteps, decides to take the Hunter Examination and eventually find his father to prove himself as a Hunter in his own right. But on the way, he learns that there is more to becoming a Hunter than previously thought, and the challenges that he must face are considered the toughest in the world.",
+      "cert": "N\/A",
+      "genre_ids": [
+        16,
+        35,
+        10759
+      ],
+      "cast": [
+        "Megumi Han",
+        "Mariya Ise",
+        "Miyuki Sawashiro",
+        "Keiji Fujiwara",
+        "Daisuke Namikawa"
+      ],
+      "original_name": "ハンターｘハンター",
+      "vote_average": 8.3,
+      "name": "Hunter x Hunter",
+      "id": 46298
+    },
+    {
+      "first_air_date": "2006-10-04",
+      "overview": "Light Yagami is an ace student with great prospects\u2014and he\u2019s bored out of his mind. But all that changes when he finds the Death Note, a notebook dropped by a rogue Shinigami death god. Any human whose name is written in the notebook dies, and Light has vowed to use the power of the Death Note to rid the world of evil. But will Light succeed in his noble goal, or will the Death Note turn him into the very thing he fights against?",
+      "cert": "N\/A",
+      "genre_ids": [
+        16,
+        9648
+      ],
+      "cast": [
+        "Mamoru Miyano",
+        "Kappei Yamaguchi",
+        "Noriko Hidaka",
+        "Nozomu Sasaki"
+      ],
+      "original_name": "DEATH NOTE",
+      "vote_average": 8.3,
+      "name": "Death Note",
+      "id": 13916
+    },
+    {
+      "first_air_date": "2005-02-21",
+      "overview": "In a war-torn world of elemental magic, a young boy reawakens to undertake a dangerous mystic quest to fulfill his destiny as the Avatar, and bring peace to the world.",
+      "cert": "N\/A",
+      "genre_ids": [
+        28,
+        12,
+        16,
+        14
+      ],
+      "cast": [
+        "Dante Basco",
+        "Jack De Sena",
+        "Jessie Flower",
+        "Dee Bradley Baker",
+        "Jennie Kwan"
+      ],
+      "original_name": "Avatar: The Last Airbender",
+      "vote_average": 8.3,
+      "name": "Avatar: The Last Airbender",
+      "id": 246
+    },
+    {
+      "first_air_date": "2013-09-12",
+      "overview": "A gangster family epic set in 1919 Birmingham, England and centered on a gang who sew razor blades in the peaks of their caps, and their fierce boss Tommy Shelby, who means to move up in the world.",
+      "cert": "N\/A",
+      "genre_ids": [
+        80,
+        18
+      ],
+      "cast": [
+        "Cillian Murphy",
+        "Paul Anderson",
+        "Sam Claflin",
+        "Finn Cole",
+        "Anya Taylor-Joy"
+      ],
+      "original_name": "Peaky Blinders",
+      "vote_average": 8.3,
+      "name": "Peaky Blinders",
+      "id": 60574
+    },
+    {
+      "first_air_date": "1995-10-04",
+      "overview": "At the turn of the century, the Angels returned to Earth, seeking to wipe out humanity in an apocalyptic fury. Devastated, mankind's last remnants moved underground to wait for the day when the Angels would come back to finish the job. Fifteen years later, that day has come... but this time, humanity is ready to fight back with terrifying bio-mechanical weapons known as the Evangelions. Watch as Shinji, Rei, Asuka and the rest of the mysterious shadow agency Nerv battle to save earth from total annihilation.",
+      "cert": "N\/A",
+      "genre_ids": [
+        16,
+        18,
+        10765
+      ],
+      "cast": [
+        "Megumi Ogata",
+        "Kotono Mitsuishi",
+        "Megumi Hayashibara",
+        "Yuko Miyamura",
+        "Fumihiko Tachiki"
+      ],
+      "original_name": "新世紀エヴァンゲリオン",
+      "vote_average": 8.3,
+      "name": "Neon Genesis Evangelion",
+      "id": 890
+    },
+    {
+      "first_air_date": "2010-11-26",
+      "overview": "Teenage superheroes strive to prove themselves as members of the Justice League.",
+      "cert": "N\/A",
+      "genre_ids": [
+        16,
+        10759
+      ],
+      "cast": [
+        "Danica McKellar",
+        "Jesse McCartney",
+        "Jason Spisak",
+        "Khary Payton",
+        "Nolan North"
+      ],
+      "original_name": "Young Justice",
+      "vote_average": 8.3,
+      "name": "Young Justice",
+      "id": 33217
+    },
+    {
+      "first_air_date": "2012-06-15",
+      "overview": "Twin brother and sister Dipper and Mabel Pines are in for an unexpected adventure when they spend the summer helping their great uncle Stan run a tourist trap in the mysterious town of Gravity Falls, Oregon.",
+      "cert": "N\/A",
+      "genre_ids": [
+        16,
+        35,
+        9648,
+        10765
+      ],
+      "cast": [
+        "Jason Ritter",
+        "Kristen Schaal",
+        "Alex Hirsch",
+        "Linda Cardellini",
+        "Carl Faruolo"
+      ],
+      "original_name": "Gravity Falls",
+      "vote_average": 8.3,
+      "name": "Gravity Falls",
+      "id": 40075
+    },
+    {
+      "first_air_date": "2002-06-02",
+      "overview": "Told from the points of view of both the Baltimore homicide and narcotics detectives and their targets, the series captures a universe in which the national war on drugs has become a permanent, self-sustaining bureaucracy, and distinctions between good and evil are routinely obliterated.",
+      "cert": "N\/A",
+      "genre_ids": [
+        80,
+        18
+      ],
+      "cast": [
+        "Dominic West",
+        "Lance Reddick",
+        "Sonja Sohn",
+        "Wood Harris",
+        "Wendell Pierce"
+      ],
+      "original_name": "The Wire",
+      "vote_average": 8.3,
+      "name": "The Wire",
+      "id": 1438
+    },
+    {
+      "first_air_date": "1959-10-02",
+      "overview": "A series of unrelated stories containing drama, psychological thriller, fantasy, science fiction, suspense, and\/or horror, often concluding with a macabre or unexpected twist.",
+      "cert": "N\/A",
+      "genre_ids": [
+        18,
+        9648,
+        10765
+      ],
+      "cast": [
+        "Rod Serling"
+      ],
+      "original_name": "The Twilight Zone",
+      "vote_average": 8.3,
+      "name": "The Twilight Zone",
+      "id": 6357
+    },
+    {
+      "first_air_date": "1999-01-10",
+      "overview": "The story of New Jersey-based Italian-American mobster Tony Soprano and the difficulties he faces as he tries to balance the conflicting requirements of his home life and the criminal organization he heads. Those difficulties are often highlighted through his ongoing professional relationship with psychiatrist Jennifer Melfi. The show features Tony's family members and Mafia associates in prominent roles and story arcs, most notably his wife Carmela and his cousin and protégé Christopher Moltisanti.",
+      "cert": "Suitable for 18 years & above",
+      "genre_ids": [
+        18
+      ],
+      "cast": [
+        "James Gandolfini",
+        "Edie Falco",
+        "Jamie-Lynn Sigler",
+        "Robert Iler",
+        "Lorraine Bracco"
+      ],
+      "original_name": "The Sopranos",
+      "vote_average": 8.2,
+      "name": "The Sopranos",
+      "id": 1398
+    },
+    {
+      "first_air_date": "2006-03-05",
+      "overview": "David Attenborough celebrates the amazing variety of the natural world in this epic documentary series, filmed over four years across 64 different countries.",
+      "cert": "N\/A",
+      "genre_ids": [
+        99
+      ],
+      "cast": [
+        "David Attenborough"
+      ],
+      "original_name": "Planet Earth",
+      "vote_average": 8.2,
+      "name": "Planet Earth",
+      "id": 1044
+    },
+    {
+      "first_air_date": "1999-03-28",
+      "overview": "The adventures of a late-20th-century New York City pizza delivery boy, Philip J. Fry, who, after being unwittingly cryogenically frozen for one thousand years, finds employment at Planet Express, an interplanetary delivery company in the retro-futuristic 31st century.",
+      "cert": "Suitable for 12 years & above",
+      "genre_ids": [
+        16,
+        35
+      ],
+      "cast": [
+        "Frank Welker",
+        "John DiMaggio",
+        "Billy West",
+        "Maurice LaMarche",
+        "Katey Sagal"
+      ],
+      "original_name": "Futurama",
+      "vote_average": 8.2,
+      "name": "Futurama",
+      "id": 615
+    },
+    {
+      "first_air_date": "2001-09-09",
+      "overview": "Drawn from interviews with survivors of Easy Company, as well as their journals and letters, Band of Brothers chronicles the experiences of these men from paratrooper training in Georgia through the end of the war. As an elite rifle company parachuting into Normandy early on D-Day morning, participants in the Battle of the Bulge, and witness to the horrors of war, the men of Easy knew extraordinary bravery and extraordinary fear - and became the stuff of legend. Based on Stephen E. Ambrose's acclaimed book of the same name.",
+      "cert": "N\/A",
+      "genre_ids": [
+        18,
+        10759,
+        10768
+      ],
+      "cast": [
+        "Damian Lewis",
+        "Ron Livingston",
+        "Donnie Wahlberg",
+        "Matthew Settle",
+        "Scott Grimes"
+      ],
+      "original_name": "Band of Brothers",
+      "vote_average": 8.2,
+      "name": "Band of Brothers",
+      "id": 4613
+    }
+  ]
+}

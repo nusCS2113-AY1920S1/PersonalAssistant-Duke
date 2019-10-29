@@ -4,9 +4,6 @@ import entertainment.pro.commons.exceptions.DateTimeParseExceptions;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
 import entertainment.pro.model.SearchProfile;
-//import com.fasterxml.jackson.core.type.TypeReference;
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import entertainment.pro.model.GenreId;
 import entertainment.pro.storage.utils.ProfileCommands;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
@@ -17,6 +14,9 @@ import entertainment.pro.logic.parsers.CommandSuper;
 import java.util.ArrayList;
 import java.io.IOException;
 
+/**
+ * This class is called when user enters the command for a search request.
+ */
 public class SearchCommand extends CommandSuper {
 
     private static String GET_CURRENT = "/current";
@@ -29,25 +29,26 @@ public class SearchCommand extends CommandSuper {
     private static String GET_NEW_SORT = "-s";
     private static String GET_NEW_ADULT_RATING = "-a";
     private boolean isMovie = false;
+    private String USER_PREF_FOR_ALPHA_SORT = "1";
+    private String USER_PREF_FOR_RELEASE_DATES_SORT = "2";
+    private String USER_PREF_FOR_RATING_SORT = "3";
+    private String USER_PREF_FOR_ADULT_TRUE = "true";
 
 
-    ArrayList<String> genrePreference = new ArrayList<>();
-    ArrayList<String> genreRestriction = new ArrayList<>();
-    boolean isAdult = false;
-    //ArrayList<String> genrePreference = new ArrayList<>();
-
-    /*
-    flag legend:
-    -> small letter means user have to append more stuff behind
-    -> capital letter means user don't have to add on details after flag
-    -g  genres that user want the search results to have
-    -P  include all user's preferred genre in search
-    -R  exclude all user's restricted genre in search
+    /**
+     * Constructor for each Command Super class.
+     * @param uicontroller The UI controller.
      */
     public SearchCommand(Controller uicontroller) {
         super(COMMANDKEYS.search, CommandStructure.cmdStructure.get(COMMANDKEYS.search), uicontroller);
     }
 
+    /**
+     * Responible for extracting user preferences from the command and storing it in a SearchProfile object.
+     * Also responsible for extracting whether the search request is for movies or TV shows.
+     * And then call the approriate function to further extract the exact search request.
+     * @throws Exceptions
+     */
     @Override
     public void executeCommands() throws Exceptions {
         String payload = getPayload();
@@ -69,6 +70,15 @@ public class SearchCommand extends CommandSuper {
         }
     }
 
+    /**
+     * Responsible for extracting the exact movie related search request.
+     * Calls appropriate function to execute it.
+     *
+     * @param payload String consisting of a movie name entered by user if any.
+     * @param movieHandler MovieHandler class used to later call the appropriate function.
+     * @param searchProfile Object that contains all the user preferences for the search request.
+     * @throws Exceptions
+     */
     private void executeMovieSearch(String payload, MovieHandler movieHandler,
                                     SearchProfile searchProfile) throws Exceptions {
         movieHandler.setSearchProfile(searchProfile);
@@ -85,6 +95,15 @@ public class SearchCommand extends CommandSuper {
         }
     }
 
+    /**
+     * Responsible for extracting the exact TV show related search request.
+     * Calls appropriate function to execute it.
+     *
+     * @param payload String consisting of a TV show name entered by user if any.
+     * @param movieHandler MovieHandler class used to later call the appropriate function.
+     * @param searchProfile Object that contains all the user preferences for the search request.
+     * @throws Exceptions
+     */
     private void executeTvSearch(String payload, MovieHandler movieHandler,
                                  SearchProfile searchProfile) throws Exceptions {
         movieHandler.setSearchProfile(searchProfile);
@@ -98,7 +117,14 @@ public class SearchCommand extends CommandSuper {
     }
 
 
-
+    /**
+     * Responsible for getting the user preferences for the particular search request.
+     * Sets these preferences into SearchProfile Object.
+     * @param movieHandler MovieHandler class to call appropriate function if needed
+     * @param searchProfile Object that contains all the preferences of the search request.
+     * @param searchEntryName name of movie/TV show that user want search result to be based on, if any.
+     * @param isMovie whether the search request is movie or TV shows related.
+     */
     private void getPreferences(MovieHandler movieHandler, SearchProfile searchProfile, String searchEntryName,
                                 boolean isMovie) {
         if (!(getPayload().isEmpty() || getPayload().isBlank())) {
@@ -137,24 +163,39 @@ public class SearchCommand extends CommandSuper {
         }
     }
 
+    /**
+     * Responsible for returning whether user wants the search request results to sorted based on ratings.
+     * @param userPref String containing user preference.
+     * @return true if user wants the search request results to sorted based on ratings and false otherwise.
+     */
     private boolean getRatingSortForSearch(String userPref) {
-        if (userPref.equals("3")) {
+        if (userPref.equals(USER_PREF_FOR_RATING_SORT)) {
             return true;
         } else {
             return false;
         }
     }
 
+    /**
+     * Responsible for returning whether user wants the search request results to sorted based on release dates.
+     * @param userPref String containing user preference.
+     * @return true if user wants the search request results to sorted based on release dates and false otherwise.
+     */
     private boolean getDatesSortForSearch(String userPref) {
-        if (userPref.equals("2")) {
+        if (userPref.equals(USER_PREF_FOR_RELEASE_DATES_SORT)) {
             return true;
         } else {
             return false;
         }
     }
 
+    /**
+     * Responsible for returning whether user wants the search request results to sorted based on alphabetical order.
+     * @param userPref String containing user preference.
+     * @return true if user wants the search request results to sorted based on alphabetical order and false otherwise.
+     */
     private boolean getAlphaSortForSearch(String userPref) {
-        if (userPref.equals("1")) {
+        if (userPref.equals(USER_PREF_FOR_ALPHA_SORT)) {
             return true;
         } else {
             return false;
@@ -162,6 +203,11 @@ public class SearchCommand extends CommandSuper {
     }
 
 
+    /**
+     * Responsible for setting user genre preferences for the particular search request.
+     * Sets these genre preferences into SearchProfile object.
+     * @param searchProfile Object that contains all the preferences for the particular search request.
+     */
     private void getGenresPrefForSearch(SearchProfile searchProfile) {
         for (String log : getFlagMap().get(GET_NEW_GENRE_PREF)) {
             try {
@@ -173,6 +219,11 @@ public class SearchCommand extends CommandSuper {
 
     }
 
+    /**
+     * Responsible for setting user genre restrictions for the particular search request.
+     * Sets these genre restrictions into SearchProfile object.
+     * @param searchProfile Object that contains all the preferences for the particular search request.
+     */
     private void getGenresRestrictForSearch(SearchProfile searchProfile) {
         for (String log : getFlagMap().get(GET_NEW_GENRE_RESTRICT)) {
             try {
@@ -183,6 +234,10 @@ public class SearchCommand extends CommandSuper {
         }
     }
 
+    /**
+     * Responsible for returning whether user prefers adult content to be included inside search request results..
+     * @return true if user prefers adult content to be included inside search request results and false otherwise.
+     */
     private boolean getAdultPrefForSearch() {
         System.out.println(getFlagMap().get(GET_NEW_ADULT_RATING));
         if (getFlagMap().get(GET_NEW_ADULT_RATING).contains("true")) {
@@ -192,127 +247,4 @@ public class SearchCommand extends CommandSuper {
         }
     }
 
-    /**
-     * search for movie titles using keywords.
-     * root: search
-     * sub: movies
-     * payload: <keywords>
-     * flag: -g (genre name -- not genre ID) [-g preferences -> to use user's preferred filters]
-
-    private void executeMovieSearch() throws IOException {
-        TreeMap<String, ArrayList<String>> treeMap = getFlagMap();
-        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
-        //if (getFlagMap().containsKey(GET_PREFERENCE))
-        if (this.getFlagMap().containsKey("-q")) {
-            movieHandler.getAllTheMovie();
-        } else {
-            ArrayList<Integer> inputGenrePreference = new ArrayList<>();
-            ArrayList<Integer> inputGenreRestriction = new ArrayList<>();
-            /**
-             * FLAGS DONT DIFFERENTIATE BETWEEN CAPITAL AND SMALL LETTER NOW SO JUST USE SMALL LETTER FIRST RMB TO CHANGE LATER :C -wh
-
-            if (this.getFlagMap().containsKey("-p")) {
-                inputGenrePreference.addAll(movieHandler.getUserProfile().getGenreIdPreference());
-            }
-            if (this.getFlagMap().containsKey("-r")) {
-                inputGenreRestriction.addAll(movieHandler.getUserProfile().getGenreIdRestriction());
-            }
-            if (this.getFlagMap().containsKey("-g")) {
-                for (String log : this.getFlagMap().get("-g")) {
-                    inputGenrePreference.add(findGenreID(log));
-                }
-            }
-            MovieResultFilter filter = new MovieResultFilter(inputGenrePreference, inputGenreRestriction);
-            movieHandler.setFilter(filter);
-            if (movieHandler.getUserProfile().isAdult()) {
-                ((MovieHandler) this.getUIController()).getAPIRequester()
-                        .beginMovieSearchRequest(getPayload(), true);
-            } else {
-                ((MovieHandler) this.getUIController()).getAPIRequester()
-                        .beginMovieSearchRequest(getPayload(), false);
->>>>>>> upstream/master
-            }
-        } else {
-            if (this.getFlagMap().containsKey(GET_NEW_GENRE_PREF)) {
-               getGenresPrefForSearch(searchProfile);
-            }
-            if (this.getFlagMap().containsKey(GET_NEW_GENRE_RESTRICT)) {
-               getGenresRestrictForSearch(searchProfile);
-            }
-            if (this.getFlagMap().containsKey(GET_NEW_ADULT_RATING)) {
-                searchProfile.setAdult(getAdultPrefForSearch());
-            }
-            if (this.getFlagMap().containsKey(GET_NEW_SORT)) {
-                ArrayList<String> getUserSortPref = getFlagMap().get(GET_NEW_SORT);
-                searchProfile.setSortByAlphabetical(getAlphaSortForSearch(getUserSortPref.get(0)));
-                searchProfile.setSortByLatestRelease(getDatesSortForSearch(getUserSortPref.get(0)));
-                searchProfile.setSortByHighestRating(getRatingSortForSearch(getUserSortPref.get(0)));
-
-            }
-
-        }
-    }
-<<<<<<< HEAD
-=======
-
-//        else if (!this.getFlagMap().containsKey("-g")) {
-//                if (movieHandler.getUserProfile().isAdult()) {
-//                    ((MovieHandler) this.getUIController()).getAPIRequester()
-//                            .beginMovieSearchRequest(getPayload() ,  true);
-//                } else {
-//                    ((MovieHandler) this.getUIController()).getAPIRequester()
-//                            .beginMovieSearchRequest(getPayload() ,  false);
-//                }
-//                ((MovieHandler) this.getUIController()).clearSearchTextField();
-//            } else {
-//                ArrayList<Integer> inputGenrePreference = new ArrayList<>();
-//                ArrayList<Integer> inputGenreRestriction = new ArrayList<>();
-//
-//                for (String log : this.getFlagMap().get("-g")) {
-//                    if (log.equalsIgnoreCase("preferences")) {
-//                        inputGenrePreference.addAll(movieHandler.getUserProfile().getGenreIdPreference());
-//                    } else if (log.equalsIgnoreCase("restrictions")) {
-//                        inputGenreRestriction.addAll(movieHandler.getUserProfile().getGenreIdRestriction());
-//                    } else {
-//                        ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
-//                        inputGenrePreference.add(command.findGenreID(log));
-//                    }
-//                }
-//                if (movieHandler.getUserProfile().isAdult()) {
-//                    ((MovieHandler) this.getUIController()).getAPIRequester()
-//                            .beginMovieSearchRequestWithPreference(getPayload(), inputGenrePreference, inputGenreRestriction, true);
-//                } else {
-//                    ((MovieHandler) this.getUIController()).getAPIRequester()
-//                            .beginMovieSearchRequestWithPreference(getPayload(), inputGenrePreference, inputGenreRestriction, false);
-//                }
-//                ((MovieHandler) this.getUIController()).clearSearchTextField();
-//            }
-//        }
->>>>>>> upstream/master
-
-    private boolean getRatingSortForSearch(String userPref) {
-        if (userPref.equals("3")) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean getDatesSortForSearch(String userPref) {
-        if (userPref.equals("2")) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean getAlphaSortForSearch(String userPref) {
-        if (userPref.equals("1")) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-**/
 }

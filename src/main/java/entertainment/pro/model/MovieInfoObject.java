@@ -20,10 +20,12 @@ public class MovieInfoObject extends MovieModel {
     private boolean isAdultContent;
     private String certInfo;
     private ArrayList<String> castInfo;
+    private String DEFAULT_IMAGE_FILENAME = "/images/cross.png";
 
 
     /**
-     * constructor.
+     * Constructor for MovieInfoObject.
+     *
      * @param id the id of the movie/TV show stored in the MovieDB API.
      * @param title the title of the movie or TV show stored in the MovieDB API.
      * @param isMovie whether the objeect stored is a movie or TV show.
@@ -261,9 +263,14 @@ public class MovieInfoObject extends MovieModel {
      * @param rootPath The root path for the poster images.
      * @param posterSize A string representing the size variant of the posters to download
      */
-    public void setPosterRootPath(String rootPath, String posterSize) {
-        fullPosterPathInfo = String.format("%s%s%s", rootPath, posterSize, posterPathInfo);
-        fullBackdropPathInfo = String.format("%s%s%s", rootPath, posterSize, backdropPathInfo);
+    public void setPosterRootPath(String rootPath, String posterSize, boolean isOffline) {
+        if (isOffline) {
+            fullPosterPathInfo = DEFAULT_IMAGE_FILENAME;
+            fullBackdropPathInfo = DEFAULT_IMAGE_FILENAME;
+        } else {
+            fullPosterPathInfo = String.format("%s%s%s", rootPath, posterSize, posterPathInfo);
+            fullBackdropPathInfo = String.format("%s%s%s", rootPath, posterSize, backdropPathInfo);
+        }
     }
 
     public long getId() {

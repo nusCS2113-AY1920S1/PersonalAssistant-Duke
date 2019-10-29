@@ -346,7 +346,7 @@ public class ProfileCommands {
         return 0;
     }
 
-    private String findGenreName(int id) throws IOException {
+    public static String findGenreName(int id) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         InputStream inputStream = new FileInputStream("EPdata/GenreId.json");
         TypeReference<ArrayList<GenreId>> typeReference = new TypeReference<ArrayList<GenreId>>() {
