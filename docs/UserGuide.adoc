@@ -77,8 +77,10 @@ The documentation below uses the following notation to describe the structure of
 
 The following italicised words refer to specific repeated patterns:
 
-* _patient_id_ -> `(*-b[ed]* <bed number> | *-i[ndex]* <patient's index>)`
-* _string_or_idx_ -> `(*-n[ame]* <name>) | *-i[ndex]* <index>`
+// TODO: Part of name
+* _patient_id_ -> `(<patient's index> | "<part of name>" | *-b[ed]* <bed number>)`
+* _string_or_idx_ -> `(<index> | "<search string>")`
+** `<index>` refers to the index assigned to the object in the display. `<search string>` will be searched for in the names of all relevant objects.
 * _type_ -> (`-m[edicine]` | `-in[v(x | estigation)]` | `-p[lan]` | `-o[bservation]` | `-r[esult]`)
 
 Parsing rules:
@@ -203,7 +205,7 @@ Opens the new <<Impression, Impression>>'s context if `-g[o]` is specified.
 
 ==== `open` - Open a critical (`Treatment` / `Evidence`) or `Investigation` item listed on the page, or an `Impression`
 
-Format: `open _string_or_idx_ (*-c[ritical]* | *-in[v(x | estigation)*] | *-im[pression]*)`
+Format: `open ("<search string>" | *-c[ritical]* _string_or_idx_ | *-i[nv(x|estigation)]* _string_or_idx_ | *-im[pression]* _string_or_idx_)`
 
 ==== `edit` - Edit one of the details of the Patient [[patient-edit]]
 
@@ -228,7 +230,7 @@ In v1.4, if a `<new value>` is not supplied, a text box with the current value l
 
 ==== `delete` - Delete a critical (`Treatment` / `Evidence`) or `Investigation` item listed on the page, or an `Impression`
 
-Format: `delete _string_or_idx_ (*-c[ritical]* | *-in[v(x | estigation)*] | *-im[pression]*)`
+Format: `delete ("<search string>" | *-c[ritical]* _string_or_idx_ | *-i[nv(x|estigation)]* _string_or_idx_ | *-im[pression]* _string_or_idx_)`
 
 ==== `history` - Append miscellaneous notes to a patient's medical history
 
