@@ -20,16 +20,16 @@ import java.util.stream.Collectors;
 
 public class Storage {
 
-    private String absolutePath = "/resources/Save.txt";
-    private String absolutePath_password = "/Password.txt";
-    private String absolutePath_Contact = "/Contact.txt";
-    private String absolutePath_Expenses = "/Expenses.txt";
-    private String absolutePath_Places = "/Places.txt";
-    private String absolutePath_Trivia = "../resources/Trivia.txt";
-    private String absolutePath_CAP = "/CAP.txt";
+    private String absolutePath = "Save.txt";
+    private String absolutePath_password = "Password.txt";
+    private String absolutePath_Contact = "Contact.txt";
+    private String absolutePath_Expenses = "Expenses.txt";
+    private String absolutePath_Places = "Places.txt";
+    private String absolutePath_Trivia = "Trivia.txt";
+    private String absolutePath_CAP = "CAP.txt";
 
-    private String absolutePathSpecialization = "/Specialization.txt";
-    private String absolutePath_StudyPlanner = "/Study_Plan.txt";
+    private String absolutePathSpecialization = "Specialization.txt";
+    private String absolutePath_StudyPlanner = "Study_Plan.txt";
 
     public void writeToSaveFile(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath);
@@ -38,10 +38,12 @@ public class Storage {
         fileWriter.close();
     }
 
-    public ArrayList<Task> realFromSaveFile() throws IOException {
+    public ArrayList<Task> realFromSaveFile() throws FileNotFoundException {
         ArrayList<Task> tList = new ArrayList<Task>();
-        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath);
-        Scanner sc = new Scanner(inputStream);
+//        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath);
+//        Scanner sc = new Scanner(inputStream);
+        File f = new File(absolutePath);
+        Scanner sc = new Scanner(f);
             while (sc.hasNext()) {
                 String[] details = sc.nextLine().split("\\|");
                 if (details[0].equals("T")) {
@@ -155,10 +157,12 @@ public class Storage {
      * @return the arrays of password
      * @throws IOException catch the error if the read file fails.
      */
-    public ArrayList<StringBuilder> readFromPasswordFile() {
+    public ArrayList<StringBuilder> readFromPasswordFile() throws FileNotFoundException {
         ArrayList<StringBuilder> passwordList = new ArrayList<>();
-        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_password);
-        Scanner sc = new Scanner(inputStream);
+//        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_password);
+        File f = new File(absolutePath_password);
+        Scanner sc = new Scanner(f);
+//        Scanner sc = new Scanner(inputStream);
         while (sc.hasNext()) {
             String decodedPassword = sc.nextLine();
             char[] decryption = decodedPassword.toCharArray();
@@ -193,10 +197,12 @@ public class Storage {
      * @throws IOException catch the error if the read file fails.
      */
 
-    public HashMap<String, String> readFromContactFile() {
+    public HashMap<String, String> readFromContactFile() throws FileNotFoundException {
         HashMap<String, String> contactList = new HashMap<String, String>();
-        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Contact);
-            Scanner sc = new Scanner(inputStream);
+//        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Contact);
+//            Scanner sc = new Scanner(inputStream);
+        File f = new File(absolutePath_Contact);
+        Scanner sc = new Scanner(f);
             while (sc.hasNext()) {
                 String[] split = sc.nextLine().split("\\|");
                 contactList.put(split[0], split[1]);
@@ -219,11 +225,13 @@ public class Storage {
         fileWriter.close();
     }
 
-    public HashMap<LocalDate, ArrayList<String>> Expenses() {
+    public HashMap<LocalDate, ArrayList<String>> Expenses() throws FileNotFoundException {
         HashMap<LocalDate, ArrayList<String>> expenses = new HashMap<LocalDate, ArrayList<String>>();
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Expenses);
-        Scanner sc = new Scanner(inputStream);
+//        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Expenses);
+//        Scanner sc = new Scanner(inputStream);
+        File f = new File(absolutePath_Expenses);
+        Scanner sc = new Scanner(f);
         while (sc.hasNext()) {
             ArrayList<String> itemAndPriceList = new ArrayList<>();
             String[] split = sc.nextLine().split("\\|");
@@ -246,8 +254,10 @@ public class Storage {
 
     public HashMap<String, String> readPlaces() throws IOException {
         HashMap<String, String> placesList = new HashMap<String, String>();
-        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Places);
-        Scanner sc = new Scanner(inputStream);
+//        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Places);
+//        Scanner sc = new Scanner(inputStream);
+        File f = new File(absolutePath_Places);
+        Scanner sc = new Scanner(f);
         while (sc.hasNext()) {
             String[] split = sc.nextLine().split("\\|");
             placesList.put(split[0], split[1]);
@@ -255,33 +265,41 @@ public class Storage {
         return placesList;
     }
 
-    public Map<String, ArrayList<String>> Read_Trivia() {
+    public Map<String, ArrayList<String>> Read_Trivia() throws FileNotFoundException {
         Map<String, ArrayList<String>> CommandMemory = new HashMap<>();
-        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Trivia);
-        Scanner sc = new Scanner(inputStream);
-        while (sc.hasNext()) {
-            String InputCommand = sc.nextLine();
-            if (CommandMemory.containsKey(InputCommand.split(" ")[0])) {
-                ArrayList<String> oldlist = new ArrayList<String>(CommandMemory.get(InputCommand.split(" ")[0]));
-                if(!oldlist.contains(InputCommand)){
-                    oldlist.add(InputCommand);
-                    CommandMemory.put(InputCommand.split(" ")[0], oldlist);
+            File f = new File(absolutePath_Trivia);
+            Scanner sc = new Scanner(f);
+            while (sc.hasNext()) {
+                String InputCommand = sc.nextLine();
+                if (CommandMemory.containsKey(InputCommand.split(" ")[0])) {
+                    ArrayList<String> oldlist = new ArrayList<String>(CommandMemory.get(InputCommand.split(" ")[0]));
+                    if (!oldlist.contains(InputCommand)) {
+                        oldlist.add(InputCommand);
+                        CommandMemory.put(InputCommand.split(" ")[0], oldlist);
+                    }
+                } else {
+                    ArrayList<String> newlist = new ArrayList<String>();
+                    newlist.add(InputCommand);
+                    CommandMemory.put(InputCommand.split(" ")[0], newlist);
                 }
-            } else {
-                ArrayList<String> newlist = new ArrayList<String>();
-                newlist.add(InputCommand);
-                CommandMemory.put(InputCommand.split(" ")[0], newlist);
             }
-        }
+            sc.close();
         return CommandMemory;
     }
 
     public void Storage_Trivia(String fileContent) throws IOException {
-        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(absolutePath_Trivia, true));
-        fileWriter.newLine();
-        fileWriter.write(fileContent);
-        fileWriter.flush();
-        fileWriter.close();
+        File file = new File(absolutePath_Trivia);
+        if(file.exists() && !file.canWrite()){
+
+            System.out.println("File exists and it is read only, making it writable");
+            file.setWritable(true);
+        }
+        FileWriter fileWriter = new FileWriter(absolutePath_Trivia);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        bufferedWriter.newLine();
+        bufferedWriter.write(fileContent);
+        bufferedWriter.flush();
+        bufferedWriter.close();
     }
 
     /**
@@ -307,8 +325,10 @@ public class Storage {
      */
     public HashMap<String, ArrayList<CAPCommand>> readFromCAPFile() throws IOException {
         HashMap<String, ArrayList<CAPCommand>> CAPList = new HashMap<String, ArrayList<CAPCommand>>();
-        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_CAP);
-            Scanner sc = new Scanner(inputStream);
+//        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_CAP);
+//            Scanner sc = new Scanner(inputStream);
+        File f = new File(absolutePath_CAP);
+        Scanner sc = new Scanner(f);
             while (sc.hasNext()) {
                 ArrayList<CAPCommand> moduleList = new ArrayList<>();
                 String[] splitStringTxtFile = sc.nextLine().split("\\|");

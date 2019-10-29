@@ -34,16 +34,7 @@ application {
 test {
     useJUnitPlatform()
 }
-sourceSets {
-    main {
-        java {
-            srcDirs = ['src/main/java']
-        }
-        resources {
-            srcDirs = ['src/resources']
-        }
-    }
-}
+
 run{
     standardInput = System.in
 }
