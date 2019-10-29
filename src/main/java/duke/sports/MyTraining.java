@@ -46,7 +46,7 @@ public class MyTraining {
      * Retrieve the number of sets.
      * @return number of sets
      */
-    public int getSets() {
+    private int getSets() {
         return this.sets;
     }
 
@@ -54,7 +54,7 @@ public class MyTraining {
      * Retrieve the number of repetitions.
      * @return number of repetitions
      */
-    public int getReps() {
+    private int getReps() {
         return this.reps;
     }
 

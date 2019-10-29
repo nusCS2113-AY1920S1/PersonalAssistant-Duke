@@ -10,7 +10,7 @@ public class Ui {
     /**
      * Scanner object to read user input.
      */
-    Scanner scan = new Scanner(System.in);
+    private Scanner scan = new Scanner(System.in);
 
     /**
      * Declaring new Parser type.

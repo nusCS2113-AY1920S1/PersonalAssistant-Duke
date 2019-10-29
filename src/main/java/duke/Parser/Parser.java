@@ -1,8 +1,4 @@
 package duke.Parser;
-
-import duke.Command.Command;
-import duke.Command.ExitCommand;
-import duke.Command.InvalidCommand;
 import duke.Ui;
 import duke.data.Storage;
 import duke.module.Reminder;
@@ -26,7 +22,8 @@ public class Parser {
      * The ui object responsible for showing things to the user.
      */
     private Ui ui = new Ui();
-    /**
+
+    /*
     public static Command parse(String fullCommand) {
         Command c;
         if (fullCommand.equals("bye")) {
@@ -144,6 +141,9 @@ public class Parser {
                         + "class XXX /every YYY");
             }
             break;
+
+            default :
+                System.out.println("Invalid command");
         }
     }
 }

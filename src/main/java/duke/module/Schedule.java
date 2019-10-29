@@ -147,7 +147,7 @@ public class Schedule {
      * @param className The name of the class
      * @param scheduleStorage The object responsible for storing the class
      * @throws ParseException if startTime or endTime is in wrong format
-     * @return The outcome of the opeation,whether the class was added or not
+     * @return The outcome of the operation,whether the class was added or not
      */
     public String addClass(final String startTime,
                            final String endTime,
@@ -187,7 +187,7 @@ public class Schedule {
             return "New class has been added";
         } else {
             return "Unable to add class."
-                + "There is already another class in the same timeslot.";
+                + "There is already another class in the same time slot.";
         }
     }
 
@@ -196,7 +196,7 @@ public class Schedule {
      * @param startTime The start time of the class
      * @param name The name of the class
      * @param scheduleStorage The object responsible for storing the class
-     * @return The outcome of the opeation,whether the class was deleted or not
+     * @return The outcome of the operation,whether the class was deleted or not
      * @throws ParseException if the start time of the class is
      * in the wrong format
      */

@@ -1,24 +1,13 @@
 package duke;
 
-import duke.Command.Command;
-import duke.Parser.Parser;
 import duke.Parser.ParserCommand;
 import duke.data.Storage;
 import duke.module.Schedule;
 import duke.sports.ManageStudents;
 import duke.sports.MyPlan;
 import duke.task.TaskList;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URL;
 import java.text.ParseException;
-import java.util.Scanner;
 
 public class Duke  {
     /**
@@ -82,29 +71,14 @@ public class Duke  {
         Ui ui = new Ui();
         ui.execute();
     }
-/**
-    public static void main(final String[] args) throws FileNotFoundException, ParseException {
-        new Duke().run();
-    }
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            String fullCommand = ui.readCommand();
-            Command c = Parser.parse(fullCommand);
-            c.execute(tasks, ui, storage, schedule, students, plan);
-            isExit = c.isExit();
-        }
-    }
-*/
-
-    /**
+    /*
      * Upon running launcher main, start() will run.
      */
 //    @Override
 //    public void start(final Stage stage) {
 //        try {
-//            URL url = Duke.class.getClassLoader().getResource("view/menu.fxml");
+//            URL url =
+//            Duke.class.getClassLoader().getResource("view/menu.fxml");
 //            System.out.println(url);
 //            Parent root = FXMLLoader.load(url);
 //            stage.setScene(new Scene(root, width, height));
