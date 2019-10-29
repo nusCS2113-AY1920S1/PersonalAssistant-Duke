@@ -1,10 +1,8 @@
 package logic.command;
 
-import model.Member;
-import model.MemberManager;
 import model.Model;
 import model.Task;
-import utils.DukeException;
+import common.DukeException;
 
 import java.util.Date;
 

@@ -1,21 +1,29 @@
 package logic.command;
 
+import core.Duke;
 import model.Model;
 import model.Task;
-import utils.DukeException;
+import common.DukeException;
 
 public class DeleteTaskCommand extends Command {
-    public static final String COMMAND_WORD = "task";
-    private String taskName;
 
-    public DeleteTaskCommand(String taskName) {
-        this.taskName = taskName;
+    private int taskIndexInList;
+
+    public DeleteTaskCommand(int index) {
+        this.taskIndexInList = index;
     }
 
     @Override
     public CommandOutput execute(Model model) throws DukeException {
-        Task temp = model.deleteTask(taskName);
-        return new CommandOutput("you have removed a task: " + temp.getName());
+
+        if (taskIndexInList > model.getTaskListSize() || taskIndexInList < 1) {
+            return new CommandOutput("invalid task index");
+        } else {
+            Task temp = model.deleteTask(taskIndexInList);
+            return new CommandOutput("you have removed a task: " + temp.getName());
+        }
+
+
     }
 
 }

@@ -2,7 +2,7 @@ package logic.parser;
 
 
 import logic.command.DoneCommand;
-import utils.DukeException;
+import common.DukeException;
 
 public class DoneCommandParser {
     //@@author chenyuheng

@@ -1,7 +1,7 @@
 package logic.command;
 
 import model.Model;
-import tasks.Task;
+import model.Task;
 
 public class HiCommand extends Command {
     private Task task;

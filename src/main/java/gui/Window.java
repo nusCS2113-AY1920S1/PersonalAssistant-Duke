@@ -17,8 +17,7 @@ import javax.swing.text.DefaultCaret;
 import core.Duke;
 import logic.LogicController;
 import logic.command.CommandOutput;
-import utils.DukeException;
-import utils.TasksCounter;
+import common.DukeException;
 import gui.PieChart;
 
 import java.awt.Color;

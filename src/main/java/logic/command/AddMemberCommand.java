@@ -1,7 +1,7 @@
 package logic.command;
 
 import model.Model;
-import utils.DukeException;
+import common.DukeException;
 
 import java.util.Date;
 

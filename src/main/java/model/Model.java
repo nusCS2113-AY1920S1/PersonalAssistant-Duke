@@ -1,6 +1,6 @@
 package model;
 
-import utils.DukeException;
+import common.DukeException;
 
 import java.util.ArrayList;
 
@@ -13,11 +13,14 @@ public interface Model {
     //==================Task Interface======================
     ArrayList<Task> getTaskList();
 
+    int getTaskListSize();
+
     TasksManager getTasksManager();
 
     Task addTask(String name) throws DukeException;
 
-    Task deleteTask(String name) throws DukeException;
+    Task deleteTask(int taskIndexInList) throws DukeException;
+
 
     boolean hasTask(String name) throws DukeException;
 
@@ -28,7 +31,7 @@ public interface Model {
 
     void addMember(String name) throws DukeException;
 
-    Member deleteMember(String name) throws DukeException;
+    boolean deleteMember(String name) throws DukeException;
 
     boolean hasMember(String name) throws DukeException;
 

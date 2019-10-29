@@ -1,11 +1,11 @@
 package model;
 
-import utils.DukeException;
+import storage.Storage;
+import common.DukeException;
 
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 public class ModelController implements Model {
     private TasksManager tasksManager;
@@ -48,6 +48,10 @@ public class ModelController implements Model {
         return tasksManager.getTaskList();
     }
 
+    public int getTaskListSize() {
+        return tasksManager.getTaskListSize();
+    }
+
     @Override
     public TasksManager getTasksManager() {
         return tasksManager;
@@ -61,18 +65,15 @@ public class ModelController implements Model {
         return newTask;
     }
 
-    @Override
-    public Task deleteTask(String name) throws DukeException {
-        Task toDelete = tasksManager.getTaskByName(name);
-        ArrayList<String> memberList = toDelete.getMemberList();
-        tasksManager.deleteTask(toDelete);
-        return toDelete;
-    }
 
     @Override
     public boolean hasTask(String name) throws DukeException {
         return tasksManager.hasTask(name);
     }
+
+
+
+    //=================Member interfaces=============================================
 
     @Override
     public ArrayList<Member> getMemberList() {
@@ -91,16 +92,11 @@ public class ModelController implements Model {
     }
 
     @Override
-    public Member deleteMember(String name) throws DukeException {
-        Member toDelete = memberManager.getMemberByName(name);
-        memberManager.deleteMember(toDelete);
-        return toDelete;
-    }
-
-    @Override
     public boolean hasMember(String name) throws DukeException {
         return memberManager.hasMember(name);
     }
+
+    //============================
 
     @Override
     public void link(int taskIndex, String memberName) {
@@ -112,6 +108,30 @@ public class ModelController implements Model {
     @Override
     public void unlink(int taskIndex, String memberName) {
 
+    }
+
+    @Override
+    //@@author yuyanglin28
+    public boolean deleteMember(String name) {
+        tasksManager.deleteMemberInTasks(name);
+        Member toDelete = memberManager.getMemberByName(name);
+        if (memberManager.deleteMember(toDelete)) {
+            storage.saveMembers(memberManager.getMemberList());
+            storage.saveTasks(tasksManager.getTaskList());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public Task deleteTask(int taskIndexInList) throws DukeException {
+        Task toDelete = tasksManager.deleteTask(taskIndexInList);
+        String toDeleteName = tasksManager.getNameByTask(toDelete);
+        memberManager.deleteTaskInMembers(toDeleteName);
+        storage.saveMembers(memberManager.getMemberList());
+        storage.saveTasks(tasksManager.getTaskList());
+        return toDelete;
     }
 
 }
