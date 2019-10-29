@@ -1,19 +1,10 @@
 package duke.parser;
 
-import java.util.Optional;
-
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.DoneCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.HelpCommand;
-import duke.command.ListCommand;
-import duke.command.PomodoroCommand;
-import duke.command.RandomCommand;
-import duke.command.UndoCommand;
+import duke.command.*;
 import duke.exception.DukeException;
 import duke.storage.UndoStack;
+
+import java.util.Optional;
 
 /**
  * duke.parser.Parser class that deals with making sense of user commands
@@ -90,6 +81,11 @@ public class DuqueParser {
                 throw new DukeException("☹ OOPS!!! Please specify which pomodoro timer you would like to start!");
             }
             return new PomodoroCommand(fcArray[1]);
+        case "autoassign":
+            if (fcArray.length == 1) {
+                throw new DukeException("☹ OOPS!!! Please specify which task to auto assign!");
+            }
+            return new AutoAssignCommand(fcArray[1]);
         case "undo":
             if (fcArray.length != 1) {
                 throw new DukeException("☹ OOPS!!! There should not be any description for undo!");
