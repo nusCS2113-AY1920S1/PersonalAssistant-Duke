@@ -53,6 +53,10 @@ public class EditBudgetCommand extends Command {
                     outputValue += "The budget for " + categoryName + " is the same.\n";
                     continue;
                 }
+                if (categoryBudget <= 0) {
+                    outputValue += "Please set your budget for " + categoryName + " to a value more than 0\n";
+                    continue;
+                }
                 isUpdated = true;
                 budget.addNewBudget(categoryName, categoryBudget);
                 outputValue += "You have changed the budget for " + categoryName
