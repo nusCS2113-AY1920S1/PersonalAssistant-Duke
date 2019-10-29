@@ -8,10 +8,10 @@ import duke.ui.context.Context;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class ImpressionCommandTest extends CommandTest {
@@ -33,7 +33,7 @@ public class ImpressionCommandTest extends CommandTest {
     public void ImpressionNewCommand_fullCommand_correctDataCreated() {
         //TODO test other DukeData
         ArgCommand newMedCmd = new ImpressionNewCommand();
-        String[] switchNames = {"medicine", "name", "priority", "status", "dose", "startDate", "duration"};
+        String[] switchNames = {"medicine", "name", "priority", "status", "dose", "date", "duration"};
         String[] switchVals = {null, "test", "2", "1", "test dose", "today", "next two weeks"};
         setupCommand(newMedCmd, null, switchNames, switchVals);
         Medicine testMed = new Medicine("test", impression, 2, 1, "test dose",
@@ -41,7 +41,25 @@ public class ImpressionCommandTest extends CommandTest {
 
         try {
             newMedCmd.execute(core);
-            assertEquals(testMed, impression.getTreatment("test"));
+            assertTrue(testMed.equals(impression.getTreatment("test")));
+        } catch (DukeException excp) {
+            fail("Exception thrown while executing valid command!");
+        }
+    }
+
+    @Test
+    public void ImpressionNewCommand_minCommand_correctDataCreated() {
+        //TODO test other DukeData
+        ArgCommand newMedCmd = new ImpressionNewCommand();
+        String[] switchNames = {"medicine", "name", "dose", "duration"};
+        String[] switchVals = {null, "test", "test dose", "next two weeks"};
+        setupCommand(newMedCmd, null, switchNames, switchVals);
+        Medicine testMed = new Medicine("test", impression, 0, 0, "test dose",
+                LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy")), "next two weeks");
+
+        try {
+            newMedCmd.execute(core);
+            assertTrue(testMed.equals(impression.getTreatment("test")));
         } catch (DukeException excp) {
             fail("Exception thrown while executing valid command!");
         }
