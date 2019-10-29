@@ -1,5 +1,6 @@
 package logic.parser;
 
+import commands.DeleteCommand;
 import logic.command.Command;
 import utils.DukeException;
 
@@ -52,6 +53,8 @@ public class NewParser {
                 return DoneCommandParser.parseDoneCommand(arguments);
             case LINK_COMMAND_WORD:
                 return LinkCommandParser.parseLinkCommand(arguments);
+            case DELETE_COMMAND_WORD:
+                return DeleteCommandParser.parseDeleteCommand(arguments);
             default:
                 throw new DukeException("Command not found");
 
