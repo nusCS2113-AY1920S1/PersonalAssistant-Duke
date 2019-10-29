@@ -1,5 +1,6 @@
 package rims.command;
 
+//@@author danielcyc
 public abstract class CalendarCommand extends Command{
     private static int cellLength = 15;
     private static int cellHeight = 6;
@@ -13,7 +14,7 @@ public abstract class CalendarCommand extends Command{
         printCal();
     }
   // @Override
-    //public void execute(Ui ui, Storage storage, ResourceList resources) throws Exception {
+    //public void execute(Ui ui, Storage storage, ResourceList resources) {
     private static String Vert = "║";
     private static String Horz = "═";
     private static String TopLeft = "╔";

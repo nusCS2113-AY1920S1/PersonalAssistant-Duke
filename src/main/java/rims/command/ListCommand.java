@@ -11,21 +11,41 @@ import rims.resource.Reservation;
 import rims.resource.ReservationList;
 import rims.exception.RimsException;
 
+//@@author rabhijit
+/**
+ * Shows the TaskList of all the currently existing Tasks in String format.
+ */
 public class ListCommand extends Command {
-    protected String param = null;
+    protected String resourceName = null;
     protected String listType = null;
 
-    // for basic 'list'
+    /**
+     * The constructor for a ListCommand, for a generic list of all Resources in the ResourceList.
+     */
     public ListCommand() {
         ;
     }
 
-    // for list /paramType
-    public ListCommand(String paramType, String param) {
+    /**
+     * The constructor for a ListCommand, when a detailed list of a particular Resource
+     * is desired.
+     * @param paramType the type of Resource desired (Item or Room)
+     * @param resourceName the name of the Resource for which a list is desired.
+     */
+    public ListCommand(String paramType, String resourceName) {
         listType = paramType;
-        this.param = param;
+        this.resourceName = resourceName;
     }
 
+    /**
+     * Depending on the type of list desired, either prints out a basic list of all Resources in the ResourceList,
+     * or a detailed list of an individual Resource containing all of its current and future Reservations.
+     * @param ui An instance of the user interface.
+     * @param storage An instance of the Storage class.
+     * @param resources The ResourceList, containing all the created Resources thus far.
+     * @throws ParseException if the resource name is invalid
+     * @throws RimsException for any other unexpected error
+     */
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources) throws ParseException, RimsException {
         ui.printLine();
@@ -41,8 +61,9 @@ public class ListCommand extends Command {
                     ui.print(thisResource.toString() + " (qty: " + availableNumberOfResource + ")");
                 }
             }
-            ui.printEmptyLine();
+            ui.printDash();
             ui.print("CURRENTLY BOOKED:");
+            ui.printEmptyLine();
             coveredResources = new ArrayList<String>();
             for (int i = 0; i < resources.size(); i++) {
                 Resource thisResource = resources.getResourceByIndex(i);
@@ -59,13 +80,12 @@ public class ListCommand extends Command {
                 }
             }
             ui.printLine();
-        }
-
-        else if (listType.equals("item")) {
-            if (!resources.isItem(param)) {
+        //@@author aarushisingh1
+        } else if (listType.equals("item")) {
+            if (!resources.isItem(resourceName)) {
                 throw new RimsException("There is no such item!");
             }
-            ArrayList<Resource> allOfItem = resources.getAllOfResource(param);
+            ArrayList<Resource> allOfItem = resources.getAllOfResource(resourceName);
             for (int i = 0; i < allOfItem.size(); i++) {
                 Resource thisResource = allOfItem.get(i);
                 ReservationList thisResourceReservations = thisResource.getReservations();
@@ -75,28 +95,24 @@ public class ListCommand extends Command {
                     for (int j = 0; j < thisResourceReservations.size(); j++) {
                         ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
                     }
-                }
-                else {
+                } else {
                     ui.print("No bookings for this resource yet!");
                 }
             }
             ui.printDash();
             ui.printLine();
-        }
-
-        else if (listType.equals("room")) {
-            if (!resources.isRoom(param)) {
+        } else if (listType.equals("room")) {
+            if (!resources.isRoom(resourceName)) {
                 throw new RimsException("There is no such room!");
             }
-            Resource thisResource = resources.getResourceByName(param);
+            Resource thisResource = resources.getResourceByName(resourceName);
             ReservationList thisResourceReservations = thisResource.getReservations();
             ui.print(thisResource.toString() + " (ID: " + thisResource.getResourceId() + ")");
             if (!thisResourceReservations.isEmpty()) {
                 for (int j = 0; j < thisResourceReservations.size(); j++) {
                     ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
                 }
-            }
-            else {
+            } else {
                 ui.print("No bookings for this resource yet!");
             }
             ui.printLine();
