@@ -45,7 +45,7 @@ public class UpdateTaskCommand implements Command {
                 if (command[1].toLowerCase().equals("description")) {
                     taskToBeUpdated.setDescription(command[2]);
                 } else {
-                    throw new DukeException("You can only update 'Description' of the task");
+                    throw new DukeException(UpdateTaskCommand.class, "You can only update 'Description' of the task");
                 }
 
                 storageManager.saveTasks(taskManager.getTaskList());
