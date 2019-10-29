@@ -220,7 +220,7 @@ class SavingTest {
             System.out.println("Expects success but error was thrown");
         }
         String outputMessage = "Transaction No.      Description                                             "
-                + "Amount          Date                 Category             " + NEWLINE + "-----------------"
+                + "Amount          Next Expense Date    Category             " + NEWLINE + "-----------------"
                 + "------------------------------------------------------------------------------------------"
                 + "----------------------" + NEWLINE + "1                    testExpenditure                 "
                 + "                        [-] $10.00      28 September 2019    testExpenditure      "
@@ -252,7 +252,7 @@ class SavingTest {
             System.out.println("Expects success but error was thrown");
         }
         String outputMessage = "Transaction No.      Description                                             "
-                + "Amount          Date                 Category             " + NEWLINE + "-----------------"
+                + "Amount          Next Expense Date    Category             " + NEWLINE + "-----------------"
                 + "------------------------------------------------------------------------------------------"
                 + "----------------------" + NEWLINE + "1                    testExpenditure                 "
                 + "                        [-] $10.00      28 September 2019    testExpenditure      "
@@ -303,7 +303,7 @@ class SavingTest {
             System.out.println("Expects success but error was thrown");
         }
         String outputMessage = "Transaction No.      Description                                             "
-                + "Amount          Date                 Category             " + NEWLINE + "-----------------"
+                + "Amount          Next Expense Date    Category             " + NEWLINE + "-----------------"
                 + "------------------------------------------------------------------------------------------"
                 + "----------------------" + NEWLINE + "1                    editExpenditure                 "
                 + "                        [-] $25.25      28 September 2019    editExpenditure      "

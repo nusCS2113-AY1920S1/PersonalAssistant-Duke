@@ -1406,6 +1406,8 @@ Take note that there is a maximum of *30* character limit.
 
 `/list /deposit /from ACCOUNT_NAME [/num NUMBER]`
 
+`/list /recurbankexp /from ACCOUNT_NAME`
+
 [TIP]
 ====
 When `/num` is not specified, it is defaulted to 30 most recent records.
@@ -1826,6 +1828,8 @@ AMOUNT] [/date DATE]`
 
 `/list /deposit /from ACCOUNT_NAME [/num NUMBER]`
 
+`/list /recurbankexp /from ACCOUNT_NAME`
+
 
 | `/list /bonds /from DBB Vickers Account`
 
@@ -1834,6 +1838,8 @@ AMOUNT] [/date DATE]`
 `/list /cardexpenditure /from POBB Tomorrow Card`
 
 `/list /deposit /from JunBank Savings Account /num 10`
+
+`/list /recurbankexp /from JunBankSavings Account`
 
 
 
@@ -1871,6 +1877,21 @@ user*
 | Transfer funds from one account to another account based on the amount specified by the user.
 | `/transfer /fund /from ACCOUNT_NAME /to ACCOUNT_NAME /amount AMOUNT /date DATE`
 | `/transfer /fund /from JunBank Savings Account /to POBB Savings Account /amount 500 /date 1/1/2019`
+
+| *Adding recurring expenditure for bank account*
+| Add a new recurring expenditure record to the savings bank account specified.
+| `/add /recurbankexp /amount AMOUNT /from ACCOUNT_NAME /desc DESCRIPTION [/category CATEGORY]`
+| `/add /recurbankexp /amount 72.90 /from JunBank Savings Account /desc Telco Bills /category Bills`
+
+| *Editing recurring expenditure for bank account*
+| Edit an existing recurring expenditure record tied to the savings bank account based on the new details given.
+| `/edit /recurbankexp /from ACCOUNT_NAME /transno TRANSACTION_NUMBER [/desc DESCRIPTION] [/category CATEGORY] [/amount AMOUNT]`
+| `/edit /recurbankexp /from JunBank Savings Account /transno 2 /desc Telco Bills /amount 119.90`
+
+| *Deleting recurring expenditure for bank account*
+| Delete an existing expenditure record tied to the savings bank account.
+| `/delete /recurbankexp /from ACCOUNT_NAME /transno TRANSACTION_NUMBER`
+| `/delete /recurexpenditure /from JunBank Savings Account /transno 1`
 
 |======
 
