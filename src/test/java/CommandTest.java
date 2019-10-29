@@ -60,6 +60,11 @@ public abstract class CommandTest {
         }
     }
 
-    private void setupCommand (ArgCommand command, String arg, Map<String, String> switchVals) {
+    protected void setupCommand (ArgCommand command, String arg, String[] switchNames, String[] switchVals) {
+        assert (switchNames.length == switchVals.length);
+        command.setArg(arg);
+        for (int i = 0; i < switchNames.length; ++i) {
+            command.setSwitchVal(switchNames[i], switchVals[i]);
+        }
     }
 }

@@ -2,6 +2,7 @@ package duke.command.impression;
 
 import duke.command.ArgCommand;
 import duke.exception.DukeException;
+import duke.exception.DukeHelpException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,11 +29,14 @@ public abstract class DukeDataCommand extends ArgCommand {
         for (String type : typeArr) {
             if (isSwitchSet(type)) {
                 if (addType != null) {
-                    throw new DukeException("Multiple types of data specified: '" + addType
-                            + "' and '" + type + "'!");
+                    throw new DukeHelpException("Multiple types of data specified: '" + addType
+                            + "' and '" + type + "'!", this);
                 }
                 addType = type;
             }
+        }
+        if (addType == null) {
+            throw new DukeHelpException("No data type specified!", this);
         }
         return addType;
     }
