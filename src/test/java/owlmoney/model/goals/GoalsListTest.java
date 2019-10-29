@@ -58,7 +58,7 @@ public class GoalsListTest {
         GoalsList testList = new GoalsList(new Storage("data/"));
         Ui testUi = new Ui();
 
-        Saving newSaving = new Saving("TEST SAVING", 100, 100);
+        Saving newSaving = new Saving("TEST SAVING", 1000, 100);
         Goals newGoals = new Goals("TEST", 100, new Date("10/10/2020"), newSaving);
 
         GoalsException thrown = assertThrows(GoalsException.class, () -> testList.addToGoals(newGoals, testUi),
