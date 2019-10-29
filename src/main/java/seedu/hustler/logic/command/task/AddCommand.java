@@ -5,7 +5,6 @@ import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.parser.anomaly.AddCommandAnomaly;
 import seedu.hustler.ui.Ui;
-import seedu.hustler.data.CommandLog;
 
 import java.util.List;
 import java.util.Arrays;
@@ -38,26 +37,20 @@ public class AddCommand extends Command {
      */
     public void execute() {
         Ui ui = new Ui();
-        if (this.taskInfo.length == 1) {
-            ui.emptyDescriptionError();
-            CommandLog.deleteLatestLoggedCommand();
-            return;
-        }
         try {
             anomaly.detect(taskInfo);
+
+            List<String> taskDescription = Arrays.asList(taskInfo[1].split(" "));
+
+            if (taskDescription.contains("/by")) {
+                Hustler.list.add("deadline", taskInfo[1]);
+            } else if (taskDescription.contains("/at")) {
+                Hustler.list.add("event", taskInfo[1]);
+            } else {
+                Hustler.list.add("todo", taskInfo[1]);
+            }
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
-            return;
-        }
-
-        List<String> taskDescription = Arrays.asList(taskInfo[1].split(" "));
-
-        if (taskDescription.contains("/by")) {
-            Hustler.list.add("deadline", this.taskInfo[1]);
-        } else if (taskDescription.contains("/at")) {
-            Hustler.list.add("event", this.taskInfo[1]);
-        } else {
-            Hustler.list.add("todo", this.taskInfo[1]);
         }
     }
 }
