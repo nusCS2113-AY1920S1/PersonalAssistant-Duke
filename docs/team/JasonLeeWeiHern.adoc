@@ -32,7 +32,7 @@ _Justification:_ +
 This feature improves the product significantly because a user
 can now keep track of his grades and see which semester he is falling behind by viewing his CAP.
 Additionally, students especially Year 1 students can know which modules to S/U by playing around with grades so that they can make
-an informed decision on which modules to SU to acheive a better result.+
+an informed decision on which modules to SU to acheive a better result. +
 _Highlights:_ +
 This enhancement affects existing commands and commands to be added in future.
 It requires an in-depth analysis of design alternatives.
