@@ -5,6 +5,7 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.logic.TransportationMap;
 import duke.commons.exceptions.RouteDuplicateException;
+import duke.logic.RouteManager;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.lists.VenueList;
@@ -87,6 +88,11 @@ public interface Model {
      * Returns a list of event venues.
      */
     VenueList getEventVenues();
+
+    /**
+     * Returns the Route Manager.
+     */
+    RouteManager getRouteManager();
 
     /**
      * Returns profile of user.

@@ -1,7 +1,9 @@
 package duke.logic.parsers;
 
+import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.DukeUnknownCommandException;
+import duke.logic.commands.AddCommand;
 import duke.logic.commands.AddSampleItineraryCommand;
 import duke.logic.commands.Command;
 import duke.logic.commands.EditorCommand;
@@ -11,6 +13,28 @@ import duke.logic.commands.ListCommand;
 import duke.logic.commands.ProfileSetPreferenceCommand;
 import duke.logic.commands.ProfileShowCommand;
 import duke.logic.commands.QuickEditCommand;
+import duke.logic.commands.RecommendationsCommand;
+import duke.logic.commands.RouteDeleteCommand;
+import duke.logic.commands.RouteEditCommand;
+import duke.logic.commands.RouteListCommand;
+import duke.logic.commands.RouteManagerExitCommand;
+import duke.logic.commands.RouteManagerHelpCommand;
+import duke.logic.commands.RouteManagerInfoCommand;
+import duke.logic.commands.RouteManagerNodeBackCommand;
+import duke.logic.commands.RouteManagerNodeInfoCommand;
+import duke.logic.commands.RouteManagerNearbyCommand;
+import duke.logic.commands.RouteManagerNodeNextCommand;
+import duke.logic.commands.RouteManagerNodeSelectorCommand;
+import duke.logic.commands.RouteManagerReturnCommand;
+import duke.logic.commands.RouteManagerSelectorCommand;
+import duke.logic.commands.RouteNodeDeleteCommand;
+import duke.logic.commands.RouteNodeEditCommand;
+import duke.logic.commands.RouteNodeListCommand;
+import duke.logic.commands.RouteNodeNeighboursCommand;
+import duke.logic.commands.RouteNodeShowCommand;
+import duke.logic.commands.RouteManagerCommand;
+import duke.logic.commands.RouteShowCommand;
+import duke.logic.commands.StaticMapCommand;
 import duke.logic.commands.ViewScheduleCommand;
 import duke.logic.parsers.commandparser.AddEventParser;
 import duke.logic.parsers.commandparser.AddProfileParser;
@@ -102,10 +126,45 @@ public class Parser {
             return new RouteDeleteParser(inputBody).parse();
         case "routeNodeDelete":
             return new RouteNodeDeleteParser(inputBody).parse();
-        case "routeShow":
+        case "routeList":
             return new RouteListParser(inputBody).parse();
-        case "routeNodeShow":
+        case "routeNodeList":
             return new RouteNodeListParser(inputBody).parse();
+        case "routeGenerate":
+            return ParserUtil.createRouteGenerateCommand(inputBody);
+        case "routeShow":
+            return new RouteShowCommand(ParserUtil.getIntegerIndexInList(0, 2, inputBody));
+        case "routeNodeShow":
+            return new RouteNodeShowCommand(ParserUtil.getIntegerIndexInList(0, 2, inputBody),
+                    ParserUtil.getIntegerIndexInList(1, 2, inputBody));
+        case "routeNearby":
+            return new RouteNodeNeighboursCommand(ParserUtil.getIntegerIndexInList(0, 2, inputBody),
+                    ParserUtil.getIntegerIndexInList(1, 2, inputBody));
+        case "routeManager":
+            return new RouteManagerCommand();
+        case "routeManagerRouteSelect":
+            return new RouteManagerSelectorCommand(ParserUtil.getIntegerIndexInList(0, 2, inputBody));
+        case "routeManagerNodeSelect":
+            return new RouteManagerNodeSelectorCommand(ParserUtil.getIntegerIndexInList(0, 2, inputBody));
+        case "routeManagerNodereturn":
+        case "routeManagerreturn":
+            return new RouteManagerReturnCommand();
+        case "routeManagerNodenearby":
+            return new RouteManagerNearbyCommand();
+        case "routeManagerinfo":
+            return new RouteManagerInfoCommand();
+        case "routeManagerNodeinfo":
+            return new RouteManagerNodeInfoCommand();
+        case "routeManagerNodenext":
+            return new RouteManagerNodeNextCommand();
+        case "routeManagerNodeback":
+            return new RouteManagerNodeBackCommand();
+        case "routeManagerNodehelp":
+        case "routeManagerhelp":
+            return new RouteManagerHelpCommand();
+        case "routeManagerNodeexit":
+        case "routeManagerexit":
+            return new RouteManagerExitCommand();
         case "addThisList":
             return new AddSampleItineraryCommand();
         case "profile":

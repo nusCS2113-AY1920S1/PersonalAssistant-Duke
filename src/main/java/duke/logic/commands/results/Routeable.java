@@ -1,6 +1,6 @@
 package duke.logic.commands.results;
 
-import duke.model.locations.Venue;
+import duke.model.locations.RouteNode;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public interface Routeable {
 
-    ArrayList<Venue> getRoute();
+    ArrayList<RouteNode> getRoute();
 
-    void setRoute(ArrayList<Venue> route);
+    void setRoute(ArrayList<RouteNode> route);
 }

@@ -27,7 +27,7 @@ public class RouteNodeDeleteParser extends CommandParser {
      * @return RouteNodeDeleteCommand object
      */
     @Override
-    public Command parse() throws DukeException {
+    public Command parse() {
         return new RouteNodeDeleteCommand(firstIndex, secondIndex);
     }
 }

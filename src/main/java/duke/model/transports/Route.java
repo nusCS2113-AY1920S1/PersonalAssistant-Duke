@@ -6,6 +6,7 @@ import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.model.locations.BusStop;
 import duke.model.locations.RouteNode;
 import duke.model.locations.TrainStation;
+import duke.model.locations.Venue;
 
 import java.util.ArrayList;
 
@@ -67,6 +68,19 @@ public class Route {
     }
 
     /**
+     * Gets the Arraylist of Route Nodes as Venues instead.
+     *
+     * @return nodes The ArrayList of Route Nodes.
+     */
+    public ArrayList<Venue> getVenueNodes() {
+        ArrayList<Venue> result = new ArrayList<>();
+        for (RouteNode node: nodes) {
+            result.add(node);
+        }
+        return result;
+    }
+
+    /**
      * Gets the starting node of the route.
      *
      * @return node The start node.
@@ -113,6 +127,10 @@ public class Route {
 
     public void remove(int index) throws IndexOutOfBoundsException {
         nodes.remove(index);
+    }
+
+    public void setNodes(ArrayList<RouteNode> nodes) {
+        this.nodes = nodes;
     }
 
     /**

@@ -1,11 +1,14 @@
 package duke.logic.commands;
 
+import duke.commons.exceptions.ApiFailedRequestException;
+import duke.commons.exceptions.ApiNullRequestException;
+import duke.commons.exceptions.ApiTimeoutException;
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.QueryFailedException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
-import duke.logic.commands.results.CommandResultText;
+import duke.logic.commands.results.CommandResultImage;
 import duke.model.Model;
 import duke.model.locations.BusStop;
 import duke.model.locations.TrainStation;
@@ -20,7 +23,6 @@ public class RouteNodeAddCommand extends Command {
     private int indexRoute;
     private int indexNode;
     private boolean isEmptyIndexNode;
-    private static final String MESSAGE_ADDITION = "Got it. I've added this route node:\n  ";
 
     /**
      * Creates a new RouteNodeAddCommand with the given node.
@@ -45,8 +47,9 @@ public class RouteNodeAddCommand extends Command {
      * @throws QueryOutOfBoundsException If the query is out of bounds.
      */
     @Override
-    public CommandResultText execute(Model model) throws CorruptedFileException, FileNotSavedException,
-            RouteNodeDuplicateException, QueryOutOfBoundsException, QueryFailedException {
+    public CommandResultImage execute(Model model) throws CorruptedFileException, FileNotSavedException,
+            RouteNodeDuplicateException, QueryOutOfBoundsException, QueryFailedException, ApiFailedRequestException,
+            ApiTimeoutException, ApiNullRequestException {
         if (node instanceof BusStop) {
             ((BusStop) node).fetchData(model);
         } else if (node instanceof TrainStation) {
@@ -68,6 +71,7 @@ public class RouteNodeAddCommand extends Command {
         }
 
         model.save();
-        return new CommandResultText(MESSAGE_ADDITION + node.toString());
+
+        return new RouteNodeShowCommand(indexRoute, indexNode).execute(model);
     }
 }

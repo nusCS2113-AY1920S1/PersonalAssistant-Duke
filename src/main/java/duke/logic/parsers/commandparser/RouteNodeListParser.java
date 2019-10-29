@@ -3,6 +3,7 @@ package duke.logic.parsers.commandparser;
 import duke.commons.exceptions.DukeException;
 import duke.logic.commands.Command;
 import duke.logic.commands.RouteNodeListCommand;
+import duke.logic.commands.RouteNodeShowCommand;
 import duke.logic.parsers.ParserUtil;
 
 /**
@@ -27,7 +28,7 @@ public class RouteNodeListParser extends CommandParser {
      * @return RouteNodeListCommand object
      */
     @Override
-    public Command parse() throws DukeException {
+    public Command parse() {
         return new RouteNodeListCommand(firstIndex, secondIndex);
     }
 }
