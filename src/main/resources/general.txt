@@ -1,37 +1,56 @@
 --View All Data--
-command	|list all
+command	|list all [/sortby TYPE]
+TYPE|date OR category
 desc|list your data in the application
---Monthly Budget--
-command	|set budget <MONTH>
+--View Data By Date--
+command	|list <DATE>
+DATE|dd/mm/yyyy
+desc|list data by specified date
+example|list 02/03/2019
+--Set Monthly Budget--
+command	|budget <AMOUNT> <MONTH/YEAR>
 MONTH|mm/yyyy
 desc|sets budget for given month
-example|set budget 02/2019
+example|budget $400 02/2019
+--View Budget By Month--
+command|budget <MONTH>
+MONTH|mm/yyyy
+desc|view budget for given month
+example|view budget 02/2019
 -- Enable/Disable Reminder --
-command	|reminder  </on OR /off>
-/on|use this to turn on reminders
-/off|use this to turn off reminders
+command	|reminder  <on OR off>
+on|use this to turn on reminders
+off|use this to turn off reminders
 desc|enable or disable display of reminders
-example|reminder /off
+example|reminder off
 -- Reminder Interval --
-command	|reminder  </t RATE>
-RATE|<number>min
-desc|change reminder interval (in minutes)
-example|reminder /t 30min
+command	|reminder set <TIME IN SECONDS>
+desc|change reminder interval (in seconds)
+example|reminder set 3600
 --View Schedule--
 command	|view schedule <DATE>
 DATE|dd/mm/yyyy
 desc|view schedule of a given date
 example|view schedule 01/02/2019
 --Statistics--
-command	|view stats <MONTH>
+command	|view stats
+desc|view statistics of expenses
+--Export Expenses--
+command	| export expenses <MONTH>
 MONTH|mm/yyyy
-desc|view statistics of expenses for a given month
-example|view stats 02/2019
---Export--
-command	|export <DATA>
-DATA|loans OR expenses
-desc|export one group of data in text format
-example|export loans
+desc|export expenses from a given month to csv file.saved to home directory.
+example|export expenses 10/2019
+--Export Loans--
+command	| export loans
+desc|export loan records to csv file. saved to home directory.
+--Import Data--
+command|import <loans OR expenses> <FILENAME>
+desc|import loan or expense records from csv file in home directory to the app.
+example|import loans importLoans.csv
+--Convert Currency--
+command|currency <country>
+desc|convert expenses and loans currency
+example|currency south korea
 --Exit--
 command	|bye
 desc|Exits WalletCLi

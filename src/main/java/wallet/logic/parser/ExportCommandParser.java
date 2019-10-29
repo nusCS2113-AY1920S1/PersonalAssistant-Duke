@@ -10,6 +10,7 @@ import wallet.model.record.Budget;
 import wallet.model.record.Loan;
 import wallet.model.record.Category;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                 int year = Integer.parseInt(monthYear[1].trim());
 
                 ExpenseList expenseList = LogicManager.getWalletList().getWalletList().get(
-                    LogicManager.getWalletList().getState()).getExpenseList();
+                        LogicManager.getWalletList().getState()).getExpenseList();
                 double totalSpent = expenseList.getMonthExpenses(month, year);
                 String monthFormatted = DateTimeFormatter.ofPattern("MM/yyyy").format(YearMonth.of(year, month));
                 int index = 1;
@@ -77,16 +78,19 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                 data.add(new String[]{"Total Spent", "$" + totalSpent});
                 data.add(new String[]{"S/N", "Description", "Amount($)", "Date", "Category", "Recur", "Frequency"});
                 for (Expense e : expenseList.getExpenseList()) {
-                    String indexOutput = Integer.toString(index);
-                    String description = e.getDescription();
-                    String date = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(e.getDate());
-                    String amount = Double.toString(e.getAmount());
-                    Category category = e.getCategory();
-                    String isRecur = (e.isRecurring()) ? "yes" : "no";
-                    String frequency = (e.isRecurring()) ? e.getRecFrequency() : "";
-                    data.add(new String[]{indexOutput, description, amount, date, String.valueOf(category),
-                        isRecur, frequency});
-                    index++;
+                    LocalDate recordDate = e.getDate();
+                    if (month == recordDate.getMonthValue() && year == recordDate.getYear()) {
+                        String indexOutput = Integer.toString(index);
+                        String description = e.getDescription();
+                        String date = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(e.getDate());
+                        String amount = Double.toString(e.getAmount());
+                        Category category = e.getCategory();
+                        String isRecur = (e.isRecurring()) ? "yes" : "no";
+                        String frequency = (e.isRecurring()) ? e.getRecFrequency() : "";
+                        data.add(new String[]{indexOutput, description, amount, date, String.valueOf(category),
+                                isRecur, frequency});
+                        index++;
+                    }
                 }
 
             } else {
@@ -111,7 +115,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
      */
     private boolean findBudget(int month, int year) {
         ArrayList<Budget> budgetList = LogicManager.getWalletList().getWalletList().get(
-            LogicManager.getWalletList().getState()).getBudgetList().getBudgetList();
+                LogicManager.getWalletList().getState()).getBudgetList().getBudgetList();
         for (Budget b : budgetList) {
             if (b.getMonth() == month && b.getYear() == year) {
                 this.budgetLeft = b.getAmount();
@@ -132,7 +136,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                 .get(LogicManager.getWalletList().getState()).getLoanList().getLoanList();
         List<String[]> data = new ArrayList<>();
         data.add(new String[]{"S/N", "Description", "Amount($)", "Created Date", "Name", "Phone",
-            "Other Details", "Lend/Borrow", "Settled"});
+                "Other Details", "Lend/Borrow", "Settled"});
         int index = 1;
         for (Loan l : loanList) {
             String indexOutput = Integer.toString(index);
@@ -151,7 +155,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                 personDetail = "";
             }
             data.add(new String[]{indexOutput, description, amount, createdDate, personName, personPhone,
-                personDetail, isLend, isSettled});
+                    personDetail, isLend, isSettled});
             index++;
         }
         return data;
