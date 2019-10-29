@@ -127,12 +127,8 @@ public class FindFreeTimesCommand extends Command {
     public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
         if(duration < 1 || duration > 16) return ui.showFreeTimesInvalidDuration(duration.toString());
         mapDataMap(events);
-//        checkDataMap(); //TODO: remove
         findFindTime();
-//        System.out.println("___________"); //TODO: remove
-//        checkFreeTimeData(); //TODO: remove
         setOutput();
-//        System.out.println(message);  //TODO: remove
         return ui.showFreeTimes(message);
     }
 
@@ -174,28 +170,31 @@ public class FindFreeTimesCommand extends Command {
 
     /**
      * This method merges to arrayList and removes duplicated values.
-     * @param a The list of start and end times
-     * @param b The list of start and end times
+     * @param left The list of start and end times
+     * @param right The list of start and end times
      * @return The combines list
      */
-    private ArrayList<Pair<String, String>> mergeTimeArray(ArrayList<Pair<String, String>> a, ArrayList<Pair<String, String>> b) {
-        for(Pair<String, String> c: b) {
-            if(!a.contains(c)) a.add(c);
+    private ArrayList<Pair<String, String>> mergeTimeArray(ArrayList<Pair<String, String>> left, ArrayList<Pair<String, String>> right) {
+        for(Pair<String, String> c: right) {
+            if(!left.contains(c)) left.add(c);
         }
-        return a;
+        return left;
     }
 
     /**
      * This method returns true is command completed.
-     * @return
+     * @return True if freeTimeData has 5 options
      */
     private boolean checkFreeTimeOptions () {
         if(freeTimeData.size() == options) return true;
         else return false;
     }
 
+    /*
+    This checks if there are 5 options generated after going through the data in the event list
+     */
     private void generateFreeTime() throws ParseException {
-        if (checkFreeTimeOptions() == false) {
+        if (!checkFreeTimeOptions()) {
             Integer size = freeTimeData.size();
             Pair<Date, Date> last;
             if(size == 0) {
@@ -216,10 +215,10 @@ public class FindFreeTimesCommand extends Command {
     }
 
     /**
-     * This method extends generateFreeTime
-     * @param size
-     * @param last
-     * @throws ParseException
+     * This method extends generateFreeTime generates free time slot by an hour difference
+     * @param size The size of the freeTimeData
+     * @param last The last Pair found in freeTimeData
+     * @throws ParseException The error when parsing data error is found
      */
     private void generateFreeTimeUntilFiveOptions(Integer size, Pair<Date, Date> last) throws ParseException {
         for(int i = size; i < options; i++){
@@ -321,7 +320,7 @@ public class FindFreeTimesCommand extends Command {
         generateFreeTime();
     }
 
-    private static ArrayList<String> compiledFreeTimes = new ArrayList<>();
+    private static final ArrayList<String> compiledFreeTimes = new ArrayList<>();
 
     /**
      * This method generates the output to be shown
@@ -340,24 +339,7 @@ public class FindFreeTimesCommand extends Command {
         }
     }
 
-    //TODO: remove method
-    // Method for data checking
-    private void checkDataMap() {
-        for(Map.Entry<String, ArrayList<Pair<String, String>>> a: dataMap.entrySet()){
-            System.out.println("a: " + a.getKey());
-            for(Pair<String, String> b : a.getValue()){
-                System.out.println("b: " + b.getKey() + "|" + b.getValue());
-            }
-        }
-    }
 
-    //TODO: remove method
-    // Method for data checking
-    private void checkFreeTimeData() {
-        for(Pair<Date, Date> c : freeTimeData){
-            System.out.println("c: " + c.getKey() + "|" + c.getValue());
-        }
-    }
 
     public static ArrayList<String> getCompiledFreeTimesList() {
         return compiledFreeTimes;

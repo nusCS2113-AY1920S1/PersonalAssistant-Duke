@@ -42,7 +42,7 @@ public class MainParser {
                 return new FindFreeTimesParse(fullCommand).parse();
             case "show previous":
                 return new ShowPreviousCommand(fullCommand);
-            case "retrieve/freetime":
+            case "retrieve/ft":
                 return new RetrieveFreeTimesParse(fullCommand).parse();
             case "retrieve previous":
                 return new RetrievePreviousCommand(fullCommand);

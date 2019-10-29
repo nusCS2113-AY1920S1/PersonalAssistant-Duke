@@ -77,6 +77,9 @@ public class Duke  {
         return previousInput;
     }
 
+    /*
+    This method retrieves the free time option selected by the user
+     */
     public static String getSelectedOption() {
         String selectedOption = RetrieveFreeTimesCommand.getSelectedOption();
         return selectedOption;
