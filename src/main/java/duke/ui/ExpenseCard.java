@@ -31,10 +31,10 @@ public class ExpenseCard extends UiPart<Region>{
     private VBox expenseContainer;
 
 
-    public ExpenseCard(Expense expense) {
+    public ExpenseCard(Expense expense, int index) {
         super(FXML_FILE_NAME, null);
         this.expense = expense;
-        description.setText(expense.getDescription());
+        description.setText(index + ". " + expense.getDescription());
         amount.setText("$" + expense.getAmount().toString());
         tag.setText("Tag: " + expense.getTag());
         date.setText(expense.getTimeString());

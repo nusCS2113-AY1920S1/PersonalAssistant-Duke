@@ -32,6 +32,15 @@ public class ExpensePane extends UiPart<AnchorPane> {
     ListView<Expense> expenseListView;
 
     @FXML
+    Label sortLabel;
+
+    @FXML
+    Label filterLabel;
+
+    @FXML
+    Label viewLabel;
+
+    @FXML
     ListView<String> budgetListView;
     public Logic logic;
     public Set<String> tags;
@@ -90,7 +99,7 @@ public class ExpensePane extends UiPart<AnchorPane> {
      * Custom {@code ListCell} that displays the graphics of a {@code PlanBot.PlanDialog}
      * using a {@code PlanBot.PlanDialog}.
      */
-    static class ExpenseListViewCell extends ListCell<Expense> {
+    class ExpenseListViewCell extends ListCell<Expense> {
         @Override
         protected void updateItem(Expense expense, boolean empty) {
             super.updateItem(expense, empty);
@@ -98,7 +107,8 @@ public class ExpensePane extends UiPart<AnchorPane> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ExpenseCard(expense).getRoot());
+                int index = expenseListView.getItems().indexOf(expense) + 1;
+                setGraphic(new ExpenseCard(expense, index).getRoot());
             }
         }
     }
