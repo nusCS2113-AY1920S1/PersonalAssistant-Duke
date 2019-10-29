@@ -502,6 +502,52 @@ Example:
 * `assessment delete 1` +
 Deletes the 1st assessment in the list of lessons.
 
+=== Start Assignment Tracker: `start`
+Begin your journey to optimum productivity by starting your Tracker timer!
+Start your tracking on a Module from the current time.
+
+Format: `start MODULE_CODE ASSIGNMENT_DESCRIPTION`
+
+Example: `start cs2113t user guide`
+
+image::Demo_StartTracker.png[]
+
+=== Pause Assignment Tracker: `pause`
+Want to take a break or get started with another Module?
+Pause your tracking on a Module at the current time.
+
+Format: `pause MODULE_CODE ASSIGNMENT_DESCRIPTION`
+
+Example: `pause cs2113t user guide`
+
+image::Demo_PauseTracker.png[]
+
+=== Stop Assignment Tracker: `stop`
+Completed with a Module that you're currently working on?
+Stop your tracking on a Module at the current time with `stop`.
+
+Format: `stop MODULE_CODE ASSIGNMENT_DESCRIPTION`
+
+Example: `stop cs2113t user guide`
+
+image::Demo_StopTracker.png[]
+
+=== View Assignment Tracker: `viewTracker`
+Want to view a visual display featuring the amount of time you spend on each `Module`?
+
+Format: `viewTracker`
+
+image::Demo_ViewTracker.png[]
+
+Format: `viewTracker TIME_PERIOD [_coming soon in v1.4_]`
+
+*Options for TIME_PERIOD* +
+[horizontal]
+Day:: filter time spent on each `Module` today
+Week:: filter time spent on each `Module` over the last 7 days
+
+Example: `viewTracker Day`
+
 === Exiting the program: `bye`
 Exits the program.
 
@@ -688,6 +734,22 @@ View reminder based on the threshold set. +
 
 [NOTE]
 This feature runs in the background thus no input is needed from you.
+
+Starts assignment tracker. +
+* *Start Assignment Tracker*: `start MODULE_CODE ASSIGNMENT_DESCRIPTION` +
+e.g. `start cs2113t user guide`
+
+Pauses assignment tracker. +
+* *Pause Assignment Tracker*: `pause MODULE_CODE ASSIGNMENT_DESCRIPTION` +
+e.g. `pause cs2113t user guide`
+
+Stops assignment tracker. +
+* *Stop Assignment Tracker*: `stop MODULE_CODE ASSIGNMENT_DESCRIPTION` +
+e.g. `stop cs2113t user guide`
+
+View assignment tracker diagram. +
+* *View Assignment Tracker*: `viewtracker` +
+e.g. `viewtracker`
 
 Exit *OOF* by using this command. +
 * *Bye*: `bye` 

@@ -36,11 +36,11 @@ View Week           viewWeek
 
 Calendar            calendar MONTH YEAR
 
-Start Tracker       start ASSIGNMENT_DESCRIPTION
+Start Tracker       start MODULE_CODE ASSIGNMENT_DESCRIPTION
 
-Pause Tracker       pause ASSIGNMENT_DESCRIPTION
+Pause Tracker       pause MODULE_CODE ASSIGNMENT_DESCRIPTION
 
-Stop Tracker        stop ASSIGNMENT_DESCRIPTION
+Stop Tracker        stop MODULE_CODE ASSIGNMENT_DESCRIPTION
 
 View Tracker        viewtracker
 
