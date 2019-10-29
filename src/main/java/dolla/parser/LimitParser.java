@@ -70,7 +70,7 @@ public class LimitParser extends Parser {
                 return new ErrorCommand();
             }
             return new RemoveLimitCommand(limitType, duration);
-        } else if (commandToRun.equals("search")) {
+        } else if (commandToRun.equals("search") && commandToRun != null) {
             String component = inputArray[1];
             String content = inputArray[2];
             return new SearchCommand(mode, component, content);
