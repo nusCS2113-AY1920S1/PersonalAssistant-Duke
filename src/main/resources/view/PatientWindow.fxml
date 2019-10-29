@@ -38,7 +38,7 @@
                         <Image url="@../images/issues.png"/>
                     </image>
                 </ImageView>
-                <Label layoutX="61.0" layoutY="6.0" text="ISSUES">
+                <Label layoutX="61.0" layoutY="6.0" text="CRITICAL">
                     <font>
                         <Font name="System Bold" size="15.0"/>
                     </font>

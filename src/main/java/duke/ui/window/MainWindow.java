@@ -5,12 +5,12 @@ import duke.command.Executor;
 import duke.command.Parser;
 import duke.data.Impression;
 import duke.data.Patient;
-import duke.data.PatientMap;
 import duke.data.SearchResult;
 import duke.ui.UiElement;
 import duke.ui.context.Context;
 import duke.ui.context.UiContext;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
@@ -34,7 +34,7 @@ public class MainWindow extends UiElement<Stage> {
 
     private Stage primaryStage;
     private UiContext uiContext;
-    private PatientMap patientMap;
+    private ObservableMap<String, Patient> patientObservableMap;
     private Executor executor;
     private Parser parser;
 
@@ -57,7 +57,7 @@ public class MainWindow extends UiElement<Stage> {
 
         this.primaryStage = primaryStage;
         this.uiContext = core.uiContext;
-        this.patientMap = core.patientMap;
+        this.patientObservableMap = core.patientMap.getPatientObservableMap();
         this.executor = new Executor(core);
         this.parser = new Parser(core.uiContext);
 
@@ -68,41 +68,37 @@ public class MainWindow extends UiElement<Stage> {
      * Places child UI elements in the main UI window.
      */
     private void placeChildUiElements() {
-        commandWindow = new CommandWindow(executor, parser);
+        commandWindow = new CommandWindow(parser, executor);
         commandWindowHolder.getChildren().add(commandWindow.getRoot());
 
-        homeWindow = new HomeWindow(patientMap);
+        homeWindow = new HomeWindow(patientObservableMap);
         homeTab = new Tab("Home", homeWindow.getRoot());
         contextWindowHolder.getTabs().add(homeTab);
 
-        patientWindow = new PatientWindow(null, commandWindow);
-        patientTab = new Tab("Patient", patientWindow.getRoot());
-        contextWindowHolder.getTabs().add(patientTab);
-
-        impressionTab = new Tab("Impression", new ImpressionWindow(null, null).getRoot());
-        contextWindowHolder.getTabs().add(impressionTab);
-
-        searchTab = new Tab("Search", new SearchWindow(null).getRoot());
-        contextWindowHolder.getTabs().add(searchTab);
-
         // TODO: Add contexts here.
-        uiContext.addListener(evt -> {
-            switch ((Context) evt.getNewValue()) {
+        uiContext.addListener(event -> {
+            switch ((Context) event.getNewValue()) {
             case HOME:
                 contextWindowHolder.getTabs().remove(homeTab);
-                homeTab = new Tab("Home", new HomeWindow(patientMap).getRoot());
+                homeTab = new Tab("Home", new HomeWindow(patientObservableMap).getRoot());
                 contextWindowHolder.getTabs().add(0, homeTab);
                 contextWindowHolder.getSelectionModel().select(homeTab);
                 break;
             case PATIENT:
-                contextWindowHolder.getTabs().remove(patientTab);
+                if (patientTab != null) {
+                    contextWindowHolder.getTabs().remove(patientTab);
+                }
+
                 patientTab = new Tab("Patient", new PatientWindow((Patient) uiContext.getObject(),
                         commandWindow).getRoot());
                 contextWindowHolder.getTabs().add(1, patientTab);
                 contextWindowHolder.getSelectionModel().select(patientTab);
                 break;
             case IMPRESSION:
-                contextWindowHolder.getTabs().remove(impressionTab);
+                if (impressionTab != null) {
+                    contextWindowHolder.getTabs().remove(impressionTab);
+                }
+
                 Impression impression = (Impression) uiContext.getObject();
                 impressionTab = new Tab("Impression", new ImpressionWindow(impression,
                         (Patient) impression.getParent()).getRoot());
@@ -130,16 +126,13 @@ public class MainWindow extends UiElement<Stage> {
     }
 
     /**
-     * {@inheritDoc}
+     * Prints message on the {@code CommandWindow}.
+     *
+     * @param message Output message.
      */
     public void print(String message) {
         commandWindow.print(message);
     }
-
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
-
 
     /**
      * Retrieves list of UI cards in current {@code UiContext}.
@@ -161,5 +154,9 @@ public class MainWindow extends UiElement<Stage> {
         }
 
         return null;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 }

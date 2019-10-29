@@ -27,6 +27,7 @@ public class HomeOpenCommand extends ArgCommand {
             Impression primaryImpression = patient.getPrimaryDiagnosis();
 
             if (patient.getPrimaryDiagnosis() != null) {
+                core.uiContext.setContext(Context.PATIENT, patient);
                 core.uiContext.setContext(Context.IMPRESSION, primaryImpression);
             } else {
                 throw new DukeException("The specified patient has no primary diagnosis at the moment!");

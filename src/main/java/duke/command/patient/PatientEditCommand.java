@@ -17,10 +17,8 @@ public class PatientEditCommand extends ArgCommand {
         super.execute(core);
 
         Patient patient = (Patient) core.uiContext.getObject();
+        boolean append = isSwitchSet("append");
 
-        // TODO: refactor
-        // TODO: Ability to change bed number and name
-        // TODO: append
         int height = switchToInt("height");
         if (height != -1) {
             patient.setHeight(height);
@@ -43,21 +41,21 @@ public class PatientEditCommand extends ArgCommand {
 
         String address = getSwitchVal("address");
         if (address != null) {
-            patient.setAddress(address);
+            patient.setAddress(append ? (patient.getAddress() + " " + address) : address);
         }
 
         String history = getSwitchVal("history");
         if (history != null) {
-            patient.setHistory(history);
+            patient.setHistory(append ? (patient.getHistory() + " " + history) : history);
         }
 
         String allergies = getSwitchVal("allergies");
         if (allergies != null) {
-            patient.setAllergies(allergies);
+            patient.setAllergies(append ? (patient.getAllergies() + ", " + allergies) : allergies);
         }
 
         patient.updateAttributes();
-        core.ui.print("Edited details of patient!");
         core.writeJsonFile();
+        core.ui.print("Edited specified details of patient!");
     }
 }

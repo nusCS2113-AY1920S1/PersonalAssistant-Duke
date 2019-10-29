@@ -80,7 +80,11 @@ public class Patient extends DukeObject {
      * @return the Impression newly added
      */
 
-    public Impression addNewImpression(Impression newImpression) {
+    public Impression addNewImpression(Impression newImpression) throws DukeException {
+        if (observableImpressions.containsKey(newImpression.getName())) {
+            throw new DukeException("Impression already exists!");
+        }
+
         this.observableImpressions.put(newImpression.getName(), newImpression);
         return newImpression;
     }

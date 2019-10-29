@@ -12,7 +12,7 @@ public class PatientHistorySpec extends ArgSpec {
     }
 
     private PatientHistorySpec() {
-        emptyArgMsg = "You didn't tell me anything on what to add!";
+        emptyArgMsg = "You did not tell me anything about what to add for his/her medical history!";
         cmdArgLevel = ArgLevel.REQUIRED;
         initSwitches();
     }

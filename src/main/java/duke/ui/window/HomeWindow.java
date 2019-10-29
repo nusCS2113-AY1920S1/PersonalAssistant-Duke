@@ -3,11 +3,11 @@ package duke.ui.window;
 import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.controls.JFXScrollPane;
 import duke.data.Patient;
-import duke.data.PatientMap;
 import duke.ui.UiElement;
 import duke.ui.card.PatientCard;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
@@ -24,17 +24,17 @@ public class HomeWindow extends UiElement<Region> {
     @FXML
     private ScrollPane scrollPane;
 
-    private PatientMap patientMap;
+    private ObservableMap<String, Patient> patientObservableMap;
 
     /**
      * Constructs the Home UI window.
      *
-     * @param patientMap PatientMap object.
+     * @param patientObservableMap ObservableMap of {@code Patient} objects.
      */
-    public HomeWindow(PatientMap patientMap) {
+    public HomeWindow(ObservableMap<String, Patient> patientObservableMap) {
         super(FXML, null);
 
-        this.patientMap = patientMap;
+        this.patientObservableMap = patientObservableMap;
 
         fillPatientListPanel();
         attachPatientListListener();
@@ -46,7 +46,7 @@ public class HomeWindow extends UiElement<Region> {
      * Fills {@code patientListPanel}.
      */
     private void fillPatientListPanel() {
-        for (Patient patient : patientMap.getPatientHashMap().values()) {
+        for (Patient patient : patientObservableMap.values()) {
             PatientCard patientCard = new PatientCard(patient);
             patientCard.setIndex(patientListPanel.getChildren().size() + 1);
             patientListPanel.getChildren().add(patientCard);
@@ -55,10 +55,10 @@ public class HomeWindow extends UiElement<Region> {
 
     /**
      * Attaches a listener to the patient hashmap.
-     * This listener updates the {@code patientListPanel} whenever the patient map is updated.
+     * This listener updates the {@code patientListPanel} whenever the patient hashmap is updated.
      */
     private void attachPatientListListener() {
-        patientMap.getPatientObservableMap().addListener((MapChangeListener<String, Patient>) change -> {
+        patientObservableMap.addListener((MapChangeListener<String, Patient>) change -> {
             if (change.wasAdded()) {
                 PatientCard patientCard = new PatientCard(change.getValueAdded());
                 patientListPanel.getChildren().add(patientCard);

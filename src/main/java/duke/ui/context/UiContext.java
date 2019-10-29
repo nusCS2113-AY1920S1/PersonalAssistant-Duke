@@ -67,11 +67,11 @@ public class UiContext {
     }
 
     /**
-     * Moves up one context.
+     * Moves back one context.
      */
     public void moveBackOneContext() throws DukeException {
         if (contexts.empty()) {
-            throw new DukeException("No previous contexts before this!");
+            throw new DukeException("No previous context before this!");
         }
 
         Pair<Context, DukeObject> pair = contexts.pop();
