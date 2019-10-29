@@ -211,6 +211,21 @@ The steps carried out by the program as described above are captured in figure 5
 .Add command sequence diagram
 image::addcommand.png[width="800"]
 
+==== Design considerations
+
+Problem 1: *How to store the data associated with this command*
+
+* Solution 1 (current implementation): Hashmap of a Hashmap
+** By storing the data in this format, this feature can be easily extendable to store multiple different default values associated to different nutritional tags to a single meal. Additionally, read and write access can be carried out in approximately O(n) time, where n is the amount of nutritional tags associated to a single meal. As n is unlikely to be large (n > 10), the process is not time complex.
+
+Problem 2: *Where to instantiate the data structure used to store the data for this command*
+
+* Solution 1 (current implementation): Directly in the MealList data structure
+** By instantiating the data structure directly in the MealList data structure, it becomes straightforward to access the data whenever a new meal is added.
+** However, this violates the separation of concerns architecture principle
+* Solution 2 (planned implementation by v1.3): In a separate class
+** By instantiating the data structure in a different class, it improves the cohesion of the code, and satisfies the separation of concerns principle
+
 
 === Mark as Done command
 
@@ -254,20 +269,7 @@ In the event where the user would like to sort the default meals from the least 
 . The `SortCommand#execute()` function then sort the invoke the `storage#LoadFile` function, which fetches the data from the default meal text file and update the generate a mealList.
 . The mealList will then be sorted based on the calorie content in ascending order and and displayed to the user through `ui#showList`.
 
-==== Design considerations
 
-Problem 1: *How to store the data associated with this command*
-
-* Solution 1 (current implementation): Hashmap of a Hashmap
-** By storing the data in this format, this feature can be easily extendable to store multiple different default values associated to different nutritional tags to a single meal. Additionally, read and write access can be carried out in approximately O(n) time, where n is the amount of nutritional tags associated to a single meal. As n is unlikely to be large (n > 10), the process is not time complex.
-
-Problem 2: *Where to instantiate the data structure used to store the data for this command*
-
-* Solution 1 (current implementation): Directly in the MealList data structure
-** By instantiating the data structure directly in the MealList data structure, it becomes straightforward to access the data whenever a new meal is added.
-** However, this violates the separation of concerns architecture principle
-* Solution 2 (planned implementation by v1.3): In a separate class
-** By instantiating the data structure in a different class, it improves the cohesion of the code, and satisfies the separation of concerns principle
 
 
 
