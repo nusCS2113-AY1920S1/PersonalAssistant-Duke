@@ -1,12 +1,12 @@
-package JavaFx;
+package UserInterface;
 
 import javafx.scene.text.Text;
 
-public class dukeResponseView {
+public class DukeResponseView {
     String index;
     Text response;
 
-    public dukeResponseView(String index, Text response) {
+    public DukeResponseView(String index, Text response) {
         this.index = index;
         this.response = response;
     }

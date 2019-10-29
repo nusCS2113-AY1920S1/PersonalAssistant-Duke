@@ -1,4 +1,4 @@
-package JavaFx;
+package UserInterface;
 
 import javafx.scene.control.*;
 import java.util.Optional;

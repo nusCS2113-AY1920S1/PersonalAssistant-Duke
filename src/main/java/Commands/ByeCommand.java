@@ -1,6 +1,10 @@
 package Commands;
-import Tasks.*;
-import Interface.*;
+
+import Commons.LookupTable;
+import Commons.Storage;
+import Commons.Ui;
+import Tasks.TaskList;
+
 /**
  * Represents the command to end the program.
  */
@@ -17,7 +21,7 @@ public class ByeCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display goodbye message
      */
     @Override
-    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) {
+    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) {
         return ui.showBye();
     }
 }

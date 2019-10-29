@@ -1,11 +1,10 @@
-package Interface;
+package Commons;
 import Commands.*;
 import DukeExceptions.DukeException;
-import JavaFx.AlertBox;
+import UserInterface.AlertBox;
 import Tasks.*;
 import javafx.scene.control.Alert;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -24,16 +23,8 @@ public class Parser {
     private static String[] split2;
     private static String[] split3;
     private static String[] split4;
-    private static LookupTable LT;
+    private static LookupTable LT = new LookupTable();
     private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
-
-    static {
-        try {
-            LT = new LookupTable();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * This method breaks apart the user's input and tries to make sense with it.

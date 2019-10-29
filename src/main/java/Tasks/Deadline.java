@@ -3,7 +3,7 @@ package Tasks;
 /**
  * Represents a task called deadline.
  */
-public class Deadline extends Task {
+public class Deadline extends Assignment {
 
     private final String by;
     private final String time;
