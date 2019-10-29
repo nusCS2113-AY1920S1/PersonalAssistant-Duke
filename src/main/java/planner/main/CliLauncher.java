@@ -4,11 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
-import java.util.logging.Logger;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.sound.sampled.LineEvent;
 import planner.logic.command.EndCommand;
 import planner.logic.command.ModuleCommand;
 import planner.logic.exceptions.legacy.ModException;
@@ -39,7 +35,6 @@ public class CliLauncher {
     private HashMap<String, ModuleInfoDetailed> modDetailedMap;
     private transient ByteArrayOutputStream output;
 
-    private static final Logger logger = Logger.getLogger(CliLauncher.class.getName());
 
     /**
      * Constructor for Planner class.
