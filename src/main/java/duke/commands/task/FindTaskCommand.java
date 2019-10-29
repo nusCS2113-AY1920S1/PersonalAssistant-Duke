@@ -41,13 +41,13 @@ public class FindTaskCommand implements Command {
             try {
                 id = Integer.parseInt(command.substring(1, command.length()));
             } catch (Exception e) {
-                throw new DukeException("The task id is invalid.");
+                throw new DukeException(FindTaskCommand.class, "The task id is invalid.");
             }
             try {
                 Task task = taskManager.getTask(id);
                 ui.taskFoundById(task);
             } catch (Exception e) {
-                throw new DukeException("The task id does not exist.");
+                throw new DukeException(FindTaskCommand.class, "The task id does not exist.");
             }
         } else {
             ArrayList<Task> tasksWithSameDescription = taskManager.getTaskByDescription(command);

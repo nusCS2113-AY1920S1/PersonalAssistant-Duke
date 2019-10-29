@@ -48,15 +48,15 @@ public class DeletePatientCommand implements Command {
             try {
                 id = Integer.parseInt(deletedPatientInfo.substring(1));
             } catch (Exception e) {
-                throw new DukeException("The patient id is invalid. ");
+                throw new DukeException(DeletePatientCommand.class,"The patient id is invalid. ");
             }
             try {
                 patient = patientManager.getPatient(id);
             } catch (Exception e) {
-                throw new DukeException("The patient id does not exist. ");
+                throw new DukeException(DeletePatientCommand.class, "The patient id does not exist. ");
             }
         } else {
-            throw new DukeException("Please follow format 'delete patient #<id>'. ");
+            throw new DukeException(DeletePatientCommand.class,"Please follow format 'delete patient #<id>'. ");
         }
         return patient;
     }

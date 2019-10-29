@@ -52,19 +52,20 @@ public class UpdatePatientCommand implements Command {
                 } else if (command[1].toLowerCase().equals("remark")) {
                     patientToBeUpdated.setRemark(command[2]);
                 } else {
-                    throw new DukeException("You can only update 'Name', 'NRIC', 'Room', or 'Remark' of the patient");
+                    throw new DukeException(UpdatePatientCommand.class,
+                            "You can only update 'Name', 'NRIC', 'Room', or 'Remark' of the patient");
                 }
 
                 storageManager.savePatients(patientManager.getPatientList());
                 ui.showUpdatedSuccessfully();
                 ui.showPatientInfo(patientToBeUpdated);
             } catch (Exception e) {
-                throw new DukeException(
+                throw new DukeException(UpdatePatientCommand.class,
                         "Please follow the format 'update patient :#<id> :<Name/NRIC/Room/Remark> "
                                 + ":<new information>'.");
             }
         } else {
-            throw new DukeException(
+            throw new DukeException(UpdatePatientCommand.class,
                     "Please follow the format 'update patient :#<id> :<Name/NRIC/Room/Remark> :<new information>'.");
         }
     }
