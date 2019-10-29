@@ -1,7 +1,6 @@
 package owlmoney.model.goals;
 
 import owlmoney.model.bank.Bank;
-import owlmoney.model.goals.exception.GoalsException;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;

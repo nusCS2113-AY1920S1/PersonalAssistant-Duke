@@ -5,7 +5,6 @@ import owlmoney.model.bank.Saving;
 import owlmoney.model.goals.exception.GoalsException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.text.ParseException;
 import java.util.Date;

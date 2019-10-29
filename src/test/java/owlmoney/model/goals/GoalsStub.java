@@ -1,6 +1,5 @@
 package owlmoney.model.goals;
 
-import org.junit.jupiter.api.Test;
 import owlmoney.model.bank.Saving;
 
 import java.text.ParseException;
@@ -15,9 +14,6 @@ public class GoalsStub extends Goals {
     private String name;
     private double amount;
     private Date goalsDate;
-    private String status;
-    private Saving savingAcc;
-    private double remainAmount;
     private double income = 100;
 
     GoalsStub() throws ParseException {
