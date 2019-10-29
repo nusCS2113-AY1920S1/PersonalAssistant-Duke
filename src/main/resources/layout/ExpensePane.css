@@ -1,8 +1,16 @@
 #paneTitle {
     -fx-font-size: 32px;
-    -fx-font-weight: bold;
+    -fx-text-fill: GOLD;
 }
 
 #totalLabel{
     -fx-font-size: 32px;
+}
+
+#sortLabel, #viewLabel, #filterLabel {
+    -fx-text-fill: 	HONEYDEW;
+}
+
+#totalLabel {
+    -fx-text-fill: GREENYELLOW;
 }

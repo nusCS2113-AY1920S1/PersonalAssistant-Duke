@@ -9,6 +9,19 @@ import duke.logic.command.payment.DeletePaymentCommand;
 import duke.logic.command.payment.FilterPaymentCommand;
 import duke.logic.command.payment.SearchPaymentCommand;
 import duke.logic.command.payment.SortPaymentCommand;
+import duke.logic.command.AddExpenseCommand;
+import duke.logic.command.AddIncomeCommand;
+import duke.logic.command.BudgetCommand;
+import duke.logic.command.Command;
+import duke.logic.command.ConfirmTentativeCommand;
+import duke.logic.command.DeleteExpenseCommand;
+import duke.logic.command.ExitCommand;
+import duke.logic.command.FilterExpenseCommand;
+import duke.logic.command.GoToCommand;
+import duke.logic.command.PlanBotCommand;
+import duke.logic.command.SortExpenseCommand;
+import duke.logic.command.ViewExpenseCommand;
+import duke.logic.command.payment.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -62,7 +75,8 @@ public class CommandParams {
             new SortPaymentCommand(),
             new AddIncomeCommand(),
             new DeleteIncomeCommand(),
-            new ViewBudgetCommand()
+            new ViewBudgetCommand(),
+            new DonePaymentCommand()
     );
 
     /**

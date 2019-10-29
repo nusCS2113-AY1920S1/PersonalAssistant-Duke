@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 public class SearchPaymentCommand extends Command {
 
     private static final String name = "searchPayment";
-    private static final String description = "searches a Payment";
+    private static final String description = "searches payment with given keywords";
     private static final String usage = "searchPayment $keyword";
 
     private static final String COMPLETE_MESSAGE = "Here are searching results!";

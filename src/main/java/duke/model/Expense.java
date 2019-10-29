@@ -2,6 +2,7 @@ package duke.model;
 
 import duke.exception.DukeException;
 import duke.logic.Parser.Parser;
+import duke.model.payment.Payment;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -56,6 +57,14 @@ public class Expense extends DukeItem {
             description = expense.description;
             isTentative = expense.isTentative;
             time = expense.time;
+        }
+
+        public Builder(Payment payment) {
+            setTag(payment.getTag());
+            amount = payment.getAmount();
+            description = payment.getDescription();
+            isTentative = false;
+            time = LocalDateTime.now();
         }
 
         /**

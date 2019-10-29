@@ -3,7 +3,6 @@ package duke.logic.command.payment;
 import duke.exception.DukeException;
 import duke.logic.CommandParams;
 import duke.logic.CommandResult;
-import duke.logic.command.AddExpenseCommand;
 import duke.logic.command.Command;
 import duke.model.Model;
 import duke.model.payment.Payment;
@@ -26,7 +25,7 @@ public class AddPaymentCommand extends Command {
         DUE("due", "the due date of affording the payment"),
         PRIORITY("priority", "the priority of the payment"),
         RECEIVER("receiver", "the receiver of the payment"),
-        REMARK("remark", "remark of the pending payment");
+        TAG("tag", "remark of the pending payment");
 
         private String name;
         private String description;
@@ -76,8 +75,8 @@ public class AddPaymentCommand extends Command {
             paymentBuilder.setReceiver(commandParams.getParam(SecondaryParam.RECEIVER.name));
         }
 
-        if(commandParams.containsParams(SecondaryParam.REMARK.name)) {
-            paymentBuilder.setRemark(commandParams.getParam(SecondaryParam.REMARK.name));
+        if(commandParams.containsParams(SecondaryParam.TAG.name)) {
+            paymentBuilder.setTag(commandParams.getParam(SecondaryParam.TAG.name));
         }
 
         model.addPayment(paymentBuilder.build());

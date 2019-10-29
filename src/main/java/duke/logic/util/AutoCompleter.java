@@ -113,7 +113,8 @@ public class AutoCompleter {
             new DeletePaymentCommand(),
             new FilterPaymentCommand(),
             new SearchPaymentCommand(),
-            new SortPaymentCommand()
+            new SortPaymentCommand(),
+            new DonePaymentCommand()
     );
 
     /**
@@ -371,7 +372,7 @@ public class AutoCompleter {
             break;
         }
 
-        if (complementList.isEmpty()) {
+        if (complementList.isEmpty()) { // return original last token if there's no suitable complement
             return getLastToken();
         } else {
             return complementList.get(iteratingIndex);
