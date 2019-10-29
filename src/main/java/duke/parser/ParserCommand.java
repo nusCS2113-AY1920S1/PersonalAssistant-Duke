@@ -1,6 +1,6 @@
 package duke.parser;
 
-import duke.CliView;
+import duke.view.CliView;
 
 import java.io.FileNotFoundException;
 

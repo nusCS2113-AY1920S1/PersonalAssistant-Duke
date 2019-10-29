@@ -1,13 +1,13 @@
 package duke.parser;
 
-import duke.CliView;
+import duke.view.CliView;
 import duke.data.Storage;
-import duke.module.Reminder;
-import duke.module.Schedule;
+import duke.models.Reminder;
+import duke.models.Schedule;
 import duke.task.TaskList;
-import duke.sports.ManageStudents;
-import duke.sports.MyClass;
-import duke.sports.MyPlan;
+import duke.models.ManageStudents;
+import duke.models.MyClass;
+import duke.models.MyPlan;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;

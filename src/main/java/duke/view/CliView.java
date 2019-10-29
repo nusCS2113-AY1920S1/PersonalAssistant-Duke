@@ -1,7 +1,7 @@
-package duke;
+package duke.view;
 
 import duke.parser.ParserCommand;
-import duke.sports.MyTraining;
+import duke.models.MyTraining;
 
 import java.util.Scanner;
 
