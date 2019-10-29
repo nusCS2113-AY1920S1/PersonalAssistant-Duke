@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * duke.parser.StartsWithChecker class which checks if a keyword starts with any keyword from a list of keywords
+ */
 public class StartsWithChecker {
     public static String checkStartsWithAnyCommand(String keyword) {
         ArrayList<String> commandList = new ArrayList<>(Arrays.asList("bye", "help", "list", "delete", "find",

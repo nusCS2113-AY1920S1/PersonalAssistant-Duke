@@ -1,12 +1,12 @@
 package duke.task;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Optional;
-
 import duke.exception.DukeException;
 import duke.extensions.Priority;
 import duke.extensions.Recurrence;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 /**
  * Superclass for all Tasks that will be added to the duke.task.Task Manager
@@ -76,6 +76,10 @@ public class Task {
 
     public Optional<String> getFilter() {
         return this.filter;
+    }
+
+    public void setFilter(Optional<String> filter) {
+        this.filter = filter;
     }
 
     public String getRecurrenceCode() {

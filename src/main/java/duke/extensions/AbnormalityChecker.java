@@ -4,6 +4,10 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 
+/**
+ * duke.extensions.AbnormalityChecker class which checks if a particular duke.task.Event to be added clashes with another
+ * duke.task.Event in duke.tasklist.TaskList
+ */
 public class AbnormalityChecker {
     private TaskList taskList;
 

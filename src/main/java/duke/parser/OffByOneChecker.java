@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * duke.parser.OffByOneChecker class which checks if a keyword is off by one from any keyword in a list of keywords
+ */
 public class OffByOneChecker {
     public static String offByOne(String keyword) {
         ArrayList<String> commandList = new ArrayList<>(Arrays.asList("bye", "help", "list", "delete", "find",
