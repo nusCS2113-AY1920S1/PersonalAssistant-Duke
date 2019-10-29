@@ -458,7 +458,7 @@ public class Storage {
         int planNum = 0;
         try {
             if (f.length() == 0) {
-                System.out.println("File is empty. Loading failed.");
+                System.out.println("Plan file is empty. Loading failed.");
             } else {
                 while (fileInput.hasNextLine()) {
                     String in = fileInput.nextLine();
@@ -519,7 +519,7 @@ public class Storage {
                 new FileWriter(".\\src\\main\\java\\duke\\data\\plan.txt",
                         true));
 
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 1; i <= MyPlan.Intensity.values().length; i++) {
             MyPlan.Intensity x = MyPlan.Intensity.valueOf(i);
             buffer.write("Intensity: " + x);
             buffer.write("\r\n");

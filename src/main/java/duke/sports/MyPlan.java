@@ -24,7 +24,7 @@ public class MyPlan {
      /**
       * The ui object responsible for showing things to the user.
       */
-    private Ui ui = new Ui();
+    private Ui ui;
 
      /**
       * Represents the file path for the plans.
@@ -385,7 +385,6 @@ public class MyPlan {
       * Delete a plan from the map.
       * @param intensity intensity of plan to be deleted
       * @param planNum plan number
-      * @return a string to inform user of result
       * @throws IOException IO
       */
     public void deletePlan(final String intensity,
