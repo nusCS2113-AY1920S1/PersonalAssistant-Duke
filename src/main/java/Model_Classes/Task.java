@@ -3,11 +3,10 @@ package Model_Classes;
 import Enums.Priority;
 import Enums.RecurrenceScheduleType;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.awt.font.TextAttribute;
 import java.util.Date;
+import java.awt.*;
+import java.util.Map;
 
 /**
  * Parent class for all other types of tasks
@@ -100,7 +99,11 @@ public abstract class Task{
      * @return
      */
     public String toString() {
-        return getStatusIcon() + getDescription() + " " + "(" + getUser() + ")";
+        Font font = new Font("helvetica", Font.PLAIN, 12);
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
+        Font newFont = new Font(attributes);
+        return getStatusIcon() + getDescription() + " " + "(" + getUser() + ")" + newFont;
     }
 
     public RecurrenceScheduleType getRecurrenceSchedule() {
