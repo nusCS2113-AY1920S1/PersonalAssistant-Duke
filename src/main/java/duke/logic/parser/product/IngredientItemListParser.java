@@ -1,5 +1,6 @@
 package duke.logic.parser.product;
 
+import duke.logic.message.ProductMessageUtils;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.commons.Item;
 import duke.model.commons.Quantity;
@@ -13,19 +14,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class IngredientItemListParser {
-    private String inputIngredientList;
-
     private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("((\\s*\\[\\s*)(?<name>[\\w ]+)"
         + "([,"
         + "]?)"
             + "(?<quantity>[0-9. ]*)(?:\\]\\s*))+");
-    private static final String MESSAGE_PORTION_NOT_NUMBER = "Ingredient portion must be a number";
     private static final Double DEFAULT_PORTION = 0.0;
-
-    /** Constructs a IngredientItemListParser with the userInput */
-    public IngredientItemListParser(String inputIngredientList) {
-        this.inputIngredientList = inputIngredientList;
-    }
 
     private static Map<String, String> getIngredientPortionMap(String input) {
         String replacement = input;
@@ -68,7 +61,7 @@ public class IngredientItemListParser {
             try {
                 portion = Double.parseDouble(portionString);
             } catch (NumberFormatException e) {
-                throw new ParseException(MESSAGE_PORTION_NOT_NUMBER);
+                throw new ParseException(ProductMessageUtils.MESSAGE_PORTION_NOT_NUMBER);
             }
         }
 
@@ -76,6 +69,11 @@ public class IngredientItemListParser {
         return new Item<Ingredient>(newIngredient, quantity);
     }
 
+    /**
+     * Generates a list of Ingredient Items from user input.
+     * @param input user input containing ingredient and portion
+     * @return the IngredientItemList that contains the ingredients
+     */
     public static IngredientItemList getIngredientsInInput(String input) {
         IngredientItemList ingredientItemList = new IngredientItemList();
         Map<String, String> ingredientAndPortion = getIngredientPortionMap(input);
