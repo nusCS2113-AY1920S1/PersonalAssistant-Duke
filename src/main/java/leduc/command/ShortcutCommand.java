@@ -146,10 +146,16 @@ public class ShortcutCommand extends Command {
             setOneShortcut("prioritize", newShortcut);
 
             do{
-                ui.display("The precedent shortcut for unfinished is " + PrioritizeCommand.getPrioritizeShortcut() +" please enter new shortcut");
+                ui.display("The precedent shortcut for unfinished is " + UnfinishedCommand.getUnfinishedShortcut() +" please enter new shortcut");
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("unfinished", newShortcut);
+
+            do{
+                ui.display("The precedent shortcut for language is " + LanguageCommand.getLanguageShortcut() +" please enter new shortcut");
+                newShortcut = ui.readCommand();
+            } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
+            setOneShortcut("language", newShortcut);
 
             ui.display("All shortcut has been set");
         }
@@ -253,6 +259,11 @@ public class ShortcutCommand extends Command {
                 UnfinishedCommand.setUnfinishedShortcut(shortcutName);
                 setShortcut.add(shortcutName);
                 break;
+            case "language" :
+                setShortcut.remove(LanguageCommand.getLanguageShortcut());
+                LanguageCommand.setLanguageShortcut(shortcutName);
+                setShortcut.add(shortcutName);
+                break;
             default:
                 throw new MeaninglessException();
         }
@@ -281,5 +292,6 @@ public class ShortcutCommand extends Command {
         setDefaultShortcut.add("show");
         setDefaultShortcut.add("prioritize");
         setDefaultShortcut.add("unfinished");
+        setDefaultShortcut.add("language");
     }
 }

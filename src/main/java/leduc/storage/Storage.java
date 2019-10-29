@@ -24,6 +24,7 @@ public class Storage {
     private File file;
     private File configFile;
     private File welcomeFile;
+    private String language;
 
     /**
      * Constructor of leduc.storage.Storage
@@ -48,6 +49,7 @@ public class Storage {
         this.configFile = new File(configFile);
         try {
             if(this.configFile.createNewFile()){ //if file exist, return false
+                language = "en";
                 saveConfig();
             }
             else {
@@ -59,6 +61,7 @@ public class Storage {
             this.configFile = new File ("config.txt");
             try{
                 if(this.configFile.createNewFile()){ //if file exist, return false
+                    language = "en";
                     saveConfig();
                 }
                 else {
@@ -196,6 +199,7 @@ public class Storage {
         try {
             fileWriter = new FileWriter(this.configFile);
             try{
+                fileWriter.write("lang:" + this.language + "\n");
                 fileWriter.write("bye:" + ByeCommand.getByeShortcut() + "\n");
                 ShortcutCommand.getSetShortcut().add(ByeCommand.getByeShortcut());
                 fileWriter.write("list:" + ListCommand.getListShortcut() + "\n");
@@ -230,6 +234,10 @@ public class Storage {
                 ShortcutCommand.getSetShortcut().add(SetWelcomeCommand.getSetWelcomeShortcut());
                 fileWriter.write("prioritize:" + PrioritizeCommand.getPrioritizeShortcut() + "\n");
                 ShortcutCommand.getSetShortcut().add(PrioritizeCommand.getPrioritizeShortcut());
+                fileWriter.write("unfinished:" + UnfinishedCommand.getUnfinishedShortcut() + "\n");
+                ShortcutCommand.getSetShortcut().add(UnfinishedCommand.getUnfinishedShortcut());
+                fileWriter.write("language:" + LanguageCommand.getLanguageShortcut() + "\n");
+                ShortcutCommand.getSetShortcut().add(LanguageCommand.getLanguageShortcut());
             }finally {
                 fileWriter.close();
             }
@@ -247,11 +255,33 @@ public class Storage {
             e.printStackTrace();
             throw new FileException();
         }
+        if(sc.hasNext()){
+            String languageString = sc.nextLine();
+            String[] languageStringSplit = languageString.split(":");
+            if(languageString.length() == 2 || languageStringSplit[0].equals("lang")){
+                this.language = languageStringSplit[1];
+                if(!(this.language.equals("en") || this.language.equals("fr"))){
+                    this.language = "en";
+                }
+            }
+            else{
+                this.language = "en";
+            }
+        }
         while(sc.hasNext()){
             String commandShortcut = sc.nextLine();
             String[] commandShortcutSplit = commandShortcut.split(":");
-            ShortcutCommand.setOneShortcut(commandShortcutSplit[0].trim(), commandShortcutSplit[1].trim());
+            if(commandShortcut.length() == 2){
+                ShortcutCommand.setOneShortcut(commandShortcutSplit[0].trim(), commandShortcutSplit[1].trim());
+            }
         }
 
+    }
+
+    public void setLanguage(String language){
+        this.language = language;
+    }
+    public String getLanguage(){
+        return this.language;
     }
 }

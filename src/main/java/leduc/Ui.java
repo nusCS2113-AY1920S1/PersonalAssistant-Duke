@@ -14,7 +14,7 @@ import java.util.Scanner;
 /**
  *  Represents leduc.Ui which deals with the interactions with the user.
  */
-public class Ui {
+public abstract class Ui {
     private Scanner sc;
 
     /**
@@ -93,10 +93,15 @@ public class Ui {
     /**
      * Bye message to the user.
      */
-    public void showBye(){
-        this.display("\t Bye. Hope to see you again soon!");
-    }
 
+    public abstract void showBye();
+
+    /**
+     * Display this message when deleting a task
+     * @param removedTask the task that was removed
+     * @param size the size of the TaskList after deletion
+     */
+    public abstract void showDelete(Task removedTask, int size);
 
     /**
      * Display the String in the parameter between two lines.
