@@ -76,7 +76,9 @@ public class Profile {
             iterateBanksToAddTransaction();
             loadGoalsFromImportedData();
         } catch (Exception e) {
-            ui.printError("Error importing saved data, some data might not be available");
+            ui.printError("Error importing saved data, some data might not be available. "
+                    + "You can ignore these errors if it shows up on first startup of the application "
+                    + "or if you have just created this profile.");
         }
     }
 

@@ -241,6 +241,7 @@ public class Investment extends Bank {
                 targetBond.setNextDateToCreditInterest(nextDateToCreditInterest);
                 if (removeBondIfMature(ui, targetBond, endDate)) {
                     i--;
+                    break;
                 }
             }
         }
