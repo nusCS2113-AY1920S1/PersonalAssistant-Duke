@@ -3,6 +3,7 @@ package ui;
 import booking.Booking;
 import booking.BookingList;
 import control.Duke;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -123,6 +124,8 @@ public class Ui extends AnchorPane {
 
     public void showBye() {
         setOutput("Bye. Hope to see you again soon!");
+        Platform.exit();
+        System.exit(0);
     }
 
     public void indent() {
