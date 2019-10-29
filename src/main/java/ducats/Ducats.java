@@ -109,4 +109,10 @@ public class Ducats {
     }
 
 
+    //@@author Samuel787
+    public SongList getSongs(){
+        return this.songs;
+    }
+
+    //@@author
 }

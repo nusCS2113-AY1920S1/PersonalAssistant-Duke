@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane minHeight="700.0" minWidth="900.0" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ducats.uicomponents.DucatsWindow">
+   <children>
+    <AnchorPane layoutX="-2.0" />
+      <BorderPane prefHeight="500.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <TextField fx:id="commandLine" onAction="#getUserCommand" prefHeight="36.0" prefWidth="772.0" promptText="Enter your command..." BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+               </BorderPane.margin>
+            </TextField>
+         </top>
+         <left>
+            <VBox BorderPane.alignment="CENTER">
+               <children>
+                  <TitledPane fx:id="groupsPane" animated="false" collapsible="false" minHeight="189.0" prefWidth="187.0" text="Groups" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets bottom="14.0" left="14.0" right="14.0" />
+                     </VBox.margin>
+                     <content>
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                           <content>
+                              <VBox fx:id="groupDisplay" prefHeight="164.0" prefWidth="183.0" />
+                           </content>
+                        </ScrollPane>
+                     </content>
+                  </TitledPane>
+                  <TitledPane animated="false" collapsible="false" minHeight="189.0" prefWidth="187.0" text="Songs" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets bottom="14.0" left="14.0" right="14.0" />
+                     </VBox.margin>
+                     <content>
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                           <content>
+                              <VBox fx:id="songDisplay" prefHeight="164.0" prefWidth="183.0" spacing="2.0">
+                                 <padding>
+                                    <Insets left="4.0" right="4.0" top="4.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                     </content>
+                  </TitledPane>
+               </children>
+            </VBox>
+         </left>
+         <bottom>
+            <AnchorPane style="-fx-background-color: #DDD;">
+               <children>
+                  <Label fx:id="bottomStrip" prefHeight="24.0" text="UI Development Stage" BorderPane.alignment="CENTER_LEFT">
+                     <BorderPane.margin>
+                        <Insets />
+                     </BorderPane.margin>
+                     <padding>
+                        <Insets left="14.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </bottom>
+         <center>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="14.0" right="14.0" />
+               </BorderPane.margin>
+               <content>
+                  <HBox fx:id="songPanel" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" spacing="5.0">
+                     <padding>
+                        <Insets left="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+               </content>
+            </ScrollPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
