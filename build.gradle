@@ -46,7 +46,6 @@ dependencies {
 
     // https://mvnrepository.com/artifact/net.sourceforge.argparse4j/argparse4j
     compile group: 'net.sourceforge.argparse4j', name: 'argparse4j', version: '0.8.1'
-
 }
 
 test {
@@ -63,8 +62,6 @@ jacocoTestReport {
 coveralls {
     jacocoReportPath 'build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml'
 }
-
-
 application {
     // Change this to your main class.
     mainClassName = "planner.main.CliLauncher"
