@@ -1,6 +1,11 @@
 package moomoo.command;
 
-import moomoo.stubs.*;
+import moomoo.stubs.CategoryStub;
+import moomoo.stubs.CategoryListStub;
+import moomoo.stubs.ExpenditureStub;
+import moomoo.stubs.ScheduleListStub;
+import moomoo.stubs.StorageStub;
+import moomoo.stubs.UiStub;
 import moomoo.task.Budget;
 import moomoo.task.MooMooException;
 import org.junit.jupiter.api.Test;
