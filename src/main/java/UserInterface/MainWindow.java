@@ -29,19 +29,13 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.util.Pair;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-import java.util.Scanner;
-import java.util.HashMap;
-import java.util.Date;
-import java.util.Calendar;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -124,21 +118,23 @@ public class MainWindow extends BorderPane implements Initializable {
 
     private void displayQuoteOfTheDay(){
         try {
-            File path = new File(System.getProperty("user.dir") + File.separator + "data" + File.separator + "quotes.txt");
-            Scanner scanner = new Scanner(path);
-            String firstLine = scanner.nextLine();
-            FileWriter writer = new FileWriter(path);
-
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                if (line != firstLine)
-                    writer.write(line + "\n");
+            ArrayList<String> listOfQuotes = new ArrayList<>();
+            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("documents/quotes.txt");
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuffer sb = new StringBuffer();
+            String firstLine;
+            String line;
+            while ((line = bufferedReader.readLine()) != null){
+                listOfQuotes.add(line);
             }
-            writer.write(firstLine+"\n");
+            Random random = new Random();
+            int result = random.nextInt(68);
+            firstLine = listOfQuotes.get(result);
             AlertBox.display("Quote of the day", "Quote of the day !!", firstLine, Alert.AlertType.INFORMATION);
-
-            scanner.close();
-            writer.close();
+            bufferedReader.close();
+            inputStreamReader.close();
+            inputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

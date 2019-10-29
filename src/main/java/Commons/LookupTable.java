@@ -1,10 +1,7 @@
 package Commons;
 
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -24,11 +21,9 @@ public class LookupTable {
     public LookupTable() {
         try {
             String line;
-            // InputStream is = getClass().getResourceAsStream("Lookup.txt");
-            //InputStreamReader isr = new InputStreamReader(is);
-            //BufferedReader reader = new BufferedReader(isr);
-            BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") + File.separator + "data" + File.separator + "Lookup.txt"));
-
+            InputStream is = this.getClass().getClassLoader().getResourceAsStream("documents/Lookup.txt");
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader reader = new BufferedReader(isr);
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(":", 2);
                 if (parts.length >= 2) {
@@ -38,8 +33,8 @@ public class LookupTable {
                 }
             }
             reader.close();
-            //isr.close();
-            //is.close();
+            isr.close();
+            is.close();
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
