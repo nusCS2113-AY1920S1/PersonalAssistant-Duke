@@ -121,7 +121,7 @@ public abstract class Command {
     /**
      * Comparator to sort tasks by their time in ascending order.
      */
-    static class SortByTime implements Comparator<String[]> {
+    class SortByTime implements Comparator<String[]> {
         @Override
         public int compare(String[] a, String[] b) {
             if (a[0].equals("")) {

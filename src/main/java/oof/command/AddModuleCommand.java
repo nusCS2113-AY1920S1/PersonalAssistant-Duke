@@ -32,7 +32,7 @@ public class AddModuleCommand extends Command {
         if (!hasCode(argumentSplit)) {
             throw new OofException("OOPS!! The module needs a code.");
         } else if (!hasName(argumentSplit)) {
-            throw new OofException("OOPS!! The module needs a name");
+            throw new OofException("OOPS!! The module needs a name.");
         }
         String code = argumentSplit[INDEX_CODE].trim();
         String name = argumentSplit[INDEX_NAME].trim();

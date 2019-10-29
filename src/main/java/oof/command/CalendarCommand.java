@@ -31,6 +31,8 @@ public class CalendarCommand extends Command {
     private static final int MONTH_JANUARY = 1;
     private static final int MONTH_DECEMBER = 12;
     private static final int SIZE_CALENDAR = 32;
+    private static final String DELIMITER_DATE = "-";
+    private static final String DELIMITER_DATE_TIME = " ";
     private ArrayList<ArrayList<String[]>> calendarTasks = new ArrayList<>(SIZE_CALENDAR);
 
     /**
@@ -72,17 +74,19 @@ public class CalendarCommand extends Command {
             String time = "";
             if (task instanceof Todo) {
                 Todo todo = (Todo) task;
-                dateSplit = todo.getTodoDate().split("-");
-            } else if (task instanceof Deadline) {
-                Deadline deadline = (Deadline) task;
-                String[] dateTimeSplit = deadline.getDeadlineDateTime().split(" ");
-                dateSplit = dateTimeSplit[INDEX_DATE].split("-");
-                time = dateTimeSplit[INDEX_TIME];
-            } else if (task instanceof Event) {
-                Event event = (Event) task;
-                String[] dateTimeSplit = event.getStartDateTime().split(" ");
-                dateSplit = dateTimeSplit[INDEX_DATE].split("-");
-                time = dateTimeSplit[INDEX_TIME];
+                dateSplit = todo.getTodoDate().split(DELIMITER_DATE);
+            } else {
+                if (task instanceof Deadline) {
+                    Deadline deadline = (Deadline) task;
+                    String[] dateTimeSplit = deadline.getDeadlineDateTime().split(DELIMITER_DATE_TIME);
+                    dateSplit = dateTimeSplit[INDEX_DATE].split(DELIMITER_DATE);
+                    time = dateTimeSplit[INDEX_TIME];
+                } else if (task instanceof Event) {
+                    Event event = (Event) task;
+                    String[] dateTimeSplit = event.getStartDateTime().split(DELIMITER_DATE_TIME);
+                    dateSplit = dateTimeSplit[INDEX_DATE].split(DELIMITER_DATE);
+                    time = dateTimeSplit[INDEX_TIME];
+                }
             }
             if (verifyTask(dateSplit)) {
                 int day = Integer.parseInt(dateSplit[INDEX_DAY]);

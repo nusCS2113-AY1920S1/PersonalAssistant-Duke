@@ -18,10 +18,13 @@ public class AddLessonCommand extends Command {
 
     private String line;
     private static final int INDEX_NAME = 0;
-    private static final int INDEX_DAY = 1;
-    private static final int INDEX_START_TIME = 2;
-    private static final int INDEX_END_TIME = 3;
-    private static final String REGEX_SPLIT = "/day|/from|/to";
+    private static final int INDEX_DAY = 0;
+    private static final int INDEX_START_TIME = 0;
+    private static final int INDEX_END_TIME = 1;
+    private static final int INDEX_DETAILS = 1;
+    private static final String REGEX_DAY = "/day";
+    private static final String REGEX_FROM = "/from";
+    private static final String REGEX_TO = "/to";
 
     /**
      * Constructor for AddLessonCommand.
@@ -35,16 +38,23 @@ public class AddLessonCommand extends Command {
 
     @Override
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
-        String[] argumentSplit = line.split(REGEX_SPLIT);
-        if (!hasName(argumentSplit)) {
+        String[] nameSplit = line.split(REGEX_DAY);
+        if (!hasName(nameSplit)) {
             throw new OofException("OOPS!!! The lesson needs a name.");
-        } else if (!hasStartTime(argumentSplit)) {
+        }
+        if (!hasDay(nameSplit)) {
+            throw new OofException("OOPS!!! The lesson needs a day.");
+        }
+        String[] daySplit = nameSplit[INDEX_DETAILS].split(REGEX_FROM);
+        if (!hasStartTime(daySplit)) {
             throw new OofException("OOPS!!! The lesson needs a start time.");
-        } else if (!hasEndTime(argumentSplit)) {
+        }
+        String[] timeSplit = daySplit[INDEX_DETAILS].split(REGEX_TO);
+        if (!hasEndTime(timeSplit)) {
             throw new OofException("OOPS!!! The lesson needs an end time.");
         }
-        String startTime = parseTime(argumentSplit[INDEX_START_TIME]);
-        String endTime = parseTime(argumentSplit[INDEX_END_TIME]);
+        String startTime = parseTime(timeSplit[INDEX_START_TIME].trim());
+        String endTime = parseTime(timeSplit[INDEX_END_TIME].trim());
         if (!isDateValid(startTime) && !isDateValid(endTime)) {
             throw new OofException("OOPS!!! The start and end dates are invalid.");
         } else if (!isDateValid(startTime)) {
@@ -67,8 +77,8 @@ public class AddLessonCommand extends Command {
         if (module == null) {
             throw new OofException("OOPS!! Please select a Module.");
         }
-        String name = argumentSplit[INDEX_NAME].trim();
-        DayOfWeek dayOfWeek = DayOfWeek.valueOf(argumentSplit[INDEX_DAY].trim().toUpperCase());
+        String name = nameSplit[INDEX_NAME].trim();
+        DayOfWeek dayOfWeek = DayOfWeek.valueOf(daySplit[INDEX_DAY].trim().toUpperCase());
         Lesson lesson = new Lesson(module.getModuleCode(), name, dayOfWeek, startTime, endTime);
         module.addLesson(lesson);
         ui.printLessonAddedMessage(module.getModuleCode(), lesson);
@@ -78,31 +88,41 @@ public class AddLessonCommand extends Command {
     /**
      * Checks if input has a name.
      *
-     * @param lineSplit processed user input.
+     * @param daySplit processed user input.
      * @return true if name is more than length 0 and is not whitespace.
      */
-    private boolean hasName(String[] lineSplit) {
-        return lineSplit[INDEX_NAME].trim().length() > 0;
+    private boolean hasName(String[] daySplit) {
+        return daySplit[INDEX_NAME].trim().length() > 0;
+    }
+
+    /**
+     * Checks if input has a day.
+     *
+     * @param nameSplit processed user input.
+     * @return true if day is more than length 0 and is not whitespace.
+     */
+    private boolean hasDay(String[] nameSplit) {
+        return nameSplit.length > 1 && nameSplit[INDEX_DETAILS].trim().length() > 0;
     }
 
     /**
      * Checks if input has a start time (argument given before "/to").
      *
-     * @param lineSplit processed user input.
+     * @param daySplit processed user input.
      * @return true if there is a start time and start time is not whitespace.
      */
-    private boolean hasStartTime(String[] lineSplit) {
-        return lineSplit.length > 2 && lineSplit[INDEX_START_TIME].trim().length() > 0;
+    private boolean hasStartTime(String[] daySplit) {
+        return daySplit.length > 1 && daySplit[INDEX_START_TIME].trim().length() > 0;
     }
 
     /**
      * Checks if input has an end time (argument given after "/to").
      *
-     * @param lineSplit processed user input.
+     * @param timeSplit processed user input.
      * @return true if there is an end time and end time is not whitespace.
      */
-    private boolean hasEndTime(String[] lineSplit) {
-        return lineSplit.length > 3 && lineSplit[INDEX_END_TIME].trim().length() > 0;
+    private boolean hasEndTime(String[] timeSplit) {
+        return timeSplit.length > 1 && timeSplit[INDEX_END_TIME].trim().length() > 0;
     }
 
     /**

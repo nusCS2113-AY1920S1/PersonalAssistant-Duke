@@ -14,10 +14,14 @@ import oof.model.task.TaskList;
 public class AddSemesterCommand extends Command {
     private String line;
     private static final int INDEX_YEAR = 0;
-    private static final int INDEX_NAME = 1;
-    private static final int INDEX_DATE_START = 2;
-    private static final int INDEX_DATE_END = 3;
-    private static final String REGEX_DELIMITER = "/add|/name|/from|/to";
+    private static final int INDEX_NAME = 0;
+    private static final int INDEX_DATE_START = 0;
+    private static final int INDEX_DATE_END = 1;
+    private static final int INDEX_DETAILS = 1;
+    private static final String REGEX_NAME = "/name";
+    private static final String REGEX_FROM = "/from";
+    private static final String REGEX_TO = "/to";
+
 
     /**
      * Constructor for AddSemesterCommand.
@@ -31,27 +35,27 @@ public class AddSemesterCommand extends Command {
 
     @Override
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
-        String[] yearNameSplit = line.split(REGEX_DELIMITER);
-        if (!hasYear(yearNameSplit)) {
+        String[] yearSplit = line.split(REGEX_NAME);
+        if (!hasYear(yearSplit)) {
             throw new OofException("OOPS!! The semester needs a year.");
         }
-        if (!hasName(yearNameSplit)) {
+        if (!hasName(yearSplit)) {
             throw new OofException("OOPS!! The semester needs a name.");
         }
-        if (!hasStartDate(yearNameSplit)) {
-            throw new OofException("OOPS!! The semester needs a start date,");
+        String[] nameSplit = yearSplit[INDEX_DETAILS].split(REGEX_FROM);
+        if (!hasStartDate(nameSplit)) {
+            throw new OofException("OOPS!! The semester needs a start date.");
         }
-        if (!hasEndDate(yearNameSplit)) {
+        String[] dateSplit = nameSplit[INDEX_DETAILS].split(REGEX_TO);
+        if (!hasEndDate(dateSplit)) {
             throw new OofException("OOPS!! The semester needs an end date.");
         }
-        String year = yearNameSplit[INDEX_YEAR];
-        String name = yearNameSplit[INDEX_NAME];
-        String startDate = yearNameSplit[INDEX_DATE_START];
-        String endDate = yearNameSplit[INDEX_DATE_END];
-        if (isDateValid(startDate) && isDateValid(endDate)) {
-            if (hasClashes(semesterList, startDate, endDate)) {
-                throw new OofException("OOPS!! The semester clashes with another semester.");
-            }
+        String year = yearSplit[INDEX_YEAR].trim();
+        String name = nameSplit[INDEX_NAME].trim();
+        String startDate = dateSplit[INDEX_DATE_START].trim();
+        String endDate = dateSplit[INDEX_DATE_END].trim();
+        if (isDateValid(startDate) && isDateValid(endDate) && (hasClashes(semesterList, startDate, endDate))) {
+            throw new OofException("OOPS!! The semester clashes with another semester.");
         }
         Semester semester = new Semester(year, name, startDate, endDate);
         semesterList.addSemester(semester);
@@ -62,41 +66,41 @@ public class AddSemesterCommand extends Command {
     /**
      * Checks if semester has a year.
      *
-     * @param yearNameSplit Array containing processed command arguments.
+     * @param yearSplit Array containing arguments.
      * @return true if year is not whitespace.
      */
-    private boolean hasYear(String[] yearNameSplit) {
-        return yearNameSplit[INDEX_YEAR].trim().length() > 0;
+    private boolean hasYear(String[] yearSplit) {
+        return yearSplit[INDEX_YEAR].trim().length() > 0;
     }
 
     /**
      * Checks if semester has a name.
      *
-     * @param yearNameSplit Array containing processed command arguments.
+     * @param yearSplit Array containing arguments.
      * @return true if name is not whitespace.
      */
-    private boolean hasName(String[] yearNameSplit) {
-        return yearNameSplit.length > INDEX_NAME && yearNameSplit[INDEX_NAME].trim().length() > 0;
+    private boolean hasName(String[] yearSplit) {
+        return yearSplit.length > 1 && yearSplit[INDEX_NAME].trim().length() > 0;
     }
 
     /**
      * Checks if input has a start date (argument given before "/to").
      *
-     * @param yearNameSplit Array containing processed command arguments.
+     * @param nameSplit Array containing arguments.
      * @return true if there is a start date and start date is not whitespace.
      */
-    private boolean hasStartDate(String[] yearNameSplit) {
-        return yearNameSplit.length > INDEX_DATE_START && yearNameSplit[INDEX_DATE_START].trim().length() > 0;
+    private boolean hasStartDate(String[] nameSplit) {
+        return nameSplit.length > 1 && nameSplit[INDEX_DATE_START].trim().length() > 0;
     }
 
     /**
      * Checks if input has an end date (argument given after "/to").
      *
-     * @param yearNameSplit Array containing processed command arguments.
+     * @param dateSplit Array containing arguments.
      * @return true if there is an end date and end date is not whitespace.
      */
-    private boolean hasEndDate(String[] yearNameSplit) {
-        return yearNameSplit.length > INDEX_DATE_END && yearNameSplit[INDEX_DATE_END].trim().length() > 0;
+    private boolean hasEndDate(String[] dateSplit) {
+        return dateSplit.length > 1 && dateSplit[INDEX_DATE_END].trim().length() > 0;
     }
 
     /**
