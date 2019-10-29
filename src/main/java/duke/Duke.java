@@ -1,7 +1,5 @@
 package duke;
 
-import duke.Command.Command;
-import duke.Parser.Parser;
 import duke.Parser.ParserCommand;
 import duke.data.Storage;
 import duke.module.Schedule;
@@ -73,7 +71,7 @@ public class Duke  {
         Ui ui = new Ui();
         ui.execute();
     }
-/**
+/*
     public static void main(final String[] args) throws FileNotFoundException, ParseException {
         new Duke().run();
     }
@@ -89,13 +87,14 @@ public class Duke  {
     }
 */
 
-    /**
+    /*
      * Upon running launcher main, start() will run.
      */
 //    @Override
 //    public void start(final Stage stage) {
 //        try {
-//            URL url = Duke.class.getClassLoader().getResource("view/menu.fxml");
+//            URL url =
+//            Duke.class.getClassLoader().getResource("view/menu.fxml");
 //            System.out.println(url);
 //            Parent root = FXMLLoader.load(url);
 //            stage.setScene(new Scene(root, width, height));

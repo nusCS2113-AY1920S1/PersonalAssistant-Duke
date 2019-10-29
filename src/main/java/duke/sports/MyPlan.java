@@ -98,7 +98,7 @@ public class MyPlan {
       * A getter to retrieve the map of all plans loaded.
       * @return the map of all plans
       */
-    public Map<String, ArrayList<MyTraining>> getMap() {
+    private Map<String, ArrayList<MyTraining>> getMap() {
         return this.map;
     }
 
@@ -106,7 +106,7 @@ public class MyPlan {
       * A getter to retrieve the list of current plan loaded.
       * @return the list of current plan loaded.
       */
-    public ArrayList<MyTraining> getList() {
+    private ArrayList<MyTraining> getList() {
         return this.list;
     }
 
@@ -175,7 +175,7 @@ public class MyPlan {
      /**
       * Clear the plan currently loaded in the list.
       */
-    public void clearPlan() {
+    private void clearPlan() {
         getList().clear();
     }
 
@@ -264,7 +264,7 @@ public class MyPlan {
           * @param value string to be checked
           * @return a boolean, true if string is present in enum and vice versa
           */
-        public static boolean contains(final String value) {
+        private static boolean contains(final String value) {
             return SET.contains(value);
         }
 
@@ -323,9 +323,9 @@ public class MyPlan {
       * @param intensity intensity value associated with the plan
       * @param key key associated with the plan
       */
-    public void saveToMap(final ArrayList<MyTraining> newList,
+    private void saveToMap(final ArrayList<MyTraining> newList,
                           final String intensity, final String key) {
-        if (key == "0") {
+        if (key.equals("0")) {
             int planNum = 0;
             Set<String> keys = getMap().keySet();
             for (String k : keys) {
