@@ -52,9 +52,9 @@ public class StartTrackerCommand extends Command {
         if (input.length < MINIMUM_SIZE) {
             throw new OofException("Invalid input!");
         }
-        String moduleCode = input[ARGUMENT_FIRST].toLowerCase();
-        String moduleDescription = input[ARGUMENT_SECOND];
 
+        String moduleCode = input[ARGUMENT_FIRST].toLowerCase();
+        String moduleDescription = input[ARGUMENT_SECOND].toLowerCase();
         TrackerList trackerList = storage.readTrackerList();
         Tracker tracker = trackerList.findTrackerByDesc(moduleDescription, moduleCode);
 
@@ -75,6 +75,7 @@ public class StartTrackerCommand extends Command {
         } else {
             updateTrackerList(moduleDescription, moduleCode, trackerList);
         }
+
         storage.writeTrackerList(trackerList);
         ui.printStartAtCurrent(tracker);
     }
@@ -102,7 +103,7 @@ public class StartTrackerCommand extends Command {
             Task task = taskList.getTask(i);
             if (task instanceof Assignment) {
                 Assignment assignment = (Assignment) task;
-                String currentDescription = assignment.getDescription();
+                String currentDescription = assignment.getDescription().toLowerCase();
                 String currentModuleCode = assignment.getModuleCode().toLowerCase();
                 if (moduleDescription.equals(currentDescription) && moduleCode.equals(currentModuleCode)) {
                     return assignment;

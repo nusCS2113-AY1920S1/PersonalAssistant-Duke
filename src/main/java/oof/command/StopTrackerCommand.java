@@ -48,12 +48,12 @@ public class StopTrackerCommand extends Command {
             throw new OofException("Please enter the Assignment module code and description!");
         }
 
-        String[] input = description.split(" ", 2);
+        String[] input = description.split(" ", MINIMUM_SIZE);
         if (input.length < MINIMUM_SIZE) {
             throw new OofException("Invalid input!");
         }
         String moduleCode = input[ARGUMENT_FIRST].toLowerCase();
-        String moduleDescription = input[ARGUMENT_SECOND];
+        String moduleDescription = input[ARGUMENT_SECOND].toLowerCase();
 
         TrackerList trackerList = storage.readTrackerList();
         Tracker tracker = trackerList.findTrackerByDesc(moduleDescription, moduleCode);
@@ -70,17 +70,25 @@ public class StopTrackerCommand extends Command {
             throw new OofException("Tracker for this Assignment has not started.");
 
         } else {
-            long totalTime = tracker.getTimeTaken();
-            Date now = new Date();
-            Date startDate = tracker.getStartDate();
-            totalTime += Integer.parseInt(tracker.getDateDiff(startDate));
-
-            tracker.updateTracker(totalTime, now);
+            updateTimeTaken(tracker);
             assignment.setStatus();
             storage.writeTrackerList(trackerList);
             storage.writeTaskList(tasks);
             ui.printEndAtCurrent(tracker);
         }
+    }
+
+    /**
+     * Update Tracker object TimeTaken property.
+     *
+     * @param tracker   Tracker object.
+     */
+    private void updateTimeTaken(Tracker tracker) {
+        long totalTime = tracker.getTimeTaken();
+        Date now = new Date();
+        Date startDate = tracker.getStartDate();
+        totalTime += Integer.parseInt(tracker.getDateDiff(startDate));
+        tracker.updateTracker(totalTime, now);
     }
 
     /**
@@ -116,7 +124,7 @@ public class StopTrackerCommand extends Command {
             Task task = taskList.getTask(i);
             if (task instanceof Assignment) {
                 Assignment assignment = (Assignment) task;
-                String currentDescription = assignment.getDescription();
+                String currentDescription = assignment.getDescription().toLowerCase();
                 String currentModuleCode = assignment.getModuleCode().toLowerCase();
                 if (moduleDescription.equals(currentDescription) && moduleCode.equals(currentModuleCode)) {
                     return assignment;

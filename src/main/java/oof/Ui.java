@@ -1066,16 +1066,25 @@ public class Ui {
             ModuleTracker moduleTracker = moduleTrackerList.getModuleTracker(i);
             int timeTaken = (int) moduleTracker.getTotalTimeTaken();
             int segmentedTimeTaken = timeTaken / TEN_MINUTES_BLOCK;
-            for (int j = 0; j < segmentedTimeTaken; j++) {
-                if (j == FIRST_VAR) {
-                    System.out.println("| ");
-                    System.out.print("| #");
-                } else {
-                    System.out.print("#");
-                }
-            }
+            printTrackerDiagramBar(segmentedTimeTaken);
             String moduleCode = moduleTracker.getModuleCode();
             System.out.print("\t" + moduleCode + " -- " + timeTaken + " minutes\n");
+        }
+    }
+
+    /**
+     * Print a bar of Tracker Diagram according to number of 10 minute blocks.
+     *
+     * @param segmentedTimeTaken    number of 10 minute blocks.
+     */
+    private void printTrackerDiagramBar(int segmentedTimeTaken) {
+        for (int i = 0; i < segmentedTimeTaken; i++) {
+            if (i == FIRST_VAR) {
+                System.out.println("| ");
+                System.out.print("| #");
+            } else {
+                System.out.print("#");
+            }
         }
     }
 }

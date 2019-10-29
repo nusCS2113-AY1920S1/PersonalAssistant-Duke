@@ -91,7 +91,6 @@ public class ViewTrackerCommand extends Command {
         if (moduleTrackerList.getSize() == EMPTY || i == NOT_FOUND) {
             moduleTracker = new ModuleTracker(moduleCode,timeTaken);
         } else {
-
             moduleTracker = moduleTrackerList.getModuleTracker(i);
             long totalTime = moduleTracker.getTotalTimeTaken();
             totalTime += timeTaken;
