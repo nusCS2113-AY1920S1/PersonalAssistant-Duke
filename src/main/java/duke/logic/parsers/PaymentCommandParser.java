@@ -4,10 +4,6 @@ import duke.commons.exceptions.DukeException;
 import duke.logic.commands.AddTransactionCommand;
 import duke.model.wallet.Payment;
 
-import java.math.BigDecimal;
-import java.text.ParseException;
-import java.util.Date;
-
 /**
  * Parser class to handle addition of a payment transaction to the wallet.
  */

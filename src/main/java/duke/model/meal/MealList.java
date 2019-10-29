@@ -1,18 +1,12 @@
 package duke.model.meal;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.Goal;
-import duke.model.meal.Meal;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-
-import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
  * MealList is a public class that represents the list of meals under DIYeats.
@@ -24,7 +18,6 @@ public class MealList {
     private String currentDate = dateFormat.format(calendarDate.getTime());
     private HashMap<String, ArrayList<Meal>> mealTracker = new HashMap<>();
     private HashMap<String, HashMap<String, Integer>> storedItems = new HashMap<>();
-    private Goal goal = null;
 
     /**
      * This is the constructor of MealList object if there is no argument.
@@ -153,36 +146,6 @@ public class MealList {
         return mealTracker;
     }
 
-
-    public int caloriesAvgToGoal() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-        LocalDate startDate = LocalDate.parse(goal.getStartDate(), formatter);
-        LocalDate endDate = LocalDate.parse(goal.getEndDate(), formatter);
-        LocalDate currentDate = LocalDate.parse(this.currentDate, formatter);
-        int totalConsume = 0;
-        for (LocalDate iterator = startDate; iterator.isBefore(currentDate); iterator = iterator.plusDays(1)) {
-            if (mealTracker.containsKey(iterator) == false) {
-                totalConsume += goal.getNutritionalValue().get("calorie") / (int) DAYS.between(startDate, endDate);
-            } else {
-                ArrayList<Meal> meals = mealTracker.get(iterator.format(formatter));
-                if (meals.size() == 0) {
-                    totalConsume += goal.getNutritionalValue().get("calorie") / (int) DAYS.between(startDate, endDate);
-                } else {
-                    for (int i = 0; i < meals.size(); i += 1) {
-                        totalConsume += meals.get(i).getNutritionalValue().get("calorie");
-                    }
-                }
-            }
-        }
-        long daysLeft = DAYS.between(currentDate,endDate);
-        int caloriesRemaining = goal.getNutritionalValue().get("calorie") - totalConsume;
-        if (daysLeft >= 1) {
-            return caloriesRemaining / (int)daysLeft;
-        } else {
-            return -1;
-        }
-    }
-
     /**
      * This function is used to check if a entry with the corresponding date is stored.
      * @param date the date to be checked
@@ -213,27 +176,6 @@ public class MealList {
 
     public void removeStoredItem(String keyword) {
         storedItems.remove(keyword);
-    }
-
-    public void addGoal(Goal goal) throws DukeException {
-        if (this.goal != null) {
-            throw new DukeException("You currently have a previously set goal active\n"
-                    + "     Would you like to override the existing goal? (Y/N)");
-        } else {
-            this.goal = goal;
-        }
-    }
-
-    public void addGoal(Goal goal, boolean override) {
-        this.goal = goal;
-    }
-
-    /**
-     * This function is a getter for Goal.
-     * @return goal the data structure storing the goal
-     */
-    public Goal getGoal() {
-        return goal;
     }
 
     /**

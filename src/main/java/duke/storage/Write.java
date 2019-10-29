@@ -7,7 +7,6 @@ import duke.model.Goal;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
 import duke.model.user.Gender;
-import duke.model.user.Tuple;
 import duke.model.user.User;
 import duke.model.wallet.Transaction;
 import duke.model.wallet.TransactionList;
@@ -56,8 +55,9 @@ public class Write {
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_USER_MEALS_FILE));
     }
 
-    public void writeDefaults(MealList mealData) throws DukeException {
-        HashMap<String, HashMap<String, Integer>> storedItems = mealData.getStoredList();
+
+    public void writeDefaults(MealList user) throws DukeException {
+        HashMap<String, HashMap<String, Integer>> storedItems = user.getStoredList();
         String toWriteStr = "";
         for (String i : storedItems.keySet()) {
             //write process for stored default food values
@@ -72,45 +72,34 @@ public class Write {
                 toWriteStr += tempLineStr.substring(0, tempLineStr.length() - 1) + "\n";
             }
         }
-
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_DEFAULT_MEAL_FILE));
     }
 
-    public void writeGoal(MealList mealData) throws DukeException {
-        Goal goal = mealData.getGoal();
-        String toWriteStr = "G|0|" + goal.getEndDate() + "|" + goal.getStartDate();
-        HashMap<String, Integer> nutritionData = goal.getNutritionalValue();
-        if (nutritionData.size() != 0) {
-            for (String k : nutritionData.keySet()) {
-                toWriteStr += k + "|" + nutritionData.get(k) + "|";
-            }
-            toWriteStr = toWriteStr.substring(0, toWriteStr.length() - 1) + "\n";
-        }
-
+    public void writeGoal(User user) throws DukeException {
+        Goal goal = user.getGoal();
+        String toWriteStr = goal.toString();
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_GOAL_FILE));
     }
-
 
     /**
      * This is a function that will store the user information into a file.
      * @param user the user class that contains all personal information to be stored.
      */
-
     public void writeUser(User user) throws DukeException {
         String toWriteStr = user.getName() + "|" + user.getAge() + "|"
-                + user.getHeight() + "|" + user.getActivityLevel() + "|" + user.getLoseWeight() + "|";
-        if (user.getSex() == Gender.MALE) {
+                + user.getHeight() + "|" + user.getActivityLevel() + "|" + user.getOriginalWeight() + "|";
+        if (user.getGender() == Gender.MALE) {
             toWriteStr += "M";
         } else {
             toWriteStr += "F";
         }
         toWriteStr += "|" + user.getLastDate();
-        HashMap<String, Integer> allWeight = user.getAllWeight();
+        HashMap<String, Double> allWeight = user.getAllWeight();
         Iterator iterator = allWeight.keySet().iterator();
         while (iterator.hasNext()) {
             toWriteStr += "\n";
             String date = (String) iterator.next();
-            int weight = allWeight.get(date);
+            double weight = allWeight.get(date);
             toWriteStr += date + "|" + weight;
         }
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_USER_FILE));
@@ -132,7 +121,6 @@ public class Write {
                         + "|" + currentTransaction.getDate() + "\n";
             }
         }
-
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePaths.FilePathNames.FILE_PATH_TRANSACTION_FILE));
     }
 }

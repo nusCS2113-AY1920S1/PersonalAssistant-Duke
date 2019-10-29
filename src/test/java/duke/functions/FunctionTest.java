@@ -7,7 +7,12 @@ import duke.logic.parsers.Parser;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 import duke.model.user.User;
+<<<<<<< HEAD
+import duke.model.MealList;
+import duke.ui.InputHandler;
+=======
 import duke.model.meal.MealList;
+>>>>>>> origin/master
 import duke.ui.Ui;
 import duke.model.wallet.TransactionList;
 
@@ -22,7 +27,7 @@ public class FunctionTest {
     private Storage storage;
     private MealList tasks = new MealList();
     private Ui ui;
-    private Scanner in = new Scanner(System.in);
+    private InputHandler in = new InputHandler(System.in);
     private User user;
     private Autocorrect autocorrect = new Autocorrect();
     private Wallet wallet;

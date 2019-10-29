@@ -2,6 +2,7 @@ package duke.logic.commands;
 
 import duke.model.user.Gender;
 import duke.model.user.User;
+import duke.ui.InputHandler;
 import duke.ui.UserUi;
 
 /**
@@ -29,12 +30,13 @@ public class UserSetup {
     }
 
     public void initialise(String info) {
+        InputHandler in = new InputHandler(info);
         if (user.getName() == null) {
             setName(info);
         } else if (user.getAge() == 0) {
             int age = 0;
             try {
-                age = Integer.parseInt(info);
+                age = in.getInt();
             } catch (Exception e) {
                 ui.showMessage(e.getMessage());
             }
@@ -42,20 +44,21 @@ public class UserSetup {
         } else if (user.getAllWeight().size() == 0) {
             int weight = 0;
             try {
-                weight = Integer.parseInt(info);
+                weight = in.getInt();
             } catch (Exception e) {
                 ui.showMessage(e.getMessage());
             }
             setWeight(weight);
+            user.setOriginalWeight(weight);
         } else if (user.getHeight() == 0) {
             int height = 0;
             try {
-                height = Integer.parseInt(info);
+                height = in.getInt();
             } catch (Exception e) {
                 ui.showMessage(e.getMessage());
             }
             setHeight(height);
-        } else if (user.getSex() == null) {
+        } else if (user.getGender() == null) {
             Gender sex = null;
             if (info.charAt(0) == 'M' || info.charAt(0) == 'm') {
                 sex = Gender.MALE;
@@ -73,21 +76,10 @@ public class UserSetup {
                 ui.showMessage(e.getMessage());
             }
             setActivity(activity);
-        } else if (user.getHasSetMaintain() == false) {
-            boolean flag = true;
-            if (info.charAt(0) == 'Y' || info.charAt(0) == 'y') {
-                flag = true;
-            } else if (info.charAt(0) == 'N' || info.charAt(0) == 'n') {
-                flag = false;
-            } else {
-                ui.showMessage("Invalid gender info");
-            }
-            setLoseWeight(flag);
-            user.setHasSetMaintain(true);
-            isDone = true;
-            ui.showUserSetupDone(user);
-            ui.showWelcome();
         }
+        isDone = true;
+        ui.showUserSetupDone(user);
+        ui.showWelcome();
     }
 
     public void setName(String name) {
@@ -118,11 +110,6 @@ public class UserSetup {
     public void setActivity(int level) {
         user.setActivityLevel(level);
         ui.showMaintain();
-    }
-
-    public void setLoseWeight(boolean loseWeight) {
-        this.user.setLoseWeight(loseWeight);
-        user.setIsSetup();
     }
 
     public User getUser() {

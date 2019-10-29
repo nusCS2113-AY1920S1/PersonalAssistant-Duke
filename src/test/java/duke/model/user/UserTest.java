@@ -1,15 +1,14 @@
 package duke.model.user;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.HashMap;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UserTest {
-    private User user = new User("Foo Chi Hen", 22, 100, Gender.MALE, 0, true);
+    private User user = new User("Foo Chi Hen", 22, 100, Gender.MALE, 0, 100);
 
     @Test
     void user() {
@@ -18,7 +17,6 @@ public class UserTest {
         assertEquals(user.getName(), "Foo Chi Hen");
         assertEquals(user.getHeight(), 100);
         assertEquals(user.getActivityLevel(), 0);
-        assertEquals(user.getLoseWeight(), true);
         assertEquals(user.getAge(), 22);
         assertTrue(user.getAllWeight() instanceof HashMap);
     }

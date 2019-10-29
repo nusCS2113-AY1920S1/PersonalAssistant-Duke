@@ -1,18 +1,15 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.wallet.TransactionList;
+import duke.model.meal.MealList;
+import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
-import duke.model.meal.MealList;
-import duke.ui.Ui;
-import duke.model.user.User;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class UpdateWeightCommand extends Command {
     private String description;
@@ -41,13 +38,27 @@ public class UpdateWeightCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        switch (stage) {
+            case 0:
+                stage0(user, storage);
+                break;
+            case 1:
+                stage1(user, storage);
+                break;
+            default:
+                isDone = true;
+        }
+        stage++;
+    }
+
+    public void stage0(User user, Storage storage) {
         ui.showLine();
         String[] temp = description.split("/date");
         Calendar calendarDate = Calendar.getInstance();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         date = dateFormat.format(calendarDate.getTime());
         weight = temp[0].trim();
-        HashMap<String, Integer> allWeight = user.getAllWeight();
+        HashMap<String, Double> allWeight = user.getAllWeight();
         if (temp.length > 1) {
             date = temp[1];
         }
@@ -71,11 +82,7 @@ public class UpdateWeightCommand extends Command {
         }
     }
 
-    public void setResponse(String response) {
-        this.response = response.toLowerCase().substring(0,1);
-    }
-
-    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
+    public void stage1(User user, Storage storage) {
         ui.showLine();
         if (this.response.equals("y")) {
             try {
@@ -94,5 +101,9 @@ public class UpdateWeightCommand extends Command {
             ui.showMessage(e.getMessage());
         }
         ui.showLine();
+    }
+
+    public void setResponse(String response) {
+        this.response = response.toLowerCase().substring(0,1);
     }
 }

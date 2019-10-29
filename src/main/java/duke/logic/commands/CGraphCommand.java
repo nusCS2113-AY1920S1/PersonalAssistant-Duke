@@ -1,6 +1,5 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.DukeException;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
 import duke.model.user.User;
@@ -10,12 +9,10 @@ import duke.storage.Storage;
 import duke.ui.GraphUi;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -49,8 +46,8 @@ public class CGraphCommand extends Command {
 
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
-        ArrayList<Integer> dataHolder = new ArrayList();
-        int highest = 1;
+        ArrayList<Integer> intHolder = new ArrayList();
+        double highest = 1;
         Calendar date = Calendar.getInstance();
         date.set(Calendar.MONTH, this.month);
         date.set(Calendar.YEAR, this.year);
@@ -63,18 +60,18 @@ public class CGraphCommand extends Command {
         YearMonth yearMonthObject = YearMonth.of(year, month);
         int daysInMonth = yearMonthObject.lengthOfMonth();
         if (this.type.equals("weight")) {
-            HashMap<String, Integer> weight = user.getAllWeight();
+            HashMap<String, Double> weight = user.getAllWeight();
             for (int i = 0; i < daysInMonth; i += 1) {
                 date.set(Calendar.DAY_OF_MONTH, i);
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 String currentDate = dateFormat.format(date.getTime());
                 if (weight.containsKey(currentDate)) {
-                    dataHolder.add(weight.get(currentDate));
+                    intHolder.add((int)Math.round(weight.get(currentDate)));
                     if (highest < weight.get(currentDate)) {
                         highest = weight.get(currentDate);
                     }
                 } else {
-                    dataHolder.add(0);
+                    intHolder.add(0);
                 }
             }
         } else if (this.type.equals("wallet")) {
@@ -95,7 +92,7 @@ public class CGraphCommand extends Command {
                         highest = totalSpent;
                     }
                 }
-                dataHolder.add(totalSpent);
+                intHolder.add(totalSpent);
             }
         } else {
             HashMap<String, ArrayList<Meal>> meal = meals.getMealTracker();
@@ -115,22 +112,19 @@ public class CGraphCommand extends Command {
                 if (highest < totalConsumed) {
                     highest = totalConsumed;
                 }
-                dataHolder.add(totalConsumed);
+                intHolder.add(totalConsumed);
             }
         }
         int pos;
         for (int i = 0; i < daysInMonth; i += 1) {
-            pos = (int)(((float)dataHolder.get(i) / (float)highest) * 20);
+            pos = (int)(((float)intHolder.get(i) / (float)highest) * 20);
             graph[20 - pos][i * 2] = "*";
         }
         for (int i = 0; i < daysInMonth - 1; i += 1) {
-            pos = (int)(((float)((dataHolder.get(i)
-                    + dataHolder.get(i + 1)) / 2) / (float)highest) * 20);
+            pos = (int)(((float)((intHolder.get(i)
+                    + intHolder.get(i + 1)) / 2) / (float)highest) * 20);
             graph[20 - pos][i * 2 + 1] = "*";
         }
         graphUi.showWeight(graph, month);
-    }
-
-    public void execute2(MealList meals, Storage storage, User user, Wallet wallet){
     }
 }

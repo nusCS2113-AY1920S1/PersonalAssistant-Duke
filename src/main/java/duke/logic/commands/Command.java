@@ -1,17 +1,15 @@
 package duke.logic.commands;
 
-import duke.model.meal.MealList;
-import duke.model.wallet.TransactionList;
-import duke.model.wallet.Wallet;
-import duke.ui.Ui;
-import duke.storage.Storage;
 import duke.commons.exceptions.DukeException;
+import duke.model.meal.MealList;
 import duke.model.user.User;
+import duke.model.wallet.Wallet;
+import duke.storage.Storage;
+import duke.ui.Ui;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Scanner;
 
 /**
  * Command is the abstract base class for all the command objects.
@@ -26,6 +24,8 @@ public abstract class Command {
     protected boolean isDone = true;
     protected boolean isFail = false;
     protected String error;
+    protected int stage = 0;
+
 
     /**
      * This class is an abstract class that will change according to the inheritor.
@@ -33,10 +33,7 @@ public abstract class Command {
      * @param user the object that handles all user data
      * @throws DukeException when there is an error
      */
-
     public abstract void execute(MealList meals, Storage storage, User user, Wallet wallet) throws DukeException;
-
-    public abstract void execute2(MealList meals, Storage storage, User user, Wallet wallet);
 
     public void setResponse(String response) {
         this.response = response;

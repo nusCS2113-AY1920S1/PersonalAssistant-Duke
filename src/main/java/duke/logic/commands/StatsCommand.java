@@ -5,21 +5,13 @@ import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 
-/**
- * ExitCommand is a public class that extends from the abstract class Command.
- */
-public class ExitCommand extends Command {
+public class StatsCommand extends Command {
 
-    /**
-     * isExit() is a function that will return true if called, to indicate the the program is going to exit.
-     * @return <code>true</code> if the function is called
-     */
-    public boolean isExit() {
-        return true;
+    public StatsCommand() {
     }
 
     /**
-     * Executes the exit command.
+     * Constructor for StatsCommand.
      * @param meals the MealList object in which the meals are supposed to be added
      * @param storage the storage object that handles all reading and writing to files
      * @param user the object that handles all user data
@@ -27,6 +19,7 @@ public class ExitCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
-        ui.showBye();
+        user.updateStats(meals);
+        ui.showStats(user);
     }
 }

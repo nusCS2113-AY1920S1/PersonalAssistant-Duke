@@ -1,7 +1,7 @@
 package duke.logic.parsers;
 
-import duke.logic.commands.MarkDoneCommand;
 import duke.commons.exceptions.DukeException;
+import duke.logic.commands.MarkDoneCommand;
 
 /**
  * Parser class to handle the marking of a meal object as done in the model.

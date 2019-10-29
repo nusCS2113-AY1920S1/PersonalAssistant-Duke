@@ -4,10 +4,13 @@ import duke.commons.exceptions.DukeException;
 import duke.logic.autocorrect.Autocorrect;
 import duke.logic.commands.Command;
 import duke.logic.commands.ExitCommand;
+import duke.logic.commands.StatsCommand;
 import duke.logic.commands.UpdateWeightCommand;
 
 import static duke.commons.definitions.CommandDefinitions.PARSER_ADD_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_ADD_GOAL_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_BREAKFAST_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_CGRAPH_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_CLEAR_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_DELETE_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_DEPOSIT_COMMAND;
@@ -21,10 +24,9 @@ import static duke.commons.definitions.CommandDefinitions.PARSER_HISTORY_COMMAND
 import static duke.commons.definitions.CommandDefinitions.PARSER_LIST_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_LUNCH_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_PAYMENT_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_SET_GOAL_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_STATS_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_SUGGEST_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_UPDATE_WEIGHT_COMMAND;
-import static duke.commons.definitions.CommandDefinitions.PARSER_CGRAPH_COMMAND;
 import static duke.commons.exceptions.ExceptionMessages.UNKNOWN_COMMAND;
 
 /**
@@ -89,7 +91,7 @@ public class Parser {
                 return new ClearCommandParser().parse(userInput);
             case PARSER_EDIT_COMMAND:
                 return new EditCommandParser().parse(userInput);
-            case PARSER_SET_GOAL_COMMAND:
+            case PARSER_ADD_GOAL_COMMAND:
                 return new AddGoalCommandParser().parse(userInput);
             case PARSER_HELP_COMMAND:
                 return new HelpCommandParser().parse(userInput);
@@ -100,7 +102,9 @@ public class Parser {
             case PARSER_HISTORY_COMMAND:
                 return parserUtil.getHistory(userInput);
             case PARSER_SUGGEST_COMMAND:
-                return new SuggestCommandParser().parse(userInput);
+                return new SuggestMealCommandParser().parse(userInput);
+            case PARSER_STATS_COMMAND:
+                return new StatsCommand();
             case PARSER_CGRAPH_COMMAND:
                 return new CGraphCommandParser().parse(userInput);
             default:

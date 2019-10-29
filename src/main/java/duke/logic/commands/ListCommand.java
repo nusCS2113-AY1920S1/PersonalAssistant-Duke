@@ -2,17 +2,13 @@ package duke.logic.commands;
 
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
-import duke.model.wallet.TransactionList;
-import duke.model.wallet.Wallet;
-import duke.ui.Ui;
-import duke.storage.Storage;
-import duke.commons.exceptions.DukeException;
 import duke.model.user.User;
+import duke.model.wallet.Wallet;
+import duke.storage.Storage;
 
 import java.text.ParseException;
-import java.util.Date;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Date;
 
 /**
  * ListCommand is a public class that inherits from abstract class Command.
@@ -64,10 +60,6 @@ public class ListCommand extends Command {
         }
         ui.showList(currentMeals);
         ui.showCaloriesLeft(currentMeals, user, currentDate);
-        //ui.showRemainingCalorie(currentMeals, user, tasks.caloriesAvgToGoal());
         ui.showLine();
-    }
-
-    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
     }
 }
