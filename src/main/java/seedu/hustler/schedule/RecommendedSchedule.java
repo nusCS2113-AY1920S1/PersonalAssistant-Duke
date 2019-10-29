@@ -34,7 +34,7 @@ public class RecommendedSchedule extends Scheduler {
         seconds = timeInSeconds;
         Ui ui = new Ui();
         if (size() == 0) {
-            ui.show_message("There are no tasks to complete. "
+            ui.showMessage("There are no tasks to complete. "
                 + "Please add more tasks."); 
             return;
         }
@@ -91,7 +91,7 @@ public class RecommendedSchedule extends Scheduler {
                 + " time alloted: " + hours + ":" + minutes + ":" + seconds + "\n\t";
         }
         Ui ui = new Ui();
-        ui.show_message(output);
+        ui.showMessage(output);
     }
 
     /**

@@ -39,7 +39,7 @@ public class UpdateEntry extends Command {
         try {
             anomaly.detect(this.userInput);
         } catch(CommandLineException e){
-            ui.show_message(e.getMessage());
+            ui.showMessage(e.getMessage());
             return;
         }
         String[] numbers = userInput[1].split(" ");

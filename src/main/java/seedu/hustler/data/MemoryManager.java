@@ -16,7 +16,7 @@ public class MemoryManager {
         TaskStorage taskStorage = new TaskStorage();
 
         try {
-            taskStorage.createBackup(Hustler.list.return_list());
+            taskStorage.createBackup(Hustler.list.returnList());
             AvatarStorage.createBackup(Hustler.avatar);
         } catch (IOException e) {
 

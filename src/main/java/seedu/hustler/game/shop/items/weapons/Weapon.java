@@ -39,7 +39,7 @@ public abstract class Weapon extends ShopItem {
      * Gets the damage increment of the weapon.
      * @return the damage of the weapon.
      */
-    public int getDamage() {
+    public int getDamageIncr() {
         return this.DMG_INCR;
     }
 

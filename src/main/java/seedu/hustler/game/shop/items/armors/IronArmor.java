@@ -26,14 +26,6 @@ public class IronArmor extends Armor {
         super(COST, false, DEF_INCR, STA_INCR);
     }
 
-    /**
-     * Constructs a new iron armor with the boolean value of hasPurchased.
-     * @param hasPurchased the boolean value if the iron armor has been purchased.
-     */
-    public IronArmor(boolean hasPurchased) {
-        super(COST, hasPurchased, DEF_INCR, STA_INCR);
-    }
-
     @Override
     public String toString() {
         return "Iron Armor, " + super.toString();

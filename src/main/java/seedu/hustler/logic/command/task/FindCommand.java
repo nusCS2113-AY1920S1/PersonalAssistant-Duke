@@ -35,9 +35,9 @@ public class FindCommand extends Command {
         Ui ui = new Ui();
         try {
             anomaly.detect(userInput);
-            Hustler.list.findTask(this.userInput[1]);
+            ui.showMatchingTasks(Hustler.list.findTasks(this.userInput[1]), this.userInput[1]);
         } catch (CommandLineException e) {
-            ui.show_message(e.getMessage());
+            ui.showMessage(e.getMessage());
         }
     }
 }

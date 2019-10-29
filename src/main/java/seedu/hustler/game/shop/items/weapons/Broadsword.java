@@ -21,14 +21,6 @@ public class Broadsword extends Weapon {
         super(COST, false, DMG_INCR);
     }
 
-    /**
-     * Constructs a new Broadsword with the given hasPurchased.
-     * @param hasPurchased boolean if the Broadsword has been purchased.
-     */
-    public Broadsword(boolean hasPurchased) {
-        super(COST, hasPurchased, DMG_INCR);
-    }
-
     @Override
     public String toString() {
         return "Broadsword, " + super.toString();

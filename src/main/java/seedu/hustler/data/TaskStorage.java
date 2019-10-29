@@ -4,11 +4,9 @@ import seedu.hustler.schedule.Scheduler;
 import seedu.hustler.task.*;
 
 import java.io.*;
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 import static seedu.hustler.logic.parser.DateTimeParser.getDateTime;
@@ -23,7 +21,6 @@ public class TaskStorage {
      */
     private static String filePath;
     private static String filePathBackup;
-    private Schedule schedule;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
     /**
@@ -39,7 +36,6 @@ public class TaskStorage {
     public TaskStorage(String filePath) {
         this.filePath = filePath;
         this.filePathBackup = filePath.split("hustler.txt")[0] + "backup/hustlerBackup.txt";
-        this.schedule = new Schedule();
     }
 
     /**
@@ -69,14 +65,6 @@ public class TaskStorage {
                     } else {
                         list.add(new Deadline(taskString[4], by, taskString[2], taskString[3], now));
                     }
-                    try {
-                        String dateOnly = taskString[5].split(" ")[0];
-                        Date date = schedule.convertStringToDate(dateOnly);
-                        Task lastTask = list.get(list.size() - 1);
-                        schedule.addToSchedule(lastTask, date);
-                    } catch (ParseException ignored) {
-                        return null;
-                    }
                 } else {
                     LocalDateTime at = getDateTime(taskString[5]);
                     LocalDateTime now = LocalDateTime.parse(taskString[6], formatter);
@@ -88,14 +76,6 @@ public class TaskStorage {
                                 now, taskString[7], period, hasRecurred));
                     } else {
                         list.add(new Event(taskString[4], at, taskString[2], taskString[3], now));
-                    }
-                    try {
-                        String dateOnly = taskString[5].split(" ")[0];
-                        Date date = schedule.convertStringToDate(dateOnly);
-                        Task lastTask = list.get(list.size() - 1);
-                        schedule.addToSchedule(lastTask, date);
-                    } catch (ParseException ignored) {
-                        return null;
                     }
                 }
 
@@ -148,14 +128,6 @@ public class TaskStorage {
                     } else {
                         list.add(new Deadline(taskString[4], by, taskString[2], taskString[3], now));
                     }
-                    try {
-                        String dateOnly = taskString[4].split(" ")[0];
-                        Date date = schedule.convertStringToDate(dateOnly);
-                        Task lastTask = list.get(list.size() - 1);
-                        schedule.addToSchedule(lastTask, date);
-                    } catch (ParseException ignored) {
-                        return null;
-                    }
                 } else {
                     LocalDateTime at = getDateTime(taskString[4]);
                     LocalDateTime now = LocalDateTime.parse(taskString[6], formatter);
@@ -167,14 +139,6 @@ public class TaskStorage {
                                 now, taskString[7], period, hasRecurred));
                     } else {
                         list.add(new Event(taskString[4], at, taskString[2], taskString[3], now));
-                    }
-                    try {
-                        String dateOnly = taskString[4].split(" ")[0];
-                        Date date = schedule.convertStringToDate(dateOnly);
-                        Task lastTask = list.get(list.size() - 1);
-                        schedule.addToSchedule(lastTask, date);
-                    } catch (ParseException ignored) {
-                        return null;
                     }
                 }
 

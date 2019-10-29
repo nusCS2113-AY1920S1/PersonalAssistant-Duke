@@ -29,7 +29,7 @@ public class RemindCommand extends Command {
             Reminders.runAll(Hustler.list);
             Reminders.displayReminders();
         } catch(CommandLineException e) {
-            ui.show_message(e.getMessage());
+            ui.showMessage(e.getMessage());
         }
 
     } 

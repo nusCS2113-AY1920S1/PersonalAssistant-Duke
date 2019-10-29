@@ -2,13 +2,12 @@ package seedu.hustler.task;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.data.CommandLog;
-import seedu.hustler.data.Schedule;
 import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.DoneTask;
+import seedu.hustler.logic.parser.DateTimeParser;
 import seedu.hustler.schedule.Scheduler;
 import seedu.hustler.ui.Ui;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -29,11 +28,6 @@ public class TaskList {
      * Ui instance that communicates errors with the user.
      */
     private Ui ui = new Ui();
-
-    /**
-     * Schedule instance to plan schedule.
-     */
-    private Schedule schedule = new Schedule();
 
     /**
      * Initializes list.
@@ -124,11 +118,11 @@ public class TaskList {
             AddTask.updatePoints();
             Hustler.achievementList.updateBusyBee();
             if (!CommandLog.isRestoring()) {
-                ui.show_task_added(list);
+                ui.showTaskAdded(list);
             }
         } else {
             if (!CommandLog.isRestoring()) {
-                ui.show_task_clash();
+                ui.showTaskClash();
             }
         }
     }
@@ -142,9 +136,6 @@ public class TaskList {
             DoneTask.updateAchievementLevel();
             DoneTask.updatePoints();
             Hustler.achievementList.updateCompletionist();
-            if (!CommandLog.isRestoring()) {
-                ui.show_task_done(list.toString());
-            }
     }
 
     /**
@@ -210,7 +201,7 @@ public class TaskList {
      *
      * @return ArrayList of Tasks.
      */
-    public ArrayList<Task> return_list() {
+    public ArrayList<Task> returnList() {
         return list;
     }
 
@@ -220,17 +211,12 @@ public class TaskList {
      * @param i index of the task to mark as done.
      */
     public void doTask(int i) {
-        try {
-            list.get(i).markAsDone();
-            if (list.get(i).isDone) {
-                updateCompletionistAchievement();
-                if (!CommandLog.isRestoring()) {
-                    ui.show_task_done(list.get(i).toString());
-                }
-                Hustler.avatar.gainXp();
+        list.get(i).markAsDone();
+        if (list.get(i).isDone) {
+            updateCompletionistAchievement();
+            if (!CommandLog.isRestoring()) {
+                ui.showTaskDone(list.get(i).toString());
             }
-        } catch (IOException ignore) {
-            return;
         }
     }
 
@@ -244,7 +230,7 @@ public class TaskList {
         String taskDescription = list.get(i).toString();
         list.remove(i);
         if (!CommandLog.isRestoring()) {
-            ui.show_task_removed(list, taskDescription);
+            ui.showTaskRemoved(list, taskDescription);
         }
     }
 
@@ -254,13 +240,27 @@ public class TaskList {
     public void clearList() {
         if (list.isEmpty()) {
             if (!CommandLog.isRestoring()) {
-                ui.show_list_empty();
+                ui.showListEmpty();
             }
         } else {
             list.clear();
             if (!CommandLog.isRestoring()) {
-                ui.show_list_cleared();
+                ui.showListCleared();
             }
+        }
+    }
+
+    /**
+     * Clear all done tasks in the task list.
+     */
+    public void clearDone() {
+        if (list.isEmpty()) {
+            if (!CommandLog.isRestoring()) {
+                ui.showListEmpty();
+            }
+        } else {
+            list.removeIf(Task::isCompleted);
+            ui.showListCleared();
         }
     }
 
@@ -295,12 +295,12 @@ public class TaskList {
                 list.get(i).setDateTime(ldt.plusMonths(num));
                 break;
             default:
-                ui.show_message("You have typed in the wrong format. Please re-enter the snooze command.");
+                ui.showMessage("You have typed in the wrong format. Please re-enter the snooze command.");
                 return;
             }
         }
         if (!CommandLog.isRestoring()) {
-            ui.show_task_snoozed(list.get(i).toString());
+            ui.showTaskSnoozed(list.get(i).toString());
         }
     }
 
@@ -362,7 +362,7 @@ public class TaskList {
             break;
         }
         if (!CommandLog.isRestoring()) {
-            ui.show_list_sorted(list);
+            ui.showListSorted(list);
         }
     }
 
@@ -372,11 +372,11 @@ public class TaskList {
     public void displayList() {
         if (list.isEmpty()) {
             if (!CommandLog.isRestoring()) {
-                ui.show_empty_list_error();
+                ui.showEmptyListError();
             }
         } else {
             if (!CommandLog.isRestoring()) {
-                ui.show_list(list);
+                ui.showTaskList(list);
             }
         }
     }
@@ -386,19 +386,20 @@ public class TaskList {
      *
      * @param taskDescription a character sequence from which tasks will be found.
      */
-    public void findTask(String taskDescription) {
-        ArrayList<Integer> matchingTasks = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getDescription().contains(taskDescription)
-                || list.get(i).getTag().equalsIgnoreCase(taskDescription)) {
-                matchingTasks.add(i);
+    public ArrayList<Task> findTasks(String taskDescription) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : list) {
+            if (task.getDescription().contains(taskDescription)
+                || task.getTag().equalsIgnoreCase(taskDescription)) {
+                matchingTasks.add(task);
+            } else if (task.getDateTime() != null) {
+                if (DateTimeParser.convertDateTimeToDate(task.getDateTime()).equals(taskDescription)
+                    || DateTimeParser.getTimeOnly(task.getDateTime()).equals(taskDescription)) {
+                    matchingTasks.add(task);
+                }
             }
         }
-        if (matchingTasks.isEmpty()) {
-            ui.task_doesnt_exist_error();
-        } else {
-            ui.show_matching_tasks(list, matchingTasks);
-        }
+        return matchingTasks;
     }
 
     /**
@@ -468,17 +469,6 @@ public class TaskList {
         return time.trim();
     }
 
-    private String getOnlyDate(List<String> splitInput) {
-        String date = "";
-        for (int i = 0; i < splitInput.size(); i++) {
-            if (splitInput.get(i).contains("/by") || (splitInput.get(i).contains("/at"))) {
-                date += splitInput.get(i + 1);
-                break;
-            }
-        }
-        return date.trim();
-    }
-
     /**
      * Checks whether two instances of TaskList are equal.
      *
@@ -486,12 +476,10 @@ public class TaskList {
      * @return true or false to the comparison.
      */
     public boolean equals(TaskList temp) {
-
         if (this.size() != temp.size()) {
             System.out.println("Length not equal");
             return false;
         }
-
         for (int i = 0; i < this.size(); i++) {
             if (!this.get(i).equals(temp.get(i))) {
                 System.out.println(this.get(i).description + temp.get(i).description + "?");

@@ -1,22 +1,17 @@
 package seedu.hustler.logic.command.shop;
 
 import seedu.hustler.Hustler;
+import seedu.hustler.game.achievement.Achievements;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.data.ShopStorage;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.parser.anomaly.BuyAnomaly;
 import seedu.hustler.ui.Ui;
 
-import java.io.IOException;
-
 /**
  * Command to purchase an item in the shop with the given index.
  */
 public class BuyCommand extends Command {
-    /**
-     * The index of the item desired.
-     */
-    private int index;
 
     /**
      * User input to parse.
@@ -25,7 +20,6 @@ public class BuyCommand extends Command {
 
     /**
      * Detect anomalies for input.
-     * @param index
      */
     private BuyAnomaly anomaly = new BuyAnomaly();
 
@@ -43,12 +37,21 @@ public class BuyCommand extends Command {
         Ui ui = new Ui();
         try {
             anomaly.detect(userInput);
-            this.index = Integer.parseInt(userInput[1]);
-            Hustler.shopList.buy(this.index - 1);
+            int index = Integer.parseInt(userInput[1]) - 1;
+            int oldPoints = Achievements.totalPoints;
+            if (Hustler.shopList.buy(index).isPresent()) {
+                if (oldPoints < Achievements.totalPoints) {
+                    ui.showPurchasedSuccess();
+                } else {
+                    ui.showAlreadyPurchased();
+                }
+            } else {
+                ui.showPurchasedFailure();
+            }
             ShopStorage.update();
             Hustler.inventory.updateInventory();
         } catch (CommandLineException e) {
-            ui.show_message(e.getMessage());
+            ui.showMessage(e.getMessage());
         }
     }
 }

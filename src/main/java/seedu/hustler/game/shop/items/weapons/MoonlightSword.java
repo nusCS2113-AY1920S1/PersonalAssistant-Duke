@@ -21,14 +21,6 @@ public class MoonlightSword extends Weapon {
         super(COST, false, DMG_INCR);
     }
 
-    /**
-     * Constructs a new Moonlight Sword with the given hasPurchased.
-     * @param hasPurchased boolean if the Moonlight Sword has been purchased.
-     */
-    public MoonlightSword(boolean hasPurchased) {
-        super(COST, hasPurchased, DMG_INCR);
-    }
-
     @Override
     public String toString() {
         return "Moonlight Sword, " + super.toString();

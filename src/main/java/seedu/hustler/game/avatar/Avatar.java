@@ -1,11 +1,8 @@
 package seedu.hustler.game.avatar;
 
-import seedu.hustler.data.AvatarStorage;
 import seedu.hustler.game.shop.items.ShopItem;
 import seedu.hustler.game.shop.items.armors.Armor;
 import seedu.hustler.game.shop.items.weapons.Weapon;
-
-import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -31,12 +28,12 @@ public class Avatar implements Convertible {
     /**
      * The equipped weapon of the avatar.
      */
-    private Optional<? extends ShopItem> weapon;
+    private Optional<Weapon> weapon;
 
     /**
      * The equipped armor of the avatar.
      */
-    private Optional<? extends ShopItem> armor;
+    private Optional<Armor> armor;
 
     /**
      * Default initialization of the level and stat.
@@ -69,9 +66,8 @@ public class Avatar implements Convertible {
      * @param preferredName the new name to update to the avatar.
      * @return the avatar with the updated name.
      */
-    public Avatar setName(String preferredName) throws IOException {
+    public Avatar setName(String preferredName) {
         this.name = preferredName;
-        AvatarStorage.save(this);
         return this;
     }
 
@@ -88,44 +84,35 @@ public class Avatar implements Convertible {
      *
      * @return the level of the avatar.
      */
-    public Level gainXp() throws IOException {
+    public Level gainXp() {
         this.level = level.increaseXp();
         if (this.level.canLevel()) {
             this.level = level.levelUp();
             this.stats = stats.upStats(this.level.getLevel());
-            showCongrats();
         }
-        AvatarStorage.save(this);
         return this.level;
     }
 
-    public void equip(ShopItem equipment) throws IOException {
+    public Avatar equip(ShopItem equipment) {
         if(equipment.getType().equals("Weapon")) {
-            this.weapon = Optional.of(equipment);
+            this.weapon = Optional.of((Weapon) equipment);
         } else if (equipment.getType().equals("Armor")) {
-            this.armor = Optional.of(equipment);
+            this.armor = Optional.of((Armor) equipment);
         }
-        AvatarStorage.save(this);
+        return this;
     }
 
-    /**
-     * Displays on the screen the congratulatory message to indicate that the User
-     * has leveled up.
-     */
-    private void showCongrats() {
-        System.out.println("\t_____________________________________");
-        System.out.println("\tCongratulations, you've leveled up! Your avatar has gotten stronger:");
-        System.out.println(this.toString());
-        System.out.println("\t_____________________________________\n\n");
+    public int getLevelInt() {
+        return this.level.getLevel();
     }
 
     @Override
     public String toString() {
-        String equipment = (weapon.isEmpty() && armor.isEmpty()) ? "" : ("[Equipped: "
-            + (weapon.map(weapon -> weapon.toString()).orElse(""))
-                + (armor.map(armor -> armor.toString()).orElse("")) + "]");
+        String equipment = (weapon.isEmpty() && armor.isEmpty()) ? "" : ("\t--- Equipped ---"
+            + (weapon.map(x -> "\n[ " + x.toString() + "]").orElse(""))
+                + (armor.map(x -> "\n[ " + x.toString() + "]").orElse("")));
         return this.name + ", " + this.level.toString() + "\n"
-            + this.stats.toString() + "\n" + equipment;
+            + this.stats.getStats(weapon, armor) + "\n" + equipment;
     }
 
     @Override
@@ -133,7 +120,7 @@ public class Avatar implements Convertible {
         return "Name " + this.name + "\n"
             + "Level " + this.level.toTxt() + "\n"
             + "Stats " + this.stats.toTxt() + "\n"
-            + "Weapon " + this.weapon.map(weapon -> weapon.toString()) + "\n"
-            + "Armor " + this.armor.map(armor -> armor.toString());
+            + "Weapon " + this.weapon.map(Weapon::toString) + "\n"
+            + "Armor " + this.armor.map(Armor::toString);
     }
 }

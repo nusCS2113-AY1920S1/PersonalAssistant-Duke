@@ -21,14 +21,6 @@ public class Mace extends Weapon {
         super(COST, false, DMG_INCR);
     }
 
-    /**
-     * Constructs a mace with the given hasPurchased.
-     * @param hasPurchased boolean if the mace has been purchased.
-     */
-    public Mace(boolean hasPurchased) {
-        super(COST, hasPurchased, DMG_INCR);
-    }
-
     @Override
     public String toString() {
         return "Mace, " + super.toString();
