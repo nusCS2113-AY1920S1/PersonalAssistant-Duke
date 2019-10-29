@@ -1,14 +1,15 @@
-import chronologer.command.EditCommand;
+import chronologer.command.PriorityCommand;
 import chronologer.exception.ChronologerException;
 import chronologer.parser.ParserFactory;
 import chronologer.storage.Storage;
+import chronologer.task.Deadline;
+import chronologer.task.Priority;
+import chronologer.task.Task;
+import chronologer.task.TaskList;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import chronologer.task.Deadline;
-import chronologer.task.Task;
-import chronologer.task.TaskList;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -16,13 +17,12 @@ import java.util.ArrayList;
 
 
 /**
- * Test class for edit commands.
- *
+ * Test class for priority commands.
  * @author Tan Yi Xiang
  * @version V1.0
  */
-class EditCommandTest {
-    private LocalDateTime testDate = LocalDateTime.of(2, 2, 2, 2, 2, 2, 2);
+class PriorityCommandTest {
+
     private static TaskList tasks;
     private static File file;
     private static Storage storage;
@@ -36,52 +36,46 @@ class EditCommandTest {
     }
 
     /**
-     * Test edit command basic functionality.
+     * Test whether priority function works for corresponding strings regardless of cases.
+     * Also test default priority value.
+     *
      */
     @Test
-    void testEdit() throws ChronologerException {
+    void testPriority() throws ChronologerException {
         Task deadlineTest = new Deadline("ABC", LocalDateTime.of(2001, 1, 1, 1, 0));
         tasks.add(deadlineTest);
+        Assertions.assertEquals(deadlineTest.getPriority(), Priority.MEDIUM);
 
-        EditCommand command = new EditCommand(0, "CDF");
+        PriorityCommand command = new PriorityCommand(0, "HIGH");
         command.execute(tasks, storage);
-        Assertions.assertEquals("CDF", deadlineTest.getDescription());
+        Assertions.assertEquals(deadlineTest.getPriority(), Priority.HIGH);
+
+        command = new PriorityCommand(0, "MedIum");
+        command.execute(tasks, storage);
+        Assertions.assertEquals(deadlineTest.getPriority(), Priority.MEDIUM);
+
+        command = new PriorityCommand(0, "low");
+        command.execute(tasks, storage);
+        Assertions.assertEquals(deadlineTest.getPriority(), Priority.LOW);
     }
 
     /**
-     * Test invalid inputs for edit commands.
+     * Test invalid inputs for priority related commands.
+     *
      */
     @Test
     void testError() {
         Assertions.assertThrows(ChronologerException.class, () -> {
-            ParserFactory.parse("edit");
+            ParserFactory.parse("priority");
         });
         Assertions.assertThrows(ChronologerException.class, () -> {
-            ParserFactory.parse(("edit -1 New description"));
+            ParserFactory.parse(("priority -1 low"));
         });
+
         Assertions.assertThrows(ChronologerException.class, () -> {
-            ParserFactory.parse(("edit 1"));
-        });
-        Assertions.assertThrows(ChronologerException.class, () -> {
-            EditCommand test = new EditCommand(2, "Foxtrot");
+            PriorityCommand test = new PriorityCommand(0, "Gibberish");
             test.execute(tasks, storage);
         });
-
-    }
-
-    /**
-     * Test the task list edit function.
-     */
-    @Test
-    void testTaskListEdit() {
-        Deadline testTask = new Deadline("Minecraft", testDate);
-        ArrayList<Task> test = new ArrayList<>();
-        test.add(testTask);
-        TaskList testList = new TaskList(test);
-        testList.editTaskDescription(0, "Roblox");
-
-        test = testList.getTasks();
-        Assertions.assertEquals(test.get(0).getDescription(), "Roblox");
     }
 
     /**
@@ -91,4 +85,5 @@ class EditCommandTest {
     static void teardownSetup() {
         assert file.delete();
     }
+
 }
