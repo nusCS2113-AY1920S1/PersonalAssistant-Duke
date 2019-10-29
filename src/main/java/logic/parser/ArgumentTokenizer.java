@@ -49,14 +49,14 @@ public class ArgumentTokenizer {
             boolean found = false;
             for (int j = 0; j < TOKENS.length; j++) {
                 if (argumentStrings[i].indexOf(TOKENS[j]) == 0) {
-                    String value = argumentStrings[i].substring(TOKENS[j].length() + 1);
+                    String value = argumentStrings[i].substring(TOKENS[j].length() + 1).trim();
                     arguments.put(TOKENS[j], value);
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                arguments.put("", argumentStrings[i]);
+                arguments.put("", argumentStrings[i].trim());
             }
         }
         return arguments;
