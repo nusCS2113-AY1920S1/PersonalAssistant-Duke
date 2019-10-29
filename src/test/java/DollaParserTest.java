@@ -10,12 +10,12 @@ public class DollaParserTest {
     private String inputLine;
     private String expectedResult;
 
-//    private DollaParser createNewDollaParser(String inputLine) {
-//        return new DollaParser(inputLine);
-//    }
+    //Private DollaParser createNewDollaParser(String inputLine) {
+    //    return new DollaParser(inputLine);
+    //}
 
     @Test
-    void parseInput_add() {
+    void parseInput_add_success() {
         inputLine = "add expense 100 Expense Description /on 03/12/2001";
         DollaParser dollaParser = new DollaParser(inputLine);
         //expectedResult = "AddEntryCommand{ type: expense, amount: 100.0, " +
@@ -25,5 +25,13 @@ public class DollaParserTest {
         assertEquals(expectedResult, command.getCommandInfo());
     }
 
+    @Test
+    void parseInput_add_invalidInput() {
+        inputLine = "add potatoes /on 03/12/2001";
+        DollaParser dollaParser = new DollaParser(inputLine);
+        expectedResult = "ErrorCommand";
+        Command command = dollaParser.parseInput();
+        assertEquals(expectedResult, command.getCommandInfo());
+    }
 
 }
