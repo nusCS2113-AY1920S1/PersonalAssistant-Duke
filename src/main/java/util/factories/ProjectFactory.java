@@ -14,7 +14,6 @@ public class ProjectFactory implements IArchDukeFactory<IProject> {
     @Override
     public IProject create(String input) {
         if (input.length() < 8) {
-            System.out.println("Please specify the command correctly in the format create PROJECT_NAME");
             return new NullProject();
         }
         String projectName = input.substring(7);
