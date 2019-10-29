@@ -14,8 +14,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 
+import java.text.DecimalFormat;
+
 public class ShoppingPage extends UiPart<AnchorPane> {
     private static final String FXML = "ShoppingPage.fxml";
+
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
 
     @FXML
     private Label totalCostLabel;
@@ -114,7 +118,7 @@ public class ShoppingPage extends UiPart<AnchorPane> {
     void setupTotalCostLabel() {
         totalCostLabel.setText(String.valueOf(computeTotalCost(shoppingList)));
         shoppingList.addListener((ListChangeListener<Item<Ingredient>>) c ->
-                totalCostLabel.setText(String.valueOf(computeTotalCost(shoppingList))));
+                totalCostLabel.setText(df2.format(computeTotalCost(shoppingList))));
     }
 }
 

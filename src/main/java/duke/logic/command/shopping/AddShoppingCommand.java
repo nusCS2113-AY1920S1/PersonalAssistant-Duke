@@ -2,6 +2,7 @@ package duke.logic.command.shopping;
 
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.message.ShoppingMessageUtils;
 import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
@@ -22,9 +23,6 @@ public class AddShoppingCommand extends ShoppingCommand {
         CliSyntax.PREFIX_SHOPPING_REMARKS
     };
 
-    public static final String MESSAGE_SUCCESS = "New ingredient added: %s";
-    public static final String MESSAGE_DUPLICATE_SHOPPING = "%s already exists in the shopping list";
-
     private final Item<Ingredient> toAdd;
 
     public AddShoppingCommand(Item<Ingredient> toAdd) {
@@ -36,12 +34,15 @@ public class AddShoppingCommand extends ShoppingCommand {
         requireNonNull(model);
 
         if (model.hasShoppingList(toAdd)) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_SHOPPING, toAdd.getItem().getName()));
+            throw new CommandException(String.format(ShoppingMessageUtils.MESSAGE_DUPLICATE_SHOPPING,
+                    toAdd.getItem().getName()));
         }
 
         model.addShoppingList(toAdd);
+        model.commit(ShoppingMessageUtils.MESSAGE_COMMIT_ADD_SHOPPING);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getItem().getName()),
+        return new CommandResult(String.format(ShoppingMessageUtils.MESSAGE_SUCCESS_ADD_SHOPPING,
+                toAdd.getItem().getName()),
                 CommandResult.DisplayedPage.SHOPPING);
     }
 }
