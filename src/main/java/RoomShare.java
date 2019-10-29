@@ -18,7 +18,6 @@ public class RoomShare {
     private TempDeleteList tempDeleteList;
     private TaskCreator taskCreator;
     private Help help;
-    private ProgressBar pg;
 
 
     /**
@@ -47,8 +46,7 @@ public class RoomShare {
             ui.showChangeInTaskList();
             taskList.list();
         }
-        pg = new ProgressBar(taskList.getSize(), taskList.getDoneSize());
-        pg.showBar();
+        Ui.showProgress(taskList);
     }
 
     /**
@@ -78,8 +76,7 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
-                pg = new ProgressBar(taskList.getSize(), taskList.getDoneSize());
-                pg.showBar();
+                Ui.showProgress(taskList);
                 break;
 
             case bye:
@@ -107,6 +104,7 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                Ui.showProgress(taskList);
                 break;
 
             case delete:
@@ -175,6 +173,7 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                Ui.showProgress(taskList);
                 break;
 
             case snooze :
