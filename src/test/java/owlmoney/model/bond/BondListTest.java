@@ -167,7 +167,7 @@ class BondListTest {
         assertEquals(1, bondListTest.getSize());
         String expectedOutput = "Bond with the following details has been added: " + NEWLINE
                 + "Item No.             Bond Name                      Amount          Rate       "
-                + "Date of Purchased    "
+                + "Date of Purchase     "
                 + "Number of Years " + NEWLINE
                 + "-------------------------------------------------------------------------------"
                 + "--------------------------------------------------" + NEWLINE
@@ -180,7 +180,7 @@ class BondListTest {
         outContent.reset();
         bondListTest.listBond(30,uiTest);
         String expectedListOutput = "Item No.             Bond Name                      Amount          Rate       "
-                + "Date of Purchased    "
+                + "Date of Purchase     "
                 + "Number of Years " + NEWLINE
                 + "-------------------------------------------------------------------------------"
                 + "--------------------------------------------------" + NEWLINE
@@ -208,7 +208,7 @@ class BondListTest {
         assertEquals(2, bondListTest.getSize());
         String expectedOutput = "Bond with the following details has been added: " + NEWLINE
                 + "Item No.             Bond Name                      Amount          Rate       "
-                + "Date of Purchased    "
+                + "Date of Purchase     "
                 + "Number of Years " + NEWLINE
                 + "-------------------------------------------------------------------------------"
                 + "--------------------------------------------------" + NEWLINE
@@ -219,7 +219,7 @@ class BondListTest {
                 + "--------------------------------------------------" + NEWLINE
                 + "Bond with the following details has been added: " + NEWLINE
                 + "Item No.             Bond Name                      Amount          Rate       "
-                + "Date of Purchased    "
+                + "Date of Purchase     "
                 + "Number of Years " + NEWLINE
                 + "-------------------------------------------------------------------------------"
                 + "--------------------------------------------------" + NEWLINE
@@ -237,7 +237,7 @@ class BondListTest {
         System.setOut(new PrintStream(outContent));
         String expectedOutput = "Bond with the following details has been added: " + NEWLINE
                 + "Item No.             Bond Name                      Amount          Rate       "
-                + "Date of Purchased    "
+                + "Date of Purchase     "
                 + "Number of Years " + NEWLINE
                 + "-------------------------------------------------------------------------------"
                 + "--------------------------------------------------" + NEWLINE
@@ -269,7 +269,7 @@ class BondListTest {
         System.setOut(new PrintStream(outContent));
         String expectedOutput = "Bond with the following details has been added: " + NEWLINE
                 + "Item No.             Bond Name                      Amount          Rate       "
-                + "Date of Purchased    "
+                + "Date of Purchase     "
                 + "Number of Years " + NEWLINE
                 + "-------------------------------------------------------------------------------"
                 + "--------------------------------------------------" + NEWLINE

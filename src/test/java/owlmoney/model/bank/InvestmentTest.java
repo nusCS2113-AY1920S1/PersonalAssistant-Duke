@@ -43,7 +43,7 @@ class InvestmentTest {
         testInvestment.addBondToInvestmentAccount(testBond,uiTest);
         String expectedOutput = "Bond with the following details has been added: " + NEWLINE
                 + "Item No.             Bond Name                      Amount          Rate       "
-                + "Date of Purchased    "
+                + "Date of Purchase     "
                 + "Number of Years " + NEWLINE
                 + "-------------------------------------------------------------------------------"
                 + "--------------------------------------------------" + NEWLINE
@@ -56,7 +56,7 @@ class InvestmentTest {
         outContent.reset();
         testInvestment.investmentListBond(30,uiTest);
         String expectedListOutput = "Item No.             Bond Name                      Amount          Rate       "
-                + "Date of Purchased    "
+                + "Date of Purchase     "
                 + "Number of Years " + NEWLINE
                 + "-------------------------------------------------------------------------------"
                 + "--------------------------------------------------" + NEWLINE
@@ -178,7 +178,7 @@ class InvestmentTest {
         testInvestment.addBondToInvestmentAccount(testBond,uiTest);
         String expectedMessageWhenAdding = "Bond with the following details has been added: " + NEWLINE
                 + "Item No.             Bond Name                      Amount          Rate       "
-                + "Date of Purchased    "
+                + "Date of Purchase     "
                 + "Number of Years " + NEWLINE
                 + "-------------------------------------------------------------------------------"
                 + "--------------------------------------------------" + NEWLINE
@@ -191,7 +191,7 @@ class InvestmentTest {
         outContent.reset();
         String expectedMessageWhenDeleting = "Bond with the following details has been deleted: " + NEWLINE
                 + "Item No.             Bond Name                      Amount          Rate       "
-                + "Date of Purchased    "
+                + "Date of Purchase     "
                 + "Number of Years " + NEWLINE
                 + "-------------------------------------------------------------------------------"
                 + "--------------------------------------------------" + NEWLINE
@@ -322,7 +322,7 @@ class InvestmentTest {
             testInvestment.findBondInInvestment("2", uiTest);
 
             String expectedOutput = "Item No.             Bond Name                      "
-                    + "Amount          Rate       Date of Purchased    Number of Years " + NEWLINE
+                    + "Amount          Rate       Date of Purchase     Number of Years " + NEWLINE
                     + "-------------------------------------------------------------------------------"
                     + "--------------------------------------------------" + NEWLINE
                     + "1                    TEST BOND 2                    $1000.00        "

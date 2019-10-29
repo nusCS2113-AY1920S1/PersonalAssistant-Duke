@@ -28,11 +28,14 @@ public class Ui {
     private static final String GOALDATE = "To be achieved by";
     private static final String BONDNAME = "Bond Name";
     private static final String BONDRATE = "Rate";
-    private static final String BONDDATE = "Date of Purchased";
+    private static final String BONDDATE = "Date of Purchase";
     private static final String BONDYEAR = "Number of Years";
     private static final String GOALPROGRESS = "Save another";
     private static final String GOALBANKNAME = "Saving Account";
     private static final String GOALACHIEVED = "Goal Achieved";
+    private static final String RECURTRANSTYPE = "recurTransaction";
+    private static final String NEXTEXPENSE = "Next Expense Date";
+    private static final String RECURITEMTYPE = "recurItem";
     private static final String NEWLINE = System.lineSeparator();
 
     /**
@@ -52,6 +55,11 @@ public class Ui {
             System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", ITEMNO, DESCRIPTION, AMOUNT, DATE, CATEGORY);
         } else if (TRANSTYPE.equals(type)) {
             System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", TRANSACTIONNO, DESCRIPTION, AMOUNT, DATE, CATEGORY);
+        } else if (RECURITEMTYPE.equals(type)) {
+            System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", ITEMNO, DESCRIPTION, AMOUNT, NEXTEXPENSE, CATEGORY);
+        } else if (RECURTRANSTYPE.equals(type)) {
+            System.out.printf(
+                    "%-20s %-55s %-15s %-20s %-20s %n", TRANSACTIONNO, DESCRIPTION, AMOUNT, NEXTEXPENSE, CATEGORY);
         }
         System.out.println("-----------------------------------------------------------------------------"
                 + "----------------------------------------------------");
