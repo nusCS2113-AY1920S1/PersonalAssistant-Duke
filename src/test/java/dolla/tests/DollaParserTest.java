@@ -1,4 +1,4 @@
-package DollaTests.ParserTests;
+package dolla.tests;
 
 import dolla.command.Command;
 import dolla.parser.DollaParser;

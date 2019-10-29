@@ -1,4 +1,4 @@
-package DollaTests;
+package dolla;
 
 import dolla.task.Entry;
 import dolla.task.EntryList;

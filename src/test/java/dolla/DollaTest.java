@@ -1,4 +1,4 @@
-package DollaTests;
+package dolla;
 
 import org.junit.jupiter.api.Test;
 
