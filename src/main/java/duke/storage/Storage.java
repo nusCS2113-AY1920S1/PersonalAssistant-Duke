@@ -27,8 +27,10 @@ import duke.model.transports.BusService;
 import duke.model.locations.Venue;
 
 import javax.swing.*;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -55,7 +57,6 @@ public class Storage {
     private static final String ROUTES_FILE_PATH = "routes.txt";
     private static final String SAMPLE_RECOMMENDATIONS_FILE_PATH = "samples.txt";
     private static final String ITINERARY_LIST_FILE_PATH = "itineraryTable.txt";
-    private int numItineraries = 1;
 
     /**
      * Constructs a Storage object that contains information from the model.
@@ -312,22 +313,21 @@ public class Storage {
         return itinerary;
     }
 
-    public EventList getEvents() {
-        return events;
-    }
 
-    public CreateMap getMap() {
-        return this.map;
-    }
-
-    public RouteList getRoutes() {
-        return routes;
-    }
-
-    public void writeItinerarySave(Itinerary itinerary) throws FileNotFoundException, FileNotSavedException {
+    public void writeItinerarySave(Itinerary itinerary) throws FileNotSavedException {
         try {
             FileWriter writer = new FileWriter(ITINERARY_LIST_FILE_PATH, true);
-            writer.write(numItineraries++ + " | " + itinerary.getName() + "\n");
+            File f1=new File(ITINERARY_LIST_FILE_PATH);
+            int linecount=0;
+            FileReader fr=new FileReader(f1);
+            BufferedReader br = new BufferedReader(fr);
+            String s;
+            while((s=br.readLine())!=null)
+            {
+                linecount++;
+            }
+            fr.close();
+            writer.write(++linecount + " | " + itinerary.getName() + "\n");
             writer.close();
         } catch (IOException e) {
             throw new FileNotSavedException(ITINERARY_LIST_FILE_PATH);
@@ -386,7 +386,20 @@ public class Storage {
             itinerary.setTasks(agendaList);
             return itinerary;
         } catch(FileNotFoundException | DukeDateTimeParseException e){
-                throw new FileLoadFailException(ITINERARY_LIST_FILE_PATH);
+            throw new FileLoadFailException(ITINERARY_LIST_FILE_PATH);
         }
     }
+
+    public EventList getEvents() {
+        return events;
+    }
+
+    public CreateMap getMap() {
+        return this.map;
+    }
+
+    public RouteList getRoutes() {
+        return routes;
+    }
+
 }

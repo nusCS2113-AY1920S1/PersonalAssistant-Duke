@@ -2,11 +2,3 @@
 2 | SukrutList
 3 | holidayList
 4 | holidayList
-5 | holidayList
-1 | holidayList
-2 | holidayList
-3 | holidayList
-1 | holidayList
-1 | holidayList
-2 | holidayList
-1 | holidayList
