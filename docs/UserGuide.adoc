@@ -180,7 +180,7 @@ Format: `list [/date] <DATE>`
 
 Want to view your current nutritional intake for today? Simply enter the command `list` to show your current recorded nutritional intake for breakfast, lunch and dinner.
 
-The command also supports the viewing of data from other dates: simply specify the date after adding a /date flag.
+The command also supports the viewing of data from other dates: simply specify the date after adding a `/date` flag.
 
 Examples:
 
@@ -203,7 +203,7 @@ Format: `breakfast DESCRIPTION [/TAG]<QUANTITY>... [/date] <DATE>`
 
 Want to add a breakfast item with its associated nutritional information? Use the `breakfast` command!
 
-The command also supports the addition of data to other dates: simply specify the date after adding a /date flag at the end of the statement
+The command also supports the addition of data to other dates: simply specify the date after adding a `/date` flag at the end of the statement
 
 Examples:
 
@@ -226,7 +226,7 @@ Format: `lunch DESCRIPTION [/TAG]<QUANTITY>... [/date] <DATE>`
 
 Want to add a lunch item with its associated nutritional information? Use the `lunch` command!
 
-The command also supports the addition of data to other dates: simply specify the date after adding a /date flag at the end of the statement
+The command also supports the addition of data to other dates: simply specify the date after adding a `/date` flag at the end of the statement
 
 Examples:
 
@@ -250,7 +250,7 @@ Format: `dinner DESCRIPTION [/TAG]<QUANTITY>... [/date] <DATE>`
 
 Want to add a dinner item with its associated nutritional information? Use the `dinner` command!
 
-The command also supports the addition of data to other dates: simply specify the date after adding a /date flag at the end of the statement
+The command also supports the addition of data to other dates: simply specify the date after adding a `/date` flag at the end of the statement
 
 Examples:
 
@@ -393,6 +393,50 @@ Examples:
 ** `update /weight 50 /age 50`
 * You want to reset your personal information to a clean slate:
 ** `update /reset`
+
+==== Deposit money to your account: `deposit`
+
+Format: `deposit AMOUNT [/date]<DATE>`
+
+Received salary from your part-time job? Or just got an allowance? Simply deposit your income to your account using the `deposit` command!
+
+The command also supports the addition of the transaction to other dates: simply specify the date after adding a `/date` flag at the end of the statement.
+
+Examples:
+
+* You deposit 100SGD today
+** `deposit 100`
+* You deposited 300SGD on 1st January, 2019, but you are only adding the transaction now
+** `deposit 300 /date 1/1/2019`
+
+[NOTE]
+====
+* Current date is obtained from the system date in your computer.
+* Dates should be entered in the following format: day/month/year.
+* The `AMOUNT` is expressed in Singapore Dollar (SGD)
+====
+
+==== Pay money from your account: `pay`
+
+Format: `pay` AMOUNT [/date]<DATE>`
+
+Paying for utilities or other miscellaneous fees? Simply deduct your account using `pay` command!
+
+The command also supports the addition of the transaction to other dates: simply specify the date after adding a `/date` flag at the end of the statement.
+
+Examples:
+
+* You pay 100SGD today
+** `pay 100`
+* You paid 300SGD on 1st January, 2019, but you are only adding the transaction now
+** `pay 300 /date 1/1/2019`
+
+[NOTE]
+====
+* Current date is obtained from the system date in your computer.
+* Dates should be entered in the following format: day/month/year.
+* The `AMOUNT` is expressed in Singapore Dollar (SGD)
+====
 
 === Data analysis commands
 ==== Displaying nutrition track record: `stats`
