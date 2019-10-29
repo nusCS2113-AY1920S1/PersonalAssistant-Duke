@@ -4,6 +4,7 @@ import exception.DukeException;
 import storage.BookingConstants;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -40,15 +41,15 @@ public class BookingList extends ArrayList<Booking> {
     public static boolean checkBooking(BookingList bookinglist, String roomcode, String timeStart, String timeEnd) {
         boolean found = false;
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
         LocalDateTime startTime = LocalDateTime.parse(timeStart, formatterStart);
-        LocalDateTime endTime = LocalDateTime.parse(timeEnd, formatterEnd);
+        LocalTime endTime = LocalTime.parse(timeEnd, formatterEnd);
         for (int i = 0; i < bookinglist.size(); i++) {
             if (bookinglist.get(i).venue == roomcode) {
                 if ((bookinglist.get(i).dateTimeStart.isBefore(startTime)
                         || bookinglist.get(i).dateTimeStart.isEqual(startTime))
-                        && (bookinglist.get(i).dateTimeEnd.isAfter(endTime)
-                        || bookinglist.get(i).dateTimeEnd.isEqual(endTime))) {
+                        && ((bookinglist.get(i).timeEnd.isAfter(endTime))
+                        && (bookinglist.get(i).timeEnd.isBefore(endTime)))) {
                     found = true;
                 }
             }

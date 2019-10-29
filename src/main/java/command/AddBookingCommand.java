@@ -2,6 +2,7 @@ package command;
 
 import exception.DukeException;
 import room.RoomList;
+import storage.Constants;
 import storage.Storage;
 import ui.Ui;
 import booking.Booking;
@@ -77,7 +78,12 @@ public class AddBookingCommand extends Command {
         Booking newBooking = new Booking(name, room, description, timeStart, datetime[1]);
         boolean clash = BookingList.checkBooking(bookingList, room, timeStart, datetime[1]);
         if (clash) {
-            throw new DukeException("☹ OOPS!!! This slot is already filled, please choose another vacant one");
+            throw new DukeException(Constants.UNHAPPY
+                    + " OOPS!!! This slot is already filled, please choose another vacant one");
+        }
+        boolean valid = roomList.checkRoom(room);
+        if (!valid) {
+            throw new DukeException(Constants.UNHAPPY + " OOPS!!! This room doesn't exist!");
         }
         bookingList.add(newBooking);
         bookingstorage.saveToFile(bookingList);

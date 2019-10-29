@@ -3,8 +3,8 @@ package command;
 import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
+import storage.Constants;
 import storage.Storage;
-import task.TaskList;
 import ui.Ui;
 import user.Login;
 import user.User;
@@ -13,12 +13,12 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 
-public class LoginCommand extends Command{
+public class LoginCommand extends Command {
     private String[] splitL;
 
     //@@ AmirAzhar
     /**
-     * User login
+     * User login.
      * @param input from user
      * @param splitStr tokenized input
      * @throws DukeException if format not followed
@@ -27,23 +27,24 @@ public class LoginCommand extends Command{
         File membersFile = new File("data\\members.txt");
         membersFile.createNewFile(); //if file already exists, won't create
         if (splitStr.length == 1) {
-            throw new DukeException("\u2639 OOPS!!! Please login with NUS email and password");
+            throw new DukeException(Constants.UNHAPPY + " OOPS!!! Please login with NUS email and password");
         }
         this.splitL = input.split(" ");
-        if (!splitL[1].contains("@u.nus.edu")){
-            throw new DukeException("\u2639 OOPS!!! Please use your NUS email, ending with u.nus.edu, for login!");
+        if (!splitL[1].contains("@u.nus.edu")) {
+            throw new DukeException(Constants.UNHAPPY
+                    + " OOPS!!! Please use your NUS email, ending with u.nus.edu, for login!");
         }
     }
 
     @Override
-    public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingStorage, Storage roomStorage, User user) throws DukeException, IOException, ParseException {
+    public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingStorage,
+                        Storage roomStorage, User user) throws DukeException, IOException, ParseException {
         boolean isVerified = Login.verifyLogin(splitL[1], splitL[2], "data\\members.txt");
         if (isVerified) {
             Login.setCurrentUser(splitL[1]);
             ui.addToOutput("You have successfully logged in!");
-        }
-        else {
-            ui.addToOutput("\u2639 OOPS!!! You have entered your email/password incorrectly.");
+        } else {
+            ui.addToOutput(Constants.UNHAPPY + " OOPS!!! You have entered your email/password incorrectly.");
         }
     }
 }

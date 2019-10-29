@@ -14,8 +14,7 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class ApproveCommand extends Command {
-
+public class FindBookingCommand extends Command {
     private String name;
     private String[] splitC;
     private String roomcode;
@@ -24,14 +23,13 @@ public class ApproveCommand extends Command {
 
     //@@author Alex-Teo
     /**
-     * Approve a request.
-     * format is approve name roomcode date time
+     * Find the booking request matching the room, date, time and user.
      * @param input from user
      * @param splitStr tokenized input
-     * @throws DukeException if format not followed
-     * @throws IOException when entry is incorrect
+     * @throws DukeException format error
+     * @throws IOException entry error
      */
-    public ApproveCommand(String input, String[] splitStr) throws DukeException, IOException {
+    public FindBookingCommand(String input, String[] splitStr) throws DukeException, IOException {
         if (splitStr.length <= 1) {
             throw new DukeException("☹ OOPS!!! Please create the booking you want to edit with the following format: "
                     + "name, roomcode, start date and time");
@@ -39,22 +37,22 @@ public class ApproveCommand extends Command {
         splitC = input.split(" ", 5);
         name = splitC[1];
         roomcode = splitC[2];
+        datetimeStartString = splitC[3] + " " + splitC[4];
+        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        this.dateTimeStart = LocalDateTime.parse(datetimeStartString, formatterStart);
     }
 
     @Override
     public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingstorage,
                         Storage roomstorage, User user) throws DukeException, IOException, ParseException {
-        if (!roomList.checkRoom(roomcode)) {
-            throw new DukeException(Constants.UNHAPPY + "OOPS!!! This room doesn't exist!");
+        boolean valid = roomList.checkRoom(roomcode);
+        if (!valid) {
+            throw new DukeException(Constants.UNHAPPY + " OOPS!!! This room doesn't exist!");
         }
-        datetimeStartString = splitC[3] + " " + splitC[4];
-        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        this.dateTimeStart = LocalDateTime.parse(datetimeStartString, formatterStart);
         for (Booking i: bookingList) {
-            if ((i.getVenue() == roomcode) && (i.getDateTimeStart() == dateTimeStart) && (i.getName() == name)) {
-                i.setStatus("A");
-                ui.addToOutput("This request has been approved!");
-                bookingstorage.saveToFile(bookingList);
+            if ((i.getVenue() == roomcode) && (i.getDateTimeStart() == dateTimeStart)) {
+                int entry = bookingList.indexOf(i) + 1;
+                ui.addToOutput(entry + ". " + i.toString());
                 break;
             }
         }

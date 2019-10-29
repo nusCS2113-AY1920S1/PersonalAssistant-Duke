@@ -46,7 +46,7 @@ public class Inventory extends ArrayList<Item> {
         boolean found = false;
 
         for (int i = 0; i < inventory.size(); i++) {
-            if (inventory.get(i).name.equals(inputItem)) {
+            if (inventory.get(i).getName().equals(inputItem)) {
                     found = true;
             }
         }

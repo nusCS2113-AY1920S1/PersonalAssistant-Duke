@@ -21,7 +21,7 @@ public class FullCalendarView {
     private YearMonth currentYearMonth;
 
     /**
-     * Create a calendar view
+     * Create a calendar view.
      * @param yearMonth year month to create the calendar of
      */
     public FullCalendarView(YearMonth yearMonth) {
@@ -41,8 +41,7 @@ public class FullCalendarView {
         }
         // Days of the week labels
         Text[] dayNames = new Text[]{ new Text("Sunday"), new Text("Monday"), new Text("Tuesday"),
-                new Text("Wednesday"), new Text("Thursday"), new Text("Friday"),
-                new Text("Saturday") };
+            new Text("Wednesday"), new Text("Thursday"), new Text("Friday"), new Text("Saturday") };
         GridPane dayLabels = new GridPane();
         dayLabels.setPrefWidth(600);
         Integer col = 0;
@@ -68,14 +67,14 @@ public class FullCalendarView {
     }
 
     /**
-     * Set the days of the calendar to correspond to the appropriate date
+     * Set the days of the calendar to correspond to the appropriate date.
      * @param yearMonth year and month of month to render
      */
     public void populateCalendar(YearMonth yearMonth) {
         // Get the date we want to start with on the calendar
         LocalDate calendarDate = LocalDate.of(yearMonth.getYear(), yearMonth.getMonthValue(), 1);
         // Dial back the day until it is SUNDAY (unless the month starts on a sunday)
-        while (!calendarDate.getDayOfWeek().toString().equals("SUNDAY") ) {
+        while (!calendarDate.getDayOfWeek().toString().equals("SUNDAY")) {
             calendarDate = calendarDate.minusDays(1);
         }
         // Populate the calendar with day numbers

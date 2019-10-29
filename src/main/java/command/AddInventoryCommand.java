@@ -18,6 +18,7 @@ public class AddInventoryCommand extends Command {
     private int quantity;
     private String name;
     private String[] splitC;
+    private Item newItem;
 
 
     /**
@@ -43,6 +44,7 @@ public class AddInventoryCommand extends Command {
         }
         this.name = splitC[0];
         this.quantity = Integer.parseInt(splitC[1]);
+        newItem = new Item(name, quantity);
     }
 
 
@@ -62,9 +64,10 @@ public class AddInventoryCommand extends Command {
     //@Override
 
 
-    public void execute(Item item, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
             throws DukeException, IOException, ParseException {
-        Item newItem = new Item(name, quantity);
+
         boolean clash = Inventory.checkInventory(inventory, name); //make this function in Inventory class
         if (clash) {
             throw new DukeException("☹ OOPS!!! ITEM ALRD EXISTS LOL");
@@ -73,8 +76,8 @@ public class AddInventoryCommand extends Command {
         //throw exception
         inventory.add(newItem);
         inventoryStorage.saveToFile(inventory);
-        //System.out.println("HARLO POLIS this doesnt work");
+
         ui.addToOutput("Got it, I've added this to inventory.\n"
-                + item.toString() + "\n" + "Now you have " + inventory.size() + " item(s) in the inventory.");
+                + newItem.toString() + "\n" + "Now you have " + inventory.size() + " item(s) in the inventory.");
     }
 }

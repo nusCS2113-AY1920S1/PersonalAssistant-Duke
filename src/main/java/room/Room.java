@@ -1,36 +1,43 @@
 package room;
-import java.util.Date;
 
-public abstract class Room {
+public class Room {
     protected String roomcode;
-    protected boolean isBooked;
-    protected Date dateTime;
+    private String date;
+    private String timeslot;
 
-    public Room(String roomcode) {
+    /**
+     * Public constructor, returns the details of the room to be added.
+     * @param roomcode Room code
+     * @param date Available booking date of the room
+     * @param timeslot Available booking time slot of the room
+     */
+    public Room(String roomcode, String date, String timeslot) {
         this.roomcode = roomcode;
-        this.isBooked = false;
+        this.date = date;
+        this.timeslot = timeslot;
     }
 
-    public String getStatusIcon() {
-        return (isBooked ? "✓" : "✗");
-    }
-
-    public void markAsBooked() {
-        this.isBooked = true;
-        System.out.println("Nice! The room is now booked!");
-        System.out.println("    " + this.toString());
-    }
-
-    @Override
+    /**
+     * Returns the format written into the room list.
+     * @return returns the statement and symbols as shown in room list
+     */
     public String toString() {
-        return "[ " + this.getStatusIcon() + "] " + this.roomcode;
+        return ("[RM] " + this.roomcode + " date: " + this.date + " timeslot: " + this.timeslot);
     }
 
+    /**
+     * Returns the format written into the text file.
+     * @return returns the statement and symbols as shown in the text file
+     */
     public String toWriteFile() {
-        return this.roomcode;
+        return (this.roomcode + " | " + this.date + " | " + this.timeslot);
     }
 
-    public Date getDateTime() {
-        return this.dateTime;
+    /**
+     * Getter, returns room code.
+     * @return the room code
+     */
+    public String getRoomcode() {
+        return this.roomcode;
     }
 }

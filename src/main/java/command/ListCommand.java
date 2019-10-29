@@ -4,9 +4,11 @@ import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
 import storage.Storage;
+import ui.ListBox;
 import ui.Ui;
 import user.User;
 
+//@@author amoschan97
 public class ListCommand extends Command {
 
     //@@ AmosChan97
@@ -27,8 +29,5 @@ public class ListCommand extends Command {
             throw new DukeException("OOPS! There are no bookings in your list");
         }
         ui.addToOutput("Here are the bookings: ");
-        for (int i = 0; i < bookingList.size(); i++) {
-            ui.addToOutput(i + 1 + ". " + bookingList.get(i).toString());
-        }
     }
 }
