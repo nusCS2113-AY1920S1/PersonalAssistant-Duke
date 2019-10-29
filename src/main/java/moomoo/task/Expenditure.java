@@ -14,35 +14,46 @@ public class Expenditure {
     public Expenditure() {
         this.cost = 0.0;
     }
-    
-    public Expenditure(double cost, LocalDateTime dateTime) {
-        this.cost = cost;
-        this.dateTime = dateTime;
-    }
-    
+
+
     /**
-     * Initializes value of expenditure as given by user.
-     *
-     * @param name     Name of the expenditure (e.g chicken rice)
-     * @param cost     Cost of the expenditure
-     * @param dateTime Time of the expenditure.
+     * Initializes value of expenditure if given by user.
+     * @param cost  Cost of expenditure.
      */
-    public Expenditure(String name, double cost, LocalDateTime dateTime) {
-        this.name = name;
+    public Expenditure(double cost) {
         this.cost = cost;
-        this.dateTime = dateTime;
     }
 
     /**
-     * Initializes value of expenditure as given by user.
-     * @param cost Cost of the expenditure
+     * Initializes value and date of expenditure if given by user.
+     * @param cost  Cost of expenditure.
+     * @param date  Date of the expenditure.
      */
-    public Expenditure(double cost) {
-        this.cost += cost;
-        long minDay = LocalDate.of(1970, 1, 1).toEpochDay();
-        long maxDay = LocalDate.of(2015, 12, 31).toEpochDay();
-        long randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay);
-        this.date = LocalDate.ofEpochDay(randomDay);
+    public Expenditure(double cost, LocalDate date) {
+        this.cost = cost;
+        this.date = date;
+    }
+
+    /**
+     * Initializes name and value of expenditure if given by user.
+     * @param name  Name of the expenditure (e.g. chicken rice).
+     * @param cost  Cost of the expenditure.
+     */
+    public Expenditure(String name, double cost) {
+        this.name = name;
+        this.cost = cost;
+    }
+    
+    /**
+     * Initializes name, value and date of expenditure if given by user.
+     * @param name     Name of the expenditure (e.g chicken rice).
+     * @param cost     Cost of the expenditure.
+     * @param date     Date of the expenditure.
+     */
+    public Expenditure(String name, double cost, LocalDate date) {
+        this.name = name;
+        this.cost = cost;
+        this.date = date;
     }
   
     public String toString() {
@@ -53,7 +64,7 @@ public class Expenditure {
         return this.cost;
     }
     
-    public LocalDateTime getDateTime() {
-        return this.dateTime;
+    public LocalDate getDate() {
+        return this.date;
     }
 }

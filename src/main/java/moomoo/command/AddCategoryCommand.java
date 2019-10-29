@@ -12,6 +12,10 @@ public class AddCategoryCommand extends Command {
 
     private String categoryName;
 
+    /**
+     * Command that takes in a category name from the Parser as string to be converted.
+     * @param categoryName Category name to be added.
+     */
     public AddCategoryCommand(String categoryName) {
         super(false, "");
         this.categoryName = categoryName;
