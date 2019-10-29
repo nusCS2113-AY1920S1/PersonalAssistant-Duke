@@ -65,6 +65,10 @@ public class Patient extends DukeObject {
      */
     private void attachImpressionsListener() {
         observableImpressions.addListener((MapChangeListener<String, Impression>) change -> {
+            if (observableImpressions.size() == 1) {
+                primaryDiagnosis = observableImpressions.entrySet().iterator().next().getValue();
+            }
+
             if (change.wasAdded()) {
                 impressions.put(change.getKey(), change.getValueAdded());
             } else if (change.wasRemoved()) {
