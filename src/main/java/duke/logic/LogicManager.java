@@ -8,6 +8,7 @@ import duke.model.Model;
 import duke.model.PlanBot;
 import duke.model.payment.Payment;
 import duke.storage.Storage;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
 import java.math.BigDecimal;
@@ -63,13 +64,6 @@ public class LogicManager implements Logic {
         return model.getFilteredPaymentList();
     }
 
-    /*
-    @Override
-    public ObservableList<Payment> getPaymentSearchResult() {
-        return model.getSearchResult();
-    }
-     */
-
     @Override
     public ObservableList<String> getSortIndicator() {
         return model.getSortIndicator();
@@ -80,10 +74,24 @@ public class LogicManager implements Logic {
         return model.getPredicateIndicator();
     }
 
-    /*
     @Override
-    public ObservableList<String> getSearchKeywordIndicator() {
-        return model.getSearchKeywordIndicator();
+    public StringProperty getExpenseListTotalString() {
+        return model.getExpenseListTotalString();
     }
-     */
+
+    @Override
+    public StringProperty getSortCriteriaString() {
+        return model.getSortCriteriaString();
+    }
+
+    @Override
+    public StringProperty getViewCriteriaString() {
+        return model.getViewCriteriaString();
+    }
+
+    @Override
+    public StringProperty getFilterCriteriaString() {
+        return model.getFilterCriteriaString();
+    }
+
 }

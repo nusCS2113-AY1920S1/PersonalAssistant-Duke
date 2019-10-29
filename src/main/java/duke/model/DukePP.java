@@ -3,6 +3,7 @@ package duke.model;
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
 import duke.model.payment.*;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -97,6 +98,26 @@ public class DukePP implements Model {
      */
     public ExpenseList getExpenseList() {
         return expenseList;
+    }
+
+    @Override
+    public StringProperty getExpenseListTotalString() {
+        return expenseList.getTotalString();
+    }
+
+    @Override
+    public StringProperty getSortCriteriaString() {
+        return expenseList.getSortString();
+    }
+
+    @Override
+    public StringProperty getViewCriteriaString() {
+        return expenseList.getViewString();
+    }
+
+    @Override
+    public StringProperty getFilterCriteriaString() {
+        return expenseList.getFilterString();
     }
 
     @Override

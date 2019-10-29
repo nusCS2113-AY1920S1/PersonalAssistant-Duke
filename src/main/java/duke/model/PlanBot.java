@@ -12,7 +12,13 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.logging.Logger;
 
-
+/**
+ * PlanBot is the overall budget recommendation class.
+ * It's responsible for displaying the dialog to the user in a list,
+ * printing error messages as a dialog from the bot
+ * and asking users answered questions form question bank.
+ * It ensures that if its asking a question, only one question is being asked at a time.
+ */
 public class PlanBot {
 
     private static final Logger logger = LogsCenter.getLogger(PlanQuestion.class);
@@ -106,7 +112,7 @@ public class PlanBot {
     /**
      * Processes the input String of the user.
      *
-     * @param input the input String of the user
+     * @param input the input String from the user
      */
     public void processInput(String input) {
         dialogObservableList.add(new PlanDialog(input, Agent.USER));
@@ -146,6 +152,7 @@ public class PlanBot {
      * Puts the recommendation into the dialog list.
      */
     private void sendCompletedMessage() {
+        logger.info("Completed Plan Bot");
         try {
             dialogList.add(new PlanDialog(planQuestionBank
                     .makeRecommendation(planAttributes)

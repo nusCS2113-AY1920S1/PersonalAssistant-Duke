@@ -41,7 +41,7 @@ public class ExpenseListStorageManager implements ExpenseListStorage {
     }
 
     @Override
-    public ExpenseList loadExpenseList() throws DukeException {
+    public ExpenseList loadExpenseList() {
         List<Expense> internalList = new ArrayList<Expense>();
         try {
             EXPENSES_FILE.createNewFile();
@@ -51,7 +51,7 @@ public class ExpenseListStorageManager implements ExpenseListStorage {
                 }
             }
         } catch (IOException | DukeException e) {
-            throw new DukeException(String.format(DukeException.MESSAGE_LOAD_FILE_FAILED, EXPENSES_FILE.getPath()));
+            return new ExpenseList(internalList);
         }
         return new ExpenseList(internalList);
     }

@@ -3,6 +3,7 @@ package duke.model;
 import duke.exception.DukeException;
 import duke.model.payment.Payment;
 import duke.model.payment.PaymentList;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -33,6 +34,14 @@ public interface Model {
     public ObservableList<Expense> getExpenseExternalList();
 
     public ExpenseList getExpenseList();
+
+    public StringProperty getExpenseListTotalString();
+
+    public StringProperty getSortCriteriaString();
+
+    public StringProperty getViewCriteriaString();
+
+    public StringProperty getFilterCriteriaString();
 
     public String getMonthlyBudgetString();
 

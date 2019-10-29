@@ -2,6 +2,8 @@ package duke.model;
 
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -19,7 +21,7 @@ public class ExpenseList extends DukeList<Expense> {
 
     private enum SortCriteria {
         AMOUNT(Comparator.comparing(Expense::getAmount)),
-        TIME(Comparator.comparing(Expense::getTime)),
+        TIME(Comparator.comparing(Expense::getTime).reversed()),
         DESCRIPTION(Comparator.comparing(Expense::getDescription));
 
         private Comparator<Expense> comparator;
@@ -56,9 +58,10 @@ public class ExpenseList extends DukeList<Expense> {
         private List<Expense> dayView(List<Expense> currentList) {
             return currentList.stream()
                     .filter(e -> {
+                        boolean isRecurring = e.isRecurring();
                         LocalDate dateOfExpense = e.getTime().toLocalDate();
                         LocalDate current = LocalDate.now().minusDays(viewScopeNumber);
-                        return dateOfExpense.equals(current);
+                        return dateOfExpense.equals(current) && !isRecurring;
                     })
                     .collect(Collectors.toList());
         }
@@ -66,13 +69,14 @@ public class ExpenseList extends DukeList<Expense> {
         private List<Expense> weekView(List<Expense> currentList) {
             return currentList.stream()
                     .filter(e -> {
+                        boolean isRecurring = e.isRecurring();
                         int dayOfWeek = e.getTime().getDayOfWeek().getValue();
                         LocalDate start = e.getTime().minusDays(dayOfWeek - 1).toLocalDate(); // Sunday of week of expense.
                         LocalDate end = e.getTime().plusDays(7 - dayOfWeek).toLocalDate(); // Monday of week of expense.
                         LocalDate current = LocalDate.now().minusWeeks(viewScopeNumber);
 
                         return (current.equals(end) || current.equals(start)
-                                || (current.isAfter(start) && current.isBefore(end)));
+                                || (current.isAfter(start) && current.isBefore(end)) && !isRecurring);
                     })
                     .collect(Collectors.toList());
         }
@@ -80,11 +84,12 @@ public class ExpenseList extends DukeList<Expense> {
         private List<Expense> monthView(List<Expense> currentList) {
             return currentList.stream()
                     .filter(e -> {
+                        boolean isRecurring = e.isRecurring();
                         LocalDate dateOfExpense = e.getTime().toLocalDate();
                         LocalDate current = LocalDate.now().minusMonths(viewScopeNumber);
                         boolean isSameYear = dateOfExpense.getYear() == current.getYear();
                         boolean isSameMonth = dateOfExpense.getMonth().equals(current.getMonth());
-                        return (isSameYear && isSameMonth);
+                        return (isSameYear && isSameMonth || isRecurring);
                     })
                     .collect(Collectors.toList());
         }
@@ -92,9 +97,10 @@ public class ExpenseList extends DukeList<Expense> {
         private List<Expense> yearView(List<Expense> currentList) {
             return currentList.stream()
                     .filter(e -> {
+                        boolean isRecurring = e.isRecurring();
                         LocalDate dateOfExpense = e.getTime().toLocalDate();
                         LocalDate current = LocalDate.now().minusYears(viewScopeNumber);
-                        return dateOfExpense.getYear() == current.getYear();
+                        return dateOfExpense.getYear() == current.getYear() || isRecurring;
                     })
                     .collect(Collectors.toList());
         }
@@ -133,9 +139,12 @@ public class ExpenseList extends DukeList<Expense> {
     private ViewScope viewScope;
     private String filterCriteria;
 
-    private List<Expense> filteredSortedViewedList;
-    private ObservableList<Expense> internalFinalList;
     private ObservableList<Expense> externalFinalList;
+    private StringProperty totalString;
+    private StringProperty filterString;
+    private StringProperty sortString;
+    private StringProperty viewString;
+
 
     /**
      * Creates a new expense list using a file for storage.
@@ -153,17 +162,36 @@ public class ExpenseList extends DukeList<Expense> {
      */
     public ExpenseList(List<Expense> internalList) {
         super(internalList, "expense");
+        filterCriteria = "";
         viewScope = new ViewScope(ViewScopeName.ALL);
         sortCriteria = SortCriteria.TIME;
         externalList = FXCollections.observableArrayList();
         externalFinalList = FXCollections.unmodifiableObservableList(externalList);
+        totalString = new SimpleStringProperty();
+        filterString = new SimpleStringProperty();
+        sortString = new SimpleStringProperty();
+        viewString = new SimpleStringProperty();
         updateExternalList();
     }
 
     private void updateExternalList() {
-        filteredSortedViewedList = filter(sort(view(internalList)));
-        internalFinalList = FXCollections.observableArrayList(filteredSortedViewedList);
+        List<Expense> filteredSortedViewedList = filter(sort(view(internalList)));
+        ObservableList<Expense> internalFinalList = FXCollections.observableArrayList(filteredSortedViewedList);
         externalList.setAll(internalFinalList);
+        totalString.setValue("Total: $" + getTotalExternalAmount());
+        filterString.setValue("Filter: " + filterCriteria);
+        switch (sortCriteria) {
+        case TIME:
+            sortString.setValue("Sort by: Newest");
+            break;
+        case AMOUNT:
+            sortString.setValue("Sort by: Largest");
+            break;
+        case DESCRIPTION:
+            sortString.setValue("Sort by:  Alphabetical");
+            break;
+        }
+        viewString.set("Viewscope: " + viewScope.getViewScopeName());
     }
 
     @Override
@@ -315,7 +343,7 @@ public class ExpenseList extends DukeList<Expense> {
      * @return A BigDecimal which is the sum of all items of a single tag
      */
     public BigDecimal getTagAmount(String tag) {
-        return internalList.stream()
+        return externalList.stream()
                 .filter(expense -> expense.getTag().contains(tag))
                 .filter(expense -> !expense.isTentative())
                 .map(Expense::getAmount)
@@ -333,4 +361,22 @@ public class ExpenseList extends DukeList<Expense> {
                 .map(Expense::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
+
+
+    public StringProperty getTotalString() {
+        return totalString;
+    }
+
+    public StringProperty getFilterString() {
+        return filterString;
+    }
+
+    public StringProperty getSortString() {
+        return sortString;
+    }
+
+    public StringProperty getViewString() {
+        return viewString;
+    }
+
 }
