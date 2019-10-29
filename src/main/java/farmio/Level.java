@@ -267,17 +267,9 @@ public class Level {
             String feedback = "tasks have yet to be completed";
             output.add(feedback);
             if(detailedFeedbackProvided){
-<<<<<<< HEAD:src/main/java/Farmio/Level.java
                 //add enter and day end
-                output.add("detailed feedback : -- \n");
-                output.add(checkIncompleteObjectives(farmer));
-||||||| merged common ancestors:src/main/java/Farmio/Level.java
                 feedback += "detailed feedback : -- \n";
                 feedback += checkIncompleteObjectives(farmer);
-=======
-                feedback += "detailed feedback : -- \n";
-                feedback += checkIncompleteObjectives(farmer) + "\nContinue to next day? \nPress [ENTER] to continue or Enter [RESET] to reset the level";
->>>>>>> upstream/master:src/main/java/farmio/Level.java
             }
             output.add("\n Press [ENTER] to continue the game or [RESET] to restart the level");
             return output;
