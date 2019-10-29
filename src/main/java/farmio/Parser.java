@@ -78,7 +78,7 @@ public class Parser {
     private static Command parseMenu(String userInput) throws FarmioException {
         if (userInput.equals("resume game")) {
             return new CommandLevelStart();
-        } else if (userInput.equals("action") || userInput.equals("condition") || userInput.equals("market") || userInput.equals("")) {
+        } else if (userInput.equals("actions") || userInput.equals("conditions") || userInput.equals("market") || userInput.equals("")) {
             return new CommandMenuInGame(userInput);
         } else {
             throw new FarmioException("Invalid command!");
