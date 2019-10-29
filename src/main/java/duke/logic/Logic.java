@@ -8,6 +8,7 @@ import duke.model.payment.Payment;
 import javafx.collections.ObservableList;
 
 import java.math.BigDecimal;
+import java.util.function.Predicate;
 
 /**
  * API of the Logic component.
@@ -29,6 +30,12 @@ public interface Logic {
 
     ObservableList<Payment> getFilteredPaymentList();
 
-    ObservableList<Payment> getPaymentSearchResult();
+    // ObservableList<Payment> getPaymentSearchResult();
+
+    public ObservableList<String> getSortIndicator();
+
+    public ObservableList<Predicate<Payment>> getPredicateIndicator();
+
+    // public ObservableList<String> getSearchKeywordIndicator();
 
 }

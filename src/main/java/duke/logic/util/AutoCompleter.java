@@ -113,7 +113,8 @@ public class AutoCompleter {
             new DeletePaymentCommand(),
             new FilterPaymentCommand(),
             new SearchPaymentCommand(),
-            new SortPaymentCommand()
+            new SortPaymentCommand(),
+            new DonePaymentCommand()
     );
 
     /**

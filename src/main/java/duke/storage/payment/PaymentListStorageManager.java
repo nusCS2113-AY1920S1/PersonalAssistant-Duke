@@ -44,11 +44,13 @@ public class PaymentListStorageManager implements PaymentListStorage {
         }
 
         try {
+            logger.info("returning the paymentList from storage");
             return Optional.of(jsonPaymentList.get().toModelType());
         } catch (DukeException e) {
             logger.info("Illegal values found in " + filePath + ": " + e.getMessage());
             throw new DukeException(e.getMessage());
         }
+
 
     }
 

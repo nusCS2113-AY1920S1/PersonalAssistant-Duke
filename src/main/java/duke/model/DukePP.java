@@ -42,17 +42,17 @@ public class DukePP implements Model {
      */
     // todo: pass more arguments to constructor as more data are implemented.
 
-    public DukePP(ExpenseList expenseList, Map<String, String> planAttributes, IncomeList incomeList, Budget budget, Optional<PaymentList> OptionalPayments) throws DukeException {
+    public DukePP(ExpenseList expenseList, Map<String, String> planAttributes, IncomeList incomeList, Budget budget, Optional<PaymentList> optionalPayments) throws DukeException {
 
         this.expenseList = expenseList;
         this.planBot = new PlanBot(planAttributes);
         this.incomeList = incomeList;
         this.budget = budget;
-        if(!OptionalPayments.isPresent()) {
-            logger.info("PaymentList is not loaded. It be starting with a empty PaymentList");
+        if(!optionalPayments.isPresent()) {
+            logger.warning("PaymentList is not loaded. It be starting with a empty PaymentList");
             this.payments = new PaymentList();
         } else {
-            this.payments = OptionalPayments.get();
+            this.payments = optionalPayments.get();
         }
 
     }
@@ -245,9 +245,11 @@ public class DukePP implements Model {
         return payments.getFilteredList();
     }
 
+    /*
     public FilteredList<Payment> getSearchResult() {
         return payments.getSearchResult();
     }
+     */
 
     /**
      * Returns the paymentList itself for storage update ONLY.
@@ -264,14 +266,16 @@ public class DukePP implements Model {
     }
 
     @Override
-    public ObservableList<Predicate<Payment>> getTimeScopeIndicator() {
-        return payments.getTimeScopeIndicator();
+    public ObservableList<Predicate<Payment>> getPredicateIndicator() {
+        return payments.getPredicateIndicator();
     }
 
+    /*
     @Override
     public ObservableList<String> getSearchKeywordIndicator() {
         return payments.getSearchKeywordIndicator();
     }
+     */
 
 
     //    todo: add other data operations

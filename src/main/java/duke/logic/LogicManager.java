@@ -6,17 +6,12 @@ import duke.model.Expense;
 import duke.model.Income;
 import duke.model.Model;
 import duke.model.PlanBot;
-import duke.logic.command.PlanBotCommand;
-import duke.model.Expense;
-import duke.model.ExpenseList;
-import duke.model.Model;
-import duke.model.PlanBot;
 import duke.model.payment.Payment;
-import duke.model.Income;
 import duke.storage.Storage;
 import javafx.collections.ObservableList;
 
 import java.math.BigDecimal;
+import java.util.function.Predicate;
 
 public class LogicManager implements Logic {
 
@@ -68,9 +63,27 @@ public class LogicManager implements Logic {
         return model.getFilteredPaymentList();
     }
 
+    /*
     @Override
     public ObservableList<Payment> getPaymentSearchResult() {
         return model.getSearchResult();
     }
+     */
 
+    @Override
+    public ObservableList<String> getSortIndicator() {
+        return model.getSortIndicator();
+    }
+
+    @Override
+    public ObservableList<Predicate<Payment>> getPredicateIndicator() {
+        return model.getPredicateIndicator();
+    }
+
+    /*
+    @Override
+    public ObservableList<String> getSearchKeywordIndicator() {
+        return model.getSearchKeywordIndicator();
+    }
+     */
 }

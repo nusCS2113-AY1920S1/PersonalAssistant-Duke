@@ -1,6 +1,5 @@
 package duke.ui;
 
-import duke.exception.DukeException;
 import duke.model.payment.Payment;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -11,6 +10,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class PaymentBox extends UiPart<AnchorPane> {
@@ -40,14 +40,16 @@ public class PaymentBox extends UiPart<AnchorPane> {
     private Label priorityLabel;
 
     @FXML
-    private Label remarkLabel;
+    private Label tagLabel;
+
+    @FXML Label overdueLabel;
 
     public PaymentBox(Payment payment, int displayedIndex) {
         super(FXML_FILE_NAME, null);
         this.payment = payment;
 
         indexLabel.setText(displayedIndex + ". ");
-        amountLabel.setText(payment.getAmount().toString());
+        amountLabel.setText(payment.getAmount().toString() + " SGD");
         receiverLabel.setText(payment.getReceiver());
         String due = payment.getDue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         dueLabel.setText(due);
@@ -70,8 +72,10 @@ public class PaymentBox extends UiPart<AnchorPane> {
         }
         priorityLabel.setBackground(new Background(backgroundFill));
         priorityLabel.setText(PRIORITY_PREFIX + priority);
-        remarkLabel.setText(payment.getRemark());
-
+        tagLabel.setText(payment.getTag());
+        if(payment.getDue().isBefore(LocalDate.now())) {
+            overdueLabel.setVisible(true);
+        }
     }
 
 

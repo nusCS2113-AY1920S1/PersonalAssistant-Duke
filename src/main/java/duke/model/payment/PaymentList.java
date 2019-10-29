@@ -1,5 +1,6 @@
 package duke.model.payment;
 
+import duke.commons.LogsCenter;
 import duke.exception.DukeException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,8 +11,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
 public class PaymentList {
+
+    private static final Logger logger = LogsCenter.getLogger(PaymentList.class);
 
     private static final SortCriteria DEFAULT_SORT_CRITERIA = SortCriteria.TIME;
 
@@ -27,15 +31,15 @@ public class PaymentList {
 
     private FilteredList<Payment> filteredList;
 
-    private FilteredList<Payment> searchResult;
+    // private FilteredList<Payment> searchResult;
 
-    private DisplayMode displayMode;
+    // private DisplayMode displayMode;
 
-    private ObservableList<String> sortIndicator;
+    private ObservableList<String> sortIndicator = FXCollections.observableArrayList();
 
-    private ObservableList<Predicate<Payment>> timeScopeIndicator;
+    private ObservableList<Predicate<Payment>> predicateIndicator = FXCollections.observableArrayList();
 
-    private ObservableList<String> searchKeywordIndicator;
+    // private ObservableList<String> searchKeywordIndicator = FXCollections.observableArrayList();
 
     Predicate<Payment> PREDICATE_SHOW_ALL_PAYMENTS = unused -> true;
 
@@ -55,11 +59,14 @@ public class PaymentList {
         }
     }
 
+    /*
     private enum DisplayMode {
         FILTERED_LIST, SEARCH_RESULT;
     }
+     */
 
     public PaymentList() {
+        logger.info("1.0");
         this.internalTimeSortedList = new ArrayList<>();
 
         unfilteredList = FXCollections.observableArrayList();
@@ -72,28 +79,24 @@ public class PaymentList {
 
         filteredList = new FilteredList<>(unfilteredList);
         filteredList.setPredicate(PREDICATE_SHOW_ALL_PAYMENTS);
-        searchResult = new FilteredList<>(unfilteredList);
+        // searchResult = new FilteredList<>(unfilteredList);
         sortIndicator.add(sortCriteria.toString());
-        timeScopeIndicator.add(PREDICATE_SHOW_ALL_PAYMENTS);
+        predicateIndicator.add(PREDICATE_SHOW_ALL_PAYMENTS);
     }
 
     public PaymentList(List<Payment> timeSortedList) {
         this.internalTimeSortedList = timeSortedList;
-
         unfilteredList = FXCollections.observableArrayList();
-
         updateInternalAmountSortedList();
         updateInternalPrioritySortedList();
-
         sortCriteria = DEFAULT_SORT_CRITERIA; // TIME
         fetchInternalListToUnfilteredList();
-
         filteredList = new FilteredList<>(unfilteredList);
         filteredList.setPredicate(PREDICATE_SHOW_ALL_PAYMENTS);
-        searchResult = new FilteredList<>(unfilteredList);
-        displayMode = DisplayMode.FILTERED_LIST;
+        // searchResult = new FilteredList<>(unfilteredList);
+        // displayMode = DisplayMode.FILTERED_LIST;
         sortIndicator.add(sortCriteria.toString());
-        timeScopeIndicator.add(PREDICATE_SHOW_ALL_PAYMENTS);
+        predicateIndicator.add(PREDICATE_SHOW_ALL_PAYMENTS);
     }
 
     public void add(Payment payment) {
@@ -119,11 +122,7 @@ public class PaymentList {
     public Payment getPayment(int index) throws DukeException {
         Payment target;
         try {
-            if (displayMode == DisplayMode.FILTERED_LIST) {
-                target = filteredList.get(index - 1);
-            } else {
-                target = searchResult.get(index - 1);
-            }
+            target = filteredList.get(index - 1);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException(String.format(DukeException.MESSAGE_NO_ITEM_AT_INDEX, index));
         }
@@ -146,17 +145,18 @@ public class PaymentList {
     }
 
     public void setPredicate(Predicate<Payment> predicate) {
-        displayMode = DisplayMode.FILTERED_LIST;
+        // displayMode = DisplayMode.FILTERED_LIST;
         filteredList.setPredicate(predicate);
-        timeScopeIndicator.set(0, predicate);
+        predicateIndicator.set(0, predicate);
     }
 
     public void setSearchPredicate(String keyword) {
-        displayMode = DisplayMode.SEARCH_RESULT;
+        // displayMode = DisplayMode.SEARCH_RESULT;
         SearchKeywordPredicate searchPredicate = new SearchKeywordPredicate(keyword);
-        searchResult.setPredicate(searchPredicate);
-        searchKeywordIndicator.clear();
-        searchKeywordIndicator.add(keyword);
+        filteredList.setPredicate(searchPredicate);
+        predicateIndicator.set(0, searchPredicate);
+        // searchKeywordIndicator.clear();
+        // searchKeywordIndicator.add(keyword);
     }
 
 
@@ -164,21 +164,25 @@ public class PaymentList {
         return filteredList;
     }
 
+    /*
     public FilteredList<Payment> getSearchResult() {
         return searchResult;
     }
+     */
 
     public ObservableList<String> getSortIndicator() {
         return sortIndicator;
     }
 
-    public ObservableList<Predicate<Payment>> getTimeScopeIndicator() {
-        return timeScopeIndicator;
+    public ObservableList<Predicate<Payment>> getPredicateIndicator() {
+        return predicateIndicator;
     }
 
+    /*
     public ObservableList<String> getSearchKeywordIndicator() {
         return searchKeywordIndicator;
     }
+     */
 
 
 

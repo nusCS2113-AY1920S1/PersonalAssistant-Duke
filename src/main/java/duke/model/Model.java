@@ -83,15 +83,15 @@ public interface Model {
 
     public FilteredList<Payment> getFilteredPaymentList();
 
-    public FilteredList<Payment> getSearchResult();
+    // public FilteredList<Payment> getSearchResult();
 
     public PaymentList getPaymentList();
 
     public ObservableList<String> getSortIndicator();
 
-    public ObservableList<Predicate<Payment>> getTimeScopeIndicator();
+    public ObservableList<Predicate<Payment>> getPredicateIndicator();
 
-    public ObservableList<String> getSearchKeywordIndicator();
+    // public ObservableList<String> getSearchKeywordIndicator();
 
 
     //******************************** IncomeList operations

@@ -25,7 +25,7 @@ public class ChangePaymentCommand extends Command {
         PRIORITY("priority", "the priority of the payment"),
         RECEIVER("receiver", "the receiver of the payment"),
         AMOUNT("amount", "the money of payment"),
-        REMARK("remark", "remark of the pending payment");
+        TAG("tag", "remark of the pending payment");
 
         private String name;
         private String description;
@@ -81,8 +81,8 @@ public class ChangePaymentCommand extends Command {
             paymentBuilder.setReceiver(commandParams.getParam(SecondaryParam.RECEIVER.name));
         }
 
-        if(commandParams.containsParams(SecondaryParam.REMARK.name)) {
-            paymentBuilder.setRemark(commandParams.getParam(SecondaryParam.REMARK.name));
+        if(commandParams.containsParams(SecondaryParam.TAG.name)) {
+            paymentBuilder.setTag(commandParams.getParam(SecondaryParam.TAG.name));
         }
 
         model.setPayment(index, paymentBuilder.build());

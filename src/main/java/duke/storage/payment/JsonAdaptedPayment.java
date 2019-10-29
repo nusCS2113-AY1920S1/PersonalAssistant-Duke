@@ -6,8 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.exception.DukeException;
 import duke.model.payment.Payment;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -53,7 +51,7 @@ public class JsonAdaptedPayment {
         description = source.getDescription();
         receiver = source.getReceiver();
         due = source.getDue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        remark = source.getRemark();
+        remark = source.getTag();
         amount = source.getAmount().toString();
         priority = source.getPriority();
 
@@ -89,7 +87,7 @@ public class JsonAdaptedPayment {
             throw new DukeException(String.format(DukeException.MESSAGE_PAYMENT_STORAGE_MISSING_FIELD, "remark"));
         }
 
-        paymentBuilder.setRemark(remark);
+        paymentBuilder.setTag(remark);
 
         if (amount == null) {
             throw new DukeException(String.format(DukeException.MESSAGE_PAYMENT_STORAGE_MISSING_FIELD, "amount"));
