@@ -21,6 +21,7 @@ public class Schedule {
 
     /**
      * The constructor for Schedule objects.
+     *
      * @param timeSlots The details of a time slot that needs to be scheduled.
      */
     public Schedule(final ArrayList<TimeSlot> timeSlots) {
@@ -65,12 +66,12 @@ public class Schedule {
      */
     public String getMonth() {
         Calendar cal = Calendar.getInstance();
-        int numDays = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 
         // Set the calendar to monday of the current week
         cal.set(Calendar.DAY_OF_MONTH, 1);
 
         // Print dates of the current week starting on Monday
+        int numDays = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
         DateFormat df = new SimpleDateFormat("MMM");
         System.out.println("--------------------------");
         System.out.println(df.format(cal.getTime()) + " "
@@ -95,8 +96,8 @@ public class Schedule {
         // Print dates of the current week starting on Monday
         DateFormat df = new SimpleDateFormat("EEE dd MMM");
         for (int i = 0; i < numDays; i++) {
-            week.append("[").append(i + 1).append("]. ").
-                append(df.format(cal.getTime())).append("\n");
+            week.append("[").append(i + 1).append("]. ")
+                .append(df.format(cal.getTime())).append("\n");
             cal.add(Calendar.DATE, 1);
         }
         return week.toString();
@@ -141,13 +142,14 @@ public class Schedule {
 
     /**
      * Method to add a class.
-     * @param startTime The start time of the class
-     * @param endTime The end time of the class
-     * @param location The location where the class is held
-     * @param className The name of the class
+     *
+     * @param startTime       The start time of the class
+     * @param endTime         The end time of the class
+     * @param location        The location where the class is held
+     * @param className       The name of the class
      * @param scheduleStorage The object responsible for storing the class
-     * @throws ParseException if startTime or endTime is in wrong format
      * @return The outcome of the operation,whether the class was added or not
+     * @throws ParseException if startTime or endTime is in wrong format
      */
     public String addClass(final String startTime,
                            final String endTime,
@@ -193,12 +195,13 @@ public class Schedule {
 
     /**
      * Method to delete a class.
-     * @param startTime The start time of the class
-     * @param name The name of the class
+     *
+     * @param startTime       The start time of the class
+     * @param name            The name of the class
      * @param scheduleStorage The object responsible for storing the class
      * @return The outcome of the operation,whether the class was deleted or not
      * @throws ParseException if the start time of the class is
-     * in the wrong format
+     *                        in the wrong format
      */
     public String delClass(final String startTime,
                            final String name,

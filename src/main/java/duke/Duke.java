@@ -25,7 +25,7 @@ public class Duke extends Application {
     /**
      * ui is the command line user interface object.
      */
-    private CLIView CLIView;
+    private CliView cliView;
     /**
      * Storage is the main class that writes files.
      */
@@ -54,14 +54,15 @@ public class Duke extends Application {
      * Height of the UI.
      */
     private final int height = 720;
+
     /**
      * Constructor method.
      *
      * @throws FileNotFoundException if storage or schedule files are not found
-     * @throws ParseException if unable to load schedule
+     * @throws ParseException        if unable to load schedule
      */
     public Duke() throws FileNotFoundException, ParseException {
-        CLIView = new CLIView();
+        cliView = new CliView();
         storage = new Storage(".\\src\\main\\java\\duke\\data\\duke.txt");
         tasks = new TaskList();
         students = new ManageStudents();
@@ -73,14 +74,17 @@ public class Duke extends Application {
 
     /**
      * This program runs the main duke program.
+     *
      * @param args expects array of string objects
      */
     public static void main(final String[] args) {
-        CLIView CLIView = new CLIView();
-        CLIView.execute();
+        CliView cliView = new CliView();
+        cliView.execute();
     }
+
     /**
      * Upon running launcher main, start() will run.
+     *
      * @param stage The top level JavaFX container.
      */
     @Override

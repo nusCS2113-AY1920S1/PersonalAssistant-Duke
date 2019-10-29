@@ -31,8 +31,9 @@ import java.util.Scanner;
 public class Storage {
     /**
      * File path of designated file.
+     * Possible alternative:
+     * private String filePath = System.getProperty("user.dir");
      */
-//    private String filePath = System.getProperty("user.dir");
     private String filePath;
     /**
      * The file of the saved data.
@@ -445,11 +446,12 @@ public class Storage {
 
     /**
      * Load plans from the text file to a map.
+     *
      * @param map the map of plans to be saved to
      * @throws FileNotFoundException File not found
      */
     public void loadPlans(final Map<String,
-            ArrayList<MyTraining>> map) throws FileNotFoundException {
+        ArrayList<MyTraining>> map) throws FileNotFoundException {
         //MyPlan plan = new MyPlan();
         ArrayList<MyTraining> list = new ArrayList<>();
 
@@ -485,8 +487,8 @@ public class Storage {
                     if (in.contains(" | ")) {
                         String[] line = in.split(" \\| ");
                         MyTraining ac = new MyTraining(line[0],
-                                Integer.parseInt(line[1]),
-                                Integer.parseInt(line[2]));
+                            Integer.parseInt(line[1]),
+                            Integer.parseInt(line[2]));
                         list.add(ac);
                     }
 
@@ -504,21 +506,22 @@ public class Storage {
 
     /**
      * Saves the map of plans to the text file after clearing it.
+     *
      * @param map Updated map of plans to be saved
      * @throws IOException IO
      */
     public void savePlans(final Map<String, ArrayList<MyTraining>> map)
-            throws IOException {
+        throws IOException {
         MyPlan plan = new MyPlan();
         ArrayList<String> keys = plan.keyList();
 
         PrintWriter clear = new PrintWriter(
-                ".\\src\\main\\java\\duke\\data\\plan.txt");
+            ".\\src\\main\\java\\duke\\data\\plan.txt");
         clear.close();
 
         BufferedWriter buffer = new BufferedWriter(
-                new FileWriter(".\\src\\main\\java\\duke\\data\\plan.txt",
-                        true));
+            new FileWriter(".\\src\\main\\java\\duke\\data\\plan.txt",
+                true));
 
         for (int i = 1; i <= MyPlan.Intensity.values().length; i++) {
             MyPlan.Intensity x = MyPlan.Intensity.valueOf(i);

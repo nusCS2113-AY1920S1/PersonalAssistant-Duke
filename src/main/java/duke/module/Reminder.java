@@ -12,8 +12,6 @@ import java.util.Objects;
 /**
  * This class serves to get reminders about all the deadlines
  * due before the specified time.
- *
- *
  */
 public class Reminder {
 
@@ -34,6 +32,7 @@ public class Reminder {
 
     /**
      * Constructor for the Reminder class.
+     *
      * @param myEndDate specified deadline in date-time format
      */
     public Reminder(final Date myEndDate) {
@@ -43,6 +42,7 @@ public class Reminder {
 
     /**
      * Getter function to get the current date.
+     *
      * @return A string containing the current date.
      */
     public final Date getTodayDate() {
@@ -53,6 +53,7 @@ public class Reminder {
 
     /**
      * Getter function to get the end date.
+     *
      * @return A string containing the end date.
      */
     public final Date getEndDate() {
@@ -62,6 +63,7 @@ public class Reminder {
     /**
      * A function to compare the dates to check if there are any deadlines
      * due before specified date.
+     *
      * @param tasks The object required to use the dateToStringFormat method.
      */
     public final void compareDates(final TaskList tasks) {
@@ -76,6 +78,7 @@ public class Reminder {
 
     /**
      * A getter function to obtain reminders.
+     *
      * @param tasks The object required to use the dateToStringFormat method.
      */
     public final void getReminders(final TaskList tasks) {
@@ -84,7 +87,7 @@ public class Reminder {
             int count = 1;
             System.out.println("Reminder to do these tasks before "
                 + tasks.dateToStringFormat(endDate));
-            for (Item i: deadlineList) {
+            for (Item i : deadlineList) {
                 System.out.println(count++ + "." + i.toString());
             }
         }

@@ -23,6 +23,7 @@ public class MyTraining {
 
     /**
      * Constructor for MyTraining.
+     *
      * @param actName Retrieve the name of the activity
      * @param actSets Retrieve the number of sets of the activity
      * @param actReps Retrieve the number of reps of the activity
@@ -36,6 +37,7 @@ public class MyTraining {
 
     /**
      * Retrieve the activity name.
+     *
      * @return activity name
      */
     public String getName() {
@@ -44,6 +46,7 @@ public class MyTraining {
 
     /**
      * Retrieve the number of sets.
+     *
      * @return number of sets
      */
     private int getSets() {
@@ -52,6 +55,7 @@ public class MyTraining {
 
     /**
      * Retrieve the number of repetitions.
+     *
      * @return number of repetitions
      */
     private int getReps() {
@@ -60,6 +64,7 @@ public class MyTraining {
 
     /**
      * retrieve the intensity level.
+     *
      * @return intensity level
      */
     public String getIntensity() {
@@ -68,6 +73,7 @@ public class MyTraining {
 
     /**
      * Change the activity name.
+     *
      * @param newName name to be changed to
      */
     public void changeName(final String newName) {
@@ -76,6 +82,7 @@ public class MyTraining {
 
     /**
      * Change the number of sets.
+     *
      * @param newSets number of sets to be changed to
      */
     public void changeSets(final int newSets) {
@@ -84,6 +91,7 @@ public class MyTraining {
 
     /**
      * Change the number of repetitions.
+     *
      * @param newReps number of repetitions to be changed to
      */
     public void changeReps(final int newReps) {
@@ -92,6 +100,7 @@ public class MyTraining {
 
     /**
      * Change the intensity level.
+     *
      * @param newIntensity intensity level to be changed to
      */
     public void changeIntensity(final String newIntensity) {
@@ -100,15 +109,17 @@ public class MyTraining {
 
     /**
      * Convert the values to a string format.
+     *
      * @return String of the values in MyTraining
      */
     public String toString() {
         return getName() + ", sets of " + getSets() + " with "
-                + getReps() + " reps each";
+            + getReps() + " reps each";
     }
 
     /**
      * Convert values into a string to store into a file.
+     *
      * @return String of the values
      */
     public String toFile() {
