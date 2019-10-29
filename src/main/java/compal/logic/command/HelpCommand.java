@@ -67,7 +67,7 @@ public class HelpCommand extends Command {
     @Override
     public CommandResult commandExecute(TaskList task) throws CommandException {
         logger.info("Executing help command");
-        if (command == "")  {
+        if (command.equals(""))  {
             return new CommandResult(HELP_STRING, false);
         } else {
             switch (command) {
