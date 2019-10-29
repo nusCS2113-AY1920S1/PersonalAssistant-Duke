@@ -27,7 +27,7 @@ interact with
 *OwlMoney* are designed to be simple and intuitive, so even those who are unfamiliar with CLI can use OwlMoney with
 ease.
 
-*OwlMoney* also comes with a minimalistic Graphical User Interface (GUI) that presents information in an organized
+*OwlMoney* also comes with a minimalistic Command Line Interface (CLI) that presents information in an organized
 manner.
 
 Interested in using *OwlMoney* to plan your finances easily?
@@ -67,14 +67,14 @@ Additionally, you may also encounter the following text styles:
 *OwlMoney* comes with a very clean and easy to use CLI , so don’t worry even if you are a new user!
 You can expect to navigate around our application with ease!
 
-[[GUI]]
-.OwlMoney's Graphical User Interface
+[[CLI]]
+.OwlMoney's Command Line Interface
 ifdef::env-github[]
-image::Ui.png[width="800"]
+image::UiReadMe.png[width="800"]
 endif::[]
 
 ifndef::env-github[]
-image::Ui.png[width="970"]
+image::UiReadMe.png[width="970"]
 endif::[]
 
 As long as you have some experience using a command line interface, the moment you type your command and
