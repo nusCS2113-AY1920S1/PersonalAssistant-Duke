@@ -132,7 +132,7 @@ public class Parser {
                 String info = input.substring(INDEX_SIX, index - 1);
                 String day = input.substring(index + INDEX_SEVEN);
                 MyClass myclass = new MyClass(info, false, day);
-                tasks.addTask(myclass, "C");
+                tasks.addTask(myclass);
                 storage.saveFile("C", myclass, myclass.getDay());
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.println(

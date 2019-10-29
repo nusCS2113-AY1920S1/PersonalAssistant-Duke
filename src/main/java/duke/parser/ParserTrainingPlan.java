@@ -24,7 +24,6 @@ public class ParserTrainingPlan implements IParser {
         switch (cmd) {
             case "plan":
                 if (word[1].equals("view")) {
-                    //int num = 2;
                     //plan.loadPlan(word[num].toLowerCase(), word[++num]);
                     System.out.println(plan.viewPlan());
                 } else if (word[1].equals("new")) {
