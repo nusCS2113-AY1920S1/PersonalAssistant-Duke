@@ -252,9 +252,38 @@ Assuming that there is enough balance in the user account, the application proce
 . The `Main` function would then invoke the `AddTransactionCommand#execute()` function.
 . The `AddTransactionCommand#execute()` function the furthers invokes the 'user#updateAccount(...)' function, which update the data of the account balance of the user.
 
-image::seq_addtransaction.png[width="800]
+image::SD_AddTransaction.png[width="800]
 
-=== Sort command
+==== Design considerations
+
+Problem 1: *What data type should represent cost/money in?*
+
+* Solution 1 : Double or Float
+** The first data types that comes up are either float or double data ype.
+** However, float and double are prone to floating point error, which poses an accuracy problem for money calculation.
+
+* Solution 2 : Int or Long
+** Int and Long is more appropriate to be used to calculate money since they do not have precision error.
+** However, we need additional calculations to calculate amount that includes cents. For example, the first digit represents cents and the third digit represents dollars.
+** Moreover, int only works for number with digits not more than 9 and long with digits not more than 18.
+
+* Solution 3 : BigDecimal (current Implementation)
+** This data type is superior since it has built-in rounding modes and has higher range than long and int.
+** Moreover, BigDecimal is able to represent decimal values and perform decimal calculations reliably.
+** Therefore, values such as "1.2345" are allowed and any calculation on it will generate accurate value.
+
+Problem 2: *Where do we store user's account?*
+
+* Solution 1 : Together with the user class
+** It maybe the first choice for most people.
+** However, it violates the single responsibility principle and it is easily readable by other developers.
+** Moreover, the constraint of the project states to have one user only.
+
+* Solution 2 : Create a separate wallet package
+** It is more well organized and both user and wallet is not very strongly coupled to each other.
+** Hence, it improves code quality and readability.
+
+=== Sort command (will be implemented in v1.4)
 
 The Sort feature gives the user the ability to sort the data according to nutritional value or based on costs.
 
