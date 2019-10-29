@@ -91,7 +91,7 @@ public class CreateNoteCommand extends Command {
      * @param inputFileName Specified file name by user.
      * @return True if file name does not contains illegal characters.
      */
-    private boolean containsIllegals(String inputFileName) {
+    public static boolean containsIllegals(String inputFileName) {
         for (char illegalChar : ILLEGAL_CHARACTERS) {
             if (inputFileName.indexOf(illegalChar) >= 0) {
                 return true;

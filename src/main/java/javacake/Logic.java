@@ -183,7 +183,7 @@ public class Logic {
         for (String queries : listOfFiles) {
             sb.append(queries).append("\n");
         }
-        sb.append("Key in the index to learn more about the topic!").append("\n");
+        sb.append("Key in the index to learn more about the topic or do the quiz!").append("\n");
         return sb.toString();
     }
 

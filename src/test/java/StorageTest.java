@@ -55,10 +55,10 @@ public class StorageTest {
         Profile profile;
         try {
             profile = new Profile(profileFile.getPath());
-            assertEquals(0, profile.getContentMarks(0));
-            assertEquals(0, profile.getContentMarks(1));
-            assertEquals(0, profile.getContentMarks(2));
-            assertEquals(0, profile.getContentMarks(3));
+            assertEquals(0, profile.getOverallContentMarks(0));
+            assertEquals(0, profile.getOverallContentMarks(1));
+            assertEquals(0, profile.getOverallContentMarks(2));
+            assertEquals(0, profile.getOverallContentMarks(3));
             assertEquals(0, profile.getTotalProgress());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
