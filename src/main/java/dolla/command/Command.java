@@ -1,6 +1,7 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.parser.Parser;
 import dolla.ui.Ui;
 
 /**
@@ -45,5 +46,19 @@ public abstract class Command {
 
     public void extractDesc(String inputLine) {
 
+    }
+
+    /**
+     * This method will call the resetUndoFlag method in the respective mode.
+     */
+    protected void resetUndoFlag() {
+        Parser.resetUndoFlag();
+    }
+
+    /**
+     * This method will call the resetRedoFlag method in the respective mode.
+     */
+    protected void resetRedoFlag() {
+        Parser.resetRedoFlag();
     }
 }

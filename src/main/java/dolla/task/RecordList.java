@@ -14,6 +14,10 @@ public class RecordList {
         return list;
     }
 
+    public ArrayList<Record> getCloneList() {
+        return (ArrayList<Record>) list.clone();
+    }
+
     public void add(Record newRecord) {
         list.add(newRecord);
     }

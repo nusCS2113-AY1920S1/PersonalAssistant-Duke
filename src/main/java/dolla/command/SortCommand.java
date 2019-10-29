@@ -1,7 +1,10 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.task.Record;
+import dolla.ui.SortUi;
 import dolla.ui.Ui;
+import dolla.sort.SortAmount;
 import dolla.task.RecordList;
 import dolla.sort.SortDate;
 import dolla.sort.SortDescription;
@@ -13,6 +16,7 @@ public class SortCommand extends Command {
     private String mode;
     private String type;
 
+    //@@author yetong1895
     public SortCommand(String mode, String type) {
         this.mode = mode;
         this.type = type;
@@ -21,6 +25,7 @@ public class SortCommand extends Command {
     @Override
     public void execute(DollaData dollaData) throws Exception {
         RecordList recordList = new RecordList(new ArrayList<>());
+        ArrayList<Record> list;
         switch (mode) {
         case "entry":
             recordList = dollaData.getRecordList(mode);
@@ -28,34 +33,65 @@ public class SortCommand extends Command {
         case "debt":
             recordList = dollaData.getRecordList(mode);
             break;
+        case "limit":
+            recordList = dollaData.getRecordList(mode);
+            break;
         default:
-            break; // TODO: What to do here?
+            Ui.printInvalidCommandError();
+            break;
         }
 
-        boolean isListEmpty = (recordList.size() == 0);
-
-        if (isListEmpty) { // TODO: Place this in proper place
-            Ui.printEmptyListError(mode);
-            return;
-        } else {
-            if (mode.equals("entry")) {
-                if (type.equals("date")) {
-                    new SortDate(recordList.get());
-                } else if (type.equals("description")) {
-                    new SortDescription(recordList.get());
-                } else {
-                    Ui.printInvalidCommandError();
+        try {
+            list = recordList.getCloneList();
+            list.get(0); //test if list is empty
+            switch (mode) {
+            case "entry":
+                switch (type) {
+                case "amount":
+                    new SortAmount(list);
+                    break;
+                case "date":
+                    new SortDate(list);
+                    break;
+                case "description":
+                    new SortDescription(list);
+                    break;
+                default:
+                    SortUi.printInvalidSort(mode);
+                    break;
                 }
-                return;
-            } else if (mode.equals("debt")) {
-                if (type.equals("description")) {
-                    new SortDescription(recordList.get());
-                } else if (type.equals("name")) {
-                    new SortName(recordList.get());
-                } else {
-                    Ui.printInvalidCommandError();
+                break;
+            case "debt":
+                switch (type) {
+                case "amount":
+                    new SortAmount(list);
+                    break;
+                case"date":
+                    new SortDate(list);
+                    break;
+                case "description":
+                    new SortDescription(list);
+                    break;
+                case "name":
+                    new SortName(list);
+                    break;
+                default:
+                    SortUi.printInvalidSort(mode);
+                    break;
                 }
+                break;
+            case "limit":
+                if (type != null && type.equals("amount")) {
+                    new SortAmount(list);
+                } else {
+                    SortUi.printInvalidSort(mode);
+                }
+                break;
+            default:
+                break;
             }
+        } catch (Exception e) {
+            Ui.printEmptyListError(mode);
         }
     }
 

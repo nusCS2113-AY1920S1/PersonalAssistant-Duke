@@ -8,11 +8,10 @@ import dolla.ui.Ui;
 public class Limit extends Record {
 
     protected String type;
-    protected double amount;
     protected String duration;
     protected String saveType;
 
-    String[] limitType = {"saving", "budget"};
+    private String[] limitType = {"saving", "budget"};
 
     /**
      * Creates an instance of Limit.
