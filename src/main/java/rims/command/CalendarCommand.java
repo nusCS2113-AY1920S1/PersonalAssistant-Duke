@@ -27,7 +27,7 @@ public abstract class CalendarCommand extends Command{
     private static String MidRight = "╣";
     private static String MidLeft = "╠";
 
-    private static String[][] array = {
+    private static String[][] data = {
             {"mon12345678910111213", "a", "h"},
             {"tue", "b" , "i"},
             {"wed", "c" , "j", "fl;kj", ";idfolhf"},
@@ -40,21 +40,20 @@ public abstract class CalendarCommand extends Command{
             {"all", ""},
             {"fridfhfghtrwst432q53425435", "fasfae", "l"},
             {"distinct", "afae", "l"},
-            {"frhfdghfdhfdghfdhfghi", "e", "ldfaest3iotu3q8905t"},
+            {"ThisWordIsTooLongToBeDisplayAndThereforeItIsTruncated", "e", "ldfaest3iotu3q8905t"},
             {},
             {" "},
             {""},
-            {" ", "","dasdas", "Dada"},
-            {},
-            {},
+            {" ", "","gap ^ how?", "Dada"},
+            {" ", " Top align?", " ", " "},
+            {"this gap v ", " ", "how?"},
             {"items"},
             {},
             {},
-            {},
+            {"item 1", "item 2", "item 3", "item 4", "item 5"},
             {},
             {"gfasdfaf","adfasfaefa","fgadfgafaf","fafafafaf","fasfasfas"}
     };
-
 
     // todo: check and align days of the week / offset from first box (mon)
     // todo: add in items and reservation status
@@ -63,6 +62,7 @@ public abstract class CalendarCommand extends Command{
     // todo: make calendar size dynamic - dependant on size of window
     // todo: make dates overflow from previous months
     // todo: make headings - month and year as well as days of the week as the axis
+    // todo: make entry span across multiple cells
 
     public static void printCal() {
         printTopCells();
@@ -82,8 +82,7 @@ public abstract class CalendarCommand extends Command{
             } else if ((i % cellLength) == 0) {
                 System.out.print(TopCentre);
             } else {
-                //System.out.print(Horz)
-                ;
+                System.out.print(Horz);
             }
         }
         System.out.print("\n");
@@ -103,8 +102,7 @@ public abstract class CalendarCommand extends Command{
                 System.out.print(Centre);
             }
             else {
-                //System.out.print(Horz)
-                ;
+                System.out.print(Horz);
             }
         }
         System.out.print("\n");
@@ -124,8 +122,7 @@ public abstract class CalendarCommand extends Command{
                 System.out.print(Centre);
             }
             else {
-                //System.out.print(Horz)
-                ;
+                System.out.print(Horz);
             }
         }
         System.out.print("\n");
@@ -137,15 +134,13 @@ public abstract class CalendarCommand extends Command{
                 System.out.print(BotLeft);
             }
             else if (i == (cellLength * CalWidth)){
-                //System.out.print(BotRight)
-                ;
+                System.out.print(BotRight);
             }
             else if((i % cellLength) == 0){
                 System.out.print(BotCentre);
             }
             else {
-                //System.out.print(Horz)
-                ;
+                System.out.print(Horz);
             }
         }
         System.out.print("\n");
@@ -181,14 +176,14 @@ public abstract class CalendarCommand extends Command{
                         i += cellLength;
                     }
 
-                    else if ( (day-1 >= array.length )|| (row-3 > array[day-1].length-1) ) {
+                    else if ( (day-1 >= data.length )|| (row-3 > data[day-1].length-1) ) {
                         phraseToPrint = shortenPhrase("");
                         System.out.print(phraseToPrint);
                         System.out.print(Vert);
                         i += cellLength;
                     }
                     else {
-                        String phrase = array[day-1][row-3];
+                        String phrase = data[day-1][row-3];
                         phraseToPrint = shortenPhrase(phrase);
                         System.out.print(phraseToPrint);
                         System.out.print(Vert);
