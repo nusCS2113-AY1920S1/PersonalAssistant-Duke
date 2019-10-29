@@ -1,42 +1,22 @@
 {
   "orders" : [ ],
   "products" : [ {
-    "productName" : "Cheese cake",
-    "ingredientItems" : [ ],
-    "ingredientCost" : 0.0,
-    "retailPrice" : 0.0,
-    "status" : "ACTIVE"
-  }, {
-    "productName" : "Egg Tart",
+    "productName" : "name",
     "ingredientItems" : [ {
       "ingredient" : {
-        "name" : "Egg",
+        "name" : "Cheese",
         "unitPrice" : 0.0,
         "remarks" : "-"
       },
-      "amount" : 2.0
-    }, {
-      "ingredient" : {
-        "name" : "Flour",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 1.0
+      "amount" : 3.0
     } ],
-    "ingredientCost" : 3.0,
-    "retailPrice" : 5.5,
+    "ingredientCost" : 4.84,
+    "retailPrice" : 0.0,
     "status" : "ACTIVE"
   } ],
   "inventory" : [ {
     "ingredient" : {
-      "name" : "Egg",
-      "unitPrice" : 0.0,
-      "remarks" : "-"
-    },
-    "amount" : 0.0
-  }, {
-    "ingredient" : {
-      "name" : "Flour",
+      "name" : "Cheese",
       "unitPrice" : 0.0,
       "remarks" : "-"
     },

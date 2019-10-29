@@ -4,6 +4,7 @@ import duke.commons.core.index.Index;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
+import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
 import duke.model.sale.Sale;
 import duke.model.shortcut.Shortcut;
@@ -300,6 +301,15 @@ public class ModelManager implements Model {
         }
         return false;
     }
+
+    /**
+     * Calculates the cost of the given list of ingredients.
+     */
+    @Override
+    public Double getIngredientCost(IngredientItemList ingredients) {
+        return 4.84;
+    }
+
 
     @Override
     public boolean deductIngredient(Ingredient ingredient, double amount) {

@@ -1,5 +1,6 @@
 package duke.logic.command.order;
 
+import duke.commons.core.LogsCenter;
 import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
@@ -7,6 +8,7 @@ import duke.model.Model;
 import duke.model.order.Order;
 
 import java.util.Set;
+import java.util.logging.Logger;
 
 import static duke.logic.command.order.OrderCommandUtil.deductInventory;
 import static java.util.Objects.requireNonNull;
@@ -27,6 +29,8 @@ public class CompleteOrderCommand extends OrderCommand {
     private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] out of bound.";
     private final Set<Index> indices;
 
+    private static final Logger logger = LogsCenter.getLogger(CompleteOrderCommand.class);
+
 
     /**
      * Creates a {@code CompleteOrderCommand}.
@@ -45,6 +49,7 @@ public class CompleteOrderCommand extends OrderCommand {
 
         for (Index index : indices) {
             if (index.getZeroBased() >= model.getFilteredOrderList().size()) {
+                logger.warning(String.format("Index [%d] out of bound", index.getOneBased()));
                 throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_BOUND, index.getOneBased()));
             }
 
@@ -76,6 +81,8 @@ public class CompleteOrderCommand extends OrderCommand {
         }
 
         model.commit(MESSAGE_COMMIT);
+
+        logger.info(String.format("Completed %d order(s)", indices.size()));
 
         return new CommandResult(String.format(executeResult, indices.size()),
                 CommandResult.DisplayedPage.ORDER);
