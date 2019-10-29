@@ -9,7 +9,7 @@ public class SalesHistory {
 	private TreeSet<Sale> salesSet;
 
 	public SalesHistory() {
-		this.salesSet = new TreeSet<Sale>(new SaleComparator());
+		this.salesSet = new TreeSet<Sale>();
 	}
 
 	public SalesHistory(TreeSet<Sale> salesSet) {
@@ -21,13 +21,18 @@ public class SalesHistory {
 	}
 
 	public int size() {
-		/* debug use
+		return salesSet.size();
+	}
+
+	@Override
+	// more for debug use for now
+	public String toString() {
+		String result = "";
 		Iterator i = salesSet.iterator();
 		while(i.hasNext()) {
-			System.out.println(i.next());
+			result += i.next() + "\n";
 		}
-		*/
-		return salesSet.size();
+		return result;
 	}
 
 }
