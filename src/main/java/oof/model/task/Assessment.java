@@ -23,16 +23,9 @@ public class Assessment extends Event {
     }
 
     @Override
-    public String getDescription() {
-        return moduleCode + " " + super.getDescription();
-    }
-
-    public String getModuleCode() {
-        return moduleCode;
-    }
-
-    public void setModuleCode(String moduleCode) {
-        this.moduleCode = moduleCode;
+    public String toString() {
+        return "[A][" + getStatusIcon() + "] " + moduleCode + " " + super.getDescription() + " (from: "
+                + startDateTime + " to: " + endDateTime + ")";
     }
 
     public String getDate() {

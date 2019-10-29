@@ -1,5 +1,6 @@
 package oof;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.YearMonth;
@@ -149,7 +150,6 @@ public class Ui {
         } else {
             System.out.println(" Now you have " + size + " task in the list.");
         }
-        printLine();
     }
 
     /**
@@ -885,9 +885,11 @@ public class Ui {
         printLine();
         System.out.println(module.toString());
         int index;
-        for (index = 1; index <= module.getLessons().size(); index++) {
-            System.out.println(" \t" + index + ". " + module.getLessons().get(index - 1).getLessonName() + " "
-                    + module.getLessons().get(index - 1).getLessonTimeString());
+        ArrayList<Lesson> lessons = module.getLessons();
+        for (index = 1; index <= lessons.size(); index++) {
+            Lesson lesson = lessons.get(index - 1);
+            System.out.println(" \t" + index + ". " + lesson.getLessonName() + ", " + lesson.getDayString() + " "
+                    + lesson.getLessonTimeString());
         }
     }
 
@@ -972,8 +974,7 @@ public class Ui {
      */
     public void printAssessmentAddedMessage(Assessment assessment) {
         printLine();
-        System.out.println(" \"" + assessment.getModuleCode() + " " + assessment.getDescription()
-                + "\" has been added!");
+        System.out.println(" \"" + assessment.toString() + "\" has been added!");
     }
 
     public void printSelectSemesterMessage(Semester semester) {

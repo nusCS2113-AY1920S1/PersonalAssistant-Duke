@@ -17,5 +17,5 @@ EVENT||N||lecture||08-11-2019||10:00||08-11-2019||12:00||
 DEADLINE||N||homework||20-10-2019||23:59||||||
 TODO||N||borrow another book||14-10-2019||||||||
 EVENT||N||lecture||08-11-2019||10:00||08-11-2019||12:00||
-ASSESSMENT||N||CS2113T||exam||23-11-2019||13:00||23-11-2019||15:00
-ASSIGNMENT||N||CS2113T||submission||20-10-2019||23:59||||
+ASSESSMENT||N||CS2106||final examination||31-10-2019||16:00||31-10-2019||18:00
+ASSIGNMENT||N||CS2106||lab||23-11-2019||23:59||||

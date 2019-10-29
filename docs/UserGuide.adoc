@@ -384,123 +384,218 @@ image::Reminder.png[Reminder]
 
 This command functions in the background so *OOF* automatically reminds you of the expiring tasks when you start our program.
 
-=== Viewing semester data: `semester`
-Planning ahead for your entire university journey? With `Oof` you can simply use the `semester` command to display all the semesters you have added!
+=== Semesters
+Planning ahead for your entire university journey? With `Oof` you can manage your semesters with a few simple commands!
 
-Format: `semester`
+==== Adding semesters: `semester /add`
+Want to add a semester into `Oof` to manage your modules? Simply use `semester /add`!
 
-=== Adding semester data: `semester add`
-Want to add a semester into `Oof` to manage your modules? Simply use `semester add`!
+Format: `semester /add YEAR /name SEMESTER /from START_DATE /to END_DATE`
 
-Format: `semester add /year DESCRIPTION /name DESCRIPTION`
-
-* `Description` of the semester year and name can have multiple words, not just limited to single-word descriptions.
+* `YEAR` represents name of the academic year, `SEMESTER` represents name of the semester, `START_DATE` and `END_DATE` represents the start and end date in `dd-MM-yyyy HH:mm` format.
 
 Example:
 
-* `semester add /year AY19/20 /name semester 1` +
-Adds a semester with academic year AY19/20 and name as semester 1.
+* `semester /add 19/20 /name Semester 2 /from 01-01-2020 /to 05-05-2020` +
+Adds a semester for Academic Year 19/20, Semester 2 which lasts from 01-01-2020 to 05-05-2020.
 
-=== Removing semester data: `semester delete`
-Accidentally added wrong semester data? No worries! Simply use `semester delete` to remove unwanted data!
+[[SemesterAdd]]
+.Adding a semester.
+image::SemesterAdd.png[SemesterAdd]
 
-Format: `semester delete INDEX`
+==== Viewing semester data: `semester /view`
+Use the `semester /view` command to display all the semesters you have added!
 
-* The `INDEX` refers to the index number displayed in the list of semesters recorded. `semester` can be used to display the saved semesters).
+Format: `semester /view`
 
-Example:
+[[SemesterView]]
+.Viewing a semester.
+image::SemesterView.png[SemesterView]
 
-* `semester delete 1` +
-Deletes the 1st semester in the list of semesters.
+==== Removing semester data: `semester /delete`
+Accidentally added wrong semester data? No worries! Simply use `semester /delete` to remove unwanted data!
 
-=== Viewing module data: `module`
-Want a quick overview of the modules you are taking for a semester? With `Oof` you can simply use the `module` command to display all the modules you have added!
+Format: `semester /delete INDEX`
 
-Format: `module`
-
-=== Adding module data: `module add`
-Want to add a module into `Oof` to manage your lessons and assessments? Simply use `module add`!
-
-Format: `module add /code DESCRIPTION /name DESCRIPTION`
-
-* `Description` of the module code and name can have multiple words, not just limited to single-word descriptions.
+* The `INDEX` refers to the index number displayed in the list of semesters recorded. (`semester /view` can be used to display the added semesters).
 
 Example:
 
-* `module add /code CS2113T /name software engineering` +
-Adds a module with module code CS2113T and name as software engineering.
+* `semester delete 2` +
+Deletes the 2nd semester in the list of semesters.
 
-=== Removing module data: `module delete`
-Accidentally added wrong module data? No worries! Simply use `module delete` to remove unwanted data!
+[[SemesterDelete]]
+.Deleting a semester.
+image::SemesterDelete.png[SemesterDelete]
 
-Format: `module delete INDEX`
+==== Selecting a semester: `semester /select`
+You can select a semester in order to add modules to under a semester using `semester /select`!
 
-* The `INDEX` refers to the index number displayed in the list of modules recorded. `module` can be used to display the saved semesters).
+Format: `semester /select INDEX`
+
+* The `INDEX` refers to the index number displayed in the list of semesters recorded. (`semester /view` can be used to display the added semesters).
 
 Example:
 
-* `module delete 1` +
-Deletes the 1st module in the list of modules.
+* `semester /select 1` +
+Selects the 1st semester in the list of semesters.
 
-=== Viewing lesson data: `lesson`
+[[SemesterSelect]]
+.Selecting a semester.
+image::SemesterSelect.png[SemesterSelect]
+
+
+=== Modules
+Keep track of your modules each semester with the help of the module commands!
+
+[NOTE]
+All commands under modules require a semester to be selected using `semester /select`.
+
+==== Adding module data: `module /add`
+Want to add a module into `Oof` to manage your lessons and assessments? Simply use `module /add`!
+
+Format: `module /add MODULE_CODE /name MODULE_NAME`
+
+* `MODULE_CODE` represents the module code and `MODULE_NAME` represents the module name.
+
+Example:
+
+* `module /add CS2107 /name Introduction to Information Security` +
+Adds a module with module code "CS2107" and name as "Introduction to Information Security".
+
+[[ModuleAdd]]
+.Adding a module.
+image::ModuleAdd.png[ModuleAdd]
+
+==== Viewing module data: `module /view`
+Want a quick overview of the modules you are taking for a semester? With `Oof` you can simply use the `module /view` command to display all the modules you have added!
+
+Format: `module /view`
+
+[[ModuleView]]
+.Viewing a module.
+image::ModuleView.png[ModuleView]
+
+==== Removing module data: `module /delete`
+Accidentally added wrong module data? No worries! Simply use `module /delete` to remove unwanted data!
+
+Format: `module /delete INDEX`
+
+* The `INDEX` refers to the index number displayed in the list of modules recorded. `module /view` can be used to display the saved semesters).
+
+Example:
+
+* `module /delete 4` +
+Deletes the 4th module in the list of modules.
+
+[[ModuleDelete]]
+.Deleting a module.
+image::ModuleDelete.png[ModuleDelete]
+
+==== Selecting a module: `module /select`
+You can select a module in order to add lessons for a module using `module /select`!
+
+Format: `module /select INDEX`
+
+* The `INDEX` refers to the index number displayed in the list of modules recorded. (`module /view` can be used to display the added modules).
+
+Example:
+
+* `module /select 3` +
+Selects the 1st module in the list of modules.
+
+[[ModuleSelect]]
+.Selecting a module.
+image::ModuleSelect.png[ModuleSelect]
+
+=== Lessons
+Keep track of your lessons for each module with the use of lesson commands!
+[NOTE]
+All command under lesson requires a module to be selected using `module /select`.
+
+==== Viewing lesson data: `lesson`
 Want to view all the lessons you are taking for a module? With `Oof` you can simply use the `lesson` command to display all the lessons you have added!
 
 Format: `lesson`
 
-=== Adding lesson data: `lesson add`
-Want to add a lesson into `Oof` to manage them? Simply use `lesson add`!
+[[LessonView]]
+.Viewing list of modules.
+image::LessonView.png[LessonView]
 
-Format: `lesson add DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
+==== Adding lesson data: `lesson /add`
+Want to add a lesson into `Oof` to manage them? Simply use `lesson /add`!
 
-* `Description` of the lesson can have multiple words, not just limited to single-word descriptions.
-* `Date and time` have to *strictly* be in the format as stated above.
+Format: `lesson /add NAME /day DAY /from START_TIME /to END_TIME`
 
-Example:
-
-* `lesson add lecture /from 01-11-2019 16:00 /to 01-11-2019 18:00` +
-Adds a lesson with name, start and end time as `lecture`, `01-11-2019 16:00`, `01-11-2019 18:00` respectively.
-
-=== Removing lesson data: `lesson delete`
-Got the date wrong for your lesson by accident? No worries! Simply use `lesson delete` to remove unwanted data!
-
-Format: `lesson delete INDEX`
-
-* The `INDEX` refers to the index number displayed in the list of lessons recorded. `lesson` can be used to display the saved semesters).
+* `NAME` of the lesson can have multiple words, not just limited to single word descriptions.
+* `DAY` of the lesson ranges from `MONDAY` to `SUNDAY`.
+* `START_TIME` and `END_TIME` have to *strictly* be in the `HH:MM` format.
 
 Example:
 
-* `lesson delete 1` +
+* `lesson /add lecture /day WEDNESDAY /from 14:00 /to 16:00` +
+Adds a lecture on Wednesday from 14:00 to 16:00 for the selected module.
+
+[[LessonAdd]]
+.Adding a lesson.
+image::LessonAdd.png[LessonAdd]
+
+==== Removing lesson data: `lesson /delete`
+Got the date wrong for your lesson by accident? No worries! Simply use `lesson /delete` to remove unwanted data!
+
+Format: `lesson /delete INDEX`
+
+* The `INDEX` refers to the index number displayed in the list of lessons recorded. `lesson /view` can be used to display the saved lessons).
+
+Example:
+
+* `lesson /delete 1` +
 Deletes the 1st lesson in the list of lessons.
 
-=== Viewing assessment data: `assessment`
-Want to view all the assessments you have for a semester? With `Oof` you can simply use the `assessment` command to display all the assessments you have recorded!
+[[LessonDelete]]
+.Deleting a lesson.
+image::LessonDelete.png[LessonDelete]
 
-Format: `assessment`
+=== Adding assessment data: `assessment`
+Want to add an assessment into `Oof` to keep track of them? Simply use `assessment`!
 
-=== Adding assessment data: `assessment add`
-Want to add an assessment into `Oof` to keep track of them? Simply use `assessment add`!
+Format: `assessment DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
 
-Format: `assessment add DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
+[NOTE]
+Requires a module to be selected using `module /select`.
 
 * `Description` of the assessment can have multiple words, not just limited to single-word descriptions.
 * `Date and time` have to *strictly* be in the format as stated above.
 
 Example:
 
-* `assessment add final examination /from 23-11-2019 13:00 /to 23-11-2019 15:00` +
-Adds an assessment with name, start and end time as `final examination`, `23-11-2019 13:00`, `23-11-2019 15:00` respectively.
+* `assessment final examination /from 31-10-2019 16:00 /to 31-10-2019 18:00` +
+Adds an assessment with name, start and end time as `final examination`, `25-11-2019 13:00`, `25-11-2019 15:00` respectively.
 
-=== Removing assessment data: `assessment delete`
-Got the date wrong for your assessment by accident? No worries! Simply use `assessment delete` to remove unwanted data!
+[[AssessmentAdd]]
+.Adding an assessment.
+image::AssessmentAdd.png[AssessmentAdd]
 
-Format: `assessment delete INDEX`
+=== Adding assignment data: `assignment`
+Want to keep track of a assignment for a module? Simply use `assessment`!
 
-* The `INDEX` refers to the index number displayed in the list of assessments recorded. `assessment` can be used to display the saved semesters).
+Format: `assignment DESCRIPTION /by DD-MM-YYYY HH:MM`
+
+[NOTE]
+Requires a module to be selected using `module /select`.
+
+
+* `Description` of the assessment can have multiple words, not just limited to single-word descriptions.
+* `Date and time` have to *strictly* be in the format as stated above.
 
 Example:
 
-* `assessment delete 1` +
-Deletes the 1st assessment in the list of lessons.
+* `assigment lab /by 23-11-2019 23:59` +
+Adds an assigment `lab` for selected module with due date as `23-11-2019 23:59`.
+
+[[AssignmentAdd]]
+.Adding an assignment.
+image::AssignmentAdd.png[AssignmentAdd]
 
 === Start Assignment Tracker: `start`
 Begin your journey to optimum productivity by starting your Tracker timer!

@@ -1,5 +1,7 @@
 package oof.command;
 
+import java.util.Date;
+
 import oof.SelectedInstance;
 import oof.Storage;
 import oof.Ui;
@@ -29,6 +31,11 @@ public class AddAssessmentCommand extends AddEventCommand {
 
     @Override
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
+        SelectedInstance selectedInstance = SelectedInstance.getInstance();
+        Module module = selectedInstance.getModule();
+        if (module == null) {
+            throw new OofException("OOPS!! Please select a Module.");
+        }
         String[] argumentSplit = line.split(" /from ");
         if (!hasName(argumentSplit)) {
             throw new OofException("OOPS!!! The assessment needs a name.");
@@ -48,18 +55,14 @@ public class AddAssessmentCommand extends AddEventCommand {
             throw new OofException("OOPS!!! The end date is invalid.");
         }
         if (hasClashes(taskList, ui, dateSplit)) {
-            throw new OofException("OOPS!!! The start time of an assessment cannot be after the end time.");
-        }
-        SelectedInstance selectedInstance = SelectedInstance.getInstance();
-        Module module = selectedInstance.getModule();
-        if (module == null) {
-            throw new OofException("OOPS!! Please select a Module.");
+            return;
         }
         String name = argumentSplit[INDEX_NAME].trim();
         Assessment assessment = new Assessment(module.getModuleCode(), name, startDate, endDate);
+        taskList.addTask(assessment);
         module.addAssessment(assessment);
-        ui.printAssessmentAddedMessage(assessment);
-        storage.writeSemesters(semesterList);
+        ui.addTaskMessage(assessment, taskList.getSize());
+        storage.writeTaskList(taskList);
     }
 
     /**
@@ -81,6 +84,18 @@ public class AddAssessmentCommand extends AddEventCommand {
     private boolean hasStartTime(String[] lineSplit) {
         return lineSplit.length > 1 && lineSplit[INDEX_TIMES].split(" /to ")[INDEX_START_TIME].trim().length() > 0;
     }
+
+    /**
+     * Checks if start and end date are chronologically accurate.
+     *
+     * @param startTime Start time of event being added.
+     * @param endTime   End time of event being added.
+     * @return true if start date occurs before end date, false otherwise.
+     */
+    private boolean isStartDateBeforeEndDate(Date startTime, Date endTime) {
+        return startTime.compareTo(endTime) <= 0;
+    }
+
 
     /**
      * Checks if input has an end time (argument given after "/to").

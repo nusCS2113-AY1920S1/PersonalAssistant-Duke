@@ -47,6 +47,10 @@ public class Lesson {
         return lessonName;
     }
 
+    public String getDayString() {
+        return day.toString();
+    }
+
     /**
      * Converts a Lesson object to string format for storage.
      *

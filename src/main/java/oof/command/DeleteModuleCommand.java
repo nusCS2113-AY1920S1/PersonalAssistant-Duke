@@ -32,7 +32,7 @@ public class DeleteModuleCommand extends Command {
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
         SelectedInstance selectedInstance = SelectedInstance.getInstance();
         Semester semester = selectedInstance.getSemester();
-        if (semester.isIndexValid(index)) {
+        if (!semester.isIndexValid(index)) {
             throw new OofException("OOPS!!! Invalid number!");
         }
         Module module = semester.getModule(index);

@@ -27,6 +27,11 @@ public class AddAssignmentCommand extends Command {
 
     @Override
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
+        SelectedInstance selectedInstance = SelectedInstance.getInstance();
+        Module module = selectedInstance.getModule();
+        if (module == null) {
+            throw new OofException("OOPS!! Please select a Module.");
+        }
         String[] nameAndDueDate = line.split(" /by ");
         if (!hasName(nameAndDueDate)) {
             throw new OofException("OOPS!!! The assignment needs a name.");
@@ -35,16 +40,11 @@ public class AddAssignmentCommand extends Command {
         }
         String name = nameAndDueDate[INDEX_NAME].trim();
         String date = parseTimeStamp(nameAndDueDate[INDEX_DATE_BY].trim());
-        SelectedInstance selectedInstance = SelectedInstance.getInstance();
-        Module module = selectedInstance.getModule();
-        if (module == null) {
-            throw new OofException("OOPS!! Please select a Module.");
-        }
         if (isDateValid(date)) {
             Assignment assignment = new Assignment(module.getModuleCode(), name, date);
             taskList.addTask(assignment);
             module.addAssignment(assignment);
-            ui.printAssignmentAddedMessage(assignment);
+            ui.addTaskMessage(assignment, taskList.getSize());
             storage.writeTaskList(taskList);
         } else {
             throw new OofException("OOPS!!! The due date is invalid.");

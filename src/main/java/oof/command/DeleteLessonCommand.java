@@ -31,7 +31,7 @@ public class DeleteLessonCommand extends Command {
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
         SelectedInstance selectedInstance = SelectedInstance.getInstance();
         Module module = selectedInstance.getModule();
-        if (module.isLessonIndexValid(index)) {
+        if (!module.isLessonIndexValid(index)) {
             throw new OofException("OOPS!!! Invalid number!");
         }
         Lesson lesson = module.getLesson(this.index);
