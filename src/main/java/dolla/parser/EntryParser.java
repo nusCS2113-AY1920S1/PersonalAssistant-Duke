@@ -15,10 +15,11 @@ public class EntryParser extends Parser {
 
     public EntryParser(String inputLine) {
         super(inputLine);
+        this.mode = MODE_ENTRY;
     }
 
     @Override
-    public Command handleInput(String mode, String inputLine) {
+    public Command parseInput() {
 
         if (commandToRun.equals("entries")) { //show entry list
             return new ShowListCommand(mode);

@@ -14,6 +14,7 @@ public class LimitParser extends Parser {
 
     public LimitParser(String inputLine) {
         super(inputLine);
+        this.mode = MODE_LIMIT;
     }
 
     protected static final String LIMIT_COMMAND_LIST = "limits";
@@ -28,7 +29,7 @@ public class LimitParser extends Parser {
     protected static final String LIMIT_DURATION_M = "monthly";
 
     @Override
-    public Command handleInput(String mode, String inputLine) {
+    public Command parseInput() {
         if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_LIST)) { //show limit list todo:resolve bug
             return new ShowListCommand(mode);
         } else if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_SET)) { //add limit

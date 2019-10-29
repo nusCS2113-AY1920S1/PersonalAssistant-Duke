@@ -13,10 +13,11 @@ public class DollaParser extends Parser {
 
     public DollaParser(String inputLine) {
         super(inputLine);
+        this.mode = MODE_DOLLA;
     }
 
     @Override
-    public Command handleInput(String mode, String inputLine) {
+    public Command parseInput() {
 
         if (commandToRun.equals("add")) {
             if (verifyAddCommand() == true) {
