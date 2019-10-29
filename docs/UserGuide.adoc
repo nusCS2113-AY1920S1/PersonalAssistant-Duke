@@ -27,7 +27,7 @@ interact with
 *OwlMoney* are designed to be simple and intuitive, so even those who are unfamiliar with CLI can use OwlMoney with
 ease.
 
-*OwlMoney* also comes with a minimalistic Graphical User Interface (GUI) that presents information in an organized
+*OwlMoney* also comes with a minimalistic Command Line Interface (CLI) that presents information in an organized
 manner.
 
 Interested in using *OwlMoney* to plan your finances easily?
@@ -64,32 +64,34 @@ Additionally, you may also encounter the following text styles:
 ====
 
 === Navigating Around Our Application
-*OwlMoney* comes with a very clean and easy to use CLI and GUI, so don’t worry even if you are a new user!
+*OwlMoney* comes with a very clean and easy to use CLI , so don’t worry even if you are a new user!
 You can expect to navigate around our application with ease!
 
-[[GUI]]
-.OwlMoney's Graphical User Interface
+[[CLI]]
+.OwlMoney's Command Line Interface
 ifdef::env-github[]
-image::UiLabelled.png[width="800"]
+image::UiReadMe.png[width="800"]
 endif::[]
 
 ifndef::env-github[]
-image::UiLabelled.png[width="970"]
+image::UiReadMe.png[width="970"]
 endif::[]
 
-*OwlMoney* has two main sections that you will need to know before you get started!
-The two main sections are explained below.
-|====
-|*Section*| *Name* | *Description*
-| 1 | Command Box | This is where you can enter and run commands.
-| 2 | Result Box | This provides you with information on whether a command is successful.
-|====
+As long as you have some experience using a command line interface, the moment you type your command and
+press kbd:[Enter], the result appears immediately!
+
 
 == Quick Start
 . Ensure you have *Java Version 11* installed on your computer.
-. Download the latest `OwlMoney.jar` link:{repoURL}/releases/latest[here].
-. Copy the `OwlMoney.jar` file to the folder you want to use as the home folder for *OwlMoney*.
-. Double-click the file to start the app. The GUI should appear in a few seconds.
+. Download the latest `OwlMoney-v1.3.zip` link:{repoURL}/releases/latest[here].
+. Copy the `OwlMoney-v1.3.zip` file to the folder you want to use as the home folder for *OwlMoney*.
+. Extract all contents in the zip file into a target folder, including the `data` directory which should be *empty*.
+. Open a *Command Prompt* or *Powershell*, navigate to the target folder and type `java -jar ./OwlMoney-v1.3.jar` to
+start *OwlMoney*.
+*OwlMoney* should appear in a few seconds.
+. Maximise the screen to enjoy the best experience of *OwlMoney*.
+. As this is your first time starting up this program, you have to create a profile by
+typing your `USERNAME` *(e.g. John)* when prompted and pressing kbd:[Enter]
 +
 .Successful start-up of *OwlMoney*
 ifdef::env-github[]
@@ -100,10 +102,8 @@ ifndef::env-github[]
 image::Ui.png[width="970"]
 endif::[]
 +
-. As this is your first time starting up this program, you have to create a profile by
-typing your `USERNAME` *(e.g. John)* when prompted and pressing kbd:[Enter]
 . You can now try entering commands in the *command box* and press kbd:[Enter] to execute it! +
-e.g. try typing *`help`* and pressing kbd:[Enter] will list down the commands available.
+e.g. try typing *`/help` (Not available in v1.3)* and pressing kbd:[Enter] will list down the commands available.
 . Some example commands you can try:
 * `/add /savings /name JunBank Savings Account /amount 4719.90 /income 2000`
 : adds a new `JunBank Savings Account`, which has an initial amount of $`4719.90`.
@@ -145,7 +145,7 @@ Parameter values cannot be empty (unless otherwise stated).
 ====
 
 === General Commands
-==== Viewing help: `/help`
+==== Viewing help: `/help` (Not Available in v1.3)
 Don't worry if you are feeling lost! You can use this User Guide document to gain a better understanding of
 *OwlMoney*'s commands.
 
@@ -156,7 +156,7 @@ To see a list of commands available, simply enter `/help` in the *command box*.
 Alternatively, you can access this User Guide document by clicking link:{repoURL}/blob/master/docs/UserGuide.adoc[here].
 ====
 
-==== Undo Commands: `/undo`
+==== Undo Commands: `/undo` (Not Available in v1.3)
 Accidentally typed a wrong command? Don't worry, simply type the `/undo` command and you will be back to where you
 started!
 
@@ -1476,12 +1476,12 @@ paying for the coverage.
 *A*: You do not need to save the data manually. Whenever you run any commands that make changes, *OwlMoney*'s data are
 saved automatically in the `data` directory.
 
-*Q*: Can I edit the data stored in the files of `data` directory?
+*Q*: Can I edit the data stored in the files of `data` directory? +
 *A*: Yes you *MAY* do it! However, you *RISK* corrupting *YOUR DATA* if you enter malformed inputs as *OwlMoney*
 *TRUSTS* the modifications you make to the files. This is *NOT A BUG* and is designed as it is. *OwlMoney* *MAY NOT*
 function optimally if malformed inputs are loaded in from corrupted save files.
 
-*Q*: How do I edit the data stored in the files of `data` directory?
+*Q*: How do I edit the data stored in the files of `data` directory? +
 *A*: The data of the files are clearly labelled with column names in the `.csv` files and you can easily make sense of
 it! As long as you follow the constraints set out for each `PARAMETER` as mentioned in all previous sections, you
 should be fine!

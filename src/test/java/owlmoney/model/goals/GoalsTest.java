@@ -39,7 +39,7 @@ public class GoalsTest {
         assertEquals(expectedNumDays, goalsNumDays);
 
         String goalsGetStatus = testGoals.getStatus();
-        String expectedGetStatus = "✘";
+        String expectedGetStatus = "N";
         assertEquals(goalsGetStatus, expectedGetStatus);
     }
 
@@ -68,7 +68,7 @@ public class GoalsTest {
         assertEquals(expectedNumDays, goalsNumDays);
 
         String goalsGetStatus = testGoals.getStatus();
-        String expectedGetStatus = "✘";
+        String expectedGetStatus = "N";
         assertEquals(goalsGetStatus, expectedGetStatus);
     }
 
@@ -128,7 +128,7 @@ public class GoalsTest {
         assertEquals(expectedGetRawStatus, actualGetRawStatus);
 
         String actualStatus = testGoals.getStatus();
-        String expectedStatus = "✘";
+        String expectedStatus = "N";
         assertEquals(expectedStatus, actualStatus);
     }
 
@@ -164,7 +164,7 @@ public class GoalsTest {
         assertEquals(expectedGetRawStatus, actualGetRawStatus);
 
         String actualStatus = testGoals.getStatus();
-        String expectedStatus = "✓";
+        String expectedStatus = "Y";
         assertEquals(expectedStatus, actualStatus);
 
     }

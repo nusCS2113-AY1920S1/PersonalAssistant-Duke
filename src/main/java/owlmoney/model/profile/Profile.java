@@ -73,10 +73,22 @@ public class Profile {
         this.ui = ui;
         try {
             loadBanksFromImportedData();
+        } catch (Exception e) {
+            //Will be used for logging when implementing. Currently it will print nothing.
+            ui.printMessage("");
+        }
+        try {
             iterateBanksToAddTransaction();
+        } catch (Exception e) {
+            //Will be used for logging when implementing. Currently it will print nothing.
+            ui.printMessage("");
+        }
+        try {
             loadGoalsFromImportedData();
         } catch (Exception e) {
-            ui.printError("Error importing saved data, some data might not be available");
+            ui.printError("Error importing saved data, some data might not be available. "
+                    + "\nYou can ignore these errors if it shows up on first startup of the application "
+                    + "or if you have just created this profile.");
         }
     }
 
@@ -245,13 +257,15 @@ public class Profile {
      * @throws BankException        If bank account does not exist.
      * @throws TransactionException If incorrect date format.
      */
-    public void profileEditExpenditure(int expenditureIndex, String editFromBank, String description, String amount,
-            String date, String category, Ui ui, String type)
+    public void profileEditExpenditure(int expenditureIndex, String editFromBank, String description,
+            String amount, String date, String category, Ui ui, String type)
             throws BankException, TransactionException, CardException {
         if ("card".equals(type)) {
-            cardList.cardListEditExpenditure(expenditureIndex, editFromBank, description, amount, date, category, ui);
+            cardList.cardListEditExpenditure(expenditureIndex, editFromBank, description, amount, date,
+                    category, ui);
         } else if ("bank".equals(type)) {
-            bankList.bankListEditExpenditure(expenditureIndex, editFromBank, description, amount, date, category, ui);
+            bankList.bankListEditExpenditure(expenditureIndex, editFromBank, description, amount, date,
+                    category, ui);
         }
     }
 
@@ -711,7 +725,7 @@ public class Profile {
         try {
             importData = storage.readFile(fileName);
         } catch (IOException | NullPointerException e) {
-            ui.printError("Error importing files from storage to process.");
+            ui.printMessage("");
         }
         return importData;
     }
@@ -755,13 +769,28 @@ public class Profile {
             if (bankType.equals(INVESTMENT)) {
                 String transactionFileName = i + INVESTMENT_TRANSACTION_LIST_FILE_NAME;
                 String bondsFileName = i + INVESTMENT_BOND_LIST_FILE_NAME;
-                loadBondsForInvestmentBanks(bondsFileName,bankName);
-                loadTransactionsForBanks(transactionFileName,bankName, bankType);
+                try {
+                    loadBondsForInvestmentBanks(bondsFileName,bankName);
+                } finally {
+                    try {
+                        loadTransactionsForBanks(transactionFileName,bankName, bankType);
+                    } catch (Exception e) {
+                        ui.printMessage("");
+                    }
+                }
+
             } else if (bankType.equals(SAVING)) {
                 String fileName = i + SAVING_TRANSACTION_LIST_FILE_NAME;
-                loadTransactionsForBanks(fileName,bankName, bankType);
                 String recurringTransactionFileName = i + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME;
-                loadRecurringTransactionsForBanks(recurringTransactionFileName,bankName,bankType);
+                try {
+                    loadTransactionsForBanks(fileName,bankName, bankType);
+                } finally {
+                    try {
+                        loadRecurringTransactionsForBanks(recurringTransactionFileName,bankName,bankType);
+                    } catch (Exception e) {
+                        ui.printMessage("");
+                    }
+                }
             }
         }
     }
@@ -941,6 +970,7 @@ public class Profile {
     private void loadGoalsFromImportedData() throws Exception {
         List<String[]> importData = importListDataFromStorage(PROFILE_GOAL_LIST_FILE_NAME,ui);
         for (String[] importDataRow : importData) {
+            Goals newGoal;
             String goalName = importDataRow[0];
             String amount = importDataRow[1];
             String date = importDataRow[2];
@@ -948,9 +978,17 @@ public class Profile {
             Date dateInFormat = dateFormat.parse(date);
             String savingsAccountName = importDataRow[3];
             double doubleAmount = Double.parseDouble(amount);
-            Goals newGoal = new Goals(goalName,doubleAmount,dateInFormat,
-                    bankList.bankListGetSavingAccount(savingsAccountName));
-            profileImportNewGoals(newGoal);
+            if ("".equals(savingsAccountName)) {
+                newGoal = new Goals(goalName,doubleAmount,dateInFormat);
+            } else {
+                newGoal = new Goals(goalName,doubleAmount,dateInFormat,
+                        bankList.bankListGetSavingAccount(savingsAccountName));
+            }
+            try {
+                profileImportNewGoals(newGoal);
+            } catch (Exception e) {
+                throw new Exception(e);
+            }
         }
     }
 

@@ -277,6 +277,9 @@ public class GoalsList {
             String stringAmount = decimalFormat.format(amount);
             String date = exportDateFormat.format(goalList.get(i).getGoalsDateInDateFormat());
             String savingsAccountName = goalList.get(i).getSavingAccount();
+            if ("NOT TIED".equals(savingsAccountName)) {
+                savingsAccountName = null;
+            }
             boolean doneStatus = goalList.get(i).getRawStatus();
             String stringDoneStatus = String.valueOf(doneStatus);
             exportArrayList.add(new String[]{goalName, stringAmount, date, savingsAccountName, stringDoneStatus});
