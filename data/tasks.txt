@@ -22,7 +22,8 @@
     "name": "abcdef",
     "isDone": false,
     "memberList": [
-      "yuheng"
+      "yuheng",
+      "justin"
     ]
   },
   {

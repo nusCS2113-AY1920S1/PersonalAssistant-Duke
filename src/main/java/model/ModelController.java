@@ -39,6 +39,7 @@ public class ModelController implements Model {
     @Override
     public void save() {
         storage.saveTasks(tasksManager.getTaskList());
+        storage.saveMembers(memberManager.getMemberList());
     }
 
     //=================Task interfaces=============================================
