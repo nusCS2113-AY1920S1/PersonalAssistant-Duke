@@ -67,7 +67,7 @@ public class Duke {
      * The execution core of the Duke class.
      */
 
-    public void run() {
+    public void run() throws IOException, InterruptedException {
         String fullCommand;
         ui.clearScreen();
         ui.showWelcome();
@@ -89,7 +89,7 @@ public class Duke {
 
                 ui.showOptions();
 
-                String fullCommand = ui.readCommand();
+
                 ui.clearScreen();
                 ui.showLine();
                 fullCommand = ui.readCommand();
