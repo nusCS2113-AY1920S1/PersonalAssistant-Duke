@@ -52,16 +52,12 @@ public class FindAssignedTaskCommand implements Command {
                         Ui ui, StorageManager storageManager) throws DukeException {
         try {
             Patient patient = patientManager.getPatient(patientId);
-            if (assignedTaskManager.doesPatientIdExist(patientId)) {
-                ArrayList<AssignedTask> patientTask = assignedTaskManager.getPatientTask(patientId);
-                ArrayList<Task> newTask = new ArrayList<>();
-                for (AssignedTask tempPatientTask : patientTask) {
-                    newTask.add(tasksManager.getTask(tempPatientTask.getPid()));
-                }
-                ui.patientTaskFound(patient, patientTask, newTask);
-            } else {
-                throw new DukeException("This patient does not exist.");
+            ArrayList<AssignedTask> patientTask = assignedTaskManager.getPatientTask(patientId);
+            ArrayList<Task> newTask = new ArrayList<>();
+            for (AssignedTask tempPatientTask : patientTask) {
+                newTask.add(tasksManager.getTask(tempPatientTask.getTid()));
             }
+            ui.patientTaskFound(patient, patientTask, newTask);
         } catch (DukeException e) {
             throw new DukeException("Warning " + e.getMessage());
         }

@@ -1,5 +1,6 @@
 package duke.util.mementopattern;
 
+import duke.commands.assignedtask.AssignDeadlineTaskCommand;
 import duke.commands.assignedtask.AssignPeriodTaskCommand;
 import duke.commands.patient.AddPatientCommand;
 import duke.commands.task.AddTaskCommand;
@@ -21,7 +22,8 @@ public class MementoParser {
         if ((command instanceof AddPatientCommand) || (command instanceof AddTaskCommand)
                 || (command instanceof AssignPeriodTaskCommand) || (command instanceof DeletePatientCommand)
                 || (command instanceof DeleteAssignedTaskCommand) || (command instanceof DeleteTaskCommand)
-                || (command instanceof UpdatePatientCommand) || (command instanceof UpdateTaskCommand)) {
+                || (command instanceof UpdatePatientCommand) || (command instanceof UpdateTaskCommand)
+                || (command instanceof AssignDeadlineTaskCommand)) {
             return "save";
         } else if (command instanceof UndoCommand) {
             return "pop";

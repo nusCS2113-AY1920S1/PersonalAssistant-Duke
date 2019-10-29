@@ -103,7 +103,7 @@ public class StorageManager {
         try {
             for (AssignedTask assignedTask : assignedTasks) {
                 String pid = String.valueOf(assignedTask.getPid());
-                String tid = String.valueOf(assignedTask.getPid());
+                String tid = String.valueOf(assignedTask.getTid());
                 String uniqueId = String.valueOf(assignedTask.getUuid());
                 String isDone = String.valueOf(assignedTask.getIsDone());
                 String isRecur = String.valueOf(assignedTask.getIsRecursive());
@@ -218,10 +218,11 @@ public class StorageManager {
                 String taskType = assignedTaskInfo.get(ASSIGNED_TASK_HEADERS[7]);
                 int uniqueId = Integer.parseInt(assignedTaskInfo.get(ASSIGNED_TASK_HEADERS[8]));
                 if (taskType.equals("deadline")) {
-                    assignedTaskList.add(new AssignedTaskWithDate(pid, tid, isDone, isRecursive, deadline, taskType));
+                    assignedTaskList.add(new AssignedTaskWithDate(pid, tid, isDone, isRecursive, deadline, taskType,
+                            uniqueId));
                 } else if (taskType.equals("period")) {
                     assignedTaskList.add(new AssignedTaskWithPeriod(pid, tid, isDone, isRecursive,
-                        startTime, endTime, taskType));
+                        startTime, endTime, taskType, uniqueId));
                 }
             }
         } catch (Exception e) {
