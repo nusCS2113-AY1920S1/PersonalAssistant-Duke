@@ -22,7 +22,7 @@ public class Room {
      * @return returns the statement and symbols as shown in room list
      */
     public String toString() {
-        return ("[RM]" + this.roomcode + " date: " + this.date + " timeslot: " + this.timeslot);
+        return ("[RM] " + this.roomcode + " date: " + this.date + " timeslot: " + this.timeslot);
     }
 
     /**
@@ -30,7 +30,7 @@ public class Room {
      * @return returns the statement and symbols as shown in the text file
      */
     public String toWriteFile() {
-        return ("RM | " + this.roomcode + " | " + this.date + " | " + this.timeslot);
+        return (this.roomcode + " | " + this.date + " | " + this.timeslot);
     }
 
     /**

@@ -42,7 +42,6 @@ public class Booking {
 
     }
 
-
     /**
      * Facility.booking.Booking constructor to generate booking entry from file
      * @param username the requestor
