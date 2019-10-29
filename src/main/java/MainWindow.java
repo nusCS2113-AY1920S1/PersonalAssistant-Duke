@@ -45,6 +45,34 @@ public class MainWindow extends AnchorPane {
 
     private History previousFunctions = new History();
 
+    private String display =
+            " _______      __     __     _         _        __      _    _____    __       _           _\n" +
+            "|   _____/    |  |   |   \\   |  |       /_\\      |  \\   |  |  |  ___|   |  |      /_\\        |  |    \n" +
+            "|  |____      |  |   |     \\|   |      /|  |\\     |    \\|  |   | |        |  |     /|  |\\       |  |\n" +
+            "|   ____/     |  |    |  \\  \\   |    /  |_|  \\   |  \\  \\  |   | |        |  |    /  |_|  \\    |  |\n" +
+            "|  |            |  |    |  | \\    |   |  |   |   |  |  | \\  |    | |__    |  |    | |    |  |    |  |___\n" +
+            "|_|             |_|    |_|   \\_|    |_|    |_|  |_|  \\_|    |____|  |_|    |_|    |_|    |____|\n" +
+            " ______    _        _    ______      _____     _______\n" +
+            "|   ____|   | |    | |   |  ___  |    |  ___|    |__    __|                 .-\"\"\"\"-.\n" +
+            "|  |   __    | |__|  |   | |    | |    | |___          | |                      / -   -  \\\n" +
+            "|  |  |_ |   |  __    |  | |     | |    |___  |        | |                     |  .-. .- |\n" +
+            "|  |__| |   |  |   |  |  | |___|  |    ___|  |        | |                    |  \\o| |o (\n" +
+            "|_____|    |_|   |_|   |______|    |____|        |_|                    \\     ^    \\\n" +
+            "                                                                                     |'.  )--'  /|\n" +
+            "     .-.                                                                           / / '-. .-'`\\ \\   \n" +
+            "   .'   `.                                                                        / /'---` `---'\\ \\\n" +
+            "   :g g   :                                                                       '.__.       .__.'\n" +
+            "   : o    `.                                                                           `|     |`\n" +
+            "  :         ``.                                                                         |     \\\n" +
+            " :             `.                                                                        \\      '--.\n" +
+            ":  :         .   `.                                                                       '.        `\\\n" +
+            ":   :          ` . `.                                                                       '---.    |\n" +
+            " `.. :            `. ``;                                                                       ,__) /\n" +
+            "    `:;             `:'                                                                         `..'\n" +
+            "       :              `.               \n" +
+            "       `.              `.     .        \n" +
+            "          `'`'`'`---..,___`;.-'         \n";
+
     /**
      * Initialises scroll bar and outputs Duke Welcome message on startup of GUI.
      */
@@ -73,7 +101,7 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getDukeDialog("enter start to begin", dukeImage));
         } else {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getDukeDialog("Welcome Back To Financial Ghost", dukeImage));
+                    DialogBox.getDukeDialog(display, dukeImage));
         }
     }
 
