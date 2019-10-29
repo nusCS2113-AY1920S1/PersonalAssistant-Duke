@@ -5,7 +5,11 @@ package wallet.thread;
 import wallet.model.record.Category;
 import wallet.model.record.Expense;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class ChartThread implements Runnable {
     private Thread thread;
@@ -26,6 +30,7 @@ public class ChartThread implements Runnable {
     @Override
     public void run() {
         printPieChart(expenseList);
+        printBarGraph(expenseList);
         stop();
     }
 
@@ -112,9 +117,10 @@ public class ChartThread implements Runnable {
 
     /**
      * This method fills the pie chart.
-     * @param fill Symbols to fill pie chart
+     *
+     * @param fill       Symbols to fill pie chart
      * @param percentage Array of percentages for each category
-     * @param angle Calculated angle for the pie chart
+     * @param angle      Calculated angle for the pie chart
      * @return could return a space, a symbol or recursively run function for the next symbol.
      */
     public static char set(char[] fill, float[] percentage, double angle) {
@@ -127,8 +133,8 @@ public class ChartThread implements Runnable {
             return fill[0];
         }
 
-        char[] fillArray = new char [fill.length - 1];
-        float[] percentageArray = new float [percentage.length - 1];
+        char[] fillArray = new char[fill.length - 1];
+        float[] percentageArray = new float[percentage.length - 1];
         angle -= percentage[0];
 
         for (int i = 0; i < fillArray.length; i++) {
@@ -140,8 +146,9 @@ public class ChartThread implements Runnable {
 
     /**
      * This method draws the table as a summary for the pie chart before drawing the pie chart.
+     *
      * @param categoryAmount amount of expenses in each category.
-     * @param percentage Percentage of total expenses in each category
+     * @param percentage     Percentage of total expenses in each category
      */
     public static void drawTable(double[] categoryAmount, float[] percentage) {
         String[] category = new String[5];
@@ -175,6 +182,7 @@ public class ChartThread implements Runnable {
 
     /**
      * This method checks if expenses is empty before it decides to draw the pie chart.
+     *
      * @param percentage Percentage of total expenses
      * @return true if empty, false if an existing expense is found
      */
@@ -185,5 +193,48 @@ public class ChartThread implements Runnable {
             }
         }
         return true;
+    }
+
+    //@@author kyang96
+
+    /**
+     * Displays a bar graph showing how much money is spent for each day.
+     */
+    public static void printBarGraph(ArrayList<Expense> expenseList) {
+        int maxLength = 20;
+        TreeMap<LocalDate, Double> expenseMap = generateExpenseMap(expenseList);
+        double maxValue = 0;
+        for (Map.Entry<LocalDate, Double> entry : expenseMap.entrySet()) {
+            maxValue = Math.max(maxValue, entry.getValue());
+        }
+        double barIncrement = maxValue / maxLength;
+        System.out.println("Here is a bar graph of money spent per day:");
+        for (Map.Entry<LocalDate, Double> entry : expenseMap.entrySet()) {
+            System.out.print(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(entry.getKey()) + " ");
+            System.out.printf("| $%-6.2f ", entry.getValue());
+            int numOfBar = (int) Math.ceil(entry.getValue() / barIncrement);
+            String bar = "";
+            for (int i = 0; i < numOfBar; i++) {
+                bar += '#';
+            }
+            System.out.println("|" + bar + "|");
+        }
+    }
+
+    /**
+     * Generate a TreeMap of expenses for total amount of money spent for each date.
+     */
+    public static TreeMap<LocalDate, Double> generateExpenseMap(ArrayList<Expense> expenseList) {
+        TreeMap<LocalDate, Double> expenseMap = new TreeMap<>();
+        for (Expense expense : expenseList) {
+            LocalDate date = expense.getDate();
+            Double total = 0.0;
+            if (expenseMap.get(date) != null) {
+                total = expenseMap.get(date);
+            }
+            total += expense.getAmount();
+            expenseMap.put(date, total);
+        }
+        return expenseMap;
     }
 }
