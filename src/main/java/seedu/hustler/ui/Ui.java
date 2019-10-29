@@ -18,12 +18,6 @@ public class Ui {
     public static final String LINE = "\t_____________________________________";
 
     /**
-     * Default constructor.
-     */
-    public Ui() {
-    }
-
-    /**
      * Print with formatting.
      */
     public void showMessage(String message) {
@@ -56,20 +50,10 @@ public class Ui {
     public void correctCommandError() {
         if (!CommandLog.isRestoring()) {
             System.out.println(LINE);
-            System.out.println("\tPlease enter a valid command: /add, "
-                + "/list, /bye, /find, /delete. Refer to User Guide for more info.");
+            System.out.println("\tPlease enter a valid command: /add,/list, /bye, /find, /delete.\n"
+                    + "\tRefer to User Guide for more info.");
             System.out.println(LINE);
         }
-    }
-
-    /**
-     * Prints an error message if user performs an operation on a nonexistent
-     * task.
-     */
-    public void taskDoesntExistError() {
-        System.out.println(LINE);
-        System.out.println("\tTask doesn't exist. Please choose another.");
-        System.out.println(LINE);
     }
 
     /**
@@ -77,8 +61,7 @@ public class Ui {
      */
     public void showEmptyListError() {
         System.out.println(LINE);
-        System.out.println("\tList is empty. Please type "
-            + "another command apart from list.");
+        System.out.println("\tList is empty. Please type another command apart from list.");
         System.out.println(LINE);
     }
 
@@ -185,7 +168,7 @@ public class Ui {
      */
     public void showTaskClash() {
         System.out.println(LINE);
-        System.out.println("Task clashes with another existing task in the list!");
+        System.out.println("\tTask clashes with another existing task in the list!");
         System.out.println(LINE);
     }
 
@@ -221,7 +204,7 @@ public class Ui {
     public void showMatchingTasks(ArrayList<Task> matchingTasks, String taskDescription) {
         System.out.println(LINE);
         if (matchingTasks.isEmpty()) {
-            System.out.println("No task found given the query \"" + taskDescription + "\".");
+            System.out.println("\tNo task found given the query \"" + taskDescription + "\".");
         } else {
             System.out.println("\tFound " + matchingTasks.size() + " task(s) given the query \"" + taskDescription + "\". Here you go.");
             for (int i = 0; i < matchingTasks.size(); i++) {
