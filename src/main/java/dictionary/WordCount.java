@@ -1,6 +1,7 @@
 package dictionary;
 
 import exception.NoWordFoundException;
+import exception.WordCountEmptyException;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -49,7 +50,11 @@ public class WordCount extends Bank {
      * @param searchTerm word that is being searched for by the user
      * @throws NoWordFoundException if word does not exist in the word bank
      */
-    public void increaseSearchCount(String searchTerm, WordBank wordBank) throws NoWordFoundException {
+    public void increaseSearchCount(String searchTerm, WordBank wordBank)
+            throws WordCountEmptyException, NoWordFoundException {
+        if (wordCount.isEmpty()) {
+            throw new WordCountEmptyException();
+        }
         if (wordBank.getWordBank().containsKey(searchTerm)) {
             Word searchedWord = wordBank.getWord(searchTerm);
             deleteWord(searchedWord); //delete the word from original search count treemap

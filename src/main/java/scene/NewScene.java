@@ -1,5 +1,6 @@
 package scene;
 
+import command.SetReminderCommand;
 import dictionary.Bank;
 import command.Command;
 import dictionary.WordCount;
@@ -31,9 +32,13 @@ public abstract class NewScene {
     protected Ui ui;
     protected Bank bank;
     protected Storage storage;
-    protected WordCount wordCount;
     protected String greet;
     protected Stage window;
+
+    public NewScene() {
+
+    }
+
 
     /**
      * Creates a new scene.
@@ -49,7 +54,6 @@ public abstract class NewScene {
         this.ui = ui;
         this.bank = bank;
         this.storage = storage;
-        this.wordCount = wordCount;
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -116,6 +120,7 @@ public abstract class NewScene {
                 resolveException(e);
             }
         });
+
     }
 
     protected void handleUserInput() throws WordUpException {
@@ -132,8 +137,8 @@ public abstract class NewScene {
         return;
     }
 
-    protected String getResponse(String fullCommand) throws WordUpException {
-        Command c = Parser.parse(fullCommand);
+    protected String getResponse(String userInput) throws WordUpException {
+        Command c = Parser.parse(userInput);
         return c.execute(ui, bank, storage);
     }
 

@@ -4,10 +4,12 @@ import dictionary.Word;
 import dictionary.WordCount;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.HashSet;
+import java.util.TreeMap;
+import java.util.Map;
 import java.util.Stack;
+
+import java.util.Date;
 
 /**
  * Represents the object that displays prompts and feedback from the system to the user's commands.
@@ -177,6 +179,39 @@ public class Ui {
         for (int i = 0; i < numberOfWords; i++) {
             s += wordHistory.peek() + "\n";
             wordHistory.pop();
+        }
+        return s;
+    }
+
+    /**
+     * Shows instructions to guide user to key in required inputs during reminder setup.
+     * @param state represents the stage at which the setup process is at
+     * @return string containing the instructions to be displayed
+     */
+    public String showReminderSetup(int state) {
+        switch (state) {
+        case 1: //request for the list of words user wants to be reminded of
+            return "Please enter the list of words.\n" + "Enter an empty line to end input";
+        case 2:
+            return "Enter next word or an empty line to end input\n";
+        case 3: //request the reminder date and time from user
+            return "Please enter the date and time of the reminder in the format:"
+                    + "dd-MM-yyyy HHmm";
+        default:
+            return "Invalid state";
+        }
+    }
+
+    /**
+     * Constructs a string with a summary of the reminder details from the user input.
+     * @param reminderWordList the ArrayList containing the words to be reminded
+     * @param date the string containing the reminder detail summary
+     * @return
+     */
+    public String showReminderSummary(ArrayList<String> reminderWordList, Date date) {
+        String s = "Done! You will be reminded on:\n" + date + " to study these words:\n";
+        for (String word : reminderWordList) {
+            s += word + "\n";
         }
         return s;
     }

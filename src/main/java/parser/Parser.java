@@ -1,37 +1,42 @@
 package parser;
 
-import dictionary.Word;
-import command.Command;
-import command.QuizCommand;
-import command.BadCommand;
-import command.DeleteCommand;
 import command.AddTagCommand;
-import command.ListCommand;
+import command.Command;
+import command.EditCommand;
 import command.ExitCommand;
+import command.HelpCommand;
+import command.SearchBeginCommand;
+import command.SearchFrequencyCommand;
+import command.SetReminderCommand;
+import command.QuizCommand;
+import command.ListCommand;
 import command.AddCommand;
+import command.DeleteCommand;
 import command.SearchCommand;
 import command.HistoryCommand;
-import command.SearchFrequencyCommand;
-import command.EditCommand;
-import command.SearchBeginCommand;
-import command.HelpCommand;
+import command.BadCommand;
+
+import dictionary.Word;
 
 import exception.CommandInvalidException;
-import exception.EmptyWordException;
 import exception.WordUpException;
-import exception.WrongAddFormatException;
-import exception.WrongDeleteFormatException;
-import exception.WrongSearchFormatException;
-import exception.WrongListFormatDescription;
-import exception.WrongHistoryFormatException;
-import exception.ZeroHistoryRequestException;
-import exception.WrongSearchFrequencyFormatException;
-import exception.WrongEditFormatException;
-import exception.WrongAddTagFormatException;
 import exception.WrongQuizFormatException;
+import exception.WrongAddTagFormatException;
+import exception.WrongEditFormatException;
+import exception.WrongSearchFrequencyFormatException;
+import exception.WrongSearchFormatException;
+import exception.WrongHistoryFormatException;
+import exception.WrongListFormatDescription;
+import exception.WrongDeleteFormatException;
+import exception.WrongAddFormatException;
+import exception.WrongReminderFormatException;
+import exception.EmptyWordException;
 import exception.WrongSearchBeginFormatException;
+import exception.ZeroHistoryRequestException;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 
 /**
@@ -68,6 +73,8 @@ public class Parser {
                 command = parseHistory(taskInfo);
             } else if (userCommand.equals("freq")) {
                 command = parseSearchFrequency(taskInfo);
+            } else if (userCommand.equals("schedule")) {
+                command = parseReminder(taskInfo);
             } else if (userCommand.equals("edit")) {
                 command = parseEdit(taskInfo);
             } else if (userCommand.equals("tag")) {
@@ -87,8 +94,15 @@ public class Parser {
         }
     }
 
+    protected static Command parseReminder(String[] taskInfo) throws WrongReminderFormatException {
+        if (taskInfo.length != 1) {
+            throw new WrongReminderFormatException();
+        }
+        return new SetReminderCommand(1); //first state for reminder; start setup
+    }
+
     /**
-     * Parses an add command.
+     * Parses a help command.
      * @param taskInfo String array containing first stage parsed user input
      * @return an HelpCommand object
      */
@@ -100,7 +114,7 @@ public class Parser {
     }
 
     /**
-     * Parses a help command.
+     * Parses an add command.
      * @param taskInfo String array containing first stage parsed user input
      * @return an AddCommand object
      * @throws WrongAddFormatException when the format of the delete command does not match the required format
@@ -248,6 +262,24 @@ public class Parser {
     }
 
     /**
+     * Parses a date String.
+     * @param dateInput String value of date from user input
+     * @return Date object containing date values from date String input
+     */
+    public static Date parseDate(String dateInput) {
+        String pattern = "dd-MM-yyyy HHmm";
+        SimpleDateFormat formattedDate = new SimpleDateFormat(pattern);
+        Date date = new Date();
+
+        try {
+            date = formattedDate.parse(dateInput);
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+    /**
      * Parses an edit command.
      * @param taskInfo String array containing first stage parsed user input
      * @return an EditCommand object
@@ -300,4 +332,5 @@ public class Parser {
         }
         return new QuizCommand();
     }
+
 }

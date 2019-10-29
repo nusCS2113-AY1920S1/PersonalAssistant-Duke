@@ -41,14 +41,14 @@ public class QuizScene extends NewScene {
     }
 
     @Override
-    public String getResponse(String fullCommand) throws
+    public String getResponse(String userInput) throws
             ChangeSceneException,
             InvalidAnswerException,
             WordBankNotEnoughForQuizException,
             CommandInvalidException {
-        if (fullCommand.equals("exit_quiz")) {
+        if (userInput.equals("exit_quiz")) {
             throw new ChangeSceneException();
-        } else if (!startQuiz && fullCommand.equals("start")) {
+        } else if (!startQuiz && userInput.equals("start")) {
             this.generateQuiz();
             startQuiz = true;
             return ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
@@ -57,15 +57,15 @@ public class QuizScene extends NewScene {
             return ui.quizIncorrect(wrongQuiz, countQuiz, quizArray);
         } else {
             if (!startQuiz) {
-                throw new CommandInvalidException(fullCommand);
+                throw new CommandInvalidException(userInput);
             } else {
                 String s;
                 try {
-                    int i = Integer.parseInt(fullCommand);
+                    int i = Integer.parseInt(userInput);
                     if (i < 1 || i > 4) {
                         throw new InvalidAnswerException();
                     }
-                    if (fullCommand.equals(Integer.toString((4 - quizCommand.optionSequence) % 4 + 1))) {
+                    if (userInput.equals(Integer.toString((4 - quizCommand.optionSequence) % 4 + 1))) {
                         s = ui.quizResponse(true, quizCommand.answer);
                     } else {
                         s = ui.quizResponse(false, quizCommand.answer);
