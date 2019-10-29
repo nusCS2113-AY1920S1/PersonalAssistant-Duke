@@ -225,17 +225,19 @@ Assuming that the index in the user input is not outside the boundary of the mea
 . The `MarkDoneCommand#execute()` function will invoke the function `MealList#markDone(...)` which update the state of the specified meal.
 . The `MarkDoneCommand#execute()` function will also invoke the `ui#showCaloriesLeft` which will calculate the amount of calories left to be eaten in that day.
 
-=== Transaction command (Will be implemented by `v1.3`)
+=== Transaction command
 
-The Transaction feature gives the user the ability to manage their accounts when it comes to choosing meals of different prices.
+The Transaction feature gives the user the ability to manage their accounts when to economise when choosing their meals.
 
-==== Projected Implementation
+==== Current Implementation
 Assuming that there is enough balance in the user account, the application processes the commands through the following steps:
 
 . The `Main` class calls the parse function of the `Parser` class to parse the user input.
 . After parsing, the data parsed are then used to create an instance of the `AddTransactionCommand` object, which is then returned to the `Main` function.
 . The `Main` function would then invoke the `AddTransactionCommand#execute()` function.
 . The `AddTransactionCommand#execute()` function the furthers invokes the 'user#updateAccount(...)' function, which update the data of the account balance of the user.
+
+image::seq_addtransaction.png[width="800]
 
 === Sort command
 
