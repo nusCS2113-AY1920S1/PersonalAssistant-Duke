@@ -53,7 +53,7 @@ public class ShowPreviousCommand extends Command{
      */
     @Override
     public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeInvalidCommandException {
-        fullCommand = fullCommand.replace("show previous", "");
+        fullCommand = fullCommand.replace("show/previous", "");
         fullCommand = fullCommand.trim();
 
         boolean isNumber = true;

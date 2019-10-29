@@ -1,9 +1,12 @@
 package Commons;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.text.Text;
 
-public class Week {
+import java.util.ArrayList;
+
+public class WeekList {
     private ObservableList<Text> monList;
     private ObservableList<Text> tueList;
     private ObservableList<Text> wedList;
@@ -12,12 +15,12 @@ public class Week {
     private ObservableList<Text> satList;
     private ObservableList<Text> sunList;
 
-    public Week() {
+    public WeekList() {
     }
 
-    public Week(ObservableList<Text> monList, ObservableList<Text> tueList, ObservableList<Text> wedList,
-                ObservableList<Text> thuList, ObservableList<Text> friList, ObservableList<Text> satList,
-                ObservableList<Text> sunList) {
+    public WeekList(ObservableList<Text> monList, ObservableList<Text> tueList, ObservableList<Text> wedList,
+                    ObservableList<Text> thuList, ObservableList<Text> friList, ObservableList<Text> satList,
+                    ObservableList<Text> sunList) {
         this.monList = monList;
         this.tueList = tueList;
         this.wedList = wedList;
@@ -55,3 +58,4 @@ public class Week {
         return sunList;
     }
 }
+
