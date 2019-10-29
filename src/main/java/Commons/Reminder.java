@@ -41,7 +41,6 @@ public class Reminder {
     public Reminder() {
         timerMap = new HashMap<>();
         storage = new Storage();
-        img = new Image("/images/DaDuke.png");
         remindMap = storage.getReminderMap();
     }
 
@@ -76,6 +75,7 @@ public class Reminder {
         if (timerMap.containsKey(date)) {
             throw new DukeInvalidDateTimeException("You already have a reminder set at that time. Please remove reminder and set again");
         }
+        img = new Image("/images/DaDuke.png");
         Date currentDate = new Date();
         DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
         String reminderTime = dateFormat.format(date);
