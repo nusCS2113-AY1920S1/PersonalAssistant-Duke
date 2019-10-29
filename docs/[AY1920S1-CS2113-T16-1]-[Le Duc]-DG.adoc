@@ -19,7 +19,7 @@
 
 == User Stories
 
-[cols="3,5,1", options="header"]
+[cols="3,4,1", options="header"]
 |===
 |Target |User Stories |Priority
 
