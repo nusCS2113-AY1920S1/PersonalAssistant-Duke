@@ -31,7 +31,6 @@ public class CommandLevelStart extends Command {
             farmio.getSimulation().simulate(level.getPath(), frameId++);
             ui.typeWriter(narrative, true);
         }
-        farmer.getTasks().clear();
         farmio.setStage(Farmio.Stage.TASK_ADD);
     }
 }
