@@ -18,7 +18,7 @@ public class SetReminderCommand extends Command {
             + "set-reminder /id 1 /status N\n\t\t"
             + "set the reminder of task with id 1 to false";
 
-    public static final String MESSAGE_INVALID_INPUT = "Error: Invalid input!";
+    public static final String MESSAGE_INVALID_STATUS_INPUT = "Error: Invalid status input! Enter Y or N.";
     public static final String COMMAND_PREFIX = "Noted. I have changed the reminder status of this task.\n";
     public static final String MESSAGE_INVALID_ID = "Error: Invalid task ID!";
     private int taskID;
@@ -33,7 +33,11 @@ public class SetReminderCommand extends Command {
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
         Task task;
 
-        task = taskList.getTaskById(taskID);
+        try {
+            task = taskList.getTaskById(taskID);
+        } catch (NullPointerException e) {
+            throw new CommandException(MESSAGE_INVALID_ID);
+        }
 
         boolean state;
         if (status.equalsIgnoreCase("y")) {
@@ -41,7 +45,7 @@ public class SetReminderCommand extends Command {
         } else if (status.equalsIgnoreCase("n")) {
             state = false;
         } else {
-            throw new CommandException(MESSAGE_INVALID_INPUT);
+            throw new CommandException(MESSAGE_INVALID_STATUS_INPUT);
         }
         task.setHasReminder(state);
         return new CommandResult(COMMAND_PREFIX.concat(task.toString()), true);
