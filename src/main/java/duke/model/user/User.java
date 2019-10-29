@@ -27,7 +27,7 @@ public class User {
     private double[] factor = {1.2, 1.375, 1.55, 1.725, 1.9};
     private Account account;
     private Goal goal = null;
-    private String lastDate = "28/10/2019";
+    private String lastDate;
     private double originalWeight = 0;
 
     /**
@@ -47,7 +47,7 @@ public class User {
      * @param activityLevel how active the user is
      * @param originalWeight their original weight
      */
-    public User(String name, int age, int height, Gender gender, int activityLevel, double originalWeight) {
+    public User(String name, int age, int height, Gender gender, int activityLevel, double originalWeight, String lastDate) {
         this.name = name;
         this.height = height;
         this.age = age;
@@ -55,6 +55,7 @@ public class User {
         this.isSetup = true;
         this.activityLevel = activityLevel;
         this.originalWeight = originalWeight;
+        this.lastDate = lastDate;
     }
 
     /**

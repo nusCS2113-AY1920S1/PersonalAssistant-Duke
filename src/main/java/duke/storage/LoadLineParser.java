@@ -107,10 +107,11 @@ public class LoadLineParser {
         int activityLevel = Integer.parseInt(splitLine[3]);
         int originalWeight = Integer.parseInt(splitLine[4]);
         String sex = splitLine[5];
+        String lastDate = splitLine[6];
         if (sex.equals("M")) {
-            return new User(name, age, height, Gender.MALE, activityLevel, originalWeight);
+            return new User(name, age, height, Gender.MALE, activityLevel, originalWeight, lastDate);
         } else {
-            return new User(name, age, height, Gender.FEMALE, activityLevel, originalWeight);
+            return new User(name, age, height, Gender.FEMALE, activityLevel, originalWeight, lastDate);
         }
     }
 }
