@@ -8,7 +8,18 @@ public class SearchProfile extends UserProfile {
     private boolean isMovie;
 
     /**
-     * constructor for SearchProfile.
+     * Constructor for SearchProfile Object.
+     * @param userName Name of the user stored according to the user.
+     * @param userAge Age of the user stored according to the user.
+     * @param genreIdPreference List of genres set by user for a particular search request.
+     * @param genreIdRestriction List of genres restricted by user for a particular search request.
+     * @param adult To indicate whether user prefers adult content for a paricular search request.
+     * @param playlistNames List of playlist stored by user.
+     * @param sortByAlphabetical To indicate whether user want to sort results in alphabetical order.
+     * @param sortByHighestRating To indicate whether user want to sort results based on highest rating.
+     * @param sortByLatestRelease To indicate whether user want to sort results in alphabetical order.
+     * @param name String that user want the search results to be based on.
+     * @param isMovie To indicate whether the search request is for movies.
      */
     public SearchProfile(String userName, int userAge, ArrayList<Integer> genreIdPreference,
                          ArrayList<Integer> genreIdRestriction, boolean adult, ArrayList<String> playlistNames,
@@ -27,18 +38,34 @@ public class SearchProfile extends UserProfile {
         this.isMovie = isMovie;
     }
 
+    /**
+     * Responsible for returning the name of movie/TV show that user want search results to be based on.
+     * @return The name of movie/TV show that user want search results to be based on.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Responsible for setting the name of movie/TV show that user want search results to be based on.
+     * @param name The name of movie/TV show that user want search results to be based on.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Responsible for returning whether the search request is for movies or TV shows.
+     * @return true if search request is for movies and false otherwise.
+     */
     public boolean isMovie() {
         return isMovie;
     }
 
+    /**
+     * Responsible for setting whether the search request is for movies or TV shows.
+     * @param movie true if search request is for movies and false otherwise.
+     */
     public void setMovie(boolean movie) {
         isMovie = movie;
     }

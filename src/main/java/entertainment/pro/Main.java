@@ -3,7 +3,6 @@ package entertainment.pro;
 /**
  * This class handles application wide tasks and services.
  */
-
 import entertainment.pro.ui.MovieHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +18,7 @@ public class Main extends Application {
     private BorderPane mainLayout;
 
     /**
-     * to start the application.
+     * Reponsible for starting the application.
      */
     public void start(Stage primaryStage) {
         mainWindow = primaryStage;
@@ -33,8 +32,7 @@ public class Main extends Application {
     }
 
     /**
-     * This function se
-     * ts the scene for the window.
+     * Responsible for setting the scene for the window.
      */
     private void setUp() {
         try {
@@ -52,34 +50,4 @@ public class Main extends Application {
         }
     }
 
-    /**
-
-     * This function pass over the control to the MovieInfoController class.
-     * To view more information on movies or tv shows.
-
-    public void transitToMovieInfoController(MovieInfoObject movie) {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getClassLoader().getResource("Edit.fxml"));
-            Pane layout = loader.load();
-
-            // setup controller
-            MovieInfoController controller = loader.getController();
-            controller.setWindow(mainWindow);
-            controller.setMainApplication(this);
-            controller.setMovie(movie);
-            mainWindow.setScene(new Scene(layout));
-        } catch (IOException e) {
-            Ui.printLine();
-            e.printStackTrace();
-        }
-    }
-    /**
-
-    /**
-     * This function pass over the control to the Main class from the MovieInfoController class.
-     */
-   // public void transitionBackToMoviesController() {
-     //   mainWindow.setScene(mainMoviesScene);
-    //}
 }

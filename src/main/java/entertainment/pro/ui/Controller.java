@@ -10,12 +10,17 @@ public abstract class Controller {
     protected Stage mWindow;
     protected Main mMainApplication;
 
-    // Sets the window for this controller
+    /**
+     * Responsible for setting the window for this controller
+      */
     public void setWindow(Stage window) {
         mWindow = window;
     }
 
-    // Sets the main application for this controller
+    /**
+     * Responsible for setting the main application for this controller.
+     * @param mainApplication The main application to be set for this controller.
+     */
     public void setMainApplication(Main mainApplication) {
         mMainApplication = mainApplication;
     }

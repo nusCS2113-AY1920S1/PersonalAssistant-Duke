@@ -577,7 +577,7 @@ public class MovieHandler extends Controller implements RequestListener {
             MoviePosterController controller = loader.getController();
             try {
                 if (movie.getFullPosterPathInfo() != null) {
-                    System.out.println("sianz");
+                    //System.out.println("sianz");
                     Image posterImage = new Image(movie.getFullPosterPathInfo(), true);
                     posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
                         try {
@@ -587,10 +587,11 @@ public class MovieHandler extends Controller implements RequestListener {
                         }
                     });
                     controller.getPosterImageView().setImage(posterImage);
+
                 } else {
-                    System.out.println("hi1");
+                  //  System.out.println("hi1");
                     Image posterImage = new Image(this.getClass().getResourceAsStream("../../../../EPdata/FakeMoviePoster.png"));
-                    System.out.println("hi2");
+                   // System.out.println("hi2");
                     posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
                         try {
                             updateProgressBar(movie, newValue.doubleValue());
@@ -867,7 +868,9 @@ public class MovieHandler extends Controller implements RequestListener {
                 controller.getMovieReleaseDateLabel().setText("N/A");
             }
             try {
+                System.out.println(movie.getFullBackdropPathInfo());
                 Image posterImage = new Image(movie.getFullBackdropPathInfo(), true);
+                System.out.println(movie.getFullBackdropPathInfo());
                 controller.getMovieBackdropImageView().setImage(posterImage);
             } catch (NullPointerException ex) {
 
@@ -883,7 +886,23 @@ public class MovieHandler extends Controller implements RequestListener {
             }
             controller.getMovieCastLabel().setText(cast);
             controller.getMovieCertLabel().setText(movie.getCertInfo());
-            String[] genres = RetrieveRequest.getGenreStrings(movie);
+
+            ArrayList<Long>genres = movie.getGenreIdInfo();
+            String genreText = "";
+            for (int i = 0; i < genres.size(); i += 1) {
+                Long getGenre = genres.get(i);
+                int convertGenre = getGenre.intValue();
+                String genreAdd = ProfileCommands.findGenreName(convertGenre);
+                if (!genreAdd.equals("0")) {
+                    genreText += ProfileCommands.findGenreName(convertGenre);
+                }
+                if (i != genres.size() - 1) {
+                    genreText += ", ";
+                }
+
+            }
+
+            /**String[] genres = RetrieveRequest.getGenreStrings(movie);
             StringBuilder builder = new StringBuilder();
             try {
                 for (String genre : genres) {
@@ -898,8 +917,9 @@ public class MovieHandler extends Controller implements RequestListener {
                 }
             } catch (NullPointerException ex) {
 
-            }
-            controller.getMovieGenresLabel().setText(builder.toString());
+            }**/
+            //controller.getMovieGenresLabel().setText(builder.toString());
+            controller.getMovieGenresLabel().setText(genreText);
             mMoviesFlowPane.getChildren().add(posterView);
             mMoviesScrollPane.setContent(mMoviesFlowPane);
             mMoviesScrollPane.setVvalue(0);
