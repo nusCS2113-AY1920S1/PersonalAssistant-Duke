@@ -2,7 +2,6 @@ package seedu.duke.email.parser;
 
 import org.json.JSONException;
 import seedu.duke.common.model.Model;
-import seedu.duke.common.storage.Storage;
 import seedu.duke.email.EmailKeywordPairList;
 import seedu.duke.email.entity.Email;
 import seedu.duke.email.entity.KeywordPair;
@@ -122,8 +121,8 @@ public class EmailContentParseHelper {
                 "CG2271", "Djordje Jevdjic"))));
         keywordList.add(new KeywordPair("CS2102", new ArrayList<>(List.of(
                 "CS2102", "Adi Yoga Sidi Prabawa"))));
-        keywordList.add(new KeywordPair("CS3230", new ArrayList<>(List.of(
-                "CS3230", "Divesh Aggarwal"))));
+        //keywordList.add(new KeywordPair("CS3230", new ArrayList<>(List.of(
+        //        "CS3230", "Divesh Aggarwal"))));
         keywordList.add(new KeywordPair("CEG Admin", new ArrayList<>(List.of(
                 "Low Mun Bak"))));
         keywordList.add(new KeywordPair("SEP", new ArrayList<>(List.of(
@@ -136,6 +135,18 @@ public class EmailContentParseHelper {
                 "UHC Wellness", "luminus-do-not-reply", "NUS Libraries"))));
 
         return keywordList;
+    }
+
+    /**
+     * Removes all the old keywords in an email.
+     *
+     * @param email the email where the keywords are removed
+     * @param keywordPairList the list of old keyword pairs to be removed
+     */
+    public static void clearOldKeywordPairs(Email email, EmailKeywordPairList keywordPairList) {
+        for (KeywordPair keywordPair : keywordPairList) {
+            email.removeTag(keywordPair.getKeyword());
+        }
     }
 
     /**

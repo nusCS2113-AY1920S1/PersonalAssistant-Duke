@@ -58,6 +58,20 @@ public class KeywordPair {
         return this.expressions;
     }
 
+    /**
+     * Adds the expression to the expression list if not already exists.
+     *
+     * @param newExpression the new expression to be added
+     */
+    public void addExpression(String newExpression) {
+        for (String expression: expressions) {
+            if (expression.equals(newExpression)) {
+                return;
+            }
+        }
+        this.expressions.add(newExpression);
+    }
+
     public JSONObject toJsonObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put("keyword", this.keyword);

@@ -85,6 +85,7 @@ public class Email {
     public void addTag(String keyword) {
         for (Tag tag : tags) {
             if (tag.getKeywordPair().getKeyword().equals(keyword)) {
+                UI.getInstance().showError("Tag already exists.");
                 return;
             }
         }
@@ -100,6 +101,7 @@ public class Email {
     public void addTag(KeywordPair keywordPair, int relevance) {
         for (Tag tag : tags) {
             if (tag.getKeywordPair().getKeyword().equals(keywordPair.getKeyword())) {
+                UI.getInstance().showError("Tag already exists.");
                 return;
             }
         }
@@ -114,10 +116,25 @@ public class Email {
     public void addTag(Tag newTag) {
         for (Tag tag : tags) {
             if (tag.getKeywordPair().getKeyword().equals(newTag.getKeywordPair().getKeyword())) {
+                UI.getInstance().showError("Tag already exists.");
                 return;
             }
         }
         this.tags.add(newTag);
+    }
+
+    /**
+     * Removes the tag with the given keyword in the keyword pair.
+     *
+     * @param keyword contained by the deleted tag
+     */
+    public void removeTag(String keyword) {
+        for (Tag tag : tags) {
+            if (tag.getKeywordPair().getKeyword().equals(keyword)) {
+                this.tags.remove(tag);
+                return;
+            }
+        }
     }
 
     /**

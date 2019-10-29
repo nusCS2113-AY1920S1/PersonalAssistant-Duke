@@ -15,4 +15,45 @@ public class EmailKeywordPairList extends ArrayList<KeywordPair> {
     public void setUpdatedOn(LocalDateTime updatedOn) {
         this.updatedOn = updatedOn;
     }
+
+    private EmailKeywordPairList copy() {
+        EmailKeywordPairList newList = new EmailKeywordPairList();
+        for (KeywordPair keywordPair : this) {
+            newList.add(keywordPair);
+        }
+        return newList;
+    }
+
+    /**
+     * Checks whether the keyword in the keyword pair already exists.
+     * @param keywordPair the keyword pair to be checked
+     * @return the existing keyword pair if exists, otherwise returns null
+     */
+    private KeywordPair checkExists(KeywordPair keywordPair) {
+        for (KeywordPair existingPair : this) {
+            if (keywordPair.getKeyword().equals(existingPair.getKeyword())) {
+                return existingPair;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Adds a keyword pair to a copied list of the existing keyword pair list.
+     *
+     * @param keywordPair to be added
+     * @return the copied keyword pair list after adding
+     */
+    public EmailKeywordPairList addAndCopy(KeywordPair keywordPair) {
+        EmailKeywordPairList newList = this.copy();
+        KeywordPair existingPair = checkExists(keywordPair);
+        if (existingPair == null) {
+            newList.add(keywordPair);
+        } else {
+            for (String expression: keywordPair.getExpressions()) {
+                existingPair.addExpression(expression);
+            }
+        }
+        return newList;
+    }
 }

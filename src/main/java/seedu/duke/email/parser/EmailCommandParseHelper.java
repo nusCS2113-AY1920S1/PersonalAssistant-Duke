@@ -7,11 +7,14 @@ import seedu.duke.common.command.FlipCommand;
 import seedu.duke.common.command.HelpCommand;
 import seedu.duke.common.command.InvalidCommand;
 import seedu.duke.common.model.Model;
+import seedu.duke.email.EmailKeywordPairList;
+import seedu.duke.email.command.EmailAddKeywordCommand;
 import seedu.duke.email.command.EmailFetchCommand;
 import seedu.duke.email.command.EmailListCommand;
 import seedu.duke.email.command.EmailListTagCommand;
 import seedu.duke.email.command.EmailShowCommand;
 import seedu.duke.email.command.EmailTagCommand;
+import seedu.duke.email.entity.KeywordPair;
 import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
@@ -57,6 +60,8 @@ public class EmailCommandParseHelper {
             return new EmailFetchCommand();
         case "update":
             return parseEmailTagCommand(optionList, input);
+        case "addKeyword":
+            return parseEmailAddKeywordCommand(optionList, input);
         default:
             throw new EmailParseException("OOPS!!! Enter \'email help\' to get list of methods for "
                     + "email.");
@@ -118,6 +123,25 @@ public class EmailCommandParseHelper {
         }
     }
 
+    private static Command parseEmailAddKeywordCommand(ArrayList<Command.Option> optionList,
+                                                          String input) {
+        Pattern emailAddKeywordCommandPattern = Pattern.compile("^addKeyword\\s+(?<keyword>\\w+)\\s*$");
+        Matcher emailAddKeywordCommandMatcher = emailAddKeywordCommandPattern.matcher(input);
+        if (!emailAddKeywordCommandMatcher.matches()) {
+            return new InvalidCommand("Please enter a keyword after \'addKeyword\'");
+        }
+        String keyword = emailAddKeywordCommandMatcher.group("keyword");
+        ArrayList<String> expressionList = extractExpressions(optionList);
+        if (expressionList.size() < 1) {
+            return new InvalidCommand("Please enter at least one expression option with \'-exp "
+                    + "[expression]\' format");
+        }
+        KeywordPair addedKeywordPair = new KeywordPair(keyword, expressionList);
+        EmailKeywordPairList newKeywordPairList =
+                Model.getInstance().getKeywordPairList().addAndCopy(addedKeywordPair);
+        return new EmailAddKeywordCommand(newKeywordPairList);
+    }
+
     private static boolean tagsNotEmpty(ArrayList<String> tags) {
         if (tags.size() == 0) {
             return false;
@@ -137,10 +161,14 @@ public class EmailCommandParseHelper {
         return index;
     }
 
-    private static void showError(String msg) {
-        if (ui != null) {
-            ui.showError(msg);
+    private static ArrayList<String> extractExpressions(ArrayList<Command.Option> optionList) {
+        ArrayList<String> expressionList = new ArrayList<>();
+        for (Command.Option option : optionList) {
+            if (option.getKey().equals("exp")) {
+                expressionList.add(option.getValue());
+            }
         }
+        return expressionList;
     }
 
     private static class EmailParseException extends CommandParseHelper.CommandParseException {
