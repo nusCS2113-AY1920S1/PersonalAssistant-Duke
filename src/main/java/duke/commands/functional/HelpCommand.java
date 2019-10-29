@@ -1,3 +1,5 @@
+//@@lmtaek
+
 package duke.commands.functional;
 
 import duke.commands.Command;
@@ -14,6 +16,9 @@ public class HelpCommand implements Command {
 
     ArrayList<String> userCommandList = new ArrayList<String>();
 
+    /**
+     * Lists all available commands + their respective formats for the user.
+     */
     public HelpCommand() {
         userCommandList.add("Create a task: `add task :<description>`");
         userCommandList.add("Create a patient profile: `add patient "
@@ -38,11 +43,17 @@ public class HelpCommand implements Command {
     }
 
     @Override
-    public void execute(AssignedTaskManager patientTask, TaskManager tasks, PatientManager patientList, Ui ui, StorageManager storageManager) throws DukeException {
+    public void execute(AssignedTaskManager patientTask, TaskManager tasks,
+                        PatientManager patientList, Ui ui,
+                        StorageManager storageManager) throws DukeException {
         ui.showHelpOptions(userCommandList);
 
     }
 
+    /**
+     * Gives a string output with all available commands + formats.
+     * @return String with commands + input formats.
+     */
     public String getHelpCommands() {
         String output = "Here is the available list of user commands and their respective formats:\n\n";
         for (String command : userCommandList) {
