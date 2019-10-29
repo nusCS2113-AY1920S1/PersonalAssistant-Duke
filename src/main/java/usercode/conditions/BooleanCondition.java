@@ -21,8 +21,8 @@ public class BooleanCondition extends Condition {
     }
 
     @Override
-    public JSONObject toJSON() {
-        JSONObject object = super.toJSON();
+    public JSONObject toJson() {
+        JSONObject object = super.toJson();
         object.put(JSON_KEY_TYPE, type.name());
         return object;
     }
