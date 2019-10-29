@@ -6,7 +6,6 @@ import controlpanel.Ui;
 import money.Account;
 import money.Expenditure;
 import money.Item;
-import moneycommands.MoneyCommand;
 
 /**
  * This command deletes an expenditure from the Total Expenditure List according to index.
