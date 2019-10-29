@@ -85,7 +85,7 @@ public class Ui {
      */
     public void taskAdded(Task standardTask) {
         printDukeResponse("Got it. I've added this task: \n"
-                + standardTask.getDescription());
+            + standardTask.getDescription());
     }
 
     /**
@@ -95,15 +95,15 @@ public class Ui {
      */
     public void showPatientInfo(Patient patient) {
         printDukeResponse("Name: "
-                + patient.getName()
-                + "  Id: "
-                + patient.getId()
-                + "\nNRIC: "
-                + patient.getNric()
-                + "  Room: "
-                + patient.getRoom()
-                + "\nRemark: "
-                + patient.getRemark());
+            + patient.getName()
+            + "  Id: "
+            + patient.getId()
+            + "\nNRIC: "
+            + patient.getNric()
+            + "  Room: "
+            + patient.getRoom()
+            + "\nRemark: "
+            + patient.getRemark());
     }
 
     /**
@@ -201,13 +201,13 @@ public class Ui {
      */
     public void patientTaskAssigned(AssignedTask assignedTask, String patientName, String taskName) {
         printDukeResponse("Got it. The following Patient ID: "
-                + assignedTask.getPid()
-                + " "
-                + patientName
-                + " has been assigned the Task ID: "
-                + assignedTask.getTid()
-                + " "
-                + taskName);
+            + assignedTask.getPid()
+            + " "
+            + patientName
+            + " has been assigned the Task ID: "
+            + assignedTask.getTid()
+            + " "
+            + taskName);
     }
 
     /**
@@ -234,8 +234,8 @@ public class Ui {
                 return chosenNumber;
             } else {
                 printDukeResponse("The patient #"
-                        + chosenNumber
-                        + " does not exist. Please enter a valid index number!");
+                    + chosenNumber
+                    + " does not exist. Please enter a valid index number!");
             }
         }
     }
@@ -360,12 +360,12 @@ public class Ui {
         printDukeResponse("Here's a list of your tasks: \n");
         for (Task task : taskList) {
             printDukeResponse(index
-                    + ". "
-                    + task.getDescription()
-                    + " (ID: "
-                    + task.getId()
-                    + ")"
-                    + "\n");
+                + ". "
+                + task.getDescription()
+                + " (ID: "
+                + task.getId()
+                + ")"
+                + "\n");
             index++;
         }
     }
@@ -386,7 +386,7 @@ public class Ui {
         while (true) {
             if (assignedToAnyPatient) {
                 printDukeResponse("The task is to be deleted. These patients will no "
-                        + "longer assigned to this task. Are you sure (Y/N)?");
+                    + "longer assigned to this task. Are you sure (Y/N)?");
             } else {
                 printDukeResponse("The task is to be deleted. Are you sure (Y/N)? ");
             }
@@ -455,20 +455,20 @@ public class Ui {
      */
     public void showWelcome() {
         String logo = " _____        _              _ _        _ \n"
-                +
-                "|  __ \\      | |            (_) |      | |\n"
-                +
-                "| |  | |_   _| | _____ _ __  _| |_ __ _| |\n"
-                +
-                "| |  | | | | | |/ / _ \\ '_ \\| | __/ _` | |\n"
-                +
-                "| |__| | |_| |   <  __/ |_) | | || (_| | |\n"
-                +
-                "|_____/ \\__,_|_|\\_\\___| .__/|_|\\__\\__,_|_|\n"
-                +
-                "                      | |                 \n"
-                +
-                "                      |_|                 \n";
+            +
+            "|  __ \\      | |            (_) |      | |\n"
+            +
+            "| |  | |_   _| | _____ _ __  _| |_ __ _| |\n"
+            +
+            "| |  | | | | | |/ / _ \\ '_ \\| | __/ _` | |\n"
+            +
+            "| |__| | |_| |   <  __/ |_) | | || (_| | |\n"
+            +
+            "|_____/ \\__,_|_|\\_\\___| .__/|_|\\__\\__,_|_|\n"
+            +
+            "                      | |                 \n"
+            +
+            "                      |_|                 \n";
 
         printDukeResponse(logo);
         printDukeResponse("Hello! I'm Duke\nWhat can I do for you?\n\n");
@@ -511,17 +511,17 @@ public class Ui {
         }
     }
 
-     //@@author kkeejjuunn
+    //@@author kkeejjuunn
 
     /**
      * It shows all info of patientTasks found which are associated with the task given by user.
      *
-     * @param task        task given by user
-     * @param patients    list of patients relate to task
+     * @param task     task given by user
+     * @param patients list of patients relate to task
      */
-   public void taskPatientFound(Task task, ArrayList<Patient> patients) {
+    public void taskPatientFound(Task task, ArrayList<Patient> patients) {
         printDukeResponse("The task " + task.getId() + " " + task.getDescription()
-                + " is assigned to following patient(s) : \n");
+            + " is assigned to following patient(s) : \n");
         for (int i = 0; i < patients.size(); i++) {
             printDukeResponse(patients.get(i).getId() + ". " + patients.get(i).getName() + "\n");
         }
@@ -532,8 +532,8 @@ public class Ui {
     /**
      * It shows all info of tasks found which are associated with the patient given by user.
      *
-     * @param patient     patient given by user
-     * @param tasks       list of tasks relate to patienttasks found
+     * @param patient patient given by user
+     * @param tasks   list of tasks relate to patienttasks found
      */
     public void assignedTasksFoundWhenDeletePatient(Patient patient, ArrayList<Task> tasks) {
         printDukeResponse(patient.getName() + " is assigned with the following tasks : \n");
@@ -622,8 +622,10 @@ public class Ui {
     }
 
     //@@lmtaek
+
     /**
      * Prints out list of available command inputs + formats for the user.
+     *
      * @param helpOptions The list of command options to be printed.
      */
     public void showHelpOptions(ArrayList<String> helpOptions) {
