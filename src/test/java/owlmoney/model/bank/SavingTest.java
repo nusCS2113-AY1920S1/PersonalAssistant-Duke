@@ -7,9 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -22,7 +19,6 @@ import owlmoney.ui.Ui;
 
 class SavingTest {
     private static final String NEWLINE = System.lineSeparator();
-    private static final DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
 
     @Test
     void addInExpenditure_notAddingToSavingAccount_throwsException() {

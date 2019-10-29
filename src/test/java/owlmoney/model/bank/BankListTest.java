@@ -7,8 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.storage.Storage;
@@ -17,7 +15,6 @@ import owlmoney.ui.Ui;
 class BankListTest {
 
     private static final String NEWLINE = System.lineSeparator();
-    private static final DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
     private static final String FILE_PATH = "data/";
     private static final Storage storage = new Storage(FILE_PATH);
 
