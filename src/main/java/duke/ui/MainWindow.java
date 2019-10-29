@@ -1,6 +1,7 @@
 package duke.ui;
 
 import duke.Main;
+import duke.commons.Messages;
 import duke.logic.commands.results.CommandResult;
 import duke.logic.commands.results.CommandResultCalender;
 import duke.logic.commands.results.CommandResultExit;
@@ -77,7 +78,11 @@ public class MainWindow extends UiPart<Stage> {
     public void initialise(Main main) {
         this.main = main;
         logic = new LogicManager();
-        dukeShow("Hi, welcome to SGTravel.");
+        if (logic.isNewUser) {
+            sgTravelSetup("profile");
+        } else {
+            sgTravelShow(Messages.STARTUP_WELCOME_MESSAGE + logic.getName());
+        }
     }
 
     /**
@@ -90,7 +95,11 @@ public class MainWindow extends UiPart<Stage> {
             return;
         }
         echoUserInput(input);
-        dukeResponse(input);
+        if (logic.isNewUser) {
+            sgTravelSetup(input);
+        } else {
+            sgTravelResponse(input);
+        }
     }
 
     @FXML
@@ -103,11 +112,11 @@ public class MainWindow extends UiPart<Stage> {
         panelShow(result);
     }
 
-    private void dukeResponse(String input) {
+    private void sgTravelResponse(String input) {
         Platform.runLater(() -> {
             try {
                 CommandResult result = logic.execute(input);
-                dukeShow(result);
+                sgTravelShow(result);
 
                 if (result instanceof CommandResultExit) {
                     tryExitApp();
@@ -120,24 +129,33 @@ public class MainWindow extends UiPart<Stage> {
                 }
 
             } catch (DukeException e) {
-                dukeShow(e.getMessage());
+                sgTravelShow(e.getMessage());
             }
         });
+    }
+
+    private void sgTravelSetup(String input) {
+        try {
+            CommandResult result = logic.setup(input);
+            sgTravelShow(result);
+        } catch (DukeException e) {
+            sgTravelShow(e.getMessage());
+        }
     }
 
     /**
      * Shows message(s) to the user.
      */
-    private void dukeShow(CommandResult commandResult) {
+    private void sgTravelShow(CommandResult commandResult) {
         if (commandResult instanceof CommandResultImage) {
-            dukeShow(commandResult.getMessage(), ((CommandResultImage) commandResult).getImage());
+            sgTravelShow(commandResult.getMessage(), ((CommandResultImage) commandResult).getImage());
             return;
         }
         assert (commandResult != null);
-        dukeShow(commandResult.getMessage());
+        sgTravelShow(commandResult.getMessage());
     }
 
-    private void dukeShow(String msg) {
+    private void sgTravelShow(String msg) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(msg, dukeImage)
         );
@@ -148,7 +166,7 @@ public class MainWindow extends UiPart<Stage> {
      * @param message The message to show.
      * @param image The image to show.
      */
-    private void dukeShow(String message, Image image) {
+    private void sgTravelShow(String message, Image image) {
         dialogContainer.getChildren().addAll(
                 DialogBoxImage.getDukeDialog(message, dukeImage, image)
         );
@@ -163,7 +181,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
             main.stop();
         } catch (Exception e) {
-            dukeShow("Exit app failed" + e.getMessage());
+            sgTravelShow("Exit app failed" + e.getMessage());
         }
     }
 

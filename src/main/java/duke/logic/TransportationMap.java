@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * Represents the transportation map of the Singapore transport network.
  */
-public class CreateMap {
+public class TransportationMap {
     private HashMap<String, BusService> busMap;
     private HashMap<String, BusStop> busStopMap;
     private HashMap<String, TrainStation> trainMap;
@@ -31,7 +31,7 @@ public class CreateMap {
      * @param busStopMap Map of busStop object
      * @param busMap Map of BusService object
      */
-    public CreateMap(HashMap<String, BusStop> busStopMap, HashMap<String, BusService> busMap) {
+    public TransportationMap(HashMap<String, BusStop> busStopMap, HashMap<String, BusService> busMap) {
         this.busMap = busMap;
         this.busStopMap = busStopMap;
     }

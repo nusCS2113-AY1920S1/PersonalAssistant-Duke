@@ -1,6 +1,7 @@
 package duke.logic;
 
 import duke.commons.enumerations.Constraint;
+import duke.commons.enumerations.Direction;
 import duke.commons.exceptions.QueryFailedException;
 import duke.logic.api.ApiConstraintParser;
 import duke.model.Model;
@@ -21,7 +22,7 @@ import java.util.Objects;
  * Defines an algorithm to find a path between 2 Venues.
  */
 public class PathFinder {
-    private CreateMap map;
+    private TransportationMap map;
     private HashSet<BusStop> visited;
     private HashMap<String, String> path;
     private boolean found = false;
@@ -30,7 +31,7 @@ public class PathFinder {
      * Initialise Pathfinder object.
      *
      */
-    public PathFinder(CreateMap map) {
+    public PathFinder(TransportationMap map) {
         this.map = map;
         this.visited = new HashSet<>();
         this.path = new HashMap<>();
@@ -209,11 +210,11 @@ public class PathFinder {
         this.visited.add(cur);
 
         for (String bus : cur.getBuses()) { //loop through all bus in bus stop
-            int direction;
-            if (this.map.getBusMap().get(bus).getDirection(1).contains(cur.getBusCode())) {
-                direction = 1;
+            Direction direction;
+            if (this.map.getBusMap().get(bus).getDirection(Direction.FORWARD).contains(cur.getBusCode())) {
+                direction = Direction.FORWARD;
             } else {
-                direction = 2;
+                direction = Direction.BACKWARD;
             }
 
             for (String busCode : this.map.getBusMap().get(bus).getDirection(direction)) { // depth search the bus route
@@ -296,7 +297,7 @@ public class PathFinder {
         for (String busNumber: ((BusStop) startVenue).getBuses()) {
             if (!isGenerated) {
                 BusService bus = busMap.get(busNumber);
-                ArrayList<String> busCodes = bus.getDirection(1);
+                ArrayList<String> busCodes = bus.getDirection(Direction.FORWARD);
 
                 result =
                         searchForwardDirectionBus((BusStop) startVenue, (BusStop) endVenue, busNumber, busCodes, model);

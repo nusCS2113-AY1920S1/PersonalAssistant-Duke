@@ -24,6 +24,7 @@ public class LogicManager extends Logic {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private Model model;
     private ConversationManager conversationManager;
+    public boolean isNewUser;
 
     /**
      * Creates LogicManager instance.
@@ -31,6 +32,27 @@ public class LogicManager extends Logic {
     public LogicManager() {
         model = new ModelManager();
         conversationManager = new ConversationManager(model.getRouteManager());
+        this.isNewUser = model.isNewUser();
+    }
+
+    /**
+     * Gets response from LogicManager during setup.
+     *
+     * @param userInput The input string from user.
+     * @return CommandResult Object containing information for Ui to display.
+     */
+    public CommandResult setup(String userInput) throws DukeException {
+        Command c;
+        try {
+            c = Parser.parseComplexCommand(userInput);
+            conversationManager.clearContext();
+        } catch (DukeUnknownCommandException e) {
+            conversationManager.converse(userInput);
+            c = conversationManager.getCommand();
+        }
+        CommandResult result = (CommandResult) c.execute(model);
+        isNewUser = model.isNewUser();
+        return result;
     }
 
     /**
@@ -78,5 +100,9 @@ public class LogicManager extends Logic {
     private Command getCommandFromConversationManager(String userInput) throws DukeException {
         conversationManager.converse(userInput);
         return conversationManager.getCommand();
+    }
+
+    public String getName() {
+        return model.getName();
     }
 }

@@ -1,29 +1,16 @@
 package duke.logic.parsers;
 
-import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.DukeUnknownCommandException;
-import duke.logic.commands.AddCommand;
 import duke.logic.commands.AddSampleItineraryCommand;
 import duke.logic.commands.Command;
-import duke.logic.commands.DeleteCommand;
 import duke.logic.commands.EditorCommand;
 import duke.logic.commands.ExitCommand;
-import duke.logic.commands.FindCommand;
-import duke.logic.commands.FindPathCommand;
-import duke.logic.commands.FreeTimeCommand;
-import duke.logic.commands.GetBusRouteCommand;
-import duke.logic.commands.GetBusStopCommand;
 import duke.logic.commands.HelpCommand;
 import duke.logic.commands.ListCommand;
-import duke.logic.commands.LocationSearchCommand;
-import duke.logic.commands.MarkDoneCommand;
-import duke.logic.commands.PromptCommand;
+import duke.logic.commands.ProfileSetPreferenceCommand;
+import duke.logic.commands.ProfileShowCommand;
 import duke.logic.commands.QuickEditCommand;
-import duke.logic.commands.RecommendationsCommand;
-import duke.logic.commands.RouteDeleteCommand;
-import duke.logic.commands.RouteEditCommand;
-import duke.logic.commands.RouteListCommand;
 import duke.logic.commands.RouteManagerExitCommand;
 import duke.logic.commands.RouteManagerHelpCommand;
 import duke.logic.commands.RouteManagerInfoCommand;
@@ -34,15 +21,32 @@ import duke.logic.commands.RouteManagerNodeNextCommand;
 import duke.logic.commands.RouteManagerNodeSelectorCommand;
 import duke.logic.commands.RouteManagerReturnCommand;
 import duke.logic.commands.RouteManagerSelectorCommand;
-import duke.logic.commands.RouteNodeDeleteCommand;
-import duke.logic.commands.RouteNodeEditCommand;
-import duke.logic.commands.RouteNodeListCommand;
 import duke.logic.commands.RouteNodeNeighboursCommand;
 import duke.logic.commands.RouteNodeShowCommand;
 import duke.logic.commands.RouteManagerCommand;
 import duke.logic.commands.RouteShowCommand;
-import duke.logic.commands.StaticMapCommand;
 import duke.logic.commands.ViewScheduleCommand;
+import duke.logic.parsers.commandparser.AddEventParser;
+import duke.logic.parsers.commandparser.AddProfileParser;
+import duke.logic.parsers.commandparser.DeleteParser;
+import duke.logic.parsers.commandparser.DoneParser;
+import duke.logic.parsers.commandparser.FindParser;
+import duke.logic.parsers.commandparser.FindPathParser;
+import duke.logic.parsers.commandparser.FreeTimeParser;
+import duke.logic.parsers.commandparser.GetBusRouteParser;
+import duke.logic.parsers.commandparser.GetBusStopParser;
+import duke.logic.parsers.commandparser.LocationSearchParser;
+import duke.logic.parsers.commandparser.PromptParser;
+import duke.logic.parsers.commandparser.RecommendationParser;
+import duke.logic.parsers.commandparser.RouteAddParser;
+import duke.logic.parsers.commandparser.RouteDeleteParser;
+import duke.logic.parsers.commandparser.RouteEditParser;
+import duke.logic.parsers.commandparser.RouteListParser;
+import duke.logic.parsers.commandparser.RouteNodeAddParser;
+import duke.logic.parsers.commandparser.RouteNodeDeleteParser;
+import duke.logic.parsers.commandparser.RouteNodeEditParser;
+import duke.logic.parsers.commandparser.RouteNodeListParser;
+import duke.logic.parsers.commandparser.StaticMapParser;
 
 /**
  * Parser for commands entered by the user. It reads from standard input and returns Command objects.
@@ -77,54 +81,45 @@ public class Parser {
                     ParserUtil.getFieldInList(2, 4, inputBody),
                     ParserUtil.getFieldInList(3, 4, inputBody));
         case "done":
-            return new MarkDoneCommand(ParserUtil.getIntegerIndexInList(0, 1, inputBody));
+            return new DoneParser(inputBody).parse();
         case "delete":
-            return new DeleteCommand(ParserUtil.getIntegerIndexInList(0, 1, inputBody));
+            return new DeleteParser(inputBody).parse();
         case "find":
-            return new FindCommand(getWord(inputBody));
+            return new FindParser(inputBody).parse();
         case "findtime":
-            return new FreeTimeCommand(ParserUtil.getIntegerIndexInList(0, 1, inputBody));
+            return new FreeTimeParser(inputBody).parse();
         case "search":
-            return new LocationSearchCommand(inputBody);
+            return new LocationSearchParser(inputBody).parse();
         case "busStop":
-            return new GetBusStopCommand(inputBody);
+            return new GetBusStopParser(inputBody).parse();
         case "busRoute":
-            return new GetBusRouteCommand(inputBody);
+            return new GetBusRouteParser(inputBody).parse();
         case "event":
-            return new AddCommand(ParserUtil.createEvent(input));
+            return new AddEventParser(input).parse();
         case "findPath":
-            return new FindPathCommand(ParserUtil.getFieldInList(0, 3, inputBody),
-                    ParserUtil.getIntegerIndexInList(1, 3, inputBody),
-                    ParserUtil.getIntegerIndexInList(2, 3, inputBody));
+            return new FindPathParser(inputBody).parse();
         case "recommend":
-            return new RecommendationsCommand(ParserUtil.createRecommendation(input));
+            return new RecommendationParser(input).parse();
         case "cancel":
-            return new PromptCommand(Messages.PROMPT_CANCEL);
+            return new PromptParser().parse();
         case "map":
-            return new StaticMapCommand(inputBody);
+            return new StaticMapParser(inputBody).parse();
         case "routeAdd":
-            return ParserUtil.createRouteAddCommand(inputBody);
+            return new RouteAddParser(inputBody).parse();
         case "routeNodeAdd":
-            return ParserUtil.createRouteNodeAddCommand(inputBody);
+            return new RouteNodeAddParser(inputBody).parse();
         case "routeEdit":
-            return new RouteEditCommand(ParserUtil.getIntegerIndexInList(0, 3, inputBody),
-                    ParserUtil.getFieldInList(1, 3, inputBody),
-                    ParserUtil.getFieldInList(2, 3, inputBody));
+            return new RouteEditParser(inputBody).parse();
         case "routeNodeEdit":
-            return new RouteNodeEditCommand(ParserUtil.getIntegerIndexInList(0, 3, inputBody),
-                    ParserUtil.getIntegerIndexInList(1, 3, inputBody),
-                    ParserUtil.getFieldInList(2, 4, inputBody),
-                    ParserUtil.getFieldInList(3, 4, inputBody));
+            return new RouteNodeEditParser(inputBody).parse();
         case "routeDelete":
-            return new RouteDeleteCommand(ParserUtil.getIntegerIndexInList(0, 1, inputBody));
+            return new RouteDeleteParser(inputBody).parse();
         case "routeNodeDelete":
-            return new RouteNodeDeleteCommand(ParserUtil.getIntegerIndexInList(0, 2, inputBody),
-                    ParserUtil.getIntegerIndexInList(1, 2, inputBody));
+            return new RouteNodeDeleteParser(inputBody).parse();
         case "routeList":
-            return new RouteListCommand(ParserUtil.getIntegerIndexInList(0, 1, inputBody));
+            return new RouteListParser(inputBody).parse();
         case "routeNodeList":
-            return new RouteNodeListCommand(ParserUtil.getIntegerIndexInList(0, 2, inputBody),
-                    ParserUtil.getIntegerIndexInList(1, 2, inputBody));
+            return new RouteNodeListParser(inputBody).parse();
         case "routeGenerate":
             return ParserUtil.createRouteGenerateCommand(inputBody);
         case "routeShow":
@@ -162,6 +157,13 @@ public class Parser {
             return new RouteManagerExitCommand();
         case "addThisList":
             return new AddSampleItineraryCommand();
+        case "profile":
+            return new AddProfileParser(inputBody).parse();
+        case "profileShow":
+            return new ProfileShowCommand();
+        case "profileSet":
+            return new ProfileSetPreferenceCommand(ParserUtil.getFieldInList(0,2,inputBody),
+                        ParserUtil.getFieldInList(1,2,inputBody));
         default:
             throw new DukeUnknownCommandException();
         }
@@ -191,18 +193,4 @@ public class Parser {
         }
     }
 
-    /**
-     * Gets the field at a given index in a String, delimited by whitespace.
-     *
-     * @param index The index of the field.
-     * @param userInput The userInput read by the user interface.
-     * @return The field.
-     */
-    private static String getEventIndexInList(int index, String userInput) {
-        if (index == 1) {
-            return userInput.strip().split(" ", 4)[2];
-        } else {
-            return userInput.strip().split(" ", 4)[3];
-        }
-    }
 }

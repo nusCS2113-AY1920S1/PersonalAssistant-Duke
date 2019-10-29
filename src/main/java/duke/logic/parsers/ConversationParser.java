@@ -23,6 +23,7 @@ import duke.logic.conversations.RouteNodeDeleteConversation;
 import duke.logic.conversations.RouteNodeEditConversation;
 import duke.logic.conversations.RouteNodeListConversation;
 import duke.logic.conversations.SearchConversation;
+import duke.logic.conversations.SetupProfileConversation;
 
 /**
  * Parser for conversations. Selects conversation based on user input.
@@ -50,6 +51,8 @@ public class ConversationParser {
             return new FindConversation();
         case "search":
             return new SearchConversation();
+        case "profile":
+            return new SetupProfileConversation();
         case "routeManageraddRoute":
         case "routeAdd":
             return new RouteAddConversation();
