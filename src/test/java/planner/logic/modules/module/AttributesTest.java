@@ -2,6 +2,7 @@ package planner.logic.modules.module;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +24,10 @@ public class AttributesTest {
         assertFalse(attributes.isFyp());
     }
 
-
+    @Test
+    public void testString() {
+        final String expected = "SU: False";
+        assertEquals(expected, attributes.toString());
+    }
 
 }

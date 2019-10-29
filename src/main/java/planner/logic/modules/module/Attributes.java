@@ -25,6 +25,6 @@ public class Attributes {
 
     @Override
     public String toString() {
-        return "SU:" + ((su) ? "True" : "False");
+        return "SU: " + ((su) ? "True" : "False");
     }
 }
