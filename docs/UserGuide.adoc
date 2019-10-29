@@ -64,7 +64,7 @@ Additionally, you may also encounter the following text styles:
 ====
 
 === Navigating Around Our Application
-*OwlMoney* comes with a very clean and easy to use CLI and GUI, so don’t worry even if you are a new user!
+*OwlMoney* comes with a very clean and easy to use CLI , so don’t worry even if you are a new user!
 You can expect to navigate around our application with ease!
 
 [[GUI]]
@@ -77,13 +77,9 @@ ifndef::env-github[]
 image::UiLabelled.png[width="970"]
 endif::[]
 
-*OwlMoney* has two main sections that you will need to know before you get started!
-The two main sections are explained below.
-|====
-|*Section*| *Name* | *Description*
-| 1 | Command Box | This is where you can enter and run commands.
-| 2 | Result Box | This provides you with information on whether a command is successful.
-|====
+As long as you have some experience using a command line interface, the moment you type your command and
+press kbd:[Enter], the result appears immediately!
+
 
 == Quick Start
 . Ensure you have *Java Version 11* installed on your computer.

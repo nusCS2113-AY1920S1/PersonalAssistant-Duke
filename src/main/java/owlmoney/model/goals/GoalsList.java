@@ -275,7 +275,7 @@ public class GoalsList {
             String stringAmount = decimalFormat.format(amount);
             String date = exportDateFormat.format(goalList.get(i).getGoalsDateInDateFormat());
             String savingsAccountName = goalList.get(i).getSavingAccount();
-            if(savingsAccountName.equals("NOT TIED")) {
+            if (savingsAccountName.equals("NOT TIED")) {
                 savingsAccountName = null;
             }
             boolean doneStatus = goalList.get(i).getRawStatus();

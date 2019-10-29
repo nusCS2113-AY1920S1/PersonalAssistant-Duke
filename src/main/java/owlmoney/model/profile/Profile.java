@@ -772,7 +772,7 @@ public class Profile {
                 } finally {
                     try {
                         loadTransactionsForBanks(transactionFileName,bankName, bankType);
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         ui.printMessage("");
                     }
                 }
@@ -976,7 +976,7 @@ public class Profile {
             Date dateInFormat = dateFormat.parse(date);
             String savingsAccountName = importDataRow[3];
             double doubleAmount = Double.parseDouble(amount);
-            if(savingsAccountName.equals("")) {
+            if (savingsAccountName.equals("")) {
                 newGoal = new Goals(goalName,doubleAmount,dateInFormat);
             } else {
                 newGoal = new Goals(goalName,doubleAmount,dateInFormat,
