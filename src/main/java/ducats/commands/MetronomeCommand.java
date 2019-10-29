@@ -12,6 +12,8 @@ public class MetronomeCommand extends Command<SongList> {
     private int tempo;
     private int[] timeSig;
 
+
+    //@@author rohan-av
     public MetronomeCommand(String message) {
         this.message = message;
     }
@@ -51,7 +53,6 @@ public class MetronomeCommand extends Command<SongList> {
         return false;
     }
 
-    //@@author rohan-av
     /**
      * Returns an integer corresponding to the duration, tempo and time signature if the command starts a metronome.
      * Else, returns an array containing -1.

@@ -13,6 +13,7 @@ public class Metronome {
     private int completedBars;
     private int noteNumber;
 
+    //@@author rohan-av
     /**
      * Helper function to initialize the Metronome attributes from the given parameters.
      *
