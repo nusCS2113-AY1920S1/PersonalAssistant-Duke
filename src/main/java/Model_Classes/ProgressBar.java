@@ -1,5 +1,7 @@
 package Model_Classes;
 
+import java.util.Arrays;
+
 public class ProgressBar {
     private String[] bar = new String[50];
     private float total;
@@ -18,7 +20,7 @@ public class ProgressBar {
     /**
      * Displays the progress bar
      */
-    public void showBar() {
+    public String showBar() {
         for (int i=0; i<50; i++) {
             bar[i] = " ";
         }
@@ -29,12 +31,7 @@ public class ProgressBar {
                 bar[i] = "=";
             }
         }
-        System.out.print("[");
-        for(int i=0; i<50; i++) {
-            System.out.print(bar[i]);
-        }
-        System.out.print("]");
-        System.out.print(" " + percentage*100 + "%");
-        System.out.println();
+
+        return Arrays.toString(bar).replace(",", "").trim() + " " + percentage*100 + "%";
     }
 }
