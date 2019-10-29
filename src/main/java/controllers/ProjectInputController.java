@@ -360,7 +360,7 @@ public class ProjectInputController implements IController {
             HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
             ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
             ArrayList<String> allTaskDetailsForTable
-                    = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers);
+                    = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, "/PRIORITY");
             allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getDescription() + ":");
             DukeLogger.logDebug(ProjectInputController.class, allTaskDetailsForTable.toString());
             tableToPrint.add(allTaskDetailsForTable);
@@ -368,11 +368,13 @@ public class ProjectInputController implements IController {
         } else if (projectCommand.length() >= 11) {
             String sortCriteria = projectCommand.substring(11);
             HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
-            ArrayList<String> allTaskDetails =
-                    projectToManage.getTasks().getAllSortedTaskDetails(tasksAndAssignedMembers,sortCriteria);
-
-            DukeLogger.logDebug(ProjectInputController.class, allTaskDetails.toString());
-            return allTaskDetails.toArray(new String[0]);
+            ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
+            ArrayList<String> allTaskDetailsForTable =
+                    projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers,sortCriteria);
+            DukeLogger.logDebug(ProjectInputController.class, allTaskDetailsForTable.toString());
+            allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getDescription() + ":");
+            tableToPrint.add(allTaskDetailsForTable);
+            return viewHelper.consolePrintTable(tableToPrint);
         }
         return null;
     }
