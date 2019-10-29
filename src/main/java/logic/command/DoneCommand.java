@@ -6,7 +6,7 @@ import model.Task;
 import model.TasksManager;
 import utils.DukeException;
 
-public class DoneCommand extends Command{
+public class DoneCommand extends Command {
     int[] indexes;
 
     public DoneCommand(int[] indexes) {
@@ -31,6 +31,10 @@ public class DoneCommand extends Command{
         return new CommandOutput(output);
     }
 
+    //@@author chenyuheng
+    /**
+     * Checks if task is in task list, and is a valid index
+     * */
     public void checkAvailability(Model model) throws DukeException {
         int taskListLength = model.getTaskList().size();
         for (int i = 0; i < indexes.length; i++) {

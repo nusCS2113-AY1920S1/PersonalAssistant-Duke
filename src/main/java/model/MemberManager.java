@@ -9,6 +9,9 @@ public class MemberManager {
     public static final String MESSAGE_DUPLICATED_MEMBER_NAME = "Duplicated member name.";
     ArrayList<Member> memberList;
 
+    /**
+     * add javadoc please
+     * */
     public MemberManager(ArrayList<Member> memberList) {
         if (memberList != null) {
             this.memberList = memberList;
@@ -114,6 +117,10 @@ public class MemberManager {
         return memberList;
     }
 
+    //@@author JustinChia1997
+    /**
+     * Checks to see if member exists in the list
+     * */
     public boolean hasMember(String name) {
         for (int i = 0; i < memberList.size(); i += 1) {
             if (memberList.get(i).getName().equals(name.trim())) {

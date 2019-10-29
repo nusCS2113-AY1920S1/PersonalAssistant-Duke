@@ -25,12 +25,12 @@ public class UiController {
     }
 
     //@@author JustinChia1997
+
     /**
      * Initializes and starts the UI
-     * */
-    public void start(){
+     */
+    public void start() {
         //TODO remove temp tasks list
-//        tasks = storage.loadTaskList();
         TasksCounter tc = new TasksCounter(new ArrayList<Task>());
         new Window(tc, logicController);
     }
@@ -43,7 +43,6 @@ public class UiController {
      * Can consider changing readCommand method name
      *
      * @param in the instantiated Scanner object
-     * @return the String read
      */
 
     public void readCommand(Scanner in) throws DukeException {
@@ -68,6 +67,11 @@ public class UiController {
 
     }
 
+    /**
+     * Print message onto temrinal ui
+     *
+     * @param toPrint string message that needs to be printed
+     */
     public static void print(String toPrint) {
         System.out.println(horizontalLine);
         toPrint = "\t" + toPrint;
