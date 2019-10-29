@@ -11,7 +11,7 @@ public class CommandGameQuit extends Command {
      */
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
-        farmio.getSimulation().simulate("GameExit", 0, true);
+        farmio.getSimulation().simulate("GameExit", 0, 11, true);
         farmio.setExit();
     }
 }
