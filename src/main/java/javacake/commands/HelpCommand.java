@@ -71,7 +71,7 @@ public class HelpCommand extends Command {
 
     private String gotoHelp() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("- ").append("goto 'X' [X = {1,2,..}]").append("\n");
+        stringBuilder.append("- ").append("'goto X' OR 'goto X.Y' [X and Y are positive integers]").append("\n");
         stringBuilder.append("Command to jump to next index of contents displayed after calling 'list'").append("\n");
         return stringBuilder.toString();
     }

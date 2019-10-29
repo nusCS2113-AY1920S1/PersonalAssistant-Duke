@@ -77,8 +77,8 @@ public class QuizCommand extends Command {
                 reader.close();
                 String[] questions = stringBuilder.toString().substring(0,stringBuilder.length() - 1).split("\\|\\s*");
                 this.questionList.add(new Question(questions[0], questions[1]));
-            } catch (IOException e) {
-                throw new DukeException("File not found!");
+            } catch (Exception e) {
+                throw new DukeException("Error in loading file :(");
             }
         }
 
@@ -228,7 +228,7 @@ public class QuizCommand extends Command {
      */
     public void checkAnswer(String input) throws DukeException {
         if (!isNumeric(input)) {
-            throw new DukeException("Please input answers in the form of integer");
+            throw new DukeException("Please input answers in the form of a positive integer");
         }
         if (prevQuestion.isAnswerCorrect(input)) {
             currScore++;
