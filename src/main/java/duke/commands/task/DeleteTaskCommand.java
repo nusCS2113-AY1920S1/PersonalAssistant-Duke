@@ -49,15 +49,15 @@ public class DeleteTaskCommand implements Command {
             try {
                 id = Integer.parseInt(deletedTaskInfo.substring(1));
             } catch (Exception e) {
-                throw new DukeException("The task id is invalid");
+                throw new DukeException(DeleteTaskCommand.class,"The task id is invalid");
             }
             try {
                 task = taskManager.getTask(id);
             } catch (Exception e) {
-                throw new DukeException("The task id does not exist. ");
+                throw new DukeException(DeleteTaskCommand.class, "The task id does not exist. ");
             }
         } else {
-            throw new DukeException("Please follow format 'delete task :#<id>'. ");
+            throw new DukeException(DeleteTaskCommand.class, "Please follow format 'delete task :#<id>'. ");
         }
         return task;
     }

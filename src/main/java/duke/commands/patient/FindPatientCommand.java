@@ -3,6 +3,7 @@
 package duke.commands.patient;
 
 import duke.commands.Command;
+import duke.commands.task.FindTaskCommand;
 import duke.exceptions.DukeException;
 import duke.util.Ui;
 import duke.models.patients.Patient;
@@ -40,13 +41,13 @@ public class FindPatientCommand implements Command {
             try {
                 id = Integer.parseInt(command.substring(1, command.length()));
             } catch (Exception e) {
-                throw new DukeException("The patient id is invalid.");
+                throw new DukeException(FindTaskCommand.class, "The patient id is invalid.");
             }
             try {
                 Patient patient = patientManager.getPatient(id);
                 ui.patientsFoundById(patient);
             } catch (Exception e) {
-                throw new DukeException("The patient id does not exist.");
+                throw new DukeException(FindTaskCommand.class, "The patient id does not exist.");
             }
         } else {
             ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(command);

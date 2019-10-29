@@ -52,7 +52,7 @@ public class UpdateTaskCommand implements Command {
                 ui.showUpdatedSuccessfully();
                 ui.showTaskInfo(taskToBeUpdated);
             } catch (Exception e) {
-                throw new DukeException(
+                throw new DukeException(UpdateTaskCommand.class,
                         "Please follow the format 'update task :#<id> :description :<new description>'.");
             }
 

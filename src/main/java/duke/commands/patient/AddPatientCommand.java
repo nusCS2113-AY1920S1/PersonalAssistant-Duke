@@ -1,3 +1,5 @@
+//@@author kkeejjuunn
+
 package duke.commands.patient;
 
 import duke.commands.Command;
@@ -25,7 +27,8 @@ public class AddPatientCommand implements Command {
             this.newPatient = new Patient(patientInfo[0], patientInfo[1], patientInfo[2], patientInfo[3]);
 
         } catch (Exception e) {
-            throw new DukeException("Please follow the format 'add patient <name> <NRIC> <Room> <remark>'. ");
+            throw new DukeException(AddPatientCommand.class,
+                    "Please follow the format 'add patient <name> <NRIC> <Room> <remark>'. ");
         }
     }
 
