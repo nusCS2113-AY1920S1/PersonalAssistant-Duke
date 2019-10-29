@@ -1,9 +1,13 @@
 package planner.main;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.LineEvent;
 import planner.logic.command.EndCommand;
 import planner.logic.command.ModuleCommand;
 import planner.logic.exceptions.legacy.ModException;
@@ -14,6 +18,7 @@ import planner.logic.modules.cca.CcaList;
 import planner.util.crawler.JsonWrapper;
 import planner.ui.cli.PlannerUi;
 import planner.util.legacy.reminder.Reminder;
+import planner.util.logger.PlannerLogger;
 import planner.util.storage.Storage;
 import planner.logic.parser.Parser;
 import planner.logic.modules.module.ModuleTasksList;
@@ -33,6 +38,8 @@ public class CliLauncher {
     private PlannerUi modUi;
     private HashMap<String, ModuleInfoDetailed> modDetailedMap;
     private transient ByteArrayOutputStream output;
+
+    private static final Logger logger = Logger.getLogger(CliLauncher.class.getName());
 
     /**
      * Constructor for Planner class.
@@ -64,15 +71,24 @@ public class CliLauncher {
         System.setErr(printStreamGui);
     }
 
+    /**
+     * Setup data files for module data and logging.
+     */
     private void modSetup() {
         try {
             jsonWrapper.runRequests(store);
             modDetailedMap = jsonWrapper.getModuleDetailedMap();
             modTasks.setTasks(jsonWrapper.readJsonTaskList(store));
-        } catch (ModBadRequestStatus er) {
-            er.printStackTrace();
+            PlannerLogger.setLogFile();
+        } catch (ModBadRequestStatus e) {
+            e.printStackTrace();
+            PlannerLogger.log(e);
         } catch (ModFailedJsonException ej) {
-            System.out.println(ej.getLocalizedMessage());
+            ej.getMessage();
+            PlannerLogger.log(ej);
+        } catch (IOException eio) {
+            eio.getStackTrace();
+            PlannerLogger.log(eio);
         }
     }
 
@@ -96,6 +112,7 @@ public class CliLauncher {
             }
         } catch (ModException e) {
             System.out.println(e.getMessage());
+            PlannerLogger.log(e);
         } finally {
             modUi.showLine();
         }
