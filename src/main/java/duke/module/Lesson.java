@@ -16,6 +16,7 @@ public class Lesson {
 
     /**
      * Constructor for Lesson objects.
+     *
      * @param dateArrayListMap The hash map of lessons learnt for the day from
      *                         loading the lessons.txt text file.
      */
@@ -25,9 +26,10 @@ public class Lesson {
 
     /**
      * Shows all lessons learnt for a specific day.
+     *
      * @param day The day to view all lessons learnt.
      * @return A message containing all the lessons learnt for the day
-     * to be printed.
+     *         to be printed.
      * @throws ParseException if the user input is in wrong format.
      */
     public String viewLesson(final String day) throws ParseException {
@@ -50,8 +52,9 @@ public class Lesson {
 
     /**
      * Adds a lesson learnt to the lessons hash map.
-     * @param date The date to add the lesson learnt to.
-     * @param message The lesson learnt to add to the lessons hash map.
+     *
+     * @param date          The date to add the lesson learnt to.
+     * @param message       The lesson learnt to add to the lessons hash map.
      * @param lessonStorage The object responsible for storing
      *                      the lessons hash map.
      * @return A message showing task completed successfully.
@@ -79,8 +82,9 @@ public class Lesson {
 
     /**
      * Removes a lesson learnt from the lessons hash map.
-     * @param day The date to remove the lesson learnt from.
-     * @param message The specific lesson learnt to remove from the hash map.
+     *
+     * @param day           The date to remove the lesson learnt from.
+     * @param message       The specific lesson learnt to remove from the hash map.
      * @param lessonStorage The object responsible for storing
      *                      the lessons hash map.
      * @return A message showing task completed successfully.
@@ -103,7 +107,8 @@ public class Lesson {
 
     /**
      * Removes all the lessons learnt from the lessons hash map for a day.
-     * @param day The date to remove all the lessons learnt from.
+     *
+     * @param day           The date to remove all the lessons learnt from.
      * @param lessonStorage The object responsible for storing
      *                      the lessons hash map.
      * @return A message showing task completed successfully.

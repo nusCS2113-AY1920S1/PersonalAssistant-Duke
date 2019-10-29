@@ -67,11 +67,11 @@ public class MyStudent {
      * (Or any RELEVANT details)
      *
      * @return Represents a string containing the student details to be shown,
-     * name and address.
+     *         name and address.
      */
     public String toString() {
         return "Name: " + getName() + "\nAge: " + getAge() + "\nAddress: "
-                + getAddress();
+            + getAddress();
     }
 
 

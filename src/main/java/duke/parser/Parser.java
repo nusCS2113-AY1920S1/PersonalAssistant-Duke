@@ -1,5 +1,6 @@
 package duke.parser;
-import duke.CLIView;
+
+import duke.CliView;
 import duke.data.Storage;
 import duke.module.Reminder;
 import duke.module.Schedule;
@@ -21,7 +22,7 @@ public class Parser {
     /**
      * The ui object responsible for showing things to the user.
      */
-    private CLIView CLIView = new CLIView();
+    private CliView cliView = new CliView();
 
     /*
     public static Command parse(String fullCommand) {
@@ -136,14 +137,14 @@ public class Parser {
                 storage.saveFile("C", myclass, myclass.getDay());
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.println(
-                    "\u2639 OOPS!!! "
+                    "OOPS!!! "
                         + "Please enter input in the form:"
                         + "class XXX /every YYY");
             }
             break;
 
-            default :
-                System.out.println("Invalid command");
+        default:
+            System.out.println("Invalid command");
         }
     }
 }
