@@ -133,10 +133,10 @@ public class CLIView {
     public String printFoundStudent(final String foundStudent) {
         return "Here are the matching names in your list: " + foundStudent;
     }
+
     /**
      * Prints message when asking for date for goal.
      */
-
     public void showGoalPromptDate() {
         System.out.println("Please enter the date of the day "
             + "in this format: dd/MM/yyyy");
@@ -260,6 +260,7 @@ public class CLIView {
         System.out.println("Please input a proper "
             + "intensity level: high, moderate, relaxed");
     }
+
     /**
      * Prints message when plan is successfully loaded.
      * @param planNum The plan number of the plan to be loaded.

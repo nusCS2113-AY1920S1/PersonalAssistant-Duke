@@ -38,27 +38,27 @@ public class ParserTrainingPlan implements IParser {
             break;
         case "training":
             switch (word[1]) {
-                case "view":
-                    System.out.println("TBC");
-                    System.out.println(plan.viewPlan());
-                    break;
-                case "add-plan":
-                    //pass
-                    break;
-                case "add-activity":
-                    int num = 2;
-                    System.out.println(plan.addActivity(word[num],
-                            Integer.parseInt(word[++num]),
-                            Integer.parseInt(word[++num])));
-                    break;
-                case "delete":
-                    System.out.println("To be added.");
-                    break;
-                case "delete-all":
-                    System.out.println("To be added");
-                    break;
-                default:
-                    break;
+            case "view":
+                System.out.println("TBC");
+                System.out.println(plan.viewPlan());
+                break;
+            case "add-plan":
+                //pass
+                break;
+            case "add-activity":
+                int num = 2;
+                System.out.println(plan.addActivity(word[num],
+                        Integer.parseInt(word[++num]),
+                        Integer.parseInt(word[++num])));
+                break;
+            case "delete":
+                System.out.println("To be added.");
+                break;
+            case "delete-all":
+                System.out.println("To be added");
+                break;
+            default:
+                break;
             }
             break;
         default:
