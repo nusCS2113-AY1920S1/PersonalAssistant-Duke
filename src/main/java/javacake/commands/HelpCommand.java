@@ -88,8 +88,9 @@ public class HelpCommand extends Command {
      * @return String of instructions to guide user on goto command.
      */
     private String gotoHelp() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("- ").append("'goto X' OR 'goto X.Y' [X and Y are positive integers]").append("\n");
         stringBuilder.append("Command to jump to next index of content!").append("\n");
-        stringBuilder.append("- ").append("Simply type 'goto [index]' where [index] is the index you wish to view.");
         stringBuilder.append("\n");
         stringBuilder.append("- ").append("E.g. goto '1' will bring you to the content in index 1.").append("\n");
         stringBuilder.append("- ").append("E.g. goto '1.2' will bring you to ");
