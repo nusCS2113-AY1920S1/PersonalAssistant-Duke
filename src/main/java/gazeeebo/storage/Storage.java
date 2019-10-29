@@ -3,8 +3,11 @@ package gazeeebo.storage;
 import java.io.*;
 
 
+//import gazeeebo.commands.gpacalculator.GPACommand;
+import gazeeebo.commands.specialization.ModuleCategory;
+
 import gazeeebo.commands.capCalculator.CAPCommand;
-import gazeeebo.commands.specialization.ModuleCategories;
+
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.DoAfter;
 import gazeeebo.tasks.Event;
@@ -16,6 +19,8 @@ import gazeeebo.tasks.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+import java.util.stream.*;
 import java.util.stream.Collectors;
 
 
@@ -29,7 +34,10 @@ public class Storage {
     private String absolutePath_Trivia = "/Trivia.txt";
     private String absolutePath_CAP = "/CAP.txt";
 
+
     private String absolutePathSpecialization = "/Specialization.txt";
+    private String absolutePathCompletedElectives = "/CompletedElectives.txt";
+
     private String absolutePath_StudyPlanner = "/Study_Plan.txt";
     private String absolutePath_Prerequisite = "/Prerequisite.txt";
 
@@ -159,6 +167,19 @@ public class Storage {
      */
     public ArrayList<StringBuilder> readFromPasswordFile() {
         ArrayList<StringBuilder> passwordList = new ArrayList<>();
+//<<<<<<< HEAD
+//        if (new File(absolutePath_password).exists()) {
+//            File file = new File(absolutePath_password);
+//            Scanner sc = new Scanner(file);
+//            while (sc.hasNext()) {
+//                String decodedPassword = sc.nextLine();
+//                char[] decryption = decodedPassword.toCharArray();
+//                StringBuilder realPassword = new StringBuilder();
+//                for (int i = decodedPassword.length() - 1; i >= 0; i--) {
+//                    realPassword.append(decryption[i]);
+//                }
+//                passwordList.add(realPassword);
+//=======
         InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_password);
         Scanner sc = new Scanner(inputStream);
         while (sc.hasNext()) {
@@ -167,6 +188,7 @@ public class Storage {
             StringBuilder realPassword = new StringBuilder();
             for (int i = decodedPassword.length() - 1; i >= 0; i--) {
                 realPassword.append(decryption[i]);
+//>>>>>>> da7261b2c2cf013f94ae0d85b8a1be3d8f7a9b20
             }
             System.out.println(realPassword);
             passwordList.add(realPassword);
@@ -265,7 +287,7 @@ public class Storage {
             String InputCommand = sc.nextLine();
             if (CommandMemory.containsKey(InputCommand.split(" ")[0])) {
                 ArrayList<String> oldlist = new ArrayList<String>(CommandMemory.get(InputCommand.split(" ")[0]));
-                if(!oldlist.contains(InputCommand)){
+                if (!oldlist.contains(InputCommand)) {
                     oldlist.add(InputCommand);
                     CommandMemory.put(InputCommand.split(" ")[0], oldlist);
                 }
@@ -342,67 +364,76 @@ public class Storage {
         fileWriter.close();
     }
 
-    public HashMap<String, ArrayList<ModuleCategories>> Specialization() {
-        HashMap<String, ArrayList<ModuleCategories>> specMap = new HashMap<>();
-        ArrayList<ModuleCategories> modAndBool = new ArrayList<>();
-        InputStream inputStream = Storage.class.getResourceAsStream(absolutePathSpecialization);
-        Scanner sc = new Scanner(inputStream);
-        while (sc.hasNext()) {
-            String[] split = sc.nextLine().split("\\|");
-            if (split[0].equals("commsB")) {
-                ModuleCategories mC = new ModuleCategories(split[2].trim());
-                if (split[3].equals("D")) {
-                    mC.isDone = true;
-                } else {
-                    mC.isDone = false;
-                }
-                modAndBool.add(mC);
-            } else if (split[0].equals("commsD")) {
-                ModuleCategories mC2 = new ModuleCategories(split[2].trim());
-                if (split[3].equals("D")) {
-                    mC2.isDone = true;
-                } else {
-                    mC2.isDone = false;
-                }
-                modAndBool.add(mC2);
-
-            } else if (split[0].equals("embB")) {
-                ModuleCategories mC3 = new ModuleCategories(split[2].trim());
-                if (split[3].equals("D")) {
-                    mC3.isDone = true;
-                } else {
-                    mC3.isDone = false;
-                }
-                modAndBool.add(mC3);
-            } else if (split[0].equals("embD")) {
-                ModuleCategories mC4 = new ModuleCategories(split[2].trim());
-                if (split[3].equals("D")) {
-                    mC4.isDone = true;
-                } else {
-                    mC4.isDone = false;
-                }
-                modAndBool.add(mC4);
+    public HashMap<String, ArrayList<ModuleCategory>> Specialization() throws IOException {
+        HashMap<String, ArrayList<ModuleCategory>> specMap = new HashMap<>();
+        if (new File(absolutePathSpecialization).exists()) {
+            File file = new File(absolutePathSpecialization);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                String[] split = sc.nextLine().split("\\|");
+                ArrayList<ModuleCategory> moduleBD = new ArrayList<>();
+                ModuleCategory mC = new ModuleCategory(split[2]);
+                moduleBD.add(mC);
+                specMap.put(split[1], moduleBD);
             }
         }
         return specMap;
     }
 
-    public ArrayList<ArrayList<String>> Read_StudyPlan() {
-        ArrayList<ArrayList<String>> studyplan = new ArrayList<ArrayList<String>>();
-        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_StudyPlanner);
-        Scanner sc = new Scanner(inputStream);
-        for (int i = 0; i < 8; i++) {
-            if (sc.hasNext()) {
-                String[] split = sc.nextLine().split(" ");
-                ArrayList<String> temp = Arrays.stream(split).collect(Collectors.toCollection(ArrayList::new));
-                studyplan.add(temp);
-            } else {
-                ArrayList<String> temp = new ArrayList<String>();
-                studyplan.add(temp);
+    public void completedElectivesStorage(String fileContent) throws IOException {
+        FileWriter fileWriter = new FileWriter(absolutePathCompletedElectives);
+        fileWriter.write(fileContent);
+        fileWriter.flush();
+        fileWriter.close();
+    }
+
+    public HashMap<String, ArrayList<String>> completedElectives() throws IOException {
+        HashMap<String, ArrayList<String>> completedEMap = new HashMap<>();
+        if (new File(absolutePathCompletedElectives).exists()) {
+            File file = new File(absolutePathCompletedElectives);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                ArrayList<String> completedElectiveList = new ArrayList<>();
+                String[] split = sc.nextLine().split("\\|");
+                String checkKey = split[0];
+                boolean isEqual = false;
+                for (String key : completedEMap.keySet()) {
+                    if (checkKey.equals(key)) { //if date equal
+                        completedEMap.get(key).add(split[1]);
+                        isEqual = true;
+                    }
+
+                    if (isEqual == false) {
+                        completedElectiveList.add(split[1]);
+                        completedEMap.put(checkKey, completedElectiveList);
+                    }
+                }
             }
         }
-        return studyplan;
+        return completedEMap;
     }
+
+
+        public ArrayList<ArrayList<String>> Read_StudyPlan () throws IOException {
+            ArrayList<ArrayList<String>> studyplan = new ArrayList<ArrayList<String>>();
+            if (new File(absolutePath_StudyPlanner).exists()) {
+                File file = new File(absolutePath_StudyPlanner);
+                Scanner sc = new Scanner(file);
+                for (int i = 0; i < 8; i++) {
+                    if (sc.hasNext()) {
+                        String[] split = sc.nextLine().split(" ");
+                        ArrayList<String> temp = Arrays.stream(split).collect(Collectors.toCollection(ArrayList::new));
+                        studyplan.add(temp);
+                    } else {
+                        ArrayList<String> temp = new ArrayList<String>();
+                        studyplan.add(temp);
+                    }
+                }
+
+
+            }
+            return studyplan;
+        }
 
     public void Storage_StudyPlan (String fileContent) throws IOException {
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(absolutePath_StudyPlanner));

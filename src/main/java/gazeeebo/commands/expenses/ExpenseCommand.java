@@ -8,7 +8,12 @@ import gazeeebo.commands.Command;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Stack;
+import java.util.Map;
+import java.util.TreeMap;
+
 
 /**
  * Allows user to call commands to record and manage their expenses.
@@ -40,14 +45,14 @@ public class ExpenseCommand extends Command {
         System.out.println("__________________________________________________________");
 
         ui.readCommand();
-        while(!ui.fullCommand.equals("esc")) {
+        while (!ui.fullCommand.equals("esc")) {
             if (ui.fullCommand.contains("add")) {
                 new AddExpenseCommand(ui, storage, expenses);
-            } else if(ui.fullCommand.contains("find")) {
+            } else if (ui.fullCommand.contains("find")) {
                 new FindExpenseCommand(ui, expenses);
-            } else if(ui.fullCommand.contains("delete")) {
+            } else if (ui.fullCommand.contains("delete")) {
                 new DeleteExpenseCommand(ui, storage, expenses);
-            } else if(ui.fullCommand.equals("list")) {
+            } else if (ui.fullCommand.equals("list")) {
                 new ExpenseListCommand(ui, expenses);
             }
             ui.readCommand();

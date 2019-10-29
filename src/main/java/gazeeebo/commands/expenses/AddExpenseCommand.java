@@ -20,7 +20,7 @@ public class AddExpenseCommand {
      * @param expenses the object that map each expenses to its date
      * @throws IOException catch any error if read file fails
      */
-    public AddExpenseCommand(Ui ui, Storage storage, Map<LocalDate, ArrayList<String>> expenses) throws IOException{
+    public AddExpenseCommand(Ui ui, Storage storage, Map<LocalDate, ArrayList<String>> expenses) throws IOException {
 
         System.out.println("What did you buy:");
         ui.readCommand();
@@ -38,18 +38,18 @@ public class AddExpenseCommand {
 
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateOfPurchase = LocalDate.parse(date, fmt);
-
-        /*Storing expenses value as an array to the date keys. If the item were bought on the same date as a previous item,
-          add the item in the array under the same key.*/
+        //Storing expenses value as an array to the date keys.
+        //If the item were bought on the same date as a previous item,
+        //add the item in the array under the same key.
         ArrayList<String> itemAndPriceList = new ArrayList<>();
         boolean isEqual = false;
-        for(LocalDate key : expenses.keySet()) {
+        for (LocalDate key : expenses.keySet()) {
             if (dateOfPurchase.equals(key)) { //if date equal
                 expenses.get(key).add(itemAndPrice);
                 isEqual = true;
             }
         }
-        if (isEqual == false) {
+        if (!isEqual) {
             itemAndPriceList.add(itemAndPrice);
             expenses.put(dateOfPurchase, itemAndPriceList);
         }

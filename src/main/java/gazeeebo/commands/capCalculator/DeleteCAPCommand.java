@@ -5,6 +5,9 @@ import gazeeebo.UI.Ui;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * Deletes a module from the CAP list.
+ */
 public class DeleteCAPCommand {
     /**
      * Delete the module from CAPList.
