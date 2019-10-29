@@ -18,7 +18,7 @@ import java.util.Stack;
 
 public class DeadlineCommand extends Command {
     @Override
-    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<String> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<ArrayList<Task>> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException {
         String description;
         try {
             if (ui.fullCommand.length() == 8) {
@@ -44,19 +44,7 @@ public class DeadlineCommand extends Command {
             Ui.showDeadlineDateFormatError();
         }
     }
-    public void undo(final String command, final ArrayList<Task> list, final Storage storage) throws IOException {
-        for (Task it : list) {
-            if (it.description.contains(command.substring(9).trim())) {
-                list.remove(it);
-                break;
-            }
-        }
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            sb.append(list.get(i).toString() + "\n");
-        }
-        storage.writeToSaveFile(sb.toString());
-    }
+
     @Override
     public boolean isExit() {
         return false;

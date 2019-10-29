@@ -9,9 +9,9 @@ public class FindPlacesCommand {
      *
      * @param ui the object that deals with printing things to the user.
      * @param places Map each name to its own phone number
-     * @param LINE_BREAK String separator
+     * @param lineBreak String separator
      */
-    public FindPlacesCommand(Ui ui, Map<String,String> places, String LINE_BREAK) throws ArrayIndexOutOfBoundsException{
+    public FindPlacesCommand(Ui ui, Map<String,String> places, String lineBreak) throws ArrayIndexOutOfBoundsException{
         if (ui.fullCommand.equals("find")) {
             System.out.println("You need to indicate what you want to find, Format: delete name");
         }
@@ -27,7 +27,7 @@ public class FindPlacesCommand {
                         System.out.print(" ");
                     }
                     System.out.print("| ");
-                    System.out.print(places.get(keys) + "\n" + LINE_BREAK);
+                    System.out.print(places.get(keys) + "\n" + lineBreak);
                 }
             }
             if (!isFound) {

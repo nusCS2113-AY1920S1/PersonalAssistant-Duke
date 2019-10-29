@@ -12,11 +12,11 @@ import java.util.*;
 
 public class PlacesCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         System.out.print("PLACES IN SOC\n\nCommands:\n'list' list all places in SOC\n'add' adds a new place\n'delete-a place' delete a place\n'find-a place in SOC' find a place in SOC\n");
-        HashMap<String, String> map = storage.Read_Places();
+        HashMap<String, String> map = storage.readPlaces();
         Map<String, String> places = new TreeMap<String, String>(map);
-        String LINE_BREAK = "------------------------------------------\n";
+        String lineBreak = "------------------------------------------\n";
         boolean isExitFromPlaces = false;
         while (!isExitFromPlaces) {
             try {
@@ -25,10 +25,10 @@ public class PlacesCommand extends Command {
                     new AddPlacesCommand(ui, storage, places);
                     System.out.println("What do you want to do next ?");
                 } else if (ui.fullCommand.split("-")[0].equals("find")) {
-                    new FindPlacesCommand(ui, places, LINE_BREAK);
+                    new FindPlacesCommand(ui, places, lineBreak);
                     System.out.println("What do you want to do next ?");
                 } else if (ui.fullCommand.equals("list")) {
-                    new ListPlacesCommand(places, LINE_BREAK);
+                    new ListPlacesCommand(places, lineBreak);
                     System.out.println("What do you want to do next ?");
                 } else if (ui.fullCommand.contains("delete")) {
                     new DeletePlacesCommand(ui, storage, places);

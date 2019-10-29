@@ -27,7 +27,7 @@ public class EditCommand extends Command {
      */
 
     @Override
-    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<String> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<ArrayList<Task>> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         String[] input = ui.fullCommand.split(" ");
         System.out.println("Edit description/time/both ?");
         int listnoIndex = Integer.parseInt(input[1]) - 1;

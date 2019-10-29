@@ -1,11 +1,7 @@
 package gazeeebo.storage;
 
 import java.io.*;
-
-
-//import gazeeebo.commands.gpacalculator.GPACommand;
 import gazeeebo.commands.specialization.ModuleCategory;
-
 import gazeeebo.commands.capCalculator.CAPCommand;
 
 import gazeeebo.tasks.Deadline;
@@ -26,19 +22,17 @@ import java.util.stream.Collectors;
 
 public class Storage {
 
-    private String absolutePath = "/Save.txt";
-    private String absolutePath_password = "/Password.txt";
-    private String absolutePath_Contact = "/Contact.txt";
-    private String absolutePath_Expenses = "/Expenses.txt";
-    private String absolutePath_Places = "/Places.txt";
-    private String absolutePath_Trivia = "/Trivia.txt";
-    private String absolutePath_CAP = "/CAP.txt";
+    private String absolutePath = "Save.txt";
+    private String absolutePath_password = "Password.txt";
+    private String absolutePath_Contact = "Contact.txt";
+    private String absolutePath_Expenses = "Expenses.txt";
+    private String absolutePath_Places = "Places.txt";
+    private String absolutePath_Trivia = "Trivia.txt";
+    private String absolutePath_CAP = "CAP.txt";
 
-
-    private String absolutePathSpecialization = "/Specialization.txt";
+    private String absolutePathSpecialization = "Specialization.txt";
+    private String absolutePath_StudyPlanner = "Study_Plan.txt";
     private String absolutePathCompletedElectives = "/CompletedElectives.txt";
-
-    private String absolutePath_StudyPlanner = "/Study_Plan.txt";
     private String absolutePath_Prerequisite = "/Prerequisite.txt";
 
     public void writeToSaveFile(String fileContent) throws IOException {
@@ -48,10 +42,12 @@ public class Storage {
         fileWriter.close();
     }
 
-    public ArrayList<Task> realFromSaveFile() throws IOException {
+    public ArrayList<Task> realFromSaveFile() throws FileNotFoundException {
         ArrayList<Task> tList = new ArrayList<Task>();
-        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath);
-        Scanner sc = new Scanner(inputStream);
+//        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath);
+//        Scanner sc = new Scanner(inputStream);
+        File f = new File(absolutePath);
+        Scanner sc = new Scanner(f);
         while (sc.hasNext()) {
             String[] details = sc.nextLine().split("\\|");
             if (details[0].equals("T")) {
@@ -165,23 +161,12 @@ public class Storage {
      * @return the arrays of password
      * @throws IOException catch the error if the read file fails.
      */
-    public ArrayList<StringBuilder> readFromPasswordFile() {
+    public ArrayList<StringBuilder> readFromPasswordFile() throws FileNotFoundException {
         ArrayList<StringBuilder> passwordList = new ArrayList<>();
-//<<<<<<< HEAD
-//        if (new File(absolutePath_password).exists()) {
-//            File file = new File(absolutePath_password);
-//            Scanner sc = new Scanner(file);
-//            while (sc.hasNext()) {
-//                String decodedPassword = sc.nextLine();
-//                char[] decryption = decodedPassword.toCharArray();
-//                StringBuilder realPassword = new StringBuilder();
-//                for (int i = decodedPassword.length() - 1; i >= 0; i--) {
-//                    realPassword.append(decryption[i]);
-//                }
-//                passwordList.add(realPassword);
-//=======
-        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_password);
-        Scanner sc = new Scanner(inputStream);
+//        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_password);
+        File f = new File(absolutePath_password);
+        Scanner sc = new Scanner(f);
+//        Scanner sc = new Scanner(inputStream);
         while (sc.hasNext()) {
             String decodedPassword = sc.nextLine();
             char[] decryption = decodedPassword.toCharArray();
@@ -217,14 +202,16 @@ public class Storage {
      * @throws IOException catch the error if the read file fails.
      */
 
-    public HashMap<String, String> readFromContactFile() {
+    public HashMap<String, String> readFromContactFile() throws FileNotFoundException {
         HashMap<String, String> contactList = new HashMap<String, String>();
-        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Contact);
-        Scanner sc = new Scanner(inputStream);
-        while (sc.hasNext()) {
-            String[] split = sc.nextLine().split("\\|");
-            contactList.put(split[0], split[1]);
-        }
+//        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Contact);
+//            Scanner sc = new Scanner(inputStream);
+        File f = new File(absolutePath_Contact);
+        Scanner sc = new Scanner(f);
+            while (sc.hasNext()) {
+                String[] split = sc.nextLine().split("\\|");
+                contactList.put(split[0], split[1]);
+            }
         return contactList;
     }
 
@@ -236,18 +223,20 @@ public class Storage {
 
     }
 
-    public void Storages_Places(String fileContent) throws IOException {
+    public void storagesPlaces(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath_Places);
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
     }
 
-    public HashMap<LocalDate, ArrayList<String>> Expenses() {
+    public HashMap<LocalDate, ArrayList<String>> Expenses() throws FileNotFoundException {
         HashMap<LocalDate, ArrayList<String>> expenses = new HashMap<LocalDate, ArrayList<String>>();
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Expenses);
-        Scanner sc = new Scanner(inputStream);
+//        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Expenses);
+//        Scanner sc = new Scanner(inputStream);
+        File f = new File(absolutePath_Expenses);
+        Scanner sc = new Scanner(f);
         while (sc.hasNext()) {
             ArrayList<String> itemAndPriceList = new ArrayList<>();
             String[] split = sc.nextLine().split("\\|");
@@ -268,10 +257,12 @@ public class Storage {
         return expenses;
     }
 
-    public HashMap<String, String> Read_Places() {
+    public HashMap<String, String> readPlaces() throws IOException {
         HashMap<String, String> placesList = new HashMap<String, String>();
-        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Places);
-        Scanner sc = new Scanner(inputStream);
+//        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Places);
+//        Scanner sc = new Scanner(inputStream);
+        File f = new File(absolutePath_Places);
+        Scanner sc = new Scanner(f);
         while (sc.hasNext()) {
             String[] split = sc.nextLine().split("\\|");
             placesList.put(split[0], split[1]);
@@ -279,33 +270,41 @@ public class Storage {
         return placesList;
     }
 
-    public Map<String, ArrayList<String>> Read_Trivia() {
+    public Map<String, ArrayList<String>> Read_Trivia() throws FileNotFoundException {
         Map<String, ArrayList<String>> CommandMemory = new HashMap<>();
-        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_Trivia);
-        Scanner sc = new Scanner(inputStream);
-        while (sc.hasNext()) {
-            String InputCommand = sc.nextLine();
-            if (CommandMemory.containsKey(InputCommand.split(" ")[0])) {
-                ArrayList<String> oldlist = new ArrayList<String>(CommandMemory.get(InputCommand.split(" ")[0]));
-                if (!oldlist.contains(InputCommand)) {
-                    oldlist.add(InputCommand);
-                    CommandMemory.put(InputCommand.split(" ")[0], oldlist);
+            File f = new File(absolutePath_Trivia);
+            Scanner sc = new Scanner(f);
+            while (sc.hasNext()) {
+                String InputCommand = sc.nextLine();
+                if (CommandMemory.containsKey(InputCommand.split(" ")[0])) {
+                    ArrayList<String> oldlist = new ArrayList<String>(CommandMemory.get(InputCommand.split(" ")[0]));
+                    if (!oldlist.contains(InputCommand)) {
+                        oldlist.add(InputCommand);
+                        CommandMemory.put(InputCommand.split(" ")[0], oldlist);
+                    }
+                } else {
+                    ArrayList<String> newlist = new ArrayList<String>();
+                    newlist.add(InputCommand);
+                    CommandMemory.put(InputCommand.split(" ")[0], newlist);
                 }
-            } else {
-                ArrayList<String> newlist = new ArrayList<String>();
-                newlist.add(InputCommand);
-                CommandMemory.put(InputCommand.split(" ")[0], newlist);
             }
-        }
+            sc.close();
         return CommandMemory;
     }
 
     public void Storage_Trivia(String fileContent) throws IOException {
-        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(absolutePath_Trivia, true));
-        fileWriter.newLine();
-        fileWriter.write(fileContent);
-        fileWriter.flush();
-        fileWriter.close();
+        File file = new File(absolutePath_Trivia);
+        if(file.exists() && !file.canWrite()){
+
+            System.out.println("File exists and it is read only, making it writable");
+            file.setWritable(true);
+        }
+        FileWriter fileWriter = new FileWriter(absolutePath_Trivia);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        bufferedWriter.newLine();
+        bufferedWriter.write(fileContent);
+        bufferedWriter.flush();
+        bufferedWriter.close();
     }
 
     /**
@@ -331,23 +330,30 @@ public class Storage {
      */
     public HashMap<String, ArrayList<CAPCommand>> readFromCAPFile() throws IOException {
         HashMap<String, ArrayList<CAPCommand>> CAPList = new HashMap<String, ArrayList<CAPCommand>>();
-        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_CAP);
-        Scanner sc = new Scanner(inputStream);
-        while (sc.hasNext()) {
-            ArrayList<CAPCommand> moduleList = new ArrayList<>();
-            String[] splitStringTxtFile = sc.nextLine().split("\\|");
-            String semNumber = splitStringTxtFile[0];
-            String moduleCode = splitStringTxtFile[1];
-            int mc = Integer.parseInt(splitStringTxtFile[2]);
-            String grade = splitStringTxtFile[3];
-            CAPCommand newCAP = new CAPCommand(moduleCode, mc, grade);
-            boolean isEqual = false;
-            for (String key : CAPList.keySet()) {
-                if (semNumber.equals(key)) {
-                    CAPList.get(key).add(newCAP);
-                    isEqual = true;
+//        InputStream inputStream = Storage.class.getResourceAsStream(absolutePath_CAP);
+//            Scanner sc = new Scanner(inputStream);
+        File f = new File(absolutePath_CAP);
+        Scanner sc = new Scanner(f);
+            while (sc.hasNext()) {
+                ArrayList<CAPCommand> moduleList = new ArrayList<>();
+                String[] splitStringTxtFile = sc.nextLine().split("\\|");
+                String semNumber = splitStringTxtFile[0];
+                String moduleCode = splitStringTxtFile[1];
+                int mc = Integer.parseInt(splitStringTxtFile[2]);
+                String grade = splitStringTxtFile[3];
+                CAPCommand newCAP = new CAPCommand(moduleCode, mc, grade);
+                boolean isEqual = false;
+                for (String key : CAPList.keySet()) {
+                    if (semNumber.equals(key)) {
+                        CAPList.get(key).add(newCAP);
+                        isEqual = true;
+                    }
                 }
-            }
+                /* semNumber doesn't exist in the list */
+                if (isEqual == false) {
+                    moduleList.add(newCAP);
+                    CAPList.put(semNumber, moduleList);
+                }
             /* semNumber doesn't exist in the list */
             if (isEqual == false) {
                 moduleList.add(newCAP);
