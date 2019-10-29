@@ -26,12 +26,12 @@ repositories {
 
 javafx {
     version = "11.0.2"
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.base']
 }
 
 application {
     // Change this to your main class.
-    mainClassName = "Farmio.Farmio"
+    mainClassName = "farmio.Farmio"
 }
 
 run {
