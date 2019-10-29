@@ -53,7 +53,6 @@ public class BudgetBar extends UiPart<Region> {
         this.logic = logic;
 
         for(int viewPane = 1; viewPane <= 6; viewPane++) {
-            //VBox vBox = new VBox();
             ProgressBar bar = new ProgressBar();
             Text category = new Text();
             Text remaining = new Text();

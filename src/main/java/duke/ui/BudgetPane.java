@@ -28,7 +28,8 @@ public class BudgetPane extends UiPart<AnchorPane>  {
     private static final String FXML_FILE_NAME = "BudgetPane.fxml";
 
     @FXML
-    TableView incomeTableView;
+    private
+    ListView<Income> incomeListView;
 
     @FXML
     Pane paneView;
@@ -36,71 +37,21 @@ public class BudgetPane extends UiPart<AnchorPane>  {
     @FXML
     Pane paneBudgetView;
 
+    @FXML
+    //ListView<String> budgetListView;
+
     public Logic logic;
 
     public BudgetPane(ObservableList<Income> incomeList, Logic logic) {
         super(FXML_FILE_NAME, null);
         logger.info("incomeList has length " + incomeList.size());
-        incomeTableView.getItems().clear();
-        incomeTableView.setPlaceholder(new Label("No incomes to display!"));
-        TableColumn<Income, Void> indexColumn = new TableColumn<>("No.");
-        indexColumn.setCellFactory(col -> {
-            TableCell<Income, Void> cell = new TableCell<>();
-            cell.textProperty().bind(Bindings.createStringBinding(() -> {
-                if (cell.isEmpty()) {
-                    return null;
-                } else {
-                    return Integer.toString(cell.getIndex() + 1);
-                }
-            }, cell.emptyProperty(), cell.indexProperty()));
-            return cell;
-        });
-        indexColumn.setSortable(false);
-        indexColumn.setResizable(false);
-        indexColumn.setReorderable(false);
-        indexColumn.prefWidthProperty().bind(incomeTableView.widthProperty().multiply(0.15));
-
-        TableColumn<String, Income> amountColumn = new TableColumn<>("Amount");
-        amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        amountColumn.setSortable(false);
-        amountColumn.setResizable(false);
-        amountColumn.setReorderable(false);
-        amountColumn.prefWidthProperty().bind(incomeTableView.widthProperty().multiply(0.25));
-
-        TableColumn<Income, String> descriptionColumn = new TableColumn<>("Description");
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-        descriptionColumn.setSortable(false);
-        descriptionColumn.setResizable(false);
-        descriptionColumn.setReorderable(false);
-        descriptionColumn.prefWidthProperty().bind(incomeTableView.widthProperty().multiply(0.6));
-
-        incomeTableView.setRowFactory(new Callback<TableView<Income>, TableRow<Income>>() {
-            @Override
-            public TableRow<Income> call(TableView<Income> tableView) {
-                final TableRow<Income> row = new TableRow<Income>() {
-                    @Override
-                    protected void updateItem(Income income, boolean empty) {
-                        super.updateItem(income, empty);
-                        if(empty) {
-                            setGraphic(null);
-                            setStyle("-fx-background-color: white");
-                        } else {
-                            setStyle("-fx-text-background-color: black;");
-                        }
-                    }
-                };
-                return row;
-            }
-        });
-        incomeTableView.getColumns().setAll(
-                indexColumn,
-                descriptionColumn,
-                amountColumn
-        );
+        Label emptyIncomeListPlaceholder = new Label();
+        emptyIncomeListPlaceholder.setText("No Income yet. " +
+                "Type \"addIncome #amount\" to add one!");
+        incomeListView.setPlaceholder(emptyIncomeListPlaceholder);
+        incomeListView.setItems(incomeList);
         logger.info("Items are set.");
-        for (Income income : incomeList) {
-            incomeTableView.getItems().add(income);
-        }
+        incomeListView.setCellFactory(incomeListView -> new IncomeListViewCell());
         logger.info("cell factory is set.");
 
         this.logic = logic;
@@ -132,5 +83,21 @@ public class BudgetPane extends UiPart<AnchorPane>  {
 
         paneBudgetView.getChildren().clear();
         paneBudgetView.getChildren().add(new BudgetBar(logic).getRoot());
+
+        //budgetListView.setItems(logic.getBudgetObservableList());
+    }
+
+    class IncomeListViewCell extends ListCell<Income> {
+        @Override
+        protected void updateItem(Income income, boolean empty) {
+            super.updateItem(income, empty);
+            if (empty || income == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                int index = incomeListView.getItems().indexOf(income) + 1;
+                setGraphic(new IncomeCard(income, index).getRoot());
+            }
+        }
     }
 }
