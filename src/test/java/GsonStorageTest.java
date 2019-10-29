@@ -1,4 +1,4 @@
-import CommandTestPackage.CommandTest;
+import commandtestpackage.CommandTest;
 import duke.data.Impression;
 import duke.data.Investigation;
 import duke.data.Medicine;

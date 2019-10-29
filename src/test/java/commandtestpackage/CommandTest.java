@@ -1,4 +1,4 @@
-package CommandTestPackage;
+package commandtestpackage;
 
 import duke.DukeCore;
 import duke.command.ArgCommand;
