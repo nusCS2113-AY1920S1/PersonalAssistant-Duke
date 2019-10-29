@@ -35,7 +35,9 @@ public class MainParser {
                 return new HelpCommand();
 
             case "list":
-            case "done":
+
+            case "done/e":
+            case "done/d":
                 return new DoneParse(fullCommand).parse();
 
             case "find":
