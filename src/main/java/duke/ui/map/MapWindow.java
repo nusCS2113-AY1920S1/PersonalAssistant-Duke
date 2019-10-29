@@ -1,13 +1,20 @@
 package duke.ui.map;
 
 import duke.logic.commands.results.CommandResultMap;
+import duke.model.locations.RouteNode;
 import duke.model.locations.Venue;
 import duke.ui.UiPart;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -22,15 +29,29 @@ public class MapWindow extends UiPart<Stage> {
     private static final String FXML = "MapWindow.fxml";
     private ObservableList<Venue> locations = FXCollections.observableArrayList();
 
-    private void generateNodes(List<Venue> routes) {
+    private Image image = null;
+    private RouteNode centerNode = null;
+
+    private void generateNodes(List<RouteNode> routes) {
         locations.addAll(routes);
     }
 
     private void attachListener() {
         locations.addListener((ListChangeListener<Venue>) c -> {
             map.getChildren().clear();
+            int index = 0;
+            String id = "";
             for (Venue location : locations) {
-                map.getChildren().add(LocationCard.getCard(location));
+                if (index == 0) {
+                    id = "RouteNodeStart";
+                } else if (index == locations.size() - 1) {
+                    id = "RouteNodeEnd";
+                } else {
+                    id = "RouteNodeIntermediate";
+                }
+
+                map.getChildren().add(LocationCard.getCard(location, id));
+                index++;
             }
         });
     }
@@ -40,7 +61,7 @@ public class MapWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the CalendarWindow.
      */
-    private MapWindow(Stage root, List<Venue> routes) {
+    private MapWindow(Stage root, List<RouteNode> routes) {
         super(FXML, root);
         root.getScene().getStylesheets().addAll(this.getClass().getResource("/css/mapStyle.css").toExternalForm());
         attachListener();
@@ -74,6 +95,14 @@ public class MapWindow extends UiPart<Stage> {
      */
     public void show() {
         getRoot().show();
+    }
+
+    private void setImage(Image image) {
+        this.image = image;
+        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        map.setBackground(new Background(backgroundImage));
+        System.out.println("done");
     }
 
     /**

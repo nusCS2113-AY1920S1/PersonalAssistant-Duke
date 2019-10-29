@@ -10,16 +10,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Represents a location card in the UI.
+ * Represents a location card in the UI DialogBoxMap.
  */
-public class LocationCard extends UiPart<StackPane> {
+public class RouteLocationCard extends UiPart<StackPane> {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private static final String FXML = "LocationCard.fxml";
 
-    private LocationCard(Venue location, String id) {
+    private RouteLocationCard(Venue location, String id) {
         super(FXML);
-        double offsetY = 900 - ((location.getLatitude() - 1.218) * 900 / (1.486 - 1.218));
-        double offsetX = (location.getLongitude() - 103.622) * 1200 / (104.021 - 103.622);
+        double offsetY = 360 - ((location.getLatitude() - 1.218) * 360 / (1.486 - 1.218));
+        double offsetX = (location.getLongitude() - 103.622) * 360 / (104.021 - 103.622);
         AnchorPane.setLeftAnchor(getRoot(), offsetX);
         AnchorPane.setTopAnchor(getRoot(), offsetY);
         Tooltip tooltip = new Tooltip(location.getAddress());
@@ -32,7 +32,7 @@ public class LocationCard extends UiPart<StackPane> {
     }
 
     public static StackPane getCard(Venue location, String id) {
-        return new LocationCard(location, id).getRoot();
+        return new RouteLocationCard(location, id).getRoot();
     }
 
     /**

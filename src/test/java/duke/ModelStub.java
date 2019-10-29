@@ -6,6 +6,7 @@ import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.QueryFailedException;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.logic.CreateMap;
+import duke.logic.RouteManager;
 import duke.model.Model;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
@@ -25,6 +26,7 @@ public class ModelStub implements Model {
     private EventList events;
     private RouteList routes;
     private CreateMap map;
+    private RouteManager routeManager;
 
     /**
      * Construct the ModelStub for testing.
@@ -34,6 +36,7 @@ public class ModelStub implements Model {
         events = new EventList();
         routes = new RouteList();
         map = storage.getMap();
+        routeManager = new RouteManager(routes);
     }
 
     @Override
@@ -100,5 +103,10 @@ public class ModelStub implements Model {
     @Override
     public VenueList getEventVenues() {
         return new VenueList();
+    }
+
+    @Override
+    public RouteManager getRouteManager() {
+        return routeManager;
     }
 }

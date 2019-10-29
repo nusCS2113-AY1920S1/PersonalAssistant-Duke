@@ -3,18 +3,18 @@ package duke.logic.conversations;
 import duke.commons.Messages;
 
 /**
- * Handles the conversation occurring when a RouteList command is entered.
+ * Handles the conversation occurring when RouteManager is active, to select the node to use.
  */
-public class RouteListConversation extends Conversation {
-    private static final String command = "routeList";
+public class RouteManagerNodeSelectConversation extends Conversation {
+    private static final String command = "routeManagerNodeSelect";
     private String index;
 
     /**
      * Initialises the Conversation object.
      */
-    public RouteListConversation() {
+    public RouteManagerNodeSelectConversation() {
         super();
-        prompt = Messages.PROMPT_ROUTE_LIST_STARTER;
+        prompt = Messages.PROMPT_ROUTE_SELECTOR_NODESELECT_STARTER;
     }
 
     /**
@@ -25,9 +25,8 @@ public class RouteListConversation extends Conversation {
         if (isIntInput(input)) {
             index = input;
             buildResult();
+            setFinished(true);
         }
-
-        tryCancelConversation(input);
     }
 
     /**
@@ -37,11 +36,6 @@ public class RouteListConversation extends Conversation {
      */
     @Override
     protected void buildResult() {
-        if (index != null) {
-            result = command + " " + index;
-            setFinished(true);
-        } else {
-            attempts++;
-        }
+        result = command + " " + index;
     }
 }

@@ -4,6 +4,7 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.logic.CreateMap;
+import duke.logic.RouteManager;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.lists.VenueList;
@@ -25,6 +26,7 @@ public class ModelManager implements Model {
     private EventList events;
     private RouteList routes;
     private CreateMap map;
+    private RouteManager routeManager;
 
     /**
      * Constructs a new ModelManager object.
@@ -34,6 +36,7 @@ public class ModelManager implements Model {
         events = storage.getEvents();
         map = storage.getMap();
         routes = storage.getRoutes();
+        routeManager = new RouteManager(routes);
     }
 
     @Override
@@ -77,6 +80,11 @@ public class ModelManager implements Model {
     @Override
     public VenueList getEventVenues() {
         return new VenueList(events);
+    }
+
+    @Override
+    public RouteManager getRouteManager() {
+        return routeManager;
     }
 
     /**

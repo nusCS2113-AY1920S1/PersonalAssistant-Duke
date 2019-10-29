@@ -1,6 +1,7 @@
 package duke.logic.conversations;
 
 import duke.commons.exceptions.DukeException;
+import duke.logic.RouteManager;
 import duke.logic.commands.Command;
 import duke.logic.parsers.ConversationParser;
 import duke.logic.parsers.Parser;
@@ -11,10 +12,14 @@ import duke.logic.parsers.PromptParser;
  */
 public class ConversationManager {
     private boolean isFinished;
+    private boolean isInConversation;
     private Conversation conversation;
+    private RouteManager routeManager;
 
-    public ConversationManager() {
+    public ConversationManager(RouteManager routeManager) {
         isFinished = true;
+        isInConversation = false;
+        this.routeManager = routeManager;
     }
 
     /**
@@ -36,6 +41,7 @@ public class ConversationManager {
     private void tryEndConversation() {
         if (conversation.isFinished()) {
             isFinished = true;
+            isInConversation = false;
         }
     }
 
@@ -50,6 +56,7 @@ public class ConversationManager {
         if (isFinished) {
             startConversation(input);
             isFinished = false;
+            isInConversation = true;
             return true;
         }
         return false;
@@ -61,7 +68,7 @@ public class ConversationManager {
      * @param input The words from user input.
      */
     private void startConversation(String input) throws DukeException {
-        conversation = ConversationParser.parse(input);
+        conversation = ConversationParser.parse(input, routeManager);
     }
 
     /**
@@ -113,4 +120,11 @@ public class ConversationManager {
     public boolean isFinished() {
         return isFinished;
     }
+
+    /**
+     * Returns whether there is an ongoing conversation.
+     *
+     * @return Whether there is an ongoing conversation.
+     */
+    public boolean isInConversation() {return isInConversation;}
 }

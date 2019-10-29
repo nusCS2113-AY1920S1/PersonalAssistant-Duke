@@ -152,7 +152,7 @@ public class ApiParser {
         String result = "[";
         for (String point: points) {
             result += "[" + point + "]";
-            if (point.equals(points.get(points.size() - 1))) {
+            if (!point.equals(points.get(points.size() - 1))) {
                 result += ",";
             }
         }
@@ -173,19 +173,18 @@ public class ApiParser {
      * @param rgb The color of the region or line.
      * @return result The String param.
      */
-    public static String generateStaticMapLines(ArrayList<String> points, String rgb) {
+    public static String generateStaticMapLines(ArrayList<String> points, String rgb, String lineWidth) {
         String result = "[";
         for (String point: points) {
             result += "[" + point + "]";
-            if (point.equals(points.get(points.size() - 1))) {
-                result += ",";
-            }
+            result += ",";
         }
+        result = result.substring(0, result.length() - 1) + "]";
 
         if (!rgb.isEmpty()) {
-            result += ":" + rgb;
+            result += ":" + rgb + ":" + lineWidth;
         } else {
-            result += ":0,0,0";
+            result += ":0,0,0:" + lineWidth;
         }
 
         return result;
@@ -217,11 +216,9 @@ public class ApiParser {
     public static String generateStaticMapPoints(ArrayList<String> points) {
         String result = "[";
         for (String point: points) {
-            result += "[" + point + "]";
-            if (point.equals(points.get(points.size() - 1))) {
-                result += ",";
-            }
+            result += "[" + point + "]" + "|";
         }
+        result = result.substring(0, result.length() - 1);
 
         return result;
     }

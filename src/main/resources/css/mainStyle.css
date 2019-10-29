@@ -66,8 +66,18 @@
     -fx-background-color: rgba(0, 30, 15, 0.8);
 }
 
+.routeMapPane {
+    -fx-border-color: blue;
+    -fx-border-insets: 0;
+    -fx-border-width: 1
+}
+
 .sidePane {
     -fx-background-image: url("../images/sg.png");
+    -fx-background-size: 400 300;
+}
+
+.routeSidePane {
     -fx-background-size: 400 300;
 }
 

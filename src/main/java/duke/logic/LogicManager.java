@@ -28,8 +28,8 @@ public class LogicManager extends Logic {
      * Creates LogicManager instance.
      */
     public LogicManager() {
-        conversationManager = new ConversationManager();
         model = new ModelManager();
+        conversationManager = new ConversationManager(model.getRouteManager());
     }
 
     /**
@@ -43,7 +43,10 @@ public class LogicManager extends Logic {
         if (EditorManager.isActive()) {
             logger.log(Level.INFO, "editing...");
             c = EditorManager.edit(userInput);
-        } else {
+        } else  {
+            if (model.getRouteManager().isActivated() && !conversationManager.isInConversation()) {
+                userInput = model.getRouteManager().getConversationPrefix() + userInput;
+            }
             try {
                 c = Parser.parseComplexCommand(userInput);
                 conversationManager.clearContext();

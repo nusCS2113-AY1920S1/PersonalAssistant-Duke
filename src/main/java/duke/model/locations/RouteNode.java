@@ -2,6 +2,8 @@ package duke.model.locations;
 
 import duke.commons.enumerations.Constraint;
 
+import java.util.ArrayList;
+
 /**
  * Represents one transportation node - bus stop / train station.
  */
@@ -22,6 +24,15 @@ public abstract class RouteNode extends Venue {
         super(address, latitude, longitude, 0, 0);
         this.type = type;
         this.description = description;
+    }
+
+    /**
+     * Gets the RouteNode details for display in Route Selector.
+     *
+     * @return The details of the RouteNode.
+     */
+    public String getDisplayInfo() {
+        return getAddress() + "\n" + getDescription() + "\n" + " (" + getLatitude() + ", " + getLongitude() + ")";
     }
 
     /**

@@ -29,35 +29,35 @@ class RouteNodeShowCommandTest {
         routeNodeAddCommand.execute(model);
 
         RouteNodeListCommand routeNodeListCommand =
-                (RouteNodeListCommand) Parser.parseComplexCommand("routeNodeShow 1 1");
+                (RouteNodeListCommand) Parser.parseComplexCommand("routeNodeList 1 1");
         CommandResultText result = routeNodeListCommand.execute(model);
 
         assertEquals(expected, result.getMessage());
 
         //negative test for non-existing route
         RouteNodeListCommand routeNodeListCommand2 =
-                (RouteNodeListCommand) Parser.parseComplexCommand("routeNodeShow 2 1");
+                (RouteNodeListCommand) Parser.parseComplexCommand("routeNodeList 2 1");
         assertThrows(QueryOutOfBoundsException.class, () -> {
             routeNodeListCommand2.execute(model);
         });
 
         //negative test for non-existing route node in existing route
         RouteNodeListCommand routeNodeListCommand3 =
-                (RouteNodeListCommand) Parser.parseComplexCommand("routeNodeShow 1 2");
+                (RouteNodeListCommand) Parser.parseComplexCommand("routeNodeList 1 2");
         assertThrows(QueryOutOfBoundsException.class, () -> {
             routeNodeListCommand3.execute(model);
         });
 
         //negative test for negative values in non-existing route
         RouteNodeListCommand routeNodeListCommand4 =
-                (RouteNodeListCommand) Parser.parseComplexCommand("routeNodeShow -2 1");
+                (RouteNodeListCommand) Parser.parseComplexCommand("routeNodeList -2 1");
         assertThrows(QueryOutOfBoundsException.class, () -> {
             routeNodeListCommand4.execute(model);
         });
 
         //negative test for negative values in non-existing route node in existing route
         RouteNodeListCommand routeNodeListCommand5 =
-                (RouteNodeListCommand) Parser.parseComplexCommand("routeNodeShow 1 -2");
+                (RouteNodeListCommand) Parser.parseComplexCommand("routeNodeList 1 -2");
         assertThrows(QueryOutOfBoundsException.class, () -> {
             routeNodeListCommand5.execute(model);
         });

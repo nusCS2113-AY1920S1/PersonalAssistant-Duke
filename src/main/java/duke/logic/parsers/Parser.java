@@ -23,9 +23,19 @@ import duke.logic.commands.RecommendationsCommand;
 import duke.logic.commands.RouteDeleteCommand;
 import duke.logic.commands.RouteEditCommand;
 import duke.logic.commands.RouteListCommand;
+import duke.logic.commands.RouteManagerExitCommand;
+import duke.logic.commands.RouteManagerHelpCommand;
+import duke.logic.commands.RouteManagerNearbyCommand;
+import duke.logic.commands.RouteManagerNodeSelectorCommand;
+import duke.logic.commands.RouteManagerReturnCommand;
+import duke.logic.commands.RouteManagerSelectorCommand;
 import duke.logic.commands.RouteNodeDeleteCommand;
 import duke.logic.commands.RouteNodeEditCommand;
 import duke.logic.commands.RouteNodeListCommand;
+import duke.logic.commands.RouteNodeNeighboursCommand;
+import duke.logic.commands.RouteNodeShowCommand;
+import duke.logic.commands.RouteManagerCommand;
+import duke.logic.commands.RouteShowCommand;
 import duke.logic.commands.StaticMapCommand;
 import duke.logic.commands.ViewScheduleCommand;
 
@@ -98,13 +108,39 @@ public class Parser {
         case "routeNodeDelete":
             return new RouteNodeDeleteCommand(ParserUtil.getIntegerIndexInList(0, 2, inputBody),
                     ParserUtil.getIntegerIndexInList(1, 2, inputBody));
-        case "routeShow":
+        case "routeList":
             return new RouteListCommand(ParserUtil.getIntegerIndexInList(0, 1, inputBody));
-        case "routeNodeShow":
+        case "routeNodeList":
             return new RouteNodeListCommand(ParserUtil.getIntegerIndexInList(0, 2, inputBody),
                     ParserUtil.getIntegerIndexInList(1, 2, inputBody));
+        case "routeManagergenerate":
         case "routeGenerate":
             return ParserUtil.createRouteGenerateCommand(inputBody);
+        case "routeShow":
+            return new RouteShowCommand(ParserUtil.getIntegerIndexInList(0, 2, inputBody));
+        case "routeNodeShow":
+            return new RouteNodeShowCommand(ParserUtil.getIntegerIndexInList(0, 2, inputBody),
+                    ParserUtil.getIntegerIndexInList(1, 2, inputBody));
+        case "routeNearby":
+            return new RouteNodeNeighboursCommand(ParserUtil.getIntegerIndexInList(0, 2, inputBody),
+                    ParserUtil.getIntegerIndexInList(1, 2, inputBody));
+        case "routeManager":
+            return new RouteManagerCommand();
+        case "routeManagerRouteSelect":
+            return new RouteManagerSelectorCommand(ParserUtil.getIntegerIndexInList(0, 2, inputBody));
+        case "routeManagerNodeSelect":
+            return new RouteManagerNodeSelectorCommand(ParserUtil.getIntegerIndexInList(0, 2, inputBody));
+        case "routeManagerNodereturn":
+        case "routeManagerreturn":
+            return new RouteManagerReturnCommand();
+        case "routeManagerNodenearby":
+            return new RouteManagerNearbyCommand();
+        case "routeManagerNodehelp":
+        case "routeManagerhelp":
+            return new RouteManagerHelpCommand();
+        case "routeManagerNodeexit":
+        case "routeManagerexit":
+            return new RouteManagerExitCommand();
         case "addThisList":
             return new AddSampleItineraryCommand();
         default:

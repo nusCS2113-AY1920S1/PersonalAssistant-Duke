@@ -1,7 +1,9 @@
 package duke.model.lists;
 
 import duke.model.Event;
+import duke.model.locations.RouteNode;
 import duke.model.locations.Venue;
+import duke.model.transports.Route;
 
 import java.util.ArrayList;
 import java.util.Iterator;

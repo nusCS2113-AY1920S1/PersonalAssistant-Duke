@@ -11,6 +11,7 @@ import duke.model.locations.TrainStation;
 import duke.model.locations.Venue;
 import duke.model.transports.BusService;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -35,7 +36,6 @@ public class PathFinder {
         this.visited = new HashSet<>();
         this.path = new HashMap<>();
     }
-
 
     /**
      * Find path between start and end.
@@ -531,5 +531,27 @@ public class PathFinder {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Converts an ArrayList of Venues to RouteNodes.
+     *
+     * @param nodes The ArrayList of Venues.
+     * @return result The ArrayList of RouteNodes.
+     */
+    public ArrayList<RouteNode> convertToRouteNode(ArrayList<Venue> nodes) {
+        ArrayList<RouteNode> result = new ArrayList<>();
+        for (Venue node: nodes) {
+            if (node instanceof BusStop) {
+                result.add((BusStop) node);
+            } else if (node instanceof TrainStation) {
+                result.add((TrainStation) node);
+            } else {
+                CustomNode converted = new CustomNode(node.getAddress(), "", node.getLatitude(), node.getLongitude());
+                result.add(converted);
+            }
+        }
+
+        return result;
     }
 }
