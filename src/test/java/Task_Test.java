@@ -12,7 +12,7 @@ public class Task_Test {
     }
 
     @Test
-    public void testGetUser() { assertEquals("user", new Task("test", "user").getUser()); }
+    public void testGetUser() { assertEquals("user", new Task("test", "user").getAssignee()); }
 
 
     @Test

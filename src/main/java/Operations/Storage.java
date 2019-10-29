@@ -74,20 +74,20 @@ public class Storage {
                     String[] dateArray = temp[4].trim().split("-");
                     String scanFromDate = dateArray[0].trim();
                     try {
-                        from = parser.formatDate(scanFromDate);
+                        from = parser.formatDateCustom_1(scanFromDate);
                     } catch (RoomShareException e) {
                         System.out.println("error in loading file: date format error");
                     }
                     String scanToDate = dateArray[1].trim();
                     try {
-                        to = parser.formatDate(scanToDate);
+                        to = parser.formatDateCustom_1(scanToDate);
                     } catch (RoomShareException e) {
                         System.out.println("error in loading file: date format error");
                     }
                 } else {
                     String scanDate = temp[4].trim();
                     try {
-                        date = parser.formatDate(scanDate);
+                        date = parser.formatDateCustom_1(scanDate);
                     } catch (RoomShareException e) {
                         System.out.println("error in loading file: date format error");
                     }
@@ -174,7 +174,7 @@ public class Storage {
                 String description = s.getDescription();
                 String date = convertForStorage(s);
                 String recurrence = s.getRecurrenceSchedule().toString();
-                String user = s.getUser();
+                String user = s.getAssignee();
                 if (s instanceof Assignment) {
                     out = type + "#" +
                             isDone + "#" +
@@ -246,6 +246,33 @@ public class Storage {
     }
 
     /**
+     * Create a new text file and write all information of the current task list to it
+     * @param list the current task list
+     * @throws IOException when there's error creating or writing to file
+     * @throws FileNotFoundException when there's error creating or writing to file
+     */
+    public String writeLogFile(ArrayList<Task> list) throws RoomShareException {
+        String fileName = "log " + new Date().toString() + ".txt";
+        fileName = fileName.replaceAll(" ", "_").replaceAll(":","_");
+        String filePath = "logs\\" + fileName;
+        String folderName = "logs";
+        try {
+            File file = new File(filePath);
+            File folder = new File(folderName);
+            if (!folder.exists()) folder.mkdir();
+            file.createNewFile();
+            PrintWriter writer = new PrintWriter(filePath, "UTF-8");
+            for (Task t : list) {
+                writer.println(t.toString());
+            }
+            writer.close();
+        } catch (IOException e) {
+            throw new RoomShareException(ExceptionType.logError);
+        }
+        return filePath;
+    }
+
+    /**
      * Extracts and converts all the information in the task object for storage
      * will format the time information for meeting and assignment tasks
      * Additional formatting will be done for recurring tasks to include recurrence schedule
@@ -255,7 +282,7 @@ public class Storage {
      * @return time A String containing all the relevant information
      * @throws RoomShareException If there is any error in parsing the Date information.
      */
-    String convertForStorage(Task task) throws RoomShareException {
+    public String convertForStorage(Task task) throws RoomShareException {
         try {
             String time = "";
             String[] prelimSplit = task.toString().split("\\(");
