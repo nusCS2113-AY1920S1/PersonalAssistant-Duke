@@ -26,15 +26,10 @@ public class MainParser {
      * @return a command corresponding to the user input.
      */
     public static Command handleInput(String mode, String inputLine) { // TODO: Rename to something else
-
-        //Scanner input = new Scanner(System.in);
-        //String inputLine = input.nextLine();
         String[] inputArray = inputLine.split(SPACE);
         String command = inputArray[0];
-        boolean isExitCommand = command.equalsIgnoreCase(COMMAND_BYE);
-        boolean isSwitchMode = command.equalsIgnoreCase(MODE_DOLLA) || command.equals(MODE_ENTRY)
-                || command.equals(MODE_LIMIT) || command.equals(MODE_DEBT)
-                || command.equals(MODE_SHORTCUT);
+        boolean isExitCommand = isExitCommand(command);
+        boolean isSwitchMode = isSwitchModeCommand(command);
         if (isExitCommand) {
             exit(); // TODO: change
             //return new ExitCommand();
@@ -170,6 +165,16 @@ public class MainParser {
         return commandToRun;
     }
     */
+
+    private static boolean isExitCommand(String command) {
+        return command.equalsIgnoreCase(COMMAND_BYE);
+    }
+
+    private static boolean isSwitchModeCommand(String command) {
+        return command.equalsIgnoreCase(MODE_DOLLA) || command.equalsIgnoreCase(MODE_ENTRY)
+                || command.equalsIgnoreCase(MODE_LIMIT) || command.equalsIgnoreCase(MODE_DEBT)
+                || command.equalsIgnoreCase(MODE_SHORTCUT);
+    }
 
     /**
      * This method will exit the entire program after printing a goodbye message.
