@@ -90,7 +90,11 @@ public class Budget {
      * @return BigDecimal value of the budget set for the category
      */
     public BigDecimal getBudgetTag(String category) {
-        return budgetCategory.get(category);
+        if(budgetCategory.containsKey(category)) {
+            return budgetCategory.get(category);
+        } else {
+            return BigDecimal.ZERO;
+        }
     }
 
     public Map<String, BigDecimal> getBudgetCategory() {

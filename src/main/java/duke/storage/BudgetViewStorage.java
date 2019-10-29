@@ -64,14 +64,9 @@ public class BudgetViewStorage {
         try (Scanner fileReader = new Scanner(BUDGETVIEW_FILE).useDelimiter(STORAGE_DELIMITER)) {
             while (fileReader.hasNext()) {
                 String line = fileReader.next();
-                String[] separatedLine = line.split(" ");
-                int lineLength = separatedLine.length;
-                StringBuilder categoryBuilder = new StringBuilder();
-                for (int wordNumber = 1; wordNumber < lineLength; ++wordNumber) {
-                    categoryBuilder.append(separatedLine[wordNumber]).append(" ");
-                }
+                String[] separatedLine = line.split(" ", 2);
                 int view = Integer.parseInt(separatedLine[0]);
-                budgetViewCategory.put(view, categoryBuilder.toString());
+                budgetViewCategory.put(view, separatedLine[1]);
             }
         } catch (IOException e) {
             throw new DukeException(String.format(DukeException.MESSAGE_LOAD_FILE_FAILED, BUDGETVIEW_FILE.getPath()));

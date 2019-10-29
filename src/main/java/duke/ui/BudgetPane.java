@@ -2,6 +2,7 @@ package duke.ui;
 
 import duke.commons.LogsCenter;
 import duke.logic.Logic;
+import duke.model.BudgetView;
 import duke.model.Income;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
@@ -33,10 +34,9 @@ public class BudgetPane extends UiPart<AnchorPane>  {
     Pane paneView;
 
     @FXML
-    GridPane gridPane;
+    Pane paneBudgetView;
 
     public Logic logic;
-    public Set<String> tags;
 
     public BudgetPane(ObservableList<Income> incomeList, Logic logic) {
         super(FXML_FILE_NAME, null);
@@ -130,16 +130,7 @@ public class BudgetPane extends UiPart<AnchorPane>  {
         paneView.getChildren().add(overallBudget);
         paneView.getChildren().add(text);
 
-
-        ProgressBar view1 = new ProgressBar();
-        String category = logic.getBudgetViewCategory().get(1);
-        logger.info(category);
-        //error is here, keeps throwing null pointer exception
-        double percent1 = logic.getBudgetTag(category).doubleValue();
-        //double percent1 = (logic.getTagAmount(category).doubleValue()) / (logic.getBudgetTag(category).doubleValue());
-        view1.setProgress(percent1);
-        gridPane.add(view1,1,1);
-
-
+        paneBudgetView.getChildren().clear();
+        paneBudgetView.getChildren().add(new BudgetBar(logic).getRoot());
     }
 }
