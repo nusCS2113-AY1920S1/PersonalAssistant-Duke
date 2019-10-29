@@ -25,7 +25,7 @@ public abstract class ArgCommand extends Command {
         // do any necessary pre-processing
     }
 
-    public void setSwitchValsMap(HashMap<String, String> switchVals) {
+    public void setSwitchValsMap(Map<String, String> switchVals) {
         this.switchVals.putAll(switchVals);
     }
 

@@ -9,6 +9,7 @@ import java.util.Map;
 
 public abstract class DukeDataCommand extends ArgCommand {
 
+    // TODO: change map to allowed switches, and code accordingly
     private static final Map<String, List<String>> forbiddenSwitchesMap = Map.ofEntries(
             Map.entry("medicine", Arrays.asList("summary", "subjective", "objective")),
             Map.entry("plan", Arrays.asList("dose", "duration", "date", "subjective", "objective")),

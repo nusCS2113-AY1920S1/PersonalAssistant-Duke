@@ -30,7 +30,7 @@ public abstract class CommandTest {
     @BeforeAll
     public static void setupCore() {
         try {
-            core = new DukeCore(testPrint);
+            core = new DukeCore();
             core.patientMap = new PatientMap();
             core.storage = new GsonStorage(testFilePath);
             core.writeJsonFile();
