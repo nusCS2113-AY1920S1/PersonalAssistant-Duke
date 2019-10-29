@@ -6,6 +6,7 @@ import Events.EventTypes.Event;
 import Events.Storage.EventList;
 import Events.Storage.Goal;
 
+import java.util.ArrayList;
 import java.util.Queue;
 
 
@@ -337,6 +338,40 @@ public class UI {
     public static void printNoCostsForThatMonth() {
         System.out.print(lineSeparation);
         System.out.println("There are no concerts for that month!");
+        System.out.print(lineSeparation);
+    }
+
+    public void checklistDeleted(int eventIndex) {
+        System.out.print(lineSeparation);
+        System.out.println("Ok, checklist of event " + eventIndex + 1 + " has been deleted.");
+        System.out.print(lineSeparation);
+    }
+
+    public void checklistEdited(String newChecklistItem, int eventIndex) {
+        System.out.print(lineSeparation);
+        System.out.println("Ok, checklist of event " + eventIndex + 1 + " has been edited to:");
+        System.out.println(newChecklistItem);
+        System.out.print(lineSeparation);
+    }
+
+    public void checklistAdded(String newChecklistItem, int eventIndex) {
+        System.out.print(lineSeparation);
+        System.out.println("Ok, the following item has been added to checklist of event " + eventIndex + 1 + ":");
+        System.out.println(newChecklistItem);
+        System.out.print(lineSeparation);
+    }
+
+    public void printEventChecklist(ArrayList<String> thisChecklist, int eventIndex, Event eventAdded) {
+        System.out.print(lineSeparation);
+        System.out.println("Here is the checklist for the following event: ");
+        System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
+                eventAdded.getDescription());
+        System.out.println("Checklist: ");
+        int checklistIndex = 1;
+        for (String checklistItem : thisChecklist) {
+            System.out.println(checklistIndex + ". " + checklistItem);
+            checklistIndex += 1;
+        }
         System.out.print(lineSeparation);
     }
 }
