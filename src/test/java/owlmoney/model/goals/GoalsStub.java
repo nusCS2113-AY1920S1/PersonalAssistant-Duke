@@ -85,12 +85,6 @@ public class GoalsStub extends Goals {
         return this.amount;
     }
 
-    @Override
-    void setGoalsDate(Date newDate) {
-        this.goalsDate = newDate;
-    }
-
-
     public double getNewRemainAmount() {
         return this.amount - this.income;
     }
