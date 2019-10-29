@@ -2,6 +2,7 @@ package compal.logic.command;
 
 import static java.util.Objects.requireNonNull;
 
+//@@author SholihinK
 /**
  * Represents the result of a command execution.
  */

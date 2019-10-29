@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.text.ParseException;
 
+//@@author SholihinK
 /**
  * Handles GUI.
  * This is a JavaFXML Controller class.
@@ -42,5 +43,4 @@ public class MainWindow extends AnchorPane {
         uiUtil.printg(cmdResult.feedbackToUser);
         userInput.clear();
     }
-
 }

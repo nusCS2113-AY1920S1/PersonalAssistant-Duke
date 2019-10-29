@@ -2,6 +2,7 @@ package compal.commons;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class CompalUtils {
@@ -48,5 +49,20 @@ public class CompalUtils {
         int startTimeInt = Integer.valueOf(startTimeString);
         int endTimeInt = Integer.valueOf(endTimeString);
         return (startTimeInt < endTimeInt);
+    }
+
+    //@@author yueyeah
+    /**
+     * Increases date by week, to assign event slots for each week.
+     *
+     * @param initialDate The date to increment
+     * @return Final date one week later than initialDate
+     */
+    public static Date incrementDateByDays(Date initialDate, int numOfDays) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(initialDate);
+        calendar.add(Calendar.DATE, numOfDays);
+        Date finalDate = calendar.getTime();
+        return finalDate;
     }
 }

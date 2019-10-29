@@ -1,5 +1,6 @@
 package compal;
 
+import compal.commons.LogUtils;
 import compal.logic.LogicManager;
 import compal.logic.command.CommandResult;
 import compal.logic.command.ListCommand;
@@ -12,6 +13,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.text.ParseException;
+import java.util.logging.Logger;
 
 /**
  * Initializes GUI.
@@ -21,6 +23,7 @@ public class Main extends Application {
     private Ui ui;
     private UiUtil uiUtil;
     private LogicManager logicManager;
+    private static final Logger logger = LogUtils.getLogger(Main.class);
 
     /**
      * Constructs a new Main object.
@@ -32,6 +35,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        logger.info("Starting COMPal");
         launch(args);
     }
 
