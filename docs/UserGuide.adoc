@@ -3,7 +3,9 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 4
 :sectnums:
+:sectnumlevels: 4
 :figure-caption: Figure
 :imagesDir: images
 :stylesDir: stylesheets
@@ -392,6 +394,9 @@ Adds a task with description and time period to be `study for exam` and between 
 
 
 === Calendar Commands
+Want to know your workload and upcoming events for the month?
+Use our `calendar` feature!
+
 ====  Viewing all tasks in calendar view: `calendar`
 Transforms all current tasks recorded into a calendar view for easy time management.
 
@@ -409,7 +414,9 @@ Want to view multiple calendars side-by-side?
 Format: `viewDual`
 
 === Week View Commands
-==== View tasks in week view: `viewWeek`
+Wonder what is up in your upcoming week? Simply use our `viewweek` feature!
+
+==== View tasks in week view: `viewweek`
 Shows you the tasks for any particular week in a table format.
 
 Format: `viewweek DD MM YYYY`
@@ -438,10 +445,125 @@ image::ViewweekDefault.png[ViewweekDefault]
 image::ViewweekParam.png[ViewweekParam]
 
 === Semester Commands
-==== Viewing, adding, editing and removing of semester and module data: `semester`
-Opens menu to view, add, edit and remove Semester and Module data.
+Increase your efficiency by planning ahead with our Semester commands!
+
+==== Viewing semester data: `semester`
+Planning ahead for your entire university journey? With `Oof` you can simply use the `semester` command to display all the semesters you have added!
 
 Format: `semester`
+
+==== Adding semester data: `semester add`
+Want to add a semester into `Oof` to manage your modules? Simply use `semester add`!
+
+Format: `semester add /year DESCRIPTION /name DESCRIPTION`
+
+* `Description` of the semester year and name can have multiple words, not just limited to single word descriptions.
+
+Example:
+
+* `semester add /year AY19/20 /name semester 1` +
+Adds a semester with academic year AY19/20 and name as semester 1.
+
+==== Removing semester data: `semester delete`
+Accidentally added wrong semester data? No worries! Simply use `semester delete` to remove unwanted data!
+
+Format: `semester delete INDEX`
+
+* The `INDEX` refers to the index number displayed in the list of semesters recorded. `semester` can be used to display the saved semesters).
+
+Example:
+
+* `semester delete 1` +
+Deletes the 1st semester in the list of semesters.
+
+==== Viewing module data: `module`
+Want a quick overview of the modules you are taking for a semester? With `Oof` you can simply use the `module` command to display all the modules you have added!
+
+Format: `module`
+
+==== Adding module data: `module add`
+Want to add a module into `Oof` to manage your lessons and assessments? Simply use `module add`!
+
+Format: `module add /code DESCRIPTION /name DESCRIPTION`
+
+* `Description` of the module code and name can have multiple words, not just limited to single word descriptions.
+
+Example:
+
+* `module add /code CS2113T /name software engineering` +
+Adds a module with module code CS2113T and name as software engineering.
+
+==== Removing module data: `module delete`
+Accidentally added wrong module data? No worries! Simply use `module delete` to remove unwanted data!
+
+Format: `module delete INDEX`
+
+* The `INDEX` refers to the index number displayed in the list of modules recorded. `module` can be used to display the saved semesters).
+
+Example:
+
+* `module delete 1` +
+Deletes the 1st module in the list of modules.
+
+==== Viewing lesson data: `lesson`
+Want to view all the lessons you are taking for a module? With `Oof` you can simply use the `lesson` command to display all the lessons you have added!
+
+Format: `lesson`
+
+==== Adding lesson data: `lesson add`
+Want to add a lesson into `Oof` to manage them? Simply use `lesson add`!
+
+Format: `lesson add DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
+
+* `Description` of the lesson can have multiple words, not just limited to single word descriptions.
+* `Date and time` have to *strictly* be in the format as stated above.
+
+Example:
+
+* `lesson add lecture /from 01-11-2019 16:00 /to 01-11-2019 18:00` +
+Adds a lesson with name, start and end time as `lecture`, `01-11-2019 16:00`, `01-11-2019 18:00` respectively.
+
+==== Removing lesson data: `lesson delete`
+Got the date wrong for your lesson by accident? No worries! Simply use `lesson delete` to remove unwanted data!
+
+Format: `lesson delete INDEX`
+
+* The `INDEX` refers to the index number displayed in the list of lessons recorded. `lesson` can be used to display the saved semesters).
+
+Example:
+
+* `lesson delete 1` +
+Deletes the 1st lesson in the list of lessons.
+
+==== Viewing assessment data: `assessment`
+Want to view all the assessments you have for a semester? With `Oof` you can simply use the `assessment` command to display all the assessments you have recorded!
+
+Format: `assessment`
+
+==== Adding assessment data: `assessment add`
+Want to add an assessment into `Oof` to keep track of them? Simply use `assessment add`!
+
+Format: `assessment add DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
+
+* `Description` of the assessment can have multiple words, not just limited to single word descriptions.
+* `Date and time` have to *strictly* be in the format as stated above.
+
+Example:
+
+* `assessment add final examination /from 23-11-2019 13:00 /to 23-11-2019 15:00` +
+Adds an assessment with name, start and end time as `final examination`, `23-11-2019 13:00`, `23-11-2019 15:00` respectively.
+
+==== Removing assessment data: `assessment delete`
+Got the date wrong for your assessment by accident? No worries! Simply use `assessment delete` to remove unwanted data!
+
+Format: `assessment delete INDEX`
+
+* The `INDEX` refers to the index number displayed in the list of assessments recorded. `assessment` can be used to display the saved semesters).
+
+Example:
+
+* `assessment delete 1` +
+Deletes the 1st assessment in the list of lessons.
 
 === Assignment Tracker Commands
 A successful you begins with self-awareness!
