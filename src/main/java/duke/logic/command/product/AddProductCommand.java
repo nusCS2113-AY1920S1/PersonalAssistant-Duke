@@ -50,6 +50,7 @@ public class AddProductCommand extends ProductCommand {
         }
 
         ProductCommandUtil.verifyNewIngredients(model, toAdd);
+        toAdd.setIngredientCost(ProductCommandUtil.getIngredientCost(model, toAdd));
         model.addProduct(toAdd);
         model.commit(ProductMessageUtils.MESSAGE_COMMIT_ADD_PRODUCT);
 
