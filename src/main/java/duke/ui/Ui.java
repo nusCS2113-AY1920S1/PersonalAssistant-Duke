@@ -8,7 +8,6 @@ import duke.task.Repeat;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.PriorityList;
-import duke.task.Event;
 
 import javafx.util.Pair;
 
@@ -464,9 +463,6 @@ public class Ui {
             } else if (taskType.equals("deadline") && items.get(i) instanceof Deadline) {
                 out.println("     " + (i + ONE) + "." + items.get(i).toString());
                 numFound++;
-            } else if (taskType.equals("event") && items.get(i) instanceof Event) {
-                out.println("     " + (i + ONE) + "." + items.get(i).toString());
-                numFound++;
             } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
                 out.println("     " + (i + ONE) + "." + items.get(i).toString());
                 numFound++;
@@ -495,9 +491,6 @@ public class Ui {
                 str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
             } else if (taskType.equals("deadline") && items.get(i) instanceof Deadline) {
-                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
-                numFound++;
-            } else if (taskType.equals("event") && items.get(i) instanceof Event) {
                 str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
             } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {

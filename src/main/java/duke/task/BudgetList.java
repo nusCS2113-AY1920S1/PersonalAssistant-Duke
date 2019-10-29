@@ -48,6 +48,7 @@ public class BudgetList {
      * Changes the budget by the amount stated.
      *
      * @param amount the amount to be added into the budget.
+     * @param remark Some description.
      */
     public void addToBudget(String amount, String remark) {
         float currentBudget = floatConverter(budgetList.get(ZERO)) + floatConverter(amount);

@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.task.Deadline;
-import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
@@ -28,7 +27,7 @@ class AddCommTest {
         cmd.execute(items, ui);
         assertEquals(task, items.get(items.size() - 1));
 
-        task = new Event("sleep", "05/05/2015 1800");
+        task = new Deadline("sleep", "05/05/2015 1800");
         cmd = new AddCommand(task);
         cmd.execute(items, ui);
         assertEquals(task, items.get(items.size() - 1));

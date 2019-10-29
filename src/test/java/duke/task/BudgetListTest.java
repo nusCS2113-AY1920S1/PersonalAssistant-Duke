@@ -48,7 +48,7 @@ public class BudgetListTest {
         BudgetList budgetList = new BudgetList();
         budgetList.addToBudget("2113", "SEEDU");
         assertEquals("     Here are your current expenses: \n"
-                    + "     1. 2113 - SEEDU\n", budgetList.getStringList());
+                    + "     1) 2113 : SEEDU\n", budgetList.getStringList());
     }
 
 }

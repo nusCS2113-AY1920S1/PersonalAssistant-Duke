@@ -3,6 +3,8 @@ package duke.task;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //@@author talesrune
 /**
@@ -21,6 +23,7 @@ public class Deadline extends Task {
     private static final int TWENTY_TWO = 22;
     private static final int TWENTY_THREE = 23;
     private static final int THIRTY_ONE = 31;
+    private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Creates a deadline with the specified description and date/time.
@@ -36,6 +39,7 @@ public class Deadline extends Task {
             dateTime = datetimeFormat.parse(by);
             this.by = dateTime;
         } catch (ParseException e) {
+            logr.log(Level.WARNING,"Error reading date/time, please use this format \"d/MM/yyyy HHmm\"", e);
             System.out.println("Error reading date/time, please use this format \"d/MM/yyyy HHmm\"");
             throw e;
         }
@@ -141,6 +145,7 @@ public class Deadline extends Task {
             dateTime = datetimeFormat.parse(by);
             this.by = dateTime;
         } catch (ParseException e) {
+            logr.log(Level.WARNING,"Error reading date/time, please use this format \"d/MM/yyyy HHmm\"", e);
             System.out.println("Error reading date/time, please use this format \"d/MM/yyyy HHmm\"");
             throw e;
         }
