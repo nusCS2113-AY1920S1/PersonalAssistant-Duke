@@ -21,7 +21,7 @@ It is written in Java, and has about 10kLoC.
 
 === Summary of contributions
 
-*Major enhancement: added CAP feature* +
+*Major enhancement 1: added CAP feature* +
 _What it does:_ +
 Allows the user to add module's code, module's credit, module's grade and the semester when the module is taken.
 Additionally, it is able to list out all the modules or modules in a particular sem, 
@@ -34,16 +34,26 @@ can now keep track of his grades and see which semester he is falling behind by 
 Additionally, students especially Year 1 students can know which modules to S/U by playing around with grades so that they can make
 an informed decision on which modules to SU to acheive a better result. +
 _Highlights:_ +
+It requires an in-depth analysis of design alternatives.
+The implementation too was challenging as it required changes to existing commands. +
+_Credits: http://www.nus.edu.sg/registrar/education-at-nus/modular-system.html[NUS GRADE POINTS]_ +
+NUS
+
+*Major enchancement 2: added Contact feature* +
+_What it does:_ +
+Allows the user to add contact's name and contacts's number.
+Addtionally, it is able to list out all the contact's name and number, find contacts base on their name and delete a contact. 
+
+_Justification:_ +
+This feature improves the product significantly because a user
+can now keep track of his contacts.
+Additionally, students especially Year 1 students can know which modules to S/U by playing around with grades so that they can make
+an informed decision on which modules to SU to acheive a better result. +
+_Highlights:_ +
 This enhancement affects existing commands and commands to be added in future.
 It requires an in-depth analysis of design alternatives.
 The implementation too was challenging as it required changes to existing commands. +
 _Credits: GSON Java library_ +
-Gson is a Java library that can be used to convert Java Objects into their JSON representation.
-It can also be used to convert a JSON string to an equivalent Java object.
-In Student Buddy, GSON Java library is used to convert the account's username and password,
-which is in Java Object form, into JSON representation to be stored in a JSON file.
-Vice versa, for retrieving the JSON representation in the JSON file and converting
-into Java Objects to be read by other classes.
 
 *Minor enhancement:* +
 1. All passwords are hashed before storing. +
