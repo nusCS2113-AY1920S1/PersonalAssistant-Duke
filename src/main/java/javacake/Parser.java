@@ -1,11 +1,11 @@
 package javacake;
 
-
 import javacake.commands.AddCommand;
 import javacake.commands.ChangeColorCommand;
 import javacake.commands.BackCommand;
 import javacake.commands.Command;
 import javacake.commands.CreateNoteCommand;
+import javacake.commands.DeleteNoteCommand;
 import javacake.commands.EditNoteCommand;
 import javacake.commands.ExitCommand;
 import javacake.commands.GoToCommand;
@@ -17,7 +17,6 @@ import javacake.commands.ReminderCommand;
 import javacake.commands.ResetCommand;
 import javacake.commands.ScoreCommand;
 import javacake.exceptions.DukeException;
-import javacake.notes.NoteList;
 import javacake.ui.MainWindow;
 
 public class Parser {
@@ -59,6 +58,8 @@ public class Parser {
             return new EditNoteCommand(inputCommand);
         } else if (input.equals("listnote")) {
             return new ListNoteCommand();
+        } else if (input.equals("deletenote")) {
+            return new DeleteNoteCommand(inputCommand);
         } else if (input.equals("deadline")) {
             return new AddCommand(inputCommand);
         } else if (input.equals("reminder")) {
@@ -79,7 +80,8 @@ public class Parser {
      */
     private static void helper(String input) throws DukeException {
         String[] commands = {"exit", "list", "back", "help", "score", "reset",
-                             "goto", "overview", "deadline", "editnote", "createnote"};
+                            "goto", "overview", "deadline", "editnote", "createnote",
+                            "listnote", "deletenote"};
         for (int i = 0; i < commands.length; i++) {
             boolean isTypo = false;
             String command = commands[i];

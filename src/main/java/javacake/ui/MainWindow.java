@@ -11,17 +11,22 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.w3c.dom.Text;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -225,11 +230,34 @@ public class MainWindow extends AnchorPane {
         System.out.println("starting BUT not firsttime");
         showContentContainer();
     }
+
     private void handleEditNote() throws DukeException {
         Duke.logger.log(Level.INFO, "Editing note initialised!");
         isWritingNote = true;
         response = EditNoteCommand.getHeadingMessage();
+        //response.setEditable(false);
         DialogBox.isScrollingText = false;
+        /*dialogContainer.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                    if(mouseEvent.getClickCount() == 2){
+                        //label.setVisible(false);
+                        //TextArea textarea = new TextArea(label.getText());
+                        //textarea.setPrefHeight(label.getHeight() + 10);
+                        //stackpane.getChildren().add(textarea);
+
+                        textarea.setOnKeyPressed(event ->{
+                            System.out.println(event.getCode());
+                            if(event.getCode().toString().equals("ENTER"))
+                            {
+                                stackpane.getChildren().remove(textarea);
+                                label.setVisible(true);
+                            }
+                        });
+                    }
+            }
+        });*/
         showContentContainer();
         EditNoteCommand.clearTextFileContent();
     }
@@ -419,12 +447,12 @@ public class MainWindow extends AnchorPane {
     }
 
     private void showListNotesBox() throws DukeException {
-        response = Ui.showNoteList(duke.storageManager);
+        response = Ui.showNoteList(Duke.storageManager);
         showNoteContainer();
     }
 
     private void showRemindersBox() {
-        response = Ui.showDeadlineReminder(duke.storageManager);
+        response = Ui.showDeadlineReminder(Duke.storageManager);
         //CHECKSTYLE:OFF
         response = response.replaceAll("✓", "\u2713");
         response = response.replaceAll("✗", "\u2717");

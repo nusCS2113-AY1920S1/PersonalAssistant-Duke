@@ -18,7 +18,8 @@ public abstract class Command {
      */
     public enum CmdType {
         EXIT, LIST, FIND, DONE, DELETE, TODO, DEADLINE, REMIND, VIEWSCH,
-        EDIT, BACK, GOTO, QUIZ, HELP, TREE, CREATENOTE, EDITNOTE
+        EDIT, BACK, GOTO, QUIZ, HELP, TREE, CREATENOTE, EDITNOTE, LISTNOTE,
+        DELETENOTE
     }
 
     public abstract String execute(Logic logic, Ui ui, StorageManager storageManager)
