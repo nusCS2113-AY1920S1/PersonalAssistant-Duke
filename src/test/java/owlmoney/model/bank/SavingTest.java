@@ -203,7 +203,7 @@ class SavingTest {
         Saving savingTest = new Saving("test", 100, 100);
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
-        calendar.setTime(new Date());
+        calendar.setTime(new Date("10/28/2019"));
         calendar.add(Calendar.MONTH, -1);
         Expenditure testExpenditure = new Expenditure("testExpenditure", 10, calendar.getTime(), "testExpenditure");
         try {
@@ -235,7 +235,7 @@ class SavingTest {
         Saving savingTest = new Saving("test", 100, 100);
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
-        calendar.setTime(new Date());
+        calendar.setTime(new Date("10/28/2019"));
         calendar.add(Calendar.MONTH, -1);
         Expenditure testExpenditure = new Expenditure("testExpenditure", 10, calendar.getTime(), "testExpenditure");
         try {
@@ -276,7 +276,7 @@ class SavingTest {
         Saving savingTest = new Saving("test", 100, 100);
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
-        calendar.setTime(new Date());
+        calendar.setTime(new Date("10/28/2019"));
         calendar.add(Calendar.MONTH, -1);
         Expenditure testExpenditure = new Expenditure("testExpenditure", 10, calendar.getTime(), "testExpenditure");
         try {
