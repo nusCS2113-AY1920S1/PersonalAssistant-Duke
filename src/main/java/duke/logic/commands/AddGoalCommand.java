@@ -7,7 +7,6 @@ import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 import duke.ui.InputHandler;
-import duke.ui.Ui;
 
 /**
  * AddGoalCommand is a public class that inherits from abstract class Command.
@@ -18,14 +17,13 @@ import duke.ui.Ui;
  */
 public class AddGoalCommand extends Command {
     private Goal goal;
-    private Ui ui;
 
     /**
      * Constructor for AddGoalCommand.
      */
     public AddGoalCommand() {
         goal = new Goal();
-        ui = new Ui();
+        isDone = false;
     }
 
     public AddGoalCommand(boolean flag, String message) {
@@ -42,7 +40,6 @@ public class AddGoalCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
-        isDone = false;
         ui.showLine();
         InputHandler in = new InputHandler(response);
         try {
@@ -69,7 +66,7 @@ public class AddGoalCommand extends Command {
                     if (in.getApproval()) {
                         ui.showActivityLevel();
                     } else {
-                        goal.setLifestyleTarget(5);
+                        goal.setActivityLevelTarget(5);
                         if (user.setGoal(goal, false)) {
                             ui.succeedSetGoal();
                             isDone = true;
@@ -84,7 +81,7 @@ public class AddGoalCommand extends Command {
                     if (activityLevel >= 5 || activityLevel < 0) {
                         throw new DukeException("Please enter a valid activity level.");
                     } else {
-                        goal.setLifestyleTarget(activityLevel);
+                        goal.setActivityLevelTarget(activityLevel);
                     }
                     if (user.setGoal(goal, false)) {
                         ui.succeedSetGoal();

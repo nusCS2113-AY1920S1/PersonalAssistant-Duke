@@ -35,7 +35,6 @@ public class Main {
     public Main() {
         ui = new Ui();
         user = new User();
-        setup = new UserSetup(user);
         autocorrect = new Autocorrect();
         wallet = new Wallet();
         try {
