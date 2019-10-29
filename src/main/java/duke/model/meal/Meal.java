@@ -68,6 +68,11 @@ public class Meal {
         }
     }
 
+    public Meal(String description, HashMap<String, Integer> nutritionValue) {
+        this.description = description.trim();
+        this.nutritionValue = nutritionValue;
+    }
+
     /**
      * This is the no argument constructor for meal task object.
      * used to satisfy requirement for default constructor, not used otherwise

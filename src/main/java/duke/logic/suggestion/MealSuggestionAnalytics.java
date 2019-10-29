@@ -2,12 +2,12 @@ package duke.logic.suggestion;
 
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
+import duke.model.meal.SuggestMeal;
 
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
 
 /**
  * This class handles all the data analytics aspect of the meal suggestion feature.
@@ -16,33 +16,72 @@ import java.util.Comparator;
  */
 public class MealSuggestionAnalytics {
 
-    private HashMap<String, HashMap<String, Integer>> defaultMealSuggestionList;
+    private static ArrayList<SuggestMeal> defaultSuggestionMealList = new ArrayList<>();
 
     public MealSuggestionAnalytics() {
-
     }
 
-    public ArrayList<Meal> getMealSuggestions(MealList meals, Calendar suggestionDate, int maxMealsToSuggest) {
-        defaultMealSuggestionList = meals.getStoredList();
-        return new ArrayList<Meal>();
-        // return getMealListWithinCalories(calorieLimit);
+    // get meal suggestion given the calorie limit and the max number of meals to suggest.
+    public ArrayList<Meal> getMealSuggestions(MealList meals, Calendar suggestionDate,
+                                              int calorieLimit, int maxMealsToSuggest) {
+
+        setDefaultSuggestionMealList(meals.getStoredList(), suggestionDate);
+
+        ArrayList<SuggestMeal> suggestionMealList = getMealListWithinCalories(calorieLimit);
+        filterDisplayList(suggestionMealList, maxMealsToSuggest);
+        return new ArrayList<Meal>(suggestionMealList);
     }
 
-    private ArrayList<Meal> getMealListWithinCalories(int calorieLimit) {
-        ArrayList<Meal> suggestedMealList = new ArrayList<>();
+    // set the default meal list from which meals are suggested.
+    private void setDefaultSuggestionMealList(HashMap<String, HashMap<String, Integer>>
+                                                      defaultMealSuggestionList, Calendar suggestionDate) {
+        defaultSuggestionMealList.clear();
         for (String mealNameStr : defaultMealSuggestionList.keySet()) {
-            HashMap<String, Integer> mealDetailsMap = defaultMealSuggestionList.get(mealNameStr);
-            if (mealDetailsMap.containsKey("calorie") && mealDetailsMap.get("calorie") < calorieLimit) {
-                //suggestedMealList.add(meal);
-            }
+            HashMap<String, Integer> mealNutrients  = defaultMealSuggestionList.get(mealNameStr);
+            defaultSuggestionMealList.add(new SuggestMeal(mealNameStr, mealNutrients, suggestionDate));
+        }
+    }
+
+    /**
+     * Get all the meals that satisfy calorie requirement.
+     * @param calorieLimit Calorie limit that user has for the day.
+     * @return List of meals that meet the calorie limit.
+     */
+    private ArrayList<SuggestMeal> getMealListWithinCalories(int calorieLimit) {
+        ArrayList<SuggestMeal> tempSuggestionMealList = new ArrayList(defaultSuggestionMealList);
+        Collections.sort(tempSuggestionMealList);
+        SuggestMeal calorieLimitMeal = new SuggestMeal();
+        calorieLimitMeal.addNutritionalValue("calorie", calorieLimit);
+
+        int startIdx, endIdx, compareIdx;
+        compareIdx = Collections.binarySearch(tempSuggestionMealList, calorieLimitMeal);
+
+        // a meal with the exact calorie limit exists
+        if (compareIdx >= 0) {
+            startIdx = 0;
+            endIdx = compareIdx + 1;
+        } else {
+            // meal with same calories as calorie limit not found.
+            // negative index returned by subList.
+            startIdx = 0;
+            endIdx = -1*(compareIdx + 1);
+        }
+        return new ArrayList<SuggestMeal>(tempSuggestionMealList.subList(startIdx, endIdx));
+    }
+
+    /**
+     * Filter the list of suggested meals based on user requirement.
+     * @param mealList Input meal list that is modified by reference.
+     * @param maxMealsToSuggest Maximum number of meals to be suggested as set by user.
+     */
+    private void filterDisplayList(ArrayList<SuggestMeal> mealList, int maxMealsToSuggest) {
+        int endIdx = mealList.size();
+        int startIdx = endIdx - maxMealsToSuggest;
+
+        if (startIdx < 0) {
+            startIdx = 0;
         }
 
-        sortMealList(suggestedMealList, "calorie");
-
-        return suggestedMealList;
-    }
-
-    private void sortMealList(ArrayList<Meal> mealList, String parameterStr) {
-        Collections.sort(mealList, Comparator.comparing(meal -> meal.getNutritionalValue().get(parameterStr)));
+        mealList = new ArrayList<SuggestMeal>(mealList.subList(startIdx, endIdx));
     }
 }

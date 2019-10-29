@@ -3,6 +3,7 @@ package duke.logic.commands;
 import duke.logic.suggestion.MealSuggestionAnalytics;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
+import duke.model.meal.SuggestMeal;
 import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
@@ -40,6 +41,16 @@ public class SuggestCommand extends Command {
         this.errorStr = messageStr;
     }
 
+    private int getCalorieLimit(User user, ArrayList<Meal> meals) {
+        int totalConsume = 0;
+        for (int i = 0; i < meals.size(); i += 1) {
+            // add all meals regardless whether it is done or not.
+            totalConsume += meals.get(i).getNutritionalValue().get("calorie");
+        }
+
+        return user.getDailyCalorie() - totalConsume;
+    }
+
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         /*
@@ -49,7 +60,9 @@ public class SuggestCommand extends Command {
         */
 
         mealSuggestionAnalytics = new MealSuggestionAnalytics();
-        suggestedMealList = mealSuggestionAnalytics.getMealSuggestions(meals, calendarDate, maxMealsToSuggest);
+        int calorieLimit = getCalorieLimit(user, meals.getMealsList(currentDateStr));
+        suggestedMealList = mealSuggestionAnalytics.getMealSuggestions(meals, calendarDate,
+                                                                        calorieLimit, maxMealsToSuggest);
 
         if (suggestedMealList.size() > 0) {
             ui.showSuggestedMealList(suggestedMealList, currentDateStr);
@@ -73,15 +86,20 @@ public class SuggestCommand extends Command {
             return;
         }
 
-        if (1 > mealSelectedIndex || mealSelectedIndex > suggestedMealList.size()) {
+        if (mealSelectedIndex == 0) {
+            ui.showMessage("Declining suggestions.");
+            isDone = true;
+            return;
+        } else if (1 > mealSelectedIndex || mealSelectedIndex > suggestedMealList.size()) {
             ui.showMessage("Index out of bounds. Please try again and enter index (inclusive)" +
                     " between 1 and " + suggestedMealList.size());
             return;
         }
 
-        Meal chosenMeal = suggestedMealList.get(mealSelectedIndex + 1);
+        Meal chosenMeal = suggestedMealList.get(mealSelectedIndex - 1);
         // TODO: Fix cost of meal
         addCommand = new AddCommand(chosenMeal, 0);
         addCommand.execute(meals, storage, user, wallet);
+        isDone = true;
     }
 }
