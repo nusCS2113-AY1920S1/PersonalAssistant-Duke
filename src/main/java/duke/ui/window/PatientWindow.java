@@ -45,8 +45,8 @@ public class PatientWindow extends UiElement<Region> {
 
     private Patient patient;
     private List<DukeObject> indexedImpressionList;
-    private List<DukeObject> indexedCriticalList;
-    private List<DukeObject> indexedInvestigationList;
+    //private List<DukeObject> indexedCriticalList;
+    //private List<DukeObject> indexedInvestigationList;
 
     /**
      * Constructs the patient UI window.
@@ -83,7 +83,7 @@ public class PatientWindow extends UiElement<Region> {
         historyLabel.setText(("".equals(historyStr)) ? UiStrings.DISPLAY_HISTORY_NOT_SET : historyStr);
 
         StringBuilder allergies = new StringBuilder();
-        
+
         if ("".equals(patient.getAllergies())) {
             allergiesLabel.setText(UiStrings.DISPLAY_ALLERGIES_NONE);
         } else {
