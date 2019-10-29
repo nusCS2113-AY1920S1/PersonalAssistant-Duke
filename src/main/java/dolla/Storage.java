@@ -10,14 +10,15 @@ import dolla.ui.Ui;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.File;
-
+import java.io.FileInputStream;
+import java.io.FileReader;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * duke.Storage handles the saving and loading of data from ./data/duke.txt,
@@ -31,6 +32,7 @@ public class Storage {
     private static ArrayList<Record> shortcuts = new ArrayList<Record>();
     private static ArrayList<Record> storage = new ArrayList<Record>();
 
+    //@@author yetong1895
     private static double stringToDouble(String str) {
         double newDouble = 0.0;
         try {
@@ -63,12 +65,18 @@ public class Storage {
         ArrayList<String> msg = new ArrayList<String>();
 
         try {
-            FileReader inFile = new FileReader("./data/duke.txt");
+            //TODO:try using input stream
+            //InputStream inputStream = new FileInputStream("./data/dolla.txt");
+            //InputStreamReader isReader = new InputStreamReader(inputStream);
+            //BufferedReader inStream = new BufferedReader(isReader);
+            /////////////////////////////////not working
+            FileReader inFile = new FileReader("./data/dolla.txt");
             BufferedReader inStream = new BufferedReader(inFile);
             msg.add("Your save data has been loaded :)");
             String inLine;
 
             while ((inLine = inStream.readLine()) != null) {
+                //System.out.println(inLine);///////////////////////////
                 String[] inArray = inLine.split(" \\| ");
                 int numOfElements = inArray.length;
                 String type = inArray[0];
@@ -245,7 +253,7 @@ public class Storage {
      * This method will save all the ArrayList into an external text file.
      */
     public static void save() {
-        try (FileWriter file = new FileWriter("./data/duke.txt")) {
+        try (FileWriter file = new FileWriter("./data/dolla.txt")) {
             storage.addAll(entries);
             storage.addAll(debts);
             storage.addAll(limits);
@@ -259,7 +267,7 @@ public class Storage {
             storage.clear();
 
         } catch (IOException e) {
-            System.out.println("***Error writing to duke.txt***");
+            System.out.println("***Error writing to dolla.txt***");
         }
     }
 

@@ -416,6 +416,7 @@ public abstract class Ui {
         System.out.println(line);
     }
 
+    //@@author yetong1895
     /**
      * This method will print the error message if user is trying trying to remove a non-existing record.
      * @param number the total number of record.
@@ -425,6 +426,7 @@ public abstract class Ui {
         System.out.println("\tSorry, you only have " + number + " record(s).");
     }
 
+    //@@author
     /**
      * Print exit msg.
      */

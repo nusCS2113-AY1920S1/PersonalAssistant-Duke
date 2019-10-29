@@ -140,6 +140,7 @@ public abstract class Parser {
         return true;
     }
 
+    //@@author yetong1895
     /**
      * This method will set the prevPosition int in this class.
      * @param prevPosition the prevPosition of a deleted input.

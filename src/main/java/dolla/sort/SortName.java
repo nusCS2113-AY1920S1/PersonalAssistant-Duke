@@ -11,6 +11,7 @@ import java.util.ArrayList;
  */
 public class SortName extends Sort {
 
+    //@@author yetong1895
     /**
      * This method will call the nameComparator method, sort the input ArrayList according to name
      * and print out the sorted list.

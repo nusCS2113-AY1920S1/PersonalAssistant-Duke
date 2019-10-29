@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 public class SortDate extends Sort {
 
+    //@@author yetong1895
     /**
      * This method will call the dateComparator method, sort the input ArrayList according to date
      * and print out the sorted list.

@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 public class SortDescription extends Sort {
 
+    //@@author yetong1895
     /**
      * This method will call the descComparator method, sort the input ArrayList according to description
      * and print out the sorted list.

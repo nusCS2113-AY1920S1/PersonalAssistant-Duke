@@ -16,6 +16,7 @@ public class SortCommand extends Command {
     private String mode;
     private String type;
 
+    //@@author yetong1895
     public SortCommand(String mode, String type) {
         this.mode = mode;
         this.type = type;

@@ -53,6 +53,7 @@ public class EntryParser extends Parser {
         }
     }
 
+    //@@author yetong1895
     private Command processAdd() {
         Command addEntry;
         Repeat.setRepeatInput("entry", inputLine);
