@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UserTest {
-    private User user = new User("Foo Chi Hen", 22, 100, Gender.MALE, 0, 100);
+    private User user = new User("Foo Chi Hen", 22, 100, Gender.MALE, 0, 100, "29/10/2019");
 
     @Test
     void user() {
