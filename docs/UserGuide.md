@@ -98,7 +98,15 @@ This is the end of the **Quick Start** guide. Please refer to [4. Features](/doc
 ### 4.1. General Commands
 
 #### 4.1.1. Viewing help: `help`
-Can't remember so many tedious commands? Enter `help` in the **command box**, you can see a list of all commands available.
+Can't remember so many tedious commands?
+1. Enter `help` in the **command box**, or if you type any `TRASH_COMMAND`,
+ you can see a list of all commands available.
+* `TRASH_COMMAND` is really "trash command" :blush:, it could be any command that is invalid.
+<img src="images/general_help.png" alt="help command1" width="800"/>
+
+2. Enter `help COMMAND_NAME`  in the **command box** to search for specific information about `COMMAND_NAME`.
+* `COMMAND_NAME` is any command name you can see through `help`.
+<img src="images/help_command.png" alt="help command2" width="800"/>
 
 #### 4.1.2. Deleting a Task: `delete`
 Don't like any task? Enter `delete TASK_INDEX` in the **command box** will delete the task you want to delete.

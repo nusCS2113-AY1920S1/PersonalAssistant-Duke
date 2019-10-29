@@ -17,6 +17,7 @@ public class ViewReminderCommand extends Command {
         + "Examples:\n\t"
         + "view-reminder\n\t\t"
         + "show all tasks with reminder on";
+
     private static final String MESSAGE_UNABLE_TO_EXECUTE = "Unable to execute command!";
 
     @Override

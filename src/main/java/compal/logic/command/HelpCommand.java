@@ -1,17 +1,23 @@
 package compal.logic.command;
 
+import compal.commons.LogUtils;
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.TaskList;
+
+import java.util.logging.Logger;
 
 //@@author LTPZ
 public class HelpCommand extends Command {
 
     public static final String MESSAGE_USAGE = "help\n\t"
-            + "Format: help /command <command>\n\n\t"
+            + "Format:1. help <command>\n\t"
+            + "2. help\n\n\t"
             + "Note: content in \"<>\": need to be fulfilled by the user\n\n\t"
             + "This command will tell you how to use command\n"
             + "Examples:\n\t"
-            + "help /command deadline\n\t\t"
+            + "help\n\t\t"
+            + "show all list of commands\n\t"
+            + "help deadline\n\t\t"
             + "show how to use deadline command";
     public static final String CMD_EXIT = "bye";
     public static final String CMD_LIST = "list";
@@ -44,16 +50,15 @@ public class HelpCommand extends Command {
             + "list: list all the task stored in COMPal\n\t"
             + "event: add event type tasks\n\n"
             + "if you want to know how to use any of them\n"
-            + "you can type \"help /command <name of command>\"  for further information!\n"
-            + "e.g. \"help /command findfreeslot\", \"help /command deadline\"\n"
+            + "you can type \"help <name of command>\"  for further information!\n"
+            + "e.g. \"help findfreeslot\", \"help deadline\"\n"
             + "Have a nice day with COMPal! :)";
     public static final String WRONG_COMMAND = "Sorry, the description of the command is incorrect\n"
             + "please check the following again:\n\n";
 
     private String command;
 
-    public HelpCommand() {
-    }
+    private static final Logger logger = LogUtils.getLogger(HelpCommand.class);
 
     public HelpCommand(String command) {
         this.command = command;
@@ -61,7 +66,8 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult commandExecute(TaskList task) throws CommandException {
-        if (command == null)  {
+        logger.info("Executing help command");
+        if ("".equals(command))  {
             return new CommandResult(HELP_STRING, false);
         } else {
             switch (command) {
@@ -85,10 +91,15 @@ public class HelpCommand extends Command {
                 return new CommandResult(EventCommand.MESSAGE_USAGE, false);
             case CMD_EDIT:
                 return new CommandResult(EditCommand.MESSAGE_USAGE, false);
+            case CMD_HELP:
+                return new CommandResult(HelpCommand.MESSAGE_USAGE, false);
             case CMD_LIST:
                 return new CommandResult(ListCommand.MESSAGE_USAGE, false);
+            case CMD_DELETE:
+                return new CommandResult(DeleteCommand.MESSAGE_USAGE, false);
             default:
-                return new CommandResult(WRONG_COMMAND + HELP_STRING, false);
+                return new
+                        CommandResult(WRONG_COMMAND + HelpCommand.MESSAGE_USAGE, false);
             }
         }
     }

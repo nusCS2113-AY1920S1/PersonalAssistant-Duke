@@ -27,7 +27,6 @@ public interface CommandParser {
      * TOKENS FOR PARSING BELOW.
      */
     String TOKEN_TASK_ID = "/id";
-    String TOKEN_COMMAND = "/command";
     String TOKEN_STATUS = "/status";
     String TOKEN_SLASH = "/";
     String TOKEN_END_TIME = "/end";
@@ -522,25 +521,6 @@ public interface CommandParser {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(priority);
         return matcher.matches();
-    }
-
-    /**
-     * Returns the command in the String input.
-     *
-     * @param restOfInput String input of user after command word
-     * @return command
-     * @throws ParserException if the command input is missing
-     */
-    default String getCommand(String restOfInput) throws ParserException {
-        int startPoint = restOfInput.indexOf(TOKEN_COMMAND);
-        String typeStartInput = restOfInput.substring(startPoint);
-        Scanner scanner = new Scanner(typeStartInput);
-        scanner.next();
-        if (!scanner.hasNext()) {
-            throw new ParserException(MESSAGE_MISSING_INPUT);
-        }
-        String command = scanner.next();
-        return command;
     }
 
     //@@author yueyeah
