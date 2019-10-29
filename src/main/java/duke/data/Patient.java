@@ -409,7 +409,7 @@ public class Patient extends DukeObject {
     }
 
     public boolean equals(Patient other) {
-        return attributes.equals(other.impressions) && primaryDiagnosis == other.primaryDiagnosis
+        return attributes.equals(other.attributes) && primaryDiagnosis == other.primaryDiagnosis
                 && observableImpressions.equals(other.getImpressionsObservableMap());
     }
 }

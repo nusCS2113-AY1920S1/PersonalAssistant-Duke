@@ -19,6 +19,10 @@ public class ImpressionCommandTest extends CommandTest {
     private Impression impression;
     private Patient patient;
 
+    /**
+     * Sets up the core of this object to have a patient and impression, opens the impression, and stores those
+     * references for comparison.
+     */
     @BeforeEach
     public void setupPatientAndImpression() {
         patient = new Patient("name", "bedNo", "allergies", 0, 0,
@@ -30,7 +34,7 @@ public class ImpressionCommandTest extends CommandTest {
     }
 
     @Test
-    public void ImpressionNewCommand_fullCommand_correctDataCreated() {
+    public void impressionNewCommand_fullCommand_correctDataCreated() {
         //TODO test other DukeData
         ArgCommand newMedCmd = new ImpressionNewCommand();
         String[] switchNames = {"medicine", "name", "priority", "status", "dose", "date", "duration"};
@@ -48,7 +52,7 @@ public class ImpressionCommandTest extends CommandTest {
     }
 
     @Test
-    public void ImpressionNewCommand_minCommand_correctDataCreated() {
+    public void impressionNewCommand_minCommand_correctDataCreated() {
         //TODO test other DukeData
         ArgCommand newMedCmd = new ImpressionNewCommand();
         String[] switchNames = {"medicine", "name", "dose", "duration"};
