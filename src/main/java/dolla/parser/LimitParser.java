@@ -13,6 +13,7 @@ import dolla.ui.LimitUi;
  */
 public class LimitParser extends Parser {
 
+    protected static final String SEARCH_COMMAND = "search";
     public LimitParser(String inputLine) {
         super(inputLine);
     }
@@ -28,7 +29,7 @@ public class LimitParser extends Parser {
     protected static final String LIMIT_DURATION_W = "weekly";
     protected static final String LIMIT_DURATION_M = "monthly";
 
-    protected static final String SEARCH_COMMAND = "search";
+
 
     @Override
     public Command handleInput(String mode, String inputLine) {

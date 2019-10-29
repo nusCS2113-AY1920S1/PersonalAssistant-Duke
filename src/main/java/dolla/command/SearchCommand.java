@@ -16,6 +16,13 @@ public class SearchCommand extends Command {
     private String component;
     private String searchContent;
 
+    protected static final String MODE_ENTRY = "entry";
+    protected static final String MODE_DEBT = "debt";
+    protected static final String MODE_LIMIT = "limit";
+
+    protected static final String COMPONENT_DESCRIPTION = "description";
+    protected static final String COMPONENT_NAME = "name";
+    protected static final String COMPONENT_DATE = "date";
     protected static final String COMPONENT_DURATION = "duration";
 
     /**
@@ -58,21 +65,21 @@ public class SearchCommand extends Command {
         if (listIsEmpty) {
             Ui.printEmptyListError(mode);
             return;
-        } else if (mode.equals("entry")) {
-            if (component.equals("description")) {
+        } else if (mode.equals(MODE_ENTRY)) {
+            if (component.equals(COMPONENT_DESCRIPTION)) {
                 SearchUi.printSearchDesc(mode, recordList, searchContent);
-            } else if (component.equals("date")) {
+            } else if (component.equals(COMPONENT_DATE)) {
                 SearchUi.printSearchDate(mode, recordList, searchContent);
             }
-        } else if (mode.equals("debt")) {
-            if (component.equals("description")) {
+        } else if (mode.equals(MODE_DEBT)) {
+            if (component.equals(COMPONENT_DESCRIPTION)) {
                 SearchUi.printSearchDesc(mode, recordList, searchContent);
-            } else if (component.equals("name")) {
+            } else if (component.equals(COMPONENT_NAME)) {
                 SearchUi.printSearchName(mode, recordList, searchContent);
-            } else if (component.equals("date")) {
+            } else if (component.equals(COMPONENT_NAME)) {
                 SearchUi.printSearchDate(mode, recordList, searchContent);
             }
-        } else if (mode.equals("limit") && component.equals(COMPONENT_DURATION)) {
+        } else if (mode.equals(MODE_LIMIT) && component.equals(COMPONENT_DURATION)) {
             SearchUi.printSearchDuration(mode, recordList, searchContent);
         }
     }
