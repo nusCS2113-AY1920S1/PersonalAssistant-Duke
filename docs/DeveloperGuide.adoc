@@ -397,12 +397,12 @@ The `execute` method in `FreeCommand` class is then called by the `Oof.run()` me
 The `findFreeTime` method in `FreeCommand` class is then called by the `execute` method. This method does the following:
 
 * Iterates through the the current list of `Task` from the `TaskList` class and checks if an `Event` lies within the date given.
-* All 'Event' corresponding to the date given will be addded to an `ArrayList` corresponding to `eventsOnSameDay`, `eventStartTimes` and `eventEndTimes`.
+* All 'Event' corresponding to the date given will be added to an `ArrayList` corresponding to `eventsOnSameDay`, `eventStartTimes` and `eventEndTimes`.
 * Calls `sort` method in `Collections` class to sort all `Event` start and end times in ascending order.
 * Checks if an `Event` coincides with a time slot.
 * Prints the time slots with the relevant details by:
 ** Calling `printEventDescription` method in `Ui` class if `Event` coincides with the time slot
-** Calling `printFreeSlot` method in `Ui` class if `Event` does not coincide with a time slot.
+** Calling `printFreeSlot` method in `Ui` class if `Event` does not coincide with the time slot.
 
 The following activity diagram summarises what happens when a user executes a new command:
 
@@ -449,7 +449,7 @@ of the `FreeCommand` class.
 * Prefers typing over mouse input 
 * Proficient in using CLI applications 
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage tasks faster than a typical mouse/GUI driven app
 
 [appendix]
 == Requirements
@@ -461,7 +461,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [cols="5%,10%,10%,15%,30%,30%"]
 .Table consolidating the user stories
 |===
-|*S/N*|*Use Case No*|*Priority Level*|*As a ...*|*I can ...*|*So that I can ...*
+|*S/N*|*Use Case No*|*Priority Level*|*As a ...*|*I can ...*|*So that I ...*
 |01|01|* * *|University Student|Add a task|Won’t forget the tasks I have to complete
 |02|02|* * *|University Student|Mark a task as complete|Can keep track of what is left to be completed 
 |03|03|* * *|University Student|View my tasks in a calendar|Can manage my time properly 
@@ -477,9 +477,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |13|13|* * *|University Student|Postpone the deadline of tasks|Can properly manage my priorities 
 |14|14|* *|University Student who procrastinates|View undone tasks carried forward to the next day in a bright color|Will know what assignments are lagging behind 
 |15|15|* * *|University Student|Add a recurring task|Do not have to do it multiple times 
-|16||*|Impatient University Student|Quickly type in one-liner commands|Can see the tasks being updated in the program quickly 
+|16||* * *|Impatient University Student|Quickly type in one-liner commands|Can see the tasks being updated in the program quickly 
 |17||*|University Student|View trends for my tasks|Can see if I am lagging behind 
-|18||* *|Paranoid University Student|Choose the threshold before the programs sends an alert for me to complete my tasks|Can stay ahead of my schedule 
+|18||* *|Paranoid University Student|Set the threshold for an alert to complete my tasks|Can stay ahead of my schedule 
 |19||*|Organized University Student|View all the tasks in a strict format|Will know what to type to enter my tasks 
 |20||*|University Student in NUSSU|Export my calendar to a shareable format|Can quickly share my schedule with other people 
 |21||* *|University Student|Have a do-after task|Know what tasks need to be done after completing a specific task
@@ -511,19 +511,20 @@ Use case ends.
 
 *Extensions:*
 
-* OOF detects empty date and time in description of task.
-** OOF requests for date and time of task.
-** User enters required data.
+* 3a. OOF detects empty date and time in description of task.
+** 3a1. OOF requests for date and time of task.
+** 3a2. User enters required data.
+** Steps 3a1-3a2 are repeated until the correct data is entered.
 ** Use case resumes from step 4. 
-* OOF detects a clash in date and time with another task.
-** OOF warns the User of such a clah by displaying the task(s) that clash(es)    	and prompts for continuation or cancellation.
-** User decides for continuation or cancellation.
-** OOF requests to confirm decision.
-** User confirms decision.
-** Use case ends if the User decides to cancel the action. Use case resumes from 		step 4 otherwise. 
-* At any time, User chooses to re-enter task description.
-** OOF requests confirmation to re-enter task description. 
-** User confirms to re-enter task description. 
+* 3b. OOF detects a clash in date and time with another task.
+** 3b1. OOF warns the User of such a clah by displaying the task(s) that clash(es)    	and prompts for continuation or cancellation.
+** 3b2. User decides for continuation or cancellation.
+** 3b3. OOF requests to confirm decision.
+** 3b4. User confirms decision.
+** Use case ends if the User decides to cancel the action. Use case resumes from 		step 4 otherwise.
+* *a. At any time, User chooses to re-enter task description.
+** *a1. OOF requests confirmation to re-enter task description. 
+** *a2. User confirms to re-enter task description. 
 ** Use case resumes from step 3.
 
 *System: Outstanding Organization Friend (OOF)* +
@@ -540,9 +541,9 @@ Use case ends.
 
 *Extensions:*
 
-* OOF detects non-existent index of task.   
-** OOF requests for existent index and displays a range of indexes to choose from.
-** User enters required data. 
+* 3a. OOF detects non-existent index of task.   
+** 3a1. OOF requests for existent index and displays a range of indexes to choose from.
+** 3a2. User enters required data. 
 ** Use case resumes from step 4. 
 
 *System: Outstanding Organization Friend (OOF)* +
@@ -559,9 +560,9 @@ Use case ends.
 
 *Extensions:*
 
-* OOF detects non-existent index of task in the range.    
-** OOF requests for existent index and displays a range of indexes to choose from. 
-** User enters required data. 
+* 3a. OOF detects non-existent index of task in the range.    
+** 3a1. OOF requests for existent index and displays a range of indexes to choose from. 
+** 3a2. User enters required data. 
 ** Use case resumes from step 4. 
 
 *System: Outstanding Organization Friend (OOF)* +
@@ -578,9 +579,9 @@ Use case ends.
 
 *Extension:*
 
-* OOF detects there are no tasks for the next day.
-** OOF prints to the console to warn User that there are no tasks for the next day.
-** Use case resumes from step 4.
+* 3a. OOF detects there are no tasks for the next day.
+** 3a1. OOF prints to the console to warn User that there are no tasks for the next day.
+** Use case ends.
 
 *System: Outstanding Organization Friend (OOF)* +
 *Use case: UC05 - Adding tasks with date and time* + 
@@ -596,14 +597,14 @@ Use case ends.
 
 *Extension:*
 
-* OOF detects an error with the entered data.
-** OOF requests for the correct data.
-** User enters new data.
+* 3a. OOF detects an error with the entered data.
+** 3a1. OOF requests for the correct data.
+** 3a2. User enters new data.
 ** Steps 3a1-3a2 are repeated until the data entered are correct.
 ** Use case resumes from step 4.
-* At any time, User choose to stop adding a task.
-** OOF requests to confirm the cancellation.
-** User confirms the cancellation.
+* *a. At any time, User choose to stop adding a task.
+** *a1. OOF requests to confirm the cancellation.
+** *a2. User confirms the cancellation.
 ** Use case ends.
 
 *System: Outstanding Organization Friend (OOF)* +
@@ -620,9 +621,9 @@ Use case ends.
 
 *Extensions:*
 
-* At any time, User chooses to cancel the activation.
-** OOF requests to confirm the cancellation.
-** User confirms the cancellation.
+* *a. At any time, User chooses to cancel the activation.
+** *a1. OOF requests to confirm the cancellation.
+** *a2. User confirms the cancellation.
 ** Use case ends.
 
 *System: Outstanding Organization Friend (OOF)*  +
@@ -639,12 +640,12 @@ Use case ends.
 
 *Extensions:*
 
-* OOF detects that there are no tasks to be sorted.
-** OOF warns User that there are no tasks to be sorted
+* 4a. OOF detects that there are no tasks to be sorted.
+** 4a1. OOF warns User that there are no tasks to be sorted
 ** Use case ends.
-* At any time, User chooses to cancel the request.
-** OOF requests to confirm the cancellation.
-** User confirms the cancellation.
+* *a. At any time, User chooses to cancel the request.
+** *a1. OOF requests to confirm the cancellation.
+** *a2. User confirms the cancellation.
 ** Use case ends.
 
 *System: Outstanding Organization Friend (OOF)* +
@@ -661,14 +662,14 @@ Use case ends.
 
 *Extensions:*
 
-* OOF detects that there are no tasks that match the description given.
-** OOF requests for the User to enter a new description.
-** User enters a new description.
+* 3a. OOF detects that there are no tasks that match the description given.
+** 3a1. OOF requests for the User to enter a new description.
+** 3a2. User enters a new description.
 ** Steps 3a1-3a2 are repeated until at least one task matches the description.
 ** Use case resumes from step 4.
-* At any time, User chooses the stop finding tasks.
-** OOF requests to confirm the request.
-** User confirms the requests.
+* *a. At any time, User chooses the stop finding tasks.
+** *a1. OOF requests to confirm the request.
+** *a2. User confirms the requests.
 ** Use case ends.
 
 *System: Outstanding Organization Friend (OOF)* +
@@ -685,17 +686,17 @@ Use case ends.
 
 *Extensions:*
 
-* OOF detects that there are no tasks to be colour coded.
-** OOF displays the warning that no tasks are available to be colour coded.
-** Use case ends.
-* OOF detects an error in the information entered.
-** OOF prompts for User to enter the correct information.
-** User enters the correct information.
+* 3a. OOF detects an error in the information entered.
+** 3a1. OOF prompts for User to enter the correct information.
+** 3a2. User enters the correct information.
 ** Steps 3a1-3a2 are repeated until the User enters in the correct information.
 ** Use case resumes from step 4.
-* At any time, User requests to cancel this action.
-** OOF requests to confirm the cancellation.
-** User confirms the cancellation.
+* 4a. OOF detects that there are no tasks to be colour coded.
+** 4a1. OOF displays the warning that no tasks are available to be colour coded.
+** Use case ends.
+* *a. At any time, User requests to cancel this action.
+** *a1. OOF requests to confirm the cancellation.
+** *a2. User confirms the cancellation.
 ** Use case ends.
 
 *System: Outstanding Organization Friend (OOF)* +
@@ -712,12 +713,12 @@ Use case ends.
 
 *Extensions:*
 
-* OOF detects that there are no tasks for the week.
-** OOF warns the User that there are no tasks for the week.
+* 4a. OOF detects that there are no tasks for the week.
+** 4a1. OOF warns the User that there are no tasks for the week.
 ** Use case ends.
-* At any time, User chooses to cancel this action.
-** OOF requests for confirmation.
-** User confirms the requests.
+* *a. At any time, User chooses to cancel this action.
+** *a1. OOF requests for confirmation.
+** *a2. User confirms the requests.
 ** Use case ends.
 
 *System: Outstanding Organization Friend (OOF)* +
@@ -734,14 +735,14 @@ Use case ends.
 
 *Extensions:*
 
-* OOF detects that the time period entered is invalid.
-** OOF requests for the User to input a valid time period.
-** User enters a valid time period.
+* 3a. OOF detects that the time period entered is invalid.
+** 3a1. OOF requests for the User to input a valid time period.
+** 3a2. User enters a valid time period.
 ** Steps 3a1-3a2 are repeated until a valid time period is entered.
 ** Use case resumes from step 4.
-* At any time, User chooses to cancel the action.
-** OOF requests for confirmation.
-** User confirms the request.
+* *a. At any time, User chooses to cancel the action.
+** *a1. OOF requests for confirmation.
+** *a2. User confirms the request.
 ** Use case ends.
 
 *System: Outstanding Organization Friend (OOF)* +
@@ -758,17 +759,17 @@ Use case ends.
 
 *Extensions:*
 
-* OOF detects that there are no tasks saved in the program.
-** OOF warns the User that there are no tasks to be deleted.
+* 2a. OOF detects that there are no tasks saved in the program.
+** 2a1. OOF warns the User that there are no tasks to be deleted.
 ** Use case ends.
-* OOF detects an error in the task that was selected by the User.
-** OOF prompts the user to enter a valid input.
-** User enters a valid input.
+* 3a. OOF detects an error in the task that was selected by the User.
+** 3a1. OOF prompts the user to enter a valid input.
+** 3a2. User enters a valid input.
 ** Steps 3a1-3a2 are repeated until the User enters a valid input.
 ** Use case resumes from step 4.
-* At any time, User chooses to cancel the action.
-** OOF requests for confirmation from the User.
-** User confirms the cancellation.
+* *a. At any time, User chooses to cancel the action.
+** *a1. OOF requests for confirmation from the User.
+** *a2. User confirms the cancellation.
 ** Use case ends.
 
 *System: Outstanding Organization Friend (OOF)* +
@@ -785,17 +786,17 @@ Use case ends.
 
 *Extensions:*
 
-* OOF detects that there are no tasks saved in the program.
-** OOF warns the User that there are no tasks to be postponed.
+* 2a. OOF detects that there are no tasks saved in the program.
+** 2a1. OOF warns the User that there are no tasks to be postponed.
 ** Use case ends.
-* OOF detects an error in the task that was selected by the User.
-** OOF prompts the user to enter a valid input.
-** User enters a valid input.
+* 3a. OOF detects an error in the task that was selected by the User.
+** 3a1. OOF prompts the user to enter a valid input.
+** 3a2. User enters a valid input.
 ** Steps 3a1-3a2 are repeated until the User enters a valid input.
 ** Use case resumes from step 4.
-* At any time, User chooses to cancel the action.
-** OOF requests for confirmation from the User.
-** User confirms the cancellation.
+* *a. At any time, User chooses to cancel the action.
+** *a1. OOF requests for confirmation from the User.
+** *a2. User confirms the cancellation.
 ** Use case ends.
 
 *System: Outstanding Organization Friend (OOF)* +
@@ -812,12 +813,12 @@ Use case ends.
 
 *Extensions:*
 
-* OOF detects that there are no overdue tasks.
-** OOF warns the User that there are no overdue tasks.
+* 3a. OOF detects that there are no overdue tasks.
+** 3a1. OOF warns the User that there are no overdue tasks.
 ** Use case ends.
-* At any time, User chooses to cancel the activation.
-** OOF requests to confirm the cancellation.
-** User confirms the cancellation.
+* *a. At any time, User chooses to cancel the activation.
+** *a1. OOF requests to confirm the cancellation.
+** *a2. User confirms the cancellation.
 ** Use case ends.
 
 
@@ -836,17 +837,17 @@ Use case ends.
 
 *Extensions:*
 
-* OOF detects that there are no tasks saved in the program.
-** OOF warns the User that there are no tasks to be marked as recurring.
+* 2a. OOF detects that there are no tasks saved in the program.
+** 2a1. OOF warns the User that there are no tasks to be marked as recurring.
 ** Use case ends.
-* OOF detects an error in the task that was selected by the User.
-** OOF prompts the user to enter a valid input.
-** User enters a valid input.
+* 3a. OOF detects an error in the task that was selected by the User.
+** 3a1. OOF prompts the user to enter a valid input.
+** 3a2. User enters a valid input.
 ** Steps 3a1-3a2 are repeated until the User enters a valid input.
 ** Use case resumes from step 4.
-* At any time, User chooses to cancel the action.
-** OOF requests for confirmation from the User.
-** User confirms the cancellation.
+* *a. At any time, User chooses to cancel the action.
+** *a1. OOF requests for confirmation from the User.
+** *a2. User confirms the cancellation.
 ** Use case ends.
 	
 === Non Functional Requirements
