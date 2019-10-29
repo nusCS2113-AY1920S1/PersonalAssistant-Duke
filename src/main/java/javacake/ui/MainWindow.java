@@ -351,8 +351,6 @@ public class MainWindow extends AnchorPane {
         isTryingReset = false;
     }
 
-
-
     private void handleGuiQuiz() throws DukeException {
         quizCommand.checkAnswer(input);
         if (quizCommand.questionCounter >= 0) {

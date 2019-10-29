@@ -5,14 +5,12 @@ import javacake.Logic;
 import javacake.Parser;
 import javacake.exceptions.DukeException;
 import javacake.storage.Profile;
-import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 import javacake.ui.TopBar;
 import javacake.ui.Ui;
 import javacake.quiz.Question;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
