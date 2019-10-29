@@ -53,9 +53,9 @@ public class DoneParse extends Parse {
                         "done/e mod_code name_of_event /at dd/MM/yyyy /from HHmm /to HHmm\n" +
                         "or done/e mod_code name_of_event /at week x day /from HHmm /to HHmm\n");
             }
-        } else if (fullCommand.trim().startsWith("delete/d")) {
+        } else if (fullCommand.trim().startsWith("done/d")) {
             try {
-                String activity = fullCommand.trim().replaceFirst(("delete/d"), "");
+                String activity = fullCommand.trim().replaceFirst(("done/d"), "");
                 split = activity.split("/by");
                 split1 = split[0].trim().split(" ");
                 if(!super.isModCode(split1[0])){
