@@ -33,6 +33,7 @@ public class Ui {
     private static final String GOALPROGRESS = "Save another";
     private static final String GOALBANKNAME = "Saving Account";
     private static final String GOALACHIEVED = "Goal Achieved";
+    private static final String NEWLINE = System.lineSeparator();
 
     /**
      * Prints a message line to the user.
@@ -198,8 +199,32 @@ public class Ui {
      * Prints a greeting message to the user, which happens at startup.
      */
     public void greet(String username) {
+        String welcomeLogo = NEWLINE
+                + " $$$$$$\\                $$\\ $$\\      $$\\                                         "
+                + NEWLINE
+                + "$$  __$$\\               $$ |$$$\\    $$$ |                                        "
+                + NEWLINE
+                + "$$ /  $$ |$$\\  $$\\  $$\\ $$ |$$$$\\  $$$$ | $$$$$$\\  $$$$$$$\\   $$$$$$\\  $$\\   $$\\ "
+                + NEWLINE
+                + "$$ |  $$ |$$ | $$ | $$ |$$ |$$\\$$\\$$ $$ |$$  __$$\\ $$  __$$\\ $$  __$$\\ $$ |  $$ |"
+                + NEWLINE
+                + "$$ |  $$ |$$ | $$ | $$ |$$ |$$ \\$$$  $$ |$$ /  $$ |$$ |  $$ |$$$$$$$$ |$$ |  $$ |"
+                + NEWLINE
+                + "$$ |  $$ |$$ | $$ | $$ |$$ |$$ |\\$  /$$ |$$ |  $$ |$$ |  $$ |$$   ____|$$ |  $$ |"
+                + NEWLINE
+                + " $$$$$$  |\\$$$$$\\$$$$  |$$ |$$ | \\_/ $$ |\\$$$$$$  |$$ |  $$ |\\$$$$$$$\\ \\$$$$$$$ |"
+                + NEWLINE
+                + " \\______/  \\_____\\____/ \\__|\\__|     \\__| \\______/ \\__|  \\__| \\_______| "
+                + "\\____$$ |"
+                + NEWLINE
+                + "                                                                       $$\\   $$ |"
+                + NEWLINE
+                + "                                                                       \\$$$$$$  |"
+                + NEWLINE
+                + "                                                                        \\______/ "
+                + NEWLINE;
+        printMessage(welcomeLogo);
         printMessage("Welcome " + username + "!");
-        printMessage("Hello! I'm OwlMoney");
         printMessage("What can I do for you?");
     }
 
@@ -216,7 +241,7 @@ public class Ui {
      * @param exceptionMessage The specifics of the error.
      */
     public void printError(String exceptionMessage) {
-        printMessage("☹ OOPS!!! " + exceptionMessage);
+        printMessage("OOPS!!! " + exceptionMessage);
     }
 
 
