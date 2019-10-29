@@ -24,6 +24,12 @@ public class StorageTest {
         File scheduleFile = File.createTempFile("schedule", ".txt");
         scheduleFile.deleteOnExit();
 
+        File categoryFile = File.createTempFile("category", ".txt");
+        categoryFile.deleteOnExit();
+
+        File expenditureFile = File.createTempFile("expenditure", ".txt");
+        expenditureFile.deleteOnExit();
+
         CategoryListStub newCatList = new CategoryListStub();
         newCatList.add(null);
 
@@ -42,7 +48,8 @@ public class StorageTest {
         CategoryStub newCategory = new CategoryStub();
         ScheduleListStub newCalendar = new ScheduleListStub();
         UiStub newUi = new UiStub();
-        Storage newStorage = new Storage(budgetFile.getPath(), scheduleFile.getPath());
+        Storage newStorage = new Storage(budgetFile.getPath(), scheduleFile.getPath(), categoryFile.getPath(),
+                expenditureFile.getPath());
         Budget newBudget = new Budget();
 
         SetBudgetCommand setBudget = new SetBudgetCommand(false, categories, budgets);
