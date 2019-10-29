@@ -58,7 +58,7 @@ public class AddInventoryCommand extends Command {
         newItem = new Item(name, quantity);
     }
 
-    /*
+
     /**
      * Executes the command to add a room to the system.
      * //@param roomList room list
@@ -70,8 +70,6 @@ public class AddInventoryCommand extends Command {
      * @throws DukeException if a clash in booking is found
      * @throws IOException if input entry is incorrect
      */
-
-
     @Override
     public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
                         Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
