@@ -30,9 +30,8 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.util.Pair;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -77,7 +76,7 @@ public class MainWindow extends BorderPane implements Initializable {
     @FXML
     private TableView<DukeResponseView> dukeResponseTable;
     @FXML
-    TableColumn<DukeResponseView, String> dukeResponseColumn;
+    private TableColumn<DukeResponseView, String> dukeResponseColumn;
 
     private Duke duke;
     private Storage storage;
@@ -89,7 +88,7 @@ public class MainWindow extends BorderPane implements Initializable {
     private TaskList deadlinesList;
     private static LookupTable LT;
     public static ArrayList<String> outputList = new ArrayList<>();
-    public static WeekList outputWeekList = new WeekList();
+    private static WeekList outputWeekList = new WeekList();
     private static final Logger LOGGER = Logger.getLogger(MainWindow.class.getName());
     static {
         LT = new LookupTable();
@@ -123,21 +122,23 @@ public class MainWindow extends BorderPane implements Initializable {
 
     private void displayQuoteOfTheDay(){
         try {
-            File path = new File(System.getProperty("user.dir") + File.separator + "data" + File.separator + "quotes.txt");
-            Scanner scanner = new Scanner(path);
-            String firstLine = scanner.nextLine();
-            FileWriter writer = new FileWriter(path);
-
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                if (line != firstLine)
-                    writer.write(line + "\n");
+            ArrayList<String> listOfQuotes = new ArrayList<>();
+            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("documents/quotes.txt");
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuffer sb = new StringBuffer();
+            String firstLine;
+            String line;
+            while ((line = bufferedReader.readLine()) != null){
+                listOfQuotes.add(line);
             }
-            writer.write(firstLine+"\n");
+            Random random = new Random();
+            int result = random.nextInt(68);
+            firstLine = listOfQuotes.get(result);
             AlertBox.display("Quote of the day", "Quote of the day !!", firstLine, Alert.AlertType.INFORMATION);
-
-            scanner.close();
-            writer.close();
+            bufferedReader.close();
+            inputStreamReader.close();
+            inputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -346,7 +347,7 @@ public class MainWindow extends BorderPane implements Initializable {
         if (input.contains("retrieve previous")) {
             String previousInput = Duke.getPreviousInput();
             userInput.setText(previousInput);
-        } else if (input.startsWith("retrieve/freetime ")) {
+        } else if (input.startsWith("retrieve/ft ")) {
             String selectedOption = Duke.getSelectedOption();
             userInput.setText(selectedOption);
         }

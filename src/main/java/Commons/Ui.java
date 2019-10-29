@@ -69,13 +69,23 @@ public class Ui {
     }
 
     /**
-     * Displays the invalid choosen duration message.
+     * Displays the invalid chosen duration message.
      * @param message The chosen free time
-     * @return The chosen free time. Otherwise, operation cancelled.
+     * @return The invalid free time with the proper format
      */
     public String showFreeTimesInvalidDuration(String message){
         return "Invalid duration\n" + "Please enter the command in the format:\n" +
                 "find 'x' hours, where 'x' is between 1 - 16";
+    }
+
+    /**
+     * Displays the invalid chosen week message.
+     * @param message The chosen week
+     * @return The invalid week entry with the proper format
+     */
+    public String showWeeksInvalidEntry(String message){
+        return "Invalid week\n" + "Please enter the command in the format:\n" +
+                "Week 'x', where 'x' is a digit between 1 - 13";
     }
 
     /**

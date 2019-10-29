@@ -36,15 +36,15 @@ public class MainParser {
 
             case "list":
             case "done":
-                return  null;
+                return new DoneParse(fullCommand).parse();
 
             case "find":
                 return new FindFreeTimesParse(fullCommand).parse();
 
             case "show/previous":
                 return new ShowPreviousCommand(fullCommand);
-
-            case "retrieve/freetime":
+            
+            case "retrieve/ft":
                 return new RetrieveFreeTimesParse(fullCommand).parse();
 
             case "retrieve/previous":
