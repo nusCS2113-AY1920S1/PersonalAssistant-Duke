@@ -1,4 +1,4 @@
-package planner.logic;
+package planner.logic.command;
 
 public class SearchThenAddTest {
 
