@@ -1476,12 +1476,12 @@ paying for the coverage.
 *A*: You do not need to save the data manually. Whenever you run any commands that make changes, *OwlMoney*'s data are
 saved automatically in the `data` directory.
 
-*Q*: Can I edit the data stored in the files of `data` directory?
+*Q*: Can I edit the data stored in the files of `data` directory? +
 *A*: Yes you *MAY* do it! However, you *RISK* corrupting *YOUR DATA* if you enter malformed inputs as *OwlMoney*
 *TRUSTS* the modifications you make to the files. This is *NOT A BUG* and is designed as it is. *OwlMoney* *MAY NOT*
 function optimally if malformed inputs are loaded in from corrupted save files.
 
-*Q*: How do I edit the data stored in the files of `data` directory?
+*Q*: How do I edit the data stored in the files of `data` directory? +
 *A*: The data of the files are clearly labelled with column names in the `.csv` files and you can easily make sense of
 it! As long as you follow the constraints set out for each `PARAMETER` as mentioned in all previous sections, you
 should be fine!
