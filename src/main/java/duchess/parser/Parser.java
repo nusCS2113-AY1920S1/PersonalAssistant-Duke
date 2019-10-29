@@ -62,6 +62,10 @@ public class Parser {
             "When is %s due?";
     public static final String TODO_DESCRIPTION_PROMPT =
             "What's the to-do about?";
+    public static final String TODO_WEIGHTAGE_PROMPT =
+            "If this is an assessment, what's its weightage? (enter 'nil' to skip)";
+    public static final String TODO_INVALID_WEIGHTAGE =
+            "Please enter a weightage between 0 to 100. (enter 'nil' to skip)";
 
     /**
      * Error messages.

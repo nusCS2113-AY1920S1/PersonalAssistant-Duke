@@ -14,7 +14,6 @@ public class Grade {
     private int maxMarks;
     private int weightage;
 
-
     /**
      * Creates a Grade object.
      *
@@ -32,13 +31,18 @@ public class Grade {
         this.weightage = weightage;
     }
 
+    public Grade(String assessment, int weightage) {
+        this.assessment = assessment;
+        this.weightage = weightage;
+    }
+
     @JsonGetter
     public String getTask() {
         return assessment;
     }
 
     @JsonSetter
-    public void setTask(String task) {
+    public void setTask(String assessment) {
         this.assessment = assessment;
     }
 
@@ -74,6 +78,6 @@ public class Grade {
 
     @Override
     public String toString() {
-        return String.format("%s %d/%d", assessment, marks, maxMarks);
+        return String.format("%s %d%%", assessment, weightage);
     }
 }

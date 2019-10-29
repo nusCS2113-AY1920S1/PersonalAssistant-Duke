@@ -4,7 +4,6 @@ import duchess.exceptions.DuchessException;
 import duchess.logic.commands.Command;
 import duchess.logic.commands.DisplayCommand;
 import duchess.parser.Parser;
-import duchess.parser.Util;
 import duchess.parser.states.ParserState;
 
 import java.util.Map;
@@ -40,8 +39,12 @@ public class GradeWeightageState extends ParserState {
         Optional<ParserState> nextState = Optional.ofNullable(weightage)
                 .map(weight -> {
                     try {
-                        return Integer.parseInt(weight);
-                    } catch (NumberFormatException e) {
+                        int w = Integer.parseInt(weight);
+                        if (w > 100 || w < 0) {
+                            throw new IllegalArgumentException();
+                        }
+                        return w;
+                    } catch (IllegalArgumentException e) {
                         return null;
                     }
                 })

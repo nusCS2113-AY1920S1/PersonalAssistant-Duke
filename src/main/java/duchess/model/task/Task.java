@@ -3,6 +3,7 @@ package duchess.model.task;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import duchess.exceptions.DuchessException;
+import duchess.model.Grade;
 import duchess.model.Module;
 import duchess.model.TimeFrame;
 
@@ -11,11 +12,16 @@ import java.util.Optional;
 public abstract class Task implements Comparable<Task> {
     private boolean isDone;
     private Optional<Module> module;
+    private Optional<Grade> grade;
     protected String description;
 
+    /**
+     * Creates a Task.
+     */
     public Task() {
         this.isDone = false;
         this.module = Optional.empty();
+        this.grade = Optional.empty();
     }
 
     public boolean clashesWith(Task that) {
@@ -24,6 +30,10 @@ public abstract class Task implements Comparable<Task> {
 
     public Optional<Module> getModule() {
         return this.module;
+    }
+
+    public Optional<Grade> getGrade() {
+        return this.grade;
     }
 
     @Override
@@ -66,6 +76,16 @@ public abstract class Task implements Comparable<Task> {
     @JsonSetter("done")
     public void setDone(boolean done) {
         isDone = done;
+    }
+
+    @JsonSetter("grade")
+    public void setGrade(Grade grade) {
+        this.grade = Optional.ofNullable(grade);
+    }
+
+    @JsonGetter("grade")
+    public Grade getRawtGrade() {
+        return this.grade.orElse(null);
     }
 
     public abstract TimeFrame getTimeFrame();

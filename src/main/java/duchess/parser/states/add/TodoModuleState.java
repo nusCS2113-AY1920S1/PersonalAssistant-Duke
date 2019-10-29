@@ -33,12 +33,12 @@ public class TodoModuleState extends ParserState {
             return new DisplayCommand(str);
         }
 
-        parser.setParserState(new DefaultState(parser));
-
         if (value.equalsIgnoreCase("nil")) {
+            parser.setParserState(new DefaultState(parser));
             return new AddTodoCommand(description);
         }
 
-        return new AddTodoCommand(description, value);
+        return parser.setParserState(new TodoWeightageState(parser, description, value)).continueParsing(parameters);
+
     }
 }
