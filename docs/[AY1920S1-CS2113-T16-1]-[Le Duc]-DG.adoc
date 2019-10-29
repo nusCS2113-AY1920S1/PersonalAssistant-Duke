@@ -80,6 +80,9 @@
 |As a student,| I want to see the time left until the allocated time for that task is over
 |* *
 
+|As a student,| I want to have different languages
+|* *
+
 |As a student,| I want to know the location, the address
 |* *
 
@@ -169,6 +172,20 @@
 * *Recurrent task*: A task that repeat every day/week/month…
 
 ---
+== Design
+=== Class Diagram
+
+Le Duc main class, called Duke, is composed of 4 classes : `Storage`, `Ui`, `Parser`, `TaskList`.
+
+* `Storage` deals with saving and loading files such as the file containing the config or the file containing all the tasks.
+* `Ui` deals with the interaction between the user and the program.
+* `Parser` given an user's input (through Ui), the Parser will return the corresponding command
+* `TaskList` represents the list containing all the tasks.
+
+image::ClassDiagramDuke.png[width="790"]
+
+In this class diagram, constructors, getters and setters were not all represented.
+
 
 == Implementation
 
@@ -299,4 +316,3 @@ remind
 * Sorting the TaskList in place was considered, but it reduced cohesion of the design.
 * It was considered to only remind the user of tasks that are coming up in the next week,
 but that would limit its potential utility
-
