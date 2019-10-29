@@ -365,7 +365,6 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(inputCommand, userImage),
                 DialogBox.getDukeDialog(dukeResponses, dukeImage, isException)
         );
-        showHelpGuide();
         duke.clearDukeResponses();
     }
 
