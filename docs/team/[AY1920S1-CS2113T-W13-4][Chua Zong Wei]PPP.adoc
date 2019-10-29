@@ -20,7 +20,7 @@ plan out their diet with ease. Additionally, our application is also capable of 
 to every user based on their BMI, providing them with a personalized user experience that caters specifically to them.
 
 .DIYeats user interface
-image::UI.png[width="800"]
+image::Ui2.png[width="800"]
 
 My primary role in the object was to design and write the code for the `add`, `setgoal` and `suggestexercise` commands. The following
 sections will help illustrate these enhancements in more detail, as well as the relevant documentation I have added to the
