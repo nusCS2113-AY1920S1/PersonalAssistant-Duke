@@ -40,14 +40,19 @@ public class MainParser {
 
             case "find":
                 return new FindFreeTimesParse(fullCommand).parse();
+
             case "show/previous":
                 return new ShowPreviousCommand(fullCommand);
+
             case "retrieve/freetime":
                 return new RetrieveFreeTimesParse(fullCommand).parse();
+
             case "retrieve/previous":
                 return new RetrievePreviousCommand(fullCommand);
+
             case "Week":
                 return new WeekCommand(fullCommand);
+
             case "bye":
                 return new ByeCommand();
 
