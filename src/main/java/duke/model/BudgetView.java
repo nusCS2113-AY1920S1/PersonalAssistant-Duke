@@ -27,8 +27,6 @@ public class BudgetView {
         this.budgetViewCategory = budgetViewCategory;
     }
 
-
-
     /**
      * Sets category to a given view.
      *

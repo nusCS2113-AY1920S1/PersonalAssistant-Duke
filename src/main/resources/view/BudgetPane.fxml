@@ -22,7 +22,7 @@
          </font>
       </Text>
       <Pane fx:id="paneView" layoutX="90.0" layoutY="23.0" prefHeight="120.0" prefWidth="828.0" />
-      <GridPane layoutX="394.0" layoutY="153.0" prefHeight="451.0" prefWidth="533.0">
+      <GridPane fx:id="gridPane" layoutX="394.0" layoutY="153.0" prefHeight="451.0" prefWidth="533.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

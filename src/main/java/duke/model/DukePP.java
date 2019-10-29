@@ -127,6 +127,11 @@ public class DukePP implements Model {
     }
 
     @Override
+    public BigDecimal getBudgetTag(String category) {
+        return budget.getBudgetTag(category);
+    }
+
+    @Override
     public ObservableList<String> getBudgetObservableList() {
         return budget.getBudgetObservableList();
     }

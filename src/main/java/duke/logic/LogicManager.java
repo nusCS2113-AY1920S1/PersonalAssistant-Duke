@@ -8,6 +8,7 @@ import duke.storage.Storage;
 import javafx.collections.ObservableList;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 public class LogicManager implements Logic {
 
@@ -67,6 +68,16 @@ public class LogicManager implements Logic {
     public BigDecimal getRemaining(BigDecimal total) {
         return model.getRemaining(total);
     };
+
+    @Override
+    public Map<Integer, String> getBudgetViewCategory() {
+        return model.getBudgetViewCategory();
+    }
+
+    @Override
+    public BigDecimal getBudgetTag(String category) {
+        return model.getBudgetTag(category);
+    }
 
 
 }

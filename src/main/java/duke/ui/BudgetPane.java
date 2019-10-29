@@ -16,6 +16,7 @@ import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 import javax.swing.*;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -129,6 +130,16 @@ public class BudgetPane extends UiPart<AnchorPane>  {
         paneView.getChildren().add(overallBudget);
         paneView.getChildren().add(text);
 
-        ProgressIndicator view1 = new ProgressIndicator();
+
+        ProgressBar view1 = new ProgressBar();
+        String category = logic.getBudgetViewCategory().get(1);
+        logger.info(category);
+        //error is here, keeps throwing null pointer exception
+        double percent1 = logic.getBudgetTag(category).doubleValue();
+        //double percent1 = (logic.getTagAmount(category).doubleValue()) / (logic.getBudgetTag(category).doubleValue());
+        view1.setProgress(percent1);
+        gridPane.add(view1,1,1);
+
+
     }
 }

@@ -48,11 +48,13 @@ public interface Model {
 
     public Budget getBudget();
 
+    public BigDecimal getBudgetTag(String category);
+
     public  ObservableList<String> getBudgetObservableList();
 
     public BudgetView getBudgetView();
 
-    public Map<Integer, String> getBudgetViewCategory ();
+    public Map<Integer, String> getBudgetViewCategory();
 
     public void setBudgetView(Integer view, String category);
     //******************************** Operations for other data....

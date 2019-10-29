@@ -7,6 +7,7 @@ import duke.model.PlanBot;
 import javafx.collections.ObservableList;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 /**
  * API of the Logic component.
@@ -31,4 +32,8 @@ public interface Logic {
     BigDecimal getTotalAmount();
 
     BigDecimal getRemaining(BigDecimal total);
+
+    Map<Integer, String> getBudgetViewCategory();
+
+    BigDecimal getBudgetTag(String category);
 }
