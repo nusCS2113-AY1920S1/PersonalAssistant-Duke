@@ -135,7 +135,7 @@ public class CommandParseHelper {
         }
     }
 
-    private static Command parseEmailCommand(String input, ArrayList<Option> optionList) {
+    public static Command parseEmailCommand(String input, ArrayList<Option> optionList) {
         try {
             return EmailCommandParseHelper.parseEmailCommand(input, optionList);
         } catch (UserInputException e) {

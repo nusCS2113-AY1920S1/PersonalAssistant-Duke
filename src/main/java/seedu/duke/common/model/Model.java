@@ -8,6 +8,19 @@ import seedu.duke.task.TaskList;
 public class Model {
     private TaskList taskList = new TaskList();
     private EmailList emailList = new EmailList();
+    private static Model model;
+
+    /**
+     * Gets new instance.
+     *
+     * @return model
+     */
+    public static Model getInstance() {
+        if (model == null) {
+            model = new Model();
+        }
+        return model;
+    }
 
     public TaskList getTaskList() {
         return taskList;
