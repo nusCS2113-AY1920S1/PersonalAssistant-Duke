@@ -1,5 +1,7 @@
 package duke;
 
+import duke.Command.Command;
+import duke.Command.ExitCommand;
 import duke.Parser.ParserCommand;
 import duke.sports.MyTraining;
 
@@ -22,18 +24,21 @@ public class Ui {
      */
     public void execute() {
         showWelcome();
+        Command c = null;
         while (true) {
             if (scan.hasNextLine()) {
                 String command = scan.nextLine();
                 if (command.equals("bye")) {
                     showGoodBye();
                     System.exit(0);
+                    //c = new ExitCommand();
                 } else if (command.equals("home")) {
                     showMainMenu();
                 } else {
                     parser.parseCommand(command);
                 }
             }
+            //c.execute();
         }
     }
 
