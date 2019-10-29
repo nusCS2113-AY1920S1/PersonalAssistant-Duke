@@ -19,6 +19,7 @@ public class ViewCommand extends Command {
     public static final String MESSAGE_EMPTY_BUDGET = "There is no budget set for ";
     public static final String MESSAGE_VIEW_BUDGET = "This is the budget left for ";
     public static final String MESSAGE_VIEW_STATS = "This is the statistics for ";
+    public static final String MESSAGE_STATS_CATEGORY = "These are the expenses for ";
     public static final String MESSAGE_USAGE = "Error in format for command."
             + "\nExample: " + COMMAND_WORD + " budget 01/2019";
 
@@ -50,14 +51,18 @@ public class ViewCommand extends Command {
                 //@@author kyang96
                 HashMap<Category, ArrayList<Expense>> categoryMap
                         = getCategoryMap(wallet.getExpenseList().getExpenseList(), month, year);
-                System.out.println(MESSAGE_VIEW_STATS + month + "/" + year);
+                System.out.println(MESSAGE_VIEW_STATS + new DateFormatSymbols().getMonths()[month - 1] + " " + year);
+                //double total = wallet.getExpenseList().getMonthExpenses(month, year);
+                //double budget = wallet.getBudgetList().getBudget(month, year);
+                //ui.drawBarChart(total, budget);
                 for (Category category : Category.values()) {
                     ArrayList<Expense> expenseList = categoryMap.get(category);
                     if (expenseList != null) {
+                        System.out.println(MESSAGE_STATS_CATEGORY + category);
                         Ui.printExpenseTable(expenseList);
                     }
                 }
-                //@@author
+                //@@author matthewng1996
                 ArrayList<Expense> expenseList = new ArrayList<Expense>();
                 for (Expense e : LogicManager.getWallet().getExpenseList().getExpenseList()) {
                     if (e.getDate().getMonthValue() == month && e.getDate().getYear() == year) {

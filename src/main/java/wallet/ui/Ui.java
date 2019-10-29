@@ -73,7 +73,6 @@ public class Ui {
      * Displays the expense list in table format.
      */
     public static void printExpenseTable(ArrayList<Expense> expenseList) {
-        System.out.println("Here are the expenses in your list:");
         System.out.println("-----------------------------------------------------"
                 + "-------------------------------------------------\n"
                 + "|  ID  |              Description                 |"
@@ -96,14 +95,57 @@ public class Ui {
                 + "-------------------------------------------------");
         System.out.printf("Total amount spent: $%.2f\n", total);
     }
-    //@@author
+
+    /**
+     * Displays a single expense in table format.
+     *
+     * @param e Expense to be displayed.
+     */
+    public static void printExpense(Expense e) {
+        System.out.println("-----------------------------------------------------"
+                + "-------------------------------------------------\n"
+                + "|  ID  |              Description                 |"
+                + "  Category  |    Date    |   Amount   | Recurring |\n"
+                + "|---------------------------------------------------------------"
+                + "-------------------------------------|");
+        if (e.isRecurring()) {
+            System.out.printf("| %-4d | %-40s | %-10s | %-10s |  $%-7.2f  |  %-7s  |\n", e.getId(),
+                    e.getDescription(), e.getCategory(), e.getDate(), e.getAmount(), e.getRecFrequency());
+        } else {
+            System.out.printf("| %-4d | %-40s | %-10s | %-10s |  $%-7.2f  |  %-7s  |\n",
+                    e.getId(), e.getDescription(), e.getCategory(), e.getDate(), e.getAmount(), "No");
+        }
+        System.out.println("-----------------------------------------------------"
+                + "-------------------------------------------------");
+    }
+
+    /**
+     * Displays a bar chart for percentage of total over budget.
+     */
+    public void drawBarChart(double total, double budget) {
+        int maxLength = 20;
+        int barLength = 20;
+        if (budget != 0 && budget > total) {
+            barLength = (int) (total / budget * maxLength);
+        }
+        double percentage = total / budget * 100;
+        String bar = "";
+        for (int i = 0; i < barLength; i++) {
+            bar += '#';
+        }
+        for (int i = barLength; i < maxLength; i++) {
+            bar += ' ';
+        }
+        System.out.printf("You have spent %.1f%% of your budget.\n", percentage);
+        System.out.print("[" + bar + "] ");
+        System.out.printf("$%.2f/$%.2f\n", total, budget);
+    }
 
     //@@author matthewng1996
     public void drawPieChart(ArrayList<Expense> expenseList) {
         ChartThread chartThread = new ChartThread(expenseList);
         System.out.println("Please wait while we draw the pie chart...");
     }
-    //@@author
 
     //@@author Xdecosee
 
