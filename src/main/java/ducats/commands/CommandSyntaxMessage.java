@@ -27,6 +27,7 @@ public abstract class CommandSyntaxMessage {
     private static String list_groupSyntax = "list_group\nFormat: list_group -starting_substring\n";
     private static String playSyntax = "play [n/STARTING_BAR_NO n/ENDING_BAR_NO]\n"
             + "Format: play s/SONG_NAME  (when no song has been opened)\n";
+    private static String metronomeSyntax = "metronome n/DURATION_IN_NO_OF_BARS n/TEMP0 s/TIME_SIG\n";
     // TODO: add close, clear, delete, exit syntax
     private static String closeSyntax = "To be implemented in version 2.0\n";
     private static String clearSyntax = "To be implemented in version 2.0\n";
@@ -50,6 +51,7 @@ public abstract class CommandSyntaxMessage {
             put("ascii", asciiSyntax);
             put("list_group", list_groupSyntax);
             put("play", playSyntax);
+            put("metronome", metronomeSyntax);
             put("close", closeSyntax);
             put("clear", clearSyntax);
             put("delete", deleteSyntax);

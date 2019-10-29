@@ -12,6 +12,7 @@ import ducats.commands.EditCommand;
 import ducats.commands.GroupCommand;
 import ducats.commands.HelpCommand;
 import ducats.commands.ListCommand;
+import ducats.commands.MetronomeCommand;
 import ducats.commands.NewCommand;
 import ducats.commands.OpenCommand;
 import ducats.commands.OverlayBarGroup;
@@ -38,7 +39,7 @@ public class Parser {
     public static Command parse(String message) throws DucatsException {
         String [] commandList = {"bye", "list", "delete", "deletebar","edit",
                                     "find","done", "new","help","view","addbar",
-                                    "overlay","group","overlay_bar_group",
+                                    "overlay","group","overlay_bar_group", "metronome",
                                     "overlay_group_group","overlay_bar_song","ascii","redo","undo", "open"};
         double maximumVal = 0;
         String commandName = "";
@@ -145,6 +146,11 @@ public class Parser {
         case "undo":
             if (message.length() == 4) {
                 return new UndoCommand();
+            }
+            break;
+        case "metronome":
+            if (message.length() >= 11) {
+                return new MetronomeCommand(message);
             }
             break;
         default:

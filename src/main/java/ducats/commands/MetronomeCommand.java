@@ -1,38 +1,42 @@
 package ducats.commands;
 
+import ducats.Ducats;
 import ducats.DucatsException;
 import ducats.Storage;
 import ducats.Ui;
 import ducats.components.SongList;
 
-//@@author rohan-av
+public class MetronomeCommand extends Command<SongList> {
 
-public class OpenCommand extends Command<SongList> {
+    private int duration;
+    private int tempo;
+    private int[] timeSig;
 
-    public OpenCommand(String message) {
+    public MetronomeCommand(String message) {
         this.message = message;
     }
 
     /**
-     * Opens a specified song for editing based on the input message.
+     * Executes the command, which consists of setting the command attributes (to be later passed into the Metronome
+     * class as its parameters) and retrieving the appropriate output string from the UI class.
      *
-     * @param songList the the ducats.components.SongList object that contains the song list
+     * @param songList the list of Songs in Ducats
      * @param ui the Ui object responsible for the reading of user input and the display of
      *           the responses
      * @param storage the Storage object used to read and manipulate the .txt file
-     * @return the string to be displayed in the GUI of Ducats
-     * @throws DucatsException exception in the case of a wrong index provided by the user
+     * @return the formatted String to be displayed
+     * @throws DucatsException in the case of input errors on the side of the user
      */
     public String execute(SongList songList, Ui ui, Storage storage) throws DucatsException {
         try {
-            String songName = message.substring(5);
-            int songIndex = songList.findSongIndex(songName);
-            if (songIndex != -1) {
-                songList.setActiveIndex(songList.findSongIndex(songName));
-            }
-            return Ui.formatOpen(songList, songIndex);
+            String[] sections = message.substring(10).split(" ");
+            duration = Integer.parseInt(sections[0]);
+            tempo = Integer.parseInt(sections[1]);
+            timeSig =
+                new int[]{Integer.parseInt(sections[2].substring(0, 1)), Integer.parseInt(sections[2].substring(2))};
+            return ui.formatMetronome(duration, tempo, timeSig);
         } catch (Exception e) {
-            throw new DucatsException("","index");
+            throw new DucatsException("", "create");
         }
     }
 
@@ -56,7 +60,8 @@ public class OpenCommand extends Command<SongList> {
      */
     @Override
     public int[] startMetronome() {
-        return new int[]{-1, -1, -1, -1};
+        return new int[]{duration, tempo, timeSig[0], timeSig[1]};
     }
+
 
 }
