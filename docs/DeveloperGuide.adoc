@@ -291,7 +291,7 @@ transactions *will be deleted* along with it given that it has a *composite rela
 
 === Storage Component
 
-To be added.
+To be added in v1.4.
 
 === Common Classes
 
