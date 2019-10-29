@@ -7,6 +7,7 @@ import dolla.task.RecordList;
 
 import java.util.ArrayList;
 
+//@@author tatayu
 /**
  * SearchCommand is a command that runs when
  * the user wants to execute a search command.

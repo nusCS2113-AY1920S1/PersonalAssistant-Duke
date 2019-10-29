@@ -2,7 +2,6 @@ package dolla.parser;
 
 import dolla.Time;
 import dolla.ui.DebtUi;
-import dolla.ui.Ui;
 import dolla.action.Repeat;
 import dolla.command.Command;
 import dolla.command.AddActionCommand;
@@ -13,6 +12,7 @@ import dolla.command.SortCommand;
 import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
 
+//@@author tatayu
 /**
  * DebtsParser is a class that handles the input command and
  * execute the command according to the command under the debt mode.
