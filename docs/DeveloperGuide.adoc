@@ -109,7 +109,7 @@ Commands are the main classes with which we execute our features. All of the spe
 The execute method takes in the detailed map of modules drawn from the NUSMODS API Json file, module task list, cca list, planner UI, storage, and the jsonWrapper parser. Each execute method is overriden in the specific Command classes to do what the feature requires of the class.
 
 The `ModuleCommand` class also receives arguments based on the arguments passed by the `Parser` class, which is our main parser for the program, detailed above in <<Parser>>. 
-
++
 These arguments change how some of the classes function as well, using a switch case system to sort through the different argument types received. These will changes will be explained further under the Implementation section here <<Implementation>>.
 
 image::Command.png[]
@@ -309,7 +309,8 @@ The `show` feature is opearted by the `ShowCommand` class, which is called by th
 
 Since `ShowCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `show` command. +
 
-The parameter `TYPE` can take five forms according to the user input: + 
+The parameter `TYPE` can take five forms according to the user input: +
+
 ****
 * `show cca`
 * `show core`
@@ -345,11 +346,12 @@ If the arguement read for `toShow` is "ue", an iterator loops through the array 
 
 * Case 5: `show module` +
 If the arguement read for `toShow` is "module", an iterator loops through the array list of `ModuleTask`. It then prints out the entire list of modules being added.
-****
 
 Below is a Sequence Diagram showing how `ShowCommand` works.
 
 image::ShowCommandSequenceDiagram.png[width="600"]
+
+****
 
 === JsonWrapper
 
@@ -407,12 +409,14 @@ For the proposed implementation of updating user data, there are a few alternati
 
 ****
 
-[[Documentation]] 
+[[Documentation]]
+
 == Documentation
 
 (TBD)
 
-[[Testing]] 
+[[Testing]]
+
 == Testing
 
 (TBD)
@@ -588,6 +592,7 @@ eg. `check MC 1-1` will check for MCs taken in Year 1 Semester 1
 
 [appendix]
 == Glossary
+
 * *API* : Application Programming Interface
 * *CEG* : Computer Engineering
 * *NUSMODS* : NUSMODS is an external library where consolidated module data from NUS is collected
