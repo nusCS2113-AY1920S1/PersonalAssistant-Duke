@@ -17,7 +17,7 @@ Project Team
 \[[github](http://github.com/jaedonkey)\] \[[portfolio](#jaedonkey#)\]
 
 Role: Developer  
-Responsibilities: Edit Command,UI
+Responsibilities: Edit & Find Command,Storage Component
 
 ---
 
@@ -28,7 +28,7 @@ Responsibilities: Edit Command,UI
 \[[github](http://github.com/catherinetan99)\] \[[portfolio](#catherinetan99#)\]
 
 Role: Developer  
-Responsibilities: Notification, Sorting
+Responsibilities: Set-Reminders,View-Reminders & FindFreeTimeSlot Commands
 
 ---
 **Liu Peize**
@@ -38,7 +38,7 @@ Responsibilities: Notification, Sorting
 \[[github](http://github.com/ltpz)\] \[[portfolio](#ltpz#)\]
 
 Role: Developer  
-Responsibilities:FixedDurationTasks Command
+Responsibilities: Recurring Deadline & Help Command ,Model Component
 
 ---
 **Yue Jun Yi**
@@ -49,7 +49,7 @@ Responsibilities:FixedDurationTasks Command
 \[[github](http://github.com/yueyeah)\] \[[portfolio](#johndoe#)\]
 
 Role: Developer  
-Responsibilities: RecurringTask Command
+Responsibilities: Recurring Events & Delete Command,Model Component 
 
 ---
 **Sholihin Kamarudin**
@@ -59,6 +59,6 @@ Responsibilities: RecurringTask Command
 \[[github](https://github.com/sholihink)\] \[[portfolio](#sholihink#)\]
 
 Role: Team Lead,Developer  
-Responsibilities: View Command
+Responsibilities: View,List & Done Command,Daily View Interface,Ui Component
 
 ---
