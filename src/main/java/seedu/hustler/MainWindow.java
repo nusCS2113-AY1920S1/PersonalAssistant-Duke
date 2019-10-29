@@ -109,6 +109,9 @@ public class MainWindow extends AnchorPane{
     @FXML
     private FlowPane heading;
 
+    @FXML
+    private FlowPane pointBar;
+
     /**
      * Initializes essential components to run Hustler.
      * @throws IOException if text area could not be found.
@@ -135,6 +138,7 @@ public class MainWindow extends AnchorPane{
         stackPane.getChildren().addAll(text);
         stackPane.prefWidthProperty().bind(welcomeScreen.widthProperty());
         welcomeScreen.getChildren().addAll(whiteSpace,stackPane);
+        rootPane.getChildren().remove(pointBar);
     }
 
     public void setHustler(Hustler h) {
@@ -207,7 +211,7 @@ public class MainWindow extends AnchorPane{
 
     @FXML
     public void taskAction() throws IOException{
-
+        rootPane.getChildren().remove(pointBar);
         heading.getChildren().clear();
         Text title1 = new Text("TASKS");
         title1.setFont(Font.font("Gill Sans", 15));
@@ -357,7 +361,7 @@ public class MainWindow extends AnchorPane{
 
     @FXML
     public void taskCompletionModeAction() {
-
+        rootPane.getChildren().remove(pointBar);
         heading.getChildren().clear();
         Text title1 = new Text("TASK COMPLETION MODE");
         title1.setFont(Font.font("Gill Sans", 15));
@@ -412,6 +416,7 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void achievementAction() throws IOException {
 
+        rootPane.getChildren().add(pointBar);
         heading.getChildren().clear();
         Text title1 = new Text("ACHIEVEMENTS");
         title1.setFont(Font.font("Gill Sans", 15));
@@ -563,7 +568,7 @@ public class MainWindow extends AnchorPane{
 
     @FXML
     public void statisticsAction() {
-
+        rootPane.getChildren().remove(pointBar);
         heading.getChildren().clear();
         Text title1 = new Text("STATISTICS");
         title1.setFont(Font.font("Gill Sans", 15));
@@ -616,7 +621,7 @@ public class MainWindow extends AnchorPane{
 
     @FXML
     public void avatarAction() {
-
+        rootPane.getChildren().remove(pointBar);
         heading.getChildren().clear();
         Text title1 = new Text("AVATAR");
         title1.setFont(Font.font("Gill Sans", 15));
@@ -672,7 +677,7 @@ public class MainWindow extends AnchorPane{
 
     @FXML
     public void shopAction() {
-
+        rootPane.getChildren().remove(pointBar);
         heading.getChildren().clear();
         Text title1 = new Text("SHOP");
         title1.setFont(Font.font("Gill Sans", 15));
@@ -730,7 +735,7 @@ public class MainWindow extends AnchorPane{
 
     @FXML
     public void arenaAction() {
-
+        rootPane.getChildren().remove(pointBar);
         heading.getChildren().clear();
         Text title1 = new Text("ARENA");
         title1.setFont(Font.font("Gill Sans", 15));
@@ -783,7 +788,7 @@ public class MainWindow extends AnchorPane{
 
     @FXML
     public void settingsAction() {
-
+        rootPane.getChildren().remove(pointBar);
         heading.getChildren().clear();
         Text title1 = new Text("SETTINGS");
         title1.setFont(Font.font("Gill Sans", 15));
