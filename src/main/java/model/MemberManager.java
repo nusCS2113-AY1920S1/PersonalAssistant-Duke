@@ -90,7 +90,7 @@ public class MemberManager {
     public void addTask(Member[] members, Task[] toAdd) {
         for (int i = 0; i < members.length; i++) {
             for (int j = 0; j < toAdd.length; j++) {
-                members[i].addTask(toAdd[j]);
+                members[i].addTask(toAdd[j].getName());
             }
         }
     }
@@ -112,5 +112,14 @@ public class MemberManager {
 
     public ArrayList<Member> getMemberList() {
         return memberList;
+    }
+
+    public boolean hasMember(String name) {
+        for (int i = 0; i < memberList.size(); i += 1) {
+            if (memberList.get(i).getName().equals(name.trim())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

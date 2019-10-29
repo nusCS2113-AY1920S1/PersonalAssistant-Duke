@@ -10,7 +10,7 @@ public class Member {
     public static final String MESSAGE_WRONG_EMAIL_FORMAT = "Wromg email format.";
 
     private String name;
-    private ArrayList<Task> taskList;
+    private ArrayList<String> taskList;
     private String biography;
     private String email;
     private String phone;
@@ -20,7 +20,7 @@ public class Member {
         this.taskList = new ArrayList<>();
     }
 
-    public void addTask(Task toAdd) {
+    public void addTask(String toAdd) {
         if (!taskList.contains(toAdd)) {
             taskList.add(toAdd);
         }
@@ -32,7 +32,7 @@ public class Member {
         }
     }
 
-    public ArrayList<Task> getTaskList() {
+    public ArrayList<String> getTaskList() {
         return taskList;
     }
 
