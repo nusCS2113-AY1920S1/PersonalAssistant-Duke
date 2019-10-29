@@ -337,13 +337,21 @@ public class ProjectInputController implements IController {
      * @param projectFullCommand The full command by the user.
      */
     private String[] projectViewAssignments(Project projectToManage, String projectFullCommand) {
-        String input = projectFullCommand.substring(18);
-        if (input.charAt(0) == 'm') {
-            return projectViewMembersAssignments(projectToManage, projectFullCommand.substring(20));
-        } else if (input.charAt(0) == 't') {
-            return projectViewTasksAssignments(projectToManage, projectFullCommand.substring(20));
+        if (projectFullCommand.length() <= 18) {
+            return (new String[]{"Please input the parameters to view assignments:",
+                "-m for viewing by member, -t for viewing by task.",
+                "You may refer to the user guide for the list of possible commands."});
+        } else {
+            String input = projectFullCommand.substring(18);
+            if (input.charAt(0) == 'm') {
+                return projectViewMembersAssignments(projectToManage,
+                    projectFullCommand.substring(20));
+            } else if (input.charAt(0) == 't') {
+                return projectViewTasksAssignments(projectToManage,
+                    projectFullCommand.substring(20));
+            }
+            return null;
         }
-        return null;
     }
 
     /**
