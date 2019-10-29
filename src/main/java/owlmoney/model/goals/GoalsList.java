@@ -119,6 +119,8 @@ public class GoalsList {
                                 + " at risk, but we will try again, feel free to continue using the program.");
                     }
                     break;
+                } else {
+                    throw new GoalsException("There is no goal with the name: " + goalName);
                 }
             }
         }
@@ -134,7 +136,7 @@ public class GoalsList {
     private void compareGoals(Goals currentGoals, String newGoalName) throws GoalsException {
         for (int i = ISZERO; i < goalList.size(); i++) {
             if (goalList.get(i).getGoalsName().equals(newGoalName) && !goalList.get(i).equals(currentGoals)) {
-                throw new GoalsException("There is already a goal with the same name " + newGoalName);
+                throw new GoalsException("There is already a goal with the same name: " + newGoalName);
             }
         }
     }
@@ -254,7 +256,7 @@ public class GoalsList {
      *
      * @return size of goalList.
      */
-    private int getGoalListSize() {
+    int getGoalListSize() {
         return goalList.size();
     }
 
