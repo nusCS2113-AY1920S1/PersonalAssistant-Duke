@@ -63,9 +63,8 @@ public class SoldCommand extends Command{
 		Food.updateRevenue(Food.getRevenue() + revenue);
 		// new function
 		double profit = revenue - quantity * toSold.getCost();
-		Sale saleRecord = new Sale(quantity, revenue, profit, soldDate);
+		Sale saleRecord = new Sale(foodName, quantity, revenue, profit, soldDate);
 		salesHistory.add(saleRecord);
-		System.out.println(salesHistory.size());
 		storage.storeSalesHistory(salesHistory);
 
 		storage.storeRevenue(Food.getRevenue());

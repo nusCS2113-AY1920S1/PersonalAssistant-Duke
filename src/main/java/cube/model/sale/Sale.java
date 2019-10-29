@@ -11,6 +11,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Sale implements Comparable<Sale>{
 	@JsonProperty
+	protected String foodName;
+	@JsonProperty
 	protected int quantitySold;
 	@JsonProperty
 	protected double profit;
@@ -20,7 +22,7 @@ public class Sale implements Comparable<Sale>{
 	protected Date soldDate;
 
 	public Sale(){
-		this(0, 0, 0, null);
+		this(null, 0, 0, 0, null);
 	}
 
 	/**
@@ -31,11 +33,17 @@ public class Sale implements Comparable<Sale>{
 	 * @param revenue The revenue earned in this sale.
 	 * @param soldDate The date of sale.
 	 */
-	public Sale(int quantitySold, double revenue, double profit, Date soldDate) {
+	public Sale(String foodName, int quantitySold, double revenue, double profit, Date soldDate) {
+		this.foodName = foodName;
 		this.quantitySold = quantitySold;
 		this.revenue = revenue;
 		this.profit = profit;
 		this.soldDate = soldDate;
+	}
+
+	@JsonIgnore
+	public String getName() {
+		return foodName;
 	}
 
 	@JsonIgnore
@@ -68,6 +76,14 @@ public class Sale implements Comparable<Sale>{
 
 	@Override
 	public int compareTo(Sale b) {
-		return this.soldDate.compareTo(b.getDate());
+		// expand the list of comparison to reduce chance of equal transaction
+		if(soldDate.compareTo(b.getDate()) != 0) {
+			return soldDate.compareTo(b.getDate());
+		} else if (foodName.compareTo(b.getName()) != 0) {
+			return foodName.compareTo(b.getName());
+		} else {
+			// the order does not matter if time and name the same
+			return 1;
+		}
 	}
 }
