@@ -288,9 +288,9 @@ Edits `JunBank Savings Account` name to `JulyBank Savings Account` and sets the 
 Edits `JunBank Savings Account` name to `JulyBank Savings Account` and sets the new amount in the account to $`2000.25`
 with a new income of $`5000`.
 
-* `/edit /savings /name JunBank Savings Account /amount 2000.25`.
+* `/edit /savings /name JunBank Savings Account /amount 2000.25`
 
-Edits `JunBank Savings Account` by setting the new amount in the account to $`2000.25`
+Edits `JunBank Savings Account` by setting the new amount in the account to $`2000.25`.
 
 * `/edit /savings /name JunBank Savings Account /amount 2000.25 /income 5000`
 
@@ -388,7 +388,7 @@ To find out which expenditure to delete, use the `/list` or `/find` function to 
 
 *Example*
 
-* `/delete /expenditure /from /JunBank Savings Account /transno 1`
+* `/delete /bankexpenditure /from JunBank Savings Account /transno 1`
 
 Deletes an expenditure from `JunBank Savings Account with transaction number` `1`.
 
@@ -431,7 +431,7 @@ To find which to deposit to edit, use the `/list` or `/find` function to find th
 Edits the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new description of
 `FREELANCE WORK`, setting a new amount of $`270` and a new date of `29/11/2019`
 
-* `/edit /deposit /from JunBank Savings Account /transno 11 /amount 5001`
+* `/edit /deposit /from JunBank Savings Account /transno 11 /amount 500`
 
 Edits the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new amount of $`500`.
 
@@ -552,12 +552,12 @@ Edits the name of the account from `DBB Vickers Account` to `OBOB Securities Acc
 
 * `/edit /investment /name DBB Vickers Account /amount 50000`
 
-Edits the amount in `DBB Vickers Account` to $`50 000`.
+Edits the amount in `DBB Vickers Account` to $`50000`.
 
 * `/edit /investment /name DBB Vickers Account /newname OBOB Securities Account /amount 50000`
 
 Edits the name of the account from `DBB Vickers Account` to `OBOB Securities Account` and the amount in the account
-to $`50 000`.
+to $`50000`.
 
 ===== Deleting investment bank Account `/delete /investment`
 You can also close your investment bank account on `OwlMoney` as well!
@@ -732,11 +732,11 @@ Change in your credit card rebates rate? You can change them here as well!
 
 *Command Syntax*
 
-`/edit /card /name CARD_NAME [/newname CARD_NAME] [/amount AMOUNT] [/rebate CASHBACK_RATE]`
+`/edit /card /name CARD_NAME [/newname CARD_NAME] [/limit CARD_LIMIT] [/rebate CASHBACK_RATE]`
 
 [WARNING]
 ====
-At least one of `/newname`, `/amount` or `/rebate` must be used.
+At least one of `/newname`, `/limit` or `/rebate` must be used.
 ====
 
 *Example*
@@ -745,9 +745,9 @@ At least one of `/newname`, `/amount` or `/rebate` must be used.
 
 Edits the credit card name from `POBB Tomorrow Card` to `JunBank GoodVibes Card`.
 
-* `/edit /card /name POBB Tomorrow Card /amount 10 000`
+* `/edit /card /name POBB Tomorrow Card /limit 10000`
 
-Edits the credit limit of `POBB Tomorrow Card` to $`10 000`.
+Edits the credit limit of `POBB Tomorrow Card` to $`10000`.
 
 * `/edit /card /name POBB Tomorrow Card /rebate 2.05`
 
@@ -831,7 +831,7 @@ To find out which expenditure to delete, use the `/list` or `/find` function to 
 
 *Example*
 
-* `/delete /cardexpenditure /from /POBB Tomorrow Card /transno 1`
+* `/delete /cardexpenditure /from POBB Tomorrow Card /transno 1`
 
 Deletes an expenditure from `POBB Tomorrow Card` with transaction number `1`.
 
@@ -916,13 +916,13 @@ like saving for your wedding or retirement, we got you covered!
 
 Adds a goal named `Delicious Dinner at WAA COW` which aims to save $`50` in `15` days.
 
-* `/add /goals /name BTO at Punggol Downpayment /amount 200000 /by 10/10/2020`
+* `/add /goals /name BTO at Punggol Downpayment /amount 20000 /by 10/10/2020`
 
 Adds a goal named `BTO at Punggol Downpayment` which aims to save $`20000` by `10/10/2020`.
 
 * `/add /goals /name GRAD TRIP /amount 2000 /by 30/12/2020 /from JunBank Savings Account`
 
-Adds a goal named GRAD TRIP which aims to save $`2000` by `30/12/2019` and tie it to a savings account named `JunBank
+Adds a goal named GRAD TRIP which aims to save $`2000` by `30/12/2020` and tie it to a savings account named `JunBank
 Savings Account`.
 
 ===== Editing financial goals `/edit /goals`
@@ -1169,11 +1169,11 @@ At least one of `/desc`, `/category`, or `/from` with `/to` must be used.
 
 *Example*
 
-* `/find /banktransaction /name JunBank Savings Account /desc bubble tea
+* `/find /banktransaction /name JunBank Savings Account /desc bubble tea`
 
 Finds and lists all transactions with the description `bubble tea` charged to `JunBank Savings Account`.
 
-* `/find /banktransaction /name JunBank Savings Account /from 1/1/2019 to 7/1/2019`
+* `/find /banktransaction /name JunBank Savings Account /from 1/1/2019 /to 7/1/2019`
 
 Finds and lists all transactions that fall between the date range of `1/1/2019` and `7/1/2019` from the bank named
 `JunBank Savings Account`.
@@ -1238,7 +1238,7 @@ Tomorrow Card1`
 
 Finds all transactions charged to `POBB Tomorrow Card` between `1/1/2019` and `7/1/2019`.
 
-* `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea /from 1/1/2019 to 7/1/2019 /category food`
+* `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea /from 1/1/2019 /to 7/1/2019 /category food`
 
 Finds and lists all transactions that matches any one of the categories:
 
@@ -1263,6 +1263,40 @@ In the last example above, *OwlMoney* provided you with the flexibility of perfo
 ==== Listing multiple details `/list`
 
 Curious to find out your transactions for your accounts? Let us show you how it can be done!
+
+In this section, you'll be introduced to commands and parameters that help you to transfer funds between different
+bank accounts in *OwlMoney*.
+
+Below is a list of command parameters that you can expect to use for the commands in this section.
+[cols="18%,37%,45%"]
+|======
+| `ACCOUNT_NAME`
+| Indicates the name of the bank account.
+
+(e.g. DBB Vickers Account)
+
+| `ACCOUNT_NAME` should contain alphabetic characters, numeric characters, and spaces only.
+
+`ACCOUNT_NAME` is case-sensitive.
+
+Take note that there is a maximum of *30* character limit.
+
+| `CARD_NAME`
+| Indicates the name of the credit card.
+
+(e.g. POBB Everyday Card)
+
+| `CARD_NAME` should contain alphabetic characters, numeric characters, and spaces only.
+
+`CARD_NAME` is case-sensitive.
+
+Take note that there is a maximum of *30* character limit.
+
+| `NUMBER`
+| Indicates the number of transactions to list.
+| `NUMBER` should contain positive numbers only up to a maximum of *9* digits.
+
+|======
 
 *Command Syntax*
 
@@ -1365,7 +1399,7 @@ investment and vice-versa)
 
 Transfers $`500` from `JunBank Savings Account` to `POBB Savings Account` on `1/1/2019`.
 
-* `transfer /fund /from DBB Vickers Account /to JunBank Savings Account /amount 250 /date 1/1/2019`
+* `/transfer /fund /from DBB Vickers Account /to JunBank Savings Account /amount 250 /date 1/1/2019`
 
 Transfers $`250` from `DBB Vickers Account` to `JunBank Savings Account` on `1/1/2019`.
 
@@ -1513,7 +1547,7 @@ AMOUNT] [/date DATE]`
 | *Deleting expenditures for savings bank account*
 | Delete an existing expenditure record tied to the savings bank account.
 | `/delete /bankexpenditure /from ACCOUNT_NAME /transno TRANSACTION_NUMBER`
-| `/delete /expenditure /from /JunBank Savings Account /transno 1`
+| `/delete /bankexpenditure /from /JunBank Savings Account /transno 1`
 
 | *Adding deposit for savings bank account*
 | Add a new deposit record to the savings bank account.
@@ -1586,7 +1620,7 @@ AMOUNT] [/date DATE]`
 
 | *Editing credit card*
 | Edit the credit card details based on the new details given.
-| `/edit /card /name CARD_NAME [/newname CARD_NAME] [/amount AMOUNT] [/rebate CASHBACK_RATE]`
+| `/edit /card /name CARD_NAME [/newname CARD_NAME] [/limit CARD_LIMIT] [/rebate CASHBACK_RATE]`
 | `/edit /card /name POBB Tomorrow Card /newname JunBank GoodVibes Card`
 
 | *Deleting credit card*
@@ -1608,7 +1642,7 @@ AMOUNT] [/date DATE]`
 | *Deleting expenditures for credit card*
 | Delete an expenditure record tied to the credit card specified.
 | `/delete /cardexpenditure /from CARD_NAME /transno TRANSACTION_NUMBER`
-| `/delete /cardexpenditure /from /POBB Tomorrow Card /transno 1`
+| `/delete /cardexpenditure /from POBB Tomorrow Card /transno 1`
 
 |======
 
