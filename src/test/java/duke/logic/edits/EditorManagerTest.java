@@ -1,4 +1,4 @@
-package duke.logic;
+package duke.logic.edits;
 
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.EmptyVenueException;

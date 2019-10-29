@@ -4,12 +4,13 @@ import duke.commons.exceptions.DukeException;
 import duke.logic.api.ApiParser;
 import duke.model.locations.Venue;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * Represents an event occurring at a particular venue between a certain time.
  */
-public class Event extends TaskWithDates {
+public class Event extends TaskWithDates implements Serializable {
     private Venue venue;
 
     /**

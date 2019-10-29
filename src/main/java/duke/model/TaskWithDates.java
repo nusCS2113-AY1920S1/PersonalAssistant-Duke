@@ -1,11 +1,12 @@
 package duke.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * Represents Tasks with a date field.
  */
-public class TaskWithDates extends Task {
+public class TaskWithDates extends Task implements Serializable {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
