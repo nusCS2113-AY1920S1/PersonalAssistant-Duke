@@ -5,7 +5,6 @@ import duke.commons.file.FileUtil;
 import duke.logic.autocorrect.Autocorrect;
 import duke.commons.exceptions.DukeException;
 import duke.model.meal.MealList;
-import duke.model.wallet.TransactionList;
 import duke.model.user.User;
 import duke.model.wallet.Wallet;
 
@@ -50,14 +49,14 @@ public class Load {
         }
     }
 
-    public void loadTransactions(TransactionList transactions, Wallet wallet) throws DukeException {
+    public void loadTransactions(Wallet wallet) throws DukeException {
         String transactionFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_TRANSACTION_FILE);
         bufferedReader = FileUtil.readFile(transactionFilePathStr, useResourceAsBackup);
         try {
             lineStr = bufferedReader.readLine();
             wallet.setAccountBalance(lineStr);
             while ((lineStr = bufferedReader.readLine()) != null) {
-                LoadLineParser.parseTransactions(transactions, lineStr, wallet);
+                LoadLineParser.parseTransactions(lineStr, wallet);
             }
             bufferedReader.close();
         } catch (IOException e) {

@@ -61,7 +61,7 @@ public class LoadLineParser {
         }
     }
 
-    public static void parseTransactions(TransactionList transactionList, String line, Wallet wallet) {
+    public static void parseTransactions(String line, Wallet wallet) {
         String[] splitLine = line.split("\\|", 3);
         String transactionType = splitLine[0];
         String transactionAmount = splitLine[1];
