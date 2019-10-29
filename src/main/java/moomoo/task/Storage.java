@@ -19,6 +19,7 @@ public class Storage {
     private String budgetFilePath;
     private String scheduleFilePath;
     private String categoryFilePath;
+    private String expenditureFilePath;
 
     /**
      * Initializes empty Storage object.
@@ -32,10 +33,12 @@ public class Storage {
      * @param budgetFilePath File path to store the budget into.
      * @param scheduleFilePath File path to store all categories
      */
-    public Storage(String budgetFilePath, String scheduleFilePath, String categoryFilePath) {
+    public Storage(String budgetFilePath, String scheduleFilePath, String categoryFilePath,
+                   String expenditureFilePath) {
         this.budgetFilePath = budgetFilePath;
         this.scheduleFilePath = scheduleFilePath;
         this.categoryFilePath = categoryFilePath;
+        this.expenditureFilePath = expenditureFilePath;
         df = new DecimalFormat("#.00");
     }
 
@@ -203,7 +206,24 @@ public class Storage {
         } catch (IOException e) {
             throw new MooMooException("Unable to write to file. Please retry again.");
         }
+    }
 
+    /**
+     * Creates a file if necessary and stores each expenditure and its category into the file.
+     * @param expenditure Expenditure object that stores the name, amount and date for each expenditure.
+     * @param category Category that the expenditure is stored in.
+     * @throws MooMooException thrown if file cannot be written to.
+     */
+    public void saveExpenditureToFile(Expenditure expenditure, String category) throws MooMooException {
+        createFileAndDirectory(this.expenditureFilePath);
+        try {
+            String newExpenditure = Files.readString(Paths.get(this.expenditureFilePath));
+            newExpenditure += (category + " | " + expenditure.toString() + " | " + expenditure.getCost()
+                + " | " + expenditure.getDate() + "\n");
+            Files.writeString(Paths.get(this.expenditureFilePath), newExpenditure);
+        } catch (IOException e) {
+            throw new MooMooException("Unable to write to file. Please retry again.");
+        }
     }
 
     /**
