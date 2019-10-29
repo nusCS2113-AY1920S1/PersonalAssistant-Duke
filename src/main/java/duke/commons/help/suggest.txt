@@ -7,9 +7,9 @@ For example:
 
 1. You want a dinner meal suggestion for 29/10/2019 with up to maximum 5 meals to be suggested.
 
-    suggest /date 29/10/2019 /type dinner /display 5
+    suggest /date 29/10/2019 /type d /display 5
 
 2. You want a breakfast suggestion for today.
 
-    suggest /type breakfast
+    suggest /type b
 
