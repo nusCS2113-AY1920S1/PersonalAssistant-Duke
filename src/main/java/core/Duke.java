@@ -7,8 +7,8 @@ import model.Model;
 
 
 import java.util.Scanner;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 //=======New Imports for new structure
 import gui.UiController;
 import logic.LogicController;
@@ -52,7 +52,7 @@ public class Duke {
         //Reminder.checkReminders(tasks);
         boolean isExit = false;
         Scanner in = new Scanner(System.in);
-        while (!isExit) {
+        while (isExit) {
             uiController.readCommand(in);
             isExit = uiController.isExit();
         }

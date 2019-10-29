@@ -4,6 +4,7 @@ import common.DukeException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class TasksManager implements Serializable {
     public static final String MESSAGE_DUPLICATED_TASK_NAME = "Duplicated task name.";
@@ -147,6 +148,88 @@ public class TasksManager implements Serializable {
 
     public String getNameByTask(Task task) {
         return task.getName();
+    }
+
+    public String getTasksByKeyword(String keyword) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        String result = "";
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getName().contains(keyword)) {
+                result += "\n" + taskList.get(i);
+            }
+        }
+        return result;
+    }
+
+    public String scheduleTeamAll() {
+        ArrayList<Task> taskListCopy = (ArrayList<Task>)taskList.clone();
+        return showScheduleOfTaskList(taskListCopy);
+    }
+
+    public String scheduleTeamTodo() {
+        ArrayList<Task> taskListCopy = (ArrayList<Task>)taskList.clone();
+        ArrayList<Task> todoTasks = new ArrayList<>();
+        todoTasks = pickTodo(taskListCopy);
+        return showScheduleOfTaskList(todoTasks);
+
+    }
+
+    public String scheduleAllTasks(ArrayList<String> tasksName) {
+        ArrayList<Task> allTasks = new ArrayList<>();
+        for (int i = 0; i < tasksName.size(); i++) {
+            allTasks.add(getTaskByName(tasksName.get(i)));
+        }
+        return showScheduleOfTaskList(allTasks);
+    }
+
+    public String scheduleTodoTasks(ArrayList<String> tasksName) {
+        ArrayList<Task> allTasks = new ArrayList<>();
+        for (int i = 0; i < tasksName.size(); i++) {
+            allTasks.add(getTaskByName(tasksName.get(i)));
+        }
+        ArrayList<Task> todoTasks = new ArrayList<>();
+        todoTasks = pickTodo(allTasks);
+        return showScheduleOfTaskList(todoTasks);
+    }
+
+    private ArrayList<Task> sortByTime(ArrayList<Task> toSort) {
+        ArrayList<Task> sorted = new ArrayList<>();
+        int size = toSort.size();
+        for (int i = 0; i < size; i++) {
+            Date earliest = new Date(Long.MAX_VALUE);
+            int earliestIndex = -1;
+            for (int j = 0; j < toSort.size(); j++) {
+                Task temp = toSort.get(j);
+                if (temp.getTime().before(earliest)) {
+                    earliest = temp.getTime();
+                    earliestIndex = j;
+                }
+            }
+
+            sorted.add(toSort.get(earliestIndex));
+            toSort.remove(earliestIndex);
+        }
+        return sorted;
+    }
+
+    private ArrayList<Task> pickTodo(ArrayList<Task> toFilter){
+        ArrayList<Task> filtered = new ArrayList<>();
+        for (int i = 0; i < toFilter.size(); i++) {
+            if (toFilter.get(i).isDone() == false) {
+                filtered.add(toFilter.get(i));
+            }
+        }
+        return filtered;
+    }
+
+    private String showScheduleOfTaskList (ArrayList<Task> toSorted) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        String result = "";
+        tasks = sortByTime(toSorted);
+        for (int i = 0; i < tasks.size(); i++) {
+            result += "\n" + tasks.get(i);
+        }
+        return result;
     }
 
 }

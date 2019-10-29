@@ -125,13 +125,34 @@ public class ModelController implements Model {
     }
 
     @Override
-    public Task deleteTask(int taskIndexInList) throws DukeException {
+    public String deleteTask(int taskIndexInList) throws DukeException {
         Task toDelete = tasksManager.deleteTask(taskIndexInList);
         String toDeleteName = tasksManager.getNameByTask(toDelete);
         memberManager.deleteTaskInMembers(toDeleteName);
         storage.saveMembers(memberManager.getMemberList());
         storage.saveTasks(tasksManager.getTaskList());
-        return toDelete;
+        return toDeleteName;
     }
 
+    public String getTasksByKeyword(String keyword) {
+        return tasksManager.getTasksByKeyword(keyword);
+    }
+
+    public String scheduleTeamAll() {
+        return tasksManager.scheduleTeamAll();
+    }
+
+    public String scheduleTeamTodo() {
+        return tasksManager.scheduleTeamTodo();
+    }
+
+    public String scheduleMemberAll(String memberName) {
+        ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
+        return tasksManager.scheduleAllTasks(tasksName);
+    }
+
+    public String scheduleMemberTodo(String memberName) {
+        ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
+        return tasksManager.scheduleTodoTasks(tasksName);
+    }
 }

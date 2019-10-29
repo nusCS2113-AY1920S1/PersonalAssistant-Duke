@@ -72,4 +72,19 @@ public class Task {
     public void setTime(Date time) {
         this.time = time;
     }
+
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] "
+                + this.name
+                + " (at: " + time + ")";
+    }
+
+    /**
+     * Return the status icon.
+     *
+     * @return the status icon ("V" for done and "x" for todo) of the task
+     */
+    public String getStatusIcon() {
+        return (isDone ? "\u2713" : "\u2715");
+    }
 }
