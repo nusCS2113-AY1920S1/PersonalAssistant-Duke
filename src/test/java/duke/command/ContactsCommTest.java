@@ -36,7 +36,7 @@ public class ContactsCommTest {
                 + "     Now you have 2 contacts.", cmd2.executeGui(items, contactList, ui)
                 + "\n     Now you have 2 contacts.");
 
-        Command cmd3 = new DeleteContactCommand(1);
+        Command cmd3 = new DeleteContactCommand(1, contactList);
         assertEquals("Now you have 1 contact(s). I've removed this contact:\n"
                 + "     Name: Prof Tan\n"
                 + "     Number: 91234567\n"

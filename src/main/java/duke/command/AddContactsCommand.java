@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.storage.ContactStorage;
 import duke.storage.Storage;
 import duke.task.ContactList;
 import duke.task.Contacts;
@@ -15,14 +14,17 @@ import java.io.IOException;
 //@@author e0318465
 public class AddContactsCommand extends Command {
     protected Contacts contactObj;
+    protected ContactList contactList;
+    protected Ui ui = new Ui();
 
     /**
      * Creates a command with the specified contact.
      *
      * @param contactObj The contacts to be added.
      */
-    public AddContactsCommand(Contacts contactObj) {
+    public AddContactsCommand(Contacts contactObj, ContactList contactList) {
         this.contactObj = contactObj;
+        this.contactList = contactList;
     }
 
     /**
@@ -34,6 +36,8 @@ public class AddContactsCommand extends Command {
      */
     @Override
     public void execute(TaskList items, Ui ui) {
+        contactList.add(contactObj);
+        ui.showAddedContact(contactList);
     }
 
     /**
@@ -43,10 +47,10 @@ public class AddContactsCommand extends Command {
      * @param contactList The list of contacts.
      * @param ui To tell the user that it is executed successfully.
      */
-    public void execute(TaskList items, ContactList contactList, Ui ui) {
-        contactList.add(contactObj);
-        ui.showAddedContact(contactList);
-    }
+//    public void execute(TaskList items, ContactList contactList, Ui ui) {
+//        contactList.add(contactObj);
+//        ui.showAddedContact(contactList);
+//    }
 
     /**
      * Executes a command that adds the task into task list and outputs the result (GUI).
@@ -58,7 +62,9 @@ public class AddContactsCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        return null;
+        contactList.add(contactObj);
+        String str = ui.showAddedContactGui(contactList);
+        return str;
     }
 
     /**
@@ -69,11 +75,11 @@ public class AddContactsCommand extends Command {
      * @param ui To tell the user that it is executed successfully.
      * @return A string value to be output to GUI.
      */
-    public String executeGui(TaskList items, ContactList contactList, Ui ui) {
-        contactList.add(contactObj);
-        String str = ui.showAddedContactGui(contactList);
-        return str;
-    }
+//    public String executeGui(TaskList items, ContactList contactList, Ui ui) {
+//        contactList.add(contactObj);
+//        String str = ui.showAddedContactGui(contactList);
+//        return str;
+//    }
 
     /**
      * Executes a command that overwrites existing storage with the updated task list.
@@ -85,6 +91,7 @@ public class AddContactsCommand extends Command {
      */
     @Override
     public void executeStorage(TaskList items, Ui ui, Storage storage) throws IOException {
+
     }
 
     /**
@@ -96,8 +103,8 @@ public class AddContactsCommand extends Command {
      * @param contactList The list of contacts.
      * @throws IOException If there is an error reading the file.
      */
-    public void executeStorage(TaskList items, Ui ui, ContactStorage contactStorage,
-                               ContactList contactList) throws IOException {
-        contactStorage.write(contactList);
-    }
+//    public void executeStorage(TaskList items, Ui ui, ContactStorage contactStorage,
+//                               ContactList contactList) throws IOException {
+//        contactStorage.write(contactList);
+//    }
 }

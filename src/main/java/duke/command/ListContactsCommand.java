@@ -11,7 +11,11 @@ import duke.ui.Ui;
 //@@author e0318465
 public class ListContactsCommand extends Command {
     protected ContactList contactList;
+    protected Ui ui = new Ui();
 
+    public ListContactsCommand(ContactList contactList) {
+        this.contactList = contactList;
+    }
     /**
      * Executes a command that locates matching tasks in task list and outputs the result.
      * (Not in use)
@@ -21,6 +25,7 @@ public class ListContactsCommand extends Command {
      */
     @Override
     public void execute(TaskList items, Ui ui) {
+        ui.showContactList(contactList);
     }
 
     /**
@@ -30,9 +35,9 @@ public class ListContactsCommand extends Command {
      * @param contactList The list of contacts.
      * @param ui To tell the user the list of tasks stored in task list.
      */
-    public void execute(TaskList items, ContactList contactList, Ui ui) {
-        ui.showContactList(contactList);
-    }
+//    public void execute(TaskList items, ContactList contactList, Ui ui) {
+//        ui.showContactList(contactList);
+//    }
 
     /**
      * Executes a command that gathers all tasks from task list and outputs the result (GUI).
@@ -44,7 +49,8 @@ public class ListContactsCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        return null;
+        String str = Ui.showContactListGui(contactList);
+        return str;
     }
 
     /**
@@ -55,10 +61,10 @@ public class ListContactsCommand extends Command {
      * @param contactList List of contacts.
      * @return The string which conissts of a list of contacts to display on GUI.
      */
-    public String executeGui(TaskList items, ContactList contactList, Ui ui) {
-        String str = Ui.showContactListGui(contactList);
-        return str;
-    }
+//    public String executeGui(TaskList items, ContactList contactList, Ui ui) {
+//        String str = Ui.showContactListGui(contactList);
+//        return str;
+//    }
 
     /**
      * Executes a command that overwrites existing storage with the updated task list.

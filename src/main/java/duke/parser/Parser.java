@@ -497,17 +497,22 @@ public class Parser {
             try {
                 Contacts contactObj = new Contacts(contactDetails[ZERO], contactDetails[ONE],
                                           contactDetails[TWO], contactDetails[THREE]);
-                return new AddContactsCommand(contactObj);
+                return new AddContactsCommand(contactObj, contactList);
             } catch (Exception e) {
                 throw new DukeException("Format is in: addcontact <name>, <contact>, <email>, <office>");
             }
         } else if (sentence.equals("listcontacts") || sentence.equals("lc")) {
-            return new ListContactsCommand();
+            return new ListContactsCommand(contactList);
         } else if (arr.length > ZERO && (arr[ZERO].equals("deletecontact") || arr[ZERO].equals("dc"))) {
             if (arr.length == ONE) {
                 throw new DukeException("     (>_<) OOPS!!! The contact index cannot be empty.");
             } else {
-                return new DeleteContactCommand(Integer.parseInt(arr[ONE]) - ONE);
+                try {
+                    Integer.parseInt(arr[ONE]); //Catches for non integer value
+                    return new DeleteContactCommand(Integer.parseInt(arr[ONE]) - ONE, contactList);
+                } catch(NumberFormatException e) {
+                    throw new DukeException("     Input is not an integer value!");
+                }
             }
         } else if (arr.length > ZERO && arr[ZERO].equals("findcontact") || arr[ZERO].equalsIgnoreCase("fc")) {
             String[] keyword = sentence.split(" ", TWO);

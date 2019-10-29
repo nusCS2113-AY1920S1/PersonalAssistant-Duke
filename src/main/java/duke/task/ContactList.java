@@ -64,7 +64,7 @@ public class ContactList {
     public String getContactList() {
         String fullContactList = "";
         for (int i = ZERO; i < contactList.size(); i++) {
-            fullContactList += (i + ONE) + ". " + contactList.get(i).toStringGui() + "\n";
+            fullContactList += "     " + (i + ONE) + ". " + contactList.get(i).toStringGui() + "\n";
         }
         return fullContactList;
     }
