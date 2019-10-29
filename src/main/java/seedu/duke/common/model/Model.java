@@ -59,7 +59,7 @@ public class Model {
      * Updates the emailList in GUI with the latest emailList in sorted order.
      */
     public void updateGuiEmailList() {
-        if (isUpdateGui == true) {
+        if (isUpdateGui) {
             emailList.sortByGivenOrder();
             Duke.getUI().updateEmailList(emailList.getEmailGuiStringList());
         }
