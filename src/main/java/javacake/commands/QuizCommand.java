@@ -5,14 +5,12 @@ import javacake.Logic;
 import javacake.Parser;
 import javacake.exceptions.DukeException;
 import javacake.storage.Profile;
-import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 import javacake.ui.TopBar;
 import javacake.ui.Ui;
 import javacake.quiz.Question;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -26,7 +24,9 @@ public class QuizCommand extends Command {
     public ArrayList<Question> questionList = new ArrayList<>();
     public String filePath;
     private Question.QuestionType qnType;
+    private Question.QuestionDifficulty qnDifficulty;
     private Question prevQuestion;
+    public static int TotalMaxQuestions = 15;
     public int questionCounter = MAX_QUESTIONS - 1;
     private int currScore = 0;
     private static Profile profile;
@@ -43,7 +43,9 @@ public class QuizCommand extends Command {
      * QuizCommand constructor for topic-based quiz.
      * @param questionType the topic of the quiz.
      */
-    public QuizCommand(Question.QuestionType questionType, Boolean isCli) throws DukeException {
+    public QuizCommand(Question.QuestionType questionType, Question.QuestionDifficulty questionDifficulty,
+                       Boolean isCli) throws DukeException {
+        qnDifficulty = questionDifficulty;
         type = CmdType.QUIZ;
         chosenQuestions = new ArrayList<>();
         qnType = questionType;
@@ -161,51 +163,80 @@ public class QuizCommand extends Command {
     }
 
     /**
-     * Method to overwrite the old score of user,
-     * if it's less than the current score.
-     * @param score new score of user
+     * Method to overwrite the old totalScore of user,
+     * if it's less than the current totalScore.
+     * @param totalScore new totalScore of user
      * @param profile profile object of user
      * @throws DukeException error if question type is undefined
      */
-    public void overwriteOldScore(int score, Profile profile) throws DukeException {
-        int topicIdx;
+    public void overwriteOldScore(int totalScore, Profile profile) throws DukeException {
+        int individualtopicIdx;
+        int overalltopicIdx;
         switch (qnType) {
         case BASIC:
-            topicIdx = 0;
+            overalltopicIdx = 0;
             break;
         case OOP:
-            topicIdx = 1;
+            overalltopicIdx = 1;
             break;
         case EXTENSIONS:
-            topicIdx = 2;
+            overalltopicIdx = 2;
             break;
         case ALL:
-            topicIdx = 3;
+            overalltopicIdx = 3;
             break;
         default:
             throw new DukeException("Topic Idx out of bounds!");
         }
-        if (score > profile.getContentMarks(topicIdx)) {
-            profile.setMarks(topicIdx, score);
+
+        switch (qnDifficulty) {
+        case EASY:
+            individualtopicIdx = overalltopicIdx * 3;
+            break;
+        case MEDIUM:
+            individualtopicIdx = overalltopicIdx * 3 + 1;
+            break;
+        case HARD:
+            individualtopicIdx = overalltopicIdx * 3 + 2;
+            break;
+        default:
+            throw new DukeException("Topic Idx out of bounds!");
+        }
+
+        if (totalScore > profile.getIndividualContentMarks(individualtopicIdx)) {
+            profile.setIndividualMarks(individualtopicIdx,totalScore);
+            if (individualtopicIdx % 3 == 0) {
+                totalScore += profile.getIndividualContentMarks(individualtopicIdx + 1);
+                totalScore += profile.getIndividualContentMarks(individualtopicIdx + 2);
+            } else if (individualtopicIdx % 3 == 1) {
+                totalScore += profile.getIndividualContentMarks(individualtopicIdx + 1);
+                totalScore += profile.getIndividualContentMarks(individualtopicIdx - 1);
+            } else if (individualtopicIdx % 3 == 2) {
+                totalScore += profile.getIndividualContentMarks(individualtopicIdx - 2);
+                totalScore += profile.getIndividualContentMarks(individualtopicIdx - 1);
+            }
+
+            profile.setOverallMarks(overalltopicIdx, totalScore);
+
             if (!Duke.isCliMode()) {
-                switch (topicIdx) {
+                switch (overalltopicIdx) {
                 case 0:
-                    Duke.logger.log(Level.INFO, score + " YEET");
-                    TopBar.progValueA = (double) score / MAX_QUESTIONS;
+                    Duke.logger.log(Level.INFO, totalScore + " YEET");
+                    TopBar.progValueA = (double) totalScore / TotalMaxQuestions;
                     break;
                 case 1:
-                    TopBar.progValueB = (double) score / MAX_QUESTIONS;
+                    TopBar.progValueB = (double) totalScore / TotalMaxQuestions;
                     break;
                 case 2:
-                    TopBar.progValueC = (double) score / MAX_QUESTIONS;
+                    TopBar.progValueC = (double) totalScore / TotalMaxQuestions;
                     break;
                 case 3:
-                    TopBar.progValueD = (double) score / MAX_QUESTIONS;
+                    TopBar.progValueD = (double) totalScore / TotalMaxQuestions;
                     break;
 
                 default:
                 }
-                TopBar.progValueT = (double) profile.getTotalProgress() / (MAX_QUESTIONS * 4);
+                TopBar.progValueT = (double) profile.getTotalProgress() / (TotalMaxQuestions * 4);
             }
         }
     }
