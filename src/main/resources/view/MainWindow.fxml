@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
 <!-- @@author therealnickcheong -->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow">
     <children>
-        <TextField fx:id="searchBar" layoutY="500.0" onKeyReleased="#handleSearchInput" prefHeight="30" prefWidth="348.0" promptText="Search" AnchorPane.bottomAnchor="149.60000000000002" />
-        <TextField fx:id="userInput" layoutY="530.0" onAction="#handleUserInput" onKeyPressed="#help" prefHeight="41.0" prefWidth="830.0" promptText="Commands" AnchorPane.bottomAnchor="108.39999999999998" />
-        <!--<Button fx:id="sendButton" layoutX="834.0" layoutY="600.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />-->
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hmax="10.0" hvalue="10.0" pannable="true" prefHeight="500.0" prefWidth="509.0" vmax="10.0" vvalue="10.0">
-            <content>
-                <VBox fx:id="dialogContainer" prefWidth="348.0" />
-            </content>
-        </ScrollPane>
-      <ScrollPane fx:id="scrollPane2" hbarPolicy="NEVER" hmax="10.0" hvalue="10.0" layoutX="513.0" pannable="true" prefHeight="500.0" prefWidth="398.0" vvalue="10.0">
-         <content>
-            <VBox fx:id="graphContainer" prefWidth="409.0" />
-         </content>
-      </ScrollPane>
-      <VBox layoutY="572.0" prefHeight="30.0" prefWidth="238.0" />
+      <SplitPane dividerPositions="0.5" prefHeight="501.0" prefWidth="910.0" AnchorPane.bottomAnchor="178.66666666666669" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <items>
+              <!--<Button fx:id="sendButton" layoutX="834.0" layoutY="600.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />-->
+              <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hmax="10.0" hvalue="10.0" pannable="true" prefHeight="505.0" prefWidth="539.0" vmax="10.0" vvalue="10.0">
+                  <content>
+                      <VBox fx:id="dialogContainer" prefWidth="536.0" />
+                  </content>
+              </ScrollPane>
+            <ScrollPane fx:id="scrollPane2" hbarPolicy="NEVER" hmax="10.0" hvalue="10.0" pannable="true" prefHeight="500.0" prefWidth="538.0" vvalue="10.0">
+               <content>
+                  <VBox fx:id="graphContainer" prefWidth="409.0" />
+               </content>
+            </ScrollPane>
+         </items>
+      </SplitPane>
+      <SplitPane dividerPositions="0.5, 0.5" layoutY="461.0" orientation="VERTICAL" prefHeight="181.0" prefWidth="1080.0" AnchorPane.bottomAnchor="-2.333333333333343" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <items>
+              <TextField fx:id="searchBar" onKeyReleased="#handleSearchInput" prefHeight="30" prefWidth="369.0" promptText="Search" />
+              <TextField fx:id="userInput" onAction="#handleUserInput" onKeyPressed="#help" prefHeight="41.0" prefWidth="830.0" promptText="Commands" />
+              <VBox prefHeight="30.0" prefWidth="238.0" />
+         </items>
+      </SplitPane>
     </children>
 </AnchorPane>
