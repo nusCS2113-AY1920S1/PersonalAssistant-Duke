@@ -1,4 +1,5 @@
 import Enums.Priority;
+import Enums.RecurrenceScheduleType;
 import Enums.TimeUnit;
 import Model_Classes.Meeting;
 import org.junit.jupiter.api.Test;
@@ -63,5 +64,11 @@ public class MeetingTest {
     @Test
     void getDuration() {
         assertEquals(meeting2.getDuration(), "2");
+    }
+
+    @Test
+    void getRecurrenceSchedule() {
+        assertEquals(meeting1.getRecurrenceSchedule(), RecurrenceScheduleType.none);
+        assertEquals(meeting2.getRecurrenceSchedule(), RecurrenceScheduleType.none);
     }
 }
