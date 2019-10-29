@@ -31,7 +31,7 @@ class EditCommandTest {
     static void setup() {
         ArrayList<Task> testList = new ArrayList<Task>();
         tasks = new TaskList(testList);
-        file = new File(System.getProperty("user.dir") + "/src/test/PriorityList");
+        file = new File(System.getProperty("user.dir") + "/src/test/EditList");
         storage = new Storage(file);
     }
 

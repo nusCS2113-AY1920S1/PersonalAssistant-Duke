@@ -7,6 +7,7 @@ import chronologer.ui.UiTemporary;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 /**
  * Extract the components required to add a TodoWithinPeriod task.
@@ -43,7 +44,7 @@ public class TodoWithinPeriodParser extends TodoParser {
         LocalDateTime startDate;
         try {
             startDate = DateTimeExtractor.extractDateTime(from, command);
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
@@ -64,7 +65,7 @@ public class TodoWithinPeriodParser extends TodoParser {
         LocalDateTime endDate;
         try {
             endDate = DateTimeExtractor.extractDateTime(to, command);
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             UiTemporary.printOutput(ChronologerException.wrongDateOrTime());
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.wrongDateOrTime());
