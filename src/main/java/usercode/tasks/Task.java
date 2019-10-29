@@ -70,7 +70,7 @@ public abstract class Task {
 
     public JSONObject toJSON() {
         JSONObject object = new JSONObject();
-        object.put(JSON_KEY_CONDITION, condition.toJSON());
+        object.put(JSON_KEY_CONDITION, condition.toJson());
         object.put(JSON_KEY_ACTION, action.toString());
         object.put(JSON_KEY_TYPE, type.name());
         return object;

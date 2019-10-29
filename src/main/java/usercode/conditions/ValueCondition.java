@@ -28,8 +28,8 @@ public class ValueCondition extends Condition {
     }
 
     @Override
-    public JSONObject toJSON() {
-        JSONObject object = super.toJSON();
+    public JSONObject toJson() {
+        JSONObject object = super.toJson();
         object.put(JSON_KEY_TYPE, type.name());
         object.put(JSON_KEY_COMPARATOR, comparator.name());
         object.put(JSON_KEY_VALUE, value);
