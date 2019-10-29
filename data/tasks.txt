@@ -27,7 +27,7 @@
     ]
   },
   {
-    "name": "asdfghh",
+    "name": "Complete cs1010",
     "isDone": false,
     "memberList": []
   }
