@@ -29,17 +29,27 @@ public class ListCommand extends Command {
 
     public ListCommand(String dateStr) {
         Date temp;
-        try {
-            temp = dateFormat.parse(dateStr);
-            currentDateStr = dateFormat.format(temp);
-        } catch (ParseException e) {
-            ui.showMessage(e.getMessage());
+
+        if (!dateStr.isBlank()) {
+            try {
+                temp = dateFormat.parse(dateStr);
+                currentDateStr = dateFormat.format(temp);
+            } catch (ParseException e) {
+                ui.showMessage("Unable to parse \"" + dateStr + "\" as a date. Showing list of "
+                        + currentDateStr + " instead.");
+            }
         }
     }
 
     public ListCommand(boolean flag, String messageStr) {
-        this.isFail = true;
+        this.isFail = flag;
         this.errorStr = messageStr;
+
+        // If un-parseble user input date, default to current date.
+        if (!this.isFail) {
+            ui.showMessage(messageStr);
+            ui.showMessage("Showing list of meals from " + currentDateStr + " instead.");
+        }
     }
 
     /**
