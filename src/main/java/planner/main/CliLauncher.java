@@ -73,7 +73,7 @@ public class CliLauncher {
      */
     private void modSetup() {
         try {
-            modDetailedMap = jsonWrapper.getModuleDetailedMap(true);
+            modDetailedMap = jsonWrapper.getModuleDetailedMap(true, store);
             modTasks.setTasks(jsonWrapper.readJsonTaskList(store));
             PlannerLogger.setLogFile();
         } catch (ModFailedJsonException ej) {

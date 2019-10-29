@@ -178,18 +178,20 @@ public class JsonWrapper {
     /**
      * Overloaded function to generate runtime file from resources instead of query file from NUSMODS.
      * @param set Flag to run code.
-     * @return HashMap
+     * @param store Storage Object for file check.
+     * @return HashMap of Module code mapped to corresponding ModuleInfoDetailed.
      * @throws ModFailedJsonException If the user's status return from API call is not 200 (success).
      */
-    public HashMap<String, ModuleInfoDetailed> getModuleDetailedMap(boolean set) throws ModFailedJsonException {
-        if (set) {
+    public HashMap<String, ModuleInfoDetailed> getModuleDetailedMap(boolean set, Storage store)
+            throws ModFailedJsonException {
+        if (set && store.getDataPathExists()) {
+            return getModuleDetailedMap();
+        } else {
             InputStream in = this.getClass().getResourceAsStream("/data/modsDetailedListData.json");
             Type listType = new TypeToken<List<ModuleInfoDetailed>>(){}.getType();
             InputStreamReader inputStreamReader = new InputStreamReader(in, StandardCharsets.UTF_8);
             List<ModuleInfoDetailed> modsList = gson.fromJson(inputStreamReader, listType);
             return getMapFromList(modsList);
-        } else {
-            return null;
         }
     }
 
