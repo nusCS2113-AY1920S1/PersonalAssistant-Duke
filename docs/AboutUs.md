@@ -22,7 +22,7 @@
 #### Role: Developer + in charge of Commands
 #### Responsibility: JavaFX GUI + integration
 
-### Michelle Tan
+### Michelle Toh
 #### <a href="https://ibb.co/BjXdjMS"><img src="https://i.ibb.co/ZKntKDk/Whats-App-Image-2019-09-14-at-12-44-49-PM.jpg" alt="Whats-App-Image-2019-09-14-at-12-44-49-PM" height="200" width="200"></a>
 #### [Michelle](https://github.com/0325961)
 #### Role: Developer + in charge of Interface
