@@ -22,6 +22,7 @@ public class AddBudgetCommand extends Command {
      *
      * @param budgetList The list of budget that is stored by Duke Manager.
      * @param amount amount to be updated in the user's budget.
+     * @param remark Some description.
      */
     public AddBudgetCommand(BudgetList budgetList, float amount, String remark) {
         this.budgetList = budgetList;

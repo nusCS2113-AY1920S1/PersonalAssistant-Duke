@@ -4,7 +4,7 @@ import java.text.ParseException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-//@@author talesrune
+//@@author talesrune-unused
 class EventTest {
 
     @Test

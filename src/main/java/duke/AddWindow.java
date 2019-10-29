@@ -58,10 +58,8 @@ public class AddWindow extends AnchorPane {
         cbType.getItems().addAll(
                 "Todo",
                 "Deadline",
-                "Event",
                 "Fixed Duration",
-                "Repeat",
-                "Do After"
+                "Repeat"
         );
         TaskList items = d.getTaskList();
         for (int i = ZERO; i < items.size(); i++) {
@@ -77,8 +75,6 @@ public class AddWindow extends AnchorPane {
             mainWindow.handleUserEvent("todo " + tfDesc.getText().trim());
         } else if (cbType.getSelectionModel().getSelectedItem().equals("Deadline")) {
             mainWindow.handleUserEvent("deadline " + tfDesc.getText().trim() + " /by " + tfDateTime.getText().trim());
-        } else if (cbType.getSelectionModel().getSelectedItem().equals("Event")) {
-            mainWindow.handleUserEvent("event " + tfDesc.getText().trim() + " /at " +  tfDateTime.getText().trim());
         } else if (cbType.getSelectionModel().getSelectedItem().equals("Fixed Duration")) {
             mainWindow.handleUserEvent("fixedduration " + tfDesc.getText().trim() + " /for "
                     +  tfDuration.getText().trim() + " " +  tfUnit.getText().trim());
@@ -87,9 +83,6 @@ public class AddWindow extends AnchorPane {
                     + " /from " +  tfDateTime.getText().trim() + " /for "
                     +  tfDuration.getText().trim()
                     + " " + tfUnit.getText().trim());
-        } else if (cbType.getSelectionModel().getSelectedItem().equals("Do After")) {
-            mainWindow.handleUserEvent("doafter " + tfDesc.getText().trim()
-                    + " /after " +  cbExistingTask.getSelectionModel().getSelectedItem());
         }
         mainWindow.listViewRefresh();
         Stage stage = (Stage) btnAdd.getScene().getWindow();
