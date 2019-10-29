@@ -16,12 +16,7 @@ public class DoneCommand extends Command{
     @Override
     public CommandOutput execute(Model model) throws DukeException {
         TasksManager tasksManager = model.getTasksManager();
-        int taskListLength = model.getTaskList().size();
-        for (int i = 0; i < indexes.length; i++) {
-            if (indexes[i] < 0 || indexes[i] >= taskListLength) {
-                throw new DukeException("Index " + (i + 1) + " out of range.\n Please try again.");
-            }
-        }
+        checkAvailability(model);
         String output = "";
         for (int i = 0; i < indexes.length; i++) {
             Task task = tasksManager.getTaskById(indexes[i]);
@@ -34,6 +29,15 @@ public class DoneCommand extends Command{
         }
         model.save();
         return new CommandOutput(output);
+    }
+
+    public void checkAvailability(Model model) throws DukeException {
+        int taskListLength = model.getTaskList().size();
+        for (int i = 0; i < indexes.length; i++) {
+            if (indexes[i] < 0 || indexes[i] >= taskListLength) {
+                throw new DukeException("Index " + (i + 1) + " out of range.\n Please try again.");
+            }
+        }
     }
 
 }

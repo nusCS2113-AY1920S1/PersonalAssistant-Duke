@@ -24,8 +24,13 @@ public class ListTasksCommand extends Command {
         String finalOutput = "";
         if (tasks.size() > 0) {
             for (int i = 0; i < tasks.size(); i += 1) {
-                finalOutput += String.valueOf(i+1) + " : " + "Task Name:"
-                        + tasks.get(i).getName().toString() + "\n";
+                Task task = tasks.get(i);
+                finalOutput += (task.isDone() ? "[done]" : "[todo]")
+                        + String.valueOf(i+1) + " : " + "Task Name: "
+                        + task.getName().toString()
+                        + (task.getTime() != null ? "\tTime: " + task.getTime() : "")
+                        + (task.getMemberList().size() != 0 ? "\tAssigned to: " + task.getMemberList().toString() : "")
+                        + "\n\n";
             }
         } else {
             finalOutput = EMPTY_TASKS_LIST;
