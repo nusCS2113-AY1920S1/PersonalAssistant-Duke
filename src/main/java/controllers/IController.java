@@ -1,5 +1,5 @@
 package controllers;
 
 public interface IController {
-    void onCommandReceived(String input);
+    String[] onCommandReceived(String input);
 }
