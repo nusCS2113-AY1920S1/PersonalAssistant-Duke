@@ -7,6 +7,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //@@author talesrune-reused
 /**
@@ -14,6 +16,7 @@ import java.io.IOException;
  */
 public class Main extends Application {
     private Duke duke = new Duke("data/duke.txt", "data/priority.txt", "data/budget.txt","data/contacts.txt");
+    private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     @Override
     public void start(Stage stage) {
@@ -26,6 +29,7 @@ public class Main extends Application {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            logr.log(Level.SEVERE,"Unable to load main window.", e);
         }
     }
 }

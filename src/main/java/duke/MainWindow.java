@@ -34,6 +34,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -84,6 +86,7 @@ public class MainWindow extends AnchorPane {
     private static final int ONE = 1;
     private static final int TIMER_DELAY = 500;
     private static final int VBOX_WIDTH = 200;
+    private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/myUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/myBot.png"));
@@ -160,12 +163,15 @@ public class MainWindow extends AnchorPane {
             }
         } catch (DukeException e) {
             response = Ui.showErrorMsgGui(e.getMessage());
+            logr.log(Level.WARNING, response, e);
+
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
         } catch (Exception e) {
             response = Ui.showErrorMsgGui("     New error, please read console:")
                     +  Ui.showErrorMsgGui("     Duke will continue as per normal.");
+            logr.log(Level.WARNING, response, e);
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
@@ -190,12 +196,14 @@ public class MainWindow extends AnchorPane {
 
         } catch (DukeException e) {
             response = Ui.showErrorMsgGui(e.getMessage());
+            logr.log(Level.WARNING, response, e);
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
         } catch (Exception e) {
             response = Ui.showErrorMsgGui("     New error, please read console:")
                     +  Ui.showErrorMsgGui("     Duke will continue as per normal.");
+            logr.log(Level.WARNING, response, e);
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
@@ -276,10 +284,8 @@ public class MainWindow extends AnchorPane {
         cbtaskType.getItems().addAll(
                 "Todo",
                 "Deadline",
-                "Event",
                 "Fixed Duration",
-                "Repeat",
-                "Do After"
+                "Repeat"
         );
     }
 
@@ -298,14 +304,10 @@ public class MainWindow extends AnchorPane {
                 typeStr = "todo";
             } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Deadline")) {
                 typeStr = "deadline";
-            } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Event")) {
-                typeStr = "event";
             } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Fixed Duration")) {
                 typeStr = "fixedduration";
             } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Repeat")) {
                 typeStr = "repeat";
-            } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Do After")) {
-                typeStr = "doafter";
             }
             handleUserEvent("update " + itemNumber + " /type " + typeStr);
         }
@@ -409,12 +411,14 @@ public class MainWindow extends AnchorPane {
             timer.schedule(exitDuke, new Date(System.currentTimeMillis() + TIMER_DELAY));
         } catch (DukeException e) {
             response = Ui.showErrorMsgGui(e.getMessage());
+            logr.log(Level.WARNING, response, e);
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
         } catch (Exception e) {
             response = Ui.showErrorMsgGui("     New error, please read console:")
                     +  Ui.showErrorMsgGui("     Duke will continue as per normal.");
+            logr.log(Level.WARNING, response, e);
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
@@ -437,6 +441,7 @@ public class MainWindow extends AnchorPane {
             fxmlLoader.<AddWindow>getController().setAddWindow(duke, this);
             stage.show();
         } catch (IOException e) {
+            logr.log(Level.SEVERE, "Unable to load add window", e);
             e.printStackTrace();
         }
     }
@@ -459,6 +464,7 @@ public class MainWindow extends AnchorPane {
             fxmlLoader.<AddNotesWindow>getController().setAddNotesWindow(this, itemNumber, notesDesc);
             stage.show();
         } catch (IOException e) {
+            logr.log(Level.SEVERE, "Unable to load add notes window", e);
             e.printStackTrace();
         }
     }
@@ -477,6 +483,7 @@ public class MainWindow extends AnchorPane {
             fxmlLoader.<HelpWindow>getController().setHelpWindow(duke, this);
             stage.show();
         } catch (IOException e) {
+            logr.log(Level.SEVERE, "Unable to load help window", e);
             e.printStackTrace();
         }
     }

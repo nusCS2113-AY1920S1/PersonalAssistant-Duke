@@ -3,6 +3,8 @@ package duke.task;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Represents a recursive task that stores the same description and across the different dates.
@@ -17,6 +19,7 @@ public class Repeat extends Task {
     private static final int TWENTY_TWO = 22;
     private static final int TWENTY_THREE = 23;
     private static final int THIRTY_ONE = 31;
+    private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     protected Date from;
     protected String[] suf = { "st", "nd", "rd", "th" };
@@ -36,6 +39,7 @@ public class Repeat extends Task {
             dateTime = datetimeFormat.parse(from);
             this.from = dateTime;
         } catch (ParseException e) {
+            logr.log(Level.WARNING,"Error reading date/time, please use this format \"d/MM/yyyy HHmm\"", e);
             System.out.println("Error reading date/time, please use this format \"d/MM/yyyy HHmm\"");
             throw e;
         }
@@ -130,6 +134,7 @@ public class Repeat extends Task {
             dateTime = datetimeFormat.parse(from);
             this.from = dateTime;
         } catch (ParseException e) {
+            logr.log(Level.WARNING,"Error reading date/time, please use this format \"d/MM/yyyy HHmm\"", e);
             System.out.println("Error reading date/time, please use this format \"d/MM/yyyy HHmm\"");
             throw e;
         }

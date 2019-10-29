@@ -70,7 +70,6 @@
                         <Tab text="All" />
                       <Tab text="Todo" />
                       <Tab text="Deadline" />
-                        <Tab text="Event" />
                         <Tab text="Repeat" />
                         <Tab text="FixedDuration" />
                     </tabs>
