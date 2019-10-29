@@ -23,7 +23,6 @@ public class ExitCommand extends Command {
     public void execute(final TaskList tasks, final Ui ui,
                         final Storage storage, final Schedule schedule,
                         final ManageStudents students, final MyPlan plan) {
-        makeExitTrue();
         ui.showGoodBye();
     }
 }
