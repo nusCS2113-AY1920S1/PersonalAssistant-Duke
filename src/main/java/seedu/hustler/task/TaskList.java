@@ -13,9 +13,9 @@ import java.util.*;
 import static seedu.hustler.logic.parser.DateTimeParser.getDateTime;
 
 /**
- * A list of tasks that has a java ArrayList at its core. Contains methods
- * that add, remove and perform operations on elements
- * of the list like mark as done.
+ * A list of tasks that has a java ArrayList at its core.
+ * Contains methods that add, remove and perform operations
+ * on elements of the list like mark as done.
  */
 public class TaskList {
     /**
@@ -316,6 +316,8 @@ public class TaskList {
                 }
             });
             break;
+        default:
+            break;
         }
         ui.showListSorted(list);
     }
@@ -394,6 +396,9 @@ public class TaskList {
         return this.list.get(list.size() - 1);
     }
 
+    /**
+     * Returns only the task description.
+     */
     public static String getDescription(List<String> splitInput) {
         String description = "";
         for (String str : splitInput) {
@@ -406,6 +411,9 @@ public class TaskList {
         return description.trim();
     }
 
+    /**
+     * Returns only the string denoting the date and time of the Task.
+     */
     public static String getTimeString(List<String> splitInput) {
         String time = "";
         for (int i = 0; i < splitInput.size(); i++) {

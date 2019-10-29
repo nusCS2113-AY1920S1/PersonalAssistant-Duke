@@ -38,7 +38,7 @@ public class UpdateEntry extends Command {
         Ui ui = new Ui();
         try {
             anomaly.detect(this.userInput);
-        } catch(CommandLineException e){
+        } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
             return;
         }

@@ -88,9 +88,9 @@ public class AddTask extends Achievements {
      * @return Achievement level.
      */
     public static String updateAchievementLevel() {
-        if(numberOfTasks == 5) {
+        if (numberOfTasks == 5) {
             addAchievementLevel = "Bronze";
-        } else if(numberOfTasks == 10) {
+        } else if (numberOfTasks == 10) {
             addAchievementLevel = "Silver";
         } else if (numberOfTasks == 15) {
             addAchievementLevel = "Gold";

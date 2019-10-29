@@ -120,7 +120,7 @@ public class ConsecutiveLogin extends Achievements {
      */
     public static int updateCount() {
 
-        if(!checkLogin() && reset()) {
+        if (!checkLogin() && reset()) {
             consecutiveCount = 0;
         } else if (checkLogin()) {
             consecutiveCount++;
@@ -134,9 +134,9 @@ public class ConsecutiveLogin extends Achievements {
      * @return Achievement level.
      */
     public static String updateAchievementLevel() {
-        if(consecutiveCount == 5) {
+        if (consecutiveCount == 5) {
             loginAchievementLevel = "Bronze";
-        } else if(consecutiveCount == 10) {
+        } else if (consecutiveCount == 10) {
             loginAchievementLevel = "Silver";
         } else if (consecutiveCount == 15) {
             loginAchievementLevel = "Gold";
