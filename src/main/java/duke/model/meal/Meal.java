@@ -146,8 +146,7 @@ public class Meal {
         for (String i : nutritionValue.keySet()) {
             temp += i + ":" + nutritionValue.get(i) + " ";
         }
-        return this.getStatusIcon() + " " + this.description + " | " + temp;
-        //TODO: refactor this by using type also
+        return "[" + this.type + "]" + this.getStatusIcon() + " " + this.description + " | " + temp;
     }
 
 }

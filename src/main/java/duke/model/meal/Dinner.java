@@ -22,13 +22,4 @@ public class Dinner extends Meal {
         super(description, details);
         super.type = "D";
     }
-
-    /**
-     * this function overrides the toString() function in meal to represent the full description of a dinner object.
-     * @return <code>"[D]" + super.toString()</code>
-     */
-    @Override
-    public String toString() {
-        return "[D]" + super.toString();
-    }
 }
