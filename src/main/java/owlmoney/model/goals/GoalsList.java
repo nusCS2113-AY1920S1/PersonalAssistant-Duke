@@ -80,7 +80,7 @@ public class GoalsList {
         if (goalExists(goals.getGoalsName())) {
             throw new GoalsException("There is already a goal with the same name " + goals.getGoalsName());
         }
-        if (goals.getStatus().equals("Y")) {
+        if (goals.getRawStatus() == true) {
             throw new GoalsException("You cannot add a goal that is already achieved!");
         }
         checkNumGoals();
