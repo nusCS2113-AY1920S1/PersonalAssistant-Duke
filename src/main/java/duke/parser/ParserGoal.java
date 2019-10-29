@@ -48,7 +48,7 @@ public class ParserGoal {
     /**
      * The ui object responsible for showing things to the user.
      */
-    private CLIView CLIView;
+    private CLIView cliView;
     /**
      * The scanner object responsible for taking in user input.
      */
@@ -60,7 +60,7 @@ public class ParserGoal {
      * @throws ParseException if user input is not in the correct format
      */
     public ParserGoal() throws FileNotFoundException, ParseException {
-        CLIView = new CLIView();
+        cliView = new CLIView();
         goalStorage = new Storage(
             ".\\src\\main\\java\\duke\\data\\goals.txt");
         goal = new Goal(goalStorage.loadGoal());
@@ -71,12 +71,12 @@ public class ParserGoal {
      * Method to run when entering goal of the day.
      */
     public void runGoal() {
-        CLIView.showGoalPromptDate();
+        cliView.showGoalPromptDate();
         String goalDate = myGoalScan.next();
 
         while (isRunning) {
             try {
-                CLIView.showGoalAllActions(goalDate);
+                cliView.showGoalAllActions(goalDate);
                 int executeType = myGoalScan.nextInt();
                 myGoalScan.nextLine();  // This line you have
                 // to add (It consumes the \n character)
@@ -86,7 +86,7 @@ public class ParserGoal {
                     break;
 
                 case 2:
-                    CLIView.showGoalPromptAddGoal(goalDate);
+                    cliView.showGoalPromptAddGoal(goalDate);
                     String myGoal = myGoalScan.nextLine();
                     System.out.println(
                         goal.addGoal(
@@ -94,7 +94,7 @@ public class ParserGoal {
                     break;
 
                 case indexThree:
-                    CLIView.showGoalPromptDeleteGoal(goalDate);
+                    cliView.showGoalPromptDeleteGoal(goalDate);
                     String message = myGoalScan.nextLine();
                     System.out.println(
                         goal.removeGoal(
@@ -108,15 +108,15 @@ public class ParserGoal {
 
                 case indexFive:
                     isRunning = false;
-                    CLIView.showQuitGoal();
+                    cliView.showQuitGoal();
                     break;
                 default:
-                    CLIView.showDontKnow();
+                    cliView.showDontKnow();
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                CLIView.showFullCommand();
+                cliView.showFullCommand();
             } catch (ParseException e) {
-                CLIView.showCorrectFormat();
+                cliView.showCorrectFormat();
             }
         }
     }

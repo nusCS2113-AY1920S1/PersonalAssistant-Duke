@@ -40,7 +40,7 @@ public class ParserSchedule {
     /**
      * The ui object responsible for showing things to the user.
      */
-    private CLIView CLIView;
+    private CLIView cliView;
     /**
      * The schedule object.
      */
@@ -59,7 +59,7 @@ public class ParserSchedule {
      * @throws ParseException if user input is not in the correct format
      */
     public ParserSchedule() throws FileNotFoundException, ParseException {
-        CLIView = new CLIView();
+        cliView = new CLIView();
         scheduleStorage = new Storage(
             ".\\src\\main\\java\\duke\\data\\timeslots.txt");
         schedule = new Schedule(scheduleStorage.loadSchedule());
@@ -70,12 +70,12 @@ public class ParserSchedule {
      * @throws ParseException if user input is not in the correct format
      */
     public void dailySchedule() throws ParseException {
-        CLIView.showSchedulePromptDate();
+        cliView.showSchedulePromptDate();
         String scheduleDate = sc.next();
         schedule.getDay(scheduleDate);
         while (isRunning) {
             try {
-                CLIView.showScheduleAllActions(scheduleDate);
+                cliView.showScheduleAllActions(scheduleDate);
                 int executeType = sc.nextInt();
                 sc.nextLine();  // This line you have
                 // to add (It consumes the \n character)
@@ -85,13 +85,13 @@ public class ParserSchedule {
                     break;
 
                 case 2:
-                    CLIView.showPromptStartTime();
+                    cliView.showPromptStartTime();
                     String startTime = sc.nextLine();
-                    CLIView.showPromptEndTime();
+                    cliView.showPromptEndTime();
                     String endTime = sc.nextLine();
-                    CLIView.showPromptClassLocation();
+                    cliView.showPromptClassLocation();
                     String location = sc.nextLine();
-                    CLIView.showPromptClassName();
+                    cliView.showPromptClassName();
                     String className = sc.nextLine();
                     System.out.println(schedule.addClass(startTime,
                         endTime, location,
@@ -99,9 +99,9 @@ public class ParserSchedule {
                     break;
 
                 case indexThree:
-                    CLIView.showPromptStartTime();
+                    cliView.showPromptStartTime();
                     String delstartTime = sc.nextLine();
-                    CLIView.showPromptClassName();
+                    cliView.showPromptClassName();
                     String delclassName = sc.nextLine();
                     System.out.println(
                         schedule.delClass(
@@ -115,15 +115,15 @@ public class ParserSchedule {
 
                 case indexFive:
                     isRunning = false;
-                    CLIView.showQuitClass();
+                    cliView.showQuitClass();
                     break;
                 default:
-                    CLIView.showDontKnow();
+                    cliView.showDontKnow();
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                CLIView.showFullCommand();
+                cliView.showFullCommand();
             } catch (ParseException e) {
-                CLIView.showCorrectFormat();
+                cliView.showCorrectFormat();
             }
         }
     }

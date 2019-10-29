@@ -21,7 +21,7 @@ public class Parser {
     /**
      * The ui object responsible for showing things to the user.
      */
-    private CLIView CLIView = new CLIView();
+    private CLIView cliView = new CLIView();
 
     /*
     public static Command parse(String fullCommand) {

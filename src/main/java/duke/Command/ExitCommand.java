@@ -14,16 +14,16 @@ public class ExitCommand extends Command {
     /**
      * Ends the program and shows the farewell message to the user.
      * @param tasks The ArrayList of Task objects.
-     * @param CLIView The Ui object to manage user interface to user.
+     * @param cliView The Ui object to manage user interface to user.
      * @param storage The Storage object to save and load user's tasks.
      * @param schedule The Schedule object to store classes in timeslots.
      * @param students The ManageStudents object to manage students in classes.
      * @param plan The MyPlan object to manage the training plans.
      */
-    public void execute(final TaskList tasks, final CLIView CLIView,
+    public void execute(final TaskList tasks, final CLIView cliView,
                         final Storage storage, final Schedule schedule,
                         final ManageStudents students, final MyPlan plan) {
         makeExitTrue();
-        CLIView.showGoodBye();
+        cliView.showGoodBye();
     }
 }

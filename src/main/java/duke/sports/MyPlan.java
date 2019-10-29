@@ -24,7 +24,7 @@ public class MyPlan {
      /**
       * The ui object responsible for showing things to the user.
       */
-    private CLIView CLIView;
+    private CLIView cliView;
 
      /**
       * Represents the file path for the plans.
@@ -304,7 +304,7 @@ public class MyPlan {
     public void loadPlan(final String intensity, final String plan) {
         clearPlan();
         if (!Intensity.contains(intensity)) {
-            CLIView.showIntensityLevel();
+            cliView.showIntensityLevel();
         } else {
             int planNum = Integer.parseInt(plan.split("/")[1]);
             String key = createKey(intensity, planNum);
@@ -312,7 +312,7 @@ public class MyPlan {
                 for (MyTraining t : getMap().get(key)) {
                     getList().add(t);
                 }
-                CLIView.showPlanLoaded(planNum, intensity);
+                cliView.showPlanLoaded(planNum, intensity);
             }
         }
     }
@@ -347,21 +347,21 @@ public class MyPlan {
     public void createPlan(final String intensity) {
         clearPlan();
         if (Intensity.contains(intensity)) {
-            CLIView.showPlanCreating(intensity);
+            cliView.showPlanCreating(intensity);
             while (true) {
                 Scanner sc = new Scanner(System.in);
                 if (sc.hasNextLine()) {
                     String input = sc.nextLine();
                     if (input.equals("finalize")) {
-                        CLIView.showPlanCreated();
-                        CLIView.showSavePlanToMap();
+                        cliView.showPlanCreated();
+                        cliView.showSavePlanToMap();
                         break;
                     } else if (input.equals("show")) {
                         if (getList().isEmpty()) {
-                            CLIView.showNoActivity();
+                            cliView.showNoActivity();
                         } else {
-                            CLIView.showViewPlan(viewPlan());
-                            CLIView.showPlanPrompt1();
+                            cliView.showViewPlan(viewPlan());
+                            cliView.showPlanPrompt1();
                         }
                     } else {
                         String[] details = input.split(" ");
@@ -370,14 +370,14 @@ public class MyPlan {
                                 Integer.parseInt(details[2]));
                         getList().add(a);
                         int temp = getList().size() - 1;
-                        CLIView.showActivityAdded(getList().get(temp));
-                        CLIView.showPlanPrompt2();
+                        cliView.showActivityAdded(getList().get(temp));
+                        cliView.showPlanPrompt2();
                     }
                 }
             }
             saveToMap(getList(), intensity, "0");
         } else {
-            CLIView.showIntensityLevel();
+            cliView.showIntensityLevel();
         }
     }
 
@@ -391,10 +391,10 @@ public class MyPlan {
                              final int planNum) throws IOException {
         String key = createKey(intensity, planNum);
         if (!getMap().containsKey(key)) {
-            CLIView.showIntensityAndNumber();
+            cliView.showIntensityAndNumber();
         } else {
             getMap().remove(key);
-            CLIView.showPlanRemoved();
+            cliView.showPlanRemoved();
         }
         //new Storage(getFilePath()).savePlans(getMap());
     }

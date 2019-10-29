@@ -16,7 +16,7 @@ public abstract class Command {
     /**
      * Ui object which will be shared by all subclasses.
      */
-    private CLIView CLIView;
+    private CLIView cliView;
     /**
      * The exit status of the program.
      */
@@ -44,7 +44,7 @@ public abstract class Command {
      * @param students The ManageStudents object to manage students in classes.
      * @param plan The MyPlan object to manage the training plans.
      */
-    public abstract void execute(TaskList tasks, CLIView sharedCLIView, Storage storage,
-                                 Schedule schedule, ManageStudents students,
-                                 MyPlan plan);
+    public abstract void execute(TaskList tasks, CLIView sharedCLIView,
+                                 Storage storage, Schedule schedule,
+                                 ManageStudents students, MyPlan plan);
 }

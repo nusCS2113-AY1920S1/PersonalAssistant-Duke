@@ -48,7 +48,7 @@ public class ParserLesson {
     /**
      * The ui object responsible for showing things to the user.
      */
-    private CLIView CLIView;
+    private CLIView cliView;
     /**
      * The scanner object responsible for taking in user input.
      */
@@ -60,7 +60,7 @@ public class ParserLesson {
      * @throws ParseException if user input is not in the correct format
      */
     public ParserLesson() throws FileNotFoundException, ParseException {
-        CLIView = new CLIView();
+        cliView = new CLIView();
         lessonStorage = new Storage(
             ".\\src\\main\\java\\duke\\data\\lessons.txt");
         lesson = new Lesson(lessonStorage.loadLesson());
@@ -71,12 +71,12 @@ public class ParserLesson {
      * Method to run when entering lesson of the day.
      */
     public void runLesson() {
-        CLIView.showLessonPromptDate();
+        cliView.showLessonPromptDate();
         String lessonDate = myLessonScan.next();
 
         while (isRunning) {
             try {
-                CLIView.showLessonAllActions(lessonDate);
+                cliView.showLessonAllActions(lessonDate);
                 int executeType = myLessonScan.nextInt();
                 myLessonScan.nextLine();  // This line you have
                 // to add (It consumes the \n character)
@@ -86,7 +86,7 @@ public class ParserLesson {
                     break;
 
                 case 2:
-                    CLIView.showLessonPromptAddLesson(lessonDate);
+                    cliView.showLessonPromptAddLesson(lessonDate);
                     String myLesson = myLessonScan.nextLine();
                     System.out.println(
                         lesson.addLesson(
@@ -94,7 +94,7 @@ public class ParserLesson {
                     break;
 
                 case indexThree:
-                    CLIView.showLessonPromptDeleteLesson(lessonDate);
+                    cliView.showLessonPromptDeleteLesson(lessonDate);
                     String message = myLessonScan.nextLine();
                     System.out.println(
                         lesson.removeLesson(
@@ -108,14 +108,14 @@ public class ParserLesson {
 
                 case indexFive:
                     isRunning = false;
-                    CLIView.showQuitLesson();
+                    cliView.showQuitLesson();
                     break;
                 default:
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                CLIView.showFullCommand();
+                cliView.showFullCommand();
             } catch (ParseException e) {
-                CLIView.showCorrectFormat();
+                cliView.showCorrectFormat();
             }
         }
     }
