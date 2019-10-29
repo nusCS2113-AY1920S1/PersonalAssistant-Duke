@@ -1,7 +1,10 @@
 package compal.logic.command;
 
+import compal.commons.LogUtils;
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.TaskList;
+
+import java.util.logging.Logger;
 
 //@@author LTPZ
 public class HelpCommand extends Command {
@@ -55,12 +58,15 @@ public class HelpCommand extends Command {
 
     private String command;
 
+    private static final Logger logger = LogUtils.getLogger(HelpCommand.class);
+
     public HelpCommand(String command) {
         this.command = command;
     }
 
     @Override
     public CommandResult commandExecute(TaskList task) throws CommandException {
+        logger.info("Executing help command");
         if (command == "")  {
             return new CommandResult(HELP_STRING, false);
         } else {

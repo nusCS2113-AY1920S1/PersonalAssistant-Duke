@@ -7,6 +7,11 @@ import compal.model.tasks.Task;
 
 import java.util.ArrayList;
 
+//@@author LTPZ
+//@@author yueyeah
+/**
+ * Command parser that parses arguments given by the user when adding deadline or recurring deadline.
+ */
 public class DeadlineCommandParser implements CommandParser {
 
     @Override
