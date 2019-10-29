@@ -17,9 +17,12 @@ public class CommandAddName extends Command {
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
         Ui ui = farmio.getUi();
         farmio.getSimulation().simulate();
-        if (name.length() <= 15 && name.length() > 0 && (name.matches("[a-zA-Z0-9]+") || name.contains("_"))) {
+        if (name.equals("MENU")) {
+            ui.typeWriter("Keywords cannot be used as a character name.", false);
+            ui.typeWriter("Enter your name:", false);
+        }
+        else if (name.length() <= 15 && name.length() > 0 && (name.matches("[a-zA-Z0-9]+") || name.contains("_"))) {
             farmio.getFarmer().inputName(name);
-            ui.registerName(name);
             ui.typeWriter("Welcome Farmer "
                     + name
                     + ", please press [ENTER] to begin the tutorial"
@@ -32,7 +35,8 @@ public class CommandAddName extends Command {
         } else if (name.length() > 15) {
             ui.typeWriter("Your name can have a maximum of 15 characters.", false);
             ui.typeWriter("Enter your name:", false);
-        } else {
+        }
+        else {
             ui.typeWriter("Special Characters are not allowed", false);
             ui.typeWriter("Enter your name:", false);
         }

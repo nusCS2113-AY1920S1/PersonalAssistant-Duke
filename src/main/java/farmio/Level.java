@@ -23,11 +23,13 @@ public class Level {
 
     private objectiveResult levelState;
 
-    public Level(JSONObject object) {
+    public Level(JSONObject object, String name) {
         JSONArray array = (JSONArray) object.get("narratives");
         narratives = new ArrayList<>();
         for (Object i : array) {
-            narratives.add((String) i);
+            String line = (String) i;
+            line = line.replace("+", name);
+            narratives.add(line);
         }
         filePath = (String) object.get("file_path");
         endGold = Math.toIntExact((Long) object.get("gold"));

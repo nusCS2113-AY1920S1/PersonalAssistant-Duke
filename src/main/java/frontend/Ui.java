@@ -5,17 +5,12 @@ import java.util.Scanner;
 public class Ui {
     private Scanner scanner;
     private final String CLEAR_SCREEN = "\033c" + "\033[2J";
-    private static String username;
 
     /**
      * Creates a user interface object.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
-    }
-
-    public void registerName(String message) {
-        username = message;
     }
 
     /**
@@ -112,10 +107,7 @@ public class Ui {
                         + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE + "\n");
                 return;
             }
-            if (text.charAt(i) == NAME_PLACEHOLDER) {
-                System.out.print(username);
-                lineLength += username.length() - 1;
-            } else {
+            else {
                 System.out.printf("%c", text.charAt(i));
             }
             if (isNewline) {

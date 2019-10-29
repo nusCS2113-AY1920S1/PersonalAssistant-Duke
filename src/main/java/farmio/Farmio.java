@@ -103,7 +103,6 @@ public class Farmio {
 
     public void setFarmer(Farmer farmer) {
         this.farmer = farmer;
-        ui.registerName(farmer.getName());
     }
 
     public void setStage(Stage stage) {

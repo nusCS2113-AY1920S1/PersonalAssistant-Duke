@@ -19,8 +19,9 @@ public class CommandGameLoad extends Command {
         Ui ui = farmio.getUi();
         Storage storage = farmio.getStorage();
         try {
-            farmio.setFarmer(new Farmer(storage.loadFarmer()));
-            Level level = new Level(storage.getLevel(farmio.getFarmer().getLevel()));
+            Farmer farmer = new Farmer(storage.loadFarmer());
+            farmio.setFarmer(farmer);
+            Level level = new Level(storage.getLevel(farmer.getLevel()), farmer.getName());
             farmio.setLevel(level);
             farmio.getSimulation().simulate("GameLoad", 0);
             ui.typeWriter("Load Game Success!", true);

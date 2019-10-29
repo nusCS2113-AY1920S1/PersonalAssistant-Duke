@@ -18,7 +18,7 @@ public class CommandLevelEnd extends Command {
                 + "Press [ENTER] for the narrative or enter [SKIP] to skip the story", false);
         Storage storage = farmio.getStorage();
         Farmer farmer = farmio.getFarmer();
-        Level level = new Level(storage.getLevel(farmer.nextLevel()));
+        Level level = new Level(storage.getLevel(farmer.nextLevel()),farmer.getName());
         storage.storeFarmer(farmer);
         farmio.setLevel(level);
         farmio.getFarmer().getTasks().clear();
