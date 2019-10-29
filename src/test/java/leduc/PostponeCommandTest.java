@@ -4,9 +4,11 @@ import leduc.command.PostponeCommand;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.lang.management.GarbageCollectorMXBean;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -19,14 +21,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Represents a JUnit test class for the PostponeCommand.
  */
 public class PostponeCommandTest {
+
+    private static Ui ui;
+    private static Storage storage;
+    private static TaskList tasks;
+
     /**
-     * Represents a JUnit test method for the PostponeCommand.
-     * Test the command depending on the input String (user).
+     * Represents the before of PostponeCommandTest.
      */
-    @Test
-    public void PostponeCommandTest() {
-        Ui ui = new Ui();
-        Storage storage = null;
+    @BeforeAll
+    public static void beforePostponeCommandTest(){
+        ui = new Ui();
         try {
             storage = new Storage(System.getProperty("user.dir")+ "/src/test/java/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/java/testFile/configTest.txt",System.getProperty("user.dir")+ "/src/test/java/testFile/welcome.txt");
         } catch (FileException e) {
@@ -35,7 +40,7 @@ public class PostponeCommandTest {
             e.printStackTrace();
         }
 
-        TaskList tasks = new TaskList(new ArrayList<>());
+        tasks = new TaskList(new ArrayList<>());
 
         LocalDateTime d1 = null;
         LocalDateTime d2 = null;
@@ -88,7 +93,14 @@ public class PostponeCommandTest {
         tasks.add(new HomeworkTask("d1",date1));
 
         assertTrue(tasks.size()==6);
+    }
 
+    /**
+     * Represents a JUnit test method for the PostponeCommand.
+     * Test the command depending on the input String (user).
+     */
+    @Test
+    public void PostponeCommandTest() {
         PostponeCommand postponeCommand1 = new PostponeCommand("postpone 4ee /by 12/12/2222 22:22");
         try{
             postponeCommand1.execute(tasks,ui,storage);
@@ -154,7 +166,13 @@ public class PostponeCommandTest {
         catch( DukeException e ){ // Should not happen
             assertTrue(false);
         }
+    }
 
+    /**
+     * Represents the after of PostponeCommandTest.
+     */
+    @AfterAll
+    public static void afterPostponeCommandTest(){
         tasks.getList().removeAll(tasks.getList());
         try {
             storage.save(tasks.getList());
