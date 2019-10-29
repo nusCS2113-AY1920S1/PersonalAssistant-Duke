@@ -1,5 +1,6 @@
 package duke.model;
 
+import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
@@ -71,6 +72,7 @@ public class ModelManager implements Model {
 
     @Override
     public List<Agenda> getRecommendations(int numDays, Itinerary itinerary) throws DukeException {
+
         List<Agenda> recommendations = storage.readVenues(numDays);
         itinerary.setTasks(recommendations);
         storage.writeItineraries(itinerary, 2);
@@ -118,6 +120,11 @@ public class ModelManager implements Model {
     @Override
     public Itinerary getItinerary(String number) throws DukeException {
         return storage.getItinerary(number);
+    }
+
+    @Override
+    public Itinerary readRecommendations() throws FileLoadFailException, DukeDateTimeParseException {
+        return storage.readRecommendations();
     }
 
     /**

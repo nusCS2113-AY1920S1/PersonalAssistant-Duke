@@ -5,12 +5,13 @@ import duke.model.locations.Venue;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.logging.Logger;
 
 /**
  * Represents an Itinerary and its contained information.
  */
 public class Itinerary extends AgendaList {
-
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Venue hotelLocation;
@@ -66,8 +67,7 @@ public class Itinerary extends AgendaList {
 
         StringBuilder result = new StringBuilder("Here are the list of Locations in "
                 +  days + " days around " + this.getHotelLocation().getAddress() + " with name " + this.name + ": \n");
-
-        for (int i = 0; i < days; i++) {
+        for (int i = 0; i < this.getList().size(); i++) {
             Agenda list1 = this.getList().get(i);
             result.append("\n");
             result.append("Day ").append(list1.getNumber()).append(":").append("\n \n");

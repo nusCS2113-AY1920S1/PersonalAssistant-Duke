@@ -8,6 +8,7 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ItineraryInsufficientAgendas;
+import duke.commons.exceptions.RecommendationDayExceededException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.commons.exceptions.StorageFileNotFoundException;
 import duke.logic.parsers.ParserStorageUtil;
@@ -35,6 +36,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -186,10 +188,13 @@ public class Storage {
      *
      * @return The List of all Venues in Recommendations list.
      */
-    public List<Agenda> readVenues(int numDays) {
+    public List<Agenda> readVenues(int numDays) throws RecommendationDayExceededException {
         List<Agenda> recommendations = new ArrayList<>();
         Scanner s = new Scanner(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH));
         int i = 1;
+        if(numDays > 8){
+            throw new RecommendationDayExceededException();
+        }
         while (s.hasNext() && i <= numDays) {
             List<Venue> venueList = new ArrayList<>();
             venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
@@ -285,7 +290,7 @@ public class Storage {
      * @throws DukeDateTimeParseException If the datetime cannot be parsed.
      * @throws FileLoadFailException      If the file fails to load.
      */
-    public static Itinerary readRecommendations() throws DukeDateTimeParseException, FileLoadFailException {
+    public Itinerary readRecommendations() throws DukeDateTimeParseException, FileLoadFailException {
         List<Agenda> agendaList = new ArrayList<>();
         Itinerary itinerary;
         try {
@@ -373,13 +378,26 @@ public class Storage {
                     LocalDateTime end = ParserTimeUtil.parseStringToDate(s1.nextLine());
                     Venue hotel = ParserStorageUtil.getVenueFromStorage(s1.nextLine());
                     itinerary = new Itinerary(start, end, hotel, name);
-                    List<Venue> venueList = new ArrayList<>();
-                    List<Todo> todoList;
-                    final int number2 = ParserStorageUtil.getNumberFromStorage(s1.nextLine());
-                    venueList.add(ParserStorageUtil.getVenueFromStorage(s1.nextLine()));
-                    todoList = ParserStorageUtil.getTodoListFromStorage(s1.nextLine());
-                    Agenda agenda = new Agenda(todoList, venueList, number2);
-                    agendaList.add(agenda);
+                    String s2 = s1.nextLine();
+                    while(s2.split("\\|")[0].equals("Agenda ")) {
+                        List<Venue> venueList = new ArrayList<>();
+                        List<Todo> todoList;
+                        final int number2 = Integer.parseInt(s2.split("\\|")[1]);
+                        String newVenue = s1.nextLine();
+                        while(newVenue.split("\\| ")[1].substring(0,newVenue.split("\\| ")[1].length() - 1)
+                                .matches("^\\d*\\.?\\d*$")) {
+                            venueList.add(ParserStorageUtil.getVenueFromStorage(newVenue));
+                            newVenue = s1.nextLine();
+                        }
+                        todoList = ParserStorageUtil.getTodoListFromStorage(newVenue);
+                        Agenda agenda = new Agenda(todoList, venueList, number2);
+                        agendaList.add(agenda);
+                        if(s1.hasNextLine()) {
+                            s2 = s1.nextLine();
+                        } else {
+                            break;
+                        }
+                    }
                 }
             }
             assert itinerary != null;

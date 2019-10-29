@@ -25,7 +25,7 @@ public class AddSampleItineraryCommand extends Command {
      * @throws FileLoadFailException If the file cannot be loaded.
      */
     public AddSampleItineraryCommand() throws DukeDateTimeParseException, FileLoadFailException {
-        this.itinerary = Storage.readRecommendations();
+        this.itinerary = null;
     }
 
     /**
@@ -36,6 +36,7 @@ public class AddSampleItineraryCommand extends Command {
     @Override
     public CommandResultText execute(Model model) throws DukeException, FileNotFoundException {
         // Add to the list of Itineraries
+        model.readRecommendations();
         model.itineraryListSave(this.itinerary);
         model.saveItinerary(this.itinerary);
         return new CommandResultText("Successfully added this itinerary: " + "\n"

@@ -282,23 +282,28 @@ public class ParserUtil {
         try {
             while(i < itineraryDetails.length) {
                 List<Venue> venueList = new ArrayList<>();
-                List<Todo> todoList;
+                List<Todo> todoList = new ArrayList<>();
                 final int number = Integer.parseInt(itineraryDetails[i++]);
-                venueList.add(ApiParser.getLocationSearch(itineraryDetails[i++]));
-                StringBuilder todos = new StringBuilder();
-                if(i == itineraryDetails.length - 1 || itineraryDetails[i].matches("-?\\d+")) {
-                    throw new ItineraryEmptyTodoException();
-                }
-                todos.append(itineraryDetails[++i]).append(" | ");
-                i++;
-                while(itineraryDetails[i].equals("/and") ) {
+                while(itineraryDetails[i++].equals("/venue")) {
+                    venueList.add(ApiParser.getLocationSearch(itineraryDetails[i++]));
+                    StringBuilder todos = new StringBuilder();
+                    if(i == itineraryDetails.length - 1 || itineraryDetails[i].matches("-?\\d+")) {
+                        throw new ItineraryEmptyTodoException();
+                    }
+                    todos.append(itineraryDetails[++i]).append(" | ");
                     i++;
-                    todos.append(itineraryDetails[i++]).append(" | ");
-                    if(i>=itineraryDetails.length) {
+                    while(itineraryDetails[i].equals("/and") ) {
+                        i++;
+                        todos.append(itineraryDetails[i++]).append(" | ");
+                        if(i >= itineraryDetails.length) {
+                            break;
+                        }
+                    }
+                    todoList = ParserStorageUtil.getTodoListFromStorage(todos.toString());
+                    if(i >= itineraryDetails.length) {
                         break;
                     }
                 }
-                todoList = ParserStorageUtil.getTodoListFromStorage(todos.toString());
                 Agenda agenda = new Agenda(todoList, venueList, number);
                 agendaList.add(agenda);
             }
