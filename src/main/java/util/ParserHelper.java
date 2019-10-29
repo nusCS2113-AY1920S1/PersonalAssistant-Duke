@@ -3,8 +3,8 @@ package util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import models.data.Project;
 import models.member.Member;
+import models.project.Project;
 import models.task.Task;
 
 public class ParserHelper {

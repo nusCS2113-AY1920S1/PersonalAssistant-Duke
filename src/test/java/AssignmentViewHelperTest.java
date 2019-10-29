@@ -3,7 +3,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import util.AssignmentViewHelper;
 import java.util.ArrayList;
 import java.util.Arrays;
-import models.data.Project;
+import models.project.Project;
 import models.member.Member;
 import models.task.Task;
 import models.task.TaskState;
@@ -64,8 +64,7 @@ public class AssignmentViewHelperTest {
 
     @Test
     public void testGetMemberOutput() {
-        ArrayList<Integer> validMembersIndexes = new ArrayList<Integer>(Arrays.asList(1, 2, 3));
-        AssignmentViewHelper assignmentViewHelper = new AssignmentViewHelper();
+        ArrayList<Integer> validMembersIndexes = new ArrayList<>(Arrays.asList(1, 2, 3));
         ArrayList<String> memberOutput = AssignmentViewHelper.getMemberOutput(validMembersIndexes,
             project);
         assertEquals("Here are each member's tasks:", memberOutput.get(0));
@@ -84,8 +83,7 @@ public class AssignmentViewHelperTest {
 
     @Test
     public void testGetTaskOutput() {
-        ArrayList<Integer> validTasksIndexes = new ArrayList<Integer>(Arrays.asList(1, 2));
-        AssignmentViewHelper assignmentViewHelper = new AssignmentViewHelper();
+        ArrayList<Integer> validTasksIndexes = new ArrayList<>(Arrays.asList(1, 2));
         ArrayList<String> taskOutput = AssignmentViewHelper.getTaskOutput(validTasksIndexes,
             project);
         assertEquals("Here are the members assigned to each task:", taskOutput.get(0));

@@ -1,10 +1,9 @@
 package controllers;
 
-import models.data.Project;
+import models.project.Project;
 import org.junit.jupiter.api.Test;
 import repositories.ProjectRepository;
 import util.date.DateTimeHelper;
-import views.CLIView;
 
 import java.text.ParseException;
 import java.util.Date;

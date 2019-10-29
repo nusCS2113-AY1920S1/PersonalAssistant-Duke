@@ -1,8 +1,8 @@
 package util.factories;
 
-import models.data.IProject;
-import models.data.NullProject;
-import models.data.Project;
+import models.project.IProject;
+import models.project.NullProject;
+import models.project.Project;
 
 public class ProjectFactory implements IArchDukeFactory<IProject> {
     /**

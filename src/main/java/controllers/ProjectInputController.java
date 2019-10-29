@@ -1,7 +1,7 @@
 package controllers;
 
-import models.data.IProject;
-import models.data.Project;
+import models.project.IProject;
+import models.project.Project;
 import models.member.IMember;
 import models.member.Member;
 import models.task.ITask;
@@ -140,7 +140,7 @@ public class ProjectInputController implements IController {
         if (newMember.getName() != null) {
             projectToManage.addMember((Member) newMember);
             return new String[] {"Added new member to: " + projectToManage.getDescription(), ""
-                    + "Member details" + newMember.getDetails()};
+                    + "Member details " + newMember.getDetails()};
         } else {
             return new String[] {"Failed to add member. Please ensure you have entered "
                     + "at least the name of the new member."};
