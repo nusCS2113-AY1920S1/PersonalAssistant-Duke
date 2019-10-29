@@ -23,7 +23,7 @@
     "time": "Dec 20, 2019, 11:22:00 AM"
   },
   {
-    "name": "asdfghh",
+    "name": "Complete cs1010",
     "isDone": false,
     "memberList": [],
     "time": "Dec 19, 2019, 11:22:00 AM"
