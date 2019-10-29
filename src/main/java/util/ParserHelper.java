@@ -195,13 +195,25 @@ public class ParserHelper {
             String [] part = s.split(" ");
             switch (part[0]) {
             case "i":
-                allTaskIndexes = s.substring(2).trim();
+                if (s.length() >= 3) {
+                    allTaskIndexes = s.substring(2).trim();
+                } else {
+                    allTaskIndexes = "";
+                }
                 break;
             case "to":
-                allAssigneeIndexes = s.substring(3).trim();
+                if (s.length() >= 4) {
+                    allAssigneeIndexes = s.substring(3).trim();
+                } else {
+                    allAssigneeIndexes = "";
+                }
                 break;
             case "rm":
-                allUnassigneeIndexes = s.substring(3).trim();
+                if (s.length() >= 4) {
+                    allUnassigneeIndexes = s.substring(3).trim();
+                } else {
+                    allUnassigneeIndexes = "";
+                }
                 break;
             default:
             }
