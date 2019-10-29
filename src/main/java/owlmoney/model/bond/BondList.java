@@ -225,7 +225,7 @@ public class BondList {
      * @param ui      The object required for printing.
      * @throws BondException If no bonds could be found.
      */
-    public void findBond(String bondName, Ui ui) throws BondException {
+    public void findBondInBondList(String bondName, Ui ui) throws BondException {
         ArrayList<Bond> tempBondList = new ArrayList<Bond>();
         String matchingWord = bondName.toUpperCase();
 

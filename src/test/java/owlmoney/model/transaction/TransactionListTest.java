@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,6 +17,7 @@ import owlmoney.ui.Ui;
 
 class TransactionListTest {
     private static final String NEWLINE = System.lineSeparator();
+    private static final DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
 
     @Test
     void addExpenditureToList_successfulAdd_newExpenditureAdded() {
@@ -465,5 +467,243 @@ class TransactionListTest {
         Transaction testExpenditure = new Expenditure("test", 1, newDate, "test");
         testList.addExpenditureToList(testExpenditure, testUi, "bank");
         assertEquals(testExpenditure, testList.get(0));
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findMatchingTransaction_MatchingDateRange_success() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Ui uiTest = new Ui();
+        TransactionList transactionListTemp = new TransactionList();
+        try {
+            Transaction expenditureTestOne = new Expenditure("Chicken Rice", 15,
+                    (temp.parse("10/6/2019")), "Food");
+            Transaction expenditureTestTwo = new Expenditure("Bubble Tea", 10,
+                    (temp.parse("10/7/2019")), "Food");
+            Transaction depositTest = new Deposit("Fund Received", 100,
+                    (temp.parse("11/9/2019")), "Deposit");
+
+            transactionListTemp.addExpenditureToList(expenditureTestOne, uiTest, "saving");
+            transactionListTemp.addExpenditureToList(expenditureTestTwo, uiTest, "saving");
+            transactionListTemp.addExpenditureToList(depositTest, uiTest, "saving");
+        } catch (ParseException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+        try {
+            outContent.reset();
+            transactionListTemp.findMatchingTransaction("10/7/2019",
+                    "19/9/2019", "", "", uiTest);
+            String expectedOutput = "Find by: date range" + NEWLINE
+                    + "Transaction No.      Description                                             "
+                    + "Amount          Date                 Category             " + NEWLINE
+                    + "-----------------------------------------------------------------------------"
+                    + "----------------------------------------------------" + NEWLINE
+                    + "2                    Bubble Tea                                              "
+                    + "[-] $10.00      10 July 2019         Food                 " + NEWLINE
+                    + "3                    Fund Received                                           "
+                    + "[+] $100.00     11 September 2019    Deposit              " + NEWLINE
+                    + "----------------------------------------------------------------------------"
+                    + "-----------------------------------------------------" + NEWLINE;
+            assertEquals(expectedOutput,outContent.toString());
+            outContent.reset();
+        } catch (TransactionException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findMatchingTransaction_DateRangeMissMatch_printErrorMessage() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Ui uiTest = new Ui();
+        TransactionList transactionListTemp = new TransactionList();
+        try {
+            Transaction expenditureTestOne = new Expenditure("Chicken Rice", 15,
+                    (temp.parse("10/6/2019")), "Food");
+            Transaction expenditureTestTwo = new Expenditure("Bubble Tea", 10,
+                    (temp.parse("10/7/2019")), "Food");
+            Transaction depositTest = new Deposit("Fund Received", 100,
+                    (temp.parse("11/9/2019")), "Deposit");
+
+            transactionListTemp.addExpenditureToList(expenditureTestOne, uiTest, "saving");
+            transactionListTemp.addExpenditureToList(expenditureTestTwo, uiTest, "saving");
+            transactionListTemp.addExpenditureToList(depositTest, uiTest, "saving");
+        } catch (ParseException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+        try {
+            outContent.reset();
+            transactionListTemp.findMatchingTransaction("1/2/2019",
+                    "3/4/2019", "", "", uiTest);
+            String expectedOutput = "No matches for the date range specified: 1/2/2019 to 3/4/2019" + NEWLINE;
+            assertEquals(expectedOutput,outContent.toString());
+            outContent.reset();
+        } catch (TransactionException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findMatchingTransaction_MatchingCategory_success() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Ui uiTest = new Ui();
+        TransactionList transactionListTemp = new TransactionList();
+        try {
+            Transaction expenditureTestOne = new Expenditure("Chicken Rice", 15,
+                    (temp.parse("10/6/2019")), "Food");
+            Transaction expenditureTestTwo = new Expenditure("Bubble Tea", 10,
+                    (temp.parse("10/7/2019")), "Food");
+            Transaction depositTest = new Deposit("Fund Received", 100,
+                    (temp.parse("11/9/2019")), "Deposit");
+
+            transactionListTemp.addExpenditureToList(expenditureTestOne, uiTest, "saving");
+            transactionListTemp.addExpenditureToList(expenditureTestTwo, uiTest, "saving");
+            transactionListTemp.addExpenditureToList(depositTest, uiTest, "saving");
+
+        } catch (ParseException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+
+        try {
+            outContent.reset();
+            transactionListTemp.findMatchingTransaction("",
+                    "", "", "deposit", uiTest);
+            String expectedOutput = "Find by: category" + NEWLINE
+                    + "Transaction No.      Description                                             "
+                    + "Amount          Date                 Category             " + NEWLINE
+                    + "-------------------------------------------------------------------------------"
+                    + "--------------------------------------------------" + NEWLINE
+                    + "3                    Fund Received                                           "
+                    + "[+] $100.00     11 September 2019    Deposit              " + NEWLINE
+                    + "--------------------------------------------------------------------------"
+                    + "-------------------------------------------------------" + NEWLINE;
+            assertEquals(expectedOutput,outContent.toString());
+            outContent.reset();
+        } catch (TransactionException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findMatchingTransaction_CategoryMissMatch_printErrorMessage() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Ui uiTest = new Ui();
+        TransactionList transactionListTemp = new TransactionList();
+        try {
+            Transaction expenditureTestOne = new Expenditure("Chicken Rice", 15,
+                    (temp.parse("10/6/2019")), "Food");
+            Transaction expenditureTestTwo = new Expenditure("Bubble Tea", 10,
+                    (temp.parse("10/7/2019")), "Food");
+            Transaction depositTest = new Deposit("Fund Received", 100,
+                    (temp.parse("11/9/2019")), "Deposit");
+
+            transactionListTemp.addExpenditureToList(expenditureTestOne, uiTest, "saving");
+            transactionListTemp.addExpenditureToList(expenditureTestTwo, uiTest, "saving");
+            transactionListTemp.addExpenditureToList(depositTest, uiTest, "saving");
+
+        } catch (ParseException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+
+        try {
+            outContent.reset();
+            transactionListTemp.findMatchingTransaction("",
+                    "", "", "transport", uiTest);
+            String expectedOutput = "No matches for the category keyword: transport" + NEWLINE;
+            assertEquals(expectedOutput,outContent.toString());
+            outContent.reset();
+        } catch (TransactionException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findMatchingTransaction_MatchingDescription_success() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Ui uiTest = new Ui();
+        TransactionList transactionListTemp = new TransactionList();
+        try {
+            Transaction expenditureTestOne = new Expenditure("Chicken Rice", 15,
+                    (temp.parse("10/6/2019")), "Food");
+            Transaction expenditureTestTwo = new Expenditure("Bubble Tea", 10,
+                    (temp.parse("10/7/2019")), "Food");
+            Transaction depositTest = new Deposit("Fund Received", 100,
+                    (temp.parse("11/9/2019")), "Deposit");
+
+            transactionListTemp.addExpenditureToList(expenditureTestOne, uiTest, "saving");
+            transactionListTemp.addExpenditureToList(expenditureTestTwo, uiTest, "saving");
+            transactionListTemp.addExpenditureToList(depositTest, uiTest, "saving");
+
+        } catch (ParseException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+
+        try {
+            outContent.reset();
+            transactionListTemp.findMatchingTransaction("",
+                    "", "rice", "", uiTest);
+            String expectedOutput = "Find by: description" + NEWLINE
+                    + "Transaction No.      Description                                             "
+                    + "Amount          Date                 Category             " + NEWLINE
+                    + "-------------------------------------------------------------------------------"
+                    + "--------------------------------------------------" + NEWLINE
+                    + "1                    Chicken Rice                                            "
+                    + "[-] $15.00      10 June 2019         Food                 " + NEWLINE
+                    + "--------------------------------------------------------------------------"
+                    + "-------------------------------------------------------" + NEWLINE;
+            assertEquals(expectedOutput,outContent.toString());
+            outContent.reset();
+        } catch (TransactionException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findMatchingTransaction_DescriptionMissMatch_printErrorMessage() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Ui uiTest = new Ui();
+        TransactionList transactionListTemp = new TransactionList();
+        try {
+            Transaction expenditureTestOne = new Expenditure("Chicken Rice", 15,
+                    (temp.parse("10/6/2019")), "Food");
+            Transaction expenditureTestTwo = new Expenditure("Bubble Tea", 10,
+                    (temp.parse("10/7/2019")), "Food");
+            Transaction depositTest = new Deposit("Fund Received", 100,
+                    (temp.parse("11/9/2019")), "Deposit");
+
+            transactionListTemp.addExpenditureToList(expenditureTestOne, uiTest, "saving");
+            transactionListTemp.addExpenditureToList(expenditureTestTwo, uiTest, "saving");
+            transactionListTemp.addExpenditureToList(depositTest, uiTest, "saving");
+
+        } catch (ParseException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+
+        try {
+            outContent.reset();
+            transactionListTemp.findMatchingTransaction("",
+                    "", "soup", "", uiTest);
+            String expectedOutput = "No matches for the description keyword: soup" + NEWLINE;
+            assertEquals(expectedOutput,outContent.toString());
+            outContent.reset();
+        } catch (TransactionException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+
     }
 }
