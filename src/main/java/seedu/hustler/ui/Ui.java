@@ -52,7 +52,7 @@ public class Ui {
     public void correctCommandError() {
         if (!CommandLog.isRestoring()) {
             System.out.println(LINE);
-            System.out.println("\tPlease enter a valid command: /add,/list, /bye, /find, /delete.\n"
+            System.out.println("\tPlease enter a valid command: /add, /list, /bye, /find, /delete.\n"
                     + "\tRefer to User Guide for more info.");
             System.out.println(LINE);
         }
