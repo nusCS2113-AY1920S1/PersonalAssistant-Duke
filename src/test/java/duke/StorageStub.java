@@ -186,7 +186,7 @@ public class StorageStub {
         List<Agenda> recommendations = new ArrayList<>();
         Scanner s = new Scanner(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH));
         int i = 1;
-        if(numDays > 8){
+        if (numDays > 8) {
             throw new RecommendationDayExceededException();
         }
         while (s.hasNext() && i <= numDays) {
@@ -266,7 +266,7 @@ public class StorageStub {
             FileWriter writer = new FileWriter(file, true);
             writer.write(itinerary.getName() + "\n" + itinerary.getStartDate().toString() + "\n"
                     + itinerary.getEndDate().toString() + "\n" + itinerary.getHotelLocation().toString() + "\n");
-            if(itinerary.getList().size() != itinerary.getNumberOfDays()) {
+            if (itinerary.getList().size() != itinerary.getNumberOfDays()) {
                 throw new ItineraryInsufficientAgendas();
             }
             for (Agenda agenda : itinerary.getList()) {
@@ -313,20 +313,25 @@ public class StorageStub {
         return itinerary;
     }
 
-
+    /**
+     * Writes the specified itineraries name to the table of contents.
+     *
+     * @param itinerary This itineraries name is to be stored.
+     * @throws FileNotSavedException      If the file fails to save.
+     */
     public void writeItinerarySave(Itinerary itinerary) throws FileNotSavedException {
         try {
-            FileWriter writer = new FileWriter(ITINERARY_LIST_FILE_PATH, true);
-            File f1=new File(ITINERARY_LIST_FILE_PATH);
-            int linecount=0;
-            FileReader fr=new FileReader(f1);
+            File f1 = new File(ITINERARY_LIST_FILE_PATH);
+            int linecount = 0;
+            FileReader fr = new FileReader(f1);
             BufferedReader br = new BufferedReader(fr);
             String s;
-            while((s=br.readLine())!=null) {
+            while ((s = br.readLine()) != null) {
                 linecount++;
             }
             fr.close();
             br.close();
+            FileWriter writer = new FileWriter(ITINERARY_LIST_FILE_PATH, true);
             writer.write(++linecount + " | " + itinerary.getName() + "\n");
             writer.close();
         } catch (IOException e) {
@@ -334,6 +339,12 @@ public class StorageStub {
         }
     }
 
+    /**
+     * Returns the itinerary list table of contents so user may refer to it and perform showItinerary command.
+     *
+     * @return Returns the String containing the table of contents
+     * @throws FileLoadFailException   If the file fails to load.
+     */
     public String readItineraryList() throws FileLoadFailException {
         StringBuilder output = new StringBuilder();
         try {
@@ -352,6 +363,12 @@ public class StorageStub {
         return output.toString();
     }
 
+    /**
+     * Retrieves an itinerary from persistent storage based on its name.
+     *
+     * @param name The itineraries name.
+     * @throws FileLoadFailException   If the file fails to load.
+     */
     public Itinerary getItinerary(String name) throws DukeException {
         Itinerary itinerary = null;
         try {
@@ -359,25 +376,25 @@ public class StorageStub {
             Scanner s1 = new Scanner(z);
             AgendaList agendaList = new AgendaList();
             while (s1.hasNext()) {
-                if(s1.nextLine().equals(name)) {
+                if (s1.nextLine().equals(name)) {
                     LocalDateTime start = ParserTimeUtil.parseStringToDate(s1.nextLine());
                     LocalDateTime end = ParserTimeUtil.parseStringToDate(s1.nextLine());
                     Venue hotel = ParserStorageUtil.getVenueFromStorage(s1.nextLine());
                     itinerary = new Itinerary(start, end, hotel, name);
                     String s2 = s1.nextLine();
-                    while(s2.split("\\|")[0].equals("Agenda ")) {
+                    while (s2.split("\\|")[0].equals("Agenda ")) {
                         List<Venue> venueList = new ArrayList<>();
                         List<Todo> todoList;
                         final int number2 = Integer.parseInt(s2.split("\\|")[1]);
                         String newVenue = s1.nextLine();
-                        while(newVenue.contains(" |")) {
+                        while (newVenue.contains(" |")) {
                             venueList.add(ParserStorageUtil.getVenueFromStorage(newVenue));
                             newVenue = s1.nextLine();
                         }
                         todoList = ParserStorageUtil.getTodoListFromStorage(newVenue);
                         Agenda agenda = new Agenda(todoList, venueList, number2);
                         agendaList.add(agenda);
-                        if(s1.hasNextLine()) {
+                        if (s1.hasNextLine()) {
                             s2 = s1.nextLine();
                         } else {
                             break;
@@ -389,7 +406,7 @@ public class StorageStub {
             assert itinerary != null;
             itinerary.setTasks(agendaList);
             return itinerary;
-        } catch(FileNotFoundException | DukeDateTimeParseException e){
+        } catch (FileNotFoundException | DukeDateTimeParseException e) {
             throw new FileLoadFailException(new File(ITINERARY_LIST_FILE_PATH));
         }
     }

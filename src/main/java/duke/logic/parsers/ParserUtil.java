@@ -270,38 +270,44 @@ public class ParserUtil {
         throw new QueryOutOfBoundsException("INTEGER");
     }
 
+    /**
+     * Gets the integer index at index in a String list delimited by whitespace.
+     *
+     * @param userInput The users entered command which contains details of the Itinerary.
+     * @return The Itinerary object created.
+     */
     public static Itinerary createNewItinerary(String userInput) throws DukeException {
         String[] itineraryDetails = userInput.substring("newItinerary".length()).strip().split(" ");
         LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[0].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
         Venue hotelLocation = ApiParser.getLocationSearch(itineraryDetails[2].strip());
         String name = itineraryDetails[3].strip();
-        Itinerary itinerary = new Itinerary(start, end, hotelLocation , name);
+        Itinerary itinerary = new Itinerary(start, end, hotelLocation, name);
         AgendaList agendaList = new AgendaList();
         int i = 4;
         try {
-            while(i < itineraryDetails.length) {
+            while (i < itineraryDetails.length) {
                 List<Venue> venueList = new ArrayList<>();
                 List<Todo> todoList = new ArrayList<>();
                 final int number = Integer.parseInt(itineraryDetails[i++]);
-                while(itineraryDetails[i].equals("/venue")) {
+                while (itineraryDetails[i].equals("/venue")) {
                     i++;
                     venueList.add(ApiParser.getLocationSearch(itineraryDetails[i++]));
                     StringBuilder todos = new StringBuilder();
-                    if(i == itineraryDetails.length - 1 || itineraryDetails[i].matches("-?\\d+")) {
+                    if (i == itineraryDetails.length - 1 || itineraryDetails[i].matches("-?\\d+")) {
                         throw new ItineraryEmptyTodoException();
                     }
                     todos.append(itineraryDetails[++i]).append("|");
                     i++;
-                    while(itineraryDetails[i].equals("/and") ) {
+                    while (itineraryDetails[i].equals("/and")) {
                         i++;
                         todos.append(itineraryDetails[i++]).append("|");
-                        if(i >= itineraryDetails.length) {
+                        if (i >= itineraryDetails.length) {
                             break;
                         }
                     }
                     todoList = ParserStorageUtil.getTodoListFromStorage(todos.toString());
-                    if(i >= itineraryDetails.length) {
+                    if (i >= itineraryDetails.length) {
                         break;
                     }
                 }
