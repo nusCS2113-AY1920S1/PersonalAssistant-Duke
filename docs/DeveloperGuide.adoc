@@ -20,7 +20,11 @@ endif::[]
 
 By: `Team W17-4`      Since: `Aug 2019`      Licence: `MIT`
 
+== Introduction 
+OOF, short for Outstanding Organisation Friend, is a command line interface dekstop application built to improve University Students productivity and efficiency by reducing the need to manually organise tasks. This guide aims to provide information not just to new contributors of OOF but also to current contributors so that it can serve as an easy reference for understanding the features implemented in OOF.  
+
 == Setting up
+This section will show you the steps that you need to quickly start contributing to this project in no time!  
 
 === Prerequisites
 . *JDK `11`* or above +
