@@ -10,6 +10,10 @@ public class SearchKeywordPredicate implements Predicate <Payment> {
         this.keyword = keyword;
     }
 
+    public String getKeyword() {
+        return keyword;
+    }
+
     @Override
     public boolean test(Payment payment) {
         return payment.containsKeyword(keyword);

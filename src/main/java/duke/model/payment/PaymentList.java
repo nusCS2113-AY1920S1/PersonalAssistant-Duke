@@ -31,10 +31,28 @@ public class PaymentList {
 
     private DisplayMode displayMode;
 
+    private ObservableList<String> sortIndicator;
+
+    private ObservableList<Predicate<Payment>> timeScopeIndicator;
+
+    private ObservableList<String> searchKeywordIndicator;
+
     Predicate<Payment> PREDICATE_SHOW_ALL_PAYMENTS = unused -> true;
 
     private enum SortCriteria {
-        TIME, AMOUNT, PRIORITY;
+        TIME("time"),
+        AMOUNT("amount"),
+        PRIORITY("priority");
+
+        private String literalMeaning;
+
+        public String toString() {
+            return literalMeaning;
+        }
+
+        SortCriteria(String literalMeaning) {
+            this.literalMeaning = literalMeaning;
+        }
     }
 
     private enum DisplayMode {
@@ -55,6 +73,8 @@ public class PaymentList {
         filteredList = new FilteredList<>(unfilteredList);
         filteredList.setPredicate(PREDICATE_SHOW_ALL_PAYMENTS);
         searchResult = new FilteredList<>(unfilteredList);
+        sortIndicator.add(sortCriteria.toString());
+        timeScopeIndicator.add(PREDICATE_SHOW_ALL_PAYMENTS);
     }
 
     public PaymentList(List<Payment> timeSortedList) {
@@ -72,6 +92,8 @@ public class PaymentList {
         filteredList.setPredicate(PREDICATE_SHOW_ALL_PAYMENTS);
         searchResult = new FilteredList<>(unfilteredList);
         displayMode = DisplayMode.FILTERED_LIST;
+        sortIndicator.add(sortCriteria.toString());
+        timeScopeIndicator.add(PREDICATE_SHOW_ALL_PAYMENTS);
     }
 
     public void add(Payment payment) {
@@ -120,16 +142,21 @@ public class PaymentList {
             throw new DukeException(String.format(DukeException.MESSAGE_SORT_CRITERIA_INVALID, sortCriteria));
         }
         fetchInternalListToUnfilteredList();
+        sortIndicator.set(0, this.sortCriteria.toString());
     }
 
     public void setPredicate(Predicate<Payment> predicate) {
         displayMode = DisplayMode.FILTERED_LIST;
         filteredList.setPredicate(predicate);
+        timeScopeIndicator.set(0, predicate);
     }
 
-    public void setSearchPredicate(Predicate<Payment> searchPredicate) {
+    public void setSearchPredicate(String keyword) {
         displayMode = DisplayMode.SEARCH_RESULT;
+        SearchKeywordPredicate searchPredicate = new SearchKeywordPredicate(keyword);
         searchResult.setPredicate(searchPredicate);
+        searchKeywordIndicator.clear();
+        searchKeywordIndicator.add(keyword);
     }
 
 
@@ -140,6 +167,20 @@ public class PaymentList {
     public FilteredList<Payment> getSearchResult() {
         return searchResult;
     }
+
+    public ObservableList<String> getSortIndicator() {
+        return sortIndicator;
+    }
+
+    public ObservableList<Predicate<Payment>> getTimeScopeIndicator() {
+        return timeScopeIndicator;
+    }
+
+    public ObservableList<String> getSearchKeywordIndicator() {
+        return searchKeywordIndicator;
+    }
+
+
 
     /**
      * Returns all internal payments as an ArrayList.

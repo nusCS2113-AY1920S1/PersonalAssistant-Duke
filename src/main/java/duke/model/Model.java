@@ -9,6 +9,7 @@ import javafx.collections.transformation.FilteredList;
 
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.function.Predicate;
 
 /**
  * The API of the Model component.
@@ -85,6 +86,13 @@ public interface Model {
     public FilteredList<Payment> getSearchResult();
 
     public PaymentList getPaymentList();
+
+    public ObservableList<String> getSortIndicator();
+
+    public ObservableList<Predicate<Payment>> getTimeScopeIndicator();
+
+    public ObservableList<String> getSearchKeywordIndicator();
+
 
     //******************************** IncomeList operations
 

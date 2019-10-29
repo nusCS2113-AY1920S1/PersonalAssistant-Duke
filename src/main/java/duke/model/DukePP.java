@@ -234,8 +234,7 @@ public class DukePP implements Model {
     }
 
     public void setSearchKeyword(String keyword) {
-        SearchKeywordPredicate searchPredicate = new SearchKeywordPredicate(keyword);
-        payments.setSearchPredicate(searchPredicate);
+        payments.setSearchPredicate(keyword);
     }
 
     public Payment getPayment(int index) throws DukeException {
@@ -257,6 +256,21 @@ public class DukePP implements Model {
      */
     public PaymentList getPaymentList() {
         return payments;
+    }
+
+    @Override
+    public ObservableList<String> getSortIndicator() {
+        return payments.getSortIndicator();
+    }
+
+    @Override
+    public ObservableList<Predicate<Payment>> getTimeScopeIndicator() {
+        return payments.getTimeScopeIndicator();
+    }
+
+    @Override
+    public ObservableList<String> getSearchKeywordIndicator() {
+        return payments.getSearchKeywordIndicator();
     }
 
 
