@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import seedu.hustler.Hustler;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.parser.CommandParser;
-import seedu.hustler.logic.CommandLineException;
 
 public class CommandLog {
 
@@ -34,32 +33,33 @@ public class CommandLog {
                     Command command = parser.parse(commandlog.get(i));
                     command.execute();
                     Hustler.saveStorage();
-                } catch (CommandLineException | IOException e) {
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
 
             while (numberOfCommandsToUndo > 0) {
-                System.out.println("       _____________________________________");
-                System.out.println("       These commands have been undone: ");
+                System.out.println("\t_____________________________________");
+                System.out.println("\tThese commands have been undone: ");
                 while (numberOfCommandsToUndo > 0) {
                     System.out.println("       " + commandlog.get(restoreDataUntil));
                     redoLog.add(commandlog.get(restoreDataUntil));
                     commandlog.remove(restoreDataUntil);
                     numberOfCommandsToUndo--;
                 }
-                System.out.println("       _____________________________________");
+                System.out.println("\t_____________________________________");
             }
 
             while (commandlog.size() > restoreDataUntil) {
                 commandlog.remove(restoreDataUntil);
             }
         } else {
-            System.out.println("Error! You are attempting to undo more commands than is possible!");
+            System.out.println("\tError! You are attempting to undo more commands than is possible!");
         }
         isRestoring = false;
     }
 
-    public static void redo() throws IOException {
+    public static void redo() {
         isRestoring = true;
         if (redoLog.size() > 0) {
             for (int i = 0; i < redoLog.size(); i += 1) {
@@ -70,9 +70,9 @@ public class CommandLog {
             }
             Hustler.reloadBackup();
             restoreData(0);
-            System.out.println("All previously undone commands have been redone!");
+            System.out.println("\tAll previously undone commands have been redone!");
         } else {
-            System.out.println("Redo commands can only be used immediately after undo commands!");
+            System.out.println("\tRedo commands can only be used immediately after undo commands!");
         }
         isRestoring = false;
     }
