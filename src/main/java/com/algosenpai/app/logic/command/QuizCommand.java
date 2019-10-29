@@ -43,9 +43,10 @@ public class QuizCommand extends Command {
 
     @Override
     public String execute() {
-        quizList.get(questionNumber.get()).setAnswer(inputs.toString());
+        //Sets the user answer to the current question.
+        quizList.get(questionNumber.get()).setUserAnswer(inputs.toString());
+        //Increment the question number.
         questionNumber.incrementAndGet();
-
         if (questionNumber.get() < 10) {
             return quizList.get(questionNumber.get()).getQuestion();
         } else if (questionNumber.get() == 10) {

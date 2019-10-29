@@ -30,7 +30,7 @@ public class QuestionModel {
         return userAnswer;
     }
 
-    public void setAnswer(String userAnswer) {
+    public void setUserAnswer(String userAnswer) {
         this.userAnswer = userAnswer;
     }
 
