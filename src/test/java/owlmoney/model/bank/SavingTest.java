@@ -203,7 +203,7 @@ class SavingTest {
         Saving savingTest = new Saving("test", 100, 100);
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
-        calendar.setTime(new Date());
+        calendar.setTime(new Date("10/28/2019"));
         calendar.add(Calendar.MONTH, -1);
         Expenditure testExpenditure = new Expenditure("testExpenditure", 10, calendar.getTime(), "testExpenditure");
         try {
@@ -235,7 +235,7 @@ class SavingTest {
         Saving savingTest = new Saving("test", 100, 100);
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
-        calendar.setTime(new Date());
+        calendar.setTime(new Date("10/28/2019"));
         calendar.add(Calendar.MONTH, -1);
         Expenditure testExpenditure = new Expenditure("testExpenditure", 10, calendar.getTime(), "testExpenditure");
         try {
@@ -276,7 +276,7 @@ class SavingTest {
         Saving savingTest = new Saving("test", 100, 100);
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
-        calendar.setTime(new Date());
+        calendar.setTime(new Date("10/28/2019"));
         calendar.add(Calendar.MONTH, -1);
         Expenditure testExpenditure = new Expenditure("testExpenditure", 10, calendar.getTime(), "testExpenditure");
         try {
@@ -328,5 +328,16 @@ class SavingTest {
         }
         savingTest.updateRecurringTransactions(testUi);
         assertEquals(80, savingTest.getCurrentAmount());
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findBondInInvestment_useOnSavingAccount_throwsException() {
+        Ui uiTest = new Ui();
+        Bank testSaving = new Saving("Test Saving Bank", 1200, 1000);
+        BankException thrown = assertThrows(BankException.class, () ->
+                        testSaving.findBondInInvestment("Bond Name", uiTest),
+                "Expected transferFund to throw, but it didn't");
+        assertEquals("This account does not support this feature", thrown.toString());
     }
 }
