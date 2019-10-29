@@ -1264,6 +1264,40 @@ In the last example above, *OwlMoney* provided you with the flexibility of perfo
 
 Curious to find out your transactions for your accounts? Let us show you how it can be done!
 
+In this section, you'll be introduced to commands and parameters that help you to transfer funds between different
+bank accounts in *OwlMoney*.
+
+Below is a list of command parameters that you can expect to use for the commands in this section.
+[cols="18%,37%,45%"]
+|======
+| `ACCOUNT_NAME`
+| Indicates the name of the bank account.
+
+(e.g. DBB Vickers Account)
+
+| `ACCOUNT_NAME` should contain alphabetic characters, numeric characters, and spaces only.
+
+`ACCOUNT_NAME` is case-sensitive.
+
+Take note that there is a maximum of *30* character limit.
+
+| `CARD_NAME`
+| Indicates the name of the credit card.
+
+(e.g. POBB Everyday Card)
+
+| `CARD_NAME` should contain alphabetic characters, numeric characters, and spaces only.
+
+`CARD_NAME` is case-sensitive.
+
+Take note that there is a maximum of *30* character limit.
+
+| `NUMBER`
+| Indicates the number of transactions to list.
+| `NUMBER` should contain positive numbers only up to a maximum of *9* digits.
+
+|======
+
 *Command Syntax*
 
 `/list /savings`
