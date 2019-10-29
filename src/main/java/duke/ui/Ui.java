@@ -72,12 +72,12 @@ public class Ui {
     }
 
     public void showOptions() {
-        System.out.println("Options (choose one): ");
-        System.out.println("'a' remove all expiring");
-        System.out.println("'b' add/remove/use an ingredient");
-        System.out.println("'c' place/remove/change an order");
-        System.out.println("'d' add/remove/change a dish");
-        System.out.println("'q' to exit");
+        System.out.println("\t Options (choose one): ");
+        System.out.println("\t 'a' remove all expiring");
+        System.out.println("\t 'b' add/remove/use an ingredient");
+        System.out.println("\t 'c' place/remove/change an order");
+        System.out.println("\t 'd' add/remove/change a dish");
+        System.out.println("\t 'q' to exit");
     }
 
     public void showUsed(Ingredient ingredient) {
@@ -90,23 +90,23 @@ public class Ui {
 
     public void showIngredientTask() {
         showIngredientTemplate();
-        System.out.println("type 'back' to go back to the main menu");
-        System.out.println("type 'show' to see all ingredients currently in the fridge");
-        System.out.println("type 'template' to see the format of the commands");
+        System.out.println("\t type 'back' to go back to the main menu");
+        System.out.println("\t type 'show' to see all ingredients currently in the fridge");
+        System.out.println("\t type 'template' to see the format of the commands");
     }
 public void showIngredientTemplate(){
-    System.out.println("Continue by adding, removing or using an ingredient \nTemplate: ");
+    System.out.println("\t Continue by adding, removing or using an ingredient \n\t Template: ");
     showLine();
-    System.out.println("add <Ingredient name> <amount> <expiry date: DD/MM/YYYY>");
-    System.out.println("remove <ingredient number>");
-    System.out.println("use <ingredient name> <amount> *always use most recently expiring ingredients first, to prevent food waste!*");
+    System.out.println("\t add <Ingredient name> <amount> <expiry date: DD/MM/YYYY>");
+    System.out.println("\t remove <ingredient number>");
+    System.out.println("\t use <ingredient name> <amount> *always use most recently expiring ingredients first, to prevent food waste!*");
     showLine();
 }
     public void showIngredientsInFridge(IngredientsList ingredientsList) {
         if (ingredientsList.isEmpty())
-            System.out.println("The fridge is empty, better go buy some ingredients! ");
+            System.out.println("\t The fridge is empty, better go buy some ingredients! ");
         else {
-            System.out.println("Here is a list of all the ingredients in your fridge: ");
+            System.out.println("\t Here is a list of all the ingredients in your fridge: ");
             int i = 1;
             for (Ingredient ingredient : ingredientsList.sortByExpiryDate().getAllEntries()) {
                 System.out.println(i + ": " + ingredient);
@@ -265,7 +265,7 @@ public void showIngredientTemplate(){
     }
 
     public void showIngredients(Ingredient ingredient, Dish dish) {
-        System.out.println("\t ingredient: " + ingredient.toString()
+        System.out.println("\t ingredient: " + ingredient.getName()
                 + "\n\t added to: " + dish.getDishname());
     }
 

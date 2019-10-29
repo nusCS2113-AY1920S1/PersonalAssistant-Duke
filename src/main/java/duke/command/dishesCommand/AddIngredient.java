@@ -21,13 +21,11 @@ public class AddIngredient extends AddCommand<Dish> {
         super();
         this.ingredient = ingredient;
         this.index = index;
-
     }
 
     @Override
     public void execute(GenericList<Dish> dishList, Ui ui, Storage storage) throws DukeException {
         try {
-
             dishList.getEntry(index - 1).addIngredients(ingredient);
             ui.showIngredients(ingredient,dishList.getEntry(index - 1));
         } catch (Exception e) {

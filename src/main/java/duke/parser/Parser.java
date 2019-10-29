@@ -123,15 +123,24 @@ public class Parser {
 
             }
             case DISH: {
-                splitted = fullCommand.split(" ", 4);
+                splitted = fullCommand.split(" ", 2);
                 if (splitted.length > 4)
-                    throw new DukeException("must specify ing name, amount and expiry date");
+                    throw new DukeException("must specify name/index");
                 else if (splitted[0].equals("add"))
-                    return new AddCommand<Dish>(new Dish(splitted[1]));
-                if (splitted[0].equals("remove")) {
-                    return new DeleteCommand<Dish>(Integer.parseInt(splitted[1]));
-                } else
-                    throw new DukeException("not a valid command for an Ingredient");
+                    return new AddDishCommand(new Dish(splitted[1]));
+                else if (splitted[0].equals("remove"))
+                    return new DeleteDishCommand(Integer.parseInt(splitted[1]));
+                else if (splitted[0].equals("list"))
+                    return new ListDishCommand();
+                else if (splitted[0].equals("initialize"))
+                    return new InitCommand();
+                else if (splitted[0].equals("ingredient")) {
+                    String[] getIng = splitAndCheck(splitted[1], " /add ");
+                    int index = Integer.parseInt(getIng[1]);
+                   return new AddIngredient(new Ingredient(getIng[0], index, new Date()) , index);
+                }
+                else
+                    throw new DukeException("not a valid command for a Dish");
 
             }
             case ORDER: {
