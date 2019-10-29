@@ -21,6 +21,7 @@
                     <padding>
                         <Insets top="25" right="25" bottom="25" left="25"/>
                     </padding>
+                    <Label fx:id="totalLabel"/>
                     <Label fx:id="sortLabel"/>
                     <Label fx:id="viewLabel"/>
                     <Label fx:id="filterLabel"/>

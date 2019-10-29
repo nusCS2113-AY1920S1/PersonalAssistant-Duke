@@ -8,19 +8,26 @@
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
 <?import java.net.URL?>
+<?import javafx.scene.layout.BorderPane?>
 <fx:root type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
         <Scene>
             <AnchorPane prefHeight="700.0" prefWidth="1000.0">
                 <children>
-                    <StackPane fx:id="paneStack" prefHeight="640.0" prefWidth="1000.0" AnchorPane.bottomAnchor="60.0"
-                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
-                    <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="640.0">
-                        <Label fx:id="console" prefHeight="20.0" prefWidth="1000.0" text="Welcome to Duke++"/>
-                        <TextField fx:id="userInput" onAction="#handleUserInput" onKeyPressed="#handleKeyPressed"
-                                   prefHeight="40.0" prefWidth="1000.0" promptText="/Enter your command here..."/>
-                    </VBox>
+                    <BorderPane>
+                        <center>
+                            <StackPane fx:id="paneStack" prefHeight="640.0" prefWidth="1000.0" AnchorPane.bottomAnchor="60.0"
+                                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                        </center>
+                        <bottom>
+                            <VBox>
+                            <Label fx:id="console" prefHeight="20.0" prefWidth="1000.0" text="Welcome to Duke++"/>
+                            <TextField fx:id="userInput" onAction="#handleUserInput" onKeyPressed="#handleKeyPressed"
+                                       prefHeight="40.0" prefWidth="1000.0" promptText="/Enter your command here..."/>
+                            </VBox>
+                        </bottom>
+
+                    </BorderPane>
                 </children>
                 <stylesheets>
                     <URL value="@/layout/MainWindow.css"/>

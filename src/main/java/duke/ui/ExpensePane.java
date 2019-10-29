@@ -3,6 +3,7 @@ package duke.ui;
 import duke.commons.LogsCenter;
 import duke.logic.Logic;
 import duke.model.Expense;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -41,11 +42,18 @@ public class ExpensePane extends UiPart<AnchorPane> {
     Label viewLabel;
 
     @FXML
+    Label totalLabel;
+
+    @FXML
     ListView<String> budgetListView;
     public Logic logic;
     public Set<String> tags;
 
-    public ExpensePane(ObservableList<Expense> expenseList, Logic logic) {
+    public ExpensePane(ObservableList<Expense> expenseList, Logic logic,
+                       StringProperty totalExpense,
+                       StringProperty filterCriteria,
+                       StringProperty sortCriteria,
+                       StringProperty viewCriteria) {
         super(FXML_FILE_NAME, null);
         logger.info("expenseList has length " + expenseList.size());
         logger.info("expenseList has length " + expenseList.size());
@@ -57,6 +65,12 @@ public class ExpensePane extends UiPart<AnchorPane> {
         logger.info("Items are set.");
         expenseListView.setCellFactory(expenseListView -> new ExpenseListViewCell());
         logger.info("cell factory is set.");
+
+        sortLabel.textProperty().bindBidirectional(sortCriteria);
+        filterLabel.textProperty().bindBidirectional(filterCriteria);
+        viewLabel.textProperty().bindBidirectional(viewCriteria);
+        totalLabel.textProperty().bindBidirectional(totalExpense);
+
         this.logic = logic;
         PieChart pieChartSample = new PieChart();
         pieChartSample.setData(getData());
