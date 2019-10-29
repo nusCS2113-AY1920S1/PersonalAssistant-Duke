@@ -169,10 +169,10 @@ public class Ui {
 
     /**
      * Prints out when a category is deleted.
-     * @param category name of the new category
+     * @param categoryName name of the new category
      */
-    public void showRemovedCategoryMessage(Category category) {
-        print("Ok, I've deleted the category named " + category.toString() + ".");
+    public void showRemovedCategoryMessage(String categoryName) {
+        print("Ok, I've deleted the category named " + categoryName + ".");
     }
 
 

@@ -10,19 +10,23 @@ import moomoo.task.ScheduleList;
 
 public class DeleteCategoryCommand extends Command {
 
-    private int categoryNumber;
+    private String categoryName;
 
-    public DeleteCategoryCommand(int categoryNumber) {
+    public DeleteCategoryCommand(String categoryName) {
         super(false, "");
-        this.categoryNumber = categoryNumber;
+        this.categoryName = categoryName;
     }
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Category category,
                         Ui ui, Storage storage) throws MooMooException {
 
-        ui.showRemovedCategoryMessage(categoryList.get(categoryNumber));
-        storage.deleteCategoryFromFile(categoryList.get(categoryNumber).toString());
-        categoryList.delete(categoryNumber);
+        try {
+            storage.deleteCategoryFromFile(categoryName);
+            categoryList.delete(categoryName);
+            ui.showRemovedCategoryMessage(categoryName);
+        } catch (IndexOutOfBoundsException e) {
+            throw new MooMooException("Please enter a valid category number.");
+        }
     }
 }

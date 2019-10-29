@@ -18,7 +18,7 @@ public class CategoryList {
         return categoryList.size();
     }
     
-    public Category get(int i) {
+    public Category get(int i) throws IndexOutOfBoundsException{
         return categoryList.get(i);
     }
 
@@ -30,10 +30,20 @@ public class CategoryList {
         categoryList.add(newCategory);
     }
 
-    public void delete(int categoryNumber) {
+    public void delete(String categoryName) throws MooMooException {
+        int categoryNumber = find(categoryName);
         categoryList.remove(categoryNumber);
     }
-    
+
+    public int find(String categoryName) throws MooMooException {
+        for (int i = 0; i < size(); i++) {
+            if (get(i).toString().contentEquals(categoryName)) {
+                return i;
+            }
+        }
+        throw new MooMooException("Sorry I could not find a category named " + categoryName);
+    }
+
     /**
      * Return the total sum of all expenditure across all categories for the current month.
      *
@@ -97,23 +107,6 @@ public class CategoryList {
     }
 
     /**
-     * Calculates the total of all expenditures from all categories for selected month and year.
-     * @param month month to check
-     * @return total expenditure for the month
-     */
-    public double getMonthlyGrandTotal(int month, int year) {
-        double total = 0;
-        for (Category category : categoryList) {
-            total += category.getCategoryTotalPerMonthYear(month, year);
-        }
-        return total;
-    }
-
-    public void deleteCategory(int categoryNumber) {
-        categoryList.remove(categoryNumber);
-    }
-
-    /**
      * Returns the category if it currently exists.
      * @param value Name of category to return.
      * @return
@@ -147,5 +140,14 @@ public class CategoryList {
         gameCategory.setCategoryMonthTotal();
         categoryList.add(gameCategory);
         
+    }
+
+    public boolean hasCategory(String categoryName) {
+        try {
+            find(categoryName);
+            return true;
+        } catch (MooMooException e) {
+            return false;
+        }
     }
 }

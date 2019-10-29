@@ -22,8 +22,12 @@ public class AddCategoryCommand extends Command {
                         Ui ui, Storage storage) throws MooMooException {
 
         Category newCategory = new Category(categoryName.toLowerCase());
-        categoryList.add(newCategory);
-        storage.saveCategoryToFile(categoryName);
-        ui.showNewCategoryMessage(categoryName);
+        if (categoryList.hasCategory(categoryName)) {
+            throw new MooMooException("You already have a category named " + categoryName + ".");
+        } else {
+            categoryList.add(newCategory);
+            storage.saveCategoryToFile(categoryName);
+            ui.showNewCategoryMessage(categoryName);
+        }
     }
 }
