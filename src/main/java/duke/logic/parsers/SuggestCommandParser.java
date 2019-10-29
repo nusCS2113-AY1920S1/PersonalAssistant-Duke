@@ -18,7 +18,7 @@ public class SuggestCommandParser implements ParserInterface<SuggestCommand> {
     // Default values for arguments
     private Calendar suggestionDate = Calendar.getInstance();
     private int maxMealsToSuggest = 5;
-    private String mealTypeStr = "l";
+    private String mealTypeStr = "L";
 
     /**
      * Parse user input and return SuggestCommand.
@@ -27,8 +27,7 @@ public class SuggestCommandParser implements ParserInterface<SuggestCommand> {
      * @throws DukeException If the userInput cannot be parsed
      */
     @Override
-    public SuggestCommand parse(String userInputStr) throws DukeException {
-        InputValidator.validate(userInputStr);
+    public SuggestCommand parse(String userInputStr) {
         HashMap<String, String> argumentsMap = ArgumentSplitter.splitForwardSlashArguments(userInputStr);
 
         for (String argNameStr : argumentsMap.keySet()) {
