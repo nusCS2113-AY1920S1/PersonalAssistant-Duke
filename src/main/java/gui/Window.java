@@ -141,12 +141,9 @@ public class Window {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO this is where we insert the new command
-//                Duke.processCommand(inputField.getText());
-//                im.addToHistory(inputField.getText());
-//                inputField.setText("");
-                try{
-                executeCommand(inputField.getText());
-                } catch (DukeException error){
+                try {
+                    executeCommand(inputField.getText());
+                } catch (DukeException error) {
                     //TODO Error handling not done
                     setOutputArea(error.getMessage());
                 }
@@ -191,15 +188,15 @@ public class Window {
 
     /**
      * Sets output area to desired text
-     * */
-    private void setOutputArea(String outputString){
+     */
+    private void setOutputArea(String outputString) {
         outputArea.setText(outputArea.getText() + "\n\n" + outputString);
     }
 
 
     /**
      * Updates the command text box to show results from commands
-     * */
+     */
     public void executeCommand(String fullCommandText) throws DukeException {
         CommandOutput commandOutput = logicController.execute(fullCommandText);
         setOutputArea(commandOutput.getOutputToUser());

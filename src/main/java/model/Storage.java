@@ -5,7 +5,14 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import utils.Parser;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +42,9 @@ public class Storage {
     private Gson gson;
 
     //@@author JustinChia1997
+    /**
+     * Creates storage object
+     * */
     public Storage() {
 
         GsonBuilder builder = new GsonBuilder();
@@ -58,6 +68,9 @@ public class Storage {
     }
 
     //@@author chenyuheng
+    /**
+     * saves the tasks into persistent storage
+     * */
     public boolean saveTasks(ArrayList<Task> taskList) {
         String toSave = convertTaskToJson(taskList);
         try {
@@ -72,6 +85,9 @@ public class Storage {
     }
 
     //@@author chenyuheng
+    /**
+     * loads task from persistent storage
+     * */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<Task>();
         try {
@@ -93,6 +109,9 @@ public class Storage {
     }
 
     //@@author JustinChia1997
+    /**
+     * saves members list into persistent storage
+     * */
     public boolean saveMembers(ArrayList<Member> memberList) {
         String toSave = convertMemberToJson(memberList);
         try {
@@ -107,6 +126,9 @@ public class Storage {
     }
 
     //@@author JustinChia1997
+    /**
+     * loads members list to persistent storage
+     * */
     public ArrayList<Member> loadMembers() {
         ArrayList<Member> members = new ArrayList<Member>();
         try {
@@ -129,12 +151,18 @@ public class Storage {
 
     //======================= Helper functions ======================
     //@@author JustinChia1997
+    /**
+     * converts the arraylist of tasks to json
+     * */
     private String convertTaskToJson(ArrayList<Task> taskList) {
         String json = gson.toJson(taskList);
         return json;
     }
 
     //@@author JustinChia1997
+    /**
+     * converts json object of task to java object
+     * */
     private ArrayList<Task> convertJsonToTask(String json) {
         ArrayList<Task> taskList = gson.fromJson(json, new TypeToken<List<Task>>() {
         }.getType());
@@ -142,12 +170,18 @@ public class Storage {
     }
 
     //@@author JustinChia1997
+    /**
+     * converts the arraylist of members to json
+     * */
     private String convertMemberToJson(ArrayList<Member> memberList) {
         String json = gson.toJson(memberList);
         return json;
     }
 
     //@@author JustinChia1997
+    /**
+     * converts json object of member to java object
+     * */
     private ArrayList<Member> convertJsonToMember(String json) {
         ArrayList<Member> memberList = gson.fromJson(json, new TypeToken<List<Member>>() {
         }.getType());

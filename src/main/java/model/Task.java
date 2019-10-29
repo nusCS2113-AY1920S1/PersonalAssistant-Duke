@@ -15,22 +15,25 @@ public class Task {
     private ArrayList<String> memberList;
     private Date time;
 
-    public Task(String name){
+    public Task(String name) {
         this.name = name.trim();
         this.memberList = new ArrayList<>();
     }
 
+    /**
+     * add javadoc please
+     * */
     public void addMember(String toAdd) {
         if (!memberList.contains(toAdd)) {
             memberList.add(toAdd);
-            System.out.println("ADDED member!! " + toAdd + " to " + name);
         }
     }
 
+    /**
+     * add javadoc please
+     * */
     public void deleteMember(String toDelete) {
-        if (memberList.contains(toDelete)) {
-            memberList.remove(toDelete);
-        }
+        memberList.remove(toDelete);
     }
 
     public ArrayList<String> getMemberList() {

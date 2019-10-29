@@ -34,15 +34,7 @@ public class AddTaskCommand extends Command {
             newTask.setTime(this.time);
         }
         if (members != null) {
-//            String[] membersArray = members.split(" ");
-//            MemberManager mm = model.getMemberManager();
-//            for (int i = 0; i < membersArray.length; i++) {
-//                if (model.hasMember(membersArray[i])) {
-//                    Member member = mm.getMemberByName(membersArray[i]);
-//                    member.addTask(newTask);
-//                    newTask.addMember(member);
-//                }
-//            }
+            //TODO add functionality to add members on the go
         }
         model.save();
         return new CommandOutput(FEEDBACK_MESSAGE + taskName);

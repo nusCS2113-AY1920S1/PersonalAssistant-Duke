@@ -5,6 +5,11 @@ import logic.command.DoneCommand;
 import utils.DukeException;
 
 public class DoneCommandParser {
+    //@@author chenyuheng
+
+    /**
+     * add javadoc please
+     */
     public static DoneCommand parseDoneCommand(String partialCommand) throws DukeException {
         String[] indexesString = partialCommand.split(" ");
         int[] indexes = new int[indexesString.length];

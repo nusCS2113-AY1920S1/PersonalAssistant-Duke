@@ -26,14 +26,14 @@ public class ListCommandParser {
         final String arguments = matcher.group("arguments");
 
         switch (listType) {
-            case ListTasksCommand.COMMAND_WORD:
-                return new ListTasksCommand(arguments);
+        case ListTasksCommand.COMMAND_WORD:
+            return new ListTasksCommand(arguments);
 
-            case ListMembersCommand.COMMAND_WORD:
-                return new ListMembersCommand(arguments);
+        case ListMembersCommand.COMMAND_WORD:
+            return new ListMembersCommand(arguments);
 
-            default:
-                throw new DukeException(LIST_USAGE);
+        default:
+            throw new DukeException(LIST_USAGE);
         }
 
     }

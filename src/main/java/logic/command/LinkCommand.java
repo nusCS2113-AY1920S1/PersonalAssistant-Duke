@@ -5,7 +5,7 @@ import model.Model;
 import model.Task;
 import utils.DukeException;
 
-public class LinkCommand extends Command{
+public class LinkCommand extends Command {
     int[] tasksIndexes;
     String[] membersNames;
 
@@ -32,6 +32,10 @@ public class LinkCommand extends Command{
         return new CommandOutput(output);
     }
 
+    //@@author chenyuheng
+    /**
+     * Checks if task is in task list, and is a valid index
+     * */
     public void checkAvailability(Model model) throws DukeException {
         int taskListLength = model.getTaskList().size();
         for (int i = 0; i < tasksIndexes.length; i++) {
@@ -41,7 +45,7 @@ public class LinkCommand extends Command{
         }
         for (int i = 0; i < membersNames.length; i++) {
             if (model.getMemberManager().getMemberByName(membersNames[i]) == null) {
-                throw new DukeException("Cannot find member " + membersNames[i] +", please check and try again");
+                throw new DukeException("Cannot find member " + membersNames[i] + ", please check and try again");
             }
         }
     }
