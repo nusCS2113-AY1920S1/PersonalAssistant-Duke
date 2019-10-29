@@ -8,13 +8,13 @@ DATE|dd/mm/yyyy
 /l|use this if entry indicates the amount you lend others
 /b|use this if entry indicates the amount you borrow from others
 desc|add new loan entry
-example|add loan lunch $5.00 01/01/2019 /b
+example|add loan lunch $100 21/09/2019 /b /c 2
 --Edit Loan--
 command	|edit loan <INDEX in loan list> </d new DETAILS> </a new AMOUNT> [/l OR /b] [/c INDEX of contact from contact list]
 /l|use this if entry indicates the amount you lend others
 /b|use this if entry indicates the amount you borrow from others
 desc|edit existing loan entry
-example|edit loan 0 /d dinner /a $50.00 /l /c 3
+example|edit loan 1 /d dinner /a 10.50 /t 10/10/2019 /c 1
 --Delete Loan --
 command	|delete loan <INDEX in loan list>
 desc|delete existing loan entry

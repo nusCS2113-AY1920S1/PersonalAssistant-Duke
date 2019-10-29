@@ -71,7 +71,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         ArrayList<Loan> data = new ArrayList<>();
         try {
             File current = new File(ImportCommand.class.getProtectionDomain().getCodeSource().getLocation()
-                    .toURI().getPath());
+                .toURI().getPath());
             File csv = new File(current.getParentFile().getPath(), fileName);
             FileReader filereader = new FileReader(csv);
             CSVReader csvReader = new CSVReader(filereader);
@@ -173,7 +173,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         ArrayList<Expense> data = new ArrayList<>();
         try {
             File current = new File(ImportCommand.class.getProtectionDomain().getCodeSource().getLocation()
-                    .toURI().getPath());
+                .toURI().getPath());
             File csv = new File(current.getParentFile().getPath(), fileName);
             FileReader filereader = new FileReader(csv);
             CSVReader csvReader = new CSVReader(filereader);

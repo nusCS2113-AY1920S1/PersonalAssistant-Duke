@@ -83,7 +83,7 @@ public class ImportCommand extends Command {
                             System.out.println(MESSAGE_REACH_BUDGET);
                         }
                         System.out.println("$" + b.getAmount() + MESSAGE_NEW_BUDGET
-                                + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
+                            + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
                     }
                 }
                 wallet.getRecordList().addRecord(expense);

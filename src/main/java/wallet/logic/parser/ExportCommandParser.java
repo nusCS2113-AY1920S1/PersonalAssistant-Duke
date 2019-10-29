@@ -10,6 +10,7 @@ import wallet.model.record.Budget;
 import wallet.model.record.Loan;
 import wallet.model.record.Category;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -77,16 +78,19 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                 data.add(new String[]{"Total Spent", "$" + totalSpent});
                 data.add(new String[]{"S/N", "Description", "Amount($)", "Date", "Category", "Recur", "Frequency"});
                 for (Expense e : expenseList.getExpenseList()) {
-                    String indexOutput = Integer.toString(index);
-                    String description = e.getDescription();
-                    String date = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(e.getDate());
-                    String amount = Double.toString(e.getAmount());
-                    Category category = e.getCategory();
-                    String isRecur = (e.isRecurring()) ? "yes" : "no";
-                    String frequency = (e.isRecurring()) ? e.getRecFrequency() : "";
-                    data.add(new String[]{indexOutput, description, amount, date, String.valueOf(category),
-                        isRecur, frequency});
-                    index++;
+                    LocalDate recordDate = e.getDate();
+                    if (month == recordDate.getMonthValue() && year == recordDate.getYear()) {
+                        String indexOutput = Integer.toString(index);
+                        String description = e.getDescription();
+                        String date = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(e.getDate());
+                        String amount = Double.toString(e.getAmount());
+                        Category category = e.getCategory();
+                        String isRecur = (e.isRecurring()) ? "yes" : "no";
+                        String frequency = (e.isRecurring()) ? e.getRecFrequency() : "";
+                        data.add(new String[]{indexOutput, description, amount, date, String.valueOf(category),
+                            isRecur, frequency});
+                        index++;
+                    }
                 }
 
             } else {
@@ -129,7 +133,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
     private List<String[]> parseLoan() {
 
         ArrayList<Loan> loanList = LogicManager.getWalletList().getWalletList()
-                .get(LogicManager.getWalletList().getState()).getLoanList().getLoanList();
+            .get(LogicManager.getWalletList().getState()).getLoanList().getLoanList();
         List<String[]> data = new ArrayList<>();
         data.add(new String[]{"S/N", "Description", "Amount($)", "Created Date", "Name", "Phone",
             "Other Details", "Lend/Borrow", "Settled"});

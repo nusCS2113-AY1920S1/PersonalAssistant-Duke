@@ -41,7 +41,7 @@ public class ExportCommand extends Command {
 
         try {
             File current = new File(ExportCommand.class.getProtectionDomain().getCodeSource().getLocation()
-                    .toURI().getPath());
+                .toURI().getPath());
             File csv = null;
             FileWriter output;
             if ("expenses".equals(type)) {
