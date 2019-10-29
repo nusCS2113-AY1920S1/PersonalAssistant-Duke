@@ -5,33 +5,33 @@ public enum RecurrencePeriod {
 
     public String recurrenceCode() {
         switch (this) {
-            case DAILY:
-                return "Daily";
-            case WEEKLY:
-                return "Weekly";
-            default:
-                return "NA";
+        case DAILY:
+            return "Daily";
+        case WEEKLY:
+            return "Weekly";
+        default:
+            return "NA";
         }
     }
 
     public String recurrenceDescription() {
         switch (this) {
-            case DAILY:
-                return " every dai";
-            case WEEKLY:
-                return " every week";
-            default:
-                return "N";
+        case DAILY:
+            return " every day";
+        case WEEKLY:
+            return " every week";
+        default:
+            return "N";
         }
     }
 
     public String recurrenceIcon() {
         switch (this) {
-            case DAILY:
-            case WEEKLY:
-                return "[R]";
-            default:
-                return "";
+        case DAILY:
+        case WEEKLY:
+            return "[R]";
+        default:
+            return "";
         }
     }
 }

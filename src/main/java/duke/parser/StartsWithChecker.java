@@ -7,8 +7,8 @@ import java.util.Scanner;
 public class StartsWithChecker {
     public static String checkStartsWithAnyCommand(String keyword) {
         ArrayList<String> commandList = new ArrayList<>(Arrays.asList("bye", "help", "list", "delete", "find",
-                                                                      "done", "edit", "task"));
-        Scanner scanner = new Scanner(System. in);
+                "done", "edit", "task"));
+        Scanner scanner = new Scanner(System.in);
         for (String command : commandList) {
             if (command.startsWith(keyword)) {
                 if (command.equals(keyword)) {
@@ -22,8 +22,7 @@ public class StartsWithChecker {
                 }
                 if (input.equals("Y")) {
                     return command;
-                }
-                else if (input.equals("N")){
+                } else if (input.equals("N")) {
                     return keyword;
                 }
             }

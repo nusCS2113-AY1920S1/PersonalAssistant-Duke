@@ -1,5 +1,8 @@
 package duke.command;
 
+import java.io.IOException;
+import java.util.Optional;
+
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.storage.UndoStack;
@@ -7,15 +10,13 @@ import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
-import java.io.IOException;
-import java.util.Optional;
-
 /**
- * duke.command.DeleteCommand which executes the procedure for deleting duke.task.Task objects from the duke.tasklist.TaskList
+ * duke.command.DeleteCommand which executes the procedure for
+ * deleting duke.task.Task objects from the duke.tasklist.TaskList
  */
 public class DeleteCommand extends Command {
+    private Optional<String> filter;
     private int index;
-    Optional<String> filter;
 
     public DeleteCommand(Optional<String> filter, String index) {
         this.filter = filter;

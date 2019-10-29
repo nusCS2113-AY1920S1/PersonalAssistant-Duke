@@ -1,19 +1,18 @@
 package duke.parser;
 
-import duke.command.AddCommand;
-import duke.exception.DukeException;
-import duke.extensions.Recurrence;
-
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-public class AddCommandParser implements Parser<AddCommand> {
-    String description;
-    String taskType;
+import duke.command.AddCommand;
+import duke.exception.DukeException;
 
-    int duration = 0;
-    Optional<LocalDateTime> dateTime = Optional.empty();
-    Optional<String> recurrence = Optional.empty();
+public class AddCommandParser implements Parser<AddCommand> {
+    private String description;
+    private String taskType;
+
+    private int duration = 0;
+    private Optional<LocalDateTime> dateTime = Optional.empty();
+    private Optional<String> recurrence = Optional.empty();
 
     private void getKeywordAndFields(String rawParameters) throws DukeException {
         String[] splitParameters = rawParameters.split(" -");
@@ -26,18 +25,22 @@ public class AddCommandParser implements Parser<AddCommand> {
             String keyword = s[0];
             String field = s[1];
             switch (keyword) {
-                case "r":
-                    recurrence = Optional.of(field);
-                    break;
-                case "d":
-                    try {
-                        duration = Integer.parseInt(field);
-                    } catch (NumberFormatException e) {
-                        throw new DukeException("Please enter a numerical field for the duration!");
-                    }
-                    break;
-                case "t":
-                    this.dateTime = Optional.of(DateTimeParser.parseDateTime(field));
+            case "r":
+                recurrence = Optional.of(field);
+                break;
+            case "d":
+                try {
+                    duration = Integer.parseInt(field);
+                } catch (NumberFormatException e) {
+                    throw new DukeException("Please enter a numerical field for the duration!");
+                }
+                break;
+            case "t":
+                this.dateTime = Optional.of(DateTimeParser.parseDateTime(field));
+                break;
+            default:
+                throw new DukeException("I don't know which field you are trying to edit!");
+
             }
         }
     }
