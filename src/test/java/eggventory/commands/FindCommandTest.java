@@ -1,8 +1,8 @@
 package eggventory.commands;
 
 import eggventory.ui.Cli;
-import eggventory.StockList;
-import eggventory.Storage;
+import eggventory.model.StockList;
+import eggventory.storage.Storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

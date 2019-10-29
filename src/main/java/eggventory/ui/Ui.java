@@ -1,7 +1,5 @@
 package eggventory.ui;
 
-import eggventory.StockList;
-
 //@@author Raghav-B
 public abstract class Ui {
 

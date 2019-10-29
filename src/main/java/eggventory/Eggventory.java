@@ -1,8 +1,11 @@
 package eggventory;
 
-import eggventory.commands.Command;
-import eggventory.enums.CommandType;
-import eggventory.parsers.Parser;
+import eggventory.logic.commands.Command;
+import eggventory.commons.enums.CommandType;
+import eggventory.logic.parsers.Parser;
+import eggventory.model.PersonList;
+import eggventory.model.StockList;
+import eggventory.storage.Storage;
 import eggventory.ui.Cli;
 import eggventory.ui.Gui;
 import eggventory.ui.Ui;

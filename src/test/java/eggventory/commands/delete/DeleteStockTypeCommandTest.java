@@ -1,9 +1,10 @@
 package eggventory.commands.delete;
 
-import eggventory.StockList;
-import eggventory.Storage;
+import eggventory.model.StockList;
+import eggventory.storage.Storage;
+import eggventory.logic.commands.delete.DeleteStockTypeCommand;
 import eggventory.ui.Cli;
-import eggventory.enums.CommandType;
+import eggventory.commons.enums.CommandType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,6 +34,7 @@ public class DeleteStockTypeCommandTest {
         assertEquals("Sorry, Uncategorised is the default category, and cannot be deleted.", output);
     }
 
+    //@@author patwaririshab
     @Test
     void testExecute_deleteStockType_success() {
 

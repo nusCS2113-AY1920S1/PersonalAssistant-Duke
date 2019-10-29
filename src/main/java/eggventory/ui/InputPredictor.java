@@ -1,6 +1,6 @@
 package eggventory.ui;
 
-import eggventory.commands.CommandDictionary;
+import eggventory.logic.commands.CommandDictionary;
 import java.util.ArrayList;
 
 //@@author Raghav-B

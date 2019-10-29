@@ -1,9 +1,7 @@
 package eggventory.ui;
 
-import eggventory.StockList;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
@@ -14,7 +12,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -76,13 +73,16 @@ public class Gui extends Ui  {
                         return;
                     }
                     inputField.appendText("", 1);
+                } else if (keyEvent.getCode() == KeyCode.BACK_SPACE) {
+                    inputField.removeFromWord();
+                    keyEvent.consume();
                 }
             });
 
             // Event handler for all other keys.
             stage.addEventFilter(KeyEvent.KEY_TYPED, keyEvent ->  {
-                switch (keyEvent.getCharacter()) {
-                case "\r": // ENTER
+                switch ((int) keyEvent.getCharacter().charAt(0)) {
+                case 13: // ENTER
                     if (inputField.getAllText().equals("")) {
                         // No input is parsed if there is no text input
                         // in inputField.
@@ -90,10 +90,7 @@ public class Gui extends Ui  {
                     }
                     runMethod.run();
                     break;
-                case "\b": // BACK_SPACE
-                    inputField.removeFromWord();
-                    break;
-                case "\t": // TAB
+                case 9: // TAB
                     if (inputField.getAllText().equals("")) {
                         // Prevents autocompletion when user has not even input anything.
                         return;

@@ -1,8 +1,9 @@
 package eggventory.commands;
 
-import eggventory.StockList;
-import eggventory.Storage;
-import eggventory.enums.CommandType;
+import eggventory.model.StockList;
+import eggventory.storage.Storage;
+import eggventory.commons.enums.CommandType;
+import eggventory.logic.commands.ByeCommand;
 import eggventory.ui.Cli;
 import org.junit.jupiter.api.Test;
 

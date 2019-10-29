@@ -1,8 +1,8 @@
 package eggventory;
 
-import eggventory.enums.StockProperty;
-import eggventory.items.Stock;
-import eggventory.items.StockType;
+import eggventory.commons.enums.StockProperty;
+import eggventory.model.items.Stock;
+import eggventory.model.items.StockType;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-
+//@@author patwaririshab
 class StockTypeTest {
 
     /*
