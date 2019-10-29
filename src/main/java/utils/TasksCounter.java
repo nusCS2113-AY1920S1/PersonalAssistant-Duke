@@ -23,6 +23,10 @@ public class TasksCounter {
      * @return float value of percentage marked done
      */
     public float getPercCompleted() {
+        if (tasks.size() == 0) {
+            return 0f;
+        }
+
         float totalCompleted = 0;
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).getIsDone()) {
