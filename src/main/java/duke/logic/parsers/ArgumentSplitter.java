@@ -76,8 +76,14 @@ public class ArgumentSplitter {
 
         for (int idx = 0; idx < argNameStrings.size();idx++) {
             String argNameStr = argNameStrings.get(idx);
-            String argValueStr = valueStrings.get(idx);
-            argumentsMap.put(argNameStr, argValueStr);
+            if (idx < valueStrings.size()) {
+                String argValueStr = valueStrings.get(idx);
+                argumentsMap.put(argNameStr, argValueStr);
+            } else {
+                // number of arguments and values do not match
+                // return the argument value pairs written so far
+                break;
+            }
         }
 
         return argumentsMap;
