@@ -312,20 +312,14 @@ The following section describes the implementation and design considerations inv
 ==== Current implementation
 The Suggest command assumes that there is a pre-existing list of food items from which it can suggest food from and that this list contains food parameters such as cost, calories, nutrients, etc. This is a sample of how this feature will work in principle:
 
-. When the application is being initialized, the `Storage#load()` function will be utilized to load all the meal parameters to memory in the `MealList` object.
+. The `Main` class calls the parse function of the `Parser` class to parse the user input.
 
-. The `MealSuggestion` class will be created and hold a reference of the `MealList` object to perform data analysis for meal suggestion when requested by user.
-
-. After the application initializes, every time the user keys in a meal entry, the `MealSuggestion` class will update its mealFrequency parameter of the meal for the respective week.
-
-. Once the user enters the suggest command
-    * Parser checks if date is provided, else defaults to current date (based on system clock)
-    * Parser checks if meal parameters are provided, else defaults to all parameters.
-    * Autocorrect will work on all the input provided by the user to prevent repeated entering of command due to typo from user.
-
-. `MealSuggestion#getMealPreferenceScore(...)` function computes the meal preference score of each meal based on the date provided and the meal parameters the user wants.
-
-. `MealSuggestion#getMealSuggestion(...)` function sorts the meals based on the preference score calculated and returns most suitable meal to the user.
+. After parsing, the data is then used to create an instance of the `SuggestMealCommand` object, which is then returned to the `Main` function.
+. The `Main` function would then invoke the `SuggestMealCommand#execute()` function.
+. The `SuggestMealCommand#execute()` function executes the first stage of user data processing and calls `SuggestMealCommand#execute_stage_0` function, which calls the `MealSuggestionAnalytics#getMealSuggestions(...)` function.
+. The `MealSuggestionAnalytics#getMealSuggestions(...)` function loads the default meal item list data in a `SuggestMeal` data model object, which inherits the `Meal` class, which has object comparison order implemented in `SuggestMeal#compareTo(...)`.
+. `SuggestMeal` objects that meet the calorie requirement are sorted and an arrayList of `Meal` objects is returned, which contains the possible meals that the user can choose from.
+. The `SuggestMealCommand#execute()` function then moves on to the next stage of data enquiry from user for meal selection and passes the input choice to `SuggestMealCommand#execute_stage_1` function, which then invokes the `AddCommand#execute` to add the selected meal to the application.
 
 
 ==== Design considerations
