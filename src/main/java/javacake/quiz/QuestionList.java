@@ -49,7 +49,8 @@ public class QuestionList {
         ArrayList<BasicQuestion> basicQuestionList = new ArrayList<>();
         for (int i = 1; i <= totalNumOfBasicQns; i++) {
             try {
-                String fileContentPath = "content/MainList/1. Java Basics/4. Test Yourself!/1. Easy Quiz/Qn" + i + ".txt";
+                String fileContentPath = "content/MainList/1. Java Basics/"
+                        + "4. Test Yourself!/1. Easy Quiz/Qn" + i + ".txt";
                 InputStream in = getClass().getResourceAsStream(fileContentPath);
                 //System.out.println(filePath);
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
