@@ -2,17 +2,23 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="indexLabel" alignment="CENTER" prefHeight="30.0" prefWidth="60.0" text="index" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Label fx:id="amountLabel" layoutX="60.0" layoutY="30.0" prefHeight="30.0" prefWidth="294.0" text="amount" />
-      <Label fx:id="receiverLabel" layoutX="60.0" layoutY="60.0" prefHeight="30.0" prefWidth="294.0" text="receiver" />
+      <Label fx:id="receiverLabel" layoutX="122.0" layoutY="60.0" prefHeight="30.0" prefWidth="232.0" text="receiver" />
       <Label alignment="CENTER" layoutX="572.0" layoutY="78.0" prefHeight="30.0" prefWidth="34.0" text="Due:" AnchorPane.bottomAnchor="0.0" />
-      <Label fx:id="dueLabel" layoutX="609.0" layoutY="70.0" prefHeight="30.0" prefWidth="100.0" text="dueDate" AnchorPane.bottomAnchor="0.0" />
+      <Label fx:id="dueLabel" layoutX="606.0" layoutY="70.0" prefHeight="30.0" prefWidth="75.0" text="dueDate" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="219.0" />
       <Label fx:id="descriptionLabel" layoutX="60.0" prefHeight="30.0" prefWidth="571.0" text="description" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="0.0" />
-      <Label fx:id="priorityLabel" layoutX="720.0" layoutY="14.0" prefHeight="30.0" prefWidth="150.0" text="Priority" textFill="#fffefe" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Label fx:id="remarkLabel" layoutX="361.0" layoutY="30.0" prefHeight="30.0" prefWidth="439.0" text="remark" />
+      <Label fx:id="priorityLabel" alignment="CENTER" layoutX="755.0" layoutY="15.0" prefHeight="30.0" prefWidth="118.0" text="Priority" textFill="#fffefe" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="15.0" />
+      <Label fx:id="tagLabel" layoutX="572.0" layoutY="30.0" prefHeight="30.0" prefWidth="100.0" text="tag" />
+      <Label fx:id="receiverLabel1" layoutX="60.0" layoutY="60.0" prefHeight="30.0" prefWidth="60.0" text="Receiver:" />
+      <Label fx:id="overdueLabel" alignment="CENTER" layoutX="690.0" layoutY="70.0" prefHeight="30.0" prefWidth="60.0" style="-fx-background-color: #000000;" text="Overdue" textAlignment="CENTER" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="160.0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

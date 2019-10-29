@@ -97,7 +97,9 @@ public class MainWindow extends UiPart<Stage> {
         logger.info("trendingPane is constructed.");
         planPane = new PlanPane(logic.getDialogObservableList());
         logger.info("planPane is constructed." + logic.getDialogObservableList().size());
-        paymentPane = new PaymentPane(logic.getFilteredPaymentList());
+        paymentPane = new PaymentPane(logic.getFilteredPaymentList(),
+                logic.getSortIndicator(),
+                logic.getPredicateIndicator());
         budgetPane = new BudgetPane(logic.getExternalIncomeList());
         logger.info("Budget plane is constructed.");
 
@@ -166,7 +168,6 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         inputHistory.add(inputString);
-        // logger.info("New Input has been stored.");
         userInput.clear();
     }
 

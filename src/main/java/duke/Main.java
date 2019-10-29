@@ -52,14 +52,23 @@ public class Main extends Application {
                                      budgetStorage,
                                      paymentListStorage);
 
+        logger.info("Initialized the storage");
+
+        if(!storage.loadPaymentList().isPresent()) logger.info("PaymentList is not loaded");
+        if(storage.loadExpenseList() == null) logger.info("expenseList is not loaded");
+        if(storage.loadIncomeList() == null) logger.info("incomeList is not loaded");
+        if(storage.loadBudget() == null) logger.info("budgetList is not loaded");
         model = new DukePP(storage.loadExpenseList(),
                 storage.loadPlanAttributes(),
                 storage.loadIncomeList(),
                 storage.loadBudget(),
                 storage.loadPaymentList());
 
+        logger.info("Initialized the model");
 
         logic = new LogicManager(model, storage);
+
+        logger.info("Initialized the logic");
 
         ui = new UiManager(logic);
         logger.info("Initialized the app");

@@ -6,33 +6,61 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox prefHeight="50.0" prefWidth="1000.0" AnchorPane.bottomAnchor="590.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox layoutY="63.0" prefHeight="30.0" prefWidth="500.0" AnchorPane.bottomAnchor="544.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="63.0">
          <children>
-            <Label fx:id="outdatedLabel" alignment="CENTER" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #000000;" text="OUTDATED" textFill="WHITE">
+            <Label fx:id="outdatedLabel" alignment="CENTER" opacity="0.2" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #000000;" text="OVERDUE" textFill="WHITE">
                <font>
                   <Font name="Helvetica Neue" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="weekLabel" alignment="CENTER" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: FF7F50;" text="WEEK" textFill="WHITE">
+            <Label fx:id="weekLabel" alignment="CENTER" opacity="0.2" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #000000;" text="WEEK" textFill="WHITE">
                <font>
                   <Font name="Helvetica Neue" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="monthLabel" alignment="CENTER" prefHeight="50.0" prefWidth="250.0" text="MONTH">
+            <Label fx:id="monthLabel" alignment="CENTER" opacity="0.2" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #000000;" text="MONTH" textFill="#f8f5f5">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="allLabel" alignment="CENTER" prefHeight="50.0" prefWidth="250.0" text="ALL">
+            <Label fx:id="allLabel" alignment="CENTER" opacity="0.2" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #000000;" text="ALL" textFill="WHITE">
+               <font>
+                  <Font name="Helvetica Neue" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="searchLabel" alignment="CENTER" opacity="0.2" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #000000;" text="SEARCH" textFill="WHITE">
                <font>
                   <Font name="Helvetica Neue" size="18.0" />
                </font>
             </Label>
          </children>
       </HBox>
-      <ListView fx:id="paymentListView" layoutX="143.0" layoutY="86.0" prefHeight="590.0" prefWidth="1000.0" style="-fx-background-color: FFF8DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+      <ListView fx:id="paymentListView" layoutX="143.0" layoutY="94.0" prefHeight="546.0" prefWidth="1000.0" style="-fx-background-color: FFF8DC;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="94.0" />
+      <Label alignment="CENTER" layoutX="500.0" prefHeight="50.0" prefWidth="1000.0" text="Pending Payments" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font name="Helvetica Neue" size="36.0" />
+         </font>
+      </Label>
+      <HBox prefHeight="30.0" prefWidth="300.0" AnchorPane.bottomAnchor="548.0" AnchorPane.leftAnchor="700.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="62.0">
+         <children>
+            <Label fx:id="timeLabel" alignment="CENTER" opacity="0.2" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #000000;" text="TIME" textFill="WHITE">
+               <font>
+                  <Font name="Helvetica Neue" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="amountLabel" alignment="CENTER" opacity="0.2" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #000000;" text="AMOUNT" textFill="WHITE">
+               <font>
+                  <Font name="Helvetica Neue" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="priorityLabel" alignment="CENTER" opacity="0.2" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #000000;" text="PRIORITY" textFill="WHITE">
+               <font>
+                  <Font name="Helvetica Neue" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

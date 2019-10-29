@@ -17,7 +17,7 @@ public class Payment {
     private String receiver;
     private LocalDate due;
     // private int daysToDue;
-    private String remark;
+    private String tag;
 
     private BigDecimal amount;
     private Priority priority;
@@ -48,7 +48,7 @@ public class Payment {
         private String description = NOT_ASSIGNED;
         private String receiver = NOT_ASSIGNED;
         private LocalDate due;
-        private String remark = NOT_ASSIGNED;
+        private String tag = NOT_ASSIGNED;
 
         private BigDecimal amount;
         private Priority priority = DEFAULT_PRIORITY;
@@ -61,7 +61,7 @@ public class Payment {
             description = payment.description;
             receiver = payment.receiver;
             due = payment.due;
-            remark = payment.remark;
+            tag = payment.tag;
             amount = payment.amount;
             priority = payment.priority;
         }
@@ -85,8 +85,8 @@ public class Payment {
             return this;
         }
 
-        public Builder setRemark(String note) {
-            this.remark = note;
+        public Builder setTag(String note) {
+            this.tag = note;
             return this;
         }
 
@@ -117,7 +117,7 @@ public class Payment {
         description = builder.description;
         receiver = builder.receiver;
         due = builder.due;
-        remark = builder.remark;
+        tag = builder.tag;
         amount = builder.amount;
         priority = builder.priority;
     }
@@ -134,8 +134,8 @@ public class Payment {
         return due;
     }
 
-    public String getRemark() {
-        return this.remark;
+    public String getTag() {
+        return this.tag;
     }
 
     public BigDecimal getAmount() {
@@ -151,9 +151,9 @@ public class Payment {
     }
 
     public boolean containsKeyword(String keyword) {
-        return description.contains(keyword)
-                || receiver.contains(keyword)
-                || remark.contains(keyword);
+        return description.toLowerCase().contains(keyword.toLowerCase())
+                || receiver.toLowerCase().contains(keyword.toLowerCase())
+                || tag.toLowerCase().contains(keyword.toLowerCase());
     }
 
 }
