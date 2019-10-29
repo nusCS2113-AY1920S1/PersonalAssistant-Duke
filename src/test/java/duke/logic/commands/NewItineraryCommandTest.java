@@ -35,7 +35,7 @@ class NewItineraryCommandTest {
         venueList.add(simei_green_condominium_);
         venueList.add(bedokville);
         List<Todo> todoList = new ArrayList<>(
-                ParserStorageUtil.getTodoListFromStorage("playball  | sing  | dance  "));
+                ParserStorageUtil.getTodoListFromStorage("playball|sing|dance"));
         AgendaList agendaList = new AgendaList();
         Agenda agenda = new Agenda(todoList, venueList, 1);
         agendaList.add(agenda);

@@ -370,8 +370,7 @@ public class StorageStub {
                         List<Todo> todoList;
                         final int number2 = Integer.parseInt(s2.split("\\|")[1]);
                         String newVenue = s1.nextLine();
-                        while(newVenue.split("\\| ")[1].substring(0,newVenue.split("\\| ")[1].length() - 1)
-                                .matches("^\\d*\\.?\\d*$")) {
+                        while(newVenue.contains(" |")) {
                             venueList.add(ParserStorageUtil.getVenueFromStorage(newVenue));
                             newVenue = s1.nextLine();
                         }

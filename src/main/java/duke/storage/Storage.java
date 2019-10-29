@@ -385,7 +385,7 @@ public class Storage {
                         List<Todo> todoList;
                         final int number2 = Integer.parseInt(s2.split("\\|")[1]);
                         String newVenue = s1.nextLine();
-                        while(newVenue.contains(" ")) {
+                        while(newVenue.contains(" |")) {
                             venueList.add(ParserStorageUtil.getVenueFromStorage(newVenue));
                             newVenue = s1.nextLine();
                         }

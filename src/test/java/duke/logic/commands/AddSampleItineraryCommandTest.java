@@ -32,7 +32,7 @@ class AddSampleItineraryCommandTest {
         Itinerary itinerary = new Itinerary(startDate,endDate,hotel, "Test");
         List<Agenda> list = model.getRecommendations(itinerary.getNumberOfDays(), itinerary);
         itinerary.setTasks(list);
-        AddSampleItineraryCommand addSampleItineraryCommand =new AddSampleItineraryCommand();
+        AddSampleItineraryCommand addSampleItineraryCommand = new AddSampleItineraryCommand();
         addSampleItineraryCommand.execute(model);
 
         assertEquals(model.getItinerary("Test").getName(), itinerary.getName());
