@@ -1,6 +1,6 @@
 package model;
 
-import utils.DukeException;
+import common.DukeException;
 
 import java.util.ArrayList;
 
@@ -64,16 +64,28 @@ public class MemberManager {
         return null;
     }
 
-    //@@author linyuyang28
+    //@@author yuyanglin28
     /**
      * Delete a member from the member list.
      *
-     * @param name the name of the member to be deleted
+     * @param toDelete the object of the member to be deleted
      */
-    public Member deleteMember(String name) {
-        Member toDelete = this.getMemberByName(name);
-        memberList.remove(toDelete);
-        return toDelete;
+    public boolean deleteMember(Member toDelete) {
+        return memberList.remove(toDelete);
+    }
+
+
+    //@@author yuyanglin28
+
+    /**
+     * delete task in member list
+     * @param taskName task name to be deleted
+     */
+    public void deleteTaskInMembers(String taskName) {
+        for (int i = 0; i < memberList.size(); i++) {
+            Member toCheck = memberList.get(i);
+            toCheck.deleteTask(taskName);
+        }
     }
 
     /**
@@ -108,13 +120,13 @@ public class MemberManager {
      * @param members  Array of Member objects to delete link.
      * @param toDelete Array of Task objects to delete link.
      */
-    public void deleteTask(Member[] members, Task[] toDelete) {
+    /*public void deleteTask(Member[] members, Task[] toDelete) {
         for (int i = 0; i < members.length; i++) {
             for (int j = 0; j < toDelete.length; j++) {
                 members[i].deleteTask(toDelete[j]);
             }
         }
-    }
+    }*/
 
     public ArrayList<Member> getMemberList() {
         return memberList;

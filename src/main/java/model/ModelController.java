@@ -1,12 +1,11 @@
 package model;
 
-import utils.DukeException;
+import storage.Storage;
+import common.DukeException;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 public class ModelController implements Model {
     private TasksManager tasksManager;
@@ -47,6 +46,10 @@ public class ModelController implements Model {
     @Override
     public ArrayList<Task> getTaskList() {
         return tasksManager.getTaskList();
+    }
+
+    public int getTaskListSize() {
+        return tasksManager.getTaskListSize();
     }
 
     @Override
@@ -109,18 +112,26 @@ public class ModelController implements Model {
 
     @Override
     //@@author yuyanglin28
-    public Member deleteMember(String name) throws DukeException {
+    public boolean deleteMember(String name) {
         tasksManager.deleteMemberInTasks(name);
-        return memberManager.deleteMember(name);
+        Member toDelete = memberManager.getMemberByName(name);
+        if (memberManager.deleteMember(toDelete)) {
+            storage.saveMembers(memberManager.getMemberList());
+            storage.saveTasks(tasksManager.getTaskList());
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public Task deleteTask(int taskIndex) throws DukeException {
-
-        Task toDelete = tasksManager.getTaskByName(name);
-        ArrayList<String> memberList = toDelete.getMemberList();
-        tasksManager.deleteTask(toDelete);
-        return tasksManager.deleteTask(taskIndex);;
+    public Task deleteTask(int taskIndexInList) throws DukeException {
+        Task toDelete = tasksManager.deleteTask(taskIndexInList);
+        String toDeleteName = tasksManager.getNameByTask(toDelete);
+        memberManager.deleteTaskInMembers(toDeleteName);
+        storage.saveMembers(memberManager.getMemberList());
+        storage.saveTasks(tasksManager.getTaskList());
+        return toDelete;
     }
 
 }

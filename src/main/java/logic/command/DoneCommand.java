@@ -1,10 +1,9 @@
 package logic.command;
 
-import core.Duke;
 import model.Model;
 import model.Task;
 import model.TasksManager;
-import utils.DukeException;
+import common.DukeException;
 
 public class DoneCommand extends Command {
     int[] indexes;

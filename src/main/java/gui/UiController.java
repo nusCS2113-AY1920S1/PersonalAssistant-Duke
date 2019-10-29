@@ -6,10 +6,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import logic.command.CommandOutput;
-import tasks.Task;
-import utils.DukeException;
-import utils.TasksCounter;
-import utils.Storage;
+import model.Task;
+import common.DukeException;
+import storage.Storage;
 
 public class UiController {
     private static final String horizontalLine = "\t____________________________________________________________";

@@ -1,8 +1,7 @@
 package logic.parser;
 
-import commands.DeleteCommand;
 import logic.command.Command;
-import utils.DukeException;
+import common.DukeException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,6 +27,7 @@ public class NewParser {
      * @throws DukeException if the format of command cannot be parsed
      */
     public static Command parseCommand(String fullCommand) throws DukeException {
+
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(fullCommand.trim());
         if (!matcher.matches()) {
             throw new DukeException("Message is invalid");
@@ -45,19 +45,18 @@ public class NewParser {
         commandWord = SpellingErrorCorrector.commandCorrector(dict, commandWord);
 
         switch (commandWord) {
-
-            case ADD_COMMAND_WORD:
-                return AddCommandParser.parseAddCommand(arguments);
-            case LIST_COMMAND_WORD:
-                return ListCommandParser.parseListCommand(arguments);
-            case DONE_COMMAND_WORD:
-                return DoneCommandParser.parseDoneCommand(arguments);
-            case LINK_COMMAND_WORD:
-                return LinkCommandParser.parseLinkCommand(arguments);
-            case DELETE_COMMAND_WORD:
-                return DeleteCommandParser.parseDeleteCommand(arguments);
-            default:
-                throw new DukeException("Command not found");
+        case ADD_COMMAND_WORD:
+            return AddCommandParser.parseAddCommand(arguments);
+        case LIST_COMMAND_WORD:
+            return ListCommandParser.parseListCommand(arguments);
+        case DONE_COMMAND_WORD:
+            return DoneCommandParser.parseDoneCommand(arguments);
+        case LINK_COMMAND_WORD:
+            return LinkCommandParser.parseLinkCommand(arguments);
+        case DELETE_COMMAND_WORD:
+            return DeleteCommandParser.parseDeleteCommand(arguments);
+        default:
+            throw new DukeException("Command not found");
         }
 
     }

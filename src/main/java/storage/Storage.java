@@ -1,9 +1,10 @@
-package model;
+package storage;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import utils.Parser;
+import model.Member;
+import model.Task;
 
 import java.io.BufferedWriter;
 import java.io.File;

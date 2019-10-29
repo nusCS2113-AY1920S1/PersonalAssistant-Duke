@@ -1,7 +1,7 @@
 package logic.parser;
 
 import logic.command.LinkCommand;
-import utils.DukeException;
+import common.DukeException;
 
 import java.util.HashMap;
 

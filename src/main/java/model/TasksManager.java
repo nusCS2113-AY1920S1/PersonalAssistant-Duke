@@ -1,6 +1,6 @@
 package model;
 
-import utils.DukeException;
+import common.DukeException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -56,11 +56,11 @@ public class TasksManager implements Serializable {
     /**
      * Delete a task from the task list.
      *
-     * @param toDelete The Task object to be deleted.
+     * @param taskIndexInList The task index in tasklist to be deleted.
      */
-    public Task deleteTask(int taskIndex) {
+    public Task deleteTask(int taskIndexInList) {
 
-        return taskList.remove(taskIndex);
+        return taskList.remove(taskIndexInList - 1);
     }
 
     /**
@@ -93,8 +93,13 @@ public class TasksManager implements Serializable {
     }
 
     //@@author yuyanglin28
+
+    /**
+     * delete member (person in charge) in task list
+     * @param memberName member name to be deleted
+     */
     public void deleteMemberInTasks(String memberName) {
-        for (int i=0; i<taskList.size(); i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             Task toCheck = taskList.get(i);
             toCheck.deleteMember(memberName);
         }
@@ -103,6 +108,10 @@ public class TasksManager implements Serializable {
     //@@author JustinChia1997
     public ArrayList<Task> getTaskList() {
         return taskList;
+    }
+
+    public int getTaskListSize() {
+        return taskList.size();
     }
 
 
@@ -134,6 +143,10 @@ public class TasksManager implements Serializable {
             }
         }
         return null;
+    }
+
+    public String getNameByTask(Task task) {
+        return task.getName();
     }
 
 }
