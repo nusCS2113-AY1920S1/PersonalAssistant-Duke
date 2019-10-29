@@ -142,16 +142,16 @@ public class Goals {
     /**
      * Gets the status of Goal if achieved.
      *
-     * @return tick / cross if goal is achieved.
+     * @return Y / N if goal is achieved.
      */
     String getStatus() {
-        return done ? "✓" : "✘";
+        return done ? "Y" : "N";
     }
 
     /**
      * Gets the status of Goal if achieved.
      *
-     * @return tick / cross if goal is achieved.
+     * @return status of goal in boolean
      */
     boolean getRawStatus() {
         return done;
