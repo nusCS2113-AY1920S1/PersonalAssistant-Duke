@@ -2,23 +2,26 @@ package seedu.duke;
 
 import org.junit.jupiter.api.Test;
 import seedu.duke.common.command.Command;
+import seedu.duke.common.command.ExitCommand;
+import seedu.duke.common.command.FlipCommand;
+import seedu.duke.common.command.HelpCommand;
 import seedu.duke.common.command.InvalidCommand;
 import seedu.duke.common.model.Model;
-import seedu.duke.email.EmailContentParseHelper;
-import seedu.duke.email.EmailFormatParseHelper;
-import seedu.duke.CommandParseHelper;
-
 import seedu.duke.email.EmailList;
+import seedu.duke.email.command.EmailFetchCommand;
+import seedu.duke.email.command.EmailListCommand;
+import seedu.duke.email.command.EmailListTagCommand;
 import seedu.duke.email.command.EmailShowCommand;
+import seedu.duke.email.command.EmailTagCommand;
 import seedu.duke.email.entity.Email;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.duke.email.EmailContentParseHelper.editDistance;
-import static seedu.duke.email.EmailContentParseHelper.keywordInString;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class CommandParserHelperTest {
     @Test
@@ -32,49 +35,46 @@ public class CommandParserHelperTest {
         emailList.add(emailTwo);
         emailList.add(emailThree);
 
-        Model model = new Model();
+        Model model = Model.getInstance();
+        model.setIsUpdateGui(false);
         model.setEmailList(emailList);
 
-        Command command = CommandParseHelper.parseEmailCommand("email show 2", null);
-        assertTrue(command instanceof InvalidCommand);
-    }
+        ArrayList<Command.Option> optionListEmpty = new ArrayList<>();
+        ArrayList<Command.Option> optionListCorrect = new ArrayList<>(Arrays.asList(new Command.Option(
+                "msg", "do after description")));
+        ArrayList<Command.Option> optionListExtra = new ArrayList<>(Arrays.asList(new Command.Option(
+                "msg", "do after description"), new Command.Option("tag", "123")));
 
-    @Test
-    public void editDistanceTest() {
-        assertEquals(1, editDistance("a", "b"));
-        assertEquals(1, editDistance("a", ""));
-        assertEquals(2, editDistance("a", "bc"));
-        assertEquals(1, editDistance("a", "ba"));
-        assertEquals(4, editDistance("food", "money"));
-        assertEquals(3, editDistance("kitten", "sitting"));
-    }
+        try {
+            Class<?> parser = Class.forName("seedu.duke.CommandParseHelper");
+            Method method = parser.getDeclaredMethod("parseEmailCommand", String.class, ArrayList.class);
+            method.setAccessible(true);
+            assertTrue(method.invoke(null, "email show 1", null) instanceof EmailShowCommand);
+            assertTrue(method.invoke(null, "email show 4", null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "email show -1", null) instanceof InvalidCommand);
 
-    @Test
-    public void keywordInStringTest() {
-        String input = "CS2113T Akshay Narayan CS2113 TAN KIAN WEI ";
-        EmailContentParseHelper.KeywordPair keywordPair = new EmailContentParseHelper.KeywordPair(
-                "CS2113T", new ArrayList<String>(List.of("CS2113T", "CS2113", "TAN KIAN WEI, JASON",
-                "Leow Wei Xiang", "Akshay Narayan", "Akshay")));
+            assertTrue(method.invoke(null, "email flip", null) instanceof FlipCommand);
+            assertTrue(method.invoke(null, "email bye", null) instanceof ExitCommand);
+            assertTrue(method.invoke(null, "email help", null) instanceof HelpCommand);
+            assertTrue(method.invoke(null, "email fetch", null) instanceof EmailFetchCommand);
 
-        assertEquals(4, keywordInString(input, keywordPair));
-    }
+            assertTrue(method.invoke(null, "email list", optionListExtra) instanceof EmailListTagCommand);
+            assertTrue(method.invoke(null, "email list", optionListEmpty) instanceof EmailListCommand);
 
-    @Test
-    public void allKeyWordInEmailTest() {
-        String body = "CS2113T Akshay Narayan CS2113 TAN KIAN WEI ";
-        EmailFormatParseHelper.Sender sender = new EmailFormatParseHelper.Sender("Akshay", null);
-        Email email = new Email("CS2113", sender, null, body, null);
+            assertTrue(method.invoke(null, "email update 1", optionListEmpty) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "email update", optionListExtra) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "email update 4", optionListExtra) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "email update 1", optionListExtra) instanceof EmailTagCommand);
 
-        EmailContentParseHelper emailContentParseHelper = new EmailContentParseHelper();
-        emailContentParseHelper.initKeywordList();
-        emailContentParseHelper.allKeywordInEmail(email);
-
-        ArrayList<Email.Tag> tags = email.getTags();
-
-        for (Email.Tag tag : tags) {
-            if (tag.getKeywordPair().getKeyword().equals("CS2113T")) {
-                assertEquals(12, tag.getRelevance());
-            }
+        } catch (ClassNotFoundException e) {
+            fail("No such class");
+        } catch (NoSuchMethodException e) {
+            fail("No such method");
+        } catch (InvocationTargetException e) {
+            fail(e.getMessage());
+        } catch (IllegalAccessException e) {
+            fail("No Access");
         }
     }
+
 }

@@ -9,6 +9,7 @@ public class Model {
     private TaskList taskList = new TaskList();
     private EmailList emailList = new EmailList();
     private static Model model;
+    private boolean isUpdateGui = true;
 
     /**
      * Gets new instance.
@@ -35,6 +36,11 @@ public class Model {
         return emailList;
     }
 
+    /**
+     * Set emailList of Model.
+     *
+     * @param emailList emailList
+     */
     public void setEmailList(EmailList emailList) {
         this.emailList = emailList;
         updateGuiEmailList();
@@ -44,16 +50,27 @@ public class Model {
      * Update any changes in the task list to the display in ui.
      */
     public void updateGuiTaskList() {
-        Duke.getUI().updateTaskList(taskList.getTaskGuiStringList());
+        if (isUpdateGui == true) {
+            Duke.getUI().updateTaskList(taskList.getTaskGuiStringList());
+        }
     }
 
+    /**
+     * Updates the emailList in GUI with the latest emailList in sorted order.
+     */
     public void updateGuiEmailList() {
-        emailList.sortByGivenOrder();
-        Duke.getUI().updateEmailList(emailList.getEmailGuiStringList());
+        if (isUpdateGui == true) {
+            emailList.sortByGivenOrder();
+            Duke.getUI().updateEmailList(emailList.getEmailGuiStringList());
+        }
     }
 
     public void updateEmailTagList() {
         EmailTags.updateEmailTagList(emailList);
         //Duke.getUI().updateEmailList(emailList.getEmailTagList());
+    }
+
+    public void setIsUpdateGui(boolean isUpdateGui) {
+        this.isUpdateGui = isUpdateGui;
     }
 }
