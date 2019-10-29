@@ -26,7 +26,7 @@ public class ShopListCommand extends Command {
         Ui ui = new Ui();
         try {
             anomaly.detect(userInput);
-            Hustler.shopList.list();
+            ui.showShopList(Hustler.shopList.getShopList());
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
         }

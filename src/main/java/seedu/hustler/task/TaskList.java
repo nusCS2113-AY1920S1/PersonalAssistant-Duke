@@ -8,7 +8,6 @@ import seedu.hustler.logic.parser.DateTimeParser;
 import seedu.hustler.schedule.Scheduler;
 import seedu.hustler.ui.Ui;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -119,11 +118,11 @@ public class TaskList {
             AddTask.updatePoints();
             Hustler.achievementList.updateBusyBee();
             if (!CommandLog.isRestoring()) {
-                ui.show_task_added(list);
+                ui.showTaskAdded(list);
             }
         } else {
             if (!CommandLog.isRestoring()) {
-                ui.show_task_clash();
+                ui.showTaskClash();
             }
         }
     }
@@ -137,9 +136,6 @@ public class TaskList {
             DoneTask.updateAchievementLevel();
             DoneTask.updatePoints();
             Hustler.achievementList.updateCompletionist();
-            if (!CommandLog.isRestoring()) {
-                ui.show_task_done(list.toString());
-            }
     }
 
     /**
@@ -215,17 +211,12 @@ public class TaskList {
      * @param i index of the task to mark as done.
      */
     public void doTask(int i) {
-        try {
-            list.get(i).markAsDone();
-            if (list.get(i).isDone) {
-                updateCompletionistAchievement();
-                if (!CommandLog.isRestoring()) {
-                    ui.show_task_done(list.get(i).toString());
-                }
-                Hustler.avatar.gainXp();
+        list.get(i).markAsDone();
+        if (list.get(i).isDone) {
+            updateCompletionistAchievement();
+            if (!CommandLog.isRestoring()) {
+                ui.showTaskDone(list.get(i).toString());
             }
-        } catch (IOException ignore) {
-            return;
         }
     }
 
@@ -239,7 +230,7 @@ public class TaskList {
         String taskDescription = list.get(i).toString();
         list.remove(i);
         if (!CommandLog.isRestoring()) {
-            ui.show_task_removed(list, taskDescription);
+            ui.showTaskRemoved(list, taskDescription);
         }
     }
 
@@ -249,12 +240,12 @@ public class TaskList {
     public void clearList() {
         if (list.isEmpty()) {
             if (!CommandLog.isRestoring()) {
-                ui.show_list_empty();
+                ui.showListEmpty();
             }
         } else {
             list.clear();
             if (!CommandLog.isRestoring()) {
-                ui.show_list_cleared();
+                ui.showListCleared();
             }
         }
     }
@@ -265,11 +256,11 @@ public class TaskList {
     public void clearDone() {
         if (list.isEmpty()) {
             if (!CommandLog.isRestoring()) {
-                ui.show_list_empty();
+                ui.showListEmpty();
             }
         } else {
             list.removeIf(Task::isCompleted);
-            ui.show_list_cleared();
+            ui.showListCleared();
         }
     }
 
@@ -309,7 +300,7 @@ public class TaskList {
             }
         }
         if (!CommandLog.isRestoring()) {
-            ui.show_task_snoozed(list.get(i).toString());
+            ui.showTaskSnoozed(list.get(i).toString());
         }
     }
 
@@ -371,7 +362,7 @@ public class TaskList {
             break;
         }
         if (!CommandLog.isRestoring()) {
-            ui.show_list_sorted(list);
+            ui.showListSorted(list);
         }
     }
 
@@ -385,7 +376,7 @@ public class TaskList {
             }
         } else {
             if (!CommandLog.isRestoring()) {
-                ui.show_list(list);
+                ui.showTaskList(list);
             }
         }
     }

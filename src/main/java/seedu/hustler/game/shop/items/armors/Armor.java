@@ -47,7 +47,7 @@ public abstract class Armor extends ShopItem {
      * Gets the defence increment of the armor.
      * @return the defence increment of the armor.
      */
-    public int getDEF_INCR() {
+    public int getDefenceIncr() {
         return DEF_INCR;
     }
 
@@ -55,7 +55,7 @@ public abstract class Armor extends ShopItem {
      * Gets the stamina increment of the armor.
      * @return the stamina increment of the armor.
      */
-    public int getSTA_INCR() {
+    public int getStaminaIncr() {
         return STA_INCR;
     }
 

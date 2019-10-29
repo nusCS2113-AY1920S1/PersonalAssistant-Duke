@@ -10,6 +10,9 @@ import seedu.hustler.ui.Ui;
  */
 public class CheckAvatarCommand extends Command {
 
+    /**
+     * The user input
+     */
     private String[] userInput;
 
     private OneWordAnomaly anomaly = new OneWordAnomaly();

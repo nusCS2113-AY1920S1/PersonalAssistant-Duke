@@ -26,14 +26,6 @@ public class Chainmail extends Armor {
         super(COST, false, DEF_INCR, STA_INCR);
     }
 
-    /**
-     * Constructs a new Chainmail with the given hasPurchased.
-     * @param hasPurchased the boolean value if the chainmail has been purchased.
-     */
-    public Chainmail(boolean hasPurchased) {
-        super(COST, hasPurchased, DEF_INCR, STA_INCR);
-    }
-
     @Override
     public String toString() {
         return "Chainmail, " + super.toString();

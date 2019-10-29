@@ -26,14 +26,6 @@ public class LeatherArmor extends Armor {
         super(COST, false, DEF_INCR, STA_INCR);
     }
 
-    /**
-     * Constructs a new leather armor with a boolean hasPurchased.
-     * @param hasPurchased the boolean value if leather armor has been purchased.
-     */
-    public LeatherArmor(boolean hasPurchased) {
-        super(COST, hasPurchased, DEF_INCR, STA_INCR);
-    }
-
     @Override
     public String toString() {
         return "Leather Armor, " + super.toString();

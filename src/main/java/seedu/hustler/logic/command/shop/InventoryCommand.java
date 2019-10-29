@@ -19,7 +19,7 @@ public class InventoryCommand extends Command {
         Ui ui = new Ui();
         try {
             inventoryAnomaly.detect(this.userInput);
-            Hustler.inventory.list();
+            ui.listInventory(Hustler.inventory.getItems());
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
         }

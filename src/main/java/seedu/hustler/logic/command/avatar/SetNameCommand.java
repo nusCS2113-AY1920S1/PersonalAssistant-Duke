@@ -1,6 +1,7 @@
 package seedu.hustler.logic.command.avatar;
 
 import seedu.hustler.Hustler;
+import seedu.hustler.data.AvatarStorage;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.parser.anomaly.SetNameAnomaly;
@@ -37,7 +38,7 @@ public class SetNameCommand extends Command {
         Ui ui = new Ui();
         try {
             anomaly.detect(userInput);
-            Hustler.avatar.setName(userInput[1]);
+            AvatarStorage.save(Hustler.avatar.setName(userInput[1]));
             ui.showNameChangeSuccess();
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
