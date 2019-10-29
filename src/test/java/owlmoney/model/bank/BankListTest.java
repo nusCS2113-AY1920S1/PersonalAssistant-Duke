@@ -576,6 +576,9 @@ class BankListTest {
         String output = outContent.toString();
         System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out)));
         System.out.println(output);
+        System.out.println();
+        System.out.println();
+        System.out.println();
         String outputMessage = "New details of the account:" + NEWLINE + "Item No.             Account Name  "
                 + "                      Account Type    Current Amount  Income          " + NEWLINE + "-----"
                 + "------------------------------------------------------------------------------------------"
