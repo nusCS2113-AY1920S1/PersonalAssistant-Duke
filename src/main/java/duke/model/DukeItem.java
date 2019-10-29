@@ -33,7 +33,7 @@ abstract class DukeItem implements Serializable {
     /**
      * The item's tags.
      */
-    protected final Set<String> tags;
+    protected final String tag;
 
     /**
      * A utility method used to extract fields from a storage string into a map, so that they can be
@@ -56,7 +56,7 @@ abstract class DukeItem implements Serializable {
      * @param <T> the subclassed builder; see the sof link above.
      */
     abstract static class Builder<T extends Builder<T>> {
-        private Set<String> tags = new HashSet<String>();
+        private String tag = "";
 
         /**
          * Constructs an empty item with default values for all fields.
@@ -71,7 +71,7 @@ abstract class DukeItem implements Serializable {
          * @param i the existing item.
          */
         protected Builder(DukeItem i) {
-            tags = i.tags;
+            tag = i.tag;
         }
 
         /**
@@ -89,40 +89,17 @@ abstract class DukeItem implements Serializable {
          * @param mappedStorageString a map of the item's storage string.
          */
         protected Builder(Map<String, String> mappedStorageString) {
-            if (mappedStorageString.containsKey("tags")) {
-                invertTags(mappedStorageString.get("tags")
-                    .split(STORAGE_TAG_SEPARATOR));
+            if (mappedStorageString.containsKey("tag")) {
+                this.tag =  mappedStorageString.get("tag");
             }
         }
 
-        /**
-         * Inverts the presence of certain tags inside {@code tags}, specified by the parameter {@code tagsToInvert}.
-         * This effectively adds tags not present, and removes tags that were present.
-         *
-         * @param tagsToInvert the tags to invert.
-         * @return this builder.
-         */
-        public T invertTags(String[] tagsToInvert) {
-            for (String tagToInvert : tagsToInvert) {
-                if (this.tags.contains(tagToInvert)) {
-                    this.tags.remove(tagToInvert);
-                } else {
-                    this.tags.add(tagToInvert);
-                }
-            }
+        public T setTag(String tag) {
+            this.tag = tag;
             return getThis();
         }
 
-        /**
-         * Inverts the presence of certain tags inside {@code tags}, specified by the parameter {@code tagsToInvert}.
-         * This effectively adds tags not present, and removes tags that were present.
-         *
-         * @param tagsToInvert the tags to invert as a string.
-         * @return this builder.
-         */
-        public T invertTags(String tagsToInvert) {
-            return invertTags(tagsToInvert.split(TAG_SEPARATOR));
-        }
+
 
         /**
          * Method used to limit the scope of suppression; returns {@code this}, type-cast to {@code T},
@@ -142,7 +119,7 @@ abstract class DukeItem implements Serializable {
      * @param builder the builder containing information for this object.
      */
     protected DukeItem(Builder<?> builder) {
-        tags = builder.tags;
+        tag = builder.tag;
     }
 
     /**
@@ -152,7 +129,7 @@ abstract class DukeItem implements Serializable {
      */
     protected String toStorageString() {
         StringJoiner stringJoiner = new StringJoiner(STORAGE_FIELD_DELIMITER);
-        stringJoiner.add("tags" + STORAGE_NAME_SEPARATOR + String.join(" ", tags));
+        stringJoiner.add("tag" + STORAGE_NAME_SEPARATOR + String.join(" ", tag));
         return stringJoiner.toString();
     }
 
@@ -161,8 +138,8 @@ abstract class DukeItem implements Serializable {
      *
      * @return the set of tags of this item.
      */
-    public Set<String> getTags() {
-        return tags;
+    public String getTag() {
+        return tag;
     }
 
     /**
@@ -170,14 +147,13 @@ abstract class DukeItem implements Serializable {
      *
      * @return single String of all the tags
      */
-    public String getTagsString() {
+    public String getTagString() {
         StringJoiner stringJoiner = new StringJoiner(" ");
-        if (tags.isEmpty()) {
+        if (tag.isEmpty()) {
             return "";
         } else {
-            stringJoiner.add(String.join(" ", tags));
+            return tag;
         }
-        return stringJoiner.toString();
     }
 
 }

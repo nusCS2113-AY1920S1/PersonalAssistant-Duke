@@ -3,7 +3,6 @@ package duke.model;
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
 import duke.logic.Parser.Parser;
-import javafx.fxml.FXML;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -65,10 +64,13 @@ public class PlanQuestionBank {
         question4.addNeighbouring(5);
         questionList.put(4, question4);
 
-        questionList.put(5, new PlanQuestion("How much does your trip cost each way?",
+        PlanQuestion question5 = new PlanQuestion("How much does your trip cost each way?",
                 DOUBLE,
                 DOUBLE,
-                "TRIP_COST"));
+                "TRIP_COST");
+        question5.addNeighbouring(7);
+        questionList.put(5, question5);
+
 
         PlanQuestion question6 = new PlanQuestion("Do you eat at your Hall/RC often?",
                 BOOL_ANSWERS,
@@ -79,14 +81,16 @@ public class PlanQuestionBank {
         questionList.put(6, question6);
 
         PlanQuestion question7 = new PlanQuestion("How many meals per day do pay for daily? <0 - 3>",
-                new String[]{"0", "1", "2", "3"},
-                new String[]{"0", "1", "2", "3"},
+                generateIntRange(0, 3),
+                generateIntRange(0, 3),
                 "MEALS_PER_DAY");
         question7.addNeighbouring("1", 8);
         question7.addNeighbouring("2", 8);
+        question7.addNeighbouring("3", 8);
         questionList.put(7, question7);
 
-        PlanQuestion question8 = new PlanQuestion("How much does is each meal that you pay for cost? <money amount>",
+        PlanQuestion question8 = new PlanQuestion("How much does each meal that you pay for "
+                + "cost on average? <money amount>",
                 DOUBLE,
                 DOUBLE,
                 "AVERAGE_MEAL_COST");
@@ -115,7 +119,7 @@ public class PlanQuestionBank {
         questionList.put(11, question11);
 
         questionList.put(12, new PlanQuestion("How much do you want to "
-                + " on online shopping monthly? <money amount>",
+                + "spend on online shopping monthly? <money amount>",
                 DOUBLE,
                 DOUBLE,
                 "ONLINE_SHOPPING"));
@@ -141,9 +145,7 @@ public class PlanQuestionBank {
                 if (knownAttributes.containsKey(questionAttribute)) {
                     String attributeValue = knownAttributes.get(questionAttribute);
                     Set<Integer> children = questionList.get(index).getNeighbouringQuestions(attributeValue);
-                    if (!children.isEmpty()) {
-                        questionsToAdd.addAll(children);
-                    }
+                    questionsToAdd.addAll(children);
                 }
             } catch (NullPointerException e) {
                 throw new DukeException("Error getting neighbouring questions!");
@@ -174,7 +176,8 @@ public class PlanQuestionBank {
                         + "However, you can still use the program! Type \"goto expense\" to start using.",
                         budgetRecommendation,
                         recommendationExpenseList);
-            } else { //NUS STUDENT
+            } else {
+                //NUS STUDENT
                 if (planAttributes.get("CAMPUS_LIFE").equals("FALSE")) {
                     String tripCostString = planAttributes.get("TRIP_COST");
                     String tripsPerWeekString = planAttributes.get("TRAVEL_DAYS");
@@ -192,7 +195,7 @@ public class PlanQuestionBank {
                                     .append("MRT concession costs: $48.00 monthly.\n")
                                     .append("You should set your transport budget at $48.00 monthly\n\n");
                             budgetRecommendation.put("transport", Parser.parseMoney("48.00"));
-                        } else {
+                        } else if (monthlyCost.compareTo(BigDecimal.ZERO) == 1) {
                             recommendation.append("You should set transport budget at $")
                                     .append(monthlyCost)
                                     .append(" monthly. \n\n");
@@ -228,15 +231,20 @@ public class PlanQuestionBank {
                         break;
                     }
                     int mealsPerDay = Integer.parseInt(planAttributes.get("MEALS_PER_DAY"));
-                    BigDecimal costPerMeal = Parser.parseMoney(planAttributes.get("AVERAGE_MEAL_COST"));
-                    BigDecimal monthlyFoodBudget = costPerMeal
-                            .multiply(BigDecimal.valueOf(mealsPerDay))
-                            .multiply(BigDecimal.valueOf(30));
-                    recommendation.append("I'd suggest you set your food budget at $")
-                            .append(monthlyFoodBudget)
-                            .append(" monthly. \n\n");
-                    budgetRecommendation.put("food ", monthlyFoodBudget);
-                } else { //Stays in campus
+                    if (mealsPerDay > 0) {
+                        BigDecimal costPerMeal = Parser.parseMoney(planAttributes.get("AVERAGE_MEAL_COST"));
+                        BigDecimal monthlyFoodBudget = costPerMeal
+                                .multiply(BigDecimal.valueOf(mealsPerDay))
+                                .multiply(BigDecimal.valueOf(30));
+                        if (monthlyFoodBudget.compareTo(BigDecimal.ZERO) == 1) {
+                            recommendation.append("I'd suggest you set your food budget at $")
+                                    .append(monthlyFoodBudget)
+                                    .append(" monthly. \n\n");
+                            budgetRecommendation.put("food ", monthlyFoodBudget);
+                        }
+                    }
+                } else {
+                    //Stays on campus
                     recommendation.append("Since you live in campus, "
                             + "you can just allocate a small budget of $10 to transport! \n\n");
                     budgetRecommendation.put("transport", Parser.parseMoney("10"));
@@ -246,24 +254,28 @@ public class PlanQuestionBank {
                                 .multiply(BigDecimal.valueOf(4))
                                 .multiply(BigDecimal.valueOf(11));
                         //11 since 3 meals during each weekend * 1 meal per day
-                        recommendation.append("I'd suggest you set your food budget at $")
-                                .append(monthlyFoodBudget).append(" monthly. \n\n");
-                        budgetRecommendation.put("food", monthlyFoodBudget);
+                        if (monthlyFoodBudget.compareTo(BigDecimal.ZERO) == 1) {
+                            recommendation.append("I'd suggest you set your food budget at $")
+                                    .append(monthlyFoodBudget).append(" monthly. \n\n");
+                            budgetRecommendation.put("food", monthlyFoodBudget);
+                        }
 
-                    } else { //Eats all meals outside of hall
+                    } else {
+                        //Eats all meals outside of hall
                         int mealsPerDay = Integer.parseInt(planAttributes.get("MEALS_PER_DAY"));
                         BigDecimal costPerMeal = Parser.parseMoney(planAttributes.get("AVERAGE_MEAL_COST"));
                         BigDecimal monthlyFoodBudget = costPerMeal.multiply(BigDecimal
                                 .valueOf(mealsPerDay))
                                 .multiply(BigDecimal.valueOf(30));
-                        recommendation.append("I'd suggest you set your food budget at $")
-                                .append(monthlyFoodBudget)
-                                .append(" monthly. \n\n");
-                        budgetRecommendation.put("food", monthlyFoodBudget);
+                        if (monthlyFoodBudget.compareTo(BigDecimal.ZERO) == 1) {
+                            recommendation.append("I'd suggest you set your food budget at $")
+                                    .append(monthlyFoodBudget).append(" monthly. \n\n");
+                            budgetRecommendation.put("food", monthlyFoodBudget);
+                        }
                     }
                 }
                 BigDecimal phoneBill = Parser.parseMoney(planAttributes.get("PHONE_BILL"));
-                if (!phoneBill.equals(BigDecimal.ZERO)) {
+                if (!phoneBill.equals(Parser.parseMoney("0"))) {
                     recommendation.append("You set set a budget of $")
                             .append(phoneBill)
                             .append(" for your phone bill.\n\n");
@@ -272,9 +284,8 @@ public class PlanQuestionBank {
                     phoneBillExpenseBuilder.setAmount(phoneBill);
                     phoneBillExpenseBuilder.setDescription("Phone bill");
                     phoneBillExpenseBuilder.setRecurring(true);
-                    Expense phoneBillExpense = phoneBillExpenseBuilder.build();
-                    phoneBillExpense.tags.add("phone bill");
-                    recommendationExpenseList.add(phoneBillExpense);
+                    phoneBillExpenseBuilder.setTag("phone bill");
+                    recommendationExpenseList.add(phoneBillExpenseBuilder.build());
                 }
 
                 if (planAttributes.get("NETFLIX").equals("TRUE")) {
@@ -287,26 +298,30 @@ public class PlanQuestionBank {
                     netflixExpenseBuilder.setAmount("4.25");
                     netflixExpenseBuilder.setDescription("Netflix");
                     netflixExpenseBuilder.setRecurring(true);
-                    Expense netflixExpense = netflixExpenseBuilder.build();
-                    netflixExpense.tags.add("phone bill");
-                    recommendationExpenseList.add(netflixExpense);
+                    netflixExpenseBuilder.setTag("netflix");
+                    recommendationExpenseList.add(netflixExpenseBuilder.build());
                 }
                 if (planAttributes.get("MUSIC_SUBSCRIPTION").equals("TRUE")) {
                     recommendation.append("Spotify has a student plan that is only $5 a month! \n"
-                            + "You should allocate $5 to Spotify");
+                            + "You should allocate $5 to Spotify\n\n");
                     budgetRecommendation.put("spotify", Parser.parseMoney("5"));
                     Expense.Builder spotifyExpenseBuilder = new Expense.Builder();
                     spotifyExpenseBuilder.setAmount("5.00");
                     spotifyExpenseBuilder.setDescription("Spotify");
                     spotifyExpenseBuilder.setRecurring(true);
-                    Expense spotifyExpense = spotifyExpenseBuilder.build();
-                    spotifyExpense.tags.add("phone bill");
-                    recommendationExpenseList.add(spotifyExpense);
+                    spotifyExpenseBuilder.setTag("spotify");
+                    recommendationExpenseList.add(spotifyExpenseBuilder.build());
+                }
+                if (Parser.parseMoney(planAttributes.get("ONLINE_SHOPPING")).compareTo(BigDecimal.ZERO) == 1) {
+                    budgetRecommendation.put("online shopping", Parser.parseMoney(planAttributes.get("ONLINE_SHOPPING")));
+                    recommendation.append("You should allocate $"
+                            + planAttributes.get("ONLINE_SHOPPING")
+                            + " to online shopping.");
                 }
             }
 
-        } catch (NullPointerException e) {
-            throw new DukeException("Missing attributes to make recommendation!");
+        } catch (NullPointerException | NumberFormatException e) {
+            throw new DukeException("Missing attributes to make recommendation!" + e.getMessage());
         }
 
         if (recommendation.toString().isEmpty()) {
@@ -328,6 +343,9 @@ public class PlanQuestionBank {
         return strings.toArray(new String[0]);
     }
 
+    /**
+     * Simple container for recommendation.
+     */
     public class PlanRecommendation {
         String recommendation;
         Map<String, BigDecimal> budget;
@@ -335,8 +353,9 @@ public class PlanQuestionBank {
 
         /**
          * Constructor for PlanRecommendation.
-         * @param recommendation String of the recommendation, text that will appear in the dialog
-         * @param budget Map&lt;String, BigDecimal> map of category as key and amount as the value
+         *
+         * @param recommendation            String of the recommendation, text that will appear in the dialog
+         * @param budget                    Map&lt;String, BigDecimal> map of category as key and amount as the value
          * @param recommendationExpenseList List of expenses to add into expense list.
          */
         public PlanRecommendation(String recommendation,

@@ -4,6 +4,8 @@ import duke.exception.DukeException;
 import duke.model.Expense;
 import duke.model.Income;
 import duke.model.PlanBot;
+import duke.model.payment.Payment;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
 import java.math.BigDecimal;
@@ -36,4 +38,16 @@ public interface Logic {
     Map<Integer, String> getBudgetViewCategory();
 
     BigDecimal getBudgetTag(String category);
+    ObservableList<Payment> getFilteredPaymentList();
+
+    ObservableList<Payment> getPaymentSearchResult();
+
+    StringProperty getExpenseListTotalString();
+
+    StringProperty getSortCriteriaString();
+
+    StringProperty getViewCriteriaString();
+
+    StringProperty getFilterCriteriaString();
+
 }

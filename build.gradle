@@ -13,15 +13,15 @@ tasks.withType(JavaCompile) {
 }
 checkstyle {
     toolVersion = '8.23'
-    //ignoreFailures = true
+    ignoreFailures = true
 }
 
 shadowJar {
     archiveBaseName = "duke"
-    archiveVersion = "V1.1"
+    archiveVersion = "V1.3"
     archiveClassifier = null
     archiveAppendix = null
-    mainClassName = 'duke.Main'
+    mainClassName = 'duke.Launcher'
 }
 
 javafx {
@@ -30,6 +30,10 @@ javafx {
 }
 
 dependencies {
+
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
+
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
     compile 'com.jfoenix:jfoenix:9.0.8'
 }

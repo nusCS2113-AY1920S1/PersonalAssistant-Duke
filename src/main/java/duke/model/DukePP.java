@@ -2,12 +2,17 @@ package duke.model;
 
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
+import duke.model.payment.*;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 import java.math.BigDecimal;
 import java.security.PublicKey;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 /**
@@ -19,11 +24,15 @@ public class DukePP implements Model {
 
     private static final Logger logger = LogsCenter.getLogger(DukePP.class);
 
+
+    Predicate<Payment> PREDICATE_SHOW_ALL_PAYMENTS = unused -> true;
+
     private final ExpenseList expenseList;
     private final PlanBot planBot;
     private final IncomeList incomeList;
     private final Budget budget;
     private final BudgetView budgetView;
+    private final PaymentList payments;
     // todo: add other data inside the DukePP.
 
     public ObservableList<Expense> externalExpenseList;
@@ -35,12 +44,21 @@ public class DukePP implements Model {
      * This constructor is used for loading DukePP from storage.
      */
     // todo: pass more arguments to constructor as more data are implemented.
-    public DukePP(ExpenseList expenseList, Map<String, String> planAttributes, IncomeList incomeList, Budget budget, BudgetView budgetView) throws DukeException {
+
+    public DukePP(ExpenseList expenseList, Map<String, String> planAttributes, IncomeList incomeList, Budget budget, BudgetView budgetView, Optional<PaymentList> OptionalPayments) throws DukeException {
+
         this.expenseList = expenseList;
         this.planBot = new PlanBot(planAttributes);
         this.incomeList = incomeList;
         this.budget = budget;
         this.budgetView = budgetView;
+
+        if(!OptionalPayments.isPresent()) {
+            logger.info("PaymentList is not loaded. It be starting with a empty PaymentList");
+            this.payments = new PaymentList();
+        } else {
+            this.payments = OptionalPayments.get();
+        }
     }
 
     //******************************** ExpenseList operations
@@ -90,6 +108,26 @@ public class DukePP implements Model {
     }
 
     //******************************** Budget and budgetView operations
+
+    @Override
+    public StringProperty getExpenseListTotalString() {
+        return expenseList.getTotalString();
+    }
+
+    @Override
+    public StringProperty getSortCriteriaString() {
+        return expenseList.getSortString();
+    }
+
+    @Override
+    public StringProperty getViewCriteriaString() {
+        return expenseList.getViewString();
+    }
+
+    @Override
+    public StringProperty getFilterCriteriaString() {
+        return expenseList.getFilterString();
+    }
 
     @Override
     public String getMonthlyBudgetString() {
@@ -211,8 +249,72 @@ public class DukePP implements Model {
         return incomeList;
     }
 
-    //******************************** Operations for other data....
-    //******************************** For example, operations of monthly income list.
+
+    //************************************************************
+    // Pending Payments operations
+
+    public void addPayment(Payment payment) {
+        payments.add(payment);
+    }
+
+    public void setPayment(int index, Payment editedPayment) throws DukeException {
+        payments.setPayment(index, editedPayment);
+    }
+
+    public void removePayment(int index) throws DukeException {
+        payments.remove(index);
+    }
+
+    public void setPaymentSortCriteria(String sortCriteria) throws DukeException {
+        payments.setSortCriteria(sortCriteria);
+    }
+
+    public void setAllPredicate() {
+        payments.setPredicate(PREDICATE_SHOW_ALL_PAYMENTS);
+    }
+
+    public void setMonthPredicate() {
+        PaymentInMonthPredicate monthPredicate = new PaymentInMonthPredicate();
+        payments.setPredicate(monthPredicate);
+    }
+
+    public void setWeekPredicate() {
+        PaymentInWeekPredicate weekPredicate = new PaymentInWeekPredicate();
+        payments.setPredicate(weekPredicate);
+    }
+
+    public void setOutOfDatePredicate() {
+        PaymentOutOfDatePredicate outOfDatePredicate = new PaymentOutOfDatePredicate();
+        payments.setPredicate(outOfDatePredicate);
+    }
+
+    public void setSearchKeyword(String keyword) {
+        SearchKeywordPredicate searchPredicate = new SearchKeywordPredicate(keyword);
+        payments.setSearchPredicate(searchPredicate);
+    }
+
+    public Payment getPayment(int index) throws DukeException {
+        return payments.getPayment(index);
+    }
+
+    public FilteredList<Payment> getFilteredPaymentList() {
+        return payments.getFilteredList();
+    }
+
+    public FilteredList<Payment> getSearchResult() {
+        return payments.getSearchResult();
+    }
+
+    /**
+     * Returns the paymentList itself for storage update ONLY.
+     *
+     * @return the paymentList
+     */
+    public PaymentList getPaymentList() {
+        return payments;
+    }
+
+
     //    todo: add other data operations
 
 }

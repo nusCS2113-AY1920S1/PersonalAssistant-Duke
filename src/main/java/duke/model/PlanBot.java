@@ -12,7 +12,13 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.logging.Logger;
 
-
+/**
+ * PlanBot is the overall budget recommendation class.
+ * It's responsible for displaying the dialog to the user in a list,
+ * printing error messages as a dialog from the bot
+ * and asking users answered questions form question bank.
+ * It ensures that if its asking a question, only one question is being asked at a time.
+ */
 public class PlanBot {
 
     private static final Logger logger = LogsCenter.getLogger(PlanQuestion.class);
@@ -69,13 +75,11 @@ public class PlanBot {
         dialogObservableList = FXCollections.observableList(dialogList);
         this.planAttributes = planAttributes;
         this.questionQueue = new LinkedList<>();
-        if (!planAttributes.isEmpty()) {
-            StringBuilder knownAttributes = new StringBuilder("Here's what I know about you: \n");
-            for (String key : planAttributes.keySet()) {
-                knownAttributes.append(key + " : " + planAttributes.get(key) + "\n");
-            }
-            PlanDialog knownDialog = new PlanDialog(knownAttributes.toString(), Agent.BOT);
-            dialogObservableList.add(knownDialog);
+        if (planAttributes.isEmpty()) {
+            dialogObservableList.add(new PlanDialog("Hi, seems like this is the first time using Duke++. "
+                    + "Let me plan your budget for you!"
+                    + " Alternatively, type \"goto expense\" to start using Duke++!",
+                    Agent.BOT));
         }
         try {
             planQuestionBank = new PlanQuestionBank();
@@ -89,22 +93,13 @@ public class PlanBot {
         }
         if (questionQueue.isEmpty()) {
             currentQuestion = null;
-            try {
-                dialogList.add(new PlanDialog(planQuestionBank
-                        .makeRecommendation(planAttributes)
-                        .getRecommendation(), Agent.BOT));
-                planBudgetRecommendation = planQuestionBank
-                        .makeRecommendation(planAttributes);
-                dialogList.add(new PlanDialog("Here's a recommended budget for you, "
-                        + "type \"export\" to export the budget",
-                        Agent.BOT));
-            } catch (DukeException e) {
-                dialogList.add(new PlanDialog(e.getMessage(), Agent.BOT));
-            }
+            sendCompletedMessage();
         } else {
+            dialogList.add(new PlanDialog("Tell me more about yourself to give you recommendations", Agent.BOT));
             PlanQuestion firstQuestion = questionQueue.peek();
             currentQuestion = firstQuestion;
             questionQueue.remove();
+            assert firstQuestion != null;
             PlanDialog initial = new PlanDialog(firstQuestion.getQuestion(), Agent.BOT);
             dialogObservableList.add(initial);
         }
@@ -117,28 +112,18 @@ public class PlanBot {
     /**
      * Processes the input String of the user.
      *
-     * @param input the input String of the user
-     * @throws DukeException when there is invalid input
+     * @param input the input String from the user
      */
-    public void processInput(String input) throws DukeException {
+    public void processInput(String input) {
         dialogObservableList.add(new PlanDialog(input, Agent.USER));
         if (currentQuestion == null) {
-            PlanDialog emptyQueueDialog = new PlanDialog("Based on what you've told me, "
-                    + "here's a recommended budget plan!", Agent.BOT);
-            dialogObservableList.add(emptyQueueDialog);
-            dialogObservableList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes)
-                    .getRecommendation(),
-                    Agent.BOT));
-            planBudgetRecommendation = planQuestionBank.makeRecommendation(planAttributes);
-            dialogList.add(new PlanDialog("Here's a recommended budget for you, "
-                    + "type \"export\" to export the budget", Agent.BOT));
+            sendCompletedMessage();
         } else {
             try {
                 PlanQuestion.Reply reply = currentQuestion.getReply(input, planAttributes);
                 questionQueue.clear();
                 questionQueue.addAll(planQuestionBank.getQuestions(planAttributes));
                 logger.info("\n\n\nQueue size: " + questionQueue.size());
-
                 dialogObservableList.add(new PlanDialog(reply.getText(), Agent.BOT));
                 planAttributes = reply.getAttributes();
                 if (!questionQueue.isEmpty()) {
@@ -146,12 +131,7 @@ public class PlanBot {
                     dialogObservableList.add(new PlanDialog(currentQuestion.getQuestion(), Agent.BOT));
                     questionQueue.remove();
                 } else {
-                    dialogObservableList.add(new PlanDialog(planQuestionBank.makeRecommendation(planAttributes)
-                            .getRecommendation(),
-                            Agent.BOT));
-                    planBudgetRecommendation = planQuestionBank.makeRecommendation(planAttributes);
-                    dialogList.add(new PlanDialog("Here's a recommended budget for you, "
-                            + "type \"export\" to export the budget", Agent.BOT));
+                    sendCompletedMessage();
                 }
             } catch (DukeException e) {
                 dialogObservableList.add(new PlanDialog(e.getMessage(), Agent.BOT));
@@ -169,9 +149,38 @@ public class PlanBot {
 
 
     /**
+     * Puts the recommendation into the dialog list.
+     */
+    private void sendCompletedMessage() {
+        logger.info("Completed Plan Bot");
+        try {
+            dialogList.add(new PlanDialog(planQuestionBank
+                    .makeRecommendation(planAttributes)
+                    .getRecommendation(), Agent.BOT));
+            planBudgetRecommendation = planQuestionBank
+                    .makeRecommendation(planAttributes);
+            StringBuilder recommendedBudgetStringBuilder = new StringBuilder();
+            for (String category : planBudgetRecommendation.getPlanBudget().keySet()) {
+                recommendedBudgetStringBuilder.append(category)
+                        .append(" : ")
+                        .append(planBudgetRecommendation.getPlanBudget().get(category))
+                        .append("\n");
+            }
+            dialogList.add(new PlanDialog("Here's a recommended budget for you: \n"
+                    + recommendedBudgetStringBuilder.toString()
+                    + "type \"export\" to export the budget",
+                    Agent.BOT));
+        } catch (DukeException e) {
+            dialogList.add(new PlanDialog(e.getMessage(), Agent.BOT));
+        }
+
+    }
+
+
+    /**
      * A container for an individual chat history.
      */
-    public class PlanDialog {
+    public static class PlanDialog {
         public String text;
         public Agent agent;
 

@@ -47,7 +47,7 @@ public class CommandParamsTest {
 
     @Test
     public void testParamNotFoundException() throws DukeException {
-        CommandParams testParams = new CommandParams("add");
+        CommandParams testParams = new CommandParams("addExpense");
         try {
             testParams.getParam("a");
             fail();
@@ -60,7 +60,7 @@ public class CommandParamsTest {
     @Test
     public void testDuplicateParams() throws DukeException {
         try {
-            CommandParams testParams = new CommandParams("add /time /time");
+            CommandParams testParams = new CommandParams("addExpense /time /time");
             fail();
         } catch (DukeException e) {
             assertEquals(

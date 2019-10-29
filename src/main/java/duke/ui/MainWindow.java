@@ -27,22 +27,15 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     private AutoCompleter autoCompleter;
+    private InputHistory inputHistory;
 
     private ExpensePane expensePane;
     private TrendingPane trendingPane;
+    private PaymentPane paymentPane;
     private BudgetPane budgetPane;
-
-    // todo: create controller for trendingPage;
-
-    private InputHistory inputHistory;
-
-
     private PlanPane planPane;
 
     private CommandResult.DisplayedPane displayedPane;
-    /* todo: create controller for trendingPage;
-    private TrendingPage trendingPage;
-     */
 
     // The area that can be switched.
     @FXML
@@ -59,13 +52,23 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.show();
     }
 
+    /**
+     * Constructor for controller of the mainWindow.
+     * @param primaryStage Stage of Duke
+     * @param logic Logic object of duke
+     */
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML_FILE_NAME, primaryStage);
         this.primaryStage = primaryStage;
         this.logic = logic;
 
         displayedPane = CommandResult.DisplayedPane.EXPENSE;
+        if (logic.getExternalExpenseList().isEmpty()) {
+            //initial boot
+            displayedPane = CommandResult.DisplayedPane.PLAN;
+        }
         fillInnerPart();
+
 
         inputHistory = new InputHistory();
         autoCompleter = new AutoCompleter();
@@ -83,32 +86,43 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void fillInnerPart() {
-        expensePane = new ExpensePane(logic.getExternalExpenseList(), logic);
+        expensePane = new ExpensePane(logic.getExternalExpenseList(),
+                logic ,
+                logic.getExpenseListTotalString(),
+                logic.getFilterCriteriaString(),
+                logic.getSortCriteriaString(),
+                logic.getViewCriteriaString());
         logger.info("The filled externalList length " + logic.getExternalExpenseList().size());
         trendingPane = new TrendingPane();
         logger.info("trendingPane is constructed.");
         planPane = new PlanPane(logic.getDialogObservableList());
         logger.info("planPane is constructed." + logic.getDialogObservableList().size());
+        paymentPane = new PaymentPane(logic.getFilteredPaymentList());
         budgetPane = new BudgetPane(logic.getExternalIncomeList(),logic);
         logger.info("Budget plane is constructed.");
+
 
         expensePane.getRoot().setVisible(false);
         planPane.getRoot().setVisible(false);
         trendingPane.getRoot().setVisible(false);
+        paymentPane.getRoot().setVisible(false);
         budgetPane.getRoot().setVisible(false);
+
 
         paneStack.getChildren().clear();
         paneStack.getChildren().add(expensePane.getRoot());
         paneStack.getChildren().add(planPane.getRoot());
         paneStack.getChildren().add(trendingPane.getRoot());
+        paneStack.getChildren().add(paymentPane.getRoot());
         paneStack.getChildren().add(budgetPane.getRoot());
+
 
         // this part should be unnecessary
         switch (displayedPane) {
         case TRENDING:
             trendingPane.getRoot().setVisible(true);
             break;
-            
+
         case PLAN:
             planPane.getRoot().setVisible(true);
             break;
@@ -117,8 +131,12 @@ public class MainWindow extends UiPart<Stage> {
             budgetPane.getRoot().setVisible(true);
             break;
 
+        case PAYMENT:
+            paymentPane.getRoot().setVisible(true);
+
         default: //Expense pane
             expensePane.getRoot().setVisible(true);
+
         }
 
         // todo: add more data parts to be added.
@@ -143,7 +161,6 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 Platform.exit();
             }
-
         } catch (DukeException e) {
             console.setText(e.getMessage());
         }
@@ -186,6 +203,10 @@ public class MainWindow extends UiPart<Stage> {
             showPlanPane();
             break;
 
+        case PAYMENT:
+            showPaymentPane();
+            break;
+
         case BUDGET:
             showBudgetPane();
             break;
@@ -199,6 +220,7 @@ public class MainWindow extends UiPart<Stage> {
         expensePane.getRoot().setVisible(true);
         planPane.getRoot().setVisible(false);
         trendingPane.getRoot().setVisible(false);
+        paymentPane.getRoot().setVisible(false);
         budgetPane.getRoot().setVisible(false);
     }
 
@@ -206,6 +228,7 @@ public class MainWindow extends UiPart<Stage> {
         expensePane.getRoot().setVisible(false);
         planPane.getRoot().setVisible(false);
         trendingPane.getRoot().setVisible(true);
+        paymentPane.getRoot().setVisible(false);
         budgetPane.getRoot().setVisible(false);
     }
 
@@ -214,6 +237,7 @@ public class MainWindow extends UiPart<Stage> {
         expensePane.getRoot().setVisible(false);
         planPane.getRoot().setVisible(true);
         trendingPane.getRoot().setVisible(false);
+        paymentPane.getRoot().setVisible(false);
         budgetPane.getRoot().setVisible(false);
     }
 
@@ -222,6 +246,16 @@ public class MainWindow extends UiPart<Stage> {
         planPane.getRoot().setVisible(false);
         trendingPane.getRoot().setVisible(false);
         budgetPane.getRoot().setVisible(true);
+        paymentPane.getRoot().setVisible(false);
     }
+
+    private void showPaymentPane() {
+        expensePane.getRoot().setVisible(false);
+        planPane.getRoot().setVisible(false);
+        trendingPane.getRoot().setVisible(false);
+        budgetPane.getRoot().setVisible(false);
+        paymentPane.getRoot().setVisible(true);
+    }
+
 
 }

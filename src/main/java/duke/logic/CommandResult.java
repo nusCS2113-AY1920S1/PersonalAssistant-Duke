@@ -2,7 +2,6 @@ package duke.logic;
 
 /**
  * Represents the result of a command execution.
- *
  */
 public class CommandResult {
 
@@ -10,7 +9,9 @@ public class CommandResult {
         EXPENSE,
         TRENDING,
         BUDGET,
-        PLAN;
+        PLAN,
+        PAYMENT,
+        PAYMENT_SEARCH;
         // todo: add more custom pages.
     }
 

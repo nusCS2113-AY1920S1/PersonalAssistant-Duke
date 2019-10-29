@@ -3,6 +3,12 @@ package duke.logic;
 import duke.exception.DukeException;
 import duke.exception.DukeRuntimeException;
 import duke.logic.command.*;
+import duke.logic.command.payment.AddPaymentCommand;
+import duke.logic.command.payment.ChangePaymentCommand;
+import duke.logic.command.payment.DeletePaymentCommand;
+import duke.logic.command.payment.FilterPaymentCommand;
+import duke.logic.command.payment.SearchPaymentCommand;
+import duke.logic.command.payment.SortPaymentCommand;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -38,19 +44,25 @@ public class CommandParams {
     private static final Pattern SPACE_REGEX = Pattern.compile("(\\s+)");
 
     private static final Supplier<Stream<Command>> COMMANDS = () -> Stream.of(
-        new AddExpenseCommand(),
-        new DeleteExpenseCommand(),
-        new ConfirmTentativeCommand(),
-        new ExitCommand(),
-        new FilterExpenseCommand(),
-        new SortExpenseCommand(),
-        new ViewExpenseCommand(),
-        new GoToCommand(),
-        new PlanBotCommand(),
-        new AddIncomeCommand(),
-        new DeleteIncomeCommand(),
-        new BudgetCommand(),
-        new ViewBudgetCommand()
+            new AddExpenseCommand(),
+            new DeleteExpenseCommand(),
+            new ConfirmTentativeCommand(),
+            new ExitCommand(),
+            new FilterExpenseCommand(),
+            new SortExpenseCommand(),
+            new ViewExpenseCommand(),
+            new GoToCommand(),
+            new PlanBotCommand(),
+            new BudgetCommand(),
+            new AddPaymentCommand(),
+            new ChangePaymentCommand(),
+            new DeletePaymentCommand(),
+            new FilterPaymentCommand(),
+            new SearchPaymentCommand(),
+            new SortPaymentCommand(),
+            new AddIncomeCommand(),
+            new DeleteIncomeCommand(),
+            new ViewBudgetCommand()
     );
 
     /**
@@ -75,8 +87,8 @@ public class CommandParams {
         for (int i = 1; i < nameValueStrings.length; i++) {
             String[] nameValuePair = SPACE_REGEX.split(nameValueStrings[i], 2);
             List<String> possibleParamNames = command.getSecondaryParams().keySet().stream()
-                .filter(k -> k.startsWith(nameValuePair[0]))
-                .collect(Collectors.toList());
+                    .filter(k -> k.startsWith(nameValuePair[0]))
+                    .collect(Collectors.toList());
 
             if (possibleParamNames.size() != 1) {
                 throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_UNKNOWN, nameValuePair[0]));
@@ -86,7 +98,7 @@ public class CommandParams {
 
             if (secondaryParams.containsKey(verifiedParamName)) { // can't contain the same key twice
                 throw new DukeException(
-                    String.format(DukeException.MESSAGE_COMMAND_PARAM_DUPLICATE, verifiedParamName));
+                        String.format(DukeException.MESSAGE_COMMAND_PARAM_DUPLICATE, verifiedParamName));
             }
 
             if (nameValuePair.length == 2) {
@@ -175,10 +187,10 @@ public class CommandParams {
 
         if (commandNameWords.length == 2) {
             List<Command> validCommands = COMMANDS.get()
-                .filter(c -> c.getName().split(" ").length == 2)
-                .filter(c -> (c.getName().split(" ")[0].startsWith(commandNameWords[0])
-                    && c.getName().split(" ")[1].startsWith(commandNameWords[1])))
-                .collect(Collectors.toList());
+                    .filter(c -> c.getName().split(" ").length == 2)
+                    .filter(c -> (c.getName().split(" ")[0].startsWith(commandNameWords[0])
+                            && c.getName().split(" ")[1].startsWith(commandNameWords[1])))
+                    .collect(Collectors.toList());
 
             if (validCommands.size() == 1) {
                 return validCommands.get(0);
@@ -186,9 +198,9 @@ public class CommandParams {
         }
 
         List<Command> validCommands = COMMANDS.get()
-            .filter(c -> c.getName().split(" ").length == 1)
-            .filter(c -> (c.getName().split(" ")[0].startsWith(commandNameWords[0])))
-            .collect(Collectors.toList());
+                .filter(c -> c.getName().split(" ").length == 1)
+                .filter(c -> (c.getName().split(" ")[0].startsWith(commandNameWords[0])))
+                .collect(Collectors.toList());
 
         if (validCommands.size() == 1) {
             return validCommands.get(0);

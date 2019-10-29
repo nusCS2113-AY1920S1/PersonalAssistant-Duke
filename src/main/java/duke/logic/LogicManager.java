@@ -2,9 +2,19 @@ package duke.logic;
 
 import duke.exception.DukeException;
 import duke.logic.command.Command;
+import duke.model.Expense;
+import duke.model.Income;
+import duke.model.Model;
+import duke.model.PlanBot;
 import duke.logic.command.PlanBotCommand;
-import duke.model.*;
+import duke.model.Expense;
+import duke.model.ExpenseList;
+import duke.model.Model;
+import duke.model.PlanBot;
+import duke.model.payment.Payment;
+import duke.model.Income;
 import duke.storage.Storage;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
 import java.math.BigDecimal;
@@ -39,6 +49,7 @@ public class LogicManager implements Logic {
     public ObservableList<PlanBot.PlanDialog> getDialogObservableList() {
         return model.getDialogObservableList();
     }
+
     @Override
     public BigDecimal getTagAmount(String tag) {
         return model.getExpenseList().getTagAmount(tag);
@@ -79,5 +90,33 @@ public class LogicManager implements Logic {
         return model.getBudgetTag(category);
     }
 
+    public ObservableList<Payment> getFilteredPaymentList() {
+        return model.getFilteredPaymentList();
+    }
+
+    @Override
+    public ObservableList<Payment> getPaymentSearchResult() {
+        return model.getSearchResult();
+    }
+
+    @Override
+    public StringProperty getExpenseListTotalString() {
+        return model.getExpenseListTotalString();
+    }
+
+    @Override
+    public StringProperty getSortCriteriaString() {
+        return model.getSortCriteriaString();
+    }
+
+    @Override
+    public StringProperty getViewCriteriaString() {
+        return model.getViewCriteriaString();
+    }
+
+    @Override
+    public StringProperty getFilterCriteriaString() {
+        return model.getFilterCriteriaString();
+    }
 
 }

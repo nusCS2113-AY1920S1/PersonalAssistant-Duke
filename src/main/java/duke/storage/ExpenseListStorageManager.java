@@ -7,6 +7,7 @@ import duke.model.ExpenseList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,6 +16,7 @@ public class ExpenseListStorageManager implements ExpenseListStorage {
 
     private static final File DEFAULT_USER_DIRECTORY = new File("data" + File.separator + "duke");
     private static final File EXPENSES_FILE = new File(DEFAULT_USER_DIRECTORY, "expenses.txt");
+
 
 
     private static String STORAGE_DELIMITER = "\n\n";
@@ -39,7 +41,7 @@ public class ExpenseListStorageManager implements ExpenseListStorage {
     }
 
     @Override
-    public ExpenseList loadExpenseList() throws DukeException {
+    public ExpenseList loadExpenseList() {
         List<Expense> internalList = new ArrayList<Expense>();
         try {
             EXPENSES_FILE.createNewFile();
@@ -49,7 +51,7 @@ public class ExpenseListStorageManager implements ExpenseListStorage {
                 }
             }
         } catch (IOException | DukeException e) {
-            throw new DukeException(String.format(DukeException.MESSAGE_LOAD_FILE_FAILED, EXPENSES_FILE.getPath()));
+            return new ExpenseList(internalList);
         }
         return new ExpenseList(internalList);
     }

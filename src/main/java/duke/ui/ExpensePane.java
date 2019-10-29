@@ -3,21 +3,16 @@ package duke.ui;
 import duke.commons.LogsCenter;
 import duke.logic.Logic;
 import duke.model.Expense;
-import javafx.beans.binding.Bindings;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.util.Callback;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,78 +29,47 @@ public class ExpensePane extends UiPart<AnchorPane> {
     private PieChart pieChartSample;
 
     @FXML
-    TableView expenseTableView;
+    private
+    ListView<Expense> expenseListView;
+
+    @FXML
+    Label sortLabel;
+
+    @FXML
+    Label filterLabel;
+
+    @FXML
+    Label viewLabel;
+
+    @FXML
+    Label totalLabel;
 
     @FXML
     ListView<String> budgetListView;
-
     public Logic logic;
     public Set<String> tags;
 
-    public ExpensePane(ObservableList<Expense> expenseList, Logic logic) {
+    public ExpensePane(ObservableList<Expense> expenseList, Logic logic,
+                       StringProperty totalExpense,
+                       StringProperty filterCriteria,
+                       StringProperty sortCriteria,
+                       StringProperty viewCriteria) {
         super(FXML_FILE_NAME, null);
         logger.info("expenseList has length " + expenseList.size());
         logger.info("expenseList has length " + expenseList.size());
-        expenseTableView.getItems().clear();
-        expenseTableView.setPlaceholder(new Label("No expenses to display!"));
-        TableColumn<Expense, Void> indexColumn = new TableColumn<>("No.");
-        indexColumn.setCellFactory(col -> {
-            TableCell<Expense, Void> cell = new TableCell<>();
-            cell.textProperty().bind(Bindings.createStringBinding(() -> {
-                if (cell.isEmpty()) {
-                    return null;
-                } else {
-                    return Integer.toString(cell.getIndex() + 1);
-                }
-            }, cell.emptyProperty(), cell.indexProperty()));
-            return cell;
-        });
-        indexColumn.setSortable(false);
-        TableColumn<String, Expense> timeColumn = new TableColumn<>("Time");
-        timeColumn.setCellValueFactory(new PropertyValueFactory<>("timeString"));
-        timeColumn.setSortable(false);
-        TableColumn<String, Expense> amountColumn = new TableColumn<>("Amount");
-        amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        amountColumn.setSortable(false);
-        TableColumn<Expense, String> descriptionColumn = new TableColumn<>("Description");
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-        descriptionColumn.setSortable(false);
-        TableColumn<Expense, String> tagColumn = new TableColumn<>("Tags");
-        tagColumn.setSortable(false);
-        tagColumn.setCellValueFactory(new PropertyValueFactory<>("tagsString"));
-        tagColumn.setSortable(false);
-        expenseTableView.setRowFactory(new Callback<TableView<Expense>, TableRow<Expense>>() {
-            @Override
-            public TableRow<Expense> call(TableView<Expense> tableView) {
-                final TableRow<Expense> row = new TableRow<Expense>() {
-                    @Override
-                    protected void updateItem(Expense expense, boolean empty) {
-                        super.updateItem(expense, empty);
-                        if (expense != null && expense.isTentative()) {
-                            setStyle("-fx-text-background-color: grey;");
-
-                        } else if (expense != null && expense.isRecurring()) {
-                            setStyle("-fx-text-background-color: green;");
-                        } else {
-                            setStyle("-fx-text-background-color: black;");
-                        }
-                    }
-                };
-                return row;
-            }
-        });
-        expenseTableView.getColumns().setAll(
-                indexColumn,
-                timeColumn,
-                amountColumn,
-                descriptionColumn,
-                tagColumn
-        );
+        Label emptyExpenseListPlaceholder = new Label();
+        emptyExpenseListPlaceholder.setText("No Expenses yet. " +
+                "Type \"addExpense #amount\" to add one!");
+        expenseListView.setPlaceholder(emptyExpenseListPlaceholder);
+        expenseListView.setItems(expenseList);
         logger.info("Items are set.");
-        for (Expense expense : expenseList) {
-            expenseTableView.getItems().add(expense);
-        }
+        expenseListView.setCellFactory(expenseListView -> new ExpenseListViewCell());
         logger.info("cell factory is set.");
+
+        sortLabel.textProperty().bindBidirectional(sortCriteria);
+        filterLabel.textProperty().bindBidirectional(filterCriteria);
+        viewLabel.textProperty().bindBidirectional(viewCriteria);
+        totalLabel.textProperty().bindBidirectional(totalExpense);
 
         this.logic = logic;
         PieChart pieChartSample = new PieChart();
@@ -140,13 +104,25 @@ public class ExpensePane extends UiPart<AnchorPane> {
     private void getTags() {
         tags = new HashSet<>();
         for (Expense expense : logic.getExternalExpenseList()) {
-            String[] tagsString = expense.getTagsString().split(" ");
-            if (tagsString.length > 0) {
-                for (String tag : tagsString) {
-                    if (!tag.equals("")) {
-                        tags.add(tag);
-                    }
-                }
+            tags.add(expense.getTag());
+        }
+    }
+
+
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code PlanBot.PlanDialog}
+     * using a {@code PlanBot.PlanDialog}.
+     */
+    class ExpenseListViewCell extends ListCell<Expense> {
+        @Override
+        protected void updateItem(Expense expense, boolean empty) {
+            super.updateItem(expense, empty);
+            if (empty || expense == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                int index = expenseListView.getItems().indexOf(expense) + 1;
+                setGraphic(new ExpenseCard(expense, index).getRoot());
             }
         }
     }
