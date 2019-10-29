@@ -67,7 +67,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                 int year = Integer.parseInt(monthYear[1].trim());
 
                 ExpenseList expenseList = LogicManager.getWalletList().getWalletList().get(
-                        LogicManager.getWalletList().getState()).getExpenseList();
+                    LogicManager.getWalletList().getState()).getExpenseList();
                 double totalSpent = expenseList.getMonthExpenses(month, year);
                 String monthFormatted = DateTimeFormatter.ofPattern("MM/yyyy").format(YearMonth.of(year, month));
                 int index = 1;
@@ -88,7 +88,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                         String isRecur = (e.isRecurring()) ? "yes" : "no";
                         String frequency = (e.isRecurring()) ? e.getRecFrequency() : "";
                         data.add(new String[]{indexOutput, description, amount, date, String.valueOf(category),
-                                isRecur, frequency});
+                            isRecur, frequency});
                         index++;
                     }
                 }
@@ -115,7 +115,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
      */
     private boolean findBudget(int month, int year) {
         ArrayList<Budget> budgetList = LogicManager.getWalletList().getWalletList().get(
-                LogicManager.getWalletList().getState()).getBudgetList().getBudgetList();
+            LogicManager.getWalletList().getState()).getBudgetList().getBudgetList();
         for (Budget b : budgetList) {
             if (b.getMonth() == month && b.getYear() == year) {
                 this.budgetLeft = b.getAmount();
@@ -133,7 +133,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
     private List<String[]> parseLoan() {
 
         ArrayList<Loan> loanList = LogicManager.getWalletList().getWalletList()
-                .get(LogicManager.getWalletList().getState()).getLoanList().getLoanList();
+            .get(LogicManager.getWalletList().getState()).getLoanList().getLoanList();
         List<String[]> data = new ArrayList<>();
         data.add(new String[]{"S/N", "Description", "Amount($)", "Created Date", "Name", "Phone",
                 "Other Details", "Lend/Borrow", "Settled"});
@@ -155,7 +155,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                 personDetail = "";
             }
             data.add(new String[]{indexOutput, description, amount, createdDate, personName, personPhone,
-                    personDetail, isLend, isSettled});
+                personDetail, isLend, isSettled});
             index++;
         }
         return data;
