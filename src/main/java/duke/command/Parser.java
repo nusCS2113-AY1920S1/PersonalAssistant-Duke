@@ -1,6 +1,8 @@
 package duke.command;
 
 import duke.exception.DukeException;
+import duke.exception.DukeHelpException;
+import duke.exception.DukeUtilException;
 import duke.ui.context.UiContext;
 
 import static java.lang.Math.min;
@@ -63,7 +65,11 @@ public class Parser {
         if (command instanceof ArgCommand) { // stripping not required otherwise
             //standardise line separators for internal manipulation
             inputStr = inputStr.replaceAll("(\\r\\n|\\n|\\r)", "\n");
-            argParser.parseArgument((ArgCommand) command, inputStr.substring(cmdStr.length()));
+            try {
+                argParser.parseArgument((ArgCommand) command, inputStr.substring(cmdStr.length()));
+            } catch (DukeUtilException excp) {
+                throw new DukeHelpException(excp.getMessage(), command);
+            }
         }
         return command;
     }

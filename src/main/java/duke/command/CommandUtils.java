@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * Functions for command autocompletion and autocorrection.
  */
-public class CommandHelpers {
+public class CommandUtils {
 
     /**
      * Given a switch name provided by the user, finds the switch it is referring to, or the closest match,
@@ -123,6 +123,19 @@ public class CommandHelpers {
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("I cannot find a patient with the identifier you provided!");
             }
+        }
+    }
+
+    /**
+     * Extracts an index from a string argument.
+     * @param inputStr The string to parse, generally a command argument.
+     * @return The index represented by the string, or -1 if the string does not represent an index.
+     */
+    public static int idxFromString(String inputStr) {
+        try {
+            return Integer.parseInt(inputStr);
+        } catch (NumberFormatException excp) {
+            return -1;
         }
     }
 }

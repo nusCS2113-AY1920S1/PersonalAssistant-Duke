@@ -1,19 +1,17 @@
 package duke.command.impression;
 
 import duke.DukeCore;
+import duke.command.ArgCommand;
 import duke.command.ArgSpec;
 import duke.data.DukeData;
 import duke.data.Evidence;
 import duke.data.Impression;
-import duke.data.Patient;
 import duke.data.Treatment;
 import duke.exception.DukeException;
-import duke.exception.DukeHelpException;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ImpressionMoveCommand extends ImpressionCommand {
+public class ImpressionMoveCommand extends ArgCommand {
 
     @Override
     protected ArgSpec getSpec() {
@@ -23,15 +21,15 @@ public class ImpressionMoveCommand extends ImpressionCommand {
     @Override
     public void execute(DukeCore core) throws DukeException {
         // TODO: query user for correct impression if no impression is given
-        Impression impression = getImpression(core);
+        Impression impression = ImpressionUtils.getImpression(core);
         String targetImpressionName = getSwitchVal("impression");
         Impression newImpression;
         if ("".equals(targetImpressionName)) {
-            // ask user to pick
+            // TODO ask user to pick
             newImpression = null;
         } else {
             // TODO: proper search
-            List<Impression> newImpressionList = ((Patient) impression.getParent())
+            List<Impression> newImpressionList = ImpressionUtils.getPatient(impression)
                     .findImpressionsByName(targetImpressionName);
             if (newImpressionList.size() == 0) {
                 throw new DukeException("Can't find an impression with that name!");
@@ -39,8 +37,8 @@ public class ImpressionMoveCommand extends ImpressionCommand {
             newImpression = newImpressionList.get(0);
         }
 
-        DukeData moveData = findDataByName(getArg(), getSwitchVal("evidence"),
-                getSwitchVal("treatment"), getImpression(core));
+        DukeData moveData = ImpressionUtils.getData(getArg(), getSwitchVal("evidence"),
+                getSwitchVal("treatment"), ImpressionUtils.getImpression(core));
 
         moveData.setParent(newImpression);
         if (moveData instanceof Evidence) {

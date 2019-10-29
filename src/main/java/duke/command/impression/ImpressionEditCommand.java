@@ -12,6 +12,7 @@ import duke.data.Result;
 import duke.data.Treatment;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
+import duke.exception.DukeUtilException;
 
 import java.util.List;
 import java.util.Map;
@@ -35,7 +36,7 @@ public class ImpressionEditCommand extends DukeDataCommand {
         }
 
         if (editType == null) { // edit impression
-            editImpression(getImpression(core), isAppending);
+            editImpression(ImpressionUtils.getImpression(core), isAppending);
         } else {
             if (isSwitchSet("description")) {
                 throw new DukeHelpException("Descriptions are only for impressions!", this);
@@ -46,7 +47,7 @@ public class ImpressionEditCommand extends DukeDataCommand {
             // TODO: select by index
 
             String editDataName = getSwitchVal(editType);
-            List<DukeData> searchResults = getImpression(core).find(editDataName);
+            List<DukeData> searchResults = ImpressionUtils.getImpression(core).find(editDataName);
             switch (editType) {
             case "plan":
                 editData = findDataOfClass(searchResults, Plan.class);
@@ -90,7 +91,7 @@ public class ImpressionEditCommand extends DukeDataCommand {
             for (Map.Entry<String, String> entry : getSwitchVals().entrySet()) {
                 String switchName = entry.getKey();
                 String entryStr = entry.getValue();
-                Integer entryInt = 0;
+                int entryInt = 0;
                 if (Integer.class.equals(getSwitchMap().get(switchName).type)) {
                     entryInt = switchToInt(switchName);
                 }
@@ -108,12 +109,9 @@ public class ImpressionEditCommand extends DukeDataCommand {
                     break;
                 case "priority":
                     if (entryInt == -1) {
-                        entryInt = 0;
+                        break;
                     }
-                    assert (entryInt >= 0);
-                    if (entryInt > 4) {
-                        throw new DukeHelpException("Priority must be between 0 and 4!", this);
-                    }
+                    ImpressionUtils.checkPriority(entryInt);
                     editData.setPriority(entryInt);
                     break;
                 case "summary":
@@ -164,12 +162,12 @@ public class ImpressionEditCommand extends DukeDataCommand {
         core.writeJsonFile();
     }
 
-    private void editStatus(DukeData editData, List<String> statusList) throws DukeHelpException {
+    private void editStatus(DukeData editData, List<String> statusList) throws DukeUtilException {
         assert (editData instanceof Treatment);
         String statusStr = getSwitchVal("status");
         if (statusStr != null) {
             Treatment treatment = (Treatment) editData;
-            treatment.setStatusIdx(processStatus(statusStr, statusList));
+            treatment.setStatusIdx(ImpressionUtils.processStatus(statusStr, statusList));
         }
     }
 

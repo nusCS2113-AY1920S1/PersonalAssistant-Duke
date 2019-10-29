@@ -1,6 +1,7 @@
 package duke.command.impression;
 
 import duke.DukeCore;
+import duke.command.ArgCommand;
 import duke.command.ArgSpec;
 import duke.data.DukeData;
 import duke.data.Evidence;
@@ -8,7 +9,7 @@ import duke.data.Impression;
 import duke.data.Treatment;
 import duke.exception.DukeException;
 
-public class ImpressionDeleteCommand extends ImpressionCommand {
+public class ImpressionDeleteCommand extends ArgCommand {
 
     @Override
     protected ArgSpec getSpec() {
@@ -17,8 +18,8 @@ public class ImpressionDeleteCommand extends ImpressionCommand {
 
     @Override
     public void execute(DukeCore core) throws DukeException {
-        Impression impression = getImpression(core);
-        DukeData delData = findDataByName(getArg(), getSwitchVal("evidence"),
+        Impression impression = ImpressionUtils.getImpression(core);
+        DukeData delData = ImpressionUtils.getData(getArg(), getSwitchVal("evidence"),
                 getSwitchVal("treatment"), impression);
         String delMsg = "'" + delData.getName() + "' deleted!";
         if (delData instanceof Evidence) {

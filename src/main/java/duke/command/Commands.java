@@ -14,6 +14,10 @@ import duke.command.impression.ImpressionEditCommand;
 import duke.command.impression.ImpressionFindCommand;
 import duke.command.impression.ImpressionMoveCommand;
 import duke.command.impression.ImpressionNewCommand;
+import duke.command.impression.ImpressionPrimaryCommand;
+import duke.command.impression.ImpressionPriorityCommand;
+import duke.command.impression.ImpressionResultCommand;
+import duke.command.impression.ImpressionStatusCommand;
 import duke.command.patient.PatientDeleteCommand;
 import duke.command.patient.PatientDischargeCommand;
 import duke.command.patient.PatientEditCommand;
@@ -104,6 +108,14 @@ public class Commands {
                 return new ImpressionMoveCommand();
             case "delete":
                 return new ImpressionDeleteCommand();
+            case "result":
+                return new ImpressionResultCommand();
+            case "priority":
+                return new ImpressionPriorityCommand();
+            case "status":
+                return new ImpressionStatusCommand();
+            case "primary":
+                return new ImpressionPrimaryCommand();
             default:
                 return null;
             }
