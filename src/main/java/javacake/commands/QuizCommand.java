@@ -31,7 +31,7 @@ public class QuizCommand extends Command {
     private int currScore = 0;
     private static Profile profile;
     public ScoreGrade scoreGrade;
-    int totalNumOfQns = 0;
+    public int totalNumOfQns = 0;
     public static Logic logic = Logic.getInstance();
 
     public enum ScoreGrade {
