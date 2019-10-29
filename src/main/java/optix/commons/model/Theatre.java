@@ -1,12 +1,12 @@
 package optix.commons.model;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Theatre {
     //@SuppressWarnings("checkstyle:membername")
     private static final String SPACES = "  "; // CHECKSTYLE IGNORE THIS LINE
     private static final String STAGE = "                |STAGE|           \n"; // CHECKSTYLE IGNORE THIS LINE
+    private static final String MESSAGE_TICKET_COST = "The total cost of the ticket is $%1$.2f\n";
 
     private Seat[][] seats = new Seat[6][10];
     private int tierOneSeats;
@@ -183,21 +183,7 @@ public class Theatre {
             soldSeat.setBooked(true);
             costOfSeat = soldSeat.getSeatPrice(seatBasePrice);
             revenue += costOfSeat;
-
-            switch (soldSeat.getSeatTier()) {
-            case "1":
-                tierOneSeats--;
-                break;
-            case "2":
-                tierTwoSeats--;
-                break;
-            case "3":
-                tierThreeSeats--;
-                break;
-            default:
-            }
-            seats[row][col] = soldSeat;
-
+            this.setSeat(row, col);
         }
         show.setProfit(revenue);
         return costOfSeat;
@@ -230,11 +216,11 @@ public class Theatre {
         } else if (seatsNotSold.isEmpty()) {
             message = "You have successfully purchased the following seats: \n"
                     + seatsSold + "\n"
-                    + "The total cost of the ticket is " + new DecimalFormat("$#.00").format(totalCost) + "\n";
+                    + String.format(MESSAGE_TICKET_COST, totalCost);
         } else {
             message = "You have successfully purchased the following seats: \n"
                     + seatsSold + "\n"
-                    + "The total cost of the ticket is " + new DecimalFormat("$#.00").format(totalCost) + "\n"
+                    + String.format(MESSAGE_TICKET_COST, totalCost)
                     + "The following seats are unavailable: \n"
                     + seatsNotSold + "\n";
         }
@@ -285,10 +271,10 @@ public class Theatre {
 
         if (costOfNewSeat > costOfOldSeat) {
             double extraCost = costOfNewSeat - costOfOldSeat;
-            message.append(String.format("An extra cost of %1$s is required.\n", extraCost));
+            message.append(String.format("An extra cost of $%1$.2f is required.\n", extraCost));
         } else if (costOfOldSeat > costOfNewSeat) {
             double returnCost = costOfOldSeat - costOfNewSeat;
-            message.append(String.format("%1$s will be returned.\n", returnCost));
+            message.append(String.format("$%1$.2f will be returned.\n", returnCost));
         }
         return message.toString();
     }
@@ -306,7 +292,7 @@ public class Theatre {
         if (row == -1 || col == -1) {
             return seatPrice;
         } else if (!seats[row][col].isBooked()) {
-            seatPrice = -1;
+            seatPrice = 0;
             return seatPrice;
         }
         double currRevenue = show.getProfit();
@@ -331,7 +317,7 @@ public class Theatre {
     }
 
     private int getRow(String row) {
-        switch (row) {
+        switch (row.toUpperCase()) {
         case "A":
             return 0;
         case "B":

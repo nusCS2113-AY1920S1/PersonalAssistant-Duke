@@ -17,10 +17,7 @@ public class ReassignSeatCommand extends Command {
 
     private OptixDateFormatter formatter = new OptixDateFormatter();
 
-    private static final String MESSAGE_SHOW_NOT_FOUND = "☹ OOPS!!! The show %1$s cannot be found on %2$s.\n";
-
-    private static final String MESSAGE_DOES_NOT_MATCH = "☹ OOPS!!! Did you get the wrong date or wrong show. \n"
-            + "Try again!\n";
+    private static final String MESSAGE_SHOW_NOT_FOUND = "☹ OOPS!!! The show cannot be found.\n";
 
     /**
      * Changes the seat of an existing customer.
@@ -50,10 +47,8 @@ public class ReassignSeatCommand extends Command {
             if (model.containsKey(showLocalDate) && model.hasSameName(showLocalDate, showName)) { //found the show
                 message.append(model.reassignSeat(showLocalDate, oldSeat, newSeat));
                 storage.write(model.getShows());
-            } else if (model.containsKey(showLocalDate)) { //no show on the showDate
-                message.append(String.format(MESSAGE_SHOW_NOT_FOUND, showName, showDate));
-            } else { //date does not exist in Optix
-                message.append(MESSAGE_DOES_NOT_MATCH);
+            } else { //no show on the showDate
+                message.append(MESSAGE_SHOW_NOT_FOUND);
             }
         } catch (OptixException e) {
             message.append(e.getMessage());

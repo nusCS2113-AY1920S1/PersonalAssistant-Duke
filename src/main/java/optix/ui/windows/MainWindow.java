@@ -6,6 +6,7 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -35,6 +36,8 @@ public class MainWindow extends AnchorPane {
     private VBox display;
 
     //// All the elements on the right side of the window.
+    @FXML
+    private ScrollPane scrollPane;
     @FXML
     private VBox chatBox;
     @FXML
@@ -70,6 +73,11 @@ public class MainWindow extends AnchorPane {
     }
 
     @FXML
+    public void initialize() {
+        scrollPane.vvalueProperty().bind(chatBox.heightProperty());
+    }
+
+    @FXML
     private void handleResponse() {
         String fullCommand = userInput.getText();
         String taskType = optix.runGui(fullCommand);
@@ -90,6 +98,10 @@ public class MainWindow extends AnchorPane {
         case "seat":
             displaySeats(fullCommand);
             break;
+        case "archive":
+        case "finance":
+            displayFinance();
+            break;
         default:
             break;
         }
@@ -102,33 +114,51 @@ public class MainWindow extends AnchorPane {
         delay.play();
     }
 
-    @FXML
     private void displayShows() {
         clearDisplay();
 
-        for (Map.Entry<LocalDate, Theatre> entry : optix.getShows().entrySet()) {
+        for (Map.Entry<LocalDate, Theatre> entry : optix.getShowsGui().entrySet()) {
             display.getChildren().add(ShowController.displayShow(entry.getValue(), entry.getKey()));
         }
     }
 
-    @FXML
-    private void displayArchive() {
+    private void displayFinance() {
         clearDisplay();
 
-        for (Map.Entry<LocalDate, Theatre> entry : optix.getShowHistory().entrySet()) {
-            display.getChildren().add(ShowController.displayShow(entry.getValue(), entry.getKey()));
+        for (Map.Entry<LocalDate, Theatre> entry : optix.getShowsGui().entrySet()) {
+            display.getChildren().add(FinanceController.displayFinance(entry.getValue(), entry.getKey()));
         }
     }
 
     private void displaySeats(String fullCommand) {
-        clearDisplay();
-
         String[] splitStr = fullCommand.split("\\|");
-        LocalDate localDate = new OptixDateFormatter().toLocalDate(splitStr[1].trim());
-        ShowMap shows = optix.getShows();
-        Theatre theatre = shows.get(localDate);
+        if (splitStr.length >= 2 && !optix.getShowsGui().isEmpty()) {
+            clearDisplay();
 
-        display.getChildren().add(SeatsDisplayController.displaySeats(theatre, localDate));
+            LocalDate localDate = new OptixDateFormatter().toLocalDate(splitStr[1].trim());
+            ShowMap shows = optix.getShows();
+            Theatre theatre = shows.get(localDate);
+
+            display.getChildren().add(SeatsDisplayController.displaySeats(theatre, localDate));
+        }
+    }
+
+    @FXML
+    private void clickShow() {
+        optix.resetShows();
+        displayShows();
+    }
+
+    @FXML
+    private void clickArchive() {
+        optix.resetArchive();
+        displayFinance();
+    }
+
+    @FXML
+    private void clickFinance() {
+        optix.resetShows();
+        displayFinance();
     }
 
     private void clearDisplay() {

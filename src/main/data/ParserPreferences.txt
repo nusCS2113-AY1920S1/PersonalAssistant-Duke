@@ -1,9 +1,13 @@
-p|postpone
 a|add
 b|bye
-s|sell
+shw|show
 d|delete
 e|edit
-v|view
 h|help
+fin|finance
 l|list
+p|postpone
+re|reassign-seat
+arc|archive
+s|sell
+v|view

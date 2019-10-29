@@ -39,7 +39,7 @@ public class SellSeatCommand extends Command {
             String showName = detailsArray[0].trim();
             String showDate = detailsArray[1].trim();
             String[] seats = detailsArray[2].trim().split(" ");
-            for (int i = 0; i < seats.length; i+= 1) {
+            for (int i = 0; i < seats.length; i += 1) {
                 seats[i] = seats[i].trim();
             }
             if (!formatter.isValidDate(showDate)) {

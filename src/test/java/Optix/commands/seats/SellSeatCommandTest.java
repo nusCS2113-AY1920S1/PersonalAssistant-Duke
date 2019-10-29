@@ -1,11 +1,12 @@
 package optix.commands.seats;
 
-import optix.commands.seats.SellSeatCommand;
 import optix.commands.shows.AddCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
 import optix.ui.Ui;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -13,42 +14,59 @@ import java.io.File;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SellSeatCommandTest {
-
     private Ui ui = new Ui();
     private static File currentDir = new File(System.getProperty("user.dir"));
     private static File filePath = new File(currentDir.toString() + "\\src\\test\\data\\testOptix");
     private Storage storage = new Storage(filePath);
     private Model model = new Model(storage);
 
-    @Test
-    void execute() {
-        filePath.deleteOnExit();
-        AddCommand addTestShow1 = new AddCommand("Test Show 1|20|5/5/2020");
-        addTestShow1.execute(model, ui, storage);
-        // sell an available seat
-        SellSeatCommand testCommand1 = new SellSeatCommand("Test Show 1|5/5/2020|A1");
-        testCommand1.execute(model, ui, storage);
-        String expected1 = "__________________________________________________________________________________\n"
-                + "You have successfully purchased the following seats: \n"
-                + "[A1]\n"
-                + "The total cost of the ticket is $30.00\n"
-                + "__________________________________________________________________________________\n";
-        assertEquals(expected1, ui.showCommandLine());
+    @BeforeEach
+    void init() {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        this.model = new Model(storage);
+    }
 
-        // sell a seat that is taken
-        // SellSeatCommand testCommand2 = new SellSeatCommand("Test Show 1", "5/5/2020","A1");
-        testCommand1.execute(model, ui, storage);
-        String expected2 = "__________________________________________________________________________________\n"
-                + "☹ OOPS!!! All of the seats [A1] are unavailable\n"
-                + "__________________________________________________________________________________\n";
-        assertEquals(expected2, ui.showCommandLine());
-        //sell a seat that does not exist
-        SellSeatCommand testCommand2 = new SellSeatCommand("Test Show 1|5/5/2020|%1");
-        testCommand2.execute(model, ui, storage);
-        String expected3 = "__________________________________________________________________________________\n"
-                + "☹ OOPS!!! All of the seats [%1] are unavailable\n"
-                + "__________________________________________________________________________________\n";
-        assertEquals(expected3, ui.showCommandLine());
+    @Test
+    @DisplayName("No Details Test")
+    void testNoDetails() {
+        new SellSeatCommand("").execute(model, ui, storage);
+        String expected = "☹ OOPS!!! That is an invalid command\n"
+                + "Please try again. \n";
+        assertEquals(expected, ui.getMessage());
+    }
+
+    @Test
+    @DisplayName("Invalid Date")
+    void testInvalidDate() {
+        new AddCommand("Test Show|5|5/5/2030").execute(model, ui, storage);
+        new SellSeatCommand("Test Show|2020|a1 a2").execute(model, ui, storage);
+        String expected = "☹ OOPS!!! That is an invalid date.\n"
+                + "Please try again. \n";
+        assertEquals(expected, ui.getMessage());
+    }
+
+    @Test
+    @DisplayName("Show Name Do Not Match")
+    void testInvalidShowName() {
+        new AddCommand("Test Show|5|5/5/2030").execute(model, ui, storage);
+        new SellSeatCommand("Test|5/5/2030|a1 a2").execute(model, ui, storage);
+        String expected = "☹ OOPS!!! The show cannot be found.\n";
+        assertEquals(expected, ui.getMessage());
+    }
+
+    @Test
+    @DisplayName("Valid Execute")
+    void testSellSeat() {
+        new AddCommand("Test Show|20|10/10/2030").execute(model, ui, storage);
+        new SellSeatCommand("Test Show|10/10/2030|A1").execute(model, ui, storage);
+        new SellSeatCommand("Test Show|10/10/2030|A1 A2 A3").execute(model, ui, storage);
+        String expected = "You have successfully purchased the following seats: \n"
+                + "[A2, A3]\n"
+                + "The total cost of the ticket is $60.00\n"
+                + "The following seats are unavailable: \n"
+                + "[A1]\n";
+        assertEquals(expected, ui.getMessage());
     }
 
     @AfterAll

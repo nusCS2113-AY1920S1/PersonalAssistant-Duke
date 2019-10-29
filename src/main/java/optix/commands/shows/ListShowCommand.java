@@ -31,7 +31,7 @@ public class ListShowCommand extends Command {
 
     @Override
     public String[] parseDetails(String details) {
-        return details.split(" ");
+        return new String[0];
     }
 
     private boolean hasShow(String message) {

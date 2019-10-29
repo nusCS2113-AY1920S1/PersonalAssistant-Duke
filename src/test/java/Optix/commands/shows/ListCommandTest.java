@@ -1,7 +1,5 @@
 package optix.commands.shows;
 
-import optix.commands.shows.AddCommand;
-import optix.commands.shows.ListCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
 import optix.ui.Ui;
@@ -42,7 +40,7 @@ class ListCommandTest {
 
     @Test
     @DisplayName("Positive test")
-    void positiveTest() {
+    void testValidList() {
         // testing for a filled show list
         AddCommand addShow1 = new AddCommand("dummy test 1|20|5/5/2020");
         addShow1.execute(model, ui, storage);

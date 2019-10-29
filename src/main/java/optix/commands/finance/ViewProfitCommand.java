@@ -4,6 +4,7 @@ import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
 import optix.commons.model.ShowMap;
+import optix.exceptions.OptixException;
 import optix.exceptions.OptixInvalidCommandException;
 import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
@@ -19,10 +20,7 @@ public class ViewProfitCommand extends Command {
 
     private static final String MESSAGE_SHOW_NOT_FOUND = "☹ OOPS!!! The show cannot be found.\n";
 
-    private static final String MESSAGE_DOES_NOT_MATCH = "☹ OOPS!!! Did you get the wrong date or wrong show. \n"
-            + "Try again!\n";
-
-    private static final String MESSAGE_SUCCESSFUL = "The profit for %1$s on %2$s is %3$.2f\n";
+    private static final String MESSAGE_SUCCESSFUL = "The profit for %1$s on %2$s is $%3$.2f\n";
 
     /**
      * Views the profit made from a show on a certain date.
@@ -34,20 +32,14 @@ public class ViewProfitCommand extends Command {
 
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
+        StringBuilder message = new StringBuilder();
         String showName;
         String showDate;
         try {
             String[] detailsArray = parseDetails(this.details);
             showName = detailsArray[0].trim();
             showDate = detailsArray[1].trim();
-        } catch (OptixInvalidCommandException e) {
-            ui.setMessage(e.getMessage());
-            return "show";
-        }
 
-        String message = "";
-
-        try {
             if (!formatter.isValidDate(showDate)) {
                 throw new OptixInvalidDateException();
             }
@@ -56,31 +48,27 @@ public class ViewProfitCommand extends Command {
 
             if (localDate.compareTo(storage.getToday()) <= 0) { //in archive list
                 ShowMap showsHistory = model.getShowsHistory();
-                if (!showsHistory.containsKey(localDate)) { //date not found
-                    message = MESSAGE_SHOW_NOT_FOUND;
-                } else if (!showsHistory.get(localDate).hasSameName(showName)) {
-                    message = MESSAGE_DOES_NOT_MATCH;
+                if (showsHistory.containsKey(localDate) && showsHistory.get(localDate).hasSameName(showName)) { //date not found
+                    message.append(String.format(MESSAGE_SUCCESSFUL, showName, showDate,
+                            showsHistory.getProfit(localDate)));
                 } else {
-                    message = String.format(MESSAGE_SUCCESSFUL, showName, showDate,
-                            showsHistory.get(localDate).getProfit());
+                    message.append(MESSAGE_SHOW_NOT_FOUND);
                 }
             } else {
                 ShowMap shows = model.getShows();
-                if (!shows.containsKey(localDate)) {
-                    message = MESSAGE_SHOW_NOT_FOUND;
-                } else if (!shows.get(localDate).hasSameName(showName)) {
-                    message = MESSAGE_DOES_NOT_MATCH;
+                if (shows.containsKey(localDate) && model.hasSameName(localDate, showName)) {
+                    message.append(String.format(MESSAGE_SUCCESSFUL, showName, showDate,
+                            shows.getProfit(localDate)));
                 } else {
-                    message = String.format(MESSAGE_SUCCESSFUL, showName, showDate,
-                            shows.get(localDate).getProfit());
+                    message.append(MESSAGE_SHOW_NOT_FOUND);
                 }
             }
-        } catch (OptixInvalidDateException e) {
-            message = e.getMessage();
+        } catch (OptixException e) {
+            message.append(e.getMessage());
         } finally {
-            ui.setMessage(message);
+            ui.setMessage(message.toString());
         }
-        return "show";
+        return "finance";
     }
 
     @Override

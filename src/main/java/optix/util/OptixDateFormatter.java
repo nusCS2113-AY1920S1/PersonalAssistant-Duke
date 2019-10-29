@@ -1,5 +1,7 @@
 package optix.util;
 
+import optix.exceptions.OptixInvalidDateException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.text.DateFormatSymbols;
@@ -101,11 +103,11 @@ public class OptixDateFormatter {
      * @param year String format: YYYY.
      * @return Integer number for year.
      */
-    public int getYear(String year) {
+    public int getYear(String year) throws OptixInvalidDateException {
         try {
             return Integer.parseInt(year);
         } catch (NumberFormatException e) {
-            return 0;
+            throw new OptixInvalidDateException();
         }
     }
 
@@ -119,68 +121,55 @@ public class OptixDateFormatter {
         try {
             num = Integer.parseInt(month);
             if (num < 0 || num > 12) {
-                num = 0;
+                return 0;
             }
         } catch (NumberFormatException e) {
             switch (month) {
             case "january":
             case "jan":
-                num = 1;
-                break;
+                return 1;
             case "february":
             case "feb":
-                num = 2;
-                break;
+                return 2;
             case "march":
             case "mar":
-                num = 3;
-                break;
+                return 3;
             case "april":
             case "apr":
-                num = 4;
-                break;
+                return 4;
             case "may":
-                num = 5;
-                break;
+                return 5;
             case "june":
             case "jun":
-                num = 6;
-                break;
+                return 6;
             case "july":
             case "jul":
-                num = 7;
-                break;
+                return 7;
             case "august":
             case "aug":
-                num = 8;
-                break;
+                return 8;
             case "september":
             case "sep":
             case "sept":
-                num = 9;
-                break;
+                return 9;
             case "october":
             case "oct":
-                num = 10;
-                break;
+                return 10;
             case "november":
             case "nov":
-                num = 11;
-                break;
+                return 11;
             case "december":
             case "dec":
-                num = 12;
-                break;
+                return 12;
             default:
-                num = 0;
-                break;
+                return 0;
             }
         }
         return num;
     }
 
     public String intToMonth(int month) {
-        return new DateFormatSymbols().getMonths()[month-1];
+        return new DateFormatSymbols().getMonths()[month - 1];
     }
 
     /**

@@ -6,12 +6,15 @@ import optix.commons.Model;
 import optix.commons.Storage;
 import optix.ui.Ui;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author NicholasLiu97
 class ViewMonthlyCommandTest {
     private Ui ui = new Ui();
     private static File currentDir = new File(System.getProperty("user.dir"));
@@ -19,45 +22,74 @@ class ViewMonthlyCommandTest {
     private Storage storage = new Storage(filePath);
     private Model model = new Model(storage);
 
+    @BeforeEach
+    void init() {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        this.model = new Model(storage);
+    }
+
     @Test
-    void execute() {
-        AddCommand addDummyShow = new AddCommand("dummy show name|20|5/5/2020");
-        addDummyShow.execute(model, ui, storage);
+    @DisplayName("Incorrect number of parameters")
+    void testParseDetails() {
+        String expected = "☹ OOPS!!! That is an invalid command\n"
+                + "Please try again. \n";
+        new ViewMonthlyCommand("").execute(model, ui, storage);
+        assertEquals(expected, ui.getMessage());
+        new ViewMonthlyCommand("October").execute(model, ui, storage);
+        assertEquals(expected, ui.getMessage());
+        new ViewMonthlyCommand("October 2020 2020").execute(model, ui, storage);
+        assertEquals(expected, ui.getMessage());
+    }
 
-        SellSeatCommand sellDummySeat = new SellSeatCommand("dummy show name|5/5/2020|A1 A2 A3");
-        sellDummySeat.execute(model, ui, storage);
+    @Test
+    @DisplayName("Incorrect Date Format")
+    void testDateFormatter() {
+        String expected = "☹ OOPS!!! That is an invalid date.\n"
+                + "Please try again. \n";
+        new ViewMonthlyCommand("Octoberr 2020").execute(model, ui, storage);
+        assertEquals(expected, ui.getMessage());
+        new ViewMonthlyCommand("0 2020").execute(model, ui, storage);
+        assertEquals(expected, ui.getMessage());
+        new ViewMonthlyCommand("13 Oct").execute(model, ui, storage);
+        assertEquals(expected, ui.getMessage());
+    }
 
-        AddCommand addDummyShow2 = new AddCommand("dummy show name2|20|20/5/2020");
-        addDummyShow2.execute(model, ui, storage);
+    @Test
+    @DisplayName("Test No Records")
+    void testViewMonthlyUnsuccessful() {
+        String expected = "☹ OOPS!!! The earnings for October 2019 has not been"
+                + " calculated. Try other months.\n";
+        new ViewMonthlyCommand("10 2019").execute(model, ui, storage);
+        assertEquals(expected, ui.getMessage());
+        expected = "☹ OOPS!!! There are no shows in February 2019.\n";
+        new ViewMonthlyCommand("2 2019").execute(model, ui, storage);
+        assertEquals(expected, ui.getMessage());
+    }
 
-        SellSeatCommand sellDummySeat2 = new SellSeatCommand("dummy show name2|20/5/2020|A1 A2 A3 A4 A5");
-        sellDummySeat2.execute(model, ui, storage);
+    @Test
+    @DisplayName("Valid Test for Archive Profits")
+    void testArchiveProfit() {
+        String expected = "The earnings for November 2018 is $6000.00.\n";
+        new ViewMonthlyCommand("Nov 2018").execute(model, ui, storage);
+        assertEquals(expected, ui.getMessage());
+        expected = "The earnings for September 2019 is $200.00.\n";
+        new ViewMonthlyCommand("September 2019").execute(model, ui, storage);
+        assertEquals(expected, ui.getMessage());
+    }
 
-        AddCommand addDummyShow3 = new AddCommand("dummy show name3|20|1/1/2030");
-        addDummyShow3.execute(model, ui, storage);
-
-        SellSeatCommand sellDummySeat3 = new SellSeatCommand("dummy show name3|1/1/2030|A1 A2 A3 B2");
-        sellDummySeat3.execute(model, ui, storage);
-
-        ViewMonthlyCommand testCommand = new ViewMonthlyCommand("May 2020");
-        testCommand.execute(model, ui, storage);
-
-        String expected = "__________________________________________________________________________________\n"
-                + "The earnings for May 2020 is 240.00.\n"
-                + "__________________________________________________________________________________\n";
-
-        assertEquals(expected, ui.showCommandLine());
-
-        ViewMonthlyCommand testCommand2 = new ViewMonthlyCommand("January 2023");
-        testCommand2.execute(model, ui, storage);
-
-        String expected2 = "__________________________________________________________________________________\n"
-                + "☹ OOPS!!! There are no shows in January 2023.\n"
-                + "__________________________________________________________________________________\n";
-
-        assertEquals(expected2, ui.showCommandLine());
-
-        filePath.deleteOnExit();
+    @Test
+    @DisplayName("Valid Test for Projected Profits")
+    void testShowProfit() {
+        new AddCommand("Lion King|20|9/12/2019|10/10/2020|11/10/2020").execute(model, ui, storage);
+        new SellSeatCommand("Lion King|10/10/2020|A1 A2 A3 A4 B5 C6 D7 E8 F9 A10").execute(model, ui, storage);
+        new SellSeatCommand("Lion King|9/12/2019|A1 A2 A3 A4 B5 C6 D7 E8 F9 A10").execute(model, ui, storage);
+        String expected = "The earnings for October 2020 is $268.00.\n";
+        new ViewMonthlyCommand("Oct 2020").execute(model, ui, storage);
+        assertEquals(expected, ui.getMessage());
+        expected = "The earnings for December 2019 is $268.00.\n";
+        new ViewMonthlyCommand("12 2019").execute(model, ui, storage);
+        assertEquals(expected, ui.getMessage());
     }
 
     @AfterAll

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,7 +8,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="580.0" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -68,10 +66,6 @@
             <Insets left="40.0" />
          </padding>
       </HBox>
-      <AnchorPane layoutX="10.0" layoutY="123.0" prefHeight="33.0" prefWidth="580.0">
-         <children>
-            <JFXButton buttonType="RAISED" layoutX="514.0" layoutY="1.0" text="Confirm" />
-         </children>
-      </AnchorPane>
+      <AnchorPane layoutX="10.0" layoutY="123.0" prefHeight="33.0" prefWidth="580.0" />
    </children>
 </fx:root>

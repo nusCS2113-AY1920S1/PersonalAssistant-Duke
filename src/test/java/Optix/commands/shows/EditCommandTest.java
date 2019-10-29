@@ -1,7 +1,5 @@
 package optix.commands.shows;
 
-import optix.commands.shows.AddCommand;
-import optix.commands.shows.EditCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
 import optix.ui.Ui;
@@ -51,6 +49,16 @@ class EditCommandTest {
     void testNoDetails() {
         new EditCommand("").execute(model, ui, storage); // No details
         String expected = "☹ OOPS!!! That is an invalid command\n"
+                + "Please try again. \n";
+        assertEquals(expected, ui.getMessage());
+    }
+
+    @Test
+    @DisplayName("Invalid Date Details")
+    void testInvalidDate() {
+        new AddCommand("Test Show|5|5/5/2030").execute(model, ui, storage);
+        new EditCommand("Test Show|5/13/2020|Test Show 1").execute(model, ui, storage);
+        String expected = "☹ OOPS!!! That is an invalid date.\n"
                 + "Please try again. \n";
         assertEquals(expected, ui.getMessage());
     }

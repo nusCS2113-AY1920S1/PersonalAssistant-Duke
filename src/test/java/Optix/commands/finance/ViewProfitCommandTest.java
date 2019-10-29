@@ -6,12 +6,15 @@ import optix.commons.Model;
 import optix.commons.Storage;
 import optix.ui.Ui;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author NicholasLiu97
 class ViewProfitCommandTest {
     private Ui ui = new Ui();
     private static File currentDir = new File(System.getProperty("user.dir"));
@@ -19,43 +22,66 @@ class ViewProfitCommandTest {
     private Storage storage = new Storage(filePath);
     private Model model = new Model(storage);
 
+    @BeforeEach
+    void init() {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        this.model = new Model(storage);
+    }
+
     @Test
-    void execute() {
-        AddCommand addDummyShow = new AddCommand("dummy show name|20|10/5/2020");
-        addDummyShow.execute(model, ui, storage);
+    @DisplayName("Incorrect number of parameters")
+    void testParseDetails() {
+        String expected = "☹ OOPS!!! That is an invalid command\n"
+                + "Please try again. \n";
+        new ViewProfitCommand("").execute(model, ui, storage);
+        assertEquals(expected, ui.getMessage());
+        new ViewProfitCommand("Lion King").execute(model, ui, storage);
+        assertEquals(expected, ui.getMessage());
+        new ViewProfitCommand("Lion King|5/5/2020|20202").execute(model, ui, storage);
+        assertEquals(expected, ui.getMessage());
+    }
 
-        SellSeatCommand sellDummySeat = new SellSeatCommand("dummy show name|10/5/2020|A1 A2 A3");
-        sellDummySeat.execute(model, ui, storage);
+    @Test
+    @DisplayName("Invalid Date")
+    void testInvalidDate() {
+        new ViewProfitCommand("Test Show|2020").execute(model, ui, storage);
+        String expected = "☹ OOPS!!! That is an invalid date.\n"
+                + "Please try again. \n";
+        assertEquals(expected, ui.getMessage());
+    }
 
-        ViewProfitCommand testCommand = new ViewProfitCommand("dummy show name|10/5/2020");
-        testCommand.execute(model, ui, storage);
+    @Test
+    @DisplayName("Invalid Show Name")
+    void testInvalidShow() {
+        new ViewProfitCommand("Test Show|5/5/2020").execute(model, ui, storage); //show don't exist
+        String expected = "☹ OOPS!!! The show cannot be found.\n";
+        assertEquals(expected, ui.getMessage());
+        new ViewProfitCommand("Test Show|14/10/2015").execute(model, ui, storage); //archive show don't exist
+        assertEquals(expected, ui.getMessage());
+        new AddCommand("Test Show|20|5/5/2020").execute(model, ui, storage);
+        new ViewProfitCommand("Test |5/5/2020").execute(model, ui, storage); //show name does not match
+        assertEquals(expected, ui.getMessage());
+        new ViewProfitCommand("Harry Potte|13/10/2015").execute(model, ui, storage); //show name does not match
+        assertEquals(expected, ui.getMessage());
+    }
 
-        String expected = "__________________________________________________________________________________\n"
-                + "The profit for dummy show name on 10/5/2020 is 90.00\n"
-                + "__________________________________________________________________________________\n";
+    @Test
+    @DisplayName("Archive Show exist")
+    void testArchiveShow() {
+        String expected = "The profit for Harry Potter on 13/10/2015 is $2000.00\n";
+        new ViewProfitCommand("Harry Potter|13/10/2015").execute(model, ui, storage);
+        assertEquals(expected, ui.getMessage());
+    }
 
-        assertEquals(expected, ui.showCommandLine());
-
-        ViewProfitCommand testCommand2 = new ViewProfitCommand("dummy show name|6/5/2020");
-        testCommand2.execute(model, ui, storage);
-
-        String expected2 = "__________________________________________________________________________________\n"
-                + "☹ OOPS!!! The show cannot be found.\n"
-                + "__________________________________________________________________________________\n";
-
-        assertEquals(expected2, ui.showCommandLine());
-
-        ViewProfitCommand testCommand3 = new ViewProfitCommand("wrong show name|10/5/2020");
-        testCommand3.execute(model, ui, storage);
-
-        String expected3 = "__________________________________________________________________________________\n"
-                + "☹ OOPS!!! Did you get the wrong date or wrong show. \n"
-                + "Try again!\n"
-                + "__________________________________________________________________________________\n";
-
-        assertEquals(expected3, ui.showCommandLine());
-
-        filePath.deleteOnExit();
+    @Test
+    @DisplayName("Scheduled Show exist")
+    void testViewProfit() {
+        new AddCommand("Test Show|20|5/5/2020").execute(model, ui, storage);
+        new SellSeatCommand("Test Show|5/5/2020|A1 A2").execute(model, ui, storage);
+        new ViewProfitCommand("Test Show|5/5/2020").execute(model, ui, storage);
+        String expected = "The profit for Test Show on 5/5/2020 is $60.00\n";
+        assertEquals(expected, ui.getMessage());
     }
 
     @AfterAll

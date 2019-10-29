@@ -3,6 +3,7 @@ package optix.util;
 import optix.commands.ByeCommand;
 import optix.commands.Command;
 import optix.commands.HelpCommand;
+import optix.commands.TabCommand;
 import optix.commands.parser.AddAliasCommand;
 import optix.commands.parser.ListAliasCommand;
 import optix.commands.parser.RemoveAliasCommand;
@@ -44,7 +45,7 @@ public class Parser {
     private File preferenceFile; // the path to the file itself
     // array of all possible command values
     private static String[] commandList = {"bye", "list", "help", "edit", "sell", "view",
-        "postpone", "add", "delete"};
+        "postpone", "add", "delete", "reassign-seat", "show", "archive", "finance"};
 
     /**
      * Set the path to directory containing the save file for preferences.
@@ -92,7 +93,7 @@ public class Parser {
             case "list-alias":
                 return new ListAliasCommand();
             default:
-                throw new OptixInvalidCommandException();
+                return new TabCommand(splitStr[0]);
             }
         } else if (splitStr.length == 2) {
 
@@ -209,6 +210,10 @@ public class Parser {
      */
     public static void resetPreferences() {
         commandAliasMap.clear();
+        commandAliasMap.put("re", "reassign-seat");
+        commandAliasMap.put("arc", "archive");
+        commandAliasMap.put("shw", "show");
+        commandAliasMap.put("fin", "finance");
         commandAliasMap.put("b", "bye");
         commandAliasMap.put("l", "list");
         commandAliasMap.put("h", "help");

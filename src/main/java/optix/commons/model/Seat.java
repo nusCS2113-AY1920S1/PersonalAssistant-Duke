@@ -19,11 +19,6 @@ public class Seat {
         isBooked = booked;
     }
 
-    //store this in case of refund.
-    public void setTicketPrice(double ticketPrice) {
-        this.ticketPrice = ticketPrice;
-    }
-
     public boolean isBooked() {
         return isBooked;
     }

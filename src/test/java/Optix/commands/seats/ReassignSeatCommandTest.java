@@ -3,7 +3,6 @@ package optix.commands.seats;
 import optix.commands.shows.AddCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
-import optix.commons.model.Theatre;
 import optix.ui.Ui;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,11 +10,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ViewSeatsCommandTest {
+class ReassignSeatCommandTest {
     private Ui ui = new Ui();
     private static File currentDir = new File(System.getProperty("user.dir"));
     private static File filePath = new File(currentDir.toString() + "\\src\\test\\data\\testOptix");
@@ -32,8 +30,7 @@ class ViewSeatsCommandTest {
     @Test
     @DisplayName("No Details Test")
     void testNoDetails() {
-        new AddCommand("Test Show|20|5/5/2020").execute(model, ui, storage);
-        new ViewSeatsCommand("").execute(model, ui, storage);
+        new ReassignSeatCommand("").execute(model, ui, storage);
         String expected = "☹ OOPS!!! That is an invalid command\n"
                 + "Please try again. \n";
         assertEquals(expected, ui.getMessage());
@@ -42,8 +39,8 @@ class ViewSeatsCommandTest {
     @Test
     @DisplayName("Invalid Date")
     void testInvalidDate() {
-        new AddCommand("Test Show|5|5/5/2030").execute(model, ui, storage);
-        new ViewSeatsCommand("Test Show|2020").execute(model, ui, storage);
+        new AddCommand("Test Show|20|5/5/2030").execute(model, ui, storage);
+        new ReassignSeatCommand("Test Show|2020|a1|a2").execute(model, ui, storage);
         String expected = "☹ OOPS!!! That is an invalid date.\n"
                 + "Please try again. \n";
         assertEquals(expected, ui.getMessage());
@@ -53,21 +50,29 @@ class ViewSeatsCommandTest {
     @DisplayName("Show Name Do Not Match")
     void testInvalidShowName() {
         new AddCommand("Test Show|5|5/5/2030").execute(model, ui, storage);
-        new ViewSeatsCommand("Test|5/5/2030").execute(model, ui, storage);
-        String expected = "☹ OOPS!!! Sorry the show Test cannot be found.\n";
+        new ReassignSeatCommand("Test|5/5/2030|a1|a2").execute(model, ui, storage);
+        String expected = "☹ OOPS!!! The show cannot be found.\n";
         assertEquals(expected, ui.getMessage());
     }
 
     @Test
     @DisplayName("Valid Execute")
-    void testValidViewSeat() {
-        new AddCommand("Test Show|5|5/5/2030").execute(model, ui, storage);
-        new ViewSeatsCommand("Test Show|5/5/2030").execute(model, ui, storage);
-        Theatre show = model.getShows().get(LocalDate.of(2030, 5, 5));
-        String expected = "Here is the layout of the theatre for Test Show on 5/5/2030:\n"
-                        + show.getSeatingArrangement();
+    void testReassignSeat() {
+        new AddCommand("Test Show|20|10/10/2030").execute(model, ui, storage);
+        new SellSeatCommand("Test Show|10/10/2030|C1 C2 C3").execute(model, ui, storage);
+        new ReassignSeatCommand("Test Show|10/10/2030|A1 | A5").execute(model, ui, storage);
+        String expected = "The seat A1 is still available for booking.\n";
+        assertEquals(expected, ui.getMessage());
+        new ReassignSeatCommand("Test Show|10/10/2030|C1 | A5").execute(model, ui, storage);
+        expected = "Your seat has been successfully changed from C1 to A5.\n"
+                    + "An extra cost of $6.00 is required.\n";
+        assertEquals(expected, ui.getMessage());
+        new ReassignSeatCommand("Test Show|10/10/2030|C2 | E5").execute(model, ui, storage);
+        expected = "Your seat has been successfully changed from C2 to E5.\n"
+                    + "$4.00 will be returned.\n";
         assertEquals(expected, ui.getMessage());
     }
+
 
     @AfterAll
     static void cleanUp() {

@@ -1,7 +1,5 @@
 package optix.commands.shows;
 
-import optix.commands.shows.AddCommand;
-import optix.commands.shows.ListDateCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
 import optix.ui.Ui;
@@ -42,7 +40,7 @@ class ListDateCommandTest {
 
     @Test
     @DisplayName("Positive Test")
-    void positiveTest() {
+    void testValidListDate() {
         // insert dummy show
         AddCommand insertDummyShow1 = new AddCommand("Dummy Show|20|5/5/2020");
         insertDummyShow1.execute(model, ui, storage);
@@ -57,6 +55,16 @@ class ListDateCommandTest {
                 + "2. Dummy Show (on: 06/05/2020)\n"
                 + "__________________________________________________________________________________\n";
         assertEquals(expected2, ui.showCommandLine());
+    }
+
+    @Test
+    @DisplayName("Invalid Date")
+    void testInvalidDate() {
+        new AddCommand("Test Show|5|5/5/2030").execute(model, ui, storage);
+        new ListDateCommand("ocotber 2020").execute(model, ui, storage);
+        String expected = "☹ OOPS!!! That is an invalid date.\n"
+                + "Please try again. \n";
+        assertEquals(expected, ui.getMessage());
     }
 
     @Test

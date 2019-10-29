@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ByeCommandTest {
     private Ui ui;
@@ -26,7 +27,7 @@ class ByeCommandTest {
     }
 
     @Test
-    void execute() {
+    void testExecute() {
         ByeCommand testCommand = new ByeCommand();
         testCommand.execute(model, ui, storage);
 
@@ -34,6 +35,14 @@ class ByeCommandTest {
                 + "Bye. Hope to see you again soon!\n"
                 + "__________________________________________________________________________________\n";
         assertEquals(expected, ui.showCommandLine());
+        assertTrue(new File(filePath, "optix.txt").exists());
+        assertTrue(new File(filePath, "archive.txt").exists());
+    }
+
+    @Test
+    void testExit() {
+        Command c = new ByeCommand();
+        assertTrue(c.isExit());
     }
 
     @AfterAll

@@ -1,11 +1,12 @@
 package optix.commands.shows;
 
-import optix.commands.shows.AddCommand;
-import optix.commands.shows.DeleteCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
 import optix.ui.Ui;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
@@ -27,21 +28,28 @@ class DeleteCommandTest {
 
     @Test
     @DisplayName("Valid Deletion Test")
-    void validDeleteTest() { // adding a show and deleting the same show
-        new AddCommand("Test Show 1|20|5/5/2020|6/5/2020").execute(model, ui, storage);
+    void testValidDelete() { // adding a show and deleting the same show
+        new AddCommand("Test Show 1|20|5/5/2020|6/5/2020|12/12/2020").execute(model, ui, storage);
         DeleteCommand testCommand1 = new DeleteCommand("Test Show 1|5/5/2020|6/5/2020");
         testCommand1.execute(model, ui, storage);
-        String expected1 = "__________________________________________________________________________________\n"
-                + "Noted. The following shows has been deleted:\n"
+        String expected = "Noted. The following shows has been deleted:\n"
                 + "1. Test Show 1 (on: 5/5/2020)\n"
-                + "2. Test Show 1 (on: 6/5/2020)\n"
-                + "__________________________________________________________________________________\n";
-        assertEquals(expected1, ui.showCommandLine());
+                + "2. Test Show 1 (on: 6/5/2020)\n";
+        assertEquals(expected, ui.getMessage());
+
+        testCommand1 = new DeleteCommand("Test Show 1|5/13/2020|12/12/2020");
+        testCommand1.execute(model, ui, storage);
+        expected = "Noted. The following shows has been deleted:\n"
+                + "1. Test Show 1 (on: 12/12/2020)\n"
+                + "\n"
+                + "☹ OOPS!!! Unable to find the following shows:\n"
+                + "1. Test Show 1 (on: 5/13/2020)\n";
+        assertEquals(expected, ui.getMessage());
     }
 
     @Test
     @DisplayName("Invalid Deletion Test")
-    void invalidDeleteTest() { // deleting a show that does not exist
+    void testInvalidDelete() { // deleting a show that does not exist
         DeleteCommand testCommand2 = new DeleteCommand("Non-existent show|4/5/2020");
         testCommand2.execute(model, ui, storage);
         String expected2 = "__________________________________________________________________________________\n"

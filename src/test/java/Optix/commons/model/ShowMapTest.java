@@ -38,10 +38,6 @@ class ShowMapTest {
         shows.addShow("Test Show 2", date2, 20);
         String expected = "1. Test Show (on: 10/10/2020)\n" + "2. Test Show 2 (on: 11/11/2020)\n";
         assertEquals(expected, shows.listShow());
-        expected = "1. 10/10/2020\n";
-        assertEquals(expected, shows.listShow("Test Show"));
-        expected = "1. Test Show 2 (on: 11/11/2020)\n";
-        assertEquals(expected, shows.listShow(LocalDate.of(2020, 11, 1), LocalDate.of(2020, 12, 1)));
     }
 
     @Test

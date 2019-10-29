@@ -15,6 +15,16 @@ class TheatreTest {
     }
 
     @Test
+    void testCreate() {
+        theatre = new Theatre("Test Show", 2000, 20);
+        assertEquals(2000, theatre.getProfit());
+        Show show = new Show("Dummy Show Name", 4000);
+        theatre = new Theatre(show);
+        assertEquals(show.getShowName(), theatre.getShowName());
+        assertEquals(show.getProfit(), theatre.getProfit());
+    }
+
+    @Test
     void testGetSeatingArrangement() {
         String expected = "                |STAGE|           \n"
                         + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
@@ -24,9 +34,9 @@ class TheatreTest {
                         + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                         + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                         + "\n"
-                        + "Tier 1 Seats: 20\n"
-                        + "Tier 2 Seats: 20\n"
-                        + "Tier 3 Seats: 20\n";
+                        + "Tier 1 Seats: " + theatre.getTierOneSeats() + "\n"
+                        + "Tier 2 Seats: " + theatre.getTierTwoSeats() + "\n"
+                        + "Tier 3 Seats: " + theatre.getTierThreeSeats() + "\n";
         assertEquals(expected, theatre.getSeatingArrangement());
     }
 
@@ -41,9 +51,9 @@ class TheatreTest {
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "\n"
-                + "Tier 1 Seats: 20\n"
-                + "Tier 2 Seats: 20\n"
-                + "Tier 3 Seats: 18\n";
+                + "Tier 1 Seats: " + theatre.getTierOneSeats() + "\n"
+                + "Tier 2 Seats: " + theatre.getTierTwoSeats() + "\n"
+                + "Tier 3 Seats: " + theatre.getTierThreeSeats() + "\n";
         assertEquals(expected, theatre.getSeatingArrangement());
         assertEquals(60, theatre.getProfit());
         Seat[][] seats = theatre.getSeats();
@@ -58,18 +68,18 @@ class TheatreTest {
     @Test
     void testReassignSeat() {
         theatre.sellSeats("A1");
-        theatre.reassignSeat("A1", "A2"); // successful reassignment of seats.
+        theatre.reassignSeat("A1", "C2"); // successful reassignment of seats.
         String expected = "                |STAGE|           \n"
+                + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
+                + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "  [✘][✓][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
-                + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
-                + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "\n"
-                + "Tier 1 Seats: 20\n"
-                + "Tier 2 Seats: 20\n"
-                + "Tier 3 Seats: 19\n";
+                + "Tier 1 Seats: " + theatre.getTierOneSeats() + "\n"
+                + "Tier 2 Seats: " + theatre.getTierTwoSeats() + "\n"
+                + "Tier 3 Seats: " + theatre.getTierThreeSeats() + "\n";
         assertEquals(expected, theatre.getSeatingArrangement());
         theatre.reassignSeat("A1", "A0"); // unsuccessful reassignment of seats.
         assertEquals(expected, theatre.getSeatingArrangement());
@@ -77,8 +87,8 @@ class TheatreTest {
 
     @Test
     void testRemoveSeat() {
-        theatre.sellSeats("A1", "A2", "A3");
-        assertEquals(90, theatre.getProfit());
+        theatre.sellSeats("A1", "A2", "A3", "F3");
+        assertEquals(110, theatre.getProfit());
         theatre.removeSeat("A3");
         String expected = "                |STAGE|           \n"
                 + "  [✓][✓][✘][✘][✘][✘][✘][✘][✘][✘]\n"
@@ -86,16 +96,17 @@ class TheatreTest {
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
-                + "  [✘][✘][✘][✘][✘][✘][✘][✘][✘][✘]\n"
+                + "  [✘][✘][✓][✘][✘][✘][✘][✘][✘][✘]\n"
                 + "\n"
-                + "Tier 1 Seats: 20\n"
-                + "Tier 2 Seats: 20\n"
-                + "Tier 3 Seats: 18\n";
-        assertEquals(60, theatre.getProfit());
+                + "Tier 1 Seats: " + theatre.getTierOneSeats() + "\n"
+                + "Tier 2 Seats: " + theatre.getTierTwoSeats() + "\n"
+                + "Tier 3 Seats: " + theatre.getTierThreeSeats() + "\n";
+        assertEquals(80, theatre.getProfit());
         assertEquals(expected, theatre.getSeatingArrangement());
+        assertEquals(20, theatre.removeSeat("F3"));
+        assertEquals(0, theatre.removeSeat("F3"));
         theatre.removeSeat("A0");
         assertEquals(60, theatre.getProfit());
-        assertEquals(expected, theatre.getSeatingArrangement());
     }
 
     @Test

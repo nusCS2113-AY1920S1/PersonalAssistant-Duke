@@ -66,55 +66,40 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
             message.append(String.format("%d. %s (on: %s)\n", counter, showName, date));
             counter++;
         }
-
         return message.toString();
     }
 
     /**
-     * Get all the dates that are scheduled for the show in query.
-     * @param showName the name of the show.
-     * @return String message of all the dates for that are scheduled the show in query.
+     * Get the list of show dates for the show in query.
+     * @param showName The name of the show.
+     * @return new ShowMap with shows that have the show in query.
      */
-    public String listShow(String showName) {
-        StringBuilder message = new StringBuilder();
-
-        int counter = 1;
-
+    public ShowMap listShow(String showName) {
+        ShowMap shows = new ShowMap();
         for (Map.Entry<LocalDate, Theatre> entry : this.entrySet()) {
             if (entry.getValue().hasSameName(showName)) {
-                String date = formatter.toStringDate(entry.getKey());
-                message.append(String.format("%d. %s\n", counter, date));
-                counter++;
+                shows.put(entry.getKey(), entry.getValue());
             }
         }
-
-        return message.toString();
+        return shows;
     }
 
     /**
-     * Get all the show name and show date that are scheduled for the month in query.
-     * @param startOfMonth First day of the month in query.
-     * @param endOfMonth First day of the next month.
-     * @return String message of all the shows that are scheduled for the month in query.
+     * Get the list of show for the month in query.
+     * @param startOfMonth The first day of month in query.
+     * @param endOfMonth The first day of the following month for the month in query.
+     * @return new ShowMap with shows that are within the month of query.
      */
-    public String listShow(LocalDate startOfMonth, LocalDate endOfMonth) {
-        StringBuilder message = new StringBuilder();
-
-        int counter = 1;
+    public ShowMap listShow(LocalDate startOfMonth, LocalDate endOfMonth) {
+        ShowMap shows = new ShowMap();
 
         while (startOfMonth.compareTo(endOfMonth) != 0) {
             if (this.containsKey(startOfMonth)) {
-                String date = formatter.toStringDate(startOfMonth);
-                String showName = this.getShowName(startOfMonth);
-
-                message.append(String.format("%d. %s (on: %s)\n", counter, showName, date));
-                counter++;
+                shows.put(startOfMonth, this.get(startOfMonth));
             }
-
             startOfMonth = startOfMonth.plusDays(1);
         }
-
-        return message.toString();
+        return shows;
     }
 
     /**
@@ -142,6 +127,9 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
 
     public String reassignSeat(LocalDate showLocalDate, String oldSeat, String newSeat) {
         return this.get(showLocalDate).reassignSeat(oldSeat, newSeat);
+    }
 
+    public double getProfit(LocalDate localDate) {
+        return this.get(localDate).getProfit();
     }
 }
