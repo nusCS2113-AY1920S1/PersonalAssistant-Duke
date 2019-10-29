@@ -41,4 +41,9 @@ public class SemesterList {
     public void removeSemester(int index) {
         semesterList.remove(index);
     }
+
+    public boolean isIndexValid(int index) {
+        return index < semesterList.size() && index >= 0;
+    }
+
 }

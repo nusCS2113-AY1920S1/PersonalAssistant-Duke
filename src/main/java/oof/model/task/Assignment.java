@@ -16,6 +16,11 @@ public class Assignment extends Deadline {
         this.moduleCode = moduleCode;
     }
 
+    @Override
+    public String getDescription() {
+        return moduleCode + " " + super.getDescription();
+    }
+
     public String getModuleCode() {
         return moduleCode;
     }
@@ -31,10 +36,10 @@ public class Assignment extends Deadline {
      */
     @Override
     public String toStorageString() {
-        String date = deadlineDateTime.split(" ")[DATE];
-        String time = deadlineDateTime.split(" ")[TIME];
-        return "A" + DELIMITER + getStatusIcon() + DELIMITER + moduleCode + DELIMITER + description
-                + DELIMITER + date + DELIMITER + time + DELIMITER;
+        String date = deadlineDateTime.split(" ")[INDEX_DATE];
+        String time = deadlineDateTime.split(" ")[INDEX_TIME];
+        return "ASSIGNMENT" + DELIMITER + getStatusIcon() + DELIMITER + moduleCode + DELIMITER + description
+                + DELIMITER + date + DELIMITER + time + DELIMITER + DELIMITER;
     }
 
     @Override

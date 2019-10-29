@@ -1,10 +1,10 @@
 package oof.command;
 
+import oof.SelectedInstance;
 import oof.Storage;
 import oof.Ui;
 import oof.exception.OofException;
 import oof.model.module.Module;
-import oof.model.module.Semester;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
 
@@ -22,24 +22,26 @@ public class ViewLessonCommand extends Command {
 
     @Override
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
-        viewLessonList(semesterList, ui);
+        viewLessonList(ui);
     }
 
     /**
      * Prints the list of Lessons in a selected Module.
      *
-     * @param semesterList Instance of SemesterList Object containing list of Semesters.
-     * @param ui           Instance of Ui that is responsible for visual feedback.
+     * @param ui Instance of Ui that is responsible for visual feedback.
      * @throws OofException if lessons list is empty.
      */
-    private void viewLessonList(SemesterList semesterList, Ui ui) throws OofException {
-        if (Module.getLessons().isEmpty()) {
-            throw new OofException("Lessons List is empty!");
+    private void viewLessonList(Ui ui) throws OofException {
+        SelectedInstance selectedInstance = SelectedInstance.getInstance();
+        Module module = selectedInstance.getModule();
+        if (module == null) {
+            throw new OofException("OOPS!! No module selected.");
+        } else if (module.getLessons().isEmpty()) {
+            throw new OofException("OOPS!! Lessons List is empty!");
         } else {
-            int semesterWanted = ui.scanSemesterOption(semesterList);
-            int moduleWanted = ui.scanModuleOption(semesterList.getSemester(semesterWanted));
-            ui.printLessonList(Semester.getModule(moduleWanted));
+            ui.printLessonList(module);
         }
+
     }
 
     @Override

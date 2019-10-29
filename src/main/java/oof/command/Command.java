@@ -3,11 +3,11 @@ package oof.command;
 import oof.exception.OofException;
 import oof.Storage;
 import oof.model.module.SemesterList;
-import oof.model.task.TaskList;
 import oof.Ui;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
 import oof.model.task.Task;
+import oof.model.task.TaskList;
 import oof.model.task.Todo;
 
 import java.text.ParseException;
@@ -27,13 +27,14 @@ public abstract class Command {
      * Invokes other Command subclasses based on the input given by the user.
      *
      * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param taskList     Instance of TaskList that stores Task objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException Catches invalid commands given by user.
      */
-    public abstract void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException;
+    public abstract void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage)
+            throws OofException;
 
     /**
      * Parses the Timestamp given by the user and returns the parsed
@@ -46,6 +47,22 @@ public abstract class Command {
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
             Date parsed = format.parse(date);
+            return format.format(parsed);
+        } catch (ParseException | DateTimeException e) {
+            return "failed";
+        }
+    }
+
+    /**
+     * Parses the Time given by the user and returns the parsed time as a string if the date is valid.
+     *
+     * @param time String containing time supplied by user.
+     * @return Parsed Time if the Time is valid, else retuns "failed".
+     */
+    public String parseTime(String time) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+            Date parsed = format.parse(time);
             return format.format(parsed);
         } catch (ParseException | DateTimeException e) {
             return "failed";
@@ -104,7 +121,7 @@ public abstract class Command {
     /**
      * Comparator to sort tasks by their time in ascending order.
      */
-    class SortByTime implements Comparator<String[]> {
+    static class SortByTime implements Comparator<String[]> {
         @Override
         public int compare(String[] a, String[] b) {
             if (a[0].equals("")) {
@@ -133,7 +150,10 @@ public abstract class Command {
     /**
      * Checks if ExitCommand is called for Oof to terminate.
      *
-     * @return true if ExitCommand is called, false otherwise.
+     * @return false.
      */
-    public abstract boolean isExit();
+    public boolean isExit() {
+        return false;
+    }
+
 }

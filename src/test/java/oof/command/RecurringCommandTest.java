@@ -82,9 +82,10 @@ public class RecurringCommandTest {
         ByteArrayInputStream in = new ByteArrayInputStream("1".getBytes());
         System.setIn(in);
         new Oof().executeCommand("recurring 1 1");
-        TaskList taskList = new Oof().getArr();
+        TaskList taskList = new Oof().getTaskList();
         Task task = taskList.getTask(taskList.getSize() - 1);
         assertEquals("[T][N] borrow another book (on: 14-10-2019)", task.toString());
+
     }
 
     /**
@@ -96,7 +97,7 @@ public class RecurringCommandTest {
         ByteArrayInputStream in = new ByteArrayInputStream("2".getBytes());
         System.setIn(in);
         new Oof().executeCommand("recurring 2 1");
-        TaskList taskList = new Oof().getArr();
+        TaskList taskList = new Oof().getTaskList();
         Task task = taskList.getTask(taskList.getSize() - 1);
         assertEquals("[D][N] homework (by: 20-10-2019 23:59)", task.toString());
     }
@@ -110,9 +111,8 @@ public class RecurringCommandTest {
         ByteArrayInputStream in = new ByteArrayInputStream("3".getBytes());
         System.setIn(in);
         new Oof().executeCommand("recurring 3 1");
-        TaskList taskList = new Oof().getArr();
+        TaskList taskList = new Oof().getTaskList();
         Task task = taskList.getTask(taskList.getSize() - 1);
         assertEquals("[E][N] lecture (from: 08-11-2019 10:00 to: 08-11-2019 12:00)", task.toString());
     }
-
 }

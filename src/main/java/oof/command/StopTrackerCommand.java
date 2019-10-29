@@ -3,9 +3,9 @@ package oof.command;
 import oof.Storage;
 import oof.model.module.SemesterList;
 import oof.model.task.Task;
-import oof.model.task.TaskList;
 import oof.Ui;
 import oof.exception.OofException;
+import oof.model.task.TaskList;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -57,11 +57,11 @@ public class StopTrackerCommand extends Command {
     }
 
     @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
         if (description.isEmpty()) {
             throw new OofException("Please enter a Task!");
         }
-        Task task = stc.findTask(tasks, description);
+        Task task = stc.findTask(taskList, description);
         if (task.getStatus()) {
             throw new OofException("Task has already been completed.");
         } else if (!isStarted(task)) {
@@ -73,10 +73,5 @@ public class StopTrackerCommand extends Command {
             long diff = getDateDiff(task);
             ui.printEndAtCurrent(task, date, diff);
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

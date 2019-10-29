@@ -48,15 +48,15 @@ public class RecurringCommand extends Command {
      * Recurs a task.
      *
      * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param taskList     Instance of TaskList that stores Task objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException if user input is invalid.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
-        if (!tasks.isIndexValid(this.index)) {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
+        if (!taskList.isIndexValid(this.index)) {
             throw new OofException("OOPS!!! Please select a valid task!");
         } else if (!isCountValid(this.count)) {
             throw new OofException("OOPS!!! The valid number of recurrences is from 1-10!");
@@ -65,9 +65,9 @@ public class RecurringCommand extends Command {
                 if (!isFrequencyValid(this.frequency)) {
                     throw new OofException("OOPS!!! Please enter a valid number!");
                 } else {
-                    setRecurringTask(ui, tasks, this.index, this.count, this.frequency);
-                    ui.printRecurringMessage(tasks);
-                    storage.writeTaskList(tasks);
+                    setRecurringTask(ui, taskList, this.index, this.count, this.frequency);
+                    ui.printRecurringMessage(taskList);
+                    storage.writeTaskList(taskList);
                 }
             } catch (InputMismatchException e) {
                 throw new OofException("OOPS!!! Please enter a valid number!");
@@ -215,10 +215,5 @@ public class RecurringCommand extends Command {
      */
     private boolean isFrequencyValid(int frequency) {
         return ((frequency >= DAILY) && (frequency <= YEARLY));
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

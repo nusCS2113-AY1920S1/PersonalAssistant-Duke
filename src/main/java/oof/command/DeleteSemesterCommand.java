@@ -29,17 +29,12 @@ public class DeleteSemesterCommand extends Command {
 
     @Override
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
-        if (semesterList.getSize() == EMPTY) {
+        if (!semesterList.isIndexValid(index)) {
             throw new OofException("OOPS!!! Invalid number!");
         }
         Semester semester = semesterList.getSemester(this.index);
         semesterList.removeSemester(this.index);
         ui.printSemesterRemovalMessage(semester);
-        storage.writeSemesterList(semesterList, semester, module);
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
+        storage.writeSemesters(semesterList);
     }
 }

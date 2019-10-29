@@ -5,8 +5,8 @@ import oof.model.module.SemesterList;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
 import oof.model.task.Task;
-import oof.model.task.TaskList;
 import oof.Ui;
+import oof.model.task.TaskList;
 import oof.model.task.Todo;
 
 import java.util.ArrayList;
@@ -71,19 +71,17 @@ public class ViewWeekCommand extends Command {
 
     /**
      * Prints calendar for the current week.
-     *
      * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param taskList     Instance of TaskList that stores Task objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
-     *                     objects to hard disk.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) {
         Calendar calendar = Calendar.getInstance();
         Date date = getStartDate(this.day, this.month, this.year);
         calendar.setTime(date);
-        for (Task task : tasks.getTasks()) {
+        for (Task task : taskList.getTasks()) {
             if (task instanceof Todo) {
                 addToDoTask(task, calendar);
             } else if (task instanceof Deadline) {
@@ -231,11 +229,5 @@ public class ViewWeekCommand extends Command {
     private void addEntry(String time, String description, int day) {
         String[] entry = {time, description};
         this.calendarTasks.get(day).add(entry);
-    }
-
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

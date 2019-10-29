@@ -5,7 +5,7 @@ import oof.command.AddEventCommand;
 import oof.command.AddToDoCommand;
 import oof.command.CalendarCommand;
 import oof.command.CompleteCommand;
-import oof.command.DeleteCommand;
+import oof.command.DeleteTaskCommand;
 import oof.command.ExitCommand;
 import oof.command.FindCommand;
 import oof.command.FreeCommand;
@@ -120,7 +120,7 @@ public class CommandParserTest {
      */
     @Test
     public void parse_DeleteEnteredWithValidIndex_DeletesTask() throws OofException {
-        assertTrue(CommandParser.parse("delete 1") instanceof DeleteCommand);
+        assertTrue(CommandParser.parse("delete 1") instanceof DeleteTaskCommand);
     }
 
     /**

@@ -2,6 +2,7 @@ package oof.model.module;
 
 import java.util.ArrayList;
 
+import oof.model.task.Assessment;
 import oof.model.task.Assignment;
 
 /**
@@ -10,11 +11,11 @@ import oof.model.task.Assignment;
 public class Module {
 
     private static final String DELIMITER = "||";
-    private static String moduleCode;
-    private static String moduleName;
-    private static ArrayList<Lesson> lessons;
-    private static ArrayList<Assessment> assessments;
-    private static ArrayList<Assignment> assignments;
+    private String moduleCode;
+    private String moduleName;
+    private ArrayList<Lesson> lessons;
+    private ArrayList<Assessment> assessments;
+    private ArrayList<Assignment> assignments;
 
     /**
      * Constructor for Module object.
@@ -23,8 +24,8 @@ public class Module {
      * @param moduleName String containing module name.
      */
     public Module(String moduleCode, String moduleName) {
-        Module.moduleCode = moduleCode.toUpperCase();
-        Module.moduleName = moduleName;
+        this.moduleCode = moduleCode.toUpperCase();
+        this.moduleName = moduleName;
         lessons = new ArrayList<>();
         assessments = new ArrayList<>();
         assignments = new ArrayList<>();
@@ -40,79 +41,79 @@ public class Module {
         this.assessments = new ArrayList<>();
     }
 
-    public static String getModuleCode() {
+    public String getModuleCode() {
         return moduleCode;
     }
 
     public void setModuleCode(String moduleCode) {
-        Module.moduleCode = moduleCode;
+        this.moduleCode = moduleCode;
     }
 
-    public static String getModuleName() {
+    public String getModuleName() {
         return moduleName;
     }
 
     public void setModuleName(String moduleName) {
-        Module.moduleName = moduleName;
+        this.moduleName = moduleName;
     }
 
-    public static ArrayList<Lesson> getLessons() {
+    public ArrayList<Lesson> getLessons() {
         return lessons;
     }
 
-    public static Lesson getLesson(int index) {
+    public Lesson getLesson(int index) {
         return lessons.get(index);
     }
 
     public void setLessons(ArrayList<Lesson> lessons) {
-        Module.lessons = lessons;
+        this.lessons = lessons;
     }
 
-    public static ArrayList<Assessment> getAssessments() {
+    public ArrayList<Assessment> getAssessments() {
         return assessments;
     }
 
-    public static Assessment getAssessment(int index) {
+    public Assessment getAssessment(int index) {
         return assessments.get(index);
     }
 
     public void setAssessments(ArrayList<Assessment> assessments) {
-        Module.assessments = assessments;
+        this.assessments = assessments;
     }
 
-    public static ArrayList<Assignment> getAssignments() {
+    public ArrayList<Assignment> getAssignments() {
         return assignments;
     }
 
-    public static Assignment getAssignment(int index) {
+    public Assignment getAssignment(int index) {
         return assignments.get(index);
     }
 
     public void setAssignments(ArrayList<Assignment> assignments) {
-        Module.assignments = assignments;
+        this.assignments = assignments;
     }
 
-    public static void addAssignment(Assignment assignment) {
+    public void addAssignment(Assignment assignment) {
         assignments.add(assignment);
     }
 
-    public static void removeAssignment(int index) {
+    public void removeAssignment(int index) {
         assignments.remove(index);
     }
 
-    public static void addLesson(Lesson lesson) {
+    public void addLesson(Lesson lesson) {
         lessons.add(lesson);
     }
 
-    public static void removeLesson(int index) {
+    public void removeLesson(int index) {
         lessons.remove(index);
     }
 
-    public static void addAssessment(Assessment assessment) {
+    public void addAssessment(Assessment assessment) {
         assessments.add(assessment);
     }
 
-    public static void removeAssessment(int index) {
+    public void removeAssessment(int index) {
         assessments.remove(index);
     }
 
@@ -121,7 +122,7 @@ public class Module {
      * @return Module object in string format for storage.
      */
     public String toStorageString() {
-        return "M" + DELIMITER + moduleCode + DELIMITER + moduleName;
+        return "MODULE" + DELIMITER + moduleCode + DELIMITER + moduleName;
     }
 
     @Override
@@ -130,4 +131,7 @@ public class Module {
     }
 
 
+    public boolean isLessonIndexValid(int index) {
+        return index >= 0 && index < lessons.size();
+    }
 }

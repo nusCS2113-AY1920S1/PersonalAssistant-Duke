@@ -52,18 +52,18 @@ public class FreeCommand extends Command {
      * Finds free time during the queried time period.
      *
      * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param taskList     Instance of TaskList that contains list of tasks.
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException if user input invalid commands.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
         Date current = new Date();
         try {
             if (isDateAfterCurrentDate(current, dateWanted) || isDateSame(current, dateWanted)) {
-                findFreeTime(ui, tasks, this.dateWanted);
+                findFreeTime(ui, taskList, this.dateWanted);
             } else {
                 throw new OofException("OOPS!!! Please enter a valid date!");
             }
@@ -79,7 +79,7 @@ public class FreeCommand extends Command {
      * @param tasks         Instance of TaskList that stores Task Objects.
      * @param freeSlotsDate The user specified date.
      * @throws ParseException Exception may be thrown when parsing datetime.
-     * @throws OofException Print customised error message.
+     * @throws OofException   Print customised error message.
      */
     private void findFreeTime(Ui ui, TaskList tasks, String freeSlotsDate) throws ParseException, OofException {
         for (int i = 0; i < tasks.getSize(); i++) {
@@ -108,6 +108,7 @@ public class FreeCommand extends Command {
 
     /**
      * Parses the output for finding free time slots if there are occupied slots.
+     *
      * @param ui Prints relevant output.
      * @throws OofException Prints customised error message.
      */
@@ -137,13 +138,14 @@ public class FreeCommand extends Command {
 
     /**
      * Populates the lists for tracking time and events.
-     * @param date Date of task.
+     *
+     * @param date          Date of task.
      * @param freeSlotsDate Date inputted by user.
-     * @param startTime Starting time of task.
-     * @param endTime Ending time of task.
-     * @param event Event task object.
+     * @param startTime     Starting time of task.
+     * @param endTime       Ending time of task.
+     * @param event         Event task object.
      * @throws ParseException Exception may be thrown when parsing datetime.
-     * @throws OofException Prints customised exception message.
+     * @throws OofException   Prints customised exception message.
      */
     private void populateList(String date, String freeSlotsDate, String startTime, String endTime, Event event)
             throws OofException {
@@ -269,8 +271,4 @@ public class FreeCommand extends Command {
         return format.format(dayOfWeek);
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

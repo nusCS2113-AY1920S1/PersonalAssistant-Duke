@@ -29,18 +29,18 @@ public class StartTrackerCommand extends Command {
      * Starts tracker to track time taken for a task.
      *
      * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param taskList     Instance of TaskList that stores Task objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException if description is empty or task if completed.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
         if (description.isEmpty()) {
             throw new OofException("Please enter a Task!");
         }
-        Task task = findTask(tasks, description);
+        Task task = findTask(taskList, description);
         if (task.getStatus()) {
             throw new OofException("Task has already been completed.");
         } else {
@@ -84,10 +84,5 @@ public class StartTrackerCommand extends Command {
             throw new OofException("Invalid Task Description!");
         }
         return task;
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

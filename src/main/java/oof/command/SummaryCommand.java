@@ -65,17 +65,12 @@ public class SummaryCommand extends Command {
     }
 
     @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
         String tomorrow = getTomorrowDate();
-        TaskList summary = getSummary(tomorrow, tasks);
+        TaskList summary = getSummary(tomorrow, taskList);
         if (summary.getSize() == EMPTY) {
             throw new OofException("There are no Tasks scheduled on " + tomorrow + ".");
         }
         ui.printTasksByDate(summary, tomorrow);
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

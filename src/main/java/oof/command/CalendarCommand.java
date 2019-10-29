@@ -7,11 +7,13 @@ import java.util.Calendar;
 import oof.Storage;
 import oof.exception.OofException;
 import oof.model.module.SemesterList;
-import oof.model.task.TaskList;
+import oof.model.task.Assessment;
+import oof.model.task.Assignment;
 import oof.Ui;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
 import oof.model.task.Task;
+import oof.model.task.TaskList;
 import oof.model.task.Todo;
 
 /**
@@ -56,47 +58,37 @@ public class CalendarCommand extends Command {
 
     /**
      * Prints the calendar for the queried month and year.
-     *
      * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param taskList     Instance of TaskList that stores Task objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
-     *                     objects to hard disk.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) {
         YearMonth yearMonth = YearMonth.of(year, month);
-        for (Task task : tasks.getTasks()) {
+        for (Task task : taskList.getTasks()) {
+            String description = task.getDescription();
+            String[] dateSplit = {};
+            String time = "";
             if (task instanceof Todo) {
                 Todo todo = (Todo) task;
-                String[] dateSplit = todo.getTodoDate().split("-");
-                if (verifyTask(dateSplit)) {
-                    String description = todo.getDescription();
-                    String time = "";
-                    int day = Integer.parseInt(dateSplit[INDEX_DAY]);
-                    addEntry(time, description, day);
-                }
+                dateSplit = todo.getTodoDate().split("-");
             } else if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
                 String[] dateTimeSplit = deadline.getDeadlineDateTime().split(" ");
-                String[] dateSplit = dateTimeSplit[INDEX_DATE].split("-");
-                if (verifyTask(dateSplit)) {
-                    String description = deadline.getDescription();
-                    String time = dateTimeSplit[INDEX_TIME];
-                    int day = Integer.parseInt(dateSplit[INDEX_DAY]);
-                    addEntry(time, description, day);
-                }
+                dateSplit = dateTimeSplit[INDEX_DATE].split("-");
+                time = dateTimeSplit[INDEX_TIME];
             } else if (task instanceof Event) {
                 Event event = (Event) task;
                 String[] dateTimeSplit = event.getStartDateTime().split(" ");
-                String[] dateSplit = dateTimeSplit[INDEX_DATE].split("-");
-                if (verifyTask(dateSplit)) {
-                    String description = event.getDescription();
-                    String time = dateTimeSplit[INDEX_TIME];
-                    int day = Integer.parseInt(dateSplit[INDEX_DAY]);
-                    addEntry(time, description, day);
-                }
+                dateSplit = dateTimeSplit[INDEX_DATE].split("-");
+                time = dateTimeSplit[INDEX_TIME];
             }
+            if (verifyTask(dateSplit)) {
+                int day = Integer.parseInt(dateSplit[INDEX_DAY]);
+                addEntry(time, description, day);
+            }
+
         }
         for (ArrayList<String[]> day : calendarTasks) {
             day.sort(new SortByTime());
@@ -110,7 +102,7 @@ public class CalendarCommand extends Command {
      * @param dateSplit Array containing day, month and year.
      * @return true if task month and year is equal to month and year queried by user.
      */
-    public boolean verifyTask(String[] dateSplit) {
+    private boolean verifyTask(String[] dateSplit) {
         int month = Integer.parseInt(dateSplit[INDEX_MONTH]);
         int year = Integer.parseInt(dateSplit[INDEX_YEAR]);
         return this.month == month && this.year == year;
@@ -123,13 +115,9 @@ public class CalendarCommand extends Command {
      * @param description Description of task.
      * @param day         Day of task.
      */
-    public void addEntry(String time, String description, int day) {
+    private void addEntry(String time, String description, int day) {
         String[] entry = {time, description};
         this.calendarTasks.get(day).add(entry);
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

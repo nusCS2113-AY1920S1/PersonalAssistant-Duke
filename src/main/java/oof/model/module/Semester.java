@@ -12,17 +12,21 @@ public class Semester {
     private String semesterName;
     private String startDate;
     private String endDate;
-    private static ArrayList<Module> modules;
+    private ArrayList<Module> modules;
 
     /**
      * Constructor for Semester object.
      *
      * @param academicYear String containing academic year of Semester.
      * @param semesterName String containing name of Semester.
+     * @param startDate    String containing start date of Semester.
+     * @param endDate      String containing end date of Semester.
      */
-    public Semester(String academicYear, String semesterName) {
+    public Semester(String academicYear, String semesterName, String startDate, String endDate) {
         this.academicYear = academicYear;
         this.semesterName = semesterName;
+        this.startDate = startDate;
+        this.endDate = endDate;
         modules = new ArrayList<>();
     }
 
@@ -34,11 +38,11 @@ public class Semester {
         this.modules = new ArrayList<>();
     }
 
-    public static void addModule(Module module) {
+    public void addModule(Module module) {
         modules.add(module);
     }
 
-    public static void removeModule(int index) {
+    public void removeModule(int index) {
         modules.remove(index);
     }
 
@@ -46,35 +50,19 @@ public class Semester {
         return academicYear;
     }
 
-    public void setAcademicYear(String academicYear) {
-        this.academicYear = academicYear;
-    }
-
     public String getSemesterName() {
         return semesterName;
-    }
-
-    public void setSemesterName(String semesterName) {
-        this.semesterName = semesterName;
     }
 
     public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
     public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
-    public static ArrayList<Module> getModules() {
+    public ArrayList<Module> getModules() {
         return modules;
     }
 
@@ -82,20 +70,26 @@ public class Semester {
         this.modules = modules;
     }
 
-    public static Module getModule(int index) {
+    public Module getModule(int index) {
         return modules.get(index);
     }
 
     /**
      * Converts a semester object to string format for storage.
+     *
      * @return Semester object in string format for storage.
      */
     public String toStorageString() {
-        return "S" + DELIMITER + academicYear + DELIMITER + semesterName;
+        return "SEMESTER" + DELIMITER + academicYear + DELIMITER + semesterName + DELIMITER + startDate + DELIMITER
+                + endDate;
     }
 
     @Override
     public String toString() {
-        return "Academic Year " + academicYear + ", " + semesterName;
+        return "Academic Year " + academicYear + ", " + semesterName + " (" + startDate + "-" + endDate + ")";
+    }
+
+    public boolean isIndexValid(int index) {
+        return index >= 0 && index < modules.size();
     }
 }

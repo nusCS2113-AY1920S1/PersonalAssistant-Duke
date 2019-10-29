@@ -27,8 +27,8 @@ public class Todo extends Task {
      */
     @Override
     public String toStorageString() {
-        return "T" + DELIMITER + getStatusIcon() + DELIMITER + description + DELIMITER + todoDate
-                + DELIMITER + DELIMITER + DELIMITER;
+        return "TODO" + DELIMITER + getStatusIcon() + DELIMITER + description + DELIMITER + todoDate
+                + DELIMITER + DELIMITER + DELIMITER + DELIMITER;
     }
 
     @Override

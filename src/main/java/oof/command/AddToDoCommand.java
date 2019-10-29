@@ -1,11 +1,11 @@
 package oof.command;
 
 import oof.model.module.SemesterList;
-import oof.model.task.TaskList;
 import oof.Ui;
 import oof.Storage;
 import oof.exception.OofException;
 import oof.model.task.Task;
+import oof.model.task.TaskList;
 import oof.model.task.Todo;
 
 import java.text.ParseException;
@@ -39,13 +39,13 @@ public class AddToDoCommand extends Command {
      * Stores the object in hard disk by calling Storage before printing the object added.
      *
      * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param tasks     Instance of TaskList that stores Task objects.
+     * @param taskList     Instance of TaskList that stores Task objects.
      * @param ui      Instance of Ui that is responsible for visual feedback.
      * @param storage Instance of Storage that enables the reading and writing of Task
      *                objects to hard disk.
      * @throws OofException if user input invalid commands.
      */
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
         String[] lineSplit = line.split("/on");
         if (!hasDescription(lineSplit)) {
             throw new OofException("OOPS!!! The todo needs a description.");
@@ -56,9 +56,9 @@ public class AddToDoCommand extends Command {
         String onDate = parseTimeStamp(lineSplit[INDEX_DATE_ON].trim());
         if (isDateValid(onDate)) {
             Task task = new Todo(description, onDate);
-            tasks.addTask(task);
-            storage.writeTaskList(tasks);
-            ui.addTaskMessage(task, tasks.getSize());
+            taskList.addTask(task);
+            storage.writeTaskList(taskList);
+            ui.addTaskMessage(task, taskList.getSize());
         } else {
             throw new OofException("OOPS!!! The date is invalid.");
         }
@@ -94,13 +94,5 @@ public class AddToDoCommand extends Command {
         return lineSplit.length != 1 && lineSplit[INDEX_DATE_ON].trim().length() > 0;
     }
 
-    /**
-     * Checks if ExitCommand is called for Oof to terminate.
-     *
-     * @return false.
-     */
-    public boolean isExit() {
-        return false;
-    }
 }
 

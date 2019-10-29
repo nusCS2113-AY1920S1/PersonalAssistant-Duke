@@ -28,10 +28,10 @@ public class Deadline extends Task {
      */
     @Override
     public String toStorageString() {
-        String date = deadlineDateTime.split(" ")[DATE];
-        String time = deadlineDateTime.split(" ")[TIME];
-        return "D" + DELIMITER + getStatusIcon() + DELIMITER + description + DELIMITER + date
-                + DELIMITER + time + DELIMITER + DELIMITER;
+        String date = deadlineDateTime.split(" ")[INDEX_DATE];
+        String time = deadlineDateTime.split(" ")[INDEX_TIME];
+        return "DEADLINE" + DELIMITER + getStatusIcon() + DELIMITER + description + DELIMITER + date
+                + DELIMITER + time + DELIMITER + DELIMITER + DELIMITER;
     }
 
     @Override

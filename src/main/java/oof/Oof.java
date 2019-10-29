@@ -1,13 +1,13 @@
 package oof;
 
-import oof.model.module.Assessment;
+import oof.model.task.Assessment;
 import oof.model.module.Lesson;
 import oof.model.module.Module;
 import oof.model.module.Semester;
 import oof.model.module.SemesterList;
-import oof.model.task.TaskList;
 import oof.command.Command;
 import oof.exception.OofException;
+import oof.model.task.TaskList;
 
 import java.io.IOException;
 
@@ -18,14 +18,10 @@ import java.io.IOException;
 public class Oof {
 
     private Storage storage;
-    private TaskList tasks;
     private SemesterList semesterList;
-    private Semester semester;
-    private Module module;
-    private Lesson lesson;
-    private Assessment assessment;
     private Ui ui;
     private Reminder reminder;
+    private TaskList taskList;
 
     /**
      * Constructor for Oof for instantiation of other classes Ui, Storage and TaskList.
@@ -36,22 +32,14 @@ public class Oof {
         reminder = new Reminder();
         try {
             semesterList = new SemesterList(storage.readSemesterList());
-            semester = new Semester(storage.readModuleList());
-            module = new Module(storage.readLessonList(), storage.readAssessmentList());
         } catch (IOException | OofException e) {
             semesterList = new SemesterList();
-            semester = new Semester();
-            module = new Module();
         }
         try {
-            tasks = new TaskList(storage.readTaskList());
+            taskList = new TaskList(storage.readTaskList(semesterList));
         } catch (IOException | OofException e) {
-            tasks = new TaskList();
+            taskList = new TaskList();
         }
-    }
-
-    public TaskList getArr() {
-        return tasks;
     }
 
     /**
@@ -62,7 +50,7 @@ public class Oof {
      */
     public boolean executeCommand(String line) throws OofException {
         Command command = CommandParser.parse(line);
-        command.execute(semesterList, tasks, ui, storage);
+        command.execute(semesterList, taskList, ui, storage);
         return command.isExit();
     }
 
@@ -71,7 +59,7 @@ public class Oof {
      */
     private void run() {
         ui.hello();
-        reminder.checkDeadline(tasks, ui, storage);
+        reminder.checkDeadline(taskList, ui, storage);
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -82,6 +70,14 @@ public class Oof {
                 ui.printOofException(exception);
             }
         }
+    }
+
+    public TaskList getTaskList() {
+        return taskList;
+    }
+
+    public Storage getStorage() {
+        return storage;
     }
 
     /**
