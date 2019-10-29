@@ -81,15 +81,26 @@ public class Farmer {
         this.tasks = tasks;
         this.name = name;
     }
-
+    /**
+     * Adds the user's name.
+     * @param username as the name the user inputs.
+     */
     public void inputName(String username) {
         name = username;
     }
 
+    /**
+     * Gets user's name.
+     * @return the user's name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets the amount of gold the farmer has.
+     * @return the amount of gold.
+     */
     public int getGold() {
         return gold;
     }
@@ -98,22 +109,41 @@ public class Farmer {
         return gold > 0;
     }
 
+    /**
+     * Gets user level.
+     * @return the user level.
+     */
     public double getLevel() {
         return level;
     }
 
+    /**
+     * Gets the day the farmer is at.
+     * @return the day.
+     */
     public int getDay() {
         return day;
     }
 
+    /**
+     * Gets user location.
+     * @return the user location.
+     */
     public String getLocation() {
         return location;
     }
 
+    /**
+     * Gets user input.
+     * @param newLocation as the new location of the user.
+     */
     public void changeLocation(String newLocation) {
         location = newLocation;
     }
 
+    /**
+     * Gets user assets based on level.
+     */
     public Map<String, Integer> getAssets() {
         Map<String, Integer> assets = new HashMap<>();
 
@@ -137,16 +167,32 @@ public class Farmer {
         return assets;
     }
 
+    /**
+     * Gets user wheatfarm.
+     * @return the user wheatfarm.
+     */
     public WheatFarm getWheatFarm() { return  wheatFarm; }
 
+    /**
+     * Gets user chickenfarm.
+     * @return the user chickenfarm.
+     */
     public ChickenFarm getChickenFarm() {
         return chickenFarm;
     }
 
+    /**
+     * Gets user cowfarm.
+     * @return the user cowfarm.
+     */
     public CowFarm getCowFarm() {
         return cowFarm;
     }
 
+    /**
+     * Gets user tasks to be executed.
+     * @return the user tasks.
+     */
     public TaskList getTasks() {
         return tasks;
     }
@@ -175,14 +221,18 @@ public class Farmer {
         hasfailedCurrentTask = true;
     }
 
-    public void setGold(int gold) {
-        this.gold = gold;
-    }
-
+    /**
+     * Decrements gold after buying an item.
+     * @param cost as the buying price of the item.
+     */
     public void spendGold(int cost) {
         gold -= cost;
     }
 
+    /**
+     * Increments gold after selling an item.
+     * @param profit as the selling price of the item
+     */
     public void earnGold(int profit) {
         gold += profit;
     }
@@ -225,6 +275,10 @@ public class Farmer {
         }
     }
 
+    /**
+     * Proceeds to the next day.
+     * Allows seeds to grow into wheat and increment day number.
+     */
     public void nextDay() {
         wheatFarm.growSeedlings();
         day += 1;
