@@ -9,12 +9,14 @@ import oof.model.task.Deadline;
 import oof.model.task.Event;
 import oof.model.task.Task;
 import oof.model.task.Todo;
+import oof.model.tracker.TrackerList;
 
 /**
  * Represents a Command to query schedule on a specified date.
  */
 public class ScheduleCommand extends Command {
     private String date;
+    private static final int LIST_EMPTY = 0;
 
     /**
      * Constructor for ScheduleCommand.
@@ -41,7 +43,7 @@ public class ScheduleCommand extends Command {
             throw new OofException("OOPS! Please enter a date!");
         }
         TaskList scheduledTasks = scheduleByDate(tasks);
-        if (scheduledTasks.getSize() == 0) {
+        if (scheduledTasks.getSize() == LIST_EMPTY) {
             throw new OofException("There are no Tasks scheduled on " + this.date + ".");
         }
         ui.printTasksByDate(scheduledTasks, this.date);

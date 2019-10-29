@@ -5,6 +5,7 @@ import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
 import oof.Ui;
 import oof.exception.OofException;
+import oof.model.tracker.TrackerList;
 
 import java.util.ArrayList;
 
@@ -36,7 +37,8 @@ public class HelpCommand extends Command {
      * @throws OofException if user input invalid commands.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage)
+            throws OofException {
         ArrayList<String> commands = storage.readManual();
         if (keyword.isEmpty()) {
             ui.printHelpCommands();

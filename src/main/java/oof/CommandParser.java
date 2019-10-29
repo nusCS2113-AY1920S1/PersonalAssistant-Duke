@@ -1,5 +1,7 @@
 package oof;
 
+import java.util.InputMismatchException;
+
 import oof.command.AddAssessmentCommand;
 import oof.command.AddAssignmentCommand;
 import oof.command.AddDeadlineCommand;
@@ -29,15 +31,15 @@ import oof.command.StartTrackerCommand;
 import oof.command.StopTrackerCommand;
 import oof.command.SummaryCommand;
 import oof.command.ThresholdCommand;
+import oof.command.PauseTrackerCommand;
 import oof.command.ViewAssessmentCommand;
 import oof.command.ViewAssignmentCommand;
 import oof.command.ViewLessonCommand;
 import oof.command.ViewModuleCommand;
 import oof.command.ViewSemesterCommand;
 import oof.command.ViewWeekCommand;
+import oof.command.ViewTrackerCommand;
 import oof.exception.OofException;
-
-import java.util.InputMismatchException;
 
 /**
  * Represents a parser to process the commands inputted by the user.
@@ -107,6 +109,12 @@ public class CommandParser {
         case "stop":
             line = line.replaceFirst("stop", "").trim();
             return new StopTrackerCommand(line);
+        case "pause":
+            line = line.replaceFirst("pause", "").trim();
+            return new PauseTrackerCommand(line);
+        case "viewtracker":
+            line = line.replaceFirst("viewtracker", "").trim();
+            return new ViewTrackerCommand(line);
         case "threshold":
             line = line.replaceFirst("threshold", "").trim();
             return new ThresholdCommand(line);

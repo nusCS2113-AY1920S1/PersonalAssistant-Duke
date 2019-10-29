@@ -9,6 +9,7 @@ import oof.Storage;
 import oof.model.task.TaskList;
 import oof.Ui;
 import oof.exception.OofException;
+import oof.model.tracker.TrackerList;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -55,7 +56,8 @@ public class RecurringCommand extends Command {
      * @throws OofException if user input is invalid.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage)
+            throws OofException {
         if (!tasks.isIndexValid(this.index)) {
             throw new OofException("OOPS!!! Please select a valid task!");
         } else if (!isCountValid(this.count)) {

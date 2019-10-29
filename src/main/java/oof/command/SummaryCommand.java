@@ -9,6 +9,7 @@ import oof.model.task.Deadline;
 import oof.model.task.Event;
 import oof.model.task.Task;
 import oof.model.task.Todo;
+import oof.model.tracker.TrackerList;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,6 +18,7 @@ import java.util.Locale;
 public class SummaryCommand extends Command {
 
     private static final int EMPTY = 0;
+    private static final int ADD_A_DAY = 1;
     private TaskList summary = new TaskList();
 
     /**
@@ -59,13 +61,24 @@ public class SummaryCommand extends Command {
      * @return date     String containing formatted date of tomorrow.
      */
     private String getTomorrowDate() {
-        LocalDateTime ldt = LocalDateTime.now().plusDays(1);
+        LocalDateTime ldt = LocalDateTime.now().plusDays(ADD_A_DAY);
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH);
         return format.format(ldt);
     }
 
+    /**
+     * Gets a summary of tomorrow's Tasks.
+     *
+     * @param semesterList Instance of SemesterList that stores Semester objects.
+     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param ui           Instance of Ui that is responsible for visual feedback.
+     * @param storage      Instance of Storage that enables the reading and writing of Task
+     *                     objects to hard disk.
+     * @throws OofException if there are no tasks scheduled for tomorrow.
+     */
     @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage)
+            throws OofException {
         String tomorrow = getTomorrowDate();
         TaskList summary = getSummary(tomorrow, tasks);
         if (summary.getSize() == EMPTY) {

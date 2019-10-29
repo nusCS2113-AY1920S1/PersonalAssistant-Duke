@@ -5,6 +5,7 @@ import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
 import oof.Ui;
 import oof.exception.OofException;
+import oof.model.tracker.TrackerList;
 
 /**
  * Represents a command to choose the threshold for upcoming deadline reminders.
@@ -33,7 +34,8 @@ public class ThresholdCommand extends Command {
      * @throws OofException if threshold given is invalid.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage)
+            throws OofException {
         if (!isThresholdNegative(newThreshold)) {
             updateThreshold(newThreshold, storage);
             ui.printUpdatedThreshold(newThreshold);
