@@ -329,4 +329,15 @@ class SavingTest {
         savingTest.updateRecurringTransactions(testUi);
         assertEquals(80, savingTest.getCurrentAmount());
     }
+
+    //Tests function for find feature.
+    @Test
+    void findBondInInvestment_useOnSavingAccount_throwsException() {
+        Ui uiTest = new Ui();
+        Bank testSaving = new Saving("Test Saving Bank", 1200, 1000);
+        BankException thrown = assertThrows(BankException.class, () ->
+                        testSaving.findBondInInvestment("Bond Name", uiTest),
+                "Expected transferFund to throw, but it didn't");
+        assertEquals("This account does not support this feature", thrown.toString());
+    }
 }

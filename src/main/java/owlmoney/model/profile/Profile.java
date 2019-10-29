@@ -673,8 +673,7 @@ public class Profile {
      * @throws BondException If no bonds could be found.
      */
     public void findBond(String bondName, String from, Ui ui) throws BankException, BondException {
-        Bank investmentAccount = bankList.checkInvestmentAccountExist(from);
-        investmentAccount.findBondInInvestment(bondName, ui);
+        bankList.checkInvestmentAccountExist(bondName, from, ui);
     }
 
     /**

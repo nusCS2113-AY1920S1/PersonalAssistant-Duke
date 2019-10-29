@@ -275,7 +275,7 @@ public class Investment extends Bank {
      */
     @Override
     public void findBondInInvestment(String bondName, Ui ui) throws BondException {
-        bonds.findBond(bondName, ui);
+        bonds.findBondInBondList(bondName, ui);
     }
 
     /**

@@ -18,7 +18,7 @@ import owlmoney.model.transaction.Transaction;
 import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
-class CardTest {
+class CardListTest {
     private static final String NEWLINE = System.lineSeparator();
     private static final DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
     private static final String FILE_PATH = "data/";
