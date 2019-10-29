@@ -1,7 +1,7 @@
 package models.member;
 
 public class NullMember implements IMember {
-    String errorMessage;
+    private String errorMessage;
 
     public NullMember(String errorMessage) {
         this.errorMessage = errorMessage;
