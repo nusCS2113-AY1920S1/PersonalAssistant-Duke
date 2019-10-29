@@ -17,6 +17,8 @@ public abstract class Record {
     protected static final String RECORD_LIMIT = "limit";
     protected static final String RECORD_DEBT = "debt";
 
+    protected String duration;
+
     public abstract String getRecordDetail();
 
     public abstract String formatSave();//currently assuming no tags
@@ -39,6 +41,10 @@ public abstract class Record {
 
     public String getUserInput() {
         return userInput;
+    }
+
+    public String getDuration() {
+        return duration;
     }
 
     public double getAmount() {
