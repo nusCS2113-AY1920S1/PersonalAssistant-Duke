@@ -1,0 +1,11 @@
+         GOLD                     BOOLEAN
+______________________________________________________
+ greaterThanOrEquals |            hasWheat
+ greaterThan         |          
+ lessThan            |          
+ lessThanOrEquals    |
+_____________________|________________________________
+
+Eg: [If gold greaterThanOrEquals 10 do buySeeds]
+
+[PRESS 'ENTER' TO GO BACK TO MENU]
