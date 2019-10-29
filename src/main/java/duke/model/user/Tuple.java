@@ -6,7 +6,7 @@ package duke.model.user;
 
 public class Tuple {
     public String date;
-    public int weight;
+    public double weight;
 
     /**
      * This is a class that will store weight at a specific date.
@@ -14,7 +14,7 @@ public class Tuple {
      * @param weight weight during the input
      */
 
-    public Tuple(String date, int weight) {
+    public Tuple(String date, double weight) {
         this.date = date;
         this.weight = weight;
     }

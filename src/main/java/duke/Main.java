@@ -1,16 +1,16 @@
 package duke;
 
+import duke.commons.exceptions.DukeException;
 import duke.logic.autocorrect.Autocorrect;
 import duke.logic.commands.Command;
-import duke.commons.exceptions.DukeException;
 import duke.logic.commands.UserSetup;
+import duke.logic.parsers.Parser;
+import duke.model.meal.MealList;
+import duke.model.user.User;
 import duke.model.wallet.TransactionList;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
-import duke.model.meal.MealList;
 import duke.ui.Ui;
-import duke.logic.parsers.Parser;
-import duke.model.user.User;
 
 import java.util.Scanner;
 
@@ -20,11 +20,11 @@ import java.util.Scanner;
  */
 public class Main {
     private Storage storage;
-    private MealList tasks = new MealList();
+    private MealList meals = new MealList();
     private Ui ui;
     private Scanner in = new Scanner(System.in);
     private User user;
-    private Autocorrect autocorrect = new Autocorrect();
+    private Autocorrect autocorrect;
     private TransactionList transactions = new TransactionList();
     private UserSetup setup;
     private Wallet wallet;
@@ -40,13 +40,13 @@ public class Main {
         wallet = new Wallet();
         try {
             storage = new Storage();
-            storage.load(tasks);
+            storage.load(meals, user);
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
-            tasks = new MealList();
+            meals = new MealList();
         }
         try {
-            user = storage.loadUser(); //load user inf
+            user = storage.loadUser(); //load user info
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
             ui.showUserLoadingError();
@@ -60,7 +60,7 @@ public class Main {
         try {
             storage.loadTransactions(transactions, wallet);
         } catch (DukeException e) {
-            ui.showLoadinngTransactionError();
+            ui.showLoadingTransactionError();
         }
     }
 
@@ -83,11 +83,11 @@ public class Main {
                 if (c.isFail()) {
                     c.failure();
                 } else {
-                    c.execute(tasks, storage, user, wallet);
+                    c.execute(meals, storage, user, wallet);
                     while (!c.isDone()) {
                         String word = in.nextLine();
                         c.setResponse(word);
-                        c.execute2(tasks, storage, user, wallet);
+                        c.execute(meals, storage, user, wallet);
                     }
                 }
                 isExit = c.isExit();

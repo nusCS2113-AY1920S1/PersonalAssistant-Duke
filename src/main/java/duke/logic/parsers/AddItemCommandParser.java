@@ -13,8 +13,8 @@ public class AddItemCommandParser implements ParserInterface<AddItemCommand> {
      * Parses user input and returns an AddItemCommand encapsulating a Item object.
      * @param userInput String input by user.
      * @return <code>AddItemCommand</code> Command object encapsulating a breakfast object
-     * @throws DukeException when the user input cannot be parsed
      */
+    @Override
     public AddItemCommand parse(String userInput) {
         try {
             InputValidator.validate(userInput);

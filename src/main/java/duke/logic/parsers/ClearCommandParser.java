@@ -1,7 +1,7 @@
 package duke.logic.parsers;
 
-import duke.logic.commands.ClearCommand;
 import duke.commons.exceptions.DukeException;
+import duke.logic.commands.ClearCommand;
 
 /**
  * Parser class to handle multiple deletions of meals from model.

@@ -1,15 +1,11 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.wallet.TransactionList;
-import duke.model.wallet.Wallet;
-import duke.storage.Storage;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
-import duke.ui.Ui;
 import duke.model.user.User;
-
-import java.util.Scanner;
+import duke.model.wallet.Wallet;
+import duke.storage.Storage;
 
 public class EditCommand extends Command {
     private Meal updatedMeal;
@@ -26,6 +22,7 @@ public class EditCommand extends Command {
         this.isFail = true;
         this.error = message;
     }
+
     /**
      * Executes the EditCommand.
      * @param meals the MealList object in which the meals are supposed to be added
@@ -33,7 +30,6 @@ public class EditCommand extends Command {
      * @param user the object that handles all user data
      * @param wallet the wallet object that stores transaction information
      */
-
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
@@ -46,8 +42,5 @@ public class EditCommand extends Command {
             ui.showMessage(e.getMessage());
         }
         ui.showLine();
-    }
-
-    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
     }
 }

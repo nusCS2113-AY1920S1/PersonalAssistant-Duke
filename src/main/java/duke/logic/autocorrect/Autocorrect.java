@@ -1,7 +1,7 @@
 package duke.logic.autocorrect;
 
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * This is a class that will help to correct minor typo.

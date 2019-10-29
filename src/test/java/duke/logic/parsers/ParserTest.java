@@ -1,8 +1,13 @@
 package duke.logic.parsers;
 
-import duke.logic.autocorrect.Autocorrect;
-import duke.logic.commands.*;
 import duke.commons.exceptions.DukeException;
+import duke.logic.autocorrect.Autocorrect;
+import duke.logic.commands.AddCommand;
+import duke.logic.commands.AddItemCommand;
+import duke.logic.commands.ExitCommand;
+import duke.logic.commands.HelpCommand;
+import duke.logic.commands.ListCommand;
+import duke.logic.commands.MarkDoneCommand;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

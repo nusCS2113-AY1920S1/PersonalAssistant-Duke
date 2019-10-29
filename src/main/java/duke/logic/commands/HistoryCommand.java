@@ -1,14 +1,11 @@
 package duke.logic.commands;
 
-import duke.model.wallet.TransactionList;
+import duke.model.meal.MealList;
+import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
-import duke.model.meal.MealList;
-import duke.ui.Ui;
-import duke.model.user.User;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * HistoryCommand is a public class that inherits form abstract class Command.
@@ -56,14 +53,10 @@ public class HistoryCommand extends Command {
      * @param user the object that handles all user data
      * @param wallet the wallet object that stores transaction information
      */
-
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
         ui.showHistory(historyCommandsList);
         ui.showLine();
-    }
-
-    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
     }
 }

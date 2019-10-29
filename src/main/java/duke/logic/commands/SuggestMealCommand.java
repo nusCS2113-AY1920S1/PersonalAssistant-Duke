@@ -1,17 +1,12 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.DukeException;
 import duke.logic.suggestion.MealSuggestionAnalytics;
 import duke.model.meal.MealList;
-import duke.model.wallet.TransactionList;
 import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
-import duke.ui.Ui;
 
-import java.util.Scanner;
-
-public class SuggestCommand extends Command {
+public class SuggestMealCommand extends Command {
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         /*
@@ -20,8 +15,5 @@ public class SuggestCommand extends Command {
               suggestion.
         */
         MealSuggestionAnalytics mealSuggestionAnalytics = new MealSuggestionAnalytics();
-    }
-
-    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
     }
 }

@@ -1,17 +1,11 @@
 package duke.logic.commands;
 
-import java.util.Scanner;
-
 import duke.commons.exceptions.DukeException;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
-import duke.model.wallet.TransactionList;
-import duke.model.wallet.Wallet;
-import duke.ui.Ui;
-import duke.storage.Storage;
 import duke.model.user.User;
-
-import java.util.Scanner;
+import duke.model.wallet.Wallet;
+import duke.storage.Storage;
 
 /**
  * AddItemCommand is a public class that inherits from abstract class Command.
@@ -40,9 +34,7 @@ public class AddItemCommand extends Command {
      * @param user the object that handles all user data
      * @param wallet the wallet object that stores transaction information
      */
-
     @Override
-
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
         meals.addStoredItem(this.meal);
@@ -54,8 +46,4 @@ public class AddItemCommand extends Command {
         }
         ui.showLine();
     }
-
-    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
-    }
-
 }

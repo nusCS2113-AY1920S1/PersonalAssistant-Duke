@@ -2,21 +2,16 @@ package duke.logic.commands;
 
 import duke.commons.exceptions.DukeException;
 import duke.model.meal.MealList;
-import duke.model.wallet.Transaction;
-import duke.model.wallet.TransactionList;
 import duke.model.user.User;
+import duke.model.wallet.Transaction;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
-import duke.ui.Ui;
-
-import java.util.Scanner;
 
 /**
  * AddTransactionCommand is a public class that inherits from abstract class Command.
  * An AddTransactionCommand is a command that stores the transaction information(cost and date)
  * within a Wallet object.
  */
-
 public class AddTransactionCommand extends Command {
     private Transaction transaction;
 
@@ -49,8 +44,5 @@ public class AddTransactionCommand extends Command {
         storage.updateTransaction(wallet);
         ui.showTransactionAdded(this.transaction, wallet.getAccountBalance());
         ui.showLine();
-    }
-
-    public void execute2(MealList meals, Storage storage, User user, Wallet wallet) {
     }
 }
