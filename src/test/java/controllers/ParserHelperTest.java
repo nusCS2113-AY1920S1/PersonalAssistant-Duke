@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-import models.data.Project;
 import models.member.Member;
+import models.project.Project;
 import models.task.Task;
 import models.task.TaskState;
 import org.junit.jupiter.api.Test;
