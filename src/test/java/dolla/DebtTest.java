@@ -1,3 +1,4 @@
+package dolla;
 import dolla.task.Debt;
 import org.junit.jupiter.api.Test;
 
@@ -13,43 +14,43 @@ public class DebtTest {
     }
 
     @Test
-    void getName() {
+    public void getName() {
         Debt newDebt = createNewDebt();
         assertEquals("tata", newDebt.getName());
     }
 
     @Test
-    void amountToMoney() {
+    public void amountToMoney() {
         Debt newDebt = createNewDebt();
         assertEquals("$20.0", newDebt.amountToMoney());
     }
 
     @Test
-    void getDescription() {
+    public void getDescription() {
         Debt newDebt = createNewDebt();
         assertEquals("food", newDebt.getDescription());
     }
 
     @Test
-    void getDate() {
+    public void getDate() {
         Debt newDebt = createNewDebt();
         assertEquals(LocalDate.parse("2019-01-01"), newDebt.getDate());
     }
 
     @Test
-    void getUserInput() {
+    public void getUserInput() {
         Debt newDebt = createNewDebt();
         assertEquals("owe tata 20.0 food /due 01/01/2019", newDebt.getUserInput());
     }
 
     @Test
-    void formatSave() {
+    public void formatSave() {
         Debt newDebt = createNewDebt();
         assertEquals("O | tata | 20.0 | food | 01/01/2019", newDebt.formatSave());
     }
 
     @Test
-    void getRecordDetail() {
+    public void getRecordDetail() {
         Debt newDebt = createNewDebt();
         assertEquals("[owe] [tata] [$20.0] [food] [/due 01/01/2019]", newDebt.getRecordDetail());
     }
