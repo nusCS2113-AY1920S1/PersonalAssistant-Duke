@@ -20,16 +20,24 @@ public class Leave extends Task {
         this.to = to;
     }
 
-    public Date checkStartDate() {
+    public Date getStartDate() {
         return this.from;
     }
 
-    public Date checkEndDate() {
+    public void setStartDate(Date date) {
+        this.from = date;
+    }
+
+    public Date getEndDate() {
         return this.to;
     }
 
+    public void setEndDate(Date date) {
+        this.to = date;
+    }
+
     @Override
-    public String getUser() {
+    public String getAssignee() {
         return this.user;
     }
 
