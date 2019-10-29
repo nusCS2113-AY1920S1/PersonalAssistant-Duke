@@ -1,19 +1,19 @@
 package duke.Parser;
 
+import duke.Command.Command;
+import duke.Command.ExitCommand;
+import duke.Command.InvalidCommand;
+import duke.Ui;
 import duke.data.Storage;
-import duke.module.Goal;
-import duke.module.Lesson;
 import duke.module.Reminder;
 import duke.module.Schedule;
 import duke.task.TaskList;
-import duke.Ui;
 import duke.sports.ManageStudents;
 import duke.sports.MyClass;
 import duke.sports.MyPlan;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;
-import java.util.Scanner;
 import java.util.Date;
 
 /**
@@ -21,6 +21,28 @@ import java.util.Date;
  * by the standard input.
  */
 public class Parser {
+
+    /**
+     * The ui object responsible for showing things to the user.
+     */
+    private Ui ui = new Ui();
+    /**
+    public static Command parse(String fullCommand) {
+        Command c;
+        if (fullCommand.equals("bye")) {
+            c = new ExitCommand();
+        } else if (fullCommand.startsWith("add")) {
+            c = new AddCommand();
+        } else if (fullCommand.startsWith("delete")) {
+            c = new DeleteCommand();
+         } else if (fullCommand.startsWith("view")) {
+            c = new ViewCommand();
+         } else {
+            c = new InvalidCommand();
+        }
+        return c;
+    }
+     */
 
     /**
      * Constants to represent the index 3.
@@ -121,127 +143,6 @@ public class Parser {
                         + "Please enter input in the form:"
                         + "class XXX /every YYY");
             }
-            break;
-
-        case "schedule":
-            Storage scheduleStorage = new Storage(
-                ".\\src\\main\\java\\duke\\data\\timeslots.txt");
-
-            try {
-                if (word[1].equals("view-week")) {
-                    System.out.println(schedule.getWeek());
-                } else if (word[1].equals("view-month")) {
-                    System.out.println(schedule.getMonth());
-                } else if (word[1].equals("view-day")) {
-                    try {
-                        System.out.println(schedule.getDay(word[2]));
-                    } catch (ArrayIndexOutOfBoundsException
-                        | ParseException e) {
-                        System.err.println("Enter a date please.");
-                    }
-                } else if (word[1].equals("add")) {
-                    String startTime = word[2] + " " + word[INDEX_THREE];
-                    String endTime = word[INDEX_FOUR] + " " + word[INDEX_FIVE];
-                    String location = word[INDEX_SIX];
-                    String className = word[INDEX_SEVEN];
-                    System.out.println(schedule.addClass(
-                        startTime,
-                        endTime,
-                        location,
-                        className,
-                        tasks,
-                        scheduleStorage));
-                } else if (word[1].equals("delete")) {
-                    String startTime = word[2] + " " + word[INDEX_THREE];
-                    String className = word[INDEX_FOUR];
-                    System.out.println(
-                        schedule.delClass(
-                            startTime, className, scheduleStorage));
-                } else if (word[1].equals("delete-all")) {
-                    String date = word[2];
-                    System.out.println(
-                        schedule.delAllClass(date, scheduleStorage));
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Please enter the full command.");
-            }
-            break;
-
-        case "goal":
-            Storage goalStorage = new Storage(
-                ".\\src\\main\\java\\duke\\data\\goals.txt");
-            Goal goal = new Goal(goalStorage.loadGoal());
-            Scanner myGoalScan = new Scanner(System.in);
-
-            System.out.println("Please enter the date of the day "
-                + "in this format: dd/MM/yyyy");
-            String goalDate = myGoalScan.next();
-
-            boolean isQuittingGoal = false;
-            while (!isQuittingGoal) {
-                try {
-                    System.out.println(
-                        "\nWhat would you like to do on " + goalDate + "?\n"
-                            + "1. View goals of the day\n"
-                            + "2. Add a goal of the day\n"
-                            + "3. Delete a goal of the day\n"
-                            + "4. Clear all goals of the day\n"
-                            + "5. Quit goal of the day");
-                    int executeType = myGoalScan.nextInt();
-                    myGoalScan.nextLine();  // This line you have
-                    // to add (It consumes the \n character)
-                    switch (executeType) {
-                    case 1:
-                        System.out.print(goal.viewGoal(goalDate));
-                        break;
-
-                    case 2:
-                        System.out.println("To add a goal to "
-                            + goalDate + ", enter the goal.");
-                        String myGoal = myGoalScan.nextLine();
-                        System.out.println(
-                            goal.addGoal(goalDate, myGoal, goalStorage));
-                        break;
-
-                    case INDEX_THREE:
-                        System.out.println("To delete a goal from "
-                            + goalDate + ", enter the goal.");
-                        String message = myGoalScan.nextLine();
-                        System.out.println(
-                            goal.removeGoal(
-                                goalDate, message, goalStorage));
-                        break;
-
-                    case INDEX_FOUR:
-                        System.out.println(
-                            goal.removeAllGoal(goalDate, goalStorage));
-                        break;
-
-                    case INDEX_FIVE:
-                        isQuittingGoal = true;
-                        System.out.println(
-                            "You have quit the lesson of the day.");
-
-                    default:
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Please enter the full command.");
-                } catch (ParseException e) {
-                    System.out.println(
-                        "Please enter the details in the correct format.");
-                }
-            }
-            break;
-
-
-        case "home":
-            Ui viewMenu = new Ui();
-            viewMenu.mainMenu();
-            break;
-
-        default:
-            System.out.println("\u2639 OOPS!!! I'm sorry,"
-                + "but I don't know what that means :-(");
             break;
         }
     }

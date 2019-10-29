@@ -1,20 +1,17 @@
 package duke;
 
 import duke.Parser.ParserCommand;
-import duke.Parser.Parser;
-import duke.module.Lesson;
-import duke.module.Schedule;
-import duke.sports.ManageStudents;
-import duke.sports.MyPlan;
-import duke.task.TaskList;
-import duke.data.Storage;
+import duke.sports.MyTraining;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.text.ParseException;
 import java.util.Scanner;
 
 public class Ui {
+
+    /**
+     * Scanner object to read user input.
+     */
+    Scanner scan = new Scanner(System.in);
+
     /**
      * Declaring new Parser type.
      */
@@ -24,16 +21,15 @@ public class Ui {
      * A method to run the program.
      */
     public void execute() {
-        Scanner sc = new Scanner(System.in);
-        welcome();
+        showWelcome();
         while (true) {
-            if (sc.hasNextLine()) {
-                String command = sc.nextLine();
+            if (scan.hasNextLine()) {
+                String command = scan.nextLine();
                 if (command.equals("bye")) {
-                    goodbye();
+                    showGoodBye();
                     System.exit(0);
                 } else if (command.equals("home")) {
-                    mainMenu();
+                    showMainMenu();
                 } else {
                     parser.parseCommand(command);
                 }
@@ -44,15 +40,23 @@ public class Ui {
     /**
      * This function prints out the welcome message of Duke.
      */
-    public void welcome() {
-        System.out.println("Hello! I'm Duke, your personal sports manager!\n"
+    public void showWelcome() {
+        System.out.println("Hello! I'm Duke, your personal coach manager!\n"
             + "What can I do for you?");
+    }
+
+    /**
+     * Reads in an entire line of user input.
+     * @return The entire line of user input.
+     */
+    public String readCommand() {
+        return scan.nextLine();
     }
 
     /**
      * Displays main menu on command line.
      */
-    public void mainMenu() {
+    public void showMainMenu() {
         System.out.println("SPORTS MANAGER\n"
             + "1. View Training Schedule\n"
             + "2. Manage Students\n"
@@ -62,7 +66,7 @@ public class Ui {
     /**
      * This function prints out the goodbye message of Duke.
      */
-    public void goodbye() {
+    public void showGoodBye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
@@ -71,7 +75,22 @@ public class Ui {
      */
     public void trainingScheduleHeading() {
         System.out.flush();
-        System.out.println("TRAINING SCHEDULE:\n");
+        System.out.println("TRAINING SCHEDULE:\n"
+            + "1. Daily Schedule\n"
+            + "2. Weekly Schedule\n"
+            + "3. Monthly Schedule");
+    }
+
+    /**
+     * This function prints out the heading when
+     * Daily Schedule option is chosen.
+     */
+    public void dailyScheduleHeading() {
+        System.out.flush();
+        System.out.println("DAILY SCHEDULE:\n"
+            + "1. Classes of the day\n"
+            + "2. Goals of the day\n"
+            + "3. Lessons learnt of the day");
     }
 
     /**
@@ -90,17 +109,6 @@ public class Ui {
             + "(Cmd: student search [name])");
     }
 
-
-    public void lessonHeading(Lesson lessonDate) {
-        System.out.flush();
-        System.out.println("What would you like to do on \n" + lessonDate + "?\n"
-            + "1. View lessons of the day\n"
-            + "2. Add a lesson of the day\n"
-            + "3. Delete a lesson of the day\n"
-            + "4. Clear all lessons of the day\n"
-            + "5. Quit lesson of the day");
-    }
-
     /**
      * This function prints out the heading when option 3 is chosen.
      */
@@ -115,31 +123,6 @@ public class Ui {
             + "activities or switching activity positions "
             + "(Cmd: plan edit [intensity level] [plan number])");
     }
-
-    /**
-     * This function takes the standard input defined by the user.
-     * passes it into the Parser class.
-     *
-     * @param input    user input
-     * @param tasks    task class
-     * @param storage  saving/loading class
-     * @param students students class
-     * @param schedule schedule class
-     * @param plan     training plan class
-     * @throws FileNotFoundException if save files cannot be loaded
-     * @throws ParseException if loadSchedule has an error
-     */
-    public void readCommand(final String input,
-                            final TaskList tasks,
-                            final Storage storage,
-                            final ManageStudents students,
-                            final Schedule schedule,
-                            final MyPlan plan)
-        throws FileNotFoundException, ParseException {
-        Parser parser = new Parser();
-        parser.parseInput(input, tasks, storage, students, schedule, plan);
-    }
-
     /**
      * Displays student from student list that is matching to search.
      *
@@ -150,4 +133,278 @@ public class Ui {
         return "Here are the matching names in your list: " + foundStudent;
     }
 
+    /**
+     * Prints message when asking for date for goal.
+     */
+    public void showGoalPromptDate() {
+        System.out.println("Please enter the date of the day "
+            + "in this format: dd/MM/yyyy");
+    }
+
+    /**
+     * Prints all possible actions with goal once entered.
+     * @param goalDate The date of the day
+     */
+    public void showGoalAllActions(final String goalDate) {
+        System.out.println(
+            "\nWhat would you like to do on " + goalDate + "?\n"
+                + "1. View goals of the day\n"
+                + "2. Add a goal of the day\n"
+                + "3. Delete a goal of the day\n"
+                + "4. Clear all goals of the day\n"
+                + "5. Quit goal of the day");
+    }
+
+    /**
+     * Prints message when asking for goal to add.
+     * @param goalDate The date of the day
+     */
+    public void showGoalPromptAddGoal(final String goalDate) {
+        System.out.println("To add a goal to "
+            + goalDate + ", enter the goal.");
+    }
+
+    /**
+     * Prints message when asking for goal to delete.
+     * @param goalDate The date of the day
+     */
+    public void showGoalPromptDeleteGoal(final String goalDate) {
+        System.out.println("To delete a goal from "
+            + goalDate + ", enter the goal.");
+    }
+
+    /**
+     * Prints message when quitting goal of the day.
+     */
+    public void showQuitGoal() {
+        System.out.println(
+            "You have quit the goal of the day.");
+    }
+
+    /**
+     * Prints message asking for full command.
+     */
+    public void showFullCommand() {
+        System.out.println("Please enter the full command.");
+    }
+
+    /**
+     * Prints message asking for correct format.
+     */
+    public void showCorrectFormat() {
+        System.out.println(
+            "Please enter the details in the correct format.");
+    }
+
+    /**
+     * Prints message showing don't know what it means.
+     */
+    public void showDontKnow() {
+        System.out.println("\u2639 OOPS!!! I'm sorry,"
+            + "but I don't know what that means :-(");
+    }
+
+    /**
+     * Prints message when asking for date for lesson.
+     */
+    public void showLessonPromptDate() {
+        System.out.println("Please enter the date of the day "
+            + "in this format: dd/MM/yyyy");
+    }
+
+    /**
+     * Prints all possible actions with lesson once entered.
+     * @param lessonDate The date of the day
+     */
+    public void showLessonAllActions(final String lessonDate) {
+        System.out.println(
+            "\nWhat would you like to do on " + lessonDate + "?\n"
+                + "1. View lessons of the day\n"
+                + "2. Add a lesson of the day\n"
+                + "3. Delete a lesson of the day\n"
+                + "4. Clear all lessons of the day\n"
+                + "5. Quit lesson of the day");
+    }
+
+    /**
+     * Prints message when asking for lesson to add.
+     * @param lessonDate The date of the day
+     */
+    public void showLessonPromptAddLesson(final String lessonDate) {
+        System.out.println("To add a lesson to "
+            + lessonDate + ", enter the lesson.");
+    }
+
+    /**
+     * Prints message when asking for lesson to delete.
+     * @param lessonDate The date of the day
+     */
+    public void showLessonPromptDeleteLesson(final String lessonDate) {
+        System.out.println("To delete a lesson from "
+            + lessonDate + ", enter the lesson.");
+    }
+
+    /**
+     * Prints message when quitting lesson of the day.
+     */
+    public void showQuitLesson() {
+        System.out.println(
+            "You have quit the lesson of the day.");
+    }
+
+    /**
+     * Prints message when asking for proper intensity level.
+     */
+    public void showIntensityLevel() {
+        System.out.println("Please input a proper "
+            + "intensity level: high, moderate, relaxed");
+    }
+    /**
+     * Prints message when plan is successfully loaded.
+     * @param planNum The plan number of the plan to be loaded.
+     * @param intensity The intensity of the plan to be loaded.
+     */
+    public void showPlanLoaded(final int planNum, final String intensity) {
+        System.out.println("You have loaded plan " + planNum + " of "
+            + intensity + " intensity " + " into the list");
+    }
+
+    /**
+     * Prints message when asking for correct intensity level and plan number.
+     */
+    public void showIntensityAndNumber() {
+        System.out.println("Please input the correct"
+            + " intensity and plan number.");
+    }
+
+    /**
+     * Prints message when plan is successfully removed.
+     */
+    public void showPlanRemoved() {
+        System.out.println("Plan successfully removed.");
+    }
+
+    /**
+     * Prints message when plan is successfully created.
+     */
+    public void showPlanCreated() {
+        System.out.println("Plan successfully created.");
+    }
+
+    /**
+     * Prints message when saving plan to map.
+     */
+    public void showSavePlanToMap() {
+        System.out.println("Saved to map.");
+    }
+
+    /**
+     * Prints message if no activity has been added to show.
+     */
+    public void showNoActivity() {
+        System.out.println("No activity has been added.");
+    }
+
+    /**
+     * Prints message when plan is being created.
+     * @param intensity The intensity of the plan to be created.
+     */
+    public void showPlanCreating(final String intensity) {
+        System.out.println("Creating plan of " + intensity + " intensity.\n"
+            + "Please input activity to add in format of "
+            + "[activity] [number of sets] [number of reps].");
+    }
+
+    /**
+     * Prints message when activity is successfully added.
+     * @param activity The activity object to be added.
+     */
+    public void showActivityAdded(final MyTraining activity) {
+        System.out.println("Successfully added activity: "
+            + activity.toString());
+    }
+
+    /**
+     * Prints message to show all plans loaded into the current list.
+     * @param plans The plans to be printed out.
+     */
+    public void showViewPlan(final String plans) {
+        System.out.println(plans);
+    }
+
+    /**
+     * Prints message to prompt the user on what to do next.
+     */
+    public void showPlanPrompt1() {
+        System.out.println("Continue adding activities, "
+            + "or finalize plan.");
+    }
+
+    /**
+     * Prints message to prompt the user on what to do next.
+     */
+    public void showPlanPrompt2() {
+        System.out.println("Please input new activity,"
+            + "finalize the plan or look at current list.");
+    }
+
+    /**
+     * Prints message when asking for date for schedule.
+     */
+    public void showSchedulePromptDate() {
+        System.out.println("Please enter the date of the day "
+            + "in this format: dd/MM/yyyy");
+    }
+
+    /**
+     * Prints all possible actions with schedule once entered.
+     * @param scheduleDate The date to see classes of the day
+     */
+    public void showScheduleAllActions(final String scheduleDate) {
+        System.out.println(
+            "\nWhat would you like to do on " + scheduleDate + "?\n"
+                + "1. View all classes\n"
+                + "2. Add a class\n"
+                + "3. Delete a class\n"
+                + "4. Clear all classes\n"
+                + "5. Quit classes");
+    }
+
+    /**
+     * Prints message when quitting class.
+     */
+    public void showQuitClass() {
+        System.out.println(
+            "You have quit class.");
+    }
+
+    /**
+     * Prints message when asking for the start time of a class.
+     */
+    public void showPromptStartTime() {
+        System.out.println(
+            "Please enter the start time in this format: dd/MM/yyyy HHmm");
+    }
+
+    /**
+     * Prints message when asking for the end time of a class.
+     */
+    public void showPromptEndTime() {
+        System.out.println(
+            "Please enter the end time in this format: dd/MM/yyyy HHmm");
+    }
+
+    /**
+     * Prints message when asking for the location of a class.
+     */
+    public void showPromptClassLocation() {
+        System.out.println("Please enter the location the class will be held");
+    }
+
+    /**
+     * Prints message when asking for the name of a class.
+     */
+    public void showPromptClassName() {
+        System.out.println("Please enter the name of the class.");
+    }
 }
