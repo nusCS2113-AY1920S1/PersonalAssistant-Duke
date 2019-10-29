@@ -160,9 +160,9 @@ As of now, all commands entered by the user go through the following validation 
 
 === User initialization
 
-User initialization personalises the program for each user to cater to their needs
+User initialization personalises the program for each user to cater to their needs.
 
-This section describes the implmentation and design considerations.
+This section describes the implementation and design considerations.
 
 ==== Current implementation
 
@@ -180,14 +180,17 @@ The following step describes the flow of the initialisation:
 ... If they would like to maintain or lose weight
 .. If data is found, `Main` will load the data from `user.txt` via `Storage`
 . The `Main` will continue on with the function.
-. On exit, `Main` will save the `User` data to `user.txt`
+. On any commands that updates `user` class, `Storage` will save the updated user class to `user.txt`
 
 ==== Design considerations
 
 Problem 1: *How to store weight data to be displayed over time*
 
-*Solution 1 (current implementation): HashMap
+* Solution 1 (current implementation): HashMap
 ** By storing data in HashMap, we are able to store a weight data to a date and this can be changed easily by accessing the same date in the HashMap.
+
+.User Initialisation sequence diagram
+image::usersequencediagram.png[width="800"]
 
 === Add command
 
@@ -312,20 +315,14 @@ The following section describes the implementation and design considerations inv
 ==== Current implementation
 The Suggest command assumes that there is a pre-existing list of food items from which it can suggest food from and that this list contains food parameters such as cost, calories, nutrients, etc. This is a sample of how this feature will work in principle:
 
-. When the application is being initialized, the `Storage#load()` function will be utilized to load all the meal parameters to memory in the `MealList` object.
+. The `Main` class calls the parse function of the `Parser` class to parse the user input.
 
-. The `MealSuggestion` class will be created and hold a reference of the `MealList` object to perform data analysis for meal suggestion when requested by user.
-
-. After the application initializes, every time the user keys in a meal entry, the `MealSuggestion` class will update its mealFrequency parameter of the meal for the respective week.
-
-. Once the user enters the suggest command
-    * Parser checks if date is provided, else defaults to current date (based on system clock)
-    * Parser checks if meal parameters are provided, else defaults to all parameters.
-    * Autocorrect will work on all the input provided by the user to prevent repeated entering of command due to typo from user.
-
-. `MealSuggestion#getMealPreferenceScore(...)` function computes the meal preference score of each meal based on the date provided and the meal parameters the user wants.
-
-. `MealSuggestion#getMealSuggestion(...)` function sorts the meals based on the preference score calculated and returns most suitable meal to the user.
+. After parsing, the data is then used to create an instance of the `SuggestMealCommand` object, which is then returned to the `Main` function.
+. The `Main` function would then invoke the `SuggestMealCommand#execute()` function.
+. The `SuggestMealCommand#execute()` function executes the first stage of user data processing and calls `SuggestMealCommand#execute_stage_0` function, which calls the `MealSuggestionAnalytics#getMealSuggestions(...)` function.
+. The `MealSuggestionAnalytics#getMealSuggestions(...)` function loads the default meal item list data in a `SuggestMeal` data model object, which inherits the `Meal` class, which has object comparison order implemented in `SuggestMeal#compareTo(...)`.
+. `SuggestMeal` objects that meet the calorie requirement are sorted and an arrayList of `Meal` objects is returned, which contains the possible meals that the user can choose from.
+. The `SuggestMealCommand#execute()` function then moves on to the next stage of data enquiry from user for meal selection and passes the input choice to `SuggestMealCommand#execute_stage_1` function, which then invokes the `AddCommand#execute` to add the selected meal to the application.
 
 
 ==== Design considerations
@@ -358,8 +355,52 @@ Problem 2: *How to prevent excessive repeated meal suggestions*
 
 ** Cons: Undeterministic meal suggestion that provides different meal suggestion given the same input parameters. There is still a small chance that the same meals can be suggested repeatedly.
 
+=== Graph Command
 
+The Graph Command provides a visualisation of the data specified by the user over a month so they are able to better adjust their choices of meals
 
+The following section describes the implementation and design considerations involved in the Graph feature and how it outputs the graph onto command line.
+
+==== Current implementation
+The user can specify the month and year of the category of data they would like to view as a plotted graph. The implementation is as follows:
+
+. User will specify the parameters of the data.
+. After parsing through the user input, `Parser` will make sense of the input and return a `CGraphCommand` with the relevant `type`, `month` and `year`.
+. `CGraphCommand` will then check the `type` and obtain the relevant data from the relevant objects.
+.. For example, if the `type` is specified as `weight`, `CGraphCommand` will obtain the `weight` data from `User`.
+. After obtaining the data in the form of a `HashMap`, `CGraphCommand` will run through the `HashMap` by checking for all dates in the specified `month` and `year`.
+.. If a date is not found in the `keySet` of the `HashMap`, the data for that date will be assumed to be 0.
+. The data found for each date is stored in an `ArrayList`.
+. The biggest data found will also be stored as a variable called `highest`. This will be used for scaling of the graph.
+. From this `ArrayList`, each data is scaled according to the `highest` variable stored and plotted accordingly in a 2-dimensional `Array`.
+. This `Array` will then be passed to `GraphUi` for it to plot the graph on the commandline.
+
+==== Design considerations
+
+Problem 1: *How to output the x axis for days appropriately so that the double digits do not mess up the command line scaling*
+
+* Solution 1: Print the 1st digit in the first line, and the 2nd digit on the second line.
+
+** Pros: All day values are able to be displayed using one character space.
+
+** Cons: It takes up an additional line of space
+
+Problem 2: *Preventing data from being too large and taking too much space*
+
+* Solution 1: Find the highest value of the data, and scale all of the values according to the highest value.
+
+** Pros: Data can output on the graph without exceeding limits. Users are able to see the fluctuation of the values.
+
+** Cons: Users are unable to check the exact value of each points.
+
+* Solution 1: Output the data according to the number of space.
+
+** Pros: Users are able to check the exact value of each points.
+
+** Cons: If the data is too big, it may go out of the intended graph range and the desired output may be skewed. This may prevent users from being able to accurately see their progress.
+
+.CGraph command sequence diagram
+image::cgraphcommand.png[width="800"]
 
 == Documentation
 === Introduction

@@ -513,10 +513,12 @@ image::Stats_Command.png[]
 
 ==== Graph nutrition track record: `graph`
 
-Format: `graph [/date]<START_DATE> <END_DATE>`
+Format: `cgraph <DATA_TYPE> /month <MONTH> /year <YEAR>`
 
 Want to monitor trends in your diet in a graphical form? By using the `graph` command, you will be able to see your nutritional
 intake across a time period charted as a graph.
+
+image::cgraph.PNG[width=""]
 
 ==== Suggest potential food items: `suggest`
 
@@ -530,23 +532,23 @@ Examples:
 
     `suggest /date 29/10/2019 /type d /display 3`
 
-    +
-    image::Suggest_Command_1.png[width=""]
-    +
++
+image::Suggest_Command_1.png[width=""]
++
 
 2. You want a breakfast suggestion for today.
 
     `suggest /type b`
 
-    +
-    image::Suggest_Command_2.png[width=""]
-    +
++
+image::Suggest_Command_2.png[width=""]
++
 
 You can opt to type 0 to reject all the suggestions, but if you did choose a suggestion, the command will add it to your list and will also show you the potential amount of calories your current plan has given that you ate everything (not only the ones marked as done).
 
-    +
-    image::Suggest_Command_3.png[width=""]
-    +
++
+image::Suggest_Command_3.png[width=""]
++
 
 [NOTE]
 ====

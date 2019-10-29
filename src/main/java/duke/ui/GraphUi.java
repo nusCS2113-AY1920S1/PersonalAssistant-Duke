@@ -11,8 +11,8 @@ public class GraphUi {
                                "July", "August", "September",
                                "October", "November", "December"};
 
-    public void showWeight(String[][] graph, int month) {
-        System.out.println(this.month[month - 1]);
+    public void show(String[][] graph, int month, String type) {
+        System.out.println(this.month[month - 1] + " " + type);
         for (int i = 0; i < graph.length; i += 1) {
             System.out.print(" |");
             for (int j = 0; j < graph[i].length; j += 1) {
