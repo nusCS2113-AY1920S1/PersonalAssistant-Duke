@@ -9,6 +9,11 @@
     "Take note that you cannot change your code between days. Hence, it is important to know when you need to use an 'If' statement",
     "The format of using an 'If' statement is as follows..\nIf [condition] do [action].~"
   ],
+  "feedback": [
+    "to accomplish this task you used the [if] command to check whether you had a wheat",
+    "upon confirmation that there is wheat,",
+    "you succesully harvested the wheat using the [do] command"
+  ],
   "gold": 0,
   "seeds": 0,
   "seedlings": 0,
@@ -17,5 +22,6 @@
   "deadline" : 2,
   "file_path": "Level1.4",
   "objective": "Harvest wheat by Day 2",
+  "modelAnswer": "|if hasWheat do harvestWheat|",
   "hint": "Enter [if haswheat do harvestwheat]"
 }
