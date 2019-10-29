@@ -22,7 +22,7 @@ public class Goal {
     private int calorieTarget;
     private int caloriesLeft;
     private int caloriesConsumed;
-    private int lifestyleTarget;
+    private int activityLevelTarget;
 
     public Goal() {
     }
@@ -33,7 +33,7 @@ public class Goal {
         try {
             weightTarget = Double.parseDouble(splitLine[2]);
             calorieTarget = Integer.parseInt(splitLine[3]);
-            lifestyleTarget = Integer.parseInt(splitLine[4]);
+            activityLevelTarget = Integer.parseInt(splitLine[4]);
         } catch (Exception e) {
             throw new DukeException(e.getMessage());
         }
@@ -51,8 +51,8 @@ public class Goal {
         this.weightTarget = weight;
     }
 
-    public void setLifestyleTarget(int level) {
-        this.lifestyleTarget = level;
+    public void setActivityLevelTarget(int level) {
+        this.activityLevelTarget = level;
     }
 
     public void setOriginalWeight(double originalWeight) {
@@ -91,8 +91,8 @@ public class Goal {
         return this.caloriesConsumed;
     }
 
-    public int getLifestyleTarget() {
-        return this.lifestyleTarget;
+    public int getActivityLevelTarget() {
+        return this.activityLevelTarget;
     }
 
     public double getWeightDifference() {
@@ -161,7 +161,7 @@ public class Goal {
      */
     @Override
     public String toString() {
-        return startDate + "|" + endDate + "|" + weightTarget + "|" + calorieTarget + "|" + lifestyleTarget;
+        return startDate + "|" + endDate + "|" + weightTarget + "|" + calorieTarget + "|" + activityLevelTarget;
     }
 
 }

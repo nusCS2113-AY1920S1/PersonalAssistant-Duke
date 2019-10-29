@@ -26,6 +26,7 @@ import static duke.commons.definitions.CommandDefinitions.PARSER_LUNCH_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_PAYMENT_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_STATS_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_SUGGEST_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_SUGGEST_EXERCISE_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_UPDATE_WEIGHT_COMMAND;
 import static duke.commons.exceptions.ExceptionMessages.UNKNOWN_COMMAND;
 
@@ -107,6 +108,8 @@ public class Parser {
                 return new StatsCommand();
             case PARSER_CGRAPH_COMMAND:
                 return new CGraphCommandParser().parse(userInput);
+            case PARSER_SUGGEST_EXERCISE_COMMAND:
+                return new SuggestExerciseCommandParser().parse(userInput);
             default:
                 throw new DukeException(UNKNOWN_COMMAND);
         }

@@ -196,15 +196,17 @@ public class Ui {
 
     public void showStats(User user) {
         if (user.getGoal() == null) {
-            showStatsNoGoal();
+            goalNotFound();
         } else {
             showStatsWithGoal(user);
         }
     }
 
-    private void showStatsNoGoal() {
+    public void goalNotFound() {
+        System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "It appears that a diet plan has not been setup for this session of DIYeats.");
         System.out.println(UI_PADDING + "Please use the `setgoal` command to create a diet plan customized for you!");
+        System.out.println(UI_BOUNDARY);
     }
 
     private void showStatsWithGoal(User user) {
@@ -230,5 +232,12 @@ public class Ui {
         } else {
             System.out.println(UI_PADDING + "Oh no, you are deviating from your diet plan. Try harder!");
         }
+    }
+
+    public void showExerciseRequired(int calories) {
+        System.out.println(UI_BOUNDARY);
+        System.out.println(UI_PADDING + "To meet your goals, you should do: " + calories + " calories");
+        System.out.println(UI_PADDING + "worth of exercises today. All the best!");
+        System.out.println(UI_BOUNDARY);
     }
 }
