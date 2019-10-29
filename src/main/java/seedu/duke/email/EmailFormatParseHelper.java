@@ -135,6 +135,11 @@ public class EmailFormatParseHelper {
         private String name;
         private String address;
 
+        public Sender(String name, String address) {
+            this.name = name;
+            this.address = address;
+        }
+
         /**
          * Constructor of the sender class with the json object containing the information.
          *

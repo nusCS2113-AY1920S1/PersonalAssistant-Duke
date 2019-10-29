@@ -70,7 +70,7 @@ public class EmailContentParseHelper {
      * @param keywordPair the target keyword looking for
      * @return whether the keyword pair is found in the string
      */
-    private static int keywordInString(String input, KeywordPair keywordPair) {
+    public static int keywordInString(String input, KeywordPair keywordPair) {
         int occurrence = 0;
         for (int i = 0; i < keywordPair.getExpressions().size(); i++) {
             String expression = keywordPair.getExpressions().get(i);
@@ -111,6 +111,10 @@ public class EmailContentParseHelper {
                 "UHC Wellness", "luminus-do-not-reply", "NUS Libraries"))));
 
         EmailContentParseHelper.keywordList = keywordList;
+    }
+
+    public static ArrayList<KeywordPair> getKeywordList() {
+        return keywordList;
     }
 
     /**

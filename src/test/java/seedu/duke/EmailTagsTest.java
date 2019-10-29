@@ -19,7 +19,7 @@ public class EmailTagsTest {
         System.out.println(emailList.toString());
 
         HashMap<String, EmailTags.SubTagMap> tagMap = EmailTags.updateEmailTagList(emailList);
-        System.out.println(tagMap);
+        //System.out.println(tagMap);
 
         //assertTrue(tagMap.containsKey("SEP"));
         //assertTrue(tagMap.containsKey("Spam"));
