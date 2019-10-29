@@ -61,7 +61,7 @@ public class Farmio {
         new Farmio().run();
     }
 
-    public static enum Stage {
+    public enum Stage {
         WELCOME,
         MENU_START,
         NAME_ADD,
