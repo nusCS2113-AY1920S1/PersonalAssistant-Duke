@@ -1,8 +1,8 @@
 package UserElements;
 
-import Events.EventTypes.EventSubclasses.Concert;
-import Events.Storage.EventList;
 import Events.EventTypes.Event;
+import Events.EventTypes.EventSubclasses.Concert;
+import Events.Storage.Contact;
 import Events.Storage.EventList;
 import Events.Storage.Goal;
 
@@ -90,6 +90,24 @@ public class UI {
 
     public void goalDeleted() {
         System.out.println("Ok, the goal has been deleted from the event.");
+    }
+
+    public void contactAdded() {
+        System.out.println("Ok, the contact has been added to the event.");
+    }
+
+    public void contactDeleted() {
+        System.out.println("Ok, the contact has been deleted from the event.");
+    }
+
+    public void printEventContacts(Event viewEventContact) {
+        System.out.println("Here is the list of contacts for the following event " + viewEventContact.toString());
+        int contactNo = 1;
+        for (Contact currContact : viewEventContact.getContactList()) {
+            System.out.println(contactNo + ". Name: " + currContact.getName() + " Email: " + currContact.getEmail()
+            + " Phone Number: " + currContact.getPhoneNo());
+            contactNo++;
+        }
     }
 
     /**

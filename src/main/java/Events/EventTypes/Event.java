@@ -2,6 +2,7 @@ package Events.EventTypes;
 
 import Events.Formatting.EventDate;
 import Events.Storage.Goal;
+import Events.Storage.Contact;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public abstract class Event implements Comparable<Event> {
     private EventDate endEventDate;
     private char eventType;
     protected ArrayList<Goal> goalsList;
+    protected ArrayList<Contact> contactList;
 
     /**
      * Creates event with one date input (e.g todo)
@@ -31,6 +33,7 @@ public abstract class Event implements Comparable<Event> {
         this.endEventDate = null; //no end date, set to null
         this.eventType = 'T'; //event with no end date can only be ToDo
         this.goalsList = new ArrayList<>();
+        this.contactList = new ArrayList<>();
     }
 
     /**
@@ -48,6 +51,7 @@ public abstract class Event implements Comparable<Event> {
         this.endEventDate = new EventDate(endDateAndTime);
         this.eventType = eventType;
         this.goalsList = new ArrayList<>();
+        this.contactList = new ArrayList<>();
     }
 
     /**
@@ -132,6 +136,29 @@ public abstract class Event implements Comparable<Event> {
         return goalsList;
     }
 
+    public void addContact(Contact contactInput) {
+        contactList.add(contactInput);
+    }
+
+    public void removeContact(int contactIndex) {
+        contactList.remove(contactIndex);
+    }
+
+    public ArrayList<Contact> getContactList() {
+        return contactList;
+    }
+
+    public void editContact(int contactIndex, char editType, String newContact) {
+        if (editType == 'N') {
+            contactList.get(contactIndex).setName(newContact);
+        }
+        else if (editType == 'E') {
+            contactList.get(contactIndex).setEmail(newContact);
+        }
+        else if (editType == 'P') {
+            contactList.get(contactIndex).setPhoneNo(newContact);
+        }
+    }
 
     @Override
     public int compareTo(Event currEvent) {

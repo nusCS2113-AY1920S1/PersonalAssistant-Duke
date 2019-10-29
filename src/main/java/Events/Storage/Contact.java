@@ -1,4 +1,4 @@
-package UserElements;
+package Events.Storage;
 
 public class Contact {
     private String name;

@@ -9,11 +9,7 @@ import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.CalendarView;
 import Events.Formatting.EventDate;
-import Events.Storage.ClashException;
-import Events.Storage.EndBeforeStartException;
-import Events.Storage.EventList;
-import Events.Storage.Goal;
-import Events.Storage.Storage;
+import Events.Storage.*;
 import UserElements.ConcertBudgeting.CostExceedsBudgetException;
 
 import java.text.SimpleDateFormat;
@@ -140,13 +136,16 @@ public class Command {
                 printCalendar(events, ui);
                 break;
 
-
             case "budget":
                 showBudget(events, ui);
                 break;
             
             case "goal":
                 goalsManagement(events, ui);
+                break;
+
+            case "contact":
+                contactManagement(events, ui);
                 break;
 
             default:
@@ -462,6 +461,59 @@ public class Command {
         } catch (IndexOutOfBoundsException ne) {
             ui.noSuchEvent();
         } catch (NumberFormatException numE) {
+            ui.notAnInteger();
+        }
+    }
+
+    private void contactManagement(EventList events, UI ui) {
+        if (continuation.isEmpty()) {
+            ui.noSuchEvent();
+            return;
+        }
+        try {
+            String[] splitContact = continuation.split("/");
+            String[] contactCommand = splitContact[0].split(" ");
+            int eventIndex = Integer.parseInt(contactCommand[1]) - 1;
+            if (contactCommand.length == 2) {
+                switch (contactCommand[0]) {
+                    case "add":
+                        String[] contactDetails = splitContact[1].split(",");
+                        Contact newContact = new Contact(contactDetails[0], contactDetails[1], contactDetails[2]);
+                        events.getEvent(eventIndex).addContact(newContact);
+                        ui.contactAdded();
+                        break;
+
+                    case "view":
+                        ui.printEventContacts(events.getEvent(eventIndex));
+                        break;
+                }
+            } else {
+                int contactIndex = Integer.parseInt(contactCommand[2]) - 1;
+                switch (contactCommand[0]) {
+                    case "delete":
+                        events.getEvent(eventIndex).removeContact(contactIndex);
+                        ui.contactDeleted();
+                        break;
+                    case "edit":
+                        char editType = ' ';
+                        switch (contactCommand[3]) {
+                            case "name":
+                                editType = 'N';
+                                break;
+                            case "email":
+                                editType = 'E';
+                                break;
+                            case "phone":
+                                editType = 'P';
+                                break;
+                        }
+                        events.getEvent(eventIndex).editContact(contactIndex, editType, splitContact[1]);
+                        break;
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            ui.noSuchEvent();
+        } catch (NumberFormatException en) {
             ui.notAnInteger();
         }
     }
