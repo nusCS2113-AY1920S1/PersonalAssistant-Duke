@@ -1,5 +1,9 @@
 package seedu.hustler.game.avatar;
 
+import seedu.hustler.game.shop.items.armors.Armor;
+import seedu.hustler.game.shop.items.weapons.Weapon;
+import java.util.Optional;
+
 /**
  * Class that deals with the stats of avatar.
  */
@@ -62,11 +66,16 @@ public class Stats implements Convertible {
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "Damage: "  + this.damage + "\n"
-            + "Defence: " + this.defence + "\n"
-            + "Stamina: " + this.stamina + "\n"
+    /**
+     * Obtain the stats to print out.
+     * @param weapon the weapon equipped, if any.
+     * @param armor the armor equipped, if any.
+     * @return the String consisting of the stats.
+     */
+    public String getStats(Optional<Weapon> weapon, Optional<Armor> armor) {
+        return "Damage: "  + (this.damage + (weapon.map(value -> + value.getDamageIncr()).orElse(0))) + "\n"
+            + "Defence: " + (this.defence + (armor.map(value -> + value.getDefenceIncr()).orElse(0))) + "\n"
+            + "Stamina: " + (this.stamina + (armor.map(value -> + value.getStaminaIncr()).orElse(0))) + "\n"
             + "Speed: " + this.speed;
     }
 

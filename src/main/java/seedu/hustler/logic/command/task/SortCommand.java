@@ -38,7 +38,7 @@ public class SortCommand extends Command {
             anomaly.detect(userInput);
             Hustler.list.sortTask(userInput[1]);
         } catch (CommandLineException e) {
-            ui.show_message(e.getMessage());
+            ui.showMessage(e.getMessage());
         }
     }
 }

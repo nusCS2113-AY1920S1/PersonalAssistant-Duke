@@ -93,7 +93,7 @@ public class Hustler extends Application {
      * Displays reminders at the start of Hustler.
      */
     public static void initialize() throws IOException {
-        ui.show_opening_string();
+        ui.showOpeningString();
         Folder.checkDirectory();
         loadStorage();
         memorymanager.createBackup();
@@ -128,7 +128,7 @@ public class Hustler extends Application {
             saveStorage();
             System.out.println();
         } catch (CommandLineException e) {
-            e.getErrorMsg();
+            ui.showMessage(e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -161,12 +161,12 @@ public class Hustler extends Application {
      */
     public static void saveStorage() {
         try {
-            taskStorage.save(list.return_list());
+            taskStorage.save(list.returnList());
             AvatarStorage.save(avatar);
             AchievementStorage.saveAchievements(achievementList);
             AchievementStorage.saveStatus();
         } catch (IOException e) {
-            ui.show_save_error();
+            ui.showSaveError();
         }
     }
 }
