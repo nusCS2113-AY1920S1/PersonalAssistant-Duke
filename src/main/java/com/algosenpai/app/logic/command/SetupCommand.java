@@ -1,5 +1,3 @@
-//@@author carrieng0323852
-
 package com.algosenpai.app.logic.command;
 
 import com.algosenpai.app.logic.models.QuestionModel;
@@ -42,8 +40,6 @@ public class SetupCommand extends Command {
         if (setupStage == 1) {
             return checkStatus();
         } else if (setupStage == 2) {
-            return "Are you a boy or a girl?";
-        } else if (setupStage == 3) {
             //set the variable isBoy to true or false
             return "You're all set! Time to start your journey to become an AlgoSenpai!";
         } else {
@@ -57,7 +53,7 @@ public class SetupCommand extends Command {
      */
     private String checkStatus() {
         if (setupStage ==  1) {
-            return "Oh it seems that it is your first time here! Can I get your name?";
+            return "Oh it seems that it is your first time here! Can I get your name and gender (boy or girl)?";
         } else {
             return " Welcome back!";
         }

@@ -4,6 +4,8 @@ package com.algosenpai.app.logic.command;
 
 import com.algosenpai.app.logic.constant.Commands;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -19,7 +21,10 @@ public class InvalidCommand extends Command {
 
     @Override
     public String execute() {
-        String input = inputs.get(0);
+        String input = new String();
+        for (String i : inputs) {
+            input += i;
+        }
         return "!!!? Did you mean..." + compare(input);
     }
 
@@ -29,15 +34,21 @@ public class InvalidCommand extends Command {
      * @return the closest command.
      */
 
-    public static String compare(String input) {
-        String str = "";
-        double num = -1;
+    public String compare(String input) {
+        DecimalFormat df = new DecimalFormat("#.#####");
+
+        String str = new String();
+        float num = -1;
         String[] names = Commands.getNames();
 
-        for (String s: names) {
-            double temp = countPairs(input, input.length(), s, s.length());
-            if (temp > num) {
-                str = s;
+        for (String s : names) {
+            float temp = countPairs(input, input.length(), s, s.length()) / s.length();
+            //temp = Double.valueOf(df.format(temp));
+            if (temp > 0.50000) {
+                if (temp > num) {
+                    num = temp;
+                    str = s;
+                }
             }
         }
         return str;

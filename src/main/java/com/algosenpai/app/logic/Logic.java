@@ -85,7 +85,7 @@ public class Logic {
 
         if (isSettingUp.get()) {
             setupStage++;
-            if (setupStage == 3) {
+            if (setupStage == 2) {
                 isSettingUp.set(false);
             }
             return new SetupCommand(inputs, setupStage, isSettingUp);

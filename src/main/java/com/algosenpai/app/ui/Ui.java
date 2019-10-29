@@ -18,6 +18,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -89,13 +91,13 @@ public class Ui extends AnchorPane {
     }
 
     /**
-     * Handles the input of the user and prints the output of the program
-     * onto the GUI.
+     * Handles the input of the user and prints the output of the program onto the GUI.
      */
     @FXML
     private void handleUserInput() {
         resetIdle();
         String input = userInput.getText();
+        String[] inputs = input.split(" ");
         Command command = logic.executeCommand(input);
         String response = command.execute();
         if (input.equals("undo")) {
@@ -106,12 +108,10 @@ public class Ui extends AnchorPane {
             exit();
         } else if (response.equals("You're all set! Time to start your journey to become an AlgoSenpai!")) {
             playerLevel.setText("You are Level 1");
-            changeUserImage(input);
+            changeUserImage(inputs[1]);
+            playerName.setText("Hi, " + inputs[0] + "!");
             printtoGui(input, response, userImage, senpaiImage);
-        } else if (response.equals("Are you a boy or a girl?")) {
-            playerName.setText("Hi, " + input + "!");
-            printtoGui(input, response, userImage, senpaiImage);
-        } else if (response.startsWith("You got ")) {
+        }else if (response.startsWith("You got ")) {
             updateLevelProgress(0.1);
             printtoGui(input, response, userImage, senpaiImage);
         } else {
