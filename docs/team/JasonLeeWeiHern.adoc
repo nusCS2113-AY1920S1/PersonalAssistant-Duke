@@ -36,30 +36,21 @@ an informed decision on which modules to SU to acheive a better result. +
 _Highlights:_ +
 It requires an in-depth analysis of design alternatives.
 The implementation too was challenging as it required changes to existing commands. +
-_Credits: http://www.nus.edu.sg/registrar/education-at-nus/modular-system.html[NUS GRADE POINTS]_ +
-NUS
-
-*Major enchancement 2: added Contact feature* +
-_What it does:_ +
-Allows the user to add contact's name and contacts's number.
-Addtionally, it is able to list out all the contact's name and number, find contacts base on their name and delete a contact. 
-
-_Justification:_ +
-This feature improves the product significantly because a user
-can now keep track of his contacts.
-Additionally, students especially Year 1 students can know which modules to S/U by playing around with grades so that they can make
-an informed decision on which modules to SU to acheive a better result. +
-_Highlights:_ +
-This enhancement affects existing commands and commands to be added in future.
-It requires an in-depth analysis of design alternatives.
-The implementation too was challenging as it required changes to existing commands. +
-_Credits: GSON Java library_ +
+_Credits: http://www.nus.edu.sg/registrar/education-at-nus/modular-system.html[NUS Grading System]_ +
 
 *Minor enhancement:* +
-1. All passwords are hashed before storing. +
-2. Added admin feature. +
-3. An admin is able to delete user accounts. +
-4. An admin is able to use any commands like a normal user.
+1. Password login system. +
+User needs to type in the correct password to enter Gazeeebo. +
+User is able to change the password. +
+2. Added contact feature. +
+User is able to add/list/delete/find contact(s). +
+There are two inbuilt categories NUS and CEG specially catered for CEG students. +
+3. Added recurring feature. +
+When a tasks has keyword weekly/monthly/yearly, when the task is being marked as done, the tasks will be replaced by another with the 
+date updated to be next week/month/year.
+4. Added edit feature. +
+User is able to edit the task's decription or time or both of them. +
+This saves user the hassle of deleting and create another task because he made a mistake when creating the task.
 
 *Code contributed:*
 [https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=nicholasleeeee[Reposense]] +
@@ -69,22 +60,25 @@ _Credits: GSON Java library_ +
 2. Added labels for organising and prioritising issues, pull request, merging.
 This makes project management more efficient and effective. +
 3. PRs reviewed and merged (with non-trivial review comments):
-https://github.com/CS2113-AY1819S2-M11-2/main/pull/32[#32],
-https://github.com/CS2113-AY1819S2-M11-2/main/pull/80[#80],
-https://github.com/CS2113-AY1819S2-M11-2/main/pull/82[#82],
-https://github.com/CS2113-AY1819S2-M11-2/main/pull/86[#86],
-https://github.com/CS2113-AY1819S2-M11-2/main/pull/88[#88],
-https://github.com/CS2113-AY1819S2-M11-2/main/pull/90[#90],
-https://github.com/CS2113-AY1819S2-M11-2/main/pull/105[#105],
-https://github.com/CS2113-AY1819S2-M11-2/main/pull/111[#111],
-https://github.com/CS2113-AY1819S2-M11-2/main/pull/119[#119],
-https://github.com/CS2113-AY1819S2-M11-2/main/pull/120[#120],
-https://github.com/CS2113-AY1819S2-M11-2/main/pull/121[#121],
-https://github.com/CS2113-AY1819S2-M11-2/main/pull/123[#123],
-https://github.com/CS2113-AY1819S2-M11-2/main/pull/125[#125],
-https://github.com/CS2113-AY1819S2-M11-2/main/pull/151[#151],
-https://github.com/CS2113-AY1819S2-M11-2/main/pull/152[#152],
-https://github.com/CS2113-AY1819S2-M11-2/main/pull/158[#158]
+https://github.com/AY1920S1-CS2113T-F10-4/main/pull/159[#159],
+https://github.com/AY1920S1-CS2113T-F10-4/main/pull/149[#149],
+https://github.com/AY1920S1-CS2113T-F10-4/main/pull/146[#146],
+https://github.com/AY1920S1-CS2113T-F10-4/main/pull/123[#123],
+https://github.com/AY1920S1-CS2113T-F10-4/main/pull/120[#120],
+https://github.com/AY1920S1-CS2113T-F10-4/main/pull/115[#115],
+https://github.com/AY1920S1-CS2113T-F10-4/main/pull/101[#101],
+https://github.com/AY1920S1-CS2113T-F10-4/main/pull/99[#99],
+https://github.com/AY1920S1-CS2113T-F10-4/main/pull/85[#85],
+https://github.com/AY1920S1-CS2113T-F10-4/main/pull/74[#74],
+https://github.com/AY1920S1-CS2113T-F10-4/main/pull/73[#73],
+https://github.com/AY1920S1-CS2113T-F10-4/main/pull/71[#71],
+https://github.com/AY1920S1-CS2113T-F10-4/main/pull/60[#60],
+https://github.com/AY1920S1-CS2113T-F10-4/main/pull/58[#58],
+https://github.com/AY1920S1-CS2113T-F10-4/main/pull/57[#57],
+https://github.com/AY1920S1-CS2113T-F10-4/main/pull/56[#56],
+https://github.com/AY1920S1-CS2113T-F10-4/main/pull/55[#55],
+https://github.com/AY1920S1-CS2113T-F10-4/main/pull/49[#49],
+https://github.com/AY1920S1-CS2113T-F10-4/main/pull/48[#48]
 
 *Enhancements to existing features:* +
 Wrote additional tests for existing features to increase coverage of 4.2%.
