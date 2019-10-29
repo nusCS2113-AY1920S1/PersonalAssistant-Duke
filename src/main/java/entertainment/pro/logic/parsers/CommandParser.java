@@ -1,6 +1,8 @@
 package entertainment.pro.logic.parsers;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.exceptions.EmptyCommandException;
+import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.logic.execution.CommandStack;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.logic.parsers.commands.*;
@@ -26,7 +28,15 @@ public class CommandParser {
      *
      * @param command command that was entered by the user
      */
-    public static void parseCommands(String command , Controller uicontroller) throws IOException, Exceptions {
+    public static void parseCommands(String command , Controller uicontroller) throws
+            IOException
+            , Exceptions
+            , EmptyCommandException
+            , MissingInfoException {
+
+        if (command.trim().length() == 0) {
+            throw new EmptyCommandException("Comand is empty");
+        }
         String commandArr[] = command.split(" ");
         rootCommand(commandArr , command, uicontroller);
 
@@ -40,7 +50,12 @@ public class CommandParser {
      * @param commandStr   command that was entered by the user.
      * @param uicontroller the controller for the UI
      */
-    public static void processCommand(CommandPair command , String[] commandArr , String commandStr , Controller uicontroller) throws IOException, Exceptions {
+    public static void processCommand(CommandPair command
+            , String[] commandArr
+            , String commandStr
+            , Controller uicontroller)
+            throws IOException, Exceptions , MissingInfoException {
+
         if (!command.isValidCommand()) {
             return;
         }
@@ -117,7 +132,7 @@ public class CommandParser {
                 break;
             case blacklist:
                 BlacklistCommand bbc = new BlacklistCommand(uicontroller);
-                bbc.initCommand(commandArr , commandStr);
+                bbc.initCommand(commandArr, commandStr, command.getSubRootCommand());
 
                 if (command.isValidCommand()) {
                     CommandStack.pushCmd(bbc);
@@ -125,14 +140,14 @@ public class CommandParser {
                 break;
             case watchlist:
                 WatchlistCommand wlc = new WatchlistCommand(uicontroller);
-                wlc.initCommand(commandArr , commandStr);
+                wlc.initCommand(commandArr, commandStr, command.getSubRootCommand());
                 if (command.isValidCommand()) {
                     CommandStack.pushCmd(wlc);
                 }
                 break;
             case find:
                 FindCommand fc = new FindCommand(uicontroller);
-                fc.initCommand(commandArr , commandStr);
+                fc.initCommand(commandArr, commandStr, command.getSubRootCommand());
                 if (command.isValidCommand()) {
                     CommandStack.pushCmd(fc);
                 }
@@ -150,7 +165,8 @@ public class CommandParser {
      * @param command   command that was entered by the user.
      * @param uicontroller the controller for the UI
      */
-    public static void rootCommand(String[] commandArr , String command ,  Controller uicontroller) throws IOException, Exceptions {
+    public static void rootCommand(String[] commandArr , String command ,
+                                   Controller uicontroller) throws IOException, Exceptions , MissingInfoException {
 
         System.out.print("Whats happening");
         switch(commandArr[0].toLowerCase()) {
@@ -242,7 +258,6 @@ public class CommandParser {
                 }
                 break;
             case "find":
-                System.out.println("find");
                 FindCommand fc = new FindCommand(uicontroller);
                 fc.initCommand(commandArr , command);
                 if (fc.initCommand(commandArr, command)) {

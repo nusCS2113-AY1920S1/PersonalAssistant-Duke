@@ -1,13 +1,16 @@
 package entertainment.pro.logic.parsers;
 
 import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.model.CommandPair;
+import org.apache.commons.logging.Log;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * Template command class for each root command.
@@ -26,7 +29,10 @@ public abstract class CommandSuper {
     private String payload;
     private boolean execute = false;
 
+    private static Logger logger = Logger.getLogger(CommandSuper.class.getName());
+
     protected CommandSuper() {
+        logger = Logger.getLogger(CommandSuper.class.getName());
     }
 
 
@@ -37,6 +43,10 @@ public abstract class CommandSuper {
      */
     public boolean isExecute() {
         return execute;
+    }
+
+    public static Logger getLogger() {
+        return logger;
     }
 
     public void setExecute(boolean execute) {
@@ -67,6 +77,7 @@ public abstract class CommandSuper {
         this.uicontroller = uicontroller;
         this.subCommand = subCommand;
         this.root = root;
+        logger = Logger.getLogger(root.toString());
 
     }
 
@@ -81,7 +92,7 @@ public abstract class CommandSuper {
      * @param commandArr command that was entered by the user in split array form
      * @param command   command that was entered by the user.
      */
-    public boolean initCommand(String[] commandArr , String command) {
+    public boolean initCommand(String[] commandArr , String command) throws MissingInfoException {
         if (!subCommand(commandArr)) {
             return false;
         }
@@ -113,14 +124,14 @@ public abstract class CommandSuper {
      *
      * @param commandArr command that was entered by the user in split array form
      */
-    public boolean subCommand(String[] commandArr) {
+    public boolean subCommand(String[] commandArr) throws MissingInfoException {
         if (commandArr.length <= 1) {
             subRootCommand = COMMANDKEYS.none;
             if (CommandStructure.cmdStructure.get(root).length > 0) {
                 //Supposed to have Sub root but doesnt
                 setExecute(false);
                 if (uicontroller != null) {
-                    ((MovieHandler) uicontroller).setAutoCompleteText("You are missing a few Arguments!!");
+                    throw new MissingInfoException("You are missing a few Arguments!!");
                 }
                 return false;
             } else {

@@ -1,6 +1,9 @@
 package entertainment.pro.ui;
 
+import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.exceptions.EmptyCommandException;
 import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.logic.cinemaRequesterAPI.CinemaRetrieveRequest;
 import entertainment.pro.logic.contexts.CommandContext;
 import entertainment.pro.logic.contexts.ContextHelper;
@@ -36,6 +39,8 @@ import entertainment.pro.storage.utils.PastUserCommands;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This is main page of GUI.
@@ -78,6 +83,8 @@ public class MovieHandler extends Controller implements RequestListener {
 
     @FXML
     private TextField mSearchTextField;
+
+    private final static Logger LOGGER = Logger.getLogger(MovieHandler.class.getName());
 
     @FXML
     private AnchorPane movieAnchorPane;
@@ -149,43 +156,33 @@ public class MovieHandler extends Controller implements RequestListener {
         PastUserCommands.update(pastCommands);
     }
 
-    class KeyboardClick implements EventHandler<KeyEvent> {
-
-        private Controller control;
-
-        KeyboardClick(Controller control) {
-            this.control = control;
-        }
-
-        /**
-         * Handles user's inputs and respond appropriately.
-         *
-         * @param event consist of user's inputs.
-         */
-        @Override
-        public void handle(KeyEvent event) {
-
-            System.out.println("You Pressing : " + ((KeyEvent) event).getCode());
-            if ((event.getCode().equals(KeyCode.ENTER))) {
-                System.out.println("Hello");
-                command = mSearchTextField.getText();
-                //clickEntered(command, control);
-               try {
-                    CommandParser.parseCommands(command, control);
-                } catch (IOException | Exceptions e) {
-                    e.printStackTrace();
-                }
-                clearSearchTextField();
-            } else if (event.getCode().equals(KeyCode.TAB)) {
-                System.out.println("Tab presjenksjessed");
-                event.consume();
-            } else if (event.getCode().equals(KeyCode.DOWN)) {
-                mMoviesScrollPane.requestFocus();
-                mMoviesFlowPane.getChildren().get(0).setStyle("-fx-border-color: white");
-            }
-        }
-
-    }
+//    class KeyboardClick implements EventHandler<KeyEvent> {
+//
+//        private Controller control;
+//
+//        KeyboardClick(Controller control) {
+//            this.control = control;
+//        }
+//
+//        /**
+//         * Handles user's inputs and respond appropriately.
+//         *
+//         * @param event consist of user's inputs.
+//         */
+//        @Override
+//        public void handle(KeyEvent event) {
+//
+//            System.out.println("You Pressing : " + ((KeyEvent) event).getCode());
+//            if ((event.getCode().equals(KeyCode.ENTER))) {
+//                System.out.println("Hello");
+//
+//            } else if (event.getCode().equals(KeyCode.TAB)) {
+//                System.out.println("Tab presjenksjessed");
+//                event.consume();
+//            }
+//        }
+//
+//    }
 
     /**
      * This function is called when JavaFx runtime when view is loaded
@@ -236,6 +233,9 @@ public class MovieHandler extends Controller implements RequestListener {
         mMovieRequest = new RetrieveRequest(this);
         mMovieRequest.setSearchProfile(searchProfile);
         mCinemaRequest = new CinemaRetrieveRequest(this);
+        LOGGER.setLevel(Level.ALL);
+        LOGGER.log(Level.INFO , "MAIN UI INITIALISED");
+
         CommandContext.initialiseContext();
 
         BlacklistStorage bp = new BlacklistStorage();
@@ -267,6 +267,23 @@ public class MovieHandler extends Controller implements RequestListener {
                 }
 
                 mSearchTextField.positionCaret(mSearchTextField.getText().length());
+            } else if (event.getCode() == KeyCode.ENTER) {
+
+                command = mSearchTextField.getText();
+                try {
+                    CommandParser.parseCommands(command, this);
+                } catch (IOException | Exceptions e) {
+                    LOGGER.log(Level.SEVERE , "Exception in parsing command" + e);
+                } catch (EmptyCommandException e) {
+                    LOGGER.log(Level.SEVERE , PromptMessages.MISSING_COMMAND + e);
+                    setFeedbackText(PromptMessages.MISSING_COMMAND);
+                } catch (MissingInfoException e) {
+                    setFeedbackText(PromptMessages.MISSING_ARGUMENTS);
+                }
+                clearSearchTextField();
+            } else if (event.getCode().equals(KeyCode.DOWN)) {
+                mMoviesScrollPane.requestFocus();
+                mMoviesFlowPane.getChildren().get(0).setStyle("-fx-border-color: white");
             }
         });
 
@@ -290,8 +307,8 @@ public class MovieHandler extends Controller implements RequestListener {
 
         System.out.println(generalFeedbackText.getText());
 
-        //Enter is Pressed
-        mSearchTextField.setOnKeyPressed(new KeyboardClick(this));
+//        //Enter is Pressed
+//        mSearchTextField.setOnKeyPressed(new KeyboardClick(this));
         mMoviesScrollPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {

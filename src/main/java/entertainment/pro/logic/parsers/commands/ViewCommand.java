@@ -1,7 +1,9 @@
 package entertainment.pro.logic.parsers.commands;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.exceptions.EmptyCommandException;
 import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.logic.parsers.CommandParser;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.storage.user.WatchlistHandler;
@@ -14,6 +16,7 @@ import entertainment.pro.model.PastCommandStructure;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
 
 
 public class ViewCommand extends CommandSuper {
@@ -39,7 +42,13 @@ public class ViewCommand extends CommandSuper {
                 executeTVCommands();
                 break;
             case back:
-                executeBackCommands();
+                try {
+                    executeBackCommands();
+                } catch (MissingInfoException e) {
+                    getLogger().log(Level.INFO , "Command is missing some information");
+                } catch (EmptyCommandException e) {
+                    getLogger().log(Level.INFO , "Command is empty");
+                }
                 break;
             case entry:
                 executeEntryCommands(Integer.parseInt(getPayload()));
@@ -64,9 +73,9 @@ public class ViewCommand extends CommandSuper {
 
     }
 
-    private void executeBackCommands() throws Exceptions {
-        PastCommandStructure pastCommandStructure = ((MovieHandler) this.getUIController()).getPastCommands().getMap().get(
-                ((MovieHandler) this.getUIController()).getPastCommands().getMap().size() - 2);
+    private void executeBackCommands() throws Exceptions , MissingInfoException , EmptyCommandException {
+        PastCommandStructure pastCommandStructure = ((MovieHandler) this.getUIController()).getPastCommands()
+                .getMap().get(((MovieHandler) this.getUIController()).getPastCommands().getMap().size() - 2);
         String command = pastCommandStructure.getQuery();
         String[] getStrips = command.split(" ");
         System.out.println("this is past command " + command);

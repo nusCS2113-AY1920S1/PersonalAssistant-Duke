@@ -33,7 +33,15 @@ public class PromptMessages {
 
     public static final String BLACKLIST_ADD_SUCCUESS = "Successfully added to blacklist!";
     public static final String BLACKLIST_REMOVE_SUCCUESS = "Successfully removed from  blacklist!";
-    public static final String BLACKLIST_REMOVE_FAILURE = "Sorry could not find such an item in your blacklist";
+    public static final String BLACKLIST_REMOVE_FAILURE = "Could not find item in your blacklist. Check Spelling?";
+
+    public static final String MISSING_ARGUMENTS = "You are missing a few arguments! Type 'help me' to find out more!";
+    public static final String MISSING_COMMAND = "You have entered an empty command!";
+
+    public static final String FILE_NOT_FOUND = "File not found!";
+    public static final String FILES_NOT_FOUND  = "Entire Help directory is missing!";
+
+
 
     //API Messages
     public static final String API_FAIL_GENERAL = "☹ I'sorry, but something went wrong when fetching data";

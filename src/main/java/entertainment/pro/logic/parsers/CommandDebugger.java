@@ -2,10 +2,13 @@ package entertainment.pro.logic.parsers;
 
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.model.CommandPair;
 import entertainment.pro.ui.Controller;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * CommandDebugger class to do spellchecking by checking for similarity with words.
@@ -14,6 +17,7 @@ import java.util.Set;
 public class CommandDebugger {
 
     private static final int INITSCORE = 0;
+    private static final Logger logger = Logger.getLogger(CommandDebugger.class.getName());
 
 
     /**
@@ -23,15 +27,20 @@ public class CommandDebugger {
      * @param controller UI controller
      * @return
      */
-    public static CommandPair commandSpellChecker(String[] undefinedCommandArr, COMMANDKEYS root, Controller controller) {
+    public static CommandPair commandSpellChecker(String[] undefinedCommandArr
+            , COMMANDKEYS root
+            , Controller controller)
+        throws MissingInfoException {
 
-        System.out.println("Cant find anything");
+
+        logger.log(Level.INFO, "Unknown command typed");
+
         root = getCorrectedRoot(undefinedCommandArr, root);
         COMMANDKEYS mostSimilarSub = getCorrectedSubRoot(undefinedCommandArr, root);
 
         CommandPair cp = new CommandPair(root, mostSimilarSub);
 
-        if (undefinedCommandArr.length < 1 && CommandStructure.cmdStructure.get(root).length != 0) {
+        if (undefinedCommandArr.length < 1 && CommandStructure.hasSubRoot(root)) {
             cp.setValidCommand(false);
         }
 
@@ -45,12 +54,18 @@ public class CommandDebugger {
      * @param root root command
      * @return the corrected root command
      */
-    private static COMMANDKEYS getCorrectedSubRoot(String[] undefinedCommandArr, COMMANDKEYS root) {
+    private static COMMANDKEYS getCorrectedSubRoot(String[] undefinedCommandArr, COMMANDKEYS root)
+            throws MissingInfoException {
         double score;
         score = INITSCORE;
         COMMANDKEYS mostSimilarSub = COMMANDKEYS.none;
 
-        if (root != COMMANDKEYS.none && CommandStructure.cmdStructure.get(root).length != 0 && undefinedCommandArr.length > 1) {
+        if (undefinedCommandArr.length <= 1) {
+            logger.log(Level.INFO , "Command is missing a few arguments");
+            throw new MissingInfoException("You are missing a few arguments and presumably have a typo as well");
+        }
+
+        if (root != COMMANDKEYS.none && CommandStructure.hasSubRoot(root) && undefinedCommandArr.length > 1) {
             for (COMMANDKEYS s : CommandStructure.cmdStructure.get(root)) {
                 double temp = calculateJaccardSimilarity(s.toString(), undefinedCommandArr[1]);
                 if (temp > score) {
@@ -58,7 +73,6 @@ public class CommandDebugger {
                     score = temp;
                 }
             }
-            System.out.println("Did you mean" + mostSimilarSub);
         }
         return mostSimilarSub;
     }
@@ -79,9 +93,7 @@ public class CommandDebugger {
                     score = temp;
                 }
             }
-            if (root != COMMANDKEYS.none) {
-                System.out.println("Did you mean" + root);
-            }
+
         }
         return root;
     }
