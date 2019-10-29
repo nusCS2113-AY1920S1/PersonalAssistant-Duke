@@ -1,7 +1,10 @@
 package rims.command;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import rims.core.ResourceList;
 import rims.core.Storage;
@@ -16,7 +19,7 @@ import rims.exception.RimsException;
  * Shows the TaskList of all the currently existing Tasks in String format.
  */
 public class ListCommand extends Command {
-    protected String resourceName = null;
+    protected String resourceDetail = null;
     protected String listType = null;
 
     /**
@@ -30,11 +33,23 @@ public class ListCommand extends Command {
      * The constructor for a ListCommand, when a detailed list of a particular Resource
      * is desired.
      * @param paramType the type of Resource desired (Item or Room)
-     * @param resourceName the name of the Resource for which a list is desired.
+     * @param resourceDetail the name of the Resource or the date for which a list is desired.
      */
-    public ListCommand(String paramType, String resourceName) {
+    public ListCommand(String paramType, String resourceDetail) {
         listType = paramType;
-        this.resourceName = resourceName;
+        this.resourceDetail = resourceDetail;
+    }
+
+
+    /**
+     * Converts a date and time inputted by the user in String format, into a Date object.
+     * @param stringDate the date and time inputted by the user in String format.
+     * @return a Date object representing the date and time inputted by the user.
+     */
+    public Date stringToDate(String stringDate) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        Date dateValue = formatter.parse(stringDate);
+        return dateValue;
     }
 
     /**
@@ -79,13 +94,15 @@ public class ListCommand extends Command {
                     }
                 }
             }
-            ui.printLine();
+            ui.printLine();      
+
+        }
         //@@author aarushisingh1
-        } else if (listType.equals("item")) {
-            if (!resources.isItem(resourceName)) {
+        else if (listType.equals("item")) {
+            if (!resources.isItem(resourceDetail)) {
                 throw new RimsException("There is no such item!");
             }
-            ArrayList<Resource> allOfItem = resources.getAllOfResource(resourceName);
+            ArrayList<Resource> allOfItem = resources.getAllOfResource(resourceDetail);
             for (int i = 0; i < allOfItem.size(); i++) {
                 Resource thisResource = allOfItem.get(i);
                 ReservationList thisResourceReservations = thisResource.getReservations();
@@ -101,11 +118,14 @@ public class ListCommand extends Command {
             }
             ui.printDash();
             ui.printLine();
-        } else if (listType.equals("room")) {
-            if (!resources.isRoom(resourceName)) {
+       
+        }
+
+        else if (listType.equals("room")) {
+            if (!resources.isRoom(resourceDetail)) {
                 throw new RimsException("There is no such room!");
             }
-            Resource thisResource = resources.getResourceByName(resourceName);
+            Resource thisResource = resources.getResourceByName(resourceDetail);
             ReservationList thisResourceReservations = thisResource.getReservations();
             ui.print(thisResource.toString() + " (ID: " + thisResource.getResourceId() + ")");
             if (!thisResourceReservations.isEmpty()) {
@@ -117,10 +137,41 @@ public class ListCommand extends Command {
             }
             ui.printLine();
         }
-        /*
-        else if (listType.equals("date")) {
 
+        else if (listType.equals("date")) {
+            ArrayList<String> coveredResources = new ArrayList<String>();
+            ui.print("CURRENTLY AVAILABLE ON THIS DATE:");
+            ui.printEmptyLine();
+            String checkedDate = resourceDetail;
+            Date date = stringToDate(checkedDate);
+            for (int i = 0; i < resources.size(); i++) {
+                Resource thisResource = resources.getResourceByIndex(i);
+                int availableNumberOfResource = resources.getAvailableNumberOfResourceForDate(thisResource.getName(), checkedDate);
+                if (!coveredResources.contains(thisResource.getName()) && availableNumberOfResource > 0) {
+                    coveredResources.add(thisResource.getName());
+                    ui.print(thisResource.toString() + " (qty: " + availableNumberOfResource + ")");
+                }
+            }
+            ui.printDash();
+            ui.print("CURRENTLY BOOKED ON THIS DATE:");
+            ui.printEmptyLine();
+            coveredResources = new ArrayList<String>();
+            for (int i = 0; i < resources.size(); i++) {
+                Resource thisResource = resources.getResourceByIndex(i);
+                int bookedNumberOfResource = resources.getBookedNumberOfResourceForDate(thisResource.getName(), checkedDate);
+                if (!coveredResources.contains(thisResource.getName()) && bookedNumberOfResource > 0) {
+                    coveredResources.add(thisResource.getName());
+                    ui.print(thisResource.toString() + " (qty: " + bookedNumberOfResource + ")");
+                    ArrayList<Resource> allOfResource = resources.getAllOfResource(thisResource.getName());
+                    for (int j = 0; j < allOfResource.size(); j++) {
+                        if (!allOfResource.get(j).isAvailableOnDate(date)) {
+                            ui.print("\t" + allOfResource.get(j).getReservations().getCurrentBooking().toString());
+                        }
+                    }
+                }
+            }
+            ui.printLine();
         }
-        */
-    }
+
+   }
 }
