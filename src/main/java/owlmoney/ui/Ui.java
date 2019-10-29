@@ -199,28 +199,29 @@ public class Ui {
      * Prints a greeting message to the user, which happens at startup.
      */
     public void greet(String username) {
-        String welcomeLogo = NEWLINE +
-                " $$$$$$\\                $$\\ $$\\      $$\\                                         "
-                + NEWLINE +
-                "$$  __$$\\               $$ |$$$\\    $$$ |                                        "
-                + NEWLINE +
-                "$$ /  $$ |$$\\  $$\\  $$\\ $$ |$$$$\\  $$$$ | $$$$$$\\  $$$$$$$\\   $$$$$$\\  $$\\   $$\\ "
-                + NEWLINE +
-                "$$ |  $$ |$$ | $$ | $$ |$$ |$$\\$$\\$$ $$ |$$  __$$\\ $$  __$$\\ $$  __$$\\ $$ |  $$ |"
-                + NEWLINE +
-                "$$ |  $$ |$$ | $$ | $$ |$$ |$$ \\$$$  $$ |$$ /  $$ |$$ |  $$ |$$$$$$$$ |$$ |  $$ |"
-                + NEWLINE +
-                "$$ |  $$ |$$ | $$ | $$ |$$ |$$ |\\$  /$$ |$$ |  $$ |$$ |  $$ |$$   ____|$$ |  $$ |"
-                + NEWLINE +
-                " $$$$$$  |\\$$$$$\\$$$$  |$$ |$$ | \\_/ $$ |\\$$$$$$  |$$ |  $$ |\\$$$$$$$\\ \\$$$$$$$ |"
-                + NEWLINE +
-                " \\______/  \\_____\\____/ \\__|\\__|     \\__| \\______/ \\__|  \\__| \\_______| \\____$$ |"
-                + NEWLINE +
-                "                                                                       $$\\   $$ |" 
-                + NEWLINE +
-                "                                                                       \\$$$$$$  |"
-                + NEWLINE +
-                "                                                                        \\______/ "
+        String welcomeLogo = NEWLINE
+                + " $$$$$$\\                $$\\ $$\\      $$\\                                         "
+                + NEWLINE
+                + "$$  __$$\\               $$ |$$$\\    $$$ |                                        "
+                + NEWLINE
+                + "$$ /  $$ |$$\\  $$\\  $$\\ $$ |$$$$\\  $$$$ | $$$$$$\\  $$$$$$$\\   $$$$$$\\  $$\\   $$\\ "
+                + NEWLINE
+                + "$$ |  $$ |$$ | $$ | $$ |$$ |$$\\$$\\$$ $$ |$$  __$$\\ $$  __$$\\ $$  __$$\\ $$ |  $$ |"
+                + NEWLINE
+                + "$$ |  $$ |$$ | $$ | $$ |$$ |$$ \\$$$  $$ |$$ /  $$ |$$ |  $$ |$$$$$$$$ |$$ |  $$ |"
+                + NEWLINE
+                + "$$ |  $$ |$$ | $$ | $$ |$$ |$$ |\\$  /$$ |$$ |  $$ |$$ |  $$ |$$   ____|$$ |  $$ |"
+                + NEWLINE
+                + " $$$$$$  |\\$$$$$\\$$$$  |$$ |$$ | \\_/ $$ |\\$$$$$$  |$$ |  $$ |\\$$$$$$$\\ \\$$$$$$$ |"
+                + NEWLINE
+                + " \\______/  \\_____\\____/ \\__|\\__|     \\__| \\______/ \\__|  \\__| \\_______| "
+                + "\\____$$ |"
+                + NEWLINE
+                + "                                                                       $$\\   $$ |"
+                + NEWLINE
+                + "                                                                       \\$$$$$$  |"
+                + NEWLINE
+                + "                                                                        \\______/ "
                 + NEWLINE;
         printMessage(welcomeLogo);
         printMessage("Welcome " + username + "!");
@@ -240,7 +241,7 @@ public class Ui {
      * @param exceptionMessage The specifics of the error.
      */
     public void printError(String exceptionMessage) {
-        printMessage("☹ OOPS!!! " + exceptionMessage);
+        printMessage("OOPS!!! " + exceptionMessage);
     }
 
 

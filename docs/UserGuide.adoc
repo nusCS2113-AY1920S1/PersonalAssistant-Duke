@@ -87,9 +87,14 @@ The two main sections are explained below.
 
 == Quick Start
 . Ensure you have *Java Version 11* installed on your computer.
-. Download the latest `OwlMoney.jar` link:{repoURL}/releases/latest[here].
-. Copy the `OwlMoney.jar` file to the folder you want to use as the home folder for *OwlMoney*.
-. Double-click the file to start the app. The GUI should appear in a few seconds.
+. Download the latest `OwlMoney.zip` link:{repoURL}/releases/latest[here].
+. Copy the `OwlMoney.zip` file to the folder you want to use as the home folder for *OwlMoney*.
+. Extract all contents in the zip file into the home folder, including the `data` directory which should be *empty*.
+. Open a *Command Prompt* or *Powershell*, navigate to the home folder and type `java -jar ./OwlMoney-version number
+.jar` to start *OwlMoney*.
+*OwlMoney* should appear in a few seconds.
+. As this is your first time starting up this program, you have to create a profile by
+typing your `USERNAME` *(e.g. John)* when prompted and pressing kbd:[Enter]
 +
 .Successful start-up of *OwlMoney*
 ifdef::env-github[]
@@ -100,10 +105,8 @@ ifndef::env-github[]
 image::Ui.png[width="970"]
 endif::[]
 +
-. As this is your first time starting up this program, you have to create a profile by
-typing your `USERNAME` *(e.g. John)* when prompted and pressing kbd:[Enter]
 . You can now try entering commands in the *command box* and press kbd:[Enter] to execute it! +
-e.g. try typing *`help`* and pressing kbd:[Enter] will list down the commands available.
+e.g. try typing *`/help` (Not available in v1.3)* and pressing kbd:[Enter] will list down the commands available.
 . Some example commands you can try:
 * `/add /savings /name JunBank Savings Account /amount 4719.90 /income 2000`
 : adds a new `JunBank Savings Account`, which has an initial amount of $`4719.90`.

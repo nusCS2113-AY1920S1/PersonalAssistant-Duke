@@ -249,8 +249,8 @@ The `logic.command.find` package consist of `Find` classes with the ability to f
 * Bank account
 * Cards
 * Bonds
-* Card expenditure
-* Bank expenditure
+* Card transactions
+* Bank transactions
 
 `Main` will call the specific `Find` command class that will construct the *required parameters* before calling the
 `Profile` class in `Model` to *execute*.
@@ -666,6 +666,10 @@ See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects.
 
 See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
+
+We use https://codecov.io/[Codecov] as well to provide an alternative perspective from coveralls.
+
+See https://docs.codecov.io/docs[Codecov Quick Start] for more details.
 
 === Documentation Previews
 When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of
