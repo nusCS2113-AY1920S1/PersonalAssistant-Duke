@@ -2,16 +2,18 @@ package duke.ui.window;
 
 import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.controls.JFXScrollPane;
+import duke.data.DukeObject;
 import duke.data.Patient;
 import duke.ui.UiElement;
 import duke.ui.card.PatientCard;
 import javafx.collections.MapChangeListener;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * UI window for the Home context.
@@ -25,6 +27,7 @@ public class HomeWindow extends UiElement<Region> {
     private ScrollPane scrollPane;
 
     private ObservableMap<String, Patient> patientObservableMap;
+    private List<DukeObject> indexedPatientList;
 
     /**
      * Constructs the Home UI window.
@@ -36,21 +39,24 @@ public class HomeWindow extends UiElement<Region> {
 
         this.patientObservableMap = patientObservableMap;
 
-        fillPatientListPanel();
+        fillPatientList();
         attachPatientListListener();
 
         JFXScrollPane.smoothScrolling(scrollPane);
     }
 
     /**
-     * Fills {@code patientListPanel}.
+     * Fills {@code indexedPatientList} and {@code patientListPanel}.
      */
-    private void fillPatientListPanel() {
-        for (Patient patient : patientObservableMap.values()) {
-            PatientCard patientCard = new PatientCard(patient);
-            patientCard.setIndex(patientListPanel.getChildren().size() + 1);
+    private void fillPatientList() {
+        indexedPatientList = new ArrayList<>(patientObservableMap.values());
+
+        patientListPanel.getChildren().clear();
+        indexedPatientList.forEach(patient -> {
+            PatientCard patientCard = new PatientCard((Patient) patient);
+            patientCard.setIndex(indexedPatientList.indexOf(patient) + 1);
             patientListPanel.getChildren().add(patientCard);
-        }
+        });
     }
 
     /**
@@ -59,21 +65,11 @@ public class HomeWindow extends UiElement<Region> {
      */
     private void attachPatientListListener() {
         patientObservableMap.addListener((MapChangeListener<String, Patient>) change -> {
-            if (change.wasAdded()) {
-                PatientCard patientCard = new PatientCard(change.getValueAdded());
-                patientListPanel.getChildren().add(patientCard);
-            } else if (change.wasRemoved()) {
-                patientListPanel.getChildren().remove(new PatientCard(change.getValueRemoved()));
-            }
-
-            patientListPanel.getChildren().forEach(node -> {
-                PatientCard card = (PatientCard) node;
-                card.setIndex(patientListPanel.getChildren().indexOf(card) + 1);
-            });
+            fillPatientList();
         });
     }
 
-    public ObservableList<Node> getPatientCardList() {
-        return patientListPanel.getChildrenUnmodifiable();
+    public List<DukeObject> getIndexedPatientList() {
+        return indexedPatientList;
     }
 }

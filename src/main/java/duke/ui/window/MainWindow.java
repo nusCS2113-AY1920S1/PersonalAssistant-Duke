@@ -3,20 +3,21 @@ package duke.ui.window;
 import duke.DukeCore;
 import duke.command.Executor;
 import duke.command.Parser;
+import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.SearchResult;
 import duke.ui.UiElement;
 import duke.ui.context.Context;
 import duke.ui.context.UiContext;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 /**
  * Main UI window of the application.
@@ -135,16 +136,18 @@ public class MainWindow extends UiElement<Stage> {
     }
 
     /**
-     * Retrieves list of UI cards in current {@code UiContext}.
+     * Retrieves indexed list of DukeObjects.
+     * List is dependent on the current {@code UiContext}.
      *
-     * @return List of UI cards.
+     * @param type DukeObject type.
+     * @return Indexed list of Dukeobjects.
      */
-    public ObservableList<Node> getCardList() {
+    public List<DukeObject> getIndexedList(String type) {
         switch (uiContext.getContext()) {
         case HOME:
-            return homeWindow.getPatientCardList();
+            return homeWindow.getIndexedPatientList();
         case PATIENT:
-            return patientWindow.getCardList();
+            //return patientWindow.getCardList();
         case EVIDENCE:
         case TREATMENT:
         case IMPRESSION:

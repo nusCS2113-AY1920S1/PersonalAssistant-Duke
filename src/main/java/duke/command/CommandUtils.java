@@ -5,7 +5,6 @@ import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.exception.DukeException;
-import duke.ui.card.PatientCard;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -120,8 +119,7 @@ public class CommandUtils {
         } else {
             // TODO: Law of demeter
             try {
-                PatientCard card = (PatientCard) core.ui.getCardList().get(index - 1);
-                return card.getPatient();
+                return (Patient) core.ui.getIndexedList("patient").get(index - 1);
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("I cannot find a patient with the identifier you provided!");
             }

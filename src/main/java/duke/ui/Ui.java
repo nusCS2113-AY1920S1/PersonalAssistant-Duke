@@ -1,8 +1,9 @@
 package duke.ui;
 
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
+import duke.data.DukeObject;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 /**
  * API of the UI component of the application.
@@ -23,9 +24,11 @@ public interface Ui {
     void print(String message);
 
     /**
-     * Retrieves list of UI cards in current {@code UiContext}.
+     * Retrieves indexed list of DukeObjects.
+     * List is dependent on the current {@code UiContext}.
      *
-     * @return List of UI cards.
+     * @param type DukeObject type.
+     * @return Indexed list of Dukeobjects.
      */
-    ObservableList<Node> getCardList();
+    List<DukeObject> getIndexedList(String type);
 }

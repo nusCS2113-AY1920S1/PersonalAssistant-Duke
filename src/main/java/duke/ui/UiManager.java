@@ -1,13 +1,14 @@
 package duke.ui;
 
 import duke.DukeCore;
+import duke.data.DukeObject;
 import duke.ui.window.MainWindow;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 /**
  * Manager of the UI component of the application.
@@ -55,8 +56,8 @@ public class UiManager implements Ui {
      * {@inheritDoc}
      */
     @Override
-    public ObservableList<Node> getCardList() {
-        return mainWindow.getCardList();
+    public List<DukeObject> getIndexedList(String type) {
+        return mainWindow.getIndexedList(type);
     }
 
     /**
