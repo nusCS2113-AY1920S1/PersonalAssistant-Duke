@@ -11,8 +11,9 @@ import duke.ui.Ui;
 
 /**
  * Abstract class duke.command.Command which dictates
- * two necessary methods in all duke.command.Command subclasses
+ * three necessary methods in all duke.command.Command subclasses
  * method execute which will execute whatever the user input requests
+ * method savePrevState which will store mirror commands for commands that can be undone
  * method isExit which checks whether the user input
  * will result in the program shutting down
  */

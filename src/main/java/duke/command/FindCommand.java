@@ -22,11 +22,28 @@ public class FindCommand extends Command {
     private String keyword;
     private Command listCommand;
 
+    /**
+     * Constructor for FindCommand
+     * Prints all the tasks which match the given keyword and filter
+     *
+     * @param keyword keyword used to search for matching tasks
+     * @param filter filter for each task
+     */
     public FindCommand(String keyword, Optional<String> filter) {
         this.keyword = keyword;
         this.listCommand = new ListCommand(filter);
     }
 
+    /**
+     * executes the finding of all matching tasks and prints the corresponding tasks
+     *
+     * @param tasks TaskList of all of user's tasks
+     * @param ui Ui handling user interaction
+     * @param storage Storage handling saving and loading of TaskList
+     * @throws ParseException NA
+     * @throws IOException NA
+     * @throws DukeException NA
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ParseException, IOException, DukeException {
         if (tasks.size() == 0) {
@@ -44,6 +61,12 @@ public class FindCommand extends Command {
         }
     }
 
+    /**
+     * Not applicable for this Command.
+     * @param tasks NA
+     * @param undoStack NA
+     * @throws DukeException NA
+     */
     @Override
     public void savePrevState(TaskList tasks, UndoStack undoStack) {
 

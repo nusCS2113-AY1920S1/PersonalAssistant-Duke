@@ -35,6 +35,12 @@ public class HelpCommand extends Command {
         System.out.println("CLearing all entries: clear");
     }
 
+    /**
+     * Not applicable for this Command.
+     * @param tasks NA
+     * @param undoStack NA
+     * @throws DukeException NA
+     */
     @Override
     public void savePrevState(TaskList tasks, UndoStack undoStack) {
 

@@ -3,7 +3,16 @@ package duke.ui;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 
+/**
+ * Class that handles the printing of the TaskList for the user to view
+ */
 public class TaskListPrinter {
+    /**
+     * Method that handles bulk of the logic of printing the TaskList for the user to view
+     *
+     * @param ui the Ui object that handles user interactions
+     * @param list the TaskList to be printed for the user
+     */
     public static void print(Ui ui, TaskList list) {
         int taskCount = list.size();
         ui.showLine("ID | Priority | Recurrence | Duration | Done? | Description");
@@ -25,6 +34,12 @@ public class TaskListPrinter {
         }
     }
 
+    /**
+     * Method to modify each Task's priority level to fit within the print output in a visually pleasing manner
+     *
+     * @param priority given priority level of the task
+     * @return padded string containing given priority level
+     */
     private static String padPriority(String priority) {
         switch (priority.length()) {
         case 6:
@@ -36,6 +51,12 @@ public class TaskListPrinter {
         }
     }
 
+    /**
+     * Method to modify each Task's recurrence period to fit within the print output in a visually pleasing manner
+     *
+     * @param recurrence given recurrence period of the task
+     * @return padded string containing given recurrence period
+     */
     private static String padRecurrence(String recurrence) {
         switch (recurrence.length()) {
         case 6:
@@ -47,6 +68,13 @@ public class TaskListPrinter {
         }
     }
 
+    /**
+     * Method to modify each Task's duration needed to complete to fit within the print output in a visually
+     * pleasing manner
+     *
+     * @param duration given duration to complete the task
+     * @return padded string containing given duration
+     */
     private static String padDuration(String duration) {
         int toPad = 8 - duration.length();
         int front;

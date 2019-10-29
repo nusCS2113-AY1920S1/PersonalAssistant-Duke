@@ -40,6 +40,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Constructor for duke.tasklist.TaskList
+     * this is to initalise a duke.tasklist.TaskList with an ArrayList of Tasks which fulfil the filter predicate
+     * tasks which do not fulfil the predicate will not be present in this TaskList
+     *
+     * @param list the main TaskList containing all of the user's tasks
+     * @param filter the filter predicate for each task
+     */
     public TaskList(TaskList list, Optional<String> filter) {
         taskList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -117,14 +125,13 @@ public class TaskList {
     }
 
     /**
-     * removes the duke.task.Task at index i
+     * Removes a task at a certain index of the TaskList.
+     * If a filter is given, then the index will be based on the filtered list that was printed to the user
      *
-     * @param i the index at which the duke.task.Task should be removed
+     * @param filter the filter predicate for each task
+     * @param index the index of the task as seen by the user in the TaskList printed
+     * @throws DukeException
      */
-    public void remove(int i) {
-        taskList.remove(i);
-    }
-
     public void remove(Optional<String> filter, int index) throws DukeException {
         int counter = -1;
         if (filter.isPresent()) {
@@ -145,6 +152,11 @@ public class TaskList {
         throw new DukeException("Index not found");
     }
 
+    /**
+     * Creates a TaskList which has tasks sorted by priority level from high to low
+     *
+     * @return TaskList sorted by priority
+     */
     public TaskList priorityView() {
         ArrayList<Task> temp = new ArrayList<>();
         for (Task t : taskList) {
@@ -154,6 +166,11 @@ public class TaskList {
         return new TaskList(temp);
     }
 
+    /**
+     * Creates a TaskList which has tasks with datetime attributes equal to the current local day
+     *
+     * @return TaskList containing tasks of the current day
+     */
     public TaskList dayView() {
         LocalDate currDate = LocalDate.now();
         ArrayList<Task> temp = new ArrayList<>();
@@ -168,6 +185,11 @@ public class TaskList {
         return new TaskList(temp);
     }
 
+    /**
+     * Creates a TaskList which as tasks with datetime attributes within the next week.
+     *
+     * @return TaskList containing tasks within the next week
+     */
     public TaskList weekView() {
         LocalDate currDate = LocalDate.now();
         ArrayList<Task> temp = new ArrayList<>();
@@ -183,6 +205,11 @@ public class TaskList {
         return new TaskList(temp);
     }
 
+    /**
+     * Creates a TaskList containing only undone tasks
+     *
+     * @return TaskList of undone tasks
+     */
     public TaskList undoneView() {
         ArrayList<Task> list = new ArrayList<>();
         for (Task t : taskList) {
@@ -193,17 +220,45 @@ public class TaskList {
         return new TaskList(list);
     }
 
+    /**
+     * Inserts a task at the given index. If there is a filter given, the index of the insertion will be converted
+     * to its corresponding index on the actual TaskList.
+     *
+     * @param filter filter for each task
+     * @param index index of TaskList where task will be inserted
+     * @param t new Task to be inserted at index
+     * @throws DukeException if an invalid index is given
+     */
     public void insert(Optional<String> filter, int index, Task t) throws DukeException {
         int i = reduceFilter(filter, index);
         taskList.add(i, t);
     }
 
+    /**
+     * Replaces a task at the given index with a new given task. If there is a filter given, the index of the task
+     * will be converted to its corresponding index on the actual TaskList.
+     *
+     * @param filter filter for each task
+     * @param index index of TaskList which user saw corresponds to desired task
+     * @param t new Task to replace original at index
+     * @throws DukeException if an invalid index is given
+     */
     public void set(Optional<String> filter, int index, Task t) throws DukeException {
         int i = reduceFilter(filter, index);
         taskList.remove(i);
         taskList.add(i, t);
     }
 
+    /**
+     * If the user defines a filter, it means the user input an index corresponding to a TaskList with the filter
+     * applied to it. This method will then convert the given index to the actual corresponding index of the same
+     * task in the TaskList. If there is no filter, then the actual index is given so nothing needs to be changed.
+     *
+     * @param filter filter predicate for each task
+     * @param index index of TaskList which user saw corresponds to desired task
+     * @return integer value of the actual index of the task in the TaskList
+     * @throws DukeException if invalid index is given
+     */
     private int reduceFilter(Optional<String> filter, int index) throws DukeException {
         int counter = -1;
         if (filter.isPresent()) {

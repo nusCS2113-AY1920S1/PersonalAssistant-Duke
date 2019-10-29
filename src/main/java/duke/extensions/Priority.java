@@ -22,6 +22,11 @@ public enum Priority {
         }
     }
 
+    /**
+     * Method to get String version of each priority
+     *
+     * @return String corresponding to each priority
+     */
     public String priorityCode() {
         switch (this) {
         case LOW:
