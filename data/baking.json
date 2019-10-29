@@ -1,0 +1,15 @@
+{
+  "orders" : [ ],
+  "products" : [ ],
+  "inventory" : [ {
+    "ingredient" : {
+      "name" : "Egg",
+      "unitPrice" : 0.0,
+      "remarks" : ""
+    },
+    "amount" : 0.0
+  } ],
+  "shoppingList" : [ ],
+  "sales" : [ ],
+  "shortcuts" : [ ]
+}
