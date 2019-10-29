@@ -5,7 +5,7 @@
 <?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml">
-    <VBox fx:id="expenseContainer" prefWidth="950.0">
+    <VBox fx:id="expenseContainer">
         <Label fx:id="description"/>
         <Label fx:id="amount"/>
         <Label fx:id="tag"/>
