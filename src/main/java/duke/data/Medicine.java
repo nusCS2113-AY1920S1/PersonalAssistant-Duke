@@ -91,6 +91,12 @@ public class Medicine extends Treatment {
         // medicine does not have a summary
     }
 
+    /**
+     * Checks for equality with another Medicine object - all fields have the same value and all references point to
+     * the same objects. Primarily for testing.
+     * @param medicine The medicine to compare against.
+     * @return True if all fields and references are the same, false otherwise.
+     */
     public boolean equals(Medicine medicine) {
         if (super.equals(medicine)) {
             return dose.equals(medicine.dose)

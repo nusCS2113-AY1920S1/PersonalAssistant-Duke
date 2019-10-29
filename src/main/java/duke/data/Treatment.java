@@ -58,6 +58,12 @@ public abstract class Treatment extends DukeData {
 
     public abstract String getStatusStr();
 
+    /**
+     * Checks for equality with another Treatment object - all fields have the same value and all references point to
+     * the same objects. Primarily for testing.
+     * @param treatment The treatment to compare against.
+     * @return True if all fields and references are the same, false otherwise.
+     */
     public boolean equals(Treatment treatment) {
         if (super.equals(treatment)) {
             return statusIdx.equals(treatment.statusIdx);

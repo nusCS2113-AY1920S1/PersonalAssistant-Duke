@@ -58,6 +58,12 @@ public abstract class DukeData extends DukeObject {
         this.summary = summary;
     }
 
+    /**
+     * Checks for equality with another DukeData object - all fields have the same value and all references point to
+     * the same objects. Primarily for testing.
+     * @param other The DukeData to compare against.
+     * @return True if all fields and references are the same, false otherwise.
+     */
     public boolean equals(DukeData other) {
         return getName().equals(other.getName())
                 && priority.equals(other.priority)
