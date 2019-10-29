@@ -519,7 +519,7 @@ public class Ui {
      * @param task        task given by user
      * @param patients    list of patients relate to task
      */
-   public void taskPatientFound(Task task, ArrayList<Patient> patients) {
+    public void taskPatientFound(Task task, ArrayList<Patient> patients) {
         printDukeResponse("The task " + task.getId() + " " + task.getDescription()
                 + " is assigned to following patient(s) : \n");
         for (int i = 0; i < patients.size(); i++) {
