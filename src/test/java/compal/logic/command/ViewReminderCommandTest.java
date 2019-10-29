@@ -1,7 +1,6 @@
-package compal.logic.parser;
+package compal.logic.command;
 
 import compal.logic.command.exceptions.CommandException;
-import compal.logic.parser.exceptions.ParserException;
 import compal.model.tasks.Deadline;
 import compal.model.tasks.Event;
 import compal.model.tasks.Task;
@@ -13,10 +12,8 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 //@@author Catherinetan99
-public class ViewReminderCommandParserTest {
-    private ViewReminderCommandParser parser = new ViewReminderCommandParser();
+public class ViewReminderCommandTest {
 
     private ArrayList<Task> taskArrListMain = new ArrayList<>();
     private ArrayList<Task> taskArrListDup = new ArrayList<>();
@@ -46,32 +43,20 @@ public class ViewReminderCommandParserTest {
         deadline2.markAsDone();
         taskListMain.addTask(deadline2);
         taskListDup.addTask(deadline2);
-
-
     }
 
     @Test
-    void parser_viewReminderParser_success() throws CommandException {
-        StringBuilder taskReminder = new StringBuilder("Here are your tasks:\n");
+    void execute_viewReminderCommand_success() throws CommandException {
+        ViewReminderCommand testViewReminder = new ViewReminderCommand();
+        CommandResult testCommandResult = testViewReminder.commandExecute(taskListMain);
+        String testString;
+        testString = testCommandResult.feedbackToUser;
 
-        String event1TaskString = taskListDup.getTaskById(0).toString() + "\n";
-        taskReminder.append(event1TaskString);
+        String expectedString = "Here are your tasks:\n";
+        expectedString = expectedString.concat(taskListDup.getTaskById(0).toString() + "\n");
+        expectedString = expectedString.concat(taskListDup.getTaskById(2).toString() + "\n");
+        expectedString = expectedString.concat(taskListDup.getTaskById(1).toString() + "\n");
 
-        String deadline1TaskString = taskListDup.getTaskById(2).toString() + "\n";
-        taskReminder.append(deadline1TaskString);
-
-        String event2TaskString = taskListDup.getTaskById(1).toString() + "\n";
-        taskReminder.append(event2TaskString);
-
-        String reminders = taskReminder.toString();
-
-        try {
-            assertEquals(reminders, parser.parseCommand("").commandExecute(taskListMain).feedbackToUser);
-        } catch (ParserException e) {
-            e.printStackTrace();
-        }
-
-        //assertParseSuccess(parser, "",
-        //new CommandResult(reminders, false), taskList);
+        assertEquals(expectedString, testString);
     }
 }

@@ -21,16 +21,15 @@ public class FindFreeSlotCommandParserTest {
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
+        taskList.setArrList(taskArrList);
         Event event1 = new Event("Event 1", Task.Priority.medium, "05/12/2019", "05/12/2019", "0000", "0800");
-        taskArrList.add(event1);
+        taskList.addTask(event1);
 
         Event event2 = new Event("Event 2", Task.Priority.high, "05/12/2019", "05/12/2019", "0900", "1600");
-        taskArrList.add(event2);
+        taskList.addTask(event2);
 
         Event event3 = new Event("Event 3", Task.Priority.low, "05/12/2019", "05/12/2019", "1000", "1200");
-        taskArrList.add(event3);
-
-        taskList.setArrList(taskArrList);
+        taskList.addTask(event3);
     }
 
     @Test
