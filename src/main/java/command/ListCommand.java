@@ -1,4 +1,8 @@
+
 package command;
+
+import inventory.Inventory;
+import inventory.Item;
 
 import booking.BookingList;
 import exception.DukeException;
@@ -23,8 +27,7 @@ public class ListCommand extends Command {
      * @throws DukeException if there are no bookings
      */
     @Override
-    public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingStorage,
-                        Storage roomStorage, User user) throws DukeException {
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user) throws DukeException {
         if (bookingList.isEmpty()) {
             throw new DukeException("OOPS! There are no bookings in your list");
         }
