@@ -8,7 +8,6 @@ import java.io.PrintStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.YearMonth;
 
 import org.junit.jupiter.api.Test;
@@ -16,14 +15,11 @@ import org.junit.jupiter.api.Test;
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.transaction.Expenditure;
 import owlmoney.model.transaction.exception.TransactionException;
-import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
 public class CardTest {
     private static final String NEWLINE = System.lineSeparator();
     private static final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    private static final String FILE_PATH = "data/";
-    private static final Storage storage = new Storage(FILE_PATH);
     private static final String DIVIDER =
             "----------------------------------------------------------------------------------------"
             + "-----------------------------------------" + NEWLINE;
@@ -377,7 +373,6 @@ public class CardTest {
     @Test
     void isEmpty_checkWhenZeroExpenditures_returnsTrue() throws ParseException {
         Card testCard = new Card("Test Card", 500, 0.05);
-        Ui testUi = new Ui();
         assertEquals(true, testCard.isEmpty());
     }
 
@@ -637,7 +632,7 @@ public class CardTest {
                         testCard.listAllExpenditure(testUi, 10),
                 "Expected editExpenditureDetails to throw TransactionException"
                         + "because there are no transactions in the card, but it did not throw");
-        assertEquals("There are no transactions in this bank account", exception.toString());;
+        assertEquals("There are no transactions in this bank account", exception.toString());
     }
 
     @Test

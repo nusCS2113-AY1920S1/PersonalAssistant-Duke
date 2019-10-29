@@ -19,6 +19,7 @@ public class CardList {
     private static final boolean ISMULTIPLE = true;
     private static final boolean ISSINGLE = false;
     private static final int ISZERO = 0;
+    private static final int MAX_CARD_LIMIT = 10;
     private Storage storage;
 
     /**
@@ -41,10 +42,12 @@ public class CardList {
         if (cardExists(newCard.getName())) {
             throw new CardException("There is already a credit card with the name " + newCard.getName());
         }
+        if (cardLists.size() >= MAX_CARD_LIMIT) {
+            throw new CardException("The maximum limit of 10 credit cards has been reached.");
+        }
         cardLists.add(newCard);
         ui.printMessage("Added a new card with the below details: ");
         printOneCard(ONE_INDEX, newCard, ISSINGLE, ui);
-
     }
 
     /**
