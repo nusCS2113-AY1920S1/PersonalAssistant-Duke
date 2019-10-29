@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/AY1920S1-CS2113T-W17-1/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113T-W17-1/main)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2c8cd9789ad44ad08787c63de509d493)](https://www.codacy.com/manual/SholihinK/main_2?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S1-CS2113T-W17-1/main&amp;utm_campaign=Badge_Grade)
-[![Coverage Status](https://coveralls.io/repos/github/AY1920S1-CS2113T-W17-1/main/badge.svg?branch=master)](https://coveralls.io/github/AY1920S1-CS2113T-W17-1/main?branch=master)
 
 <img src="/docs/images/Ui.png" width="670">
 
