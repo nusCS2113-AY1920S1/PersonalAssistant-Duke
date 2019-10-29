@@ -1,6 +1,7 @@
 package command;
 
 import storage.Storage;
+import task.DegreeTask;
 import task.Task;
 import ui.UI;
 import task.TaskList;
@@ -57,6 +58,8 @@ public class AddCommand extends Command {
             memento = new Memento(degreesBuffer);
 
             lists.add_custom(this.arguments);
+            DegreeTask degreeTask = new DegreeTask();
+            degreeTask.addDegreeTasks(this.arguments, tasks);
         }
         else {
             this.listType = 0;

@@ -1,33 +1,58 @@
 package task;
 
 import exception.DukeException;
+import list.DegreeList;
 import storage.Storage;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.*;
+/*
+@@author woblek
+ */
 /**
  * DegreeTask stores an arraylist of tasklists relevant for each degree programme
+ * It adds all relevant tasks related to a particular degree, and puts them into the user's tasklist
+ * it removes all tasks from the user's tasklist related to a removed degree
  */
 public class DegreeTask extends Task {
-    private Storage storage;
-    private ArrayList<TaskList> fullDegreeTasklist = new ArrayList<TaskList>();
-    private static final String filename = "../data/degreeTasks.txt"; //text file for tasks related to degrees
-    File file = new File(filename);
+    public static ArrayList<TaskList> fullDegreeTasklist = new ArrayList<TaskList>();
+
+    // this map relates all the engineering programmes with an arbitrary integer
+    private static final Map<String, Integer> degreeMap;
+    static {
+        Map<String, Integer> aMap = new HashMap<>();
+        aMap.put("bme", 0);
+        aMap.put("che", 1);
+        aMap.put("cive", 2);
+        aMap.put("come", 3);
+        aMap.put("elece", 4);
+        aMap.put("enve", 5);
+        aMap.put("ise", 6);
+        aMap.put("me", 7);
+        aMap.put("mse", 8);
+        degreeMap = Collections.unmodifiableMap(aMap);
+    }
 
 
     /**
-     * loads an arraylist of tasklists by reading the file degreeTasks.txt
+     * takes in a list of strings of raw .txt data from degreeTasks.txt
+     * builds an arraylist of Taskslists, each with tasks related to one degree programme
      * @throws DukeException
      */
     public void loadDegreeTasks(List<String> taskDataRaw) throws DukeException {
-        this.storage = new Storage("degreeTasks.txt");
-        try {
-            TaskList thisList = new TaskList(storage.getTaskList());
-            fullDegreeTasklist.add(thisList);
-        } catch (DukeException e) {
-            throw new DukeException("Error Obtaining Degree Programme Events");
+        if(taskDataRaw == null)
+            throw new DukeException("degreeTasks.txt file not found");
+        String toTasklist = "";
+        for (int i = 1; i < taskDataRaw.size(); i++) {
+            if((taskDataRaw.get(i) != null) && (!taskDataRaw.get(i).equals("")) && (taskDataRaw.get(i).matches("^[a-zA-Z]*$"))){
+                TaskList thisList = new TaskList(toTasklist);
+                fullDegreeTasklist.add(thisList);
+                toTasklist = "";
+
+            }
+            else{
+                toTasklist = toTasklist + taskDataRaw.get(i) + "\n";
+            }
         }
     }
 
@@ -38,10 +63,56 @@ public class DegreeTask extends Task {
      * @throws DukeException
      */
     public void addDegreeTasks (String degreeName, TaskList userTasklist) throws DukeException {
-        if(degreeName.contains("ceg")){
-            for(int i = 0; i < fullDegreeTasklist.get(0).size(); i++){
-                userTasklist.add(fullDegreeTasklist.get(0).get(i));
+        int n = fullDegreeTasklist.get(degreeMap.get(degreeName)).size();
+        if (n < 1){
+            throw new DukeException("There are no tasks related to " + degreeName);
+        }
+        for (int i = 0; i < n; i++) {
+            Task toAppend = fullDegreeTasklist.get(degreeMap.get(degreeName)).get(i);
+            if (!isDuplicate(toAppend, userTasklist)){
+                userTasklist.add(toAppend);
+            }
+
+        }
+
+    }
+
+    /**
+     * removes all tasks that are related to the degree programme that has been deleted
+     * @param index
+     * @param userDegreeList
+     * @param userTaskList
+     * @throws DukeException
+     */
+    public void removeDegreeTasks(String index, DegreeList userDegreeList, TaskList userTaskList) throws DukeException{
+        String removedDegree =  userDegreeList.get(Integer.parseInt(index));
+        System.out.println(removedDegree);
+        TaskList removedTasklist = new TaskList();
+        for (int i = 0; i < userTaskList.size(); i++){
+            if (userTaskList.get(i).description.toLowerCase().contains(removedDegree)){
+                removedTasklist.add(userTaskList.get(i));
+                userTaskList.banishDelete(Integer.toString(i+1));
             }
         }
+
+    }
+
+    /**
+     * returns true if the task that you are trying to add to the user's tasklist is a duplicate
+     * @param task
+     * @param userTasklist
+     * @return
+     * @throws DukeException
+     */
+    public boolean isDuplicate (Task task, TaskList userTasklist) throws DukeException {
+        if (userTasklist.size() == 0){
+            return false;
+        }
+        for (int i = 0; i < userTasklist.size(); i++){
+            if (task.toList().equals(userTasklist.get(i).toList())){
+                return true;
+            }
+        }
+        return false;
     }
 }

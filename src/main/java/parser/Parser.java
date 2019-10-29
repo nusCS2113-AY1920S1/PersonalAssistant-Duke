@@ -78,7 +78,7 @@ public class Parser {
                 }
             }
         } else if (command.matches("todo|deadline|event|done|delete|find|select|recurring|after|within|fixed"
-                + "|snooze|schedule|add|remove|swap")) {
+                + "|snooze|schedule|add|remove|swap|sort")) {
             if (!temp.hasNextLine()) {
                 throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
             }
@@ -100,6 +100,8 @@ public class Parser {
                     return new SearchCommand(command, input);
                 } else if (command.matches("swap")) {
                     return new SwapCommand(command, input);
+                } else if (command.matches("sort")){
+                    return new SortCommand(command,input);
                 }
             }
         }
