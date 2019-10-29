@@ -4,6 +4,7 @@ import dolla.task.Record;
 
 import java.util.HashMap;
 
+//@@author Weng-Kexin
 public class TagList {
 
     public static HashMap<String, Record> tagList = new HashMap<>(); //change it to store the index of the record

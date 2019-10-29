@@ -37,7 +37,6 @@ public abstract class Parser {
 
     public abstract Command handleInput(String mode);
 
-
     /**
      * Splits the input from the user and assigns the relevant data into description and date variables.
      * If the incorrect format is given in the input, the corresponding alert will be printed.
@@ -45,7 +44,7 @@ public abstract class Parser {
     public void extractDescTime() throws Exception {
         // dataArray[0] is command, amount and description, dataArray[1] is time and tag
         String[] dataArray = inputLine.split(" /on ");
-        String dateString = (dataArray[1].split("/tag"))[0];
+        String dateString = (dataArray[1].split(" /tag "))[0];
         description = dataArray[0].split(inputArray[2] + " ")[1];
         try {
             date = Time.readDate(dateString);

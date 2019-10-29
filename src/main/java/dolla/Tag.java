@@ -6,16 +6,21 @@ import dolla.ui.Ui;
 /**
  * This class handles tag related methods.
  */
+//@@author Weng-Kexin
 public class Tag {
 
     private String tagName;
-    private static final String PREFIX_TAG = "/tag";
+    private static final String PREFIX_TAG = "/tag"; //todo: change
 
     /**
      * Instantiates a new Tag.
      */
     public Tag() {
         this.tagName = null;
+    }
+
+    public String getPrefixTag() {
+        return PREFIX_TAG;
     }
 
     public String getTagName() {

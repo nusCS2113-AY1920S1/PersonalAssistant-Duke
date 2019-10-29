@@ -35,22 +35,28 @@ public class DebtsParser extends Parser {
             String type = commandToRun;
             String name;
             double amount;
+            Tag t = new Tag();
             try {
                 name = inputArray[1];
                 amount = stringToDouble(inputArray[2]);
                 String[] desc = inputLine.split(inputArray[2] + " ");
                 String[] dateString = desc[1].split(" /due ");
                 description = dateString[0];
-                date = Time.readDate(dateString[1]);
+
+                if (inputLine.contains(t.getPrefixTag())) {
+                    String[] dateAndTag = dateString[1].split(t.getPrefixTag());
+                    date = Time.readDate(dateAndTag[0].trim());
+                } else {
+                    date = Time.readDate(dateString[1].trim());
+                }
             } catch (IndexOutOfBoundsException e) {
                 Ui.printInvalidDebtFormatError();
                 return new ErrorCommand();
             } catch (Exception e) {
                 return new ErrorCommand();
             }
-            Debt debt = new Debt(type, name, amount, description, date); //todo: change
-            Tag t = new Tag();
-            t.handleTag(inputLine, inputArray, debt); //todo: change, isnt working
+            Debt debt = new Debt(type, name, amount, description, date);
+            t.handleTag(inputLine, inputArray, debt);
             return processAdd(type, name, amount);
         } else if (commandToRun.equals("search")) {
             String component = inputArray[1];

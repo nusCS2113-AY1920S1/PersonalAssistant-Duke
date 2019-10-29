@@ -28,6 +28,9 @@ public class EntryParser extends Parser {
             return new ShowListCommand(mode);
         } else if (commandToRun.equals("add")) {
             if (verifyAddCommand()) {
+                Tag t = new Tag();
+                Entry entry = new Entry(inputArray[1], stringToDouble(inputArray[2]), description, date);
+                t.handleTag(inputLine, inputArray, entry);
                 return processAdd();
             } else {
                 return new ErrorCommand();
@@ -71,9 +74,6 @@ public class EntryParser extends Parser {
                     description, date, -1);
             resetRedoFlag();
         }
-        Entry entry = new Entry(inputArray[1], stringToDouble(inputArray[2]), description, date); //doenst work
-        Tag t = new Tag();
-        t.handleTag(inputLine, inputArray, entry); //todo: change
         return addEntry;
     }
 }
