@@ -6,44 +6,42 @@ NAME
 DESCRIPTION
 	The following options are available:
 
-Deadline            deadline DESCRIPTION /by DD-MM-YYYY HH:MM
+Help                        help
 
-Event               event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM
+Deadline                    deadline DESCRIPTION /by DD-MM-YYYY HH:MM
 
-Todo                todo DESCRIPTION /on DD-MM-YYYY
+Event                       event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM
 
-Recurring           recurring DESCRIPTION
+Todo                        todo DESCRIPTION /on DD-MM-YYYY
 
-List                list
+Recurring                   recurring INDEX NUMBER_OF_OCCURRENCES
 
-Done                done INDEX
+List                        list
 
-Delete              delete INDEX
+Done                        done INDEX
 
-Find                find DESCRIPTION
+Delete                      delete INDEX
 
-Threshold           threshold HH
+Find                        find DESCRIPTION
 
-Schedule            schedule DD-MM-YYYY
+Threshold                   threshold HH
 
-Summary             summary
+Schedule                    schedule DD-MM-YYYY
 
-Sort                sort
+Summary                     summary
 
-Free                free DD-MM-YYYY
+Free                        free DD-MM-YYYY
 
-View Week           viewWeek
+ViewWeek                    viewweek DD MM YYYY e.g. viewweek 30 10 2019
 
-Calendar            calendar MONTH YEAR
+Calendar                    calendar MM YYYY
 
-Start Tracker       start MODULE_CODE ASSIGNMENT_DESCRIPTION
+Start Assignment Tracker    start MODULE_CODE ASSIGNMENT_DESCRIPTION
 
-Pause Tracker       pause MODULE_CODE ASSIGNMENT_DESCRIPTION
+Pause Assignment Tracker    pause MODULE_CODE ASSIGNMENT_DESCRIPTION
 
-Stop Tracker        stop MODULE_CODE ASSIGNMENT_DESCRIPTION
+Stop Assignment Tracker     stop MODULE_CODE ASSIGNMENT_DESCRIPTION
 
-View Tracker        viewtracker
+View Assignment Tracker     viewtracker
 
-Reminder            reminder
-
-Exit                bye
+Exit                        bye

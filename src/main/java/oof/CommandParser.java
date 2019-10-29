@@ -162,57 +162,15 @@ public class CommandParser {
     private static Command parseDelete(String[] argumentArray, String line) throws OofException {
         if (argumentArray.length == LENGTH_COMMAND_ONLY) {
             throw new OofException("OOPS!!! Please enter a number!");
-        }
-        try {
-            int deleteIndex = Integer.parseInt(line.replaceFirst("delete", "").trim()) - 1;
-            return new DeleteCommand(deleteIndex);
-        } catch (NumberFormatException e) {
-            throw new OofException("OOPS!!! Please enter a valid number!");
-        }
-    }
-
-    /**
-     * Parses input if the user input starts with snooze.
-     * @param argumentArray Command inputted by user in string array format.
-     * @param line Command inputted by user in string format.
-     * @return Returns an instance of SnoozeCommand if the parameters are valid.
-     * @throws OofException Throws exception if the parameters are invalid.
-     */
-    private static Command parseSnooze(String[] argumentArray, String line) throws OofException {
-        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
-            throw new OofException("OOPS!!! Please enter a number!");
-        }
-        try {
-            int snoozeIndex = Integer.parseInt(line.replaceFirst("snooze", "").trim()) - 1;
-            return new SnoozeCommand(snoozeIndex);
-        } catch (NumberFormatException e) {
-            throw new OofException("OOPS!!! Please enter a valid number!");
-        }
-    }
-
-    /**
-     * Parses input if the user input starts with recurring.
-     * @param argumentArray Command inputted by user in string array format.
-     * @return Returns an instance of RecurringCommand if the parameters are valid.
-     * @throws OofException Throws exception if the parameters are invalid.
-     */
-    private static Command parseRecurring(String[] argumentArray) throws OofException {
-        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
-            throw new OofException("OOPS!!! Please enter the task number and number of recurrences!");
         } else if (argumentArray.length == LENGTH_COMMAND_AND_TASK) {
-            throw new OofException("OOPS!!! Please enter the number of recurrences!");
-        }
-        try {
-            int recurringIndex = Integer.parseInt(argumentArray[INDEX_ARGUMENT_TASK_NUMBER].trim()) - 1;
-            int recurringCount = Integer.parseInt(argumentArray[INDEX_ARGUMENT_COUNT].trim());
-            ui = new Ui();
-            ui.printRecurringOptions();
-            int recurringFrequency = ui.scanInt();
-            return new RecurringCommand(recurringIndex, recurringCount, recurringFrequency);
-        } catch (NumberFormatException e) {
-            throw new OofException("OOPS!!! Please enter valid numbers!");
-        } catch (InputMismatchException e) {
-            throw new OofException("OOPS!!! Please enter a valid number!");
+            try {
+                int deleteIndex = Integer.parseInt(line.replaceFirst("delete", "").trim()) - 1;
+                return new DeleteCommand(deleteIndex);
+            } catch (NumberFormatException e) {
+                throw new OofException("OOPS!!! Please enter a valid number!");
+            }
+        } else {
+            throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -353,6 +311,51 @@ public class CommandParser {
             } else {
                 throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
+        }
+    }
+
+    /**
+     * Parses input if the user input starts with snooze.
+     * @param argumentArray Command inputted by user in string array format.
+     * @param line Command inputted by user in string format.
+     * @return Returns an instance of SnoozeCommand if the parameters are valid.
+     * @throws OofException Throws exception if the parameters are invalid.
+     */
+    private static Command parseSnooze(String[] argumentArray, String line) throws OofException {
+        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
+            throw new OofException("OOPS!!! Please enter a number!");
+        }
+        try {
+            int snoozeIndex = Integer.parseInt(line.replaceFirst("snooze", "").trim()) - 1;
+            return new SnoozeCommand(snoozeIndex);
+        } catch (NumberFormatException e) {
+            throw new OofException("OOPS!!! Please enter a valid number!");
+        }
+    }
+
+    /**
+     * Parses input if the user input starts with recurring.
+     * @param argumentArray Command inputted by user in string array format.
+     * @return Returns an instance of RecurringCommand if the parameters are valid.
+     * @throws OofException Throws exception if the parameters are invalid.
+     */
+    private static Command parseRecurring(String[] argumentArray) throws OofException {
+        if (argumentArray.length == LENGTH_COMMAND_ONLY) {
+            throw new OofException("OOPS!!! Please enter the task number and number of recurrences!");
+        } else if (argumentArray.length == LENGTH_COMMAND_AND_TASK) {
+            throw new OofException("OOPS!!! Please enter the number of recurrences!");
+        }
+        try {
+            int recurringIndex = Integer.parseInt(argumentArray[INDEX_ARGUMENT_TASK_NUMBER].trim()) - 1;
+            int recurringCount = Integer.parseInt(argumentArray[INDEX_ARGUMENT_COUNT].trim());
+            ui = new Ui();
+            ui.printRecurringOptions();
+            int recurringFrequency = ui.scanInt();
+            return new RecurringCommand(recurringIndex, recurringCount, recurringFrequency);
+        } catch (NumberFormatException e) {
+            throw new OofException("OOPS!!! Please enter valid numbers!");
+        } catch (InputMismatchException e) {
+            throw new OofException("OOPS!!! Please enter a valid number!");
         }
     }
 }

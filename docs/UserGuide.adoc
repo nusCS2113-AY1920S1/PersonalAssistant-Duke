@@ -504,40 +504,49 @@ Deletes the 1st assessment in the list of lessons.
 
 === Start Assignment Tracker: `start`
 Begin your journey to optimum productivity by starting your Tracker timer!
-Start your tracking on a Module from the current time.
+You can start your tracking of an assignment from the current time.
 
 Format: `start MODULE_CODE ASSIGNMENT_DESCRIPTION`
 
 Example: `start cs2113t user guide`
 
-image::Demo_StartTracker.png[]
+[[StartTracker]]
+.Output of StartTracker command
+image::StartTracker.png[StartTracker]
 
 === Pause Assignment Tracker: `pause`
-Want to take a break or get started with another Module?
-Pause your tracking on a Module at the current time.
+Want to take a break or get started with another assignment?
+You can pause your tracking of an assignment at the current time.
 
 Format: `pause MODULE_CODE ASSIGNMENT_DESCRIPTION`
 
 Example: `pause cs2113t user guide`
 
-image::Demo_PauseTracker.png[]
+[[PauseTracker]]
+.Output of PauseTracker command
+image::PauseTracker.png[PauseTracker]
 
 === Stop Assignment Tracker: `stop`
-Completed with a Module that you're currently working on?
-Stop your tracking on a Module at the current time with `stop`.
+Completed an assignment that you're currently working on?
+You can stop your tracking of an assignment at the current time with `stop`.
 
 Format: `stop MODULE_CODE ASSIGNMENT_DESCRIPTION`
 
 Example: `stop cs2113t user guide`
 
-image::Demo_StopTracker.png[]
+[[StopTracker]]
+.Output of StopTracker command
+image::StopTracker.png[StopTracker]
 
 === View Assignment Tracker: `viewTracker`
-Want to view a visual display featuring the amount of time you spend on each `Module`?
+Want to view a visual display featuring the amount of time you spend on each module?
+You can view a histogram featuring the amount of time you spend on each module in blocks of 10 minutes with `viewtracker`.
 
 Format: `viewTracker`
 
-image::Demo_ViewTracker.png[]
+[[ViewTracker]]
+.Output of ViewTracker command
+image::ViewTracker.png[ViewTracker]
 
 Format: `viewTracker TIME_PERIOD [_coming soon in v1.4_]`
 
