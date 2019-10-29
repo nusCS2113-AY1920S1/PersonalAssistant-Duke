@@ -135,7 +135,7 @@ public class ProjectInputController implements IController {
     public String[] projectAddMember(Project projectToManage, String projectCommand) {
         if (projectCommand.length() < 11) {
             return new String[] {"Add member command minimum usage must be \"add member -n NAME\"!",
-                                "Please refer to user guide for additional details."};
+                                 "Please refer to user guide for additional details."};
         }
         String memberDetails = projectCommand.substring(11);
         int numberOfCurrentMembers = projectToManage.getNumOfMembers();
@@ -147,7 +147,7 @@ public class ProjectInputController implements IController {
                     + "Member details " + newMember.getDetails()};
         } else {
             return new String[] {"Name cannot be empty! Please follow the add command format in user guide!",
-                    "\"add member -n NAME\" is the minimum requirement for add member command"};
+                                 "\"add member -n NAME\" is the minimum requirement for add member command"};
         }
     }
 
