@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <!DOCTYPE module PUBLIC
         "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
         "https://checkstyle.org/dtds/configuration_1_3.dtd">
@@ -33,8 +33,8 @@
     <!-- All Java AST specific tests live under TreeWalker module. -->
     <module name="TreeWalker">
 
-        <!-- Required for SuppressionCommentFilter to work -->
-        <module name="FileContentsHolder"/>
+<!--        &lt;!&ndash; Required for SuppressionCommentFilter to work &ndash;&gt;-->
+<!--        <module name="FileContentsHolder"/>-->
 
         <!-- Required to allow exceptions in code style -->
         <module name="SuppressionCommentFilter">

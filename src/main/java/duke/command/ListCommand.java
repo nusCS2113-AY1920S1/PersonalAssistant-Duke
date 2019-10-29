@@ -37,7 +37,7 @@ public class ListCommand extends Command {
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws DukeException, IOException, ParseException {
         TaskList tasks;
-        if (filter.isEmpty()) {
+        if (!filter.isPresent()) {
             tasks = list;
         } else {
             tasks = new TaskList(list, filter);

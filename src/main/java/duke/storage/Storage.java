@@ -47,7 +47,7 @@ public class Storage {
 						.registerSubtype(Task.class)
 						.registerSubtype(Event.class))
 				.create();
-		JsonReader reader = new JsonReader(new FileReader("filePath"));
+		JsonReader reader = new JsonReader(new FileReader(filePath));
 		Type type = new TypeToken<ArrayList<Task>>() {}.getType();
 		ArrayList<Task> tasks = gson.fromJson(reader, type);
 		return tasks;

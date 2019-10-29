@@ -3,7 +3,7 @@ package duke.command;
 import duke.exception.DukeException;
 import duke.extensions.AbnormalityChecker;
 import duke.extensions.Recurrence;
-import duke.extensions.RecurrencePeriod;
+
 import duke.storage.Storage;
 import duke.storage.UndoStack;
 import duke.task.*;
@@ -46,7 +46,7 @@ public class AddCommand extends Command {
                 tasks.add(newTask);
                 break;
             case "event":
-                if (dateTime.isEmpty()) {
+                if (!dateTime.isPresent()) {
                     throw new DukeException("Your event needs to have a starting time.");
                 }
                 Event newEvent = new Event(filter, dateTime, recurrence, description, duration);
