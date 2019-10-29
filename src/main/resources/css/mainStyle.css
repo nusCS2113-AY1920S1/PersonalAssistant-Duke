@@ -66,6 +66,10 @@
     -fx-background-color: rgba(0, 30, 15, 0.8);
 }
 
+.side {
+    -fx-background-color: grey;
+}
+
 .routeMapPane {
     -fx-border-color: blue;
     -fx-border-insets: 0;
@@ -80,10 +84,19 @@
 .routeSidePane {
     -fx-background-size: 400 300;
 }
+  
+.info {
+    -fx-background-color : black;
+    -fx-border-width: 2;
+    -fx-border-color : rgba(255, 255, 255, 0.0);
+    -fx-background-radius : 5;
+    -fx-border-radius : 5;
+    -fx-text-fill: turquoise;
+}
 
 .highlight {
     -fx-border-width: 2;
-    -fx-border-color: white;
+    -fx-border-color: khaki;
 }
 
 #LocationCard {

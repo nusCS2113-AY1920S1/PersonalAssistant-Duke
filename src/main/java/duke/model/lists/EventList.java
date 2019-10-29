@@ -4,6 +4,7 @@ import duke.commons.exceptions.DukeDuplicateTaskException;
 import duke.model.Event;
 import duke.model.TaskWithDates;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 /**
  * Represents a list of Events and contains its related accessor methods.
  */
-public class EventList implements Iterable<Event>, Listable<Event> {
+public class EventList implements Iterable<Event>, Listable<Event>, Serializable {
     private List<Event> events;
 
     public EventList() {
@@ -53,12 +54,17 @@ public class EventList implements Iterable<Event>, Listable<Event> {
     }
 
     public void sort() {
-        events.sort(Comparator.comparing(TaskWithDates::getStartDate));
+        events.sort(Comparator.comparing(TaskWithDates::getStartDate)
+                .thenComparing(TaskWithDates::getEndDate));
     }
 
+    /**
+     * Returns a shallow copy of the sorted EventList.
+     */
     public EventList getSortedList() {
         return new EventList(events.stream().sorted(
-                Comparator.comparing(TaskWithDates::getStartDate)).collect(Collectors.toList()));
+                Comparator.comparing(TaskWithDates::getStartDate)
+                        .thenComparing(TaskWithDates::getEndDate)).collect(Collectors.toList()));
     }
 
     @Override

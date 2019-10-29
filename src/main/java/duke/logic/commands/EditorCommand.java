@@ -1,9 +1,12 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.EmptyVenueException;
-import duke.logic.EditorManager;
+import duke.logic.edits.EditorManager;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
+import duke.model.lists.EventList;
+
+import org.apache.commons.lang3.SerializationUtils;
 
 /**
  * Turns on the editing mode on SGTravel.
@@ -19,7 +22,8 @@ public class EditorCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws EmptyVenueException {
-        EditorManager.activate(model.getEvents(), model.getEventVenues());
+        EventList events = SerializationUtils.clone(model.getEvents());
+        EditorManager.activate(events, model.getEventVenues());
         return new CommandResultText(MESSAGE_EDITOR);
     }
 }

@@ -50,6 +50,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setEvents(EventList events) {
+        this.events = events;
+    }
+
+    @Override
     public RouteList getRoutes() {
         return routes;
     }
