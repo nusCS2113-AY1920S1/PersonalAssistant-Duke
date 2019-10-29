@@ -9,15 +9,15 @@ import seedu.duke.email.EmailStorage;
 import seedu.duke.email.EmailTags;
 import seedu.duke.email.entity.Email;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class EmailTagsTest {
 
     @Test
-    public void updateEmailTagListTest() {
+    public void updateEmailTagListTestFromStorage() {
         String dir = EmailStorage.getDataDir() + "emailTagTestFile.txt";
         EmailList emailList = EmailStorage.readEmailFromFile(dir);
         System.out.println(emailList.toString());
@@ -50,28 +50,44 @@ public class EmailTagsTest {
         //assertTrue(tagMap.get("Tutorial").containsKey("CS2113T"));
         //assertTrue(tagMap.get("Tutorial").containsKey("CG2271"));
         //assertFalse(tagMap.get("Tutorial").containsKey("SEP"));
+    }
 
-        String body = "CS2113T Akshay Narayan CS2113 TAN KIAN WEI ";
+    @Test
+    public void updateEmailTagListTest() {
+        String body = "CS2113T Akshay Narayan CS2113 TAN KIAN WEI uhc Wellnesss";
         EmailFormatParseHelper.Sender sender = new EmailFormatParseHelper.Sender("Akshay", null);
-        Email email = new Email("CS2113", sender, null, body, null);
+        Email email = new Email("CS2113 SEP", sender, null, body, null);
 
         EmailContentParseHelper emailContentParseHelper = new EmailContentParseHelper();
         emailContentParseHelper.initKeywordList();
         emailContentParseHelper.allKeywordInEmail(email);
 
-        ArrayList<Email.Tag> tags = email.getTags();
+        EmailList emailList = new EmailList();
+        emailList.add(email);
+
         HashMap<String, EmailTags.SubTagMap> tagMap = EmailTags.updateEmailTagList(emailList);
 
         assertTrue(tagMap.containsKey("SEP"));
         assertTrue(tagMap.containsKey("Spam"));
         assertTrue(tagMap.containsKey("CS2113T"));
-        assertTrue(tagMap.containsKey("CG2271"));
-        assertTrue(tagMap.containsKey("Assignment"));
+        assertFalse(tagMap.containsKey("CG2271"));
+        assertFalse(tagMap.containsKey("Assignment"));
 
+
+        assertTrue(tagMap.get("SEP").containsKey("SEP"));
+        assertTrue(tagMap.get("Spam").containsKey("Spam"));
         assertTrue(tagMap.get("CS2113T").containsKey("CS2113T"));
+
+        assertTrue(tagMap.get("SEP").containsKey("CS2113T"));
+        assertTrue(tagMap.get("SEP").containsKey("Spam"));
+
         assertTrue(tagMap.get("CS2113T").containsKey("Spam"));
-        assertTrue(tagMap.get("CS2113T").containsKey("Tutorial"));
-        assertFalse(tagMap.get("CS2113T").containsKey("SEP"));
+        assertTrue(tagMap.get("CS2113T").containsKey("SEP"));
+
+        assertTrue(tagMap.get("Spam").containsKey("CS2113T"));
+        assertTrue(tagMap.get("Spam").containsKey("SEP"));
+
+        assertFalse(tagMap.get("CS2113T").containsKey("Tutorial"));
 
     }
 
