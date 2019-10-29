@@ -52,6 +52,16 @@ public abstract class AssignedTask {
         this.isRecursive = new SimpleBooleanProperty(isrecurrsive);
     }
 
+    public AssignedTask(int pid, int tid, boolean isdone, boolean isrecurrsive, String type, int uid) {
+        this.patientId = new SimpleIntegerProperty(pid);
+        this.taskId = new SimpleIntegerProperty(tid);
+        this.taskType = new SimpleStringProperty(type);
+        this.isDone = new SimpleBooleanProperty(isdone);
+        this.isRecursive = new SimpleBooleanProperty(isrecurrsive);
+        this.uuid = new SimpleIntegerProperty(uid);
+    }
+
+
     /**
      * .
      *

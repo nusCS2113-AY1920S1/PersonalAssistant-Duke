@@ -58,9 +58,8 @@ public class DeleteAssignedTaskCommand implements Command {
             storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
             ui.patientTaskDeleted(taskUniqueId);
         } catch (DukeException e) {
-            throw new DukeException("Task is not found!");
+            throw new DukeException(e.getMessage());
         }
-
     }
 
     /**
