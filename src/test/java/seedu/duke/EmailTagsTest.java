@@ -25,6 +25,7 @@ public class EmailTagsTest {
         //HashMap<String, EmailTags.SubTagMap> tagMap = EmailTags.updateEmailTagList(emailList);
         //System.out.println(tagMap);
 
+
         //assertTrue(tagMap.containsKey("SEP"));
         //assertTrue(tagMap.containsKey("Spam"));
         //assertTrue(tagMap.containsKey("CS2113T"));
@@ -50,6 +51,7 @@ public class EmailTagsTest {
         //assertTrue(tagMap.get("Tutorial").containsKey("CS2113T"));
         //assertTrue(tagMap.get("Tutorial").containsKey("CG2271"));
         //assertFalse(tagMap.get("Tutorial").containsKey("SEP"));
+
     }
 
     @Test
