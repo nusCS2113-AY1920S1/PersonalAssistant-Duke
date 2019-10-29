@@ -4,6 +4,8 @@ import Commands.Command;
 import Commands.RemindCommand;
 import Commons.LookupTable;
 import Commons.Ui;
+import StubClasses.ReminderStub;
+import StubClasses.StorageStub;
 import Tasks.Assignment;
 import Tasks.Deadline;
 import Tasks.TaskList;
@@ -17,6 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+/**
+ * This class tests RemindCommand.
+ */
 public class RemindCommandTest {
     private static TaskList deadlines = new TaskList();
     private static Assignment taskAfterCurrentDate;

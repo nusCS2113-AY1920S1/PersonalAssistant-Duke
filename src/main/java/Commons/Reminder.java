@@ -24,6 +24,9 @@ import java.util.HashMap;
 import java.util.TimerTask;
 import java.util.logging.Logger;
 
+/**
+ * This class sets or removes a reminder thread.
+ */
 public class Reminder {
 
     private Timer timer;

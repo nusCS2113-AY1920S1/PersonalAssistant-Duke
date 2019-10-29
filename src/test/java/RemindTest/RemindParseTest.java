@@ -1,7 +1,6 @@
 package RemindTest;
 
 import Commands.Command;
-import DukeExceptions.DukeInvalidFormatException;
 import Parser.RemindParse;
 import Tasks.Deadline;
 import Tasks.TaskList;
@@ -14,6 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+//@@author lionlim97
+/**
+ * This class tests RemindParse.
+ */
 public class RemindParseTest {
     private static TaskList deadlines = new TaskList();
     private static String by;

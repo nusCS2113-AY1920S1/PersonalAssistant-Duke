@@ -1,13 +1,15 @@
-package RemindTest;
+package StubClasses;
 
 import Commons.Reminder;
 import Tasks.Assignment;
-import Tasks.Deadline;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
+/**
+ * This class represents Reminder to be used for unit testing.
+ */
 public class ReminderStub extends Reminder {
     private HashMap<Date, Assignment> remindMap = new HashMap<>();
     private SimpleDateFormat dateOutputFormat = new SimpleDateFormat("E dd/MM/yyyy");
