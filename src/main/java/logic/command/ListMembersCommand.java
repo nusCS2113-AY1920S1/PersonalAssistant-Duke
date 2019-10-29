@@ -22,12 +22,15 @@ public class ListMembersCommand extends Command {
     }
 
     //@@author JustinChia1997
+    /**
+     * Converts arraylist of members to a displayable text format
+     * */
     public String convertArrayListToText(ArrayList<Member> members) {
         String finalOutput = "";
         if (members.size() > 0) {
             for (int i = 0; i < members.size(); i += 1) {
-                finalOutput += String.valueOf(i+1) + " : " + "Name: "
-                        + members.get(i).getName().toString() + "\n";
+                finalOutput += (i + 1) + " : " + "Name: "
+                        + members.get(i).getName() + "\n";
             }
         } else {
             finalOutput = EMPTY_TASKS_LIST;

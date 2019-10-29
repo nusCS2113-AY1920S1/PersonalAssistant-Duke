@@ -53,9 +53,6 @@ public class Duke {
      * @param memberFilePath the file path of member list
      */
     public Duke(String taskFilePath, String memberFilePath) {
- //       storage = new Storage(taskFilePath, memberFilePath);
-
-//        members = storage.loadMemberList(new ArrayList<Task>());
         //========= instantiation for controllers ==============
         modelController = new ModelController();
         logicController = new LogicController(modelController);
@@ -66,15 +63,15 @@ public class Duke {
     /**
      * main running structure of Duke.
      */
-    public void run() throws DukeException{
-        uiController.welcome();
+    public void run() throws DukeException {
+        UiController.welcome();
         uiController.start();
         //Reminder.checkReminders(tasks);
         boolean isExit = false;
         Scanner in = new Scanner(System.in);
         while (!isExit) {
-                uiController.readCommand(in);
-                isExit = uiController.isExit();
+            uiController.readCommand(in);
+            isExit = uiController.isExit();
         }
     }
 

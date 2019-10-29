@@ -38,13 +38,14 @@ public class NewParser {
         commandWord = commandWord.trim().toUpperCase();
 
         String[] dict = {
-                "ADD", "LIST", "DONE", "BYE", "DELETE", "FIND", "SNOOZE",
-                "SCHEDULE", "CHECK", "LINK", "UNLINK", "REMOVE", "HELP"
+            "ADD", "LIST", "DONE", "BYE", "DELETE", "FIND", "SNOOZE",
+            "SCHEDULE", "CHECK", "LINK", "UNLINK", "REMOVE", "HELP"
         };
 
         commandWord = SpellingErrorCorrector.commandCorrector(dict, commandWord);
 
         switch (commandWord) {
+            
             case ADD_COMMAND_WORD:
                 return AddCommandParser.parseAddCommand(arguments);
             case LIST_COMMAND_WORD:
@@ -57,7 +58,6 @@ public class NewParser {
                 return DeleteCommandParser.parseDeleteCommand(arguments);
             default:
                 throw new DukeException("Command not found");
-
         }
 
     }

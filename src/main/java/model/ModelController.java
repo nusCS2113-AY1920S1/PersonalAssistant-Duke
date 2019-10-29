@@ -39,6 +39,7 @@ public class ModelController implements Model {
     @Override
     public void save() {
         storage.saveTasks(tasksManager.getTaskList());
+        storage.saveMembers(memberManager.getMemberList());
     }
 
     //=================Task interfaces=============================================
@@ -99,6 +100,18 @@ public class ModelController implements Model {
     @Override
     public boolean hasMember(String name) throws DukeException {
         return memberManager.hasMember(name);
+    }
+
+    @Override
+    public void link(int taskIndex, String memberName) {
+        tasksManager.getTaskById(taskIndex).addMember(memberName);
+        //TODO consider uuid for linking
+        memberManager.getMemberByName(memberName).addTask(tasksManager.getTaskById(taskIndex).getName());
+    }
+
+    @Override
+    public void unlink(int taskIndex, String memberName) {
+
     }
 
 }

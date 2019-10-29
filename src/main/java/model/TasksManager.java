@@ -9,8 +9,11 @@ public class TasksManager implements Serializable {
     public static final String MESSAGE_DUPLICATED_TASK_NAME = "Duplicated task name.";
     private ArrayList<Task> taskList;
 
+    /**
+     * add javadoc please
+     * */
     public TasksManager(ArrayList<Task> taskList) {
-        if(taskList != null) {
+        if (taskList != null) {
             this.taskList = taskList;
         } else {
             this.taskList = new ArrayList<Task>();
@@ -77,8 +80,8 @@ public class TasksManager implements Serializable {
      * Delete link(s) from task(s) to member(s). Non-existing link won't be deleted.
      * This is the reverse method of <code>addMember(Task[] tasks, Member[] toAdd)</code> method.
      *
-     * @param tasks
-     * @param toDelete
+     * @param tasks arraylist
+     * @param toDelete arraylist
      */
     public void deleteMember(Task[] tasks, String[] toDelete) {
         for (int i = 0; i < tasks.length; i++) {
@@ -95,6 +98,9 @@ public class TasksManager implements Serializable {
 
 
     //@@author JustinChia1997
+    /**
+     * checks if task is present in task list
+     * */
     public boolean hasTask(String name) {
         for (int i = 0; i < taskList.size(); i += 1) {
             if (taskList.get(i).getName().equals(name.trim())) {
@@ -105,12 +111,13 @@ public class TasksManager implements Serializable {
     }
 
     //@@author JustinChia1997
+
     /**
      * Finds Task from task list. returns null if no match was found
      *
-     * @param name
+     * @param name arraylist
      * @return Task
-     * */
+     */
     public Task getTaskByName(String name) {
         for (int i = 0; i < taskList.size(); i += 1) {
             if (taskList.get(i).getName().equals(name.trim())) {

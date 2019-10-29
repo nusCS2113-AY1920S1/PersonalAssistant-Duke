@@ -20,16 +20,20 @@ public class Member {
         this.taskList = new ArrayList<>();
     }
 
+    /**
+     * add javadoc please
+     * */
     public void addTask(String toAdd) {
         if (!taskList.contains(toAdd)) {
             taskList.add(toAdd);
         }
     }
 
+    /**
+     * add javadoc please
+     * */
     public void deleteTask(Task toDelete) {
-        if (taskList.contains(toDelete)) {
-            taskList.remove(toDelete);
-        }
+        taskList.remove(toDelete);
     }
 
     public ArrayList<String> getTaskList() {
@@ -57,6 +61,9 @@ public class Member {
         return email;
     }
 
+    /**
+     * add javadoc please
+     * */
     public void setEmail(String email) throws DukeException {
         if (email.matches(EMAIL_VALIDATION_REGEX)) {
             this.email = email;

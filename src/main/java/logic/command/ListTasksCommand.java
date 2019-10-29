@@ -19,15 +19,19 @@ public class ListTasksCommand extends Command {
         return new CommandOutput(convertArrayListToText(model.getTaskList()));
     }
 
-    //@@author JustinChia1997
+    //@@author chenyuheng
+
+    /**
+     * Convert to displayable text format
+     */
     public String convertArrayListToText(ArrayList<Task> tasks) {
         String finalOutput = "";
         if (tasks.size() > 0) {
             for (int i = 0; i < tasks.size(); i += 1) {
                 Task task = tasks.get(i);
                 finalOutput += (task.isDone() ? "[done]" : "[todo]")
-                        + String.valueOf(i+1) + " : " + "Task Name: "
-                        + task.getName().toString()
+                        + (i + 1) + " : " + "Task Name: "
+                        + task.getName()
                         + (task.getTime() != null ? "\tTime: " + task.getTime() : "")
                         + (task.getMemberList().size() != 0 ? "\tAssigned to: " + task.getMemberList().toString() : "")
                         + "\n\n";

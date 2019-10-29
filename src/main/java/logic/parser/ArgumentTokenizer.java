@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 
+//@@author chenyuheng
 public class ArgumentTokenizer {
     public static final String[] TOKENS = new String[]{"/to", "/at", "/from"};
 
+    /**
+     * add javadocs
+     * */
     public static HashMap<String, String> tokenize(String userInput) {
         ArrayList<Integer> breakpoints = getSortedBreakpoints(userInput);
         String[] argumentStrings = breakByBreakpoints(userInput, breakpoints);
@@ -14,6 +18,9 @@ public class ArgumentTokenizer {
         return arguments;
     }
 
+    /**
+     * add javadocs
+     * */
     public static ArrayList<Integer> getSortedBreakpoints(String userInput) {
         ArrayList<Integer> breakpoints = new ArrayList<>();
         for (int i = 0; i < TOKENS.length; i++) {
@@ -30,6 +37,9 @@ public class ArgumentTokenizer {
         return breakpoints;
     }
 
+    /**
+     * add javadocs
+     * */
     public static String[] breakByBreakpoints(String s, ArrayList<Integer> breakpoints) {
         if (breakpoints.size() == 0) {
             return new String[]{s};
@@ -43,6 +53,9 @@ public class ArgumentTokenizer {
         return splits;
     }
 
+    /**
+     * add javadocs
+     * */
     public static HashMap<String, String> getMultimap(String[] argumentStrings) {
         HashMap<String, String> arguments = new HashMap<>();
         for (int i = 0; i < argumentStrings.length; i++) {

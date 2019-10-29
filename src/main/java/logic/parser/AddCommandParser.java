@@ -15,12 +15,14 @@ import java.util.regex.Pattern;
 
 public class AddCommandParser {
     private static final Pattern BASIC_ADD_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    public static final String FORMAT_WRONG_MESSAGE = "Cannot resolve the model type. \nUsage: add [task/member] [details]";
+    public static final String FORMAT_WRONG_MESSAGE = "Cannot resolve the model type. "
+            + "\nUsage: add [task/member] [details]";
     public static final String TASK_NO_EMPTY_MESSAGE = "The name of task cannot be empty.";
     public static final String TIME_PATTERN = "dd/MM/yyyy hhmm";
     public static final String MEMBER_NO_NAME_MESSAGE = "Member name needed. \nShould be: add member [member name]";
 
     //@@author JustinChia1997
+
     /**
      * Parses add commands.
      */
@@ -34,19 +36,20 @@ public class AddCommandParser {
         final String arguments = matcher.group("arguments");
 
         switch (addType) {
-            case AddTaskCommand.COMMAND_WORD:
-                return parseAddTask(arguments);
-
-            case AddMemberCommand.COMMAND_WORD:
-                return parseAddMember(arguments);
-
-            default:
-                throw new DukeException("Command word not found");
+        case AddTaskCommand.COMMAND_WORD:
+            return parseAddTask(arguments);
+        case AddMemberCommand.COMMAND_WORD:
+            return parseAddMember(arguments);
+        default:
+            throw new DukeException("Command word not found");
         }
 
     }
 
     //@@author chenyuheng
+    /**
+     * parses arguments of addtask into a multimap
+     * */
     public static AddTaskCommand parseAddTask(String userInput) throws DukeException {
         HashMap<String, String> argumentMultimap = ArgumentTokenizer.tokenize(userInput);
         String name = argumentMultimap.get("");
@@ -73,7 +76,10 @@ public class AddCommandParser {
         return command;
     }
 
-    //@author chenyuheng
+    //@@author chenyuheng
+    /**
+     * parses arguments of addtask into a multimap
+     * */
     public static AddMemberCommand parseAddMember(String userInput) throws DukeException {
         if (userInput != null) {
             return new AddMemberCommand(userInput);
