@@ -3,12 +3,15 @@ package gazeeebo.commands.capCalculator;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * Calculate the cap by using a formula.
+ */
 public class CalculateCAPCommand {
     /**
      * Calculate the CAP of all the modules.
      *
-     * @param CAPList the object that deals stores semNumber, moduleCode, moduleCredits and GPA score.
-     * @return the GPA.
+     * @param CAPList the object that deals stores semNumber, moduleCode, moduleCredits and CAP score.
+     * @return the CAP.
      */
     public double CAPCalculator(Map<String, ArrayList<CAPCommand>> CAPList) {
         double sumGPAMCS = 0;

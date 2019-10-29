@@ -9,6 +9,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Automatically replaces the task and adds the new task with the new date.
+ */
 public class RecurringCommand {
 
     /**

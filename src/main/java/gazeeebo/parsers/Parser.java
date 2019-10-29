@@ -1,6 +1,6 @@
 package gazeeebo.parsers;
 
-import gazeeebo.commands.Edit.EditCommand;
+import gazeeebo.commands.tasks.edit.EditCommand;
 import gazeeebo.commands.note.AddNoteCommand;
 import gazeeebo.commands.note.DeleteNoteCommand;
 import gazeeebo.commands.note.EditNoteCommand;

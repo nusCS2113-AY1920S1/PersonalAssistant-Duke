@@ -5,6 +5,9 @@ import gazeeebo.UI.Ui;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * Find a module by semNumber or moduleCode.
+ */
 public class FindCAPCommand {
     /*Printing blank spaces*/
     private static final int BLANK_SPACING = 12;
