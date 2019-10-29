@@ -36,7 +36,7 @@ public class ReservationList {
 
     /**
      * Returns a Reservation in the Reservation array by its index number in the array.
-     * @param indexNo the index number of the desired Reservation.
+     * @param i the index number of the desired Reservation.
      * @return the Reservation itself.
      */
     public Reservation getReservationByIndex(int i) {
@@ -45,7 +45,7 @@ public class ReservationList {
 
     /**
      * Returns a Reservation in the Reservation array by its reservation ID.
-     * @param indexNo the reservation ID of the desired Reservation.
+     * @param reservationId the reservation ID of the desired Reservation.
      * @return the Reservation itself.
      * @throws RimsException if no reservation has such an ID.
      */
@@ -61,7 +61,7 @@ public class ReservationList {
 
     /**
      * Adds a new Reservation to the ReservationList.
-     * @param thisResource the newly created Reservation.
+     * @param newReservation the newly created Reservation.
      */
     public void add(Reservation newReservation) {
         reservations.add(newReservation);
@@ -134,6 +134,22 @@ public class ReservationList {
         for (int i = 0; i < size(); i++) {
             Reservation thisReservation = getReservationByIndex(i);
             if ((currentDate.after(thisReservation.getStartDate()) && currentDate.before(thisReservation.getEndDate())) || thisReservation.isOverdue()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //@@author aarushisingh1
+    /**
+     * Checks if this Resource is currently booked under a Reservation, or is overdue from a previous Reservation on the date entered by the user.
+     * @param checkedDate The date entered by the user that is being checked
+     * @return a boolean indicating whether this Resource is currently not booked on that date.
+     */
+    public boolean isAvailableOnDate(Date checkedDate) {
+        for (int i = 0; i < size(); i++) {
+            Reservation thisReservation = getReservationByIndex(i);
+            if ((checkedDate.after(thisReservation.getStartDate()) && checkedDate.before(thisReservation.getEndDate()))) {
                 return false;
             }
         }

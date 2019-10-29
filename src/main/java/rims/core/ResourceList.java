@@ -82,7 +82,7 @@ public class ResourceList {
 
     /**
      * Removes a Resource from the ResourceList, as specified by the ID of that resource.
-     * @param resourceID the ID of the Resource
+     * @param resourceId the ID of the Resource
      * @throws RimsException if there is no such resource with that ID.
      */
     public void deleteResourceById(int resourceId) throws RimsException {
@@ -159,7 +159,7 @@ public class ResourceList {
 
     /**
      * Returns a Resource in the Resource array by its ID number.
-     * @param resourceID the resource ID of the desired Resource.
+     * @param resourceId the resource ID of the desired Resource.
      * @return the Resource itself.
      * @throws RimsException if no such resource has that ID.
      */
@@ -243,6 +243,25 @@ public class ResourceList {
         return number;
     }
 
+    //@@author aarushisingh1
+    /**
+     * Returns the number of resources of a certain name that are currently available to be booked.
+     * @param resourceName the name of the Resource in question.
+     * @param date the date that is being checked.
+     * @return the number of available Resources with that name on that date.
+     */
+    public int getAvailableNumberOfResourceForDate(String resourceName, String date) throws ParseException {
+        ArrayList<Resource> allOfResource = getAllOfResource(resourceName);
+        Date checkedDate = stringToDate(date);
+        int number = 0;
+        for (int i = 0; i < allOfResource.size(); i++) {
+            if (allOfResource.get(i).isAvailableOnDate(checkedDate)) {
+                number++;
+            }
+        }
+        return number;
+    }
+
     // overloaded
     /**
      * Returns the number of resources of a certain name that are available between two given dates.
@@ -277,6 +296,26 @@ public class ResourceList {
         }
         return number;
     }
+
+    //@@author aarushisingh1
+    /**
+     * Returns the number of resources of a certain name that are currently booked.
+     * @param resourceName the name of the Resource in question.
+     * @param date the date that that is being checked
+     * @return the number of booked Resources with that name on that date.
+     */
+    public int getBookedNumberOfResourceForDate(String resourceName, String date) throws ParseException {
+        ArrayList<Resource> allOfResource = getAllOfResource(resourceName);
+        Date checkedDate = stringToDate(date);
+        int number = 0;
+        for (int i = 0; i < allOfResource.size(); i++) {
+            if (!allOfResource.get(i).isAvailableOnDate(checkedDate)) {
+                number++;
+            }
+        }
+        return number;
+    }
+
 
     /**
      * Returns the list of reservations made by a user, given the user's ID.

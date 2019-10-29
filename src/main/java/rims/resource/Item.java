@@ -1,5 +1,7 @@
 package rims.resource;
 
+import rims.exception.RimsException;
+
 /**
  * This class represents an instance of an Item. Contains the name of the Item, its resource ID, type,
  * and a list of Reservation objects representing the reservations made for the Item.
@@ -25,4 +27,5 @@ public class Item extends Resource {
     public Item(int resourceId, String name, ReservationList reservations) {
         super(resourceId, name, reservations);
     }
+
 }

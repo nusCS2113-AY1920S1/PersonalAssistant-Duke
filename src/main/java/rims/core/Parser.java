@@ -2,14 +2,7 @@ package rims.core;
 
 import java.util.ArrayList;
 
-import rims.command.Command;
-import rims.command.CloseCommand;
-import rims.command.ListCommand;
-import rims.command.AddCommand;
-import rims.command.DeleteCommand;
-import rims.command.ReserveCommand;
-import rims.command.ReturnCommand;
-import rims.command.CalendarCommand;
+import rims.command.*;
 import rims.exception.RimsException;
 import rims.core.Ui;
 import rims.core.ResourceList;
@@ -47,14 +40,21 @@ public class Parser {
         else if (input.equals("list") && words.length == 1) {
             c = new ListCommand();
         }
+        else if (input.equals("deadlines") && words.length == 1) {
+            c = new ViewDeadlinesCommand();
+        }
         else if (words[0].equals("cal") && words.length == 1) {
             CalendarCommand.printCal();
             c = new ListCommand();
         }
         else if (words[0].equals("list") && words.length > 1) {
             String paramType = words[1].substring(1);
-            if (paramType.equals("date") || paramType.equals("room") || paramType.equals("item")) {
+            if (paramType.equals("room") || paramType.equals("item")) {
                 String param = ui.getInput("Enter the name of the resource you'd like to view a detailed list of:");
+                c = new ListCommand(paramType, param);
+            }
+            else if(paramType.equals("date")){
+                String param = ui.getInput("Enter the date you'd like to view a detailed list of:");
                 c = new ListCommand(paramType, param);
             }
             else {
