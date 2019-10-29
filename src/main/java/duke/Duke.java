@@ -79,7 +79,6 @@ public class Duke extends Application {
         Ui ui = new Ui();
         ui.execute();
     }
-
     /**
      * Upon running launcher main, start() will run.
      * @param stage The top level JavaFX container.
