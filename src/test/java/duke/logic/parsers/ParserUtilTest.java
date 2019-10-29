@@ -12,10 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParserUtilTest {
 
-    @Test
-    void createTodo() throws Exception {
-        assertTrue(ParserUtil.createTodo("todo Homework") instanceof Todo);
-    }
 
     @Test
     void getFieldInList() throws Exception {

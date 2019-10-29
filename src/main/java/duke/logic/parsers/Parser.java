@@ -1,9 +1,7 @@
 package duke.logic.parsers;
 
-import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.DukeUnknownCommandException;
-import duke.logic.commands.AddCommand;
 import duke.logic.commands.AddSampleItineraryCommand;
 import duke.logic.commands.Command;
 import duke.logic.commands.EditorCommand;
@@ -13,10 +11,6 @@ import duke.logic.commands.ListCommand;
 import duke.logic.commands.ProfileSetPreferenceCommand;
 import duke.logic.commands.ProfileShowCommand;
 import duke.logic.commands.QuickEditCommand;
-import duke.logic.commands.RecommendationsCommand;
-import duke.logic.commands.RouteDeleteCommand;
-import duke.logic.commands.RouteEditCommand;
-import duke.logic.commands.RouteListCommand;
 import duke.logic.commands.RouteManagerExitCommand;
 import duke.logic.commands.RouteManagerHelpCommand;
 import duke.logic.commands.RouteManagerInfoCommand;
