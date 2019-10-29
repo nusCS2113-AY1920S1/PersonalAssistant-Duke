@@ -41,8 +41,6 @@ public class MainParser {
             //return new ExitCommand();
         } else if (isSwitchMode) {
             return new SwitchModeCommand(command); // TODO
-        } else {
-            Ui.printErrorMsg(); //todo
         }
 
         Tag tag = new Tag(inputLine);
@@ -51,19 +49,19 @@ public class MainParser {
         case MODE_DOLLA:
             DollaParser dollaParser = new DollaParser(inputLine);
             //System.out.println("Running DollaParser...");
-            return dollaParser.handleInput(mode, inputLine);
+            return dollaParser.handleInput(mode);
         case MODE_ENTRY:
             EntryParser entryParser = new EntryParser(inputLine);
-            return entryParser.handleInput(mode, inputLine);
+            return entryParser.handleInput(mode);
         case MODE_DEBT:
             DebtsParser debtsParser = new DebtsParser(inputLine);
-            return debtsParser.handleInput(mode, inputLine);
+            return debtsParser.handleInput(mode);
         case MODE_LIMIT:
             LimitParser limitParser = new LimitParser(inputLine);
-            return limitParser.handleInput(mode, inputLine);
+            return limitParser.handleInput(mode);
         case "modify entry": //is this a mode? (asking cause im not sure)
             ModifyParser modifyParser = new ModifyParser(inputLine);
-            return modifyParser.handleInput(mode, inputLine);
+            return modifyParser.handleInput(mode);
         default:
             Ui.printInvalidCommandError();
             return new ErrorCommand();

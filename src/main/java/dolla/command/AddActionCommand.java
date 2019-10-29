@@ -12,7 +12,10 @@ public class AddActionCommand extends Command {
     private String command;
     private String actionInput;
     private int prevPosition;
+    private static final String EMPTY_STACK_MESSAGE = "empty stack";
+    private static final String NULL_MESSAGE = "null";
 
+    //@@author yetong1895
     /**
      * create an instance of AddActionCommand.
      * @param mode    the mode that the user is in.
@@ -29,12 +32,14 @@ public class AddActionCommand extends Command {
      */
     private void undoCommand() {
         actionInput = Undo.processCommand(mode);
-        String[] parser = actionInput.split(" ",2);
-        if (parser[0].equals("remove")) {
-            actionInput = parser[0] + " " + parser[1];
-        } else {
-            prevPosition = Integer.parseInt(parser[0]);
-            actionInput = parser[1];
+        if (!actionInput.equals(EMPTY_STACK_MESSAGE)) {
+            String[] parser = actionInput.split(" ", 2);
+            if (parser[0].equals("remove")) {
+                actionInput = parser[0] + " " + parser[1];
+            } else {
+                prevPosition = Integer.parseInt(parser[0]);
+                actionInput = parser[1];
+            }
         }
     }
 
@@ -42,31 +47,46 @@ public class AddActionCommand extends Command {
      * This method will get teh action input from redo.
      */
     private void redoCommand() {
-        actionInput = Redo.processRedo();
+        actionInput = Redo.processRedo(mode);
     }
 
-    @Override
-    public void execute(DollaData dollaData) throws Exception {
+    /**
+     * This method will get the value of actionInput by calling the respective method to get it.
+     */
+    private void processActionInput() {
         switch (command) {
         case "undo":
             undoCommand();
-            setPrevPosition();
             break;
         case "redo":
-            setRedoFlag();
-            Redo.redoReady(mode);
             redoCommand();
             break;
         case "repeat":
             actionInput = Repeat.getRepeatInput(mode);
             break;
         default:
-            System.out.println("Invalid input"); //TODO:move to UI
+            break;
         }
-        Command c = MainParser.handleInput(mode, actionInput);
-        c.execute(dollaData);
-        resetUndoFlag();
-        resetRedoFlag();
+    }
+
+    @Override
+    public void execute(DollaData dollaData) throws Exception {
+        processActionInput();
+        if (!actionInput.equals(EMPTY_STACK_MESSAGE) && !actionInput.equals(NULL_MESSAGE)) {
+            switch (command) {
+            case "undo":
+                setPrevPosition();
+                break;
+            case "redo":
+                setRedoFlag();
+                break;
+            default:
+                break;
+            }
+
+            Command c = MainParser.handleInput(mode, actionInput);
+            c.execute(dollaData);
+        }
     }
 
     /**
@@ -77,23 +97,9 @@ public class AddActionCommand extends Command {
     }
 
     /**
-     * This method will call the resetUndoFlag method in the respective mode.
-     */
-    private void resetUndoFlag() {
-        Parser.resetUndoFlag();
-    }
-
-    /**
      * This method will call the setRedoFlag method in the respective mode.
      */
     private void setRedoFlag() {
         Parser.setRedoFlag();
-    }
-
-    /**
-     * This method will call the resetRedoFlag method in the respective mode.
-     */
-    private void resetRedoFlag() {
-        Parser.resetUndoFlag();
     }
 }

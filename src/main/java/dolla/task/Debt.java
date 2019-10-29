@@ -10,9 +10,7 @@ import java.time.LocalDate;
 public class Debt extends Record {
 
     protected String type;
-    protected double amount;
     protected String saveType;
-    protected LocalDate date;
 
     /**
      * Instantiates a new Debt.

@@ -1,10 +1,11 @@
 package dolla.parser;
 
-import dolla.command.Command;
-import dolla.command.AddLimitCommand;
-import dolla.command.ShowListCommand;
-import dolla.command.ErrorCommand;
+import dolla.command.SortCommand;
 import dolla.command.RemoveLimitCommand;
+import dolla.command.AddLimitCommand;
+import dolla.command.Command;
+import dolla.command.ErrorCommand;
+import dolla.command.ShowListCommand;
 import dolla.ui.LimitUi;
 
 /**
@@ -12,23 +13,24 @@ import dolla.ui.LimitUi;
  */
 public class LimitParser extends Parser {
 
+    private static final String LIMIT_COMMAND_LIST = "limits";
+    private static final String LIMIT_COMMAND_SET = "set";
+    private static final String LIMIT_COMMAND_REMOVE = "remove";
+    private static final String LIMIT_COMMAND_SORT = "sort";
+
+    private static final String LIMIT_TYPE_S = "saving";
+    private static final String LIMIT_TYPE_B = "budget";
+
+    private static final String LIMIT_DURATION_D = "daily";
+    private static final String LIMIT_DURATION_W = "weekly";
+    private static final String LIMIT_DURATION_M = "monthly";
+
     public LimitParser(String inputLine) {
         super(inputLine);
     }
 
-    protected static final String LIMIT_COMMAND_LIST = "limits";
-    protected static final String LIMIT_COMMAND_SET = "set";
-    protected static final String LIMIT_COMMAND_REMOVE = "remove";
-
-    protected static final String LIMIT_TYPE_S = "saving";
-    protected static final String LIMIT_TYPE_B = "budget";
-
-    protected static final String LIMIT_DURATION_D = "daily";
-    protected static final String LIMIT_DURATION_W = "weekly";
-    protected static final String LIMIT_DURATION_M = "monthly";
-
     @Override
-    public Command handleInput(String mode, String inputLine) {
+    public Command handleInput(String mode) {
         if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_LIST)) { //show limit list todo:resolve bug
             return new ShowListCommand(mode);
         } else if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_SET)) { //add limit
@@ -69,6 +71,8 @@ public class LimitParser extends Parser {
                 return new ErrorCommand();
             }
             return new RemoveLimitCommand(limitType, duration);
+        } else if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_SORT)) {
+            return new SortCommand(mode, inputArray[1]);
         }
         return null;
     }
@@ -90,8 +94,7 @@ public class LimitParser extends Parser {
     }
 
     private double amountFinder() {
-        double amount = stringToDouble(inputArray[2]);
-        return amount;
+        return stringToDouble(inputArray[2]);
     }
 
     private String durationFinder(int index) {

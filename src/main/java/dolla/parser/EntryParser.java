@@ -12,14 +12,16 @@ import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
 
 public class EntryParser extends Parser {
+    private static final String ENTRY_COMMAND_REDO = "redo";
+    private static final String ENTRY_COMMAND_UNDO = "undo";
+    private static final String ENTRY_COMMAND_REPEAT = "repeat";
 
     public EntryParser(String inputLine) {
         super(inputLine);
     }
 
     @Override
-    public Command handleInput(String mode, String inputLine) {
-
+    public Command handleInput(String mode) {
         if (commandToRun.equals("entries")) { //show entry list
             return new ShowListCommand(mode);
         } else if (commandToRun.equals("add")) {
@@ -42,25 +44,30 @@ public class EntryParser extends Parser {
             return new SearchCommand(mode, component, content);
         } else if (commandToRun.equals("remove")) { //TODO: indexoutofbound exception
             return new RemoveCommand(mode, inputArray[1]);
-        } else if (commandToRun.equals("redo") || commandToRun.equals("undo") || commandToRun.equals("Repeat")) {
+        } else if (commandToRun.equals(ENTRY_COMMAND_REDO)
+                || commandToRun.equals(ENTRY_COMMAND_UNDO)
+                || commandToRun.equals(ENTRY_COMMAND_REPEAT)) {
             return new AddActionCommand(mode, commandToRun);
         } else {
             return invalidCommand();
         }
     }
 
+    //@@author yetong1895
     private Command processAdd() {
         Command addEntry;
         Repeat.setRepeatInput("entry", inputLine);
         if (undoFlag == 1) { //undo input
             addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
                     description, date, prevPosition);
+            resetUndoFlag();
         } else if (redoFlag == 1) {
             addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
                     description, date, -2);
         } else { //normal input, prePosition is -1
             addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
                     description, date, -1);
+            resetRedoFlag();
         }
         return addEntry;
     }

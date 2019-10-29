@@ -51,7 +51,7 @@ public class AddDebtsCommand extends Command {
             dollaData.addToRecordList(mode, newDebt);
             Undo.removeCommand(mode,index);
             prevPosition = -1;
-        } else {
+        } else { //from undo
             dollaData.addToPrevPosition(mode, newDebt, prevPosition);
             Redo.removeCommand(mode, prevPosition);
             prevPosition = -1;

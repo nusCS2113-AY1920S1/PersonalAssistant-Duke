@@ -16,7 +16,7 @@ public class DollaParser extends Parser {
     }
 
     @Override
-    public Command handleInput(String mode, String inputLine) {
+    public Command handleInput(String mode) {
 
         if (commandToRun.equals("add")) {
             if (verifyAddCommand() == true) {
