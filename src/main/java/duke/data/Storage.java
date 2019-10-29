@@ -3,6 +3,8 @@ package duke.data;
 import duke.module.TimeSlot;
 import duke.sports.MyClass;
 import duke.sports.MyStudent;
+import duke.sports.MyTraining;
+import duke.sports.MyPlan;
 import duke.task.Item;
 
 import java.io.File;
@@ -12,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -440,4 +443,97 @@ public class Storage {
         }
     }
 
+    /**
+     * Load plans from the text file to a map.
+     * @param map the map of plans to be saved to
+     * @throws FileNotFoundException File not found
+     */
+    public void loadPlans(final Map<String,
+            ArrayList<MyTraining>> map) throws FileNotFoundException {
+        MyPlan plan = new MyPlan();
+        ArrayList<MyTraining> list = new ArrayList<>();
+
+        File f = new File(".\\src\\main\\java\\duke\\data\\plan.txt");
+        String intensity = "";
+        int planNum = 0;
+        try {
+            if (f.length() == 0) {
+                System.out.println("Plan file is empty. Loading failed.");
+            } else {
+                while (fileInput.hasNextLine()) {
+                    String in = fileInput.nextLine();
+
+                    if (in.contains("Intensity")) {
+                        String[] line = in.split(": ");
+                        if (line[1].equals("high")) {
+                            MyPlan.Intensity x = MyPlan.Intensity.high;
+                            intensity = x.toString();
+                        } else if (line[1].equals("moderate")) {
+                            MyPlan.Intensity x = MyPlan.Intensity.moderate;
+                            intensity = x.toString();
+                        } else if (line[1].equals("relaxed")) {
+                            MyPlan.Intensity x = MyPlan.Intensity.relaxed;
+                            intensity = x.toString();
+                        }
+                    }
+
+                    if (in.contains("Plan")) {
+                        String[] line = in.split(": ");
+                        planNum = Integer.parseInt(line[1]);
+                    }
+
+                    if (in.contains(" | ")) {
+                        String[] line = in.split(" \\| ");
+                        MyTraining ac = new MyTraining(line[0],
+                                Integer.parseInt(line[1]),
+                                Integer.parseInt(line[2]));
+                        list.add(ac);
+                    }
+
+                    if (in.equals("\n")) {
+                        String key = plan.createKey(intensity, planNum);
+                        map.put(key, list);
+                    }
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Exception: " + e);
+        }
+    }
+
+    /**
+     * Saves the map of plans to the text file after clearing it.
+     * @param map Updated map of plans to be saved
+     * @throws IOException IO
+     */
+    public void savePlans(final Map<String, ArrayList<MyTraining>> map)
+            throws IOException {
+        MyPlan plan = new MyPlan();
+        ArrayList<String> keys = plan.keyList();
+
+        PrintWriter clear = new PrintWriter(
+                ".\\src\\main\\java\\duke\\data\\plan.txt");
+        clear.close();
+
+        BufferedWriter buffer = new BufferedWriter(
+                new FileWriter(".\\src\\main\\java\\duke\\data\\plan.txt",
+                        true));
+
+        for (int i = 1; i <= MyPlan.Intensity.values().length; i++) {
+            MyPlan.Intensity x = MyPlan.Intensity.valueOf(i);
+            buffer.write("Intensity: " + x);
+            buffer.write("\r\n");
+            for (String s : keys) {
+                if (s.contains(x.toString())) {
+                    ArrayList<MyTraining> p = map.get(s);
+                    buffer.write("Plan: " + s.substring(s.length()));
+                    for (MyTraining y : p) {
+                        buffer.write(y.toFile());
+                        buffer.write("\r\n");
+                    }
+                }
+            }
+        }
+        buffer.close();
+    }
 }

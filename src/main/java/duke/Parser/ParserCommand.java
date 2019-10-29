@@ -10,11 +10,13 @@ public class ParserCommand implements IParser {
     /**
      * Declaring type ManageStudentsParser.
      */
-    private ParserManageStudents parserManageStudents = new ParserManageStudents();
+    private ParserManageStudents parserManageStudents
+        = new ParserManageStudents();
     /**
      * Declaring ParserTrainingPLan type.
      */
-    private ParserTrainingPlan parserTrainingPlan = new ParserTrainingPlan();
+    private ParserTrainingPlan parserTrainingPlan
+        = new ParserTrainingPlan();
 
     /**
      * Parse the respective command.
@@ -27,8 +29,39 @@ public class ParserCommand implements IParser {
             Scanner sc = new Scanner(System.in);
             switch (input) {
                 case "1":
+                    final int returnLessonOption = 3
+                    final int returnMonthlyOption = 3
+                    final int theNumberThree = 3;
                     // Schedule
                     ui.trainingScheduleHeading();
+                    int executeType = sc.nextInt();
+                    sc.nextLine();  // This line you have
+                    // to add (It consumes the \n character)
+                    if (executeType == 1) {
+                        ui.dailyScheduleHeading();
+                        int dailyType = sc.nextInt();
+                        sc.nextLine();  // This line you have
+                        // to add (It consumes the \n character)
+                        if (dailyType == 1) {
+                            ParserSchedule parserSchedule =
+                                new ParserSchedule();
+                            parserSchedule.dailySchedule();
+                        } else if (dailyType == 2) {
+                            ParserGoal parserGoal = new ParserGoal();
+                            parserGoal.runGoal();
+                        } else if (dailyType == returnLessonOption) {
+                            ParserLesson parserLesson = new ParserLesson();
+                            parserLesson.runLesson();
+                        }
+                    } else if (executeType == 2) {
+                        ParserSchedule parserSchedule = new ParserSchedule();
+                        parserSchedule.weeklySchedule();
+                    } else if (executeType == returnMonthlyOption) {
+                        ParserSchedule parserSchedule = new ParserSchedule();
+                        parserSchedule.monthlySchedule();
+                    } else {
+                        ui.showCorrectFormat();
+                    }
                     break;
                 case "2":
                     ui.manageStudentsHeading();
@@ -45,7 +78,7 @@ public class ParserCommand implements IParser {
                             + "but I don't know what that means :-(");
                     break;
             }
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | ParseException e) {
             e.printStackTrace();
         }
     }

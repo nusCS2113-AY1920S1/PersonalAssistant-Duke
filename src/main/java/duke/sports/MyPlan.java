@@ -1,14 +1,19 @@
 package duke.sports;
-//import duke.data.Storage;
-import java.io.File;
+
+import duke.Ui;
+import duke.data.Storage;
+
 import java.io.FileNotFoundException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Collections;
+import java.util.Comparator;
 
  /**
  * Loads a training plan from a txt file, create new plan, or edit a plan.
@@ -17,13 +22,14 @@ import java.util.Set;
 public class MyPlan {
 
      /**
-      * Represents the file path of the plans.
+      * The ui object responsible for showing things to the user.
+      */
+    private Ui ui;
+
+     /**
+      * Represents the file path for the plans.
       */
     private String filePath;
-    /**
-     * Represents a scanner to take in the user input.
-     */
-    private Scanner fileInput;
      /**
       * Represents the list for the current loaded plan to be viewed or edited.
       */
@@ -55,11 +61,16 @@ public class MyPlan {
       */
     public MyPlan() throws FileNotFoundException {
         filePath = ".\\src\\main\\java\\duke\\data\\plan.txt";
-        File f = new File(filePath);
-        fileInput = new Scanner(f);
-        //ArrayList<String> toc = new Storage(filePath).loadPlans(getMap());
+        new Storage(filePath).loadPlans(getMap());
     }
 
+     /**
+      * A getter to retrieve the filepath.
+      * @return filepath
+      */
+    public String getFilePath() {
+        return this.filePath;
+    }
      /**
       * A getter to retrieve the activity name in a plan.
       * @return name of activity
@@ -126,13 +137,39 @@ public class MyPlan {
     }
 
      /**
-      * Retrieves an arraylist of keys from the map.
+      * Retrieves an sorted arraylist of keys from the map.
       * @return the arraylist of keys, sorted by intensity and plan number
       */
     public ArrayList<String> keyList() {
         Set<String> keys = getMap().keySet();
-        ArrayList<String> temp = new ArrayList<>(keys);
-        return temp;
+        ArrayList<String> kl = new ArrayList<>(keys);
+        Collections.sort(kl, new Comparator<String>() {
+            public int compare(final String a, final String b) {
+                return extractInt(a) - extractInt(b);
+            }
+
+            int extractInt(final String s) {
+                String num = s.replaceAll("\\D", "");
+                return num.isEmpty() ? 0 : Integer.parseInt(num);
+            }
+        });
+        return kl;
+    }
+
+     /**
+      * To show the plans available for user to view.
+      */
+    public void showPlanList() {
+        ArrayList<String> planList = keyList();
+        int index = 1;
+        for (String s : planList) {
+            if (index == 1) {
+                System.out.println(s);
+            } else {
+                System.out.println("\n" + s);
+            }
+            index++;
+        }
     }
 
      /**
@@ -151,7 +188,8 @@ public class MyPlan {
       */
     public String addActivity(final String newName, final int newSets,
                               final int newReps) {
-        //getList().add(name);
+        MyTraining newActivity = new MyTraining(newName, newSets, newReps);
+        getList().add(newActivity);
         MyTraining t = new MyTraining(newName, newSets, newReps);
         return "You have added this activity, " + t.toString();
     }
@@ -266,8 +304,7 @@ public class MyPlan {
     public void loadPlan(final String intensity, final String plan) {
         clearPlan();
         if (!Intensity.contains(intensity)) {
-            System.out.println("Please input a proper "
-                   + "intensity level: high, moderate, relaxed");
+            ui.showIntensityLevel();
         } else {
             int planNum = Integer.parseInt(plan.split("/")[1]);
             String key = createKey(intensity, planNum);
@@ -275,8 +312,7 @@ public class MyPlan {
                 for (MyTraining t : getMap().get(key)) {
                     getList().add(t);
                 }
-                System.out.println("You have loaded plan " + planNum + " of "
-                        + intensity + " intensity " + " into the list");
+                ui.showPlanLoaded(planNum, intensity);
             }
         }
     }
@@ -311,27 +347,21 @@ public class MyPlan {
     public void createPlan(final String intensity) {
         clearPlan();
         if (Intensity.contains(intensity)) {
-            System.out.println("Creating plan of " + intensity + " intensity.");
-            System.out.println("Please input activity to add in format of "
-                    + "[activity] [number of sets] [number of reps].");
+            ui.showPlanCreating(intensity);
             while (true) {
                 Scanner sc = new Scanner(System.in);
                 if (sc.hasNextLine()) {
                     String input = sc.nextLine();
                     if (input.equals("finalize")) {
-                        System.out.println("Plan created.");
-                        System.out.println("Saving to map.");
-                        //String key = createKey(intensity,....);
-                        //saveToMap(getList(),key);
+                        ui.showPlanCreated();
+                        ui.showSavePlanToMap();
                         break;
                     } else if (input.equals("show")) {
                         if (getList().isEmpty()) {
-                            System.out.println("No activity has been added.");
+                            ui.showNoActivity();
                         } else {
-                            int x = 1;
-                            System.out.println(viewPlan());
-                            System.out.println("Continue adding activities, "
-                                    + "or finalize plan.");
+                            ui.showViewPlan(viewPlan());
+                            ui.showPlanPrompt1();
                         }
                     } else {
                         String[] details = input.split(" ");
@@ -340,17 +370,14 @@ public class MyPlan {
                                 Integer.parseInt(details[2]));
                         getList().add(a);
                         int temp = getList().size() - 1;
-                        System.out.println("Successfully added activity: "
-                                + getList().get(temp).toString());
-                        System.out.println("Please input new activity,"
-                                + "finalize the plan or look at current list.");
+                        ui.showActivityAdded(getList().get(temp));
+                        ui.showPlanPrompt2();
                     }
                 }
             }
             saveToMap(getList(), intensity, "0");
         } else {
-            System.out.println("Please enter the correct intensity level:"
-                    + " high, moderate or relaxed.");
+            ui.showIntensityLevel();
         }
     }
 
@@ -358,17 +385,17 @@ public class MyPlan {
       * Delete a plan from the map.
       * @param intensity intensity of plan to be deleted
       * @param planNum plan number
-      * @return a string to inform user of result
+      * @throws IOException IO
       */
-    public String deletePlan(final String intensity, final int planNum) {
+    public void deletePlan(final String intensity,
+                             final int planNum) throws IOException {
         String key = createKey(intensity, planNum);
         if (!getMap().containsKey(key)) {
-            System.out.println("Please input the correct"
-                    + " intensity and plan number.");
+            ui.showIntensityAndNumber();
         } else {
             getMap().remove(key);
-            System.out.println("Plan successfully removed.");
+            ui.showPlanRemoved();
         }
-        return "0";
+        //new Storage(getFilePath()).savePlans(getMap());
     }
 }
