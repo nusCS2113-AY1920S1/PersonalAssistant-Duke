@@ -42,14 +42,23 @@ public class Difficulty {
         }
     }
 
+    @Override
     public String toString() {
         return "[" + this.level.toString() + "]";
     }
 
+    /**
+     * Converts the difficulty to string to be stored in a txt file.
+     * @return
+     */
     public String toSaveFormat() {
         return this.level.toString();
     }
 
+    /**
+     * Gets the level of the difficulty.
+     * @return the level of the difficulty; low medium or high.
+     */
     public Level getLevel() {
         return this.level;
     }

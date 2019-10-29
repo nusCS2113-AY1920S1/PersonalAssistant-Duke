@@ -4,6 +4,7 @@ package seedu.hustler.game.shop.items.weapons;
  * The highest tiered Weapon in the shop.
  */
 public class MoonlightSword extends Weapon {
+
     /**
      * The damage increment of the Moonlight Sword.
      */
