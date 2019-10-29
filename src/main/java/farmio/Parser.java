@@ -1,27 +1,6 @@
 package farmio;
 
-import commands.Command;
-import commands.CommandGameLoad;
-import commands.CommandGameQuit;
-import commands.CommandGameSave;
-import commands.CommandGameNew;
-import commands.CommandMenuStart;
-import commands.CommandLevelEnd;
-import commands.CommandLevelStart;
-import commands.CommandTasksRun;
-import commands.CommandCheckObjectives;
-import commands.CommandDayEnd;
-import commands.CommandDayStart;
-import commands.CommandLevelReset;
-import commands.CommandAddName;
-import commands.CommandMenu;
-import commands.CommandTaskDeleteAll;
-import commands.CommandShowList;
-import commands.CommandTaskCreate;
-import commands.CommandTasksHint;
-import commands.CommandTaskDelete;
-import commands.CommandTaskEdit;
-import commands.CommandTaskInsert;
+import commands.*;
 
 
 import usercode.tasks.Task;
@@ -99,6 +78,8 @@ public class Parser {
     private static Command parseMenu(String userInput) throws FarmioException {
         if (userInput.equals("resume game")) {
             return new CommandLevelStart();
+        } else if (userInput.equals("action") || userInput.equals("condition") || userInput.equals("market") || userInput.equals("")) {
+            return new CommandMenuInGame(userInput);
         } else {
             throw new FarmioException("Invalid command!");
         }

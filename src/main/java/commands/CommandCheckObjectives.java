@@ -23,8 +23,6 @@ public class CommandCheckObjectives extends Command {
             farmio.getUi().typeWriter(i,false);
         }
 
-
-
         if (answer == Level.objectiveResult.NOT_DONE) {
             farmio.setStage(Farmio.Stage.DAY_END);
         } else if (answer == Level.objectiveResult.DONE) {
