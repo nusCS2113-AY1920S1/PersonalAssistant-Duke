@@ -14,7 +14,7 @@ import duke.ui.Ui;
 public class RemindCommand extends Command {
     protected int taskIndex;
     protected int reminder;
-//    protected Reminders reminders;
+    //    protected Reminders reminders;
 
     public RemindCommand(int task, int remind) {
         this.taskIndex = task;

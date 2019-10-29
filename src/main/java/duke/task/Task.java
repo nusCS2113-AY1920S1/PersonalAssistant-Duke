@@ -126,6 +126,7 @@ public class Task {
      *
      * @return integer of the number of days to set the reminded task.
      */
+
     public int getReminder() {
         return this.numberOfDays;
     }
@@ -148,9 +149,6 @@ public class Task {
      * @return boolean that triggers the reminder.
      */
     public boolean isTriggerReminder() {
-//        if (reminders != null){
-//            return reminders.isTriggerReminder();
-//        }
         return false;
     }
 
