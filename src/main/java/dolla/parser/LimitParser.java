@@ -28,6 +28,8 @@ public class LimitParser extends Parser {
     protected static final String LIMIT_DURATION_W = "weekly";
     protected static final String LIMIT_DURATION_M = "monthly";
 
+    protected static final String SEARCH_COMMAND = "search";
+
     @Override
     public Command handleInput(String mode, String inputLine) {
         if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_LIST)) { //show limit list todo:resolve bug
@@ -70,7 +72,7 @@ public class LimitParser extends Parser {
                 return new ErrorCommand();
             }
             return new RemoveLimitCommand(limitType, duration);
-        } else if (commandToRun.equals("search") && commandToRun != null) {
+        } else if (commandToRun.equals(SEARCH_COMMAND)) {
             String component = inputArray[1];
             String content = inputArray[2];
             return new SearchCommand(mode, component, content);

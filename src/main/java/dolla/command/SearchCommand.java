@@ -16,6 +16,8 @@ public class SearchCommand extends Command {
     private String component;
     private String searchContent;
 
+    protected static final String COMPONENT_DURATION = "duration";
+
     /**
      * Instantiates a new SearchCommand.
      * @param mode mode Dolla is in
@@ -70,7 +72,7 @@ public class SearchCommand extends Command {
             } else if (component.equals("date")) {
                 SearchUi.printSearchDate(mode, recordList, searchContent);
             }
-        } else if (mode.equals("limit") && component.equals("duration") && component != null && mode != null) {
+        } else if (mode.equals("limit") && component.equals(COMPONENT_DURATION)) {
             SearchUi.printSearchDuration(mode, recordList, searchContent);
         }
     }
