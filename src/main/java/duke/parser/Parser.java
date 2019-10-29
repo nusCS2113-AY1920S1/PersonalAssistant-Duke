@@ -30,7 +30,6 @@ import duke.dukeexception.DukeException;
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.task.Deadline;
-import duke.task.Event;
 import duke.task.Task;
 import duke.task.Repeat;
 import duke.task.FixedDuration;
@@ -218,7 +217,7 @@ public class Parser {
                 }
             }
         } else if (arr.length > ZERO && (arr[ZERO].equals("deadline")
-                || arr[ZERO].equals("dl") || arr[ZERO].equals("event"))) {
+                || arr[ZERO].equals("dl"))) {
             for (int i = ONE; i < arr.length; i++) {
                 if ((arr[i].trim().isEmpty() || !arr[i].substring(ZERO, ONE).equals("/")) && !getDate) {
                     taskDesc += arr[i] + " ";
@@ -239,11 +238,7 @@ public class Parser {
                         + arr[ZERO] + " cannot be empty.");
             } else {
                 Task taskObj;
-                if (arr[ZERO].equals("deadline") || arr[ZERO].equals("dl")) {
-                    taskObj = new Deadline(taskDesc, dateDesc);
-                } else {
-                    taskObj = new Event(taskDesc, dateDesc);
-                }
+                taskObj = new Deadline(taskDesc, dateDesc);
 
                 for (int i = ZERO; i < items.size(); i++) {
                     if (taskObj.getDateTime().equals(items.get(i).getDateTime()) && !items.get(i).isDone()) {

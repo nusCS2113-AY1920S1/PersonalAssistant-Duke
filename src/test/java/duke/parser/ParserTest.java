@@ -38,7 +38,7 @@ class ParserTest {
         assertTrue(cmd instanceof AddCommand);
         cmd = Parser.parse("deadline basketball /by 19/04/2019 1900", items, budgetList, contactList);
         assertTrue(cmd instanceof AddCommand);
-        cmd = Parser.parse("event watch movies /at 20/07/2018 1240", items, budgetList, contactList);
+        cmd = Parser.parse("deadline watch movies /by 20/07/2018 1240", items, budgetList, contactList);
         assertTrue(cmd instanceof AddCommand);
         cmd = Parser.parse("find word", items, budgetList, contactList);
         assertTrue(cmd instanceof FindCommand);
@@ -79,7 +79,7 @@ class ParserTest {
         assertTrue(cmd instanceof AddCommand);
         cmd = Parser.parse("done 1", items, budgetList, contactList);
         cmd.execute(items, ui);
-        cmd = Parser.parse("event party /at 19/04/2019 1900", items, budgetList, contactList);
+        cmd = Parser.parse("deadline party /by 19/04/2019 1900", items, budgetList, contactList);
         assertTrue(cmd instanceof AddCommand);
     }
 }

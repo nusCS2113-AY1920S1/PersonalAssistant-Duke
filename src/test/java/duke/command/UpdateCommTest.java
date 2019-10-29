@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.task.Deadline;
-import duke.task.Event;
+//import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
@@ -22,7 +22,7 @@ class UpdateCommTest {
         items.add(task);
         task = new Deadline("homework", "07/07/2017 1707");
         items.add(task);
-        task = new Event("movie", "05/05/2015 1500");
+        task = new Deadline("movie", "05/05/2015 1500");
         items.add(task);
 
         String taskDesc = "run";
@@ -51,16 +51,16 @@ class UpdateCommTest {
         tasknum = 2;
         cmd = new UpdateCommand(taskDesc,dateDesc,typeDesc,typeOfUpdate,tasknum);
         assertEquals("     Nice! I've updated this task ^^:\n"
-                + "       3.[E]" + taskdummy.getStatusIconGui()
-                + " trampoline (at: 5th of May 2015, 3PM)", cmd.executeGui(items,ui));
+                + "       3.[D]" + taskdummy.getStatusIconGui()
+                + " trampoline (by: 5th of May 2015, 3PM)", cmd.executeGui(items,ui));
 
-        typeDesc = "event";
+        typeDesc = "todo";
         typeOfUpdate = 3;
         tasknum = 1;
         cmd = new UpdateCommand(taskDesc,dateDesc,typeDesc,typeOfUpdate,tasknum);
         assertEquals("     Nice! I've updated this task ^^:\n"
-                + "       2.[E]" + taskdummy.getStatusIconGui()
-                + " homework (at: 8th of August 2018, 5:08 PM)", cmd.executeGui(items,ui));
+                + "       2.[T]" + taskdummy.getStatusIconGui()
+                + " homework", cmd.executeGui(items,ui));
 
         typeDesc = "todo";
         typeOfUpdate = 3;

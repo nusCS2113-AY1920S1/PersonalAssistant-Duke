@@ -276,10 +276,8 @@ public class MainWindow extends AnchorPane {
         cbtaskType.getItems().addAll(
                 "Todo",
                 "Deadline",
-                "Event",
                 "Fixed Duration",
-                "Repeat",
-                "Do After"
+                "Repeat"
         );
     }
 
@@ -298,14 +296,10 @@ public class MainWindow extends AnchorPane {
                 typeStr = "todo";
             } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Deadline")) {
                 typeStr = "deadline";
-            } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Event")) {
-                typeStr = "event";
             } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Fixed Duration")) {
                 typeStr = "fixedduration";
             } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Repeat")) {
                 typeStr = "repeat";
-            } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Do After")) {
-                typeStr = "doafter";
             }
             handleUserEvent("update " + itemNumber + " /type " + typeStr);
         }
