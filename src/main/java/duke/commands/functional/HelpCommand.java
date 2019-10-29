@@ -30,7 +30,7 @@ public class HelpCommand implements Command {
         userCommandList.add("Find a patient's assigned: `find assigned tasks "
                 + ":<patient ID>");
         userCommandList.add("Update a patient's data: `update patient "
-                +":<name/NRIC/room/remark> :<new information>`");
+                + ":<name/NRIC/room/remark> :<new information>`");
         userCommandList.add("Update a task's description: `update task :<new description>`");
         userCommandList.add("Exit the program: `bye`");
 
@@ -41,6 +41,14 @@ public class HelpCommand implements Command {
     public void execute(AssignedTaskManager patientTask, TaskManager tasks, PatientManager patientList, Ui ui, StorageManager storageManager) throws DukeException {
         ui.showHelpOptions(userCommandList);
 
+    }
+
+    public String getHelpCommands() {
+        String output = "Here is the available list of user commands and their respective formats:\n\n";
+        for (String command : userCommandList) {
+            output += "- " + command + "\n";
+        }
+        return output;
     }
 
     @Override

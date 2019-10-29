@@ -1,8 +1,8 @@
 package duke.util;
 
 import duke.exceptions.DukeException;
-import duke.models.patients.Patient;
 import duke.models.assignedtasks.AssignedTask;
+import duke.models.patients.Patient;
 import duke.models.tasks.Task;
 
 import java.util.ArrayList;
@@ -12,8 +12,8 @@ import java.util.Scanner;
  * Represents the necessary ui elements for user interaction.
  */
 public class Ui {
-    private Scanner scanner;
     private static Ui ui;
+    private Scanner scanner;
     private String dukeResponses = "";
     private String userInput;
 
@@ -85,7 +85,7 @@ public class Ui {
      */
     public void taskAdded(Task standardTask) {
         printDukeResponse("Got it. I've added this task: \n"
-            + standardTask.getDescription());
+                + standardTask.getDescription());
     }
 
     /**
@@ -95,15 +95,15 @@ public class Ui {
      */
     public void showPatientInfo(Patient patient) {
         printDukeResponse("Name: "
-            + patient.getName()
-            + "  Id: "
-            + patient.getId()
-            + "\nNRIC: "
-            + patient.getNric()
-            + "  Room: "
-            + patient.getRoom()
-            + "\nRemark: "
-            + patient.getRemark());
+                + patient.getName()
+                + "  Id: "
+                + patient.getId()
+                + "\nNRIC: "
+                + patient.getNric()
+                + "  Room: "
+                + patient.getRoom()
+                + "\nRemark: "
+                + patient.getRemark());
     }
 
     /**
@@ -187,13 +187,13 @@ public class Ui {
      */
     public void patientTaskAssigned(AssignedTask assignedTask, String patientName, String taskName) {
         printDukeResponse("Got it. The following Patient ID: "
-            + assignedTask.getPid()
-            + " "
-            + patientName
-            + " has been assigned the Task ID: "
-            + assignedTask.getTid()
-            + " "
-            + taskName);
+                + assignedTask.getPid()
+                + " "
+                + patientName
+                + " has been assigned the Task ID: "
+                + assignedTask.getTid()
+                + " "
+                + taskName);
     }
 
     /**
@@ -220,8 +220,8 @@ public class Ui {
                 return chosenNumber;
             } else {
                 printDukeResponse("The patient #"
-                    + chosenNumber
-                    + " does not exist. Please enter a valid index number!");
+                        + chosenNumber
+                        + " does not exist. Please enter a valid index number!");
             }
         }
     }
@@ -344,12 +344,12 @@ public class Ui {
         printDukeResponse("Here's a list of your tasks: \n");
         for (Task task : taskList) {
             printDukeResponse(index
-                + ". "
-                + task.getDescription()
-                + " (ID: "
-                + task.getId()
-                + ")"
-                + "\n");
+                    + ". "
+                    + task.getDescription()
+                    + " (ID: "
+                    + task.getId()
+                    + ")"
+                    + "\n");
             index++;
         }
     }
@@ -370,7 +370,7 @@ public class Ui {
         while (true) {
             if (assignedToAnyPatient) {
                 printDukeResponse("The task is to be deleted. These patients will no "
-                    + "longer assigned to this task. Are you sure (Y/N)?");
+                        + "longer assigned to this task. Are you sure (Y/N)?");
             } else {
                 printDukeResponse("The task is to be deleted. Are you sure (Y/N)? ");
             }
@@ -439,20 +439,20 @@ public class Ui {
      */
     public void showWelcome() {
         String logo = " _____        _              _ _        _ \n"
-            +
-            "|  __ \\      | |            (_) |      | |\n"
-            +
-            "| |  | |_   _| | _____ _ __  _| |_ __ _| |\n"
-            +
-            "| |  | | | | | |/ / _ \\ '_ \\| | __/ _` | |\n"
-            +
-            "| |__| | |_| |   <  __/ |_) | | || (_| | |\n"
-            +
-            "|_____/ \\__,_|_|\\_\\___| .__/|_|\\__\\__,_|_|\n"
-            +
-            "                      | |                 \n"
-            +
-            "                      |_|                 \n";
+                +
+                "|  __ \\      | |            (_) |      | |\n"
+                +
+                "| |  | |_   _| | _____ _ __  _| |_ __ _| |\n"
+                +
+                "| |  | | | | | |/ / _ \\ '_ \\| | __/ _` | |\n"
+                +
+                "| |__| | |_| |   <  __/ |_) | | || (_| | |\n"
+                +
+                "|_____/ \\__,_|_|\\_\\___| .__/|_|\\__\\__,_|_|\n"
+                +
+                "                      | |                 \n"
+                +
+                "                      |_|                 \n";
 
         printDukeResponse(logo);
         printDukeResponse("Hello! I'm Duke\nWhat can I do for you?\n\n");
@@ -506,7 +506,7 @@ public class Ui {
      */
     public void taskPatientFound(Task task, ArrayList<AssignedTask> patientTask, ArrayList<Patient> patients) {
         printDukeResponse("The task " + task.getId() + " " + task.getDescription()
-            + " assigned to following patient(s) is/are found : \n");
+                + " assigned to following patient(s) is/are found : \n");
         for (int i = 0; i < patientTask.size(); i++) {
             showLine();
             printDukeResponse(patients.get(i).getId() + ". " + patients.get(i).getName() + "\n");
@@ -595,7 +595,7 @@ public class Ui {
     }
 
     public void showHelpOptions(ArrayList<String> helpOptions) {
-        String output = "These are the commands that the user can use, and their respective formats:\n";
+        String output = "These are the commands that the user can use, and their respective formats:\n\n";
         for (String command : helpOptions) {
             output += " - " + command + "\n";
         }

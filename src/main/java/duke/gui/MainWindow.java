@@ -1,16 +1,19 @@
 package duke.gui;
 
 import duke.Duke;
+import duke.commands.functional.HelpCommand;
 import duke.exceptions.DukeException;
 import duke.models.assignedtasks.AssignedTask;
 import duke.models.patients.Patient;
 import duke.models.tasks.Task;
+import duke.util.Ui;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -18,8 +21,8 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -126,6 +129,8 @@ public class MainWindow extends AnchorPane {
     private DatePicker assignTaskStartDatePicker;
     @FXML
     private DatePicker assignTaskEndDatePicker;
+    @FXML
+    private VBox helpGuideContainer;
 
     private final Duke duke = new Duke("./data");
 
@@ -145,6 +150,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         initializeTableViews();
+        showHelpGuide();
     }
 
     /**
@@ -359,6 +365,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(inputCommand, userImage),
                 DialogBox.getDukeDialog(dukeResponses, dukeImage, isException)
         );
+        showHelpGuide();
         duke.clearDukeResponses();
     }
 
@@ -541,10 +548,14 @@ public class MainWindow extends AnchorPane {
         assignedTaskTable.setItems(sortedAssignedTaskData);
     }
 
-    @FXML
-    private void openHelpTab() {
-
-
+    //@@lmtaek
+    /**
+     * Handler for HelpGuide tab.
+     */
+    public void showHelpGuide() {
+        helpGuideContainer.getChildren().clear();
+        helpGuideContainer.getChildren().addAll(
+                HelpBox.getHelpGuide());
     }
 
 }
