@@ -193,6 +193,7 @@ public class Ui {
         System.out.println("-----------------------------------------------------------------------------"
                 + "--------------------------------------------------------------");
     }
+
     /**
      * Prints a greeting message to the user, which happens at startup.
      */

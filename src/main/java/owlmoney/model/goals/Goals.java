@@ -50,13 +50,15 @@ public class Goals {
         }
     }
 
-    public String convertDateToDays() {
+    /**
+     * Converts date to number of days to check goal deadline.
+     *
+     * @return number of days left to goal deadline.
+     */
+    public int convertDateToDays() {
         long diffInMillies = Math.abs(this.date.getTime() - new Date().getTime());
         long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-        if (diff <= 10) {
-            return this.name + "due in " + diff + "days";
-        }
-        return null;
+        return (int) diff;
     }
 
     /**
@@ -189,11 +191,7 @@ public class Goals {
      * @param newSavingAcc new saving account to tie to Goal.
      */
 
-    void setSavingAccount(Bank newSavingAcc) throws GoalsException {
-        if (newSavingAcc.getCurrentAmount() < this.getGoalsAmount()) {
-            this.savingAccount = newSavingAcc;
-        } else {
-            throw new GoalsException("You cannot add a goal that is already achieved!");
-        }
+    void setSavingAccount(Bank newSavingAcc) {
+        this.savingAccount = newSavingAcc;
     }
 }
