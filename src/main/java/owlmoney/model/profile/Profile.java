@@ -245,13 +245,15 @@ public class Profile {
      * @throws BankException        If bank account does not exist.
      * @throws TransactionException If incorrect date format.
      */
-    public void profileEditExpenditure(int expenditureIndex, String editFromBank, String description, String amount,
-            String date, String category, Ui ui, String type)
+    public void profileEditExpenditure(int expenditureIndex, String editFromBank, String description,
+            String amount, String date, String category, Ui ui, String type)
             throws BankException, TransactionException, CardException {
         if ("card".equals(type)) {
-            cardList.cardListEditExpenditure(expenditureIndex, editFromBank, description, amount, date, category, ui);
+            cardList.cardListEditExpenditure(expenditureIndex, editFromBank, description, amount, date,
+                    category, ui);
         } else if ("bank".equals(type)) {
-            bankList.bankListEditExpenditure(expenditureIndex, editFromBank, description, amount, date, category, ui);
+            bankList.bankListEditExpenditure(expenditureIndex, editFromBank, description, amount, date,
+                    category, ui);
         }
     }
 

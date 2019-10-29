@@ -2,6 +2,7 @@ package owlmoney.model.card;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.transaction.Transaction;
@@ -92,20 +93,6 @@ public class Card {
     }
 
     /**
-     * Gets the credit card details.
-     *
-     * @return String of credit card details.
-     */
-    /*
-    public String getDetails() {
-        return "Card Name: " + getName()
-                + "\nMonthly Limit: $" + new DecimalFormat("0.00").format(getLimit())
-                + "\nRemaining Limit: $" + new DecimalFormat("0.00").format(getRemainingLimit())
-                + "\nRebate: " + new DecimalFormat("0.00").format(getRebate()) + "%";
-    }
-    */
-
-    /**
      * Checks if expenditure exceeds remaining card limit.
      *
      * @param exp Expenditure to be added.
@@ -122,7 +109,7 @@ public class Card {
     }
 
     /**
-     * Adds expenditure to the credit card.
+     * Adds expenditure to the credit card unpaid transaction list.
      *
      * @param exp  Expenditure to be added.
      * @param ui   Ui of OwlMoney.
@@ -135,7 +122,20 @@ public class Card {
     }
 
     /**
-     * Lists the expenditures in the current credit card.
+     * Adds expenditure to the credit card paid transaction list.
+     *
+     * @param exp  Expenditure to be added.
+     * @param ui   Ui of OwlMoney.
+     * @param type Type of account to add expenditure into
+     * @throws CardException If expenditure exceeds card limit.
+     */
+    void addInPaidExpenditure(Transaction exp, Ui ui, String type) throws CardException {
+        this.checkExpExceedRemainingLimit(exp);
+        paid.addExpenditureToList(exp, ui, type);
+    }
+
+    /**
+     * Lists all the unpaid expenditures in the current credit card.
      *
      * @param ui         Ui of OwlMoney.
      * @param displayNum Number of expenditure to list.
@@ -143,6 +143,17 @@ public class Card {
      */
     void listAllExpenditure(Ui ui, int displayNum) throws TransactionException {
         unpaid.listExpenditure(ui, displayNum);
+    }
+
+    /**
+     * Lists all the paid expenditures in the current credit card.
+     *
+     * @param ui         Ui of OwlMoney.
+     * @param displayNum Number of expenditure to list.
+     * @throws TransactionException If no expenditure is found or no expenditure is in the list.
+     */
+    void listAllPaidExpenditure(Ui ui, int displayNum) throws TransactionException {
+        paid.listExpenditure(ui, displayNum);
     }
 
     /**
@@ -176,16 +187,18 @@ public class Card {
             int expYear = unpaid.getTransactionYearByIndex(expNum);
             remainingLimit = limit - unpaid.getMonthAmountSpent(expMonth, expYear);
         } else {
-            LocalDate expDate = LocalDate.parse(date);
-            int expMonth = expDate.getDayOfMonth();
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate expDate = LocalDate.parse(date, dateFormat);
+            int expMonth = expDate.getMonthValue();
             int expYear = expDate.getYear();
             remainingLimit = limit - unpaid.getMonthAmountSpent(expMonth, expYear);
         }
 
-        if (!(amount.isEmpty() || amount.isBlank()) && remainingLimit
-                + unpaid.getExpenditureAmount(expNum) < Double.parseDouble(amount)) {
-            throw new CardException("Edited expenditure cannot exceed remaining limit of $"
-                    + remainingLimit);
+        double existingExpAmount = unpaid.getExpenditureAmount(expNum);
+        double limitLeftExcludeExistingExp = remainingLimit + existingExpAmount;
+        if (!(amount.isEmpty() || amount.isBlank())
+                && limitLeftExcludeExistingExp < Double.parseDouble(amount)) {
+            throw new CardException("Edited expenditure cannot exceed $" + limitLeftExcludeExistingExp);
         }
         unpaid.editExpenditure(expNum, desc, amount, date, category, ui);
     }
@@ -196,7 +209,7 @@ public class Card {
      */
     public double getRemainingLimitNow() {
         LocalDate currentDate = LocalDate.now();
-        int month = currentDate.getDayOfMonth();
+        int month = currentDate.getMonthValue();
         int year = currentDate.getYear();
         return limit - unpaid.getMonthAmountSpent(month, year);
     }
