@@ -10,3 +10,7 @@
     -fx-font-size: 32px;
     -fx-font-weight: bold;
 }
+
+#dialogListView {
+    -fx-font-size: 14px;
+}
