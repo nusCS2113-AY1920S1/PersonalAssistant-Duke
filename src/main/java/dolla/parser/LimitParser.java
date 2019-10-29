@@ -84,7 +84,7 @@ public class LimitParser extends Parser {
                 limitType = LIMIT_TYPE_B;
             } else {
                 LimitUi.invalidLimitTypePrinter();
-                throw new Exception(); //todo:change to limit exception
+                //throw new Exception(); //todo:change to limit exception
             }
         } catch (IndexOutOfBoundsException e) {
             LimitUi.invalidSetCommandPrinter();
