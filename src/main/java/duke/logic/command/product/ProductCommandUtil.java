@@ -9,6 +9,8 @@ import duke.model.inventory.Ingredient;
 import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
 
+import static java.util.Objects.requireNonNull;
+
 public class ProductCommandUtil {
 
     /**
@@ -62,5 +64,16 @@ public class ProductCommandUtil {
                 model.addInventory(newIngredient);
             }
         }
+    }
+
+    /** Calculates the default Ingredient cost of a product using ingredients in the product. */
+    public static Double getIngredientCost(Model model, Product product) {
+        requireNonNull(product);
+        IngredientItemList ingredients = product.getIngredients();
+        if (ingredients.isEmpty()) {
+            return Product.DEFAULT_INGREDIENT_COST;
+        }
+
+        return model.getIngredientCost(ingredients);
     }
 }

@@ -6,6 +6,8 @@ import duke.model.exceptions.EntityNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -102,6 +104,19 @@ public class UniqueEntityList<T> implements Iterable<T> {
     public void setAll(List<T> replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement);
+    }
+
+    /**
+     * Sorts the list using comparator {@code c}.
+     * If {isIncreasing} is true, sorts in increasing order.
+     */
+    public void sort(Comparator<T> c, boolean isIncreasing) {
+        if (isIncreasing) {
+            internalList.sort(c);
+        } else {
+            internalList.sort(Collections.reverseOrder(c));
+        }
+
     }
 
     /**

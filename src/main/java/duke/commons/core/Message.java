@@ -13,5 +13,6 @@ public class Message {
     public static final String MESSAGE_INVALID_INDEX = "Index is invalid.";
     public static final String MESSAGE_INVALID_RANGE = "Range is invalid.";
     public static final String MESSAGE_INVALID_STATUS = "Status is invalid.";
+    public static final String MESSAGE_INVALID_CRITERIA = "This is not a valid sorting criteria.";
     public static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index is out of bound.";
 }
