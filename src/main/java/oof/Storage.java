@@ -116,7 +116,7 @@ public class Storage {
             threshold = Integer.parseInt(line);
             return threshold;
         } catch (IOException e) {
-            System.out.println(e + ", thus please try inputting other things.");
+            File file = new File(PATH_THRESHOLD);
             return DEFAULT_THRESHOLD;
         }
     }
