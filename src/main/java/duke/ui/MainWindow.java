@@ -128,7 +128,7 @@ public class MainWindow extends UiPart<Stage> {
                 if (result instanceof CommandResultMap) {
                     new MapWindow((CommandResultMap) result).show();
                 }
-            } catch (DukeException e) {
+            } catch (DukeException | FileNotFoundException e) {
                 sgTravelShow(e.getMessage());
             }
         });
@@ -138,7 +138,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult result = logic.setup(input);
             sgTravelShow(result);
-        } catch (DukeException e) {
+        } catch (DukeException | FileNotFoundException e) {
             sgTravelShow(e.getMessage());
         }
     }

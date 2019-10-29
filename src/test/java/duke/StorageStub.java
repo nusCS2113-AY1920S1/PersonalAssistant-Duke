@@ -6,11 +6,11 @@ import duke.commons.exceptions.DukeDuplicateTaskException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.ItineraryInsufficientAgendas;
+import duke.commons.exceptions.ItineraryInsufficientAgendasException;
 import duke.commons.exceptions.RecommendationDayExceededException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.commons.exceptions.StorageFileNotFoundException;
-import duke.logic.CreateMap;
+import duke.logic.TransportationMap;
 import duke.logic.parsers.ParserStorageUtil;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.model.Event;
@@ -23,6 +23,7 @@ import duke.model.locations.Venue;
 import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
 import duke.model.planning.Todo;
+import duke.model.profile.ProfileCard;
 import duke.model.transports.BusService;
 import duke.model.transports.Route;
 
@@ -44,7 +45,8 @@ public class StorageStub {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private EventList events;
     private RouteList routes;
-    private CreateMap map;
+    private TransportationMap map;
+    private ProfileCard profileCard;
     private static final String BUS_FILE_PATH = "/data/bus.txt";
     private static final String RECOMMENDATIONS_FILE_PATH = "/data/recommendations.txt";
     private static final String ITINERARIES_FILE_PATH = "testItineraries.txt";
@@ -115,7 +117,7 @@ public class StorageStub {
             }
         }
         s.close();
-        this.map = new CreateMap(busStopData, busData);
+        this.map = new TransportationMap(busStopData, busData);
     }
 
     /**
@@ -254,7 +256,7 @@ public class StorageStub {
      *
      * @throws FileNotSavedException If the file cannot be saved.
      */
-    public void writeItineraries(Itinerary itinerary, int type) throws ItineraryInsufficientAgendas,
+    public void writeItineraries(Itinerary itinerary, int type) throws ItineraryInsufficientAgendasException,
             FileNotSavedException {
         String file;
         if (type == 1) {
@@ -267,7 +269,7 @@ public class StorageStub {
             writer.write(itinerary.getName() + "\n" + itinerary.getStartDate().toString() + "\n"
                     + itinerary.getEndDate().toString() + "\n" + itinerary.getHotelLocation().toString() + "\n");
             if (itinerary.getList().size() != itinerary.getNumberOfDays()) {
-                throw new ItineraryInsufficientAgendas();
+                throw new ItineraryInsufficientAgendasException();
             }
             for (Agenda agenda : itinerary.getList()) {
                 writer.write(agenda.toString());
@@ -325,8 +327,7 @@ public class StorageStub {
             int linecount = 0;
             FileReader fr = new FileReader(f1);
             BufferedReader br = new BufferedReader(fr);
-            String s;
-            while ((s = br.readLine()) != null) {
+            while (br.readLine() != null) {
                 linecount++;
             }
             fr.close();
@@ -415,7 +416,7 @@ public class StorageStub {
         return events;
     }
 
-    public CreateMap getMap() {
+    public TransportationMap getMap() {
         return this.map;
     }
 
@@ -423,5 +424,7 @@ public class StorageStub {
         return routes;
     }
 
-
+    public boolean getIsNewUser() {
+        return profileCard.isNewUser();
+    }
 }

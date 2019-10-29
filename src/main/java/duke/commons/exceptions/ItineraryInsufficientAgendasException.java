@@ -2,8 +2,8 @@ package duke.commons.exceptions;
 
 import duke.commons.Messages;
 
-public class ItineraryInsufficientAgendas extends DukeException {
-    public ItineraryInsufficientAgendas() {
+public class ItineraryInsufficientAgendasException extends DukeException {
+    public ItineraryInsufficientAgendasException() {
         super(Messages.ITINERARY_INSUFFICIENT_AGENDAS);
     }
 }

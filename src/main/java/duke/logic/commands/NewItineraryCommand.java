@@ -1,12 +1,9 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.FileLoadFailException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 import duke.model.planning.Itinerary;
-import duke.storage.Storage;
 
 import java.io.FileNotFoundException;
 

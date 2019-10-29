@@ -5,13 +5,11 @@ import duke.model.locations.Venue;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.logging.Logger;
 
 /**
  * Represents an Itinerary and its contained information.
  */
 public class Itinerary extends AgendaList {
-    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Venue hotelLocation;

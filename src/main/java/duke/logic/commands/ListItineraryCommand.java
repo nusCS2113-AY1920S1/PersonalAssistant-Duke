@@ -3,7 +3,6 @@ package duke.logic.commands;
 import duke.commons.exceptions.DukeException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
-import duke.model.planning.Itinerary;
 
 import java.io.FileNotFoundException;
 

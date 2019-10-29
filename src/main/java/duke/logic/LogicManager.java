@@ -42,7 +42,7 @@ public class LogicManager extends Logic {
      * @param userInput The input string from user.
      * @return CommandResult Object containing information for Ui to display.
      */
-    public CommandResult setup(String userInput) throws DukeException {
+    public CommandResult setup(String userInput) throws DukeException, FileNotFoundException {
         Command c;
         try {
             c = Parser.parseComplexCommand(userInput);

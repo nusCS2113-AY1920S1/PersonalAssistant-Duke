@@ -7,11 +7,11 @@ import duke.commons.exceptions.DukeDuplicateTaskException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.ItineraryInsufficientAgendas;
+import duke.commons.exceptions.ItineraryInsufficientAgendasException;
 import duke.commons.exceptions.RecommendationDayExceededException;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.commons.exceptions.StorageFileNotFoundException;
-import duke.logic.CreateMap;
+import duke.logic.TransportationMap;
 import duke.logic.parsers.ParserStorageUtil;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.model.Event;
@@ -19,16 +19,12 @@ import duke.model.lists.AgendaList;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.locations.BusStop;
-import duke.logic.parsers.ParserTimeUtil;
-import duke.logic.TransportationMap;
-import duke.model.locations.BusStop;
-import duke.model.profile.ProfileCard;
-import duke.model.transports.Route;
 import duke.model.locations.TrainStation;
 import duke.model.locations.Venue;
 import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
 import duke.model.planning.Todo;
+import duke.model.profile.ProfileCard;
 import duke.model.transports.BusService;
 import duke.model.transports.Route;
 
@@ -306,7 +302,7 @@ public class Storage {
      *
      * @throws FileNotSavedException If the file cannot be saved.
      */
-    public void writeItineraries(Itinerary itinerary, int type) throws ItineraryInsufficientAgendas,
+    public void writeItineraries(Itinerary itinerary, int type) throws ItineraryInsufficientAgendasException,
             FileNotSavedException {
         String file;
         if (type == 1) {
@@ -319,7 +315,7 @@ public class Storage {
             writer.write(itinerary.getName() + "\n" + itinerary.getStartDate().toString() + "\n"
                     + itinerary.getEndDate().toString() + "\n" + itinerary.getHotelLocation().toString() + "\n");
             if (itinerary.getList().size() != itinerary.getNumberOfDays()) {
-                throw new ItineraryInsufficientAgendas();
+                throw new ItineraryInsufficientAgendasException();
             }
             for (Agenda agenda : itinerary.getList()) {
                 writer.write(agenda.toString());
@@ -378,8 +374,7 @@ public class Storage {
             int linecount = 0;
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
-            String fileLine;
-            while ((fileLine = br.readLine()) != null) {
+            while (br.readLine() != null) {
                 linecount++;
             }
             fr.close();

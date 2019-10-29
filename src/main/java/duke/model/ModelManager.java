@@ -4,7 +4,7 @@ import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.ItineraryInsufficientAgendas;
+import duke.commons.exceptions.ItineraryInsufficientAgendasException;
 import duke.logic.TransportationMap;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.logic.RouteManager;
@@ -116,7 +116,7 @@ public class ModelManager implements Model {
      * @param itinerary The itinerary to be stored.
      */
     @Override
-    public void saveItinerary(Itinerary itinerary)  throws FileNotSavedException, ItineraryInsufficientAgendas {
+    public void saveItinerary(Itinerary itinerary)  throws FileNotSavedException, ItineraryInsufficientAgendasException {
         storage.writeItineraries(itinerary, 1);
     }
 

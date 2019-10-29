@@ -1,11 +1,10 @@
 package duke;
 
-import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.ItineraryInsufficientAgendas;
+import duke.commons.exceptions.ItineraryInsufficientAgendasException;
 import duke.logic.TransportationMap;
 import duke.commons.exceptions.QueryFailedException;
 import duke.commons.exceptions.RouteDuplicateException;
@@ -126,7 +125,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void saveItinerary(Itinerary itinerary) throws FileNotSavedException, ItineraryInsufficientAgendas {
+    public void saveItinerary(Itinerary itinerary) throws FileNotSavedException, ItineraryInsufficientAgendasException {
         storage.writeItineraries(itinerary, 1);
     }
 

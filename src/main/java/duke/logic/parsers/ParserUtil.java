@@ -1,12 +1,9 @@
 package duke.logic.parsers;
 
+import duke.commons.Messages;
 import duke.commons.enumerations.Constraint;
-import duke.commons.exceptions.ApiNullRequestException;
-import duke.commons.exceptions.ApiTimeoutException;
-import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeEmptyFieldException;
 import duke.commons.exceptions.DukeException;
-import duke.commons.Messages;
 import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.commons.exceptions.InputNotIntException;
 import duke.commons.exceptions.ItineraryEmptyTodoException;
@@ -15,13 +12,14 @@ import duke.commons.exceptions.ItineraryIncorrectCommandException;
 import duke.commons.exceptions.ObjectCreationFailedException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.commons.exceptions.UnknownConstraintException;
+import duke.logic.api.ApiParser;
+import duke.logic.commands.RouteAddCommand;
 import duke.logic.commands.RouteGenerateCommand;
 import duke.logic.commands.RouteNodeAddCommand;
+import duke.model.Event;
 import duke.model.lists.AgendaList;
 import duke.model.locations.BusStop;
 import duke.model.locations.RouteNode;
-import duke.logic.api.ApiParser;
-import duke.model.Event;
 import duke.model.locations.TrainStation;
 import duke.model.locations.Venue;
 import duke.model.planning.Agenda;
@@ -38,7 +36,7 @@ import java.util.logging.Logger;
  * Defines parsing methods for utility functions.
  */
 public class ParserUtil {
-
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     /**
      * Parses the userInput and return a new to-do constructed from it.
      *
