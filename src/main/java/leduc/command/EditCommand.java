@@ -117,20 +117,26 @@ public class EditCommand extends Command {
             String[] eventPeriodString = userSubstring.split("/at");
             String[] priorityString = userSubstring.split("prio");
             if (descriptionString.length == 2 ){
-                t = getEditTask(descriptionString[0],tasks,false);
-                t.setTask(descriptionString[1]);
+                t = getEditTask(descriptionString[0].trim(),tasks,false);
+                t.setTask(descriptionString[1].trim());
             }
             else if (priorityString.length ==2){
-                t = getEditTask(priorityString[0],tasks,false);
-                this.editPriority(t,priorityString[1]);
+                t = getEditTask(priorityString[0].trim(),tasks,false);
+                this.editPriority(t,priorityString[1].trim());
             }
             else if (homeworkDateString.length == 2){
-                t = getEditTask(homeworkDateString[0],tasks,false);
-                this.editHomeworkDate(t,homeworkDateString[1]);
+                t = getEditTask(homeworkDateString[0].trim(),tasks,false);
+                if (!t.isHomework()){
+                    throw new EditFormatException();
+                }
+                this.editHomeworkDate(t,homeworkDateString[1].trim());
             }
             else if (eventPeriodString.length == 2){
-                t = getEditTask(eventPeriodString[0],tasks,false);
-                this.editEventDate(t,tasks,eventPeriodString[1]);
+                t = getEditTask(eventPeriodString[0].trim(),tasks,false);
+                if (!t.isEvent()){
+                    throw new EditFormatException();
+                }
+                this.editEventDate(t,tasks,eventPeriodString[1].trim());
             }
             else {
                 throw new EditFormatException();
