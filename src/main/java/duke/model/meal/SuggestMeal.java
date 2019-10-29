@@ -15,11 +15,12 @@ public class SuggestMeal extends Meal implements Comparable<SuggestMeal> {
         super();
     }
 
-    public SuggestMeal(String description, HashMap<String, Integer> nutritionValue, Calendar suggestionDate) {
+    public SuggestMeal(String description, HashMap<String, Integer> nutritionValue,
+                       Calendar suggestionDate, String mealTypeStr) {
         super(description, nutritionValue);
         // TODO: Use date objects
         this.date = dateparser.format(suggestionDate.getTime());
-        this.type = "L";
+        this.type = mealTypeStr;
     }
 
     /**

@@ -22,23 +22,23 @@ public class MealSuggestionAnalytics {
     }
 
     // get meal suggestion given the calorie limit and the max number of meals to suggest.
-    public ArrayList<Meal> getMealSuggestions(MealList meals, Calendar suggestionDate,
-                                              int calorieLimit, int maxMealsToSuggest) {
+    public ArrayList<Meal> getMealSuggestions(MealList meals, Calendar suggestionDate, int calorieLimit,
+                                              int maxMealsToSuggest, String mealSuggestionTypeStr) {
 
-        setDefaultSuggestionMealList(meals.getStoredList(), suggestionDate);
+        setDefaultSuggestionMealList(meals.getStoredList(), suggestionDate, mealSuggestionTypeStr);
 
         ArrayList<SuggestMeal> suggestionMealList = getMealListWithinCalories(calorieLimit);
-        filterDisplayList(suggestionMealList, maxMealsToSuggest);
+        suggestionMealList = getFilteredDisplayList(suggestionMealList, maxMealsToSuggest);
         return new ArrayList<Meal>(suggestionMealList);
     }
 
     // set the default meal list from which meals are suggested.
-    private void setDefaultSuggestionMealList(HashMap<String, HashMap<String, Integer>>
-                                                      defaultMealSuggestionList, Calendar suggestionDate) {
+    private void setDefaultSuggestionMealList(HashMap<String, HashMap<String, Integer>> defaultMealSuggestionList,
+                                              Calendar suggestionDate, String mealTypeStr) {
         defaultSuggestionMealList.clear();
         for (String mealNameStr : defaultMealSuggestionList.keySet()) {
             HashMap<String, Integer> mealNutrients  = defaultMealSuggestionList.get(mealNameStr);
-            defaultSuggestionMealList.add(new SuggestMeal(mealNameStr, mealNutrients, suggestionDate));
+            defaultSuggestionMealList.add(new SuggestMeal(mealNameStr, mealNutrients, suggestionDate, mealTypeStr));
         }
     }
 
@@ -74,7 +74,7 @@ public class MealSuggestionAnalytics {
      * @param mealList Input meal list that is modified by reference.
      * @param maxMealsToSuggest Maximum number of meals to be suggested as set by user.
      */
-    private void filterDisplayList(ArrayList<SuggestMeal> mealList, int maxMealsToSuggest) {
+    private ArrayList<SuggestMeal> getFilteredDisplayList(ArrayList<SuggestMeal> mealList, int maxMealsToSuggest) {
         int endIdx = mealList.size();
         int startIdx = endIdx - maxMealsToSuggest;
 
@@ -83,5 +83,6 @@ public class MealSuggestionAnalytics {
         }
 
         mealList = new ArrayList<SuggestMeal>(mealList.subList(startIdx, endIdx));
+        return mealList;
     }
 }

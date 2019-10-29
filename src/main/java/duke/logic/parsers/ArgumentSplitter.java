@@ -62,7 +62,7 @@ public class ArgumentSplitter {
          */
         for (String tempStr : tempSplitStrings) {
             if (!tempStr.isEmpty()) {
-                valueStrings.add(tempStr);
+                valueStrings.add(tempStr.trim());
             }
         }
 

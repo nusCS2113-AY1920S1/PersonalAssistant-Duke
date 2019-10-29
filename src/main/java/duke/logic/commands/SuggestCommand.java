@@ -18,6 +18,7 @@ import java.util.Calendar;
 public class SuggestCommand extends Command {
 
     private int maxMealsToSuggest;
+    private String mealSuggestionTypeStr;
     private MealSuggestionAnalytics mealSuggestionAnalytics;
     private AddCommand addCommand;
     private ArrayList<Meal> suggestedMealList;
@@ -29,10 +30,11 @@ public class SuggestCommand extends Command {
      * @param suggestionDate Date on which meal suggestion is required.
      * @param maxMealsToSuggest Maximum number of suggested meals to be shown to the user.
      */
-    public SuggestCommand(Calendar suggestionDate, int maxMealsToSuggest) {
+    public SuggestCommand(Calendar suggestionDate, int maxMealsToSuggest, String mealTypeStr) {
         this.calendarDate = suggestionDate;
         this.currentDateStr = dateFormat.format(this.calendarDate.getTime());
         this.maxMealsToSuggest = maxMealsToSuggest;
+        this.mealSuggestionTypeStr = mealTypeStr;
     }
 
     // Constructor called when parser fails to parse arguments
@@ -61,8 +63,8 @@ public class SuggestCommand extends Command {
 
         mealSuggestionAnalytics = new MealSuggestionAnalytics();
         int calorieLimit = getCalorieLimit(user, meals.getMealsList(currentDateStr));
-        suggestedMealList = mealSuggestionAnalytics.getMealSuggestions(meals, calendarDate,
-                                                                        calorieLimit, maxMealsToSuggest);
+        suggestedMealList = mealSuggestionAnalytics.getMealSuggestions(meals, calendarDate, calorieLimit,
+                                                                        maxMealsToSuggest, mealSuggestionTypeStr);
 
         if (suggestedMealList.size() > 0) {
             ui.showSuggestedMealList(suggestedMealList, currentDateStr);
@@ -88,6 +90,7 @@ public class SuggestCommand extends Command {
 
         if (mealSelectedIndex == 0) {
             ui.showMessage("Declining suggestions.");
+            ui.showLine();
             isDone = true;
             return;
         } else if (1 > mealSelectedIndex || mealSelectedIndex > suggestedMealList.size()) {
