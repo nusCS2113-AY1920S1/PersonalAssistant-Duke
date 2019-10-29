@@ -4,15 +4,31 @@ import duke.commons.enumerations.Constraint;
 import duke.commons.exceptions.DukeEmptyFieldException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
+import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.commons.exceptions.InputNotIntException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.commons.exceptions.UnknownConstraintException;
 import duke.logic.commands.RouteGenerateCommand;
+import duke.model.planning.Todo;
 
 /**
  * Defines parsing methods for utility functions.
  */
 public class ParserUtil {
+
+    /**
+     * Parses the userInput and return a new to-do constructed from it.
+     *
+     * @param userInput The userInput read by the user interface.
+     * @return The new to-do object.
+     */
+    protected static Todo createTodo(String userInput) throws DukeException {
+        String description = userInput.substring("todo".length()).strip();
+        if (description.isEmpty()) {
+            throw new DukeUnknownCommandException();
+        }
+        return new Todo(description);
+    }
 
 
     /**

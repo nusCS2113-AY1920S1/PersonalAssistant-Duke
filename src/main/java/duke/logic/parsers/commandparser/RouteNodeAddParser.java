@@ -53,12 +53,12 @@ public class RouteNodeAddParser extends CommandParser {
             if (type.substring(0, 2).equals("at")) {
                 details = withinDetails[1].strip().split("by ");
                 switch (details[1].toUpperCase()) {
-                    case "BUS":
-                        return new BusStop(details[0].strip(), null, null, 0, 0);
-                    case "MRT":
-                        return new TrainStation(new ArrayList<>(), details[0].strip(), null, 0, 0);
-                    default:
-                        throw new DukeException(Messages.ERROR_COMMAND_UNKNOWN);
+                case "BUS":
+                    return new BusStop(details[0].strip(), null, null, 0, 0);
+                case "MRT":
+                    return new TrainStation(new ArrayList<>(), details[0].strip(), null, 0, 0);
+                default:
+                    throw new DukeException(Messages.ERROR_COMMAND_UNKNOWN);
                 }
             } else {
                 details = withinDetails[1].split("by ");

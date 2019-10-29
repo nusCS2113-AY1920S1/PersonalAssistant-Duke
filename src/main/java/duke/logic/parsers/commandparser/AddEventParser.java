@@ -6,7 +6,6 @@ import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.logic.commands.AddCommand;
 import duke.logic.commands.Command;
 import duke.logic.parsers.ParserTimeUtil;
-import duke.logic.parsers.ParserUtil;
 import duke.model.Event;
 
 import java.time.LocalDateTime;

@@ -7,7 +7,6 @@ import duke.logic.api.ApiParser;
 import duke.logic.commands.Command;
 import duke.logic.commands.RecommendationsCommand;
 import duke.logic.parsers.ParserTimeUtil;
-import duke.logic.parsers.ParserUtil;
 import duke.model.locations.Venue;
 import duke.model.planning.Itinerary;
 

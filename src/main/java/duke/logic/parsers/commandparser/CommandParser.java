@@ -1,9 +1,6 @@
 package duke.logic.parsers.commandparser;
 
-import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.InputNotIntException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
 
 import java.util.logging.Logger;
 
