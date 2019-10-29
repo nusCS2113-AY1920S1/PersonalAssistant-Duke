@@ -2,7 +2,7 @@ package duke.data;
 
 import duke.models.TimeSlot;
 import duke.models.MyClass;
-import duke.models.MyStudent;
+import duke.models.manageStudents.MyStudent;
 import duke.models.MyTraining;
 import duke.models.MyPlan;
 import duke.task.Item;

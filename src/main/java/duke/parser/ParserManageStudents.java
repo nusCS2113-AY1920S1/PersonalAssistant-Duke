@@ -1,7 +1,7 @@
 package duke.parser;
 
-import duke.models.ManageStudents;
-import duke.models.MyStudent;
+import duke.models.manageStudents.ManageStudents;
+import duke.models.manageStudents.MyStudent;
 
 import java.util.Scanner;
 
