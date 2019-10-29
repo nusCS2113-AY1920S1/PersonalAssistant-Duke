@@ -2,8 +2,6 @@ package duke.Parser;
 
 import java.io.FileNotFoundException;
 
-import java.text.ParseException;
-
 
 public interface IParser {
     /**

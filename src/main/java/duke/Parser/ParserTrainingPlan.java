@@ -1,11 +1,9 @@
 package duke.Parser;
 
-import duke.data.Storage;
+
 import duke.sports.MyPlan;
 import duke.Ui;
-
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class ParserTrainingPlan implements IParser {
 
