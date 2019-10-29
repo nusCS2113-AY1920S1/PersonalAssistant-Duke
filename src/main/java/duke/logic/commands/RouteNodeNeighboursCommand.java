@@ -92,11 +92,9 @@ public class RouteNodeNeighboursCommand extends Command {
         ArrayList<Venue> temp = new ArrayList<>();
         RouteNode node = model.getRoutes().get(indexRoute).getNode(indexNode);
         for (Map.Entry mapElement : model.getMap().getBusStopMap().entrySet()) {
-            if (((BusStop) mapElement.getValue()).getDistance(node) < DISTANCE_THRESHOLD) {
-                if (node instanceof BusStop
-                        && !((BusStop) mapElement.getValue()).getBusCode().equals(((BusStop) node).getBusCode())) {
-                    temp.add((BusStop) mapElement.getValue());
-                }
+            if (node instanceof BusStop && ((BusStop) mapElement.getValue()).getDistance(node) < DISTANCE_THRESHOLD
+                    && !((BusStop) mapElement.getValue()).getBusCode().equals(((BusStop) node).getBusCode())) {
+                temp.add((BusStop) mapElement.getValue());
             }
         }
 

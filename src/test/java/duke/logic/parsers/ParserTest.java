@@ -4,7 +4,6 @@ import duke.logic.commands.ExitCommand;
 import duke.logic.commands.ListCommand;
 import duke.logic.commands.MarkDoneCommand;
 
-import duke.model.ModelManager;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
