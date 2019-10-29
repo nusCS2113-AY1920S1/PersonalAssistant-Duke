@@ -27,7 +27,7 @@ public class CAPCommand extends Command {
 
     /** Decodes the command input in the CAP page. */
     @Override
-    public void execute(final ArrayList<Task> list, final  Ui ui, final Storage storage, final Stack<String> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(final ArrayList<Task> list, final  Ui ui, final Storage storage, final Stack<ArrayList<Task>> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         String helpCAP = "__________________________________________________________\n"
                 + "1. Add module: add\n"
                 + "2. Find module: find moduleCode/semNumber\n"

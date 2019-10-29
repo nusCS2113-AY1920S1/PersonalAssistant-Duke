@@ -11,7 +11,7 @@ import java.util.*;
 
 public class SpecializationCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
         HashMap<String, ArrayList<ModuleCategory>> sMap = storage.Specialization(); //Read the file
         Map<String, ArrayList<ModuleCategory>> specMap = new TreeMap<>(sMap);
         HashMap<String, ArrayList<String>> eMap = storage.completedElectives(); //Read the file

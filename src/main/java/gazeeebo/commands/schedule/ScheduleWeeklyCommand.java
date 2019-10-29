@@ -32,10 +32,11 @@ public class ScheduleWeeklyCommand extends Command {
      * @param list the tasks list.
      * @param ui the object that deals with printing things to the user.
      * @param storage the object that deals with storing data to the Save.txt file.
+     * @param commandStack
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws NullPointerException {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             String[] date = ui.fullCommand.split(" ");

@@ -15,7 +15,7 @@ import java.util.Stack;
 
 public class studyassistCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException, DukeException, ParseException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException, DukeException, ParseException {
         System.out.println("Welcome to Module Planner!");
         System.out.println("__________________________________________________________");
         System.out.println("1. Add module to your plan: add CSXXXX to n(Semester number)");

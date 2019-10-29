@@ -14,7 +14,7 @@ import java.util.Stack;
 
 public class DoneCommand extends Command {
     @Override
-    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<String> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<ArrayList<Task>> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException {
         try {
             if (ui.fullCommand.equals("done")) {
                 throw new DukeException("The task done number cannot be empty.");
@@ -50,16 +50,7 @@ public class DoneCommand extends Command {
             System.out.println(e.getMessage());
         }
     }
-    public void undo(final String command, final ArrayList<Task> list, final Storage storage) throws IOException {
-        int numberCheck = Integer.parseInt(command.substring(5)) - 1;
-        list.get(numberCheck).isDone = false;
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            sb.append(list.get(i).toString() + "\n");
-        }
-        storage.writeToSaveFile(sb.toString());
-        System.out.println("Nice! I've undo this command" + command);
-    }
+
     @Override
     public boolean isExit() {
         return false;

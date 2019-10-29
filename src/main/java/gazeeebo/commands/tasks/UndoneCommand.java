@@ -14,7 +14,7 @@ import java.util.Stack;
 
 public class UndoneCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
 
         if (ui.fullCommand.equals("undo")) {
             throw new DukeException("The undo task number cannot be empty.");
@@ -34,16 +34,7 @@ public class UndoneCommand extends Command {
         }
         storage.writeToSaveFile(sb.toString());
     }
-    public void undo(String command, ArrayList<Task> list, Storage storage) throws IOException {
-        int numberCheck = Integer.parseInt(command.substring(7)) - 1;
-        list.get(numberCheck).isDone = true;
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            sb.append(list.get(i).toString() + "\n");
-        }
-        storage.writeToSaveFile(sb.toString());
-        System.out.println("Nice! I've undo this command" + command);
-    }
+
     @Override
     public boolean isExit() {
         return false;

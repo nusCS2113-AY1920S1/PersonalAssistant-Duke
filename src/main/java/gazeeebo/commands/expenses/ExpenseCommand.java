@@ -28,10 +28,11 @@ public class ExpenseCommand extends Command {
      * @param list list of all tasks
      * @param ui the object that deals with printing things to the user.
      * @param storage the object that deals with storing data.
+     * @param commandStack
      * @throws IOException Catch error if the read file fails
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
         HashMap<LocalDate, ArrayList<String>> map = storage.Expenses(); //Read the file
         Map<LocalDate, ArrayList<String>> expenses = new TreeMap<LocalDate, ArrayList<String>>(map);
 

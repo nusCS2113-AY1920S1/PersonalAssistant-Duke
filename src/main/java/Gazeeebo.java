@@ -21,7 +21,7 @@ public class Gazeeebo {
      */
     public static void main(String[] args) throws IOException {
         ArrayList<Task> list;
-        Stack<String> CommandStack = new Stack<String>();
+        Stack<ArrayList<Task>> CommandStack = new Stack<ArrayList<Task>>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         Storage store = new Storage();
         TriviaManager triviaManager = new TriviaManager(store);
@@ -43,9 +43,6 @@ public class Gazeeebo {
                 Command c = Parser.parse(command, ui);
                 if (c != null) {
                     c.execute(list, ui, store, CommandStack, deletedTask, triviaManager);
-                    if (!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {
-                        CommandStack.push(command);
-                    }
                     isExit = c.isExit();
                 }
             }
