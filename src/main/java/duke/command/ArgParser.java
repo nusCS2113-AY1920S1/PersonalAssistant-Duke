@@ -196,7 +196,7 @@ public class ArgParser {
         }
 
         if (!switchMap.containsKey(newSwitchName)) {
-            String findSwitchName = CommandHelpers.findSwitch(newSwitchName, currCommand);
+            String findSwitchName = CommandUtils.findSwitch(newSwitchName, currCommand);
             if (findSwitchName == null) {
                 throw new DukeHelpException("I don't know what this switch is: " + newSwitchName, currCommand);
             }

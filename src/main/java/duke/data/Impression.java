@@ -69,12 +69,12 @@ public class Impression extends DukeObject {
      * @param searchTerm the term to be searched for
      * @return ArrayList of the Treatments
      */
-    public ArrayList<Treatment> findTreatment(String searchTerm) {
+    public ArrayList<Treatment> findTreatments(String searchTerm) {
         ArrayList<Treatment> searchResult = new ArrayList<>();
-        for (Map.Entry<String, Treatment> mapElement : this.observableTreaments.entrySet()) {
-            Treatment valueT = mapElement.getValue();
-            if (valueT.toString().contains(searchTerm)) {
-                searchResult.add(valueT);
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Treatment treatment : this.observableTreaments.values()) {
+            if (treatment.toString().toLowerCase().contains(lowerSearchTerm)) {
+                searchResult.add(treatment);
             }
         }
         return searchResult;
@@ -85,12 +85,12 @@ public class Impression extends DukeObject {
      * @param searchTerm the term to be searched for
      * @return ArrayList of the Evidence
      */
-    public ArrayList<Evidence> findEvidence(String searchTerm) {
+    public ArrayList<Evidence> findEvidences(String searchTerm) {
         ArrayList<Evidence> searchResult = new ArrayList<>();
-        for (Map.Entry<String, Evidence> mapElement : this.observableEvidences.entrySet()) {
-            Evidence valueE = mapElement.getValue();
-            if (valueE.toString().contains(searchTerm)) {
-                searchResult.add(valueE);
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Evidence evidence : this.observableEvidences.values()) {
+            if (evidence.toString().toLowerCase().contains(lowerSearchTerm)) {
+                searchResult.add(evidence);
             }
         }
         return searchResult;
@@ -104,8 +104,52 @@ public class Impression extends DukeObject {
      */
     public ArrayList<DukeData> find(String searchTerm) {
         ArrayList<DukeData> searchResult = new ArrayList<>();
-        searchResult.addAll(findEvidence(searchTerm));
-        searchResult.addAll(findTreatment(searchTerm));
+        searchResult.addAll(findEvidences(searchTerm));
+        searchResult.addAll(findTreatments(searchTerm));
+        return searchResult;
+    }
+
+    /**
+     * This function searches for treatments whose names contain the searchTerm.
+     * @param searchTerm the term to be searched for
+     * @return ArrayList of the Treatments
+     */
+    public ArrayList<Treatment> findTreatmentsByName(String searchTerm) {
+        ArrayList<Treatment> searchResult = new ArrayList<>();
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Map.Entry<String, Treatment> entry : this.observableTreaments.entrySet()) {
+            if (entry.getKey().toLowerCase().contains(lowerSearchTerm)) {
+                searchResult.add(entry.getValue());
+            }
+        }
+        return searchResult;
+    }
+
+    /**
+     * This function searches for evidences whose names contain the searchTerm.
+     * @param searchTerm the term to be searched for
+     * @return ArrayList of the Evidences
+     */
+    public ArrayList<Evidence> findEvidencesByName(String searchTerm) {
+        ArrayList<Evidence> searchResult = new ArrayList<>();
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Map.Entry<String, Evidence> entry : this.observableEvidences.entrySet()) {
+            if (entry.getKey().toLowerCase().contains(lowerSearchTerm)) {
+                searchResult.add(entry.getValue());
+            }
+        }
+        return searchResult;
+    }
+
+    /**
+     * This function searches for DukeData whose names contain the searchTerm.
+     * @param searchTerm String to be used to filter the DukeData
+     * @return the list of DukeData
+     */
+    public ArrayList<DukeData> findByName(String searchTerm) {
+        ArrayList<DukeData> searchResult = new ArrayList<>();
+        searchResult.addAll(findEvidencesByName(searchTerm));
+        searchResult.addAll(findTreatmentsByName(searchTerm));
         return searchResult;
     }
 
@@ -132,7 +176,7 @@ public class Impression extends DukeObject {
             this.observableEvidences.remove(keyIdentifier);
             return evidence;
         } else {
-            throw new DukeException("I don't have that entry in the list!");
+            throw new DukeException("I can't delete that evidence because I don't have it!");
         }
     }
 
@@ -146,7 +190,7 @@ public class Impression extends DukeObject {
         if (this.observableEvidences.containsKey(keyIdentifier)) {
             return this.observableEvidences.get(keyIdentifier);
         } else {
-            throw new DukeException("I don't have that entry in the list!");
+            throw new DukeException("I don't have any evidence called that!");
         }
     }
 
@@ -173,7 +217,7 @@ public class Impression extends DukeObject {
             this.observableTreaments.remove(keyIdentifier);
             return treatment;
         } else {
-            throw new DukeException("I don't have that entry in the list!");
+            throw new DukeException("I can't delete that treatment because I don't have it!");
         }
     }
 
@@ -187,7 +231,7 @@ public class Impression extends DukeObject {
         if (this.observableTreaments.containsKey(keyIdentifier)) {
             return this.observableTreaments.get(keyIdentifier);
         } else {
-            throw new DukeException("I don't have that entry in the list!");
+            throw new DukeException("I don't have any treatment called that!");
         }
     }
 
@@ -334,7 +378,6 @@ public class Impression extends DukeObject {
         }
     }
 
-
     /**
      * Calls getCriticalCount() to compute the number of critical itmes (items with priority 1) and returns a string
      * indicating this value.
@@ -343,11 +386,11 @@ public class Impression extends DukeObject {
     public String getCriticalCountStr() {
         int count = getCriticalCount();
         if (count == 0) {
-            return "No issues";
+            return "No critical issues";
         } else if (count == 1) {
-            return "1 issue";
+            return "1 critical issue";
         } else {
-            return count + "issues";
+            return count + "critical issues";
         }
     }
 }

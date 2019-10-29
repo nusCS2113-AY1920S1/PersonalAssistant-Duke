@@ -20,7 +20,7 @@ public class Result extends Evidence {
     @Override
     public String toString() {
         // todo
-        return null;
+        return super.toString();
     }
 
     @Override

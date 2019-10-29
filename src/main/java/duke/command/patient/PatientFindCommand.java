@@ -6,7 +6,9 @@ import duke.command.ArgSpec;
 import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Patient;
+import duke.data.SearchResult;
 import duke.exception.DukeException;
+import duke.ui.context.Context;
 
 import java.util.ArrayList;
 
@@ -28,25 +30,29 @@ public class PatientFindCommand extends ArgCommand {
         if (getSwitchVals().isEmpty()) {
             searchResult = patient.find(searchTerm);
         } else {
-            impressionResult = patient.findImpression(searchTerm);
+            impressionResult = patient.findImpressions(searchTerm);
             for (Impression imp : impressionResult) {
                 if (getSwitchVals().containsKey("impression")) {
                     searchResult.add(imp);
                 }
                 if (getSwitchVals().containsKey("evidence")) {
-                    searchResult.addAll(imp.findEvidence(searchTerm));
+                    searchResult.addAll(imp.findEvidences(searchTerm));
                 }
                 if (getSwitchVals().containsKey("treatment")) {
-                    searchResult.addAll(imp.findTreatment(searchTerm));
+                    searchResult.addAll(imp.findTreatments(searchTerm));
                 }
             }
         }
 
-        String information = "";
+        /*String information = "";
 
         for (int i = 0; i < searchResult.size(); i++) {
             information += (i + 1) + ". " + searchResult.get(i).getName() + "\n";
-        }
-        core.ui.print(findStr + information);
+        }*/
+        SearchResult search = new SearchResult(searchTerm, searchResult, patient);
+        core.uiContext.setContext(Context.SEARCH, search);
+        core.ui.print("Returning result of search of " + searchTerm);
+
+        //core.ui.print(findStr + information);
     }
 }

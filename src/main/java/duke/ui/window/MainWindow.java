@@ -5,6 +5,7 @@ import duke.command.Executor;
 import duke.command.Parser;
 import duke.data.Impression;
 import duke.data.Patient;
+import duke.data.SearchResult;
 import duke.ui.UiElement;
 import duke.ui.context.Context;
 import duke.ui.context.UiContext;
@@ -43,6 +44,7 @@ public class MainWindow extends UiElement<Stage> {
     private Tab homeTab;
     private Tab patientTab;
     private Tab impressionTab;
+    private Tab searchTab;
 
     /**
      * Constructs the main UI window to house child UI elements.
@@ -102,6 +104,13 @@ public class MainWindow extends UiElement<Stage> {
                         (Patient) impression.getParent()).getRoot());
                 contextWindowHolder.getTabs().add(2, impressionTab);
                 contextWindowHolder.getSelectionModel().select(impressionTab);
+                break;
+            case SEARCH:
+                contextWindowHolder.getTabs().remove(searchTab);
+                SearchResult searchResult = (SearchResult) uiContext.getObject();
+                searchTab = new Tab("Search", new SearchWindow(searchResult).getRoot());
+                contextWindowHolder.getTabs().add(3, searchTab);
+                contextWindowHolder.getSelectionModel().select(searchTab);
                 break;
             default:
                 break;

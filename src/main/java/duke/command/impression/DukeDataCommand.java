@@ -1,13 +1,13 @@
 package duke.command.impression;
 
+import duke.command.ArgCommand;
 import duke.exception.DukeException;
-import duke.exception.DukeHelpException;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public abstract class DukeDataCommand extends ImpressionCommand {
+public abstract class DukeDataCommand extends ArgCommand {
 
     private static final Map<String, List<String>> forbiddenSwitchesMap = Map.ofEntries(
             Map.entry("medicine", Arrays.asList("summary", "subjective", "objective")),
@@ -55,35 +55,6 @@ public abstract class DukeDataCommand extends ImpressionCommand {
         }
     }
 
-    /**
-     * Checks if a status is a string or an integer, and returns the appropriate integer if it is a string.
-     * @param status The String supplied as an argument to the status switch.
-     * @param statusList The status descriptions that the numeric value of the status represent. The numeric value of
-     *                  the status is the index of the corresponding description in the array.
-     * @return The Integer that the string represents, or 0 if it is null.
-     * @throws NumberFormatException If the string is not a valid representation of an integer.
-     */
-    protected Integer processStatus(String status, List<String> statusList) throws DukeHelpException {
-        if ("".equals(status)) {
-            return 0;
-        } else {
-            try {
-                int convertedStatus = Integer.parseInt(status);
-                if (convertedStatus < 0 || convertedStatus >= statusList.size()) {
-                    throw new DukeHelpException(status + "is not a valid numeric value for the status!", this);
-                }
-                return convertedStatus;
-            } catch (NumberFormatException excp) { // not numeric
-                // TODO: parse with autocorrect?
-                for (int i = 0; i < statusList.size(); ++i) {
-                    if (statusList.get(i).equalsIgnoreCase(status)) {
-                        return i;
-                    }
-                }
-                throw new DukeHelpException("'" + status + "' is not a valid status name!", this);
-            }
-        }
-    }
 
     protected List<String> getForbiddenSwitches(String dataType) {
         return forbiddenSwitchesMap.get(dataType);

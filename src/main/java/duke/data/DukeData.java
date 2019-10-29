@@ -4,6 +4,7 @@ import duke.exception.DukeException;
 
 public abstract class DukeData extends DukeObject {
 
+    public static final int PRIORITY_MAX = 4;
     private Integer priority;
     protected String summary;
 
@@ -18,13 +19,13 @@ public abstract class DukeData extends DukeObject {
      * @param priority the priority level of the investigation
      */
     public DukeData(String name, Impression impression, Integer priority) {
-        super(impression.getName() + "-" + name, impression);
+        super(name, impression);
         this.priority = priority;
     }
 
 
     public void setName(String name) {
-        super.setName(getParent().toString() + "\t" + name);
+        super.setName(name);
     }
 
     public Integer getPriority() {

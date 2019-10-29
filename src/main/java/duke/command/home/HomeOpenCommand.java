@@ -3,7 +3,7 @@ package duke.command.home;
 import duke.DukeCore;
 import duke.command.ArgCommand;
 import duke.command.ArgSpec;
-import duke.command.CommandHelpers;
+import duke.command.CommandUtils;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.exception.DukeException;
@@ -21,7 +21,7 @@ public class HomeOpenCommand extends ArgCommand {
 
         String bed = getSwitchVal("bed");
         int index = switchToInt("index");
-        Patient patient = CommandHelpers.findPatient(core, bed, index);
+        Patient patient = CommandUtils.findPatient(core, bed, index);
 
         if (isSwitchSet("impression")) {
             Impression primaryImpression = patient.getPrimaryDiagnosis();
