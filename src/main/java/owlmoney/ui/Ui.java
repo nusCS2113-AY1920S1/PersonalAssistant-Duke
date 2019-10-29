@@ -132,11 +132,11 @@ public class Ui {
      * Prints the goal header.
      */
     public void printGoalHeader() {
-        System.out.printf("%-10s %-15s %-20s %-20s %-20s %-20s %-10s %n", ITEMNO, GOALNAME, GOALAMOUNT, GOALBANKNAME,
+        System.out.printf("%-10s %-30s %-20s %-20s %-20s %-20s %-10s %n", ITEMNO, GOALNAME, GOALAMOUNT, GOALBANKNAME,
                 GOALPROGRESS, GOALDATE, GOALACHIEVED);
 
         System.out.println("-----------------------------------------------------------------------------"
-                + "----------------------------------------------------");
+                + "--------------------------------------------------------------");
     }
 
     /**
@@ -149,7 +149,7 @@ public class Ui {
      */
     public void printGoal(int num, String name, String amount, String bankName, String progress, String date,
             String achieved) {
-        System.out.printf("%-10s %-15s %-20s %-20s %-20s %-20s %-20s %n", num, name, amount, bankName, progress,
+        System.out.printf("%-10s %-30s %-20s %-20s %-20s %-20s %-20s %n", num, name, amount, bankName, progress,
                 date, achieved);
     }
 
@@ -184,6 +184,14 @@ public class Ui {
     public void printDivider() {
         System.out.println("-----------------------------------------------------------------------------"
                 + "----------------------------------------------------");
+    }
+
+    /**
+     * Prints the divider to separate the section for Goals output.
+     */
+    public void printGoalDivider() {
+        System.out.println("-----------------------------------------------------------------------------"
+                + "--------------------------------------------------------------");
     }
 
     /**

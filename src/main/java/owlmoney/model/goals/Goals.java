@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Contains the details for each goal.
@@ -46,6 +47,17 @@ public class Goals {
         if (Double.parseDouble(getRemainingAmount()) <= 0) {
             this.done = true;
         }
+    }
+
+    /**
+     * Converts date to number of days to check goal deadline.
+     *
+     * @return number of days left to goal deadline.
+     */
+    public int convertDateToDays() {
+        long diffInMillies = Math.abs(this.date.getTime() - new Date().getTime());
+        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        return (int) diff;
     }
 
     /**
@@ -177,6 +189,7 @@ public class Goals {
      *
      * @param newSavingAcc new saving account to tie to Goal.
      */
+
     void setSavingAccount(Bank newSavingAcc) {
         this.savingAccount = newSavingAcc;
     }
