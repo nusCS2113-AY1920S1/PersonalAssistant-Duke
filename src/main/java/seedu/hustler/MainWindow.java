@@ -198,6 +198,11 @@ public class MainWindow extends AnchorPane{
                 Hustler.run(input);
                 scrollPANEE.setContent(console);
                 console.prefHeightProperty().bind(scrollPANEE.heightProperty());
+                rootPane.getChildren().remove(pointBar);
+                rootPane.getChildren().remove(medal);
+                rootPane.getChildren().remove(pointLabel);
+                pointGrid.getChildren().remove(points);
+                rootPane.getChildren().remove(pointGrid);
             }
             userInput.clear();
             sendReleased();
@@ -438,10 +443,6 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void achievementAction() throws IOException {
 
-//        rootPane.getChildren().add(points);
-//        rootPane.getChildren().add(pointsLabel);
-//        pointsLabel.setText(Integer.toString(Achievements.totalPoints));
-//        rootPane.getChildren().add(medal);
 
         rootPane.getChildren().add(pointBar);
         rootPane.getChildren().add(medal);
