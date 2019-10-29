@@ -1,13 +1,15 @@
 package ui;
 
 import dictionary.Word;
-import dictionary.WordBank;
+import dictionary.WordCount;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.HashSet;
+import java.util.TreeMap;
+import java.util.Map;
 import java.util.Stack;
+
+import java.util.Date;
 
 /**
  * Represents the object that displays prompts and feedback from the system to the user's commands.
@@ -22,8 +24,7 @@ public class Ui {
         return ("\n                      |   | _ _ _|   /  \\ _  \n"
                 + "                      |/\\|(_)| (_|  \\__/|_) \n"
                 + "                                            |   \n\n"
-                + "Welcome, what would you like to do today?"
-            );
+                + "Welcome, what would you like to do today?");
     }
 
     /**
@@ -32,11 +33,10 @@ public class Ui {
      */
     public String quizGreet() {
         return ("\n                      |   | _ _ _|   /  \\ _  \n"
-                    + "                      |/\\|(_)| (_|  \\__/|_) \n"
+                + "                      |/\\|(_)| (_|  \\__/|_) \n"
                 + "                                            |   \n"
                 + "Let's do some quiz to enhance your word knowledge \n"
-                + "Type \"start\" to begin quiz or \"exit_quiz\" to go back"
-            );
+                + "Type \"start\" to begin quiz or \"exit_quiz\" to go back");
     }
 
     public String showDeleted(Word w) {
@@ -73,7 +73,7 @@ public class Ui {
     /**
      * Shows the list of all words in the word bank.
      * @param wordBank to store all words
-     * @param order order to show words (ascending / descending)
+     * @param order displayOrder to show words (ascending / descending)
      * @return a string shown when command is completed
      */
     public String showList(TreeMap<String, Word> wordBank, String order) {
@@ -131,27 +131,28 @@ public class Ui {
     }
 
     /**
-     * Shows a list of words ordered by their search count in ascending or descending order as specified by the user.
-     * @param wordBank a main class object containing the word bank content
-     * @param order the order (asc/desc) in which to display the word list
+     * Shows a list of words ordered by their search count in ascending or descending displayOrder as specified.
+     * @param wordCount a main class object containing the word bank content
+     * @param order the displayOrder (asc/desc) in which to display the word list
      * @return a string to show list of words and their search count
      */
-    public String showSearchFrequency(WordBank wordBank, String order) {
-        TreeMap<Integer, TreeMap<String, Word>> wordCount = wordBank.getWordCount(); //get map ordered by word count
+    public String showSearchFrequency(WordCount wordCount, String order) {
+        TreeMap<Integer, TreeMap<String, Word>> wordCountMap = wordCount.getWordCount(); //get map ordered by word count
         String returnedString = "You have searched for these words ";
-        if (order.equals("asc") || order.equals("")) { //list in ascending order
+        if (order.equals(
+                "asc") || order.equals("")) { //list in ascending displayOrder
             returnedString += "least:\n";
-            for (Map.Entry<Integer, TreeMap<String, Word>> entry : wordCount.entrySet()) {
+            for (Map.Entry<Integer, TreeMap<String, Word>> entry : wordCountMap.entrySet()) {
                 returnedString += entry.getKey() + " searches -\n";
                 for (Map.Entry<String, Word> word : entry.getValue().entrySet()) {
                     returnedString += word.getKey() + "\n";
                 }
             }
-        } else { //list in descending order
+        } else { //list in descending displayOrder
             returnedString += "most:\n";
-            for (Integer searchCount : wordCount.descendingKeySet()) {
+            for (Integer searchCount : wordCountMap.descendingKeySet()) {
                 returnedString += searchCount + " searches -\n";
-                for (Map.Entry<String, Word> word : wordCount.get(searchCount).entrySet()) {
+                for (Map.Entry<String, Word> word : wordCountMap.get(searchCount).entrySet()) {
                     returnedString += word.getKey() + "\n";
                 }
             }
@@ -165,7 +166,7 @@ public class Ui {
      * @param numberOfWordsToDisplay number of closest searched words to display
      * @return a string shown when command is completed
      */
-    public String showHistory(Stack<Word> wordHistory, int numberOfWordsToDisplay) {
+    public String showRecentlyAdded(Stack<Word> wordHistory, int numberOfWordsToDisplay) {
         int numberOfWords;
         String s = "";
         if (numberOfWordsToDisplay > wordHistory.size()) {
@@ -183,6 +184,40 @@ public class Ui {
     }
 
     /**
+     * Shows instructions to guide user to key in required inputs during reminder setup.
+     * @param state represents the stage at which the setup process is at
+     * @return string containing the instructions to be displayed
+     */
+    public String showReminderSetup(int state) {
+        switch (state) {
+        case 1: //request for the list of words user wants to be reminded of
+            return "Please enter the list of words.\n" + "Enter an empty line to end input";
+        case 2:
+            return "Enter next word or an empty line to end input\n";
+        case 3: //request the reminder date and time from user
+            return "Please enter the date and time of the reminder in the format:"
+                    + "dd-MM-yyyy HHmm";
+        default:
+            return "Invalid state";
+        }
+    }
+
+    /**
+     * Constructs a string with a summary of the reminder details from the user input.
+     * @param reminderWordList the ArrayList containing the words to be reminded
+     * @param date the string containing the reminder detail summary
+     * @return
+     */
+    public String showReminderSummary(ArrayList<String> reminderWordList, Date date) {
+        String s = "Done! You will be reminded on:\n" + date + " to study these words:\n";
+        for (String word : reminderWordList) {
+            s += word + "\n";
+        }
+        return s;
+    }
+
+    /**
+
      * Shows a string containing description and format of a specific instruction.
      * @param instruction name of the instruction which user wants to know more
      * @return a string to show manual of specific instruction
@@ -260,6 +295,31 @@ public class Ui {
     }
 
     /**
+     * Shows score of the quiz.
+     * @param wrongQuiz is the number of wrong answers answered
+     * @param countQuiz is number of questions answered
+     * @param quizArray are the words where the user had wrong answers
+     * @return a string shown
+     */
+    public String quizIncorrect(Integer wrongQuiz, Integer countQuiz, ArrayList<String> quizArray) {
+        if (wrongQuiz == 0) {
+            return ("Congratulations! You got "
+                    + (countQuiz - wrongQuiz)
+                    + "/" + countQuiz
+                    + " on this quiz!\n"
+                    + "type exit_quiz to exit.");
+        } else {
+            return ("You got " + (countQuiz - wrongQuiz)
+                    + "/"
+                    + countQuiz
+                    + " on this quiz!\n"
+                    + "These are the words you might want to review:\n"
+                    + quizArray
+                    + "\ntype exit_quiz to exit.");
+        }
+    }
+
+    /**
      * Shows to user all words that have a specific beginning.
      * @param begin begin substring to be searched
      * @param wordWithBegins list of all words that have that begin substring
@@ -275,4 +335,3 @@ public class Ui {
         return stringBuilder.toString();
     }
 }
-

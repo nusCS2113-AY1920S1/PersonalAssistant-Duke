@@ -1,22 +1,50 @@
 package dictionary;
 
 import exception.NoWordFoundException;
-import exception.WordAlreadyExistException;
+import exception.WordAlreadyExistsException;
+import exception.WordBankEmptyException;
+import exception.WordCountEmptyException;
+import storage.Storage;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.TreeMap;
 
 public class Bank {
     private WordBank wordBank;
     private TagBank tagBank;
+    WordCount wordCount;
 
     public Bank() {
         wordBank = new WordBank();
         tagBank = new TagBank();
+        wordCount = new WordCount(wordBank);
     }
 
-    public WordBank getWordBank() {
+    /**
+     * Instantiates a wordBank, tagBank and wordCount object.
+     * @param storage object required to create instantiate a wordBank
+     */
+    public Bank(Storage storage) {
+        wordBank = new WordBank(storage);
+        tagBank = new TagBank();
+        wordCount = new WordCount(wordBank);
+    }
+
+    public WordBank getWordBankObject() {
         return wordBank;
+    }
+
+    public TreeMap<String, Word> getWordBankData() {
+        return wordBank.getWordBank();
+    }
+
+    public WordCount getWordCountObject() {
+        return wordCount;
+    }
+
+    public Word getWordFromWordBank(String word) throws NoWordFoundException {
+        return wordBank.getWord(word);
     }
 
     public TagBank getTagBank() {
@@ -31,9 +59,40 @@ public class Bank {
         return tagBank.getSize();
     }
 
-    public void addWord(Word word) throws WordAlreadyExistException {
+    public void addWord(Word word) throws WordAlreadyExistsException {
         wordBank.addWord(word);
         tagBank.addWordToAllTags(word);
+        wordCount.addWord(word);
+    }
+
+    /**
+     * Returns true if wordBank is empty.
+     * @return boolean value indicating if wordBank is empty
+     */
+    public boolean wordBankIsEmpty() {
+        return wordBank.isEmpty();
+    }
+
+    /**
+     * Adds word to the wordBank, tagBank and wordCount.
+     * @param word word object to be added
+     * @throws WordAlreadyExistsException if the word already exists in the bank
+     */
+    public void addWordToBank(Word word) throws WordAlreadyExistsException {
+        wordBank.addWord(word);
+        tagBank.addWordToAllTags(word);
+        wordCount.addWord(word);
+    }
+
+    /**
+     * Deletes word from the wordBank, tagBank and wordCount.
+     * @param word word object to be deleted
+     * @throws NoWordFoundException if the word cannot be found in the bank
+     */
+    public void deleteWordFromBank(Word word) throws NoWordFoundException {
+        wordBank.deleteWord(word);
+        tagBank.deleteWordAllTags(word);
+        wordCount.deleteWord(word);
     }
 
     /**
@@ -49,39 +108,26 @@ public class Bank {
         return tagsOfWord;
     }
 
-    /**
-     * Deletes a word from the WordBank and from all tags in TagBank.
-     * @param deletedWord word to be deleted
-     * @return object Word containing the word to be deleted and its meaning
-     * @throws NoWordFoundException if the word doesn't exist in the bank
-     */
-    public Word getAndDelete(String deletedWord) throws NoWordFoundException {
-        Word word = wordBank.getAndDelete(deletedWord);
-        tagBank.deleteWordAllTags(word);
-        return word;
-    }
-
-
     public void deleteTags(String deletedWord, ArrayList<String> tags,
                            ArrayList<String> deletedTags, ArrayList<String> nullTags) {
         wordBank.deleteTags(deletedWord, tags, deletedTags, nullTags);
         tagBank.deleteWordSomeTags(deletedTags, deletedWord);
     }
 
-    public Word getAndEditMeaning(String editedWord, String newMeaning) throws NoWordFoundException {
-        return wordBank.getAndEditMeaning(editedWord, newMeaning);
+    public void editWordMeaning(String editedWord, String newMeaning) throws NoWordFoundException {
+        wordBank.editWordMeaning(editedWord, newMeaning);
     }
 
     public ArrayList<String> searchWordWithBegin(String begin) throws NoWordFoundException {
         return wordBank.searchWordWithBegin(begin);
     }
 
-    public String searchForMeaning(String searchTerm) throws NoWordFoundException {
-        return wordBank.searchForMeaning(searchTerm);
+    public String searchWordBankForMeaning(String searchTerm) throws WordBankEmptyException, NoWordFoundException {
+        return wordBank.searchWordMeaning(searchTerm);
     }
 
-    public void increaseSearchCount(String searchTerm) throws NoWordFoundException {
-        wordBank.increaseSearchCount(searchTerm);
+    public void increaseSearchCount(String searchTerm) throws WordCountEmptyException, NoWordFoundException {
+        wordCount.increaseSearchCount(searchTerm, wordBank);
     }
 
     public ArrayList<String> getClosedWords(String searchTerm) {

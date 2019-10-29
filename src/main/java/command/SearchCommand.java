@@ -1,7 +1,10 @@
 package command;
 
 import dictionary.Bank;
+import dictionary.Word;
 import exception.NoWordFoundException;
+import exception.WordBankEmptyException;
+import exception.WordCountEmptyException;
 import storage.Storage;
 import ui.Ui;
 
@@ -22,7 +25,12 @@ public class SearchCommand extends Command {
     @Override
     public String execute(Ui ui, Bank bank, Storage storage) {
         try {
-            String meaning = bank.searchForMeaning(this.searchTerm);
+            String meaning = bank.searchWordBankForMeaning(this.searchTerm);
+            Word word = bank.getWordBankObject().getWord(this.searchTerm);
+            if (bank.getWordFromWordBank(searchTerm).getNumberOfSearches() == 0) {
+                storage.updateFile(word.toString(),"");
+                storage.writeFile(word.toString(),true);
+            }
             bank.increaseSearchCount(searchTerm);
             return ui.showSearch(this.searchTerm, meaning);
         } catch (NoWordFoundException e) {
@@ -35,6 +43,8 @@ public class SearchCommand extends Command {
                 stringBuilder.append(arrayList.get(i) + "\n");
             }
             return e.showError() + stringBuilder;
+        } catch (WordBankEmptyException | WordCountEmptyException e) {
+            return e.showError();
         }
     }
 }

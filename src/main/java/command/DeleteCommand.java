@@ -29,13 +29,18 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(Ui ui, Bank bank, Storage storage) {
         try {
+            word = bank.getWordFromWordBank(this.deletedWord);
             if (tags.size() == 0) {                     //delete word
                 int initWordBankSize = bank.getWordBankSize();
                 int initTagBankSize = bank.getTagBankSize();
-                word = bank.getAndDelete(this.deletedWord);
+
+                bank.deleteWordFromBank(word);
+                storage.updateFile(word.toString() + "\r","");
+
                 storage.writeExcelFile(bank);
                 storage.deleteRowsWordBankSheet(bank.getWordBankSize(), initWordBankSize);
                 storage.deleteRowsTagBankSheet(bank.getTagBankSize(), initTagBankSize);
+
                 return ui.showDeleted(word);
             } else {                                    //delete tags
                 ArrayList<String> nullTags = new ArrayList<>();

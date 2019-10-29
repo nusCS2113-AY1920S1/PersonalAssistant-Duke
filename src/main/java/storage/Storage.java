@@ -5,7 +5,7 @@ import dictionary.Word;
 import dictionary.Bank;
 
 import dictionary.WordBank;
-import exception.WordAlreadyExistException;
+import exception.WordAlreadyExistsException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -74,7 +74,7 @@ public class Storage {
                 }
                 String[] parsedWordAndMeaning = line.split(":");
                 Word word = new Word(parsedWordAndMeaning[0].trim(), parsedWordAndMeaning[1].trim());
-                wordBank.put(word.getWord(), word);
+                wordBank.put(word.getWordString(), word);
                 line = br.readLine();
             }
             return wordBank;
@@ -93,7 +93,7 @@ public class Storage {
 
 
     /**
-     * Converts all data from the text file in the order it is written in.
+     * Converts all data from the text file in the displayOrder it is written in.
      * Stack structure used because the first words to be extracted are the last ones added to stack.
      * @return a stack containing all input words ordered by SEQUENCE OF ENTRY
      */
@@ -159,47 +159,12 @@ public class Storage {
         }
     }
 
-
-    /**
-     * Deletes an item from file.
-     * @param oldString a string to be deleted
-     */
-    public void deleteFromFile(String oldString) {
-        File file = new File(FILE_PATH);
-        FileReader fr = null;
-        BufferedReader br = null;
-        try {
-            fr = new FileReader(file);
-            br = new BufferedReader(fr);
-            String oldContent = "";
-            String line = br.readLine();
-
-            while ((line != null) && (!line.equals("\n"))) {
-                oldContent = oldContent + line + System.lineSeparator();
-                line = br.readLine();
-            }
-            oldContent = oldContent.substring(0, oldContent.length() - 1);
-            String newContent = oldContent.replace(oldString, "").trim();
-            Storage writer = new Storage();
-            writer.writeFile(newContent,false);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                br.close();
-                fr.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     /**
      * Updates a word in extracted file.
      * @param oldString value of old word
      * @param newString value of word after updated
      */
-    public void editFromFile(String oldString,String newString) {
+    public void updateFile(String oldString, String newString) {
         File file = new File(FILE_PATH);
         FileReader fr = null;
         BufferedReader br = null;
@@ -234,7 +199,7 @@ public class Storage {
      * @param bank represents the data bank
      */
     public void writeExcelFile(Bank bank) {
-        writeWordBankExcelFile(bank.getWordBank());
+        writeWordBankExcelFile(bank.getWordBankObject());
         writeTagBankExcelFile(bank.getTagBank());
     }
 
@@ -279,7 +244,7 @@ public class Storage {
             createExcelFile();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (WordAlreadyExistException e) {
+        } catch (WordAlreadyExistsException e) {
             e.showError();
         }
         return bank;
@@ -455,7 +420,7 @@ public class Storage {
                 }
 
                 cell.setCellType(CellType.STRING);
-                String word = allWords[i - 1].getWord();
+                String word = allWords[i - 1].getWordString();
 
                 cell.setCellValue(word);
 

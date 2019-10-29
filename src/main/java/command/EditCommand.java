@@ -12,21 +12,24 @@ import ui.Ui;
  */
 public class EditCommand extends Command {
 
-    protected String editedWord;
+    protected String wordToBeEdited;
     protected String newMeaning;
 
-    public EditCommand(String editedWord, String newMeaning) {
-        this.editedWord = editedWord;
+    public EditCommand(String wordToBeEdited, String newMeaning) {
+        this.wordToBeEdited = wordToBeEdited;
         this.newMeaning = newMeaning;
     }
 
     @Override
     public String execute(Ui ui, Bank bank, Storage storage) {
         try {
-            // edit word
-            Word newWord = bank.getAndEditMeaning(editedWord, newMeaning);
-            storage.writeWordBankExcelFile(bank.getWordBank());
+            Word oldWord = bank.getWordFromWordBank(wordToBeEdited); //get the original word
+            bank.editWordMeaning(wordToBeEdited, newMeaning); //edit the word in the wordBank
+            Word newWord = bank.getWordFromWordBank(wordToBeEdited); //get the new edited word
+            storage.writeWordBankExcelFile(bank.getWordBankObject());
+            storage.updateFile(oldWord.toString(), newWord.toString());
             return ui.showEdited(newWord);
+
         } catch (NoWordFoundException e) {
             return e.showError();
         }
