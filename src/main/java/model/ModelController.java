@@ -101,4 +101,16 @@ public class ModelController implements Model {
         return memberManager.hasMember(name);
     }
 
+    @Override
+    public void link(int taskIndex, String memberName){
+        tasksManager.getTaskById(taskIndex).addMember(memberName);
+        //TODO consider uuid for linking
+        memberManager.getMemberByName(memberName).addTask(tasksManager.getTaskById(taskIndex).getName());
+    }
+
+    @Override
+    public void unlink(int taskIndex, String memberName){
+
+    }
+
 }

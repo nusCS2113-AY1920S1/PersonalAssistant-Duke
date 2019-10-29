@@ -7,10 +7,26 @@
   {
     "name": "yo",
     "isDone": true,
-    "memberList": []
+    "memberList": [
+      "yuheng"
+    ]
   },
   {
     "name": "test 1",
+    "isDone": false,
+    "memberList": [
+      "yuheng"
+    ]
+  },
+  {
+    "name": "abcdef",
+    "isDone": false,
+    "memberList": [
+      "yuheng"
+    ]
+  },
+  {
+    "name": "asdfghh",
     "isDone": false,
     "memberList": []
   }

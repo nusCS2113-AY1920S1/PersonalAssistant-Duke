@@ -23,6 +23,7 @@ public class Task {
     public void addMember(String toAdd) {
         if (!memberList.contains(toAdd)) {
             memberList.add(toAdd);
+            System.out.println("ADDED member!! " + toAdd + " to " + name);
         }
     }
 

@@ -14,20 +14,21 @@ public class LinkCommand extends Command{
         this.membersNames = membersNames;
     }
 
+    //@@author chengyuheng
     @Override
     public CommandOutput execute(Model model) throws DukeException {
         checkAvailability(model);
         String output = "";
         for (int i = 0; i < tasksIndexes.length; i++) {
             for (int j = 0; j < membersNames.length; j++) {
-                //model.link(tasksIndexes[i], membersNames[j]);
-                //uncomment above when link in model finished
+                model.link(tasksIndexes[i], membersNames[j]);
                 output += "Noted, assigned task "
                         + model.getTasksManager().getTaskById(tasksIndexes[i]).getName()
                         + " to member "
                         + membersNames[j];
             }
         }
+        model.save();
         return new CommandOutput(output);
     }
 

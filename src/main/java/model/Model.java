@@ -33,6 +33,6 @@ public interface Model {
     boolean hasMember(String name) throws DukeException;
 
     //==================Task and Member Interface======================
-//    void link(int tasksIndexes, String memberNames);
-//    void unlink(int tasksIndexes, String memberNames);
+    void link(int tasksIndexes, String memberNames);
+    void unlink(int tasksIndexes, String memberNames);
 }
