@@ -17,6 +17,7 @@ public class LimitParser extends Parser {
         super(inputLine);
         this.mode = MODE_LIMIT;
     }
+    
     private static final String LIMIT_COMMAND_LIST = "limits";
     private static final String LIMIT_COMMAND_SET = "set";
     private static final String LIMIT_COMMAND_REMOVE = "remove";
