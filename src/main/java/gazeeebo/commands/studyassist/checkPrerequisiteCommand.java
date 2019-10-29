@@ -5,6 +5,7 @@ import gazeeebo.storage.Storage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class checkPrerequisiteCommand {
     public void execute(Ui ui, Storage storage){
@@ -25,20 +26,21 @@ public class checkPrerequisiteCommand {
         buffer.append(Prefix);
         buffer.append(ModuleCode);
         buffer.append("\n");
-        System.out.println(buffer);
-        if(!PrerequisiteList.get(ModuleCode).isEmpty()) {
-            for (int i = 0; i < PrerequisiteList.get(ModuleCode).size(); i++) {
-                if (!PrerequisiteList.get(PrerequisiteList.get(ModuleCode).get(i)).isEmpty()) {
-                    Prefix = ChildrenPrefix+ "├── ";
-                    ChildrenPrefix += ChildrenPrefix+ "│   ";
-                    dfsPrerequisite(PrerequisiteList.get(ModuleCode).get(i), Prefix, ChildrenPrefix, buffer, PrerequisiteList);
+        if(PrerequisiteList.get(ModuleCode) != null) {
+            for (Iterator<String> it = PrerequisiteList.get(ModuleCode).iterator(); it.hasNext(); ) {
+                String next = it.next();
+                if (it.hasNext()) {
+                    Prefix = ChildrenPrefix + "├── ";
+                    ChildrenPrefix += ChildrenPrefix + "│   ";
+                    dfsPrerequisite(next, Prefix, ChildrenPrefix, buffer, PrerequisiteList);
                 } else {
-                    Prefix = ChildrenPrefix+ "└── ";
+                    Prefix = ChildrenPrefix + "└── ";
                     ChildrenPrefix += "    ";
-                    dfsPrerequisite(PrerequisiteList.get(ModuleCode).get(i), Prefix, ChildrenPrefix, buffer, PrerequisiteList);
+                    dfsPrerequisite(next, Prefix, ChildrenPrefix, buffer, PrerequisiteList);
                 }
             }
         }
+        return;
     }
 //    private void test(String ModuleCode,String Prefix, String ChildrenPrefix, StringBuilder buffer, HashMap<String, ArrayList<String>> PrerequisiteList){
 //        System.out.println("Can.");
