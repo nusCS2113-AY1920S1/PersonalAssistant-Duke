@@ -79,8 +79,8 @@ public class ShowPreviousCommand extends Command{
         int sizeOfPreviousList = sizeOfUpdatedList - 1;
 
         if (sizeOfPreviousList < number) {
-            throw new DukeInvalidCommandException("There are only " + number + " of previous commands." +
-                    "Please enter a valid number less than or equal to " + number + " .");
+            throw new DukeInvalidCommandException("There are only " + sizeOfPreviousList + " of previous commands." +
+                    "Please enter a valid number less than or equal to " + sizeOfPreviousList + " .");
         }
 
         if (isNumber) {
