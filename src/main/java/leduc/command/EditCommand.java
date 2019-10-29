@@ -61,27 +61,12 @@ public class EditCommand extends Command {
             String userEditTaskNumber = ui.readCommand();
             t = this.getEditTask(userEditTaskNumber,tasks,true);
             if (t.isTodo()) {
-                ui.display("\t Please choose what you want to edit (1 or 2)\n\t 1. The description " +
-                        "\n\t 2. The priority");
-                String userEditTPart = ui.readCommand().trim();
-                if (userEditTaskNumber.matches("\\d+")) {
-                    int choice = Integer.parseInt(userEditTPart.trim());
-                    if (choice == 1) {
-                        ui.display("\t Please enter the new description of the task");
-                        t.setTask(ui.readCommand());
-                    } else if (choice == 2) {
-                        ui.display("\t Please enter the new priority of the task");
-                        String priorityString = ui.readCommand().trim();
-                        this.editPriority(t,priorityString);
-                    }
-                }
-                else {
-                    throw new UserAnswerException();
-                }
+                    ui.display("\t Please enter the new description of the task");
+                    t.setTask(ui.readCommand());
             }
             else {
-                ui.display("\t Please choose what you want to edit (1 or 2 or 3)\n\t 1. The description " +
-                        "\n\t 2. The deadline/period \n\t 3. The priority");
+                ui.display("\t Please choose what you want to edit (1 or 2)\n\t 1. The description " +
+                        "\n\t 2. The deadline/period");
                 String userEditTPart = ui.readCommand().trim();
                 if (userEditTPart.matches("\\d+")) {
                     int choice = Integer.parseInt(userEditTPart);
@@ -98,11 +83,8 @@ public class EditCommand extends Command {
                             String periodString = ui.readCommand().trim();
                             this.editEventDate(t, tasks, periodString);
                         }
-                    } else if (choice == 3) {
-                        ui.display("\t Please enter the new priority of the task");
-                        String priorityString = ui.readCommand().trim();
-                        this.editPriority(t, priorityString);
-                    } else {
+                    }
+                    else {
                         throw new UserAnswerException();
                     }
                 }
@@ -115,14 +97,9 @@ public class EditCommand extends Command {
             String[] descriptionString = userSubstring.split("description");
             String[] homeworkDateString = userSubstring.split("/by");
             String[] eventPeriodString = userSubstring.split("/at");
-            String[] priorityString = userSubstring.split("prio");
             if (descriptionString.length == 2 ){
                 t = getEditTask(descriptionString[0].trim(),tasks,false);
                 t.setTask(descriptionString[1].trim());
-            }
-            else if (priorityString.length ==2){
-                t = getEditTask(priorityString[0].trim(),tasks,false);
-                this.editPriority(t,priorityString[1].trim());
             }
             else if (homeworkDateString.length == 2){
                 t = getEditTask(homeworkDateString[0].trim(),tasks,false);
@@ -169,25 +146,6 @@ public class EditCommand extends Command {
         Date date2 = new Date(dateString[1]);
         tasks.verifyConflictDate(date1, date2);
         eventsTask.reschedule(date1, date2);
-    }
-
-    /**
-     * Allows to edit the priority of a task from a priority given in String.
-     * @param t the task to be edited.
-     * @param priorityString the priority part of the user input string.
-     * @throws PrioritizeLimitException Exception caught when the new priority is not an int or is greater than 9 or less than 0.
-     */
-    private void editPriority(Task t, String priorityString) throws PrioritizeLimitException {
-        if (priorityString.matches("\\d+")){
-            int priority = Integer.parseInt(priorityString);
-            if (priority < 0 || priority > 9) {
-                throw new PrioritizeLimitException();
-            }
-            t.setPriority(priority);
-        }
-        else {
-            throw new PrioritizeLimitException();
-        }
     }
 
     /**

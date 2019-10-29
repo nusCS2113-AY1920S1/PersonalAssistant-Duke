@@ -186,21 +186,23 @@ Example:
 
 === Edit a task : `edit`
 
-To edit a task: `edit`
 
-To edit a task, follow these instructions:
+* Multi-steps command: to edit a task, follow these instructions:
 
-1. All of the tasks will be displayed, you have to choose a task INDEX
-2. Depending on the type of task:
-* If it is a todo task, you can enter the new DESCRIPTION of the task
-* If it is not a todo task, you have to choose 1) if you want to edit the description or 2) if you want to edit the date
-- Then, enter the new DESCRIPTION or the new DATE of the task
+1. `edit`
+2. All of the tasks will be displayed, you have to choose a task INDEX
+3. Depending on the type of task:
+** If it is a todo task, you have to choose 1) if you want to edit the description or 2) if you want to edit the priority
+- Then, enter the new DESCRIPTION or the new INDEX (priority) of the task
+** If it is not a todo task, you have to choose 1) if you want to edit the description or 2) if you want to edit the date or 3) if you want to edit the priority
+- Then, enter the new DESCRIPTION or the new DATE of the task or the new priority
 
 Examples:
 
 * Edit the description of the task 2 ( todo task )
 - `edit`
 - `2`
+- `1`
 - `DESCRIPTION`
 
 * The task 2 is a homework task:
@@ -208,6 +210,24 @@ Examples:
 - `2`
 - `2`
 - `DATE`
+
+* The task 3 is a event task:
+- `edit`
+- `3`
+- `2`
+- `DATE - DATE`
+
+* Edit the priority of the task 2 ( todo task)
+- `edit`
+- `2`
+- `2`
+- `INDEX` (priority)
+
+* For one shot command:
+- edit the description: `edit INDEX description DESCRIPTION`
+- edit the date of an homework task: `edit INDEX /by DATE`
+- edit the period of an event task: `edit INDEX /at DATE - DATE`
+- edit the priority: `edit INDEX prio INDEX`
 
 === Customize the welcome message : `setwelcome`
 

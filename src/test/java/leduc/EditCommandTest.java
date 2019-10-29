@@ -190,23 +190,6 @@ public class EditCommandTest {
             assertTrue(false);
         }
 
-        EditCommand editCommand11 = new EditCommand("edit 5 prio 15");
-        try{
-            editCommand11.execute(tasks,ui,storage);
-        }
-        catch( DukeException e ){
-            assertTrue(e instanceof PrioritizeLimitException);
-        }
-
-        assertTrue(tasks.get(4).getPriority()==3);
-        EditCommand editCommand12 = new EditCommand("edit 5 prio 8");
-        try{
-            editCommand12.execute(tasks,ui,storage);
-        }
-        catch( DukeException e ){
-            assertTrue(e instanceof PrioritizeLimitException);
-        }
-        assertTrue(tasks.get(4).getPriority()==8);
     }
 
     /**

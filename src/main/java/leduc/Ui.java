@@ -199,8 +199,7 @@ public class Ui {
                            "\n\t\t For one shot command:" +
                            "\n\t\t\t edit the description: 'edit INDEX description DESCRIPTION' " +
                            "\n\t\t\t edit the date of an homework task: 'edit INDEX /by DATE' " +
-                           "\n\t\t\t edit the period of an event task: 'edit INDEX /at DATE - DATE' " +
-                           "\n\t\t\t edit the priority: 'edit INDEX prio INDEX' ");
+                           "\n\t\t\t edit the period of an event task: 'edit INDEX /at DATE - DATE' ");
         System.out.println("\t show DATEOPTION DATE: show task by day/dayofweek/month/year ( day format is DD/MM/YYYY; " +
                 "dayofweek format is monday,tuesday...; month format is MM/YYYY; year format is YYYY)");
         System.out.println("\t prioritize INDEX prio INDEX : give priority to task");
