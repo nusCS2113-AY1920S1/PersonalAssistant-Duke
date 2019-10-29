@@ -27,7 +27,7 @@ public class PatientDeleteCommand extends ArgCommand {
             } else {
                 core.ui.print("Unsuccessfully deleted patient's primary diagnosis does not match " + searchCritical);
             }
-        } else if (searchCritical != null && (patient.getPrimaryDiagnosis()) == null) {
+        } else if (searchCritical != null) {
             core.ui.print("Patient does not have a primary diagnosis.");
         }
 

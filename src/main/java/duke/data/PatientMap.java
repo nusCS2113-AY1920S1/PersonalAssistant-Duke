@@ -63,9 +63,9 @@ public class PatientMap {
      */
     public Patient deletePatient(String keyIdentifier) throws DukeException {
         if (patientObservableMap.containsKey(keyIdentifier)) {
-            Patient deletedP = patientObservableMap.get(keyIdentifier);
+            Patient deletedPatient = patientObservableMap.get(keyIdentifier);
             patientObservableMap.remove(keyIdentifier);
-            return deletedP;
+            return deletedPatient;
         } else {
             throw new DukeException("The patient cannot be identified");
         }

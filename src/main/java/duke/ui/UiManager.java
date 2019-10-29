@@ -39,7 +39,7 @@ public class UiManager implements Ui {
         try {
             showMainWindow(primaryStage);
         } catch (Throwable e) {
-            showErrorDialogAndShutdown("Fatal error encountered on application startup", e);
+            System.out.println(e.getMessage());
         }
     }
 
