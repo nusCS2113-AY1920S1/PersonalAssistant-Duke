@@ -16,12 +16,12 @@
            <Label fx:id="paneTitle" text="Expense"/>
            <Label fx:id="otherPanes" text="Budget Plan Trend"/>
             <HBox>
-                <TableView fx:id="expenseTableView" prefWidth="500" prefHeight="500"/>
+                <ListView fx:id="expenseListView" prefWidth="500" prefHeight="500"/>
                 <padding>
                     <Insets top="25" right="25" bottom="25" left="25"/>
                 </padding>
                 <VBox>
-                    <ListView fx:id="budgetListView" prefHeight="200"></ListView>
+                    <ListView fx:id="budgetListView" prefHeight="200"/>
                     <Pane fx:id="paneView" prefHeight="200"/>
                 </VBox>
             </HBox>

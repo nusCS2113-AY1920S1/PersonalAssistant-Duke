@@ -176,7 +176,8 @@ public class PlanQuestionBank {
                         + "However, you can still use the program! Type \"goto expense\" to start using.",
                         budgetRecommendation,
                         recommendationExpenseList);
-            } else { //NUS STUDENT
+            } else {
+                //NUS STUDENT
                 if (planAttributes.get("CAMPUS_LIFE").equals("FALSE")) {
                     String tripCostString = planAttributes.get("TRIP_COST");
                     String tripsPerWeekString = planAttributes.get("TRAVEL_DAYS");
@@ -242,7 +243,8 @@ public class PlanQuestionBank {
                             budgetRecommendation.put("food ", monthlyFoodBudget);
                         }
                     }
-                } else { //Stays in campus
+                } else {
+                    //Stays on campus
                     recommendation.append("Since you live in campus, "
                             + "you can just allocate a small budget of $10 to transport! \n\n");
                     budgetRecommendation.put("transport", Parser.parseMoney("10"));
@@ -258,7 +260,8 @@ public class PlanQuestionBank {
                             budgetRecommendation.put("food", monthlyFoodBudget);
                         }
 
-                    } else { //Eats all meals outside of hall
+                    } else {
+                        //Eats all meals outside of hall
                         int mealsPerDay = Integer.parseInt(planAttributes.get("MEALS_PER_DAY"));
                         BigDecimal costPerMeal = Parser.parseMoney(planAttributes.get("AVERAGE_MEAL_COST"));
                         BigDecimal monthlyFoodBudget = costPerMeal.multiply(BigDecimal
