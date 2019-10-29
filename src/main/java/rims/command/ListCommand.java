@@ -119,7 +119,6 @@ public class ListCommand extends Command {
         }
         /*
         else if (listType.equals("date")) {
-
         }
         */
     }
