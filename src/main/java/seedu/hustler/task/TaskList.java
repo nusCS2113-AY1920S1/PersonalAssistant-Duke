@@ -1,7 +1,6 @@
 package seedu.hustler.task;
 
 import seedu.hustler.Hustler;
-import seedu.hustler.data.CommandLog;
 import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.DoneTask;
 import seedu.hustler.logic.parser.DateTimeParser;
@@ -62,7 +61,7 @@ public class TaskList {
      */
     public void add(Task task) {
         list.add(task);
-        updateBusybeeAchievement(!CommandLog.isRestoring());
+        updateBusybeeAchievement();
         Scheduler.add(this.getLastTask());
     }
 
@@ -76,7 +75,7 @@ public class TaskList {
     public void add(String taskType, String taskDescriptionFull) {
         List<String> splitInput = Arrays.asList(taskDescriptionFull.split(" "));
         if (DetectAnomalies.test(taskType, splitInput, list)) {
-            updateBusybeeAchievement(true);
+            ui.showTaskClash();
             return;
         }
 
@@ -98,7 +97,7 @@ public class TaskList {
         } else if (taskType.equals("event")) {
             addEvent(splitInput, difficulty, tag);
         }
-        updateBusybeeAchievement(false);
+        updateBusybeeAchievement();
         Scheduler.add(this.getLastTask());
     }
 
@@ -106,20 +105,12 @@ public class TaskList {
      * Checks if the user have met Busybee achievement conditions and
      * update accordingly.
      */
-    public void updateBusybeeAchievement(boolean checkAnomaly) {
-        if (!checkAnomaly) {
-            AddTask.increment();
-            AddTask.updateAchievementLevel();
-            AddTask.updatePoints();
-            Hustler.achievementList.updateBusyBee();
-            if (!CommandLog.isRestoring()) {
-                ui.showTaskAdded(list);
-            }
-        } else {
-            if (!CommandLog.isRestoring()) {
-                ui.showTaskClash();
-            }
-        }
+    public void updateBusybeeAchievement() {
+        AddTask.increment();
+        AddTask.updateAchievementLevel();
+        AddTask.updatePoints();
+        Hustler.achievementList.updateBusyBee();
+        ui.showTaskAdded(list);
     }
 
     /**
@@ -127,10 +118,10 @@ public class TaskList {
      * update accordingly.
      */
     public void updateCompletionistAchievement() {
-            DoneTask.increment();
-            DoneTask.updateAchievementLevel();
-            DoneTask.updatePoints();
-            Hustler.achievementList.updateCompletionist();
+        DoneTask.increment();
+        DoneTask.updateAchievementLevel();
+        DoneTask.updatePoints();
+        Hustler.achievementList.updateCompletionist();
     }
 
     /**
@@ -193,12 +184,8 @@ public class TaskList {
      */
     public void doTask(int i) {
         list.get(i).markAsDone();
-        if (list.get(i).isDone) {
-            updateCompletionistAchievement();
-            if (!CommandLog.isRestoring()) {
-                ui.showTaskDone(list.get(i).toString());
-            }
-        }
+        updateCompletionistAchievement();
+        ui.showTaskDone(list.get(i).toString());
     }
 
     /**
@@ -209,9 +196,7 @@ public class TaskList {
     public void removeTask(int i) {
         String taskDescription = list.get(i).toString();
         list.remove(i);
-        if (!CommandLog.isRestoring()) {
-            ui.showTaskRemoved(list, taskDescription);
-        }
+        ui.showTaskRemoved(list, taskDescription);
     }
 
     /**
@@ -219,14 +204,10 @@ public class TaskList {
      */
     public void clearList() {
         if (list.isEmpty()) {
-            if (!CommandLog.isRestoring()) {
-                ui.showListEmpty();
-            }
+            ui.showListEmpty();
         } else {
             list.clear();
-            if (!CommandLog.isRestoring()) {
-                ui.showListCleared();
-            }
+            ui.showListCleared();
         }
     }
 
@@ -235,12 +216,10 @@ public class TaskList {
      */
     public void clearDone() {
         if (list.isEmpty()) {
-            if (!CommandLog.isRestoring()) {
-                ui.showListEmpty();
-            }
+            ui.showListEmpty();
         } else {
             list.removeIf(Task::isCompleted);
-            ui.showListCleared();
+            ui.showCompletedCleared(list);
         }
     }
 
@@ -278,9 +257,7 @@ public class TaskList {
                 break;
             }
         }
-        if (!CommandLog.isRestoring()) {
-            ui.showTaskSnoozed(list.get(i).toString());
-        }
+        ui.showTaskSnoozed(list.get(i).toString());
     }
 
     /**
@@ -340,9 +317,7 @@ public class TaskList {
             });
             break;
         }
-        if (!CommandLog.isRestoring()) {
-            ui.showListSorted(list);
-        }
+        ui.showListSorted(list);
     }
 
     /**
@@ -350,13 +325,9 @@ public class TaskList {
      */
     public void displayList() {
         if (list.isEmpty()) {
-            if (!CommandLog.isRestoring()) {
-                ui.showEmptyListError();
-            }
+            ui.showEmptyListError();
         } else {
-            if (!CommandLog.isRestoring()) {
-                ui.showTaskList(list);
-            }
+            ui.showTaskList(list);
         }
     }
 

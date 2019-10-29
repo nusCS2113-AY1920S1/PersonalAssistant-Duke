@@ -1,7 +1,6 @@
 package seedu.hustler.ui;
 
 import seedu.hustler.Hustler;
-import seedu.hustler.data.CommandLog;
 import seedu.hustler.game.achievement.Achievements;
 import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.game.shop.items.ShopItem;
@@ -50,12 +49,10 @@ public class Ui {
      * Prints an error message if user does not enter a valid command.
      */
     public void correctCommandError() {
-        if (!CommandLog.isRestoring()) {
-            System.out.println(LINE);
-            System.out.println("\tPlease enter a valid command: /add, /list, /bye, /find, /delete.\n"
-                    + "\tRefer to User Guide for more info.");
-            System.out.println(LINE);
-        }
+        System.out.println(LINE);
+        System.out.println("\tPlease enter a valid command: /add, /list, /bye, /find, /delete.\n"
+                + "\tRefer to User Guide for more info.");
+        System.out.println(LINE);
     }
 
     /**
@@ -64,16 +61,6 @@ public class Ui {
     public void showEmptyListError() {
         System.out.println(LINE);
         System.out.println("\tList is empty. Please type another command apart from list.");
-        System.out.println(LINE);
-    }
-
-    /**
-     * Prints an error message if a command like find, delete, todo, deadline,
-     * event or others is entered without a following description.
-     */
-    public void emptyDescriptionError() {
-        System.out.println(LINE);
-        System.out.println("\tPlease enter a description after the command.");
         System.out.println(LINE);
     }
 
@@ -127,6 +114,15 @@ public class Ui {
         System.out.println(LINE);
         System.out.println("\tAll tasks in the task list has been cleared! List is now empty!");
         System.out.println(LINE);
+    }
+
+    /**
+     * Prints a message when completed tasks are cleared.
+     */
+    public void showCompletedCleared(ArrayList<Task> list) {
+        System.out.println(LINE);
+        System.out.println("\tAll completed tasks in the task list has been cleared!");
+        showTaskList(list);
     }
 
     /**
@@ -348,6 +344,5 @@ public class Ui {
             }
             System.out.println("Total Points = " + totalPoints + " \uD83D\uDCB0");
         }
-
     }
 }
