@@ -133,6 +133,10 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public String[] projectAddMember(Project projectToManage, String projectCommand) {
+        if (projectCommand.length() < 11) {
+            return new String[] {"Add member command minimum usage must be \"add member -n NAME\"!",
+                                 "Please refer to user guide for additional details."};
+        }
         String memberDetails = projectCommand.substring(11);
         int numberOfCurrentMembers = projectToManage.getNumOfMembers();
         memberDetails = memberDetails + " -x " + numberOfCurrentMembers;
@@ -142,8 +146,8 @@ public class ProjectInputController implements IController {
             return new String[] {"Added new member to: " + projectToManage.getDescription(), ""
                     + "Member details " + newMember.getDetails()};
         } else {
-            return new String[] {"Failed to add member. Please ensure you have entered "
-                    + "at least the name of the new member."};
+            return new String[] {"Name cannot be empty! Please follow the add command format in user guide!",
+                                 "\"add member -n NAME\" is the minimum requirement for add member command"};
         }
     }
 
@@ -344,14 +348,6 @@ public class ProjectInputController implements IController {
             return projectViewTasksAssignments(projectToManage, projectFullCommand.substring(20));
         }
         return null;
-    }
-
-    /**
-     * Displays the assigned tasks in the current project.
-     * @param assignedTaskList The list containing the assignment of the tasks.
-     */
-    public String[] projectViewAssignedTasks(ArrayList<String> assignedTaskList) {
-        return assignedTaskList.toArray(new String[0]);
     }
 
     /**

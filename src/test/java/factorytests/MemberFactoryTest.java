@@ -65,4 +65,9 @@ public class MemberFactoryTest {
         assertEquals(expectedMember.getIndexNumber(), simulatedMember.getIndexNumber());
         assertEquals(expectedMember.getName(), simulatedMember.getName());
     }
+
+    @Test
+    void memberCreation_truncatedInputs_exceptionCaught() {
+
+    }
 }
