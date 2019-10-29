@@ -91,13 +91,6 @@ public class GoalsStub extends Goals {
         this.goalsDate = newDate;
     }
 
-    public Date getNewDate() {
-        return this.goalsDate;
-    }
-
-    void setSavingAccount(Saving newSavingAcc) {
-        this.savingAcc = newSavingAcc;
-    }
 
     public double getNewRemainAmount() {
         return this.amount - this.income;
