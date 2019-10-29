@@ -32,7 +32,6 @@ public class DeleteTaskCommand implements Command {
 
     /**
      * It extracts the task id from the delete task command.
-     * It checks whether user is trying to delete a task by id or description.
      * It retrieves task based on the id extracted.
      *
      * @param deletedTaskInfo contains the delete command received from parser class which is a string.
@@ -50,7 +49,7 @@ public class DeleteTaskCommand implements Command {
             try {
                 id = Integer.parseInt(deletedTaskInfo.substring(1));
             } catch (Exception e) {
-                throw e;
+                throw new DukeException("The task id is invalid");
             }
             try {
                 task = taskManager.getTask(id);
@@ -58,15 +57,7 @@ public class DeleteTaskCommand implements Command {
                 throw new DukeException("The task id does not exist. ");
             }
         } else {
-            ArrayList<Task> tasksWithSameDescription = taskManager.getTaskByDescription(deletedTaskInfo);
-            if (tasksWithSameDescription.size() >= 1) {
-                int numberChosen = ui.chooseTaskToDelete(tasksWithSameDescription.size());
-                if (numberChosen >= 1) {
-                    task = tasksWithSameDescription.get(numberChosen - 1);
-                }
-            } else {
-                throw new DukeException("There is no task matched this description. ");
-            }
+            throw new DukeException("Please follow format 'delete task :#<id>'. ");
         }
         return task;
     }
@@ -98,17 +89,15 @@ public class DeleteTaskCommand implements Command {
             for (AssignedTask patientTask : patientTasks) {
                 relatedPatients.add(patientManager.getPatient(patientTask.getPid()));
             }
-            ui.taskPatientFound(taskToBeDeleted, patientTasks, relatedPatients);
-            assignedTaskManager.deleteAllPatientTaskByTaskId(taskToBeDeleted.getId());
+            ui.taskPatientFound(taskToBeDeleted, relatedPatients);
+            assignedTaskManager.deleteAllAssignedTaskByTaskId(taskToBeDeleted.getId());
             storageManager.saveAssignedTasks(assignedTaskManager.getAssignTasks());
             taskManager.deleteTask(taskToBeDeleted.getId());
-            storageManager.saveTasks(taskManager.getTaskList());
-            ui.taskDeleted();
         } catch (Exception e) {
             taskManager.deleteTask(taskToBeDeleted.getId());
-            storageManager.saveTasks(taskManager.getTaskList());
-            ui.taskDeleted();
         }
+        storageManager.saveTasks(taskManager.getTaskList());
+        ui.taskDeleted();
     }
 
     /**
@@ -121,5 +110,3 @@ public class DeleteTaskCommand implements Command {
         return false;
     }
 }
-
-

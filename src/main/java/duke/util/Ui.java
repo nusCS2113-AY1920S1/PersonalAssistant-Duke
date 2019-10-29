@@ -157,6 +157,8 @@ public class Ui {
         }
     }
 
+    //@@author kkeejjuunn
+
     /**
      * Print out patient is being found.
      *
@@ -165,6 +167,18 @@ public class Ui {
     public void patientsFoundById(Patient patient) {
         printDukeResponse("Got it. The patient is found.");
         showPatientInfo(patient);
+    }
+
+    //@@author kkeejjuunn
+
+    /**
+     * Print out task is being found.
+     *
+     * @param task task being found
+     */
+    public void taskFoundById(Task task) {
+        printDukeResponse("Got it. The task is found.");
+        showTaskInfo(task);
     }
 
     /**
@@ -285,11 +299,13 @@ public class Ui {
         }
     }
 
+    //@@author kkeejjuunn
+
     /**
      * It shows message of a patient being deleted.
      */
     public void patientDeleted() {
-        printDukeResponse("Got it. The patient is deleted.");
+        printDukeResponse("Got it. The patient is deleted.\n");
     }
 
     //@@author kkeejjuunn
@@ -481,11 +497,11 @@ public class Ui {
     }
 
     /**
-     * It shows all info of tasks found which are associated with the patient given by user.
+     * It displays all the tasks assigned to the patient who is to be deleted.
      *
      * @param patient     patient given by user
      * @param patientTask list of patienttasks being found associated with the patient
-     * @param tasks       list of tasks relate to patienttasks found
+     * @param tasks       list of tasks assigned to the patient
      */
     public void patientTaskFound(Patient patient, ArrayList<AssignedTask> patientTask, ArrayList<Task> tasks) {
         printDukeResponse("The tasks of patient " + patient.getId() + " " + patient.getName() + " is found : \n");
@@ -501,17 +517,28 @@ public class Ui {
      * It shows all info of patientTasks found which are associated with the task given by user.
      *
      * @param task        task given by user
-     * @param patientTask list of patienttasks being found associated with the task
      * @param patients    list of patients relate to task
      */
-    public void taskPatientFound(Task task, ArrayList<AssignedTask> patientTask, ArrayList<Patient> patients) {
+     public void taskPatientFound(Task task, ArrayList<Patient> patients) {
         printDukeResponse("The task " + task.getId() + " " + task.getDescription()
-                + " assigned to following patient(s) is/are found : \n");
-        for (int i = 0; i < patientTask.size(); i++) {
-            showLine();
+                + " is assigned to following patient(s) : \n");
+        for (int i = 0; i < patients.size(); i++) {
             printDukeResponse(patients.get(i).getId() + ". " + patients.get(i).getName() + "\n");
-            printDukeResponse(patientTask.get(i).toString());
-            showLine();
+        }
+    }
+
+    //@@author kkeejjuunn
+
+    /**
+     * It shows all info of tasks found which are associated with the patient given by user.
+     *
+     * @param patient     patient given by user
+     * @param tasks       list of tasks relate to patienttasks found
+     */
+    public void assignedTasksFoundWhenDeletePatient(Patient patient, ArrayList<Task> tasks) {
+        printDukeResponse(patient.getName() + " is assigned with the following tasks : \n");
+        for (int i = 0; i < tasks.size(); i++) {
+            printDukeResponse(tasks.get(i).getId() + ". " + tasks.get(i).getDescription() + "\n");
         }
     }
 
