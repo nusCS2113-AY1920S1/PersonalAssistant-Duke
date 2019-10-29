@@ -6,27 +6,27 @@
   },
   {
     "name": "yo",
-    "isDone": false,
+    "isDone": true,
     "memberList": []
   },
   {
     "name": "ban",
-    "isDone": false,
+    "isDone": true,
     "memberList": []
   },
   {
     "name": "lak;sdjfkl;ads",
-    "isDone": false,
+    "isDone": true,
     "memberList": []
   },
   {
     "name": "yuheng\u0027s task",
-    "isDone": false,
+    "isDone": true,
     "memberList": []
   },
   {
     "name": "hello",
-    "isDone": false,
+    "isDone": true,
     "memberList": []
   },
   {
