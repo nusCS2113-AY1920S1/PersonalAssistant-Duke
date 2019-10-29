@@ -1,6 +1,6 @@
-package duke.gui;
+package duke.launcher.gui;
 
-import duke.Duke;
+import duke.launcher.Duke;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

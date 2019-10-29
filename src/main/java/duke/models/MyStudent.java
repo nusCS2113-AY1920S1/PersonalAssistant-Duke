@@ -1,4 +1,4 @@
-package duke.sports;
+package duke.models;
 
 /**
  * Represents a student.
@@ -27,7 +27,7 @@ public class MyStudent {
      * @param myAge     age of the student
      * @param myAddress address of the student
      */
-    @SuppressWarnings("checkstyle:HiddenField")
+
     public MyStudent(final String myName, final String myAge,
                      final String myAddress) {
         this.name = myName;

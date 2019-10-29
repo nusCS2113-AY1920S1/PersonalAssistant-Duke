@@ -1,8 +1,8 @@
 package duke.parser;
 
-import duke.CliView;
+import duke.view.CliView;
 import duke.data.Storage;
-import duke.module.Schedule;
+import duke.models.Schedule;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;

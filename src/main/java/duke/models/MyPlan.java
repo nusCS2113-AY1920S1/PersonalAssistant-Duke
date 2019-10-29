@@ -1,6 +1,6 @@
-package duke.sports;
+package duke.models;
 
-import duke.CliView;
+import duke.view.CliView;
 import duke.data.Storage;
 
 import java.io.FileNotFoundException;
