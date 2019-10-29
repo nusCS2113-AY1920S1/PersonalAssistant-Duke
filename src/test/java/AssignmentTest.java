@@ -53,5 +53,4 @@ public class AssignmentTest {
     void getRecurrenceSchedule() {
         assertEquals(assignment.getRecurrenceSchedule(), RecurrenceScheduleType.none);
     }
-
 }
