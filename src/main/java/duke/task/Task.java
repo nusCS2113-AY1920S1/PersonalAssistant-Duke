@@ -122,7 +122,7 @@ public class Task {
 
     //@@author gervaiseang
     /**
-     * Gets the reminder of one task
+     * Returns the reminder of one task.
      *
      * @return integer of the number of days to set the reminded task.
      */
