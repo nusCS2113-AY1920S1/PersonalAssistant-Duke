@@ -50,7 +50,7 @@ public class Model {
      * Update any changes in the task list to the display in ui.
      */
     public void updateGuiTaskList() {
-        if (isUpdateGui == true) {
+        if (isUpdateGui) {
             Duke.getUI().updateTaskList(taskList.getTaskGuiStringList());
         }
     }

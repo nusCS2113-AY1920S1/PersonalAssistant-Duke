@@ -40,8 +40,8 @@ public class CommandParserHelperTest {
         model.setEmailList(emailList);
 
         ArrayList<Command.Option> optionListEmpty = new ArrayList<>();
-        ArrayList<Command.Option> optionListCorrect = new ArrayList<>(Arrays.asList(new Command.Option(
-                "msg", "do after description")));
+        //ArrayList<Command.Option> optionListCorrect = new ArrayList<>(Arrays.asList(new Command.Option(
+        //        "msg", "do after description")));
         ArrayList<Command.Option> optionListExtra = new ArrayList<>(Arrays.asList(new Command.Option(
                 "msg", "do after description"), new Command.Option("tag", "123")));
 
