@@ -125,6 +125,6 @@ public class CGraphCommand extends Command {
                     + intHolder.get(i + 1)) / 2) / (float)highest) * 20);
             graph[20 - pos][i * 2 + 1] = "*";
         }
-        graphUi.showWeight(graph, month);
+        graphUi.show(graph, month, type);
     }
 }
