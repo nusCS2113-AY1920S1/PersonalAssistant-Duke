@@ -1,6 +1,6 @@
 package duke.sports;
 
-import duke.Ui;
+import duke.CLIView;
 import duke.data.Storage;
 
 import java.io.FileNotFoundException;
@@ -24,7 +24,7 @@ public class MyPlan {
      /**
       * The ui object responsible for showing things to the user.
       */
-    private Ui ui;
+    private CLIView CLIView;
 
      /**
       * Represents the file path for the plans.
@@ -304,7 +304,7 @@ public class MyPlan {
     public void loadPlan(final String intensity, final String plan) {
         clearPlan();
         if (!Intensity.contains(intensity)) {
-            ui.showIntensityLevel();
+            CLIView.showIntensityLevel();
         } else {
             int planNum = Integer.parseInt(plan.split("/")[1]);
             String key = createKey(intensity, planNum);
@@ -312,7 +312,7 @@ public class MyPlan {
                 for (MyTraining t : getMap().get(key)) {
                     getList().add(t);
                 }
-                ui.showPlanLoaded(planNum, intensity);
+                CLIView.showPlanLoaded(planNum, intensity);
             }
         }
     }
@@ -347,21 +347,21 @@ public class MyPlan {
     public void createPlan(final String intensity) {
         clearPlan();
         if (Intensity.contains(intensity)) {
-            ui.showPlanCreating(intensity);
+            CLIView.showPlanCreating(intensity);
             while (true) {
                 Scanner sc = new Scanner(System.in);
                 if (sc.hasNextLine()) {
                     String input = sc.nextLine();
                     if (input.equals("finalize")) {
-                        ui.showPlanCreated();
-                        ui.showSavePlanToMap();
+                        CLIView.showPlanCreated();
+                        CLIView.showSavePlanToMap();
                         break;
                     } else if (input.equals("show")) {
                         if (getList().isEmpty()) {
-                            ui.showNoActivity();
+                            CLIView.showNoActivity();
                         } else {
-                            ui.showViewPlan(viewPlan());
-                            ui.showPlanPrompt1();
+                            CLIView.showViewPlan(viewPlan());
+                            CLIView.showPlanPrompt1();
                         }
                     } else {
                         String[] details = input.split(" ");
@@ -370,14 +370,14 @@ public class MyPlan {
                                 Integer.parseInt(details[2]));
                         getList().add(a);
                         int temp = getList().size() - 1;
-                        ui.showActivityAdded(getList().get(temp));
-                        ui.showPlanPrompt2();
+                        CLIView.showActivityAdded(getList().get(temp));
+                        CLIView.showPlanPrompt2();
                     }
                 }
             }
             saveToMap(getList(), intensity, "0");
         } else {
-            ui.showIntensityLevel();
+            CLIView.showIntensityLevel();
         }
     }
 
@@ -391,10 +391,10 @@ public class MyPlan {
                              final int planNum) throws IOException {
         String key = createKey(intensity, planNum);
         if (!getMap().containsKey(key)) {
-            ui.showIntensityAndNumber();
+            CLIView.showIntensityAndNumber();
         } else {
             getMap().remove(key);
-            ui.showPlanRemoved();
+            CLIView.showPlanRemoved();
         }
         //new Storage(getFilePath()).savePlans(getMap());
     }

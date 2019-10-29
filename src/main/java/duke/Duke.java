@@ -1,6 +1,6 @@
 package duke;
 
-import duke.Parser.ParserCommand;
+import duke.parser.ParserCommand;
 import duke.data.Storage;
 import duke.module.Schedule;
 import duke.sports.ManageStudents;
@@ -11,13 +11,13 @@ import java.text.ParseException;
 
 public class Duke  {
     /**
-     * Declaring new Parser type.
+     * Declaring new parser type.
      */
     private ParserCommand parser = new ParserCommand();
     /**
      * ui is the command line user interface object.
      */
-    private Ui ui;
+    private CLIView CLIView;
     /**
      * Storage is the main class that writes files.
      */
@@ -53,7 +53,7 @@ public class Duke  {
      * @throws ParseException if unable to load schedule
      */
     public Duke() throws FileNotFoundException, ParseException {
-        ui = new Ui();
+        CLIView = new CLIView();
         storage = new Storage(".\\src\\main\\java\\duke\\data\\duke.txt");
         tasks = new TaskList();
         students = new ManageStudents();
@@ -68,8 +68,8 @@ public class Duke  {
      * @param args expects array of string objects
      */
     public static void main(final String[] args) {
-        Ui ui = new Ui();
-        ui.execute();
+        CLIView CLIView = new CLIView();
+        CLIView.execute();
     }
     /*
      * Upon running launcher main, start() will run.

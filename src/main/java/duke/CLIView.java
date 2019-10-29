@@ -1,11 +1,11 @@
 package duke;
 
-import duke.Parser.ParserCommand;
+import duke.parser.ParserCommand;
 import duke.sports.MyTraining;
 
 import java.util.Scanner;
 
-public class Ui {
+public class CLIView {
 
     /**
      * Scanner object to read user input.
@@ -13,7 +13,7 @@ public class Ui {
     private Scanner scan = new Scanner(System.in);
 
     /**
-     * Declaring new Parser type.
+     * Declaring new parser type.
      */
     private ParserCommand parser = new ParserCommand();
 
