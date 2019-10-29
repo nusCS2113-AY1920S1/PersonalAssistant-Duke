@@ -347,14 +347,6 @@ public class ProjectInputController implements IController {
     }
 
     /**
-     * Displays the assigned tasks in the current project.
-     * @param assignedTaskList The list containing the assignment of the tasks.
-     */
-    public String[] projectViewAssignedTasks(ArrayList<String> assignedTaskList) {
-        return assignedTaskList.toArray(new String[0]);
-    }
-
-    /**
      * Displays all the tasks in the given project.
      * @param projectToManage The project specified by the user.
      * @param projectCommand The user input.
