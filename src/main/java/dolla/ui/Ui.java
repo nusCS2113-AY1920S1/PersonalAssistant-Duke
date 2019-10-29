@@ -1,6 +1,5 @@
 package dolla.ui;
 
-import dolla.Time;
 import dolla.task.Task;
 import dolla.task.Record;
 import dolla.task.RecordList;
@@ -12,6 +11,10 @@ import java.util.Arrays;
  * duke.Ui is a class that handles all interactions to the user.
  */
 public abstract class Ui {
+
+    protected static final String SORT_DESCRIPTION = "description";
+    protected static final String SORT_DATE = "date";
+    protected static final String SORT_NAME = "name";
 
     private static String logo =
         " ____    _   _  _   _       \n"
@@ -323,11 +326,11 @@ public abstract class Ui {
      */
     public static void printSortedList(ArrayList<Record> list, String type) {
         System.out.println(line);
-        if (type.equals("date")) {
+        if (type.equals(SORT_DATE)) {
             System.out.println("sorting date.........");
-        } else if (type.equals("description")) {
+        } else if (type.equals(SORT_DESCRIPTION)) {
             System.out.println("sorting description.........");
-        } else if (type.equals("name")) {
+        } else if (type.equals(SORT_NAME)) {
             System.out.println("sorting name.........");
         }
 
