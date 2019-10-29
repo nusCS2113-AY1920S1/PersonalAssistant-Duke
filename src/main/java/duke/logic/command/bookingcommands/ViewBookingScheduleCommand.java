@@ -69,7 +69,7 @@ public class ViewBookingScheduleCommand extends Command<BookingList, Ui, Booking
                 }
                 String outputDate = new SimpleDateFormat("dd MMMM yyyy").format(currDate);
                 if (scheduleList.isEmpty()) {
-                    arrayList.add("      No booking on " + outputDate);
+                    arrayList.add("      No booking on " + outputDate + ". \n      You may proceed with command: addbooking");
                 } else {
                     arrayList.add("      Here are your bookings for " + outputDate);
                     for (int i = 0; i < scheduleList.size(); i++) {

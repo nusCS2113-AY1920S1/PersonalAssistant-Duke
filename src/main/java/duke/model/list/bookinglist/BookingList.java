@@ -12,11 +12,6 @@ import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
 public class BookingList {
 
     private ArrayList<Booking> bookingList;
-    private static String msg = "";
-
-    public BookingList() {
-        this.bookingList = new ArrayList<Booking>();
-    }
 
     public BookingList(ArrayList<Booking> bookingList) {
         this.bookingList = bookingList;

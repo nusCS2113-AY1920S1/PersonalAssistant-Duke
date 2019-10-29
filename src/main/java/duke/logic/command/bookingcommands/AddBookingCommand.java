@@ -2,6 +2,7 @@ package duke.logic.command.bookingcommands;
 
 import duke.logic.command.Command;
 import duke.model.list.bookinglist.BookingList;
+import duke.model.task.bookingtasks.Booking;
 import duke.storage.BookingStorage;
 import duke.ui.Ui;
 
@@ -27,6 +28,15 @@ public class AddBookingCommand extends Command<BookingList, Ui, BookingStorage> 
 
     }
 
+    private static boolean isAvailableDate(String bookingDate, BookingList bookingList) {
+        for (Booking booking : bookingList.getBookingList()) {
+            if (bookingDate.equals(booking.getBookingDate())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
@@ -42,24 +52,27 @@ public class AddBookingCommand extends Command<BookingList, Ui, BookingStorage> 
             String bookingDate = temp[4].trim();
             String orderName = temp[5].trim();
 
+            if (isDateParsable(bookingDate)) {
+                if (isAvailableDate(bookingDate, bookingList)) {
+                    if (orderName.contains("orders/")) {
+                        bookingList.addBooking(customerName, customerContact, numberOfPax, bookingDate, orderName);
+                        bookingStorage.saveFile(bookingList);
 
-            if (orderName.contains("orders/")) {
-                if (isDateParsable(bookingDate)) {
-                    bookingList.addBooking(customerName, customerContact, numberOfPax, bookingDate, orderName);
-                    bookingStorage.saveFile(bookingList);
-
-                    int size = bookingList.getSize();
-                    if (size == 1) {
-                        msg = " booking in the list.";
+                        int size = bookingList.getSize();
+                        if (size == 1) {
+                            msg = " booking in the list.";
+                        } else {
+                            msg = " bookings in the list.";
+                        }
+                        arrayList.add("New booking added:\n" + "       " + bookingList.getBookingList().get(size - 1) + "\n" + "Now you have " + size + msg);
                     } else {
-                        msg = " bookings in the list.";
+                        arrayList.add("Invalid orders entered.\n Please enter orders again in this format: \n orders/ <order_name_1>, <order_name_2>");
                     }
-                    arrayList.add("New booking added:\n" + "       " + bookingList.getBookingList().get(size - 1) + "\n" + "Now you have " + size + msg);
                 } else {
-                    arrayList.add("Invalid booking date entered.\n Please enter again in the format: dd/MM/yyyy");
+                    arrayList.add("Date entered is unavailable due to existing booking:(\n Please enter another date.");
                 }
             } else {
-                arrayList.add("Invalid orders entered.\n Please enter again in the format: orders/ <order_name_1>, <order_name_2>");
+                arrayList.add("Invalid booking date entered.\n Please enter date again in this format: dd/MM/yyyy");
             }
         } else {
             arrayList.add("Incorrect Booking details.\n" +
