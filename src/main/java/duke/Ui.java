@@ -123,7 +123,7 @@ public class Ui {
             + "1. Plan list - View all the plans available "
             + "and check a plan or edit it (cmd: TBC)\n"
             + "2. Create plan - Create a new plan of a "
-            + "specified intensity level (Cmd: plan new [intensity level])"
+            + "specified intensity level (Cmd: plan new [intensity level])\n"
             + "3. Edit plan - Edit a specified plan by adding new "
             + "activities or switching activity positions "
             + "(Cmd: plan edit [intensity level] [plan number])");
