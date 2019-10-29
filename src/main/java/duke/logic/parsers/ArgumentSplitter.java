@@ -71,7 +71,7 @@ public class ArgumentSplitter {
         ArrayList<String> argNameStrings = new ArrayList<>();
         while (argNameMatcher.find()) {
             String matchedStr = argNameMatcher.group();
-            argNameStrings.add(matchedStr);
+            argNameStrings.add(matchedStr.replace("/", ""));
         }
 
         for (int idx = 0; idx < argNameStrings.size();idx++) {

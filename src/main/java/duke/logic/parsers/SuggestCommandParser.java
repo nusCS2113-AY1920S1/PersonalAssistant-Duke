@@ -38,7 +38,7 @@ public class SuggestCommandParser implements ParserInterface<SuggestCommand> {
 
         if (argumentsMap.containsKey(displayArgStr)) {
             try {
-                maxMealsToSuggest = Integer.parseInt(argumentsMap.get(displayArgStr));
+                maxMealsToSuggest = Integer.parseInt(argumentsMap.get(displayArgStr).trim());
             } catch (NumberFormatException e) {
                 return new SuggestCommand(true, "Unable to parse display as integer. Please " +
                         "input as integer. eg: /display 5");
