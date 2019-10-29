@@ -12,12 +12,14 @@ public class PatientDeleteSpec extends ArgSpec {
     }
 
     private PatientDeleteSpec() {
-        emptyArgMsg = "You didn't tell me anything about what to delete!";
+        emptyArgMsg = "You did not tell me anything about what to delete!";
         cmdArgLevel = ArgLevel.NONE;
         initSwitches(
                 new Switch("critical", String.class, true, ArgLevel.OPTIONAL, "c"),
-                new Switch("investigation", String.class, true, ArgLevel.OPTIONAL, "i"),
-                new Switch("impression", String.class, true, ArgLevel.OPTIONAL, "im")
+                new Switch("investigation", String.class, true, ArgLevel.OPTIONAL, "in"),
+                new Switch("impression", String.class, true, ArgLevel.OPTIONAL, "im"),
+                new Switch("index", Integer.class, true, ArgLevel.REQUIRED, "i"),
+                new Switch("name", String.class, true, ArgLevel.REQUIRED, "n")
         );
     }
 }

@@ -3,10 +3,14 @@ package duke.command.patient;
 import duke.DukeCore;
 import duke.command.ArgCommand;
 import duke.command.ArgSpec;
+import duke.command.CommandHelpers;
+import duke.data.DukeObject;
 import duke.data.Patient;
 import duke.exception.DukeException;
-import duke.ui.card.ImpressionCard;
 import duke.ui.context.Context;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class PatientOpenCommand extends ArgCommand {
     @Override
@@ -18,26 +22,38 @@ public class PatientOpenCommand extends ArgCommand {
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
 
-        Patient patient = (Patient) core.uiContext.getObject();
-        String impressionId = getSwitchVal("impression");
-        int index = switchToInt("index");
+        Map<String, Boolean> conditions = new HashMap<>();
+        conditions.put("impression", isSwitchSet("impression"));
+        conditions.put("critical", isSwitchSet("critical"));
+        conditions.put("investigation", isSwitchSet("investigation"));
 
-        if (impressionId == null && index == -1) {
-            throw new DukeException("You must provide an identifier!");
-        } else if (impressionId != null && index != -1) {
-            throw new DukeException("Please provide only 1 identifier for the patient you are looking for!");
-        } else if (impressionId != null) {
-            core.uiContext.setContext(Context.IMPRESSION, patient.getImpression(impressionId));
-        } else {
-            // TODO: Law of demeter
-            try {
-                ImpressionCard card = (ImpressionCard) core.ui.getCardList().get(index - 1);
-                core.uiContext.setContext(Context.IMPRESSION, card.getImpression());
-            } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("I cannot find this impression!");
+        String type = null;
+        for (Map.Entry<String, Boolean> condition : conditions.entrySet()) {
+            if (condition.getValue()) {
+                if (type == null) {
+                    type = condition.getKey();
+                } else {
+                    throw new DukeException("Please provide only 1 unique type (IMPRESSION, CRITICAL or INVESTIGATION "
+                            + "that you wish to open!");
+                }
             }
         }
 
-        core.ui.print("Opening impression...");
+        if (type == null) {
+            throw new DukeException("You must provide 1 unique type (IMPRESSION, CRITICAL or INVESTIGATION) that you "
+                    + "wish to open!");
+        }
+
+        Patient patient = (Patient) core.uiContext.getObject();
+        DukeObject object = CommandHelpers.findObject(patient, type, getSwitchVal("name"),
+                switchToInt("index"));
+
+        if ("impression".equals(type)) {
+            core.uiContext.setContext(Context.IMPRESSION, object);
+        } else if ("critical".equals(type)) {
+            // TODO: Get critical
+        } else {
+            core.uiContext.setContext(Context.INVESTIGATION, object);
+        }
     }
 }

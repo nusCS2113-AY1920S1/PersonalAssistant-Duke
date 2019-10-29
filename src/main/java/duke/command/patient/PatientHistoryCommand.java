@@ -16,10 +16,11 @@ public class PatientHistoryCommand extends ArgCommand {
     @Override
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
+
         Patient patient = (Patient) core.uiContext.getObject();
         patient.appendHistory(getArg());
         patient.updateAttributes();
-        core.ui.print("Note appended!");
         core.writeJsonFile();
+        core.ui.print("Note appended!");
     }
 }

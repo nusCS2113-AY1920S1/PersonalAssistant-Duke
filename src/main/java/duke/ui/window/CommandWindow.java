@@ -36,9 +36,10 @@ public class CommandWindow extends InputHistoryWindow {
     /**
      * Constructs the command window of the application.
      *
+     * @param parser   Parser object responsible for parsing user commands.
      * @param executor Executor object responsible for executing user commands.
      */
-    public CommandWindow(Executor executor, Parser parser) {
+    public CommandWindow(Parser parser, Executor executor) {
         super(FXML, null);
 
         this.parser = parser;

@@ -5,18 +5,18 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 
 /**
- * Application Programming Interface (API) of the UI component of the application.
+ * API of the UI component of the application.
  */
 public interface Ui {
     /**
      * Starts the UI (and the JavaFX application).
      *
-     * @param primaryStage Stage created by the JavaFX system when the application first starts up.
+     * @param primaryStage Stage created by the JavaFX system when the application starts up.
      */
     void start(Stage primaryStage);
 
     /**
-     * Prints message on the command window.
+     * Prints message on the {@code CommandWindow}.
      *
      * @param message Output message.
      */
