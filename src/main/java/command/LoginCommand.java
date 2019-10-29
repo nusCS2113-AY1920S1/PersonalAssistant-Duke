@@ -1,4 +1,8 @@
+
 package command;
+
+import inventory.Inventory;
+import inventory.Item;
 
 import booking.BookingList;
 import exception.DukeException;
@@ -37,8 +41,7 @@ public class LoginCommand extends Command {
     }
 
     @Override
-    public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingStorage,
-                        Storage roomStorage, User user) throws DukeException, IOException, ParseException {
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user) throws DukeException, IOException, ParseException {
         boolean isVerified = Login.verifyLogin(splitL[1], splitL[2], "data\\members.txt");
         if (isVerified) {
             Login.setCurrentUser(splitL[1]);

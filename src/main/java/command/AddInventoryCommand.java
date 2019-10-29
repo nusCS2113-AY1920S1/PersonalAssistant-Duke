@@ -1,4 +1,8 @@
+
 package command;
+
+import inventory.Inventory;
+import inventory.Item;
 
 
 import exception.DukeException;
@@ -43,7 +47,12 @@ public class AddInventoryCommand extends Command {
             throw new DukeException("☹ OOPS!!! Please create your inventory with the following format: NAME /qty QUANTITY");
         }
         this.name = splitC[0];
-        this.quantity = Integer.parseInt(splitC[1]);
+        try {
+            this.quantity = Integer.parseInt(splitC[1]);
+        } catch (Exception e){
+            throw new DukeException("Please only input the Quantity in whole numbers");
+        }
+
         newItem = new Item(name, quantity);
     }
 
@@ -64,8 +73,7 @@ public class AddInventoryCommand extends Command {
     //@Override
 
 
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
             throws DukeException, IOException, ParseException {
 
         boolean clash = Inventory.checkInventory(inventory, name); //make this function in Inventory class
