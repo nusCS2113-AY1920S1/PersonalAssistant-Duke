@@ -3,10 +3,7 @@ package Model_Classes;
 import Enums.Priority;
 import Enums.RecurrenceScheduleType;
 
-import java.awt.font.TextAttribute;
 import java.util.Date;
-import java.awt.*;
-import java.util.Map;
 
 /**
  * Parent class for all other types of tasks
@@ -14,40 +11,52 @@ import java.util.Map;
 public abstract class Task{
     private String description;
     private boolean isDone;
+    private Date date;
     private Priority priority;
-    private String user;
+    private String assignee;
     private RecurrenceScheduleType recurrenceSchedule;
     private boolean hasRecurring;
-    private Date time;
 
     /**
      * Constructor for the task object. takes in the description of the task
      * @param description Description of the task
      */
-    public Task(String description, Date time) {
+    public Task(String description, Date date) {
         this.description = description;
         this.isDone = false;
         this.priority = Priority.low;
-        this.time = time;
-        this.user = "everyone";
+        this.date = date;
+        this.assignee = "everyone";
         this.recurrenceSchedule = RecurrenceScheduleType.none;
     }
 
     /**
-     * Returns String of the user that was specified
-     * @return name of the user
+     * Returns the description of the task
+     * @return description Description of the task
      */
-    public String getUser() {
-        return this.user;
+    public String getDescription() {
+        return description;
     }
 
     /**
-     * Returns String of the time Task was created
-     * @return time the task was created
+     * Set the description of the task
      */
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    public void setAssignee(String user) {
-        this.user = user;
+    /**
+     * Returns the time of the Task ( deadline of Assignment / time of meeting )
+     * @return time task is due or starts
+     */
+    public Date getDate() { return date; }
+
+    /**
+     * Sets the date and time of the task
+     * @param date date and time of the task
+     */
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     /**
@@ -73,11 +82,19 @@ public abstract class Task{
     public String getStatusIcon() { return (isDone ? "[\u2713] " : "[\u2718] "); } //return tick or X symbols
 
     /**
-     * Returns the description of the task
-     * @return description Description of the task
+     * Returns String of the assignee that was specified
+     * @return name of the user
      */
-    public String getDescription() {
-        return description;
+    public String getAssignee() {
+        return this.assignee;
+    }
+
+    /**
+     * Set the assignee of the task
+     * @param assignee name of the assignee
+     */
+    public void setAssignee(String assignee) {
+        this.assignee = assignee;
     }
 
     /**
@@ -95,21 +112,17 @@ public abstract class Task{
     }
 
     /**
-     * Returns both the status icon and the description of the task.
-     * @return
+     * Gets the recurrence schedule of the task
+     * @return the recurrence schedule of the task
      */
-    public String toString() {
-        Font font = new Font("helvetica", Font.PLAIN, 12);
-        Map attributes = font.getAttributes();
-        attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
-        Font newFont = new Font(attributes);
-        return getStatusIcon() + getDescription() + " " + "(" + getUser() + ")" + newFont;
-    }
-
     public RecurrenceScheduleType getRecurrenceSchedule() {
         return recurrenceSchedule;
     }
 
+    /**
+     * Sets the recurrence schedule of the task
+     * @param recurrenceSchedule the recurrence schedule that the task is set to
+     */
     public void setRecurrenceSchedule(RecurrenceScheduleType recurrenceSchedule) {
         this.recurrenceSchedule = recurrenceSchedule;
         if (recurrenceSchedule.equals(RecurrenceScheduleType.none)) {
@@ -128,17 +141,11 @@ public abstract class Task{
     }
 
     /**
-     * Returns the time of the Task ( deadline of Assignment / time of meeting )
-     * @return time task is due or starts
-     */
-    public Date getDate() { return time; }
-
-    /**
      * Snoozes the task by set amount of months
      * @param amount number of months to snooze
      */
     public void snoozeMonth(int amount) {
-        this.time.setMonth(this.time.getMonth() + amount);;
+        this.date.setMonth(this.date.getMonth() + amount);;
     }
 
     /**
@@ -146,7 +153,7 @@ public abstract class Task{
      * @param amount number of days to snooze
      */
     public void snoozeDay(int amount) {
-        this.time.setDate(this.time.getDate() + amount);;
+        this.date.setDate(this.date.getDate() + amount);;
     }
 
 
@@ -155,7 +162,7 @@ public abstract class Task{
      * @param amount number of hours to snooze
      */
     public void snoozeHour(int amount){
-        this.time.setHours(this.time.getHours() + amount);
+        this.date.setHours(this.date.getHours() + amount);
     }
 
 
@@ -164,8 +171,17 @@ public abstract class Task{
      * @param amount number of minutes to snooze
      */
     public void snoozeMinute(int amount){
-        this.time.setMinutes(this.time.getMinutes() + amount);
+        this.date.setMinutes(this.date.getMinutes() + amount);
     }
 
-
+    /**
+     * Returns both the status icon and the description of the task.
+     * @return
+     */
+    public String toString() {
+        if (hasRecurring)
+            return getStatusIcon() + getDescription() + " " + "(" + getAssignee() + ") (every "
+                    + getRecurrenceSchedule().toString() + ")";
+        return getStatusIcon() + getDescription() + " " + "(" + getAssignee() + ")";
+    }
 }
