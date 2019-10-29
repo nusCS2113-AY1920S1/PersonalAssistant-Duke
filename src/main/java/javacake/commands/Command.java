@@ -21,21 +21,6 @@ public abstract class Command {
     public abstract String execute(Logic logic, Ui ui, StorageManager storageManager)
             throws CakeException;
 
-    /**
-     * Method to get the type of command.
-     * @return Type of command
-     */
-    public CmdType type() {
-        return type;
-    }
-
-    /**
-     * Method to get the input inside the command.
-     * @return String containing user input in command
-     */
-    public String input() {
-        return input;
-    }
 
     /**
      * Method to check whether command is of type exit.

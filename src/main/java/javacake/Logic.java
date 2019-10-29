@@ -168,9 +168,9 @@ public class Logic {
         for (int i = 0; i < filesCapture.length - 1; i++) {
             reducedFilePath.append(filesCapture[i]).append("/");
         }
-        String finalTrim = reducedFilePath.toString();
-        finalTrim = finalTrim.substring(0, finalTrim.length() - 1);
-        return finalTrim;
+        String parentFilePath = reducedFilePath.toString();
+        parentFilePath = parentFilePath.substring(0, parentFilePath.length() - 1);
+        return parentFilePath;
     }
 
 

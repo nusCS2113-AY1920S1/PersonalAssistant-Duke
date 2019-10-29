@@ -11,7 +11,9 @@ import java.util.ArrayList;
 
 public class ListNoteCommand extends Command {
 
-    public ArrayList<Note> notesArchive;
+    public ListNoteCommand() {
+        type = CmdType.LISTNOTE;
+    }
 
     /**
      * Prints out the names of all the notes.
@@ -24,11 +26,11 @@ public class ListNoteCommand extends Command {
      */
     public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         StringBuilder sb = new StringBuilder();
-        notesArchive = new NoteList().compileNotes();
-        sb.append("You have " + notesArchive.size() + " note(s) available!").append("\n");
+        ArrayList<Note> notesArchive = new NoteList().compileNotes();
+        sb.append("You have ").append(notesArchive.size()).append(" note(s) available!").append("\n");
         int index = 1;
         for (Note n : notesArchive) {
-            sb.append(Integer.toString(index) + ". ");
+            sb.append(index).append(". ");
             sb.append(n.getName()).append("\n");
             index++;
         }

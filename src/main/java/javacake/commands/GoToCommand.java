@@ -21,6 +21,9 @@ public class GoToCommand extends Command {
      * @param inputCommand Parsed goto command by user
      */
     public GoToCommand(String inputCommand) throws CakeException {
+
+        type = CmdType.GOTO;
+
         String[] inputDivider = inputCommand.split("\\s+", 2);
         String gotoIndex;
 

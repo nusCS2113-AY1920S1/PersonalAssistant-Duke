@@ -38,14 +38,14 @@ public class Parser {
             case ("back"): return new BackCommand();
             case ("score"): return new ScoreCommand();
             case ("reset"): return new ResetCommand();
-            case ("goto"): return new GoToCommand(inputCommand);
             case ("overview"): return new OverviewCommand();
+            case ("listnote"): return new ListNoteCommand();
+            case ("reminder"): return new ReminderCommand();
+            case ("goto"): return new GoToCommand(inputCommand);
             case ("createnote"): return new CreateNoteCommand(inputCommand);
             case ("editnote"): return new EditNoteCommand(inputCommand);
-            case ("listnote"): return new ListNoteCommand();
             case ("deletenote"): return new DeleteNoteCommand(inputCommand);
             case ("deadline"): return new AddCommand(inputCommand);
-            case ("reminder"): return new ReminderCommand();
             case ("change"):
                 MainWindow.isChanged = true;
                 return new ChangeColorCommand();
