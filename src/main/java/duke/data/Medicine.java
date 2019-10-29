@@ -90,4 +90,14 @@ public class Medicine extends Treatment {
     public void setSummary(String summary) {
         // medicine does not have a summary
     }
+
+    public boolean equals(Medicine medicine) {
+        if (super.equals(medicine)) {
+            return dose.equals(medicine.dose)
+                    && duration.equals(medicine.duration)
+                    && startDate.equals(medicine.startDate);
+        } else {
+            return false;
+        }
+    }
 }

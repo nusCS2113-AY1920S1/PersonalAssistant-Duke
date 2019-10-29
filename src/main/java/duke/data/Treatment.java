@@ -58,4 +58,11 @@ public abstract class Treatment extends DukeData {
 
     public abstract String getStatusStr();
 
+    public boolean equals(Treatment treatment) {
+        if (super.equals(treatment)) {
+            return statusIdx.equals(treatment.statusIdx);
+        } else {
+            return false;
+        }
+    }
 }

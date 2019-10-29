@@ -57,4 +57,12 @@ public abstract class DukeData extends DukeObject {
     public void setSummary(String summary) {
         this.summary = summary;
     }
+
+    public boolean equals(DukeData other) {
+        return getName().equals(other.getName())
+                && priority.equals(other.priority)
+                && getParent() == other.getParent()
+                && ((getSummary() == null && other.getSummary() == null) || getSummary().equals(other.getSummary()));
+        // null check required because medicine summary is null
+    }
 }
