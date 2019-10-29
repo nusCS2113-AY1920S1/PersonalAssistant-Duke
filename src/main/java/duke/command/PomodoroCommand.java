@@ -38,6 +38,12 @@ public class PomodoroCommand extends Command {
         }
     }
 
+    /**
+     * Not applicable for this Command.
+     * @param tasks NA
+     * @param undoStack NA
+     * @throws DukeException NA
+     */
     @Override
     public void savePrevState(TaskList tasks, UndoStack undoStack) throws DukeException {
 

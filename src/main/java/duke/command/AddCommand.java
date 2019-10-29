@@ -26,6 +26,18 @@ public class AddCommand extends Command {
     private Optional<LocalDateTime> dateTime;
     private Recurrence recurrence;
 
+    /**
+     * Constructor for AddCommand
+     * Creates a new task or event based on the inputs given
+     *
+     * @param filter filter for each task
+     * @param dateTime datetime for each task
+     * @param recurrence recurrence period for each task
+     * @param description description for each task
+     * @param taskType type of each task
+     * @param duration time taken to complete each task
+     * @throws DukeException if event has no starting time
+     */
     public AddCommand(Optional<String> filter, Optional<LocalDateTime> dateTime, Optional<String> recurrence,
                       String description, String taskType, int duration) throws DukeException {
         this.filter = filter;
@@ -36,6 +48,15 @@ public class AddCommand extends Command {
         this.duration = duration;
     }
 
+    /**
+     * Executes the adding of a task to the TaskList
+     *
+     * @param tasks TaskList of all of user's tasks
+     * @param ui Ui handling user interaction
+     * @param storage Storage handling saving and loading of TaskList
+     * @throws IOException
+     * @throws DukeException
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, DukeException {
         switch (taskType) {
@@ -59,6 +80,13 @@ public class AddCommand extends Command {
         storage.save(tasks);
     }
 
+    /**
+     * Adds mirror command to savePrevState
+     * Mirror command is a delete command at the same location as where the add was done.
+     *
+     * @param tasks TaskList of all of user's tasks
+     * @param undoStack UndoStack of all mirror commands
+     */
     @Override
     public void savePrevState(TaskList tasks, UndoStack undoStack) {
         int idx = tasks.size();
