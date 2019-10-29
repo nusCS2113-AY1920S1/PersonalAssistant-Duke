@@ -47,7 +47,8 @@ public class User {
      * @param activityLevel how active the user is
      * @param originalWeight their original weight
      */
-    public User(String name, int age, int height, Gender gender, int activityLevel, double originalWeight, String lastDate) {
+    public User(String name, int age, int height, Gender gender, int activityLevel,
+                double originalWeight, String lastDate) {
         this.name = name;
         this.height = height;
         this.age = age;
