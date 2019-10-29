@@ -18,12 +18,12 @@ import java.util.Calendar;
 public abstract class Command {
     protected DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     protected Calendar calendarDate = Calendar.getInstance();
-    protected String currentDate = dateFormat.format(calendarDate.getTime());
+    protected String currentDateStr = dateFormat.format(calendarDate.getTime());
     protected Ui ui = new Ui();
-    protected String response;
+    protected String responseStr;
     protected boolean isDone = true;
     protected boolean isFail = false;
-    protected String error;
+    protected String errorStr;
     protected int stage = 0;
 
 
@@ -35,8 +35,8 @@ public abstract class Command {
      */
     public abstract void execute(MealList meals, Storage storage, User user, Wallet wallet) throws DukeException;
 
-    public void setResponse(String response) {
-        this.response = response;
+    public void setResponseStr(String responseStr) {
+        this.responseStr = responseStr;
     }
 
     public boolean isDone() {
@@ -48,7 +48,8 @@ public abstract class Command {
     }
 
     public void failure() {
-        ui.showMessage(this.error);
+        ui.showMessage(this.errorStr);
+        ui.showLine();
     }
 
     public boolean isFail() {

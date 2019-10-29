@@ -85,7 +85,7 @@ public class Main {
                     c.execute(meals, storage, user, wallet);
                     while (!c.isDone()) {
                         String word = in.nextLine();
-                        c.setResponse(word);
+                        c.setResponseStr(word);
                         c.execute(meals, storage, user, wallet);
                     }
                 }
