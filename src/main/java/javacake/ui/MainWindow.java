@@ -277,6 +277,7 @@ public class MainWindow extends AnchorPane {
             duke.userName = duke.storageManager.profile.getUsername();
             duke.isFirstTimeUser = true;
             showRemindersBox();
+            showListNotesBox();
             response = "Reset confirmed!\nPlease type in new username:\n";
             TopBar.resetProgress();
             isStarting = true;
