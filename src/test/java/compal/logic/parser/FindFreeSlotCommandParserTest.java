@@ -68,6 +68,28 @@ public class FindFreeSlotCommandParserTest {
     }
 
     @Test
+    void parser_invalidHourInput_exceptionThrown() {
+        assertParseFailure(parser, "/date 26/10/2019 /hour invalid", "Invalid hour input!");
+    }
+
+    @Test
+    void parser_invalidMinInput_exceptionThrown() {
+        assertParseFailure(parser, "/date 26/10/2019 /hour 1 /min abc", "Invalid min input!");
+    }
+
+    @Test
+    void parser_exceededHourInput_exceptionThrown() {
+        assertParseFailure(parser, "/date 26/10/2019 /hour 234567897891 /min 30",
+                "Error: Input entered is out of range!");
+    }
+
+    @Test
+    void parser_exceededMinInput_exceptionThrown() {
+        assertParseFailure(parser, "/date 26/10/2019 /hour 1 /min 123456789045",
+                "Error: Input entered is out of range!");
+    }
+
+    @Test
     void parser_findFreeSlotParser_success() throws ParseException, ParserException, CommandException {
         String testInput = "/date 05/12/2019 /hour 1 /min 0";
         StringBuilder freeSlot = new StringBuilder("Here are the available time slots for 05/12/2019:\n");
