@@ -16,12 +16,12 @@ public class DeleteInstalmentCommand extends MoneyCommand {
     private String inputString;
     private int serialNo;
 
+    //@@author ChenChao19
     /**
      * Constructor of the command which initialises the delete instalment command.
      * with the index of the item to be deleted within the user input
      * @param command delete command inputted from user
      */
-    //@@author ChenChao19
     public DeleteInstalmentCommand(String command) {
         inputString = command;
         serialNo = Integer.parseInt(inputString.replaceAll("[^0-9]", ""));

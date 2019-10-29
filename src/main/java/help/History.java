@@ -11,10 +11,10 @@ public class History {
     private boolean flag;
     private boolean flagForFirstPress;
 
+    //@@author ChenChao19
     /**
      * This is the constructor for recording previous commands type in by the user.
      */
-    //@@author ChenChao19
     public History() {
         commandsEntered = new ArrayList<>();
         this.flagForFirstPress = true;

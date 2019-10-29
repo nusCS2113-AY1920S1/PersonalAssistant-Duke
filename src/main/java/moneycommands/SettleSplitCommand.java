@@ -24,13 +24,13 @@ public class SettleSplitCommand extends MoneyCommand {
     private static int settleNo;
     private static Split sToSettle;
 
+    //@@author chengweixuan
     /**
      * Constructor of the command which initialises the settle split expenditure command
      * with the data for the index of the split expenditure in the Total Expenditure List
      * and the person who has settled the debt
      * @param command Settle split expenditure command inputted from user
      */
-    //@@author chengweixuan
     public SettleSplitCommand(String command) {
         inputString = command.replaceFirst("settle ", "");
     }

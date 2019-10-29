@@ -11,10 +11,10 @@ public class UndoCommandHandler {
 
     private static Stack<MoneyCommand> lastIssuedCommands;
 
+    //@@ author Chianhaoplanks
     /**
      * The constructor initializes the stack that is used to store previously issued commands to the program.
      */
-    //@@ author Chianhaoplanks
     public UndoCommandHandler() {
         lastIssuedCommands = new Stack<>();
     }

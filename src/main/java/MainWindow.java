@@ -77,11 +77,11 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    //@@author cctt1014
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to.
      * the dialog container. Clears the user input after processing.
      */
-    //@@author cctt1014
     @FXML
     private void handleUserInput() throws IOException, ParseException, DukeException {
         String input = userInput.getText();
@@ -130,11 +130,11 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    //@@author ChenChao19
     /**
      * AutoComplete function where the T extField userInput will be bind with an
      * auto completed list of commands.
      */
-    //@@author ChenChao19
     @FXML
     private void autoCompleteFunction() {
         AutoComplete autoComplete = new AutoComplete();

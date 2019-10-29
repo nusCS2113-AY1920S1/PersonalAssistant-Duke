@@ -17,12 +17,12 @@ public class DoneGoalCommand extends MoneyCommand {
     private String inputString;
     private DateTimeFormatter dateTimeFormatter;
 
+    //@@author therealnickcheong
     /**
      * Constructor of the command which initialises the add short-term goal command.
      * with the goal data within the user input.
      * @param cmd add command inputted from user.
      */
-    //@@author therealnickcheong
     public DoneGoalCommand(String cmd) {
         inputString = cmd;
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");

@@ -25,13 +25,12 @@ public class AddGoalCommand extends MoneyCommand {
     String priorityLevel;
     String category;
 
-
+    //@@author therealnickcheong
     /**
      * Constructor of the command which initialises the add short-term goal command.
      * with the goal data within the user input.
      * @param cmd add command inputted from user.
      */
-    //@@author therealnickcheong
     public AddGoalCommand(String cmd) {
         inputString = cmd;
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");

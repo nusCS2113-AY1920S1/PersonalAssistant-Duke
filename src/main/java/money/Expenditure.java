@@ -9,6 +9,7 @@ public class Expenditure extends Item {
     private LocalDate boughtDate;
     protected DateTimeFormatter dateTimeFormatter;
 
+    //@@author chengweixuan
     /**
      * Constructor of the Expenditure Object to record expenditure.
      * @param price Price of the item spent on
@@ -16,7 +17,6 @@ public class Expenditure extends Item {
      * @param category Category the item is grouped under
      * @param boughtDate Date which the item is bought
      */
-    //@@author chengweixuan
     public Expenditure(float price, String description, String category, LocalDate boughtDate) {
         super(price, description);
         this.category = category;

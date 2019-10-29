@@ -12,6 +12,7 @@ public class Split extends Expenditure {
     private float eachOwe;
     private float outstandingAmount;
 
+    //@@author chengweixuan
     /**
      * Constructor of the Split Object to record split expenditure.
      * @param price Price of the item spent on
@@ -20,7 +21,6 @@ public class Split extends Expenditure {
      * @param boughtDate Date which the item is bought
      * @param parties ArrayList containing information on people the split expenditure is split with
      */
-    //@@author chengweixuan
     public Split(float price, String description, String category, LocalDate boughtDate, ArrayList<Pair<String, Boolean>> parties) {
         super(price, description, category, boughtDate);
         this.parties = parties;

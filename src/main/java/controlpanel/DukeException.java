@@ -11,12 +11,12 @@ public class DukeException extends Exception {
     DukeException() {
     }
 
+    //@@author cctt1014
     /**
      * The constructor to throw the errors.
      *
      * @param errorMsg The error message sent from the faulty object.
      */
-    //@@author cctt1014
     public DukeException(String errorMsg) {
         super(errorMsg);
     }

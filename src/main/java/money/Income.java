@@ -7,13 +7,13 @@ public class Income extends Item {
     private LocalDate payday;
     private DateTimeFormatter dateTimeFormatter;
 
+    //@@author chengweixuan
     /**
      * The constructor for the Income Object to record income sources.
      * @param price Money in from the income source
      * @param description info of the income source
      * @param payday Date which the income is received
      */
-    //@@author chengweixuan
     public Income(float price, String description, LocalDate payday) {
         super(price, description);
         this.payday = payday;

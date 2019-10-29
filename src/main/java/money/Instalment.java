@@ -20,6 +20,7 @@ public class Instalment extends Expenditure {
     private boolean payForTheMonth;
     private boolean fullyPaid;
 
+    //@@author ChenChao19
     /**
      * Constructor of the Instalment Object to record the instalments.
      * @param price Total cost of the item that the user bought
@@ -29,7 +30,6 @@ public class Instalment extends Expenditure {
      * @param numOfPaymentsReq The total number of months of payment required for the user to pay his Instalment
      * @param annualIR The Annual Interest Rate that the user is paying
      */
-    //@@author ChenChao19
     public Instalment(float price, String description, String category,
                       LocalDate boughtDate, int numOfPaymentsReq, float annualIR) {
         super(price, description, category, boughtDate);

@@ -28,12 +28,12 @@ public class AddInstalmentCommand extends MoneyCommand {
     float annualIR;
     String category;
 
+    //@@author ChenChao19
     /**
      * Constructor of the command which initialises the add instalment command.
      * with the instalment data within the user input.
      * @param cmd add command inputted from user.
      */
-    //@@author ChenChao19
     public AddInstalmentCommand(String cmd) {
         inputString = cmd;
         dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
