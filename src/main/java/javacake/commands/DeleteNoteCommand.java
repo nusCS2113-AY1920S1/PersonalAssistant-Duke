@@ -18,7 +18,7 @@ public class DeleteNoteCommand extends Command {
      * @param inputCommand Command input from the user.
      * @throws DukeException If user does not input parameter.
      */
-    public DeleteNoteCommand(String inputCommand) throws DukeException{
+    public DeleteNoteCommand(String inputCommand) throws DukeException {
         try {
             String[] parametersInCommand = inputCommand.split("\\s+");
             String inputFileName = parametersInCommand[1];
@@ -99,8 +99,7 @@ public class DeleteNoteCommand extends Command {
     private boolean fileDoesNotExist(String inputFileName) {
         String fullFilePath = processFilePath(inputFileName);
         File tempFile = new File(fullFilePath);
-        if (!tempFile.exists()) return true;
-        return false;
+        return (!tempFile.exists());
     }
 
 }

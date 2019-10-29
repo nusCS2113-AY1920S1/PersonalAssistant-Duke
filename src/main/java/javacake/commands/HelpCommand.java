@@ -29,17 +29,17 @@ public class HelpCommand extends Command {
     @Override
     public String execute(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
         switch (input) {
-            case "help" : return mainHelp();
-            case "help back" : return exitHelp();
-            case "help goto": return gotoHelp();
-            case "help help": return helpHelp();
-            case "help list": return listHelp();
-            case "help score": return scoreHelp();
-            case "help overview": return overviewHelp();
-            case "help createnote": return createNoteHelp();
-            case "help editnote": return editNoteHelp();
-            case "help listnote": return listNoteHelp();
-            default: throw new DukeException("No such command found. Try again.");
+        case "help" : return mainHelp();
+        case "help back" : return exitHelp();
+        case "help goto": return gotoHelp();
+        case "help help": return helpHelp();
+        case "help list": return listHelp();
+        case "help score": return scoreHelp();
+        case "help overview": return overviewHelp();
+        case "help createnote": return createNoteHelp();
+        case "help editnote": return editNoteHelp();
+        case "help listnote": return listNoteHelp();
+        default: throw new DukeException("No such command found. Try again.");
         }
     }
 

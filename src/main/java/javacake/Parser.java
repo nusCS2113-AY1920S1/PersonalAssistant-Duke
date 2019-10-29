@@ -79,9 +79,9 @@ public class Parser {
      * 2) if user accidentally types extra or less letter, eg. treee or tre instead of tree.
      */
     private static void helper(String input) throws DukeException {
-        String[] commands = {"exit", "list", "back", "help", "score", "reset",
-                            "goto", "overview", "deadline", "editnote", "createnote",
-                            "listnote", "deletenote"};
+        String[] commands = {"exit", "list", "back", "help", "score", "reset", "goto",
+            "overview", "deadline", "editnote", "createnote", "listnote", "deletenote"};
+
         for (int i = 0; i < commands.length; i++) {
             boolean isTypo = false;
             String command = commands[i];

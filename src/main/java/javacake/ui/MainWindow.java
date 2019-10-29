@@ -26,7 +26,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.w3c.dom.Text;
 
-import java.awt.*;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -291,6 +291,7 @@ public class MainWindow extends AnchorPane {
         }
         showContentContainer();
     }
+
     private void handleListNote() throws DukeException {
         Duke.logger.log(Level.INFO, "`listnote` command");
         showListNotesBox();
