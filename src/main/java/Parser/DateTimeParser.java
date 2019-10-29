@@ -14,12 +14,12 @@ public class DateTimeParser {
     private static String[] dateStringSplit;
     private static String[] timeStringSplit;
     private static LookupTable LT = new LookupTable();
-
     private static SimpleDateFormat eventDateInputFormat = new SimpleDateFormat("dd/MM/yyyy"); //format date for event
     private static SimpleDateFormat eventTimeInputFormat = new SimpleDateFormat("HHmm"); //format time for event
     private static SimpleDateFormat dateOutputFormat = new SimpleDateFormat("E dd/MM/yyyy");
     private static SimpleDateFormat timeOutputFormat = new SimpleDateFormat("hh:mm a");
     private static SimpleDateFormat deadlineInputFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    private static SimpleDateFormat deadlineDateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
 
     /**
      * Parses any date that is tagged with event.
@@ -35,12 +35,7 @@ public class DateTimeParser {
         String weekDate = "";
         dateStringSplit = dateTimeStringSplit[0].trim().split(" "); //dateStringSplit[0] can be week
         weekDate = dateStringSplit[0];
-        if (weekDate.equalsIgnoreCase("reading") || weekDate.equalsIgnoreCase("exam")
-                || weekDate.equalsIgnoreCase("week") || weekDate.equalsIgnoreCase("recess")){
-            weekDate = LT.getValue(dateTimeStringSplit[0].trim());
-        } else {
-            weekDate = dateTimeStringSplit[0].trim();
-        }
+        weekDate = WeekFormatParse.acadWeekToString(weekDate,dateTimeStringSplit[0]);
         Date date = eventDateInputFormat.parse(weekDate.trim());
         timeStringSplit = dateTimeStringSplit[1].split("/to");
         Date startTime = eventTimeInputFormat.parse(timeStringSplit[0].trim());
@@ -65,15 +60,9 @@ public class DateTimeParser {
         String weekDate = "";
         dateStringSplit = dateTimeStringSplit[0].trim().split(" ");
         weekDate = dateStringSplit[0];
-        if (weekDate.equalsIgnoreCase("reading") || weekDate.equalsIgnoreCase("exam")
-                || weekDate.equalsIgnoreCase("week") || weekDate.equalsIgnoreCase("recess")){
-            weekDate = input.substring(0,input.length()- 4); // week x day y
-            String time = input.substring(input.length()- 4).trim(); // time E.g 0300
-            weekDate = LT.getValue(weekDate) + " " + time;
-        } else {
-            String time = input.substring(input.length()- 4).trim();
-            weekDate = dateTimeStringSplit[0] + " " + time;
-        }
+        weekDate = WeekFormatParse.acadWeekToString(weekDate,input.substring(0,input.length()-4));
+        String time = input.substring(input.length()- 4).trim();
+        weekDate += " " + time;
         Date date = deadlineInputFormat.parse(weekDate);
         String dateString = dateOutputFormat.format(date);
         String timeString = timeOutputFormat.format(date);
@@ -161,7 +150,11 @@ public class DateTimeParser {
         return dateTime;
     }
 
-    public static Date deadlineStringToDate(String date) throws ParseException {
+    public static Date deadlineInputStringToDate(String date) throws ParseException {
         return deadlineInputFormat.parse(date);
+    }
+
+    public static Date deadlineTaskStringToDate(String date) throws ParseException {
+        return deadlineDateFormat.parse(date);
     }
 }

@@ -7,6 +7,7 @@ import Commons.LookupTable;
 import Commons.Reminder;
 import Commons.Storage;
 import Commons.Ui;
+import Parser.DateTimeParser;
 import Tasks.Assignment;
 import Tasks.TaskList;
 import java.text.DateFormat;
@@ -24,7 +25,6 @@ public class RemindCommand extends Command {
 
     private Assignment task;
     private Date time;
-    private HashMap<Date, Timer> timerHashMap;
     private boolean remind;
     private Reminder reminder;
     private static final Logger LOGGER = Logger.getLogger(RemindCommand.class.getName());
@@ -38,7 +38,6 @@ public class RemindCommand extends Command {
     public RemindCommand (Assignment task, Date time, boolean remind) {
         this.task = task;
         this.time = time;
-        timerHashMap = new HashMap<>();
         this.remind = remind;
     }
 
@@ -52,7 +51,7 @@ public class RemindCommand extends Command {
      * @throws DukeException On invalid task and time input
      */
     @Override
-    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, DukeInvalidDateTimeException {
+    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
         reminder = storage.getReminderObject();
         reminder.setDeadlines(deadlines);
         HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
@@ -60,6 +59,11 @@ public class RemindCommand extends Command {
         Date currentDate = new Date();
         DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
         String reminderTime = dateFormat.format(time);
+        String taskDateTimeString = task.getDateTime();
+        Date taskDateTime = DateTimeParser.deadlineTaskStringToDate(taskDateTimeString);
+        if(taskDateTime.before(currentDate)) {
+            throw new DukeInvalidDateTimeException("Sorry, your selected task has already passed!");
+        }
         if (!remind) {
             if (!remindMap.containsKey(time)) {
                 throw new DukeInvalidDateTimeException("Sorry, you have no such reminder at that inputted time.");
@@ -71,26 +75,25 @@ public class RemindCommand extends Command {
         }
         if (this.time.before(currentDate)) {
             throw new DukeInvalidDateTimeException("Sorry, you cannot set a time that has already passed!");
+        }
+        if (remindMap.containsKey(time)) {
+            Assignment remindedTask = remindMap.get(time);
+            throw new DukeInvalidDateTimeException("Sorry, you have a reminder set for " + remindedTask.getDescription() + " at: " + task.getDateTime());
+        } else if (!deadlineMap.containsKey(task.getModCode())) {
+            throw new DukeException("Sorry, you have no such mod entered in your deadline table!");
+        } else if (!deadlineMap.get(task.getModCode()).containsKey(task.getDate())) {
+            throw new DukeException("Sorry, you have no such timing entered in your deadline table!");
         } else {
-            if (timerHashMap.containsKey(time)) {
-                Assignment remindedTask = remindMap.get(time);
-                throw new DukeInvalidDateTimeException("Sorry, you have a reminder set for " + remindedTask.getDescription() + " at: " + task.getDateTime());
-            } else if (!deadlineMap.containsKey(task.getModCode())) {
-                throw new DukeException("Sorry, you have no such mod entered in your deadline table!");
-            } else if (!deadlineMap.get(task.getModCode()).containsKey(task.getDate())) {
-                throw new DukeException("Sorry, you have no such timing entered in your deadline table!");
-            } else {
-                ArrayList<Assignment> allTaskInDate = deadlineMap.get(task.getModCode()).get(task.getDate());
-                boolean hasTask = false;
-                for (Assignment taskInList : allTaskInDate) {
-                    if (taskInList.getDescription().equals(task.getDescription())) {
-                        hasTask = true;
-                        break;
-                    }
+            ArrayList<Assignment> allTaskInDate = deadlineMap.get(task.getModCode()).get(task.getDate());
+            boolean hasTask = false;
+            for (Assignment taskInList : allTaskInDate) {
+                if (taskInList.getDescription().equals(task.getDescription())) {
+                    hasTask = true;
+                    break;
                 }
-                if (!hasTask) {
-                    throw new DukeException("Sorry, there are no such task description in your deadline table!");
-                }
+            }
+            if (!hasTask) {
+                throw new DukeException("Sorry, there are no such task description in your deadline table!");
             }
         }
         reminder.setReminderThread(time, task);
