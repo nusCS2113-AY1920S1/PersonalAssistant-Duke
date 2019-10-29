@@ -33,10 +33,11 @@ public class Main extends Application {
         PlanAttributesStorage planAttributesStorage = new PlanAttributesStorageManager();
         IncomeListStorage incomeListStorage = new IncomeListStorageManager();
         BudgetStorage budgetStorage = new BudgetStorage();
+        BudgetViewStorage budgetViewStorage = new BudgetViewStorage();
 
-        storage = new StorageManager(expenseListStorage, planAttributesStorage, incomeListStorage, budgetStorage);
+        storage = new StorageManager(expenseListStorage, planAttributesStorage, incomeListStorage, budgetStorage, budgetViewStorage);
 
-        model = new DukePP(storage.loadExpenseList(), storage.loadPlanAttributes(),storage.loadIncomeList(), storage.loadBudget());
+        model = new DukePP(storage.loadExpenseList(), storage.loadPlanAttributes(),storage.loadIncomeList(), storage.loadBudget(),storage.loadBudgetView());
 
         int size = storage.loadExpenseList().getExternalList().size();
         logger.info("The size of external list from storage is " + size);

@@ -48,7 +48,9 @@ public class CommandParams {
         new GoToCommand(),
         new PlanBotCommand(),
         new AddIncomeCommand(),
-        new BudgetCommand()
+        new DeleteIncomeCommand(),
+        new BudgetCommand(),
+        new ViewBudgetCommand()
     );
 
     /**

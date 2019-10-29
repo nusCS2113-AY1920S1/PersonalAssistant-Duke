@@ -10,9 +10,12 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 
+import javax.swing.*;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -23,18 +26,19 @@ public class BudgetPane extends UiPart<AnchorPane>  {
     private static final String FXML_FILE_NAME = "BudgetPane.fxml";
 
     @FXML
-    private Pane paneView;
-    private PieChart pieChartSample;
+    TableView incomeTableView;
 
     @FXML
-    TableView incomeTableView;
+    Pane paneView;
+
+    @FXML
+    GridPane gridPane;
 
     public Logic logic;
     public Set<String> tags;
 
-    public BudgetPane(ObservableList<Income> incomeList) {
+    public BudgetPane(ObservableList<Income> incomeList, Logic logic) {
         super(FXML_FILE_NAME, null);
-        logger.info("incomeList has length " + incomeList.size());
         logger.info("incomeList has length " + incomeList.size());
         incomeTableView.getItems().clear();
         incomeTableView.setPlaceholder(new Label("No incomes to display!"));
@@ -55,9 +59,6 @@ public class BudgetPane extends UiPart<AnchorPane>  {
         indexColumn.setReorderable(false);
         indexColumn.prefWidthProperty().bind(incomeTableView.widthProperty().multiply(0.15));
 
-        //TableColumn<String, Income> timeColumn = new TableColumn<>("Time");
-        //timeColumn.setCellValueFactory(new PropertyValueFactory<>("timeString"));
-        //timeColumn.setSortable(false);
         TableColumn<String, Income> amountColumn = new TableColumn<>("Amount");
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         amountColumn.setSortable(false);
@@ -93,7 +94,6 @@ public class BudgetPane extends UiPart<AnchorPane>  {
         incomeTableView.getColumns().setAll(
                 indexColumn,
                 descriptionColumn,
-                //timeColumn,
                 amountColumn
         );
         logger.info("Items are set.");
@@ -103,5 +103,32 @@ public class BudgetPane extends UiPart<AnchorPane>  {
         logger.info("cell factory is set.");
 
         this.logic = logic;
+
+        Text text = new Text();
+        ProgressBar overallBudget = new ProgressBar();
+        double percent = logic.getTotalAmount().doubleValue()/logic.getMonthlyBudget().doubleValue();
+        String remaining = logic.getRemaining(logic.getTotalAmount()).toString();
+        overallBudget.setProgress(percent);
+        text.setText("Remaining: $" + remaining);
+        text.setStyle("-fx-font-size: 20px;");
+        if(percent > 0.9) {
+            overallBudget.setStyle("-fx-accent: red;");
+        } else if (percent > 0.65) {
+            overallBudget.setStyle("-fx-accent: orange;");
+        } else if (percent > 0.40) {
+            overallBudget.setStyle("-fx-accent: yellow");
+        } else {
+            overallBudget.setStyle("-fx-accent: green");
+        }
+        overallBudget.setLayoutX(150);
+        overallBudget.setPrefWidth(500);
+        overallBudget.setPrefHeight(30);
+        text.setLayoutX(300);
+        text.setLayoutY(50);
+        paneView.getChildren().clear();
+        paneView.getChildren().add(overallBudget);
+        paneView.getChildren().add(text);
+
+        ProgressIndicator view1 = new ProgressIndicator();
     }
 }

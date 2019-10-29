@@ -54,6 +54,17 @@ public class Budget {
     }
 
     /**
+     * Gets a BigDecimal value for monthlyBudget.
+     *
+     * @return a BigDecimal of the monthly budget
+     */
+    public BigDecimal getMonthlyBudget() {
+        return monthlyBudget;
+    }
+
+
+
+    /**
      * Sets budget to a given category.
      *
      * @param category the String tag specified that we want to set a budget for

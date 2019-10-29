@@ -26,4 +26,9 @@ public interface Logic {
 
     ObservableList<String> getBudgetObservableList();
 
+    BigDecimal getMonthlyBudget();
+
+    BigDecimal getTotalAmount();
+
+    BigDecimal getRemaining(BigDecimal total);
 }

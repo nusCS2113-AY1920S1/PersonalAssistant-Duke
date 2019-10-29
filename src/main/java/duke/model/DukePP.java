@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.math.BigDecimal;
+import java.security.PublicKey;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -22,6 +23,7 @@ public class DukePP implements Model {
     private final PlanBot planBot;
     private final IncomeList incomeList;
     private final Budget budget;
+    private final BudgetView budgetView;
     // todo: add other data inside the DukePP.
 
     public ObservableList<Expense> externalExpenseList;
@@ -33,11 +35,12 @@ public class DukePP implements Model {
      * This constructor is used for loading DukePP from storage.
      */
     // todo: pass more arguments to constructor as more data are implemented.
-    public DukePP(ExpenseList expenseList, Map<String, String> planAttributes, IncomeList incomeList, Budget budget) throws DukeException {
+    public DukePP(ExpenseList expenseList, Map<String, String> planAttributes, IncomeList incomeList, Budget budget, BudgetView budgetView) throws DukeException {
         this.expenseList = expenseList;
         this.planBot = new PlanBot(planAttributes);
         this.incomeList = incomeList;
         this.budget = budget;
+        this.budgetView = budgetView;
     }
 
     //******************************** ExpenseList operations
@@ -82,9 +85,20 @@ public class DukePP implements Model {
         return expenseList;
     }
 
+    public BigDecimal getTotalAmount() {
+        return expenseList.getTotalAmount();
+    }
+
+    //******************************** Budget and budgetView operations
+
     @Override
     public String getMonthlyBudgetString() {
         return budget.getMonthlyBudgetString();
+    }
+
+    @Override
+    public BigDecimal getMonthlyBudget() {
+        return budget.getMonthlyBudget();
     }
 
     @Override
@@ -115,6 +129,21 @@ public class DukePP implements Model {
     @Override
     public ObservableList<String> getBudgetObservableList() {
         return budget.getBudgetObservableList();
+    }
+
+    @Override
+    public BudgetView getBudgetView() {
+        return budgetView;
+    }
+
+    @Override
+    public void setBudgetView (Integer view, String category) {
+        budgetView.setBudgetView(view,category);
+    }
+
+    @Override
+    public Map<Integer , String> getBudgetViewCategory() {
+        return budgetView.getBudgetViewCategory();
     }
 
 

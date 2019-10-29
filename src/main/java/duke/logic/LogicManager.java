@@ -53,4 +53,20 @@ public class LogicManager implements Logic {
         return model.getBudgetObservableList();
     }
 
+    @Override
+    public BigDecimal getMonthlyBudget() {
+        return model.getMonthlyBudget();
+    }
+
+    @Override
+    public BigDecimal getTotalAmount() {
+        return model.getTotalAmount();
+    }
+
+    @Override
+    public BigDecimal getRemaining(BigDecimal total) {
+        return model.getRemaining(total);
+    };
+
+
 }

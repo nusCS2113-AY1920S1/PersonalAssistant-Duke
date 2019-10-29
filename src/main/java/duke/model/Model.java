@@ -30,7 +30,13 @@ public interface Model {
 
     public ExpenseList getExpenseList();
 
+    public BigDecimal getTotalAmount();
+
+    //******************************** Budget and BudgetView operations
+
     public String getMonthlyBudgetString();
+
+    public BigDecimal getMonthlyBudget();
 
     public void setMonthlyBudget(BigDecimal monthlyBudget);
 
@@ -43,6 +49,12 @@ public interface Model {
     public Budget getBudget();
 
     public  ObservableList<String> getBudgetObservableList();
+
+    public BudgetView getBudgetView();
+
+    public Map<Integer, String> getBudgetViewCategory ();
+
+    public void setBudgetView(Integer view, String category);
     //******************************** Operations for other data....
     //******************************** For example, operations of monthly income list.
     // todo: add other data operations

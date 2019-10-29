@@ -2,6 +2,7 @@ package duke.storage;
 
 import duke.exception.DukeException;
 import duke.model.Budget;
+import duke.model.BudgetView;
 import duke.model.ExpenseList;
 import duke.model.IncomeList;
 
@@ -28,6 +29,10 @@ public interface Storage {
     Budget loadBudget() throws IOException, DukeException;
 
     void saveBudget(Budget budget) throws DukeException;
+
+    BudgetView loadBudgetView() throws IOException, DukeException;
+
+    void saveBudgetView(BudgetView budgetView) throws DukeException;
 
     // todo: add other interface methods for other lists.
 }

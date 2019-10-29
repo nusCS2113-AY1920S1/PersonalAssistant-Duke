@@ -2,6 +2,7 @@ package duke.storage;
 
 import duke.exception.DukeException;
 import duke.model.Budget;
+import duke.model.BudgetView;
 import duke.model.ExpenseList;
 import duke.model.IncomeList;
 
@@ -14,6 +15,7 @@ public class StorageManager implements Storage {
     private PlanAttributesStorage planAttributesStorage;
     private IncomeListStorage incomeListStorage;
     private BudgetStorage budgetStorage;
+    private BudgetViewStorage budgetViewStorage;
 
    /**
     * Constructor for StorageManager
@@ -24,11 +26,13 @@ public class StorageManager implements Storage {
     public StorageManager(ExpenseListStorage expenseListStorage, 
                           PlanAttributesStorage planAttributesStorage, 
                           IncomeListStorage incomeListStorage, 
-                          BudgetStorage budgetStorage) {
+                          BudgetStorage budgetStorage,
+                          BudgetViewStorage budgetViewStorage) {
         this.expenseListStorage = expenseListStorage;
         this.planAttributesStorage = planAttributesStorage;
         this.incomeListStorage = incomeListStorage;
         this.budgetStorage = budgetStorage;
+        this.budgetViewStorage = budgetViewStorage;
     }
 
     @Override
@@ -68,5 +72,15 @@ public class StorageManager implements Storage {
     @Override
     public void saveBudget(Budget budget) throws DukeException {
         budgetStorage.saveBudget(budget);
+    }
+
+    @Override
+    public BudgetView loadBudgetView() throws IOException, DukeException {
+        return budgetViewStorage.loadBudgetView();
+    }
+
+    @Override
+    public void saveBudgetView(BudgetView budgetView) throws DukeException {
+        budgetViewStorage.saveBudgetView(budgetView);
     }
 }
