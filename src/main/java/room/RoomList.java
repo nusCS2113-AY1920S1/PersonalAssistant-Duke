@@ -15,7 +15,7 @@ public class RoomList extends ArrayList<Room> {
      */
     public RoomList(ArrayList<String> loader) {
         for (String line : loader) {
-            String[] splitStr = line.split("\\|", 4);
+            String[] splitStr = line.split(" \\| ", 4);
             this.add(new Room(splitStr[Constants.ROOMCODE],
                     splitStr[Constants.ROOMDATE], splitStr[Constants.ROOMTIMESLOT]));
         }
