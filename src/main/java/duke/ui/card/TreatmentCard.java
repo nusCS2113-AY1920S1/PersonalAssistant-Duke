@@ -52,7 +52,12 @@ public abstract class TreatmentCard extends UiCard {
             return true;
         }
 
-        return (object instanceof TreatmentCard);
+        if (!(object instanceof TreatmentCard)) {
+            return false;
+        }
+
+        TreatmentCard card = (TreatmentCard) object;
+        return treatment == card.getTreatment();
     }
 
     public abstract Treatment getTreatment();

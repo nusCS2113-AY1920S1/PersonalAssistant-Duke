@@ -29,6 +29,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
         checkTypeSwitches(addType);
         Impression impression = ImpressionUtils.getImpression(core);
         DukeData newData;
+        String newStr;
 
         //extract parameters and data type
         int priority = switchToInt("priority");
@@ -37,7 +38,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
         }
         ImpressionUtils.checkPriority(priority);
         nullToEmptyString(); //set optional string parameters to ""
-        Integer status;
+        int status;
         switch (addType) { //isn't polymorphism fun?
         case "medicine":
             //TODO check for allergies
@@ -51,7 +52,7 @@ public class ImpressionNewCommand extends DukeDataCommand {
                     getSwitchVal("dose"), getSwitchVal("date"), getSwitchVal("duration"));
             impression.addNewTreatment(medicine);
             newData = medicine;
-            core.ui.print("New medicine course added:\n" + medicine.toString());
+            newStr = "New medicine course added:\n" + medicine.toString();
             break;
 
         case "plan":
@@ -59,8 +60,8 @@ public class ImpressionNewCommand extends DukeDataCommand {
             Plan plan = new Plan(getSwitchVal("name"), impression, priority, status,
                     getSwitchVal("summary"));
             impression.addNewTreatment(plan);
-            core.ui.print("New treatment plan item added:\n" + plan.toString());
             newData = plan;
+            newStr = "New treatment plan item added:\n" + plan.toString();
             break;
 
         case "investigation":
@@ -68,16 +69,16 @@ public class ImpressionNewCommand extends DukeDataCommand {
             Investigation invx = new Investigation(getSwitchVal("name"), impression, priority, status,
                     getSwitchVal("summary"));
             impression.addNewTreatment(invx);
-            core.ui.print("New investigation being tracked:\n" + invx.toString());
             newData = invx;
+            newStr = "New investigation being tracked:\n" + invx.toString();
             break;
 
         case "result":
             Result result = new Result(getSwitchVal("name"), impression, priority,
                     getSwitchVal("summary"));
             impression.addNewEvidence(result);
-            core.ui.print("New result entered:\n" + result.toString());
             newData = result;
+            newStr = "New result entered:\n" + result.toString();
             break;
 
         case "observation":
@@ -86,12 +87,14 @@ public class ImpressionNewCommand extends DukeDataCommand {
                     getSwitchVal("summary"), isObjective);
             impression.addNewEvidence(obsv);
             newData = obsv;
-            core.ui.print("New observation logged:\n" + obsv.toString());
+            newStr = "New observation logged:\n" + obsv.toString();
             break;
 
         default:
             throw new DukeException("Invalid data type!");
         }
+
+        core.ui.print(newStr);
 
         if (isSwitchSet("go")) {
             switch (addType) {

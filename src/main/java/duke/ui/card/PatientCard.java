@@ -63,7 +63,7 @@ public class PatientCard extends UiCard {
         }
 
         PatientCard card = (PatientCard) object;
-        return patient.equals(card.getPatient());
+        return patient == card.getPatient();
     }
 
     public Patient getPatient() {

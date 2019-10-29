@@ -42,23 +42,6 @@ public class MedicineCard extends TreatmentCard {
         statusLabel.setText(statusText);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals(Object object) {
-        if (super.equals(object)) {
-            return true;
-        }
-
-        if (!(object instanceof MedicineCard)) {
-            return false;
-        }
-
-        MedicineCard card = (MedicineCard) object;
-        return medicine.equals(card.getTreatment());
-    }
-
     @Override
     public Treatment getTreatment() {
         return medicine;

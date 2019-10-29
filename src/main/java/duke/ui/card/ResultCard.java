@@ -22,23 +22,6 @@ public class ResultCard extends EvidenceCard {
         this.result = result;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals(Object object) {
-        if (super.equals(object)) {
-            return true;
-        }
-
-        if (!(object instanceof ResultCard)) {
-            return false;
-        }
-
-        ResultCard card = (ResultCard) object;
-        return result.equals(card.getEvidence());
-    }
-
     @Override
     public Evidence getEvidence() {
         return result;

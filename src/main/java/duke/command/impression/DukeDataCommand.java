@@ -2,6 +2,7 @@ package duke.command.impression;
 
 import duke.command.ArgCommand;
 import duke.exception.DukeException;
+import duke.exception.DukeHelpException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 public abstract class DukeDataCommand extends ArgCommand {
 
+    // TODO: change map to allowed switches, and code accordingly
     private static final Map<String, List<String>> forbiddenSwitchesMap = Map.ofEntries(
             Map.entry("medicine", Arrays.asList("summary", "subjective", "objective")),
             Map.entry("plan", Arrays.asList("dose", "duration", "date", "subjective", "objective")),
@@ -27,11 +29,14 @@ public abstract class DukeDataCommand extends ArgCommand {
         for (String type : typeArr) {
             if (isSwitchSet(type)) {
                 if (addType != null) {
-                    throw new DukeException("Multiple types of data specified: '" + addType
-                            + "' and '" + type + "'!");
+                    throw new DukeHelpException("Multiple types of data specified: '" + addType
+                            + "' and '" + type + "'!", this);
                 }
                 addType = type;
             }
+        }
+        if (addType == null) {
+            throw new DukeHelpException("No data type specified!", this);
         }
         return addType;
     }
