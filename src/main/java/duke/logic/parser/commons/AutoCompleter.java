@@ -76,6 +76,8 @@ public class AutoCompleter {
                     .collect(Collectors.toList());
             suggestionPointer = 0;
 
+            logger.info(String.format("Found %s suggestion(s)", suggestions.size()));
+
             return true;
         }
     }
@@ -113,13 +115,14 @@ public class AutoCompleter {
      * If there is no available suggestions, returns an empty list.
      */
     private List<String> generateSuggestions(String userInput, String currentWord) {
+        assert (userInput != null);
+
         List<String> suggestions = new ArrayList<>();
         Optional<Class<? extends Command>> matchedCommandClass = getMatchedCommandClass(userInput);
-        if (matchedCommandClass.isPresent()) {
-            suggestions.addAll(generateParameterSuggestions(currentWord, matchedCommandClass.get()));
-        } else {
-            suggestions.addAll(generateCommandWordSuggestions(currentWord));
-        }
+        matchedCommandClass.ifPresent(aClass -> suggestions.addAll(generateParameterSuggestions(currentWord, aClass)));
+
+        suggestions.addAll(generateCommandWordSuggestions(currentWord));
+
         return suggestions;
     }
 
@@ -142,6 +145,8 @@ public class AutoCompleter {
      * @throws ParseException if duplicate classes are added.
      */
     public void addCommandClass(Class<? extends Command> commandClass) throws ParseException {
+        assert (commandClass != null);
+
         if (commandClasses.contains(commandClass)) {
             logger.warning(String.format("Could not add duplicate %s to AutoCompleter", commandClass.toString()));
             throw new ParseException();
@@ -198,6 +203,8 @@ public class AutoCompleter {
      * Returns a list of suggested commands based on the incomplete {@code toComplete}.
      */
     private List<String> generateCommandWordSuggestions(String toComplete) {
+        assert (toComplete != null);
+
         List<String> suggestions = new ArrayList<>();
         for (Class<? extends Command> commandClass : commandClasses) {
             getCommandWord(commandClass).ifPresent(commandWordString -> {
@@ -311,10 +318,16 @@ public class AutoCompleter {
         /**
          * Creates a {@code UserInputState}.
          *
-         * @param userInputString The text input from user
+         * @param userInputString The text input from user. Empty input is acceptable.
          * @param caretPosition An integer between 0 and the length of {@code userInputString}
+         * @throws ParseException if caret position is invalid
          */
-        public UserInputState(String userInputString, int caretPosition) {
+        public UserInputState(String userInputString, int caretPosition) throws ParseException {
+            requireNonNull(userInputString);
+            if (caretPosition < 0 || caretPosition > userInputString.length()) {
+                throw new ParseException();
+            }
+
             this.userInputString = userInputString;
             this.caretPosition = caretPosition;
         }
