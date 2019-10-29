@@ -21,7 +21,7 @@ public class MemberFactory implements IArchDukeFactory<IMember> {
         String[] memberDetails = this.parserHelper.parseMemberDetails(input);
         boolean isNameCreated = false;
         String name = memberDetails[0];
-        if (!("--").equals(name)) {
+        if (!("--").equals(name) && !("").equals(name)) {
             isNameCreated = true;
         }
         String phone = memberDetails[1];
