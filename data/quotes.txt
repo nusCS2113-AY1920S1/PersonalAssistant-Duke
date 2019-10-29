@@ -1,3 +1,28 @@
+“Success is not obtained overnight. It comes in instalments; you get a little bit today, a little bit tomorrow until the whole package is given out. The day you procrastinate, you lose that day’s success.”
+“Don’t wait. The time will never be just right.”
+“The best way to get something done is to begin.”
+"Success is not final; failure is not fatal: It is the courage to continue that counts."
+“Success isn’t always about greatness. It’s about consistency.”
+“A little more persistence, a little more effort, and what seemed hopeless failure may turn into glorious success.”
+“When you have to make a choice and don't make it, that in itself is a choice.”
+“Take time to deliberate; but when the time for action arrives, stop thinking and go in.”
+“You don’t have to see the whole staircase, just take the first step.”
+“Think of many things; do one.”
+“A day can really slip by when you’re deliberately avoiding what you’re supposed to do.”
+“If you want to get ahead in life, I’ve found that perhaps the most useless word in the world is tomorrow.”
+“What is deferred is not avoided.”
+“The way to get started is to quit talking and begin doing.”
+“Sometimes, things may not go your way, but the effort should be there every single night.”
+“Plans are nothing; planning is everything.”
+“Learning never exhausts the mind.”
+“Often greater risk is involved in postponement than in making a wrong decision.”
+“Doing just a little bit during the time we have available puts you that much further ahead than if you took no action at all.”
+“Yesterday is a cancelled check. Tomorrow is a promissory note. Today is the only cash you have, so spend it wisely.”
+“Do the hard jobs first. The easy jobs will take care of themselves.”
+“Motivation is what gets you started. Habit is what keeps you going.”
+“Procrastination is the silent dream killer.”
+“Stop talking. Start walking.”
+“When there is a hill to climb, don’t think that waiting will make it smaller.”
 “Delay not to seize the hour!”
 “Procrastination is the grave in which opportunity is buried.”
 “The really happy people are those who have broken the chains of procrastination, those who find satisfaction in doing the job at hand.”
@@ -40,28 +65,3 @@ Don't procrastinate. Life is way too short.”
 “Don’t put off for tomorrow what you can do today because if you enjoy it today, you can do it again tomorrow.”
 “Begin doing what you want to do now. We are not living in eternity. We have only this moment.”
 “The really happy people are those who have broken the chains of procrastination, those who find satisfaction in doing the job at hand. You can be, too.”
-“Success is not obtained overnight. It comes in instalments; you get a little bit today, a little bit tomorrow until the whole package is given out. The day you procrastinate, you lose that day’s success.”
-“Don’t wait. The time will never be just right.”
-“The best way to get something done is to begin.”
-"Success is not final; failure is not fatal: It is the courage to continue that counts."
-“Success isn’t always about greatness. It’s about consistency.”
-“A little more persistence, a little more effort, and what seemed hopeless failure may turn into glorious success.”
-“When you have to make a choice and don't make it, that in itself is a choice.”
-“Take time to deliberate; but when the time for action arrives, stop thinking and go in.”
-“You don’t have to see the whole staircase, just take the first step.”
-“Think of many things; do one.”
-“A day can really slip by when you’re deliberately avoiding what you’re supposed to do.”
-“If you want to get ahead in life, I’ve found that perhaps the most useless word in the world is tomorrow.”
-“What is deferred is not avoided.”
-“The way to get started is to quit talking and begin doing.”
-“Sometimes, things may not go your way, but the effort should be there every single night.”
-“Plans are nothing; planning is everything.”
-“Learning never exhausts the mind.”
-“Often greater risk is involved in postponement than in making a wrong decision.”
-“Doing just a little bit during the time we have available puts you that much further ahead than if you took no action at all.”
-“Yesterday is a cancelled check. Tomorrow is a promissory note. Today is the only cash you have, so spend it wisely.”
-“Do the hard jobs first. The easy jobs will take care of themselves.”
-“Motivation is what gets you started. Habit is what keeps you going.”
-“Procrastination is the silent dream killer.”
-“Stop talking. Start walking.”
-“When there is a hill to climb, don’t think that waiting will make it smaller.”

@@ -330,10 +330,6 @@ public class MainWindow extends BorderPane implements Initializable {
             delay.setOnFinished( event -> Platform.exit() );
             delay.play();
         }
-        if (!input.startsWith("Week")) {
-            AlertBox.display("", "",
-                    response, Alert.AlertType.INFORMATION);
-        }
         userInput.clear();
 
         if (input.contains("retrieve previous")) {

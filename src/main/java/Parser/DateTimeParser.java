@@ -19,6 +19,7 @@ public class DateTimeParser {
     private static SimpleDateFormat dateOutputFormat = new SimpleDateFormat("E dd/MM/yyyy");
     private static SimpleDateFormat timeOutputFormat = new SimpleDateFormat("hh:mm a");
     private static SimpleDateFormat deadlineInputFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    private static SimpleDateFormat deadlineDateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
 
     /**
      * Parses any date that is tagged with event.
@@ -149,7 +150,11 @@ public class DateTimeParser {
         return dateTime;
     }
 
-    public static Date deadlineStringToDate(String date) throws ParseException {
+    public static Date deadlineInputStringToDate(String date) throws ParseException {
         return deadlineInputFormat.parse(date);
+    }
+
+    public static Date deadlineTaskStringToDate(String date) throws ParseException {
+        return deadlineDateFormat.parse(date);
     }
 }
