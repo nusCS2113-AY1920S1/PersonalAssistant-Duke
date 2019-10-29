@@ -18,7 +18,6 @@ import owlmoney.ui.Ui;
 class TransactionListTest {
     private static final String NEWLINE = System.lineSeparator();
     private static final DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
-    private static final String FILE_PATH = "data/";
 
     @Test
     void addExpenditureToList_successfulAdd_newExpenditureAdded() {
