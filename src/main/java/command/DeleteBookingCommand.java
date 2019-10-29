@@ -1,5 +1,8 @@
 package command;
 
+import inventory.Inventory;
+import inventory.Item;
+
 import booking.Booking;
 import booking.BookingList;
 import exception.DukeException;
@@ -35,15 +38,14 @@ public class DeleteBookingCommand extends Command {
     }
 
     @Override
-    public void execute(RoomList roomlist, BookingList bookingList, Ui ui, Storage bookingStorage,
-                        Storage roomStorage, User user) throws DukeException {
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user) throws DukeException {
         if (index < 0 || index > bookingList.size() - 1) {
             throw new DukeException("OOPS!!! You have entered an index that is out of bounds.");
         }
         deletedBooking = bookingList.get(index);
         bookingList.remove(index);
         try {
-            bookingStorage.saveToFile(bookingList);
+            bookingstorage.saveToFile(bookingList);
         } catch (IOException e) {
             throw new DukeException("OOPS!!! An error occurred while deleting your booking!");
         }

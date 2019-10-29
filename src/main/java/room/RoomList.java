@@ -2,10 +2,11 @@ package room;
 
 import storage.Constants;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class RoomList extends ArrayList<Room> {
 
@@ -17,7 +18,7 @@ public class RoomList extends ArrayList<Room> {
         for (String line : loader) {
             String[] splitStr = line.split(" \\| ", 4);
             this.add(new Room(splitStr[Constants.ROOMCODE],
-                    splitStr[Constants.ROOMDATE], splitStr[Constants.ROOMTIMESLOT]));
+                    splitStr[Constants.ROOMDATETIMESTART], splitStr[Constants.ROOMDATETIMEEND]));
         }
     }
 
@@ -34,6 +35,7 @@ public class RoomList extends ArrayList<Room> {
      * @return if the room already exists in the file
      * @throws IOException if the input is in the wrong format
      */
+
     public boolean checkRoom(String roomcode) {
         for (Room i : this) {
             if (i.roomcode.equals(roomcode)) {
@@ -42,4 +44,25 @@ public class RoomList extends ArrayList<Room> {
         }
         return false;
     }
+
+    /*
+    public static boolean checkRoom(RoomList roomlist, String roomcode, String timeStart, String timeEnd) {
+        boolean found = false;
+        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
+        LocalDateTime startTime = LocalDateTime.parse(timeStart, formatterStart);
+        LocalTime endTime = LocalTime.parse(timeEnd, formatterEnd);
+        for (int i = 0; i < roomlist.size(); i++) {
+            if (roomlist.get(i).roomcode == roomcode) {
+                if ((roomlist.get(i).dateTimeStart.isBefore(startTime)
+                        || roomlist.get(i).dateTimeStart.isEqual(startTime))
+                        && ((roomlist.get(i).timeEnd.isAfter(endTime))
+                        && (roomlist.get(i).timeEnd.isBefore(endTime)))) {
+                    found = true;
+                }
+            }
+        }
+        return found;
+    }
+     */
 }
