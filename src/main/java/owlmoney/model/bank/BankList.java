@@ -932,6 +932,7 @@ public class BankList {
             if (investmentName.equals(bankLists.get(i).getAccountName())
                     && INVESTMENT.equals(bankLists.get(i).getType())) {
                 bankLists.get(i).findBondInInvestment(bondName, ui);
+                return;
             }
         }
         throw new BankException("Investment account with the following name "
