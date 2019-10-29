@@ -13,7 +13,6 @@ public class GoalsStub extends Goals {
     private Date testDate = new SimpleDateFormat("dd/MM/yyyy").parse("29/10/2019");
     private String name;
     private double amount;
-    private Date goalsDate;
     private double income = 100;
 
     GoalsStub() throws ParseException {
