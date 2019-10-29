@@ -172,7 +172,7 @@ public class MainWindow extends AnchorPane {
         Map<String, Integer> counterMap = new HashMap<>();
         counterMap = duke.getStorageManager().loadCommandFrequency();
         ArrayList<Integer> frequencyList = new ArrayList<Integer>(counterMap.values());
-        ArrayList<String> commandNameList = new ArrayList<String>(counterMap.keySet());
+        final ArrayList<String> commandNameList = new ArrayList<String>(counterMap.keySet());
         final Scene scene = new Scene(new Group());
         Stage stage = new Stage();
         stage.setTitle("Pie Chart");
@@ -182,7 +182,7 @@ public class MainWindow extends AnchorPane {
 
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
-        for (int i = 0; i < commandNameList.size() ; i++) {
+        for (int i = 0; i < commandNameList.size(); i++) {
             pieChartData.add(new PieChart.Data(commandNameList.get(i), frequencyList.get(i)));
         }
 
@@ -215,7 +215,7 @@ public class MainWindow extends AnchorPane {
         yAxis.setLabel("Frequency");
         XYChart.Series series1 = new XYChart.Series();
         series1.setName(yearInString);
-        for (int i = 0; i < commandNameList.size() ; i++) {
+        for (int i = 0; i < commandNameList.size(); i++) {
             series1.getData().add(new XYChart.Data(commandNameList.get(i), frequencyList.get(i)));
         }
 
