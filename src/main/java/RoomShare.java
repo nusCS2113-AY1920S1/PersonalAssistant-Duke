@@ -210,11 +210,7 @@ public class RoomShare {
                 try {
                     int index = parser.getIndexSubtask();
                     String subTasks = parser.getCommandLine();
-                    if (TaskList.currentList().get(index) instanceof Assignment) {
-                        ((Assignment) TaskList.currentList().get(index)).setSubTasks(subTasks);
-                    } else {
-                        throw new RoomShareException(ExceptionType.subTask);
-                    }
+                    new subTaskCreator(index, subTasks);
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
