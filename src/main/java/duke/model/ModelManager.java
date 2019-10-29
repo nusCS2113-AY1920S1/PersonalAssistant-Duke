@@ -116,7 +116,8 @@ public class ModelManager implements Model {
      * @param itinerary The itinerary to be stored.
      */
     @Override
-    public void saveItinerary(Itinerary itinerary)  throws FileNotSavedException, ItineraryInsufficientAgendasException {
+    public void saveItinerary(Itinerary itinerary)  throws FileNotSavedException,
+            ItineraryInsufficientAgendasException {
         storage.writeItineraries(itinerary, 1);
     }
 

@@ -102,7 +102,7 @@ public interface Model {
     Itinerary getItinerary(String number) throws DukeException, FileNotFoundException;
 
     Itinerary readRecommendations() throws FileLoadFailException, DukeDateTimeParseException;
-  
+
     /**
      * Returns the Route Manager.
      */
