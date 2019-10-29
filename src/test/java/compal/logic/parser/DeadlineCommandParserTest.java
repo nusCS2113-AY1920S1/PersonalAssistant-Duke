@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import static compal.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static compal.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-//@@author yueyeah
+//@@author LTPZ
 public class DeadlineCommandParserTest {
     private DeadlineCommandParser parser = new DeadlineCommandParser();
 
@@ -43,7 +43,8 @@ public class DeadlineCommandParserTest {
     @Test
     void parse_excessiveDatesAfterTokenDate_failure() {
         assertParseFailure(parser, "CS2113T Lecture"
-                        + "/date 10/10/2019 11/10/2019 12/10/2019 13/10/2019 14/10/2019 15/10/2019 16/10/2019 17/10/2019"
+                        + "/date 10/10/2019 11/10/2019 12/10/2019 13/10/2019"
+                        + " 14/10/2019 15/10/2019 16/10/2019 17/10/2019"
                         + "/end 1800"
                         + "/priority high",
                 CommandParser.MESSAGE_EXCESSIVE_DATES);

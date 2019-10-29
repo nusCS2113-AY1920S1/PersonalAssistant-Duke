@@ -95,6 +95,8 @@ public class HelpCommand extends Command {
                 return new CommandResult(HelpCommand.MESSAGE_USAGE, false);
             case CMD_LIST:
                 return new CommandResult(ListCommand.MESSAGE_USAGE, false);
+            case CMD_DELETE:
+                return new CommandResult(DeleteCommand.MESSAGE_USAGE, false);
             default:
                 return new
                         CommandResult(WRONG_COMMAND + HelpCommand.MESSAGE_USAGE, false);
