@@ -21,9 +21,9 @@ public class InvalidCommand extends Command {
      * @param students The ManageStudents object to manage students in classes.
      * @param plan The MyPlan object to manage the training plans.
      */
-    public void execute(final TaskList tasks, final Ui ui, final Storage storage,
-                        final Schedule schedule, final ManageStudents students,
-                       final  MyPlan plan) {
+    public void execute(final TaskList tasks, final Ui ui,
+                        final Storage storage, final Schedule schedule,
+                        final ManageStudents students, final MyPlan plan) {
         ui.showDontKnow();
     }
 }
