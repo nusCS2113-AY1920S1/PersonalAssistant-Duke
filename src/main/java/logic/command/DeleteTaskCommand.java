@@ -16,7 +16,7 @@ public class DeleteTaskCommand extends Command {
 
     @Override
     public CommandOutput execute(Model model) throws DukeException {
-        try{
+        try {
             if (taskIndexInList > model.getTaskListSize() || taskIndexInList < 1) {
                 return new CommandOutput(INVALID_MSSAGE);
             } else {

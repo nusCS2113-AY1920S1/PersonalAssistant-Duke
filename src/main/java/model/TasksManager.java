@@ -150,6 +150,12 @@ public class TasksManager implements Serializable {
         return task.getName();
     }
 
+    //@@author yuyanglin28
+    /**
+     * get the tasks contain keyword
+     * @param keyword keyword to be searched
+     * @return a string shows the task list contain keyword
+     */
     public String getTasksByKeyword(String keyword) {
         ArrayList<Task> tasks = new ArrayList<>();
         String result = "";
@@ -161,11 +167,21 @@ public class TasksManager implements Serializable {
         return result;
     }
 
+    //@@author yuyanglin28
+    /**
+     * schedule all task list
+     * @return a string shows the scheduled task list
+     */
     public String scheduleTeamAll() {
         ArrayList<Task> taskListCopy = (ArrayList<Task>)taskList.clone();
         return showScheduleOfTaskList(taskListCopy);
     }
 
+    //@@author yuyanglin28
+    /**
+     * schedule todo task list
+     * @return a string shows the scheduled todo task list
+     */
     public String scheduleTeamTodo() {
         ArrayList<Task> taskListCopy = (ArrayList<Task>)taskList.clone();
         ArrayList<Task> todoTasks = new ArrayList<>();
@@ -174,6 +190,12 @@ public class TasksManager implements Serializable {
 
     }
 
+    //@@author yuyanglin28
+    /**
+     * schedule tasks supplied by task name
+     * @param tasksName tasks to be scheduled
+     * @return  a string shows the scheduled task list
+     */
     public String scheduleAllTasks(ArrayList<String> tasksName) {
         ArrayList<Task> allTasks = new ArrayList<>();
         for (int i = 0; i < tasksName.size(); i++) {
@@ -182,6 +204,12 @@ public class TasksManager implements Serializable {
         return showScheduleOfTaskList(allTasks);
     }
 
+    //@@author yuyanglin28
+    /**
+     * schedule todo tasks supplied by task name
+     * @param tasksName tasks to be scheduled (contain finished tasks)
+     * @return a string shows the scheduled todo task list
+     */
     public String scheduleTodoTasks(ArrayList<String> tasksName) {
         ArrayList<Task> allTasks = new ArrayList<>();
         for (int i = 0; i < tasksName.size(); i++) {
@@ -191,6 +219,7 @@ public class TasksManager implements Serializable {
         todoTasks = pickTodo(allTasks);
         return showScheduleOfTaskList(todoTasks);
     }
+
 
     private ArrayList<Task> sortByTime(ArrayList<Task> toSort) {
         ArrayList<Task> sorted = new ArrayList<>();
@@ -212,7 +241,7 @@ public class TasksManager implements Serializable {
         return sorted;
     }
 
-    private ArrayList<Task> pickTodo(ArrayList<Task> toFilter){
+    private ArrayList<Task> pickTodo(ArrayList<Task> toFilter) {
         ArrayList<Task> filtered = new ArrayList<>();
         for (int i = 0; i < toFilter.size(); i++) {
             if (toFilter.get(i).isDone() == false) {
@@ -222,7 +251,7 @@ public class TasksManager implements Serializable {
         return filtered;
     }
 
-    private String showScheduleOfTaskList (ArrayList<Task> toSorted) {
+    private String showScheduleOfTaskList(ArrayList<Task> toSorted) {
         ArrayList<Task> tasks = new ArrayList<>();
         String result = "";
         tasks = sortByTime(toSorted);

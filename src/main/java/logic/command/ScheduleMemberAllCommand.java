@@ -14,13 +14,14 @@ public class ScheduleMemberAllCommand extends Command {
     public ScheduleMemberAllCommand(String memberName) {
         this.memberName = memberName;
     }
+
     @Override
     public CommandOutput execute(Model model) throws DukeException {
         try {
             String tasks = model.scheduleMemberAll(memberName);
 
             if (tasks.equals("")) {
-                return new CommandOutput( EMPTY_MSSAGE + memberName);
+                return new CommandOutput(EMPTY_MSSAGE + memberName);
             } else {
                 return new CommandOutput(SUCCESS_MSSAGE + memberName + tasks);
             }

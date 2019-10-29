@@ -3,7 +3,7 @@ package logic.command;
 import common.DukeException;
 import model.Model;
 
-public class ScheduleMemberTodoCommand extends Command{
+public class ScheduleMemberTodoCommand extends Command {
 
     private static final String SUCCESS_MSSAGE = "Schedule todo tasks of member: ";
     private static final String FAIL_MSSAGE = "fail to schedule todo tasks of member: ";
@@ -14,6 +14,7 @@ public class ScheduleMemberTodoCommand extends Command{
     public ScheduleMemberTodoCommand(String memberName) {
         this.memberName = memberName;
     }
+
     @Override
     public CommandOutput execute(Model model) throws DukeException {
         try {

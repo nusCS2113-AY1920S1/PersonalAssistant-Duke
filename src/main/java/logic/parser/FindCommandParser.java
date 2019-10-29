@@ -9,6 +9,12 @@ public class FindCommandParser {
 
     public static final String FIND_USAGE = "usage: find [keyword]";
 
+    /**
+     * parse find command
+     * @param argument keyword
+     * @return findCommand
+     * @throws DukeException exception
+     */
     public static Command parseFindCommand(String argument) throws DukeException {
         if (argument.equals("")) {
             throw new DukeException(FIND_USAGE);

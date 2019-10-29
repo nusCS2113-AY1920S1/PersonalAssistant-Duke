@@ -8,7 +8,14 @@ public class HelpCommandParser {
 
     public static final String HELP_USAGE = "'help' to get command help message.";
 
-    public static Command parseHelpCommand(String argument) throws DukeException{
+    //@@author yuyanglin28
+    /**
+     * parse help command
+     * @param argument should be nothing
+     * @return help command
+     * @throws DukeException exception
+     */
+    public static Command parseHelpCommand(String argument) throws DukeException {
         if (argument.equals("")) {
             return new HelpCommand();
         } else {

@@ -28,8 +28,11 @@ public interface Model {
     String getTasksByKeyword(String keyword) throws DukeException;
 
     String scheduleTeamAll() throws DukeException;
+
     String scheduleTeamTodo() throws DukeException;
+
     String scheduleMemberAll(String memberName) throws DukeException;
+
     String scheduleMemberTodo(String memberName) throws DukeException;
 
     //==================Member Interface======================

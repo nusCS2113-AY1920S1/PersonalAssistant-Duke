@@ -1,13 +1,10 @@
 package logic.command;
 
 import common.DukeException;
-import core.Duke;
 import model.Model;
-import model.Task;
 
-import java.util.ArrayList;
+public class FindCommand extends Command {
 
-public class FindCommand extends Command{
     private static final String SUCCESS_MSSAGE = "The tasks below are with keyword: ";
     private static final String NOT_FOUND_MESSAGE  = "no such task with keyword: ";
     private static final String FAIL_MSSAGE = "fail to do find command";

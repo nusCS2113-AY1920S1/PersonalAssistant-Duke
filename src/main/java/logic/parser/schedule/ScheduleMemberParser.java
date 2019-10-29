@@ -13,6 +13,14 @@ public class ScheduleMemberParser {
     private static final String TODO = "todo";
     private static final String SCHEDULE_USAGE = "Usage: schedule [team/member] [all/todo] {member name}";
 
+    //@@author yuyanglin28
+
+    /**
+     * parse schedule member
+     * @param partialCommand content after member, divide to all or todo type
+     * @return a schedule member related command
+     * @throws DukeException exception
+     */
     public static Command parseScheduleMember(String partialCommand) throws DukeException {
 
         final Matcher matcher = BASIC_ADD_COMMAND_FORMAT.matcher(partialCommand.trim());
@@ -26,12 +34,12 @@ public class ScheduleMemberParser {
         scheduleType = scheduleType.trim();
 
         switch (scheduleType) {
-            case ALL:
-                return ScheduleMemberAllParser.parseScheduleMemberAll(arguments);
-            case TODO:
-                return ScheduleMemberTodoParser.parseScheduleMemberTodo(arguments);
-            default:
-                throw new DukeException(SCHEDULE_USAGE);
+        case ALL:
+            return ScheduleMemberAllParser.parseScheduleMemberAll(arguments);
+        case TODO:
+            return ScheduleMemberTodoParser.parseScheduleMemberTodo(arguments);
+        default:
+            throw new DukeException(SCHEDULE_USAGE);
         }
 
     }

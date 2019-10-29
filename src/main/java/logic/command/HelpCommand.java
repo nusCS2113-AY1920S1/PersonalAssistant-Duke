@@ -3,9 +3,13 @@ package logic.command;
 import model.Model;
 
 
-public class HelpCommand extends Command{
+public class HelpCommand extends Command {
 
-
+    /**
+     * execute help command
+     * @param model no used
+     * @return a string pass to commandOutput, which will be shown on window
+     */
     public CommandOutput execute(Model model) {
         String output =
                 "Available Commands\n"

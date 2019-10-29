@@ -44,7 +44,7 @@ public class NewParser {
 
         String[] dict = {
             "ADD", "LIST", "DONE", "DELETE", "HELP", "FIND", "BYE",
-                "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK"
+            "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK"
         };
 
         commandWord = SpellingErrorCorrector.commandCorrector(dict, commandWord);

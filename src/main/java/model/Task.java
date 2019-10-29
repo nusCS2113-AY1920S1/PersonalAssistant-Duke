@@ -73,6 +73,10 @@ public class Task {
         this.time = time;
     }
 
+    /**
+     * change task to string to show on window
+     * @return string of task
+     */
     public String toString() {
         return "[" + this.getStatusIcon() + "] "
                 + this.name
