@@ -12,7 +12,7 @@ public class ParserTrainingPlan implements IParser {
     /**
      * Ui class.
      */
-    private Ui ui = new Ui();
+    private Ui ui;
     /**
      * To parse training plan command.
      * @param input command.
@@ -34,13 +34,9 @@ public class ParserTrainingPlan implements IParser {
                 } else if (word[1].equals("edit")) {
                     System.out.println("To be created...");
                 } else if (word[1].equals("save")) {
-                    String fp = plan.getFilePath();
-                    try {
-                        new Storage(fp).savePlans(plan.getMap());
-                        ui.showSavePlanToMap();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    //String fp = plan.getFilePath();
+                    //new Storage(fp).savePlans(plan.getMap());
+                    ui.showSavePlanToMap();
                 }
                 break;
             case "training":
