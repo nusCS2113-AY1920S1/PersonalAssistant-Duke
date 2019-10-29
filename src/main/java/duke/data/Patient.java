@@ -411,4 +411,9 @@ public class Patient extends DukeObject {
             return count + "critical issues";
         }
     }
+
+    public boolean equals(Patient other) {
+        return attributes.equals(other.attributes) && primaryDiagnosis == other.primaryDiagnosis
+                && observableImpressions.equals(other.getImpressionsObservableMap());
+    }
 }

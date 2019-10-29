@@ -39,23 +39,6 @@ public class ObservationCard extends EvidenceCard {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals(Object object) {
-        if (super.equals(object)) {
-            return true;
-        }
-
-        if (!(object instanceof ObservationCard)) {
-            return false;
-        }
-
-        ObservationCard card = (ObservationCard) object;
-        return observation.equals(card.getEvidence());
-    }
-
     @Override
     public Evidence getEvidence() {
         return observation;

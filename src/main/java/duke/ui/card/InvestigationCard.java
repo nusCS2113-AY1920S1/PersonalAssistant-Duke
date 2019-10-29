@@ -36,23 +36,6 @@ public class InvestigationCard extends TreatmentCard {
         statusLabel.setText(statusText);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals(Object object) {
-        if (super.equals(object)) {
-            return true;
-        }
-
-        if (!(object instanceof InvestigationCard)) {
-            return false;
-        }
-
-        InvestigationCard card = (InvestigationCard) object;
-        return investigation.equals(card.getTreatment());
-    }
-
     @Override
     public Treatment getTreatment() {
         return investigation;

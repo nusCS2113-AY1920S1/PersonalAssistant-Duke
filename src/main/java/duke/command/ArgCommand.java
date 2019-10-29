@@ -25,27 +25,27 @@ public abstract class ArgCommand extends Command {
         // do any necessary pre-processing
     }
 
-    protected void setSwitchValsMap(HashMap<String, String> switchVals) {
+    public void setSwitchValsMap(Map<String, String> switchVals) {
         this.switchVals.putAll(switchVals);
     }
 
-    protected void setSwitchVal(String switchName, String value) {
+    public void setSwitchVal(String switchName, String value) {
         switchVals.put(switchName, value);
     }
 
-    protected String getSwitchVal(String switchName) {
+    public String getSwitchVal(String switchName) {
         return switchVals.get(switchName);
     }
 
-    protected boolean isSwitchSet(String switchName) {
+    public boolean isSwitchSet(String switchName) {
         return switchVals.containsKey(switchName);
     }
 
-    protected void setArg(String arg) {
+    public void setArg(String arg) {
         this.arg = arg;
     }
 
-    protected String getArg() {
+    public String getArg() {
         return arg;
     }
 

@@ -26,7 +26,7 @@ public class DukeCore extends Application {
     public PatientMap patientMap;
 
     /**
-     * Constructs a DukeCore object.
+     * Constructs a DukeCore object with the specified stdtestout.
      */
     public DukeCore() {
         ui = new UiManager(this);
