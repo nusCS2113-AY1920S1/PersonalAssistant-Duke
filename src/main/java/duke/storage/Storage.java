@@ -154,8 +154,8 @@ public class Storage {
     private void readRoutes() throws RouteNodeDuplicateException, CorruptedFileException, StorageFileNotFoundException {
         List<Route> newRoutes = new ArrayList<>();
         try {
-            File f = new File(ROUTES_FILE_PATH);
-            Scanner s = new Scanner(f);
+            File file = new File(ROUTES_FILE_PATH);
+            Scanner s = new Scanner(file);
             Route newRoute = new Route(new ArrayList<>(), "", "");
             while (s.hasNext()) {
                 String input = s.nextLine();
@@ -187,21 +187,21 @@ public class Storage {
      */
     public List<Agenda> readVenues(int numDays) throws RecommendationDayExceededException {
         List<Agenda> recommendations = new ArrayList<>();
-        Scanner s = new Scanner(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH));
+        Scanner scanner = new Scanner(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH));
         int i = 1;
         if (numDays > 8) {
             throw new RecommendationDayExceededException();
         }
-        while (s.hasNext() && i <= numDays) {
+        while (scanner.hasNext() && i <= numDays) {
             List<Venue> venueList = new ArrayList<>();
-            venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
-            List<Todo> todoList = ParserStorageUtil.getTodoListFromStorage(s.nextLine());
-            venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
-            todoList.addAll(ParserStorageUtil.getTodoListFromStorage(s.nextLine()));
+            venueList.add(ParserStorageUtil.getVenueFromStorage(scanner.nextLine()));
+            List<Todo> todoList = ParserStorageUtil.getTodoListFromStorage(scanner.nextLine());
+            venueList.add(ParserStorageUtil.getVenueFromStorage(scanner.nextLine()));
+            todoList.addAll(ParserStorageUtil.getTodoListFromStorage(scanner.nextLine()));
             Agenda agenda = new Agenda(todoList, venueList, i++);
             recommendations.add(agenda);
         }
-        s.close();
+        scanner.close();
 
         return recommendations;
     }
@@ -291,24 +291,24 @@ public class Storage {
         List<Agenda> agendaList = new ArrayList<>();
         Itinerary itinerary;
         try {
-            File f = new File(SAMPLE_RECOMMENDATIONS_FILE_PATH);
-            Scanner s = new Scanner(f);
-            String name = s.nextLine();
-            LocalDateTime start = ParserTimeUtil.parseStringToDate(s.nextLine());
-            LocalDateTime end = ParserTimeUtil.parseStringToDate(s.nextLine());
-            Venue hotel = ParserStorageUtil.getVenueFromStorage(s.nextLine());
+            File file = new File(SAMPLE_RECOMMENDATIONS_FILE_PATH);
+            Scanner scanner = new Scanner(file);
+            String name = scanner.nextLine();
+            LocalDateTime start = ParserTimeUtil.parseStringToDate(scanner.nextLine());
+            LocalDateTime end = ParserTimeUtil.parseStringToDate(scanner.nextLine());
+            Venue hotel = ParserStorageUtil.getVenueFromStorage(scanner.nextLine());
             itinerary = new Itinerary(start, end, hotel, name);
-            while (s.hasNext()) {
+            while (scanner.hasNext()) {
                 List<Venue> venueList = new ArrayList<>();
                 List<Todo> todoList;
-                final int number = ParserStorageUtil.getNumberFromStorage(s.nextLine());
-                venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
-                venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
-                todoList = ParserStorageUtil.getTodoListFromStorage(s.nextLine());
+                final int number = ParserStorageUtil.getNumberFromStorage(scanner.nextLine());
+                venueList.add(ParserStorageUtil.getVenueFromStorage(scanner.nextLine()));
+                venueList.add(ParserStorageUtil.getVenueFromStorage(scanner.nextLine()));
+                todoList = ParserStorageUtil.getTodoListFromStorage(scanner.nextLine());
                 Agenda agenda = new Agenda(todoList, venueList, number);
                 agendaList.add(agenda);
             }
-            s.close();
+            scanner.close();
             itinerary.setTasks(agendaList);
         } catch (FileNotFoundException e) {
             throw new FileLoadFailException(new File(SAMPLE_RECOMMENDATIONS_FILE_PATH));
@@ -325,12 +325,12 @@ public class Storage {
     public void writeItinerarySave(Itinerary itinerary) throws FileNotSavedException {
         try {
             FileWriter writer = new FileWriter(ITINERARY_LIST_FILE_PATH, true);
-            File f1 = new File(ITINERARY_LIST_FILE_PATH);
+            File file = new File(ITINERARY_LIST_FILE_PATH);
             int linecount = 0;
-            FileReader fr = new FileReader(f1);
+            FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
-            String s;
-            while ((s = br.readLine()) != null) {
+            String fileLine;
+            while ((fileLine = br.readLine()) != null) {
                 linecount++;
             }
             fr.close();
@@ -351,9 +351,9 @@ public class Storage {
         StringBuilder output = new StringBuilder();
         try {
             File f = new File(ITINERARY_LIST_FILE_PATH);
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                String input = s.nextLine();
+            Scanner scanner = new Scanner(f);
+            while (scanner.hasNext()) {
+                String input = scanner.nextLine();
                 String number = input.split("\\|", 2)[0].strip();
                 String name = input.split("\\|", 2)[1].strip();
                 output.append(number).append(". ").append(name).append("\n");
@@ -373,8 +373,8 @@ public class Storage {
     public Itinerary getItinerary(String number) throws DukeException {
         Itinerary itinerary = null;
         try {
-            File f = new File(ITINERARY_LIST_FILE_PATH);
-            Scanner s = new Scanner(f);
+            File itineraryTable = new File(ITINERARY_LIST_FILE_PATH);
+            Scanner s = new Scanner(itineraryTable);
             String name = null;
             while (s.hasNext()) {
                 String input = s.nextLine();
@@ -383,30 +383,30 @@ public class Storage {
                     name = input.split("\\|", 2)[1].strip();
                 }
             }
-            File z = new File(ITINERARIES_FILE_PATH);
-            Scanner s1 = new Scanner(z);
+            File itinerariesFile = new File(ITINERARIES_FILE_PATH);
+            Scanner scanner = new Scanner(itinerariesFile);
             AgendaList agendaList = new AgendaList();
-            while (s1.hasNext()) {
-                if (s1.nextLine().equals(name)) {
-                    LocalDateTime start = ParserTimeUtil.parseStringToDate(s1.nextLine());
-                    LocalDateTime end = ParserTimeUtil.parseStringToDate(s1.nextLine());
-                    Venue hotel = ParserStorageUtil.getVenueFromStorage(s1.nextLine());
+            while (scanner.hasNext()) {
+                if (scanner.nextLine().equals(name)) {
+                    LocalDateTime start = ParserTimeUtil.parseStringToDate(scanner.nextLine());
+                    LocalDateTime end = ParserTimeUtil.parseStringToDate(scanner.nextLine());
+                    Venue hotel = ParserStorageUtil.getVenueFromStorage(scanner.nextLine());
                     itinerary = new Itinerary(start, end, hotel, name);
-                    String s2 = s1.nextLine();
-                    while (s2.split("\\|")[0].equals("Agenda ")) {
+                    String fileLine = scanner.nextLine();
+                    while (fileLine.split("\\|")[0].equals("Agenda ")) {
                         List<Venue> venueList = new ArrayList<>();
                         List<Todo> todoList;
-                        final int number2 = Integer.parseInt(s2.split("\\|")[1]);
-                        String newVenue = s1.nextLine();
+                        final int number2 = Integer.parseInt(fileLine.split("\\|")[1]);
+                        String newVenue = scanner.nextLine();
                         while (newVenue.contains(" |")) {
                             venueList.add(ParserStorageUtil.getVenueFromStorage(newVenue));
-                            newVenue = s1.nextLine();
+                            newVenue = scanner.nextLine();
                         }
                         todoList = ParserStorageUtil.getTodoListFromStorage(newVenue);
                         Agenda agenda = new Agenda(todoList, venueList, number2);
                         agendaList.add(agenda);
-                        if (s1.hasNextLine()) {
-                            s2 = s1.nextLine();
+                        if (scanner.hasNextLine()) {
+                            fileLine = scanner.nextLine();
                         } else {
                             break;
                         }
@@ -414,7 +414,7 @@ public class Storage {
                 }
             }
             s.close();
-            s1.close();
+            scanner.close();
             assert itinerary != null;
             itinerary.setTasks(agendaList);
             return itinerary;
