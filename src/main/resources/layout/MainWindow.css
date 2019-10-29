@@ -10,17 +10,6 @@ Textfield {
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
 }
 
-Label {
-    -fx-padding: 2 2 2 2;
-}
-
-#totalSpentLabel, #monthlyBudgetLabel {
-    -fx-font-size: 2em;
-}
-
-#dayLabel, #weekLabel, #monthLabel, #yearLabel, #allLabel {
-}
-
 
 HBox {
     -fx-min-width: 800px;
@@ -32,4 +21,8 @@ VBox {
 
 #inputField {
     -fx-font-size: 1.5em;
+}
+
+#MainContainer {
+    -fx-background-color: 	LIGHTSLATEGREY;
 }
