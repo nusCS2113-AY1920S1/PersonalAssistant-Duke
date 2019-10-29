@@ -16,5 +16,5 @@ public class ErrorCommand extends Command {
     @Override
     public String getCommandInfo() {
         return "ErrorCommand";
-    };
+    }
 }

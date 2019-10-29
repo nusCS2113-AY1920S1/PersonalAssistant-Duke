@@ -38,5 +38,5 @@ public class ModifyEntryCommand extends Command {
     @Override
     public String getCommandInfo() {
         return null;
-    };
+    }
 }

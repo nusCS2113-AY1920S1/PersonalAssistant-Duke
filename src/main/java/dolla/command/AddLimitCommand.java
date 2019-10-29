@@ -36,5 +36,5 @@ public class AddLimitCommand extends Command {
     @Override
     public String getCommandInfo() {
         return null;
-    };
+    }
 }

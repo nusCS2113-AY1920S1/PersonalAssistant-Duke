@@ -75,5 +75,5 @@ public class ShowListCommand extends Command {
     @Override
     public String getCommandInfo() {
         return null;
-    };
+    }
 }
