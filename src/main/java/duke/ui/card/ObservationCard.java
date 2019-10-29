@@ -53,7 +53,7 @@ public class ObservationCard extends EvidenceCard {
         }
 
         ObservationCard card = (ObservationCard) object;
-        return observation.equals(card.getEvidence());
+        return observation == card.getEvidence();
     }
 
     @Override

@@ -56,7 +56,7 @@ public class MedicineCard extends TreatmentCard {
         }
 
         MedicineCard card = (MedicineCard) object;
-        return medicine.equals(card.getTreatment());
+        return medicine == card.getTreatment();
     }
 
     @Override

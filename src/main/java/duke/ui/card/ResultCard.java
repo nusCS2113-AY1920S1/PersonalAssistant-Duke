@@ -36,7 +36,7 @@ public class ResultCard extends EvidenceCard {
         }
 
         ResultCard card = (ResultCard) object;
-        return result.equals(card.getEvidence());
+        return result == card.getEvidence();
     }
 
     @Override

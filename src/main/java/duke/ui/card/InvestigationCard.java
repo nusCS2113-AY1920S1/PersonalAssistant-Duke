@@ -50,7 +50,7 @@ public class InvestigationCard extends TreatmentCard {
         }
 
         InvestigationCard card = (InvestigationCard) object;
-        return investigation.equals(card.getTreatment());
+        return investigation == card.getTreatment();
     }
 
     @Override

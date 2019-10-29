@@ -52,7 +52,12 @@ public abstract class EvidenceCard extends UiCard {
             return true;
         }
 
-        return (object instanceof EvidenceCard);
+        if (!(object instanceof EvidenceCard)) {
+            return false;
+        }
+
+        EvidenceCard card = (EvidenceCard) object;
+        return evidence == card.getEvidence();
     }
 
     public abstract Evidence getEvidence();

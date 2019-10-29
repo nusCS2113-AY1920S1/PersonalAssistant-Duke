@@ -44,7 +44,7 @@ public class PlanCard extends TreatmentCard {
         }
 
         PlanCard card = (PlanCard) object;
-        return plan.equals(card.getTreatment());
+        return plan == card.getTreatment();
     }
 
     @Override
