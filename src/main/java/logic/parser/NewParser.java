@@ -15,6 +15,7 @@ public class NewParser {
     private static final String LIST_COMMAND_WORD = "LIST";
     private static final String DELETE_COMMAND_WORD = "DELETE";
     private static final String DONE_COMMAND_WORD = "DONE";
+    public static final String LINK_COMMAND_WORD = "LINK";
 
     //@@author JustinChia1997
 
@@ -31,7 +32,7 @@ public class NewParser {
             throw new DukeException("Message is invalid");
         }
         String commandWord = matcher.group("commandWord");
-        String arguments = matcher.group("arguments");
+        String arguments = matcher.group("arguments").trim();
 
         commandWord = commandWord.trim().toUpperCase();
 
@@ -47,9 +48,10 @@ public class NewParser {
                 return AddCommandParser.parseAddCommand(arguments);
             case LIST_COMMAND_WORD:
                 return ListCommandParser.parseListCommand(arguments);
-
             case DONE_COMMAND_WORD:
                 return DoneCommandParser.parseDoneCommand(arguments);
+            case LINK_COMMAND_WORD:
+                return LinkCommandParser.parseLinkCommand(arguments);
             default:
                 throw new DukeException("Command not found");
 
