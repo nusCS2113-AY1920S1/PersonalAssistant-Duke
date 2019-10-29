@@ -184,7 +184,7 @@ public class CardTest {
                         testCard.listAllExpenditure(testUi, -10),
                "Expected listAllExpenditure to throw TransactionException because "
                         + "there are no transactions in bank account, but it did not throw");
-        assertEquals("There are no transactions in this bank account",
+        assertEquals("There are no expenditures in this card.",
                 exception.toString());
     }
 
@@ -543,7 +543,7 @@ public class CardTest {
                         testCard.listAllPaidExpenditure(testUi, 10),
                 "Expected editExpenditureDetails to throw TransactionException"
                         + "because there are no transactions in the card, but it did not throw");
-        assertEquals("There are no transactions in this bank account", exception.toString());
+        assertEquals("There are no expenditures in this card.", exception.toString());
     }
 
     @Test
@@ -560,7 +560,7 @@ public class CardTest {
                         testCard.listAllPaidExpenditure(testUi, 10),
                 "Expected editExpenditureDetails to throw TransactionException"
                         + "because there are no transactions in the card, but it did not throw");
-        assertEquals("There are no transactions in this bank account", exception.toString());
+        assertEquals("There are no expenditures in this card.", exception.toString());
     }
 
     @Test
@@ -632,7 +632,7 @@ public class CardTest {
                         testCard.listAllExpenditure(testUi, 10),
                 "Expected editExpenditureDetails to throw TransactionException"
                         + "because there are no transactions in the card, but it did not throw");
-        assertEquals("There are no transactions in this bank account", exception.toString());
+        assertEquals("There are no expenditures in this card.", exception.toString());
     }
 
     @Test
@@ -649,7 +649,7 @@ public class CardTest {
                         testCard.listAllPaidExpenditure(testUi, 10),
                 "Expected editExpenditureDetails to throw TransactionException"
                         + "because there are no transactions in the card, but it did not throw");
-        assertEquals("There are no transactions in this bank account", exception.toString());
+        assertEquals("There are no expenditures in this card.", exception.toString());
     }
 }
 
