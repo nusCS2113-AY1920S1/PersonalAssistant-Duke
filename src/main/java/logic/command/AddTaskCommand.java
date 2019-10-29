@@ -35,6 +35,6 @@ public class AddTaskCommand extends Command {
             //TODO add functionality to add members on the go
         }
         model.save();
-        return new CommandOutput(FEEDBACK_MESSAGE + taskName );
+        return new CommandOutput(FEEDBACK_MESSAGE + taskName);
     }
 }
