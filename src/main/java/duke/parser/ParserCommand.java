@@ -1,5 +1,5 @@
-package duke.Parser;
-import duke.Ui;
+package duke.parser;
+import duke.CLIView;
 
 import java.io.FileNotFoundException;
 
@@ -25,7 +25,7 @@ public class ParserCommand implements IParser {
      */
     public void parseCommand(final String input) {
         try {
-            Ui ui = new Ui();
+            CLIView CLIView = new CLIView();
             Scanner sc = new Scanner(System.in);
             switch (input) {
                 case "1":
@@ -33,12 +33,12 @@ public class ParserCommand implements IParser {
                     final int returnMonthlyOption = 3;
                     final int theNumberThree = 3;
                     // Schedule
-                    ui.trainingScheduleHeading();
+                    CLIView.trainingScheduleHeading();
                     int executeType = sc.nextInt();
                     sc.nextLine();  // This line you have
                     // to add (It consumes the \n character)
                     if (executeType == 1) {
-                        ui.dailyScheduleHeading();
+                        CLIView.dailyScheduleHeading();
                         int dailyType = sc.nextInt();
                         sc.nextLine();  // This line you have
                         // to add (It consumes the \n character)
@@ -60,16 +60,16 @@ public class ParserCommand implements IParser {
                         ParserSchedule parserSchedule = new ParserSchedule();
                         parserSchedule.monthlySchedule();
                     } else {
-                        ui.showCorrectFormat();
+                        CLIView.showCorrectFormat();
                     }
                     break;
                 case "2":
-                    ui.manageStudentsHeading();
+                    CLIView.manageStudentsHeading();
                     String studentsInput = sc.nextLine();
                     parserManageStudents.parseCommand(studentsInput);
                     break;
                 case "3":
-                    ui.trainingProgramHeading();
+                    CLIView.trainingProgramHeading();
                     String trainingInput = sc.nextLine();
                     parserTrainingPlan.parseCommand(trainingInput);
                     break;

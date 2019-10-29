@@ -1,6 +1,6 @@
 package duke.Command;
 
-import duke.Ui;
+import duke.CLIView;
 import duke.data.Storage;
 import duke.module.Schedule;
 import duke.sports.ManageStudents;
@@ -16,7 +16,7 @@ public abstract class Command {
     /**
      * Ui object which will be shared by all subclasses.
      */
-    private Ui ui;
+    private CLIView CLIView;
     /**
      * The exit status of the program.
      */
@@ -38,13 +38,13 @@ public abstract class Command {
     /**
      * The execute method which will be shared by all subclasses.
      * @param tasks The ArrayList of Task objects.
-     * @param sharedUi The Ui object to manage user interface to user.
+     * @param sharedCLIView The Ui object to manage user interface to user.
      * @param storage The Storage object to save and load user's tasks.
      * @param schedule The Schedule object to store classes in time slots.
      * @param students The ManageStudents object to manage students in classes.
      * @param plan The MyPlan object to manage the training plans.
      */
-    public abstract void execute(TaskList tasks, Ui sharedUi, Storage storage,
+    public abstract void execute(TaskList tasks, CLIView sharedCLIView, Storage storage,
                                  Schedule schedule, ManageStudents students,
                                  MyPlan plan);
 }

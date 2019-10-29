@@ -1,13 +1,11 @@
 package duke;
 
-import duke.Command.Command;
-import duke.Command.ExitCommand;
-import duke.Parser.ParserCommand;
+import duke.parser.ParserCommand;
 import duke.sports.MyTraining;
 
 import java.util.Scanner;
 
-public class Ui {
+public class CLIView {
 
     /**
      * Scanner object to read user input.
@@ -15,7 +13,7 @@ public class Ui {
     private Scanner scan = new Scanner(System.in);
 
     /**
-     * Declaring new Parser type.
+     * Declaring new parser type.
      */
     private ParserCommand parser = new ParserCommand();
 
@@ -24,21 +22,18 @@ public class Ui {
      */
     public void execute() {
         showWelcome();
-        Command c = null;
         while (true) {
             if (scan.hasNextLine()) {
                 String command = scan.nextLine();
                 if (command.equals("bye")) {
                     showGoodBye();
                     System.exit(0);
-                    //c = new ExitCommand();
                 } else if (command.equals("home")) {
                     showMainMenu();
                 } else {
                     parser.parseCommand(command);
                 }
             }
-            //c.execute();
         }
     }
 
@@ -123,7 +118,7 @@ public class Ui {
             + "1. Plan list - View all the plans available "
             + "and check a plan or edit it (cmd: TBC)\n"
             + "2. Create plan - Create a new plan of a "
-            + "specified intensity level (Cmd: plan new [intensity level])\n"
+            + "specified intensity level (Cmd: plan new [intensity level])"
             + "3. Edit plan - Edit a specified plan by adding new "
             + "activities or switching activity positions "
             + "(Cmd: plan edit [intensity level] [plan number])");

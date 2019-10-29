@@ -21,7 +21,7 @@ public class TaskListTest {
         String input = "02/12/2019 1800";
         Date date = taskList.dateConvert(input);
         String newDate = taskList.dateToStringFormat(date);
-        assertEquals("2nd of December 2019, 6pm", newDate);
+        assertEquals("2nd of December 2019, 6PM", newDate);
     }
 
     @Test

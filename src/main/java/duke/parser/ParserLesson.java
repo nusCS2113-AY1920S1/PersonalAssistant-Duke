@@ -1,6 +1,6 @@
-package duke.Parser;
+package duke.parser;
 
-import duke.Ui;
+import duke.CLIView;
 import duke.data.Storage;
 import duke.module.Lesson;
 
@@ -48,7 +48,7 @@ public class ParserLesson {
     /**
      * The ui object responsible for showing things to the user.
      */
-    private Ui ui;
+    private CLIView CLIView;
     /**
      * The scanner object responsible for taking in user input.
      */
@@ -60,7 +60,7 @@ public class ParserLesson {
      * @throws ParseException if user input is not in the correct format
      */
     public ParserLesson() throws FileNotFoundException, ParseException {
-        ui = new Ui();
+        CLIView = new CLIView();
         lessonStorage = new Storage(
             ".\\src\\main\\java\\duke\\data\\lessons.txt");
         lesson = new Lesson(lessonStorage.loadLesson());
@@ -71,12 +71,12 @@ public class ParserLesson {
      * Method to run when entering lesson of the day.
      */
     public void runLesson() {
-        ui.showLessonPromptDate();
+        CLIView.showLessonPromptDate();
         String lessonDate = myLessonScan.next();
 
         while (isRunning) {
             try {
-                ui.showLessonAllActions(lessonDate);
+                CLIView.showLessonAllActions(lessonDate);
                 int executeType = myLessonScan.nextInt();
                 myLessonScan.nextLine();  // This line you have
                 // to add (It consumes the \n character)
@@ -86,7 +86,7 @@ public class ParserLesson {
                     break;
 
                 case 2:
-                    ui.showLessonPromptAddLesson(lessonDate);
+                    CLIView.showLessonPromptAddLesson(lessonDate);
                     String myLesson = myLessonScan.nextLine();
                     System.out.println(
                         lesson.addLesson(
@@ -94,7 +94,7 @@ public class ParserLesson {
                     break;
 
                 case indexThree:
-                    ui.showLessonPromptDeleteLesson(lessonDate);
+                    CLIView.showLessonPromptDeleteLesson(lessonDate);
                     String message = myLessonScan.nextLine();
                     System.out.println(
                         lesson.removeLesson(
@@ -108,14 +108,14 @@ public class ParserLesson {
 
                 case indexFive:
                     isRunning = false;
-                    ui.showQuitLesson();
+                    CLIView.showQuitLesson();
                     break;
                 default:
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                ui.showFullCommand();
+                CLIView.showFullCommand();
             } catch (ParseException e) {
-                ui.showCorrectFormat();
+                CLIView.showCorrectFormat();
             }
         }
     }

@@ -1,4 +1,4 @@
-package duke.Parser;
+package duke.parser;
 
 import duke.sports.ManageStudents;
 import duke.sports.MyStudent;
