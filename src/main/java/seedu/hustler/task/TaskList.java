@@ -173,6 +173,8 @@ public class TaskList {
             else {
                 list.add(new Deadline(onlyDescription, time, difficulty, tag, LocalDateTime.now()));
             }
+        } else {
+            System.out.println("There has been a clash!");
         }
     }
 
@@ -202,6 +204,8 @@ public class TaskList {
             else {
                 list.add(new Event(onlyDescription, time, difficulty, tag, LocalDateTime.now()));
             }
+        } else {
+            System.out.println("There has been a clash!");
         }
     }
 
