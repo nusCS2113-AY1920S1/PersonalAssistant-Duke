@@ -2,3 +2,7 @@
     -fx-font-size: 32px;
     -fx-font-weight: bold;
 }
+
+#totalLabel{
+    -fx-font-size: 32px;
+}

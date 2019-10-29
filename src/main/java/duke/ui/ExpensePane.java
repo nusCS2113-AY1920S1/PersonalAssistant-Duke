@@ -3,6 +3,7 @@ package duke.ui;
 import duke.commons.LogsCenter;
 import duke.logic.Logic;
 import duke.model.Expense;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,11 +33,27 @@ public class ExpensePane extends UiPart<AnchorPane> {
     ListView<Expense> expenseListView;
 
     @FXML
+    Label sortLabel;
+
+    @FXML
+    Label filterLabel;
+
+    @FXML
+    Label viewLabel;
+
+    @FXML
+    Label totalLabel;
+
+    @FXML
     ListView<String> budgetListView;
     public Logic logic;
     public Set<String> tags;
 
-    public ExpensePane(ObservableList<Expense> expenseList, Logic logic) {
+    public ExpensePane(ObservableList<Expense> expenseList, Logic logic,
+                       StringProperty totalExpense,
+                       StringProperty filterCriteria,
+                       StringProperty sortCriteria,
+                       StringProperty viewCriteria) {
         super(FXML_FILE_NAME, null);
         logger.info("expenseList has length " + expenseList.size());
         logger.info("expenseList has length " + expenseList.size());
@@ -48,6 +65,12 @@ public class ExpensePane extends UiPart<AnchorPane> {
         logger.info("Items are set.");
         expenseListView.setCellFactory(expenseListView -> new ExpenseListViewCell());
         logger.info("cell factory is set.");
+
+        sortLabel.textProperty().bindBidirectional(sortCriteria);
+        filterLabel.textProperty().bindBidirectional(filterCriteria);
+        viewLabel.textProperty().bindBidirectional(viewCriteria);
+        totalLabel.textProperty().bindBidirectional(totalExpense);
+
         this.logic = logic;
         PieChart pieChartSample = new PieChart();
         pieChartSample.setData(getData());
@@ -90,7 +113,7 @@ public class ExpensePane extends UiPart<AnchorPane> {
      * Custom {@code ListCell} that displays the graphics of a {@code PlanBot.PlanDialog}
      * using a {@code PlanBot.PlanDialog}.
      */
-    static class ExpenseListViewCell extends ListCell<Expense> {
+    class ExpenseListViewCell extends ListCell<Expense> {
         @Override
         protected void updateItem(Expense expense, boolean empty) {
             super.updateItem(expense, empty);
@@ -98,7 +121,8 @@ public class ExpensePane extends UiPart<AnchorPane> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ExpenseCard(expense).getRoot());
+                int index = expenseListView.getItems().indexOf(expense) + 1;
+                setGraphic(new ExpenseCard(expense, index).getRoot());
             }
         }
     }
