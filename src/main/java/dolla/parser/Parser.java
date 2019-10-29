@@ -35,7 +35,8 @@ public abstract class Parser {
         this.commandToRun = inputArray[0];
     }
 
-    public abstract Command handleInput(String mode, String inputLine);
+    public abstract Command handleInput(String mode);
+
 
     /**
      * Splits the input from the user and assigns the relevant data into description and date variables.
@@ -138,6 +139,7 @@ public abstract class Parser {
         return true;
     }
 
+    //@@author yetong1895
     /**
      * This method will set the prevPosition int in this class.
      * @param prevPosition the prevPosition of a deleted input.

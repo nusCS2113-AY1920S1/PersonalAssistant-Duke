@@ -1,5 +1,8 @@
 package dolla.action;
 
+import dolla.ui.ActionUi;
+
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 public class Undo {
@@ -13,6 +16,7 @@ public class Undo {
     private static Stack<String> undoDebtCommand = new Stack<>();
     private static Stack<String> undoLimitCommand = new Stack<>();
 
+    //@@author yetong1895
     /**
      * This method will process a "remove" command.
      * @param mode  the mode that the user is in.
@@ -77,12 +81,17 @@ public class Undo {
      * @return undoInput is the String that serve as an undo input.
      */
     public static String processCommand(String mode) {
-        if (mode.equals("entry")) {
-            undoInput = undoEntryCommand.pop();
-        } else if (mode.equals("debt")) {
-            undoInput = undoDebtCommand.pop();
-        } else {
-            undoInput = undoDebtCommand.pop();
+        try {
+            if (mode.equals("entry")) {
+                undoInput = undoEntryCommand.pop();
+            } else if (mode.equals("debt")) {
+                undoInput = undoDebtCommand.pop();
+            } else {
+                undoInput = undoDebtCommand.pop();
+            }
+        } catch (EmptyStackException e) {
+            ActionUi.printEmptyStackError("undo");
+            return "empty stack";
         }
         return undoInput;
     }

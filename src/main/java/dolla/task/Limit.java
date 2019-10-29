@@ -6,11 +6,8 @@ package dolla.task;
 public class Limit extends Record {
 
     protected String type;
-    protected double amount;
     protected String duration;
     protected String saveType;
-
-    //String[] limitType = {"saving", "budget"};
 
     /**
      * Creates an instance of Limit.

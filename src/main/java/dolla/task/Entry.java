@@ -11,7 +11,6 @@ public class Entry extends Record {
     protected char sign; // '+' for income, '-' for expense
     protected String type;
     protected String saveType;
-    protected double amount;
 
     /**
      * Creates an instance of Entry.

@@ -10,7 +10,7 @@ public class ModifyParser extends Parser {
     }
 
     @Override
-    public Command handleInput(String mode, String inputLine) {
+    public Command handleInput(String mode) {
         String modeToModify = mode.split(" ")[1];
         if (modeToModify.equals("entry")) {
             if (verifyAddCommand() == true) {

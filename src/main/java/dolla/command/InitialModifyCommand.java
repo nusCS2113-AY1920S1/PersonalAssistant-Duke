@@ -24,7 +24,7 @@ public class InitialModifyCommand extends Command {
             dollaData.updateMode("modify " + currMode);
             dollaData.prepForModify(currMode, index);
         } else {
-            Ui.printNoLogAssocError(index, currMode);
+            Ui.printNoRecordAssocError(index, currMode);
             return;
         }
     }

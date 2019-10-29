@@ -1,3 +1,4 @@
+@startuml
 /'
  'Commonly used styles and colors across diagrams.
  'Refer to https://plantuml-documentation.readthedocs.io/en/latest for a more
@@ -73,3 +74,4 @@ skinparam packageStyle Rectangle
 hide footbox
 hide members
 hide circle
+@enduml

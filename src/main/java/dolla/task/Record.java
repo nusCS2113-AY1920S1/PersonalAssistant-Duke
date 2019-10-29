@@ -10,6 +10,7 @@ public abstract class Record {
     protected LocalDate date;
     protected String name;
     protected String userInput;
+    protected double amount;
     protected String recordType;
 
     protected static final String RECORD_ENTRY = "entry";
@@ -38,5 +39,9 @@ public abstract class Record {
 
     public String getUserInput() {
         return userInput;
+    }
+
+    public double getAmount() {
+        return amount;
     }
 }
