@@ -107,6 +107,10 @@ public class MyTraining {
                 + getReps() + " reps each";
     }
 
+    /**
+     * Convert values into a string to store into a file.
+     * @return String of the values
+     */
     public String toFile() {
         return getName() + " | " + getSets() + " | " + getReps();
     }

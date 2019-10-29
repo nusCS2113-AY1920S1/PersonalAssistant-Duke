@@ -57,7 +57,7 @@ public class TaskList {
      *          it takes the newly created Deadline/ToDo/Event
      * @param c
      */
-    public void addTask(final Item i, String c) {
+    public void addTask(final Item i, final String c) {
         list.add(i);
         System.out.println("Got it. I've added this task:\n "
             + list.get(getList().size() - 1).toString() + "\n"
