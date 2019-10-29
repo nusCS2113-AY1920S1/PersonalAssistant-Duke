@@ -21,6 +21,7 @@ public class LinkCommand extends Command{
         for (int i = 0; i < tasksIndexes.length; i++) {
             for (int j = 0; j < membersNames.length; j++) {
                 //model.link(tasksIndexes[i], membersNames[j]);
+                //uncomment above when link in model finished
                 output += "Noted, assigned task "
                         + model.getTasksManager().getTaskById(tasksIndexes[i]).getName()
                         + " to member "
