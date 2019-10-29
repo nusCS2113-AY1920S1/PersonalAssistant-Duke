@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeAll;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
