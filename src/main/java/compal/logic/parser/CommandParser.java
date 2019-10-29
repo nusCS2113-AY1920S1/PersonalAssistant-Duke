@@ -5,7 +5,6 @@ import compal.logic.command.Command;
 import compal.model.tasks.Task;
 import compal.logic.parser.exceptions.ParserException;
 
-import javax.swing.text.html.parser.Parser;
 import java.text.DateFormat;
 import java.text.ParseException;
 
