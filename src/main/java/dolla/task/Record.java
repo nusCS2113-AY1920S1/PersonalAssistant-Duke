@@ -12,6 +12,7 @@ public abstract class Record {
     protected LocalDate date;
     protected String name;
     protected String userInput;
+    protected double amount;
     protected String recordType;
     protected String duration;
     protected Tag tag;
@@ -42,5 +43,9 @@ public abstract class Record {
 
     public String getDuration() {
         return duration;
+    }
+
+    public double getAmount() {
+        return amount;
     }
 }

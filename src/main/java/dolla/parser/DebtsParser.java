@@ -18,13 +18,16 @@ import dolla.command.RemoveCommand;
  * execute the command according to the command under the debt mode.
  */
 public class DebtsParser extends Parser {
+    private static final String DEBT_COMMAND_REDO = "redo";
+    private static final String DEBT_COMMAND_UNDO = "undo";
+    private static final String DEBT_COMMAND_REPEAT = "repeat";
 
     public DebtsParser(String inputLine) {
         super(inputLine);
     }
 
     @Override
-    public Command handleInput(String mode, String inputLine) {
+    public Command handleInput(String mode) {
         if (commandToRun.equals("debts")) { //show debt list
             return new ShowListCommand(mode);
         } else if (commandToRun.equals("owe") || commandToRun.equals("borrow")) {
@@ -53,13 +56,16 @@ public class DebtsParser extends Parser {
             return new SortCommand(mode, inputArray[1]);
         } else if (commandToRun.equals("remove")) {
             return new RemoveCommand(mode, inputArray[1]);
-        } else if (commandToRun.equals("redo") || commandToRun.equals("undo") || commandToRun.equals("Repeat")) {
+        } else if (commandToRun.equals(DEBT_COMMAND_REDO)
+                || commandToRun.equals(DEBT_COMMAND_UNDO)
+                || commandToRun.equals(DEBT_COMMAND_REPEAT)) {
             return new AddActionCommand(mode, commandToRun);
         } else {
             return invalidCommand();
         }
     }
 
+    //@@author yetong1895
     /**
      * This method will process and return a "add" command for debt.
      * @param type the type of input. i.e. owe or borrow.
@@ -72,8 +78,10 @@ public class DebtsParser extends Parser {
         Repeat.setRepeatInput("debt", inputLine); //setup repeat
         if (undoFlag == 1) { //undo input
             addDebt = new AddDebtsCommand(type, name, amount, description, date, prevPosition);
+            resetUndoFlag();
         } else if (redoFlag == 1) {
             addDebt = new AddDebtsCommand(type, name, amount, description, date, -2);
+            resetRedoFlag();
         } else { //normal input, prePosition is -1
             addDebt = new AddDebtsCommand(type, name, amount, description, date, -1);
         }

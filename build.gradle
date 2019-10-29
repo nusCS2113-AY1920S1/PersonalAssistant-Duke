@@ -9,7 +9,7 @@ checkstyle {
     toolVersion = '8.23'
 }
 
-group 'seedu.duke'
+group 'seedu.dolla'
 version '0.1.0'
 
 repositories {
@@ -18,7 +18,7 @@ repositories {
 
 application {
     // Change this to your main class.
-    mainClassName = "duke.Duke"
+    mainClassName = "dolla.Dolla"
 }
 
 dependencies {
@@ -27,7 +27,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "dolla"
     archiveVersion = "0.1.3"
     archiveClassifier = null
     archiveAppendix = null

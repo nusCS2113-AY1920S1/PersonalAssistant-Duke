@@ -35,8 +35,6 @@ public class Dolla {
      * @throws Exception when exceptional condition happens
      */
     public void run() throws Exception {
-        //Reminder reminderObject = new Reminder(); //reminder pop up
-        //reminderObject.execute(tasks);
         boolean isExit = false;
         Reminder reminder = new Reminder("debt");
         reminder.showReminder(dollaData);
