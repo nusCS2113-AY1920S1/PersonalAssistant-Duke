@@ -70,11 +70,11 @@ You can expect to navigate around our application with ease!
 [[GUI]]
 .OwlMoney's Graphical User Interface
 ifdef::env-github[]
-image::UiLabelled.png[width="800"]
+image::Ui.png[width="800"]
 endif::[]
 
 ifndef::env-github[]
-image::UiLabelled.png[width="970"]
+image::Ui.png[width="970"]
 endif::[]
 
 As long as you have some experience using a command line interface, the moment you type your command and
