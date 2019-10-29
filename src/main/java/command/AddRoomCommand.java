@@ -65,7 +65,7 @@ public class AddRoomCommand extends Command {
     public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui, 
                         Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user) 
     throws IOException {
-        Room addroom = new Room(roomcode, date, timeslot);
+        Room addroom = new Room(roomcode, dateStartTime, endTime);
         roomList.add(addroom);
         roomstorage.saveToFile(roomList);
         ui.addToOutput("Got it, I've added this room.\n"
