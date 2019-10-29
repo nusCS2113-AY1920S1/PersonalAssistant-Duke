@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.DukeCore;
 import duke.data.DukeObject;
-import duke.data.Impression;
 import duke.data.Patient;
 import duke.exception.DukeException;
 
@@ -130,6 +129,7 @@ public class CommandUtils {
      * Find a {@code DukeObject} with the supplied identifier. Only 1 of either name or displayed index should be used
      * to identify said DukeObject.
      *
+     * @param core    DukeCore object.
      * @param patient Patient object.
      * @param type    Type of DukeObject.
      * @param name    Name of DukeObject.
@@ -140,7 +140,8 @@ public class CommandUtils {
      *                       2. 2 identifiers are provided.
      *                       3. 1 unique identifier is provided but said DukeObject does not exist.
      */
-    public static DukeObject findObject(Patient patient, String type, String name, int index) throws DukeException {
+    public static DukeObject findObject(DukeCore core, Patient patient, String type, String name, int index)
+            throws DukeException {
         if (name == null && index == -1) {
             throw new DukeException("You must provide a unique identifier (name OR index)!");
         } else if (name != null && index != -1) {
@@ -154,12 +155,10 @@ public class CommandUtils {
                 // TODO: Get investigation
             }
         } else {
-            if ("impression".equals(type)) {
-                return new Impression("test", "placeholder", patient);
-            } else if ("critical".equals(type)) {
-                // TODO: Get critical
-            } else {
-                // TODO: Get investigation
+            try {
+                return core.ui.getIndexedList(type).get(index - 1);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("No such " + type + " exists in the list!");
             }
         }
 
@@ -168,6 +167,7 @@ public class CommandUtils {
 
     /**
      * Extracts an index from a string argument.
+     *
      * @param inputStr The string to parse, generally a command argument.
      * @return The index represented by the string, or -1 if the string does not represent an index.
      */

@@ -42,6 +42,7 @@ public class MainWindow extends UiElement<Stage> {
     private CommandWindow commandWindow;
     private HomeWindow homeWindow;
     private PatientWindow patientWindow;
+    private ImpressionWindow impressionWindow;
     private Tab homeTab;
     private Tab patientTab;
     private Tab impressionTab;
@@ -90,8 +91,8 @@ public class MainWindow extends UiElement<Stage> {
                     contextWindowHolder.getTabs().remove(patientTab);
                 }
 
-                patientTab = new Tab("Patient", new PatientWindow((Patient) uiContext.getObject(),
-                        commandWindow).getRoot());
+                patientWindow = new PatientWindow((Patient) uiContext.getObject());
+                patientTab = new Tab("Patient", patientWindow.getRoot());
                 contextWindowHolder.getTabs().add(1, patientTab);
                 contextWindowHolder.getSelectionModel().select(patientTab);
                 break;
@@ -101,8 +102,8 @@ public class MainWindow extends UiElement<Stage> {
                 }
 
                 Impression impression = (Impression) uiContext.getObject();
-                impressionTab = new Tab("Impression", new ImpressionWindow(impression,
-                        (Patient) impression.getParent()).getRoot());
+                impressionWindow = new ImpressionWindow(impression, (Patient) impression.getParent());
+                impressionTab = new Tab("Impression", impressionWindow.getRoot());
                 contextWindowHolder.getTabs().add(2, impressionTab);
                 contextWindowHolder.getSelectionModel().select(impressionTab);
                 break;
@@ -140,14 +141,14 @@ public class MainWindow extends UiElement<Stage> {
      * List is dependent on the current {@code UiContext}.
      *
      * @param type DukeObject type.
-     * @return Indexed list of Dukeobjects.
+     * @return Indexed list of DukeObjects.
      */
     public List<DukeObject> getIndexedList(String type) {
         switch (uiContext.getContext()) {
         case HOME:
             return homeWindow.getIndexedPatientList();
         case PATIENT:
-            //return patientWindow.getCardList();
+            return patientWindow.getIndexedList(type);
         case EVIDENCE:
         case TREATMENT:
         case IMPRESSION:

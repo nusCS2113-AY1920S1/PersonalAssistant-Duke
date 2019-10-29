@@ -69,6 +69,11 @@ public class HomeWindow extends UiElement<Region> {
         });
     }
 
+    /**
+     * Retrieves indexed list of {@code Patient}.
+     *
+     * @return Indexed list of Patient.
+     */
     public List<DukeObject> getIndexedPatientList() {
         return indexedPatientList;
     }

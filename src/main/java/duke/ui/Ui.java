@@ -28,7 +28,7 @@ public interface Ui {
      * List is dependent on the current {@code UiContext}.
      *
      * @param type DukeObject type.
-     * @return Indexed list of Dukeobjects.
+     * @return Indexed list of DukeObjects.
      */
     List<DukeObject> getIndexedList(String type);
 }

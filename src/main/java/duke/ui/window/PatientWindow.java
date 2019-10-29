@@ -1,17 +1,20 @@
 package duke.ui.window;
 
 import com.jfoenix.controls.JFXListView;
+import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.ui.UiElement;
 import duke.ui.UiStrings;
 import duke.ui.card.ImpressionCard;
 import javafx.collections.MapChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * UI window for the Patient context.
@@ -41,16 +44,18 @@ public class PatientWindow extends UiElement<Region> {
     private JFXListView<Node> impressionsListPanel;
 
     private Patient patient;
-    private CommandWindow window;
+    private List<DukeObject> indexedImpressionList;
+    private List<DukeObject> indexedCriticalList;
+    private List<DukeObject> indexedInvestigationList;
 
     /**
      * Constructs the patient UI window.
      */
-    public PatientWindow(Patient patient, CommandWindow window) {
+    public PatientWindow(Patient patient) {
         super(FXML, null);
 
         this.patient = patient;
-        this.window = window;
+        this.indexedImpressionList = new ArrayList<>();
 
         if (patient == null) {
             return;
@@ -61,6 +66,7 @@ public class PatientWindow extends UiElement<Region> {
     }
 
     private void updatePatientWindow() {
+        // TODO: clean up
         nameLabel.setText(String.valueOf(patient.getName()));
         bedLabel.setText(String.valueOf(patient.getBedNo()));
         int ageNum = patient.getAge();
@@ -78,15 +84,17 @@ public class PatientWindow extends UiElement<Region> {
 
         StringBuilder allergies = new StringBuilder();
         if ("".equals(patient.getAllergies())) {
-            //TODO document the fact that comma separated allergies are displayed on distinct rows
+            allergiesLabel.setText(UiStrings.DISPLAY_ALLERGIES_NONE);
+        } else {
+            // TODO: document the fact that comma separated allergies are displayed on distinct rows
             for (String allergy : patient.getAllergies().split(",")) {
                 allergies.append(allergy.strip()).append(System.lineSeparator());
             }
             allergiesLabel.setText(allergies.toString());
-        } else {
-            allergiesLabel.setText(UiStrings.DISPLAY_ALLERGIES_NONE);
         }
 
+
+        indexedImpressionList.clear();
         impressionsListPanel.getItems().clear();
         for (Impression impression : patient.getImpressionsObservableMap().values()) {
             ImpressionCard impressionCard;
@@ -94,9 +102,11 @@ public class PatientWindow extends UiElement<Region> {
             if (impression.equals(patient.getPrimaryDiagnosis())) {
                 impressionCard = new ImpressionCard(impression, true);
                 impressionsListPanel.getItems().add(0, impressionCard);
+                indexedImpressionList.add(0, impression);
             } else {
                 impressionCard = new ImpressionCard(impression, false);
                 impressionsListPanel.getItems().add(impressionCard);
+                indexedImpressionList.add(impression);
             }
         }
 
@@ -112,12 +122,15 @@ public class PatientWindow extends UiElement<Region> {
     }
 
     /**
-     * Retrieves list of UI cards in the Impression context.
+     * Retrieves indexed list of {@code DukeObject}.
      *
-     * @return List of UI cards.
+     * @return Indexed list of DukeObject.
      */
-    public ObservableList<Node> getCardList() {
-        // TODO: Bug. Size 0 when called by commands
-        return impressionsListPanel.getItems();
+    public List<DukeObject> getIndexedList(String type) {
+        if ("impression".equals(type)) {
+            return indexedImpressionList;
+        } else {
+            return null;
+        }
     }
 }
