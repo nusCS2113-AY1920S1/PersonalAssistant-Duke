@@ -1,4 +1,8 @@
+
 package command;
+
+import inventory.Inventory;
+import inventory.Item;
 
 import booking.BookingList;
 import exception.DukeException;
@@ -43,8 +47,7 @@ public class DeleteRoomCommand extends Command {
      * @throws DukeException
      */
     @Override
-    public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingStorage,
-                        Storage roomStorage, User user) throws DukeException {
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui, Storage inventoryStorage, Storage bookingStorage, Storage roomStorage, User user) throws DukeException {
         if (index < 0 || index > roomList.size() - 1) {
             throw new DukeException("OOPS!!! You have entered an index that is out of bounds.");
         }

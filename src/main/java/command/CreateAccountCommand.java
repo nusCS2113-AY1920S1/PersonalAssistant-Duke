@@ -1,4 +1,8 @@
+
 package command;
+
+import inventory.Inventory;
+import inventory.Item;
 
 import booking.BookingList;
 import exception.DukeException;
@@ -53,8 +57,7 @@ public class CreateAccountCommand extends Command {
     }
 
     @Override
-    public void execute(RoomList roomlist, BookingList bookingList, Ui ui, Storage bookingStorage,
-                        Storage roomStorage, User user) throws DukeException, IOException {
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user) throws DukeException, IOException {
         User newUser = new User(splitC[1], splitC[2], splitC[3]);
         BufferedWriter bw = new BufferedWriter(new FileWriter("data\\members.txt", true));
         bw.write(newUser.toWriteFile());
