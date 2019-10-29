@@ -69,6 +69,16 @@ public class Ui {
     }
 
     /**
+     * Displays the invalid choosen duration message.
+     * @param message The chosen free time
+     * @return The chosen free time. Otherwise, operation cancelled.
+     */
+    public String showFreeTimesInvalidDuration(String message){
+        return "Invalid duration\n" + "Please enter the command in the format:\n" +
+                "find 'x' hours, where 'x' is between 1 - 16";
+    }
+
+    /**
      * Displays the show reminder message when user sets a reminder for a task.
      */
     public String showReminder(Assignment task, String time) {
