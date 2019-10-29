@@ -4,7 +4,9 @@ import com.algosenpai.app.logic.Logic;
 import com.algosenpai.app.logic.command.ByeCommand;
 import com.algosenpai.app.logic.command.ClearCommand;
 import com.algosenpai.app.logic.command.Command;
+import com.algosenpai.app.logic.command.SetupCommand;
 import com.algosenpai.app.logic.command.UndoCommand;
+import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.ui.controller.AnimationTimerController;
 import com.algosenpai.app.ui.components.DialogBox;
@@ -22,6 +24,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -53,7 +58,11 @@ public class Ui extends AnchorPane {
     private Button sendButton;
 
     private Logic logic;
-    private double playerExp = 0.0;
+    private UserStats stats;
+    // private double userExp = stats.getUserExp()/10.0;
+    //private String userName = stats.getUsername();
+    //private int level = stats.getUserLevel();
+    //private String userGender = stats.getGender();
     private int idleMinutesMax = 180;
 
     private static final String GREETING_MESSAGE = "Welcome to AlgoSenpai Adventures! Type 'hello' to start!";
@@ -67,6 +76,9 @@ public class Ui extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream(DEFAULT_PROFILE_PICTURE_PATH));
     private Image senpaiImage = new Image(this.getClass().getResourceAsStream(SENPAI_PROFILE_PICTURE_PATH));
 
+    public Ui() throws FileNotFoundException {
+    }
+
     /**
      * Renders the nodes on the GUI.
      */
@@ -75,12 +87,14 @@ public class Ui extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(DialogBox.getSenpaiDialog(GREETING_MESSAGE, senpaiImage));
         userPic.setImage(userImage);
-        levelProgress.setProgress(playerExp);
+        levelProgress.setProgress(0);
+        playerLevel.setText("You are Level 1");
         handle();
     }
 
-    public void setLogic(Logic logic) {
+    public void setLogic(Logic logic, UserStats stats) {
         this.logic = logic;
+        this.stats = stats;
     }
 
     /**
@@ -94,6 +108,8 @@ public class Ui extends AnchorPane {
         } else if (input.equals("girl")) {
             userImage = girlImage;
             userPic.setImage(userImage);
+        } else {
+            userPic.setImage(userImage);
         }
     }
 
@@ -101,7 +117,7 @@ public class Ui extends AnchorPane {
      * Handles user inputs and renders outputs on screen.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws IOException {
         resetIdle();
         String input = userInput.getText();
         Command commandGenerated = logic.executeCommand(input);
@@ -113,23 +129,16 @@ public class Ui extends AnchorPane {
             clearChat();
         } else if (commandGenerated instanceof ByeCommand) {
             exit();
+        } else if (commandGenerated instanceof SetupCommand) {
+            setPlayerGender(response);
+            playerName.setText(response);
+            printToGui(input, response, userImage, senpaiImage);
+        } else if (response.startsWith("You got ")) {
+            double expGain = ((double) Integer.parseInt(response.substring(8, 9)) / 10) * 5;
+            updateLevelProgress(expGain);
+            printToGui(input, response, userImage, senpaiImage);
         } else {
-            if (response.startsWith("Hello ")) {
-                playerLevel.setText("You are Level 1");
-                if (response.substring(6, 9).equals("Mr.")) {
-                    changeUserImage("boy");
-                } else if (response.substring(6, 9).equals("Mrs")) {
-                    changeUserImage("girl");
-                }
-                playerName.setText("Hi, " + "!");
-                printToGui(input, response, userImage, senpaiImage);
-            } else if (response.startsWith("You got ")) {
-                double expGain = ((double) Integer.parseInt(response.substring(8, 9)) / 10) * 5;
-                updateLevelProgress(expGain);
-                printToGui(input, response, userImage, senpaiImage);
-            } else {
-                printToGui(input, response, userImage, senpaiImage);
-            }
+            printToGui(input, response, userImage, senpaiImage);
         }
     }
 
@@ -233,7 +242,19 @@ public class Ui extends AnchorPane {
      * @param expGain the double representing the gain in EXP to be reflected.
      */
     private void updateLevelProgress(double expGain) {
-        playerExp += expGain;
-        levelProgress.setProgress(playerExp);
+        //userExp += expGain;
+        //levelProgress.setProgress(userExp);
+    }
+
+    /**
+     * Updates the profile picture of the user in the stats bar in the GUI.
+     * @param response the response string generated by the program.
+     */
+    private void setPlayerGender(String response) {
+        if (response.substring(6, 9).equals("Mr.")) {
+            changeUserImage("boy");
+        } else if (response.substring(6, 9).equals("Mrs")) {
+            changeUserImage("girl");
+        }
     }
 }

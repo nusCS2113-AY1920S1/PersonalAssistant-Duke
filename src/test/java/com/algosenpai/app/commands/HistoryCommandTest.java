@@ -1,6 +1,7 @@
 package com.algosenpai.app.commands;
 
 import com.algosenpai.app.logic.Logic;
+import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.ui.Ui;
 import com.algosenpai.app.ui.components.DialogBox;
 
@@ -27,8 +28,9 @@ public class HistoryCommandTest extends ApplicationTest {
         AnchorPane ap = fxmlLoader.load();
         Scene scene = new Scene(ap, 500, 650);
         stage.setScene(scene);
-        Logic logic = new Logic();
-        fxmlLoader.<Ui>getController().setLogic(logic);
+        UserStats stats = new UserStats("UserData.txt");
+        Logic logic = new Logic(stats);
+        fxmlLoader.<Ui>getController().setLogic(logic, stats);
         stage.setResizable(false);
         stage.setTitle("AlgoSenpai Adventures");
         stage.show();

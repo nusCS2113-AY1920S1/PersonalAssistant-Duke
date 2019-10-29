@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.ArrayList;
 
 public class Logic {
-
+    private Parser parser;
     private UserStats userStats;
     private QuizGenerator quizMaker;
 
@@ -55,8 +55,9 @@ public class Logic {
     /**
      * Initializes logic for the application with all the different components.
      */
-    public Logic() throws FileNotFoundException {
-        userStats =  new UserStats();
+    public Logic(UserStats stats) throws FileNotFoundException {
+        this.parser = new Parser();
+        this.userStats = stats;
         quizMaker = new QuizGenerator();
         historyList = new ArrayList<>();
         archiveList = new ArrayList<>();
@@ -85,7 +86,7 @@ public class Logic {
 
         switch (inputs.get(0)) {
         case "hello":
-            return new SetupCommand(inputs);
+            return new SetupCommand(inputs, userStats);
         case "help":
             return new HelpCommand(inputs);
         case "menu":

@@ -1,6 +1,8 @@
 package com.algosenpai.app;
 
 
+import com.algosenpai.app.stats.UserStats;
+import com.algosenpai.app.storage.Storage;
 import com.algosenpai.app.ui.Ui;
 import com.algosenpai.app.ui.controller.MusicController;
 import javafx.animation.PauseTransition;
@@ -27,10 +29,12 @@ public class MainApp extends Application {
     private static int MAINWINDOW_HEIGHT = 650;
     private static int SPLASHSCREEN_WIDTH = 600;
     private static int SPLASHSCREEN_HEIGHT = 400;
+    private static String USERSTATS_FILE_PATH = "UserData.txt";
 
     //Initialise the different components here
     private Logic logic;
     private static MusicController musicController;
+    private UserStats stats = new UserStats(USERSTATS_FILE_PATH);
 
     static {
         try {
@@ -40,9 +44,13 @@ public class MainApp extends Application {
         }
     }
 
-    private void initialize() {
+    public MainApp() throws IOException {
+    }
+
+    private void initialize() throws IOException {
         try {
-            logic = new Logic();
+            logic = new Logic(stats);
+            Storage.loadData(USERSTATS_FILE_PATH);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -80,7 +88,7 @@ public class MainApp extends Application {
         AnchorPane ap = fxmlLoader.load();
         Scene scene = new Scene(ap, MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
         stage.setScene(scene);
-        fxmlLoader.<Ui>getController().setLogic(logic);
+        fxmlLoader.<Ui>getController().setLogic(logic, stats);
         stage.setResizable(false);
         stage.setTitle(APPLICATION_TITLE);
         stage.show();
