@@ -32,16 +32,6 @@ class MainWindow extends UiComponent<Stage> {
     private String filePath = System.getProperty("user.dir") + "/src/ChronologerDatabase/ArrayList";
     private File file = new File(filePath);
 
-    private void initializeChronologerElements() {
-        try {
-            storage = new Storage(file);
-            tasks = new TaskList(storage.loadFile(file));
-        } catch (ChronologerException e) {
-            tasks = new TaskList(new ArrayList<>());
-            System.out.println(e.getMessage());
-        }
-    }
-
     /**
      * Constructs the main UI window to house child UI elements.
      *
@@ -53,7 +43,7 @@ class MainWindow extends UiComponent<Stage> {
 
         this.baseStage = baseStage;
         this.tasks = main.tasks;
-        initializeChronologerElements();
+        this.storage = main.storage;
         placeUiComponents();
     }
 

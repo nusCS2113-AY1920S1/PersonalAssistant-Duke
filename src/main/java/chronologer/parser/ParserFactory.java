@@ -4,6 +4,8 @@ import chronologer.command.Command;
 import chronologer.command.ExitCommand;
 import chronologer.command.ExportCommand;
 import chronologer.command.ListCommand;
+import chronologer.command.RedoCommand;
+import chronologer.command.UndoCommand;
 import chronologer.exception.ChronologerException;
 import chronologer.ui.UiTemporary;
 
@@ -83,7 +85,10 @@ public class ParserFactory {
             return new ExportCommand();
         case "assignment":
             return new DeadlineParser(userInput, command, true).parse();
-
+        case "undo":
+            return new UndoCommand();
+        case "redo":
+            return new RedoCommand();
         default:
             // Empty string or unknown command.
             UiTemporary.printUnknownInput();

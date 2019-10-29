@@ -1,10 +1,10 @@
 package chronologer.task;
 
 import java.time.LocalDateTime;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,8 +23,9 @@ public class TaskList {
     private static final String TODO_DURATION = "TODO DURATION";
     private static final String TODO_PERIOD = "TODO PERIOD";
 
-    private ArrayList<Task> listOfTasks;
+    public ArrayList<Task> listOfTasks;
     private ObservableList<Task> observableListOfTasks;
+    private Integer currentStatePointer = 1;
 
     public TaskList(ArrayList<Task> listOfTasks) {
         this.listOfTasks = listOfTasks;
@@ -53,9 +54,8 @@ public class TaskList {
     /**
      * This custom comparator allows the sorting of both deadlines and events.
      *
-     * @param task contains the task that needs to be added.
      */
-    public static final Comparator<Task> PriorityComparator = (firstPriority, secondPriority) -> {
+    private static final Comparator<Task> PriorityComparator = (firstPriority, secondPriority) -> {
         if (firstPriority.priority.equals(Priority.HIGH) && secondPriority.priority.equals(Priority.MEDIUM)) {
             return -1;
         } else if (firstPriority.priority.equals(Priority.MEDIUM) && secondPriority.priority.equals(Priority.MEDIUM)) {
@@ -189,7 +189,7 @@ public class TaskList {
                 sortedDateList.add(listOfTasks.get(i));
             }
         }
-        Collections.sort(sortedDateList, DateComparator);
+        sortedDateList.sort(DateComparator);
         return sortedDateList;
     }
 
@@ -251,7 +251,6 @@ public class TaskList {
         return eventList;
     }
 
-    //@@author
     /**
      * Fetches all reminders for the current date.
      *
@@ -306,7 +305,7 @@ public class TaskList {
      * Function to allow user to edit/add comments to existing tasks.
      *
      * @param indexOfTask Index of task in list
-     * @param comment     commnent to be added/edited
+     * @param comment     Holds comment to be added/edited
      * @return taskToBeEdited The task that has its comment edited/added
      */
     public Task editTaskComment(int indexOfTask, String comment) {
@@ -335,6 +334,7 @@ public class TaskList {
 
     public void updatePriority(Task task) {
         observableListOfTasks.add(task);
+        observableListOfTasks.remove(task);
     }
 
     public ArrayList<Task> getTasks() {

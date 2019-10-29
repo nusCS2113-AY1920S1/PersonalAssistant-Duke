@@ -1,13 +1,13 @@
 package chronologer;
 
 import chronologer.exception.ChronologerException;
+import chronologer.storage.ChronologerStateList;
 import chronologer.ui.UiManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import chronologer.ui.Ui;
 import chronologer.storage.Storage;
 import chronologer.task.TaskList;
-import chronologer.parser.Parser;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,7 +22,6 @@ public class ChronologerMain extends Application {
     private static String filePath = System.getProperty("user.dir") + "/src/ChronologerDatabase/ArrayList";
     public Storage storage;
     public TaskList tasks;
-    public Parser parser;
     public File file = new File(filePath);
 
     /**
@@ -31,10 +30,11 @@ public class ChronologerMain extends Application {
     public ChronologerMain() {
         ui = new UiManager(this);
         try {
-            storage = new Storage(file);
-            tasks = new TaskList(storage.loadFile(file));
+            this.storage = new Storage(file);
+            this.tasks = new TaskList(storage.loadFile(file));
+            ChronologerStateList.initialState(tasks.getTasks());
         } catch (ChronologerException e) {
-            tasks = new TaskList(new ArrayList<>());
+            this.tasks = new TaskList(new ArrayList<>());
         }
     }
 
