@@ -28,7 +28,9 @@ public class ListRoomCommand extends Command {
      */
 
     @Override
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user) throws DukeException {
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+            throws DukeException {
         if (roomList.isEmpty()) {
             throw new DukeException("The room list is empty. Please add a room.");
         }

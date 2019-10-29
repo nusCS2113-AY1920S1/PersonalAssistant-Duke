@@ -77,7 +77,9 @@ public class AddBookingCommand extends Command {
      * @throws IOException if input entry is incorrect
      */
     @Override
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user) throws DukeException, IOException, ParseException {
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+            throws DukeException, IOException, ParseException {
         Booking newBooking = new Booking(name, room, description, timeStart, datetime[1]);
         boolean clash = BookingList.checkBooking(bookingList, room, timeStart, datetime[1]);
         if (clash) {

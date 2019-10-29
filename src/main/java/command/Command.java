@@ -26,12 +26,13 @@ public abstract class Command {
      * Execute command logic.
      * @param bookingList bookings list
      * @param ui user interface
-     * @param bookingStorage handles read write of text file
      * @param user Current user
      * @throws DukeException if control.Duke specific exception found
      * @throws IOException if IO exception found
      */
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user) throws DukeException, IOException, ParseException {
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+            throws DukeException, IOException, ParseException {
 
     }
 

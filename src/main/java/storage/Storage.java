@@ -73,6 +73,11 @@ public class Storage {
         fileOutputStream.close();
     }
 
+    /**
+     * To write to file for inventory.
+     * @param inventory inventory input
+     * @throws IOException parse error
+     */
     public void saveToFile(Inventory inventory) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);
         String toWrite = "";

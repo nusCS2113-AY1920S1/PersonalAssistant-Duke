@@ -35,7 +35,9 @@ public class FindBookingIndexCommand extends Command {
     }
 
     @Override
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user) throws DukeException, IOException, ParseException {
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+            throws DukeException, IOException, ParseException {
         if (index >= bookingList.size()) {
             throw new DukeException("OOPS!!!  No such entry exist!");
         } else {

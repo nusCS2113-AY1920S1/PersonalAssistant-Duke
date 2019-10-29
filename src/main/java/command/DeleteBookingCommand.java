@@ -38,7 +38,9 @@ public class DeleteBookingCommand extends Command {
     }
 
     @Override
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user) throws DukeException {
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+            throws DukeException {
         if (index < 0 || index > bookingList.size() - 1) {
             throw new DukeException("OOPS!!! You have entered an index that is out of bounds.");
         }

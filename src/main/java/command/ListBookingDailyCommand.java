@@ -39,7 +39,9 @@ public class ListBookingDailyCommand extends Command {
 
 
     @Override
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user) throws DukeException, IOException, ParseException {
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+            throws DukeException, IOException, ParseException {
         int n = 1;
         for (Booking i : bookingList) {
             if (i.getDateStart() == this.dateStart) {
