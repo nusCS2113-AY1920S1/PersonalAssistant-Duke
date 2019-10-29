@@ -1,10 +1,10 @@
 package duke.command;
 
-import duke.CliView;
+import duke.view.CliView;
 import duke.data.Storage;
-import duke.module.Schedule;
-import duke.sports.ManageStudents;
-import duke.sports.MyPlan;
+import duke.models.Schedule;
+import duke.models.ManageStudents;
+import duke.models.MyPlan;
 import duke.task.TaskList;
 
 /**

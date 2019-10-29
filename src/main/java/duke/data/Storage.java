@@ -1,10 +1,10 @@
 package duke.data;
 
-import duke.module.TimeSlot;
-import duke.sports.MyClass;
-import duke.sports.MyStudent;
-import duke.sports.MyTraining;
-import duke.sports.MyPlan;
+import duke.models.TimeSlot;
+import duke.models.MyClass;
+import duke.models.MyStudent;
+import duke.models.MyTraining;
+import duke.models.MyPlan;
 import duke.task.Item;
 
 import java.io.File;

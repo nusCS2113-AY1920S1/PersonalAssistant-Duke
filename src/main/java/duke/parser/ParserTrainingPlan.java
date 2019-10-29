@@ -1,8 +1,8 @@
 package duke.parser;
 
 
-import duke.sports.MyPlan;
-import duke.CliView;
+import duke.models.MyPlan;
+import duke.view.CliView;
 
 import java.io.FileNotFoundException;
 
