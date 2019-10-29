@@ -23,7 +23,7 @@ public class SuggestExerciseCommand extends Command {
 
     public SuggestExerciseCommand(boolean flag, String message) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = message;
     }
 
     @Override

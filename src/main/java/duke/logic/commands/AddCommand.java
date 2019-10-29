@@ -1,13 +1,13 @@
 package duke.logic.commands;
 
+import java.util.ArrayList;
+
 import duke.commons.exceptions.DukeException;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
 import duke.model.user.User;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
-
-import java.util.ArrayList;
 
 /**
  * AddCommand is a public class that inherits from abstract class Command.
@@ -27,9 +27,9 @@ public class AddCommand extends Command {
         this.cost = cost;
     }
 
-    public AddCommand(boolean flag, String message) {
+    public AddCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
 
     /**

@@ -28,14 +28,29 @@ public class Ui {
         System.out.println(UI_BOUNDARY);
     }
 
-    public void showList(ArrayList<Meal> meals)  {
+    public void showList(ArrayList<Meal> meals, String messageStr) {
         showPadding();
-        System.out.println("Here are the meals in your list: ");
+        System.out.println(messageStr);
         for (int i = 1; i <= meals.size(); i++) {
             Meal currentMeal = meals.get(i - 1);
             showPadding();
             System.out.println(i + ". " + currentMeal);
         }
+    }
+
+    public void showMealList(ArrayList<Meal> meals)  {
+        String messageStr = "Here are the meals in your list: ";
+        showList(meals, messageStr);
+    }
+
+    public void showSuggestedMealList(ArrayList<Meal> meals, String dateStr) {
+        String messageStr = "Here are the suggested meals for " + dateStr;
+        showList(meals, messageStr);
+        showLine();
+        showMessage("Please select which meal you would like by providing "
+                + "index of meal item in the list above.");
+        showMessage("Enter 0 to decline suggestions.");
+
     }
 
     public void showDone(Meal currentMeal, ArrayList<Meal> meals) {
@@ -61,14 +76,20 @@ public class Ui {
      * @param dateStr Date in which remaining calories are computed.
      */
     public void showCaloriesLeft(ArrayList<Meal> meals, User user, String dateStr) {
-        int totalConsume = 0;
+        int totalActualConsume = 0;
+        int totalPossibleConsume = 0;
         for (int i = 0; i < meals.size(); i += 1) {
+            int currentMealCalorie = meals.get(i).getNutritionalValue().get("calorie");
+            totalPossibleConsume += currentMealCalorie;
             if (meals.get(i).getIsDone()) {
-                totalConsume += meals.get(i).getNutritionalValue().get("calorie");
+                totalActualConsume += currentMealCalorie;
             }
         }
-        System.out.println(UI_PADDING + "Now you have " + (user.getDailyCalorie()
-                - totalConsume) + " calories left on " + dateStr);
+        System.out.println(UI_PADDING + "On " + dateStr + ", you have:");
+        System.out.println(UI_PADDING + UI_PADDING + (user.getDailyCalorie() - totalActualConsume)
+                + " calories left (marked as done)");
+        System.out.println(UI_PADDING + UI_PADDING + (user.getDailyCalorie() - totalPossibleConsume)
+                + " calories left (total)");
     }
 
     public void showAddedItem(Meal currentMeal) {
@@ -86,6 +107,7 @@ public class Ui {
         System.out.println(UI_PADDING + "Noted. Meals from " + startDateStr + " to "
                 + endDateStr + " have been cleared");
     }
+
 
     public void showMessage(String message) {
         System.out.println(UI_PADDING + message);

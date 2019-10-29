@@ -18,9 +18,9 @@ public class EditCommand extends Command {
         this.updatedMeal = meal;
     }
 
-    public EditCommand(boolean flag, String message) {
+    public EditCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
 
     /**

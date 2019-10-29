@@ -41,7 +41,7 @@ public class CGraphCommand extends Command {
 
     public CGraphCommand(boolean flag, String message) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = message;
     }
 
     @Override

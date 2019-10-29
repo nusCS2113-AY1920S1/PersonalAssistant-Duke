@@ -24,9 +24,9 @@ public class UpdateWeightCommand extends Command {
         this.description = description;
     }
 
-    public UpdateWeightCommand(boolean flag, String message) {
+    public UpdateWeightCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
 
     /**
@@ -84,7 +84,7 @@ public class UpdateWeightCommand extends Command {
 
     public void stage1(User user, Storage storage) {
         ui.showLine();
-        if (this.response.equals("y")) {
+        if (this.responseStr.equals("y")) {
             try {
                 user.setWeight(Integer.parseInt(weight), date);
                 ui.showWeightUpdate(user, Integer.parseInt(weight), date);
@@ -104,6 +104,6 @@ public class UpdateWeightCommand extends Command {
     }
 
     public void setResponse(String response) {
-        this.response = response.toLowerCase().substring(0,1);
+        this.responseStr = response.toLowerCase().substring(0,1);
     }
 }

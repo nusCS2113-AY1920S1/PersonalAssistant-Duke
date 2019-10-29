@@ -26,9 +26,9 @@ public class AddGoalCommand extends Command {
         isDone = false;
     }
 
-    public AddGoalCommand(boolean flag, String message) {
+    public AddGoalCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
 
     /**
@@ -41,7 +41,7 @@ public class AddGoalCommand extends Command {
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
-        InputHandler in = new InputHandler(response);
+        InputHandler in = new InputHandler(responseStr);
         try {
             switch (stage) {
                 case 0:

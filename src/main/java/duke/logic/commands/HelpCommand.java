@@ -31,9 +31,9 @@ public class HelpCommand extends Command {
         this.specifiedHelp = specifiedHelp;
     }
 
-    public HelpCommand(boolean flag, String message) {
+    public HelpCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
 
     /**

@@ -23,16 +23,16 @@ public class FindCommand extends Command {
         this.description = description;
     }
 
-    public FindCommand(String description, String date) {
-        this(description);
-        if (!date.isBlank()) {
-            this.currentDate = date;
+    public FindCommand(String descriptionStr, String dateStr) {
+        this(descriptionStr);
+        if (!dateStr.isBlank()) {
+            this.currentDateStr = dateStr;
         }
     }
 
-    public FindCommand(boolean flag, String message) {
+    public FindCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
 
     /**
@@ -46,14 +46,14 @@ public class FindCommand extends Command {
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
         ArrayList<Meal> matchingMeals = new ArrayList<>();
-        ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
+        ArrayList<Meal> currentMeals = meals.getMealsList(currentDateStr);
         for (Meal element: currentMeals) {
             String currentTaskString = element.toString();
             if (currentTaskString.contains(description)) {
                 matchingMeals.add(element);
             }
         }
-        ui.showList(matchingMeals);
+        ui.showMealList(matchingMeals);
         ui.showLine();
     }
 }

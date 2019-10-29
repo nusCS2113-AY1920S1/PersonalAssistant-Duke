@@ -33,9 +33,9 @@ public class ClearCommand extends Command {
         }
     }
 
-    public ClearCommand(boolean flag, String message) {
+    public ClearCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
 
     /**

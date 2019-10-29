@@ -22,9 +22,9 @@ public class HistoryCommand extends Command {
         historyCommandsList = new ArrayList<String>();
     }
 
-    public HistoryCommand(boolean flag, String message) {
+    public HistoryCommand(boolean flag, String messageStr) {
         this.isFail = true;
-        this.error = message;
+        this.errorStr = messageStr;
     }
     /**
      * Add command to history of commands.
