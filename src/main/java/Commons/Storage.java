@@ -1,7 +1,10 @@
-package Interface;
-import Tasks.*;
-import DukeExceptions.DukeException;
-
+package Commons;
+import DukeExceptions.DukeIOException;
+import DukeExceptions.DukeInvalidDateTimeException;
+import Tasks.Assignment;
+import Tasks.TaskList;
+import Tasks.Event;
+import Tasks.Deadline;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -27,8 +30,8 @@ public class Storage {
     private String filePathDeadline;
     private Reminder reminder;
     private static final Logger LOGGER = Logger.getLogger(Storage.class.getName());
-    private HashMap<String, HashMap<String, ArrayList<Task>>> map;
-    private HashMap<Date, Task> reminderMap;
+    private HashMap<String, HashMap<String, ArrayList<Assignment>>> map;
+    private HashMap<Date, Assignment> reminderMap;
 
     /**
      * Creates Storage object.
@@ -69,14 +72,12 @@ public class Storage {
         for (String mod : allMods) {
             Set<String> allDates = map.get(mod).keySet();
             for (String date : allDates) {
-                ArrayList<Task> temp = map.get(mod).get(date);
-                for(Task task : temp) {
-                    assert outputStream != null;
+                ArrayList<Assignment> temp = map.get(mod).get(date);
+                for(Assignment task : temp) {
                     outputStream.println(task.toString());
                 }
             }
         }
-        assert outputStream != null;
         outputStream.close();
     }
 
@@ -93,7 +94,7 @@ public class Storage {
             if (string.isEmpty()) {
                 continue;
             }
-            Task task = stringToTask(string);
+            Assignment task = stringToTask(string);
             list.addTask(task);
         }
     }
@@ -110,9 +111,8 @@ public class Storage {
         for (String mod : allMods) {
             Set<String> allDates = map.get(mod).keySet();
             for (String date : allDates) {
-                ArrayList<Task> temp = map.get(mod).get(date);
-                for(Task task : temp) {
-                    assert outputStream != null;
+                ArrayList<Assignment> temp = map.get(mod).get(date);
+                for(Assignment task : temp) {
                     outputStream.println(task.toString());
                 }
             }
@@ -120,19 +120,19 @@ public class Storage {
         outputStream.close();
     }
 
-    public void readDeadlineList(TaskList list) {
-        ArrayList<String> temp = null;
+    public void readDeadlineList(TaskList list) throws DukeIOException {
+        ArrayList<String> temp;
         try {
             File deadlineFile = new File(filePathDeadline);
             deadlineFile.createNewFile();
             temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathDeadline)));
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
+            throw new DukeIOException("There is no deadline.txt file to read from. Please create one.");
         }
-        assert temp != null;
         for (String string : temp) {
             DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
-            Task task = stringToTask(string);
+            Assignment task = stringToTask(string);
             list.addTask(task);
             if (task.getIsReminder()) {
                 Date date = null;
@@ -146,33 +146,41 @@ public class Storage {
         }
     }
 
-    public HashMap<Date, Task> getReminderMap() {
+    public HashMap<Date, Assignment> getReminderMap() {
         return this.reminderMap;
     }
 
-    private static Task stringToTask(String string) {
-        Task line = null;
+    private static Assignment stringToTask(String string) {
+        Assignment line = null;
         try {
             if (string.contains("[D]")) {
                 DateFormat format = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
-                Date date = format.parse(string.substring(string.indexOf("by:") + 4, string.indexOf(')')).trim());
-                String remindTime = string.substring(string.indexOf("[<R") + 3, string.indexOf("/R>]"));
-                DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
-                String dateString = dateFormat.format(date);
                 SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+                DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
+                String dateFromData = string.substring(string.indexOf("by:") + 4, string.indexOf(')')).trim();
+                String remindTime = string.substring(string.indexOf("[<R") + 3, string.indexOf("/R>]"));
+                Date date = format.parse(dateFromData);
+                String dateString = dateFormat.format(date);
                 String timeString = timeFormat.format(date);
-                line = new Deadline(string.substring(0, string.indexOf("[D]") - 1) + " " + string.substring(string.indexOf("/R>]") + 5, string.indexOf("by:") - 2), dateString, timeString);
+                String modCode = string.substring(0, string.indexOf("[D]") - 1);
+                String description = string.substring(string.indexOf("/R>]") + 5, string.indexOf("by:") - 2);
+                line = new Deadline(modCode + " " + description, dateString, timeString);
                 line.setRemindTime(remindTime);
             } else {
                 DateFormat format = new SimpleDateFormat("E dd/MM/yyyy");
                 SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
-                Date date = format.parse(string.substring(string.indexOf("at:") + 4, string.indexOf("time:")).trim());
+                String dateFromData = string.substring(string.indexOf("at:") + 4, string.indexOf("time:")).trim();
+                String startTimeFromData = string.substring(string.indexOf("time:") + 6, string.indexOf("to"));
+                String endTimeFromData = string.substring(string.indexOf("to") + 3, string.indexOf(')')).trim();
+                Date startTime = timeFormat.parse(startTimeFromData);
+                Date endTime = timeFormat.parse(endTimeFromData);
+                Date date = format.parse(dateFromData);
                 String dateString = format.format(date);
-                Date startTime = timeFormat.parse(string.substring(string.indexOf("time:") + 6, string.indexOf("to")));
                 String startTimeString = timeFormat.format(startTime);
-                Date endTime = timeFormat.parse(string.substring(string.indexOf("to") + 3, string.indexOf(')')).trim());
                 String endTimeString = timeFormat.format(endTime);
-                line = new Event(string.substring(0, string.indexOf("[E]") - 1) + " " + string.substring(string.indexOf("/R>]") + 5, string.indexOf("at:") - 2), dateString, startTimeString, endTimeString);
+                String modCode = string.substring(0, string.indexOf("[E]") - 1);
+                String description = string.substring(string.indexOf("/R>]") + 5, string.indexOf("at:") - 2);
+                line = new Event( modCode+ " " + description, dateString, startTimeString, endTimeString);
             }
             if (string.contains("\u2713")) {
                 line.setDone(true);
@@ -188,14 +196,14 @@ public class Storage {
 
     /**
      * Starts the thread on existing reminders set from deadline.txt
-     * @throws DukeException On setReminderThread invalid date parameter
+     * @throws DukeInvalidDateTimeException On setReminderThread invalid date parameter
      */
-    public void setReminderOnStart() throws DukeException {
+    public void setReminderOnStart() throws Exception {
         Set<Date> dateKey = reminderMap.keySet();
         for(Date date : dateKey) {
             Date remindDate = new Date();
             Date currentDate = new Date();
-            Task task = reminderMap.get(date);
+            Assignment task = reminderMap.get(date);
             String remindTime = task.getRemindTime();
             DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             try {

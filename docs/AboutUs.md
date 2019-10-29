@@ -5,31 +5,31 @@
 ## **Project Team**
 
 ### Lionel Lim
-#### <a href="https://imgbb.com/"><img src="https://i.ibb.co/854wkQk/Lionel.jpg" alt="Lionel" height="200" width="200"></a>
+#### <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/lionlim97.png" width="200" height="250">
 #### [Lionel](https://github.com/lionlim97)
 #### Role: Team lead + in charge of GUI
 #### Responsibility: JavaFX GUI + data handling
 
 ### Darren Ong
-#### <a href="https://ibb.co/G30sFTr"><img src="https://i.ibb.co/zHr8NJt/Whats-App-Image-2019-09-14-at-12-39-21-PM.jpg" alt="Whats-App-Image-2019-09-14-at-12-39-21-PM"  height="200" width="200"></a>
+#### <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/darrenoje.png" width="200" height="250">
 #### [Darren](https://github.com/darrenoje)
 #### Role: Developer + in charge of Interface
 #### Responsibility: Parsing input + data handling
 
 ### Jerry Ho
-#### <a href="https://ibb.co/wSM7Dbq"><img src="https://i.ibb.co/Wkg0SdX/Whats-App-Image-2019-09-14-at-12-50-48-PM.jpg" alt="Whats-App-Image-2019-09-14-at-12-50-48-PM" height="200" width="200"></a>
+#### <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/hwbjerry.png" width="200" height="250">
 #### [Jerry](https://github.com/hwbjerry)
 #### Role: Developer + in charge of Commands
 #### Responsibility: JavaFX GUI + integration
 
 ### Michelle Tan
-#### <a href="https://ibb.co/BjXdjMS"><img src="https://i.ibb.co/ZKntKDk/Whats-App-Image-2019-09-14-at-12-44-49-PM.jpg" alt="Whats-App-Image-2019-09-14-at-12-44-49-PM" height="200" width="200"></a>
+#### <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/0325961.png" width="200" height="250">
 #### [Michelle](https://github.com/0325961)
 #### Role: Developer + in charge of Interface
 #### Responsibility: Documentation + Code quality
 
 ### Yang Kai Ze
-#### <a href="https://ibb.co/DL3q2zv"><img src="https://i.ibb.co/4JBQrKX/Kai-Ze.jpg" alt="Kai-Ze" height="200" width="200"></a>
+#### <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/krazzen.JPG" width="200" height="250">
 #### [Kai Ze](https://github.com/Krazzen)
 #### Role: Developer + in charge of Commands
 #### Responsibility: Scheduling + tracking

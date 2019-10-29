@@ -1,4 +1,4 @@
-import JavaFx.*;
+import UserInterface.Main;
 import javafx.application.Application;
 
 /**

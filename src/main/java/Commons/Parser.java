@@ -1,11 +1,10 @@
-package Interface;
+package Commons;
 import Commands.*;
 import DukeExceptions.DukeException;
-import JavaFx.AlertBox;
+import UserInterface.AlertBox;
 import Tasks.*;
 import javafx.scene.control.Alert;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -24,16 +23,8 @@ public class Parser {
     private static String[] split2;
     private static String[] split3;
     private static String[] split4;
-    private static LookupTable LT;
+    private static LookupTable LT = new LookupTable();
     private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
-
-    static {
-        try {
-            LT = new LookupTable();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * This method breaks apart the user's input and tries to make sense with it.
@@ -71,6 +62,16 @@ public class Parser {
                             "list name_of_list_to_view\n" +
                             "For example: list todo");
                 }
+            } else if(fullCommand.startsWith("Week")) {
+                String week = fullCommand.replaceFirst("Week", "");
+                week.trim();
+//                try{
+//                    Integer digit = Integer.parseInt(week);
+//                    if(digit < 1 || digit > 13 ) throw new DukeException("Invalid week command\n" + "Format: Week 'x', where 'x' is a digit." );
+//                } catch (NumberFormatException e) {
+//                    throw new DukeException("Invalid week command\n" + "Format: Week 'x', where 'x' is a digit." );
+//                }
+                return new WeekCommand(fullCommand.trim());
             } else if(fullCommand.trim().startsWith("done/e")){
                 try { //add/e module_code description /at date from time to time
                     String activity = fullCommand.replaceFirst("done/e", "");
@@ -414,12 +415,16 @@ public class Parser {
                     throw new DukeException(" OOPS!!! Please enter Do Within Period Task as follows:\n" +
                             " 'Task Description' '(from DD/MM/yyyy to DD/MM/yyyy)'");
                 }
-            } else if(fullCommand.startsWith("Find")){
-                fullCommand = fullCommand.replaceFirst("Find", "");
+            } else if(fullCommand.startsWith("find")) {
+                fullCommand = fullCommand.replaceFirst("find", "");
                 fullCommand = fullCommand.trim();
                 fullCommand = fullCommand.replaceFirst("hours", "");
                 fullCommand = fullCommand.trim();
                 return new FindFreeTimesCommand(Integer.parseInt(fullCommand));
+            } else if (fullCommand.trim().startsWith("retrieve free time ")) {
+                fullCommand = fullCommand.replaceFirst("retrieve free time ", "");
+                fullCommand = fullCommand.trim();
+                return new RetrieveFreeTimesCommand(fullCommand);
             } else {
                 throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

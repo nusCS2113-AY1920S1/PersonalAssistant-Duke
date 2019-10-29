@@ -1,9 +1,10 @@
 package Tasks;
 
 /**
- * Represents a task in the Duke program.
+ * Abstract class Assignment with methods representing all the Command subclasses to be
+ * carried out when an input is entered by the user.
  */
-public abstract class Task {
+public abstract class Assignment {
     private final String description;
     private boolean isDone;
     private boolean isReminder;
@@ -14,7 +15,7 @@ public abstract class Task {
      * Creates Task object.
      * @param description The description of the task
      */
-    public Task(String description) {
+    public Assignment(String description) {
         this.description = description;
         this.isDone = false;
         this.isReminder = false;
@@ -75,19 +76,31 @@ public abstract class Task {
         return modcode;
     }
 
-
+    /**
+     * Sets the time of reminder.
+     * @param time The time of reminder input by user
+     */
     public void setRemindTime(String time) {
         remindTime = time;
     }
 
+    /**
+     * Retrieves the time of reminder.
+     */
     public String getRemindTime() {
         return this.remindTime;
     }
 
-    public void setReminder(boolean reminder) {
-        this.isReminder = reminder;
+    /**
+     * Sets true if there is a reminder set, false otherwise.
+     */
+    public void setReminder(boolean isReminder) {
+        this.isReminder = isReminder;
     }
 
+    /**
+     * Retrieves the boolean value of whether a reminder was set for this particular assignment.
+     */
     public boolean getIsReminder() {
         return this.isReminder;
     }
