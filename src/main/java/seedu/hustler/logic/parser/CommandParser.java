@@ -54,7 +54,7 @@ public class CommandParser extends Parser {
             CommandLog.recordCommand(rawInput);
             return new SetNameCommand(userInput);
         } else if (userInput[0].equals("/achievement")) {
-            return new AchievementCommand();
+            return new AchievementCommand(userInput);
         } else if (userInput[0].equals("/add")) {
             CommandLog.recordCommand(rawInput);
             return new AddCommand(userInput);

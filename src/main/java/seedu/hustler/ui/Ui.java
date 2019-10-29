@@ -9,6 +9,8 @@ import seedu.hustler.task.Task;
 
 import java.util.ArrayList;
 
+import static seedu.hustler.game.achievement.Achievements.totalPoints;
+
 /**
  * A class dedicated to performing interactions with the user.
  * Takes inputs and contains methods that output error messages.
@@ -310,5 +312,42 @@ public class Ui {
         System.out.println();
         System.out.println("\t\t\t\tYou currently have: " + Achievements.totalPoints + " points.");
         System.out.println("*************************************************************************");
+    }
+
+    /**
+     *
+     * @param Achievement
+     */
+    public void showAchievementUnlocked(Achievements Achievement) {
+        System.out.println("Congratulations, you have unlocked this achievement!" + Achievement.toString());
+    }
+
+    /**
+     *
+     * @param achievementList
+     */
+    public void showAchievementList(ArrayList<Achievements> achievementList) {
+        System.out.println("\uD83D\uDD13 ACHIEVEMENTS UNLOCKED \uD83D\uDD13");
+        if(!achievementList.isEmpty()) {
+            int l = 0;
+            for(int i = 0; i < achievementList.size(); i ++) {
+                if(!achievementList.get(i).checkLock()) {
+                    l ++;
+                    System.out.print(l + ". ");
+                    System.out.println(achievementList.get(i));
+                }
+            }
+            System.out.println("\uD83D\uDD12 LOCKED ACHIEVEMENTS \uD83D\uDD12");
+            int j = 0;
+            for(int i = 0; i < achievementList.size(); i ++) {
+                if(achievementList.get(i).checkLock()) {
+                    j ++;
+                    System.out.print(j + ". ");
+                    System.out.println(achievementList.get(i));
+                }
+            }
+            System.out.println("Total Points = " + totalPoints + " \uD83D\uDCB0");
+        }
+
     }
 }
