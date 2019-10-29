@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class QuestionList {
     private ArrayList<Question> chosenQuestions;
-    private int totalNumOfBasicQns = 15;
+    private int totalNumOfBasicQns = 5;
     private int totalNumOfOopQns = 5;
     private int totalNumOfUsefulExtensionQns = 5;
     /** The maximum number of questions in one session of a quiz. */
@@ -49,7 +49,8 @@ public class QuestionList {
         ArrayList<BasicQuestion> basicQuestionList = new ArrayList<>();
         for (int i = 1; i <= totalNumOfBasicQns; i++) {
             try {
-                String fileContentPath = "/content/MainList/1. Java Basics/4. Quiz/Qn" + i + ".txt";
+                String fileContentPath = "content/MainList/1. Java Basics/"
+                        + "4. Test Yourself!/1. Easy Quiz/Qn" + i + ".txt";
                 InputStream in = getClass().getResourceAsStream(fileContentPath);
                 //System.out.println(filePath);
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
@@ -92,7 +93,8 @@ public class QuestionList {
         ArrayList<OopQuestion> oopQuestionList = new ArrayList<>();
         for (int i = 1; i <= totalNumOfOopQns; i++) {
             try {
-                String fileContentPath = "/content/MainList/2. Object-Oriented Programming/5. Quiz/Qn" + i + ".txt";
+                String fileContentPath = "/content/MainList/2. Object-Oriented "
+                        + "Programming/5.Test Yourself!/5. Easy Quiz/Qn" + i + ".txt";
                 InputStream in = getClass().getResourceAsStream(fileContentPath);
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
                 String currentline;
@@ -136,7 +138,7 @@ public class QuestionList {
         ArrayList<ExtensionQuestion> extensionQuestionList = new ArrayList<>();
         for (int i = 1; i <= totalNumOfUsefulExtensionQns; i++) {
             try {
-                String fileContentPath = "/content/MainList/3. Extensions/4. Quiz/Qn" + i + ".txt";
+                String fileContentPath = "/content/MainList/3. Extensions/4. Test Yourself!/Qn" + i + ".txt";
                 InputStream in = getClass().getResourceAsStream(fileContentPath);
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
                 String currentLine; 

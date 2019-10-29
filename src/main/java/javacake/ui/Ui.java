@@ -198,14 +198,14 @@ public class Ui {
     public static String getQuizResults(int progress) {
         StringBuilder str = new StringBuilder();
         str.append("Here's your quiz progress so far :D\n");
-        for (int i = 0; i < 4 * QuizCommand.MAX_QUESTIONS; ++i) {
+        for (int i = 0; i < 4 * QuizCommand.TotalMaxQuestions; ++i) {
             if (i < progress) {
                 str.append("#");
             } else {
                 str.append("-");
             }
         }
-        progress = progress * 100 / (4 * QuizCommand.MAX_QUESTIONS);
+        progress = progress * 100 / (4 * QuizCommand.TotalMaxQuestions);
         if (progress == 99) {
             progress = 100;
         }
