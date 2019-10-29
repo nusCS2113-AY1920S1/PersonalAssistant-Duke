@@ -63,7 +63,7 @@ public abstract class ParseGoals {
     void checkFirstParameter() throws ParserException {
         String[] rawDataSplit = rawData.split(" ", 2);
         if (!GOALS_KEYWORD_LISTS.contains(rawDataSplit[0])) {
-            throw new ParserException("Incorrect parameter" + rawDataSplit[0]);
+            throw new ParserException("Incorrect parameter: " + rawDataSplit[0]);
         }
     }
 

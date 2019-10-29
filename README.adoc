@@ -2,11 +2,11 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="800"]
+image::docs/images/UiReadMe.png[width="800"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="970"]
+image::images/UiReadMe.png[width="970"]
 endif::[]
 
 

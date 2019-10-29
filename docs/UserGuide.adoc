@@ -93,6 +93,7 @@ The two main sections are explained below.
 . Open a *Command Prompt* or *Powershell*, navigate to the home folder and type `java -jar ./OwlMoney-version number
 .jar` to start *OwlMoney*.
 *OwlMoney* should appear in a few seconds.
+. Maximise the screen to enjoy the best experience of *OwlMoney*.
 . As this is your first time starting up this program, you have to create a profile by
 typing your `USERNAME` *(e.g. John)* when prompted and pressing kbd:[Enter]
 +
