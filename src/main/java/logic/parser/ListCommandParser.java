@@ -14,8 +14,8 @@ public class ListCommandParser {
     /**
      * Parses add commands.
      */
-    public static Command parseList(String partialParsedCommand) throws DukeException {
-        final Matcher matcher = BASIC_LIST_COMMAND_FORMAT.matcher(partialParsedCommand.trim());
+    public static Command parseListCommand(String partialCommand) throws DukeException {
+        final Matcher matcher = BASIC_LIST_COMMAND_FORMAT.matcher(partialCommand.trim());
         if (!matcher.matches()) {
             throw new DukeException("Message is invalid");
         }

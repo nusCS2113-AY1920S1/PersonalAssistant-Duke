@@ -12,7 +12,7 @@ public class Task {
     private String name;
     private String description;
     private boolean isDone;
-    private ArrayList<Member> memberList;
+    private ArrayList<String> memberList;
     private Date time;
 
     public Task(String name){
@@ -20,19 +20,19 @@ public class Task {
         this.memberList = new ArrayList<>();
     }
 
-    public void addMember(Member toAdd) {
+    public void addMember(String toAdd) {
         if (!memberList.contains(toAdd)) {
             memberList.add(toAdd);
         }
     }
 
-    public void deleteMember(Member toDelete) {
+    public void deleteMember(String toDelete) {
         if (memberList.contains(toDelete)) {
             memberList.remove(toDelete);
         }
     }
 
-    public ArrayList<Member> getMemberList() {
+    public ArrayList<String> getMemberList() {
         return memberList;
     }
 

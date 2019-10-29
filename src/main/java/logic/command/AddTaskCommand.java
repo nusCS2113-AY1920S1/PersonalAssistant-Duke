@@ -1,4 +1,5 @@
 package logic.command;
+
 import model.Member;
 import model.MemberManager;
 import model.Model;
@@ -33,14 +34,16 @@ public class AddTaskCommand extends Command {
             newTask.setTime(this.time);
         }
         if (members != null) {
-            String[] membersArray = members.split(" ");
-            MemberManager mm = model.getMemberManager();
-            for (int i = 0; i < membersArray.length; i++) {
-                Member member = mm.getMemberByName(membersArray[i]);
-                member.addTask(newTask);
-                newTask.addMember(member);
-            }
-         }
+//            String[] membersArray = members.split(" ");
+//            MemberManager mm = model.getMemberManager();
+//            for (int i = 0; i < membersArray.length; i++) {
+//                if (model.hasMember(membersArray[i])) {
+//                    Member member = mm.getMemberByName(membersArray[i]);
+//                    member.addTask(newTask);
+//                    newTask.addMember(member);
+//                }
+//            }
+        }
         model.save();
         return new CommandOutput(FEEDBACK_MESSAGE + taskName);
     }

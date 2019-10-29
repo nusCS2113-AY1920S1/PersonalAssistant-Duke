@@ -65,7 +65,7 @@ public class TasksManager implements Serializable {
      * @param tasks Array of Member objects to link.
      * @param toAdd Array of Member object to link.
      */
-    public void addMember(Task[] tasks, Member[] toAdd) {
+    public void addMember(Task[] tasks, String[] toAdd) {
         for (int i = 0; i < tasks.length; i++) {
             for (int j = 0; j < toAdd.length; j++) {
                 tasks[i].addMember(toAdd[j]);
@@ -80,7 +80,7 @@ public class TasksManager implements Serializable {
      * @param tasks
      * @param toDelete
      */
-    public void deleteMember(Task[] tasks, Member[] toDelete) {
+    public void deleteMember(Task[] tasks, String[] toDelete) {
         for (int i = 0; i < tasks.length; i++) {
             for (int j = 0; j < toDelete.length; j++) {
                 tasks[i].deleteMember(toDelete[j]);
@@ -95,7 +95,7 @@ public class TasksManager implements Serializable {
 
 
     //@@author JustinChia1997
-    private boolean hasTask(String name) {
+    public boolean hasTask(String name) {
         for (int i = 0; i < taskList.size(); i += 1) {
             if (taskList.get(i).getName().equals(name.trim())) {
                 return true;
