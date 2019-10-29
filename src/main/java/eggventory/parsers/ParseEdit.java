@@ -10,16 +10,9 @@ import eggventory.exceptions.InsufficientInfoException;
 
 
 public class ParseEdit {
-    private Command processEditStock(String input) throws InsufficientInfoException, BadInputException {
+    private Command processEditStock(String input) throws BadInputException {
         String[] addInput = input.split(" +", 3); //<stockCode> <property> <newValue>
 
-        if (addInput.length < 2) {
-            throw new InsufficientInfoException("Please enter the edit information after the 'edit' command in"
-                    + "this format:\nedit Stock <stockCode> <property> <newValue>");
-        } else if (addInput[0].isBlank() | addInput[1].isBlank() | addInput[2].isBlank()) {
-            throw new InsufficientInfoException("Please enter the edit information after the 'edit' command in"
-                    + "this format:\nedit Stock <stockCode> <property> <newValue>");
-        }
         String stockCode = addInput[0];
         switch (addInput[1]) {
         case "stockCode":
@@ -39,8 +32,14 @@ public class ParseEdit {
         }
     }
 
-    private Command processEditStockType(String input) throws InsufficientInfoException {
+    private Command processEditStockType(String input) throws BadInputException {
         String[] addInput = input.split(" +", 2);
+
+        if (Parser.isReserved(addInput[1])) {
+            throw new BadInputException("'" + addInput[0] + "' is an invalid name as it is a keyword"
+                    + " for an existing command.");
+        }
+
         return new EditStockTypeCommand(CommandType.EDIT, addInput[0], addInput[1]);
     }
 
@@ -54,13 +53,24 @@ public class ParseEdit {
     public Command parse(String inputString) throws InsufficientInfoException, BadInputException {
         String[] addInput = inputString.split(" +", 2); // <stock/stocktype> <...>
         Command editCommand;
+
         switch (addInput[0]) {
         case "stock":
+            if (!Parser.isCommandComplete(inputString, 3)) {
+                throw new InsufficientInfoException("Please enter the edit information after the 'edit' command in"
+                        + "this format:\nedit stock <stockCode> <property> <newValue>");
+            }
             editCommand = processEditStock(addInput[1]);
             break;
+
         case "stocktype":
+            if (!Parser.isCommandComplete(inputString, 2)) {
+                throw new InsufficientInfoException("Please enter the edit information after the 'edit' command in"
+                        + "this format:\nedit stocktype <StockType> <New StockType Name>");
+            }
             editCommand = processEditStockType(addInput[1]);
             break;
+
         default:
             throw new BadInputException("Unexpected value:" + addInput[0]);
         }

@@ -11,18 +11,8 @@ import eggventory.exceptions.InsufficientInfoException;
 //@@author cyanoei
 public class ParseDelete {
 
-    private Command processDeleteLoan(String input) throws InsufficientInfoException {
-
+    private Command processDeleteLoan(String input) {
         String[] deleteInput = input.split(" +");
-
-        if (deleteInput.length < 2) {
-            throw new InsufficientInfoException("Please enter information after the 'delete' command in"
-                    + " this format:\ndelete loan <StockCode> <MatricNo>");
-        } else if (deleteInput[0].isBlank() | deleteInput[1].isBlank()) {
-            throw new InsufficientInfoException("Please enter information after the 'delete' command in"
-                    + " this format:\ndelete loan <StockCode> <MatricNo>");
-        }
-
         return new DeleteLoanCommand(CommandType.DELETE, deleteInput[0], deleteInput[1]);
     }
 
@@ -45,15 +35,27 @@ public class ParseDelete {
         switch (deleteInput[0]) {
 
         case "stock":
+            if (!Parser.isCommandComplete(inputString, 1)) {
+                throw new InsufficientInfoException("Please enter information after the 'delete' command in"
+                        + " this format:\ndelete stock <StockCode>");
+            }
             deleteInput[1] = deleteInput[1].strip();
             deleteCommand = new DeleteStockCommand(CommandType.DELETE, deleteInput[1]);
             break;
 
         case "stocktype":
+            if (!Parser.isCommandComplete(inputString, 1)) {
+                throw new InsufficientInfoException("Please enter information after the 'delete' command in"
+                        + " this format:\ndelete stocktype <StockType>");
+            }
             deleteCommand = new DeleteStockTypeCommand(CommandType.DELETE, deleteInput[1]);
             break;
 
         case "loan":
+            if (!Parser.isCommandComplete(inputString, 2)) {
+                throw new InsufficientInfoException("Please enter information after the 'delete' command in"
+                        + " this format:\ndelete loan <StockCode> <MatricNo>");
+            }
             deleteCommand = processDeleteLoan(deleteInput[1]);
             break;
 

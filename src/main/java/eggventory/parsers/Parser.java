@@ -36,6 +36,7 @@ public class Parser {
         listParser = new ParseList();
     }
 
+    //@@author Raghav-B
     /**
      * Checks if input String is an invalid String based on the reserved keywords in the
      * reservedNames HashSet.
@@ -45,6 +46,20 @@ public class Parser {
     public static boolean isReserved(String input) {
         return reservedNames.contains(input);
     }
+
+    /**
+     * Checks if a command is complete by checking for existence of its arguments.
+     * @param command String passed into one of the subparsers, e.g. "stock ...", "stocktype ...".
+     *                Checks if command entered by user are valid by comparing against
+     *                ideal argument count for command in question.
+     * @param reqArguments Least number of arguments required by command in question.
+     * @return True if user input matches required number of arguments, false otherwise.
+     */
+    public static boolean isCommandComplete(String command, int reqArguments) {
+        String[] commandArr = command.split(" ");
+        return commandArr.length - 1 >= reqArguments;
+    }
+    //@@author
 
     /**
      * Checks if the command keyword (first word is valid).
@@ -71,9 +86,9 @@ public class Parser {
         switch (inputArr[0]) {
         //Commands which are single words.
         case "list":
-            if (inputArr.length <= 1) {
+            if (inputArr.length == 1) {
                 // TODO: Interface this with HELP feature or CommandDictionary.
-                throw new BadInputException("Usage of list: 'list stock', 'list stocktype all' or "
+                throw new InsufficientInfoException("Usage of list: 'list stock', 'list stocktype all' or "
                         + "'list stocktype <Stock Type>'");
             } else {
                 command = listParser.parse(inputArr[1]);
@@ -84,6 +99,10 @@ public class Parser {
             break;
 
         case "delete":
+            if (inputArr.length == 1) {
+                throw new InsufficientInfoException("Usage of delete: delete stock <StockCode>, delete stocktype "
+                        + "<StockType, or delete loan <StockCode> <MatricNo>");
+            }
             inputArr[1] = inputArr[1].strip(); //Removes whitespace after the stockCode so that it can parse correctly.
             command = deleteParser.parse(inputArr[1]);
             break;
@@ -91,8 +110,8 @@ public class Parser {
         //Commands which require string input.
         case "add": {
             if (inputArr.length == 1) { //User command only said "add" and nothing else.
-                //Instead of BadInputException, we should be returning a helpCommand.
-                throw new BadInputException("'" + inputArr[0] + "' requires 1 or more arguments.");
+                //TODO: Instead of BadInputException, we should be returning a helpCommand.
+                throw new InsufficientInfoException("'" + inputArr[0] + "' requires 1 or more arguments.");
             } else {
                 command = addParser.parse(inputArr[1]);
             }
@@ -100,20 +119,20 @@ public class Parser {
         }
         case "find": {
             if (inputArr.length == 1) {
-                throw new BadInputException("'" + inputArr[0] + "' requires 1 or more arguments.");
+                throw new InsufficientInfoException("'" + inputArr[0] + "' requires 1 or more arguments.");
             }
 
             String description = inputArr[1].trim(); //Might need to catch empty string exceptions?
             if (!description.isBlank()) {
                 command = new FindCommand(CommandType.FIND, description);
             } else {
-                throw new BadInputException("Please enter the search description.");
+                throw new InsufficientInfoException("Please enter the search description.");
             }
             break;
         }
         case "edit": {
             if (inputArr.length == 1) {
-                throw new BadInputException("'" + inputArr[0] + "' requires 1 or more arguments.");
+                throw new InsufficientInfoException("'" + inputArr[0] + "' requires 1 or more arguments.");
             } else {
                 command = editParser.parse(inputArr[1]);
             }
