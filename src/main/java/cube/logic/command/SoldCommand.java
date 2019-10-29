@@ -52,6 +52,7 @@ public class SoldCommand extends Command{
 	@Override
 	public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
 		FoodList list = model.getFoodList();
+		SalesHistory salesHistory = model.getSalesHistory();
 		obtainFoodSold(list);
 		CommandUtil.requireValidQuantity(toSold, quantity);
 		
@@ -62,7 +63,12 @@ public class SoldCommand extends Command{
 		Food.updateRevenue(Food.getRevenue() + revenue);
 		// new function
 		double profit = revenue - quantity * toSold.getCost();
-		new Sale(quantity, revenue, profit, soldDate);
+		Sale saleRecord = new Sale(quantity, revenue, profit, soldDate);
+		System.out.println(salesHistory.size());
+		salesHistory.add(saleRecord);
+		System.out.println(salesHistory.size());
+		storage.storeSalesHistory(salesHistory);
+
 		storage.storeRevenue(Food.getRevenue());
 		return new CommandResult(String.format(MESSAGE_SUCCESS, quantity, foodName, revenue, Food.getRevenue()));
 	}

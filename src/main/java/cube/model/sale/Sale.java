@@ -14,6 +14,10 @@ public class Sale {
 	protected double revenue;
 	protected Date soldDate;
 
+	public Sale() {
+		this(0, 0, 0, null);
+	}
+
 	/**
 	 * Constructor with four arguments.
 	 *
@@ -43,5 +47,13 @@ public class Sale {
 
 	public Date getDate() {
 		return soldDate;
+	}
+
+	@Override
+	public String toString() {
+		return "  Quantity Sold: " + quantitySold +
+				"\n  Revenue: $" + revenue +
+				"\n  Profit: " + profit +
+				"\n  Transaction Date: " + soldDate;
 	}
 }
