@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import java.math.BigDecimal;
+import java.security.PublicKey;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -30,6 +31,7 @@ public class DukePP implements Model {
     private final PlanBot planBot;
     private final IncomeList incomeList;
     private final Budget budget;
+    private final BudgetView budgetView;
     private final PaymentList payments;
     // todo: add other data inside the DukePP.
 
@@ -43,19 +45,20 @@ public class DukePP implements Model {
      */
     // todo: pass more arguments to constructor as more data are implemented.
 
-    public DukePP(ExpenseList expenseList, Map<String, String> planAttributes, IncomeList incomeList, Budget budget, Optional<PaymentList> optionalPayments) throws DukeException {
+    public DukePP(ExpenseList expenseList, Map<String, String> planAttributes, IncomeList incomeList, Budget budget, BudgetView budgetView, Optional<PaymentList> optionalPayments) throws DukeException {
 
         this.expenseList = expenseList;
         this.planBot = new PlanBot(planAttributes);
         this.incomeList = incomeList;
         this.budget = budget;
+        this.budgetView = budgetView;
+
         if(!optionalPayments.isPresent()) {
             logger.warning("PaymentList is not loaded. It be starting with a empty PaymentList");
             this.payments = new PaymentList();
         } else {
             this.payments = optionalPayments.get();
         }
-
     }
 
     //******************************** ExpenseList operations
@@ -100,6 +103,12 @@ public class DukePP implements Model {
         return expenseList;
     }
 
+    public BigDecimal getTotalAmount() {
+        return expenseList.getTotalAmount();
+    }
+
+    //******************************** Budget and budgetView operations
+
     @Override
     public StringProperty getExpenseListTotalString() {
         return expenseList.getTotalString();
@@ -123,6 +132,11 @@ public class DukePP implements Model {
     @Override
     public String getMonthlyBudgetString() {
         return budget.getMonthlyBudgetString();
+    }
+
+    @Override
+    public BigDecimal getMonthlyBudget() {
+        return budget.getMonthlyBudget();
     }
 
     @Override
@@ -151,8 +165,28 @@ public class DukePP implements Model {
     }
 
     @Override
+    public BigDecimal getBudgetTag(String category) {
+        return budget.getBudgetTag(category);
+    }
+
+    @Override
     public ObservableList<String> getBudgetObservableList() {
         return budget.getBudgetObservableList();
+    }
+
+    @Override
+    public BudgetView getBudgetView() {
+        return budgetView;
+    }
+
+    @Override
+    public void setBudgetView (Integer view, String category) {
+        budgetView.setBudgetView(view,category);
+    }
+
+    @Override
+    public Map<Integer , String> getBudgetViewCategory() {
+        return budgetView.getBudgetViewCategory();
     }
 
 

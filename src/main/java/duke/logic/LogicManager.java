@@ -12,6 +12,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.function.Predicate;
 
 public class LogicManager implements Logic {
@@ -60,6 +61,30 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public BigDecimal getMonthlyBudget() {
+        return model.getMonthlyBudget();
+    }
+
+    @Override
+    public BigDecimal getTotalAmount() {
+        return model.getTotalAmount();
+    }
+
+    @Override
+    public BigDecimal getRemaining(BigDecimal total) {
+        return model.getRemaining(total);
+    };
+
+    @Override
+    public Map<Integer, String> getBudgetViewCategory() {
+        return model.getBudgetViewCategory();
+    }
+
+    @Override
+    public BigDecimal getBudgetTag(String category) {
+        return model.getBudgetTag(category);
+    }
+
     public ObservableList<Payment> getFilteredPaymentList() {
         return model.getFilteredPaymentList();
     }

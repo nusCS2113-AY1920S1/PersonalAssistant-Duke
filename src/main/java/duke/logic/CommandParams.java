@@ -2,6 +2,13 @@ package duke.logic;
 
 import duke.exception.DukeException;
 import duke.exception.DukeRuntimeException;
+import duke.logic.command.*;
+import duke.logic.command.payment.AddPaymentCommand;
+import duke.logic.command.payment.ChangePaymentCommand;
+import duke.logic.command.payment.DeletePaymentCommand;
+import duke.logic.command.payment.FilterPaymentCommand;
+import duke.logic.command.payment.SearchPaymentCommand;
+import duke.logic.command.payment.SortPaymentCommand;
 import duke.logic.command.AddExpenseCommand;
 import duke.logic.command.AddIncomeCommand;
 import duke.logic.command.BudgetCommand;
@@ -67,6 +74,8 @@ public class CommandParams {
             new SearchPaymentCommand(),
             new SortPaymentCommand(),
             new AddIncomeCommand(),
+            new DeleteIncomeCommand(),
+            new ViewBudgetCommand(),
             new DonePaymentCommand()
     );
 

@@ -2,6 +2,7 @@ package duke.ui;
 
 import duke.commons.LogsCenter;
 import duke.logic.Logic;
+import duke.model.BudgetView;
 import duke.model.Income;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
@@ -10,9 +11,13 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 
+import javax.swing.*;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -23,85 +28,76 @@ public class BudgetPane extends UiPart<AnchorPane>  {
     private static final String FXML_FILE_NAME = "BudgetPane.fxml";
 
     @FXML
-    private Pane paneView;
-    private PieChart pieChartSample;
+    private
+    ListView<Income> incomeListView;
 
     @FXML
-    TableView incomeTableView;
+    Pane paneView;
+
+    @FXML
+    Pane paneBudgetView;
+
+    @FXML
+    //ListView<String> budgetListView;
 
     public Logic logic;
-    public Set<String> tags;
 
-    public BudgetPane(ObservableList<Income> incomeList) {
+    public BudgetPane(ObservableList<Income> incomeList, Logic logic) {
         super(FXML_FILE_NAME, null);
         logger.info("incomeList has length " + incomeList.size());
-        logger.info("incomeList has length " + incomeList.size());
-        incomeTableView.getItems().clear();
-        incomeTableView.setPlaceholder(new Label("No incomes to display!"));
-        TableColumn<Income, Void> indexColumn = new TableColumn<>("No.");
-        indexColumn.setCellFactory(col -> {
-            TableCell<Income, Void> cell = new TableCell<>();
-            cell.textProperty().bind(Bindings.createStringBinding(() -> {
-                if (cell.isEmpty()) {
-                    return null;
-                } else {
-                    return Integer.toString(cell.getIndex() + 1);
-                }
-            }, cell.emptyProperty(), cell.indexProperty()));
-            return cell;
-        });
-        indexColumn.setSortable(false);
-        indexColumn.setResizable(false);
-        indexColumn.setReorderable(false);
-        indexColumn.prefWidthProperty().bind(incomeTableView.widthProperty().multiply(0.15));
-
-        //TableColumn<String, Income> timeColumn = new TableColumn<>("Time");
-        //timeColumn.setCellValueFactory(new PropertyValueFactory<>("timeString"));
-        //timeColumn.setSortable(false);
-        TableColumn<String, Income> amountColumn = new TableColumn<>("Amount");
-        amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        amountColumn.setSortable(false);
-        amountColumn.setResizable(false);
-        amountColumn.setReorderable(false);
-        amountColumn.prefWidthProperty().bind(incomeTableView.widthProperty().multiply(0.25));
-
-        TableColumn<Income, String> descriptionColumn = new TableColumn<>("Description");
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-        descriptionColumn.setSortable(false);
-        descriptionColumn.setResizable(false);
-        descriptionColumn.setReorderable(false);
-        descriptionColumn.prefWidthProperty().bind(incomeTableView.widthProperty().multiply(0.6));
-
-        incomeTableView.setRowFactory(new Callback<TableView<Income>, TableRow<Income>>() {
-            @Override
-            public TableRow<Income> call(TableView<Income> tableView) {
-                final TableRow<Income> row = new TableRow<Income>() {
-                    @Override
-                    protected void updateItem(Income income, boolean empty) {
-                        super.updateItem(income, empty);
-                        if(empty) {
-                            setGraphic(null);
-                            setStyle("-fx-background-color: white");
-                        } else {
-                            setStyle("-fx-text-background-color: black;");
-                        }
-                    }
-                };
-                return row;
-            }
-        });
-        incomeTableView.getColumns().setAll(
-                indexColumn,
-                descriptionColumn,
-                //timeColumn,
-                amountColumn
-        );
+        Label emptyIncomeListPlaceholder = new Label();
+        emptyIncomeListPlaceholder.setText("No Income yet. " +
+                "Type \"addIncome #amount\" to add one!");
+        incomeListView.setPlaceholder(emptyIncomeListPlaceholder);
+        incomeListView.setItems(incomeList);
         logger.info("Items are set.");
-        for (Income income : incomeList) {
-            incomeTableView.getItems().add(income);
-        }
+        incomeListView.setCellFactory(incomeListView -> new IncomeListViewCell());
         logger.info("cell factory is set.");
 
         this.logic = logic;
+
+        Text text = new Text();
+        ProgressBar overallBudget = new ProgressBar();
+        double percent = logic.getTotalAmount().doubleValue()/logic.getMonthlyBudget().doubleValue();
+        String remaining = logic.getRemaining(logic.getTotalAmount()).toString();
+        overallBudget.setProgress(percent);
+        text.setText("Remaining: $" + remaining);
+        text.setStyle("-fx-font-size: 20px;");
+        if(percent > 0.9) {
+            overallBudget.setStyle("-fx-accent: red;");
+        } else if (percent > 0.65) {
+            overallBudget.setStyle("-fx-accent: orange;");
+        } else if (percent > 0.40) {
+            overallBudget.setStyle("-fx-accent: yellow");
+        } else {
+            overallBudget.setStyle("-fx-accent: green");
+        }
+        overallBudget.setLayoutX(150);
+        overallBudget.setPrefWidth(500);
+        overallBudget.setPrefHeight(30);
+        text.setLayoutX(300);
+        text.setLayoutY(50);
+        paneView.getChildren().clear();
+        paneView.getChildren().add(overallBudget);
+        paneView.getChildren().add(text);
+
+        paneBudgetView.getChildren().clear();
+        paneBudgetView.getChildren().add(new BudgetBar(logic).getRoot());
+
+        //budgetListView.setItems(logic.getBudgetObservableList());
+    }
+
+    class IncomeListViewCell extends ListCell<Income> {
+        @Override
+        protected void updateItem(Income income, boolean empty) {
+            super.updateItem(income, empty);
+            if (empty || income == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                int index = incomeListView.getItems().indexOf(income) + 1;
+                setGraphic(new IncomeCard(income, index).getRoot());
+            }
+        }
     }
 }

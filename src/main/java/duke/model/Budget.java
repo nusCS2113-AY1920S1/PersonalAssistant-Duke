@@ -54,6 +54,15 @@ public class Budget {
     }
 
     /**
+     * Gets a BigDecimal value for monthlyBudget.
+     *
+     * @return a BigDecimal of the monthly budget
+     */
+    public BigDecimal getMonthlyBudget() {
+        return monthlyBudget;
+    }
+
+    /**
      * Sets budget to a given category.
      *
      * @param category the String tag specified that we want to set a budget for
@@ -72,6 +81,20 @@ public class Budget {
      */
     public BigDecimal getRemaining(BigDecimal total) {
         return monthlyBudget.subtract(total);
+    }
+
+    /**
+     * Gets the budget of a specific category
+     *
+     * @param category the String of the specific category
+     * @return BigDecimal value of the budget set for the category
+     */
+    public BigDecimal getBudgetTag(String category) {
+        if(budgetCategory.containsKey(category)) {
+            return budgetCategory.get(category);
+        } else {
+            return BigDecimal.ZERO;
+        }
     }
 
     public Map<String, BigDecimal> getBudgetCategory() {

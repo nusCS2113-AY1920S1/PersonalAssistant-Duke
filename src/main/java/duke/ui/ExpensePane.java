@@ -104,7 +104,9 @@ public class ExpensePane extends UiPart<AnchorPane> {
     private void getTags() {
         tags = new HashSet<>();
         for (Expense expense : logic.getExternalExpenseList()) {
-            tags.add(expense.getTag());
+            if(!expense.getTag().isEmpty()) {
+                tags.add(expense.getTag());
+            }
         }
     }
 

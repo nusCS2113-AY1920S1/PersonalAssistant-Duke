@@ -9,6 +9,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.function.Predicate;
 
 /**
@@ -29,6 +30,15 @@ public interface Logic {
 
     ObservableList<String> getBudgetObservableList();
 
+    BigDecimal getMonthlyBudget();
+
+    BigDecimal getTotalAmount();
+
+    BigDecimal getRemaining(BigDecimal total);
+
+    Map<Integer, String> getBudgetViewCategory();
+
+    BigDecimal getBudgetTag(String category);
     ObservableList<Payment> getFilteredPaymentList();
 
     // ObservableList<Payment> getPaymentSearchResult();
@@ -46,6 +56,5 @@ public interface Logic {
     StringProperty getViewCriteriaString();
 
     StringProperty getFilterCriteriaString();
-
 
 }

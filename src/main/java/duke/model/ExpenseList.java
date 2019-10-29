@@ -343,11 +343,15 @@ public class ExpenseList extends DukeList<Expense> {
      * @return A BigDecimal which is the sum of all items of a single tag
      */
     public BigDecimal getTagAmount(String tag) {
-        return externalList.stream()
-                .filter(expense -> expense.getTag().contains(tag))
-                .filter(expense -> !expense.isTentative())
-                .map(Expense::getAmount)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        try {
+            return externalList.stream()
+                    .filter(expense -> expense.getTag().contains(tag))
+                    .filter(expense -> !expense.isTentative())
+                    .map(Expense::getAmount)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+        } catch (NullPointerException e) {
+            return BigDecimal.ZERO;
+        }
     }
 
     /**

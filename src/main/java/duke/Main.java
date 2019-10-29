@@ -5,17 +5,9 @@ import duke.logic.Logic;
 import duke.logic.LogicManager;
 import duke.model.DukePP;
 import duke.model.Model;
-import duke.storage.BudgetStorage;
-import duke.storage.ExpenseListStorage;
-import duke.storage.ExpenseListStorageManager;
-import duke.storage.PlanAttributesStorage;
-import duke.storage.PlanAttributesStorageManager;
-import duke.storage.Storage;
-import duke.storage.StorageManager;
+import duke.storage.*;
 import duke.storage.payment.PaymentListStorage;
 import duke.storage.payment.PaymentListStorageManager;
-import duke.storage.IncomeListStorage;
-import duke.storage.IncomeListStorageManager;
 import duke.ui.Ui;
 import duke.ui.UiManager;
 import javafx.application.Application;
@@ -43,13 +35,14 @@ public class Main extends Application {
         PlanAttributesStorage planAttributesStorage = new PlanAttributesStorageManager();
         IncomeListStorage incomeListStorage = new IncomeListStorageManager();
         BudgetStorage budgetStorage = new BudgetStorage();
-
+        BudgetViewStorage budgetViewStorage = new BudgetViewStorage();
         PaymentListStorage paymentListStorage = new PaymentListStorageManager();
 
         storage = new StorageManager(expenseListStorage,
                                      planAttributesStorage, 
                                      incomeListStorage, 
                                      budgetStorage,
+                                     budgetViewStorage,
                                      paymentListStorage);
 
         logger.info("Initialized the storage");
@@ -62,6 +55,7 @@ public class Main extends Application {
                 storage.loadPlanAttributes(),
                 storage.loadIncomeList(),
                 storage.loadBudget(),
+                storage.loadBudgetView(),
                 storage.loadPaymentList());
 
         logger.info("Initialized the model");
