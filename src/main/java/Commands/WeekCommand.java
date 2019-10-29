@@ -155,6 +155,10 @@ public class WeekCommand extends Command {
 
     @Override
     public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
+        String intWeek = week.replaceFirst("Week", "");
+        intWeek = intWeek.trim();
+        Integer duration = Integer.parseInt(intWeek);
+        if(duration < 1 || duration > 13) return ui.showWeeksInvalidEntry(intWeek);
         setListView(LT, events);
         sortList();
         weekList = new WeekList(monList, tueList, wedList, thuList, friList, satList, sunList);

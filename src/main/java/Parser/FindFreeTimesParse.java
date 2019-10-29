@@ -9,11 +9,10 @@ import DukeExceptions.DukeInvalidFormatException;
  */
 public class FindFreeTimesParse extends Parse {
     private String fullCommand;
-    private Integer duration;
 
     /**
      * Creates FindFreeTimesParse object.
-     * @param fullCommand
+     * @param fullCommand The input by the user
      */
     public FindFreeTimesParse(String fullCommand) {
         this.fullCommand = fullCommand;
@@ -29,7 +28,7 @@ public class FindFreeTimesParse extends Parse {
             throw new DukeInvalidFormatException("Invalid input. Please enter the command as follows. \n" +
                     "Find 'x' hours , where 'x' is a digit");
         } else {
-            duration = Integer.parseInt(fullCommand);
+            Integer duration = Integer.parseInt(fullCommand);
             return new FindFreeTimesCommand(duration);
         }
     }

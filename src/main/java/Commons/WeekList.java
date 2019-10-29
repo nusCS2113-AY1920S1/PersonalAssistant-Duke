@@ -1,10 +1,7 @@
 package Commons;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.text.Text;
-
-import java.util.ArrayList;
 
 public class WeekList {
     private ObservableList<Text> monList;

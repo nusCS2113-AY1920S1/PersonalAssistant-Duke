@@ -1,20 +1,18 @@
 package Parser;
 
 import Commands.Command;
-import Commands.FindFreeTimesCommand;
 import Commands.RetrieveFreeTimesCommand;
 import DukeExceptions.DukeInvalidFormatException;
 
 /**
- * This class parses the full command that calls for FindFreeTimesParse.
+ * This class parses the full command that calls for RetrieveFreeTimesParse.
  */
 public class RetrieveFreeTimesParse extends Parse {
     private String fullCommand;
-    private Integer duration;
 
     /**
-     * Creates FindFreeTimesParse object.
-     * @param fullCommand
+     * Creates RetrieveFreeTimesParse object.
+     * @param fullCommand The input by the user
      */
     public RetrieveFreeTimesParse(String fullCommand) {
         this.fullCommand = fullCommand;
@@ -22,13 +20,13 @@ public class RetrieveFreeTimesParse extends Parse {
 
     @Override
     public Command parse() throws DukeInvalidFormatException {
-        fullCommand = fullCommand.replaceFirst("retrieve/freetime ", "");
+        fullCommand = fullCommand.replaceFirst("retrieve/ft ", "");
         fullCommand = fullCommand.trim();
         if(fullCommand.isEmpty()){
             throw new DukeInvalidFormatException("Invalid input. Please enter the command as follows. \n" +
                     "Find 'x' hours , where 'x' is a digit");
         } else {
-            duration = Integer.parseInt(fullCommand);
+            Integer duration = Integer.parseInt(fullCommand);
             return new RetrieveFreeTimesCommand(duration);
         }
     }
