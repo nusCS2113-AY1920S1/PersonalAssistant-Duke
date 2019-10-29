@@ -414,7 +414,7 @@ Format: `semester /view`
 image::SemesterView.png[SemesterView]
 
 ==== Removing semester data: `semester /delete`
-You can removed unwanted data if you have accidentally added an unwanted semester.
+You can remove unwanted data if you have accidentally added an unwanted semester.
 
 Format: `semester /delete INDEX`
 
@@ -482,7 +482,7 @@ Format: `module /view`
 image::ModuleView.png[ModuleView]
 
 ==== Removing module data: `module /delete`
-You can removed unwanted data if you have accidentally added a wrong module.
+You can remove unwanted data if you have accidentally added a wrong module.
 
 Format: `module /delete INDEX`
 
@@ -549,7 +549,7 @@ Adds a lecture on Wednesday from 14:00 to 16:00 for the selected module.
 image::LessonAdd.png[LessonAdd]
 
 ==== Removing lesson data: `lesson /delete`
-You can removed unwanted data if you have addded the wrong date for a lesson.
+You can remove unwanted data if you have addded the wrong date for a lesson.
 
 Format: `lesson /delete INDEX`
 
