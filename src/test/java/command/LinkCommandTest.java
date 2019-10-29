@@ -1,5 +1,6 @@
 package command;
 
+import commands.LinkCommand;
 import members.Member;
 import org.junit.jupiter.api.Test;
 import tasks.Task;
@@ -15,23 +16,19 @@ public class LinkCommandTest {
     //@@author: Jason
     @Test
     public void checkLink() {
-        ArrayList<Task> tasks;
-        tasks = new ArrayList<Task>();
-        ArrayList<Member> members;
-        members = new ArrayList<Member>();
+        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Member> members = new ArrayList<>();
 
-        String description = "This is a task for checkLink";
+        String description = "Test Task 1";
         ToDo temp = new ToDo(description);
         tasks.add(temp);
-        String member = "This is a member's name for checkLink";
+        String member = "Test Member 1";
         Member newMember = new Member(member);
         members.add(newMember);
 
         int setTo = 1;
-
-
         //members.get(0).setTask(1); //revisit this
-        assertEquals("This is a member's name for checkLink is in charge of task(s): [ 1 ].",
+        assertEquals("Test Member 1 is in charge of task(s): [ 1 ].",
                 members.get(0).getName() + " is in charge of task(s): [ " + setTo + " ].");
     }
 

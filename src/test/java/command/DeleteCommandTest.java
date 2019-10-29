@@ -44,4 +44,24 @@ public class DeleteCommandTest {
                 .execute(tasks, new ArrayList<Member>(), null));
     }
 
+    //@@author: Jason
+    @Test
+    public void execute_outOfBoundsInput_throwsDukeException() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new ToDo("test"));
+        tasks.add(new ToDo("test2"));
+        assertThrows(DukeException.class, () -> new DeleteCommand("3")
+                .execute(tasks, new ArrayList<Member>(), null));
+    }
+
+    //@@author: Jason
+    @Test
+    public void execute_stringInput_throwsDukeException() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new ToDo("test"));
+        tasks.add(new ToDo("test2"));
+        assertThrows(DukeException.class, () -> new DeleteCommand("a")
+                .execute(tasks, new ArrayList<Member>(), null));
+    }
+
 }

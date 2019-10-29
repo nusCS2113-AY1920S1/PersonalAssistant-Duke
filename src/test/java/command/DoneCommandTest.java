@@ -6,12 +6,13 @@ import org.junit.jupiter.api.Test;
 import tasks.Task;
 import tasks.ToDo;
 import utils.DukeException;
-import utils.Storage;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class DoneCommandTest {
@@ -21,7 +22,7 @@ public class DoneCommandTest {
     public void checkNotDone() {
         String description = "This is a test for checkNotDone";
         ToDo temp = new ToDo(description);
-        assertEquals(false, temp.getIsDone());
+        assertFalse(temp.getIsDone());
     }
 
     //@@author: Jason
@@ -30,7 +31,7 @@ public class DoneCommandTest {
         String description = "This is a test for checkDone";
         ToDo temp = new ToDo(description);
         temp.markAsDone();
-        assertEquals(true, temp.getIsDone());
+        assertTrue(temp.getIsDone());
     }
 
     //@@author: Jason
@@ -48,6 +49,26 @@ public class DoneCommandTest {
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new ToDo("test"));
         assertThrows(DukeException.class, () -> new DoneCommand("1 string")
+                .execute(tasks, new ArrayList<Member>(), null));
+    }
+
+    //@@author: Jason
+    @Test
+    public void execute_outOfBoundsInput_throwsDukeException() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new ToDo("test"));
+        tasks.add(new ToDo("test2"));
+        assertThrows(DukeException.class, () -> new DoneCommand("3")
+                .execute(tasks, new ArrayList<Member>(), null));
+    }
+
+    //@@author: Jason
+    @Test
+    public void execute_stringInput_throwsDukeException() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new ToDo("test"));
+        tasks.add(new ToDo("test2"));
+        assertThrows(DukeException.class, () -> new DoneCommand("a")
                 .execute(tasks, new ArrayList<Member>(), null));
     }
 
