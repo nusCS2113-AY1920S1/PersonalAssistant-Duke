@@ -3,8 +3,10 @@ package eggventory;
 import eggventory.enums.StockProperty;
 import eggventory.items.Stock;
 import eggventory.items.StockType;
+import eggventory.ui.TableStruct;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 //@@author Deculsion
 public class StockList {
@@ -209,19 +211,19 @@ public class StockList {
      * @return The string of the stocklist whose stocktype matches query.
      */
     public String findStock(String query) {
-        String ret = "";
+        StringBuilder ret = new StringBuilder();
         boolean found = false;
         for (StockType stocktype : stockList) {
             if (stocktype.getName().equals(query)) {
-                if (found == false) {
-                    ret += query + " INVENTORY\n";
-                    ret += "------------------------\n";
+                if (!found) {
+                    ret.append(query).append(" INVENTORY\n");
+                    ret.append("------------------------\n");
                     found = true;
                 }
-                ret += stocktype.toString() + "\n";
+                ret.append(stocktype.toString()).append("\n");
             }
         }
-        return ret;
+        return ret.toString();
     }
 
     /**
@@ -229,13 +231,13 @@ public class StockList {
      * @return The string of all the stocktypes
      */
     public String toStocktypeString() {
-        String ret = "";
-        ret += "QUERY INVENTORY\n";
+        StringBuilder ret = new StringBuilder();
+        ret.append("QUERY INVENTORY\n");
         for (StockType stocktype : stockList) {
-            ret += "------------------------\n";
-            ret += stocktype.getName() + "\n";
+            ret.append("------------------------\n");
+            ret.append(stocktype.getName()).append("\n");
         }
-        return ret;
+        return ret.toString();
     }
 
     /**
@@ -243,15 +245,15 @@ public class StockList {
      * @return The string of the stocklist.
      */
     public String toString() {
-        String ret = "";
-        ret += "CURRENT INVENTORY\n";
+        StringBuilder ret = new StringBuilder();
+        ret.append("CURRENT INVENTORY\n");
 
         for (StockType stocktype : stockList) {
-            ret += "------------------------\n";
-            ret += stocktype.toString() + "\n";
+            ret.append("------------------------\n");
+            ret.append(stocktype.toString()).append("\n");
         }
 
-        return ret;
+        return ret.toString();
     }
 
     /**
@@ -259,13 +261,71 @@ public class StockList {
      * @return The String that will be directly saved into file.
      */
     public String saveDetailsString() {
-        String details = "";
+        StringBuilder details = new StringBuilder();
 
         for (StockType stocktype : stockList) {
-            details += stocktype.saveDetailsString() + "\n";
+            details.append(stocktype.saveDetailsString()).append("\n");
         }
 
-        return details;
+        return details.toString();
     }
 
+    //@@author Raghav-B
+    /**
+     * Returns TableStruct containing data on all stocks contained by StockList. This
+     * TableStruct is read by the GUI table.
+     * @return TableStruct with data.
+     */
+    public TableStruct getAllStocksStruct() {
+        TableStruct tableStruct = new TableStruct("Stock List");
+        tableStruct.setTableColumns("Stock Type", "Stock Code", "Quantity", "Description");
+
+        ArrayList<ArrayList<String>> dataArray = new ArrayList<>();
+        for (StockType stockType : stockList) {
+            dataArray.addAll(stockType.getDataAsArray());
+        }
+        tableStruct.setTableData(dataArray);
+
+        return tableStruct;
+    }
+
+    /**
+     * Returns TableStruct containing data on all stocktypes contained by StockList. This
+     * TableStruct is read by the GUI table.
+     * @return TableStruct with data.
+     */
+    public TableStruct getAllStockTypesStruct() {
+        TableStruct tableStruct = new TableStruct("Stocktype List");
+        tableStruct.setTableColumns("Stock Type");
+
+        ArrayList<ArrayList<String>> dataArray = new ArrayList<>();
+        for (StockType stockType : stockList) {
+            dataArray.add(new ArrayList<>(Collections.singletonList(stockType.getName())));
+        }
+        tableStruct.setTableData(dataArray);
+
+        return tableStruct;
+    }
+
+    /**
+     * Returns TableStruct containing data on all stocks under a specific stocktype. This
+     * TableStruct is read by the GUI table.
+     * @param stockTypeName Name of stocktype under which all stocks will be listed.
+     * @return TableStruct with data.
+     */
+    public TableStruct getAllStocksInStockTypeStruct(String stockTypeName) {
+        TableStruct tableStruct = new TableStruct("Stock List: " + stockTypeName);
+        tableStruct.setTableColumns("Stock Type", "Stock Code", "Quantity", "Description");
+
+        ArrayList<ArrayList<String>> dataArray = new ArrayList<>();
+        for (StockType stockType : stockList) {
+            if (stockType.getName().equals(stockTypeName)) {
+                dataArray.addAll(stockType.getDataAsArray());
+            }
+        }
+        tableStruct.setTableData(dataArray);
+
+        return tableStruct;
+    }
+    //@@author
 }

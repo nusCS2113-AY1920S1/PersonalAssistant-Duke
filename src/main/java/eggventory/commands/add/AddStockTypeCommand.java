@@ -37,6 +37,8 @@ public class AddStockTypeCommand extends Command {
             output = String.format("Nice! I have successfully added the stocktype: %s", name);
         }
         ui.print(output);
+        // Drawing stock data in GUI table.
+        ui.drawTable(list.getAllStockTypesStruct());
         return output;
     }
 }

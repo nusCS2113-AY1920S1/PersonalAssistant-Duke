@@ -40,6 +40,9 @@ public class DeleteStockTypeCommand extends Command {
                     + deleted.toString(), stockTypeName);
             storage.save(list);
             ui.print(output);
+            // Drawing stock data in GUI table.
+            ui.drawTable(list.getAllStocksStruct());
+            //ui.drawTable(list.getAllStockTypesStruct());
         }
 
         return output;

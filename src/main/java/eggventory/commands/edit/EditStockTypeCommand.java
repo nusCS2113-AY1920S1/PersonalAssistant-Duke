@@ -48,6 +48,8 @@ public class EditStockTypeCommand extends Command {
             storage.save(list);
         }
         ui.print(output);
+        // Drawing stock data in GUI table.
+        ui.drawTable(list.getAllStockTypesStruct());
         return output;
     }
 }

@@ -1,5 +1,7 @@
 package eggventory.ui;
 
+import eggventory.StockList;
+
 //@@author Raghav-B
 public abstract class Ui {
 
@@ -70,5 +72,8 @@ public abstract class Ui {
      */
     String addLine() {
         return "____________________________________________________________";
+    }
+
+    public void drawTable(TableStruct tableStruct) {
     }
 }

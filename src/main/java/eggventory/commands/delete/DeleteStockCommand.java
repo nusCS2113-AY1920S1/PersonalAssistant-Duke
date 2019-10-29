@@ -36,6 +36,8 @@ public class DeleteStockCommand extends Command {
                     deleted.getQuantity(), deleted.getDescription());
             storage.save(list);
             ui.print(output);
+            // Drawing stock data in GUI table.
+            ui.drawTable(list.getAllStocksStruct());
             return output;
         }
     }

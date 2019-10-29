@@ -1,20 +1,23 @@
 package eggventory.ui;
 
 import eggventory.StockList;
-import eggventory.items.Stock;
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+
 import java.io.IOException;
+import java.util.ArrayList;
 
 //@@author Raghav-B
 /**
@@ -30,7 +33,7 @@ public class Gui extends Ui  {
     @FXML
     private TextArea outputField;
     @FXML
-    private TableView outputTable;
+    private TableView<ArrayList<String>> outputTable;
     @FXML
     private ScrollPane outputTableScroll;
 
@@ -45,7 +48,7 @@ public class Gui extends Ui  {
         Platform.startup(() -> {
             Stage stage = new Stage();
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/Gui.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Gui.fxml"));
                 fxmlLoader.setController(this);
                 stage = fxmlLoader.load();
                 stage.show();
@@ -54,6 +57,7 @@ public class Gui extends Ui  {
             }
 
             inputField = new InputTextBox(textFlow);
+            outputTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             printIntro();
 
             // Event handler for UP and DOWN arrow keys.
@@ -131,30 +135,36 @@ public class Gui extends Ui  {
     /**
      * Can be called to redraw the table output as and when needed. Takes in a StockList object
      * that it uses to redraw the entire table.
-     * @param stockList Input StockList object to be used to draw the table.
+     * @param tableStruct Structure that holds all data to be displayed.
      */
-    public void drawTable(StockList stockList) {
-        TableColumn<String, Stock> stockTypeCol = new TableColumn<>("Stock Type");
-        stockTypeCol.setCellValueFactory(new PropertyValueFactory<>("stockType"));
+    public void drawTable(TableStruct tableStruct) { // TODO: Change to master list...
+        outputTable.getColumns().clear();
+        outputTable.getItems().clear();
+        outputTable.refresh();
+        TableColumn mainColumn = new TableColumn(tableStruct.getTableName());
+        outputTable.getColumns().add(mainColumn);
 
-        TableColumn<String, Stock> stockCodeCol = new TableColumn<>("Stock Code");
-        stockCodeCol.setCellValueFactory(new PropertyValueFactory<>("stockCode"));
-
-        TableColumn<Integer, Stock> quantityCol = new TableColumn<>("Quantity");
-        quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-
-        TableColumn<String, Stock> descriptionCol = new TableColumn<>("Description");
-        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-
-        /*for (int i = 0; i < stockList.getStockQuantity(); i++) {
-            for (int i = 0; i < stockList.getStockType().getQuantity(); i++) {
-                outputTable.getItems().add(stockList.getStockType())
+        // Iterating through columns to setup all columns.
+        System.out.println(tableStruct.getTableColumnSize());
+        for (int i = 0; i < tableStruct.getTableColumnSize(); i++) {
+            // Creating column with header
+            TableColumn<ArrayList<String>, String> column = new TableColumn<>(tableStruct.getColumnName(i));
+            // Assigning column to take row values from data stores in tableFormat ArrayList.
+            int finalI = i;
+            if (finalI == 0) {
+                column.setCellValueFactory(cell -> new ReadOnlyObjectWrapper(
+                        outputTable.getItems().indexOf(cell.getValue()) + 1));
+            } else {
+                column.setCellValueFactory(cell -> new ReadOnlyObjectWrapper(cell.getValue().get(finalI - 1)));
             }
-        }
-        // TODO: Can add more columns for loaned, lost, and minimum later...
-        */
 
-        outputTable.getColumns().removeAll();
-        outputTable.getColumns().addAll(stockTypeCol, stockCodeCol, quantityCol, descriptionCol);
+            // Adding column to table to be visualized.
+            mainColumn.getColumns().add(column);
+        }
+
+        // Adding data from tableStruct to outputTable row by row.
+        for (int i = 0; i < tableStruct.getTableRowSize(); i++) {
+            outputTable.getItems().add(tableStruct.getRowData(i));
+        }
     }
 }

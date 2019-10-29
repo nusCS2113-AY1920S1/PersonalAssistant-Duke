@@ -57,6 +57,8 @@ public class AddStockCommand extends Command {
         }
 
         ui.print(output);
+        // Drawing stock data in GUI table.
+        ui.drawTable(list.getAllStocksStruct());
         return output;
     }
 

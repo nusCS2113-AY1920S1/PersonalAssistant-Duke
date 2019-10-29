@@ -1,5 +1,8 @@
 package eggventory.commands.help;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -46,52 +49,69 @@ public class HelpCommand extends Command {
     @Override
     public String execute(StockList list, Ui ui, Storage storage) {
         String output = "";
-        String filename;
         if (this.options == null) {
-            filename = "\\src\\main\\java\\eggventory\\commands\\help\\Help.txt";
             try {
-                Path filePath = Paths.get(System.getProperty("user.dir"), filename);
-                output = Files.readString(filePath); //default UTF-8 charset.
-                ui.print(output);
+                output = getStringFromFile("/help/Help.txt");
             } catch (IOException e) {
-                ui.print("Error in reading help.txt");
+                ui.print("Error in reading Help.txt");
             }
         } else {
             switch (this.options) {
             case "add":
-                filename = "\\src\\main\\java\\eggventory\\commands\\help\\Helpadd.txt";
                 try {
-                    Path filePath = Paths.get(System.getProperty("user.dir"), filename);
-                    output = Files.readString(filePath); //default UTF-8 charset.
-                    ui.print(output);
+                    output = getStringFromFile("/help/HelpAdd.txt");
                 } catch (IOException e) {
-                    ui.print("Error in reading Helpadd.txt");
+                    ui.print("Error in reading HelpAdd.txt");
                 }
                 break;
             case "edit":
-                filename = "\\src\\main\\java\\eggventory\\commands\\help\\Helpedit.txt";
                 try {
-                    Path filePath = Paths.get(System.getProperty("user.dir"), filename);
-                    output = Files.readString(filePath); //default UTF-8 charset.
-                    ui.print(output);
+                    output = getStringFromFile("/help/HelpEdit.txt");
                 } catch (IOException e) {
-                    ui.print("Error in reading Helpedit.txt");
+                    ui.print("Error in reading HelpEdit.txt");
                 }
                 break;
             case "delete":
-                filename = "\\src\\main\\java\\eggventory\\commands\\help\\Helpdelete.txt";
                 try {
-                    Path filePath = Paths.get(System.getProperty("user.dir"), filename);
-                    output = Files.readString(filePath); //default UTF-8 charset.
-                    ui.print(output);
+                    output = getStringFromFile("/help/HelpDelete.txt");
                 } catch (IOException e) {
-                    ui.print("Error in reading Helpdelete.txt");
+                    ui.print("Error in reading HelpDelete.txt");
                 }
                 break;
             default:
                 ui.print("Your help command is not defined. Please enter 'help' for reference.");
             }
+            ui.print(output);
         }
         return output;
+    }
+
+    /**
+     * Reads help files from the resource folder of the JAR and returns the files as
+     * a String.
+     * @param resourcePath Path to file in resources folder.
+     * @return String format of entire file.
+     * @throws IOException when file cannot be read for some unknown error.
+     */
+    private String getStringFromFile(String resourcePath) throws IOException {
+        InputStream is = getClass().getResourceAsStream(resourcePath);
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader br = new BufferedReader(isr);
+
+        StringBuffer sb = new StringBuffer();
+        while (true) {
+            String line = br.readLine();
+            if (line == null) {
+                break;
+            }
+
+            sb.append(line).append("\n");
+        }
+
+        br.close();
+        isr.close();
+        is.close();
+
+        return sb.toString();
     }
 }

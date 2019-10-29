@@ -47,12 +47,17 @@ public class ParseAdd {
      * @return the command to execute.
      * @throws InsufficientInfoException if there are insufficient details provided.
      */
-    private Command processAddStockType(String input) throws InsufficientInfoException {
+    private Command processAddStockType(String input) throws InsufficientInfoException, BadInputException {
         String[] addInput = input.split(" +");
 
         if (addInput[0].isBlank()) {
             throw new InsufficientInfoException("Please enter stock information after the 'add' command in"
                     + " this format:\nadd stocktype <StockType>");
+        }
+
+        if (Parser.isReserved(addInput[0])) {
+            throw new BadInputException("'" + addInput[0] + "' is an invalid name as it is a keyword"
+                    + " for an existing command.");
         }
 
         return new AddStockTypeCommand(CommandType.ADD, addInput[0]);

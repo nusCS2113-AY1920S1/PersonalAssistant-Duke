@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import javafx.util.Pair;
 
 //@@author Raghav-B
-
 public class CommandDictionary {
 
     // ArrayList of Pairs of format (commands, arguments)
@@ -33,8 +32,8 @@ public class CommandDictionary {
 
         // List Commands
         commandDict.add(new Pair<>("list stock", null));
+        commandDict.add(new Pair<>("list stocktype", "all"));
         commandDict.add(new Pair<>("list stocktype", "<Stock Type>"));
-        commandDict.add(new Pair<>("list stocktypes", null));
         commandDict.add(new Pair<>("list loan", null));
         commandDict.add(new Pair<>("list template", null));
         commandDict.add(new Pair<>("list lost", null));

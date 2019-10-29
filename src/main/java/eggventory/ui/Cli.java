@@ -1,5 +1,3 @@
-//@@author Raghav-B
-
 package eggventory.ui;
 
 import java.util.Scanner;

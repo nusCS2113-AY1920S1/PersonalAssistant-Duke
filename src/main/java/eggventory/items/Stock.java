@@ -214,5 +214,18 @@ public class Stock {
         System.out.println(description + ": " + lost + " lost.");
     }
 
-
+    //@@author Raghav-B
+    /**
+     * Returns data of Stock in format that can be read by GUI's TableView.
+     * @return ArrayList containing data of Stock.
+     */
+    public ArrayList<String> getDataAsArray() {
+        ArrayList<String> dataArray = new ArrayList<>();
+        dataArray.add(stockType);
+        dataArray.add(stockCode);
+        dataArray.add(String.valueOf(quantity));
+        dataArray.add(description);
+        return dataArray;
+    }
+    //@@author
 }

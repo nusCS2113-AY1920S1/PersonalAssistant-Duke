@@ -56,6 +56,8 @@ public class EditStockCommand extends Command {
                 edited.getDescription());
         storage.save(list);
         ui.print(output);
+        // Drawing stock data in GUI table.
+        ui.drawTable(list.getAllStocksStruct());
         return output;
     }
 }
