@@ -46,7 +46,9 @@ public class RejectCommand extends Command {
     }
 
     @Override
-    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user) throws DukeException, IOException, ParseException {
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user)
+            throws DukeException, IOException, ParseException {
         if (!roomList.checkRoom(roomcode)) {
             throw new DukeException(Constants.UNHAPPY + "OOPS!!! This room doesn't exist!");
         }

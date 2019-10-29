@@ -4,7 +4,7 @@ import user.User;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AddBookingTest {
+public class AddBookingTest1 {
     @Test
     void testAddBooking() {
         String user = "Bob";
