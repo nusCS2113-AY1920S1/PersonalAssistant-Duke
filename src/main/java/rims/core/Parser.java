@@ -49,20 +49,12 @@ public class Parser {
         //@@author aarushisingh1
         } else if (words[0].equals("list") && words.length > 1) {
             String paramType = words[1].substring(1);
-            if (paramType.equals("room") || paramType.equals("item")) {
+            if (paramType.equals("room") || paramType.equals("item") || paramType.equals("date")) {
                 String param = ui.getInput("Enter the name of the resource you'd like to view a detailed list of:");
                 c = new ListCommand(paramType, param);
             } else {
                 throw new RimsException(
                     "Invalid list parameter! Please specify '/list' or '/item' to view a detailed list of a resource.");
-            }
-        
-            else if(paramType.equals("date")){
-                String param = ui.getInput("Enter the date you'd like to view a detailed list of:");
-                c = new ListCommand(paramType, param);
-            }
-            else {
-                throw new RimsException("Invalid list parameter! Please specify '/list' or '/item' to view a detailed list of a resource.");
             }
         }
          //@@author hin1

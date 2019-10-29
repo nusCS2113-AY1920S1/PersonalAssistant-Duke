@@ -36,7 +36,7 @@ public class ViewDeadlinesCommand extends Command{
                 ArrayList<Resource> allOfResource = resources.getAllOfResource(thisResource.getName());
                 for (int j = 0; j < allOfResource.size(); j++) {
                     if (!allOfResource.get(j).isCurrentlyAvailable()) {
-                        sortedList.add(thisResource);
+                        sortedList.add(allOfResource.get(j));
                     }
                 }
 
@@ -54,6 +54,7 @@ public class ViewDeadlinesCommand extends Command{
             }
         });
         for(int j = 0; j < sortedList.size();  j ++){
+            ui.print(sortedList.get(j).getName() + ":");
             ui.print("\t" + sortedList.get(j).getReservations().getCurrentBooking().toString());
         }
     }
