@@ -76,7 +76,7 @@ public class MainWindow extends BorderPane implements Initializable {
     @FXML
     private TableView<DukeResponseView> dukeResponseTable;
     @FXML
-    TableColumn<DukeResponseView, String> dukeResponseColumn;
+    private TableColumn<DukeResponseView, String> dukeResponseColumn;
 
     private Duke duke;
     private Storage storage;
@@ -88,7 +88,7 @@ public class MainWindow extends BorderPane implements Initializable {
     private TaskList deadlinesList;
     private static LookupTable LT;
     public static ArrayList<String> outputList = new ArrayList<>();
-    public static WeekList outputWeekList = new WeekList();
+    private static WeekList outputWeekList = new WeekList();
     private static final Logger LOGGER = Logger.getLogger(MainWindow.class.getName());
     static {
         LT = new LookupTable();
@@ -347,7 +347,7 @@ public class MainWindow extends BorderPane implements Initializable {
         if (input.contains("retrieve previous")) {
             String previousInput = Duke.getPreviousInput();
             userInput.setText(previousInput);
-        } else if (input.startsWith("retrieve/freetime ")) {
+        } else if (input.startsWith("retrieve/ft ")) {
             String selectedOption = Duke.getSelectedOption();
             userInput.setText(selectedOption);
         }

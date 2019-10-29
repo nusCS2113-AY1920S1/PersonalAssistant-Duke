@@ -43,8 +43,8 @@ public class MainParser {
 
             case "show/previous":
                 return new ShowPreviousCommand(fullCommand);
-
-            case "retrieve/freetime":
+            
+            case "retrieve/ft":
                 return new RetrieveFreeTimesParse(fullCommand).parse();
 
             case "retrieve/previous":
