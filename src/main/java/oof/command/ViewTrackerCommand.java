@@ -12,10 +12,12 @@ import oof.model.task.TaskList;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 public class ViewTrackerCommand extends Command {
     private String period;
     private static final int EMPTY = 0;
+    private static final int NOT_FOUND = -1;
 
     /**
      * Constructor of ViewTrackerCommand.
@@ -59,33 +61,60 @@ public class ViewTrackerCommand extends Command {
         for (int i = 0; i < trackerList.getSize(); i++) {
             tracker = trackerList.getTracker(i);
             String moduleCode = tracker.getModuleCode();
-            boolean isFound = false;
-
-            if (moduleTrackerList.getSize() == EMPTY) {
-                long timeTaken = tracker.getTimeTaken();
-                ModuleTracker moduleTracker = new ModuleTracker(moduleCode,timeTaken);
-                moduleTrackerList.addModuleTracker(moduleTracker);
-            } else {
-                for (int j = 0; j < moduleTrackerList.getSize(); j++) {
-                    ModuleTracker moduleTracker = moduleTrackerList.getModuleTracker(j);
-                    String savedModule = moduleTracker.getModuleCode();
-                    if (moduleCode.equals(savedModule)) {
-                        long timeTaken = tracker.getTimeTaken();
-                        long totalTime = moduleTracker.getTimeTaken();
-                        totalTime += timeTaken;
-                        moduleTracker.setTimeTaken(totalTime);
-                        isFound = true;
-                        break;
-                    }
-                }
-                if (!isFound) {
-                    long timeTaken = tracker.getTimeTaken();
-                    ModuleTracker moduleTracker = new ModuleTracker(moduleCode, timeTaken);
-                    moduleTrackerList.addModuleTracker(moduleTracker);
-                }
-            }
+            ModuleTracker moduleTracker = updateModuleTrackerList(moduleTrackerList, tracker, moduleCode);
+            moduleTrackerList.addModuleTracker(moduleTracker);
         }
         return moduleTrackerList;
+    }
+
+    /**
+     * Update ModuleTracker object.
+     * @param moduleTrackerList     ModuleTrackerList object.
+     * @param tracker               Tracker object.
+     * @param moduleCode            String containing module code.
+     * @return                      created or updated ModuleTracker object.
+     */
+    private ModuleTracker updateModuleTrackerList(ModuleTrackerList moduleTrackerList,
+                                                  Tracker tracker, String moduleCode) {
+        ModuleTracker moduleTracker;
+        long timeTaken = tracker.getTimeTaken();
+        int i = matchModuleTracker(moduleTrackerList, moduleCode);
+
+        if (tracker.getStartDate() != null) {
+            long totalTime = tracker.getTimeTaken();
+            Date startDate = tracker.getStartDate();
+            totalTime += Integer.parseInt(tracker.getDateDiff(startDate));
+            tracker.setTimeTaken(totalTime);
+            timeTaken = tracker.getTimeTaken();
+        }
+
+        if (moduleTrackerList.getSize() == EMPTY || i == NOT_FOUND) {
+            moduleTracker = new ModuleTracker(moduleCode,timeTaken);
+        } else {
+
+            moduleTracker = moduleTrackerList.getModuleTracker(i);
+            long totalTime = moduleTracker.getTotalTimeTaken();
+            totalTime += timeTaken;
+            moduleTracker.setTotalTimeTaken(totalTime);
+        }
+        return moduleTracker;
+    }
+
+    /**
+     * Check if ModuleTracker objects have the same ModuleCode.
+     * @param moduleTrackerList     ModuleTrackerList of ModuleTracker objects.
+     * @param moduleCode            Module code in process.
+     * @return                      index of ModuleTracker object found in ModuleTrackerList that matches ModuleCode.
+     */
+    private int matchModuleTracker(ModuleTrackerList moduleTrackerList, String moduleCode) {
+        for (int i = 0; i < moduleTrackerList.getSize(); i++) {
+            ModuleTracker moduleTracker = moduleTrackerList.getModuleTracker(i);
+            String savedModule = moduleTracker.getModuleCode();
+            if (moduleCode.equals(savedModule)) {
+                return i;
+            }
+        }
+        return NOT_FOUND;
     }
 
     /**
@@ -99,7 +128,7 @@ public class ViewTrackerCommand extends Command {
             ModuleTracker mt = moduleTrackerList.getModuleTracker(i);
             list.add(mt);
         }
-        Collections.sort(list, moduleTrackerList.timeTaken);
+        Collections.sort(list, moduleTrackerList.timeTimeComparator);
         ModuleTrackerList sortedTL = new ModuleTrackerList();
         for (ModuleTracker moduleTracker : list) {
             sortedTL.addModuleTracker(moduleTracker);

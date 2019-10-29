@@ -79,7 +79,6 @@ public class Storage {
     private static final int ARGUMENT_THIRD = 2;
     private static final int ARGUMENT_FOURTH = 3;
     private static final int ARGUMENT_FIFTH = 4;
-    private static final int ARGUMENT_SIXTH = 5;
 
     /**
      * Reads and prints all commands available to user.
@@ -249,10 +248,9 @@ public class Storage {
         String[] processed = line.split(DELIMITER_TRACKER);
         String moduleCode = processed[ARGUMENT_FIRST];
         String description = processed[ARGUMENT_SECOND];
-        String deadline = processed[ARGUMENT_THIRD];
-        String startDate = processed[ARGUMENT_FOURTH];
-        String lastUpdated = processed[ARGUMENT_FIFTH];
-        long timeTaken = Long.parseLong(processed[ARGUMENT_SIXTH]);
+        String startDate = processed[ARGUMENT_THIRD];
+        String lastUpdated = processed[ARGUMENT_FOURTH];
+        long timeTaken = Long.parseLong(processed[ARGUMENT_FIFTH]);
 
         if (startDate.equals("null")) {
             start = null;
@@ -261,7 +259,7 @@ public class Storage {
         }
         Date updated = readFormat.parse(lastUpdated);
 
-        return new Tracker(moduleCode, description, deadline, start, updated, timeTaken);
+        return new Tracker(moduleCode, description, start, updated, timeTaken);
     }
 
     /**

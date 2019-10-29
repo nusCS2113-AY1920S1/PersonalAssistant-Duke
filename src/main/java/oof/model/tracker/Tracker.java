@@ -6,39 +6,43 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Tracker extends Assignment {
+public class Tracker {
 
     private static final String DELIMITER = ",";
+    private String moduleCode;
+    private String description;
     private Date startDate;
     private Date lastUpdated;
     private long timeTaken;
+    private static final int TO_MINUTES = 60000;
 
     /**
      * Constructor for Tracker.
      *
+     * @param moduleCode    module code of Assignment.
+     * @param description   description of Assignment.
      * @param startDate     start Date of Tracker.
      * @param lastUpdated   last updated Date of Tracker.
      * @param timeTaken     total time spent on Assignment.
      */
-    public Tracker(String moduleCode, String description, String deadlineDateTime,
-                   Date startDate, Date lastUpdated, long timeTaken) {
-        super(moduleCode, description, deadlineDateTime);
+    public Tracker(String moduleCode, String description, Date startDate, Date lastUpdated, long timeTaken) {
+        this.moduleCode = moduleCode;
+        this.description = description;
         this.startDate = startDate;
         this.lastUpdated = lastUpdated;
         this.timeTaken = timeTaken;
     }
 
     /**
-     * Get time difference between start and end Dates of a tracked Assignment object.
+     * Get time difference between start date of a tracked Assignment object and current datetime.
      * @param start     start time in Date format.
      * @return          number of minutes between start and end time of a tracked Assignment.
      */
     public String getDateDiff(Date start) {
-        DecimalFormat timeFormatter = new DecimalFormat("###");
         Date end = new Date();
         long diff = end.getTime() - start.getTime();
-        int diffMin = (int) (diff / (60 * 60 * 1000));
-        return timeFormatter.format(diffMin);
+        int diffMin = (int) (diff / TO_MINUTES);
+        return Integer.toString(diffMin);
     }
 
     /**
@@ -53,7 +57,6 @@ public class Tracker extends Assignment {
 
         String moduleCode = getModuleCode();
         String description = getDescription();
-        String deadline = getDeadlineDateTime();
         if (start != null) {
             startDate = writeFormat.format(start);
         } else {
@@ -62,7 +65,7 @@ public class Tracker extends Assignment {
         String lastUpdated = writeFormat.format(updated);
         String timeTaken = Long.toString(getTimeTaken());
 
-        return moduleCode + DELIMITER + description + DELIMITER + deadline + DELIMITER + startDate + DELIMITER
+        return moduleCode + DELIMITER + description + DELIMITER + startDate + DELIMITER
                 + lastUpdated + DELIMITER + timeTaken;
     }
 
@@ -74,6 +77,22 @@ public class Tracker extends Assignment {
         setLastUpdated(lastUpdated);
         setTimeTaken(totalTime);
         setStartDate(null);
+    }
+
+    public String getModuleCode() {
+        return moduleCode;
+    }
+
+    public void setModuleCode(String moduleCode) {
+        this.moduleCode = moduleCode;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getStartDate() {

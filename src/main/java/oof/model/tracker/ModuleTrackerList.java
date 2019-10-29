@@ -25,7 +25,7 @@ public class ModuleTrackerList {
     /**
      * Compare time taken property between two ModuleTracker objects.
      */
-    public static Comparator<ModuleTracker> timeTaken = new Comparator<>() {
+    public static Comparator<ModuleTracker> timeTimeComparator = new Comparator<>() {
 
         /**
          * Compare time taken property between two ModuleTracker objects.
@@ -34,8 +34,8 @@ public class ModuleTrackerList {
          * @return      difference between time taken property between two ModuleTracker objects.
          */
         public int compare(ModuleTracker mt1, ModuleTracker mt2) {
-            int timeTaken1 = (int) mt1.getTimeTaken();
-            int timeTaken2 = (int) mt2.getTimeTaken();
+            int timeTaken1 = (int) mt1.getTotalTimeTaken();
+            int timeTaken2 = (int) mt2.getTotalTimeTaken();
             return timeTaken1 - timeTaken2;
         }
     };

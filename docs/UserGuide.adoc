@@ -574,9 +574,9 @@ OOF, your Outstanding Organisation Friend, provides you with a simple and effici
 Begin your journey to optimum productivity by starting your Tracker timer!
 Start your tracking on a Module from the current time.
 
-Format: `start ASSIGNMENT_DESCRIPTION`
+Format: `start MODULE_CODE ASSIGNMENT_DESCRIPTION`
 
-Example: `start user guide`
+Example: `start cs2113t user guide`
 
 image::Demo_StartTracker.png[]
 
@@ -584,9 +584,9 @@ image::Demo_StartTracker.png[]
 Want to take a break or get started with another Module?
 Pause your tracking on a Module at the current time.
 
-Format: `pause ASSIGNMENT_DESCRIPTION`
+Format: `pause MODULE_CODE ASSIGNMENT_DESCRIPTION`
 
-Example: `pause user guide`
+Example: `pause cs2113t user guide`
 
 image::Demo_PauseTracker.png[]
 
@@ -594,9 +594,9 @@ image::Demo_PauseTracker.png[]
 Completed with a Module that you're currently working on?
 Stop your tracking on a Module at the current time with `stop`.
 
-Format: `stop ASSIGNMENT_DESCRIPTION`
+Format: `stop MODULE_CODE ASSIGNMENT_DESCRIPTION`
 
-Example: `stop user guide`
+Example: `stop cs2113t user guide`
 
 image::Demo_StopTracker.png[]
 
@@ -688,14 +688,14 @@ e.g. `calendar 10 2019`
 
 * *Reminder*: `reminder`
 
-* *Start Task Tracker*: `start ASSIGNMENT_DESCRIPTION`
-e.g. `start user guide`
+* *Start Task Tracker*: `start MODULE_CODE ASSIGNMENT_DESCRIPTION`
+e.g. `start cs2113t user guide`
 
-* *Pause Task Tracker*: `pause ASSIGNMENT_DESCRIPTION`
-e.g. `pause user guide`
+* *Pause Task Tracker*: `pause MODULE_CODE ASSIGNMENT_DESCRIPTION`
+e.g. `pause cs2113t user guide`
 
-* *Stop Task Tracker*: `stop ASSIGNMENT_DESCRIPTION`
-e.g. `stop user guide`
+* *Stop Task Tracker*: `stop MODULE_CODE ASSIGNMENT_DESCRIPTION`
+e.g. `stop cs2113t user guide`
 
 * *ViewTracker*: `viewTracker`
 

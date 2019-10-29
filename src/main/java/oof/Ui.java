@@ -800,8 +800,9 @@ public class Ui {
      */
     public void printStartAtCurrent(Tracker tracker) {
         printLine();
+        String assigmentModule = tracker.getModuleCode();
         String assignmentName = tracker.getDescription();
-        System.out.println("Begin Assignment: " + assignmentName);
+        System.out.println("Begin Assignment: " + assigmentModule + " " + assignmentName);
         System.out.println("It is currently " + tracker.getLastUpdated());
         System.out.println("Current total time spent on " + assignmentName + ": "
                 + tracker.getTimeTaken() + " minutes");
@@ -814,8 +815,9 @@ public class Ui {
      */
     public void printEndAtCurrent(Tracker tracker) {
         printLine();
+        String assigmentModule = tracker.getModuleCode();
         String assignmentName = tracker.getDescription();
-        System.out.println("Ending Assignment: " + assignmentName);
+        System.out.println("Ending Assignment: " + assigmentModule + " " + assignmentName);
         System.out.println("It is currently " + tracker.getLastUpdated());
         System.out.println("Total time spent on " + assignmentName + ": " + tracker.getTimeTaken() + " minutes");
     }
@@ -826,8 +828,9 @@ public class Ui {
      */
     public void printPauseAtCurrent(Tracker tracker) {
         printLine();
+        String assigmentModule = tracker.getModuleCode();
         String assignmentName = tracker.getDescription();
-        System.out.println("Pausing Assignment: " + assignmentName);
+        System.out.println("Pausing Assignment: " + assigmentModule + " " + assignmentName);
         System.out.println("It is currently " + tracker.getLastUpdated());
         System.out.println("Total time spent on " + assignmentName + ": " + tracker.getTimeTaken() + " minutes");
     }
@@ -1061,7 +1064,7 @@ public class Ui {
         printLine();
         for (int i = 0; i < moduleTrackerList.getSize(); i++) {
             ModuleTracker moduleTracker = moduleTrackerList.getModuleTracker(i);
-            int timeTaken = (int) moduleTracker.getTimeTaken();
+            int timeTaken = (int) moduleTracker.getTotalTimeTaken();
             int segmentedTimeTaken = timeTaken / TEN_MINUTES_BLOCK;
             for (int j = 0; j < segmentedTimeTaken; j++) {
                 if (j == FIRST_VAR) {

@@ -3,16 +3,16 @@ package oof.model.tracker;
 public class ModuleTracker {
 
     private String moduleCode;
-    private long timeTaken;
+    private long totalTimeTaken;
 
     /**
      * Constructor for ModuleTrackerList.
      * @param moduleCode    String containing module code that identifies module.
-     * @param timeTaken     long of time spent on a certain module.
+     * @param totalTimeTaken     long of time spent on a certain module.
      */
-    public ModuleTracker(String moduleCode, long timeTaken) {
+    public ModuleTracker(String moduleCode, long totalTimeTaken) {
         this.moduleCode = moduleCode;
-        this.timeTaken = timeTaken;
+        this.totalTimeTaken = totalTimeTaken;
     }
 
     public String getModuleCode() {
@@ -23,11 +23,11 @@ public class ModuleTracker {
         this.moduleCode = moduleCode;
     }
 
-    public long getTimeTaken() {
-        return timeTaken;
+    public long getTotalTimeTaken() {
+        return totalTimeTaken;
     }
 
-    public void setTimeTaken(long timeTaken) {
-        this.timeTaken = timeTaken;
+    public void setTotalTimeTaken(long totalTimeTaken) {
+        this.totalTimeTaken = totalTimeTaken;
     }
 }

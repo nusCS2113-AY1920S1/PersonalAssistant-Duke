@@ -1,7 +1,6 @@
 package oof.model.tracker;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TrackerList {
@@ -28,11 +27,12 @@ public class TrackerList {
      *
      * @return Tracker object that matches user given description.
      */
-    public Tracker findTrackerByDesc(String description) {
+    public Tracker findTrackerByDesc(String description, String moduleCode) {
         for (int i = 0; i < getSize(); i++) {
             Tracker tracker = getTracker(i);
             String currentDesc = tracker.getDescription();
-            if (description.equals(currentDesc)) {
+            String currentModuleCode = tracker.getModuleCode();
+            if (description.equals(currentDesc) && moduleCode.equals(currentModuleCode)) {
                 return tracker;
             }
         }

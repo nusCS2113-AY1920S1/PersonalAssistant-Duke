@@ -432,7 +432,7 @@ of the `FreeCommand` class.
 === Time Tracker feature
 ==== Implementation
 The `ViewTrackerCommand` class extends the `Command` class by providing functions to display a histogram
-visualising the amount of time spent on each `Module` filtered by `Day`, `Week` and `All`.
+visualising the amount of time spent on each `Module`.
 
 Also, it contains the following feature:
 
@@ -442,63 +442,57 @@ Also, it contains the following feature:
 Provided below is an example scenario of use and how `ViewTrackerCommand` class behaves and interacts with other relevant classes.
 
 *Step 1:* +
-The user enters the `start user guide`.
-The `parse` method in `CommandParser` class is called to parse the user input to obtain the String `user guide` as the `description` that the user wants to start the Time Tracker timer for.
-
-[WARNING]
-`OofException` will be thrown is the user enters an invalid command.
-
-*Step 2:* +
+The user enters the `viewTracker`.
 The `execute` method of `ViewTrackerCommand` class will read and save all `TrackerList` objects saved in persistent storage, `tracker.csv` through the `Storage.readTrackerList()` method in the `Storage` class.
 
-* *Step 2a:* +
+* *Step 1a:* +
 The `readTrackerList` method in `Storage` class will retrieve and read `tracker.csv` from persisitent storage by using `FileReader` on `File`.
 
-* *Step 2b:* +
+* *Step 1b:* +
 The `BufferedReader` will then be performed upon `FileReader` to allow `tracker.csv` to be read line-by-line, calling the `processLine` method each time.
 
-* *Step 2c:* +
+* *Step 1c:* +
 The `processLine` method of `Storage` class will split each line into its respective fields through the use of a `,` delimiter before parsing and assign them into the correct fields.
 A new `Tracker` object will be created with the processed data and returned to the `readTrackerList` method.
 
-* *Step 2d:* +
+* *Step 1d:* +
 The `Tracker` object returned to `readTrackerList` will be added into the `TrackerList` object and upon completing the entire `tracker.txt` file, the final `TrackerList` object will be returned to the `execute` method of `ViewTrackerCommand`.
 
 [WARNING]
 `OofException` will be thrown is `tracker.csv` cannot be processed.
 
-*Step 3:* +
+*Step 2:* +
 The `execute` method of `ViewTrackerCommand` class will then call upon the `timeSpentByModule` method of `ViewTrackerCommand`.
 This is where each `Tracker` object in the `TrackerList` object will be processed by their `ModuleCode` property.
 
-* *Step 3a:* +
+* *Step 2a:* +
 A `ModuleTrackerList` object is created.
 The `ModuleCode` of `Tracker` object is retrieved and the `ModuleTrackerList` object is searched for a `ModuleCode` property of `ModuleTracker` object that matches that of the `ModuleCode` in the `Tracker` object.
 
-* *Step 3b:* +
+* *Step 2b:* +
 If a match is found, the `TimeTaken` property of the `Tracker` object will be added to the `TimeTaken` property of the `ModuleTracker` object, updating the `ModuleTrackerList` object before the search is ended.
 This will continue until all `Tracker` objects of the `TrackerList` object are processed.
 
-* *Step 3c:* +
+* *Step 2c:* +
 The `ModuleTrackerList` object will then be returned to the `execute` method of `ViewTrackerCommand`.
 
 [WARNING]
 `OofException` will be thrown if the `ModuleTrackerList` is empty.
 
-*Step 4:* +
+*Step 3:* +
 The `execute` method of `ViewTrackerCommand` class will then call upon the `sortAscending` method of `ViewTrackerCommand` class.
 This is where the `ModuleTrackerList` will be sorted in ascending order according to their `TimeTaken` property.
 
-* *Step 4a:* +
+* *Step 3a:* +
 An ArrayList of `ModuleTracker` objects is created and updated with the `ModuleTracker` objects of the `ModuleTrackerList`.
 
-* *Step 4b:* +
+* *Step 3b:* +
 The ArrayList is then processed and sorted by their `TimeTaken` property through the `Collections.sort` method.
 
-* *Step 4c:* +
+* *Step 3c:* +
 A new `ModuleTrackerList` object is created and updated with the `ModuleTracker` elements of the sorted ArrayList and returned to the `execute` method of `ViewTrackerCommand`.
 
-*Step 5:* +
+*Step 4:* +
 The `execute` method of `ViewTrackerCommand` calls `printTrackerDiagram` in the `Ui` class with the new `ModuleTrackerList` as the parameter.
 This is where the tracker diagram will be printed.
 
