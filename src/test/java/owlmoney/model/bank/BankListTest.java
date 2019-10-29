@@ -509,6 +509,7 @@ class BankListTest {
         }
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
+        outContent.reset();
         try {
             testList.bankListDeleteBank("test2", "saving", testUi);
         } catch (BankException errorMessage) {
@@ -536,6 +537,7 @@ class BankListTest {
         }
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
+        outContent.reset();
         try {
             testList.bankListEditSavings("test", "edit", "456", "456", testUi);
         } catch (BankException errorMessage) {
@@ -563,6 +565,7 @@ class BankListTest {
         }
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
+        outContent.reset();
         try {
             testList.bankListEditInvestment("test", "edit", "456", testUi);
         } catch (BankException errorMessage) {
