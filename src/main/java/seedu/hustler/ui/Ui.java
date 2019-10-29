@@ -331,14 +331,19 @@ public class Ui {
         System.out.println("*************************************************************************");
     }
 
+    /**
+     *
+     * @param Achievement
+     */
     public void showAchievementUnlocked(Achievements Achievement) {
-
-        System.out.println("Congratulations, you have unlocked " + Achievement.toString());
-
+        System.out.println("Congratulations, you have unlocked this achievement!" + Achievement.toString());
     }
 
+    /**
+     *
+     * @param achievementList
+     */
     public void showAchievementList(ArrayList<Achievements> achievementList) {
-
         System.out.println("\uD83D\uDD13 ACHIEVEMENTS UNLOCKED \uD83D\uDD13");
         if(!achievementList.isEmpty()) {
             int l = 0;

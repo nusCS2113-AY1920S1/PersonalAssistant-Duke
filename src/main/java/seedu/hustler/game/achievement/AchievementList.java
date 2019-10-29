@@ -1,5 +1,7 @@
 package seedu.hustler.game.achievement;
 
+import seedu.hustler.ui.Ui;
+
 import java.util.ArrayList;
 
 import static seedu.hustler.game.achievement.AddTask.addAchievementLevel;
@@ -65,11 +67,12 @@ public class AchievementList {
      * @return updated version of achievement list.
      */
     public ArrayList<Achievements> updateBusyBee() {
+        Ui ui = new Ui();
         for(int i = 0; i < this.achievementList.size(); i += 1) {
             if (this.achievementList.get(i).getDescription().equals("Busybee") && achievementList.get(i).getAchievementLevel().equals(addAchievementLevel) && achievementList.get(i).checkLock()) {
                 this.achievementList.get(i).setLock(false);
                 this.achievementList.get(i).setPoints(addPoints);
-                System.out.println("You have unlocked this achievement!\n" + this.achievementList.get(i));
+                ui.showAchievementUnlocked(this.achievementList.get(i));
             }
         }
         return achievementList;
@@ -81,11 +84,12 @@ public class AchievementList {
      * @return updated version of achievement list.
      */
     public ArrayList<Achievements> updateCompletionist() {
+        Ui ui = new Ui();
         for(int i = 0; i < achievementList.size(); i += 1) {
             if (achievementList.get(i).getDescription().equals("Completionist") && achievementList.get(i).getAchievementLevel().equals(doneAchievementLevel) && achievementList.get(i).checkLock()) {
                 achievementList.get(i).setLock(false);
                 achievementList.get(i).setPoints(addPoints);
-                System.out.println("You have unlocked this achievement!\n" + achievementList.get(i));
+                ui.showAchievementUnlocked(this.achievementList.get(i));
             }
         }
         return achievementList;
@@ -97,11 +101,12 @@ public class AchievementList {
      * @return updated version of achievement list.
      */
     public ArrayList<Achievements> updateDedicated() {
+        Ui ui = new Ui();
         for(int i = 0; i < achievementList.size(); i += 1) {
             if(achievementList.get(i).getDescription().equals("Dedicated to the art") && achievementList.get(i).getAchievementLevel().equals(loginAchievementLevel) && achievementList.get(i).checkLock()) {
                 achievementList.get(i).setLock(false);
                 achievementList.get(i).setPoints(loginPoints);
-                System.out.println("You have unlocked this achievement!\n" + achievementList.get(i));
+                ui.showAchievementUnlocked(this.achievementList.get(i));
             }
         }
         return achievementList;
@@ -128,9 +133,7 @@ public class AchievementList {
      * Gets achievement list.
      * @return current achievement list.
      */
-    public ArrayList<Achievements> getAchievementList() {
-        return achievementList;
-    }
+    public ArrayList<Achievements> getAchievementList() { return achievementList; }
 
     /**
      * Gets the size of achievement list.
@@ -138,34 +141,6 @@ public class AchievementList {
      */
     public int size() {
         return achievementList.size();
-    }
-
-    /**
-     * Display all achievements from achievement list.
-     */
-    public void list() {
-        System.out.println("\uD83D\uDD13 ACHIEVEMENTS UNLOCKED \uD83D\uDD13");
-        if(!achievementList.isEmpty()) {
-            int l = 0;
-            for(int i = 0; i < achievementList.size(); i ++) {
-                if(!achievementList.get(i).checkLock()) {
-                    l ++;
-                    System.out.print(l + ". ");
-                    System.out.println(achievementList.get(i));
-                }
-            }
-            System.out.println("\uD83D\uDD12 LOCKED ACHIEVEMENTS \uD83D\uDD12");
-            int j = 0;
-            for(int i = 0; i < achievementList.size(); i ++) {
-                if(achievementList.get(i).checkLock()) {
-                    j ++;
-                    System.out.print(j + ". ");
-                    System.out.println(achievementList.get(i));
-                }
-            }
-            System.out.println("Total Points = " + totalPoints + " \uD83D\uDCB0");
-        }
-
     }
 
     /**
