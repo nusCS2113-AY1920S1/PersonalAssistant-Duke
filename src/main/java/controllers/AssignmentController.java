@@ -1,6 +1,6 @@
 package controllers;
 
-import models.data.Project;
+import models.project.Project;
 import models.member.Member;
 import models.task.Task;
 import util.ParserHelper;
@@ -114,8 +114,8 @@ public class AssignmentController {
         }
 
         for (Integer index: repeated) {
-            validMembersToAssign.remove(validMembersToAssign.indexOf(index));
-            validMembersToUnassign.remove(validMembersToUnassign.indexOf(index));
+            validMembersToAssign.remove(index);
+            validMembersToUnassign.remove(index);
         }
     }
 
@@ -136,7 +136,7 @@ public class AssignmentController {
     public void validateTaskIndexes(ArrayList<String> allTaskIndexes) {
         for (String taskIndex : allTaskIndexes) {
             try {
-                Integer taskNumber = Integer.parseInt(taskIndex);
+                int taskNumber = Integer.parseInt(taskIndex);
                 if (isValidTaskIndex(taskNumber)) {
                     validTaskIndexes.add(taskNumber);
                 } else {

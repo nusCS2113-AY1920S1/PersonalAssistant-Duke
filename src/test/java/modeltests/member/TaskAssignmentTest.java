@@ -1,6 +1,6 @@
 package modeltests.member;
 
-import models.data.Project;
+import models.project.Project;
 import models.member.Member;
 import models.task.Task;
 import models.task.TaskState;
