@@ -38,9 +38,6 @@ public class StaticMapUrlRequest extends UrlRequest {
             throw new ApiFailedRequestException();
         }
 
-        if (image != null) {
-            return image;
-        }
-        throw new ApiNullRequestException();
+        return image;
     }
 }

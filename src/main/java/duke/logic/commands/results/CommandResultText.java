@@ -6,8 +6,11 @@ import duke.model.lists.EventList;
 import duke.model.locations.BusStop;
 import duke.model.locations.CustomNode;
 import duke.model.locations.TrainStation;
+import duke.model.locations.Venue;
 import duke.model.transports.Route;
 import duke.model.locations.RouteNode;
+
+import java.util.ArrayList;
 
 /**
  * Defines the result of various commands as a string.
@@ -38,9 +41,11 @@ public class CommandResultText extends CommandResult {
      * Alternative constructor that helps to create text for a list of Routes.
      */
     public CommandResultText(RouteList routes) {
+        int index = 1;
         message = "Here is the information of Routes:\n";
         for (Route route: routes.getRoutes()) {
-            message += route.getDescription() + "\n";
+            message += "(" + index + ") " + route.getName() + "\n" + route.getDescription() + "\n";
+            index++;
         }
     }
 
@@ -78,5 +83,23 @@ public class CommandResultText extends CommandResult {
 
         message +=  node.getAddress() + "\n" + node.getDescription() + "\n"
                 + "(" + node.getType().toString() + ", " + node.getCoordinate() + ")";
+    }
+
+    /**
+     * Alternative constructor that helps to create text for an ArrayList of Venue.
+     *
+     * @param message The message to show at the top.
+     * @param venues The ArrayList of Venue.
+     */
+    public CommandResultText(String message, ArrayList<Venue> venues) {
+        String result = message;
+        for (Venue venue : venues) {
+            if (venue instanceof BusStop) {
+                result += ((BusStop) venue).getBusCode() + " " + venue.getAddress() + "\n";
+            } else {
+                result += venue.getAddress() + "\n";
+            }
+        }
+        this.message = result;
     }
 }

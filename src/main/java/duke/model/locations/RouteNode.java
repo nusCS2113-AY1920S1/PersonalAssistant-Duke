@@ -25,6 +25,15 @@ public abstract class RouteNode extends Venue {
     }
 
     /**
+     * Gets the RouteNode details for display in Route Selector.
+     *
+     * @return The details of the RouteNode.
+     */
+    public String getDisplayInfo() {
+        return getAddress() + "\n" + getDescription() + "\n" + " (" + getLatitude() + ", " + getLongitude() + ")";
+    }
+
+    /**
      * Gets the coordinates of the RouteNode (latitude, longitude).
      *
      * @return The Coordinates.

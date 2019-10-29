@@ -16,18 +16,22 @@ public class LocationCard extends UiPart<StackPane> {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private static final String FXML = "LocationCard.fxml";
 
-    private LocationCard(Venue location) {
+    private LocationCard(Venue location, String id) {
         super(FXML);
-        double offsetY = 600 - ((location.getLatitude() - 1.218) * 600 / (1.486 - 1.218));
-        double offsetX = (location.getLongitude() - 103.622) * 800  / (104.021 - 103.622);
+        double offsetY = 900 - ((location.getLatitude() - 1.218) * 900 / (1.486 - 1.218));
+        double offsetX = (location.getLongitude() - 103.622) * 1200 / (104.021 - 103.622);
         AnchorPane.setLeftAnchor(getRoot(), offsetX);
         AnchorPane.setTopAnchor(getRoot(), offsetY);
         Tooltip tooltip = new Tooltip(location.getAddress());
         Tooltip.install(getRoot(), tooltip);
         logger.log(Level.FINE, "Relative location: " + offsetX + " " + offsetY);
+
+        if ("RouteNodeStart".equals(id) || "RouteNodeEnd".equals(id) || "RouteNodeIntermediate".equals(id)) {
+            getRoot().setId(id);
+        }
     }
 
-    public static StackPane getCard(Venue location) {
-        return new LocationCard(location).getRoot();
+    public static StackPane getCard(Venue location, String id) {
+        return new LocationCard(location, id).getRoot();
     }
 }

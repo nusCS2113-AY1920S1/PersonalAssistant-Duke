@@ -2,6 +2,8 @@ package duke.logic.conversations;
 
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
+import duke.logic.RouteManager;
+import duke.model.lists.RouteList;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -12,7 +14,7 @@ public class RouteNodeEditConversationTest {
 
     @Test
     void testForAddress() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager();
+        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
         conversationManager.converse("routeNodeEdit");
         assertFalse(conversationManager.isFinished());
 
@@ -48,7 +50,7 @@ public class RouteNodeEditConversationTest {
 
     @Test
     void testForDescription() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager();
+        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
         conversationManager.converse("routeNodeEdit");
         assertFalse(conversationManager.isFinished());
 
@@ -84,7 +86,7 @@ public class RouteNodeEditConversationTest {
 
     @Test
     void testForType() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager();
+        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
         conversationManager.converse("routeNodeEdit");
         assertFalse(conversationManager.isFinished());
 
@@ -120,7 +122,7 @@ public class RouteNodeEditConversationTest {
 
     @Test
     void testForLatitude() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager();
+        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
         conversationManager.converse("routeNodeEdit");
         assertFalse(conversationManager.isFinished());
 
@@ -156,7 +158,7 @@ public class RouteNodeEditConversationTest {
 
     @Test
     void testForLongitude() throws DukeException {
-        ConversationManager conversationManager = new ConversationManager();
+        ConversationManager conversationManager = new ConversationManager(new RouteManager(new RouteList()));
         conversationManager.converse("routeNodeEdit");
         assertFalse(conversationManager.isFinished());
 

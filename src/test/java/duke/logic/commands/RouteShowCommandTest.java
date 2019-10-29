@@ -25,28 +25,28 @@ class RouteShowCommandTest {
         routeAddCommand.execute(model);
 
         RouteListCommand routeListCommand1 =
-                (RouteListCommand) Parser.parseComplexCommand("routeShow 1");
+                (RouteListCommand) Parser.parseComplexCommand("routeList 1");
         CommandResultText result = routeListCommand1.execute(model);
 
         assertEquals(expected, result.getMessage());
 
         //negative test for non-existing route
         RouteListCommand routeListCommand2 =
-                (RouteListCommand) Parser.parseComplexCommand("routeShow 2");
+                (RouteListCommand) Parser.parseComplexCommand("routeList 2");
         assertThrows(QueryOutOfBoundsException.class, () -> {
             routeListCommand2.execute(model);
         });
 
         //negative test for index 0
         RouteListCommand routeListCommand3 =
-                (RouteListCommand) Parser.parseComplexCommand("routeShow 0");
+                (RouteListCommand) Parser.parseComplexCommand("routeList 0");
         assertThrows(QueryOutOfBoundsException.class, () -> {
             routeListCommand3.execute(model);
         });
 
         //negative test for negative index
         RouteListCommand routeListCommand4 =
-                (RouteListCommand) Parser.parseComplexCommand("routeShow -1");
+                (RouteListCommand) Parser.parseComplexCommand("routeList -1");
         assertThrows(QueryOutOfBoundsException.class, () -> {
             routeListCommand4.execute(model);
         });

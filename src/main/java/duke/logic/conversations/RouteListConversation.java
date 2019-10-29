@@ -6,7 +6,7 @@ import duke.commons.Messages;
  * Handles the conversation occurring when a RouteList command is entered.
  */
 public class RouteListConversation extends Conversation {
-    private static final String command = "routeShow";
+    private static final String command = "routeList";
     private String index;
 
     /**
