@@ -1,3 +1,5 @@
+package DollaTests;
+
 import dolla.task.Entry;
 import dolla.task.EntryList;
 import dolla.task.Record;

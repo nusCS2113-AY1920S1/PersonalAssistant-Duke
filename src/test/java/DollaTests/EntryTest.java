@@ -1,3 +1,5 @@
+package DollaTests;
+
 import dolla.task.Entry;
 import org.junit.jupiter.api.Test;
 

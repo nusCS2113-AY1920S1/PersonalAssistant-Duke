@@ -1,3 +1,5 @@
+package DollaTests.ParserTests;
+
 import dolla.command.Command;
 import dolla.parser.DollaParser;
 import org.junit.jupiter.api.Test;
@@ -15,7 +17,7 @@ public class DollaParserTest {
     //}
 
     @Test
-    void parseInput_add_success() {
+    void parseInputAddSuccess() {
         inputLine = "add expense 100 Expense Description /on 03/12/2001";
         DollaParser dollaParser = new DollaParser(inputLine);
         //expectedResult = "AddEntryCommand{ type: expense, amount: 100.0, " +
@@ -26,7 +28,7 @@ public class DollaParserTest {
     }
 
     @Test
-    void parseInput_add_invalidInput() {
+    void parseInputAddInvalidInput() {
         inputLine = "add potatoes /on 03/12/2001";
         DollaParser dollaParser = new DollaParser(inputLine);
         expectedResult = "ErrorCommand";
