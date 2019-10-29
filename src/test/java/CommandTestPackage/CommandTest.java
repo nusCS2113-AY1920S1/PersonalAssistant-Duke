@@ -1,4 +1,4 @@
-package duke.src.test.java;
+package CommandTestPackage;
 
 import duke.DukeCore;
 import duke.command.ArgCommand;
