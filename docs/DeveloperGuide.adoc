@@ -28,7 +28,7 @@ By: `Team W17-4`      Since: `Aug 2019`      Licence: `MIT`
 The `oof.jar` file is compiled using the Java version mentioned above. +
 . *IntelliJ* IDE
 [NOTE]
-IntelliJ by default has Gradle and JavaFx plugins installed.
+IntelliJ by default have Gradle and JavaFx plugins installed.
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 === Setting up the project in your computer
@@ -42,7 +42,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `Open as Project`
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
-This will generate all resources required by the application and tests.
+This will generate all the resources required by the application and tests.
 
 === Verifying the setup
 
@@ -98,7 +98,7 @@ The `parse` method then prompts the user to input the `frequency` of recurrence.
 
 The choices are as follows: +
 1. DAILY +
-2. WEEKLY + 
+2. WEEKLY +
 3. MONTHLY +
 4. YEARLY +
 
@@ -111,7 +111,7 @@ The user chooses `1`. The `parse` method then parses the command to obtain an in
 A new instance of `RecurringCommand` class is returned to the main `Oof` program with the parameters `1, 2, 1` as described above. The `execute` method of `RecurringCommand` class is then called.
 
 *Step 4.* +
-The `setRecurringTask` method in `RecurringCommand` class is then called by `execute` method. This method does three main things: 
+The `setRecurringTask` method in `RecurringCommand` class is then called by `execute` method. This method does three main things:
 
 * Calls `getTask` method from `TaskList` class to get the user selected `Task`.
 * Updates the `Task` to a `recurring Task` by: +
@@ -133,37 +133,37 @@ image::RecurringCommandActivityDiagram.png[RecurringCommandActivityDiagram]
 
 * *Selecting currently available `Task` to be set as a `recurring Task`*
 ** Rationale: +
-It allows the `RecurringCommand` class to capitalise on the existing features of adding `Deadlines` and `Events. 
+It allows the `RecurringCommand` class to capitalise on the existing features of adding `Deadlines` and `Events.
 ** Alternatives considered: +
-Allow users to add new `recurring Task` instead of selecting from existing `Tasks`. Allowing users to add new recurring tasks strongly overlaps with existing features and this increase coupling in the `OOF` program.
+Allow users to add new `recurring Task` instead of selecting from existing `Tasks`. Allowing users to add new recurring tasks strongly overlaps with existing features and this increased coupling in the `OOF` program.
 * *Fixing lower bound and upper bound of the `Number of recurrences` to be `1` and `10` respectively*
-** Rationale: + 
+** Rationale: +
 It ensures a controlled number of recurrences are added to the `TaskList` instead of being a variable amount as a user may unintentionally break the `TaskList`.
-** Alternatives considered: + 
+** Alternatives considered: +
 Insert an upcoming recurring task when the `recurring Task` is nearing. There may be too many `Tasks` to keep track and add when `OOF` starts up especially in the case when the number of `Tasks` in the `TaskList` gets potentially large. This decreases the scalability of the project in the long run.
 * *`Frequency` fixed to four different default frequencies*
-** Rationale: + 
+** Rationale: +
 It requires significantly less effort to choose from a default list of four options than to manually type in customised time ranges.
 ** Alternatives considered: +
-Users can enter a customised `Frequency` for the `recurring Task`. It may be a viable option to allow users to set such parameters. However, since the `OOF` program is solely a Command Line Interface program, it may not be user friendly for users to enter so many details just to set a customised `Frequency` for the `recurring Task`.
+Users can enter a customised `Frequency` for the `recurring Task`. It may be a viable option to allow users to set such parameters. However, since the `OOF` program is solely a Command Line Interface program, it may not be user-friendly for users to enter so many details just to set a customised `Frequency` for the `recurring Task`.
 
 === Help feature
 ==== Implementation
-The `HelpCommand` class extends `Command` class by providing functions to display a manual with the list of `Command` available and how they may be used in the main program `OOF`.
+The `HelpCommand` class extends the `Command` class by providing functions to display a manual with the list of `Command` available and how they may be used in the main program `OOF`.
 
 [NOTE]
 The list of `Command` and their instructions are stored externally in persistent storage in `manual.txt`.
 
-In addition, it contains the following feature:
+Also, it contains the following feature:
 
 * User may request for `Help` with a specific command.
 
 All `Help` features are implemented in the `parse` method of `CommandParser` class that parses user input.
 
-Provided below is an example scenario of use and how `HelpCommand` class behaves and interact with other relevant classes.
+Provided below is an example scenario of use and how `HelpCommand` class behaves and interacts with other relevant classes.
 
 *Step 1:* +
-The user enters `help Deadline`. The `parse` method in `CommandParser` class is called to parse the user input to obtain the String `Deadline` as the `keyword` that the user requires `Help` for.
+The user enters the `help Deadline`. The `parse` method in `CommandParser` class is called to parse the user input to obtain the String `Deadline` as the `keyword` that the user requires `Help` for.
 
 [WARNING]
 `OofException` will be thrown is the user enters an invalid command.
@@ -235,7 +235,7 @@ The command can be run in the `OOF` program without a specific `date` e.g. `view
 
 Features elaborated:
 
-* The output of the `ViewWeekCommand` is ANSI colour enabled.This distinguishes the different days of the week in the output.
+* The output of the `ViewWeekCommand` is ANSI colour enabled. This distinguishes the different days of the week in the output.
 
 [WARNING]
 As the output is ANSI colour enabled, there is a need to enable ANSI colour support on Windows machines.
@@ -275,22 +275,22 @@ The user types in `viewweek`. The `parse` method in the `CommandParser` class re
 Since no date is passed by the user, the constructor for `ViewWeekCommand` class retrieves the current date using the `calendar.get()` methods. The `execute` method in `ViewWeekCommand` class is then called by the `Oof.run()` method in the main class `Oof`.
 
 *Step 3.* +
-In the `execute` method, the first day of the week is retrieved using the `getStartDate()` method in  the current class for indexing purposes. Tasks are to be sorted into the data structure of `ArrayList<ArrayList<String[]>>` called `calendarTasks`. The size of `calendarTasks` is `7` which represents each day in the current week. Each index in `calendarTasks` is an `arrayList`of `string[]` which represents the tasks in that respective day of the week in the form of `{TIME, DESCRIPTION}`.
+In the `execute` method, the first day of the week is retrieved using the `getStartDate()` method in the current class for indexing purposes. Tasks are to be sorted into the data structure of `ArrayList<ArrayList<String[]>>` called `calendarTasks`. The size of `calendarTasks` is `7` which represents each day in the current week. Each index in `calendarTasks` is an `ArrayList`of `string[]` which represents the tasks in that respective day of the week in the form of `{TIME, DESCRIPTION}`.
 
 *Step 4.* +
 The `execute` method iterates through the current list of tasks and parses the `date`, `time` and `description` of each task. The `dateMatches()` method is then called to verify if the task falls in the same week as the current week. If the current task falls in the current week, the `date` of the task is compared with the first day of the week to obtain an `index` to slot the task into calendarTasks.
 
 *Step 5.* +
-The task is then added to calendarTask using the `addEntry()` method. After iterating through the current list of tasks, the `printViewWeek() method` in `Ui` class is then called to print the tasks for the current week.
+The task is then added to calendarTask using the `addEntry()` method. After iterating through the current list of tasks, the `printViewWeek() method` in the `Ui` class is then called to print the tasks for the current week.
 
 *Step 6.* +
-In the `printViewWeek()` method, 3 main methods are being called to print the final output. Firstly, `printViewWeekHeader()` method is called to print the header of the output which consists of the top border and the days of the current week.
+In the `printViewWeek()` method, 3 main methods are being called to print the final output. Firstly, the `printViewWeekHeader()` method is called to print the header of the output which consists of the top border and the days of the current week.
 
 *Step 7.* +
 Secondly, `printViewWeekBody()` method is called to print the dates of the current week in the next line of output.
 
 *Step 8.* +
-Lastly, `printViewWeekDetails()` method is called to print relevant empty lines, tasks and the bottom border of the final output.
+Lastly, the `printViewWeekDetails()` method is called to print relevant empty lines, tasks and the bottom border of the final output.
 
 The following sequence diagram summarises what happens when a user executes a new command:
 
@@ -299,7 +299,7 @@ The following sequence diagram summarises what happens when a user executes a ne
 image::ViewWeekSequenceDiagram.png[ViewWeekSequenceDiagram, width="890"]
 
 [NOTE]
-The lifeline of the User is a bar due to limitations in the software used to draw the diagram. Full details of the entire program are omitted to prevent over-cluttering of the diagram.
+The lifeline of the User is a bar due to limitations in the software used to draw the diagram. Full details of the entire program are omitted to prevent the over-cluttering of the diagram.
 
 ==== Design Considerations
 
@@ -310,9 +310,9 @@ Each task has a different description length and timing. Thus, it may be difficu
 Truncating the description of tasks so that no resizing nor wrapping is needed. A lot of information may be lost in this process and the `ViewWeekCommand` may not be very useful to the user in this case.
 * *Coloured output instead of plain output*
 ** Rationale: +
-It clearly demarcates the header and borders of the output and highlights the dates shown in the `ViewWeekCommand` output. Without the coloured scheme, users still need to scan through the headers to realise the useful task information is located below it.
+It demarcates the header and borders of the output and highlights the dates shown in the `ViewWeekCommand` output. Without the coloured scheme, users still need to scan through the headers to realise the useful task information is located below it.
 ** Alternatives considered: +
-The tasks in each day can be classified into visual blocks to aid the users into visualising the timeline in each day. In addition to that, the tasks in each day has already been chronologically sorted in the `ViewWeekCommand` class. This alternative can be an extension to be used in conjunction with `Find free time slots` in future milestones.
+The tasks each day can be classified into visual blocks to aid the users into visualising the timeline each day. In addition to that, the tasks each day has already been chronologically sorted in the `ViewWeekCommand` class. This alternative can be an extension to be used in conjunction with `Find free time slots` in future milestones.
 
 === View calendar for a month feature
 
@@ -324,17 +324,17 @@ image::calendar.png[calendar]
 The `CalendarCommand` class extends `Command` by providing methods to display tasks for a particular month.
 
 [NOTE]
-The command can be executed without the `month` and `year` argument e.g. `calendar` instead of `calendar 10 2019`. In this case, the `calendar` command prints the calendar and task for the current month and year. The same applies if the month and year entered by the user is invalid.
+The command can be executed without the `month` and `year` argument e.g. `calendar` instead of `calendar 10 2019`. In this case, the `calendar` command prints the calendar and task for the current month and year. The same applies if the month and year entered by the user are invalid.
 
-The following is an example execution scenario and demonstrate how the `CalendarCommand` class behaves and interact with other relevant classes.
+The following is an example execution scenario and demonstrates how the `CalendarCommand` class behaves and interacts with other relevant classes.
 
 *Step 1* +
-The user enters the command `calendar 10 2019`. The `parse` method in the `CommandParser` class is called to parse the command to obtain an array containing `10` and `2019` as it elements as arguments for the `CalendarCommand` class returned by the `CommandParser` class.
+The user enters the command `calendar 10 2019`. The `parse` method in the `CommandParser` class is called to parse the command to obtain an array containing `10` and `2019` as its elements as arguments for the `CalendarCommand` class returned by the `CommandParser` class.
 
 *Step 2* +
 The constructor for the `CalendarCommand` class will parse and validate the arguments, `10` and `2019`, in the argument array.
 [NOTE]
-An `IndexOutOfBoundsException` will be thrown if less than 2 arguments are provided, a `NumberFormatException` will be thrown if argument provided is not an integer while an `OofException` will be thrown if `month` argument is not within `1` and `12`. In these cases, the program will retrieve the current `month` and `year` from the system.
+An `IndexOutOfBoundsException` will be thrown if less than 2 arguments are provided, a `NumberFormatException` will be thrown if the argument provided is not an integer while an `OofException` will be thrown if `month` argument is not within `1` and `12`. In these cases, the program will retrieve the current `month` and `year` from the system.
 
 *Step 3* +
 The `execute` method in the `CalendarCommand` class is then called by the `executeCommand()` method in the `Oof` class. This method does the following:
@@ -351,7 +351,7 @@ Since `Todo` objects do not have a `time` attribute, they are always sorted to t
 
 * `printCalendarLabel` prints the `month` and `year` being queried.
 * `printCalendarHeader` prints the header of the calendar which consists of the top border and the days of a week.
-* `printCalendarBody` prints the each day of the week and corresponding tasks belonging to each day.
+* `printCalendarBody` prints each day of the week and corresponding tasks belonging to each day.
 
 The following sequence diagram summarises what happens when a user executes a `CalendarCommand`:
 
@@ -361,9 +361,9 @@ image::CalendarSequenceDiagram.png[CalendarSequenceDiagram, width="890"]
 
 ==== Design Considerations
 
-* Extending row size instead of limiting number of tasks displayed
+* Extending row size instead of limiting the number of tasks displayed
 ** Rationale: +
-Limiting number of tasks displayed might misrepresent the number of `Task` a person have for that day.
+Limiting the number of tasks displayed might misrepresent the number of `Task` a person has for that day.
 ** Alternatives considered: +
 Implementing a GUI which includes a scroll pane for each day such that calendar size can be fixed.
 * Truncation of task name instead of extending column size
@@ -376,7 +376,7 @@ Wrapping of task name which will allow the display of the full task name. Not fe
 
 ==== Implementation
 
-The `FreeCommand` class extends `Command` by providing methods to search for free time slots by determining if `Event` times stored in the persistent `TaskList` of the main program `OOF` clashes with a default time slot of 07:00 to 00:00 in the user specified date.
+The `FreeCommand` class extends `Command` by providing methods to search for free time slots by determining if `Event` times stored in the persistent `TaskList` of the main program `OOF` clashes with a default time slot of 07:00 to 00:00 in the user-specified date.
 
 [NOTE]
 `TaskList` is stored internally as an `ArrayList` in the Oof Program as well as externally in persistent storage in `output.txt`.
@@ -386,7 +386,7 @@ All features are implemented in the parse method of the CommandParser class that
 Given below is an example usage scenario and how the `FreeCommand` class behaves at each step.
 
 *Step 1.* +
-The user enters `free 30-10-2019`. The `parse` method in the `CommandParser` class is called to parse the input to obtain `30-10-2019` as the date to search for free time slots in.
+The user enters `free 30-10-2019`. The `parse` method in the `CommandParser` class is called to parse the input to obtain `30-10-2019` as the date to search for free time slots.
 
 [WARNING]
 `OofException` will be thrown if the user enters an invalid command.
@@ -397,13 +397,13 @@ The `execute` method in `FreeCommand` class is then called by the `Oof.run()` me
 *Step 3.* +
 The `findFreeTime` method in `FreeCommand` class is then called by the `execute` method. This method does the following:
 
-* Iterates through the the current list of `Task` from the `TaskList` class and checks if an `Event` lies within the date given.
-* All 'Event' corresponding to the date given will be addded to an `ArrayList` corresponding to `eventsOnSameDay`, `eventStartTimes` and `eventEndTimes`.
-* Calls `sort` method in `Collections` class to sort all `Event` start and end times in ascending order.
+* Iterates through the current list of `Task` from the `TaskList` class and checks if an `Event` lies within the date given.
+* All 'Event' corresponding to the date given will be added to an `ArrayList` corresponding to `eventsOnSameDay`, `eventStartTimes` and `eventEndTimes`.
+* Calls `sort` method in the `Collections` class to sort all `Event` start and end times in ascending order.
 * Checks if an `Event` coincides with a time slot.
 * Prints the time slots with the relevant details by:
 ** Calling `printEventDescription` method in `Ui` class if `Event` coincides with the time slot
-** Calling `printFreeSlot` method in `Ui` class if `Event` does not coincide with a time slot.
+** Calling `printFreeSlot` method in the `Ui` class if `Event` does not coincide with a time slot.
 
 The following activity diagram summarises what happens when a user executes a new command:
 
@@ -415,12 +415,12 @@ image::FreeCommandActivityDiagram.png[FreeCommandActivityDiagram]
 
 * *Selecting a single date to search free time slots in.*
 ** Rationale: +
-Allows the user to view which time slots they have free time in for a specific day so that they can quickly schedule
+It allows the user to view which time slots they have free time in for a specific day so that they can quickly schedule
 team meetings.
 ** Alternatives considered: +
-Allow users to specify an end date in which they want search for free time slots up to instead of just a single date.
+Allow users to specify an end date in which they want to search for free time slots up to instead of just a single date.
 Allowing users to do so will result in displaying unwanted time slots such as during hours where users are
-resting which would lead to redundant display of free time slots.
+resting which would lead to a redundant display of free time slots.
 
 * *Displaying free time slots in hourly blocks.*
 ** Rationale: +
@@ -431,18 +431,18 @@ of the `FreeCommand` class.
 
 === Time Tracker feature
 ==== Implementation
-The `ViewTrackerCommand` class extends `Command` class by providing functions to display a histogram
+The `ViewTrackerCommand` class extends the `Command` class by providing functions to display a histogram
 visualising the amount of time spent on each `Module` filtered by `Day`, `Week` and `All`.
 
-In addition, it contains the following feature:
+Also, it contains the following feature:
 
 * User may `ViewTracker` by `Day` with a specific command.
 * User may `ViewTracker` by `Week` with a specific command.
 
-Provided below is an example scenario of use and how `ViewTrackerCommand` class behaves and interact with other relevant classes.
+Provided below is an example scenario of use and how `ViewTrackerCommand` class behaves and interacts with other relevant classes.
 
 *Step 1:* +
-The user enters `start user guide`.
+The user enters the `start user guide`.
 The `parse` method in `CommandParser` class is called to parse the user input to obtain the String `user guide` as the `description` that the user wants to start the Time Tracker timer for.
 
 [WARNING]
@@ -483,7 +483,7 @@ This will continue until all `Tracker` objects of the `TrackerList` object are p
 The `ModuleTrackerList` object will then be returned to the `execute` method of `ViewTrackerCommand`.
 
 [WARNING]
-`OofException` will be thrown is the `ModuleTrackerList` is empty.
+`OofException` will be thrown if the `ModuleTrackerList` is empty.
 
 *Step 4:* +
 The `execute` method of `ViewTrackerCommand` class will then call upon the `sortAscending` method of `ViewTrackerCommand` class.
@@ -512,13 +512,13 @@ image::viewTrackerCommandActivityDiagram.png[]
 With scalability in mind, the use of persistent storage will grant our users access to previous `Tracker` entries that they have made and allow our tracker diagram to be generated over a more extensive range of entries made before the current run of *OOF*.
 The use of `.csv` format for persistent storage and delimiting each respective field by `,`.
 As some data fields can contain multiple whitespaces and tabs, the use of a whitespace delimiter may affect the processing algorithm negatively.
-The use of a comma is also less likely in module codes, task descriptions and dates.
+The use of a comma is also less likely in module codes, task descriptions, and dates.
 
 ** Alternatives Considered: +
-The use of `.txt` and delimiter by `\t` has been considered.
+The use of `.txt` and delimited by `\t` has been considered.
 However, the use of a tab may interfere with the processing algorithm should the user input contains four consecutive whitespaces -- which is processed as an equivalent to `\t`.
 
-* *Implementating of both `Tracker` and `TrackerList` as well as ModuleTracker` and `ModuleTrackerList` classes*
+* *Implementation of both `Tracker` and `TrackerList` as well as ModuleTracker` and `ModuleTrackerList` classes*
 ** Rationale: +
 With future expansions in mind, this will allow two different forms of categorisation throughout the `Tracker` feature.
 This will ultimately facilitate the expansion the `ViewTrackerComamnd` feature to showcase a histogram sharing total time spent sorted either by
@@ -532,7 +532,7 @@ and allow the user to view a histogram of the amount of time spent on each Assig
 * *Splitting the `timeTaken` property in `ModuleTrackerList` into blocks of ten minutes in the histogram*
 ** Rationale: +
 As more Assignments get completed over time, the `timeTaken` property in `ModuleTracker` objects will increase exponentially.
-With the estimated amount of ten work hours weekly on each module, this may result in hundreds of minutes spent on `Assignment` for each `ModuleCode`.
+With the estimated ten work hours weekly on each module, this may result in hundreds of minutes spent on `Assignment` for each `ModuleCode`.
 By splitting the `timeTaken` property in `ModuleTrackerList` into blocks of ten minutes, the number of `#` printed will reduce drastically and allow a more compact diagram to be printed without compromising its accuracy beyond tolerance.
 
 ** Alternatives Considered: +
@@ -550,15 +550,15 @@ as it will be printing one `#` to represent one minute instead.
 == Dev Ops
 
 [appendix]
-== Product Scope 
+== Product Scope
 
-*Target User Profile*: 
+*Target User Profile*:
 
-* Has a need to manage multiple tasks at once 
-* Prefer desktop Command-Line-Interface (CLI) over other types 
-* Able to type on the keyboard really fast 
-* Prefers typing over mouse input 
-* Proficient in using CLI applications 
+* Needs to manage multiple tasks at once
+* Prefer desktop Command-Line-Interface (CLI) over other types
+* Able to type on the keyboard fast
+* Prefers typing over mouse input
+* Proficient in using CLI applications
 
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
@@ -574,33 +574,33 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |===
 |*S/N*|*Use Case No*|*Priority Level*|*As a ...*|*I can ...*|*So that I can ...*
 |01|01|* * *|University Student|Add a task|Won’t forget the tasks I have to complete
-|02|02|* * *|University Student|Mark a task as complete|Can keep track of what is left to be completed 
-|03|03|* * *|University Student|View my tasks in a calendar|Can manage my time properly 
-|04|04|* *|University Student|View a summary of tomorrow’s task|Will know what to expect for the next day 
-|05|05|* * *|University Student|Add an event with the relevant dates, start and end times|Can keep track of my upcoming appointments and examinations 
-|06|06|* * *|University Student|Get reminders of deadlines due within 24 hours|Can prioritize those tasks to be completed first 
+|02|02|* * *|University Student|Mark a task as complete|Can keep track of what is left to be completed
+|03|03|* * *|University Student|View my tasks in a calendar|Can manage my time properly
+|04|04|* *|University Student|View a summary of tomorrow’s task|Will know what to expect for the next day
+|05|05|* * *|University Student|Add an event with the relevant dates, start and end times|Can keep track of my upcoming appointments and examinations
+|06|06|* * *|University Student|Get reminders of deadlines due within 24 hours|Can prioritize those tasks to be completed first
 |07|07|* * *|University Student|Sort my tasks|Can see my tasks in chronological order
-|08|08|*|University Student|Find my tasks|Do not need to scroll through the entire calendar to find certain tasks 
-|09|09|* *|Double degree University student|Color code the tasks|Can quickly distinguish different type of tasks 
-|10|10|* *|University Student|View my tasks for the week|Can plan my time for the week 
-|11|11|* * *|Busy University Student|Find free time slots|Will know which dates and times I am free to conduct project meetings 
-|12|12|* * *|University Student|Cancel events|Keep my schedule updated 
-|13|13|* * *|University Student|Postpone the deadline of tasks|Can properly manage my priorities 
-|14|14|* *|University Student who procrastinates|View undone tasks carried forward to the next day in a bright color|Will know what assignments are lagging behind 
-|15|15|* * *|University Student|Add a recurring task|Do not have to do it multiple times 
-|16||*|Impatient University Student|Quickly type in one-liner commands|Can see the tasks being updated in the program quickly 
-|17||*|University Student|View trends for my tasks|Can see if I am lagging behind 
-|18||* *|Paranoid University Student|Choose the threshold before the programs sends an alert for me to complete my tasks|Can stay ahead of my schedule 
-|19||*|Organized University Student|View all the tasks in a strict format|Will know what to type to enter my tasks 
-|20||*|University Student in NUSSU|Export my calendar to a shareable format|Can quickly share my schedule with other people 
+|08|08|*|University Student|Find my tasks|Do not need to scroll through the entire calendar to find certain tasks
+|09|09|* *|Double degree University student|Color code the tasks|Can quickly distinguish different type of tasks
+|10|10|* *|University Student|View my tasks for the week|Can plan my time for the week
+|11|11|* * *|Busy University Student|Find free time slots|Will know which dates and times I am free to conduct project meetings
+|12|12|* * *|University Student|Cancel events|Keep my schedule updated
+|13|13|* * *|University Student|Postpone the deadline of tasks|Can properly manage my priorities
+|14|14|* *|University Student who procrastinates|View undone tasks carried forward to the next day in a bright color|Will know what assignments are lagging behind
+|15|15|* * *|University Student|Add a recurring task|Do not have to do it multiple times
+|16||*|Impatient University Student|Quickly type in one-liner commands|Can see the tasks being updated in the program quickly
+|17||*|University Student|View trends for my tasks|Can see if I am lagging behind
+|18||* *|Paranoid University Student|Choose the threshold before the programs send an alert for me to complete my tasks|Can stay ahead of my schedule
+|19||*|Organized University Student|View all the tasks in a strict format|Will know what to type to enter my tasks
+|20||*|University Student in NUSSU|Export my calendar to a shareable format|Can quickly share my schedule with other people
 |21||* *|University Student|Have a do-after task|Know what tasks need to be done after completing a specific task
-|22||* * *|University Student|Have a task that needs to be done within a time period|Can better plan my schedule 
-|23||*|University Student|Add my estimated time taken to complete a task|Know how much free time I would have 
-|24||* *|Undergraduate Tutor|Have two instances of calendar|Can separate my tutor tasks and personal tasks 
-|25||* *|University Student|Filter my calendar by different categories|Can view my tasks for that category easier 
-|26||* * *|University Student|Add a tentative task|Can confirm it at a later date 
-|27||* * *|University Student|View all commands|Do not need to memorise all the commands 
-|28||* * *|University Student|Get warnings if an event I add clashes with an existing event|Will not have multiple events at the same time 
+|22||* * *|University Student|Have a task that needs to be done within a period |Can better plan my schedule
+|23||*|University Student|Add my estimated time taken to complete a task|Know how much free time I would have
+|24||* *|Undergraduate Tutor|Have two instances of calendar|Can separate my tutor tasks and personal tasks
+|25||* *|University Student|Filter my calendar by different categories|Can view my tasks for that category easier
+|26||* * *|University Student|Add a tentative task|Can confirm it at a later date
+|27||* * *|University Student|View all commands|Do not need to memorise all the commands
+|28||* * *|University Student|Get warnings if an event I add clashes with an existing event|Will not have multiple events at the same time
 |29||*|University Student|Sync my tasks to my phone via bluetooth|Can view my tasks on the go and not just on my laptop
 |30||**|University Student|Print out my tasks stored|Can view my tasks even if my laptop runs out of battery
 |===
@@ -610,82 +610,82 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *System: Outstanding Organization Friend (OOF)* +
 *Use case: UC01 - Add a task* +
-*Actor: User* + 
+*Actor: User* +
 *MSS:*
 
-. User wants to add a task.
-. OOF requests for description of the task.
-. User enters the description of the task.
+. The user wants to add a task.
+. OOF requests for a description of the task.
+. The user enters the description of the task.
 . OOF records the task and displays the description.
 
-Use case ends.
+The use case ends.
 
 *Extensions:*
 
-* OOF detects empty date and time in description of task.
-** OOF requests for date and time of task.
-** User enters required data.
-** Use case resumes from step 4. 
+* OOF detects empty date and time in the description of the task.
+** OOF requests for the date and time of a task.
+** User enters the required data.
+** Use case resumes from step 4.
 * OOF detects a clash in date and time with another task.
-** OOF warns the User of such a clah by displaying the task(s) that clash(es)    	and prompts for continuation or cancellation.
+** OOF warns the User of such a clash by displaying the task(s) that clash(es)    	and prompts for continuation or cancellation.
 ** User decides for continuation or cancellation.
-** OOF requests to confirm decision.
-** User confirms decision.
-** Use case ends if the User decides to cancel the action. Use case resumes from 		step 4 otherwise. 
-* At any time, User chooses to re-enter task description.
-** OOF requests confirmation to re-enter task description. 
-** User confirms to re-enter task description. 
+** OOF requests to confirm the decision.
+** User confirms the decision.
+** Use case ends if the User decides to cancel the action. Use case resumes from step 4 otherwise.
+* At any time, the User chooses to re-enter the task description.
+** OOF requests confirmation to re-enter the task description.
+** User confirms to re-enter the task description.
 ** Use case resumes from step 3.
 
 *System: Outstanding Organization Friend (OOF)* +
 *Use case: UC02 - Mark a task as complete* +
 *Actor: User* +
-*MSS:* 
+*MSS:*
 
-. User wants to mark a task as complete.
-. OOF requests for index of task to mark as complete.  
-. User enters the index of the task to mark as complete. 
-. OOF records the task completion status and displays the description. 
+. The user wants to mark a task as complete.
+. OOF requests for the index of the task to mark as complete.
+. The user enters the index of the task to mark as complete.
+. OOF records the task completion status and displays the description.
 
-Use case ends.   
+The use case ends.
 
 *Extensions:*
 
-* OOF detects non-existent index of task.   
+* OOF detects the non-existent index of a task.
 ** OOF requests for existent index and displays a range of indexes to choose from.
-** User enters required data. 
-** Use case resumes from step 4. 
+** User enters the required data.
+** Use case resumes from step 4.
 
 *System: Outstanding Organization Friend (OOF)* +
 *Use case: UC03 - View tasks in calendar* +
-*Actor: User* + 
-*MSS:* 
-
-. User wants to view tasks in calendar format.
-. OOF requests for range of index of the tasks the user wishes to view in calendar format.
-. User enters the range of index of the task to view in calendar format.
-. OOF displays the tasks requested in calendar format.
-
-Use case ends.   
-
-*Extensions:*
-
-* OOF detects non-existent index of task in the range.    
-** OOF requests for existent index and displays a range of indexes to choose from. 
-** User enters required data. 
-** Use case resumes from step 4. 
-
-*System: Outstanding Organization Friend (OOF)* +
-*Use case: UC04 - View a summary of the next day’s tasks* +   
 *Actor: User* +
 *MSS:*
 
-. User wants to view a summary of the next day’s tasks. 
-. OOF requests for user input. 
-. User enters the summary command.
+. The user wants to view tasks in a calendar format.
+. OOF requests for a range of indexes of the tasks the user wishes to view in calendar format.
+. The user enters the range of indexes of the task to view in the calendar format.
+. OOF displays the tasks requested in the calendar format.
+
+The use case ends.
+
+*Extensions:*
+
+* OOF detects the non-existent index of a task in the range.
+** OOF requests for existent index and displays a range of indexes to choose from.
+** User enters the required data.
+** Use case resumes from step 4.
+
+*System: Outstanding Organization Friend (OOF)* +
+*Use case: UC04 - View a summary of the next day’s tasks* +
+*Actor: User* +
+*MSS:*
+
+. The user wants to view a summary of the next day’s tasks.
+. OOF requests for user input.
+. The user enters the summary command.
 . OOF displays the summary of the next day’s tasks.
 
-Use case ends.   
+The use case ends.
 
 *Extension:*
 
@@ -694,16 +694,16 @@ Use case ends.
 ** Use case resumes from step 4.
 
 *System: Outstanding Organization Friend (OOF)* +
-*Use case: UC05 - Adding tasks with date and time* + 
+*Use case: UC05 - Adding tasks with date and time* +
 *Actor: User* +
 *MSS:*
 
-. User wants to add a task with date, start and end time.
+. The user wants to add a task with date, start and end time.
 . OOF requests for description, date, start and end time of the task.
-. User enters the requested details.
+. The user enters the requested details.
 . OOF records the task and displays the task recorded.
 
-Use case ends.
+The use case ends.
 
 *Extension:*
 
@@ -722,16 +722,16 @@ Use case ends.
 *Actor: User* +
 *MSS:*
 
-. User chooses to activate the reminder for expiring tasks.
+. The user chooses to activate the reminder for expiring tasks.
 . OOF requests for confirmation of this action.
-. User confirms the action.
-. OOF displays the expiring tasks everytime OOF is started.
+. The user confirms the action.
+. OOF displays expiring tasks every time OOF is started.
 
-Use case ends.
+The use case ends.
 
 *Extensions:*
 
-* At any time, User chooses to cancel the activation.
+* At any time, the User chooses to cancel the activation.
 ** OOF requests to confirm the cancellation.
 ** User confirms the cancellation.
 ** Use case ends.
@@ -743,17 +743,17 @@ Use case ends.
 
 . User requests to sort current tasks in chronological order.
 . OOF requests for confirmation of this action.
-. User confirms this request.
+. The user confirms this request.
 . OOF sorts and displays the tasks in chronological order.
 
-Use case ends.
+The use case ends.
 
 *Extensions:*
 
 * OOF detects that there are no tasks to be sorted.
 ** OOF warns User that there are no tasks to be sorted
 ** Use case ends.
-* At any time, User chooses to cancel the request.
+* At any time, the User chooses to cancel the request.
 ** OOF requests to confirm the cancellation.
 ** User confirms the cancellation.
 ** Use case ends.
@@ -761,14 +761,14 @@ Use case ends.
 *System: Outstanding Organization Friend (OOF)* +
 *Use case: UC08 - Find tasks* +
 *Actor: User* +
-*MSS:* 
+*MSS:*
 
 . User requests to find certain tasks.
 . OOF requests for the description of the tasks.
-. User enters a description of the tasks.
+. The user enters a description of the tasks.
 . OOF displays the tasks that match the description.
 
-Use case ends.
+The use case ends.
 
 *Extensions:*
 
@@ -777,7 +777,7 @@ Use case ends.
 ** User enters a new description.
 ** Steps 3a1-3a2 are repeated until at least one task matches the description.
 ** Use case resumes from step 4.
-* At any time, User chooses the stop finding tasks.
+* At any time, the User chooses the stop finding tasks.
 ** OOF requests to confirm the request.
 ** User confirms the requests.
 ** Use case ends.
@@ -789,10 +789,10 @@ Use case ends.
 
 . User requests to colour code tasks.
 . OOF displays the current tasks present in the program and prompts for the tasks to be colour coded and their respective colours to be coded.
-. User enters the required information.
+. The user enters the required information.
 . OOF displays the current tasks present after colour coding the selected tasks.
 
-Use case ends.
+The use case ends.
 
 *Extensions:*
 
@@ -816,17 +816,17 @@ Use case ends.
 
 . User requests to view tasks for the week.
 . OOF requests to confirm the request.
-. User confirms the request.
+. The user confirms the request.
 . OOF displays the tasks for the week.
 
-Use case ends.
+The use case ends.
 
 *Extensions:*
 
 * OOF detects that there are no tasks for the week.
 ** OOF warns the User that there are no tasks for the week.
 ** Use case ends.
-* At any time, User chooses to cancel this action.
+* At any time, the User chooses to cancel this action.
 ** OOF requests for confirmation.
 ** User confirms the requests.
 ** Use case ends.
@@ -837,20 +837,20 @@ Use case ends.
 *MSS:*
 
 . User requests to find free time slots.
-. OOF requests for the time period from the User.
-. User enters in the time period of interest.
-. OOF displays the free time slots within the time period.
+. OOF requests for the period from the User.
+. The user enters the period of interest.
+. OOF displays the free time slots within the period.
 
-Use case ends.
+The use case ends.
 
 *Extensions:*
 
-* OOF detects that the time period entered is invalid.
-** OOF requests for the User to input a valid time period.
-** User enters a valid time period.
-** Steps 3a1-3a2 are repeated until a valid time period is entered.
+* OOF detects that the period entered is invalid.
+** OOF requests for the User to input a valid period.
+** User enters a valid period.
+** Steps 3a1-3a2 are repeated until a valid period is entered.
 ** Use case resumes from step 4.
-* At any time, User chooses to cancel the action.
+* At any time, the User chooses to cancel the action.
 ** OOF requests for confirmation.
 ** User confirms the request.
 ** Use case ends.
@@ -862,10 +862,10 @@ Use case ends.
 
 . User requests to delete tasks.
 . OOF lists the current tasks saved in the program and prompts User to select the task to be deleted.
-. User chooses the task to be deleted.
-. OOF deletes and display the task that was deleted and the number of tasks saved in the program.
+. The user chooses the task to be deleted.
+. OOF deletes and displays the task that was deleted and the number of tasks saved in the program.
 
-Use case ends.
+The use case ends.
 
 *Extensions:*
 
@@ -877,7 +877,7 @@ Use case ends.
 ** User enters a valid input.
 ** Steps 3a1-3a2 are repeated until the User enters a valid input.
 ** Use case resumes from step 4.
-* At any time, User chooses to cancel the action.
+* At any time, the User chooses to cancel the action.
 ** OOF requests for confirmation from the User.
 ** User confirms the cancellation.
 ** Use case ends.
@@ -889,10 +889,10 @@ Use case ends.
 
 . User requests to postpone a task.
 . OOF displays the current tasks saved in the program and prompts the User the indicate the task to be postponed and its postponed date.
-. User enters the task and the postponed date.
+. The user enters the task and the postponed date.
 . OOF displays the task that was postponed with its new deadline.
 
-Use case ends.
+The use case ends.
 
 *Extensions:*
 
@@ -904,7 +904,7 @@ Use case ends.
 ** User enters a valid input.
 ** Steps 3a1-3a2 are repeated until the User enters a valid input.
 ** Use case resumes from step 4.
-* At any time, User chooses to cancel the action.
+* At any time, the User chooses to cancel the action.
 ** OOF requests for confirmation from the User.
 ** User confirms the cancellation.
 ** Use case ends.
@@ -912,21 +912,21 @@ Use case ends.
 *System: Outstanding Organization Friend (OOF)* +
 *Use case: UC14 - Overdue tasks* +
 *Actor: User* +
-*MSS:* 
+*MSS:*
 
-. User requests to highlight tasks that are overdue.
+. User requests to highlight overdue tasks.
 . OOF requests to confirm the request.
-. User confirms the request.
+. The user confirms the request.
 . OOF displays the overdue tasks
 
-Use case ends.
+The use case ends.
 
 *Extensions:*
 
 * OOF detects that there are no overdue tasks.
 ** OOF warns the User that there are no overdue tasks.
 ** Use case ends.
-* At any time, User chooses to cancel the activation.
+* At any time, the User chooses to cancel the activation.
 ** OOF requests to confirm the cancellation.
 ** User confirms the cancellation.
 ** Use case ends.
@@ -938,12 +938,12 @@ Use case ends.
 *Actor: User* +
 *MSS:*
 
-. User chooses to add recurring tasks.
-. OOF displays the current tasks saved in the program and prompts the User to input the task that is recurring and its respective frequency.
-. User enters the task and recurring frequency.
+. The user chooses to add recurring tasks.
+. OOF displays the current tasks saved in the program and prompts the User to input the recurring task and its respective frequency.
+. The user enters the task and recurring frequency.
 . OOF displays the task selected and automatically adds the recurring task at relevant time intervals.
 
-Use case ends.
+The use case ends.
 
 *Extensions:*
 
@@ -955,16 +955,16 @@ Use case ends.
 ** User enters a valid input.
 ** Steps 3a1-3a2 are repeated until the User enters a valid input.
 ** Use case resumes from step 4.
-* At any time, User chooses to cancel the action.
+* At any time, the User chooses to cancel the action.
 ** OOF requests for confirmation from the User.
 ** User confirms the cancellation.
 ** Use case ends.
-	
+
 === Non Functional Requirements
 
-. Should work on any mainstream OS as long as it has Java 11 or above installed 
-. Should be able to hold up to 200 tasks/events without performance deterioration 
-. A user with above average typing speed for regular English Text should be able to store their tasks faster using commands than using the mouse
+. Should work on any mainstream OS as long as it has Java 11 or above installed
+. Should be able to hold up to 200 tasks/events without performance deterioration
+. A user with above-average typing speed for regular English Text should be able to store their tasks faster using commands than using the mouse
 
 [appendix]
 == Glossary

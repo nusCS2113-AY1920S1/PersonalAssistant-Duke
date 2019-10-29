@@ -47,11 +47,11 @@ image::OofWelcome.png[OofWelcome]
 +
 .  Enter a task description in the terminal and press kbd:[Enter] to run it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will list the commands present.
-.  Some example commands you can try: 
+.  Some example commands you can try:
 
-* *`deadline homework /by 12-34-56 11:11`* : adds a task called `homework` to the saved tasks with the deadline `12-34-56 11:11`.
-* *`viewCalendar`* : displays all saved tasks in a calendar view.
-* *`Bye`* : exits the application.
+* *`deadline homework /by 12-34-56 11:11` *: adds a task called `homework` to the saved tasks with the deadline `12-34-56 11:11`.
+* *`viewCalendar` *: displays all saved tasks in a calendar view.
+* *`Bye` *: exits the application.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -84,7 +84,7 @@ Provides a list of commands available to the user.
 image::Demo_Help.png[]
 
 ==== Viewing individual command help : `help`
-Need some tips for a specific command? Use our individual help function!
+Need some tips for a specific command? Use our help function!
 
 Format: `help COMMAND`
 
@@ -93,7 +93,7 @@ Format: `help COMMAND`
 Example:
 
 * `help Deadline` +
-Provides the instruction to add a task with a deadline.
+It provides the instruction to add a task with a deadline.
 
 image::Demo_IndividualHelp.png[]
 
@@ -103,21 +103,21 @@ Want to exit the program? Use `bye`!
 Format: `bye`
 
 ==== Export calendar: `export [_coming soon in v2.0_]`
-You may export all current tasks recorded into a shareable format in calendar view with our `export` function!
+You may export all current tasks recorded into a shareable format in a calendar view with our `export` function!
 
 Format: `export`
 
 === Task Commands
 Learn how to add, edit and many more here!
-All guidance for task-related commands are found in this segment.
+All guidance for task-related commands is found in this segment.
 
 ==== Adding a task: `deadline`
-Do you have a Deadline to fulfil and feel worried that it may slip your mind?
+Do you have a Deadline to fulfill and feel worried that it may slip your mind?
 Add a task with a deadline to be completed by with `deadline`. +
 
 Format: `deadline DESCRIPTION /by DD-MM-YYYY HH:MM`
 
-* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
 * `Date and time` have to *strictly* be in the format as stated above.
 
 Example:
@@ -126,11 +126,11 @@ Example:
 Adds a task with description and datetime to be `homework` and `2019 20-09-2019 13:00` respectively.
 
 ==== Adding a task: `event`
-Do you have an Event to attend? Simply add an event and its scheduled date and time. +
+Do you have an event to attend? Simply add an event and its scheduled date and time. +
 
 Format: `event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
 
-* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
 * `Date and time` have to *strictly* be in the format as stated above.
 
 Example:
@@ -144,7 +144,7 @@ Add a Todo task with our simple one-liner command!
 
 Format: `todo DESCRIPTION /on DD-MM-YYYY`
 
-* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
 * `Date` has to *strictly* be in the format as stated above.
 
 Example:
@@ -154,8 +154,8 @@ Adds a task called `withdraw money` on `19-09-2019`.
 
 
 ==== Adding a task: `recurring`
-Do you have a task that happens on a recurring basis?
-Simple add a task that will be repeated automatically based on your preference!
+Do you have a task that happens repeatedly?
+Simply add a task that will be repeated automatically based on your preference!
 
 Format: `recurring INDEX NUMBER_OF_OCCURRENCES`
 
@@ -165,7 +165,7 @@ Format: `recurring INDEX NUMBER_OF_OCCURRENCES`
 
 [NOTE]
 
-The task will require you to enter the frequency of recurrence in this manner afterwards: +
+The task will require you to enter the frequency of recurrence in this manner afterward: +
 1. DAILY +
 2. WEEKLY +
 3. MONTHLY +
@@ -197,7 +197,7 @@ Adds a task that needs to be done after a specified task.
 Format: `do-after INDEX DESCRIPTION`
 
 * The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
-* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
 
 Example:
 
@@ -210,7 +210,7 @@ You can add a task that can be confirmed at a later time.
 
 Format: `tentative DESCRIPTION`
 
-* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
 
 Example:
 
@@ -236,7 +236,7 @@ Marks the 1st task in the list of tasks as complete.
 
 ==== Deleting a task: `delete`
 Want to remove a task you added in the past?
-Simple use the delete function to remove a task from your list of tasks.
+Simply use the delete function to remove a task from your list of tasks.
 
 Format: `delete INDEX`
 
@@ -253,7 +253,7 @@ Search for your tasks that match the description given with our `find` function!
 
 Format: `find DESCRIPTION`
 
-* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
 
 Example:
 
@@ -262,7 +262,7 @@ Finds tasks with `withdraw money` in the description.
 
 
 ==== Choose threshold for tasks: `threshold`
-Adjust the threshold of your tasks to your desire duration!
+Adjust the threshold of your tasks to your desired duration!
 
 Format: `threshold HH`
 
@@ -275,7 +275,7 @@ Changes the threshold of the program to 48 hours.
 
 ==== Viewing a summary of a day's task by date: `schedule`
 Wonder what is up on a specific date?
-Get a summary of all your tasks and events that is related to a specific date with `schedule`.
+Get a summary of all your tasks and events that is related to a specific date with a `schedule`.
 
 Format: `schedule DD-MM-YYYY`
 
@@ -284,18 +284,18 @@ Format: `schedule DD-MM-YYYY`
 Example:
 
 * `schedule 04-10-2019` +
-Provides a summary of a list of todo, deadlines and events that will occur on `04-10-2019`.
+Provides a summary of a list of todo, deadlines, and events that will occur on `04-10-2019`.
 
 ==== Viewing a summary of the next day’s task: `summary`
 Want to plan your day ahead for tomorrow?
-Get a summary of all your tasks to be done for the next day with `summary`.
+Get a summary of all your tasks to be done for the next day with a `summary`.
 
 Format: `summary`
 
 Example:
 
 * `summary` +
-Provides a summary of a list of todo, deadlines and events that will occur tomorrow.
+It provides a summary of a list of todo, deadlines, and events that will occur tomorrow.
 
 image::Demo_Summary.png[]
 
@@ -307,7 +307,7 @@ Format: `sort`
 
 
 ==== View free time slots: `free`
-Planning for your next project meeting or meeting up with your friends? With the `free` command `Oof` displays all your free time slots in a given date!
+Planning for your next project meeting or meeting up with your friends? The `free` command `Oof` displays all your free time slots on a given date!
 
 Format: `free DD-MM-YYYY`
 
@@ -328,7 +328,7 @@ image::FreeTimeExample.png[FreeTimeExample]
 image::FreeTimeDisplay.png[FreeTimeDisplay]
 
 ==== Setting reminders for upcoming deadlines: `reminder`
-Have multiple assignments due and not sure which to prioritise first? Fret not as `Oof` will remind you of any deadlines due within 24 hours once it is start up!
+Have multiple assignments due and not sure which to prioritise first? Fret not as `Oof` will remind you of any deadlines due within 24 hours once it has started!
 
 Format: `reminder`
 
@@ -338,7 +338,7 @@ Filter your tasks by category with our `filter` function!
 
 Format: `filter CATEGORY`
 
-* `Cateogry` of the task can be any one of the following: todo, deadline, event, assignment, recurring.
+* `Category` of the task can be any one of the following: todo, deadline, event, assignment, recurring.
 
 Example:
 
@@ -346,12 +346,12 @@ Example:
 Displays all todo tasks.
 
 ==== Color code tasks: `colorcode [_coming soon in v1.4_]`
-Are you a visual person? You can change your entire task font color to one of your choice with `colorcode`!
+Are you a visual person? You can change your entire task font color to one of your choices with `colorcode`!
 
 Format: `colorcode INDEX #RRGGBB`
 
 * The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
-* `#RRGGBB` refers to the hex color codes corresponding to the html color names.
+* `#RRGGBB` refers to the hex color codes corresponding to the HTML color names.
 
 Examples:
 
@@ -379,12 +379,12 @@ Example:
 Adds to the 1st task the estimated time taken of 48 hours to complete it.
 
 ==== Adding a task: `range [_coming soon in v2.0_]`
-Do you have a task that needs to be completed within a certain time period?
+Do you have a task that needs to be completed within a certain period?
 Just add a `range` task!
 
 Format: `range DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
 
-* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+* `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
 * `Date and time` have to *strictly* be in the format as stated above.
 
 Example:
@@ -445,10 +445,10 @@ image::ViewweekDefault.png[ViewweekDefault]
 image::ViewweekParam.png[ViewweekParam]
 
 === Semester Commands
-Increase your efficiency by planning ahead with our Semester commands!
+Increase your efficiency by planning with our Semester commands!
 
 ==== Viewing semester data: `semester`
-Planning ahead for your entire university journey? With `Oof` you can simply use the `semester` command to display all the semesters you have added!
+Planning for your entire university journey? With `Oof` you can simply use the `semester` command to display all the semesters you have added!
 
 Format: `semester`
 
@@ -457,7 +457,7 @@ Want to add a semester into `Oof` to manage your modules? Simply use `semester a
 
 Format: `semester add /year DESCRIPTION /name DESCRIPTION`
 
-* `Description` of the semester year and name can have multiple words, not just limited to single word descriptions.
+* `Description` of the semester year and name can have multiple words, not just limited to single-word descriptions.
 
 Example:
 
@@ -486,7 +486,7 @@ Want to add a module into `Oof` to manage your lessons and assessments? Simply u
 
 Format: `module add /code DESCRIPTION /name DESCRIPTION`
 
-* `Description` of the module code and name can have multiple words, not just limited to single word descriptions.
+* `Description` of the module code and name can have multiple words, not just limited to single-word descriptions.
 
 Example:
 
@@ -515,7 +515,7 @@ Want to add a lesson into `Oof` to manage them? Simply use `lesson add`!
 
 Format: `lesson add DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
 
-* `Description` of the lesson can have multiple words, not just limited to single word descriptions.
+* `Description` of the lesson can have multiple words, not just limited to single-word descriptions.
 * `Date and time` have to *strictly* be in the format as stated above.
 
 Example:
@@ -545,7 +545,7 @@ Want to add an assessment into `Oof` to keep track of them? Simply use `assessme
 
 Format: `assessment add DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
 
-* `Description` of the assessment can have multiple words, not just limited to single word descriptions.
+* `Description` of the assessment can have multiple words, not just limited to single-word descriptions.
 * `Date and time` have to *strictly* be in the format as stated above.
 
 Example:
@@ -566,13 +566,13 @@ Example:
 Deletes the 1st assessment in the list of lessons.
 
 === Assignment Tracker Commands
-A successful you begins with self-awareness!
+Success begins with self-awareness!
 
 OOF, your Outstanding Organisation Friend, provides you with a simple and efficient way to keep track of the amount of time you spend on each module!
 
 ==== Start tracker: `start`
 Begin your journey to optimum productivity by starting your Tracker timer!
-Start your tracking on a Module from current time.
+Start your tracking on a Module from the current time.
 
 Format: `start ASSIGNMENT_DESCRIPTION`
 
@@ -582,7 +582,7 @@ image::Demo_StartTracker.png[]
 
 ==== Pause tracker: `pause`
 Want to take a break or get started with another Module?
-Pause your tracking on a Module at current time.
+Pause your tracking on a Module at the current time.
 
 Format: `pause ASSIGNMENT_DESCRIPTION`
 
@@ -592,7 +592,7 @@ image::Demo_PauseTracker.png[]
 
 ==== Stop tracker: `stop`
 Completed with a Module that you're currently working on?
-Stop your tracking on a Module at current time with `stop`.
+Stop your tracking on a Module at the current time with `stop`.
 
 Format: `stop ASSIGNMENT_DESCRIPTION`
 
@@ -601,7 +601,7 @@ Example: `stop user guide`
 image::Demo_StopTracker.png[]
 
 ==== View tracker: `viewTracker`
-Want to view a visual display featuring the amount of time you spend on each of your `Module` over time?
+Want to view a visual display featuring the amount of time you spend on each `Module`?
 
 Format: `viewTracker`
 
@@ -612,7 +612,7 @@ Format: `viewTracker TIME_PERIOD [_coming soon in v1.4_]`
 *Options for TIME_PERIOD* +
 [horizontal]
 Day:: filter time spent on each `Module` today
-Week:: filter time spent on each `Module` over the course of the last 7 days
+Week:: filter time spent on each `Module` over the last 7 days
 
 Example: `viewTracker Day`
 
@@ -625,7 +625,7 @@ Example: `viewTracker Day`
 *A*: Copy the `output.txt` into the same directory as `oof.jar`.
 
 *Q*: How do I save my tasks in *OOF*? +
-*A*: There is no need to explicitly save the tasks as *OOF* will automatically saved all tasks that are added during runtime.
+*A*: There is no need to explicitly save the tasks as *OOF* will automatically save all tasks that are added during runtime.
 
 == Command Summary
 
@@ -635,7 +635,7 @@ Example: `viewTracker Day`
 e.g. `deadline homework /by 20-09-2019 13:00`
 
 * *Event*: `event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM` +
-e.g. `event project meeting /from 20-09-2019 13:00 /to 20-09-2019 17:00` 
+e.g. `event project meeting /from 20-09-2019 13:00 /to 20-09-2019 17:00`
 
 * *Todo*: `todo DESCRIPTION /on DD-MM-YYYY` +
 e.g. `todo withdraw money /on 19-09-2019`
@@ -649,19 +649,19 @@ e.g. `recurring 4 3`
 * *Tentative*: `tentative DESCRIPTION [_coming soon in v1.4_]` +
 e.g. `tentative group lunch`
 
-* *List*: `list` 
+* *List*: `list`
 
 * *Done*: `done INDEX` +
-e.g. `done 1` 
+e.g. `done 1`
 
 * *Delete*: `delete INDEX` +
-e.g. `delete 1` 
+e.g. `delete 1`
 
 * *Find*: `find DESCRIPTION` +
-e.g. `find withdraw money`  
+e.g. `find withdraw money`
 
 * *Filter*: `filter CATEGORY [_coming soon in v1.4_]` +
-e.g. `filter todo` 
+e.g. `filter todo`
 
 * *Threshold*: `threshold HH` +
 e.g. `threshold 48`
@@ -672,9 +672,9 @@ e.g. `colorcode 1 #008000`
 * *Schedule*: `schedule DD-MM-YYYY` +
 e.g. `schedule 04-10-2019`
 
-* *Summary*: `summary` 
+* *Summary*: `summary`
 
-* *Sort*: `sort` 
+* *Sort*: `sort`
 
 * *ViewUndone*: `viewUndone [_coming soon in v1.4_]`
 
@@ -686,28 +686,27 @@ e.g. `free 10-10-2019`
 * *Calendar*: `calendar MONTH YEAR` +
 e.g. `calendar 10 2019`
 
-* *Reminder*: `reminder` 
+* *Reminder*: `reminder`
 
-* *Start Task Tracker*: `start DESCRIPTION`
-e.g. `start CS2113T Activity Diagram`
+* *Start Task Tracker*: `start ASSIGNMENT_DESCRIPTION`
+e.g. `start user guide`
 
-* *Pause Task Tracker*: `pause DESCRIPTION`
-e.g. `pause CS2113T Activity Diagram`
+* *Pause Task Tracker*: `pause ASSIGNMENT_DESCRIPTION`
+e.g. `pause user guide`
 
-* *Stop Task Tracker*: `stop DESCRIPTION`
-e.g. `stop CS2113T Activity Diagram`
+* *Stop Task Tracker*: `stop ASSIGNMENT_DESCRIPTION`
+e.g. `stop user guide`
 
 * *ViewTracker*: `viewTracker`
 
 * *Bye*: `bye`
 
 * *Estimate*: `estimate [_coming soon in v2.0_]` +
-e.g. `estimate 1 48` 
+e.g. `estimate 1 48`
 
 * *Range*: `range [_coming soon in v2.0_]` +
-e.g. `range study for exam /from 01-10-2019 21:00 /to 05-10-2019 11:00` 
+e.g. `range study for exam /from 01-10-2019 21:00 /to 05-10-2019 11:00`
 
 * *ViewDual*: `viewDual [_coming soon in v2.0_]`
 
 * *Export*: `export [_coming soon in v2.0_]`
-
