@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class SetShortcutCommandParser implements SubCommandParser<SetShortcutCommand> {
     private static String MESSAGE_EMPTY_NAME = "Shortcut name cannot be empty.";
+    private static String MESSAGE_EMPTY_COMMAND = "Command cannot be empty.";
     private static String COMMAND_SPLITTER = ";";
 
     @Override
@@ -30,8 +31,26 @@ public class SetShortcutCommandParser implements SubCommandParser<SetShortcutCom
         return new SetShortcutCommand(shortcut);
     }
 
-    private List<String> getUserInputs(String userInputsString) {
-        return new ArrayList<>(Arrays.asList(userInputsString.split(COMMAND_SPLITTER)));
+    private List<String> getUserInputs(String userInputsString) throws ParseException {
+        assert (userInputsString != null);
+
+        List<String> commands = new ArrayList<>(Arrays.asList(userInputsString.split(COMMAND_SPLITTER)));
+
+        if (userInputsString.isBlank()) {
+            return commands;
+        }
+
+        if (commands.isEmpty()) {
+            throw new ParseException(MESSAGE_EMPTY_COMMAND);
+        }
+
+        for (String command : commands) {
+            if (command.isBlank()) {
+                throw new ParseException(MESSAGE_EMPTY_COMMAND);
+            }
+        }
+
+        return commands;
     }
 
 }

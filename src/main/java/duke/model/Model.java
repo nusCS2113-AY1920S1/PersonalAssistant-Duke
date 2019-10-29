@@ -1,6 +1,7 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
+import duke.logic.command.order.SortOrderCommand;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
@@ -20,6 +21,9 @@ import java.util.function.Predicate;
  */
 public interface Model {
     Predicate<Order> PREDICATE_SHOW_ALL_ORDERS = unused -> true;
+    Predicate<Order> PREDICATE_SHOW_ACTIVE_ORDERS = order -> order.getStatus() == Order.Status.ACTIVE;
+    Predicate<Order> PREDICATE_SHOW_CANCELED_ORDERS = order -> order.getStatus() == Order.Status.CANCELED;
+    Predicate<Order> PREDICATE_SHOW_COMPLETED_ORDERS = order -> order.getStatus() == Order.Status.COMPLETED;
 
     Predicate<Sale> PREDICATE_SHOW_ALL_SALES = unused -> true;
 
@@ -127,6 +131,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredOrderList(Predicate<Order> predicate);
+
+    /**
+     * Sorts order list by {@code criteria}. If {@code isIncreasing} is true,
+     * sort in increasing order.
+     */
+    void sortOrders(SortOrderCommand.SortCriteria criteria, boolean isIncreasing);
 
     //========Product operations=========
 
