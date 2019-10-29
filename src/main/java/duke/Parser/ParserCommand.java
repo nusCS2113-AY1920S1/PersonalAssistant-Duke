@@ -29,7 +29,9 @@ public class ParserCommand implements IParser {
             Scanner sc = new Scanner(System.in);
             switch (input) {
                 case "1":
-                    final int theNumberThree = 3;  //to fix checkstyle
+                    final int returnLessonOption = 3
+                    final int returnMonthlyOption = 3
+                    final int theNumberThree = 3;
                     // Schedule
                     ui.trainingScheduleHeading();
                     int executeType = sc.nextInt();
@@ -47,14 +49,14 @@ public class ParserCommand implements IParser {
                         } else if (dailyType == 2) {
                             ParserGoal parserGoal = new ParserGoal();
                             parserGoal.runGoal();
-                        } else if (dailyType == theNumberThree) {
+                        } else if (dailyType == returnLessonOption) {
                             ParserLesson parserLesson = new ParserLesson();
                             parserLesson.runLesson();
                         }
                     } else if (executeType == 2) {
                         ParserSchedule parserSchedule = new ParserSchedule();
                         parserSchedule.weeklySchedule();
-                    } else if (executeType == theNumberThree) {
+                    } else if (executeType == returnMonthlyOption) {
                         ParserSchedule parserSchedule = new ParserSchedule();
                         parserSchedule.monthlySchedule();
                     } else {
