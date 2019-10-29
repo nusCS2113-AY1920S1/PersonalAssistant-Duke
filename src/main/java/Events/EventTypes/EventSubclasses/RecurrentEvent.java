@@ -3,6 +3,7 @@ package Events.EventTypes.EventSubclasses;
 import Events.EventTypes.Event;
 
 public abstract class RecurrentEvent extends Event {
+
     /**
      * Creates recurrent event with isDone boolean for reading from files
      *
