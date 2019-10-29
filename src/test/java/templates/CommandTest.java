@@ -1,3 +1,5 @@
+package templates;
+
 import duke.DukeCore;
 import duke.command.ArgCommand;
 import duke.data.GsonStorage;

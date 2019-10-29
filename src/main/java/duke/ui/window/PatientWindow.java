@@ -77,7 +77,7 @@ public class PatientWindow extends UiElement<Region> {
         historyLabel.setText(("".equals(historyStr)) ? UiStrings.DISPLAY_HISTORY_NOT_SET : historyStr);
 
         StringBuilder allergies = new StringBuilder();
-        if ("".equals(patient.getAllergies())) {
+        if (!"".equals(patient.getAllergies())) {
             //TODO document the fact that comma separated allergies are displayed on distinct rows
             for (String allergy : patient.getAllergies().split(",")) {
                 allergies.append(allergy.strip()).append(System.lineSeparator());
