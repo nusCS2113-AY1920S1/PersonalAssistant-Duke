@@ -29,7 +29,7 @@
 #### Responsibility: Documentation + Code quality
 
 ### Yang Kai Ze
-#### ![Yang Kai Ze](https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/krazzen.JPG = 200x200)
+#### ![Yang Kai Ze](https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/krazzen.JPG ){:height="200px" width="200px"}
 #### [Kai Ze](https://github.com/Krazzen)
 #### Role: Developer + in charge of Commands
 #### Responsibility: Scheduling + tracking
