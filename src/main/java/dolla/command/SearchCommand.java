@@ -70,10 +70,8 @@ public class SearchCommand extends Command {
             } else if (component.equals("date")) {
                 SearchUi.printSearchDate(mode, recordList, searchContent);
             }
-        } else if (mode.equals("limit")) {
-            if (component.equals("duration")) {
-                SearchUi.printSearchDuration(mode, recordList, searchContent);
-            }
+        } else if (mode.equals("limit") && component.equals("duration")) {
+            SearchUi.printSearchDuration(mode, recordList, searchContent);
         }
     }
 }

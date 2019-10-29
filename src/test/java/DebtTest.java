@@ -39,18 +39,18 @@ public class DebtTest {
     @Test
     void getUserInput() {
         Debt newDebt = createNewDebt();
-        assertEquals("owe tata 20.0 food /due 01/01/2019", createNewDebt().getUserInput());
+        assertEquals("owe tata 20.0 food /due 01/01/2019", newDebt.getUserInput());
     }
 
     @Test
     void formatSave() {
         Debt newDebt = createNewDebt();
-        assertEquals("O | tata | 20.0 | food | 01/01/2019", createNewDebt().formatSave());
+        assertEquals("O | tata | 20.0 | food | 01/01/2019", newDebt.formatSave());
     }
 
     @Test
     void getRecordDetail() {
         Debt newDebt = createNewDebt();
-        assertEquals("[owe] [tata] [$20.0] [food] [/due 01/01/2019]", createNewDebt().getRecordDetail());
+        assertEquals("[owe] [tata] [$20.0] [food] [/due 01/01/2019]", newDebt.getRecordDetail());
     }
 }
