@@ -1,3 +1,5 @@
+package commandtestpackage;
+
 import commandtestpackage.CommandTest;
 import duke.data.Impression;
 import duke.data.Investigation;
