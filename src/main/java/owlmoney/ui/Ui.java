@@ -133,7 +133,7 @@ public class Ui {
      * Prints the goal header.
      */
     public void printGoalHeader() {
-        System.out.printf("%-10s %-30s %-20s %-20s %-20s %-20s %-10s %n", ITEMNO, GOALNAME, GOALAMOUNT, GOALBANKNAME,
+        System.out.printf("%-10s %-30s %-20s %-20s %-20s %-20s %-20s %n", ITEMNO, GOALNAME, GOALAMOUNT, GOALBANKNAME,
                 GOALPROGRESS, GOALDATE, GOALACHIEVED);
 
         System.out.println("-----------------------------------------------------------------------------"
