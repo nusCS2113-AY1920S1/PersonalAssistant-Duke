@@ -10,11 +10,13 @@ public class ParserCommand implements IParser {
     /**
      * Declaring type ManageStudentsParser.
      */
-    private ParserManageStudents parserManageStudents = new ParserManageStudents();
+    private ParserManageStudents parserManageStudents
+        = new ParserManageStudents();
     /**
      * Declaring ParserTrainingPLan type.
      */
-    private ParserTrainingPlan parserTrainingPlan = new ParserTrainingPlan();
+    private ParserTrainingPlan parserTrainingPlan
+        = new ParserTrainingPlan();
 
     /**
      * Parse the respective command.
@@ -27,6 +29,7 @@ public class ParserCommand implements IParser {
             Scanner sc = new Scanner(System.in);
             switch (input) {
                 case "1":
+                    final int theNumberThree = 3;  //to fix checkstyle
                     // Schedule
                     ui.trainingScheduleHeading();
                     int executeType = sc.nextInt();
@@ -38,19 +41,20 @@ public class ParserCommand implements IParser {
                         sc.nextLine();  // This line you have
                         // to add (It consumes the \n character)
                         if (dailyType == 1) {
-                            ParserSchedule parserSchedule = new ParserSchedule();
+                            ParserSchedule parserSchedule =
+                                new ParserSchedule();
                             parserSchedule.dailySchedule();
                         } else if (dailyType == 2) {
                             ParserGoal parserGoal = new ParserGoal();
                             parserGoal.runGoal();
-                        } else if (dailyType == 3) {
+                        } else if (dailyType == theNumberThree) {
                             ParserLesson parserLesson = new ParserLesson();
                             parserLesson.runLesson();
                         }
                     } else if (executeType == 2) {
                         ParserSchedule parserSchedule = new ParserSchedule();
                         parserSchedule.weeklySchedule();
-                    } else if (executeType == 3) {
+                    } else if (executeType == theNumberThree) {
                         ParserSchedule parserSchedule = new ParserSchedule();
                         parserSchedule.monthlySchedule();
                     } else {
