@@ -23,11 +23,16 @@ public class Task {
 
     /**
      * Constructor function for duke.task.Task
-     * Creates a new instance of duke.task.Task by taking in a String description
+     * Creates a new instance of duke.task.Task.
+     * filter, datetime, recurrence, duration are all optional attributes of a task
+     * They will be instantiated to a default value by AddCommand if user does not provide the specifications
      * Automatically flags the boolean isDone as False
-     * Default Tasks have no type
      *
+     * @param filter filter for each task
+     * @param dateTime datetime of the task, usually describes when it is due
+     * @param recurrence describes whether the task recurs
      * @param description the description of the task
+     * @param duration how long the task would take to complete
      */
     public Task(Optional<String> filter, Optional<LocalDateTime> dateTime, Recurrence recurrence,
                 String description, int duration) {
@@ -41,6 +46,14 @@ public class Task {
         this.dateTime = dateTime;
     }
 
+    /**
+     * Constructor function for duke.task.Task
+     * Creates a new instance of duke.task.Task by taking in another instance of Task
+     * This facilitates creating a deep copy of an already existing Task efficiently.
+     * The new Task will be used in the mirror command to EditCommand/UndoCommand.
+     *
+     * @param other another instance of Task to be deep copied
+     */
     public Task(Task other) {
         this.description = other.description;
         this.isDone = other.isDone;
@@ -82,6 +95,12 @@ public class Task {
         return recurrence.recurrenceCode();
     }
 
+    /**
+     * Sets the recurrence of a Task
+     *
+     * @param recurrence the new recurrence of the Task
+     * @throws DukeException if given string input is not a valid recurrence
+     */
     public void setRecurrence(String recurrence) throws DukeException {
         this.recurrence = new Recurrence(Optional.of(recurrence));
         System.out.println(this + " has a new recurrence period of " + recurrence);
@@ -113,6 +132,12 @@ public class Task {
         return priority.priorityCode();
     }
 
+    /**
+     * sets the priority of a Task to a priority based on an integer input
+     *
+     * @param i integer input corresponding to a priority level
+     * @throws DukeException if the input is not a valid priority integer value
+     */
     public void setPriority(int i) throws DukeException {
         switch (i) {
         case 0:
@@ -144,6 +169,11 @@ public class Task {
                 .orElseGet(() -> this.description);
     }
 
+    /**
+     * Updates the description of a Task
+     *
+     * @param description the new description of the Task
+     */
     public void setDescription(String description) {
         this.description = description;
         System.out.println(this + " description has been successfully updated");
@@ -157,6 +187,11 @@ public class Task {
         return dateTime.get();
     }
 
+    /**
+     * Updates the datetime of a Task
+     *
+     * @param dateTime the new datetime of the task
+     */
     public void setDateTime(Optional<LocalDateTime> dateTime) {
         this.dateTime = dateTime;
         System.out.println(this + " has a new deadline of "

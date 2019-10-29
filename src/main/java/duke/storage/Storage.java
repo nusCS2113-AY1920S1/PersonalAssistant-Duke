@@ -28,6 +28,7 @@ public class Storage {
     /**
      * Constructor of the storage class
      * Takes in the file path of where the JSON file with the saved data is stored on the computer
+     * Returns new Storage object which will save and load files from the filepath specified
      *
      * @param filePath the location in the directory where the JSON file is
      */
