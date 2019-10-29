@@ -3,6 +3,9 @@
     "Now that you have some seeds, you can start growing your farm!",
     "Note that your current location is at the market. You can only plant your seeds in your farm.~"
   ],
+  "feedback": [
+    " you have succesfully went to the farm and plant seed using the [do] command"
+  ],
   "gold": 0,
   "seeds": 0,
   "seedlings": 1,

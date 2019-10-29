@@ -12,6 +12,9 @@
     "From the example above, 'Do' is the type of task given and 'gotoMarket' is the action to be carried out by the farmer.",
     "Enter [Do GoToMarket] to create a task that tells Farmer + to drive to the market.~"
   ],
+  "feedback": [
+     "you have succesfully went to the market by using the [do] command ",
+  ],
   "gold": 0,
   "seeds": 0,
   "seedlings": 0,
@@ -21,5 +24,6 @@
   "deadline" : 1,
   "objective": "Travel to the Market",
   "hint": "Enter [do gotomarket] to create a task that tells Farmer + to drive to the market.",
-  "modelAnswer": "|do gotoMarket|"
+  "modelAnswer": "|do gotoMarket|",
+
 }

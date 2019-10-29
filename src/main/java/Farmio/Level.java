@@ -18,8 +18,9 @@ public class Level {
     private int endGold;
     private int deadline;
     public String modelAnswer;
+    public ArrayList<String> successfulFeedback;
 
-    private boolean detailedFeedbackProvided = true;
+    private boolean detailedFeedbackProvided = false;
 
     private objectiveResult levelState;
 
@@ -29,6 +30,13 @@ public class Level {
         for (Object i : array) {
             narratives.add((String) i);
         }
+
+        JSONArray feedbackarray = (JSONArray) object.get("feedback");
+        successfulFeedback = new ArrayList<>();
+        for (Object i : feedbackarray) {
+            successfulFeedback.add((String) i);
+        }
+
         filePath = (String) object.get("file_path");
         endGold = Math.toIntExact((Long) object.get("gold"));
         endSeeds = Math.toIntExact((Long) object.get("seeds"));
@@ -39,6 +47,7 @@ public class Level {
         objective = (String) object.get("objective");
         hint = (String) object.get("hint");
         modelAnswer = (String) object.get("modelAnswer");
+
     }
 
     /**
@@ -163,6 +172,8 @@ public class Level {
             //separate based on actions - todo check how its divided
             //String[] splitString = TaskListItems.split("\\s+");
             String[] splitString = TaskListItems.split("(?<!\\G\\w+)\\s"); //splits on every second space
+            //should be after every 3 spaces
+            //split after every instance of =
 
             splitTaskList.add(splitString[0]);
             if(splitString[1] != null && !splitString[1].isEmpty()){
@@ -191,6 +202,22 @@ public class Level {
         List<String> modelTaskList = convertStringToList(modelAnswer);
         List<String> modifieduserTaskList = convertTaskListFormat(userTaskList);
 
+        if(levelNumber == 1.4){
+            for(int i = 0 ; i < userTaskList.size(); i++){
+                //action checker
+                String[] userTaskString = userTaskList.get(i).split("\\s+");
+                String[] modelTaskString = modelTaskList.get(i).split("\\s+");
+
+                /*
+                String[] userTask = userTaskString.split("\\s+");
+                String[] modelTaskString = modelTaskString.split("\\s+");
+                */
+
+                //task
+                //String userTask =
+
+            }
+        }
 
 
 
@@ -209,16 +236,26 @@ public class Level {
         output += "\nYour actions ";
         output += farmio.getFarmer().tasks.toString();
 
-        output += getPermutationFeedback(farmio, levelNumber);
+        //output += getPermutationFeedback(farmio, levelNumber);
 
         return output;
     }
+
+    public String getSuccessfulFeedback(){
+        String output = "";
+        for(String x: successfulFeedback){
+            output += x;
+        }
+        return output;
+    }
+
 
     public String getFeedback(Farmio farmio){
         Farmer farmer = farmio.getFarmer();
         objectiveResult currentLevelState = farmio.getLevel().getLevelState();
         if(currentLevelState == objectiveResult.DONE){
-            return "well done you have completed the level - all tasks has been completed succesfully";
+            String  returnString = getSuccessfulFeedback();
+            return returnString + "\nwell done you have completed the level - all tasks has been completed succesfully";
         }
 
         else if(currentLevelState == objectiveResult.NOT_DONE){ //day completed but tasks not achieved succesfult
@@ -227,8 +264,9 @@ public class Level {
                 //add enter and day end
                 feedback += "detailed feedback : -- \n";
                 feedback += checkIncompleteObjectives(farmer);
-                feedback += "\n Press [ENTER] to continue the game or [RESET] to restart the level";
             }
+
+            feedback += "\n Press [ENTER] to continue the game or [RESET] to restart the level";
             return feedback;
         }
 

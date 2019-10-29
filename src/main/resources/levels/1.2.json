@@ -3,6 +3,9 @@
     "At the market, you can buy and sell seeds in exchange for gold.",
     "Enter [Task] [Action] to buy seeds from the market.~"
   ],
+  "feedback": [
+    "you have succesfully bought seeds using gold"
+  ],
   "gold": 0,
   "seeds": 1,
   "seedlings": 0,
