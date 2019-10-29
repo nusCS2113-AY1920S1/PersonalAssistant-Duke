@@ -3,7 +3,7 @@ package duke.command.patient;
 import duke.DukeCore;
 import duke.command.ArgCommand;
 import duke.command.ArgSpec;
-import duke.command.CommandHelpers;
+import duke.command.CommandUtils;
 import duke.data.DukeObject;
 import duke.data.Patient;
 import duke.exception.DukeException;
@@ -45,7 +45,7 @@ public class PatientOpenCommand extends ArgCommand {
         }
 
         Patient patient = (Patient) core.uiContext.getObject();
-        DukeObject object = CommandHelpers.findObject(patient, type, getSwitchVal("name"),
+        DukeObject object = CommandUtils.findObject(patient, type, getSwitchVal("name"),
                 switchToInt("index"));
 
         if ("impression".equals(type)) {

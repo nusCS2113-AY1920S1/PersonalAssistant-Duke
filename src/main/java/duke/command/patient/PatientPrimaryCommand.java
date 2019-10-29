@@ -3,7 +3,7 @@ package duke.command.patient;
 import duke.DukeCore;
 import duke.command.ArgCommand;
 import duke.command.ArgSpec;
-import duke.command.CommandHelpers;
+import duke.command.CommandUtils;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.exception.DukeException;
@@ -19,7 +19,7 @@ public class PatientPrimaryCommand extends ArgCommand {
         super.execute(core);
 
         Patient patient = (Patient) core.uiContext.getObject();
-        Impression impression = (Impression) CommandHelpers.findObject(patient, "impression",
+        Impression impression = (Impression) CommandUtils.findObject(patient, "impression",
                 getSwitchVal("name"), switchToInt("index"));
         patient.setPrimaryDiagnosis(impression.getName());
         patient.updateAttributes();
