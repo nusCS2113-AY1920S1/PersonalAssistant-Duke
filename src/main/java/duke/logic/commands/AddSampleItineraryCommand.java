@@ -1,8 +1,10 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.DukeDateTimeParseException;
+import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.ItineraryInsufficientAgendas;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 import duke.model.planning.Itinerary;
@@ -32,7 +34,7 @@ public class AddSampleItineraryCommand extends Command {
      * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResultText execute(Model model) throws FileNotSavedException, FileNotFoundException {
+    public CommandResultText execute(Model model) throws DukeException, FileNotFoundException {
         // Add to the list of Itineraries
         model.itineraryListSave(this.itinerary);
         model.saveItinerary(this.itinerary);

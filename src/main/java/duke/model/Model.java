@@ -83,7 +83,7 @@ public interface Model {
      */
     VenueList getEventVenues();
 
-    void saveItinerary(Itinerary itinerary) throws FileNotSavedException;
+    void saveItinerary(Itinerary itinerary) throws FileNotSavedException, DukeException;
 
     void itineraryListSave(Itinerary itinerary) throws FileNotSavedException, FileNotFoundException;
 

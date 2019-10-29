@@ -3,6 +3,7 @@ package duke.model;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.ItineraryInsufficientAgendas;
 import duke.commons.exceptions.RouteDuplicateException;
 import duke.logic.CreateMap;
 import duke.model.lists.EventList;
@@ -81,21 +82,39 @@ public class ModelManager implements Model {
         return new VenueList(events);
     }
 
+    /**
+     * Save a newly created Itinerary to storage.
+     *
+     * @param itinerary The itinerary to be stored.
+     */
     @Override
-    public void saveItinerary(Itinerary itinerary) throws FileNotSavedException {
+    public void saveItinerary(Itinerary itinerary)  throws FileNotSavedException, ItineraryInsufficientAgendas {
         storage.writeItineraries(itinerary, 1);
     }
 
+    /**
+     * Save the newly created itinerary to the Itinerary Lists table of contents.
+     *
+     * @param itinerary The itinerary to be stored.
+     */
     @Override
     public void itineraryListSave(Itinerary itinerary) throws FileNotSavedException, FileNotFoundException {
         storage.writeItinerarySave(itinerary);
     }
 
+    /**
+     * Shows the Stored Itineraries Table of Contents.
+     */
     @Override
     public String listItineraries() throws FileLoadFailException {
         return storage.readItineraryList();
     }
 
+    /**
+     * Shows the Itinerary specified by a give serial number.
+     *
+     * @param number The serial number of the Itinerary.
+     */
     @Override
     public Itinerary getItinerary(String number) throws DukeException {
         return storage.getItinerary(number);

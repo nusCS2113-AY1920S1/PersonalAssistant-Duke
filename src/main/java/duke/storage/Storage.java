@@ -1,11 +1,13 @@
 package duke.storage;
 
+import duke.commons.exceptions.ApiFailedRequestException;
 import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeDuplicateTaskException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
+import duke.commons.exceptions.ItineraryInsufficientAgendas;
 import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.commons.exceptions.StorageFileNotFoundException;
 import duke.logic.parsers.ParserStorageUtil;
@@ -252,7 +254,8 @@ public class Storage {
      *
      * @throws FileNotSavedException If the file cannot be saved.
      */
-    public void writeItineraries(Itinerary itinerary, int type) throws FileNotSavedException {
+    public void writeItineraries(Itinerary itinerary, int type) throws ItineraryInsufficientAgendas,
+            FileNotSavedException {
         String file;
         if (type == 1) {
             file = ITINERARIES_FILE_PATH;
@@ -263,6 +266,9 @@ public class Storage {
             FileWriter writer = new FileWriter(file, true);
             writer.write(itinerary.getName() + "\n" + itinerary.getStartDate().toString() + "\n"
                     + itinerary.getEndDate().toString() + "\n" + itinerary.getHotelLocation().toString() + "\n");
+            if(itinerary.getList().size() != itinerary.getNumberOfDays()) {
+                throw new ItineraryInsufficientAgendas();
+            }
             for (Agenda agenda : itinerary.getList()) {
                 writer.write(agenda.toString());
             }

@@ -9,6 +9,9 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.commons.exceptions.InputNotIntException;
+import duke.commons.exceptions.ItineraryEmptyTodoException;
+import duke.commons.exceptions.ItineraryFailCreationException;
+import duke.commons.exceptions.ItineraryIncorrectCommandException;
 import duke.commons.exceptions.ObjectCreationFailedException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.commons.exceptions.UnknownConstraintException;
@@ -264,7 +267,6 @@ public class ParserUtil {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new QueryOutOfBoundsException(String.valueOf(index));
         }
-
         throw new QueryOutOfBoundsException("INTEGER");
     }
 
@@ -277,24 +279,33 @@ public class ParserUtil {
         Itinerary itinerary = new Itinerary(start, end, hotelLocation , name);
         AgendaList agendaList = new AgendaList();
         int i = 4;
-        while(i < itineraryDetails.length) {
-            List<Venue> venueList = new ArrayList<>();
-            List<Todo> todoList;
-            final int number = Integer.parseInt(itineraryDetails[i++]);
-            venueList.add(ApiParser.getLocationSearch(itineraryDetails[i++]));
-            StringBuilder todos = new StringBuilder();
-            todos.append(itineraryDetails[++i]).append(" | ");
-            i++;
-            while(itineraryDetails[i].equals("/and") ) {
-                i++;
-                todos.append(itineraryDetails[i++]).append(" | ");
-                if(i>=itineraryDetails.length) {
-                    break;
+        try {
+            while(i < itineraryDetails.length) {
+                List<Venue> venueList = new ArrayList<>();
+                List<Todo> todoList;
+                final int number = Integer.parseInt(itineraryDetails[i++]);
+                venueList.add(ApiParser.getLocationSearch(itineraryDetails[i++]));
+                StringBuilder todos = new StringBuilder();
+                if(i == itineraryDetails.length - 1 || itineraryDetails[i].matches("-?\\d+")) {
+                    throw new ItineraryEmptyTodoException();
                 }
+                todos.append(itineraryDetails[++i]).append(" | ");
+                i++;
+                while(itineraryDetails[i].equals("/and") ) {
+                    i++;
+                    todos.append(itineraryDetails[i++]).append(" | ");
+                    if(i>=itineraryDetails.length) {
+                        break;
+                    }
+                }
+                todoList = ParserStorageUtil.getTodoListFromStorage(todos.toString());
+                Agenda agenda = new Agenda(todoList, venueList, number);
+                agendaList.add(agenda);
             }
-            todoList = ParserStorageUtil.getTodoListFromStorage(todos.toString());
-            Agenda agenda = new Agenda(todoList, venueList, number);
-            agendaList.add(agenda);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new ItineraryFailCreationException();
+        } catch (NumberFormatException e) {
+            throw new ItineraryIncorrectCommandException();
         }
         itinerary.setTasks(agendaList);
         return itinerary;
