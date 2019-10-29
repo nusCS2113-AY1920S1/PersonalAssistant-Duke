@@ -25,15 +25,17 @@ public class ThresholdCommand extends Command {
 
     /**
      * Sets the threshold for upcoming deadline reminders.
+     *
      * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param taskList     Instance of TaskList that stores Task objects.
+     * @param tasks        Instance of TaskList that stores Task objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
      * @throws OofException if threshold given is invalid.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage)
+            throws OofException {
         if (!isThresholdNegative(newThreshold)) {
             updateThreshold(newThreshold, storage);
             ui.printUpdatedThreshold(newThreshold);
@@ -55,7 +57,7 @@ public class ThresholdCommand extends Command {
      * Checks if the new threshold given by user is negative.
      *
      * @param newThreshold New threshold input by user.
-     * @return  true if threshold given is negative, false otherwise.
+     * @return true if threshold given is negative, false otherwise.
      */
     public boolean isThresholdNegative(String newThreshold) {
         int threshold = Integer.parseInt(newThreshold);

@@ -1,82 +1,94 @@
 package oof.command;
 
 import oof.Storage;
+import oof.Ui;
+import oof.exception.OofException;
 import oof.model.module.SemesterList;
 import oof.model.task.Assignment;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.model.tracker.Tracker;
-import oof.Ui;
-import oof.exception.OofException;
 import oof.model.tracker.TrackerList;
 
 import java.util.Date;
 
-/**
- * Represents a Command to start an Assignment Task tracker.
- */
-public class StartTrackerCommand extends Command {
+public class PauseTrackerCommand extends Command {
+
     private String description;
-    private static final long DEFAULT_TIMETAKEN = 0;
     private static final int ARGUMENT_FIRST = 0;
     private static final int ARGUMENT_SECOND = 1;
     private static final int MINIMUM_SIZE = 2;
 
-    /**
-     * Constructor for StartTrackerCommand.
-     *
-     * @param description of Assignment Task to start tracking.
-     */
-    public StartTrackerCommand(String description) {
+    public PauseTrackerCommand(String description) {
         super();
         this.description = description;
     }
 
     /**
-     * Starts Tracker timer.
+     * Pauses Tracker timer.
      *
      * @param semesterList Instance of SemesterList that stores Semester objects.
-     * @param taskList     Instance of TaskList that stores Task objects.
+     * @param tasks        Instance of TaskList that stores Task objects.
      * @param ui           Instance of Ui that is responsible for visual feedback.
      * @param storage      Instance of Storage that enables the reading and writing of Task
      *                     objects to hard disk.
-     * @throws OofException if invalid Module Code detected or Tracker timer has already started.
+     * @throws OofException if invalid Module Code detected.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
         if (description.isEmpty()) {
             throw new OofException("Please enter the Assignment module code and description!");
         }
-        String[] input = description.split(" ", 2);
+
+        String[] input = description.split(" ", MINIMUM_SIZE);
         if (input.length < MINIMUM_SIZE) {
             throw new OofException("Invalid input!");
         }
-
         String moduleCode = input[ARGUMENT_FIRST].toLowerCase();
         String moduleDescription = input[ARGUMENT_SECOND].toLowerCase();
+
         TrackerList trackerList = storage.readTrackerList();
         Tracker tracker = trackerList.findTrackerByDesc(moduleDescription, moduleCode);
-
-        Assignment assignment = findAssignment(moduleDescription, moduleCode, taskList);
+        Assignment assignment = findAssignment(moduleDescription, moduleCode, tasks);
         if (assignment == null) {
             throw new OofException("Assignment Not Found!");
         }
-
         boolean isCompleted = isAssignmentCompleted(assignment);
+
         if (isCompleted) {
             throw new OofException("Assignment has already been completed.");
 
-        }
+        } else if (!isStarted(tracker)) {
+            throw new OofException("Tracker for this Assignment has not started.");
 
-        if (tracker == null) {
-            tracker = addNewTracker(moduleDescription, moduleCode, taskList);
-            trackerList.addTracker(tracker);
         } else {
-            updateTrackerList(moduleDescription, moduleCode, trackerList);
+            updateTimeTaken(tracker);
+            storage.writeTrackerList(trackerList);
+            ui.printPauseAtCurrent(tracker);
         }
+    }
 
-        storage.writeTrackerList(trackerList);
-        ui.printStartAtCurrent(tracker);
+    /**
+     * Update Tracker object TimeTaken property.
+     *
+     * @param tracker   Tracker object.
+     */
+    private void updateTimeTaken(Tracker tracker) {
+        long totalTime = tracker.getTimeTaken();
+        Date now = new Date();
+        Date startDate = tracker.getStartDate();
+        totalTime += Integer.parseInt(tracker.getDateDiff(startDate));
+        tracker.updateTracker(totalTime, now);
+    }
+
+    /**
+     * Check if tracker has been started.
+     *
+     * @param tracker   Tracker object.
+     * @return          if Tracker object has a start date.
+     */
+    private boolean isStarted(Tracker tracker) {
+        return tracker.getStartDate() != null;
     }
 
     /**
@@ -112,43 +124,8 @@ public class StartTrackerCommand extends Command {
         return null;
     }
 
-    /**
-     * Create a new Tracker object.
-     *
-     * @param moduleDescription     module description given by User.
-     * @param moduleCode            module code given by User.
-     * @param tasks                 TaskList object.
-     * @return                      new Tracker object.
-     */
-    private Tracker addNewTracker(String moduleDescription, String moduleCode, TaskList tasks) {
-        for (int i = 0; i < tasks.getSize(); i++) {
-            Task t = tasks.getTask(i);
-            if (t instanceof Assignment) {
-                Date current = new Date();
-                return new Tracker(moduleCode, moduleDescription, current, current, DEFAULT_TIMETAKEN);
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Updated Assignment that have been tracked in the past.
-     *
-     * @param description   module description given by User.
-     * @param moduleCode    module code given by user.
-     * @param trackerList   TrackerList of Tracker objects.
-     */
-    private void updateTrackerList(String description, String moduleCode, TrackerList trackerList) {
-        for (int i = 0; i < trackerList.getSize(); i++) {
-            Tracker tracker = trackerList.getTracker(i);
-            String currentDesc = tracker.getDescription();
-            String currentModuleCode = tracker.getModuleCode().toLowerCase();
-
-            if (description.equals(currentDesc) && moduleCode.equals(currentModuleCode)) {
-                tracker.setLastUpdated(new Date());
-                tracker.setStartDate(new Date());
-                break;
-            }
-        }
+    @Override
+    public boolean isExit() {
+        return false;
     }
 }

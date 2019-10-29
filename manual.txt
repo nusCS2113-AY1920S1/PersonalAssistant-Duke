@@ -6,46 +6,42 @@ NAME
 DESCRIPTION
 	The following options are available:
 
-Deadline            deadline DESCRIPTION /by DD-MM-YYYY HH:MM
+Help                        help
 
-Event               event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM
+Deadline                    deadline DESCRIPTION /by DD-MM-YYYY HH:MM
 
-Todo                todo DESCRIPTION /on DD-MM-YYYY
+Event                       event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM
 
-Do-after            do-after INDEX DESCRIPTION
+Todo                        todo DESCRIPTION /on DD-MM-YYYY
 
-Recurring           recurring DESCRIPTION
+Recurring                   recurring INDEX NUMBER_OF_OCCURRENCES
 
-Tentative           tentative DESCRIPTION
+List                        list
 
-List                list
+Done                        done INDEX
 
-Done                done INDEX
+Delete                      delete INDEX
 
-Delete              delete INDEX
+Find                        find DESCRIPTION
 
-Find                find DESCRIPTION
+Threshold                   threshold HH
 
-Filter              filter CATEGORY
+Schedule                    schedule DD-MM-YYYY
 
-Threshold           threshold HH
+Summary                     summary
 
-Color Code          colorcode INDEX #RRGGBB
+Free                        free DD-MM-YYYY
 
-Schedule            schedule DD-MM-YYYY
+ViewWeek                    viewweek DD MM YYYY e.g. viewweek 30 10 2019
 
-Summary             summary
+Calendar                    calendar MM YYYY
 
-Sort                sort
+Start Assignment Tracker    start MODULE_CODE ASSIGNMENT_DESCRIPTION
 
-View Undone         viewUndone
+Pause Assignment Tracker    pause MODULE_CODE ASSIGNMENT_DESCRIPTION
 
-Free                free DD-MM-YYYY
+Stop Assignment Tracker     stop MODULE_CODE ASSIGNMENT_DESCRIPTION
 
-View Week           viewWeek
+View Assignment Tracker     viewtracker
 
-Calendar            calendar MONTH YEAR
-
-Reminder            reminder
-
-Exit                bye
+Exit                        bye

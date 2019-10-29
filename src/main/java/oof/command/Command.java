@@ -1,20 +1,20 @@
 package oof.command;
 
-import oof.exception.OofException;
-import oof.Storage;
-import oof.model.module.SemesterList;
-import oof.Ui;
-import oof.model.task.Deadline;
-import oof.model.task.Event;
-import oof.model.task.Task;
-import oof.model.task.TaskList;
-import oof.model.task.Todo;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.util.Comparator;
 import java.util.Date;
+
+import oof.Storage;
+import oof.Ui;
+import oof.exception.OofException;
+import oof.model.module.SemesterList;
+import oof.model.task.Deadline;
+import oof.model.task.Event;
+import oof.model.task.Task;
+import oof.model.task.TaskList;
+import oof.model.task.Todo;
 
 /**
  * Represents a Command object that corresponds to specific commands

@@ -1,15 +1,11 @@
 package oof;
 
-import oof.model.task.Assessment;
-import oof.model.module.Lesson;
-import oof.model.module.Module;
-import oof.model.module.Semester;
-import oof.model.module.SemesterList;
+import java.io.IOException;
+
 import oof.command.Command;
 import oof.exception.OofException;
+import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
-
-import java.io.IOException;
 
 /**
  * Represents a Personal Assistant bot. An Oof object corresponds to three other classes,

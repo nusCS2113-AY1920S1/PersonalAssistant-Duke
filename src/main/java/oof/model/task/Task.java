@@ -23,9 +23,6 @@ public abstract class Task {
     private static final int WEEKLY = 2;
     private static final int MONTHLY = 3;
     private static final int YEARLY = 4;
-    private String startDate;
-    private String endDate;
-    private long timeTaken;
 
     /**
      * Constructor for Task.
@@ -64,30 +61,6 @@ public abstract class Task {
         } else if (frequency == YEARLY) {
             this.frequency = Frequency.YEARLY;
         }
-    }
-
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
-    public long getTimeTaken() {
-        return timeTaken;
-    }
-
-    public void setTimeTaken(long timeTaken) {
-        this.timeTaken = timeTaken;
     }
 
     /**

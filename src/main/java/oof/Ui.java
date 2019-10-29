@@ -1,16 +1,5 @@
 package oof;
 
-import oof.exception.OofException;
-import oof.model.task.Assessment;
-import oof.model.module.Lesson;
-import oof.model.module.Module;
-import oof.model.module.Semester;
-import oof.model.module.SemesterList;
-import oof.model.task.Assignment;
-import oof.model.task.Event;
-import oof.model.task.Task;
-import oof.model.task.TaskList;
-
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.YearMonth;
@@ -18,6 +7,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
+
+import oof.exception.OofException;
+import oof.model.module.Lesson;
+import oof.model.module.Module;
+import oof.model.module.Semester;
+import oof.model.module.SemesterList;
+import oof.model.task.Assessment;
+import oof.model.task.Assignment;
+import oof.model.task.Event;
+import oof.model.task.Task;
+import oof.model.task.TaskList;
+import oof.model.tracker.ModuleTracker;
+import oof.model.tracker.ModuleTrackerList;
+import oof.model.tracker.Tracker;
 
 /**
  * Represents a Ui class that is responsible for Input/Output operations.
@@ -43,6 +46,8 @@ public class Ui {
     private static final int LEAST_COL_SIZE = 19;
     private static final int TIME = 0;
     private static final int DESCRIPTION = 1;
+    private static final int TEN_MINUTES_BLOCK = 10;
+    private static final int FIRST_VAR = 0;
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_BRIGHT_RED = "\u001B[91m";
     private static final String ANSI_BRIGHT_GREEN = "\u001B[92m";
@@ -795,27 +800,43 @@ public class Ui {
     /**
      * Print when Start Tracker Command is completed.
      *
-     * @param task description of Task object.
-     * @param date current date.
+     * @param tracker description of Tracker object.
      */
-    public void printStartAtCurrent(Task task, String date) {
+    public void printStartAtCurrent(Tracker tracker) {
         printLine();
-        System.out.println(" Begin " + task.getDescription());
-        System.out.println(" It is currently " + date);
+        String assigmentModule = tracker.getModuleCode();
+        String assignmentName = tracker.getDescription();
+        System.out.println("Begin Assignment: " + assigmentModule + " " + assignmentName);
+        System.out.println("It is currently " + tracker.getLastUpdated());
+        System.out.println("Current total time spent on " + assignmentName + ": "
+                + tracker.getTimeTaken() + " minutes");
     }
 
     /**
      * Print when Stop Tracker Command is completed.
      *
-     * @param task       description of Task object.
-     * @param date       current date.
-     * @param difference calculated time taken.
+     * @param tracker       description of Tracker object.
      */
-    public void printEndAtCurrent(Task task, String date, long difference) {
+    public void printEndAtCurrent(Tracker tracker) {
         printLine();
-        System.out.println(" Ending " + task.getDescription());
-        System.out.println(" It is currently " + date);
-        System.out.println(" Time spent on " + task.getDescription() + ": " + difference + " minutes");
+        String assigmentModule = tracker.getModuleCode();
+        String assignmentName = tracker.getDescription();
+        System.out.println("Ending Assignment: " + assigmentModule + " " + assignmentName);
+        System.out.println("It is currently " + tracker.getLastUpdated());
+        System.out.println("Total time spent on " + assignmentName + ": " + tracker.getTimeTaken() + " minutes");
+    }
+
+    /**
+     * Print when Stop Tracker Command is completed.
+     * @param tracker          description of Tracker object.
+     */
+    public void printPauseAtCurrent(Tracker tracker) {
+        printLine();
+        String assigmentModule = tracker.getModuleCode();
+        String assignmentName = tracker.getDescription();
+        System.out.println("Pausing Assignment: " + assigmentModule + " " + assignmentName);
+        System.out.println("It is currently " + tracker.getLastUpdated());
+        System.out.println("Total time spent on " + assignmentName + ": " + tracker.getTimeTaken() + " minutes");
     }
 
     /**
@@ -973,5 +994,38 @@ public class Ui {
     public void printCurrentlySelectedModule(Module module) {
         printLine();
         System.out.println(" Currently Selected: " + module.toString());
+    }
+
+    /**
+     * Print Tracker Diagram from TrackerList object.
+     *
+     * @param moduleTrackerList   ArrayList of Tracker objects.
+     */
+    public void printTrackerDiagram(ModuleTrackerList moduleTrackerList) {
+        printLine();
+        for (int i = 0; i < moduleTrackerList.getSize(); i++) {
+            ModuleTracker moduleTracker = moduleTrackerList.getModuleTracker(i);
+            int timeTaken = (int) moduleTracker.getTotalTimeTaken();
+            int segmentedTimeTaken = timeTaken / TEN_MINUTES_BLOCK;
+            printTrackerDiagramBar(segmentedTimeTaken);
+            String moduleCode = moduleTracker.getModuleCode();
+            System.out.print("\t" + moduleCode + " -- " + timeTaken + " minutes\n");
+        }
+    }
+
+    /**
+     * Print a bar of Tracker Diagram according to number of 10 minute blocks.
+     *
+     * @param segmentedTimeTaken    number of 10 minute blocks.
+     */
+    private void printTrackerDiagramBar(int segmentedTimeTaken) {
+        for (int i = 0; i < segmentedTimeTaken; i++) {
+            if (i == FIRST_VAR) {
+                System.out.println("| ");
+                System.out.print("| #");
+            } else {
+                System.out.print("#");
+            }
+        }
     }
 }
