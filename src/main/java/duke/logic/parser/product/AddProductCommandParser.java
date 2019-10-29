@@ -18,16 +18,13 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
 
     @Override
     public AddProductCommand parse(String args) throws ParseException {
-        getMap(args);
+        map = ArgumentTokenizer.tokenize(args,
+                PREFIX_PRODUCT_NAME,
+                PREFIX_PRODUCT_INGREDIENT,
+                PREFIX_PRODUCT_INGREDIENT_COST,
+                PREFIX_PRODUCT_RETAIL_PRICE
+        );
         return new AddProductCommand(createProductDescriptor(map));
     }
-
-    private void getMap(String args) {
-        map = ArgumentTokenizer.tokenize(args,
-            PREFIX_PRODUCT_NAME,
-            PREFIX_PRODUCT_INGREDIENT,
-            PREFIX_PRODUCT_INGREDIENT_COST,
-            PREFIX_PRODUCT_RETAIL_PRICE
-        );
-    }
 }
+

@@ -4,6 +4,7 @@ import duke.commons.core.index.Index;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
+import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
 import duke.model.sale.Sale;
 import duke.model.shortcut.Shortcut;
@@ -247,6 +248,11 @@ public interface Model {
     boolean hasInventory(Item<Ingredient> inventory);
 
     boolean hasIngredient(Ingredient ingredient);
+
+    /**
+     * Calculates the cost of the given list of ingredients.
+     */
+    Double getIngredientCost(IngredientItemList ingredients);
 
     boolean deductIngredient(Ingredient ingredient, double amount);
 
