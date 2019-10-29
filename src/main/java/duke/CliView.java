@@ -131,6 +131,7 @@ public class CliView {
      * @param foundStudent Name of student that has been found.
      * @return Student that has been found
      */
+
     public String printFoundStudent(final String foundStudent) {
         return "Here are the matching names in your list: " + foundStudent;
     }

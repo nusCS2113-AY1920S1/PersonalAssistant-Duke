@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/AY1920S1-CS2113T-W13-1/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113T-W13-1/main)
 # Coach Manager
 By: `W13-1`   Since: `16 September 2019`
 
