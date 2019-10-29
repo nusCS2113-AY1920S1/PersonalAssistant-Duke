@@ -917,17 +917,21 @@ public class BankList {
     }
 
     /**
-     * Checks investment account specified by the user actually exist.
+     * Checks investment account specified by the user actually exist. If exist search for bond within the
+     * investment account.
      *
+     * @param bondName The bond name to be searched for.
      * @param investmentName The name of the investment account.
-     * @return The investment account object will be return if found.
+     * @param ui       The object required for printing.
      * @throws BankException If investment account does not exist.
+     * @throws BondException If no bonds could be found.
      */
-    public Bank checkInvestmentAccountExist(String investmentName) throws BankException {
+    public void checkInvestmentAccountExist(String bondName, String investmentName, Ui ui)
+            throws BankException, BondException {
         for (int i = ISZERO; i < getBankListSize(); i++) {
             if (investmentName.equals(bankLists.get(i).getAccountName())
                     && INVESTMENT.equals(bankLists.get(i).getType())) {
-                return bankLists.get(i);
+                bankLists.get(i).findBondInInvestment(bondName, ui);
             }
         }
         throw new BankException("Investment account with the following name "

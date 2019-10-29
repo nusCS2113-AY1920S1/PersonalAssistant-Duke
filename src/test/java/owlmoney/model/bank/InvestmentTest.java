@@ -302,4 +302,65 @@ class InvestmentTest {
         String expectedMessage = "There are no bonds with the name: TEST BOND 0";
         assertEquals(actualMessage,expectedMessage);
     }
+
+    //Tests function for find feature.
+    @Test
+    void findInvestmentInBond_bondNameThatExist_success() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Ui uiTest = new Ui();
+        Bank testInvestment = new Investment("Test Investment Account", 10000);
+        Bond testBondOne = new Bond("TEST BOND 1", 1000, 1.8,
+                new Date("1/3/2019"), 3);
+        Bond testBondTwo = new Bond("TEST BOND 2", 1000, 1.8,
+                new Date("1/3/2019"), 3);
+        try {
+            testInvestment.addBondToInvestmentAccount(testBondOne, uiTest);
+            testInvestment.addBondToInvestmentAccount(testBondTwo, uiTest);
+            outContent.reset();
+
+            testInvestment.findBondInInvestment("2", uiTest);
+
+            String expectedOutput = "Item No.             Bond Name                      "
+                    + "Amount          Rate       Date of Purchased    Number of Years " + NEWLINE
+                    + "-------------------------------------------------------------------------------"
+                    + "--------------------------------------------------" + NEWLINE
+                    + "1                    TEST BOND 2                    $1000.00        "
+                    + "1.80       03 January 2019      3          " + NEWLINE
+                    + "-------------------------------------------------------------------------------"
+                    + "--------------------------------------------------" + NEWLINE;
+            assertEquals(expectedOutput,outContent.toString());
+
+
+        } catch (BankException | BondException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findInvestmentInBond_bondNameDoesNotExist_throwsException() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Ui uiTest = new Ui();
+        Bank testInvestment = new Investment("Test Investment Account", 10000);
+        Bond testBondOne = new Bond("TEST BOND 1", 1000, 1.8,
+                new Date("1/3/2019"), 3);
+        Bond testBondTwo = new Bond("TEST BOND 2", 1000, 1.8,
+                new Date("1/3/2019"), 3);
+        try {
+            testInvestment.addBondToInvestmentAccount(testBondOne, uiTest);
+            testInvestment.addBondToInvestmentAccount(testBondTwo, uiTest);
+            outContent.reset();
+
+        } catch (BankException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+
+        BondException thrown = assertThrows(BondException.class, () ->
+                        testInvestment.findBondInInvestment("No Such Bond", uiTest),
+                "Expected findBondInInvestment to throw after bond matures and deleted, but it didn't");
+        assertEquals("Bond with the following keyword could not be found: No Such Bond",
+                thrown.getMessage());
+    }
 }

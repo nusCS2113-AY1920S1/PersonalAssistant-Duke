@@ -5,11 +5,21 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
 class BankListTest {
+
+    private static final String NEWLINE = System.lineSeparator();
+    private static final DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
+    private static final String FILE_PATH = "data/";
+    private static final Storage storage = new Storage(FILE_PATH);
 
     @Test
     void bankListAddBank_duplicateBankName_throwsError() {
@@ -23,7 +33,7 @@ class BankListTest {
             System.out.println("Expects success but error was thrown");
         }
         BankException thrown = assertThrows(BankException.class, () ->
-                testList.bankListAddBank(newBank2, testUi),
+                        testList.bankListAddBank(newBank2, testUi),
                 "Expected bankListAddBank to throw, but it didn't");
         assertEquals("There is already a bank account with the name test", thrown.toString());
     }
@@ -229,5 +239,225 @@ class BankListTest {
                         testList.bankListEditInvestment("test4", "test2", "", testUi),
                 "Expected bankListEditInvestment to throw, but it didn't");
         assertEquals("There are no bank with the name: test4", thrown.toString());
+    }
+
+    //Tests function for transfer feature.
+    @Test
+    void bankListIsAccountExistToTransfer_accountDoesNotExist_throwsException() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        BankList bankList = new BankList(storage);
+        Ui uiTest = new Ui();
+        Bank newSavingAccount = new Saving("Test Saving Account", 1000, 2000);
+        Bank newInvestmentAccount = new Investment("Test Investment Account", 1000);
+        try {
+            bankList.bankListAddBank(newSavingAccount, uiTest);
+            bankList.bankListAddBank(newInvestmentAccount, uiTest);
+        } catch (BankException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+
+        assertEquals(2, bankList.getBankListSize());
+        outContent.reset();
+
+        BankException thrown = assertThrows(BankException.class, () ->
+                        bankList.bankListIsAccountExistToTransfer("No Such Name", 10),
+                "Expected bankListIsAccountExistToTransfer to throw, but it didn't");
+        assertEquals("Unable to transfer fund as bank the sender bank account does not exist: "
+                + "No Such Name", thrown.getMessage());
+
+    }
+
+    //Tests function for transfer feature.
+    @Test
+    void bankListIsAccountExistToTransfer_accountExistButInsufficientMoneyToTransfer_throwsException() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        BankList bankList = new BankList(storage);
+        Ui uiTest = new Ui();
+        Bank newSavingAccount = new Saving("Test Saving Account", 1000, 2000);
+        Bank newInvestmentAccount = new Investment("Test Investment Account", 1000);
+        try {
+            bankList.bankListAddBank(newSavingAccount, uiTest);
+            bankList.bankListAddBank(newInvestmentAccount, uiTest);
+        } catch (BankException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+
+        assertEquals(2, bankList.getBankListSize());
+        outContent.reset();
+
+        BankException thrown = assertThrows(BankException.class, () ->
+                        bankList.bankListIsAccountExistToTransfer("Test Investment Account",
+                                2000),
+                "Expected bankListIsAccountExistToTransfer to throw, but it didn't");
+        assertEquals("Insufficient amount for transfer in this bank: Test Investment Account",
+                thrown.getMessage());
+
+    }
+
+    //Tests function for transfer feature.
+    @Test
+    void bankListIsAccountExistToTransfer_accountExistWithSufficientMoneyToTransfer_success() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        BankList bankList = new BankList(storage);
+        Ui uiTest = new Ui();
+        Bank newSavingAccount = new Saving("Test Saving Account", 1000, 2000);
+        Bank newInvestmentAccount = new Investment("Test Investment Account", 1000);
+        String expectedReturnType = "investment";
+
+        try {
+            bankList.bankListAddBank(newSavingAccount, uiTest);
+            bankList.bankListAddBank(newInvestmentAccount, uiTest);
+            outContent.reset();
+            String returnType = bankList.bankListIsAccountExistToTransfer("Test Investment Account",
+                    500);
+            assertEquals(expectedReturnType, returnType);
+
+
+        } catch (BankException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+
+        assertEquals(2, bankList.getBankListSize());
+
+    }
+
+    //Tests function for transfer feature.
+    @Test
+    void bankListIsAccountExistToReceive_accountDoesNotExist_throwsException() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        BankList bankList = new BankList(storage);
+        Ui uiTest = new Ui();
+        String nameDoNotExist = "No Such Name";
+        Bank newSavingAccount = new Saving("Test Saving Account", 1000, 2000);
+        Bank newInvestmentAccount = new Investment("Test Investment Account", 1000);
+        try {
+            bankList.bankListAddBank(newSavingAccount, uiTest);
+            bankList.bankListAddBank(newInvestmentAccount, uiTest);
+            outContent.reset();
+        } catch (BankException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+        assertEquals(2, bankList.getBankListSize());
+
+        BankException thrown = assertThrows(BankException.class, () ->
+                        bankList.bankListIsAccountExistToReceive(nameDoNotExist),
+                "Expected bankListIsAccountExistToReceive to throw, but it didn't");
+        assertEquals("Unable to transfer fund as the receiving bank account does not exist: "
+                + nameDoNotExist, thrown.getMessage());
+    }
+
+    //Tests function for transfer feature.
+    @Test
+    void bankListIsAccountExistToReceive_accountExist_success() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        BankList bankList = new BankList(storage);
+        Ui uiTest = new Ui();
+        Bank newSavingAccount = new Saving("Test Saving Account", 1000, 2000);
+        Bank newInvestmentAccount = new Investment("Test Investment Account", 1000);
+        String expectedReturnType = "investment";
+
+        try {
+            bankList.bankListAddBank(newSavingAccount, uiTest);
+            bankList.bankListAddBank(newInvestmentAccount, uiTest);
+            outContent.reset();
+            String returnType = bankList.bankListIsAccountExistToReceive("Test Investment Account");
+            assertEquals(expectedReturnType, returnType);
+
+        } catch (BankException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+
+        assertEquals(2, bankList.getBankListSize());
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findBankAccount_AccountNameMatch_success() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        BankList bankList = new BankList(storage);
+        Ui uiTest = new Ui();
+        Bank newSavingAccountOne = new Saving("Test Saving Account 1", 1000, 2000);
+        Bank newSavingAccountTwo = new Saving("Test Saving Account 2", 1000, 2000);
+
+        try {
+            bankList.bankListAddBank(newSavingAccountOne, uiTest);
+            bankList.bankListAddBank(newSavingAccountTwo, uiTest);
+            assertEquals(2, bankList.getBankListSize());
+            outContent.reset();
+            bankList.findBankAccount("Test", "saving", uiTest);
+            String expectedOutput = "Item No.             Account Name                        "
+                    + "Account Type    Current Amount  Income          " + NEWLINE
+                    + "--------------------------------------------------------------------------------"
+                    + "-------------------------------------------------" + NEWLINE
+                    + "1                    Test Saving Account 1               saving          "
+                    + "$1000.00        $2000.00        " + NEWLINE
+                    + "2                    Test Saving Account 2               saving          $1000.00"
+                    + "        $2000.00        " + NEWLINE
+                    + "------------------------------------------------------------------------"
+                    + "---------------------------------------------------------" + NEWLINE;
+            assertEquals(expectedOutput, outContent.toString());
+
+
+        } catch (BankException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findBankAccount_savingsAccountNameDoNotMatch_throwsException() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        BankList bankList = new BankList(storage);
+        Ui uiTest = new Ui();
+        Bank newSavingAccountOne = new Saving("Test Saving Account 1", 1000, 2000);
+        Bank newSavingAccountTwo = new Saving("Test Saving Account 2", 1000, 2000);
+
+        try {
+            bankList.bankListAddBank(newSavingAccountOne, uiTest);
+            bankList.bankListAddBank(newSavingAccountTwo, uiTest);
+            assertEquals(2, bankList.getBankListSize());
+            outContent.reset();
+        } catch (BankException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+        BankException thrown = assertThrows(BankException.class, () ->
+                        bankList.findBankAccount("testing", "saving", uiTest),
+                "Expected findBankAccount to throw, but it didn't");
+        assertEquals("Savings account with the following keyword could not be found: testing",
+                thrown.getMessage());
+        outContent.reset();
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findBankAccount_investmentAccountNameDoNotMatch_throwsException() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        BankList bankList = new BankList(storage);
+        Ui uiTest = new Ui();
+        Bank newInvestmentAccountOne = new Investment("Test Investment Account 1", 1000);
+        Bank newInvestmentAccountTwo = new Investment("Test Investment Account 2", 2000);
+
+        try {
+            bankList.bankListAddBank(newInvestmentAccountOne, uiTest);
+            bankList.bankListAddBank(newInvestmentAccountTwo, uiTest);
+            assertEquals(2, bankList.getBankListSize());
+            outContent.reset();
+        } catch (BankException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+        BankException thrown = assertThrows(BankException.class, () ->
+                        bankList.findBankAccount("testing", "investment", uiTest),
+                "Expected findBankAccount to throw, but it didn't");
+        assertEquals("Investment account with the following keyword could not be found: testing",
+                thrown.getMessage());
+        outContent.reset();
     }
 }

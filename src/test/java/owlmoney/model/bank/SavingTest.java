@@ -7,6 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -19,6 +22,7 @@ import owlmoney.ui.Ui;
 
 class SavingTest {
     private static final String NEWLINE = System.lineSeparator();
+    private static final DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
 
     @Test
     void addInExpenditure_notAddingToSavingAccount_throwsException() {
@@ -328,5 +332,16 @@ class SavingTest {
         }
         savingTest.updateRecurringTransactions(testUi);
         assertEquals(80, savingTest.getCurrentAmount());
+    }
+
+    //Tests function for find feature.
+    @Test
+    void findBondInInvestment_useOnSavingAccount_throwsException() {
+        Ui uiTest = new Ui();
+        Bank testSaving = new Saving("Test Saving Bank", 1200, 1000);
+        BankException thrown = assertThrows(BankException.class, () ->
+                        testSaving.findBondInInvestment("Bond Name", uiTest),
+                "Expected transferFund to throw, but it didn't");
+        assertEquals("This account does not support this feature", thrown.toString());
     }
 }
