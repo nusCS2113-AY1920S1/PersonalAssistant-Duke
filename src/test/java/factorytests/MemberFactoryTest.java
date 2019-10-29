@@ -81,11 +81,12 @@ public class MemberFactoryTest {
     }
 
     @Test
-    void memberCreation_missingMemberIndex_exceptionCaught() {
-        simulatedFactoryInput = "-n Marvel -i 91234567 -e marvel@marvel.com";
+    void memberCreation_missingFlags_exceptionCaught() {
+        simulatedFactoryInput = "- -x 0";
         IMember simulatedMember = memberFactory.create(simulatedFactoryInput);
-        NullMember expectedMember = new NullMember("Index cannot be 0! This is a bug in the internal "
-                                    + "program. If this is encountered, please contact the project owners!");
+        NullMember expectedMember =  new NullMember("Name cannot be empty! Please follow the add command "
+                                    + "format in user guide! \"add member -n NAME\" is the minimum requirement for "
+                                    + "add member command");
         assertEquals(expectedMember.getDetails(), simulatedMember.getDetails());
         assertEquals(expectedMember.getIndexNumber(), simulatedMember.getIndexNumber());
         assertEquals(expectedMember.getName(), simulatedMember.getName());

@@ -27,10 +27,6 @@ public class MemberFactory implements IArchDukeFactory<IMember> {
         String phone = memberDetails[1];
         String email = memberDetails[2];
         int index = Integer.parseInt(memberDetails[3]);
-        if (index == 0) {
-            return new NullMember("Index cannot be 0! This is a bug in the internal program. If this is "
-                                + "encountered, please contact the project owners!");
-        }
         String role = memberDetails[4];
         if (isNameCreated) {
             return new Member(name, phone, email, index, role);
