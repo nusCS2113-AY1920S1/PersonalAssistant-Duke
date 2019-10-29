@@ -1,3 +1,5 @@
+// @@author namiwa
+
 package planner.logic.modules.module;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
