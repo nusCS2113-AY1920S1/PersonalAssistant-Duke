@@ -4,25 +4,71 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import models.member.Member;
+import models.project.Project;
+import models.task.Task;
+import models.task.TaskState;
 import org.junit.jupiter.api.Test;
 import util.ParserHelper;
 
 public class ParserHelperTest {
+    private final Project project;
+    private final Member member1;
+    private final Member member2;
+    private final Member member3;
+
+    ParserHelperTest() {
+        this.project = new Project("Test Project");
+        this.member1 = new Member("Tom", "NIL", "NIL", 1, "member");
+        this.member2 = new Member("Dick", "NIL", "NIL", 2, "member");
+        this.member3 = new Member("Harry", "NIL", "NIL", 3, "member");
+
+        Task task1 = new Task("Test task 1", 0,null, 0, TaskState.OPEN, new ArrayList<>());
+        Task task2 = new Task("Test task 2", 0,null, 0, TaskState.OPEN, new ArrayList<>());
+        this.project.addMember(member1);
+        this.project.addMember(member2);
+        this.project.addMember(member3);
+        this.project.addTask(task1);
+        this.project.addTask(task2);
+    }
+
     @Test
-    public void testParseAssignmentInputHelper() {
-        String command = "-i 1 2 -to 3 4 -rm 5 6 7";
-        ArrayList<ArrayList<String>> parsedCommands =
-            new ParserHelper().parseAssignmentInputHelper(command);
+    public void testParseAssignmentParams() {
+        String command = "-i 1 2 -to 3 4";
+        ParserHelper parserHelper = new ParserHelper();
+        ArrayList<ArrayList<Integer>> parsedCommands = parserHelper.parseAssignmentParams(command, project);
         assertEquals(2, parsedCommands.get(0).size());
-        assertEquals(3, parsedCommands.get(1).size());
-        assertEquals(2, parsedCommands.get(2).size());
-        assertTrue(parsedCommands.get(0).contains("3"));
-        assertTrue(parsedCommands.get(0).contains("4"));
-        assertTrue(parsedCommands.get(1).contains("5"));
-        assertTrue(parsedCommands.get(1).contains("6"));
-        assertTrue(parsedCommands.get(1).contains("7"));
-        assertTrue(parsedCommands.get(2).contains("1"));
-        assertTrue(parsedCommands.get(2).contains("2"));
+        assertEquals(1, parsedCommands.get(1).size());
+        assertEquals(0, parsedCommands.get(2).size());
+        assertTrue(parsedCommands.get(0).contains(1));
+        assertTrue(parsedCommands.get(0).contains(2));
+        assertTrue(parsedCommands.get(1).contains(3));
+        assertEquals(1, parserHelper.getErrorMessages().size());
+        assertEquals("Member with index 4 does not exist.", parserHelper.getErrorMessages().get(0));
+
+        command = "-i 3 -to 1 2 -rm 3";
+        parsedCommands = parserHelper.parseAssignmentParams(command, project);
+        assertEquals(0, parsedCommands.get(0).size());
+        assertEquals(2, parsedCommands.get(1).size());
+        assertEquals(1, parsedCommands.get(2).size());
+        assertTrue(parsedCommands.get(1).contains(1));
+        assertTrue(parsedCommands.get(1).contains(2));
+        assertTrue(parsedCommands.get(2).contains(3));
+        assertEquals("Task with index 3 does not exist.", parserHelper.getErrorMessages().get(0));
+
+        command = "-i 1 -to 1 -rm 1";
+        parsedCommands = parserHelper.parseAssignmentParams(command, project);
+        assertEquals(1, parsedCommands.get(0).size());
+        assertEquals(0, parsedCommands.get(1).size());
+        assertEquals(0, parsedCommands.get(2).size());
+        assertEquals("Cannot assign and unassign task to member 1 (Tom) at the same time",
+            parserHelper.getErrorMessages().get(0));
+
+        command = "-i abc -to 1 -rm 2";
+        parsedCommands = parserHelper.parseAssignmentParams(command, project);
+        assertEquals(0, parsedCommands.get(0).size());
+        assertEquals(1, parsedCommands.get(1).size());
+        assertEquals(1, parsedCommands.get(2).size());
     }
 
     @Test
@@ -54,6 +100,7 @@ public class ParserHelperTest {
         assertTrue(errorMessages.contains("Task with index 0 does not exist."));
         assertTrue(errorMessages.contains("Task with index 4 does not exist."));
     }
+
 
 
 }
