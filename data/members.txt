@@ -1,6 +1,5 @@
-test | 1
 annie
 hh
 aa
 ii
-u | 5
+u | 3
