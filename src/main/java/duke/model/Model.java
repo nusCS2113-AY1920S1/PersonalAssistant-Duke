@@ -5,13 +5,15 @@ import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
+import duke.logic.TransportationMap;
 import duke.commons.exceptions.RouteDuplicateException;
-import duke.logic.CreateMap;
+import duke.logic.RouteManager;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.lists.VenueList;
 import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
+import duke.model.profile.ProfileCard;
 import duke.model.transports.BusService;
 import duke.model.locations.BusStop;
 import duke.model.transports.Route;
@@ -30,9 +32,15 @@ public interface Model {
     EventList getEvents();
 
     /**
-     * Return map object.
+     * Replaces the events of this model with the new one.
+     * @param events The new events.
      */
-    CreateMap getMap();
+    void setEvents(EventList events);
+
+    /**
+     * Returns map object.
+     */
+    TransportationMap getMap();
 
     /**
      * Returns the list of events that is sorted chronologically.
@@ -94,4 +102,24 @@ public interface Model {
     Itinerary getItinerary(String number) throws DukeException, FileNotFoundException;
 
     Itinerary readRecommendations() throws FileLoadFailException, DukeDateTimeParseException;
+  
+    /**
+     * Returns the Route Manager.
+     */
+    RouteManager getRouteManager();
+
+    /**
+     * Returns profile of user.
+     */
+    ProfileCard getProfileCard();
+
+    /**
+     * Returns whether if the user is a new user.
+     */
+    boolean isNewUser();
+
+    /**
+     * Returns name of the user.
+     */
+    String getName();
 }

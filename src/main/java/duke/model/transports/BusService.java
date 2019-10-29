@@ -1,5 +1,7 @@
 package duke.model.transports;
 
+import duke.commons.enumerations.Direction;
+
 import java.util.ArrayList;
 
 /**
@@ -7,16 +9,16 @@ import java.util.ArrayList;
  */
 public class BusService {
     private String bus;
-    private ArrayList<String> direction1;
-    private ArrayList<String> direction2;
+    private ArrayList<String> forward;
+    private ArrayList<String> backward;
 
     /**
      * Create bus object.
      */
     public BusService(String bus) {
         this.bus = bus;
-        this.direction1 = new ArrayList<>();
-        this.direction2 = new ArrayList<>();
+        this.forward = new ArrayList<>();
+        this.backward = new ArrayList<>();
     }
 
     /**
@@ -25,11 +27,11 @@ public class BusService {
      * @param direction direction of travel
      * @return All bus stop in direction of travel
      */
-    public ArrayList<String> getDirection(int direction) {
-        if (direction == 1) {
-            return direction1;
+    public ArrayList<String> getDirection(Direction direction) {
+        if (direction == Direction.FORWARD) {
+            return forward;
         } else {
-            return direction2;
+            return backward;
         }
     }
 
@@ -43,11 +45,11 @@ public class BusService {
      * @param busCode Code of bus stop
      * @param direction Direction of travel to next bus stop
      */
-    public void addRoute(String busCode, int direction) {
-        if (direction == 1) {
-            this.direction1.add(busCode);
+    public void addRoute(String busCode, Direction direction) {
+        if (direction == Direction.FORWARD) {
+            this.forward.add(busCode);
         } else {
-            this.direction2.add(busCode);
+            this.backward.add(busCode);
         }
     }
 }

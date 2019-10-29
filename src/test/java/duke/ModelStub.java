@@ -6,9 +6,10 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.FileLoadFailException;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.ItineraryInsufficientAgendas;
+import duke.logic.TransportationMap;
 import duke.commons.exceptions.QueryFailedException;
 import duke.commons.exceptions.RouteDuplicateException;
-import duke.logic.CreateMap;
+import duke.logic.RouteManager;
 import duke.model.Model;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
@@ -16,6 +17,7 @@ import duke.model.lists.VenueList;
 import duke.model.locations.BusStop;
 import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
+import duke.model.profile.ProfileCard;
 import duke.model.transports.BusService;
 import duke.model.transports.Route;
 
@@ -27,7 +29,9 @@ public class ModelStub implements Model {
     private StorageStub storage;
     private EventList events;
     private RouteList routes;
-    private CreateMap map;
+    private TransportationMap map;
+    private ProfileCard profileCard;
+    private RouteManager routeManager;
 
     /**
      * Construct the ModelStub for testing.
@@ -37,6 +41,12 @@ public class ModelStub implements Model {
         events = new EventList();
         routes = new RouteList();
         map = storage.getMap();
+        routeManager = new RouteManager(routes);
+    }
+
+    @Override
+    public void setEvents(EventList events) {
+        this.events = events;
     }
 
     @Override
@@ -45,7 +55,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public CreateMap getMap() {
+    public TransportationMap getMap() {
         return map;
     }
 
@@ -60,7 +70,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void save() throws CorruptedFileException, FileNotSavedException {
+    public void save() {
         System.out.println("");
     }
 
@@ -110,6 +120,7 @@ public class ModelStub implements Model {
     }
 
     @Override
+
     public Itinerary getItinerary(String name) throws DukeException {
         return storage.getItinerary(name);
     }
@@ -134,4 +145,22 @@ public class ModelStub implements Model {
         return storage.readRecommendations();
     }
 
+    public RouteManager getRouteManager() {
+        return routeManager;
+    }
+
+    @Override
+    public ProfileCard getProfileCard() {
+        return profileCard;
+    }
+
+    @Override
+    public boolean isNewUser() {
+        return  storage.getIsNewUser();
+    }
+
+    @Override
+    public String getName() {
+        return profileCard.getPersonName();
+    }
 }

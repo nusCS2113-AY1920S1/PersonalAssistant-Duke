@@ -1,10 +1,13 @@
 package duke.logic.parsers;
 
+import duke.commons.enumerations.Direction;
+import duke.commons.exceptions.CategoryNotFoundException;
 import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.CorruptedFileException;
 import duke.model.Event;
 import duke.model.planning.Todo;
 import duke.model.locations.BusStop;
+import duke.model.profile.ProfileCard;
 import duke.model.transports.Route;
 import duke.model.locations.RouteNode;
 import duke.model.locations.TrainStation;
@@ -53,6 +56,31 @@ public class ParserStorageUtil {
     }
 
     /**
+     * Parses a profile from String format back to profileCard.
+     *
+     * @param line The String description of an profile.
+     * @return The corresponding ProfileCard object.
+     */
+    public static ProfileCard createProfileFromStorage(ProfileCard profileCard, String line)
+            throws DukeDateTimeParseException, CategoryNotFoundException {
+        String[] token = line.split("\\|");
+        switch (token[0].strip()) {
+        case "person":
+            profileCard.setPerson(token[1].strip(), ParserTimeUtil.parseStringToDate(token[2].strip()));
+            break;
+        case "preference":
+            String[] category = {"", "sports", "entertainment", "arts", "lifestyle"};
+            for (int i = 1; i < token.length; i++) {
+                profileCard.setPreference(category[i], token[i].strip().equals("true"));
+            }
+            break;
+        default:
+            break;
+        }
+        return profileCard;
+    }
+
+    /**
      * Parses an Event from Event to String format.
      *
      * @param event The Event.
@@ -86,6 +114,24 @@ public class ParserStorageUtil {
         return routeString;
     }
 
+    /**
+     * Parses a ProfileCard to String format.
+     * @param profileCard The profileCard.
+     * @return profileString The corresponding String format of the profileCard object.
+     */
+    public static String toProfileStorageString(ProfileCard profileCard) {
+        String profileString = "";
+        profileString += "person | " + profileCard.getPersonName() + " | " + profileCard.getPersonBirthday() + "\n";
+
+        profileString += "preference";
+        for (Boolean i : profileCard.getPreference()) {
+            profileString += " | " + i;
+        }
+        profileString += "\n";
+        //profileString += "favorite | " + profileCard.toString()
+        return profileString;
+    }
+
 
     /**
      * Parses a bus stop from String format back to BusStop.
@@ -115,18 +161,14 @@ public class ParserStorageUtil {
      */
     public static BusService createBusFromStorage(String line) {
         String[] busData = line.split("\\|");
-        boolean changedDirection = false;
+        Direction direction = Direction.FORWARD;
         BusService busService = new BusService(busData[0].strip());
         for (int i = 1; i < busData.length; i++) {
             String buffer = busData[i].strip();
             if ("change".equals(buffer)) {
-                changedDirection = true;
+                direction = Direction.BACKWARD;
             }
-            if (changedDirection) {
-                busService.addRoute(buffer, 2);
-            } else {
-                busService.addRoute(buffer, 1);
-            }
+            busService.addRoute(buffer, direction);
         }
         return busService;
     }

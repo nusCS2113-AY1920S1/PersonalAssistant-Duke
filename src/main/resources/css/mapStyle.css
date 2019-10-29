@@ -1,9 +1,24 @@
 .mainPane {
     -fx-background-image: url("../images/SGmap.jpg");
-    -fx-background-size: 800 600;
+    -fx-background-size: 1200 900;
 }
 
 #LocationCard {
-    -fx-background-image: url("../images/two.png");
+    -fx-background-image: url("../images/location_pointer.png");
+    -fx-background-size: contain;
+}
+
+#RouteNodeStart {
+    -fx-background-image: url("../images/route_node_start.png");
+    -fx-background-size: contain;
+}
+
+#RouteNodeEnd {
+    -fx-background-image: url("../images/route_node_end.png");
+    -fx-background-size: contain;
+}
+
+#RouteNodeIntermediate {
+    -fx-background-image: url("../images/route_node_intermediate.png");
     -fx-background-size: contain;
 }

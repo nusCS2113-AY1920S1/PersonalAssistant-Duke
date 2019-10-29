@@ -6,6 +6,7 @@ import duke.commons.enumerations.Constraint;
 import duke.logic.PathFinder;
 import duke.model.Model;
 import duke.model.Event;
+import duke.model.locations.RouteNode;
 import duke.model.locations.Venue;
 
 import java.util.ArrayList;
@@ -66,9 +67,10 @@ public class FindPathCommand extends Command {
 
             PathFinder pathFinder = new PathFinder(model.getMap());
             ArrayList<Venue> route = pathFinder.execute(startLocation, endLocation, this.constraint);
+            ArrayList<RouteNode> nodes = pathFinder.convertToRouteNode(route);
 
             CommandResultMap commandResult = new CommandResultMap(MESSAGE_FIND_PATH);
-            commandResult.setRoute(route);
+            commandResult.setRoute(nodes);
             return commandResult;
         } catch (IndexOutOfBoundsException e) {
             throw new QueryOutOfBoundsException("EVENT");

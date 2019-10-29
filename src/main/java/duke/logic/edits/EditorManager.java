@@ -1,4 +1,4 @@
-package duke.logic;
+package duke.logic.edits;
 
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.EmptyVenueException;
@@ -63,11 +63,12 @@ public class EditorManager {
             throw new EventNotSelectedException();
         }
         assert (currentEvent != null) : "currentEvent must always exist when the lock is on";
-        EditorParser.parse(userInput, eventField, currentEvent);
+        boolean canSave = EditorParser.parse(userInput);
         if (isActive) {
+            Editor.edit(userInput, currentEvent, eventField);
             return PromptParser.parseCommand("editing...");
         }
-        return new EditCommand();
+        return new EditCommand(canSave, events);
     }
 
     /**

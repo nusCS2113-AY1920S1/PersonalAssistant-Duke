@@ -6,6 +6,7 @@ import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
 
+import duke.model.locations.BusStop;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -21,9 +22,10 @@ class RouteNodeDeleteCommandTest {
                 (RouteAddCommand) Parser.parseComplexCommand("routeAdd 2113");
         routeAddCommand.execute(model);
 
-        RouteNodeAddCommand routeNodeAddCommand =
-                (RouteNodeAddCommand) Parser.parseComplexCommand("routeNodeAdd 1 at 66211 by bus");
-        routeNodeAddCommand.execute(model);
+        BusStop newNode = new BusStop("66211", "", "", 0, 0);
+        newNode.fetchData(model);
+        model.getRoutes().get(0).addNode(newNode);
+        assertTrue(model.getRoutes().get(0).getNode(0) instanceof BusStop);
 
         RouteNodeDeleteCommand routeNodeDeleteCommand =
                 (RouteNodeDeleteCommand) Parser.parseComplexCommand("routeNodeDelete 1 1");

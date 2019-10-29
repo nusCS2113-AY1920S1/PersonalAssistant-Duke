@@ -2,6 +2,7 @@ package duke.logic.api;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import duke.commons.enumerations.Direction;
 import duke.commons.exceptions.ApiFailedRequestException;
 import duke.commons.exceptions.ApiNullRequestException;
 import duke.commons.exceptions.ApiTimeoutException;
@@ -21,6 +22,11 @@ import java.util.HashMap;
  * Handles all API requests.
  */
 public class ApiParser {
+
+    private static final int FORWARD_DIRECTION = 1;
+    private static final int MAX_BUS_STOP_DATA_SIZE = 5500;
+    private static final int MAX_BUS_SERVICE_DATA_SIZE = 26000;
+    private static final int DATA_SIZE_PER_REQUEST = 500;
 
     /**
      * Returns names and coordinates of location search.
@@ -44,9 +50,9 @@ public class ApiParser {
         String path = "BusStops";
         int skip = 0;
         HashMap<String, BusStop> allBus = new HashMap<>();
-        while (skip < 5500) {
+        while (skip < MAX_BUS_STOP_DATA_SIZE) {
             DataMallHttpRequest req = new DataMallHttpRequest("BusStops", path, Integer.toString(skip));
-            skip += 500;
+            skip += DATA_SIZE_PER_REQUEST;
             JsonObject jsonRes = req.execute();
             JsonArray arr = jsonRes.getAsJsonArray("value");
             for (int i = 0; i < arr.size(); i++) {
@@ -72,21 +78,27 @@ public class ApiParser {
         String path = "BusRoutes";
         int skip = 0;
         HashMap<String, BusService> busMap = new HashMap<>();
-        while (skip < 26000) {
+        while (skip < MAX_BUS_SERVICE_DATA_SIZE) {
             DataMallHttpRequest req = new DataMallHttpRequest("BusRoutes", path, Integer.toString(skip));
-            skip += 500;
+            skip += DATA_SIZE_PER_REQUEST;
             JsonObject jsonRes = req.execute();
             JsonArray arr = jsonRes.getAsJsonArray("value");
             for (int i = 0; i < arr.size(); i++) {
+                Direction direction;
                 String serviceNo = arr.get(i).getAsJsonObject().get("ServiceNo").getAsString();
-                if (!busMap.containsKey(serviceNo)) {
+                if (arr.get(i).getAsJsonObject().get("Direction").getAsInt() == FORWARD_DIRECTION) {
+                    direction = Direction.FORWARD;
+                } else {
+                    direction = Direction.BACKWARD;
+                }
+                if (busMap.containsKey(serviceNo)) {
+                    busMap.get(serviceNo).addRoute(arr.get(i).getAsJsonObject().get("BusStopCode").getAsString(),
+                            direction);
+                } else {
                     BusService bus = new BusService(serviceNo);
                     busMap.put(serviceNo, bus);
                     bus.addRoute(arr.get(i).getAsJsonObject().get("BusStopCode").getAsString(),
-                            arr.get(i).getAsJsonObject().get("Direction").getAsInt());
-                } else {
-                    busMap.get(serviceNo).addRoute(arr.get(i).getAsJsonObject().get("BusStopCode").getAsString(),
-                            arr.get(i).getAsJsonObject().get("Direction").getAsInt());
+                            direction);
                 }
             }
         }
@@ -152,7 +164,7 @@ public class ApiParser {
         String result = "[";
         for (String point: points) {
             result += "[" + point + "]";
-            if (point.equals(points.get(points.size() - 1))) {
+            if (!point.equals(points.get(points.size() - 1))) {
                 result += ",";
             }
         }
@@ -173,21 +185,22 @@ public class ApiParser {
      * @param rgb The color of the region or line.
      * @return result The String param.
      */
-    public static String generateStaticMapLines(ArrayList<String> points, String rgb) {
-        String result = "[";
-        for (String point: points) {
-            result += "[" + point + "]";
-            if (point.equals(points.get(points.size() - 1))) {
+    public static String generateStaticMapLines(ArrayList<String> points, String rgb, String lineWidth) {
+        String result = "";
+        if (points.size() > 0) {
+            result = "[";
+            for (String point : points) {
+                result += "[" + point + "]";
                 result += ",";
             }
-        }
+            result = result.substring(0, result.length() - 1) + "]";
 
-        if (!rgb.isEmpty()) {
-            result += ":" + rgb;
-        } else {
-            result += ":0,0,0";
+            if (!rgb.isEmpty()) {
+                result += ":" + rgb + ":" + lineWidth;
+            } else {
+                result += ":0,0,0:" + lineWidth;
+            }
         }
-
         return result;
     }
 
@@ -204,8 +217,13 @@ public class ApiParser {
      */
     public static String createStaticMapPoint(String latitude, String longitude,
                                               String r, String g, String b, String label) {
-        return "[" + latitude + "," + longitude + ",\"" + r + "," + g + "," + b + "\",\""
-                + (Character.toString(label.charAt(0))).toUpperCase() + "\"]";
+        try {
+            return "[" + latitude + "," + longitude + ",\"" + r + "," + g + "," + b + "\",\""
+                    + (Character.toString(label.charAt(0))).toUpperCase() + "\"]";
+        } catch (NullPointerException e) {
+            return "[" + latitude + "," + longitude + ",\"" + r + "," + g + "," + b + "\",\""
+                    + "\"]";
+        }
     }
 
     /**
@@ -217,11 +235,9 @@ public class ApiParser {
     public static String generateStaticMapPoints(ArrayList<String> points) {
         String result = "[";
         for (String point: points) {
-            result += "[" + point + "]";
-            if (point.equals(points.get(points.size() - 1))) {
-                result += ",";
-            }
+            result += "[" + point + "]" + "|";
         }
+        result = result.substring(0, result.length() - 1);
 
         return result;
     }

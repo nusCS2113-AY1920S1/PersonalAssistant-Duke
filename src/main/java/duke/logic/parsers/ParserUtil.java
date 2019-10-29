@@ -15,7 +15,6 @@ import duke.commons.exceptions.ItineraryIncorrectCommandException;
 import duke.commons.exceptions.ObjectCreationFailedException;
 import duke.commons.exceptions.QueryOutOfBoundsException;
 import duke.commons.exceptions.UnknownConstraintException;
-import duke.logic.commands.RouteAddCommand;
 import duke.logic.commands.RouteGenerateCommand;
 import duke.logic.commands.RouteNodeAddCommand;
 import duke.model.lists.AgendaList;
@@ -39,7 +38,6 @@ import java.util.logging.Logger;
  * Defines parsing methods for utility functions.
  */
 public class ParserUtil {
-    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Parses the userInput and return a new to-do constructed from it.
