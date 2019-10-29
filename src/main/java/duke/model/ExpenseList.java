@@ -135,8 +135,6 @@ public class ExpenseList extends DukeList<Expense> {
     private ViewScope viewScope;
     private String filterCriteria;
 
-    private List<Expense> filteredSortedViewedList;
-    private ObservableList<Expense> internalFinalList;
     private ObservableList<Expense> externalFinalList;
     private StringProperty totalString;
     private StringProperty filterString;
@@ -160,8 +158,8 @@ public class ExpenseList extends DukeList<Expense> {
      */
     public ExpenseList(List<Expense> internalList) {
         super(internalList, "expense");
-        viewScope = new ViewScope(ViewScopeName.ALL);
         filterCriteria = "";
+        viewScope = new ViewScope(ViewScopeName.ALL);
         sortCriteria = SortCriteria.TIME;
         externalList = FXCollections.observableArrayList();
         externalFinalList = FXCollections.unmodifiableObservableList(externalList);
@@ -173,18 +171,21 @@ public class ExpenseList extends DukeList<Expense> {
     }
 
     private void updateExternalList() {
-        filteredSortedViewedList = filter(sort(view(internalList)));
-        internalFinalList = FXCollections.observableArrayList(filteredSortedViewedList);
+        List<Expense> filteredSortedViewedList = filter(sort(view(internalList)));
+        ObservableList<Expense> internalFinalList = FXCollections.observableArrayList(filteredSortedViewedList);
         externalList.setAll(internalFinalList);
         totalString.setValue("Total: $" + getTotalExternalAmount());
         filterString.setValue("Filter: " + filterCriteria);
         switch (sortCriteria) {
         case TIME:
             sortString.setValue("Sort by: Newest");
+            break;
         case AMOUNT:
             sortString.setValue("Sort by: Largest");
+            break;
         case DESCRIPTION:
             sortString.setValue("Sort by:  Alphabetical");
+            break;
         }
         viewString.set("Viewscope: " + viewScope.getViewScopeName());
     }
