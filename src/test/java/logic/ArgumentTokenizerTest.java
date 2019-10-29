@@ -14,5 +14,6 @@ public class ArgumentTokenizerTest {
         HashMap<String, String> tr1 = ArgumentTokenizer.tokenize(tc1);
         assertEquals("add task task 1", tr1.get(""));
         assertEquals("13/11/2019 1900", tr1.get("/at"));
+        assertEquals(null, tr1.get("/to"));
     }
 }

@@ -76,34 +76,6 @@ public class Duke {
     }
 
     /**
-     * Attempts to parse and execute given input
-     *
-     * @param command input line from user
-     */
-    public void doCommand(String command) {
-        Command c;
-        try {
-            c = Parser.commandLine(command);
-            c.execute(tasks, members, storage);
-            if (c.isExit()) {
-                System.exit(0);
-            }
-        } catch (DukeException e) {
-            Ui.print(e.getMessage());
-        }
-    }
-
-
-    /**
-     * Static version of doCommand. For window access
-     *
-     * @param command input line from user
-     */
-    public static void processCommand(String command) {
-        instance.doCommand(command);
-    }
-
-    /**
      * Main method of the entire project.
      *
      * @param args command line arguments, not used here
