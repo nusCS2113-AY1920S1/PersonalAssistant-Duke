@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static compal.logic.command.CommandTestUtil.assertCommandFailure;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@@author Catherinetan99
@@ -32,6 +33,14 @@ public class FindFreeSlotCommandTest {
 
         Event event3 = new Event("Event 3", Task.Priority.low, "05/01/2020", "05/01/2020", "1300", "1700");
         taskList.addTask(event3);
+    }
+
+    @Test
+    void execute_invalidDurationInput_exceptionThrown() throws ParseException {
+        String stringDate = "05/01/2020";
+        Date date = new SimpleDateFormat("dd/MM/yyyy").parse(stringDate);
+        FindFreeSlotCommand testFindFreeSlot = new FindFreeSlotCommand(date, 1234, 1234);
+        assertCommandFailure(testFindFreeSlot, taskList, FindFreeSlotCommand.MESSAGE_LIMIT_EXCEEDED);
     }
 
     @Test

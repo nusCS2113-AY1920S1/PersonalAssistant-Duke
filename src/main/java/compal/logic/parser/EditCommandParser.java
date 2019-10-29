@@ -15,7 +15,7 @@ public class EditCommandParser implements CommandParser {
 
     @Override
     public Command parseCommand(String restOfInput) throws ParserException, ParseException {
-        int taskId = getTokenTaskID(restOfInput);
+        int taskId = getTaskID(restOfInput);
         String description = getTokenDescription(restOfInput);
         Date date = getDate(restOfInput);
         Task.Priority priority = getTokenPriority(restOfInput);

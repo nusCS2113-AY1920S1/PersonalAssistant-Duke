@@ -62,6 +62,7 @@ public interface CommandParser {
     String MESSAGE_MISSING_TYPE_ARG = "ArgumentError: Missing /type";
     String MESSAGE_INVALID_TYPE = "Error: The type does not exist!";
     String MESSAGE_INVALID_PRIORITY = "Invalid Priority Input";
+    String MESSAGE_LIMIT_EXCEEDED = "Error: Input entered is out of range!";
 
 
     /**
@@ -168,7 +169,7 @@ public interface CommandParser {
      * @return taskID
      * @throws ParserException if the token (/id) or id number is missing
      */
-    default int getTokenTaskID(String restOfInput) throws ParserException {
+    default int getTaskID(String restOfInput) throws ParserException {
         return getIntInput(restOfInput, TOKEN_TASK_ID);
     }
 
@@ -178,7 +179,7 @@ public interface CommandParser {
      * @param restOfInput String input of user after command word
      * @param token       token to extract result from
      * @return result extracted based on token
-     * @throws ParserException if token or input is missing
+     * @throws ParserException if token or input is missing or invalid
      */
     private int getIntInput(String restOfInput, String token) throws ParserException {
         if (restOfInput.contains(token)) {
@@ -190,10 +191,18 @@ public interface CommandParser {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             }
             String input = scanner.next();
+            if (input.length() >= 10) {
+                throw new ParserException(MESSAGE_LIMIT_EXCEEDED);
+            }
             if (input.equals(EMPTY_INPUT_STRING) || input.contains(TOKEN_SLASH)) {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             }
-            int intInput = Integer.parseInt(input);
+            int intInput;
+            if (Pattern.matches("[0-9]+", input)) {
+                intInput = Integer.parseInt(input);
+            } else {
+                throw new ParserException("Invalid " + token.substring(1) + " input!");
+            }
             return intInput;
         } else {
             throw new ParserException("ArgumentError: Missing " + token);

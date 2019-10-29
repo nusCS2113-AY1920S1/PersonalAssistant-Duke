@@ -20,6 +20,8 @@ public class FindFreeSlotCommand extends Command {
             + "Examples:\n\t"
             + "findfreeslot /date 01/01/2019 /hour 1 /min 10\n\t\t"
             + "find all free time slots which is longer than 1h10min on 01/01/2019";
+    public static final String MESSAGE_LIMIT_EXCEEDED = "Error: Input entered is out of range!";
+    private static final long MAX_DURATION = 86400000;
 
     private Date date;
     private int hour;
@@ -83,6 +85,9 @@ public class FindFreeSlotCommand extends Command {
 
         ArrayList<String> finalList;
         long duration = calculateDuration(hour, min);
+        if ((duration > MAX_DURATION) || (hour > 24) || (min > 1440)) {
+            throw new CommandException(MESSAGE_LIMIT_EXCEEDED);
+        }
 
         finalList = getFreeSlots(arrayList, startPointer, oneDayAfter, duration);
         String result = printResult(finalList);

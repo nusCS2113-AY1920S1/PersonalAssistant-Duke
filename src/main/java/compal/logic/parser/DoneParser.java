@@ -18,7 +18,7 @@ public class DoneParser implements CommandParser {
     @Override
     public Command parseCommand(String restOfInput) throws ParserException {
         logger.info("Attempting to parse done command");
-        int taskID = getTokenTaskID(restOfInput);
+        int taskID = getTaskID(restOfInput);
         String status = getTokenStatus(restOfInput);
         logger.info("Successfully parse done command");
         return new DoneCommand(taskID, status);
