@@ -125,6 +125,7 @@ public class MainWindow extends AnchorPane {
         //CHECKSTYLE:OFF
         try {
             input = userInput.getText();
+            String inputDivider[] = input.split("\\s+");
             // get input first, don't get response first...
             userInput.clear();
             Duke.logger.log(Level.INFO, "INPUT: " + input);
@@ -134,7 +135,9 @@ public class MainWindow extends AnchorPane {
                 handleExit();
             } else if (input.equals("listnote")) {
                 handleListNote();
-            } else if (input.contains("createnote")) {
+            } else if (inputDivider[0].equals("deletenote")) {
+                handleDeleteNote();
+            } else if (inputDivider[0].equals("createnote")) {
                 handleCreateNote();
             } else if (isStarting && Duke.isFirstTimeUser) { //set up new username
                 handleStartAndFirstTime();
@@ -223,6 +226,12 @@ public class MainWindow extends AnchorPane {
         default:
         }
         return quizCommand.getNextQuestion();
+    }
+
+    private void handleDeleteNote() throws DukeException {
+        response = duke.getResponse(input);
+        showContentContainer();
+        showListNotesBox();
     }
 
     private void handleNormalCommand() {
