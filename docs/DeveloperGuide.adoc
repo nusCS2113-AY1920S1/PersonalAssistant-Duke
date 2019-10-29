@@ -252,7 +252,26 @@ Assuming that there is enough balance in the user account, the application proce
 . The `Main` function would then invoke the `AddTransactionCommand#execute()` function.
 . The `AddTransactionCommand#execute()` function the furthers invokes the 'user#updateAccount(...)' function, which update the data of the account balance of the user.
 
-image::seq_addtransaction.png[width="800]
+image::SD_AddTransaction.png[width="800]
+
+==== Design considerations
+
+Problem 1: *What data type should represent cost/money in?*
+
+* Solution 1 : Double or Float
+** The first data types that comes up are either float or double data ype.
+** However, float and double are prone to floating point error, which poses an accuracy problem for money calculation.
+
+* Solution 2 : Int or Long
+** Int and Long is more appropriate to be used to calculate money since they do not have precision error.
+** However, we need additional calculations to calculate amount that includes cents. For example, the first digit represents cents and the third digit represents dollars.
+** Moreover, int only works for number with digits not more than 9 and long with digits not more than 18.
+
+* Solution 3 : BigDecimal
+** This data type is superior since it has built-in rounding modes and has higher range than long and int.
+** Moreover, BigDecimal is able to represent decimal values and perform decimal calculations reliably.
+** Therefore, values such as "1.2345" are allowed and any calculation on it will generate accurate value.
+
 
 === Sort command
 
