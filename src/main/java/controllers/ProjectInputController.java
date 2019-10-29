@@ -349,8 +349,9 @@ public class ProjectInputController implements IController {
             } else if (input.charAt(0) == 't') {
                 return projectViewTasksAssignments(projectToManage,
                     projectFullCommand.substring(20));
+            } else {
+                return (new String[] {"Could not understand your command! Please use -m for member, -t for task"});
             }
-            return null;
         }
     }
 
