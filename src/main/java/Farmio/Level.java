@@ -121,6 +121,7 @@ public class Level {
         return levelState;
     }
 
+    //need to convert into a listString format
     private String checkIncompleteObjectives(Farmer farmer){
         //todo -Level-dependant objective checker
         String output = "";
@@ -160,6 +161,7 @@ public class Level {
         return  modelTaskList;
     }
 
+    //todo- logical error correction
     public List<String> convertTaskListFormat(List<String> TaskList){
 
         List<String> splitTaskList = new ArrayList<String>();
@@ -171,9 +173,8 @@ public class Level {
 
             //separate based on actions - todo check how its divided
             //String[] splitString = TaskListItems.split("\\s+");
-            String[] splitString = TaskListItems.split("(?<!\\G\\w+)\\s"); //splits on every second space
-            //should be after every 3 spaces
-            //split after every instance of =
+            String[] splitString = TaskListItems.split("(?<!\\G\\w)\\s"); //splits on every second space
+            //should be after every 3 spacesh
 
             splitTaskList.add(splitString[0]);
             if(splitString[1] != null && !splitString[1].isEmpty()){
@@ -184,7 +185,7 @@ public class Level {
         return splitTaskList;
     }
 
-    /*
+    /* //todo - possible refactor/ creation of levelParsed Class
     //need to refactor to a levelParser class
     public String levelParser(List<String> userTaskList, String modelAnswer){
         //separate user list into arraylist , separate model ans into subsections
@@ -196,6 +197,7 @@ public class Level {
     }
     */
 
+    //todo complete getPermutation Feedback Implementation
     public String getPermutationFeedback(Farmio farmio,double levelNumber){
         //todo convert to some sort of metric for future iterations
         List<String> userTaskList = farmio.getFarmer().tasks.toStringArray();
@@ -207,15 +209,10 @@ public class Level {
                 //action checker
                 String[] userTaskString = userTaskList.get(i).split("\\s+");
                 String[] modelTaskString = modelTaskList.get(i).split("\\s+");
-
                 /*
                 String[] userTask = userTaskString.split("\\s+");
                 String[] modelTaskString = modelTaskString.split("\\s+");
                 */
-
-                //task
-                //String userTask =
-
             }
         }
 
@@ -226,6 +223,7 @@ public class Level {
 }
 
     //only applicable if level fails
+    //todo convert detailed feedback to List<String>
     public String getDetailedFeedback( Farmio farmio){
         double levelNumber = farmio.getFarmer().getLevel(); // unsure if this is needed rn
         String output = "";
@@ -236,51 +234,59 @@ public class Level {
         output += "\nYour actions ";
         output += farmio.getFarmer().tasks.toString();
 
+        //todo complete perm
         //output += getPermutationFeedback(farmio, levelNumber);
 
         return output;
     }
 
-    public String getSuccessfulFeedback(){
-        String output = "";
+    public List<String> getSuccessfulFeedback(){
+        List<String> output = new ArrayList<String>();
+        //String output = "";
         for(String x: successfulFeedback){
-            output += x;
+            output.add(x);
         }
         return output;
     }
 
 
-    public String getFeedback(Farmio farmio){
+    public List<String> getFeedback(Farmio farmio){
         Farmer farmer = farmio.getFarmer();
         objectiveResult currentLevelState = farmio.getLevel().getLevelState();
+
+        List<String> output = new ArrayList<String>();
         if(currentLevelState == objectiveResult.DONE){
-            String  returnString = getSuccessfulFeedback();
-            return returnString + "\nwell done you have completed the level - all tasks has been completed succesfully";
+            output.addAll(getSuccessfulFeedback());
+            output.add("well done you have completed the level - all tasks has been completed succesfully");
+            return output;
         }
 
         else if(currentLevelState == objectiveResult.NOT_DONE){ //day completed but tasks not achieved succesfult
             String feedback = "tasks have yet to be completed";
+            output.add(feedback);
             if(detailedFeedbackProvided){
                 //add enter and day end
-                feedback += "detailed feedback : -- \n";
-                feedback += checkIncompleteObjectives(farmer);
+                output.add("detailed feedback : -- \n");
+                output.add(checkIncompleteObjectives(farmer));
             }
-
-            feedback += "\n Press [ENTER] to continue the game or [RESET] to restart the level";
-            return feedback;
+            output.add("\n Press [ENTER] to continue the game or [RESET] to restart the level");
+            return output;
         }
 
         else if (currentLevelState == objectiveResult.FAILED){
             String feedback = "Oh no! The objectives were not met by the deadline! Level failed ! \n";
+            output.add(feedback);
             if(detailedFeedbackProvided){
+                //todo -redo this code
                feedback +=  getDetailedFeedback(farmio); // only applicable for failed levels
             }
-            return feedback;
+            return output;
         }
         else if (currentLevelState == objectiveResult.INVALID){
-            return "Oh no! There has been an error during code execution!";
+            output.add("Oh no! There has been an error during code execution!") ;
+            return  output;
         }
-        return "";
+        return output;
     }
 
     public objectiveResult getLevelState(){

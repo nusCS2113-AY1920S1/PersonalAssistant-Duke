@@ -5,6 +5,8 @@ import Farmio.Farmio;
 import Exceptions.FarmioException;
 import Farmio.Level;
 
+import java.util.List;
+
 public class CommandCheckObjectives extends Command {
     /**
      * Checks if objectives are met and sets the corresponding stage according to the results
@@ -15,7 +17,15 @@ public class CommandCheckObjectives extends Command {
     public void execute(Farmio farmio) throws FarmioFatalException {
         Level.objectiveResult answer = farmio.getLevel().checkAnswer(farmio);
         farmio.getSimulation().simulate();
-        farmio.getUi().typeWriter(farmio.getLevel().getFeedback(farmio), false); // feedbacks
+        //farmio.getUi().typeWriter(farmio.getLevel().getFeedback(farmio), false); // feedbacks
+
+        List<String> feedback = farmio.getLevel().getFeedback(farmio);
+        for(String i : feedback){
+            farmio.getUi().typeWriter(i,false);
+        }
+
+
+
         if (answer == Level.objectiveResult.NOT_DONE) {
             farmio.setStage(Farmio.Stage.DAY_END);
         } else if (answer == Level.objectiveResult.DONE) {
