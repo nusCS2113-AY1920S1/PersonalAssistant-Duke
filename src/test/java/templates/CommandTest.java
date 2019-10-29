@@ -1,4 +1,7 @@
+package templates;
+
 import duke.DukeCore;
+import duke.command.ArgCommand;
 import duke.data.GsonStorage;
 import duke.data.PatientMap;
 import duke.exception.DukeFatalException;
@@ -55,6 +58,14 @@ public abstract class CommandTest {
         File testData = new File(testFilePath);
         if (!testData.delete()) {
             fail("Unable to delete test data file!");
+        }
+    }
+
+    protected void setupCommand(ArgCommand command, String arg, String[] switchNames, String[] switchVals) {
+        assert (switchNames.length == switchVals.length);
+        command.setArg(arg);
+        for (int i = 0; i < switchNames.length; ++i) {
+            command.setSwitchVal(switchNames[i], switchVals[i]);
         }
     }
 }

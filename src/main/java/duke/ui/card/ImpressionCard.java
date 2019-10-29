@@ -68,7 +68,7 @@ public class ImpressionCard extends UiCard {
         }
 
         ImpressionCard card = (ImpressionCard) object;
-        return impression.equals(card.getImpression());
+        return impression == card.getImpression();
     }
 
     public Impression getImpression() {

@@ -83,6 +83,7 @@ public class PatientWindow extends UiElement<Region> {
         historyLabel.setText(("".equals(historyStr)) ? UiStrings.DISPLAY_HISTORY_NOT_SET : historyStr);
 
         StringBuilder allergies = new StringBuilder();
+        
         if ("".equals(patient.getAllergies())) {
             allergiesLabel.setText(UiStrings.DISPLAY_ALLERGIES_NONE);
         } else {

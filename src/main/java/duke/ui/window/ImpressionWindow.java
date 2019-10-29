@@ -89,7 +89,7 @@ public class ImpressionWindow extends UiElement<Region> {
 
         }
 
-        for (Map.Entry<String, Treatment> pair : impression.getObservableTreaments().entrySet()) {
+        for (Map.Entry<String, Treatment> pair : impression.getObservableTreatments().entrySet()) {
             treatmentListPanel.getItems().add(newTreatmentCard(pair.getValue()));
         }
 
@@ -103,7 +103,7 @@ public class ImpressionWindow extends UiElement<Region> {
             criticalLabel.setText(impression.getCriticalCountStr());
         });
 
-        impression.getObservableTreaments().addListener((MapChangeListener<String, Treatment>) change -> {
+        impression.getObservableTreatments().addListener((MapChangeListener<String, Treatment>) change -> {
             if (change.wasAdded() && newTreatmentCard(change.getValueAdded()) != null) {
                 treatmentListPanel.getItems().add(newTreatmentCard(change.getValueAdded()));
             } else if (change.wasRemoved() && newTreatmentCard(change.getValueAdded()) != null) {

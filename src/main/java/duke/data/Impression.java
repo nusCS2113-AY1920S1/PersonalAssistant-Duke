@@ -16,7 +16,7 @@ public class Impression extends DukeObject {
     private HashMap<String, Treatment> treatments;
 
     private transient ObservableMap<String, Evidence> observableEvidences;
-    private transient ObservableMap<String, Treatment> observableTreaments;
+    private transient ObservableMap<String, Treatment> observableTreatments;
     private transient ObservableMap<String, Object> attributes;
 
     // TODO: integrate finding with autocorrect?
@@ -49,7 +49,7 @@ public class Impression extends DukeObject {
      * This listener update the {@code treatments} and {@code evidences} whenever the observable map is updated.
      */
     private void attachListener() {
-        observableTreaments.addListener((MapChangeListener<String, Treatment>) change -> {
+        observableTreatments.addListener((MapChangeListener<String, Treatment>) change -> {
             if (change.wasAdded()) {
                 treatments.put(change.getKey(), change.getValueAdded());
             } else if (change.wasRemoved()) {
@@ -74,7 +74,7 @@ public class Impression extends DukeObject {
     public ArrayList<Treatment> findTreatments(String searchTerm) {
         ArrayList<Treatment> searchResult = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
-        for (Treatment treatment : this.observableTreaments.values()) {
+        for (Treatment treatment : this.observableTreatments.values()) {
             if (treatment.toString().toLowerCase().contains(lowerSearchTerm)) {
                 searchResult.add(treatment);
             }
@@ -121,7 +121,7 @@ public class Impression extends DukeObject {
     public ArrayList<Treatment> findTreatmentsByName(String searchTerm) {
         ArrayList<Treatment> searchResult = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
-        for (Map.Entry<String, Treatment> entry : this.observableTreaments.entrySet()) {
+        for (Map.Entry<String, Treatment> entry : this.observableTreatments.entrySet()) {
             if (entry.getKey().toLowerCase().contains(lowerSearchTerm)) {
                 searchResult.add(entry.getValue());
             }
@@ -207,7 +207,7 @@ public class Impression extends DukeObject {
      * @return the treatment added
      */
     public Treatment addNewTreatment(Treatment newTreatment) {
-        this.observableTreaments.put(newTreatment.getName(), newTreatment);
+        this.observableTreatments.put(newTreatment.getName(), newTreatment);
         return newTreatment;
     }
 
@@ -218,9 +218,9 @@ public class Impression extends DukeObject {
      * @return the deleted treatment
      */
     public Treatment deleteTreatment(String keyIdentifier) throws DukeException {
-        if (this.observableTreaments.containsKey(keyIdentifier)) {
-            Treatment treatment = this.observableTreaments.get(keyIdentifier);
-            this.observableTreaments.remove(keyIdentifier);
+        if (this.observableTreatments.containsKey(keyIdentifier)) {
+            Treatment treatment = this.observableTreatments.get(keyIdentifier);
+            this.observableTreatments.remove(keyIdentifier);
             return treatment;
         } else {
             throw new DukeException("I can't delete that treatment because I don't have it!");
@@ -234,8 +234,8 @@ public class Impression extends DukeObject {
      * @return the treatment specified by the index
      */
     public Treatment getTreatment(String keyIdentifier) throws DukeException {
-        if (this.observableTreaments.containsKey(keyIdentifier)) {
-            return this.observableTreaments.get(keyIdentifier);
+        if (this.observableTreatments.containsKey(keyIdentifier)) {
+            return this.observableTreatments.get(keyIdentifier);
         } else {
             throw new DukeException("I don't have any treatment called that!");
         }
@@ -292,8 +292,8 @@ public class Impression extends DukeObject {
         return observableEvidences;
     }
 
-    public ObservableMap<String, Treatment> getObservableTreaments() {
-        return observableTreaments;
+    public ObservableMap<String, Treatment> getObservableTreatments() {
+        return observableTreatments;
     }
 
     public void initObservables() {
@@ -315,7 +315,7 @@ public class Impression extends DukeObject {
     }
 
     private void initObservableTreatmentsEvidences() {
-        this.observableTreaments = FXCollections.observableMap(treatments);
+        this.observableTreatments = FXCollections.observableMap(treatments);
         this.observableEvidences = FXCollections.observableMap(evidences);
         attachListener();
     }
@@ -336,7 +336,7 @@ public class Impression extends DukeObject {
             mapElement.getValue().setParent(this);
         }
 
-        for (Map.Entry<String, Treatment> mapElement : this.observableTreaments.entrySet()) {
+        for (Map.Entry<String, Treatment> mapElement : this.observableTreatments.entrySet()) {
             mapElement.getValue().setParent(this);
         }
     }

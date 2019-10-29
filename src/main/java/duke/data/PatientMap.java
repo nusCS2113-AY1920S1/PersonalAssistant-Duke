@@ -80,8 +80,7 @@ public class PatientMap {
      */
     public Patient getPatient(String keyIdentifier) throws DukeException {
         if (patientObservableMap.containsKey(keyIdentifier)) {
-            Patient thePatient = patientObservableMap.get(keyIdentifier);
-            return thePatient;
+            return patientObservableMap.get(keyIdentifier);
         } else {
             throw new DukeException("The patient cannot be identified");
         }
