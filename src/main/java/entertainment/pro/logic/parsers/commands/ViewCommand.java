@@ -42,19 +42,23 @@ public class ViewCommand extends CommandSuper {
         }
     }
 
+    /**
+     * Responisible for displaying more information about a movie/TV show.
+     * Called when user is viewing list of movies/TV shows from a search request and want to know more information.
+     * @param num The number of the movie or TV show in the list indicated below the title.
+     * @throws Exceptions
+     */
     private void executeEntryCommands(int num) throws Exceptions {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Date date = new Date();
         String now = formatter.format(date);
         //String payload = getPayload();
         //int num = Integer.parseInt(payload);
-        System.out.println("this is num +" + num);
+        //System.out.println("this is num +" + num);
         ((MovieHandler) this.getUiController()).showMovie(num);
         if (!(((MovieHandler) this.getUiController()).isViewBack())) {
             ((MovieHandler) this.getUiController()).updatePastCommands(now);
         }
-
-
     }
 
     private void executeBackCommands() throws Exceptions {
@@ -89,53 +93,5 @@ public class ViewCommand extends CommandSuper {
 
     }
 
-
-    private void executeMovieCommands() throws Exceptions {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        Date date = new Date();
-        String now = formatter.format(date);
-        String payload = getPayload();
-        if (payload.equals("current")) {
-            //  ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieRequest(
-            //        RetrieveRequest.MoviesRequestType.CURRENT_MOVIES,
-            //       ((MovieHandler) this.getUIController()).getUserProfile().isAdult()
-            // )
-            //;
-            ((MovieHandler) this.getUiController()).showCurrentMovies();
-        } else if (payload.equals("upcoming")) {
-            // ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieRequest(
-            //       RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES,
-            //      ((MovieHandler) this.getUIController()).getUserProfile().isAdult()
-            //);
-            ((MovieHandler) this.getUiController()).showUpcomingMovies();
-        } else if (payload.equals("trending")) {
-            ((MovieHandler) this.getUiController()).showTrendMovies();
-        } else if (payload.equals("popular")) {
-            ((MovieHandler) this.getUiController()).showPopMovies();
-        }
-        if (!(((MovieHandler) this.getUiController()).isViewBack())) {
-            ((MovieHandler) this.getUiController()).updatePastCommands(now);
-        }
-    }
-
-    private void executeTvCommands() throws Exceptions {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        Date date = new Date();
-        String now = formatter.format(date);
-        String payload = getPayload();
-        if (payload.equals("current")) {
-            ((MovieHandler) this.getUiController()).showCurrentTV();
-            // movieHandler.setFeedbackText(DukeException.);
-        } else if (payload.equals("upcoming")) {
-            ((MovieHandler) this.getUiController()).showUpcomingTV();
-        } else if (payload.equals("trending")) {
-            ((MovieHandler) this.getUiController()).showTrendTV();
-        } else if (payload.equals("popular")) {
-            ((MovieHandler) this.getUiController()).showPopTV();
-        }
-        if (!(((MovieHandler) this.getUiController()).isViewBack())) {
-            ((MovieHandler) this.getUiController()).updatePastCommands(now);
-        }
-    }
 }
 

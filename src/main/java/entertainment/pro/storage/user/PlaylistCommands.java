@@ -1,5 +1,6 @@
 package entertainment.pro.storage.user;
 
+import entertainment.pro.commons.exceptions.PlaylistExceptions;
 import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.model.Playlist;
 import entertainment.pro.model.PlaylistMovieInfoObject;
@@ -36,17 +37,31 @@ public class PlaylistCommands {
     /**
      * to add movies to playlist.
      */
-    public void add(TreeMap<String, ArrayList<String>> flagMap, ArrayList<MovieInfoObject> mMovies) throws IOException {
-        ArrayList<Long> userMovies = new ArrayList<>(20);
-        ArrayList<MovieInfoObject> playlistMovies = new ArrayList<>(20);
-        for (String log : flagMap.get("-m")) {
-            int index = Integer.parseInt(log.trim());
-            System.out.println(index);
-            userMovies.add((mMovies.get(--index)).getId());
-            playlistMovies.add(mMovies.get(index));
-            System.out.println("hello looky here " + mMovies.get(index).getFullPosterPathInfo());
-        }
+    public void add(TreeMap<String, ArrayList<String>> flagMap, ArrayList<MovieInfoObject> movies) throws IOException {
         Playlist playlist = editPlaylistJson.load();
+        ArrayList<MovieInfoObject> playlistMovies = new ArrayList<>();
+        for (String log : flagMap.get("-m")) {
+            try {
+                PlaylistExceptions.checkIndexInput(log.trim());
+            } catch (PlaylistExceptions e) {
+                System.out.println(e);
+                continue;
+            }
+            int index = Integer.parseInt(log.trim()) - 1;
+            try {
+                PlaylistExceptions.checkIndex(index, movies.size());
+            } catch (PlaylistExceptions e) {
+                System.out.println(e);
+                continue;
+            }
+            MovieInfoObject movie = movies.get(index);
+            try {
+                PlaylistExceptions.checkMovieForAdd(movie, playlist);
+                playlistMovies.add(movie);
+            } catch (PlaylistExceptions e) {
+                System.out.println(e);
+            }
+        }
         ArrayList<PlaylistMovieInfoObject> newPlaylistMovies = convert(playlistMovies);
         playlist.add(newPlaylistMovies);
         editPlaylistJson.editPlaylist(playlist);
@@ -56,24 +71,24 @@ public class PlaylistCommands {
      * to remove movies from playlist.
      */
     public void remove(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
-//        ArrayList<Long> userMovies = new ArrayList<>(20);
         Playlist playlist = editPlaylistJson.load();
         ArrayList<PlaylistMovieInfoObject> toDelete = new ArrayList<>();
         for (String log : flagMap.get("-m")) {
-            int index = Integer.parseInt(log.trim());
-            System.out.println(index);
-//            userMovies.add((mMovies.get(--index)).getID());
-            toDelete.add(playlist.getMovies().get(--index));
+            try {
+                PlaylistExceptions.checkIndexInput(log.trim());
+            } catch (PlaylistExceptions e) {
+                System.out.println(e);
+                continue;
+            }
+            int index = Integer.parseInt(log.trim()) - 1;
+            try {
+                PlaylistExceptions.checkIndex(index, playlist.getMovies().size());
+                toDelete.add(playlist.getMovies().get(index));
+            } catch (PlaylistExceptions e) {
+                System.out.println(e);
+            }
         }
-//        ArrayList<PlaylistMovieInfoObject> newPlaylistMovies = convert(toDelete);
-//        if (playlist.getMovies().get(1).equals(newPlaylistMovies.get(0))) {
-//            System.out.println("yes");
-//        } else {
-//            System.out.println("no");
-//            System.out.println(newPlaylistMovies.get(0).getTitle());
-//        }
         playlist.remove(toDelete);
-//        playlist.remove(removeMovies);
         editPlaylistJson.editPlaylist(playlist);
         System.out.println("hehe");
     }
@@ -96,7 +111,10 @@ public class PlaylistCommands {
             System.out.println("help " + log.getTitle() + " " + log.getFullPosterPathInfo());
             //int fakeType = 12345;
             boolean fakeType = false;
-            PlaylistMovieInfoObject testMovie = new PlaylistMovieInfoObject(fakeType, log.getId(), log.getTitle(), log.getReleaseDateInfo(), log.getSummaryInfo(), log.getRatingInfo(), log.getGenreIDInfo(), log.getFullPosterPathInfo(), log.getFullBackdropPathInfo(), log.isIsadultContent(), string);
+            PlaylistMovieInfoObject testMovie = new PlaylistMovieInfoObject(fakeType, log.getId(),
+                    log.getTitle(), log.getReleaseDateInfo(), log.getSummaryInfo(), log.getRatingInfo(),
+                    log.getGenreIdInfo(), log.getFullPosterPathInfo(), log.getFullBackdropPathInfo(),
+                    log.isAdultContent(), string);
             convertMovies.add(testMovie);
         }
         return convertMovies;

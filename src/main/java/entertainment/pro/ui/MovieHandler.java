@@ -27,7 +27,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
@@ -326,38 +325,84 @@ public class MovieHandler extends Controller implements RequestListener {
                     mMoviesFlowPane.getChildren().get(index).setStyle("-fx-border-color: black");
                     index = 0;
                 } else if (event.getCode().equals(KeyCode.RIGHT)) {
-                    int size = mMoviesFlowPane.getChildren().size();
-                    if ((index + 1) != size) {
-                        mMoviesFlowPane.getChildren().get(index).requestFocus();
-                        index += 1;
-                        if (index != 0) {
-                            mMoviesFlowPane.getChildren().get(index - 1).setStyle("-fx-border-color: black");
+                    if (pageTracker.getCurrentPage().equals("playlistList")) {
+                        int size = playlistVBox.getChildren().size();
+                        if ((index + 1) != size) {
+                            playlistVBox.getChildren().get(index).requestFocus();
+                            index += 1;
+                            if (index != 0) {
+                                playlistVBox.getChildren().get(index - 1).setStyle("-fx-border-color: black");
+                            }
+                            playlistVBox.getChildren().get(index).setStyle("-fx-border-color: white");
+                            if (index % 3 == 0) {
+                                mMoviesScrollPane.setVvalue((double) (index + 1) / size);
+                            }
                         }
-                        mMoviesFlowPane.getChildren().get(index).setStyle("-fx-border-color: white");
-                        if (index % 4 == 0) {
-                            mMoviesScrollPane.setVvalue((double)(index + 1) / size);
+                    } else {
+                        int size = mMoviesFlowPane.getChildren().size();
+                        if ((index + 1) != size) {
+                            mMoviesFlowPane.getChildren().get(index).requestFocus();
+                            index += 1;
+                            if (index != 0) {
+                                mMoviesFlowPane.getChildren().get(index - 1).setStyle("-fx-border-color: black");
+                            }
+                            mMoviesFlowPane.getChildren().get(index).setStyle("-fx-border-color: white");
+                            if (index % 4 == 0) {
+                                mMoviesScrollPane.setVvalue((double) (index + 1) / size);
+                            }
                         }
                     }
                 } else if (event.getCode().equals(KeyCode.LEFT)) {
                     System.out.println("yesssx");
-                    if (index != 0) {
-                        mMoviesFlowPane.getChildren().get(index - 1).requestFocus();
-                        index -= 1;
-                        mMoviesFlowPane.getChildren().get(index + 1).setStyle("-fx-border-color: black");
-                        mMoviesFlowPane.getChildren().get(index).setStyle("-fx-border-color: white");
-                        double size = mMoviesFlowPane.getChildren().size();
-                        if (index % 4 == 0) {
-                            mMoviesScrollPane.setVvalue((index + 1) / size);
+                    if (pageTracker.getCurrentPage().equals("playlistList")) {
+                        if (index != 0) {
+                            playlistVBox.getChildren().get(index - 1).requestFocus();
+                            index -= 1;
+                            playlistVBox.getChildren().get(index + 1).setStyle("-fx-border-color: black");
+                            playlistVBox.getChildren().get(index).setStyle("-fx-border-color: white");
+                            double size = playlistVBox.getChildren().size();
+                            if (index % 3 == 0) {
+                                mMoviesScrollPane.setVvalue((index + 1) / size);
+                            }
+                        } else {
+                            mSearchTextField.requestFocus();
+                            playlistVBox.getChildren().get(index).setStyle("-fx-border-color: black");
                         }
                     } else {
-                        mSearchTextField.requestFocus();
-                        mMoviesFlowPane.getChildren().get(index).setStyle("-fx-border-color: black");
-
+                        if (index != 0) {
+                            mMoviesFlowPane.getChildren().get(index - 1).requestFocus();
+                            index -= 1;
+                            mMoviesFlowPane.getChildren().get(index + 1).setStyle("-fx-border-color: black");
+                            mMoviesFlowPane.getChildren().get(index).setStyle("-fx-border-color: white");
+                            double size = mMoviesFlowPane.getChildren().size();
+                            if (index % 4 == 0) {
+                                mMoviesScrollPane.setVvalue((index + 1) / size);
+                            }
+                        } else {
+                            mSearchTextField.requestFocus();
+                            mMoviesFlowPane.getChildren().get(index).setStyle("-fx-border-color: black");
+                        }
                     }
                 } else if (event.getCode().equals(KeyCode.ENTER)) {
                     try {
-                        moviePosterClicked(mMovies.get(index));
-                    } catch (Exceptions exceptions) {
+                        switch (pageTracker.getCurrentPage()) {
+                        case "mainPage":
+                            moviePosterClicked(mMovies.get(index));
+                            break;
+                        case "playlistInfo":
+                            Playlist playlist1 = new EditPlaylistJson(playlistName).load();
+                            playlistMoviePosterClicked(playlist1.getMovies().get(index));
+                            break;
+                        case "playlistList":
+                            Playlist playlist2 = new EditPlaylistJson(playlists.get(index)).load();
+                            playlistPaneClicked(playlist2);
+                            break;
+                        default:
+                            break;
+                        }
+
+
+                    } catch (Exceptions | IOException exceptions) {
                         exceptions.printStackTrace();
                     }
                     index = 0;
@@ -419,6 +464,7 @@ public class MovieHandler extends Controller implements RequestListener {
             Platform.runLater(() -> {
                 try {
                     buildMoviesFlowPane(MoviesFinal);
+                    pageTracker.setToMainPage();
                 } catch (Exceptions exceptions) {
                     exceptions.printStackTrace();
                 }
@@ -531,7 +577,7 @@ public class MovieHandler extends Controller implements RequestListener {
             MoviePosterController controller = loader.getController();
             try {
                 if (movie.getFullPosterPathInfo() != null) {
-                    System.out.println("sianz");
+                    //System.out.println("sianz");
                     Image posterImage = new Image(movie.getFullPosterPathInfo(), true);
                     posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
                         try {
@@ -541,10 +587,11 @@ public class MovieHandler extends Controller implements RequestListener {
                         }
                     });
                     controller.getPosterImageView().setImage(posterImage);
+
                 } else {
-                    System.out.println("hi1");
+                  //  System.out.println("hi1");
                     Image posterImage = new Image(this.getClass().getResourceAsStream("../../../../EPdata/FakeMoviePoster.png"));
-                    System.out.println("hi2");
+                   // System.out.println("hi2");
                     posterImage.progressProperty().addListener((observable, oldValue, newValue) -> {
                         try {
                             updateProgressBar(movie, newValue.doubleValue());
@@ -667,7 +714,7 @@ public class MovieHandler extends Controller implements RequestListener {
             // set the movie info
             PlaylistController controller = loader.getController();
             controller.setVBoxColour(i);
-//            controller.setTextColour();
+            controller.setTextColour();
             controller.getPlaylistNameLabel().setText(playlist.getPlaylistName());
             if (playlist.getDescription().trim().length() == 0) {
                 controller.getPlaylistDescriptionLabel().setText("*this playlist does not have a description :(*");
@@ -785,7 +832,7 @@ public class MovieHandler extends Controller implements RequestListener {
         boolean isMovie = false;
         for (PlaylistMovieInfoObject log : toConvert) {
             converted.add(new MovieInfoObject(log.getId(), log.getTitle(), isMovie,log.getReleaseDateInfo(), log.getSummaryInfo(), log.getFullPosterPathInfo(), log.getFullBackdropPathInfo(),
-                    log.getRatingInfo(), log.getGenreIDInfo(), log.isIsadultContent()));
+                    log.getRatingInfo(), log.getGenreIdInfo(), log.isAdultContent()));
 
         }
         return converted;
@@ -821,7 +868,9 @@ public class MovieHandler extends Controller implements RequestListener {
                 controller.getMovieReleaseDateLabel().setText("N/A");
             }
             try {
+                System.out.println(movie.getFullBackdropPathInfo());
                 Image posterImage = new Image(movie.getFullBackdropPathInfo(), true);
+                System.out.println(movie.getFullBackdropPathInfo());
                 controller.getMovieBackdropImageView().setImage(posterImage);
             } catch (NullPointerException ex) {
 
@@ -837,7 +886,23 @@ public class MovieHandler extends Controller implements RequestListener {
             }
             controller.getMovieCastLabel().setText(cast);
             controller.getMovieCertLabel().setText(movie.getCertInfo());
-            String[] genres = RetrieveRequest.getGenreStrings(movie);
+
+            ArrayList<Long>genres = movie.getGenreIdInfo();
+            String genreText = "";
+            for (int i = 0; i < genres.size(); i += 1) {
+                Long getGenre = genres.get(i);
+                int convertGenre = getGenre.intValue();
+                String genreAdd = ProfileCommands.findGenreName(convertGenre);
+                if (!genreAdd.equals("0")) {
+                    genreText += ProfileCommands.findGenreName(convertGenre);
+                }
+                if (i != genres.size() - 1) {
+                    genreText += ", ";
+                }
+
+            }
+
+            /**String[] genres = RetrieveRequest.getGenreStrings(movie);
             StringBuilder builder = new StringBuilder();
             try {
                 for (String genre : genres) {
@@ -852,8 +917,9 @@ public class MovieHandler extends Controller implements RequestListener {
                 }
             } catch (NullPointerException ex) {
 
-            }
-            controller.getMovieGenresLabel().setText(builder.toString());
+            }**/
+            //controller.getMovieGenresLabel().setText(builder.toString());
+            controller.getMovieGenresLabel().setText(genreText);
             mMoviesFlowPane.getChildren().add(posterView);
             mMoviesScrollPane.setContent(mMoviesFlowPane);
             mMoviesScrollPane.setVvalue(0);
@@ -1046,7 +1112,7 @@ public class MovieHandler extends Controller implements RequestListener {
      * Displays list of upcoming tv shows.
      */
     public static void showUpcomingTV() throws Exceptions {
-        mMovieRequest.beginSearchRequest( RetrieveRequest.MoviesRequestType.CURRENT_TV);
+        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV);
     }
 
     /**
@@ -1054,7 +1120,7 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     public static void showPopMovies() throws Exceptions {
 
-        mMovieRequest.beginSearchRequest( RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
+        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
     }
 
     /**
