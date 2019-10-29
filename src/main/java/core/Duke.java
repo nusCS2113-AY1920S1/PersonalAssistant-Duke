@@ -8,7 +8,6 @@ import utils.DukeException;
 import utils.Parser;
 import utils.Storage;
 import utils.TasksCounter;
-import utils.Reminder;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -55,7 +54,6 @@ public class Duke {
         TasksCounter tc = new TasksCounter(tasks);
         new Window(tc);
         Ui.welcome();
-        //Reminder.checkReminders(tasks);
         boolean isExit = false;
         Scanner in = new Scanner(System.in);
         while (!isExit) {
