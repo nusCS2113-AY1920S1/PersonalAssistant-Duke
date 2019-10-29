@@ -450,7 +450,7 @@ public class Storage {
      */
     public void loadPlans(final Map<String,
             ArrayList<MyTraining>> map) throws FileNotFoundException {
-        MyPlan plan = new MyPlan();
+        //MyPlan plan = new MyPlan();
         ArrayList<MyTraining> list = new ArrayList<>();
 
         File f = new File(".\\src\\main\\java\\duke\\data\\plan.txt");
@@ -491,8 +491,9 @@ public class Storage {
                     }
 
                     if (in.equals("\n")) {
-                        String key = plan.createKey(intensity, planNum);
-                        map.put(key, list);
+                        //String key = plan.createKey(intensity, planNum);
+                        //map.put(key, list);
+                        System.out.println("Check");
                     }
                 }
             }

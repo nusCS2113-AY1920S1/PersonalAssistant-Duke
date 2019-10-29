@@ -1,8 +1,8 @@
-package duke.Parser;
+package duke.parser;
 
 
 import duke.sports.MyPlan;
-import duke.Ui;
+import duke.CLIView;
 import java.io.FileNotFoundException;
 
 public class ParserTrainingPlan implements IParser {
@@ -10,7 +10,7 @@ public class ParserTrainingPlan implements IParser {
     /**
      * Ui class.
      */
-    private Ui ui;
+    private CLIView CLIView;
     /**
      * To parse training plan command.
      * @param input command.
@@ -24,7 +24,6 @@ public class ParserTrainingPlan implements IParser {
         switch (cmd) {
             case "plan":
                 if (word[1].equals("view")) {
-                    //int num = 2;
                     //plan.loadPlan(word[num].toLowerCase(), word[++num]);
                     System.out.println(plan.viewPlan());
                 } else if (word[1].equals("new")) {
@@ -34,7 +33,7 @@ public class ParserTrainingPlan implements IParser {
                 } else if (word[1].equals("save")) {
                     //String fp = plan.getFilePath();
                     //new Storage(fp).savePlans(plan.getMap());
-                    ui.showSavePlanToMap();
+                    CLIView.showSavePlanToMap();
                 }
                 break;
             case "training":

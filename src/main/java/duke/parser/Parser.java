@@ -1,5 +1,5 @@
-package duke.Parser;
-import duke.Ui;
+package duke.parser;
+import duke.CLIView;
 import duke.data.Storage;
 import duke.module.Reminder;
 import duke.module.Schedule;
@@ -13,7 +13,7 @@ import java.text.ParseException;
 import java.util.Date;
 
 /**
- * Parser is the controller for the string inputs received
+ * parser is the controller for the string inputs received
  * by the standard input.
  */
 public class Parser {
@@ -21,7 +21,7 @@ public class Parser {
     /**
      * The ui object responsible for showing things to the user.
      */
-    private Ui ui = new Ui();
+    private CLIView CLIView = new CLIView();
 
     /*
     public static Command parse(String fullCommand) {
@@ -132,7 +132,7 @@ public class Parser {
                 String info = input.substring(INDEX_SIX, index - 1);
                 String day = input.substring(index + INDEX_SEVEN);
                 MyClass myclass = new MyClass(info, false, day);
-                tasks.addTask(myclass, "C");
+                tasks.addTask(myclass);
                 storage.saveFile("C", myclass, myclass.getDay());
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.println(

@@ -1,6 +1,6 @@
-package duke.Parser;
+package duke.parser;
 
-import duke.Ui;
+import duke.CLIView;
 import duke.data.Storage;
 import duke.module.Goal;
 
@@ -48,7 +48,7 @@ public class ParserGoal {
     /**
      * The ui object responsible for showing things to the user.
      */
-    private Ui ui;
+    private CLIView CLIView;
     /**
      * The scanner object responsible for taking in user input.
      */
@@ -60,7 +60,7 @@ public class ParserGoal {
      * @throws ParseException if user input is not in the correct format
      */
     public ParserGoal() throws FileNotFoundException, ParseException {
-        ui = new Ui();
+        CLIView = new CLIView();
         goalStorage = new Storage(
             ".\\src\\main\\java\\duke\\data\\goals.txt");
         goal = new Goal(goalStorage.loadGoal());
@@ -71,12 +71,12 @@ public class ParserGoal {
      * Method to run when entering goal of the day.
      */
     public void runGoal() {
-        ui.showGoalPromptDate();
+        CLIView.showGoalPromptDate();
         String goalDate = myGoalScan.next();
 
         while (isRunning) {
             try {
-                ui.showGoalAllActions(goalDate);
+                CLIView.showGoalAllActions(goalDate);
                 int executeType = myGoalScan.nextInt();
                 myGoalScan.nextLine();  // This line you have
                 // to add (It consumes the \n character)
@@ -86,7 +86,7 @@ public class ParserGoal {
                     break;
 
                 case 2:
-                    ui.showGoalPromptAddGoal(goalDate);
+                    CLIView.showGoalPromptAddGoal(goalDate);
                     String myGoal = myGoalScan.nextLine();
                     System.out.println(
                         goal.addGoal(
@@ -94,7 +94,7 @@ public class ParserGoal {
                     break;
 
                 case indexThree:
-                    ui.showGoalPromptDeleteGoal(goalDate);
+                    CLIView.showGoalPromptDeleteGoal(goalDate);
                     String message = myGoalScan.nextLine();
                     System.out.println(
                         goal.removeGoal(
@@ -108,15 +108,15 @@ public class ParserGoal {
 
                 case indexFive:
                     isRunning = false;
-                    ui.showQuitGoal();
+                    CLIView.showQuitGoal();
                     break;
                 default:
-                    ui.showDontKnow();
+                    CLIView.showDontKnow();
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                ui.showFullCommand();
+                CLIView.showFullCommand();
             } catch (ParseException e) {
-                ui.showCorrectFormat();
+                CLIView.showCorrectFormat();
             }
         }
     }
