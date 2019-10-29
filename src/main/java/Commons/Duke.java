@@ -1,12 +1,11 @@
-package Interface;
-import DukeExceptions.DukeException;
-import Tasks.*;
-import Commands.*;
-import javafx.application.Application;
-import javafx.stage.Stage;
+package Commons;
 
-import java.io.IOException;
-import java.text.ParseException;
+import Commands.Command;
+import Commands.RetrieveFreeTimesCommand;
+import Commands.RetrievePreviousCommand;
+import Tasks.TaskList;
+
+import Parser.MainParser;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,7 +15,7 @@ import java.util.logging.Logger;
  * with commands that includes adding, deleting, displaying list of tasks
  * and to mark completion of a task.
  */
-public class Duke extends Application {
+public class Duke  {
 
     private final Storage storage;
     private final TaskList events;
@@ -26,20 +25,11 @@ public class Duke extends Application {
     private static final Logger LOGGER = Logger.getLogger(Duke.class.getName());
     private static LookupTable LT;
     public static ArrayList<String> userInputs = new ArrayList<>();
-    public static ArrayList<String> tempList;
 
-    static {
-        try {
-            LT = new LookupTable();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     /**
      * Creates Duke object.
      */
     public Duke() {
-
         ui = new Ui();
         storage = new Storage();
         events = new TaskList();
@@ -51,15 +41,11 @@ public class Duke extends Application {
             storage.readEventList(events);
             reminder.setDeadlines(deadlines);
             storage.setReminderOnStart();
-        } catch (DukeException e) {
+            LT = new LookupTable();
+        } catch (Exception e) {
             ui.showLoadingError(e);
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
-        //...
     }
 
     /**
@@ -69,14 +55,11 @@ public class Duke extends Application {
      */
     private String run(String input) {
         try {
-            Command c = Parser.parse(input);
+            Command c = MainParser.parse(input);
             return c.execute(LT,events, deadlines, ui, storage);
-        } catch (DukeException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-            return ui.showError(e);
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-            return e.getMessage();
+            LOGGER.severe(e.toString());
+            return ui.getError(e);
         }
     }
 
@@ -99,5 +82,8 @@ public class Duke extends Application {
         return selectedOption;
     }
 
+    public LookupTable getLT() {
+        return this.LT;
+    }
 
 }

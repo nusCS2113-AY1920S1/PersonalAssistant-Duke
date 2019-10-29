@@ -1,9 +1,9 @@
 package Commands;
 
-import Interface.Duke;
-import Interface.LookupTable;
-import Interface.Storage;
-import Interface.Ui;
+import Commons.Duke;
+import Commons.LookupTable;
+import Commons.Storage;
+import Commons.Ui;
 import Tasks.TaskList;
 import java.util.ArrayList;
 

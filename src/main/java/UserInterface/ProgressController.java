@@ -1,6 +1,6 @@
-package JavaFx;
+package UserInterface;
 
-import Tasks.Task;
+import Tasks.Assignment;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
@@ -31,8 +31,8 @@ public class ProgressController extends HBox {
      * @param deadlineList the list containing the deadline tasks
      * @return a pair containing the arraylist of tasks and hashmap of module code
      */
-    public Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> getProgressIndicatorMap (HashMap<String, HashMap<String, ArrayList<Task>>> eventsList, HashMap<String, HashMap<String, ArrayList<Task>>> deadlineList) {
-        Task eventTask;
+    public Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> getProgressIndicatorMap (HashMap<String, HashMap<String, ArrayList<Assignment>>> eventsList, HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineList) {
+        Assignment eventTask;
         if (eventsList.size() != 0) {
             for (String moduleCode : eventsList.keySet()) {
                 moduleCodeMap.put(moduleCode, null);
@@ -45,7 +45,7 @@ public class ProgressController extends HBox {
             }
         }
 
-        Task deadlineTask;
+        Assignment deadlineTask;
         String eventsMC;
         for (int i = 0; i < moduleCodeStatusIconDescriptionArrList.size(); i++) { //checks if the module code of the events hashMap is found in the deadline hashMap
             eventsMC = moduleCodeStatusIconDescriptionArrList.get(i).getKey();

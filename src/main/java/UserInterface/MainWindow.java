@@ -1,16 +1,16 @@
-package JavaFx;
+package UserInterface;
 import Commands.ShowPreviousCommand;
 import Commands.WeekCommand;
 import Commands.UpdateProgressIndicatorCommand;
-import Interface.*;
-import Tasks.Task;
+import DukeExceptions.DukeIOException;
+import Commons.Duke;
+import Commons.Storage;
+import Commons.LookupTable;
+import Commons.Week;
+import Tasks.Assignment;
 import Tasks.TaskList;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -36,9 +36,12 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Date;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -76,29 +79,22 @@ public class MainWindow extends BorderPane implements Initializable {
     @FXML
     private TableColumn<DeadlineView, String> overdueTaskColumn;
     @FXML
-    private TableView<dukeResponseView> dukeResponseTable;
+    private TableView<DukeResponseView> dukeResponseTable;
     @FXML
     TableColumn dukeResponseColumn;
 
     private Duke duke;
     private Storage storage;
-    private ArrayList<Task> events;
-    private ArrayList<Task> deadlines;
-    private ArrayList<Task> todos;
-    private ArrayList<Task> overdue;
+    private ArrayList<Assignment> events;
+    private ArrayList<Assignment> deadlines;
+    private ArrayList<Assignment> todos;
+    private ArrayList<Assignment> overdue;
     private TaskList eventsList;
     private TaskList deadlinesList;
-    private static LookupTable LT;
+    private static LookupTable LT = new LookupTable();
     public static ArrayList<String> outputList = new ArrayList<>();
     public static Week outputWeekList = new Week();
     private static final Logger LOGGER = Logger.getLogger(MainWindow.class.getName());
-    static {
-        try {
-            LT = new LookupTable();
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
-    }
 
 
     /**
@@ -192,24 +188,28 @@ public class MainWindow extends BorderPane implements Initializable {
      * @throws ParseException On conversion error from string to Task object
      */
     private void retrieveList() {
-        storage = new Storage();
-        eventsList = new TaskList();
-        deadlinesList = new TaskList();
-        overdue = new ArrayList<>();
-        storage.readEventList(eventsList);
-        storage.readDeadlineList(deadlinesList);
-        events = eventsList.getList();
-        deadlines = deadlinesList.getList();
+        try {
+            storage = new Storage();
+            eventsList = new TaskList();
+            deadlinesList = new TaskList();
+            overdue = new ArrayList<>();
+            storage.readEventList(eventsList);
+            storage.readDeadlineList(deadlinesList);
+            events = eventsList.getList();
+            deadlines = deadlinesList.getList();
+        } catch (DukeIOException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
     }
 
-    private ObservableList<dukeResponseView> betterDukeResponse = FXCollections.observableArrayList();
+    private ObservableList<DukeResponseView> betterDukeResponse = FXCollections.observableArrayList();
 
     private ObservableList<DeadlineView> setDeadlineTable()  {
         String to;
         String description;
         String activity;
         ObservableList<DeadlineView> deadlineViews = FXCollections.observableArrayList();
-        for (Task task : deadlines) {
+        for (Assignment task : deadlines) {
             activity = task.toString();
             DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             DateFormat timeFormat= new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -235,7 +235,7 @@ public class MainWindow extends BorderPane implements Initializable {
         String description;
         String activity;
         ObservableList<DeadlineView> overdueViews = FXCollections.observableArrayList();
-        for (Task task : overdue) {
+        for (Assignment task : overdue) {
             activity = task.toString();
             DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             Date date = null;
@@ -285,7 +285,7 @@ public class MainWindow extends BorderPane implements Initializable {
 //        dukeIndexColumn.setMinWidth(35);
 //        dukeIndexColumn.setCellValueFactory(new PropertyValueFactory<>("index"));
         dukeResponseColumn = new TableColumn<>();
-        dukeResponseColumn.setText("Duke Response");
+        dukeResponseColumn.setText("Response");
         dukeResponseColumn.setSortable(false);
 //        deadlineTaskColumn.setMinWidth(165);
         dukeResponseColumn.setCellValueFactory(new PropertyValueFactory("response"));
@@ -320,7 +320,7 @@ public class MainWindow extends BorderPane implements Initializable {
             Text temp = new Text(response);
             temp.setWrappingWidth(dukeResponseColumn.getWidth() - 10);
             Integer index = betterDukeResponse.size() + 1;
-            betterDukeResponse.add(new dukeResponseView(index.toString(), temp));
+            betterDukeResponse.add(new DukeResponseView(index.toString(), temp));
             setDukeResponse();
         }
         setProgressContainer();
