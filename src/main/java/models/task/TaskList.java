@@ -63,7 +63,7 @@ public class TaskList {
             ArrayList<String> allTaskDetails = this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers,
                     taskList, sortCriteria);
             if (sortCriteria.substring(0, 5).equals("/WHO-") && allTaskDetails.size() == 0) {
-                allTaskDetailsForTable.add(" - There are no tasks assigned to this member! -");
+                allTaskDetailsForTable.add(" - There are no tasks assigned to " + sortCriteria.substring(5) + "! -");
             } else if ("/DATE".equals(sortCriteria) && allTaskDetails.size() == 0) {
                 allTaskDetailsForTable.add(" - There are no tasks with deadlines! -");
             } else {
