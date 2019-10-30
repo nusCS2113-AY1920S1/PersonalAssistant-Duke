@@ -1,7 +1,8 @@
 package dolla.command;
 
 import dolla.DollaData;
-import dolla.ui.Ui;
+import dolla.ui.ListUi;
+import dolla.ui.ModifyUi;
 import dolla.task.RecordList;
 
 //@@author omupenguin
@@ -21,11 +22,11 @@ public class InitialModifyCommand extends Command {
     public void execute(DollaData dollaData) {
         String currMode = dollaData.getMode();
         if (isIndexInList(dollaData.getRecordList(currMode))) {
-            Ui.printInitialModifyMsg(currMode);
+            ModifyUi.printInitialModifyMsg(currMode);
             dollaData.updateMode("modify " + currMode);
             dollaData.prepForModify(currMode, index);
         } else {
-            Ui.printNoRecordAssocError(index, currMode);
+            ListUi.printNoRecordAssocError(index, currMode);
             return;
         }
     }

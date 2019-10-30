@@ -1,7 +1,9 @@
 package dolla.parser;
 
 import dolla.Time;
+import dolla.ui.EntryUi;
 import dolla.ui.Ui;
+import dolla.ui.ModifyUi;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
 
@@ -101,7 +103,7 @@ public abstract class Parser implements CommandStringList {
         if (s.equals("income") || s.equals("expense")) {
             return s;
         } else {
-            Ui.printInvalidEntryType();
+            EntryUi.printInvalidEntryType();
             throw new Exception("invalid type");
         }
     }
@@ -117,7 +119,7 @@ public abstract class Parser implements CommandStringList {
             stringToDouble(inputArray[2]);
             extractDescTime();
         } catch (IndexOutOfBoundsException e) {
-            Ui.printInvalidEntryFormatError();
+            EntryUi.printInvalidEntryFormatError();
             return false;
         } catch (Exception e) {
             return false; // If error occurs, stop the method!
@@ -134,7 +136,7 @@ public abstract class Parser implements CommandStringList {
             Integer.parseInt(inputArray[1]);
             // TODO: Add support for modifying specific categories
         } catch (Exception e) {
-            Ui.printInvalidModifyFormatError();
+            ModifyUi.printInvalidModifyFormatError();
             return false;
         }
         return true;

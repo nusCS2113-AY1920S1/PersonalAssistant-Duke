@@ -12,6 +12,16 @@ import java.util.Arrays;
  */
 public abstract class Ui {
 
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+
     protected static final String SORT_DESCRIPTION = "description";
     protected static final String SORT_DATE = "date";
     protected static final String SORT_NAME = "name";
@@ -40,6 +50,21 @@ public abstract class Ui {
     }
 
     /**
+     * Prints Dolla's new mode after being updated.
+     *
+     * @param newMode The new mode to be switched.
+     */
+    public static void printModeUpdated(String newMode) {
+        System.out.println(line);
+        System.out.println("\tGot it! Mode changed to " + newMode + "!");
+        System.out.println(line);
+        System.out.println();
+        System.out.println(ANSI_CYAN + "\t°º¤ø,¸¸,ø¤º°`°º¤ø,¸ MODE:  " + newMode.toUpperCase() +
+                "  ¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸" + ANSI_RESET);
+    }
+
+    // TODO: DELETE
+    /**
      * This method prints the strings of text from 'msg' with the proper format. Each element
      * from 'msg' is a line of text to be printed.
      *
@@ -53,6 +78,7 @@ public abstract class Ui {
         System.out.println(line);
     }
 
+    // TODO: DELETE
     /**
      * This method prints the strings of text from 's' with the proper format. Each element
      * from 's' is a line of text to be printed.
@@ -229,19 +255,6 @@ public abstract class Ui {
     }
 
     /**
-     * Prints error message when LogNum is not associated to a task.
-     *
-     * @param index The Record number that does not exist in the specific list.
-     * @param mode  The mode where the list is to be accessed.
-     */
-    public static void printNoRecordAssocError(int index, String mode) {
-        System.out.println(line);
-        System.out.println("\t" + mode + " number " + index + 1 + " doesn't seem to exist in my records!");
-        System.out.println("\tTry looking through the list of " + mode + "again.");
-        System.out.println(line);
-    }
-
-    /**
      * Prints error message when string parsed is not an integer.
      *
      * @param str to be parsed to an integer
@@ -271,67 +284,6 @@ public abstract class Ui {
     }
 
     /**
-     * Prints error message when the user did not properly specify the type of entry to add.
-     */
-    public static void printInvalidEntryType() {
-        System.out.print(line);
-        System.out.println("\tPlease specify the type of entry you want to add: income or expense.");
-        System.out.print(line);
-    }
-
-    /**
-     * Prints error message when user tries to add income/expense, but inputs the wrong format.
-     */
-    public static void printInvalidEntryFormatError() {
-        System.out.println(line);
-        System.out.println("\tplease follow the format "
-                + "'add income(/expense) [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}'"
-                + "");
-        System.out.println(line);
-    }
-
-    /**
-     * Prints Dolla's new mode after being updated.
-     *
-     * @param newMode The new mode to be switched.
-     */
-    public static void printModeUpdated(String newMode) {
-        System.out.println(line);
-        System.out.println("\tMode changed to " + newMode + "!");
-        System.out.println(line);
-    }
-
-    /**
-     * Prints error message when user wants to list down items in the specific list but it's empty.
-     *
-     * @param mode The mode that is used when the 'list' is input
-     */
-    public static void printEmptyListError(String mode) {
-        System.out.println(line);
-        System.out.println("\tYou haven't added any " + mode + " yet!");
-        System.out.println(line);
-    }
-
-    //public static void printList(String mode, RecordList entryList) {
-
-    /**
-     * Prints out a list depending on the mode where 'list' is called.
-     *
-     * @param mode    The mode that is used when 'list' is input.
-     * @param recordList The RecordList containing the data of the list to be printed.
-     */
-    public static void printList(String mode, RecordList recordList) {
-
-        System.out.println(line);
-        System.out.println("\tHere is the list of " + mode + " you have added:");
-        for (int i = 0; i < recordList.size(); i++) {
-            int listNum = i + 1;
-            System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
-        }
-        System.out.println(line);
-    }
-
-    /**
      * Print sorted list.
      *
      * @param list the list to be printed
@@ -351,26 +303,6 @@ public abstract class Ui {
             int listNum = i + 1;
             System.out.println("\t" + listNum + ". " + list.get(i).getRecordDetail());
         }
-    }
-
-    /**
-     * Prints out error message when the user inputs the wrong format for 'modify' command.
-     */
-    public static void printInvalidModifyFormatError() {
-        System.out.println(line);
-        System.out.println("\tplease follow the format "
-                + "'modify [LIST NUM]"
-                + "");
-        System.out.println(line);
-    }
-
-    /**
-     * Prints a message asking what the user wants to modify the selected log to.
-     */
-    public static void printInitialModifyMsg(String mode) {
-        System.out.println(line);
-        System.out.println("\tWhat would you want to change this " + mode + " to?");
-        System.out.println(line);
     }
 
     /**

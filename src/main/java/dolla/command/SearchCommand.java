@@ -1,6 +1,7 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.ui.ListUi;
 import dolla.ui.SearchUi;
 import dolla.ui.Ui;
 import dolla.task.RecordList;
@@ -64,7 +65,7 @@ public class SearchCommand extends Command {
         boolean listIsEmpty = (recordList.size() == 0);
 
         if (listIsEmpty) {
-            Ui.printEmptyListError(mode);
+            ListUi.printEmptyListError(mode);
             return;
         } else if (mode.equals(MODE_ENTRY)) {
             if (component.equals(COMPONENT_DESCRIPTION)) {
