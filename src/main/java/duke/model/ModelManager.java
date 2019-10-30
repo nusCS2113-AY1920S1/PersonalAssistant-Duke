@@ -136,9 +136,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void sortOrders(SortOrderCommand.SortCriteria criteria, boolean isIncreasing) {
+    public void sortOrders(SortOrderCommand.SortCriteria criteria, boolean isReversed) {
         requireNonNull(criteria);
-        bakingHome.sortOrders(criteria, isIncreasing);
+        bakingHome.sortOrders(criteria, isReversed);
     }
 
     @Override
