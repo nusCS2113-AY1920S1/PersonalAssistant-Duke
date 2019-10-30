@@ -25,7 +25,7 @@ public class LinkCommand extends Command {
                 output += "Noted, assigned task "
                         + model.getTasksManager().getTaskById(tasksIndexes[i]).getName()
                         + " to member "
-                        + membersNames[j];
+                        + membersNames[j] + ".\n";
             }
         }
         model.save();
@@ -36,7 +36,7 @@ public class LinkCommand extends Command {
     /**
      * Checks if task is in task list, and is a valid index
      * */
-    public void checkAvailability(Model model) throws DukeException {
+    protected void checkAvailability(Model model) throws DukeException {
         int taskListLength = model.getTaskList().size();
         for (int i = 0; i < tasksIndexes.length; i++) {
             if (tasksIndexes[i] < 0 || tasksIndexes[i] > taskListLength - 1) {

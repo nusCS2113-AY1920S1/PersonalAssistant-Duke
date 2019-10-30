@@ -16,6 +16,7 @@ public class NewParser {
     private static final String DELETE_COMMAND_WORD = "DELETE";
     private static final String DONE_COMMAND_WORD = "DONE";
     public static final String LINK_COMMAND_WORD = "LINK";
+    public static final String UNLINK_COMMAND_WORD = "UNLINK";
 
     //@@author JustinChia1997
 
@@ -52,6 +53,8 @@ public class NewParser {
             return DoneCommandParser.parseDoneCommand(arguments);
         case LINK_COMMAND_WORD:
             return LinkCommandParser.parseLinkCommand(arguments);
+        case UNLINK_COMMAND_WORD:
+            return LinkCommandParser.parseUnlinkCommand(arguments);
         default:
             throw new DukeException("Command not found");
 
