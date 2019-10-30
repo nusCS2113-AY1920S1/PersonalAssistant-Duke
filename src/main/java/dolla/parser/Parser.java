@@ -13,13 +13,7 @@ import java.time.format.DateTimeParseException;
  * It also ensures that the user's input for the command is valid, such as by checking the format
  * of the input, and the utilisation of correct terms.
  */
-public abstract class Parser {
-
-    protected static final String MODE_DOLLA = "dolla";
-    protected static final String MODE_ENTRY = "entry";
-    protected static final String MODE_LIMIT = "limit";
-    protected static final String MODE_DEBT = "debt";
-    protected static final String MODE_SHORTCUT = "shortcut";
+public abstract class Parser implements CommandStringList {
 
     protected String mode;
     protected LocalDate date;

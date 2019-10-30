@@ -6,7 +6,7 @@ import dolla.ui.Ui;
 
 import java.time.LocalDate;
 
-//@@author: omupenguin
+//@@author omupenguin
 public class ModifyDebtCommand extends Command {
 
     private String type;
@@ -41,5 +41,10 @@ public class ModifyDebtCommand extends Command {
         dollaData.modifyRecordList(newDebt);
         Ui.echoAddRecord(newDebt);
         dollaData.updateMode("debt");
+    }
+
+    @Override
+    public String getCommandInfo() {
+        return null;
     }
 }

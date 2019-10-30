@@ -4,7 +4,7 @@ import dolla.DollaData;
 import dolla.ui.Ui;
 import dolla.task.RecordList;
 
-//@@author: omupenguin
+//@@author omupenguin
 /**
  * InitialModifyCommand is a command that runs first when the
  * user wants to execute a modify command.

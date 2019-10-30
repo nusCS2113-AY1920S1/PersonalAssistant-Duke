@@ -14,6 +14,7 @@ import dolla.command.RemoveCommand;
 import dolla.task.Entry;
 
 public class EntryParser extends Parser {
+
     private static final String ENTRY_COMMAND_REDO = "redo";
     private static final String ENTRY_COMMAND_UNDO = "undo";
     private static final String ENTRY_COMMAND_REPEAT = "repeat";
@@ -26,9 +27,9 @@ public class EntryParser extends Parser {
     @Override
     public Command parseInput() {
 
-        if (commandToRun.equals("entries")) { //show entry list
+        if (commandToRun.equals(ENTRY_COMMAND_LIST)) { //show entry list
             return new ShowListCommand(mode);
-        } else if (commandToRun.equals("add")) {
+        } else if (commandToRun.equals(ENTRY_COMMAND_ADD)) {
             if (verifyAddCommand()) {
                 Tag t = new Tag();
                 Entry entry = new Entry(inputArray[1], stringToDouble(inputArray[2]), description, date);
@@ -37,19 +38,19 @@ public class EntryParser extends Parser {
             } else {
                 return new ErrorCommand();
             }
-        } else if (commandToRun.equals("modify")) {
+        } else if (commandToRun.equals(COMMAND_MODIFY)) {
             if (verifyModifyCommand()) {
                 return new InitialModifyCommand(inputArray[1]);
             } else {
                 return new ErrorCommand();
             }
-        } else if (commandToRun.equals("sort")) {
+        } else if (commandToRun.equals(COMMAND_SORT)) {
             return new SortCommand(mode, inputArray[1]);
         } else if (commandToRun.equals("search")) {
             String component = inputArray[1];
             String content = inputArray[2];
             return new SearchCommand(mode, component, content);
-        } else if (commandToRun.equals("remove")) { //TODO: indexoutofbound exception
+        } else if (commandToRun.equals(COMMAND_REMOVE)) { //TODO: indexoutofbound exception
             return new RemoveCommand(mode, inputArray[1]);
         } else if (commandToRun.equals(ENTRY_COMMAND_REDO)
                 || commandToRun.equals(ENTRY_COMMAND_UNDO)

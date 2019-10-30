@@ -10,13 +10,8 @@ import dolla.command.ModifyEntryCommand;
 import dolla.ui.DebtUi;
 import dolla.ui.LimitUi;
 
-//@@author: omupenguin
+//@@author omupenguin
 public class ModifyParser extends Parser {
-
-    protected static final String MODE_ENTRY = "entry";
-    protected static final String MODE_LIMIT = "limit";
-    protected static final String MODE_DEBT = "debt";
-    protected static final String MODE_SHORTCUT = "shortcut";
 
     public ModifyParser(String inputLine) {
         super(inputLine);
