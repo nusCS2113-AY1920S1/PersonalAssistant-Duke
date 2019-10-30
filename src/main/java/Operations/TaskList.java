@@ -103,7 +103,7 @@ public class TaskList {
                 if (i < 0 || i >= tasks.size()) {
                     throw new RoomShareException(ExceptionType.outOfBounds);
                 }
-                tasks.get(i - 1).setDone(true);
+                tasks.get(i).setDone(true);
             }
         }
     }
