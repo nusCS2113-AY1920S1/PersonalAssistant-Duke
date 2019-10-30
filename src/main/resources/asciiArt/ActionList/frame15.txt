@@ -3,5 +3,3 @@ ______________________________________________________
   gotoMarket       | buySeeds       | plantSeeds
   gotoWheatFarm    | sellGrain      | harvestWheat
 ___________________|________________|_________________
-
-[PRESS 'ENTER' TO GO BACK TO MENU]
