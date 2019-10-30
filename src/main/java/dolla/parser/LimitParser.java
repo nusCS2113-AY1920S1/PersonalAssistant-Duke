@@ -16,14 +16,12 @@ import dolla.ui.LimitUi;
 //@@author Weng-Kexin
 public class LimitParser extends Parser {
 
-
     protected static final String SEARCH_COMMAND = "search";
 
     private static final String LIMIT_COMMAND_LIST = "limits";
     private static final String LIMIT_COMMAND_SET = "set";
     //private static final String LIMIT_COMMAND_REMOVE = "remove";
     private static final String LIMIT_COMMAND_SORT = "sort";
-
 
     private static final String LIMIT_TYPE_S = "saving";
     private static final String LIMIT_TYPE_B = "budget";
@@ -36,23 +34,21 @@ public class LimitParser extends Parser {
         super(inputLine);
     }
 
-
-
     @Override
     public Command handleInput(String mode) {
-        if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_LIST)) { //show limit list todo:resolve bug
+        if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_LIST)) {
             return new ShowListCommand(mode);
-        } else if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_SET)) { //add limit
+        } else if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_SET)) {
             String limitType = findLimitType();
             double limitAmount = findLimitAmount();
             String limitDuration = findLimitDuration();
             boolean verifiedCommand = verifySetLimitCommand(limitType, limitAmount, limitDuration);
             if (verifiedCommand) {
                 Limit limit = new Limit(limitType, limitAmount, limitDuration);
-                Tag t = new Tag(); //only checks for tag if command is correct
+                Tag t = new Tag();
                 t.handleTag(inputLine, inputArray, limit);
                 return new AddLimitCommand(limitType, limitAmount, limitDuration);
-            } else { //todo: handle exception
+            } else {
                 return new ErrorCommand();
             }
         /*
@@ -94,11 +90,9 @@ public class LimitParser extends Parser {
                 limitType = LIMIT_TYPE_B;
             } else {
                 LimitUi.invalidLimitTypePrinter();
-                //throw new Exception(); //todo:change to limit exception
             }
         } catch (IndexOutOfBoundsException e) {
             LimitUi.invalidSetCommandPrinter();
-            throw new IndexOutOfBoundsException();
         } catch (Exception e) {
             LimitUi.printErrorMsg();
         }
@@ -109,7 +103,7 @@ public class LimitParser extends Parser {
         double amount = 0;
         try {
             amount = stringToDouble(inputArray[2]);
-        } catch (IndexOutOfBoundsException e) { //todo: change to limit Exception
+        } catch (IndexOutOfBoundsException e) {
             LimitUi.invalidSetCommandPrinter();
         } catch (NumberFormatException e) {
             LimitUi.invalidAmountPrinter();
@@ -130,11 +124,9 @@ public class LimitParser extends Parser {
                 limitDuration = LIMIT_DURATION_M;
             } else {
                 LimitUi.invalidLimitDurationPrinter();
-                //throw new Exception(); todo:change to limit exception
             }
         } catch (IndexOutOfBoundsException e) {
             LimitUi.invalidSetCommandPrinter();
-            throw new IndexOutOfBoundsException();
         } catch (Exception e) {
             LimitUi.printErrorMsg();
         }

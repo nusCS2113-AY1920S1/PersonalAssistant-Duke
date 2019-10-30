@@ -6,6 +6,11 @@ package dolla.ui;
 //@@author Weng-Kexin
 public class LimitUi extends Ui {
 
+    public static final String MSG_INVALID_COMMAND_FORMAT = "\tOOPS! Please follow the format 'set [limitType] [AMOUNT] [DURATION]'";
+    public static final String MSG_INVALID_LIMIT_AMOUNT = "\tOOPS! Please input the amount correctly!";
+    public static final String MSG_INVALID_LIMIT_TYPE = "\tOOPS! Please specify the type of limit you want to set!";
+    public static final String MSG_INVALID_LIMIT_DURATION = "\tOOPS! Please specify the duration you want to set to your limit!";
+
     /**
      * Prints remove limit message.
      *
@@ -24,7 +29,7 @@ public class LimitUi extends Ui {
      */
     public static void invalidAmountPrinter() {
         System.out.println(line);
-        System.out.println("\tOOPS! Please input the amount correctly!");
+        System.out.println(MSG_INVALID_LIMIT_AMOUNT);
         System.out.println(line);
     }
 
@@ -33,7 +38,7 @@ public class LimitUi extends Ui {
      */
     public static void invalidSetCommandPrinter() {
         System.out.println(line);
-        System.out.println("\tOOPS! Please follow the format 'set [limitType] [AMOUNT] [DURATION]'");
+        System.out.println(MSG_INVALID_COMMAND_FORMAT);
         System.out.println(line);
     }
 
@@ -42,7 +47,7 @@ public class LimitUi extends Ui {
      */
     public static void invalidLimitTypePrinter() {
         System.out.println(line);
-        System.out.println("\tOOPS! Please specify the type of limit you want to set!");
+        System.out.println(MSG_INVALID_LIMIT_TYPE);
         System.out.println(line);
     }
 
@@ -51,7 +56,7 @@ public class LimitUi extends Ui {
      */
     public static void invalidLimitDurationPrinter() {
         System.out.println(line);
-        System.out.println("\tOOPS! Please specify the duration you want to set to your limit!");
+        System.out.println(MSG_INVALID_LIMIT_DURATION);
         System.out.println(line);
     }
 }
