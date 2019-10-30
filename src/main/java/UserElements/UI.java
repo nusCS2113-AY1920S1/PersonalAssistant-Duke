@@ -5,6 +5,7 @@ import Events.EventTypes.EventSubclasses.Concert;
 import Events.Storage.Contact;
 import Events.Storage.EventList;
 import Events.Storage.Goal;
+import Events.Storage.Instruments.InstrumentList;
 
 import java.util.ArrayList;
 import java.util.Queue;
@@ -411,5 +412,36 @@ public class UI {
         }
         System.out.print(lineSeparation);
     }
-
+    
+    public void instrumentAdded(String instrumentIndexAndName) {
+    	System.out.print(lineSeparation);
+    	System.out.println("Ok, the following instrument has been added: ");
+    	System.out.println(instrumentIndexAndName);
+    	System.out.println(lineSeparation);
+    }
+    
+    public void serviceAdded(String serviceIndexAndName, String instrumentIndexAndName) {
+    	System.out.println(lineSeparation);
+    	System.out.println("Ok, the following service: ");
+    	System.out.println(serviceIndexAndName);
+    	System.out.println("has been added for the following instrument: ");
+    	System.out.println(instrumentIndexAndName);
+    	System.out.println(lineSeparation);
+    }
+    
+    public void printInstruments(String instruments) {
+    	System.out.println(lineSeparation);
+    	System.out.println("Here are the list of instruments stored in the system: ");
+    	System.out.println(instruments);
+    	System.out.println(lineSeparation);
+    }
+    
+    public void printServices(String services, String instrumentIndexAndName) {
+    	System.out.println(lineSeparation);
+    	System.out.println("Here are the list of services: ");
+    	System.out.println(services);
+    	System.out.println("Done before for the following instrument: ");
+    	System.out.println(instrumentIndexAndName);
+    	System.out.println(lineSeparation);
+    }
 }

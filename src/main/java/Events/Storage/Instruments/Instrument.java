@@ -19,15 +19,17 @@ public class Instrument {
      */
     public Instrument(String name) {
        this.instrumentName = name;
+       serviceInfoList = new ArrayList<ServiceInfo>();
     }
     
     public String getName() {
     	return instrumentName;
     }
 
-    public void addService (EventDate date, String description) {
+    public int addService (EventDate date, String description) {
     	ServiceInfo newServiceInfo = new ServiceInfo(date, description);
         serviceInfoList.add(newServiceInfo);
+        return serviceInfoList.size();
     }
     
     public String getServiceInfos() {
@@ -35,9 +37,13 @@ public class Instrument {
     	int j;
     	for (int i = 0; i < serviceInfoList.size(); i++) {
     		j = i+1;
-    		res += j + serviceInfoList.get(i).getServiceInfo() + "\n";
+    		res += j + ". " + serviceInfoList.get(i).getServiceInfo() + "\n";
     	}
     	return res;
+    }
+    
+    public String getIndexAndService(int index) {
+    	return index + ". " + serviceInfoList.get(index-1).getServiceInfo();
     }
 
 }

@@ -30,7 +30,7 @@ public class ServiceInfo {
      * @return the details of the servicing.
      */
     public String getServiceInfo() {
-    	return serviceDescription + "on " + serviceDate.toString();
+    	return serviceDescription + " on " + serviceDate.getFormattedDateString();
     }
 
 }
