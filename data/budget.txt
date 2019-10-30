@@ -1,4 +1,4 @@
--7676.89
+-7576.89
 200.0 : Monthly allowance
 -12.0 : Astons
 -100.0 : Laptop
@@ -12,3 +12,4 @@
 -200.0 : textbooks
 -2000.0 : bribe the police
 0.01 : some troll on dbs paylah
+100.0 :
