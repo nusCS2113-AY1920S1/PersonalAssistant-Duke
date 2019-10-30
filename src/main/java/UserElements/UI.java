@@ -1,12 +1,12 @@
 package UserElements;
 
-import Events.EventTypes.EventSubclasses.Concert;
-import Events.Storage.EventList;
 import Events.EventTypes.Event;
-import Events.Formatting.EventDate;
-import Events.Formatting.Predicate;
+import Events.EventTypes.EventSubclasses.Concert;
+import Events.Storage.Contact;
+import Events.Storage.EventList;
+import Events.Storage.Goal;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.Queue;
 
 
@@ -74,6 +74,46 @@ public class UI {
         System.out.print(lineSeparation);
         System.out.println("Sorry! I don't know what that means.");
         System.out.print(lineSeparation);
+    }
+
+    public void printEventGoals(Event viewEventGoal) {
+        System.out.println("Here is the list of goals for the following event: " + viewEventGoal.toString());
+        int goalIndex = 1;
+        for (Goal goalObject : viewEventGoal.getGoalList()) {
+            System.out.println(goalIndex + ". " + goalObject.getGoal());
+            goalIndex += 1;
+        }
+    }
+
+    public void goalAdded() {
+        System.out.println("Ok, the goal has been added to the event.");
+    }
+
+    public void goalDeleted() {
+        System.out.println("Ok, the goal has been deleted from the event.");
+    }
+
+    public void contactAdded() {
+        System.out.println("Ok, the contact has been added to the event.");
+    }
+
+    public void contactDeleted() {
+        System.out.println("Ok, the contact has been deleted from the event.");
+    }
+
+    public void printEventContacts(Event viewEventContact) {
+        System.out.println("Here is the list of contacts for the following event " + viewEventContact.toString());
+        int contactNo = 1;
+        for (Contact currContact : viewEventContact.getContactList()) {
+            System.out.println(contactNo + ". Name: " + currContact.getName() + " Email: " + currContact.getEmail()
+            + " Phone Number: " + currContact.getPhoneNo());
+            contactNo++;
+        }
+    }
+
+    public void contactEdited(Contact newContact) {
+        System.out.println("The contact has been edited to: Name: " + newContact.getName() + " Email: "
+                + newContact.getEmail() + " Phone Number: " +newContact.getPhoneNo());
     }
 
     /**
@@ -321,6 +361,40 @@ public class UI {
     public static void printNoCostsForThatMonth() {
         System.out.print(lineSeparation);
         System.out.println("There are no concerts for that month!");
+        System.out.print(lineSeparation);
+    }
+
+    public void checklistDeleted(int eventIndex) {
+        System.out.print(lineSeparation);
+        System.out.println("Ok, checklist of event " + eventIndex + 1 + " has been deleted.");
+        System.out.print(lineSeparation);
+    }
+
+    public void checklistEdited(String newChecklistItem, int eventIndex) {
+        System.out.print(lineSeparation);
+        System.out.println("Ok, checklist of event " + eventIndex + 1 + " has been edited to:");
+        System.out.println(newChecklistItem);
+        System.out.print(lineSeparation);
+    }
+
+    public void checklistAdded(String newChecklistItem, int eventIndex) {
+        System.out.print(lineSeparation);
+        System.out.println("Ok, the following item has been added to checklist of event " + eventIndex + 1 + ":");
+        System.out.println(newChecklistItem);
+        System.out.print(lineSeparation);
+    }
+
+    public void printEventChecklist(ArrayList<String> thisChecklist, int eventIndex, Event eventAdded) {
+        System.out.print(lineSeparation);
+        System.out.println("Here is the checklist for the following event: ");
+        System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
+                eventAdded.getDescription());
+        System.out.println("Checklist: ");
+        int checklistIndex = 1;
+        for (String checklistItem : thisChecklist) {
+            System.out.println(checklistIndex + ". " + checklistItem);
+            checklistIndex += 1;
+        }
         System.out.print(lineSeparation);
     }
 }

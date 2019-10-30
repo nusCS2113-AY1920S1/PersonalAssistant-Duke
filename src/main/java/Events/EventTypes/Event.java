@@ -1,6 +1,10 @@
 package Events.EventTypes;
 
 import Events.Formatting.EventDate;
+import Events.Storage.Goal;
+import Events.Storage.Contact;
+
+import java.util.ArrayList;
 
 /**
  * Model_Class.Event object inherits Model_Class.Task.
@@ -12,6 +16,10 @@ public abstract class Event implements Comparable<Event> {
     private EventDate startEventDate;
     private EventDate endEventDate;
     private char eventType;
+    protected ArrayList<Goal> goalsList;
+    protected ArrayList<Contact> contactList;
+
+    private ArrayList<String> checklist;
 
     /**
      * Creates event with one date input (e.g todo)
@@ -26,6 +34,9 @@ public abstract class Event implements Comparable<Event> {
         this.startEventDate = new EventDate(dateAndTime);
         this.endEventDate = null; //no end date, set to null
         this.eventType = 'T'; //event with no end date can only be ToDo
+        this.goalsList = new ArrayList<>();
+        this.contactList = new ArrayList<>();
+        this.checklist = new ArrayList<>();
     }
 
     /**
@@ -42,6 +53,9 @@ public abstract class Event implements Comparable<Event> {
         this.startEventDate = new EventDate(startDateAndTime);
         this.endEventDate = new EventDate(endDateAndTime);
         this.eventType = eventType;
+        this.goalsList = new ArrayList<>();
+        this.contactList = new ArrayList<>();
+        this.checklist = new ArrayList<>();
     }
 
     /**
@@ -113,6 +127,53 @@ public abstract class Event implements Comparable<Event> {
     public void rescheduleEndDate(EventDate newEndDate) {
         this.endEventDate = newEndDate;
     }
+
+    public void addGoal(Goal goalInput) {
+        goalsList.add(goalInput);
+    }
+
+    public void removeGoal(int goalID) {
+        goalsList.remove(goalID);
+    }
+
+    public ArrayList<Goal> getGoalList() {
+        return goalsList;
+    }
+
+    public void addContact(Contact contactInput) {
+        contactList.add(contactInput);
+    }
+
+    public void removeContact(int contactIndex) {
+        contactList.remove(contactIndex);
+    }
+
+    public ArrayList<Contact> getContactList() {
+        return contactList;
+    }
+
+    public void editContact(int contactIndex, char editType, String newContact) {
+        if (editType == 'N') {
+            contactList.get(contactIndex).setName(newContact);
+        }
+        else if (editType == 'E') {
+            contactList.get(contactIndex).setEmail(newContact);
+        }
+        else if (editType == 'P') {
+            contactList.get(contactIndex).setPhoneNo(newContact);
+        }
+    }
+
+    public void addChecklist(String newChecklist) {
+        System.out.println(newChecklist);
+        this.checklist.add(newChecklist);
+    }
+
+    public ArrayList<String> getChecklist() { return this.checklist; }
+
+    public void editChecklist(int checklistIndex, String newChecklist) { this.checklist.set(checklistIndex, newChecklist); }
+
+    public void deleteChecklist(int checklistIndex) { this.checklist.remove(checklistIndex); }
 
     @Override
     public int compareTo(Event currEvent) {
