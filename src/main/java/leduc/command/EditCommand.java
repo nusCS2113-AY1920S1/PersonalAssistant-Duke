@@ -155,9 +155,9 @@ public class EditCommand extends Command {
      * @throws NonExistentDateException  Exception caught when the date given does not exist.
      */
     private void editHomeworkDate(Task t, String dateString) throws NonExistentDateException {
-        Date d = new Date(dateString);
+        Date date = new Date(dateString);
         HomeworkTask homeworkTask = (HomeworkTask) t;
-        homeworkTask.setDeadlines(d);
+        homeworkTask.setDeadlines(date);
     }
 
 
