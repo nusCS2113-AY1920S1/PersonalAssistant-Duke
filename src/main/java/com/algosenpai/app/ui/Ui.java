@@ -66,7 +66,9 @@ public class Ui extends AnchorPane {
     //private String userGender = stats.getGender();
     private int idleMinutesMax = 180;
 
-    private static final String GREETING_MESSAGE = "Welcome to AlgoSenpai Adventures! Type 'hello' followed by your name and gender (boy or girl) to start!";
+    private static final String GREETING_MESSAGE = "Welcome to AlgoSenpai Adventures!"
+                                                   + "Type 'hello' followed by your name and gender"
+                                                   + "(boy or girl) to start!";
     private static final String BOY_PROFILE_PICTURE_PATH = "/images/boyplayer.jpg";
     private static final String GIRL_PROFILE_PICTURE_PATH = "/images/girlplayer.png";
     private static final String DEFAULT_PROFILE_PICTURE_PATH = "/images/unknown.png";

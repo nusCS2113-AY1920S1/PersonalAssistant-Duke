@@ -35,34 +35,34 @@ public class MenuCommand extends Command {
                     + "menu <command>\n";
         } else {
             switch (inputs.get(1)) {
-                case "hello":
-                    return "hello <name> <gender> do note that gender refers to 'boy' or 'girl'";
-                case "help":
-                    return "help <level of difficulty>";
-                case "select":
-                    return "select <chapter number>";
-                case "result":
-                    return "result";
-                case "history":
-                    return "history <number of commands you'd like to view> eg history 5 shows your last 5 commands entered";
-                case "undo":
-                    return "undo || undo <number of steps you'd like to undo>";
-                case "clear":
-                    return "clear <chapter number>";
-                case "reset":
-                    return "reset";
-                case "save":
-                    return "save";
-                case "exit":
-                    return "exit";
-                case "print":
-                    return "print <archive | quiz | user> <filename>.pdf";
-                case "archive":
-                    return "archive <question number>";
-                case "review":
-                    return "review";
-                default:
-                    return "enter `menu` or `menu <command>`";
+            case "hello":
+                return "hello <name> <gender> do note that gender refers to 'boy' or 'girl'";
+            case "help":
+                return "help <level of difficulty>";
+            case "select":
+                return "select <chapter number>";
+            case "result":
+                return "result";
+            case "history":
+                return "history <number of commands you'd like to view>";
+            case "undo":
+                return "undo || undo <number of steps you'd like to undo>";
+            case "clear":
+                return "clear <chapter number>";
+            case "reset":
+                return "reset";
+            case "save":
+                return "save";
+            case "exit":
+                return "exit";
+            case "print":
+                return "print <archive | quiz | user> <filename>.pdf";
+            case "archive":
+                return "archive <question number>";
+            case "review":
+                return "review";
+            default:
+                return "enter `menu` or `menu <command>`";
             }
         }
     }

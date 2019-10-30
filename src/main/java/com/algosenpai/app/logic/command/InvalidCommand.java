@@ -55,7 +55,8 @@ public class InvalidCommand extends Command {
                 strings[count++] = s;
                 count++;
             }
-        } if (!strings[0].isEmpty()) {
+        }
+        if (!strings[0].isEmpty()) {
             return "Did you mean..." + strings.toString();
         } else {
             return " To view the list of commands, enter `menu`.";
