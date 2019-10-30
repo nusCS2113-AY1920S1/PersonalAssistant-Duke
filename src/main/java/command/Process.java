@@ -13,6 +13,7 @@ import task.Task;
 import task.WithinPeriodTask;
 import ui.Ui;
 
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,9 +22,11 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Calendar;
+import java.util.LinkedHashMap;
 
 public class Process {
     public SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    ProjectManager projectmanager = new ProjectManager();
 
     /**
      * Trims leading and trailing whitespace of an array of strings.
@@ -46,47 +49,75 @@ public class Process {
      * @param ui Ui that interacts with the user.
      */
     public void homePageMessage(String currentprojectname, int projectsize, Ui ui) {
-        ui.printProjectStatus(currentprojectname, projectsize);
+        ui.printProjectStatus(currentprojectname, projectsize); //TODO to change to reflect homepage contents
     }
 
-    /**
-     * Processes the message when there is no project in the record.
-     * @param ui Ui that interacts with the user.
-     */
-    public void noProject(Ui ui) {
-        ui.printNoProjectMessage();
+    //===========================* Project *================================
+
+    public void listProjects(Ui ui) {
+        ArrayList<Project> projectslist = projectmanager.listProjects();
+        if (projectslist.isEmpty()) {
+            ui.printNoProjectMessage();
+            return;
+        }
+        ui.printProjectsList(projectslist);
     }
 
     /**
      * Processes the add project command to add a new project to the projectmap.
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
-     * @param projectmap Hashmap containing projects.
      * @return
      */
-    public Project addProject(String input, Ui ui, HashMap<String, Project> projectmap) {
-        String[] split = input.split("pr/", 2); //TODO check for valid input
+    public void addProject(String input, Ui ui) {
+        String[] split = input.split("pr/", 2);
+        split = cleanStrStr(split);
+        if(split.length != 2) {
+            System.out.println("\t" + "Incorrect input");
+            System.out.println("\t" + "Correct Format: add project pr/PROJECT_NAME");
+            return;
+        }//TODO refactor
         String projectname = split[1];
-        Project newProject = ProjectManager.addProject(projectname, projectmap);
-        int projectsize = projectmap.size();
+        if (projectname.isEmpty()) {
+            System.out.println("\t" + "Project name cannot be empty!");
+            System.out.println("\t" + "Correct Format: add project pr/PROJECT_NAME");
+            return;
+        }//TODO refactor
+        if (projectmanager.projectmap.containsKey(projectname)) {
+            System.out.println("\t" + "Project already exists!");
+            return;
+        } //TODO refactor
+        Project newProject = projectmanager.addProject(projectname);
+        int projectsize = projectmanager.projectmap.size();
         ui.printAddProject(newProject, projectsize);
-        return newProject;
     }
 
     /**
      * Processes the delete project command to delete a project from the projectmap.
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
-     * @param projectmap Hashmap containing projects.
-     * @return Returns the Project object of the deleted project.
      */
-    public Project deleteProject(String input, Ui ui, HashMap<String, Project> projectmap) {
-        String[] split = input.split("pr/", 2); //TODO check for valid input
+    public void deleteProject(String input, Ui ui) {
+        String[] split = input.split("pr/", 2);
+        split = cleanStrStr(split);
+        if(split.length != 2) {
+            System.out.println("\t" + "Incorrect input");
+            System.out.println("\t" + "Correct Format: delete project pr/PROJECT_NAME");
+            return;
+        } //TODO refactor
         String projectname = split[1];
-        Project deletedProject = ProjectManager.deleteProject(projectname, projectmap);
-        int projectsize = projectmap.size();
+        if (projectname.isEmpty()) {
+            System.out.println("\t" + "Project name cannot be empty!");
+            System.out.println("\t" + "Correct Format: delete project pr/PROJECT_NAME");
+            return;
+        } //TODO refactor
+        if (!projectmanager.projectmap.containsKey(projectname)) {
+            System.out.println("\t" + "Project does not exist!");
+            return;
+        } //TODO refactor
+        Project deletedProject = projectmanager.deleteProject(projectname);
+        int projectsize = projectmanager.projectmap.size();
         ui.printDeleteProject(deletedProject, projectsize);
-        return deletedProject;
     }
 
     /**
@@ -94,14 +125,32 @@ public class Process {
      * as the current project that the user is working on.
      * @param input Input from the user.
      * @param ui Ui that interacts with the user.
-     * @param projectmap Hashmap containing projects.
      * @return Returns the Project object of the project that was gone to.
      */
-    public Project goToProject(String input, Ui ui, HashMap<String, Project> projectmap) {
-        String[] split = input.split("pr/", 2); //TODO check for valid input
+    public void goToProject(String input, Ui ui) {
+        String[] split = input.split("pr/", 2);
+        split = cleanStrStr(split);
+        if(split.length != 2) {
+            System.out.println("\t" + "Incorrect input");
+            System.out.println("\t" + "Correct Format: goto project pr/PROJECT_NAME");
+            return;
+        } //TODO refactor
         String projectname = split[1];
+        if (projectname.isEmpty()) {
+            System.out.println("\t" + "Project name cannot be empty!");
+            System.out.println("\t" + "Correct Format: goto project pr/PROJECT_NAME");
+            return;
+        } //TODO refactor
+        else if (projectmanager.projectmap.isEmpty()) {
+            ui.printNoProjectMessage();
+            return;
+        } //TODO refactor
+        else if (!projectmanager.projectmap.containsKey(projectname)) {
+            System.out.println("\t" + "Project does not exist!");
+            return;
+        } //TODO refactor
+        projectmanager.gotoProject(projectname);
         ui.printGoToProject(projectname);
-        return projectmap.get(projectname);
     }
 
     /**
@@ -152,12 +201,12 @@ public class Process {
      * @param fund the total fund the that the organisation owns
      * @param projectmap Hashmap containing projects.
      */
-    public void assignFund(String input, Ui ui, Fund fund, HashMap<String, Project> projectmap) {
+    public void assignFund(String input, Ui ui, Fund fund) {
         try {
             String[] split = input.split("pr/|am/");
             String projectname = split[1];
             Double amount = Double.parseDouble(split[2]);
-            Project project = projectmap.get(projectname);
+            Project project = projectmanager.projectmap.get(projectname);
             if ( fund.getFundRemaining() >= amount ) {
                 fund.takeFund(amount);
                 project.addBudget(amount);
@@ -172,21 +221,7 @@ public class Process {
         }
     }
 
-    /**
-     * Processes the find command and outputs a list of payments from the payee name given.
-     * @param input Input from the user.
-     * @param managermap HashMap containing all Payees and their Payments.
-     * @param ui Ui that interacts with the user.
-     */
-    public void findPayee(String input, Ui ui, HashMap<String, Payee> managermap) {
-        try {
-            String[] splitspace = input.split(" ", 2);
-            ArrayList<Payments> paymentsArrayList = PaymentManager.findPayee(splitspace[1], managermap);
-            ui.printPaymentList(paymentsArrayList);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
-        }
-    }
+    //===========================* Deadline *================================
 
     /**
      * Processes the View Schedule command and outputs the schedule for the specific date entered in the input.
@@ -222,21 +257,6 @@ public class Process {
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
         }
-    }
-
-    /**
-     * Processes the delete command.
-     * INPUT FORMAT: delete payment p/payee i/item
-     * @param input Input from the user.
-     * @param managermap HashMap containing all Payees and their Payments.
-     * @param ui Ui that interacts with the user.
-     */
-    public void deletePayment(String input, HashMap<String, Payee> managermap, Ui ui) {
-        String[] arr = input.split("payment ", 2);
-        String[] split = arr[1].split("p/|i/");
-        split = cleanStrStr(split);
-        Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap);
-        ui.printDeletePaymentMessage(split[1], deleted, managermap.get(split[1]).payments.size());
     }
 
     /**
@@ -399,6 +419,33 @@ public class Process {
                     + "Format:'postpone <index> <no.of hours to postpone>");
         }
     }
+
+    /**
+     * process the invoice command, set invoice status as true, update invoice value and set the deadline.
+     * INPUT FORMAT: invoice id i/invoice_num
+     * @param input Input from the user.
+     * @param tasklist Tasklist of the user.
+     * @param ui Ui that interacts with the user.
+     */
+    public void inVoice(String input, TaskList tasklist, Ui ui) {
+        try {
+            String[] splitspace = input.split(" ", 2);
+            String[] splitInvoice = splitspace[1].split(" i/");
+            int id = Integer.parseInt(splitInvoice[0]) - 1;
+            if (tasklist.get(id).getType().equals("D")) {
+                String invoice = splitInvoice[1];
+                tasklist.get(id).setInVoice(invoice);
+                ui.printAddInvoiceMessage(tasklist.get(id));
+            } else {
+                ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline instead!");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input a valid ID!");
+        } catch (NumberFormatException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        }
+    }
+
     /*
     public void reschedule(String input, TaskList tasklist, Ui ui) {
         try {
@@ -445,15 +492,32 @@ public class Process {
     }
 */
 
+    //===========================* Payments *================================
+
+    /**
+     * Processes the delete command.
+     * INPUT FORMAT: delete payment p/payee i/item
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     */
+    public void deletePayment(String input, Ui ui) {
+        HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
+        String[] arr = input.split("payment ", 2);
+        String[] split = arr[1].split("p/|i/");
+        split = cleanStrStr(split);
+        Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap);
+        ui.printDeletePaymentMessage(split[1], deleted, managermap.get(split[1]).payments.size());
+    }
+
     /**
      * Processes the add payment command, saves a new payment under a specified payee.
      * INPUT FORMAT: add payment p/payee i/item c/111 v/invoice
      * @param input Input from the user.
-     * @param managermap HashMap containing all Payees and their Payments.
      * @param ui Ui that interacts with the user.
      */
-    public void addPayment(String input, HashMap<String, Payee> managermap, Ui ui) {
+    public void addPayment(String input, Ui ui) {
         try {
+            HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
             String[] splitspace = input.split("payment ", 2);
             String[] splitpayments = splitspace[1].split("p/|i/|c/|v/");
             splitpayments = cleanStrStr(splitpayments);
@@ -475,11 +539,11 @@ public class Process {
      * Processes the add payee command, saves a new payee inside managermap.
      * INPUT FORMAT: add payee p/payee e/email m/matricNum ph/phoneNum
      * @param input Input from the user.
-     * @param managermap HashMap containing all Payees and their Payments.
      * @param ui Ui that interacts with the user.
      */
-    public void addPayee(String input, HashMap<String, Payee> managermap, Ui ui) {
+    public void addPayee(String input, Ui ui) {
         try {
+            HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
             String[] splitspace = input.split("payee ", 2);
             String[] splitpayments = splitspace[1].split("p/|e/|m/|ph/");
             splitpayments = cleanStrStr(splitpayments);
@@ -501,11 +565,11 @@ public class Process {
      * Processes the delete payee command, saves a new payee inside managermap.
      * INPUT FORMAT: delete payee p/payee
      * @param input Input from the user.
-     * @param managermap HashMap containing all Payees and their Payments.
      * @param ui Ui that interacts with the user.
      */
-    public void deletePayee(String input, HashMap<String, Payee> managermap, Ui ui) {
+    public void deletePayee(String input, Ui ui) {
         try {
+            HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
             String[] splitspace = input.split("payee ", 2);
             String[] splitpayments = splitspace[1].split("p/");
             splitpayments = cleanStrStr(splitpayments);
@@ -521,30 +585,23 @@ public class Process {
     }
 
     /**
-     * process the invoice command, set invoice status as true, update invoice value and set the deadline.
-     * INPUT FORMAT: invoice id i/invoice_num
+     * Processes the find command and outputs a list of payments from the payee name given.
      * @param input Input from the user.
-     * @param tasklist Tasklist of the user.
      * @param ui Ui that interacts with the user.
      */
-    public void inVoice(String input, TaskList tasklist, Ui ui) {
+    public void findPayee(String input, Ui ui) {
         try {
+            HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
             String[] splitspace = input.split(" ", 2);
-            String[] splitInvoice = splitspace[1].split(" i/");
-            int id = Integer.parseInt(splitInvoice[0]) - 1;
-            if (tasklist.get(id).getType().equals("D")) {
-                String invoice = splitInvoice[1];
-                tasklist.get(id).setInVoice(invoice);
-                ui.printAddInvoiceMessage(tasklist.get(id));
-            } else {
-                ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline instead!");
-            }
+            ArrayList<Payments> paymentsArrayList = PaymentManager.findPayee(splitspace[1], managermap);
+            ui.printPaymentList(paymentsArrayList);
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input a valid ID!");
-        } catch (NumberFormatException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+            ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
         }
     }
+
+    //===========================* Command History *================================
+
     /**
      * processes the input command and stores it in a text file.
      * @param input Input from the user.
