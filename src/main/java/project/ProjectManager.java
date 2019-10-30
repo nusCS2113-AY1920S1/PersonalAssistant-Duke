@@ -10,6 +10,9 @@ public class ProjectManager {
     public Project currentProject;
     public LinkedHashMap<String, Project> projectmap;
 
+    /**
+     * Initialises a project manager instance to manage the projects.
+     */
     public ProjectManager() {
         this.currentProject = null;
         this.projectmap = new LinkedHashMap<>();
@@ -89,6 +92,10 @@ public class ProjectManager {
         return projectallocated; //TODO --> allocates budget to a project
     }
 
+    /**
+     * Returns the current project being edited.
+     * @return Returns current project.
+     */
     public Project getCurrentProject() {
         return currentProject;
     }
