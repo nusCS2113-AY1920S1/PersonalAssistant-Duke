@@ -242,6 +242,16 @@ Brings up the achievement page that shows the user the lists of achievements tha
 
 This command shows the user all information related to his/ her avatar, from level and experience to stats. Additionally, this command also shows the weapon and armor equipped, if any.
 
+Other avatar related commands:
+
+****
+* `/avatar` : show avatar stats
+* `/setname NAME` : changes the avatar name
+* `/buy INDEX` : purchase items
+* `/inventory` : shows what you own
+* `/equip INDEX` : equips the item in the inventory
+****
+
 == 4. FAQ
 
 *Q*: Where do I install Java 11 from? +  
