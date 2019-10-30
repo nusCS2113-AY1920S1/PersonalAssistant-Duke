@@ -22,6 +22,7 @@ public class HistoryCommand extends Command {
 
     @Override
     public String execute() {
+        //int number = Integer.parseInt(inputs.get(1));
         StringBuilder history = new StringBuilder();
         history.append("Have you forgotten our conversation?\n");
         for (String str: historyList) {
