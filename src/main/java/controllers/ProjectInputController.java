@@ -165,7 +165,7 @@ public class ProjectInputController implements IController {
             } else {
                 return new String[] {"The member index entered is invalid."};
             }
-        } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
             return new String[] {"Please enter the updated member details format correctly."};
         }
     }
@@ -176,13 +176,17 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public String[] projectDeleteMember(Project projectToManage, String projectCommand) {
-        int memberIndexNumber = Integer.parseInt(projectCommand.substring(14).split(" ")[0]);
-        if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
-            Member memberToRemove = projectToManage.getMembers().getMember(memberIndexNumber);
-            projectToManage.removeMember(memberToRemove);
-            return new String[] {"Removed member with the index number " + memberIndexNumber};
-        } else {
-            return new String[] {"The member index entered is invalid."};
+        try {
+            int memberIndexNumber = Integer.parseInt(projectCommand.substring(14).split(" ")[0]);
+            if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
+                Member memberToRemove = projectToManage.getMembers().getMember(memberIndexNumber);
+                projectToManage.removeMember(memberToRemove);
+                return new String[]{"Removed member with the index number " + memberIndexNumber};
+            } else {
+                return new String[]{"The member index entered is invalid."};
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return new String[] {"Please enter the index number of the member to be deleted correctly."};
         }
     }
 
