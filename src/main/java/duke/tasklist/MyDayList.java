@@ -25,9 +25,6 @@ public class MyDayList {
     public void refreshMyDayList() {
         for (int i = 0; i < taskList.size(); i++) {
             Task t = taskList.get(i);
-//            if(ChronoUnit.DAYS.between(t.getCreatedDate(), LocalDateTime.now()) > 0) {
-//                taskList.remove(i);
-//            }
         }
     }
     //TODO discuss implementation
