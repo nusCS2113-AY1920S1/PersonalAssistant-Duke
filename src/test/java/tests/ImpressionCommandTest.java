@@ -1,3 +1,5 @@
+package tests;
+
 import duke.command.ArgCommand;
 import duke.command.Command;
 import duke.command.impression.ImpressionNewCommand;

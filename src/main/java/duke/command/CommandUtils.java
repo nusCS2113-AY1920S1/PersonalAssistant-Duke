@@ -17,16 +17,6 @@ import java.util.Set;
  */
 public class CommandUtils {
 
-    static class Coord {
-        int xcoord;
-        int ycoord;
-
-        Coord(int x, int y) {
-            this.xcoord = x;
-            this.ycoord = y;
-        }
-    }
-
     /**
      * For autocorrect, do not consider strings whose lengths differ from the input by more than this value.
      */
@@ -56,6 +46,16 @@ public class CommandUtils {
                     Map.entry('/', new Coord(10, 3)), Map.entry('-', new Coord(10, 0)),
                     Map.entry('+', new Coord(11, 0)));
     private static final Map<Character, Integer> charMap;
+
+    static class Coord {
+        private int xcoord;
+        private int ycoord;
+
+        Coord(int x, int y) {
+            this.xcoord = x;
+            this.ycoord = y;
+        }
+    }
 
     static {
         HashMap<Character, Integer> tempMap = new HashMap<Character, Integer>();

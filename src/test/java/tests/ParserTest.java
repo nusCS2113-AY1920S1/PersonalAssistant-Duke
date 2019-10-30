@@ -1,3 +1,5 @@
+package tests;
+
 import duke.command.Command;
 import duke.command.Parser;
 import duke.exception.DukeException;

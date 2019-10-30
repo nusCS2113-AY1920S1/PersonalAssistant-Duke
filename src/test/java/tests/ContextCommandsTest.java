@@ -1,3 +1,5 @@
+package tests;
+
 import duke.command.ByeCommand;
 import duke.command.Parser;
 import duke.command.home.HomeHelpCommand;
