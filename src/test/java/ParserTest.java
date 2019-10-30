@@ -1,13 +1,12 @@
 import duke.command.ByeCommand;
 import duke.command.Command;
-import duke.command.home.HomeNewCommand;
 import duke.command.Parser;
+import duke.command.home.HomeNewCommand;
 import duke.exception.DukeException;
 import duke.ui.context.UiContext;
 import mocks.DoctorCommand;
 import mocks.TestCommands;
 import mocks.ValidEmptyCommand;
-import mocks.ValidEmptySpec;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

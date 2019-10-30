@@ -1,4 +1,3 @@
-import templates.CommandTest;
 import duke.command.ArgCommand;
 import duke.command.Command;
 import duke.command.impression.ImpressionNewCommand;
@@ -10,6 +9,7 @@ import duke.exception.DukeException;
 import duke.ui.context.Context;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import templates.CommandTest;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
