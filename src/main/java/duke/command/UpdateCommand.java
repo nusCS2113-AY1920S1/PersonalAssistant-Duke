@@ -110,7 +110,7 @@ public class UpdateCommand extends Command {
             } else if (typeOfUpdate == 2) {
                 items.get(index).setDateTime(dateDesc);
             } else if (typeOfUpdate == 3) {
-                Task newtaskObj = null;
+                Task newtaskObj;
                 if (typeDesc.equals("todo")) {
                     if (items.get(index) instanceof Todo) {
                         return "     (>_<) OOPS!!! You are updating the same type of task! (Todo)";
@@ -139,6 +139,8 @@ public class UpdateCommand extends Command {
                     } else {
                         newtaskObj = new Repeat(items.get(index).getDescription(), "01/01/2001 0001");
                     }
+                } else {
+                    return "     (>_<) OOPS!!! You are entered an invalid task type!";
                 }
                 items.setTaskType(index, newtaskObj);
             }
