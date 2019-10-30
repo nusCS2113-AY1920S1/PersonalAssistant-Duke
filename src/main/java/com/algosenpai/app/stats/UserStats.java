@@ -5,9 +5,7 @@ import com.algosenpai.app.storage.Storage;
 import javafx.util.Pair;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -55,6 +53,9 @@ public class UserStats {
     public UserStats(String userDataFilePath) throws IOException {
         chapterData = new ArrayList<>();
         chapterNumber = new HashMap<>();
+        chapterNumber.put("sorting", 1);
+        chapterNumber.put("linkedlist", 2);
+        chapterNumber.put("bitmask", 3);
         this.userDataFilePath = userDataFilePath;
 
         File file = new File(String.valueOf(userDataFilePath));

@@ -2,6 +2,7 @@ package com.algosenpai.app.ui.controller;
 
 import com.algosenpai.app.logic.constant.SoundConstant;
 import com.algosenpai.app.utility.ResourceRandomUtility;
+import javafx.application.Platform;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -13,13 +14,18 @@ public class MusicController {
 
     private static boolean isLoaded = false;
 
-    private static boolean isMuted = false;
-
-    public MusicController() throws URISyntaxException {
-        playMusic();
+    private MusicController() {
     }
 
-    static void playMusic() throws URISyntaxException {
+    public static MusicController getMusicController() {
+        return new MusicController();
+    }
+
+    /**
+     * Starts music player.
+     * @throws URISyntaxException error in playing current music.
+     */
+    public static void playMusic() throws URISyntaxException {
         if (isLoaded) {
             mediaPlayer.stop();
         }
@@ -29,7 +35,7 @@ public class MusicController {
             try {
                 randomMusic();
             } catch (URISyntaxException e) {
-                e.printStackTrace();
+                Platform.exit();
             }
         });
     }
@@ -41,13 +47,7 @@ public class MusicController {
         mediaPlayer.play();
     }
 
-    static void toggleVolume() {
-        if (isMuted) {
-            mediaPlayer.setMute(false);
-            isMuted = false;
-        } else {
-            mediaPlayer.setMute(true);
-            isMuted = true;
-        }
+    public static void setVolume(double soundLevel) {
+        mediaPlayer.setVolume(soundLevel);
     }
 }

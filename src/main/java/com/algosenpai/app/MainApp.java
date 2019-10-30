@@ -17,7 +17,6 @@ import javafx.util.Duration;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 /**
  * A one scene chatbot GUI.
@@ -34,11 +33,12 @@ public class MainApp extends Application {
     //Initialise the different components here
     private Logic logic;
     private static MusicController musicController;
-    private UserStats stats = new UserStats("UserData.txt");
+    private UserStats stats = new UserStats("./UserData.txt");
 
     static {
         try {
-            musicController = new MusicController();
+            musicController = MusicController.getMusicController();
+            musicController.playMusic();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -50,7 +50,7 @@ public class MainApp extends Application {
     private void initialize() throws IOException {
         try {
             logic = new Logic(stats);
-            Storage.loadData("UserData.txt");
+            Storage.loadData("./UserData.txt");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
