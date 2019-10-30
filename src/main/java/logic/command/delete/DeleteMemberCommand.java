@@ -1,7 +1,8 @@
-package logic.command;
+package logic.command.delete;
 
 
-import model.Member;
+import logic.command.Command;
+import logic.command.CommandOutput;
 import model.Model;
 import common.DukeException;
 
@@ -20,6 +21,7 @@ public class DeleteMemberCommand extends Command {
     public CommandOutput execute(Model model) throws DukeException {
         try {
             if (model.deleteMember(memberName)) {
+                model.save();
                 return new CommandOutput(SUCCESS_MSSAGE + memberName);
             } else {
                 return new CommandOutput(memberName + INVALID_MSSAGE);

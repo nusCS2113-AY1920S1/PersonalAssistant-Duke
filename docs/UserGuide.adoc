@@ -53,7 +53,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will list the command you can use.
 *Command Format*
 
 * Words in *UPPER_CASE* are the parameters to be supplied by the user e.g. in `delete INDEX`, `INDEX` is a parameter which can be used as `delete 1`.
-* Items in square brackets means can have space e.g `add todo [TASK_NAME` can be used as `add todo read book`.
+* Items in square brackets means can have space e.g `add todo [TASK_NAME]` can be used as `add todo read book`.
 * Items with …​ after them can be used multiple times (>=1) e.g. [PREREQUISITE TASK(s) index]…​ can be used as `1`, `1 2`, `1 2 3` etc.
 * DateTime has to be of pattern “dd/MM/yyyy HHmm” or "dd/MM/yyyy"
 * There are roughly three parts of commands, dealing with tasks, members, and some commands combining them together.

@@ -1,7 +1,7 @@
-package logic.parser;
+package logic.parser.delete;
 
 import logic.command.Command;
-import logic.command.DeleteMemberCommand;
+import logic.command.delete.DeleteMemberCommand;
 import common.DukeException;
 
 public class DeleteMemberParser {
@@ -13,14 +13,14 @@ public class DeleteMemberParser {
 
     /**
      * parse delete member command, pass member name to command
-     * @param input input of user
+     * @param argument input of user
      * @return delete member command
      * @throws DukeException exception
      */
-    public static Command parseDeleteMember(String input) throws DukeException {
+    public static Command parseDeleteMember(String argument) throws DukeException {
 
-        if (input != null) {
-            String name = input.trim();
+        if (argument != null) {
+            String name = argument.trim();
             return new DeleteMemberCommand(name);
         } else {
             throw new DukeException(MEMBER_NO_NAME_MESSAGE);

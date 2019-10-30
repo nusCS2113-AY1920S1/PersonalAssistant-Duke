@@ -52,6 +52,10 @@ public class ModelController implements Model {
         return tasksManager.getTaskListSize();
     }
 
+    public String getTaskNameById(int index) {
+        return tasksManager.getTaskNameById(index);
+    }
+
     @Override
     public TasksManager getTasksManager() {
         return tasksManager;
@@ -65,10 +69,28 @@ public class ModelController implements Model {
         return newTask;
     }
 
-
     @Override
     public boolean hasTask(String name) throws DukeException {
         return tasksManager.hasTask(name);
+    }
+
+    @Override
+    public String updateTaskDes(int index, String des) {
+        String oldDes = tasksManager.getTaskDes(index);
+        tasksManager.updateTaskDes(index, des);
+        return oldDes;
+    }
+
+    public String getTasksByKeyword(String keyword) {
+        return tasksManager.getTasksByKeyword(keyword);
+    }
+
+    public String scheduleTeamAll() {
+        return tasksManager.scheduleTeamAll();
+    }
+
+    public String scheduleTeamTodo() {
+        return tasksManager.scheduleTeamTodo();
     }
 
 
@@ -83,6 +105,11 @@ public class ModelController implements Model {
     @Override
     public int getMemberListSize() {
         return memberManager.getMemberListSize();
+    }
+
+    @Override
+    public String getMemberNameById(int index) {
+        return memberManager.getMemberNameById(index);
     }
 
     @Override
@@ -101,6 +128,27 @@ public class ModelController implements Model {
         return memberManager.hasMember(name);
     }
 
+    @Override
+    public String updateMemberBio(int index, String bio) {
+        String oldBio = memberManager.getMemberBio(index);
+        memberManager.updateMemberBio(index, bio);
+        return oldBio;
+    }
+
+    @Override
+    public String updateMemberEmail(int index, String email) throws DukeException {
+        String oldEmail = memberManager.getMemberEmail(index);
+        memberManager.updateMemberEmail(index, email);
+        return oldEmail;
+    }
+
+    @Override
+    public String updateMemberPhone(int index, String phone) {
+        String oldPhone = memberManager.getMemberPhone(index);
+        memberManager.updateMemberPhone(index, phone);
+        return oldPhone;
+    }
+
 
     //============================
 
@@ -117,41 +165,48 @@ public class ModelController implements Model {
         memberManager.getMemberByName(memberName).deleteTask(memberName);
     }
 
-    @Override
     //@@author yuyanglin28
-    public boolean deleteMember(String name) {
+    /**
+     * This method is to delete member in member list and also in task list corresponding member name
+     * @param name the member name to be deleted
+     * @return if success (the member name exists), return true.
+     *         if fail (the member name doesn't exist), return false.
+     */
+    @Override
+    public boolean deleteMember(String name) throws DukeException {
         tasksManager.deleteMemberInTasks(name);
         Member toDelete = memberManager.getMemberByName(name);
-        if (memberManager.deleteMember(toDelete)) {
-            storage.saveMembers(memberManager.getMemberList());
-            storage.saveTasks(tasksManager.getTaskList());
-            return true;
+        if (toDelete != null) {
+            if (memberManager.deleteMember(toDelete)) {
+                return true;
+            } else {
+                throw new DukeException("fail to delete member");
+            }
         } else {
             return false;
         }
     }
 
+    //@@author yuyanglin28
+
+    /**
+     * javadoc
+     */
     @Override
-    public String deleteTask(int taskIndexInList) throws DukeException {
-        Task toDelete = tasksManager.deleteTask(taskIndexInList);
-        String toDeleteName = tasksManager.getNameByTask(toDelete);
-        memberManager.deleteTaskInMembers(toDeleteName);
-        storage.saveMembers(memberManager.getMemberList());
-        storage.saveTasks(tasksManager.getTaskList());
-        return toDeleteName;
+    public boolean deleteTask(String name) throws DukeException {
+        memberManager.deleteTaskInMembers(name);
+        Task toDelete = tasksManager.getTaskByName(name);
+        if (toDelete != null) {
+            if (tasksManager.deleteTask(toDelete)) {
+                return true;
+            } else {
+                throw new DukeException("fail to delete task");
+            }
+        } else {
+            return false;
+        }
     }
 
-    public String getTasksByKeyword(String keyword) {
-        return tasksManager.getTasksByKeyword(keyword);
-    }
-
-    public String scheduleTeamAll() {
-        return tasksManager.scheduleTeamAll();
-    }
-
-    public String scheduleTeamTodo() {
-        return tasksManager.scheduleTeamTodo();
-    }
 
     public String scheduleMemberAll(String memberName) {
         ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);

@@ -1,4 +1,4 @@
-package logic.parser;
+package logic.parser.delete;
 
 import logic.command.Command;
 import common.DukeException;
