@@ -400,6 +400,13 @@ public class Ui {
         }
     }
 
+    //@@author Dou-Maokang
+    /**
+     * Outputs the tasks with the target date.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param targetDate The target date to search.
+     */
     public void showFindTasksByDate(TaskList items, String targetDate) {
         out.println("     Here are the tasks on " + targetDate + " :");
         int numFound = ZERO;
