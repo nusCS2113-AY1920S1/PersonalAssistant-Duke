@@ -47,7 +47,7 @@ public class DoneCommand extends Command {
             tasks.get(index).taskDone();
             //get the String with the index task marked done
             storage.save(tasks.getList());
-            ui.display("\t Nice! I've marked this task as done:\n\t " + tasks.get(index).toString());
+            ui.showDone(tasks.get(index));
         }
     }
     /**

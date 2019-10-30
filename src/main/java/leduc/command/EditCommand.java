@@ -54,32 +54,31 @@ public class EditCommand extends Command {
         }
         Task t = null;
         if(userSubstring.isBlank()) { // Multi-steps command
-            ui.display("\t Please choose the task to edit from the list by its index: ");
+            ui.showEditChooseTask();
             ListCommand listCommand = new ListCommand(user);
             listCommand.execute(tasks, ui, storage);
             // The user choose the task
             String userEditTaskNumber = ui.readCommand();
             t = this.getEditTask(userEditTaskNumber,tasks,true);
             if (t.isTodo()) {
-                    ui.display("\t Please enter the new description of the task");
+                    ui.showEditWhat("description");
                     t.setTask(ui.readCommand());
             }
             else {
-                ui.display("\t Please choose what you want to edit (1 or 2)\n\t 1. The description " +
-                        "\n\t 2. The deadline/period");
+                ui.showEdit2Choice();
                 String userEditTPart = ui.readCommand().trim();
                 if (userEditTPart.matches("\\d+")) {
                     int choice = Integer.parseInt(userEditTPart);
                     if (choice == 1) {
-                        ui.display("\t Please enter the new description of the task");
+                        ui.showEditWhat("description");
                         t.setTask(ui.readCommand().trim());
                     } else if (choice == 2) {
                         if (t.isHomework()) {
-                            ui.display("\t Please enter the new deadline of the task");
+                            ui.showEditWhat("deadline");
                             String deadlineString = ui.readCommand().trim();
                             this.editHomeworkDate(t, deadlineString);
                         } else { //event task
-                            ui.display("\t Please enter the new period of the task");
+                            ui.showEditWhat("period");
                             String periodString = ui.readCommand().trim();
                             this.editEventDate(t, tasks, periodString);
                         }
@@ -119,7 +118,7 @@ public class EditCommand extends Command {
                 throw new EditFormatException();
             }
         }
-        ui.display("\t The task is edited: \n\t " + t.toString());
+        ui.showEdit(t);
         storage.save(tasks.getList());
     }
 

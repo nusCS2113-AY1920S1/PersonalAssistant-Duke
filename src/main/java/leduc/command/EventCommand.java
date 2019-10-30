@@ -40,66 +40,58 @@ public class EventCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage)
             throws EmptyEventDateException, EmptyEventException, NonExistentDateException, FileException, ConflictDateException, PrioritizeLimitException {
         String userSubstring;
-        if(callByShortcut){
+        if (callByShortcut) {
             userSubstring = user.substring(EventCommand.eventShortcut.length());
-        }
-        else {
+        } else {
             userSubstring = user.substring(5);
         }
-        if(userSubstring.isBlank()){
+        if (userSubstring.isBlank()) {
             throw new EmptyEventException();
         }
         String[] taskDescription = userSubstring.split("/at");
         if (taskDescription[0].isBlank()) {
             throw new EmptyEventException();
-        }
-        else if (taskDescription.length == 1) { // no /at in input
+        } else if (taskDescription.length == 1) { // no /at in input
             throw new EmptyEventDateException();
-        }
-        else {
+        } else {
             String description = taskDescription[0].trim();
             String periodString = taskDescription[1].trim();
             //date format used: dd/MM/yyyy HH:mm - dd/MM/yyyy HH:mm
             String[] prioritySplit = periodString.split("prio");
             String[] dateString = prioritySplit[0].split(" - ");
-            if(dateString.length == 1){
+            if (dateString.length == 1) {
                 throw new EmptyEventDateException();
-            }
-            else if(dateString[0].isBlank() || dateString[1].isBlank()){
+            } else if (dateString[0].isBlank() || dateString[1].isBlank()) {
                 throw new EmptyEventDateException();
             }
             Date date1 = new Date(dateString[0]);
             Date date2 = new Date(dateString[1]);
             tasks.verifyConflictDate(date1, date2);
             EventsTask newTask = null;
-            if (prioritySplit.length == 1){
-                newTask = new EventsTask(description, date1,date2);
-            }
-            else {
-                int priority = -1 ;
-                try{
+            if (prioritySplit.length == 1) {
+                newTask = new EventsTask(description, date1, date2);
+            } else {
+                int priority = -1;
+                try {
                     priority = Integer.parseInt(prioritySplit[1].trim());
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     throw new PrioritizeLimitException();
                 }
                 if (priority < 0 || priority > 9) {
                     throw new PrioritizeLimitException();
                 }
-                newTask = new EventsTask(description,date1,date2,priority);
+                newTask = new EventsTask(description, date1, date2, priority);
             }
             tasks.add(newTask);
             storage.save(tasks.getList());
-            ui.display("\t Got it. I've added this task:\n\t   "
-                    + newTask.toString() +
-                    "\n\t Now you have " + tasks.size() + " tasks in the list.");
-            }
+            ui.showTask(newTask, tasks.size());
         }
+    }
     /**
      * getter because the shortcut is private
      * @return the shortcut name
      */
-    public static String getEventShortcut() {
+    public static String getEventShortcut(){
         return eventShortcut;
     }
 

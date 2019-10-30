@@ -53,9 +53,7 @@ public class SnoozeCommand extends Command{
             HomeworkTask snoozeDeadlineTask = (HomeworkTask) snoozeTask;
             snoozeDeadlineTask.snoozeDeadline();
             storage.save(tasks.getList());
-            ui.display("\t Noted. I've snoozed this task: \n" +
-                    "\t\t "+snoozeDeadlineTask.getTag() + snoozeDeadlineTask.getMark() + " " + snoozeDeadlineTask.getTask()+
-                    " by:" + snoozeDeadlineTask.getDeadlines() + "\n");
+            ui.showSnooze(snoozeDeadlineTask);
         }
     }
 

@@ -25,7 +25,6 @@ public class Duke {
      * @param filePath String which represents the path of the data file to load.
      */
     public Duke(String[] filePath) {
-        this.ui = new Ui();
         this.parser = new Parser();
         ShortcutCommand.initializedSetShortcut();
         String file;
@@ -51,6 +50,12 @@ public class Duke {
         try{
             this.storage = new Storage(file, configFile,welcomeFile);
             this.tasks = new TaskList(storage.load()); // Use of ArrayList (A-Collections) to store tasks
+            if(this.storage.getLanguage().equals("en")){
+                this.ui = new UiEn();
+            }
+            else if (this.storage.getLanguage().equals("fr")){
+                this.ui = new UiFr();
+            }
         }
         catch (DukeException e){
             ui.showError(e);

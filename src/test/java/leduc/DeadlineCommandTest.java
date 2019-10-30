@@ -25,7 +25,7 @@ public class DeadlineCommandTest {
      */
     @BeforeAll
     public static void beforeDeadlineCommandExecuteTest(){
-        ui = new Ui();
+        ui = new UiEn();
         try {
             storage = new Storage(System.getProperty("user.dir")+ "/src/test/java/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/java/testFile/configTest.txt",System.getProperty("user.dir")+ "/src/test/java/testFile/welcome.txt");
         } catch (FileException e) {

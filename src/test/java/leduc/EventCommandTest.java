@@ -29,7 +29,7 @@ public class EventCommandTest {
      */
     @BeforeAll
     public static void beforeEventCommandExecuteTest(){
-        ui = new Ui();
+        ui = new UiEn();
         try {
             storage = new Storage(System.getProperty("user.dir")+ "/src/test/java/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/java/testFile/configTest.txt", System.getProperty("user.dir")+ "/src/test/java/testFile/welcome.txt");
         } catch (FileException e) {

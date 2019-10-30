@@ -48,15 +48,8 @@ public class StatsCommand extends Command{
         }
         percentComplete = (float) (numComplete/numTasks) * 100;
         //display metrics
-        String message = "Here are some statistics about your task list: \n" +
-                "Number of tasks: " + numTasks + "\n" +
-                "Number of Todo's : " + numTodos + "\n" +
-                "Number of Events: " + numEvents + "\n" +
-                "Number of Homeworks: " + numHomework + "\n" +
-                "Number of Uncompleted Tasks: " + numIncomplete + "\n" +
-                "Number of Completed Tasks: " + numComplete + "\n" +
-                "Percent Complete: " + percentComplete + "%";
-                ui.display(message);
+        ui.showStats(numTasks, numTodos, numEvents, numHomework, numIncomplete, numComplete, percentComplete);
+
     }
     /**
      * getter because the shortcut is private

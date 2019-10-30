@@ -140,6 +140,13 @@ public class Parser {
             c = new ShortcutCommand(user);
 
         }
+        else if (user.matches("language (.*)") | user.matches("language")) {
+            c = new LanguageCommand(user);
+        }
+        else if (user.matches(LanguageCommand.getLanguageShortcut() + " (.*)") | user.matches(LanguageCommand.getLanguageShortcut())) {
+            c = new LanguageCommand(user);
+            c.calledByShortcut();
+        }
         else {
             c = new MeaninglessCommand(user);
         }

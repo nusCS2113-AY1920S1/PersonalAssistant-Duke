@@ -66,7 +66,7 @@ public class SortCommand extends Command {
             throw new MeaninglessException();
         }
         storage.save(tasks.getList());
-        ui.display("\t This is the new task list order: ");
+        ui.showSort();
         ListCommand listCommand = new ListCommand(user);
         listCommand.execute(tasks,ui,storage);
     }
