@@ -1,7 +1,7 @@
 package duke.logic.commands;
 
 import duke.exceptions.DukeException;
-import duke.models.Locker;
+import duke.models.locker.Locker;
 import duke.models.LockerList;
 import duke.storage.FileHandling;
 import duke.ui.Ui;

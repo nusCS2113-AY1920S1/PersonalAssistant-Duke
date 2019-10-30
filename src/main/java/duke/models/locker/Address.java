@@ -1,4 +1,4 @@
-package duke.models;
+package duke.models.locker;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
@@ -10,6 +10,8 @@ import static java.util.Objects.requireNonNull;
 public class Address {
     public static final String ERROR_MESSAGE = " Addresses can take any value,"
             + "but it should not be empty";
+
+    public static final String CHECK_REGEX = "[^\\s].*";
     public final String address;
 
     /**
@@ -26,12 +28,27 @@ public class Address {
         this.address = address;
     }
 
-    public static boolean checkIsValidAddress(String test) {
-        return test.matches("[^\\s].*");
+    public static boolean checkIsValidAddress(String address) {
+        return address.matches(CHECK_REGEX);
     }
 
     @JsonGetter("lockerAddress")
     public String getAddress() {
         return address;
+    }
+
+    /*We need to override equals and hashCode in order to account
+    for user defined checks for streams
+     */
+    @Override
+    public boolean equals(Object other) {
+        return other == this //short circuit if the two objects are same
+                || (other instanceof Address //handles all the cases for null
+                && address.equalsIgnoreCase(((Address) other).address));// check for equality
+    }
+
+    @Override
+    public int hashCode() {
+        return address.hashCode();
     }
 }

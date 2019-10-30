@@ -4,11 +4,11 @@ import duke.exceptions.DukeException;
 import duke.logic.commands.AddLockerCommand;
 import duke.logic.commands.Command;
 
-import duke.models.Address;
-import duke.models.Locker;
-import duke.models.SerialNumber;
-import duke.models.Tag;
-import duke.models.Zone;
+import duke.models.locker.Address;
+import duke.models.locker.Locker;
+import duke.models.locker.SerialNumber;
+import duke.models.tag.Tag;
+import duke.models.locker.Zone;
 import duke.parser.utilities.MapTokensToArguments;
 import duke.parser.utilities.ParserTokenizer;
 import duke.parser.utilities.Token;

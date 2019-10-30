@@ -1,4 +1,4 @@
-package duke.models;
+package duke.models.locker;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
@@ -9,8 +9,10 @@ import static java.util.Objects.requireNonNull;
 
 public class Zone {
 
-    public static final String ERROR_MESSAGE = " Zone can have at most 2 alphanumeric characters "
+    public static final String ERROR_MESSAGE = " Zone should have only 1 alphanumeric character "
            + "and cannot be empty";
+
+    public static final String CHECK_REGEX = "^[a-zA-Z]*$";
     public final String zone;
 
     /**
@@ -28,12 +30,27 @@ public class Zone {
         this.zone = zone;
     }
 
-    public static boolean checkIsValidZone(String test) {
-        return test.matches("^[a-zA-Z0-9]*$") && test.length() <= 2;
+    public static boolean checkIsValidZone(String zone) {
+        return zone.matches(CHECK_REGEX) && zone.length() == 1;
     }
 
     @JsonGetter("lockerZone")
     public String getZone() {
         return zone;
+    }
+
+    /* We need to override functions equals() and hashCode() in order to account for
+      used defined checking for equality while using streams
+    */
+    @Override
+    public boolean equals(Object other) {
+        return other == this //short circuit if the two objects are the same
+                || (other instanceof Zone //handles all cases for null
+                && zone.equalsIgnoreCase(((Zone) other).zone)); //checks for equality
+    }
+
+    @Override
+    public int hashCode() {
+        return zone.hashCode();
     }
 }

@@ -1,8 +1,12 @@
-package duke.models;
+package duke.models.locker;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import duke.models.tag.Tag;
+
+
+import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 
@@ -14,10 +18,11 @@ public class Locker {
 
     /**
      * Locker stores all the information regarding the status of the locker.
+     *
      * @param serialNumber stores the serial numbers associated with each locker
-     * @param address stores the location of the locker
-     * @param zone stores the zone to which the locker belongs
-     * @param tag instance of the class Tag that stores the status of the locker
+     * @param address      stores the location of the locker
+     * @param zone         stores the zone to which the locker belongs
+     * @param tag          instance of the class Tag that stores the status of the locker
      */
 
     @JsonCreator
@@ -51,8 +56,13 @@ public class Locker {
         tag.tagName = Tag.NOT_IN_USE;
     }
 
+    public void setStatusAsInUse() {
+        tag.tagName = Tag.IN_USE;
+    }
+
     /**
      * This function is used to convert the locker info into displayable strings.
+     *
      * @return a string in a format that can be used for printing out the current locker
      */
     public String toString() {
@@ -81,4 +91,28 @@ public class Locker {
         return zone;
     }
 
+    /* We need to override function equals() and hashCode() in order to account
+       for user defined checks for equality while using streams
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true; //both objects are the same
+        }
+
+        if (!(other instanceof Locker)) {
+            return false; //handles all the cases for null and irrelevant references
+        }
+
+        Locker otherLocker = (Locker) other;
+        return otherLocker.getSerialNumber().equals(this.getSerialNumber())
+                && otherLocker.getAddress().equals(this.getAddress())
+                && otherLocker.getZone().equals(this.getZone())
+                && otherLocker.getTag().equals(this.getTag()); //handles checks for equality
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(serialNumber, address, zone, tag);
+    }
 }
