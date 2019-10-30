@@ -1,31 +1,6 @@
 package duke.parser;
 
-import duke.command.AddNotesCommand;
-import duke.command.DeleteNotesCommand;
-import duke.command.ShowNotesCommand;
-import duke.command.Command;
-import duke.command.FindCommand;
-import duke.command.FilterCommand;
-import duke.command.ListCommand;
-import duke.command.FindTasksByPriorityCommand;
-import duke.command.DuplicateFoundCommand;
-import duke.command.UpdateCommand;
-import duke.command.DoneCommand;
-import duke.command.RemindCommand;
-import duke.command.AddCommand;
-import duke.command.BackupCommand;
-import duke.command.ExitCommand;
-import duke.command.ListPriorityCommand;
-import duke.command.AddMultipleCommand;
-import duke.command.SetPriorityCommand;
-import duke.command.DeleteCommand;
-import duke.command.AddBudgetCommand;
-import duke.command.DeleteContactCommand;
-import duke.command.ListContactsCommand;
-import duke.command.AddContactsCommand;
-import duke.command.ResetBudgetCommand;
-import duke.command.ViewBudgetCommand;
-import duke.command.FindContactCommand;
+import duke.command.*;
 import duke.dukeexception.DukeException;
 import duke.task.TaskList;
 import duke.task.Todo;
@@ -42,6 +17,8 @@ import duke.task.ContactList;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 
 /**
@@ -55,6 +32,9 @@ public class Parser {
     private static final int THREE = 3;
     private static final int FOUR = 4;
     private static final int SIX = 6;
+    private static final int THIRTY_ONE = 31;
+
+
     private static final String EMPTY_STRING = "";
     private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
@@ -407,6 +387,35 @@ public class Parser {
                     return new FindTasksByPriorityCommand(target);
                 }
             }
+        } else if (arr.length > ZERO && arr[ZERO].equals("finddate")) {
+            SimpleDateFormat datetimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat datetimeFormat2 = new SimpleDateFormat("MMMMM yyyy");
+            String[] suf = { "st", "nd", "rd", "th" };
+            int sufIndex = MINUS_ONE;
+            String description = "";
+
+            for (int i = ONE; i < arr.length; i++) {
+                description += arr[i] + " ";
+            }
+            dateDesc = description.split("/on ")[ZERO].trim();
+
+            Date date = datetimeFormat.parse(dateDesc);
+            int day = Integer.parseInt(new SimpleDateFormat("d").format(date));
+            if (day % 10 == ONE) {
+                sufIndex = ZERO;
+            } else if (day % 10 == TWO) {
+                sufIndex = ONE;
+            } else if (day % 10 == THREE) {
+                sufIndex = TWO;
+            } else if (day > THREE && day < THIRTY_ONE) {
+                sufIndex = THREE;
+            }
+            String suffixStr = day + suf[sufIndex];
+            String displayDT = datetimeFormat2.format(date);
+            displayDT = suffixStr + " of " + displayDT;
+            
+            return new FindTasksByDateCommand(displayDT);
+            //@@author
         } else if (arr.length > ZERO && arr[ZERO].equals("remind")) {
             //remind <taskNumber> /in <howManyDays>
             String afterTaskDesc = "";
