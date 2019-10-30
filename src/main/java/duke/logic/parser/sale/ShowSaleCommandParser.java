@@ -7,7 +7,6 @@ import duke.logic.parser.exceptions.ParseException;
 public class ShowSaleCommandParser implements Parser<ShowSaleCommand> {
     @Override
     public ShowSaleCommand parse(String args) throws ParseException {
-        System.out.println(args);
         return new ShowSaleCommand();
     }
 }

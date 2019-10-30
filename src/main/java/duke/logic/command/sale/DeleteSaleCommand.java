@@ -23,6 +23,8 @@ public class DeleteSaleCommand extends SaleCommand {
     private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] is out of bound.";
     private final Set<Index> indices;
 
+    public static final String AUTO_COMPLETE_INDICATOR = SaleCommand.COMMAND_WORD + COMMAND_WORD;
+
     /**
      * Creates a {@code DeleteProductCommand}.
      *
