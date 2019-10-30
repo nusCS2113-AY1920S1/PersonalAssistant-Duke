@@ -18,19 +18,22 @@ public class MenuCommand extends Command {
     public String execute() {
         if (inputs.size() < 2) {
             return "Senpai will teach you! Try these commands\n"
-                    + "menu\n"
-                    + "help\n"
-                    + "select\n"
-                    + "result\n"
-                    + "history\n"
-                    + "undo\n"
-                    + "clear\n"
-                    + "reset\n"
-                    + "save\n"
-                    + "exit\n"
-                    + "print\n"
-                    + "archive\n"
-                    + "menu <command>\n";
+                    + "MENU \n"
+                    + "START\n"
+                    + "SELECT\n"
+                    + "RESULT\n"
+                    + "REPORT\n"
+                    + "BACK\n"
+                    + "HISTORY\n"
+                    + "UNDO\n"
+                    + "CLEAR\n"
+                    + "RESET\n"
+                    + "SAVE\n"
+                    + "HELP\n"
+                    + "EXIT\n"
+                    + "PRINT\n"
+                    + "ARCHIVE\n"
+                    + "INVALID\n";
         } else {
             switch (inputs.get(1)) {
             case "hello":
