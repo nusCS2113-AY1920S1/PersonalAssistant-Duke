@@ -11,8 +11,8 @@ public class ArgParser {
     enum ParseState {
         EMPTY, //not parsing anything currently
         ARG, //parsing a single-word argument for a switch or the command itself
-        STRING, //parsing a quoted string
-        SWITCH //parsing a switch name
+        SWITCH, //parsing a switch name
+        CMDARG //parsing the argument for the command
     }
 
     private ArgCommand currCommand;
@@ -37,7 +37,7 @@ public class ArgParser {
             checkEmptyString();
         }
 
-        state = ParseState.EMPTY;
+        state = ParseState.CMDARG;
         currSwitchName = null;
         switchMap = currCommand.getSwitchMap();
         switchVals = new HashMap<String, String>();
@@ -48,6 +48,9 @@ public class ArgParser {
         for (int i = 0; i < inputStr.length(); ++i) {
             char curr = inputStr.charAt(i);
             switch (state) {
+            case CMDARG:
+                handleCmdArg(curr);
+                break;
             case ARG:
                 handleArg(curr);
                 break;
@@ -89,6 +92,27 @@ public class ArgParser {
             if (!isEscaped) {
                 checkSwitchAllowed();
                 writeElement();
+                state = ParseState.SWITCH;
+                break;
+            } //fallthrough
+        default:
+            isEscaped = false;
+            elementBuilder.append(curr);
+            break;
+        }
+    }
+
+    private void handleCmdArg(char curr) throws DukeException {
+        switch (curr) {
+        case '\\':
+            if (!isEscaped) {
+                isEscaped = true;
+                break;
+            } //fallthrough
+        case '-':
+            if (!isEscaped) {
+                checkSwitchAllowed();
+                setCmdArg();
                 state = ParseState.SWITCH;
                 break;
             } //fallthrough
@@ -211,6 +235,28 @@ public class ArgParser {
         }
         if (!canBeEmpty) {
             throw new DukeException(currCommand.getEmptyArgMsg());
+        }
+    }
+
+    private void setCmdArg() throws DukeHelpException {
+        String inputArg = elementBuilder.toString().strip();
+        boolean isEmpty = inputArg.isEmpty();
+        switch (currCommand.getCmdArgLevel()) {
+        case REQUIRED:
+            if (isEmpty) {
+                throw new DukeHelpException("This command requires an argument!", currCommand);
+            }
+            currCommand.setArg(inputArg);
+        case OPTIONAL:
+            if (isEmpty) {
+                currCommand.setArg(null);
+            } else {
+                currCommand.setArg(inputArg);
+            }
+        case NONE:
+            if (!isEmpty) {
+                throw new DukeHelpException("This command should not have an argument!", currCommand);
+            }
         }
     }
 }
