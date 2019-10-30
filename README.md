@@ -1,8 +1,8 @@
-# El Duque (for dummy programmers)
+# El Duque (for people trying to be programmers)
 
-* Task manager programme
-* Command line application
-* Specially catered for programmers because we are keyboard warriors
+* This is a Command Line(CLI) task manager programme.
+* Java application as part of our Software Engineering module.
+* Written in OOP fashion.
 
 # Installation
 
@@ -10,9 +10,9 @@
 1. Run it. Easy as that.
 
 # Documentation
-Our user guide can be found [here]().
 
-Our developer guide can be found [here]()
+* <<UserGuide#, User Guide>>
+* <<DeveloperGuide#, Developer Guide>>
 
 # License
 [MIT](https://github.com/AY1920S1-CS2113-T16-2/main/master/LICENSE.md)
