@@ -15,8 +15,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
 
-# License
-link:LICENSE[MIT]
+# Licence : link:LICENSE[MIT]
 
 # Credits
 We would like to thank our parents for giving birth to us, NUS for its constant emotional support, ModReg for training our patience and inspiring us to be better software developers. 
