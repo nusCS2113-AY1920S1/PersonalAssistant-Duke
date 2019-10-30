@@ -26,7 +26,7 @@ public class Medicine extends Treatment {
      * @param startDate the starting date when the patient should be on the medicine
      * @param duration the duration the patient needs to take the medicine
      */
-    public Medicine(String name, String impression, int priority, int status,
+    public Medicine(String name, Impression impression, int priority, int status,
                     String dose, String startDate, String duration) {
         super(name, impression, priority, status);
         this.dose = dose;
@@ -41,12 +41,6 @@ public class Medicine extends Treatment {
         informationString += "Start Date: " + this.startDate + "\n";
         informationString += "Duration: " + this.duration + "\n";
         return super.toString() + informationString;
-    }
-
-    @Override
-    public String toDisplayString() {
-        // todo
-        return null;
     }
 
     @Override
@@ -75,11 +69,41 @@ public class Medicine extends Treatment {
         return startDate;
     }
 
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
     public String getStatusStr() {
         return statusArr.get(getStatusIdx());
     }
 
     public static List<String> getStatusArr() {
         return Collections.unmodifiableList(statusArr);
+    }
+
+    @Override
+    public String getSummary() {
+        return "";
+    }
+
+    @Override
+    public void setSummary(String summary) {
+        // medicine does not have a summary
+    }
+
+    /**
+     * Checks for equality with another Medicine object - all fields have the same value and all references point to
+     * the same objects. Primarily for testing.
+     * @param medicine The medicine to compare against.
+     * @return True if all fields and references are the same, false otherwise.
+     */
+    public boolean equals(Medicine medicine) {
+        if (super.equals(medicine)) {
+            return dose.equals(medicine.dose)
+                    && duration.equals(medicine.duration)
+                    && startDate.equals(medicine.startDate);
+        } else {
+            return false;
+        }
     }
 }

@@ -2,7 +2,32 @@ package duke.command;
 
 // TODO: Write different commands for different contexts
 
-import duke.ui.Context;
+import duke.command.home.HomeDischargeCommand;
+import duke.command.home.HomeFindCommand;
+import duke.command.home.HomeHelpCommand;
+import duke.command.home.HomeHistoryCommand;
+import duke.command.home.HomeNewCommand;
+import duke.command.home.HomeOpenCommand;
+import duke.command.home.HomeReportCommand;
+import duke.command.impression.ImpressionDeleteCommand;
+import duke.command.impression.ImpressionEditCommand;
+import duke.command.impression.ImpressionFindCommand;
+import duke.command.impression.ImpressionMoveCommand;
+import duke.command.impression.ImpressionNewCommand;
+import duke.command.impression.ImpressionPrimaryCommand;
+import duke.command.impression.ImpressionPriorityCommand;
+import duke.command.impression.ImpressionResultCommand;
+import duke.command.impression.ImpressionStatusCommand;
+import duke.command.patient.PatientDeleteCommand;
+import duke.command.patient.PatientDischargeCommand;
+import duke.command.patient.PatientEditCommand;
+import duke.command.patient.PatientFindCommand;
+import duke.command.patient.PatientHistoryCommand;
+import duke.command.patient.PatientNewCommand;
+import duke.command.patient.PatientOpenCommand;
+import duke.command.patient.PatientPrimaryCommand;
+import duke.command.patient.PatientReportCommand;
+import duke.ui.context.Context;
 
 /**
  * Maintains the associations between command keywords and commands (e.g. "list" -> ListCommand). For use in parsing
@@ -32,7 +57,7 @@ public class Commands {
         case HOME:
             switch (cmdStr) {
             case "find":
-                return null;//new HomeFindCommand();
+                return new HomeFindCommand();
             case "new":
                 return new HomeNewCommand();
             case "open":
@@ -77,6 +102,20 @@ public class Commands {
                 return new ImpressionNewCommand();
             case "edit":
                 return new ImpressionEditCommand();
+            case "find":
+                return new ImpressionFindCommand();
+            case "move":
+                return new ImpressionMoveCommand();
+            case "delete":
+                return new ImpressionDeleteCommand();
+            case "result":
+                return new ImpressionResultCommand();
+            case "priority":
+                return new ImpressionPriorityCommand();
+            case "status":
+                return new ImpressionStatusCommand();
+            case "primary":
+                return new ImpressionPrimaryCommand();
             default:
                 return null;
             }

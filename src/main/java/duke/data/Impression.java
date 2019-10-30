@@ -14,11 +14,12 @@ public class Impression extends DukeObject {
     private String description;
     private HashMap<String, Evidence> evidences;
     private HashMap<String, Treatment> treatments;
-    private String patientBedNo;
 
     private transient ObservableMap<String, Evidence> observableEvidences;
-    private transient ObservableMap<String, Treatment> observableTreaments;
+    private transient ObservableMap<String, Treatment> observableTreatments;
     private transient ObservableMap<String, Object> attributes;
+
+    // TODO: integrate finding with autocorrect?
 
     /**
      * Represents the impression a doctor has about a Patient.
@@ -29,14 +30,14 @@ public class Impression extends DukeObject {
      * Attributes:
      * - evidence the list of evidences contributing to the impression
      * - treatments: the list of treatments determined by a doctor to deal with the impression
-     * - patient: the Patient it is tagged to     * @param name the name of the impression
+     * - patient: the Patient it is tagged to
      *
+     * @param name        the name of the impression
      * @param description the description of the impression
      */
-    public Impression(String name, String description, String patientBedNo) {
-        super(name);
+    public Impression(String name, String description, Patient patient) {
+        super(name, patient);
         this.description = description;
-        this.patientBedNo = patientBedNo;
         this.evidences = new HashMap<>();
         this.treatments = new HashMap<>();
 
@@ -48,7 +49,7 @@ public class Impression extends DukeObject {
      * This listener update the {@code treatments} and {@code evidences} whenever the observable map is updated.
      */
     private void attachListener() {
-        observableTreaments.addListener((MapChangeListener<String, Treatment>) change -> {
+        observableTreatments.addListener((MapChangeListener<String, Treatment>) change -> {
             if (change.wasAdded()) {
                 treatments.put(change.getKey(), change.getValueAdded());
             } else if (change.wasRemoved()) {
@@ -66,15 +67,16 @@ public class Impression extends DukeObject {
 
     /**
      * This functions search for treatment relevant to the searchTerm.
+     *
      * @param searchTerm the term to be searched for
      * @return ArrayList of the Treatments
      */
-    public ArrayList<Treatment> findTreatment(String searchTerm) {
+    public ArrayList<Treatment> findTreatments(String searchTerm) {
         ArrayList<Treatment> searchResult = new ArrayList<>();
-        for (Map.Entry<String, Treatment> mapElement : this.observableTreaments.entrySet()) {
-            Treatment valueT = mapElement.getValue();
-            if (valueT.toString().contains(searchTerm)) {
-                searchResult.add(valueT);
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Treatment treatment : this.observableTreatments.values()) {
+            if (treatment.toString().toLowerCase().contains(lowerSearchTerm)) {
+                searchResult.add(treatment);
             }
         }
         return searchResult;
@@ -82,15 +84,16 @@ public class Impression extends DukeObject {
 
     /**
      * This functions search for Evidence relevant to the searchTerm.
+     *
      * @param searchTerm the term to be searched for
      * @return ArrayList of the Evidence
      */
-    public ArrayList<Evidence> findEvidence(String searchTerm) {
+    public ArrayList<Evidence> findEvidences(String searchTerm) {
         ArrayList<Evidence> searchResult = new ArrayList<>();
-        for (Map.Entry<String, Evidence> mapElement : this.observableEvidences.entrySet()) {
-            Evidence valueE = mapElement.getValue();
-            if (valueE.toString().contains(searchTerm)) {
-                searchResult.add(valueE);
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Evidence evidence : this.observableEvidences.values()) {
+            if (evidence.toString().toLowerCase().contains(lowerSearchTerm)) {
+                searchResult.add(evidence);
             }
         }
         return searchResult;
@@ -104,8 +107,55 @@ public class Impression extends DukeObject {
      */
     public ArrayList<DukeData> find(String searchTerm) {
         ArrayList<DukeData> searchResult = new ArrayList<>();
-        searchResult.addAll(findEvidence(searchTerm));
-        searchResult.addAll(findTreatment(searchTerm));
+        searchResult.addAll(findEvidences(searchTerm));
+        searchResult.addAll(findTreatments(searchTerm));
+        return searchResult;
+    }
+
+    /**
+     * This function searches for treatments whose names contain the searchTerm.
+     *
+     * @param searchTerm the term to be searched for
+     * @return ArrayList of the Treatments
+     */
+    public ArrayList<Treatment> findTreatmentsByName(String searchTerm) {
+        ArrayList<Treatment> searchResult = new ArrayList<>();
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Map.Entry<String, Treatment> entry : this.observableTreatments.entrySet()) {
+            if (entry.getKey().toLowerCase().contains(lowerSearchTerm)) {
+                searchResult.add(entry.getValue());
+            }
+        }
+        return searchResult;
+    }
+
+    /**
+     * This function searches for evidences whose names contain the searchTerm.
+     *
+     * @param searchTerm the term to be searched for
+     * @return ArrayList of the Evidences
+     */
+    public ArrayList<Evidence> findEvidencesByName(String searchTerm) {
+        ArrayList<Evidence> searchResult = new ArrayList<>();
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Map.Entry<String, Evidence> entry : this.observableEvidences.entrySet()) {
+            if (entry.getKey().toLowerCase().contains(lowerSearchTerm)) {
+                searchResult.add(entry.getValue());
+            }
+        }
+        return searchResult;
+    }
+
+    /**
+     * This function searches for DukeData whose names contain the searchTerm.
+     *
+     * @param searchTerm String to be used to filter the DukeData
+     * @return the list of DukeData
+     */
+    public ArrayList<DukeData> findByName(String searchTerm) {
+        ArrayList<DukeData> searchResult = new ArrayList<>();
+        searchResult.addAll(findEvidencesByName(searchTerm));
+        searchResult.addAll(findTreatmentsByName(searchTerm));
         return searchResult;
     }
 
@@ -132,7 +182,7 @@ public class Impression extends DukeObject {
             this.observableEvidences.remove(keyIdentifier);
             return evidence;
         } else {
-            throw new DukeException("I don't have that entry in the list!");
+            throw new DukeException("I can't delete that evidence because I don't have it!");
         }
     }
 
@@ -146,7 +196,7 @@ public class Impression extends DukeObject {
         if (this.observableEvidences.containsKey(keyIdentifier)) {
             return this.observableEvidences.get(keyIdentifier);
         } else {
-            throw new DukeException("I don't have that entry in the list!");
+            throw new DukeException("I don't have any evidence called that!");
         }
     }
 
@@ -157,7 +207,7 @@ public class Impression extends DukeObject {
      * @return the treatment added
      */
     public Treatment addNewTreatment(Treatment newTreatment) {
-        this.observableTreaments.put(newTreatment.getName(), newTreatment);
+        this.observableTreatments.put(newTreatment.getName(), newTreatment);
         return newTreatment;
     }
 
@@ -168,12 +218,12 @@ public class Impression extends DukeObject {
      * @return the deleted treatment
      */
     public Treatment deleteTreatment(String keyIdentifier) throws DukeException {
-        if (this.observableTreaments.containsKey(keyIdentifier)) {
-            Treatment treatment = this.observableTreaments.get(keyIdentifier);
-            this.observableTreaments.remove(keyIdentifier);
+        if (this.observableTreatments.containsKey(keyIdentifier)) {
+            Treatment treatment = this.observableTreatments.get(keyIdentifier);
+            this.observableTreatments.remove(keyIdentifier);
             return treatment;
         } else {
-            throw new DukeException("I don't have that entry in the list!");
+            throw new DukeException("I can't delete that treatment because I don't have it!");
         }
     }
 
@@ -184,34 +234,26 @@ public class Impression extends DukeObject {
      * @return the treatment specified by the index
      */
     public Treatment getTreatment(String keyIdentifier) throws DukeException {
-        if (this.observableTreaments.containsKey(keyIdentifier)) {
-            return this.observableTreaments.get(keyIdentifier);
+        if (this.observableTreatments.containsKey(keyIdentifier)) {
+            return this.observableTreatments.get(keyIdentifier);
         } else {
-            throw new DukeException("I don't have that entry in the list!");
+            throw new DukeException("I don't have any treatment called that!");
         }
     }
 
     @Override
     public String toString() {
-        StringBuilder informationString;
-        informationString = new StringBuilder("Impression details\n");
-        informationString.append("Description: ").append(this.description).append("\n");
-        informationString.append("Patient Bed: ").append(this.patientBedNo).append("\n");
+        StringBuilder infoStrBuilder = new StringBuilder("Impression details\n");
+        infoStrBuilder.append("Description: ").append(this.description).append("\n");
         for (Map.Entry mapElement : this.evidences.entrySet()) {
             Evidence valueE = (Evidence) mapElement.getValue();
-            informationString.append(valueE.toString());
+            infoStrBuilder.append(valueE.toString());
         }
         for (Map.Entry mapElement : this.treatments.entrySet()) {
             Treatment valueT = (Treatment) mapElement.getValue();
-            informationString.append(valueT.toString());
+            infoStrBuilder.append(valueT.toString());
         }
-        return super.toString() + informationString + "\n";
-    }
-
-    @Override
-    public String toDisplayString() {
-        // Todo
-        return null;
+        return super.toString() + infoStrBuilder.toString() + "\n";
     }
 
     @Override
@@ -238,10 +280,6 @@ public class Impression extends DukeObject {
         this.description = description;
     }
 
-    public String getPatient() {
-        return patientBedNo;
-    }
-
     public HashMap<String, Evidence> getEvidences() {
         return evidences;
     }
@@ -254,8 +292,8 @@ public class Impression extends DukeObject {
         return observableEvidences;
     }
 
-    public ObservableMap<String, Treatment> getObservableTreaments() {
-        return observableTreaments;
+    public ObservableMap<String, Treatment> getObservableTreatments() {
+        return observableTreatments;
     }
 
     public void initObservables() {
@@ -272,12 +310,12 @@ public class Impression extends DukeObject {
         attributes.put("description", getDescription());
         attributes.put("evidences", getEvidences());
         attributes.put("treatments", getTreatments());
-        attributes.put("patientBedNo", getPatient());
+        attributes.put("parent", getParent());
         attributes.put("name", getName());
     }
 
     private void initObservableTreatmentsEvidences() {
-        this.observableTreaments = FXCollections.observableMap(treatments);
+        this.observableTreatments = FXCollections.observableMap(treatments);
         this.observableEvidences = FXCollections.observableMap(evidences);
         attachListener();
     }
@@ -288,5 +326,89 @@ public class Impression extends DukeObject {
 
     public void updateAttributes() {
         updateObservableAttributes();
+    }
+
+    /**
+     * This function initialises the parent object of each evidence and treatment.
+     */
+    public void initChild() {
+        for (Map.Entry<String, Evidence> mapElement : this.observableEvidences.entrySet()) {
+            mapElement.getValue().setParent(this);
+        }
+
+        for (Map.Entry<String, Treatment> mapElement : this.observableTreatments.entrySet()) {
+            mapElement.getValue().setParent(this);
+        }
+    }
+
+    /**
+     * Computes the number of critical items in this impression: items with priority 1.
+     *
+     * @return The number of critical items in this impression.
+     */
+    public int getCriticalCount() {
+        int count = 0;
+        for (Treatment treatment : treatments.values()) {
+            if (treatment.getPriority() == 1) {
+                ++count;
+            }
+        }
+        for (Evidence evidence : evidences.values()) {
+            if (evidence.getPriority() == 1) {
+                ++count;
+            }
+        }
+        return count;
+    }
+
+
+    /**
+     * Computes the number of follow up items: the number of Investigations not yet ordered, or whose results have not
+     * been reviewed, and the number of plan items that have not been started on, and returns a string representing
+     * these items.
+     *
+     * @return A string indicating the number of follow-up items in this impression.
+     */
+    public String getFollowUpCountStr() {
+        int count = 0;
+        for (Treatment treatment : treatments.values()) {
+            if ((treatment instanceof Investigation && treatment.getStatusIdx() <= 1)
+                    || (treatment instanceof Plan && treatment.getStatusIdx() < 1)) {
+                ++count;
+            }
+        }
+        if (count == 0) {
+            return "No follow-ups";
+        } else if (count == 1) {
+            return "1 follow-up";
+        } else {
+            return count + "follow-ups";
+        }
+    }
+
+    /**
+     * Calls getCriticalCount() to compute the number of critical itmes (items with priority 1) and returns a string
+     * indicating this value.
+     *
+     * @return A string indicating the number of critical items that are associated with this Impression.
+     */
+    public String getCriticalCountStr() {
+        int count = getCriticalCount();
+        if (count == 0) {
+            return "No critical issues";
+        } else if (count == 1) {
+            return "1 critical issue";
+        } else {
+            return count + "critical issues";
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Impression)) {
+            return false;
+        }
+
+        return this.getName().equals(((Impression) obj).getName());
     }
 }

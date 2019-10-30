@@ -10,9 +10,11 @@ package duke.data;
 public abstract class DukeObject {
 
     private String name;
+    private transient DukeObject parent;
 
-    public DukeObject(String name) {
+    public DukeObject(String name, DukeObject parent) {
         this.name = name;
+        this.parent = parent;
     }
 
     /*
@@ -27,14 +29,6 @@ public abstract class DukeObject {
     }
 
     /*
-     * The toDisplayString function returns a String formatted
-     * for pretty printing to the GUI / Display.
-     *
-     * @return the String in pretty print format for display
-     */
-    public abstract String toDisplayString();
-
-    /*
      * The toReportString function returns a String formatted
      * to be used in a Report about the relevant DukeObject.
      *
@@ -46,7 +40,15 @@ public abstract class DukeObject {
         return this.name;
     }
 
-    protected void setName(String name) {
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public void setParent(DukeObject parent) {
+        this.parent = parent;
+    }
+
+    public DukeObject getParent() {
+        return parent;
     }
 }

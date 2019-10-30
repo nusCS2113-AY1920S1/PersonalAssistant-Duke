@@ -9,7 +9,7 @@
     <children>
         <ScrollPane fx:id="scrollPane" prefHeight="600.0" prefWidth="673.0">
             <content>
-                <JFXMasonryPane fx:id="patientListPanel" prefHeight="600.0" prefWidth="673.0"/>
+                <JFXMasonryPane fx:id="patientListPanel" prefHeight="600.0" prefWidth="673.0" />
             </content>
         </ScrollPane>
     </children>

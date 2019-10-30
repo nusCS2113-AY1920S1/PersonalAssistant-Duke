@@ -29,7 +29,9 @@ public class PatientMap {
             Patient patient = pair.getValue();
             patient.initObservables();
             for (Map.Entry<String, Impression> mapElement : patient.getImpressionsObservableMap().entrySet()) {
+                mapElement.getValue().setParent(patient);
                 mapElement.getValue().initObservables();
+                mapElement.getValue().initChild();
             }
         }
     }
@@ -61,9 +63,9 @@ public class PatientMap {
      */
     public Patient deletePatient(String keyIdentifier) throws DukeException {
         if (patientObservableMap.containsKey(keyIdentifier)) {
-            Patient deletedP = patientObservableMap.get(keyIdentifier);
+            Patient deletedPatient = patientObservableMap.get(keyIdentifier);
             patientObservableMap.remove(keyIdentifier);
-            return deletedP;
+            return deletedPatient;
         } else {
             throw new DukeException("The patient cannot be identified");
         }
@@ -78,8 +80,7 @@ public class PatientMap {
      */
     public Patient getPatient(String keyIdentifier) throws DukeException {
         if (patientObservableMap.containsKey(keyIdentifier)) {
-            Patient thePatient = patientObservableMap.get(keyIdentifier);
-            return thePatient;
+            return patientObservableMap.get(keyIdentifier);
         } else {
             throw new DukeException("The patient cannot be identified");
         }

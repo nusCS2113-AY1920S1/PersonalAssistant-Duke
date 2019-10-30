@@ -25,27 +25,27 @@ public abstract class ArgCommand extends Command {
         // do any necessary pre-processing
     }
 
-    protected void setSwitchValsMap(HashMap<String, String> switchVals) {
+    public void setSwitchValsMap(Map<String, String> switchVals) {
         this.switchVals.putAll(switchVals);
     }
 
-    protected void setSwitchVal(String switchName, String value) {
+    public void setSwitchVal(String switchName, String value) {
         switchVals.put(switchName, value);
     }
 
-    protected String getSwitchVal(String switchName) {
+    public String getSwitchVal(String switchName) {
         return switchVals.get(switchName);
     }
 
-    protected boolean isSwitchSet(String switchName) {
+    public boolean isSwitchSet(String switchName) {
         return switchVals.containsKey(switchName);
     }
 
-    protected void setArg(String arg) {
+    public void setArg(String arg) {
         this.arg = arg;
     }
 
-    protected String getArg() {
+    public String getArg() {
         return arg;
     }
 
@@ -76,18 +76,38 @@ public abstract class ArgCommand extends Command {
     /**
      * Checks if a particular switch, and if not, attempts to parse it as an Integer.
      * @param switchName The name of the switch being extracted.
-     * @return The Integer that the string represents, or 0 if it is null.
+     * @return The Integer that the string represents, or -1 if it is null.
      * @throws NumberFormatException If the string is not a valid representation of an integer.
      */
     protected Integer switchToInt(String switchName) throws DukeHelpException {
         String str = this.getSwitchVal(switchName);
         if (str == null) {
-            return 0;
+            return -1;
         } else {
             try {
-                return Integer.parseInt(str);
+                Integer parseInt = Integer.parseInt(str);
+                // TODO document this
+                if (parseInt < 0) {
+                    throw new DukeHelpException("The value of '" + switchName + "' cannot be negative!", this);
+                }
+                return parseInt;
             } catch (NumberFormatException excp) {
                 throw new DukeHelpException("The switch '" + switchName + "' must be an integer!", this);
+            }
+        }
+    }
+
+    /**
+     * Sets the arguments for optional switches that require String-type arguments to the empty String.
+     * NOTE: Switches with ArgLevel.OPTIONAL are ignored by this method.
+     */
+    protected void nullToEmptyString() {
+        for (Map.Entry<String, Switch> entry : getSwitchMap().entrySet()) {
+            String switchName = entry.getKey();
+            Switch switchSpec = entry.getValue();
+            if (getSwitchVal(switchName) == null && switchSpec.type == String.class && switchSpec.argLevel
+                    == ArgLevel.REQUIRED) {
+                setSwitchVal(switchName, "");
             }
         }
     }

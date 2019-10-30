@@ -6,8 +6,7 @@ import java.util.List;
 
 public class Plan extends Treatment {
 
-    private static final List<String> statusArr = Arrays.asList("Not ordered", "In progress", "Completed");
-    private String summary;
+    private static final List<String> statusArr = Arrays.asList("Not done/ordered", "In progress", "Completed");
 
     /**
      * Represents the Plan devised by the doctor to treat a symptom or impression of a patient.
@@ -22,7 +21,7 @@ public class Plan extends Treatment {
      * @param status the current status of the plan
      * @param summary the summary of what the plan entails
      */
-    public Plan(String name, String impression, int priority, int status, String summary) {
+    public Plan(String name, Impression impression, int priority, int status, String summary) {
         super(name, impression, priority, status);
         this.summary = summary;
     }
@@ -35,21 +34,8 @@ public class Plan extends Treatment {
     }
 
     @Override
-    public String toDisplayString() {
-        return null;
-    }
-
-    @Override
     public String toReportString() {
         return null;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
     }
 
     public String getStatusStr() {

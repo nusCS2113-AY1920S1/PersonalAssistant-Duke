@@ -17,13 +17,13 @@ public abstract class Treatment extends DukeData {
      * - status: the current status of the treatment
      * - priority: the priority level of the treatment
      */
-    public Treatment(String name, String impression, int priority, int statusIdx) {
+    public Treatment(String name, Impression impression, int priority, int statusIdx) {
         super(name, impression, priority);
         this.statusIdx = statusIdx;
     }
 
     @Override
-    public Integer updatePriority(Integer priorityVal) throws DukeException {
+    public Integer setPriority(Integer priorityVal) throws DukeException {
         if (priorityVal >= 0 && priorityVal < 5) {
             super.setPriority(priorityVal);
             return super.getPriority();
@@ -32,18 +32,10 @@ public abstract class Treatment extends DukeData {
         }
     }
 
-    /**
-     * Updates status of the observation, i.e. the stage of completion
-     * @param statusIdx the integer value of the status
-     */
-    public void updateStatus(int statusIdx) {
-        setStatusIdx(statusIdx);
-    }
-
     @Override
     public String toString() {
         String informationString;
-        informationString = "Status: " + Integer.toString(this.statusIdx) + "\n";
+        informationString = "Status: " + this.statusIdx + "\n";
         informationString += "Status Description: " + getStatusStr() + "\n";
         return super.toString() + informationString;
     }
@@ -51,7 +43,7 @@ public abstract class Treatment extends DukeData {
     @Override
     public String toReportString() {
         String informationString;
-        informationString = "Status of treatment: " + Integer.toString(this.statusIdx) + "\n";
+        informationString = "Status of treatment: " + this.statusIdx + "\n";
         informationString += "Status Description: " + getStatusStr() + "\n";
         return informationString;
     }
@@ -66,4 +58,17 @@ public abstract class Treatment extends DukeData {
 
     public abstract String getStatusStr();
 
+    /**
+     * Checks for equality with another Treatment object - all fields have the same value and all references point to
+     * the same objects. Primarily for testing.
+     * @param treatment The treatment to compare against.
+     * @return True if all fields and references are the same, false otherwise.
+     */
+    public boolean equals(Treatment treatment) {
+        if (super.equals(treatment)) {
+            return statusIdx.equals(treatment.statusIdx);
+        } else {
+            return false;
+        }
+    }
 }

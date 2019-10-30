@@ -13,20 +13,14 @@ public class Result extends Evidence {
      * @param summary a summary of the result
      * @param priority the priority level of the evidence
     */
-    public Result(String name, String impression, int priority, String summary) {
+    public Result(String name, Impression impression, int priority, String summary) {
         super(name, impression, priority, summary);
     }
 
     @Override
     public String toString() {
         // todo
-        return null;
-    }
-
-    @Override
-    public String toDisplayString() {
-        // todo
-        return null;
+        return super.toString();
     }
 
     @Override

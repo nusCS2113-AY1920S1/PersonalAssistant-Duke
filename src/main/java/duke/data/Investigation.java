@@ -7,7 +7,6 @@ import java.util.List;
 public class Investigation extends Treatment {
 
     private static final List<String> statusArr = Arrays.asList("Not ordered", "In progress");
-    private String summary;
 
     /**
      * Represents the investigation needed to investigate an impression the Doctor has about a patient.
@@ -22,7 +21,7 @@ public class Investigation extends Treatment {
      * @param status the current status of the investigation
      * @param summary description of the investigation
      */
-    public Investigation(String name, String impression, int priority,
+    public Investigation(String name, Impression impression, int priority,
                          int status, String summary) {
         super(name, impression, priority, status);
         this.summary = summary;
@@ -36,7 +35,7 @@ public class Investigation extends Treatment {
      * @return the result object
      */
     public Result toResult(String resultName, int resultPriority, String resultSummary) {
-        return new Result(resultName, this.getImpression(), resultPriority, resultSummary);
+        return new Result(resultName, (Impression) getParent(), resultPriority, resultSummary);
     }
 
     @Override
@@ -46,22 +45,10 @@ public class Investigation extends Treatment {
         return super.toString() + informationString;
     }
 
-    @Override
-    public String toDisplayString() {
-        return null;
-    }
-
+    //TODO complete
     @Override
     public String toReportString() {
         return null;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
     }
 
     public String getStatusStr() {

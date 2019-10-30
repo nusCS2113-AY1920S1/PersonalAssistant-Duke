@@ -1,0 +1,71 @@
+package templates;
+
+import duke.DukeCore;
+import duke.command.ArgCommand;
+import duke.data.GsonStorage;
+import duke.data.PatientMap;
+import duke.exception.DukeFatalException;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.PrintStream;
+
+import static org.junit.jupiter.api.Assertions.fail;
+
+/**
+ * Abstract test for testing command execution.
+ */
+public abstract class CommandTest {
+    protected static DukeCore core;
+    protected static ByteArrayOutputStream testOut = new ByteArrayOutputStream(); //stores printed output
+    protected static PrintStream testPrint = new PrintStream(testOut); //System.out replacement, prints to testOut
+    protected static final String testFilePath = "data" + File.separator + "test.json";
+
+    /**
+     * Create data directory if necessary and use a test task file to create test DukeCore, with output directed to
+     * testOut.
+     */
+    @BeforeAll
+    public static void setupCore() {
+        try {
+            core = new DukeCore();
+            core.patientMap = new PatientMap();
+            core.storage = new GsonStorage(testFilePath);
+            core.writeJsonFile();
+        } catch (DukeFatalException excp) {
+            fail("Could not setup storage for testing!");
+        }
+    }
+
+    /**
+     * Reset taskList and testOut, and flush the testPrint stream after each test is done with them.
+     */
+    @AfterEach
+    public void clearPatientMap() {
+        core.patientMap = new PatientMap();
+        testPrint.flush();
+        testOut.reset();
+    }
+
+    /**
+     * Deletes testing data after test is completed.
+     */
+    @AfterAll
+    public static void clearTestData() {
+        File testData = new File(testFilePath);
+        if (!testData.delete()) {
+            fail("Unable to delete test data file!");
+        }
+    }
+
+    protected void setupCommand(ArgCommand command, String arg, String[] switchNames, String[] switchVals) {
+        assert (switchNames.length == switchVals.length);
+        command.setArg(arg);
+        for (int i = 0; i < switchNames.length; ++i) {
+            command.setSwitchVal(switchNames[i], switchVals[i]);
+        }
+    }
+}
