@@ -40,9 +40,7 @@ public class ModuleTasksList {
      * @return HashSet of ModuleTask.
      */
     public HashSet<ModuleTask> getSetModuleTask() {
-        HashSet<ModuleTask> moduleSet = new HashSet<>();
-        moduleSet.addAll(tasks);
-        return moduleSet;
+        return new HashSet<>(tasks);
     }
 
     public void setTasks(List<ModuleTask> tasks) {

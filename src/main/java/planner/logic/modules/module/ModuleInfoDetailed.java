@@ -1,10 +1,12 @@
-package planner.logic.modules.module;
+//@@author namiwa
 
-import planner.logic.exceptions.planner.ModBadGradeException;
-import planner.logic.exceptions.planner.ModBadSuException;
+package planner.logic.modules.module;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import planner.logic.exceptions.planner.ModBadGradeException;
+import planner.logic.exceptions.planner.ModBadSuException;
 
 public class ModuleInfoDetailed {
 
@@ -18,7 +20,7 @@ public class ModuleInfoDetailed {
     private String prerequisites = "";
     private Attributes attributes = new Attributes();
     private String grade = "";
-    private ExamInfo[] semesterData;
+    private ExamInfo[] semesterData = new ExamInfo[0];
     private ArrayList<String> validGrades = new ArrayList<String>(Arrays.asList("A+", "A", "A-", "B+", "B",
         "B-", "C+", "C", "D+", "D", "F", "S", "U"));
 
@@ -71,6 +73,7 @@ public class ModuleInfoDetailed {
         return grade;
     }
 
+    //@@author andrewleow97
     /**
      * Checks if module is S/U-able, and assigns grade based on String score.
      */
@@ -87,6 +90,7 @@ public class ModuleInfoDetailed {
         }
         this.grade = score;
     }
+
 
     @Override
     public String toString() {
