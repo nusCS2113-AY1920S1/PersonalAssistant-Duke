@@ -11,6 +11,7 @@ import seedu.duke.ui.UI;
 
 public class Model {
     private static Model model;
+    private boolean isUpdateGui = true;
     private TaskList taskList;
     private EmailList emailList;
     private EmailKeywordPairList keywordPairList;
@@ -51,6 +52,11 @@ public class Model {
         return emailList;
     }
 
+    /**
+     * Set emailList of Model.
+     *
+     * @param emailList emailList
+     */
     public void setEmailList(EmailList emailList) {
         this.emailList = emailList;
         updateGuiEmailList();
@@ -69,12 +75,19 @@ public class Model {
      * Update any changes in the task list to the display in ui.
      */
     public void updateGuiTaskList() {
-        UI.getInstance().updateTaskList(taskList.getTaskGuiStringList());
+        if (isUpdateGui) {
+            UI.getInstance().updateTaskList(taskList.getTaskGuiStringList());
+        }
     }
 
+    /**
+     * Updates the emailList in GUI with the latest emailList in sorted order.
+     */
     public void updateGuiEmailList() {
-        emailList.sortByGivenOrder();
-        UI.getInstance().updateEmailList(emailList.getEmailGuiStringList());
+        if (isUpdateGui) {
+            emailList.sortByGivenOrder();
+            UI.getInstance().updateEmailList(emailList.getEmailGuiStringList());
+        }
     }
 
     public void updateEmailTagList() {
@@ -106,5 +119,9 @@ public class Model {
      */
     public int getTaskListLength() {
         return taskList.size();
+    }
+
+    public void setIsUpdateGui(boolean isUpdateGui) {
+        this.isUpdateGui = isUpdateGui;
     }
 }

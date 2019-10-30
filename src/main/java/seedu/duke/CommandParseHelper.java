@@ -122,17 +122,24 @@ public class CommandParseHelper {
             return new InvalidCommand("Command is in wrong format");
         }
         ArrayList<Option> optionList = parseOptions(commandString);
-        String strippedCommandString = stripOptions(commandString);
+        String strippedOptionsCommandString = stripOptions(commandString);
         if (userInputType == InputType.TASK) {
-            return TaskCommandParseHelper.parseTaskCommand(strippedCommandString, optionList);
+            return TaskCommandParseHelper.parseTaskCommand(strippedOptionsCommandString, optionList);
         } else if (userInputType == InputType.EMAIL) {
-            return parseEmailCommand(strippedCommandString, optionList);
+            return parseEmailCommand(strippedOptionsCommandString, optionList);
         } else {
             return new InvalidCommand("Unaccepted prefix. Prefix must be either task or email. ");
         }
     }
 
-    private static Command parseEmailCommand(String input, ArrayList<Option> optionList) {
+    /**
+     * Parse email command and return command to be executed.
+     *
+     * @param input user input that starts with "email"
+     * @param optionList option list of the command
+     * @return command to be executed or Invalid Command
+     */
+    public static Command parseEmailCommand(String input, ArrayList<Option> optionList) {
         try {
             return EmailCommandParseHelper.parseEmailCommand(input, optionList);
         } catch (CommandParseException e) {

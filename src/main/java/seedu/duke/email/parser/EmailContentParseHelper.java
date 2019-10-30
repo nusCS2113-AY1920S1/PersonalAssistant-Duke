@@ -81,11 +81,11 @@ public class EmailContentParseHelper {
      * @param keywordPair the target keyword looking for
      * @return whether the keyword pair is found in the string
      */
-    private static int keywordInString(String input, KeywordPair keywordPair) {
+    public static int keywordInString(String input, KeywordPair keywordPair) {
         int occurrence = 0;
         for (int i = 0; i < keywordPair.getExpressions().size(); i++) {
             String expression = keywordPair.getExpressions().get(i);
-            Pattern expressionPattern = Pattern.compile(".*\\W" + expression + "\\W.*",
+            Pattern expressionPattern = Pattern.compile("(^|.*\\W)" + expression + "(\\W.*|$)",
                     Pattern.CASE_INSENSITIVE);
             Matcher expressionMatcher = expressionPattern.matcher(input);
             while (expressionMatcher.find()) {
@@ -126,8 +126,8 @@ public class EmailContentParseHelper {
                 "CG2271", "Djordje Jevdjic"))));
         keywordList.add(new KeywordPair("CS2102", new ArrayList<>(List.of(
                 "CS2102", "Adi Yoga Sidi Prabawa"))));
-        //keywordList.add(new KeywordPair("CS3230", new ArrayList<>(List.of(
-        //        "CS3230", "Divesh Aggarwal"))));
+        keywordList.add(new KeywordPair("CS3230", new ArrayList<>(List.of(
+                "CS3230", "Divesh Aggarwal"))));
         keywordList.add(new KeywordPair("CEG Admin", new ArrayList<>(List.of(
                 "Low Mun Bak"))));
         keywordList.add(new KeywordPair("SEP", new ArrayList<>(List.of(
