@@ -121,52 +121,66 @@ public class OptixDateFormatter {
         try {
             num = Integer.parseInt(month);
             if (num < 0 || num > 12) {
-                return 0;
+                num = 0;
             }
         } catch (NumberFormatException e) {
             switch (month) {
             case "january":
             case "jan":
-                return 1;
+                num = 1;
+                break;
             case "february":
             case "feb":
-                return 2;
+                num = 2;
+                break;
             case "march":
             case "mar":
-                return 3;
+                num = 3;
+                break;
             case "april":
             case "apr":
-                return 4;
+                num = 4;
+                break;
             case "may":
-                return 5;
+                num = 5;
+                break;
             case "june":
             case "jun":
-                return 6;
+                num = 6;
+                break;
             case "july":
             case "jul":
-                return 7;
+                num = 7;
+                break;
             case "august":
             case "aug":
-                return 8;
+                num = 8;
+                break;
             case "september":
             case "sep":
             case "sept":
-                return 9;
+                num = 9;
+                break;
             case "october":
             case "oct":
-                return 10;
+                num = 10;
+                break;
             case "november":
             case "nov":
-                return 11;
+                num = 11;
+                break;
             case "december":
             case "dec":
-                return 12;
+                num = 12;
+                break;
             default:
-                return 0;
+                num = 0;
+                break;
             }
         }
         return num;
     }
+
 
     public String intToMonth(int month) {
         return new DateFormatSymbols().getMonths()[month - 1];

@@ -44,21 +44,21 @@ e.g. if the command specifies SHOW_NAME|SHOW_DATE, SHOW_DATE|SHOW_NAME is invali
 
 === 3.1 Generic Commands
 
-==== 3.1.1 Viewing Help: help
+==== 3.1.1 Viewing Help: `help`
+As a new or returning user you may be unsure about the commands.
+The `help` command can refresh your knowledge. The help command displays descriptions of all the available commands. +
+Format: `help`
 
-Display a description of all the available commands. +
-Format: help
-
-==== 3.1.2 Exiting the program: bye
-
-Saves all the shows and status of the seats within the showlist, then exits the program.  +
-Format: bye
+==== 3.1.2 Exiting the program: `bye`
+Easily save and exit the program with the `bye` command. It
+saves all the shows and status of the seats within the showlist, then exits the program.  +
+Format: `bye`
 
 === 3.2 Show Commands
 
-==== 3.2.1 Adding shows: add
-
-Adds shows to the current show list. +
+==== 3.2.1 Adding shows: `add`
+Let's say that a new event is coming up and you'd like to add it to the application showlist.
+Use the `add` command to adds shows to the current show list. +
 Format: add SHOW_NAME|SEATS_BASE_PRICE|DATE1|DATE2|...
 
 * SEATS_BASE_PRICE represents the lowest cost of a seat in the venue.
@@ -66,45 +66,45 @@ Format: add SHOW_NAME|SEATS_BASE_PRICE|DATE1|DATE2|...
 * The date must be in the future.
 * The format of the date must be dd/mm/yyyy
 * Shows of the same name can be added.
-* Examples:
+
+===== Examples:
 
 ----
 add Phantom of the Opera|20|5/5/2020
 add Lion King|30|6/5/2020|7/5/2020|8/5/2020
 ----
-==== 3.2.2 Deleting shows: delete
-
-Deletes shows for specific dates. +
+==== 3.2.2 Deleting shows: `delete`
+Cancelled events can be handled in our application via the `delete` command. It
+deletes shows for specific dates. +
 Format: delete SHOW_NAME|DATE1|DATE2|...
 
 * Remove SHOW_NAME on the specified DATE
-* The exact SHOW_NAME and DATE must be entered for show to be removed successfully.
-* Examples:
+* The exact SHOW_NAME and DATE must be entered for show to be removed successfully. +
 
-----
-Delete Lion King|10/10/2020
-delete Phantom of the Opera|5/5/2020|6/5/2020
-----
-==== 3.2.3 Listing shows: list
+===== Examples:
+Delete a single show: +
+`Delete Lion King|10/10/2020` +
+Delete multiple shows: +
+`delete Phantom of the Opera|5/5/2020|6/5/2020`
 
-Lists all current shows in the show list. +
-Format: list
+==== 3.2.3 Listing shows: `list`
+The `list` command allows you to view all current shows. +
+Format: `list`
 
-==== 3.2.4 Listing dates for specific show: list
+==== 3.2.4 Listing dates for specific show: `list`
+You can also search for all listings of a particular show with the `list` command!
+Current shows with the specified name will be listed. +
+Format: `list SHOW_NAME`
 
-Lists show with specific name. +
-Format: list SHOW_NAME
-
-* Examples:
-
+===== Examples:
 ----
 list Phantom of the Opera
 list Lion King
 ----
-==== 3.2.5 Listing shows for a specific month: list
-
+==== 3.2.5 Listing shows for a specific month: `list`
+You can also search for all listings of a particular month!
 Lists all the shows for a specific month. +
-Format: list MONTH YEAR +
+Format: `list MONTH YEAR` +
 
 * Examples:
 
@@ -112,89 +112,93 @@ Format: list MONTH YEAR +
 list August 2019
 list December 2020
 ----
-==== 3.2.6 Postponing show to a later date: postpone
+==== 3.2.6 Postpone show to a later date: `postpone`
+Use the `postpone` commmand to postpone the date of a
+current show in the showlist to a specified date.  +
+Format: `postpone SHOW_NAME|OLD_DATE|NEW_DATE`
 
-Postpone the date of a current show in the showlist to a specified date.  +
-Format: postpone SHOW_NAME|OLD_DATE|NEW_DATE
+* Changes the date of the specified `SHOW_NAME` from `OLD_DATE` to `NEW_DATE`
+* Invalid if the date of `SHOW_NAME` does not match `OLD_DATE`
+* Invalid if `NEW_DATE` has already passed.
 
-* Changes the date of the specified SHOW_NAME from OLD_DATE to NEW_DATE
-* Invalid if the date of SHOW_NAME does not match OLD_DATE
-* Invalid if NEW_DATE has already passed.
-* Examples:
+===== Examples:
 
 ----
 postpone Phantom of the Opera|5/5/2020|10/5/2020
 ----
-==== 3.2.7 Editing a show’s name: edit
+==== 3.2.7 Editing a show’s name: `edit`
+If you made a spelling error while adding an event, there is no need to delete and add it again.
+Use `edit` to change it's name. +
+Format: `edit OLD_SHOW_NAME|SHOW_DATE|NEW_SHOW_NAME`
 
-Edits an existing show’s name.  +
-Format: edit OLD_SHOW_NAME|SHOW_DATE|NEW_SHOW_NAME
+* Changes the name of the specified `SHOW_DATE` with `OLD_SHOW_NAME` to `NEW_SHOW_NAME`
+* Invalid if the date of `OLD_SHOW_NAME` does not match `SHOW_DATE`
 
-* Changes the name of the specified SHOW_DATE with OLD_SHOW_NAME to NEW_SHOW_NAME
-* Invalid if the date of OLD_SHOW_NAME does not match SHOW_DATE
-* Examples:
-
+===== Examples:
 ----
 edit Phanom of the Opera|5/5/2020|Phantom of the Opera
 ----
 === 3.3 Seats Commands
 
-==== 3.3.1 Sell seats: sell
-
-Sells seats to customers. +
-Format: sell SHOW_NAME|SHOW_DATE|SEAT …
+==== 3.3.1 Sell seats: `sell`
+The `sell` command can be used to mark seats as sold. It is useful in tracking
+the availability of seats for events. +
+Format: `sell SHOW_NAME|SHOW_DATE|SEAT …`
 
 * Sells SEATS specified by customers for the indicated SHOW_NAME on SHOW_DATE.
 * Each SEAT is represented by an alphabet followed by an integer e.g. A1
 * Multiple SEATS can be entered in the parameter SEAT ...
 * SEATS sold are marked with  ✕ to represent a “booked” status.
 * SEATS that has been marked with ✕ cannot be booked by other people.
-* Examples:
 
-----
-sell Phantom of the Opera|5/5/2020| C1 D6 E10
-sell Lion King|6/5/2020| A1 A2 A3 A4
-----
-==== 3.3.2 View the seats for a show: view
+===== Examples:
+Sell a single seat: +
+`sell Phantom of the Opera|5/5/2020| C1 D6 E10`
 
-Displays the layout of the seats within the theatre for an existing show. +
-Format: view SHOW_NAME|SHOW_DATE
+Sell multiple seats in a single command: +
+`sell Lion King|6/5/2020| A1 A2 A3 A4`
 
-* Displays the layout of the specified SHOW_NAME on SHOW_DATE in a 2D array format.
-* Seats that have been booked are mark with ✕ and seats that are available for booking are marked with ✓
-* The layout will not be displayed if the specified SHOW_DATE does not correspond to the actual show date of the indicated SHOW_NAME
-* Examples:
 
+==== 3.3.2 View the seats for a show: `view`
+You can use the `view` command to check seat availabilities for shows.
+The layout of the seats within the theatre will be displayed. +
+Format: `view SHOW_NAME|SHOW_DATE`
+
+* Displays the layout of the specified `SHOW_NAME` on `SHOW_DATE` in a 2D array format.
+* Seats that have been booked are mark with "✕" and seats that are available for booking are marked with "✓".
+* The layout will not be displayed if the specified SHOW_DATE does not
+correspond to the actual show date of the indicated SHOW_NAME.
+
+===== Examples:
 ----
 view Phantom of the Opera | 5/5/2020
 ----
-==== 3.3.3 Reassign seat for a show: reassign-seat
-
-Reassign customer to another seat. +
-Format: reassign-seat SHOW_NAME|SHOW_DATE|OLD_SEAT|NEW_SEAT
+==== 3.3.3 Reassign seat for a show: `reassign-seat`
+If a customers  wants to change seats, this can be achieved through the `reassign-seat` command. +
+Format: `reassign-seat SHOW_NAME|SHOW_DATE|OLD_SEAT|NEW_SEAT`
 
 * Reassign a booked seat with another non-booked seat for the show.
 * Seat cannot be reassigned if:
-** OLD_SEAT is not booked previously.
-** NEW_SEAT has been booked.
-** OLD_SEAT/NEW_SEAT does not exist
-** Both OLD_SEAT and NEW_SEAT are the same.
-* Examples:
+** `OLD_SEAT` is not booked previously.
+** `NEW_SEAT` has been booked.
+** `OLD_SEAT`/`NEW_SEAT` does not exist
+** Both `OLD_SEAT` and `NEW_SEAT` are the same.
 
+===== Examples:
 ----
 reassign-seat Phantom of the Opera|5/5/2020|A1|A2
 ----
 === 3.4 Finance Commands
 
-==== 3.4.1 View the profit of a show: view-profit
+==== 3.4.1 View the profit of a show: `view-profit`
 
 Displays the profit earned from that particular show. +
-Format: view-profit SHOW_NAME|SHOW_DATE
+Format: `view-profit SHOW_NAME|SHOW_DATE`
 
-* Displays the profit for the specified SHOW_NAME on SHOW_DATE
-* Displays projected earnings if SHOW_DATE is in the future.
-* Example
+* Displays the profit for the specified `SHOW_NAME` on `SHOW_DATE`
+* Displays projected earnings if `SHOW_DATE` is in the future.
 
+===== Example
 ----
 view-profit Lion King|5/5/2020
 ----
@@ -205,46 +209,53 @@ Format: view-monthly MONTH YEAR
 
 * Displays the total profit collected for all the shows in MONTH YEAR
 * Displays projected earnings if MONTH YEAR is in the future.
-* Examples:
 
+===== Examples:
 ----
 view-monthly May 2020
 view-monthly January 2018
 ----
 === 3.5 Alias Commands
 
-==== 3.5.1 Add new alias: add-alias
+==== 3.5.1 Add new alias: `add-alias`
+As a user, you can give a Command an alternate name for easy access.
+You can add them with `add-alias` to an existing command. +
+Format: `add-alias ALIAS|COMMAND`
 
-Adds a new alias to an existing command.  +
-Format: add-alias ALIAS|COMMAND
-
-* Adds a new alias for COMMAND
+* Adds a new alias for `COMMAND`
 * The alias must not already be in use.
-* Examples:
+* The alias must not be the name of a command.
 
-----
-add-alias t|add
-----
+===== Examples:
+Give the command `add` an alias of 't': +
+`add-alias t|add` +
+
+Assigning an alias that is already in use is not allowed. +
+`add-alias t|delete` would not work if 't' is paired to another command already.
+
+Assigning an command keyword as an alias is also not allowed: +
+`add-alias add|delete` is not allowed.
+
 ==== 3.5.2 Remove alias: remove-alias
+Let's say you changed your mind after adding the alias.
+Use the `remove-alias` command to delete an existing alias. +
+Format: `remove-alias ALIAS|COMMAND`
 
-Removes an existing alias. +
-Format: remove-alias ALIAS|COMMAND
-
-* Remove the ALIAS for COMMAND
+* Remove the `ALIAS` for `COMMAND`
 * Examples:
 
 ----
 remove-alias t|add
 ----
 ==== 3.5.3 List alias: list-alias
-
-Lists all current aliases. +
-Format: list-alias
+If you forgot the aliases you set, or would like to view the default aliases,
+use the `list-alias` command! +
+Format: `list-alias`
 
 ==== 3.5.4 Reset alias: reset-alias
-
-Resets aliases to default settings. +
-Format: reset-alias
+To undo all your alias modifications, use the `reset-alias` command
+to set them back to the defaults. +
+Format: `reset-alias`
 
 == 4. FAQ
 
