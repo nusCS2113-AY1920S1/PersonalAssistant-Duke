@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import controllers.ConsoleInputController;
-import models.data.IProject;
-import models.data.Project;
+import models.project.IProject;
+import models.project.Project;
 import util.factories.ProjectFactory;
 import util.log.DukeLogger;
 

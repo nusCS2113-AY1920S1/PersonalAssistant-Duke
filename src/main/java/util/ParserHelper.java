@@ -3,8 +3,8 @@ package util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import models.data.Project;
 import models.member.Member;
+import models.project.Project;
 import models.task.Task;
 
 public class ParserHelper {
@@ -103,6 +103,36 @@ public class ParserHelper {
         newTask.add(newTaskState);
 
         return newTask;
+    }
+
+    /**
+     * Parses the string input to extract the name, and reminder date.
+     * @param input Contains the name, and reminder date
+     * @return An ArrayList consisting of name in index 0,due date in index 1.
+     */
+    public ArrayList<String> parseReminderDetails(String[] input) {
+        ArrayList<String> newReminderInfo = new ArrayList<>();
+        String newReminderName = "--";
+        String newReminderDate = null;
+
+        ArrayList<String> newReminderInfoInput  =  new ArrayList<>(Arrays.asList(input));
+        newReminderInfoInput.remove(0); // Remove the first empty string in newReminderInfoInput
+        for (String s : newReminderInfoInput) {
+            switch (s.charAt(0)) {
+            case 'n':
+                newReminderName = s.substring(1).trim();
+                break;
+            case 'd':
+                newReminderDate = s.substring(1).trim();
+                break;
+            default:
+                break;
+            }
+        }
+
+        newReminderInfo.add(newReminderName);
+        newReminderInfo.add(newReminderDate);
+        return newReminderInfo;
     }
 
     /**

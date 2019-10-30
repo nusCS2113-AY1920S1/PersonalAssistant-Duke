@@ -1,7 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
-import models.data.Project;
+import models.project.Project;
 import models.member.Member;
 import models.task.Task;
 import util.ParserHelper;

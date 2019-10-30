@@ -1,6 +1,6 @@
 package util;
 
-import models.data.Project;
+import models.project.Project;
 import models.member.Member;
 import models.task.Task;
 
@@ -16,7 +16,7 @@ public class AssignmentViewHelper {
      */
     public static ArrayList<String> getMemberOutput(ArrayList<Integer> membersToView,
         Project project) {
-        ArrayList<String> outputToPrint = new ArrayList<String>();
+        ArrayList<String> outputToPrint = new ArrayList<>();
         outputToPrint.add("Here are each member's tasks:");
         HashMap<Member, ArrayList<Task>> memberAndIndividualTasks = project.getMembersIndividualTaskList();
         for (Integer index : membersToView) {
@@ -42,7 +42,7 @@ public class AssignmentViewHelper {
      * @return An ArrayList containing information requested by the user.
      */
     public static ArrayList<String> getTaskOutput(ArrayList<Integer> tasksToView, Project project) {
-        ArrayList<String> outputToPrint = new ArrayList<String>();
+        ArrayList<String> outputToPrint = new ArrayList<>();
         outputToPrint.add("Here are the members assigned to each task:");
         HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = project.getTasksAndAssignedMembers();
         for (Integer index : tasksToView) {

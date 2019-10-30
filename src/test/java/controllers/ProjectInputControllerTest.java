@@ -1,19 +1,16 @@
 package controllers;
 
-import models.data.Project;
-import org.junit.jupiter.api.Test;
-import repositories.ProjectRepository;
-import util.date.DateTimeHelper;
-import views.CLIView;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.text.ParseException;
 import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import models.project.Project;
+import org.junit.jupiter.api.Test;
+import repositories.ProjectRepository;
+import util.date.DateTimeHelper;
 
 class ProjectInputControllerTest {
     private ProjectRepository projectRepository;
-    private CLIView consoleView;
     private ProjectInputController projectInputController;
     private DateTimeHelper dateTimeHelper;
     private String simulatedUserInput;
@@ -23,8 +20,7 @@ class ProjectInputControllerTest {
 
     ProjectInputControllerTest() {
         this.projectRepository = new ProjectRepository();
-        this.consoleView = new CLIView();
-        this.projectInputController = new ProjectInputController(consoleView,projectRepository);
+        this.projectInputController = new ProjectInputController(projectRepository);
         this.dateTimeHelper = new DateTimeHelper();
     }
 
@@ -464,5 +460,23 @@ class ProjectInputControllerTest {
         assertEquals(expectedOutput, actualOutput);
         assertEquals("SmartGuy", project.getMembers().getMember(2).getRole());
         assertEquals("StrongGuy", project.getMembers().getMember(3).getRole());
+    }
+
+    @Test
+    void testProjectViewAssignments_invalidInputs() {
+        Project project = new Project("New project");
+        simulatedUserInput = "view assignments";
+        String[] output = projectInputController.projectViewAssignments(project, simulatedUserInput);
+        assertEquals(3, output.length);
+        assertEquals("Please input the parameters to view assignments:", output[0]);
+        simulatedUserInput = "view assignments -";
+        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
+        assertEquals(3, output.length);
+        assertEquals("Please input the parameters to view assignments:", output[0]);
+        simulatedUserInput = "view assignments atm";
+        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
+        assertEquals(1, output.length);
+        assertEquals("Could not understand your command! Please use -m for member, -t for task",
+            output[0]);
     }
 }

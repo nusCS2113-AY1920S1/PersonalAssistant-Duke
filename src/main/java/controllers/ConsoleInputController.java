@@ -1,26 +1,26 @@
 package controllers;
 
 import repositories.ProjectRepository;
+import util.ViewHelper;
 import util.log.DukeLogger;
-import views.CLIView;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ConsoleInputController implements IController {
 
-    private CLIView consoleView;
     private ProjectRepository projectRepository;
-    private ProjectInputController projectInputController;
+    private String managingProjectIndex;
+    private ViewHelper viewHelper;
 
     /**
      * Constructor.
-     * @param view : takes in a View model, in this case a command line view.
+     * @param projectRepository : takes in a projectRepository.
      */
-    public ConsoleInputController(CLIView view) {
-        this.consoleView = view;
-        this.projectRepository = new ProjectRepository();
-        this.projectInputController = new ProjectInputController(this.consoleView, this.projectRepository);
+    public ConsoleInputController(ProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
+        this.managingProjectIndex = "";
+        this.viewHelper = new ViewHelper();
     }
 
     /**
@@ -28,33 +28,26 @@ public class ConsoleInputController implements IController {
      * @param input : Input typed by user into CLI
      */
     @Override
-    public void onCommandReceived(String input) {
+    public String[] onCommandReceived(String input) {
         DukeLogger.logInfo(ConsoleInputController.class, "input:'" + input + "'");
         Scanner inputReader = new Scanner(input);
         String command = inputReader.next();
 
         switch (command) {
         case "bye":
-            consoleView.end();
-            break;
+            return end();
         case "create":
-            commandCreate(input);
-            break;
+            return commandCreate(input);
         case "list":
-            commandList();
-            break;
+            return commandList();
         case "manage":
-            commandManage(inputReader);
-            break;
+            return commandManage(inputReader);
         case "delete":
-            commandDelete(inputReader);
-            break;
+            return commandDelete(inputReader);
         case "help":
-            commandHelp();
-            break;
+            return commandHelp();
         default:
-            consoleView.consolePrint("Invalid inputs. Please refer to User Guide or type help!");
-            break;
+            return new String[] {"Invalid inputs. Please refer to User Guide or type help!"};
         }
     }
 
@@ -62,58 +55,86 @@ public class ConsoleInputController implements IController {
      * Creates a new project with a given name and a number of numbers.
      * @param input To read the input from the user.
      */
-    private void commandCreate(String input) {
+    private String[] commandCreate(String input) {
         boolean isProjectCreated = projectRepository.addToRepo(input);
         if (!isProjectCreated) {
-            consoleView.consolePrint("Creation of Project failed. Please check parameters given!");
+            return new String[] {"Creation of Project failed. Please check parameters given!"};
         } else {
-            consoleView.consolePrint("Project created!");
+            return new String[] {"Project created!"};
         }
     }
 
     /**
-     * Lists all the projects.
+     * Method called when users wishes to view all Projects
+     * that are currently created or stored.
      */
-    private void commandList() {
+    private String[] commandList() {
         ArrayList<ArrayList<String>> allProjectsDetails = projectRepository.getAllProjectsDetailsForTable();
-        consoleView.viewAllProjects(allProjectsDetails);
+        if (allProjectsDetails.size() == 0) {
+            return new String[] {"You currently have no projects!"};
+        } else {
+            System.out.println("Here are all the Projects you are managing:"); // Need to change this out.
+            return viewHelper.consolePrintTable(allProjectsDetails);
+        }
     }
 
     /**
      * Manage the project.
      * @param inputReader To read the input from the user.
      */
-    private void commandManage(Scanner inputReader) {
+    private String[] commandManage(Scanner inputReader) {
         if (inputReader.hasNext()) {
-            this.projectInputController.onCommandReceived(inputReader.next());
+            this.managingProjectIndex = inputReader.next();
+            try {
+                return new String[] {"Now managing "
+                        + projectRepository.getItem(Integer.parseInt(managingProjectIndex)).getDescription()};
+            } catch (IndexOutOfBoundsException err) {
+                return new String[] {"Please enter the correct index of an existing Project!"};
+            }
         } else {
-            consoleView.consolePrint("Please enter a project number!");
+            return new String[] {"Please enter a project number!"};
         }
     }
+
 
     /**
      * Deletes a project.
      * @param inputReader To read the input from the user.
      */
-    private void commandDelete(Scanner inputReader) {
+    private String[] commandDelete(Scanner inputReader) {
         if (inputReader.hasNext()) {
             int projectIndex = Integer.parseInt(inputReader.next());
             boolean isProjectDeleted = this.projectRepository.deleteItem(projectIndex);
             if (isProjectDeleted) {
-                consoleView.consolePrint("Project " + projectIndex + " has been deleted");
+                return new String[] {"Project " + projectIndex + " has been deleted"};
             } else {
-                consoleView.consolePrint("Index out of bounds! Please check project index!");
+                return new String[] {"Index out of bounds! Please check project index!"};
             }
         } else {
-            consoleView.consolePrint("Please enter a project number to delete");
+            return new String[] {"Please enter a project number to delete"};
         }
     }
 
     /**
      * Displays the set of the commands which can be used.
      */
-    private void commandHelp() {
+    private String[] commandHelp() {
         // TODO help page displaying all commands available
         // Not implemented
+        return new String[] {"Not implemented"};
     }
+
+    /**
+     * Method to be called when user says bye to exit the program.
+     */
+    public String[] end() {
+        DukeLogger.logInfo(ConsoleInputController.class, "ArchDuke have stopped.");
+        return new String[] { "Bye. Hope to see you again soon!" };
+    }
+
+    public String getManagingProjectIndex() {
+        return managingProjectIndex;
+    }
+
+
 }
