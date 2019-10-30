@@ -86,4 +86,22 @@ public class Sale implements Comparable<Sale>{
 			return 1;
 		}
 	}
+
+	@Override
+	// for Junit test use
+	public boolean equals(Object other) {
+		if (other == this) {
+			return true;
+		}
+		if (other instanceof Sale) {
+			Sale b = (Sale) other;
+			return foodName.equals(b.foodName)
+					&& quantitySold == b.quantitySold
+					&& revenue == b.revenue
+					&& profit == b.profit
+					&& soldDate == b.soldDate;
+		} else {
+			return false;
+		}
+	}
 }

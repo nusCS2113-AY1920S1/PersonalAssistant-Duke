@@ -1,8 +1,3 @@
-//@@author LL-Pengfei
-/**
- * DeleteCommand.java
- * Support commands related to delete.
- */
 package cube.logic.command;
 
 import cube.model.food.FoodList;
@@ -27,10 +22,10 @@ public class DeleteCommand extends Command {
 	private int deleteIndex;
 	private String deleteDescription;
 	private DeleteBy param;
-	private final String MESSAGE_SUCCESS_SINGLE = "Nice! I've removed this food:\n"
+	public static final String MESSAGE_SUCCESS_SINGLE = "Nice! I've removed this food:\n"
 			+ "%1$s\n"
 		    + "Now you have %2$s food in the list.\n";
-	private final String MESSAGE_SUCCESS_MULTIPLE = "Nice! I've removed this type:\n"
+	public static final String MESSAGE_SUCCESS_MULTIPLE = "Nice! I've removed this type:\n"
 			+ "%1$s\n"
 			+ "This type contains "
 			+ "%2$s food items\n"

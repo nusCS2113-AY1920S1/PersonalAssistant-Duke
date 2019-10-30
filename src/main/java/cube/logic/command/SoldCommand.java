@@ -17,8 +17,8 @@ public class SoldCommand extends Command{
 	Date soldDate;
 	Food toSold;
 
-	private final String MESSAGE_SUCCESS = "%1$d of %2$s have been sold\n"
-		+ "you have earn $%3$f, the total revenue is $%4$f";	
+	public static final String MESSAGE_SUCCESS = "%1$d of %2$s have been sold with $%3$f\n"
+		+ "you have earn $%4$f";	
 
 	public SoldCommand(String foodName, int quantity) {
 		this(foodName, quantity, new Date());
@@ -51,6 +51,7 @@ public class SoldCommand extends Command{
 	 */
 	@Override
 	public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
+		//TODO: check if the user has set price and cost
 		FoodList list = model.getFoodList();
 		SalesHistory salesHistory = model.getSalesHistory();
 		obtainFoodSold(list);
@@ -68,6 +69,6 @@ public class SoldCommand extends Command{
 		storage.storeSalesHistory(salesHistory);
 
 		storage.storeRevenue(Food.getRevenue());
-		return new CommandResult(String.format(MESSAGE_SUCCESS, quantity, foodName, revenue, Food.getRevenue()));
+		return new CommandResult(String.format(MESSAGE_SUCCESS, quantity, foodName, revenue, profit));
 	}
 }

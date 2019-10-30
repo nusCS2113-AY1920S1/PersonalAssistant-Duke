@@ -24,6 +24,10 @@ public class SalesHistory {
 		return salesSet.size();
 	}
 
+	public Iterator iterator() {
+		return salesSet.iterator();
+	}
+
 	@Override
 	// more for debug use for now
 	public String toString() {
