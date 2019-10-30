@@ -31,6 +31,7 @@ public class WordBank {
     public int getSize() {
         return wordBank.size();
     }
+
     /**
      * Searched for the Word object containing the word.
      * @param word the word to be found
@@ -144,7 +145,8 @@ public class WordBank {
      * @return tags lists of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank
      */
-    public HashSet<String> addWordToSomeTags(String wordToBeAddedTag, ArrayList<String> tags) throws NoWordFoundException {
+    public HashSet<String> addWordToSomeTags(String wordToBeAddedTag, ArrayList<String> tags)
+            throws NoWordFoundException {
         if (!wordBank.containsKey(wordToBeAddedTag)) {
             throw new NoWordFoundException(wordToBeAddedTag);
         }

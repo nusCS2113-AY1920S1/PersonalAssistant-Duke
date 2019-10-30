@@ -15,6 +15,9 @@ public class Bank {
     private TagBank tagBank;
     WordCount wordCount;
 
+    /**
+     * Initiates an empty bank.
+     */
     public Bank() {
         wordBank = new WordBank();
         tagBank = new TagBank();
@@ -59,6 +62,11 @@ public class Bank {
         return tagBank.getSize();
     }
 
+    /**
+     * Adds a word into bank and updates wordBank, tagBank, and wordCount with the new word.
+     * @param word Word object represents the added word
+     * @throws WordAlreadyExistsException if the word already exists in bank
+     */
     public void addWord(Word word) throws WordAlreadyExistsException {
         wordBank.addWord(word);
         tagBank.addWordToAllTags(word);
@@ -102,7 +110,8 @@ public class Bank {
      * @return all tags of the word after adding to show to user
      * @throws NoWordFoundException if the word doesn't exist in the WordBank
      */
-    public HashSet<String> addWordToSomeTags(String wordDescription, ArrayList<String> tags) throws NoWordFoundException {
+    public HashSet<String> addWordToSomeTags(String wordDescription, ArrayList<String> tags)
+            throws NoWordFoundException {
         HashSet<String> tagsOfWord = wordBank.addWordToSomeTags(wordDescription, tags);
         tagBank.addWordToSomeTags(wordDescription, tags);
         return tagsOfWord;

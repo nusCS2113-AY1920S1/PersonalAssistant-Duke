@@ -203,6 +203,10 @@ public class Storage {
         writeTagBankExcelFile(bank.getTagBank());
     }
 
+    /**
+     * Loads data from excel file to Bank.
+     * @return Bank object containing all data for dictionary
+     */
     public Bank loadExcelFile() {
         Bank bank = new Bank();
         try {
@@ -217,7 +221,7 @@ public class Storage {
             sheet = workbook.getSheetAt(0);
             rowIterator = sheet.iterator();
             rowIterator.next();
-            while(rowIterator.hasNext()) {
+            while (rowIterator.hasNext()) {
                 row = rowIterator.next();
                 cellIterator = row.cellIterator();
 
@@ -229,7 +233,7 @@ public class Storage {
             sheet = workbook.getSheetAt(1);
             rowIterator = sheet.iterator();
             rowIterator.next();
-            while(rowIterator.hasNext()) {
+            while (rowIterator.hasNext()) {
                 row = rowIterator.next();
                 cellIterator = row.cellIterator();
                 String tag = cellIterator.next().getStringCellValue();
@@ -256,9 +260,6 @@ public class Storage {
     private void createExcelFile() {
         Workbook workbook = new XSSFWorkbook();
 
-        Sheet wordBankSheet = workbook.createSheet("WordBank");
-        Sheet tagBankSheet = workbook.createSheet("TagBank");
-
         Font headerFont = workbook.createFont();
         headerFont.setBold(true);
         headerFont.setFontHeightInPoints((short) 12);
@@ -271,6 +272,7 @@ public class Storage {
         Row headerRow;
         Cell cell;
 
+        Sheet wordBankSheet = workbook.createSheet("WordBank");
         headerRow = wordBankSheet.createRow(0);
 
         cell = headerRow.createCell(0);
@@ -284,6 +286,7 @@ public class Storage {
         wordBankSheet.autoSizeColumn(0);
         wordBankSheet.autoSizeColumn(1);
 
+        Sheet tagBankSheet = workbook.createSheet("TagBank");
         headerRow = tagBankSheet.createRow(0);
 
         cell = headerRow.createCell(0);
@@ -307,6 +310,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes multiple of redundant rows in WordBank sheet in excel file after DeleteCommand.
+     * @param lastRow last row in excel file after deletion
+     * @param lastRedundantRow last row in excel file before deletion
+     */
     public void deleteRowsWordBankSheet(int lastRow, int lastRedundantRow) {
         try {
             FileInputStream fileInputStream = new FileInputStream(excelFile);
@@ -323,11 +331,16 @@ public class Storage {
             fileInputStream.close();
             fileOutputStream.close();
             workbook.close();
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Deletes multiple of redundant rows in TagBank sheet in excel file after DeleteCommand.
+     * @param lastRow last row in excel file after deletion
+     * @param lastRedundantRow last row in excel file before deletion
+     */
     public void deleteRowsTagBankSheet(int lastRow, int lastRedundantRow) {
         try {
             FileInputStream fileInputStream = new FileInputStream(excelFile);
@@ -344,11 +357,15 @@ public class Storage {
             fileInputStream.close();
             fileOutputStream.close();
             workbook.close();
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Writes data to TagBank sheet in excel file.
+     * @param tagBank data to be written into sheet
+     */
     public void writeTagBankExcelFile(TagBank tagBank) {
         FileInputStream fileInputStream;
         FileOutputStream fileOut;
@@ -398,6 +415,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes data to WordBank sheet of excel file.
+     * @param wordBank data to be written to file
+     */
     public void writeWordBankExcelFile(WordBank wordBank) {
         FileInputStream fileInputStream;
         FileOutputStream fileOut;

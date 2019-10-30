@@ -30,6 +30,7 @@ public class SearchCommand extends Command {
             if (bank.getWordFromWordBank(searchTerm).getNumberOfSearches() == 0) {
                 storage.updateFile(word.toString(),"");
                 storage.writeFile(word.toString(),true);
+                storage.writeWordBankExcelFile(bank.getWordBankObject());
             }
             bank.increaseSearchCount(searchTerm);
             return ui.showSearch(this.searchTerm, meaning);

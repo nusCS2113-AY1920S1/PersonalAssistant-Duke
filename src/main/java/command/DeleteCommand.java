@@ -31,11 +31,11 @@ public class DeleteCommand extends Command {
         try {
             word = bank.getWordFromWordBank(this.deletedWord);
             if (tags.size() == 0) {                     //delete word
-                int initWordBankSize = bank.getWordBankSize();
-                int initTagBankSize = bank.getTagBankSize();
-
                 bank.deleteWordFromBank(word);
                 storage.updateFile(word.toString() + "\r","");
+
+                int initWordBankSize = bank.getWordBankSize();
+                int initTagBankSize = bank.getTagBankSize();
 
                 storage.writeExcelFile(bank);
                 storage.deleteRowsWordBankSheet(bank.getWordBankSize(), initWordBankSize);

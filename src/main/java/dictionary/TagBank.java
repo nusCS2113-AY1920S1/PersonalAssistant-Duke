@@ -86,6 +86,11 @@ public class TagBank {
         return allWords.toArray(new String[allWords.size()]);
     }
 
+    /**
+     * Adds a word to one specific tag in tagBank.
+     * @param word word to be added
+     * @param tag tag that the word will be added to
+     */
     public void addWordToOneTag(String word, String tag) {
         if (tagBank.containsKey(tag)) {
             tagBank.get(tag).add(word);
