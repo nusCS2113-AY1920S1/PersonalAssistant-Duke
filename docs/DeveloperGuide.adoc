@@ -2,3 +2,4 @@
 :site-section: DeveloperGuide
 
 Under construction.
+Kindly access the latest revision of our developer guide https://docs.google.com/document/d/1rkpwea9XL3zEisegyhZUCXcyQJ0LAG2KixfxCpQPZa8/edit?usp=sharing[here].
