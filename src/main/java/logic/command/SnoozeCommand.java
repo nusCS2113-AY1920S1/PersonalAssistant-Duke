@@ -18,10 +18,10 @@ public class SnoozeCommand extends Command {
 
     @Override
     public CommandOutput execute(Model model) throws DukeException {
-        if(taskIndex<1||taskIndex>model.getTaskListSize()){
+        if (taskIndex < 1 || taskIndex > model.getTaskListSize()) {
             return new CommandOutput(INDEX_NOT_IN_TASKlIST_MESSAGE);
-        } else{
-            model.getTaskList().get(taskIndex-1).setTime(newDate);
+        } else {
+            model.getTaskList().get(taskIndex - 1).setTime(newDate);
             return new CommandOutput(SUCCESS_MESSAGE + newDate);
         }
     }
