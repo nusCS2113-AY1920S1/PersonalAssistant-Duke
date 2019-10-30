@@ -52,7 +52,7 @@ public class Level {
         endGrain = Math.toIntExact((Long) object.get("grain"));
         deadline = Math.toIntExact((Long) object.get("deadline"));
         objective = (String) object.get("objective");
-        hint = (String) object.get("hint");
+        hint = ((String) object.get("hint")).replace("+", name);
         modelAnswer = (String) object.get("modelAnswer");
 
     }

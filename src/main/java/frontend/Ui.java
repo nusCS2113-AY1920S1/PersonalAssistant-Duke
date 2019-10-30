@@ -82,6 +82,12 @@ public class Ui {
         }
     }
 
+    public void showPointers(String text) {
+        show(AsciiColours.YELLOW + "Pointers:" + AsciiColours.SANE);
+        show(text);
+        show("Enter [Start] when you are ready to complete the objective");
+    }
+
     /**
      * Prints text to the terminal type writer style.
      * @param text to be printed.
@@ -89,7 +95,6 @@ public class Ui {
      */
     public void typeWriter(String text, boolean hasPressEnter) { //TODO clean this method up
         final char LEVEL_BEGIN_PLACEHOLDER = '~';
-        final char NAME_PLACEHOLDER = '+';
         boolean isNewline = false;
         int lineLength = 0;
         System.out.print(">>> ");
@@ -111,7 +116,7 @@ public class Ui {
                 System.out.printf("%c", text.charAt(i));
             }
             if (isNewline) {
-                System.out.print("    ");
+                System.out.print("\n    ");
                 isNewline = false;
             }
             sleep(10);

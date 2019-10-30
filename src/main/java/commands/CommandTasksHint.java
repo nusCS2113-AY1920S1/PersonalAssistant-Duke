@@ -2,14 +2,10 @@ package commands;
 
 import exceptions.FarmioFatalException;
 import farmio.Farmio;
+import farmio.Level;
 import frontend.Ui;
 
 public class CommandTasksHint extends Command {
-    private String message;
-
-    public CommandTasksHint() {
-        message = "Enter [Start] when you are ready to complete the objective";
-    }
 
     /**
      * Print hint or instructions for current level.
@@ -19,8 +15,8 @@ public class CommandTasksHint extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
         Ui ui = farmio.getUi();
-        farmio.getSimulation().simulate();
-        ui.typeWriter(farmio.getLevel().getHint(), false);
-        ui.typeWriter(message, false);
+        Level level = farmio.getLevel();
+        farmio.getSimulation().simulate(level.getPath() ,level.getNarratives().size() - 1);
+        ui.showPointers(farmio.getLevel().getHint());
     }
 }
