@@ -11,15 +11,13 @@ import java.util.HashSet;
 import java.util.TreeMap;
 
 public class Bank {
-    private WordBank wordBank;
-    private TagBank tagBank;
-    private SynonymBank synonymBank;
+    WordBank wordBank;
+    TagBank tagBank;
+    SynonymBank synonymBank;
     WordCount wordCount;
 
     public Bank() {
-        wordBank = new WordBank();
-        tagBank = new TagBank();
-        wordCount = new WordCount(wordBank);
+
     }
 
     /**
@@ -53,20 +51,6 @@ public class Bank {
         return tagBank;
     }
 
-    public int getWordBankSize() {
-        return wordBank.getSize();
-    }
-
-    public int getTagBankSize() {
-        return tagBank.getSize();
-    }
-
-    public void addWord(Word word) throws WordAlreadyExistsException {
-        wordBank.addWord(word);
-        tagBank.addWordToAllTags(word);
-        wordCount.addWord(word);
-    }
-
     /**
      * Returns true if wordBank is empty.
      * @return boolean value indicating if wordBank is empty
@@ -82,7 +66,7 @@ public class Bank {
      */
     public void addWordToBank(Word word) throws WordAlreadyExistsException {
         wordBank.addWord(word);
-        tagBank.addWordToAllTags(word);
+        tagBank.addWordAllTags(word);
         synonymBank.addWordAllSynonyms(word);
         wordCount.addWord(word);
     }
@@ -106,9 +90,9 @@ public class Bank {
      * @return all tags of the word after adding to show to user
      * @throws NoWordFoundException if the word doesn't exist in the WordBank
      */
-    public HashSet<String> addWordToSomeTags(String wordDescription, ArrayList<String> tags) throws NoWordFoundException {
-        HashSet<String> tagsOfWord = wordBank.addWordToSomeTags(wordDescription, tags);
-        tagBank.addWordToSomeTags(wordDescription, tags);
+    public HashSet<String> addTag(String wordDescription, ArrayList<String> tags) throws NoWordFoundException {
+        HashSet<String> tagsOfWord = wordBank.addTag(wordDescription, tags);
+        tagBank.addTag(wordDescription, tags);
         return tagsOfWord;
     }
 
@@ -133,7 +117,7 @@ public class Bank {
     }
 
     public void deleteSynonyms(String deletedWord, ArrayList<String> synonyms,
-                           ArrayList<String> deletedSynonyms, ArrayList<String> nullSynonyms) {
+                               ArrayList<String> deletedSynonyms, ArrayList<String> nullSynonyms) {
         wordBank.deleteSynonyms(deletedWord, synonyms, deletedSynonyms, nullSynonyms);
         synonymBank.deleteWordSomeSynonyms(deletedSynonyms, deletedWord);
     }
@@ -156,10 +140,5 @@ public class Bank {
 
     public ArrayList<String> getClosedWords(String searchTerm) {
         return wordBank.getClosedWords(searchTerm);
-    }
-
-    public void addTagToWord(String word, String tag) {
-        wordBank.addTagToWord(word, tag);
-        tagBank.addWordToOneTag(word, tag);
     }
 }

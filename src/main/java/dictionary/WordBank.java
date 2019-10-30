@@ -11,24 +11,21 @@ import java.util.HashSet;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-public class WordBank {
+public class WordBank extends Bank {
     private TreeMap<String, Word> wordBank;
 
     public WordBank(Storage storage) {
         wordBank = storage.loadFile();
     }
 
-    public WordBank() {
-        this.wordBank = new TreeMap<>();
+    public WordBank(TreeMap<String, Word> wordBank) {
+        this.wordBank = wordBank;
     }
 
     public TreeMap<String, Word> getWordBank() {
         return wordBank;
     }
 
-    public int getSize() {
-        return wordBank.size();
-    }
     /**
      * Searched for the Word object containing the word.
      * @param word the word to be found
@@ -142,7 +139,7 @@ public class WordBank {
      * @return tags lists of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank
      */
-    public HashSet<String> addWordToSomeTags(String wordToBeAddedTag, ArrayList<String> tags) throws NoWordFoundException {
+    public HashSet<String> addTag(String wordToBeAddedTag, ArrayList<String> tags) throws NoWordFoundException {
         if (!wordBank.containsKey(wordToBeAddedTag)) {
             throw new NoWordFoundException(wordToBeAddedTag);
         }
@@ -174,10 +171,10 @@ public class WordBank {
     }
 
     /**
-     * Adds a list of synonyms to a specific word in word bank.
+     * Adds a tag to a specific word in word bank.
      * @param wordToAddSynonym word that the tag is set for
-     * @param synonyms new synonyms input by user
-     * @return synonyms list of that word
+     * @param synonyms new tags input by user
+     * @return tags lists of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank
      */
     public HashSet<String> addSynonym(String wordToAddSynonym, ArrayList<String> synonyms) throws NoWordFoundException {
@@ -199,7 +196,7 @@ public class WordBank {
      * @param nonExistSynonyms synonyms that doesn't exist in the word
      */
     public void deleteSynonyms(String word, ArrayList<String> synonymList,
-                           ArrayList<String> deletedSynonyms, ArrayList<String> nonExistSynonyms) {
+                               ArrayList<String> deletedSynonyms, ArrayList<String> nonExistSynonyms) {
         HashSet<String> synonyms = wordBank.get(word).getSynonyms();
         for (String synonym : synonymList) {
             if (synonyms.contains(synonym)) {
@@ -224,13 +221,5 @@ public class WordBank {
             }
         }
         return closedWords;
-    }
-
-    public void addTagToWord(String word, String tag) {
-        wordBank.get(word).addTag(tag);
-    }
-
-    public Word[] getAllWordsAsList() {
-        return wordBank.values().toArray(new Word[wordBank.size()]);
     }
 }
