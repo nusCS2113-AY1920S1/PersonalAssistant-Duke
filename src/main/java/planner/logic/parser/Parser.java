@@ -23,6 +23,7 @@ import planner.logic.command.ShowCommand;
 import planner.logic.command.SortCommand;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.parser.action.Join;
+import planner.util.logger.PlannerLogger;
 
 public class Parser {
 
@@ -239,6 +240,7 @@ public class Parser {
             return this.getParser().parseArgs(args);
         } catch (ArgumentParserException ex) {
             this.handleError(ex);
+            PlannerLogger.log(ex);
             return null;
         }
     }
@@ -257,6 +259,7 @@ public class Parser {
             return this.getSubParser(subParserName).parseArgs(args);
         } catch (ArgumentParserException ex) {
             this.handleError(subParserName, ex);
+            PlannerLogger.log(ex);
             return null;
         }
     }
@@ -290,9 +293,11 @@ public class Parser {
                 throw (ModException) ex.getCause();
             }
             ex.printStackTrace();
+            PlannerLogger.log(ex);
             return null;
         } catch (Throwable ex) {
             ex.printStackTrace();
+            PlannerLogger.log(ex);
             return null;
         }
     }
