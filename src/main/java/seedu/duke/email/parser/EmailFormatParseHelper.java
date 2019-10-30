@@ -3,6 +3,7 @@ package seedu.duke.email.parser;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import seedu.duke.common.storage.TimestampHelper;
 import seedu.duke.email.EmailList;
 import seedu.duke.email.entity.Email;
 
@@ -82,8 +83,9 @@ public class EmailFormatParseHelper {
             String subject = indexJson.getString("subject");
             Sender sender = new Sender(indexJson.getString("sender"));
             LocalDateTime receivedDateTime = parseEmailDateTime(indexJson.getString("receivedDateTime"));
+            LocalDateTime updatedOn = TimestampHelper.parseTimestamp(indexJson.getString("updatedOn"));
             ArrayList<Email.Tag> tags = extractTagsFromJson(indexJson);
-            return new Email(subject, sender, receivedDateTime, tags);
+            return new Email(subject, sender, receivedDateTime, updatedOn, tags);
         } catch (JSONException e) {
             throw new EmailParsingException("Email index json failed to parse");
         }

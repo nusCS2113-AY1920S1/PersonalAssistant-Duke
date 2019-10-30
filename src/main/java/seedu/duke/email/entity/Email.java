@@ -3,6 +3,7 @@ package seedu.duke.email.entity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import seedu.duke.common.storage.TimestampHelper;
 import seedu.duke.email.parser.EmailFormatParseHelper;
 import seedu.duke.ui.UI;
 
@@ -19,6 +20,7 @@ public class Email {
     private String subject;
     private EmailFormatParseHelper.Sender sender;
     private LocalDateTime receivedDateTime;
+    private LocalDateTime updatedOn;
     private String body;
     private String rawJson;
 
@@ -50,13 +52,15 @@ public class Email {
      * @param subject          subject of the
      * @param sender           the sender of the email
      * @param receivedDateTime the date and time when the email is received
+     * @param updatedOn        the time when the email keywords are last updated
      * @param tags             list of tags of the email
      */
     public Email(String subject, EmailFormatParseHelper.Sender sender, LocalDateTime receivedDateTime,
-                 ArrayList<Tag> tags) {
+                 LocalDateTime updatedOn, ArrayList<Tag> tags) {
         this.subject = subject;
         this.sender = sender;
         this.receivedDateTime = receivedDateTime;
+        this.updatedOn = updatedOn;
         this.tags = tags;
     }
 
@@ -75,6 +79,21 @@ public class Email {
 
     public ArrayList<Tag> getTags() {
         return this.tags;
+    }
+
+    /**
+     * Sets the updatedOn to current time.
+     */
+    public void updateTimestamp() {
+        updatedOn = TimestampHelper.getDateTime();
+    }
+
+    public LocalDateTime getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(LocalDateTime updatedOn) {
+        this.updatedOn = updatedOn;
     }
 
     /**
@@ -208,6 +227,7 @@ public class Email {
         indexJson.put("subject", this.subject);
         indexJson.put("sender", this.sender.toString());
         indexJson.put("receivedDateTime", this.getDateTimeString());
+        indexJson.put("updatedOn", TimestampHelper.formatDateTime(this.updatedOn));
         JSONArray tagArray = prepareTagJsonArray();
         indexJson.put("tags", tagArray);
         return indexJson;

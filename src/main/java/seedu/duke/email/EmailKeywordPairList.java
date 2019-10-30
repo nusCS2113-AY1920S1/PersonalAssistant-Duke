@@ -1,5 +1,6 @@
 package seedu.duke.email;
 
+import seedu.duke.common.storage.TimestampHelper;
 import seedu.duke.email.entity.KeywordPair;
 
 import java.time.LocalDateTime;
@@ -7,6 +8,11 @@ import java.util.ArrayList;
 
 public class EmailKeywordPairList extends ArrayList<KeywordPair> {
     private LocalDateTime updatedOn;
+
+    public EmailKeywordPairList() {
+        super();
+        updatedOn = TimestampHelper.getDateTime();
+    }
 
     public LocalDateTime getUpdatedOn() {
         return updatedOn;

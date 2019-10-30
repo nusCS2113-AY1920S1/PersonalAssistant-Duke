@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import seedu.duke.common.model.Model;
 import seedu.duke.common.network.Http;
 import seedu.duke.common.storage.Storage;
+import seedu.duke.common.storage.TimestampHelper;
 import seedu.duke.email.parser.EmailFormatParseHelper;
 import seedu.duke.email.EmailList;
 import seedu.duke.email.entity.Email;
@@ -25,7 +26,7 @@ import static seedu.duke.email.parser.EmailContentParseHelper.allKeywordInEmail;
 /**
  * Handles loading and saving of emails from local storage.
  */
-public class EmailStorage implements Storage {
+public class EmailStorage implements Storage, TimestampHelper {
     private static String indexFilename = "email.txt";
     private static String userFilename = "user.txt";
 
@@ -103,17 +104,10 @@ public class EmailStorage implements Storage {
 
     private static String prepareEmailListIndexString(EmailList emailList) throws JSONException {
         String content = "";
-        content += prepareTimestampJson().toString() + System.lineSeparator();
         for (Email email : emailList) {
             content += email.toIndexJson().toString() + System.lineSeparator();
         }
         return content;
-    }
-
-    private static JSONObject prepareTimestampJson() throws JSONException {
-        JSONObject timeJson = new JSONObject();
-        timeJson.put("timestamp", Storage.getTimestamp());
-        return timeJson;
     }
 
     /**
@@ -127,25 +121,16 @@ public class EmailStorage implements Storage {
         try {
             Path indexPath = Storage.prepareDataPath(assignIndexDirIfNotExist(indexDir));
             List<String> emailStringList = Storage.readLinesFromFile(indexPath);
-            LocalDateTime timestamp = getTimestamp(emailStringList);
             for (int i = 1; i < emailStringList.size(); i++) {
                 readAndAddEmailWithIndexString(emailList, emailStringList.get(i));
             }
             UI.getInstance().showMessage("Saved email file successfully loaded...");
         } catch (IOException e) {
             UI.getInstance().showError("Read save file IO exception");
-        } catch (EmailFormatParseHelper.EmailParsingException | JSONException e) {
+        } catch (EmailFormatParseHelper.EmailParsingException e) {
             UI.getInstance().showError("Email save file is in wrong format");
         }
         return emailList;
-    }
-
-    private static LocalDateTime getTimestamp(List<String> emailStringList) throws IOException, JSONException {
-        if (emailStringList.size() < 1) {
-            throw new IOException();
-        }
-        String timestamp = new JSONObject(emailStringList.get(0)).getString("timestamp");
-        return Storage.parseTimestamp(timestamp);
     }
 
     private static String assignIndexDirIfNotExist(String indexDir) {
@@ -181,6 +166,7 @@ public class EmailStorage implements Storage {
         for (Email.Tag tag : indexEmail.getTags()) {
             fileEmail.addTag(tag);
         }
+        fileEmail.setUpdatedOn(indexEmail.getUpdatedOn());
         return fileEmail;
     }
 

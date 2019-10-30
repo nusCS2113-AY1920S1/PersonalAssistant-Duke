@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import seedu.duke.common.storage.Storage;
+import seedu.duke.common.storage.TimestampHelper;
 import seedu.duke.email.EmailKeywordPairList;
 import seedu.duke.email.EmailList;
 import seedu.duke.email.entity.KeywordPair;
@@ -63,9 +64,9 @@ public class EmailKeywordPairStorage implements Storage {
 
     private static String getKeywordPairTimestamp(EmailKeywordPairList keywordPairList) {
         if (keywordPairList.getUpdatedOn() == null) {
-            return Storage.getTimestamp();
+            return TimestampHelper.getTimestamp();
         }
-        return Storage.formatDateTime(keywordPairList.getUpdatedOn());
+        return TimestampHelper.formatDateTime(keywordPairList.getUpdatedOn());
     }
 
     private static JSONArray constructKeywordPairJson(EmailKeywordPairList keywordPairList) throws JSONException {
@@ -77,7 +78,7 @@ public class EmailKeywordPairStorage implements Storage {
     }
 
     private static EmailKeywordPairList parseKeywordPairJson(JSONObject fileJson) throws JSONException {
-        LocalDateTime timestamp = Storage.parseTimestamp(fileJson.getString("timestamp"));
+        LocalDateTime timestamp = TimestampHelper.parseTimestamp(fileJson.getString("timestamp"));
         JSONArray array = fileJson.getJSONArray("keywordPairs");
         EmailKeywordPairList keywordPairList = new EmailKeywordPairList();
         for (int i = 0; i < array.length(); i++) {

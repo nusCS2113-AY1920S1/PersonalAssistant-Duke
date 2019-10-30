@@ -32,6 +32,10 @@ public class EmailContentParseHelper {
      */
     public static void allKeywordInEmail(Email email) {
         EmailKeywordPairList keywordList = Model.getInstance().getKeywordPairList();
+        //skip if the email update is more recent than the keyword update
+        if (email.getUpdatedOn() != null && email.getUpdatedOn().compareTo(keywordList.getUpdatedOn()) >= 0) {
+            return;
+        }
         for (KeywordPair keywordPair : keywordList) {
             int relevance = keywordInEmail(email, keywordPair);
             if (relevance > 0) {
@@ -40,6 +44,7 @@ public class EmailContentParseHelper {
                 email.addTag(keywordPair, relevance);
             }
         }
+        email.updateTimestamp();
     }
 
     /**

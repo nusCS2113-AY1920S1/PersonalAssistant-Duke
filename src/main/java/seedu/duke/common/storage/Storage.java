@@ -16,8 +16,6 @@ import java.util.stream.Collectors;
  * A helper class for all file io operations.
  */
 public interface Storage {
-    DateTimeFormatter timestampFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss'Z'")
-            .withResolverStyle(ResolverStyle.STRICT);
 
     /**
      * Saves content to a designated path.
@@ -92,26 +90,4 @@ public interface Storage {
         return Path.of(".", "data", "emails", filename);
     }
 
-    /**
-     * Gets a timestamp to be used in file.
-     *
-     * @return timestamp in string
-     */
-    static String getTimestamp() {
-        return LocalDateTime.now().format(timestampFormatter);
-    }
-
-    static String formatDateTime(LocalDateTime dateTime) {
-        return dateTime.format(timestampFormatter);
-    }
-
-    /**
-     * Parses a timestamp to LocalDateTime.
-     *
-     * @param timestamp timestamp stored in file in string
-     * @return LocalDateTime parsed from timestamp
-     */
-    static LocalDateTime parseTimestamp(String timestamp) {
-        return LocalDateTime.parse(timestamp, timestampFormatter);
-    }
 }
