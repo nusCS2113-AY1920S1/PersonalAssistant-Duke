@@ -320,5 +320,13 @@ public class UiEn extends Ui {
         else if(e instanceof WrongParameterException){
             System.out.println("\t WrongParameterException:\n\t\t ☹ OOPS!!! The parameters are wrong");
         }
+        else if(e instanceof EditFormatException){
+            System.out.println("\t EditFormatException:\n\t\t ☹ OOPS!!! Please respect the edit command format" +
+                     "\n\t\t For multi-step command : 'edit' and then follow the instructions" +
+                     "\n\t\t For one shot command:" +
+                    "\n\t\t\t edit the description: 'edit INDEX description DESCRIPTION'"+
+                    "\n\t\t\t edit the date of an homework task: 'edit INDEX /by DATE'"+
+                    "\n\t\t\t edit the period of an event task: 'edit INDEX /at DATE - DATE'");
+        }
     }
 }

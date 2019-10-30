@@ -22,7 +22,6 @@ public class EditFormatException extends DukeException {
                 "\n\t\t For one shot command: " +
                 "\n\t\t\t edit the description: 'edit INDEX description DESCRIPTION' " +
                 "\n\t\t\t edit the date of an homework task: 'edit INDEX /by DATE' " +
-                "\n\t\t\t edit the period of an event task: 'edit INDEX /at DATE - DATE' " +
-                "\n\t\t\t edit the priority: 'edit INDEX prio INDEX' ";
+                "\n\t\t\t edit the period of an event task: 'edit INDEX /at DATE - DATE'";
     }
 }
