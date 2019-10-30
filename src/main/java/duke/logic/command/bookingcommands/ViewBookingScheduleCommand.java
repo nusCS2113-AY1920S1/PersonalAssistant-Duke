@@ -13,6 +13,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import static duke.common.BookingMessages.*;
+
 public class ViewBookingScheduleCommand extends Command<BookingList, Ui, BookingStorage> {
 
     public ViewBookingScheduleCommand(String userInput) {
@@ -51,10 +53,8 @@ public class ViewBookingScheduleCommand extends Command<BookingList, Ui, Booking
     @Override
     public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
-        if (userInput.trim().equals("viewbookingschedule")) {
-            arrayList.add("Booking date cannot be empty!\n" +
-                    "       Please enter in the following format:\n" +
-                    "       viewbookingschedule <date: dd/MM/yyyy>");
+        if (userInput.trim().equals(COMMAND_VIEW_BOOKING_SCHEDULE)) {
+            arrayList.add(ERROR_MESSAGE_EMPTY_DATE);
         } else if (userInput.trim().charAt(19) == ' ') {
             String inputDate = userInput.substring(20).trim();
             if (isDateParsable(inputDate)) {
@@ -69,20 +69,18 @@ public class ViewBookingScheduleCommand extends Command<BookingList, Ui, Booking
                 }
                 String outputDate = new SimpleDateFormat("dd MMMM yyyy").format(currDate);
                 if (scheduleList.isEmpty()) {
-                    arrayList.add("      No booking on " + outputDate);
+                    arrayList.add(MESSAGE_NO_BOOKING + outputDate + MESSAGE_PROMPT_ADDBOOKING);
                 } else {
-                    arrayList.add("      Here are your bookings for " + outputDate);
+                    arrayList.add(MESSAGE_BOOKING_ON + outputDate);
                     for (int i = 0; i < scheduleList.size(); i++) {
                         arrayList.add("      " + (i + 1) + ". " + scheduleList.get(i));
                     }
                 }
             } else {
-                arrayList.add("Invalid booking date entered.\n Please enter again in the format: dd/MM/yyyy");
+                arrayList.add(ERROR_MESSAGE_INVALID_DATE);
             }
         } else {
-            arrayList.add("Incorrect view booking schedule command.\n " +
-                    "       Please enter in the following format:\n" +
-                    "       viewbookingschedule <date: dd/MM/yyyy>");
+            arrayList.add(ERROR_MESSAGE_INVALID_VIEWBOOKINGSCHEDULE_COMMAND);
         }
         return arrayList;
     }
