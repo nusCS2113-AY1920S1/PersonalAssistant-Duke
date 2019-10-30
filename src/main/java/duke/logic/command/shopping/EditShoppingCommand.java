@@ -4,6 +4,7 @@ import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.message.ShoppingMessageUtils;
 import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
@@ -27,8 +28,6 @@ public class EditShoppingCommand extends ShoppingCommand {
         CliSyntax.PREFIX_SHOPPING_REMARKS
     };
 
-    public static final String MESSAGE_SUCCESS = "Edited Ingredient %s in the shopping list";
-
     public final Index index;
     public final ShoppingDescriptor shoppingDescriptor;
 
@@ -42,6 +41,7 @@ public class EditShoppingCommand extends ShoppingCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         List<Item<Ingredient>> lastShownList = model.getFilteredShoppingList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -53,8 +53,10 @@ public class EditShoppingCommand extends ShoppingCommand {
         Item<Ingredient> edited = ShoppingCommandUtil.createNewIngredient(toEdit, shoppingDescriptor);
 
         model.setShoppingList(toEdit, edited);
+        model.commit(ShoppingMessageUtils.MESSAGE_COMMIT_EDIT_SHOPPING);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, edited.getItem().getName()),
+        return new CommandResult(String.format(ShoppingMessageUtils.MESSAGE_SUCCESS_EDIT_SHOPPING,
+                edited.getItem().getName()),
                 CommandResult.DisplayedPage.SHOPPING);
     }
 }
