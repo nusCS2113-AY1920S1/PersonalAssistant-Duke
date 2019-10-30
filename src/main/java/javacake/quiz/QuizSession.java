@@ -75,7 +75,9 @@ public class QuizSession implements QuizManager {
                 // TODO tie BackCommand identifier to MainWindow
                 return "!@#_BACK";
             default:
-                throw new DukeException("Invalid command at this point in the program. Try \"review\" or \"back\".");
+                throw new DukeException("[!] Invalid command at this point in the program [!]\n"
+                        + "    Try \"review\" or \"back\"."
+                        + "\n\n" + getQuizResult());
             }
         } else {
             checkAnswer(index, input);
@@ -225,7 +227,9 @@ public class QuizSession implements QuizManager {
      */
     private void checkAnswer(int index, String input) throws DukeException {
         if (!isNumeric(input)) {
-            throw new DukeException("Please input answers in the form of integer");
+            String userWarning = "[!] Please input answers in the form of integer [!]\n";
+            String qnAgain = getQuestion(index);
+            throw new DukeException(userWarning + qnAgain);
         }
         if (questionList.setAndCheckUserAnswer(index, input)) {
             currScore++;
