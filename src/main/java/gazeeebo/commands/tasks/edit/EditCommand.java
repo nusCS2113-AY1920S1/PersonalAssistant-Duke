@@ -14,8 +14,11 @@ import java.util.Stack;
 
 public class EditCommand extends Command {
     /**
-     * This method will receive the user's input on which list index to edit and then receive another user's input, checking he/she wants to edit the
-     * task's description or time or both and execute them in the following methods respectively.
+     * This method will receive the user's input on which
+     * list index to edit and then receive another
+     * user's input, checking he/she wants to edit the
+     * task's description or time or both and
+     * execute them in the following methods respectively.
      *
      * @param list         task lists
      * @param ui           the object that deals with printing things to the user.
@@ -27,7 +30,12 @@ public class EditCommand extends Command {
      */
 
     @Override
-    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<ArrayList<Task>> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(final ArrayList<Task> list,
+                        final Ui ui, final Storage storage,
+                        final Stack<ArrayList<Task>> commandStack,
+                        final ArrayList<Task> deletedTask,
+                        final TriviaManager triviaManager)
+            throws DukeException, ParseException, IOException, NullPointerException {
         String[] input = ui.fullCommand.split(" ");
         System.out.println("Edit description/time/both ?");
         int listnoIndex = Integer.parseInt(input[1]) - 1;
@@ -47,7 +55,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Tells the main Duke class that the system should not exit and continue running.
+     * Tells the main Duke class that the
+     * system should not exit and continue running.
      *
      * @return false
      */

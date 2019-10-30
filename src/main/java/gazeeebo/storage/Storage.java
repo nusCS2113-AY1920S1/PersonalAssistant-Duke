@@ -175,7 +175,6 @@ public class Storage {
                 realPassword.append(decryption[i]);
 //>>>>>>> da7261b2c2cf013f94ae0d85b8a1be3d8f7a9b20
             }
-            System.out.println(realPassword);
             passwordList.add(realPassword);
         }
         return passwordList;

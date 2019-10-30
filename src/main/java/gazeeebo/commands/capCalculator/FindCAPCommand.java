@@ -9,39 +9,45 @@ import java.util.Map;
  * Find a module by semNumber or moduleCode.
  */
 public class FindCAPCommand {
-    /*Printing blank spaces*/
+    /** Printing blank spaces. */
     private static final int BLANK_SPACING = 12;
 
     /**
      * Finds modules base on semNumber or moduleCode and list it out.
      *
      * @param ui        prints things to the user.
-     * @param CAPList   deals stores semNumber, moduleCode, moduleCredits and CAP score.
+     * @param caplist   deals stores
+     *                  semNumber, moduleCode, moduleCredits and CAP score.
      * @param lineBreak print out a separator to separate each line in the list.
      */
-    public FindCAPCommand(Ui ui, Map<String, ArrayList<CAPCommand>> CAPList, String lineBreak) {
+    public FindCAPCommand(final Ui ui,
+                          final Map<String, ArrayList<CAPCommand>> caplist,
+                          final String lineBreak) {
         String findInput = ui.fullCommand.split(" ")[1];
         String toPrint = "";
         boolean isExist = false;
-        for (String key : CAPList.keySet()) {
-            for (int i = 0; i < CAPList.get(key).size(); i++) {
+        for (String key : caplist.keySet()) {
+            for (int i = 0; i < caplist.get(key).size(); i++) {
                 if (key.equals(findInput)) {
-                    int noBlankSpacing = BLANK_SPACING - CAPList.get(key).get(i).moduleCode.length();
-                    toPrint += (key + "   | " + CAPList.get(key).get(i).moduleCode);
+                    int noBlankSpacing = BLANK_SPACING - caplist.get(key).get(i).moduleCode.length();
+                    toPrint += (key + "   | " + caplist.get(key).get(i).moduleCode);
                     for (int j = 0; j < noBlankSpacing; j++) {
                         toPrint += (" ");
                     }
-                    toPrint += ("| " + CAPList.get(key).get(i).moduleCredit + "  | " + CAPList.get(key).get(i).grade
+                    toPrint += ("| " + caplist.get(key).get(i).moduleCredit
+                            + "  | " + caplist.get(key).get(i).grade
                             + "\n" + lineBreak);
                     isExist = true;
-                } else if (CAPList.get(key).get(i).moduleCode.equals(findInput)) {
-                    int noBlankSpacing = BLANK_SPACING - CAPList.get(key).get(i).moduleCode.length();
-                    toPrint += key + "   | " + CAPList.get(key).get(i).moduleCode;
+                } else if (caplist.get(key).get(i).moduleCode.equals(findInput)) {
+                    int noBlankSpacing = BLANK_SPACING
+                            - caplist.get(key).get(i).moduleCode.length();
+                    toPrint += key + "   | "
+                            + caplist.get(key).get(i).moduleCode;
                     for (int j = 0; j < noBlankSpacing; j++) {
                         toPrint += " ";
                     }
-                    toPrint += "| " + CAPList.get(key).get(i).moduleCredit + "  | " + CAPList.get(key).get(i).grade
-                            + "\n" + lineBreak;
+                    toPrint += "| " + caplist.get(key).get(i).moduleCredit + "  | "
+                            + caplist.get(key).get(i).grade + "\n" + lineBreak;
                     isExist = true;
                 }
             }

@@ -1,15 +1,6 @@
 package gazeeebo.parsers;
 
-import gazeeebo.commands.tasks.edit.EditCommand;
-import gazeeebo.commands.note.AddNoteCommand;
-import gazeeebo.commands.note.DeleteNoteCommand;
-import gazeeebo.commands.note.EditNoteCommand;
-import gazeeebo.commands.note.ListNoteCommand;
-import gazeeebo.commands.schedule.ScheduleDailyCommand;
-import gazeeebo.commands.schedule.ScheduleMonthlyCommand;
-import gazeeebo.commands.schedule.ScheduleWeeklyCommand;
 import gazeeebo.commands.specialization.SpecializationCommand;
-import gazeeebo.commands.tasks.*;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.note.GeneralNoteCommand;
@@ -18,7 +9,7 @@ import gazeeebo.commands.tasks.ByeCommand;
 import gazeeebo.commands.expenses.ExpenseCommand;
 
 import gazeeebo.commands.capCalculator.CAPCommand;
-import gazeeebo.commands.tasks.taskCommand;
+import gazeeebo.commands.tasks.TaskCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.commands.*;
 import gazeeebo.commands.contact.ContactCommand;
@@ -42,7 +33,7 @@ public class Parser {
         } else if (command.equals("spec")) {
             return new SpecializationCommand();
         } else if(splitCommand[0].equals("tasks")) {
-            return new taskCommand();
+            return new TaskCommand();
         } else if (splitCommand[0].equals("moduleplanner")){
             return new studyassistCommand();
         } else if(splitCommand[0].equals("cap")) {
