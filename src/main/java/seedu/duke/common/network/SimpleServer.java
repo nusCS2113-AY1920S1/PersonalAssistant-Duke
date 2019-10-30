@@ -8,6 +8,9 @@ import seedu.duke.ui.UI;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * A simple local server designed to receive authorization code from Outlook through redirect.
@@ -15,16 +18,19 @@ import java.net.InetSocketAddress;
 //@@author BalusC
 //code adapted from https://stackoverflow.com/questions/3732109/simple-http-server-in-java-using-only-java-se-api
 public class SimpleServer {
+    private static final int PORT = 53231;
     private static HttpServer server;
+    private static ExecutorService httpThreadPool;
 
     /**
-     * Starts the server on port 3000.
+     * Starts the server on port defined.
      */
     public static void startServer() {
         try {
-            server = HttpServer.create(new InetSocketAddress(3000), 0);
+            server = HttpServer.create(new InetSocketAddress(PORT), 0);
             server.createContext("/", new MyHandler());
-            server.setExecutor(null); // creates a default executor
+            httpThreadPool = Executors.newFixedThreadPool(1);;
+            server.setExecutor(httpThreadPool); // creates a default executor
             server.start();
         } catch (IOException e) {
             UI.getInstance().showError("Server setup failed...");
@@ -42,6 +48,16 @@ public class SimpleServer {
         Http.setAuthCode(code);
     }
 
+    public static void stopServer() {
+        System.out.println("server stopping...");
+        server.stop(1);
+        httpThreadPool.shutdown();
+    }
+
+    public static int getPort() {
+        return PORT;
+    }
+
     /**
      * Handler used to handle the response of the http request from Outlook.
      */
@@ -57,12 +73,12 @@ public class SimpleServer {
         public void handle(HttpExchange exchange) throws IOException {
             String response = "Authorization/Authentication finished";
             exchange.sendResponseHeaders(200, response.length());
-            writeExchangeReponseBody(exchange, response);
+            writeExchangeResponseBody(exchange, response);
             parseAuthCode(exchange.getRequestURI().getQuery());
-            server.stop(200);
+            stopServer();
         }
 
-        private void writeExchangeReponseBody(HttpExchange exchange, String response) throws IOException {
+        private void writeExchangeResponseBody(HttpExchange exchange, String response) throws IOException {
             OutputStream os = exchange.getResponseBody();
             os.write(response.getBytes());
             os.close();
