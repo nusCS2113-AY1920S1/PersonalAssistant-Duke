@@ -324,4 +324,10 @@ public class PlannerUi {
             System.out.println(hold);
         }
     }
+
+    public void reminderMsg() {
+        showLine();
+        System.out.println("Please remember to update your module information!");
+        showLine();
+    }
 }
