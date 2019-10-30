@@ -17,5 +17,7 @@ public class PlanBotTest {
         planBot.processInput("yes");
         int newSize = planBot.getDialogObservableList().size();
         Assertions.assertTrue(newSize > currSize);
+        knownAttributes.put("NUS_STUDENT", "TRUE");
+        Assertions.assertEquals(planBot.getPlanAttributes(), knownAttributes);
     }
 }
