@@ -52,6 +52,8 @@ public class Parser {
 				return new SoldCommandParser().parse(inputs);
 			case "batch":
 				return new BatchCommandParser().parse(inputs);
+			case "config":
+				return new ConfigCommandParser().parse(inputs);
 			case "help":
 				return new HelpCommand();
 			case "bye":
