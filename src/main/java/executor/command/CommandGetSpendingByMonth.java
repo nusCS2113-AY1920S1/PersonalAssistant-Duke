@@ -14,10 +14,10 @@ public class CommandGetSpendingByMonth extends Command {
      * @param userInput is the input from the user
      */
     public CommandGetSpendingByMonth(String userInput) {
-        this.commandType = CommandType.EXPENDED;
+        this.commandType = CommandType.EXPENDEDMONTH;
         this.userInput = userInput;
         this.description = "Provides the user the total expenditure for the month stated. "
-                + "FORMAT: expended <month> /year<year>";
+                + "FORMAT: expendedmonth <month> /year<year>";
     }
     
     @Override
@@ -27,7 +27,7 @@ public class CommandGetSpendingByMonth extends Command {
     @Override
     public void execute(Wallet wallet) {
         ReceiptTracker receiptsInMonth = new ReceiptTracker();
-        String monthStr = Parser.parseForPrimaryInput(CommandType.EXPENDED, userInput);
+        String monthStr = Parser.parseForPrimaryInput(CommandType.EXPENDEDMONTH, userInput);
         int month = monthStrToInt(monthStr);
         if (month != 0) {
             int year = Integer.parseInt(Parser.parseForFlag("year", userInput));
@@ -35,7 +35,7 @@ public class CommandGetSpendingByMonth extends Command {
             Double totalMoney = receiptsInMonth.getTotalCashSpent();
             Ui.dukeSays("The total amount of money spent in " + monthStr + " " + year + " : " + totalMoney);
         } else {
-            Ui.dukeSays("Invalid input, CORRECT FORMAT : expended <month> <year> ");
+            Ui.dukeSays("Invalid input, CORRECT FORMAT : expendedmonth <month> <year> ");
         }
     }
 
