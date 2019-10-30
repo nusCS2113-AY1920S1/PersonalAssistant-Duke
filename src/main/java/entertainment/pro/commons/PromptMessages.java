@@ -41,4 +41,16 @@ public class PromptMessages {
     public static final String API_OFFLINE = "☹ I'sorry, no internet connection detected. "
             + "So, the app will operate in offline mode";
     public static final String API_INVALID_REQUEST = "☹ I'sorry, but your request is either unclear or invalid";
+
+    //PlaylistExceptions messages
+    public static final String PLAYLIST_EXISTS_START =  "☹ I'sorry, but there's already a playlist with called <";
+    public static final String PLAYLIST_EXISTS_END =  ">. Please try again with another name.";
+    public static final String CANNOT_ADD_TO_PLAYLIST_START = "☹ I'sorry, but <";
+    public static final String CANNOT_ADD_TO_PLAYLIST_END = ">. Please try again with another item";
+    public static final String CANNOT_REMOVE_FROM_PLAYLIST_START = "☹ I'sorry, but <";
+    public static final String CANNOT_REMOVE_FROM_PLAYLIST_END = "> is not a valid item in this playlist. Please try again with another item";
+    public static final String PLAYLIST_DOES_NOT_EXISTS_START = "☹ I'sorry, but <";
+    public static final String PLAYLIST_DOES_NOT_EXISTS_END = "> does not exists. Please try again with another playlist title.";
+
+
 }

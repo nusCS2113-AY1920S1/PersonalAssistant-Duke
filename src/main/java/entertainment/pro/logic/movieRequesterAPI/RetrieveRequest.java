@@ -372,11 +372,11 @@ public class RetrieveRequest implements InfoFetcher {
 
 
     /**
-     * to be done by marc
+     * api request to search movies to add to the watchlist
      *
-     * @param movieTitle
-     * @return
-     * @throws Exceptions
+     * @param movieTitle: movie name to be added to watchlist
+     * @return first movie title in the search result
+     * @throws Exceptions: API request errors such as bad encoding or incorrect URL
      */
     public String beginAddRequest(String movieTitle) throws Exceptions {
         try {
@@ -392,12 +392,12 @@ public class RetrieveRequest implements InfoFetcher {
     }
 
     /**
-     * to be done by marc
+     * api request to search movies by genre to add to the watchlist
      *
-     * @param genre
-     * @param adult
-     * @return
-     * @throws Exceptions
+     * @param genre: genreid of the api to search
+     * @param adult: parameter to determine if adult feature needs to be enabled
+     * @return Array_list of movies results based on the genre
+     * @throws Exceptions: API request errors such as bad encoding or incorrect URL
      */
     public ArrayList<MovieInfoObject> beginSearchGenre(String genre, boolean adult) throws Exceptions {
         try {

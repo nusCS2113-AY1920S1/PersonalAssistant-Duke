@@ -25,26 +25,27 @@ public class ViewCommand extends CommandSuper {
     @Override
     public void executeCommands() throws Exceptions {
         switch (this.getSubRootCommand()) {
-            case watchlist:
-                WatchlistHandler.print_list((MovieHandler) (this.getUiController()));
-                break;
-            case blacklist:
-                ((MovieHandler) this.getUiController()).setFeedbackText(Blacklist.printList());
-                break;
-            case back:
-                executeBackCommands();
-                break;
-            case entry:
-                executeEntryCommands(Integer.parseInt(getPayload()));
-                break;
-            default:
-                break;
+        case watchlist:
+            WatchlistHandler.print_list((MovieHandler) (this.getUiController()));
+            break;
+        case blacklist:
+            ((MovieHandler) this.getUiController()).setFeedbackText(Blacklist.printList());
+            break;
+        case back:
+            executeBackCommands();
+            break;
+        case entry:
+            executeEntryCommands(Integer.parseInt(getPayload()));
+            break;
+        default:
+            break;
         }
     }
 
     /**
      * Responisible for displaying more information about a movie/TV show.
      * Called when user is viewing list of movies/TV shows from a search request and want to know more information.
+     *
      * @param num The number of the movie or TV show in the list indicated below the title.
      * @throws Exceptions
      */
