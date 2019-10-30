@@ -306,7 +306,7 @@ ArchDuke allows users to manage each individual project in the `ProjectRepositor
 
 image::images/ManageProject_Sequence.png[]
 === 3.2 CRUD functionality for Members
-----Implementation
+==== Implementation
 
 CRUD Member functions are handled by Member, MemberList, MemberFactory, Project and ProjectInputController.
 It allows ArchDuke to perform simple CRUD function for Member in the Project, these simple functions include Create, Read,
@@ -314,14 +314,13 @@ Update and Delete. ProjectInputController will read the relevant command related
 
 It implements the following commands:
 
-* `add member -n MEMBER_NAME [-i MEMBER_PHONE_NUMBER] [-e MEMBER_EMAIL]` -- Creates a new Member with the member name
-and optional phone number and email attributes.
-
+* `add member -n MEMBER_NAME [-i MEMBER_PHONE_NUMBER] [-e MEMBER_EMAIL]` -- Creates a new Member with the member name, phone number (optional)
+ and email address (optional).
 * `edit member MEMBER_INDEX [-n MEMBER_NAME] [-i PHONE_NUMBER] [-e MEMBER_EMAIL]` -- Updates an existing member details
 based on the member index with the new attributes specified.
-
 * `view members`-- Displays all the members in the current project.
-
+* `view credits`-- Displays the compiled credits of all members from their individually assigned tasks.
+* `role INDEX -n MEMBER_NAME`-- Assigns roles to specific members using their names.
 * `delete member MEMBER_INDEX`--Deletes a member from the current project using the member index.
 
 The example usage scenario will explain in detail the data flow and how the program behaves at each step of CRUD
@@ -348,26 +347,28 @@ image::images/CreateMember_Sequence.png[]
 
 CRUD Task functions are handled by `Task`, `TaskList`, `TaskFactory`, `Project` and `ProjectInputController`.
 It allows ArchDuke to perform simple CRUD function for Task in the Project, these simple functions include Create, Read,
-Update and Delete. `TaskFactory` will create the relevant task with the apporatied input from the user which will then be
+Update and Delete. `TaskFactory` will create the relevant task with the appropriate input from the user which will then be
 added into the `TaskList` managed by the `Project`. `ProjectInputController` will read the relevant command related to task
 function and call the relevant methods in `TaskFactory` And `ParserHelper`.
 
 It implements the following commands:
 
-* `add task -t TASK_NAME  -p TASK_PRIORITY-c TASK_CREDIT -d TASK_DUEDATE -s TASK_STATE -r TASK_REQUIREMENT1` -- Creation of a
-new Task with the task name, priority, credit, due date (optional), state(optional) and additional requirements (if any)
+* `add task -t TASK_NAME  -p TASK_PRIORITY -c TASK_CREDIT [-d TASK_DUE_DATE] [-s TASK_STATE] [-r TASK_REQUIREMENTS]` -- Creates a
+new Task with the task name, priority, credit, due date (optional), state(optional) and additional requirements (if any).
 
-* `edit task TASK_INDEX -t TASK_NAME -p TASK_PRIORITY -c TASK_CREDIT -s TASK_STATE` -- Edits existing task with the new input
-values
+* `edit task TASK_INDEX -t TASK_NAME -p TASK_PRIORITY -c TASK_CREDIT [-d TASK_DUE_DATE] [-s TASK_STATE]` -- Updates existing task attributes with the new input
+values.
 
-* `view tasks` -- Viewing of all tasks in current project
+* `view tasks` -- Displays all tasks in current project.
 
-* `view task requirements TASK_INDEX` -- Viewing of all additional requirements of a specified task
+* `view tasks /MODIFIER` -- Displays tasks sorted based on the attribute specified by the user.
 
-* `edit task requirements TASK_INDEX rm/TASK_INDEXES r/TASK_REQUIREMENT1` -- Edits task requirements of specified task by
-removing unwanted requirements and adding new ones
+* `view task requirements TASK_INDEX` -- Displays all additional requirements of a specified task.
 
-* `delete task TASK_INDEX` -- Deletion of task with stated index
+* `edit task requirements TASK_INDEX rm/TASK_INDEXES r/TASK_REQUIREMENT1` -- Updates task requirements of specified task by
+removing unwanted requirements and adding new ones.
+
+* `delete task TASK_INDEX` -- Deletes task with stated index.
 
 The example usage scenario below will explain in detail the data flow and how the program behaves at each step of CRUD
 functions with regards to a `Task` object.
