@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static duke.common.BookingMessages.*;
 import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
 
 
@@ -32,7 +33,7 @@ public class BookingList {
             arrList.add("     " + displayIndex + ". " + bookingList.get(i));
         }
         if(arrList.isEmpty()) {
-            arrList.add("      Sorry, no existing booking.");
+            arrList.add(MESSAGE_NO_EXISTING_BOOKING);
         }
         return arrList;
     }
@@ -45,7 +46,7 @@ public class BookingList {
             }
         }
         if (arrFind.isEmpty()) {
-            arrFind.add("      Sorry, no booking for " + customerName + " is found.");
+            arrFind.add(MESSAGE_NO_BOOKING_FOR + customerName + MESSAGE_IS_FOUND);
         }
         return arrFind;
     }
@@ -59,7 +60,7 @@ public class BookingList {
             }
         }
         if (arrOrders.isEmpty()) {
-            arrOrders.add("      Sorry, no order for " + customerName + " is found.");
+            arrOrders.add(MESSAGE_NO_ORDER_FOR + customerName + MESSAGE_IS_FOUND);
         }
         return arrOrders;
     }

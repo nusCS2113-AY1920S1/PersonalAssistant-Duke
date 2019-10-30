@@ -7,6 +7,8 @@ import duke.ui.Ui;
 
 import java.util.ArrayList;
 
+import static duke.common.BookingMessages.*;
+
 public class FindBookingCommand extends Command<BookingList, Ui, BookingStorage> {
 
     public FindBookingCommand(String userInput) {
@@ -16,18 +18,14 @@ public class FindBookingCommand extends Command<BookingList, Ui, BookingStorage>
     @Override
     public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) {
         ArrayList<String> arrayList = new ArrayList<>();
-        if (userInput.trim().equals("findbooking")) {
-            arrayList.add("Customer name cannot be empty!\n" +
-                    "       Please enter in the following format:\n" +
-                    "       findbooking <customer_name>");
+        if (userInput.trim().equals(COMMAND_FIND_BOOKING)) {
+            arrayList.add(ERROR_MESSAGE_EMPTY_NAME_FIND);
         } else if (userInput.trim().charAt(11) == ' ') {
             String customerName = userInput.split("\\s", 2)[1].trim().toLowerCase();
-            arrayList.add("     Here are the matching bookings in your list:");
+            arrayList.add(MESSAGE_MATCHING_BOOKINGS);
             arrayList.addAll(bookingList.findBooking(customerName));
         } else {
-            arrayList.add("Incorrect find booking command.\n " +
-                    "       Please enter in the following format:\n" +
-                    "       findbooking <customer_name>");
+            arrayList.add(ERROR_MESSAGE_INVALID_FIND_COMMAND);
         }
         return arrayList;
     }

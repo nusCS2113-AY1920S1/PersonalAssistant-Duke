@@ -10,6 +10,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import static duke.common.BookingMessages.*;
+
 public class AddBookingCommand extends Command<BookingList, Ui, BookingStorage> {
 
     private static String msg = "";
@@ -25,7 +27,6 @@ public class AddBookingCommand extends Command<BookingList, Ui, BookingStorage> 
         } catch (ParseException e) {
             return false;
         }
-
     }
 
     private static boolean isAvailableDate(String bookingDate, BookingList bookingList) {
@@ -41,10 +42,8 @@ public class AddBookingCommand extends Command<BookingList, Ui, BookingStorage> 
     public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
         String[] temp = userInput.split("\\s", 6);
-        if (userInput.trim().equals("addbooking")) {
-            arrayList.add("Booking details cannot be empty!\n" +
-                    "       Please enter in the following format:\n" +
-                    "       addbooking <customer_name> <customer_contact> <number_of_pax> <booking_date_dd/MM/yyyy> orders/ <order_name_1>, <order_name_2>");
+        if (userInput.trim().equals(COMMAND_ADD_BOOKING)) {
+            arrayList.add(ERROR_MESSAGE_EMPTY_BOOKING_DETAILS);
         } else if (userInput.trim().charAt(10) == ' ' && temp.length == 6) {
             String customerName = temp[1].trim();
             String customerContact = temp[2].trim();
@@ -64,20 +63,18 @@ public class AddBookingCommand extends Command<BookingList, Ui, BookingStorage> 
                         } else {
                             msg = " bookings in the list.";
                         }
-                        arrayList.add("New booking added:\n" + "       " + bookingList.getBookingList().get(size - 1) + "\n" + "Now you have " + size + msg);
+                        arrayList.add(MESSAGE_BOOKING_ADDED + "       " + bookingList.getBookingList().get(size - 1) + "\n" + "Now you have " + size + msg);
                     } else {
-                        arrayList.add("Invalid orders entered.\n Please enter orders again in this format: \n orders/ <order_name_1>, <order_name_2>");
+                        arrayList.add(ERROR_MESSAGE_INVALID_ORDERS);
                     }
                 } else {
-                    arrayList.add("Date entered is unavailable due to existing booking:(\n Please enter another date.");
+                    arrayList.add(ERROR_MESSAGE_UNAVAILABLE_DATE);
                 }
             } else {
-                arrayList.add("Invalid booking date entered.\n Please enter date again in this format: dd/MM/yyyy");
+                arrayList.add(ERROR_MESSAGE_INVALID_DATE);
             }
         } else {
-            arrayList.add("Incorrect Booking details.\n" +
-                    "       Please enter in the following format:\n" +
-                    "       addbooking <customer_name> <customer_contact> <number_of_pax> <booking_date_dd/MM/yyyy> orders/ <order_name_1>, <order_name_2>");
+            arrayList.add(ERROR_MESSAGE_INVALID_BOOKING_DETAILS);
         }
         return arrayList;
     }
