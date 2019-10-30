@@ -1,6 +1,5 @@
 package seedu.duke.task.command;
 
-import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
 import seedu.duke.task.TaskList;
@@ -8,6 +7,7 @@ import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
 import seedu.duke.task.entity.ToDo;
+import seedu.duke.ui.UI;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,6 +22,7 @@ public class TaskAddCommand extends Command {
     private String doAfter;
     private ArrayList<String> tags;
     private String priority;
+    private boolean done;
 
     /**
      * Instantiation of add command with all the necessary variables. it needs to execute.
@@ -34,21 +35,25 @@ public class TaskAddCommand extends Command {
      * @param tags     tag associated with the task
      * @param priority priority level of the task
      */
-    TaskAddCommand(Task.TaskType taskType, String name, LocalDateTime time,
-                   String doAfter, ArrayList<String> tags, String priority) {
+    public TaskAddCommand(Task.TaskType taskType, String name, LocalDateTime time,
+                          String doAfter, ArrayList<String> tags, String priority) {
         this.taskType = taskType;
         this.name = name;
         this.time = time;
         this.doAfter = doAfter;
         this.tags = tags;
         this.priority = priority;
+        this.done = false;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
     }
 
     /**
      * Executes the add command by instantiating the task first and then add the task to task list.
      *
-     * @return a flag whether the task is successfully added. Returns false if the taskType is not
-     *         recognised.
+     * @return a flag whether the task is successfully added. Returns false if the taskType is not recognised.
      */
     @Override
     public boolean execute(Model model) {
@@ -59,6 +64,9 @@ public class TaskAddCommand extends Command {
         }
         String clashMsg = findClash(taskList, task);
         taskList.add(task);
+        if (done) {
+            task.markDone();
+        }
         if (!silent) {
             constructAddCommandMessage(taskList, task, clashMsg);
         }
@@ -88,18 +96,19 @@ public class TaskAddCommand extends Command {
         TaskList clashTasks = taskList.findClash(task);
         String clashMsg = "";
         if (clashTasks.size() > 0) {
-            clashMsg = "\n\nWarning: New task added clashes with other task(s) in the list.\n";
+            clashMsg = System.lineSeparator() + System.lineSeparator() + "Warning: New task added clashes "
+                    + "with other task(s) in the list." + System.lineSeparator();
             clashMsg += clashTasks.toString();
         }
         return clashMsg;
     }
 
     private void constructAddCommandMessage(TaskList taskList, Task task, String clashMsg) {
-        String msg = "Got it. I've added this task: \n";
-        msg += "  " + task.toString() + "\n";
+        String msg = "Got it. I've added this task: " + System.lineSeparator();
+        msg += "  " + task.toString() + System.lineSeparator();
         msg += "Now you have " + taskList.size() + " task(s) in the list. ";
         msg += clashMsg;
         responseMsg = msg;
-        Duke.getUI().showResponse(msg);
+        UI.getInstance().showResponse(msg);
     }
 }

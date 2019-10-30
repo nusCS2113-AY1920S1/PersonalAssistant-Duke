@@ -1,8 +1,14 @@
-package seedu.duke.email;
+package seedu.duke.email.parser;
 
-import seedu.duke.Duke;
+import org.json.JSONException;
+import seedu.duke.common.model.Model;
+import seedu.duke.email.EmailKeywordPairList;
 import seedu.duke.email.entity.Email;
+import seedu.duke.email.entity.KeywordPair;
+import seedu.duke.email.storage.EmailKeywordPairStorage;
+import seedu.duke.ui.UI;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +22,6 @@ public class EmailContentParseHelper {
     private static int KEYWORD_SUBJECT_WEIGHTAGE = 5;
     private static int KEYWORD_SENDER_WEIGHTAGE = 3;
     private static int KEYWORD_BODY_WEIGHTAGE = 1;
-    private static ArrayList<KeywordPair> keywordList;
     private static int INFINITY = 0x3f3f3f;
     private static int FUZZY_LIMIT = 3;
 
@@ -26,14 +31,20 @@ public class EmailContentParseHelper {
      * @param email Email to be scanned for keywords
      */
     public static void allKeywordInEmail(Email email) {
+        EmailKeywordPairList keywordList = Model.getInstance().getKeywordPairList();
+        //skip if the email update is more recent than the keyword update
+        if (email.getUpdatedOn() != null && email.getUpdatedOn().compareTo(keywordList.getUpdatedOn()) >= 0) {
+            return;
+        }
         for (KeywordPair keywordPair : keywordList) {
             int relevance = keywordInEmail(email, keywordPair);
             if (relevance > 0) {
-                Duke.getUI().showDebug(keywordPair.getKeyword() + ": " + keywordInEmail(email, keywordPair)
+                UI.getInstance().showDebug(keywordPair.getKeyword() + ": " + keywordInEmail(email, keywordPair)
                         + " => " + email.getSubject());
                 email.addTag(keywordPair, relevance);
             }
         }
+        email.updateTimestamp();
     }
 
     /**
@@ -70,11 +81,11 @@ public class EmailContentParseHelper {
      * @param keywordPair the target keyword looking for
      * @return whether the keyword pair is found in the string
      */
-    private static int keywordInString(String input, KeywordPair keywordPair) {
+    public static int keywordInString(String input, KeywordPair keywordPair) {
         int occurrence = 0;
         for (int i = 0; i < keywordPair.getExpressions().size(); i++) {
             String expression = keywordPair.getExpressions().get(i);
-            Pattern expressionPattern = Pattern.compile(".*" + expression + ".*",
+            Pattern expressionPattern = Pattern.compile("(^|.*\\W)" + expression + "(\\W.*|$)",
                     Pattern.CASE_INSENSITIVE);
             Matcher expressionMatcher = expressionPattern.matcher(input);
             while (expressionMatcher.find()) {
@@ -87,30 +98,60 @@ public class EmailContentParseHelper {
     /**
      * Keyword List for searching.
      */
-    public static void initKeywordList() {
-        ArrayList<KeywordPair> keywordList = new ArrayList<>();
-        keywordList.add(new KeywordPair("CS2113T", new ArrayList<String>(List.of(
+    public static EmailKeywordPairList initKeywordList() {
+        if (EmailKeywordPairStorage.keywordPairFileExists()) {
+            try {
+                return EmailKeywordPairStorage.readKeywordPairList();
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+                UI.getInstance().showDebug("Keyword list file reading with error. Default used...");
+            }
+        }
+        EmailKeywordPairList keywordList = getDefaultKeywordPairList();
+        try {
+            EmailKeywordPairStorage.saveKeywordPairList(keywordList);
+        } catch (JSONException | IOException e) {
+            UI.getInstance().showError("Keyword Pair List Save Failed...");
+        }
+        return keywordList;
+    }
+
+    private static EmailKeywordPairList getDefaultKeywordPairList() {
+        EmailKeywordPairList keywordList = new EmailKeywordPairList();
+        keywordList.add(new KeywordPair("CS2113T", new ArrayList<>(List.of(
                 "CS2113T", "CS2113", "TAN KIAN WEI, JASON", "Leow Wei Xiang", "Akshay Narayan", "Akshay"))));
-        keywordList.add(new KeywordPair("CS2101", new ArrayList<String>(List.of(
+        keywordList.add(new KeywordPair("CS2101", new ArrayList<>(List.of(
                 "CS2101", "Anita Toh Ann Lee"))));
-        keywordList.add(new KeywordPair("CG2271", new ArrayList<String>(List.of(
+        keywordList.add(new KeywordPair("CG2271", new ArrayList<>(List.of(
                 "CG2271", "Djordje Jevdjic"))));
-        keywordList.add(new KeywordPair("CS2102", new ArrayList<String>(List.of(
+        keywordList.add(new KeywordPair("CS2102", new ArrayList<>(List.of(
                 "CS2102", "Adi Yoga Sidi Prabawa"))));
-        keywordList.add(new KeywordPair("CS3230", new ArrayList<String>(List.of(
+        keywordList.add(new KeywordPair("CS3230", new ArrayList<>(List.of(
                 "CS3230", "Divesh Aggarwal"))));
-        keywordList.add(new KeywordPair("CEG Admin", new ArrayList<String>(List.of(
+        keywordList.add(new KeywordPair("CEG Admin", new ArrayList<>(List.of(
                 "Low Mun Bak"))));
-        keywordList.add(new KeywordPair("SEP", new ArrayList<String>(List.of(
+        keywordList.add(new KeywordPair("SEP", new ArrayList<>(List.of(
                 "SEP", "Student Exchange Programme"))));
-        keywordList.add(new KeywordPair("Tutorial", new ArrayList<String>(List.of(
+        keywordList.add(new KeywordPair("Tutorial", new ArrayList<>(List.of(
                 "Tutorial"))));
-        keywordList.add(new KeywordPair("Assignment", new ArrayList<String>(List.of(
+        keywordList.add(new KeywordPair("Assignment", new ArrayList<>(List.of(
                 "Assignment"))));
-        keywordList.add(new KeywordPair("Spam", new ArrayList<String>(List.of(
+        keywordList.add(new KeywordPair("Spam", new ArrayList<>(List.of(
                 "UHC Wellness", "luminus-do-not-reply", "NUS Libraries"))));
 
-        EmailContentParseHelper.keywordList = keywordList;
+        return keywordList;
+    }
+
+    /**
+     * Removes all the old keywords in an email.
+     *
+     * @param email the email where the keywords are removed
+     * @param keywordPairList the list of old keyword pairs to be removed
+     */
+    public static void clearOldKeywordPairs(Email email, EmailKeywordPairList keywordPairList) {
+        for (KeywordPair keywordPair : keywordPairList) {
+            email.removeTag(keywordPair.getKeyword());
+        }
     }
 
     /**
@@ -175,45 +216,8 @@ public class EmailContentParseHelper {
                 }
             }
         }
-        Duke.getUI().showError(score + " : " + input + " <> " + target);
+        UI.getInstance().showError(score + " : " + input + " <> " + target);
         return score;
     }
 
-    /**
-     * A pair of keyword with its possible expressions.
-     */
-    public static class KeywordPair {
-        private String keyword;
-        private ArrayList<String> expressions;
-
-        /**
-         * Constructs a keyword pair.
-         *
-         * @param keyword     the value of keyword looked for
-         * @param expressions the possible expressions of that keyword
-         */
-        public KeywordPair(String keyword, ArrayList<String> expressions) {
-            this.keyword = keyword;
-            this.expressions = expressions;
-        }
-
-        /**
-         * Constructs a keyword pair with only keyword. Expression will be the same as the keyword by
-         * default.
-         *
-         * @param keyword the value of keyword looked for
-         */
-        public KeywordPair(String keyword) {
-            this.keyword = keyword;
-            this.expressions = new ArrayList<>(List.of(keyword));
-        }
-
-        public String getKeyword() {
-            return this.keyword;
-        }
-
-        public ArrayList<String> getExpressions() {
-            return this.expressions;
-        }
-    }
 }

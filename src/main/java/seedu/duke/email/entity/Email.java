@@ -3,12 +3,10 @@ package seedu.duke.email.entity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import seedu.duke.Duke;
-import seedu.duke.email.EmailContentParseHelper;
-import seedu.duke.email.EmailFormatParseHelper;
-import seedu.duke.email.EmailStorage;
+import seedu.duke.common.storage.TimestampHelper;
+import seedu.duke.email.parser.EmailFormatParseHelper;
+import seedu.duke.ui.UI;
 
-import java.io.File;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -22,6 +20,7 @@ public class Email {
     private String subject;
     private EmailFormatParseHelper.Sender sender;
     private LocalDateTime receivedDateTime;
+    private LocalDateTime updatedOn;
     private String body;
     private String rawJson;
 
@@ -53,13 +52,15 @@ public class Email {
      * @param subject          subject of the
      * @param sender           the sender of the email
      * @param receivedDateTime the date and time when the email is received
+     * @param updatedOn        the time when the email keywords are last updated
      * @param tags             list of tags of the email
      */
     public Email(String subject, EmailFormatParseHelper.Sender sender, LocalDateTime receivedDateTime,
-                 ArrayList<Tag> tags) {
+                 LocalDateTime updatedOn, ArrayList<Tag> tags) {
         this.subject = subject;
         this.sender = sender;
         this.receivedDateTime = receivedDateTime;
+        this.updatedOn = updatedOn;
         this.tags = tags;
     }
 
@@ -81,6 +82,21 @@ public class Email {
     }
 
     /**
+     * Sets the updatedOn to current time.
+     */
+    public void updateTimestamp() {
+        updatedOn = TimestampHelper.getDateTime();
+    }
+
+    public LocalDateTime getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(LocalDateTime updatedOn) {
+        this.updatedOn = updatedOn;
+    }
+
+    /**
      * Add tag from string if not exist.
      *
      * @param keyword keyword of the tag
@@ -88,6 +104,7 @@ public class Email {
     public void addTag(String keyword) {
         for (Tag tag : tags) {
             if (tag.getKeywordPair().getKeyword().equals(keyword)) {
+                UI.getInstance().showError("Tag already exists.");
                 return;
             }
         }
@@ -100,9 +117,10 @@ public class Email {
      * @param keywordPair keywordPair of the tag
      * @param relevance   relevance of the tag
      */
-    public void addTag(EmailContentParseHelper.KeywordPair keywordPair, int relevance) {
+    public void addTag(KeywordPair keywordPair, int relevance) {
         for (Tag tag : tags) {
             if (tag.getKeywordPair().getKeyword().equals(keywordPair.getKeyword())) {
+                UI.getInstance().showError("Tag already exists.");
                 return;
             }
         }
@@ -117,10 +135,25 @@ public class Email {
     public void addTag(Tag newTag) {
         for (Tag tag : tags) {
             if (tag.getKeywordPair().getKeyword().equals(newTag.getKeywordPair().getKeyword())) {
+                UI.getInstance().showError("Tag already exists.");
                 return;
             }
         }
         this.tags.add(newTag);
+    }
+
+    /**
+     * Removes the tag with the given keyword in the keyword pair.
+     *
+     * @param keyword contained by the deleted tag
+     */
+    public void removeTag(String keyword) {
+        for (Tag tag : tags) {
+            if (tag.getKeywordPair().getKeyword().equals(keyword)) {
+                this.tags.remove(tag);
+                return;
+            }
+        }
     }
 
     /**
@@ -162,7 +195,7 @@ public class Email {
     private String addHighlightToExpressions(String emailContent, ArrayList<String> expressions) {
         String content = emailContent;
         for (String expression : expressions) {
-            //Duke.getUI().showDebug(expression);
+            //UI.getInstance().showDebug(expression);
             Pattern colorPattern = Pattern.compile("(" + expression + ")", Pattern.CASE_INSENSITIVE);
             Matcher colorMatcher = colorPattern.matcher(content);
             content = colorMatcher.replaceAll("<mark style=\"color:black;background-color:yellow\">"
@@ -177,15 +210,6 @@ public class Email {
 
     public String getSenderString() {
         return this.sender.toString();
-    }
-
-    /**
-     * Get the pathname for this email.
-     *
-     * @return pathname for this email.
-     */
-    public String getEmailFilePath() {
-        return EmailStorage.getFolderDir() + File.separator + this.subject;
     }
 
     public String toFilename() {
@@ -203,6 +227,7 @@ public class Email {
         indexJson.put("subject", this.subject);
         indexJson.put("sender", this.sender.toString());
         indexJson.put("receivedDateTime", this.getDateTimeString());
+        indexJson.put("updatedOn", TimestampHelper.formatDateTime(this.updatedOn));
         JSONArray tagArray = prepareTagJsonArray();
         indexJson.put("tags", tagArray);
         return indexJson;
@@ -230,9 +255,9 @@ public class Email {
      * @return a string capturing the email info
      */
     public String toCliString() {
-        String output = this.subject + "\n\t" + "From: " + this.sender.toString() + "\n\t"
-                + "ReceivedDateTime: " + getDateTimeString() + "\n\t" + "Body: " + body.substring(0, 30)
-                + "...\n";
+        String output = this.subject + System.lineSeparator() + "\t" + "From: " + this.sender.toString() +
+                System.lineSeparator() + "\tReceivedDateTime: " + getDateTimeString() + System.lineSeparator()
+                + "\t" + "Body: " + body.substring(0, 30) + "..." + System.lineSeparator();
         return output;
     }
 
@@ -252,7 +277,7 @@ public class Email {
             String hex = String.format("%064x", new BigInteger(1, digest));
             return hex;
         } catch (NoSuchAlgorithmException e) {
-            Duke.getUI().showError("Hashing email name error");
+            UI.getInstance().showError("Hashing email name error");
         }
         return input;
     }
@@ -265,7 +290,7 @@ public class Email {
     public String toGuiString() {
         String guiStr = this.subject;
         if (tags.size() > 0) {
-            guiStr += "\n";
+            guiStr += System.lineSeparator();
             for (Tag tag : tags) {
                 guiStr += " #" + tag.getKeywordPair().getKeyword();
             }
@@ -278,16 +303,16 @@ public class Email {
      */
     public static class Tag {
         private static final int INFINITY = 0x3f3f3f;
-        private EmailContentParseHelper.KeywordPair keywordPair;
+        private KeywordPair keywordPair;
         private int relevance = INFINITY;
 
-        public Tag(EmailContentParseHelper.KeywordPair keywordPair, int relevance) {
+        public Tag(KeywordPair keywordPair, int relevance) {
             this.keywordPair = keywordPair;
             this.relevance = relevance;
         }
 
         public Tag(String keyword) {
-            this.keywordPair = new EmailContentParseHelper.KeywordPair(keyword);
+            this.keywordPair = new KeywordPair(keyword);
         }
 
         /**
@@ -306,11 +331,11 @@ public class Email {
             int relevance = json.getInt("relevance");
 
 
-            this.keywordPair = new EmailContentParseHelper.KeywordPair(keyword, expressionList);
+            this.keywordPair = new KeywordPair(keyword, expressionList);
             this.relevance = relevance;
         }
 
-        public EmailContentParseHelper.KeywordPair getKeywordPair() {
+        public KeywordPair getKeywordPair() {
             return this.keywordPair;
         }
 

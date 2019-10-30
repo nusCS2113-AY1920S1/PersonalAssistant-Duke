@@ -3,7 +3,6 @@ package seedu.duke.ui;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import seedu.duke.Duke;
 
 import java.util.function.UnaryOperator;
 
@@ -26,8 +25,8 @@ class UserInputHandler {
         applyFilter();
 
         int pos = userInput.getText().length();
-        if (pos < Duke.getUI().getPrefix().length()) {
-            userInput.positionCaret(Duke.getUI().getPrefix().length());
+        if (pos < UI.getInstance().getPrefix().length()) {
+            userInput.positionCaret(UI.getInstance().getPrefix().length());
         } else {
             userInput.positionCaret(pos);
         }
@@ -47,7 +46,7 @@ class UserInputHandler {
     private void applyFilter() {
         // To apply a filter to any changes in userInput text field so that the prefix is non-deletable text.
         UnaryOperator<TextFormatter.Change> filter = c -> {
-            if (c.getCaretPosition() < Duke.getUI().getPrefix().length()) {
+            if (c.getCaretPosition() < UI.getInstance().getPrefix().length()) {
                 return null;
             } else {
                 return c;
@@ -76,7 +75,7 @@ class UserInputHandler {
      */
     public void setTextBackSpace() {
         int pos = userInput.getCaretPosition();
-        if (pos <= Duke.getUI().getPrefix().length()) {
+        if (pos <= UI.getInstance().getPrefix().length()) {
             return;
         }
         String text = userInput.getText();
