@@ -1,7 +1,6 @@
 package javacake.storage;
 
 import javacake.Duke;
-import javacake.commands.QuizCommand;
 import javacake.exceptions.DukeException;
 
 import java.io.BufferedReader;

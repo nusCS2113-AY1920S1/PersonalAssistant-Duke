@@ -3,8 +3,11 @@ package javacake.ui;
 import javacake.Duke;
 import javacake.commands.EditNoteCommand;
 import javacake.exceptions.DukeException;
-import javacake.commands.QuizCommand;
-import javacake.quiz.Question;
+import javacake.quiz.QuestionDifficulty;
+import javacake.quiz.QuestionList;
+import javacake.quiz.QuestionType;
+import javacake.quiz.QuizSession;
+import javacake.quiz.ReviewSession;
 import javacake.storage.Profile;
 import javacake.storage.Storage;
 import javafx.animation.Animation;
@@ -32,6 +35,8 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
+
+import static javacake.quiz.QuestionList.MAX_QUESTIONS;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -72,8 +77,13 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/padoru.png"));
 
-    private QuizCommand quizCommand;
+    private QuizSession quizSession;
+    private ReviewSession reviewSession;
+    private QuestionList tempQuestionList;
     private boolean isQuiz = false;
+    private int index = 0;
+    private boolean isResult = false;
+    private boolean isReview = false;
     private boolean isStarting = true;
     private boolean isTryingReset = false;
     private boolean isWritingNote = false;
@@ -85,7 +95,7 @@ public class MainWindow extends AnchorPane {
      * Initialise the Main Window launched.
      */
     @FXML
-    public void initialize()  throws DukeException {
+    public void initialize() throws DukeException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         taskScreen.vvalueProperty().bind(taskContainer.heightProperty());
         noteScreen.vvalueProperty().bind(noteContainer.heightProperty());
@@ -114,7 +124,6 @@ public class MainWindow extends AnchorPane {
     public void setStage(Stage stage) {
         primaryStage = stage;
     }
-
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
@@ -145,6 +154,20 @@ public class MainWindow extends AnchorPane {
                 handleResetConfirmation();
             } else if (isWritingNote) {
                 handleWriteNote();
+            } else if (isResult) { // On results screen
+                response = quizSession.parseInput(0, input);
+                if (response.equals("!@#_REVIEW")) {
+                    handleResultsScreenInput();
+                } else if (response.equals("!@#_BACK")) {
+                    handleBackCommand();
+                }
+            } else if (isReview) {
+                response = reviewSession.parseInput(0, input);
+                if (isNumeric(response)) {
+                    handleGetReviewQuestion();
+                } else if (response.equals("!@#_BACK")) {
+                    handleBackCommand();
+                }
             } else {
                 Duke.logger.log(Level.INFO, "executing normal(else) mode!");
                 response = duke.getResponse(input);
@@ -209,30 +232,30 @@ public class MainWindow extends AnchorPane {
     }
 
 
-    private String getFirstQn(String cmdMode) throws DukeException {
-        Question.QuestionType qnType;
-        Question.QuestionDifficulty qnDifficulity;
+    private String initQuizSession(String cmdMode) throws DukeException {
+        QuestionType qnType;
+        QuestionDifficulty qnDifficulty;
 
         if (cmdMode.contains("!@#_QUIZ_1")) {
-            qnType = Question.QuestionType.BASIC;
+            qnType = QuestionType.BASIC;
         } else if (cmdMode.contains("!@#_QUIZ_2")) {
-            qnType = Question.QuestionType.OOP;
+            qnType = QuestionType.OOP;
         } else if (cmdMode.contains("!@#_QUIZ_3")) {
-            qnType = Question.QuestionType.EXTENSIONS;
+            qnType = QuestionType.EXTENSIONS;
         } else {
-            qnType = Question.QuestionType.ALL;
+            qnType = QuestionType.ALL;
         }
 
         if (cmdMode.contains("EZ")) {
-            qnDifficulity = Question.QuestionDifficulty.EASY;
+            qnDifficulty = QuestionDifficulty.EASY;
         } else if (cmdMode.contains("MED")) {
-            qnDifficulity = Question.QuestionDifficulty.MEDIUM;
+            qnDifficulty = QuestionDifficulty.MEDIUM;
         } else {
-            qnDifficulity = Question.QuestionDifficulty.HARD;
+            qnDifficulty = QuestionDifficulty.HARD;
         }
-        quizCommand = new QuizCommand(qnType, qnDifficulity, false);
+        quizSession = new QuizSession(qnType, qnDifficulty, false);
 
-        return quizCommand.getNextQuestion();
+        return quizSession.getQuestion(0);
     }
 
     private void handleDeleteNote() throws DukeException {
@@ -315,7 +338,6 @@ public class MainWindow extends AnchorPane {
         System.out.println("EXIT");
         Duke.logger.log(Level.INFO, "EXITING PROGRAM!");
         // find out if exit condition
-        AvatarScreen.avatarMode = AvatarScreen.AvatarMode.SAD;
         isExit = true;
         response = duke.getResponse(input);
         showContentContainer();
@@ -347,7 +369,6 @@ public class MainWindow extends AnchorPane {
             Duke.userName = Duke.storageManager.profile.getUsername();
             Duke.isFirstTimeUser = true;
             showRemindersBox();
-            showListNotesBox();
             response = "Reset confirmed!\nPlease type in new username:\n";
             TopBar.resetProgress();
             isStarting = true;
@@ -360,23 +381,47 @@ public class MainWindow extends AnchorPane {
         isTryingReset = false;
     }
 
-
-
     private void handleGuiQuiz() throws DukeException {
-        quizCommand.checkAnswer(input);
-        if (quizCommand.questionCounter >= 0) {
-            response = quizCommand.getNextQuestion();
+        quizSession.parseInput(index++, input);
+        if (index < MAX_QUESTIONS) {
+            response = quizSession.getQuestion(index);
         } else {
+            tempQuestionList = quizSession.getQuestionList();
             isQuiz = false;
+            isResult = true;
             DialogBox.isScrollingText = true;
-            response = quizCommand.getQuizScore();
+            response = quizSession.getQuizResult();
             doneDialog = true;
-            if (quizCommand.scoreGrade == QuizCommand.ScoreGrade.BAD) {
+            if (quizSession.scoreGrade == QuizSession.ScoreGrade.BAD) {
                 AvatarScreen.avatarMode = AvatarScreen.AvatarMode.POUT;
-            } else if (quizCommand.scoreGrade == QuizCommand.ScoreGrade.OKAY) {
+            } else if (quizSession.scoreGrade == QuizSession.ScoreGrade.OKAY) {
                 AvatarScreen.avatarMode = AvatarScreen.AvatarMode.SAD;
             }
         }
+    }
+
+    private void handleResultsScreenInput() {
+        isResult = false;
+        isReview = true;
+        reviewSession = new ReviewSession(tempQuestionList);
+        response = reviewSession.getQuestion(0);
+        Duke.logger.log(Level.INFO, "Response: review session initialized");
+        DialogBox.isScrollingText = false;
+        showContentContainer();
+    }
+
+    private void handleBackCommand() {
+        isResult = false;
+        isReview = false;
+        index = 0;
+        response = duke.getResponse("back");
+        showContentContainer();
+    }
+
+    private void handleGetReviewQuestion() {
+        DialogBox.isScrollingText = false;
+        response = reviewSession.getQuestion(Integer.parseInt(response));
+        showContentContainer();
     }
 
     private void showContentContainer() {
@@ -446,7 +491,7 @@ public class MainWindow extends AnchorPane {
             //checks for first execution of quizCommand
             isQuiz = true;
             Duke.logger.log(Level.INFO, "isFirstQuiz(): " + response);
-            response = getFirstQn(response);
+            response = initQuizSession(response);
             DialogBox.isScrollingText = false;
             showContentContainer();
             return true;
@@ -520,5 +565,14 @@ public class MainWindow extends AnchorPane {
         list.add("Your momma so fat...\nshe segfaulted on JavaCake");
         list.add("CAAAAAAAAAaaaaakkkke!");
         list.add("Want to know a secret?\nYour waifu does not love you!");
+    }
+
+    private static boolean isNumeric(String input) {
+        try {
+            Integer.parseInt(input);
+        } catch (NumberFormatException | NullPointerException e) {
+            return false;
+        }
+        return true;
     }
 }

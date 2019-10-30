@@ -2,14 +2,13 @@ package javacake.commands;
 
 import javacake.Duke;
 import javacake.exceptions.DukeException;
-import javacake.storage.Profile;
+import javacake.quiz.QuestionDifficulty;
+import javacake.quiz.QuestionType;
+import javacake.quiz.QuizSession;
 import javacake.Logic;
-import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
-import javacake.quiz.Question;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -34,9 +33,9 @@ public class GoToCommand extends Command {
 
     /**
      * Execute jumping to given index.
-     * @param logic TaskList containing current tasks
+     * @param logic tracks current location in program
      * @param ui the Ui responsible for outputting messages
-     * @param storageManager storage container
+     * @param storageManager storage container.
      * @throws DukeException Error thrown when unable to close reader or error in quiz format
      */
     public String execute(Logic logic, Ui ui, StorageManager storageManager)
@@ -45,6 +44,7 @@ public class GoToCommand extends Command {
         logic.updateFilePath(logic.gotoFilePath(intIndex));
         String filePath = logic.getFullFilePath();
         if (filePath.contains("Quiz")) {
+            QuizSession.setProfile(storageManager.profile);
             if (!filePath.substring(filePath.length() - 4).equals("Quiz")) {
                 throw new DukeException("Sorry, please type 'back' or 'list' instead.");
             }
@@ -67,36 +67,34 @@ public class GoToCommand extends Command {
 
     private String handleQuiz(Logic logic, Ui ui, StorageManager storageManager) throws DukeException {
         String filePath = logic.getFullFilePath();
-        Question.QuestionType qnType;
-        Question.QuestionDifficulty qnDifficulity;
+        QuestionType qnType;
+        QuestionDifficulty qnDifficulty;
 
         if (filePath.contains("1. Java Basics")) {
-            qnType = Question.QuestionType.BASIC;
+            qnType = QuestionType.BASIC;
         } else if (filePath.contains("2. Object-Oriented Programming")) {
-            qnType = Question.QuestionType.OOP;
+            qnType = QuestionType.OOP;
         } else if (filePath.contains("3. Extensions")) {
-            qnType = Question.QuestionType.EXTENSIONS;
+            qnType = QuestionType.EXTENSIONS;
         } else {
-            qnType = Question.QuestionType.ALL;
+            qnType = QuestionType.ALL;
         }
 
-
         if (filePath.contains("1. Easy Quiz")) {
-            qnDifficulity = Question.QuestionDifficulty.EASY;
+            qnDifficulty = QuestionDifficulty.EASY;
         } else if (filePath.contains("2. Medium Quiz")) {
-            qnDifficulity = Question.QuestionDifficulty.MEDIUM;
+            qnDifficulty = QuestionDifficulty.MEDIUM;
         } else {
-            qnDifficulity = Question.QuestionDifficulty.HARD;
+            qnDifficulty = QuestionDifficulty.HARD;
         }
 
         if (Duke.isCliMode()) {
-            return new QuizCommand(qnType, qnDifficulity, Duke.isCliMode())
+            return new QuizSession(qnType, qnDifficulty, Duke.isCliMode())
                     .execute(logic, ui, storageManager);
         } else {
             String response = null;
-            QuizCommand.setProfile(storageManager.profile);
             logic.insertQueries();
-            QuizCommand.logic = logic;
+            QuizSession.logic = logic;
 
             switch (qnType) {
             case BASIC:
@@ -113,7 +111,7 @@ public class GoToCommand extends Command {
                 break;
             }
 
-            switch (qnDifficulity) {
+            switch (qnDifficulty) {
             case EASY:
                 response += "EZ";
                 break;

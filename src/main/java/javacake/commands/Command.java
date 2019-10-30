@@ -2,12 +2,8 @@ package javacake.commands;
 
 import javacake.Logic;
 import javacake.exceptions.DukeException;
-import javacake.storage.Profile;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
-import javacake.storage.Storage;
-
-import java.io.IOException;
 
 public abstract class Command {
     protected CmdType type;
@@ -18,8 +14,7 @@ public abstract class Command {
      */
     public enum CmdType {
         EXIT, LIST, FIND, DONE, DELETE, TODO, DEADLINE, REMIND, VIEWSCH,
-        EDIT, BACK, GOTO, QUIZ, HELP, TREE, CREATENOTE, EDITNOTE, LISTNOTE,
-        DELETENOTE
+        EDIT, BACK, GOTO, HELP, TREE, CREATENOTE, EDITNOTE, DELETENOTE
     }
 
     public abstract String execute(Logic logic, Ui ui, StorageManager storageManager)

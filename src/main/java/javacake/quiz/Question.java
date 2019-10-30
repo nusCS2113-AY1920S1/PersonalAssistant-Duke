@@ -5,14 +5,6 @@ public class Question {
     private String answer;
     private String userAnswer;
 
-    public enum QuestionType {
-        BASIC, OOP, EXTENSIONS, ALL
-    }
-
-    public enum QuestionDifficulty {
-        EASY, MEDIUM, HARD
-    }
-
     public Question(String question, String answer) {
         this.question = question;
         this.answer = answer;
