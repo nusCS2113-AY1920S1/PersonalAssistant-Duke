@@ -252,6 +252,18 @@ public class ModelManager implements Model {
         filteredProducts.setPredicate(predicate);
     }
 
+    /**
+     * Returns a predicate that filters product containing the given keyword.
+     *
+     * @param keyword
+     */
+    @Override
+    public void getProductWithKeyword(String keyword) {
+        Predicate<Product> containsKeyword =
+                product -> product.getProductName().toLowerCase().contains(keyword);
+        updateFilteredProductList(containsKeyword);
+    }
+
     //========Inventory operations==========
 
     @Override

@@ -24,8 +24,9 @@ public class ProductCommandUtil {
     public static Product getEditedProductFromDescriptor(Product toEdit, ProductDescriptor productDescriptor) {
         assert toEdit != null;
 
-        String s = productDescriptor.getProductName().orElse(toEdit.getProductName());
-        String newProductName = StringUtils.capitalize(s.toLowerCase());
+        String newProductName =
+        StringUtils.capitalize(productDescriptor.getProductName().orElse(toEdit.getProductName()));
+
         Double newRetailPrice = productDescriptor.getRetailPrice().orElse(toEdit.getRetailPrice());
         Double newIngredientCost =
                 productDescriptor.getIngredientCost().orElse(toEdit.getIngredientCost());
@@ -69,7 +70,7 @@ public class ProductCommandUtil {
      */
     public static void verifyNewIngredients(Model model, Product product) {
         IngredientItemList ingredients = product.getIngredients();
-        for(Item<Ingredient> ingredient : ingredients) {
+        for (Item<Ingredient> ingredient : ingredients) {
             if (!model.hasShoppingList(ingredient)) {
                 Item<Ingredient> newIngredient =  new Item<Ingredient>(ingredient.getItem(),
                         Quantity.getDefaultQuantity());

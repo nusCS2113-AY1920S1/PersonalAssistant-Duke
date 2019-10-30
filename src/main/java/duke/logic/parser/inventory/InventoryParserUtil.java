@@ -2,12 +2,16 @@ package duke.logic.parser.inventory;
 
 import duke.logic.command.inventory.InventoryDescriptor;
 import duke.logic.parser.commons.ArgumentMultimap;
+import duke.logic.parser.exceptions.ParseException;
 
 import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_QUANTITY;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_REMARKS;
 
 public class InventoryParserUtil {
+
+    private static final String MESSAGE_VALID_QUANTITY = "Please enter a valid quantity, must only contain numbers";
+
     /**
      * Creates a ShoppingDescriptor constructor with edited values.
      *
@@ -28,5 +32,13 @@ public class InventoryParserUtil {
         }
 
         return inventoryDescriptor;
+    }
+
+    public static void checkValidQuantity(String quantityInput) throws ParseException {
+        try {
+            Double.parseDouble(quantityInput);
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_VALID_QUANTITY);
+        }
     }
 }
