@@ -1,7 +1,5 @@
 package ducats;
 
-import ducats.components.SongList;
-import ducats.components.UndoRedoStack;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
