@@ -47,16 +47,10 @@ public class QuizTestCommand extends QuizCommand {
         if (quizList.size() == 0) {
             return "You need to select a chapter first: select <chapter name>";
         }
-        if (isQuizMode.get()) {
-            if (!inputs.get(0).equals("quiz") || inputs.size() != 2) {
-                return "You are taking a quiz. Please prefix commands with quiz: quiz <answer | back | next>";
-            }
-            quizList.get(questionNumber.get()).setUserAnswer(inputs.get(1));
-            questionNumber.incrementAndGet();
-        }
 
         isNewQuiz.set(false);
         isQuizMode.set(true);
+        questionNumber.incrementAndGet();
 
         if (questionNumber.get() < 10) {
             return quizList.get(questionNumber.get()).getQuestion()
@@ -71,7 +65,7 @@ public class QuizTestCommand extends QuizCommand {
     }
 
     private void reset() {
-        questionNumber.set(0);
+        questionNumber.set(-1);
         isQuizMode.set(false);
         isNewQuiz.set(true);
     }

@@ -6,6 +6,7 @@ import com.algosenpai.app.logic.command.ClearCommand;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.command.SetupCommand;
 import com.algosenpai.app.logic.command.UndoCommand;
+import com.algosenpai.app.logic.command.QuizTestCommand;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.ui.controller.AnimationTimerController;
@@ -135,6 +136,9 @@ public class Ui extends AnchorPane {
         } else if (commandGenerated instanceof SetupCommand) {
             setPlayerGender(response);
             playerName.setText(response);
+            printToGui(input, response, userImage, senpaiImage);
+        } else if (commandGenerated instanceof QuizTestCommand) {
+            logic.setUserAnswer(input);
             printToGui(input, response, userImage, senpaiImage);
         } else if (response.startsWith("You got ")) {
             double expGain = ((double) Integer.parseInt(response.substring(8, 9)) / 10) * 5;
