@@ -17,7 +17,6 @@ public class QuizSession implements QuizManager {
     public String filePath;
     private QuestionType qnType;
     private QuestionDifficulty qnDifficulty;
-    public static int TotalMaxQuestions = 5;
     private int currScore = 0;
     private static Profile profile;
     public ScoreGrade scoreGrade;
@@ -27,7 +26,8 @@ public class QuizSession implements QuizManager {
     public static final int MAX_QUESTIONS = 5;
     public static final double PERCENTAGE_1 = 0.5;
     public static final double PERCENTAGE_2 = 1.0;
-    public final int levelsOfDifficulty = 3;
+    public static final int levelsOfDifficulty = 3;
+    public static int TotalMaxQuestions = MAX_QUESTIONS * levelsOfDifficulty;
 
     public enum ScoreGrade {
         BAD, OKAY, GOOD
