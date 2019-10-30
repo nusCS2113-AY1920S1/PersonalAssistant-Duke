@@ -12,6 +12,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class StorageRead extends Storage {
@@ -38,8 +41,11 @@ public class StorageRead extends Storage {
         ArrayList<String> msg = new ArrayList<String>();
 
         try {
-            FileReader inFile = new FileReader("./data/dolla.txt");
-            BufferedReader inStream = new BufferedReader(inFile);
+            InputStream inputStream = new FileInputStream("/dolla.txt");
+            InputStreamReader isReader = new InputStreamReader(inputStream);
+            BufferedReader inStream = new BufferedReader(isReader);
+            //            FileReader inFile = new FileReader("./data/dolla.txt");
+            //            BufferedReader inStream = new BufferedReader(inFile);
             msg.add("Your save data has been loaded :)");
             String inLine;
 

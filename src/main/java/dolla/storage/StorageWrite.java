@@ -48,7 +48,7 @@ public class StorageWrite extends Storage {
      * This method will save all the ArrayList into an external text file.
      */
     protected static void save() {
-        try (FileWriter file = new FileWriter("./data/dolla.txt")) {
+        try (FileWriter file = new FileWriter("/dolla.txt")) {
             storage.addAll(entries);
             storage.addAll(debts);
             storage.addAll(limits);

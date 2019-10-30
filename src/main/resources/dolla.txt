@@ -1,0 +1,3 @@
+I | 300.0 | New Entry | 01/01/1000
+E | 100.0 | Expense Description | 03/12/2001
+I | 200.0 | Income Description | 11/11/1111
