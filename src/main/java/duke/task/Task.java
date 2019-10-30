@@ -19,7 +19,7 @@ public class Task {
     public LocalDateTime dueDate;
 
     public int priority;
-    public int reminders;
+    protected Reminders reminders;
 
     /**
      * Creates a task with the specified description.
@@ -131,7 +131,6 @@ public class Task {
         return this.numberOfDays;
     }
 
-    //@@author gervaiseang
     /**
      * Set the remaining days of reminder.
      *
@@ -143,14 +142,6 @@ public class Task {
     }
 
     //@@author
-    /**
-     * Set the remaining days of reminder.
-     *
-     * @return boolean that triggers the reminder.
-     */
-    public boolean isTriggerReminder() {
-        return false;
-    }
 
     /**
      * Set the priority of one task.
