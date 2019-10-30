@@ -43,6 +43,20 @@
     -fx-padding: 4;
 }
 
+.deadline-normal {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-padding: 4;
+    -fx-text-fill: rgb(80, 134, 236);
+}
+
+.deadline-overdue {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-padding: 4;
+    -fx-text-fill: rgb(237, 107, 96);
+}
+
 .error-popup {
     -fx-background-radius: 25;
     -fx-background-color: rgb(237, 107, 96);
@@ -54,6 +68,7 @@
     -fx-background-color: #00bfa5;
     -fx-text-fill: #ffffff;
 }
+
 
 .list-view {
     -fx-background-insets: 0;

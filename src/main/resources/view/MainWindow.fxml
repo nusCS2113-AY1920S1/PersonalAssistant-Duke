@@ -36,7 +36,21 @@
                                     </font>
                                 </Label>
                                 <Separator prefHeight="3.0" prefWidth="200.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="45.0" />
-                                <AnchorPane fx:id="pagePane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+                                <AnchorPane fx:id="pagePane" prefHeight="200.0" prefWidth="200.0"
+                                            AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0"
+                                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                                    <children>
+                                        <Label alignment="CENTER" layoutX="315.0" layoutY="239.0"
+                                               text="Welcome to BakingHome, your one-stop bakery management system. Enjoy!"
+                                               textFill="#a8a5a5" wrapText="true" AnchorPane.bottomAnchor="0.0"
+                                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                               AnchorPane.topAnchor="0.0">
+                                            <font>
+                                                <Font name="SF Pro Display Regular" size="17.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
                                 <AnchorPane visible="false" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <children>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="324.0" prefWidth="268.0" styleClass="edge-to-edge" vvalue="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -63,7 +77,7 @@
                                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <children>
-                                        <ImageView fitHeight="92.0" fitWidth="205.0" pickOnBounds="true"
+                                        <ImageView fitHeight="81.0" fitWidth="89.0" pickOnBounds="true"
                                                    preserveRatio="true">
                                             <image>
                                                 <Image url="@../images/bakinghome_icon.png"/>
@@ -75,7 +89,7 @@
                                         <Label alignment="CENTER" prefHeight="48.0" prefWidth="167.0" text="BakingHome"
                                                textAlignment="CENTER" textFill="WHITE">
                                             <font>
-                                                <Font name="Arial Bold" size="25.0"/>
+                                                <Font name="SF Pro Display Bold" size="25.0"/>
                                             </font>
                                             <VBox.margin>
                                                 <Insets bottom="20.0"/>
