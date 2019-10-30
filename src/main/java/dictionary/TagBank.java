@@ -32,7 +32,7 @@ public class TagBank {
      * @param word word to be deleted
      */
     public void deleteWordAllTags(Word word) {
-        for (String tag : word.getTags()) { //say word is happy , tags are emotion, happiness,
+        for (String tag : word.getTags()) {
             tagBank.get(tag).remove(word.getWordString());
         }
     }
