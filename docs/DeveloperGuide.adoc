@@ -930,8 +930,8 @@ Use case ends.
 [[UC-6]] *Use case: UC6 - Edit income* +
 *Preconditions:*
 
-* *User has a profile created
-* *User has an existing income account
+* *User has a profile created*
+* *User has an existing income account*
 
 *Main success scenario:*
 
