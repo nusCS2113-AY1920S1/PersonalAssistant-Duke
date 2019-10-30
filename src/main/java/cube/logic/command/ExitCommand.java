@@ -12,7 +12,7 @@ import cube.logic.command.util.CommandResult;
 
 public class ExitCommand extends Command{
 
-	private final String MESSAGE_SUCCESS = "Bye. Hope to see you again soon!";
+	public static final String MESSAGE_SUCCESS = "Bye. Hope to see you again soon!";
 
 	/**
 	 * Signals that the user wishes to exit programme.
