@@ -78,7 +78,9 @@ public class Ui {
      * @return a string shown when command is completed
      */
     public String showAddSynonym(String word, ArrayList<String> synonyms, HashSet<String> synonymHashSet) {
-        String returnedString = "I have added " + (synonyms.size() == 1 ? "this synonym \"" + synonyms.get(0) + "\"" : "these synonyms")
+        String returnedString = "I have added "
+                + (synonyms.size() == 1 ? "this synonym \""
+                + synonyms.get(0) + "\"" : "these synonyms")
                 + " to word \"" + word + "\"" + "\n";
         returnedString += "Here " + (synonymHashSet.size() == 1 ? "is the synonym " : "are the synonyms ")
                 + "of word \"" + word + "\"" + "\n";

@@ -27,9 +27,7 @@ public class SynonymBank {
             }
         }
     }
-
-    /**
-     * Deletes a word from the list of synonyms belonging to one word
+    /**Delete a word from the list of synonyms belonging to one word
      * Essentially this removes the selected synonym within the list
      * @param word word to be deleted
      */

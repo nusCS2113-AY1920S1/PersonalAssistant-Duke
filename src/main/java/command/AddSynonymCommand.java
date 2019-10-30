@@ -12,7 +12,7 @@ public class AddSynonymCommand extends Command {
     String wordDescription;
     ArrayList<String> synonyms;
 
-    public AddSynonymCommand(String wordDescription, ArrayList<String> synonyms){
+    public AddSynonymCommand(String wordDescription, ArrayList<String> synonyms) {
         this.wordDescription = wordDescription;
         this.synonyms = synonyms;
     }
