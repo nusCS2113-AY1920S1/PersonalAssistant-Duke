@@ -2,6 +2,8 @@ import CustomExceptions.RoomShareException;
 import Enums.Priority;
 import Enums.RecurrenceScheduleType;
 import Enums.TimeUnit;
+import Model_Classes.Leave;
+import Model_Classes.Meeting;
 import Operations.TaskCreator;
 import javafx.util.Pair;
 import org.junit.jupiter.api.Test;
@@ -111,6 +113,62 @@ public class TaskCreatorTest {
 
     @Test
     void create() {
+        Pair<Integer, TimeUnit> pair = new Pair<>(2, TimeUnit.hours);
+        Pair<Integer, TimeUnit> pair2 = new Pair<>(0, TimeUnit.unDefined);
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        Date date1 = new Date();
+        Date date2 = new Date();
+        Date date3 = new Date();
+        Date date4 = new Date();
+        try {
+            date1 = format.parse("22/12/2019 18:00");
+            date2 = format.parse("23/12/2019 18:00");
+            date3 = format.parse("24/12/2019 18:00");
+            date4 = format.parse("25/12/2019 18:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try {
+            Meeting meeting1 = (Meeting) taskCreator.create(input1);
+            assertFalse(meeting1.getDone());
+            assertEquals(meeting1.getRecurrenceSchedule(), RecurrenceScheduleType.week);
+            assertEquals(meeting1.getDuration(), "2");
+            assertEquals(meeting1.getTimeUnit(), TimeUnit.hours);
+            assertEquals(meeting1.getAssignee(), "john");
+            assertEquals(meeting1.getDate(), date1);
+            assertEquals(meeting1.getPriority(), Priority.high);
+            assertEquals(meeting1.getDescription(), "description");
+        } catch (RoomShareException e) {
+            e.printStackTrace();
+        }
 
+        try {
+            Meeting meeting2 = (Meeting) taskCreator.create(input2);
+            assertFalse(meeting2.getDone());
+            assertFalse(meeting2.isFixedDuration());
+            assertEquals(meeting2.getDescription(), "description");
+            assertEquals(meeting2.getPriority(), Priority.low);
+            assertEquals(meeting2.getDate(), date2);
+            assertEquals(meeting2.getAssignee(), "everyone");
+            assertEquals(meeting2.getTimeUnit(), TimeUnit.unDefined);
+            assertEquals(meeting2.getDuration(), "0");
+            assertEquals(meeting2.getRecurrenceSchedule(), RecurrenceScheduleType.none);
+        } catch (RoomShareException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Leave leave = (Leave) taskCreator.create(input3);
+            assertFalse(leave.getDone());
+            assertFalse(leave.hasRecurring());
+            assertEquals(leave.getAssignee(), "everyone");
+            assertEquals(leave.getEndDate(), date4);
+            assertEquals(leave.getStartDate(), date3);
+            assertEquals(leave.getDescription(), "description");
+            assertEquals(leave.getPriority(), Priority.low);
+            assertEquals(leave.getRecurrenceSchedule(), RecurrenceScheduleType.none);
+        } catch (RoomShareException e) {
+            e.printStackTrace();
+        }
     }
 }
