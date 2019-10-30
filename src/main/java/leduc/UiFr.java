@@ -306,5 +306,13 @@ public class UiFr extends Ui {
         else if(e instanceof WrongParameterException){
             System.out.println("\t WrongParameterException:\n\t\t ☹ OOPS!!! Les paramètres sont faux");
         }
+        else if(e instanceof EditFormatException){
+            System.out.println("\t EditFormatException:\n\t\t ☹ OOPS!!! Veuillez respecter le format de la command edit" +
+                    "\n\t\t Command interactive : 'edit' puis suivez les instructions" +
+                    "\n\t\t Command en une ligne:" +
+                    "\n\t\t\t éditer la description: 'edit INDEX description DESCRIPTION'"+
+                    "\n\t\t\t éditer la date d'une tache homework : 'edit INDEX /by DATE'"+
+                    "\n\t\t\t éditer la période d'une tâche event: 'edit INDEX /at DATE - DATE'");
+        }
     }
 }
