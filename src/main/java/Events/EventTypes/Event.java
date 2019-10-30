@@ -19,6 +19,8 @@ public abstract class Event implements Comparable<Event> {
     protected ArrayList<Goal> goalsList;
     protected ArrayList<Contact> contactList;
 
+    private ArrayList<String> checklist;
+
     /**
      * Creates event with one date input (e.g todo)
      *
@@ -34,6 +36,7 @@ public abstract class Event implements Comparable<Event> {
         this.eventType = 'T'; //event with no end date can only be ToDo
         this.goalsList = new ArrayList<>();
         this.contactList = new ArrayList<>();
+        this.checklist = new ArrayList<>();
     }
 
     /**
@@ -52,6 +55,7 @@ public abstract class Event implements Comparable<Event> {
         this.eventType = eventType;
         this.goalsList = new ArrayList<>();
         this.contactList = new ArrayList<>();
+        this.checklist = new ArrayList<>();
     }
 
     /**
@@ -159,6 +163,17 @@ public abstract class Event implements Comparable<Event> {
             contactList.get(contactIndex).setPhoneNo(newContact);
         }
     }
+
+    public void addChecklist(String newChecklist) {
+        System.out.println(newChecklist);
+        this.checklist.add(newChecklist);
+    }
+
+    public ArrayList<String> getChecklist() { return this.checklist; }
+
+    public void editChecklist(int checklistIndex, String newChecklist) { this.checklist.set(checklistIndex, newChecklist); }
+
+    public void deleteChecklist(int checklistIndex) { this.checklist.remove(checklistIndex); }
 
     @Override
     public int compareTo(Event currEvent) {

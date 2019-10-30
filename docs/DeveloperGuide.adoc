@@ -94,6 +94,28 @@ The following logic diagram shows how check free days is implemented.
 image::DGCheck.png[width = 100%]
 ====
 
+=== Checklists
+Checklist of each event can be used to remind users of certain items (e.g. bring glasses to concert).
+This is implemented by storing an array list of strings in `Event` objects.
+
+Checklist implementation contains 4 operations:
+
+==== add checklist item
+`checklist add <event index>/<checklist item>`
+This adds an item into a specific event's checklist.
+
+==== view checklist
+`checklist view <event index>`
+This prints on the screen the checklist of an event.
+
+==== edit checklist item
+`checklist edit <event index> <item index>/<new item>`
+This edits a specific item in the checklist of an event.
+
+==== delete checklist item
+`checklist delete <event index> <item index>`
+This deletes an item from the checklist of an event.
+
 === Clash handling
 ==== Activity diagram
 ====
