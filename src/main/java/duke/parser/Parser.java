@@ -367,6 +367,7 @@ public class Parser {
             }
 
         } else if (arr.length > ZERO && arr[ZERO].equals("findpriority")) {
+            // findpriority <int>
             if (arr.length == ONE) {
                 throw new DukeException("     (>_<) OOPS!!! The target priority cannot be empty.");
             } else {
@@ -388,6 +389,7 @@ public class Parser {
                 }
             }
         } else if (arr.length > ZERO && arr[ZERO].equals("finddate")) {
+            // finddate /on <dd/MM/yyyy>
             SimpleDateFormat datetimeFormat = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat datetimeFormat2 = new SimpleDateFormat("MMMMM yyyy");
             String[] suf = { "st", "nd", "rd", "th" };
@@ -397,7 +399,7 @@ public class Parser {
             for (int i = ONE; i < arr.length; i++) {
                 description += arr[i] + " ";
             }
-            dateDesc = description.split("/on ")[ZERO].trim();
+            dateDesc = description.split("/on ")[ONE].trim();
 
             Date date = datetimeFormat.parse(dateDesc);
             int day = Integer.parseInt(new SimpleDateFormat("d").format(date));

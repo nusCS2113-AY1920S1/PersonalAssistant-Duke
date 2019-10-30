@@ -358,3 +358,27 @@ java.text.ParseException: Unparseable date: ""
 	at duke.Duke.run(Duke.java:221)
 	at duke.Duke.main(Duke.java:259)
 
+Oct 30, 2019 9:50:02 PM duke.Duke <init>
+SEVERE: Storage text file is not found
+Oct 30, 2019 9:50:02 PM duke.Duke <init>
+SEVERE: Priority storage text file is not found
+Oct 30, 2019 9:50:02 PM duke.Duke <init>
+SEVERE: Contact list text file is not found
+Oct 30, 2019 9:50:02 PM duke.Duke <init>
+SEVERE: Budget list text file is not found
+Oct 30, 2019 9:50:26 PM duke.Duke run
+WARNING: New error, please fix
+java.text.ParseException: Unparseable date: ""
+	at java.base/java.text.DateFormat.parse(DateFormat.java:395)
+	at duke.parser.Parser.parse(Parser.java:403)
+	at duke.Duke.run(Duke.java:221)
+	at duke.Duke.main(Duke.java:259)
+
+Oct 30, 2019 9:50:46 PM duke.Duke <init>
+SEVERE: Storage text file is not found
+Oct 30, 2019 9:50:46 PM duke.Duke <init>
+SEVERE: Priority storage text file is not found
+Oct 30, 2019 9:50:46 PM duke.Duke <init>
+SEVERE: Contact list text file is not found
+Oct 30, 2019 9:50:46 PM duke.Duke <init>
+SEVERE: Budget list text file is not found

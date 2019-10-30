@@ -410,7 +410,7 @@ public class Ui {
             }
         }
         if (numFound == ZERO) {
-            out.println("     There's no tasks on " + targetDate + ".");
+            out.println("     There're no tasks on " + targetDate + ".");
         }
     }
 
