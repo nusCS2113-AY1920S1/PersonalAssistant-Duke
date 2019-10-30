@@ -2,6 +2,7 @@ package duke.logic.parser.shopping;
 
 import duke.logic.command.shopping.ShoppingDescriptor;
 import duke.logic.parser.commons.ArgumentMultimap;
+import duke.logic.parser.exceptions.ParseException;
 
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_COST;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_NAME;
@@ -9,6 +10,10 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_QUANTITY;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_REMARKS;
 
 public class ShoppingParserUtil {
+
+    private static final String MESSAGE_VALID_QUANTITY = "Please enter a valid quantity, must only contain numbers";
+    private static final String MESSAGE_VALID_COST = "Please enter a valid cost, must only contain numbers";
+
     /**
      * Creates a ShoppingDescriptor constructor with edited values.
      *
@@ -32,5 +37,21 @@ public class ShoppingParserUtil {
         }
 
         return shoppingDescriptor;
+    }
+
+    public static void checkValidQuantity(String quantityInput) throws ParseException {
+        try {
+            Double.parseDouble(quantityInput);
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_VALID_QUANTITY);
+        }
+    }
+
+    public static void checkValidCost(String costInput) throws ParseException {
+        try {
+            Double.parseDouble(costInput);
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_VALID_COST);
+        }
     }
 }

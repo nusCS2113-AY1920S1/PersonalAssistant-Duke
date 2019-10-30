@@ -30,6 +30,14 @@ public class AddShoppingCommandParser implements Parser<AddShoppingCommand> {
                 PREFIX_SHOPPING_REMARKS
         );
 
+        if (map.getValue(PREFIX_SHOPPING_QUANTITY).isPresent()) {
+            ShoppingParserUtil.checkValidQuantity(map.getValue(PREFIX_SHOPPING_QUANTITY).get());
+        }
+
+        if (map.getValue(PREFIX_SHOPPING_COST).isPresent()) {
+            ShoppingParserUtil.checkValidCost(map.getValue(PREFIX_SHOPPING_COST).get());
+        }
+
         Ingredient ingredient = new Ingredient(
                 StringUtils.capitalize(map.getValue(PREFIX_SHOPPING_NAME).orElse(EMPTY_STRING).toLowerCase()),
                 Double.parseDouble(map.getValue(PREFIX_SHOPPING_COST).orElse(DEFAULT_COST)),
