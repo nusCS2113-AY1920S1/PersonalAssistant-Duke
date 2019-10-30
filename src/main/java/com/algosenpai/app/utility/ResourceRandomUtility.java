@@ -17,5 +17,4 @@ public class ResourceRandomUtility {
         Random r = new Random();
         return map.get(keysAsArray.get(r.nextInt(keysAsArray.size())));
     }
-
 }

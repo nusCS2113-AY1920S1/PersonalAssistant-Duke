@@ -1,17 +1,11 @@
 package com.algosenpai.app.logic.command;
 
-import com.algosenpai.app.logic.models.QuestionModel;
-
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class SetupCommand extends Command {
-    ArrayList<QuestionModel> quizList;
 
-    int setupStage;
-
-    AtomicBoolean isSettingUp;
+    private String userName;
+    private String gender;
 
     /**
      * Create new command.
@@ -21,41 +15,18 @@ public class SetupCommand extends Command {
         super(inputs);
     }
 
-    /**
-     * Initializes setup command to start setup.
-     * @param inputs user inputs.
-     * @param setupStage to indicate which stage of the setup process the user is at.
-     * @param isSettingUp is in the process of setting up.
-     */
-    public SetupCommand(ArrayList<String> inputs, int setupStage,
-                       AtomicBoolean isSettingUp) {
-        this(inputs);
-        this.setupStage = setupStage;
-        this.isSettingUp = isSettingUp;
-    }
-
-
     @Override
     public String execute() {
-        if (setupStage == 1) {
-            return checkStatus();
-        } else if (setupStage == 2) {
-            //set the variable isBoy to true or false
-            return "You're all set! Time to start your journey to become an AlgoSenpai!";
-        } else {
-            return checkStatus();
+        userName = inputs.get(1);
+
+        if (inputs.get(2).equals("boy")) {
+            gender = "Mr. ";
+        } else if (inputs.get(2).equals("girl")) {
+            gender = "Ms. ";
         }
+
+        String responseString = "Hello " + gender + userName + "! You have successfully set up your profile!";
+        return responseString;
     }
 
-    /**
-     * Checks whether it is the user's first time using the application.
-     * @return The respective string to be displayed to the situation.
-     */
-    private String checkStatus() {
-        if (setupStage ==  1) {
-            return "Oh it seems that it is your first time here! Can I get your name and gender (boy or girl)?";
-        } else {
-            return " Welcome back!";
-        }
-    }
 }

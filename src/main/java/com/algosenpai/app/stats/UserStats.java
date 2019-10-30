@@ -166,6 +166,10 @@ public class UserStats {
         return -1;
     }
 
+    public ArrayList<String> getChapters() {
+        return new ArrayList<>(chapterNumber.keySet());
+    }
+
     /**
      * Checkstyle.
      */

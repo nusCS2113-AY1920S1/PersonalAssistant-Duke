@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class MenuCommand extends Command {
 
     /**
-     * Create new command.
-     * @param inputs input from user.
+     * Initializes command to show available commands.
+     * @param inputs user input.
      */
     public MenuCommand(ArrayList<String> inputs) {
         super(inputs);

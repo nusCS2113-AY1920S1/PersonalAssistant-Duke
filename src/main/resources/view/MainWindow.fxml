@@ -10,23 +10,23 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="539.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.algosenpai.app.ui.Ui">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.algosenpai.app.ui.Ui">
     <style>
         -fx-background-color: #ECE5DD;
         -fx-font-family: 'Montserrat';
     </style>
-    <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="317.0" AnchorPane.bottomAnchor="1.0" />
-    <Button fx:id="sendButton" layoutX="317.0" layoutY="559.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
-    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="78.0" prefHeight="479.0" prefWidth="400.0" vvalue="1.0">
+    <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="48.0" prefWidth="440.0" AnchorPane.bottomAnchor="1.0" />
+    <Button fx:id="sendButton" layoutX="440.0" layoutY="603.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="45.0" prefWidth="58.0" text="Send" />
+    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="78.0" prefHeight="520.0" prefWidth="500.0" vvalue="1.0">
         <VBox fx:id="dialogContainer" prefWidth="400.0" />
     </ScrollPane>
-   <HBox fx:id="statsBox" layoutY="1.0" prefHeight="73.0" prefWidth="400.0">
+   <HBox fx:id="statsBox" layoutY="1.0" prefHeight="73.0" prefWidth="500.0">
       <children>
-         <VBox prefHeight="73.0" prefWidth="315.0">
+         <VBox prefHeight="73.0" prefWidth="423.0">
             <children>
                <Label fx:id="playerName" prefHeight="62.0" prefWidth="292.0" text="Hi, ????" />
                <Label fx:id="playerLevel" prefHeight="62.0" prefWidth="292.0" text="You are Level ???" />
-                <ProgressBar fx:id="levelProgress" prefHeight="62.0" prefWidth="292.0"/>
+                <ProgressBar fx:id="levelProgress" prefHeight="62.0" prefWidth="292.0" />
             </children>
          </VBox>
           <ImageView fx:id="userPic" fitHeight="73.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" />

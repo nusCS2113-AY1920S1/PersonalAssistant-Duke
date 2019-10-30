@@ -2,26 +2,21 @@
 
 package com.algosenpai.app.logic.constant;
 
-import com.algosenpai.app.logic.command.Command;
-
-import java.util.Arrays;
-
 public enum Commands {
     menu,
-    quiz,
+    start,
     select,
-    result,
     report,
-    back,
+    result,
     history,
-    undo,
     clear,
-    reset,
-    save,
+    quiz,
+    back,
+    undo,
     help,
-    exit,
+    setup,
     print,
-    archive;
+    bye;
 
     /**
      * Returns the valid commands in a string.
@@ -39,5 +34,4 @@ public enum Commands {
    // public static String[] names() {
       //  return Arrays.toString(Commands.values()).split(", ");
     //}
-
 }
