@@ -41,6 +41,8 @@ public class Parser {
             return new EditFeedbackCommand(input);
         } else if (input.trim().contains(COMMAND_EDIT_PREPSTEP)) {
             return new EditPrepStepCommand(input);
+        } else if (input.trim().contains(COMMAND_EDIT_PREPTIME)) {
+            return new EditPrepTimeCommand(input);
         } else if (input.contains(COMMAND_FIND_BOOKING)) {
             return new FindBookingCommand(input);
         } else if (input.contains(COMMAND_ADD_BOOKING)) {
