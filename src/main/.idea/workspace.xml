@@ -2,13 +2,80 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ac46f45a-490c-4c6f-894a-9ef889edc327" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../data/fridge.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../data/fridge.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../data/tasks.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../data/tasks.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docs/AboutUs.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../docs/AboutUs.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docs/DeveloperGuide.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../docs/DeveloperGuide.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docs/UserGuide.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../docs/UserGuide.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/Duke.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/Duke.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/Cmd.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/Cmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/FindIngredientCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/FindIngredientCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/dishesCommand/AddDishCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/dishesCommand/AddDishCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/dishesCommand/AddIngredient.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/dishesCommand/AddIngredient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/dishesCommand/DeleteDishCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/dishesCommand/DeleteDishCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/dishesCommand/InitCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/dishesCommand/InitCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/dishesCommand/ListDishCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/dishesCommand/ListDishCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/ingredientCommand/AddCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/ingredientCommand/AddCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/ingredientCommand/DeleteCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/ingredientCommand/DeleteCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/ingredientCommand/DoneCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/ingredientCommand/DoneCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/ingredientCommand/ExitCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/ingredientCommand/ExitCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/ingredientCommand/FindIngredientCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/ingredientCommand/FindIngredientCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/ingredientCommand/FindToday.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/ingredientCommand/FindToday.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/ingredientCommand/ListCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/ingredientCommand/ListCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/ingredientCommand/RemindCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/ingredientCommand/RemindCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/ingredientCommand/RemoveAllExpired.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/ingredientCommand/RemoveAllExpired.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/ingredientCommand/Snooze.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/ingredientCommand/Snooze.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/ingredientCommand/UseCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/ingredientCommand/UseCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/ingredientCommand/ViewCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/ingredientCommand/ViewCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/orderCommand/AddOrderCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/orderCommand/AddOrderCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/orderCommand/AlterDateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/orderCommand/AlterDateCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/orderCommand/DeleteOrderCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/orderCommand/DeleteOrderCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/orderCommand/DoneOrderCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/orderCommand/DoneOrderCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/orderCommand/ListOrderCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/orderCommand/ListOrderCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/dish/Dish.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/dish/Dish.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/dish/DishList.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/dish/DishList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/exception/DukeException.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/exception/DukeException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/fridge/Fridge.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/fridge/Fridge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/fridge/diagram.uml" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/fridge/diagram.uml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/ingredient/Ingredient.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/ingredient/Ingredient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/ingredient/IngredientsList.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/ingredient/IngredientsList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/list/GenericList.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/list/GenericList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/order/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/order/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/order/OrderList.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/order/OrderList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/parser/Convert.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/parser/Convert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/parser/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/storage/FridgeStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/storage/FridgeStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/storage/OrderStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/storage/OrderStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/storage/Printable.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/storage/Printable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/storage/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/storage/Storage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/storage/TaskStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/storage/TaskStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/task/Deadline.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/task/Deadline.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/task/DoWithinPeriodTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/task/DoWithinPeriodTasks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/task/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/task/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/task/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/task/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/task/TaskList.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/task/TaskList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/task/Todo.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/task/Todo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/ui/Ui.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/ui/Ui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/FridgeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test/FridgeTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/../..">
+          <activation />
+        </task>
+        <projects_view />
+      </state>
+    </system>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -23,8 +90,12 @@
   <component name="ProjectId" id="1Sbm5ShuDJOQ9ByysW5UcbVMpM0" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="external.system.task.project.file.to.start" value="$PROJECT_DIR$/../.." />
+    <property name="js.buildTools.grunt.grunt-cli.package" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../.." />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -42,6 +113,49 @@
       </list>
     </option>
   </component>
+  <component name="RunManager" selected="Gradle.D:/School Shit/Sem 3/CS2113Team [run]">
+    <configuration type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/../.." />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="run" />
+          </list>
+        </option>
+        <option name="vmOptions" value="" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="D:/School Shit/Sem 3/CS2113Team [run]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/../.." />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="run" />
+          </list>
+        </option>
+        <option name="vmOptions" value="" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Gradle.D:/School Shit/Sem 3/CS2113Team [run]" />
+    </list>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -52,7 +166,10 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1571840485394</updated>
-      <workItem from="1571840487051" duration="1785000" />
+      <workItem from="1571840487051" duration="2377000" />
+      <workItem from="1571897223596" duration="1150000" />
+      <workItem from="1571898440457" duration="5946000" />
+      <workItem from="1572403736032" duration="25000" />
     </task>
     <servers />
   </component>
@@ -64,7 +181,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

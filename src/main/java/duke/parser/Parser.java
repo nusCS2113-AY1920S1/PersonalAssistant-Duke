@@ -45,7 +45,9 @@ public class Parser {
      * @return Command The Command to be executed
      * @throws DukeException for any invalid input
      */
+    //public static Cmd parse(String fullCommand, int size) throws DukeException {
  /*   public static Cmd parse(String fullCommand, int size) throws DukeException {
+>>>>>>> 07cc5da9aa7b9d4958918b61fa2d02c9fc22e062
         //splitted contains the keyword and the rest (description or task number)
         String[] splitted = fullCommand.split(" ", 2);
         //switching on the keyword
@@ -95,7 +97,24 @@ public class Parser {
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
     }
-*/
+<<<<<<< HEAD
+    /*
+    public static Cmd parse(String fullCommand, int size) throws DukeException
+    {
+        //splitted contains the keyword and the rest (description or task number)
+        String[] splitted = fullCommand.split(" ", 2);
+        //switching on the keyword
+        switch (splitted[0])
+        {
+            case "list":
+                return new ListCommand();
+            case "listtoday":
+                return new FindToday();
+            default:
+                throw new DukeException("I'm sorry, but I don't know what that means :-(");
+        }
+    }
+    */
     public static Cmd parse(String fullCommand, Duke.Type type) throws DukeException {
         String[] splitted;
         //= fullCommand.split(" ", 3);
