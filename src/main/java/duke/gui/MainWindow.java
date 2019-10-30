@@ -30,6 +30,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controlsfx.control.textfield.TextFields;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -134,8 +135,9 @@ public class MainWindow extends AnchorPane {
     private TextField assignTaskUuidField;
     @FXML
     private VBox helpGuideContainer;
+    String currentDir = System.getProperty("user.dir");
 
-    private final Duke duke = new Duke("./data");
+    private final Duke duke = new Duke(currentDir);
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
