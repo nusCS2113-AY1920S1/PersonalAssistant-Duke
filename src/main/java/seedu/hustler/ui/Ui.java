@@ -326,7 +326,7 @@ public class Ui {
      * @param achievementList list of achievements
      */
     public void showAchievementList(ArrayList<Achievements> achievementList) {
-        System.out.println("\uD83D\uDD13 ACHIEVEMENTS UNLOCKED \uD83D\uDD13");
+        System.out.println(" ACHIEVEMENTS UNLOCKED ");
         if (!achievementList.isEmpty()) {
             int l = 0;
             for (int i = 0; i < achievementList.size(); i++) {
@@ -336,7 +336,7 @@ public class Ui {
                     System.out.println(achievementList.get(i));
                 }
             }
-            System.out.println("\uD83D\uDD12 LOCKED ACHIEVEMENTS \uD83D\uDD12");
+            System.out.println(" LOCKED ACHIEVEMENTS ");
             int j = 0;
             for (int i = 0; i < achievementList.size(); i++) {
                 if (achievementList.get(i).checkLock()) {
@@ -345,7 +345,7 @@ public class Ui {
                     System.out.println(achievementList.get(i));
                 }
             }
-            System.out.println("Total Points = " + totalPoints + " \uD83D\uDCB0");
+            System.out.println("Total Points = " + totalPoints);
         }
     }
 }
