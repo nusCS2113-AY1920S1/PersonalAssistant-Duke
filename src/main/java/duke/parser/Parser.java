@@ -145,18 +145,32 @@ public class Parser {
                 splitted = fullCommand.split(" ", 2);
                 if (splitted.length > 4)
                     throw new DukeException("must specify name/index");
-                else if (splitted[0].equals("add"))
+                else if (splitted[0].equals("add")) {
+                    if(splitted.length != 2)
+                        throw new DukeException("description cannot be empty");
                     return new AddDishCommand(new Dish(splitted[1]));
+                }
                 else if (splitted[0].equals("remove"))
-                    return new DeleteDishCommand(Integer.parseInt(splitted[1]));
+                    try {
+                        return new DeleteDishCommand(Integer.parseInt(splitted[1]));
+                    } catch (NumberFormatException e) {
+                        throw new DukeException("enter a valid index");
+                    }
                 else if (splitted[0].equals("list"))
                     return new ListDishCommand();
                 else if (splitted[0].equals("initialize"))
                     return new InitCommand();
                 else if (splitted[0].equals("ingredient")) {
-                    String[] getIng = splitAndCheck(splitted[1], " /add ");
-                    int index = Integer.parseInt(getIng[1]);
-                   return new AddIngredient(new Ingredient(getIng[0], index, new Date()) , index);
+                    String[] getIng = splitted[1].split(" ", 3);
+                    int amount = 0;
+                    int index = 0;
+                    try {
+                        amount = Integer.parseInt(getIng[1]);
+                        index = Integer.parseInt(getIng[2]);
+                    } catch (NumberFormatException e) {
+                        throw new DukeException("enter a valid amount/index");
+                    }
+                    return new AddIngredient(new Ingredient(getIng[0], amount, new Date()) , index);
                 }
                 else
                     throw new DukeException("not a valid command for a Dish");
