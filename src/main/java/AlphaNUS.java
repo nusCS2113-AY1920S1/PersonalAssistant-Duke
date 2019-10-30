@@ -8,6 +8,7 @@ import ui.Ui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * <h1>AlphaNUS</h1>
@@ -23,7 +24,7 @@ public class AlphaNUS {
     private static Storage storage;
     private static HashMap<String, Payee> managermap;
     private static ArrayList<String> commandList;
-    private static HashMap<String, Project> projectmap;
+    private static LinkedHashMap<String, Project> projectmap;
 
     /**
      * Creates a AlphaNUS instance and initialises the required attributes.
@@ -35,9 +36,9 @@ public class AlphaNUS {
         //ArrayList<Task> arraylist = storage.load(); <-- Giving file not found exception, to remove
         tasklist = new TaskList();
         fund = new Fund(); //TODO the fund need to be stored in the text file.
-        managermap = new HashMap<String, Payee>();
+        //managermap = new HashMap<String, Payee>();
         ArrayList<String> commandList = storage.load();
-        projectmap = new HashMap<String, Project>();//To replace managermap in main class
+        //projectmap = new LinkedHashMap<String, Project>();//To replace managermap in main class
         run();
     }
 
@@ -50,7 +51,7 @@ public class AlphaNUS {
         boolean isExit = false;
         while (!isExit) {
             String input = ui.readInput();
-            isExit = Parser.parse(input, tasklist, ui, fund, storage, commandList, managermap, projectmap);
+            isExit = Parser.parse(input, tasklist, ui, fund, storage, commandList);
         }
     }
 
