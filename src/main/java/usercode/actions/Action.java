@@ -94,14 +94,15 @@ public abstract class Action {
             if (criteriaFeedback.getKey()) {
                 if (!hasError) {
                     farmer.setTaskFailed();
-                    simulation.simulate("ErrorInExecution", 0);
+                    simulation.simulate("ErrorInExecution", 1, 9);
+                    ui.show(criteriaFeedback.getValue());
                     hasError = true;
                 }
-                ui.typeWriter(criteriaFeedback.getValue(), false);
             }
         }
         if (hasError) {
-            ui.sleep(2000);
+            ui.typeWriter("",true);
+            ui.getInput();
             throw new FarmioException("Task Error!");
         }
     }

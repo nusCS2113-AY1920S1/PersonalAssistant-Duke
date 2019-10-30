@@ -142,8 +142,10 @@ public class Parser {
         if (userInput.startsWith("do") || userInput.startsWith("if")
                 || userInput.startsWith("for") || userInput.startsWith("while")) {
             return new CommandTaskCreate(parseTask(userInput));
-        } else if (userInput.equals("hint") || userInput.equals("")) {
+        } else if (userInput.equals("hint")) {
             return new CommandTasksHint();
+        } else if (userInput.equals("")) {
+            return new CommandTaskAddReset();
         }
         throw new FarmioException("Invalid command!");
     }

@@ -82,10 +82,10 @@ public class Ui {
         }
     }
 
-    public void showPointers(String text) {
-        show(AsciiColours.YELLOW + "Pointers:" + AsciiColours.SANE);
+    public void showHint(String text) {
+        show(AsciiColours.YELLOW + "Hint:" + AsciiColours.SANE);
         show(text);
-        show("Enter [Start] when you are ready to complete the objective");
+        show("~.Enter [Start] when you are ready to complete the objective");
     }
 
     /**
@@ -97,7 +97,7 @@ public class Ui {
         final char LEVEL_BEGIN_PLACEHOLDER = '~';
         boolean isNewline = false;
         int lineLength = 0;
-        System.out.print(">>> ");
+        if (!text.isBlank()) System.out.print(">>> ");
         sleep(150);
         for (int i = 0; i < text.length(); i++) {
             lineLength++;
@@ -110,6 +110,7 @@ public class Ui {
             } else if (text.charAt(i) == LEVEL_BEGIN_PLACEHOLDER) {
                 System.out.println("\n" + " ".repeat(GameConsole.FULL_CONSOLE_WIDTH / 2 - 8) + AsciiColours.GREEN
                         + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE + "\n");
+                show("       Enter [Start] if you are ready to complete the objective or Enter [HINT] if you get stuck!");
                 return;
             }
             else {

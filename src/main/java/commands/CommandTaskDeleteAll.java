@@ -3,7 +3,7 @@ package commands;
 import exceptions.FarmioFatalException;
 import farmio.Farmio;
 
-public class CommandTaskDeleteAll extends Command {
+public class CommandTaskDeleteAll extends CommandChangeTask {
 
     /**
      * Delete all tasks in the tasklist.
@@ -15,5 +15,6 @@ public class CommandTaskDeleteAll extends Command {
         farmio.getFarmer().getTasks().clear();
         farmio.getSimulation().simulate();
         farmio.getUi().showInfo("You have deleted all tasks!");
+        super.saveTask(farmio);
     }
 }

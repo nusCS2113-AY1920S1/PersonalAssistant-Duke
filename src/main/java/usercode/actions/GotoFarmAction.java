@@ -23,6 +23,6 @@ public class GotoFarmAction extends Action {
             simulation.simulate("GotoWheatFarmSimulation", 12);
             ui.typeWriter("You have arrived at the WheatFarm", false);
         }
-        ui.sleep(1000);
+        ui.sleep(200);
     }
 }

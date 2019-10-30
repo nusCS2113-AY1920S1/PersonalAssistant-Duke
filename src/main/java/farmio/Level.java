@@ -312,7 +312,7 @@ public class Level {
                 feedback += "detailed feedback : -- \n";
                 feedback += checkIncompleteObjectives(farmer);
             }
-            output.add("\n Press [ENTER] to continue the game or [RESET] to restart the level");
+            output.add("Press [ENTER] to continue the game or [RESET] to restart the level");
             return output;
         } else if (currentLevelState == ObjectiveResult.FAILED) {
             String feedback = "Oh no! The objectives were not met by the deadline! Level failed ! \n";

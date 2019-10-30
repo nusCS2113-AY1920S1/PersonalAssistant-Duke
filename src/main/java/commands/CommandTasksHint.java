@@ -17,6 +17,6 @@ public class CommandTasksHint extends Command {
         Ui ui = farmio.getUi();
         Level level = farmio.getLevel();
         farmio.getSimulation().simulate(level.getPath() ,level.getNarratives().size() - 1);
-        ui.showPointers(farmio.getLevel().getHint());
+        ui.showHint(farmio.getLevel().getHint());
     }
 }

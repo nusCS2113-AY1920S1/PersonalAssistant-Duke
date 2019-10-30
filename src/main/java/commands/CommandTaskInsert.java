@@ -5,7 +5,7 @@ import exceptions.FarmioFatalException;
 import farmio.Farmio;
 import usercode.tasks.Task;
 
-public class CommandTaskInsert extends Command {
+public class CommandTaskInsert extends CommandChangeTask {
     private Task task;
     private int taskID;
 
@@ -26,5 +26,6 @@ public class CommandTaskInsert extends Command {
         farmio.getFarmer().getTasks().insertTask(taskID, task);
         farmio.getSimulation().simulate();
         farmio.getUi().showInfo("You have added a new task: " + task.toString() + " at position " + taskID);
+        super.saveTask(farmio);
     }
 }
