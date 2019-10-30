@@ -1,5 +1,5 @@
 package entertainment.pro.logic.parsers.commands;
-
+import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.contexts.SearchResultContext;
 import entertainment.pro.logic.parsers.CommandStructure;
@@ -9,11 +9,15 @@ import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Blacklist command class to handle blacklist command functions.
  */
 public class BlacklistCommand extends CommandSuper {
+
+    private static final Logger logger = Logger.getLogger(Blacklist.class.getName());
 
     /**
      * Constructor for each Command Super class.
@@ -73,18 +77,15 @@ public class BlacklistCommand extends CommandSuper {
      *
      */
     public void addToBlackList() {
-        System.out.print("HERE!!");
         String movie = getPayload().trim();
 
         if (getFlagMap().get("-k") != null) {
-            System.out.print("ADDing keyword");
             if (isInteger(movie, 10)) {
                 Blacklist.addToBlacklistKeyWord(SearchResultContext.getIndex(Integer.parseInt(movie)).getTitle());
             } else {
                 Blacklist.addToBlacklistKeyWord(movie);
             }
         } else {
-            System.out.print("ADDing movie");
             if (isInteger(movie, 10)) {
                 Blacklist.addToBlacklistMoviesID(SearchResultContext.getIndex(Integer.parseInt(movie)));
             } else {
@@ -93,7 +94,7 @@ public class BlacklistCommand extends CommandSuper {
 
         }
 
-
+        logger.log(Level.INFO , PromptMessages.BLACKLIST_ADD_SUCCUESS);
 
         ((MovieHandler) this.getUiController()).setFeedbackText(Blacklist.printList());
 
@@ -108,7 +109,6 @@ public class BlacklistCommand extends CommandSuper {
 
         boolean stat = false;
         if (getFlagMap().get("-k") != null) {
-            System.out.print("REmoving ing keyword");
             if (isInteger(movie, 10)) {
                 stat = Blacklist.removeFromBlacklistKeyWord(SearchResultContext.getIndex(Integer.parseInt(movie))
                         .getTitle());
@@ -116,7 +116,6 @@ public class BlacklistCommand extends CommandSuper {
                 stat = Blacklist.removeFromBlacklistKeyWord(movie);
             }
         } else {
-            System.out.print("Removingg movie");
             if (isInteger(movie, 10)) {
                 stat = Blacklist.removeFromBlacklistMovies(SearchResultContext.getIndex(Integer.parseInt(movie)));
             } else {
@@ -125,11 +124,14 @@ public class BlacklistCommand extends CommandSuper {
 
         }
 
+        logger.log(Level.INFO , PromptMessages.BLACKLIST_REMOVE_SUCCUESS);
+
         if (stat) {
-            ((MovieHandler) getUiController()).setFeedbackText("Successfully Removed from BlackList");
+            ((MovieHandler) getUiController()).setFeedbackText(PromptMessages.BLACKLIST_REMOVE_SUCCUESS);
         } else {
             ((MovieHandler) getUiController())
-                    .setFeedbackText("Such a movie does not exist in your BlackList. Check your spelling?");
+                    .setFeedbackText(PromptMessages.BLACKLIST_REMOVE_FAILURE);
+
         }
     }
 

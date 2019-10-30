@@ -41,5 +41,6 @@ public enum COMMANDKEYS {
     done,
     list,
     find,
-    cinema
+    cinema,
+    me
 }
