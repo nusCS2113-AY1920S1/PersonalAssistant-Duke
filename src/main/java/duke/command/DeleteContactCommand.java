@@ -21,6 +21,7 @@ public class DeleteContactCommand extends Command {
      * To delete a contact by the index of the contact.
      *
      * @param indexOfContactToDelete The index of the contact to be deleted.
+     * @param contactList The list of contacts.
      */
     public DeleteContactCommand(int indexOfContactToDelete, ContactList contactList) {
         this.indexOfContactToDelete = indexOfContactToDelete;
