@@ -19,9 +19,9 @@
 
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.gui.MainWindow">
     <children>
-        <TextField fx:id="userInput" layoutX="400.0" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="187.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="63.0" />
-        <Button fx:id="sendButton" layoutX="747.0" layoutY="649.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="63.0" text="Send" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0" />
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="1050.0" prefHeight="691.0" prefWidth="249.0" vvalue="1.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="1050.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
+        <TextField fx:id="userInput" layoutX="1050.0" layoutY="653.0" onAction="#handleUserInput" prefHeight="32.0" prefWidth="187.0" AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="63.0" />
+        <Button fx:id="sendButton" layoutX="1237.0" layoutY="653.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="32.0" prefWidth="63.0" text="Send" AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="0.0" />
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="1050.0" prefHeight="673.0" prefWidth="249.0" vvalue="1.0" AnchorPane.bottomAnchor="61.0" AnchorPane.leftAnchor="1050.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
             <content>
                 <VBox fx:id="dialogContainer" alignment="TOP_RIGHT" prefHeight="0.0" prefWidth="0.0" />
             </content>
@@ -182,7 +182,6 @@
                                         <Separator layoutX="6.0" layoutY="248.0" prefHeight="5.0" prefWidth="262.0" />
                                         <Separator layoutX="7.0" layoutY="419.0" prefHeight="27.0" prefWidth="267.0" />
                                         <Separator layoutX="7.0" layoutY="541.0" prefHeight="3.0" prefWidth="260.0" />
-                              <Button layoutX="8.0" layoutY="677.0" mnemonicParsing="false" onAction="#handleUndoButton" prefHeight="27.0" prefWidth="249.0" text="Undo" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="677.0" />
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -214,7 +213,6 @@
                                         <DatePicker fx:id="assignTaskEndDatePicker" layoutX="59.0" layoutY="385.0" prefHeight="27.0" prefWidth="89.0" promptText="Date" AnchorPane.bottomAnchor="292.0" AnchorPane.leftAnchor="59.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="385.0" />
                                         <TextField fx:id="assignTaskStartTimeField" layoutX="159.0" layoutY="348.0" prefHeight="27.0" prefWidth="82.0" promptText="Time" AnchorPane.bottomAnchor="329.0" AnchorPane.leftAnchor="159.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="348.0" />
                                         <TextField fx:id="assignTaskEndTimeField" layoutX="160.0" layoutY="385.0" prefHeight="27.0" prefWidth="83.0" promptText="Time" AnchorPane.leftAnchor="159.0" />
-                              <Button layoutX="12.0" layoutY="677.0" mnemonicParsing="false" onAction="#handleUndoButton" prefHeight="27.0" prefWidth="249.0" text="Undo" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="677.0" />
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -245,5 +243,6 @@
                 </TabPane>
             </children>
         </AnchorPane>
+      <Button layoutX="1050.0" layoutY="690.0" mnemonicParsing="false" onAction="#handleUndoButton" prefHeight="32.0" prefWidth="249.0" text="Undo" AnchorPane.bottomAnchor="0.0" />
     </children>
 </AnchorPane>
