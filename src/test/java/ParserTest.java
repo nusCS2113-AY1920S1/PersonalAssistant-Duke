@@ -46,7 +46,7 @@ public class ParserTest {
     @Test
     public void parseCommands_optionalOmitted_argumentsExtracted() {
         try {
-            Command testCmd = uut.parse("doctor -switch World Hello");
+            Command testCmd = uut.parse("doctor Hello -switch World");
             DoctorCommand docCmd = (DoctorCommand) testCmd;
             assertEquals("Hello", docCmd.getArg());
             assertEquals("World", docCmd.getSwitchVal("switch"));
