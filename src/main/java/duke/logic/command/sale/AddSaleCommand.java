@@ -33,7 +33,7 @@ public class AddSaleCommand extends SaleCommand {
 
     private final SaleDescriptor addSaleDescriptor;
 
-    public static final String AUTO_COMPLETE_INDICATOR = SaleCommand.COMMAND_WORD + COMMAND_WORD;
+    public static final String AUTO_COMPLETE_INDICATOR = SaleCommand.COMMAND_WORD + " " + COMMAND_WORD;
     public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
         PREFIX_SALE_DESCRIPTION,
         PREFIX_SALE_VALUE,
