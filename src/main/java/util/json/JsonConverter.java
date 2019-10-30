@@ -8,7 +8,11 @@ import exceptions.DukeException;
 import models.project.Project;
 import util.log.DukeLogger;
 
-import java.io.*;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class JsonConverter {
@@ -35,6 +39,11 @@ public class JsonConverter {
         }
     }
 
+    /**
+     * Method to delete the relevant json of original Project when user wishes to delete a project
+     * @param project : selected Project to be deleted
+     * @throws DukeException : Exception thrown when JSON of project cannot be found
+     */
     public void deleteProject(Project project) throws DukeException {
         String selectedProjectJson = userDirectory + "/" + project.getName() + ".json";
         File file = new File(selectedProjectJson);
