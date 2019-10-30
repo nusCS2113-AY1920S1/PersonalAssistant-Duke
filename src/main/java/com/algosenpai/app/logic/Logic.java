@@ -4,8 +4,8 @@ import com.algosenpai.app.logic.chapters.QuizGenerator;
 import com.algosenpai.app.logic.command.ArchiveCommand;
 import com.algosenpai.app.logic.command.ByeCommand;
 import com.algosenpai.app.logic.command.ClearCommand;
-import com.algosenpai.app.logic.command.HelpCommand;
 import com.algosenpai.app.logic.command.Command;
+import com.algosenpai.app.logic.command.HelpCommand;
 import com.algosenpai.app.logic.command.HistoryCommand;
 import com.algosenpai.app.logic.command.InvalidCommand;
 import com.algosenpai.app.logic.command.MenuCommand;
@@ -16,19 +16,19 @@ import com.algosenpai.app.logic.command.PrintUserCommand;
 import com.algosenpai.app.logic.command.QuizNextCommand;
 import com.algosenpai.app.logic.command.QuizTestCommand;
 import com.algosenpai.app.logic.command.ResultCommand;
+import com.algosenpai.app.logic.command.ReviewCommand;
 import com.algosenpai.app.logic.command.SaveCommand;
 import com.algosenpai.app.logic.command.SelectCommand;
 import com.algosenpai.app.logic.command.SetupCommand;
 import com.algosenpai.app.logic.command.UndoCommand;
-
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.stats.UserStats;
 
 import java.io.FileNotFoundException;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Logic {
     private Parser parser;
@@ -113,6 +113,8 @@ public class Logic {
             return getPrintCommand(inputs);
         case "archive":
             return new ArchiveCommand(inputs, quizList, archiveList);
+        case "review":
+            return new ReviewCommand(inputs, quizList);
         default:
             return new InvalidCommand(inputs);
         }

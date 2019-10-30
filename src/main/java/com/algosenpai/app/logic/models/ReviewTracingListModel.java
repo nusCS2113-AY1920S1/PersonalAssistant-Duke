@@ -4,21 +4,25 @@ import java.util.ArrayList;
 
 public class ReviewTracingListModel {
 
-    private ArrayList<ReviewTracingModel> reviewTracingModelArrayList;
+    private ArrayList<String> reviewMethodList;
 
     public ReviewTracingListModel() {
-        reviewTracingModelArrayList = new ArrayList<>();
+        reviewMethodList = new ArrayList<>();
     }
 
-    public void addReviewTracingModel(ReviewTracingModel reviewTracingModel) {
-        this.reviewTracingModelArrayList.add(reviewTracingModel);
+    public void addReviewTracingModel(String reviewStep) {
+        this.reviewMethodList.add(reviewStep);
     }
 
-    public ReviewTracingModel getReviewTracingModel(int i) {
-        return reviewTracingModelArrayList.get(i);
+    @Override
+    public String toString() {
+        int counter = 1;
+        StringBuilder totalString = new StringBuilder();
+        for (String x: reviewMethodList) {
+            totalString.append(counter).append(". ").append(x).append("\n");
+            counter++;
+        }
+        return totalString.toString();
     }
 
-    public int size() {
-        return reviewTracingModelArrayList.size();
-    }
 }
