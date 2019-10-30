@@ -73,4 +73,45 @@ public class ExpenditureTest {
         assertEquals(" Noted. I've removed this expenditure:\n" +
                 "  [E]$50.0 Doll for the girl(on: 9/10/1997)\n", ui.getOutputString().split(" Now")[0]);
     }
+
+    @Test
+    void testInvalidCommandException() {
+        String invalidInput = "spent useless stuff /amt rubbish /cat 3209 ";
+        MoneyCommand invalidAddCommand = new AddExpenditureCommand(invalidInput);
+        ui.clearOutputString();
+        try {
+            invalidAddCommand.execute(account, ui, storage);
+            fail();
+        } catch (DukeException | ParseException e) {
+            assertThat(e.getMessage(), is("Please enter in the format: " +
+                    "spent <description> /amt <amount> /cat <category> /on <date>\n"));
+        }
+    }
+
+    @Test
+    void testInvalidDateException() {
+        String invalidInput = "spent useless stuff /amt 2000000 /cat rubbish /on 222/43/123431 ";
+        MoneyCommand invalidAddCommand = new AddExpenditureCommand(invalidInput);
+        ui.clearOutputString();
+        try {
+            invalidAddCommand.execute(account, ui, storage);
+            fail();
+        } catch (DukeException | ParseException e) {
+            assertThat(e.getMessage(), is("Invalid date! Please enter date in the format: d/m/yyyy\n"));
+        }
+    }
+
+    @Test
+    void testInvalidIndexException() throws DukeException {
+        String invalidInput = "delete expenditure yo yo ";
+        MoneyCommand invalidAddCommand = new DeleteExpenditureCommand(invalidInput);
+        ui.clearOutputString();
+        try {
+            invalidAddCommand.execute(account, ui, storage);
+            fail();
+        } catch (DukeException | ParseException | NumberFormatException e) {
+            assertThat(e.getMessage(),
+                    is("Please enter a numerical number as the index of the expenditure to be deleted\n"));
+        }
+    }
 }
