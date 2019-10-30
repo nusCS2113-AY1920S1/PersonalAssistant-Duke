@@ -192,10 +192,10 @@ User's hero run animation will be played on the screen.
 ****
 
 
-=== 3B.4 Stopwatch : `countdown` +
+=== 3B.4 Timer : `timer` +
 
-Starts a exitable countdown. +
-Format: `countdown TIMEINMINUTES`
+Starts a exitable countdown that can be paused and resumed. +
+Format: `countdown HH MM SS`
 
 ****
 * User earns points based off how long the countdown was given.
@@ -204,8 +204,18 @@ Format: `countdown TIMEINMINUTES`
 Examples:
 
 ****
-* `countdown 60` +
-   Start a countdown for 60 minutes.
+* `/timer 01 30 45` +
+   Start a countdown for 1 hour, 30 minutes and 45 seconds.
+   
+* `/pausetimer`
+   Pauses a running timer. This command is invalid and does nothing if there are no timers currently running.
+   
+* `/resumetimer`
+   Resumes a timer that has been paused. This command is invalid if there are no timers currently paused.
+   
+* `/stoptimer`
+   Prematurely stops a running timer, resetting it. This command is invalid if there are no timers currently running.
+
 ****
 
 == 4. FAQ
