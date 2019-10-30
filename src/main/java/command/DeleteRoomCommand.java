@@ -1,5 +1,8 @@
 package command;
 
+import inventory.Inventory;
+import inventory.Item;
+
 import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
@@ -34,17 +37,18 @@ public class DeleteRoomCommand extends Command {
 
     /**
      * Executes the command to delete a room from room list to the system.
-     * @param roomList room list
+     * @param roomList list of rooms
      * @param bookingList bookings list
      * @param ui user interface
      * @param bookingStorage handles read write of text file
-     * @param roomStorage handles read write of text file for room storge
+     * @param roomStorage file storage for room list
      * @param user Current user
-     * @throws DukeException for wrong user input format
+     * @throws DukeException invalid entry
      */
     @Override
-    public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingStorage,
-                        Storage roomStorage, User user) throws DukeException {
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage inventoryStorage, Storage bookingStorage, Storage roomStorage, User user)
+            throws DukeException {
         if (index < 0 || index > roomList.size() - 1) {
             throw new DukeException("OOPS!!! You have entered an index that is out of bounds.");
         }

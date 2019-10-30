@@ -1,5 +1,8 @@
 package command;
 
+import inventory.Inventory;
+import inventory.Item;
+
 import exception.DukeException;
 import room.RoomList;
 import storage.Storage;
@@ -18,13 +21,12 @@ public class ByeCommand extends Command {
      * If "bye" is entered.
      * @param bookingList task list
      * @param ui user interface
-     * @param bookingStorage handles read write of text file
      * @throws IOException if IOException found
      * @throws DukeException if control.Duke specific exception found
      */
     @Override
-    public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingStorage,
-                        Storage roomStorage, User user) {
+    public void execute(Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
+                        Storage inventoryStorage, Storage bookingstorage, Storage roomstorage, User user) {
         ui.showBye();
         this.isExit = true;
     }

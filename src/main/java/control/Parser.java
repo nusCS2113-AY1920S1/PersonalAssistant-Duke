@@ -18,6 +18,7 @@ import command.LoginCommand;
 import command.LogoutCommand;
 import command.RejectCommand;
 import command.DeleteRoomCommand;
+import command.AddInventoryCommand;
 import exception.DukeException;
 import storage.Constants;
 import java.io.IOException;
@@ -70,6 +71,9 @@ public class Parser {
             return new ListBookingMonthCommand(input, splitStr);
         case "deleteroom":
             return new DeleteRoomCommand(input, splitStr);
+        case "addinventory":
+            return new AddInventoryCommand(input, splitStr);
+
         default:
             throw new DukeException(Constants.UNHAPPY + " OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

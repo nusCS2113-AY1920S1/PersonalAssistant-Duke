@@ -32,7 +32,7 @@ public class Booking {
     public Booking(String username, String roomcode, String description, String dateTimeStart, String dateTimeEnd) {
         this.venue = roomcode;
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
+        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         this.dateTimeStart = LocalDateTime.parse(dateTimeStart, formatterStart);
         this.dateStart = this.dateTimeStart.toLocalDate();
         this.timeEnd = LocalTime.parse(dateTimeEnd, formatterEnd);
