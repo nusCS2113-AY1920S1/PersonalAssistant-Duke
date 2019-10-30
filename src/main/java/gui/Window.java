@@ -15,7 +15,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.text.DefaultCaret;
 
 import core.Duke;
-import utils.TasksCounter;
+import logic.LogicController;
+import logic.command.CommandOutput;
+import common.DukeException;
 import gui.PieChart;
 
 import java.awt.Color;
@@ -26,6 +28,7 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 
+//@@author AugGust
 public class Window {
 
     private JFrame frame;
@@ -37,12 +40,14 @@ public class Window {
 
     private JTextField completedPercField;
     private PieChart pieChart;
+    protected LogicController logicController;
 
     /**
      * Create the Window
      */
-    public Window(TasksCounter tc) {
+    public Window(TasksCounter tc, LogicController logicController) {
         Window.instance = this;
+        this.logicController = logicController;
         this.tasksCounter = tc;
         initialize();
         this.frame.setVisible(true);
@@ -135,7 +140,13 @@ public class Window {
         Action enterPressed = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Duke.processCommand(inputField.getText());
+                //TODO this is where we insert the new command
+                try {
+                    executeCommand(inputField.getText());
+                } catch (DukeException error) {
+                    //TODO Error handling not done
+                    setOutputArea(error.getMessage());
+                }
                 im.addToHistory(inputField.getText());
                 inputField.setText("");
             }
@@ -173,5 +184,25 @@ public class Window {
     public void updatePercentage() {
         completedPercField.setText("" + (int) tasksCounter.getPercCompleted() + "% of tasks complete");
         pieChart.setPercentage(tasksCounter.getPercCompleted());
+    }
+
+    /**
+     * Sets output area to desired text
+     */
+    private void setOutputArea(String outputString) {
+        outputArea.setText(outputArea.getText() + "\n\n" + outputString);
+    }
+
+
+    /**
+     * Updates the command text box to show results from commands
+     */
+    public void executeCommand(String fullCommandText) throws DukeException {
+        CommandOutput commandOutput = logicController.execute(fullCommandText);
+        setOutputArea(commandOutput.getOutputToUser());
+        updatePercentage();
+        if (commandOutput.isExit()) {
+            System.exit(0);
+        }
     }
 }
