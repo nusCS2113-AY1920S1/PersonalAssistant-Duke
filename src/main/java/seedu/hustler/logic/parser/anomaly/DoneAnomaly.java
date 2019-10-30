@@ -31,7 +31,7 @@ public class DoneAnomaly extends DetectAnomaly {
 
         int doneIndex;
         //detects whether the index argument provided is a integer. For
-	//example, 'done lor' is a invalid input.
+        //example, 'done lor' is a invalid input.
         try {
             doneIndex = Integer.parseInt(parsedInput[0]);
         } catch (NumberFormatException e) {
@@ -41,7 +41,7 @@ public class DoneAnomaly extends DetectAnomaly {
         doneIndex--;
 
         //detects array out of bounds exception.
-        if (doneIndex >= Hustler.list.size()) {
+        if (doneIndex >= Hustler.list.size() || doneIndex < 0) {
             throw new CommandLineException("The task index provided is invalid.");
         }
     }
