@@ -40,7 +40,6 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
-
         ui.showLine("You have removed this task:");
         Task t = tasks.get(filter, index);
         ui.showLine(t.getDescription());

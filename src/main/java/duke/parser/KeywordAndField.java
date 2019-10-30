@@ -1,5 +1,8 @@
 package duke.parser;
 
+/**
+ * A tuple of two strings -- keyword and field
+ */
 public class KeywordAndField {
 
     private String keyword;

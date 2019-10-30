@@ -1,0 +1,22 @@
+# El Duque (for people trying to be programmers)
+ifdef::env-github,env-browser[:relfileprefix: docs/]
+
+* El Duque is a desktop task manager programme.
+* It is designed by people trying to be programmers to help people trying to be programmers to manage their tasks more effectively. 
+* Optimized for keyboard warriors who prefer using CLI. Commands are simple and intuitive to use.
+* Java program written in OOP fashion as part of our Software Engineering module.
+
+# Installation
+
+1. Download the JAR file [here]()
+1. Run it. Easy as that.
+
+# Documentation
+
+* <<UserGuide#, User Guide>>
+* <<DeveloperGuide#, Developer Guide>>
+
+# Credits
+We would like to thank our parents for giving birth to us, NUS for its constant emotional support, ModReg for training our patience and inspiring us to be better software developers. 
+
+# Licence : link:LICENSE[MIT]

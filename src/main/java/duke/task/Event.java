@@ -18,7 +18,16 @@ public class Event extends Task {
      * Allows reminding of user for when the duke.task.Event is going to be
      *
      * @param description the description of the event
-     * @param the         date and time at which the event will be held
+     * @param date and time at which the event will be held
+     */
+    /**
+     * Constructor for duke.task.Event
+     * Takes in an optional string, datetime, recurrence, description and duration
+     * @param filter of the task
+     * @param dateTime date time of the task
+     * @param recurrence recurrence period
+     * @param description description of the task
+     * @param duration fixed duration of the task
      */
     public Event(Optional<String> filter, Optional<LocalDateTime> dateTime, Recurrence recurrence, String description,
                  int duration) {
