@@ -230,6 +230,18 @@ Examples:
   
 ****
 
+=== 3B.6 Achievements : `/achievement` +
+
+Brings up the achievement page that shows the user the lists of achievements that have been unlocked as well as the total number of points the user has accumalated.
+
+****
+* Points can be earned from completing tasks, adding tasks and so on.
+****
+
+=== 3B.6 Avatar : `/avatar` +
+
+This command will show user all information related to 
+
 == 4. FAQ
 
 *Q*: Where do I install Java 11 from? +  
