@@ -1,15 +1,16 @@
-= John Doe - Project Portfolio
+= Khairul Iman - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: ModPlanner
 
 ---
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+ModPlanner is a command line interface application written in Java. Its aim is to help Computer Engineering students plan their modules throughout their entire university tenure.
+This was done in apart to learn the basic concepts of software engineering in a non-trivial project, consisting of about
 
 == Summary of contributions
 
