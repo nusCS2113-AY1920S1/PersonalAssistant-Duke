@@ -78,6 +78,7 @@ public class MainWindow extends UiManager<Stage> {
             Command c = Parser.parse(command);
             CommandResult result = c.execute(modelManager, storageManager);
             resultDisplay.setResultText(result.getFeedbackToUser());
+            listPanel.updateProductList(storageManager.getFoodList());
 
             if (result.isShowHelp()) {
                 handleHelp();

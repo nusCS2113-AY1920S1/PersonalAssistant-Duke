@@ -25,6 +25,11 @@ public class ListPanel extends UiManager<ListView> {
         //productListView.setCellFactory(listView -> new ListViewCell());
     }
 
+    public void updateProductList(FoodList foodList) {
+        ObservableList<Food> observableList = FXCollections.observableArrayList(foodList.getFoodList());
+        productListView.setItems(observableList);
+    }
+
     class ListViewCell extends ListCell<Food> {
         @Override
         protected void updateItem(Food food, boolean empty) {
