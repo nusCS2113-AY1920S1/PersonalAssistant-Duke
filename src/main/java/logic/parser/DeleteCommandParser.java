@@ -27,10 +27,12 @@ public class DeleteCommandParser {
             throw new DukeException("Message is invalid");
         }
 
-        final String addType = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
+        String deleteType = matcher.group("commandWord");
+        String arguments = matcher.group("arguments");
 
-        switch (addType) {
+        deleteType = deleteType.trim();
+
+        switch (deleteType) {
         case TASK:
             return DeleteTaskParser.parseDeleteTask(arguments);
         case MEMBER:

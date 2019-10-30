@@ -31,10 +31,10 @@ public class ListTasksCommand extends Command {
                 Task task = tasks.get(i);
                 finalOutput += (task.isDone() ? "[done]" : "[todo]")
                         + (i + 1) + " : " + "Task Name: "
-                        + task.getName()
-                        + (task.getTime() != null ? "\tTime: " + task.getTime() : "")
-                        + (task.getMemberList().size() != 0 ? "\tAssigned to: " + task.getMemberList().toString() : "")
-                        + "\n\n";
+                        + task.getName() + "\n"
+                        + (task.getTime() != null ? "Time: " + task.getTime()  + "\n" : "")
+                        + (task.getMemberList().size() != 0 ? "Assigned to: " + task.getMemberList().toString() + "\n" : "")
+                        + "\n";
             }
         } else {
             finalOutput = EMPTY_TASKS_LIST;

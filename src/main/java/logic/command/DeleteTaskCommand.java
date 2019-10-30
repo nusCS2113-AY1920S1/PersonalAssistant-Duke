@@ -1,13 +1,14 @@
 package logic.command;
 
-import core.Duke;
 import model.Model;
-import model.Task;
 import common.DukeException;
 
 public class DeleteTaskCommand extends Command {
-
+    private static final String SUCCESS_MSSAGE = "you have removed a task: ";
+    private static final String INVALID_MSSAGE = "invalid task index";
+    private static final String FAIL_MSSAGE = "fail to delete task";
     private int taskIndexInList;
+    private String taskName;
 
     public DeleteTaskCommand(int index) {
         this.taskIndexInList = index;
@@ -15,14 +16,16 @@ public class DeleteTaskCommand extends Command {
 
     @Override
     public CommandOutput execute(Model model) throws DukeException {
-
-        if (taskIndexInList > model.getTaskListSize() || taskIndexInList < 1) {
-            return new CommandOutput("invalid task index");
-        } else {
-            Task temp = model.deleteTask(taskIndexInList);
-            return new CommandOutput("you have removed a task: " + temp.getName());
+        try {
+            if (taskIndexInList > model.getTaskListSize() || taskIndexInList < 1) {
+                return new CommandOutput(INVALID_MSSAGE);
+            } else {
+                taskName = model.deleteTask(taskIndexInList);
+                return new CommandOutput(SUCCESS_MSSAGE + taskName);
+            }
+        } catch (Exception e) {
+            throw new DukeException(FAIL_MSSAGE);
         }
-
 
     }
 

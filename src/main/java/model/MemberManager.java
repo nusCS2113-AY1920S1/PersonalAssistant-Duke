@@ -144,4 +144,8 @@ public class MemberManager {
         }
         return false;
     }
+
+    public ArrayList<String> getTaskListOfMember(String memberName) {
+        return getMemberByName(memberName).getTaskList();
+    }
 }
