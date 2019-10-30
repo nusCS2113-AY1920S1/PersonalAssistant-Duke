@@ -2,9 +2,11 @@ package cube.ui;
 
 import cube.exception.CubeException;
 import cube.logic.command.Command;
-import cube.logic.command.CommandResult;
+import cube.logic.command.util.CommandResult;
 import cube.logic.parser.Parser;
-import cube.model.FoodList;
+import cube.model.food.FoodList;
+import cube.model.sale.SalesHistory;
+import cube.model.ModelManager;
 import cube.storage.StorageManager;
 import cube.storage.ConfigStorage;
 import cube.util.FileUtilJson;
@@ -17,6 +19,7 @@ public class MainWindow extends UiManager<Stage> {
 
     private Stage primaryStage;
     private ResultDisplay resultDisplay;
+    private ListPanel listPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -24,10 +27,15 @@ public class MainWindow extends UiManager<Stage> {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
+    @FXML
+    private StackPane listPanelPlaceholder;
+
     private StorageManager storageManager;
     private ConfigStorage configStorage;
-    private FileUtilJson storage;
+    private FileUtilJson<StorageManager> storage;
     private FoodList foodList;
+    private SalesHistory salesHistory;
+    private ModelManager modelManager;
 
     public MainWindow (Stage primaryStage) {
         super(FXML, primaryStage);
@@ -35,7 +43,7 @@ public class MainWindow extends UiManager<Stage> {
         this.primaryStage = primaryStage;
     }
 
-    public MainWindow (Stage primaryStage, StorageManager storageManager, FileUtilJson storage) {
+    public MainWindow (Stage primaryStage, StorageManager storageManager, FileUtilJson<StorageManager> storage) {
         super(FXML, primaryStage);
 
         this.primaryStage = primaryStage;
@@ -43,6 +51,8 @@ public class MainWindow extends UiManager<Stage> {
         this.storage = storage;
         this.configStorage = storageManager.getConfig();
         this.foodList = storageManager.getFoodList();
+        this.salesHistory = storageManager.getSalesHistory();
+        this.modelManager = new ModelManager(foodList, salesHistory);
     }
 
     public void show() {
@@ -50,21 +60,25 @@ public class MainWindow extends UiManager<Stage> {
     }
 
     public void initComponents() {
-        primaryStage.setHeight(configStorage.getWindowHeight());
-        primaryStage.setWidth(configStorage.getWindowWidth());
+        primaryStage.setHeight(configStorage.getUiConfig().getWindowHeight());
+        primaryStage.setWidth(configStorage.getUiConfig().getWindowWidth());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        listPanel = new ListPanel(foodList);
+        listPanelPlaceholder.getChildren().add(listPanel.getRoot());
     }
 
     private CommandResult executeCommand(String command) throws CubeException {
         try {
             Command c = Parser.parse(command);
-            CommandResult result = c.execute(foodList, storageManager);
+            CommandResult result = c.execute(modelManager, storageManager);
             resultDisplay.setResultText(result.getFeedbackToUser());
+            listPanel.updateProductList(storageManager.getFoodList());
 
             if (result.isShowHelp()) {
                 handleHelp();

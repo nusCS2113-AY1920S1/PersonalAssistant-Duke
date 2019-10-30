@@ -1,29 +1,34 @@
+/**
+ * Support food-related methods for storage.
+ *
+ * @author tygq13
+ */
 package cube.storage;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import cube.model.Food;
-import cube.model.FoodList;
+import cube.model.food.FoodList;
 
 public class FoodStorage {
-	@JsonProperty
 	private FoodList foodList;
 
+	/**
+	 * Default constructor for FoodStorage.
+	 */
 	public FoodStorage() {
 		this.foodList = new FoodList();
 	}
 
-	public FoodStorage(FoodList foodList) {
-		this.foodList = foodList;
-	}
-
+	/**
+	 * Getter for FoodList.
+	 * @return FoodList containing list of Food objects.
+	 */
 	public FoodList getFoodList() {
 		return foodList;
 	}
 
-	public void appendFood(Food food) {
-		foodList.add(food);
-	}
-
+	/**
+	 * Setter for FoodList.
+	 * @param foodlist Object containing the list of Food objects.
+	 */
 	public void storeFoodList(FoodList foodlist) {
 		this.foodList = foodlist;
 	}

@@ -16,3 +16,8 @@ bin/
 # data file
 data/
 src/main/java/META-INF/MANIFEST.MF
+
+# Log files
+*.log
+*.lck
+logs/
