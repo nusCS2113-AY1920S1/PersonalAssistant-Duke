@@ -18,11 +18,10 @@ public abstract class Reminder {
 
     /**
      * Constructor for Reminder.
-     * @param tasks TaskList object containing current active taskList.
      * @param remindBefore TimeInterval object indicating the amount of time to start reminding beforehand
      * @param checkEvery TimeInterval object indicating the amount of time to wait between reminds
      */
-    public Reminder(List<Task> tasks, TimeInterval remindBefore, TimeInterval checkEvery)
+    public Reminder(TimeInterval remindBefore, TimeInterval checkEvery)
             throws ModTimeIntervalTooCloseException {
         if (remindBefore.isLessThan(Reminder.minBefore)) {
             throw new ModTimeIntervalTooCloseException();
@@ -33,20 +32,20 @@ public abstract class Reminder {
         this.thread = new Thread(this::remind);
     }
 
-    public Reminder(List<Task> tasks, int minutesBefore, int minutesEvery) throws ModTimeIntervalTooCloseException {
-        this(tasks, TimeInterval.ofMinutes(minutesBefore), TimeInterval.ofMinutes(minutesEvery));
+    public Reminder(int minutesBefore, int minutesEvery) throws ModTimeIntervalTooCloseException {
+        this(TimeInterval.ofMinutes(minutesBefore), TimeInterval.ofMinutes(minutesEvery));
     }
 
-    public Reminder(List<Task> tasks, TimeInterval remindBefore) throws ModTimeIntervalTooCloseException {
-        this(tasks, remindBefore, TimeInterval.min(TimeInterval.ofHours(1), remindBefore));
+    public Reminder(TimeInterval remindBefore) throws ModTimeIntervalTooCloseException {
+        this(remindBefore, TimeInterval.min(TimeInterval.ofHours(1), remindBefore));
     }
 
-    public Reminder(List<Task> tasks, int minutesBefore) throws ModTimeIntervalTooCloseException {
-        this(tasks, minutesBefore, Math.min(60, minutesBefore));
+    public Reminder(int minutesBefore) throws ModTimeIntervalTooCloseException {
+        this(minutesBefore, Math.min(60, minutesBefore));
     }
 
-    public Reminder(List<Task> tasks) throws ModTimeIntervalTooCloseException {
-        this(tasks, TimeInterval.ofHours(6), TimeInterval.ofHours(1));
+    public Reminder() throws ModTimeIntervalTooCloseException {
+        this(TimeInterval.ofHours(6), TimeInterval.ofHours(1));
     }
 
     /**
