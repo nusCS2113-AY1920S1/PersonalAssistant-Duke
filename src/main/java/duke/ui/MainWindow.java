@@ -95,11 +95,7 @@ public class MainWindow extends UiPart<Stage> {
             return;
         }
         echoUserInput(input);
-        if (logic.isNewUser) {
-            sgTravelSetup(input);
-        } else {
-            sgTravelResponse(input);
-        }
+        sgTravelResponse(input);
     }
 
     @FXML

@@ -43,13 +43,8 @@ public class LogicManager extends Logic {
      */
     public CommandResult setup(String userInput) throws DukeException {
         Command c;
-        try {
-            c = Parser.parseComplexCommand(userInput);
-            conversationManager.clearContext();
-        } catch (DukeUnknownCommandException e) {
-            conversationManager.converse(userInput);
-            c = conversationManager.getCommand();
-        }
+        conversationManager.converse(userInput);
+        c = conversationManager.getCommand();
         CommandResult result = (CommandResult) c.execute(model);
         isNewUser = model.isNewUser();
         return result;
