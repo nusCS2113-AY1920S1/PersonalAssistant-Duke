@@ -300,34 +300,39 @@ public class Storage {
         }
     }
 
+    /**
+     * Extracts the time information from the leave class object for it to be able
+     * to store in the data file to be saved.
+     *
+     * @param task Task object to be converted.
+     * @return time A string with the correct formatting to be placed in the data file.
+     * @throws RoomShareException If there is any error in parsing the Date information.
+     */
     private String convertForStorageLeave(Task task) throws RoomShareException {
         try {
-            String time = "";
+            String time;
             String[] prelimSplit = task.toString().split("\\(");
             String[] tempString = prelimSplit[2].split("\\s+");
-            //from year
+
             String fromYear = tempString[6].trim();
-            //to year
             String toYear = tempString[13].trim().substring(0, tempString[13].length() -1);
-            //from month
+
             Date fromMonth = new SimpleDateFormat("MMM").parse(tempString[2]);
             DateFormat dateFormatFromMonth = new SimpleDateFormat("MM");
             String fromMth = dateFormatFromMonth.format(fromMonth);
-            //to month
             Date toMonth = new SimpleDateFormat("MMM").parse(tempString[9]);
             DateFormat dateFormatToMonth = new SimpleDateFormat("MM");
-            String toMth = dateFormatToMonth.format(fromMonth);
-            //from time
+            String toMth = dateFormatToMonth.format(toMonth);
+
             String[] fromTimeArray = tempString[4].split(":", 3);
-            //to time
             String[] toTimeArray = tempString[11].split(":", 3);
-            //from day
+
             String fromDay = tempString[3];
-            //to day
             String toDay = tempString[10];
 
             time = fromDay + "/" + fromMth + "/" + fromYear + " " + fromTimeArray[0] + ":" + fromTimeArray[1] + "-" +
                     toDay + "/" + toMth + "/" + toYear + " " + toTimeArray[0] + ":" + toTimeArray[1];
+
             return time;
         } catch (ParseException e) {
             throw new RoomShareException(ExceptionType.wrongFormat);
