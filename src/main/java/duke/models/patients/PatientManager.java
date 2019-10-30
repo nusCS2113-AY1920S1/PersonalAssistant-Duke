@@ -7,6 +7,7 @@ import duke.exceptions.DukeException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 public class PatientManager {
 
     private HashMap<Integer, Patient> patientIdMap = new HashMap<Integer, Patient>();

@@ -1,3 +1,4 @@
+//@@author WEIFENG-NUSCEG
 package duke.util.mementopattern;
 
 import duke.exceptions.DukeException;
