@@ -172,7 +172,7 @@ public class MainWindow extends AnchorPane {
         Map<String, Integer> counterMap = new HashMap<>();
         counterMap = duke.getStorageManager().loadCommandFrequency();
         ArrayList<Integer> frequencyList = new ArrayList<Integer>(counterMap.values());
-        ArrayList<String> commandNameList = new ArrayList<String>(counterMap.keySet());
+        final ArrayList<String> commandNameList = new ArrayList<String>(counterMap.keySet());
         final Scene scene = new Scene(new Group());
         Stage stage = new Stage();
         stage.setTitle("Pie Chart");
@@ -180,18 +180,12 @@ public class MainWindow extends AnchorPane {
         stage.setWidth(500);
         stage.setHeight(500);
 
-        ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList(
-                    new PieChart.Data(commandNameList.get(0), frequencyList.get(0)),
-                    new PieChart.Data(commandNameList.get(1), frequencyList.get(1)),
-                    new PieChart.Data(commandNameList.get(2), frequencyList.get(2)),
-                    new PieChart.Data(commandNameList.get(3), frequencyList.get(3)),
-                    new PieChart.Data(commandNameList.get(4), frequencyList.get(4)),
-                    new PieChart.Data(commandNameList.get(5), frequencyList.get(5)),
-                    new PieChart.Data(commandNameList.get(6), frequencyList.get(6)),
-                    new PieChart.Data(commandNameList.get(7), frequencyList.get(7)),
-                    new PieChart.Data(commandNameList.get(8), frequencyList.get(8))
-                );
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+        for (int i = 0; i < commandNameList.size(); i++) {
+            pieChartData.add(new PieChart.Data(commandNameList.get(i), frequencyList.get(i)));
+        }
+
         final PieChart chart = new PieChart(pieChartData);
         chart.setTitle("Command Frequency");
 
@@ -219,19 +213,11 @@ public class MainWindow extends AnchorPane {
         bc.setTitle("Command Frequency");
         xAxis.setLabel("Command");
         yAxis.setLabel("Frequency");
-
         XYChart.Series series1 = new XYChart.Series();
-
         series1.setName(yearInString);
-        series1.getData().add(new XYChart.Data(commandNameList.get(0), frequencyList.get(0)));
-        series1.getData().add(new XYChart.Data(commandNameList.get(1), frequencyList.get(1)));
-        series1.getData().add(new XYChart.Data(commandNameList.get(2), frequencyList.get(2)));
-        series1.getData().add(new XYChart.Data(commandNameList.get(3), frequencyList.get(3)));
-        series1.getData().add(new XYChart.Data(commandNameList.get(4), frequencyList.get(4)));
-        series1.getData().add(new XYChart.Data(commandNameList.get(5), frequencyList.get(5)));
-        series1.getData().add(new XYChart.Data(commandNameList.get(6), frequencyList.get(6)));
-        series1.getData().add(new XYChart.Data(commandNameList.get(7), frequencyList.get(7)));
-        series1.getData().add(new XYChart.Data(commandNameList.get(8), frequencyList.get(8)));
+        for (int i = 0; i < commandNameList.size(); i++) {
+            series1.getData().add(new XYChart.Data(commandNameList.get(i), frequencyList.get(i)));
+        }
 
         Scene scene = new Scene(bc, 800, 600);
         bc.getData().addAll(series1);
