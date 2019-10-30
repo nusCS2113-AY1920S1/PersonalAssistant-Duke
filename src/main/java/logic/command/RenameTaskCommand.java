@@ -4,29 +4,25 @@ import common.DukeException;
 import model.Model;
 import java.util.Date;
 
-//@@ JasonChanWQ
+public class RenameTaskCommand extends Command {
 
-public class SnoozeCommand extends Command {
-
-    private static final String SUCCESS_MESSAGE = "The deadline has been changed to: ";
+    private static final String SUCCESS_MESSAGE = "The task has been renamed to: ";
     public static final String INDEX_NOT_IN_TASKlIST_MESSAGE = "Index is not within the task list";
     public int taskIndex;
-    public Date newDate;
+    public String newName;
 
-    public SnoozeCommand(int taskIndex, Date newDate) {
+    public RenameTaskCommand(int taskIndex, String newName) {
         this.taskIndex = taskIndex;
-        this.newDate = newDate;
+        this.newName = newName;
     }
-
-    //@@ JasonChanWQ
 
     @Override
     public CommandOutput execute(Model model) throws DukeException {
         if (taskIndex < 1 || taskIndex > model.getTaskListSize()) {
             return new CommandOutput(INDEX_NOT_IN_TASKlIST_MESSAGE);
         } else {
-            model.getTaskList().get(taskIndex - 1).setTime(newDate);
-            return new CommandOutput(SUCCESS_MESSAGE + newDate);
+            model.getTaskList().get(taskIndex - 1).setName(newName);
+            return new CommandOutput(SUCCESS_MESSAGE + newName);
         }
     }
 }
