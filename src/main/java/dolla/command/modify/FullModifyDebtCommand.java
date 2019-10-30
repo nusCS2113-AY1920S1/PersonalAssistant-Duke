@@ -1,13 +1,14 @@
-package dolla.command;
+package dolla.command.modify;
 
 import dolla.DollaData;
+import dolla.command.Command;
 import dolla.task.Debt;
 import dolla.ui.Ui;
 
 import java.time.LocalDate;
 
 //@@author omupenguin
-public class ModifyDebtCommand extends Command {
+public class FullModifyDebtCommand extends Command {
 
     private String type;
     private String name;
@@ -18,15 +19,15 @@ public class ModifyDebtCommand extends Command {
     private String mode = "debt";
 
     /**
-     * Instantiates a new ModifyDebtCommand.
+     * Instantiates a new FullModifyDebtCommand.
      * @param type type of debt
      * @param name name of debtor
      * @param amount amount of debt
      * @param description description of debt
      * @param date date of debt
      */
-    public ModifyDebtCommand(String type, String name, double amount,
-                             String description, LocalDate date) {
+    public FullModifyDebtCommand(String type, String name, double amount,
+                                 String description, LocalDate date) {
         this.type = type;
         this.name = name;
         this.amount = amount;

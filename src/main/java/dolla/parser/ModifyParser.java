@@ -1,14 +1,11 @@
 package dolla.parser;
 
 import dolla.Time;
-import dolla.command.AddDebtsCommand;
-import dolla.command.AddLimitCommand;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
-import dolla.command.ModifyDebtCommand;
-import dolla.command.ModifyEntryCommand;
+import dolla.command.modify.FullModifyDebtCommand;
+import dolla.command.modify.FullModifyEntryCommand;
 import dolla.ui.DebtUi;
-import dolla.ui.LimitUi;
 
 //@@author omupenguin
 public class ModifyParser extends Parser {
@@ -25,7 +22,7 @@ public class ModifyParser extends Parser {
         switch (modeToModify) {
             case MODE_ENTRY:
                 if (verifyAddCommand() == true) {
-                    return new ModifyEntryCommand(inputArray[1], stringToDouble(inputArray[2]), inputArray[3], date);
+                    return new FullModifyEntryCommand(inputArray[1], stringToDouble(inputArray[2]), inputArray[3], date);
                 } else {
                     return new ErrorCommand();
                 }
@@ -47,7 +44,7 @@ public class ModifyParser extends Parser {
                 } catch (Exception e) {
                     return new ErrorCommand();
                 }
-                return new ModifyDebtCommand(type, name, amount, description, date);
+                return new FullModifyDebtCommand(type, name, amount, description, date);
             case MODE_LIMIT:
                 /* TODO
                 String limitType;

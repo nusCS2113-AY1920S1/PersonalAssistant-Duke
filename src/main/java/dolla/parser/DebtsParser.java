@@ -63,7 +63,7 @@ public class DebtsParser extends Parser {
             t.handleTag(inputLine, inputArray, debt);
             return processAdd(type, name, amount);
         } else if (commandToRun.equals(COMMAND_MODIFY)) {
-            if (verifyModifyCommand()) {
+            if (verifyFullModifyCommand()) {
                 return new InitialModifyCommand(inputArray[1]);
             } else {
                 return new ErrorCommand();

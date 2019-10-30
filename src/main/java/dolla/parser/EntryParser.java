@@ -11,7 +11,9 @@ import dolla.command.InitialModifyCommand;
 import dolla.command.SortCommand;
 import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
+import dolla.command.modify.PartialModifyEntryCommand;
 import dolla.task.Entry;
+import dolla.ui.ModifyUi;
 
 public class EntryParser extends Parser {
 
@@ -39,8 +41,10 @@ public class EntryParser extends Parser {
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(COMMAND_MODIFY)) {
-            if (verifyModifyCommand()) {
+            if (verifyFullModifyCommand()) {
                 return new InitialModifyCommand(inputArray[1]);
+            } else if (verifyPartialModifyEntryCommand()) {
+                return new PartialModifyEntryCommand();
             } else {
                 return new ErrorCommand();
             }
@@ -59,6 +63,18 @@ public class EntryParser extends Parser {
         } else {
             return invalidCommand();
         }
+    }
+
+    public boolean verifyPartialModifyEntryCommand() {
+        // TODO
+        int recordNum;
+        try {
+            recordNum = Integer.parseInt(inputArray[1]);
+        } catch (Exception e) {
+            ModifyUi.printInvalidModifyFormatError();
+            return false;
+        }
+        return true;
     }
 
     //@@author yetong1895

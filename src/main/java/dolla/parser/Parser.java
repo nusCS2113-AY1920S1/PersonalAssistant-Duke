@@ -128,13 +128,12 @@ public abstract class Parser implements CommandStringList {
     }
 
     /**
-     * Verifies modify command. //todo: edit javadoc
-     * @return
+     * Returns true if the only element in the input that follows 'modify' is a number.
+     * @return true if the only element in the input that follows 'modify' is a number.
      */
-    public boolean verifyModifyCommand() {
+    public boolean verifyFullModifyCommand() {
         try {
             Integer.parseInt(inputArray[1]);
-            // TODO: Add support for modifying specific categories
         } catch (Exception e) {
             ModifyUi.printInvalidModifyFormatError();
             return false;
