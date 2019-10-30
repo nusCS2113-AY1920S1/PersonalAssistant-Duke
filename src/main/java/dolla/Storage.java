@@ -1,6 +1,5 @@
 package dolla;
 
-
 import dolla.parser.MainParser;
 import dolla.task.Debt;
 import dolla.task.Entry;

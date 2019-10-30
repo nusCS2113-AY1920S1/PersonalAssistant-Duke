@@ -1,5 +1,6 @@
 package dolla.parser;
 
+import dolla.Tag;
 import dolla.action.Repeat;
 import dolla.command.Command;
 import dolla.command.AddEntryCommand;
@@ -10,6 +11,7 @@ import dolla.command.InitialModifyCommand;
 import dolla.command.SortCommand;
 import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
+import dolla.task.Entry;
 
 public class EntryParser extends Parser {
     private static final String ENTRY_COMMAND_REDO = "redo";
@@ -28,6 +30,9 @@ public class EntryParser extends Parser {
             return new ShowListCommand(mode);
         } else if (commandToRun.equals("add")) {
             if (verifyAddCommand()) {
+                Tag t = new Tag();
+                Entry entry = new Entry(inputArray[1], stringToDouble(inputArray[2]), description, date);
+                t.handleTag(inputLine, inputArray, entry);
                 return processAdd();
             } else {
                 return new ErrorCommand();

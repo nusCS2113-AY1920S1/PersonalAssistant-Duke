@@ -42,6 +42,7 @@ public abstract class Parser {
         this.commandToRun = inputArray[0];
     }
 
+
     public abstract Command parseInput();
 
     /**
@@ -51,7 +52,7 @@ public abstract class Parser {
     public void extractDescTime() throws Exception {
         // dataArray[0] is command, amount and description, dataArray[1] is time and tag
         String[] dataArray = inputLine.split(" /on ");
-        String dateString = (dataArray[1].split("/tag"))[0];
+        String dateString = (dataArray[1].split(" /tag "))[0];
         description = dataArray[0].split(inputArray[2] + " ")[1];
         try {
             date = Time.readDate(dateString);

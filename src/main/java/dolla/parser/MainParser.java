@@ -1,6 +1,5 @@
 package dolla.parser;
 
-import dolla.Tag;
 import dolla.ui.Ui;
 
 import dolla.command.Command;
@@ -12,13 +11,13 @@ import dolla.command.SwitchModeCommand;
  */
 public class MainParser {
 
-    protected static final String MODE_DOLLA = "dolla";
-    protected static final String MODE_ENTRY = "entry";
-    protected static final String MODE_LIMIT = "limit";
-    protected static final String MODE_DEBT = "debt";
-    protected static final String MODE_SHORTCUT = "shortcut";
-    protected static final String SPACE = " ";
-    protected static final String COMMAND_BYE = "bye";
+    private static final String MODE_DOLLA = "dolla";
+    private static final String MODE_ENTRY = "entry";
+    private static final String MODE_LIMIT = "limit";
+    private static final String MODE_DEBT = "debt";
+    private static final String MODE_SHORTCUT = "shortcut";
+    private static final String SPACE = " ";
+    private static final String COMMAND_BYE = "bye";
 
     /**
      * Returns a command corresponding to the user input by directing
@@ -32,10 +31,8 @@ public class MainParser {
         //String inputLine = input.nextLine();
         String[] inputArray = inputLine.split(SPACE);
         String command = inputArray[0];
-        boolean isExitCommand = command.equalsIgnoreCase(COMMAND_BYE);
-        boolean isSwitchMode = command.equalsIgnoreCase(MODE_DOLLA) || command.equals(MODE_ENTRY)
-                || command.equals(MODE_LIMIT) || command.equals(MODE_DEBT)
-                || command.equals(MODE_SHORTCUT);
+        boolean isExitCommand = isExitCommand(command);
+        boolean isSwitchMode = isSwitchModeCommand(command);
         if (isExitCommand) {
             exit(); // TODO: change
             //return new ExitCommand();
@@ -43,8 +40,6 @@ public class MainParser {
             return new SwitchModeCommand(command); // TODO
         }
 
-        Tag tag = new Tag(inputLine);
-        tag.parseTag();
         switch (mode) {
         case MODE_DOLLA:
             DollaParser dollaParser = new DollaParser(inputLine);
@@ -173,6 +168,16 @@ public class MainParser {
         return commandToRun;
     }
     */
+
+    private static boolean isExitCommand(String command) {
+        return command.equalsIgnoreCase(COMMAND_BYE);
+    }
+
+    private static boolean isSwitchModeCommand(String command) {
+        return command.equalsIgnoreCase(MODE_DOLLA) || command.equalsIgnoreCase(MODE_ENTRY)
+                || command.equalsIgnoreCase(MODE_LIMIT) || command.equalsIgnoreCase(MODE_DEBT)
+                || command.equalsIgnoreCase(MODE_SHORTCUT);
+    }
 
     /**
      * This method will exit the entire program after printing a goodbye message.

@@ -13,24 +13,6 @@ public class LimitList extends RecordList {
         super(importLimitList);
     }
 
-    /*
-    public boolean limitFinder(ArrayList<Limit> list, Limit limit) {
-        boolean limitIsFound = false;
-        for (int i = 0; i < list.size(); i++) {
-            Limit currLimit = list.get(i);
-            if (limit.duration == currLimit.duration && limit.type == currLimit.type) {
-                limitIsFound = true;
-            }
-        }
-        return limitIsFound;
-    }
-    */
-
-    //ADD TO LIST
-    public void addToBudget() {
-
-    }
-
     @Override
     public void add(Record newRecord) {
         super.add(newRecord);
@@ -42,6 +24,4 @@ public class LimitList extends RecordList {
         super.removeFromList(index);
         Storage.setLimits(get()); //save
     }
-
-    //EDIT LIST
 }

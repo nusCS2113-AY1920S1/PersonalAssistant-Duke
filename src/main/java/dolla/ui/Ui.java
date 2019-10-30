@@ -1,6 +1,5 @@
 package dolla.ui;
 
-import dolla.Time;
 import dolla.task.Task;
 import dolla.task.Record;
 import dolla.task.RecordList;
@@ -12,6 +11,10 @@ import java.util.Arrays;
  * duke.Ui is a class that handles all interactions to the user.
  */
 public abstract class Ui {
+
+    protected static final String SORT_DESCRIPTION = "description";
+    protected static final String SORT_DATE = "date";
+    protected static final String SORT_NAME = "name";
 
     private static String logo =
         " ____    _   _  _   _       \n"
@@ -275,16 +278,6 @@ public abstract class Ui {
     }
 
     /**
-     * Print invalid debt format error.
-     */
-    public static void printInvalidDebtFormatError() {
-        System.out.println(line);
-        System.out.println("\tplease follow the format "
-                + "'owe(/borrow) [NAME] [AMOUNT] [DESCRIPTION] /due [DURATION] {/tag [TAGNAME]}'");
-        System.out.println(line);
-    }
-
-    /**
      * Prints Dolla's new mode after being updated.
      *
      * @param newMode The new mode to be switched.
@@ -326,64 +319,24 @@ public abstract class Ui {
     }
 
     /**
-     * Print search desc.
+     * Print sorted list.
      *
-     * @param mode          the mode
-     * @param recordList       the log list
-     * @param searchContent the search content
+     * @param list the list to be printed
+     * @param type the type of input of the list
      */
-    public static void printSearchDesc(String mode, RecordList recordList, String searchContent) {
-
+    public static void printSortedList(ArrayList<Record> list, String type) {
         System.out.println(line);
-        System.out.println("\tHere are the matching results found in " + mode);
-        int listNum = 0;
-        for (int i = 0; i < recordList.size(); i++) {
-            String temp = recordList.get().get(i).getDescription();
-            if (temp.contains(searchContent)) {
-                listNum += 1;
-                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
-            }
+        if (type.equals(SORT_DATE)) {
+            System.out.println("sorting date.........");
+        } else if (type.equals(SORT_DESCRIPTION)) {
+            System.out.println("sorting description.........");
+        } else if (type.equals(SORT_NAME)) {
+            System.out.println("sorting name.........");
         }
-    }
 
-    /**
-     * Print search name.
-     *
-     * @param mode          the mode
-     * @param recordList       the log list
-     * @param searchContent the search content
-     */
-    public static void printSearchName(String mode, RecordList recordList, String searchContent) {
-
-        System.out.println(line);
-        System.out.println("\tHere are the matching results found in " + mode);
-        int listNum = 0;
-        for (int i = 0; i < recordList.size(); i++) {
-            String tempt = recordList.get().get(i).getName();
-            if (tempt.contains(searchContent)) {
-                listNum += 1;
-                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
-            }
-        }
-    }
-
-    /**
-     * Print search date.
-     *
-     * @param mode          the mode
-     * @param recordList       the record list
-     * @param searchContent the search content
-     */
-    public static void printSearchDate(String mode, RecordList recordList, String searchContent) {
-        System.out.println(line);
-        System.out.println("\tHere are the matching results found in " + mode);
-        int listNum = 0;
-        for (int i = 0; i < recordList.size(); i++) {
-            String temp = Time.dateToString(recordList.get().get(i).getDate());
-            if (temp.contains(searchContent)) {
-                listNum += 1;
-                System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
-            }
+        for (int i = 0; i < list.size(); i++) {
+            int listNum = i + 1;
+            System.out.println("\t" + listNum + ". " + list.get(i).getRecordDetail());
         }
     }
 
@@ -433,6 +386,27 @@ public abstract class Ui {
     public static void printExitMsg() {
         System.out.println(line);
         System.out.println("\tBye. Hope to see you again soon!");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints a message to inform user that a new tag has been added.
+     * @param tag     Tag that is added.
+     * @param record  Record the tag is added to.
+     */
+    public static void printAddedTagMsg(String tag, Record record) {
+        System.out.println(line);
+        System.out.println("\tNoted. I have added the tag " + tag + " to " + record.getRecordDetail());
+        System.out.println(line);
+    }
+
+    /**
+     * Prints a message to inform user that a new tag has been added.
+     * @param tag     Tag that is added.
+     */
+    public static void printAddedTagMsg(String tag) {
+        System.out.println(line);
+        System.out.println("\tNoted. I have added the tag " + tag);
         System.out.println(line);
     }
 }
