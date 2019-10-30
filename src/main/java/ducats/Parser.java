@@ -23,7 +23,7 @@ import ducats.commands.AsciiCommand;
 import ducats.commands.OverlayGroupGroup;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import ducats.components.WordGetter;
 
 /**
  * A class used to interpret the incoming messages and translate them into the appropriate duke.Commands.
@@ -40,22 +40,9 @@ public class Parser {
      * @throws DucatsException in the case of parsing errors
      */
     public static Command parse(String message) throws DucatsException {
-
-        String [] commandList = {"bye", "list", "delete", "deletebar","edit",
-                                    "find","done", "new","help","view","addbar",
-                                    "overlay","group","overlay_bar_group",
-                                    "overlay_group_group","overlay_bar_song","ascii","redo","undo"};
-        double maximumVal = 0;
-        String commandName = "";
-        Jaccard similarityChecker = new Jaccard();
         String [] messageSplit = message.split(" ");
-        for (String temp: commandList) {
-            double similarityValue = similarityChecker.similarity(temp,messageSplit[0]);
-            if (maximumVal < similarityValue) {
-                maximumVal = similarityValue;
-                commandName = temp;
-            }
-        }
+        WordGetter wordSimilarity = new WordGetter();
+        String commandName = wordSimilarity.closestWord(messageSplit[0]);
         messageSplit[0] = commandName;
         message = String.join(" ", messageSplit);
         switch (commandName) {
