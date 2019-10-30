@@ -9,6 +9,10 @@ import ui.Wallet;
 public class CommandGetSpendingByYear extends Command {
     protected String userInput;
 
+    /**
+     * Constructor to explain about the method.
+     * @param userInput userInput
+     */
     public CommandGetSpendingByYear(String userInput) {
         this.commandType = CommandType.EXPENDEDYEAR;
         this.userInput = userInput;
