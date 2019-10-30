@@ -3,5 +3,7 @@ Search functionality:
     #tvshows    :search fot tvshows
     #cast       :search for cast
 
-    usage: search movies MOVIE_NAME [-Current] [-Popular] [-Upcoming] [-Trending] [-genre <genre1 , genre2 , genre3>]
-           search tvshows TVSHOW_NAME [-Current] [-Popular] [-Upcoming] [-Trending] [-genre <genre1 , genre2 , genre3>]
+    usage: search movies MOVIE_NAME [-Current] [-Popular] [-Upcoming]
+                                    [-Trending] [-genre <genre1 , genre2 , genre3>]
+           search tvshows TVSHOW_NAME [-Current] [-Popular] [-Upcoming]
+                                      [-Trending] [-genre <genre1 , genre2 , genre3>]

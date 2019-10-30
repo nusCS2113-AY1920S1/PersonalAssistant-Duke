@@ -30,8 +30,10 @@ public class CommandStructure {
             });
 
             put(COMMANDKEYS.help , new COMMANDKEYS[]{
-                    COMMANDKEYS.search , COMMANDKEYS.view , COMMANDKEYS.add , COMMANDKEYS.help , COMMANDKEYS.more ,
-                    COMMANDKEYS.yes , COMMANDKEYS.set ,  COMMANDKEYS.playlist , COMMANDKEYS.me
+                    COMMANDKEYS.search , COMMANDKEYS.view , COMMANDKEYS.help , COMMANDKEYS.more ,
+                    COMMANDKEYS.yes , COMMANDKEYS.set ,  COMMANDKEYS.playlist , COMMANDKEYS.me , COMMANDKEYS.blacklist,
+                    COMMANDKEYS.watchlist, COMMANDKEYS.get, COMMANDKEYS.preference, COMMANDKEYS.restriction,
+                    COMMANDKEYS.find
             });
 
             put(COMMANDKEYS.yes, new COMMANDKEYS[] {

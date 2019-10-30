@@ -1,0 +1,7 @@
+Set functionality:
+    #name
+    #age
+    #preferences
+
+    usage: set name <YOUR_NAME>
+           set age  <YOUR_AGE>
