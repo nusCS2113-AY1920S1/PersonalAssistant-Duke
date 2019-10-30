@@ -19,7 +19,7 @@ import java.util.*;
 
 public class SnoozeCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
         try {
         if(ui.fullCommand.length() == 6) {
             throw new DukeException("OOPS!!! The object of a snoozing cannot be null.");

@@ -10,12 +10,14 @@ import gazeeebo.UI.Ui;
 import java.io.IOException;
 import java.text.ParseException;
 import gazeeebo.exception.DukeException;
+
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
 public class RescheduleCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
         try {
         if (ui.fullCommand.length() == 10) {
             throw new DukeException("OOPS!!! The object of a rescheduling cannot be null.");
@@ -53,7 +55,10 @@ public class RescheduleCommand extends Command {
                 }
             }
         }
-        catch (DukeException e) {
+        catch ( NumberFormatException e) {
+            System.out.println("Enter the task number instead of the name");
+        }
+        catch (DateTimeParseException e) {
             System.out.println(e.getMessage());
         }
     }

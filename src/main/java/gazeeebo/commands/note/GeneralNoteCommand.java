@@ -36,7 +36,7 @@ public class GeneralNoteCommand extends Command {
 
     /** Decodes the command input in the note page. */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         System.out.println("Welcome to your note page! What would you like to do?\n");
         showListOfCommands();
         ui.readCommand();

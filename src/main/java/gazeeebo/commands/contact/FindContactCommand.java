@@ -4,6 +4,9 @@ import gazeeebo.UI.Ui;
 
 import java.util.Map;
 
+/**
+ * Finds a contact frm contact list.
+ */
 public class FindContactCommand {
 
     /**

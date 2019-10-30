@@ -3,6 +3,9 @@ package gazeeebo.commands.contact;
 
 import java.util.Map;
 
+/**
+ * List all the contacts in the list.
+ */
 public class ListContactCommand {
     private static final int HORT_LINE_SEPARATOR = 30;
 

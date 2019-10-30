@@ -3,6 +3,9 @@ import gazeeebo.UI.Ui;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * Adds a new contact to the contact list.
+ */
 public class AddContactCommand {
 
     /**

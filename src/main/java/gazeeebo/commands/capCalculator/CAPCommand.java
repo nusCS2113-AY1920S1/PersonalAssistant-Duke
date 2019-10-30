@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
 
+/**
+ * Deals with the user in the main CAP page.
+ */
 public class CAPCommand extends Command {
     public String moduleCode;
     public int moduleCredit;
@@ -22,15 +25,16 @@ public class CAPCommand extends Command {
         this.grade = grade;
     }
 
-    /* Main Command to execute all the CAP commands */
+    /** Decodes the command input in the CAP page. */
     @Override
-    public void execute(final ArrayList<Task> list, final  Ui ui, final Storage storage, final Stack<String> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(final ArrayList<Task> list, final  Ui ui, final Storage storage, final Stack<ArrayList<Task>> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         String helpCAP = "__________________________________________________________\n"
                 + "1. Add module: add\n"
                 + "2. Find module: find moduleCode/semNumber\n"
                 + "3. Delete a module: delete module\n"
                 + "4. See your CAP list: list\n"
-                + "5. Exit CAP page: esc\n"
+                + "5. Help Command: help\n"
+                + "6. Exit CAP page: esc\n"
                 + "__________________________________________________________\n\n";
         System.out.print("Welcome to your CAP Calculator page! What would you like to do?\n\n");
         System.out.print(helpCAP);

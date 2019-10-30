@@ -1,7 +1,7 @@
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
-import gazeeebo.commands.Edit.EditCommand;
+import gazeeebo.commands.tasks.edit.EditCommand;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.commands.note.AddNoteCommand;
 import gazeeebo.commands.note.DeleteNoteCommand;
@@ -11,7 +11,7 @@ import gazeeebo.commands.schedule.ScheduleDailyCommand;
 import gazeeebo.commands.schedule.ScheduleMonthlyCommand;
 import gazeeebo.commands.schedule.ScheduleWeeklyCommand;
 import gazeeebo.exception.DukeException;
-import gazeeebo.tasks.Task;
+import gazeeebo.tasks.*;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
@@ -23,10 +23,11 @@ import java.util.Stack;
 
 public class taskCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException, DukeException, ParseException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException, DukeException, ParseException {
         System.out.println("Welcome to your Tasks page! What would you like to do?\n");
         CalendarView calendarView = new CalendarView();
         calendarView.MonthlyView(list);
+        ArrayList<Task> oldList = new ArrayList<>();
         while(!ui.fullCommand.equals("esc")) {
             ui.readCommand();
             String command = ui.fullCommand;
@@ -49,28 +50,55 @@ public class taskCommand extends Command {
                 }
             } else if (command.equals("done list")) {
                 new DoneListCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
-            } else if (command.equals("undo list")) {
+            } else if (command.equals("undone list")) {
                 new UndoneListCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
             } else if (splitCommand[0].equals("done")) {
+                oldList = new ArrayList<>();
+                copyOldList(oldList,list);
                 new DoneCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+                commandStack.push(oldList);
             } else if (splitCommand[0].equals("delete")) {
+                oldList = new ArrayList<>();
+                copyOldList(oldList,list);
                 new DeleteCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+                commandStack.push(oldList);
             } else if (splitCommand[0].equals("deadline")) {
+                oldList = new ArrayList<>();
+                copyOldList(oldList,list);
                 new DeadlineCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+                commandStack.push(oldList);
             } else if (command.contains("/after")) {
+                oldList = new ArrayList<>();
+                copyOldList(oldList,list);
                 new DoAfterCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+                commandStack.push(oldList);
             } else if (splitCommand[0].equals("event")) {
+                oldList = new ArrayList<>();
+                copyOldList(oldList,list);
                 new EventCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+                commandStack.push(oldList);
             } else if (splitCommand[0].equals("todo")) {
+                oldList = new ArrayList<>();
+                copyOldList(oldList,list);
                 new TodoCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+                commandStack.push(oldList);
             } else if (command.contains("/between")) {
+                oldList = new ArrayList<>();
+                copyOldList(oldList,list);
                 new TimeboundCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+                commandStack.push(oldList);
             } else if (splitCommand[0].equals("find")) {
                 new FindCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
             } else if (command.contains("/require")) {
+                oldList = new ArrayList<>();
+                copyOldList(oldList,list);
                 new FixDurationCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+                commandStack.push(oldList);
             } else if (splitCommand[0].equals("reschedule")) {
+                oldList = new ArrayList<>();
+                copyOldList(oldList,list);
                 new RescheduleCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+                commandStack.push(oldList);
             } else if (splitCommand[0].equals("sort")) {
                 new SortCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
             } else if (splitCommand[0].equals("scheduleDaily")) {
@@ -80,17 +108,38 @@ public class taskCommand extends Command {
             } else if (splitCommand[0].equals("scheduleMonthly")) {
                 new ScheduleMonthlyCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
             } else if (splitCommand[0].equals("snooze")) {
+                oldList = new ArrayList<>();
+                copyOldList(oldList,list);
                 new SnoozeCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+                commandStack.push(oldList);
             } else if (splitCommand[0].equals("tentative")) {
+                oldList = new ArrayList<>();
+                copyOldList(oldList,list);
                 new TentativeEventCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+                commandStack.push(oldList);
             } else if (splitCommand[0].equals("confirm")) {
+                oldList = new ArrayList<>();
+                copyOldList(oldList,list);
                 new ConfirmTentativeCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+                commandStack.push(oldList);
             } else if (splitCommand[0].contains("undone")) {
+                oldList = new ArrayList<>();
+                copyOldList(oldList,list);
                 new UndoneCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+                commandStack.push(oldList);
             } else if (splitCommand[0].equals("undo")) {
-                new UndoCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+                if (!commandStack.empty()) {
+                    list = commandStack.peek();
+                    System.out.println("You have undo the previous command.");
+                    commandStack.pop();
+                } else {
+                    System.out.println("You cannot undo the previous command.");
+                }
             } else if (splitCommand[0].equals("edit")) {
+                oldList = new ArrayList<>();
+                copyOldList(oldList,list);
                 new EditCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+                commandStack.push(oldList);
             } else if (splitCommand[0].equals("addNote")) {
                 new AddNoteCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
             } else if (splitCommand[0].equals("editNote")) {
@@ -114,10 +163,37 @@ public class taskCommand extends Command {
             } else {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
+
         }
     }
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    private void copyOldList(ArrayList<Task> oldList, ArrayList<Task> list) {
+        for (Task task : list) {
+            if (task.getClass().getName().equals("gazeeebo.tasks.Deadline")) {
+                Deadline deadline = new Deadline(task.description, task.toString().split("by:")[1].trim());
+                deadline.isDone = task.isDone;
+                oldList.add(deadline);
+            } else if (task.getClass().getName().equals("gazeeebo.tasks.Event")) {
+                Event event = new Event(task.description, task.toString().split("at:")[1].trim());
+                event.isDone = task.isDone;
+                oldList.add(event);
+            } else if (task.getClass().getName().equals("gazeeebo.tasks.Todo")) {
+                Todo todo = new Todo(task.description);
+                todo.isDone = task.isDone;
+                oldList.add(todo);
+            } else if (task.getClass().getName().equals("gazeeebo.tasks.FixedDuration")) {
+                FixedDuration fixedDuration = new FixedDuration(task.description, task.toString().split("\\|")[3].trim());
+                fixedDuration.isDone = task.isDone;
+                oldList.add(fixedDuration);
+            } else if (task.getClass().getName().equals("gazeeebo.tasks.Timebound")) {
+                Timebound timebound = new Timebound(task.description, task.toString().split("\\|")[3].trim());
+                timebound.isDone = task.isDone;
+                oldList.add(timebound);
+            }
+        }
     }
 }

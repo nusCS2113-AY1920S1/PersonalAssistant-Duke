@@ -1,12 +1,8 @@
-import gazeeebo.commands.tasks.UndoCommand;
+import gazeeebo.commands.tasks.taskCommand;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-<<<<<<< HEAD
-import gazeeebo.commands.tasks.UndoCommand;
-=======
->>>>>>> e3e66bcb49dadb4b966d587fb444e87e331407a2
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,15 +34,15 @@ public class UndoCommandTest {
     }
     @Test
     public void EmptyCommandStackTest() throws IOException {
-        UndoCommand undoCommand = new UndoCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
         Ui ui = new Ui();
-        Stack<String> CommandStack = new Stack<>();
+        Stack<ArrayList<Task>> CommandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         Storage storage = new Storage();
         TriviaManager triviaManager = new TriviaManager(storage);
+        taskCommand taskCommand = new taskCommand();
         try {
-            undoCommand.execute(tasks, ui, storage, CommandStack, deletedTask,triviaManager);
+            taskCommand.execute(tasks, ui, storage, CommandStack, deletedTask,triviaManager);
         } catch (ParseException | IOException | DukeException e) {
             e.printStackTrace();
         }

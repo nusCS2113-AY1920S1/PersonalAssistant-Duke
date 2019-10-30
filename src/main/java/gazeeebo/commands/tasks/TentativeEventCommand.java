@@ -14,7 +14,7 @@ import java.util.Stack;
 
 public class TentativeEventCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
         String description = "";
         try {
             if (ui.fullCommand.length() == 9) {
@@ -46,19 +46,7 @@ public class TentativeEventCommand extends Command {
             System.out.println(e.getMessage());
         }
     }
-    public void undo(String command, ArrayList<Task> list, Storage storage) throws IOException {
-        for (Task it : list) {
-            if (it.description.contains(command.substring(10)) && it.getClass().getName().equals("TentativeEvent")) {
-                list.remove(it);
-                break;
-            }
-        }
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            sb.append(list.get(i).toString() + "\n");
-        }
-        storage.writeToSaveFile(sb.toString());
-    }
+
     @Override
     public boolean isExit() {
         return false;

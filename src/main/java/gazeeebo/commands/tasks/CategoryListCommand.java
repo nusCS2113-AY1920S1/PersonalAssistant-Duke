@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class CategoryListCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
         ArrayList<Deadline> DeadlineList = new ArrayList<Deadline>();
         ArrayList<Event> EventList = new ArrayList<Event>();
         ArrayList<Todo> TodoList = new ArrayList<>();
@@ -26,21 +26,21 @@ public class CategoryListCommand extends Command {
         ArrayList<Timebound> TBList = new ArrayList<>();
 
         for (Task task : list) {
-            if (task.getClass().getName().equals("gazeeebo.Tasks.Deadline")) {
+            if (task.getClass().getName().equals("gazeeebo.tasks.Deadline")) {
                 Deadline deadline = new Deadline(task.description, task.toString().split("by:")[1].trim());
                 DeadlineList.add(deadline);
-            } else if (task.getClass().getName().equals("gazeeebo.Tasks.Event")) {
+            } else if (task.getClass().getName().equals("gazeeebo.tasks.Event")) {
                 Event event = new Event(task.description, task.toString().split("at:")[1].trim());
                 EventList.add(event);
-            } else if (task.getClass().getName().equals("gazeeebo.Tasks.Todo")) {
+            } else if (task.getClass().getName().equals("gazeeebo.tasks.Todo")) {
                 Todo todo = new Todo(task.description);
                 TodoList.add(todo);
             }
-            else if (task.getClass().getName().equals("gazeeebo.Tasks.FixedDuration")) {
+            else if (task.getClass().getName().equals("gazeeebo.tasks.FixedDuration")) {
                 FixedDuration fixedDuration = new FixedDuration(task.description, task.toString().split("\\|")[3].trim());
                 FDList.add(fixedDuration);
             }
-            else if (task.getClass().getName().equals("gazeeebo.Tasks.Timebound")) {
+            else if (task.getClass().getName().equals("gazeeebo.tasks.Timebound")) {
                 Timebound timebound = new Timebound(task.description, task.toString().split("\\|")[3].trim());
                 TBList.add(timebound);
             }

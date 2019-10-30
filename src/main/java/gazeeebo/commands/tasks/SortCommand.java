@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class SortCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
         try {
             if(ui.fullCommand.length() == 4) {
                 throw new DukeException("OOPS!!! Please enter method of sorting.");
@@ -41,7 +41,7 @@ public class SortCommand extends Command {
                         System.out.println(SortedList.get(i).listFormat()+" priority: "+SortedList.get(i).priority);
                     }
                 }else{
-                    throw new DukeException("OOPS!!! Gazeebo currently does not support this sorting method.");
+                    throw new DukeException("OOPS!!! Gazeeebo currently does not support this sorting method.");
                 }
             }
         }

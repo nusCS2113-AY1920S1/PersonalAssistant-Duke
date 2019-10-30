@@ -8,7 +8,12 @@ import gazeeebo.commands.Command;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Stack;
+import java.util.Map;
+import java.util.TreeMap;
+
 
 /**
  * Allows user to call commands to record and manage their expenses.
@@ -23,10 +28,11 @@ public class ExpenseCommand extends Command {
      * @param list list of all tasks
      * @param ui the object that deals with printing things to the user.
      * @param storage the object that deals with storing data.
+     * @param commandStack
      * @throws IOException Catch error if the read file fails
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
         HashMap<LocalDate, ArrayList<String>> map = storage.Expenses(); //Read the file
         Map<LocalDate, ArrayList<String>> expenses = new TreeMap<LocalDate, ArrayList<String>>(map);
 
@@ -40,14 +46,14 @@ public class ExpenseCommand extends Command {
         System.out.println("__________________________________________________________");
 
         ui.readCommand();
-        while(!ui.fullCommand.equals("esc")) {
+        while (!ui.fullCommand.equals("esc")) {
             if (ui.fullCommand.contains("add")) {
                 new AddExpenseCommand(ui, storage, expenses);
-            } else if(ui.fullCommand.contains("find")) {
+            } else if (ui.fullCommand.contains("find")) {
                 new FindExpenseCommand(ui, expenses);
-            } else if(ui.fullCommand.contains("delete")) {
+            } else if (ui.fullCommand.contains("delete")) {
                 new DeleteExpenseCommand(ui, storage, expenses);
-            } else if(ui.fullCommand.equals("list")) {
+            } else if (ui.fullCommand.equals("list")) {
                 new ExpenseListCommand(ui, expenses);
             }
             ui.readCommand();
