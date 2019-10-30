@@ -45,6 +45,19 @@ public class Ingredient {
         }
     }
 
+    private double calculateMass(String quantity, String unit) {
+        double quan = Double.parseDouble(quantity);
+        switch (unit) {
+            case "KG":
+            case "L":
+                return quan*1000;
+            case "CUP": return quan*237;
+            case "TEASPOON": return quan*5;
+            case "TABLESPOON": return quan*13;
+            default: return quan;
+        }
+    }
+
     private UnitOfMeasurement assignUnit(String unit) {
         switch (unit) {
             case "kg": return UnitOfMeasurement.KG;

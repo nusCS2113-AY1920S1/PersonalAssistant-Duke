@@ -22,7 +22,6 @@ public class EditFeedbackCommand extends Command<RecipeList, Ui, RecipeStorage> 
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_EDIT_FEEDBACK)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
-            System.out.println("stuck here 7");
         } else if (userInput.trim().charAt(12) == ' ') {
             String description = userInput.split("\\s", 2)[1].trim();
             if (description.contains("f/")) {

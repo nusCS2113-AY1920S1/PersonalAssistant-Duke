@@ -31,6 +31,8 @@ public class Parser {
             return new DeleteRecipeCommand(input);
         } else if (input.trim().contains(COMMAND_VIEW_RECIPE)) {
             return new ViewRecipeCommand(input);
+        } else if (input.trim().contains(COMMAND_VIEW_REQ_INGREDIENT)) {
+            return new ViewRequiredIngredientCommand(input);
         } else if (input.trim().contains(COMMAND_EDIT_REQ_INGREDIENT)) {
             return new EditRequiredIngredientCommand(input);
         } else if (input.trim().contains(COMMAND_EDIT_RATING)) {
@@ -52,7 +54,6 @@ public class Parser {
         } else if (input.contains(COMMAND_LIST_BOOKINGS)) {
             return new AllBookingsCommand();
         } else {
-            System.out.println("went to listallrecipes");
             return new ListAllRecipeCommand(input);
         }
     }
