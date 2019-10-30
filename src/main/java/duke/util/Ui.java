@@ -523,7 +523,7 @@ public class Ui {
         printDukeResponse("The task " + task.getId() + " " + task.getDescription()
             + " is assigned to following patient(s) : \n");
         for (int i = 0; i < patients.size(); i++) {
-            printDukeResponse(patients.get(i).getId() + ". " + patients.get(i).getName() + "\n\n");
+            printDukeResponse(patients.get(i).getId() + ". " + patients.get(i).getName() + "\n");
         }
     }
 
