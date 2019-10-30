@@ -54,7 +54,7 @@ public class ProjectRepository implements IRepository<Project> {
      */
     public boolean deleteItem(int projectNumber) {
         try {
-            jsonConverter.deleteProject(allProjects.get(projectNumber));
+            jsonConverter.deleteProject(allProjects.get(projectNumber - 1));
             this.allProjects.remove(projectNumber - 1);
             return true;
         } catch (IndexOutOfBoundsException | DukeException err) {

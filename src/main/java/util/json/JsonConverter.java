@@ -28,8 +28,8 @@ public class JsonConverter {
                 .create();
         try {
             DukeLogger.logDebug(JsonConverter.class, "Saving to file.");
-            FileWriter fileWriter = new FileWriter(userDirectory + "/" +
-                                                    project.getName() + ".json");
+            FileWriter fileWriter = new FileWriter(userDirectory + "/"
+                                                    + project.getName() + ".json");
             gson.toJson(project, fileWriter);
             fileWriter.flush();
             fileWriter.close();
@@ -40,7 +40,7 @@ public class JsonConverter {
     }
 
     /**
-     * Method to delete the relevant json of original Project when user wishes to delete a project
+     * Method to delete the relevant json of original Project when user wishes to delete a project.
      * @param project : selected Project to be deleted
      * @throws DukeException : Exception thrown when JSON of project cannot be found
      */
