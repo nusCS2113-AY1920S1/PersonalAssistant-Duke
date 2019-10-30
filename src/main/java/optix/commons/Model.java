@@ -1,5 +1,6 @@
 package optix.commons;
 
+import optix.commons.model.Show;
 import optix.commons.model.ShowMap;
 import optix.commons.model.Theatre;
 import optix.util.OptixDateFormatter;
@@ -11,6 +12,7 @@ public class Model {
     private ShowMap showsHistory = new ShowMap();
     private ShowMap shows = new ShowMap();
     private ShowMap showsGui;
+    private OptixDateFormatter formatter = new OptixDateFormatter();
 
     /**
      * The Optix model.
@@ -101,6 +103,63 @@ public class Model {
             String showName = entry.getValue().getShowName();
             message.append(String.format("%d. %s (on: %s)\n", counter, showName, date));
             counter++;
+        }
+        return message.toString();
+    }
+
+    /**
+     * Calculates the earnings for a certain month from the Optix file.
+     * @param mth The month in numerical form.
+     * @param yr The year.
+     * @param showsQuery shows, showsHistory or both. Contains all the shows from these ShowMaps
+     * @return A message String that contains the profit to show to the user.
+     */
+    public String findMonthly(int mth, int yr, ShowMap... showsQuery) {
+        StringBuilder message = new StringBuilder();
+        double profit = 0;
+        double projectedProfit = 0.0;
+
+        int searchMonth;
+        int searchYear;
+        ShowMap showsWanted = new ShowMap();
+        String monthYear = formatter.intToMonth(mth) + " " + yr;
+        for (int i = 0; i < showsQuery.length; i++) { //maximum 2
+            for (Map.Entry<LocalDate, Theatre> entry : showsQuery[i].entrySet()) {
+                searchMonth = entry.getKey().getMonthValue();
+                searchYear = entry.getKey().getYear();
+                if (searchMonth == mth && searchYear == yr) { //show matches query date
+                    showsWanted.put(entry.getKey(), entry.getValue());
+                    if (i == 1) { // if the query is the current month
+                        projectedProfit += entry.getValue().getProfit();
+                    } else {
+                        profit += entry.getValue().getProfit();
+                    }
+                }
+            }
+        }
+
+        if (profit == 0) {
+            if (showsWanted.isEmpty()) {
+                message.append(String.format("☹ OOPS!!! There are no shows in %1$s.\n", monthYear));
+            } else {
+                message.append(String.format("None of the seats for the shows in %1$s has been sold yet!\n",
+                        monthYear));
+            }
+        } else {
+            if (showsQuery.length == 2) { // query is for current month
+                message.append(String.format("The current earnings for %1$s is $%2$.2f.\n", monthYear, profit));
+                if (projectedProfit > 0) {
+                    message.append(String.format("The projected earnings for the rest of the month is $%1$.2f.\n",
+                            projectedProfit));
+                }
+            } else { //either from ShowMap or ShowHistoryMap
+                if (showsQuery[0].equals(shows)) {
+                    message.append(String.format("The projected earnings for %1$s is $%2$.2f.\n", monthYear,
+                            profit));
+                } else {
+                    message.append(String.format("The earnings for %1$s is $%2$.2f.\n", monthYear, profit));
+                }
+            }
         }
         return message.toString();
     }

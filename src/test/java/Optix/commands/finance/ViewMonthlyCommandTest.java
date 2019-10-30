@@ -56,14 +56,18 @@ class ViewMonthlyCommandTest {
     }
 
     @Test
-    @DisplayName("Test No Records")
-    void testViewMonthlyUnsuccessful() {
-        String expected = "☹ OOPS!!! The earnings for October 2019 has not been"
-                + " calculated. Try other months.\n";
-        new ViewMonthlyCommand("10 2019").execute(model, ui, storage);
-        assertEquals(expected, ui.getMessage());
-        expected = "☹ OOPS!!! There are no shows in February 2019.\n";
+    @DisplayName("No show found")
+    void testMonth() {
+        String expected = "☹ OOPS!!! There are no shows in February 2019.\n";
         new ViewMonthlyCommand("2 2019").execute(model, ui, storage);
+        assertEquals(expected, ui.getMessage());
+    }
+
+    @Test
+    @DisplayName("Valid Test for Current Month Profits")
+    void testCurrentMonthProfit() {
+        String expected = "The current earnings for October 2019 is $200.00.\n";
+        new ViewMonthlyCommand("10 2019").execute(model, ui, storage);
         assertEquals(expected, ui.getMessage());
     }
 
@@ -84,10 +88,10 @@ class ViewMonthlyCommandTest {
         new AddCommand("Lion King|20|9/12/2019|10/10/2020|11/10/2020").execute(model, ui, storage);
         new SellSeatCommand("Lion King|10/10/2020|A1 A2 A3 A4 B5 C6 D7 E8 F9 A10").execute(model, ui, storage);
         new SellSeatCommand("Lion King|9/12/2019|A1 A2 A3 A4 B5 C6 D7 E8 F9 A10").execute(model, ui, storage);
-        String expected = "The earnings for October 2020 is $268.00.\n";
+        String expected = "The projected earnings for October 2020 is $268.00.\n";
         new ViewMonthlyCommand("Oct 2020").execute(model, ui, storage);
         assertEquals(expected, ui.getMessage());
-        expected = "The earnings for December 2019 is $268.00.\n";
+        expected = "The projected earnings for December 2019 is $268.00.\n";
         new ViewMonthlyCommand("12 2019").execute(model, ui, storage);
         assertEquals(expected, ui.getMessage());
     }

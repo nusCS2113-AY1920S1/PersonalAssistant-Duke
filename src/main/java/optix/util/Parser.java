@@ -225,7 +225,7 @@ public class Parser {
         commandAliasMap.put("d", "delete");
     }
 
- 
+
     /**
      * Parse the remaining user input to its respective parameters for ListDateCommand or ListShowCommand.
      *
