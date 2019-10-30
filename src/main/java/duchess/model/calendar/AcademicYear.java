@@ -48,6 +48,17 @@ public class AcademicYear {
     }
 
     /**
+     * Checks if a given date falls within the current academic calendar.
+     *
+     * @param date date
+     * @return true if date falls within the current academic calendar
+     */
+    public static boolean isWithinAcademicCalendar(LocalDate date) {
+        return date.compareTo(semOneStart) >= 0 && date.compareTo(ayEnd) <= 0;
+    }
+
+
+    /**
      * Returns true if currWeek falls within semester break
      * and false if currWeek does not fall within semester break.
      *
@@ -66,14 +77,13 @@ public class AcademicYear {
      * Returns a week as integer value within a school semester.
      *
      * @param comparison comparison date
-     * @param date interested date
+     * @param date       interested date
      * @return integer value representing week
      */
     public int getWeekAsInt(LocalDate comparison, LocalDate date) {
         final double week = 7.0;
         long daysBetween = ChronoUnit.DAYS.between(comparison, date) + 1;
-        int currWeek = (int) Math.ceil(daysBetween / week);
-        return currWeek;
+        return (int) Math.ceil(daysBetween / week);
     }
 
     private String processInformation(LocalDate date) {

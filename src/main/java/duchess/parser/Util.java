@@ -21,7 +21,7 @@ import java.util.TreeMap;
  */
 public class Util {
     private static final String INVALID_FORMAT_MESSAGE = "Please enter dates in the format dd/mm/yyyy hhmm";
-    private static final String INVALID_DATE_FORMAT_MESSAGE = "Please enter date in the format dd/mm/yyyy";
+    private static final String INVALID_DATE_FORMAT_MESSAGE = "Please enter date in the format dd/mm/yyyy.";
     private static final DateTimeFormatter formatter =
             DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm")
                     .withResolverStyle(ResolverStyle.STRICT);
@@ -109,7 +109,7 @@ public class Util {
                 throw new DuchessException(INVALID_FORMAT_MESSAGE);
             }
             return LocalDateTime.of(parseDate(arr[0]), parseTime(arr[1]));
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             throw new DuchessException(INVALID_FORMAT_MESSAGE);
         }
     }

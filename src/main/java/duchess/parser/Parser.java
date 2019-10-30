@@ -30,6 +30,7 @@ public class Parser {
     public static final String DELETE_USAGE =
             "Usage: delete (task | module | grade /module <module_code>) /no <number>"
                     + "\n    Usage: delete (lesson) /type <lesson_type> /code <module_code>";
+    public static final String CALENDAR_USAGE = "calendar (display | export) /date <date>";
 
     /**
      * Prompts.

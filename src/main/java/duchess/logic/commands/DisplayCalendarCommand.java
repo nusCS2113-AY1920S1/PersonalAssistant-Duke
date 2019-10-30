@@ -17,13 +17,14 @@ public class DisplayCalendarCommand extends Command {
     private LocalDate end;
 
     /**
-     * Constructor.
+     * Initialises start and end dates of calendar view.
      *
-     * @param dates start and end dates of calendar view
+     * @param start start date
+     * @param end end date
      */
-    public DisplayCalendarCommand(List<LocalDate> dates) {
-        this.start = dates.get(0);
-        this.end = dates.get(1);
+    public DisplayCalendarCommand(LocalDate start, LocalDate end) {
+        this.start = start;
+        this.end = end;
     }
 
     @Override

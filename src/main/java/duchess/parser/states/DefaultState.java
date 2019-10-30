@@ -3,10 +3,8 @@ package duchess.parser.states;
 import duchess.exceptions.DuchessException;
 import duchess.logic.commands.ByeCommand;
 import duchess.logic.commands.Command;
-import duchess.logic.commands.DisplayCalendarCommand;
 import duchess.logic.commands.DisplayCommand;
 import duchess.logic.commands.DoneCommand;
-import duchess.logic.commands.ExportCommand;
 import duchess.logic.commands.FindCommand;
 import duchess.logic.commands.HistoryCommand;
 import duchess.logic.commands.RedoCommand;
@@ -16,6 +14,7 @@ import duchess.logic.commands.UndoCommand;
 import duchess.logic.commands.ViewScheduleCommand;
 import duchess.parser.Parser;
 import duchess.parser.Util;
+import duchess.parser.commands.CalendarCommandParser;
 import duchess.parser.commands.DeleteCommandParser;
 import duchess.parser.commands.LessonCommandParser;
 import duchess.parser.commands.ListCommandParser;
@@ -79,15 +78,7 @@ public class DefaultState extends ParserState {
                 throw new DuchessException("Usage: schedule <date> (day | week)");
             }
         } else if ("calendar".equals(keyword)) {
-            if (words.size() != 2) {
-                throw new DuchessException("Usage: calendar <date>");
-            }
-            return new DisplayCalendarCommand(Util.parseToWeekDates(Util.parseDate(words.get(1))));
-        } else if ("export".equals(keyword)) {
-            if (words.size() != 2) {
-                throw new DuchessException("Usage: export <date>");
-            }
-            return new ExportCommand(Util.parseToWeekDates(Util.parseDate(words.get(1))));
+            return CalendarCommandParser.parse(parameters);
         } else if ("lesson".equals(keyword)) {
             return LessonCommandParser.parse(parameters);
         } else if ("bye".equals(keyword)) {

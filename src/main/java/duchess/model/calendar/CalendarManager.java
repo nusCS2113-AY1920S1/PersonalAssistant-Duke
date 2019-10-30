@@ -94,13 +94,13 @@ public class CalendarManager extends RequestProxy {
                 .filter(ce -> ce.getDate().compareTo(start) >= 0 && ce.getDate().compareTo(end) <= 0)
                 .collect(Collectors.toList());
         SortedMap<LocalTime, String[]> flatCalendar = new TreeMap<>();
-        for (int i = 0; i < query.size(); i++) {
-            CalendarEntry ce = query.get(i);
+        for (CalendarEntry ce : query) {
             List<Task> taskList = ce.getDateTasks();
+            int index = ce.getDate().getDayOfWeek().getValue() - 1;
             for (Task t : taskList) {
                 LocalTime time = t.getTimeFrame().getStart().toLocalTime();
                 String description = t.toString();
-                String[] updateArr = processArr(flatCalendar, time, description, i);
+                String[] updateArr = processArr(flatCalendar, time, description, index);
                 flatCalendar.put(time, updateArr);
             }
         }
