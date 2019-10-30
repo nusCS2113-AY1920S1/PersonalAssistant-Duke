@@ -19,11 +19,14 @@ import duke.logic.command.order.ShowOrderCommand;
 import duke.logic.command.order.SortOrderCommand;
 import duke.logic.command.product.AddProductCommand;
 import duke.logic.command.product.EditProductCommand;
+import duke.logic.command.product.ListProductCommand;
 import duke.logic.command.product.ProductCommand;
+import duke.logic.command.product.ShowProductCommand;
 import duke.logic.command.sale.AddSaleCommand;
 import duke.logic.command.sale.DeleteSaleCommand;
 import duke.logic.command.sale.EditSaleCommand;
 import duke.logic.command.sale.FilterSaleCommand;
+import duke.logic.command.sale.SaleCommand;
 import duke.logic.command.sale.ShowSaleCommand;
 import duke.logic.command.shopping.AddShoppingCommand;
 import duke.logic.command.shopping.BuyShoppingCommand;
@@ -130,6 +133,7 @@ public class LogicManager implements Logic {
         autoCompleter.addCommandClass(ExecuteShortcutCommand.class);
 
         //Sale commands
+        autoCompleter.addCommandClass(SaleCommand.class);
         autoCompleter.addCommandClass(AddSaleCommand.class);
         autoCompleter.addCommandClass(DeleteSaleCommand.class);
         autoCompleter.addCommandClass(EditSaleCommand.class);
@@ -140,6 +144,8 @@ public class LogicManager implements Logic {
         autoCompleter.addCommandClass(ProductCommand.class);
         autoCompleter.addCommandClass(AddProductCommand.class);
         autoCompleter.addCommandClass(EditProductCommand.class);
+        autoCompleter.addCommandClass(ShowProductCommand.class);
+        autoCompleter.addCommandClass(ListProductCommand.class);
 
         //Inventory commands
         autoCompleter.addCommandClass(InventoryCommand.class);

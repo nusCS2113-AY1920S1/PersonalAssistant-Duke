@@ -5,7 +5,6 @@ import duke.logic.command.order.SortOrderCommand;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
-import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
 import duke.model.sale.Sale;
 import duke.model.shortcut.Shortcut;
@@ -59,7 +58,7 @@ public interface Model {
     String undo();
 
     /**
-     * Restores the address book to its previously undone state.
+     * Restores BakingHome to its previously undone state.
      * @return the commit message of the previous state.
      */
     String redo();
@@ -133,10 +132,10 @@ public interface Model {
     void updateFilteredOrderList(Predicate<Order> predicate);
 
     /**
-     * Sorts order list by {@code criteria}. If {@code isIncreasing} is true,
-     * sort in increasing order.
+     * Sorts order list by {@code criteria}. If {@code isReversed} is true,
+     * sort in reversed order.
      */
-    void sortOrders(SortOrderCommand.SortCriteria criteria, boolean isIncreasing);
+    void sortOrders(SortOrderCommand.SortCriteria criteria, boolean isReversed);
 
     //========Product operations=========
 
@@ -259,10 +258,6 @@ public interface Model {
 
     boolean hasIngredient(Ingredient ingredient);
 
-    /**
-     * Calculates the cost of the given list of ingredients.
-     */
-    Double getIngredientCost(IngredientItemList ingredients);
 
     boolean deductIngredient(Ingredient ingredient, double amount);
 
@@ -325,6 +320,8 @@ public interface Model {
      * @param emptyList an empty list
      */
     void clearShoppingList(List<Item<Ingredient>> emptyList);
+
+    Double computeTotalCost(ArrayList<Item<Ingredient>> ingredientList);
 
     //=========Shortcut operations=======
 

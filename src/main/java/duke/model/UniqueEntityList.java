@@ -108,10 +108,10 @@ public class UniqueEntityList<T> implements Iterable<T> {
 
     /**
      * Sorts the list using comparator {@code c}.
-     * If {isIncreasing} is true, sorts in increasing order.
+     * If {@code isReversed} is true, sorts in reversed order.
      */
-    public void sort(Comparator<T> c, boolean isIncreasing) {
-        if (isIncreasing) {
+    public void sort(Comparator<T> c, boolean isReversed) {
+        if (isReversed) {
             internalList.sort(c);
         } else {
             internalList.sort(Collections.reverseOrder(c));

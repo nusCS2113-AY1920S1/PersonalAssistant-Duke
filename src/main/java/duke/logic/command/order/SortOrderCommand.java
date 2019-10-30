@@ -8,30 +8,34 @@ import duke.model.Model;
 
 public class SortOrderCommand extends OrderCommand {
     public static final String COMMAND_WORD = "sort";
+
     public static final String AUTO_COMPLETE_INDICATOR = OrderCommand.COMMAND_WORD + " " + COMMAND_WORD;
     public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
-        CliSyntax.PREFIX_ORDER_SORT_DECREASE
+        CliSyntax.PREFIX_ORDER_SORT_REVERSE
     };
+
     private static final String COMMIT_MESSAGE = "Sort orders";
     private static final String MESSAGE_SUCCESS = "Orders are sorted.";
+
     private final SortCriteria criteria;
-    private final boolean isIncreasing;
+    private final boolean isReversed;
 
     /**
      * Creates a {@code SortOrderCommand}.
      *
      * @param criteria     to sort the orders.
-     * @param isIncreasing true if orders are to be sorted in increasing order.
+     * @param isReversed true if orders are to be sorted in the non-default, reversed order.
+     *                   //TODO: ADD explaination
      */
-    public SortOrderCommand(SortCriteria criteria, boolean isIncreasing) {
+    public SortOrderCommand(SortCriteria criteria, boolean isReversed) {
         assert (criteria != null);
         this.criteria = criteria;
-        this.isIncreasing = isIncreasing;
+        this.isReversed = isReversed;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.sortOrders(criteria, isIncreasing);
+        model.sortOrders(criteria, isReversed);
 
         model.commit(COMMIT_MESSAGE);
 

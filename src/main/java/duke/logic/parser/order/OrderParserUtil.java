@@ -25,7 +25,7 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_TOTAL;
  * A utility class for order parser.
  */
 class OrderParserUtil {
-    private static final double MAX_NUMBER = 5000.0;
+    private static final double MAX_NUMBER = 50000.0;
     private static final int MAX_NAME_LENGTH = 20;
     private static final int MAX_CONTACT_LENGTH = 20;
     private static final int MAX_REMARKS_LENGTH = 50;
@@ -52,7 +52,7 @@ class OrderParserUtil {
         if (map.getValue(PREFIX_CUSTOMER_CONTACT).isPresent()) {
             String value = map.getValue(PREFIX_CUSTOMER_CONTACT).get();
             checkStringLength(value, MAX_CONTACT_LENGTH, MESSAGE_CONTACT_EXCEED_LIMIT);
-            descriptor.setCustomerName(value);
+            descriptor.setCustomerContact(value);
         }
         if (map.getValue(PREFIX_ORDER_DEADLINE).isPresent()) {
             descriptor.setDeliveryDate(TimeParser.convertStringToDate(
