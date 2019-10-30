@@ -6,6 +6,7 @@ import java.util.ArrayList;
 /**
  * This class is called when option 2 is chosen.
  * All commands related to students will be managed by this class
+ * @author danisheddie
  */
 public class ManageStudents {
 

@@ -1,0 +1,196 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 132120576 bytes for Failed to commit area from 0x0000000082600000 to 0x000000008a400000 of length 132120576.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (c:/BuildAgent/work/494cbf65e275b67e/src/hotspot/os/windows/os_windows.cpp:3272), pid=24224, tid=11932
+#
+# JRE version:  (11.0.3+12) (build )
+# Java VM: OpenJDK 64-Bit Server VM (11.0.3+12-b304.10, mixed mode, aot, sharing, tiered, compressed oops, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Dfile.encoding=windows-1252 -Duser.country=SG -Duser.language=en -Duser.variant duke.launcher.Duke
+
+Host: Intel(R) Core(TM) i5-6200U CPU @ 2.30GHz, 4 cores, 7G,  Windows 10 , 64 bit Build 18362 (10.0.18362.329)
+Time: Thu Oct 31 04:16:45 2019 Malay Peninsula Standard Time elapsed time: 0 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000001f3a0109000):  JavaThread "Unknown thread" [_thread_in_vm, id=11932, stack(0x00000058f1900000,0x00000058f1a00000)]
+
+Stack: [0x00000058f1900000,0x00000058f1a00000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x5da77a]
+V  [jvm.dll+0x70b9c9]
+V  [jvm.dll+0x70cee8]
+V  [jvm.dll+0x70d5b3]
+V  [jvm.dll+0x23ddc8]
+V  [jvm.dll+0x5d7ef4]
+V  [jvm.dll+0x5ccfc5]
+V  [jvm.dll+0x2fa44b]
+V  [jvm.dll+0x2fa3ba]
+V  [jvm.dll+0x2fa292]
+V  [jvm.dll+0x2ff156]
+V  [jvm.dll+0x3474c3]
+V  [jvm.dll+0x347bc6]
+V  [jvm.dll+0x3475c3]
+V  [jvm.dll+0x2d4f68]
+V  [jvm.dll+0x2d6107]
+V  [jvm.dll+0x6eabf7]
+V  [jvm.dll+0x6ec38c]
+V  [jvm.dll+0x354c29]
+V  [jvm.dll+0x6d28ae]
+V  [jvm.dll+0x3bd363]
+V  [jvm.dll+0x3bf7a1]
+C  [java.exe+0x3763]
+C  [java.exe+0x17a0c]
+C  [KERNEL32.DLL+0x17bd4]
+C  [ntdll.dll+0x6ced1]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x000001f39e7987b0, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x000001f3a0121800 GCTaskThread "GC Thread#0" [stack: 0x00000058f1a00000,0x00000058f1b00000] [id=25476]
+  0x000001f3a0150000 ConcurrentGCThread "G1 Main Marker" [stack: 0x00000058f1b00000,0x00000058f1c00000] [id=21988]
+  0x000001f3a0152800 ConcurrentGCThread "G1 Conc#0" [stack: 0x00000058f1c00000,0x00000058f1d00000] [id=19416]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ffb25de5507]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x000001f3a0107130] Heap_lock - owner thread: 0x000001f3a0109000
+
+Heap address: 0x0000000082600000, size: 2010 MB, Compressed Oops mode: Non-zero based: 0x0000000082600000
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff6feda0000 - 0x00007ff6fede7000 	C:\Users\Dell\Desktop\IntelliJ IDEA Community Edition 2019.2\jbr\bin\java.exe
+0x00007ffb5aee0000 - 0x00007ffb5b0d0000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffb5aa80000 - 0x00007ffb5ab32000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffb58860000 - 0x00007ffb58b03000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffb5a740000 - 0x00007ffb5a8d4000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffb58b10000 - 0x00007ffb58b31000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffb5a710000 - 0x00007ffb5a736000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffb58cd0000 - 0x00007ffb58e64000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffb585f0000 - 0x00007ffb5868e000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ffb58e70000 - 0x00007ffb58f6a000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffb486e0000 - 0x00007ffb48965000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.18362.418_none_e6c6b287130d565d\COMCTL32.dll
+0x00007ffb5ad50000 - 0x00007ffb5adee000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffb59ac0000 - 0x00007ffb59df6000 	C:\WINDOWS\System32\combase.dll
+0x00007ffb59090000 - 0x00007ffb591b0000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffb58c50000 - 0x00007ffb58cd0000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ffb5a9e0000 - 0x00007ffb5aa0e000 	C:\WINDOWS\System32\IMM32.DLL
+0x00007ffb44000000 - 0x00007ffb44017000 	C:\Users\Dell\Desktop\IntelliJ IDEA Community Edition 2019.2\jbr\bin\vcruntime140.dll
+0x00007ffb39e30000 - 0x00007ffb39ecd000 	C:\Users\Dell\Desktop\IntelliJ IDEA Community Edition 2019.2\jbr\bin\msvcp140.dll
+0x00007ffb25b00000 - 0x00007ffb265b7000 	C:\Users\Dell\Desktop\IntelliJ IDEA Community Edition 2019.2\jbr\bin\server\jvm.dll
+0x00007ffb59f10000 - 0x00007ffb59fb3000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffb59320000 - 0x00007ffb593b7000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffb58f90000 - 0x00007ffb58f98000 	C:\WINDOWS\System32\PSAPI.DLL
+0x00007ffb568b0000 - 0x00007ffb568b9000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x00007ffb59fc0000 - 0x00007ffb5a02f000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffb55940000 - 0x00007ffb55964000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffb48980000 - 0x00007ffb4898a000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffb554c0000 - 0x00007ffb554ed000 	C:\WINDOWS\SYSTEM32\WINMMBASE.dll
+0x00007ffb587e0000 - 0x00007ffb5882a000 	C:\WINDOWS\System32\cfgmgr32.dll
+0x00007ffb57dc0000 - 0x00007ffb57dd1000 	C:\WINDOWS\System32\kernel.appcore.dll
+0x00007ffb544d0000 - 0x00007ffb544e1000 	C:\Users\Dell\Desktop\IntelliJ IDEA Community Edition 2019.2\jbr\bin\verify.dll
+0x00007ffb56690000 - 0x00007ffb56884000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007ffb42a80000 - 0x00007ffb42aaa000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007ffb54320000 - 0x00007ffb54349000 	C:\Users\Dell\Desktop\IntelliJ IDEA Community Edition 2019.2\jbr\bin\java.dll
+0x00007ffb48090000 - 0x00007ffb480a7000 	C:\Users\Dell\Desktop\IntelliJ IDEA Community Edition 2019.2\jbr\bin\zip.dll
+0x00007ffb559c0000 - 0x00007ffb559cb000 	C:\Users\Dell\Desktop\IntelliJ IDEA Community Edition 2019.2\jbr\bin\jimage.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Users\Dell\Desktop\IntelliJ IDEA Community Edition 2019.2\jbr\bin;C:\WINDOWS\SYSTEM32;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.18362.418_none_e6c6b287130d565d;C:\Users\Dell\Desktop\IntelliJ IDEA Community Edition 2019.2\jbr\bin\server
+
+VM Arguments:
+jvm_args: -Dfile.encoding=windows-1252 -Duser.country=SG -Duser.language=en -Duser.variant 
+java_command: duke.launcher.Duke
+java_class_path (initial): C:\Users\Dell\Desktop\main\build\classes\java\main;C:\Users\Dell\Desktop\main\build\resources\main;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\11\d5ff9262ef49d166db658d15f37e3ecff38fde4b\javafx-fxml-11-win.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\11\e0f5bb81e21054b59f2ebfa727d40a90ee0260d3\javafx-fxml-11-mac.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\11\e7a757b580fc3e2e1a121768606c7836eef418c\javafx-fxml-11-linux.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-controls\11\af8d24de44e16a19ae959028eb23a48c145fb682\javafx-controls-11-win.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-controls\11\e3a24a14e8732abc6dc173f15872dc63e2a32e16\javafx-controls-11-mac.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-controls\11\794488e3b1f4635d9a1b842bdc872a5eb8fd54ca\javafx-controls-11-linux.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-controls\11\58d961774262ec972bf304e16c154a8e18c2050b\javafx-controls-11.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\11\9345c7ea43dbcc73a62eca5332717b4ce617e6c6\javafx-graphics-11-win.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\11\af47a6d3668d3ce1c61e1fe13c44471b6f8d469\javafx-graphics-11-mac.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\11\4ab9edd8d481a420044c473fdb5718ccdd35c836\javafx-graphics-11-linux.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\11\a736dd079047ec0b72b8c4970842a5c5e0c19f2f\javafx-graphics-11.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-base\11\ad3a4acfaa28b484d30c40c1f009445cc3f6e68b\javafx-base-11-win.jar;C:\Users\Dell\.gradle\caches\modules-2\files-2.1\org.openjfx\javafx-base\11\4b060dad0affd866df9d959e064faa8a1a2f4af0\javafx-base-11-
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 3                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 1                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 4                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 132120576                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 2107637760                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5830092                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122914074                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122914074                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+     bool UseCompressedClassPointers               = true                                 {lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                                 {lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+PATH=C:\Users\Dell\Desktop\IntelliJ IDEA Community Edition 2019.2\jbr\\bin;C:\Users\Dell\Desktop\IntelliJ IDEA Community Edition 2019.2\jbr\\bin\server;C:\Users\Dell\gcc\bin;C:\Users\Dell\gcc\libexec\gcc\x86_64-w64-mingw32\8.2.0;C:\Program Files\Dell\DW WLAN Card;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;c:\Program Files\WIDCOMM\Bluetooth Software\;c:\Program Files\WIDCOMM\Bluetooth Software\syswow64;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\PuTTY\;C:\Program Files (x86)\PuTTY\;C:\Program Files (x86)\Git\cmd;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Users\Dell\Desktop\ORBITAL\ReactNative\;C:\Program Files\Java\jdk-11.0.3\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Brackets\command;C:\Users\Dell\AppData\Local\Microsoft\WindowsApps;C:\Users\Dell\AppData\Local\Programs\Microsoft VS Code\bin;C:\MinGW\bin;C:\Users\Dell\AppData\Roaming\npm;C:\Users\Dell\Desktop\IntelliJ IDEA Community Edition 2019.2\bin;C:\Program Files (x86)\Java\jdk1.8.0_212\bin;C:\Users\Dell\AppData\Local\GitHubDesktop\bin
+USERNAME=Dell
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 78 Stepping 3, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 10 , 64 bit Build 18362 (10.0.18362.329)
+
+CPU:total 4 (initial active 4) (2 cores per cpu, 2 threads per core) family 6 model 78 stepping 3, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, 3dnowpref, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2, adx, fma
+
+Memory: 4k page, system-wide physical 8038M (881M free)
+TotalPageFile size 12134M (AvailPageFile size 103M)
+current process WorkingSet (physical memory assigned to process): 9M, peak: 9M
+current process commit charge ("private bytes"): 51M, peak: 177M
+
+vm_info: OpenJDK 64-Bit Server VM (11.0.3+12-b304.10) for windows-amd64 JRE (11.0.3+12-b304.10), built on Jun 25 2019 07:10:45 by "" with MS VC++ 14.0 (VS2015)
+
+END.

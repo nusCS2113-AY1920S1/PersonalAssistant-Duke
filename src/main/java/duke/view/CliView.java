@@ -74,6 +74,13 @@ public class CliView {
     }
 
     /**
+     * Print line.
+     */
+    public void printLine() {
+        System.out.println("____________________________________________________");
+
+    }
+    /**
      * This function prints out the goodbye message of Duke.
      */
     public void showGoodBye() {
@@ -114,7 +121,7 @@ public class CliView {
             + "1. Student List - View all students available "
             + "and edit student particulars (Cmd: list)\n"
             + "2. Add student - Adding a new student to the list "
-            + "with main details (Cmd: add) (\n"
+            + "with main details (Cmd: add) \n"
             + "3. Remove Student - Remove a student in a list "
             + "(Cmd: delete [index of student in the list])\n"
             + "4. Search Student - Finding a particular student in the list "
@@ -439,5 +446,13 @@ public class CliView {
      */
     public void showEmptyList() {
         System.out.println("Sorry, there are no days matching what you have entered.");
+    }
+
+    /**
+     * Adding student format.
+     */
+    public void addStudentFormat() {
+        System.out.println("Insert [Name],[Age],[Address] to add new student.\n"
+                + "Insert 1 to exit.");
     }
 }
