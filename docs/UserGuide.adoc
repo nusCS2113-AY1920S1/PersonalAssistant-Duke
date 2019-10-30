@@ -193,7 +193,7 @@ Shows a detailed view of a `Patient`. The details are displayed in separate pane
 * List of `Impressions` with their associated details (the name, an excerpt of its description,
   and the number of critical items and follow-up investigations associated with it)
 * List of critical `Treatments` and `Evidences` (of `priority` 1)
-* List of `Investigations` to follow up on (i.e. all current investigations; completed investigations should be stored as Results)
+* List of `Investigations` to follow up on (i.e. all current investigations; completed investigations should be stored as `Results`)
 
 Inherits: <<home-help,`help`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>>
 
