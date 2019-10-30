@@ -1,7 +1,7 @@
 package duke.parser;
 
-import duke.models.ManageStudents;
-import duke.models.MyStudent;
+import duke.models.students.ManageStudents;
+import duke.models.students.MyStudent;
 
 import java.util.Scanner;
 
@@ -64,7 +64,7 @@ public class ParserManageStudents implements IParser {
             break;
 
         case "search":
-            final int limit = 15;
+            final int limit = 5;
             String searchName = input.substring(limit);
             students.findName(searchName);
             break;

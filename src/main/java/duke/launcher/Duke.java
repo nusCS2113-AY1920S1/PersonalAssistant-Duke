@@ -3,7 +3,7 @@ package duke.launcher;
 import duke.parser.ParserCommand;
 import duke.data.Storage;
 import duke.models.Schedule;
-import duke.models.ManageStudents;
+import duke.models.students.ManageStudents;
 import duke.models.MyPlan;
 import duke.task.TaskList;
 import duke.view.CliView;

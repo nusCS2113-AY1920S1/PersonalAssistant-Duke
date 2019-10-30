@@ -1,4 +1,4 @@
-package duke.models;
+package duke.models.students;
 
 /**
  * Represents a student.

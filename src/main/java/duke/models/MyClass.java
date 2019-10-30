@@ -1,5 +1,6 @@
 package duke.models;
 
+import duke.models.students.MyStudent;
 import duke.task.Item;
 
 import java.util.ArrayList;
