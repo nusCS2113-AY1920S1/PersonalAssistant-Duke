@@ -940,7 +940,7 @@ public class MovieHandler extends Controller implements RequestListener {
             controller.getMovieCastLabel().setText(cast);
             controller.getMovieCertLabel().setText(movie.getCertInfo());
 
-            ArrayList<Long>genres = movie.getGenreIdInfo();
+            ArrayList<Long> genres = movie.getGenreIdInfo();
             String genreText = "";
             for (int i = 0; i < genres.size(); i += 1) {
                 Long getGenre = genres.get(i);

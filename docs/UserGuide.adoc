@@ -47,7 +47,6 @@ This app may not work with older major Java releases such as Java 10, 9, 8 etc.
 [[Features]]
 == Features
 
-===
 *Command Format*
 
 * Every command used in EntertainmentPro strictly follows a default command structure: `<root command>` `<sub-root>` `<payload>` `<flags>`.
@@ -183,57 +182,81 @@ Format: `restriction clear`
 
 Searches for movies or TV shows using keywords and optionally, results can be filtered using specific genres and user profile.
 
-* *Searching for movies*: `movies` +
-** *current*: +
-Search within movies currently showing in cinemas.
-*** *Without filtering* +
-Format: `search movies /current`
-*** *Filtering according to pre-set user profile* +
-Format: `search movies /current -p`
-*** *Filtering using new unsaved set of filter flags* +
-Format: `search movies /current [-g PREFERENCE_GENRE_NAME ...] [-r RESTRICT_GENRE_NAME ...] [-a ADULT_FILER]` +
+==== *Searching for movies*: `movies` +
+
+* *Searching within _standard lists_* +
+Search within the standard provided lists of movies given. +
+Format: `search movies [/LIST_TYPE]` +
+Examples: +
+`search movies /current` +
+`search movies /upcoming` +
+** `LIST_TYPE` must be one of the following valid inputs: +
+*** `current` indicates to search within the list of movies that are currently showing in cinemas. +
+*** `upcoming` indicates to search within the list of upcoming movies. +
+*** `trend` indicates to search within the list of trending movies. +
+*** `rated` indicates to search within the list of top-rated movies.+
+
+* *Searching within standard lists _without filtering_* +
+Format: `search movies [/LIST_TYPE` +
+Examples: `search movies /current`
+
+* *Searching within standard lists _using pre-set user profile_* +
+Format: `search movies [/LIST_TYPE] -p` +
+Examples: `search movies /rated -p`
+
+* *Searching within standard lists _using new unsaved set of filter flags_* +
+Format: `search movies [/LIST_TYPE] [-g PREFERENCE_GENRE_NAME ...] [-r RESTRICT_GENRE_NAME ...] [-a ADULT_FILER]` +
 Examples: +
 `search movies \current -g comedy -r horror , fantasy , -a yes` +
 `search movies \current -r romance , -a no` +
-**** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` cannot have any overlaps.
-**** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` must be valid genre names.
-**** `[-a ADULT_FILTER]` will only be applied if user's age is > 21.
+** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` cannot have any overlaps.
+** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` must be valid genre names.
+** `[-a ADULT_FILTER]` will only be applied if user's age is > 21.
 
-* *Searching for TV shows*: `shows` +
-** *current*: +
+* *Searching using _keywords_* +
+Search for movies using keywords and returns movies with titles that contains the keywords. +
+Format: `search movies KEYWORDS` +
+Examples: +
+`search movies harry potter` +
+`search movies joker`
+
+* *Searching using keywords _with no preferences_* +
+Format: `search movies KEYWORDS` +
+Examples: `search movies harry potter`
+
+* *Searching using keywords _using pre-set user profile_* +
+Format: `search movies KEYWORDS -p` +
+Examples: `searhc movies harry potter -p`
+
+* *Searching using keywords _using new unsaved set of filter flags_* +
+Format: `search movies KEYWORDS [-g PREFERENCE_GENRE_NAME ...] [-r RESTRICT_GENRE_NAME ...] [-a ADULT_FILER]` +
+Examples: +
+`search movies harry potter -g comedy -r horror , fantasy , -a yes` +
+`search movies harry potter -r romance , -a no` +
+** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` cannot have any overlaps.
+** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` must be valid genre names.
+** `[-a ADULT_FILTER]` will only be applied if user's age is > 21.
+
+==== *Searching for TV shows*: `tvshows` +
+* *current*: +
 Search within movies currently showing in cinemas.
-*** *Without filtering* +
+** *Without filtering* +
 Format: `search shows /current`
-*** *Filtering according to pre-set user profile* +
+** *Filtering according to pre-set user profile* +
 Format: `search shows /current -p`
-*** *Filtering using new unsaved set of filter flags* +
+** *Filtering using new unsaved set of filter flags* +
 Format: `search shows /current [-g PREFERENCE_GENRE_NAME ...] [-r RESTRICT_GENRE_NAME ...] [-a ADULT_FILER]` +
 Examples: +
 `search shows \current -g comedy -r horror , fantasy , -a yes` +
 `search shows \current -r romance , -a no` +
-**** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` cannot have any overlaps.
-**** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` must be valid genre names.
-**** `[-a ADULT_FILTER]` will only be applied if user's age is > 21.
+*** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` cannot have any overlaps.
+*** `PREFERENCE_GENRE_NAME` and `RESTRICTION_GENRE_NAME` must be valid genre names.
+*** `[-a ADULT_FILTER]` will only be applied if user's age is > 21.
 
 === View more information about particular movie/TV show: `view`
 
 
 
-=== User Personalisation
-
-EntertainmentPro allows you to store your preferences so that your experience with it becomes more personalised to your liking. You will also be able to edit these preferences at any point of usage such that your personalised user experience is always up-to-date with your current obsessions! +
-The categories available for user personalisation are:
-
-. name:             your name
-. age:              your age
-. adult filter:     control the option to have adult content filtered out
-. preferences:      a list of genres that you enjoy
-. restrictions:     a list og genres that you dislike
-. sort:             control how your search results are sorted
-
-=== Search for movies and TV shows: `search`
-
-This feature displays a list of movies or TV shows that matches your search requirements. The requirements that can be handled by the app is explicitly written in the below subsections of 3.3.1 and 3.32. Do however take note that the data that is displayed comes from an external source which we do not hold any control. As such, there might be times when the data displayed might be inaccurate or outdated. Furthermore, in order to extract and display the required data from the external source, a strong internet connection is required. In the case where there is no/weak internet network, the app will instead extract and display data from the offline storage files. As such, searching for movies/TV shows in an offline mode may take a longer time to load.
 
 === View information on movies and TV shows
 
