@@ -1,3 +1,4 @@
+//@@author yueyuu
 package gazeeebo.commands.schedule;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Deadline;
@@ -17,10 +18,10 @@ import java.util.Stack;
 /**
  * Lists out all the tasks that the user has in a specified month.
  */
-public class ScheduleMonthlyCommand extends Command {
+public class ScheduleMonthlyCommand extends ScheduleDailyCommand {
     //format for the command: scheduleMonthly <yyyy-MM>
-    protected LocalDate startMonth;
-    protected LocalDate endMonth;
+    private LocalDate startMonth;
+    private LocalDate endMonth;
 
     /**
      * This is the main body of the ScheduleMonthly command.
@@ -28,7 +29,6 @@ public class ScheduleMonthlyCommand extends Command {
      * @param list the tasks list.
      * @param ui the object that deals with printing things to the user.
      * @param storage the object that deals with storing data to the Save.txt file.
-     * @param commandStack
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override
@@ -54,13 +54,13 @@ public class ScheduleMonthlyCommand extends Command {
         for (Task t: list) {
             LocalDate tDate = null;
             switch (t.getClass().getName()) {
-            case "gazeeebo.tasks.Event":
+            case EVENT:
                 tDate = ((Event) t).date;
                 break;
-            case "gazeeebo.tasks.Deadline":
+            case DEADLINE:
                 tDate = ((Deadline) t).by.toLocalDate();
                 break;
-            case "gazeeebo.tasks.Timebound":
+            case TIMEBOUND:
                 LocalDate startDate = ((Timebound) t).dateStart;
                 LocalDate endDate = ((Timebound) t).dateEnd;
                 if (!(endDate.isBefore(startMonth) || startDate.isAfter(endMonth))) {

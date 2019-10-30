@@ -1,3 +1,4 @@
+//@@author yueyuu
 package gazeeebo.commands.note;
 
 import gazeeebo.storage.NoteStorage;
@@ -44,7 +45,7 @@ public class EditNoteCommand extends AddNoteCommand {
                 }
             }
         }
-        throw new DukeException("OOPS!!! There are no gazeeebo.notes for this " + period + " to edit from.");
+        throw new DukeException("OOPS!!! There are no notes for this " + period + " to edit from.");
     }
 
     /**
@@ -84,11 +85,14 @@ public class EditNoteCommand extends AddNoteCommand {
         String usersNote = ui.fullCommand;
         try {
             switch (command[1]) {
-            case "day": editNoteInList(noteNum, NoteList.daily, userDate, usersNote, command[1], "NoteDaily.txt");
+            case DAY:
+                editNoteInList(noteNum, NoteList.daily, userDate, usersNote, command[1], NOTE_DAILY);
                 break;
-            case "week": editNoteInList(noteNum, NoteList.weekly, userDate, usersNote, command[1], "NoteWeekly.txt");
+            case WEEK:
+                editNoteInList(noteNum, NoteList.weekly, userDate, usersNote, command[1], NOTE_WEEKLY);
                 break;
-            case "month": editNoteInList(noteNum, NoteList.monthly, userDate, usersNote, command[1], "NoteMonthly.txt");
+            case MONTH:
+                editNoteInList(noteNum, NoteList.monthly, userDate, usersNote, command[1], NOTE_MONTHLY);
                 break;
             default: System.out.println("Bug in EditNoteCommand");
                 System.exit(1);

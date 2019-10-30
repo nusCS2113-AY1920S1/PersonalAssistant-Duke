@@ -1,3 +1,4 @@
+//@@author yueyuu
 package gazeeebo.commands.schedule;
 
 import gazeeebo.storage.Storage;
@@ -22,6 +23,9 @@ import java.util.Stack;
  * Lists out all the tasks that the user has on the specified day.
  */
 public class ScheduleDailyCommand extends Command {
+    protected static final String EVENT = "gazeeebo.tasks.Event";
+    protected static final String DEADLINE = "gazeeebo.tasks.Deadline";
+    protected static final String TIMEBOUND = "gazeeebo.tasks.Timebound";
     //format for the command: scheduleDaily <yyyy-MM-dd>
     protected LocalDate date;
 
@@ -56,20 +60,20 @@ public class ScheduleDailyCommand extends Command {
         for (Task t: list) {
             LocalDate tDate = null;
             switch (t.getClass().getName()) {
-                case "gazeeebo.tasks.Event":
-                    tDate = ((Event) t).date;
-                    break;
-                case "gazeeebo.tasks.Deadline":
-                    tDate = ((Deadline) t).by.toLocalDate();
-                    break;
-                case "gazeeebo.tasks.Timebound":
-                    LocalDate startDate = ((Timebound) t).dateStart;
-                    LocalDate endDate = ((Timebound) t).dateEnd;
-                    if (date.equals(startDate) || date.equals(endDate) ||
-                            (date.isAfter(startDate) && date.isBefore(endDate))) {
-                        schedule.add(t);
-                    }
-                    break;
+            case EVENT:
+                tDate = ((Event) t).date;
+                break;
+            case DEADLINE:
+                tDate = ((Deadline) t).by.toLocalDate();
+                break;
+            case TIMEBOUND:
+                LocalDate startDate = ((Timebound) t).dateStart;
+                LocalDate endDate = ((Timebound) t).dateEnd;
+                if (date.equals(startDate) || date.equals(endDate) ||
+                        (date.isAfter(startDate) && date.isBefore(endDate))) {
+                    schedule.add(t);
+                }
+                break;
             }
             if (date.equals(tDate)) {
                 schedule.add(t);

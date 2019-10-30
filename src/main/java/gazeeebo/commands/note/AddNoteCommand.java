@@ -1,3 +1,4 @@
+//@@author yueyuu
 package gazeeebo.commands.note;
 
 import gazeeebo.storage.NoteStorage;
@@ -22,6 +23,15 @@ import java.util.Stack;
  * Adds a new note to a particular day, week or month.
  */
 public class AddNoteCommand extends Command {
+
+    protected static final String DAY = "day";
+    protected static final String WEEK = "week";
+    protected static final String MONTH = "month";
+
+    protected static final String NOTE_DAILY = "NoteDaily.txt";
+    protected static final String NOTE_WEEKLY = "NoteWeekly.txt";
+    protected static final String NOTE_MONTHLY = "NoteMonthly.txt";
+
     /**
      * Decodes the user's input and handles incorrect input formats.
      *
@@ -35,17 +45,17 @@ public class AddNoteCommand extends Command {
         //<the note they want to add>
         try {
             try {
-                if (!(command[1].equals("day") || command[1].equals("week") || command[1].equals("month"))) {
+                if (!(command[1].equals(DAY) || command[1].equals(WEEK) || command[1].equals(MONTH))) {
                     throw new DukeException("The second word in the command has to be \'day\', \'week\' or \'month\'.");
                 }
             } catch (ArrayIndexOutOfBoundsException b) {
                 throw new DukeException("OOPS!!! The description of a(n) " + commandName +" cannot be empty.");
             }
-            if (command[1].equals("month")) {
+            if (command[1].equals(MONTH)) {
                 command[2] = command[2] + "-01";
             }
             LocalDate date = LocalDate.parse(command[2], Note.noteFormatter);
-            if (command[1].equals("week") && !date.getDayOfWeek().equals(DayOfWeek.MONDAY)) {
+            if (command[1].equals(WEEK) && !date.getDayOfWeek().equals(DayOfWeek.MONDAY)) {
                 throw new DukeException("OOPS!!! The date provided must be a Monday.");
             }
             return date;
@@ -53,7 +63,7 @@ public class AddNoteCommand extends Command {
             throw new DukeException("Please input a date.");
             //return;
         } catch (DateTimeParseException a) {
-            if (command[1].equals("month")) {
+            if (command[1].equals(MONTH)) {
                 throw new DukeException("The date has to been in YYYY-MM format.");
             } else {
                 throw new DukeException("The date has to been in YYYY-MM-DD format.");
@@ -123,14 +133,14 @@ public class AddNoteCommand extends Command {
         Note noteSpecified;
         try {
             switch (command[1]) {
-            case "day":
-                noteSpecified = addToList(NoteList.daily, userDate, usersNote, command[2], "NoteDaily.txt");
+            case DAY:
+                noteSpecified = addToList(NoteList.daily, userDate, usersNote, command[2], NOTE_DAILY);
                 break;
-            case "week":
-                noteSpecified = addToList(NoteList.weekly, userDate, usersNote, command[2], "NoteWeekly.txt");
+            case WEEK:
+                noteSpecified = addToList(NoteList.weekly, userDate, usersNote, command[2], NOTE_WEEKLY);
                 break;
-            case "month":
-                noteSpecified = addToList(NoteList.monthly, userDate, usersNote, command[2], "NoteMonthly.txt");
+            case MONTH:
+                noteSpecified = addToList(NoteList.monthly, userDate, usersNote, command[2], NOTE_MONTHLY);
                 break;
             default:
                 noteSpecified = null;

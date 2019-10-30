@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     public LocalDateTime by ;
-    public static DateTimeFormatter fmtD = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");//24h clock
+    private static DateTimeFormatter fmtD = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");//24h clock
 
     public Deadline(String description, String by) {
         super(description);

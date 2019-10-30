@@ -1,3 +1,4 @@
+//@@author yueyuu
 package gazeeebo.commands.schedule;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Deadline;
@@ -16,14 +17,13 @@ import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.ArrayList;
 import java.util.Stack;
 
-
 /**
  * Lists out all the tasks that the user has in a specified week.
  */
-public class ScheduleWeeklyCommand extends Command {
+public class ScheduleWeeklyCommand extends ScheduleDailyCommand {
     //format for the command: scheduleWeekly <yyyy-MM-dd(Mon) yyyy-MM-dd(Sun)>
-    protected LocalDate mon;
-    protected LocalDate sun;
+    private LocalDate mon;
+    private LocalDate sun;
     private static final int ONE_WEEK = 7;
 
     /**
@@ -32,7 +32,6 @@ public class ScheduleWeeklyCommand extends Command {
      * @param list the tasks list.
      * @param ui the object that deals with printing things to the user.
      * @param storage the object that deals with storing data to the Save.txt file.
-     * @param commandStack
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override
@@ -83,11 +82,14 @@ public class ScheduleWeeklyCommand extends Command {
         ArrayList<Task> schedule = new ArrayList<Task>();
         for (Task t: list) {
             LocalDate tDate = null;
-            if (t.getClass().getName().equals("gazeeebo.tasks.Event")) {
+            switch (t.getClass().getName()) {
+            case EVENT:
                 tDate = ((Event) t).date;
-            } else if (t.getClass().getName().equals("gazeeebo.tasks.Deadline")) {
+                break;
+            case DEADLINE:
                 tDate = ((Deadline) t).by.toLocalDate();
-            } else if (t.getClass().getName().equals("gazeeebo.tasks.Timebound")) {
+                break;
+            case TIMEBOUND:
                 LocalDate startDate = ((Timebound) t).dateStart;
                 LocalDate endDate = ((Timebound) t).dateEnd;
                 if (endDate.equals(mon) || (startDate.isBefore(mon) && endDate.isAfter(mon)) ||
@@ -95,6 +97,7 @@ public class ScheduleWeeklyCommand extends Command {
                         startDate.equals(sun)) {
                     schedule.add(t);
                 }
+                break;
             }
             if (tDate != null && (tDate.equals(mon) || (tDate.isAfter(mon) &&
                     tDate.isBefore(sun)) || tDate.equals(sun))) {
