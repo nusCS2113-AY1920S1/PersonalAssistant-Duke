@@ -37,6 +37,7 @@ public class Eggventory {
         parser = new Parser();
         stockList = storage.load();
         //loanList = new LoanList();
+        personList = new PersonList();
 
         /*
         Calendar date = Calendar.getInstance();
