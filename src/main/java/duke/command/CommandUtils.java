@@ -3,8 +3,10 @@ package duke.command;
 import duke.DukeCore;
 import duke.data.DukeObject;
 import duke.data.Patient;
+import duke.data.SearchResult;
 import duke.exception.DukeException;
 import duke.exception.DukeUtilException;
+import duke.ui.context.Context;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -188,5 +190,15 @@ public class CommandUtils {
         } catch (NumberFormatException excp) {
             return -1;
         }
+    }
+
+    public static void search(DukeCore core, String searchTerm, List<? extends DukeObject> resultList,
+                              DukeObject parent) throws DukeUtilException {
+        if (resultList == null) {
+            throw new DukeUtilException("Search result list is null!");
+        }
+        SearchResult search = new SearchResult(searchTerm, resultList, parent);
+        core.uiContext.setContext(Context.SEARCH, search);
+        core.ui.print("Opening search results for " + searchTerm);
     }
 }

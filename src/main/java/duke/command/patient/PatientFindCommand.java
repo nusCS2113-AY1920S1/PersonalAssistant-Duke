@@ -3,6 +3,7 @@ package duke.command.patient;
 import duke.DukeCore;
 import duke.command.ArgCommand;
 import duke.command.ArgSpec;
+import duke.command.CommandUtils;
 import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Patient;
@@ -49,10 +50,9 @@ public class PatientFindCommand extends ArgCommand {
         for (int i = 0; i < resultList.size(); i++) {
             information += (i + 1) + ". " + resultList.get(i).getName() + "\n";
         }*/
-        SearchResult search = new SearchResult(searchTerm, resultList, patient);
-        core.uiContext.setContext(Context.SEARCH, search);
-        core.ui.print("Returning result of search of " + searchTerm);
+
 
         //core.ui.print(findStr + information);
+        CommandUtils.search(core, searchTerm, resultList, patient);
     }
 }

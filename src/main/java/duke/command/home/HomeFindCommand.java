@@ -3,6 +3,7 @@ package duke.command.home;
 import duke.DukeCore;
 import duke.command.ArgCommand;
 import duke.command.ArgSpec;
+import duke.command.CommandUtils;
 import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Patient;
@@ -60,12 +61,6 @@ public class HomeFindCommand extends ArgCommand {
             }
             information.append(resultList.get(i).getName()).append(System.lineSeparator());
         }*/
-        if (resultList != null) {
-            SearchResult search = new SearchResult(searchTerm, resultList, null);
-            core.uiContext.setContext(Context.SEARCH, search);
-            core.ui.print("Returning result of search of " + searchTerm);
-        } else {
-            throw new DukeException("Error in executing search command.");
-        }
-    }
+        CommandUtils.search(core, searchTerm, resultList, null);
+   }
 }
